@@ -1,0 +1,123 @@
+'use client';
+
+import { useState } from 'react';
+import { css } from 'styled-system/css';
+import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
+import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
+import { SignupDetailsStep } from '@/shared/components/organisms/Signup/SignupDetailsStep';
+import { SignupMethodStep } from '@/shared/components/organisms/Signup/SignupMethodStep';
+import { SignupTermsStep } from '@/shared/components/organisms/Signup/SignupTermsStep';
+
+type SignupMethod = 'local' | 'kakao' | 'naver';
+
+type SignupStep = 0 | 1 | 2 | 3;
+
+type SignupMethodOption = {
+  id: SignupMethod;
+  label: string;
+  description: string;
+};
+
+const signupMethods: SignupMethodOption[] = [
+  { id: 'local', label: '이메일로 가입', description: '아이디와 비밀번호로 HOKA 계정을 만듭니다.' },
+  { id: 'kakao', label: '카카오로 가입', description: '카카오 계정으로 빠르게 가입합니다.' },
+  { id: 'naver', label: '네이버로 가입', description: '네이버 계정으로 빠르게 가입합니다.' },
+];
+const styles = {
+  page: css({ p: '80px 20px 96px' }),
+  signup: css({
+    w: 'min(100%, 520px)',
+    mx: 'auto',
+    '& h1': { mt: '8px', mb: '28px', fontSize: '34px', letterSpacing: '-1.8px' },
+  }),
+  eyebrow: css({ m: 0, color: '#777', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em' }),
+};
+
+export function SignupPage() {
+  const [step, setStep] = useState<SignupStep>(0);
+  const [method, setMethod] = useState<SignupMethod>('local');
+  const [serviceTerms, setServiceTerms] = useState(false);
+  const [privacyTerms, setPrivacyTerms] = useState(false);
+  const [ageTerms, setAgeTerms] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const selectedMethod = signupMethods.find((item) => item.id === method)!;
+
+  const startSignup = (nextMethod: SignupMethod) => {
+    setMethod(nextMethod);
+    setMessage('');
+    setStep(nextMethod === 'naver' ? 2 : 1);
+  };
+
+  const continueFromTerms = () => {
+    if (!serviceTerms || !privacyTerms || !ageTerms) {
+      setMessage('필수 약관에 모두 동의해 주세요.');
+      return;
+    }
+    setMessage('');
+    setStep(2);
+  };
+
+  const submitDetails = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const localFieldsMissing = method === 'local' && (!id.trim() || password.length < 8);
+    if (!name.trim() || !email.trim() || localFieldsMissing) {
+      setMessage('필수 정보를 모두 입력해 주세요. 비밀번호는 8자 이상이어야 합니다.');
+      return;
+    }
+    setMessage('');
+    setStep(3);
+  };
+
+  const toggleAllTerms = (checked: boolean) => {
+    setServiceTerms(checked);
+    setPrivacyTerms(checked);
+    setAgeTerms(checked);
+  };
+
+  return (
+    <main className={styles.page}>
+      <section className={styles.signup} aria-labelledby="signup-title">
+        <p className={styles.eyebrow}>JOIN HOKA</p>
+        <h1 id="signup-title">회원가입</h1>
+        {step === 0 ? <SignupMethodStep methods={signupMethods} onSelect={startSignup} /> : null}
+        {step > 0 ? <SignupProgress method={method} step={step} /> : null}
+        {step === 1 ? (
+          <SignupTermsStep
+            ageTerms={ageTerms}
+            message={message}
+            method={selectedMethod}
+            onAgeTermsChange={setAgeTerms}
+            onContinue={continueFromTerms}
+            onPrivacyTermsChange={setPrivacyTerms}
+            onServiceTermsChange={setServiceTerms}
+            onToggleAll={toggleAllTerms}
+            privacyTerms={privacyTerms}
+            serviceTerms={serviceTerms}
+          />
+        ) : null}
+        {step === 2 ? (
+          <SignupDetailsStep
+            email={email}
+            id={id}
+            message={message}
+            method={method}
+            methodOption={selectedMethod}
+            name={name}
+            onEmailChange={setEmail}
+            onIdChange={setId}
+            onNameChange={setName}
+            onPasswordChange={setPassword}
+            onSubmit={submitDetails}
+            password={password}
+          />
+        ) : null}
+        {step === 3 ? <SignupCompleteStep name={name} /> : null}
+      </section>
+    </main>
+  );
+}

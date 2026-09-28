@@ -1,0 +1,36 @@
+import type { ReactNode } from 'react';
+import { css } from 'styled-system/css';
+import {
+  DescriptionList,
+  type DescriptionListItem,
+} from '@/shared/components/atoms/DescriptionList/DescriptionList';
+
+export type ContactCardProps = {
+  title: ReactNode;
+  description?: ReactNode;
+  details: DescriptionListItem[];
+  notice?: ReactNode;
+  className?: string;
+};
+const root = css({ display: 'grid', gap: '16px', p: '24px', border: '1px solid #ddd' });
+const heading = css({ m: '0', fontSize: '18px' });
+const description = css({ m: '0', color: '#666', fontSize: '13px' });
+const noticeStyle = css({ m: '0', color: '#666', fontSize: '12px' });
+
+/** Reusable customer-service, store, and business-contact information card. */
+export function ContactCard({
+  title,
+  description: body,
+  details,
+  notice,
+  className,
+}: ContactCardProps) {
+  return (
+    <article className={[root, className].filter(Boolean).join(' ')}>
+      <h2 className={heading}>{title}</h2>
+      {body ? <p className={description}>{body}</p> : null}
+      <DescriptionList items={details} />
+      {notice ? <p className={noticeStyle}>{notice}</p> : null}
+    </article>
+  );
+}

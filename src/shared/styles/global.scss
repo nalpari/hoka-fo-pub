@@ -1,0 +1,182 @@
+@import './panda.css';
+
+// Panda CSS emits its generated styles into these named layers.
+// Existing project styles remain unlayered and therefore retain precedence.
+@layer reset, base, tokens, recipes, utilities;
+$ink: #111;
+$white: #fff;
+$line: #d8d8d8;
+$soft: #f2f2f2;
+
+$font-faces: (
+  ('TheFutureHOKA-Regular.woff2', 'The Future HOKA', 400, normal),
+  ('TheFutureHOKA-Italic.woff2', 'The Future HOKA', 400, italic),
+  ('TheFutureHOKA-Medium.woff2', 'The Future HOKA', 500, normal),
+  ('TheFutureHOKA-MediumItalic.woff2', 'The Future HOKA', 500, italic),
+  ('TheFutureHOKA-Bold.woff2', 'The Future HOKA', 700, normal),
+  ('TheFutureHOKA-BoldItalic.woff2', 'The Future HOKA', 700, italic),
+  ('TheFutureHOKA-Black.woff2', 'The Future HOKA', 900, normal),
+  ('TheFutureHOKA-BlackItalic.woff2', 'The Future HOKA', 900, italic),
+  ('Pretendard-Thin.woff2', 'Pretendard', 100, normal),
+  ('Pretendard-ExtraLight.woff2', 'Pretendard', 200, normal),
+  ('Pretendard-Light.woff2', 'Pretendard', 300, normal),
+  ('Pretendard-Regular.woff2', 'Pretendard', 400, normal),
+  ('Pretendard-Medium.woff2', 'Pretendard', 500, normal),
+  ('Pretendard-SemiBold.woff2', 'Pretendard', 600, normal),
+  ('Pretendard-Bold.woff2', 'Pretendard', 700, normal),
+  ('Pretendard-ExtraBold.woff2', 'Pretendard', 800, normal),
+  ('Pretendard-Black.woff2', 'Pretendard', 900, normal)
+);
+
+@each $file, $family, $weight, $style in $font-faces {
+  @font-face {
+    font-family: $family;
+    src: url('/fonts/#{$file}') format('woff2');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+
+@layer base {
+  :root {
+    --font-family-base: 'The Future HOKA', Pretendard, Arial, sans-serif;
+    font-family: var(--font-family-base);
+    color: $ink;
+    background: $white;
+    --line: #{$line};
+    --soft: #{$soft};
+    --content-width: 1140px;
+
+    // WEB is a fixed desktop canvas. These values intentionally remain in
+    // effect below 1200px, where the page is horizontally scrollable.
+    --layout-web-min-width: 1200px;
+    --layout-web-content-max-width: 1532px;
+    --layout-web-content-gutter: 55px;
+    --layout-web-content-inline-space: 110px;
+    --layout-web-category-card-min-width: 265px;
+    --layout-web-category-card-max-width: 304px;
+    --layout-web-category-four-card-gap: 30px;
+
+    --hoka-black: #000;
+    --hoka-white: #fff;
+    --hoka-brand: #009dff;
+
+    --color-action-primary-bg: var(--hoka-black);
+    --color-action-primary-color: var(--hoka-white);
+    --color-action-primary-border: var(--hoka-black);
+    --color-action-secondary-bg: var(--hoka-white);
+    --color-action-secondary-color: var(--hoka-black);
+    --color-action-secondary-border: var(--hoka-black);
+    --color-action-ghost-bg: transparent;
+    --color-action-ghost-color: var(--hoka-black);
+    --color-action-ghost-border: transparent;
+    --color-action-brand-bg: var(--hoka-brand);
+    --color-action-brand-color: var(--hoka-white);
+    --color-action-brand-border: var(--hoka-brand);
+    --color-action-underline-color: var(--hoka-black);
+    --color-field-bg: var(--hoka-white);
+    --color-field-text: var(--hoka-black);
+    --color-field-border: #aaa;
+    --color-focus-ring: var(--hoka-black);
+    --color-danger-border: #f95050;
+    --border-strong: var(--hoka-black);
+    --radius-sm: 0;
+    --field-height: 42px;
+    --button-height: 40px;
+    --button-link-height: 48px;
+    --button-link-min-height: 48px;
+    --button-link-radius: 52px;
+    --button-link-padding-block: 12px;
+    --button-link-padding-inline: 24px;
+    --button-link-bg: var(--color-action-secondary-bg);
+    --button-link-color: var(--color-action-secondary-color);
+    --button-link-font-family: var(--font-family-base);
+    --button-link-font-size: 16px;
+    --button-link-font-weight: 600;
+    --button-link-line-height: 1.3;
+    --button-link-letter-spacing: -0.02em;
+    --button-link-mobile-height: 40px;
+    --button-link-mobile-min-height: 40px;
+    --button-link-mobile-max-height: 40px;
+    --button-link-mobile-padding-block: 12px;
+    --button-link-mobile-padding-inline: 16px;
+    --button-link-mobile-font-size: 14px;
+    --button-link-mobile-font-weight: 700;
+    --main-section-heading-font-family: var(--font-family-base);
+    --main-section-heading-font-size: 40px;
+    --main-section-heading-line-height: 38px;
+    --main-section-heading-font-weight: 900;
+    --main-section-heading-color: var(--hoka-black);
+    --main-section-heading-mobile-font-size: 30px;
+    --main-section-heading-mobile-line-height: 31px;
+    --focus-ring: var(--hoka-black);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
