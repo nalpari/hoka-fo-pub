@@ -1,21 +1,35 @@
 import { css } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
-import { HomeStoryCard } from './HomeStoryCard';
-import { homeStories } from './homeContent';
+import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
+import { usePlatform } from '@/shared/context/platform';
+import { homeExplores } from './homeContent';
+
 const storyGrid = css({
-  display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '10px',
-  _mobile: { display: 'block', mx: '-16px' },
+  gap: '16px',
+  _mobile: { gap: '48px', gridTemplateColumns: 'repeat(1, 1fr)' },
 });
+
 export function HomeExploreSection() {
+  const platform = usePlatform();
+  const isMobile = platform === 'mobile';
+
   return (
     <MainSection title="Explore">
-      <div className={storyGrid}>
-        {homeStories.map((story) => (
-          <HomeStoryCard key={story.title} {...story} />
+      <Grid className={storyGrid}>
+        {homeExplores.map((explore) => (
+          <MainContentCard
+            key={explore.title}
+            {...explore}
+            actions={explore.actions.map((action) => ({
+              ...action,
+              type: isMobile ? 'pill' : action.type,
+            }))}
+            variant={isMobile ? 'overlay' : 'descriptionLink'}
+          />
         ))}
-      </div>
+      </Grid>
     </MainSection>
   );
 }

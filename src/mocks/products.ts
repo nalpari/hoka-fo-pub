@@ -13,7 +13,7 @@ export type Product = {
   id: string;
   name: string;
   category: string;
-  gender: string;
+  gender?: "Men's" | "Women's" | 'All Gender';
   price: number;
   colors: string[];
   sizes: string[];
@@ -22,7 +22,7 @@ export type Product = {
   rating: number;
   reviewCount: number;
   colorOptions?: ProductColorOption[];
-  badge?: string;
+  promotion?: 'Best' | 'New' | 'Exclusive';
   launchStatus: 'COMING' | 'IN_STOCK';
   cushioning: 'Balanced' | 'Plush' | 'Responsive';
   stability: 'Neutral' | 'Stable';
@@ -84,7 +84,7 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   id: `shoe-${i + 1}`,
   name: `${names[i % names.length]} ${i + 1}`,
   category: i % 3 === 0 ? '라이프스타일' : i % 3 === 1 ? '러닝' : '트레일',
-  gender: i % 2 ? 'Women' : 'Men',
+  gender: (["Men's", "Women's", 'All Gender'] as const)[i % 3],
   price: 129000 + (i % 5) * 15000,
   colors: i % 2 ? ['Black', 'Silver'] : ['White', 'Lime'],
   sizes: ['230', '240', '250', '260', '270', '280'],
@@ -113,7 +113,7 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
           },
         ]
       : undefined,
-  badge: i % 5 === 0 ? 'NEW' : undefined,
+  promotion: i % 5 === 0 ? 'New' : undefined,
   launchStatus: i % 6 === 0 ? 'COMING' : 'IN_STOCK',
   cushioning: (['Balanced', 'Plush', 'Responsive'] as const)[i % 3],
   stability: i % 3 === 0 ? 'Stable' : 'Neutral',

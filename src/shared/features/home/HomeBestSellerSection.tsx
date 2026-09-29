@@ -29,14 +29,15 @@ const webSlide = css({
   '&:first-child, &:last-child': { w: 'calc((100% - 64px) / 5 + 8px)!' },
   '& .card': { w: '100%', flex: '0 0 auto', fontSize: '13px' },
   '& .card .image': { h: 'auto', aspectRatio: '1', bg: '#f4f4f4', fontSize: 0 },
-  '& .card strong': { fontSize: '15px' },
+  '& .card__title': { fontSize: '15px' },
 });
 
 const mobileSlide = css({
   w: '170px!',
-  '& .card': { w: '160px', gap: '3px', fontSize: '8px' },
+  '&:last-child': { w: '181px!' },
+  '& .card': { w: '160px', fontSize: '8px' },
   '& .card .image': { h: '160px', bg: '#f4f4f4', fontSize: 0 },
-  '& .card strong': { fontSize: '9px' },
+  '& .card__title': { fontSize: '9px' },
 });
 
 type BestSellerTab = (typeof bestSellerTabs)[number];
@@ -93,7 +94,7 @@ export function HomeBestSellerSection() {
           slideClassName={isWeb ? webSlide : mobileSlide}
         >
           {bestSellerProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} variant="showcase" />
           ))}
         </CarouselViewport>
       </MainSection>

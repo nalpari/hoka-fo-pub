@@ -180,7 +180,7 @@ export type ButtonLinkProps = Pick<
 > &
   Pick<
     ButtonProps,
-    'className' | 'variant' | 'size' | 'appearance' | 'fullWidth' | 'loading' | 'invalid'
+    'className' | 'style' | 'variant' | 'size' | 'appearance' | 'fullWidth' | 'loading' | 'invalid'
   > & {
     children: ReactNode;
   };

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { usePlatform } from '@/shared/context/platform';
 import { css, cva } from 'styled-system/css';
 import { Flex, HStack } from 'styled-system/jsx';
@@ -94,9 +94,35 @@ export function FilterTabs<T extends string = string>({
   value,
 }: FilterTabsProps<T>) {
   const platform = usePlatform();
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef(new Map<T, HTMLButtonElement>());
+
+  useLayoutEffect(() => {
+    if (platform !== 'mobile') return;
+
+    const viewport = viewportRef.current;
+    const selectedItem = itemRefs.current.get(value);
+
+    if (!viewport || !selectedItem) return;
+
+    const viewportBounds = viewport.getBoundingClientRect();
+    const itemBounds = selectedItem.getBoundingClientRect();
+    const isVisible =
+      itemBounds.left >= viewportBounds.left && itemBounds.right <= viewportBounds.right;
+
+    if (!isVisible) {
+      viewport.scrollTo({
+        left:
+          viewport.scrollLeft +
+          (itemBounds.left +
+            itemBounds.width / 2 -
+            (viewportBounds.left + viewportBounds.width / 2)),
+      });
+    }
+  }, [platform, value]);
 
   return (
-    <div className={[viewport, className].filter(Boolean).join(' ')}>
+    <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
       <HStack
         aria-label={ariaLabel}
         className={rail}
@@ -116,6 +142,10 @@ export function FilterTabs<T extends string = string>({
               disabled={option.disabled}
               key={option.value}
               onClick={() => onValueChange(option.value)}
+              ref={(node) => {
+                if (node) itemRefs.current.set(option.value, node);
+                else itemRefs.current.delete(option.value);
+              }}
               type="button"
             >
               <Flex as="span" className={label({ selected: isSelected })}>

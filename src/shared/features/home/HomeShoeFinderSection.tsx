@@ -1,13 +1,14 @@
-import { usePlatform } from '@/shared/context/platform';
+import type { Platform } from '@/shared/lib/device';
 import { css } from 'styled-system/css';
 import {
   Carousel,
   CarouselControls,
+  CarouselPagination,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
+import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
-import { HomeShoeFinderCard } from './HomeShoeFinderCard';
-import { shoeFinderItems } from './homeContent';
+import { shoeFinderItems, type HomeShoeFinderCardVariant } from './homeContent';
 
 const desktopOnly = css({ _mobile: { display: 'none' } });
 const webRail = css({ w: '100%' });
@@ -20,11 +21,19 @@ const webSlide = css({
   w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - 30px) / 4)!',
   '& > *': { w: '100%' },
 });
-// The 137px card remains unchanged; 8px slide gutters create its 16px gap.
-const mobileSlide = css({ w: '153px!', '& > *': { w: '100%' } });
+// At the 375px mobile design width, each card is 253px wide (67.46666666666667vw).
+// The existing 8px gutters stay inside the slide to retain the 16px card gap.
+const mobileSlide = css({ w: '67.46666666666667vw!', '& > *': { w: '100%' } });
 
-export function HomeShoeFinderSection() {
-  const platform = usePlatform();
+type HomeShoeFinderSectionProps = {
+  platform: Platform;
+  variant?: HomeShoeFinderCardVariant;
+};
+
+export function HomeShoeFinderSection({
+  platform,
+  variant = 'imagePill',
+}: HomeShoeFinderSectionProps) {
   const isWeb = platform === 'web';
 
   return (
@@ -45,10 +54,11 @@ export function HomeShoeFinderSection() {
           mode={platform}
           slideClassName={isWeb ? webSlide : mobileSlide}
         >
-          {shoeFinderItems.map((item) => (
-            <HomeShoeFinderCard key={item.title} {...item} />
+          {shoeFinderItems.map(({ images, ...item }) => (
+            <MainContentCard key={item.title} {...item} image={images[variant]} variant={variant} />
           ))}
         </CarouselViewport>
+        <CarouselPagination />
       </MainSection>
     </Carousel>
   );

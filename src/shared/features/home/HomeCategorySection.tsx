@@ -6,7 +6,7 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
-import { MainCategoryCard } from '@/shared/components/molecules/MainCategoryCard/MainCategoryCard';
+import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
 import { homeCategories } from './homeContent';
 
@@ -49,15 +49,7 @@ export function HomeCategorySection({ platform }: HomeCategorySectionProps) {
           slideClassName={isWeb ? webSlide : mobileSlide}
         >
           {homeCategories.map((category) => (
-            <MainCategoryCard
-              image={category.image}
-              key={category.title}
-              links={[
-                { label: '남성 바로가기', to: `/products?category=${category.title}&gender=men` },
-                { label: '여성 바로가기', to: `/products?category=${category.title}&gender=women` },
-              ]}
-              title={category.title}
-            />
+            <MainContentCard key={category.title} {...category} />
           ))}
         </CarouselViewport>
         <CarouselPagination />

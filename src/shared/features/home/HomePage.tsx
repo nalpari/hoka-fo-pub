@@ -12,6 +12,10 @@ const home = css({
   color: '#050505',
   bg: '#fff',
   fontFamily: 'var(--font-family-base)',
+  pb: '96px',
+  _mobile: {
+    pb: '72px',
+  },
 });
 
 export function HomePage() {
@@ -23,7 +27,7 @@ export function HomePage() {
         <HomeCategorySection platform={platform} />
         <HomeBestSellerSection />
         <HomeExploreSection />
-        <HomeShoeFinderSection />
+        <HomeShoeFinderSection platform={platform} />
       </VStack>
     </main>
   );

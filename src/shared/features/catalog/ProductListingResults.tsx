@@ -3,7 +3,10 @@ import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { CompareBar } from '@/shared/components/molecules/CompareBar/CompareBar';
-import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
+import {
+  ProductCard,
+  type ProductCardOption,
+} from '@/shared/components/molecules/ProductCard/ProductCard';
 import { PromotionCard } from '@/shared/components/molecules/PromotionCard/PromotionCard';
 import { CatalogResults } from '@/shared/components/organisms/Catalog/CatalogResults/CatalogResults';
 import { Box, Grid } from 'styled-system/jsx';
@@ -19,6 +22,16 @@ const catalogGrid = css({
   gap: '16px',
   _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' },
 });
+
+const catalogProductCardOptions: readonly ProductCardOption[] = [
+  'promotion',
+  'launch-status',
+  'like',
+  'quick',
+  'colors',
+  'specifications',
+  'compare',
+];
 
 type ProductListingResultsProps = {
   category: string;
@@ -70,11 +83,12 @@ export function ProductListingResults({
               <PromotionCard key="promotion" />
             ) : (
               <ProductCard
+                compareSelected={compared.some((item) => item.id === product.id)}
+                key={product.id}
+                onCompare={onToggleCompare}
+                options={catalogProductCardOptions}
                 product={product}
                 quick={index === 0}
-                key={product.id}
-                compareSelected={compared.some((item) => item.id === product.id)}
-                onCompare={onToggleCompare}
               />
             ),
           )}

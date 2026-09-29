@@ -245,7 +245,8 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   let result = products.filter((product) => {
     const matchedCategory = !category || product.category === category;
-    const matchedGender = !gender || product.gender.toLowerCase() === gender.toLowerCase();
+    const matchedGender =
+      !gender || product.gender?.toLowerCase().replace("'s", '') === gender.toLowerCase();
     const matchedActivity =
       !activity ||
       matchingActivities[activity]?.some((keyword) => product.category.includes(keyword)) ||

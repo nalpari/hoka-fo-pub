@@ -1,11 +1,11 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import { css } from 'styled-system/css';
 
 type CardProps = ComponentPropsWithoutRef<'article'>;
 type CardHeaderProps = ComponentPropsWithoutRef<'header'>;
 type CardFooterProps = ComponentPropsWithoutRef<'footer'>;
 type CardContentProps = ComponentPropsWithoutRef<'div'>;
-type CardTitleProps = ComponentPropsWithoutRef<'h3'>;
+type CardTitleProps = ComponentPropsWithoutRef<'h3'> & { as?: ElementType };
 type CardDescriptionProps = ComponentPropsWithoutRef<'p'>;
 type CardActionProps = ComponentPropsWithoutRef<'div'>;
 
@@ -19,39 +19,10 @@ const cardFooter = css({
 const cardRoot = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
-  '& .image': {
-    position: 'relative',
-    display: 'grid',
-    h: '280px',
-    placeItems: 'center',
-    bg: '#eee',
-    color: '#777',
-  },
-  '& em': {
-    position: 'absolute',
-    top: '8px',
-    left: '8px',
-    p: '4px',
-    bg: '#111',
-    color: '#fff',
-    fontSize: '11px',
-    fontStyle: 'normal',
-  },
-  '& small, & i': {
-    color: '#666',
-    fontSize: '12px',
-  },
-  _mobile: {
-    '& .image': {
-      h: '190px',
-      fontSize: '12px',
-    },
-  },
 });
 
-function withClassName(baseClassName: string, className?: string) {
-  return [baseClassName, className].filter(Boolean).join(' ');
+function withClassName(...classNames: Array<string | undefined>) {
+  return classNames.filter(Boolean).join(' ');
 }
 
 function CardRoot({ className, ...props }: CardProps) {
@@ -62,8 +33,8 @@ export function CardHeader({ className, ...props }: CardHeaderProps) {
   return <header {...props} className={withClassName('card__header', className)} />;
 }
 
-export function CardTitle({ className, ...props }: CardTitleProps) {
-  return <h3 {...props} className={withClassName('card__title', className)} />;
+export function CardTitle({ as: TitleElement = 'h3', className, ...props }: CardTitleProps) {
+  return <TitleElement {...props} className={withClassName('card__title', className)} />;
 }
 
 export function CardDescription({ className, ...props }: CardDescriptionProps) {
