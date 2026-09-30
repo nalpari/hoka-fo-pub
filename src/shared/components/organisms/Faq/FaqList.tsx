@@ -5,7 +5,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 
 const styles = {
   listItem: cva({
-    base: { borderBottom: '1px solid #ddd' },
+    base: { borderBottom: '1px solid var(--color-border-subtle)' },
     variants: { open: { true: { '& > button': { fontWeight: '700' } }, false: {} } },
   }),
   question: css({
@@ -26,7 +26,7 @@ const styles = {
   answer: css({
     display: 'flex',
     p: { base: '23px 35px', _mobile: '18px' },
-    bg: '#f5f5f5',
+    bg: 'var(--color-surface-muted)',
     '& b': { mr: '18px', color: '#777', fontFamily: 'var(--font-family-base)', fontSize: '15px' },
     '& p': { maxW: '550px', m: '0', color: '#777', fontSize: '11px', lineHeight: '1.7' },
   }),

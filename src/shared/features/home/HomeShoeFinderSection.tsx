@@ -1,16 +1,9 @@
 import type { Platform } from '@/shared/lib/device';
 import { css } from 'styled-system/css';
-import {
-  Carousel,
-  CarouselControls,
-  CarouselPagination,
-  CarouselViewport,
-} from '@/shared/components/molecules/Carousel/Carousel';
+import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselSection/HomeCarouselSection';
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
-import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
 import { shoeFinderItems, type HomeShoeFinderCardVariant } from './homeContent';
 
-const desktopOnly = css({ _mobile: { display: 'none' } });
 const webRail = css({ w: '100%' });
 const mobileRail = css({
   w: '100vw',
@@ -37,29 +30,19 @@ export function HomeShoeFinderSection({
   const isWeb = platform === 'web';
 
   return (
-    <Carousel itemCount={shoeFinderItems.length}>
-      <MainSection
-        actionSlot={
-          <div className={desktopOnly}>
-            <CarouselControls />
-          </div>
-        }
-        title="Find my HOKA"
-      >
-        <CarouselViewport
-          className={isWeb ? webRail : mobileRail}
-          desktopCenteredItemCount={4}
-          desktopItemGutter={5}
-          mobileItemGutter={8}
-          mode={platform}
-          slideClassName={isWeb ? webSlide : mobileSlide}
-        >
-          {shoeFinderItems.map(({ images, ...item }) => (
-            <MainContentCard key={item.title} {...item} image={images[variant]} variant={variant} />
-          ))}
-        </CarouselViewport>
-        <CarouselPagination />
-      </MainSection>
-    </Carousel>
+    <HomeCarouselSection
+      desktopCenteredItemCount={4}
+      desktopItemGutter={5}
+      itemCount={shoeFinderItems.length}
+      mobileItemGutter={8}
+      platform={platform}
+      railClassName={isWeb ? webRail : mobileRail}
+      slideClassName={isWeb ? webSlide : mobileSlide}
+      title="Find my HOKA"
+    >
+      {shoeFinderItems.map(({ images, ...item }) => (
+        <MainContentCard key={item.title} {...item} image={images[variant]} variant={variant} />
+      ))}
+    </HomeCarouselSection>
   );
 }

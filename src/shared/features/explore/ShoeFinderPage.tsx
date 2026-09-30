@@ -9,7 +9,10 @@ const exploreLayout = css({
   mx: 'auto',
   py: '64px',
   '& > header': { maxW: '700px', mb: '42px' },
-  _mobile: { px: '16px', py: '32px' },
+  _mobile: {
+    px: 'var(--layout-mobile-inline-gutter)',
+    py: 'var(--layout-mobile-page-block-padding)',
+  },
 });
 
 const finderStep = css({

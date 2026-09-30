@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Product } from '@/mocks/products';
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
 import { Card } from '@/shared/components/atoms/Card/Card';
 import { BadgeLaunchStatus } from '@/shared/components/atoms/Badge/BadgeLaunchStatus';
@@ -14,22 +14,44 @@ import { ProductDetails } from '@/shared/components/molecules/ProductDetails/Pro
 import type { ProductOptionThumbnail } from '@/shared/components/molecules/ProductOptionList/ProductOptionList';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
 
-const root = css({
-  minW: '0',
-  position: 'relative',
-  gap: '16px',
-  _hover: {
-    '& [data-product-thumbnail-hover-image]': { opacity: '1' },
-    '& [data-product-quick]': { display: 'grid' },
+const root = cva({
+  base: {
+    minW: '0',
+    position: 'relative',
+    gap: '16px',
+    _hover: {
+      '& [data-product-thumbnail-hover-image]': { opacity: '1' },
+      '& [data-product-quick]': { display: 'grid' },
+    },
+    _focusWithin: {
+      '& [data-product-thumbnail-hover-image]': { opacity: '1' },
+      '& [data-product-quick]': { display: 'grid' },
+    },
+    _mobile: {
+      gap: '10px',
+      '& [data-product-quick]': { display: 'none' },
+    },
   },
-  _focusWithin: {
-    '& [data-product-thumbnail-hover-image]': { opacity: '1' },
-    '& [data-product-quick]': { display: 'grid' },
+  variants: {
+    variant: {
+      listing: {},
+      showcase: {
+        w: '100%',
+        flex: '0 0 auto',
+        '& .image': {
+          h: 'auto',
+          aspectRatio: '1',
+          bg: 'var(--color-surface-subtle)',
+          fontSize: '0',
+        },
+        _mobile: {
+          w: '160px',
+          '& .image': { h: '160px', aspectRatio: 'auto' },
+        },
+      },
+    },
   },
-  _mobile: {
-    gap: '10px',
-    '& [data-product-quick]': { display: 'none' },
-  },
+  defaultVariants: { variant: 'listing' },
 });
 
 const action = css({
@@ -89,7 +111,7 @@ export function ProductCard({
   const hasOption = (option: ProductCardOption) => options.includes(option);
 
   return (
-    <Card className={root}>
+    <Card className={root({ variant })}>
       <Card.Header>
         <Link to={`/products/${product.id}`}>
           <ProductThumbnail

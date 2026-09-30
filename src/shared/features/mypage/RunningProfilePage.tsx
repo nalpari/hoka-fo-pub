@@ -9,7 +9,7 @@ import { myPageNavigation, profileQuestions } from '@/shared/features/mypage/myp
 const header = css({
   '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
   '& h1': { m: '10px 0', fontSize: '32px', _mobile: { fontSize: '27px' } },
-  '& p': { color: '#666', fontSize: '14px' },
+  '& p': { color: 'var(--color-text-muted)', fontSize: '14px' },
 });
 
 const progress = css({ my: '32px 50px' });

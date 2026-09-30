@@ -20,7 +20,7 @@ const styles = {
     '& form': { display: 'grid', mt: '42px' },
   }),
   eyebrow: css({ m: 0, color: '#777', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em' }),
-  intro: css({ m: 0, color: '#666', fontSize: '14px' }),
+  intro: css({ m: 0, color: 'var(--color-text-muted)', fontSize: '14px' }),
   loginButton: css({ mt: '22px', minH: '48px', bg: '#111', color: '#fff', fontWeight: 700 }),
   options: css({
     display: 'flex',

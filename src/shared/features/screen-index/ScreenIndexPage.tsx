@@ -29,10 +29,13 @@ const completedRequirementIds: Record<(typeof workStages)[number]['id'], Readonl
 };
 
 const pageLayout = css({
-  maxW: '1384px',
+  maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
   py: '64px',
-  _mobile: { px: '16px', py: '32px' },
+  _mobile: {
+    px: 'var(--layout-mobile-inline-gutter)',
+    py: 'var(--layout-mobile-page-block-padding)',
+  },
 });
 
 function ScreenList() {

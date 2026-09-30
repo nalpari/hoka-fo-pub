@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Disclosure } from '@/shared/components/atoms/Disclosure/Disclosure';
+import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
@@ -14,14 +14,14 @@ export type SupportExperienceKind =
   'inquiries' | 'inquiry-new' | 'after-sales' | 'member-benefits' | 'mileage';
 
 const content = css({ maxW: '760px', '& h2': { fontSize: '20px' } });
-const intro = css({ mb: '28px', color: '#666', fontSize: '14px', lineHeight: '1.6' });
-const panel = css({ borderTop: '2px solid #111', borderBottom: '1px solid #ddd' });
+const intro = css({ mb: '28px', color: 'var(--color-text-muted)', fontSize: '14px', lineHeight: '1.6' });
+const panel = css({ borderTop: '2px solid #111', borderBottom: '1px solid var(--color-border-subtle)' });
 const empty = css({
   display: 'grid',
   minH: '240px',
   placeItems: 'center',
   p: '32px',
-  color: '#666',
+  color: 'var(--color-text-muted)',
   textAlign: 'center',
 });
 const row = css({
@@ -50,7 +50,7 @@ const status = cva({
     fontSize: '11px',
     fontWeight: '700',
   },
-  variants: { answered: { true: { bg: '#111', color: '#fff' }, false: { color: '#666' } } },
+  variants: { answered: { true: { bg: '#111', color: '#fff' }, false: { color: 'var(--color-text-muted)' } } },
 });
 const field = css({
   display: 'grid',
@@ -74,11 +74,11 @@ const quickLinks = css({
   gap: '8px',
   mt: '40px',
   pt: '22px',
-  borderTop: '1px solid #ddd',
+  borderTop: '1px solid var(--color-border-subtle)',
   '.platform-mobile &': { gridTemplateColumns: '1fr' },
   '& a': {
     p: '14px',
-    border: '1px solid #ddd',
+    border: '1px solid var(--color-border-subtle)',
     textAlign: 'center',
     fontSize: '13px',
     fontWeight: '700',
@@ -87,7 +87,7 @@ const quickLinks = css({
 const tabList = css({
   display: 'flex',
   overflowX: 'auto',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   '& button': {
     flex: '0 0 auto',
     minH: '44px',
@@ -198,7 +198,7 @@ function InquiryPage() {
                 className={css({
                   p: '20px',
                   bg: '#fafafa',
-                  borderBottom: '1px solid #ddd',
+                  borderBottom: '1px solid var(--color-border-subtle)',
                   fontSize: '13px',
                   lineHeight: '1.7',
                 })}

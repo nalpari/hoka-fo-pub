@@ -1,6 +1,4 @@
-import { css } from 'styled-system/css';
-
-const activity = css({ fontSize: '14px' });
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type ProductActivityProps = {
   activities: readonly string[];
@@ -8,5 +6,5 @@ export type ProductActivityProps = {
 
 /** Product activity labels, displayed as a comma-separated list. */
 export function ProductActivity({ activities }: ProductActivityProps) {
-  return <span className={activity}>{activities.join(', ')}</span>;
+  return <Typography variant="meta">{activities.join(', ')}</Typography>;
 }

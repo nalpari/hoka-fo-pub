@@ -2,36 +2,32 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
-import { cva } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 
-const button = cva({
+const button = css({
+  display: 'inline-flex',
+  border: '0',
+  p: '0',
+  bg: 'transparent',
+  cursor: 'pointer',
+  _disabled: { cursor: 'not-allowed', opacity: '0.55' },
+  _focusVisible: {
+    outline: '2px solid var(--color-focus-ring, var(--focus-ring))',
+    outlineOffset: '2px',
+  },
+});
+
+const buttonFullWidth = css({ w: '100%' });
+
+const buttonFrame = cva({
   base: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minH: 'var(--button-height, 40px)',
+    display: 'inline-flex',
     border:
       'var(--button-border-width, 1px) solid var(--button-border-color, var(--border-strong))',
     borderRadius: 'var(--button-radius, var(--radius-sm, 0))',
-    px: 'var(--button-padding-x, 16px)',
     bg: 'var(--button-bg, var(--color-action-secondary-bg))',
     color: 'var(--button-color, var(--color-action-secondary-color))',
-    fontWeight: '600',
-    lineHeight: '1',
     transition: 'background-color 160ms ease, color 160ms ease, border-color 160ms ease',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    textDecoration: 'none',
-    userSelect: 'none',
-    _disabled: {
-      cursor: 'not-allowed',
-      opacity: '0.55',
-    },
-    _focusVisible: {
-      outline: '2px solid var(--color-focus-ring, var(--focus-ring))',
-      outlineOffset: '2px',
-    },
   },
   variants: {
     variant: {
@@ -39,39 +35,10 @@ const button = cva({
       secondary: {},
       ghost: {},
       brand: {},
-      link: {
-        h: 'var(--button-link-height)',
-        minH: 'var(--button-link-min-height)',
-        border: '0',
-        borderRadius: 'var(--button-link-radius)',
-        py: 'var(--button-link-padding-block)',
-        px: 'var(--button-link-padding-inline)',
-        bg: 'var(--button-link-bg)',
-        color: 'var(--button-link-color)',
-        fontFamily: 'var(--button-link-font-family)',
-        fontSize: 'var(--button-link-font-size)',
-        fontWeight: 'var(--button-link-font-weight)',
-        lineHeight: 'var(--button-link-line-height)',
-        letterSpacing: 'var(--button-link-letter-spacing)',
-        _mobile: {
-          h: 'var(--button-link-mobile-height)',
-          minH: 'var(--button-link-mobile-min-height)',
-          maxH: 'var(--button-link-mobile-max-height)',
-          py: 'var(--button-link-mobile-padding-block)',
-          px: 'var(--button-link-mobile-padding-inline)',
-          fontSize: 'var(--button-link-mobile-font-size)',
-          fontWeight: 'var(--button-link-mobile-font-weight)',
-        },
-      },
+      filterTrigger: { borderRadius: 'var(--button-radius)' },
+      headerSearch: { w: '178px' },
     },
-    size: {
-      sm: { minH: '32px', px: '10px', fontSize: '12px' },
-      md: {},
-      lg: { minH: '48px', px: '22px', fontSize: '16px' },
-    },
-    fullWidth: {
-      true: { width: '100%' },
-    },
+    fullWidth: { true: { w: '100%' } },
     invalid: {
       true: {
         '--button-border-color': 'var(--color-danger-border, var(--color-error))',
@@ -82,20 +49,149 @@ const button = cva({
       underline: {
         bg: 'transparent',
         borderColor: 'transparent',
-        px: '0',
         color: 'var(--color-action-underline-color, var(--color-action-secondary-color))',
       },
     },
+    actionStyle: {
+      fill: { border: '0!', borderRadius: '52px' },
+      underline: { border: '0!', borderRadius: '0', bg: 'transparent!' },
+    },
   },
-  defaultVariants: { variant: 'secondary', size: 'md', appearance: 'default' },
+  defaultVariants: { variant: 'secondary', appearance: 'default' },
+});
+
+const buttonContent = cva({
+  base: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minH: 'var(--button-height, 40px)',
+    px: 'var(--button-padding-x, 16px)',
+    '--button-content-gap': '8px',
+    '--button-icon-size': '16px',
+    gap: 'var(--button-content-gap)',
+    whiteSpace: 'nowrap',
+    userSelect: 'none',
+    _mobile: { '--button-content-gap': '6px' },
+  },
+  variants: {
+    variant: {
+      primary: {},
+      secondary: {},
+      ghost: {},
+      brand: {},
+      filterTrigger: {
+        h: 'var(--button-height)',
+        minH: 'var(--button-height)',
+        py: '8px',
+      },
+      headerSearch: {
+        h: 'var(--button-height)',
+        minH: 'var(--button-height)',
+        w: '100%',
+        justifyContent: 'space-between',
+        py: '6px',
+      },
+    },
+    size: {
+      sm: { minH: '32px', px: '10px' },
+      md: {},
+      lg: { minH: '48px', px: '22px' },
+    },
+    fullWidth: { true: { w: '100%' } },
+    actionStyle: {
+      fill: {
+        h: '48px',
+        minH: '48px',
+        py: '12px',
+        px: '24px',
+        _mobile: {
+          h: '40px',
+          minH: '40px',
+          maxH: '40px',
+          py: '12px',
+          px: '16px',
+        },
+      },
+      underline: {
+        h: 'auto!',
+        minH: 'auto!',
+        py: '0!',
+        px: '0!',
+      },
+    },
+  },
+  defaultVariants: { variant: 'secondary', size: 'md' },
+});
+
+const buttonIcon = css({
+  display: 'flex',
+  flexShrink: '0',
+  w: 'var(--button-icon-size)',
+  h: 'var(--button-icon-size)',
+  color: 'inherit',
+  '& > *': { w: '100%!', h: '100%!', color: 'inherit!' },
+});
+
+const buttonLabel = cva({
+  base: { color: 'inherit', fontWeight: '600', lineHeight: '1' },
+  variants: {
+    variant: {
+      primary: {},
+      secondary: {},
+      ghost: {},
+      brand: {},
+      filterTrigger: {
+        fontSize: '14px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+      },
+      headerSearch: {
+        flex: '1 0 0',
+        minW: '0',
+        color: '#4d4d4d',
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+      },
+    },
+    size: {
+      sm: { fontSize: '12px' },
+      md: {},
+      lg: { fontSize: '16px' },
+    },
+    actionStyle: {
+      fill: {
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+        _mobile: { fontSize: '14px', fontWeight: '600' },
+      },
+      underline: {
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+        textDecoration: 'underline',
+        textDecorationThickness: '1px',
+        textUnderlineOffset: '3px',
+        _mobile: { fontSize: '14px', textUnderlineOffset: '2px' },
+      },
+    },
+  },
 });
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'brand' | 'link';
+  actionStyle?: 'fill' | 'underline';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'brand' | 'filterTrigger' | 'headerSearch';
   size?: 'sm' | 'md' | 'lg';
-  tone?: 'primary' | 'secondary' | 'ghost' | 'brand';
+  tone?: 'primary' | 'secondary' | 'ghost' | 'brand' | 'filterTrigger' | 'headerSearch';
   appearance?: 'default' | 'underline';
   fullWidth?: boolean;
+  icon?: ReactNode;
   loading?: boolean;
   invalid?: boolean;
   render?: ReactElement;
@@ -123,15 +219,29 @@ const variableStyles: Record<NonNullable<ButtonProps['variant']>, CSSProperties>
     '--button-color': 'var(--color-action-brand-color, #fff)',
     '--button-border-color': 'var(--color-action-brand-border, #0082ca)',
   } as CSSProperties,
-  link: {
-    '--button-bg': 'var(--button-link-bg)',
-    '--button-color': 'var(--button-link-color)',
-    '--button-border-color': 'transparent',
+  filterTrigger: {
+    '--button-bg': '#fff',
+    '--button-color': '#000',
+    '--button-border-color': '#000',
+    '--button-border-width': '0.9px',
+    '--button-height': '32.2px',
+    '--button-padding-x': '14px',
+    '--button-radius': '46.8px',
+    '--button-content-gap': '7.2px',
+  } as CSSProperties,
+  headerSearch: {
+    '--button-bg': 'var(--hoka-white)',
+    '--button-color': 'var(--hoka-black)',
+    '--button-border-color': 'var(--hoka-black)',
+    '--button-height': '36px',
+    '--button-padding-x': '15px',
+    '--button-radius': '999px',
   } as CSSProperties,
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
+    actionStyle,
     variant = 'secondary',
     tone,
     size = 'md',
@@ -139,7 +249,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     fullWidth = false,
     loading = false,
     invalid = false,
+    icon,
     className,
+    children,
     type = 'button',
     style,
     disabled,
@@ -148,6 +260,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const resolvedVariant = tone ?? variant;
+  const label = (
+    <span className={buttonLabel({ actionStyle, size, variant: resolvedVariant })}>{children}</span>
+  );
 
   return (
     <BaseButton
@@ -164,13 +279,30 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           ...style,
         } as CSSProperties
       }
-      className={[
-        button({ variant: resolvedVariant, size, fullWidth, invalid, appearance }),
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    />
+      className={[button, fullWidth ? buttonFullWidth : '', className].filter(Boolean).join(' ')}
+    >
+      <span
+        className={buttonFrame({
+          actionStyle,
+          appearance,
+          fullWidth,
+          invalid,
+          variant: resolvedVariant,
+        })}
+      >
+        <span
+          className={buttonContent({
+            actionStyle,
+            fullWidth,
+            size,
+            variant: resolvedVariant,
+          })}
+        >
+          {label}
+          {icon ? <span className={buttonIcon}>{icon}</span> : null}
+        </span>
+      </span>
+    </BaseButton>
   );
 });
 
@@ -180,7 +312,16 @@ export type ButtonLinkProps = Pick<
 > &
   Pick<
     ButtonProps,
-    'className' | 'style' | 'variant' | 'size' | 'appearance' | 'fullWidth' | 'loading' | 'invalid'
+    | 'actionStyle'
+    | 'className'
+    | 'style'
+    | 'variant'
+    | 'size'
+    | 'appearance'
+    | 'fullWidth'
+    | 'icon'
+    | 'loading'
+    | 'invalid'
   > & {
     children: ReactNode;
   };

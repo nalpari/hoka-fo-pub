@@ -33,7 +33,7 @@ const hero = css({
   minH: '500px',
   h: 'min(42.5vw, 816px)',
   overflow: 'hidden',
-  color: '#fff',
+  color: 'var(--color-text-inverse)',
   _mobile: { minH: '0', h: 'auto', aspectRatio: '375 / 500' },
 });
 const media = css({ position: 'absolute', inset: '0', overflow: 'hidden', touchAction: 'pan-y' });

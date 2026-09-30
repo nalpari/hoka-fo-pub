@@ -17,11 +17,11 @@ const row = css({
   alignItems: 'center',
   minH: '64px',
   px: '16px',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   fontSize: '13px',
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    '& span:first-child': { gridColumn: '1 / -1', color: '#666' },
+    '& span:first-child': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
   },
 });
 

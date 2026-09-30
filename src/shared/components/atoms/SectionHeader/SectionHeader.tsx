@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const root = cva({
   base: {
@@ -21,12 +22,10 @@ const root = cva({
 
 const eyebrowStyle = css({
   display: 'block',
-  color: '#0082ca',
-  fontSize: '11px',
-  fontWeight: '700',
+  color: 'var(--hoka-brand)',
   letterSpacing: '.08em',
 });
-const descriptionStyle = css({ m: '8px 0 0', color: '#666', fontSize: '13px' });
+const descriptionStyle = css({ m: '8px 0 0' });
 
 export type SectionHeaderProps<T extends ElementType = 'h2'> = Omit<
   ComponentPropsWithoutRef<'header'>,
@@ -66,27 +65,18 @@ export function SectionHeader<T extends ElementType = 'h2'>({
     >
       <div>
         {eyebrow ? <small className={eyebrowStyle}>{eyebrow}</small> : null}
-        <Heading
-          className={[
-            cva({
-              base: { m: '0' },
-              variants: {
-                size: {
-                  sm: { fontSize: '18px' },
-                  md: { fontSize: '21px', _mobile: { fontSize: '20px' } },
-                  lg: { fontSize: '28px', _mobile: { fontSize: '26px' } },
-                  xl: { fontSize: '32px', _mobile: { fontSize: '28px' } },
-                },
-              },
-            })({ size: titleSize }),
-            titleClassName,
-          ]
-            .filter(Boolean)
-            .join(' ')}
+        <Typography
+          as={Heading as ElementType}
+          className={[css({ m: '0' }), titleClassName].filter(Boolean).join(' ')}
+          variant={titleSize === 'lg' || titleSize === 'xl' ? 'heading' : 'body'}
         >
           {title}
-        </Heading>
-        {description ? <p className={descriptionStyle}>{description}</p> : null}
+        </Typography>
+        {description ? (
+          <Typography as="p" className={descriptionStyle} tone="subtle" variant="meta">
+            {description}
+          </Typography>
+        ) : null}
       </div>
       {action ? <div>{action}</div> : null}
     </header>

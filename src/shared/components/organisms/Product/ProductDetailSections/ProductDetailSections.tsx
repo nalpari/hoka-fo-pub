@@ -29,7 +29,7 @@ const tab = cva({
     border: '0',
     borderRight: '1px solid #d8d8d8',
     bg: '#fff',
-    color: '#666',
+    color: 'var(--color-text-muted)',
     fontSize: { _mobile: '13px' },
     fontWeight: '700',
     _focusVisible: { zIndex: '1', outline: '2px solid #111', outlineOffset: '-2px' },
@@ -125,7 +125,7 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
               scrollMarginTop: { base: '150px', _mobile: '125px' },
               borderBottom: '1px solid #d8d8d8',
               '& h2': { m: '0 0 18px', fontSize: { base: '30px', _mobile: '24px' } },
-              '& > p': { maxW: '620px', m: '0', color: '#666', lineHeight: '1.65' },
+              '& > p': { maxW: '620px', m: '0', color: 'var(--color-text-muted)', lineHeight: '1.65' },
             })}
             id={section.id}
             key={section.id}

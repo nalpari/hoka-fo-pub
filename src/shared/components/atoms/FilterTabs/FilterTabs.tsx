@@ -16,7 +16,7 @@ const viewport = css({
   },
 });
 
-const rail = css({ _mobile: { w: 'max-content', px: '16px' } });
+const rail = css({ _mobile: { w: 'max-content', px: 'var(--layout-mobile-inline-gutter)' } });
 
 const label = cva({
   base: {

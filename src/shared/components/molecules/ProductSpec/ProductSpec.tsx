@@ -1,6 +1,4 @@
-import { css } from 'styled-system/css';
-
-const spec = css({ color: '#555', fontSize: '12px' });
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type ProductSpecProps = {
   cushioning: string;
@@ -11,8 +9,8 @@ export type ProductSpecProps = {
 /** Product cushioning, stability, and width summary. */
 export function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
   return (
-    <span className={spec}>
+    <Typography tone="subtle" variant="meta">
       {cushioning} · {stability} · {width}
-    </span>
+    </Typography>
   );
 }

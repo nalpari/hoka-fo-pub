@@ -1,16 +1,9 @@
 import type { Platform } from '@/shared/lib/device';
 import { css } from 'styled-system/css';
-import {
-  Carousel,
-  CarouselControls,
-  CarouselPagination,
-  CarouselViewport,
-} from '@/shared/components/molecules/Carousel/Carousel';
+import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselSection/HomeCarouselSection';
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
-import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
 import { homeCategories } from './homeContent';
 
-const desktopOnly = css({ _mobile: { display: 'none' } });
 const webRail = css({ w: '100%' });
 const mobileRail = css({
   w: '100vw',
@@ -23,7 +16,7 @@ const webSlide = css({
 });
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
 // leaving a deliberate preview of the following card.
-const mobileSlide = css({ w: 'calc(83.2vw + 16px)!', '& > *': { w: '100%' } });
+const mobileSlide = css({ w: 'calc(83.2vw + var(--spacing-4))!', '& > *': { w: '100%' } });
 
 type HomeCategorySectionProps = { platform: Platform };
 
@@ -31,29 +24,19 @@ export function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
 
   return (
-    <Carousel itemCount={homeCategories.length}>
-      <MainSection
-        actionSlot={
-          <div className={desktopOnly}>
-            <CarouselControls />
-          </div>
-        }
-        title="Shop by category"
-      >
-        <CarouselViewport
-          className={isWeb ? webRail : mobileRail}
-          desktopCenteredItemCount={4}
-          desktopItemGutter={5}
-          mobileItemGutter={8}
-          mode={platform}
-          slideClassName={isWeb ? webSlide : mobileSlide}
-        >
-          {homeCategories.map((category) => (
-            <MainContentCard key={category.title} {...category} />
-          ))}
-        </CarouselViewport>
-        <CarouselPagination />
-      </MainSection>
-    </Carousel>
+    <HomeCarouselSection
+      desktopCenteredItemCount={4}
+      desktopItemGutter={5}
+      itemCount={homeCategories.length}
+      mobileItemGutter={8}
+      platform={platform}
+      railClassName={isWeb ? webRail : mobileRail}
+      slideClassName={isWeb ? webSlide : mobileSlide}
+      title="Shop by category"
+    >
+      {homeCategories.map((category) => (
+        <MainContentCard key={category.title} {...category} />
+      ))}
+    </HomeCarouselSection>
   );
 }

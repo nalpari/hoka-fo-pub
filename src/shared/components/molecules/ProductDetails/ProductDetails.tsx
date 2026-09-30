@@ -14,16 +14,7 @@ import type { ProductOptionThumbnail } from '@/shared/components/molecules/Produ
 import type { Platform } from '@/shared/lib/device';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
 
-const root = css({
-  fontWeight: '400',
-  lineHeight: '130%',
-  letterSpacing: '-0.02em',
-  color: '#000000',
-});
-
-const details = css({
-  fontSize: '16px',
-});
+const root = css({ color: 'var(--color-text-primary)' });
 
 export type ProductDetailsProps = {
   activities?: readonly string[];
@@ -56,7 +47,7 @@ export function ProductDetails({
   return (
     <Card.Content className={root}>
       <VStack gap="16px" alignItems="flex-start">
-        <VStack gap="12px" alignItems="flex-start" className={details}>
+        <VStack gap="12px" alignItems="flex-start">
           {promotion && <PromotionBadge promotion={promotion} />}
           {gender && <ProductGender gender={gender} variant={variant} />}
           <ProductName name={name} variant={variant} />

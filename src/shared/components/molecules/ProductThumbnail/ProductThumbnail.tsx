@@ -6,7 +6,7 @@ const root = css({
   display: 'grid',
   placeItems: 'center',
   overflow: 'hidden',
-  bg: '#F7F7F9',
+  bg: 'var(--color-surface-subtle)',
   h: '280px',
   _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
   _mobile: {
@@ -21,7 +21,7 @@ const image = css({
   w: '100%',
   h: '100%',
   objectFit: 'contain',
-  bg: '#F7F7F9',
+  bg: 'var(--color-surface-subtle)',
 });
 
 const hoverImage = css({ opacity: '0', transition: 'opacity 180ms ease' });

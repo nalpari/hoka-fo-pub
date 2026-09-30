@@ -19,7 +19,12 @@ const detailLayout = css({
   mx: 'auto',
   py: '64px',
   '& h1': { fontSize: '42px' },
-  _mobile: { px: '16px', pt: '32px', pb: '108px', '& h1': { fontSize: '30px' } },
+  _mobile: {
+    px: 'var(--layout-mobile-inline-gutter)',
+    pt: '32px',
+    pb: '108px',
+    '& h1': { fontSize: '30px' },
+  },
 });
 
 const detailTop = css({

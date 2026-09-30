@@ -15,7 +15,7 @@ export type MetricGridProps = {
 };
 
 const grid = cva({
-  base: { display: 'grid', bg: '#f5f5f5', _mobile: { gridTemplateColumns: '1fr' } },
+  base: { display: 'grid', bg: 'var(--color-surface-muted)', _mobile: { gridTemplateColumns: '1fr' } },
   variants: {
     columns: {
       2: { gridTemplateColumns: 'repeat(2, 1fr)' },
@@ -32,15 +32,15 @@ const metricItem = css({
   minH: '138px',
   alignContent: 'center',
   px: '28px',
-  borderRight: '1px solid #ddd',
+  borderRight: '1px solid var(--color-border-subtle)',
   '&:last-child': { borderRight: '0' },
   _mobile: {
     borderRight: '0',
-    borderBottom: '1px solid #ddd',
+    borderBottom: '1px solid var(--color-border-subtle)',
     '&:last-child': { borderBottom: '0' },
   },
 });
-const label = css({ color: '#666', fontSize: '12px' });
+const label = css({ color: 'var(--color-text-muted)', fontSize: '12px' });
 const value = css({ fontSize: '27px' });
 const detail = css({ fontSize: '12px' });
 

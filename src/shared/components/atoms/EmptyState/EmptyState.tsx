@@ -42,7 +42,7 @@ function EmptyStateRoot({ title, description, action }: EmptyStateProps) {
         —
       </Grid>
       <h2 className={css({ m: '4px 0 0', fontSize: '18px' })}>{title}</h2>
-      {description ? <p className={css({ m: '0', color: '#666' })}>{description}</p> : null}
+      {description ? <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p> : null}
       {action ? <Box mt="8px">{action}</Box> : null}
     </Stack>
   );

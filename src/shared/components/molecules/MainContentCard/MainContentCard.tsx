@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
-import { css, cva } from 'styled-system/css';
+import { cva } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Card } from '@/shared/components/atoms/Card/Card';
-import { Link } from '@/shared/components/atoms/Link/Link';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type MainContentCardAction = {
   label: string;
@@ -37,12 +37,12 @@ const root = cva({
     variant: {
       titleLinks: { gap: '21px', _mobile: { gap: '18px' } },
       descriptionLink: { gap: '21px', _mobile: { gap: '20px' } },
-      imagePill: { gap: '0', bg: '#F3F3F3' },
+      imagePill: { gap: '0', bg: 'var(--color-surface-subtle)' },
       overlay: {
         alignItems: 'flex-start',
         justifyContent: 'flex-end',
         gap: '32px',
-        bg: '#F3F3F3',
+        bg: 'var(--color-surface-subtle)',
         aspectRatio: '371 / 494',
         p: '28px 28px 40px',
         _mobile: { gap: '20px', aspectRatio: '253 / 337', p: '16px 16px 30px' },
@@ -100,12 +100,12 @@ const header = cva({
 });
 
 const title = cva({
-  base: { m: '0', fontSize: '24px', fontWeight: '900', color: '#000000' },
+  base: { m: '0' },
   variants: {
     variant: {
-      titleLinks: { lineHeight: '23px', _mobile: { fontSize: '20px' } },
-      descriptionLink: { lineHeight: '23px', _mobile: { fontSize: '20px' } },
-      imagePill: { lineHeight: '31px', _mobile: { fontSize: '24px', lineHeight: '23px' } },
+      titleLinks: {},
+      descriptionLink: {},
+      imagePill: { _mobile: { fontSize: '24px', lineHeight: '23px' } },
       overlay: {
         fontSize: '32px',
         lineHeight: '31px',
@@ -116,17 +116,11 @@ const title = cva({
 });
 
 const descriptionStyle = cva({
-  base: {
-    m: '0',
-    fontWeight: '400',
-    lineHeight: '130%',
-    color: '#000000',
-    letterSpacing: '-0.02em',
-  },
+  base: { m: '0' },
   variants: {
     variant: {
-      descriptionLink: { fontSize: '16px', _mobile: { fontSize: '14px' } },
-      imagePill: { fontSize: '16px', _mobile: { fontSize: '14px' } },
+      descriptionLink: {},
+      imagePill: {},
       overlay: { fontSize: '20px', _mobile: { fontSize: '14px' } },
     },
   },
@@ -159,23 +153,6 @@ const actions = cva({
       overlay: { position: 'relative', zIndex: '1' },
     },
   },
-});
-
-const actionLink = css({
-  fontSize: '16px',
-  fontWeight: '600',
-  lineHeight: '130%',
-  letterSpacing: '-0.02em',
-  textDecorationLine: 'underline',
-  _mobile: { fontSize: '14px' },
-});
-
-const pillAction = css({
-  flex: 'none',
-  fontSize: '16px',
-  fontWeight: '600',
-  letterSpacing: '-0.02em',
-  _mobile: { fontSize: '14px' },
 });
 
 function getAverageLuminance(image: HTMLImageElement) {
@@ -217,34 +194,14 @@ function MainCardAction({
   type = 'link',
   tone,
 }: MainContentCardAction & { tone: ContentTone }) {
-  const isLightContent = tone === 'light';
-  const foreground = isLightContent ? '#FFFFFF' : '#000000';
-
-  if (type === 'pill') {
-    return (
-      <ButtonLink
-        className={pillAction}
-        to={to}
-        style={
-          {
-            '--button-height': '40px',
-            '--button-padding-x': '22px',
-            '--button-radius': '999px',
-            '--button-bg': isLightContent ? '#FFFFFF' : '#000000',
-            '--button-color': isLightContent ? '#000000' : '#FFFFFF',
-            '--button-border-color': 'transparent',
-          } as CSSProperties
-        }
-      >
-        {label}
-      </ButtonLink>
-    );
-  }
-
   return (
-    <Link className={actionLink} style={{ color: foreground }} to={to}>
+    <ButtonLink
+      actionStyle={type === 'pill' ? 'fill' : 'underline'}
+      variant={tone === 'light' ? 'secondary' : 'primary'}
+      to={to}
+    >
       {label}
-    </Link>
+    </ButtonLink>
   );
 }
 
@@ -292,7 +249,8 @@ export function MainContentCard({
         ? overlayAnalysis.tone
         : 'light'
       : 'dark';
-  const foreground = contentTone === 'light' ? '#FFFFFF' : '#000000';
+  const foreground =
+    contentTone === 'light' ? 'var(--color-text-inverse)' : 'var(--color-text-primary)';
   const imageStyle = {
     backgroundImage:
       variant === 'overlay'
@@ -310,18 +268,25 @@ export function MainContentCard({
     <Card className={[root({ variant }), className].filter(Boolean).join(' ')}>
       <Card.Content className={categoryImage({ variant })} style={imageStyle} />
       <Card.Header className={header({ variant })}>
-        <Card.Title className={title({ variant })} style={{ color: foreground }}>
+        <Typography
+          as="h3"
+          className={title({ variant })}
+          style={{ color: foreground }}
+          variant="cardTitle"
+        >
           {cardTitle}
-        </Card.Title>
+        </Typography>
         {description ? (
-          <Card.Description
+          <Typography
+            as="p"
             className={descriptionStyle({
               variant: variant === 'titleLinks' ? undefined : variant,
             })}
             style={{ color: foreground }}
+            variant="body"
           >
             {description}
-          </Card.Description>
+          </Typography>
         ) : null}
       </Card.Header>
       <Card.Footer className={footer({ variant })}>

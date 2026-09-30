@@ -12,7 +12,7 @@ type Props = {
 
 const block = css({
   pb: '40px',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
   '& h2': { m: '10px 0 24px', fontSize: '21px' },
 });

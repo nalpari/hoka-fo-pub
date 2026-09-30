@@ -1,5 +1,4 @@
-import { ProductOptionField } from '@/shared/components/organisms/Product/ProductPurchasePanel/ProductOptionField';
-import { SelectableButtonList } from '@/shared/components/atoms/SelectableButtonList/SelectableButtonList';
+import { ProductButtonOptionList } from '@/shared/components/organisms/Product/ProductPurchasePanel/ProductButtonOptionList';
 import { css } from 'styled-system/css';
 
 const options = css({
@@ -23,15 +22,14 @@ type WidthSelectorProps = {
 /** 선택한 색상에서 제공되는 발볼 옵션을 선택합니다. */
 export function WidthSelector({ widths, value, onChange }: WidthSelectorProps) {
   return (
-    <ProductOptionField label="발볼">
-      <SelectableButtonList
-        ariaLabel="width selector"
-        buttonClassName={(_, isSelected) => (isSelected ? selected : undefined)}
-        className={options}
-        onChange={(next) => onChange(next as string)}
-        selected={value}
-        values={widths}
-      />
-    </ProductOptionField>
+    <ProductButtonOptionList
+      ariaLabel="width selector"
+      label="발볼"
+      listClassName={options}
+      onChange={onChange}
+      selectedButtonClassName={selected}
+      value={value}
+      values={widths}
+    />
   );
 }

@@ -11,8 +11,13 @@ import { products } from '@/mocks/products';
 export type RunningExperienceKind =
   'shoe-finder' | 'rewards' | 'reviews' | 'alerts' | 'rotation' | 'plans' | 'store-experience';
 
-const page = css({ maxW: '1100px', mx: 'auto', py: '70px', _mobile: { px: '16px', py: '38px' } });
-const panel = css({ mt: '30px', p: '32px', bg: '#f5f5f5', _mobile: { p: '20px' } });
+const page = css({
+  maxW: '1100px',
+  mx: 'auto',
+  py: '70px',
+  _mobile: { px: 'var(--layout-mobile-inline-gutter)', py: '38px' },
+});
+const panel = css({ mt: '30px', p: '32px', bg: 'var(--color-surface-muted)', _mobile: { p: '20px' } });
 const optionGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -43,8 +48,8 @@ const timelineItem = css({
   gap: '20px',
   alignItems: 'center',
   minH: '74px',
-  borderBottom: '1px solid #ddd',
-  _mobile: { gridTemplateColumns: '1fr auto', '& time': { gridColumn: '1 / -1', color: '#666' } },
+  borderBottom: '1px solid var(--color-border-subtle)',
+  _mobile: { gridTemplateColumns: '1fr auto', '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' } },
 });
 const action = css({ mt: '24px', px: '18px', py: '12px', bg: '#111', color: '#fff' });
 
