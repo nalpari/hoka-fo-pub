@@ -224,7 +224,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               key={product.id}
             >
               <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>
-              <small className={css({ color: '#666' })}>{product.id.toUpperCase()}</small>
+              <small className={css({ color: 'var(--color-text-muted)' })}>{product.id.toUpperCase()}</small>
               <strong className={css({ fontSize: '15px' })}>{product.name}</strong>
               <b className={css({ fontSize: '14px' })}>{product.price.toLocaleString()}원</b>
             </Link>

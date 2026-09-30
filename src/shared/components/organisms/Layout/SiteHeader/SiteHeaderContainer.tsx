@@ -16,7 +16,7 @@ const header = css({
   borderBottomStyle: 'solid',
   borderBottomColor: 'headerBorder',
   bg: 'var(--hoka-white)',
-  _mobile: { gap: 0, h: '52px', p: '0 9px 0 16px' },
+  _mobile: { gap: 0, h: '52px', p: '0 9px 0 var(--layout-mobile-inline-gutter)' },
 });
 
 export type SiteHeaderContainerProps = {

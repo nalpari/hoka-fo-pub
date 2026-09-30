@@ -7,6 +7,18 @@ const iconClass = css({
   objectFit: 'contain',
 });
 
+const iconMask = css({
+  display: 'block',
+  flexShrink: 0,
+  bg: 'currentColor',
+  maskPosition: 'center',
+  maskRepeat: 'no-repeat',
+  maskSize: 'contain',
+  WebkitMaskPosition: 'center',
+  WebkitMaskRepeat: 'no-repeat',
+  WebkitMaskSize: 'contain',
+});
+
 type IconSourceProps =
   | {
       /** Icon asset name. Ignored when `src` is supplied. */
@@ -68,6 +80,12 @@ const resolveIconFilter = (color?: IconProps['color']) => {
   }
 };
 
+const resolveIconColor = (color: IconProps['color']) => {
+  if (color === 'white') return '#fff';
+  if (color === 'black') return '#000';
+  return color;
+};
+
 export function Icon({
   name,
   size = '16px',
@@ -84,10 +102,29 @@ export function Icon({
     );
   }
 
+  if (name && !props.src) {
+    return (
+      <span
+        aria-hidden={alt ? undefined : true}
+        aria-label={alt || undefined}
+        className={[iconMask, className].filter(Boolean).join(' ')}
+        role={role}
+        style={{
+          width: size,
+          height: size,
+          color: resolveIconColor(color),
+          maskImage: `url(/images/icon/${name}.svg)`,
+          WebkitMaskImage: `url(/images/icon/${name}.svg)`,
+          ...props.style,
+        }}
+      />
+    );
+  }
+
   return (
     <img
       {...props}
-      src={props.src ?? `/images/icon/${name}.svg`}
+      src={props.src}
       alt={alt}
       role={role}
       aria-hidden={alt ? undefined : true}

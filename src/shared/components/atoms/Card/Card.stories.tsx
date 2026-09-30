@@ -13,7 +13,7 @@ export const Default: Story = {
 
 export const WithSections: Story = {
   render: () => (
-    <Card style={{ maxWidth: 360, padding: 20, border: '1px solid #ddd' }}>
+    <Card style={{ maxWidth: 360, padding: 20, border: '1px solid var(--color-border-subtle)' }}>
       <Card.Header style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}>
         <div>
           <Card.Title>배송지</Card.Title>

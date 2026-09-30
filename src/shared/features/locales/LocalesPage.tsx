@@ -121,7 +121,7 @@ const styles = {
     px: '40px',
     pt: '52px',
     pb: '72px',
-    _mobile: { px: '16px', pt: '44px', pb: '48px' },
+    _mobile: { px: 'var(--layout-mobile-inline-gutter)', pt: '44px', pb: '48px' },
   }),
   region: css({ mb: '44px', _mobile: { mb: '40px' } }),
   regionTitle: css({

@@ -10,7 +10,7 @@ const styles = {
     gap: '8px',
     p: { base: '27px 25px', _mobile: '17px 13px' },
     borderTop: '2px solid #555',
-    bg: '#f5f5f5',
+    bg: 'var(--color-surface-muted)',
     '& label': {
       display: 'flex',
       flex: '1',
@@ -18,7 +18,7 @@ const styles = {
       gap: { base: '25px', _mobile: '10px' },
       fontSize: '12px',
     },
-    '& input': { flex: '1', h: '34px', border: '1px solid #ddd', bg: '#fff' },
+    '& input': { flex: '1', h: '34px', border: '1px solid var(--color-border-subtle)', bg: '#fff' },
     '& button': { h: '34px', minW: '51px', p: '0', bg: '#222', color: '#fff', fontSize: '12px' },
   }),
   tabs: css({
@@ -33,7 +33,7 @@ const styles = {
       minH: '38px',
       py: '5px',
       px: '3px',
-      border: '1px solid #ddd',
+      border: '1px solid var(--color-border-subtle)',
       borderBottom: '0',
       bg: '#fff',
       fontSize: '11px',

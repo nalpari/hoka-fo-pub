@@ -32,9 +32,9 @@ const styles = {
       fontSize: '24px',
       fontWeight: 900,
     },
-    '& p': { mt: '5px', mb: 0, color: '#666', fontSize: '13px' },
+    '& p': { mt: '5px', mb: 0, color: 'var(--color-text-muted)', fontSize: '13px' },
   }),
-  description: css({ mt: '9px', mb: 0, color: '#666', fontSize: '14px' }),
+  description: css({ mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' }),
   methods: css({
     display: 'grid',
     gap: '10px',

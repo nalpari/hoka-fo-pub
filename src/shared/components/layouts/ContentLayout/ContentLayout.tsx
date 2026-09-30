@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Box, Stack } from 'styled-system/jsx';
 import { SectionHeader } from '@/shared/components/atoms/SectionHeader/SectionHeader';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import {
   Breadcrumb,
   type BreadcrumbItem,
@@ -48,7 +49,11 @@ export function ContentLayout({
               titleSize="lg"
             />
           ) : null}
-          {!title && description ? <Box color="#555">{description}</Box> : null}
+          {!title && description ? (
+            <Typography as="p" tone="subtle" variant="body">
+              {description}
+            </Typography>
+          ) : null}
         </Stack>
       )}
       <Box

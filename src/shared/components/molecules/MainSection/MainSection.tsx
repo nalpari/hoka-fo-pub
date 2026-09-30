@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { HStack, VStack } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type MainSectionProps = {
   title: string;
@@ -21,7 +22,7 @@ const header = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   _mobile: {
-    w: 'calc(100% - 32px)',
+    w: 'calc(100% - var(--layout-mobile-content-inline-space))',
   },
 });
 const content = css({
@@ -33,18 +34,7 @@ const fullBleedContent = css({
   w: '100vw',
   mx: 'calc(50% - 50vw)',
 });
-const heading = css({
-  m: '0',
-  fontFamily: 'var(--main-section-heading-font-family)',
-  fontSize: 'var(--main-section-heading-font-size)',
-  fontWeight: 'var(--main-section-heading-font-weight)',
-  lineHeight: 'var(--main-section-heading-line-height)',
-  color: 'var(--main-section-heading-color)',
-  _mobile: {
-    fontSize: 'var(--main-section-heading-mobile-font-size)',
-    lineHeight: 'var(--main-section-heading-mobile-line-height)',
-  },
-});
+const heading = css({ m: '0' });
 
 /** A home-page content region with a heading and optional header controls. */
 export function MainSection({
@@ -66,7 +56,9 @@ export function MainSection({
         }
       >
         <HStack className={header}>
-          <h2 className={heading}>{title}</h2>
+          <Typography as="h2" className={heading} variant="sectionHeading">
+            {title}
+          </Typography>
           {actionSlot}
         </HStack>
         <div className={contentWidth === 'fullBleed' ? fullBleedContent : content}>{children}</div>

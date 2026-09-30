@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Box, HStack, VStack } from 'styled-system/jsx';
+import { HStack, VStack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type HeroCopyContent = {
   title: string;
@@ -28,46 +29,38 @@ const copy = css({
   _mobile: {
     top: 'auto',
     bottom: '32.33px',
-    left: '16px',
-    w: 'min(calc(100% - 32px), 343px)',
+    left: 'var(--layout-mobile-inline-gutter)',
+    w: 'min(calc(100% - var(--layout-mobile-content-inline-space)), 343px)',
     transform: 'none',
   },
 });
 
-const title = css({
-  m: '0',
-  fontSize: 'clamp(44px, 4vw, 80px)',
-  fontWeight: '900',
-  letterSpacing: '-0.07em',
-  lineHeight: '0.9625',
-  _mobile: { fontSize: '40px' },
-});
+const title = css({ m: '0' });
 
 const description = css({
   m: '0',
   w: '377px',
-  fontFamily: 'var(--font-family-base)',
-  fontSize: '24px',
-  fontWeight: '400',
-  lineHeight: '1.3',
-  letterSpacing: '-0.02em',
-  color: '#fff',
-  _mobile: {
-    fontSize: '16px',
-    fontWeight: '500',
-  },
 });
 
 export function HeroCopy({ content, actions }: HeroCopyProps) {
   return (
     <VStack alignItems="flex-start" className={copy} gap={{ base: '36px', _mobile: '24px' }}>
       <VStack alignItems="flex-start" gap={{ base: '36px', _mobile: '24px' }}>
-        <h1 className={title}>{content.title}</h1>
-        <Box className={description}>{content.description}</Box>
+        <Typography as="h1" className={title} tone="inverse" variant="display">
+          {content.title}
+        </Typography>
+        <Typography as="div" className={description} tone="inverse" variant="body">
+          {content.description}
+        </Typography>
       </VStack>
       <HStack alignItems="flex-start" gap={{ base: '8px', _mobile: '8px' }}>
         {actions.map((action) => (
-          <ButtonLink key={`${action.to}-${action.label}`} to={action.to} variant="link">
+          <ButtonLink
+            key={`${action.to}-${action.label}`}
+            actionStyle="fill"
+            variant="secondary"
+            to={action.to}
+          >
             {action.label}
           </ButtonLink>
         ))}

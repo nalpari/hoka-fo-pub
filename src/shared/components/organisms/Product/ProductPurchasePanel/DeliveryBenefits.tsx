@@ -4,11 +4,11 @@ import { DescriptionList } from '@/shared/components/atoms/DescriptionList/Descr
 
 const section = css({
   mt: '38px',
-  borderTop: '1px solid #ddd',
+  borderTop: '1px solid var(--color-border-subtle)',
   fontSize: '13px',
   lineHeight: '1.65',
 });
-const block = css({ py: '24px', borderBottom: '1px solid #ddd' });
+const block = css({ py: '24px', borderBottom: '1px solid var(--color-border-subtle)' });
 
 /** 구매 전 확인할 배송 일정과 현재 결제 혜택입니다. */
 export function DeliveryBenefits() {

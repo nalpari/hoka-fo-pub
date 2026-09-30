@@ -1,6 +1,5 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { ProductOptionField } from '@/shared/components/organisms/Product/ProductPurchasePanel/ProductOptionField';
-import { SelectableButtonList } from '@/shared/components/atoms/SelectableButtonList/SelectableButtonList';
+import { ProductButtonOptionList } from '@/shared/components/organisms/Product/ProductPurchasePanel/ProductButtonOptionList';
 import { css } from 'styled-system/css';
 
 const options = css({
@@ -40,16 +39,16 @@ export function SizeSelector({ sizes, soldOut, value, onChange, onOpenGuide }: S
   ) : undefined;
 
   return (
-    <ProductOptionField action={guideAction} label="사이즈">
-      <SelectableButtonList
-        ariaLabel="size selector"
-        buttonClassName={(_, isSelected) => (isSelected ? selected : undefined)}
-        className={options}
-        disabledValues={soldOut}
-        onChange={(next) => onChange(next as string)}
-        selected={value}
-        values={sizes}
-      />
-    </ProductOptionField>
+    <ProductButtonOptionList
+      action={guideAction}
+      ariaLabel="size selector"
+      disabledValues={soldOut}
+      label="사이즈"
+      listClassName={options}
+      onChange={onChange}
+      selectedButtonClassName={selected}
+      value={value}
+      values={sizes}
+    />
   );
 }

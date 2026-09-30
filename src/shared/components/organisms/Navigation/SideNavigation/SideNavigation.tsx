@@ -23,7 +23,7 @@ const sidebar = cva({
       overflow: 'auto',
       mb: '28px',
       pb: '8px',
-      borderBottom: '1px solid #ddd',
+      borderBottom: '1px solid var(--color-border-subtle)',
     },
   },
   variants: { mobileNavigation: { scroll: {}, hidden: { _mobile: { display: 'none' } } } },
@@ -43,7 +43,7 @@ const navLink = cva({
   base: {
     display: 'block',
     my: '8px',
-    color: '#666',
+    color: 'var(--color-text-muted)',
     fontSize: '13px',
     _mobile: { flex: 'none', m: '0', py: '4px', fontSize: '12px', whiteSpace: 'nowrap' },
   },

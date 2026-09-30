@@ -21,11 +21,16 @@ const page = css({
   display: 'grid',
   gridTemplateColumns: '180px minmax(0, 1fr)',
   gap: '50px',
-  maxW: '1384px',
+  maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
   py: '70px',
   pb: '120px',
-  _mobile: { display: 'block', px: '16px', py: '38px', pb: '70px' },
+  _mobile: {
+    display: 'block',
+    px: 'var(--layout-mobile-inline-gutter)',
+    py: '38px',
+    pb: '70px',
+  },
 });
 
 const content = css({ minW: '0' });

@@ -19,7 +19,7 @@ const register = css({
   gridTemplateColumns: '1fr auto',
   gap: '8px',
   p: '20px',
-  bg: '#f5f5f5',
+  bg: 'var(--color-surface-muted)',
   _mobile: { gridTemplateColumns: '1fr' },
 });
 
@@ -46,15 +46,15 @@ const couponRow = css({
   alignItems: 'center',
   minH: '92px',
   px: '16px',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   fontSize: '13px',
   _mobile: {
     gridTemplateColumns: '1fr auto',
     gap: '6px',
     py: '16px',
     '& strong': { fontSize: '20px' },
-    '& span': { gridColumn: '1 / -1', color: '#666' },
-    '& time': { gridColumn: '1 / -1', color: '#666', fontSize: '12px' },
+    '& span': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)', fontSize: '12px' },
   },
 });
 

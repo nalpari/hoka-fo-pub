@@ -9,9 +9,13 @@ import { HomeShoeFinderSection } from './HomeShoeFinderSection';
 
 const home = css({
   overflow: 'hidden',
-  color: '#050505',
-  bg: '#fff',
+  color: 'var(--color-text-primary)',
+  bg: 'var(--color-surface-default)',
   fontFamily: 'var(--font-family-base)',
+  pb: '96px',
+  _mobile: {
+    pb: '72px',
+  },
 });
 
 export function HomePage() {
@@ -23,7 +27,7 @@ export function HomePage() {
         <HomeCategorySection platform={platform} />
         <HomeBestSellerSection />
         <HomeExploreSection />
-        <HomeShoeFinderSection />
+        <HomeShoeFinderSection platform={platform} />
       </VStack>
     </main>
   );

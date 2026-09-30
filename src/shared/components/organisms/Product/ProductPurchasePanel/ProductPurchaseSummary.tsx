@@ -26,7 +26,7 @@ export function ProductPurchaseSummary({ product, onViewReviews }: ProductPurcha
           <span aria-hidden="true">/5</span>
         </span>
         <Button
-          className={css({ p: '0', border: '0', color: '#666', textDecoration: 'underline' })}
+          className={css({ p: '0', border: '0', color: 'var(--color-text-muted)', textDecoration: 'underline' })}
           onClick={onViewReviews}
         >
           {product.reviewCount}개 리뷰 보기

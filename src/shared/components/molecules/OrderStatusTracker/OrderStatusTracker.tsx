@@ -11,14 +11,14 @@ const heading = css({
   alignItems: 'center',
   mb: '12px',
   '& h2': { m: '0', fontSize: '18px' },
-  '& a': { color: '#666', fontSize: '12px' },
+  '& a': { color: 'var(--color-text-muted)', fontSize: '12px' },
 });
 
 const list = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr)',
   borderTop: '1px solid #111',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   _mobile: { overflowX: 'auto', gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))' },
 });
 

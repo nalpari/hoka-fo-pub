@@ -13,6 +13,27 @@ export default defineConfig({
   },
   theme: {
     extend: {
+      semanticTokens: {
+        colors: {
+          text: {
+            primary: { value: '#000' },
+            inverse: { value: '#fff' },
+            subtle: { value: '#555' },
+          },
+          surface: {
+            default: { value: '#fff' },
+            subtle: { value: '#f3f3f3' },
+          },
+          border: {
+            default: { value: '#d8d8d8' },
+            muted: { value: '#B3B3B3' },
+            strong: { value: '#111' },
+          },
+          focus: {
+            default: { value: '#000' },
+          },
+        },
+      },
       tokens: {
         colors: {
           headerBorder: { value: '#E9EAEB' },

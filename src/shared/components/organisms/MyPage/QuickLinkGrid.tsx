@@ -8,7 +8,7 @@ type Props = { items: QuickLinkItem[]; label?: string };
 const grid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  border: '1px solid #ddd',
+  border: '1px solid var(--color-border-subtle)',
   _mobile: { gridTemplateColumns: 'repeat(2, 1fr)' },
 });
 
@@ -18,15 +18,15 @@ const link = css({
   gap: '12px',
   minH: '122px',
   p: '24px',
-  borderRight: '1px solid #ddd',
+  borderRight: '1px solid var(--color-border-subtle)',
   '&:nth-child(4)': { borderRight: '0' },
   _mobile: {
     '&:nth-child(2)': { borderRight: '0' },
-    '&:nth-child(-n + 2)': { borderBottom: '1px solid #ddd' },
+    '&:nth-child(-n + 2)': { borderBottom: '1px solid var(--color-border-subtle)' },
   },
 });
 
-const itemLabel = css({ color: '#666', fontSize: '12px' });
+const itemLabel = css({ color: 'var(--color-text-muted)', fontSize: '12px' });
 
 const value = css({ fontSize: '22px' });
 

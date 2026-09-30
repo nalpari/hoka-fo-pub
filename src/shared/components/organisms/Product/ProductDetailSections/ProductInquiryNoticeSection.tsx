@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Disclosure } from '@/shared/components/atoms/Disclosure/Disclosure';
+import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
 
 type ProductInquiryNoticeSectionProps = {
   children: ReactNode;

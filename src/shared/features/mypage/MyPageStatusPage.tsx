@@ -127,7 +127,7 @@ const header = css({
   borderBottom: '2px solid #111',
   '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
   '& h1': { m: '9px 0', fontSize: '30px' },
-  '& p': { m: '0', color: '#666', fontSize: '13px' },
+  '& p': { m: '0', color: 'var(--color-text-muted)', fontSize: '13px' },
 });
 
 const productGrid = css({

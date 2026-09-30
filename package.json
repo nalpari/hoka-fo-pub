@@ -6,6 +6,7 @@
   "scripts": {
     "prepare": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
     "panda": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
+    "panda:watch": "panda cssgen --watch --outfile src/shared/styles/panda.css",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

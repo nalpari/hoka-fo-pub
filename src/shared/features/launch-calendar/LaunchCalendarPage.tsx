@@ -26,7 +26,7 @@ const intro = css({
   justifyItems: 'center',
   p: '88px 24px 48px',
   textAlign: 'center',
-  '.platform-mobile &': { p: '52px 16px 34px' },
+  '.platform-mobile &': { p: '52px var(--layout-mobile-inline-gutter) 34px' },
 });
 
 const kicker = css({
@@ -82,13 +82,13 @@ const grid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
   gap: '50px 12px',
-  maxW: '1384px',
+  maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
   px: '24px',
   '.platform-mobile &': {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
     gap: '28px 8px',
-    px: '16px',
+    px: 'var(--layout-mobile-inline-gutter)',
   },
 });
 

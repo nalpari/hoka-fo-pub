@@ -10,7 +10,10 @@ const styles = {
     mx: 'auto',
     py: '64px',
     '& > header': { maxW: '700px', mb: '42px' },
-    _mobile: { px: '16px', py: '32px' },
+    _mobile: {
+      px: 'var(--layout-mobile-inline-gutter)',
+      py: 'var(--layout-mobile-page-block-padding)',
+    },
   }),
   hero: css({
     display: 'flex',
@@ -38,7 +41,7 @@ const styles = {
     p: '24px',
     border: '1px solid var(--line)',
     '& h2': { mb: '10px', fontSize: '20px' },
-    '& p': { minH: '48px', mb: '24px', color: '#666', fontSize: '14px', lineHeight: 1.45 },
+    '& p': { minH: '48px', mb: '24px', color: 'var(--color-text-muted)', fontSize: '14px', lineHeight: 1.45 },
     '& ul': { display: 'grid', gap: '9px', m: 0, p: 0, listStyle: 'none' },
     '& a': {
       fontSize: '14px',
@@ -52,7 +55,7 @@ const styles = {
     px: '7px',
     py: '5px',
     bg: 'var(--soft)',
-    color: '#666',
+    color: 'var(--color-text-muted)',
     fontSize: '11px',
   }),
 };

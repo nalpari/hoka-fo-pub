@@ -19,7 +19,7 @@ const styles = {
       color: '#fff',
       fontSize: '28px',
     },
-    '& p': { mt: '12px', mb: 0, color: '#666', fontSize: '14px' },
+    '& p': { mt: '12px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
   }),
   primary: css({
     display: 'grid',

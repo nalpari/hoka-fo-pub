@@ -13,7 +13,7 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': { mt: '9px', mb: 0, color: '#666', fontSize: '14px' },
+    '& > p': { mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
     '& > .field > label': { mt: '20px', fontSize: '14px', fontWeight: 700 },
     "& input:not([type='checkbox'])": {
       w: '100%',

@@ -7,7 +7,7 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 
 const tabs = css({
   display: 'flex',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   '& button': {
     minW: '150px',
     border: '0',
@@ -23,7 +23,7 @@ const item = css({
   gap: '16px',
   alignItems: 'center',
   p: '16px 0',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--color-border-subtle)',
   '.platform-mobile &': { gridTemplateColumns: '64px 1fr', '& button': { gridColumn: '1 / -1' } },
 });
 const image = css({
@@ -37,7 +37,7 @@ const image = css({
 const form = css({
   mt: '22px',
   p: '22px',
-  border: '1px solid #ddd',
+  border: '1px solid var(--color-border-subtle)',
   '& textarea': {
     w: '100%',
     minH: '140px',
@@ -124,7 +124,7 @@ export function ReviewManager() {
         <strong>{visible.length}건</strong>
       </div>
       {!visible.length ? (
-        <p className={css({ py: '80px', textAlign: 'center', color: '#666' })}>
+        <p className={css({ py: '80px', textAlign: 'center', color: 'var(--color-text-muted)' })}>
           작성할 리뷰가 없습니다.
         </p>
       ) : (
@@ -135,7 +135,7 @@ export function ReviewManager() {
               <div>
                 <small>{review.date} 구매</small>
                 <strong className={css({ display: 'block', mt: '4px' })}>{review.product}</strong>
-                <span className={css({ fontSize: '13px', color: '#666' })}>
+                <span className={css({ fontSize: '13px', color: 'var(--color-text-muted)' })}>
                   옵션: {review.option}
                 </span>
                 {tab === 'written' ? (

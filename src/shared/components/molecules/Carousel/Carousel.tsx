@@ -47,8 +47,8 @@ const viewport = css({
 const controls = css({ display: 'flex', gap: '10px' });
 
 const control = css({
-  '--icon-carousel-circle-color': '#000',
-  '--icon-carousel-path-color': '#F7F7F9',
+  '--icon-carousel-circle-color': 'var(--color-text-primary)',
+  '--icon-carousel-path-color': 'var(--color-surface-subtle)',
   display: 'flex',
   w: '48px',
   h: '48px',
@@ -57,8 +57,8 @@ const control = css({
   borderRadius: '50%',
   bg: 'transparent',
   _disabled: {
-    '--icon-carousel-circle-color': '#F7F7F9',
-    '--icon-carousel-path-color': '#B3B3B3',
+    '--icon-carousel-circle-color': 'var(--color-surface-subtle)',
+    '--icon-carousel-path-color': 'var(--color-text-subtle)',
     cursor: 'not-allowed',
   },
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
@@ -82,11 +82,11 @@ const paginationButton = css({
   h: '3px',
   p: '0',
   border: '0',
-  bg: '#D5D7DC',
+  bg: 'var(--color-border-default)',
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '3px' },
 });
 
-const paginationButtonActive = css({ bg: '#333640' });
+const paginationButtonActive = css({ bg: 'var(--color-text-primary)' });
 
 const desktopOverflowVisible = css({
   overflow: 'visible!',
@@ -239,7 +239,7 @@ export function CarouselViewport({
                 ? desktopFirstSlideGutter
                 : index === Children.count(children) - 1
                   ? desktopLastSlideGutter
-                : desktopSlideGutter
+                  : desktopSlideGutter
               : isMobile && mobileItemGutter !== undefined
                 ? mobileSlideGutter
                 : '',

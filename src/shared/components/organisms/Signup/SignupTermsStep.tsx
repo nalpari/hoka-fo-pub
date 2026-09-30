@@ -11,7 +11,7 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': { mt: '9px', mb: 0, color: '#666', fontSize: '14px' },
+    '& > p': { mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
   }),
   allTerms: css({
     display: 'flex',
@@ -23,20 +23,20 @@ const styles = {
     fontWeight: 700,
   }),
   termList: css({
-    borderBottom: '1px solid #ddd',
+    borderBottom: '1px solid var(--color-border-subtle)',
     '& label': {
       display: 'flex',
       alignItems: 'center',
       gap: '9px',
       p: '16px 2px',
-      borderTop: '1px solid #ddd',
+      borderTop: '1px solid var(--color-border-subtle)',
       fontSize: '13px',
     },
     '& button': {
       ml: 'auto',
       p: 0,
       border: 0,
-      color: '#666',
+      color: 'var(--color-text-muted)',
       fontSize: '12px',
       textDecoration: 'underline',
     },

@@ -4,7 +4,7 @@ import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 
 const root = css({
-  maxW: '1384px',
+  maxW: 'var(--layout-content-max-width)',
   minH: '54vh',
   mx: 'auto',
   py: { base: '64px', _mobile: '40px' },
@@ -16,7 +16,7 @@ export function NotFoundPage() {
   return (
     <ContentLayout className={root} title="404" description="요청하신 페이지를 찾을 수 없습니다.">
       <Stack justifyItems="start" gap="24px" py="32px" borderTop="1px solid #111">
-        <p className={css({ m: '0', color: '#666' })}>
+        <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>
           주소가 잘못 입력되었거나 페이지가 이동 또는 삭제되었을 수 있습니다.
         </p>
         <ButtonLink to="/" variant="primary">

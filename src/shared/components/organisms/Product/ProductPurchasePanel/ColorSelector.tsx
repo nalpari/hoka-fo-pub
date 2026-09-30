@@ -17,7 +17,9 @@ const option = css({
     outlineOffset: '2px',
   },
 });
+
 const selected = css({ boxShadow: 'inset 0 -3px #111' });
+
 const thumbnail = css({
   display: 'grid',
   w: '100%',
@@ -29,7 +31,9 @@ const thumbnail = css({
   lineHeight: '1.1',
   textAlign: 'center',
 });
+
 const thumbnailImage = css({ w: '100%', h: '100%', objectFit: 'contain' });
+
 const srOnly = css({
   position: 'absolute',
   w: '1px',
