@@ -57,7 +57,6 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
         {actions.map((action) => (
           <ButtonLink
             key={`${action.to}-${action.label}`}
-            actionStyle="fill"
             variant="secondary"
             to={action.to}
           >

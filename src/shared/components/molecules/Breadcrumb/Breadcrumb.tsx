@@ -21,7 +21,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
         <span key={`${item.label}-${index}`}>
           {index > 0 && (
             <span className={separator} aria-hidden="true">
-              <Icon name="breadcrumb" style={{ width: '7px', height: '12px' }} />
+              <Icon name="breadcrumb" style={{ width: '4px', height: '8px' }} />
             </span>
           )}
           {item.href && index < items.length - 1 ? (

@@ -9,7 +9,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 export type MainContentCardAction = {
   label: string;
   to: string;
-  type?: 'link' | 'pill';
+  variant?: 'link' | 'secondary';
 };
 
 export type MainContentCardImageAspectRatio = {
@@ -191,15 +191,14 @@ function getAverageLuminance(image: HTMLImageElement) {
 function MainCardAction({
   label,
   to,
-  type = 'link',
+  variant = 'link',
   tone,
 }: MainContentCardAction & { tone: ContentTone }) {
+  const resolvedVariant =
+    variant === 'secondary' ? (tone === 'light' ? 'secondary' : 'secondaryInverse') : variant;
+
   return (
-    <ButtonLink
-      actionStyle={type === 'pill' ? 'fill' : 'underline'}
-      variant={tone === 'light' ? 'secondary' : 'primary'}
-      to={to}
-    >
+    <ButtonLink to={to} variant={resolvedVariant}>
       {label}
     </ButtonLink>
   );

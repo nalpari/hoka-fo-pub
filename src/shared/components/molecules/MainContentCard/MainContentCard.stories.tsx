@@ -45,7 +45,7 @@ export const Overlay: Story = {
     description: '도시와 트레일을 위한 새로운 러닝 컬렉션입니다.',
     actions: [
       { label: '상품 바로가기', to: '/products' },
-      { label: '컬렉션 보기', to: '/collection', type: 'pill' },
+      { label: '컬렉션 보기', to: '/collection', variant: 'secondary' },
     ],
   },
 };
@@ -57,8 +57,8 @@ export const ImagePill: Story = {
     title: 'Fly to the finish',
     description: '레이스 당일을 위해 제작된 가벼운 장비로, 오직 달리기에만 집중할 수 있습니다.',
     actions: [
-      { label: '남성 바로가기', to: '/products?gender=men', type: 'pill' },
-      { label: '여성 바로가기', to: '/products?gender=women', type: 'pill' },
+      { label: '남성 바로가기', to: '/products?gender=men', variant: 'secondary' },
+      { label: '여성 바로가기', to: '/products?gender=women', variant: 'secondary' },
     ],
   },
 };
@@ -68,6 +68,6 @@ export const OverlayBright: Story = {
     variant: 'overlay',
     image: '/images/temp/category-road-running.webp',
     description: '밝은 이미지에서는 검정색 콘텐츠와 검정 pill 버튼을 사용합니다.',
-    actions: [{ label: '상품 바로가기', to: '/products', type: 'pill' }],
+    actions: [{ label: '상품 바로가기', to: '/products', variant: 'secondary' }],
   },
 };

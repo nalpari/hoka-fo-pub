@@ -32,9 +32,17 @@ const buttonFrame = cva({
   variants: {
     variant: {
       primary: {},
-      secondary: {},
+      secondary: { border: '0!', borderRadius: '52px' },
+      secondaryInverse: { border: '0!', borderRadius: '52px' },
       ghost: {},
       brand: {},
+      link: {
+        bg: 'transparent!',
+        borderColor: 'transparent',
+        color: 'var(--color-action-underline-color, #111)',
+        border: '0!',
+        borderRadius: '0',
+      },
       filterTrigger: { borderRadius: 'var(--button-radius)' },
       headerSearch: { w: '178px' },
     },
@@ -44,20 +52,8 @@ const buttonFrame = cva({
         '--button-border-color': 'var(--color-danger-border, var(--color-error))',
       },
     },
-    appearance: {
-      default: {},
-      underline: {
-        bg: 'transparent',
-        borderColor: 'transparent',
-        color: 'var(--color-action-underline-color, var(--color-action-secondary-color))',
-      },
-    },
-    actionStyle: {
-      fill: { border: '0!', borderRadius: '52px' },
-      underline: { border: '0!', borderRadius: '0', bg: 'transparent!' },
-    },
   },
-  defaultVariants: { variant: 'secondary', appearance: 'default' },
+  defaultVariants: { variant: 'secondary' },
 });
 
 const buttonContent = cva({
@@ -77,9 +73,40 @@ const buttonContent = cva({
   variants: {
     variant: {
       primary: {},
-      secondary: {},
+      secondary: {
+        h: '48px',
+        minH: '48px',
+        py: '12px',
+        px: '24px',
+        _mobile: {
+          h: '40px',
+          minH: '40px',
+          maxH: '40px',
+          py: '12px',
+          px: '16px',
+        },
+      },
+      secondaryInverse: {
+        h: '48px',
+        minH: '48px',
+        py: '12px',
+        px: '24px',
+        _mobile: {
+          h: '40px',
+          minH: '40px',
+          maxH: '40px',
+          py: '12px',
+          px: '16px',
+        },
+      },
       ghost: {},
       brand: {},
+      link: {
+        h: 'auto!',
+        minH: 'auto!',
+        py: '0!',
+        px: '0!',
+      },
       filterTrigger: {
         h: 'var(--button-height)',
         minH: 'var(--button-height)',
@@ -99,27 +126,6 @@ const buttonContent = cva({
       lg: { minH: '48px', px: '22px' },
     },
     fullWidth: { true: { w: '100%' } },
-    actionStyle: {
-      fill: {
-        h: '48px',
-        minH: '48px',
-        py: '12px',
-        px: '24px',
-        _mobile: {
-          h: '40px',
-          minH: '40px',
-          maxH: '40px',
-          py: '12px',
-          px: '16px',
-        },
-      },
-      underline: {
-        h: 'auto!',
-        minH: 'auto!',
-        py: '0!',
-        px: '0!',
-      },
-    },
   },
   defaultVariants: { variant: 'secondary', size: 'md' },
 });
@@ -138,9 +144,32 @@ const buttonLabel = cva({
   variants: {
     variant: {
       primary: {},
-      secondary: {},
+      secondary: {
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+        _mobile: { fontSize: '14px', fontWeight: '600' },
+      },
+      secondaryInverse: {
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+        _mobile: { fontSize: '14px', fontWeight: '600' },
+      },
       ghost: {},
       brand: {},
+      link: {
+        fontSize: '16px',
+        fontWeight: '600',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+        textDecoration: 'underline',
+        textDecorationThickness: '1px',
+        textUnderlineOffset: '3px',
+        _mobile: { fontSize: '14px', textUnderlineOffset: '2px' },
+      },
       filterTrigger: {
         fontSize: '14px',
         fontWeight: '600',
@@ -148,6 +177,7 @@ const buttonLabel = cva({
         letterSpacing: '-0.02em',
       },
       headerSearch: {
+        display: 'flex',
         flex: '1 0 0',
         minW: '0',
         color: '#4d4d4d',
@@ -162,34 +192,29 @@ const buttonLabel = cva({
       md: {},
       lg: { fontSize: '16px' },
     },
-    actionStyle: {
-      fill: {
-        fontSize: '16px',
-        fontWeight: '600',
-        lineHeight: '1.3',
-        letterSpacing: '-0.02em',
-        _mobile: { fontSize: '14px', fontWeight: '600' },
-      },
-      underline: {
-        fontSize: '16px',
-        fontWeight: '600',
-        lineHeight: '1.3',
-        letterSpacing: '-0.02em',
-        textDecoration: 'underline',
-        textDecorationThickness: '1px',
-        textUnderlineOffset: '3px',
-        _mobile: { fontSize: '14px', textUnderlineOffset: '2px' },
-      },
-    },
   },
 });
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  actionStyle?: 'fill' | 'underline';
-  variant?: 'primary' | 'secondary' | 'ghost' | 'brand' | 'filterTrigger' | 'headerSearch';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'secondaryInverse'
+    | 'ghost'
+    | 'brand'
+    | 'link'
+    | 'filterTrigger'
+    | 'headerSearch';
   size?: 'sm' | 'md' | 'lg';
-  tone?: 'primary' | 'secondary' | 'ghost' | 'brand' | 'filterTrigger' | 'headerSearch';
-  appearance?: 'default' | 'underline';
+  tone?:
+    | 'primary'
+    | 'secondary'
+    | 'secondaryInverse'
+    | 'ghost'
+    | 'brand'
+    | 'link'
+    | 'filterTrigger'
+    | 'headerSearch';
   fullWidth?: boolean;
   icon?: ReactNode;
   loading?: boolean;
@@ -209,6 +234,11 @@ const variableStyles: Record<NonNullable<ButtonProps['variant']>, CSSProperties>
     '--button-color': 'var(--color-action-secondary-color, #111)',
     '--button-border-color': 'var(--color-action-secondary-border, var(--border-strong))',
   } as CSSProperties,
+  secondaryInverse: {
+    '--button-bg': 'var(--color-action-primary-bg, #111)',
+    '--button-color': 'var(--color-action-primary-color, #fff)',
+    '--button-border-color': 'var(--color-action-primary-border, var(--border-strong))',
+  } as CSSProperties,
   ghost: {
     '--button-bg': 'var(--color-action-ghost-bg, transparent)',
     '--button-color': 'var(--color-action-ghost-color, #111)',
@@ -218,6 +248,11 @@ const variableStyles: Record<NonNullable<ButtonProps['variant']>, CSSProperties>
     '--button-bg': 'var(--color-action-brand-bg, #0082ca)',
     '--button-color': 'var(--color-action-brand-color, #fff)',
     '--button-border-color': 'var(--color-action-brand-border, #0082ca)',
+  } as CSSProperties,
+  link: {
+    '--button-bg': 'transparent',
+    '--button-color': 'var(--color-action-underline-color, #111)',
+    '--button-border-color': 'transparent',
   } as CSSProperties,
   filterTrigger: {
     '--button-bg': '#fff',
@@ -241,11 +276,9 @@ const variableStyles: Record<NonNullable<ButtonProps['variant']>, CSSProperties>
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
-    actionStyle,
     variant = 'secondary',
     tone,
     size = 'md',
-    appearance = 'default',
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -260,9 +293,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const resolvedVariant = tone ?? variant;
-  const label = (
-    <span className={buttonLabel({ actionStyle, size, variant: resolvedVariant })}>{children}</span>
-  );
+  const label = <span className={buttonLabel({ size, variant: resolvedVariant })}>{children}</span>;
 
   return (
     <BaseButton
@@ -283,8 +314,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     >
       <span
         className={buttonFrame({
-          actionStyle,
-          appearance,
           fullWidth,
           invalid,
           variant: resolvedVariant,
@@ -292,7 +321,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       >
         <span
           className={buttonContent({
-            actionStyle,
             fullWidth,
             size,
             variant: resolvedVariant,
@@ -312,16 +340,7 @@ export type ButtonLinkProps = Pick<
 > &
   Pick<
     ButtonProps,
-    | 'actionStyle'
-    | 'className'
-    | 'style'
-    | 'variant'
-    | 'size'
-    | 'appearance'
-    | 'fullWidth'
-    | 'icon'
-    | 'loading'
-    | 'invalid'
+    'className' | 'style' | 'variant' | 'size' | 'fullWidth' | 'icon' | 'loading' | 'invalid'
   > & {
     children: ReactNode;
   };
