@@ -8,9 +8,9 @@ const styles = {
   overlay: css({
     position: 'fixed',
     zIndex: -1,
-    inset: '88px 0 0',
+    inset: 'var(--layout-site-header-height) 0 0',
     w: '100%',
-    h: 'calc(100dvh - 88px)',
+    h: 'calc(100dvh - var(--layout-site-header-height))',
     border: 0,
     p: 0,
     bg: 'rgb(0 0 0 / 52%)',
@@ -19,7 +19,7 @@ const styles = {
   menu: css({
     position: 'absolute',
     zIndex: 1,
-    top: '88px',
+    top: 'var(--layout-site-header-height)',
     right: 0,
     left: 0,
     borderBottom: '1px solid var(--hoka-black)',

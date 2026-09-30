@@ -5,7 +5,7 @@ import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilte
 
 const pills = css({
   display: 'grid',
-  gridTemplateColumns: { base: 'repeat(3, 1fr)', _mobile: 'repeat(5, 1fr)' },
+  gridTemplateColumns: { base: 'repeat(4, 1fr)' },
   gap: '5px',
   '& button': { borderColor: '#ddd', py: '7px', px: '2px', fontSize: '12px' },
 });

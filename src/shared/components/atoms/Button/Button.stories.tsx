@@ -15,8 +15,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = { args: { variant: 'primary' } };
+
 export const Secondary: Story = {};
+
+export const SecondaryInverse: Story = { args: { variant: 'secondaryInverse' } };
+
 export const Disabled: Story = { args: { disabled: true } };
+
 export const WithIcon: Story = {
   render: () => (
     <HStack gap="12px">
@@ -37,20 +42,20 @@ export const HeaderSearch: Story = {
     variant: 'headerSearch',
   },
 };
-export const FillLink: Story = {
+export const SecondaryLink: Story = {
   render: () => (
     <MemoryRouter>
-      <ButtonLink actionStyle="fill" to="/products" variant="secondary">
+      <ButtonLink to="/products" variant="secondary">
         바로가기
       </ButtonLink>
     </MemoryRouter>
   ),
 };
 
-export const UnderlineLink: Story = {
+export const TextLink: Story = {
   render: () => (
     <MemoryRouter>
-      <ButtonLink actionStyle="underline" to="/products" variant="primary">
+      <ButtonLink to="/products" variant="link">
         바로가기
       </ButtonLink>
     </MemoryRouter>

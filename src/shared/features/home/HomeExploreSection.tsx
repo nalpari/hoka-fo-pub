@@ -24,7 +24,7 @@ export function HomeExploreSection() {
             {...explore}
             actions={explore.actions.map((action) => ({
               ...action,
-              type: isMobile ? 'pill' : action.type,
+              variant: isMobile ? 'secondary' : action.variant,
             }))}
             variant={isMobile ? 'overlay' : 'descriptionLink'}
           />

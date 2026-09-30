@@ -10,13 +10,13 @@ import { Flex, HStack } from 'styled-system/jsx';
 const header = css({
   display: 'flex',
   alignItems: 'center',
-  h: '88px',
+  h: 'var(--layout-site-header-height)',
   px: '72px',
   borderBottomWidth: '1px',
   borderBottomStyle: 'solid',
   borderBottomColor: 'headerBorder',
   bg: 'var(--hoka-white)',
-  _mobile: { gap: 0, h: '52px', p: '0 9px 0 var(--layout-mobile-inline-gutter)' },
+  _mobile: { gap: 0, p: '0 9px 0 var(--layout-mobile-inline-gutter)' },
 });
 
 export type SiteHeaderContainerProps = {

@@ -1,11 +1,20 @@
-import type { ReactNode } from 'react';
+'use client';
+
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
-import { SectionHeader } from '@/shared/components/atoms/SectionHeader/SectionHeader';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import {
-  Breadcrumb,
-  type BreadcrumbItem,
-} from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
+import { ContentHeader } from '@/shared/components/layouts/ContentLayout/ContentHeader';
+import type { BreadcrumbItem } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
+
+const stickyHeaderStyle = css({
+  position: 'sticky',
+  top: 'var(--layout-site-header-height)',
+  zIndex: 10,
+  bg: 'var(--hoka-white)',
+  pt: '24px',
+  pb: '20px',
+  _mobile: { position: 'static', pt: 0 },
+});
 
 type ContentLayoutProps = {
   children: ReactNode;
@@ -17,6 +26,7 @@ type ContentLayoutProps = {
   headerAction?: ReactNode;
   titleClassName?: string;
   contentWidth?: 'default' | 'narrow' | 'wide';
+  stickyHeader?: boolean;
 };
 
 /** A page content frame with optional location and introductory content. */
@@ -30,32 +40,42 @@ export function ContentLayout({
   headerAction,
   titleClassName,
   contentWidth = 'default',
+  stickyHeader = false,
 }: ContentLayoutProps) {
-  const hasIntro = breadcrumbItems?.length || title || description;
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!stickyHeader || !headerRef.current) return;
+
+    const updateHeaderHeight = () => {
+      setHeaderHeight(headerRef.current?.getBoundingClientRect().height ?? 0);
+    };
+
+    updateHeaderHeight();
+
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(headerRef.current);
+
+    return () => observer.disconnect();
+  }, [stickyHeader]);
+
+  const layoutStyle = {
+    '--content-layout-header-height': `${headerHeight}px`,
+  } as CSSProperties;
 
   return (
-    <Stack as="main" className={className} gap="0">
-      {hasIntro && (
-        <Stack as="header" gap={{ base: '24px', _mobile: '10px' }}>
-          {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
-          {title ? (
-            <SectionHeader
-              action={headerAction}
-              description={description}
-              eyebrow={eyebrow}
-              title={title}
-              titleAs="h1"
-              titleClassName={titleClassName}
-              titleSize="lg"
-            />
-          ) : null}
-          {!title && description ? (
-            <Typography as="p" tone="subtle" variant="body">
-              {description}
-            </Typography>
-          ) : null}
-        </Stack>
-      )}
+    <Stack as="main" className={className} gap="0" style={layoutStyle}>
+      <div className={stickyHeader ? stickyHeaderStyle : undefined} ref={headerRef}>
+        <ContentHeader
+          breadcrumbItems={breadcrumbItems}
+          description={description}
+          eyebrow={eyebrow}
+          headerAction={headerAction}
+          title={title}
+          titleClassName={titleClassName}
+        />
+      </div>
       <Box
         maxW={contentWidth === 'narrow' ? '760px' : contentWidth === 'wide' ? 'none' : undefined}
         minW="0"
