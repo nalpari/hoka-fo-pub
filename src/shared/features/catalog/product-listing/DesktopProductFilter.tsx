@@ -8,6 +8,7 @@ const stickyFilterPanel = css({
   alignSelf: 'start',
   maxH: 'calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))',
   overflowY: 'auto',
+  overflowX: 'hidden',
   overscrollBehavior: 'contain',
 });
 

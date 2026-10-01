@@ -49,7 +49,7 @@ export function Tag({ children, onDelete }: TagProps) {
         onClick={onDelete}
         size="16px"
       >
-        <Icon className={deleteIcon} name="tag-delete" size="16px" />
+        <Icon className={deleteIcon} name="tag-delete" />
       </IconButton>
     </HStack>
   );

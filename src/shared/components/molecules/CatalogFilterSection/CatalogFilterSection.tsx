@@ -1,27 +1,27 @@
-import type { ReactNode } from 'react';
+'use client';
+
+import { useState, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Fieldset } from '@/shared/components/atoms/Fieldset/Fieldset';
+import { CatalogFilterTrigger } from '@/shared/components/molecules/CatalogFilterSection/CatalogFilterTrigger';
+import { Box } from 'styled-system/jsx';
 
 const root = css({
-  borderTop: '1px solid var(--line)',
-  py: '18px',
-  '&:not([open]) > summary::after': { content: '"+"' },
+  pb: '24px',
 });
-const summary = css({
-  cursor: 'pointer',
-  listStyle: 'none',
-  fontWeight: '700',
-  _after: { content: '"−"', float: 'right' },
-});
-const fieldset = css({ mt: '10px' });
 
 export function CatalogFilterSection({ title, children }: { title: string; children: ReactNode }) {
+  const [expanded, setExpanded] = useState(true);
+
   return (
-    <details className={root} open>
-      <summary className={summary}>{title}</summary>
-      <Fieldset className={fieldset} legend={title} visuallyHiddenLegend>
-        {children}
-      </Fieldset>
-    </details>
+    <>
+      <Box bg="#B3B3B3" w="100%" h="1px" />
+      <details onToggle={(event) => setExpanded(event.currentTarget.open)} open>
+        <CatalogFilterTrigger expanded={expanded} title={title} />
+        <Fieldset className={root} legend={title} visuallyHiddenLegend>
+          {children}
+        </Fieldset>
+      </details>
+    </>
   );
 }

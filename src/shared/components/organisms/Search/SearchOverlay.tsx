@@ -1,11 +1,96 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '@/shared/components/organisms/Search/SearchOverlay.module.scss';
+import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
+import { Backdrop } from '@/shared/components/atoms/Backdrop/Backdrop';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
+const dialog = css({ w: '100%', minH: '520px', bg: '#fff', _mobile: { minH: '100%' } });
+
+const inner = css({
+  w: 'min(100% - 48px, 820px)',
+  mx: 'auto',
+  pt: '26px',
+  pb: '80px',
+  _mobile: { w: 'min(100% - 32px, 820px)', pt: '16px' },
+});
+
+const heading = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  mb: '20px',
+  '& h2': { m: '0', fontSize: '17px' },
+});
+
+const close = css({
+  w: '32px',
+  h: '32px',
+  border: '0',
+  bg: 'transparent',
+  fontSize: '28px',
+  lineHeight: '1',
+});
+
+const form = css({
+  display: 'grid',
+  gridTemplateColumns: '78px minmax(0, 1fr) 66px',
+  border: '1px solid #dadada',
+  '& input': { w: '100%', h: '44px', minW: '0', border: '0', bg: '#fff', color: '#222', px: '14px', fontSize: '13px' },
+  '& input::placeholder': { color: '#9a9a9a' },
+});
+
+const categoryStyle = css({
+  borderRight: '1px solid #dadada',
+  '& select': { w: '100%', h: '44px', border: '0', bg: '#fff', color: '#222', px: '8px', fontSize: '13px', fontWeight: '600' },
+});
+
+const submit = css({ border: '0', bg: '#151515', color: '#fff', fontSize: '13px', fontWeight: '700' });
+
+const collectionLinksStyle = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  gap: '0',
+  py: '18px',
+  _mobile: { justifyContent: 'flex-start', gap: '8px 0' },
+  '& button': { border: '0', borderRight: '1px solid #ddd', py: '0', px: '16px', bg: 'transparent', color: '#444', fontSize: '12px', fontWeight: '600', _hover: { textDecoration: 'underline' }, _mobile: { px: '10px' } },
+  '& button:last-child': { borderRight: '0' },
+});
+
+const suggestions = css({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  minH: '250px',
+  border: '1px solid #e2e2e2',
+  borderTop: '0',
+  _mobile: { gridTemplateColumns: '1fr' },
+  '& section': { p: '16px' },
+  '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  '& h3': { m: '0', fontSize: '14px' },
+  '& header button': { border: '0', p: '0', bg: 'transparent', color: '#999', fontSize: '11px' },
+  '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
+  '& li': { display: 'flex', alignItems: 'center', justifyContent: 'space-between', minH: '26px', fontSize: '13px' },
+  '& p': { display: 'grid', minH: '158px', m: '0', placeItems: 'center', color: '#666', fontSize: '13px', textAlign: 'center' },
+});
+
+const recent = css({ borderRight: '1px solid #e2e2e2', _mobile: { borderRight: '0', borderBottom: '1px solid #e2e2e2' } });
+
+const recentQuery = css({ border: '0', p: '0', bg: 'transparent', color: '#333', fontSize: 'inherit', textAlign: 'left', _hover: { textDecoration: 'underline' } });
+
+const remove = css({ border: '0', bg: 'transparent', color: '#aaa', fontSize: '17px', lineHeight: '1' });
+
+const recommended = css({
+  '& ol': { counterReset: 'item' },
+  '& li': { justifyContent: 'flex-start', gap: '7px' },
+  '& li::before': { counterIncrement: 'item', content: "counter(item) '.'" },
+  '& button': { border: '0', p: '0', bg: 'transparent', color: '#333', fontSize: 'inherit', textAlign: 'left', _hover: { textDecoration: 'underline' } },
+});
+
+const srOnly = css({ position: 'absolute', w: '1px', h: '1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap' });
 
 const storageKey = 'hoka-recent-searches';
 const suggestedSearches = [
@@ -77,30 +162,30 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
   };
 
   return (
-    <Box className={styles.backdrop} onMouseDown={onClose} role="presentation">
+    <Backdrop layer="overlay" onClose={onClose} placement="fill" tone="black72">
       <section
         aria-labelledby="site-search-title"
         aria-modal="true"
-        className={styles.dialog}
+        className={dialog}
         onMouseDown={(event) => event.stopPropagation()}
         role="dialog"
       >
-        <Box className={styles.inner}>
-          <Box className={styles.heading}>
+        <Box className={inner}>
+          <Box className={heading}>
             <h2 id="site-search-title">검색</h2>
-            <IconButton aria-label="검색 닫기" className={styles.close} onClick={onClose}>
+            <IconButton aria-label="검색 닫기" className={close} onClick={onClose}>
               ×
             </IconButton>
           </Box>
           <form
-            className={styles.form}
+            className={form}
             onSubmit={(event) => {
               event.preventDefault();
               search();
             }}
           >
-            <label className={styles.category}>
-              <span className={styles.srOnly}>검색 범위</span>
+            <label className={categoryStyle}>
+              <span className={srOnly}>검색 범위</span>
               <Select onChange={(event) => setCategory(event.target.value)} value={category}>
                 <option>전체</option>
                 <option>상품</option>
@@ -117,11 +202,11 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
               type="search"
               value={query}
             />
-            <Button className={styles.submit} type="submit" variant="primary">
+            <Button className={submit} type="submit" variant="primary">
               검색
             </Button>
           </form>
-          <nav aria-label="기획전 바로가기" className={styles.collectionLinks}>
+          <nav aria-label="기획전 바로가기" className={collectionLinksStyle}>
             {collectionLinks.map((collection) => (
               <Button
                 key={collection.id}
@@ -135,8 +220,8 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
             ))}
           </nav>
           {isFocused ? (
-            <Box className={styles.suggestions}>
-              <section className={styles.recent} aria-labelledby="recent-search-title">
+            <Box className={suggestions}>
+              <section className={recent} aria-labelledby="recent-search-title">
                 <header>
                   <h3 id="recent-search-title">최근 검색어</h3>
                   {recentSearches.length ? (
@@ -153,7 +238,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                     {recentSearches.map((recent) => (
                       <li key={recent}>
                         <Button
-                          className={styles.recentQuery}
+                          className={recentQuery}
                           onMouseDown={(event) => event.preventDefault()}
                           onClick={() => search(recent)}
                         >
@@ -161,7 +246,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                         </Button>
                         <IconButton
                           aria-label={`${recent} 삭제`}
-                          className={styles.remove}
+                          className={remove}
                           onMouseDown={(event) => event.preventDefault()}
                           onClick={() => removeRecentSearch(recent)}
                           size="26px"
@@ -175,7 +260,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                   <p>최근 검색어 내역이 없습니다.</p>
                 )}
               </section>
-              <section className={styles.recommended} aria-labelledby="recommended-search-title">
+              <section className={recommended} aria-labelledby="recommended-search-title">
                 <h3 id="recommended-search-title">추천 검색어</h3>
                 <ol>
                   {suggestedSearches.map((suggestion) => (
@@ -194,6 +279,6 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
           ) : null}
         </Box>
       </section>
-    </Box>
+    </Backdrop>
   );
 }
