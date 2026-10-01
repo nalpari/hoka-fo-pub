@@ -3,7 +3,11 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Tag } from '@/shared/components/atoms/Tag/Tag';
 import { css } from 'styled-system/css';
 
-const panel = css({ w: '100%', '& h3': { m: '0 0 18px', fontSize: '20px' } });
+const panel = css({
+  w: '100%',
+  pb: '64px',
+  '& h3': { m: '0 0 18px', fontSize: '20px' },
+});
 
 const selectedFilterList = css({
   display: 'flex',
