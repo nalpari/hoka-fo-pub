@@ -13,7 +13,7 @@ export type StepIndicatorProps = {
 const list = cva({
   base: {
     display: 'flex',
-    gap: '20px',
+    gap: '5',
     m: '0',
     p: '0',
     color: '#aaa',
@@ -24,7 +24,7 @@ const list = cva({
   defaultVariants: { mobileHidden: false },
 });
 const item = cva({
-  base: { '& + &::before': { mr: '20px', content: '"›"' } },
+  base: { '& + &::before': { mr: '5', content: '"›"' } },
   variants: {
     current: {
       true: {

@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
-const button = css({ w: '100%', minH: '44px', my: '5px' });
+const button = css({ w: '100%', minH: '11', my: '1.25' });
 
 type WishlistButtonProps = {
   pressed: boolean;

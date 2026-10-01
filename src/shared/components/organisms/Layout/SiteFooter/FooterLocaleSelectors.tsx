@@ -4,7 +4,7 @@ import { Grid } from 'styled-system/jsx';
 
 export function FooterLocaleSelectors() {
   return (
-    <Grid gap="8px" w="100%">
+    <Grid gap="2" w="100%">
       <Dropdown
         ariaLabel="국가 또는 지역"
         defaultValue="us"
@@ -29,4 +29,4 @@ export function FooterLocaleSelectors() {
     </Grid>
   );
 }
-const flag = css({ w: '12px', h: '18px', objectFit: 'cover' });
+const flag = css({ w: '3', h: '18px', objectFit: 'cover' });

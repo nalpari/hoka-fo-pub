@@ -20,9 +20,9 @@ const list = css({ borderTop: '2px solid #111', mt: '18px' });
 const item = css({
   display: 'grid',
   gridTemplateColumns: '80px 1fr auto',
-  gap: '16px',
+  gap: '4',
   alignItems: 'center',
-  p: '16px 0',
+  p: '4 0',
   borderBottom: '1px solid var(--color-border-subtle)',
   '.platform-mobile &': { gridTemplateColumns: '64px 1fr', '& button': { gridColumn: '1 / -1' } },
 });
@@ -41,15 +41,15 @@ const form = css({
   '& textarea': {
     w: '100%',
     minH: '140px',
-    mt: '8px',
-    p: '12px',
+    mt: '2',
+    p: '3',
     border: '1px solid #bbb',
     fontFamily: 'var(--font-family-base)',
   },
 });
 const error = css({
   display: 'block',
-  mt: '6px',
+  mt: '1.5',
   color: '#db1f2d',
   fontSize: '12px',
   fontWeight: '700',
@@ -124,7 +124,7 @@ export function ReviewManager() {
         <strong>{visible.length}건</strong>
       </div>
       {!visible.length ? (
-        <p className={css({ py: '80px', textAlign: 'center', color: 'var(--color-text-muted)' })}>
+        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-muted)' })}>
           작성할 리뷰가 없습니다.
         </p>
       ) : (
@@ -134,7 +134,7 @@ export function ReviewManager() {
               <div className={image}>IMG</div>
               <div>
                 <small>{review.date} 구매</small>
-                <strong className={css({ display: 'block', mt: '4px' })}>{review.product}</strong>
+                <strong className={css({ display: 'block', mt: '1' })}>{review.product}</strong>
                 <span className={css({ fontSize: '13px', color: 'var(--color-text-muted)' })}>
                   옵션: {review.option}
                 </span>
@@ -196,7 +196,7 @@ export function ReviewManager() {
           <div className={css({ mt: '18px' })}>
             <b>사진/영상 첨부 (선택)</b>
             <TextInput
-              className={css({ mt: '8px' })}
+              className={css({ mt: '2' })}
               type="file"
               multiple
               accept=".jpg,.jpeg,.png,.mp4"
@@ -215,7 +215,7 @@ export function ReviewManager() {
             </small>
           </div>
           <div
-            className={css({ display: 'flex', justifyContent: 'flex-end', gap: '8px', mt: '22px' })}
+            className={css({ display: 'flex', justifyContent: 'flex-end', gap: '2', mt: '22px' })}
           >
             <Button onClick={() => confirm('리뷰 작성을 취소하시겠습니까?') && close()}>
               취소

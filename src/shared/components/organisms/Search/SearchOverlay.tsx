@@ -14,21 +14,21 @@ const inner = css({
   w: 'min(100% - 48px, 820px)',
   mx: 'auto',
   pt: '26px',
-  pb: '80px',
-  _mobile: { w: 'min(100% - 32px, 820px)', pt: '16px' },
+  pb: '20',
+  _mobile: { w: 'min(100% - 32px, 820px)', pt: '4' },
 });
 
 const heading = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  mb: '20px',
+  mb: '5',
   '& h2': { m: '0', fontSize: '17px' },
 });
 
 const close = css({
-  w: '32px',
-  h: '32px',
+  w: '8',
+  h: '8',
   border: '0',
   bg: 'transparent',
   fontSize: '28px',
@@ -39,13 +39,13 @@ const form = css({
   display: 'grid',
   gridTemplateColumns: '78px minmax(0, 1fr) 66px',
   border: '1px solid #dadada',
-  '& input': { w: '100%', h: '44px', minW: '0', border: '0', bg: '#fff', color: '#222', px: '14px', fontSize: '13px' },
+  '& input': { w: '100%', h: '11', minW: '0', border: '0', bg: '#fff', color: '#222', px: '3.5', fontSize: '13px' },
   '& input::placeholder': { color: '#9a9a9a' },
 });
 
 const categoryStyle = css({
   borderRight: '1px solid #dadada',
-  '& select': { w: '100%', h: '44px', border: '0', bg: '#fff', color: '#222', px: '8px', fontSize: '13px', fontWeight: '600' },
+  '& select': { w: '100%', h: '11', border: '0', bg: '#fff', color: '#222', px: '2', fontSize: '13px', fontWeight: '600' },
 });
 
 const submit = css({ border: '0', bg: '#151515', color: '#fff', fontSize: '13px', fontWeight: '700' });
@@ -56,8 +56,8 @@ const collectionLinksStyle = css({
   justifyContent: 'center',
   gap: '0',
   py: '18px',
-  _mobile: { justifyContent: 'flex-start', gap: '8px 0' },
-  '& button': { border: '0', borderRight: '1px solid #ddd', py: '0', px: '16px', bg: 'transparent', color: '#444', fontSize: '12px', fontWeight: '600', _hover: { textDecoration: 'underline' }, _mobile: { px: '10px' } },
+  _mobile: { justifyContent: 'flex-start', rowGap: '2', columnGap: '0' },
+  '& button': { border: '0', borderRight: '1px solid #ddd', py: '0', px: '4', bg: 'transparent', color: '#444', fontSize: '12px', fontWeight: '600', _hover: { textDecoration: 'underline' }, _mobile: { px: '2.5' } },
   '& button:last-child': { borderRight: '0' },
 });
 
@@ -68,7 +68,7 @@ const suggestions = css({
   border: '1px solid #e2e2e2',
   borderTop: '0',
   _mobile: { gridTemplateColumns: '1fr' },
-  '& section': { p: '16px' },
+  '& section': { p: '4' },
   '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   '& h3': { m: '0', fontSize: '14px' },
   '& header button': { border: '0', p: '0', bg: 'transparent', color: '#999', fontSize: '11px' },

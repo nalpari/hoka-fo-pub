@@ -20,8 +20,8 @@ const catalogColors = [
 const options = css({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: '16px',
-  mt: '10px',
+  gap: '4',
+  mt: '2.5',
 });
 const control = css({
   position: 'absolute',
@@ -29,7 +29,7 @@ const control = css({
   _checked: { '& + [data-swatch]': { outline: '2px solid #111', outlineOffset: '2px' } },
 });
 const swatch = cva({
-  base: { w: '32px', h: '32px', border: '1px solid #ddd', borderRadius: 'full' },
+  base: { w: '8', h: '8', border: '1px solid #ddd', borderRadius: 'full' },
   variants: {
     color: {
       red: { bg: '#f10b0b' },

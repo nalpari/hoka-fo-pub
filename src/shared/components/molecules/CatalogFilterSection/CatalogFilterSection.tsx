@@ -7,7 +7,7 @@ import { CatalogFilterTrigger } from '@/shared/components/molecules/CatalogFilte
 import { Box } from 'styled-system/jsx';
 
 const root = css({
-  pb: '24px',
+  pb: '6',
 });
 
 export function CatalogFilterSection({ title, children }: { title: string; children: ReactNode }) {

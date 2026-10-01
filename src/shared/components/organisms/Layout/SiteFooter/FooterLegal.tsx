@@ -9,7 +9,7 @@ const styles = {
     w: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '32px',
+    gap: '8',
     _mobile: { position: 'relative', alignItems: 'flex-start' },
   }),
 };

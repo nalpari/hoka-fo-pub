@@ -2,7 +2,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
-const icon = css({ w: '16px', h: '16px', flexShrink: 0 });
+const icon = css({ w: '4', h: '4', flexShrink: 0 });
 
 type CatalogFilterTriggerProps = {
   expanded: boolean;
@@ -11,7 +11,7 @@ type CatalogFilterTriggerProps = {
 
 export function CatalogFilterTrigger({ expanded, title }: CatalogFilterTriggerProps) {
   return (
-    <HStack as="summary" cursor="pointer" justifyContent="space-between" py="24px">
+    <HStack as="summary" cursor="pointer" justifyContent="space-between" py="6">
       <Typography as="span" variant="filterLegend">
         {title}
       </Typography>

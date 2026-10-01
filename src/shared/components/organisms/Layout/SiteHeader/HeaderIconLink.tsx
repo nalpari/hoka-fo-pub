@@ -10,9 +10,9 @@ const iconLink = css({
   alignItems: 'center',
   justifyContent: 'center',
   w: '34px',
-  h: '36px',
+  h: '9',
   '& img': { display: 'block' },
-  _mobile: { w: '32px', h: '32px' },
+  _mobile: { w: '8', h: '8' },
 });
 
 export type HeaderIconProps = {

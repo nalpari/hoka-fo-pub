@@ -24,11 +24,11 @@ const signupMethods: SignupMethodOption[] = [
   { id: 'naver', label: '네이버로 가입', description: '네이버 계정으로 빠르게 가입합니다.' },
 ];
 const styles = {
-  page: css({ p: '80px 20px 96px' }),
+  page: css({ pt: '20', px: '5', pb: '24' }),
   signup: css({
     w: 'min(100%, 520px)',
     mx: 'auto',
-    '& h1': { mt: '8px', mb: '28px', fontSize: '34px', letterSpacing: '-1.8px' },
+    '& h1': { mt: '2', mb: '7', fontSize: '34px', letterSpacing: '-1.8px' },
   }),
   eyebrow: css({ m: 0, color: '#777', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em' }),
 };

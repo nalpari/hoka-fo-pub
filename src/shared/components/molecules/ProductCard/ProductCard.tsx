@@ -18,7 +18,7 @@ const root = cva({
   base: {
     minW: '0',
     position: 'relative',
-    gap: '16px',
+    gap: '4',
     _hover: {
       '& [data-product-thumbnail-hover-image]': { opacity: '1' },
       '& [data-product-quick]': { display: 'grid' },
@@ -28,7 +28,7 @@ const root = cva({
       '& [data-product-quick]': { display: 'grid' },
     },
     _mobile: {
-      gap: '10px',
+      gap: '2.5',
       '& [data-product-quick]': { display: 'none' },
     },
   },
@@ -56,18 +56,18 @@ const root = cva({
 
 const action = css({
   position: 'absolute',
-  right: '16px',
-  top: '16px',
+  right: '4',
+  top: '4',
   zIndex: '2',
   _mobile: {
-    right: '10px',
-    top: '10px',
+    right: '2.5',
+    top: '2.5',
   },
 });
 
-const launchStatus = css({ position: 'absolute', bottom: '8px', left: '8px', zIndex: '1' });
+const launchStatus = css({ position: 'absolute', bottom: '2', left: '2', zIndex: '1' });
 
-const productFooter = css({ display: 'flex', flexDirection: 'column', gap: '8px' });
+const productFooter = css({ display: 'flex', flexDirection: 'column', gap: '2' });
 
 const productWidthCount = (product: Product) => {
   const widths = product.colorOptions?.flatMap((colorOption) =>

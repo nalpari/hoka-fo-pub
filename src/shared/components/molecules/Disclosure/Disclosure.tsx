@@ -35,7 +35,7 @@ const trigger = cva({
     variant: {
       default: { px: '0', py: '22px' },
       panel: {
-        gap: '8px',
+        gap: '2',
       },
     },
   },
@@ -67,7 +67,7 @@ const content = cva({
   variants: {
     variant: {
       default: { pb: '22px', color: 'var(--color-text-muted)', lineHeight: '1.6' },
-      panel: { p: '12px' },
+      panel: { p: '3' },
     },
   },
   defaultVariants: { variant: 'default' },

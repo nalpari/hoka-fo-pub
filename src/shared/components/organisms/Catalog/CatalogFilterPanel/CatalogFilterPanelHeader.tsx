@@ -6,10 +6,10 @@ import { Stack } from 'styled-system/jsx';
 const selectedFilterList = css({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: '8px',
+  gap: '2',
 });
 
-const reset = css({ mb: '14px' });
+const reset = css({ mb: '3.5' });
 
 export type CatalogSelectedFilter = {
   id: string;

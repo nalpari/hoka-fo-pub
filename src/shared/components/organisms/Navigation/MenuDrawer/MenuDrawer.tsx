@@ -16,19 +16,19 @@ const drawer = css({
 const primaryMenu = css({
   flex: '1',
   minH: '445px',
-  px: '16px',
-  pt: '64px',
-  pb: '48px',
+  px: '4',
+  pt: '16',
+  pb: '12',
 });
 
 const closeButton = css({
   position: 'absolute',
   top: '17px',
-  right: '14px',
+  right: '3.5',
   display: 'grid',
   placeItems: 'center',
-  w: '32px',
-  h: '32px',
+  w: '8',
+  h: '8',
   border: '0',
   bg: 'transparent',
   color: '#000',
@@ -54,21 +54,21 @@ const primaryLink = css({
 
 const utilityMenu = css({
   display: 'grid',
-  gap: '16px',
+  gap: '4',
   flexShrink: '0',
   minH: '222px',
-  px: '16px',
+  px: '4',
   py: '46px',
   bg: '#000',
   color: '#fff',
 });
 
-const utilityList = css({ display: 'grid', gap: '16px', m: '0', p: '0', listStyle: 'none' });
+const utilityList = css({ display: 'grid', gap: '4', m: '0', p: '0', listStyle: 'none' });
 
 const utilityLink = css({
   display: 'flex',
   alignItems: 'center',
-  gap: '16px',
+  gap: '4',
   color: '#fff',
   fontSize: '14px',
   fontWeight: '700',
@@ -82,7 +82,7 @@ const utilityIcon = css({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  w: '16px',
+  w: '4',
   flexShrink: '0',
   color: '#fff',
   fontSize: '16px',

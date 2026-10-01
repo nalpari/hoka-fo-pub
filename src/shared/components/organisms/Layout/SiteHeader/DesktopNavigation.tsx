@@ -24,7 +24,7 @@ const styles = {
       borderRadius: 0,
       px: '18px',
       pt: '0 !important',
-      pb: '4px !important',
+      pb: '1 !important',
       bg: 'transparent !important',
       color: 'var(--hoka-black)',
       _after: {
@@ -32,7 +32,7 @@ const styles = {
         left: '50%',
         bottom: 0,
         w: '65px',
-        h: '4px',
+        h: '1',
         bgImage: "url('/images/header/nav-active-line.svg')",
         bgPosition: 'center',
         bgRepeat: 'no-repeat',

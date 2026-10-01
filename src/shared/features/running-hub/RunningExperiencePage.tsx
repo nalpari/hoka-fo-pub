@@ -17,41 +17,41 @@ const page = css({
   py: '70px',
   _mobile: { px: 'var(--layout-mobile-inline-gutter)', py: '38px' },
 });
-const panel = css({ mt: '30px', p: '32px', bg: 'var(--color-surface-muted)', _mobile: { p: '20px' } });
+const panel = css({ mt: '30px', p: '8', bg: 'var(--color-surface-muted)', _mobile: { p: '5' } });
 const optionGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '10px',
+  gap: '2.5',
   mt: '22px',
   _mobile: { gridTemplateColumns: '1fr' },
 });
 const option = cva({
-  base: { minH: '64px', border: '1px solid #bbb', bg: '#fff', fontSize: '14px' },
+  base: { minH: '16', border: '1px solid #bbb', bg: '#fff', fontSize: '14px' },
   variants: { active: { true: { bg: '#111', color: '#fff', borderColor: '#111' }, false: {} } },
 });
 const productGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: '18px',
-  mt: '28px',
-  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' },
+  mt: '7',
+  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '2.5' },
 });
-const tabs = css({ display: 'flex', gap: '8px', flexWrap: 'wrap', mt: '24px' });
+const tabs = css({ display: 'flex', gap: '2', flexWrap: 'wrap', mt: '6' });
 const tab = cva({
-  base: { px: '16px', py: '9px', border: '1px solid #bbb', bg: '#fff', fontSize: '13px' },
+  base: { px: '4', py: '9px', border: '1px solid #bbb', bg: '#fff', fontSize: '13px' },
   variants: { active: { true: { bg: '#111', color: '#fff', borderColor: '#111' }, false: {} } },
 });
 const timeline = css({ display: 'grid', gap: '0', mt: '26px', borderTop: '2px solid #111' });
 const timelineItem = css({
   display: 'grid',
   gridTemplateColumns: '100px 1fr auto',
-  gap: '20px',
+  gap: '5',
   alignItems: 'center',
   minH: '74px',
   borderBottom: '1px solid var(--color-border-subtle)',
   _mobile: { gridTemplateColumns: '1fr auto', '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' } },
 });
-const action = css({ mt: '24px', px: '18px', py: '12px', bg: '#111', color: '#fff' });
+const action = css({ mt: '6', px: '18px', py: '3', bg: '#111', color: '#fff' });
 
 const copy: Record<RunningExperienceKind, { title: string; description: string }> = {
   'shoe-finder': {

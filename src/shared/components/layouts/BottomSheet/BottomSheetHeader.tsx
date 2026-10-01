@@ -11,7 +11,7 @@ const header = css({
   pt: '8',
   pb: '6',
   px: 'var(--layout-mobile-inline-gutter)',
-  gap: '10px',
+  gap: '2.5',
 });
 
 type BottomSheetHeaderProps = {
@@ -24,7 +24,7 @@ export function BottomSheetHeader({ action, onClose, title }: BottomSheetHeaderP
   return (
     <HStack as="header" className={header}>
       <BottomSheetTitle>{title}</BottomSheetTitle>
-      {action && <HStack gap="10px">{action}</HStack>}
+      {action && <HStack gap="2.5">{action}</HStack>}
       {onClose && (
         <IconButton aria-label="닫기" onClick={onClose} size="15px">
           <Icon name="close" size="15px" />

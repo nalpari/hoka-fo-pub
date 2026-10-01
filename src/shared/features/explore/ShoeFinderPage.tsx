@@ -7,7 +7,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 const exploreLayout = css({
   maxW: 'var(--content-width)',
   mx: 'auto',
-  py: '64px',
+  py: '16',
   '& > header': { maxW: '700px', mb: '42px' },
   _mobile: {
     px: 'var(--layout-mobile-inline-gutter)',
@@ -16,14 +16,14 @@ const exploreLayout = css({
 });
 
 const finderStep = css({
-  mb: '40px',
-  pb: '32px',
+  mb: '10',
+  pb: '8',
   borderBottom: '1px solid #111',
   '& > span': { fontSize: '12px', fontWeight: '700' },
-  '& h2': { my: '12px', mb: '24px', fontSize: '28px' },
+  '& h2': { my: '3', mb: '6', fontSize: '28px' },
 });
 
-const finderOptions = css({ display: 'flex', flexWrap: 'wrap', gap: '8px' });
+const finderOptions = css({ display: 'flex', flexWrap: 'wrap', gap: '2' });
 
 const option = cva({
   base: { minW: '140px' },

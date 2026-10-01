@@ -6,8 +6,25 @@ import { ProgressBar } from '@/shared/components/atoms/ProgressBar/ProgressBar';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
-import styles from '@/shared/features/screen-index/ScreenIndexPage.module.scss';
 import { storybookUrlsFor } from '@/shared/features/screen-index/storybookLinks';
+
+const styles = {
+  tabs: css({ display: 'flex', gap: '6', borderBottom: '1px solid #d9d9d9', _mobile: { gap: '4', overflowX: 'auto' }, '& button': { pb: '3.5', border: '0', borderBottom: '2px solid transparent', bg: 'transparent', color: '#666', fontSize: '15px', fontWeight: '600', cursor: 'pointer', _mobile: { flex: '0 0 auto' } } }),
+  activeTab: css({ borderColor: '#111!', color: '#111!' }),
+  panel: css({ pt: '6' }),
+  depthSummary: css({ mb: '6', '& h2': { m: '0 0 3', fontSize: '16px' } }),
+  depthTabs: css({ display: 'flex', gap: '2', overflowX: 'auto', borderBottom: '1px solid #ddd', '& button': { flex: '0 0 auto', p: '2.5 3', border: '0', borderBottom: '2px solid transparent', bg: 'transparent', color: '#666', fontSize: '13px', fontWeight: '600', cursor: 'pointer' } }),
+  activeDepthTab: css({ borderColor: '#111!', color: '#111!' }),
+  depthProgress: css({ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))', gap: '4', p: '4', border: '1px solid #ddd', borderTop: '0', _mobile: { gridTemplateColumns: '1fr' } }),
+  progressLabel: css({ display: 'flex', justifyContent: 'space-between', gap: '2', mb: '2.5', fontSize: '13px', '& span': { color: '#666' }, '& b': { color: '#111' } }),
+  toolbar: css({ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '4', mb: '4', _mobile: { display: 'grid' }, '& p': { m: '0', color: '#666', fontSize: '14px' }, '& input': { w: 'min(100%, 280px)', _mobile: { w: '100%' } } }),
+  tableWrap: css({ overflowX: 'auto', border: '1px solid #ddd' }),
+  table: css({ w: '100%', minW: '1150px', borderCollapse: 'collapse', fontSize: '13px', '& th, & td': { p: '3 2.5', borderBottom: '1px solid #e7e7e7', textAlign: 'left', whiteSpace: 'nowrap' }, '& th': { bg: '#f7f7f7', fontSize: '12px', color: '#444' }, '& tbody tr:hover': { bg: '#fafafa' } }),
+  note: css({ minW: '320px', maxW: '520px', whiteSpace: 'normal!', lineHeight: '1.5' }),
+  screenLinks: css({ display: 'flex', gap: '2', '& a': { color: '#111', fontWeight: '700', textDecoration: 'underline', textUnderlineOffset: '3px' } }),
+  empty: css({ m: '8 0', color: '#666', textAlign: 'center' }),
+  guide: css({ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #111', _mobile: { gridTemplateColumns: '1fr' }, '& article': { minH: '190px', p: '6', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd', _mobile: { borderRight: '0' } }, '& article:last-child': { borderRight: '0' }, '& small': { color: '#777', fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em' }, '& h2': { m: '4 0 2.5', fontSize: '20px' }, '& p': { m: '0', color: '#666', lineHeight: '1.6' } }),
+};
 
 type TabId = 'screens' | 'guide';
 
@@ -31,7 +48,7 @@ const completedRequirementIds: Record<(typeof workStages)[number]['id'], Readonl
 const pageLayout = css({
   maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
-  py: '64px',
+  py: '16',
   _mobile: {
     px: 'var(--layout-mobile-inline-gutter)',
     py: 'var(--layout-mobile-page-block-padding)',

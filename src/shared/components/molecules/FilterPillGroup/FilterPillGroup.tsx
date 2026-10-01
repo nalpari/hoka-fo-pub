@@ -7,7 +7,7 @@ const pills = css({
   display: 'grid',
   gridTemplateColumns: { base: 'repeat(4, 1fr)' },
   gap: '5px',
-  '& button': { borderColor: '#ddd', py: '7px', px: '2px', fontSize: '12px' },
+  '& button': { borderColor: '#ddd', py: '7px', px: '0.5', fontSize: '12px' },
 });
 
 export function FilterPillGroup({

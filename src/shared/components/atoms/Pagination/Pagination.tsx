@@ -48,7 +48,7 @@ export function Pagination({
   const items = getPageItems(total, page);
 
   return (
-    <Flex as="nav" aria-label="페이지네이션" gap="8px" alignItems="center" style={root}>
+    <Flex as="nav" aria-label="페이지네이션" gap="2" alignItems="center" style={root}>
       <Button
         aria-label="이전 페이지"
         disabled={page <= 1}

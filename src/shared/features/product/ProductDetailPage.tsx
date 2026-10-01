@@ -17,11 +17,11 @@ import { Backdrop } from '@/shared/components/atoms/Backdrop/Backdrop';
 const detailLayout = css({
   maxW: 'var(--content-width)',
   mx: 'auto',
-  py: '64px',
+  py: '16',
   '& h1': { fontSize: '42px' },
   _mobile: {
     px: 'var(--layout-mobile-inline-gutter)',
-    pt: '32px',
+    pt: '8',
     pb: '108px',
     '& h1': { fontSize: '30px' },
   },
@@ -57,11 +57,11 @@ const modal = css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minH: '56px',
+    minH: '14',
     px: '18px',
     borderBottom: '1px solid #edf0f2',
   },
-  '& header button': { p: '4px', border: '0', color: '#8b95a5', fontSize: '24px' },
+  '& header button': { p: '1', border: '0', color: '#8b95a5', fontSize: '24px' },
   '& h2': { m: '0', fontSize: '16px' },
 });
 
@@ -84,7 +84,7 @@ const bottomSheet = css({
 
 const modalAction = css({
   w: 'calc(100% - 36px)',
-  minH: '44px',
+  minH: '11',
   m: '0 18px',
   borderColor: '#111827',
   bg: '#111827',

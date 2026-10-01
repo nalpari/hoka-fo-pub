@@ -20,9 +20,9 @@ export function ProductPurchaseSummary({ product, onViewReviews }: ProductPurcha
       <p className={css({ color: '#555', lineHeight: '1.6' })}>
         일상과 움직임을 위한 가벼운 제품입니다.
       </p>
-      <Flex alignItems="center" gap="12px" mt="12px" fontSize="14px">
+      <Flex alignItems="center" gap="3" mt="3" fontSize="14px">
         <span aria-label={`평점 ${product.rating}점`}>
-          ★★★★★ <strong className={css({ ml: '4px' })}>{product.rating.toFixed(1)}</strong>
+          ★★★★★ <strong className={css({ ml: '1' })}>{product.rating.toFixed(1)}</strong>
           <span aria-hidden="true">/5</span>
         </span>
         <Button

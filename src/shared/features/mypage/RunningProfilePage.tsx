@@ -20,7 +20,7 @@ const footer = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  mt: '40px',
+  mt: '10',
   pt: '22px',
   borderTop: '2px solid #111',
   fontSize: '13px',

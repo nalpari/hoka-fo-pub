@@ -25,7 +25,7 @@ const styles = {
   gradient: css({
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
-    gap: '16px',
+    gap: '4',
     pos: 'absolute',
     w: '100%',
     h: '100%',

@@ -12,7 +12,7 @@ const cartPage = css({
   maxW: '1100px',
   mx: 'auto',
   pt: { base: '62px', _mobile: '38px' },
-  px: { base: '0', _mobile: '16px' },
+  px: { base: '0', _mobile: '4' },
   pb: { base: '110px', _mobile: '62px' },
 });
 const titleRow = css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between' });
@@ -72,7 +72,7 @@ const empty = css({
   gap: '13px',
   borderBottom: '1px solid #e3e3e3',
 });
-const recommend = css({ mt: '80px' });
+const recommend = css({ mt: '20' });
 const recommendGrid = css({
   display: 'grid',
   gridTemplateColumns: { base: 'repeat(4, 1fr)', _mobile: 'repeat(2, 1fr)' },
@@ -147,7 +147,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                     <span className={art}>N</span>
                     <Box>
                       <strong>{product.name}</strong>
-                      <p className={css({ m: '8px 0', color: '#777', fontSize: '13px' })}>
+                      <p className={css({ m: '2 0', color: '#777', fontSize: '13px' })}>
                         {item.color} / {item.width} / {item.size}
                       </p>
                       <Button
@@ -204,7 +204,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
             <b className={css({ fontSize: '50px' })}>!</b>
             <p className={css({ m: '0' })}>장바구니에 담은 상품이 없습니다.</p>
             <Link
-              className={css({ p: '10px 18px', borderBottom: '1px solid #111', fontSize: '13px' })}
+              className={css({ p: '2.5 18px', borderBottom: '1px solid #111', fontSize: '13px' })}
               to="/products"
             >
               쇼핑 계속하기
@@ -219,7 +219,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
         <Grid className={recommendGrid}>
           {suggestions.map((product, index) => (
             <Link
-              className={css({ display: 'grid', gap: '10px' })}
+              className={css({ display: 'grid', gap: '2.5' })}
               to={`/products/${product.id}`}
               key={product.id}
             >

@@ -14,7 +14,7 @@ const styles = {
   formSection: css({
     display: 'grid',
     '& > p': { mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
-    '& > .field > label': { mt: '20px', fontSize: '14px', fontWeight: 700 },
+    '& > .field > label': { mt: '5', fontSize: '14px', fontWeight: 700 },
     "& input:not([type='checkbox'])": {
       w: '100%',
       py: '13px',
@@ -28,7 +28,7 @@ const styles = {
     display: 'grid',
     w: '100%',
     minH: '50px',
-    mt: '28px',
+    mt: '7',
     placeItems: 'center',
     bg: '#111',
     color: '#fff',

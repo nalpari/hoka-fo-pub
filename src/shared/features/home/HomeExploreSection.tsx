@@ -7,8 +7,8 @@ import { homeExplores } from './homeContent';
 
 const storyGrid = css({
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '16px',
-  _mobile: { gap: '48px', gridTemplateColumns: 'repeat(1, 1fr)' },
+  gap: '4',
+  _mobile: { gap: '12', gridTemplateColumns: 'repeat(1, 1fr)' },
 });
 
 export function HomeExploreSection() {

@@ -64,7 +64,7 @@ $font-faces: (
     --layout-web-category-card-min-width: 265px;
     --layout-web-category-card-max-width: 304px;
     --layout-web-category-four-card-gap: 30px;
-    --layout-site-header-height: 88px;
+    --layout-site-header-height: var(--spacing-22);
     --layout-mobile-inline-gutter: var(--spacing-4);
     --layout-mobile-content-inline-space: calc(
       var(--layout-mobile-inline-gutter) + var(--layout-mobile-inline-gutter)
@@ -96,7 +96,7 @@ $font-faces: (
     --border-strong: var(--hoka-black);
     --radius-sm: 0;
     --field-height: 42px;
-    --button-height: 40px;
+    --button-height: var(--spacing-10);
     --main-section-heading-font-family: var(--font-family-base);
     --main-section-heading-font-size: 40px;
     --main-section-heading-line-height: 38px;
@@ -170,7 +170,7 @@ $font-faces: (
   }
 
   .platform-mobile {
-    --layout-site-header-height: 52px;
+    --layout-site-header-height: var(--spacing-13);
   }
 
   * {

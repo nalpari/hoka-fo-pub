@@ -5,11 +5,11 @@ import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
 const tag = css({
-  minH: '32px',
+  minH: '8',
   p: '7px 8px 7px 10px',
   bg: '#eee',
   _mobile: {
-    minH: '28px',
+    minH: '7',
   },
 });
 const labelTag = css({
@@ -41,7 +41,7 @@ export function Tag({ children, onDelete }: TagProps) {
   if (!onDelete) return <span className={tag}>{children}</span>;
 
   return (
-    <HStack className={tag} gap="6px">
+    <HStack className={tag} gap="1.5">
       <span className={labelTag}>{children}</span>
       <IconButton
         aria-label={`${typeof children === 'string' ? children : '태그'} 삭제`}

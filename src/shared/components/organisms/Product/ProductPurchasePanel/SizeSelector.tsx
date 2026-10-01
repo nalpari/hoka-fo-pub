@@ -5,9 +5,9 @@ import { css } from 'styled-system/css';
 const options = css({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: '8px',
+  gap: '2',
   my: '12px 22px',
-  '& button': { w: '58px', minH: '44px' },
+  '& button': { w: '58px', minH: '11' },
 });
 const selected = css({
   borderColor: '#0082ca !important',

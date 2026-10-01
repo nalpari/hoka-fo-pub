@@ -2,8 +2,8 @@ import { css } from 'styled-system/css';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 
 const wishlist = css({
-  w: '24px',
-  h: '24px',
+  w: '6',
+  h: '6',
   _mobile: { w: '19px', h: '19px' },
 });
 

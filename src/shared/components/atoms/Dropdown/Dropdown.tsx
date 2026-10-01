@@ -27,7 +27,7 @@ const styles = {
   positioner: css({ zIndex: 10 }),
   popup: css({
     w: 'var(--anchor-width)',
-    mt: '4px',
+    mt: '1',
     border: '1px solid #d5d5d5',
     bg: '#fff',
     color: '#222',
@@ -83,7 +83,7 @@ export function Dropdown({
         className={[styles.trigger, className].filter(Boolean).join(' ')}
         style={disabled ? { backgroundColor: '#F7F7F9', color: '#B3B3B3', cursor: 'not-allowed' } : undefined}
       >
-        <Flex alignItems="center" gap="8px">
+        <Flex alignItems="center" gap="2">
           {selectedOption?.prefix}
           <span className={styles.label} style={disabled ? { color: '#4D4D4D' } : undefined}>{selectedOption?.label}</span>
         </Flex>
@@ -116,7 +116,7 @@ export function Dropdown({
             <BaseSelect.List>
               {options.map((option) => (
                 <BaseSelect.Item className={styles.item} key={option.value} value={option.value}>
-                  <Flex alignItems="center" gap="8px">
+                  <Flex alignItems="center" gap="2">
                     {option.prefix}
                     <span>{option.label}</span>
                   </Flex>

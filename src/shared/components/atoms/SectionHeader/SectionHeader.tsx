@@ -7,13 +7,13 @@ const root = cva({
     display: 'flex',
     alignItems: 'end',
     justifyContent: 'space-between',
-    gap: '16px',
+    gap: '4',
   },
   variants: {
     divider: {
       none: {},
-      line: { pb: '16px', borderBottom: '1px solid var(--line)' },
-      strong: { pb: '16px', borderBottom: '2px solid #111' },
+      line: { pb: '4', borderBottom: '1px solid var(--line)' },
+      strong: { pb: '4', borderBottom: '2px solid #111' },
     },
     spacing: { none: {}, page: { mb: '30px' } },
   },

@@ -6,7 +6,7 @@ import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
-const group = css({ display: 'grid', gap: '16px' });
+const group = css({ display: 'grid', gap: '4' });
 
 const option = css({
   cursor: 'pointer',
@@ -28,7 +28,7 @@ const control = css({
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
 });
 
-const indicator = css({ display: 'block', flexShrink: 0, w: '16px', h: '16px' });
+const indicator = css({ display: 'block', flexShrink: 0, w: '4', h: '4' });
 
 const icon = css({ display: 'block', w: '100%', h: '100%' });
 

@@ -25,7 +25,7 @@ function EmptyStateRoot({ title, description, action }: EmptyStateProps) {
       minH="240px"
       placeContent="center"
       justifyItems="center"
-      gap="10px"
+      gap="2.5"
       p="30px"
       bg="#f5f5f5"
       textAlign="center"
@@ -43,7 +43,7 @@ function EmptyStateRoot({ title, description, action }: EmptyStateProps) {
       </Grid>
       <h2 className={css({ m: '4px 0 0', fontSize: '18px' })}>{title}</h2>
       {description ? <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p> : null}
-      {action ? <Box mt="8px">{action}</Box> : null}
+      {action ? <Box mt="2">{action}</Box> : null}
     </Stack>
   );
 }
@@ -73,7 +73,7 @@ export function EmptyStateDescription({ className, ...props }: EmptyStateDescrip
 }
 
 export function EmptyStateAction({ className, ...props }: EmptyStateActionProps) {
-  return <Box {...props} className={withClassName('empty-state__action', className)} mt="8px" />;
+  return <Box {...props} className={withClassName('empty-state__action', className)} mt="2" />;
 }
 
 export const EmptyState = Object.assign(EmptyStateRoot, {
