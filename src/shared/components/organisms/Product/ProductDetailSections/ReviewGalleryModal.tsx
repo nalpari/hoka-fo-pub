@@ -1,8 +1,123 @@
 import { useState } from 'react';
-import styles from '@/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.module.scss';
+import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
+
+const styles = {
+  backdrop: css({
+    position: 'fixed',
+    inset: 0,
+    zIndex: 100,
+    display: 'grid',
+    placeItems: 'center',
+    p: '24px',
+    background: 'rgb(0 0 0 / 60%)',
+    '@media (max-width: 700px)': { p: 0 },
+  }),
+  dialog: css({
+    display: 'grid',
+    gridTemplateColumns: 'minmax(0, 1fr) 320px',
+    w: 'min(1180px, 100%)',
+    maxH: 'calc(100vh - 48px)',
+    background: '#fff',
+    '@media (max-width: 700px)': {
+      display: 'block',
+      w: '100%',
+      maxH: '100vh',
+      overflow: 'auto',
+    },
+  }),
+  viewer: css({
+    position: 'relative',
+    display: 'grid',
+    minH: '540px',
+    p: '30px 70px 100px',
+    placeItems: 'center',
+    background: '#1b1e23',
+    '& > button': {
+      position: 'absolute',
+      top: '50%',
+      zIndex: 1,
+      p: '8px',
+      border: 0,
+      background: 'transparent',
+      color: '#fff',
+      fontSize: '52px',
+      transform: 'translateY(-50%)',
+    },
+    '& > button:first-child': { left: '16px' },
+    '& > button:nth-child(3)': { right: '16px' },
+    '@media (max-width: 700px)': {
+      minH: '58vh',
+      p: '20px 42px 88px',
+    },
+  }),
+  mainImage: css({
+    display: 'grid',
+    w: 'min(100%, 620px)',
+    h: '100%',
+    minH: '420px',
+    placeItems: 'center',
+    background: '#d4d7dc',
+    color: '#fff',
+    '@media (max-width: 700px)': { minH: '340px' },
+  }),
+  carousel: css({
+    position: 'absolute',
+    right: 0,
+    bottom: '20px',
+    left: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '8px',
+    '& button': {
+      display: 'grid',
+      w: '56px',
+      h: '56px',
+      p: '3px',
+      border: '2px solid transparent',
+      placeItems: 'center',
+      background: '#d4d7dc',
+      color: '#fff',
+      fontSize: '9px',
+    },
+    '& .selected': { borderColor: '#111' },
+  }),
+  selected: css({ borderColor: '#111 !important' }),
+  side: css({
+    overflow: 'auto',
+    p: '20px',
+    '& header': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      borderBottom: '1px solid #e5e7eb',
+      pb: '16px',
+    },
+    '& header div': { display: 'grid', gap: '4px' },
+    '& header small': { color: '#8b95a5' },
+    '& header button': { p: 0, border: 0, fontSize: '26px' },
+    '& > strong': { display: 'block', mt: '22px' },
+    '& h2': { fontSize: '15px' },
+    '& p': { fontSize: '13px', lineHeight: 1.6 },
+    '& section': { mt: '30px', pt: '18px', borderTop: '1px solid #e5e7eb' },
+    '& section h3': { fontSize: '15px' },
+    '& section div': { display: 'flex', gap: '6px' },
+    '& section button': {
+      display: 'grid',
+      w: '56px',
+      h: '56px',
+      p: '3px',
+      border: '2px solid transparent',
+      placeItems: 'center',
+      background: '#d4d7dc',
+      color: '#fff',
+      fontSize: '9px',
+    },
+    '& section .active': { borderColor: '#111' },
+  }),
+  active: css({ borderColor: '#111 !important' }),
+};
 
 export type ReviewGalleryItem = {
   author: string;

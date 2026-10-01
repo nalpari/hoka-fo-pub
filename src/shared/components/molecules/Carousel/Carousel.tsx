@@ -12,18 +12,17 @@ import {
   useState,
 } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
-import { FreeMode } from 'swiper/modules';
+import { FreeMode, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import 'swiper/css/scrollbar';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
 type CarouselState = {
-  activeIndex: number;
   canGoNext: boolean;
   canGoPrevious: boolean;
-  goTo: (index: number) => void;
   goNext: () => void;
   goPrevious: () => void;
   itemCount: number;
@@ -37,7 +36,7 @@ const viewport = css({
   w: '100%',
   overflow: 'hidden',
   cursor: 'grab',
-  touchAction: 'pan-x',
+  touchAction: 'pan-y',
   '& .swiper-slide': { h: 'auto' },
   '& .swiper-slide > *': { h: '100%' },
   '&.swiper-free-mode': { cursor: 'grab' },
@@ -64,29 +63,38 @@ const control = css({
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
 });
 
-const pagination = css({
-  display: 'none',
-  _mobile: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0',
-    w: '100%',
-    mt: '32px',
+const draggableScrollbar = css({
+  '& .swiper-scrollbar': {
+    position: 'relative!',
+    inset: 'auto!',
+    w: 'var(--carousel-scrollbar-width)!',
+    h: '20px!',
+    mt: '24px!',
+    mx: 'auto',
+    bg: 'transparent!',
+    borderRadius: '0!',
+    opacity: '1!',
+    touchAction: 'none',
+    cursor: 'grab',
+  },
+  '& .swiper-scrollbar::before': {
+    content: '""',
+    position: 'absolute',
+    top: '8px',
+    right: '0',
+    left: '0',
+    h: '3px',
+    bg: 'var(--color-border-default)',
+  },
+  '& .swiper-scrollbar-drag': {
+    position: 'absolute!',
+    top: '8px!',
+    h: '3px!',
+    bg: 'var(--color-text-primary)!',
+    borderRadius: '0px!',
+    cursor: 'grab',
   },
 });
-
-const paginationButton = css({
-  display: 'block',
-  w: '36px',
-  h: '3px',
-  p: '0',
-  border: '0',
-  bg: 'var(--color-border-default)',
-  _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '3px' },
-});
-
-const paginationButtonActive = css({ bg: 'var(--color-text-primary)' });
 
 const desktopOverflowVisible = css({
   overflow: 'visible!',
@@ -105,20 +113,16 @@ export type CarouselProps = {
   itemCount: number;
 };
 
-/** Swiper-backed carousel with desktop free dragging and mobile slide snapping. */
+/** Swiper-backed carousel with free dragging and an optional draggable scrollbar. */
 export function Carousel({ children, itemCount }: CarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [canGoPrevious, setCanGoPrevious] = useState(false);
   const [canGoNext, setCanGoNext] = useState(itemCount > 1);
 
   const updateState = useCallback((swiper: SwiperInstance) => {
-    setActiveIndex(swiper.realIndex);
     setCanGoPrevious(!swiper.isBeginning);
     setCanGoNext(!swiper.isEnd);
   }, []);
-
-  const goTo = useCallback((index: number) => swiperRef.current?.slideTo(index), []);
 
   const goPrevious = useCallback(() => swiperRef.current?.slidePrev(), []);
 
@@ -134,23 +138,19 @@ export function Carousel({ children, itemCount }: CarouselProps) {
 
   const context = useMemo(
     () => ({
-      activeIndex,
       canGoNext,
       canGoPrevious,
       goNext,
       goPrevious,
-      goTo,
       itemCount,
       registerSwiper,
       updateState,
     }),
     [
-      activeIndex,
       canGoNext,
       canGoPrevious,
       goNext,
       goPrevious,
-      goTo,
       itemCount,
       registerSwiper,
       updateState,
@@ -188,7 +188,7 @@ export function CarouselViewport({
   mode = 'web',
   slideClassName,
 }: CarouselViewportProps) {
-  const { registerSwiper, updateState } = useCarousel();
+  const { itemCount, registerSwiper, updateState } = useCarousel();
   const isMobile = mode === 'mobile';
   const itemGutter = isMobile ? mobileItemGutter : desktopItemGutter;
 
@@ -211,12 +211,14 @@ export function CarouselViewport({
       className={[
         viewport,
         className,
+        isMobile ? draggableScrollbar : '',
         !isMobile && desktopCenteredItemCount ? desktopOverflowVisible : '',
       ]
         .filter(Boolean)
         .join(' ')}
-      freeMode={isMobile ? false : { enabled: true, sticky: false }}
-      modules={[FreeMode]}
+      freeMode={{ enabled: true, sticky: isMobile }}
+      followFinger
+      modules={[FreeMode, Scrollbar]}
       onAfterInit={handleAfterInit}
       onReachBeginning={updateState}
       onReachEnd={updateState}
@@ -228,7 +230,14 @@ export function CarouselViewport({
       slidesOffsetAfter={isMobile && mobileItemGutter === undefined ? 32 : 0}
       slidesPerView="auto"
       spaceBetween={isMobile && mobileItemGutter === undefined ? 16 : 0}
+      scrollbar={
+        isMobile && itemCount > 1
+          ? { draggable: true, hide: false, snapOnRelease: true }
+          : false
+      }
       speed={350}
+      style={{ '--carousel-scrollbar-width': `${itemCount * 36}px` } as CSSProperties}
+      threshold={0}
     >
       {Children.toArray(children).map((child, index) => (
         <SwiperSlide
@@ -284,26 +293,6 @@ export function CarouselControls() {
       >
         <Icon direction="next" name="carousel-arrow" size="48px" />
       </button>
-    </div>
-  );
-}
-
-export function CarouselPagination() {
-  const { activeIndex, goTo, itemCount } = useCarousel();
-  return (
-    <div aria-label="슬라이드 페이지네이션" className={pagination}>
-      {Array.from({ length: itemCount }, (_, index) => (
-        <button
-          aria-label={`${index + 1}번 슬라이드로 이동`}
-          aria-current={activeIndex === index ? 'true' : undefined}
-          className={[paginationButton, activeIndex === index ? paginationButtonActive : '']
-            .filter(Boolean)
-            .join(' ')}
-          key={index}
-          onClick={() => goTo(index)}
-          type="button"
-        />
-      ))}
     </div>
   );
 }

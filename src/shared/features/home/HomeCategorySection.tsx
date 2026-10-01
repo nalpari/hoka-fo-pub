@@ -7,6 +7,7 @@ import { homeCategories } from './homeContent';
 const webRail = css({ w: '100%' });
 const mobileRail = css({
   w: '100vw',
+  pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '8px' },
 });

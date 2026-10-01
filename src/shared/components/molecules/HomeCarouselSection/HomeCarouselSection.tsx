@@ -3,7 +3,6 @@ import { css } from 'styled-system/css';
 import {
   Carousel,
   CarouselControls,
-  CarouselPagination,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
 import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
@@ -61,7 +60,6 @@ export function HomeCarouselSection({
         >
           {children}
         </CarouselViewport>
-        <CarouselPagination />
       </MainSection>
     </Carousel>
   );
