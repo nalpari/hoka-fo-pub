@@ -13,8 +13,9 @@ const webRail = css({ w: '100%' });
 
 const mobileRail = css({
   w: '100vw',
+  pr: '16px !important',
   overflow: 'visible!',
-  '& .swiper-wrapper': { px: '11px' },
+  '& .swiper-wrapper': { px: '8px' },
 });
 
 const webSlide = css({
@@ -23,10 +24,8 @@ const webSlide = css({
 });
 
 const mobileSlide = css({
-  w: 'calc(40vw + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
-  '&:last-child': {
-    w: 'calc(40vw + var(--carousel-item-gutter) + var(--carousel-item-gutter) + 11px)!',
-  },
+  w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
+  '& > *': { w: '100%' },
 });
 
 type BestSellerTab = (typeof bestSellerTabs)[number];

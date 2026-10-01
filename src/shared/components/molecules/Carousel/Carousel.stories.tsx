@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { css } from 'styled-system/css';
-import { Carousel, CarouselControls, CarouselPagination, CarouselViewport } from './Carousel';
+import { Carousel, CarouselControls, CarouselViewport } from './Carousel';
 
 const bestSellerMobileRail = css({
   w: '375px',
@@ -32,7 +32,6 @@ export const Default: Story = {
   render: (args) => (
     <Carousel {...args}>
       <CarouselViewport>{args.children}</CarouselViewport>
-      <CarouselPagination />
     </Carousel>
   ),
 };
@@ -42,7 +41,6 @@ export const WithControls: Story = {
     <Carousel {...args}>
       <CarouselControls />
       <CarouselViewport>{args.children}</CarouselViewport>
-      <CarouselPagination />
     </Carousel>
   ),
 };
@@ -84,7 +82,6 @@ export const MobilePeek: Story = {
       <CarouselViewport mobileItemGutter={8} mode="mobile">
         {args.children}
       </CarouselViewport>
-      <CarouselPagination />
     </Carousel>
   ),
 };
