@@ -7,7 +7,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: '16px',
+    gap: '4',
     '@media (max-width: 374px)': { justifyContent: 'space-between', gap: 0 },
   }),
 };

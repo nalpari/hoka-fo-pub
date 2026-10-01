@@ -26,11 +26,11 @@ const intro = css({
   justifyItems: 'center',
   p: '88px 24px 48px',
   textAlign: 'center',
-  '.platform-mobile &': { p: '52px var(--layout-mobile-inline-gutter) 34px' },
+  '.platform-mobile &': { p: '13 var(--layout-mobile-inline-gutter) 34px' },
 });
 
 const kicker = css({
-  mb: '10px',
+  mb: '2.5',
   color: '#e31b23',
   fontSize: '11px',
   fontWeight: '700',
@@ -71,7 +71,7 @@ const tabButton = cva({
 
 const audienceNote = css({
   height: '0',
-  mt: '16px',
+  mt: '4',
   mb: '-16px',
   color: '#8b8b8b',
   fontSize: '11px',
@@ -84,7 +84,7 @@ const grid = css({
   gap: '50px 12px',
   maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
-  px: '24px',
+  px: '6',
   '.platform-mobile &': {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
     gap: '28px 8px',
@@ -178,7 +178,7 @@ const cardInfo = css({
   pt: '15px',
   '& p': {
     minH: '18px',
-    mb: '8px',
+    mb: '2',
     color: '#9c9c9c',
     fontSize: '13px',
     '.platform-mobile &': { fontSize: '11px' },
@@ -189,9 +189,9 @@ const cardAction = cva({
   base: {
     display: 'none',
     width: 'max-content',
-    mt: '12px',
+    mt: '3',
     px: '18px',
-    py: '8px',
+    py: '2',
     borderRadius: '999px',
     bg: '#000',
     color: '#fff',
@@ -214,7 +214,7 @@ const featureCopy = css({
   alignItems: 'flex-start',
   justifyContent: 'center',
   p: 'clamp(44px, 6vw, 96px)',
-  '& p': { mb: '14px', fontSize: '17px' },
+  '& p': { mb: '3.5', fontSize: '17px' },
   '& h2': { mb: '29px', fontSize: 'clamp(32px, 3vw, 50px)', lineHeight: '1.05' },
   '& a': {
     px: '42px',
@@ -248,7 +248,7 @@ const featureShoe = css({
 const featureBrand = css({
   position: 'absolute',
   right: '30px',
-  bottom: '24px',
+  bottom: '6',
   fontSize: '10px',
   fontWeight: '700',
   letterSpacing: '0.13em',

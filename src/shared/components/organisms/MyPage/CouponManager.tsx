@@ -17,13 +17,13 @@ type Props = { coupons: CouponItem[] };
 const register = css({
   display: 'grid',
   gridTemplateColumns: '1fr auto',
-  gap: '8px',
-  p: '20px',
+  gap: '2',
+  p: '5',
   bg: 'var(--color-surface-muted)',
   _mobile: { gridTemplateColumns: '1fr' },
 });
 
-const filters = css({ display: 'flex', gap: '8px', mt: '24px', overflowX: 'auto', pb: '2px' });
+const filters = css({ display: 'flex', gap: '2', mt: '6', overflowX: 'auto', pb: '0.5' });
 
 const filter = cva({
   base: {
@@ -42,16 +42,16 @@ const table = css({ mt: '18px', borderTop: '2px solid #111' });
 const couponRow = css({
   display: 'grid',
   gridTemplateColumns: '120px 1.3fr 1.4fr 1.2fr',
-  gap: '14px',
+  gap: '3.5',
   alignItems: 'center',
   minH: '92px',
-  px: '16px',
+  px: '4',
   borderBottom: '1px solid var(--color-border-subtle)',
   fontSize: '13px',
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    gap: '6px',
-    py: '16px',
+    gap: '1.5',
+    py: '4',
     '& strong': { fontSize: '20px' },
     '& span': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
     '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)', fontSize: '12px' },
@@ -94,7 +94,7 @@ export function CouponManager({ coupons }: Props) {
       {message ? (
         <p
           className={css({
-            mt: '8px',
+            mt: '2',
             color: message.includes('등록') ? '#157347' : '#db1f2d',
             fontSize: '12px',
             fontWeight: '700',

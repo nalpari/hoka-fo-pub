@@ -29,7 +29,7 @@ const name = css({ m: '8px 0', fontSize: '30px' });
 const description = css({ m: '0', color: '#ddd', fontSize: '13px' });
 
 const progressDescription = css({
-  mt: '16px',
+  mt: '4',
   mb: '0',
   color: '#ddd',
   fontSize: '12px',
@@ -47,9 +47,9 @@ const stat = css({
   display: 'grid',
   alignContent: 'center',
   gap: '9px',
-  px: '24px',
+  px: '6',
   borderRight: '1px solid #555',
-  _mobile: { pt: '18px', pr: '12px', pl: '0', borderRight: '0' },
+  _mobile: { pt: '18px', pr: '3', pl: '0', borderRight: '0' },
 });
 
 const statLabel = css({ color: '#ccc', fontSize: '12px' });

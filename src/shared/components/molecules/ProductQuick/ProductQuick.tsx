@@ -16,7 +16,7 @@ const root = css({
 const button = css({
   borderRadius: '22px',
   py: '11px',
-  px: '32px',
+  px: '8',
   bg: '#fff',
   color: '#111',
 });
@@ -28,7 +28,7 @@ const swatch = cva({
     display: 'inline-block',
     w: '18px',
     h: '18px',
-    m: '2px',
+    m: '0.5',
     border: '1px solid #bbb',
     borderRadius: 'full',
     verticalAlign: 'middle',

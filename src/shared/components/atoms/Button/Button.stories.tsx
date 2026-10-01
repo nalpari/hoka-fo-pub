@@ -20,11 +20,15 @@ export const Secondary: Story = {};
 
 export const SecondaryInverse: Story = { args: { variant: 'secondaryInverse' } };
 
+export const BottomSheetPrimary: Story = {
+  args: { children: '적용하기', variant: 'bottomSheetPrimary' },
+};
+
 export const Disabled: Story = { args: { disabled: true } };
 
 export const WithIcon: Story = {
   render: () => (
-    <HStack gap="12px">
+    <HStack gap="3">
       <Button icon={<Icon name="filter" />}>필터</Button>
       <Button icon={<Icon name="filter" />} variant="primary">
         필터

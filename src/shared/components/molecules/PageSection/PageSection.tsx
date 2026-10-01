@@ -10,9 +10,9 @@ type Props = {
   spacing?: 'default' | 'compact';
 };
 
-const section = css({ mt: '60px', _mobile: { mt: '42px' } });
+const section = css({ mt: '15', _mobile: { mt: '42px' } });
 
-const compactSection = css({ mt: '32px', _mobile: { mt: '24px' } });
+const compactSection = css({ mt: '8', _mobile: { mt: '6' } });
 
 export function PageSection({ title, description, action, children, spacing = 'default' }: Props) {
   return (

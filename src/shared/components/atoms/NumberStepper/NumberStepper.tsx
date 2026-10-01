@@ -6,10 +6,10 @@ const root = css({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: '10px',
+  gap: '2.5',
   minW: '130px',
 });
-const control = css({ minW: '32px', minH: '32px', border: '0', p: '0', fontSize: '20px' });
+const control = css({ minW: '8', minH: '8', border: '0', p: '0', fontSize: '20px' });
 const valueStyle = css({ minW: '1.5em', textAlign: 'center' });
 
 export type NumberStepperProps = {

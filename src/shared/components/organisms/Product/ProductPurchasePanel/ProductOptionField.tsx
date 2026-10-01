@@ -16,7 +16,7 @@ export function ProductOptionField({ label, action, children }: ProductOptionFie
       className={css({
         display: 'grid',
         gridTemplateColumns: 'max-content max-content',
-        columnGap: '12px',
+        columnGap: '3',
         minW: '0',
       })}
       legend={label}

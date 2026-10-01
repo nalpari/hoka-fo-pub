@@ -12,19 +12,19 @@ type SignupMethodOption = {
 };
 
 const styles = {
-  choice: css({ pt: '2px' }),
+  choice: css({ pt: '0.5' }),
   benefit: css({
     display: 'flex',
     alignItems: 'center',
     gap: '18px',
-    mb: '36px',
-    p: '24px',
+    mb: '9',
+    p: '6',
     bg: '#f2f2ef',
     '& > span': {
       display: 'grid',
       flex: '0 0 52px',
-      w: '52px',
-      h: '52px',
+      w: '13',
+      h: '13',
       placeItems: 'center',
       borderRadius: '50%',
       bg: '#111',
@@ -37,11 +37,11 @@ const styles = {
   description: css({ mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' }),
   methods: css({
     display: 'grid',
-    gap: '10px',
-    mt: '28px',
+    gap: '2.5',
+    mt: '7',
     '& button': {
       display: 'grid',
-      gap: '4px',
+      gap: '1',
       p: '17px 20px',
       border: '1px solid #d2d2d2',
       textAlign: 'left',
@@ -52,7 +52,7 @@ const styles = {
   kakao: css({ bg: '#fee500' }),
   naver: css({ bg: '#03c75a', color: '#fff' }),
   loginLink: css({
-    mt: '28px',
+    mt: '7',
     color: '#777',
     fontSize: '13px',
     textAlign: 'center',

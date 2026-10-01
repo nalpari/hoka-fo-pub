@@ -3,7 +3,7 @@ import { cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 const root = cva({
-  base: { display: 'flex', flexWrap: 'wrap', gap: '8px' },
+  base: { display: 'flex', flexWrap: 'wrap', gap: '2' },
   variants: { fullWidth: { true: { '& > button': { flex: '1' } }, false: {} } },
   defaultVariants: { fullWidth: false },
 });

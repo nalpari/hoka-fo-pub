@@ -14,20 +14,20 @@ export type SupportExperienceKind =
   'inquiries' | 'inquiry-new' | 'after-sales' | 'member-benefits' | 'mileage';
 
 const content = css({ maxW: '760px', '& h2': { fontSize: '20px' } });
-const intro = css({ mb: '28px', color: 'var(--color-text-muted)', fontSize: '14px', lineHeight: '1.6' });
+const intro = css({ mb: '7', color: 'var(--color-text-muted)', fontSize: '14px', lineHeight: '1.6' });
 const panel = css({ borderTop: '2px solid #111', borderBottom: '1px solid var(--color-border-subtle)' });
 const empty = css({
   display: 'grid',
   minH: '240px',
   placeItems: 'center',
-  p: '32px',
+  p: '8',
   color: 'var(--color-text-muted)',
   textAlign: 'center',
 });
 const row = css({
   display: 'grid',
   gridTemplateColumns: 'auto 1fr auto',
-  gap: '16px',
+  gap: '4',
   alignItems: 'center',
   w: '100%',
   p: '18px 0',
@@ -43,8 +43,8 @@ const row = css({
 const status = cva({
   base: {
     width: 'max-content',
-    px: '8px',
-    py: '4px',
+    px: '2',
+    py: '1',
     borderRadius: '999px',
     bg: '#eee',
     fontSize: '11px',
@@ -54,30 +54,30 @@ const status = cva({
 });
 const field = css({
   display: 'grid',
-  gap: '8px',
-  mb: '20px',
+  gap: '2',
+  mb: '5',
   '& label': { fontSize: '14px', fontWeight: '700' },
   '& textarea': {
     minH: '160px',
     w: '100%',
     resize: 'vertical',
     border: '1px solid #bbb',
-    p: '12px',
+    p: '3',
     fontFamily: 'var(--font-family-base)',
   },
 });
 const error = css({ color: '#db1f2d', fontSize: '12px', fontWeight: '700' });
-const actions = css({ display: 'flex', justifyContent: 'flex-end', gap: '8px', mt: '28px' });
+const actions = css({ display: 'flex', justifyContent: 'flex-end', gap: '2', mt: '7' });
 const quickLinks = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '8px',
-  mt: '40px',
+  gap: '2',
+  mt: '10',
   pt: '22px',
   borderTop: '1px solid var(--color-border-subtle)',
   '.platform-mobile &': { gridTemplateColumns: '1fr' },
   '& a': {
-    p: '14px',
+    p: '3.5',
     border: '1px solid var(--color-border-subtle)',
     textAlign: 'center',
     fontSize: '13px',
@@ -90,29 +90,29 @@ const tabList = css({
   borderBottom: '1px solid var(--color-border-subtle)',
   '& button': {
     flex: '0 0 auto',
-    minH: '44px',
+    minH: '11',
     border: '0',
     borderBottom: '2px solid transparent',
     bg: 'transparent',
-    px: '14px',
+    px: '3.5',
   },
 });
 const activeTab = css({ borderBottomColor: '#111 !important', fontWeight: '800' });
 const policyCard = css({
   display: 'grid',
   gridTemplateColumns: '92px 1fr',
-  gap: '16px',
-  p: '20px',
-  mt: '16px',
+  gap: '4',
+  p: '5',
+  mt: '4',
   borderRadius: '8px',
   bg: '#f6f6f6',
-  '& b': { display: 'grid', placeItems: 'center', minH: '72px', bg: '#fff', fontSize: '16px' },
-  '& h3': { mb: '6px' },
+  '& b': { display: 'grid', placeItems: 'center', minH: '18', bg: '#fff', fontSize: '16px' },
+  '& h3': { mb: '1.5' },
   '& p': { m: '0', color: '#555', fontSize: '13px', lineHeight: '1.6' },
 });
 const tooltip = css({
-  mt: '8px',
-  p: '14px',
+  mt: '2',
+  p: '3.5',
   borderRadius: '6px',
   bg: '#111',
   color: '#fff',
@@ -196,7 +196,7 @@ function InquiryPage() {
             {selectedItem?.id === item.id ? (
               <article
                 className={css({
-                  p: '20px',
+                  p: '5',
                   bg: '#fafafa',
                   borderBottom: '1px solid var(--color-border-subtle)',
                   fontSize: '13px',
@@ -369,12 +369,12 @@ function AfterSalesPage() {
           <div className={empty}>조회된 A/S 내역이 없습니다.</div>
         )
       ) : null}
-      <h2 className={css({ mt: '36px' })}>A/S 처리 절차</h2>
+      <h2 className={css({ mt: '9' })}>A/S 처리 절차</h2>
       <ol
         className={css({
           display: 'grid',
-          gap: '12px',
-          mt: '16px',
+          gap: '3',
+          mt: '4',
           color: '#555',
           fontSize: '14px',
         })}
@@ -414,7 +414,7 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
               </Button>
             ))}
           </nav>
-          <article className={css({ py: '28px', minH: '280px', lineHeight: '1.8' })}>
+          <article className={css({ py: '7', minH: '280px', lineHeight: '1.8' })}>
             <h2>{active}</h2>
             <p>
               온라인과 오프라인에서 적립 및 사용할 수 있는 통합 마일리지 정책을 안내합니다. 정책별
@@ -429,8 +429,8 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
             className={css({
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '12px',
-              mt: '14px',
+              gap: '3',
+              mt: '3.5',
               '.platform-mobile &': { gridTemplateColumns: '1fr' },
             })}
           >

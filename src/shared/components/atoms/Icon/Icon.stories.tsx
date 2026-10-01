@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 export const CarouselArrows: Story = {
   args: { name: 'carousel-arrow' },
   render: () => (
-    <HStack gap="10px">
+    <HStack gap="2.5">
       <Icon name="carousel-arrow" size="48px" />
       <Icon
         name="carousel-arrow"

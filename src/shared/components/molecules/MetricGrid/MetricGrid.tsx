@@ -28,10 +28,10 @@ const grid = cva({
 });
 const metricItem = css({
   display: 'grid',
-  gap: '8px',
+  gap: '2',
   minH: '138px',
   alignContent: 'center',
-  px: '28px',
+  px: '7',
   borderRight: '1px solid var(--color-border-subtle)',
   '&:last-child': { borderRight: '0' },
   _mobile: {

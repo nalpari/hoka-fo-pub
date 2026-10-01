@@ -15,7 +15,7 @@ export function PriceRange({
   onChange: (value: number) => void;
 }) {
   return (
-    <Box mt="14px">
+    <Box mt="3.5">
       <RangeInput
         style={{ '--range-accent': '#d71920' } as CSSProperties}
         min={min}

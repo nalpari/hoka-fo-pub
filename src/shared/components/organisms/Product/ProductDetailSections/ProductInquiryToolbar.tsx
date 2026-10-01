@@ -16,7 +16,7 @@ export function ProductInquiryToolbar({
     <Flex
       alignItems="center"
       justifyContent="space-between"
-      pb="20px"
+      pb="5"
       borderBottom="1px solid #111"
     >
       <Checkbox
@@ -28,7 +28,7 @@ export function ProductInquiryToolbar({
       <Button
         className={css({
           minW: '120px',
-          minH: '40px',
+          minH: '10',
           borderColor: '#111',
           bg: '#111',
           color: '#fff',

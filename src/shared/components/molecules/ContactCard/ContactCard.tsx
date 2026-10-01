@@ -12,7 +12,7 @@ export type ContactCardProps = {
   notice?: ReactNode;
   className?: string;
 };
-const root = css({ display: 'grid', gap: '16px', p: '24px', border: '1px solid var(--color-border-subtle)' });
+const root = css({ display: 'grid', gap: '4', p: '6', border: '1px solid var(--color-border-subtle)' });
 const heading = css({ m: '0', fontSize: '18px' });
 const description = css({ m: '0', color: 'var(--color-text-muted)', fontSize: '13px' });
 const noticeStyle = css({ m: '0', color: 'var(--color-text-muted)', fontSize: '12px' });

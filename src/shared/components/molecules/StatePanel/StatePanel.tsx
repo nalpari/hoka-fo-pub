@@ -10,7 +10,7 @@ export type StatePanelProps = {
   action?: ReactNode;
   className?: string;
 };
-const root = css({ display: 'grid', gap: '20px', maxW: '760px' });
+const root = css({ display: 'grid', gap: '5', maxW: '760px' });
 
 /** Consistent content-state presentation for empty results, request errors, and confirmations. */
 export function StatePanel({ variant, title, description, action, className }: StatePanelProps) {

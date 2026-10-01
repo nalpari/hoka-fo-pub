@@ -70,7 +70,7 @@ export function FooterNavigation() {
       {platform === 'web' ? (
         <Flex justifyContent="space-between" alignItems="flex-start">
           {footerGroups.map((group) => (
-            <Flex direction="column" gap="16px" key={group.title}>
+            <Flex direction="column" gap="4" key={group.title}>
               <h3 className={styles.title}>{group.title}</h3>
               {renderLinks(group.links, platform)}
             </Flex>

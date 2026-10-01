@@ -8,7 +8,7 @@ const styles = {
   steps: css({
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '8px',
+    gap: '2',
     mb: '34px',
     p: 0,
     listStyle: 'none',

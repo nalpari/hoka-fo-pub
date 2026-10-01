@@ -7,7 +7,7 @@ const styles = {
       right: 0,
       bottom: 0,
       w: '74px',
-      h: '28px',
+      h: '7',
     },
   }),
 };

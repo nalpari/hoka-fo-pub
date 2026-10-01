@@ -24,7 +24,7 @@ const thumbnail = css({
   display: 'grid',
   w: '100%',
   h: 'calc(100% - 3px)',
-  p: '4px',
+  p: '1',
   placeItems: 'center',
   color: '#777',
   fontSize: '9px',
@@ -61,7 +61,7 @@ export function ColorSelector({ colors, image, value, onChange }: ColorSelectorP
       }
       label="색상"
     >
-      <Flex wrap="wrap" gap="8px" mt="12px" mb="22px">
+      <Flex wrap="wrap" gap="2" mt="3" mb="22px">
         {colors.map((color) => (
           <Button
             aria-label={color}

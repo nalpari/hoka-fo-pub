@@ -13,14 +13,14 @@ import { Box, Grid } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
 const chips = css({
-  '& button': { mr: '6px', mb: '15px', px: '10px', py: '5px', borderRadius: '20px' },
+  '& button': { mr: '1.5', mb: '15px', px: '2.5', py: '5px', borderRadius: '20px' },
 });
 
 const catalogGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '16px',
-  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' },
+  gap: '4',
+  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '2.5' },
 });
 
 const catalogProductCardOptions: readonly ProductCardOption[] = [

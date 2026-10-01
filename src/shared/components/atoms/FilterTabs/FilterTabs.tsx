@@ -55,7 +55,7 @@ const item = cva({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      px: '16px',
+      px: '4',
       height: '30px',
       borderRadius: '99px',
       bg: '#E9EAEB',

@@ -60,13 +60,13 @@ export function ProductPurchasePanel({
       id="product-purchase"
       className={css({
         position: { base: 'sticky', _mobile: 'static' },
-        top: '96px',
+        top: '24',
         alignSelf: 'start',
       })}
     >
       <ProductPurchaseSummary onViewReviews={onViewReviews} product={product} />
       {product.launchStatus === 'COMING' && <LaunchNotice status={product.launchStatus} />}
-      <strong className={css({ display: 'block', my: '20px', fontSize: '26px' })}>
+      <strong className={css({ display: 'block', my: '5', fontSize: '26px' })}>
         {won(product.price)}
       </strong>
       <hr />

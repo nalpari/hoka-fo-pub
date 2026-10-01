@@ -7,7 +7,7 @@ const card = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: '24px',
+  gap: '6',
   minH: '185px',
   p: '30px 38px',
   bg: '#e7f3f8',

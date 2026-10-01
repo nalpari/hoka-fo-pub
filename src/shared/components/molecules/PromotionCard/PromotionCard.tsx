@@ -18,7 +18,7 @@ export function PromotionCard() {
         textAlign: 'center',
       })}
     >
-      <Box w="100%" p="12px" bg="rgb(255 255 255 / 80%)">
+      <Box w="100%" p="3" bg="rgb(255 255 255 / 80%)">
         <Typography as="small" variant="meta">
           LIMITED COLLECTION
         </Typography>
@@ -26,7 +26,7 @@ export function PromotionCard() {
           as="strong"
           className={css({
             display: 'block',
-            m: '8px',
+            m: '2',
             fontSize: 'var(--type-heading-font-size)',
             lineHeight: '1',
           })}
