@@ -116,7 +116,12 @@ const title = cva({
 });
 
 const descriptionStyle = cva({
-  base: { m: '0' },
+  base: {
+    m: '0',
+    minH: '2.6em',
+    overflow: 'hidden',
+    lineClamp: '2',
+  },
   variants: {
     variant: {
       descriptionLink: {},
