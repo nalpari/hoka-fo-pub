@@ -8,9 +8,8 @@ import { VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
 const panel = css({
-  w: '100%',
-  pb: '64px',
-  '& h3': { m: '0 0 18px', fontSize: '20px' },
+  pb: 'var(--spacing-64)',
+  alignItems: 'stretch',
 });
 
 export type { CatalogSelectedFilter } from '@/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader';

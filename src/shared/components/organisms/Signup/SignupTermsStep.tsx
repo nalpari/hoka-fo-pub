@@ -89,7 +89,7 @@ export function SignupTermsStep({
         className={styles.allTerms}
         label={<span>필수 약관 전체 동의</span>}
         checked={allRequiredTerms}
-        onChange={(event) => onToggleAll(event.target.checked)}
+        onCheckedChange={onToggleAll}
       />
       <VStack className={styles.termList}>
         <Checkbox
@@ -104,7 +104,7 @@ export function SignupTermsStep({
             </>
           }
           checked={serviceTerms}
-          onChange={(event) => onServiceTermsChange(event.target.checked)}
+          onCheckedChange={onServiceTermsChange}
         />
         <Checkbox
           label={
@@ -118,7 +118,7 @@ export function SignupTermsStep({
             </>
           }
           checked={privacyTerms}
-          onChange={(event) => onPrivacyTermsChange(event.target.checked)}
+          onCheckedChange={onPrivacyTermsChange}
         />
         <Checkbox
           label={
@@ -127,7 +127,7 @@ export function SignupTermsStep({
             </span>
           }
           checked={ageTerms}
-          onChange={(event) => onAgeTermsChange(event.target.checked)}
+          onCheckedChange={onAgeTermsChange}
         />
       </VStack>
       {message ? (

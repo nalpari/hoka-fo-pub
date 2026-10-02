@@ -64,7 +64,7 @@ $font-faces: (
     --layout-web-category-card-min-width: 265px;
     --layout-web-category-card-max-width: 304px;
     --layout-web-category-four-card-gap: 30px;
-    --layout-site-header-height: var(--spacing-22);
+    --layout-site-header-height: 88px;
     --layout-mobile-inline-gutter: var(--spacing-4);
     --layout-mobile-content-inline-space: calc(
       var(--layout-mobile-inline-gutter) + var(--layout-mobile-inline-gutter)
@@ -170,7 +170,7 @@ $font-faces: (
   }
 
   .platform-mobile {
-    --layout-site-header-height: var(--spacing-13);
+    --layout-site-header-height: 52px;
   }
 
   * {

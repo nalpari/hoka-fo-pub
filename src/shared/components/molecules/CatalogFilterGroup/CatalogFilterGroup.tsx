@@ -1,27 +1,24 @@
 import { useState } from 'react';
-import { CheckboxGroup } from '@/shared/components/atoms/CheckboxGroup/CheckboxGroup';
+import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilterSection/CatalogFilterSection';
 
 export function CatalogFilterGroup({
   title,
   values,
-  value,
+  selected: controlledSelected = [],
   onChange,
 }: {
   title: string;
   values: string[];
-  value?: string;
-  onChange?: (value: string) => void;
+  selected?: string[];
+  onChange?: (values: string[]) => void;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const selectedValues = onChange ? (value ? [value] : []) : selected;
+  const [internalSelected, setInternalSelected] = useState<string[]>([]);
+  const selectedValues = onChange ? controlledSelected : internalSelected;
   return (
     <CatalogFilterSection title={title}>
-      <CheckboxGroup
-        onValueChange={(next) => {
-          if (!onChange) return setSelected(next);
-          onChange(next.find((item) => !selectedValues.includes(item)) ?? '');
-        }}
+      <Checkbox
+        onValueChange={(next) => (onChange ? onChange(next) : setInternalSelected(next))}
         options={values.map((item) => ({ label: item, value: item }))}
         value={selectedValues}
       />

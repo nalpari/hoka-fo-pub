@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CatalogFilterGroup } from '@/shared/components/molecules/CatalogFilterGroup/CatalogFilterGroup';
 
 function InteractiveFilter() {
-  const [value, setValue] = useState('Balanced');
+  const [selected, setSelected] = useState(['Balanced']);
   return (
     <div style={{ width: 280 }}>
       <CatalogFilterGroup
         title="쿠셔닝"
         values={['Balanced', 'Plush', 'Responsive']}
-        value={value}
-        onChange={setValue}
+        selected={selected}
+        onChange={setSelected}
       />
     </div>
   );

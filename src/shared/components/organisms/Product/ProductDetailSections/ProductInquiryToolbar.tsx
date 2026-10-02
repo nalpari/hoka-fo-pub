@@ -13,17 +13,12 @@ export function ProductInquiryToolbar({
   onPrivateOnlyChange,
 }: ProductInquiryToolbarProps) {
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="space-between"
-      pb="5"
-      borderBottom="1px solid #111"
-    >
+    <Flex alignItems="center" justifyContent="space-between" pb="5" borderBottom="1px solid #111">
       <Checkbox
         className={css({ color: '#9aa2af', fontSize: '14px' })}
         label="비밀글 제외"
         checked={privateOnly}
-        onChange={(event) => onPrivateOnlyChange(event.target.checked)}
+        onCheckedChange={onPrivateOnlyChange}
       />
       <Button
         className={css({

@@ -7,7 +7,9 @@
     "prepare": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
     "panda": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
     "panda:watch": "panda cssgen --watch --outfile src/shared/styles/panda.css",
-    "dev": "next dev",
+    "prebuild": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
+    "dev": "npm run panda && concurrently \"next dev\" \"npm run panda:watch\"",
+    "dev:all": "npm run panda && concurrently \"next dev\" \"npm run storybook\" \"npm run panda:watch\"",
     "build": "next build",
     "start": "next start",
     "preview": "next start",
@@ -24,6 +26,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest",
+    "simplebar-react": "^3.3.2",
     "swiper": "^14.2.0"
   },
   "devDependencies": {
@@ -35,6 +38,7 @@
     "@types/node": "latest",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "concurrently": "^10.0.5",
     "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",

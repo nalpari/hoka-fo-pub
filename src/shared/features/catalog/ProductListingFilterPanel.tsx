@@ -1,88 +1,57 @@
-import { useState } from 'react';
 import { CatalogFilterGroup } from '@/shared/components/molecules/CatalogFilterGroup/CatalogFilterGroup';
 import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilterSection/CatalogFilterSection';
 import { ColorFilter } from '@/shared/components/molecules/ColorFilter/ColorFilter';
 import { FilterPillGroup } from '@/shared/components/molecules/FilterPillGroup/FilterPillGroup';
 import { PriceRange } from '@/shared/components/molecules/PriceRange/PriceRange';
 import {
+  activityLabels,
+  collectionValues,
+  colorLabels,
+  cushioningLabels,
+  genderLabels,
+  labelsToValues,
+  productListingPriceRange,
+  runningTypeValues,
+  sizeValues,
+  stabilityLabels,
+  valuesToLabels,
+  widthLabels,
+} from '@/shared/features/catalog/productListingFilterValues';
+import {
   CatalogFilterPanel,
   type CatalogSelectedFilter,
 } from '@/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanel';
 
 type ProductListingFilterPanelProps = {
-  gender: string;
-  activity: string;
-  width: string;
-  cushioning: string;
-  stability: string;
-  size: string;
+  gender: string[];
+  activity: string[];
+  width: string[];
+  cushioning: string[];
+  stability: string[];
+  size: string[];
+  collection: string[];
+  runningType: string[];
   maxPrice: number;
   selectedColors: string[];
-  onFilterChange: (key: string, value: string) => void;
+  onFilterChange: (key: string, values: string[]) => void;
   onMaxPriceChange: (value: number) => void;
   onSelectedColorsChange: (values: string[]) => void;
   onReset: () => void;
 };
 
-const normalizeWidthValue = (value: string) => {
-  if (!value) return '';
-  if (value === 'regular') return '레귤러';
-  if (value === 'wide') return '와이드';
-  if (value === 'x-wide') return 'X-와이드';
-  return value;
-};
+const selectedFilterItems = (
+  key: string,
+  values: string[],
+  labels: Record<string, string>,
+  onChange: (values: string[]) => void,
+) =>
+  values.map((value) => ({
+    id: `${key}-${value}`,
+    label: labels[value] ?? value,
+    onRemove: () => onChange(values.filter((selected) => selected !== value)),
+  }));
 
-const normalizeCushioningValue = (value: string) => {
-  if (!value) return '';
-  const normalized = value.toLowerCase();
-  if (normalized === 'balanced') return '균형 있는';
-  if (normalized === 'plush') return '폭신한';
-  if (normalized === 'responsive') return '스피드 있는';
-  return value;
-};
-
-const normalizeStabilityValue = (value: string) => {
-  if (!value) return '';
-  const normalized = value.toLowerCase();
-  if (normalized === 'stable') return '안정성';
-  if (normalized === 'neutral') return '뉴트럴';
-  return value;
-};
-
-const normalizeGenderValue = (value: string) => {
-  if (value.toLowerCase() === 'men') return '남성';
-  if (value.toLowerCase() === 'women') return '여성';
-  return '';
-};
-
-const normalizeActivityValue = (value: string) => {
-  const activityLabels: Record<string, string> = {
-    'road-running': '로드 러닝',
-    'trail-running': '트레일 러닝',
-    lifestyle: '라이프스타일',
-    hiking: '하이킹',
-    walking: '워킹',
-    recovery: '리커버리',
-  };
-
-  return activityLabels[value] ?? value;
-};
-
-const colorLabels: Record<string, string> = {
-  red: '레드',
-  blue: '블루',
-  green: '그린',
-  orange: '오렌지',
-  gray: '그레이',
-  black: '블랙',
-  white: '화이트',
-  pink: '핑크',
-  brown: '브라운',
-  yellow: '옐로우',
-  purple: '퍼플',
-  cream: '크림',
-};
-
+/** Controls all catalog facets and exposes their current selections as removable tags. */
 export function ProductListingFilterPanel({
   gender,
   activity,
@@ -90,6 +59,8 @@ export function ProductListingFilterPanel({
   cushioning,
   stability,
   size,
+  collection,
+  runningType,
   maxPrice,
   selectedColors,
   onFilterChange,
@@ -97,183 +68,91 @@ export function ProductListingFilterPanel({
   onSelectedColorsChange,
   onReset,
 }: ProductListingFilterPanelProps) {
-  const [collection, setCollection] = useState('');
-  const [runningType, setRunningType] = useState('');
-
   const selectedFilters: CatalogSelectedFilter[] = [
-    ...(gender
-      ? [
-          {
-            id: 'gender',
-            label: normalizeGenderValue(gender),
-            onRemove: () => onFilterChange('gender', ''),
-          },
-        ]
-      : []),
-    ...(size ? [{ id: 'size', label: size, onRemove: () => onFilterChange('size', '') }] : []),
-    ...(width
-      ? [
-          {
-            id: 'width',
-            label: normalizeWidthValue(width),
-            onRemove: () => onFilterChange('width', ''),
-          },
-        ]
-      : []),
-    ...selectedColors.map((color) => ({
-      id: `color-${color}`,
-      label: colorLabels[color] ?? color,
-      onRemove: () =>
-        onSelectedColorsChange(selectedColors.filter((selected) => selected !== color)),
-    })),
-    ...(activity
-      ? [
-          {
-            id: 'activity',
-            label: normalizeActivityValue(activity),
-            onRemove: () => onFilterChange('activity', ''),
-          },
-        ]
-      : []),
-    ...(collection
-      ? [{ id: 'collection', label: collection, onRemove: () => setCollection('') }]
-      : []),
-    ...(runningType
-      ? [{ id: 'running-type', label: runningType, onRemove: () => setRunningType('') }]
-      : []),
-    ...(cushioning
-      ? [
-          {
-            id: 'cushioning',
-            label: normalizeCushioningValue(cushioning),
-            onRemove: () => onFilterChange('cushioning', ''),
-          },
-        ]
-      : []),
-    ...(stability
-      ? [
-          {
-            id: 'stability',
-            label: normalizeStabilityValue(stability),
-            onRemove: () => onFilterChange('support', ''),
-          },
-        ]
-      : []),
-    ...(maxPrice !== 189000
+    ...selectedFilterItems('gender', gender, genderLabels, (next) => onFilterChange('gender', next)),
+    ...selectedFilterItems('size', size, {}, (next) => onFilterChange('size', next)),
+    ...selectedFilterItems('width', width, widthLabels, (next) => onFilterChange('width', next)),
+    ...selectedFilterItems('color', selectedColors, colorLabels, onSelectedColorsChange),
+    ...selectedFilterItems('activity', activity, activityLabels, (next) => onFilterChange('activity', next)),
+    ...selectedFilterItems('collection', collection, {}, (next) => onFilterChange('collection', next)),
+    ...selectedFilterItems('running-type', runningType, {}, (next) => onFilterChange('runningType', next)),
+    ...selectedFilterItems('cushioning', cushioning, cushioningLabels, (next) =>
+      onFilterChange('cushioning', next),
+    ),
+    ...selectedFilterItems('stability', stability, stabilityLabels, (next) =>
+      onFilterChange('support', next),
+    ),
+    ...(maxPrice !== productListingPriceRange.defaultMax
       ? [
           {
             id: 'price',
             label: `${maxPrice.toLocaleString('ko-KR')}원 이하`,
-            onRemove: () => onMaxPriceChange(189000),
+            onRemove: () => onMaxPriceChange(productListingPriceRange.defaultMax),
           },
         ]
       : []),
   ];
 
-  const handleReset = () => {
-    setCollection('');
-    setRunningType('');
-    onReset();
-  };
-
   return (
-    <CatalogFilterPanel onReset={handleReset} selectedFilters={selectedFilters}>
+    <CatalogFilterPanel onReset={onReset} selectedFilters={selectedFilters}>
       <CatalogFilterGroup
         title="성별"
-        values={['남성', '여성']}
-        value={normalizeGenderValue(gender)}
-        onChange={(value) => onFilterChange('gender', value === '남성' ? 'men' : 'women')}
+        values={Object.values(genderLabels)}
+        selected={valuesToLabels(gender, genderLabels)}
+        onChange={(values) => onFilterChange('gender', labelsToValues(values, genderLabels))}
       />
       <FilterPillGroup
         title="사이즈"
-        values={[
-          '220',
-          '225',
-          '230',
-          '235',
-          '240',
-          '245',
-          '250',
-          '255',
-          '260',
-          '265',
-          '270',
-          '275',
-          '280',
-          '285',
-          '290',
-          '295',
-          '300',
-        ]}
-        selected={size ? [size] : []}
-        onChange={(next) => onFilterChange('size', next[0] ?? '')}
+        values={sizeValues}
+        selected={size}
+        onChange={(next) => onFilterChange('size', next)}
       />
       <CatalogFilterGroup
         title="발볼"
-        values={['레귤러', '와이드', 'X-와이드']}
-        value={normalizeWidthValue(width)}
-        onChange={(value) =>
-          onFilterChange(
-            'width',
-            value === '레귤러' ? 'regular' : value === '와이드' ? 'wide' : 'x-wide',
-          )
-        }
+        values={Object.values(widthLabels)}
+        selected={valuesToLabels(width, widthLabels)}
+        onChange={(values) => onFilterChange('width', labelsToValues(values, widthLabels))}
       />
       <CatalogFilterSection title="색상">
         <ColorFilter selected={selectedColors} onChange={onSelectedColorsChange} />
       </CatalogFilterSection>
       <CatalogFilterGroup
         title="액티비티"
-        values={['로드 러닝', '트레일 러닝', '라이프스타일', '하이킹', '워킹', '리커버리']}
-        value={normalizeActivityValue(activity)}
-        onChange={(value) =>
-          onFilterChange(
-            'activity',
-            value === '로드 러닝'
-              ? 'road-running'
-              : value === '트레일 러닝'
-                ? 'trail-running'
-                : value === '라이프스타일'
-                  ? 'lifestyle'
-                  : value === '하이킹'
-                    ? 'hiking'
-                    : value === '워킹'
-                      ? 'walking'
-                      : 'recovery',
-          )
-        }
+        values={Object.values(activityLabels)}
+        selected={valuesToLabels(activity, activityLabels)}
+        onChange={(values) => onFilterChange('activity', labelsToValues(values, activityLabels))}
       />
       <CatalogFilterGroup
         title="컬렉션"
-        values={['클리프톤', '아라히', '가비오타', '마하']}
-        value={collection}
-        onChange={setCollection}
+        values={collectionValues}
+        selected={collection}
+        onChange={(values) => onFilterChange('collection', values)}
       />
       <CatalogFilterGroup
         title="러닝 타입"
-        values={['데일리 러닝', '레이스 데이']}
-        value={runningType}
-        onChange={setRunningType}
+        values={runningTypeValues}
+        selected={runningType}
+        onChange={(values) => onFilterChange('runningType', values)}
       />
       <CatalogFilterGroup
         title="주행감"
-        values={['폭신한', '균형 있는', '스피드 있는']}
-        value={normalizeCushioningValue(cushioning)}
-        onChange={(value) =>
-          onFilterChange(
-            'cushioning',
-            value === '폭신한' ? 'plush' : value === '균형 있는' ? 'balanced' : 'responsive',
-          )
-        }
+        values={Object.values(cushioningLabels)}
+        selected={valuesToLabels(cushioning, cushioningLabels)}
+        onChange={(values) => onFilterChange('cushioning', labelsToValues(values, cushioningLabels))}
       />
       <CatalogFilterGroup
         title="안정성"
-        values={['뉴트럴', '안정성']}
-        value={normalizeStabilityValue(stability)}
-        onChange={(value) => onFilterChange('support', value === '안정성' ? 'stable' : 'neutral')}
+        values={Object.values(stabilityLabels)}
+        selected={valuesToLabels(stability, stabilityLabels)}
+        onChange={(values) => onFilterChange('support', labelsToValues(values, stabilityLabels))}
       />
       <CatalogFilterSection title="가격">
-        <PriceRange min={50000} max={389000} value={maxPrice} onChange={onMaxPriceChange} />
+        <PriceRange
+          min={productListingPriceRange.min}
+          max={productListingPriceRange.max}
+          value={maxPrice}
+          onChange={onMaxPriceChange}
+        />
       </CatalogFilterSection>
     </CatalogFilterPanel>
   );

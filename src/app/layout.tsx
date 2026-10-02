@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import 'simplebar-react/dist/simplebar.min.css';
 import '@/shared/styles/global.scss';
 
 export const metadata: Metadata = {
