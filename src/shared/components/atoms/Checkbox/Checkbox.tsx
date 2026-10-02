@@ -2,7 +2,7 @@ import type { InputHTMLAttributes, ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 
-const checkboxStyles = css({ w: '16px', h: '16px' });
+const checkboxStyles = css({ w: '4', h: '4' });
 
 export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
   label: ReactNode;

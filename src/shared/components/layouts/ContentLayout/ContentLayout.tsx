@@ -11,8 +11,8 @@ const stickyHeaderStyle = css({
   top: 'var(--layout-site-header-height)',
   zIndex: 10,
   bg: 'var(--hoka-white)',
-  pt: '24px',
-  pb: '20px',
+  pt: '6',
+  pb: '5',
   _mobile: { position: 'static', pt: 0 },
 });
 

@@ -1,24 +1,13 @@
 import type { ReactNode } from 'react';
+import { Button } from '@/shared/components/atoms/Button/Button';
 import { BottomSheet } from '@/shared/components/layouts/BottomSheet/BottomSheet';
 import { css } from 'styled-system/css';
 
 const filterSheetContent = css({
-  px: '20px',
-  py: '8px',
-  '& aside': { border: '0' },
-  '& aside > h3': { display: 'none' },
-  '& aside > button': { display: 'none' },
-});
-
-const filterApplyButton = css({
-  width: '100%',
-  minH: '52px',
-  border: '0',
-  borderRadius: '999px',
-  bg: 'var(--color-text-primary)',
-  color: 'var(--color-text-inverse)',
-  cursor: 'pointer',
-  _focusVisible: { outline: '2px solid var(--color-focus-default)', outlineOffset: '2px' },
+  px: '4',
+  // '& aside': { border: '0' },
+  // '& aside > h3': { display: 'none' },
+  // '& aside > button': { display: 'none' },
 });
 
 type MobileProductFilterProps = {
@@ -39,9 +28,9 @@ export function MobileProductFilter({
     <BottomSheet
       ariaLabel="상품 필터"
       footer={
-        <button className={filterApplyButton} onClick={onApply} type="button">
+        <Button onClick={onApply} variant="bottomSheetPrimary">
           필터 적용하기 ({resultCount})
-        </button>
+        </Button>
       }
       onClose={onClose}
       title="필터"

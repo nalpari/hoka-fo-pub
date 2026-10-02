@@ -13,7 +13,7 @@ const styles = {
     alignItems: 'center',
     w: '100%',
     minH: '57px',
-    px: '14px',
+    px: '3.5',
     py: '0',
     border: '0',
     bg: '#fff',
@@ -30,7 +30,7 @@ const styles = {
     '& b': { mr: '18px', color: '#777', fontFamily: 'var(--font-family-base)', fontSize: '15px' },
     '& p': { maxW: '550px', m: '0', color: '#777', fontSize: '11px', lineHeight: '1.7' },
   }),
-  empty: css({ p: '60px', color: '#777', textAlign: 'center' }),
+  empty: css({ p: '15', color: '#777', textAlign: 'center' }),
 };
 
 type Props = {

@@ -27,8 +27,8 @@ export function ProductInformation() {
         <li>모니터 해상도 및 기기에 따라 실제 색상이 다를 수 있습니다.</li>
         <li>교환은 구매한 홈페이지를 통해서만 진행할 수 있습니다.</li>
       </Box>
-      <Grid as="dl" gap="20px" m="0">
-        <Grid gridTemplateColumns="120px 1fr" gap="12px">
+      <Grid as="dl" gap="5" m="0">
+        <Grid gridTemplateColumns="120px 1fr" gap="3">
           <Box as="dt" fontWeight="700">
             컬러
           </Box>
@@ -36,33 +36,33 @@ export function ProductInformation() {
             (85) Brown
           </Box>
         </Grid>
-        <Grid gridTemplateColumns="120px 1fr" gap="12px">
+        <Grid gridTemplateColumns="120px 1fr" gap="3">
           <dt>스타일코드</dt>
           <dd>NBP7GF729F</dd>
         </Grid>
-        <Grid gridTemplateColumns="120px 1fr" gap="12px">
+        <Grid gridTemplateColumns="120px 1fr" gap="3">
           <dt>발볼 넓이</dt>
           <dd>D(보통)</dd>
         </Grid>
         {expanded && (
           <>
-            <Grid gridTemplateColumns="120px 1fr" gap="12px">
+            <Grid gridTemplateColumns="120px 1fr" gap="3">
               <dt>소재</dt>
               <dd>겉감: 천연가죽, 합성가죽 / 안감: 폴리에스터 100%</dd>
             </Grid>
-            <Grid gridTemplateColumns="120px 1fr" gap="12px">
+            <Grid gridTemplateColumns="120px 1fr" gap="3">
               <dt>제조국</dt>
               <dd>VIETNAM</dd>
             </Grid>
-            <Grid gridTemplateColumns="120px 1fr" gap="12px">
+            <Grid gridTemplateColumns="120px 1fr" gap="3">
               <dt>제조년월</dt>
               <dd>2026년 5월</dd>
             </Grid>
-            <Grid gridTemplateColumns="120px 1fr" gap="12px">
+            <Grid gridTemplateColumns="120px 1fr" gap="3">
               <dt>품질보증기간</dt>
               <dd>구매일로부터 1년간</dd>
             </Grid>
-            <Grid gridTemplateColumns="120px 1fr" gap="12px">
+            <Grid gridTemplateColumns="120px 1fr" gap="3">
               <dt>부가 정보</dt>
               <dd>제품 관리 방법은 동봉된 안내서를 확인해 주세요.</dd>
             </Grid>

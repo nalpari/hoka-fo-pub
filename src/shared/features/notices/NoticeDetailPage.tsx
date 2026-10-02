@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
+import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
-import styles from '@/shared/features/notices/NoticeDetailPage.module.scss';
+const styles = {
+  noticeHead: css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minH: '77px', px: '5', borderTop: '2px solid #555', borderBottom: '1px solid #ddd', _mobile: { display: 'block', p: '4.5 1.25' }, '& h2': { m: '0', fontSize: '14px', _mobile: { lineHeight: '1.5' } }, '& span': { color: '#888', fontSize: '11px', _mobile: { display: 'block', mt: '2.5' } } }),
+  poster: css({ w: '565px', minH: '1110px', mt: '30px', p: '55px 7', border: '8px solid #ddd', borderTop: '8px solid #e60032', _mobile: { w: '100%', minH: '0', p: '8 19px', borderWidth: '5px' }, '& > h2': { m: '0', fontSize: '34px', lineHeight: '1.45', _mobile: { fontSize: '26px' } }, '& em': { fontStyle: 'normal' }, '& section': { mt: '43px' }, '& h3': { m: '29px 0 2', fontSize: '20px', _mobile: { fontSize: '17px' } }, '& p': { m: '0', fontSize: '17px', lineHeight: '1.75', _mobile: { fontSize: '14px' } }, '& strong': { color: '#e60032', fontSize: '16px', fontWeight: '400' } }),
+  brand: css({ mb: '38px', color: '#e60032', fontSize: '48px', fontStyle: 'italic', fontWeight: '900', letterSpacing: '-0.2em' }),
+  back: css({ mt: '180px', pt: '6', borderTop: '1px solid #ddd', textAlign: 'right', _mobile: { mt: '65px' }, '& a': { display: 'inline-block', p: '2.5 7', border: '1px solid #222', fontSize: '12px' } }),
+};
 
 export function NoticeDetailPage() {
   return (

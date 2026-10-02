@@ -12,9 +12,9 @@ const home = css({
   color: 'var(--color-text-primary)',
   bg: 'var(--color-surface-default)',
   fontFamily: 'var(--font-family-base)',
-  pb: '96px',
+  pb: '24',
   _mobile: {
-    pb: '72px',
+    pb: '18',
   },
 });
 

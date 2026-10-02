@@ -15,8 +15,8 @@ const bar = css({
     zIndex: '20',
     display: 'grid',
     gridTemplateColumns: '64px 1fr',
-    gap: '8px',
-    p: '10px var(--layout-mobile-inline-gutter)',
+    gap: '2',
+    p: '2.5 var(--layout-mobile-inline-gutter)',
     borderTop: '1px solid var(--color-border-subtle)',
     bg: '#fff',
     boxShadow: '0 -5px 20px rgba(0,0,0,.08)',
@@ -26,7 +26,7 @@ const bar = css({
 const wish = css({ border: '1px solid #111', bg: '#fff', fontSize: '20px' });
 
 const purchase = css({
-  minH: '48px',
+  minH: '12',
   border: '1px solid #111',
   bg: '#111',
   color: '#fff',

@@ -11,12 +11,12 @@ const header = css({
   display: 'flex',
   alignItems: 'center',
   h: 'var(--layout-site-header-height)',
-  px: '72px',
+  px: '18',
   borderBottomWidth: '1px',
   borderBottomStyle: 'solid',
   borderBottomColor: 'headerBorder',
   bg: 'var(--hoka-white)',
-  _mobile: { gap: 0, p: '0 9px 0 var(--layout-mobile-inline-gutter)' },
+  _mobile: { gap: 0, pt: '0', pr: '9px', pb: '0', pl: 'var(--layout-mobile-inline-gutter)' },
 });
 
 export type SiteHeaderContainerProps = {
@@ -45,7 +45,7 @@ export function SiteHeaderContainer({
   return (
     <header className={header}>
       <Flex alignItems="center" justifyContent="space-between" width="100%">
-        <HStack gap="24px" alignItems="center">
+        <HStack gap="6" alignItems="center">
           <HeaderLogo onClick={onLogoClick} />
 
           {platform === 'web' ? (
@@ -53,7 +53,7 @@ export function SiteHeaderContainer({
           ) : null}
         </HStack>
 
-        <HStack gap="6px" alignItems="center">
+        <HStack gap="1.5" alignItems="center">
           <HeaderTools
             cart={cart}
             isLoggedIn={isLoggedIn}

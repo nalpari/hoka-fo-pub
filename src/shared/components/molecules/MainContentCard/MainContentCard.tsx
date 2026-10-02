@@ -36,16 +36,16 @@ const root = cva({
   variants: {
     variant: {
       titleLinks: { gap: '21px', _mobile: { gap: '18px' } },
-      descriptionLink: { gap: '21px', _mobile: { gap: '20px' } },
+      descriptionLink: { gap: '21px', _mobile: { gap: '5' } },
       imagePill: { gap: '0', bg: 'var(--color-surface-subtle)' },
       overlay: {
         alignItems: 'flex-start',
         justifyContent: 'flex-end',
-        gap: '32px',
+        gap: '8',
         bg: 'var(--color-surface-subtle)',
         aspectRatio: '371 / 494',
         p: '28px 28px 40px',
-        _mobile: { gap: '20px', aspectRatio: '253 / 337', p: '16px 16px 30px' },
+        _mobile: { gap: '5', aspectRatio: '253 / 337', p: '16px 16px 30px' },
       },
     },
   },
@@ -83,18 +83,18 @@ const header = cva({
   base: { display: 'flex', flexDirection: 'column' },
   variants: {
     variant: {
-      titleLinks: { gap: '26px', _mobile: { gap: '20px' } },
-      descriptionLink: { gap: '26px', _mobile: { gap: '20px', px: '16px' } },
+      titleLinks: { gap: '26px', _mobile: { gap: '5' } },
+      descriptionLink: { gap: '26px', _mobile: { gap: '5', px: '4' } },
       imagePill: {
         position: 'relative',
         zIndex: '1',
-        gap: '20px',
-        mt: '-64px',
-        px: '32px',
-        pt: '32px',
-        _mobile: { gap: '16px', mt: '-24px', px: '16px', pt: '24px' },
+        gap: '5',
+        mt: '-16',
+        px: '8',
+        pt: '8',
+        _mobile: { gap: '4', mt: '-6', px: '4', pt: '6' },
       },
-      overlay: { position: 'relative', zIndex: '1', gap: '24px', _mobile: { gap: '20px' } },
+      overlay: { position: 'relative', zIndex: '1', gap: '6', _mobile: { gap: '5' } },
     },
   },
 });
@@ -143,17 +143,17 @@ const footer = cva({
 });
 
 const actions = cva({
-  base: { display: 'flex', flexWrap: 'wrap', gap: '16px' },
+  base: { display: 'flex', flexWrap: 'wrap', gap: '4' },
   variants: {
     variant: {
       titleLinks: {},
-      descriptionLink: { _mobile: { px: '16px' } },
+      descriptionLink: { _mobile: { px: '4' } },
       imagePill: {
-        gap: '12px',
-        px: '32px',
+        gap: '3',
+        px: '8',
         pb: '38px',
-        pt: '20px',
-        _mobile: { px: '16px', pb: '30px', pt: '16px' },
+        pt: '5',
+        _mobile: { px: '4', pb: '30px', pt: '4' },
       },
       overlay: { position: 'relative', zIndex: '1' },
     },

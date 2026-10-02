@@ -62,6 +62,18 @@ const typography = cva({
         letterSpacing: 'var(--type-action-letter-spacing)',
         _mobile: { fontSize: 'var(--type-action-mobile-font-size)' },
       },
+      filterLegend: {
+        fontWeight: 'var(--type-filter-legend-font-weight)',
+        fontSize: 'var(--type-filter-legend-font-size)',
+        lineHeight: 'var(--type-filter-legend-line-height)',
+        letterSpacing: 'var(--type-filter-legend-letter-spacing)',
+      },
+      bottomSheetTitle: {
+        fontWeight: 'var(--type-bottom-sheet-title-font-weight)',
+        fontSize: 'var(--type-bottom-sheet-title-font-size)',
+        lineHeight: 'var(--type-bottom-sheet-title-line-height)',
+        letterSpacing: 'var(--type-bottom-sheet-title-letter-spacing)',
+      },
     },
     tone: {
       primary: { color: 'var(--color-text-primary)' },
@@ -81,6 +93,8 @@ export type TypographyVariant =
   | 'meta'
   | 'price'
   | 'priceEmphasis'
+  | 'filterLegend'
+  | 'bottomSheetTitle'
   | 'action';
 
 export type TypographyProps<T extends ElementType = 'span'> = Omit<

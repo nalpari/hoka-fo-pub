@@ -34,6 +34,7 @@ const buttonFrame = cva({
       primary: {},
       secondary: { border: '0!', borderRadius: '52px' },
       secondaryInverse: { border: '0!', borderRadius: '52px' },
+      bottomSheetPrimary: { border: '0!', borderRadius: '52px' },
       ghost: {},
       brand: {},
       link: {
@@ -74,30 +75,36 @@ const buttonContent = cva({
     variant: {
       primary: {},
       secondary: {
-        h: '48px',
-        minH: '48px',
-        py: '12px',
-        px: '24px',
+        h: '12',
+        minH: '12',
+        py: '3',
+        px: '6',
         _mobile: {
-          h: '40px',
-          minH: '40px',
-          maxH: '40px',
-          py: '12px',
-          px: '16px',
+          h: '10',
+          minH: '10',
+          maxH: '10',
+          py: '3',
+          px: '4',
         },
       },
       secondaryInverse: {
-        h: '48px',
-        minH: '48px',
-        py: '12px',
-        px: '24px',
+        h: '12',
+        minH: '12',
+        py: '3',
+        px: '6',
         _mobile: {
-          h: '40px',
-          minH: '40px',
-          maxH: '40px',
-          py: '12px',
-          px: '16px',
+          h: '10',
+          minH: '10',
+          maxH: '10',
+          py: '3',
+          px: '4',
         },
+      },
+      bottomSheetPrimary: {
+        h: '12',
+        minH: '12',
+        py: '3',
+        px: '6',
       },
       ghost: {},
       brand: {},
@@ -110,20 +117,20 @@ const buttonContent = cva({
       filterTrigger: {
         h: 'var(--button-height)',
         minH: 'var(--button-height)',
-        py: '8px',
+        py: '2',
       },
       headerSearch: {
         h: 'var(--button-height)',
         minH: 'var(--button-height)',
         w: '100%',
         justifyContent: 'space-between',
-        py: '6px',
+        py: '1.5',
       },
     },
     size: {
-      sm: { minH: '32px', px: '10px' },
+      sm: { minH: '8', px: '2.5' },
       md: {},
-      lg: { minH: '48px', px: '22px' },
+      lg: { minH: '12', px: '22px' },
     },
     fullWidth: { true: { w: '100%' } },
   },
@@ -157,6 +164,12 @@ const buttonLabel = cva({
         lineHeight: '1.3',
         letterSpacing: '-0.02em',
         _mobile: { fontSize: '14px', fontWeight: '600' },
+      },
+      bottomSheetPrimary: {
+        fontSize: '16px',
+        fontWeight: '700',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
       },
       ghost: {},
       brand: {},
@@ -200,6 +213,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     | 'primary'
     | 'secondary'
     | 'secondaryInverse'
+    | 'bottomSheetPrimary'
     | 'ghost'
     | 'brand'
     | 'link'
@@ -210,6 +224,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     | 'primary'
     | 'secondary'
     | 'secondaryInverse'
+    | 'bottomSheetPrimary'
     | 'ghost'
     | 'brand'
     | 'link'
@@ -238,6 +253,11 @@ const variableStyles: Record<NonNullable<ButtonProps['variant']>, CSSProperties>
     '--button-bg': 'var(--color-action-primary-bg, #111)',
     '--button-color': 'var(--color-action-primary-color, #fff)',
     '--button-border-color': 'var(--color-action-primary-border, var(--border-strong))',
+  } as CSSProperties,
+  bottomSheetPrimary: {
+    '--button-bg': '#000000',
+    '--button-color': '#FFFFFF',
+    '--button-border-color': '#000000',
   } as CSSProperties,
   ghost: {
     '--button-bg': 'var(--color-action-ghost-bg, transparent)',
@@ -293,6 +313,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const resolvedVariant = tone ?? variant;
+  const isFullWidth = fullWidth || resolvedVariant === 'bottomSheetPrimary';
   const label = <span className={buttonLabel({ size, variant: resolvedVariant })}>{children}</span>;
 
   return (
@@ -310,18 +331,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           ...style,
         } as CSSProperties
       }
-      className={[button, fullWidth ? buttonFullWidth : '', className].filter(Boolean).join(' ')}
+      className={[button, isFullWidth ? buttonFullWidth : '', className].filter(Boolean).join(' ')}
     >
       <span
         className={buttonFrame({
-          fullWidth,
+          fullWidth: isFullWidth,
           invalid,
           variant: resolvedVariant,
         })}
       >
         <span
           className={buttonContent({
-            fullWidth,
+            fullWidth: isFullWidth,
             size,
             variant: resolvedVariant,
           })}

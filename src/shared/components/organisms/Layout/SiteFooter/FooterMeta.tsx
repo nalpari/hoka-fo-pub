@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 import { Box, Flex } from 'styled-system/jsx';
 
 const styles = {
-  container: css({ px: '72px', _mobile: { px: 0 } }),
+  container: css({ px: '18', _mobile: { px: 0 } }),
 };
 
 export function FooterMeta() {
@@ -18,7 +18,7 @@ export function FooterMeta() {
         maxW="1440px"
         mx="auto"
         direction="column"
-        gap="32px"
+        gap="8"
       >
         <Box w="100%" h="1px" bg="#F7F7F9" />
         <FooterLegal mobile={platform === 'mobile'} />

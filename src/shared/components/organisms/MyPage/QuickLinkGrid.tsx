@@ -15,9 +15,9 @@ const grid = css({
 const link = css({
   position: 'relative',
   display: 'grid',
-  gap: '12px',
+  gap: '3',
   minH: '122px',
-  p: '24px',
+  p: '6',
   borderRight: '1px solid var(--color-border-subtle)',
   '&:nth-child(4)': { borderRight: '0' },
   _mobile: {
@@ -30,7 +30,7 @@ const itemLabel = css({ color: 'var(--color-text-muted)', fontSize: '12px' });
 
 const value = css({ fontSize: '22px' });
 
-const arrow = css({ position: 'absolute', right: '20px', bottom: '20px', color: '#888' });
+const arrow = css({ position: 'absolute', right: '5', bottom: '5', color: '#888' });
 
 export function QuickLinkGrid({ items, label = '바로가기' }: Props) {
   return (

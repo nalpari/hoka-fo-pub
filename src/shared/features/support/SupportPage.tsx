@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
+import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
-import styles from '@/shared/features/support/SupportPage.module.scss';
+const styles = {
+  page: css({ minH: '750px', '--support-padding-bottom': '130px', _mobile: { minH: '0' } }),
+  content: css({ '--support-content-title-gap': '37px' }),
+  service: css({ display: 'grid', gridTemplateColumns: '1fr 1.08fr', borderTop: '2px solid #555', _mobile: { gridTemplateColumns: '1fr' } }),
+  labels: css({ display: 'grid', gridTemplateRows: '1fr 1fr', _mobile: { display: 'block' }, '& article': { minH: '214px', p: '43px 0 0 3', _mobile: { minH: '0', p: '30px 0 3' } }, '& h2': { m: '0 0 9px', fontFamily: 'var(--font-family-base)', fontSize: '35px', fontWeight: '400', _mobile: { fontSize: '29px' } }, '& p': { m: '0', color: '#777', fontSize: '12px' } }),
+  details: css({ '& article': { minH: '214px', p: '47px 0 5', borderBottom: '1px solid #ddd', _mobile: { minH: '0', py: '6' } }, '& strong, & b': { fontSize: '12px' }, '& strong': { lineHeight: '1.6' }, '& hr': { m: '42px 0 21px', border: '0', borderTop: '1px solid #ddd', _mobile: { m: '25px 0 15px' } }, '& p': { m: '5px 0 0', color: '#888', fontSize: '11px', lineHeight: '1.6' } }),
+  notice: css({ color: '#222!' }),
+  actions: css({ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', mt: '78px', border: '1px solid #ddd', _mobile: { gridTemplateColumns: '1fr', mt: '45px' }, '& a': { display: 'flex', alignItems: 'center', gap: '3', minH: '124px', p: '18px 26px', borderRight: '1px solid #ddd', _mobile: { minH: '85px', p: '15px', borderRight: '0', borderBottom: '1px solid #ddd' } }, '& a:last-child': { border: '0' }, '& b': { fontSize: '31px', fontWeight: '400' }, '& span': { display: 'grid', gap: '1.5' }, '& strong': { fontSize: '14px' }, '& small': { color: '#888', fontSize: '10px', lineHeight: '1.4' } }),
+};
 
 const sections: [string, string[]][] = [
   ['NEED HELP', ['고객센터', 'FAQs', '공지사항', '1:1 문의', '매장 찾기', 'App 다운로드']],

@@ -9,7 +9,7 @@ const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
-  '& .swiper-wrapper': { px: '8px' },
+  '& .swiper-wrapper': { px: '2' },
 });
 const webSlide = css({
   w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - var(--layout-web-category-four-card-gap)) / 4)!',

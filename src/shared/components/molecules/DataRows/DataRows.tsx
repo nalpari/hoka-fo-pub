@@ -13,10 +13,10 @@ const list = css({ borderTop: '2px solid #111' });
 const row = css({
   display: 'grid',
   gridTemplateColumns: 'minmax(120px, .7fr) 2fr auto',
-  gap: '16px',
+  gap: '4',
   alignItems: 'center',
-  minH: '64px',
-  px: '16px',
+  minH: '16',
+  px: '4',
   borderBottom: '1px solid var(--color-border-subtle)',
   fontSize: '13px',
   _mobile: {

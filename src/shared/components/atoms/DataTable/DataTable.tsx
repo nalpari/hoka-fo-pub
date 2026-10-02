@@ -6,7 +6,7 @@ const table = css({
   borderCollapse: 'collapse',
   fontSize: '14px',
   textAlign: 'center',
-  '& th, & td': { h: '46px', px: '8px', borderBottom: '1px solid #d8d8d8' },
+  '& th, & td': { h: '46px', px: '2', borderBottom: '1px solid #d8d8d8' },
   '& thead th': { borderTop: '1px solid #111', bg: '#f2f2f2', fontWeight: '700' },
   '& tbody th': { bg: '#eaf5fc', fontWeight: '700' },
   '& tbody td + td': { borderLeft: '1px solid #e6e6e6' },

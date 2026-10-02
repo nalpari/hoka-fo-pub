@@ -16,7 +16,7 @@ const styles = {
 
 export function FooterStayConnected() {
   return (
-    <Flex direction="column" gap="16px">
+    <Flex direction="column" gap="4">
       <h3 className={styles.title}>Stay Connected</h3>
       <EmailSignupField />
       <FooterSocialLinks />

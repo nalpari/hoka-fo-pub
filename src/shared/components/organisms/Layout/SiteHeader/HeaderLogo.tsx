@@ -9,7 +9,7 @@ const logo = css({
   w: '85px',
   h: '23px',
   '& img': { display: 'block', w: '100%', h: '100%', objectFit: 'contain' },
-  _mobile: { order: 0, w: '74px', h: '20px' },
+  _mobile: { order: 0, w: '74px', h: '5' },
 });
 
 type HeaderLogoProps = {

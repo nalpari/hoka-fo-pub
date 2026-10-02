@@ -7,10 +7,10 @@ const styles = {
   container: css({
     gridTemplateColumns: 'minmax(0, 1fr) 312px',
     gap: '120px',
-    '@media (max-width: 1399px)': { gap: '60px' },
+    '@media (max-width: 1399px)': { gap: '15' },
     _mobile: {
       gridTemplateColumns: '1fr',
-      gap: '60px',
+      gap: '15',
     },
   }),
 };

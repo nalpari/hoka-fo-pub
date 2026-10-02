@@ -14,11 +14,11 @@ const authLink = css({
 
 export function HeaderAuthLink() {
   return (
-    <HStack gap="6px" alignItems="center">
+    <HStack gap="1.5" alignItems="center">
       <Link to="/login" className={authLink}>
         로그인
       </Link>
-      <Divider aria-hidden="true" orientation="vertical" h="16px" w="1px" bg="var(--hoka-black)" />
+      <Divider aria-hidden="true" orientation="vertical" h="4" w="1px" bg="var(--hoka-black)" />
       <Link to="/signup" className={authLink}>
         회원가입
       </Link>

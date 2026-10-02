@@ -17,7 +17,7 @@ const input = css({
   border: '0',
   bg: 'transparent',
   color: '#fff',
-  px: '12px',
+  px: '3',
   fontSize: '13px',
   outline: 'none',
   _placeholder: {

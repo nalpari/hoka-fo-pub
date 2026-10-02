@@ -11,7 +11,7 @@ type Props = {
 };
 
 const block = css({
-  pb: '40px',
+  pb: '10',
   borderBottom: '1px solid var(--color-border-subtle)',
   '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
   '& h2': { m: '10px 0 24px', fontSize: '21px' },
@@ -20,7 +20,7 @@ const block = css({
 const options = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '10px',
+  gap: '2.5',
   _mobile: { gridTemplateColumns: '1fr' },
 });
 
@@ -30,7 +30,7 @@ const option = cva({
     border: '1px solid #ccc',
     bg: '#fff',
     fontSize: '14px',
-    _mobile: { minH: '56px' },
+    _mobile: { minH: '14' },
     _hover: { borderColor: '#111', bg: '#111', color: '#fff' },
   },
   variants: { selected: { true: { borderColor: '#111', bg: '#111', color: '#fff' }, false: {} } },

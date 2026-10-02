@@ -8,7 +8,7 @@ const section = css({
   fontSize: '13px',
   lineHeight: '1.65',
 });
-const block = css({ py: '24px', borderBottom: '1px solid var(--color-border-subtle)' });
+const block = css({ py: '6', borderBottom: '1px solid var(--color-border-subtle)' });
 
 /** 구매 전 확인할 배송 일정과 현재 결제 혜택입니다. */
 export function DeliveryBenefits() {

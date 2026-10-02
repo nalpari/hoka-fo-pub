@@ -7,8 +7,8 @@ import { Stack } from 'styled-system/jsx';
 const control = css({
   display: 'inline-grid',
   placeItems: 'center',
-  w: '16px',
-  h: '16px',
+  w: '4',
+  h: '4',
   border: '1px solid #777',
   bg: '#fff',
   _checked: { bg: '#111', borderColor: '#111', color: '#fff' },

@@ -5,12 +5,12 @@ const list = cva({
     layout: {
       scroll: {
         display: 'flex',
-        gap: '4px',
+        gap: '1',
         overflowX: 'auto',
         scrollbarWidth: 'none',
         '&::-webkit-scrollbar': { display: 'none' },
       },
-      grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '8px' },
+      grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '2' },
     },
   },
 });

@@ -7,7 +7,7 @@ const styles = {
   search: css({
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: '2',
     p: { base: '27px 25px', _mobile: '17px 13px' },
     borderTop: '2px solid #555',
     bg: 'var(--color-surface-muted)',

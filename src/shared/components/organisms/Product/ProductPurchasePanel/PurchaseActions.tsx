@@ -18,10 +18,10 @@ export function PurchaseActions({
   onOrder,
 }: PurchaseActionsProps) {
   return (
-    <Grid gap="8px" mt="16px">
+    <Grid gap="2" mt="4">
       <Button
         className={css({
-          minH: '56px',
+          minH: '14',
           borderColor: '#df0038',
           bg: '#df0038',
           color: '#fff',
@@ -32,10 +32,10 @@ export function PurchaseActions({
       >
         구매하기
       </Button>
-      <Grid gridTemplateColumns="1fr 1fr" gap="8px">
+      <Grid gridTemplateColumns="1fr 1fr" gap="2">
         <Button
           className={css({
-            minH: '52px',
+            minH: '13',
             borderColor: '#111',
             bg: '#fff',
             color: '#111',

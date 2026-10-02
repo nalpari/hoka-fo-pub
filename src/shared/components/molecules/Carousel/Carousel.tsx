@@ -43,14 +43,14 @@ const viewport = css({
   '&.swiper-free-mode:active': { cursor: 'grabbing' },
 });
 
-const controls = css({ display: 'flex', gap: '10px' });
+const controls = css({ display: 'flex', gap: '2.5' });
 
 const control = css({
   '--icon-carousel-circle-color': 'var(--color-text-primary)',
   '--icon-carousel-path-color': 'var(--color-surface-subtle)',
   display: 'flex',
-  w: '48px',
-  h: '48px',
+  w: '12',
+  h: '12',
   p: '0',
   border: '0',
   borderRadius: '50%',
@@ -146,15 +146,7 @@ export function Carousel({ children, itemCount }: CarouselProps) {
       registerSwiper,
       updateState,
     }),
-    [
-      canGoNext,
-      canGoPrevious,
-      goNext,
-      goPrevious,
-      itemCount,
-      registerSwiper,
-      updateState,
-    ],
+    [canGoNext, canGoPrevious, goNext, goPrevious, itemCount, registerSwiper, updateState],
   );
 
   return <CarouselContext.Provider value={context}>{children}</CarouselContext.Provider>;
@@ -231,9 +223,7 @@ export function CarouselViewport({
       slidesPerView="auto"
       spaceBetween={isMobile && mobileItemGutter === undefined ? 16 : 0}
       scrollbar={
-        isMobile && itemCount > 1
-          ? { draggable: true, hide: false, snapOnRelease: true }
-          : false
+        isMobile && itemCount > 1 ? { draggable: true, hide: false, snapOnRelease: true } : false
       }
       speed={350}
       style={{ '--carousel-scrollbar-width': `${itemCount * 36}px` } as CSSProperties}

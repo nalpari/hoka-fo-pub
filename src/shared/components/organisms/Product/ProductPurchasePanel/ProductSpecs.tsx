@@ -14,9 +14,9 @@ export function ProductSpecs({ cushioning, stability, width, use }: ProductSpecs
   const values = { cushioning, stability, width, use };
 
   return (
-    <Grid as="dl" gridTemplateColumns="1fr 1fr" my="20px" borderTop="1px solid #111">
+    <Grid as="dl" gridTemplateColumns="1fr 1fr" my="5" borderTop="1px solid #111">
       {labels.map(([label, key]) => (
-        <Box py="10px" borderBottom="1px solid #ddd" key={key}>
+        <Box py="2.5" borderBottom="1px solid #ddd" key={key}>
           <Box as="dt" color="#666" fontSize="12px">
             {label}
           </Box>

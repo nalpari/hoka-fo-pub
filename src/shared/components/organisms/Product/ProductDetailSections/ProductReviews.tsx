@@ -13,7 +13,7 @@ const root = css({ maxW: '760px' });
 const reward = css({ m: '0 0 28px', color: '#333 !important', fontWeight: '700' });
 
 const aiSummary = css({
-  p: '24px',
+  p: '6',
   bg: '#f5f7fb',
   '& h3': { m: '0 0 14px', fontSize: '18px' },
   '& p': { color: '#8a94a5 !important' },
@@ -37,7 +37,7 @@ const score = css({
 
 const reviewFilters = css({
   display: 'flex',
-  gap: '8px',
+  gap: '2',
   overflowX: 'auto',
   py: '18px',
   borderTop: '1px solid #e5e7eb',
@@ -46,7 +46,7 @@ const reviewFilters = css({
 const reviewFilter = cva({
   base: {
     flex: '0 0 auto',
-    px: '12px',
+    px: '3',
     py: '7px',
     border: '1px solid #dfe3e8',
     borderRadius: '18px',
@@ -66,7 +66,7 @@ const reviewList = css({
     gap: '30px',
     py: '30px',
     borderBottom: '1px solid #e5e7eb',
-    _mobile: { gridTemplateColumns: '1fr', gap: '10px' },
+    _mobile: { gridTemplateColumns: '1fr', gap: '2.5' },
   },
 });
 
@@ -75,8 +75,8 @@ const reviewMeta = css({
   '& > span': {
     gridColumn: '1',
     w: 'fit-content',
-    px: '6px',
-    py: '4px',
+    px: '1.5',
+    py: '1',
     bg: '#f1f3f6',
     fontSize: '11px',
     fontWeight: '700',
@@ -100,8 +100,8 @@ const reviewContent = css({
 
 const reviewPhotos = css({
   display: 'flex',
-  gap: '6px',
-  my: '14px',
+  gap: '1.5',
+  my: '3.5',
   '& button': {
     display: 'grid',
     w: '92px',
@@ -118,7 +118,7 @@ const reviewPhotos = css({
 
 const moreButton = css({
   display: 'block',
-  mt: '8px',
+  mt: '2',
   ml: 'auto',
   color: '#999 !important',
   textDecoration: 'underline',

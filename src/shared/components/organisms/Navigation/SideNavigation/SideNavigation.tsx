@@ -21,8 +21,8 @@ const sidebar = cva({
       display: 'flex',
       gap: '9px',
       overflow: 'auto',
-      mb: '28px',
-      pb: '8px',
+      mb: '7',
+      pb: '2',
       borderBottom: '1px solid var(--color-border-subtle)',
     },
   },
@@ -31,7 +31,7 @@ const sidebar = cva({
 });
 const titleStyle = css({
   display: 'block',
-  mb: '28px',
+  mb: '7',
   fontSize: '30px',
   fontWeight: '800',
   letterSpacing: '-1px',
@@ -42,10 +42,10 @@ const navHeading = css({ m: '0 0 10px', fontSize: '14px', _mobile: { display: 'n
 const navLink = cva({
   base: {
     display: 'block',
-    my: '8px',
+    my: '2',
     color: 'var(--color-text-muted)',
     fontSize: '13px',
-    _mobile: { flex: 'none', m: '0', py: '4px', fontSize: '12px', whiteSpace: 'nowrap' },
+    _mobile: { flex: 'none', m: '0', py: '1', fontSize: '12px', whiteSpace: 'nowrap' },
   },
   variants: {
     active: { true: { color: '#0082ca', fontWeight: '700' }, false: {} },

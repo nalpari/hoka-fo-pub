@@ -11,17 +11,17 @@ import { ProductDetailSections } from '@/shared/components/organisms/Product/Pro
 import { ProductPurchasePanel } from '@/shared/components/organisms/Product/ProductPurchasePanel/ProductPurchasePanel';
 import { ProductActionBar } from '@/shared/components/molecules/Product/ProductActionBar';
 import type { CartItem } from '@/shared/types/cart';
-import styles from '@/shared/features/product/ProductDetailPage.module.scss';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
+import { Backdrop } from '@/shared/components/atoms/Backdrop/Backdrop';
 
 const detailLayout = css({
   maxW: 'var(--content-width)',
   mx: 'auto',
-  py: '64px',
+  py: '16',
   '& h1': { fontSize: '42px' },
   _mobile: {
     px: 'var(--layout-mobile-inline-gutter)',
-    pt: '32px',
+    pt: '8',
     pb: '108px',
     '& h1': { fontSize: '30px' },
   },
@@ -44,6 +44,52 @@ const emptyState = css({
 });
 
 const modalImage = css({ display: 'block', w: '100%', h: 'auto', objectFit: 'contain' });
+
+const detailContent = css({ minW: '0' });
+
+const modal = css({
+  w: 'min(640px, 100%)',
+  overflow: 'hidden',
+  borderRadius: '8px',
+  bg: '#fff',
+  boxShadow: '0 18px 42px rgb(0 0 0 / 25%)',
+  '& header': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minH: '14',
+    px: '18px',
+    borderBottom: '1px solid #edf0f2',
+  },
+  '& header button': { p: '1', border: '0', color: '#8b95a5', fontSize: '24px' },
+  '& h2': { m: '0', fontSize: '16px' },
+});
+
+const imageModal = css({
+  '& > div': {
+    display: 'grid',
+    minH: 'min(64vh, 520px)',
+    placeItems: 'center',
+    bg: '#f2f2f2',
+    color: '#777',
+  },
+  _mobile: { w: '100%', h: '100%', borderRadius: '0' },
+});
+
+const bottomSheet = css({
+  pb: '18px',
+  '& p': { m: '24px 18px', color: '#555', lineHeight: '1.6' },
+  _mobile: { w: '100%', borderRadius: '12px 12px 0 0' },
+});
+
+const modalAction = css({
+  w: 'calc(100% - 36px)',
+  minH: '11',
+  m: '0 18px',
+  borderColor: '#111827',
+  bg: '#111827',
+  color: '#fff',
+});
 
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { pathname } = useLocation();
@@ -79,7 +125,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
       ]}
     >
       <Grid className={detailTop}>
-        <Box className={styles.detailContent}>
+        <Box className={detailContent}>
           <ProductGallery image={product.primaryImage} onOpen={() => setZoom(true)} />
           <ProductDetailSections hasSizeGuide={product.hasSizeGuide ?? product.sizes.length > 0} />
         </Box>
@@ -99,15 +145,16 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         }
       />
       {zoom && (
-        <Box
-          className={styles.modalBackdrop}
-          onMouseDown={() => setZoom(false)}
-          role="presentation"
+        <Backdrop
+          layer="overlay"
+          onClose={() => setZoom(false)}
+          placement="centerToBottom"
+          tone="slate56"
         >
           <section
             aria-label="상품 이미지 확대"
             aria-modal="true"
-            className={styles.imageModal}
+            className={cx(modal, imageModal)}
             onMouseDown={(event) => event.stopPropagation()}
             role="dialog"
           >
@@ -121,18 +168,19 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
               <img alt={product.name} className={modalImage} src={product.primaryImage} />
             </Box>
           </section>
-        </Box>
+        </Backdrop>
       )}
       {sizeGuideOpen && (
-        <Box
-          className={styles.modalBackdrop}
-          onMouseDown={() => setSizeGuideOpen(false)}
-          role="presentation"
+        <Backdrop
+          layer="overlay"
+          onClose={() => setSizeGuideOpen(false)}
+          placement="centerToBottom"
+          tone="slate56"
         >
           <section
             aria-labelledby="size-guide-title"
             aria-modal="true"
-            className={styles.bottomSheet}
+            className={cx(modal, bottomSheet)}
             onMouseDown={(event) => event.stopPropagation()}
             role="dialog"
           >
@@ -146,11 +194,11 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
               발 길이를 기준으로 편안한 사이즈를 선택해 주세요. 반 사이즈 사이에서는 여유 있는
               사이즈를 권장합니다.
             </p>
-            <Button className={styles.modalAction} onClick={() => setSizeGuideOpen(false)}>
+            <Button className={modalAction} onClick={() => setSizeGuideOpen(false)}>
               확인
             </Button>
           </section>
-        </Box>
+        </Backdrop>
       )}
     </ContentLayout>
   );
