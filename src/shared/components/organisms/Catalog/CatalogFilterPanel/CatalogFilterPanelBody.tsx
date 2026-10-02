@@ -3,7 +3,7 @@ import { VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
 const panel = css({
-  '& details': { w: '100%' },
+  '& > *': { w: '100%' },
 });
 
 type CatalogFilterPanelBodyProps = {
