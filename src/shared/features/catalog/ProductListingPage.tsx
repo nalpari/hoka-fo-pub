@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { products, type Product } from '@/mocks/products';
 import { usePlatform } from '@/shared/context/platform';
 import { ProductListingFilterPanel } from '@/shared/features/catalog/ProductListingFilterPanel';
+import { productListingPriceRange } from '@/shared/features/catalog/productListingFilterValues';
 import { ProductListingLayout } from '@/shared/features/catalog/product-listing/ProductListingLayout';
 import {
   filterProducts,
@@ -18,67 +19,84 @@ type ProductListingPageProps = {
 };
 
 type FilterValues = {
-  activity: string;
+  activity: string[];
   category: string;
-  cushioning: string;
-  gender: string;
+  collection: string[];
+  cushioning: string[];
+  gender: string[];
   maxPrice: number;
   selectedColors: string[];
-  size: string;
-  stability: string;
-  width: string;
+  runningType: string[];
+  size: string[];
+  stability: string[];
+  width: string[];
 };
 
-/** Coordinates catalog URL filters, local filter controls, and listing layout. */
+const facetKeys = [
+  'activity',
+  'collection',
+  'cushioning',
+  'gender',
+  'color',
+  'runningType',
+  'size',
+  'support',
+  'width',
+] as const;
+
+const emptyFilters = (): FilterValues => ({
+  activity: [],
+  category: '',
+  collection: [],
+  cushioning: [],
+  gender: [],
+  maxPrice: productListingPriceRange.defaultMax,
+  selectedColors: [],
+  runningType: [],
+  size: [],
+  stability: [],
+  width: [],
+});
+
+/** Coordinates catalog URL filters, local price controls, and listing layout. */
 export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps) {
   const platform = usePlatform();
   const [params, setParams] = useSearchParams();
-  const [maxPrice, setMaxPrice] = useState(189000);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [maxPrice, setMaxPrice] = useState(productListingPriceRange.defaultMax);
   const [compared, setCompared] = useState<Product[]>([]);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   const category = params.get('category') ?? '';
-  const gender = params.get('gender') ?? '';
-  const activity = params.get('activity') ?? '';
-  const width = params.get('width') ?? '';
-  const cushioning = params.get('cushioning') ?? '';
-  const stability = params.get('support') ?? params.get('stability') ?? '';
-  const size = params.get('size') ?? '';
   const activeFilters: FilterValues = {
-    activity,
+    activity: params.getAll('activity'),
     category,
-    cushioning,
-    gender,
+    collection: params.getAll('collection'),
+    cushioning: params.getAll('cushioning'),
+    gender: params.getAll('gender'),
     maxPrice,
-    selectedColors,
-    size,
-    stability,
-    width,
+    selectedColors: params.getAll('color'),
+    runningType: params.getAll('runningType'),
+    size: params.getAll('size'),
+    stability: params.getAll('support').length ? params.getAll('support') : params.getAll('stability'),
+    width: params.getAll('width'),
   };
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
   const sort = selectedSort || '베스트순';
   const page = Number(params.get('page') ?? 1);
-  const breadcrumbItems = getBreadcrumbItems({ gender, category, activity });
-  const productListingTitle = getProductListingTitle({ gender, category, activity });
-  const result = sortProducts(
-    filterProducts(products, {
-      activity,
-      category,
-      cushioning,
-      gender,
-      maxPrice,
-      searchQuery,
-      selectedColors,
-      size,
-      stability,
-      width,
-    }),
-    sort,
-  );
+  const breadcrumbItems = getBreadcrumbItems({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
+  const productListingTitle = getProductListingTitle({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
+  const result = sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort);
   const shown = result.slice((page - 1) * 8, page * 8);
   const mobileResultCount = filterProducts(products, { ...mobileFilters, searchQuery }).length;
+
+  const updateFacet = (key: string, values: string[]) => {
+    const next = new URLSearchParams(params);
+    next.delete(key);
+    values.forEach((value) => next.append(key, value));
+    next.set('page', '1');
+    setParams(next);
+  };
 
   const update = (key: string, value: string) => {
     const next = new URLSearchParams(params);
@@ -90,8 +108,8 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const reset = () => {
     setParams({});
-    setMaxPrice(189000);
-    setSelectedColors([]);
+    setMaxPrice(productListingPriceRange.defaultMax);
+    setMobileFilters(emptyFilters());
   };
 
   const openMobileFilters = (open: boolean) => {
@@ -101,23 +119,25 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const applyMobileFilters = () => {
     const next = new URLSearchParams(params);
-    (['activity', 'category', 'cushioning', 'gender', 'size', 'support', 'width'] as const).forEach(
-      (key) => {
-        const value = mobileFilters[key === 'support' ? 'stability' : key];
-        if (value) next.set(key, value);
-        else next.delete(key);
-      },
-    );
+    facetKeys.forEach((key) => {
+      next.delete(key);
+      const values =
+        key === 'color'
+          ? mobileFilters.selectedColors
+          : key === 'support'
+            ? mobileFilters.stability
+            : mobileFilters[key];
+      values.forEach((value) => next.append(key, value));
+    });
     next.set('page', '1');
     setParams(next);
     setMaxPrice(mobileFilters.maxPrice);
-    setSelectedColors(mobileFilters.selectedColors);
     setFilterDrawerOpen(false);
   };
 
-  const updateMobileFilter = (key: string, value: string) => {
-    const normalizedKey = key === 'support' ? 'stability' : key;
-    setMobileFilters((previous) => ({ ...previous, [normalizedKey]: value }));
+  const updateMobileFilter = (key: string, values: string[]) => {
+    const normalizedKey = key === 'support' ? 'stability' : key === 'color' ? 'selectedColors' : key;
+    setMobileFilters((previous) => ({ ...previous, [normalizedKey]: values }));
   };
 
   const displayedFilters = platform === 'mobile' ? mobileFilters : activeFilters;
@@ -140,10 +160,11 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   const filterPanel = (
     <ProductListingFilterPanel
       activity={displayedFilters.activity}
+      collection={displayedFilters.collection}
       cushioning={displayedFilters.cushioning}
       gender={displayedFilters.gender}
       maxPrice={displayedFilters.maxPrice}
-      onFilterChange={platform === 'mobile' ? updateMobileFilter : update}
+      onFilterChange={platform === 'mobile' ? updateMobileFilter : updateFacet}
       onMaxPriceChange={(value) =>
         platform === 'mobile'
           ? setMobileFilters((previous) => ({ ...previous, maxPrice: value }))
@@ -151,10 +172,9 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       }
       onReset={reset}
       onSelectedColorsChange={(values) =>
-        platform === 'mobile'
-          ? setMobileFilters((previous) => ({ ...previous, selectedColors: values }))
-          : setSelectedColors(values)
+        platform === 'mobile' ? updateMobileFilter('color', values) : updateFacet('color', values)
       }
+      runningType={displayedFilters.runningType}
       selectedColors={displayedFilters.selectedColors}
       size={displayedFilters.size}
       stability={displayedFilters.stability}
@@ -169,7 +189,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       compared={compared}
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
-      gender={gender}
+      gender={activeFilters.gender[0] ?? ''}
       onClearCompare={() => setCompared([])}
       onFilterChange={update}
       onFilterDrawerOpenChange={openMobileFilters}

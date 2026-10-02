@@ -10,12 +10,18 @@ const root = css({
   pb: '6',
 });
 
+const divider = css({
+  _mobile: {
+    '&:first-child': { display: 'none' },
+  },
+});
+
 export function CatalogFilterSection({ title, children }: { title: string; children: ReactNode }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
     <>
-      <Box bg="#B3B3B3" w="100%" h="1px" />
+      <Box bg="#B3B3B3" className={divider} h="1px" w="100%" />
       <details onToggle={(event) => setExpanded(event.currentTarget.open)} open>
         <CatalogFilterTrigger expanded={expanded} title={title} />
         <Fieldset className={root} legend={title} visuallyHiddenLegend>

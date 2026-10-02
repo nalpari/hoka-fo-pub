@@ -1,15 +1,9 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Tag } from '@/shared/components/atoms/Tag/Tag';
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+import { Flex } from 'styled-system/jsx';
 
-const selectedFilterList = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '2',
-});
-
-const reset = css({ mb: '3.5' });
+const selectedFilterHeader = css({ pb: '6', _mobile: { pb: '0' } });
 
 export type CatalogSelectedFilter = {
   id: string;
@@ -28,20 +22,27 @@ export function CatalogFilterPanelHeader({
 }: CatalogFilterPanelHeaderProps) {
   return (
     <>
-      <Stack>
+      <Flex
+        alignItems="center"
+        aria-label="선택된 필터"
+        className={selectedFilterHeader}
+        flexWrap="wrap"
+        gap="2"
+        w="100%"
+      >
         {selectedFilters.length > 0 && (
-          <div aria-label="선택된 필터" className={selectedFilterList}>
+          <>
             {selectedFilters.map(({ id, label, onRemove }) => (
               <Tag key={id} onDelete={onRemove}>
                 {label}
               </Tag>
             ))}
-          </div>
+          </>
         )}
-        <Button className={reset} onClick={onReset} variant="link">
+        <Button onClick={onReset} variant="link">
           초기화
         </Button>
-      </Stack>
+      </Flex>
     </>
   );
 }

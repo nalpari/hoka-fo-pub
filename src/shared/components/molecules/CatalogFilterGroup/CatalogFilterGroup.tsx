@@ -5,23 +5,20 @@ import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilte
 export function CatalogFilterGroup({
   title,
   values,
-  value,
+  selected: controlledSelected = [],
   onChange,
 }: {
   title: string;
   values: string[];
-  value?: string;
-  onChange?: (value: string) => void;
+  selected?: string[];
+  onChange?: (values: string[]) => void;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const selectedValues = onChange ? (value ? [value] : []) : selected;
+  const [internalSelected, setInternalSelected] = useState<string[]>([]);
+  const selectedValues = onChange ? controlledSelected : internalSelected;
   return (
     <CatalogFilterSection title={title}>
       <Checkbox
-        onValueChange={(next) => {
-          if (!onChange) return setSelected(next);
-          onChange(next.find((item) => !selectedValues.includes(item)) ?? '');
-        }}
+        onValueChange={(next) => (onChange ? onChange(next) : setInternalSelected(next))}
         options={values.map((item) => ({ label: item, value: item }))}
         value={selectedValues}
       />
