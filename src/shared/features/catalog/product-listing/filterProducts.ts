@@ -7,6 +7,7 @@ export type ProductListingFilters = {
   collection: string[];
   cushioning: string[];
   gender: string[];
+  minPrice: number;
   maxPrice: number;
   searchQuery: string;
   selectedColors: string[];

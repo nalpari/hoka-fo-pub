@@ -9,7 +9,7 @@ function RangeStory() {
       <RangeInput
         aria-label="가격 범위"
         max={100}
-        onChange={(event) => setValue(Number(event.target.value))}
+        onValueChange={setValue}
         value={value}
       />
       <output>{value}</output>
@@ -24,3 +24,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
+function RangePairStory() {
+  const [value, setValue] = useState<[number, number]>([25, 75]);
+
+  return (
+    <div>
+      <RangeInput
+        max={100}
+        onValueChange={setValue}
+        thumbAriaLabels={['최소 값', '최대 값']}
+        thumbCollisionBehavior="none"
+        value={value}
+      />
+      <output>{value.join(' - ')}</output>
+    </div>
+  );
+}
+
+export const Range: Story = { render: () => <RangePairStory /> };

@@ -24,6 +24,7 @@ type FilterValues = {
   collection: string[];
   cushioning: string[];
   gender: string[];
+  minPrice: number;
   maxPrice: number;
   selectedColors: string[];
   runningType: string[];
@@ -50,6 +51,7 @@ const emptyFilters = (): FilterValues => ({
   collection: [],
   cushioning: [],
   gender: [],
+  minPrice: productListingPriceRange.min,
   maxPrice: productListingPriceRange.defaultMax,
   selectedColors: [],
   runningType: [],
@@ -62,6 +64,7 @@ const emptyFilters = (): FilterValues => ({
 export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps) {
   const platform = usePlatform();
   const [params, setParams] = useSearchParams();
+  const [minPrice, setMinPrice] = useState(productListingPriceRange.min);
   const [maxPrice, setMaxPrice] = useState(productListingPriceRange.defaultMax);
   const [compared, setCompared] = useState<Product[]>([]);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
@@ -73,6 +76,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
     collection: params.getAll('collection'),
     cushioning: params.getAll('cushioning'),
     gender: params.getAll('gender'),
+    minPrice,
     maxPrice,
     selectedColors: params.getAll('color'),
     runningType: params.getAll('runningType'),
@@ -108,6 +112,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const reset = () => {
     setParams({});
+    setMinPrice(productListingPriceRange.min);
     setMaxPrice(productListingPriceRange.defaultMax);
     setMobileFilters(emptyFilters());
   };
@@ -131,6 +136,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
     });
     next.set('page', '1');
     setParams(next);
+    setMinPrice(mobileFilters.minPrice);
     setMaxPrice(mobileFilters.maxPrice);
     setFilterDrawerOpen(false);
   };
@@ -163,8 +169,14 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       collection={displayedFilters.collection}
       cushioning={displayedFilters.cushioning}
       gender={displayedFilters.gender}
+      minPrice={displayedFilters.minPrice}
       maxPrice={displayedFilters.maxPrice}
       onFilterChange={platform === 'mobile' ? updateMobileFilter : updateFacet}
+      onMinPriceChange={(value) =>
+        platform === 'mobile'
+          ? setMobileFilters((previous) => ({ ...previous, minPrice: value }))
+          : setMinPrice(value)
+      }
       onMaxPriceChange={(value) =>
         platform === 'mobile'
           ? setMobileFilters((previous) => ({ ...previous, maxPrice: value }))
@@ -184,6 +196,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   return (
     <ProductListingLayout
+      activity={activity}
       breadcrumbItems={breadcrumbItems}
       category={category}
       compared={compared}

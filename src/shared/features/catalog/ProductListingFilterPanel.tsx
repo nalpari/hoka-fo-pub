@@ -30,10 +30,12 @@ type ProductListingFilterPanelProps = {
   stability: string[];
   size: string[];
   collection: string[];
+  minPrice: number;
   runningType: string[];
   maxPrice: number;
   selectedColors: string[];
   onFilterChange: (key: string, values: string[]) => void;
+  onMinPriceChange: (value: number) => void;
   onMaxPriceChange: (value: number) => void;
   onSelectedColorsChange: (values: string[]) => void;
   onReset: () => void;
@@ -60,10 +62,12 @@ export function ProductListingFilterPanel({
   stability,
   size,
   collection,
+  minPrice,
   runningType,
   maxPrice,
   selectedColors,
   onFilterChange,
+  onMinPriceChange,
   onMaxPriceChange,
   onSelectedColorsChange,
   onReset,
@@ -82,12 +86,16 @@ export function ProductListingFilterPanel({
     ...selectedFilterItems('stability', stability, stabilityLabels, (next) =>
       onFilterChange('support', next),
     ),
-    ...(maxPrice !== productListingPriceRange.defaultMax
+    ...(minPrice !== productListingPriceRange.min ||
+    maxPrice !== productListingPriceRange.defaultMax
       ? [
           {
             id: 'price',
-            label: `${maxPrice.toLocaleString('ko-KR')}원 이하`,
-            onRemove: () => onMaxPriceChange(productListingPriceRange.defaultMax),
+            label: `${minPrice.toLocaleString('ko-KR')}원 ~ ${maxPrice.toLocaleString('ko-KR')}원`,
+            onRemove: () => {
+              onMinPriceChange(productListingPriceRange.min);
+              onMaxPriceChange(productListingPriceRange.defaultMax);
+            },
           },
         ]
       : []),
@@ -150,8 +158,11 @@ export function ProductListingFilterPanel({
         <PriceRange
           min={productListingPriceRange.min}
           max={productListingPriceRange.max}
-          value={maxPrice}
-          onChange={onMaxPriceChange}
+          value={[minPrice, maxPrice]}
+          onChange={([nextMinPrice, nextMaxPrice]) => {
+            onMinPriceChange(nextMinPrice);
+            onMaxPriceChange(nextMaxPrice);
+          }}
         />
       </CatalogFilterSection>
     </CatalogFilterPanel>

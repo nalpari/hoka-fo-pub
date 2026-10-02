@@ -5,9 +5,6 @@ import { css } from 'styled-system/css';
 
 const filterSheetContent = css({
   px: '4',
-  // '& aside': { border: '0' },
-  // '& aside > h3': { display: 'none' },
-  // '& aside > button': { display: 'none' },
 });
 
 type MobileProductFilterProps = {

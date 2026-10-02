@@ -39,9 +39,11 @@ export function CatalogFilterPanelHeader({
             ))}
           </>
         )}
-        <Button onClick={onReset} variant="link">
-          초기화
-        </Button>
+        <Flex h="8" alignItems="center">
+          <Button onClick={onReset} variant="link">
+            초기화
+          </Button>
+        </Flex>
       </Flex>
     </>
   );

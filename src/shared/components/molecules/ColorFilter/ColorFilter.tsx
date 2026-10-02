@@ -2,21 +2,36 @@ import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
 import type { CSSProperties } from 'react';
 import { css } from 'styled-system/css';
-import { Grid } from 'styled-system/jsx';
+import { Circle } from 'styled-system/jsx';
 import { colorOptions } from '@/shared/features/catalog/productListingFilterValues';
 
 const options = css({
   display: 'flex',
   flexWrap: 'wrap',
   gap: '4',
-  mt: '2.5',
 });
+
+const outer = css({
+  w: '9',
+  h: '9',
+  bg: '#fff',
+  '&:has([role="checkbox"][data-checked])': {
+    outline: '2px solid #111',
+    '& [data-swatch]': { w: '8', h: '8' },
+  },
+});
+
 const control = css({
   position: 'absolute',
   opacity: '0',
-  _checked: { '& + [data-swatch]': { outline: '2px solid #111', outlineOffset: '2px' } },
 });
-const swatch = css({ w: '8', h: '8', border: '1px solid #ddd', borderRadius: 'full', bg: 'var(--swatch-color)' });
+
+const swatch = css({
+  w: '9',
+  h: '9',
+  border: '0.5px solid rgba(0, 0, 0, 0.2)',
+  bg: 'var(--swatch-color)',
+});
 
 export function ColorFilter({
   selected,
@@ -28,14 +43,22 @@ export function ColorFilter({
   return (
     <BaseCheckboxGroup value={selected} onValueChange={onChange} className={options}>
       {colorOptions.map(({ value, label, hex }) => (
-        <Grid as="label" position="relative" placeItems="center" cursor="pointer" key={value}>
+        <Circle
+          as="label"
+          position="relative"
+          placeItems="center"
+          cursor="pointer"
+          key={value}
+          className={outer}
+        >
           <BaseCheckbox.Root value={value} aria-label={label} className={control} />
-          <span
+          <Circle
+            as="span"
             className={swatch}
             data-swatch
             style={{ '--swatch-color': hex } as CSSProperties}
           />
-        </Grid>
+        </Circle>
       ))}
     </BaseCheckboxGroup>
   );
