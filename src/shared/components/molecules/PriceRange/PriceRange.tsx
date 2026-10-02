@@ -1,4 +1,4 @@
-import { Flex } from 'styled-system/jsx';
+import { Flex, Box } from 'styled-system/jsx';
 import { RangeInput } from '@/shared/components/atoms/RangeInput/RangeInput';
 import { PriceRangeValue } from '@/shared/components/molecules/PriceRange/PriceRangeValue';
 
@@ -15,15 +15,17 @@ export function PriceRange({
 }) {
   return (
     <Flex direction="column" gap="2">
-      <RangeInput
-        max={max}
-        min={min}
-        onValueChange={onChange}
-        step={10000}
-        thumbAriaLabels={['최소 가격', '최대 가격']}
-        thumbCollisionBehavior="none"
-        value={value}
-      />
+      <Box px="2">
+        <RangeInput
+          max={max}
+          min={min}
+          onValueChange={onChange}
+          step={10000}
+          thumbAriaLabels={['최소 가격', '최대 가격']}
+          thumbCollisionBehavior="none"
+          value={value}
+        />
+      </Box>
       <PriceRangeValue value={value} />
     </Flex>
   );

@@ -37,16 +37,40 @@ const styles = {
   }),
 };
 
-type MegaMenuPanelProps = { menu: MegaMenu; onClose: () => void };
+type MegaMenuPanelProps = {
+  menu: MegaMenu;
+  onClose: () => void;
+  onFocusBoundary: (menuId: MegaMenu['id'], boundary: 'first' | 'last') => void;
+};
 
-export function MegaMenuPanel({ menu, onClose }: MegaMenuPanelProps) {
+export function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
   return (
     <>
-      <Button variant="ghost" className={styles.overlay} aria-label="메뉴 닫기" onClick={onClose} />
+      <Button
+        aria-label="메뉴 닫기"
+        className={styles.overlay}
+        onClick={onClose}
+        tabIndex={-1}
+        variant="ghost"
+      />
       <section
         className={styles.menu}
         id={`mega-menu-${menu.id}`}
         aria-label={`${menu.label} 메뉴`}
+        onKeyDown={(event) => {
+          if (event.key !== 'Tab') return;
+
+          const focusable = Array.from(
+            event.currentTarget.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+          );
+
+          const boundary = event.shiftKey ? focusable[0] : focusable.at(-1);
+
+          if (event.target === boundary) {
+            event.preventDefault();
+            onFocusBoundary(menu.id, event.shiftKey ? 'first' : 'last');
+          }
+        }}
       >
         <div className={styles.inner}>
           <MegaMenuList columns={menu.columns} onClose={onClose} />

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Dialog } from '@base-ui/react/dialog';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -15,6 +16,7 @@ const styles = {
     background: 'rgb(0 0 0 / 60%)',
     '@media (max-width: 700px)': { p: 0 },
   }),
+  viewport: css({ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', p: '24px', '@media (max-width: 700px)': { p: 0 } }),
   dialog: css({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr) 320px',
@@ -147,13 +149,13 @@ export function ReviewGalleryModal({
     setImageIndex(0);
   };
   return (
-    <Box className={styles.backdrop} onMouseDown={onClose} role="presentation">
-      <section
+    <Dialog.Root open onOpenChange={(open) => !open && onClose()}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className={styles.backdrop} />
+        <Dialog.Viewport className={styles.viewport}>
+          <Dialog.Popup
         aria-label="리뷰 이미지 상세"
-        aria-modal="true"
         className={styles.dialog}
-        onMouseDown={(event) => event.stopPropagation()}
-        role="dialog"
       >
         <main className={styles.viewer}>
           <IconButton
@@ -213,7 +215,9 @@ export function ReviewGalleryModal({
             </Box>
           </section>
         </aside>
-      </section>
-    </Box>
+          </Dialog.Popup>
+        </Dialog.Viewport>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

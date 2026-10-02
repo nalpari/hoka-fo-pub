@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Toggle } from '@base-ui/react/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
@@ -87,28 +89,31 @@ export function ReviewManager() {
   };
   return (
     <section aria-label="상품리뷰 관리">
-      <div className={tabs} role="tablist">
-        <Button
-          className={tab === 'ready' ? active : ''}
-          role="tab"
-          onClick={() => {
-            setTab('ready');
+      <ToggleGroup
+        aria-label="리뷰 상태"
+        className={tabs}
+        onValueChange={(value) => {
+          const nextTab = value[0] as 'ready' | 'written' | undefined;
+          if (nextTab) {
+            setTab(nextTab);
             setPage(1);
-          }}
+          }
+        }}
+        value={[tab]}
+      >
+        <Toggle
+          className={tab === 'ready' ? active : ''}
+          value="ready"
         >
           작성 가능한 리뷰
-        </Button>
-        <Button
+        </Toggle>
+        <Toggle
           className={tab === 'written' ? active : ''}
-          role="tab"
-          onClick={() => {
-            setTab('written');
-            setPage(1);
-          }}
+          value="written"
         >
           내가 작성한 리뷰
-        </Button>
-      </div>
+        </Toggle>
+      </ToggleGroup>
       <div
         className={css({
           display: 'flex',

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Toggle } from '@base-ui/react/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { css, cva } from 'styled-system/css';
@@ -103,19 +105,25 @@ export function CouponManager({ coupons }: Props) {
           {message}
         </p>
       ) : null}
-      <div className={filters} role="tablist" aria-label="쿠폰 종류">
+      <ToggleGroup
+        aria-label="쿠폰 종류"
+        className={filters}
+        onValueChange={(values) => {
+          const nextCategory = values[0] as '전체' | CouponItem['category'] | undefined;
+          if (nextCategory) setCategory(nextCategory);
+        }}
+        value={[category]}
+      >
         {(['전체', '상품 할인', '배송 할인'] as const).map((value) => (
-          <Button
+          <Toggle
             className={filter({ active: category === value })}
             key={value}
-            onClick={() => setCategory(value)}
-            role="tab"
-            type="button"
+            value={value}
           >
             {value}
-          </Button>
+          </Toggle>
         ))}
-      </div>
+      </ToggleGroup>
       <div className={table}>
         {visibleCoupons.map((coupon) => (
           <article className={couponRow} key={coupon.id}>

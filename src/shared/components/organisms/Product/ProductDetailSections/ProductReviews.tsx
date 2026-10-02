@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Toggle } from '@base-ui/react/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { ReviewGalleryModal } from '@/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -173,19 +175,25 @@ export function ProductReviews() {
           <small>리뷰 104개</small>
         </Box>
       </section>
-      <div className={reviewFilters} role="tablist" aria-label="리뷰 정렬">
+      <ToggleGroup
+        aria-label="리뷰 정렬"
+        className={reviewFilters}
+        onValueChange={(values) => {
+          const nextFilter = values[0];
+          if (nextFilter) setFilter(nextFilter);
+        }}
+        value={[filter]}
+      >
         {['최신순', 'AI 추천순', '별점순'].map((value) => (
-          <Button
+          <Toggle
             className={reviewFilter({ active: filter === value })}
             key={value}
-            onClick={() => setFilter(value)}
-            role="tab"
-            type="button"
+            value={value}
           >
             {value}
-          </Button>
+          </Toggle>
         ))}
-      </div>
+      </ToggleGroup>
       <Box className={reviewList}>
         {reviews.map((review, reviewIndex) => {
           const expanded = expandedAuthor === review.author;

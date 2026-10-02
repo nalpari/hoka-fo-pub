@@ -24,9 +24,13 @@ export type SiteHeaderContainerProps = {
   isLoggedIn: boolean;
   wishlistCount: number;
   activeMenu: MegaMenu['id'] | null;
+  onEnterMenu: (menuId: MegaMenu['id']) => void;
+  onEnterPreviousMenu: (menuId: MegaMenu['id']) => void;
+  onHeaderToolsEnterPreviousMenu: () => void;
   onLogoClick: () => void;
   onMenu: () => void;
-  onMenuChange: (menuId: MegaMenu['id']) => void;
+  onMenuOpen: (menuId: MegaMenu['id']) => void;
+  onMenuToggle: (menuId: MegaMenu['id']) => void;
   onSearch: () => void;
 };
 
@@ -35,9 +39,13 @@ export function SiteHeaderContainer({
   isLoggedIn,
   wishlistCount,
   activeMenu,
+  onEnterMenu,
+  onEnterPreviousMenu,
+  onHeaderToolsEnterPreviousMenu,
   onLogoClick,
   onMenu,
-  onMenuChange,
+  onMenuOpen,
+  onMenuToggle,
   onSearch,
 }: SiteHeaderContainerProps) {
   const platform = usePlatform();
@@ -49,7 +57,13 @@ export function SiteHeaderContainer({
           <HeaderLogo onClick={onLogoClick} />
 
           {platform === 'web' ? (
-            <DesktopNavigation activeMenu={activeMenu} onMenuChange={onMenuChange} />
+            <DesktopNavigation
+              activeMenu={activeMenu}
+              onEnterMenu={onEnterMenu}
+              onEnterPreviousMenu={onEnterPreviousMenu}
+              onMenuOpen={onMenuOpen}
+              onMenuToggle={onMenuToggle}
+            />
           ) : null}
         </HStack>
 
@@ -58,6 +72,7 @@ export function SiteHeaderContainer({
             cart={cart}
             isLoggedIn={isLoggedIn}
             wishlistCount={wishlistCount}
+            onEnterPreviousMenu={platform === 'web' ? onHeaderToolsEnterPreviousMenu : undefined}
             onSearch={onSearch}
           />
           <HeaderMobileMenuButton onClick={onMenu} />
