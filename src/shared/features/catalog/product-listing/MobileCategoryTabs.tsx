@@ -13,7 +13,7 @@ const categories = [
 const categoryTabs = css({
   display: 'flex',
   alignItems: 'center',
-  gap: '32px',
+  gap: '16px',
   h: '46px',
   mb: '16px',
   overflowX: 'auto',
@@ -33,7 +33,7 @@ const categoryTabs = css({
   },
   '& button[aria-selected="true"]': {
     color: '#111',
-    fontWeight: '700',
+    fontWeight: '600',
   },
 });
 
