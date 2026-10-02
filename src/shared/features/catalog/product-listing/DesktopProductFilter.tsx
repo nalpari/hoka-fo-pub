@@ -10,7 +10,6 @@ const stickyFilterPanel = css({
   overflowX: 'hidden',
   overflowY: 'auto',
   scrollbar: 'hidden',
-  overscrollBehavior: 'contain',
 });
 
 type DesktopProductFilterProps = {

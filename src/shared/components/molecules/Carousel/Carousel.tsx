@@ -12,11 +12,11 @@ import {
   useState,
 } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
-import { FreeMode, Scrollbar } from 'swiper/modules';
+import { FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SimpleBar from 'simplebar-react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/scrollbar';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
@@ -64,20 +64,16 @@ const control = css({
 });
 
 const draggableScrollbar = css({
-  '& .swiper-scrollbar': {
-    position: 'relative!',
-    inset: 'auto!',
-    w: 'var(--carousel-scrollbar-width)!',
-    h: '20px!',
-    mt: '24px!',
-    mx: 'auto',
-    bg: 'transparent!',
-    borderRadius: '0!',
-    opacity: '1!',
-    touchAction: 'none',
-    cursor: 'grab',
+  w: 'var(--carousel-scrollbar-width)',
+  h: '20px',
+  mt: '24px',
+  mx: 'auto',
+  touchAction: 'none',
+  '& .simplebar-track.simplebar-horizontal': {
+    bottom: '0',
+    h: '20px',
   },
-  '& .swiper-scrollbar::before': {
+  '& .simplebar-track.simplebar-horizontal::before': {
     content: '""',
     position: 'absolute',
     top: '8px',
@@ -86,13 +82,25 @@ const draggableScrollbar = css({
     h: '3px',
     bg: 'var(--color-border-default)',
   },
-  '& .swiper-scrollbar-drag': {
-    position: 'absolute!',
-    top: '8px!',
-    h: '3px!',
-    bg: 'var(--color-text-primary)!',
-    borderRadius: '0px!',
+  '& .simplebar-scrollbar': {
+    top: '8px',
+    h: '3px',
     cursor: 'grab',
+  },
+  '&.simplebar-dragging .simplebar-scrollbar': {
+    cursor: 'grabbing',
+  },
+  '& .simplebar-scrollbar::before': {
+    top: '0',
+    right: '0',
+    bottom: '0',
+    left: '0',
+    bg: 'var(--color-text-primary)',
+    opacity: '1',
+    borderRadius: '0',
+  },
+  '& .simplebar-scrollbar.simplebar-visible::before': {
+    opacity: '1',
   },
 });
 
@@ -181,21 +189,55 @@ export function CarouselViewport({
   slideClassName,
 }: CarouselViewportProps) {
   const { itemCount, registerSwiper, updateState } = useCarousel();
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const scrollbarRef = useRef<HTMLElement | null>(null);
+  const [scrollbarContentWidth, setScrollbarContentWidth] = useState(0);
   const isMobile = mode === 'mobile';
   const itemGutter = isMobile ? mobileItemGutter : desktopItemGutter;
 
+  const updateScrollbar = useCallback((swiper: SwiperInstance) => {
+    const scrollbar = scrollbarRef.current;
+    if (!scrollbar) return;
+
+    const maxScroll = scrollbar.scrollWidth - scrollbar.clientWidth;
+    if (maxScroll <= 0) return;
+
+    scrollbar.scrollLeft = swiper.progress * maxScroll;
+  }, []);
+
+  const handleScrollbarScroll = useCallback(() => {
+    const swiper = swiperRef.current;
+    const scrollbar = scrollbarRef.current;
+    if (!swiper || !scrollbar) return;
+
+    const maxScroll = scrollbar.scrollWidth - scrollbar.clientWidth;
+    if (maxScroll <= 0) return;
+
+    swiper.setProgress(scrollbar.scrollLeft / maxScroll);
+    updateState(swiper);
+  }, [updateState]);
+
+  const handleScrollbarRelease = useCallback(() => {
+    swiperRef.current?.slideToClosest(350);
+  }, []);
+
   const handleAfterInit = useCallback(
     (swiper: SwiperInstance) => {
+      swiperRef.current = swiper;
+      setScrollbarContentWidth(swiper.virtualSize);
       registerSwiper(swiper);
+      updateScrollbar(swiper);
     },
-    [registerSwiper],
+    [registerSwiper, updateScrollbar],
   );
 
   const handleResize = useCallback(
     (swiper: SwiperInstance) => {
+      setScrollbarContentWidth(swiper.virtualSize);
       updateState(swiper);
+      updateScrollbar(swiper);
     },
-    [updateState],
+    [updateState, updateScrollbar],
   );
 
   const swiper = (
@@ -203,18 +245,18 @@ export function CarouselViewport({
       className={[
         viewport,
         className,
-        isMobile ? draggableScrollbar : '',
         !isMobile && desktopCenteredItemCount ? desktopOverflowVisible : '',
       ]
         .filter(Boolean)
         .join(' ')}
       freeMode={{ enabled: true, sticky: isMobile }}
       followFinger
-      modules={[FreeMode, Scrollbar]}
+      modules={[FreeMode]}
       onAfterInit={handleAfterInit}
       onReachBeginning={updateState}
       onReachEnd={updateState}
       onResize={handleResize}
+      onProgress={updateScrollbar}
       onSlideChange={updateState}
       onTouchEnd={updateState}
       // When the rail itself has end padding, slide padding supplies the
@@ -222,11 +264,7 @@ export function CarouselViewport({
       slidesOffsetAfter={isMobile && mobileItemGutter === undefined ? 32 : 0}
       slidesPerView="auto"
       spaceBetween={isMobile && mobileItemGutter === undefined ? 16 : 0}
-      scrollbar={
-        isMobile && itemCount > 1 ? { draggable: true, hide: false, snapOnRelease: true } : false
-      }
       speed={350}
-      style={{ '--carousel-scrollbar-width': `${itemCount * 36}px` } as CSSProperties}
       threshold={0}
     >
       {Children.toArray(children).map((child, index) => (
@@ -258,7 +296,22 @@ export function CarouselViewport({
     </Swiper>
   );
 
-  return swiper;
+  return (
+    <>
+      {swiper}
+      {isMobile && itemCount > 1 && (
+        <SimpleBar
+          autoHide={false}
+          className={draggableScrollbar}
+          onPointerUp={handleScrollbarRelease}
+          scrollableNodeProps={{ ref: scrollbarRef, onScroll: handleScrollbarScroll }}
+          style={{ '--carousel-scrollbar-width': `${itemCount * 36}px` } as CSSProperties}
+        >
+          <div aria-hidden="true" style={{ width: `${scrollbarContentWidth}px`, height: '1px' }} />
+        </SimpleBar>
+      )}
+    </>
+  );
 }
 
 export function CarouselControls() {

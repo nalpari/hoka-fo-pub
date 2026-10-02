@@ -9,6 +9,7 @@ import { css } from 'styled-system/css';
 
 const panel = css({
   pb: 'var(--spacing-64)',
+  alignItems: 'stretch',
 });
 
 export type { CatalogSelectedFilter } from '@/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader';
