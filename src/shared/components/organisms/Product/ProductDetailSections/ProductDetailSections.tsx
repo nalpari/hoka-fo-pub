@@ -11,10 +11,9 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 
 const tabBar = css({
   position: 'sticky',
-  top: { base: '76px', _mobile: '60px' },
+  top: 'var(--layout-site-header-height)',
   zIndex: '2',
-  display: { base: 'grid', _mobile: 'flex' },
-  overflowX: { _mobile: 'auto' },
+  display: 'grid',
   gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
   borderTop: '1px solid #111',
   borderBottom: '1px solid #111',
@@ -23,15 +22,19 @@ const tabBar = css({
 const tab = cva({
   base: {
     position: 'relative',
-    flex: { _mobile: '0 0 auto' },
-    minW: { _mobile: '126px' },
-    minH: { base: '58px', _mobile: '52px' },
+    minW: '0',
+    w: '100%',
+    minH: { base: '58px', _mobile: '48px' },
+    px: { base: '3', _mobile: '1' },
     border: '0',
-    borderRight: '1px solid #d8d8d8',
+    borderRight: { base: '1px solid #d8d8d8', _mobile: '0' },
     bg: '#fff',
     color: 'var(--color-text-muted)',
-    fontSize: { _mobile: '13px' },
+    fontSize: { _mobile: '12px' },
     fontWeight: '700',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     _focusVisible: { zIndex: '1', outline: '2px solid #111', outlineOffset: '-2px' },
   },
   variants: {
@@ -53,19 +56,25 @@ const tab = cva({
   },
 });
 
+const desktopTabTitle = css({ _mobile: { display: 'none' } });
+
+const mobileTabTitle = css({ display: 'none', _mobile: { display: 'inline' } });
+
 const sections = [
-  { id: 'product-information', title: '상품정보', description: '' },
+  { id: 'product-information', title: '상품정보', mobileTitle: '상품정보', description: '' },
   {
     id: 'size-guide',
     title: '사이즈',
+    mobileTitle: '사이즈',
     description: '사이즈 선택에 필요한 가이드와 제품 치수를 안내합니다.',
   },
   {
     id: 'reviews',
     title: '상품리뷰 (12)',
+    mobileTitle: '리뷰',
     description: '구매 고객의 착용 후기와 평점을 확인할 수 있습니다.',
   },
-  { id: 'inquiries', title: '상품문의', description: '' },
+  { id: 'inquiries', title: '상품문의', mobileTitle: '문의', description: '' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];
@@ -111,7 +120,8 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
             onClick={() => scrollToSection(section.id)}
             role="tab"
           >
-            {section.title}
+            <span className={desktopTabTitle}>{section.title}</span>
+            <span className={mobileTabTitle}>{section.mobileTitle}</span>
           </Button>
         ))}
       </Grid>

@@ -6,6 +6,7 @@ const meta = {
   component: ProductGallery,
   args: {
     images: ['PRODUCT IMAGE'],
+    colorVariants: [],
     onOpen: () => undefined,
   },
 } satisfies Meta<typeof ProductGallery>;

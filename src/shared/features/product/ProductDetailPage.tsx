@@ -128,6 +128,14 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         <Box className={detailContent}>
           <ProductGallery
             images={[product.primaryImage, product.hoverImage]}
+            colorVariants={products
+              .filter((variant) => variant.collection === product.collection)
+              .map((variant) => ({
+                id: variant.id,
+                image: variant.primaryImage,
+                name: variant.name,
+                selected: variant.id === product.id,
+              }))}
             onOpen={setZoomImage}
           />
           <ProductDetailSections hasSizeGuide={product.hasSizeGuide ?? product.sizes.length > 0} />
