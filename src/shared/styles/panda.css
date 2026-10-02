@@ -6927,6 +6927,14 @@
     grid-template-columns: repeat(8, 110px);
   }
 
+  .\[\&_button\]\:d_flex button {
+    display: flex;
+}
+
+  .\[\&_button\]\:jc_center button {
+    justify-content: center;
+}
+
   .platform-mobile .mobile\:asp_253_\/_337 {
     aspect-ratio: 253 / 337;
   }
