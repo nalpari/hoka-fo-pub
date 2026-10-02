@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckboxGroup } from '@/shared/components/atoms/CheckboxGroup/CheckboxGroup';
+import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilterSection/CatalogFilterSection';
 
 export function CatalogFilterGroup({
@@ -17,7 +17,7 @@ export function CatalogFilterGroup({
   const selectedValues = onChange ? (value ? [value] : []) : selected;
   return (
     <CatalogFilterSection title={title}>
-      <CheckboxGroup
+      <Checkbox
         onValueChange={(next) => {
           if (!onChange) return setSelected(next);
           onChange(next.find((item) => !selectedValues.includes(item)) ?? '');

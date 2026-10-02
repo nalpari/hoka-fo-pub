@@ -4,6 +4,7 @@ out/
 dist/
 storybook-static/
 styled-system/
+src/shared/styles/panda.css
 coverage/
 *.tsbuildinfo
 next-env.d.ts

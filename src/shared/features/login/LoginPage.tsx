@@ -165,7 +165,7 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
             <Checkbox
               label="아이디 저장하기"
               checked={rememberId}
-              onChange={(event) => setRememberId(event.target.checked)}
+              onCheckedChange={setRememberId}
             />
             <Button
               onClick={() => showUnavailable('아이디/비밀번호 찾기')}

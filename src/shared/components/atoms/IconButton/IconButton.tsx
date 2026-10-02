@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 import { circle } from 'styled-system/patterns';
 
 const iconButton = css({
-  display: 'inline-grid',
+  // display: 'inline-grid',
   placeItems: 'center',
   w: 'var(--icon-button-size)',
   h: 'var(--icon-button-size)',
@@ -46,7 +46,11 @@ export function IconButton({
           minW: 'var(--icon-button-size)',
           minH: 'var(--icon-button-size)',
         })
-      : undefined;
+      : {
+          size: 'var(--icon-button-size)',
+          minW: 'var(--icon-button-size)',
+          minH: 'var(--icon-button-size)',
+        };
 
   return (
     <BaseButton
