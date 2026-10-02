@@ -3017,6 +3017,10 @@
     touch-action: pan-x;
   }
 
+  .snap-on-release_true {
+    snap-on-release: true;
+}
+
   .direction_next {
     direction: next;
   }
@@ -3036,6 +3040,10 @@
   .grid-tc_repeat\(8\,_1fr\) {
     grid-template-columns: repeat(8, 1fr);
   }
+
+  .grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
 
   .asp_371_\/_494 {
     aspect-ratio: 371 / 494;
@@ -3176,6 +3184,15 @@
   .as_start {
     align-self: start;
   }
+
+  .scr-bar_hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+  .scr-bar_hidden::-webkit-scrollbar {
+    display: none;
+}
 
   .grid-tc_clamp\(252px\,_22\%\,_337px\)_minmax\(0\,_1fr\) {
     grid-template-columns: clamp(252px, 22%, 337px) minmax(0, 1fr);
@@ -3339,10 +3356,6 @@
 
   .ls_-1px {
     letter-spacing: -1px;
-  }
-
-  .grid-tc_repeat\(4\,_minmax\(0\,_1fr\)\) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lh_1\.55 {
@@ -4473,6 +4486,10 @@
   .ov-x_hidden {
     overflow-x: hidden;
   }
+
+  .ov-x_hidden {
+    overflow-x: hidden;
+}
 
   .min-w_106px {
     min-width: 106px;

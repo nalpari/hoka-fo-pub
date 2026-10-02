@@ -5,7 +5,7 @@ import { CatalogFilterSection } from '@/shared/components/molecules/CatalogFilte
 
 const pills = css({
   display: 'grid',
-  gridTemplateColumns: { base: 'repeat(4, 1fr)' },
+  gridTemplateColumns: { base: 'repeat(4, minmax(0, 1fr))' },
   gap: '5px',
   '& button': { borderColor: '#ddd', py: '7px', px: '0.5', fontSize: '12px' },
 });
@@ -30,6 +30,7 @@ export function FilterPillGroup({
         ariaLabel={title}
         buttonClassName={(_, isSelected) => (isSelected ? 'selected' : undefined)}
         className={pills}
+        buttonSize="sm"
         multiple
         onChange={(next) => {
           const nextValues = Array.isArray(next) ? next : [String(next)];

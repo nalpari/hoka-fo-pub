@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Button, type ButtonProps } from '@/shared/components/atoms/Button/Button';
 import { Box } from 'styled-system/jsx';
 
 type Primitive = string | number;
@@ -22,6 +22,7 @@ type SelectableButtonListProps<T extends Primitive = Primitive> = {
   multiple?: boolean;
   disabledValues?: T[];
   className?: string;
+  buttonSize?: ButtonProps['size'];
   buttonClassName?: (value: T, isSelected: boolean) => string | undefined;
   renderValue?: (value: T, option?: SelectableButtonListOption<T>) => ReactNode;
   renderOption?: (option: SelectableButtonListOption<T>, isSelected: boolean) => ReactNode;
@@ -37,6 +38,7 @@ export function SelectableButtonList<T extends Primitive = Primitive>({
   multiple = false,
   disabledValues = [],
   className,
+  buttonSize,
   buttonClassName,
   renderValue,
   renderOption,
@@ -115,6 +117,7 @@ export function SelectableButtonList<T extends Primitive = Primitive>({
 
         return (
           <Button
+            size={buttonSize}
             {...(multiple
               ? {}
               : { role: 'radio', 'aria-checked': isSelected, tabIndex: isSelected ? 0 : -1 })}
