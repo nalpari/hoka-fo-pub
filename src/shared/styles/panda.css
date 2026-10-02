@@ -45,6 +45,115 @@
   }
 }
 
+@layer utilities {
+  .ai_stretch.ai_stretch {
+    align-items: stretch;
+  }
+
+  .w_var\(--carousel-scrollbar-width\) {
+    width: var(--carousel-scrollbar-width);
+  }
+
+  .h_20px {
+    height: 20px;
+  }
+
+  .tch-a_none {
+    touch-action: none;
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:bg_var\(--color-border-default\)
+    .simplebar-track.simplebar-horizontal::before {
+    background: var(--color-border-default);
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:bg_var\(--color-text-primary\)
+    .simplebar-scrollbar::before {
+    background: var(--color-text-primary);
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:bdr_0 .simplebar-scrollbar::before {
+    border-radius: 0;
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:content_\"\"
+    .simplebar-track.simplebar-horizontal::before {
+    content: '';
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:pos_absolute
+    .simplebar-track.simplebar-horizontal::before {
+    position: absolute;
+  }
+
+  .\[\&_\.simplebar-scrollbar\]\:cursor_grab .simplebar-scrollbar {
+    cursor: grab;
+  }
+
+  .\[\&\.simplebar-dragging_\.simplebar-scrollbar\]\:cursor_grabbing.simplebar-dragging
+    .simplebar-scrollbar {
+    cursor: grabbing;
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:op_1 .simplebar-scrollbar::before,
+  .\[\&_\.simplebar-scrollbar\.simplebar-visible\:\:before\]\:op_1
+    .simplebar-scrollbar.simplebar-visible::before {
+    opacity: 1;
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\]\:bottom_0 .simplebar-track.simplebar-horizontal {
+    bottom: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\]\:h_20px .simplebar-track.simplebar-horizontal {
+    height: 20px;
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:top_8px
+    .simplebar-track.simplebar-horizontal::before {
+    top: 8px;
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:right_0
+    .simplebar-track.simplebar-horizontal::before {
+    right: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:left_0
+    .simplebar-track.simplebar-horizontal::before {
+    left: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-track\.simplebar-horizontal\:\:before\]\:h_3px
+    .simplebar-track.simplebar-horizontal::before {
+    height: 3px;
+  }
+
+  .\[\&_\.simplebar-scrollbar\]\:top_8px .simplebar-scrollbar {
+    top: 8px;
+  }
+
+  .\[\&_\.simplebar-scrollbar\]\:h_3px .simplebar-scrollbar {
+    height: 3px;
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:top_0 .simplebar-scrollbar::before {
+    top: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:right_0 .simplebar-scrollbar::before {
+    right: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:bottom_0 .simplebar-scrollbar::before {
+    bottom: var(--spacing-0);
+  }
+
+  .\[\&_\.simplebar-scrollbar\:\:before\]\:left_0 .simplebar-scrollbar::before {
+    left: var(--spacing-0);
+  }
+}
+
 @layer tokens {
   :where(:root, :host) {
     --aspect-ratios-square: 1 / 1;

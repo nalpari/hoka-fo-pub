@@ -10,6 +10,7 @@ import { css } from 'styled-system/css';
 const panel = css({
   w: '100%',
   pb: '64px',
+  alignItems: 'stretch',
   '& h3': { m: '0 0 18px', fontSize: '20px' },
 });
 

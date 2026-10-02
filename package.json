@@ -24,6 +24,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest",
+    "simplebar-react": "^3.3.2",
     "swiper": "^14.2.0"
   },
   "devDependencies": {
