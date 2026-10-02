@@ -5,7 +5,7 @@ const meta = {
   title: 'Organisms/Product/ProductGallery',
   component: ProductGallery,
   args: {
-    image: 'PRODUCT IMAGE',
+    images: ['PRODUCT IMAGE'],
     onOpen: () => undefined,
   },
 } satisfies Meta<typeof ProductGallery>;

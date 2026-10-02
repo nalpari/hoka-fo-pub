@@ -2,11 +2,22 @@
 
 import { useState } from 'react';
 import { css, cva } from 'styled-system/css';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Box, Flex, Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 
 const thumbnail = cva({
-  base: { flex: '1', h: '18', borderColor: '#ddd', color: '#888' },
+  base: {
+    display: 'flex',
+    flex: '0 0 72px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    w: '72px',
+    h: '72px',
+    p: '0',
+    overflow: 'hidden',
+    border: '1px solid #ddd',
+    bg: '#f2f2f2',
+    cursor: 'pointer',
+  },
   variants: {
     active: {
       true: {
@@ -19,8 +30,19 @@ const thumbnail = cva({
   },
 });
 
-type ProductGalleryProps = { image: string; onOpen: () => void };
-const thumbnailIndexes = [1, 2, 3, 4];
+type ProductGalleryProps = { images: string[]; onOpen: (image: string) => void };
+
+const thumbnailRail = css({
+  display: 'flex',
+  flexWrap: 'nowrap',
+  gap: '2',
+  mt: '2',
+  w: '100%',
+  overflowX: 'auto',
+  overflowY: 'hidden',
+  scrollbarWidth: 'none',
+  '&::-webkit-scrollbar': { display: 'none' },
+});
 const galleryFrame = css({
   position: 'relative',
   display: 'flex',
@@ -49,27 +71,37 @@ const galleryImage = css({
   objectFit: 'contain',
 });
 
-export function ProductGallery({ image, onOpen }: ProductGalleryProps) {
+const thumbnailImage = css({ display: 'block', w: '100%', h: '100%', objectFit: 'contain' });
+
+export function ProductGallery({ images, onOpen }: ProductGalleryProps) {
   const [activeImage, setActiveImage] = useState(0);
+  const currentImage = images[activeImage] ?? images[0] ?? '';
+
   return (
     <Box w="100%" minW="0">
-      <button aria-label="상품 이미지 확대" className={galleryFrame} onClick={onOpen} type="button">
-        <img alt="상품 이미지" className={galleryImage} src={image} />
+      <button
+        aria-label="상품 이미지 확대"
+        className={galleryFrame}
+        onClick={() => onOpen(currentImage)}
+        type="button"
+      >
+        <img alt="상품 이미지" className={galleryImage} src={currentImage} />
         <small>이미지 확대</small>
       </button>
-      <Flex gap="2" mt="2" aria-label="상품 이미지 목록">
-        {thumbnailIndexes.map((index, position) => (
-          <Button
-            aria-label={`상품 이미지 ${index}`}
-            aria-pressed={activeImage === position}
-            className={thumbnail({ active: activeImage === position })}
-            key={index}
-            onClick={() => setActiveImage(position)}
+      <div aria-label="상품 이미지 목록" className={thumbnailRail} role="group">
+        {images.map((image, index) => (
+          <button
+            aria-label={`상품 이미지 ${index + 1}`}
+            aria-pressed={activeImage === index}
+            className={thumbnail({ active: activeImage === index })}
+            key={`${image}-${index}`}
+            onClick={() => setActiveImage(index)}
+            type="button"
           >
-            IMAGE {index}
-          </Button>
+            <img alt="" aria-hidden="true" className={thumbnailImage} src={image} />
+          </button>
         ))}
-      </Flex>
+      </div>
       <Stack mt="16" gap="4" aria-label="상품 상세 이미지">
         <Box
           minH="680px"
