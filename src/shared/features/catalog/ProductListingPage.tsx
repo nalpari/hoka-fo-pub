@@ -196,6 +196,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   return (
     <ProductListingLayout
+      activity={activity}
       breadcrumbItems={breadcrumbItems}
       category={category}
       compared={compared}
