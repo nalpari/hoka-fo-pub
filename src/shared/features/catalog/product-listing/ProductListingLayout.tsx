@@ -7,6 +7,7 @@ import { DesktopProductSort } from './DesktopProductSort';
 import { MobileProductFilterTrigger } from './MobileProductFilterTrigger';
 import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
+import { MobileCategoryTabs } from './MobileCategoryTabs';
 import { css } from 'styled-system/css';
 
 const catalogLayout = css({
@@ -27,6 +28,7 @@ const catalogLayout = css({
 type ProductListingLayoutProps = {
   breadcrumbItems: BreadcrumbItem[];
   category: string;
+  activity: string;
   compared: Product[];
   filterDrawerOpen: boolean;
   filterPanel: ReactNode;
@@ -53,6 +55,7 @@ type ProductListingLayoutProps = {
 export function ProductListingLayout({
   breadcrumbItems,
   category,
+  activity,
   compared,
   filterDrawerOpen,
   filterPanel,
@@ -98,6 +101,12 @@ export function ProductListingLayout({
         />
       }
     >
+      {platform === 'mobile' && (
+        <MobileCategoryTabs
+          activity={activity}
+          onChange={(value) => onFilterChange('activity', value)}
+        />
+      )}
       <ProductListingContent
         category={category}
         compared={compared}

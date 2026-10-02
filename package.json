@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
+    "motion": "^13.5.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
