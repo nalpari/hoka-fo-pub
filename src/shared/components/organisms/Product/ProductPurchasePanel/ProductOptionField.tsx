@@ -14,15 +14,14 @@ export function ProductOptionField({ label, action, children }: ProductOptionFie
   return (
     <Fieldset
       className={css({
-        display: 'grid',
-        gridTemplateColumns: 'max-content max-content',
-        columnGap: '3',
+        display: 'flex',
+        flexDirection: 'column',
         minW: '0',
       })}
       legend={label}
     >
       {action && <Box alignSelf="start">{action}</Box>}
-      <Box gridColumn="1 / -1">{children}</Box>
+      <Box minW="0">{children}</Box>
     </Fieldset>
   );
 }
