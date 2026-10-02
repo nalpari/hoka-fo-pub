@@ -3,9 +3,20 @@ import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-grou
 import type { CSSProperties } from 'react';
 import { css } from 'styled-system/css';
 import { Circle } from 'styled-system/jsx';
-import { colorOptions } from '@/shared/features/catalog/productListingFilterValues';
 
-const options = css({
+export type ColorFilterOption = {
+  value: string;
+  label: string;
+  hex: string;
+};
+
+export type ColorFilterProps = {
+  options: readonly ColorFilterOption[];
+  selected: string[];
+  onChange: (values: string[]) => void;
+};
+
+const optionsLayout = css({
   display: 'flex',
   flexWrap: 'wrap',
   gap: '4',
@@ -34,15 +45,13 @@ const swatch = css({
 });
 
 export function ColorFilter({
+  options,
   selected,
   onChange,
-}: {
-  selected: string[];
-  onChange: (values: string[]) => void;
-}) {
+}: ColorFilterProps) {
   return (
-    <BaseCheckboxGroup value={selected} onValueChange={onChange} className={options}>
-      {colorOptions.map(({ value, label, hex }) => (
+    <BaseCheckboxGroup value={selected} onValueChange={onChange} className={optionsLayout}>
+      {options.map(({ value, label, hex }) => (
         <Circle
           as="label"
           position="relative"

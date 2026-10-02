@@ -1,9 +1,11 @@
 'use client';
 
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
+import { Toggle } from '@base-ui/react/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { usePlatform } from '@/shared/context/platform';
 import { css, cva } from 'styled-system/css';
-import { Flex, HStack } from 'styled-system/jsx';
+import { Flex } from 'styled-system/jsx';
 
 const viewport = css({
   minW: '0',
@@ -123,38 +125,39 @@ export function FilterTabs<T extends string = string>({
 
   return (
     <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
-      <HStack
+      <ToggleGroup
         aria-label={ariaLabel}
         className={rail}
-        role="group"
-        gap={platform === 'mobile' ? '6px' : '16px'}
-        mb={platform === 'mobile' ? '16px' : '32px'}
+        onValueChange={(nextValue) => {
+          const next = nextValue[0];
+          if (next) onValueChange(next as T);
+        }}
+        style={{ display: 'flex', gap: platform === 'mobile' ? '6px' : '16px', marginBottom: platform === 'mobile' ? '16px' : '32px' }}
+        value={[value]}
       >
         {options.map((option) => {
           const isSelected = option.value === value;
 
           return (
-            <button
-              aria-pressed={isSelected}
+            <Toggle
               className={[item({ selected: isSelected }), itemClassName?.(option, isSelected)]
                 .filter(Boolean)
                 .join(' ')}
               disabled={option.disabled}
               key={option.value}
-              onClick={() => onValueChange(option.value)}
               ref={(node) => {
                 if (node) itemRefs.current.set(option.value, node);
                 else itemRefs.current.delete(option.value);
               }}
-              type="button"
+              value={option.value}
             >
               <Flex as="span" className={label({ selected: isSelected })}>
                 {option.label}
               </Flex>
-            </button>
+            </Toggle>
           );
         })}
-      </HStack>
+      </ToggleGroup>
     </div>
   );
 }

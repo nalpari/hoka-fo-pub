@@ -7,6 +7,7 @@ import {
   activityLabels,
   collectionValues,
   colorLabels,
+  colorOptions,
   cushioningLabels,
   genderLabels,
   labelsToValues,
@@ -122,7 +123,7 @@ export function ProductListingFilterPanel({
         onChange={(values) => onFilterChange('width', labelsToValues(values, widthLabels))}
       />
       <CatalogFilterSection title="색상">
-        <ColorFilter selected={selectedColors} onChange={onSelectedColorsChange} />
+        <ColorFilter options={colorOptions} selected={selectedColors} onChange={onSelectedColorsChange} />
       </CatalogFilterSection>
       <CatalogFilterGroup
         title="액티비티"

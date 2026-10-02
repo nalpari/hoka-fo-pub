@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { Box } from 'styled-system/jsx';
+import { Field as BaseField } from '@base-ui/react/field';
 
 type FormFieldProps = {
   label: ReactNode;
@@ -20,18 +20,18 @@ function withClassName(baseClassName: string, className?: string) {
 
 function FormFieldRoot({ label, htmlFor, required = false, children, className }: FormFieldProps) {
   return (
-    <Box className={className}>
-      <label htmlFor={htmlFor}>
+    <BaseField.Root className={className}>
+      <BaseField.Label htmlFor={htmlFor}>
         {label}
         {required ? <em>필수</em> : null}
-      </label>
+      </BaseField.Label>
       {children}
-    </Box>
+    </BaseField.Root>
   );
 }
 
 export function FormFieldLabel({ className, ...props }: FormFieldLabelProps) {
-  return <label {...props} className={withClassName('form-field__label', className)} />;
+  return <BaseField.Label {...props} className={withClassName('form-field__label', className)} />;
 }
 
 export function FormFieldControl({ className, ...props }: FormFieldControlProps) {
@@ -39,11 +39,11 @@ export function FormFieldControl({ className, ...props }: FormFieldControlProps)
 }
 
 export function FormFieldHint({ className, ...props }: FormFieldHintProps) {
-  return <p {...props} className={withClassName('form-field__hint', className)} />;
+  return <BaseField.Description {...props} className={withClassName('form-field__hint', className)} />;
 }
 
 export function FormFieldMessage({ className, ...props }: FormFieldMessageProps) {
-  return <p {...props} className={withClassName('form-field__message', className)} />;
+  return <BaseField.Error match className={withClassName('form-field__message', className)} {...props} />;
 }
 
 export const FormField = Object.assign(FormFieldRoot, {

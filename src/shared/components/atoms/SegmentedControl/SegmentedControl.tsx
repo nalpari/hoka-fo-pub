@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { Toggle } from '@base-ui/react/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
@@ -35,23 +37,25 @@ export function SegmentedControl<T extends string = string>({
   className,
 }: SegmentedControlProps<T>) {
   return (
-    <div
+    <ToggleGroup
       aria-label={ariaLabel}
       className={[root({ fullWidth }), className].filter(Boolean).join(' ')}
-      role="tablist"
+      onValueChange={(nextValue) => {
+        const next = nextValue[0];
+        if (next) onValueChange(next as T);
+      }}
+      value={[value]}
     >
       {options.map((option) => (
-        <Button
-          aria-selected={option.value === value}
-          className={item({ active: option.value === value })}
+        <Toggle
           disabled={option.disabled}
           key={option.value}
-          onClick={() => onValueChange(option.value)}
-          role="tab"
+          render={<Button className={item({ active: option.value === value })} />}
+          value={option.value}
         >
           {option.label}
-        </Button>
+        </Toggle>
       ))}
-    </div>
+    </ToggleGroup>
   );
 }
