@@ -94,7 +94,7 @@ const modalAction = css({
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { pathname } = useLocation();
   const product = products.find((item) => pathname.endsWith(item.id));
-  const [zoom, setZoom] = useState(false);
+  const [zoomImage, setZoomImage] = useState<string | null>(null);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const openReviews = () => {
     const reviews = document.getElementById('reviews');
@@ -126,7 +126,18 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
     >
       <Grid className={detailTop}>
         <Box className={detailContent}>
-          <ProductGallery image={product.primaryImage} onOpen={() => setZoom(true)} />
+          <ProductGallery
+            images={[product.primaryImage, product.hoverImage]}
+            colorVariants={products
+              .filter((variant) => variant.collection === product.collection)
+              .map((variant) => ({
+                id: variant.id,
+                image: variant.primaryImage,
+                name: variant.name,
+                selected: variant.id === product.id,
+              }))}
+            onOpen={setZoomImage}
+          />
           <ProductDetailSections hasSizeGuide={product.hasSizeGuide ?? product.sizes.length > 0} />
         </Box>
         <ProductPurchasePanel
@@ -144,10 +155,10 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
             ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
       />
-      {zoom && (
+      {zoomImage && (
         <Backdrop
           layer="overlay"
-          onClose={() => setZoom(false)}
+          onClose={() => setZoomImage(null)}
           placement="centerToBottom"
           tone="slate56"
         >
@@ -160,12 +171,12 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
           >
             <header>
               <h2>상품 이미지</h2>
-              <Button aria-label="이미지 확대 닫기" onClick={() => setZoom(false)}>
+              <Button aria-label="이미지 확대 닫기" onClick={() => setZoomImage(null)}>
                 ×
               </Button>
             </header>
             <Box>
-              <img alt={product.name} className={modalImage} src={product.primaryImage} />
+              <img alt={product.name} className={modalImage} src={zoomImage} />
             </Box>
           </section>
         </Backdrop>
