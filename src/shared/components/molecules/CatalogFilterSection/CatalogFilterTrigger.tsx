@@ -1,8 +1,22 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
-import { HStack } from 'styled-system/jsx';
 
 const icon = css({ w: '4', h: '4', flexShrink: 0 });
+
+const trigger = css({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  gap: '2',
+  w: '100%',
+  justifyContent: 'space-between',
+  border: '0',
+  bg: 'transparent',
+  cursor: 'pointer',
+  px: '0',
+  py: '6',
+  textAlign: 'left',
+});
 
 type CatalogFilterTriggerProps = {
   controlsId: string;
@@ -18,20 +32,12 @@ export function CatalogFilterTrigger({
   title,
 }: CatalogFilterTriggerProps) {
   return (
-    <HStack
-      as="button"
+    <button
       aria-controls={controlsId}
       aria-expanded={expanded}
-      bg="transparent"
-      border="0"
-      cursor="pointer"
-      justifyContent="space-between"
+      className={trigger}
       onClick={onToggle}
-      px="0"
-      py="6"
-      textAlign="left"
       type="button"
-      w="100%"
     >
       <Typography as="span" variant="filterLegend">
         {title}
@@ -44,6 +50,6 @@ export function CatalogFilterTrigger({
         src={expanded ? '/images/icon/filter-expanded.svg' : '/images/icon/filter-collapsed.svg'}
         width={16}
       />
-    </HStack>
+    </button>
   );
 }
