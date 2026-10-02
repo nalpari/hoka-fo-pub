@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Drawer } from '@base-ui/react/drawer';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 
@@ -12,6 +12,10 @@ const drawer = css({
   bg: '#fff',
   color: '#000',
 });
+
+const viewport = css({ position: 'fixed', inset: '0', zIndex: '100' });
+
+const backdrop = css({ position: 'fixed', inset: '0', zIndex: '100', bg: 'transparent' });
 
 const primaryMenu = css({
   flex: '1',
@@ -109,48 +113,46 @@ const utilityItems = [
 ] as const;
 
 export function MenuDrawer({ close }: { close: () => void }) {
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, []);
-
   return (
-    <section className={drawer} role="dialog" aria-label="전체 메뉴" aria-modal="true">
-      <div className={primaryMenu}>
-        <button type="button" className={closeButton} aria-label="메뉴 닫기" onClick={close}>
-          ×
-        </button>
-        <nav aria-label="쇼핑 메뉴">
-          <ul className={primaryList}>
-            {primaryItems.map(([label, to]) => (
-              <li key={label}>
-                <Link className={primaryLink} to={to} onClick={close}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+    <Drawer.Root open onOpenChange={(open) => !open && close()} swipeDirection="left">
+      <Drawer.Portal>
+        <Drawer.Backdrop className={backdrop} />
+        <Drawer.Viewport className={viewport}>
+          <Drawer.Popup aria-label="전체 메뉴" className={drawer}>
+            <div className={primaryMenu}>
+              <button type="button" className={closeButton} aria-label="메뉴 닫기" onClick={close}>
+                ×
+              </button>
+              <nav aria-label="쇼핑 메뉴">
+                <ul className={primaryList}>
+                  {primaryItems.map(([label, to]) => (
+                    <li key={label}>
+                      <Link className={primaryLink} to={to} onClick={close}>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
 
-      <nav className={utilityMenu} aria-label="고객 지원 메뉴">
-        <ul className={utilityList}>
-          {utilityItems.map(([icon, label, to]) => (
-            <li key={label}>
-              <Link className={utilityLink} to={to} onClick={close}>
-                <span className={utilityIcon} aria-hidden="true">
-                  {icon}
-                </span>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </section>
+            <nav className={utilityMenu} aria-label="고객 지원 메뉴">
+              <ul className={utilityList}>
+                {utilityItems.map(([icon, label, to]) => (
+                  <li key={label}>
+                    <Link className={utilityLink} to={to} onClick={close}>
+                      <span className={utilityIcon} aria-hidden="true">
+                        {icon}
+                      </span>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Drawer.Popup>
+        </Drawer.Viewport>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 }

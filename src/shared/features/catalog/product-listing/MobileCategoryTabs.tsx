@@ -1,4 +1,4 @@
-import { css } from 'styled-system/css';
+import { FilterTabs } from '@/shared/components/atoms/FilterTabs/FilterTabs';
 
 const categories = [
   { label: '전체보기', activity: '' },
@@ -10,33 +10,6 @@ const categories = [
   { label: '리커버리', activity: 'recovery' },
 ];
 
-const categoryTabs = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '16px',
-  h: '46px',
-  mb: '16px',
-  overflowX: 'auto',
-  whiteSpace: 'nowrap',
-  scrollbarWidth: 'none',
-  '&::-webkit-scrollbar': { display: 'none' },
-  '& button': {
-    flexShrink: '0',
-    h: '100%',
-    p: '0',
-    border: '0',
-    bg: 'transparent',
-    color: '#666',
-    fontSize: '14px',
-    fontWeight: '400',
-    cursor: 'pointer',
-  },
-  '& button[aria-selected="true"]': {
-    color: '#111',
-    fontWeight: '600',
-  },
-});
-
 type MobileCategoryTabsProps = {
   activity: string;
   onChange: (activity: string) => void;
@@ -44,18 +17,12 @@ type MobileCategoryTabsProps = {
 
 export function MobileCategoryTabs({ activity, onChange }: MobileCategoryTabsProps) {
   return (
-    <nav aria-label="상품 카테고리" className={categoryTabs} role="tablist">
-      {categories.map((category) => (
-        <button
-          aria-selected={activity === category.activity}
-          key={category.activity || 'all'}
-          onClick={() => onChange(category.activity)}
-          role="tab"
-          type="button"
-        >
-          {category.label}
-        </button>
-      ))}
-    </nav>
+    <FilterTabs
+      ariaLabel="상품 카테고리"
+      onValueChange={onChange}
+      options={categories.map((category) => ({ label: category.label, value: category.activity }))}
+      value={activity}
+      variant="categoryNavigation"
+    />
   );
 }

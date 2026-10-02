@@ -17,4 +17,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const WithAction: Story = { args: { action: <Button>다시 시도</Button> } };
+
+export const Minimal: Story = {
+  args: { title: '등록된 문의글이 없습니다.', variant: 'minimal' },
+};

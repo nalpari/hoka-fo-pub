@@ -1,15 +1,12 @@
 import { cva } from 'styled-system/css';
-import { Flex } from 'styled-system/jsx';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
 
 const genderLabel = cva({
   base: {
-    fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '130%',
-    color: '#000000',
+    color: 'var(--color-text-primary)',
   },
   variants: {
     variant: {
@@ -38,8 +35,8 @@ export type ProductGenderProps = {
 /** Product audience label. */
 export function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
-    <Flex as="span" className={genderLabel({ variant })}>
+    <Typography as="span" className={genderLabel({ variant })} variant="productAudience">
       {gender}
-    </Flex>
+    </Typography>
   );
 }

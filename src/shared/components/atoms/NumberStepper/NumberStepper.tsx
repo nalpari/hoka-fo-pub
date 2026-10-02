@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import { css } from 'styled-system/css';
-import { Button } from '@/shared/components/atoms/Button/Button';
 
 const root = css({
   display: 'inline-flex',
@@ -9,8 +9,8 @@ const root = css({
   gap: '2.5',
   minW: '130px',
 });
-const control = css({ minW: '8', minH: '8', border: '0', p: '0', fontSize: '20px' });
-const valueStyle = css({ minW: '1.5em', textAlign: 'center' });
+const control = css({ minW: '8', minH: '8', border: '0', p: '0', bg: 'transparent', fontSize: '20px', cursor: 'pointer' });
+const valueStyle = css({ minW: '1.5em', border: '0', bg: 'transparent', p: '0', textAlign: 'center' });
 
 export type NumberStepperProps = {
   value: number;
@@ -34,28 +34,28 @@ export function NumberStepper({
   className,
   formatValue,
 }: NumberStepperProps) {
-  const decrease = () => onChange(Math.max(min, value - step));
-  const increase = () => onChange(max === undefined ? value + step : Math.min(max, value + step));
+
   return (
-    <div
+    <BaseNumberField.Root
       aria-label={ariaLabel}
       className={[root, className].filter(Boolean).join(' ')}
-      role="group"
+      max={max}
+      min={min}
+      onValueChange={(nextValue) => onChange(nextValue ?? min)}
+      step={step}
+      value={value}
     >
-      <Button aria-label="감소" className={control} disabled={value <= min} onClick={decrease}>
+      <BaseNumberField.Decrement aria-label="감소" className={control}>
         −
-      </Button>
-      <output aria-live="polite" className={valueStyle}>
-        {formatValue ? formatValue(value) : value}
-      </output>
-      <Button
-        aria-label="증가"
-        className={control}
-        disabled={max !== undefined && value >= max}
-        onClick={increase}
-      >
+      </BaseNumberField.Decrement>
+      <BaseNumberField.Input
+        aria-label={ariaLabel}
+        aria-valuetext={formatValue ? String(formatValue(value)) : undefined}
+        className={valueStyle}
+      />
+      <BaseNumberField.Increment aria-label="증가" className={control}>
         +
-      </Button>
-    </div>
+      </BaseNumberField.Increment>
+    </BaseNumberField.Root>
   );
 }

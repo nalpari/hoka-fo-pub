@@ -1,17 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta as StorybookMeta, StoryObj } from '@storybook/react';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const meta = {
   title: 'Atoms/Typography',
   component: Typography,
   args: { children: 'HOKA Typography', variant: 'heading' },
-} satisfies Meta<typeof Typography>;
+} satisfies StorybookMeta<typeof Typography>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Display: Story = { args: { as: 'h1', children: 'Display', variant: 'display' } };
+
 export const Heading: Story = { args: { as: 'h2', variant: 'heading' } };
+
+export const SectionHeading: Story = {
+  args: { as: 'h3', children: 'Section heading', variant: 'sectionHeading' },
+};
+
+export const CardTitle: Story = {
+  args: { as: 'h4', children: 'Card title', variant: 'cardTitle' },
+};
+
+export const Body: Story = { args: { children: 'Body text', variant: 'body' } };
 
 export const InverseBody: Story = {
   args: { children: 'Inverse body text', tone: 'inverse', variant: 'body' },
@@ -22,4 +34,30 @@ export const InverseBody: Story = {
       </div>
     ),
   ],
+};
+
+export const FormLabel: Story = {
+  args: { as: 'span', children: '상품 옵션', variant: 'formLabel' },
+};
+
+export const ProductAudience: Story = {
+  args: { as: 'span', children: "Women's", variant: 'productAudience' },
+};
+
+export const Meta: Story = { args: { children: 'Meta text', variant: 'meta' } };
+
+export const Price: Story = { args: { children: '$120', variant: 'price' } };
+
+export const PriceEmphasis: Story = {
+  args: { children: '$120', variant: 'priceEmphasis' },
+};
+
+export const Action: Story = { args: { children: 'Shop now', variant: 'action' } };
+
+export const FilterLegend: Story = {
+  args: { children: 'Filter by', variant: 'filterLegend' },
+};
+
+export const BottomSheetTitle: Story = {
+  args: { children: 'Sort products', variant: 'bottomSheetTitle' },
 };

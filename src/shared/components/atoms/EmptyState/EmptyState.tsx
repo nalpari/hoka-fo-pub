@@ -6,6 +6,7 @@ type EmptyStateProps = {
   title: string;
   description?: ReactNode;
   action?: ReactNode;
+  variant?: 'standard' | 'minimal';
 };
 
 type EmptyStateIconProps = ComponentPropsWithoutRef<'div'>;
@@ -17,7 +18,19 @@ function withClassName(baseClassName: string, className?: string) {
   return [baseClassName, className].filter(Boolean).join(' ');
 }
 
-function EmptyStateRoot({ title, description, action }: EmptyStateProps) {
+function EmptyStateRoot({ title, description, action, variant = 'standard' }: EmptyStateProps) {
+  if (variant === 'minimal') {
+    return (
+      <Box as="section" aria-label={title} minH="180px" pt="42px" textAlign="center">
+        <h2 className={css({ m: '0', color: '#111', fontSize: 'inherit', fontWeight: 'inherit' })}>
+          {title}
+        </h2>
+        {description ? <p className={css({ m: '8px 0 0', color: 'var(--color-text-muted)' })}>{description}</p> : null}
+        {action ? <Box mt="2">{action}</Box> : null}
+      </Box>
+    );
+  }
+
   return (
     <Stack
       as="section"

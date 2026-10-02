@@ -48,7 +48,6 @@ const styles = {
     variants: { active: { true: { _after: { opacity: 1 } }, false: {} } },
   }),
   itemLabel: css({
-    fontFamily: "'The Future HOKA', sans-serif",
     fontSize: '14px',
     fontWeight: 400,
     letterSpacing: 0,
@@ -59,22 +58,46 @@ const styles = {
 
 type DesktopNavigationProps = {
   activeMenu: MegaMenu['id'] | null;
-  onMenuChange: (id: MegaMenu['id']) => void;
+  onEnterMenu: (id: MegaMenu['id']) => void;
+  onEnterPreviousMenu: (id: MegaMenu['id']) => void;
+  onMenuOpen: (id: MegaMenu['id']) => void;
+  onMenuToggle: (id: MegaMenu['id']) => void;
 };
 
-export function DesktopNavigation({ activeMenu, onMenuChange }: DesktopNavigationProps) {
+export function DesktopNavigation({
+  activeMenu,
+  onEnterMenu,
+  onEnterPreviousMenu,
+  onMenuOpen,
+  onMenuToggle,
+}: DesktopNavigationProps) {
   return (
     <nav className={styles.navigation} aria-label="주요 메뉴">
-      {megaMenus.map((menu) => (
+      {megaMenus.map((menu, index) => (
         <Button
           key={menu.id}
           variant="ghost"
           className={styles.item({ active: activeMenu === menu.id })}
           aria-expanded={activeMenu === menu.id}
           aria-controls={`mega-menu-${menu.id}`}
-          onMouseEnter={() => onMenuChange(menu.id)}
-          onFocus={() => onMenuChange(menu.id)}
-          onClick={() => onMenuChange(menu.id)}
+          data-mega-menu-trigger={menu.id}
+          onMouseEnter={() => onMenuOpen(menu.id)}
+          onFocus={() => onMenuOpen(menu.id)}
+          onClick={() => onMenuToggle(menu.id)}
+          onKeyDown={(event) => {
+            if (event.key !== 'Tab') return;
+
+            if (event.shiftKey) {
+              if (index === 0) return;
+
+              event.preventDefault();
+              onEnterPreviousMenu(menu.id);
+              return;
+            }
+
+            event.preventDefault();
+            onEnterMenu(menu.id);
+          }}
         >
           <span className={styles.itemLabel}>{menu.label}</span>
         </Button>

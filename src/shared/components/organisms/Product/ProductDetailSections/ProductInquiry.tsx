@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ProductInquiryEmptyState } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryEmptyState';
+import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 import { ProductInquiryNotices } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNotices';
 import { ProductInquiryToolbar } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryToolbar';
 import { Box } from 'styled-system/jsx';
@@ -13,7 +13,10 @@ export function ProductInquiry() {
   return (
     <Box maxW="760px">
       <ProductInquiryToolbar privateOnly={privateOnly} onPrivateOnlyChange={setPrivateOnly} />
-      <ProductInquiryEmptyState privateOnly={privateOnly} />
+      <EmptyState
+        title={privateOnly ? '공개로 등록된 문의글이 없습니다.' : '등록된 문의글이 없습니다.'}
+        variant="minimal"
+      />
       <ProductInquiryNotices />
     </Box>
   );

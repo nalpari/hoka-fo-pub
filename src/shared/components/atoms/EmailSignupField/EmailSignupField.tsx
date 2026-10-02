@@ -1,4 +1,6 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
+'use client';
+
+import { useState, type FormEvent, type InputHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
@@ -43,31 +45,52 @@ const submitButton = css({
   },
 });
 
-export type EmailSignupFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+export type EmailSignupFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> & {
   label?: string;
   buttonLabel?: string;
-  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+  onSubmit?: (email: string) => void;
 };
 
 export function EmailSignupField({
   label = 'Enter email',
   buttonLabel = 'Submit email',
   className,
-  buttonProps,
+  onSubmit,
+  defaultValue,
+  value: controlledValue,
+  onChange,
   ...props
 }: EmailSignupFieldProps) {
+  const [uncontrolledValue, setUncontrolledValue] = useState(String(defaultValue ?? ''));
+  const value = controlledValue === undefined ? uncontrolledValue : String(controlledValue);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit?.(value);
+  };
+
   return (
-    <div className={[field, className].filter(Boolean).join(' ')}>
-      <input {...props} aria-label={label} placeholder={label} type="email" className={input} />
+    <form className={[field, className].filter(Boolean).join(' ')} onSubmit={handleSubmit}>
+      <input
+        {...props}
+        aria-label={label}
+        className={input}
+        onChange={(event) => {
+          if (controlledValue === undefined) setUncontrolledValue(event.target.value);
+          onChange?.(event);
+        }}
+        placeholder={label}
+        type="email"
+        value={value}
+      />
       <button
-        type="button"
+        type="submit"
         aria-label={buttonLabel}
         title={buttonLabel}
         className={submitButton}
-        {...buttonProps}
       >
         <Icon name="chevron-right" size="12px" color="white" />
       </button>
-    </div>
+    </form>
   );
 }

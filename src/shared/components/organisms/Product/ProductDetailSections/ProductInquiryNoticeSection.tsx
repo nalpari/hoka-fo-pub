@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
 import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
+import { css } from 'styled-system/css';
+
+const content = css({ m: '0' });
 
 type ProductInquiryNoticeSectionProps = {
   children: ReactNode;
@@ -16,7 +19,7 @@ export function ProductInquiryNoticeSection({
 }: ProductInquiryNoticeSectionProps) {
   return (
     <Disclosure open={isOpen} onOpenChange={onToggle} title={title}>
-      <p style={{ margin: 0 }}>{children}</p>
+      <p className={content}>{children}</p>
     </Disclosure>
   );
 }

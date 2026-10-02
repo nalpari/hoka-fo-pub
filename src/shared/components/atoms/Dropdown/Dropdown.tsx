@@ -2,11 +2,12 @@
 
 import { useState, type CSSProperties, type ReactNode } from 'react';
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 
 const styles = {
-  trigger: css({
+  trigger: cva({
+    base: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -16,13 +17,23 @@ const styles = {
     bg: '#fff',
     color: '#000000',
     cursor: 'pointer',
+    },
+    variants: {
+      disabled: {
+        true: { bg: '#F7F7F9', color: '#B3B3B3', cursor: 'not-allowed' },
+        false: {},
+      },
+    },
   }),
-  label: css({
+  label: cva({
+    base: {
     flex: 1,
     textAlign: 'left',
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '21px',
+    },
+    variants: { disabled: { true: { color: '#4D4D4D' }, false: {} } },
   }),
   positioner: css({ zIndex: 10 }),
   popup: css({
@@ -45,8 +56,8 @@ const styles = {
 export type DropdownOption = { value: string; label: ReactNode; prefix?: ReactNode };
 export type DropdownProps = {
   ariaLabel: string;
-  options: DropdownOption[];
-  defaultValue: string;
+  options: readonly DropdownOption[];
+  defaultValue?: string;
   className?: string;
   indicator?: ReactNode;
   indicatorSize?: string;
@@ -54,6 +65,8 @@ export type DropdownProps = {
   indicatorHeight?: string;
   indicatorColor?: string;
   disabled?: boolean;
+  onValueChange?: (value: string) => void;
+  value?: string;
 };
 
 export function Dropdown({
@@ -67,25 +80,34 @@ export function Dropdown({
   indicatorHeight = indicatorSize,
   indicatorColor = 'currentColor',
   disabled = false,
+  onValueChange,
+  value: controlledValue,
 }: DropdownProps) {
-  const [value, setValue] = useState(defaultValue);
+  const fallbackValue = defaultValue ?? options[0]?.value ?? '';
+  const [uncontrolledValue, setUncontrolledValue] = useState(fallbackValue);
+  const value = controlledValue ?? uncontrolledValue;
   const selectedOption = options.find((option) => option.value === value);
 
   return (
     <BaseSelect.Root
       items={options}
-      defaultValue={defaultValue}
+      defaultValue={fallbackValue}
       disabled={disabled}
-      onValueChange={(nextValue) => setValue(nextValue ?? defaultValue)}
+      onValueChange={(nextValue) => {
+        const next = nextValue ?? fallbackValue;
+
+        if (controlledValue === undefined) setUncontrolledValue(next);
+        onValueChange?.(next);
+      }}
+      value={controlledValue}
     >
       <BaseSelect.Trigger
         aria-label={ariaLabel}
-        className={[styles.trigger, className].filter(Boolean).join(' ')}
-        style={disabled ? { backgroundColor: '#F7F7F9', color: '#B3B3B3', cursor: 'not-allowed' } : undefined}
+        className={[styles.trigger({ disabled }), className].filter(Boolean).join(' ')}
       >
         <Flex alignItems="center" gap="2">
           {selectedOption?.prefix}
-          <span className={styles.label} style={disabled ? { color: '#4D4D4D' } : undefined}>{selectedOption?.label}</span>
+          <span className={styles.label({ disabled })}>{selectedOption?.label}</span>
         </Flex>
         <BaseSelect.Icon>
           {indicator ?? (

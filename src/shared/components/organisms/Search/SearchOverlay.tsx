@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Dialog } from '@base-ui/react/dialog';
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
-import { Backdrop } from '@/shared/components/atoms/Backdrop/Backdrop';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 
 const dialog = css({ w: '100%', minH: '520px', bg: '#fff', _mobile: { minH: '100%' } });
+
+const backdrop = css({ position: 'fixed', inset: '0', zIndex: '100', bg: 'rgb(0 0 0 / 72%)' });
+
+const viewport = css({ position: 'fixed', inset: '0', zIndex: '100', overflowY: 'auto' });
 
 const inner = css({
   w: 'min(100% - 48px, 820px)',
@@ -131,14 +135,6 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
   const [recentSearches, setRecentSearches] = useState(readRecentSearches);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
-
   const persistRecentSearches = (next: string[]) => {
     setRecentSearches(next);
     window.localStorage.setItem(storageKey, JSON.stringify(next));
@@ -162,13 +158,13 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
   };
 
   return (
-    <Backdrop layer="overlay" onClose={onClose} placement="fill" tone="black72">
-      <section
+    <Dialog.Root open onOpenChange={(open) => !open && onClose()}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className={backdrop} />
+        <Dialog.Viewport className={viewport}>
+          <Dialog.Popup
         aria-labelledby="site-search-title"
-        aria-modal="true"
         className={dialog}
-        onMouseDown={(event) => event.stopPropagation()}
-        role="dialog"
       >
         <Box className={inner}>
           <Box className={heading}>
@@ -278,7 +274,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
             </Box>
           ) : null}
         </Box>
-      </section>
-    </Backdrop>
+          </Dialog.Popup>
+        </Dialog.Viewport>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
