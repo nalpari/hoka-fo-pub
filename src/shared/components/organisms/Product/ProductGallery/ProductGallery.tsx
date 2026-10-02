@@ -21,29 +21,42 @@ const thumbnail = cva({
 
 type ProductGalleryProps = { image: string; onOpen: () => void };
 const thumbnailIndexes = [1, 2, 3, 4];
-const galleryImage = css({ w: '100%', h: '100%', objectFit: 'contain' });
+const galleryFrame = css({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  w: '100%',
+  h: { base: '560px', _mobile: 'auto' },
+  aspectRatio: { base: 'auto', _mobile: '1' },
+  overflow: 'hidden',
+  p: '0',
+  border: '0',
+  bg: '#eee',
+  color: '#777',
+  fontSize: '24px',
+  fontFamily: 'inherit',
+  textAlign: 'center',
+  appearance: 'none',
+  cursor: 'pointer',
+  '& small': { position: 'absolute', right: '5', bottom: '5', fontSize: '12px' },
+});
+
+const galleryImage = css({
+  display: 'block',
+  w: '100%',
+  h: '100%',
+  objectFit: 'contain',
+});
 
 export function ProductGallery({ image, onOpen }: ProductGalleryProps) {
   const [activeImage, setActiveImage] = useState(0);
   return (
-    <Box w="100%">
-      <Button
-        aria-label="상품 이미지 확대"
-        className={css({
-          position: 'relative',
-          w: '100%',
-          h: '560px',
-          border: '0',
-          bg: '#eee',
-          color: '#777',
-          fontSize: '24px',
-          '& small': { position: 'absolute', right: '5', bottom: '5', fontSize: '12px' },
-        })}
-        onClick={onOpen}
-      >
+    <Box w="100%" minW="0">
+      <button aria-label="상품 이미지 확대" className={galleryFrame} onClick={onOpen} type="button">
         <img alt="상품 이미지" className={galleryImage} src={image} />
         <small>이미지 확대</small>
-      </Button>
+      </button>
       <Flex gap="2" mt="2" aria-label="상품 이미지 목록">
         {thumbnailIndexes.map((index, position) => (
           <Button
