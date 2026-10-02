@@ -1,8 +1,7 @@
-import { Box, Flex } from 'styled-system/jsx';
-import type { CSSProperties } from 'react';
+import { Flex } from 'styled-system/jsx';
 import { RangeInput } from '@/shared/components/atoms/RangeInput/RangeInput';
+import { PriceRangeValue } from '@/shared/components/molecules/PriceRange/PriceRangeValue';
 
-const won = (value: number) => `${value.toLocaleString('ko-KR')}원`;
 export function PriceRange({
   min = 129000,
   max = 189000,
@@ -11,23 +10,21 @@ export function PriceRange({
 }: {
   min?: number;
   max?: number;
-  value: number;
-  onChange: (value: number) => void;
+  value: [number, number];
+  onChange: (value: [number, number]) => void;
 }) {
   return (
-    <Box mt="3.5">
+    <Flex direction="column" gap="2">
       <RangeInput
-        style={{ '--range-accent': '#d71920' } as CSSProperties}
-        min={min}
         max={max}
-        step="10000"
+        min={min}
+        onValueChange={onChange}
+        step={10000}
+        thumbAriaLabels={['최소 가격', '최대 가격']}
+        thumbCollisionBehavior="none"
         value={value}
-        onChange={(event) => onChange(Number(event.target.value))}
       />
-      <Flex justifyContent="space-between" fontSize="12px">
-        <span>{won(min)}</span>
-        <span>{won(value)}</span>
-      </Flex>
-    </Box>
+      <PriceRangeValue value={value} />
+    </Flex>
   );
 }

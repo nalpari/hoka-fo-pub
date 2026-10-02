@@ -68,6 +68,7 @@ export function matchesProductFilters(product: Product, filters: ProductListingF
     matchedCollection &&
     matchedRunningType &&
     matchedSearch &&
+    product.price >= filters.minPrice &&
     product.price <= filters.maxPrice
   );
 }

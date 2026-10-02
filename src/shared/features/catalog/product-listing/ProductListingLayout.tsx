@@ -13,7 +13,6 @@ const catalogLayout = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   maxW: 'var(--layout-web-content-max-width)',
   mx: 'auto',
-  // pt: '6',
   pb: '16',
   gap: '5',
   _mobile: {
