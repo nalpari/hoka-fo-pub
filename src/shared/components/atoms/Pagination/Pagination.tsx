@@ -1,7 +1,10 @@
+import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
-const root = { margin: '36px', textAlign: 'center' } as const;
+const root = css({ m: '36px', textAlign: 'center' });
+
+const ellipsis = css({ px: '4px' });
 
 function getPageItems(total: number, current: number) {
   const safeCurrent = Math.min(Math.max(current, 1), total);
@@ -48,7 +51,7 @@ export function Pagination({
   const items = getPageItems(total, page);
 
   return (
-    <Flex as="nav" aria-label="페이지네이션" gap="2" alignItems="center" style={root}>
+    <Flex as="nav" aria-label="페이지네이션" alignItems="center" className={root} gap="2">
       <Button
         aria-label="이전 페이지"
         disabled={page <= 1}
@@ -63,7 +66,7 @@ export function Pagination({
       {items.map((item, index) => {
         if (item === 'ellipsis-start' || item === 'ellipsis-end') {
           return (
-            <span aria-hidden="true" key={`${item}-${index}`} style={{ padding: '0 4px' }}>
+            <span aria-hidden="true" className={ellipsis} key={`${item}-${index}`}>
               …
             </span>
           );

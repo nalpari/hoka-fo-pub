@@ -6,6 +6,7 @@ import type { ComponentRenderFn } from '@base-ui/react/types';
 import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const group = cva({
   base: { display: 'flex', gap: '7px' },
@@ -16,13 +17,6 @@ const group = cva({
       row: { flexDirection: 'row', flexWrap: 'wrap' },
     },
   },
-});
-
-const label = css({
-  color: 'var(--color-text-primary)',
-  fontSize: '16px',
-  fontWeight: 400,
-  lineHeight: '1.3',
 });
 
 const option = css({
@@ -98,7 +92,7 @@ function SingleCheckbox({
     <Flex
       as="label"
       alignItems="center"
-      className={[option, label, className].filter(Boolean).join(' ')}
+      className={[option, className].filter(Boolean).join(' ')}
       data-disabled={disabled ? '' : undefined}
       gap="7px"
     >
@@ -109,7 +103,9 @@ function SingleCheckbox({
         onCheckedChange={(checked) => onCheckedChange?.(checked)}
         render={renderCheckboxControl}
       />
-      {checkboxLabel}
+      <Typography as="span" variant="formLabel">
+        {checkboxLabel}
+      </Typography>
     </Flex>
   );
 }
@@ -141,7 +137,7 @@ function CheckboxGroup<T extends string>({
         );
 
         return renderOption ? (
-          <Flex as="span" className={label} key={item.value}>
+          <Flex as="span" key={item.value}>
             {renderOption(item, controlNode)}
           </Flex>
         ) : (
@@ -155,9 +151,9 @@ function CheckboxGroup<T extends string>({
             key={item.value}
           >
             {controlNode}
-            <Flex as="span" className={label}>
+            <Typography as="span" variant="formLabel">
               {item.label}
-            </Flex>
+            </Typography>
           </Stack>
         );
       })}

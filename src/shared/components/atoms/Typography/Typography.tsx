@@ -41,6 +41,19 @@ const typography = cva({
         letterSpacing: 'var(--type-body-letter-spacing)',
         _mobile: { fontSize: 'var(--type-body-mobile-font-size)' },
       },
+      formLabel: {
+        fontSize: 'var(--type-form-label-font-size)',
+        fontWeight: 'var(--type-form-label-font-weight)',
+        lineHeight: 'var(--type-form-label-line-height)',
+        letterSpacing: 'var(--type-form-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-form-label-mobile-font-size)' },
+      },
+      productAudience: {
+        fontSize: 'var(--type-product-audience-font-size)',
+        fontWeight: 'var(--type-product-audience-font-weight)',
+        lineHeight: 'var(--type-product-audience-line-height)',
+        letterSpacing: 'var(--type-product-audience-letter-spacing)',
+      },
       meta: {
         fontSize: 'var(--type-meta-font-size)',
         fontWeight: 'var(--type-meta-font-weight)',
@@ -90,6 +103,8 @@ export type TypographyVariant =
   | 'sectionHeading'
   | 'cardTitle'
   | 'body'
+  | 'formLabel'
+  | 'productAudience'
   | 'meta'
   | 'price'
   | 'priceEmphasis'

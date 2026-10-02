@@ -5,19 +5,13 @@ import { Radio as BaseRadio } from '@base-ui/react/radio';
 import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const group = css({ display: 'grid', gap: '4' });
 
 const option = css({
   cursor: 'pointer',
   '&[data-disabled]': { cursor: 'not-allowed', opacity: '0.55' },
-});
-
-const label = css({
-  color: 'var(--color-text-primary)',
-  fontSize: '16px',
-  fontWeight: 400,
-  lineHeight: '1.3',
 });
 
 const control = css({
@@ -91,7 +85,9 @@ export function Radio<T extends string = string>({
                 />
               </span>
             </BaseRadio.Root>
-            <span className={label}>{item.label}</span>
+            <Typography as="span" variant="formLabel">
+              {item.label}
+            </Typography>
           </HStack>
         );
       })}

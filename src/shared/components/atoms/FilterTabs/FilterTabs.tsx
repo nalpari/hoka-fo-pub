@@ -18,7 +18,25 @@ const viewport = css({
   },
 });
 
-const rail = css({ _mobile: { w: 'max-content', px: 'var(--layout-mobile-inline-gutter)' } });
+const rail = cva({
+  base: { display: 'flex' },
+  variants: {
+    platform: {
+      web: { gap: '16px', mb: '32px' },
+      mobile: {
+        w: 'max-content',
+        gap: '6px',
+        mb: '16px',
+        px: 'var(--layout-mobile-inline-gutter)',
+      },
+    },
+    variant: {
+      categoryNavigation: { _mobile: { h: '46px', mb: '16px', px: '0' } },
+      default: {},
+    },
+  },
+  defaultVariants: { platform: 'web', variant: 'default' },
+});
 
 const label = cva({
   base: {
@@ -67,7 +85,33 @@ const item = cva({
     },
   },
   variants: {
-    selected: { true: { _mobile: { bg: '#111', color: '#fff' } }, false: {} },
+    variant: {
+      categoryNavigation: {
+        _mobile: {
+          h: '100%',
+          p: '0',
+          borderRadius: '0',
+          bg: 'transparent',
+          color: '#666',
+          '& > span': { color: 'inherit', fontSize: '14px', fontWeight: '400', lineHeight: 'normal' },
+        },
+      },
+      default: {},
+    },
+    selected: {
+      true: {
+        _mobile: {
+          bg: '#111',
+          color: '#fff',
+          '&[data-filter-tabs-variant="categoryNavigation"]': {
+            bg: 'transparent',
+            color: '#111',
+            '& > span': { fontWeight: '600' },
+          },
+        },
+      },
+      false: {},
+    },
   },
 });
 
@@ -84,6 +128,7 @@ export type FilterTabsProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
   value: T;
+  variant?: 'default' | 'categoryNavigation';
 };
 
 /** Controlled single-select filter buttons for replacing a related result set. */
@@ -94,6 +139,7 @@ export function FilterTabs<T extends string = string>({
   onValueChange,
   options,
   value,
+  variant = 'default',
 }: FilterTabsProps<T>) {
   const platform = usePlatform();
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -127,12 +173,11 @@ export function FilterTabs<T extends string = string>({
     <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
       <ToggleGroup
         aria-label={ariaLabel}
-        className={rail}
+        className={rail({ platform, variant })}
         onValueChange={(nextValue) => {
           const next = nextValue[0];
           if (next) onValueChange(next as T);
         }}
-        style={{ display: 'flex', gap: platform === 'mobile' ? '6px' : '16px', marginBottom: platform === 'mobile' ? '16px' : '32px' }}
         value={[value]}
       >
         {options.map((option) => {
@@ -140,9 +185,10 @@ export function FilterTabs<T extends string = string>({
 
           return (
             <Toggle
-              className={[item({ selected: isSelected }), itemClassName?.(option, isSelected)]
+              className={[item({ selected: isSelected, variant }), itemClassName?.(option, isSelected)]
                 .filter(Boolean)
                 .join(' ')}
+              data-filter-tabs-variant={variant}
               disabled={option.disabled}
               key={option.value}
               ref={(node) => {
