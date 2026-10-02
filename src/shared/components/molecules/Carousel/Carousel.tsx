@@ -2,6 +2,7 @@
 
 import {
   Children,
+  Fragment,
   createContext,
   type CSSProperties,
   type ReactNode,
@@ -25,6 +26,8 @@ type CarouselState = {
   canGoPrevious: boolean;
   goNext: () => void;
   goPrevious: () => void;
+  goToSlide: (index: number) => void;
+  activeIndex: number;
   itemCount: number;
   registerSwiper: (swiper: SwiperInstance) => void;
   updateState: (swiper: SwiperInstance) => void;
@@ -126,15 +129,19 @@ export function Carousel({ children, itemCount }: CarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [canGoPrevious, setCanGoPrevious] = useState(false);
   const [canGoNext, setCanGoNext] = useState(itemCount > 1);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const updateState = useCallback((swiper: SwiperInstance) => {
     setCanGoPrevious(!swiper.isBeginning);
     setCanGoNext(!swiper.isEnd);
+    setActiveIndex(swiper.realIndex);
   }, []);
 
   const goPrevious = useCallback(() => swiperRef.current?.slidePrev(), []);
 
   const goNext = useCallback(() => swiperRef.current?.slideNext(), []);
+
+  const goToSlide = useCallback((index: number) => swiperRef.current?.slideTo(index), []);
 
   const registerSwiper = useCallback(
     (swiper: SwiperInstance) => {
@@ -150,11 +157,23 @@ export function Carousel({ children, itemCount }: CarouselProps) {
       canGoPrevious,
       goNext,
       goPrevious,
+      goToSlide,
+      activeIndex,
       itemCount,
       registerSwiper,
       updateState,
     }),
-    [canGoNext, canGoPrevious, goNext, goPrevious, itemCount, registerSwiper, updateState],
+    [
+      activeIndex,
+      canGoNext,
+      canGoPrevious,
+      goNext,
+      goPrevious,
+      goToSlide,
+      itemCount,
+      registerSwiper,
+      updateState,
+    ],
   );
 
   return <CarouselContext.Provider value={context}>{children}</CarouselContext.Provider>;
@@ -177,6 +196,7 @@ export type CarouselViewportProps = {
   mobileItemGutter?: number;
   mode?: 'web' | 'mobile';
   slideClassName?: string;
+  showScrollbar?: boolean;
 };
 
 export function CarouselViewport({
@@ -187,6 +207,7 @@ export function CarouselViewport({
   mobileItemGutter,
   mode = 'web',
   slideClassName,
+  showScrollbar = true,
 }: CarouselViewportProps) {
   const { itemCount, registerSwiper, updateState } = useCarousel();
   const swiperRef = useRef<SwiperInstance | null>(null);
@@ -299,7 +320,7 @@ export function CarouselViewport({
   return (
     <>
       {swiper}
-      {isMobile && itemCount > 1 && (
+      {isMobile && showScrollbar && itemCount > 1 && (
         <SimpleBar
           autoHide={false}
           className={draggableScrollbar}
@@ -311,6 +332,54 @@ export function CarouselViewport({
         </SimpleBar>
       )}
     </>
+  );
+}
+
+const pagination = css({ display: 'flex', justifyContent: 'center', gap: '1', mt: '2' });
+
+const paginationItem = css({
+  w: '24px',
+  h: '4px',
+  p: '0',
+  border: '0',
+  borderRadius: 'full',
+  bg: '#e5e5e5',
+  cursor: 'pointer',
+  '&[aria-pressed="true"]': { bg: '#003b5c' },
+});
+
+export type CarouselPaginationProps = {
+  className?: string;
+  label?: string;
+  renderItem?: (index: number, isActive: boolean, select: (index: number) => void) => ReactNode;
+};
+
+export function CarouselPagination({
+  className,
+  label = '슬라이드 선택',
+  renderItem,
+}: CarouselPaginationProps) {
+  const { activeIndex, goToSlide, itemCount } = useCarousel();
+
+  if (itemCount < 2) return null;
+
+  return (
+    <div aria-label={label} className={className ?? pagination} role="group">
+      {Array.from({ length: itemCount }, (_, index) => (
+        renderItem ? (
+          <Fragment key={index}>{renderItem(index, activeIndex === index, goToSlide)}</Fragment>
+        ) : (
+          <button
+            aria-label={`${index + 1}번 이미지`}
+            aria-pressed={activeIndex === index}
+            className={paginationItem}
+            key={index}
+            onClick={() => goToSlide(index)}
+            type="button"
+          />
+        )
+      ))}
+    </div>
   );
 }
 
