@@ -2,25 +2,21 @@
 
 import { useRef, useState, type PointerEvent } from 'react';
 import { HeroCopy, type HeroCopyAction, type HeroCopyContent } from './HeroCopy';
+import { HeroPagination } from './HeroPagination';
 import { HeroSlide, type HeroSlideProps } from './HeroSlide';
 import { css } from 'styled-system/css';
 import type { Platform } from '@/shared/lib/device';
 
-export type HeroBreakpointContent = {
-  image: string;
-};
-
 export type HeroAction = HeroCopyAction;
 
-export type HeroBackgroundSlide = HeroSlideProps;
+export type HeroContentSlide = HeroSlideProps & {
+  actions: readonly HeroAction[];
+  content: HeroCopyContent;
+};
 
 export type HeroProps = {
-  content: HeroCopyContent;
-  desktop: HeroBreakpointContent;
-  mobile: HeroBreakpointContent;
-  actions: readonly HeroAction[];
+  slides: readonly HeroContentSlide[];
   ariaLabel?: string;
-  backgroundSlides?: readonly HeroBackgroundSlide[];
   platform?: Platform;
 };
 
@@ -53,19 +49,13 @@ const overlay = css({
 });
 
 export function Hero({
-  content,
-  desktop,
-  mobile,
-  actions,
   ariaLabel,
-  backgroundSlides,
   platform,
+  slides,
 }: HeroProps) {
-  const slides = backgroundSlides?.length
-    ? backgroundSlides
-    : [{ desktopImage: desktop.image, mobileImage: mobile.image }];
   const [activeSlide, setActiveSlide] = useState(0);
   const swipeStartX = useRef<number | null>(null);
+  const currentSlide = slides[activeSlide] ?? slides[0];
 
   const moveSlide = (direction: -1 | 1) => {
     if (slides.length < 2) return;
@@ -85,7 +75,7 @@ export function Hero({
   };
 
   return (
-    <section className={hero} aria-label={ariaLabel ?? content.title}>
+    <section className={hero} aria-label={ariaLabel ?? currentSlide.content.title}>
       <div className={media} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp}>
         <div className={mediaTrack} style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
           {slides.map((slide, index) => (
@@ -94,7 +84,12 @@ export function Hero({
         </div>
       </div>
       <div className={overlay} aria-hidden="true" />
-      <HeroCopy content={content} actions={actions} />
+      <HeroCopy content={currentSlide.content} actions={currentSlide.actions} />
+      <HeroPagination
+        activeSlide={activeSlide}
+        onSlideChange={setActiveSlide}
+        slides={slides.map(({ content, desktopImage }) => ({ id: desktopImage, title: content.title }))}
+      />
     </section>
   );
 }
