@@ -26,21 +26,15 @@ const catalogLayout = css({
 
 type ProductListingLayoutProps = {
   breadcrumbItems: BreadcrumbItem[];
-  category: string;
   activity: string;
-  compared: Product[];
   filterDrawerOpen: boolean;
   filterPanel: ReactNode;
-  gender: string;
-  onClearCompare: () => void;
   onFilterChange: (key: string, value: string) => void;
   onFilterDrawerOpenChange: (open: boolean) => void;
+  onLoadMore: () => void;
   onMobileFilterApply: () => void;
-  onPageChange: (page: number) => void;
   onReset: () => void;
   onSortChange: (sort: string) => void;
-  onToggleCompare: (product: Product) => void;
-  page: number;
   platform: Platform;
   productListingTitle: string;
   mobileResultCount: number;
@@ -53,21 +47,15 @@ type ProductListingLayoutProps = {
 
 export function ProductListingLayout({
   breadcrumbItems,
-  category,
   activity,
-  compared,
   filterDrawerOpen,
   filterPanel,
-  gender,
-  onClearCompare,
   onFilterChange,
   onFilterDrawerOpenChange,
+  onLoadMore,
   onMobileFilterApply,
-  onPageChange,
   onReset,
   onSortChange,
-  onToggleCompare,
-  page,
   platform,
   productListingTitle,
   mobileResultCount,
@@ -107,20 +95,13 @@ export function ProductListingLayout({
         />
       )}
       <ProductListingContent
-        category={category}
-        compared={compared}
         filterDrawerOpen={filterDrawerOpen}
         filterPanel={filterPanel}
-        gender={gender}
         mobileResultCount={mobileResultCount}
-        onClearCompare={onClearCompare}
-        onFilterChange={onFilterChange}
         onFilterDrawerOpenChange={onFilterDrawerOpenChange}
+        onLoadMore={onLoadMore}
         onMobileFilterApply={onMobileFilterApply}
-        onPageChange={onPageChange}
         onReset={onReset}
-        onToggleCompare={onToggleCompare}
-        page={page}
         platform={platform}
         result={result}
         shown={shown}

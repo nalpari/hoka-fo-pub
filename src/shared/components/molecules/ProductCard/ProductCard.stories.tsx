@@ -20,6 +20,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: { product: products[1] } };
 export const ComingSoon: Story = { args: { product: products[0] } };
-export const Comparable: Story = {
-  args: { product: products[1], compareSelected: true, onCompare: () => undefined },
-};
