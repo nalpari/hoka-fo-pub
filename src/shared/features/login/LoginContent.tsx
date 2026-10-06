@@ -19,26 +19,7 @@ const styles = {
   content: css({ maxW: '420px', mx: 'auto' }),
   title: css({ m: 0, mb: '10' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  field: css({
-    border: '1px solid #b3b3b3',
-    minH: '61px',
-    px: '3',
-    py: '2',
-    '& > label': { display: 'block' },
-    _focusWithin: {
-      borderColor: 'text.primary',
-      boxShadow: 'inset 0 0 0 1px var(--color-text-primary)',
-    },
-  }),
-  input: css({
-    '--field-border-width': '0px!',
-    '--field-height': '21px!',
-    '--field-padding-x': '0px',
-    '--field-radius': '0px',
-    minW: 0,
-    flex: 1,
-    _focusVisible: { outline: 'none' },
-  }),
+  input: css({ minW: 0, flex: 1 }),
   eye: css({
     '--button-height': '18px!',
     '--button-border-width': '0px!',
@@ -114,7 +95,7 @@ export function LoginContent({
         </Typography>
         <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title">
           <FormField
-            className={styles.field}
+            variant="boxed"
             htmlFor="login-id"
             label={<Typography variant="authCaption">* 아이디</Typography>}
           >
@@ -129,7 +110,7 @@ export function LoginContent({
             />
           </FormField>
           <FormField
-            className={styles.field}
+            variant="boxed"
             htmlFor="login-password"
             label={<Typography variant="authCaption">* 비밀번호</Typography>}
           >

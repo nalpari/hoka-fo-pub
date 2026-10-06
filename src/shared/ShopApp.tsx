@@ -9,6 +9,7 @@ import { CartPage } from '@/shared/features/cart/CartPage';
 import { HomePage } from '@/shared/features/home/HomePage';
 import { LoginPage } from '@/shared/features/login/LoginPage';
 import { IdentityVerificationPage } from '@/shared/features/identity-verification/IdentityVerificationPage';
+import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
 import { LaunchCalendarPage } from '@/shared/features/launch-calendar/LaunchCalendarPage';
 import { LocalesPage } from '@/shared/features/locales/LocalesPage';
 import { SignupPage } from '@/shared/features/signup/SignupPage';
@@ -148,6 +149,7 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
             <Route path="/locales" element={<LocalesPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signup/verify" element={<IdentityVerificationPage />} />
+            <Route path="/signup/verify/phone" element={<PhoneVerificationPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/running-profile" element={<RunningProfilePage />} />
             {(
