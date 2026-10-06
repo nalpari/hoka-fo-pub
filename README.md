@@ -15,3 +15,11 @@ Node.js `v24.21.0`, npm `11.19.0`, Next.js App Router에서 구성했다. `npm i
 ## Storybook
 
 `npm run storybook`으로 컴포넌트 검수 환경을 실행한다. 정적 결과물은 `npm run build-storybook`으로 생성한다. 현재 Product Card와 상품 목록 필터 컨트롤 스토리를 제공한다.
+
+## 팀 Codex 스킬
+
+공유 스킬 원본은 [`.codex/skills/component-reusability/`](.codex/skills/component-reusability/)에 있다. 저장소를 최신화한 뒤 아래 PowerShell 명령으로 개인 Codex 스킬 폴더에 설치하거나 업데이트한다.
+
+```powershell
+Copy-Item -Recurse -Force .\.codex\skills\component-reusability "$env:USERPROFILE\.codex\skills\component-reusability"
+```
