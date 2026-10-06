@@ -7,7 +7,10 @@ export type HeroPaginationSlide = {
 
 export type HeroPaginationProps = {
   activeSlide: number;
+  isProgressPaused: boolean;
   onSlideChange: (index: number) => void;
+  progress: number;
+  progressDuration: number;
   slides: readonly HeroPaginationSlide[];
 };
 
@@ -29,11 +32,12 @@ const paginationButton = css({
   p: '0',
   border: '0',
   borderRadius: '50px',
-  bg: '#FFFFFF',
-  opacity: '0.7',
+  position: 'relative',
+  overflow: 'hidden',
+  bg: 'rgb(255 255 255 / 70%)',
   cursor: 'pointer',
-  transition: 'width 200ms ease, opacity 200ms ease',
-  '&[aria-pressed="true"]': { w: '42px', opacity: '1' },
+  transition: 'width 200ms ease',
+  '&[aria-pressed="true"]': { w: '42px', bg: 'rgb(255 255 255 / 50%)' },
   _mobile: {
     w: '6px',
     h: '6px',
@@ -42,7 +46,29 @@ const paginationButton = css({
   _focusVisible: { outline: '2px solid var(--color-text-inverse)', outlineOffset: '3px' },
 });
 
-export function HeroPagination({ activeSlide, onSlideChange, slides }: HeroPaginationProps) {
+const progressBar = css({
+  position: 'absolute',
+  top: '0',
+  bottom: '0',
+  left: '0',
+  borderRadius: 'inherit',
+  bg: '#FFFFFF',
+  transitionProperty: 'width',
+  transitionTimingFunction: 'linear',
+});
+
+function getProgressWidth(progress: number) {
+  return `calc(${8 * (1 - progress)}px + ${progress * 100}%)`;
+}
+
+export function HeroPagination({
+  activeSlide,
+  isProgressPaused,
+  onSlideChange,
+  progress,
+  progressDuration,
+  slides,
+}: HeroPaginationProps) {
   if (slides.length < 2) return null;
 
   return (
@@ -55,7 +81,19 @@ export function HeroPagination({ activeSlide, onSlideChange, slides }: HeroPagin
           key={slide.id}
           onClick={() => onSlideChange(index)}
           type="button"
-        />
+        >
+          {activeSlide === index ? (
+            <span
+              aria-hidden="true"
+              className={progressBar}
+              style={{
+                transitionDuration: `${progressDuration}ms`,
+                transitionProperty: isProgressPaused ? 'none' : 'width',
+                width: getProgressWidth(progress),
+              }}
+            />
+          ) : null}
+        </button>
       ))}
     </div>
   );

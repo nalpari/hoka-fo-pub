@@ -1,6 +1,13 @@
 'use client';
 
-import { useRef, useState, type PointerEvent } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type FocusEvent,
+  type PointerEvent,
+} from 'react';
 import { HeroCopy, type HeroCopyAction, type HeroCopyContent } from './HeroCopy';
 import { HeroPagination } from './HeroPagination';
 import { HeroSlide, type HeroSlideProps } from './HeroSlide';
@@ -19,6 +26,24 @@ export type HeroProps = {
   ariaLabel?: string;
   platform?: Platform;
 };
+
+const AUTO_PLAY_DELAY = 5_000;
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener('change', updatePreference);
+
+    return () => mediaQuery.removeEventListener('change', updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
 
 const hero = css({
   position: 'relative',
@@ -48,35 +73,142 @@ const overlay = css({
   },
 });
 
-export function Hero({
-  ariaLabel,
-  platform,
-  slides,
-}: HeroProps) {
+export function Hero({ ariaLabel, platform, slides }: HeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [autoplayCycle, setAutoplayCycle] = useState(0);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isPointerActive, setIsPointerActive] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [progressDuration, setProgressDuration] = useState(AUTO_PLAY_DELAY);
   const swipeStartX = useRef<number | null>(null);
+  const cycleStartedAt = useRef<number | null>(null);
+  const remainingDuration = useRef(AUTO_PLAY_DELAY);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const isPaused = isFocused || isHovering || isPointerActive;
   const currentSlide = slides[activeSlide] ?? slides[0];
 
-  const moveSlide = (direction: -1 | 1) => {
-    if (slides.length < 2) return;
-    setActiveSlide((current) => (current + direction + slides.length) % slides.length);
-  };
+  const resetAutoplayCycle = useCallback(() => {
+    remainingDuration.current = AUTO_PLAY_DELAY;
+    setProgress(0);
+    setProgressDuration(AUTO_PLAY_DELAY);
+    setAutoplayCycle((current) => current + 1);
+  }, []);
+
+  const freezeProgress = useCallback(() => {
+    if (cycleStartedAt.current === null) return;
+
+    const elapsed = performance.now() - cycleStartedAt.current;
+    const nextRemainingDuration = Math.max(0, remainingDuration.current - elapsed);
+
+    remainingDuration.current = nextRemainingDuration;
+    cycleStartedAt.current = null;
+    setProgress(1 - nextRemainingDuration / AUTO_PLAY_DELAY);
+  }, []);
+
+  const moveSlide = useCallback(
+    (direction: -1 | 1) => {
+      if (slides.length < 2) return;
+
+      resetAutoplayCycle();
+      setActiveSlide((current) => (current + direction + slides.length) % slides.length);
+    },
+    [resetAutoplayCycle, slides.length],
+  );
+
+  const selectSlide = useCallback(
+    (index: number) => {
+      resetAutoplayCycle();
+      setActiveSlide(index);
+    },
+    [resetAutoplayCycle],
+  );
+
+  useEffect(() => {
+    if (prefersReducedMotion) freezeProgress();
+  }, [freezeProgress, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (slides.length < 2 || isPaused || prefersReducedMotion !== false) return;
+
+    const duration = remainingDuration.current;
+    const animationFrame = window.requestAnimationFrame(() => setProgress(1));
+
+    cycleStartedAt.current = performance.now();
+    setProgressDuration(duration);
+
+    const timeout = window.setTimeout(() => {
+      resetAutoplayCycle();
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }, duration);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.clearTimeout(timeout);
+    };
+  }, [
+    activeSlide,
+    autoplayCycle,
+    isPaused,
+    prefersReducedMotion,
+    resetAutoplayCycle,
+    slides.length,
+  ]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    freezeProgress();
+    setIsPointerActive(true);
     swipeStartX.current = event.clientX;
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    setIsPointerActive(false);
+
     if (swipeStartX.current === null) return;
+
     const distance = event.clientX - swipeStartX.current;
+
     swipeStartX.current = null;
+
     if (Math.abs(distance) < 40) return;
+
     moveSlide(distance < 0 ? 1 : -1);
   };
 
+  const handlePointerCancel = () => {
+    swipeStartX.current = null;
+    setIsPointerActive(false);
+  };
+
+  const handleMouseEnter = () => {
+    freezeProgress();
+    setIsHovering(true);
+  };
+
+  const handleFocus = () => {
+    freezeProgress();
+    setIsFocused(true);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false);
+  };
+
   return (
-    <section className={hero} aria-label={ariaLabel ?? currentSlide.content.title}>
-      <div className={media} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp}>
+    <section
+      aria-label={ariaLabel ?? currentSlide.content.title}
+      className={hero}
+      onBlurCapture={handleBlur}
+      onFocusCapture={handleFocus}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      <div
+        className={media}
+        onPointerCancel={handlePointerCancel}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+      >
         <div className={mediaTrack} style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
           {slides.map((slide, index) => (
             <HeroSlide {...slide} key={`${slide.desktopImage}-${index}`} platform={platform} />
@@ -87,8 +219,14 @@ export function Hero({
       <HeroCopy content={currentSlide.content} actions={currentSlide.actions} />
       <HeroPagination
         activeSlide={activeSlide}
-        onSlideChange={setActiveSlide}
-        slides={slides.map(({ content, desktopImage }) => ({ id: desktopImage, title: content.title }))}
+        isProgressPaused={isPaused || prefersReducedMotion !== false}
+        onSlideChange={selectSlide}
+        progress={progress}
+        progressDuration={progressDuration}
+        slides={slides.map(({ content, desktopImage }) => ({
+          id: desktopImage,
+          title: content.title,
+        }))}
       />
     </section>
   );
