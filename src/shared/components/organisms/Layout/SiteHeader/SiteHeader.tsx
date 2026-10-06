@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SearchOverlay } from '@/shared/components/organisms/Search/SearchOverlay';
+import { HeaderPromotionBanner } from '@/shared/components/organisms/Layout/SiteHeader/HeaderPromotionBanner';
 import { MegaMenuPanel } from '@/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel';
 import { SiteHeaderContainer } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeaderContainer';
 import { megaMenus, type MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
@@ -116,6 +117,8 @@ export function SiteHeader({
 
   return (
     <>
+      {platform === 'web' ? <HeaderPromotionBanner /> : null}
+
       <div className={styles.headerArea} onMouseLeave={closeMegaMenu}>
         <SiteHeaderContainer
           cart={cart}

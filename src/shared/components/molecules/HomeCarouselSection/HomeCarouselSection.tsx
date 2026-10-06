@@ -56,6 +56,7 @@ export function HomeCarouselSection({
           desktopItemGutter={desktopItemGutter}
           mobileItemGutter={mobileItemGutter}
           mode={platform}
+          showScrollbar={false}
           slideClassName={slideClassName}
         >
           {children}

@@ -18,20 +18,13 @@ const catalogBody = css({
 });
 
 type ProductListingContentProps = {
-  category: string;
-  compared: Product[];
   filterDrawerOpen: boolean;
   filterPanel: ReactNode;
-  gender: string;
   mobileResultCount: number;
-  onClearCompare: () => void;
-  onFilterChange: (key: string, value: string) => void;
   onFilterDrawerOpenChange: (open: boolean) => void;
+  onLoadMore: () => void;
   onMobileFilterApply: () => void;
-  onPageChange: (page: number) => void;
   onReset: () => void;
-  onToggleCompare: (product: Product) => void;
-  page: number;
   platform: Platform;
   result: Product[];
   shown: Product[];
@@ -39,20 +32,13 @@ type ProductListingContentProps = {
 
 /** Product results with desktop and mobile filter presentations. */
 export function ProductListingContent({
-  category,
-  compared,
   filterDrawerOpen,
   filterPanel,
-  gender,
   mobileResultCount,
-  onClearCompare,
-  onFilterChange,
   onFilterDrawerOpenChange,
+  onLoadMore,
   onMobileFilterApply,
-  onPageChange,
   onReset,
-  onToggleCompare,
-  page,
   platform,
   result,
   shown,
@@ -62,16 +48,10 @@ export function ProductListingContent({
       <Grid className={catalogBody}>
         {platform === 'web' && <DesktopProductFilter>{filterPanel}</DesktopProductFilter>}
         <ProductListingResults
-          category={category}
-          compared={compared}
-          gender={gender}
-          onClearCompare={onClearCompare}
-          onFilterChange={onFilterChange}
-          onPageChange={onPageChange}
+          hasMore={shown.length < result.length}
+          onLoadMore={onLoadMore}
           onReset={onReset}
-          onToggleCompare={onToggleCompare}
-          page={page}
-          result={result}
+          platform={platform}
           shown={shown}
         />
       </Grid>

@@ -12,7 +12,7 @@ export type ProductColorOption = {
 export type Product = {
   id: string;
   name: string;
-  category: string;
+  category: '라이프스타일' | '러닝' | '트레일' | '리커버리';
   gender?: "Men's" | "Women's" | 'All Gender';
   price: number;
   colors: string[];
@@ -101,7 +101,7 @@ const catalogColors = [
 export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   id: `shoe-${i + 1}`,
   name: `${names[i % names.length]} ${i + 1}`,
-  category: i % 3 === 0 ? '라이프스타일' : i % 3 === 1 ? '러닝' : '트레일',
+  category: (['라이프스타일', '러닝', '트레일', '리커버리'] as const)[i % 4],
   gender: (["Men's", "Women's", 'All Gender'] as const)[i % 3],
   price: 129000 + (i % 5) * 15000,
   colors: [catalogColors[i % catalogColors.length], catalogColors[(i + 5) % catalogColors.length]],

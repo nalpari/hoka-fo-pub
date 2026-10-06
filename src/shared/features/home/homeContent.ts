@@ -19,16 +19,16 @@ export const homeCategories: readonly HomeCategory[] = [
     ],
   },
   {
-    title: 'Trail Running & Hiking',
+    title: 'Trail Running',
     image: '/images/temp/category-trail-running-hiking.webp',
     actions: [
       {
         label: '남성 바로가기',
-        to: '/products?category=Trail%20Running%20%26%20Hiking&gender=men',
+        to: '/products?category=Trail%20Running&gender=men',
       },
       {
         label: '여성 바로가기',
-        to: '/products?category=Trail%20Running%20%26%20Hiking&gender=women',
+        to: '/products?category=Trail%20Running&gender=women',
       },
     ],
   },
@@ -41,11 +41,11 @@ export const homeCategories: readonly HomeCategory[] = [
     ],
   },
   {
-    title: 'Apparel',
-    image: '/images/temp/category-apparel.webp',
+    title: 'Hiking',
+    image: '/images/temp/category-hiking.png',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Apparel&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Apparel&gender=women' },
+      { label: '남성 바로가기', to: '/products?category=Hiking&gender=men' },
+      { label: '여성 바로가기', to: '/products?category=Hiking&gender=women' },
     ],
   },
   {
@@ -73,6 +73,7 @@ export const bestSellerTabs = [
   '라이프스타일',
   '하이킹',
   '워킹',
+  '리커버리',
 ] as const;
 
 export type HomeExplore = {

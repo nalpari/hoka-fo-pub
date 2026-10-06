@@ -1,26 +1,35 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 
-const root = css({
-  position: 'relative',
-  display: 'grid',
-  placeItems: 'center',
-  overflow: 'hidden',
-  bg: 'var(--color-surface-subtle)',
-  h: '280px',
-  _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
-  _mobile: {
-    h: '190px',
-    fontSize: '12px',
-    '& [data-product-thumbnail-hover-image]': { display: 'none' },
+const root = cva({
+  base: {
+    position: 'relative',
+    overflow: 'hidden',
+    bg: 'var(--color-surface-subtle)',
+    aspectRatio: '1',
+    w: '100%',
+    h: 'auto',
+    _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
+    _mobile: { fontSize: '12px', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
   },
+  variants: {
+    variant: {
+      listing: {},
+      showcase: {
+        _mobile: { h: '160px', aspectRatio: 'auto' },
+      },
+    },
+  },
+  defaultVariants: { variant: 'listing' },
 });
 
 const image = css({
-  gridArea: '1 / 1',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
   w: '100%',
-  h: '100%',
-  objectFit: 'contain',
+  h: 'auto',
+  transform: 'translate(-50%, -50%)',
   bg: 'var(--color-surface-subtle)',
 });
 
@@ -34,7 +43,10 @@ export type ProductThumbnailProps = {
   hoverImage?: string;
   lazy?: boolean;
   src: string;
+  variant?: ProductThumbnailVariant;
 };
+
+export type ProductThumbnailVariant = 'listing' | 'showcase';
 
 /** Product image with optional lazy loading, hover image, and overlay slot. */
 export function ProductThumbnail({
@@ -45,11 +57,12 @@ export function ProductThumbnail({
   hoverImage: hoverImageSource,
   lazy = false,
   src,
+  variant = 'listing',
 }: ProductThumbnailProps) {
   const loading = lazy ? 'lazy' : 'eager';
 
   return (
-    <div className={['image', root, className].filter(Boolean).join(' ')}>
+    <div className={['image', root({ variant }), className].filter(Boolean).join(' ')}>
       <img alt={alt} className={image} loading={loading} src={src} />
       {hover && hoverImageSource && (
         <img
