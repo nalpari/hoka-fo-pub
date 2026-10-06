@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
@@ -47,7 +48,8 @@ const styles = {
 };
 
 export function SignupPage() {
-  const [step, setStep] = useState<SignupStep>(0);
+  const [searchParams] = useSearchParams();
+  const [step, setStep] = useState<SignupStep>(searchParams.get('step') === 'details' ? 2 : 0);
   const [method, setMethod] = useState<SignupMethod>('local');
   const [serviceTerms, setServiceTerms] = useState(false);
   const [privacyTerms, setPrivacyTerms] = useState(false);
