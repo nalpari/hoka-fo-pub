@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FilterTabs } from './FilterTabs';
+import { FilterTabs, type FilterTabsProps } from './FilterTabs';
 
 const options = [
   { label: '전체', value: 'all' },
@@ -8,7 +8,7 @@ const options = [
   { label: '트레일', value: 'trail' },
 ] as const;
 
-function InteractiveFilterTabs() {
+function InteractiveFilterTabs({ variant }: Pick<FilterTabsProps, 'variant'>) {
   const [value, setValue] = useState<(typeof options)[number]['value']>('all');
 
   return (
@@ -17,6 +17,7 @@ function InteractiveFilterTabs() {
       onValueChange={setValue}
       options={options}
       value={value}
+      variant={variant}
     />
   );
 }
@@ -38,5 +39,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => <InteractiveFilterTabs />,
+  render: () => <InteractiveFilterTabs variant="default" />,
+};
+
+export const Fill: Story = {
+  render: () => <InteractiveFilterTabs variant="fill" />,
 };

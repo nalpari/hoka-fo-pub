@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { products, type Product } from '@/mocks/products';
+import { products } from '@/mocks/products';
 import { usePlatform } from '@/shared/context/platform';
 import { ProductListingFilterPanel } from '@/shared/features/catalog/ProductListingFilterPanel';
 import { productListingPriceRange } from '@/shared/features/catalog/productListingFilterValues';
@@ -45,6 +45,8 @@ const facetKeys = [
   'width',
 ] as const;
 
+const productsPerLoad = 8;
+
 const emptyFilters = (): FilterValues => ({
   activity: [],
   category: '',
@@ -66,39 +68,53 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   const [params, setParams] = useSearchParams();
   const [minPrice, setMinPrice] = useState(productListingPriceRange.min);
   const [maxPrice, setMaxPrice] = useState(productListingPriceRange.defaultMax);
-  const [compared, setCompared] = useState<Product[]>([]);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
+  const paramsKey = params.toString();
   const category = params.get('category') ?? '';
-  const activeFilters: FilterValues = {
-    activity: params.getAll('activity'),
-    category,
-    collection: params.getAll('collection'),
-    cushioning: params.getAll('cushioning'),
-    gender: params.getAll('gender'),
-    minPrice,
-    maxPrice,
-    selectedColors: params.getAll('color'),
-    runningType: params.getAll('runningType'),
-    size: params.getAll('size'),
-    stability: params.getAll('support').length ? params.getAll('support') : params.getAll('stability'),
-    width: params.getAll('width'),
-  };
+  const activeFilters = useMemo<FilterValues>(() => {
+    const query = new URLSearchParams(paramsKey);
+    const support = query.getAll('support');
+
+    return {
+      activity: query.getAll('activity'),
+      category: query.get('category') ?? '',
+      collection: query.getAll('collection'),
+      cushioning: query.getAll('cushioning'),
+      gender: query.getAll('gender'),
+      minPrice,
+      maxPrice,
+      selectedColors: query.getAll('color'),
+      runningType: query.getAll('runningType'),
+      size: query.getAll('size'),
+      stability: support.length ? support : query.getAll('stability'),
+      width: query.getAll('width'),
+    };
+  }, [maxPrice, minPrice, paramsKey]);
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
   const sort = selectedSort || '베스트순';
-  const page = Number(params.get('page') ?? 1);
   const breadcrumbItems = getBreadcrumbItems({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
   const productListingTitle = getProductListingTitle({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
-  const result = sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort);
-  const shown = result.slice((page - 1) * 8, page * 8);
+  const result = useMemo(
+    () => sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort),
+    [activeFilters, searchQuery, sort],
+  );
+  const listingKey = JSON.stringify([paramsKey, minPrice, maxPrice, searchQuery]);
+  const [visibleProductState, setVisibleProductState] = useState({
+    key: listingKey,
+    count: productsPerLoad,
+  });
+  const visibleProductCount =
+    visibleProductState.key === listingKey ? visibleProductState.count : productsPerLoad;
+  const shown = result.slice(0, visibleProductCount);
   const mobileResultCount = filterProducts(products, { ...mobileFilters, searchQuery }).length;
 
   const updateFacet = (key: string, values: string[]) => {
     const next = new URLSearchParams(params);
     next.delete(key);
     values.forEach((value) => next.append(key, value));
-    next.set('page', '1');
+    next.delete('page');
     setParams(next);
   };
 
@@ -106,7 +122,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
     const next = new URLSearchParams(params);
     if (value) next.set(key, value);
     else next.delete(key);
-    next.set('page', '1');
+    next.delete('page');
     setParams(next);
   };
 
@@ -134,7 +150,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
             : mobileFilters[key];
       values.forEach((value) => next.append(key, value));
     });
-    next.set('page', '1');
+    next.delete('page');
     setParams(next);
     setMinPrice(mobileFilters.minPrice);
     setMaxPrice(mobileFilters.maxPrice);
@@ -148,20 +164,13 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const displayedFilters = platform === 'mobile' ? mobileFilters : activeFilters;
 
-  const changePage = (nextPage: number) => {
-    const next = new URLSearchParams(params);
-    next.set('page', String(nextPage));
-    setParams(next);
-  };
+  const loadMore = useCallback(() => {
+    setVisibleProductState((previous) => {
+      const count = previous.key === listingKey ? previous.count : productsPerLoad;
 
-  const toggleCompare = (product: Product) =>
-    setCompared((previous) =>
-      previous.some((item) => item.id === product.id)
-        ? previous.filter((item) => item.id !== product.id)
-        : previous.length === 3
-          ? [...previous.slice(1), product]
-          : [...previous, product],
-    );
+      return { key: listingKey, count: Math.min(count + productsPerLoad, result.length) };
+    });
+  }, [listingKey, result.length]);
 
   const filterPanel = (
     <ProductListingFilterPanel
@@ -198,20 +207,14 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
     <ProductListingLayout
       activity={activeFilters.activity[0] ?? ''}
       breadcrumbItems={breadcrumbItems}
-      category={category}
-      compared={compared}
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
-      gender={activeFilters.gender[0] ?? ''}
-      onClearCompare={() => setCompared([])}
       onFilterChange={update}
       onFilterDrawerOpenChange={openMobileFilters}
       onMobileFilterApply={applyMobileFilters}
-      onPageChange={changePage}
+      onLoadMore={loadMore}
       onReset={reset}
       onSortChange={(nextSort) => update('sort', nextSort)}
-      onToggleCompare={toggleCompare}
-      page={page}
       platform={platform}
       productListingTitle={productListingTitle}
       mobileResultCount={mobileResultCount}

@@ -15,6 +15,22 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof PromotionCard>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
-export const Default: Story = {};
+
+export const Inline: Story = {
+  args: { variant: 'inline' },
+  decorators: [
+    (Story) => (
+      <div style={{ maxWidth: 160 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const FullWidth: Story = {
+  args: { variant: 'fullWidth' },
+};

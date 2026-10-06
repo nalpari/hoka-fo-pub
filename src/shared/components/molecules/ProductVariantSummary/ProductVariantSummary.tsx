@@ -32,7 +32,7 @@ export function ProductVariantSummary({
   }[display];
 
   if (platform === 'web') {
-    return <i className={summary}>{summaryText}</i>;
+    return <span className={summary}>{summaryText}</span>;
   }
 
   return <ProductOptionList layout="scroll" options={options} />;

@@ -47,7 +47,8 @@ const getBestSellerProducts = (tab: BestSellerTab) => {
     return products.filter((product) => product.category === '라이프스타일').slice(0, 6);
   }
   if (tab === '하이킹') return products.filter((product) => product.width === 'Wide').slice(0, 6);
-  return products.filter((product) => product.use === 'Walking').slice(0, 6);
+  if (tab === '워킹') return products.filter((product) => product.use === 'Walking').slice(0, 6);
+  return products.filter((product) => product.category === '리커버리').slice(0, 6);
 };
 
 export function HomeBestSellerSection() {
@@ -64,6 +65,7 @@ export function HomeBestSellerSection() {
           onValueChange={setSelectedTab}
           options={bestSellerFilterTabs}
           value={selectedTab}
+          variant="fill"
         />
       }
       desktopCenteredItemCount={5}
