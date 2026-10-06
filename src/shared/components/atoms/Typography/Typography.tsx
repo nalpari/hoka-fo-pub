@@ -5,6 +5,35 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      authTitle: {
+        fontSize: 'var(--type-authTitle-font-size)',
+        fontWeight: 'var(--type-authTitle-font-weight)',
+        lineHeight: 'var(--type-authTitle-line-height)',
+        letterSpacing: 'var(--type-authTitle-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authTitle-mobile-font-size)' },
+      },
+      authCaption: {
+        fontSize: 'var(--type-authCaption-font-size)',
+        fontWeight: 'var(--type-authCaption-font-weight)',
+        lineHeight: 'var(--type-authCaption-line-height)',
+        letterSpacing: 'var(--type-authCaption-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authCaption-mobile-font-size)' },
+      },
+      authBody: {
+        fontSize: 'var(--type-authBody-font-size)',
+        fontWeight: 'var(--type-authBody-font-weight)',
+        lineHeight: 'var(--type-authBody-line-height)',
+        letterSpacing: 'var(--type-authBody-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authBody-mobile-font-size)' },
+      },
+      authSmall: {
+        fontSize: 'var(--type-authSmall-font-size)',
+        fontWeight: 'var(--type-authSmall-font-weight)',
+        lineHeight: 'var(--type-authSmall-line-height)',
+        letterSpacing: 'var(--type-authSmall-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authSmall-mobile-font-size)' },
+      },
+
       display: {
         fontSize: 'var(--type-display-font-size)',
         fontWeight: 'var(--type-display-font-weight)',
@@ -98,6 +127,10 @@ const typography = cva({
 });
 
 export type TypographyVariant =
+  | 'authTitle'
+  | 'authCaption'
+  | 'authBody'
+  | 'authSmall'
   | 'display'
   | 'heading'
   | 'sectionHeading'

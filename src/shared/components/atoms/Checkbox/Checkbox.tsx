@@ -9,7 +9,7 @@ import { Flex, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const group = cva({
-  base: { display: 'flex', gap: '7px' },
+  base: { display: 'flex', gap: '8px' },
   defaultVariants: { direction: 'column' },
   variants: {
     direction: {

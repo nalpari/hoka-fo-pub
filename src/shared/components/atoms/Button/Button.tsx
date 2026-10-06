@@ -113,6 +113,11 @@ const buttonContent = cva({
         minH: 'auto!',
         py: '0!',
         px: '0!',
+        _mobile: {
+          h: 'auto!',
+          minH: 'auto!',
+          px: '0!',
+        },
       },
       filterTrigger: {
         h: 'var(--button-height)',
@@ -181,7 +186,7 @@ const buttonLabel = cva({
         textDecoration: 'underline',
         textDecorationThickness: '1px',
         textUnderlineOffset: '3px',
-        _mobile: { fontSize: '14px', textUnderlineOffset: '2px' },
+        _mobile: { fontSize: '12px', fontWeight: '500', textUnderlineOffset: '2px' },
       },
       filterTrigger: {
         fontSize: '14px',

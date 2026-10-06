@@ -213,3 +213,19 @@ export const BottomSheetTitle: Story = {
     variant: 'bottomSheetTitle',
   },
 };
+
+export const AuthTitle: Story = {
+  args: { as: 'h1', variant: 'authTitle', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthCaption: Story = {
+  args: { as: 'p', variant: 'authCaption', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthBody: Story = {
+  args: { as: 'p', variant: 'authBody', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthSmall: Story = {
+  args: { as: 'p', variant: 'authSmall', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
