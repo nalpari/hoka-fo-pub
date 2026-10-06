@@ -30,7 +30,7 @@ const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
   content: css({ maxW: '420px', mx: 'auto' }),
   title: css({ m: '0', mb: '8' }),
-  form: css({ display: 'flex', flexDirection: 'column' }),
+  form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
   button: css({
     '--button-radius': '999px',
     '--button-height': '48px!',
