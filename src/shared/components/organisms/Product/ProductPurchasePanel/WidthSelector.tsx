@@ -9,7 +9,7 @@ const options = css({
   overflow: 'hidden',
   borderRadius: 'full',
   bg: '#e9eaec',
-  '& button': { minW: '132px', minH: '11', border: '0', bg: 'transparent', color: '#111' },
+  '& [role="radio"]': { minW: '132px', minH: '11', border: '0', bg: 'transparent', color: '#111' },
 });
 const selected = css({ bg: '#111 !important', color: '#fff !important' });
 

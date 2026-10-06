@@ -1,7 +1,6 @@
-import { Radio } from '@base-ui/react/radio';
-import { RadioGroup } from '@base-ui/react/radio-group';
 import { css } from 'styled-system/css';
 import type { Product, ProductWidthOption } from '@/mocks/products';
+import { Radio } from '@/shared/components/atoms/Radio/Radio';
 
 const styles = {
   widths: css({
@@ -112,32 +111,27 @@ export function ProductVariantSelectors({
 
   return (
     <>
-      <RadioGroup
-        aria-label="발볼 선택"
+      <Radio
+        ariaLabel="발볼 선택"
         className={styles.widths}
         onValueChange={onWidthChange}
+        options={widthOptions.map((option) => ({ label: option.label, value: option.label }))}
         value={width}
-      >
-        {widthOptions.map((option) => (
-          <Radio.Root key={option.label} value={option.label}>
-            {option.label}
-          </Radio.Root>
-        ))}
-      </RadioGroup>
+        variant="custom"
+      />
       <section className={styles.section}>
         <h2>컬러: {color}</h2>
-        <RadioGroup
-          aria-label="컬러 선택"
+        <Radio
+          ariaLabel="컬러 선택"
           className={styles.colors}
           onValueChange={onColorChange}
+          options={product.colors.map((item, index) => ({
+            label: <img alt="" src={gallery[index % gallery.length]} />,
+            value: item,
+          }))}
           value={color}
-        >
-          {product.colors.map((item, index) => (
-            <Radio.Root aria-label={item} key={item} value={item}>
-              <img alt="" src={gallery[index % gallery.length]} />
-            </Radio.Root>
-          ))}
-        </RadioGroup>
+          variant="custom"
+        />
       </section>
       <section className={styles.section} id="product-size">
         <div className={styles.sizeHeader}>
@@ -146,18 +140,20 @@ export function ProductVariantSelectors({
             사이즈 가이드
           </button>
         </div>
-        <RadioGroup
-          aria-label="사이즈 선택"
+        <Radio
+          ariaLabel="사이즈 선택"
           className={styles.sizes}
           onValueChange={onSizeChange}
+          options={
+            selected?.sizes.map((item) => ({
+              disabled: selected.soldOut.includes(item),
+              label: item,
+              value: item,
+            })) ?? []
+          }
           value={size}
-        >
-          {selected?.sizes.map((item) => (
-            <Radio.Root disabled={selected.soldOut.includes(item)} key={item} value={item}>
-              {item}
-            </Radio.Root>
-          ))}
-        </RadioGroup>
+          variant="custom"
+        />
         {error && (
           <p className={styles.error} role="alert">
             {error}

@@ -59,6 +59,20 @@ const typographyStorySpecs = {
     fontWeight: '400',
     lineHeight: '1.3',
   },
+  productTitle: {
+    name: 'ProductTitle',
+    desktopFontSize: '34px',
+    mobileFontSize: '34px',
+    fontWeight: '900',
+    lineHeight: '1',
+  },
+  productPrice: {
+    name: 'ProductPrice',
+    desktopFontSize: '20px',
+    mobileFontSize: '20px',
+    fontWeight: '700',
+    lineHeight: '1.3',
+  },
   meta: {
     name: 'Meta',
     desktopFontSize: '13px',
@@ -184,6 +198,22 @@ export const ProductAudience: Story = {
     as: 'span',
     children: typographyLabel(typographyStorySpecs.productAudience),
     variant: 'productAudience',
+  },
+};
+
+export const ProductTitle: Story = {
+  args: {
+    as: 'h1',
+    children: typographyLabel(typographyStorySpecs.productTitle),
+    variant: 'productTitle',
+  },
+};
+
+export const ProductPrice: Story = {
+  args: {
+    as: 'p',
+    children: typographyLabel(typographyStorySpecs.productPrice),
+    variant: 'productPrice',
   },
 };
 

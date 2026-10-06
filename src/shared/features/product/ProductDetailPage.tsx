@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { products } from '@/mocks/products';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Accordion, type AccordionEntry } from '@/shared/components/atoms/Accordion/Accordion';
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 import type { CartItem } from '@/shared/types/cart';
 import { ProductDetailGallery } from '@/shared/features/product/ProductDetailGallery';
@@ -53,14 +54,6 @@ const styles = {
   }),
   eyebrow: css({ color: '#009dff', fontSize: '13px', fontWeight: '700' }),
   audience: css({ mt: '2', color: '#555', fontSize: '14px' }),
-  title: css({
-    mt: '1',
-    fontSize: '34px',
-    fontWeight: '900',
-    letterSpacing: '-.05em',
-    lineHeight: '1',
-  }),
-  price: css({ mt: '3', fontSize: '20px', fontWeight: '700' }),
   review: css({
     display: 'flex',
     alignItems: 'center',
@@ -164,18 +157,8 @@ const styles = {
   accordion: css({
     mt: '8',
     borderTop: '1px solid #ddd',
-    '& details': { borderBottom: '1px solid #ddd' },
-    '& summary': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      minH: '13',
-      alignItems: 'center',
-      fontSize: '13px',
-      fontWeight: '700',
-      listStyle: 'none',
-    },
-    '& summary::after': { content: '"⌄"', fontSize: '18px' },
-    '& details[open] summary::after': { content: '"⌃"' },
+    '& > *': { borderBottom: '1px solid #ddd' },
+    '& button': { minH: '13', fontSize: '13px', fontWeight: '700' },
     '& p': { pb: '4', color: '#555', fontSize: '12px', lineHeight: '1.6' },
   }),
   recs: css({
@@ -212,6 +195,20 @@ const styles = {
 };
 
 const empty = css({ display: 'grid', minH: '240px', placeItems: 'center', p: '8', bg: '#f7f7f9' });
+
+const productSupportItems: AccordionEntry[] = [
+  { value: 'inquiry', title: '상품 문의', content: <p>상품과 배송에 관한 문의를 남겨 주세요.</p> },
+  {
+    value: 'delivery',
+    title: '배송 및 반품',
+    content: <p>수령 후 7일 이내 미착용 상품은 반품하실 수 있습니다.</p>,
+  },
+  {
+    value: 'after-sales',
+    title: 'A/S 안내',
+    content: <p>품질보증 기준에 따라 A/S를 지원합니다.</p>,
+  },
+];
 
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { pathname } = useLocation();
@@ -258,8 +255,12 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
           <header>
             <p className={styles.eyebrow}>{product.promotion}</p>
             <p className={styles.audience}>{product.gender} | 데일리 러닝, 워킹</p>
-            <h1 className={styles.title}>{product.name}</h1>
-            <p className={styles.price}>{product.price.toLocaleString('ko-KR')}원</p>
+            <Typography as="h1" className={css({ mt: '1' })} variant="productTitle">
+              {product.name}
+            </Typography>
+            <Typography as="p" className={css({ mt: '3' })} variant="productPrice">
+              {product.price.toLocaleString('ko-KR')}원
+            </Typography>
             <div className={styles.review}>
               <button
                 className={styles.reviewLink}
@@ -341,18 +342,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
             </dl>
           </section>
           <section className={styles.accordion} aria-label="상품 안내">
-            <details>
-              <summary>상품 문의</summary>
-              <p>상품과 배송에 관한 문의를 남겨 주세요.</p>
-            </details>
-            <details>
-              <summary>배송 및 반품</summary>
-              <p>수령 후 7일 이내 미착용 상품은 반품하실 수 있습니다.</p>
-            </details>
-            <details>
-              <summary>A/S 안내</summary>
-              <p>품질보증 기준에 따라 A/S를 지원합니다.</p>
-            </details>
+            <Accordion indicatorSize="13px" items={productSupportItems} multiple={false} />
           </section>
         </article>
         <section className={styles.recs} aria-labelledby="recommendation-title">
