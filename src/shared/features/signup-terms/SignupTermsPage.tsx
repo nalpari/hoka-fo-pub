@@ -14,7 +14,7 @@ export function SignupTermsPage() {
       setNotice('필수 약관에 모두 동의해 주세요.');
       return;
     }
-    navigate('/signup?step=details');
+    navigate('/signup/information');
   };
 
   return (

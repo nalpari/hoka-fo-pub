@@ -12,6 +12,8 @@ import { IdentityVerificationPage } from '@/shared/features/identity-verificatio
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
 import { LaunchCalendarPage } from '@/shared/features/launch-calendar/LaunchCalendarPage';
 import { LocalesPage } from '@/shared/features/locales/LocalesPage';
+import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
+import { RegistrationCompleteContent } from '@/shared/features/signup-registration/RegistrationCompleteContent';
 import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
 import { SignupPage } from '@/shared/features/signup/SignupPage';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
@@ -150,6 +152,8 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
             <Route path="/locales" element={<LocalesPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signup/terms" element={<SignupTermsPage />} />
+            <Route path="/signup/information" element={<RegistrationPage />} />
+            <Route path="/signup/complete" element={<RegistrationCompleteContent />} />
             <Route path="/signup/verify" element={<IdentityVerificationPage />} />
             <Route path="/signup/verify/phone" element={<PhoneVerificationPage />} />
             <Route path="/mypage" element={<MyPage />} />
