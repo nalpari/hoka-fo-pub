@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
+import { usePlatform } from '@/shared/context/platform';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 const viewport = cva({
@@ -58,21 +59,25 @@ export function ModalDialog({
   popupClassName,
   title,
 }: ModalDialogProps) {
+  const platform = usePlatform();
+
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className={backdrop} />
-        <Dialog.Viewport className={viewport({ placement })}>
-          <Dialog.Popup className={[popup, popupClassName].filter(Boolean).join(' ')}>
-            <header className={header}>
-              <Dialog.Title className={titleStyle}>{title}</Dialog.Title>
-              <Dialog.Close render={<Button aria-label={closeLabel} className={closeButton} />}>
-                ×
-              </Dialog.Close>
-            </header>
-            {children}
-          </Dialog.Popup>
-        </Dialog.Viewport>
+        <div className={`platform-${platform}`}>
+          <Dialog.Backdrop className={backdrop} />
+          <Dialog.Viewport className={viewport({ placement })}>
+            <Dialog.Popup className={[popup, popupClassName].filter(Boolean).join(' ')}>
+              <header className={header}>
+                <Dialog.Title className={titleStyle}>{title}</Dialog.Title>
+                <Dialog.Close render={<Button aria-label={closeLabel} className={closeButton} />}>
+                  ×
+                </Dialog.Close>
+              </header>
+              {children}
+            </Dialog.Popup>
+          </Dialog.Viewport>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );

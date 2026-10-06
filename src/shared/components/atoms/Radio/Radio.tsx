@@ -40,6 +40,10 @@ export type RadioProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   options: readonly RadioOption<T>[];
   value: T;
+  /** Renders radios directly for visual option controls such as pills and image swatches. */
+  variant?: 'default' | 'custom';
+  optionClassName?: string;
+  selectedOptionClassName?: string;
 };
 
 /** Controlled single-choice radio group with project-standard radio icon assets. */
@@ -51,6 +55,9 @@ export function Radio<T extends string = string>({
   onValueChange,
   options,
   value,
+  variant = 'default',
+  optionClassName,
+  selectedOptionClassName,
 }: RadioProps<T>) {
   return (
     <BaseRadioGroup
@@ -63,6 +70,21 @@ export function Radio<T extends string = string>({
     >
       {options.map((item) => {
         const isSelected = item.value === value;
+
+        if (variant === 'custom') {
+          return (
+            <BaseRadio.Root
+              className={[optionClassName, isSelected ? selectedOptionClassName : undefined]
+                .filter(Boolean)
+                .join(' ')}
+              disabled={item.disabled}
+              key={item.value}
+              value={item.value}
+            >
+              {item.label}
+            </BaseRadio.Root>
+          );
+        }
 
         return (
           <HStack

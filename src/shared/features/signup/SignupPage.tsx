@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
@@ -23,18 +24,32 @@ const signupMethods: SignupMethodOption[] = [
   { id: 'kakao', label: '카카오로 가입', description: '카카오 계정으로 빠르게 가입합니다.' },
   { id: 'naver', label: '네이버로 가입', description: '네이버 계정으로 빠르게 가입합니다.' },
 ];
+
 const styles = {
-  page: css({ pt: '20', px: '5', pb: '24' }),
-  signup: css({
-    w: 'min(100%, 520px)',
-    mx: 'auto',
-    '& h1': { mt: '2', mb: '7', fontSize: '34px', letterSpacing: '-1.8px' },
+  page: css({
+    pt: '20',
+    px: '5',
+    pb: '24',
+    _mobile: {
+      pt: '10',
+      px: '4',
+      pb: '8',
+      minH: 'calc(100svh - var(--layout-site-header-height))',
+    },
   }),
+  signup: css({
+    w: '100%',
+    maxW: '520px',
+    minW: 0,
+    mx: 'auto',
+  }),
+  pageTitle: css({ mt: '2', mb: '7', fontSize: '34px', letterSpacing: '-1.8px' }),
   eyebrow: css({ m: 0, color: '#777', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em' }),
 };
 
 export function SignupPage() {
-  const [step, setStep] = useState<SignupStep>(0);
+  const [searchParams] = useSearchParams();
+  const [step, setStep] = useState<SignupStep>(searchParams.get('step') === 'details' ? 2 : 0);
   const [method, setMethod] = useState<SignupMethod>('local');
   const [serviceTerms, setServiceTerms] = useState(false);
   const [privacyTerms, setPrivacyTerms] = useState(false);
@@ -82,41 +97,48 @@ export function SignupPage() {
   return (
     <main className={styles.page}>
       <section className={styles.signup} aria-labelledby="signup-title">
-        <p className={styles.eyebrow}>JOIN HOKA</p>
-        <h1 id="signup-title">회원가입</h1>
-        {step === 0 ? <SignupMethodStep methods={signupMethods} onSelect={startSignup} /> : null}
-        {step > 0 ? <SignupProgress method={method} step={step} /> : null}
-        {step === 1 ? (
-          <SignupTermsStep
-            ageTerms={ageTerms}
-            message={message}
-            method={selectedMethod}
-            onAgeTermsChange={setAgeTerms}
-            onContinue={continueFromTerms}
-            onPrivacyTermsChange={setPrivacyTerms}
-            onServiceTermsChange={setServiceTerms}
-            onToggleAll={toggleAllTerms}
-            privacyTerms={privacyTerms}
-            serviceTerms={serviceTerms}
-          />
-        ) : null}
-        {step === 2 ? (
-          <SignupDetailsStep
-            email={email}
-            id={id}
-            message={message}
-            method={method}
-            methodOption={selectedMethod}
-            name={name}
-            onEmailChange={setEmail}
-            onIdChange={setId}
-            onNameChange={setName}
-            onPasswordChange={setPassword}
-            onSubmit={submitDetails}
-            password={password}
-          />
-        ) : null}
-        {step === 3 ? <SignupCompleteStep name={name} /> : null}
+        {step === 0 ? (
+          <SignupMethodStep methods={signupMethods} onSelect={startSignup} />
+        ) : (
+          <>
+            <p className={styles.eyebrow}>JOIN HOKA</p>
+            <h1 className={styles.pageTitle} id="signup-title">
+              회원가입
+            </h1>
+            <SignupProgress method={method} step={step} />
+            {step === 1 ? (
+              <SignupTermsStep
+                ageTerms={ageTerms}
+                message={message}
+                method={selectedMethod}
+                onAgeTermsChange={setAgeTerms}
+                onContinue={continueFromTerms}
+                onPrivacyTermsChange={setPrivacyTerms}
+                onServiceTermsChange={setServiceTerms}
+                onToggleAll={toggleAllTerms}
+                privacyTerms={privacyTerms}
+                serviceTerms={serviceTerms}
+              />
+            ) : null}
+            {step === 2 ? (
+              <SignupDetailsStep
+                email={email}
+                id={id}
+                message={message}
+                method={method}
+                methodOption={selectedMethod}
+                name={name}
+                onEmailChange={setEmail}
+                onIdChange={setId}
+                onNameChange={setName}
+                onPasswordChange={setPassword}
+                onSubmit={submitDetails}
+                password={password}
+              />
+            ) : null}
+            {step === 3 ? <SignupCompleteStep name={name} /> : null}
+          </>
+        )}
       </section>
     </main>
   );

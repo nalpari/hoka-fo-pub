@@ -59,6 +59,20 @@ const typographyStorySpecs = {
     fontWeight: '400',
     lineHeight: '1.3',
   },
+  productTitle: {
+    name: 'ProductTitle',
+    desktopFontSize: '34px',
+    mobileFontSize: '34px',
+    fontWeight: '900',
+    lineHeight: '1',
+  },
+  productPrice: {
+    name: 'ProductPrice',
+    desktopFontSize: '20px',
+    mobileFontSize: '20px',
+    fontWeight: '700',
+    lineHeight: '1.3',
+  },
   meta: {
     name: 'Meta',
     desktopFontSize: '13px',
@@ -187,6 +201,22 @@ export const ProductAudience: Story = {
   },
 };
 
+export const ProductTitle: Story = {
+  args: {
+    as: 'h1',
+    children: typographyLabel(typographyStorySpecs.productTitle),
+    variant: 'productTitle',
+  },
+};
+
+export const ProductPrice: Story = {
+  args: {
+    as: 'p',
+    children: typographyLabel(typographyStorySpecs.productPrice),
+    variant: 'productPrice',
+  },
+};
+
 export const Meta: Story = {
   args: { children: typographyLabel(typographyStorySpecs.meta), variant: 'meta' },
 };
@@ -212,4 +242,20 @@ export const BottomSheetTitle: Story = {
     children: typographyLabel(typographyStorySpecs.bottomSheetTitle),
     variant: 'bottomSheetTitle',
   },
+};
+
+export const AuthTitle: Story = {
+  args: { as: 'h1', variant: 'authTitle', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthCaption: Story = {
+  args: { as: 'p', variant: 'authCaption', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthBody: Story = {
+  args: { as: 'p', variant: 'authBody', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const AuthSmall: Story = {
+  args: { as: 'p', variant: 'authSmall', children: 'HOKA Korea에 오신것을 환영합니다' },
 };

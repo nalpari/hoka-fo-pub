@@ -5,6 +5,35 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      authTitle: {
+        fontSize: 'var(--type-authTitle-font-size)',
+        fontWeight: 'var(--type-authTitle-font-weight)',
+        lineHeight: 'var(--type-authTitle-line-height)',
+        letterSpacing: 'var(--type-authTitle-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authTitle-mobile-font-size)' },
+      },
+      authCaption: {
+        fontSize: 'var(--type-authCaption-font-size)',
+        fontWeight: 'var(--type-authCaption-font-weight)',
+        lineHeight: 'var(--type-authCaption-line-height)',
+        letterSpacing: 'var(--type-authCaption-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authCaption-mobile-font-size)' },
+      },
+      authBody: {
+        fontSize: 'var(--type-authBody-font-size)',
+        fontWeight: 'var(--type-authBody-font-weight)',
+        lineHeight: 'var(--type-authBody-line-height)',
+        letterSpacing: 'var(--type-authBody-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authBody-mobile-font-size)' },
+      },
+      authSmall: {
+        fontSize: 'var(--type-authSmall-font-size)',
+        fontWeight: 'var(--type-authSmall-font-weight)',
+        lineHeight: 'var(--type-authSmall-line-height)',
+        letterSpacing: 'var(--type-authSmall-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-authSmall-mobile-font-size)' },
+      },
+
       display: {
         fontSize: 'var(--type-display-font-size)',
         fontWeight: 'var(--type-display-font-weight)',
@@ -54,6 +83,19 @@ const typography = cva({
         lineHeight: 'var(--type-product-audience-line-height)',
         letterSpacing: 'var(--type-product-audience-letter-spacing)',
       },
+      productTitle: {
+        fontSize: 'var(--type-product-title-font-size)',
+        fontWeight: 'var(--type-product-title-font-weight)',
+        lineHeight: 'var(--type-product-title-line-height)',
+        letterSpacing: 'var(--type-product-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-product-title-mobile-font-size)' },
+      },
+      productPrice: {
+        fontSize: 'var(--type-product-price-font-size)',
+        fontWeight: 'var(--type-product-price-font-weight)',
+        lineHeight: 'var(--type-product-price-line-height)',
+        _mobile: { fontSize: 'var(--type-product-price-mobile-font-size)' },
+      },
       meta: {
         fontSize: 'var(--type-meta-font-size)',
         fontWeight: 'var(--type-meta-font-weight)',
@@ -98,6 +140,10 @@ const typography = cva({
 });
 
 export type TypographyVariant =
+  | 'authTitle'
+  | 'authCaption'
+  | 'authBody'
+  | 'authSmall'
   | 'display'
   | 'heading'
   | 'sectionHeading'
@@ -105,6 +151,8 @@ export type TypographyVariant =
   | 'body'
   | 'formLabel'
   | 'productAudience'
+  | 'productTitle'
+  | 'productPrice'
   | 'meta'
   | 'price'
   | 'priceEmphasis'

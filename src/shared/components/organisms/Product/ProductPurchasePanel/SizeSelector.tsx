@@ -7,7 +7,7 @@ const options = css({
   flexWrap: 'wrap',
   gap: '2',
   my: '12px 22px',
-  '& button': { w: '58px', minH: '11' },
+  '& [role="radio"]': { w: '58px', minH: '11' },
 });
 const selected = css({
   borderColor: '#0082ca !important',
