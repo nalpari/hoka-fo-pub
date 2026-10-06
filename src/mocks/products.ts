@@ -1,5 +1,5 @@
 export type ProductWidthOption = {
-  label: 'Regular' | 'Wide';
+  label: 'Regular' | 'Wide' | 'X-Wide';
   sizes: string[];
   soldOut: string[];
 };
@@ -32,6 +32,9 @@ export type Product = {
   use: 'Everyday Run' | 'Trail Running' | 'Walking';
   primaryImage: string;
   hoverImage: string;
+  galleryImages?: string[];
+  detailDescription?: string;
+  styleCode?: string;
 };
 
 const hokaProductImages = [
@@ -141,3 +144,102 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   use: (['Everyday Run', 'Trail Running', 'Walking'] as const)[i % 3],
   ...hokaProductImages[i % hokaProductImages.length],
 }));
+
+const cliftonGalleryImages = Array.from(
+  { length: 8 },
+  (_, index) => `/images/products/clifton-11-gtx/gallery-${index + 1}.png`,
+);
+
+products[0] = {
+  ...products[0],
+  name: 'Clifton 11 GTX',
+  category: '러닝',
+  gender: "Men's",
+  price: 240000,
+  colors: ['Black / Outer Orbit', 'Oat Milk / Stone', 'White / Frost', 'Cosmic Grey'],
+  sizes: [
+    '220',
+    '225',
+    '230',
+    '235',
+    '240',
+    '245',
+    '250',
+    '255',
+    '260',
+    '265',
+    '270',
+    '275',
+    '280',
+    '285',
+    '290',
+    '295',
+    '300',
+  ],
+  soldOut: ['300'],
+  rating: 4,
+  reviewCount: 472,
+  promotion: 'Exclusive',
+  collection: '클리프톤',
+  width: 'Regular',
+  colorOptions: [
+    {
+      color: 'Black / Outer Orbit',
+      widths: [
+        {
+          label: 'Regular',
+          sizes: [
+            '220',
+            '225',
+            '230',
+            '235',
+            '240',
+            '245',
+            '250',
+            '255',
+            '260',
+            '265',
+            '270',
+            '275',
+            '280',
+            '285',
+            '290',
+            '295',
+            '300',
+          ],
+          soldOut: ['300'],
+        },
+        {
+          label: 'Wide',
+          sizes: [
+            '230',
+            '235',
+            '240',
+            '245',
+            '250',
+            '255',
+            '260',
+            '265',
+            '270',
+            '275',
+            '280',
+            '285',
+            '290',
+          ],
+          soldOut: [],
+        },
+        {
+          label: 'X-Wide',
+          sizes: ['240', '245', '250', '255', '260', '265', '270', '275', '280'],
+          soldOut: [],
+        },
+      ],
+    },
+  ],
+  primaryImage: cliftonGalleryImages[0],
+  hoverImage: cliftonGalleryImages[1],
+  galleryImages: cliftonGalleryImages,
+  detailDescription:
+    '어떤 날씨에도 편안한 주행을 돕는 리프레시드 클리프턴 11 GTX는 보이지 않는 뒷면부터 앞발의 편안함을 위해 설계되었습니다. 조절 가능한 스피드 레이스 시스템과 강화된 아웃솔은 안정감 있는 착화감을 선사합니다.',
+  styleCode: 'HOKADFG34S',
+};
