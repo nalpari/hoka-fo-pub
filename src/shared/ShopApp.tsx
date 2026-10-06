@@ -7,6 +7,8 @@ import { ProductListingPage } from '@/shared/features/catalog/ProductListingPage
 import { CollectionDetailPage } from '@/shared/features/collection/CollectionDetailPage';
 import { CartPage } from '@/shared/features/cart/CartPage';
 import { HomePage } from '@/shared/features/home/HomePage';
+import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
+import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
 import { LoginPage } from '@/shared/features/login/LoginPage';
 import { IdentityVerificationPage } from '@/shared/features/identity-verification/IdentityVerificationPage';
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
@@ -148,6 +150,8 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
               />
             ))}
             <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+            <Route path="/login/find-account" element={<FindAccountPage />} />
+            <Route path="/login/account-locked" element={<AccountLockedPage />} />
             <Route path="/launch-calendar" element={<LaunchCalendarPage />} />
             <Route path="/locales" element={<LocalesPage />} />
             <Route path="/signup" element={<SignupPage />} />
