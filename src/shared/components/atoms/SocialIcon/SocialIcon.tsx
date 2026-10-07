@@ -51,7 +51,7 @@ export function SocialIconLink({
       aria-label={label}
       title={label}
     >
-      <img src={`/images/social/${file}`} alt={label} className={socialIcon} />
+      <img src={`/images/icon/social/${file}`} alt={label} className={socialIcon} />
     </a>
   );
 }

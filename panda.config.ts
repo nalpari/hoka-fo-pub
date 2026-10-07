@@ -56,6 +56,19 @@ export default defineConfig({
         },
       },
       tokens: {
+        aspectRatios: {
+          media: {
+            oneByOne: { value: '1 / 1' },
+            twoByOne: { value: '2 / 1' },
+            threeByTwo: { value: '3 / 2' },
+            fourByOne: { value: '4 / 1' },
+            fourByThree: { value: '4 / 3' },
+            fourByFive: { value: '4 / 5' },
+            fiveByFour: { value: '5 / 4' },
+            sixteenByNine: { value: '16 / 9' },
+            eightByThree: { value: '8 / 3' },
+          },
+        },
         colors: {
           black: {
             100: { value: '#000000' },
@@ -73,6 +86,14 @@ export default defineConfig({
           headerBorder: { value: '#E9EAEB' },
           footerDivider: { value: '#F7F7F9' },
           sale: { value: '#E10F00' },
+        },
+        shadows: {
+          1: { value: '0 4px 4px 0 rgba(0, 0, 0, 0.16)' },
+          2: { value: '0 4px 16px 0 rgba(0, 0, 0, 0.16)' },
+          3: {
+            value:
+              '0 12px 12px -8px rgba(0, 0, 0, 0.2), 0 24px 36px 4px rgba(0, 0, 0, 0.14), 0 8px 48px 8px rgba(0, 0, 0, 0.12)',
+          },
         },
         fonts: {
           hoka: { value: "'The Future HOKA', Pretendard, Arial, sans-serif" },

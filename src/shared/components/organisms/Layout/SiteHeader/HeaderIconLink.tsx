@@ -25,9 +25,8 @@ export type HeaderIconLinkProps = {
   to: string;
   ariaLabel: string;
   className?: string;
-  icon: HeaderIconProps;
   children?: ReactNode;
-};
+} & ({ icon: HeaderIconProps; iconSlot?: never } | { icon?: never; iconSlot: ReactNode });
 
 export function HeaderIcon({ desktopSrc, mobileSrc = desktopSrc, alt = '' }: HeaderIconProps) {
   const platform = usePlatform();
@@ -41,14 +40,21 @@ export function HeaderIcon({ desktopSrc, mobileSrc = desktopSrc, alt = '' }: Hea
   );
 }
 
-export function HeaderIconLink({ to, ariaLabel, className, icon, children }: HeaderIconLinkProps) {
+export function HeaderIconLink({
+  to,
+  ariaLabel,
+  className,
+  icon,
+  iconSlot,
+  children,
+}: HeaderIconLinkProps) {
   return (
     <Link
       to={to}
       aria-label={ariaLabel}
       className={[iconLink, className].filter(Boolean).join(' ')}
     >
-      <HeaderIcon {...icon} />
+      {iconSlot ?? (icon ? <HeaderIcon {...icon} /> : null)}
       {children}
     </Link>
   );
