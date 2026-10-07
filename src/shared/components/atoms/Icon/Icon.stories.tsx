@@ -53,7 +53,6 @@ const svgIconGroups = [
     label: 'UI SVG',
     names: [
       'breadcrumb',
-      'chevron-down',
       'chevron-down-small',
       'chevron-right',
       'close',

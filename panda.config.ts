@@ -56,6 +56,19 @@ export default defineConfig({
         },
       },
       tokens: {
+        aspectRatios: {
+          media: {
+            oneByOne: { value: '1 / 1' },
+            twoByOne: { value: '2 / 1' },
+            threeByTwo: { value: '3 / 2' },
+            fourByOne: { value: '4 / 1' },
+            fourByThree: { value: '4 / 3' },
+            fourByFive: { value: '4 / 5' },
+            fiveByFour: { value: '5 / 4' },
+            sixteenByNine: { value: '16 / 9' },
+            eightByThree: { value: '8 / 3' },
+          },
+        },
         colors: {
           black: {
             100: { value: '#000000' },

@@ -9,7 +9,13 @@ const root = css({
   letterSpacing: '-0.02em',
   color: '#000000',
 });
+
+const link = css({
+  _hover: { textDecoration: 'underline' },
+});
+
 const separator = css({ display: 'inline-flex', mx: '7px', verticalAlign: 'middle' });
+
 const current = css({ color: '#777777' });
 
 export type BreadcrumbItem = { label: string; href?: string };
@@ -25,7 +31,9 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             </span>
           )}
           {item.href && index < items.length - 1 ? (
-            <Link to={item.href}>{item.label}</Link>
+            <Link className={link} to={item.href}>
+              {item.label}
+            </Link>
           ) : (
             <span
               className={current}

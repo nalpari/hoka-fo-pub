@@ -1,5 +1,6 @@
 export {
   faCakeCandles,
+  faChevronDown,
   faChevronRight,
   faCheck,
   faComment,
