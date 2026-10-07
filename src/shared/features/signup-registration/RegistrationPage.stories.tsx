@@ -5,7 +5,7 @@ import { RegistrationPage } from './RegistrationPage';
 import { RegistrationCompleteContent } from './RegistrationCompleteContent';
 
 const meta = {
-  title: 'Pages/Auth/Registration',
+  title: 'Pages/AUTH/Registration',
   component: RegistrationContent,
   decorators: [
     (Story) => (

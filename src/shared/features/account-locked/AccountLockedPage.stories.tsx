@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/shared/context/platform';
 import { AccountLockedPage } from './AccountLockedPage';
 
 const meta = {
-  title: 'Pages/Auth/AccountLocked',
+  title: 'Pages/AUTH/AccountLocked',
   component: AccountLockedPage,
   decorators: [
     (Story) => (

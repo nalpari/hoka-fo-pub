@@ -3,7 +3,7 @@ import { PhoneVerificationContent } from './PhoneVerificationContent';
 import { PhoneVerificationPage } from './PhoneVerificationPage';
 
 const meta = {
-  title: 'Pages/Auth/PhoneVerification',
+  title: 'Pages/AUTH/PhoneVerification',
   component: PhoneVerificationContent,
   args: {
     information: {
