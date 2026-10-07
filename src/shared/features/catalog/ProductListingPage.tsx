@@ -94,8 +94,19 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
   const sort = selectedSort || '베스트순';
-  const breadcrumbItems = getBreadcrumbItems({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
-  const productListingTitle = getProductListingTitle({ gender: activeFilters.gender[0] ?? '', category, activity: activeFilters.activity[0] ?? '' });
+  const breadcrumbItems = getBreadcrumbItems({
+    gender: activeFilters.gender[0] ?? '',
+    category,
+    activity: activeFilters.activity[0] ?? '',
+    sort: selectedSort ?? '',
+  });
+
+  const productListingTitle = getProductListingTitle({
+    gender: activeFilters.gender[0] ?? '',
+    category,
+    activity: activeFilters.activity[0] ?? '',
+    sort: selectedSort ?? '',
+  });
   const result = useMemo(
     () => sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort),
     [activeFilters, searchQuery, sort],

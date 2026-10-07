@@ -1,14 +1,38 @@
 'use client';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import {
+  faArrowRight,
+  faBan,
+  faChartLine,
+  faChevronDown,
+  faChevronRight,
+  faCircle,
+  faDesktop,
+  faFileLines,
+  faFolder,
+  faFolderOpen,
+  faFolderTree,
+  faMobileScreenButton,
+  faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 import { screens, type ScreenDefinition } from '@/data/screenRegistry';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
-import { isStorybookReady } from '@/shared/features/screen-index/storybookLinks';
+import {
+  isStorybookReady,
+  isStorybookWorking,
+} from '@/shared/features/screen-index/storybookLinks';
+import { getProductListingIaKey } from '@/shared/features/catalog/productListingIaRoute';
 
-type DeliveryStatus = 'ready' | 'pending' | 'delayed' | 'deleted';
+config.autoAddCss = false;
+
+type DeliveryStatus = 'ready' | 'working' | 'pending' | 'delayed' | 'deleted';
 
 type ScreenGroup = {
   depth1: string;
@@ -25,32 +49,105 @@ type TreeRow = {
   screen?: ScreenDefinition;
 };
 
-const delayedIaNumbers = new Set([4, 26, 94, 143]);
-const deletedIaNumbers = new Set([12, 49, 118]);
-
-const previewStoryIds: Record<number, { pc: string; mobile: string }> = {
-  1: { pc: 'pages-home-main--width-1920', mobile: 'pages-home-main--width-375' },
-  3: { pc: 'pages-products-list--width-1920', mobile: 'pages-products-list--width-375' },
-  207: { pc: 'pages-auth-login--default', mobile: 'pages-auth-login--mobile' },
-  208: { pc: 'pages-auth-findaccount--default', mobile: 'pages-auth-findaccount--mobile' },
-  211: { pc: 'pages-auth-findaccount--default', mobile: 'pages-auth-findaccount--mobile' },
-  217: { pc: 'pages-auth-signup--default', mobile: 'pages-auth-signup--mobile' },
-  218: { pc: 'pages-auth-phoneverification--default', mobile: 'pages-auth-phoneverification--mobile' },
-  219: {
-    pc: 'pages-auth-identityverification--default',
-    mobile: 'pages-auth-identityverification--mobile',
-  },
-  220: { pc: 'pages-auth-signupterms--default', mobile: 'pages-auth-signupterms--mobile' },
-  221: { pc: 'pages-auth-registration--default', mobile: 'pages-auth-registration--mobile' },
-  222: { pc: 'pages-auth-registration--complete', mobile: 'pages-auth-registration--complete' },
+type WbsAssignment = {
+  period: string;
+  owners: string;
 };
 
+const deletedIaNumbers = new Set([12, 49, 118]);
+
+type PreviewStoryIds = {
+  pc: string;
+  mo: string;
+};
+
+const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
+  1: {
+    pc: 'pages-home-main--width-1920',
+    mo: 'pages-home-main--width-375',
+  },
+  217: {
+    pc: 'pages-auth-signup--default',
+    mo: 'pages-auth-signup--mobile',
+  },
+  218: {
+    pc: 'pages-auth-phoneverification--default',
+    mo: 'pages-auth-phoneverification--mobile',
+  },
+  219: {
+    pc: 'pages-auth-identityverification--default',
+    mo: 'pages-auth-identityverification--mobile',
+  },
+  220: {
+    pc: 'pages-auth-signupterms--default',
+    mo: 'pages-auth-signupterms--mobile',
+  },
+  221: {
+    pc: 'pages-auth-registration--default',
+    mo: 'pages-auth-registration--mobile',
+  },
+  222: {
+    pc: 'pages-auth-registration--complete',
+    mo: 'pages-auth-registration--complete',
+  },
+};
+
+const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {
+  eland_hca_01: {
+    pc: 'pages-products-list--width-1920',
+    mo: 'pages-products-list--width-375',
+  },
+  eland_hca_02: {
+    pc: 'pages-products-detail--width-1920',
+    mo: 'pages-products-detail--width-375',
+  },
+};
+
+const loginPreviewStoryIds: PreviewStoryIds = {
+  pc: 'pages-auth-login--default',
+  mo: 'pages-auth-login--mobile',
+};
+
+const findAccountPreviewStoryIds: PreviewStoryIds = {
+  pc: 'pages-auth-findaccount--default',
+  mo: 'pages-auth-findaccount--mobile',
+};
+
+const findAccountScreenCodes = new Set([
+  'eland_hlo_02',
+  'eland_hlo_03',
+  'eland_hlo_04',
+  'eland_hlo_05',
+  'eland_hlo_06',
+  'eland_hlo_07',
+]);
+
 const statusLabels: Record<DeliveryStatus, string> = {
-  ready: '정상 진척',
+  ready: '완료',
+  working: '작업 중',
   pending: '대기중',
   delayed: '지연 / 블락',
   deleted: '삭제 / 제외',
 };
+
+const directWbsAssignments: Record<string, WbsAssignment> = {
+  Main: { period: '2026.09.21 ~ 2026.09.23', owners: '조맑은' },
+  '런칭 캘린더': { period: '2026.10.21 ~ 2026.10.28', owners: '조맑은' },
+  기획전: { period: '2026.10.22 ~ 2026.10.23', owners: '조맑은' },
+  이벤트: { period: '2026.10.27', owners: '조맑은' },
+  장바구니: { period: '2026.10.19 ~ 2026.10.21', owners: '조맑은, 박서현' },
+  주문: { period: '2026.10.15 ~ 2026.10.16', owners: '조맑은, 박서현' },
+  마이페이지: { period: '2026.10.21 ~ 2026.10.30', owners: '박서현' },
+  고객센터: { period: '2026.10.29 ~ 2026.10.31', owners: '조맑은, 박서현' },
+  로그인: { period: '2026.10.02 ~ 2026.10.05', owners: '박서현' },
+  회원가입: { period: '2026.10.06 ~ 2026.10.07', owners: '박서현' },
+  'About HOKA': { period: '2026.11.06 ~ 2026.11.10', owners: '조맑은' },
+};
+
+const categoryWbsAssignments = {
+  목록: { period: '2026.10.01 ~ 2026.10.07', owners: '조맑은' },
+  상세: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은, 박서현' },
+} satisfies Record<string, WbsAssignment>;
 
 const styles = {
   page: css({ maxW: 'none', bg: '#f6f8ff', px: '6', py: '6', _mobile: { px: '4', py: '4' } }),
@@ -74,7 +171,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '2',
-    '& h2': { m: '0', color: '#17223d', fontSize: '14px' },
+    '& h2': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1.5',
+      m: '0',
+      color: '#17223d',
+      fontSize: '14px',
+    },
     '& span': { color: '#68718a', fontSize: '10px', fontWeight: '700' },
   }),
   summaryValue: css({
@@ -93,9 +197,11 @@ const styles = {
     borderRadius: 'full',
     bg: '#dce4f5',
   }),
-  readyProgress: css({ h: 'full', bg: '#2a14b4' }),
-  pendingProgress: css({ h: 'full', bg: '#b9c4dd' }),
+  readyProgress: css({ h: 'full', bg: '#17643b' }),
+  workingProgress: css({ h: 'full', bg: '#5148d7' }),
+  pendingProgress: css({ h: 'full', bg: '#68718a' }),
   delayedProgress: css({ h: 'full', bg: '#c51c1c' }),
+  deletedProgress: css({ h: 'full', bg: '#7a7f8c' }),
   summaryFooter: css({
     display: 'flex',
     justifyContent: 'space-between',
@@ -207,6 +313,7 @@ const styles = {
   }),
   chip: css({ px: '2', py: '1', border: '1px solid', borderRadius: '3px', cursor: 'pointer' }),
   readyChip: css({ borderColor: '#b9dfc8', bg: '#effbf3', color: '#17643b' }),
+  workingChip: css({ borderColor: '#cbc5ff', bg: '#f0eeff', color: '#5148d7' }),
   pendingChip: css({ borderColor: '#d4dced', bg: '#f4f7ff', color: '#68718a' }),
   delayedChip: css({ borderColor: '#f2b8b5', bg: '#fff0ef', color: '#c51c1c' }),
   deletedChip: css({
@@ -223,7 +330,7 @@ const styles = {
   }),
   table: css({
     w: '100%',
-    minW: '1400px',
+    minW: '1500px',
     borderCollapse: 'collapse',
     color: '#313a52',
     fontSize: '12px',
@@ -323,6 +430,7 @@ const styles = {
     fontWeight: '800',
   }),
   readyTag: css({ bg: '#e5f7ed', color: '#17643b' }),
+  workingTag: css({ bg: '#e7e5ff', color: '#5148d7' }),
   pendingTag: css({ bg: '#eff2f8', color: '#68718a' }),
   delayedTag: css({ bg: '#c51c1c', color: '#fff' }),
   deletedTag: css({ bg: '#d9dde6', color: '#68718a' }),
@@ -330,9 +438,46 @@ const styles = {
 };
 
 function getStatus(screen: ScreenDefinition): DeliveryStatus {
+  if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
+  if (isStorybookWorking(screen.screenCode)) return 'working';
   if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
-  if (delayedIaNumbers.has(screen.iaNumber)) return 'delayed';
-  return isStorybookReady(screen.iaNumber) ? 'ready' : 'pending';
+  return 'pending';
+}
+
+function getPreviewStoryIds(screen: ScreenDefinition): PreviewStoryIds | undefined {
+  if (screen.screenCode.startsWith('eland_hlo_')) {
+    return findAccountScreenCodes.has(screen.screenCode)
+      ? findAccountPreviewStoryIds
+      : loginPreviewStoryIds;
+  }
+
+  return (
+    previewStoryIdsByIaNumber[screen.iaNumber] ?? previewStoryIdsByScreenCode[screen.screenCode]
+  );
+}
+
+function getPreviewHref(storyId: string, screen?: ScreenDefinition) {
+  const listingArgs =
+    screen?.screenCode === 'eland_hca_01'
+      ? '&args=listing:' + getProductListingIaKey(screen.iaNumber)
+      : '';
+
+  return '/?path=/story/' + storyId + listingArgs;
+}
+
+function getStatusTagClass(status: DeliveryStatus) {
+  switch (status) {
+    case 'ready':
+      return styles.readyTag;
+    case 'working':
+      return styles.workingTag;
+    case 'delayed':
+      return styles.delayedTag;
+    case 'deleted':
+      return styles.deletedTag;
+    default:
+      return styles.pendingTag;
+  }
 }
 
 function screenDepth(screen: ScreenDefinition) {
@@ -343,14 +488,27 @@ function screenDepth(screen: ScreenDefinition) {
   return 0;
 }
 
-function ownerFor(screen: ScreenDefinition) {
-  return screen.iaNumber % 2 === 0 ? '박서현' : '조맑은';
-}
+function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined {
+  const [depth1, ...descendants] = depths;
 
-function wbsFor(screen: ScreenDefinition) {
-  const start = (screen.iaNumber % 24) + 1;
-  const end = Math.min(start + 4, 28);
-  return '04.' + String(start).padStart(2, '0') + ' ~ 04.' + String(end).padStart(2, '0');
+  if (depth1 === '공통') {
+    if (descendants[0] === '전체메뉴') {
+      return { period: '2026.09.30', owners: '조맑은' };
+    }
+
+    if (descendants[0] === '검색' || descendants[0] === '검색결과') {
+      return { period: '2026.10.26', owners: '조맑은' };
+    }
+  }
+
+  if (depth1 === 'MEN' || depth1 === 'WOMEN' || depth1 === 'SHOES') {
+    const terminalDepth = descendants.reduce((lastDepth, depth) => (depth ? depth : lastDepth), '');
+    if (terminalDepth === '목록' || terminalDepth === '상세') {
+      return categoryWbsAssignments[terminalDepth];
+    }
+  }
+
+  return directWbsAssignments[depth1];
 }
 
 function createTreeRows(group: ScreenGroup): TreeRow[] {
@@ -435,7 +593,10 @@ export function IaStructurePage() {
           current[getStatus(screen)] += 1;
           return current;
         },
-        { ready: 0, pending: 0, delayed: 0, deleted: 0 } as Record<DeliveryStatus, number>,
+        { ready: 0, working: 0, pending: 0, delayed: 0, deleted: 0 } as Record<
+          DeliveryStatus,
+          number
+        >,
       ),
     [],
   );
@@ -450,7 +611,7 @@ export function IaStructurePage() {
           screen.category,
           screen.screenCode,
           screen.note,
-          ownerFor(screen),
+          getWbsAssignment(screen.depths)?.owners ?? '',
         ]
           .join(' ')
           .toLowerCase();
@@ -464,8 +625,10 @@ export function IaStructurePage() {
     .filter((group) => group.screens.length > 0);
   const activeTotal = visibleGroups.reduce((total, group) => total + group.screens.length, 0);
   const completePercent = (counts.ready / screens.length) * 100;
+  const workingPercent = (counts.working / screens.length) * 100;
   const pendingPercent = (counts.pending / screens.length) * 100;
   const delayedPercent = (counts.delayed / screens.length) * 100;
+  const deletedPercent = (counts.deleted / screens.length) * 100;
 
   const togglePath = (path: string) => {
     setCollapsedPaths((current) => {
@@ -474,11 +637,6 @@ export function IaStructurePage() {
       else next.add(path);
       return next;
     });
-  };
-
-  const showDelayed = () => {
-    setStatusFilter('delayed');
-    setActiveDepth1('all');
   };
 
   return (
@@ -496,7 +654,10 @@ export function IaStructurePage() {
         <div className={styles.summaryColumn}>
           <article className={styles.card + ' ' + styles.summaryCard}>
             <div className={styles.cardHeading}>
-              <h2>⌁ IA OVERALL SPRINT</h2>
+              <h2>
+                <FontAwesomeIcon icon={faChartLine} aria-hidden="true" />
+                IA OVERALL SPRINT
+              </h2>
               <span>Real-time</span>
             </div>
             <div className={styles.summaryValue}>
@@ -511,6 +672,10 @@ export function IaStructurePage() {
                 style={{ width: String(completePercent) + '%' }}
               />
               <span
+                className={styles.workingProgress}
+                style={{ width: String(workingPercent) + '%' }}
+              />
+              <span
                 className={styles.pendingProgress}
                 style={{ width: String(pendingPercent) + '%' }}
               />
@@ -518,30 +683,59 @@ export function IaStructurePage() {
                 className={styles.delayedProgress}
                 style={{ width: String(delayedPercent) + '%' }}
               />
+              <span
+                className={styles.deletedProgress}
+                style={{ width: String(deletedPercent) + '%' }}
+              />
             </div>
             <div className={styles.summaryFooter}>
               <span>총 {screens.length}개 화면</span>
               <span>
-                완료 <b>{counts.ready}</b> · 대기 {counts.pending} · 지연 <b>{counts.delayed}</b>
+                완료 <b>{counts.ready}</b> · 작업 중 {counts.working} · 대기 {counts.pending} · 지연{' '}
+                <b>{counts.delayed}</b>
               </span>
             </div>
           </article>
           <article className={styles.card + ' ' + styles.issueCard}>
             <div className={styles.cardHeading}>
-              <h2>⚠ BLOCKED / 긴급 이슈</h2>
-              <span>{counts.delayed}건 대응중</span>
+              <h2>
+                <FontAwesomeIcon icon={faTriangleExclamation} aria-hidden="true" />
+                BLOCKED / 긴급 이슈
+              </h2>
+              <span>{counts.delayed ? counts.delayed + '건 대응중' : '정상'}</span>
             </div>
-            <p>지연 상태로 분류된 IA 화면의 일정과 의존성을 확인해야 합니다.</p>
-            <button type="button" className={styles.issueButton} onClick={showDelayed}>
-              지연 이슈만 보기 →
-            </button>
+            {counts.delayed ? (
+              <>
+                <p>지연 상태로 분류된 IA 화면의 일정과 의존성을 확인해야 합니다.</p>
+                <button
+                  type="button"
+                  className={styles.issueButton}
+                  onClick={() => {
+                    setStatusFilter('delayed');
+                    setActiveDepth1('all');
+                  }}
+                >
+                  지연 이슈만 보기 <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+                </button>
+              </>
+            ) : (
+              <p>현재 등록된 지연 또는 블락 이슈가 없습니다.</p>
+            )}
           </article>
         </div>
 
         <section className={styles.card + ' ' + styles.navCard} aria-label="화면 체계 NAV 탭 분류">
           <div className={styles.cardHeading}>
-            <h2>▣ 화면 체계 NAV 탭 분류 ({groups.length}개 영역)</h2>
-            <span>● 완료 · ● 대기 · ● 지연</span>
+            <h2>
+              <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
+              화면 체계 NAV 탭 분류 ({groups.length}개 영역)
+            </h2>
+            <span>
+              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 완료 ·{' '}
+              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 작업 중 ·{' '}
+              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 대기 ·{' '}
+              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 지연
+            </span>
           </div>
           <div className={styles.groupGrid}>
             {groups.map((group) => {
@@ -550,7 +744,10 @@ export function IaStructurePage() {
                   current[getStatus(screen)] += 1;
                   return current;
                 },
-                { ready: 0, pending: 0, delayed: 0, deleted: 0 } as Record<DeliveryStatus, number>,
+                { ready: 0, working: 0, pending: 0, delayed: 0, deleted: 0 } as Record<
+                  DeliveryStatus,
+                  number
+                >,
               );
               const groupTotal = group.screens.length;
 
@@ -577,6 +774,10 @@ export function IaStructurePage() {
                       style={{ width: String((groupCounts.ready / groupTotal) * 100) + '%' }}
                     />
                     <span
+                      className={styles.workingProgress}
+                      style={{ width: String((groupCounts.working / groupTotal) * 100) + '%' }}
+                    />
+                    <span
                       className={styles.pendingProgress}
                       style={{ width: String((groupCounts.pending / groupTotal) * 100) + '%' }}
                     />
@@ -584,10 +785,14 @@ export function IaStructurePage() {
                       className={styles.delayedProgress}
                       style={{ width: String((groupCounts.delayed / groupTotal) * 100) + '%' }}
                     />
+                    <span
+                      className={styles.deletedProgress}
+                      style={{ width: String((groupCounts.deleted / groupTotal) * 100) + '%' }}
+                    />
                   </span>
                   <span>
-                    완료 {groupCounts.ready} · 대기 {groupCounts.pending} · 지연{' '}
-                    {groupCounts.delayed}
+                    완료 {groupCounts.ready} · 작업 중 {groupCounts.working} · 대기{' '}
+                    {groupCounts.pending} · 지연 {groupCounts.delayed}
                   </span>
                 </button>
               );
@@ -607,7 +812,11 @@ export function IaStructurePage() {
                 setCollapsedPaths(new Set());
               }}
             >
-              ⌄ 전체 {isExpanded ? '접기' : '펼치기'}
+              <FontAwesomeIcon
+                icon={isExpanded ? faChevronDown : faChevronRight}
+                aria-hidden="true"
+              />{' '}
+              전체 {isExpanded ? '접기' : '펼치기'}
             </button>
             <button
               type="button"
@@ -633,33 +842,39 @@ export function IaStructurePage() {
               onChange={(event) => setStatusFilter(event.target.value as 'all' | DeliveryStatus)}
             >
               <option value="all">상태 전체</option>
-              <option value="ready">정상 진척</option>
+              <option value="ready">완료</option>
+              <option value="working">작업 중</option>
               <option value="pending">대기중</option>
               <option value="delayed">지연 / 블락</option>
               <option value="deleted">삭제 / 제외</option>
             </select>
           </div>
           <div className={styles.legend} aria-label="구현 상태 범례">
-            {(['ready', 'pending', 'delayed', 'deleted'] as DeliveryStatus[]).map((status) => (
-              <button
-                key={status}
-                type="button"
-                className={
-                  styles.chip +
-                  ' ' +
-                  (status === 'ready'
-                    ? styles.readyChip
-                    : status === 'pending'
-                      ? styles.pendingChip
-                      : status === 'delayed'
-                        ? styles.delayedChip
-                        : styles.deletedChip)
-                }
-                onClick={() => setStatusFilter(status)}
-              >
-                ● {statusLabels[status]} {counts[status]}
-              </button>
-            ))}
+            {(['ready', 'working', 'pending', 'delayed', 'deleted'] as DeliveryStatus[]).map(
+              (status) => (
+                <button
+                  key={status}
+                  type="button"
+                  className={
+                    styles.chip +
+                    ' ' +
+                    (status === 'ready'
+                      ? styles.readyChip
+                      : status === 'working'
+                        ? styles.workingChip
+                        : status === 'pending'
+                          ? styles.pendingChip
+                          : status === 'delayed'
+                            ? styles.delayedChip
+                            : styles.deletedChip)
+                  }
+                  onClick={() => setStatusFilter(status)}
+                >
+                  <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> {statusLabels[status]}{' '}
+                  {counts[status]}
+                </button>
+              ),
+            )}
           </div>
         </div>
 
@@ -671,6 +886,7 @@ export function IaStructurePage() {
                 <th>구분</th>
                 <th>화면 코드</th>
                 <th>WBS</th>
+                <th>진행 상태</th>
                 <th>작업자</th>
                 <th>바로가기 (PC/MO)</th>
                 <th>비고 / 이슈</th>
@@ -710,6 +926,7 @@ function GroupRows({
   const treeRows = createTreeRows(group);
   const groupPath = group.depth1;
   const groupOpen = !collapsedPaths.has(groupPath);
+  const groupWbs = getWbsAssignment([group.depth1]);
 
   return (
     <>
@@ -722,20 +939,24 @@ function GroupRows({
               aria-label={group.depth1 + (groupOpen ? ' 접기' : ' 펼치기')}
               onClick={() => onToggle(groupPath)}
             >
-              {groupOpen ? '⌄' : '›'}
+              <FontAwesomeIcon
+                icon={groupOpen ? faChevronDown : faChevronRight}
+                aria-hidden="true"
+              />
             </button>
             <span className={styles.depthMarker}>D1</span>
-            <span className={styles.hierarchyIcon}>▱</span>
+            <span className={styles.hierarchyIcon}>
+              <FontAwesomeIcon icon={faFolderOpen} aria-hidden="true" />
+            </span>
             <strong>{group.depth1}</strong>
             <span>({group.screens.length} screens)</span>
           </div>
         </td>
         <td>대분류</td>
         <td className={styles.code}>CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}</td>
-        <td className={styles.wbs}>04.01 ~ 04.30</td>
-        <td>
-          <span className={styles.owner}>조맑은</span>
-        </td>
+        <td className={styles.wbs}>{groupWbs?.period ?? '-'}</td>
+        <td>-</td>
+        <td>{groupWbs ? <span className={styles.owner}>{groupWbs.owners}</span> : '-'}</td>
         <td>
           <span className={styles.preview}>-</span>
         </td>
@@ -748,7 +969,8 @@ function GroupRows({
           if (hiddenByParent) return null;
 
           const status = row.screen ? getStatus(row.screen) : undefined;
-          const storyLinks = row.screen ? previewStoryIds[row.screen.iaNumber] : undefined;
+          const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
+          const rowPreviewStoryIds = row.screen ? getPreviewStoryIds(row.screen) : undefined;
           const rowClass =
             status === 'delayed'
               ? styles.delayedRow
@@ -770,20 +992,28 @@ function GroupRows({
                       aria-label={row.label + (collapsedPaths.has(row.path) ? ' 펼치기' : ' 접기')}
                       onClick={() => onToggle(row.path)}
                     >
-                      {collapsedPaths.has(row.path) ? '›' : '⌄'}
+                      <FontAwesomeIcon
+                        icon={collapsedPaths.has(row.path) ? faChevronRight : faChevronDown}
+                        aria-hidden="true"
+                      />
                     </button>
                   ) : (
                     <span className={styles.spacer} />
                   )}
                   <span className={styles.depthMarker}>D{row.depth + 1}</span>
                   <span className={styles.hierarchyIcon}>
-                    {status === 'delayed'
-                      ? '⚠'
-                      : status === 'deleted'
-                        ? '⊘'
-                        : row.isBranch
-                          ? '▱'
-                          : '▹'}
+                    <FontAwesomeIcon
+                      icon={
+                        status === 'delayed'
+                          ? faTriangleExclamation
+                          : status === 'deleted'
+                            ? faBan
+                            : row.isBranch
+                              ? faFolder
+                              : faFileLines
+                      }
+                      aria-hidden="true"
+                    />
                   </span>
                   <span>{row.label}</span>
                 </div>
@@ -793,26 +1023,33 @@ function GroupRows({
                   (row.depth === 1 ? '중분류' : row.depth === 2 ? '소분류' : '상세')}
               </td>
               <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
-              <td className={styles.wbs}>{row.screen ? wbsFor(row.screen) : '-'}</td>
+              <td className={styles.wbs}>{rowWbs?.period ?? '-'}</td>
               <td>
-                {row.screen ? <span className={styles.owner}>{ownerFor(row.screen)}</span> : '-'}
+                {status ? (
+                  <span className={styles.statusTag + ' ' + getStatusTagClass(status)}>
+                    {statusLabels[status]}
+                  </span>
+                ) : (
+                  '-'
+                )}
               </td>
+              <td>{rowWbs ? <span className={styles.owner}>{rowWbs.owners}</span> : '-'}</td>
               <td>
-                {storyLinks ? (
+                {rowPreviewStoryIds ? (
                   <div className={styles.preview}>
                     <a
-                      href={'/?path=/story/' + storyLinks.pc}
+                      href={getPreviewHref(rowPreviewStoryIds.pc, row.screen)}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      ▣ PC
+                      <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> PC
                     </a>
                     <a
-                      href={'/?path=/story/' + storyLinks.mobile}
+                      href={getPreviewHref(rowPreviewStoryIds.mo, row.screen)}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      ▯ MO
+                      <FontAwesomeIcon icon={faMobileScreenButton} aria-hidden="true" /> MO
                     </a>
                   </div>
                 ) : (

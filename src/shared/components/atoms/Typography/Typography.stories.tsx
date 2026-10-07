@@ -59,6 +59,20 @@ const typographyStorySpecs = {
     fontWeight: '400',
     lineHeight: '1.3',
   },
+  productSelectorLabel: {
+    name: 'ProductSelectorLabel',
+    desktopFontSize: '13px',
+    mobileFontSize: '13px',
+    fontWeight: '700',
+    lineHeight: '1.3',
+  },
+  productSelectorAction: {
+    name: 'ProductSelectorAction',
+    desktopFontSize: '12px',
+    mobileFontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '1.3',
+  },
   productTitle: {
     name: 'ProductTitle',
     desktopFontSize: '34px',
@@ -201,6 +215,22 @@ export const ProductAudience: Story = {
   },
 };
 
+export const ProductSelectorLabel: Story = {
+  args: {
+    as: 'h2',
+    children: typographyLabel(typographyStorySpecs.productSelectorLabel),
+    variant: 'productSelectorLabel',
+  },
+};
+
+export const ProductSelectorAction: Story = {
+  args: {
+    as: 'button',
+    children: typographyLabel(typographyStorySpecs.productSelectorAction),
+    variant: 'productSelectorAction',
+  },
+};
+
 export const ProductTitle: Story = {
   args: {
     as: 'h1',
@@ -258,4 +288,23 @@ export const AuthBody: Story = {
 
 export const AuthSmall: Story = {
   args: { as: 'p', variant: 'authSmall', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const FigmaTypeScale: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <Typography as="h1" variant="heading4">
+        The Future HOKA Heading 4
+      </Typography>
+      <Typography as="h2" variant="headingKr5">
+        프리텐다드 한글 헤딩 5
+      </Typography>
+      <Typography variant="body3">The Future HOKA Body 3</Typography>
+      <Typography variant="bodyKr3">프리텐다드 한글 본문 3</Typography>
+      <Typography variant="mono4">Mono label</Typography>
+      <Typography as="a" href="#type-scale" variant="textLink2">
+        Text Link 2
+      </Typography>
+    </div>
+  ),
 };

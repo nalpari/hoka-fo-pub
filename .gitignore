@@ -18,3 +18,4 @@ Thumbs.db
 src/shared/features/*/*.png
 src/shared/features/*/*.svg
 src/shared/styles/panda.css
+.tmp-storybook-ia-routes
