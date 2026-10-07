@@ -126,6 +126,7 @@ const buttonContent = cva({
         _mobile: {
           h: 'auto!',
           minH: 'auto!',
+          py: '0!',
           px: '0!',
         },
       },
@@ -188,7 +189,7 @@ const buttonLabel = cva({
       ghost: {},
       brand: {},
       link: {
-        '--button-label-size': '16px',
+        // '--button-label-size': '16px',
         '--button-label-weight': '500',
         textDecoration: 'underline',
         textDecorationThickness: '1px',
@@ -210,7 +211,7 @@ const buttonLabel = cva({
     },
     size: {
       sm: { '--button-label-size': '12px' },
-      md: {},
+      md: { '--button-label-size': '14px' },
       lg: { '--button-label-size': '16px' },
     },
   },
@@ -338,7 +339,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 ) {
   const resolvedVariant = tone ?? variant;
   const isFullWidth = fullWidth || resolvedVariant === 'bottomSheetPrimary';
-  const label = <span className={buttonLabel({ size, variant: resolvedVariant })}>{children}</span>;
+  const label = <span className={buttonLabel({ variant: resolvedVariant, size })}>{children}</span>;
 
   return (
     <BaseButton
@@ -369,7 +370,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         <span
           className={buttonContent({
             fullWidth: isFullWidth,
-            size,
+            size: resolvedVariant === 'link' ? 'md' : size,
             variant: resolvedVariant,
           })}
         >

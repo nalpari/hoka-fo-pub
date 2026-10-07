@@ -44,6 +44,7 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
       onPasswordChange={setPassword}
       onRememberChange={setRememberId}
       onSubmit={handleLogin}
+      onFindAccount={() => navigate('/login/find-account')}
       onUnavailable={showUnavailable}
     />
   );
