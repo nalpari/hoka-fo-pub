@@ -2,12 +2,8 @@ import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-
-config.autoAddCss = false;
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faCheck } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({ pt: '24', px: '4', pb: '8' }),
@@ -41,7 +37,7 @@ export function RegistrationCompleteContent() {
           회원가입 완료
         </Typography>
         <Box className={styles.icon} aria-hidden="true">
-          <FontAwesomeIcon icon={faCheck} />
+          <Icon fontAwesomeIcon={faCheck} />
         </Box>
         <Stack className={styles.message}>
           <Typography as="p" variant="authBody">

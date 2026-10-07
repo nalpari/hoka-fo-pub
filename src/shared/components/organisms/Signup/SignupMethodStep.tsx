@@ -1,13 +1,8 @@
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { faCakeCandles, faGift, faMedal } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
-
-config.autoAddCss = false;
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -120,7 +115,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
       <div className={styles.benefits} aria-label="회원가입 혜택">
         <div className={styles.benefit}>
-          <FontAwesomeIcon aria-hidden="true" icon={faGift} />
+          <Icon name="gift" size="18px" />
           <span>
             신규가입
             <br />
@@ -128,7 +123,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           </span>
         </div>
         <div className={styles.benefit}>
-          <FontAwesomeIcon aria-hidden="true" icon={faCakeCandles} />
+          <Icon name="partyHorn" size="18px" />
           <span>
             기념일
             <br />
@@ -136,7 +131,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           </span>
         </div>
         <div className={styles.benefit}>
-          <FontAwesomeIcon aria-hidden="true" icon={faMedal} />
+          <Icon name="medal" size="18px" />
           <span>
             회원 등급별
             <br />

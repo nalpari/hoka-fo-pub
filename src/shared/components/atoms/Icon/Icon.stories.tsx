@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack } from 'styled-system/jsx';
 import { Icon } from './Icon';
+import { faGift } from '@/shared/icons/fontAwesome';
 
 const meta = {
   title: 'Atoms/Icon',
@@ -28,6 +29,21 @@ export const CarouselArrows: Story = {
           } as CSSProperties
         }
       />
+    </HStack>
+  ),
+};
+
+export const FontAwesome: Story = {
+  args: { fontAwesomeIcon: faGift, size: '24px' },
+};
+
+export const RegisteredSvg: Story = {
+  args: { name: 'partyHorn', size: '18px' },
+  render: () => (
+    <HStack gap="4">
+      <Icon name="gift" size="18px" />
+      <Icon name="partyHorn" size="18px" />
+      <Icon name="medal" size="18px" />
     </HStack>
   ),
 };

@@ -1,14 +1,10 @@
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { faIdCard, faMobileScreenButton, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-
-config.autoAddCss = false;
+import { faIdCard, faMobileScreenButton, faShieldHalved } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({
@@ -84,9 +80,9 @@ export function IdentityVerificationContent({
           ).map((method) => (
             <Stack key={method.id} className={styles.method}>
               <Box className={styles.illustration} aria-hidden="true">
-                <FontAwesomeIcon icon={method.icon} />
+                <Icon fontAwesomeIcon={method.icon} />
                 <span className={styles.shield}>
-                  <FontAwesomeIcon icon={faShieldHalved} />
+                  <Icon fontAwesomeIcon={faShieldHalved} />
                 </span>
               </Box>
               <Button
