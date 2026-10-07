@@ -5,25 +5,80 @@ import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { faXmark } from '@/shared/icons/fontAwesome';
 
 const viewport = cva({
-  base: { position: 'fixed', inset: '0', zIndex: '100', display: 'grid', p: '6' },
+  base: {
+    position: 'fixed',
+    inset: '0',
+    zIndex: '100',
+    display: 'grid',
+    placeItems: 'center',
+    p: '6',
+  },
   variants: {
-    placement: {
-      center: { placeItems: 'center', _mobile: { p: '0' } },
-      centerToBottom: { placeItems: 'center', _mobile: { alignItems: 'end', p: '0' } },
+    mobilePresentation: {
+      popup: { _mobile: { p: '4' } },
+      fullscreen: { _mobile: { p: '0' } },
+      bottomSheet: { _mobile: { alignItems: 'end', p: '0' } },
     },
   },
+  defaultVariants: { mobilePresentation: 'popup' },
 });
 
-const backdrop = css({ position: 'fixed', inset: '0', zIndex: '100', bg: 'rgb(17 24 39 / 56%)' });
+const backdrop = cva({
+  base: {
+    position: 'fixed',
+    inset: '0',
+    zIndex: '99',
+    backdropFilter: 'blur(48px)',
+  },
+  variants: {
+    overlayTone: {
+      dark: { bg: 'rgb(0 0 0 / 50%)' },
+      light: { bg: 'rgb(255 255 255 / 50%)' },
+    },
+  },
+  defaultVariants: { overlayTone: 'dark' },
+});
 
-const popup = css({
-  w: 'min(640px, 100%)',
-  overflow: 'hidden',
-  borderRadius: '8px',
-  bg: '#fff',
-  boxShadow: '0 18px 42px rgb(0 0 0 / 25%)',
+const popup = cva({
+  base: {
+    w: '100%',
+    maxH: 'calc(100dvh - 48px)',
+    overflowY: 'auto',
+    borderRadius: '0',
+    bg: '#fff',
+    boxShadow: '0 4px 4px rgb(0 0 0 / 25%)',
+    _mobile: { maxH: 'calc(100dvh - 32px)' },
+  },
+  variants: {
+    size: {
+      sm: { maxW: '420px' },
+      md: { maxW: '720px' },
+      lg: { maxW: 'min(1080px, 75vw)' },
+    },
+    mobilePresentation: {
+      popup: { _mobile: { maxW: 'none' } },
+      fullscreen: {
+        _mobile: {
+          w: '100vw',
+          h: '100dvh',
+          maxH: '100dvh',
+          borderRadius: '0',
+        },
+      },
+      bottomSheet: {
+        _mobile: {
+          maxH: 'calc(100dvh - 16px)',
+          borderRadius: '0',
+        },
+      },
+    },
+  },
+  defaultVariants: { size: 'md', mobilePresentation: 'popup' },
 });
 
 const header = css({
@@ -31,31 +86,48 @@ const header = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   minH: '14',
-  px: '18px',
-  borderBottom: '1px solid #edf0f2',
+  px: '6',
+  bg: 'var(--color-surface-subtle)',
+  _mobile: {
+    px: '4',
+  },
 });
 
-const titleStyle = css({ m: '0', fontSize: '16px' });
+const titleStyle = css({ m: '0', fontWeight: '600' });
 
-const closeButton = css({ p: '1', border: '0', color: '#8b95a5', fontSize: '24px' });
+const closeButton = css({
+  w: '8',
+  h: '8',
+  p: '0',
+  color: '#555',
+  '& svg': { w: '4', h: '4' },
+});
+
+export type ModalSize = 'sm' | 'md' | 'lg';
+export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
+export type ModalOverlayTone = 'dark' | 'light';
 
 export type ModalDialogProps = {
   children: ReactNode;
   closeLabel: string;
   onOpenChange: (open: boolean) => void;
   open: boolean;
-  placement?: 'center' | 'centerToBottom';
+  size?: ModalSize;
+  mobilePresentation?: ModalMobilePresentation;
+  overlayTone?: ModalOverlayTone;
   popupClassName?: string;
   title: string;
 };
 
-/** Controlled, focus-managed dialog with the project's standard overlay and header. */
+/** Controlled, focus-managed modal following HDS overlay, sizing, and mobile presentation rules. */
 export function ModalDialog({
   children,
   closeLabel,
   onOpenChange,
   open,
-  placement = 'center',
+  size = 'md',
+  mobilePresentation = 'popup',
+  overlayTone = 'dark',
   popupClassName,
   title,
 }: ModalDialogProps) {
@@ -65,13 +137,30 @@ export function ModalDialog({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <div className={`platform-${platform}`}>
-          <Dialog.Backdrop className={backdrop} />
-          <Dialog.Viewport className={viewport({ placement })}>
-            <Dialog.Popup className={[popup, popupClassName].filter(Boolean).join(' ')}>
+          <Dialog.Backdrop className={backdrop({ overlayTone })} />
+          <Dialog.Viewport className={viewport({ mobilePresentation })}>
+            <Dialog.Popup
+              className={[popup({ size, mobilePresentation }), popupClassName]
+                .filter(Boolean)
+                .join(' ')}
+            >
               <header className={header}>
-                <Dialog.Title className={titleStyle}>{title}</Dialog.Title>
-                <Dialog.Close render={<Button aria-label={closeLabel} className={closeButton} />}>
-                  ×
+                <Dialog.Title className={titleStyle}>
+                  <Typography as="span" variant="body">
+                    {title}
+                  </Typography>
+                </Dialog.Title>
+                <Dialog.Close
+                  render={
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      aria-label={closeLabel}
+                      className={closeButton}
+                    />
+                  }
+                >
+                  <Icon fontAwesomeIcon={faXmark} size="16px" />
                 </Dialog.Close>
               </header>
               {children}
