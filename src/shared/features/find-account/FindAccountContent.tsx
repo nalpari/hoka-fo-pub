@@ -19,13 +19,15 @@ const styles = {
   fields: css({ gap: '4' }),
   fieldGroup: css({ gap: '2' }),
   invalidField: css({
-    boxShadow: 'inset 0 0 0 2px #A60000',
+    '&&': {
+      boxShadow: 'inset 0 0 0 2px #A60000',
+    },
     '&&:focus-within': {
       boxShadow: 'inset 0 0 0 2px #A60000',
     },
   }),
   input: css({ minW: '0' }),
-  fieldError: css({ m: '0', color: '#A60000' }),
+  fieldError: css({ m: '0', '&&': { color: '#A60000' } }),
   countdown: css({ m: '0', mt: '2', color: '#A60000' }),
   codeHelp: css({ m: '0', mt: '2', color: '#777' }),
   button: css({
