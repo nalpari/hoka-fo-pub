@@ -21,6 +21,7 @@ const meta = {
     onPasswordChange: () => {},
     onRememberChange: () => {},
     onSubmit: (event) => event.preventDefault(),
+    onFindAccount: () => {},
     onUnavailable: () => {},
   },
 } satisfies Meta<typeof LoginContent>;

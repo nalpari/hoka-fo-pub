@@ -12,7 +12,7 @@ import { faComment, faEye, faEyeSlash } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
-  content: css({ maxW: '420px', mx: 'auto' }),
+  content: css({ maxW: '500px', mx: 'auto' }),
   title: css({ m: 0, mb: '10' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
   input: css({ minW: 0, flex: 1 }),
@@ -65,6 +65,7 @@ type LoginContentProps = {
   onPasswordChange: (value: string) => void;
   onRememberChange: (value: boolean) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onFindAccount: () => void;
   onUnavailable: (feature: string) => void;
 };
 
@@ -77,6 +78,7 @@ export function LoginContent({
   onPasswordChange,
   onRememberChange,
   onSubmit,
+  onFindAccount,
   onUnavailable,
 }: LoginContentProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -93,14 +95,14 @@ export function LoginContent({
           <FormField
             variant="boxed"
             htmlFor="login-id"
-            label={<Typography variant="authCaption">* 아이디</Typography>}
+            label={<Typography variant="authCaption">* 이메일 아이디</Typography>}
           >
             <TextInput
               className={styles.input}
               id="login-id"
               name="username"
               autoComplete="username"
-              placeholder="아이디를 입력해 주세요"
+              placeholder="이메일 주소를 @까지 정확히 입력해 주세요"
               value={id}
               onChange={(event) => onIdChange(event.target.value)}
             />
@@ -135,7 +137,7 @@ export function LoginContent({
           <HStack className={styles.options}>
             <Checkbox label="아이디 저장" checked={rememberId} onCheckedChange={onRememberChange} />
             <HStack className={styles.links}>
-              <Button variant="link" size="sm" onClick={() => onUnavailable('아이디 찾기')}>
+              <Button variant="link" size="sm" onClick={onFindAccount}>
                 아이디 찾기
               </Button>
               <Typography variant="authCaption" aria-hidden="true">
@@ -148,13 +150,14 @@ export function LoginContent({
           </HStack>
           {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
           <Stack className={styles.actions}>
-            <Button className={styles.button} fullWidth variant="primary" type="submit">
+            <Button className={styles.button} fullWidth variant="primary" size="lg" type="submit">
               로그인
             </Button>
             <Button
               className={[styles.button, styles.kakao].join(' ')}
               fullWidth
               variant="primary"
+              size="lg"
               icon={<Icon fontAwesomeIcon={faComment} />}
               onClick={() => onUnavailable('카카오 로그인')}
             >
@@ -164,6 +167,7 @@ export function LoginContent({
               className={[styles.button, styles.naver].join(' ')}
               fullWidth
               variant="primary"
+              size="lg"
               icon={<b aria-hidden="true">N</b>}
               onClick={() => onUnavailable('네이버 로그인')}
             >
@@ -178,7 +182,7 @@ export function LoginContent({
           <Typography as="p" variant="authSmall" className={css({ m: 0 })}>
             신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
           </Typography>
-          <ButtonLink to="/signup" fullWidth variant="primary" className={styles.signup}>
+          <ButtonLink to="/signup" fullWidth variant="primary" size="lg" className={styles.signup}>
             회원가입
           </ButtonLink>
         </Stack>

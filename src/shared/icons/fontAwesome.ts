@@ -10,6 +10,7 @@ export {
   faMedal,
   faMobileScreenButton,
   faShieldHalved,
+  faXmark,
   faStar as faStarSolid,
 } from '@fortawesome/free-solid-svg-icons';
 
