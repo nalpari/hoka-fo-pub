@@ -1,6 +1,82 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { cva } from 'styled-system/css';
 
+const englishHeadingSizes = [96, 80, 64, 56, 48, 40, 32, 24] as const;
+const koreanHeadingSizes = [84, 72, 58, 50, 42, 36, 28, 22] as const;
+const bodySizes = [24, 20, 16, 14, 12] as const;
+
+const figmaTypographyVariants = {
+  ...Object.fromEntries(
+    englishHeadingSizes.map((fontSize, index) => [
+      `heading${index + 1}`,
+      { fontSize: `${fontSize}px`, fontWeight: '900', lineHeight: '0.96' },
+    ]),
+  ),
+  ...Object.fromEntries(
+    koreanHeadingSizes.map((fontSize, index) => [
+      `headingKr${index + 1}`,
+      {
+        fontFamily: 'var(--font-family-korean)',
+        fontSize: `${fontSize}px`,
+        fontWeight: '900',
+        lineHeight: '1.2',
+        letterSpacing: '-0.02em',
+      },
+    ]),
+  ),
+  ...Object.fromEntries(
+    bodySizes.map((fontSize, index) => [
+      `body${index + 1}`,
+      { fontSize: `${fontSize}px`, fontWeight: '400', lineHeight: '1.3' },
+    ]),
+  ),
+  ...Object.fromEntries(
+    bodySizes.map((fontSize, index) => [
+      `bodyKr${index + 1}`,
+      {
+        fontFamily: 'var(--font-family-korean)',
+        fontSize: `${fontSize}px`,
+        fontWeight: '400',
+        lineHeight: '1.3',
+        letterSpacing: '-0.02em',
+      },
+    ]),
+  ),
+  ...Object.fromEntries(
+    bodySizes.map((fontSize, index) => [
+      `mono${index + 1}`,
+      {
+        fontFamily: 'var(--font-family-mono)',
+        fontSize: `${fontSize}px`,
+        fontWeight: '400',
+        lineHeight: '1.3',
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+      },
+    ]),
+  ),
+  cta1: { fontSize: '16px', fontWeight: '500', lineHeight: '1.3' },
+  cta2: { fontSize: '14px', fontWeight: '500', lineHeight: '1.3' },
+  textLink1: {
+    fontSize: '16px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+    textDecoration: 'underline',
+  },
+  textLink2: {
+    fontSize: '14px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+    textDecoration: 'underline',
+  },
+  textLink3: {
+    fontSize: '12px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+    textDecoration: 'underline',
+  },
+};
+
 const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
@@ -143,6 +219,7 @@ const typography = cva({
         lineHeight: 'var(--type-bottom-sheet-title-line-height)',
         letterSpacing: 'var(--type-bottom-sheet-title-letter-spacing)',
       },
+      ...figmaTypographyVariants,
     },
     tone: {
       primary: { color: 'var(--color-text-primary)' },
@@ -174,7 +251,17 @@ export type TypographyVariant =
   | 'priceEmphasis'
   | 'filterLegend'
   | 'bottomSheetTitle'
-  | 'action';
+  | 'action'
+  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`
+  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`
+  | `body${1 | 2 | 3 | 4 | 5}`
+  | `bodyKr${1 | 2 | 3 | 4 | 5}`
+  | `mono${1 | 2 | 3 | 4 | 5}`
+  | 'cta1'
+  | 'cta2'
+  | 'textLink1'
+  | 'textLink2'
+  | 'textLink3';
 
 export type TypographyProps<T extends ElementType = 'span'> = Omit<
   ComponentPropsWithoutRef<T>,
@@ -200,7 +287,9 @@ export function Typography<T extends ElementType = 'span'>({
   return (
     <Element
       {...props}
-      className={[typography({ tone, variant }), className].filter(Boolean).join(' ')}
+      className={[typography({ tone, variant: variant as never }), className]
+        .filter(Boolean)
+        .join(' ')}
     >
       {children}
     </Element>

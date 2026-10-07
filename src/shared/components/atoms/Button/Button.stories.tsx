@@ -21,7 +21,7 @@ export const Secondary: Story = {};
 export const SecondaryInverse: Story = { args: { variant: 'secondaryInverse' } };
 
 export const BottomSheetPrimary: Story = {
-  args: { children: '적용하기', variant: 'bottomSheetPrimary' },
+  args: { children: '적용하기', height: 'tall', variant: 'bottomSheetPrimary' },
 };
 
 export const Disabled: Story = { args: { disabled: true } };
@@ -45,6 +45,19 @@ export const HeaderSearch: Story = {
     icon: <Icon src="/images/header/search.svg" size="16px" />,
     variant: 'headerSearch',
   },
+};
+
+export const TallPrimary: Story = {
+  args: {
+    children: 'Shop Women’s',
+    height: 'tall',
+    icon: <Icon name="filter" />,
+    variant: 'primary',
+  },
+};
+
+export const Loading: Story = {
+  args: { children: '처리 중', loading: true, variant: 'primary' },
 };
 export const SecondaryLink: Story = {
   render: () => (

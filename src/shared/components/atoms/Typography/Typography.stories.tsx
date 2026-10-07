@@ -289,3 +289,22 @@ export const AuthBody: Story = {
 export const AuthSmall: Story = {
   args: { as: 'p', variant: 'authSmall', children: 'HOKA Korea에 오신것을 환영합니다' },
 };
+
+export const FigmaTypeScale: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <Typography as="h1" variant="heading4">
+        The Future HOKA Heading 4
+      </Typography>
+      <Typography as="h2" variant="headingKr5">
+        프리텐다드 한글 헤딩 5
+      </Typography>
+      <Typography variant="body3">The Future HOKA Body 3</Typography>
+      <Typography variant="bodyKr3">프리텐다드 한글 본문 3</Typography>
+      <Typography variant="mono4">Mono label</Typography>
+      <Typography as="a" href="#type-scale" variant="textLink2">
+        Text Link 2
+      </Typography>
+    </div>
+  ),
+};
