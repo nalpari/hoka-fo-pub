@@ -4,7 +4,6 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { faIdCard, faMobileScreenButton, faShieldHalved } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({
@@ -31,17 +30,9 @@ const styles = {
     justifyContent: 'center',
     position: 'relative',
     color: 'text.primary',
-    '& > svg': { w: '48px!', h: '64px!' },
+    '& > img': { w: '80px!', h: '80px!' },
   }),
-  shield: css({
-    position: 'absolute',
-    left: 'calc(50% - 33px)',
-    top: '86px',
-    bg: 'white',
-    p: '1',
-    display: 'flex',
-    '& svg': { w: '24px!', h: '24px!', color: '#009bda' },
-  }),
+
   button: css({
     '--button-radius': '999px',
     '--button-height': '48px!',
@@ -74,16 +65,13 @@ export function IdentityVerificationContent({
         <Grid className={styles.methods}>
           {(
             [
-              { id: 'phone', label: '휴대폰 인증', icon: faMobileScreenButton },
-              { id: 'ipin', label: '아이핀 인증', icon: faIdCard },
+              { id: 'phone', label: '휴대폰 인증', iconName: 'phoneVerification' },
+              { id: 'ipin', label: '아이핀 인증', iconName: 'ipinVerification' },
             ] as const
           ).map((method) => (
             <Stack key={method.id} className={styles.method}>
               <Box className={styles.illustration} aria-hidden="true">
-                <Icon fontAwesomeIcon={method.icon} />
-                <span className={styles.shield}>
-                  <Icon fontAwesomeIcon={faShieldHalved} />
-                </span>
+                <Icon name={method.iconName} size="80px" />
               </Box>
               <Button
                 variant="primary"
