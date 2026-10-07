@@ -1,19 +1,36 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ShopShell } from '@/shared/ShopApp';
+import { getProductListingRoute } from '@/shared/features/catalog/productListingIaRoute';
+
+type ProductListingStoryArgs = {
+  listing?: string;
+  platform?: 'web' | 'mobile';
+};
 
 const meta = {
   title: 'PAGES/PRODUCTS/List',
   component: ShopShell,
   decorators: [
     (Story, context) => (
-      <MemoryRouter initialEntries={[context.parameters.route ?? '/products']}>
+      <MemoryRouter
+        initialEntries={[
+          getProductListingRoute(context.args.listing) ?? context.parameters.route ?? '/products',
+        ]}
+      >
         <Story />
       </MemoryRouter>
     ),
   ],
+  argTypes: {
+    listing: {
+      control: false,
+      description: 'IA 구조도에서 전달하는 상품 목록 필터 키',
+    },
+  },
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof ShopShell>;
+  render: ({ platform }) => <ShopShell platform={platform} />,
+} satisfies Meta<ProductListingStoryArgs>;
 
 export default meta;
 

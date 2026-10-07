@@ -83,6 +83,20 @@ const typography = cva({
         lineHeight: 'var(--type-product-audience-line-height)',
         letterSpacing: 'var(--type-product-audience-letter-spacing)',
       },
+      productSelectorLabel: {
+        fontSize: 'var(--type-product-selector-label-font-size)',
+        fontWeight: 'var(--type-product-selector-label-font-weight)',
+        lineHeight: 'var(--type-product-selector-label-line-height)',
+        letterSpacing: 'var(--type-product-selector-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-product-selector-label-mobile-font-size)' },
+      },
+      productSelectorAction: {
+        fontSize: 'var(--type-product-selector-action-font-size)',
+        fontWeight: 'var(--type-product-selector-action-font-weight)',
+        lineHeight: 'var(--type-product-selector-action-line-height)',
+        letterSpacing: 'var(--type-product-selector-action-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-product-selector-action-mobile-font-size)' },
+      },
       productTitle: {
         fontSize: 'var(--type-product-title-font-size)',
         fontWeight: 'var(--type-product-title-font-weight)',
@@ -151,6 +165,8 @@ export type TypographyVariant =
   | 'body'
   | 'formLabel'
   | 'productAudience'
+  | 'productSelectorLabel'
+  | 'productSelectorAction'
   | 'productTitle'
   | 'productPrice'
   | 'meta'

@@ -13,6 +13,7 @@ const meta = {
     ),
   ],
   parameters: { layout: 'fullscreen' },
+  globals: { viewport: 'responsive' },
 } satisfies Meta<typeof DesignGuidePage>;
 
 export default meta;

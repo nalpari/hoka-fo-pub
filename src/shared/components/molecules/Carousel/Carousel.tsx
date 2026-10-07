@@ -28,6 +28,7 @@ type CarouselState = {
   goPrevious: () => void;
   goToSlide: (index: number) => void;
   activeIndex: number;
+  initialIndex: number;
   itemCount: number;
   registerSwiper: (swiper: SwiperInstance) => void;
   updateState: (swiper: SwiperInstance) => void;
@@ -121,15 +122,16 @@ const mobileSlideGutter = css({ px: 'var(--carousel-item-gutter)' });
 
 export type CarouselProps = {
   children: ReactNode;
+  initialIndex?: number;
   itemCount: number;
 };
 
 /** Swiper-backed carousel with free dragging and an optional draggable scrollbar. */
-export function Carousel({ children, itemCount }: CarouselProps) {
+export function Carousel({ children, initialIndex = 0, itemCount }: CarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
-  const [canGoPrevious, setCanGoPrevious] = useState(false);
-  const [canGoNext, setCanGoNext] = useState(itemCount > 1);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [canGoPrevious, setCanGoPrevious] = useState(initialIndex > 0);
+  const [canGoNext, setCanGoNext] = useState(initialIndex < itemCount - 1);
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
 
   const updateState = useCallback((swiper: SwiperInstance) => {
     setCanGoPrevious(!swiper.isBeginning);
@@ -159,6 +161,7 @@ export function Carousel({ children, itemCount }: CarouselProps) {
       goPrevious,
       goToSlide,
       activeIndex,
+      initialIndex,
       itemCount,
       registerSwiper,
       updateState,
@@ -170,6 +173,7 @@ export function Carousel({ children, itemCount }: CarouselProps) {
       goNext,
       goPrevious,
       goToSlide,
+      initialIndex,
       itemCount,
       registerSwiper,
       updateState,
@@ -192,6 +196,8 @@ export type CarouselViewportProps = {
   desktopCenteredItemCount?: number;
   /** Horizontal desktop slide gutter, in pixels; the first slide remains flush to the rail start. */
   desktopItemGutter?: number;
+  /** Enables free dragging. Disable for a snap-to-slide viewer. */
+  freeMode?: boolean;
   /** Horizontal padding applied to every mobile slide, in pixels. */
   mobileItemGutter?: number;
   mode?: 'web' | 'mobile';
@@ -204,12 +210,13 @@ export function CarouselViewport({
   className,
   desktopCenteredItemCount,
   desktopItemGutter,
+  freeMode = true,
   mobileItemGutter,
   mode = 'web',
   slideClassName,
   showScrollbar = true,
 }: CarouselViewportProps) {
-  const { itemCount, registerSwiper, updateState } = useCarousel();
+  const { initialIndex, itemCount, registerSwiper, updateState } = useCarousel();
   const swiperRef = useRef<SwiperInstance | null>(null);
   const scrollbarRef = useRef<HTMLElement | null>(null);
   const [scrollbarContentWidth, setScrollbarContentWidth] = useState(0);
@@ -270,9 +277,10 @@ export function CarouselViewport({
       ]
         .filter(Boolean)
         .join(' ')}
-      freeMode={{ enabled: true, sticky: isMobile }}
+      freeMode={freeMode ? { enabled: true, sticky: isMobile } : false}
       followFinger
       modules={[FreeMode]}
+      initialSlide={initialIndex}
       onAfterInit={handleAfterInit}
       onReachBeginning={updateState}
       onReachEnd={updateState}
@@ -365,7 +373,7 @@ export function CarouselPagination({
 
   return (
     <div aria-label={label} className={className ?? pagination} role="group">
-      {Array.from({ length: itemCount }, (_, index) => (
+      {Array.from({ length: itemCount }, (_, index) =>
         renderItem ? (
           <Fragment key={index}>{renderItem(index, activeIndex === index, goToSlide)}</Fragment>
         ) : (
@@ -377,8 +385,8 @@ export function CarouselPagination({
             onClick={() => goToSlide(index)}
             type="button"
           />
-        )
-      ))}
+        ),
+      )}
     </div>
   );
 }

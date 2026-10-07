@@ -59,6 +59,20 @@ const typographyStorySpecs = {
     fontWeight: '400',
     lineHeight: '1.3',
   },
+  productSelectorLabel: {
+    name: 'ProductSelectorLabel',
+    desktopFontSize: '13px',
+    mobileFontSize: '13px',
+    fontWeight: '700',
+    lineHeight: '1.3',
+  },
+  productSelectorAction: {
+    name: 'ProductSelectorAction',
+    desktopFontSize: '12px',
+    mobileFontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '1.3',
+  },
   productTitle: {
     name: 'ProductTitle',
     desktopFontSize: '34px',
@@ -198,6 +212,22 @@ export const ProductAudience: Story = {
     as: 'span',
     children: typographyLabel(typographyStorySpecs.productAudience),
     variant: 'productAudience',
+  },
+};
+
+export const ProductSelectorLabel: Story = {
+  args: {
+    as: 'h2',
+    children: typographyLabel(typographyStorySpecs.productSelectorLabel),
+    variant: 'productSelectorLabel',
+  },
+};
+
+export const ProductSelectorAction: Story = {
+  args: {
+    as: 'button',
+    children: typographyLabel(typographyStorySpecs.productSelectorAction),
+    variant: 'productSelectorAction',
   },
 };
 
