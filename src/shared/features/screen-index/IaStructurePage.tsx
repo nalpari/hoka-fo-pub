@@ -28,9 +28,21 @@ type TreeRow = {
 const delayedIaNumbers = new Set([4, 26, 94, 143]);
 const deletedIaNumbers = new Set([12, 49, 118]);
 
-const previewStoryIds: Record<number, string> = {
-  1: 'pages-home-main--width1920',
-  3: 'pages-products-list--width1920',
+const previewStoryIds: Record<number, { pc: string; mobile: string }> = {
+  1: { pc: 'pages-home-main--width-1920', mobile: 'pages-home-main--width-375' },
+  3: { pc: 'pages-products-list--width-1920', mobile: 'pages-products-list--width-375' },
+  207: { pc: 'pages-auth-login--default', mobile: 'pages-auth-login--mobile' },
+  208: { pc: 'pages-auth-findaccount--default', mobile: 'pages-auth-findaccount--mobile' },
+  211: { pc: 'pages-auth-findaccount--default', mobile: 'pages-auth-findaccount--mobile' },
+  217: { pc: 'pages-auth-signup--default', mobile: 'pages-auth-signup--mobile' },
+  218: { pc: 'pages-auth-phoneverification--default', mobile: 'pages-auth-phoneverification--mobile' },
+  219: {
+    pc: 'pages-auth-identityverification--default',
+    mobile: 'pages-auth-identityverification--mobile',
+  },
+  220: { pc: 'pages-auth-signupterms--default', mobile: 'pages-auth-signupterms--mobile' },
+  221: { pc: 'pages-auth-registration--default', mobile: 'pages-auth-registration--mobile' },
+  222: { pc: 'pages-auth-registration--complete', mobile: 'pages-auth-registration--complete' },
 };
 
 const statusLabels: Record<DeliveryStatus, string> = {
@@ -736,6 +748,7 @@ function GroupRows({
           if (hiddenByParent) return null;
 
           const status = row.screen ? getStatus(row.screen) : undefined;
+          const storyLinks = row.screen ? previewStoryIds[row.screen.iaNumber] : undefined;
           const rowClass =
             status === 'delayed'
               ? styles.delayedRow
@@ -785,17 +798,17 @@ function GroupRows({
                 {row.screen ? <span className={styles.owner}>{ownerFor(row.screen)}</span> : '-'}
               </td>
               <td>
-                {row.screen && previewStoryIds[row.screen.iaNumber] ? (
+                {storyLinks ? (
                   <div className={styles.preview}>
                     <a
-                      href={'/?path=/story/' + previewStoryIds[row.screen.iaNumber]}
+                      href={'/?path=/story/' + storyLinks.pc}
                       target="_blank"
                       rel="noreferrer"
                     >
                       ▣ PC
                     </a>
                     <a
-                      href={'/?path=/story/' + previewStoryIds[row.screen.iaNumber]}
+                      href={'/?path=/story/' + storyLinks.mobile}
                       target="_blank"
                       rel="noreferrer"
                     >
