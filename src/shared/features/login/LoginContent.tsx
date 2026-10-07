@@ -7,12 +7,8 @@ import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { faComment, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-
-config.autoAddCss = false;
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faComment, faEye, faEyeSlash } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
@@ -132,7 +128,7 @@ export function LoginContent({
                 aria-pressed={showPassword}
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} aria-hidden="true" />
+                <Icon fontAwesomeIcon={showPassword ? faEye : faEyeSlash} />
               </Button>
             </HStack>
           </FormField>
@@ -159,7 +155,7 @@ export function LoginContent({
               className={[styles.button, styles.kakao].join(' ')}
               fullWidth
               variant="primary"
-              icon={<FontAwesomeIcon icon={faComment} aria-hidden="true" />}
+              icon={<Icon fontAwesomeIcon={faComment} />}
               onClick={() => onUnavailable('카카오 로그인')}
             >
               카카오 로그인

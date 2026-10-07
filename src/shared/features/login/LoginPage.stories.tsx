@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { LoginContent } from './LoginContent';
 
 const meta = {
-  title: 'Pages/Auth/Login',
+  title: 'Pages/AUTH/Login',
   component: LoginContent,
   decorators: [
     (Story) => (

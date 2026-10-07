@@ -3,15 +3,15 @@ import { css } from 'styled-system/css';
 import { Field as BaseField } from '@base-ui/react/field';
 
 const boxedField = css({
-  border: '1px solid #b3b3b3',
+  border: '1px solid transparent',
+  boxShadow: 'inset 0 0 0 1px #b3b3b3',
   minH: '61px',
   minW: '0',
   px: '3',
   py: '2',
   '& > label': { display: 'flex', h: '16px', mb: '8px' },
   _focusWithin: {
-    borderColor: 'text.primary',
-    boxShadow: 'inset 0 0 0 1px var(--color-text-primary)',
+    boxShadow: 'inset 0 0 0 2px var(--color-text-primary)',
   },
   '& input, & select': {
     '--field-border-width': '0px!',

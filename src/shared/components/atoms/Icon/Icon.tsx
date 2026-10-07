@@ -1,5 +1,11 @@
 import type { CSSProperties, ImgHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
+import { config, type IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { iconAssets, type IconAssetName } from '@/shared/icons/iconAssets';
+
+config.autoAddCss = false;
 
 const iconClass = css({
   display: 'block',
@@ -24,14 +30,22 @@ type IconSourceProps =
       /** Icon asset name. Ignored when `src` is supplied. */
       name: string;
       src?: string;
+      fontAwesomeIcon?: never;
     }
   | {
       name?: never;
       src: string;
+      fontAwesomeIcon?: never;
     };
 
+type FontAwesomeSourceProps = {
+  fontAwesomeIcon: IconDefinition;
+  name?: never;
+  src?: never;
+};
+
 export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'> &
-  IconSourceProps & {
+  (IconSourceProps | FontAwesomeSourceProps) & {
     size?: string | number;
     color?: 'white' | 'currentColor' | 'black' | string;
     /** Direction for the reusable carousel arrow. */
@@ -88,6 +102,7 @@ const resolveIconColor = (color: IconProps['color']) => {
 
 export function Icon({
   name,
+  fontAwesomeIcon,
   size = '16px',
   color = 'currentColor',
   className,
@@ -96,6 +111,19 @@ export function Icon({
   direction,
   ...props
 }: IconProps) {
+  if (fontAwesomeIcon) {
+    return (
+      <FontAwesomeIcon
+        aria-hidden={alt ? undefined : true}
+        aria-label={alt || undefined}
+        className={[iconClass, className].filter(Boolean).join(' ')}
+        icon={fontAwesomeIcon}
+        role={role}
+        style={{ width: size, height: size, color: resolveIconColor(color), ...props.style }}
+      />
+    );
+  }
+
   if (name === 'carousel-arrow') {
     return (
       <CarouselArrow className={className} direction={direction} size={size} style={props.style} />
@@ -103,6 +131,27 @@ export function Icon({
   }
 
   if (name && !props.src) {
+    const registeredIconSrc = iconAssets[name as IconAssetName];
+
+    if (registeredIconSrc) {
+      return (
+        <img
+          {...props}
+          alt={alt}
+          aria-hidden={alt ? undefined : true}
+          className={[iconClass, className].filter(Boolean).join(' ')}
+          role={role}
+          src={registeredIconSrc}
+          style={{
+            width: size,
+            height: size,
+            filter: resolveIconFilter(color),
+            ...props.style,
+          }}
+        />
+      );
+    }
+
     return (
       <span
         aria-hidden={alt ? undefined : true}

@@ -6,19 +6,27 @@ import { FindAccountPage } from './FindAccountPage';
 
 const withPlatform = (platform: 'web' | 'mobile', width?: number) =>
   (Story: React.ComponentType) => (
-    <MemoryRouter>
-      <PlatformProvider platform={platform}>
-        <div className={`platform-${platform}`} style={width ? { width } : undefined}>
-          <Story />
-        </div>
-      </PlatformProvider>
-    </MemoryRouter>
+    <PlatformProvider platform={platform}>
+      <div className={`platform-${platform}`} style={width ? { width } : undefined}>
+        <Story />
+      </div>
+    </PlatformProvider>
   );
 
 const meta = {
-  title: 'Pages/Auth/FindAccount',
+  title: 'Pages/AUTH/FindAccount',
   component: FindAccountPage,
-  decorators: [withPlatform('web')],
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <PlatformProvider platform="web">
+          <div className="platform-web">
+            <Story />
+          </div>
+        </PlatformProvider>
+      </MemoryRouter>
+    ),
+  ],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof FindAccountPage>;
 
@@ -36,6 +44,15 @@ export const Mobile: Story = {
 export const Error: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: '인증번호 요청' }));
+  },
+};
+
+export const CodeEntry: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText('* 이름'), '홍길동');
+    await userEvent.type(canvas.getByLabelText('* 휴대폰번호'), '01012345678');
     await userEvent.click(canvas.getByRole('button', { name: '인증번호 요청' }));
   },
 };
