@@ -19,14 +19,15 @@ const styles = {
   fields: css({ gap: '4' }),
   fieldGroup: css({ gap: '2' }),
   invalidField: css({
-    border: '2px solid #A60000',
-    '&:focus-within': {
-      borderColor: '#A60000',
-      boxShadow: 'none',
+    boxShadow: 'inset 0 0 0 2px #A60000',
+    '&&:focus-within': {
+      boxShadow: 'inset 0 0 0 2px #A60000',
     },
   }),
   input: css({ minW: '0' }),
   fieldError: css({ m: '0', color: '#A60000' }),
+  countdown: css({ m: '0', mt: '2', color: '#A60000' }),
+  codeHelp: css({ m: '0', mt: '2', color: '#777' }),
   button: css({
     mt: '6',
     '--button-radius': '999px',
@@ -41,22 +42,32 @@ export type FindAccountNotice = { tone: 'error' | 'info'; message: string };
 type FindAccountContentProps = {
   name: string;
   phone: string;
+  code: string;
+  requested: boolean;
+  secondsLeft: number;
   nameError: string;
   phoneError: string;
   notice: FindAccountNotice | null;
   onNameChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
+  onCodeChange: (value: string) => void;
+  onConfirmCode: () => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export function FindAccountContent({
   name,
   phone,
+  code,
+  requested,
+  secondsLeft,
   nameError,
   phoneError,
   notice,
   onNameChange,
   onPhoneChange,
+  onCodeChange,
+  onConfirmCode,
   onSubmit,
 }: FindAccountContentProps) {
   return (
@@ -140,9 +151,57 @@ export function FindAccountContent({
               ) : null}
             </Stack>
           </Stack>
-          <Button type="submit" variant="primary" fullWidth className={styles.button}>
-            인증번호 요청
+          <Button
+            type="submit"
+            variant="primary"
+            fullWidth
+            className={styles.button}
+            disabled={requested && secondsLeft > 0}
+          >
+            {requested ? '인증번호 재요청' : '인증번호 요청'}
           </Button>
+          {requested ? (
+            <>
+              <FormField
+                variant="boxed"
+                className={css({ mt: '6' })}
+                htmlFor="find-account-code"
+                label={<Typography variant="authCaption">* 인증번호</Typography>}
+              >
+                <TextInput
+                  id="find-account-code"
+                  name="code"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  placeholder="인증번호 6자리를 입력해 주세요"
+                  value={code}
+                  onChange={(event) => onCodeChange(event.target.value)}
+                />
+              </FormField>
+              <Typography as="p" variant="authCaption" className={styles.countdown}>
+                남은 시간{' '}
+                {Math.floor(secondsLeft / 60)
+                  .toString()
+                  .padStart(2, '0')}
+                :{(secondsLeft % 60).toString().padStart(2, '0')}초
+              </Typography>
+              <Typography as="p" variant="authCaption" className={styles.codeHelp}>
+                입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
+                <br />
+                인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
+              </Typography>
+              <Button
+                type="button"
+                variant="primary"
+                fullWidth
+                className={styles.button}
+                onClick={onConfirmCode}
+              >
+                인증번호 확인
+              </Button>
+            </>
+          ) : null}
           {notice ? (
             <StatusMessage className={styles.message} tone={notice.tone}>
               {notice.message}
