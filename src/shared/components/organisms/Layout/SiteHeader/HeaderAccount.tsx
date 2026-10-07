@@ -1,4 +1,6 @@
 import { HeaderIconLink } from '@/shared/components/organisms/Layout/SiteHeader/HeaderIconLink';
+import { NotificationIcon } from '@/shared/components/atoms/NotificationIcon/NotificationIcon';
+import { usePlatform } from '@/shared/context/platform';
 import { css } from 'styled-system/css';
 
 const loginLink = css({ _mobile: { display: 'none' } });
@@ -9,13 +11,16 @@ export type HeaderAccountProps = {
 };
 
 export function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
+  const platform = usePlatform();
+  const iconSize = platform === 'mobile' ? '20px' : '22px';
+
   if (!isLoggedIn) {
     return (
       <HeaderIconLink
         to="/login"
         ariaLabel="로그인"
         className={loginLink}
-        icon={{ desktopSrc: '/images/header/user.svg', alt: '로그인' }}
+        iconSlot={<NotificationIcon variant="user" size={iconSize} />}
       />
     );
   }
@@ -25,12 +30,12 @@ export function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps)
       <HeaderIconLink
         to="/mypage"
         ariaLabel="마이페이지"
-        icon={{ desktopSrc: '/images/header/user.svg', alt: '마이페이지' }}
+        iconSlot={<NotificationIcon variant="user" size={iconSize} />}
       />
       <HeaderIconLink
         to="/mypage/wishlist"
         ariaLabel={`관심상품 ${wishlistCount}개`}
-        icon={{ desktopSrc: '/images/header/cart.svg', alt: '관심상품' }}
+        iconSlot={<NotificationIcon variant="bag" count={wishlistCount} size={iconSize} />}
       />
     </>
   );

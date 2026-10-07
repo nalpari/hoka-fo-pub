@@ -74,6 +74,14 @@ export default defineConfig({
           footerDivider: { value: '#F7F7F9' },
           sale: { value: '#E10F00' },
         },
+        shadows: {
+          1: { value: '0 4px 4px 0 rgba(0, 0, 0, 0.16)' },
+          2: { value: '0 4px 16px 0 rgba(0, 0, 0, 0.16)' },
+          3: {
+            value:
+              '0 12px 12px -8px rgba(0, 0, 0, 0.2), 0 24px 36px 4px rgba(0, 0, 0, 0.14), 0 8px 48px 8px rgba(0, 0, 0, 0.12)',
+          },
+        },
         fonts: {
           hoka: { value: "'The Future HOKA', Pretendard, Arial, sans-serif" },
           korean: { value: 'Pretendard, Arial, sans-serif' },
