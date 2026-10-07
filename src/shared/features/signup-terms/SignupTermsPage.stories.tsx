@@ -5,7 +5,7 @@ import { SignupTermsContent } from './SignupTermsContent';
 import { SignupTermsPage } from './SignupTermsPage';
 
 const meta = {
-  title: 'Pages/Auth/SignupTerms',
+  title: 'Pages/AUTH/SignupTerms',
   component: SignupTermsContent,
   decorators: [
     (Story) => (

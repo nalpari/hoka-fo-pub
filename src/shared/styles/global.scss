@@ -48,6 +48,10 @@ $font-faces: (
 @layer base {
   :root {
     --font-family-base: 'The Future HOKA', Pretendard, Arial, sans-serif;
+    --font-family-korean: Pretendard, Arial, sans-serif;
+    --font-family-mono: 'The Future HOKA Mono', monospace;
+    // Reserved until the licensed New Spirit webfont is supplied.
+    --font-family-story: 'New Spirit', 'The Future HOKA', sans-serif;
     font-family: var(--font-family-base);
     color: $ink;
     background: $white;
@@ -71,9 +75,22 @@ $font-faces: (
     );
     --layout-mobile-page-block-padding: var(--spacing-8);
 
-    --hoka-black: #000;
-    --hoka-white: #fff;
-    --hoka-brand: #009dff;
+    // Figma color foundation. Component tokens below must alias these values.
+    --color-black-100: #000000;
+    --color-black-60: #4d4d4d;
+    --color-black-50: #777777;
+    --color-black-40: #b3b3b3;
+    --color-black-20: #e9eaeb;
+    --color-black-10: #f7f7f9;
+    --color-white-000: #ffffff;
+    --color-blue-100: #009dff;
+    --color-citrus-100: #e1ff04;
+    --color-off-white-100: #e8edf3;
+    --color-red-100: #e10f00;
+
+    --hoka-black: var(--color-black-100);
+    --hoka-white: var(--color-white-000);
+    --hoka-brand: var(--color-blue-100);
 
     --color-action-primary-bg: var(--hoka-black);
     --color-action-primary-color: var(--hoka-white);
@@ -90,9 +107,9 @@ $font-faces: (
     --color-action-underline-color: var(--hoka-black);
     --color-field-bg: var(--hoka-white);
     --color-field-text: var(--hoka-black);
-    --color-field-border: #aaa;
+    --color-field-border: var(--color-black-40);
     --color-focus-ring: var(--hoka-black);
-    --color-danger-border: #f95050;
+    --color-danger-border: var(--color-red-100);
     --border-strong: var(--hoka-black);
     --radius-sm: 0;
     --field-height: 42px;
@@ -109,15 +126,29 @@ $font-faces: (
     // Semantic design tokens for shared Home and catalog UI.
     --color-text-primary: var(--hoka-black);
     --color-text-inverse: var(--hoka-white);
-    --color-text-subtle: #555;
-    --color-text-muted: #666;
+    --color-text-subtle: var(--color-black-60);
+    --color-text-muted: var(--color-black-50);
     --color-surface-default: var(--hoka-white);
-    --color-surface-subtle: #f3f3f3;
-    --color-surface-muted: #f5f5f5;
+    --color-surface-subtle: var(--color-black-10);
+    --color-surface-muted: var(--color-off-white-100);
     --color-border-default: var(--line);
-    --color-border-subtle: #ddd;
-    --color-border-strong: #111;
+    --color-border-subtle: var(--color-black-20);
+    --color-border-strong: var(--color-black-100);
     --color-focus-default: var(--hoka-black);
+
+    --button-primary-bg: var(--color-black-100);
+    --button-primary-bg-hover: var(--color-black-60);
+    --button-primary-fg: var(--color-white-000);
+    --button-secondary-bg: var(--color-white-000);
+    --button-secondary-bg-hover: var(--color-black-60);
+    --button-secondary-fg: var(--color-black-100);
+    --button-secondary-fg-hover: var(--color-white-000);
+    --button-focus-ring: var(--color-black-40);
+    --button-disabled-bg: var(--color-black-40);
+    --button-disabled-fg: var(--color-white-000);
+    --button-radius-pill: 52px;
+    --button-height-short: 40px;
+    --button-height-tall: 48px;
 
     --layout-content-max-width: 1384px;
 
@@ -174,6 +205,16 @@ $font-faces: (
     --type-product-audience-font-weight: 400;
     --type-product-audience-line-height: 1.3;
     --type-product-audience-letter-spacing: normal;
+    --type-product-selector-label-font-size: 13px;
+    --type-product-selector-label-mobile-font-size: 13px;
+    --type-product-selector-label-font-weight: 700;
+    --type-product-selector-label-line-height: 1.3;
+    --type-product-selector-label-letter-spacing: normal;
+    --type-product-selector-action-font-size: 12px;
+    --type-product-selector-action-mobile-font-size: 12px;
+    --type-product-selector-action-font-weight: 400;
+    --type-product-selector-action-line-height: 1.3;
+    --type-product-selector-action-letter-spacing: normal;
     --type-product-title-font-size: 34px;
     --type-product-title-mobile-font-size: 34px;
     --type-product-title-font-weight: 900;

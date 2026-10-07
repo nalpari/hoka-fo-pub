@@ -12,20 +12,22 @@ const iconButton = css({
   minH: 'var(--icon-button-size)',
   border: '0',
   bg: 'transparent',
-  color: 'currentColor',
+  color: 'var(--icon-button-color, currentColor)',
   '& svg': { color: 'currentColor' },
   '& svg [fill]:not([fill="none"])': { fill: 'currentColor!' },
   '& svg [stroke]:not([stroke="none"])': { stroke: 'currentColor!' },
   _focusVisible: {
-    outline: '2px solid #111',
+    outline: '4px solid var(--button-focus-ring)',
     outlineOffset: '2px',
   },
+  _hover: { bg: 'var(--icon-button-hover-bg, var(--color-black-10))' },
 });
 
 export type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'size'> & {
   color?: CSSProperties['color'];
   size?: string | number;
   shape?: 'square' | 'circle';
+  tone?: 'default' | 'inverse' | 'disabled';
 };
 
 export function IconButton({
@@ -34,6 +36,7 @@ export function IconButton({
   size,
   shape = 'square',
   color = 'currentColor',
+  tone = 'default',
   style,
   ...props
 }: IconButtonProps) {
@@ -56,7 +59,18 @@ export function IconButton({
     <BaseButton
       {...props}
       type={type}
-      style={{ '--icon-button-size': resolvedSize, color, ...style } as CSSProperties}
+      style={
+        {
+          '--icon-button-size': resolvedSize,
+          '--icon-button-color':
+            tone === 'inverse'
+              ? 'var(--color-white-000)'
+              : tone === 'disabled'
+                ? 'var(--color-black-40)'
+                : color,
+          ...style,
+        } as CSSProperties
+      }
       className={[iconButton, shapeClass, className].filter(Boolean).join(' ')}
     />
   );

@@ -1,15 +1,28 @@
 import type { BreadcrumbItem } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
 
-const genderBreadcrumbs: Record<string, { label: string; productLabel: string }> = {
-  men: { label: 'Men', productLabel: '남성 신발' },
-  women: { label: 'Women', productLabel: '여성 신발' },
-  kids: { label: 'Kids', productLabel: '키즈 신발' },
+const genderBreadcrumbs: Record<string, { label: string }> = {
+  men: { label: 'Men' },
+  women: { label: 'Women' },
+  kids: { label: 'Kids' },
 };
 
 const genderTitleLabels: Record<string, string> = {
   men: '남성',
   women: '여성',
   kids: '키즈',
+};
+
+const genderFeaturedTitleLabels: Record<string, string> = {
+  men: "Men's",
+  women: "Women's",
+  kids: "Kids'",
+};
+
+const featuredListingMetadata: Record<string, { breadcrumb: string; title: string }> = {
+  popular: { breadcrumb: 'Best Sellers', title: 'Running Best Sellers' },
+  new: { breadcrumb: 'New Arrivals', title: 'New Arrivals' },
+  'coming-soon': { breadcrumb: 'Coming Soon', title: 'Coming Soon' },
+  sale: { breadcrumb: 'Sale', title: 'Sale' },
 };
 
 const activityBreadcrumbLabels: Record<string, string> = {
@@ -21,6 +34,18 @@ const activityBreadcrumbLabels: Record<string, string> = {
 };
 
 const categoryBreadcrumbLabels: Record<string, string> = {
+  footwear: '신발',
+  apparel: '의류',
+  outerwear: '아우터',
+  tops: '탑&티셔츠',
+  'hoodies-sweatshirts': '후디&스웻셔츠',
+  shorts: '쇼츠',
+  tights: '타이즈',
+  accessories: '용품',
+  hats: '모자',
+  socks: '양말',
+  'vests-belts': '베스트&벨트',
+  'other-accessories': '기타 용품',
   'road running': '로드 러닝',
   'trail running': '트레일 러닝',
   'trail running & hiking': '트레일 러닝',
@@ -33,6 +58,22 @@ const categoryBreadcrumbLabels: Record<string, string> = {
   '스튜디오/피트니스': '스튜디오/피트니스',
 };
 
+const categoryGroupLabels: Record<string, string> = {
+  footwear: '신발',
+  sandals: '신발',
+  apparel: '의류',
+  outerwear: '의류',
+  tops: '의류',
+  'hoodies-sweatshirts': '의류',
+  shorts: '의류',
+  tights: '의류',
+  accessories: '용품',
+  hats: '용품',
+  socks: '용품',
+  'vests-belts': '용품',
+  'other-accessories': '용품',
+};
+
 const activityTitleLabels: Record<string, string> = {
   'road-running': '로드러닝 러닝화',
   'trail-running': '트레일 러닝화',
@@ -42,6 +83,18 @@ const activityTitleLabels: Record<string, string> = {
 };
 
 const categoryTitleLabels: Record<string, string> = {
+  footwear: '신발',
+  apparel: '의류',
+  outerwear: '아우터',
+  tops: '탑&티셔츠',
+  'hoodies-sweatshirts': '후디&스웻셔츠',
+  shorts: '쇼츠',
+  tights: '타이즈',
+  accessories: '용품',
+  hats: '모자',
+  socks: '양말',
+  'vests-belts': '베스트&벨트',
+  'other-accessories': '기타 용품',
   'road running': '로드러닝 러닝화',
   'trail running': '트레일 러닝화',
   'trail running & hiking': '트레일 러닝화',
@@ -58,15 +111,19 @@ type ListingRoute = {
   activity: string;
   category: string;
   gender: string;
+  sort: string;
 };
 
 const normalizedKey = (value: string) => value.trim().toLowerCase();
 
-export function getBreadcrumbItems({ gender, category, activity }: ListingRoute): BreadcrumbItem[] {
+export function getBreadcrumbItems({ gender, category, activity, sort }: ListingRoute): BreadcrumbItem[] {
   const normalizedGender = normalizedKey(gender);
+  const normalizedCategory = normalizedKey(category);
   const genderBreadcrumb = genderBreadcrumbs[normalizedGender];
+  const featuredListing = featuredListingMetadata[normalizedKey(sort)];
   const activityLabel = activityBreadcrumbLabels[normalizedKey(activity)];
-  const categoryLabel = categoryBreadcrumbLabels[normalizedKey(category)] ?? category;
+  const categoryLabel = categoryBreadcrumbLabels[normalizedCategory] ?? category;
+  const categoryGroupLabel = categoryGroupLabels[normalizedCategory] ?? '신발';
   const currentLabel = activityLabel ?? categoryLabel;
 
   if (!genderBreadcrumb) {
@@ -80,23 +137,43 @@ export function getBreadcrumbItems({ gender, category, activity }: ListingRoute)
   }
 
   const genderHref = `/products?gender=${normalizedGender}`;
+
+  if (featuredListing) {
+    return [
+      { label: genderBreadcrumb.label, href: genderHref },
+      { label: 'Featured' },
+      { label: featuredListing.breadcrumb },
+    ];
+  }
+
   const items: BreadcrumbItem[] = [
     { label: genderBreadcrumb.label, href: genderHref },
-    { label: genderBreadcrumb.productLabel },
+    { label: categoryGroupLabel },
   ];
 
-  return currentLabel ? [...items, { label: currentLabel }] : items;
+  return currentLabel && currentLabel !== categoryGroupLabel
+    ? [...items, { label: currentLabel }]
+    : items;
 }
 
-export function getProductListingTitle({ gender, category, activity }: ListingRoute) {
+export function getProductListingTitle({ gender, category, activity, sort }: ListingRoute) {
   const genderLabel = genderTitleLabels[normalizedKey(gender)];
+  const featuredListing = featuredListingMetadata[normalizedKey(sort)];
   const productLabel =
     activityTitleLabels[normalizedKey(activity)] ??
     categoryTitleLabels[normalizedKey(category)] ??
     '';
 
+  if (featuredListing) {
+    const featuredGenderLabel = genderFeaturedTitleLabels[normalizedKey(gender)];
+
+    return featuredGenderLabel
+      ? `${featuredGenderLabel} ${featuredListing.title}`
+      : featuredListing.title;
+  }
+
   if (genderLabel && productLabel) return `${genderLabel} ${productLabel}`;
-  if (genderLabel) return `${genderLabel} 신발`;
+  if (genderLabel) return `${genderLabel} ${categoryGroupLabels[normalizedKey(category)] ?? '신발'}`;
   if (productLabel) return productLabel;
 
   return '상품 목록';

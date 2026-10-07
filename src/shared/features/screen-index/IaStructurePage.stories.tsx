@@ -16,6 +16,7 @@ const meta = {
     layout: 'fullscreen',
     controls: { disable: true },
   },
+  globals: { viewport: 'responsive' },
 } satisfies Meta<typeof IaStructurePage>;
 
 export default meta;

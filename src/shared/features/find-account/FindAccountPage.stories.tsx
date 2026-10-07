@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile', width?: number) =>
   );
 
 const meta = {
-  title: 'Pages/Auth/FindAccount',
+  title: 'Pages/AUTH/FindAccount',
   component: FindAccountPage,
   decorators: [
     (Story) => (

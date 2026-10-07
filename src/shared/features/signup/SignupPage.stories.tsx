@@ -5,7 +5,7 @@ import { PlatformProvider } from '@/shared/context/platform';
 import { SignupPage } from './SignupPage';
 
 const meta = {
-  title: 'Pages/Auth/Signup',
+  title: 'Pages/AUTH/Signup',
   component: SignupPage,
   decorators: [
     (Story, context) => {
