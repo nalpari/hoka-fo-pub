@@ -66,6 +66,30 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
     pc: 'pages-home-main--width-1920',
     mo: 'pages-home-main--width-375',
   },
+  217: {
+    pc: 'pages-auth-signup--default',
+    mo: 'pages-auth-signup--mobile',
+  },
+  218: {
+    pc: 'pages-auth-phoneverification--default',
+    mo: 'pages-auth-phoneverification--mobile',
+  },
+  219: {
+    pc: 'pages-auth-identityverification--default',
+    mo: 'pages-auth-identityverification--mobile',
+  },
+  220: {
+    pc: 'pages-auth-signupterms--default',
+    mo: 'pages-auth-signupterms--mobile',
+  },
+  221: {
+    pc: 'pages-auth-registration--default',
+    mo: 'pages-auth-registration--mobile',
+  },
+  222: {
+    pc: 'pages-auth-registration--complete',
+    mo: 'pages-auth-registration--complete',
+  },
 };
 
 const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {

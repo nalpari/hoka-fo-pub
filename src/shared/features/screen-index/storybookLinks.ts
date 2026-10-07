@@ -1,4 +1,4 @@
-const storybookReadyIaNumbers = new Set([1]);
+const storybookReadyIaNumbers = new Set([1, 217, 218, 219, 220, 221, 222]);
 
 const storybookReadyScreenCodes = new Set(['eland_hca_01', 'eland_hut_01']);
 

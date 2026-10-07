@@ -212,7 +212,7 @@ export function PhoneVerificationContent(props: Props) {
                 {Math.floor(secondsLeft / 60)
                   .toString()
                   .padStart(2, '0')}
-                :{(secondsLeft % 60).toString().padStart(2, '0')}
+                :{(secondsLeft % 60).toString().padStart(2, '0')}초
               </Typography>
               <Typography as="p" variant="authCaption" className={styles.text}>
                 입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
