@@ -14,7 +14,7 @@ const row = css({
   gap: '3',
 });
 
-const values: RatingStarsValue[] = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+const values: RatingStarsValue[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
 const meta = {
   title: 'Atoms/RatingStars',
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const AllRatingAssets: Story = {
+export const AllRatings: Story = {
   render: () => (
     <div className={stack}>
       {values.map((value) => (

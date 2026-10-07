@@ -1,5 +1,7 @@
 import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faUser } from '@/shared/icons/fontAwesome';
 import { NotificationCount } from './NotificationCount';
 
 const notificationIcon = css({
@@ -29,10 +31,9 @@ const notificationGlyph = css({
 const notificationAssetByVariant = {
   bag: 'notification-bag.svg',
   basket: 'notification-basket.svg',
-  user: 'notification-user.svg',
 } as const;
 
-export type NotificationIconVariant = keyof typeof notificationAssetByVariant;
+export type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
 
 export type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
@@ -55,6 +56,7 @@ export function NotificationIcon({
   ...props
 }: NotificationIconProps) {
   const hasNotification = Number.isFinite(count) && (count ?? 0) > 0;
+  const asset = variant === 'user' ? undefined : notificationAssetByVariant[variant];
 
   return (
     <span
@@ -66,13 +68,19 @@ export function NotificationIcon({
       style={
         {
           '--notification-icon-size': size,
-          '--notification-icon-mask': `url(/images/icon/notification/${notificationAssetByVariant[variant]})`,
-          color: color ?? (hasNotification ? 'var(--colors-blue-100)' : undefined),
+          '--notification-icon-mask': asset
+            ? `url(/images/icon/notification/${asset})`
+            : undefined,
+          color: color ?? (hasNotification ? 'var(--color-blue-100)' : undefined),
           ...style,
         } as CSSProperties
       }
     >
-      <span aria-hidden="true" className={notificationGlyph} />
+      {variant === 'user' ? (
+        <Icon aria-hidden="true" fontAwesomeIcon={faUser} size={size} />
+      ) : (
+        <span aria-hidden="true" className={notificationGlyph} />
+      )}
       <NotificationCount count={count} max={maxCount} />
     </span>
   );

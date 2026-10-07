@@ -32,6 +32,6 @@ export const BrandNotification: Story = {
   args: {
     variant: 'bag',
     count: 1,
-    color: 'var(--colors-blue-100)',
+    color: 'var(--color-blue-100)',
   },
 };
