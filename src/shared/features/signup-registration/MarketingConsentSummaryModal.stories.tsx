@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
-import { AccountLockedPage } from './AccountLockedPage';
-
-const withRouter = (Story: React.ComponentType) => (
-  <MemoryRouter>
-    <Story />
-  </MemoryRouter>
-);
+import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -21,16 +14,21 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/AccountLockedModal',
-  component: AccountLockedPage,
-  decorators: [withRouter, withPlatform('web')],
-} satisfies Meta<typeof AccountLockedPage>;
+  title: 'Pages/AUTH/Registration/MarketingConsentSummaryModal',
+  component: MarketingConsentSummaryModal,
+  args: {
+    preferences: { email: 'no', coupon: 'no', sms: 'no', married: 'no' },
+    onOpenChange: () => {},
+    onConfirm: () => {},
+  },
+  parameters: { layout: 'fullscreen' },
+} satisfies Meta<typeof MarketingConsentSummaryModal>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = { decorators: [withPlatform('web')] };
 
 export const Mobile: Story = {
   decorators: [withPlatform('mobile')],

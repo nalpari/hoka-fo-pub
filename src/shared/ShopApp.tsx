@@ -1,14 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
 import { ProductListingPage } from '@/shared/features/catalog/ProductListingPage';
 import { CollectionDetailPage } from '@/shared/features/collection/CollectionDetailPage';
 import { CartPage } from '@/shared/features/cart/CartPage';
 import { HomePage } from '@/shared/features/home/HomePage';
 import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
+import { AccountUnlockCompletePage } from '@/shared/features/account-locked/AccountUnlockCompletePage';
 import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
+import { IdConfirmationModal } from '@/shared/features/find-account/IdConfirmationModal';
+import { PasswordResetPage } from '@/shared/features/find-account/PasswordResetPage';
 import { LoginPage } from '@/shared/features/login/LoginPage';
 import { IdentityVerificationPage } from '@/shared/features/identity-verification/IdentityVerificationPage';
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
@@ -47,6 +50,7 @@ import type { Platform } from '@/shared/lib/device';
 import { PlatformProvider } from '@/shared/context/platform';
 
 export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
+  const navigate = useNavigate();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     try {
@@ -151,6 +155,22 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
             ))}
             <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
             <Route path="/login/find-account" element={<FindAccountPage />} />
+            <Route
+              path="/login/account-locked/verification"
+              element={<PhoneVerificationPage mode="account-unlock" />}
+            />
+            <Route path="/login/account-locked/complete" element={<AccountUnlockCompletePage />} />
+            <Route path="/login/find-account/password-reset" element={<PasswordResetPage />} />
+            <Route
+              path="/login/find-account/id-confirmation-modal"
+              element={
+                <IdConfirmationModal
+                  onOpenChange={() => {}}
+                  onPasswordReset={() => navigate('/login/find-account/password-reset')}
+                  onConfirm={() => {}}
+                />
+              }
+            />
             <Route path="/login/account-locked" element={<AccountLockedPage />} />
             <Route path="/launch-calendar" element={<LaunchCalendarPage />} />
             <Route path="/locales" element={<LocalesPage />} />

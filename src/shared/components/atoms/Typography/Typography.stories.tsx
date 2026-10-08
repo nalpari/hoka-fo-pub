@@ -184,6 +184,7 @@ export const CardTitle: Story = {
   },
 };
 
+
 export const Body: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body' },
 };

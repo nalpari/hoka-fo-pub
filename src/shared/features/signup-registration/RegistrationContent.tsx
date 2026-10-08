@@ -11,7 +11,6 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
 export type RegistrationInformation = {
-  id: string;
   name: string;
   password: string;
   confirmation: string;
@@ -50,6 +49,12 @@ const styles = {
   radio: css({ display: 'flex!', gap: '6', flexShrink: '0' }),
   married: css({ mb: '4' }),
   modal: css({ p: '4' }),
+  disabledInput: css({
+    bg: 'var(--color-black-10)',
+    color: 'var(--color-black-60)',
+    cursor: 'not-allowed',
+    _disabled: { opacity: '1' },
+  }),
 };
 
 type Props = {
@@ -76,6 +81,7 @@ export function RegistrationContent(props: Props) {
     placeholder: string,
     type = 'text',
     fieldId = `registration-${key}`,
+    disabled = false,
   ) => (
     <FormField
       variant="boxed"
@@ -85,6 +91,8 @@ export function RegistrationContent(props: Props) {
       <TextInput
         id={fieldId}
         type={type}
+        disabled={disabled}
+        className={disabled ? styles.disabledInput : undefined}
         value={props.information[key]}
         placeholder={placeholder}
         autoComplete={
@@ -138,14 +146,38 @@ export function RegistrationContent(props: Props) {
         <form className={styles.form} onSubmit={props.onSubmit}>
           {props.stage === 'information' ? (
             <>
-              {field('id', '회원 아이디', '아이디를 입력해주세요')}
+              {field('email', '이메일 주소', '이메일 주소를 입력해주세요.')}
+              {field(
+                'domain',
+                '도메인',
+                '도메인을 입력해주세요',
+                'text',
+                'registration-domain',
+                props.domainChoice !== 'direct',
+              )}
+              <FormField
+                variant="boxed"
+                htmlFor="registration-domain-choice"
+                label={<Typography variant="authCaption">* 직접입력</Typography>}
+              >
+                <Select
+                  id="registration-domain-choice"
+                  value={props.domainChoice}
+                  onChange={(event) => props.onDomainChoice(event.target.value)}
+                >
+                  <option value="direct">직접입력</option>
+                  <option value="naver.com">naver.com</option>
+                  <option value="gmail.com">gmail.com</option>
+                  <option value="daum.net">daum.net</option>
+                </Select>
+              </FormField>
               <Button
                 variant="primary"
                 fullWidth
                 className={styles.button}
                 onClick={props.onDuplicateCheck}
               >
-                아이디 중복 확인
+                이메일 중복확인
               </Button>
               {props.duplicateNotice ? (
                 <StatusMessage>{props.duplicateNotice}</StatusMessage>
@@ -180,24 +212,6 @@ export function RegistrationContent(props: Props) {
                 </Button>
               </FormField>
               {field('addressDetail', '상세주소', '상세주소를 입력해주세요')}
-              {field('email', '이메일 주소', '이메일 주소를 입력해주세요.')}
-              {field('domain', '도메인', '도메인을 입력해주세요')}
-              <FormField
-                variant="boxed"
-                htmlFor="registration-domain-choice"
-                label={<Typography variant="authCaption">* 직접입력</Typography>}
-              >
-                <Select
-                  id="registration-domain-choice"
-                  value={props.domainChoice}
-                  onChange={(event) => props.onDomainChoice(event.target.value)}
-                >
-                  <option value="direct">직접입력</option>
-                  <option value="naver.com">naver.com</option>
-                  <option value="gmail.com">gmail.com</option>
-                  <option value="daum.net">daum.net</option>
-                </Select>
-              </FormField>
             </>
           ) : (
             <>
@@ -218,7 +232,6 @@ export function RegistrationContent(props: Props) {
                 <Box className={styles.married}>
                   {preference('married', '결혼유무', '기혼', '미혼')}
                 </Box>
-                {field('anniversary', '기념일', '기념일을 입력해주세요')}
               </Box>
             </>
           )}

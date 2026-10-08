@@ -42,7 +42,7 @@ const styles = {
     minH: '108px',
     p: '3 1',
     border: '1px solid var(--color-black-20)',
-    borderRadius: 'full',
+    borderRadius: '8px',
     color: 'var(--color-black-100)',
     textAlign: 'center',
     '& svg': { w: '20px', h: '20px' },

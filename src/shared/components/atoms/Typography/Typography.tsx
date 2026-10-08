@@ -63,6 +63,7 @@ const figmaTypographyVariants = {
       },
     ]),
   ),
+
   cta1: {
     fontSize: '16',
     fontWeight: 'var(--font-weights-medium)',

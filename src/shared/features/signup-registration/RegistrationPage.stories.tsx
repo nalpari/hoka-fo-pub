@@ -17,7 +17,6 @@ const meta = {
   args: {
     stage: 'information',
     information: {
-      id: '',
       name: '',
       password: '',
       confirmation: '',
@@ -61,6 +60,18 @@ export const Mobile: Story = {
 };
 
 export const Additional: Story = { args: { stage: 'additional' } };
+
+export const MobileAdditional: Story = {
+  args: { stage: 'additional' },
+  decorators: [
+    (Story) => (
+      <div className="platform-mobile" style={{ width: 375 }}>
+        <Story />
+      </div>
+    ),
+  ],
+  globals: { viewport: 'hoka375' },
+};
 
 export const Error: Story = { args: { notice: '비밀번호 재입력 값이 일치하지 않습니다.' } };
 

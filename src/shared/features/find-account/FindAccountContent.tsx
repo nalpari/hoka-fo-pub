@@ -156,6 +156,7 @@ export function FindAccountContent({
           <Button
             type="submit"
             variant="primary"
+            size="lg"
             fullWidth
             className={styles.button}
             disabled={requested && secondsLeft > 0}
@@ -196,6 +197,7 @@ export function FindAccountContent({
               <Button
                 type="button"
                 variant="primary"
+                size="lg"
                 fullWidth
                 className={styles.button}
                 onClick={onConfirmCode}
