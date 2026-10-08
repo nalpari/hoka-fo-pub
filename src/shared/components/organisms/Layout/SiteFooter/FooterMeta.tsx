@@ -20,7 +20,7 @@ export function FooterMeta() {
         direction="column"
         gap="8"
       >
-        <Box w="100%" h="1px" bg="#F7F7F9" />
+        <Box w="100%" h="1px" bg="var(--color-black-10)" />
         <FooterLegal mobile={platform === 'mobile'} />
       </Flex>
     </>

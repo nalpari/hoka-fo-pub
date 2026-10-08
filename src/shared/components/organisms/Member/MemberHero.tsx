@@ -17,30 +17,30 @@ const hero = css({
   justifyContent: 'space-between',
   gap: '30px',
   p: '36px 40px',
-  bg: '#111',
-  color: '#fff',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
   _mobile: { display: 'block', p: '28px 22px' },
 });
 
-const eyebrow = css({ fontSize: '11px', letterSpacing: '.08em' });
+const eyebrow = css({ fontSize: '12' /* 기존: 11px */, letterSpacing: 'mono' });
 
-const name = css({ m: '8px 0', fontSize: '30px' });
+const name = css({ m: '8px 0', fontSize: '28' /* 기존 30px */ });
 
-const description = css({ m: '0', color: '#ddd', fontSize: '13px' });
+const description = css({ m: '0', color: 'var(--color-black-20)', fontSize: '14' /* 기존 13px */ });
 
 const progressDescription = css({
   mt: '4',
   mb: '0',
-  color: '#ddd',
-  fontSize: '12px',
-  lineHeight: '1.6',
+  color: 'var(--color-black-20)',
+  fontSize: '12',
+  lineHeight: 'body',
 });
 
 const stats = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(2, minmax(130px, 1fr))',
-  borderLeft: '1px solid #555',
-  _mobile: { mt: '25px', borderTop: '1px solid #555', borderLeft: '0' },
+  borderLeft: '1px solid var(--color-black-60)',
+  _mobile: { mt: '25px', borderTop: '1px solid var(--color-black-60)', borderLeft: '0' },
 });
 
 const stat = css({
@@ -48,15 +48,15 @@ const stat = css({
   alignContent: 'center',
   gap: '9px',
   px: '6',
-  borderRight: '1px solid #555',
+  borderRight: '1px solid var(--color-black-60)',
   _mobile: { pt: '18px', pr: '3', pl: '0', borderRight: '0' },
 });
 
-const statLabel = css({ color: '#ccc', fontSize: '12px' });
+const statLabel = css({ color: 'var(--color-black-40)', fontSize: '12' });
 
-const statValue = css({ fontSize: '27px' });
+const statValue = css({ fontSize: '28' /* 기존 27px */ });
 
-const statUnit = css({ ml: '3px', fontSize: '13px', letterSpacing: 'normal' });
+const statUnit = css({ ml: '3px', fontSize: '14' /* 기존 13px */, letterSpacing: 'normal' });
 
 export function MemberHero({ member }: Props) {
   return (

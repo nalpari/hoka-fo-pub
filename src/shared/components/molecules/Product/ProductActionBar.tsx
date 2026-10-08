@@ -18,20 +18,24 @@ const bar = css({
     gap: '2',
     p: '2.5 var(--layout-mobile-inline-gutter)',
     borderTop: '1px solid var(--color-border-subtle)',
-    bg: '#fff',
-    boxShadow: '0 -5px 20px rgba(0,0,0,.08)',
+    bg: 'var(--color-white-000)',
+    boxShadow: '0 -5px 20px color-mix(in srgb, var(--color-black-100) 8%, transparent)',
   },
 });
 
-const wish = css({ border: '1px solid #111', bg: '#fff', fontSize: '20px' });
+const wish = css({
+  border: '1px solid var(--color-black-100)',
+  bg: 'var(--color-white-000)',
+  fontSize: '20',
+});
 
 const purchase = css({
   minH: '12',
-  border: '1px solid #111',
-  bg: '#111',
-  color: '#fff',
-  fontSize: '15px',
-  fontWeight: '700',
+  border: '1px solid var(--color-black-100)',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
+  fontSize: '16' /* 기존 15px */,
+  fontWeight: 'bold',
 });
 
 /** Shared product purchase action, rendered for the active application platform. */

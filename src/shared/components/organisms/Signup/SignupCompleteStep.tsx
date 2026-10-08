@@ -15,11 +15,11 @@ const styles = {
       mb: '5',
       borderRadius: '50%',
       placeItems: 'center',
-      bg: '#111',
-      color: '#fff',
-      fontSize: '28px',
+      bg: 'var(--color-black-100)',
+      color: 'var(--color-white-000)',
+      fontSize: '28',
     },
-    '& p': { mt: '3', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
+    '& p': { mt: '3', mb: 0, color: 'var(--color-text-muted)', fontSize: '14' },
   }),
   primary: css({
     display: 'grid',
@@ -28,9 +28,9 @@ const styles = {
     minH: '50px',
     mt: '7',
     placeItems: 'center',
-    bg: '#111',
-    color: '#fff',
-    fontWeight: 700,
+    bg: 'var(--color-black-100)',
+    color: 'var(--color-white-000)',
+    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 

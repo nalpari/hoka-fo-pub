@@ -16,13 +16,13 @@ const list = cva({
 });
 
 const option = cva({
-  base: { display: 'grid', overflow: 'hidden', bg: '#f7f7f8', placeItems: 'center' },
+  base: { display: 'grid', overflow: 'hidden', bg: 'var(--color-black-10)', placeItems: 'center' },
   variants: {
     layout: {
       scroll: { flex: '0 0 34px', w: '34px', h: '34px' },
       grid: { w: '76px', h: '60px' },
     },
-    selected: { true: { boxShadow: 'inset 0 -3px #111' }, false: {} },
+    selected: { true: { boxShadow: 'inset 0 -3px var(--color-black-100)' }, false: {} },
   },
 });
 
@@ -30,10 +30,10 @@ const optionButton = css({
   cursor: 'pointer',
   border: '0',
   p: '0',
-  _hover: { boxShadow: 'inset 0 -3px #111' },
+  _hover: { boxShadow: 'inset 0 -3px var(--color-black-100)' },
   _focusVisible: {
-    boxShadow: 'inset 0 -3px #111',
-    outline: '2px solid #0082ca',
+    boxShadow: 'inset 0 -3px var(--color-black-100)',
+    outline: '2px solid var(--color-blue-100)',
     outlineOffset: '2px',
   },
 });

@@ -32,23 +32,23 @@ const sidebar = cva({
 const titleStyle = css({
   display: 'block',
   mb: '7',
-  fontSize: '30px',
-  fontWeight: '800',
-  letterSpacing: '-1px',
-  _mobile: { flex: 'none', m: '0 10px 0 0', fontSize: '18px' },
+  fontSize: '28' /* 기존 30px */,
+  fontWeight: 'extrabold',
+  letterSpacing: 'korean',
+  _mobile: { flex: 'none', m: '0 10px 0 0', fontSize: '16' /* 기존 18px */ },
 });
 const navGroup = css({ mb: '25px', _mobile: { display: 'contents' } });
-const navHeading = css({ m: '0 0 10px', fontSize: '14px', _mobile: { display: 'none' } });
+const navHeading = css({ m: '0 0 10px', fontSize: '14', _mobile: { display: 'none' } });
 const navLink = cva({
   base: {
     display: 'block',
     my: '2',
     color: 'var(--color-text-muted)',
-    fontSize: '13px',
-    _mobile: { flex: 'none', m: '0', py: '1', fontSize: '12px', whiteSpace: 'nowrap' },
+    fontSize: '14' /* 기존 13px */,
+    _mobile: { flex: 'none', m: '0', py: '1', fontSize: '12', whiteSpace: 'nowrap' },
   },
   variants: {
-    active: { true: { color: '#0082ca', fontWeight: '700' }, false: {} },
+    active: { true: { color: 'var(--color-blue-100)', fontWeight: 'bold' }, false: {} },
     disabled: { true: { cursor: 'not-allowed', opacity: '0.5', pointerEvents: 'none' }, false: {} },
   },
 });

@@ -9,7 +9,7 @@ const button = css({
   border: 0,
   bg: 'transparent',
   color: 'var(--hoka-black)',
-  lineHeight: 1,
+  lineHeight: 'hoka',
 });
 
 type HeaderMobileMenuButtonProps = {

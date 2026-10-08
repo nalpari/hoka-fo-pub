@@ -24,8 +24,8 @@ const styles = {
     borderRadius: '10px',
     bg: '#fff',
     boxShadow: '0 2px 8px rgba(38, 53, 99, 0.06)',
-    '& small': { color: '#2a14b4', fontSize: '11px', fontWeight: '800', letterSpacing: '0.08em' },
-    '& h2': { m: '4 0 3', color: '#171f38', fontSize: '22px', letterSpacing: '-0.02em' },
+    '& small': { color: '#2a14b4', fontSize: '12' /* 기존: 11px */, fontWeight: '800', letterSpacing: '0.08em' },
+    '& h2': { m: '4 0 3', color: '#171f38', fontSize: '20' /* 기존 22px */, letterSpacing: '-0.02em' },
     '& p': { m: '0', color: '#68718a', fontSize: '14px', lineHeight: '1.7' },
   }),
   tokenList: css({

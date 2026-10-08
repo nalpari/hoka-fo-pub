@@ -4,14 +4,87 @@ import { Box, Grid } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+
 const styles = {
   page: css({ minH: '750px', '--support-padding-bottom': '130px', _mobile: { minH: '0' } }),
   content: css({ '--support-content-title-gap': '37px' }),
-  service: css({ display: 'grid', gridTemplateColumns: '1fr 1.08fr', borderTop: '2px solid #555', _mobile: { gridTemplateColumns: '1fr' } }),
-  labels: css({ display: 'grid', gridTemplateRows: '1fr 1fr', _mobile: { display: 'block' }, '& article': { minH: '214px', p: '43px 0 0 3', _mobile: { minH: '0', p: '30px 0 3' } }, '& h2': { m: '0 0 9px', fontFamily: 'var(--font-family-base)', fontSize: '35px', fontWeight: '400', _mobile: { fontSize: '29px' } }, '& p': { m: '0', color: '#777', fontSize: '12px' } }),
-  details: css({ '& article': { minH: '214px', p: '47px 0 5', borderBottom: '1px solid #ddd', _mobile: { minH: '0', py: '6' } }, '& strong, & b': { fontSize: '12px' }, '& strong': { lineHeight: '1.6' }, '& hr': { m: '42px 0 21px', border: '0', borderTop: '1px solid #ddd', _mobile: { m: '25px 0 15px' } }, '& p': { m: '5px 0 0', color: '#888', fontSize: '11px', lineHeight: '1.6' } }),
-  notice: css({ color: '#222!' }),
-  actions: css({ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', mt: '78px', border: '1px solid #ddd', _mobile: { gridTemplateColumns: '1fr', mt: '45px' }, '& a': { display: 'flex', alignItems: 'center', gap: '3', minH: '124px', p: '18px 26px', borderRight: '1px solid #ddd', _mobile: { minH: '85px', p: '15px', borderRight: '0', borderBottom: '1px solid #ddd' } }, '& a:last-child': { border: '0' }, '& b': { fontSize: '31px', fontWeight: '400' }, '& span': { display: 'grid', gap: '1.5' }, '& strong': { fontSize: '14px' }, '& small': { color: '#888', fontSize: '10px', lineHeight: '1.4' } }),
+  service: css({
+    display: 'grid',
+    gridTemplateColumns: '1fr 1.08fr',
+    borderTop: '2px solid var(--color-black-60)',
+    _mobile: { gridTemplateColumns: '1fr' },
+  }),
+  labels: css({
+    display: 'grid',
+    gridTemplateRows: '1fr 1fr',
+    _mobile: { display: 'block' },
+    '& article': {
+      minH: '214px',
+      p: 'var(--spacing-11) 0 0 3',
+      _mobile: { minH: '0', p: '30px 0 3' },
+    },
+    '& h2': {
+      m: '0 0 10px',
+      fontFamily: 'var(--font-family-base)',
+      fontSize: '36' /* 기존 35px */,
+      fontWeight: 'var(--font-weights-normal)',
+      _mobile: { fontSize: '28' /* 기존 29px */ },
+    },
+    '& p': { m: '0', color: 'var(--color-black-50)', fontSize: '12' },
+  }),
+  details: css({
+    '& article': {
+      minH: '214px',
+      p: 'var(--spacing-12) 0 5',
+      borderBottom: '1px solid var(--color-black-20)',
+      _mobile: { minH: '0', py: '6' },
+    },
+    '& strong, & b': { fontSize: '12' },
+    '& strong': { lineHeight: 'var(--line-heights-body)' },
+    '& hr': {
+      m: '42px 0 22px',
+      border: '0',
+      borderTop: '1px solid var(--color-black-20)',
+      _mobile: { m: '26px 0 var(--spacing-4)' },
+    },
+    '& p': {
+      m: '6px 0 0',
+      color: 'var(--color-black-50)',
+      fontSize: '12' /* 기존: 11px */,
+      lineHeight: 'var(--line-heights-body)',
+    },
+  }),
+  notice: css({ color: 'var(--color-black-100)!' }),
+  actions: css({
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    mt: '78px',
+    border: '1px solid var(--color-black-20)',
+    _mobile: { gridTemplateColumns: '1fr', mt: '46px' },
+    '& a': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '3',
+      minH: '124px',
+      p: '18px 26px',
+      borderRight: '1px solid var(--color-black-20)',
+      _mobile: {
+        minH: '85px',
+        p: '4',
+        borderRight: '0',
+        borderBottom: '1px solid var(--color-black-20)',
+      },
+    },
+    '& a:last-child': { border: '0' },
+    '& b': { fontSize: '32' /* 기존 31px */, fontWeight: 'var(--font-weights-normal)' },
+    '& span': { display: 'grid', gap: '1.5' },
+    '& strong': { fontSize: '14' },
+    '& small': {
+      color: 'var(--color-black-50)',
+      fontSize: '12' /* 기존: 10px */,
+      lineHeight: 'var(--line-heights-body)',
+    },
+  }),
 };
 
 const sections: [string, string[]][] = [

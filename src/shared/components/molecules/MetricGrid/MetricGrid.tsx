@@ -15,14 +15,18 @@ export type MetricGridProps = {
 };
 
 const grid = cva({
-  base: { display: 'grid', bg: 'var(--color-surface-muted)', _mobile: { gridTemplateColumns: '1fr' } },
+  base: {
+    display: 'grid',
+    bg: 'var(--color-surface-muted)',
+    _mobile: { gridTemplateColumns: '1fr' },
+  },
   variants: {
     columns: {
       2: { gridTemplateColumns: 'repeat(2, 1fr)' },
       3: { gridTemplateColumns: 'repeat(3, 1fr)' },
       4: { gridTemplateColumns: 'repeat(4, 1fr)' },
     },
-    tone: { neutral: {}, dark: { bg: '#111', color: '#fff' } },
+    tone: { neutral: {}, dark: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' } },
   },
   defaultVariants: { columns: 3, tone: 'neutral' },
 });
@@ -40,9 +44,9 @@ const metricItem = css({
     '&:last-child': { borderBottom: '0' },
   },
 });
-const label = css({ color: 'var(--color-text-muted)', fontSize: '12px' });
-const value = css({ fontSize: '27px' });
-const detail = css({ fontSize: '12px' });
+const label = css({ color: 'var(--color-text-muted)', fontSize: '12' });
+const value = css({ fontSize: '28' /* 기존 27px */ });
+const detail = css({ fontSize: '12' });
 
 /** Summary metric layout for account, cart, order, and membership dashboards. */
 export function MetricGrid({ items, tone, columns, className }: MetricGridProps) {

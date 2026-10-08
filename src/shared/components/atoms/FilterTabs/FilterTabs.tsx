@@ -22,16 +22,16 @@ const rail = cva({
   base: { display: 'flex' },
   variants: {
     platform: {
-      web: { gap: '16px', mb: '32px' },
+      web: { gap: '4', mb: '8' },
       mobile: {
         w: 'max-content',
         gap: '6px',
-        mb: '16px',
+        mb: '4',
         px: 'var(--layout-mobile-inline-gutter)',
       },
     },
     variant: {
-      categoryNavigation: { _mobile: { h: '46px', mb: '16px', px: '0' } },
+      categoryNavigation: { _mobile: { h: '46px', mb: '4', px: '0' } },
       fill: { gap: '2', _mobile: { gap: '6px' } },
       default: {},
     },
@@ -41,33 +41,36 @@ const rail = cva({
 
 const label = cva({
   base: {
-    color: '#000',
-    fontSize: '16px',
-    fontWeight: 400,
-    letterSpacing: '-0.02em',
-    lineHeight: '130%',
+    color: 'var(--color-black-100)',
+    fontSize: '16',
+    fontWeight: 'var(--font-weights-normal)',
+    letterSpacing: 'var(--letter-spacings-korean)',
+    lineHeight: 'var(--line-heights-body)',
 
     _mobile: {
-      fontWeight: '500',
-      fontSize: '12px',
-      color: '#4D4D4D',
+      fontWeight: 'var(--font-weights-medium)',
+      fontSize: '12',
+      color: 'var(--color-black-60)',
     },
   },
   variants: {
     variant: {
       fill: {
-        color: '#4D4D4D',
-        fontSize: '16px',
-        fontWeight: 500,
-        letterSpacing: '-0.02em',
-        lineHeight: '130%',
-        _mobile: { fontSize: '12px', fontWeight: 500 },
+        color: 'var(--color-black-60)',
+        fontSize: '16',
+        fontWeight: 'var(--font-weights-medium)',
+        letterSpacing: 'var(--letter-spacings-korean)',
+        lineHeight: 'var(--line-heights-body)',
+        _mobile: { fontSize: '12', fontWeight: 'var(--font-weights-medium)' },
       },
       default: {},
       categoryNavigation: {},
     },
     selected: {
-      true: { fontWeight: 700, _mobile: { fontWeight: 600, color: '#FFFFFF' } },
+      true: {
+        fontWeight: 'var(--font-weights-bold)',
+        _mobile: { fontWeight: 'var(--font-weights-semibold)', color: 'var(--color-white-000)' },
+      },
       false: {},
     },
   },
@@ -75,7 +78,11 @@ const label = cva({
     {
       variant: 'fill',
       selected: true,
-      css: { color: '#FFFFFF', fontWeight: 600, _mobile: { color: '#FFFFFF', fontWeight: 600 } },
+      css: {
+        color: 'var(--color-white-000)',
+        fontWeight: 'var(--font-weights-semibold)',
+        _mobile: { color: 'var(--color-white-000)', fontWeight: 'var(--font-weights-semibold)' },
+      },
     },
   ],
 });
@@ -98,7 +105,7 @@ const item = cva({
       px: '4',
       height: '30px',
       borderRadius: '99px',
-      bg: '#E9EAEB',
+      bg: 'var(--color-black-20)',
       whiteSpace: 'nowrap',
 
       _hover: { textDecoration: 'none' },
@@ -112,15 +119,20 @@ const item = cva({
           p: '0',
           borderRadius: '0',
           bg: 'transparent',
-          color: '#666',
-          '& > span': { color: 'inherit', fontSize: '14px', fontWeight: '400', lineHeight: 'normal' },
+          color: 'var(--color-black-50)',
+          '& > span': {
+            color: 'inherit',
+            fontSize: '14',
+            fontWeight: 'var(--font-weights-normal)',
+            lineHeight: 'normal',
+          },
         },
       },
       fill: {
         h: '35px',
-        px: '16px',
+        px: '4',
         borderRadius: '50px',
-        bg: '#E9EAEB',
+        bg: 'var(--color-black-20)',
         whiteSpace: 'nowrap',
         _hover: { textDecoration: 'none' },
         _mobile: {
@@ -129,9 +141,9 @@ const item = cva({
           justifyContent: 'center',
           alignItems: 'center',
           h: '30px',
-          px: '16px',
+          px: '4',
           borderRadius: '50px',
-          bg: '#E9EAEB',
+          bg: 'var(--color-black-20)',
           whiteSpace: 'nowrap',
         },
       },
@@ -140,12 +152,12 @@ const item = cva({
     selected: {
       true: {
         _mobile: {
-          bg: '#111',
-          color: '#fff',
+          bg: 'var(--color-black-100)',
+          color: 'var(--color-white-000)',
           '&[data-filter-tabs-variant="categoryNavigation"]': {
             bg: 'transparent',
-            color: '#111',
-            '& > span': { fontWeight: '600' },
+            color: 'var(--color-black-100)',
+            '& > span': { fontWeight: 'var(--font-weights-semibold)' },
           },
         },
       },
@@ -156,7 +168,11 @@ const item = cva({
     {
       variant: 'fill',
       selected: true,
-      css: { bg: '#000000', color: '#FFFFFF', _mobile: { bg: '#000000', color: '#FFFFFF' } },
+      css: {
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+        _mobile: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+      },
     },
   ],
 });
@@ -231,7 +247,10 @@ export function FilterTabs<T extends string = string>({
 
           return (
             <Toggle
-              className={[item({ selected: isSelected, variant }), itemClassName?.(option, isSelected)]
+              className={[
+                item({ selected: isSelected, variant }),
+                itemClassName?.(option, isSelected),
+              ]
                 .filter(Boolean)
                 .join(' ')}
               data-filter-tabs-variant={variant}

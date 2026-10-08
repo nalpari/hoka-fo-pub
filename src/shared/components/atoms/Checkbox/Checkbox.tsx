@@ -34,24 +34,30 @@ const control = css({
 
 const icon = css({ display: 'block', w: '100%', h: '100%' });
 
+function getCheckboxIconSource(checked: boolean, disabled: boolean) {
+  if (disabled) {
+    return checked
+      ? '/images/icon/form/checkbox-disabled-checked.svg'
+      : '/images/icon/form/checkbox-disabled.svg';
+  }
+
+  return checked
+    ? '/images/icon/form/checkbox-checked.svg'
+    : '/images/icon/form/checkbox-unchecked.svg';
+}
+
 const renderCheckboxControl: ComponentRenderFn<
   HTMLAttributes<HTMLSpanElement>,
   BaseCheckbox.Root.State
-> = (props, { checked, indeterminate }) => (
-  <>
-    <span {...props}>
-      <img
-        alt=""
-        aria-hidden="true"
-        className={icon}
-        src={
-          checked || indeterminate
-            ? '/images/icon/checkbox-checked.svg'
-            : '/images/icon/checkbox-unchecked.svg'
-        }
-      />
-    </span>
-  </>
+> = (props, { checked, disabled, indeterminate }) => (
+  <span {...props}>
+    <img
+      alt=""
+      aria-hidden="true"
+      className={icon}
+      src={getCheckboxIconSource(checked || indeterminate, disabled)}
+    />
+  </span>
 );
 
 type BaseCheckboxRootProps = ComponentPropsWithoutRef<typeof BaseCheckbox.Root>;

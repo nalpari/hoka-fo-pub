@@ -6,10 +6,10 @@ const list = css({
   gridTemplateColumns: 'var(--description-list-label-width, max-content) minmax(0, 1fr)',
   gap: '10px 16px',
   m: '0',
-  fontSize: '13px',
-  lineHeight: '1.65',
+  fontSize: '14' /* 기존 13px */,
+  lineHeight: 'body',
 });
-const term = css({ fontWeight: '700' });
+const term = css({ fontWeight: 'bold' });
 const detail = css({ m: '0', color: 'var(--color-text-muted)' });
 export type DescriptionListItem = { term: ReactNode; description: ReactNode };
 export type DescriptionListProps = {

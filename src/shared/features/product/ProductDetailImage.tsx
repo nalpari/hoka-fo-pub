@@ -5,7 +5,7 @@ const image = css({
   w: '100%',
   aspectRatio: '1',
   objectFit: 'cover',
-  bg: '#f7f7f9',
+  bg: 'var(--color-black-10)',
 });
 
 const trigger = css({

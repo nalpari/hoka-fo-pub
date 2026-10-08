@@ -32,14 +32,23 @@ const filter = cva({
     flex: '0 0 auto',
     px: '15px',
     py: '9px',
-    border: '1px solid #bbb',
-    bg: '#fff',
-    fontSize: '13px',
+    border: '1px solid var(--color-black-40)',
+    bg: 'var(--color-white-000)',
+    fontSize: '14' /* 기존 13px */,
   },
-  variants: { active: { true: { bg: '#111', color: '#fff', borderColor: '#111' }, false: {} } },
+  variants: {
+    active: {
+      true: {
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+        borderColor: 'var(--color-black-100)',
+      },
+      false: {},
+    },
+  },
 });
 
-const table = css({ mt: '18px', borderTop: '2px solid #111' });
+const table = css({ mt: '18px', borderTop: '2px solid var(--color-black-100)' });
 
 const couponRow = css({
   display: 'grid',
@@ -49,18 +58,23 @@ const couponRow = css({
   minH: '92px',
   px: '4',
   borderBottom: '1px solid var(--color-border-subtle)',
-  fontSize: '13px',
+  fontSize: '14' /* 기존 13px */,
   _mobile: {
     gridTemplateColumns: '1fr auto',
     gap: '1.5',
     py: '4',
-    '& strong': { fontSize: '20px' },
+    '& strong': { fontSize: '20' },
     '& span': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
-    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)', fontSize: '12px' },
+    '& time': {
+      gridColumn: '1 / -1',
+      color: 'var(--color-text-muted)',
+      fontSize: '12',
+    },
   },
 });
 
 /** Coupon registration, category filtering, and mobile-first coupon history. */
+
 export function CouponManager({ coupons }: Props) {
   const [category, setCategory] = useState<'전체' | CouponItem['category']>('전체');
   const [code, setCode] = useState('');
@@ -97,9 +111,9 @@ export function CouponManager({ coupons }: Props) {
         <p
           className={css({
             mt: '2',
-            color: message.includes('등록') ? '#157347' : '#db1f2d',
-            fontSize: '12px',
-            fontWeight: '700',
+            color: message.includes('등록') ? 'var(--color-black-60)' : 'var(--color-red-100)',
+            fontSize: '12',
+            fontWeight: 'var(--font-weights-bold)',
           })}
         >
           {message}
@@ -115,11 +129,7 @@ export function CouponManager({ coupons }: Props) {
         value={[category]}
       >
         {(['전체', '상품 할인', '배송 할인'] as const).map((value) => (
-          <Toggle
-            className={filter({ active: category === value })}
-            key={value}
-            value={value}
-          >
+          <Toggle className={filter({ active: category === value })} key={value} value={value}>
             {value}
           </Toggle>
         ))}

@@ -8,7 +8,7 @@ const field = css({
   display: 'flex',
   alignItems: 'center',
   height: '38px',
-  border: '1px solid rgba(255,255,255,0.4)',
+  border: '1px solid color-mix(in srgb, var(--color-white-000) 40%, transparent)',
   background: 'transparent',
   overflow: 'hidden',
 });
@@ -18,12 +18,12 @@ const input = css({
   height: '100%',
   border: '0',
   bg: 'transparent',
-  color: '#fff',
+  color: 'var(--color-white-000)',
   px: '3',
-  fontSize: '13px',
+  fontSize: '14' /* 기존 13px */,
   outline: 'none',
   _placeholder: {
-    color: 'rgba(255,255,255,0.7)',
+    color: 'color-mix(in srgb, var(--color-white-000) 70%, transparent)',
   },
 });
 
@@ -34,9 +34,9 @@ const submitButton = css({
   width: '36px',
   height: '100%',
   border: '0',
-  borderLeft: '1px solid rgba(255,255,255,0.45)',
+  borderLeft: '1px solid color-mix(in srgb, var(--color-white-000) 45%, transparent)',
   bg: 'transparent',
-  color: '#fff',
+  color: 'var(--color-white-000)',
   padding: '0',
   cursor: 'pointer',
   _focusVisible: {
@@ -83,12 +83,7 @@ export function EmailSignupField({
         type="email"
         value={value}
       />
-      <button
-        type="submit"
-        aria-label={buttonLabel}
-        title={buttonLabel}
-        className={submitButton}
-      >
+      <button type="submit" aria-label={buttonLabel} title={buttonLabel} className={submitButton}>
         <Icon name="chevron-right" size="12px" color="white" />
       </button>
     </form>

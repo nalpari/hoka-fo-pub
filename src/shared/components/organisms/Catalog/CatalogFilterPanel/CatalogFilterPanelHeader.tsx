@@ -40,7 +40,7 @@ export function CatalogFilterPanelHeader({
           </>
         )}
         <Flex h="8" alignItems="center">
-          <Button onClick={onReset} variant="link">
+          <Button onClick={onReset} variant="link" size="sm">
             초기화
           </Button>
         </Flex>

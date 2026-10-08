@@ -11,7 +11,7 @@ const group = css({ display: 'grid', gap: '4' });
 
 const option = css({
   cursor: 'pointer',
-  '&[data-disabled]': { cursor: 'not-allowed', opacity: '0.55' },
+  '&[data-disabled]': { cursor: 'not-allowed' },
 });
 
 const control = css({
@@ -25,6 +25,13 @@ const control = css({
 const indicator = css({ display: 'block', flexShrink: 0, w: '4', h: '4' });
 
 const icon = css({ display: 'block', w: '100%', h: '100%' });
+
+const radioAssetByState = {
+  checked: '/images/icon/form/radio-checked.svg',
+  disabled: '/images/icon/form/radio-disabled.svg',
+  disabledChecked: '/images/icon/form/radio-disabled-checked.svg',
+  unchecked: '/images/icon/form/radio-unchecked.svg',
+} as const;
 
 export type RadioOption<T extends string = string> = {
   disabled?: boolean;
@@ -70,6 +77,15 @@ export function Radio<T extends string = string>({
     >
       {options.map((item) => {
         const isSelected = item.value === value;
+        const isDisabled = disabled || item.disabled;
+
+        const radioAsset = isDisabled
+          ? isSelected
+            ? radioAssetByState.disabledChecked
+            : radioAssetByState.disabled
+          : isSelected
+            ? radioAssetByState.checked
+            : radioAssetByState.unchecked;
 
         if (variant === 'custom') {
           return (
@@ -77,7 +93,7 @@ export function Radio<T extends string = string>({
               className={[optionClassName, isSelected ? selectedOptionClassName : undefined]
                 .filter(Boolean)
                 .join(' ')}
-              disabled={item.disabled}
+              disabled={isDisabled}
               key={item.value}
               value={item.value}
             >
@@ -90,20 +106,16 @@ export function Radio<T extends string = string>({
           <HStack
             as="label"
             className={option}
-            data-disabled={disabled || item.disabled ? '' : undefined}
+            data-disabled={isDisabled ? '' : undefined}
             key={item.value}
           >
-            <BaseRadio.Root className={control} disabled={item.disabled} value={item.value}>
+            <BaseRadio.Root className={control} disabled={isDisabled} value={item.value}>
               <span className={indicator}>
                 <img
                   alt=""
                   aria-hidden="true"
                   className={icon}
-                  src={
-                    isSelected
-                      ? '/images/icon/radio-checked.svg'
-                      : '/images/icon/radio-unchecked.svg'
-                  }
+                  src={radioAsset}
                 />
               </span>
             </BaseRadio.Root>

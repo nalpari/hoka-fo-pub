@@ -3,17 +3,106 @@ import { css } from 'styled-system/css';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+
 const styles = {
   page: css({ minH: '800px', '--support-padding-bottom': '130px', _mobile: { minH: '0' } }),
   content: css({ '--support-content-title-gap': '37px' }),
-  hero: css({ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', h: '300px', overflow: 'hidden', bg: 'linear-gradient(#b9d8e8 0 50%, #4d9a80 51% 72%, #d7c85b 73%)', _mobile: { h: '215px' }, '&::after': { position: 'absolute', inset: '0', bg: 'linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent 52%, rgba(0, 0, 0, 0.15))', content: "''" } }),
-  personOne: css({ position: 'absolute', bottom: '-44px', left: '160px', w: '185px', h: '300px', borderRadius: '48% 48% 10% 10%', bg: 'linear-gradient(90deg, #a99e93 0 28%, #252629 29% 75%, #94989b 76%)', transform: 'rotate(7deg)', _mobile: { left: '45px', transform: 'scale(0.72)', transformOrigin: 'bottom' } }),
-  personTwo: css({ position: 'absolute', bottom: '-44px', right: '55px', w: '170px', h: '300px', borderRadius: '48% 48% 10% 10%', bg: 'linear-gradient(90deg, #513f34, #1e2223 55%, #778282)', transform: 'rotate(-8deg)', _mobile: { right: '-20px', transform: 'scale(0.72)', transformOrigin: 'bottom' } }),
-  heroCopy: css({ position: 'relative', zIndex: '1', color: '#fff', textAlign: 'center', textShadow: '0 1px 2px #333', '& h2': { m: '0', fontSize: '24px', fontWeight: '400', _mobile: { fontSize: '19px' } }, '& p': { fontSize: '11px', _mobile: { px: '4.5', fontSize: '9px' } } }),
-  channels: css({ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: '0 10', pt: '62px', _mobile: { gridTemplateColumns: '1fr', gap: '0', pt: '38px' }, '& article': { minH: '218px', py: '7', borderTop: '2px solid #333', _mobile: { minH: '155px', py: '22px' } }, '& strong': { fontSize: '12px', lineHeight: '1.6' }, '& p': { m: '5px 0', fontSize: '11px' }, '& hr': { m: '6 0 4.5', border: '0', borderTop: '1px solid #ddd' }, '& b': { display: 'block', mb: '7px', fontSize: '12px' }, '& small': { color: '#888', fontSize: '11px' } }),
-  label: css({ minH: '218px', _mobile: { minH: '100px' }, '& h2': { m: '0 0 7px', fontFamily: 'var(--font-family-base)', fontSize: '34px', fontWeight: '400', letterSpacing: '0.04em', _mobile: { fontSize: '28px' } }, '& p': { m: '0', color: '#aaa' } }),
-  note: css({ m: '0', py: '6', borderTop: '1px solid #ddd', color: '#666', fontSize: '11px', _mobile: { mt: '4', lineHeight: '1.6' } }),
+  hero: css({
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    h: '300px',
+    overflow: 'hidden',
+    bg: 'linear-gradient(var(--color-black-20) 0 50%, var(--color-black-50) 51% 72%, var(--color-black-40) 73%)',
+    _mobile: { h: '215px' },
+    '&::after': {
+      position: 'absolute',
+      inset: '0',
+      bg: 'linear-gradient(90deg, color-mix(in srgb, var(--color-black-100) 20%, transparent), transparent 52%, color-mix(in srgb, var(--color-black-100) 15%, transparent))',
+      content: "''",
+    },
+  }),
+  personOne: css({
+    position: 'absolute',
+    bottom: '-44px',
+    left: '160px',
+    w: '185px',
+    h: '300px',
+    borderRadius: '48% 48% 10% 10%',
+    bg: 'linear-gradient(90deg, var(--color-black-40) 0 28%, var(--color-black-60) 29% 75%, var(--color-black-40) 76%)',
+    transform: 'rotate(7deg)',
+    _mobile: { left: '45px', transform: 'scale(0.72)', transformOrigin: 'bottom' },
+  }),
+  personTwo: css({
+    position: 'absolute',
+    bottom: '-44px',
+    right: '55px',
+    w: '170px',
+    h: '300px',
+    borderRadius: '48% 48% 10% 10%',
+    bg: 'linear-gradient(90deg, var(--color-black-60), var(--color-black-100) 55%, var(--color-black-50))',
+    transform: 'rotate(-8deg)',
+    _mobile: { right: '-20px', transform: 'scale(0.72)', transformOrigin: 'bottom' },
+  }),
+  heroCopy: css({
+    position: 'relative',
+    zIndex: '1',
+    color: 'var(--color-white-000)',
+    textAlign: 'center',
+    textShadow: '0 1px 2px var(--color-black-60)',
+    '& h2': {
+      m: '0',
+      fontSize: '24',
+      fontWeight: 'var(--font-weights-normal)',
+      _mobile: { fontSize: '20' /* 기존 19px */ },
+    },
+    '& p': {
+      fontSize: '12' /* 기존: 11px */,
+      _mobile: { px: '4.5', fontSize: '12' /* 기존: 9px */ },
+    },
+  }),
+  channels: css({
+    display: 'grid',
+    gridTemplateColumns: '1fr 1.1fr',
+    gap: '0 10',
+    pt: '62px',
+    _mobile: { gridTemplateColumns: '1fr', gap: '0', pt: '38px' },
+    '& article': {
+      minH: '218px',
+      py: '7',
+      borderTop: '2px solid var(--color-black-60)',
+      _mobile: { minH: '155px', py: '22px' },
+    },
+    '& strong': { fontSize: '12', lineHeight: 'var(--line-heights-body)' },
+    '& p': { m: '6px 0', fontSize: '12' /* 기존: 11px */ },
+    '& hr': { m: '6 0 4.5', border: '0', borderTop: '1px solid var(--color-black-20)' },
+    '& b': { display: 'block', mb: '2', fontSize: '12' },
+    '& small': { color: 'var(--color-black-50)', fontSize: '12' /* 기존: 11px */ },
+  }),
+  label: css({
+    minH: '218px',
+    _mobile: { minH: '100px' },
+    '& h2': {
+      m: '0 0 var(--spacing-2)',
+      fontFamily: 'var(--font-family-base)',
+      fontSize: '32' /* 기존 34px */,
+      fontWeight: 'var(--font-weights-normal)',
+      letterSpacing: 'var(--letter-spacings-korean)',
+      _mobile: { fontSize: '28' },
+    },
+    '& p': { m: '0', color: 'var(--color-black-40)' },
+  }),
+  note: css({
+    m: '0',
+    py: '6',
+    borderTop: '1px solid var(--color-black-20)',
+    color: 'var(--color-black-50)',
+    fontSize: '12' /* 기존: 11px */,
+    _mobile: { mt: '4', lineHeight: 'var(--line-heights-body)' },
+  }),
 };
+
 export function TeamwearPage() {
   return (
     <SidebarNavigationLayout

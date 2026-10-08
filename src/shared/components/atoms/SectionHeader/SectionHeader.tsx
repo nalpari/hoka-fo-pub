@@ -13,7 +13,7 @@ const root = cva({
     divider: {
       none: {},
       line: { pb: '4', borderBottom: '1px solid var(--line)' },
-      strong: { pb: '4', borderBottom: '2px solid #111' },
+      strong: { pb: '4', borderBottom: '2px solid var(--color-black-100)' },
     },
     spacing: { none: {}, page: { mb: '30px' } },
   },
@@ -23,7 +23,7 @@ const root = cva({
 const eyebrowStyle = css({
   display: 'block',
   color: 'var(--hoka-brand)',
-  letterSpacing: '.08em',
+  letterSpacing: 'mono',
 });
 const descriptionStyle = css({ m: '8px 0 0' });
 

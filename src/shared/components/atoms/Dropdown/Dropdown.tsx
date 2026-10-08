@@ -8,47 +8,53 @@ import { Flex } from 'styled-system/jsx';
 const styles = {
   trigger: cva({
     base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    w: '100%',
-    p: '8px 12px',
-    border: '1px solid #d5d5d5',
-    bg: '#fff',
-    color: '#000000',
-    cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      w: '100%',
+      py: '2',
+      px: '3',
+      border: '1px solid var(--color-black-20)',
+      bg: 'var(--color-white-000)',
+      color: 'var(--color-black-100)',
+      cursor: 'pointer',
     },
     variants: {
       disabled: {
-        true: { bg: '#F7F7F9', color: '#B3B3B3', cursor: 'not-allowed' },
+        true: {
+          bg: 'var(--color-black-10)',
+          color: 'var(--color-black-40)',
+          cursor: 'not-allowed',
+        },
         false: {},
       },
     },
   }),
   label: cva({
     base: {
-    flex: 1,
-    textAlign: 'left',
-    fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '21px',
+      flex: 1,
+      textAlign: 'left',
+      fontWeight: 'var(--font-weights-normal)',
+      fontSize: '16',
+      lineHeight: 'body',
     },
-    variants: { disabled: { true: { color: '#4D4D4D' }, false: {} } },
+    variants: { disabled: { true: { color: 'var(--color-black-60)' }, false: {} } },
   }),
   positioner: css({ zIndex: 10 }),
   popup: css({
     w: 'var(--anchor-width)',
     mt: '1',
-    border: '1px solid #d5d5d5',
-    bg: '#fff',
-    color: '#222',
-    boxShadow: '0 4px 12px rgb(0 0 0 / 20%)',
+    border: '1px solid var(--color-black-20)',
+    bg: 'var(--color-white-000)',
+    color: 'var(--color-black-100)',
+    boxShadow: '0 4px 12px color-mix(in srgb, var(--color-black-100) 20%, transparent)',
   }),
   item: css({
-    p: '8px 12px',
+    py: '2',
+    px: '3',
     cursor: 'pointer',
-    _hover: { bg: '#f2f2f2' },
-    '&[data-highlighted]': { bg: '#f2f2f2' },
+    _hover: { bg: 'var(--color-black-10)' },
+    '&[data-highlighted]': { bg: 'var(--color-black-10)' },
   }),
   indicator: css({ display: 'block', flexShrink: 0 }),
 };
@@ -120,7 +126,7 @@ export function Dropdown({
                 {
                   width: indicatorWidth,
                   height: indicatorHeight,
-                  color: disabled ? '#B3B3B3' : indicatorColor,
+                  color: disabled ? 'var(--color-black-40)' : indicatorColor,
                 } as CSSProperties
               }
             >

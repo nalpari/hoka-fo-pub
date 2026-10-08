@@ -7,7 +7,7 @@ export function SiteFooter() {
   const platform = usePlatform();
 
   return (
-    <Wrap as="footer" pt="16" pb="8" bg="#000" color="#fff">
+    <Wrap as="footer" pt="16" pb="8" bg="var(--color-black-100)" color="var(--color-white-000)">
       <Flex
         w="100%"
         maxW="1920px"

@@ -3,12 +3,12 @@ import { css } from 'styled-system/css';
 
 type Props = { value: number; max: number; label?: string };
 
-const track = css({ h: '1', bg: '#e5e5e5' });
+const track = css({ h: '1', bg: 'var(--color-black-20)' });
 
 const valueStyle = css({
   display: 'block',
   h: '100%',
-  bg: '#0082ca',
+  bg: 'var(--color-blue-100)',
   transition: 'width .2s ease',
 });
 

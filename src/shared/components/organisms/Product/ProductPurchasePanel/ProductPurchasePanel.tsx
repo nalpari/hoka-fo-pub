@@ -66,7 +66,7 @@ export function ProductPurchasePanel({
     >
       <ProductPurchaseSummary onViewReviews={onViewReviews} product={product} />
       {product.launchStatus === 'COMING' && <LaunchNotice status={product.launchStatus} />}
-      <strong className={css({ display: 'block', my: '5', fontSize: '26px' })}>
+      <strong className={css({ display: 'block', my: '5', fontSize: '24' /* 기존 26px */ })}>
         {won(product.price)}
       </strong>
       <hr />
@@ -105,7 +105,10 @@ export function ProductPurchasePanel({
         value={size}
       />
       {selectionError && (
-        <p className={css({ m: '-12px 0 18px', color: '#f95050', fontSize: '14px' })} role="alert">
+        <p
+          className={css({ m: '-12px 0 18px', color: 'var(--color-red-100)', fontSize: '14' })}
+          role="alert"
+        >
           {selectionError}
         </p>
       )}
@@ -117,7 +120,7 @@ export function ProductPurchasePanel({
         wish={wish}
       />
       <DeliveryBenefits />
-      <p className={css({ color: 'var(--color-text-muted)', fontSize: '12px' })}>
+      <p className={css({ color: 'var(--color-text-muted)', fontSize: '12' })}>
         실제 결제와 주문 전송은 연결하지 않은 데모입니다.
       </p>
     </article>

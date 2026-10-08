@@ -28,7 +28,7 @@ export function CatalogFilterSection({ title, children }: { title: string; child
 
   return (
     <>
-      <Box bg="#B3B3B3" className={divider} h="1px" w="100%" />
+      <Box bg="var(--color-black-40)" className={divider} h="1px" w="100%" />
       <div>
         <CatalogFilterTrigger
           controlsId={contentId}

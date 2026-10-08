@@ -71,10 +71,15 @@ function CarouselArrow({ className, size, style, direction = 'previous' }: Carou
       width={size}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="24" cy="24" fill="var(--icon-carousel-circle-color, #F7F7F9)" r="24" />
+      <circle
+        cx="24"
+        cy="24"
+        fill="var(--icon-carousel-circle-color, var(--color-black-10))"
+        r="24"
+      />
       <path
         d="M16.0701 23.0703C15.5561 23.5844 15.5561 24.4156 16.0701 24.9242L26.5701 35.4297C27.0842 35.9437 27.9154 35.9437 28.424 35.4297C28.9326 34.9156 28.9381 34.0844 28.424 33.5758L18.8537 24L28.4295 14.4297C28.9436 13.9156 28.9436 13.0844 28.4295 12.5758C27.9154 12.0672 27.0842 12.0617 26.5756 12.5758L16.0701 23.0703Z"
-        fill="var(--icon-carousel-path-color, #B3B3B3)"
+        fill="var(--icon-carousel-path-color, var(--color-black-40))"
         style={{ transform: 'rotate(var(--icon-carousel-rotation))', transformOrigin: 'center' }}
       />
     </svg>
@@ -95,8 +100,8 @@ const resolveIconFilter = (color?: IconProps['color']) => {
 };
 
 const resolveIconColor = (color: IconProps['color']) => {
-  if (color === 'white') return '#fff';
-  if (color === 'black') return '#000';
+  if (color === 'white') return 'var(--color-white-000)';
+  if (color === 'black') return 'var(--color-black-100)';
   return color;
 };
 

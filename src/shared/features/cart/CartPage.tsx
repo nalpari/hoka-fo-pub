@@ -15,94 +15,109 @@ const cartPage = css({
   px: { base: '0', _mobile: '4' },
   pb: { base: '110px', _mobile: '62px' },
 });
+
 const titleRow = css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between' });
-const table = css({ borderTop: '1px solid #111' });
+
+const table = css({ borderTop: '1px solid var(--color-black-100)' });
+
 const tableHead = css({
   display: 'grid',
   gridTemplateColumns: { base: '48px 1fr 130px 160px', _mobile: '28px 1fr 66px 0' },
   alignItems: 'center',
   h: '49px',
-  borderBottom: '1px solid #e3e3e3',
-  fontSize: '12px',
+  borderBottom: '1px solid var(--color-black-20)',
+  fontSize: '12',
   textAlign: 'center',
 });
+
 const cartItem = css({
   display: 'grid',
   gridTemplateColumns: { base: '48px 1fr 130px 160px', _mobile: '28px 1fr 68px' },
   alignItems: 'center',
   minH: '155px',
-  borderBottom: '1px solid #e3e3e3',
+  borderBottom: '1px solid var(--color-black-20)',
 });
+
 const itemInfo = css({
   display: 'flex',
   alignItems: 'center',
   gap: { base: '18px', _mobile: '10px' },
 });
+
 const art = css({
   display: 'grid',
   w: { base: '100px', _mobile: '72px' },
   h: { base: '100px', _mobile: '72px' },
   placeItems: 'center',
-  bg: '#f2f2f2',
-  fontSize: { base: '50px', _mobile: '36px' },
+  bg: 'var(--color-black-10)',
+  fontSize: { base: '50', _mobile: '36' },
   fontStyle: 'italic',
-  fontWeight: '900',
+  fontWeight: 'var(--font-weights-black)',
 });
+
 const quantity = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: { base: '18px', _mobile: '8px' },
+  gap: { base: '18px', _mobile: '2' },
 });
+
 const summary = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: { base: 'flex-end', _mobile: 'center' },
   flexWrap: { base: 'nowrap', _mobile: 'wrap' },
-  gap: { base: '28px', _mobile: '12px' },
-  p: '25px',
-  bg: '#f6f6f6',
-  fontSize: '14px',
+  gap: { base: '7', _mobile: '3' },
+  p: '26px',
+  bg: 'var(--color-black-10)',
+  fontSize: '14',
 });
+
 const empty = css({
   display: 'grid',
   minH: '285px',
   placeItems: 'center',
   alignContent: 'center',
-  gap: '13px',
-  borderBottom: '1px solid #e3e3e3',
+  gap: '14px',
+  borderBottom: '1px solid var(--color-black-20)',
 });
+
 const recommend = css({ mt: '20' });
+
 const recommendGrid = css({
   display: 'grid',
   gridTemplateColumns: { base: 'repeat(4, 1fr)', _mobile: 'repeat(2, 1fr)' },
   gap: { base: '30px', _mobile: '25px 10px' },
 });
+
 const recommendArt = cva({
   base: {
     display: 'grid',
     w: '100%',
     aspectRatio: '1',
     placeItems: 'center',
-    fontSize: '50px',
+    fontSize: '50',
     fontStyle: 'italic',
-    fontWeight: '900',
+    fontWeight: 'var(--font-weights-black)',
   },
   variants: {
     tone: {
-      0: { bg: '#e9e8e4', color: '#777' },
-      1: { bg: '#ededed', color: '#999' },
-      2: { bg: '#dfe3e4', color: '#223' },
-      3: { bg: '#d6d7d5', color: '#161616' },
+      0: { bg: 'var(--color-black-20)', color: 'var(--color-black-50)' },
+      1: { bg: 'var(--color-black-20)', color: 'var(--color-black-40)' },
+      2: { bg: 'var(--color-black-20)', color: 'var(--color-black-60)' },
+      3: { bg: 'var(--color-black-20)', color: 'var(--color-black-100)' },
     },
   },
 });
+
 type Props = {
   cart: CartItem[];
   onQuantityChange: (item: CartItem, quantity: number) => void;
   onRemove: (item: CartItem) => void;
 };
+
 const suggestions = products.slice(0, 4);
+
 export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
   const rows = cart.flatMap((item) => {
     const product = products.find((candidate) => candidate.id === item.id);
@@ -112,7 +127,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
   return (
     <main className={cartPage}>
       <header className={titleRow}>
-        <h1 className={css({ m: '0', fontSize: '32px' })}>장바구니</h1>
+        <h1 className={css({ m: '0', fontSize: '32' })}>장바구니</h1>
         <StepIndicator
           ariaLabel="주문 진행 단계"
           current={1}
@@ -120,9 +135,9 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           mobileHidden
         />
       </header>
-      <p className={css({ m: '39px 0 13px' })}>
+      <p className={css({ m: 'var(--spacing-10) 0 14px' })}>
         총{' '}
-        <b className={css({ color: '#e31b23' })}>
+        <b className={css({ color: 'var(--color-red-100)' })}>
           {rows.reduce((sum, { item }) => sum + item.quantity, 0)}
         </b>
         개
@@ -147,15 +162,21 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                     <span className={art}>N</span>
                     <Box>
                       <strong>{product.name}</strong>
-                      <p className={css({ m: '2 0', color: '#777', fontSize: '13px' })}>
+                      <p
+                        className={css({
+                          m: '2 0',
+                          color: 'var(--color-black-50)',
+                          fontSize: '14' /* 기존 13px */,
+                        })}
+                      >
                         {item.color} / {item.width} / {item.size}
                       </p>
                       <Button
                         className={css({
                           p: '0',
                           border: '0',
-                          color: '#777',
-                          fontSize: '12px',
+                          color: 'var(--color-black-50)',
+                          fontSize: '12',
                           textDecoration: 'underline',
                         })}
                         onClick={() => onRemove(item)}
@@ -185,14 +206,14 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               </span>
               <strong>
                 총 결제예정 금액{' '}
-                <b className={css({ color: '#e31b23' })}>{total.toLocaleString()}원</b>
+                <b className={css({ color: 'var(--color-red-100)' })}>{total.toLocaleString()}원</b>
               </strong>
               <Button
                 className={css({
                   w: { _mobile: '100%' },
-                  p: '13px 38px',
-                  bg: '#111',
-                  color: '#fff',
+                  p: '14px 38px',
+                  bg: 'var(--color-black-100)',
+                  color: 'var(--color-white-000)',
                 })}
               >
                 주문하기
@@ -201,10 +222,14 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           </>
         ) : (
           <Grid className={empty}>
-            <b className={css({ fontSize: '50px' })}>!</b>
+            <b className={css({ fontSize: '50' })}>!</b>
             <p className={css({ m: '0' })}>장바구니에 담은 상품이 없습니다.</p>
             <Link
-              className={css({ p: '2.5 18px', borderBottom: '1px solid #111', fontSize: '13px' })}
+              className={css({
+                p: '2.5 18px',
+                borderBottom: '1px solid var(--color-black-100)',
+                fontSize: '14' /* 기존 13px */,
+              })}
               to="/products"
             >
               쇼핑 계속하기
@@ -213,7 +238,13 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
         )}
       </section>
       <section className={recommend}>
-        <h2 className={css({ m: '0 0 38px', textAlign: 'center', fontSize: '23px' })}>
+        <h2
+          className={css({
+            m: '0 0 38px',
+            textAlign: 'center',
+            fontSize: '24' /* 기존 23px */,
+          })}
+        >
           함께 구매하면 좋은 상품
         </h2>
         <Grid className={recommendGrid}>
@@ -224,9 +255,13 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               key={product.id}
             >
               <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>
-              <small className={css({ color: 'var(--color-text-muted)' })}>{product.id.toUpperCase()}</small>
-              <strong className={css({ fontSize: '15px' })}>{product.name}</strong>
-              <b className={css({ fontSize: '14px' })}>{product.price.toLocaleString()}원</b>
+              <small className={css({ color: 'var(--color-text-muted)' })}>
+                {product.id.toUpperCase()}
+              </small>
+              <strong className={css({ fontSize: '16' /* 기존 15px */ })}>{product.name}</strong>
+              <b className={css({ fontSize: '14' })}>
+                {product.price.toLocaleString()}원
+              </b>
             </Link>
           ))}
         </Grid>

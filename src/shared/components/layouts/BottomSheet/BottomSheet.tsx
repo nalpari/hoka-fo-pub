@@ -9,11 +9,16 @@ import { BottomSheetHeader } from '@/shared/components/layouts/BottomSheet/Botto
 const sheet = css({
   maxH: 'calc(100dvh - 56px)',
   borderRadius: '16px 16px 0 0',
-  bg: '#fff',
-  boxShadow: '0 -12px 32px rgba(0, 0, 0, 0.18)',
+  bg: 'var(--color-white-000)',
+  boxShadow: '0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)',
 });
 
-const backdrop = css({ position: 'fixed', inset: '0', zIndex: '110', bg: 'rgba(0, 0, 0, 0.48)' });
+const backdrop = css({
+  position: 'fixed',
+  inset: '0',
+  zIndex: '110',
+  bg: 'color-mix(in srgb, var(--color-black-100) 48%, transparent)',
+});
 
 const viewport = css({
   position: 'fixed',

@@ -1,8 +1,10 @@
 'use client';
 
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
 import { css } from 'styled-system/css';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faChevronDown } from '@/shared/icons/fontAwesome';
 
 const styles = {
   trigger: css({
@@ -22,13 +24,6 @@ const styles = {
     flexShrink: 0,
     transition: 'transform 0.15s ease',
     '[data-open] &': { transform: 'rotate(180deg)' },
-  }),
-  defaultIndicator: css({
-    display: 'block',
-    w: 'var(--accordion-indicator-size)',
-    h: 'var(--accordion-indicator-size)',
-    bg: 'currentColor',
-    mask: 'url(/images/icon/chevron-down.svg) center / contain no-repeat',
   }),
 };
 
@@ -65,12 +60,7 @@ export function Accordion({
   indicatorColor = 'currentColor',
 }: AccordionProps) {
   const defaultIndicator = (
-    <span
-      className={styles.defaultIndicator}
-      style={
-        { '--accordion-indicator-size': indicatorSize, color: indicatorColor } as CSSProperties
-      }
-    />
+    <Icon color={indicatorColor} fontAwesomeIcon={faChevronDown} size={indicatorSize} />
   );
 
   return (

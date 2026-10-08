@@ -25,9 +25,9 @@ const optionsLayout = css({
 const outer = css({
   w: '9',
   h: '9',
-  bg: '#fff',
+  bg: 'var(--color-white-000)',
   '&:has([role="checkbox"][data-checked])': {
-    outline: '2px solid #111',
+    outline: '2px solid var(--color-black-100)',
     '& [data-swatch]': { w: '8', h: '8' },
   },
 });
@@ -40,15 +40,11 @@ const control = css({
 const swatch = css({
   w: '9',
   h: '9',
-  border: '0.5px solid rgba(0, 0, 0, 0.2)',
+  border: '0.5px solid color-mix(in srgb, var(--color-black-100) 20%, transparent)',
   bg: 'var(--swatch-color)',
 });
 
-export function ColorFilter({
-  options,
-  selected,
-  onChange,
-}: ColorFilterProps) {
+export function ColorFilter({ options, selected, onChange }: ColorFilterProps) {
   return (
     <BaseCheckboxGroup value={selected} onValueChange={onChange} className={optionsLayout}>
       {options.map(({ value, label, hex }) => (

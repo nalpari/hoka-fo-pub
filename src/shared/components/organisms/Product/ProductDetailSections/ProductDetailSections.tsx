@@ -15,9 +15,9 @@ const tabBar = css({
   zIndex: '2',
   display: 'grid',
   gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-  borderTop: '1px solid #111',
-  borderBottom: '1px solid #111',
-  bg: '#fff',
+  borderTop: '1px solid var(--color-black-100)',
+  borderBottom: '1px solid var(--color-black-100)',
+  bg: 'var(--color-white-000)',
 });
 const tab = cva({
   base: {
@@ -27,27 +27,31 @@ const tab = cva({
     minH: { base: '58px', _mobile: '48px' },
     px: { base: '3', _mobile: '1' },
     border: '0',
-    borderRight: { base: '1px solid #d8d8d8', _mobile: '0' },
-    bg: '#fff',
+    borderRight: { base: '1px solid var(--color-black-20)', _mobile: '0' },
+    bg: 'var(--color-white-000)',
     color: 'var(--color-text-muted)',
-    fontSize: { _mobile: '12px' },
-    fontWeight: '700',
+    fontSize: { _mobile: '12' },
+    fontWeight: 'bold',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    _focusVisible: { zIndex: '1', outline: '2px solid #111', outlineOffset: '-2px' },
+    _focusVisible: {
+      zIndex: '1',
+      outline: '2px solid var(--color-black-100)',
+      outlineOffset: '-2px',
+    },
   },
   variants: {
     active: {
       true: {
-        color: '#111',
+        color: 'var(--color-black-100)',
         _after: {
           position: 'absolute',
           right: '0',
           bottom: '-1px',
           left: '0',
           h: '3px',
-          bg: '#111',
+          bg: 'var(--color-black-100)',
           content: '""',
         },
       },
@@ -133,9 +137,14 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
               minH: { base: '520px', _mobile: '400px' },
               py: { base: '72px', _mobile: '48px' },
               scrollMarginTop: { base: '150px', _mobile: '125px' },
-              borderBottom: '1px solid #d8d8d8',
-              '& h2': { m: '0 0 18px', fontSize: { base: '30px', _mobile: '24px' } },
-              '& > p': { maxW: '620px', m: '0', color: 'var(--color-text-muted)', lineHeight: '1.65' },
+              borderBottom: '1px solid var(--color-black-20)',
+              '& h2': { m: '0 0 18px', fontSize: { base: '28', _mobile: '24' } },
+              '& > p': {
+                maxW: '620px',
+                m: '0',
+                color: 'var(--color-text-muted)',
+                lineHeight: 'body',
+              },
             })}
             id={section.id}
             key={section.id}

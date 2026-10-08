@@ -2,8 +2,8 @@ import { css } from 'styled-system/css';
 import type { Product } from '@/mocks/products';
 
 const styles = {
-  eyebrow: css({ color: '#009dff', fontSize: '13px', fontWeight: '700' }),
-  audience: css({ mt: '2', color: '#555', fontSize: '14px' }),
+  eyebrow: css({ color: 'var(--color-blue-100)', fontSize: '14' /* 기존 13px */, fontWeight: 'bold' }),
+  audience: css({ mt: '2', color: 'var(--color-black-60)', fontSize: '14' }),
 };
 
 type ProductDetailHeaderMetaProps = {

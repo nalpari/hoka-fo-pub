@@ -1,10 +1,12 @@
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import { css } from 'styled-system/css';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { usePlatform } from '@/shared/context/platform';
+import { faHeartRegular, faHeartSolid } from '@/shared/icons/fontAwesome';
 
 const wishlist = css({
-  w: '6',
-  h: '6',
-  _mobile: { w: '19px', h: '19px' },
+  display: 'block',
+  flexShrink: '0',
 });
 
 const button = css({
@@ -15,7 +17,10 @@ const button = css({
   border: '0',
   bg: 'transparent',
   cursor: 'pointer',
-  _focusVisible: { outline: '2px solid var(--color-focus-ring, var(--focus-ring))', outlineOffset: '2px' },
+  _focusVisible: {
+    outline: '2px solid var(--color-focus-ring, var(--focus-ring))',
+    outlineOffset: '2px',
+  },
 });
 
 export type WishlistProps = {
@@ -27,6 +32,8 @@ export type WishlistProps = {
 
 /** Accessible wishlist toggle with outline and filled icon states. */
 export function Wishlist({ active, ariaLabel, className, onActiveChange }: WishlistProps) {
+  const platform = usePlatform();
+
   return (
     <BaseToggle
       aria-label={ariaLabel}
@@ -35,11 +42,11 @@ export function Wishlist({ active, ariaLabel, className, onActiveChange }: Wishl
       pressed={active}
       type="button"
     >
-      <img
+      <Icon
         alt=""
-        aria-hidden="true"
         className={wishlist}
-        src={active ? '/images/icon/wishlist-filled.svg' : '/images/icon/wishlist.svg'}
+        fontAwesomeIcon={active ? faHeartSolid : faHeartRegular}
+        size={platform === 'mobile' ? '19px' : '24px'}
       />
     </BaseToggle>
   );

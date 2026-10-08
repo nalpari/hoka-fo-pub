@@ -1,6 +1,11 @@
 import { css } from 'styled-system/css';
 
-const notice = css({ p: '11px', bg: '#fff1f1', color: '#a90f15', fontSize: '13px' });
+const notice = css({
+  p: '11px',
+  bg: 'var(--color-black-10)',
+  color: 'var(--color-red-100)',
+  fontSize: '14' /* 기존 13px */,
+});
 
 type LaunchNoticeProps = {
   status: 'COMING';

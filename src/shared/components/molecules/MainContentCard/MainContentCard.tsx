@@ -105,11 +105,11 @@ const title = cva({
     variant: {
       titleLinks: {},
       descriptionLink: {},
-      imagePill: { _mobile: { fontSize: '24px', lineHeight: '23px' } },
+      imagePill: { _mobile: { fontSize: '24', lineHeight: 'body' } },
       overlay: {
-        fontSize: '32px',
-        lineHeight: '31px',
-        _mobile: { fontSize: '24px', lineHeight: '23px' },
+        fontSize: '32',
+        lineHeight: 'body',
+        _mobile: { fontSize: '24', lineHeight: 'body' },
       },
     },
   },
@@ -126,7 +126,7 @@ const descriptionStyle = cva({
     variant: {
       descriptionLink: {},
       imagePill: {},
-      overlay: { fontSize: '20px', _mobile: { fontSize: '14px' } },
+      overlay: { fontSize: '20', _mobile: { fontSize: '14' } },
     },
   },
 });
@@ -258,7 +258,7 @@ export function MainContentCard({
   const imageStyle = {
     backgroundImage:
       variant === 'overlay'
-        ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 60.3%, rgba(0, 0, 0, 0.3) 94.22%), url("${image}")`
+        ? `linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 60.3%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 94.22%), url("${image}")`
         : `url("${image}")`,
     ...(imageAspectRatio
       ? {

@@ -24,7 +24,7 @@ const styles = {
   method: css({ gap: '6', minW: '0' }),
   illustration: css({
     h: '160px',
-    border: '1px solid #e9eaeb',
+    border: '1px solid var(--color-black-20)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

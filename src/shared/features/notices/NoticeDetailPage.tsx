@@ -4,11 +4,82 @@ import { Box } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+
 const styles = {
-  noticeHead: css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minH: '77px', px: '5', borderTop: '2px solid #555', borderBottom: '1px solid #ddd', _mobile: { display: 'block', p: '4.5 1.25' }, '& h2': { m: '0', fontSize: '14px', _mobile: { lineHeight: '1.5' } }, '& span': { color: '#888', fontSize: '11px', _mobile: { display: 'block', mt: '2.5' } } }),
-  poster: css({ w: '565px', minH: '1110px', mt: '30px', p: '55px 7', border: '8px solid #ddd', borderTop: '8px solid #e60032', _mobile: { w: '100%', minH: '0', p: '8 19px', borderWidth: '5px' }, '& > h2': { m: '0', fontSize: '34px', lineHeight: '1.45', _mobile: { fontSize: '26px' } }, '& em': { fontStyle: 'normal' }, '& section': { mt: '43px' }, '& h3': { m: '29px 0 2', fontSize: '20px', _mobile: { fontSize: '17px' } }, '& p': { m: '0', fontSize: '17px', lineHeight: '1.75', _mobile: { fontSize: '14px' } }, '& strong': { color: '#e60032', fontSize: '16px', fontWeight: '400' } }),
-  brand: css({ mb: '38px', color: '#e60032', fontSize: '48px', fontStyle: 'italic', fontWeight: '900', letterSpacing: '-0.2em' }),
-  back: css({ mt: '180px', pt: '6', borderTop: '1px solid #ddd', textAlign: 'right', _mobile: { mt: '65px' }, '& a': { display: 'inline-block', p: '2.5 7', border: '1px solid #222', fontSize: '12px' } }),
+  noticeHead: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minH: '77px',
+    px: '5',
+    borderTop: '2px solid var(--color-black-60)',
+    borderBottom: '1px solid var(--color-black-20)',
+    _mobile: { display: 'block', p: '4.5 1.25' },
+    '& h2': {
+      m: '0',
+      fontSize: '14',
+      _mobile: { lineHeight: 'var(--line-heights-body)' },
+    },
+    '& span': {
+      color: 'var(--color-black-50)',
+      fontSize: '12' /* 기존: 11px */,
+      _mobile: { display: 'block', mt: '2.5' },
+    },
+  }),
+  poster: css({
+    w: '565px',
+    minH: '1110px',
+    mt: '30px',
+    p: 'var(--spacing-14) 7',
+    border: '8px solid var(--color-black-20)',
+    borderTop: '8px solid var(--color-red-100)',
+    _mobile: { w: '100%', minH: '0', p: '8 var(--spacing-5)', borderWidth: '5px' },
+    '& > h2': {
+      m: '0',
+      fontSize: '32' /* 기존 34px */,
+      lineHeight: 'var(--line-heights-body)',
+      _mobile: { fontSize: '24' /* 기존 26px */ },
+    },
+    '& em': { fontStyle: 'normal' },
+    '& section': { mt: '11' },
+    '& h3': {
+      m: '30px 0 2',
+      fontSize: '20',
+      _mobile: { fontSize: '16' /* 기존 17px */ },
+    },
+    '& p': {
+      m: '0',
+      fontSize: '16' /* 기존 17px */,
+      lineHeight: 'var(--line-heights-body)',
+      _mobile: { fontSize: '14' },
+    },
+    '& strong': {
+      color: 'var(--color-red-100)',
+      fontSize: '16',
+      fontWeight: 'var(--font-weights-normal)',
+    },
+  }),
+  brand: css({
+    mb: '38px',
+    color: 'var(--color-red-100)',
+    fontSize: '48',
+    fontStyle: 'italic',
+    fontWeight: 'var(--font-weights-black)',
+    letterSpacing: 'var(--letter-spacings-korean)',
+  }),
+  back: css({
+    mt: '180px',
+    pt: '6',
+    borderTop: '1px solid var(--color-black-20)',
+    textAlign: 'right',
+    _mobile: { mt: '66px' },
+    '& a': {
+      display: 'inline-block',
+      p: '2.5 7',
+      border: '1px solid var(--color-black-100)',
+      fontSize: '12',
+    },
+  }),
 };
 
 export function NoticeDetailPage() {

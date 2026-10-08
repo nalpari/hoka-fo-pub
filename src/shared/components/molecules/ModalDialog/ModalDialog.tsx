@@ -36,8 +36,8 @@ const backdrop = cva({
   },
   variants: {
     overlayTone: {
-      dark: { bg: 'rgb(0 0 0 / 50%)' },
-      light: { bg: 'rgb(255 255 255 / 50%)' },
+      dark: { bg: 'color-mix(in srgb, var(--color-black-100) 50%, transparent)' },
+      light: { bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)' },
     },
   },
   defaultVariants: { overlayTone: 'dark' },
@@ -49,8 +49,8 @@ const popup = cva({
     maxH: 'calc(100dvh - 48px)',
     overflowY: 'auto',
     borderRadius: '0',
-    bg: '#fff',
-    boxShadow: '0 4px 4px rgb(0 0 0 / 25%)',
+    bg: 'var(--color-white-000)',
+    boxShadow: '0 4px 4px color-mix(in srgb, var(--color-black-100) 25%, transparent)',
     _mobile: { maxH: 'calc(100dvh - 32px)' },
   },
   variants: {
@@ -100,9 +100,8 @@ const closeButton = css({
   w: '4',
   h: '4',
   p: '0',
-  border: '0',
-  bg: 'transparent',
-  cursor: 'pointer',
+  color: 'var(--color-black-60)',
+  '& svg': { w: '4', h: '4' },
 });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -148,7 +147,7 @@ export function ModalDialog({
             >
               <header className={header}>
                 <Dialog.Title className={titleStyle}>
-                  <Typography as="span" variant="modalTitle">
+                  <Typography as="span">
                     {title}
                   </Typography>
                 </Dialog.Title>

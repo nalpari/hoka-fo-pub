@@ -7,16 +7,16 @@ const root = css({ w: '100%' });
 
 const control = css({ position: 'relative', display: 'flex', alignItems: 'center', h: '34px' });
 
-const track = css({ position: 'relative', w: '100%', h: '4px', bg: '#e5e5e5' });
+const track = css({ position: 'relative', w: '100%', h: '4px', bg: 'var(--color-black-20)' });
 
-const indicator = css({ h: '100%', bg: '#111' });
+const indicator = css({ h: '100%', bg: 'var(--color-black-100)' });
 
 const thumb = css({
   w: '16px',
   h: '16px',
-  border: '3px solid #111',
+  border: '3px solid var(--color-black-100)',
   borderRadius: 'full',
-  bg: '#fff',
+  bg: 'var(--color-white-000)',
 });
 
 export type RangeValue = number | readonly number[];

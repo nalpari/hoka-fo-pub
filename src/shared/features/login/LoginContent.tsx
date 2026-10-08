@@ -21,13 +21,13 @@ const styles = {
     '--button-border-width': '0px!',
     '--button-padding-x': '0px',
     flexShrink: 0,
-    color: '#555',
+    color: 'var(--color-black-60)',
     '& svg': { w: '16px', h: '16px' },
   }),
   options: css({
     justifyContent: 'space-between',
     gap: '2',
-    '& label > span:last-child': { fontSize: '13px' },
+    '& label > span:last-child': { fontSize: '14' /* 기존 13px */ },
   }),
   links: css({
     gap: '2',
@@ -40,17 +40,23 @@ const styles = {
     '--button-border-width': '0px!',
     '& svg': { w: '14px', h: '14px' },
   }),
-  kakao: css({ '--button-bg': '#ffe500!', '--button-color': '#000!' }),
-  naver: css({ '--button-bg': '#00c65b!', '--button-color': '#fff!' }),
-  membership: css({ mt: '8', pt: '8', borderTop: '1px solid #e9eaeb', gap: '2' }),
+  kakao: css({
+    '--button-bg': 'var(--color-citrus-100)!',
+    '--button-color': 'var(--color-black-100)!',
+  }),
+  naver: css({
+    '--button-bg': 'var(--color-black-60)!',
+    '--button-color': 'var(--color-white-000)!',
+  }),
+  membership: css({ mt: '8', pt: '8', borderTop: '1px solid var(--color-black-20)', gap: '2' }),
   signup: css({
     mt: '4',
     '--button-radius': '999px',
     '--button-height': '48px!',
     '--button-border-width': '1px!',
-    '--button-bg': '#fff!',
-    '--button-color': '#000!',
-    '--button-border-color': '#000!',
+    '--button-bg': 'var(--color-white-000)!',
+    '--button-color': 'var(--color-black-100)!',
+    '--button-border-color': 'var(--color-black-100)!',
   }),
 };
 

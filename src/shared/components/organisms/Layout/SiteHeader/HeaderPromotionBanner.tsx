@@ -17,8 +17,8 @@ const promotionBanner = css({
 const promotionLink = css({
   '& span': {
     color: 'var(--hoka-white)',
-    fontWeight: '500',
-    fontSize: '14px',
+    fontWeight: 'medium',
+    fontSize: '14',
   },
 });
 
@@ -30,7 +30,7 @@ export function HeaderPromotionBanner() {
         <Typography as="span" tone="inverse" variant="action">
           신규회원 첫구매 5% 할인 및 스페셜 혜택
         </Typography>
-        <ButtonLink className={promotionLink} to="/products" variant="link">
+        <ButtonLink className={promotionLink} to="/products" variant="link" size="sm">
           자세히 보기
         </ButtonLink>
       </HStack>

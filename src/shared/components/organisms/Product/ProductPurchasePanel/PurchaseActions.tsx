@@ -22,11 +22,11 @@ export function PurchaseActions({
       <Button
         className={css({
           minH: '14',
-          borderColor: '#df0038',
-          bg: '#df0038',
-          color: '#fff',
-          fontSize: '17px',
-          fontWeight: '700',
+          borderColor: 'var(--color-red-100)',
+          bg: 'var(--color-red-100)',
+          color: 'var(--color-white-000)',
+          fontSize: '16' /* 기존 17px */,
+          fontWeight: 'bold',
         })}
         onClick={onOrder}
       >
@@ -36,10 +36,10 @@ export function PurchaseActions({
         <Button
           className={css({
             minH: '13',
-            borderColor: '#111',
-            bg: '#fff',
-            color: '#111',
-            fontWeight: '700',
+            borderColor: 'var(--color-black-100)',
+            bg: 'var(--color-white-000)',
+            color: 'var(--color-black-100)',
+            fontWeight: 'bold',
           })}
           onClick={onAddToCart}
         >

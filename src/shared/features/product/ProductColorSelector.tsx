@@ -12,10 +12,10 @@ const styles = {
       h: '44px',
       overflow: 'hidden',
       borderBottom: '3px solid transparent',
-      bg: '#f7f7f9',
+      bg: 'var(--color-black-10)',
       cursor: 'pointer',
     },
-    '& [data-checked]': { borderBottomColor: '#000' },
+    '& [data-checked]': { borderBottomColor: 'var(--color-black-100)' },
     '& img': { w: '100%', h: '100%', objectFit: 'cover' },
   }),
 };

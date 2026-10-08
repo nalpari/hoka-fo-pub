@@ -12,10 +12,10 @@ const root = css({
   flexWrap: { base: 'nowrap', _mobile: 'wrap' },
   gap: '2.5',
   mt: '5',
-  border: '1px solid #111',
+  border: '1px solid var(--color-black-100)',
   p: { base: '14px 18px', _mobile: '10px' },
-  bg: '#fff',
-  boxShadow: '0 8px 24px rgb(0 0 0 / 12%)',
+  bg: 'var(--color-white-000)',
+  boxShadow: '0 8px 24px color-mix(in srgb, var(--color-black-100) 12%, transparent)',
 });
 
 export function CompareBar({
@@ -31,7 +31,7 @@ export function CompareBar({
     <aside className={root} aria-live="polite">
       <Stack flex="1" gap="3px">
         <small>상품 비교 · 최대 3개</small>
-        <strong className={css({ fontSize: { _mobile: '12px' } })}>
+        <strong className={css({ fontSize: { _mobile: '12' } })}>
           {products.map((product) => product.name).join('  ·  ')}
         </strong>
       </Stack>

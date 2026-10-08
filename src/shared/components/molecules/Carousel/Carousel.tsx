@@ -351,9 +351,9 @@ const paginationItem = css({
   p: '0',
   border: '0',
   borderRadius: 'full',
-  bg: '#e5e5e5',
+  bg: 'var(--color-black-20)',
   cursor: 'pointer',
-  '&[aria-pressed="true"]': { bg: '#003b5c' },
+  '&[aria-pressed="true"]': { bg: 'var(--color-black-60)' },
 });
 
 export type CarouselPaginationProps = {

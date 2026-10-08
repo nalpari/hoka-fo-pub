@@ -18,39 +18,47 @@ const styles = {
       ml: 'auto',
       px: '3',
       border: '1px solid var(--color-border-subtle)',
-      bg: '#fff',
-      fontSize: '12px',
+      bg: 'var(--color-white-000)',
+      fontSize: '12',
     },
     _mobile: { '& > select': { mt: '7' } },
   }),
   tabs: css({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    borderBottom: '2px solid #333',
+    borderBottom: '2px solid var(--color-black-60)',
     '& button': {
       h: '12',
       border: '1px solid var(--color-border-subtle)',
       borderBottom: 0,
-      bg: '#fff',
-      fontSize: '13px',
-      fontWeight: 700,
+      bg: 'var(--color-white-000)',
+      fontSize: '14' /* 기존 13px */,
+      fontWeight: 'var(--font-weights-bold)',
     },
-    '& .active': { border: '2px solid #333', borderBottom: '2px solid #fff' },
+    '& .active': {
+      border: '2px solid var(--color-black-60)',
+      borderBottom: '2px solid var(--color-white-000)',
+    },
   }),
   document: css({
     overflow: 'auto',
     h: '575px',
-    p: '34px 31px',
+    p: '34px var(--spacing-8)',
     border: '1px solid var(--color-border-subtle)',
-    fontSize: '12px',
-    lineHeight: 1.45,
-    '& h3': { mt: 0, mb: '25px', color: '#e60032', fontSize: '14px' },
-    '& h4': { my: '4.5', fontSize: '13px' },
+    fontSize: '12',
+    lineHeight: 'var(--line-heights-body)',
+    '& h3': {
+      mt: 0,
+      mb: '26px',
+      color: 'var(--color-red-100)',
+      fontSize: '14',
+    },
+    '& h4': { my: '4.5', fontSize: '14' /* 기존 13px */ },
     '& p': { m: 0 },
     '& table': { w: '100%', mt: '4.5', borderCollapse: 'collapse', textAlign: 'center' },
-    '& th, & td': { p: '3 1.5', border: '1px solid #555' },
-    '& th': { bg: '#bad3eb', fontWeight: 400 },
-    _mobile: { h: '490px', p: '22px 4', fontSize: '11px' },
+    '& th, & td': { p: '3 1.5', border: '1px solid var(--color-black-60)' },
+    '& th': { bg: 'var(--color-black-20)', fontWeight: 'var(--font-weights-normal)' },
+    _mobile: { h: '490px', p: '22px 4', fontSize: '12' /* 기존: 11px */ },
   }),
 };
 
@@ -80,6 +88,7 @@ const terms = (
     </p>
   </>
 );
+
 const privacy = (
   <>
     <h3>[ 호카 개인정보 처리방침 ]</h3>
@@ -120,6 +129,7 @@ const privacy = (
     </table>
   </>
 );
+
 export function TermsPage() {
   const [tab, setTab] = useState<'terms' | 'privacy'>('terms');
   const [date, setDate] = useState('2025-06-02');

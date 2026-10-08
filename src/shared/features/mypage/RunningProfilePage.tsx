@@ -7,9 +7,18 @@ import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavi
 import { myPageNavigation, profileQuestions } from '@/shared/features/mypage/mypage.data';
 
 const header = css({
-  '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
-  '& h1': { m: '10px 0', fontSize: '32px', _mobile: { fontSize: '27px' } },
-  '& p': { color: 'var(--color-text-muted)', fontSize: '14px' },
+  '& small': {
+    color: 'var(--color-blue-100)',
+    fontSize: '12' /* 기존: 11px */,
+    fontWeight: 'var(--font-weights-bold)',
+    letterSpacing: 'var(--letter-spacings-korean)',
+  },
+  '& h1': {
+    m: '10px 0',
+    fontSize: '32',
+    _mobile: { fontSize: '28' /* 기존 27px */ },
+  },
+  '& p': { color: 'var(--color-text-muted)', fontSize: '14' },
 });
 
 const progress = css({ my: '32px 50px' });
@@ -22,8 +31,8 @@ const footer = css({
   justifyContent: 'space-between',
   mt: '10',
   pt: '22px',
-  borderTop: '2px solid #111',
-  fontSize: '13px',
+  borderTop: '2px solid var(--color-black-100)',
+  fontSize: '14' /* 기존 13px */,
   _mobile: {
     position: 'sticky',
     bottom: '0',
@@ -31,7 +40,7 @@ const footer = css({
     mx: '-16px',
     mt: '30px',
     p: '14px 16px',
-    bg: '#fff',
+    bg: 'var(--color-white-000)',
   },
 });
 
