@@ -50,7 +50,7 @@ const styles = {
 export function AccountLockedPage() {
   const navigate = useNavigate();
 
-  const continueToVerification = () => navigate('/signup/verify/phone');
+  const continueToVerification = () => navigate('/login/account-locked/verification');
 
   return (
     <Box className={styles.page}>

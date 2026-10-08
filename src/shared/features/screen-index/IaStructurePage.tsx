@@ -25,6 +25,7 @@ import { screens, type ScreenDefinition } from '@/data/screenRegistry';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 import {
+  isStorybookPending,
   isStorybookReady,
   isStorybookWorking,
 } from '@/shared/features/screen-index/storybookLinks';
@@ -62,6 +63,14 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
+  213: {
+    pc: 'pages-auth-findaccount-passwordresetpage--default',
+    mo: 'pages-auth-findaccount-passwordresetpage--mobile',
+  },
+  236: {
+    pc: 'pages-auth-findaccount-passwordresetcompletemodal--default',
+    mo: 'pages-auth-findaccount-passwordresetcompletemodal--mobile',
+  },
   235: {
     pc: 'pages-auth-findaccount-idconfirmationmodal--default',
     mo: 'pages-auth-findaccount-idconfirmationmodal--mobile',
@@ -73,6 +82,10 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
   234: {
     pc: 'pages-auth-findaccount-accountlockedmodal--default',
     mo: 'pages-auth-findaccount-accountlockedmodal--mobile',
+  },
+  237: {
+    pc: 'pages-auth-phoneverification--account-unlock',
+    mo: 'pages-auth-phoneverification--mobile-account-unlock',
   },
   217: {
     pc: 'pages-auth-signup--default',
@@ -394,7 +407,12 @@ const styles = {
     fontWeight: '800',
   }),
   hierarchyIcon: css({ color: '#2a14b4', fontSize: '14' /* 기존 13px */ }),
-  code: css({ color: '#5148d7', fontFamily: 'mono', fontSize: '12' /* 기존: 11px */, fontWeight: '700' }),
+  code: css({
+    color: '#5148d7',
+    fontFamily: 'mono',
+    fontSize: '12' /* 기존: 11px */,
+    fontWeight: '700',
+  }),
   wbs: css({ fontFamily: 'mono', fontSize: '12' /* 기존: 11px */, whiteSpace: 'nowrap' }),
   owner: css({
     display: 'inline-flex',
@@ -446,6 +464,7 @@ const styles = {
 };
 
 function getStatus(screen: ScreenDefinition): DeliveryStatus {
+  if (isStorybookPending(screen.iaNumber)) return 'pending';
   if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
   if (isStorybookWorking(screen.screenCode)) return 'working';
   if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
@@ -522,6 +541,9 @@ function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined 
 function createTreeRows(group: ScreenGroup): TreeRow[] {
   const rows: TreeRow[] = [];
   const knownPaths = new Set<string>();
+  const screenPaths = new Set(
+    group.screens.map((screen) => screen.depths.slice(0, screenDepth(screen) + 1).join('|')),
+  );
 
   group.screens.forEach((screen) => {
     const terminalDepth = screenDepth(screen);
@@ -550,9 +572,10 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
       );
 
       if (depth === terminalDepth) {
+        if (isBranch) knownPaths.add(path);
         rows.push({
           id: 'screen-' + screen.iaNumber,
-          path: path + '|screen-' + screen.iaNumber,
+          path: isBranch ? path : path + '|screen-' + screen.iaNumber,
           ancestors,
           depth,
           label: screen.depths[depth],
@@ -562,7 +585,7 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
         continue;
       }
 
-      if (knownPaths.has(path)) continue;
+      if (knownPaths.has(path) || screenPaths.has(path)) continue;
 
       knownPaths.add(path);
       rows.push({

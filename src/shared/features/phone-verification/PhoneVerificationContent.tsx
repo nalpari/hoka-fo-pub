@@ -34,6 +34,7 @@ const styles = {
   }),
   countdown: css({ m: '0', mt: '-2', color: 'var(--color-red-100)' }),
   text: css({ m: '0' }),
+  intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
   help: css({ m: '0', mt: '4' }),
   modal: css({ p: '6' }),
 };
@@ -55,6 +56,8 @@ export type PhoneInformation = {
 };
 
 type Props = {
+  title?: string;
+  description?: string;
   information: PhoneInformation;
   agreements: boolean[];
   requested: boolean;
@@ -121,8 +124,13 @@ export function PhoneVerificationContent(props: Props) {
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
         <Typography as="h1" variant="authTitle" className={styles.title}>
-          휴대폰 인증
+          {props.title ?? '휴대폰 인증'}
         </Typography>
+        {props.description ? (
+          <Typography as="p" variant="authCaption" className={styles.intro}>
+            {props.description}
+          </Typography>
+        ) : null}
         <Stack as="section" className={styles.terms} aria-labelledby="phone-terms-title">
           <HStack className={styles.termsTitle}>
             <Typography as="h2" id="phone-terms-title" variant="authBody" className={styles.text}>

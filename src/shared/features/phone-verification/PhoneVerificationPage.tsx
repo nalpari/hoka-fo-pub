@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { PhoneVerificationContent, type PhoneInformation } from './PhoneVerificationContent';
 
-export function PhoneVerificationPage() {
+export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | 'account-unlock' }) {
   const [information, setInformation] = useState<PhoneInformation>({
     name: '',
     birthDate: '',
@@ -88,6 +88,12 @@ export function PhoneVerificationPage() {
 
   return (
     <PhoneVerificationContent
+      title={mode === 'account-unlock' ? '계정 잠금 해제' : '휴대폰 인증'}
+      description={
+        mode === 'account-unlock'
+          ? '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.'
+          : undefined
+      }
       information={information}
       agreements={agreements}
       requested={deadline !== null}

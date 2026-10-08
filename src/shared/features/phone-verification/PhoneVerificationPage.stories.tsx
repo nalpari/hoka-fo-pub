@@ -37,6 +37,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const AccountUnlock: Story = {
+  args: {
+    title: '계정 잠금 해제',
+    description:
+      '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.',
+  },
+};
+
 export const Mobile: Story = {
   decorators: [
     (Story) => (
@@ -45,6 +53,11 @@ export const Mobile: Story = {
       </div>
     ),
   ],
+};
+
+export const MobileAccountUnlock: Story = {
+  ...Mobile,
+  args: AccountUnlock.args,
 };
 
 export const CodeEntry: Story = {
