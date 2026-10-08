@@ -56,7 +56,7 @@ const popup = cva({
   variants: {
     size: {
       sm: { maxW: '420px' },
-      md: { maxW: '720px' },
+      md: { maxW: '568px' },
       lg: { maxW: 'min(1080px, 75vw)' },
     },
     mobilePresentation: {

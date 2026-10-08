@@ -12,7 +12,7 @@ import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDial
 
 const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
-  content: css({ maxW: '420px', mx: 'auto' }),
+  content: css({ maxW: '568px', mx: 'auto' }),
   title: css({ m: '0', mb: '8' }),
   terms: css({ gap: '2', pb: '6', borderBottom: '1px solid var(--color-black-20)' }),
   termsTitle: css({ justifyContent: 'space-between', mb: '4' }),
@@ -34,9 +34,38 @@ const styles = {
   }),
   countdown: css({ m: '0', mt: '-2', color: 'var(--color-red-100)' }),
   text: css({ m: '0' }),
+  intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
   help: css({ m: '0', mt: '4' }),
-  modal: css({ p: '6' }),
+  modal: css({ p: '4', _mobile: { p: '4' } }),
+  carrierList: css({ gap: '4' }),
+  carrierSection: css({ gap: '3', pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
+  carrierSectionLast: css({ gap: '3' }),
+  carrierTitle: css({ m: '0' }),
+  carrierNames: css({ m: '0', lineHeight: '1.3' }),
+  modalButton: css({
+    '--button-height': '40px!',
+    '--button-radius': '999px',
+    '--button-border-width': '0px!',
+  }),
 };
+
+const mvnoCarriers = [
+  {
+    title: 'SKT 알뜰폰',
+    names:
+      'KCT, SK텔링크, KDM링크, 이마트, 스마텔, 아이즈비전, 에스원, 유니컴즈, 인스코비, 프리텔레콤, 큰사람 컴퓨터, 티브로드, 하나방송, 제주방송, 남인천방송, 서경방송, 광주방송, 금강방송, JCN울산',
+  },
+  {
+    title: 'KT 알뜰폰',
+    names:
+      '홈플러스, 온세텔레콤, CJ헬로비전, 위너스텔, 에버그린모바일, S로밍, 에넥스텔레콤, KT파워텔, 프리텔레콤, 씨엔커뮤니케이션, 몬스터텔레콤, 머천드코리아, 인스코비, 에스원, 에이에스엔코리아, 세종텔레콤, KT텔레캅, 이지모바일, KT M모바일, 유니컴즈, 엔알컴퍼니, 아이즈비전, 제이씨티, 정성모바일',
+  },
+  {
+    title: 'LG U+ 알뜰폰',
+    names:
+      '미디어로그, 인스코비, 머천드코리아, 엠티텔레콤, 홈플러스, 이마트, 리더스텔레콤, 씨엔엠브이엔오, 비엔에스솔루션, 인티파크, 에프아이텔, 자티전자, 서경방송, JCN울산, 푸른방송, 남인천방송, 금강방송, 제주방송, 와이엘랜드',
+  },
+] as const;
 
 export const verificationTerms = [
   '개인정보 이용약관 동의',
@@ -55,6 +84,8 @@ export type PhoneInformation = {
 };
 
 type Props = {
+  title?: string;
+  description?: string;
   information: PhoneInformation;
   agreements: boolean[];
   requested: boolean;
@@ -121,8 +152,13 @@ export function PhoneVerificationContent(props: Props) {
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
         <Typography as="h1" variant="authTitle" className={styles.title}>
-          휴대폰 인증
+          {props.title ?? '휴대폰 인증'}
         </Typography>
+        {props.description ? (
+          <Typography as="p" variant="authCaption" className={styles.intro}>
+            {props.description}
+          </Typography>
+        ) : null}
         <Stack as="section" className={styles.terms} aria-labelledby="phone-terms-title">
           <HStack className={styles.termsTitle}>
             <Typography as="h2" id="phone-terms-title" variant="authBody" className={styles.text}>
@@ -174,7 +210,7 @@ export function PhoneVerificationContent(props: Props) {
             <Button
               variant="link"
               className={styles.detail}
-              onClick={() => props.onDetail('알뜰폰 사업자 안내')}
+              onClick={() => props.onDetail('알뜰폰 사업자')}
             >
               <Typography variant="authCaption">알뜰폰 사업자 보기</Typography>
             </Button>
@@ -241,14 +277,38 @@ export function PhoneVerificationContent(props: Props) {
         }}
         title={detail ?? ''}
         closeLabel="안내 닫기"
+        size="md"
+        mobilePresentation="fullscreen"
       >
-        <Box className={styles.modal}>
-          <Typography as="p" variant="authSmall">
-            {detail === '알뜰폰 사업자 안내'
-              ? '사용 중인 알뜰폰의 통신망에 따라 SKT, KT 또는 LG U+ 알뜰폰을 선택해 주세요.'
-              : '인증 제공사의 실제 약관 내용은 서비스 연결 시 제공됩니다. 현재는 화면 미리보기입니다.'}
-          </Typography>
-        </Box>
+        {detail === '알뜰폰 사업자' ? (
+          <Stack className={[styles.modal, styles.carrierList].join(' ')}>
+            {mvnoCarriers.map((carrier, index) => (
+              <Stack
+                key={carrier.title}
+                className={
+                  index === mvnoCarriers.length - 1
+                    ? styles.carrierSectionLast
+                    : styles.carrierSection
+                }
+              >
+                <Typography as="h2" variant="authBody" className={styles.carrierTitle}>
+                  {carrier.title}
+                </Typography>
+                <Typography as="p" variant="authSmall" className={styles.carrierNames}>
+                  {carrier.names}
+                </Typography>
+              </Stack>
+            ))}
+            <Button
+              variant="primary"
+              fullWidth
+              className={styles.modalButton}
+              onClick={() => props.onDetail(null)}
+            >
+              확인
+            </Button>
+          </Stack>
+        ) : null}
       </ModalDialog>
     </Box>
   );
