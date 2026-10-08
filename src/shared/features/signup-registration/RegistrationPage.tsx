@@ -5,12 +5,12 @@ import {
   type RegistrationInformation,
   type MarketingPreferences,
 } from './RegistrationContent';
+import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
 
 export function RegistrationPage() {
   const navigate = useNavigate();
   const [stage, setStage] = useState<'information' | 'additional'>('information');
   const [information, setInformation] = useState<RegistrationInformation>({
-    id: '',
     name: '',
     password: '',
     confirmation: '',
@@ -31,35 +31,42 @@ export function RegistrationPage() {
   const [domainChoice, setDomainChoice] = useState('direct');
   const [notice, setNotice] = useState('');
   const [duplicateNotice, setDuplicateNotice] = useState('');
-  const [checkedId, setCheckedId] = useState('');
+  const [checkedEmail, setCheckedEmail] = useState('');
   const [addressOpen, setAddressOpen] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
 
   const change = (key: keyof RegistrationInformation, value: string) => {
     setInformation((previous) => ({ ...previous, [key]: value }));
     setNotice('');
-    if (key === 'id') {
-      setCheckedId('');
+    if (key === 'email' || key === 'domain') {
+      setCheckedEmail('');
       setDuplicateNotice('');
     }
   };
 
-  const checkId = () => {
-    if (!/^[a-zA-Z][a-zA-Z0-9]{3,19}$/.test(information.id)) {
-      setDuplicateNotice('미리보기 아이디는 영문으로 시작하는 영문·숫자 4~20자로 입력해주세요.');
+  const checkEmail = () => {
+    if (
+      !/^[^\s@]+$/.test(information.email) ||
+      !/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(information.domain)
+    ) {
+      setCheckedEmail('');
+      setDuplicateNotice('이메일 주소와 도메인을 올바르게 입력해주세요.');
       return;
     }
-    setCheckedId(information.id);
-    setDuplicateNotice('아이디 형식을 확인했습니다. 실제 중복 여부는 서비스 연결 후 확인됩니다.');
+    setCheckedEmail(`${information.email}@${information.domain}`);
+    setDuplicateNotice(
+      '이메일 주소 형식을 확인했습니다. 실제 중복 여부는 서비스 연결 후 확인됩니다.',
+    );
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (stage === 'additional') {
-      navigate('/signup/complete');
+      setSummaryOpen(true);
       return;
     }
-    if (checkedId !== information.id || !checkedId) {
-      setNotice('아이디 중복 확인 버튼으로 입력 형식을 확인해주세요.');
+    if (checkedEmail !== `${information.email}@${information.domain}` || !checkedEmail) {
+      setNotice('이메일 중복확인 버튼으로 입력 형식을 확인해주세요.');
       return;
     }
     if (
@@ -93,31 +100,40 @@ export function RegistrationPage() {
   };
 
   return (
-    <RegistrationContent
-      stage={stage}
-      information={information}
-      preferences={preferences}
-      domainChoice={domainChoice}
-      notice={notice}
-      duplicateNotice={duplicateNotice}
-      addressOpen={addressOpen}
-      onChange={change}
-      onPreferenceChange={(key, value) =>
-        setPreferences((previous) => ({ ...previous, [key]: value }))
-      }
-      onDomainChoice={(value) => {
-        setDomainChoice(value);
-        change('domain', value === 'direct' ? '' : value);
-      }}
-      onDuplicateCheck={checkId}
-      onAddressOpen={setAddressOpen}
-      onSubmit={submit}
-      onCancel={() => {
-        if (stage === 'additional') {
-          setStage('information');
-          setNotice('');
-        } else navigate('/signup/terms');
-      }}
-    />
+    <>
+      <RegistrationContent
+        stage={stage}
+        information={information}
+        preferences={preferences}
+        domainChoice={domainChoice}
+        notice={notice}
+        duplicateNotice={duplicateNotice}
+        addressOpen={addressOpen}
+        onChange={change}
+        onPreferenceChange={(key, value) =>
+          setPreferences((previous) => ({ ...previous, [key]: value }))
+        }
+        onDomainChoice={(value) => {
+          setDomainChoice(value);
+          change('domain', value === 'direct' ? '' : value);
+        }}
+        onDuplicateCheck={checkEmail}
+        onAddressOpen={setAddressOpen}
+        onSubmit={submit}
+        onCancel={() => {
+          if (stage === 'additional') {
+            setStage('information');
+            setNotice('');
+          } else navigate('/signup/terms');
+        }}
+      />
+      {summaryOpen ? (
+        <MarketingConsentSummaryModal
+          preferences={preferences}
+          onOpenChange={setSummaryOpen}
+          onConfirm={() => navigate('/signup/complete')}
+        />
+      ) : null}
+    </>
   );
 }

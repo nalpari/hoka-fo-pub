@@ -8,6 +8,7 @@ import { CollectionDetailPage } from '@/shared/features/collection/CollectionDet
 import { CartPage } from '@/shared/features/cart/CartPage';
 import { HomePage } from '@/shared/features/home/HomePage';
 import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
+import { AccountUnlockCompletePage } from '@/shared/features/account-locked/AccountUnlockCompletePage';
 import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
 import { IdConfirmationModal } from '@/shared/features/find-account/IdConfirmationModal';
 import { PasswordResetPage } from '@/shared/features/find-account/PasswordResetPage';
@@ -158,6 +159,7 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
               path="/login/account-locked/verification"
               element={<PhoneVerificationPage mode="account-unlock" />}
             />
+            <Route path="/login/account-locked/complete" element={<AccountUnlockCompletePage />} />
             <Route path="/login/find-account/password-reset" element={<PasswordResetPage />} />
             <Route
               path="/login/find-account/id-confirmation-modal"

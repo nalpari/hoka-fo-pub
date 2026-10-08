@@ -1,7 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PhoneVerificationContent, type PhoneInformation } from './PhoneVerificationContent';
+import { AlreadyRegisteredModal } from '@/shared/features/signup-registration/AlreadyRegisteredModal';
 
 export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | 'account-unlock' }) {
+  const navigate = useNavigate();
   const [information, setInformation] = useState<PhoneInformation>({
     name: '',
     birthDate: '',
@@ -16,6 +19,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
   const [code, setCode] = useState('');
   const [notice, setNotice] = useState('');
   const [detail, setDetail] = useState<string | null>(null);
+  const [alreadyRegisteredOpen, setAlreadyRegisteredOpen] = useState(false);
 
   useEffect(() => {
     if (deadline === null) return;
@@ -81,38 +85,49 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
       setNotice('인증번호 6자리를 입력해 주세요.');
       return;
     }
-    setNotice(
-      '인증번호 입력을 확인했습니다. 실제 본인인증 완료 처리는 인증 서비스 연결 후 가능합니다.',
-    );
+    if (mode === 'account-unlock') {
+      navigate('/login/account-locked/complete');
+      return;
+    }
+
+    setAlreadyRegisteredOpen(true);
   };
 
   return (
-    <PhoneVerificationContent
-      title={mode === 'account-unlock' ? '계정 잠금 해제' : '휴대폰 인증'}
-      description={
-        mode === 'account-unlock'
-          ? '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.'
-          : undefined
-      }
-      information={information}
-      agreements={agreements}
-      requested={deadline !== null}
-      code={code}
-      secondsLeft={secondsLeft}
-      resendWait={secondsLeft}
-      notice={notice}
-      detail={detail}
-      onInformationChange={changeInformation}
-      onAgreementChange={(index, checked) =>
-        setAgreements((previous) =>
-          previous.map((value, position) => (position === index ? checked : value)),
-        )
-      }
-      onAllAgree={(checked) => setAgreements(agreements.map(() => checked))}
-      onCodeChange={setCode}
-      onRequest={requestCode}
-      onConfirm={confirmCode}
-      onDetail={setDetail}
-    />
+    <>
+      <PhoneVerificationContent
+        title={mode === 'account-unlock' ? '계정 잠금 해제' : '휴대폰 인증'}
+        description={
+          mode === 'account-unlock'
+            ? '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.'
+            : undefined
+        }
+        information={information}
+        agreements={agreements}
+        requested={deadline !== null}
+        code={code}
+        secondsLeft={secondsLeft}
+        resendWait={secondsLeft}
+        notice={notice}
+        detail={detail}
+        onInformationChange={changeInformation}
+        onAgreementChange={(index, checked) =>
+          setAgreements((previous) =>
+            previous.map((value, position) => (position === index ? checked : value)),
+          )
+        }
+        onAllAgree={(checked) => setAgreements(agreements.map(() => checked))}
+        onCodeChange={setCode}
+        onRequest={requestCode}
+        onConfirm={confirmCode}
+        onDetail={setDetail}
+      />
+      {alreadyRegisteredOpen ? (
+        <AlreadyRegisteredModal
+          onOpenChange={setAlreadyRegisteredOpen}
+          onConfirm={() => navigate('/signup')}
+        />
+      ) : null}
+    </>
   );
 }

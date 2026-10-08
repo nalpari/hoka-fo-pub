@@ -55,7 +55,7 @@ type WbsAssignment = {
   owners: string;
 };
 
-const deletedIaNumbers = new Set([12, 49, 118]);
+const deletedIaNumbers = new Set([12, 49, 118, 216]);
 
 type PreviewStoryIds = {
   pc: string;
@@ -87,6 +87,14 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
     pc: 'pages-auth-phoneverification--account-unlock',
     mo: 'pages-auth-phoneverification--mobile-account-unlock',
   },
+  238: {
+    pc: 'pages-auth-accountunlockcompletepage--default',
+    mo: 'pages-auth-accountunlockcompletepage--mobile',
+  },
+  241: {
+    pc: 'pages-auth-signup-alreadyregisteredmodal--default',
+    mo: 'pages-auth-signup-alreadyregisteredmodal--mobile',
+  },
   217: {
     pc: 'pages-auth-signup--default',
     mo: 'pages-auth-signup--mobile',
@@ -106,6 +114,14 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
   221: {
     pc: 'pages-auth-registration--default',
     mo: 'pages-auth-registration--mobile',
+  },
+  239: {
+    pc: 'pages-auth-registration--additional',
+    mo: 'pages-auth-registration--mobile-additional',
+  },
+  240: {
+    pc: 'pages-auth-registration-marketingconsentsummarymodal--default',
+    mo: 'pages-auth-registration-marketingconsentsummarymodal--mobile',
   },
   222: {
     pc: 'pages-auth-registration--complete',
@@ -466,8 +482,8 @@ const styles = {
 function getStatus(screen: ScreenDefinition): DeliveryStatus {
   if (isStorybookPending(screen.iaNumber)) return 'pending';
   if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
-  if (isStorybookWorking(screen.screenCode)) return 'working';
   if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
+  if (isStorybookWorking(screen.screenCode)) return 'working';
   return 'pending';
 }
 

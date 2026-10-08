@@ -39,7 +39,7 @@ const styles = {
   }),
   signup: css({
     w: '100%',
-    maxW: '520px',
+    maxW: '500px',
     minW: 0,
     mx: 'auto',
   }),
