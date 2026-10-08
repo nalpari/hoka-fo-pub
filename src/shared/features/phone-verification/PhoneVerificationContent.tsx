@@ -32,7 +32,7 @@ const styles = {
     '--button-height': '48px!',
     '--button-border-width': '0px!',
   }),
-  time: css({ m: '0', mt: '-2', color: '#e04b3f' }),
+  countdown: css({ m: '0', mt: '-2', color: '#E10F00' }),
   text: css({ m: '0' }),
   help: css({ m: '0', mt: '4' }),
   modal: css({ p: '6' }),
@@ -207,7 +207,7 @@ export function PhoneVerificationContent(props: Props) {
                   onChange={(event) => props.onCodeChange(event.target.value)}
                 />
               </FormField>
-              <Typography as="p" variant="authCaption" className={styles.time}>
+              <Typography as="p" variant="authCaption" className={styles.countdown}>
                 남은 시간{' '}
                 {Math.floor(secondsLeft / 60)
                   .toString()

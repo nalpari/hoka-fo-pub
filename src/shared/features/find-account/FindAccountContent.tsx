@@ -28,7 +28,7 @@ const styles = {
   }),
   input: css({ minW: '0' }),
   fieldError: css({ m: '0', '&&': { color: '#A60000' } }),
-  countdown: css({ m: '0', mt: '2', color: '#A60000' }),
+  countdown: css({ m: '0', mt: '2', color: '#E10F00' }),
   codeHelp: css({ m: '0', mt: '2', color: '#777' }),
   button: css({
     mt: '6',
@@ -156,6 +156,7 @@ export function FindAccountContent({
           <Button
             type="submit"
             variant="primary"
+            size="lg"
             fullWidth
             className={styles.button}
             disabled={requested && secondsLeft > 0}
@@ -196,6 +197,7 @@ export function FindAccountContent({
               <Button
                 type="button"
                 variant="primary"
+                size="lg"
                 fullWidth
                 className={styles.button}
                 onClick={onConfirmCode}
