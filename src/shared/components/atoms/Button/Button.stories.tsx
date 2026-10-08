@@ -12,6 +12,7 @@ const meta = {
 } satisfies Meta<typeof Button>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = { args: { variant: 'primary' } };
@@ -36,9 +37,11 @@ export const WithIcon: Story = {
     </HStack>
   ),
 };
+
 export const OutlinePill: Story = {
   args: { children: '필터', icon: <Icon name="filter" />, variant: 'filterTrigger' },
 };
+
 export const HeaderSearch: Story = {
   args: {
     children: '검색하기',
@@ -59,6 +62,7 @@ export const TallPrimary: Story = {
 export const Loading: Story = {
   args: { children: '처리 중', loading: true, variant: 'primary' },
 };
+
 export const SecondaryLink: Story = {
   render: () => (
     <MemoryRouter>

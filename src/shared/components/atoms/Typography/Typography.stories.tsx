@@ -20,8 +20,8 @@ const typographyStorySpecs = {
   heading: {
     name: 'Heading',
     desktopFontSize: '28px',
-    mobileFontSize: '26px',
-    fontWeight: '900',
+    mobileFontSize: '16px',
+    fontWeight: '900 (mobile 600)',
     lineHeight: '1.2',
   },
   sectionHeading: {

@@ -2,7 +2,7 @@ import { cva } from 'styled-system/css';
 
 const badge = cva({
   base: {
-    color: 'var(--color-red-100)',
+    color: 'var(--color-red-80)',
     fontSize: '14',
     fontStyle: 'normal',
     fontWeight: 'normal',

@@ -29,6 +29,7 @@ export default defineConfig({
             muted: { value: '#B3B3B3' },
             strong: { value: '#111' },
           },
+          error: { value: '{colors.red.100}' },
           focus: {
             default: { value: '#000' },
           },
@@ -83,10 +84,10 @@ export default defineConfig({
           blue: { 100: { value: '#009DFF' } },
           citrus: { 100: { value: '#E1FF04' } },
           offWhite: { 100: { value: '#E8EDF3' } },
-          red: { 100: { value: '#E10F00' } },
+          red: { 100: { value: '#A60000' }, 80: { value: '#E10F00' } },
           headerBorder: { value: '#E9EAEB' },
           footerDivider: { value: '#F7F7F9' },
-          sale: { value: '#E10F00' },
+          sale: { value: '{colors.red.80}' },
         },
         shadows: {
           1: { value: '0 4px 4px 0 rgba(0, 0, 0, 0.16)' },
@@ -107,6 +108,7 @@ export default defineConfig({
           14: { value: '14px' },
           16: { value: '16px' },
           20: { value: '20px' },
+          22: { value: '22px' },
           24: { value: '24px' },
           28: { value: '28px' },
           32: { value: '32px' },
@@ -126,7 +128,7 @@ export default defineConfig({
         lineHeights: {
           productOptionValue: { value: '18px' },
           productGender: { value: '16px' },
-          hoka: { value: '0.96' },
+          hoka: { value: '1' },
           koreanHeading: { value: '1.2' },
           body: { value: '1.3' },
         },

@@ -1,4 +1,4 @@
-import type { CSSProperties, InputHTMLAttributes } from 'react';
+import type { CSSProperties, InputHTMLAttributes, Ref } from 'react';
 import { css } from 'styled-system/css';
 
 const textInput = css({
@@ -21,6 +21,7 @@ const textInput = css({
 });
 
 export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
+  ref?: Ref<HTMLInputElement>;
   invalid?: boolean;
   fullWidth?: boolean;
 };

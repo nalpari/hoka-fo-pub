@@ -27,7 +27,7 @@ const boxedField = css({
 });
 
 type FormFieldProps = {
-  label: ReactNode;
+  label?: ReactNode;
   htmlFor: string;
   required?: boolean;
   variant?: 'default' | 'boxed';
@@ -36,8 +36,11 @@ type FormFieldProps = {
 };
 
 type FormFieldLabelProps = ComponentPropsWithoutRef<'label'>;
+
 type FormFieldControlProps = ComponentPropsWithoutRef<'div'>;
+
 type FormFieldHintProps = ComponentPropsWithoutRef<'p'>;
+
 type FormFieldMessageProps = ComponentPropsWithoutRef<'p'>;
 
 function withClassName(baseClassName: string, className?: string) {
@@ -56,10 +59,12 @@ function FormFieldRoot({
     <BaseField.Root
       className={[variant === 'boxed' ? boxedField : '', className].filter(Boolean).join(' ')}
     >
-      <BaseField.Label htmlFor={htmlFor}>
-        {label}
-        {required ? <em>필수</em> : null}
-      </BaseField.Label>
+      {label !== undefined ? (
+        <BaseField.Label htmlFor={htmlFor}>
+          {label}
+          {required ? <em>필수</em> : null}
+        </BaseField.Label>
+      ) : null}
       {children}
     </BaseField.Root>
   );

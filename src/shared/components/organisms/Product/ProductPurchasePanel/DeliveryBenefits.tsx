@@ -8,6 +8,7 @@ const section = css({
   fontSize: '14' /* 기존 13px */,
   lineHeight: 'body',
 });
+
 const block = css({ py: '6', borderBottom: '1px solid var(--color-border-subtle)' });
 
 /** 구매 전 확인할 배송 일정과 현재 결제 혜택입니다. */
@@ -43,7 +44,7 @@ export function DeliveryBenefits() {
           15만원 이상 결제 시 1만원, 10만원 이상 결제 시 7천원 즉시할인
         </p>
         <p
-          className={css({ mt: '5px', mb: '0', color: 'var(--color-red-100)', fontWeight: 'bold' })}
+          className={css({ mt: '5px', mb: '0', color: 'var(--color-red-80)', fontWeight: 'bold' })}
         >
           해당 이벤트는 예산 소진 시 조기종료 될 수 있습니다.
         </p>

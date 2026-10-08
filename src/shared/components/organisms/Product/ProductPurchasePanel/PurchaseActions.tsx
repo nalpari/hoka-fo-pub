@@ -22,8 +22,8 @@ export function PurchaseActions({
       <Button
         className={css({
           minH: '14',
-          borderColor: 'var(--color-red-100)',
-          bg: 'var(--color-red-100)',
+          borderColor: 'var(--color-red-80)',
+          bg: 'var(--color-red-80)',
           color: 'var(--color-white-000)',
           fontSize: '16' /* 기존 17px */,
           fontWeight: 'bold',
