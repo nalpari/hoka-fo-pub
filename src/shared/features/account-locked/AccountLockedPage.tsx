@@ -17,7 +17,7 @@ const styles = {
       position: 'absolute',
       inset: '0',
       zIndex: '0',
-      bg: 'rgb(0 0 0 / 56%)',
+      bg: 'color-mix(in srgb, var(--color-black-100) 56%, transparent)',
       backdropFilter: 'blur(8px)',
     },
   }),

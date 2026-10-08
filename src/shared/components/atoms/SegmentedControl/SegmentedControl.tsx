@@ -10,8 +10,17 @@ const root = cva({
   defaultVariants: { fullWidth: false },
 });
 const item = cva({
-  base: { borderColor: '#ddd' },
-  variants: { active: { true: { borderColor: '#111', bg: '#111', color: '#fff' }, false: {} } },
+  base: { borderColor: 'var(--color-black-20)' },
+  variants: {
+    active: {
+      true: {
+        borderColor: 'var(--color-black-100)',
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+      },
+      false: {},
+    },
+  },
 });
 export type SegmentedControlOption<T extends string = string> = {
   value: T;

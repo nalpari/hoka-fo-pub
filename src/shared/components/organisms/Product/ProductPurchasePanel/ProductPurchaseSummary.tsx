@@ -18,10 +18,10 @@ export function ProductPurchaseSummary({ product, onViewReviews }: ProductPurcha
         {product.category} · {product.gender}
       </small>
       <h1>{product.name}</h1>
-      <p className={css({ color: '#555', lineHeight: '1.6' })}>
+      <p className={css({ color: 'var(--color-black-60)', lineHeight: 'body' })}>
         일상과 움직임을 위한 가벼운 제품입니다.
       </p>
-      <Flex alignItems="center" gap="3" mt="3" fontSize="14px">
+      <Flex alignItems="center" gap="3" mt="3" fontSize="14">
         <span>
           <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
           <strong aria-hidden="true" className={css({ ml: '1' })}>

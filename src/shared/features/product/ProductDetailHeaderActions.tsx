@@ -12,11 +12,11 @@ const styles = {
   reviewLink: css({
     display: 'flex',
     gap: '2',
-    color: '#555',
-    fontSize: '13px',
+    color: 'var(--color-black-60)',
+    fontSize: '14' /* 기존 13px */,
     textDecoration: 'underline',
   }),
-  icons: css({ display: 'flex', gap: '3', '& button': { fontSize: '25px', lineHeight: '1' } }),
+  icons: css({ display: 'flex', gap: '3', '& button': { fontSize: '24' /* 기존 25px */, lineHeight: 'hoka' } }),
 };
 
 type ProductDetailHeaderActionsProps = {

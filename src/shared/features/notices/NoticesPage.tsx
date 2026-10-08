@@ -9,7 +9,7 @@ import { supportNavigation } from '@/shared/features/support/support.navigation'
 
 const styles = {
   table: css({
-    borderTop: '2px solid #555',
+    borderTop: '2px solid var(--color-black-60)',
     '& button': {
       display: 'grid',
       gridTemplateColumns: '1fr 105px 70px',
@@ -18,13 +18,17 @@ const styles = {
       minH: '67px',
       border: 0,
       borderBottom: '1px solid var(--color-border-subtle)',
-      bg: '#fff',
-      color: '#333',
-      fontSize: '11px',
+      bg: 'var(--color-white-000)',
+      color: 'var(--color-black-60)',
+      fontSize: '12' /* 기존: 11px */,
       textAlign: 'left',
     },
-    '& button span': { pl: '13px' },
-    '& button time, & button small': { color: '#777', fontSize: '11px', textAlign: 'center' },
+    '& button span': { pl: '14px' },
+    '& button time, & button small': {
+      color: 'var(--color-black-50)',
+      fontSize: '12' /* 기존: 11px */,
+      textAlign: 'center',
+    },
     _mobile: {
       '& button': { gridTemplateColumns: '1fr 75px 0' },
       '& button small': { display: 'none' },
@@ -36,11 +40,16 @@ const styles = {
     alignItems: 'center',
     h: '41px',
     borderBottom: '1px solid var(--color-border-subtle)',
-    fontSize: '11px',
+    fontSize: '12' /* 기존: 11px */,
     textAlign: 'center',
     _mobile: { gridTemplateColumns: '1fr 75px 0', '& span:last-child': { display: 'none' } },
   }),
-  more: css({ display: 'block', m: '30px auto', border: 0, fontSize: '12px' }),
+  more: css({
+    display: 'block',
+    m: '30px auto',
+    border: 0,
+    fontSize: '12',
+  }),
 };
 
 const notices = [

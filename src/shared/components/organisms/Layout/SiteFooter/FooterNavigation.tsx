@@ -11,26 +11,31 @@ import { Box, Flex, VStack } from 'styled-system/jsx';
 
 const styles = {
   title: css({
-    fontWeight: 400,
-    fontSize: '20px',
-    lineHeight: '1.3',
-    color: '#F7F7F9',
+    fontWeight: 'var(--font-weights-normal)',
+    fontSize: '20',
+    lineHeight: 'var(--line-heights-body)',
+    color: 'var(--color-black-10)',
     _mobile: {
-      fontSize: '16px',
+      fontSize: '16',
       height: '56px',
     },
   }),
 
-  list: css({ m: 0, p: 0, listStyle: 'none', _mobile: { m: '-2px 0 22px' } }),
+  list: css({
+    m: 0,
+    p: 0,
+    listStyle: 'none',
+    _mobile: { m: 'calc(2px * -1) 0 22px' },
+  }),
 
   link: css({
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '1.285',
-    color: '#F7F7F9',
+    fontWeight: 'var(--font-weights-normal)',
+    fontSize: '14',
+    lineHeight: 'body',
+    color: 'var(--color-black-10)',
     _hover: { textDecoration: 'underline', textUnderlineOffset: '2px' },
     _mobile: {
-      fontSize: '12px',
+      fontSize: '12',
     },
   }),
 };
@@ -39,7 +44,7 @@ const renderLinks = (links: FooterGroup['links'], platform: Platform) => (
   <VStack
     as="ul"
     alignItems="flex-start"
-    gap={platform === 'mobile' ? '8px' : '16px'}
+    gap={platform === 'mobile' ? '2' : '4'}
     className={styles.list}
   >
     {links.map((link) => (
@@ -77,8 +82,11 @@ export function FooterNavigation() {
           ))}
         </Flex>
       ) : (
-        <Box borderTop="1px solid #B3B3B3" borderBottom="1px solid #B3B3B3">
-          <Accordion items={mobileItems} indicatorColor="#F7F7F9" multiple={false} />
+        <Box
+          borderTop="1px solid var(--color-black-40)"
+          borderBottom="1px solid var(--color-black-40)"
+        >
+          <Accordion items={mobileItems} indicatorColor="var(--color-black-10)" multiple={false} />
         </Box>
       )}
     </section>

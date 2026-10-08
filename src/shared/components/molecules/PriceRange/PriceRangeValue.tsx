@@ -5,9 +5,9 @@ const formatPrice = (value: number, showUnit: boolean) =>
   `${value.toLocaleString('ko-KR')}${showUnit ? '원' : ''}`;
 
 const label = css({
-  fontWeight: '400',
-  fontSize: '14px',
-  lineHeight: '130%',
+  fontWeight: 'normal',
+  fontSize: '14',
+  lineHeight: 'body',
 });
 
 export function PriceRangeValue({

@@ -9,8 +9,22 @@ const root = css({
   gap: '2.5',
   minW: '130px',
 });
-const control = css({ minW: '8', minH: '8', border: '0', p: '0', bg: 'transparent', fontSize: '20px', cursor: 'pointer' });
-const valueStyle = css({ minW: '1.5em', border: '0', bg: 'transparent', p: '0', textAlign: 'center' });
+const control = css({
+  minW: '8',
+  minH: '8',
+  border: '0',
+  p: '0',
+  bg: 'transparent',
+  fontSize: '20',
+  cursor: 'pointer',
+});
+const valueStyle = css({
+  minW: '1.5em',
+  border: '0',
+  bg: 'transparent',
+  p: '0',
+  textAlign: 'center',
+});
 
 export type NumberStepperProps = {
   value: number;
@@ -34,7 +48,6 @@ export function NumberStepper({
   className,
   formatValue,
 }: NumberStepperProps) {
-
   return (
     <BaseNumberField.Root
       aria-label={ariaLabel}

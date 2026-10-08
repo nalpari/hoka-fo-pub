@@ -5,10 +5,10 @@ import { HStack, Divider } from 'styled-system/jsx';
 const authLink = css({
   color: 'var(--hoka-black)',
   fontFamily: 'Pretendard, Arial, sans-serif',
-  fontSize: '16px',
-  fontWeight: 400,
-  lineHeight: '20px',
-  letterSpacing: '-0.02em',
+  fontSize: '16',
+  fontWeight: 'normal',
+  lineHeight: 'body',
+  letterSpacing: 'korean',
   whiteSpace: 'nowrap',
 });
 

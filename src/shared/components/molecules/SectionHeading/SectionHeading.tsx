@@ -5,7 +5,8 @@ import { css } from 'styled-system/css';
 const root = css({
   alignItems: 'center',
   justifyContent: 'space-between',
-  '& h2': { fontSize: { base: '30px', _mobile: '22px' } },
+  '& h2': { fontSize: { base: '28', _mobile: '20' } },
+  /*'& h2': { fontSize: { base: '30px', _mobile: '22px' } },*/
 });
 
 type SectionHeadingProps = {

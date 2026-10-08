@@ -10,7 +10,7 @@ const root = cva({
     w: '100%',
     h: 'auto',
     _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
-    _mobile: { fontSize: '12px', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
+    _mobile: { fontSize: '12', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
   },
   variants: {
     variant: {

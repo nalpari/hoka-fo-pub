@@ -8,7 +8,7 @@ import { Flex } from 'styled-system/jsx';
 const tag = css({
   h: '8',
   p: '7px 8px 7px 10px',
-  bg: '#eee',
+  bg: 'var(--color-black-20)',
   _mobile: {
     h: '7',
   },
@@ -16,7 +16,7 @@ const tag = css({
 
 const labelTag = css({
   color: 'var(--color-text-primary)',
-  fontSize: '16px',
+  fontSize: '16',
 });
 
 export type TagProps = {

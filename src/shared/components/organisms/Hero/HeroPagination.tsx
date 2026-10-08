@@ -34,10 +34,13 @@ const paginationButton = css({
   borderRadius: '50px',
   position: 'relative',
   overflow: 'hidden',
-  bg: 'rgb(255 255 255 / 70%)',
+  bg: 'color-mix(in srgb, var(--color-white-000) 70%, transparent)',
   cursor: 'pointer',
   transition: 'width 200ms ease',
-  '&[aria-pressed="true"]': { w: '42px', bg: 'rgb(255 255 255 / 50%)' },
+  '&[aria-pressed="true"]': {
+    w: '42px',
+    bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)',
+  },
   _mobile: {
     w: '6px',
     h: '6px',
@@ -52,7 +55,7 @@ const progressBar = css({
   bottom: '0',
   left: '0',
   borderRadius: 'inherit',
-  bg: '#FFFFFF',
+  bg: 'var(--color-white-000)',
   transitionProperty: 'width',
   transitionTimingFunction: 'linear',
 });

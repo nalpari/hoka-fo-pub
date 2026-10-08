@@ -27,7 +27,7 @@ const styles = {
   }),
   content: css({ maxW: '420px', mx: 'auto' }),
   title: css({ m: '0', mb: '6' }),
-  all: css({ pb: '4', mb: '4', borderBottom: '1px solid #e9eaeb' }),
+  all: css({ pb: '4', mb: '4', borderBottom: '1px solid var(--color-black-20)' }),
   list: css({ gap: '2' }),
   row: css({ gap: '2', justifyContent: 'space-between', alignItems: 'center' }),
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
@@ -38,10 +38,10 @@ const styles = {
     '--button-border-width': '0px!',
   }),
   cancel: css({
-    '--button-bg': '#fff!',
-    '--button-color': '#000!',
+    '--button-bg': 'var(--color-white-000)!',
+    '--button-color': 'var(--color-black-100)!',
     '--button-border-width': '1px!',
-    '--button-border-color': '#000!',
+    '--button-border-color': 'var(--color-black-100)!',
   }),
   popup: css({
     display: 'flex',
@@ -52,7 +52,7 @@ const styles = {
   body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1', p: '4' }),
   documentHeader: css({ justifyContent: 'space-between', gap: '2', mb: '4' }),
   document: css({
-    border: '1px solid #e9eaeb',
+    border: '1px solid var(--color-black-20)',
     p: '4',
     overflowY: 'auto',
     minH: '0',

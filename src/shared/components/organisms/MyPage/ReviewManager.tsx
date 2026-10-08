@@ -17,8 +17,14 @@ const tabs = css({
     bg: 'transparent',
   },
 });
-const active = css({ borderBottomColor: '#111 !important', fontWeight: '800' });
-const list = css({ borderTop: '2px solid #111', mt: '18px' });
+
+const active = css({
+  borderBottomColor: 'var(--color-black-100) !important',
+  fontWeight: 'var(--font-weights-extrabold)',
+});
+
+const list = css({ borderTop: '2px solid var(--color-black-100)', mt: '18px' });
+
 const item = css({
   display: 'grid',
   gridTemplateColumns: '80px 1fr auto',
@@ -28,14 +34,16 @@ const item = css({
   borderBottom: '1px solid var(--color-border-subtle)',
   '.platform-mobile &': { gridTemplateColumns: '64px 1fr', '& button': { gridColumn: '1 / -1' } },
 });
+
 const image = css({
   display: 'grid',
   width: '72px',
   aspectRatio: '1',
   placeItems: 'center',
-  bg: '#eee',
-  color: '#777',
+  bg: 'var(--color-black-20)',
+  color: 'var(--color-black-50)',
 });
+
 const form = css({
   mt: '22px',
   p: '22px',
@@ -45,20 +53,29 @@ const form = css({
     minH: '140px',
     mt: '2',
     p: '3',
-    border: '1px solid #bbb',
+    border: '1px solid var(--color-black-40)',
     fontFamily: 'var(--font-family-base)',
   },
 });
+
 const error = css({
   display: 'block',
   mt: '1.5',
-  color: '#db1f2d',
-  fontSize: '12px',
-  fontWeight: '700',
+  color: 'var(--color-red-100)',
+  fontSize: '12',
+  fontWeight: 'var(--font-weights-bold)',
 });
+
 const stars = cva({
-  base: { minW: '34px', border: '0', bg: 'transparent', px: '0', color: '#bbb', fontSize: '26px' },
-  variants: { selected: { true: { color: '#111' }, false: {} } },
+  base: {
+    minW: '34px',
+    border: '0',
+    bg: 'transparent',
+    px: '0',
+    color: 'var(--color-black-40)',
+    fontSize: '24' /* 기존 26px */,
+  },
+  variants: { selected: { true: { color: 'var(--color-black-100)' }, false: {} } },
 });
 
 const purchases = Array.from({ length: 12 }, (_, index) => ({
@@ -69,6 +86,7 @@ const purchases = Array.from({ length: 12 }, (_, index) => ({
 }));
 
 /** Purchase review list and form with shared validation, attachment, and pagination patterns. */
+
 export function ReviewManager() {
   const [tab, setTab] = useState<'ready' | 'written'>('ready');
   const [page, setPage] = useState(1);
@@ -101,16 +119,10 @@ export function ReviewManager() {
         }}
         value={[tab]}
       >
-        <Toggle
-          className={tab === 'ready' ? active : ''}
-          value="ready"
-        >
+        <Toggle className={tab === 'ready' ? active : ''} value="ready">
           작성 가능한 리뷰
         </Toggle>
-        <Toggle
-          className={tab === 'written' ? active : ''}
-          value="written"
-        >
+        <Toggle className={tab === 'written' ? active : ''} value="written">
           내가 작성한 리뷰
         </Toggle>
       </ToggleGroup>
@@ -140,11 +152,21 @@ export function ReviewManager() {
               <div>
                 <small>{review.date} 구매</small>
                 <strong className={css({ display: 'block', mt: '1' })}>{review.product}</strong>
-                <span className={css({ fontSize: '13px', color: 'var(--color-text-muted)' })}>
+                <span
+                  className={css({
+                    fontSize: '14' /* 기존 13px */,
+                    color: 'var(--color-text-muted)',
+                  })}
+                >
                   옵션: {review.option}
                 </span>
                 {tab === 'written' ? (
-                  <p className={css({ m: '5px 0 0', fontSize: '13px' })}>
+                  <p
+                    className={css({
+                      m: '6px 0 0',
+                      fontSize: '14' /* 기존 13px */,
+                    })}
+                  >
                     ★★★★★ 편안하고 만족스럽습니다.
                   </p>
                 ) : null}
@@ -165,7 +187,8 @@ export function ReviewManager() {
           <p>실제 착용하신 경험을 들려주세요.</p>
           <div>
             <b>
-              상품은 만족스러우셨나요? <span className={css({ color: '#db1f2d' })}>*</span>
+              상품은 만족스러우셨나요?{' '}
+              <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
             <div>
               {[1, 2, 3, 4, 5].map((value) => (
@@ -183,7 +206,7 @@ export function ReviewManager() {
           </div>
           <div className={css({ mt: '18px' })}>
             <b>
-              리뷰내용 <span className={css({ color: '#db1f2d' })}>*</span>
+              리뷰내용 <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
             <textarea
               maxLength={1000}
@@ -220,7 +243,12 @@ export function ReviewManager() {
             </small>
           </div>
           <div
-            className={css({ display: 'flex', justifyContent: 'flex-end', gap: '2', mt: '22px' })}
+            className={css({
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '2',
+              mt: '22px',
+            })}
           >
             <Button onClick={() => confirm('리뷰 작성을 취소하시겠습니까?') && close()}>
               취소

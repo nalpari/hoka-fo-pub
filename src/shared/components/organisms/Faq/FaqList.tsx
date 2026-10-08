@@ -6,7 +6,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 const styles = {
   listItem: cva({
     base: { borderBottom: '1px solid var(--color-border-subtle)' },
-    variants: { open: { true: { '& > button': { fontWeight: '700' } }, false: {} } },
+    variants: { open: { true: { '& > button': { fontWeight: 'bold' } }, false: {} } },
   }),
   question: css({
     display: 'flex',
@@ -16,21 +16,32 @@ const styles = {
     px: '3.5',
     py: '0',
     border: '0',
-    bg: '#fff',
+    bg: 'var(--color-white-000)',
     textAlign: 'left',
-    '& b, & i': { fontFamily: 'var(--font-family-base)', fontSize: '15px' },
-    '& b': { mr: '18px', color: '#777' },
-    '& span': { flex: '1', fontSize: '11px' },
-    '& i': { fontSize: '11px', fontStyle: 'normal' },
+    '& b, & i': { fontFamily: 'var(--font-family-base)', fontSize: '16' /* 기존 15px */ },
+    '& b': { mr: '18px', color: 'var(--color-black-50)' },
+    '& span': { flex: '1', fontSize: '12' /* 기존: 11px */ },
+    '& i': { fontSize: '12' /* 기존: 11px */, fontStyle: 'normal' },
   }),
   answer: css({
     display: 'flex',
     p: { base: '23px 35px', _mobile: '18px' },
     bg: 'var(--color-surface-muted)',
-    '& b': { mr: '18px', color: '#777', fontFamily: 'var(--font-family-base)', fontSize: '15px' },
-    '& p': { maxW: '550px', m: '0', color: '#777', fontSize: '11px', lineHeight: '1.7' },
+    '& b': {
+      mr: '18px',
+      color: 'var(--color-black-50)',
+      fontFamily: 'var(--font-family-base)',
+      fontSize: '16' /* 기존 15px */,
+    },
+    '& p': {
+      maxW: '550px',
+      m: '0',
+      color: 'var(--color-black-50)',
+      fontSize: '12' /* 기존: 11px */,
+      lineHeight: 'body',
+    },
   }),
-  empty: css({ p: '15', color: '#777', textAlign: 'center' }),
+  empty: css({ p: '15', color: 'var(--color-black-50)', textAlign: 'center' }),
 };
 
 type Props = {

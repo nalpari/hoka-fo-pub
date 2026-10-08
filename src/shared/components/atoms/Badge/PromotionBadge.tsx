@@ -2,19 +2,19 @@ import { cva } from 'styled-system/css';
 
 const badge = cva({
   base: {
-    color: '#E10F00',
-    fontSize: '14px',
+    color: 'var(--color-red-100)',
+    fontSize: '14',
     fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '130%',
+    fontWeight: 'normal',
+    lineHeight: 'body',
     _mobile: {
-      fontWeight: '500',
-      fontSize: '13px',
-      lineHeight: '120%',
+      fontWeight: 'medium',
+      fontSize: '14' /* 기존 13px */,
+      lineHeight: 'koreanHeading',
     },
   },
   variants: {
-    exclusive: { true: { color: '#009DFF' }, false: {} },
+    exclusive: { true: { color: 'var(--color-blue-100)' }, false: {} },
   },
 });
 

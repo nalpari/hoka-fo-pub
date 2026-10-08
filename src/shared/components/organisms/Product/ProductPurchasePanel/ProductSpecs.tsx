@@ -14,10 +14,10 @@ export function ProductSpecs({ cushioning, stability, width, use }: ProductSpecs
   const values = { cushioning, stability, width, use };
 
   return (
-    <Grid as="dl" gridTemplateColumns="1fr 1fr" my="5" borderTop="1px solid #111">
+    <Grid as="dl" gridTemplateColumns="1fr 1fr" my="5" borderTop="1px solid var(--color-black-100)">
       {labels.map(([label, key]) => (
-        <Box py="2.5" borderBottom="1px solid #ddd" key={key}>
-          <Box as="dt" color="#666" fontSize="12px">
+        <Box py="2.5" borderBottom="1px solid var(--color-black-20)" key={key}>
+          <Box as="dt" color="var(--color-black-50)" fontSize="12">
             {label}
           </Box>
           <Box as="dd" m="4px 0 0" fontWeight="700">

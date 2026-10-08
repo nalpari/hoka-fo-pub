@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { Box, Grid, Stack, VStack } from 'styled-system/jsx';
 
 type EmptyStateProps = {
   title: string;
@@ -10,8 +10,11 @@ type EmptyStateProps = {
 };
 
 type EmptyStateIconProps = ComponentPropsWithoutRef<'div'>;
+
 type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'>;
+
 type EmptyStateDescriptionProps = ComponentPropsWithoutRef<'p'>;
+
 type EmptyStateActionProps = ComponentPropsWithoutRef<'div'>;
 
 function withClassName(baseClassName: string, className?: string) {
@@ -22,10 +25,21 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
   if (variant === 'minimal') {
     return (
       <Box as="section" aria-label={title} minH="180px" pt="42px" textAlign="center">
-        <h2 className={css({ m: '0', color: '#111', fontSize: 'inherit', fontWeight: 'inherit' })}>
+        <h2
+          className={css({
+            m: '0',
+            color: 'var(--color-black-100)',
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+          })}
+        >
           {title}
         </h2>
-        {description ? <p className={css({ m: '8px 0 0', color: 'var(--color-text-muted)' })}>{description}</p> : null}
+        {description ? (
+          <Box mt="2" mx="0" mb="0">
+            <p className={css({ color: 'var(--color-text-muted)' })}>{description}</p>
+          </Box>
+        ) : null}
         {action ? <Box mt="2">{action}</Box> : null}
       </Box>
     );
@@ -40,23 +54,27 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
       justifyItems="center"
       gap="2.5"
       p="30px"
-      bg="#f5f5f5"
+      bg="var(--color-black-10)"
       textAlign="center"
     >
       <Grid
         w="32px"
         h="32px"
         placeItems="center"
-        border="1px solid #aaa"
+        border="1px solid var(--color-black-40)"
         borderRadius="full"
-        color="#666"
+        color="var(--color-black-50)"
         aria-hidden="true"
       >
         —
       </Grid>
-      <h2 className={css({ m: '4px 0 0', fontSize: '18px' })}>{title}</h2>
-      {description ? <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p> : null}
-      {action ? <Box mt="2">{action}</Box> : null}
+      <VStack gap="1" maxW="320px" mt="1" mx="auto" textAlign="center">
+        <h2 className={css({ m: '0', fontSize: '16' /* 기존 18px */ })}>{title}</h2>
+        {description ? (
+          <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p>
+        ) : null}
+        {action ? <Box mt="2">{action}</Box> : null}
+      </VStack>
     </Stack>
   );
 }
@@ -69,9 +87,9 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
       w="32px"
       h="32px"
       placeItems="center"
-      border="1px solid #aaa"
+      border="1px solid var(--color-black-40)"
       borderRadius="full"
-      color="#666"
+      color="var(--color-black-50)"
       aria-hidden="true"
     />
   );

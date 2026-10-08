@@ -9,16 +9,16 @@ const option = css({
   h: '58px',
   p: '0',
   border: '0',
-  bg: '#f7f7f8',
-  _hover: { boxShadow: 'inset 0 -3px #111' },
+  bg: 'var(--color-black-10)',
+  _hover: { boxShadow: 'inset 0 -3px var(--color-black-100)' },
   _focusVisible: {
-    boxShadow: 'inset 0 -3px #111',
-    outline: '2px solid #0082ca',
+    boxShadow: 'inset 0 -3px var(--color-black-100)',
+    outline: '2px solid var(--color-blue-100)',
     outlineOffset: '2px',
   },
 });
 
-const selected = css({ boxShadow: 'inset 0 -3px #111' });
+const selected = css({ boxShadow: 'inset 0 -3px var(--color-black-100)' });
 
 const thumbnail = css({
   display: 'grid',
@@ -26,9 +26,9 @@ const thumbnail = css({
   h: 'calc(100% - 3px)',
   p: '1',
   placeItems: 'center',
-  color: '#777',
-  fontSize: '9px',
-  lineHeight: '1.1',
+  color: 'var(--color-black-50)',
+  fontSize: '12' /* 기존: 9px */,
+  lineHeight: 'koreanHeading',
   textAlign: 'center',
 });
 
@@ -55,7 +55,9 @@ export function ColorSelector({ colors, image, value, onChange }: ColorSelectorP
   return (
     <ProductOptionField
       action={
-        <span className={css({ color: '#111', fontSize: '14px', fontWeight: '400' })}>
+        <span
+          className={css({ color: 'var(--color-black-100)', fontSize: '14', fontWeight: 'normal' })}
+        >
           Color: {value}
         </span>
       }

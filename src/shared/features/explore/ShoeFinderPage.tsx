@@ -18,16 +18,21 @@ const exploreLayout = css({
 const finderStep = css({
   mb: '10',
   pb: '8',
-  borderBottom: '1px solid #111',
-  '& > span': { fontSize: '12px', fontWeight: '700' },
-  '& h2': { my: '3', mb: '6', fontSize: '28px' },
+  borderBottom: '1px solid var(--color-black-100)',
+  '& > span': { fontSize: '12', fontWeight: 'var(--font-weights-bold)' },
+  '& h2': { my: '3', mb: '6', fontSize: '28' },
 });
 
 const finderOptions = css({ display: 'flex', flexWrap: 'wrap', gap: '2' });
 
 const option = cva({
   base: { minW: '140px' },
-  variants: { selected: { true: { bg: '#111', color: '#fff' }, false: {} } },
+  variants: {
+    selected: {
+      true: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+      false: {},
+    },
+  },
 });
 
 const activities = [
@@ -93,8 +98,8 @@ export function ShoeFinderPage() {
           display: 'inline-block',
           px: '22px',
           py: '13px',
-          bg: '#111',
-          color: '#fff',
+          bg: 'var(--color-black-100)',
+          color: 'var(--color-white-000)',
         })}
         to={`/products?activity=${activity}&cushioning=${feel}`}
       >

@@ -25,13 +25,16 @@ const thumbnail = cva({
     h: '72px',
     p: '0',
     overflow: 'hidden',
-    border: '1px solid #ddd',
-    bg: '#f2f2f2',
+    border: '1px solid var(--color-black-20)',
+    bg: 'var(--color-black-10)',
     cursor: 'pointer',
   },
   variants: {
     active: {
-      true: { borderColor: '#0082ca', boxShadow: 'inset 0 -3px #0082ca' },
+      true: {
+        borderColor: 'var(--color-blue-100)',
+        boxShadow: 'inset 0 -3px var(--color-blue-100)',
+      },
       false: {},
     },
   },
@@ -60,14 +63,14 @@ const galleryFrame = css({
   overflow: 'hidden',
   p: '0',
   border: '0',
-  bg: '#eee',
-  color: '#777',
-  fontSize: '24px',
+  bg: 'var(--color-black-20)',
+  color: 'var(--color-black-50)',
+  fontSize: '24',
   fontFamily: 'inherit',
   textAlign: 'center',
   appearance: 'none',
   cursor: 'pointer',
-  '& small': { position: 'absolute', right: '5', bottom: '5', fontSize: '12px' },
+  '& small': { position: 'absolute', right: '5', bottom: '5', fontSize: '12' },
 });
 
 const galleryViewport = css({ '& .swiper-slide': { w: '100%' } });
@@ -125,9 +128,9 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
           minH="680px"
           display="grid"
           placeItems="center"
-          bg="#f2f2f2"
-          color="#999"
-          fontSize="14px"
+          bg="var(--color-black-10)"
+          color="var(--color-black-40)"
+          fontSize="14"
           letterSpacing="0.08em"
         >
           PRODUCT DETAIL IMAGE
@@ -136,9 +139,9 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
           minH="680px"
           display="grid"
           placeItems="center"
-          bg="#f2f2f2"
-          color="#999"
-          fontSize="14px"
+          bg="var(--color-black-10)"
+          color="var(--color-black-40)"
+          fontSize="14"
           letterSpacing="0.08em"
         >
           PRODUCT DETAIL IMAGE

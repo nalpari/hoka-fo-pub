@@ -9,8 +9,8 @@ const drawer = css({
   display: 'flex',
   flexDirection: 'column',
   overflowY: 'auto',
-  bg: '#fff',
-  color: '#000',
+  bg: 'var(--color-white-000)',
+  color: 'var(--color-black-100)',
 });
 
 const viewport = css({ position: 'fixed', inset: '0', zIndex: '100' });
@@ -35,25 +35,25 @@ const closeButton = css({
   h: '8',
   border: '0',
   bg: 'transparent',
-  color: '#000',
-  fontSize: '30px',
-  fontWeight: '400',
-  lineHeight: '1',
+  color: 'var(--color-black-100)',
+  fontSize: '28' /* 기존 30px */,
+  fontWeight: 'normal',
+  lineHeight: 'hoka',
   cursor: 'pointer',
-  _focusVisible: { outline: '2px solid #000', outlineOffset: '2px' },
+  _focusVisible: { outline: '2px solid var(--color-black-100)', outlineOffset: '2px' },
 });
 
 const primaryList = css({ display: 'grid', gap: '18px', m: '0', p: '0', listStyle: 'none' });
 
 const primaryLink = css({
   display: 'inline-flex',
-  color: '#000',
-  fontSize: '24px',
-  fontWeight: '800',
-  lineHeight: '1.2',
-  letterSpacing: '-0.055em',
+  color: 'var(--color-black-100)',
+  fontSize: '24',
+  fontWeight: 'extrabold',
+  lineHeight: 'koreanHeading',
+  letterSpacing: 'korean',
   textDecoration: 'none',
-  _focusVisible: { outline: '2px solid #000', outlineOffset: '3px' },
+  _focusVisible: { outline: '2px solid var(--color-black-100)', outlineOffset: '3px' },
 });
 
 const utilityMenu = css({
@@ -63,8 +63,8 @@ const utilityMenu = css({
   minH: '222px',
   px: '4',
   py: '46px',
-  bg: '#000',
-  color: '#fff',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
 });
 
 const utilityList = css({ display: 'grid', gap: '4', m: '0', p: '0', listStyle: 'none' });
@@ -73,13 +73,13 @@ const utilityLink = css({
   display: 'flex',
   alignItems: 'center',
   gap: '4',
-  color: '#fff',
-  fontSize: '14px',
-  fontWeight: '700',
-  lineHeight: '1.2',
-  letterSpacing: '-0.035em',
+  color: 'var(--color-white-000)',
+  fontSize: '14',
+  fontWeight: 'bold',
+  lineHeight: 'koreanHeading',
+  letterSpacing: 'korean',
   textDecoration: 'none',
-  _focusVisible: { outline: '2px solid #fff', outlineOffset: '3px' },
+  _focusVisible: { outline: '2px solid var(--color-white-000)', outlineOffset: '3px' },
 });
 
 const utilityIcon = css({
@@ -88,9 +88,9 @@ const utilityIcon = css({
   justifyContent: 'center',
   w: '4',
   flexShrink: '0',
-  color: '#fff',
-  fontSize: '16px',
-  lineHeight: '1',
+  color: 'var(--color-white-000)',
+  fontSize: '16',
+  lineHeight: 'hoka',
 });
 
 const primaryItems = [

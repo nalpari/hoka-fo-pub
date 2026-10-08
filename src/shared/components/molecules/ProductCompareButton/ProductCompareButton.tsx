@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
-const button = css({ mt: '1', borderColor: '#bbb', p: '2', fontSize: '12px' });
+const button = css({ mt: '1', borderColor: 'var(--color-black-40)', p: '2', fontSize: '12' });
 
 export type ProductCompareButtonProps = {
   onClick: () => void;

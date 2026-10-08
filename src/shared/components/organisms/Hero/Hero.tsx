@@ -69,7 +69,8 @@ const overlay = css({
   inset: '0',
   pointerEvents: 'none',
   _mobile: {
-    background: 'linear-gradient(180deg, rgb(0 0 0 / 0%) 41.11%, rgb(0 0 0 / 30%) 76.91%)',
+    background:
+      'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)',
   },
 });
 

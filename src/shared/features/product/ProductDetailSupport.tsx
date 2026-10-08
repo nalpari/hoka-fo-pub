@@ -6,10 +6,10 @@ import { ProductDetailInquiryContent } from '@/shared/features/product/ProductDe
 
 const root = cva({
   base: {
-    borderTop: '1px solid #ddd',
-    '& > *': { borderBottom: '1px solid #ddd' },
-    '& button': { minH: '13', fontSize: '13px', fontWeight: '700' },
-    '& p': { pb: '4', color: '#555', fontSize: '12px', lineHeight: '1.6' },
+    borderTop: '1px solid var(--color-black-20)',
+    '& > *': { borderBottom: '1px solid var(--color-black-20)' },
+    '& button': { minH: '13', fontSize: '14' /* 기존 13px */, fontWeight: 'bold' },
+    '& p': { pb: '4', color: 'var(--color-black-60)', fontSize: '12', lineHeight: 'body' },
   },
 });
 

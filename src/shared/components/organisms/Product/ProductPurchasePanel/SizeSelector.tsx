@@ -10,15 +10,15 @@ const options = css({
   '& [role="radio"]': { w: '58px', minH: '11' },
 });
 const selected = css({
-  borderColor: '#0082ca !important',
-  bg: '#0082ca !important',
-  color: '#fff !important',
+  borderColor: 'var(--color-blue-100) !important',
+  bg: 'var(--color-blue-100) !important',
+  color: 'var(--color-white-000) !important',
 });
 const guide = css({
   p: '0',
   border: '0',
-  color: '#0082ca',
-  fontSize: '14px',
+  color: 'var(--color-blue-100)',
+  fontSize: '14',
   textDecoration: 'underline',
 });
 

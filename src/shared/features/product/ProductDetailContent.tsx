@@ -8,18 +8,18 @@ const styles = {
   info: css({
     mt: '7',
     p: '5',
-    bg: '#f7f7f9',
-    '& h2': { mb: '3', fontSize: '17px', fontWeight: '900' },
-    '& h3': { mt: '5', mb: '2', fontSize: '12px', fontWeight: '700' },
-    '& p': { fontSize: '12px', lineHeight: '1.65' },
+    bg: 'var(--color-black-10)',
+    '& h2': { mb: '3', fontSize: '16' /* 기존 17px */, fontWeight: 'black' },
+    '& h3': { mt: '5', mb: '2', fontSize: '12', fontWeight: 'bold' },
+    '& p': { fontSize: '12', lineHeight: 'body' },
   }),
   specs: css({
     display: 'grid',
     gridTemplateColumns: '76px 1fr',
     gap: '1.5 3',
     mt: '5',
-    fontSize: '12px',
-    '& dt': { fontWeight: '700' },
+    fontSize: '12',
+    '& dt': { fontWeight: 'bold' },
   }),
 };
 

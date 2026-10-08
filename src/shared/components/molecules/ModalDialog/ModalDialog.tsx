@@ -37,8 +37,8 @@ const backdrop = cva({
   },
   variants: {
     overlayTone: {
-      dark: { bg: 'rgb(0 0 0 / 50%)' },
-      light: { bg: 'rgb(255 255 255 / 50%)' },
+      dark: { bg: 'color-mix(in srgb, var(--color-black-100) 50%, transparent)' },
+      light: { bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)' },
     },
   },
   defaultVariants: { overlayTone: 'dark' },
@@ -50,8 +50,8 @@ const popup = cva({
     maxH: 'calc(100dvh - 48px)',
     overflowY: 'auto',
     borderRadius: '0',
-    bg: '#fff',
-    boxShadow: '0 4px 4px rgb(0 0 0 / 25%)',
+    bg: 'var(--color-white-000)',
+    boxShadow: '0 4px 4px color-mix(in srgb, var(--color-black-100) 25%, transparent)',
     _mobile: { maxH: 'calc(100dvh - 32px)' },
   },
   variants: {
@@ -93,13 +93,13 @@ const header = css({
   },
 });
 
-const titleStyle = css({ m: '0', fontWeight: '600' });
+const titleStyle = css({ m: '0', fontWeight: 'semibold' });
 
 const closeButton = css({
   w: '8',
   h: '8',
   p: '0',
-  color: '#555',
+  color: 'var(--color-black-60)',
   '& svg': { w: '4', h: '4' },
 });
 

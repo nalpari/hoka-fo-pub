@@ -10,7 +10,7 @@ export function ProductInformation() {
   const [expanded, setExpanded] = useState(false);
   return (
     <Box maxW="680px">
-      <Box as="p" m="0" color="#222" lineHeight="1.65">
+      <Box as="p" m="0" color="var(--color-black-100)" lineHeight="1.65">
         호카의 헤리티지를 담은 클래식 러닝화입니다. 세련된 컬러와 편안한 착화감을 중심으로, 일상과
         가벼운 움직임에 자연스럽게 어울리도록 설계했습니다.
       </Box>

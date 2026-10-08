@@ -14,9 +14,9 @@ const notificationCount = css({
   borderRadius: 'full',
   bg: 'blue.100',
   color: 'white.0',
-  fontSize: '8px',
-  fontWeight: '400',
-  lineHeight: '1',
+  fontSize: '12' /* 기존: 8px */,
+  fontWeight: 'normal',
+  lineHeight: 'hoka',
   textAlign: 'center',
 });
 

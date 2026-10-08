@@ -5,7 +5,9 @@ import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 type CalendarTab = 'history' | 'now' | 'coming';
+
 type Audience = 'adult' | 'kids';
+
 type LaunchTone =
   'moss' | 'ink' | 'ice' | 'cocoa' | 'street' | 'silver' | 'lilac' | 'rose' | 'sand';
 
@@ -19,75 +21,75 @@ type LaunchItem = {
   status: 'now' | 'coming' | 'sold-out';
 };
 
-const calendar = css({ paddingBottom: '112px' });
+const calendar = css({ paddingBottom: '28' });
 
 const intro = css({
   display: 'grid',
   justifyItems: 'center',
-  p: '88px 24px 48px',
+  p: '88px var(--spacing-6) var(--spacing-12)',
   textAlign: 'center',
   '.platform-mobile &': { p: '13 var(--layout-mobile-inline-gutter) 34px' },
 });
 
 const kicker = css({
   mb: '2.5',
-  color: '#e31b23',
-  fontSize: '11px',
-  fontWeight: '700',
-  letterSpacing: '0.14em',
+  color: 'var(--color-red-100)',
+  fontSize: '12' /* 기존: 11px */,
+  fontWeight: 'var(--font-weights-bold)',
+  letterSpacing: 'var(--letter-spacings-korean)',
 });
 
 const pageTitle = css({
   fontFamily: 'var(--font-family-base)',
-  fontSize: '58px',
-  fontWeight: '400',
-  letterSpacing: '-0.055em',
-  '.platform-mobile &': { fontSize: '42px' },
+  fontSize: '58',
+  fontWeight: 'var(--font-weights-normal)',
+  letterSpacing: 'var(--letter-spacings-korean)',
+  '.platform-mobile &': { fontSize: '42' },
 });
 
 const audienceButton = cva({
   base: {
     minW: '74px',
     border: '0',
-    borderRadius: '999px',
-    bg: '#b9b9b9',
-    color: '#fff',
-    fontSize: '14px',
-    fontWeight: '700',
+    borderRadius: 'full',
+    bg: 'var(--color-black-40)',
+    color: 'var(--color-white-000)',
+    fontSize: '14',
+    fontWeight: 'var(--font-weights-bold)',
   },
-  variants: { selected: { true: { bg: '#000' }, false: {} } },
+  variants: { selected: { true: { bg: 'var(--color-black-100)' }, false: {} } },
 });
 
 const tabs = css({ display: 'flex', gap: '22px', mt: '30px' });
 
 const tabGroup = css({ display: 'flex', alignItems: 'center', gap: '22px' });
 
-const separator = css({ color: '#9b9b9b', fontStyle: 'normal' });
+const separator = css({ color: 'var(--color-black-40)', fontStyle: 'normal' });
 
 const tabButton = cva({
-  base: { minH: 'auto', border: '0', bg: 'transparent', px: '0', fontSize: '16px' },
-  variants: { active: { true: { fontWeight: '900' }, false: {} } },
+  base: { minH: 'auto', border: '0', bg: 'transparent', px: '0', fontSize: '16' },
+  variants: { active: { true: { fontWeight: 'var(--font-weights-black)' }, false: {} } },
 });
 
 const audienceNote = css({
   height: '0',
   mt: '4',
-  mb: '-16px',
-  color: '#8b8b8b',
-  fontSize: '11px',
+  mb: 'calc(var(--spacing-4) * -1)',
+  color: 'var(--color-black-50)',
+  fontSize: '12' /* 기존: 11px */,
   opacity: '0',
 });
 
 const grid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-  gap: '50px 12px',
+  gap: '50px var(--spacing-3)',
   maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
   px: '6',
   '.platform-mobile &': {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-    gap: '28px 8px',
+    gap: 'var(--spacing-7) var(--spacing-2)',
     px: 'var(--layout-mobile-inline-gutter)',
   },
 });
@@ -96,7 +98,7 @@ const card = css({
   minW: '0',
   '&:hover [data-launch-action], &:focus-visible [data-launch-action]': { display: 'inline-block' },
   '&:hover [data-launch-art], &:focus-visible [data-launch-art]': {
-    outline: '4px solid #29e3c2',
+    outline: '4px solid var(--color-blue-100)',
     outlineOffset: '-4px',
   },
 });
@@ -112,7 +114,7 @@ const art = cva({
       zIndex: '-1',
       width: '65%',
       height: '30%',
-      border: '22px solid rgba(255, 255, 255, 0.5)',
+      border: '22px solid color-mix(in srgb, var(--color-white-000) 50%, transparent)',
       borderRadius: '48% 52% 42% 58%',
       content: '""',
       transform: 'rotate(-20deg)',
@@ -122,23 +124,39 @@ const art = cva({
       zIndex: '-1',
       width: '100%',
       height: '100%',
-      bg: 'linear-gradient(145deg, transparent 45%, rgba(0, 0, 0, 0.15))',
+      bg: 'linear-gradient(145deg, transparent 45%, color-mix(in srgb, var(--color-black-100) 15%, transparent))',
       content: '""',
     },
   },
   variants: {
     tone: {
-      moss: { bg: 'radial-gradient(circle at 47% 20%, #a49c5b, #57582e 67%, #222b1e)' },
-      ink: {
-        bg: 'radial-gradient(circle at 48% 72%, #eee 0 15%, #c7b7a7 16% 31%, #2f2d2c 32% 60%, #151515)',
+      moss: {
+        bg: 'radial-gradient(circle at 47% 20%, var(--color-black-50), var(--color-black-60) 67%, var(--color-black-100))',
       },
-      ice: { bg: 'linear-gradient(155deg, #eaf5f6 10%, #9ebec9 48%, #6a8598 100%)' },
-      cocoa: { bg: 'linear-gradient(135deg, #38261e, #8f5d3c 53%, #d8a875)' },
-      street: { bg: 'linear-gradient(140deg, #a36f55 0 24%, #43545f 25% 58%, #d9e6ed 59%)' },
-      silver: { bg: 'linear-gradient(145deg, #f4f3f0, #babcc3 46%, #4e5359)' },
-      lilac: { bg: 'linear-gradient(145deg, #eff0ed, #d5c9e1 52%, #b4a463)' },
-      rose: { bg: 'linear-gradient(145deg, #f3e4e5 15%, #d8999d 57%, #6c3740)' },
-      sand: { bg: 'linear-gradient(145deg, #d1a77b, #8a6045 49%, #342824)' },
+      ink: {
+        bg: 'radial-gradient(circle at 48% 72%, var(--color-black-20) 0 15%, var(--color-black-40) 16% 31%, var(--color-black-60) 32% 60%, var(--color-black-100))',
+      },
+      ice: {
+        bg: 'linear-gradient(155deg, var(--color-off-white-100) 10%, var(--color-black-40) 48%, var(--color-black-50) 100%)',
+      },
+      cocoa: {
+        bg: 'linear-gradient(135deg, var(--color-black-60), var(--color-black-50) 53%, var(--color-black-40))',
+      },
+      street: {
+        bg: 'linear-gradient(140deg, var(--color-black-50) 0 24%, var(--color-black-60) 25% 58%, var(--color-black-20) 59%)',
+      },
+      silver: {
+        bg: 'linear-gradient(145deg, var(--color-black-10), var(--color-black-40) 46%, var(--color-black-60))',
+      },
+      lilac: {
+        bg: 'linear-gradient(145deg, var(--color-black-20), var(--color-black-20) 52%, var(--color-black-50))',
+      },
+      rose: {
+        bg: 'linear-gradient(145deg, var(--color-black-20) 15%, var(--color-black-40) 57%, var(--color-black-60))',
+      },
+      sand: {
+        bg: 'linear-gradient(145deg, var(--color-black-40), var(--color-black-50) 49%, var(--color-black-60))',
+      },
     },
   },
 });
@@ -147,12 +165,12 @@ const shoe = css({
   position: 'absolute',
   right: '12%',
   bottom: '9%',
-  color: 'rgba(12, 12, 12, 0.86)',
+  color: 'color-mix(in srgb, var(--color-black-100) 86%, transparent)',
   fontSize: 'clamp(130px, 16vw, 240px)',
   fontStyle: 'italic',
-  fontWeight: '900',
-  letterSpacing: '-0.28em',
-  lineHeight: '0.65',
+  fontWeight: 'var(--font-weights-black)',
+  letterSpacing: 'var(--letter-spacings-korean)',
+  lineHeight: 'var(--line-heights-hoka)',
   transform: 'rotate(-17deg)',
 });
 
@@ -160,31 +178,38 @@ const mark = css({
   position: 'absolute',
   top: '17px',
   right: '17px',
-  color: 'rgba(255, 255, 255, 0.94)',
-  fontSize: '15px',
-  fontWeight: '900',
-  letterSpacing: '-0.11em',
+  color: 'color-mix(in srgb, var(--color-white-000) 94%, transparent)',
+  fontSize: '16' /* 기존 15px */,
+  fontWeight: 'var(--font-weights-black)',
+  letterSpacing: 'var(--letter-spacings-korean)',
 });
+
 const date = css({
   position: 'absolute',
   top: '18px',
   left: '18px',
   fontFamily: 'var(--font-family-base)',
-  fontSize: '22px',
-  lineHeight: '1',
-  '.platform-mobile &': { top: '11px', left: '11px', fontSize: '16px' },
+  fontSize: '20' /* 기존 22px */,
+  lineHeight: 'var(--line-heights-hoka)',
+  '.platform-mobile &': { top: '11px', left: '11px', fontSize: '16' },
 });
+
 const cardInfo = css({
-  pt: '15px',
+  pt: '4',
   '& p': {
     minH: '18px',
     mb: '2',
-    color: '#9c9c9c',
-    fontSize: '13px',
-    '.platform-mobile &': { fontSize: '11px' },
+    color: 'var(--color-black-40)',
+    fontSize: '14' /* 기존 13px */,
+    '.platform-mobile &': { fontSize: '12' /* 기존: 11px */ },
   },
-  '& h2': { fontSize: '20px', lineHeight: '1.35', '.platform-mobile &': { fontSize: '16px' } },
+  '& h2': {
+    fontSize: '20',
+    lineHeight: 'var(--line-heights-body)',
+    '.platform-mobile &': { fontSize: '16' },
+  },
 });
+
 const cardAction = cva({
   base: {
     display: 'none',
@@ -192,66 +217,81 @@ const cardAction = cva({
     mt: '3',
     px: '18px',
     py: '2',
-    borderRadius: '999px',
-    bg: '#000',
-    color: '#fff',
-    fontSize: '12px',
-    fontWeight: '900',
+    borderRadius: 'full',
+    bg: 'var(--color-black-100)',
+    color: 'var(--color-white-000)',
+    fontSize: '12',
+    fontWeight: 'var(--font-weights-black)',
   },
-  variants: { status: { now: {}, coming: { bg: '#555' }, 'sold-out': { bg: '#8b8b8b' } } },
+  variants: {
+    status: {
+      now: {},
+      coming: { bg: 'var(--color-black-60)' },
+      'sold-out': { bg: 'var(--color-black-50)' },
+    },
+  },
 });
+
 const nowFeature = css({
   display: 'grid',
   gridTemplateColumns: '37% 63%',
   minH: '580px',
-  bg: '#312520',
-  color: '#fff',
+  bg: 'var(--color-black-60)',
+  color: 'var(--color-white-000)',
   '.platform-mobile &': { gridTemplateColumns: '1fr' },
 });
+
 const featureCopy = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
-  p: 'clamp(44px, 6vw, 96px)',
-  '& p': { mb: '3.5', fontSize: '17px' },
-  '& h2': { mb: '29px', fontSize: 'clamp(32px, 3vw, 50px)', lineHeight: '1.05' },
+  p: 'clamp(var(--spacing-11), 6vw, var(--spacing-24))',
+  '& p': { mb: '3.5', fontSize: '16' /* 기존 17px */ },
+  '& h2': {
+    mb: '30px',
+    fontSize: 'clamp(var(--font-sizes-32), 3vw, var(--font-sizes-50))',
+    lineHeight: 'var(--line-heights-hoka)',
+  },
   '& a': {
     px: '42px',
-    py: '13px',
-    borderRadius: '999px',
-    bg: '#fff',
-    color: '#000',
-    fontWeight: '700',
+    py: '14px',
+    borderRadius: 'full',
+    bg: 'var(--color-white-000)',
+    color: 'var(--color-black-100)',
+    fontWeight: 'var(--font-weights-bold)',
   },
-  '.platform-mobile &': { minH: '260px', p: '40px 26px' },
+  '.platform-mobile &': { minH: '260px', p: 'var(--spacing-10) 26px' },
 });
+
 const featureArt = css({
   position: 'relative',
   isolation: 'isolate',
   overflow: 'hidden',
   minH: '580px',
-  bg: 'radial-gradient(circle at 43% 25%, #b4a867, #69683e 52%, #3c4529)',
+  bg: 'radial-gradient(circle at 43% 25%, var(--color-black-40), var(--color-black-60) 52%, var(--color-black-60))',
   '.platform-mobile &': { minH: '360px' },
 });
+
 const featureShoe = css({
   position: 'absolute',
   top: '22%',
   left: '30%',
-  color: '#34271e',
+  color: 'var(--color-black-60)',
   fontSize: 'clamp(250px, 33vw, 540px)',
   fontStyle: 'italic',
-  fontWeight: '900',
-  lineHeight: '0.5',
+  fontWeight: 'var(--font-weights-black)',
+  lineHeight: 'var(--line-heights-hoka)',
   transform: 'rotate(-78deg)',
 });
+
 const featureBrand = css({
   position: 'absolute',
   right: '30px',
   bottom: '6',
-  fontSize: '10px',
-  fontWeight: '700',
-  letterSpacing: '0.13em',
+  fontSize: '12' /* 기존: 10px */,
+  fontWeight: 'var(--font-weights-bold)',
+  letterSpacing: 'var(--letter-spacings-korean)',
 });
 
 const launches: LaunchItem[] = [
