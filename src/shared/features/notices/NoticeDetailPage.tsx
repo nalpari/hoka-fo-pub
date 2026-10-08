@@ -32,7 +32,7 @@ const styles = {
     mt: '30px',
     p: 'var(--spacing-14) 7',
     border: '8px solid var(--color-black-20)',
-    borderTop: '8px solid var(--color-red-100)',
+    borderTop: '8px solid var(--color-red-80)',
     _mobile: { w: '100%', minH: '0', p: '8 var(--spacing-5)', borderWidth: '5px' },
     '& > h2': {
       m: '0',
@@ -54,14 +54,14 @@ const styles = {
       _mobile: { fontSize: '14' },
     },
     '& strong': {
-      color: 'var(--color-red-100)',
+      color: 'var(--color-red-80)',
       fontSize: '16',
       fontWeight: 'var(--font-weights-normal)',
     },
   }),
   brand: css({
     mb: '38px',
-    color: 'var(--color-red-100)',
+    color: 'var(--color-red-80)',
     fontSize: '48',
     fontStyle: 'italic',
     fontWeight: 'var(--font-weights-black)',

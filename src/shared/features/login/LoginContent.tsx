@@ -1,29 +1,20 @@
-import { useState, type FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { faComment, faEye, faEyeSlash } from '@/shared/icons/fontAwesome';
+import { faComment } from '@/shared/icons/fontAwesome';
 
 const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
   content: css({ maxW: '500px', mx: 'auto' }),
   title: css({ m: 0, mb: '10' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  input: css({ minW: 0, flex: 1 }),
-  eye: css({
-    '--button-height': '18px!',
-    '--button-border-width': '0px!',
-    '--button-padding-x': '0px',
-    flexShrink: 0,
-    color: 'var(--color-black-60)',
-    '& svg': { w: '16px', h: '16px' },
-  }),
   options: css({
     justifyContent: 'space-between',
     gap: '2',
@@ -35,9 +26,6 @@ const styles = {
   }),
   actions: css({ gap: '2', mt: '3' }),
   button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
     '& svg': { w: '14px', h: '14px' },
   }),
   kakao: css({
@@ -51,8 +39,6 @@ const styles = {
   membership: css({ mt: '8', pt: '8', borderTop: '1px solid var(--color-black-20)', gap: '2' }),
   signup: css({
     mt: '4',
-    '--button-radius': '999px',
-    '--button-height': '48px!',
     '--button-border-width': '1px!',
     '--button-bg': 'var(--color-white-000)!',
     '--button-color': 'var(--color-black-100)!',
@@ -87,8 +73,6 @@ export function LoginContent({
   onFindAccount,
   onUnavailable,
 }: LoginContentProps) {
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
@@ -98,13 +82,8 @@ export function LoginContent({
           오신것을 환영합니다
         </Typography>
         <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title">
-          <FormField
-            variant="boxed"
-            htmlFor="login-id"
-            label={<Typography variant="authCaption">* 이메일 아이디</Typography>}
-          >
+          <FormField variant="boxed" htmlFor="login-id" label="이메일 아이디" required>
             <TextInput
-              className={styles.input}
               id="login-id"
               name="username"
               autoComplete="username"
@@ -113,32 +92,16 @@ export function LoginContent({
               onChange={(event) => onIdChange(event.target.value)}
             />
           </FormField>
-          <FormField
-            variant="boxed"
-            htmlFor="login-password"
-            label={<Typography variant="authCaption">* 비밀번호</Typography>}
-          >
-            <HStack gap="2">
-              <TextInput
-                className={styles.input}
-                id="login-password"
-                name="password"
-                autoComplete="current-password"
-                placeholder="비밀번호를 입력해 주세요"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(event) => onPasswordChange(event.target.value)}
-              />
-              <Button
-                className={styles.eye}
-                variant="ghost"
-                aria-label={showPassword ? '비밀번호 숨기기' : '비밀번호 보기'}
-                aria-pressed={showPassword}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                <Icon fontAwesomeIcon={showPassword ? faEye : faEyeSlash} />
-              </Button>
-            </HStack>
+          <FormField variant="boxed" htmlFor="login-password" label="비밀번호" required>
+            <TextInput
+              id="login-password"
+              name="password"
+              autoComplete="current-password"
+              placeholder="비밀번호를 입력해 주세요"
+              type="password"
+              value={password}
+              onChange={(event) => onPasswordChange(event.target.value)}
+            />
           </FormField>
           <HStack className={styles.options}>
             <Checkbox label="아이디 저장" checked={rememberId} onCheckedChange={onRememberChange} />
@@ -156,14 +119,20 @@ export function LoginContent({
           </HStack>
           {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
           <Stack className={styles.actions}>
-            <Button className={styles.button} fullWidth variant="primary" size="lg" type="submit">
+            <Button
+              className={styles.button}
+              fullWidth
+              variant="primary"
+              density="auto"
+              type="submit"
+            >
               로그인
             </Button>
             <Button
               className={[styles.button, styles.kakao].join(' ')}
               fullWidth
               variant="primary"
-              size="lg"
+              density="auto"
               icon={<Icon fontAwesomeIcon={faComment} />}
               onClick={() => onUnavailable('카카오 로그인')}
             >
@@ -173,7 +142,7 @@ export function LoginContent({
               className={[styles.button, styles.naver].join(' ')}
               fullWidth
               variant="primary"
-              size="lg"
+              density="auto"
               icon={<b aria-hidden="true">N</b>}
               onClick={() => onUnavailable('네이버 로그인')}
             >
@@ -188,7 +157,13 @@ export function LoginContent({
           <Typography as="p" variant="authSmall" className={css({ m: 0 })}>
             신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
           </Typography>
-          <ButtonLink to="/signup" fullWidth variant="primary" size="lg" className={styles.signup}>
+          <ButtonLink
+            to="/signup"
+            fullWidth
+            variant="primary"
+            density="auto"
+            className={styles.signup}
+          >
             회원가입
           </ButtonLink>
         </Stack>

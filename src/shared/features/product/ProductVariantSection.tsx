@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Stack, HStack, Box } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-
-const root = css({ mt: '6' });
 
 const header = css({ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' });
 
@@ -10,26 +9,20 @@ type ProductVariantSectionProps = {
   action?: ReactNode;
   children: ReactNode;
   id?: string;
-  title: string;
+  title: ReactNode;
 };
 
 /** Shared frame for a product-option control and its optional secondary action. */
 export function ProductVariantSection({ action, children, id, title }: ProductVariantSectionProps) {
   return (
-    <section className={root} id={id}>
-      {action ? (
-        <div className={header}>
-          <Typography as="h2" variant="productSelectorLabel">
-            {title}
-          </Typography>
-          {action}
-        </div>
-      ) : (
-        <Typography as="h2" className={css({ mb: '3' })} variant="productSelectorLabel">
+    <Stack as="section" id={id} gap="4" w="full">
+      <HStack w="full" justify="space-between">
+        <Typography as="h2" variant="productSelectorLabel">
           {title}
         </Typography>
-      )}
-      {children}
-    </section>
+        {action ? <div className={header}>{action}</div> : null}
+      </HStack>
+      <Box>{children}</Box>
+    </Stack>
   );
 }

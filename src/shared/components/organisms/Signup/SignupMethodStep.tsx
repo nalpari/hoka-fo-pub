@@ -59,18 +59,7 @@ const styles = {
     textUnderlineOffset: '3px',
   }),
   methods: css({ display: 'grid', gap: '2', mt: '9' }),
-  methodButton: css({
-    w: '100%',
-    minH: '48px',
-    borderRadius: 'full',
-    '--button-border-width': '0px',
-    '& > span': { borderRadius: 'full' },
-    '& > span > span': { h: '48px', minH: '48px', maxH: '48px', gap: '3' },
-    '& > span > span > span:first-child': {
-      fontSize: '16',
-      fontWeight: 'var(--font-weights-semibold)',
-    },
-  }),
+  methodButton: css({ w: '100%' }),
   kakaoIcon: css({ w: '16px', h: '16px' }),
   naverIcon: css({
     fontSize: '16',
@@ -88,7 +77,6 @@ const styles = {
 };
 
 const kakaoStyle = {
-  '--button-height': '48px',
   '--button-bg': 'var(--color-citrus-100)',
   '--button-color': 'var(--color-black-100)',
   '--button-border-color': 'var(--color-citrus-100)',
@@ -96,7 +84,6 @@ const kakaoStyle = {
 } as CSSProperties;
 
 const naverStyle = {
-  '--button-height': '48px',
   '--button-bg': 'var(--color-black-60)',
   '--button-color': 'var(--color-white-000)',
   '--button-border-color': 'var(--color-black-60)',
@@ -104,7 +91,6 @@ const naverStyle = {
 } as CSSProperties;
 
 const localStyle = {
-  '--button-height': '48px',
   '--button-bg': 'var(--color-black-100)',
   '--button-color': 'var(--color-white-000)',
   '--button-border-color': 'var(--color-black-100)',

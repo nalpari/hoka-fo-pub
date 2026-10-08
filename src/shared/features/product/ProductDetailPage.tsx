@@ -15,7 +15,7 @@ import { ProductDetailRecommend } from '@/shared/features/product/ProductDetailR
 import { productWidthOptions } from '@/shared/features/product/ProductVariantSelectors';
 
 const styles = {
-  page: css({ maxW: '1420px', mx: 'auto', pt: '7', pb: '24', _mobile: { p: '0 0 100px' } }),
+  page: css({ maxW: '1532px', mx: 'auto', pt: '14', pb: '24', _mobile: { p: '0 0 24' } }),
   layout: css({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 2fr) minmax(340px, .85fr)',

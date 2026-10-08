@@ -1,3 +1,4 @@
+import { koreanSizes } from '@/shared/components/molecules/SizeSelector/koreanSizes';
 type FilterValueLabels = Record<string, string>;
 
 export const colorOptions = [
@@ -44,25 +45,7 @@ export const colorLabels = Object.fromEntries(
   colorOptions.map(({ value, label }) => [value, label]),
 ) satisfies FilterValueLabels;
 
-export const sizeValues = [
-  '220',
-  '225',
-  '230',
-  '235',
-  '240',
-  '245',
-  '250',
-  '255',
-  '260',
-  '265',
-  '270',
-  '275',
-  '280',
-  '285',
-  '290',
-  '295',
-  '300',
-];
+export const sizeValues = koreanSizes;
 
 export const collectionValues = ['클리프톤', '아라히', '가비오타', '마하'];
 

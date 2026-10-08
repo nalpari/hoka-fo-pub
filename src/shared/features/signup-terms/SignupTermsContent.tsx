@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
@@ -32,17 +32,7 @@ const styles = {
   row: css({ gap: '2', justifyContent: 'space-between', alignItems: 'center' }),
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
   actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2', mt: '6' }),
-  button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
-  }),
-  cancel: css({
-    '--button-bg': 'var(--color-white-000)!',
-    '--button-color': 'var(--color-black-100)!',
-    '--button-border-width': '1px!',
-    '--button-border-color': 'var(--color-black-100)!',
-  }),
+  button: css({ w: '100%' }),
   popup: css({
     display: 'flex',
     flexDirection: 'column',
@@ -87,26 +77,27 @@ export function SignupTermsContent(props: Props) {
           약관동의
         </Typography>
         <Box className={styles.all}>
-          <Checkbox
-            label={
-              <Typography variant="authSmall">모든 약관을 확인하고 전체동의 합니다</Typography>
-            }
-            checked={props.agreements.every(Boolean)}
-            onCheckedChange={props.onAllChange}
-          />
+          <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
+            <Typography variant="bodyKr5">모든 약관을 확인하고 전체동의 합니다</Typography>
+          </Terms>
         </Box>
         <Stack className={styles.list}>
           {signupTerms.map((term, index) => (
             <HStack key={index} className={styles.row}>
-              <Checkbox
-                label={
-                  <Typography variant="authSmall">
-                    ({term.required ? '필수' : '선택'}) {term.label}
-                  </Typography>
-                }
+              <Terms
                 checked={props.agreements[index]}
                 onCheckedChange={(checked) => props.onChange(index, checked)}
-              />
+                required={term.required}
+                error={
+                  props.notice && term.required && !props.agreements[index]
+                    ? props.notice
+                    : undefined
+                }
+              >
+                <Typography variant="bodyKr5">
+                  ({term.required ? '필수' : '선택'}) {term.label}
+                </Typography>
+              </Terms>
               <Button
                 variant="link"
                 size="sm"
@@ -121,12 +112,7 @@ export function SignupTermsContent(props: Props) {
         </Stack>
         {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         <Grid className={styles.actions}>
-          <Button
-            variant="primary"
-            fullWidth
-            className={[styles.button, styles.cancel].join(' ')}
-            onClick={props.onCancel}
-          >
+          <Button variant="secondary" fullWidth className={styles.button} onClick={props.onCancel}>
             취소
           </Button>
           <Button variant="primary" fullWidth className={styles.button} onClick={props.onNext}>

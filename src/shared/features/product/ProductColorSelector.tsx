@@ -1,5 +1,6 @@
 import { css } from 'styled-system/css';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
 
 const styles = {
@@ -34,7 +35,13 @@ export function ProductColorSelector({
   onValueChange,
 }: ProductColorSelectorProps) {
   return (
-    <ProductVariantSection title={`컬러: ${value}`}>
+    <ProductVariantSection
+      title={
+        <>
+          컬러: <Typography variant="productOptionValue">{value}</Typography>
+        </>
+      }
+    >
       <Radio
         ariaLabel="컬러 선택"
         className={styles.colors}

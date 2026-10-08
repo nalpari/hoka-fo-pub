@@ -1,3 +1,4 @@
+import { Stack } from 'styled-system/jsx';
 import type { Product, ProductWidthOption } from '@/mocks/products';
 import { ProductColorSelector } from '@/shared/features/product/ProductColorSelector';
 import { ProductSizeSelector } from '@/shared/features/product/ProductSizeSelector';
@@ -6,7 +7,12 @@ import { ProductWidthSelector } from '@/shared/features/product/ProductWidthSele
 export function productWidthOptions(product: Product, color: string): ProductWidthOption[] {
   return (
     product.colorOptions?.find((option) => option.color === color)?.widths ?? [
-      { label: product.width, sizes: product.sizes, soldOut: product.soldOut },
+      {
+        label: product.width,
+        sizes: product.sizes,
+        soldOut: product.soldOut,
+        lowStockSizes: product.lowStockSizes,
+      },
     ]
   );
 }
@@ -41,20 +47,22 @@ export function ProductVariantSelectors({
 
   return (
     <>
-      <ProductWidthSelector onValueChange={onWidthChange} options={widthOptions} value={width} />
-      <ProductColorSelector
-        colors={product.colors}
-        gallery={gallery}
-        onValueChange={onColorChange}
-        value={color}
-      />
-      <ProductSizeSelector
-        error={error}
-        onOpenSizeGuide={onOpenSizeGuide}
-        onValueChange={onSizeChange}
-        selectedWidth={selected}
-        value={size}
-      />
+      <Stack gap="10">
+        <ProductWidthSelector onValueChange={onWidthChange} options={widthOptions} value={width} />
+        <ProductColorSelector
+          colors={product.colors}
+          gallery={gallery}
+          onValueChange={onColorChange}
+          value={color}
+        />
+        <ProductSizeSelector
+          error={error}
+          onOpenSizeGuide={onOpenSizeGuide}
+          onValueChange={onSizeChange}
+          selectedWidth={selected}
+          value={size}
+        />
+      </Stack>
     </>
   );
 }

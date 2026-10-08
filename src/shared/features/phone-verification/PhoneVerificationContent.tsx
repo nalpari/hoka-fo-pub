@@ -2,9 +2,9 @@ import type { FormEvent } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { Terms } from '@/shared/components/molecules/Terms/Terms';
+import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
@@ -27,12 +27,8 @@ const styles = {
     alignItems: 'center',
     '& > button': { justifySelf: 'end' },
   }),
-  button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
-  }),
-  countdown: css({ m: '0', mt: '-2', color: 'var(--color-red-100)' }),
+  button: css({ w: '100%' }),
+  countdown: css({ m: '0', mt: '-2', color: 'var(--color-red-80)' }),
   text: css({ m: '0' }),
   intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
   help: css({ m: '0', mt: '4' }),
@@ -113,16 +109,13 @@ export function PhoneVerificationContent(props: Props) {
     placeholder: string,
     maxLength?: number,
   ) => (
-    <FormField
-      htmlFor={`phone-${key}`}
-      label={<Typography variant="authCaption">* {label}</Typography>}
-      variant="boxed"
-    >
+    <FormField variant="boxed" htmlFor={`phone-${key}`} label={label} required>
       <TextInput
         id={`phone-${key}`}
         value={information[key]}
         placeholder={placeholder}
         maxLength={maxLength}
+        type={key === 'phone' ? 'tel' : 'text'}
         inputMode={key === 'name' ? 'text' : 'numeric'}
         autoComplete={key === 'name' ? 'name' : key === 'phone' ? 'tel-national' : 'off'}
         onChange={(event) => props.onInformationChange(key, event.target.value)}
@@ -131,21 +124,15 @@ export function PhoneVerificationContent(props: Props) {
   );
 
   const selectField = (key: keyof PhoneInformation, label: string, options: string[]) => (
-    <FormField
-      htmlFor={`phone-${key}`}
-      label={<Typography variant="authCaption">* {label}</Typography>}
-      variant="boxed"
-    >
-      <Select
-        id={`phone-${key}`}
-        value={information[key]}
-        onChange={(event) => props.onInformationChange(key, event.target.value)}
-      >
-        {options.map((option) => (
-          <option key={option}>{option}</option>
-        ))}
-      </Select>
-    </FormField>
+    <Dropdown
+      ariaLabel={label}
+      label={label}
+      required
+      name={`phone-${key}`}
+      value={information[key]}
+      options={options.map((option) => ({ value: option, label: option }))}
+      onValueChange={(value) => props.onInformationChange(key, value)}
+    />
   );
 
   return (
@@ -164,19 +151,19 @@ export function PhoneVerificationContent(props: Props) {
             <Typography as="h2" id="phone-terms-title" variant="authBody" className={styles.text}>
               휴대폰 인증약관
             </Typography>
-            <Checkbox
-              label={<Typography variant="authSmall">모두동의</Typography>}
-              checked={agreements.every(Boolean)}
-              onCheckedChange={props.onAllAgree}
-            />
+            <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
+              <Typography variant="bodyKr5">모두동의</Typography>
+            </Terms>
           </HStack>
           {verificationTerms.map((term, index) => (
             <HStack key={term} className={styles.termRow}>
-              <Checkbox
-                label={<Typography variant="authSmall">(필수) {term}</Typography>}
+              <Terms
                 checked={agreements[index]}
                 onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
-              />
+                required
+              >
+                <Typography variant="bodyKr5">(필수) {term}</Typography>
+              </Terms>
               <Button
                 variant="link"
                 size="sm"
@@ -228,10 +215,11 @@ export function PhoneVerificationContent(props: Props) {
           {requested ? (
             <>
               <FormField
-                htmlFor="phone-code"
-                className={css({ mt: '2' })}
-                label={<Typography variant="authCaption">* 인증번호</Typography>}
                 variant="boxed"
+                htmlFor="phone-code"
+                label="인증번호"
+                required
+                className={css({ mt: '2' })}
               >
                 <TextInput
                   id="phone-code"

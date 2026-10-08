@@ -57,7 +57,7 @@ const storeList = css({
     fontSize: '12' /* 기존: 11px */,
     _mobile: { maxW: '260px', lineHeight: 'var(--line-heights-body)' },
   },
-  '& small': { color: 'var(--color-red-100)', fontSize: '12' /* 기존: 11px */ },
+  '& small': { color: 'var(--color-red-80)', fontSize: '12' /* 기존: 11px */ },
   '& i': { color: 'var(--color-black-40)', fontStyle: 'normal' },
 });
 

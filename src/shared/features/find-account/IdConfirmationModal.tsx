@@ -25,10 +25,6 @@ const styles = {
   action: css({
     w: '160px',
     mx: 'auto',
-    '--button-height': '40px!',
-    '--button-radius': '999px',
-    '--button-label-size': '14px',
-    '--button-label-weight': '600',
     _mobile: { w: '100%!' },
   }),
 };

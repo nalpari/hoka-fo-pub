@@ -2,7 +2,7 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { Terms } from '@/shared/components/molecules/Terms/Terms';
 
 type SignupMethodOption = {
   label: string;
@@ -29,13 +29,16 @@ const styles = {
   }),
   termList: css({
     borderBottom: '1px solid var(--color-border-subtle)',
-    '& label': {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '9px',
+    '& > div': {
+      w: '100%',
       p: '4 0.5',
       borderTop: '1px solid var(--color-border-subtle)',
-      fontSize: '14' /* 기존 13px */,
+    },
+    '& [data-checkbox-label] > span:last-child': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      flex: '1',
     },
     '& button': {
       ml: 'auto',
@@ -54,7 +57,6 @@ const styles = {
   primary: css({
     display: 'grid',
     w: '100%',
-    minH: '50px',
     mt: '7',
     placeItems: 'center',
     bg: 'var(--color-black-100)',
@@ -94,50 +96,50 @@ export function SignupTermsStep({
     <section className={styles.formSection} aria-labelledby="terms-title">
       <h2 id="terms-title">약관 동의</h2>
       <p>{method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.</p>
-      <Checkbox
-        className={styles.allTerms}
-        label={<span>필수 약관 전체 동의</span>}
-        checked={allRequiredTerms}
-        onCheckedChange={onToggleAll}
-      />
+      <Terms className={styles.allTerms} checked={allRequiredTerms} onCheckedChange={onToggleAll}>
+        <span>필수 약관 전체 동의</span>
+      </Terms>
       <VStack className={styles.termList}>
-        <Checkbox
-          label={
-            <>
-              <span>
-                <b>[필수]</b> 이용약관 동의
-              </span>
-              <Button size="sm" variant="ghost">
-                보기
-              </Button>
-            </>
-          }
+        <Terms
           checked={serviceTerms}
           onCheckedChange={onServiceTermsChange}
-        />
-        <Checkbox
-          label={
-            <>
-              <span>
-                <b>[필수]</b> 개인정보 수집 및 이용 동의
-              </span>
-              <Button size="sm" variant="ghost">
-                보기
-              </Button>
-            </>
-          }
+          required
+          error={message && !serviceTerms ? message : undefined}
+        >
+          <>
+            <span>
+              <b>[필수]</b> 이용약관 동의
+            </span>
+            <Button size="sm" variant="ghost">
+              보기
+            </Button>
+          </>
+        </Terms>
+        <Terms
           checked={privacyTerms}
           onCheckedChange={onPrivacyTermsChange}
-        />
-        <Checkbox
-          label={
+          required
+          error={message && !privacyTerms ? message : undefined}
+        >
+          <>
             <span>
-              <b>[필수]</b> 만 14세 이상입니다.
+              <b>[필수]</b> 개인정보 수집 및 이용 동의
             </span>
-          }
+            <Button size="sm" variant="ghost">
+              보기
+            </Button>
+          </>
+        </Terms>
+        <Terms
           checked={ageTerms}
           onCheckedChange={onAgeTermsChange}
-        />
+          required
+          error={message && !ageTerms ? message : undefined}
+        >
+          <span>
+            <b>[필수]</b> 만 14세 이상입니다.
+          </span>
+        </Terms>
       </VStack>
       {message ? (
         <StatusMessage className={styles.error} tone="error">

@@ -1,8 +1,8 @@
 import type { FormEvent } from 'react';
 import { css } from 'styled-system/css';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
@@ -20,19 +20,8 @@ const styles = {
       color: 'var(--color-text-muted)',
       fontSize: '14',
     },
-    '& > .field > label': {
-      mt: '5',
-      fontSize: '14',
-      fontWeight: 'var(--font-weights-bold)',
-    },
-    "& input:not([type='checkbox'])": {
-      w: '100%',
-      py: '13px',
-      border: 0,
-      borderBottom: '1px solid var(--color-black-40)',
-    },
   }),
-  field: css({ display: 'grid' }),
+  field: css({ mt: '4' }),
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
@@ -41,7 +30,6 @@ const styles = {
   primary: css({
     display: 'grid',
     w: '100%',
-    minH: '50px',
     mt: '7',
     placeItems: 'center',
     bg: 'var(--color-black-100)',
@@ -83,7 +71,13 @@ export function SignupDetailsStep({
     <form className={styles.formSection} onSubmit={onSubmit}>
       <h2>기본 정보 입력</h2>
       <p>{methodOption.label} 후 필요한 정보를 입력해 주세요.</p>
-      <FormField className={styles.field} htmlFor="signup-name" label="이름" required>
+      <FormField
+        variant="boxed"
+        htmlFor="signup-name"
+        label="이름"
+        required
+        className={styles.field}
+      >
         <TextInput
           id="signup-name"
           onChange={(event) => onNameChange(event.target.value)}
@@ -91,7 +85,13 @@ export function SignupDetailsStep({
           value={name}
         />
       </FormField>
-      <FormField className={styles.field} htmlFor="signup-email" label="이메일" required>
+      <FormField
+        variant="boxed"
+        htmlFor="signup-email"
+        label="이메일"
+        required
+        className={styles.field}
+      >
         <TextInput
           autoComplete="email"
           id="signup-email"
@@ -103,7 +103,13 @@ export function SignupDetailsStep({
       </FormField>
       {method === 'local' ? (
         <>
-          <FormField className={styles.field} htmlFor="signup-id" label="아이디" required>
+          <FormField
+            variant="boxed"
+            htmlFor="signup-id"
+            label="아이디"
+            required
+            className={styles.field}
+          >
             <TextInput
               autoComplete="username"
               id="signup-id"
@@ -112,7 +118,13 @@ export function SignupDetailsStep({
               value={id}
             />
           </FormField>
-          <FormField className={styles.field} htmlFor="signup-password" label="비밀번호" required>
+          <FormField
+            variant="boxed"
+            htmlFor="signup-password"
+            label="비밀번호"
+            required
+            className={styles.field}
+          >
             <TextInput
               autoComplete="new-password"
               id="signup-password"

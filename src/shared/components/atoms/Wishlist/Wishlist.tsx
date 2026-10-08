@@ -1,4 +1,5 @@
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
+import type { CSSProperties } from 'react';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { usePlatform } from '@/shared/context/platform';
@@ -11,8 +12,8 @@ const wishlist = css({
 
 const button = css({
   display: 'grid',
-  w: '38px',
-  h: '38px',
+  w: 'var(--wishlist-button-size, 38px)',
+  h: 'var(--wishlist-button-size, 38px)',
   placeItems: 'center',
   border: '0',
   bg: 'transparent',
@@ -27,11 +28,12 @@ export type WishlistProps = {
   active: boolean;
   ariaLabel: string;
   className?: string;
+  size?: string;
   onActiveChange: (active: boolean) => void;
 };
 
 /** Accessible wishlist toggle with outline and filled icon states. */
-export function Wishlist({ active, ariaLabel, className, onActiveChange }: WishlistProps) {
+export function Wishlist({ active, ariaLabel, className, size, onActiveChange }: WishlistProps) {
   const platform = usePlatform();
 
   return (
@@ -40,6 +42,7 @@ export function Wishlist({ active, ariaLabel, className, onActiveChange }: Wishl
       className={[button, className].filter(Boolean).join(' ')}
       onPressedChange={onActiveChange}
       pressed={active}
+      style={size ? ({ '--wishlist-button-size': size } as CSSProperties) : undefined}
       type="button"
     >
       <Icon

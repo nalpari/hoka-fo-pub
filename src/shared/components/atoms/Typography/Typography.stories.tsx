@@ -20,8 +20,8 @@ const typographyStorySpecs = {
   heading: {
     name: 'Heading',
     desktopFontSize: '28px',
-    mobileFontSize: '26px',
-    fontWeight: '900',
+    mobileFontSize: '16px',
+    fontWeight: '900 (mobile 600)',
     lineHeight: '1.2',
   },
   sectionHeading: {
@@ -184,7 +184,6 @@ export const CardTitle: Story = {
   },
 };
 
-
 export const Body: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body' },
 };
@@ -306,6 +305,52 @@ export const FigmaTypeScale: Story = {
       <Typography as="a" href="#type-scale" variant="textLink2">
         Text Link 2
       </Typography>
+    </div>
+  ),
+};
+
+export const ApprovedScale: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 32 }}>
+      {[false, true].map((mobile) => (
+        <div key={String(mobile)} className={mobile ? 'platform-mobile' : undefined}>
+          <h2>{mobile ? 'Compact' : 'Wide'}</h2>
+          {Array.from({ length: 9 }, (_, i) => (
+            <div key={i} style={{ marginBottom: 16 }}>
+              <Typography variant={`heading${i + 1}` as 'heading1'}>H{i + 1} HOKA</Typography>
+              <br />
+              <Typography variant={`headingKr${i + 1}` as 'headingKr1'}>H{i + 1} 호카</Typography>
+            </div>
+          ))}
+          {Array.from({ length: 5 }, (_, i) => (
+            <div key={i}>
+              <Typography variant={`body${i + 1}` as 'body1'}>Body {i + 1}</Typography> /{' '}
+              <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'}>본문 {i + 1}</Typography> /{' '}
+              <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'} weight="medium">
+                Medium
+              </Typography>
+            </div>
+          ))}
+          {(
+            [
+              'cta1',
+              'cta2',
+              'ctaKr1',
+              'ctaKr2',
+              'textLink1',
+              'textLink2',
+              'textLink3',
+              'textLinkKr1',
+              'textLinkKr2',
+              'textLinkKr3',
+            ] as const
+          ).map((variant) => (
+            <div key={variant}>
+              <Typography variant={variant}>{variant} 버튼과 링크</Typography>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   ),
 };

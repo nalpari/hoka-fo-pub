@@ -137,7 +137,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
       </header>
       <p className={css({ m: 'var(--spacing-10) 0 14px' })}>
         총{' '}
-        <b className={css({ color: 'var(--color-red-100)' })}>
+        <b className={css({ color: 'var(--color-red-80)' })}>
           {rows.reduce((sum, { item }) => sum + item.quantity, 0)}
         </b>
         개
@@ -206,7 +206,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               </span>
               <strong>
                 총 결제예정 금액{' '}
-                <b className={css({ color: 'var(--color-red-100)' })}>{total.toLocaleString()}원</b>
+                <b className={css({ color: 'var(--color-red-80)' })}>{total.toLocaleString()}원</b>
               </strong>
               <Button
                 className={css({
@@ -259,9 +259,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                 {product.id.toUpperCase()}
               </small>
               <strong className={css({ fontSize: '16' /* 기존 15px */ })}>{product.name}</strong>
-              <b className={css({ fontSize: '14' })}>
-                {product.price.toLocaleString()}원
-              </b>
+              <b className={css({ fontSize: '14' })}>{product.price.toLocaleString()}원</b>
             </Link>
           ))}
         </Grid>

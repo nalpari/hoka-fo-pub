@@ -4,6 +4,7 @@ import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
 import type { ComponentRenderFn } from '@base-ui/react/types';
 import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from 'react';
+import { useId, useRef } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -74,6 +75,9 @@ export type SingleCheckboxProps = Omit<
 > & {
   className?: string;
   label: ReactNode;
+  labelVariant?: 'formLabel' | 'bodyKr5';
+  /** Consent text may contain links or detail buttons. */
+  interactiveLabel?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 };
 
@@ -91,25 +95,43 @@ function SingleCheckbox({
   className,
   disabled,
   label: checkboxLabel,
+  labelVariant = 'formLabel',
+  interactiveLabel = false,
   onCheckedChange,
   ...rootProps
 }: SingleCheckboxProps) {
+  const labelId = useId();
+  const controlRef = useRef<HTMLSpanElement>(null);
+
   return (
     <Flex
-      as="label"
+      as={interactiveLabel ? 'div' : 'label'}
       alignItems="center"
       className={[option, className].filter(Boolean).join(' ')}
       data-disabled={disabled ? '' : undefined}
       gap="7px"
+      data-checkbox-label=""
     >
       <BaseCheckbox.Root
         {...rootProps}
+        ref={controlRef}
+        aria-labelledby={rootProps['aria-labelledby'] ?? (interactiveLabel ? labelId : undefined)}
         className={control}
         disabled={disabled}
         onCheckedChange={(checked) => onCheckedChange?.(checked)}
         render={renderCheckboxControl}
       />
-      <Typography as="span" variant="formLabel">
+      <Typography
+        as="span"
+        variant={labelVariant}
+        id={interactiveLabel ? labelId : undefined}
+        onClick={(event) => {
+          if (!interactiveLabel || disabled || (event.target as HTMLElement).closest('a, button'))
+            return;
+          controlRef.current?.click();
+          controlRef.current?.focus();
+        }}
+      >
         {checkboxLabel}
       </Typography>
     </Flex>
