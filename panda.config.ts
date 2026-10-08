@@ -58,6 +58,7 @@ export default defineConfig({
       tokens: {
         aspectRatios: {
           media: {
+            productThumbnail: { value: '371 / 428' },
             oneByOne: { value: '1 / 1' },
             twoByOne: { value: '2 / 1' },
             threeByTwo: { value: '3 / 2' },
@@ -123,6 +124,8 @@ export default defineConfig({
           96: { value: '96px' },
         },
         lineHeights: {
+          productOptionValue: { value: '18px' },
+          productGender: { value: '16px' },
           hoka: { value: '0.96' },
           koreanHeading: { value: '1.2' },
           body: { value: '1.3' },

@@ -176,6 +176,32 @@ const typography = cva({
         lineHeight: 'var(--type-product-audience-line-height)',
         letterSpacing: 'var(--type-product-audience-letter-spacing)',
       },
+      productUse: {
+        fontFamily: 'korean',
+        fontWeight: 'bold',
+        fontSize: '14',
+        lineHeight: 'body',
+        letterSpacing: 'korean',
+      },
+      productDetailGender: {
+        fontFamily: 'hoka',
+        fontWeight: 'medium',
+        fontSize: '14',
+        lineHeight: 'productGender',
+      },
+      productWidthOption: {
+        fontFamily: 'hoka',
+        fontWeight: 'medium',
+        fontSize: '14',
+        lineHeight: 'body',
+      },
+      sizeOption: { fontFamily: 'hoka', fontSize: '12', fontWeight: 'normal', lineHeight: 'body' },
+      productOptionValue: {
+        fontFamily: 'hoka',
+        fontWeight: 'medium',
+        fontSize: '16',
+        lineHeight: 'productOptionValue',
+      },
       productSelectorLabel: {
         fontSize: 'var(--type-product-selector-label-font-size)',
         fontWeight: 'var(--type-product-selector-label-font-weight)',
@@ -259,6 +285,11 @@ export type TypographyVariant =
   | 'body'
   | 'formLabel'
   | 'productAudience'
+  | 'productUse'
+  | 'productDetailGender'
+  | 'productWidthOption'
+  | 'productOptionValue'
+  | 'sizeOption'
   | 'productSelectorLabel'
   | 'productSelectorAction'
   | 'productTitle'

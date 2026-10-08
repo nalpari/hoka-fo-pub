@@ -1,4 +1,5 @@
 import { css } from 'styled-system/css';
+import { Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { ProductDetailContent } from '@/shared/features/product/ProductDetailContent';
 import { ProductDetailHeader } from '@/shared/features/product/ProductDetailHeader';
@@ -10,7 +11,7 @@ const styles = {
     top: '104px',
     alignSelf: 'start',
     px: '4',
-    _mobile: { position: 'static', px: '4', pt: '8' },
+    _mobile: { position: 'static', px: '4', pt: '6' },
   }),
   support: css({ display: 'none', _mobile: { display: 'block' } }),
 };
@@ -50,24 +51,26 @@ export function ProductDetailPanel({
 }: ProductDetailPanelProps) {
   return (
     <article className={styles.root}>
-      <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
-      <ProductDetailContent
-        color={color}
-        error={error}
-        gallery={gallery}
-        onAddToCart={onAddToCart}
-        onColorChange={onColorChange}
-        onOpenSizeGuide={onOpenSizeGuide}
-        onOrder={onOrder}
-        onSizeChange={onSizeChange}
-        onWidthChange={onWidthChange}
-        product={product}
-        size={size}
-        width={width}
-      />
-      <div className={styles.support}>
-        <ProductDetailSupport />
-      </div>
+      <Stack gap="10">
+        <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
+        <ProductDetailContent
+          color={color}
+          error={error}
+          gallery={gallery}
+          onAddToCart={onAddToCart}
+          onColorChange={onColorChange}
+          onOpenSizeGuide={onOpenSizeGuide}
+          onOrder={onOrder}
+          onSizeChange={onSizeChange}
+          onWidthChange={onWidthChange}
+          product={product}
+          size={size}
+          width={width}
+        />
+        <div className={styles.support}>
+          <ProductDetailSupport />
+        </div>
+      </Stack>
     </article>
   );
 }

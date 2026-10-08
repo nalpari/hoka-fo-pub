@@ -1,5 +1,6 @@
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { cva } from 'styled-system/css';
+import { token } from 'styled-system/tokens';
 
 const promotion = {
   title: '데일리 러닝화 가이드',
@@ -26,13 +27,15 @@ const root = cva({
 });
 
 const imageAspectRatios = {
-  inline: { desktop: '1 / 1', mobile: '1 / 1' },
+  inline: {
+    desktop: token.var('aspectRatios.media.productThumbnail'),
+    mobile: token.var('aspectRatios.media.productThumbnail'),
+  },
   fullWidth: { desktop: '375 / 248', mobile: '375 / 248' },
 } as const;
 
 /** Catalog promotion card with inline and full-width presentations. */
 export function PromotionCard({ variant = 'inline' }: PromotionCardProps) {
-
   return (
     <MainContentCard
       {...promotion}
