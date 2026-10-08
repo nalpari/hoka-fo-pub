@@ -10,14 +10,14 @@ const heading = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   mb: '3',
-  '& h2': { m: '0', fontSize: '18px' },
-  '& a': { color: 'var(--color-text-muted)', fontSize: '12px' },
+  '& h2': { m: '0', fontSize: '16' /* 기존 18px */ },
+  '& a': { color: 'var(--color-text-muted)', fontSize: '12' },
 });
 
 const list = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr)',
-  borderTop: '1px solid #111',
+  borderTop: '1px solid var(--color-black-100)',
   borderBottom: '1px solid var(--color-border-subtle)',
   _mobile: { overflowX: 'auto', gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))' },
 });
@@ -29,12 +29,12 @@ const statusLink = css({
   minH: '100px',
   py: '5',
   px: '2',
-  color: '#111',
+  color: 'var(--color-black-100)',
   textAlign: 'center',
-  borderRight: '1px solid #eee',
+  borderRight: '1px solid var(--color-black-20)',
   '&:last-child': { borderRight: '0' },
-  '& strong': { fontSize: '23px' },
-  '& span': { fontSize: '12px', lineHeight: '1.3' },
+  '& strong': { fontSize: '24' /* 기존 23px */ },
+  '& span': { fontSize: '12', lineHeight: 'body' },
 });
 
 /** Five-stage order snapshot that remains horizontally scannable on small screens. */

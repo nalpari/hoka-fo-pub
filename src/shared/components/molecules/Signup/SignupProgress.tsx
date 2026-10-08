@@ -12,16 +12,22 @@ const styles = {
     mb: '34px',
     p: 0,
     listStyle: 'none',
-    '& li': { display: 'grid', gap: '5px', color: '#aaa', fontSize: '13px', textAlign: 'center' },
-    '& li::before': { h: '3px', bg: '#ddd', content: '""' },
-    '& span': { fontSize: '11px' },
+    '& li': {
+      display: 'grid',
+      gap: '5px',
+      color: 'var(--color-black-40)',
+      fontSize: '14' /* 기존 13px */,
+      textAlign: 'center',
+    },
+    '& li::before': { h: '3px', bg: 'var(--color-black-20)', content: '""' },
+    '& span': { fontSize: '12' /* 기존: 11px */ },
   }),
   current: css({
-    color: '#111 !important',
+    color: 'var(--color-black-100) !important',
     fontWeight: '700 !important',
-    '&::before': { bg: '#111 !important' },
+    '&::before': { bg: 'var(--color-black-100) !important' },
   }),
-  complete: css({ '&::before': { bg: '#111 !important' } }),
+  complete: css({ '&::before': { bg: 'var(--color-black-100) !important' } }),
 };
 
 type SignupProgressProps = {

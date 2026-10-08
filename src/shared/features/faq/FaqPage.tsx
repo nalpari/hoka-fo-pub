@@ -10,7 +10,7 @@ import { css } from 'styled-system/css';
 
 const styles = {
   content: css({ '--support-content-title-gap': '28px' }),
-  more: css({ display: 'block', m: '30px auto', border: '0', fontSize: '12px' }),
+  more: css({ display: 'block', m: '30px auto', border: '0', fontSize: '12' }),
 };
 
 export function FaqPage() {

@@ -8,10 +8,19 @@ const options = css({
   my: '12px 22px',
   overflow: 'hidden',
   borderRadius: 'full',
-  bg: '#e9eaec',
-  '& [role="radio"]': { minW: '132px', minH: '11', border: '0', bg: 'transparent', color: '#111' },
+  bg: 'var(--color-black-20)',
+  '& [role="radio"]': {
+    minW: '132px',
+    minH: '11',
+    border: '0',
+    bg: 'transparent',
+    color: 'var(--color-black-100)',
+  },
 });
-const selected = css({ bg: '#111 !important', color: '#fff !important' });
+const selected = css({
+  bg: 'var(--color-black-100) !important',
+  color: 'var(--color-white-000) !important',
+});
 
 type WidthSelectorProps = {
   widths: string[];

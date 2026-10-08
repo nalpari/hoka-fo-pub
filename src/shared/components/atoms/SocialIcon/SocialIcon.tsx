@@ -8,12 +8,12 @@ const socialLink = css({
   width: '24px',
   height: '24px',
   padding: '0',
-  color: '#fff',
+  color: 'var(--color-white-000)',
   flexShrink: '0',
   transition: 'border-color 0.15s ease, background-color 0.15s ease',
   _hover: {
-    borderColor: 'rgba(255,255,255,0.8)',
-    backgroundColor: 'rgba(255,255,255,0.12)',
+    borderColor: 'color-mix(in srgb, var(--color-white-000) 80%, transparent)',
+    backgroundColor: 'color-mix(in srgb, var(--color-white-000) 12%, transparent)',
   },
   _focusVisible: {
     outline: '2px solid currentColor',

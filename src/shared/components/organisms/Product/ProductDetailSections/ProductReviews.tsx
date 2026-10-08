@@ -12,29 +12,34 @@ import { css, cva } from 'styled-system/css';
 
 const root = css({ maxW: '760px' });
 
-const reward = css({ m: '0 0 28px', color: '#333 !important', fontWeight: '700' });
+const reward = css({
+  m: '0 0 var(--spacing-7)',
+  color: 'var(--color-black-60) !important',
+  fontWeight: 'var(--font-weights-bold)',
+});
 
 const aiSummary = css({
   p: '6',
-  bg: '#f5f7fb',
-  '& h3': { m: '0 0 14px', fontSize: '18px' },
-  '& p': { color: '#8a94a5 !important' },
+  bg: 'var(--color-black-10)',
+  '& h3': { m: '0 0 14px', fontSize: '16' /* 기존 18px */ },
+  '& p': { color: 'var(--color-black-40) !important' },
 });
 
 const rating = css({
   display: 'grid',
   gridTemplateColumns: '1fr 1.1fr',
   gap: '34px',
-  m: '32px 0',
+  my: '8',
+  mx: '0',
   px: '38px',
   _mobile: { gridTemplateColumns: '1fr', gap: '22px', px: '0' },
 });
 
 const score = css({
   textAlign: 'center',
-  '& strong': { display: 'block', fontSize: '42px' },
-  '& p': { m: '8px 0', fontSize: '13px' },
-  '& small': { color: '#888' },
+  '& strong': { display: 'block', fontSize: '42' },
+  '& p': { my: '2', mx: '0', fontSize: '14' /* 기존 13px */ },
+  '& small': { color: 'var(--color-black-50)' },
 });
 
 const reviewFilters = css({
@@ -42,32 +47,39 @@ const reviewFilters = css({
   gap: '2',
   overflowX: 'auto',
   py: '18px',
-  borderTop: '1px solid #e5e7eb',
+  borderTop: '1px solid var(--color-black-20)',
 });
 
 const reviewFilter = cva({
   base: {
     flex: '0 0 auto',
     px: '3',
-    py: '7px',
-    border: '1px solid #dfe3e8',
-    borderRadius: '18px',
-    bg: '#fff',
-    fontSize: '12px',
+    py: '2',
+    border: '1px solid var(--color-black-20)',
+    borderRadius: 'full',
+    bg: 'var(--color-white-000)',
+    fontSize: '12',
   },
   variants: {
-    active: { true: { borderColor: '#111827', bg: '#111827', color: '#fff' }, false: {} },
+    active: {
+      true: {
+        borderColor: 'var(--color-black-100)',
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+      },
+      false: {},
+    },
   },
 });
 
 const reviewList = css({
-  borderTop: '1px solid #e5e7eb',
+  borderTop: '1px solid var(--color-black-20)',
   '& article': {
     display: 'grid',
     gridTemplateColumns: '1fr 150px',
     gap: '30px',
     py: '30px',
-    borderBottom: '1px solid #e5e7eb',
+    borderBottom: '1px solid var(--color-black-20)',
     _mobile: { gridTemplateColumns: '1fr', gap: '2.5' },
   },
 });
@@ -79,25 +91,30 @@ const reviewMeta = css({
     w: 'fit-content',
     px: '1.5',
     py: '1',
-    bg: '#f1f3f6',
-    fontSize: '11px',
-    fontWeight: '700',
+    bg: 'var(--color-black-10)',
+    fontSize: '12' /* 기존: 11px */,
+    fontWeight: 'var(--font-weights-bold)',
   },
   '& > b': { gridColumn: '2', gridRow: '1', _mobile: { gridColumn: '1', gridRow: 'auto' } },
   '& > small': {
     gridColumn: '2',
     gridRow: '2',
-    color: '#9aa2af',
+    color: 'var(--color-black-40)',
     _mobile: { gridColumn: '1', gridRow: 'auto' },
   },
 });
 
 const reviewContent = css({
   gridColumn: '1',
-  '& > strong': { letterSpacing: '2px' },
-  '& h3': { m: '8px 0 4px', fontSize: '14px' },
-  '& > p': { fontSize: '13px' },
-  '& > button': { px: '0', border: '0', color: '#999', fontSize: '11px' },
+  '& > strong': { letterSpacing: 'var(--letter-spacings-korean)' },
+  '& h3': { mt: '2', mx: '0', mb: '1', fontSize: '14' },
+  '& > p': { fontSize: '14' /* 기존 13px */ },
+  '& > button': {
+    px: '0',
+    border: '0',
+    color: 'var(--color-black-40)',
+    fontSize: '12' /* 기존: 11px */,
+  },
 });
 
 const reviewPhotos = css({
@@ -111,9 +128,9 @@ const reviewPhotos = css({
     placeItems: 'center',
     p: '0',
     border: '0',
-    bg: '#d4d7dc',
-    color: '#fff',
-    fontSize: '10px',
+    bg: 'var(--color-black-20)',
+    color: 'var(--color-white-000)',
+    fontSize: '12' /* 기존: 10px */,
     _mobile: { w: '70px', h: '70px' },
   },
 });
@@ -122,7 +139,7 @@ const moreButton = css({
   display: 'block',
   mt: '2',
   ml: 'auto',
-  color: '#999 !important',
+  color: 'var(--color-black-40) !important',
   textDecoration: 'underline',
 });
 
@@ -185,11 +202,7 @@ export function ProductReviews() {
         value={[filter]}
       >
         {['최신순', 'AI 추천순', '별점순'].map((value) => (
-          <Toggle
-            className={reviewFilter({ active: filter === value })}
-            key={value}
-            value={value}
-          >
+          <Toggle className={reviewFilter({ active: filter === value })} key={value} value={value}>
             {value}
           </Toggle>
         ))}

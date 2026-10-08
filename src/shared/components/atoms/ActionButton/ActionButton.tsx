@@ -1,7 +1,7 @@
 import { Button as BaseButton } from '@base-ui/react/button';
 import type { ButtonHTMLAttributes, CSSProperties } from 'react';
 import { css, cva } from 'styled-system/css';
-import { Circle } from 'styled-system/jsx';
+import { circle } from 'styled-system/patterns';
 
 const actionButton = cva({
   base: {
@@ -16,7 +16,7 @@ const actionButton = cva({
     state: {
       default: {},
       circled: {
-        bg: '#000000',
+        bg: 'var(--color-black-100)',
         color: 'var(--color-white-000)',
       },
       disabled: { color: 'var(--color-black-40)', cursor: 'not-allowed' },
@@ -76,15 +76,20 @@ export function ActionButton({
   const asset = actionAssetByType[type];
 
   return (
-    <Circle
-      as={BaseButton}
+    <BaseButton
       {...props}
       aria-disabled={isDisabled || undefined}
-      className={[actionButton({ state: resolvedState }), className].filter(Boolean).join(' ')}
+      className={[
+        circle({ size: 'var(--action-button-size)' }),
+        actionButton({ state: resolvedState }),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       disabled={isDisabled}
-      size={size}
       style={
         {
+          '--action-button-size': typeof size === 'number' ? `${size}px` : size,
           '--action-icon-mask': `url(/images/icon/action/${asset})`,
           '--action-icon-size': iconSize,
           ...style,
@@ -93,6 +98,6 @@ export function ActionButton({
       type="button"
     >
       <span aria-hidden="true" className={actionGlyph} />
-    </Circle>
+    </BaseButton>
   );
 }

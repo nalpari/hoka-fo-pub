@@ -3,11 +3,11 @@ import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { css } from 'styled-system/css';
 
 const root = css({
-  fontWeight: '600',
-  fontSize: '13px',
-  lineHeight: '130%',
-  letterSpacing: '-0.02em',
-  color: '#000000',
+  fontWeight: 'semibold',
+  fontSize: '14' /* 기존 13px */,
+  lineHeight: 'body',
+  letterSpacing: 'korean',
+  color: 'var(--color-black-100)',
 });
 
 const link = css({
@@ -16,7 +16,7 @@ const link = css({
 
 const separator = css({ display: 'inline-flex', mx: '7px', verticalAlign: 'middle' });
 
-const current = css({ color: '#777777' });
+const current = css({ color: 'var(--color-black-50)' });
 
 export type BreadcrumbItem = { label: string; href?: string };
 

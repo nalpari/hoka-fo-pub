@@ -5,7 +5,7 @@ import {
   type ProductOptionThumbnail,
 } from '@/shared/components/molecules/ProductOptionList/ProductOptionList';
 
-const summary = css({ fontSize: '14px', color: '#4D4D4D' });
+const summary = css({ fontSize: '14', color: 'var(--color-black-60)' });
 
 export type ProductVariantSummaryDisplay = 'colors' | 'widths' | 'colors-widths';
 

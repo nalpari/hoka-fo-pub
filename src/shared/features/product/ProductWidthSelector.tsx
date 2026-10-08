@@ -8,16 +8,16 @@ const root = css({
   mt: '6',
   overflow: 'hidden',
   borderRadius: '999px',
-  bg: '#e9eaec',
+  bg: 'var(--color-black-20)',
   '& [role="radio"]': {
     display: 'grid',
     minH: '12',
     placeItems: 'center',
     borderRadius: '999px',
-    fontWeight: '700',
+    fontWeight: 'bold',
     cursor: 'pointer',
   },
-  '& [data-checked]': { bg: '#000', color: '#fff' },
+  '& [data-checked]': { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
 });
 
 type ProductWidthSelectorProps = {

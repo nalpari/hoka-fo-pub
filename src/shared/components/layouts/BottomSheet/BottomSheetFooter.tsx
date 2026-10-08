@@ -6,7 +6,7 @@ const footer = css({
   p: 'var(--layout-mobile-inline-gutter) var(--layout-mobile-inline-gutter) calc(var(--layout-mobile-inline-gutter) + env(safe-area-inset-bottom))',
   borderTopWidth: '1px',
   borderTopStyle: 'solid',
-  borderTopColor: '#E9EAEB',
+  borderTopColor: 'var(--color-black-20)',
 });
 
 type BottomSheetFooterProps = {

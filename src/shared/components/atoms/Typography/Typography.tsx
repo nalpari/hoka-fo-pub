@@ -2,14 +2,18 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { cva } from 'styled-system/css';
 
 const englishHeadingSizes = [96, 80, 64, 56, 48, 40, 32, 24] as const;
-const koreanHeadingSizes = [84, 72, 58, 50, 42, 36, 28, 22] as const;
+const koreanHeadingSizes = [84, 72, 58, 50, 42, 36, 28, 24] as const;
 const bodySizes = [24, 20, 16, 14, 12] as const;
 
 const figmaTypographyVariants = {
   ...Object.fromEntries(
     englishHeadingSizes.map((fontSize, index) => [
       `heading${index + 1}`,
-      { fontSize: `${fontSize}px`, fontWeight: '900', lineHeight: '0.96' },
+      {
+        fontSize: `var(--font-sizes-${fontSize})`,
+        fontWeight: 'var(--font-weights-black)',
+        lineHeight: 'var(--line-heights-hoka)',
+      },
     ]),
   ),
   ...Object.fromEntries(
@@ -17,17 +21,21 @@ const figmaTypographyVariants = {
       `headingKr${index + 1}`,
       {
         fontFamily: 'var(--font-family-korean)',
-        fontSize: `${fontSize}px`,
-        fontWeight: '900',
-        lineHeight: '1.2',
-        letterSpacing: '-0.02em',
+        fontSize: `var(--font-sizes-${fontSize})`,
+        fontWeight: 'var(--font-weights-black)',
+        lineHeight: 'var(--line-heights-korean-heading)',
+        letterSpacing: 'var(--letter-spacings-korean)',
       },
     ]),
   ),
   ...Object.fromEntries(
     bodySizes.map((fontSize, index) => [
       `body${index + 1}`,
-      { fontSize: `${fontSize}px`, fontWeight: '400', lineHeight: '1.3' },
+      {
+        fontSize: `var(--font-sizes-${fontSize})`,
+        fontWeight: 'var(--font-weights-normal)',
+        lineHeight: 'var(--line-heights-body)',
+      },
     ]),
   ),
   ...Object.fromEntries(
@@ -35,10 +43,10 @@ const figmaTypographyVariants = {
       `bodyKr${index + 1}`,
       {
         fontFamily: 'var(--font-family-korean)',
-        fontSize: `${fontSize}px`,
-        fontWeight: '400',
-        lineHeight: '1.3',
-        letterSpacing: '-0.02em',
+        fontSize: `var(--font-sizes-${fontSize})`,
+        fontWeight: 'var(--font-weights-normal)',
+        lineHeight: 'var(--line-heights-body)',
+        letterSpacing: 'var(--letter-spacings-korean)',
       },
     ]),
   ),
@@ -47,32 +55,40 @@ const figmaTypographyVariants = {
       `mono${index + 1}`,
       {
         fontFamily: 'var(--font-family-mono)',
-        fontSize: `${fontSize}px`,
-        fontWeight: '400',
-        lineHeight: '1.3',
-        letterSpacing: '0.1em',
+        fontSize: `var(--font-sizes-${fontSize})`,
+        fontWeight: 'var(--font-weights-normal)',
+        lineHeight: 'var(--line-heights-body)',
+        letterSpacing: 'var(--letter-spacings-mono)',
         textTransform: 'uppercase',
       },
     ]),
   ),
-  cta1: { fontSize: '16px', fontWeight: '500', lineHeight: '1.3' },
-  cta2: { fontSize: '14px', fontWeight: '500', lineHeight: '1.3' },
+  cta1: {
+    fontSize: '16',
+    fontWeight: 'var(--font-weights-medium)',
+    lineHeight: 'var(--line-heights-body)',
+  },
+  cta2: {
+    fontSize: '14',
+    fontWeight: 'var(--font-weights-medium)',
+    lineHeight: 'var(--line-heights-body)',
+  },
   textLink1: {
-    fontSize: '16px',
-    fontWeight: '500',
-    lineHeight: '1.3',
+    fontSize: '16',
+    fontWeight: 'var(--font-weights-medium)',
+    lineHeight: 'var(--line-heights-body)',
     textDecoration: 'underline',
   },
   textLink2: {
-    fontSize: '14px',
-    fontWeight: '500',
-    lineHeight: '1.3',
+    fontSize: '14',
+    fontWeight: 'var(--font-weights-medium)',
+    lineHeight: 'var(--line-heights-body)',
     textDecoration: 'underline',
   },
   textLink3: {
-    fontSize: '12px',
-    fontWeight: '500',
-    lineHeight: '1.3',
+    fontSize: '12',
+    fontWeight: 'var(--font-weights-medium)',
+    lineHeight: 'var(--line-heights-body)',
     textDecoration: 'underline',
   },
 };

@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { css } from 'styled-system/css';
 
 const fieldset = css({ m: '0', border: '0', p: '0' });
-const legend = css({ p: '0', fontWeight: '700' });
+const legend = css({ p: '0', fontWeight: 'bold' });
 const visuallyHidden = css({
   position: 'absolute',
   w: '1px',

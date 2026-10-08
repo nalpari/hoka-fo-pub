@@ -50,7 +50,7 @@ const buttonFrame = cva({
       link: {
         bg: 'transparent!',
         borderColor: 'transparent',
-        color: 'var(--color-action-underline-color, #111)',
+        color: 'var(--color-action-underline-color, var(--color-black-100))',
         border: '0!',
         borderRadius: '0',
       },
@@ -166,7 +166,7 @@ const buttonLabel = cva({
   base: {
     color: 'inherit',
     fontFamily: 'var(--font-family-base)',
-    fontSize: 'var(--button-label-size, 16px)',
+    fontSize: 'var(--button-label-size, var(--font-sizes-16))',
     fontWeight: 'var(--button-label-weight, 500)',
     lineHeight: 'var(--button-label-line-height, 1.3)',
     letterSpacing: 'var(--button-label-letter-spacing, 0)',

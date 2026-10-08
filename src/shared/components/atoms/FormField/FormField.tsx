@@ -4,7 +4,7 @@ import { Field as BaseField } from '@base-ui/react/field';
 
 const boxedField = css({
   border: '1px solid transparent',
-  boxShadow: 'inset 0 0 0 1px #b3b3b3',
+  boxShadow: 'inset 0 0 0 1px var(--color-black-40)',
   minH: '61px',
   minW: '0',
   px: '3',

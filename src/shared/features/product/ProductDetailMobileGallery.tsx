@@ -18,8 +18,8 @@ const styles = {
     zIndex: '1',
     mt: '-24px',
     pb: '16px',
-    '& button': { w: '7px', h: '7px', borderRadius: '50%', bg: '#bbb' },
-    '& button[aria-pressed="true"]': { w: '28px', bg: '#000' },
+    '& button': { w: '7px', h: '7px', borderRadius: '50%', bg: 'var(--color-black-40)' },
+    '& button[aria-pressed="true"]': { w: '28px', bg: 'var(--color-black-100)' },
   }),
 };
 
@@ -33,7 +33,7 @@ export function ProductDetailMobileGallery({
   productName,
 }: ProductDetailMobileGalleryProps) {
   return (
-    <Box as="section" aria-label="상품 이미지" bg="#f7f7f9">
+    <Box as="section" aria-label="상품 이미지" bg="var(--color-black-10)">
       <Carousel itemCount={images.length}>
         <CarouselViewport mobileItemGutter={0} mode="mobile" showScrollbar={false}>
           {images.map((image, index) => (

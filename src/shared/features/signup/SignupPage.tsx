@@ -43,8 +43,19 @@ const styles = {
     minW: 0,
     mx: 'auto',
   }),
-  pageTitle: css({ mt: '2', mb: '7', fontSize: '34px', letterSpacing: '-1.8px' }),
-  eyebrow: css({ m: 0, color: '#777', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em' }),
+  pageTitle: css({
+    mt: '2',
+    mb: '7',
+    fontSize: '32' /* 기존 34px */,
+    letterSpacing: 'var(--letter-spacings-korean)',
+  }),
+  eyebrow: css({
+    m: 0,
+    color: 'var(--color-black-50)',
+    fontSize: '12',
+    fontWeight: 'var(--font-weights-bold)',
+    letterSpacing: 'var(--letter-spacings-korean)',
+  }),
 };
 
 export function SignupPage() {

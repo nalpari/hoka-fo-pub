@@ -10,29 +10,43 @@ type SignupMethod = 'local' | 'kakao' | 'naver';
 type SignupMethodOption = {
   label: string;
 };
+
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': { mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
-    '& > .field > label': { mt: '5', fontSize: '14px', fontWeight: 700 },
+    '& > p': {
+      mt: '9px',
+      mb: 0,
+      color: 'var(--color-text-muted)',
+      fontSize: '14',
+    },
+    '& > .field > label': {
+      mt: '5',
+      fontSize: '14',
+      fontWeight: 'var(--font-weights-bold)',
+    },
     "& input:not([type='checkbox'])": {
       w: '100%',
       py: '13px',
       border: 0,
-      borderBottom: '1px solid #c8c8c8',
+      borderBottom: '1px solid var(--color-black-40)',
     },
   }),
   field: css({ display: 'grid' }),
-  error: css({ mt: '18px', color: '#c62828', fontSize: '13px' }),
+  error: css({
+    mt: '18px',
+    color: 'var(--color-red-100)',
+    fontSize: '14' /* 기존 13px */,
+  }),
   primary: css({
     display: 'grid',
     w: '100%',
     minH: '50px',
     mt: '7',
     placeItems: 'center',
-    bg: '#111',
-    color: '#fff',
-    fontWeight: 700,
+    bg: 'var(--color-black-100)',
+    color: 'var(--color-white-000)',
+    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 

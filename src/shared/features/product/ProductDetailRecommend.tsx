@@ -7,7 +7,7 @@ const styles = {
     gridColumn: '1 / -1',
     mt: '16',
     _mobile: { mt: '10', px: '4' },
-    '& h2': { mb: '5', fontSize: '28px', fontWeight: '900' },
+    '& h2': { mb: '5', fontSize: '28', fontWeight: 'black' },
   }),
   rail: css({
     display: 'flex',

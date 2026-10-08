@@ -13,9 +13,20 @@ import { supportNavigation } from '@/shared/features/support/support.navigation'
 export type SupportExperienceKind =
   'inquiries' | 'inquiry-new' | 'after-sales' | 'member-benefits' | 'mileage';
 
-const content = css({ maxW: '760px', '& h2': { fontSize: '20px' } });
-const intro = css({ mb: '7', color: 'var(--color-text-muted)', fontSize: '14px', lineHeight: '1.6' });
-const panel = css({ borderTop: '2px solid #111', borderBottom: '1px solid var(--color-border-subtle)' });
+const content = css({ maxW: '760px', '& h2': { fontSize: '20' } });
+
+const intro = css({
+  mb: '7',
+  color: 'var(--color-text-muted)',
+  fontSize: '14',
+  lineHeight: 'var(--line-heights-body)',
+});
+
+const panel = css({
+  borderTop: '2px solid var(--color-black-100)',
+  borderBottom: '1px solid var(--color-border-subtle)',
+});
+
 const empty = css({
   display: 'grid',
   minH: '240px',
@@ -24,6 +35,7 @@ const empty = css({
   color: 'var(--color-text-muted)',
   textAlign: 'center',
 });
+
 const row = css({
   display: 'grid',
   gridTemplateColumns: 'auto 1fr auto',
@@ -32,42 +44,56 @@ const row = css({
   w: '100%',
   p: '18px 0',
   border: '0',
-  borderBottom: '1px solid #e5e5e5',
+  borderBottom: '1px solid var(--color-black-20)',
   bg: 'transparent',
   textAlign: 'left',
   '.platform-mobile &': {
     gridTemplateColumns: '1fr auto',
-    '& time': { gridColumn: '1 / -1', fontSize: '12px' },
+    '& time': { gridColumn: '1 / -1', fontSize: '12' },
   },
 });
+
 const status = cva({
   base: {
     width: 'max-content',
     px: '2',
     py: '1',
-    borderRadius: '999px',
-    bg: '#eee',
-    fontSize: '11px',
-    fontWeight: '700',
+    borderRadius: 'full',
+    bg: 'var(--color-black-20)',
+    fontSize: '12' /* 기존: 11px */,
+    fontWeight: 'var(--font-weights-bold)',
   },
-  variants: { answered: { true: { bg: '#111', color: '#fff' }, false: { color: 'var(--color-text-muted)' } } },
+  variants: {
+    answered: {
+      true: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+      false: { color: 'var(--color-text-muted)' },
+    },
+  },
 });
+
 const field = css({
   display: 'grid',
   gap: '2',
   mb: '5',
-  '& label': { fontSize: '14px', fontWeight: '700' },
+  '& label': { fontSize: '14', fontWeight: 'var(--font-weights-bold)' },
   '& textarea': {
     minH: '160px',
     w: '100%',
     resize: 'vertical',
-    border: '1px solid #bbb',
+    border: '1px solid var(--color-black-40)',
     p: '3',
     fontFamily: 'var(--font-family-base)',
   },
 });
-const error = css({ color: '#db1f2d', fontSize: '12px', fontWeight: '700' });
+
+const error = css({
+  color: 'var(--color-red-100)',
+  fontSize: '12',
+  fontWeight: 'var(--font-weights-bold)',
+});
+
 const actions = css({ display: 'flex', justifyContent: 'flex-end', gap: '2', mt: '7' });
+
 const quickLinks = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -80,10 +106,11 @@ const quickLinks = css({
     p: '3.5',
     border: '1px solid var(--color-border-subtle)',
     textAlign: 'center',
-    fontSize: '13px',
-    fontWeight: '700',
+    fontSize: '14' /* 기존 13px */,
+    fontWeight: 'var(--font-weights-bold)',
   },
 });
+
 const tabList = css({
   display: 'flex',
   overflowX: 'auto',
@@ -97,27 +124,44 @@ const tabList = css({
     px: '3.5',
   },
 });
-const activeTab = css({ borderBottomColor: '#111 !important', fontWeight: '800' });
+
+const activeTab = css({
+  borderBottomColor: 'var(--color-black-100) !important',
+  fontWeight: 'var(--font-weights-extrabold)',
+});
+
 const policyCard = css({
   display: 'grid',
   gridTemplateColumns: '92px 1fr',
   gap: '4',
   p: '5',
   mt: '4',
-  borderRadius: '8px',
-  bg: '#f6f6f6',
-  '& b': { display: 'grid', placeItems: 'center', minH: '18', bg: '#fff', fontSize: '16px' },
+  borderRadius: 'full',
+  bg: 'var(--color-black-10)',
+  '& b': {
+    display: 'grid',
+    placeItems: 'center',
+    minH: '18',
+    bg: 'var(--color-white-000)',
+    fontSize: '16',
+  },
   '& h3': { mb: '1.5' },
-  '& p': { m: '0', color: '#555', fontSize: '13px', lineHeight: '1.6' },
+  '& p': {
+    m: '0',
+    color: 'var(--color-black-60)',
+    fontSize: '14' /* 기존 13px */,
+    lineHeight: 'var(--line-heights-body)',
+  },
 });
+
 const tooltip = css({
   mt: '2',
   p: '3.5',
-  borderRadius: '6px',
-  bg: '#111',
-  color: '#fff',
-  fontSize: '12px',
-  lineHeight: '1.5',
+  borderRadius: 'full',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
+  fontSize: '12',
+  lineHeight: 'var(--line-heights-body)',
 });
 
 const inquiries = [
@@ -197,10 +241,10 @@ function InquiryPage() {
               <article
                 className={css({
                   p: '5',
-                  bg: '#fafafa',
+                  bg: 'var(--color-black-10)',
                   borderBottom: '1px solid var(--color-border-subtle)',
-                  fontSize: '13px',
-                  lineHeight: '1.7',
+                  fontSize: '14' /* 기존 13px */,
+                  lineHeight: 'var(--line-heights-body)',
                 })}
               >
                 <b>Q</b>
@@ -375,8 +419,8 @@ function AfterSalesPage() {
           display: 'grid',
           gap: '3',
           mt: '4',
-          color: '#555',
-          fontSize: '14px',
+          color: 'var(--color-black-60)',
+          fontSize: '14',
         })}
       >
         <li>전국 매장에서 A/S 접수 및 상품 전달</li>
@@ -414,7 +458,9 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
               </Button>
             ))}
           </nav>
-          <article className={css({ py: '7', minH: '280px', lineHeight: '1.8' })}>
+          <article
+            className={css({ py: '7', minH: '280px', lineHeight: 'var(--line-heights-body)' })}
+          >
             <h2>{active}</h2>
             <p>
               온라인과 오프라인에서 적립 및 사용할 수 있는 통합 마일리지 정책을 안내합니다. 정책별

@@ -11,7 +11,12 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': { mt: '9px', mb: 0, color: 'var(--color-text-muted)', fontSize: '14px' },
+    '& > p': {
+      mt: '9px',
+      mb: 0,
+      color: 'var(--color-text-muted)',
+      fontSize: '14',
+    },
   }),
   allTerms: css({
     display: 'flex',
@@ -19,8 +24,8 @@ const styles = {
     gap: '2.5',
     mt: '7',
     p: '17px',
-    bg: '#f3f3f3',
-    fontWeight: 700,
+    bg: 'var(--color-black-10)',
+    fontWeight: 'var(--font-weights-bold)',
   }),
   termList: css({
     borderBottom: '1px solid var(--color-border-subtle)',
@@ -30,27 +35,31 @@ const styles = {
       gap: '9px',
       p: '4 0.5',
       borderTop: '1px solid var(--color-border-subtle)',
-      fontSize: '13px',
+      fontSize: '14' /* 기존 13px */,
     },
     '& button': {
       ml: 'auto',
       p: 0,
       border: 0,
       color: 'var(--color-text-muted)',
-      fontSize: '12px',
+      fontSize: '12',
       textDecoration: 'underline',
     },
   }),
-  error: css({ mt: '18px', color: '#c62828', fontSize: '13px' }),
+  error: css({
+    mt: '18px',
+    color: 'var(--color-red-100)',
+    fontSize: '14' /* 기존 13px */,
+  }),
   primary: css({
     display: 'grid',
     w: '100%',
     minH: '50px',
     mt: '7',
     placeItems: 'center',
-    bg: '#111',
-    color: '#fff',
-    fontWeight: 700,
+    bg: 'var(--color-black-100)',
+    color: 'var(--color-white-000)',
+    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 

@@ -9,7 +9,7 @@ const root = cva({
   base: { w: '100%' },
   variants: {
     variant: {
-      default: { borderBottom: '1px solid #dfe3e8' },
+      default: { borderBottom: '1px solid var(--color-black-20)' },
       panel: { position: 'relative' },
     },
   },
@@ -25,11 +25,11 @@ const trigger = cva({
     border: '0',
     bg: 'transparent',
     textAlign: 'left',
-    fontWeight: '500',
-    fontSize: '16px',
-    lineHeight: '130%',
-    letterSpacing: '-0.02em',
-    color: '#000000',
+    fontWeight: 'medium',
+    fontSize: '16',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+    color: 'var(--color-black-100)',
   },
   variants: {
     variant: {
@@ -66,7 +66,7 @@ const panel = cva({
 const content = cva({
   variants: {
     variant: {
-      default: { pb: '22px', color: 'var(--color-text-muted)', lineHeight: '1.6' },
+      default: { pb: '22px', color: 'var(--color-text-muted)', lineHeight: 'body' },
       panel: { p: '3' },
     },
   },

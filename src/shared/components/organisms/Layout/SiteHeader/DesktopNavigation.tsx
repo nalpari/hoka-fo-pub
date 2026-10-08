@@ -48,10 +48,10 @@ const styles = {
     variants: { active: { true: { _after: { opacity: 1 } }, false: {} } },
   }),
   itemLabel: css({
-    fontSize: '14px',
-    fontWeight: 400,
+    fontSize: '14',
+    fontWeight: 'normal',
     letterSpacing: 0,
-    lineHeight: '18.2px',
+    lineHeight: 'body',
     whiteSpace: 'nowrap',
   }),
 };

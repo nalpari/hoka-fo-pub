@@ -26,8 +26,22 @@ const optionGrid = css({
   _mobile: { gridTemplateColumns: '1fr' },
 });
 const option = cva({
-  base: { minH: '16', border: '1px solid #bbb', bg: '#fff', fontSize: '14px' },
-  variants: { active: { true: { bg: '#111', color: '#fff', borderColor: '#111' }, false: {} } },
+  base: {
+    minH: '16',
+    border: '1px solid var(--color-black-40)',
+    bg: 'var(--color-white-000)',
+    fontSize: '14',
+  },
+  variants: {
+    active: {
+      true: {
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+        borderColor: 'var(--color-black-100)',
+      },
+      false: {},
+    },
+  },
 });
 const productGrid = css({
   display: 'grid',
@@ -38,10 +52,30 @@ const productGrid = css({
 });
 const tabs = css({ display: 'flex', gap: '2', flexWrap: 'wrap', mt: '6' });
 const tab = cva({
-  base: { px: '4', py: '9px', border: '1px solid #bbb', bg: '#fff', fontSize: '13px' },
-  variants: { active: { true: { bg: '#111', color: '#fff', borderColor: '#111' }, false: {} } },
+  base: {
+    px: '4',
+    py: '9px',
+    border: '1px solid var(--color-black-40)',
+    bg: 'var(--color-white-000)',
+    fontSize: '14' /* 기존 13px */,
+  },
+  variants: {
+    active: {
+      true: {
+        bg: 'var(--color-black-100)',
+        color: 'var(--color-white-000)',
+        borderColor: 'var(--color-black-100)',
+      },
+      false: {},
+    },
+  },
 });
-const timeline = css({ display: 'grid', gap: '0', mt: '26px', borderTop: '2px solid #111' });
+const timeline = css({
+  display: 'grid',
+  gap: '0',
+  mt: '26px',
+  borderTop: '2px solid var(--color-black-100)',
+});
 const timelineItem = css({
   display: 'grid',
   gridTemplateColumns: '100px 1fr auto',
@@ -49,9 +83,18 @@ const timelineItem = css({
   alignItems: 'center',
   minH: '74px',
   borderBottom: '1px solid var(--color-border-subtle)',
-  _mobile: { gridTemplateColumns: '1fr auto', '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' } },
+  _mobile: {
+    gridTemplateColumns: '1fr auto',
+    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+  },
 });
-const action = css({ mt: '6', px: '18px', py: '3', bg: '#111', color: '#fff' });
+const action = css({
+  mt: '6',
+  px: '18px',
+  py: '3',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
+});
 
 const copy: Record<RunningExperienceKind, { title: string; description: string }> = {
   'shoe-finder': {

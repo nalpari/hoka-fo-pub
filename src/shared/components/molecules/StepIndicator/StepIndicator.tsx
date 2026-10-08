@@ -16,8 +16,8 @@ const list = cva({
     gap: '5',
     m: '0',
     p: '0',
-    color: '#aaa',
-    fontSize: '14px',
+    color: 'var(--color-black-40)',
+    fontSize: '14',
     listStyle: 'none',
   },
   variants: { mobileHidden: { true: { _mobile: { display: 'none' } }, false: {} } },
@@ -28,8 +28,8 @@ const item = cva({
   variants: {
     current: {
       true: {
-        color: '#111',
-        fontWeight: '700',
+        color: 'var(--color-black-100)',
+        fontWeight: 'bold',
         textDecoration: 'underline',
         textUnderlineOffset: '9px',
       },

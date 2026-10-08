@@ -13,7 +13,7 @@ const styles = {
     h: 'calc(100dvh - var(--layout-site-header-height))',
     border: 0,
     p: 0,
-    bg: 'rgb(0 0 0 / 52%)',
+    bg: 'color-mix(in srgb, var(--color-black-100) 52%, transparent)',
     _mobile: { display: 'none' },
   }),
   menu: css({

@@ -124,10 +124,15 @@ const content: Record<
 const header = css({
   mb: '7',
   pb: '5',
-  borderBottom: '2px solid #111',
-  '& small': { color: '#0082ca', fontSize: '11px', fontWeight: '700', letterSpacing: '.08em' },
-  '& h1': { m: '9px 0', fontSize: '30px' },
-  '& p': { m: '0', color: 'var(--color-text-muted)', fontSize: '13px' },
+  borderBottom: '2px solid var(--color-black-100)',
+  '& small': {
+    color: 'var(--color-blue-100)',
+    fontSize: '12' /* 기존: 11px */,
+    fontWeight: 'var(--font-weights-bold)',
+    letterSpacing: 'var(--letter-spacings-korean)',
+  },
+  '& h1': { m: '9px 0', fontSize: '28' /* 기존 30px */ },
+  '& p': { m: '0', color: 'var(--color-text-muted)', fontSize: '14' /* 기존 13px */ },
 });
 
 const productGrid = css({

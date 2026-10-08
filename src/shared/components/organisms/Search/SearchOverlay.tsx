@@ -8,9 +8,19 @@ import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 
-const dialog = css({ w: '100%', minH: '520px', bg: '#fff', _mobile: { minH: '100%' } });
+const dialog = css({
+  w: '100%',
+  minH: '520px',
+  bg: 'var(--color-white-000)',
+  _mobile: { minH: '100%' },
+});
 
-const backdrop = css({ position: 'fixed', inset: '0', zIndex: '100', bg: 'rgb(0 0 0 / 72%)' });
+const backdrop = css({
+  position: 'fixed',
+  inset: '0',
+  zIndex: '100',
+  bg: 'color-mix(in srgb, var(--color-black-100) 72%, transparent)',
+});
 
 const viewport = css({ position: 'fixed', inset: '0', zIndex: '100', overflowY: 'auto' });
 
@@ -27,7 +37,7 @@ const heading = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   mb: '5',
-  '& h2': { m: '0', fontSize: '17px' },
+  '& h2': { m: '0', fontSize: '16' /* 기존 17px */ },
 });
 
 const close = css({
@@ -35,24 +45,48 @@ const close = css({
   h: '8',
   border: '0',
   bg: 'transparent',
-  fontSize: '28px',
-  lineHeight: '1',
+  fontSize: '28',
+  lineHeight: 'hoka',
 });
 
 const form = css({
   display: 'grid',
   gridTemplateColumns: '78px minmax(0, 1fr) 66px',
-  border: '1px solid #dadada',
-  '& input': { w: '100%', h: '11', minW: '0', border: '0', bg: '#fff', color: '#222', px: '3.5', fontSize: '13px' },
-  '& input::placeholder': { color: '#9a9a9a' },
+  border: '1px solid var(--color-black-20)',
+  '& input': {
+    w: '100%',
+    h: '11',
+    minW: '0',
+    border: '0',
+    bg: 'var(--color-white-000)',
+    color: 'var(--color-black-100)',
+    px: '3.5',
+    fontSize: '14' /* 기존 13px */,
+  },
+  '& input::placeholder': { color: 'var(--color-black-40)' },
 });
 
 const categoryStyle = css({
-  borderRight: '1px solid #dadada',
-  '& select': { w: '100%', h: '11', border: '0', bg: '#fff', color: '#222', px: '2', fontSize: '13px', fontWeight: '600' },
+  borderRight: '1px solid var(--color-black-20)',
+  '& select': {
+    w: '100%',
+    h: '11',
+    border: '0',
+    bg: 'var(--color-white-000)',
+    color: 'var(--color-black-100)',
+    px: '2',
+    fontSize: '14' /* 기존 13px */,
+    fontWeight: 'var(--font-weights-semibold)',
+  },
 });
 
-const submit = css({ border: '0', bg: '#151515', color: '#fff', fontSize: '13px', fontWeight: '700' });
+const submit = css({
+  border: '0',
+  bg: 'var(--color-black-100)',
+  color: 'var(--color-white-000)',
+  fontSize: '14' /* 기존 13px */,
+  fontWeight: 'var(--font-weights-bold)',
+});
 
 const collectionLinksStyle = css({
   display: 'flex',
@@ -61,7 +95,18 @@ const collectionLinksStyle = css({
   gap: '0',
   py: '18px',
   _mobile: { justifyContent: 'flex-start', rowGap: '2', columnGap: '0' },
-  '& button': { border: '0', borderRight: '1px solid #ddd', py: '0', px: '4', bg: 'transparent', color: '#444', fontSize: '12px', fontWeight: '600', _hover: { textDecoration: 'underline' }, _mobile: { px: '2.5' } },
+  '& button': {
+    border: '0',
+    borderRight: '1px solid var(--color-black-20)',
+    py: '0',
+    px: '4',
+    bg: 'transparent',
+    color: 'var(--color-black-60)',
+    fontSize: '12',
+    fontWeight: 'var(--font-weights-semibold)',
+    _hover: { textDecoration: 'underline' },
+    _mobile: { px: '2.5' },
+  },
   '& button:last-child': { borderRight: '0' },
 });
 
@@ -69,32 +114,84 @@ const suggestions = css({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   minH: '250px',
-  border: '1px solid #e2e2e2',
+  border: '1px solid var(--color-black-20)',
   borderTop: '0',
   _mobile: { gridTemplateColumns: '1fr' },
   '& section': { p: '4' },
   '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  '& h3': { m: '0', fontSize: '14px' },
-  '& header button': { border: '0', p: '0', bg: 'transparent', color: '#999', fontSize: '11px' },
+  '& h3': { m: '0', fontSize: '14' },
+  '& header button': {
+    border: '0',
+    p: '0',
+    bg: 'transparent',
+    color: 'var(--color-black-40)',
+    fontSize: '12' /* 기존: 11px */,
+  },
   '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
-  '& li': { display: 'flex', alignItems: 'center', justifyContent: 'space-between', minH: '26px', fontSize: '13px' },
-  '& p': { display: 'grid', minH: '158px', m: '0', placeItems: 'center', color: '#666', fontSize: '13px', textAlign: 'center' },
+  '& li': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minH: '26px',
+    fontSize: '14' /* 기존 13px */,
+  },
+  '& p': {
+    display: 'grid',
+    minH: '158px',
+    m: '0',
+    placeItems: 'center',
+    color: 'var(--color-black-50)',
+    fontSize: '14' /* 기존 13px */,
+    textAlign: 'center',
+  },
 });
 
-const recent = css({ borderRight: '1px solid #e2e2e2', _mobile: { borderRight: '0', borderBottom: '1px solid #e2e2e2' } });
+const recent = css({
+  borderRight: '1px solid var(--color-black-20)',
+  _mobile: { borderRight: '0', borderBottom: '1px solid var(--color-black-20)' },
+});
 
-const recentQuery = css({ border: '0', p: '0', bg: 'transparent', color: '#333', fontSize: 'inherit', textAlign: 'left', _hover: { textDecoration: 'underline' } });
+const recentQuery = css({
+  border: '0',
+  p: '0',
+  bg: 'transparent',
+  color: 'var(--color-black-60)',
+  fontSize: 'inherit',
+  textAlign: 'left',
+  _hover: { textDecoration: 'underline' },
+});
 
-const remove = css({ border: '0', bg: 'transparent', color: '#aaa', fontSize: '17px', lineHeight: '1' });
+const remove = css({
+  border: '0',
+  bg: 'transparent',
+  color: 'var(--color-black-40)',
+  fontSize: '16' /* 기존 17px */,
+  lineHeight: 'hoka',
+});
 
 const recommended = css({
   '& ol': { counterReset: 'item' },
   '& li': { justifyContent: 'flex-start', gap: '7px' },
   '& li::before': { counterIncrement: 'item', content: "counter(item) '.'" },
-  '& button': { border: '0', p: '0', bg: 'transparent', color: '#333', fontSize: 'inherit', textAlign: 'left', _hover: { textDecoration: 'underline' } },
+  '& button': {
+    border: '0',
+    p: '0',
+    bg: 'transparent',
+    color: 'var(--color-black-60)',
+    fontSize: 'inherit',
+    textAlign: 'left',
+    _hover: { textDecoration: 'underline' },
+  },
 });
 
-const srOnly = css({ position: 'absolute', w: '1px', h: '1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap' });
+const srOnly = css({
+  position: 'absolute',
+  w: '1px',
+  h: '1px',
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+});
 
 const storageKey = 'hoka-recent-searches';
 const suggestedSearches = [
@@ -162,118 +259,115 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
       <Dialog.Portal>
         <Dialog.Backdrop className={backdrop} />
         <Dialog.Viewport className={viewport}>
-          <Dialog.Popup
-        aria-labelledby="site-search-title"
-        className={dialog}
-      >
-        <Box className={inner}>
-          <Box className={heading}>
-            <h2 id="site-search-title">검색</h2>
-            <IconButton aria-label="검색 닫기" className={close} onClick={onClose}>
-              ×
-            </IconButton>
-          </Box>
-          <form
-            className={form}
-            onSubmit={(event) => {
-              event.preventDefault();
-              search();
-            }}
-          >
-            <label className={categoryStyle}>
-              <span className={srOnly}>검색 범위</span>
-              <Select onChange={(event) => setCategory(event.target.value)} value={category}>
-                <option>전체</option>
-                <option>상품</option>
-                <option>컬렉션</option>
-                <option>이벤트</option>
-              </Select>
-            </label>
-            <TextInput
-              autoFocus
-              onBlur={() => setIsFocused(false)}
-              onChange={(event) => setQuery(event.target.value)}
-              onFocus={() => setIsFocused(true)}
-              placeholder="상품명 혹은 스타일코드 검색"
-              type="search"
-              value={query}
-            />
-            <Button className={submit} type="submit" variant="primary">
-              검색
-            </Button>
-          </form>
-          <nav aria-label="기획전 바로가기" className={collectionLinksStyle}>
-            {collectionLinks.map((collection) => (
-              <Button
-                key={collection.id}
-                onClick={() => {
-                  navigate(`/collection/${collection.id}`);
-                  onClose();
+          <Dialog.Popup aria-labelledby="site-search-title" className={dialog}>
+            <Box className={inner}>
+              <Box className={heading}>
+                <h2 id="site-search-title">검색</h2>
+                <IconButton aria-label="검색 닫기" className={close} onClick={onClose}>
+                  ×
+                </IconButton>
+              </Box>
+              <form
+                className={form}
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  search();
                 }}
               >
-                {collection.label}
-              </Button>
-            ))}
-          </nav>
-          {isFocused ? (
-            <Box className={suggestions}>
-              <section className={recent} aria-labelledby="recent-search-title">
-                <header>
-                  <h3 id="recent-search-title">최근 검색어</h3>
-                  {recentSearches.length ? (
-                    <Button
-                      onClick={() => persistRecentSearches([])}
-                      onMouseDown={(event) => event.preventDefault()}
-                    >
-                      전체 기록 삭제
-                    </Button>
-                  ) : null}
-                </header>
-                {recentSearches.length ? (
-                  <ul>
-                    {recentSearches.map((recent) => (
-                      <li key={recent}>
+                <label className={categoryStyle}>
+                  <span className={srOnly}>검색 범위</span>
+                  <Select onChange={(event) => setCategory(event.target.value)} value={category}>
+                    <option>전체</option>
+                    <option>상품</option>
+                    <option>컬렉션</option>
+                    <option>이벤트</option>
+                  </Select>
+                </label>
+                <TextInput
+                  autoFocus
+                  onBlur={() => setIsFocused(false)}
+                  onChange={(event) => setQuery(event.target.value)}
+                  onFocus={() => setIsFocused(true)}
+                  placeholder="상품명 혹은 스타일코드 검색"
+                  type="search"
+                  value={query}
+                />
+                <Button className={submit} type="submit" variant="primary">
+                  검색
+                </Button>
+              </form>
+              <nav aria-label="기획전 바로가기" className={collectionLinksStyle}>
+                {collectionLinks.map((collection) => (
+                  <Button
+                    key={collection.id}
+                    onClick={() => {
+                      navigate(`/collection/${collection.id}`);
+                      onClose();
+                    }}
+                  >
+                    {collection.label}
+                  </Button>
+                ))}
+              </nav>
+              {isFocused ? (
+                <Box className={suggestions}>
+                  <section className={recent} aria-labelledby="recent-search-title">
+                    <header>
+                      <h3 id="recent-search-title">최근 검색어</h3>
+                      {recentSearches.length ? (
                         <Button
-                          className={recentQuery}
+                          onClick={() => persistRecentSearches([])}
                           onMouseDown={(event) => event.preventDefault()}
-                          onClick={() => search(recent)}
                         >
-                          {recent}
+                          전체 기록 삭제
                         </Button>
-                        <IconButton
-                          aria-label={`${recent} 삭제`}
-                          className={remove}
-                          onMouseDown={(event) => event.preventDefault()}
-                          onClick={() => removeRecentSearch(recent)}
-                          size="26px"
-                        >
-                          ×
-                        </IconButton>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>최근 검색어 내역이 없습니다.</p>
-                )}
-              </section>
-              <section className={recommended} aria-labelledby="recommended-search-title">
-                <h3 id="recommended-search-title">추천 검색어</h3>
-                <ol>
-                  {suggestedSearches.map((suggestion) => (
-                    <li key={suggestion}>
-                      <Button
-                        onMouseDown={(event) => event.preventDefault()}
-                        onClick={() => search(suggestion)}
-                      >
-                        {suggestion}
-                      </Button>
-                    </li>
-                  ))}
-                </ol>
-              </section>
+                      ) : null}
+                    </header>
+                    {recentSearches.length ? (
+                      <ul>
+                        {recentSearches.map((recent) => (
+                          <li key={recent}>
+                            <Button
+                              className={recentQuery}
+                              onMouseDown={(event) => event.preventDefault()}
+                              onClick={() => search(recent)}
+                            >
+                              {recent}
+                            </Button>
+                            <IconButton
+                              aria-label={`${recent} 삭제`}
+                              className={remove}
+                              onMouseDown={(event) => event.preventDefault()}
+                              onClick={() => removeRecentSearch(recent)}
+                              size="26px"
+                            >
+                              ×
+                            </IconButton>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>최근 검색어 내역이 없습니다.</p>
+                    )}
+                  </section>
+                  <section className={recommended} aria-labelledby="recommended-search-title">
+                    <h3 id="recommended-search-title">추천 검색어</h3>
+                    <ol>
+                      {suggestedSearches.map((suggestion) => (
+                        <li key={suggestion}>
+                          <Button
+                            onMouseDown={(event) => event.preventDefault()}
+                            onClick={() => search(suggestion)}
+                          >
+                            {suggestion}
+                          </Button>
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
+                </Box>
+              ) : null}
             </Box>
-          ) : null}
-        </Box>
           </Dialog.Popup>
         </Dialog.Viewport>
       </Dialog.Portal>

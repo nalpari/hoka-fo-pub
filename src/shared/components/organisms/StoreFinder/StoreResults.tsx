@@ -2,6 +2,7 @@ import type { Store } from '@/shared/features/store-finder/store.data';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+
 export function StoreResults({ stores }: { stores: Store[] }) {
   return (
     <Box className={storeList} id="stores">
@@ -25,6 +26,43 @@ export function StoreResults({ stores }: { stores: Store[] }) {
   );
 }
 
-const storeList = css({ '& article': { display: 'flex', alignItems: 'center', justifyContent: 'space-between', minH: '135px', px: '4', py: '6', borderBottom: '1px solid #ddd', _mobile: { p: '5 1' } }, '& article button': { display: 'grid', justifyItems: 'center', gap: '0.5', border: '0', color: '#777', fontSize: '10px' }, '& article button b': { fontSize: '30px', fontWeight: '400', lineHeight: '0.75' }, '& h2': { m: '0 0 11px', fontSize: '14px' }, '& p': { m: '0 0 1', color: '#777', fontSize: '11px', _mobile: { maxW: '260px', lineHeight: '1.5' } }, '& small': { color: '#ef3340', fontSize: '11px' }, '& i': { color: '#aaa', fontStyle: 'normal' } });
+const storeList = css({
+  '& article': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minH: '135px',
+    px: '4',
+    py: '6',
+    borderBottom: '1px solid var(--color-black-20)',
+    _mobile: { p: '5 1' },
+  },
+  '& article button': {
+    display: 'grid',
+    justifyItems: 'center',
+    gap: '0.5',
+    border: '0',
+    color: 'var(--color-black-50)',
+    fontSize: '12' /* 기존: 10px */,
+  },
+  '& article button b': {
+    fontSize: '28' /* 기존 30px */,
+    fontWeight: 'var(--font-weights-normal)',
+    lineHeight: 'var(--line-heights-hoka)',
+  },
+  '& h2': { m: '0 0 var(--spacing-3)', fontSize: '14' },
+  '& p': {
+    m: '0 0 1',
+    color: 'var(--color-black-50)',
+    fontSize: '12' /* 기존: 11px */,
+    _mobile: { maxW: '260px', lineHeight: 'var(--line-heights-body)' },
+  },
+  '& small': { color: 'var(--color-red-100)', fontSize: '12' /* 기존: 11px */ },
+  '& i': { color: 'var(--color-black-40)', fontStyle: 'normal' },
+});
 
-const noResult = css({ p: '70px', color: '#777', textAlign: 'center' });
+const noResult = css({
+  p: '70px',
+  color: 'var(--color-black-50)',
+  textAlign: 'center',
+});

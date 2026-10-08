@@ -15,7 +15,7 @@ const root = css({
 export function NotFoundPage() {
   return (
     <ContentLayout className={root} title="404" description="요청하신 페이지를 찾을 수 없습니다.">
-      <Stack justifyItems="start" gap="6" py="8" borderTop="1px solid #111">
+      <Stack justifyItems="start" gap="6" py="8" borderTop="1px solid var(--color-black-100)">
         <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>
           주소가 잘못 입력되었거나 페이지가 이동 또는 삭제되었을 수 있습니다.
         </p>

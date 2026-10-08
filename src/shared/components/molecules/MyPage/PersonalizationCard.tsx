@@ -10,25 +10,33 @@ const card = css({
   gap: '6',
   minH: '185px',
   p: '30px 38px',
-  bg: '#e7f3f8',
+  bg: 'var(--color-off-white-100)',
   _mobile: { minH: '210px', p: '25px' },
 });
 
-const eyebrowStyle = css({ fontSize: '11px', letterSpacing: '.08em' });
+const eyebrowStyle = css({
+  fontSize: '12' /* 기존: 11px */,
+  letterSpacing: 'var(--letter-spacings-korean)',
+});
 
-const titleStyle = css({ m: '8px 0', fontSize: '24px', _mobile: { fontSize: '21px' } });
+const titleStyle = css({
+  my: '2',
+  mx: '0',
+  fontSize: '24',
+  _mobile: { fontSize: '20' /* 기존 21px */ },
+});
 
 const descriptionStyle = css({
   maxW: '500px',
   m: '0',
-  color: '#555',
-  fontSize: '13px',
-  lineHeight: '1.6',
+  color: 'var(--color-black-60)',
+  fontSize: '14' /* 기존 13px */,
+  lineHeight: 'var(--line-heights-body)',
 });
 
 const actionStyle = css({
   flex: 'none',
-  fontSize: '13px',
+  fontSize: '14' /* 기존 13px */,
   textDecoration: 'underline',
   textUnderlineOffset: '4px',
 });

@@ -10,7 +10,7 @@ export function ProductInquiryNotices() {
   const [openNotice, setOpenNotice] = useState<string | null>(null);
 
   return (
-    <Box borderTop="1px solid #dfe3e8">
+    <Box borderTop="1px solid var(--color-black-20)">
       <ProductInquiryDeliveryNotice
         isOpen={openNotice === 'delivery'}
         onToggle={() => setOpenNotice(openNotice === 'delivery' ? null : 'delivery')}

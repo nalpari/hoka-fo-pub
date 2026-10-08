@@ -9,9 +9,13 @@ import { QuickLinkGrid } from '@/shared/components/organisms/MyPage/QuickLinkGri
 import { OrderStatusTracker } from '@/shared/components/molecules/OrderStatusTracker/OrderStatusTracker';
 import { memberSummary, myPageNavigation, quickLinks } from '@/shared/features/mypage/mypage.data';
 
-const title = css({ m: '0 0 26px', fontSize: '30px' });
+const title = css({ m: '0 0 26px', fontSize: '28' /* 기존 30px */ });
 
-const action = css({ fontSize: '13px', textDecoration: 'underline', textUnderlineOffset: '4px' });
+const action = css({
+  fontSize: '14' /* 기존 13px */,
+  textDecoration: 'underline',
+  textUnderlineOffset: '4px',
+});
 
 export function MyPage() {
   return (
