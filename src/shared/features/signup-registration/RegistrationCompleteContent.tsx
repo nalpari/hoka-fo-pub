@@ -22,11 +22,7 @@ const styles = {
     '& svg': { w: '24px!', h: '24px!' },
   }),
   message: css({ gap: '4', '& p': { m: '0' } }),
-  button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
-  }),
+  button: css({ w: '100%' }),
 };
 
 export function RegistrationCompleteContent() {

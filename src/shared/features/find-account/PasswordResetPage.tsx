@@ -26,10 +26,6 @@ const styles = {
   description: css({ m: '0', mb: '10', color: 'var(--color-black-50)' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
   fieldGroup: css({ gap: '2' }),
-  invalidField: css({
-    '&&': { boxShadow: 'inset 0 0 0 2px var(--color-red-100)' },
-    '&&:focus-within': { boxShadow: 'inset 0 0 0 2px var(--color-red-100)' },
-  }),
   input: css({ minW: '0' }),
   fieldError: css({ m: '0', '&&': { color: 'var(--color-red-100)' } }),
   button: css({
@@ -104,7 +100,7 @@ export function PasswordResetPage() {
       <Stack className={styles.fieldGroup}>
         <FormField
           variant="boxed"
-          className={error ? styles.invalidField : undefined}
+          invalid={Boolean(error)}
           htmlFor={`password-reset-${name}`}
           label={<Typography variant="authCaption">* {label}</Typography>}
         >

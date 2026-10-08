@@ -33,7 +33,7 @@ const intro = css({
 
 const kicker = css({
   mb: '2.5',
-  color: 'var(--color-red-100)',
+  color: 'var(--color-red-80)',
   fontSize: '12' /* 기존: 11px */,
   fontWeight: 'var(--font-weights-bold)',
   letterSpacing: 'var(--letter-spacings-korean)',

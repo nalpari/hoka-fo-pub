@@ -30,17 +30,7 @@ const styles = {
   content: css({ maxW: '420px', mx: 'auto' }),
   title: css({ m: '0', mb: '8' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
-  }),
-  cancel: css({
-    '--button-bg': 'var(--color-white-000)!',
-    '--button-color': 'var(--color-black-100)!',
-    '--button-border-width': '1px!',
-    '--button-border-color': 'var(--color-black-100)!',
-  }),
+  button: css({ w: '100%' }),
   actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2', mt: '6' }),
   hint: css({ m: '0', mt: '-2' }),
   heading: css({ m: '0', mb: '4', fontWeight: 'semibold' }),
@@ -86,6 +76,7 @@ export function RegistrationContent(props: Props) {
     <FormField
       variant="boxed"
       htmlFor={fieldId}
+      disabled={disabled}
       label={<Typography variant="authCaption">* {label}</Typography>}
     >
       <TextInput
@@ -195,21 +186,19 @@ export function RegistrationContent(props: Props) {
               <Typography as="p" variant="authCaption" tone="subtle" className={styles.hint}>
                 본인인증 서비스 연결 전에는 인증 정보를 직접 입력하는 미리보기입니다.
               </Typography>
-              <FormField
-                variant="boxed"
-                htmlFor="registration-address"
-                label={<Typography variant="authCaption">* 주소</Typography>}
-              >
+              <FormField variant="boxed" htmlFor="registration-address" label="주소" required>
                 <TextInput
                   id="registration-address"
                   readOnly
                   value={props.information.address}
                   placeholder="주소찾기 버튼을 눌러주세요"
                   onClick={() => props.onAddressOpen(true)}
+                  endIcon={
+                    <Button variant="link" size="sm" onClick={() => props.onAddressOpen(true)}>
+                      주소찾기
+                    </Button>
+                  }
                 />
-                <Button variant="link" size="sm" onClick={() => props.onAddressOpen(true)}>
-                  주소찾기
-                </Button>
               </FormField>
               {field('addressDetail', '상세주소', '상세주소를 입력해주세요')}
             </>
@@ -238,9 +227,9 @@ export function RegistrationContent(props: Props) {
           {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
           <Grid className={styles.actions}>
             <Button
-              variant="primary"
+              variant="secondary"
               fullWidth
-              className={[styles.button, styles.cancel].join(' ')}
+              className={styles.button}
               onClick={props.onCancel}
             >
               취소

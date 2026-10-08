@@ -1,8 +1,8 @@
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -18,23 +18,10 @@ const styles = {
   description: css({ m: '0', mb: '6', color: 'var(--color-black-50)' }),
   fields: css({ gap: '4' }),
   fieldGroup: css({ gap: '2' }),
-  invalidField: css({
-    '&&': {
-      boxShadow: 'inset 0 0 0 2px var(--color-red-100)',
-    },
-    '&&:focus-within': {
-      boxShadow: 'inset 0 0 0 2px var(--color-red-100)',
-    },
-  }),
-  input: css({ minW: '0' }),
-  fieldError: css({ m: '0', '&&': { color: 'var(--color-red-100)' } }),
-  countdown: css({ m: '0', mt: '2', color: 'var(--color-red-100)' }),
+  countdown: css({ m: '0', mt: '2', color: 'var(--color-red-80)' }),
   codeHelp: css({ m: '0', mt: '2', color: 'var(--color-black-50)' }),
   button: css({
     mt: '6',
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
   }),
   message: css({ m: '0', mt: '4' }),
 };
@@ -87,45 +74,30 @@ export function FindAccountContent({
             <Stack className={styles.fieldGroup}>
               <FormField
                 variant="boxed"
-                className={nameError ? styles.invalidField : undefined}
                 htmlFor="find-account-name"
-                label={<Typography variant="authCaption">* 이름</Typography>}
+                label="이름"
+                error={nameError}
+                required
               >
                 <TextInput
-                  className={styles.input}
                   id="find-account-name"
                   name="name"
                   autoComplete="name"
                   placeholder="이름을 입력해 주세요"
                   value={name}
                   onChange={(event) => onNameChange(event.target.value)}
-                  invalid={Boolean(nameError)}
-                  aria-describedby={nameError ? 'find-account-name-error' : undefined}
-                  required
                 />
               </FormField>
-              {nameError ? (
-                <Typography
-                  as="p"
-                  variant="authCaption"
-                  className={styles.fieldError}
-                  id="find-account-name-error"
-                  role="alert"
-                  aria-atomic="true"
-                >
-                  {nameError}
-                </Typography>
-              ) : null}
             </Stack>
             <Stack className={styles.fieldGroup}>
               <FormField
                 variant="boxed"
-                className={phoneError ? styles.invalidField : undefined}
                 htmlFor="find-account-phone"
-                label={<Typography variant="authCaption">* 휴대폰번호</Typography>}
+                label="휴대폰번호"
+                error={phoneError}
+                required
               >
                 <TextInput
-                  className={styles.input}
                   id="find-account-phone"
                   name="tel"
                   type="tel"
@@ -134,29 +106,14 @@ export function FindAccountContent({
                   placeholder="휴대폰번호를 입력해 주세요"
                   value={phone}
                   onChange={(event) => onPhoneChange(event.target.value)}
-                  invalid={Boolean(phoneError)}
-                  aria-describedby={phoneError ? 'find-account-phone-error' : undefined}
-                  required
                 />
               </FormField>
-              {phoneError ? (
-                <Typography
-                  as="p"
-                  variant="authCaption"
-                  className={styles.fieldError}
-                  id="find-account-phone-error"
-                  role="alert"
-                  aria-atomic="true"
-                >
-                  {phoneError}
-                </Typography>
-              ) : null}
             </Stack>
           </Stack>
           <Button
             type="submit"
             variant="primary"
-            size="lg"
+            density="auto"
             fullWidth
             className={styles.button}
             disabled={requested && secondsLeft > 0}
@@ -167,9 +124,9 @@ export function FindAccountContent({
             <>
               <FormField
                 variant="boxed"
-                className={css({ mt: '6' })}
                 htmlFor="find-account-code"
-                label={<Typography variant="authCaption">* 인증번호</Typography>}
+                label="인증번호"
+                className={css({ mt: '6' })}
               >
                 <TextInput
                   id="find-account-code"
@@ -197,7 +154,7 @@ export function FindAccountContent({
               <Button
                 type="button"
                 variant="primary"
-                size="lg"
+                density="auto"
                 fullWidth
                 className={styles.button}
                 onClick={onConfirmCode}

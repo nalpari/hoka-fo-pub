@@ -57,6 +57,9 @@ export default defineConfig({
         },
       },
       tokens: {
+        sizes: {
+          formField: { value: '60px' },
+        },
         aspectRatios: {
           media: {
             productThumbnail: { value: '371 / 428' },

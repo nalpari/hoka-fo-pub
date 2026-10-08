@@ -50,7 +50,7 @@ const styles = {
     '& h3': {
       mt: 0,
       mb: '26px',
-      color: 'var(--color-red-100)',
+      color: 'var(--color-red-80)',
       fontSize: '14',
     },
     '& h4': { my: '4.5', fontSize: '14' /* 기존 13px */ },
