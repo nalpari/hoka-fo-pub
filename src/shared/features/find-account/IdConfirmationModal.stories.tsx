@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
-import { AccountLockedPage } from './AccountLockedPage';
-
-const withRouter = (Story: React.ComponentType) => (
-  <MemoryRouter>
-    <Story />
-  </MemoryRouter>
-);
+import { IdConfirmationModal } from './IdConfirmationModal';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -21,10 +14,15 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/AccountLockedModal',
-  component: AccountLockedPage,
-  decorators: [withRouter, withPlatform('web')],
-} satisfies Meta<typeof AccountLockedPage>;
+  title: 'Pages/AUTH/FindAccount/IdConfirmationModal',
+  component: IdConfirmationModal,
+  args: {
+    onOpenChange: () => {},
+    onPasswordReset: () => {},
+    onConfirm: () => {},
+  },
+  decorators: [withPlatform('web')],
+} satisfies Meta<typeof IdConfirmationModal>;
 
 export default meta;
 

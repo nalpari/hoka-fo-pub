@@ -129,6 +129,27 @@ const typographyStorySpecs = {
     fontWeight: '700',
     lineHeight: '130%',
   },
+  modalTitle: {
+    name: 'ModalTitle',
+    desktopFontSize: '16px',
+    mobileFontSize: '16px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+  },
+  modalContentTitle: {
+    name: 'ModalContentTitle',
+    desktopFontSize: '20px',
+    mobileFontSize: '20px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+  },
+  modalBody: {
+    name: 'ModalBody',
+    desktopFontSize: '14px',
+    mobileFontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '1.3',
+  },
 } as const satisfies Record<string, TypographyStorySpec>;
 
 function typographyLabel({
@@ -181,6 +202,29 @@ export const CardTitle: Story = {
     as: 'h4',
     children: typographyLabel(typographyStorySpecs.cardTitle),
     variant: 'cardTitle',
+  },
+};
+
+export const ModalTitle: Story = {
+  args: {
+    children: typographyLabel(typographyStorySpecs.modalTitle),
+    variant: 'modalTitle',
+  },
+};
+
+export const ModalContentTitle: Story = {
+  args: {
+    as: 'h2',
+    children: typographyLabel(typographyStorySpecs.modalContentTitle),
+    variant: 'modalContentTitle',
+  },
+};
+
+export const ModalBody: Story = {
+  args: {
+    as: 'p',
+    children: typographyLabel(typographyStorySpecs.modalBody),
+    variant: 'modalBody',
   },
 };
 

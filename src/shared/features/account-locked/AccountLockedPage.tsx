@@ -22,19 +22,28 @@ const styles = {
     },
   }),
   dialog: css({
-    w: 'min(375px, calc(100vw - 32px))!',
+    w: '568px!',
     borderRadius: '0',
     boxShadow: 'none',
     position: 'relative',
     zIndex: '1',
+    _mobile: { w: 'min(375px, calc(100vw - 32px))!' },
   }),
-  body: css({ p: '4' }),
-  title: css({ m: '0', mb: '3' }),
-  description: css({ m: '0', mb: '4', whiteSpace: 'pre-line' }),
+  body: css({ gap: '4', p: '24px 16px' }),
+  title: css({}),
+  description: css({}),
+  descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
   button: css({
-    '--button-radius': '999px',
-    '--button-height': '40px!',
-    '--button-border-width': '0px!',
+    w: '160px!',
+    mx: 'auto',
+    _mobile: {
+      w: '100%!',
+      '--button-radius': '999px',
+      '--button-height': '40px!',
+      '--button-border-width': '0px! ',
+      '--button-label-size': '14px',
+      '--button-label-weight': '600',
+    },
   }),
 };
 
@@ -53,11 +62,12 @@ export function AccountLockedPage() {
         popupClassName={styles.dialog}
       >
         <Stack className={styles.body}>
-          <Typography as="h1" variant="authBody" className={styles.title}>
+          <Typography as="h4" variant="modalContentTitle" className={styles.title}>
             계정 잠금상태입니다
           </Typography>
-          <Typography as="p" variant="authSmall" className={styles.description}>
-            {'서비스 이용을 위해 계정잠금을 해제해주세요.\n휴대폰 인증화면으로 이동합니다.'}
+          <Typography as="p" variant="modalBody" className={styles.description}>
+            서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
+            <span className={styles.descriptionSecondLine}>휴대폰 인증화면으로 이동합니다.</span>
           </Typography>
           <Button
             variant="primary"

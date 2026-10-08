@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faXmark } from '@/shared/icons/fontAwesome';
@@ -86,21 +85,24 @@ const header = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   minH: '14',
-  px: '6',
+  px: '4',
   bg: 'var(--color-surface-subtle)',
   _mobile: {
     px: '4',
   },
 });
 
-const titleStyle = css({ m: '0', fontWeight: '600' });
+const titleStyle = css({ height: '32px' });
 
 const closeButton = css({
-  w: '8',
-  h: '8',
+  display: 'grid',
+  placeItems: 'center',
+  w: '4',
+  h: '4',
   p: '0',
-  color: '#555',
-  '& svg': { w: '4', h: '4' },
+  border: '0',
+  bg: 'transparent',
+  cursor: 'pointer',
 });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -116,7 +118,7 @@ export type ModalDialogProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
-  title: string;
+  title: ReactNode;
 };
 
 /** Controlled, focus-managed modal following HDS overlay, sizing, and mobile presentation rules. */
@@ -146,19 +148,12 @@ export function ModalDialog({
             >
               <header className={header}>
                 <Dialog.Title className={titleStyle}>
-                  <Typography as="span" variant="body">
+                  <Typography as="span" variant="modalTitle">
                     {title}
                   </Typography>
                 </Dialog.Title>
                 <Dialog.Close
-                  render={
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      aria-label={closeLabel}
-                      className={closeButton}
-                    />
-                  }
+                  render={<button type="button" aria-label={closeLabel} className={closeButton} />}
                 >
                   <Icon fontAwesomeIcon={faXmark} size="16px" />
                 </Dialog.Close>

@@ -55,6 +55,19 @@ const figmaTypographyVariants = {
       },
     ]),
   ),
+  modalTitle: { fontSize: '16px', fontWeight: '500', lineHeight: '1.3' },
+  modalContentTitle: {
+    fontFamily: 'var(--font-family-korean)',
+    fontSize: '20px',
+    fontWeight: '500',
+    lineHeight: '1.3',
+  },
+  modalBody: {
+    fontFamily: 'var(--font-family-korean)',
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '1.3',
+  },
   cta1: { fontSize: '16px', fontWeight: '500', lineHeight: '1.3' },
   cta2: { fontSize: '14px', fontWeight: '500', lineHeight: '1.3' },
   textLink1: {
@@ -257,6 +270,9 @@ export type TypographyVariant =
   | `body${1 | 2 | 3 | 4 | 5}`
   | `bodyKr${1 | 2 | 3 | 4 | 5}`
   | `mono${1 | 2 | 3 | 4 | 5}`
+  | 'modalTitle'
+  | 'modalContentTitle'
+  | 'modalBody'
   | 'cta1'
   | 'cta2'
   | 'textLink1'

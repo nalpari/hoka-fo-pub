@@ -62,9 +62,17 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
+  235: {
+    pc: 'pages-auth-findaccount-idconfirmationmodal--default',
+    mo: 'pages-auth-findaccount-idconfirmationmodal--mobile',
+  },
   1: {
     pc: 'pages-home-main--width-1920',
     mo: 'pages-home-main--width-375',
+  },
+  234: {
+    pc: 'pages-auth-findaccount-accountlockedmodal--default',
+    mo: 'pages-auth-findaccount-accountlockedmodal--mobile',
   },
   217: {
     pc: 'pages-auth-signup--default',
