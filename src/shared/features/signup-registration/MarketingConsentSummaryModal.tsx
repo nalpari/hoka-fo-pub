@@ -6,15 +6,11 @@ import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDial
 import type { MarketingPreferences } from './RegistrationContent';
 
 const styles = {
-  dialog: css({ w: '360px!', _mobile: { w: 'calc(100vw - 32px)!' } }),
-  body: css({ p: '4', gap: '4' }),
+  dialog: css({ maxW: '360px!' }),
+  body: css({ gap: '4' }),
   heading: css({ m: '0' }),
   summary: css({ m: '0', whiteSpace: 'pre-line' }),
-  button: css({
-    '--button-height': '40px!',
-    '--button-radius': '999px',
-    '--button-border-width': '0px!',
-  }),
+
 };
 
 type MarketingConsentSummaryModalProps = {

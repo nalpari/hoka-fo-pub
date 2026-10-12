@@ -25,6 +25,9 @@ export default defineConfig({
             default: { value: '#fff' },
             subtle: { value: '#f3f3f3' },
           },
+          bg: {
+            disabled: { value: '{colors.black.40}' },
+          },
           border: {
             default: { value: '#d8d8d8' },
             tertiary: { value: '{colors.black.40}' },

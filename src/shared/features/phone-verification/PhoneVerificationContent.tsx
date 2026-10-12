@@ -27,22 +27,16 @@ const styles = {
     alignItems: 'center',
     '& > button': { justifySelf: 'end' },
   }),
-  button: css({ w: '100%' }),
-  countdown: css({ m: '0', mt: '-2', color: 'var(--color-red-80)' }),
-  text: css({ m: '0' }),
+  countdown: css({ m: '0', mt: '-2' }),
+  text: css({ mb: '2' }),
   intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
   help: css({ m: '0', mt: '4' }),
-  modal: css({ p: '4' }),
   carrierList: css({ gap: '4' }),
   carrierSection: css({ gap: '3', pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
   carrierSectionLast: css({ gap: '3' }),
   carrierTitle: css({ m: '0' }),
   carrierNames: css({ m: '0' }),
-  modalButton: css({
-    '--button-height': '40px!',
-    '--button-radius': '999px',
-    '--button-border-width': '0px!',
-  }),
+
 };
 
 const mvnoCarriers = [
@@ -226,8 +220,8 @@ export function PhoneVerificationContent(props: Props) {
           {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
           <Button
             variant="primary"
+            height="tall"
             fullWidth
-            className={styles.button}
             disabled={requested && resendWait > 0}
             onClick={props.onRequest}
           >
@@ -252,7 +246,7 @@ export function PhoneVerificationContent(props: Props) {
                   onChange={(event) => props.onCodeChange(event.target.value)}
                 />
               </FormField>
-              <Typography as="p" variant="bodyKr5" className={styles.countdown}>
+              <Typography as="p" variant="bodyKr5" tone="red100" className={styles.countdown}>
                 남은 시간{' '}
                 {Math.floor(secondsLeft / 60)
                   .toString()
@@ -263,12 +257,7 @@ export function PhoneVerificationContent(props: Props) {
                 입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
                 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
               </Typography>
-              <Button
-                variant="primary"
-                type="submit"
-                fullWidth
-                className={[styles.button, css({ mt: '2' })].join(' ')}
-              >
+              <Button variant="primary" height="tall" type="submit" fullWidth>
                 인증번호 확인
               </Button>
             </>
@@ -290,7 +279,7 @@ export function PhoneVerificationContent(props: Props) {
         mobilePresentation="fullscreen"
       >
         {detail === '알뜰폰 사업자' ? (
-          <Stack className={[styles.modal, styles.carrierList].join(' ')}>
+          <Stack className={styles.carrierList}>
             {mvnoCarriers.map((carrier, index) => (
               <Stack
                 key={carrier.title}

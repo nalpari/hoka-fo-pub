@@ -22,28 +22,18 @@ const styles = {
     },
   }),
   dialog: css({
-    w: '568px!',
     borderRadius: '0',
     boxShadow: 'none',
     position: 'relative',
     zIndex: '1',
-    _mobile: { w: 'min(375px, calc(100vw - 32px))!' },
   }),
-  body: css({ gap: '4', p: '24px 16px' }),
+  body: css({ gap: '4' }),
   title: css({}),
   description: css({}),
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
   button: css({
     w: '160px!',
     mx: 'auto',
-    _mobile: {
-      w: '100%!',
-      '--button-radius': '999px',
-      '--button-height': '40px!',
-      '--button-border-width': '0px! ',
-      '--button-label-size': '14px',
-      '--button-label-weight': '600',
-    },
   }),
 };
 

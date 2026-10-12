@@ -38,7 +38,6 @@ const styles = {
   row: css({ justifyContent: 'space-between', gap: '3', alignItems: 'start' }),
   radio: css({ display: 'flex!', gap: '6', flexShrink: '0' }),
   married: css({ mb: '4' }),
-  modal: css({ p: '4' }),
   disabledInput: css({
     bg: 'var(--color-black-10)',
     color: 'var(--color-black-60)',
@@ -246,7 +245,7 @@ export function RegistrationContent(props: Props) {
         title="주소찾기"
         closeLabel="주소찾기 닫기"
       >
-        <Stack className={styles.modal}>
+        <Stack>
           <Typography as="p" variant="authSmall">
             주소 검색 서비스 연결 전입니다. 미리보기 주소를 직접 입력해주세요.
           </Typography>

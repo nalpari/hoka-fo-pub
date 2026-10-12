@@ -133,6 +133,7 @@ $font-faces: (
     --color-surface-default: var(--hoka-white);
     --color-surface-subtle: var(--color-black-10);
     --color-surface-muted: var(--color-off-white-100);
+    --color-bg-disabled: var(--color-black-40);
     --color-border-default: var(--line);
     --color-border-subtle: var(--color-black-20);
     --color-border-tertiary: var(--color-black-40);
@@ -147,7 +148,7 @@ $font-faces: (
     --button-secondary-fg: var(--color-black-100);
     --button-secondary-fg-hover: var(--color-white-000);
     --button-focus-ring: var(--color-border-tertiary);
-    --button-disabled-bg: var(--color-black-40);
+    --button-disabled-bg: var(--color-bg-disabled);
     --button-disabled-fg: var(--color-white-000);
     --button-radius-pill: 52px;
     --button-height-short: 40px;

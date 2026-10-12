@@ -11,7 +11,6 @@ const styles = {
   }),
   desktopTitle: css({ display: 'inline', _mobile: { display: 'none' } }),
   mobileTitle: css({ display: 'none', _mobile: { display: 'inline' } }),
-  body: css({ p: '24px', _mobile: { p: '24px 16px' } }),
   intro: css({ m: '0' }),
   email: css({
     m: '20px 0 0',
@@ -54,7 +53,7 @@ export function IdConfirmationModal({
       popupClassName={styles.dialog}
       mobilePresentation="fullscreen"
     >
-      <Stack className={styles.body}>
+      <Stack>
         <Typography as="p" variant="bodyKr3" className={styles.intro}>
           김호가님 가입하신 아이디입니다
         </Typography>

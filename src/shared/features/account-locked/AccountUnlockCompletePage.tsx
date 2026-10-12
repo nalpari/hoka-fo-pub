@@ -25,13 +25,7 @@ const styles = {
     '& svg': { w: '2.5', h: '2.5' },
   }),
   description: css({ m: '0', color: 'var(--color-text-tertiary)' }),
-  button: css({
-    mt: '4',
-    '--button-height': '40px!',
-    '--button-radius': '999px',
-    '--button-border-width': '0px!',
-    '--button-label-size': '14px',
-  }),
+
 };
 
 export function AccountUnlockCompletePage() {

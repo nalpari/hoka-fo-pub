@@ -129,6 +129,17 @@ const iconStyle = css({
   color: 'inherit',
 });
 
+const iconOnlyButtonStyle = css({
+  w: '6',
+  h: '6',
+  minW: '6',
+  '--button-height': '24px',
+  '--button-padding-x': '0px',
+  '--button-content-gap': '0px',
+  '& > span': { w: '100%', h: '100%', minH: '0' },
+  '& > span > span': { w: '100%', h: '100%', minH: '0', gap: '0', px: '0' },
+});
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -180,6 +191,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const resolvedVariant = tone ?? variant;
+  const iconOnly = Boolean(icon && children == null);
   const primary = resolvedVariant === 'primary' || resolvedVariant === 'bottomSheetPrimary';
   const white = colorway === 'white';
   const unframed = resolvedVariant === 'link' || resolvedVariant === 'ghost';
@@ -219,8 +231,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     '--button-border-width': primary || inverseLegacy ? '0px' : '1px',
     '--button-border-color': white ? 'var(--color-white-000)' : 'var(--color-black-100)',
     '--button-border-width-hover': white && !primary ? '2px' : '0px',
-    '--button-focus-ring': white && !primary ? 'var(--color-white-000)' : 'var(--color-border-tertiary)',
-    '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-black-40)',
+    '--button-focus-ring':
+      white && !primary ? 'var(--color-white-000)' : 'var(--color-border-tertiary)',
+    '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-bg-disabled)',
     '--button-disabled-color': unframed
       ? 'var(--color-black-40)'
       : white
@@ -284,6 +297,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           language,
           unframed,
         }),
+        iconOnly ? iconOnlyButtonStyle : '',
         resolvedVariant === 'link'
           ? css({ textDecoration: 'underline', textUnderlineOffset: '3px' })
           : '',
@@ -302,11 +316,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             .filter(Boolean)
             .join(' ')}
         >
-          <span className={[label, resolvedVariant === 'link' ? css({ lineHeight: '1.3' }) : '']
-            .filter(Boolean)
-            .join(' ')}>
-            {children}
-          </span>
+          {iconOnly ? null : (
+            <span
+              className={[label, resolvedVariant === 'link' ? css({ lineHeight: '1.3' }) : '']
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {children}
+            </span>
+          )}
           {icon ? <span className={iconStyle}>{icon}</span> : null}
         </span>
       </span>
