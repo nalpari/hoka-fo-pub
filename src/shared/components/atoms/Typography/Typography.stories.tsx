@@ -189,10 +189,14 @@ export const Body: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body' },
 };
 
+export const ErrorTone: Story = {
+  args: { as: 'p', variant: 'body5', tone: 'error', children: '필수 항목을 확인해주세요.' },
+};
+
 export const InheritedToneAndWeight: Story = {
   render: () => (
     <Box style={{ color: 'var(--colors-blue-100)', fontWeight: 700 }}>
-      <Typography variant="bodyKr4" tone="inherit" weight="inherit">
+      <Typography variant="bodyKr4" weight="inherit">
         부모의 색상과 굵기를 유지하는 텍스트
       </Typography>
     </Box>
@@ -370,9 +374,7 @@ export const AutomaticLanguage: Story = {
             HOKA 123
           </Typography>
           <Box color="var(--color-text-tertiary)">
-            <Typography variant="body3">
-              부모 색상 상속
-            </Typography>
+            <Typography variant="body3">부모 색상 상속</Typography>
             <Typography variant="body3" tone="primary">
               명시적인 primary 색상
             </Typography>

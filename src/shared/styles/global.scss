@@ -130,6 +130,7 @@ $font-faces: (
     --color-text-inverse: var(--hoka-white);
     --color-text-subtle: var(--color-black-60);
     --color-text-tertiary: var(--color-black-50);
+    --color-text-disabled: var(--color-text-tertiary);
     --color-surface-default: var(--hoka-white);
     --color-surface-subtle: var(--color-black-10);
     --color-surface-muted: var(--color-off-white-100);
@@ -150,6 +151,7 @@ $font-faces: (
     --button-focus-ring: var(--color-border-tertiary);
     --button-disabled-bg: var(--color-bg-disabled);
     --button-disabled-fg: var(--color-white-000);
+    --button-disabled-color: var(--color-text-disabled);
     --button-radius-pill: 52px;
     --button-height-short: 40px;
     --button-height-tall: 48px;

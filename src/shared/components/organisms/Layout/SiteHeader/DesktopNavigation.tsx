@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { megaMenus, type MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { cva, css } from 'styled-system/css';
@@ -10,7 +11,9 @@ const styles = {
     minW: 0,
     h: '58px',
     gap: 0,
-    _mobile: { display: 'none !important' },
+    _mobile: {
+      display: 'none !important',
+    },
   }),
   item: cva({
     base: {
@@ -26,7 +29,6 @@ const styles = {
       pt: '0 !important',
       pb: '1 !important',
       bg: 'transparent !important',
-      color: 'var(--hoka-black)',
       _after: {
         position: 'absolute',
         left: '50%',
@@ -42,16 +44,32 @@ const styles = {
         transform: 'translateX(-50%)',
         transition: 'opacity 0.18s ease',
       },
-      _hover: { _after: { opacity: 1 } },
-      _focusVisible: { _after: { opacity: 1 } },
+      _hover: {
+        _after: {
+          opacity: 1,
+        },
+      },
+      _focusVisible: {
+        _after: {
+          opacity: 1,
+        },
+      },
+      '&&': {
+        color: 'var(--hoka-black)',
+      },
     },
-    variants: { active: { true: { _after: { opacity: 1 } }, false: {} } },
+    variants: {
+      active: {
+        true: {
+          _after: {
+            opacity: 1,
+          },
+        },
+        false: {},
+      },
+    },
   }),
   itemLabel: css({
-    fontSize: '14',
-    fontWeight: 'normal',
-    letterSpacing: 0,
-    lineHeight: 'body',
     whiteSpace: 'nowrap',
   }),
 };
@@ -99,7 +117,9 @@ export function DesktopNavigation({
             onEnterMenu(menu.id);
           }}
         >
-          <span className={styles.itemLabel}>{menu.label}</span>
+          <Typography as="span" variant="body4" className={styles.itemLabel}>
+            {menu.label}
+          </Typography>
         </Button>
       ))}
     </nav>

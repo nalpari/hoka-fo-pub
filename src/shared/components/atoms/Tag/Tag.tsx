@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
 import { usePlatform } from '@/shared/context/platform';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -15,8 +16,9 @@ const tag = css({
 });
 
 const labelTag = css({
-  color: 'var(--color-text-primary)',
-  fontSize: '16',
+  '&&': {
+    color: 'var(--color-text-primary)',
+  },
 });
 
 export type TagProps = {
@@ -31,7 +33,9 @@ export function Tag({ children, onDelete }: TagProps) {
 
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
-      <span className={labelTag}>{children}</span>
+      <Typography variant="body3" className={labelTag}>
+        {children}
+      </Typography>
       <IconButton
         aria-label={`${typeof children === 'string' ? children : '태그'} 삭제`}
         onClick={onDelete}

@@ -512,15 +512,16 @@ const typography = cva({
       inherit: { fontWeight: 'inherit', _mobile: { fontWeight: 'inherit' } },
     },
     tone: {
+      error: { color: 'red.100' },
       inherit: { color: 'inherit' },
       primary: { color: 'var(--color-text-primary)' },
       inverse: { color: 'var(--color-text-inverse)' },
       subtle: { color: 'var(--color-text-subtle)' },
+      disabled: { color: 'var(--color-text-disabled)' },
       tertiary: { color: 'var(--color-text-tertiary)' },
       black40: { color: 'var(--color-black-40)' },
       black20: { color: 'var(--color-black-20)' },
       black10: { color: 'var(--color-black-10)' },
-      red100: { color: 'var(--color-red-100)' },
       red80: { color: 'var(--color-red-80)' },
     },
   },
@@ -585,8 +586,8 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
     | 'black20'
     | 'black10'
     | 'inherit'
-    | 'red100'
-    | 'red80';
+    | 'red80'
+    | 'error';
   variant?: TypographyVariant;
   /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';

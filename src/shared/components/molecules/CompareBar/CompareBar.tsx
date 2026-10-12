@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { Product } from '@/mocks/products';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -30,10 +31,12 @@ export function CompareBar({
   return (
     <aside className={root} aria-live="polite">
       <Stack flex="1" gap="3px">
-        <small>상품 비교 · 최대 3개</small>
-        <strong className={css({ fontSize: { _mobile: '12' } })}>
+        <Typography as="small" variant="bodyKr5">
+          상품 비교 · 최대 3개
+        </Typography>
+        <Typography as="strong" variant="body5">
           {products.map((product) => product.name).join('  ·  ')}
-        </strong>
+        </Typography>
       </Stack>
       <Button className={css({ p: '8px 12px' })} onClick={onClear} size="sm">
         선택 해제

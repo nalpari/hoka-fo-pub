@@ -1,5 +1,6 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
 import { Collapsible } from '@/shared/components/atoms/Collapsible/Collapsible';
 import { cva } from 'styled-system/css';
@@ -25,11 +26,6 @@ const trigger = cva({
     border: '0',
     bg: 'transparent',
     textAlign: 'left',
-    fontWeight: 'medium',
-    fontSize: '16',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-    color: 'var(--color-black-100)',
   },
   variants: {
     variant: {
@@ -66,7 +62,13 @@ const panel = cva({
 const content = cva({
   variants: {
     variant: {
-      default: { pb: '22px', color: 'var(--color-text-tertiary)', lineHeight: 'body' },
+      default: {
+        pb: '22px',
+        '&&': {
+          color: 'var(--color-text-tertiary)',
+          lineHeight: 'body',
+        },
+      },
       panel: { p: '3' },
     },
   },
@@ -108,7 +110,7 @@ export function Disclosure({
       onOpenChange={onOpenChange}
       open={open}
       panelClassName={[panel({ variant }), panelClassName].filter(Boolean).join(' ')}
-      trigger={title}
+      trigger={<Typography variant="body3">{title}</Typography>}
       triggerClassName={[trigger({ variant }), triggerClassName].filter(Boolean).join(' ')}
     >
       <Flex className={[content({ variant }), contentClassName].filter(Boolean).join(' ')}>

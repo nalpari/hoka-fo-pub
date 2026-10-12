@@ -16,23 +16,30 @@ const styles = {
       justifyContent: 'space-between',
       w: '100%',
       py: '2',
-      fontFamily: 'korean',
-      letterSpacing: 'korean',
-      _focusVisible: { outline: 'none', boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
-      '&[data-popup-open]': { boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
+      _focusVisible: {
+        outline: 'none',
+        boxShadow: 'inset 0 0 0 2px var(--colors-black-100)',
+      },
+      '&[data-popup-open]': {
+        boxShadow: 'inset 0 0 0 2px var(--colors-black-100)',
+      },
       px: '3',
       border: '0',
       boxShadow: 'inset 0 0 0 1px var(--color-border-tertiary)',
       bg: 'var(--color-white-000)',
-      color: 'var(--color-black-100)',
       cursor: 'pointer',
+      '&&': {
+        color: 'var(--color-black-100)',
+      },
     },
     variants: {
       disabled: {
         true: {
           bg: 'var(--color-black-10)',
-          color: 'var(--color-black-40)',
           cursor: 'not-allowed',
+          '&&': {
+            color: 'var(--color-black-40)',
+          },
         },
         false: {},
       },
@@ -42,11 +49,17 @@ const styles = {
     base: {
       flex: 1,
       textAlign: 'left',
-      fontWeight: 'var(--font-weights-normal)',
-      fontSize: '16',
-      lineHeight: 'body',
     },
-    variants: { disabled: { true: { color: 'var(--color-black-60)' }, false: {} } },
+    variants: {
+      disabled: {
+        true: {
+          '&&': {
+            color: 'var(--color-black-60)',
+          },
+        },
+        false: {},
+      },
+    },
   }),
   positioner: css({ zIndex: 10 }),
   popup: css({
@@ -55,19 +68,21 @@ const styles = {
     overflow: 'hidden',
     border: '1px solid var(--color-black-20)',
     bg: 'var(--color-white-000)',
-    color: 'var(--color-black-100)',
+    '&&': {
+      color: 'var(--color-black-100)',
+    },
   }),
   item: css({
     h: '36px',
     py: '8px',
     px: '16px',
-    fontFamily: 'korean',
-    fontSize: '14',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
     cursor: 'pointer',
-    _hover: { bg: 'var(--color-black-10)' },
-    '&[data-highlighted]': { bg: 'var(--color-black-10)' },
+    _hover: {
+      bg: 'var(--color-black-10)',
+    },
+    '&[data-highlighted]': {
+      bg: 'var(--color-black-10)',
+    },
   }),
   indicator: css({ display: 'block', flexShrink: 0 }),
 };
@@ -123,6 +138,8 @@ export function Dropdown({
   const value = controlledValue ?? uncontrolledValue;
   const selectedOption = options.find((option) => option.value === value);
 
+  const selectedLabel = selectedOption?.label ?? placeholder;
+
   return (
     <div className={css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' })}>
       <BaseSelect.Root
@@ -159,7 +176,13 @@ export function Dropdown({
                   gap: '7px',
                 })
               : '',
-            error ? css({ '&&': { boxShadow: 'inset 0 0 0 2px var(--colors-red-100)' } }) : '',
+            error
+              ? css({
+                  '&&': {
+                    boxShadow: 'inset 0 0 0 2px var(--colors-red-100)',
+                  },
+                })
+              : '',
             className,
           ]
             .filter(Boolean)
@@ -167,7 +190,7 @@ export function Dropdown({
         >
           {label ? (
             <span className={css({ display: 'flex', alignItems: 'center', h: '16px', gap: '4px' })}>
-              <Typography variant="bodyKr5">
+              <Typography variant="body5">
                 {required ? '* ' : ''}
                 {label}
               </Typography>
@@ -185,9 +208,9 @@ export function Dropdown({
           <Flex alignItems="center" justifyContent="space-between" gap="2" w="100%">
             <Flex alignItems="center" gap="2" minW="0" flex="1">
               {selectedOption?.prefix}
-              <span className={styles.label({ disabled })}>
-                {selectedOption?.label ?? placeholder}
-              </span>
+              <Typography as="span" variant="body3" className={styles.label({ disabled })}>
+                {selectedLabel}
+              </Typography>
             </Flex>
             <BaseSelect.Icon>
               {indicator ?? (
@@ -232,7 +255,9 @@ export function Dropdown({
                   <BaseSelect.Item className={styles.item} key={option.value} value={option.value}>
                     <Flex alignItems="center" gap="2">
                       {option.prefix}
-                      <span>{option.label}</span>
+                      <Typography as="span" variant="body4">
+                        {option.label}
+                      </Typography>
                     </Flex>
                   </BaseSelect.Item>
                 ))}
@@ -244,10 +269,11 @@ export function Dropdown({
       {error ? (
         <Typography
           as="p"
-          variant="bodyKr5"
+          variant="body5"
+          tone="error"
           id={`${id}-error`}
           role="alert"
-          className={css({ m: '0', color: 'red.100' })}
+          className={css({ m: '0' })}
         >
           {error}
         </Typography>

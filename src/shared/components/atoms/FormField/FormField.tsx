@@ -196,14 +196,11 @@ export function FormFieldMessage({ className, ...props }: FormFieldMessageProps)
       match
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="bodyKr5">
+        <Typography {...renderProps} as="p" variant="bodyKr5" tone="error">
           {renderProps.children}
         </Typography>
       )}
-      className={withClassName(
-        css({ m: '0', color: 'red.100' }),
-        withClassName('form-field__message', className),
-      )}
+      className={withClassName(css({ m: '0' }), withClassName('form-field__message', className))}
     />
   );
 }

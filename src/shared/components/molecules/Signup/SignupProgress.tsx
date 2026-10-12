@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
@@ -16,18 +17,28 @@ const styles = {
       display: 'grid',
       gap: '5px',
       color: 'var(--color-black-40)',
-      fontSize: '14' /* 기존 13px */,
       textAlign: 'center',
     },
-    '& li::before': { h: '3px', bg: 'var(--color-black-20)', content: '""' },
-    '& span': { fontSize: '12' /* 기존: 11px */ },
+    '& li::before': {
+      h: '3px',
+      bg: 'var(--color-black-20)',
+      content: '""',
+    },
   }),
   current: css({
-    color: 'var(--color-black-100) !important',
-    fontWeight: '700 !important',
-    '&::before': { bg: 'var(--color-black-100) !important' },
+    '&::before': {
+      bg: 'var(--color-black-100) !important',
+    },
+    '&&': {
+      color: 'var(--color-black-100) !important',
+      fontWeight: '700 !important',
+    },
   }),
-  complete: css({ '&::before': { bg: 'var(--color-black-100) !important' } }),
+  complete: css({
+    '&::before': {
+      bg: 'var(--color-black-100) !important',
+    },
+  }),
 };
 
 type SignupProgressProps = {
@@ -53,8 +64,10 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
 
         return (
           <li className={state} key={label}>
-            {position}
-            <span>{label}</span>
+            <Typography variant="body4">{position}</Typography>
+            <Typography as="span" variant="body5">
+              {label}
+            </Typography>
           </li>
         );
       })}

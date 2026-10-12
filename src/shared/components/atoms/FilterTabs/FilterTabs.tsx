@@ -1,11 +1,11 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { usePlatform } from '@/shared/context/platform';
 import { css, cva } from 'styled-system/css';
-import { Flex } from 'styled-system/jsx';
 
 const viewport = css({
   minW: '0',
@@ -14,7 +14,9 @@ const viewport = css({
     overflowX: 'auto',
     overflowY: 'hidden',
     scrollbarWidth: 'none',
-    '&::-webkit-scrollbar': { display: 'none' },
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
 });
 
@@ -31,8 +33,19 @@ const rail = cva({
       },
     },
     variant: {
-      categoryNavigation: { _mobile: { h: '46px', mb: '4', px: '0' } },
-      fill: { gap: '2', _mobile: { gap: '6px' } },
+      categoryNavigation: {
+        _mobile: {
+          h: '46px',
+          mb: '4',
+          px: '0',
+        },
+      },
+      fill: {
+        gap: '2',
+        _mobile: {
+          gap: '6px',
+        },
+      },
       default: {},
     },
   },
@@ -41,35 +54,47 @@ const rail = cva({
 
 const label = cva({
   base: {
-    color: 'var(--color-black-100)',
-    fontSize: '16',
-    fontWeight: 'var(--font-weights-normal)',
-    letterSpacing: 'var(--letter-spacings-korean)',
-    lineHeight: 'var(--line-heights-body)',
+    '&&': {
+      color: 'var(--color-black-100)',
+      fontSize: '16',
+      fontWeight: 'var(--font-weights-normal)',
+      letterSpacing: 'var(--letter-spacings-korean)',
+      lineHeight: 'var(--line-heights-body)',
 
-    _mobile: {
-      fontWeight: 'var(--font-weights-medium)',
-      fontSize: '12',
-      color: 'var(--color-black-60)',
+      _mobile: {
+        fontWeight: 'var(--font-weights-medium)',
+        fontSize: '12',
+        color: 'var(--color-black-60)',
+      },
     },
   },
   variants: {
     variant: {
       fill: {
-        color: 'var(--color-black-60)',
-        fontSize: '16',
-        fontWeight: 'var(--font-weights-medium)',
-        letterSpacing: 'var(--letter-spacings-korean)',
-        lineHeight: 'var(--line-heights-body)',
-        _mobile: { fontSize: '12', fontWeight: 'var(--font-weights-medium)' },
+        '&&': {
+          color: 'var(--color-black-60)',
+          fontSize: '16',
+          fontWeight: 'var(--font-weights-medium)',
+          letterSpacing: 'var(--letter-spacings-korean)',
+          lineHeight: 'var(--line-heights-body)',
+          _mobile: {
+            fontSize: '12',
+            fontWeight: 'var(--font-weights-medium)',
+          },
+        },
       },
       default: {},
       categoryNavigation: {},
     },
     selected: {
       true: {
-        fontWeight: 'var(--font-weights-bold)',
-        _mobile: { fontWeight: 'var(--font-weights-semibold)', color: 'var(--color-white-000)' },
+        '&&': {
+          fontWeight: 'var(--font-weights-bold)',
+          _mobile: {
+            fontWeight: 'var(--font-weights-semibold)',
+            color: 'var(--color-white-000)',
+          },
+        },
       },
       false: {},
     },
@@ -79,9 +104,14 @@ const label = cva({
       variant: 'fill',
       selected: true,
       css: {
-        color: 'var(--color-white-000)',
-        fontWeight: 'var(--font-weights-semibold)',
-        _mobile: { color: 'var(--color-white-000)', fontWeight: 'var(--font-weights-semibold)' },
+        '&&': {
+          color: 'var(--color-white-000)',
+          fontWeight: 'var(--font-weights-semibold)',
+          _mobile: {
+            color: 'var(--color-white-000)',
+            fontWeight: 'var(--font-weights-semibold)',
+          },
+        },
       },
     },
   ],
@@ -92,11 +122,18 @@ const item = cva({
     p: '0',
     border: '0',
     bg: 'transparent',
-    color: 'inherit',
     cursor: 'pointer',
-    _hover: { textDecoration: 'underline' },
-    _disabled: { cursor: 'not-allowed', opacity: '0.55' },
-    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+    _hover: {
+      textDecoration: 'underline',
+    },
+    _disabled: {
+      cursor: 'not-allowed',
+      opacity: '0.55',
+    },
+    _focusVisible: {
+      outline: '2px solid var(--color-focus-ring)',
+      outlineOffset: '2px',
+    },
     _mobile: {
       display: 'flex',
       flexDirection: 'column',
@@ -107,8 +144,12 @@ const item = cva({
       borderRadius: '99px',
       bg: 'var(--color-black-20)',
       whiteSpace: 'nowrap',
-
-      _hover: { textDecoration: 'none' },
+      _hover: {
+        textDecoration: 'none',
+      },
+    },
+    '&&': {
+      color: 'inherit',
     },
   },
   variants: {
@@ -119,12 +160,16 @@ const item = cva({
           p: '0',
           borderRadius: '0',
           bg: 'transparent',
-          color: 'var(--color-text-tertiary)',
-          '& > span': {
-            color: 'inherit',
-            fontSize: '14',
-            fontWeight: 'var(--font-weights-normal)',
-            lineHeight: 'normal',
+        },
+        '&&': {
+          _mobile: {
+            '& > span': {
+              color: 'inherit',
+              fontSize: '14',
+              fontWeight: 'var(--font-weights-normal)',
+              lineHeight: 'normal',
+            },
+            color: 'var(--color-text-tertiary)',
           },
         },
       },
@@ -134,7 +179,9 @@ const item = cva({
         borderRadius: '50px',
         bg: 'var(--color-black-20)',
         whiteSpace: 'nowrap',
-        _hover: { textDecoration: 'none' },
+        _hover: {
+          textDecoration: 'none',
+        },
         _mobile: {
           display: 'flex',
           flexDirection: 'column',
@@ -153,11 +200,19 @@ const item = cva({
       true: {
         _mobile: {
           bg: 'var(--color-black-100)',
-          color: 'var(--color-white-000)',
           '&[data-filter-tabs-variant="categoryNavigation"]': {
             bg: 'transparent',
-            color: 'var(--color-black-100)',
-            '& > span': { fontWeight: 'var(--font-weights-semibold)' },
+          },
+        },
+        '&&': {
+          _mobile: {
+            '&[data-filter-tabs-variant="categoryNavigation"]': {
+              '& > span': {
+                fontWeight: 'var(--font-weights-semibold)',
+              },
+              color: 'var(--color-black-100)',
+            },
+            color: 'var(--color-white-000)',
           },
         },
       },
@@ -170,8 +225,15 @@ const item = cva({
       selected: true,
       css: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
-        _mobile: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+        _mobile: {
+          bg: 'var(--color-black-100)',
+        },
+        '&&': {
+          color: 'var(--color-white-000)',
+          _mobile: {
+            color: 'var(--color-white-000)',
+          },
+        },
       },
     },
   ],
@@ -262,9 +324,9 @@ export function FilterTabs<T extends string = string>({
               }}
               value={option.value}
             >
-              <Flex as="span" className={label({ selected: isSelected, variant })}>
+              <Typography variant="body3" className={label({ selected: isSelected, variant })}>
                 {option.label}
-              </Flex>
+              </Typography>
             </Toggle>
           );
         })}

@@ -1,7 +1,9 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
 import { cva } from 'styled-system/css';
 
 export type StepIndicatorItem = { label: ReactNode; id?: string };
+
 export type StepIndicatorProps = {
   items: StepIndicatorItem[];
   current: number;
@@ -16,22 +18,40 @@ const list = cva({
     gap: '5',
     m: '0',
     p: '0',
-    color: 'var(--color-black-40)',
-    fontSize: '14',
     listStyle: 'none',
+    '&&': {
+      color: 'var(--color-black-40)',
+    },
   },
-  variants: { mobileHidden: { true: { _mobile: { display: 'none' } }, false: {} } },
+  variants: {
+    mobileHidden: {
+      true: {
+        _mobile: {
+          display: 'none',
+        },
+      },
+      false: {},
+    },
+  },
   defaultVariants: { mobileHidden: false },
 });
+
 const item = cva({
-  base: { '& + &::before': { mr: '5', content: '"›"' } },
+  base: {
+    '& + &::before': {
+      mr: '5',
+      content: '"›"',
+    },
+  },
   variants: {
     current: {
       true: {
-        color: 'var(--color-black-100)',
-        fontWeight: 'bold',
         textDecoration: 'underline',
         textUnderlineOffset: '9px',
+        '&&': {
+          color: 'var(--color-black-100)',
+          fontWeight: 'bold',
+        },
       },
       false: {},
     },
@@ -57,7 +77,9 @@ export function StepIndicator({
           className={item({ current: current === index + 1 })}
           key={itemValue.id ?? index}
         >
-          {itemValue.label}
+          <Typography as="span" variant="body4">
+            {itemValue.label}
+          </Typography>
         </li>
       ))}
     </ol>

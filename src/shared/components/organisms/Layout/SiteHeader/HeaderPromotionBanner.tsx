@@ -11,14 +11,16 @@ const promotionBanner = css({
   gap: '10px',
   px: '72px',
   bg: 'var(--hoka-black)',
-  color: 'var(--hoka-white)',
+  '&&': {
+    color: 'var(--hoka-white)',
+  },
 });
 
 const promotionLink = css({
-  '& span': {
-    color: 'var(--hoka-white)',
-    fontWeight: 'medium',
-    fontSize: '14',
+  '&&': {
+    '& span': {
+      color: 'var(--hoka-white)',
+    },
   },
 });
 
@@ -31,7 +33,7 @@ export function HeaderPromotionBanner() {
           신규회원 첫구매 5% 할인 및 스페셜 혜택
         </Typography>
         <ButtonLink className={promotionLink} to="/products" variant="link" size="sm">
-          자세히 보기
+          <Typography variant="textLink2">자세히 보기</Typography>
         </ButtonLink>
       </HStack>
     </aside>

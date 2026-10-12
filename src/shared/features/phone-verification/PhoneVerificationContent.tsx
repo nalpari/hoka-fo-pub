@@ -36,7 +36,6 @@ const styles = {
   carrierSectionLast: css({ gap: '3' }),
   carrierTitle: css({ m: '0' }),
   carrierNames: css({ m: '0' }),
-
 };
 
 const mvnoCarriers = [
@@ -246,7 +245,7 @@ export function PhoneVerificationContent(props: Props) {
                   onChange={(event) => props.onCodeChange(event.target.value)}
                 />
               </FormField>
-              <Typography as="p" variant="bodyKr5" tone="red100" className={styles.countdown}>
+              <Typography as="p" variant="bodyKr5" tone="error" className={styles.countdown}>
                 남은 시간{' '}
                 {Math.floor(secondsLeft / 60)
                   .toString()

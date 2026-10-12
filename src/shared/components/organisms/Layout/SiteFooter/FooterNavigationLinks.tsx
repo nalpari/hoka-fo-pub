@@ -10,8 +10,6 @@ const styles = {
     m: 0,
     p: 0,
     listStyle: 'none',
-    fontSize: '14',
-    lineHeight: 'body',
     _mobile: { m: '-2px 0 0' },
   }),
   link: css({ color: 'var(--color-black-10)' }),

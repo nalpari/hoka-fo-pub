@@ -1,22 +1,20 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { cva } from 'styled-system/css';
 
 const badge = cva({
   base: {
-    color: 'var(--color-red-80)',
-    fontSize: '14',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    _mobile: {
-      fontWeight: 'medium',
-      fontSize: '14' /* 기존 13px */,
-      lineHeight: 'koreanHeading',
+    '&&': {
+      color: 'var(--color-red-80)',
     },
   },
   variants: {
-    exclusive: { true: { color: 'var(--color-blue-100)' }, false: {} },
-    fontWeight: {
-      medium: { fontWeight: 'medium', _mobile: { fontWeight: 'medium' } },
+    exclusive: {
+      true: {
+        '&&': {
+          color: 'var(--color-blue-100)',
+        },
+      },
+      false: {},
     },
   },
 });
@@ -25,19 +23,19 @@ export type Promotion = 'Best' | 'New' | 'Exclusive';
 
 export type PromotionBadgeProps = {
   className?: string;
-  fontWeight?: 'medium';
   promotion: Promotion;
 };
 
 /** Promotional label that highlights exclusive items in the brand color. */
-export function PromotionBadge({ className, fontWeight, promotion }: PromotionBadgeProps) {
+export function PromotionBadge({ className, promotion }: PromotionBadgeProps) {
   return (
-    <span
-      className={[badge({ exclusive: promotion === 'Exclusive', fontWeight }), className]
+    <Typography
+      variant="body4"
+      className={[badge({ exclusive: promotion === 'Exclusive' }), className]
         .filter(Boolean)
         .join(' ')}
     >
       {promotion}
-    </span>
+    </Typography>
   );
 }
