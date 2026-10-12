@@ -76,7 +76,6 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
               <li key={item.label}>
                 <Link to={item.to} onClick={onClose}>
                   <Typography
-                    as="span"
                     variant="body3"
                     className={[
                       styles.itemLabel,

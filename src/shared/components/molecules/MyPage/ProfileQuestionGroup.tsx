@@ -81,9 +81,7 @@ export function ProfileQuestionGroup({ question, number, value, onChange }: Prop
             className={option({ selected: value === optionValue })}
             onClick={() => onChange(optionValue)}
           >
-            <Typography as="span" variant="body4">
-              {optionValue}
-            </Typography>
+            <Typography variant="body4">{optionValue}</Typography>
           </Button>
         ))}
       </div>

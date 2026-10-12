@@ -73,7 +73,7 @@ export function Terms({
       {error ? (
         <Typography
           as="p"
-          variant="bodyKr5"
+          variant="body5"
           tone="error"
           id={`${id}-error`}
           role="alert"

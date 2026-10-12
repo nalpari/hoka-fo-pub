@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FormEvent } from 'react';
 import { css } from 'styled-system/css';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
@@ -17,8 +18,6 @@ const styles = {
     '& > p': {
       mt: '9px',
       mb: 0,
-      color: 'var(--color-text-tertiary)',
-      fontSize: '14',
     },
   }),
   field: css({ mt: '4' }),
@@ -70,7 +69,9 @@ export function SignupDetailsStep({
   return (
     <form className={styles.formSection} onSubmit={onSubmit}>
       <h2>기본 정보 입력</h2>
-      <p>{methodOption.label} 후 필요한 정보를 입력해 주세요.</p>
+      <Typography as="p" variant="body4" tone="tertiary">
+        {methodOption.label} 후 필요한 정보를 입력해 주세요.
+      </Typography>
       <FormField
         variant="boxed"
         htmlFor="signup-name"

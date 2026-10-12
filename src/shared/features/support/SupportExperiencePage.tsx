@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { css, cva } from 'styled-system/css';
@@ -17,9 +18,6 @@ const content = css({ maxW: '760px', '& h2': { fontSize: '20' } });
 
 const intro = css({
   mb: '7',
-  color: 'var(--color-text-tertiary)',
-  fontSize: '14',
-  lineHeight: 'var(--line-heights-body)',
 });
 
 const panel = css({
@@ -60,8 +58,6 @@ const status = cva({
     py: '1',
     borderRadius: 'full',
     bg: 'var(--color-black-20)',
-    fontSize: '12' /* 기존: 11px */,
-    fontWeight: 'var(--font-weights-bold)',
   },
   variants: {
     answered: {
@@ -75,7 +71,6 @@ const field = css({
   display: 'grid',
   gap: '2',
   mb: '5',
-  '& label': { fontSize: '14', fontWeight: 'var(--font-weights-bold)' },
   '& textarea': {
     minH: '160px',
     w: '100%',
@@ -84,12 +79,6 @@ const field = css({
     p: '3',
     fontFamily: 'var(--font-family-base)',
   },
-});
-
-const error = css({
-  color: 'var(--color-red-100)',
-  fontSize: '12',
-  fontWeight: 'var(--font-weights-bold)',
 });
 
 const actions = css({ display: 'flex', justifyContent: 'flex-end', gap: '2', mt: '7' });
@@ -106,8 +95,6 @@ const quickLinks = css({
     p: '3.5',
     border: '1px solid var(--color-border-subtle)',
     textAlign: 'center',
-    fontSize: '14' /* 기존 13px */,
-    fontWeight: 'var(--font-weights-bold)',
   },
 });
 
@@ -143,14 +130,11 @@ const policyCard = css({
     placeItems: 'center',
     minH: '18',
     bg: 'var(--color-white-000)',
-    fontSize: '16',
   },
   '& h3': { mb: '1.5' },
   '& p': {
     m: '0',
     color: 'var(--color-black-60)',
-    fontSize: '14' /* 기존 13px */,
-    lineHeight: 'var(--line-heights-body)',
   },
 });
 
@@ -159,9 +143,6 @@ const tooltip = css({
   p: '3.5',
   borderRadius: 'full',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
-  fontSize: '12',
-  lineHeight: 'var(--line-heights-body)',
 });
 
 const inquiries = [
@@ -194,9 +175,21 @@ function SupportFrame({ activePath, children }: { activePath: string; children: 
 function QuickLinks() {
   return (
     <nav className={quickLinks} aria-label="고객지원 바로가기">
-      <Link to="/support">고객센터</Link>
-      <Link to="/support/faq">FAQs</Link>
-      <Link to="/support/inquiries">1:1 문의하기</Link>
+      <Link to="/support">
+        <Typography variant="body4" weight="bold">
+          고객센터
+        </Typography>
+      </Link>
+      <Link to="/support/faq">
+        <Typography variant="body4" weight="bold">
+          FAQs
+        </Typography>
+      </Link>
+      <Link to="/support/inquiries">
+        <Typography variant="body4" weight="bold">
+          1:1 문의하기
+        </Typography>
+      </Link>
     </nav>
   );
 }
@@ -218,7 +211,9 @@ function InquiryPage() {
   return (
     <SupportFrame activePath="/support/inquiries">
       <PageHeader title="1:1 문의하기" />
-      <p className={intro}>궁금한 사항을 남겨 주시면 확인 후 답변해 드립니다.</p>
+      <Typography as="p" variant="body4" tone="tertiary" className={intro}>
+        궁금한 사항을 남겨 주시면 확인 후 답변해 드립니다.
+      </Typography>
       <div className={actions}>
         <Link to="/support/inquiries/new">
           <Button variant="primary">문의하기</Button>
@@ -231,9 +226,13 @@ function InquiryPage() {
               className={row}
               onClick={() => setSelected(selected === item.id ? null : item.id)}
             >
-              <span className={status({ answered: item.answered })}>
+              <Typography
+                variant="body5"
+                weight="bold"
+                className={status({ answered: item.answered })}
+              >
                 {item.answered ? '답변완료' : '접수완료'}
-              </span>
+              </Typography>
               <strong>{item.title}</strong>
               <time>{item.date}</time>
             </Button>
@@ -255,7 +254,9 @@ function InquiryPage() {
                     <p>안녕하세요. 고객센터 답변입니다. 요청하신 사항을 확인하여 안내드립니다.</p>
                   </>
                 ) : (
-                  <p className={error}>답변을 준비 중입니다.</p>
+                  <Typography as="p" variant="body5" weight="bold" tone="error">
+                    답변을 준비 중입니다.
+                  </Typography>
                 )}
               </article>
             ) : null}
@@ -289,7 +290,9 @@ function InquiryNewPage() {
     <SupportFrame activePath="/support/inquiries">
       <PageHeader title="1:1 문의 등록" />
       <div className={field}>
-        <label htmlFor="inquiry-type">문의 유형</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="inquiry-type">
+          문의 유형
+        </Typography>
         <Select id="inquiry-type">
           <option>주문 / 배송</option>
           <option>교환 / 반품</option>
@@ -298,7 +301,9 @@ function InquiryNewPage() {
         </Select>
       </div>
       <div className={field}>
-        <label htmlFor="inquiry-title">제목</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="inquiry-title">
+          제목
+        </Typography>
         <TextInput
           id="inquiry-title"
           invalid={invalid && !title.trim()}
@@ -306,10 +311,16 @@ function InquiryNewPage() {
           onChange={(event) => setTitle(event.target.value)}
           placeholder="제목을 입력해 주세요"
         />
-        {invalid && !title.trim() ? <span className={error}>제목을 입력해 주세요.</span> : null}
+        {invalid && !title.trim() ? (
+          <Typography variant="body5" weight="bold" tone="error">
+            제목을 입력해 주세요.
+          </Typography>
+        ) : null}
       </div>
       <div className={field}>
-        <label htmlFor="inquiry-body">내용</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="inquiry-body">
+          내용
+        </Typography>
         <textarea
           id="inquiry-body"
           aria-invalid={invalid && !body.trim()}
@@ -318,11 +329,17 @@ function InquiryNewPage() {
           onChange={(event) => setBody(event.target.value)}
           placeholder="문의 내용을 입력해 주세요"
         />
-        {invalid && !body.trim() ? <span className={error}>문의 내용을 입력해 주세요.</span> : null}
+        {invalid && !body.trim() ? (
+          <Typography variant="body5" weight="bold" tone="error">
+            문의 내용을 입력해 주세요.
+          </Typography>
+        ) : null}
         <small>{body.length} / 1,000</small>
       </div>
       <div className={field}>
-        <label htmlFor="inquiry-files">첨부 파일 (선택)</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="inquiry-files">
+          첨부 파일 (선택)
+        </Typography>
         <TextInput
           id="inquiry-files"
           type="file"
@@ -360,11 +377,13 @@ function AfterSalesPage() {
   return (
     <SupportFrame activePath="/support/after-sales">
       <PageHeader title="A/S 처리현황" />
-      <p className={intro}>
+      <Typography as="p" variant="body4" tone="tertiary" className={intro}>
         이름과 휴대폰 번호를 입력하면 나의 A/S 처리 현황을 확인할 수 있습니다.
-      </p>
+      </Typography>
       <div className={field}>
-        <label htmlFor="as-name">이름</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="as-name">
+          이름
+        </Typography>
         <TextInput
           id="as-name"
           invalid={submitted && name.trim().length < 2}
@@ -373,11 +392,15 @@ function AfterSalesPage() {
           placeholder="이름을 입력해 주세요"
         />
         {submitted && name.trim().length < 2 ? (
-          <span className={error}>이름을 입력해 주세요.</span>
+          <Typography variant="body5" weight="bold" tone="error">
+            이름을 입력해 주세요.
+          </Typography>
         ) : null}
       </div>
       <div className={field}>
-        <label htmlFor="as-phone">휴대폰 번호</label>
+        <Typography as="label" variant="body4" weight="bold" htmlFor="as-phone">
+          휴대폰 번호
+        </Typography>
         <TextInput
           id="as-phone"
           invalid={submitted && !/^01[0-9]{8,9}$/.test(phone.replace(/-/g, ''))}
@@ -386,7 +409,9 @@ function AfterSalesPage() {
           placeholder="01012341234"
         />
         {submitted && !/^01[0-9]{8,9}$/.test(phone.replace(/-/g, '')) ? (
-          <span className={error}>올바른 휴대폰 번호를 입력해 주세요.</span>
+          <Typography variant="body5" weight="bold" tone="error">
+            올바른 휴대폰 번호를 입력해 주세요.
+          </Typography>
         ) : null}
       </div>
       <Button fullWidth variant="primary" onClick={() => setSubmitted(true)}>
@@ -401,9 +426,13 @@ function AfterSalesPage() {
               '처리완료 · Mach X · 교환',
             ].map((item, index) => (
               <article className={row} key={item}>
-                <span className={status({ answered: index === 2 })}>
+                <Typography
+                  variant="body5"
+                  weight="bold"
+                  className={status({ answered: index === 2 })}
+                >
                   {index === 2 ? '처리완료' : '처리중'}
-                </span>
+                </Typography>
                 <strong>{item}</strong>
                 <time>2026.09.{12 - index}</time>
               </article>
@@ -500,10 +529,10 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
                 <b>{item}</b>
                 <small>자세히 보기 ⓘ</small>
                 {tip === item ? (
-                  <span className={tooltip}>
+                  <Typography variant="body5" tone="inverse" className={tooltip}>
                     쿠폰은 발급 후 한 달 동안 사용할 수 있으며, 적용 조건은 쿠폰 상세에서 확인할 수
                     있습니다.
-                  </span>
+                  </Typography>
                 ) : null}
               </Button>
             ))}
@@ -511,14 +540,16 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
           <h2 className={css({ mt: '38px' })}>온라인 회원등급 및 혜택 안내</h2>
           {tiers.map(([tier, criteria, benefit]) => (
             <article className={policyCard} key={tier}>
-              <b>{tier}</b>
+              <Typography as="b" variant="heading9">
+                {tier}
+              </Typography>
               <div>
                 <h3>{criteria}</h3>
-                <p>
+                <Typography as="p" variant="body4">
                   {benefit}
                   <br />
                   온라인과 오프라인 혜택은 중복 적용되지 않을 수 있습니다.
-                </p>
+                </Typography>
               </div>
             </article>
           ))}

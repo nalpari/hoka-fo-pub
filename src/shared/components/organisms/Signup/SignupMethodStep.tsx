@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
@@ -13,20 +14,12 @@ type SignupMethodOption = {
 };
 
 const styles = {
-  choice: css({}),
   title: css({
     m: 0,
-    fontSize: '20' /* 기존 22px */,
-    fontWeight: 'var(--font-weights-black)',
-    lineHeight: 'var(--line-heights-body)',
-    letterSpacing: 'var(--letter-spacings-korean)',
   }),
   description: css({
     mt: '3',
     mb: 0,
-    color: 'var(--color-text-tertiary)',
-    fontSize: '16',
-    lineHeight: 'var(--line-heights-body)',
   }),
   benefits: css({
     display: 'grid',
@@ -46,7 +39,6 @@ const styles = {
     color: 'var(--color-black-100)',
     textAlign: 'center',
     '& svg': { w: '20px', h: '20px' },
-    '& span': { fontSize: '14', lineHeight: 'var(--line-heights-body)' },
   }),
   benefitsLink: css({
     display: 'block',
@@ -54,7 +46,6 @@ const styles = {
     mx: 'auto',
     mt: '6',
     color: 'var(--color-black-100)',
-    fontSize: '12',
     textDecoration: 'underline',
     textUnderlineOffset: '3px',
   }),
@@ -69,9 +60,6 @@ const styles = {
   ageNote: css({
     mt: '4',
     mb: 0,
-    color: 'var(--color-black-100)',
-    fontSize: '12',
-    lineHeight: 'var(--line-heights-body)',
     textAlign: 'center',
   }),
 };
@@ -106,41 +94,43 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
   const methodById = new Map(methods.map((method) => [method.id, method]));
 
   return (
-    <section className={styles.choice} aria-labelledby="signup-title">
-      <h1 className={styles.title} id="signup-title">
+    <section aria-labelledby="signup-title">
+      <Typography as="h1" variant="body2" weight="black" className={styles.title} id="signup-title">
         가입과 동시에 시작되는 혜택!
-      </h1>
-      <p className={styles.description}>HOKA Korea 온라인 회원만을 위한 특별한 혜택!</p>
+      </Typography>
+      <Typography as="p" variant="body3" tone="tertiary" className={styles.description}>
+        HOKA Korea 온라인 회원만을 위한 특별한 혜택!
+      </Typography>
 
       <div className={styles.benefits} aria-label="회원가입 혜택">
         <div className={styles.benefit}>
           <Icon name="gift" size="18px" />
-          <span>
+          <Typography variant="body4">
             신규가입
             <br />
             1만원 쿠폰
-          </span>
+          </Typography>
         </div>
         <div className={styles.benefit}>
           <Icon name="partyHorn" size="18px" />
-          <span>
+          <Typography variant="body4">
             기념일
             <br />
             축하 쿠폰
-          </span>
+          </Typography>
         </div>
         <div className={styles.benefit}>
           <Icon name="medal" size="18px" />
-          <span>
+          <Typography variant="body4">
             회원 등급별
             <br />
             혜택
-          </span>
+          </Typography>
         </div>
       </div>
 
       <Link className={styles.benefitsLink} to="/support/member-benefits">
-        회원 등급별 혜택 더 보기
+        <Typography variant="body5">회원 등급별 혜택 더 보기</Typography>
       </Link>
 
       <div className={styles.methods}>
@@ -188,7 +178,9 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           만 14세 이상 회원가입
         </Button>
       </div>
-      <p className={styles.ageNote}>만 14세 미만은 회원가입 및 이용이 불가합니다.</p>
+      <Typography as="p" variant="body5" tone="primary" className={styles.ageNote}>
+        만 14세 미만은 회원가입 및 이용이 불가합니다.
+      </Typography>
     </section>
   );
 }

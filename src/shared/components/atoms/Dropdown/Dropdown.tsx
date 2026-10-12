@@ -208,7 +208,7 @@ export function Dropdown({
           <Flex alignItems="center" justifyContent="space-between" gap="2" w="100%">
             <Flex alignItems="center" gap="2" minW="0" flex="1">
               {selectedOption?.prefix}
-              <Typography as="span" variant="body3" className={styles.label({ disabled })}>
+              <Typography variant="body3" className={styles.label({ disabled })}>
                 {selectedLabel}
               </Typography>
             </Flex>
@@ -255,9 +255,7 @@ export function Dropdown({
                   <BaseSelect.Item className={styles.item} key={option.value} value={option.value}>
                     <Flex alignItems="center" gap="2">
                       {option.prefix}
-                      <Typography as="span" variant="body4">
-                        {option.label}
-                      </Typography>
+                      <Typography variant="body4">{option.label}</Typography>
                     </Flex>
                   </BaseSelect.Item>
                 ))}
@@ -279,7 +277,7 @@ export function Dropdown({
         </Typography>
       ) : null}
       {hint ? (
-        <Typography as="p" variant="bodyKr5" id={`${id}-hint`} className={css({ m: '0' })}>
+        <Typography as="p" variant="body5" id={`${id}-hint`} className={css({ m: '0' })}>
           {hint}
         </Typography>
       ) : null}

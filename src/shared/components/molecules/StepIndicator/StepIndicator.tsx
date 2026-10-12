@@ -77,7 +77,7 @@ export function StepIndicator({
           className={item({ current: current === index + 1 })}
           key={itemValue.id ?? index}
         >
-          <Typography as="span" variant="body4">
+          <Typography  variant="body4">
             {itemValue.label}
           </Typography>
         </li>

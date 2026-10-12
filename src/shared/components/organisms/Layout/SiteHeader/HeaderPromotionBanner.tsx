@@ -29,7 +29,7 @@ export function HeaderPromotionBanner() {
   return (
     <aside className={promotionBanner} aria-label="신규회원 혜택 안내">
       <HStack gap="4">
-        <Typography as="span" tone="inverse" variant="action">
+        <Typography tone="inverse" variant="action">
           신규회원 첫구매 5% 할인 및 스페셜 혜택
         </Typography>
         <ButtonLink className={promotionLink} to="/products" variant="link" size="sm">

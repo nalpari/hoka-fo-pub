@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
@@ -34,7 +35,6 @@ const filter = cva({
     py: '9px',
     border: '1px solid var(--color-border-tertiary)',
     bg: 'var(--color-white-000)',
-    fontSize: '14' /* 기존 13px */,
   },
   variants: {
     active: {
@@ -108,16 +108,17 @@ export function CouponManager({ coupons }: Props) {
         </Button>
       </div>
       {message ? (
-        <p
+        <Typography
+          as="p"
+          variant="body5"
+          weight="bold"
           className={css({
             mt: '2',
             color: message.includes('등록') ? 'var(--color-black-60)' : 'var(--color-red-100)',
-            fontSize: '12',
-            fontWeight: 'var(--font-weights-bold)',
           })}
         >
           {message}
-        </p>
+        </Typography>
       ) : null}
       <ToggleGroup
         aria-label="쿠폰 종류"
@@ -130,7 +131,7 @@ export function CouponManager({ coupons }: Props) {
       >
         {(['전체', '상품 할인', '배송 할인'] as const).map((value) => (
           <Toggle className={filter({ active: category === value })} key={value} value={value}>
-            {value}
+            <Typography variant="body4">{value}</Typography>
           </Toggle>
         ))}
       </ToggleGroup>
@@ -138,8 +139,10 @@ export function CouponManager({ coupons }: Props) {
         {visibleCoupons.map((coupon) => (
           <article className={couponRow} key={coupon.id}>
             <strong>{coupon.benefit}</strong>
-            <b>{coupon.name}</b>
-            <span>{coupon.condition}</span>
+            <Typography as="b" variant="body4" weight="bold">
+              {coupon.name}
+            </Typography>
+            <Typography variant="body4">{coupon.condition}</Typography>
             <time>{coupon.expiresAt}</time>
           </article>
         ))}

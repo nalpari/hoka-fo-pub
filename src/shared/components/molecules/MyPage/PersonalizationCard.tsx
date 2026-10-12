@@ -35,9 +35,6 @@ const actionStyle = css({
   flex: 'none',
   textDecoration: 'underline',
   textUnderlineOffset: '4px',
-  '&&': {
-    fontSize: '14' /* 기존 13px */,
-  },
 });
 
 export function PersonalizationCard({ eyebrow, title, description, to, action }: Props) {
@@ -54,8 +51,10 @@ export function PersonalizationCard({ eyebrow, title, description, to, action }:
           {description}
         </Typography>
       </div>
-      <Link className={actionStyle} to={to}>
-        {action} →
+      <Link to={to}>
+        <Typography variant="textLink2" className={actionStyle}>
+          {action} →
+        </Typography>
       </Link>
     </article>
   );

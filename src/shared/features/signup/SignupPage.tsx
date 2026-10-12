@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
@@ -47,13 +45,6 @@ const styles = {
     mt: '2',
     mb: '7',
     fontSize: '32' /* 기존 34px */,
-    letterSpacing: 'var(--letter-spacings-korean)',
-  }),
-  eyebrow: css({
-    m: 0,
-    color: 'var(--color-text-tertiary)',
-    fontSize: '12',
-    fontWeight: 'var(--font-weights-bold)',
     letterSpacing: 'var(--letter-spacings-korean)',
   }),
 };
@@ -118,7 +109,6 @@ export function SignupPage() {
           <SignupMethodStep methods={signupMethods} onSelect={startSignup} />
         ) : (
           <>
-            <p className={styles.eyebrow}>JOIN HOKA</p>
             <h1 className={styles.pageTitle} id="signup-title">
               회원가입
             </h1>

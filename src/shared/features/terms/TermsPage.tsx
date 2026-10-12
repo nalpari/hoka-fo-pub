@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
@@ -46,85 +47,113 @@ const styles = {
     h: '575px',
     p: '34px var(--spacing-8)',
     border: '1px solid var(--color-border-subtle)',
-    fontSize: '12',
-    lineHeight: 'var(--line-heights-body)',
     '& h3': {
       mt: 0,
       mb: '26px',
-      color: 'var(--color-red-80)',
-      fontSize: '14',
     },
-    '& h4': { my: '4.5', fontSize: '14' /* 기존 13px */ },
+    '& h4': { my: '4.5' },
     '& p': { m: 0 },
     '& table': { w: '100%', mt: '4.5', borderCollapse: 'collapse', textAlign: 'center' },
     '& th, & td': { p: '3 1.5', border: '1px solid var(--color-black-60)' },
-    '& th': { bg: 'var(--color-black-20)', fontWeight: 'var(--font-weights-normal)' },
-    _mobile: { h: '490px', p: '22px 4', fontSize: '12' /* 기존: 11px */ },
+    '& th': { bg: 'var(--color-black-20)' },
+    _mobile: { h: '490px', p: '22px 4' },
   }),
 };
 
 const terms = (
   <>
-    <h3>제 1 장 총칙</h3>
-    <h4>제 1조 (목적)</h4>
-    <p>
+    <Typography as="h3" variant="heading9" tone="red80">
+      제 1 장 총칙
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      제 1조 (목적)
+    </Typography>
+    <Typography as="p" variant="body5">
       이 약관은 호카가 운영하는 웹사이트 및 모바일 페이지에서 제공하는 인터넷 관련 서비스의 이용
       조건과 절차, 회원과 회사의 권리 및 의무를 규정함을 목적으로 합니다.
-    </p>
-    <h4>제 2조 (약관의 효력 및 변경)</h4>
-    <p>
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      제 2조 (약관의 효력 및 변경)
+    </Typography>
+    <Typography as="p" variant="body5">
       회사는 이용자가 쉽게 알 수 있도록 서비스 화면에 게시합니다. 회사는 관련 법령을 위배하지 않는
       범위에서 이 약관을 변경할 수 있으며, 변경된 약관은 공지한 날부터 효력이 발생합니다.
-    </p>
-    <h4>제 3조 (약관 외 준칙)</h4>
-    <p>
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      제 3조 (약관 외 준칙)
+    </Typography>
+    <Typography as="p" variant="body5">
       이 약관에 명시되지 않은 사항에 대해서는 관계 법령 및 회사가 정한 서비스의 세부 이용지침에
       따릅니다.
-    </p>
-    <h4>제 4조 (용어의 정의)</h4>
-    <p>
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      제 4조 (용어의 정의)
+    </Typography>
+    <Typography as="p" variant="body5">
       회원이란 이 약관에 동의하고 개인정보를 제공하여 아이디와 비밀번호를 발급 받아 회원 등록을
       완료한 자를 말합니다. 서비스란 회사가 회원에게 제공하는 온라인 쇼핑 및 관련 서비스를
       의미합니다.
-    </p>
+    </Typography>
   </>
 );
 
 const privacy = (
   <>
-    <h3>[ 호카 개인정보 처리방침 ]</h3>
-    <p>
+    <Typography as="h3" variant="heading9" tone="red80">
+      [ 호카 개인정보 처리방침 ]
+    </Typography>
+    <Typography as="p" variant="body5">
       호카는 이용자의 자유와 권리 보호를 위해 개인정보보호법 등 관련 법령을 준수합니다. 개인정보
       처리방침을 통해 수집하는 개인정보의 항목과 이용 목적을 안내드립니다.
-    </p>
-    <h4>개인정보 처리방침의 주요 내용</h4>
-    <p>
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      개인정보 처리방침의 주요 내용
+    </Typography>
+    <Typography as="p" variant="body5">
       제 1조 개인정보 처리 목적, 항목, 보유 및 이용기간
       <br />제 2조 개인정보의 제3자 제공
       <br />제 3조 개인정보의 처리위탁
       <br />제 4조 개인정보 파기 절차 및 방법
       <br />제 5조 개인정보 보호조치
-    </p>
-    <h4>제 1조 (개인정보 처리 목적, 항목, 보유 및 이용기간)</h4>
-    <p>
+    </Typography>
+    <Typography as="h4" variant="heading9">
+      제 1조 (개인정보 처리 목적, 항목, 보유 및 이용기간)
+    </Typography>
+    <Typography as="p" variant="body5">
       회사는 서비스 제공을 위해 필요한 최소한의 범위에서 개인정보를 수집하고 이용합니다. 수집된
       정보는 회원 가입, 주문 및 배송, 고객 상담과 서비스 개선을 위해 사용됩니다.
-    </p>
+    </Typography>
     <table>
       <thead>
         <tr>
-          <th>법적 근거</th>
-          <th>업무 및 수집목적</th>
-          <th>수집 항목</th>
-          <th>보유 및 이용기간</th>
+          <Typography as="th" variant="body5">
+            법적 근거
+          </Typography>
+          <Typography as="th" variant="body5">
+            업무 및 수집목적
+          </Typography>
+          <Typography as="th" variant="body5">
+            수집 항목
+          </Typography>
+          <Typography as="th" variant="body5">
+            보유 및 이용기간
+          </Typography>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>개인정보보호법</td>
-          <td>회원가입 및 관리</td>
-          <td>아이디, 비밀번호, 성명, 연락처</td>
-          <td>회원 탈퇴 시까지</td>
+          <Typography as="td" variant="body5">
+            개인정보보호법
+          </Typography>
+          <Typography as="td" variant="body5">
+            회원가입 및 관리
+          </Typography>
+          <Typography as="td" variant="body5">
+            아이디, 비밀번호, 성명, 연락처
+          </Typography>
+          <Typography as="td" variant="body5">
+            회원 탈퇴 시까지
+          </Typography>
         </tr>
       </tbody>
     </table>

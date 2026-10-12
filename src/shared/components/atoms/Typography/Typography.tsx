@@ -571,23 +571,15 @@ export type TypographyVariant =
   | 'textLink2'
   | 'textLink3';
 
+export type TypographyTone = NonNullable<Parameters<typeof typography>[0]>['tone'];
+
 export type TypographyProps<T extends ElementType = 'span'> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'color'
 > & {
   as?: T;
   children: ReactNode;
-  tone?:
-    | 'primary'
-    | 'inverse'
-    | 'subtle'
-    | 'tertiary'
-    | 'black40'
-    | 'black20'
-    | 'black10'
-    | 'inherit'
-    | 'red80'
-    | 'error';
+  tone?: TypographyTone;
   variant?: TypographyVariant;
   /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';

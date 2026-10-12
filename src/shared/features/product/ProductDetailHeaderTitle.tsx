@@ -1,5 +1,5 @@
 import { css } from 'styled-system/css';
-import { VStack, Box, HStack } from 'styled-system/jsx';
+import { VStack, HStack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -15,9 +15,9 @@ export function ProductDetailHeaderTitle({ product }: ProductDetailHeaderTitlePr
           {product.name}
         </Typography>
         <Typography as="p" className={css({ m: '0' })} variant="productPrice">
-          <HStack gap="0" alignItems="end">
+          <HStack as="span" gap="0" alignItems="end">
             {product.price.toLocaleString('ko-KR')}
-            <Box className={css({ fontWeight: 'bold' })}>원</Box>
+            <Typography variant="priceEmphasis">원</Typography>
           </HStack>
         </Typography>
       </VStack>

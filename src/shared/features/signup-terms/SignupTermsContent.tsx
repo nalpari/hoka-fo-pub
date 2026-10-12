@@ -78,7 +78,7 @@ export function SignupTermsContent(props: Props) {
         </Typography>
         <Box className={styles.all}>
           <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
-            <Typography variant="bodyKr5">모든 약관을 확인하고 전체동의 합니다</Typography>
+            <Typography variant="body5">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>
         </Box>
         <Stack className={styles.list}>
@@ -94,7 +94,7 @@ export function SignupTermsContent(props: Props) {
                     : undefined
                 }
               >
-                <Typography variant="bodyKr5">
+                <Typography variant="body5">
                   ({term.required ? '필수' : '선택'}) {term.label}
                 </Typography>
               </Terms>

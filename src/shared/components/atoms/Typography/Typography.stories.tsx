@@ -196,7 +196,7 @@ export const ErrorTone: Story = {
 export const InheritedToneAndWeight: Story = {
   render: () => (
     <Box style={{ color: 'var(--colors-blue-100)', fontWeight: 700 }}>
-      <Typography variant="bodyKr4" weight="inherit">
+      <Typography variant="body4" weight="inherit">
         부모의 색상과 굵기를 유지하는 텍스트
       </Typography>
     </Box>
@@ -206,10 +206,10 @@ export const InheritedToneAndWeight: Story = {
 export const EmphasisWeights: Story = {
   render: () => (
     <Stack>
-      <Typography variant="bodyKr4" weight="semibold">
+      <Typography variant="body4" weight="semibold">
         Semibold 강조
       </Typography>
-      <Typography as="strong" variant="bodyKr4" weight="bold">
+      <Typography as="strong" variant="body4" weight="bold">
         Bold 강조
       </Typography>
       <Typography as="h3" variant="body3" weight="black">
@@ -347,7 +347,7 @@ export const FigmaTypeScale: Story = {
         프리텐다드 한글 헤딩 5
       </Typography>
       <Typography variant="body3">The Future HOKA Body 3</Typography>
-      <Typography variant="bodyKr3">프리텐다드 한글 본문 3</Typography>
+      <Typography variant="body3">프리텐다드 한글 본문 3</Typography>
       <Typography variant="mono4">Mono label</Typography>
       <Typography as="a" href="#type-scale" variant="textLink2">
         Text Link 2

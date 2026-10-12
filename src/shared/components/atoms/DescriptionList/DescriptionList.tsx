@@ -1,17 +1,16 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const list = css({
   display: 'grid',
   gridTemplateColumns: 'var(--description-list-label-width, max-content) minmax(0, 1fr)',
   gap: '10px 16px',
   m: '0',
-  fontSize: '14' /* 기존 13px */,
-  lineHeight: 'body',
 });
-const term = css({ fontWeight: 'bold' });
-const detail = css({ m: '0', color: 'var(--color-text-tertiary)' });
+
 export type DescriptionListItem = { term: ReactNode; description: ReactNode };
+
 export type DescriptionListProps = {
   items: DescriptionListItem[];
   labelWidth?: string;
@@ -27,8 +26,12 @@ export function DescriptionList({ items, labelWidth, className }: DescriptionLis
     >
       {items.map((item, index) => (
         <div key={index} style={{ display: 'contents' }}>
-          <dt className={term}>{item.term}</dt>
-          <dd className={detail}>{item.description}</dd>
+          <Typography as="dt" variant="heading9">
+            {item.term}
+          </Typography>
+          <Typography as="dd" variant="body4" tone="tertiary">
+            {item.description}
+          </Typography>
         </div>
       ))}
     </dl>

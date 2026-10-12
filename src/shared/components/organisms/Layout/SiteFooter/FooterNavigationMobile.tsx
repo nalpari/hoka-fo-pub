@@ -18,7 +18,7 @@ export function FooterNavigationMobile() {
     value: group.title,
     title: (
       <HStack py="22px">
-        <Typography as="span" variant="heading9" tone="inverse" className={styles.title}>
+        <Typography variant="heading9" tone="inverse" className={styles.title}>
           {group.title}
         </Typography>
       </HStack>

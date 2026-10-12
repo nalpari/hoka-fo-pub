@@ -1,5 +1,7 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { useState } from 'react';
 import type { Product } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
@@ -20,6 +22,7 @@ type ProductPurchasePanelProps = {
   onOpenSizeGuide?: () => void;
   onViewReviews: () => void;
 };
+
 const won = (value: number) => `${value.toLocaleString('ko-KR')}원`;
 
 function getWidthOptions(product: Product, color: string) {
@@ -66,9 +69,14 @@ export function ProductPurchasePanel({
     >
       <ProductPurchaseSummary onViewReviews={onViewReviews} product={product} />
       {product.launchStatus === 'COMING' && <LaunchNotice status={product.launchStatus} />}
-      <strong className={css({ display: 'block', my: '5', fontSize: '24' /* 기존 26px */ })}>
+      <Typography
+        as="strong"
+        variant="body1"
+        weight="bold"
+        className={css({ display: 'block', my: '5' })}
+      >
         {won(product.price)}
-      </strong>
+      </Typography>
       <hr />
       <WidthSelector
         onChange={(nextWidth) => {
@@ -105,12 +113,15 @@ export function ProductPurchasePanel({
         value={size}
       />
       {selectionError && (
-        <p
-          className={css({ m: '-12px 0 18px', color: 'var(--color-red-100)', fontSize: '14' })}
+        <Typography
+          as="p"
+          variant="body4"
+          tone="error"
+          className={css({ m: '-12px 0 18px' })}
           role="alert"
         >
           {selectionError}
-        </p>
+        </Typography>
       )}
       <QuantityStepper onChange={setQuantity} value={quantity} />
       <PurchaseActions
@@ -120,9 +131,9 @@ export function ProductPurchasePanel({
         wish={wish}
       />
       <DeliveryBenefits />
-      <p className={css({ color: 'var(--color-text-tertiary)', fontSize: '12' })}>
+      <Typography as="p" variant="body5" tone="tertiary">
         실제 결제와 주문 전송은 연결하지 않은 데모입니다.
-      </p>
+      </Typography>
     </article>
   );
 }

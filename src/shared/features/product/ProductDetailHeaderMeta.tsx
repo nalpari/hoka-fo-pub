@@ -19,15 +19,15 @@ export function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProp
   return (
     <>
       <VStack alignItems="start" gap="2">
-        {product.promotion && <PromotionBadge fontWeight="medium" promotion={product.promotion} />}
+        {product.promotion && <PromotionBadge weight="medium" promotion={product.promotion} />}
         <HStack gap="2" color="var(--color-black-60)">
-          <Typography as="span" variant="productDetailGender" style={{ color: 'inherit' }}>
+          <Typography variant="productDetailGender" style={{ color: 'inherit' }}>
             {product.gender}
           </Typography>
           {uses && (
             <>
               <Divider orientation="vertical" h="3" w="1px" bg="var(--color-black-60)" />
-              <Typography as="span" variant="productUse" style={{ color: 'inherit' }}>
+              <Typography variant="productUse" style={{ color: 'inherit' }}>
                 {uses}
               </Typography>
             </>

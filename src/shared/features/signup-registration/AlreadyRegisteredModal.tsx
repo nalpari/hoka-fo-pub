@@ -30,10 +30,10 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
       }
     >
       <Stack gap="4" className={styles.body}>
-        <Typography as="h2" variant="bodyKr2" className={styles.heading}>
+        <Typography as="h2" variant="body2" className={styles.heading}>
           이미 가입된 회원이 있습니다
         </Typography>
-        <Typography as="p" variant="bodyKr4" className={styles.description}>
+        <Typography as="p" variant="body4" className={styles.description}>
           입력하신 정보로 이미 가입한 회원이 있습니다. 가입정보가 기억나지 않으시면 ID/비밀번호 찾기
           메뉴를 사용하거나 고객센터로 문의해주세요.
         </Typography>

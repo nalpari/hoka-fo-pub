@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css } from 'styled-system/css';
@@ -108,14 +109,11 @@ const styles = {
     '& header small': { color: 'var(--color-black-40)' },
     '& header button': { p: 0, border: 0, fontSize: '24' /* 기존 26px */ },
     '& > strong': { display: 'block', mt: '22px' },
-    '& h2': { fontSize: '16' /* 기존 15px */ },
-    '& p': { fontSize: '14' /* 기존 13px */, lineHeight: 'var(--line-heights-body)' },
     '& section': {
       mt: '30px',
       pt: '18px',
       borderTop: '1px solid var(--color-black-20)',
     },
-    '& section h3': { fontSize: '16' /* 기존 15px */ },
     '& section div': { display: 'flex', gap: '6px' },
     '& section button': {
       display: 'grid',
@@ -207,10 +205,16 @@ export function ReviewGalleryModal({
                 </IconButton>
               </header>
               <strong>★★★★★</strong>
-              <h2>{review.title}</h2>
-              <p>{review.body}</p>
+              <Typography as="h2" variant="heading9">
+                {review.title}
+              </Typography>
+              <Typography as="p" variant="body4">
+                {review.body}
+              </Typography>
               <section>
-                <h3>이 상품의 다른 리뷰</h3>
+                <Typography as="h3" variant="heading9">
+                  이 상품의 다른 리뷰
+                </Typography>
                 <Box>
                   {reviews.map((item, index) => (
                     <Button

@@ -1,5 +1,7 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { useState } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
@@ -21,7 +23,7 @@ const reward = css({
 const aiSummary = css({
   p: '6',
   bg: 'var(--color-black-10)',
-  '& h3': { m: '0 0 14px', fontSize: '16' /* 기존 18px */ },
+  '& h3': { m: '0 0 14px' },
   '& p': { color: 'var(--color-black-40) !important' },
 });
 
@@ -38,7 +40,7 @@ const rating = css({
 const score = css({
   textAlign: 'center',
   '& strong': { display: 'block', fontSize: '42' },
-  '& p': { my: '2', mx: '0', fontSize: '14' /* 기존 13px */ },
+  '& p': { my: '2', mx: '0' },
   '& small': { color: 'var(--color-text-tertiary)' },
 });
 
@@ -58,7 +60,6 @@ const reviewFilter = cva({
     border: '1px solid var(--color-black-20)',
     borderRadius: 'full',
     bg: 'var(--color-white-000)',
-    fontSize: '12',
   },
   variants: {
     active: {
@@ -92,8 +93,6 @@ const reviewMeta = css({
     px: '1.5',
     py: '1',
     bg: 'var(--color-black-10)',
-    fontSize: '12' /* 기존: 11px */,
-    fontWeight: 'var(--font-weights-bold)',
   },
   '& > b': { gridColumn: '2', gridRow: '1', _mobile: { gridColumn: '1', gridRow: 'auto' } },
   '& > small': {
@@ -107,8 +106,7 @@ const reviewMeta = css({
 const reviewContent = css({
   gridColumn: '1',
   '& > strong': { letterSpacing: 'var(--letter-spacings-korean)' },
-  '& h3': { mt: '2', mx: '0', mb: '1', fontSize: '14' },
-  '& > p': { fontSize: '14' /* 기존 13px */ },
+  '& h3': { mt: '2', mx: '0', mb: '1' },
   '& > button': {
     px: '0',
     border: '0',
@@ -180,15 +178,17 @@ export function ProductReviews() {
         배송 완료 후 30일 이내에 상품평 작성 시, 최대 2,000 마일리지 혜택을 드립니다.
       </p>
       <section className={aiSummary}>
-        <h3>✦ AI 리뷰 요약</h3>
+        <Typography as="h3" variant="heading9">
+          ✦ AI 리뷰 요약
+        </Typography>
         <p>리뷰가 더 모이면, AI가 내용을 정리해 알려드릴게요.</p>
       </section>
       <section className={rating}>
         <Box className={score}>
           <strong>★5.0</strong>
-          <p>
+          <Typography as="p" variant="body4">
             97%가 <b>아주 좋아요</b>라고 평가했습니다.
-          </p>
+          </Typography>
           <small>리뷰 104개</small>
         </Box>
       </section>
@@ -203,7 +203,7 @@ export function ProductReviews() {
       >
         {['최신순', 'AI 추천순', '별점순'].map((value) => (
           <Toggle className={reviewFilter({ active: filter === value })} key={value} value={value}>
-            {value}
+            <Typography variant="body5">{value}</Typography>
           </Toggle>
         ))}
       </ToggleGroup>
@@ -213,7 +213,9 @@ export function ProductReviews() {
           return (
             <article key={review.author}>
               <Box className={reviewMeta}>
-                <span>상품평 추천</span>
+                <Typography variant="body5" weight="bold">
+                  상품평 추천
+                </Typography>
                 <b>{review.author}</b>
                 <small>
                   관리자 리뷰
@@ -223,8 +225,10 @@ export function ProductReviews() {
               </Box>
               <Box className={reviewContent}>
                 <strong>★★★★★</strong>
-                <h3>{review.title}</h3>
-                <p>
+                <Typography as="h3" variant="body4" weight="bold">
+                  {review.title}
+                </Typography>
+                <Typography as="p" variant="body4">
                   {review.body}
                   {expanded && (
                     <>
@@ -232,7 +236,7 @@ export function ProductReviews() {
                       {review.more}
                     </>
                   )}
-                </p>
+                </Typography>
                 <ToggleButton
                   expanded={expanded}
                   className={moreButton}

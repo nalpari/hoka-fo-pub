@@ -31,7 +31,7 @@ export function CompareBar({
   return (
     <aside className={root} aria-live="polite">
       <Stack flex="1" gap="3px">
-        <Typography as="small" variant="bodyKr5">
+        <Typography as="small" variant="body5">
           상품 비교 · 최대 3개
         </Typography>
         <Typography as="strong" variant="body5">

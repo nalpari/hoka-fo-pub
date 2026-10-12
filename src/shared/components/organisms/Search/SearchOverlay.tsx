@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,7 @@ const heading = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   mb: '5',
-  '& h2': { m: '0', fontSize: '16' /* 기존 17px */ },
+  '& h2': { m: '0' },
 });
 
 const close = css({
@@ -102,8 +103,6 @@ const collectionLinksStyle = css({
     px: '4',
     bg: 'transparent',
     color: 'var(--color-black-60)',
-    fontSize: '12',
-    fontWeight: 'var(--font-weights-semibold)',
     _hover: { textDecoration: 'underline' },
     _mobile: { px: '2.5' },
   },
@@ -119,13 +118,12 @@ const suggestions = css({
   _mobile: { gridTemplateColumns: '1fr' },
   '& section': { p: '4' },
   '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  '& h3': { m: '0', fontSize: '14' },
+  '& h3': { m: '0' },
   '& header button': {
     border: '0',
     p: '0',
     bg: 'transparent',
     color: 'var(--color-black-40)',
-    fontSize: '12' /* 기존: 11px */,
   },
   '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
   '& li': {
@@ -141,7 +139,6 @@ const suggestions = css({
     m: '0',
     placeItems: 'center',
     color: 'var(--color-text-tertiary)',
-    fontSize: '14' /* 기존 13px */,
     textAlign: 'center',
   },
 });
@@ -194,6 +191,7 @@ const srOnly = css({
 });
 
 const storageKey = 'hoka-recent-searches';
+
 const suggestedSearches = [
   '플라잉77 경량 다운',
   '26FW 브리즈 신규 발매',
@@ -262,7 +260,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
           <Dialog.Popup aria-labelledby="site-search-title" className={dialog}>
             <Box className={inner}>
               <Box className={heading}>
-                <h2 id="site-search-title">검색</h2>
+                <Typography as="h2" variant="heading9" id="site-search-title">
+                  검색
+                </Typography>
                 <IconButton aria-label="검색 닫기" className={close} onClick={onClose}>
                   ×
                 </IconButton>
@@ -305,7 +305,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                       onClose();
                     }}
                   >
-                    {collection.label}
+                    <Typography variant="body5" weight="semibold">
+                      {collection.label}
+                    </Typography>
                   </Button>
                 ))}
               </nav>
@@ -313,13 +315,17 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                 <Box className={suggestions}>
                   <section className={recent} aria-labelledby="recent-search-title">
                     <header>
-                      <h3 id="recent-search-title">최근 검색어</h3>
+                      <Typography as="h3" variant="body4" weight="bold" id="recent-search-title">
+                        최근 검색어
+                      </Typography>
                       {recentSearches.length ? (
                         <Button
                           onClick={() => persistRecentSearches([])}
                           onMouseDown={(event) => event.preventDefault()}
                         >
-                          전체 기록 삭제
+                          <Typography variant="body5" weight="inherit">
+                            전체 기록 삭제
+                          </Typography>
                         </Button>
                       ) : null}
                     </header>
@@ -332,7 +338,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                               onMouseDown={(event) => event.preventDefault()}
                               onClick={() => search(recent)}
                             >
-                              {recent}
+                              <Typography variant="body4" weight="inherit">
+                                {recent}
+                              </Typography>
                             </Button>
                             <IconButton
                               aria-label={`${recent} 삭제`}
@@ -347,11 +355,15 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                         ))}
                       </ul>
                     ) : (
-                      <p>최근 검색어 내역이 없습니다.</p>
+                      <Typography as="p" variant="body4">
+                        최근 검색어 내역이 없습니다.
+                      </Typography>
                     )}
                   </section>
                   <section className={recommended} aria-labelledby="recommended-search-title">
-                    <h3 id="recommended-search-title">추천 검색어</h3>
+                    <Typography as="h3" variant="body4" weight="bold" id="recommended-search-title">
+                      추천 검색어
+                    </Typography>
                     <ol>
                       {suggestedSearches.map((suggestion) => (
                         <li key={suggestion}>
@@ -359,7 +371,9 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
                             onMouseDown={(event) => event.preventDefault()}
                             onClick={() => search(suggestion)}
                           >
-                            {suggestion}
+                            <Typography variant="body4" weight="inherit">
+                              {suggestion}
+                            </Typography>
                           </Button>
                         </li>
                       ))}

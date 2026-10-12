@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
@@ -14,8 +15,6 @@ const styles = {
     '& > p': {
       mt: '9px',
       mb: 0,
-      color: 'var(--color-text-tertiary)',
-      fontSize: '14',
     },
   }),
   allTerms: css({
@@ -95,7 +94,9 @@ export function SignupTermsStep({
   return (
     <section className={styles.formSection} aria-labelledby="terms-title">
       <h2 id="terms-title">약관 동의</h2>
-      <p>{method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.</p>
+      <Typography as="p" variant="body4" tone="tertiary">
+        {method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.
+      </Typography>
       <Terms className={styles.allTerms} checked={allRequiredTerms} onCheckedChange={onToggleAll}>
         <span>필수 약관 전체 동의</span>
       </Terms>

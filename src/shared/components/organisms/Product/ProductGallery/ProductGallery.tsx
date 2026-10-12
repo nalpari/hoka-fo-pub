@@ -1,5 +1,7 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { css, cva } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { Link } from 'react-router-dom';
@@ -70,7 +72,7 @@ const galleryFrame = css({
   textAlign: 'center',
   appearance: 'none',
   cursor: 'pointer',
-  '& small': { position: 'absolute', right: '5', bottom: '5', fontSize: '12' },
+  '& small': { position: 'absolute', right: '5', bottom: '5' },
 });
 
 const galleryViewport = css({ '& .swiper-slide': { w: '100%' } });
@@ -103,7 +105,9 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               type="button"
             >
               <img alt={`상품 이미지 ${index + 1}`} className={galleryImage} src={image} />
-              <small>이미지 확대</small>
+              <Typography as="small" variant="body5">
+                이미지 확대
+              </Typography>
             </button>
           ))}
         </CarouselViewport>

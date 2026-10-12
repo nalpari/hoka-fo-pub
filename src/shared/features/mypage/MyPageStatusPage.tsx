@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
 import { AccountDataList } from '@/shared/components/organisms/Account/AccountDataList';
@@ -127,12 +128,9 @@ const header = css({
   borderBottom: '2px solid var(--color-black-100)',
   '& small': {
     color: 'var(--color-blue-100)',
-    fontSize: '12' /* 기존: 11px */,
-    fontWeight: 'var(--font-weights-bold)',
-    letterSpacing: 'var(--letter-spacings-korean)',
   },
   '& h1': { m: '9px 0', fontSize: '28' /* 기존 30px */ },
-  '& p': { m: '0', color: 'var(--color-text-tertiary)', fontSize: '14' /* 기존 13px */ },
+  '& p': { m: '0', color: 'var(--color-text-tertiary)' },
 });
 
 const productGrid = css({
@@ -212,9 +210,13 @@ export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
       titleTo="/mypage"
     >
       <header className={header}>
-        <small>MY HOKA</small>
+        <Typography as="small" variant="body5" weight="bold">
+          MY HOKA
+        </Typography>
         <h1>{item.title}</h1>
-        <p>{item.description}</p>
+        <Typography as="p" variant="body4">
+          {item.description}
+        </Typography>
       </header>
       {kind === 'coupons' ? (
         <CouponManager coupons={couponItems} />

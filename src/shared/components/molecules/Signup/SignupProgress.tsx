@@ -65,9 +65,7 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
         return (
           <li className={state} key={label}>
             <Typography variant="body4">{position}</Typography>
-            <Typography as="span" variant="body5">
-              {label}
-            </Typography>
+            <Typography variant="body5">{label}</Typography>
           </li>
         );
       })}

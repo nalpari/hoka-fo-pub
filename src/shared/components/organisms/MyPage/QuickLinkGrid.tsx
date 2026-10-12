@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 
@@ -26,10 +27,6 @@ const link = css({
   },
 });
 
-const itemLabel = css({ color: 'var(--color-text-tertiary)', fontSize: '12' });
-
-const value = css({ fontSize: '20' /* 기존 22px */ });
-
 const arrow = css({
   position: 'absolute',
   right: '5',
@@ -42,8 +39,12 @@ export function QuickLinkGrid({ items, label = '바로가기' }: Props) {
     <nav className={grid} aria-label={label}>
       {items.map((item) => (
         <Link className={link} key={item.label} to={item.to}>
-          <span className={itemLabel}>{item.label}</span>
-          <strong className={value}>{item.value}</strong>
+          <Typography variant="body5" tone="tertiary">
+            {item.label}
+          </Typography>
+          <Typography as="strong" variant="heading8">
+            {item.value}
+          </Typography>
           <b className={arrow} aria-hidden="true">
             →
           </b>

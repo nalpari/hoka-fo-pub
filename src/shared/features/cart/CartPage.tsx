@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
@@ -162,15 +163,16 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                     <span className={art}>N</span>
                     <Box>
                       <strong>{product.name}</strong>
-                      <p
+                      <Typography
+                        as="p"
+                        variant="body4"
+                        tone="tertiary"
                         className={css({
                           m: '2 0',
-                          color: 'var(--color-text-tertiary)',
-                          fontSize: '14' /* 기존 13px */,
                         })}
                       >
                         {item.color} / {item.width} / {item.size}
-                      </p>
+                      </Typography>
                       <Button
                         className={css({
                           p: '0',
@@ -238,15 +240,17 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
         )}
       </section>
       <section className={recommend}>
-        <h2
+        <Typography
+          as="h2"
+          variant="body1"
+          weight="bold"
           className={css({
             m: '0 0 38px',
             textAlign: 'center',
-            fontSize: '24' /* 기존 23px */,
           })}
         >
           함께 구매하면 좋은 상품
-        </h2>
+        </Typography>
         <Grid className={recommendGrid}>
           {suggestions.map((product, index) => (
             <Link
@@ -258,8 +262,12 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               <small className={css({ color: 'var(--color-text-tertiary)' })}>
                 {product.id.toUpperCase()}
               </small>
-              <strong className={css({ fontSize: '16' /* 기존 15px */ })}>{product.name}</strong>
-              <b className={css({ fontSize: '14' })}>{product.price.toLocaleString()}원</b>
+              <Typography as="strong" variant="heading9">
+                {product.name}
+              </Typography>
+              <Typography as="b" variant="body4" weight="bold">
+                {product.price.toLocaleString()}원
+              </Typography>
             </Link>
           ))}
         </Grid>

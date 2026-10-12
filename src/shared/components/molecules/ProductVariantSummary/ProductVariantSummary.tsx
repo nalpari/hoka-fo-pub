@@ -38,7 +38,7 @@ export function ProductVariantSummary({
 
   if (platform === 'web') {
     return (
-      <Typography as="span" variant="body4" className={summary}>
+      <Typography variant="body4" className={summary}>
         {summaryText}
       </Typography>
     );

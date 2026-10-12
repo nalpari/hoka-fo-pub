@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 
 type Country = { code: string; label: string; href: string };
@@ -126,9 +127,7 @@ const styles = {
   region: css({ mb: '11', _mobile: { mb: '10' } }),
   regionTitle: css({
     mb: '5',
-    fontSize: '20' /* 기존 22px */,
-    fontWeight: 'bold',
-    _mobile: { mb: '18px', fontSize: '20' /* 기존 19px */ },
+    _mobile: { mb: '18px' },
   }),
   countryGrid: css({
     columnCount: 4,
@@ -142,12 +141,9 @@ const styles = {
     minW: 0,
     mb: '3.5',
     breakInside: 'avoid',
-    color: 'var(--color-black-100)',
-    fontSize: '16',
-    fontWeight: 'medium',
     textDecoration: 'none',
     _hover: { textDecoration: 'underline' },
-    _mobile: { gap: '9px', mb: '3', fontSize: '16' },
+    _mobile: { gap: '9px', mb: '3' },
   }),
   flag: css({
     flexShrink: 0,
@@ -182,9 +178,14 @@ export function LocalesPage() {
             key={region.name}
             aria-labelledby={`region-${region.name}`}
           >
-            <h2 className={styles.regionTitle} id={`region-${region.name}`}>
+            <Typography
+              as="h2"
+              variant="heading8"
+              className={styles.regionTitle}
+              id={`region-${region.name}`}
+            >
               {region.name}
-            </h2>
+            </Typography>
             <div className={styles.countryGrid}>
               {region.countries.map((country) => (
                 <a
@@ -193,7 +194,9 @@ export function LocalesPage() {
                   key={`${country.label}-${country.href}`}
                 >
                   <img className={styles.flag} src={`/images/flag/${country.code}.svg`} alt="" />
-                  <span>{country.label}</span>
+                  <Typography variant="body3" tone="primary">
+                    {country.label}
+                  </Typography>
                 </a>
               ))}
             </div>

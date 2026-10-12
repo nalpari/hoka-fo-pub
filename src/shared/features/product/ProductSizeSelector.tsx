@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 import type { ProductWidthOption } from '@/mocks/products';
@@ -8,8 +9,8 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
 
 const styles = {
-  error: css({ mt: '2', color: 'var(--color-red-100)', fontSize: '12' }),
-  recommendation: css({ mt: '2', color: 'var(--color-text-tertiary)', fontSize: '12' /* 기존: 11px */ }),
+  error: css({ mt: '2' }),
+  recommendation: css({ mt: '2' }),
 };
 
 type ProductSizeSelectorProps = {
@@ -50,11 +51,13 @@ export function ProductSizeSelector({
         value={value}
       />
       {error && (
-        <p className={styles.error} role="alert">
+        <Typography as="p" variant="body5" tone="error" className={styles.error} role="alert">
           {error}
-        </p>
+        </Typography>
       )}
-      <p className={styles.recommendation}>사이즈 추천: 정사이즈</p>
+      <Typography as="p" variant="body5" tone="tertiary" className={styles.recommendation}>
+        사이즈 추천: 정사이즈
+      </Typography>
     </ProductVariantSection>
   );
 }

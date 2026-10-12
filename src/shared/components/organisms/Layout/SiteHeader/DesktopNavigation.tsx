@@ -117,7 +117,7 @@ export function DesktopNavigation({
             onEnterMenu(menu.id);
           }}
         >
-          <Typography as="span" variant="body4" className={styles.itemLabel}>
+          <Typography variant="body4" className={styles.itemLabel}>
             {menu.label}
           </Typography>
         </Button>

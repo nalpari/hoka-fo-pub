@@ -37,7 +37,7 @@ export function FooterLegalLinks() {
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >
-      <Typography as="h3" variant="bodyKr3" tone="inverse">
+      <Typography as="h3" variant="body3" tone="inverse">
         ㈜ 이랜드글로벌스포츠
       </Typography>
       <Stack gap={platform === 'mobile' ? '4' : '18px'} className={styles.meta}>

@@ -113,7 +113,7 @@ function FormFieldRoot({
       <BaseField.Label
         htmlFor={htmlFor}
         render={(props) => (
-          <Typography {...props} as="label" variant={boxed ? 'bodyKr5' : 'formLabel'}>
+          <Typography {...props} as="label" variant={boxed ? 'body5' : 'formLabel'}>
             {props.children}
           </Typography>
         )}
@@ -181,7 +181,7 @@ export function FormFieldHint({ className, ...props }: FormFieldHintProps) {
     <BaseField.Description
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="bodyKr5">
+        <Typography {...renderProps} as="p" variant="body5">
           {renderProps.children}
         </Typography>
       )}
@@ -196,7 +196,7 @@ export function FormFieldMessage({ className, ...props }: FormFieldMessageProps)
       match
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="bodyKr5" tone="error">
+        <Typography {...renderProps} as="p" variant="body5" tone="error">
           {renderProps.children}
         </Typography>
       )}

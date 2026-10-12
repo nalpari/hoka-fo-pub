@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
@@ -27,9 +28,6 @@ const styles = {
     color: 'var(--color-white-000)',
     '& span': {
       mb: '18px',
-      fontSize: '12',
-      fontWeight: 'var(--font-weights-bold)',
-      letterSpacing: 'var(--letter-spacings-korean)',
     },
     '& strong': {
       maxW: '280px',
@@ -49,13 +47,10 @@ const styles = {
     minH: '230px',
     p: '6',
     border: '1px solid var(--line)',
-    '& h2': { mb: '2.5', fontSize: '20' },
+    '& h2': { mb: '2.5' },
     '& p': {
       minH: '12',
       mb: '6',
-      color: 'var(--color-text-tertiary)',
-      fontSize: '14',
-      lineHeight: 'var(--line-heights-body)',
     },
     '& ul': { display: 'grid', gap: '9px', m: 0, p: 0, listStyle: 'none' },
     '& a': {
@@ -70,8 +65,6 @@ const styles = {
     px: '7px',
     py: '5px',
     bg: 'var(--soft)',
-    color: 'var(--color-text-tertiary)',
-    fontSize: '12' /* 기존: 11px */,
   }),
 };
 
@@ -105,7 +98,9 @@ export function ExploreDetailPage() {
       description={screen.description}
     >
       <section className={styles.hero}>
-        <span>{screen.eyebrow}</span>
+        <Typography variant="body5" weight="bold">
+          {screen.eyebrow}
+        </Typography>
         <strong>
           {screen.status === 'planned' ? 'CONTENT READY FOR PLANNING' : 'NOW AVAILABLE'}
         </strong>
@@ -113,9 +108,15 @@ export function ExploreDetailPage() {
       <div className={styles.grid}>
         {screen.sections.map((section) => (
           <section className={styles.group} key={section.title}>
-            <h2>{section.title}</h2>
-            <p>{section.description}</p>
-            <span className={styles.statusChip}>콘텐츠 준비 중</span>
+            <Typography as="h2" variant="body2" weight="bold">
+              {section.title}
+            </Typography>
+            <Typography as="p" variant="body4" tone="tertiary">
+              {section.description}
+            </Typography>
+            <Typography variant="body5" tone="tertiary" className={styles.statusChip}>
+              콘텐츠 준비 중
+            </Typography>
           </section>
         ))}
       </div>

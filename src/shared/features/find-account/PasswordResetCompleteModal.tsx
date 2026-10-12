@@ -35,10 +35,10 @@ export function PasswordResetCompleteModal({
       size="sm"
     >
       <Stack gap="4">
-        <Typography as="h2" variant="bodyKr2" className={styles.heading}>
+        <Typography as="h2" variant="body2" className={styles.heading}>
           비밀번호 변경완료
         </Typography>
-        <Typography as="p" variant="bodyKr4" className={styles.description}>
+        <Typography as="p" variant="body4" className={styles.description}>
           비밀번호 변경이 완료되었습니다.
         </Typography>
         <Button

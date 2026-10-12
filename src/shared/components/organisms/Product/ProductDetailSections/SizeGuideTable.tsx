@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { DataTable } from '@/shared/components/atoms/DataTable/DataTable';
@@ -20,7 +21,9 @@ const sizeRows = [
 export function SizeGuideTable() {
   return (
     <Box mt="38px">
-      <h3 className={css({ m: '36px 0 14px', fontSize: '16' /* 기존 17px */ })}>발 길이(성인)</h3>
+      <Typography as="h3" variant="heading9" className={css({ m: '36px 0 14px' })}>
+        발 길이(성인)
+      </Typography>
       <DataTable caption="성인 발 길이 사이즈표" className={secondaryHeader}>
         <thead>
           <tr>
@@ -45,7 +48,9 @@ export function SizeGuideTable() {
           ))}
         </tbody>
       </DataTable>
-      <h3 className={css({ m: '36px 0 14px', fontSize: '16' /* 기존 17px */ })}>발볼 넓이</h3>
+      <Typography as="h3" variant="heading9" className={css({ m: '36px 0 14px' })}>
+        발볼 넓이
+      </Typography>
       <DataTable caption="발볼 넓이 사이즈표">
         <thead>
           <tr>
