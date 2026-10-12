@@ -9,6 +9,7 @@ import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { usePlatform } from '@/shared/context/platform';
 
 export type RegistrationInformation = {
   name: string;
@@ -28,7 +29,7 @@ export type MarketingPreferences = { email: string; coupon: string; sms: string;
 const styles = {
   page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
   content: css({ maxW: '420px', mx: 'auto' }),
-  title: css({ m: '0', mb: '8' }),
+  title: css({ m: '0', mb: '10', _mobile: { mb: '8' } }),
   form: css({ display: 'flex', flexDirection: 'column' }),
   button: css({ w: '100%', py: '2' }),
   actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2' }),
@@ -71,6 +72,8 @@ type Props = {
 };
 
 export function RegistrationContent(props: Props) {
+    const isMobile = usePlatform() === 'mobile';
+  
   const field = (
     key: keyof RegistrationInformation,
     label: string,
@@ -154,7 +157,7 @@ export function RegistrationContent(props: Props) {
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
-        <Typography as="h1" variant="headingKr6" className={styles.title}>
+        <Typography as="h1" variant={isMobile ? 'heading6' : 'heading7'} className={styles.title}>
           {props.stage === 'information' ? '회원 정보' : '부가 정보'}
         </Typography>
         <form className={styles.form} onSubmit={props.onSubmit}>
