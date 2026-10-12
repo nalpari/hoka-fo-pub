@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
@@ -30,7 +31,7 @@ const styles = {
       fontWeight: 'var(--font-weights-normal)',
       _mobile: { fontSize: '28' /* 기존 29px */ },
     },
-    '& p': { m: '0', color: 'var(--color-text-tertiary)', fontSize: '12' },
+    '& p': { m: '0' },
   }),
   details: css({
     '& article': {
@@ -39,8 +40,6 @@ const styles = {
       borderBottom: '1px solid var(--color-black-20)',
       _mobile: { minH: '0', py: '6' },
     },
-    '& strong, & b': { fontSize: '12' },
-    '& strong': { lineHeight: 'var(--line-heights-body)' },
     '& hr': {
       m: '42px 0 22px',
       border: '0',
@@ -49,12 +48,8 @@ const styles = {
     },
     '& p': {
       m: '6px 0 0',
-      color: 'var(--color-text-tertiary)',
-      fontSize: '12' /* 기존: 11px */,
-      lineHeight: 'var(--line-heights-body)',
     },
   }),
-  notice: css({ color: 'var(--color-black-100)!' }),
   actions: css({
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
@@ -78,12 +73,6 @@ const styles = {
     '& a:last-child': { border: '0' },
     '& b': { fontSize: '32' /* 기존 31px */, fontWeight: 'var(--font-weights-normal)' },
     '& span': { display: 'grid', gap: '1.5' },
-    '& strong': { fontSize: '14' },
-    '& small': {
-      color: 'var(--color-text-tertiary)',
-      fontSize: '12' /* 기존: 10px */,
-      lineHeight: 'var(--line-heights-body)',
-    },
   }),
 };
 
@@ -122,40 +111,50 @@ export function SupportPage() {
           <Box className={styles.labels}>
             <article>
               <h2>고객상담실</h2>
-              <p>A/S 및 오프라인 매장 관련 문의</p>
+              <Typography as="p" variant="body5" tone="tertiary">
+                A/S 및 오프라인 매장 관련 문의
+              </Typography>
             </article>
             <article>
               <h2>온라인 스토어</h2>
-              <p>주문/배송 및 반품 관련 문의</p>
+              <Typography as="p" variant="body5" tone="tertiary">
+                주문/배송 및 반품 관련 문의
+              </Typography>
             </article>
           </Box>
           <Box className={styles.details}>
             <article>
-              <strong>
+              <Typography as="strong" variant="body5" weight="bold">
                 호카 고객상담실
                 <br />
                 TEL. 080-999-0456
-              </strong>
+              </Typography>
               <hr />
-              <b>운영시간</b>
-              <p>평일 : 09:00 ~ 18:00 (점심시간 12:00 ~ 13:00) / 토, 일, 공휴일 휴무</p>
+              <Typography as="b" variant="body5" weight="bold">
+                운영시간
+              </Typography>
+              <Typography as="p" variant="body5" tone="tertiary">
+                평일 : 09:00 ~ 18:00 (점심시간 12:00 ~ 13:00) / 토, 일, 공휴일 휴무
+              </Typography>
             </article>
             <article>
-              <strong>
+              <Typography as="strong" variant="body5" weight="bold">
                 호카 온라인 스토어
                 <br />
                 TEL. 1566-0086
-              </strong>
-              <p className={styles.notice}>
+              </Typography>
+              <Typography as="p" variant="body5" tone="primary">
                 * 아래 1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
-              </p>
+              </Typography>
               <hr />
-              <b>운영시간</b>
-              <p>
+              <Typography as="b" variant="body5" weight="bold">
+                운영시간
+              </Typography>
+              <Typography as="p" variant="body5" tone="tertiary">
                 - 일반 유선상담 : 평일 10:00~17:00 (점심시간 12:00~13:00)
                 <br />- 채팅, 카카오톡 : 휴무
                 <br />- A/S상담예약 : 점심시간 및 토요일/일요일/공휴일 운영
-              </p>
+              </Typography>
             </article>
           </Box>
         </Grid>
@@ -173,8 +172,12 @@ export function SupportPage() {
             <Link to={to} key={title}>
               <b>{icon}</b>
               <span>
-                <strong>{title}</strong>
-                <small>{description}</small>
+                <Typography as="strong" variant="body4" weight="bold">
+                  {title}
+                </Typography>
+                <Typography as="small" variant="body5" tone="tertiary">
+                  {description}
+                </Typography>
               </span>
             </Link>
           ))}

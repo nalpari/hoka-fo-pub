@@ -180,9 +180,7 @@ export function ModalDialog({
             >
               <header className={header}>
                 <Dialog.Title className={titleStyle}>
-                  <Typography as="span" variant="bodyKr3">
-                    {title}
-                  </Typography>
+                  <Typography variant="body3">{title}</Typography>
                 </Dialog.Title>
                 <Dialog.Close
                   render={

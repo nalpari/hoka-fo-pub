@@ -24,7 +24,7 @@ const styles = {
     justifyContent: 'center',
     '& svg': { w: '2.5', h: '2.5' },
   }),
-  description: css({ m: '0', color: 'var(--color-text-tertiary)' }),
+  description: css({ m: '0' }),
 };
 
 export function AccountUnlockCompletePage() {
@@ -32,19 +32,17 @@ export function AccountUnlockCompletePage() {
     <Box as="main" className={styles.page}>
       <Stack className={styles.content}>
         <HStack as="h1" className={styles.title}>
-          <Typography as="span" variant="headingKr9">
-            계정 잠금 해제 완료
-          </Typography>
+          <Typography variant="heading9">계정 잠금 해제 완료</Typography>
           <span className={styles.check} aria-hidden="true">
             <Icon fontAwesomeIcon={faCheck} />
           </span>
         </HStack>
-        <Typography as="p" variant="bodyKr5" className={styles.description}>
+        <Typography as="p" variant="body5" tone="tertiary" className={styles.description}>
           계정 잠금 상태가 성공적으로 해제되었습니다.
           <br />
           다시 로그인을 진행해 주세요.
         </Typography>
-        <ButtonLink to="/login" variant="primary" fullWidth className={styles.button}>
+        <ButtonLink to="/login" variant="primary" fullWidth>
           홈으로
         </ButtonLink>
       </Stack>

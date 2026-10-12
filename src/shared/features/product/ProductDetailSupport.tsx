@@ -9,7 +9,7 @@ const root = cva({
     borderTop: '1px solid var(--color-black-20)',
     '& > *': { borderBottom: '1px solid var(--color-black-20)' },
     '& button': { minH: '13', fontSize: '14' /* 기존 13px */, fontWeight: 'bold' },
-    '& p': { pb: '4', color: 'var(--color-black-60)', fontSize: '12', lineHeight: 'body' },
+    '& p': { pb: '4', color: 'var(--color-text-subtle)', fontSize: '12', lineHeight: 'body' },
   },
 });
 

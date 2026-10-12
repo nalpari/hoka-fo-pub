@@ -73,7 +73,7 @@ const action = css({
   border: '0',
   p: '0',
   bg: 'transparent',
-  color: 'black.60',
+  color: 'var(--color-text-subtle)',
   cursor: 'pointer',
   _focusVisible: { outline: '2px solid black', outlineOffset: '2px' },
   _disabled: { cursor: 'not-allowed' },

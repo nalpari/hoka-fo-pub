@@ -1,11 +1,9 @@
-import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { Platform } from '@/shared/lib/device';
 import {
   ProductOptionList,
   type ProductOptionThumbnail,
 } from '@/shared/components/molecules/ProductOptionList/ProductOptionList';
-
-const summary = css({ fontSize: '14', color: 'var(--color-black-60)' });
 
 export type ProductVariantSummaryDisplay = 'colors' | 'widths' | 'colors-widths';
 
@@ -32,7 +30,11 @@ export function ProductVariantSummary({
   }[display];
 
   if (platform === 'web') {
-    return <span className={summary}>{summaryText}</span>;
+    return (
+      <Typography variant="body4" tone="subtle">
+        {summaryText}
+      </Typography>
+    );
   }
 
   return <ProductOptionList layout="scroll" options={options} />;

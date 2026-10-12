@@ -99,7 +99,7 @@ export function PasswordResetPage() {
           variant="boxed"
           invalid={Boolean(error)}
           htmlFor={`password-reset-${name}`}
-          label={<Typography variant="bodyKr5">* {label}</Typography>}
+          label={<Typography variant="body5">* {label}</Typography>}
         >
           <TextInput
             className={styles.input}
@@ -118,7 +118,7 @@ export function PasswordResetPage() {
         {errorMessage ? (
           <Typography
             as="p"
-            variant="bodyKr5"
+            variant="body5"
             className={styles.fieldError}
             id={errorId}
             role="alert"
@@ -136,7 +136,7 @@ export function PasswordResetPage() {
         <Typography as="h1" variant="headingKr6" className={styles.title} id="password-reset-title">
           비밀번호 재설정
         </Typography>
-        <Typography as="p" variant="bodyKr3" tone="subtle" className={styles.description}>
+        <Typography as="p" variant="body3" tone="subtle" className={styles.description}>
           새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요.
         </Typography>
         <form noValidate className={styles.form} onSubmit={submit}>

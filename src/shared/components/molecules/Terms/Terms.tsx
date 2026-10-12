@@ -15,15 +15,13 @@ const root = css({
 const checkbox = css({
   '&&': { alignItems: 'center', gap: '8px', minW: '0' },
   '& > span:first-child': { w: '16px', h: '16px', flexShrink: '0' },
-  '& > span:last-child *': { color: 'inherit' },
+  '& > span:last-child > span *': { color: 'inherit' },
   '& > span:last-child': {
     minW: '0',
     color: 'inherit',
     '& a': { color: 'inherit', fontWeight: 'medium', textDecoration: 'underline' },
   },
 });
-
-const errorColor = css({ color: 'red.100' });
 
 export type TermsProps = {
   checked: boolean;
@@ -54,7 +52,7 @@ export function Terms({
   const hasError = invalid || Boolean(error);
 
   return (
-    <div className={[root, hasError ? errorColor : '', className].filter(Boolean).join(' ')}>
+    <div className={[root, className].filter(Boolean).join(' ')}>
       <Checkbox
         name={name}
         checked={checked}
@@ -63,7 +61,11 @@ export function Terms({
         disabled={disabled}
         labelVariant="bodyKr4"
         interactiveLabel
-        label={children}
+        label={
+          <Typography variant="body4" tone={hasError ? 'error' : 'inherit'}>
+            {children}
+          </Typography>
+        }
         className={checkbox}
         aria-invalid={hasError || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
@@ -71,10 +73,11 @@ export function Terms({
       {error ? (
         <Typography
           as="p"
-          variant="bodyKr5"
+          variant="body5"
+          tone="error"
           id={`${id}-error`}
           role="alert"
-          className={css({ m: '0', color: 'red.100' })}
+          className={css({ m: '0' })}
         >
           {error}
         </Typography>

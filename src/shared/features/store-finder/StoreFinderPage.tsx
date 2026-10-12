@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
 import { StoreResults } from '@/shared/components/organisms/StoreFinder/StoreResults';
@@ -43,8 +44,7 @@ export const storeFinderStyles = {
       h: '37px',
       p: '0',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
-      fontSize: '12',
+      color: 'var(--color-text-inverse)',
     },
     '& input': { _mobile: { minW: '0' } },
   }),
@@ -59,7 +59,6 @@ export const storeFinderStyles = {
       border: '1px solid var(--color-black-20)',
       borderBottom: '0',
       bg: 'var(--color-white-000)',
-      fontSize: '14' /* 기존 13px */,
     },
   }),
   active: css({
@@ -108,7 +107,7 @@ export function StoreFinderPage() {
             resetList();
           }}
         >
-          <label>
+          <Typography as="label" variant="body4">
             매장 검색
             <TextInput
               aria-label="매장명 또는 주소"
@@ -119,11 +118,13 @@ export function StoreFinderPage() {
                 resetList();
               }}
             />
-          </label>
+          </Typography>
           <Button type="submit" variant="primary">
-            검색
+            <Typography variant="body5" weight="inherit">
+              검색
+            </Typography>
           </Button>
-          <label>
+          <Typography as="label" variant="body4">
             지역 검색
             <Select
               value={region}
@@ -136,7 +137,7 @@ export function StoreFinderPage() {
                 <option key={item}>{item}</option>
               ))}
             </Select>
-          </label>
+          </Typography>
         </form>
         <nav className={storeFinderStyles.tabs}>
           {storeTypes.map((item) => (
@@ -148,7 +149,9 @@ export function StoreFinderPage() {
               }}
               key={item}
             >
-              {item}
+              <Typography variant="body4" weight="inherit">
+                {item}
+              </Typography>
             </Button>
           ))}
         </nav>

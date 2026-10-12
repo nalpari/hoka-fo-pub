@@ -30,7 +30,7 @@ export function RegistrationCompleteContent() {
           <Typography as="p" variant="body2">
             가입이 성공적으로 이루어졌습니다!
           </Typography>
-          <Typography as="p" variant="bodyKr4">
+          <Typography as="p" variant="body4">
             고객님께 알찬 정보, 다양한 이벤트와 혜택을 드리고자
             <br />
             최선을 다하겠습니다

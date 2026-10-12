@@ -111,17 +111,10 @@ export function Radio<T extends string = string>({
           >
             <BaseRadio.Root className={control} disabled={isDisabled} value={item.value}>
               <span className={indicator}>
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  className={icon}
-                  src={radioAsset}
-                />
+                <img alt="" aria-hidden="true" className={icon} src={radioAsset} />
               </span>
             </BaseRadio.Root>
-            <Typography as="span" variant="formLabel">
-              {item.label}
-            </Typography>
+            <Typography variant="formLabel">{item.label}</Typography>
           </HStack>
         );
       })}

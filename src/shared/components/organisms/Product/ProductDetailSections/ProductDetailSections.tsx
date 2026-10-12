@@ -44,7 +44,7 @@ const tab = cva({
   variants: {
     active: {
       true: {
-        color: 'var(--color-black-100)',
+        color: 'var(--color-text-primary)',
         _after: {
           position: 'absolute',
           right: '0',

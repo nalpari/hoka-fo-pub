@@ -1,32 +1,38 @@
-import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
+import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
-import { Grid } from 'styled-system/jsx';
+import { HStack } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
+const styles = {
+  link: css({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    _hover: { textDecoration: 'underline' },
+  }),
+  flag: css({
+    display: 'block',
+    w: '16px',
+    h: '12px',
+    flexShrink: 0,
+  }),
+  arrow: css({
+    h: '12px',
+    pos: 'relative',
+    top: '1px',
+  }),
+};
 
 export function FooterLocaleSelectors() {
   return (
-    <Grid gap="2" w="100%">
-      <Dropdown
-        ariaLabel="국가 또는 지역"
-        defaultValue="us"
-        indicatorWidth="12px"
-        indicatorHeight="18px"
-        options={[
-          {
-            value: 'us',
-            label: 'United States',
-            prefix: <img className={flag} src="/images/flag/us.svg" alt="" />,
-          },
-        ]}
-      />
-      <Dropdown
-        ariaLabel="언어"
-        defaultValue="en"
-        disabled
-        indicatorWidth="12px"
-        indicatorHeight="18px"
-        options={[{ value: 'en', label: 'English' }]}
-      />
-    </Grid>
+    <Link to="/locales" className={styles.link}>
+      <img className={styles.flag} src="/images/flag/kr.svg" alt="대한민국" />
+      <HStack gap="0">
+        <Typography variant="body5" tone="inverse">
+          Visit our international sites
+        </Typography>
+        <img className={styles.arrow} src="/images/icon/chevron-right.svg" alt="" />
+      </HStack>
+    </Link>
   );
 }
-const flag = css({ w: '3', h: '18px', objectFit: 'cover' });

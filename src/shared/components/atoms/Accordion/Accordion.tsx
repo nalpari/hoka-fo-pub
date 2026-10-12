@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faChevronDown } from '@/shared/icons/fontAwesome';
 
 const styles = {
@@ -71,7 +72,13 @@ export function Accordion({
             <BaseAccordion.Trigger
               className={[styles.trigger, triggerClassName].filter(Boolean).join(' ')}
             >
-              {item.title}
+              {typeof item.title === 'string' || typeof item.title === 'number' ? (
+                <Typography variant="body4" weight="inherit">
+                  {item.title}
+                </Typography>
+              ) : (
+                item.title
+              )}
               {indicator !== null ? (
                 <span className={styles.indicator} aria-hidden="true">
                   {indicator ?? defaultIndicator}

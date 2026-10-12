@@ -1,22 +1,22 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { css } from 'styled-system/css';
 
 const root = css({
-  fontWeight: 'semibold',
-  fontSize: '14' /* 기존 13px */,
-  lineHeight: 'body',
-  letterSpacing: 'korean',
-  color: 'var(--color-black-100)',
+  '&&': {
+    fontWeight: 'semibold',
+    color: 'var(--color-text-primary)',
+  },
 });
 
 const link = css({
-  _hover: { textDecoration: 'underline' },
+  _hover: {
+    textDecoration: 'underline',
+  },
 });
 
 const separator = css({ display: 'inline-flex', mx: '7px', verticalAlign: 'middle' });
-
-const current = css({ color: 'var(--color-text-tertiary)' });
 
 export type BreadcrumbItem = { label: string; href?: string };
 
@@ -32,15 +32,19 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
           )}
           {item.href && index < items.length - 1 ? (
             <Link className={link} to={item.href}>
-              {item.label}
+              <Typography variant="body4" weight="inherit">
+                {item.label}
+              </Typography>
             </Link>
           ) : (
-            <span
-              className={current}
+            <Typography
+              variant="body4"
+              weight="inherit"
+              tone="tertiary"
               aria-current={index === items.length - 1 ? 'page' : undefined}
             >
               {item.label}
-            </span>
+            </Typography>
           )}
         </span>
       ))}

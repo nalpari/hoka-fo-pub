@@ -39,10 +39,10 @@ export function IdConfirmationModal({
       onOpenChange={onOpenChange}
       title={
         <>
-          <Typography as="span" variant="bodyKr4" className={styles.desktopTitle}>
+          <Typography as="span" variant="body4" className={styles.desktopTitle}>
             아이디 / 비밀번호 찾기
           </Typography>
-          <Typography as="span" variant="bodyKr4" className={styles.mobileTitle}>
+          <Typography as="span" variant="body4" className={styles.mobileTitle}>
             HOKA Korea 회원 안내
           </Typography>
         </>
@@ -52,13 +52,13 @@ export function IdConfirmationModal({
       mobilePresentation="fullscreen"
     >
       <Stack>
-        <Typography as="p" variant="bodyKr3" className={styles.intro}>
+        <Typography as="p" variant="body3" className={styles.intro}>
           김호가님 가입하신 아이디입니다
         </Typography>
         <Typography as="p" variant="headingKr6" className={styles.email}>
           honggildong@kakao.com
         </Typography>
-        <Typography as="p" variant="bodyKr4" className={styles.description}>
+        <Typography as="p" variant="body4" className={styles.description}>
           비밀번호가 생각나지 않으시는 경우 임시비밀번호를 통해 재설정하실 수 있습니다.
         </Typography>
         <Flex className={styles.actions}>

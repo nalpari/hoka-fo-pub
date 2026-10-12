@@ -1,5 +1,5 @@
-import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { css } from 'styled-system/css';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -19,13 +19,21 @@ const styles = {
       color: 'var(--color-black-40)',
       textAlign: 'center',
     },
-    '& li::before': { h: '3px', bg: 'var(--color-black-20)', content: '""' },
+    '& li::before': {
+      h: '3px',
+      bg: 'var(--color-black-20)',
+      content: '""',
+    },
   }),
   current: css({
-    color: 'var(--color-black-100) !important',
+    color: 'var(--color-text-primary) !important',
     '&::before': { bg: 'var(--color-black-100) !important' },
   }),
-  complete: css({ '&::before': { bg: 'var(--color-black-100) !important' } }),
+  complete: css({
+    '&::before': {
+      bg: 'var(--color-black-100) !important',
+    },
+  }),
 };
 
 type SignupProgressProps = {
@@ -51,18 +59,10 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
 
         return (
           <li className={state} key={label}>
-            <Typography
-              as="span"
-              variant="bodyKr4"
-              weight={currentStep === position ? 'medium' : 'regular'}
-            >
+            <Typography variant="body4" weight={currentStep === position ? 'medium' : 'regular'}>
               {position}
             </Typography>
-            <Typography
-              as="span"
-              variant="bodyKr5"
-              weight={currentStep === position ? 'medium' : 'regular'}
-            >
+            <Typography variant="body5" weight={currentStep === position ? 'medium' : 'regular'}>
               {label}
             </Typography>
           </li>

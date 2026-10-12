@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css } from 'styled-system/css';
@@ -52,7 +53,7 @@ const styles = {
       p: '2',
       border: 0,
       background: 'transparent',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
       fontSize: '50' /* 기존 52px */,
       transform: 'translateY(-50%)',
     },
@@ -70,7 +71,7 @@ const styles = {
     minH: '420px',
     placeItems: 'center',
     background: 'var(--color-black-20)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     '@media (max-width: 700px)': { minH: '340px' },
   }),
   carousel: css({
@@ -89,7 +90,7 @@ const styles = {
       border: '2px solid transparent',
       placeItems: 'center',
       background: 'var(--color-black-20)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
       fontSize: '12' /* 기존: 9px */,
     },
     '& .selected': { borderColor: 'var(--color-black-100)' },
@@ -108,14 +109,11 @@ const styles = {
     '& header small': { color: 'var(--color-black-40)' },
     '& header button': { p: 0, border: 0, fontSize: '24' /* 기존 26px */ },
     '& > strong': { display: 'block', mt: '22px' },
-    '& h2': { fontSize: '16' /* 기존 15px */ },
-    '& p': { fontSize: '14' /* 기존 13px */, lineHeight: 'var(--line-heights-body)' },
     '& section': {
       mt: '30px',
       pt: '18px',
       borderTop: '1px solid var(--color-black-20)',
     },
-    '& section h3': { fontSize: '16' /* 기존 15px */ },
     '& section div': { display: 'flex', gap: '6px' },
     '& section button': {
       display: 'grid',
@@ -125,7 +123,7 @@ const styles = {
       border: '2px solid transparent',
       placeItems: 'center',
       background: 'var(--color-black-20)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
       fontSize: '12' /* 기존: 9px */,
     },
     '& section .active': { borderColor: 'var(--color-black-100)' },
@@ -207,10 +205,16 @@ export function ReviewGalleryModal({
                 </IconButton>
               </header>
               <strong>★★★★★</strong>
-              <h2>{review.title}</h2>
-              <p>{review.body}</p>
+              <Typography as="h2" variant="heading9">
+                {review.title}
+              </Typography>
+              <Typography as="p" variant="body4">
+                {review.body}
+              </Typography>
               <section>
-                <h3>이 상품의 다른 리뷰</h3>
+                <Typography as="h3" variant="heading9">
+                  이 상품의 다른 리뷰
+                </Typography>
                 <Box>
                   {reviews.map((item, index) => (
                     <Button

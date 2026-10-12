@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Box } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
@@ -48,7 +49,7 @@ const styles = {
   heroCopy: css({
     position: 'relative',
     zIndex: '1',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     textAlign: 'center',
     textShadow: '0 1px 2px var(--color-black-60)',
     '& h2': {
@@ -58,8 +59,7 @@ const styles = {
       _mobile: { fontSize: '20' /* 기존 19px */ },
     },
     '& p': {
-      fontSize: '12' /* 기존: 11px */,
-      _mobile: { px: '4.5', fontSize: '12' /* 기존: 9px */ },
+      _mobile: { px: '4.5' },
     },
   }),
   channels: css({
@@ -74,11 +74,9 @@ const styles = {
       borderTop: '2px solid var(--color-black-60)',
       _mobile: { minH: '155px', py: '22px' },
     },
-    '& strong': { fontSize: '12', lineHeight: 'var(--line-heights-body)' },
-    '& p': { m: '6px 0', fontSize: '12' /* 기존: 11px */ },
+    '& p': { m: '6px 0' },
     '& hr': { m: '6 0 4.5', border: '0', borderTop: '1px solid var(--color-black-20)' },
-    '& b': { display: 'block', mb: '2', fontSize: '12' },
-    '& small': { color: 'var(--color-text-tertiary)', fontSize: '12' /* 기존: 11px */ },
+    '& b': { display: 'block', mb: '2' },
   }),
   label: css({
     minH: '218px',
@@ -97,9 +95,7 @@ const styles = {
     m: '0',
     py: '6',
     borderTop: '1px solid var(--color-black-20)',
-    color: 'var(--color-text-tertiary)',
-    fontSize: '12' /* 기존: 11px */,
-    _mobile: { mt: '4', lineHeight: 'var(--line-heights-body)' },
+    _mobile: { mt: '4' },
   }),
 };
 
@@ -119,43 +115,57 @@ export function TeamwearPage() {
           <Box className={styles.personTwo} />
           <Box className={styles.heroCopy}>
             <h2>TEAM WEAR ORDER</h2>
-            <p>호카와 하나가 되는 순간, 호카 팀/단체복으로 엑설런트를 함께 느껴 보세요!</p>
+            <Typography as="p" variant="body5">
+              호카와 하나가 되는 순간, 호카 팀/단체복으로 엑설런트를 함께 느껴 보세요!
+            </Typography>
           </Box>
         </section>
         <section className={styles.channels}>
           <Box className={styles.label}>
             <h2>ONLINE STORE</h2>
-            <p>온라인 스토어</p>
+            <Typography as="p" variant="body5">
+              온라인 스토어
+            </Typography>
           </Box>
           <article>
-            <strong>
+            <Typography as="strong" variant="body5" weight="bold">
               호카 온라인 스토어 고객센터
               <br />
               TEL. 1566-0086
-            </strong>
-            <p>* 아래 1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.</p>
+            </Typography>
+            <Typography as="p" variant="body5">
+              * 아래 1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
+            </Typography>
             <hr />
-            <b>운영시간</b>
-            <small>평일 10:00 ~ 17:00 (점심시간 12:00 ~ 13:00) / 토,일,공휴일 휴무</small>
+            <Typography as="b" variant="body5" weight="bold">
+              운영시간
+            </Typography>
+            <Typography as="small" variant="body5" tone="tertiary">
+              평일 10:00 ~ 17:00 (점심시간 12:00 ~ 13:00) / 토,일,공휴일 휴무
+            </Typography>
           </article>
           <Box className={styles.label}>
             <h2>OFFLINE STORE</h2>
-            <p>오프라인 스토어</p>
+            <Typography as="p" variant="body5">
+              오프라인 스토어
+            </Typography>
           </Box>
           <article>
-            <strong>
+            <Typography as="strong" variant="body5" weight="bold">
               호카 명동직영점
               <br />
               TEL. 02-318-1906
-            </strong>
+            </Typography>
             <hr />
-            <small>연중무휴 11:00 ~ 22:00</small>
+            <Typography as="small" variant="body5" tone="tertiary">
+              연중무휴 11:00 ~ 22:00
+            </Typography>
           </article>
         </section>
-        <p className={styles.note}>
+        <Typography as="p" variant="body5" tone="tertiary" className={styles.note}>
           ▸ 팀/단체복 주문 시 B2B, Team 제품 공급은 고객의 주문에 따라 납품가 납기의 변동 될 수
           있으니 담당자와 상담 후 주문 바랍니다.
-        </p>
+        </Typography>
       </section>
     </SidebarNavigationLayout>
   );

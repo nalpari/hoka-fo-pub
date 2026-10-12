@@ -1,24 +1,20 @@
-import { FooterMain } from '@/shared/components/organisms/Layout/SiteFooter/FooterMain';
-import { FooterMeta } from '@/shared/components/organisms/Layout/SiteFooter/FooterMeta';
-import { usePlatform } from '@/shared/context/platform';
-import { Flex, Wrap } from 'styled-system/jsx';
+import { FooterContent } from './FooterContent';
+import { css } from 'styled-system/css';
+import { Wrap } from 'styled-system/jsx';
+
+const styles = {
+  footer: css({
+    minW: 'var(--layout-web-min-width)',
+    py: '96px',
+    px: '32px',
+    _mobile: { p: '36px 16px', minW: 0 },
+  }),
+};
 
 export function SiteFooter() {
-  const platform = usePlatform();
-
   return (
-    <Wrap as="footer" pt="16" pb="8" bg="var(--color-black-100)" color="var(--color-white-000)">
-      <Flex
-        w="100%"
-        maxW="1920px"
-        mx="auto"
-        direction="column"
-        px={platform === 'mobile' ? '32px' : '72px'}
-        gap={platform === 'mobile' ? '24px' : '48px'}
-      >
-        <FooterMain />
-        <FooterMeta />
-      </Flex>
+    <Wrap as="footer" className={styles.footer} bg="black.100" color="black.10">
+      <FooterContent />
     </Wrap>
   );
 }

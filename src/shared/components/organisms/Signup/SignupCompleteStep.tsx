@@ -1,6 +1,6 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
   complete: css({
@@ -17,7 +17,7 @@ const styles = {
       borderRadius: '50%',
       placeItems: 'center',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
       fontSize: '28',
     },
   }),
@@ -29,7 +29,7 @@ const styles = {
     mt: '7',
     placeItems: 'center',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
   }),
 };
 
@@ -37,14 +37,14 @@ export function SignupCompleteStep({ name }: { name: string }) {
   return (
     <section className={styles.complete} aria-labelledby="complete-title">
       <span aria-hidden="true">✓</span>
-      <Typography as="h2" variant="headingKr7" id="complete-title">
+      <Typography as="h2" variant="heading7" id="complete-title">
         회원가입이 완료되었습니다.
       </Typography>
-      <Typography as="p" variant="bodyKr4" tone="tertiary" className={css({ mt: '3', mb: '0' })}>
+      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '3', mb: '0' })}>
         {name}님, HOKA 멤버십에 오신 것을 환영합니다.
       </Typography>
       <Link className={styles.primary} to="/login">
-        <Typography as="span" variant="ctaKr1" tone="inverse">
+        <Typography as="span" variant="cta1" tone="inverse">
           로그인하러 가기
         </Typography>
       </Link>

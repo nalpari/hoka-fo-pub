@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
@@ -115,14 +113,14 @@ export function SignupPage() {
           <>
             <Typography
               as="p"
-              variant="bodyKr5"
+              variant="body5"
               tone="tertiary"
               weight="medium"
               className={styles.eyebrow}
             >
               JOIN HOKA
             </Typography>
-            <Typography as="h1" variant="headingKr6" className={styles.pageTitle} id="signup-title">
+            <Typography as="h1" variant="heading6" className={styles.pageTitle} id="signup-title">
               회원가입
             </Typography>
             <SignupProgress method={method} step={step} />

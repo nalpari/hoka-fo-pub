@@ -29,7 +29,7 @@ const styles = {
   }),
   countdown: css({ m: '0', mt: '-2' }),
   text: css({ mb: '2' }),
-  intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
+  intro: css({ m: '-6 0 6', color: 'var(--color-text-subtle)' }),
   help: css({ m: '0', mt: '4' }),
   carrierList: css({ gap: '4' }),
   carrierSection: css({ gap: '3', pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
@@ -155,7 +155,7 @@ export function PhoneVerificationContent(props: Props) {
           {props.title ?? '휴대폰 인증'}
         </Typography>
         {props.description ? (
-          <Typography as="p" variant="bodyKr5" className={styles.intro}>
+          <Typography as="p" variant="body5" className={styles.intro}>
             {props.description}
           </Typography>
         ) : null}
@@ -165,7 +165,7 @@ export function PhoneVerificationContent(props: Props) {
               휴대폰 인증약관
             </Typography>
             <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
-              <Typography variant="bodyKr4">모두동의</Typography>
+              <Typography variant="body4">모두동의</Typography>
             </Terms>
           </HStack>
           {verificationTerms.map((term, index) => (
@@ -176,7 +176,7 @@ export function PhoneVerificationContent(props: Props) {
                 required
                 invalid={showAgreementErrors && !agreements[index]}
               >
-                <Typography variant="bodyKr5">(필수) {term}</Typography>
+                <Typography variant="body5">(필수) {term}</Typography>
               </Terms>
               <Button
                 variant="link"
@@ -184,7 +184,7 @@ export function PhoneVerificationContent(props: Props) {
                 className={styles.detail}
                 onClick={() => props.onDetail(term)}
               >
-                <Typography variant="bodyKr5">자세히 보기</Typography>
+                <Typography variant="body5">자세히 보기</Typography>
               </Button>
             </HStack>
           ))}
@@ -213,7 +213,7 @@ export function PhoneVerificationContent(props: Props) {
               className={styles.detail}
               onClick={() => props.onDetail('알뜰폰 사업자')}
             >
-              <Typography variant="bodyKr5">알뜰폰 사업자 보기</Typography>
+              <Typography variant="body5">알뜰폰 사업자 보기</Typography>
             </Button>
           </Grid>
           {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
@@ -245,14 +245,14 @@ export function PhoneVerificationContent(props: Props) {
                   onChange={(event) => props.onCodeChange(event.target.value)}
                 />
               </FormField>
-              <Typography as="p" variant="bodyKr5" tone="red100" className={styles.countdown}>
+              <Typography as="p" variant="body5" tone="error" className={styles.countdown}>
                 남은 시간{' '}
                 {Math.floor(secondsLeft / 60)
                   .toString()
                   .padStart(2, '0')}
                 :{(secondsLeft % 60).toString().padStart(2, '0')}초
               </Typography>
-              <Typography as="p" variant="bodyKr5" className={styles.text}>
+              <Typography as="p" variant="body5" className={styles.text}>
                 입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
                 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
               </Typography>
@@ -263,7 +263,7 @@ export function PhoneVerificationContent(props: Props) {
           ) : null}
           {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
         </form>
-        <Typography as="p" variant="bodyKr4" tone="tertiary" className={styles.help}>
+        <Typography as="p" variant="body4" tone="tertiary" className={styles.help}>
           * 인증문의 (주)KCB고객센터 02-708-1000
         </Typography>
       </Box>
@@ -288,10 +288,10 @@ export function PhoneVerificationContent(props: Props) {
                     : styles.carrierSection
                 }
               >
-                <Typography as="h2" variant="bodyKr3" className={styles.carrierTitle}>
+                <Typography as="h2" variant="body3" className={styles.carrierTitle}>
                   {carrier.title}
                 </Typography>
-                <Typography as="p" variant="bodyKr4" className={styles.carrierNames}>
+                <Typography as="p" variant="body4" className={styles.carrierNames}>
                   {carrier.names}
                 </Typography>
               </Stack>

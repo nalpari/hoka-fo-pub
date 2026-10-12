@@ -1,10 +1,10 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FormEvent } from 'react';
 import { css } from 'styled-system/css';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -27,7 +27,7 @@ const styles = {
     mt: '7',
     placeItems: 'center',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
   }),
 };
 
@@ -62,10 +62,10 @@ export function SignupDetailsStep({
 }: SignupDetailsStepProps) {
   return (
     <form className={styles.formSection} onSubmit={onSubmit}>
-      <Typography as="h2" variant="headingKr7">
+      <Typography as="h2" variant="heading7">
         기본 정보 입력
       </Typography>
-      <Typography as="p" variant="bodyKr4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
+      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
         {methodOption.label} 후 필요한 정보를 입력해 주세요.
       </Typography>
       <FormField
@@ -135,7 +135,7 @@ export function SignupDetailsStep({
       ) : null}
       {message ? (
         <StatusMessage className={styles.error} tone="error">
-          <Typography as="span" variant="bodyKr4" tone="red100">
+          <Typography as="span" variant="body4" tone="error">
             {message}
           </Typography>
         </StatusMessage>

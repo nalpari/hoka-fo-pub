@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Fragment, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 
@@ -6,17 +7,14 @@ const styles = {
     mt: '7',
     p: '5',
     bg: 'var(--color-black-10)',
-    '& h2': { mb: '3', fontSize: '16' /* 기존 17px */, fontWeight: 'black' },
-    '& h3': { mt: '5', mb: '2', fontSize: '12', fontWeight: 'bold' },
-    '& p': { fontSize: '12', lineHeight: 'body' },
+    '& h2': { mb: '3' },
+    '& h3': { mt: '5', mb: '2' },
   }),
   specs: css({
     display: 'grid',
     gridTemplateColumns: '76px 1fr',
     gap: '1.5 3',
     mt: '5',
-    fontSize: '12',
-    '& dt': { fontWeight: 'bold' },
   }),
 };
 
@@ -36,18 +34,28 @@ export function ProductInformation({
 }: ProductInformationProps) {
   return (
     <section className={styles.info} id={id}>
-      <h2>{title}</h2>
+      <Typography as="h2" variant="heading9">
+        {title}
+      </Typography>
       {sections.map((section, index) => (
         <Fragment key={index}>
-          <h3>{section.title}</h3>
-          <p>{section.content}</p>
+          <Typography as="h3" variant="body5" weight="bold">
+            {section.title}
+          </Typography>
+          <Typography as="p" variant="body5">
+            {section.content}
+          </Typography>
         </Fragment>
       ))}
       <dl className={styles.specs}>
         {specifications.map((specification, index) => (
           <Fragment key={index}>
-            <dt>{specification.label}</dt>
-            <dd>{specification.value}</dd>
+            <Typography as="dt" variant="body5" weight="bold">
+              {specification.label}
+            </Typography>
+            <Typography as="dd" variant="body5">
+              {specification.value}
+            </Typography>
           </Fragment>
         ))}
       </dl>

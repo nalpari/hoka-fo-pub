@@ -75,7 +75,7 @@ export type SingleCheckboxProps = Omit<
 > & {
   className?: string;
   label: ReactNode;
-  labelVariant?: 'formLabel' | 'bodyKr4';
+  labelVariant?: 'formLabel' | 'body4';
   /** Consent text may contain links or detail buttons. */
   interactiveLabel?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -121,7 +121,6 @@ function SingleCheckbox({
         render={renderCheckboxControl}
       />
       <Typography
-        as="span"
         variant={labelVariant}
         id={interactiveLabel ? labelId : undefined}
         onClick={(event) => {
@@ -178,9 +177,7 @@ function CheckboxGroup<T extends string>({
             key={item.value}
           >
             {controlNode}
-            <Typography as="span" variant="formLabel">
-              {item.label}
-            </Typography>
+            <Typography variant="formLabel">{item.label}</Typography>
           </Stack>
         );
       })}

@@ -72,7 +72,7 @@ export function SignupTermsContent(props: Props) {
         </Typography>
         <Box className={styles.all}>
           <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
-            <Typography variant="bodyKr4">모든 약관을 확인하고 전체동의 합니다</Typography>
+            <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>
         </Box>
         <Stack className={styles.list}>
@@ -84,7 +84,7 @@ export function SignupTermsContent(props: Props) {
                 required={term.required}
                 invalid={Boolean(props.notice && term.required && !props.agreements[index])}
               >
-                <Typography variant="bodyKr4">
+                <Typography variant="body4">
                   ({term.required ? '필수' : '선택'}) {term.label}
                 </Typography>
               </Terms>
@@ -95,7 +95,7 @@ export function SignupTermsContent(props: Props) {
                 onClick={() => props.onDetail(index)}
                 aria-label={`${term.required ? '필수' : '선택'} ${term.label} 자세히 보기`}
               >
-                <Typography variant="bodyKr5">자세히 보기</Typography>
+                <Typography variant="body5">자세히 보기</Typography>
               </Button>
             </HStack>
           ))}
@@ -139,34 +139,34 @@ export function SignupTermsContent(props: Props) {
       >
         <Box className={styles.body}>
           <HStack className={styles.documentHeader}>
-            <Typography variant="bodyKr3">
+            <Typography variant="body3">
               ({selected?.required ? '필수' : '선택'}) {selected?.label}
             </Typography>
             <Button variant="link" size="sm" className={styles.detail} onClick={props.onPrevious}>
-              <Typography variant="bodyKr5">
+              <Typography variant="body5">
                 {props.previous ? '현재 약관 보기' : '이전 약관 보기'}
               </Typography>
             </Button>
           </HStack>
           <Box as="article" className={styles.document} tabIndex={0} aria-label="약관 내용">
             {props.previous ? (
-              <Typography as="p" variant="bodyKr5" className={styles.text}>
+              <Typography as="p" variant="body5" className={styles.text}>
                 이전 약관은 등록 준비 중입니다.
               </Typography>
             ) : (
               [1, 2].map((number) => (
                 <Box key={number}>
-                  <Typography as="h2" variant="bodyKr4" className={styles.text}>
+                  <Typography as="h2" variant="body4" className={styles.text}>
                     약관 타이틀{number}
                   </Typography>
-                  <Typography as="p" variant="bodyKr4" className={styles.text}>
+                  <Typography as="p" variant="body4" className={styles.text}>
                     {'약관내용'.repeat(155)}
                   </Typography>
                 </Box>
               ))
             )}
           </Box>
-          <Typography as="p" variant="bodyKr5" tone="subtle" className={styles.dates}>
+          <Typography as="p" variant="body5" tone="subtle" className={styles.dates}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
           </Typography>
         </Box>

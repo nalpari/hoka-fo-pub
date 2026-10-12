@@ -36,7 +36,7 @@ const option = cva({
     active: {
       true: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
         borderColor: 'var(--color-black-100)',
       },
       false: {},
@@ -63,7 +63,7 @@ const tab = cva({
     active: {
       true: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
         borderColor: 'var(--color-black-100)',
       },
       false: {},
@@ -93,7 +93,7 @@ const action = css({
   px: '18px',
   py: '3',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
 });
 
 const copy: Record<RunningExperienceKind, { title: string; description: string }> = {

@@ -113,7 +113,7 @@ export function LoginContent({
               <Button variant="link" size="sm" onClick={onFindAccount}>
                 아이디 찾기
               </Button>
-              <Typography variant="bodyKr5" aria-hidden="true">
+              <Typography variant="body5" aria-hidden="true">
                 |
               </Typography>
               <Button variant="link" size="sm" onClick={() => onUnavailable('비밀번호 찾기')}>
@@ -155,10 +155,10 @@ export function LoginContent({
           </Stack>
         </form>
         <Stack as="section" className={styles.membership} aria-labelledby="membership-title">
-          <Typography as="h2" variant="bodyKr3" id="membership-title" className={css({ m: 0 })}>
+          <Typography as="h2" variant="body3" id="membership-title" className={css({ m: 0 })}>
             가입과 동시에 시작되는 혜택!
           </Typography>
-          <Typography as="p" variant="bodyKr4" className={css({ m: 0 })}>
+          <Typography as="p" variant="body4" className={css({ m: 0 })}>
             신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
           </Typography>
           <ButtonLink
