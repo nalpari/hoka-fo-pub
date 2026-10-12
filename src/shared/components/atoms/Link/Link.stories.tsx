@@ -14,3 +14,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const TextLink1: Story = { args: { size: 'lg' } };
+
+export const TextLink2: Story = { args: { size: 'md' } };
+
+export const TextLink3: Story = { args: { size: 'sm' } };

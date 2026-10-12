@@ -33,7 +33,7 @@ export function ProductPurchaseSummary({ product, onViewReviews }: ProductPurcha
           className={css({
             p: '0',
             border: '0',
-            color: 'var(--color-text-muted)',
+            color: 'var(--color-text-tertiary)',
             textDecoration: 'underline',
           })}
           onClick={onViewReviews}

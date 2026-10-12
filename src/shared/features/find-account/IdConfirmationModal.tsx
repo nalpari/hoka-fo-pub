@@ -20,7 +20,7 @@ const styles = {
     lineHeight: '1.2',
     _mobile: { fontSize: '22px' },
   }),
-  description: css({ m: '24px 0', color: '#777' }),
+  description: css({ m: '24px 0', color: 'var(--color-text-tertiary)' }),
   actions: css({ justifyContent: 'center', gap: '2', _mobile: { flexDirection: 'column' } }),
   action: css({
     w: '160px',

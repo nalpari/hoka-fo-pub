@@ -119,7 +119,7 @@ const item = cva({
           p: '0',
           borderRadius: '0',
           bg: 'transparent',
-          color: 'var(--color-black-50)',
+          color: 'var(--color-text-tertiary)',
           '& > span': {
             color: 'inherit',
             fontSize: '14',

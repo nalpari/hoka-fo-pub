@@ -53,7 +53,7 @@ const styles = {
     '& p': {
       minH: '12',
       mb: '6',
-      color: 'var(--color-text-muted)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '14',
       lineHeight: 'var(--line-heights-body)',
     },
@@ -70,7 +70,7 @@ const styles = {
     px: '7px',
     py: '5px',
     bg: 'var(--soft)',
-    color: 'var(--color-text-muted)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12' /* 기존: 11px */,
   }),
 };

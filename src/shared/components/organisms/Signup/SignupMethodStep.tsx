@@ -24,7 +24,7 @@ const styles = {
   description: css({
     mt: '3',
     mb: 0,
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '16',
     lineHeight: 'var(--line-heights-body)',
   }),

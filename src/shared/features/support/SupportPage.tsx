@@ -30,7 +30,7 @@ const styles = {
       fontWeight: 'var(--font-weights-normal)',
       _mobile: { fontSize: '28' /* 기존 29px */ },
     },
-    '& p': { m: '0', color: 'var(--color-black-50)', fontSize: '12' },
+    '& p': { m: '0', color: 'var(--color-text-tertiary)', fontSize: '12' },
   }),
   details: css({
     '& article': {
@@ -49,7 +49,7 @@ const styles = {
     },
     '& p': {
       m: '6px 0 0',
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12' /* 기존: 11px */,
       lineHeight: 'var(--line-heights-body)',
     },
@@ -80,7 +80,7 @@ const styles = {
     '& span': { display: 'grid', gap: '1.5' },
     '& strong': { fontSize: '14' },
     '& small': {
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12' /* 기존: 10px */,
       lineHeight: 'var(--line-heights-body)',
     },

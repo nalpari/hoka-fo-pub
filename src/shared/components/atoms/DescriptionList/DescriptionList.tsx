@@ -10,7 +10,7 @@ const list = css({
   lineHeight: 'body',
 });
 const term = css({ fontWeight: 'bold' });
-const detail = css({ m: '0', color: 'var(--color-text-muted)' });
+const detail = css({ m: '0', color: 'var(--color-text-tertiary)' });
 export type DescriptionListItem = { term: ReactNode; description: ReactNode };
 export type DescriptionListProps = {
   items: DescriptionListItem[];

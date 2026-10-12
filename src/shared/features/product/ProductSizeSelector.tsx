@@ -9,7 +9,7 @@ import { ProductVariantSection } from '@/shared/features/product/ProductVariantS
 
 const styles = {
   error: css({ mt: '2', color: 'var(--color-red-100)', fontSize: '12' }),
-  recommendation: css({ mt: '2', color: 'var(--color-black-50)', fontSize: '12' /* 기존: 11px */ }),
+  recommendation: css({ mt: '2', color: 'var(--color-text-tertiary)', fontSize: '12' /* 기존: 11px */ }),
 };
 
 type ProductSizeSelectorProps = {

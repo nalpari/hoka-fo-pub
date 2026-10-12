@@ -44,7 +44,7 @@ const metricItem = css({
     '&:last-child': { borderBottom: '0' },
   },
 });
-const label = css({ color: 'var(--color-text-muted)', fontSize: '12' });
+const label = css({ color: 'var(--color-text-tertiary)', fontSize: '12' });
 const value = css({ fontSize: '28' /* 기존 27px */ });
 const detail = css({ fontSize: '12' });
 

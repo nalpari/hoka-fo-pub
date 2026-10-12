@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
@@ -51,7 +51,7 @@ const styles = {
   }),
   eyebrow: css({
     m: 0,
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12',
     fontWeight: 'var(--font-weights-bold)',
     letterSpacing: 'var(--letter-spacings-korean)',
@@ -59,6 +59,7 @@ const styles = {
 };
 
 export function SignupPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [step, setStep] = useState<SignupStep>(searchParams.get('step') === 'details' ? 2 : 0);
   const [method, setMethod] = useState<SignupMethod>('local');
@@ -74,6 +75,11 @@ export function SignupPage() {
   const selectedMethod = signupMethods.find((item) => item.id === method)!;
 
   const startSignup = (nextMethod: SignupMethod) => {
+    if (nextMethod === 'local') {
+      navigate('/signup/verify');
+      return;
+    }
+
     setMethod(nextMethod);
     setMessage('');
     setStep(nextMethod === 'naver' ? 2 : 1);

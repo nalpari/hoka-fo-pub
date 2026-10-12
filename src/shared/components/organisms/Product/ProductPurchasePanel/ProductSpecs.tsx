@@ -17,7 +17,7 @@ export function ProductSpecs({ cushioning, stability, width, use }: ProductSpecs
     <Grid as="dl" gridTemplateColumns="1fr 1fr" my="5" borderTop="1px solid var(--color-black-100)">
       {labels.map(([label, key]) => (
         <Box py="2.5" borderBottom="1px solid var(--color-black-20)" key={key}>
-          <Box as="dt" color="var(--color-black-50)" fontSize="12">
+          <Box as="dt" color="var(--color-text-tertiary)" fontSize="12">
             {label}
           </Box>
           <Box as="dd" m="4px 0 0" fontWeight="700">

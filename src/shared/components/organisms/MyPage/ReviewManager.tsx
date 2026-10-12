@@ -41,7 +41,7 @@ const image = css({
   aspectRatio: '1',
   placeItems: 'center',
   bg: 'var(--color-black-20)',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
 });
 
 const form = css({
@@ -141,7 +141,7 @@ export function ReviewManager() {
         <strong>{visible.length}건</strong>
       </div>
       {!visible.length ? (
-        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-muted)' })}>
+        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-tertiary)' })}>
           작성할 리뷰가 없습니다.
         </p>
       ) : (
@@ -155,7 +155,7 @@ export function ReviewManager() {
                 <span
                   className={css({
                     fontSize: '14' /* 기존 13px */,
-                    color: 'var(--color-text-muted)',
+                    color: 'var(--color-text-tertiary)',
                   })}
                 >
                   옵션: {review.option}

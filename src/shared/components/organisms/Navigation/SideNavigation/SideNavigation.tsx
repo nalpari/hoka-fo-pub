@@ -43,7 +43,7 @@ const navLink = cva({
   base: {
     display: 'block',
     my: '2',
-    color: 'var(--color-text-muted)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '14' /* 기존 13px */,
     _mobile: { flex: 'none', m: '0', py: '1', fontSize: '12', whiteSpace: 'nowrap' },
   },

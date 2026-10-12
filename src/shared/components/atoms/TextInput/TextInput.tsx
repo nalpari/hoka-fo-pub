@@ -46,8 +46,9 @@ const boxedControl = css({
     lineHeight: 'body',
     letterSpacing: 'korean',
     color: 'black.100',
-    outline: 'none',
-    _placeholder: { color: 'black.50' },
+    outline: 'none!',
+    _focusVisible: { outline: 'none!' },
+    _placeholder: { color: 'text.tertiary' },
     _disabled: { opacity: '1', color: 'black.40' },
   },
 });

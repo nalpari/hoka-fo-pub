@@ -75,7 +75,7 @@ const audienceNote = css({
   height: '0',
   mt: '4',
   mb: 'calc(var(--spacing-4) * -1)',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '12' /* 기존: 11px */,
   opacity: '0',
 });

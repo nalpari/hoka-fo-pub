@@ -66,7 +66,7 @@ const panel = cva({
 const content = cva({
   variants: {
     variant: {
-      default: { pb: '22px', color: 'var(--color-text-muted)', lineHeight: 'body' },
+      default: { pb: '22px', color: 'var(--color-text-tertiary)', lineHeight: 'body' },
       panel: { p: '3' },
     },
   },

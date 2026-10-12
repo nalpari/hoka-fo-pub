@@ -19,7 +19,7 @@ const styles = {
     bg: 'var(--color-white-000)',
     textAlign: 'left',
     '& b, & i': { fontFamily: 'var(--font-family-base)', fontSize: '16' /* 기존 15px */ },
-    '& b': { mr: '18px', color: 'var(--color-black-50)' },
+    '& b': { mr: '18px', color: 'var(--color-text-tertiary)' },
     '& span': { flex: '1', fontSize: '12' /* 기존: 11px */ },
     '& i': { fontSize: '12' /* 기존: 11px */, fontStyle: 'normal' },
   }),
@@ -29,19 +29,19 @@ const styles = {
     bg: 'var(--color-surface-muted)',
     '& b': {
       mr: '18px',
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontFamily: 'var(--font-family-base)',
       fontSize: '16' /* 기존 15px */,
     },
     '& p': {
       maxW: '550px',
       m: '0',
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12' /* 기존: 11px */,
       lineHeight: 'body',
     },
   }),
-  empty: css({ p: '15', color: 'var(--color-black-50)', textAlign: 'center' }),
+  empty: css({ p: '15', color: 'var(--color-text-tertiary)', textAlign: 'center' }),
 };
 
 type Props = {

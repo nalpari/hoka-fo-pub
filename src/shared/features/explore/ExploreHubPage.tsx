@@ -58,7 +58,7 @@ const styles = {
     '& p': {
       minH: '12',
       mb: '6',
-      color: 'var(--color-text-muted)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '14',
       lineHeight: 'var(--line-heights-body)',
     },

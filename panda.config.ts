@@ -16,9 +16,10 @@ export default defineConfig({
       semanticTokens: {
         colors: {
           text: {
-            primary: { value: '#000' },
-            inverse: { value: '#fff' },
-            subtle: { value: '#555' },
+            primary: { value: '{colors.black.100}' },
+            inverse: { value: '{colors.white.0}' },
+            subtle: { value: '{colors.black.60}' },
+            tertiary: { value: '{colors.black.50}' },
           },
           surface: {
             default: { value: '#fff' },

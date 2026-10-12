@@ -102,7 +102,7 @@ const recommendArt = cva({
   },
   variants: {
     tone: {
-      0: { bg: 'var(--color-black-20)', color: 'var(--color-black-50)' },
+      0: { bg: 'var(--color-black-20)', color: 'var(--color-text-tertiary)' },
       1: { bg: 'var(--color-black-20)', color: 'var(--color-black-40)' },
       2: { bg: 'var(--color-black-20)', color: 'var(--color-black-60)' },
       3: { bg: 'var(--color-black-20)', color: 'var(--color-black-100)' },
@@ -165,7 +165,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                       <p
                         className={css({
                           m: '2 0',
-                          color: 'var(--color-black-50)',
+                          color: 'var(--color-text-tertiary)',
                           fontSize: '14' /* 기존 13px */,
                         })}
                       >
@@ -175,7 +175,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                         className={css({
                           p: '0',
                           border: '0',
-                          color: 'var(--color-black-50)',
+                          color: 'var(--color-text-tertiary)',
                           fontSize: '12',
                           textDecoration: 'underline',
                         })}
@@ -255,7 +255,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               key={product.id}
             >
               <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>
-              <small className={css({ color: 'var(--color-text-muted)' })}>
+              <small className={css({ color: 'var(--color-text-tertiary)' })}>
                 {product.id.toUpperCase()}
               </small>
               <strong className={css({ fontSize: '16' /* 기존 15px */ })}>{product.name}</strong>

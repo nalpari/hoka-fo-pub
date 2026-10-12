@@ -140,7 +140,7 @@ const suggestions = css({
     minH: '158px',
     m: '0',
     placeItems: 'center',
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '14' /* 기존 13px */,
     textAlign: 'center',
   },

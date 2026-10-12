@@ -21,7 +21,7 @@ const row = css({
   fontSize: '14' /* 기존 13px */,
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    '& span:first-child': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& span:first-child': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
   },
 });
 

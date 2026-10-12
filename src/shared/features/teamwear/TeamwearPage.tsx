@@ -78,7 +78,7 @@ const styles = {
     '& p': { m: '6px 0', fontSize: '12' /* 기존: 11px */ },
     '& hr': { m: '6 0 4.5', border: '0', borderTop: '1px solid var(--color-black-20)' },
     '& b': { display: 'block', mb: '2', fontSize: '12' },
-    '& small': { color: 'var(--color-black-50)', fontSize: '12' /* 기존: 11px */ },
+    '& small': { color: 'var(--color-text-tertiary)', fontSize: '12' /* 기존: 11px */ },
   }),
   label: css({
     minH: '218px',
@@ -97,7 +97,7 @@ const styles = {
     m: '0',
     py: '6',
     borderTop: '1px solid var(--color-black-20)',
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12' /* 기존: 11px */,
     _mobile: { mt: '4', lineHeight: 'var(--line-heights-body)' },
   }),

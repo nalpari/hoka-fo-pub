@@ -21,7 +21,7 @@ const styles = {
       _mobile: { lineHeight: 'var(--line-heights-body)' },
     },
     '& span': {
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12' /* 기존: 11px */,
       _mobile: { display: 'block', mt: '2.5' },
     },

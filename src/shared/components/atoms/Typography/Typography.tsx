@@ -507,6 +507,10 @@ const typography = cva({
       primary: { color: 'var(--color-text-primary)' },
       inverse: { color: 'var(--color-text-inverse)' },
       subtle: { color: 'var(--color-text-subtle)' },
+      tertiary: { color: 'var(--color-text-tertiary)' },
+      black40: { color: 'var(--color-black-40)' },
+      black20: { color: 'var(--color-black-20)' },
+      black10: { color: 'var(--color-black-10)' },
     },
   },
   defaultVariants: { tone: 'primary', variant: 'body' },
@@ -561,7 +565,7 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
 > & {
   as?: T;
   children: ReactNode;
-  tone?: 'primary' | 'inverse' | 'subtle';
+  tone?: 'primary' | 'inverse' | 'subtle' | 'tertiary' | 'black40' | 'black20' | 'black10';
   variant?: TypographyVariant;
   weight?: 'regular' | 'medium';
 };

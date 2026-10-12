@@ -14,7 +14,7 @@ const styles = {
     '& > p': {
       mt: '9px',
       mb: 0,
-      color: 'var(--color-text-muted)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '14',
     },
   }),
@@ -44,7 +44,7 @@ const styles = {
       ml: 'auto',
       p: 0,
       border: 0,
-      color: 'var(--color-text-muted)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12',
       textDecoration: 'underline',
     },

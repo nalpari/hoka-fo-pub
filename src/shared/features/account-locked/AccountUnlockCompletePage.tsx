@@ -24,7 +24,7 @@ const styles = {
     justifyContent: 'center',
     '& svg': { w: '2.5', h: '2.5' },
   }),
-  description: css({ m: '0', color: 'var(--color-black-50)' }),
+  description: css({ m: '0', color: 'var(--color-text-tertiary)' }),
   button: css({
     mt: '4',
     '--button-height': '40px!',

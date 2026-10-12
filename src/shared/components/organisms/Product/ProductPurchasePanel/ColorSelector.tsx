@@ -26,7 +26,7 @@ const thumbnail = css({
   h: 'calc(100% - 3px)',
   p: '1',
   placeItems: 'center',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '12' /* 기존: 9px */,
   lineHeight: 'koreanHeading',
   textAlign: 'center',

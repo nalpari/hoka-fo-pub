@@ -42,7 +42,7 @@ const storeList = css({
     justifyItems: 'center',
     gap: '0.5',
     border: '0',
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12' /* 기존: 10px */,
   },
   '& article button b': {
@@ -53,7 +53,7 @@ const storeList = css({
   '& h2': { m: '0 0 var(--spacing-3)', fontSize: '14' },
   '& p': {
     m: '0 0 1',
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12' /* 기존: 11px */,
     _mobile: { maxW: '260px', lineHeight: 'var(--line-heights-body)' },
   },
@@ -63,6 +63,6 @@ const storeList = css({
 
 const noResult = css({
   p: '70px',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   textAlign: 'center',
 });
