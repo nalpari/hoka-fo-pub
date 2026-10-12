@@ -153,7 +153,7 @@ const styles = {
     flexShrink: 0,
     w: '23px',
     h: '18px',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     objectFit: 'cover',
   }),
 };

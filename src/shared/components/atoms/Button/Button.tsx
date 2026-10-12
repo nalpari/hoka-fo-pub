@@ -219,7 +219,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     '--button-border-width': primary || inverseLegacy ? '0px' : '1px',
     '--button-border-color': white ? 'var(--color-white-000)' : 'var(--color-black-100)',
     '--button-border-width-hover': white && !primary ? '2px' : '0px',
-    '--button-focus-ring': white && !primary ? 'var(--color-white-000)' : 'var(--color-black-40)',
+    '--button-focus-ring': white && !primary ? 'var(--color-white-000)' : 'var(--color-border-tertiary)',
     '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-black-40)',
     '--button-disabled-color': unframed
       ? 'var(--color-black-40)'

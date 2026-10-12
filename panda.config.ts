@@ -27,7 +27,7 @@ export default defineConfig({
           },
           border: {
             default: { value: '#d8d8d8' },
-            muted: { value: '#B3B3B3' },
+            tertiary: { value: '{colors.black.40}' },
             strong: { value: '#111' },
           },
           error: { value: '{colors.red.100}' },
@@ -52,7 +52,7 @@ export default defineConfig({
               foreground: { value: '{colors.black.100}' },
               hoverForeground: { value: '{colors.white.0}' },
             },
-            focus: { value: '{colors.black.40}' },
+            focus: { value: '{colors.border.tertiary}' },
             brand: { value: '{colors.blue.100}' },
           },
         },

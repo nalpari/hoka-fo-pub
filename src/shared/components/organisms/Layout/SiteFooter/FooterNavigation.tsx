@@ -83,8 +83,8 @@ export function FooterNavigation() {
         </Flex>
       ) : (
         <Box
-          borderTop="1px solid var(--color-black-40)"
-          borderBottom="1px solid var(--color-black-40)"
+          borderTop="1px solid var(--color-border-tertiary)"
+          borderBottom="1px solid var(--color-border-tertiary)"
         >
           <Accordion items={mobileItems} indicatorColor="var(--color-black-10)" multiple={false} />
         </Box>

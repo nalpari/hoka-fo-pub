@@ -80,7 +80,7 @@ const field = css({
     minH: '160px',
     w: '100%',
     resize: 'vertical',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     p: '3',
     fontFamily: 'var(--font-family-base)',
   },
