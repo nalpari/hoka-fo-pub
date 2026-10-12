@@ -29,7 +29,7 @@ const tab = cva({
     border: '0',
     borderRight: { base: '1px solid var(--color-black-20)', _mobile: '0' },
     bg: 'var(--color-white-000)',
-    color: 'var(--color-text-muted)',
+    color: 'var(--color-text-tertiary)',
     fontSize: { _mobile: '12' },
     fontWeight: 'bold',
     whiteSpace: 'nowrap',
@@ -44,7 +44,7 @@ const tab = cva({
   variants: {
     active: {
       true: {
-        color: 'var(--color-black-100)',
+        color: 'var(--color-text-primary)',
         _after: {
           position: 'absolute',
           right: '0',
@@ -142,7 +142,7 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
               '& > p': {
                 maxW: '620px',
                 m: '0',
-                color: 'var(--color-text-muted)',
+                color: 'var(--color-text-tertiary)',
                 lineHeight: 'body',
               },
             })}

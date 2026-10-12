@@ -1,7 +1,29 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PhoneVerificationContent, type PhoneInformation } from './PhoneVerificationContent';
+import {
+  PhoneVerificationContent,
+  type PhoneInformation,
+  type PhoneVerificationErrors,
+} from './PhoneVerificationContent';
 import { AlreadyRegisteredModal } from '@/shared/features/signup-registration/AlreadyRegisteredModal';
+
+const isValidName = (value: string) => /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/.test(value.trim());
+
+const isValidBirthDate = (value: string) => {
+  if (!/^\d{8}$/.test(value)) return false;
+
+  const year = Number(value.slice(0, 4));
+  const month = Number(value.slice(4, 6));
+  const day = Number(value.slice(6));
+  const date = new Date(year, month - 1, day);
+
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() + 1 === month &&
+    date.getDate() === day &&
+    date <= new Date()
+  );
+};
 
 export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | 'account-unlock' }) {
   const navigate = useNavigate();
@@ -14,10 +36,12 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
     phone: '',
   });
   const [agreements, setAgreements] = useState([false, false, false, false]);
+  const [showAgreementErrors, setShowAgreementErrors] = useState(false);
   const [deadline, setDeadline] = useState<number | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [code, setCode] = useState('');
   const [notice, setNotice] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<PhoneVerificationErrors>({});
   const [detail, setDetail] = useState<string | null>(null);
   const [alreadyRegisteredOpen, setAlreadyRegisteredOpen] = useState(false);
 
@@ -30,6 +54,18 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
 
   const changeInformation = (key: keyof PhoneInformation, value: string) => {
     setInformation((previous) => ({ ...previous, [key]: value }));
+    setFieldErrors((previous) => {
+      const next = { ...previous, [key]: undefined };
+
+      if (key === 'name' && value && !isValidName(value)) {
+        next.name = '올바른 이름을 입력해주세요';
+      }
+      if (key === 'birthDate' && value && !isValidBirthDate(value)) {
+        next.birthDate = '생년월일을 입력해주세요';
+      }
+
+      return next;
+    });
     setDeadline(null);
     setSecondsLeft(0);
     setCode('');
@@ -37,28 +73,24 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
   };
 
   const requestCode = () => {
-    if (!agreements.every(Boolean)) {
-      setNotice('필수 인증약관에 모두 동의해 주세요.');
+    const missingAgreements = !agreements.every(Boolean);
+    const nextErrors: PhoneVerificationErrors = {};
+
+    if (!isValidName(information.name)) nextErrors.name = '올바른 이름을 입력해주세요';
+    if (!isValidBirthDate(information.birthDate)) nextErrors.birthDate = '생년월일을 입력해주세요';
+    if (!information.gender) nextErrors.gender = '성별을 입력해주세요';
+    if (!information.carrier) nextErrors.carrier = '통신사를 선택해주세요';
+    if (!/^01[016789]\d{7,8}$/.test(information.phone.replace(/[-\s]/g, '')))
+      nextErrors.phone = '올바른 휴대폰 번호를 입력해주세요';
+
+    setFieldErrors(nextErrors);
+    setShowAgreementErrors(missingAgreements);
+    setNotice('');
+    if (Object.keys(nextErrors).length > 0) {
       return;
     }
-    const date = information.birthDate;
-    const birth = new Date(
-      Number(date.slice(0, 4)),
-      Number(date.slice(4, 6)) - 1,
-      Number(date.slice(6)),
-    );
-    if (
-      !information.name.trim() ||
-      !/^\d{8}$/.test(date) ||
-      birth.getFullYear() !== Number(date.slice(0, 4)) ||
-      birth.getMonth() + 1 !== Number(date.slice(4, 6)) ||
-      birth.getDate() !== Number(date.slice(6)) ||
-      birth > new Date() ||
-      !/^01[016789]\d{7,8}$/.test(information.phone.replace(/[-\s]/g, ''))
-    ) {
-      setNotice('이름, 생년월일 8자리와 올바른 휴대폰 번호를 입력해 주세요.');
-      return;
-    }
+    if (missingAgreements) return;
+
     setDeadline(Date.now() + 180000);
     setSecondsLeft(180);
     setCode('');
@@ -74,7 +106,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
       return;
     }
     if (!agreements.every(Boolean)) {
-      setNotice('필수 인증약관에 모두 동의해 주세요.');
+      setShowAgreementErrors(true);
       return;
     }
     if (Date.now() >= deadline) {
@@ -104,19 +136,24 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
         }
         information={information}
         agreements={agreements}
+        showAgreementErrors={showAgreementErrors}
         requested={deadline !== null}
         code={code}
         secondsLeft={secondsLeft}
         resendWait={secondsLeft}
         notice={notice}
+        fieldErrors={fieldErrors}
         detail={detail}
         onInformationChange={changeInformation}
-        onAgreementChange={(index, checked) =>
-          setAgreements((previous) =>
-            previous.map((value, position) => (position === index ? checked : value)),
-          )
-        }
-        onAllAgree={(checked) => setAgreements(agreements.map(() => checked))}
+        onAgreementChange={(index, checked) => {
+          const next = agreements.map((value, position) => (position === index ? checked : value));
+          setAgreements(next);
+          if (next.every(Boolean)) setShowAgreementErrors(false);
+        }}
+        onAllAgree={(checked) => {
+          setAgreements(agreements.map(() => checked));
+          if (checked) setShowAgreementErrors(false);
+        }}
         onCodeChange={setCode}
         onRequest={requestCode}
         onConfirm={confirmCode}

@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -9,16 +10,13 @@ import { myPageNavigation, profileQuestions } from '@/shared/features/mypage/myp
 const header = css({
   '& small': {
     color: 'var(--color-blue-100)',
-    fontSize: '12' /* 기존: 11px */,
-    fontWeight: 'var(--font-weights-bold)',
-    letterSpacing: 'var(--letter-spacings-korean)',
   },
   '& h1': {
     m: '10px 0',
     fontSize: '32',
     _mobile: { fontSize: '28' /* 기존 27px */ },
   },
-  '& p': { color: 'var(--color-text-muted)', fontSize: '14' },
+  '& p': { color: 'var(--color-text-tertiary)' },
 });
 
 const progress = css({ my: '32px 50px' });
@@ -59,9 +57,13 @@ export function RunningProfilePage() {
       titleTo="/mypage"
     >
       <header className={header}>
-        <small>HOKA PERSONALIZATION</small>
+        <Typography as="small" variant="body5" weight="bold">
+          HOKA PERSONALIZATION
+        </Typography>
         <h1>나의 러닝 프로필</h1>
-        <p>세 가지 질문으로 나에게 맞는 러닝 경험을 찾아보세요.</p>
+        <Typography as="p" variant="body4">
+          세 가지 질문으로 나에게 맞는 러닝 경험을 찾아보세요.
+        </Typography>
       </header>
       <div className={progress}>
         <ProgressBar
@@ -82,9 +84,9 @@ export function RunningProfilePage() {
         ))}
       </div>
       <footer className={footer}>
-        <span>
+        <Typography variant="body4">
           {answeredCount} / {profileQuestions.length} 완료
-        </span>
+        </Typography>
         <Button variant="primary" disabled={!completed}>
           추천 결과 보기
         </Button>

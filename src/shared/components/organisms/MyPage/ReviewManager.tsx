@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
@@ -41,7 +42,7 @@ const image = css({
   aspectRatio: '1',
   placeItems: 'center',
   bg: 'var(--color-black-20)',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
 });
 
 const form = css({
@@ -53,7 +54,7 @@ const form = css({
     minH: '140px',
     mt: '2',
     p: '3',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     fontFamily: 'var(--font-family-base)',
   },
 });
@@ -61,9 +62,6 @@ const form = css({
 const error = css({
   display: 'block',
   mt: '1.5',
-  color: 'var(--color-red-100)',
-  fontSize: '12',
-  fontWeight: 'var(--font-weights-bold)',
 });
 
 const stars = cva({
@@ -75,7 +73,7 @@ const stars = cva({
     color: 'var(--color-black-40)',
     fontSize: '24' /* 기존 26px */,
   },
-  variants: { selected: { true: { color: 'var(--color-black-100)' }, false: {} } },
+  variants: { selected: { true: { color: 'var(--color-text-primary)' }, false: {} } },
 });
 
 const purchases = Array.from({ length: 12 }, (_, index) => ({
@@ -141,7 +139,7 @@ export function ReviewManager() {
         <strong>{visible.length}건</strong>
       </div>
       {!visible.length ? (
-        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-muted)' })}>
+        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-tertiary)' })}>
           작성할 리뷰가 없습니다.
         </p>
       ) : (
@@ -152,23 +150,19 @@ export function ReviewManager() {
               <div>
                 <small>{review.date} 구매</small>
                 <strong className={css({ display: 'block', mt: '1' })}>{review.product}</strong>
-                <span
-                  className={css({
-                    fontSize: '14' /* 기존 13px */,
-                    color: 'var(--color-text-muted)',
-                  })}
-                >
+                <Typography variant="body4" tone="tertiary">
                   옵션: {review.option}
-                </span>
+                </Typography>
                 {tab === 'written' ? (
-                  <p
+                  <Typography
+                    as="p"
+                    variant="body4"
                     className={css({
                       m: '6px 0 0',
-                      fontSize: '14' /* 기존 13px */,
                     })}
                   >
                     ★★★★★ 편안하고 만족스럽습니다.
-                  </p>
+                  </Typography>
                 ) : null}
               </div>
               <Button variant="primary" size="sm" onClick={() => setEditing(review.id)}>
@@ -202,7 +196,11 @@ export function ReviewManager() {
                 </Button>
               ))}
             </div>
-            {invalid && !rating ? <span className={error}>별점을 선택해 주세요.</span> : null}
+            {invalid && !rating ? (
+              <Typography variant="body5" weight="bold" tone="error" className={error}>
+                별점을 선택해 주세요.
+              </Typography>
+            ) : null}
           </div>
           <div className={css({ mt: '18px' })}>
             <b>
@@ -215,7 +213,9 @@ export function ReviewManager() {
               placeholder="내용을 입력해 주세요."
             />
             {invalid && !body.trim() ? (
-              <span className={error}>리뷰 내용을 입력해 주세요.</span>
+              <Typography variant="body5" weight="bold" tone="error" className={error}>
+                리뷰 내용을 입력해 주세요.
+              </Typography>
             ) : null}
             <small className={css({ display: 'block', textAlign: 'right' })}>
               {body.length} / 1,000

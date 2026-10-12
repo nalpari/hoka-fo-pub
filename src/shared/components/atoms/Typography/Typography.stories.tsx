@@ -1,5 +1,6 @@
 import type { Meta as StorybookMeta, StoryObj } from '@storybook/react';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box, Stack } from 'styled-system/jsx';
 
 type TypographyStorySpec = {
   readonly name: string;
@@ -188,6 +189,36 @@ export const Body: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body' },
 };
 
+export const ErrorTone: Story = {
+  args: { as: 'p', variant: 'body5', tone: 'error', children: '필수 항목을 확인해주세요.' },
+};
+
+export const InheritedToneAndWeight: Story = {
+  render: () => (
+    <Box style={{ color: 'var(--colors-blue-100)', fontWeight: 700 }}>
+      <Typography variant="body4" weight="inherit">
+        부모의 색상과 굵기를 유지하는 텍스트
+      </Typography>
+    </Box>
+  ),
+};
+
+export const EmphasisWeights: Story = {
+  render: () => (
+    <Stack>
+      <Typography variant="body4" weight="semibold">
+        Semibold 강조
+      </Typography>
+      <Typography as="strong" variant="body4" weight="bold">
+        Bold 강조
+      </Typography>
+      <Typography as="h3" variant="body3" weight="black">
+        Black emphasis
+      </Typography>
+    </Stack>
+  ),
+};
+
 export const InverseBody: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), tone: 'inverse', variant: 'body' },
   decorators: [
@@ -197,6 +228,22 @@ export const InverseBody: Story = {
       </div>
     ),
   ],
+};
+
+export const TertiaryBody: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'tertiary', variant: 'body' },
+};
+
+export const Black40Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black40', variant: 'body' },
+};
+
+export const Black20Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black20', variant: 'body' },
+};
+
+export const Black10Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black10', variant: 'body' },
 };
 
 export const FormLabel: Story = {
@@ -300,12 +347,41 @@ export const FigmaTypeScale: Story = {
         프리텐다드 한글 헤딩 5
       </Typography>
       <Typography variant="body3">The Future HOKA Body 3</Typography>
-      <Typography variant="bodyKr3">프리텐다드 한글 본문 3</Typography>
+      <Typography variant="body3">프리텐다드 한글 본문 3</Typography>
       <Typography variant="mono4">Mono label</Typography>
       <Typography as="a" href="#type-scale" variant="textLink2">
         Text Link 2
       </Typography>
     </div>
+  ),
+};
+
+export const AutomaticLanguage: Story = {
+  render: () => (
+    <Stack gap="6">
+      {[false, true].map((mobile) => (
+        <Stack key={String(mobile)} gap="2" className={mobile ? 'platform-mobile' : undefined}>
+          <Typography as="h2" variant="heading8">
+            No results
+          </Typography>
+          <Typography as="h2" variant="heading8">
+            검색 결과가 없습니다
+          </Typography>
+          <Typography as="p" variant="body3">
+            HOKA <strong>검색 결과</strong> 0
+          </Typography>
+          <Typography variant="body3" language="ko">
+            HOKA 123
+          </Typography>
+          <Box color="var(--color-text-tertiary)">
+            <Typography variant="body3">부모 색상 상속</Typography>
+            <Typography variant="body3" tone="primary">
+              명시적인 primary 색상
+            </Typography>
+          </Box>
+        </Stack>
+      ))}
+    </Stack>
   ),
 };
 

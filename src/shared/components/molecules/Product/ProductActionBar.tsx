@@ -33,7 +33,7 @@ const purchase = css({
   minH: '12',
   border: '1px solid var(--color-black-100)',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   fontSize: '16' /* 기존 15px */,
   fontWeight: 'bold',
 });

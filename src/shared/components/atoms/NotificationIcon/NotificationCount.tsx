@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef } from 'react';
 import { css } from 'styled-system/css';
 
@@ -13,11 +14,10 @@ const notificationCount = css({
   px: '1',
   borderRadius: 'full',
   bg: 'blue.100',
-  color: 'white.0',
-  fontSize: '12' /* 기존: 8px */,
-  fontWeight: 'normal',
-  lineHeight: 'hoka',
   textAlign: 'center',
+  '&&': {
+    color: 'white.0',
+  },
 });
 
 export type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
@@ -36,12 +36,13 @@ export function NotificationCount({
   const displayCount = count > max ? `${max}+` : count;
 
   return (
-    <span
+    <Typography
+      variant="body5"
       {...props}
       aria-hidden="true"
       className={[notificationCount, className].filter(Boolean).join(' ')}
     >
       {displayCount}
-    </span>
+    </Typography>
   );
 }

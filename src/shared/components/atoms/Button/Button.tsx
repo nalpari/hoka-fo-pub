@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
 import { css, cva } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const button = cva({
   base: {
@@ -18,7 +19,6 @@ const button = cva({
     '--button-padding-x': '24px',
     '--button-label-size': '16px',
     '--button-radius': '52px',
-    '--button-icon-size': '16px',
     '--button-content-gap': '8px',
     _focusVisible: {
       outline: 'none',
@@ -129,6 +129,17 @@ const iconStyle = css({
   color: 'inherit',
 });
 
+const iconOnlyButtonStyle = css({
+  w: '6',
+  h: '6',
+  minW: '6',
+  '--button-height': '24px',
+  '--button-padding-x': '0px',
+  '--button-content-gap': '0px',
+  '& > span': { w: '100%', h: '100%', minH: '0' },
+  '& > span > span': { w: '100%', h: '100%', minH: '0', gap: '0', px: '0' },
+});
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -180,10 +191,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const resolvedVariant = tone ?? variant;
+  const iconOnly = Boolean(icon && children == null);
   const primary = resolvedVariant === 'primary' || resolvedVariant === 'bottomSheetPrimary';
   const white = colorway === 'white';
   const unframed = resolvedVariant === 'link' || resolvedVariant === 'ghost';
   const inverseLegacy = resolvedVariant === 'secondaryInverse';
+  const labelTypographyVariant =
+    height === 'short' ? 'cta2' : height === 'tall' ? 'cta1' : undefined;
   const resolvedDensity =
     density ??
     (height
@@ -219,8 +233,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     '--button-border-width': primary || inverseLegacy ? '0px' : '1px',
     '--button-border-color': white ? 'var(--color-white-000)' : 'var(--color-black-100)',
     '--button-border-width-hover': white && !primary ? '2px' : '0px',
-    '--button-focus-ring': white && !primary ? 'var(--color-white-000)' : 'var(--color-black-40)',
-    '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-black-40)',
+    '--button-focus-ring':
+      white && !primary ? 'var(--color-white-000)' : 'var(--color-border-tertiary)',
+    '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-bg-disabled)',
     '--button-disabled-color': unframed
       ? 'var(--color-black-40)'
       : white
@@ -241,7 +256,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     });
   if (resolvedVariant === 'link')
     Object.assign(variables, {
-      '--button-height': 'auto',
+      '--button-height': size === 'sm' ? '16px' : 'auto',
       '--button-padding-x': '0px',
       '--button-label-weight': '500',
     });
@@ -284,6 +299,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           language,
           unframed,
         }),
+        iconOnly ? iconOnlyButtonStyle : '',
         resolvedVariant === 'link'
           ? css({ textDecoration: 'underline', textUnderlineOffset: '3px' })
           : '',
@@ -302,7 +318,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             .filter(Boolean)
             .join(' ')}
         >
-          <span className={label}>{children}</span>
+          {iconOnly ? null : (
+            <span
+              className={[label, resolvedVariant === 'link' ? css({ lineHeight: '1.3' }) : '']
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {labelTypographyVariant ? (
+                <Typography as="span" variant={labelTypographyVariant} style={{ color: 'inherit' }}>
+                  {children}
+                </Typography>
+              ) : (
+                children
+              )}
+            </span>
+          )}
           {icon ? <span className={iconStyle}>{icon}</span> : null}
         </span>
       </span>

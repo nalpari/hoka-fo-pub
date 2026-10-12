@@ -35,7 +35,7 @@ export type ProductGenderProps = {
 /** Product audience label. */
 export function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
-    <Typography as="span" className={genderLabel({ variant })} variant="productAudience">
+    <Typography className={genderLabel({ variant })} variant="productAudience">
       {gender}
     </Typography>
   );

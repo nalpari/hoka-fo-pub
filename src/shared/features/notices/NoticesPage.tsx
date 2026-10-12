@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
@@ -19,14 +20,12 @@ const styles = {
       border: 0,
       borderBottom: '1px solid var(--color-border-subtle)',
       bg: 'var(--color-white-000)',
-      color: 'var(--color-black-60)',
+      color: 'var(--color-text-subtle)',
       fontSize: '12' /* 기존: 11px */,
       textAlign: 'left',
     },
     '& button span': { pl: '14px' },
     '& button time, & button small': {
-      color: 'var(--color-black-50)',
-      fontSize: '12' /* 기존: 11px */,
       textAlign: 'center',
     },
     _mobile: {
@@ -40,7 +39,6 @@ const styles = {
     alignItems: 'center',
     h: '41px',
     borderBottom: '1px solid var(--color-border-subtle)',
-    fontSize: '12' /* 기존: 11px */,
     textAlign: 'center',
     _mobile: { gridTemplateColumns: '1fr 75px 0', '& span:last-child': { display: 'none' } },
   }),
@@ -83,15 +81,19 @@ export function NoticesPage() {
         <PageHeader title="공지사항" />
         <Box className={styles.table}>
           <Box className={styles.head}>
-            <span>제목</span>
-            <span>등록일</span>
-            <span>조회수</span>
+            <Typography variant="body5">제목</Typography>
+            <Typography variant="body5">등록일</Typography>
+            <Typography variant="body5">조회수</Typography>
           </Box>
           {notices.slice(0, shown).map(([title, date, views]) => (
-            <Button onClick={() => location.assign('/support/notices/1')} key={title}>
+            <Button onClick={() => location.assign('/support/notices/1')} key={title} size="sm">
               <span>{title}</span>
-              <time>{date}</time>
-              <small>{views}</small>
+              <Typography as="time" variant="body5" tone="tertiary">
+                {date}
+              </Typography>
+              <Typography as="small" variant="body5" tone="tertiary">
+                {views}
+              </Typography>
             </Button>
           ))}
         </Box>

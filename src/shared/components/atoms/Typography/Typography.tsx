@@ -1,8 +1,9 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
+import { isValidElement } from 'react';
 import { cva } from 'styled-system/css';
 
 // Compact EN H7 uses the approved guide (500); the Figma style currently says 700.
-const figmaTypographyVariants = {
+export const figmaTypographyVariants = {
   heading1: {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-84)',
@@ -502,14 +503,30 @@ const typography = cva({
       },
       ...figmaTypographyVariants,
     },
-    weight: { regular: { fontWeight: 'normal' }, medium: { fontWeight: 'medium' } },
+    weight: {
+      regular: { fontWeight: 'normal' },
+      medium: { fontWeight: 'medium' },
+      semibold: { fontWeight: 'semibold', _mobile: { fontWeight: 'semibold' } },
+      bold: { fontWeight: 'bold', _mobile: { fontWeight: 'bold' } },
+      black: { fontWeight: 'black', _mobile: { fontWeight: 'black' } },
+      inherit: { fontWeight: 'inherit', _mobile: { fontWeight: 'inherit' } },
+    },
     tone: {
+      error: { color: 'red.100' },
+      inherit: { color: 'inherit' },
       primary: { color: 'var(--color-text-primary)' },
       inverse: { color: 'var(--color-text-inverse)' },
+      brand: { color: 'var(--color-text-brand)' },
       subtle: { color: 'var(--color-text-subtle)' },
+      disabled: { color: 'var(--color-text-disabled)' },
+      tertiary: { color: 'var(--color-text-tertiary)' },
+      black40: { color: 'var(--color-black-40)' },
+      black20: { color: 'var(--color-black-20)' },
+      black10: { color: 'var(--color-black-10)' },
+      red80: { color: 'var(--color-red-80)' },
     },
   },
-  defaultVariants: { tone: 'primary', variant: 'body' },
+  defaultVariants: { tone: 'inherit', variant: 'body' },
 });
 
 export type TypographyVariant =
@@ -555,16 +572,45 @@ export type TypographyVariant =
   | 'textLink2'
   | 'textLink3';
 
+export type TypographyTone = NonNullable<Parameters<typeof typography>[0]>['tone'];
+
 export type TypographyProps<T extends ElementType = 'span'> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'color'
 > & {
   as?: T;
   children: ReactNode;
-  tone?: 'primary' | 'inverse' | 'subtle';
+  tone?: TypographyTone;
   variant?: TypographyVariant;
-  weight?: 'regular' | 'medium';
+  /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
+  language?: 'auto' | 'en' | 'ko';
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
 };
+
+function containsHangul(children: ReactNode): boolean {
+  if (typeof children === 'string') return /\p{Script=Hangul}/u.test(children);
+  if (Array.isArray(children)) return children.some(containsHangul);
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return containsHangul(children.props.children);
+  }
+  return false;
+}
+
+function resolveLanguageVariant(
+  variant: TypographyVariant | undefined,
+  language: TypographyProps['language'],
+  children: ReactNode,
+): TypographyVariant | undefined {
+  if (!variant || !language) return variant;
+
+  const pair = /^(heading|body|cta|textLink)(?:Kr)?(\d)$/.exec(variant);
+  if (!pair) return variant;
+
+  const korean = language === 'ko' || (language === 'auto' && containsHangul(children));
+  const resolved = `${pair[1]}${korean ? 'Kr' : ''}${pair[2]}`;
+
+  return resolved in figmaTypographyVariants ? (resolved as TypographyVariant) : variant;
+}
 
 /** Semantic text primitive with paired desktop and mobile type scales. */
 export function Typography<T extends ElementType = 'span'>({
@@ -573,15 +619,17 @@ export function Typography<T extends ElementType = 'span'>({
   className,
   tone,
   variant,
+  language = 'auto',
   weight,
   ...props
 }: TypographyProps<T>) {
   const Element = as ?? 'span';
+  const resolvedVariant = resolveLanguageVariant(variant, language, children);
 
   return (
     <Element
       {...props}
-      className={[typography({ tone, variant: variant as never, weight }), className]
+      className={[typography({ tone, variant: resolvedVariant as never, weight }), className]
         .filter(Boolean)
         .join(' ')}
     >

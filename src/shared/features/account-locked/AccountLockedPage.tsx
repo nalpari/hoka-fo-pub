@@ -22,28 +22,18 @@ const styles = {
     },
   }),
   dialog: css({
-    w: '568px!',
     borderRadius: '0',
     boxShadow: 'none',
     position: 'relative',
     zIndex: '1',
-    _mobile: { w: 'min(375px, calc(100vw - 32px))!' },
   }),
-  body: css({ gap: '4', p: '24px 16px' }),
+  body: css({ gap: '4' }),
   title: css({}),
   description: css({}),
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
   button: css({
     w: '160px!',
     mx: 'auto',
-    _mobile: {
-      w: '100%!',
-      '--button-radius': '999px',
-      '--button-height': '40px!',
-      '--button-border-width': '0px! ',
-      '--button-label-size': '14px',
-      '--button-label-weight': '600',
-    },
   }),
 };
 
@@ -62,10 +52,10 @@ export function AccountLockedPage() {
         popupClassName={styles.dialog}
       >
         <Stack className={styles.body}>
-          <Typography as="h4" className={styles.title}>
+          <Typography as="h2" variant="headingKr6" className={styles.title}>
             계정 잠금상태입니다
           </Typography>
-          <Typography as="p" className={styles.description}>
+          <Typography as="p" variant="body4" className={styles.description}>
             서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
             <span className={styles.descriptionSecondLine}>휴대폰 인증화면으로 이동합니다.</span>
           </Typography>

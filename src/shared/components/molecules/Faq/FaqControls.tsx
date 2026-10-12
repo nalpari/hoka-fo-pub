@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FaqCategory } from '@/shared/features/faq/faq.data';
 import { cva, css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -16,7 +17,6 @@ const styles = {
       flex: '1',
       alignItems: 'center',
       gap: { base: '25px', _mobile: '10px' },
-      fontSize: '12',
     },
     '& input': {
       flex: '1',
@@ -29,8 +29,7 @@ const styles = {
       minW: '51px',
       p: '0',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
-      fontSize: '12',
+      color: 'var(--color-text-inverse)',
     },
   }),
   tabs: css({
@@ -48,14 +47,12 @@ const styles = {
       border: '1px solid var(--color-border-subtle)',
       borderBottom: '0',
       bg: 'var(--color-white-000)',
-      fontSize: '12' /* 기존: 11px */,
     },
     variants: {
       active: {
         true: {
           borderColor: 'var(--color-black-100)',
           borderBottom: '1px solid var(--color-white-000)',
-          fontWeight: 'bold',
         },
         false: {},
       },
@@ -70,6 +67,7 @@ type Props = {
   onCategoryChange: (category: FaqCategory) => void;
   onQueryChange: (query: string) => void;
 };
+
 export function FaqControls({
   category,
   query,
@@ -80,15 +78,15 @@ export function FaqControls({
   return (
     <>
       <form className={styles.search} onSubmit={(event) => event.preventDefault()}>
-        <label>
+        <Typography as="label" variant="body5">
           질문/답변 검색
           <TextInput
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
             aria-label="질문 또는 답변 검색"
           />
-        </label>
-        <Button type="submit" variant="primary">
+        </Typography>
+        <Button type="submit" variant="primary" size="sm">
           검색
         </Button>
       </form>
@@ -99,7 +97,9 @@ export function FaqControls({
             onClick={() => onCategoryChange(item)}
             key={item}
           >
-            {item}
+            <Typography variant="body5" weight={category === item ? 'bold' : 'inherit'}>
+              {item}
+            </Typography>
           </Button>
         ))}
       </nav>

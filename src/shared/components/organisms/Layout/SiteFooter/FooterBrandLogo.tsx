@@ -3,13 +3,19 @@ import { css } from 'styled-system/css';
 const styles = {
   logo: css({
     display: 'block',
-    w: '160px',
-    h: 'auto',
+    w: '145px',
+    h: '28px',
     objectFit: 'contain',
-    filter: 'brightness(0) invert(1)',
+    _mobile: { w: '124px', h: '24px' },
   }),
 };
 
 export function FooterBrandLogo() {
-  return <img className={styles.logo} src="/images/footer/hoka-footer-brand.png" alt="HOKA" />;
+  return (
+    <img
+      className={styles.logo}
+      src="/images/footer/hoka-footer-brand-fly.svg"
+      alt="HOKA — Fly Human Fly"
+    />
+  );
 }

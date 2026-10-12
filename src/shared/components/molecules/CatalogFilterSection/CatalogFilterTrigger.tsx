@@ -39,9 +39,7 @@ export function CatalogFilterTrigger({
       onClick={onToggle}
       type="button"
     >
-      <Typography as="span" variant="filterLegend">
-        {title}
-      </Typography>
+      <Typography variant="filterLegend">{title}</Typography>
       <img
         alt=""
         aria-hidden="true"

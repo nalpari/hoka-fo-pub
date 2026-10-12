@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { DescriptionList } from '@/shared/components/atoms/DescriptionList/DescriptionList';
@@ -5,8 +6,6 @@ import { DescriptionList } from '@/shared/components/atoms/DescriptionList/Descr
 const section = css({
   mt: '38px',
   borderTop: '1px solid var(--color-border-subtle)',
-  fontSize: '14' /* 기존 13px */,
-  lineHeight: 'body',
 });
 
 const block = css({ py: '6', borderBottom: '1px solid var(--color-border-subtle)' });
@@ -16,7 +15,9 @@ export function DeliveryBenefits() {
   return (
     <section className={section} aria-label="배송안내 및 결제혜택">
       <Box className={block}>
-        <h2 className={css({ m: '0 0 16px', fontSize: '16' /* 기존 15px */ })}>배송안내</h2>
+        <Typography as="h2" variant="heading9" className={css({ m: '0 0 16px' })}>
+          배송안내
+        </Typography>
         <DescriptionList
           labelWidth="58px"
           items={[
@@ -38,16 +39,22 @@ export function DeliveryBenefits() {
         />
       </Box>
       <Box className={block}>
-        <h2 className={css({ m: '0 0 16px', fontSize: '16' /* 기존 15px */ })}>결제혜택</h2>
-        <p className={css({ m: '0', color: 'var(--color-black-60)' })}>
-          <strong className={css({ color: 'var(--color-black-60)' })}>N pay</strong> · 네이버페이
-          15만원 이상 결제 시 1만원, 10만원 이상 결제 시 7천원 즉시할인
-        </p>
-        <p
-          className={css({ mt: '5px', mb: '0', color: 'var(--color-red-80)', fontWeight: 'bold' })}
+        <Typography as="h2" variant="heading9" className={css({ m: '0 0 16px' })}>
+          결제혜택
+        </Typography>
+        <Typography as="p" variant="body4" tone="subtle">
+          <strong>N pay</strong> · 네이버페이 15만원 이상 결제 시 1만원, 10만원 이상 결제 시 7천원
+          즉시할인
+        </Typography>
+        <Typography
+          as="p"
+          variant="body4"
+          weight="bold"
+          tone="red80"
+          className={css({ mt: '5px' })}
         >
           해당 이벤트는 예산 소진 시 조기종료 될 수 있습니다.
-        </p>
+        </Typography>
       </Box>
     </section>
   );

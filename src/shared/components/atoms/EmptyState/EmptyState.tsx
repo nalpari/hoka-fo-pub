@@ -1,5 +1,5 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { css } from 'styled-system/css';
 import { Box, Grid, Stack, VStack } from 'styled-system/jsx';
 
 type EmptyStateProps = {
@@ -25,19 +25,14 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
   if (variant === 'minimal') {
     return (
       <Box as="section" aria-label={title} minH="180px" pt="42px" textAlign="center">
-        <h2
-          className={css({
-            m: '0',
-            color: 'var(--color-black-100)',
-            fontSize: 'inherit',
-            fontWeight: 'inherit',
-          })}
-        >
+        <Typography as="h2" variant="heading8">
           {title}
-        </h2>
+        </Typography>
         {description ? (
           <Box mt="2" mx="0" mb="0">
-            <p className={css({ color: 'var(--color-text-muted)' })}>{description}</p>
+            <Typography as="p" variant="body3">
+              {description}
+            </Typography>
           </Box>
         ) : null}
         {action ? <Box mt="2">{action}</Box> : null}
@@ -63,15 +58,19 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
         placeItems="center"
         border="1px solid var(--color-black-40)"
         borderRadius="full"
-        color="var(--color-black-50)"
+        color="var(--color-text-tertiary)"
         aria-hidden="true"
       >
         —
       </Grid>
       <VStack gap="1" maxW="320px" mt="1" mx="auto" textAlign="center">
-        <h2 className={css({ m: '0', fontSize: '16' /* 기존 18px */ })}>{title}</h2>
+        <Typography as="h2" variant="heading9">
+          {title}
+        </Typography>
         {description ? (
-          <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p>
+          <Typography as="p" variant="body3">
+            {description}
+          </Typography>
         ) : null}
         {action ? <Box mt="2">{action}</Box> : null}
       </VStack>
@@ -89,7 +88,7 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
       placeItems="center"
       border="1px solid var(--color-black-40)"
       borderRadius="full"
-      color="var(--color-black-50)"
+      color="var(--color-text-tertiary)"
       aria-hidden="true"
     />
   );

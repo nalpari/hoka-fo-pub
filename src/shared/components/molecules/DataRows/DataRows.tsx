@@ -1,15 +1,19 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 
 export type DataRow = { label: ReactNode; value: ReactNode; meta?: ReactNode; id?: string };
+
 export type DataRowsProps = {
   rows: DataRow[];
   emptyMessage?: ReactNode;
   className?: string;
   ariaLabel?: string;
 };
+
 const list = css({ borderTop: '2px solid var(--color-black-100)' });
+
 const row = css({
   display: 'grid',
   gridTemplateColumns: 'minmax(120px, .7fr) 2fr auto',
@@ -18,10 +22,18 @@ const row = css({
   minH: '16',
   px: '4',
   borderBottom: '1px solid var(--color-border-subtle)',
-  fontSize: '14' /* 기존 13px */,
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    '& span:first-child': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& span:first-child': {
+      gridColumn: '1 / -1',
+    },
+  },
+  '&&': {
+    _mobile: {
+      '& span:first-child': {
+        color: 'var(--color-text-tertiary)',
+      },
+    },
   },
 });
 
@@ -37,9 +49,15 @@ export function DataRows({
       {rows.length ? (
         rows.map((item, index) => (
           <article className={row} key={item.id ?? index}>
-            <span>{item.label}</span>
-            <strong>{item.value}</strong>
-            {item.meta ? <small>{item.meta}</small> : null}
+            <Typography variant="body4">{item.label}</Typography>
+            <Typography as="strong" variant="body4" weight="bold">
+              {item.value}
+            </Typography>
+            {item.meta ? (
+              <Typography as="small" variant="body5">
+                {item.meta}
+              </Typography>
+            ) : null}
           </article>
         ))
       ) : (

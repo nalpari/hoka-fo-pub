@@ -1,12 +1,24 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FaqEntry } from '@/shared/features/faq/faq.data';
 import { cva, css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Box, VStack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 const styles = {
   listItem: cva({
     base: { borderBottom: '1px solid var(--color-border-subtle)' },
-    variants: { open: { true: { '& > button': { fontWeight: 'bold' } }, false: {} } },
+    variants: {
+      open: {
+        true: {
+          '&&': {
+            '& > button': {
+              fontWeight: 'bold',
+            },
+          },
+        },
+        false: {},
+      },
+    },
   }),
   question: css({
     display: 'flex',
@@ -18,10 +30,12 @@ const styles = {
     border: '0',
     bg: 'var(--color-white-000)',
     textAlign: 'left',
-    '& b, & i': { fontFamily: 'var(--font-family-base)', fontSize: '16' /* 기존 15px */ },
-    '& b': { mr: '18px', color: 'var(--color-black-50)' },
-    '& span': { flex: '1', fontSize: '12' /* 기존: 11px */ },
-    '& i': { fontSize: '12' /* 기존: 11px */, fontStyle: 'normal' },
+    '& b': {
+      mr: '18px',
+    },
+    '& span': {
+      flex: '1',
+    },
   }),
   answer: css({
     display: 'flex',
@@ -29,19 +43,12 @@ const styles = {
     bg: 'var(--color-surface-muted)',
     '& b': {
       mr: '18px',
-      color: 'var(--color-black-50)',
-      fontFamily: 'var(--font-family-base)',
-      fontSize: '16' /* 기존 15px */,
     },
     '& p': {
       maxW: '550px',
       m: '0',
-      color: 'var(--color-black-50)',
-      fontSize: '12' /* 기존: 11px */,
-      lineHeight: 'body',
     },
   }),
-  empty: css({ p: '15', color: 'var(--color-black-50)', textAlign: 'center' }),
 };
 
 type Props = {
@@ -49,6 +56,7 @@ type Props = {
   openQuestion: string | null;
   onToggle: (question: string) => void;
 };
+
 export function FaqList({ entries, openQuestion, onToggle }: Props) {
   return (
     <section>
@@ -62,19 +70,33 @@ export function FaqList({ entries, openQuestion, onToggle }: Props) {
             onClick={() => onToggle(item.question)}
             variant="ghost"
           >
-            <b>Q</b>
-            <span>{item.question}</span>
-            <i>{openQuestion === item.question ? '⌃' : '⌄'}</i>
+            <Typography as="b" variant="heading9" tone="tertiary">
+              Q
+            </Typography>
+            <Typography variant="body5">{item.question}</Typography>
+            <Typography as="i" variant="body5">
+              {openQuestion === item.question ? '⌃' : '⌄'}
+            </Typography>
           </Button>
           {openQuestion === item.question && (
             <Box className={styles.answer}>
-              <b>A</b>
-              <p>{item.answer}</p>
+              <Typography as="b" variant="heading9" tone="tertiary">
+                A
+              </Typography>
+              <Typography as="p" variant="body5" tone="tertiary">
+                {item.answer}
+              </Typography>
             </Box>
           )}
         </article>
       ))}
-      {!entries.length && <p className={styles.empty}>검색 결과가 없습니다.</p>}
+      {!entries.length && (
+        <VStack w="100%" p="15">
+          <Typography as="p" variant="body5" tone="tertiary">
+            검색 결과가 없습니다.
+          </Typography>
+        </VStack>
+      )}
     </section>
   );
 }

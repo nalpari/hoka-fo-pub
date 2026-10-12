@@ -28,7 +28,7 @@ const optionGrid = css({
 const option = cva({
   base: {
     minH: '16',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     bg: 'var(--color-white-000)',
     fontSize: '14',
   },
@@ -36,7 +36,7 @@ const option = cva({
     active: {
       true: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
         borderColor: 'var(--color-black-100)',
       },
       false: {},
@@ -55,7 +55,7 @@ const tab = cva({
   base: {
     px: '4',
     py: '9px',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     bg: 'var(--color-white-000)',
     fontSize: '14' /* 기존 13px */,
   },
@@ -63,7 +63,7 @@ const tab = cva({
     active: {
       true: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
         borderColor: 'var(--color-black-100)',
       },
       false: {},
@@ -85,7 +85,7 @@ const timelineItem = css({
   borderBottom: '1px solid var(--color-border-subtle)',
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
   },
 });
 const action = css({
@@ -93,7 +93,7 @@ const action = css({
   px: '18px',
   py: '3',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
 });
 
 const copy: Record<RunningExperienceKind, { title: string; description: string }> = {

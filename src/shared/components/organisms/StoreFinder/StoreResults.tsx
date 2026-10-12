@@ -1,30 +1,8 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { Store } from '@/shared/features/store-finder/store.data';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-
-export function StoreResults({ stores }: { stores: Store[] }) {
-  return (
-    <Box className={storeList} id="stores">
-      {stores.map((store) => (
-        <article key={store.name}>
-          <Box>
-            <h2>{store.name}</h2>
-            <p>{store.address}</p>
-            <small>
-              {store.type} <i>|</i> {store.phone}
-            </small>
-          </Box>
-          <Button aria-label={`${store.name} 약도 보기`} variant="ghost">
-            <b>♧</b>
-            <span>약도보기</span>
-          </Button>
-        </article>
-      ))}
-      {!stores.length && <p className={noResult}>검색 결과가 없습니다.</p>}
-    </Box>
-  );
-}
 
 const storeList = css({
   '& article': {
@@ -42,7 +20,7 @@ const storeList = css({
     justifyItems: 'center',
     gap: '0.5',
     border: '0',
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12' /* 기존: 10px */,
   },
   '& article button b': {
@@ -50,19 +28,47 @@ const storeList = css({
     fontWeight: 'var(--font-weights-normal)',
     lineHeight: 'var(--line-heights-hoka)',
   },
-  '& h2': { m: '0 0 var(--spacing-3)', fontSize: '14' },
+  '& h2': { m: '0 0 var(--spacing-3)' },
   '& p': {
     m: '0 0 1',
-    color: 'var(--color-black-50)',
-    fontSize: '12' /* 기존: 11px */,
-    _mobile: { maxW: '260px', lineHeight: 'var(--line-heights-body)' },
+    _mobile: { maxW: '260px' },
   },
-  '& small': { color: 'var(--color-red-80)', fontSize: '12' /* 기존: 11px */ },
   '& i': { color: 'var(--color-black-40)', fontStyle: 'normal' },
 });
 
 const noResult = css({
   p: '70px',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   textAlign: 'center',
 });
+
+export function StoreResults({ stores }: { stores: Store[] }) {
+  return (
+    <Box className={storeList} id="stores">
+      {stores.map((store) => (
+        <article key={store.name}>
+          <Box>
+            <Typography as="h2" variant="body4" weight="bold">
+              {store.name}
+            </Typography>
+            <Typography as="p" variant="body5" tone="tertiary">
+              {store.address}
+            </Typography>
+            <Typography as="small" variant="body5" tone="red80">
+              {store.type} <i>|</i> {store.phone}
+            </Typography>
+          </Box>
+          <Button aria-label={`${store.name} 약도 보기`} variant="ghost">
+            <b>♧</b>
+            <span>약도보기</span>
+          </Button>
+        </article>
+      ))}
+      {!stores.length && (
+        <Typography as="p" variant="body5" tone="tertiary" className={noResult}>
+          검색 결과가 없습니다.
+        </Typography>
+      )}
+    </Box>
+  );
+}

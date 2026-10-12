@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
@@ -102,10 +103,10 @@ const recommendArt = cva({
   },
   variants: {
     tone: {
-      0: { bg: 'var(--color-black-20)', color: 'var(--color-black-50)' },
+      0: { bg: 'var(--color-black-20)', color: 'var(--color-text-tertiary)' },
       1: { bg: 'var(--color-black-20)', color: 'var(--color-black-40)' },
-      2: { bg: 'var(--color-black-20)', color: 'var(--color-black-60)' },
-      3: { bg: 'var(--color-black-20)', color: 'var(--color-black-100)' },
+      2: { bg: 'var(--color-black-20)', color: 'var(--color-text-subtle)' },
+      3: { bg: 'var(--color-black-20)', color: 'var(--color-text-primary)' },
     },
   },
 });
@@ -162,20 +163,21 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                     <span className={art}>N</span>
                     <Box>
                       <strong>{product.name}</strong>
-                      <p
+                      <Typography
+                        as="p"
+                        variant="body4"
+                        tone="tertiary"
                         className={css({
                           m: '2 0',
-                          color: 'var(--color-black-50)',
-                          fontSize: '14' /* 기존 13px */,
                         })}
                       >
                         {item.color} / {item.width} / {item.size}
-                      </p>
+                      </Typography>
                       <Button
                         className={css({
                           p: '0',
                           border: '0',
-                          color: 'var(--color-black-50)',
+                          color: 'var(--color-text-tertiary)',
                           fontSize: '12',
                           textDecoration: 'underline',
                         })}
@@ -213,7 +215,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                   w: { _mobile: '100%' },
                   p: '14px 38px',
                   bg: 'var(--color-black-100)',
-                  color: 'var(--color-white-000)',
+                  color: 'var(--color-text-inverse)',
                 })}
               >
                 주문하기
@@ -238,15 +240,17 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
         )}
       </section>
       <section className={recommend}>
-        <h2
+        <Typography
+          as="h2"
+          variant="body1"
+          weight="bold"
           className={css({
             m: '0 0 38px',
             textAlign: 'center',
-            fontSize: '24' /* 기존 23px */,
           })}
         >
           함께 구매하면 좋은 상품
-        </h2>
+        </Typography>
         <Grid className={recommendGrid}>
           {suggestions.map((product, index) => (
             <Link
@@ -255,11 +259,15 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               key={product.id}
             >
               <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>
-              <small className={css({ color: 'var(--color-text-muted)' })}>
+              <small className={css({ color: 'var(--color-text-tertiary)' })}>
                 {product.id.toUpperCase()}
               </small>
-              <strong className={css({ fontSize: '16' /* 기존 15px */ })}>{product.name}</strong>
-              <b className={css({ fontSize: '14' })}>{product.price.toLocaleString()}원</b>
+              <Typography as="strong" variant="heading9">
+                {product.name}
+              </Typography>
+              <Typography as="b" variant="body4" weight="bold">
+                {product.price.toLocaleString()}원
+              </Typography>
             </Link>
           ))}
         </Grid>

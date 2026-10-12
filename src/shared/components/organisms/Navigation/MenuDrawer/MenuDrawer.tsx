@@ -10,7 +10,7 @@ const drawer = css({
   flexDirection: 'column',
   overflowY: 'auto',
   bg: 'var(--color-white-000)',
-  color: 'var(--color-black-100)',
+  color: 'var(--color-text-primary)',
 });
 
 const viewport = css({ position: 'fixed', inset: '0', zIndex: '100' });
@@ -35,7 +35,7 @@ const closeButton = css({
   h: '8',
   border: '0',
   bg: 'transparent',
-  color: 'var(--color-black-100)',
+  color: 'var(--color-text-primary)',
   fontSize: '28' /* 기존 30px */,
   fontWeight: 'normal',
   lineHeight: 'hoka',
@@ -47,7 +47,7 @@ const primaryList = css({ display: 'grid', gap: '18px', m: '0', p: '0', listStyl
 
 const primaryLink = css({
   display: 'inline-flex',
-  color: 'var(--color-black-100)',
+  color: 'var(--color-text-primary)',
   fontSize: '24',
   fontWeight: 'extrabold',
   lineHeight: 'koreanHeading',
@@ -64,7 +64,7 @@ const utilityMenu = css({
   px: '4',
   py: '46px',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
 });
 
 const utilityList = css({ display: 'grid', gap: '4', m: '0', p: '0', listStyle: 'none' });
@@ -73,7 +73,7 @@ const utilityLink = css({
   display: 'flex',
   alignItems: 'center',
   gap: '4',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   fontSize: '14',
   fontWeight: 'bold',
   lineHeight: 'koreanHeading',
@@ -88,7 +88,7 @@ const utilityIcon = css({
   justifyContent: 'center',
   w: '4',
   flexShrink: '0',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   fontSize: '16',
   lineHeight: 'hoka',
 });

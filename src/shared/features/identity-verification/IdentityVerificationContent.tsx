@@ -32,12 +32,6 @@ const styles = {
     color: 'text.primary',
     '& > img': { w: '80px!', h: '80px!' },
   }),
-
-  button: css({
-    '--button-radius': '999px',
-    '--button-height': '48px!',
-    '--button-border-width': '0px!',
-  }),
   footnote: css({ m: '0', mt: '4' }),
   notice: css({ mt: '4' }),
 };
@@ -56,10 +50,10 @@ export function IdentityVerificationContent({
   return (
     <Box as="main" className={styles.page}>
       <Stack as="section" className={styles.content} aria-labelledby="verification-title">
-        <Typography as="h1" variant="authTitle" className={styles.title} id="verification-title">
+        <Typography as="h1" variant="headingKr6" className={styles.title} id="verification-title">
           본인인증
         </Typography>
-        <Typography as="p" variant="authBody" tone="subtle" className={styles.description}>
+        <Typography as="p" variant="body3" tone="subtle" className={styles.description}>
           HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다
         </Typography>
         <Grid className={styles.methods}>
@@ -73,18 +67,13 @@ export function IdentityVerificationContent({
               <Box className={styles.illustration} aria-hidden="true">
                 <Icon name={method.iconName} size="80px" />
               </Box>
-              <Button
-                variant="primary"
-                fullWidth
-                className={styles.button}
-                onClick={() => onSelect(method.id)}
-              >
+              <Button variant="primary" height="tall" fullWidth onClick={() => onSelect(method.id)}>
                 {method.label}
               </Button>
             </Stack>
           ))}
         </Grid>
-        <Typography as="p" variant="authSmall" tone="subtle" className={styles.footnote}>
+        <Typography as="p" variant="body4" tone="tertiary" className={styles.footnote}>
           ※ 본인 인증 시 입력하신 정보는 본인 확인 용도 외에는 사용되지 않으며 별도 저장하지
           않습니다.
         </Typography>

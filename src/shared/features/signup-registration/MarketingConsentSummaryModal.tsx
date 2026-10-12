@@ -6,15 +6,8 @@ import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDial
 import type { MarketingPreferences } from './RegistrationContent';
 
 const styles = {
-  dialog: css({ w: '360px!', _mobile: { w: 'calc(100vw - 32px)!' } }),
-  body: css({ p: '4', gap: '4' }),
   heading: css({ m: '0' }),
   summary: css({ m: '0', whiteSpace: 'pre-line' }),
-  button: css({
-    '--button-height': '40px!',
-    '--button-radius': '999px',
-    '--button-border-width': '0px!',
-  }),
 };
 
 type MarketingConsentSummaryModalProps = {
@@ -42,19 +35,20 @@ export function MarketingConsentSummaryModal({
       onOpenChange={onOpenChange}
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
-      size="sm"
-      popupClassName={styles.dialog}
-    >
-      <Stack className={styles.body}>
-        <Typography as="h2" variant="authBody" className={styles.heading}>
-          마케팅 정보 수신 내역
-        </Typography>
-        <Typography as="p" variant="authBody" className={styles.summary}>
-          {summary}
-        </Typography>
-        <Button variant="primary" fullWidth className={styles.button} onClick={onConfirm}>
+      size="md"
+      footer={
+        <Button variant="primary" fullWidth onClick={onConfirm}>
           확인
         </Button>
+      }
+    >
+      <Stack gap="4">
+        <Typography as="h2" variant="body2" className={styles.heading}>
+          마케팅 정보 수신 내역
+        </Typography>
+        <Typography as="p" variant="body4" className={styles.summary}>
+          {summary}
+        </Typography>
       </Stack>
     </ModalDialog>
   );

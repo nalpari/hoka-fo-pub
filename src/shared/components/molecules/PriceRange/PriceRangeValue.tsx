@@ -1,14 +1,8 @@
-import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Flex } from 'styled-system/jsx';
 
 const formatPrice = (value: number, showUnit: boolean) =>
   `${value.toLocaleString('ko-KR')}${showUnit ? '원' : ''}`;
-
-const label = css({
-  fontWeight: 'normal',
-  fontSize: '14',
-  lineHeight: 'body',
-});
 
 export function PriceRangeValue({
   value: [minimumValue, maximumValue],
@@ -19,8 +13,8 @@ export function PriceRangeValue({
 }) {
   return (
     <Flex justifyContent="space-between" alignItems="center">
-      <span className={label}>{formatPrice(minimumValue, showUnit)}</span>
-      <span className={label}>{formatPrice(maximumValue, showUnit)}</span>
+      <Typography variant="body4">{formatPrice(minimumValue, showUnit)}</Typography>
+      <Typography variant="body4">{formatPrice(maximumValue, showUnit)}</Typography>
     </Flex>
   );
 }

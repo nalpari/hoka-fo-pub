@@ -16,17 +16,21 @@ export default defineConfig({
       semanticTokens: {
         colors: {
           text: {
-            primary: { value: '#000' },
-            inverse: { value: '#fff' },
-            subtle: { value: '#555' },
+            primary: { value: '{colors.black.100}' },
+            inverse: { value: '{colors.white.0}' },
+            subtle: { value: '{colors.black.60}' },
+            tertiary: { value: '{colors.black.50}' },
           },
           surface: {
             default: { value: '#fff' },
             subtle: { value: '#f3f3f3' },
           },
+          bg: {
+            disabled: { value: '{colors.black.40}' },
+          },
           border: {
             default: { value: '#d8d8d8' },
-            muted: { value: '#B3B3B3' },
+            tertiary: { value: '{colors.black.40}' },
             strong: { value: '#111' },
           },
           error: { value: '{colors.red.100}' },
@@ -51,7 +55,7 @@ export default defineConfig({
               foreground: { value: '{colors.black.100}' },
               hoverForeground: { value: '{colors.white.0}' },
             },
-            focus: { value: '{colors.black.40}' },
+            focus: { value: '{colors.border.tertiary}' },
             brand: { value: '{colors.blue.100}' },
           },
         },

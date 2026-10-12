@@ -19,7 +19,7 @@ const boxedField = cva({
     px: '12px',
     py: '8px',
     bg: 'white.0',
-    boxShadow: 'inset 0 0 0 1px var(--colors-black-40)',
+    boxShadow: 'inset 0 0 0 1px var(--color-border-tertiary)',
     _focusWithin: { boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
     '& select': {
       '--field-border-width': '0px!',
@@ -113,7 +113,7 @@ function FormFieldRoot({
       <BaseField.Label
         htmlFor={htmlFor}
         render={(props) => (
-          <Typography {...props} as="label" variant={boxed ? 'bodyKr5' : 'formLabel'}>
+          <Typography {...props} as="label" variant={boxed ? 'body5' : 'formLabel'}>
             {props.children}
           </Typography>
         )}
@@ -181,7 +181,7 @@ export function FormFieldHint({ className, ...props }: FormFieldHintProps) {
     <BaseField.Description
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="bodyKr5">
+        <Typography {...renderProps} as="p" variant="body5">
           {renderProps.children}
         </Typography>
       )}
@@ -196,14 +196,11 @@ export function FormFieldMessage({ className, ...props }: FormFieldMessageProps)
       match
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="bodyKr5">
+        <Typography {...renderProps} as="p" variant="body5" tone="error">
           {renderProps.children}
         </Typography>
       )}
-      className={withClassName(
-        css({ m: '0', color: 'red.100' }),
-        withClassName('form-field__message', className),
-      )}
+      className={withClassName(css({ m: '0' }), withClassName('form-field__message', className))}
     />
   );
 }

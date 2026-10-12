@@ -1,11 +1,5 @@
-import { css } from 'styled-system/css';
-
-const notice = css({
-  p: '11px',
-  bg: 'var(--color-black-10)',
-  color: 'var(--color-red-80)',
-  fontSize: '14' /* 기존 13px */,
-});
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box } from 'styled-system/jsx';
 
 type LaunchNoticeProps = {
   status: 'COMING';
@@ -15,5 +9,11 @@ type LaunchNoticeProps = {
 export function LaunchNotice({ status }: LaunchNoticeProps) {
   if (status !== 'COMING') return null;
 
-  return <p className={notice}>COMING SOON · 발매 알림은 출시 후 제공됩니다.</p>;
+  return (
+    <Box p="11px" bg="var(--color-black-10)">
+      <Typography as="p" variant="body4" tone="red80">
+        COMING SOON · 발매 알림은 출시 후 제공됩니다.
+      </Typography>
+    </Box>
+  );
 }

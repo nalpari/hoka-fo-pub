@@ -18,7 +18,7 @@ const input = css({
   height: '100%',
   border: '0',
   bg: 'transparent',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   px: '3',
   fontSize: '14' /* 기존 13px */,
   outline: 'none',
@@ -36,7 +36,7 @@ const submitButton = css({
   border: '0',
   borderLeft: '1px solid color-mix(in srgb, var(--color-white-000) 45%, transparent)',
   bg: 'transparent',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   padding: '0',
   cursor: 'pointer',
   _focusVisible: {

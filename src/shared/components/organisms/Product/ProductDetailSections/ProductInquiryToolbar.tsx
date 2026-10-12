@@ -31,7 +31,7 @@ export function ProductInquiryToolbar({
           minH: '10',
           borderColor: 'var(--color-black-100)',
           bg: 'var(--color-black-100)',
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
           fontWeight: 'bold',
         })}
         variant="primary"

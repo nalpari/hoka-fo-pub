@@ -1,13 +1,12 @@
-'use client';
-
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
 import { SignupDetailsStep } from '@/shared/components/organisms/Signup/SignupDetailsStep';
 import { SignupMethodStep } from '@/shared/components/organisms/Signup/SignupMethodStep';
 import { SignupTermsStep } from '@/shared/components/organisms/Signup/SignupTermsStep';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -46,19 +45,14 @@ const styles = {
   pageTitle: css({
     mt: '2',
     mb: '7',
-    fontSize: '32' /* 기존 34px */,
-    letterSpacing: 'var(--letter-spacings-korean)',
   }),
   eyebrow: css({
     m: 0,
-    color: 'var(--color-black-50)',
-    fontSize: '12',
-    fontWeight: 'var(--font-weights-bold)',
-    letterSpacing: 'var(--letter-spacings-korean)',
   }),
 };
 
 export function SignupPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [step, setStep] = useState<SignupStep>(searchParams.get('step') === 'details' ? 2 : 0);
   const [method, setMethod] = useState<SignupMethod>('local');
@@ -74,6 +68,11 @@ export function SignupPage() {
   const selectedMethod = signupMethods.find((item) => item.id === method)!;
 
   const startSignup = (nextMethod: SignupMethod) => {
+    if (nextMethod === 'local') {
+      navigate('/signup/verify');
+      return;
+    }
+
     setMethod(nextMethod);
     setMessage('');
     setStep(nextMethod === 'naver' ? 2 : 1);
@@ -112,10 +111,18 @@ export function SignupPage() {
           <SignupMethodStep methods={signupMethods} onSelect={startSignup} />
         ) : (
           <>
-            <p className={styles.eyebrow}>JOIN HOKA</p>
-            <h1 className={styles.pageTitle} id="signup-title">
+            <Typography
+              as="p"
+              variant="body5"
+              tone="tertiary"
+              weight="medium"
+              className={styles.eyebrow}
+            >
+              JOIN HOKA
+            </Typography>
+            <Typography as="h1" variant="heading6" className={styles.pageTitle} id="signup-title">
               회원가입
-            </h1>
+            </Typography>
             <SignupProgress method={method} step={step} />
             {step === 1 ? (
               <SignupTermsStep

@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Flex } from 'styled-system/jsx';
@@ -26,7 +27,7 @@ const thumbnail = css({
   h: 'calc(100% - 3px)',
   p: '1',
   placeItems: 'center',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '12' /* 기존: 9px */,
   lineHeight: 'koreanHeading',
   textAlign: 'center',
@@ -55,11 +56,9 @@ export function ColorSelector({ colors, image, value, onChange }: ColorSelectorP
   return (
     <ProductOptionField
       action={
-        <span
-          className={css({ color: 'var(--color-black-100)', fontSize: '14', fontWeight: 'normal' })}
-        >
+        <Typography variant="body4" tone="primary">
           Color: {value}
-        </span>
+        </Typography>
       }
       label="색상"
     >

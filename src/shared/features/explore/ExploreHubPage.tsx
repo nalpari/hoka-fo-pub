@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
@@ -23,12 +24,9 @@ const styles = {
     mb: '11',
     p: '34px',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     '& span': {
       mb: '18px',
-      fontSize: '12',
-      fontWeight: 'var(--font-weights-bold)',
-      letterSpacing: 'var(--letter-spacings-korean)',
     },
     '& h2': {
       maxW: '540px',
@@ -54,18 +52,13 @@ const styles = {
     minH: '230px',
     p: '6',
     border: '1px solid var(--line)',
-    '& h2': { mb: '2.5', fontSize: '20' },
+    '& h2': { mb: '2.5' },
     '& p': {
       minH: '12',
       mb: '6',
-      color: 'var(--color-text-muted)',
-      fontSize: '14',
-      lineHeight: 'var(--line-heights-body)',
     },
     '& ul': { display: 'grid', gap: '9px', m: 0, p: 0, listStyle: 'none' },
     '& a': {
-      fontSize: '14',
-      fontWeight: 'var(--font-weights-bold)',
       _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
     },
     _mobile: { minH: 'auto' },
@@ -146,19 +139,29 @@ export function ExploreHubPage() {
       description="제품 탐색을 돕는 가이드와 기술, 러닝 콘텐츠를 한곳에 모았습니다."
     >
       <section className={styles.hero}>
-        <span>HOKA EXPLORE</span>
+        <Typography variant="body5" weight="bold">
+          HOKA EXPLORE
+        </Typography>
         <h2>어디로, 어떻게 달릴지부터 시작하세요.</h2>
         <ButtonLink to="/explore/shoe-finder">SHOE FINDER 시작하기</ButtonLink>
       </section>
       <div className={styles.grid}>
         {groups.map((group) => (
           <section className={styles.group} key={group.title}>
-            <h2>{group.title}</h2>
-            <p>{group.description}</p>
+            <Typography as="h2" variant="body2" weight="bold">
+              {group.title}
+            </Typography>
+            <Typography as="p" variant="body4" tone="tertiary">
+              {group.description}
+            </Typography>
             <ul>
               {group.links.map(([label, to]) => (
                 <li key={to}>
-                  <Link to={to}>{label} →</Link>
+                  <Link to={to}>
+                    <Typography variant="body4" weight="bold">
+                      {label} →
+                    </Typography>
+                  </Link>
                 </li>
               ))}
             </ul>

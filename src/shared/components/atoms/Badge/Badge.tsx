@@ -14,10 +14,10 @@ const badge = cva({
   },
   variants: {
     tone: {
-      neutral: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
-      accent: { bg: 'var(--color-blue-100)', color: 'var(--color-white-000)' },
-      danger: { bg: 'var(--color-red-100)', color: 'var(--color-white-000)' },
-      subtle: { bg: 'var(--color-black-10)', color: 'var(--color-black-60)' },
+      neutral: { bg: 'var(--color-black-100)', color: 'var(--color-text-inverse)' },
+      accent: { bg: 'var(--color-blue-100)', color: 'var(--color-text-inverse)' },
+      danger: { bg: 'var(--color-red-100)', color: 'var(--color-text-inverse)' },
+      subtle: { bg: 'var(--color-black-10)', color: 'var(--color-text-subtle)' },
     },
     shape: { square: {}, pill: { borderRadius: 'full' } },
   },

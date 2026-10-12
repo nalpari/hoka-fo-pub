@@ -6,11 +6,16 @@ const root = cva({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: '2',
-    '& button': { minH: '11', borderRadius: '999px', fontSize: '14' /* 기존 13px */, fontWeight: 'bold' },
+    '& button': {
+      minH: '11',
+      borderRadius: '999px',
+      fontSize: '14' /* 기존 13px */,
+      fontWeight: 'bold',
+    },
     '& button:last-child': {
       borderColor: 'var(--color-black-100)',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
     },
   },
   variants: {

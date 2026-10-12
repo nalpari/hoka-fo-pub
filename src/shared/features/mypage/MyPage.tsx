@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 import { PersonalizationCard } from '@/shared/components/molecules/MyPage/PersonalizationCard';
@@ -12,7 +13,6 @@ import { memberSummary, myPageNavigation, quickLinks } from '@/shared/features/m
 const title = css({ m: '0 0 26px', fontSize: '28' /* 기존 30px */ });
 
 const action = css({
-  fontSize: '14' /* 기존 13px */,
   textDecoration: 'underline',
   textUnderlineOffset: '4px',
 });
@@ -55,7 +55,7 @@ export function MyPage() {
         title="최근 주문"
         action={
           <Link className={action} to="/mypage/orders">
-            전체 보기 →
+            <Typography variant="body4">전체 보기 →</Typography>
           </Link>
         }
       >

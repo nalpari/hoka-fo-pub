@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Flex } from 'styled-system/jsx';
@@ -33,10 +34,6 @@ const intro = css({
 
 const kicker = css({
   mb: '2.5',
-  color: 'var(--color-red-80)',
-  fontSize: '12' /* 기존: 11px */,
-  fontWeight: 'var(--font-weights-bold)',
-  letterSpacing: 'var(--letter-spacings-korean)',
 });
 
 const pageTitle = css({
@@ -53,7 +50,7 @@ const audienceButton = cva({
     border: '0',
     borderRadius: 'full',
     bg: 'var(--color-black-40)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     fontSize: '14',
     fontWeight: 'var(--font-weights-bold)',
   },
@@ -75,8 +72,6 @@ const audienceNote = css({
   height: '0',
   mt: '4',
   mb: 'calc(var(--spacing-4) * -1)',
-  color: 'var(--color-black-50)',
-  fontSize: '12' /* 기존: 11px */,
   opacity: '0',
 });
 
@@ -219,7 +214,7 @@ const cardAction = cva({
     py: '2',
     borderRadius: 'full',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     fontSize: '12',
     fontWeight: 'var(--font-weights-black)',
   },
@@ -237,7 +232,7 @@ const nowFeature = css({
   gridTemplateColumns: '37% 63%',
   minH: '580px',
   bg: 'var(--color-black-60)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   '.platform-mobile &': { gridTemplateColumns: '1fr' },
 });
 
@@ -258,7 +253,7 @@ const featureCopy = css({
     py: '14px',
     borderRadius: 'full',
     bg: 'var(--color-white-000)',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
     fontWeight: 'var(--font-weights-bold)',
   },
   '.platform-mobile &': { minH: '260px', p: 'var(--spacing-10) 26px' },
@@ -277,7 +272,7 @@ const featureShoe = css({
   position: 'absolute',
   top: '22%',
   left: '30%',
-  color: 'var(--color-black-60)',
+  color: 'var(--color-text-subtle)',
   fontSize: 'clamp(250px, 33vw, 540px)',
   fontStyle: 'italic',
   fontWeight: 'var(--font-weights-black)',
@@ -289,9 +284,6 @@ const featureBrand = css({
   position: 'absolute',
   right: '30px',
   bottom: '6',
-  fontSize: '12' /* 기존: 10px */,
-  fontWeight: 'var(--font-weights-bold)',
-  letterSpacing: 'var(--letter-spacings-korean)',
 });
 
 const launches: LaunchItem[] = [
@@ -420,7 +412,9 @@ export function LaunchCalendarPage() {
   return (
     <main className={calendar}>
       <header className={intro}>
-        <p className={kicker}>HOKA</p>
+        <Typography as="p" variant="body5" weight="bold" tone="red80" className={kicker}>
+          HOKA
+        </Typography>
         <h1 className={pageTitle}>Launch Calendar</h1>
         <Flex className={audience} aria-label="상품 대상 선택">
           <Button
@@ -450,7 +444,9 @@ export function LaunchCalendarPage() {
             </span>
           ))}
         </nav>
-        <p className={audienceNote}>{audience === 'adult' ? '성인 컬렉션' : '키즈 컬렉션'}</p>
+        <Typography as="p" variant="body5" tone="tertiary" className={audienceNote}>
+          {audience === 'adult' ? '성인 컬렉션' : '키즈 컬렉션'}
+        </Typography>
       </header>
 
       {tab === 'now' ? (
@@ -462,7 +458,9 @@ export function LaunchCalendarPage() {
           </Box>
           <Box className={featureArt}>
             <span className={featureShoe}>N</span>
-            <span className={featureBrand}>HOKA</span>
+            <Typography variant="body5" weight="bold" className={featureBrand}>
+              HOKA
+            </Typography>
           </Box>
         </section>
       ) : (
