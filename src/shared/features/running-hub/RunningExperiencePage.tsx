@@ -28,7 +28,7 @@ const optionGrid = css({
 const option = cva({
   base: {
     minH: '16',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     bg: 'var(--color-white-000)',
     fontSize: '14',
   },
@@ -55,7 +55,7 @@ const tab = cva({
   base: {
     px: '4',
     py: '9px',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     bg: 'var(--color-white-000)',
     fontSize: '14' /* 기존 13px */,
   },

@@ -39,7 +39,7 @@ const styles = {
     maxH: '90svh',
     _mobile: { h: '100svh', maxH: '100svh', borderRadius: '0' },
   }),
-  body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1', p: '4' }),
+  body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1' }),
   documentHeader: css({ justifyContent: 'space-between', gap: '2', mb: '4' }),
   document: css({
     border: '1px solid var(--color-black-20)',

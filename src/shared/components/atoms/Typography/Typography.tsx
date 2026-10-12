@@ -520,6 +520,8 @@ const typography = cva({
       black40: { color: 'var(--color-black-40)' },
       black20: { color: 'var(--color-black-20)' },
       black10: { color: 'var(--color-black-10)' },
+      red100: { color: 'var(--color-red-100)' },
+      red80: { color: 'var(--color-red-80)' },
     },
   },
   defaultVariants: { tone: 'inherit', variant: 'body' },
@@ -575,7 +577,16 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   as?: T;
   children: ReactNode;
   tone?:
-    'primary' | 'inverse' | 'subtle' | 'tertiary' | 'black40' | 'black20' | 'black10' | 'inherit';
+    | 'primary'
+    | 'inverse'
+    | 'subtle'
+    | 'tertiary'
+    | 'black40'
+    | 'black20'
+    | 'black10'
+    | 'inherit'
+    | 'red100'
+    | 'red80';
   variant?: TypographyVariant;
   /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';

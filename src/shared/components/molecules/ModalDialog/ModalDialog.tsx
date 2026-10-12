@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
+import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faXmark } from '@/shared/icons/fontAwesome';
@@ -60,10 +61,12 @@ const popup = cva({
       lg: { maxW: 'min(1080px, 75vw)' },
     },
     mobilePresentation: {
-      popup: { _mobile: { maxW: 'none' } },
+      popup: {
+        _mobile: { w: 'calc(100vw - 32px)!', maxW: 'none' },
+      },
       fullscreen: {
         _mobile: {
-          w: '100vw',
+          w: '100vw!',
           h: '100dvh',
           maxH: '100dvh',
           borderRadius: '0',
@@ -71,6 +74,7 @@ const popup = cva({
       },
       bottomSheet: {
         _mobile: {
+          w: 'calc(100vw - 32px)!',
           maxH: 'calc(100dvh - 16px)',
           borderRadius: '0',
         },
@@ -94,14 +98,19 @@ const header = css({
 
 const titleStyle = css({ height: '32px' });
 
-const closeButton = css({
-  display: 'grid',
-  placeItems: 'center',
-  w: '4',
-  h: '4',
-  p: '0',
-  color: 'var(--color-black-60)',
-  '& svg': { w: '4', h: '4' },
+const popupWithFooter = css({ display: 'flex', flexDirection: 'column', overflow: 'hidden' });
+
+const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
+
+const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
+
+const footerStyle = css({
+  display: 'flex',
+  justifyContent: 'center',
+  flexShrink: '0',
+  px: '4',
+  pb: '6',
+  '& > button': { w: '40', _mobile: { w: '100%' } },
 });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -111,6 +120,7 @@ export type ModalOverlayTone = 'dark' | 'light';
 export type ModalDialogProps = {
   children: ReactNode;
   closeLabel: string;
+  footer?: ReactNode;
   onOpenChange: (open: boolean) => void;
   open: boolean;
   size?: ModalSize;
@@ -124,6 +134,7 @@ export type ModalDialogProps = {
 export function ModalDialog({
   children,
   closeLabel,
+  footer,
   onOpenChange,
   open,
   size = 'md',
@@ -141,23 +152,32 @@ export function ModalDialog({
           <Dialog.Backdrop className={backdrop({ overlayTone })} />
           <Dialog.Viewport className={viewport({ mobilePresentation })}>
             <Dialog.Popup
-              className={[popup({ size, mobilePresentation }), popupClassName]
+              className={[
+                popup({ size, mobilePresentation }),
+                footer ? popupWithFooter : '',
+                popupClassName,
+              ]
                 .filter(Boolean)
                 .join(' ')}
             >
               <header className={header}>
                 <Dialog.Title className={titleStyle}>
-                  <Typography as="span">
+                  <Typography as="span" variant="bodyKr3">
                     {title}
                   </Typography>
                 </Dialog.Title>
                 <Dialog.Close
-                  render={<button type="button" aria-label={closeLabel} className={closeButton} />}
-                >
-                  <Icon fontAwesomeIcon={faXmark} size="16px" />
-                </Dialog.Close>
+                  render={
+                    <Button
+                      aria-label={closeLabel}
+                      icon={<Icon fontAwesomeIcon={faXmark} size="16px" />}
+                      variant="ghost"
+                    />
+                  }
+                />
               </header>
-              {children}
+              <div className={footer ? `${content} ${scrollableContent}` : content}>{children}</div>
+              {footer ? <footer className={footerStyle}>{footer}</footer> : null}
             </Dialog.Popup>
           </Dialog.Viewport>
         </div>

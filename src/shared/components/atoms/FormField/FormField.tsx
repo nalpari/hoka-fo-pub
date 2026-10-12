@@ -19,7 +19,7 @@ const boxedField = cva({
     px: '12px',
     py: '8px',
     bg: 'white.0',
-    boxShadow: 'inset 0 0 0 1px var(--colors-black-40)',
+    boxShadow: 'inset 0 0 0 1px var(--color-border-tertiary)',
     _focusWithin: { boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
     '& select': {
       '--field-border-width': '0px!',

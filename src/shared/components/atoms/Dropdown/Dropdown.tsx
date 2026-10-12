@@ -22,7 +22,7 @@ const styles = {
       '&[data-popup-open]': { boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
       px: '3',
       border: '0',
-      boxShadow: 'inset 0 0 0 1px var(--colors-black-40)',
+      boxShadow: 'inset 0 0 0 1px var(--color-border-tertiary)',
       bg: 'var(--color-white-000)',
       color: 'var(--color-black-100)',
       cursor: 'pointer',

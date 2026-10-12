@@ -26,12 +26,7 @@ export function FooterNavigationWeb() {
     <Box className={styles.content}>
       {footerGroups.map((group) => (
         <Flex direction="column" gap="20px" className={styles.group} key={group.title}>
-          <Typography
-            as="h3"
-            variant={/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(group.title) ? 'headingKr9' : 'heading9'}
-            tone="inverse"
-            className={styles.title}
-          >
+          <Typography as="h3" variant="heading9" tone="inverse" className={styles.title}>
             {group.title}
           </Typography>
           <FooterNavigationLinks links={group.links} platform="web" />

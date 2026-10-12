@@ -33,10 +33,7 @@ export function FooterNavigationLinks({ links, platform }: FooterNavigationLinks
       {links.map((link) => (
         <li key={link.label}>
           <Link to={link.to} className={styles.link}>
-            <Typography
-              variant={/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(link.label) ? 'bodyKr4' : 'body4'}
-              tone="inverse"
-            >
+            <Typography variant="body4" tone="inverse">
               {link.label}
             </Typography>
           </Link>

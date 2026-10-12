@@ -53,7 +53,7 @@ const form = css({
     minH: '140px',
     mt: '2',
     p: '3',
-    border: '1px solid var(--color-black-40)',
+    border: '1px solid var(--color-border-tertiary)',
     fontFamily: 'var(--font-family-base)',
   },
 });

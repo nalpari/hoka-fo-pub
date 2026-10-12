@@ -54,7 +54,7 @@ const panel = cva({
         w: 'max-content',
         borderWidth: '1px',
         borderStyle: 'solid',
-        borderColor: 'border.muted',
+        borderColor: 'var(--color-border-tertiary)',
         bg: 'var(--color-surface-default)',
         borderRadius: '4px',
       },

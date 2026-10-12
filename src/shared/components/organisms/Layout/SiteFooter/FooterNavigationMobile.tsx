@@ -18,12 +18,7 @@ export function FooterNavigationMobile() {
     value: group.title,
     title: (
       <HStack py="22px">
-        <Typography
-          as="span"
-          variant={/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(group.title) ? 'headingKr9' : 'heading9'}
-          tone="inverse"
-          className={styles.title}
-        >
+        <Typography as="span" variant="heading9" tone="inverse" className={styles.title}>
           {group.title}
         </Typography>
       </HStack>
@@ -32,7 +27,10 @@ export function FooterNavigationMobile() {
   }));
 
   return (
-    <Box borderTop="1px solid var(--color-black-40)" borderBottom="1px solid var(--color-black-40)">
+    <Box
+      borderTop="1px solid var(--color-border-tertiary)"
+      borderBottom="1px solid var(--color-border-tertiary)"
+    >
       <Accordion items={items} indicatorColor="var(--color-black-10)" multiple={false} />
     </Box>
   );
