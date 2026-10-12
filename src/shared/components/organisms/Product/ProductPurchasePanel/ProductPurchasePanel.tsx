@@ -120,7 +120,7 @@ export function ProductPurchasePanel({
         wish={wish}
       />
       <DeliveryBenefits />
-      <p className={css({ color: 'var(--color-text-muted)', fontSize: '12' })}>
+      <p className={css({ color: 'var(--color-text-tertiary)', fontSize: '12' })}>
         실제 결제와 주문 전송은 연결하지 않은 데모입니다.
       </p>
     </article>

@@ -16,7 +16,7 @@ const link = css({
 
 const separator = css({ display: 'inline-flex', mx: '7px', verticalAlign: 'middle' });
 
-const current = css({ color: 'var(--color-black-50)' });
+const current = css({ color: 'var(--color-text-tertiary)' });
 
 export type BreadcrumbItem = { label: string; href?: string };
 

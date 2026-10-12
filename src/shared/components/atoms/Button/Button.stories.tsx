@@ -99,7 +99,7 @@ export const ApprovedVariants: Story = {
                   display: 'flex',
                   gap: 24,
                   padding: 16,
-                  background: colorway === 'white' ? '#777777' : '#ffffff',
+                  background: colorway === 'white' ? 'var(--color-black-50)' : '#ffffff',
                 }}
               >
                 <Button variant={variant} colorway={colorway}>
@@ -133,7 +133,7 @@ export const Focus: Story = {
   args: { variant: 'secondary', colorway: 'white' },
   decorators: [
     (Story) => (
-      <div style={{ background: '#777777', padding: 24 }}>
+      <div style={{ background: 'var(--color-black-50)', padding: 24 }}>
         <Story />
       </div>
     ),

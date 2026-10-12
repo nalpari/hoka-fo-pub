@@ -19,8 +19,8 @@ const root = css({
   border: '1px solid var(--color-border-subtle)',
 });
 const heading = css({ m: '0', fontSize: '16' /* 기존 18px */ });
-const description = css({ m: '0', color: 'var(--color-text-muted)', fontSize: '14' /* 기존 13px */ });
-const noticeStyle = css({ m: '0', color: 'var(--color-text-muted)', fontSize: '12' });
+const description = css({ m: '0', color: 'var(--color-text-tertiary)', fontSize: '14' /* 기존 13px */ });
+const noticeStyle = css({ m: '0', color: 'var(--color-text-tertiary)', fontSize: '12' });
 
 /** Reusable customer-service, store, and business-contact information card. */
 export function ContactCard({

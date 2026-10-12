@@ -23,7 +23,7 @@ const styles = {
     mb: '2.5',
     _mobile: { '&&': { fontSize: '20px', fontWeight: '900' } },
   }),
-  description: css({ m: '0', mb: '10', color: 'var(--color-black-50)' }),
+  description: css({ m: '0', mb: '10', color: 'var(--color-text-tertiary)' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
   fieldGroup: css({ gap: '2' }),
   input: css({ minW: '0' }),

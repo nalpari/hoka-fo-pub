@@ -19,7 +19,7 @@ export default defineConfig({
             primary: { value: '{colors.black.100}' },
             inverse: { value: '{colors.white.0}' },
             subtle: { value: '{colors.black.60}' },
-            muted: { value: '{colors.black.50}' },
+            tertiary: { value: '{colors.black.50}' },
           },
           surface: {
             default: { value: '#fff' },

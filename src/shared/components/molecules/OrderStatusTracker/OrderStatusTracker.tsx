@@ -11,7 +11,7 @@ const heading = css({
   alignItems: 'center',
   mb: '3',
   '& h2': { m: '0', fontSize: '16' /* 기존 18px */ },
-  '& a': { color: 'var(--color-text-muted)', fontSize: '12' },
+  '& a': { color: 'var(--color-text-tertiary)', fontSize: '12' },
 });
 
 const list = css({

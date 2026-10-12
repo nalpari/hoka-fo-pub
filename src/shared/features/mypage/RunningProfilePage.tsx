@@ -18,7 +18,7 @@ const header = css({
     fontSize: '32',
     _mobile: { fontSize: '28' /* 기존 27px */ },
   },
-  '& p': { color: 'var(--color-text-muted)', fontSize: '14' },
+  '& p': { color: 'var(--color-text-tertiary)', fontSize: '14' },
 });
 
 const progress = css({ my: '32px 50px' });

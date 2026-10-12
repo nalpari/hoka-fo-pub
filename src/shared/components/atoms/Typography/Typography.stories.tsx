@@ -199,8 +199,8 @@ export const InverseBody: Story = {
   ],
 };
 
-export const MutedBody: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'muted', variant: 'body' },
+export const TertiaryBody: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'tertiary', variant: 'body' },
 };
 
 export const Black40Body: Story = {

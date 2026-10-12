@@ -15,11 +15,11 @@ const styles = {
   }),
   content: css({ maxW: '420px', mx: 'auto', gap: '0' }),
   title: css({ m: '0', mb: '3' }),
-  description: css({ m: '0', mb: '6', color: 'var(--color-black-50)' }),
+  description: css({ m: '0', mb: '6', color: 'var(--color-text-tertiary)' }),
   fields: css({ gap: '4' }),
   fieldGroup: css({ gap: '2' }),
   countdown: css({ m: '0', mt: '2', color: 'var(--color-red-80)' }),
-  codeHelp: css({ m: '0', mt: '2', color: 'var(--color-black-50)' }),
+  codeHelp: css({ m: '0', mt: '2', color: 'var(--color-text-tertiary)' }),
   button: css({
     mt: '6',
   }),

@@ -64,10 +64,10 @@ const couponRow = css({
     gap: '1.5',
     py: '4',
     '& strong': { fontSize: '20' },
-    '& span': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& span': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
     '& time': {
       gridColumn: '1 / -1',
-      color: 'var(--color-text-muted)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12',
     },
   },

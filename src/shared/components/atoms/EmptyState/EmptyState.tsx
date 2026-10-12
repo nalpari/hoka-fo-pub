@@ -37,7 +37,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
         </h2>
         {description ? (
           <Box mt="2" mx="0" mb="0">
-            <p className={css({ color: 'var(--color-text-muted)' })}>{description}</p>
+            <p className={css({ color: 'var(--color-text-tertiary)' })}>{description}</p>
           </Box>
         ) : null}
         {action ? <Box mt="2">{action}</Box> : null}
@@ -63,7 +63,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
         placeItems="center"
         border="1px solid var(--color-black-40)"
         borderRadius="full"
-        color="var(--color-black-50)"
+        color="var(--color-text-tertiary)"
         aria-hidden="true"
       >
         —
@@ -71,7 +71,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
       <VStack gap="1" maxW="320px" mt="1" mx="auto" textAlign="center">
         <h2 className={css({ m: '0', fontSize: '16' /* 기존 18px */ })}>{title}</h2>
         {description ? (
-          <p className={css({ m: '0', color: 'var(--color-text-muted)' })}>{description}</p>
+          <p className={css({ m: '0', color: 'var(--color-text-tertiary)' })}>{description}</p>
         ) : null}
         {action ? <Box mt="2">{action}</Box> : null}
       </VStack>
@@ -89,7 +89,7 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
       placeItems="center"
       border="1px solid var(--color-black-40)"
       borderRadius="full"
-      color="var(--color-black-50)"
+      color="var(--color-text-tertiary)"
       aria-hidden="true"
     />
   );

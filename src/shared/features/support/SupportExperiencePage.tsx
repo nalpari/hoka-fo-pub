@@ -17,7 +17,7 @@ const content = css({ maxW: '760px', '& h2': { fontSize: '20' } });
 
 const intro = css({
   mb: '7',
-  color: 'var(--color-text-muted)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '14',
   lineHeight: 'var(--line-heights-body)',
 });
@@ -32,7 +32,7 @@ const empty = css({
   minH: '240px',
   placeItems: 'center',
   p: '8',
-  color: 'var(--color-text-muted)',
+  color: 'var(--color-text-tertiary)',
   textAlign: 'center',
 });
 
@@ -66,7 +66,7 @@ const status = cva({
   variants: {
     answered: {
       true: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
-      false: { color: 'var(--color-text-muted)' },
+      false: { color: 'var(--color-text-tertiary)' },
     },
   },
 });

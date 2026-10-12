@@ -85,7 +85,7 @@ const timelineItem = css({
   borderBottom: '1px solid var(--color-border-subtle)',
   _mobile: {
     gridTemplateColumns: '1fr auto',
-    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-muted)' },
+    '& time': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
   },
 });
 const action = css({

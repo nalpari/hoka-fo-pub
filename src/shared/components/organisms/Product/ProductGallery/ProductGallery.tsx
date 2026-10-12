@@ -64,7 +64,7 @@ const galleryFrame = css({
   p: '0',
   border: '0',
   bg: 'var(--color-black-20)',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
   fontSize: '24',
   fontFamily: 'inherit',
   textAlign: 'center',

@@ -132,7 +132,7 @@ const header = css({
     letterSpacing: 'var(--letter-spacings-korean)',
   },
   '& h1': { m: '9px 0', fontSize: '28' /* 기존 30px */ },
-  '& p': { m: '0', color: 'var(--color-text-muted)', fontSize: '14' /* 기존 13px */ },
+  '& p': { m: '0', color: 'var(--color-text-tertiary)', fontSize: '14' /* 기존 13px */ },
 });
 
 const productGrid = css({

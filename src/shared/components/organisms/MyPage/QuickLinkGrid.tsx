@@ -26,7 +26,7 @@ const link = css({
   },
 });
 
-const itemLabel = css({ color: 'var(--color-text-muted)', fontSize: '12' });
+const itemLabel = css({ color: 'var(--color-text-tertiary)', fontSize: '12' });
 
 const value = css({ fontSize: '20' /* 기존 22px */ });
 
@@ -34,7 +34,7 @@ const arrow = css({
   position: 'absolute',
   right: '5',
   bottom: '5',
-  color: 'var(--color-black-50)',
+  color: 'var(--color-text-tertiary)',
 });
 
 export function QuickLinkGrid({ items, label = '바로가기' }: Props) {

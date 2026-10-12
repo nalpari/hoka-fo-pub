@@ -25,7 +25,7 @@ const styles = {
     },
     '& button span': { pl: '14px' },
     '& button time, & button small': {
-      color: 'var(--color-black-50)',
+      color: 'var(--color-text-tertiary)',
       fontSize: '12' /* 기존: 11px */,
       textAlign: 'center',
     },

@@ -39,7 +39,7 @@ const score = css({
   textAlign: 'center',
   '& strong': { display: 'block', fontSize: '42' },
   '& p': { my: '2', mx: '0', fontSize: '14' /* 기존 13px */ },
-  '& small': { color: 'var(--color-black-50)' },
+  '& small': { color: 'var(--color-text-tertiary)' },
 });
 
 const reviewFilters = css({

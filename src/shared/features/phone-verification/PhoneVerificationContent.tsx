@@ -275,7 +275,7 @@ export function PhoneVerificationContent(props: Props) {
           ) : null}
           {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
         </form>
-        <Typography as="p" variant="bodyKr4" tone="muted" className={styles.help}>
+        <Typography as="p" variant="bodyKr4" tone="tertiary" className={styles.help}>
           * 인증문의 (주)KCB고객센터 02-708-1000
         </Typography>
       </Box>

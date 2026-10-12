@@ -51,7 +51,7 @@ const styles = {
   }),
   eyebrow: css({
     m: 0,
-    color: 'var(--color-black-50)',
+    color: 'var(--color-text-tertiary)',
     fontSize: '12',
     fontWeight: 'var(--font-weights-bold)',
     letterSpacing: 'var(--letter-spacings-korean)',
