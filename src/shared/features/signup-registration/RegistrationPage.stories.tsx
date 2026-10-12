@@ -20,8 +20,8 @@ const meta = {
       name: '',
       password: '',
       confirmation: '',
-      birthDate: '',
-      phone: '',
+      birthDate: '19830522',
+      phone: '010-6698-5552',
       address: '',
       addressDetail: '',
       email: '',
@@ -32,12 +32,11 @@ const meta = {
     domainChoice: 'direct',
     notice: '',
     duplicateNotice: '',
-    addressOpen: false,
+    fieldErrors: { email: '', domain: '', name: '', password: '', confirmation: '' },
     onChange: () => {},
     onPreferenceChange: () => {},
     onDomainChoice: () => {},
     onDuplicateCheck: () => {},
-    onAddressOpen: () => {},
     onSubmit: (event) => event.preventDefault(),
     onCancel: () => {},
   },
@@ -73,7 +72,17 @@ export const MobileAdditional: Story = {
   globals: { viewport: 'hoka375' },
 };
 
-export const Error: Story = { args: { notice: '비밀번호 재입력 값이 일치하지 않습니다.' } };
+export const Error: Story = {
+  args: {
+    fieldErrors: {
+      email: '올바른 이메일 형식으로 입력해 주세요',
+      domain: '올바른 도메인 형식으로 입력해 주세요',
+      name: '올바른 이름을 입력해주세요',
+      password: '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+      confirmation: '비밀번호가 일치하지 않습니다',
+    },
+  },
+};
 
 export const Complete: Story = { render: () => <RegistrationCompleteContent /> };
 
