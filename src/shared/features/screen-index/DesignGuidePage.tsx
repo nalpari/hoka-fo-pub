@@ -2,7 +2,10 @@
 
 import { css } from 'styled-system/css';
 import { token, type Token } from 'styled-system/tokens';
-import { figmaTypographyVariants } from '@/shared/components/atoms/Typography/Typography';
+import {
+  figmaTypographyVariants,
+  Typography,
+} from '@/shared/components/atoms/Typography/Typography';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 
 type GuideVariant = keyof typeof figmaTypographyVariants;
@@ -26,6 +29,7 @@ const comparisonColumnLabels = [
   'Web Font Size',
   'Mobile Font Size',
   'Font Weight',
+  'Example',
 ];
 
 function getFontSize(value: string) {
@@ -249,6 +253,11 @@ export function DesignGuidePage() {
                         {value}
                       </td>
                     ))}
+                    <td>
+                      <Typography variant={english} lang="en">
+                        abcdefghijklmn
+                      </Typography>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">KO</th>
@@ -257,6 +266,11 @@ export function DesignGuidePage() {
                         <td key={columnLabels[index + 1]}>{value}</td>
                       ),
                     )}
+                    <td>
+                      <Typography variant={korean} lang="ko">
+                        가나다라마바사
+                      </Typography>
+                    </td>
                   </tr>
                 </tbody>
               );
