@@ -18,7 +18,6 @@ const styles = {
   options: css({
     justifyContent: 'space-between',
     gap: '2',
-    '& label > span:last-child': { fontSize: '14' /* 기존 13px */ },
   }),
   links: css({
     gap: '2',
@@ -76,7 +75,7 @@ export function LoginContent({
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
-        <Typography as="h1" variant="authTitle" className={styles.title} id="login-title">
+        <Typography as="h1" variant="headingKr6" className={styles.title} id="login-title">
           HOKA Korea에
           <br />
           오신것을 환영합니다
@@ -104,12 +103,17 @@ export function LoginContent({
             />
           </FormField>
           <HStack className={styles.options}>
-            <Checkbox label="아이디 저장" checked={rememberId} onCheckedChange={onRememberChange} />
+            <Checkbox
+              label="아이디 저장"
+              labelVariant="bodyKr4"
+              checked={rememberId}
+              onCheckedChange={onRememberChange}
+            />
             <HStack className={styles.links}>
               <Button variant="link" size="sm" onClick={onFindAccount}>
                 아이디 찾기
               </Button>
-              <Typography variant="authCaption" aria-hidden="true">
+              <Typography variant="bodyKr5" aria-hidden="true">
                 |
               </Typography>
               <Button variant="link" size="sm" onClick={() => onUnavailable('비밀번호 찾기')}>
@@ -151,10 +155,10 @@ export function LoginContent({
           </Stack>
         </form>
         <Stack as="section" className={styles.membership} aria-labelledby="membership-title">
-          <Typography as="h2" variant="authBody" id="membership-title" className={css({ m: 0 })}>
+          <Typography as="h2" variant="bodyKr3" id="membership-title" className={css({ m: 0 })}>
             가입과 동시에 시작되는 혜택!
           </Typography>
-          <Typography as="p" variant="authSmall" className={css({ m: 0 })}>
+          <Typography as="p" variant="bodyKr4" className={css({ m: 0 })}>
             신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
           </Typography>
           <ButtonLink

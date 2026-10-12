@@ -15,16 +15,11 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': {
-      mt: '9px',
-      mb: 0,
-    },
   }),
   field: css({ mt: '4' }),
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
-    fontSize: '14' /* 기존 13px */,
   }),
   primary: css({
     display: 'grid',
@@ -33,7 +28,6 @@ const styles = {
     placeItems: 'center',
     bg: 'var(--color-black-100)',
     color: 'var(--color-white-000)',
-    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 
@@ -68,8 +62,10 @@ export function SignupDetailsStep({
 }: SignupDetailsStepProps) {
   return (
     <form className={styles.formSection} onSubmit={onSubmit}>
-      <h2>기본 정보 입력</h2>
-      <Typography as="p" variant="body4" tone="tertiary">
+      <Typography as="h2" variant="heading7">
+        기본 정보 입력
+      </Typography>
+      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
         {methodOption.label} 후 필요한 정보를 입력해 주세요.
       </Typography>
       <FormField
@@ -139,7 +135,9 @@ export function SignupDetailsStep({
       ) : null}
       {message ? (
         <StatusMessage className={styles.error} tone="error">
-          {message}
+          <Typography as="span" variant="body4" tone="error">
+            {message}
+          </Typography>
         </StatusMessage>
       ) : null}
       <Button className={styles.primary} type="submit" variant="primary">

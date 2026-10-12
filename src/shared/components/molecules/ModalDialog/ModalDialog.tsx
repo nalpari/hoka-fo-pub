@@ -113,6 +113,21 @@ const footerStyle = css({
   '& > button': { w: '40', _mobile: { w: '100%' } },
 });
 
+const footerWithScrollFade = css({
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    right: '0',
+    bottom: '100%',
+    left: '0',
+    h: '20',
+    background:
+      'linear-gradient(180deg, color-mix(in srgb, var(--color-white-000) 0%, transparent) 0%, var(--color-white-000) 80%, var(--color-white-000) 100%)',
+    pointerEvents: 'none',
+  },
+});
+
 export type ModalSize = 'sm' | 'md' | 'lg';
 export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
 export type ModalOverlayTone = 'dark' | 'light';
@@ -127,6 +142,8 @@ export type ModalDialogProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
+  /** Fade the scrollable content into the fixed footer. */
+  scrollFade?: boolean;
   title: ReactNode;
 };
 
@@ -141,6 +158,7 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   overlayTone = 'dark',
   popupClassName,
+  scrollFade = false,
   title,
 }: ModalDialogProps) {
   const platform = usePlatform();
@@ -175,7 +193,13 @@ export function ModalDialog({
                 />
               </header>
               <div className={footer ? `${content} ${scrollableContent}` : content}>{children}</div>
-              {footer ? <footer className={footerStyle}>{footer}</footer> : null}
+              {footer ? (
+                <footer
+                  className={scrollFade ? `${footerStyle} ${footerWithScrollFade}` : footerStyle}
+                >
+                  {footer}
+                </footer>
+              ) : null}
             </Dialog.Popup>
           </Dialog.Viewport>
         </div>

@@ -19,10 +19,7 @@ const styles = {
     },
   }),
   content: css({ maxW: '500px', mx: 'auto', gap: '0' }),
-  title: css({
-    mb: '2.5',
-    _mobile: { '&&': { fontSize: '20px', fontWeight: '900' } },
-  }),
+  title: css({ mb: '2.5' }),
   description: css({ m: '0', mb: '10', color: 'var(--color-text-tertiary)' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
   fieldGroup: css({ gap: '2' }),
@@ -102,7 +99,7 @@ export function PasswordResetPage() {
           variant="boxed"
           invalid={Boolean(error)}
           htmlFor={`password-reset-${name}`}
-          label={<Typography variant="authCaption">* {label}</Typography>}
+          label={<Typography variant="bodyKr5">* {label}</Typography>}
         >
           <TextInput
             className={styles.input}
@@ -121,7 +118,7 @@ export function PasswordResetPage() {
         {errorMessage ? (
           <Typography
             as="p"
-            variant="authCaption"
+            variant="bodyKr5"
             className={styles.fieldError}
             id={errorId}
             role="alert"
@@ -136,10 +133,10 @@ export function PasswordResetPage() {
   return (
     <Box as="main" className={styles.page}>
       <Stack as="section" className={styles.content} aria-labelledby="password-reset-title">
-        <Typography as="h1" variant="headingKr7" className={styles.title} id="password-reset-title">
+        <Typography as="h1" variant="headingKr6" className={styles.title} id="password-reset-title">
           비밀번호 재설정
         </Typography>
-        <Typography as="p" variant="authBody" tone="subtle" className={styles.description}>
+        <Typography as="p" variant="bodyKr3" tone="subtle" className={styles.description}>
           새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요.
         </Typography>
         <form noValidate className={styles.form} onSubmit={submit}>

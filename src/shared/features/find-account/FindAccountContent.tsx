@@ -62,10 +62,10 @@ export function FindAccountContent({
   return (
     <Box as="main" className={styles.page}>
       <Stack as="section" className={styles.content} aria-labelledby="find-account-title">
-        <Typography as="h1" variant="authTitle" className={styles.title} id="find-account-title">
+        <Typography as="h1" variant="headingKr6" className={styles.title} id="find-account-title">
           아이디 / 비밀번호 찾기
         </Typography>
-        <Typography as="p" variant="authBody" tone="subtle" className={styles.description}>
+        <Typography as="p" variant="bodyKr3" tone="subtle" className={styles.description}>
           회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.
         </Typography>
 
@@ -139,14 +139,14 @@ export function FindAccountContent({
                   onChange={(event) => onCodeChange(event.target.value)}
                 />
               </FormField>
-              <Typography as="p" variant="authCaption" className={styles.countdown}>
+              <Typography as="p" variant="bodyKr5" className={styles.countdown}>
                 남은 시간{' '}
                 {Math.floor(secondsLeft / 60)
                   .toString()
                   .padStart(2, '0')}
                 :{(secondsLeft % 60).toString().padStart(2, '0')}초
               </Typography>
-              <Typography as="p" variant="authCaption" className={styles.codeHelp}>
+              <Typography as="p" variant="bodyKr5" className={styles.codeHelp}>
                 입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
                 <br />
                 인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요

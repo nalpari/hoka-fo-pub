@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
 import { css, cva } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const button = cva({
   base: {
@@ -18,7 +19,6 @@ const button = cva({
     '--button-padding-x': '24px',
     '--button-label-size': '16px',
     '--button-radius': '52px',
-    '--button-icon-size': '16px',
     '--button-content-gap': '8px',
     _focusVisible: {
       outline: 'none',
@@ -196,6 +196,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const white = colorway === 'white';
   const unframed = resolvedVariant === 'link' || resolvedVariant === 'ghost';
   const inverseLegacy = resolvedVariant === 'secondaryInverse';
+  const labelTypographyVariant =
+    height === 'short' ? 'cta2' : height === 'tall' ? 'cta1' : undefined;
   const resolvedDensity =
     density ??
     (height
@@ -322,7 +324,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
                 .filter(Boolean)
                 .join(' ')}
             >
-              {children}
+              {labelTypographyVariant ? (
+                <Typography as="span" variant={labelTypographyVariant} style={{ color: 'inherit' }}>
+                  {children}
+                </Typography>
+              ) : (
+                children
+              )}
             </span>
           )}
           {icon ? <span className={iconStyle}>{icon}</span> : null}

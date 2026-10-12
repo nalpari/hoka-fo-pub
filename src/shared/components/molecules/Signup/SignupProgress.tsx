@@ -26,13 +26,8 @@ const styles = {
     },
   }),
   current: css({
-    '&::before': {
-      bg: 'var(--color-black-100) !important',
-    },
-    '&&': {
-      color: 'var(--color-black-100) !important',
-      fontWeight: '700 !important',
-    },
+    color: 'var(--color-black-100) !important',
+    '&::before': { bg: 'var(--color-black-100) !important' },
   }),
   complete: css({
     '&::before': {
@@ -64,8 +59,12 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
 
         return (
           <li className={state} key={label}>
-            <Typography variant="body4">{position}</Typography>
-            <Typography variant="body5">{label}</Typography>
+            <Typography variant="body4" weight={currentStep === position ? 'medium' : 'regular'}>
+              {position}
+            </Typography>
+            <Typography variant="body5" weight={currentStep === position ? 'medium' : 'regular'}>
+              {label}
+            </Typography>
           </li>
         );
       })}
