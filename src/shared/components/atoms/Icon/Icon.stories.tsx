@@ -96,7 +96,9 @@ const svgIconGroups = [
     names: [
       'social/facebook',
       'social/instagram',
+      'social/kakao',
       'social/level-access',
+      'social/naver',
       'social/pinterest',
       'social/strava',
       'social/tiktok',

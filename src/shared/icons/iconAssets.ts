@@ -5,6 +5,8 @@ export const iconAssets = {
   medal: '/images/icon/medal.svg',
   partyHorn: '/images/icon/party-horn.svg',
   phoneVerification: '/images/icon/phone-verification.svg',
+  'social/kakao': '/images/icon/social/kakao.svg',
+  'social/naver': '/images/icon/social/naver.svg',
 } as const;
 
 export type IconAssetName = keyof typeof iconAssets;

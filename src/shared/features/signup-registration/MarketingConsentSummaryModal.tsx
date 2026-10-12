@@ -10,7 +10,6 @@ const styles = {
   body: css({ gap: '4' }),
   heading: css({ m: '0' }),
   summary: css({ m: '0', whiteSpace: 'pre-line' }),
-
 };
 
 type MarketingConsentSummaryModalProps = {
@@ -42,10 +41,10 @@ export function MarketingConsentSummaryModal({
       popupClassName={styles.dialog}
     >
       <Stack className={styles.body}>
-        <Typography as="h2" variant="authBody" className={styles.heading}>
+        <Typography as="h2" variant="bodyKr3" className={styles.heading}>
           마케팅 정보 수신 내역
         </Typography>
-        <Typography as="p" variant="authBody" className={styles.summary}>
+        <Typography as="p" variant="bodyKr3" className={styles.summary}>
           {summary}
         </Typography>
         <Button variant="primary" fullWidth className={styles.button} onClick={onConfirm}>

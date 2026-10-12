@@ -7,7 +7,7 @@ import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDial
 const styles = {
   body: css({ gap: '4' }),
   heading: css({ m: '0' }),
-  description: css({ m: '0', lineHeight: '1.4' }),
+  description: css({ m: '0' }),
 };
 
 type AlreadyRegisteredModalProps = {

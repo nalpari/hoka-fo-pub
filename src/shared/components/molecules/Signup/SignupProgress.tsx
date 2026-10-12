@@ -1,4 +1,5 @@
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -16,15 +17,12 @@ const styles = {
       display: 'grid',
       gap: '5px',
       color: 'var(--color-black-40)',
-      fontSize: '14' /* 기존 13px */,
       textAlign: 'center',
     },
     '& li::before': { h: '3px', bg: 'var(--color-black-20)', content: '""' },
-    '& span': { fontSize: '12' /* 기존: 11px */ },
   }),
   current: css({
     color: 'var(--color-black-100) !important',
-    fontWeight: '700 !important',
     '&::before': { bg: 'var(--color-black-100) !important' },
   }),
   complete: css({ '&::before': { bg: 'var(--color-black-100) !important' } }),
@@ -53,8 +51,20 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
 
         return (
           <li className={state} key={label}>
-            {position}
-            <span>{label}</span>
+            <Typography
+              as="span"
+              variant="bodyKr4"
+              weight={currentStep === position ? 'medium' : 'regular'}
+            >
+              {position}
+            </Typography>
+            <Typography
+              as="span"
+              variant="bodyKr5"
+              weight={currentStep === position ? 'medium' : 'regular'}
+            >
+              {label}
+            </Typography>
           </li>
         );
       })}

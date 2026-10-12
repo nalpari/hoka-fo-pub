@@ -73,7 +73,7 @@ export function SignupTermsContent(props: Props) {
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
-        <Typography as="h1" variant="authTitle" className={styles.title}>
+        <Typography as="h1" variant="headingKr6" className={styles.title}>
           약관동의
         </Typography>
         <Box className={styles.all}>
@@ -105,7 +105,7 @@ export function SignupTermsContent(props: Props) {
                 onClick={() => props.onDetail(index)}
                 aria-label={`${term.required ? '필수' : '선택'} ${term.label} 자세히 보기`}
               >
-                <Typography variant="authCaption">자세히 보기</Typography>
+                <Typography variant="bodyKr5">자세히 보기</Typography>
               </Button>
             </HStack>
           ))}
@@ -131,34 +131,34 @@ export function SignupTermsContent(props: Props) {
       >
         <Box className={styles.body}>
           <HStack className={styles.documentHeader}>
-            <Typography variant="authSmall">
+            <Typography variant="bodyKr4">
               ({selected?.required ? '필수' : '선택'}) {selected?.label}
             </Typography>
             <Button variant="link" size="sm" className={styles.detail} onClick={props.onPrevious}>
-              <Typography variant="authCaption">
+              <Typography variant="bodyKr5">
                 {props.previous ? '현재 약관 보기' : '이전 약관 보기'}
               </Typography>
             </Button>
           </HStack>
           <Box as="article" className={styles.document} tabIndex={0} aria-label="약관 내용">
             {props.previous ? (
-              <Typography as="p" variant="authCaption" className={styles.text}>
+              <Typography as="p" variant="bodyKr5" className={styles.text}>
                 이전 약관은 등록 준비 중입니다.
               </Typography>
             ) : (
               [1, 2].map((number) => (
                 <Box key={number}>
-                  <Typography as="h2" variant="authSmall" className={styles.text}>
+                  <Typography as="h2" variant="bodyKr4" className={styles.text}>
                     약관 타이틀{number}
                   </Typography>
-                  <Typography as="p" variant="authSmall" className={styles.text}>
+                  <Typography as="p" variant="bodyKr4" className={styles.text}>
                     {'약관내용'.repeat(55)}
                   </Typography>
                 </Box>
               ))
             )}
           </Box>
-          <Typography as="p" variant="authCaption" tone="subtle" className={styles.dates}>
+          <Typography as="p" variant="bodyKr5" tone="subtle" className={styles.dates}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
           </Typography>
           <Box className={styles.confirm}>

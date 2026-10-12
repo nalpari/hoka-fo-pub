@@ -29,17 +29,17 @@ export function RegistrationCompleteContent() {
   return (
     <Box as="main" className={styles.page}>
       <Stack className={styles.content}>
-        <Typography as="h1" variant="authTitle" className={styles.title}>
+        <Typography as="h1" variant="headingKr6" className={styles.title}>
           회원가입 완료
         </Typography>
         <Box className={styles.icon} aria-hidden="true">
           <Icon fontAwesomeIcon={faCheck} />
         </Box>
         <Stack className={styles.message}>
-          <Typography as="p" variant="authBody">
+          <Typography as="p" variant="bodyKr3">
             가입이 성공적으로 이루어졌습니다!
           </Typography>
-          <Typography as="p" variant="authSmall">
+          <Typography as="p" variant="bodyKr4">
             고객님께 알찬 정보, 다양한 이벤트와 혜택을 드리고자
             <br />
             최선을 다하겠습니다
@@ -48,7 +48,7 @@ export function RegistrationCompleteContent() {
         <ButtonLink to="/" variant="primary" fullWidth className={styles.button}>
           쇼핑하러 가기
         </ButtonLink>
-        <Typography as="p" variant="authCaption" tone="subtle">
+        <Typography as="p" variant="bodyKr5" tone="subtle">
           화면 미리보기입니다. 실제 계정은 생성되지 않았습니다.
         </Typography>
       </Stack>

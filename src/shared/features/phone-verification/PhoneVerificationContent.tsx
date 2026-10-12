@@ -36,7 +36,6 @@ const styles = {
   carrierSectionLast: css({ gap: '3' }),
   carrierTitle: css({ m: '0' }),
   carrierNames: css({ m: '0' }),
-
 };
 
 const mvnoCarriers = [
@@ -177,7 +176,7 @@ export function PhoneVerificationContent(props: Props) {
                 required
                 invalid={showAgreementErrors && !agreements[index]}
               >
-                <Typography>(필수) {term}</Typography>
+                <Typography variant="bodyKr5">(필수) {term}</Typography>
               </Terms>
               <Button
                 variant="link"

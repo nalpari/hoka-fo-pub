@@ -12,13 +12,7 @@ const styles = {
   desktopTitle: css({ display: 'inline', _mobile: { display: 'none' } }),
   mobileTitle: css({ display: 'none', _mobile: { display: 'inline' } }),
   intro: css({ m: '0' }),
-  email: css({
-    m: '20px 0 0',
-    fontSize: '28px',
-    fontWeight: '900',
-    lineHeight: '1.2',
-    _mobile: { fontSize: '22px' },
-  }),
+  email: css({ m: '20px 0 0' }),
   description: css({ m: '24px 0', color: 'var(--color-text-tertiary)' }),
   actions: css({ justifyContent: 'center', gap: '2', _mobile: { flexDirection: 'column' } }),
   action: css({
@@ -45,8 +39,12 @@ export function IdConfirmationModal({
       onOpenChange={onOpenChange}
       title={
         <>
-          <span className={styles.desktopTitle}>아이디 / 비밀번호 찾기</span>
-          <span className={styles.mobileTitle}>HOKA Korea 회원 안내</span>
+          <Typography as="span" variant="bodyKr4" className={styles.desktopTitle}>
+            아이디 / 비밀번호 찾기
+          </Typography>
+          <Typography as="span" variant="bodyKr4" className={styles.mobileTitle}>
+            HOKA Korea 회원 안내
+          </Typography>
         </>
       }
       closeLabel="안내 닫기"
@@ -57,7 +55,7 @@ export function IdConfirmationModal({
         <Typography as="p" variant="bodyKr3" className={styles.intro}>
           김호가님 가입하신 아이디입니다
         </Typography>
-        <Typography as="p" variant="headingKr7" className={styles.email}>
+        <Typography as="p" variant="headingKr6" className={styles.email}>
           honggildong@kakao.com
         </Typography>
         <Typography as="p" variant="bodyKr4" className={styles.description}>

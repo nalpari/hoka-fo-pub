@@ -3,6 +3,7 @@ import { VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethodOption = {
   label: string;
@@ -11,12 +12,6 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': {
-      mt: '9px',
-      mb: 0,
-      color: 'var(--color-text-tertiary)',
-      fontSize: '14',
-    },
   }),
   allTerms: css({
     display: 'flex',
@@ -25,7 +20,6 @@ const styles = {
     mt: '7',
     p: '17px',
     bg: 'var(--color-black-10)',
-    fontWeight: 'var(--font-weights-bold)',
   }),
   termList: css({
     borderBottom: '1px solid var(--color-border-subtle)',
@@ -45,14 +39,12 @@ const styles = {
       p: 0,
       border: 0,
       color: 'var(--color-text-tertiary)',
-      fontSize: '12',
       textDecoration: 'underline',
     },
   }),
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
-    fontSize: '14' /* 기존 13px */,
   }),
   primary: css({
     display: 'grid',
@@ -61,7 +53,6 @@ const styles = {
     placeItems: 'center',
     bg: 'var(--color-black-100)',
     color: 'var(--color-white-000)',
-    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 
@@ -94,10 +85,16 @@ export function SignupTermsStep({
 
   return (
     <section className={styles.formSection} aria-labelledby="terms-title">
-      <h2 id="terms-title">약관 동의</h2>
-      <p>{method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.</p>
+      <Typography as="h2" variant="headingKr7" id="terms-title">
+        약관 동의
+      </Typography>
+      <Typography as="p" variant="bodyKr4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
+        {method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.
+      </Typography>
       <Terms className={styles.allTerms} checked={allRequiredTerms} onCheckedChange={onToggleAll}>
-        <span>필수 약관 전체 동의</span>
+        <Typography as="span" variant="bodyKr4" weight="medium">
+          필수 약관 전체 동의
+        </Typography>
       </Terms>
       <VStack className={styles.termList}>
         <Terms
@@ -107,9 +104,9 @@ export function SignupTermsStep({
           error={message && !serviceTerms ? message : undefined}
         >
           <>
-            <span>
+            <Typography as="span" variant="bodyKr5">
               <b>[필수]</b> 이용약관 동의
-            </span>
+            </Typography>
             <Button size="sm" variant="ghost">
               보기
             </Button>
@@ -122,9 +119,9 @@ export function SignupTermsStep({
           error={message && !privacyTerms ? message : undefined}
         >
           <>
-            <span>
+            <Typography as="span" variant="bodyKr5">
               <b>[필수]</b> 개인정보 수집 및 이용 동의
-            </span>
+            </Typography>
             <Button size="sm" variant="ghost">
               보기
             </Button>
@@ -136,14 +133,16 @@ export function SignupTermsStep({
           required
           error={message && !ageTerms ? message : undefined}
         >
-          <span>
+          <Typography as="span" variant="bodyKr5">
             <b>[필수]</b> 만 14세 이상입니다.
-          </span>
+          </Typography>
         </Terms>
       </VStack>
       {message ? (
         <StatusMessage className={styles.error} tone="error">
-          {message}
+          <Typography as="span" variant="bodyKr4" tone="red100">
+            {message}
+          </Typography>
         </StatusMessage>
       ) : null}
       <Button className={styles.primary} onClick={onContinue} variant="primary">

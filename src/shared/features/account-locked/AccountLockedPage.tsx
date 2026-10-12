@@ -52,10 +52,10 @@ export function AccountLockedPage() {
         popupClassName={styles.dialog}
       >
         <Stack className={styles.body}>
-          <Typography as="h4" className={styles.title}>
+          <Typography as="h2" variant="headingKr6" className={styles.title}>
             계정 잠금상태입니다
           </Typography>
-          <Typography as="p" className={styles.description}>
+          <Typography as="p" variant="bodyKr4" className={styles.description}>
             서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
             <span className={styles.descriptionSecondLine}>휴대폰 인증화면으로 이동합니다.</span>
           </Typography>

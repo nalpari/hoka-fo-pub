@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { HStack, Divider } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const authLink = css({
-  color: 'var(--hoka-black)',
-  fontFamily: 'Pretendard, Arial, sans-serif',
-  fontSize: '16',
-  fontWeight: 'normal',
-  lineHeight: 'body',
-  letterSpacing: 'korean',
   whiteSpace: 'nowrap',
 });
 
@@ -16,11 +11,15 @@ export function HeaderAuthLink() {
   return (
     <HStack gap="1.5" alignItems="center">
       <Link to="/login" className={authLink}>
-        로그인
+        <Typography as="span" variant="bodyKr3">
+          로그인
+        </Typography>
       </Link>
       <Divider aria-hidden="true" orientation="vertical" h="4" w="1px" bg="var(--hoka-black)" />
       <Link to="/signup" className={authLink}>
-        회원가입
+        <Typography as="span" variant="bodyKr3">
+          회원가입
+        </Typography>
       </Link>
     </HStack>
   );

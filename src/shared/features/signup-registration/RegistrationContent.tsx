@@ -33,7 +33,7 @@ const styles = {
   button: css({ w: '100%' }),
   actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2', mt: '6' }),
   hint: css({ m: '0', mt: '-2' }),
-  heading: css({ m: '0', mb: '4', fontWeight: 'semibold' }),
+  heading: css({ m: '0', mb: '4' }),
   preferences: css({ gap: '4', pb: '6', mb: '6', borderBottom: '1px solid var(--color-black-20)' }),
   row: css({ justifyContent: 'space-between', gap: '3', alignItems: 'start' }),
   radio: css({ display: 'flex!', gap: '6', flexShrink: '0' }),
@@ -76,7 +76,7 @@ export function RegistrationContent(props: Props) {
       variant="boxed"
       htmlFor={fieldId}
       disabled={disabled}
-      label={<Typography variant="authCaption">* {label}</Typography>}
+      label={<Typography variant="bodyKr5">* {label}</Typography>}
     >
       <TextInput
         id={fieldId}
@@ -107,7 +107,7 @@ export function RegistrationContent(props: Props) {
   ) => (
     <HStack className={styles.row}>
       <Typography
-        variant="authSmall"
+        variant="bodyKr4"
         className={
           key === 'sms' ? css({ w: '176px', flexShrink: '0', whiteSpace: 'pre-line' }) : undefined
         }
@@ -120,8 +120,8 @@ export function RegistrationContent(props: Props) {
         value={props.preferences[key]}
         onValueChange={(value) => props.onPreferenceChange(key, value)}
         options={[
-          { value: 'yes', label: <Typography variant="authSmall">{yes}</Typography> },
-          { value: 'no', label: <Typography variant="authSmall">{no}</Typography> },
+          { value: 'yes', label: <Typography variant="bodyKr4">{yes}</Typography> },
+          { value: 'no', label: <Typography variant="bodyKr4">{no}</Typography> },
         ]}
       />
     </HStack>
@@ -130,7 +130,7 @@ export function RegistrationContent(props: Props) {
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
-        <Typography as="h1" variant="authTitle" className={styles.title}>
+        <Typography as="h1" variant="headingKr6" className={styles.title}>
           {props.stage === 'information' ? '회원 정보' : '부가 정보'}
         </Typography>
         <form className={styles.form} onSubmit={props.onSubmit}>
@@ -148,7 +148,7 @@ export function RegistrationContent(props: Props) {
               <FormField
                 variant="boxed"
                 htmlFor="registration-domain-choice"
-                label={<Typography variant="authCaption">* 직접입력</Typography>}
+                label={<Typography variant="bodyKr5">* 직접입력</Typography>}
               >
                 <Select
                   id="registration-domain-choice"
@@ -174,7 +174,7 @@ export function RegistrationContent(props: Props) {
               ) : null}
               {field('name', '이름', '이름을 입력해주세요.')}
               {field('password', '비밀번호', '비밀번호를 입력해주세요', 'password')}
-              <Typography as="p" variant="authCaption" className={styles.hint}>
+              <Typography as="p" variant="bodyKr5" className={styles.hint}>
                 연속적인 숫자나 생일, 전화번호 등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호
                 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 조합하여
                 입력해주세요.
@@ -182,7 +182,7 @@ export function RegistrationContent(props: Props) {
               {field('confirmation', '비밀번호 재입력', '비밀번호를 다시 입력해주세요', 'password')}
               {field('birthDate', '생년월일', '생년월일 8자리를 입력해주세요')}
               {field('phone', '휴대폰번호', '휴대폰번호를 입력해주세요')}
-              <Typography as="p" variant="authCaption" tone="subtle" className={styles.hint}>
+              <Typography as="p" variant="bodyKr5" tone="subtle" className={styles.hint}>
                 본인인증 서비스 연결 전에는 인증 정보를 직접 입력하는 미리보기입니다.
               </Typography>
               <FormField variant="boxed" htmlFor="registration-address" label="주소" required>
@@ -204,7 +204,7 @@ export function RegistrationContent(props: Props) {
           ) : (
             <>
               <Box as="section">
-                <Typography as="h2" variant="authBody" className={styles.heading}>
+                <Typography as="h2" variant="bodyKr3" weight="medium" className={styles.heading}>
                   마케팅 정보 수신 동의
                 </Typography>
                 <Stack className={styles.preferences}>
@@ -214,7 +214,7 @@ export function RegistrationContent(props: Props) {
                 </Stack>
               </Box>
               <Box as="section">
-                <Typography as="h2" variant="authBody" className={styles.heading}>
+                <Typography as="h2" variant="bodyKr3" weight="medium" className={styles.heading}>
                   부가정보
                 </Typography>
                 <Box className={styles.married}>
@@ -246,7 +246,7 @@ export function RegistrationContent(props: Props) {
         closeLabel="주소찾기 닫기"
       >
         <Stack>
-          <Typography as="p" variant="authSmall">
+          <Typography as="p" variant="bodyKr4">
             주소 검색 서비스 연결 전입니다. 미리보기 주소를 직접 입력해주세요.
           </Typography>
           {field('address', '주소', '주소를 입력해주세요', 'text', 'registration-address-dialog')}

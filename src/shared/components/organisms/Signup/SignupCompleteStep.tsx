@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
   complete: css({
@@ -19,7 +20,6 @@ const styles = {
       color: 'var(--color-white-000)',
       fontSize: '28',
     },
-    '& p': { mt: '3', mb: 0, color: 'var(--color-text-tertiary)', fontSize: '14' },
   }),
   primary: css({
     display: 'grid',
@@ -30,7 +30,6 @@ const styles = {
     placeItems: 'center',
     bg: 'var(--color-black-100)',
     color: 'var(--color-white-000)',
-    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 
@@ -38,10 +37,16 @@ export function SignupCompleteStep({ name }: { name: string }) {
   return (
     <section className={styles.complete} aria-labelledby="complete-title">
       <span aria-hidden="true">✓</span>
-      <h2 id="complete-title">회원가입이 완료되었습니다.</h2>
-      <p>{name}님, HOKA 멤버십에 오신 것을 환영합니다.</p>
+      <Typography as="h2" variant="headingKr7" id="complete-title">
+        회원가입이 완료되었습니다.
+      </Typography>
+      <Typography as="p" variant="bodyKr4" tone="tertiary" className={css({ mt: '3', mb: '0' })}>
+        {name}님, HOKA 멤버십에 오신 것을 환영합니다.
+      </Typography>
       <Link className={styles.primary} to="/login">
-        로그인하러 가기
+        <Typography as="span" variant="ctaKr1" tone="inverse">
+          로그인하러 가기
+        </Typography>
       </Link>
     </section>
   );

@@ -4,6 +4,7 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -14,18 +15,11 @@ type SignupMethodOption = {
 const styles = {
   formSection: css({
     display: 'grid',
-    '& > p': {
-      mt: '9px',
-      mb: 0,
-      color: 'var(--color-text-tertiary)',
-      fontSize: '14',
-    },
   }),
   field: css({ mt: '4' }),
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
-    fontSize: '14' /* 기존 13px */,
   }),
   primary: css({
     display: 'grid',
@@ -34,7 +28,6 @@ const styles = {
     placeItems: 'center',
     bg: 'var(--color-black-100)',
     color: 'var(--color-white-000)',
-    fontWeight: 'var(--font-weights-bold)',
   }),
 };
 
@@ -69,8 +62,12 @@ export function SignupDetailsStep({
 }: SignupDetailsStepProps) {
   return (
     <form className={styles.formSection} onSubmit={onSubmit}>
-      <h2>기본 정보 입력</h2>
-      <p>{methodOption.label} 후 필요한 정보를 입력해 주세요.</p>
+      <Typography as="h2" variant="headingKr7">
+        기본 정보 입력
+      </Typography>
+      <Typography as="p" variant="bodyKr4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
+        {methodOption.label} 후 필요한 정보를 입력해 주세요.
+      </Typography>
       <FormField
         variant="boxed"
         htmlFor="signup-name"
@@ -138,7 +135,9 @@ export function SignupDetailsStep({
       ) : null}
       {message ? (
         <StatusMessage className={styles.error} tone="error">
-          {message}
+          <Typography as="span" variant="bodyKr4" tone="red100">
+            {message}
+          </Typography>
         </StatusMessage>
       ) : null}
       <Button className={styles.primary} type="submit" variant="primary">
