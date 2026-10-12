@@ -430,3 +430,25 @@ export const ApprovedScale: Story = {
     </div>
   ),
 };
+
+export const MobileVariant: Story = {
+  args: {
+    as: 'h1',
+    variant: 'heading6',
+    mobileVariant: 'heading4',
+    children: '회원가입 완료',
+  },
+  render: (args) => (
+    <div>
+      <p>Desktop: 36px</p>
+      <Typography {...args} />
+      <div className="platform-mobile">
+        <p>Mobile: 28px</p>
+        <Typography {...args} />
+        <Typography {...args} weight="regular">
+          명시한 weight 유지
+        </Typography>
+      </div>
+    </div>
+  ),
+};

@@ -1,11 +1,8 @@
-'use client';
-
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { usePlatform } from '@/shared/context/platform';
 
 const styles = {
   page: css({ pt: '24', px: '4', pb: '124px' }),
@@ -17,12 +14,10 @@ const styles = {
 };
 
 export function RegistrationCompleteContent() {
-  const isMobile = usePlatform() === 'mobile';
-
   return (
     <Box as="main" className={styles.page}>
       <Stack className={styles.content}>
-        <Typography as="h1" variant={isMobile ? 'heading4' : 'heading6'} className={styles.title}>
+        <Typography as="h1" variant="heading6" mobileVariant="heading4" className={styles.title}>
           회원가입 완료
         </Typography>
         <Icon src="/images/icon/join-check.svg" size="48px" className={styles.icon} />
