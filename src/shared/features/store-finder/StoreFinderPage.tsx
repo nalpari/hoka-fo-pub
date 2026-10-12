@@ -44,7 +44,7 @@ export const storeFinderStyles = {
       h: '37px',
       p: '0',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
     },
     '& input': { _mobile: { minW: '0' } },
   }),

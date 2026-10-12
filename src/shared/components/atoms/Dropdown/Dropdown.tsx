@@ -29,7 +29,7 @@ const styles = {
       bg: 'var(--color-white-000)',
       cursor: 'pointer',
       '&&': {
-        color: 'var(--color-black-100)',
+        color: 'var(--color-text-primary)',
       },
     },
     variants: {
@@ -54,7 +54,7 @@ const styles = {
       disabled: {
         true: {
           '&&': {
-            color: 'var(--color-black-60)',
+            color: 'var(--color-text-subtle)',
           },
         },
         false: {},
@@ -69,7 +69,7 @@ const styles = {
     border: '1px solid var(--color-black-20)',
     bg: 'var(--color-white-000)',
     '&&': {
-      color: 'var(--color-black-100)',
+      color: 'var(--color-text-primary)',
     },
   }),
   item: css({

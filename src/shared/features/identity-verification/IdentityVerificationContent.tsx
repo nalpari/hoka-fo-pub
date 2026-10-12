@@ -53,7 +53,7 @@ export function IdentityVerificationContent({
         <Typography as="h1" variant="headingKr6" className={styles.title} id="verification-title">
           본인인증
         </Typography>
-        <Typography as="p" variant="bodyKr3" tone="subtle" className={styles.description}>
+        <Typography as="p" variant="body3" tone="subtle" className={styles.description}>
           HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다
         </Typography>
         <Grid className={styles.methods}>
@@ -73,7 +73,7 @@ export function IdentityVerificationContent({
             </Stack>
           ))}
         </Grid>
-        <Typography as="p" variant="bodyKr4" tone="tertiary" className={styles.footnote}>
+        <Typography as="p" variant="body4" tone="tertiary" className={styles.footnote}>
           ※ 본인 인증 시 입력하신 정보는 본인 확인 용도 외에는 사용되지 않으며 별도 저장하지
           않습니다.
         </Typography>

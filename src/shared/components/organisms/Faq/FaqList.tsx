@@ -36,11 +36,6 @@ const styles = {
     '& span': {
       flex: '1',
     },
-    '&&': {
-      '& b': {
-        color: 'var(--color-text-tertiary)',
-      },
-    },
   }),
   answer: css({
     display: 'flex',
@@ -52,19 +47,6 @@ const styles = {
     '& p': {
       maxW: '550px',
       m: '0',
-    },
-    '&&': {
-      '& b': {
-        color: 'var(--color-text-tertiary)',
-      },
-      '& p': {
-        color: 'var(--color-text-tertiary)',
-      },
-    },
-  }),
-  empty: css({
-    '&&': {
-      color: 'var(--color-text-tertiary)',
     },
   }),
 };
@@ -88,7 +70,7 @@ export function FaqList({ entries, openQuestion, onToggle }: Props) {
             onClick={() => onToggle(item.question)}
             variant="ghost"
           >
-            <Typography as="b" variant="heading9">
+            <Typography as="b" variant="heading9" tone="tertiary">
               Q
             </Typography>
             <Typography variant="body5">{item.question}</Typography>
@@ -98,10 +80,10 @@ export function FaqList({ entries, openQuestion, onToggle }: Props) {
           </Button>
           {openQuestion === item.question && (
             <Box className={styles.answer}>
-              <Typography as="b" variant="heading9">
+              <Typography as="b" variant="heading9" tone="tertiary">
                 A
               </Typography>
-              <Typography as="p" variant="body5">
+              <Typography as="p" variant="body5" tone="tertiary">
                 {item.answer}
               </Typography>
             </Box>
@@ -110,7 +92,7 @@ export function FaqList({ entries, openQuestion, onToggle }: Props) {
       ))}
       {!entries.length && (
         <VStack w="100%" p="15">
-          <Typography as="p" variant="body5" className={styles.empty}>
+          <Typography as="p" variant="body5" tone="tertiary">
             검색 결과가 없습니다.
           </Typography>
         </VStack>

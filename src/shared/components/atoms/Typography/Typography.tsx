@@ -516,6 +516,7 @@ const typography = cva({
       inherit: { color: 'inherit' },
       primary: { color: 'var(--color-text-primary)' },
       inverse: { color: 'var(--color-text-inverse)' },
+      brand: { color: 'var(--color-text-brand)' },
       subtle: { color: 'var(--color-text-subtle)' },
       disabled: { color: 'var(--color-text-disabled)' },
       tertiary: { color: 'var(--color-text-tertiary)' },

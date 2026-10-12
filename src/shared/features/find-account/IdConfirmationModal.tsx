@@ -39,10 +39,10 @@ export function IdConfirmationModal({
       onOpenChange={onOpenChange}
       title={
         <>
-          <Typography as="span" variant="bodyKr4" className={styles.desktopTitle}>
+          <Typography as="span" variant="body4" className={styles.desktopTitle}>
             아이디 / 비밀번호 찾기
           </Typography>
-          <Typography as="span" variant="bodyKr4" className={styles.mobileTitle}>
+          <Typography as="span" variant="body4" className={styles.mobileTitle}>
             HOKA Korea 회원 안내
           </Typography>
         </>

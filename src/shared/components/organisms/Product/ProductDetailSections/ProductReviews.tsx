@@ -16,7 +16,7 @@ const root = css({ maxW: '760px' });
 
 const reward = css({
   m: '0 0 var(--spacing-7)',
-  color: 'var(--color-black-60) !important',
+  color: 'var(--color-text-subtle) !important',
   fontWeight: 'var(--font-weights-bold)',
 });
 
@@ -66,7 +66,7 @@ const reviewFilter = cva({
       true: {
         borderColor: 'var(--color-black-100)',
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
       },
       false: {},
     },
@@ -127,7 +127,7 @@ const reviewPhotos = css({
     p: '0',
     border: '0',
     bg: 'var(--color-black-20)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     fontSize: '12' /* 기존: 10px */,
     _mobile: { w: '70px', h: '70px' },
   },

@@ -49,7 +49,7 @@ const styles = {
   heroCopy: css({
     position: 'relative',
     zIndex: '1',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     textAlign: 'center',
     textShadow: '0 1px 2px var(--color-black-60)',
     '& h2': {

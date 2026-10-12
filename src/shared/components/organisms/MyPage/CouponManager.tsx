@@ -40,7 +40,7 @@ const filter = cva({
     active: {
       true: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
         borderColor: 'var(--color-black-100)',
       },
       false: {},

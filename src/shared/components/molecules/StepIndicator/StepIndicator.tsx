@@ -49,7 +49,7 @@ const item = cva({
         textDecoration: 'underline',
         textUnderlineOffset: '9px',
         '&&': {
-          color: 'var(--color-black-100)',
+          color: 'var(--color-text-primary)',
           fontWeight: 'bold',
         },
       },
@@ -77,9 +77,7 @@ export function StepIndicator({
           className={item({ current: current === index + 1 })}
           key={itemValue.id ?? index}
         >
-          <Typography  variant="body4">
-            {itemValue.label}
-          </Typography>
+          <Typography variant="body4">{itemValue.label}</Typography>
         </li>
       ))}
     </ol>

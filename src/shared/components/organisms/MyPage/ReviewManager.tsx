@@ -73,7 +73,7 @@ const stars = cva({
     color: 'var(--color-black-40)',
     fontSize: '24' /* 기존 26px */,
   },
-  variants: { selected: { true: { color: 'var(--color-black-100)' }, false: {} } },
+  variants: { selected: { true: { color: 'var(--color-text-primary)' }, false: {} } },
 });
 
 const purchases = Array.from({ length: 12 }, (_, index) => ({

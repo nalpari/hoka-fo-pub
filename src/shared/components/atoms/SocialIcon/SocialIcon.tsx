@@ -9,7 +9,7 @@ const Square = PandaSquare as ComponentType<
 >;
 
 const socialLink = css({
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   flexShrink: '0',
   transition: 'border-color 0.15s ease, background-color 0.15s ease',
   _hover: {

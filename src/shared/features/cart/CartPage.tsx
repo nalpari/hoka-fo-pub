@@ -105,8 +105,8 @@ const recommendArt = cva({
     tone: {
       0: { bg: 'var(--color-black-20)', color: 'var(--color-text-tertiary)' },
       1: { bg: 'var(--color-black-20)', color: 'var(--color-black-40)' },
-      2: { bg: 'var(--color-black-20)', color: 'var(--color-black-60)' },
-      3: { bg: 'var(--color-black-20)', color: 'var(--color-black-100)' },
+      2: { bg: 'var(--color-black-20)', color: 'var(--color-text-subtle)' },
+      3: { bg: 'var(--color-black-20)', color: 'var(--color-text-primary)' },
     },
   },
 });
@@ -215,7 +215,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                   w: { _mobile: '100%' },
                   p: '14px 38px',
                   bg: 'var(--color-black-100)',
-                  color: 'var(--color-white-000)',
+                  color: 'var(--color-text-inverse)',
                 })}
               >
                 주문하기

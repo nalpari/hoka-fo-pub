@@ -8,7 +8,7 @@ const actionButton = cva({
     border: '0',
     p: '0',
     bg: 'transparent',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
     cursor: 'pointer',
     _focusVisible: { outline: '4px solid var(--button-focus-ring)', outlineOffset: '2px' },
   },
@@ -17,7 +17,7 @@ const actionButton = cva({
       default: {},
       circled: {
         bg: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
       },
       disabled: { color: 'var(--color-black-40)', cursor: 'not-allowed' },
     },

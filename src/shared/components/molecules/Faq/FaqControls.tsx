@@ -29,7 +29,7 @@ const styles = {
       minW: '51px',
       p: '0',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
     },
   }),
   tabs: css({

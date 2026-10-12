@@ -8,10 +8,10 @@ import { ShareButton } from '@/shared/components/atoms/ShareButton/ShareButton';
 
 const styles = {
   reviewLink: css({
-    borderColor: 'var(--color-black-60)',
-    color: 'var(--color-black-60)',
-    '--color-action-underline-color': 'var(--color-black-60)',
-    '--button-border-color-hover': 'var(--color-black-60)',
+    borderColor: 'var(--color-text-subtle)',
+    color: 'var(--color-text-subtle)',
+    '--color-action-underline-color': 'var(--color-text-subtle)',
+    '--button-border-color-hover': 'var(--color-text-subtle)',
   }),
   icons: css({
     display: 'flex',

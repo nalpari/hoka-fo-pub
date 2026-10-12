@@ -28,7 +28,7 @@ const pill = cva({
     border: '1px solid var(--color-black-20)',
     borderRadius: 'full',
     bg: 'var(--color-white-000)',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
     cursor: 'pointer',
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
   },
@@ -37,7 +37,7 @@ const pill = cva({
       true: {
         bg: 'var(--color-black-100)',
         borderColor: 'var(--color-black-100)',
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
       },
     },
     disabled: { true: { cursor: 'not-allowed' } },

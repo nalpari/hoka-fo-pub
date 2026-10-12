@@ -26,9 +26,6 @@ const titleStyle = css({
 const descriptionStyle = css({
   maxW: '500px',
   m: '0',
-  '&&': {
-    color: 'var(--color-black-60)',
-  },
 });
 
 const actionStyle = css({
@@ -47,7 +44,7 @@ export function PersonalizationCard({ eyebrow, title, description, to, action }:
         <Typography as="h3" variant="heading8" className={titleStyle}>
           {title}
         </Typography>
-        <Typography as="p" variant="body5" className={descriptionStyle}>
+        <Typography as="p" variant="body5" className={descriptionStyle} tone="subtle">
           {description}
         </Typography>
       </div>

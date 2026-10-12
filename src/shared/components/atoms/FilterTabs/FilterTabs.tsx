@@ -55,7 +55,7 @@ const rail = cva({
 const label = cva({
   base: {
     '&&': {
-      color: 'var(--color-black-100)',
+      color: 'var(--color-text-primary)',
       fontSize: '16',
       fontWeight: 'var(--font-weights-normal)',
       letterSpacing: 'var(--letter-spacings-korean)',
@@ -64,7 +64,7 @@ const label = cva({
       _mobile: {
         fontWeight: 'var(--font-weights-medium)',
         fontSize: '12',
-        color: 'var(--color-black-60)',
+        color: 'var(--color-text-subtle)',
       },
     },
   },
@@ -72,7 +72,7 @@ const label = cva({
     variant: {
       fill: {
         '&&': {
-          color: 'var(--color-black-60)',
+          color: 'var(--color-text-subtle)',
           fontSize: '16',
           fontWeight: 'var(--font-weights-medium)',
           letterSpacing: 'var(--letter-spacings-korean)',
@@ -92,7 +92,7 @@ const label = cva({
           fontWeight: 'var(--font-weights-bold)',
           _mobile: {
             fontWeight: 'var(--font-weights-semibold)',
-            color: 'var(--color-white-000)',
+            color: 'var(--color-text-inverse)',
           },
         },
       },
@@ -105,10 +105,10 @@ const label = cva({
       selected: true,
       css: {
         '&&': {
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
           fontWeight: 'var(--font-weights-semibold)',
           _mobile: {
-            color: 'var(--color-white-000)',
+            color: 'var(--color-text-inverse)',
             fontWeight: 'var(--font-weights-semibold)',
           },
         },
@@ -210,9 +210,9 @@ const item = cva({
               '& > span': {
                 fontWeight: 'var(--font-weights-semibold)',
               },
-              color: 'var(--color-black-100)',
+              color: 'var(--color-text-primary)',
             },
-            color: 'var(--color-white-000)',
+            color: 'var(--color-text-inverse)',
           },
         },
       },
@@ -229,9 +229,9 @@ const item = cva({
           bg: 'var(--color-black-100)',
         },
         '&&': {
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
           _mobile: {
-            color: 'var(--color-white-000)',
+            color: 'var(--color-text-inverse)',
           },
         },
       },

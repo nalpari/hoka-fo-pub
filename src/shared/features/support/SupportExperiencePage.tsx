@@ -61,7 +61,7 @@ const status = cva({
   },
   variants: {
     answered: {
-      true: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+      true: { bg: 'var(--color-black-100)', color: 'var(--color-text-inverse)' },
       false: { color: 'var(--color-text-tertiary)' },
     },
   },
@@ -134,7 +134,7 @@ const policyCard = css({
   '& h3': { mb: '1.5' },
   '& p': {
     m: '0',
-    color: 'var(--color-black-60)',
+    color: 'var(--color-text-subtle)',
   },
 });
 
@@ -448,7 +448,7 @@ function AfterSalesPage() {
           display: 'grid',
           gap: '3',
           mt: '4',
-          color: 'var(--color-black-60)',
+          color: 'var(--color-text-subtle)',
           fontSize: '14',
         })}
       >

@@ -15,12 +15,6 @@ const tag = css({
   },
 });
 
-const labelTag = css({
-  '&&': {
-    color: 'var(--color-text-primary)',
-  },
-});
-
 export type TagProps = {
   children: ReactNode;
   onDelete?: () => void;
@@ -33,7 +27,7 @@ export function Tag({ children, onDelete }: TagProps) {
 
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
-      <Typography variant="body3" className={labelTag}>
+      <Typography variant="body3" tone="primary">
         {children}
       </Typography>
       <IconButton

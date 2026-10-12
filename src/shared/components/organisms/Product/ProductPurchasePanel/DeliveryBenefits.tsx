@@ -43,8 +43,8 @@ export function DeliveryBenefits() {
           결제혜택
         </Typography>
         <Typography as="p" variant="body4" tone="subtle">
-          <strong className={css({ color: 'var(--color-black-60)' })}>N pay</strong> · 네이버페이
-          15만원 이상 결제 시 1만원, 10만원 이상 결제 시 7천원 즉시할인
+          <strong>N pay</strong> · 네이버페이 15만원 이상 결제 시 1만원, 10만원 이상 결제 시 7천원
+          즉시할인
         </Typography>
         <Typography
           as="p"

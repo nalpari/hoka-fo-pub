@@ -37,16 +37,6 @@ const styles = {
     p: 0,
     listStyle: 'none',
   }),
-  itemLabel: css({
-    '&&': {
-      color: 'black',
-    },
-  }),
-  saleItemLabel: css({
-    '&&': {
-      color: 'sale',
-    },
-  }),
   activeItemLabel: css({
     '&&': {
       fontWeight: 'bold',
@@ -77,13 +67,8 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                 <Link to={item.to} onClick={onClose}>
                   <Typography
                     variant="body3"
-                    className={[
-                      styles.itemLabel,
-                      item.label === 'Sale' && styles.saleItemLabel,
-                      currentPath === item.to && styles.activeItemLabel,
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
+                    tone={item.label === 'Sale' ? 'red80' : 'primary'}
+                    className={currentPath === item.to ? styles.activeItemLabel : undefined}
                     data-sale={item.label === 'Sale' || undefined}
                   >
                     {item.label}

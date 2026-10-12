@@ -12,7 +12,7 @@ const options = css({
 const selected = css({
   borderColor: 'var(--color-blue-100) !important',
   bg: 'var(--color-blue-100) !important',
-  color: 'var(--color-white-000) !important',
+  color: 'var(--color-text-inverse) !important',
 });
 const guide = css({
   p: '0',

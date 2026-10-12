@@ -40,7 +40,7 @@ const styles = {
   married: css({ mb: '4' }),
   disabledInput: css({
     bg: 'var(--color-black-10)',
-    color: 'var(--color-black-60)',
+    color: 'var(--color-text-subtle)',
     cursor: 'not-allowed',
     _disabled: { opacity: '1' },
   }),
@@ -99,7 +99,7 @@ export function RegistrationContent(props: Props) {
         disabled={disabled}
         invalid={Boolean(error)}
         error={error || undefined}
-        label={<Typography variant="bodyKr5">* {label}</Typography>}
+        label={<Typography variant="body5">* {label}</Typography>}
       >
         <TextInput
           id={fieldId}
@@ -131,7 +131,7 @@ export function RegistrationContent(props: Props) {
   ) => (
     <HStack className={styles.row}>
       <Typography
-        variant="bodyKr4"
+        variant="body4"
         className={
           key === 'sms' ? css({ w: '176px', flexShrink: '0', whiteSpace: 'pre-line' }) : undefined
         }
@@ -144,8 +144,8 @@ export function RegistrationContent(props: Props) {
         value={props.preferences[key]}
         onValueChange={(value) => props.onPreferenceChange(key, value)}
         options={[
-          { value: 'yes', label: <Typography variant="bodyKr4">{yes}</Typography> },
-          { value: 'no', label: <Typography variant="bodyKr4">{no}</Typography> },
+          { value: 'yes', label: <Typography variant="body4">{yes}</Typography> },
+          { value: 'no', label: <Typography variant="body4">{no}</Typography> },
         ]}
       />
     </HStack>
@@ -196,7 +196,7 @@ export function RegistrationContent(props: Props) {
               ) : null}
               {field('name', '이름', '이름을 입력해주세요.')}
               {field('password', '비밀번호', '비밀번호를 입력해주세요', 'password')}
-              <Typography as="p" variant="bodyKr5" className={styles.hint}>
+              <Typography as="p" variant="body5" className={styles.hint}>
                 연속적인 숫자나 생일, 전화번호 등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호
                 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 조합하여
                 입력해주세요.
@@ -226,7 +226,7 @@ export function RegistrationContent(props: Props) {
           ) : (
             <>
               <Box as="section">
-                <Typography as="h2" variant="bodyKr3" weight="medium" className={styles.heading}>
+                <Typography as="h2" variant="body3" weight="medium" className={styles.heading}>
                   마케팅 정보 수신 동의
                 </Typography>
                 <Stack gap="4" className={styles.preferences}>
@@ -236,7 +236,7 @@ export function RegistrationContent(props: Props) {
                 </Stack>
               </Box>
               <Box as="section">
-                <Typography as="h2" variant="bodyKr3" weight="medium" className={styles.heading}>
+                <Typography as="h2" variant="body3" weight="medium" className={styles.heading}>
                   부가정보
                 </Typography>
                 <Box className={styles.married}>
@@ -275,7 +275,7 @@ export function RegistrationContent(props: Props) {
         closeLabel="주소찾기 닫기"
       >
         <Stack>
-          <Typography as="p" variant="bodyKr4">
+          <Typography as="p" variant="body4">
             주소 검색 서비스 연결 전입니다. 미리보기 주소를 직접 입력해주세요.
           </Typography>
           {field('address', '주소', '주소를 입력해주세요', 'text', 'registration-address-dialog')}

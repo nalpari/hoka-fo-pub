@@ -29,7 +29,7 @@ const option = cva({
   base: { minW: '140px' },
   variants: {
     selected: {
-      true: { bg: 'var(--color-black-100)', color: 'var(--color-white-000)' },
+      true: { bg: 'var(--color-black-100)', color: 'var(--color-text-inverse)' },
       false: {},
     },
   },
@@ -99,7 +99,7 @@ export function ShoeFinderPage() {
           px: '22px',
           py: '13px',
           bg: 'var(--color-black-100)',
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
         })}
         to={`/products?activity=${activity}&cushioning=${feel}`}
       >

@@ -26,7 +26,7 @@ const styles = {
     },
   }),
   current: css({
-    color: 'var(--color-black-100) !important',
+    color: 'var(--color-text-primary) !important',
     '&::before': { bg: 'var(--color-black-100) !important' },
   }),
   complete: css({

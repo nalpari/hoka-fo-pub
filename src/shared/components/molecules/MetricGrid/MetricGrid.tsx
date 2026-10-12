@@ -35,7 +35,7 @@ const grid = cva({
       dark: {
         bg: 'var(--color-black-100)',
         '&&': {
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
         },
       },
     },
@@ -62,19 +62,13 @@ const metricItem = css({
   },
 });
 
-const label = css({
-  '&&': {
-    color: 'var(--color-text-tertiary)',
-  },
-});
-
 /** Summary metric layout for account, cart, order, and membership dashboards. */
 export function MetricGrid({ items, tone, columns, className }: MetricGridProps) {
   return (
     <section className={[grid({ tone, columns }), className].filter(Boolean).join(' ')}>
       {items.map((item, index) => (
         <article className={metricItem} key={item.id ?? index}>
-          <Typography variant="body5" className={label}>
+          <Typography variant="body5" tone="tertiary">
             {item.label}
           </Typography>
           <Typography as="strong" variant="heading7">

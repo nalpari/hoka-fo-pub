@@ -14,12 +14,12 @@ const options = css({
     minH: '11',
     border: '0',
     bg: 'transparent',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
   },
 });
 const selected = css({
   bg: 'var(--color-black-100) !important',
-  color: 'var(--color-white-000) !important',
+  color: 'var(--color-text-inverse) !important',
 });
 
 type WidthSelectorProps = {

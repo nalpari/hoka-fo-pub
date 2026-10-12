@@ -6,7 +6,7 @@ const link = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
     fontFamily: 'var(--font-family-base)',
     fontWeight: 'bold',
     lineHeight: 'koreanHeading',
@@ -36,5 +36,7 @@ export type LinkProps = ComponentPropsWithoutRef<typeof RouterLink> & {
 
 /** An underlined text link with the shared Text Link 1/2/3 type scale. */
 export function Link({ className, size = 'sm', ...props }: LinkProps) {
-  return <RouterLink {...props} className={[link({ size }), className].filter(Boolean).join(' ')} />;
+  return (
+    <RouterLink {...props} className={[link({ size }), className].filter(Boolean).join(' ')} />
+  );
 }

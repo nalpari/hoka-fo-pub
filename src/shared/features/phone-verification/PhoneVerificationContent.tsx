@@ -29,7 +29,7 @@ const styles = {
   }),
   countdown: css({ m: '0', mt: '-2' }),
   text: css({ mb: '2' }),
-  intro: css({ m: '-6 0 6', color: 'var(--color-black-60)' }),
+  intro: css({ m: '-6 0 6', color: 'var(--color-text-subtle)' }),
   help: css({ m: '0', mt: '4' }),
   carrierList: css({ gap: '4' }),
   carrierSection: css({ gap: '3', pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
@@ -176,7 +176,7 @@ export function PhoneVerificationContent(props: Props) {
                 required
                 invalid={showAgreementErrors && !agreements[index]}
               >
-                <Typography variant="bodyKr5">(필수) {term}</Typography>
+                <Typography variant="body5">(필수) {term}</Typography>
               </Terms>
               <Button
                 variant="link"

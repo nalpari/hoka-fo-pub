@@ -24,7 +24,7 @@ export function PurchaseActions({
           minH: '14',
           borderColor: 'var(--color-red-80)',
           bg: 'var(--color-red-80)',
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
           fontSize: '16' /* 기존 17px */,
           fontWeight: 'bold',
         })}
@@ -38,7 +38,7 @@ export function PurchaseActions({
             minH: '13',
             borderColor: 'var(--color-black-100)',
             bg: 'var(--color-white-000)',
-            color: 'var(--color-black-100)',
+            color: 'var(--color-text-primary)',
             fontWeight: 'bold',
           })}
           onClick={onAddToCart}

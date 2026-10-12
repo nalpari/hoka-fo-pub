@@ -19,7 +19,7 @@ const hero = css({
   gap: '30px',
   p: '36px 40px',
   bg: 'var(--color-black-100)',
-  color: 'var(--color-white-000)',
+  color: 'var(--color-text-inverse)',
   _mobile: { display: 'block', p: '28px 22px' },
 });
 

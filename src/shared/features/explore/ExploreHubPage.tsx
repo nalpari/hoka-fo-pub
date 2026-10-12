@@ -24,7 +24,7 @@ const styles = {
     mb: '11',
     p: '34px',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
     '& span': {
       mb: '18px',
     },

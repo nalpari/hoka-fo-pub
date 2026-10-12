@@ -47,7 +47,7 @@ const option = cva({
     },
     '&&': {
       _hover: {
-        color: 'var(--color-white-000)',
+        color: 'var(--color-text-inverse)',
       },
     },
   },
@@ -57,7 +57,7 @@ const option = cva({
         borderColor: 'var(--color-black-100)',
         bg: 'var(--color-black-100)',
         '&&': {
-          color: 'var(--color-white-000)',
+          color: 'var(--color-text-inverse)',
         },
       },
       false: {},

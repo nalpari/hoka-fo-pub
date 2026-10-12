@@ -39,7 +39,7 @@ const statusLink = css({
   minH: '100px',
   py: '5',
   px: '2',
-  color: 'var(--color-black-100)',
+  color: 'var(--color-text-primary)',
   textAlign: 'center',
   borderRight: '1px solid var(--color-black-20)',
   '&:last-child': {

@@ -17,7 +17,7 @@ const styles = {
       borderRadius: '50%',
       placeItems: 'center',
       bg: 'var(--color-black-100)',
-      color: 'var(--color-white-000)',
+      color: 'var(--color-text-inverse)',
       fontSize: '28',
     },
   }),
@@ -29,7 +29,7 @@ const styles = {
     mt: '7',
     placeItems: 'center',
     bg: 'var(--color-black-100)',
-    color: 'var(--color-white-000)',
+    color: 'var(--color-text-inverse)',
   }),
 };
 

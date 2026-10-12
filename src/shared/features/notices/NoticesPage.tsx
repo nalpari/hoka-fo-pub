@@ -20,7 +20,7 @@ const styles = {
       border: 0,
       borderBottom: '1px solid var(--color-border-subtle)',
       bg: 'var(--color-white-000)',
-      color: 'var(--color-black-60)',
+      color: 'var(--color-text-subtle)',
       fontSize: '12' /* 기존: 11px */,
       textAlign: 'left',
     },

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
@@ -33,7 +32,7 @@ const styles = {
     p: '3 1',
     border: '1px solid var(--color-black-20)',
     borderRadius: '8px',
-    color: 'var(--color-black-100)',
+    color: 'var(--color-text-primary)',
     textAlign: 'center',
     '& svg': { w: '20px', h: '20px' },
   }),
@@ -84,14 +83,14 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
       <Typography as="h1" variant="headingKr6" className={styles.title} id="signup-title">
         가입과 동시에 시작되는 혜택!
       </Typography>
-      <Typography as="p" variant="bodyKr3" tone="tertiary" className={styles.description}>
+      <Typography as="p" variant="body3" tone="tertiary" className={styles.description}>
         HOKA Korea 온라인 회원만을 위한 특별한 혜택!
       </Typography>
 
       <div className={styles.benefits} aria-label="회원가입 혜택">
         <div className={styles.benefit}>
           <Icon name="gift" size="18px" />
-          <Typography as="span" variant="bodyKr4">
+          <Typography as="span" variant="body4">
             신규가입
             <br />
             1만원 쿠폰
@@ -99,7 +98,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
         </div>
         <div className={styles.benefit}>
           <Icon name="partyHorn" size="18px" />
-          <Typography as="span" variant="bodyKr4">
+          <Typography as="span" variant="body4">
             기념일
             <br />
             축하 쿠폰
@@ -107,7 +106,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
         </div>
         <div className={styles.benefit}>
           <Icon name="medal" size="18px" />
-          <Typography as="span" variant="bodyKr4">
+          <Typography as="span" variant="body4">
             회원 등급별
             <br />
             혜택
@@ -155,7 +154,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           만 14세 이상 회원가입
         </Button>
       </div>
-      <Typography as="p" variant="bodyKr5" className={styles.ageNote}>
+      <Typography as="p" variant="body5" className={styles.ageNote}>
         만 14세 미만은 회원가입 및 이용이 불가합니다.
       </Typography>
     </section>
