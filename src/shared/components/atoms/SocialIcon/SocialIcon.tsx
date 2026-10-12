@@ -1,13 +1,14 @@
-import type { AnchorHTMLAttributes } from 'react';
+import type { AnchorHTMLAttributes, ComponentType } from 'react';
 import { css } from 'styled-system/css';
+import { Square as PandaSquare, type SquareProps } from 'styled-system/jsx';
+
+// Panda patterns keep div attributes in their generated types even when using as="a".
+const Square = PandaSquare as ComponentType<
+  Omit<SquareProps, keyof AnchorHTMLAttributes<HTMLAnchorElement> | 'as'> &
+    AnchorHTMLAttributes<HTMLAnchorElement> & { as: 'a' }
+>;
 
 const socialLink = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '24px',
-  height: '24px',
-  padding: '0',
   color: 'var(--color-white-000)',
   flexShrink: '0',
   transition: 'border-color 0.15s ease, background-color 0.15s ease',
@@ -44,7 +45,9 @@ export function SocialIconLink({
   ...props
 }: SocialIconLinkProps) {
   return (
-    <a
+    <Square
+      as="a"
+      size="24px"
       {...props}
       href={href}
       className={[socialLink, className].filter(Boolean).join(' ')}
@@ -52,6 +55,6 @@ export function SocialIconLink({
       title={label}
     >
       <img src={`/images/icon/social/${file}`} alt={label} className={socialIcon} />
-    </a>
+    </Square>
   );
 }

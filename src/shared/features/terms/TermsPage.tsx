@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
@@ -131,8 +132,19 @@ const privacy = (
 );
 
 export function TermsPage() {
-  const [tab, setTab] = useState<'terms' | 'privacy'>('terms');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [date, setDate] = useState('2025-06-02');
+
+  const tab = searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms';
+
+  const setTab = (value: 'terms' | 'privacy') => {
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current);
+      next.set('tab', value);
+      return next;
+    });
+  };
+
   return (
     <SidebarNavigationLayout
       activePath="/support/terms"
