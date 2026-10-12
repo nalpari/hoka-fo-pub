@@ -1,40 +1,31 @@
+'use client';
+
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { faCheck } from '@/shared/icons/fontAwesome';
+import { usePlatform } from '@/shared/context/platform';
 
 const styles = {
   page: css({ pt: '24', px: '4', pb: '124px' }),
   content: css({ maxW: '420px', mx: 'auto', textAlign: 'center', gap: '8' }),
   title: css({ m: '0' }),
-  icon: css({
-    w: '44px',
-    h: '44px',
-    border: '1.5px solid',
-    borderColor: 'text.primary',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    mx: 'auto',
-    '& svg': { w: '24px!', h: '24px!' },
-  }),
+  icon: css({ mx: 'auto' }),
   message: css({ '& p': { m: '0' } }),
   button: css({ w: '100%' }),
 };
 
 export function RegistrationCompleteContent() {
+  const isMobile = usePlatform() === 'mobile';
+
   return (
     <Box as="main" className={styles.page}>
       <Stack className={styles.content}>
-        <Typography as="h1" variant="heading4" className={styles.title}>
+        <Typography as="h1" variant={isMobile ? 'heading4' : 'heading6'} className={styles.title}>
           회원가입 완료
         </Typography>
-        <Box className={styles.icon} aria-hidden="true">
-          <Icon fontAwesomeIcon={faCheck} />
-        </Box>
+        <Icon src="/images/icon/join-check.svg" size="48px" className={styles.icon} />
         <Stack gap="4" className={styles.message}>
           <Typography as="p" variant="body2">
             가입이 성공적으로 이루어졌습니다!
