@@ -3,7 +3,6 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
 export const signupTerms = [
@@ -39,19 +38,14 @@ const styles = {
     maxH: '90svh',
     _mobile: { h: '100svh', maxH: '100svh', borderRadius: '0' },
   }),
-  body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1' }),
+  body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1', pb: '20' }),
   documentHeader: css({ justifyContent: 'space-between', gap: '2', mb: '4' }),
   document: css({
     border: '1px solid var(--color-black-20)',
     p: '4',
-    overflowY: 'auto',
-    minH: '0',
-    maxH: '55svh',
-    _mobile: { maxH: 'none', flex: '1' },
   }),
   text: css({ m: '0', mb: '4' }),
   dates: css({ m: '0', mt: '2' }),
-  confirm: css({ mt: 'auto', pt: '6' }),
 };
 
 type Props = {
@@ -78,7 +72,7 @@ export function SignupTermsContent(props: Props) {
         </Typography>
         <Box className={styles.all}>
           <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
-            <Typography variant="bodyKr5">모든 약관을 확인하고 전체동의 합니다</Typography>
+            <Typography variant="bodyKr4">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>
         </Box>
         <Stack className={styles.list}>
@@ -88,13 +82,9 @@ export function SignupTermsContent(props: Props) {
                 checked={props.agreements[index]}
                 onCheckedChange={(checked) => props.onChange(index, checked)}
                 required={term.required}
-                error={
-                  props.notice && term.required && !props.agreements[index]
-                    ? props.notice
-                    : undefined
-                }
+                invalid={Boolean(props.notice && term.required && !props.agreements[index])}
               >
-                <Typography variant="bodyKr5">
+                <Typography variant="bodyKr4">
                   ({term.required ? '필수' : '선택'}) {term.label}
                 </Typography>
               </Terms>
@@ -110,12 +100,23 @@ export function SignupTermsContent(props: Props) {
             </HStack>
           ))}
         </Stack>
-        {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         <Grid className={styles.actions}>
-          <Button variant="secondary" fullWidth className={styles.button} onClick={props.onCancel}>
+          <Button
+            variant="secondary"
+            height="tall"
+            fullWidth
+            className={styles.button}
+            onClick={props.onCancel}
+          >
             취소
           </Button>
-          <Button variant="primary" fullWidth className={styles.button} onClick={props.onNext}>
+          <Button
+            variant="primary"
+            height="tall"
+            fullWidth
+            className={styles.button}
+            onClick={props.onNext}
+          >
             다음
           </Button>
         </Grid>
@@ -128,10 +129,17 @@ export function SignupTermsContent(props: Props) {
         title="HOKA Korea 이용약관"
         closeLabel="약관 닫기"
         popupClassName={styles.popup}
+        mobilePresentation="fullscreen"
+        scrollFade
+        footer={
+          <Button variant="primary" height="tall" fullWidth onClick={() => props.onDetail(null)}>
+            확인
+          </Button>
+        }
       >
         <Box className={styles.body}>
           <HStack className={styles.documentHeader}>
-            <Typography variant="bodyKr4">
+            <Typography variant="bodyKr3">
               ({selected?.required ? '필수' : '선택'}) {selected?.label}
             </Typography>
             <Button variant="link" size="sm" className={styles.detail} onClick={props.onPrevious}>
@@ -152,7 +160,7 @@ export function SignupTermsContent(props: Props) {
                     약관 타이틀{number}
                   </Typography>
                   <Typography as="p" variant="bodyKr4" className={styles.text}>
-                    {'약관내용'.repeat(55)}
+                    {'약관내용'.repeat(155)}
                   </Typography>
                 </Box>
               ))
@@ -161,16 +169,6 @@ export function SignupTermsContent(props: Props) {
           <Typography as="p" variant="bodyKr5" tone="subtle" className={styles.dates}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
           </Typography>
-          <Box className={styles.confirm}>
-            <Button
-              variant="primary"
-              fullWidth
-              className={styles.button}
-              onClick={() => props.onDetail(null)}
-            >
-              확인
-            </Button>
-          </Box>
         </Box>
       </ModalDialog>
     </Box>
