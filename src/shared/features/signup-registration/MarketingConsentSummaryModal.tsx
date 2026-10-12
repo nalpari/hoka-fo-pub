@@ -6,8 +6,6 @@ import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDial
 import type { MarketingPreferences } from './RegistrationContent';
 
 const styles = {
-  dialog: css({ maxW: '360px!' }),
-  body: css({ gap: '4' }),
   heading: css({ m: '0' }),
   summary: css({ m: '0', whiteSpace: 'pre-line' }),
 };
@@ -37,19 +35,20 @@ export function MarketingConsentSummaryModal({
       onOpenChange={onOpenChange}
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
-      size="sm"
-      popupClassName={styles.dialog}
-    >
-      <Stack className={styles.body}>
-        <Typography as="h2" variant="bodyKr3" className={styles.heading}>
-          마케팅 정보 수신 내역
-        </Typography>
-        <Typography as="p" variant="bodyKr3" className={styles.summary}>
-          {summary}
-        </Typography>
-        <Button variant="primary" fullWidth className={styles.button} onClick={onConfirm}>
+      size="md"
+      footer={
+        <Button variant="primary" fullWidth onClick={onConfirm}>
           확인
         </Button>
+      }
+    >
+      <Stack gap="4">
+        <Typography as="h2" variant="body2" className={styles.heading}>
+          마케팅 정보 수신 내역
+        </Typography>
+        <Typography as="p" variant="body4" className={styles.summary}>
+          {summary}
+        </Typography>
       </Stack>
     </ModalDialog>
   );
