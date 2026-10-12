@@ -199,6 +199,22 @@ export const InverseBody: Story = {
   ],
 };
 
+export const MutedBody: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'muted', variant: 'body' },
+};
+
+export const Black40Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black40', variant: 'body' },
+};
+
+export const Black20Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black20', variant: 'body' },
+};
+
+export const Black10Body: Story = {
+  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black10', variant: 'body' },
+};
+
 export const FormLabel: Story = {
   args: {
     as: 'span',

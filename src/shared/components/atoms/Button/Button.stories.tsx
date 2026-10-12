@@ -75,9 +75,10 @@ export const SecondaryLink: Story = {
 };
 
 export const TextLink: Story = {
+  args: { size: 'sm' },
   render: () => (
     <MemoryRouter>
-      <ButtonLink to="/products" variant="link">
+      <ButtonLink to="/products" variant="link" size="sm">
         바로가기
       </ButtonLink>
     </MemoryRouter>

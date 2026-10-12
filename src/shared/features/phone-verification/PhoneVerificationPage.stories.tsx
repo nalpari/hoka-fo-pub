@@ -55,6 +55,18 @@ export const Mobile: Story = {
   ],
 };
 
+export const MobileFieldErrors: Story = {
+  ...Mobile,
+  args: {
+    fieldErrors: {
+      name: '올바른 이름을 입력해주세요',
+      birthDate: '생년월일을 입력해주세요',
+      gender: '성별을 입력해주세요',
+      carrier: '통신사를 선택해주세요',
+    },
+  },
+};
+
 export const MobileAccountUnlock: Story = {
   ...Mobile,
   args: AccountUnlock.args,

@@ -75,7 +75,7 @@ export type SingleCheckboxProps = Omit<
 > & {
   className?: string;
   label: ReactNode;
-  labelVariant?: 'formLabel' | 'bodyKr5';
+  labelVariant?: 'formLabel' | 'bodyKr4';
   /** Consent text may contain links or detail buttons. */
   interactiveLabel?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -109,7 +109,6 @@ function SingleCheckbox({
       alignItems="center"
       className={[option, className].filter(Boolean).join(' ')}
       data-disabled={disabled ? '' : undefined}
-      gap="7px"
       data-checkbox-label=""
     >
       <BaseCheckbox.Root

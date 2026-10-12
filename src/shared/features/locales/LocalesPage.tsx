@@ -111,7 +111,7 @@ const styles = {
     bg: 'var(--color-black-10)',
     fontSize: '20',
     fontWeight: 'bold',
-    '& h1': { fontSize: 'inherit', fontWeight: 'inherit', lineHeight: 'koreanHeading' },
+    '& h1': { fontSize: 'inherit', fontWeight: 'inherit', lineHeight: '' },
     _mobile: { minH: '15', fontSize: '16' /* 기존 18px */ },
   }),
   globe: css({ w: '7', h: '7', flexShrink: 0 }),

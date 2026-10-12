@@ -8,7 +8,6 @@ const link = cva({
     alignItems: 'center',
     color: 'var(--color-black-100)',
     fontFamily: 'var(--font-family-base)',
-    fontSize: '12',
     fontWeight: 'bold',
     lineHeight: 'koreanHeading',
     letterSpacing: 'korean',
@@ -18,15 +17,24 @@ const link = cva({
     _hover: { opacity: '0.65' },
     _focusVisible: { outline: '2px solid var(--color-black-100)', outlineOffset: '3px' },
     _mobile: {
-      fontSize: '12' /* 기존: 8px */,
       textUnderlineOffset: '2px',
     },
   },
+  variants: {
+    size: {
+      lg: { fontSize: '16px' },
+      md: { fontSize: '14px' },
+      sm: { fontSize: '12px' },
+    },
+  },
+  defaultVariants: { size: 'sm' },
 });
 
-export type LinkProps = ComponentPropsWithoutRef<typeof RouterLink>;
+export type LinkProps = ComponentPropsWithoutRef<typeof RouterLink> & {
+  size?: 'lg' | 'md' | 'sm';
+};
 
-/** A compact, underlined text link for secondary navigation actions. */
-export function Link({ className, ...props }: LinkProps) {
-  return <RouterLink {...props} className={[link, className].filter(Boolean).join(' ')} />;
+/** An underlined text link with the shared Text Link 1/2/3 type scale. */
+export function Link({ className, size = 'sm', ...props }: LinkProps) {
+  return <RouterLink {...props} className={[link({ size }), className].filter(Boolean).join(' ')} />;
 }

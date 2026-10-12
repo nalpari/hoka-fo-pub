@@ -241,7 +241,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     });
   if (resolvedVariant === 'link')
     Object.assign(variables, {
-      '--button-height': 'auto',
+      '--button-height': size === 'sm' ? '16px' : 'auto',
       '--button-padding-x': '0px',
       '--button-label-weight': '500',
     });
@@ -302,7 +302,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             .filter(Boolean)
             .join(' ')}
         >
-          <span className={label}>{children}</span>
+          <span className={[label, resolvedVariant === 'link' ? css({ lineHeight: '1.3' }) : '']
+            .filter(Boolean)
+            .join(' ')}>
+            {children}
+          </span>
           {icon ? <span className={iconStyle}>{icon}</span> : null}
         </span>
       </span>
