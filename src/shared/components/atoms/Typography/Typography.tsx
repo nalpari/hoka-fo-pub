@@ -502,8 +502,16 @@ const typography = cva({
       },
       ...figmaTypographyVariants,
     },
-    weight: { regular: { fontWeight: 'normal' }, medium: { fontWeight: 'medium' } },
+    weight: {
+      regular: { fontWeight: 'normal' },
+      medium: { fontWeight: 'medium' },
+      semibold: { fontWeight: 'semibold', _mobile: { fontWeight: 'semibold' } },
+      bold: { fontWeight: 'bold', _mobile: { fontWeight: 'bold' } },
+      black: { fontWeight: 'black', _mobile: { fontWeight: 'black' } },
+      inherit: { fontWeight: 'inherit', _mobile: { fontWeight: 'inherit' } },
+    },
     tone: {
+      inherit: { color: 'inherit' },
       primary: { color: 'var(--color-text-primary)' },
       inverse: { color: 'var(--color-text-inverse)' },
       subtle: { color: 'var(--color-text-subtle)' },
@@ -565,9 +573,10 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
 > & {
   as?: T;
   children: ReactNode;
-  tone?: 'primary' | 'inverse' | 'subtle' | 'tertiary' | 'black40' | 'black20' | 'black10';
+  tone?:
+    'primary' | 'inverse' | 'subtle' | 'tertiary' | 'black40' | 'black20' | 'black10' | 'inherit';
   variant?: TypographyVariant;
-  weight?: 'regular' | 'medium';
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
 };
 
 /** Semantic text primitive with paired desktop and mobile type scales. */

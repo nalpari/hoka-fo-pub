@@ -12,8 +12,8 @@ const meta = {
       </MemoryRouter>
     ),
   ],
-  parameters: { layout: 'fullscreen' },
-  globals: { viewport: 'responsive' },
+  parameters: { layout: 'fullscreen', viewport: { disable: true } },
+  globals: { viewport: { value: '100pct-100pct', isRotated: false } },
 } satisfies Meta<typeof DesignGuidePage>;
 
 export default meta;
