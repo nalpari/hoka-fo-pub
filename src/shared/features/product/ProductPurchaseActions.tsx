@@ -46,7 +46,7 @@ export function ProductPurchaseActions({
     <Grid className={root({ placement })} gap="2">
       <Button
         onClick={onAddToCart}
-        variant="primary"
+        variant="secondary"
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
@@ -54,7 +54,7 @@ export function ProductPurchaseActions({
       </Button>
       <Button
         onClick={onOrder}
-        variant="secondary"
+        variant="primary"
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >

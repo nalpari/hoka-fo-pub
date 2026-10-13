@@ -16,6 +16,7 @@ import { productWidthOptions } from '@/shared/features/product/ProductVariantSel
 
 const styles = {
   page: css({ maxW: '1532px', mx: 'auto', pt: '14', pb: '24', _mobile: { p: '0 0 24' } }),
+  main: css({ display: 'grid', gap: '8', _mobile: { display: 'block' } }),
   layout: css({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 2fr) minmax(340px, .85fr)',
@@ -59,42 +60,44 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
 
   return (
     <ContentLayout className={styles.page}>
-      <main className={styles.layout}>
-        <ProductDetailMedia images={gallery} productName={product.name} />
-        <ProductDetailPanel
-          color={color}
-          error={error}
-          gallery={gallery}
-          onAddToCart={() => submit(false)}
-          onColorChange={(nextColor) => {
-            setColor(nextColor);
-            setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
-            setSize('');
-            setError('');
-          }}
-          onOpenSizeGuide={() =>
-            window.open(
-              'https://www.hoka.com/',
-              'shoe-size-guide',
-              'popup=yes,width=900,height=1000,resizable=yes,scrollbars=yes',
-            )
-          }
-          onOrder={() => submit(true)}
-          onSizeChange={(nextSize) => {
-            setSize(nextSize);
-            setError('');
-          }}
-          onWidthChange={(nextWidth) => {
-            setWidth(nextWidth);
-            setSize('');
-            setError('');
-          }}
-          onWishChange={() => setWish(!wish)}
-          product={product}
-          size={size}
-          width={width}
-          wish={wish}
-        />
+      <main className={styles.main}>
+        <div className={styles.layout}>
+          <ProductDetailMedia images={gallery} productName={product.name} />
+          <ProductDetailPanel
+            color={color}
+            error={error}
+            gallery={gallery}
+            onAddToCart={() => submit(false)}
+            onColorChange={(nextColor) => {
+              setColor(nextColor);
+              setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
+              setSize('');
+              setError('');
+            }}
+            onOpenSizeGuide={() =>
+              window.open(
+                'https://www.hoka.com/',
+                'shoe-size-guide',
+                'popup=yes,width=900,height=1000,resizable=yes,scrollbars=yes',
+              )
+            }
+            onOrder={() => submit(true)}
+            onSizeChange={(nextSize) => {
+              setSize(nextSize);
+              setError('');
+            }}
+            onWidthChange={(nextWidth) => {
+              setWidth(nextWidth);
+              setSize('');
+              setError('');
+            }}
+            onWishChange={() => setWish(!wish)}
+            product={product}
+            size={size}
+            width={width}
+            wish={wish}
+          />
+        </div>
         <ProductDetailRecommend products={recommendations} />
       </main>
       {platform === 'mobile' && (

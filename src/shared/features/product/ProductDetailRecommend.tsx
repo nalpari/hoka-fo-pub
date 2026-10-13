@@ -1,5 +1,6 @@
 import { css } from 'styled-system/css';
 import type { Product } from '@/mocks/products';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
 
 const styles = {
@@ -7,8 +8,8 @@ const styles = {
     gridColumn: '1 / -1',
     mt: '16',
     _mobile: { mt: '10', px: '4' },
-    '& h2': { mb: '5', fontSize: '28', fontWeight: 'black' },
   }),
+  title: css({ mb: '5' }),
   rail: css({
     display: 'flex',
     gap: '3',
@@ -25,7 +26,9 @@ type ProductDetailRecommendProps = {
 export function ProductDetailRecommend({ products }: ProductDetailRecommendProps) {
   return (
     <section aria-labelledby="recommendation-title" className={styles.root}>
-      <h2 id="recommendation-title">추천 상품</h2>
+      <Typography as="h2" variant="heading6" id="recommendation-title" className={styles.title}>
+        추천 상품
+      </Typography>
       <div className={styles.rail}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} variant="showcase" />

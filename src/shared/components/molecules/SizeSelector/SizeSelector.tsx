@@ -25,11 +25,15 @@ const pill = cva({
     minW: '0',
     minH: '8',
     px: '0.5',
-    border: '1px solid var(--color-black-20)',
+    border: '1px solid var(--color-black-40)',
     borderRadius: 'full',
     bg: 'var(--color-white-000)',
-    color: 'var(--color-text-primary)',
+    color: 'var(--color-black-60)',
     cursor: 'pointer',
+    '&:hover:not([data-disabled]):not(:disabled):not([data-checked])': {
+      color: 'var(--color-black-100)',
+      borderColor: 'var(--color-black-100)',
+    },
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
   },
   variants: {
@@ -48,6 +52,7 @@ const pill = cva({
         color: 'var(--color-black-40)',
       },
       diagonal: {
+        borderColor: 'var(--color-black-20)',
         color: 'var(--color-black-40)',
         overflow: 'hidden',
         _after: {

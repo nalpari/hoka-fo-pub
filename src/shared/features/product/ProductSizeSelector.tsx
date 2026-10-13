@@ -1,17 +1,11 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
-import { Flex } from 'styled-system/jsx';
+import { Flex, Stack } from 'styled-system/jsx';
 import type { ProductWidthOption } from '@/mocks/products';
 import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
 import { productSizeOptions } from '@/shared/features/product/productSizeOptions';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
-
-const styles = {
-  error: css({ mt: '2' }),
-  recommendation: css({ mt: '2' }),
-};
 
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
@@ -41,23 +35,25 @@ export function ProductSizeSelector({
       id="product-size"
       title="사이즈"
     >
-      <SizeSelector
-        mode="single"
-        ariaLabel="사이즈 선택"
-        columns={5}
-        soldOutAppearance="gray"
-        onValueChange={onValueChange}
-        options={productSizeOptions(selectedWidth)}
-        value={value}
-      />
-      {error && (
-        <Typography as="p" variant="body5" tone="error" className={styles.error} role="alert">
-          {error}
+      <Stack gap="4">
+        <SizeSelector
+          mode="single"
+          ariaLabel="사이즈 선택"
+          columns={5}
+          soldOutAppearance="gray"
+          onValueChange={onValueChange}
+          options={productSizeOptions(selectedWidth)}
+          value={value}
+        />
+        {error && (
+          <Typography as="p" variant="body4" tone="error" role="alert">
+            {error}
+          </Typography>
+        )}
+        <Typography as="p" variant="body4" tone="tertiary">
+          사이즈 추천: 정사이즈
         </Typography>
-      )}
-      <Typography as="p" variant="body5" tone="tertiary" className={styles.recommendation}>
-        사이즈 추천: 정사이즈
-      </Typography>
+      </Stack>
     </ProductVariantSection>
   );
 }
