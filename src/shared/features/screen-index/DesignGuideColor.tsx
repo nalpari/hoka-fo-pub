@@ -11,7 +11,7 @@ const colorGroups = [
     name: 'Neutral',
     colors: ['black.100', 'black.60', 'black.50', 'black.40', 'black.20', 'black.10', 'white.0'],
   },
-  { name: 'Brand', colors: ['blue.100', 'citrus.100', 'offWhite.100'] },
+  { name: 'Brand', colors: ['blue.100', 'citrus.100', 'green.100', 'offWhite.100'] },
   { name: 'Red', colors: ['red.100', 'red.80'] },
 ] as const;
 
@@ -106,7 +106,7 @@ export function DesignGuideColor() {
         { label: 'Color' },
       ]}
       title="Color"
-      description="디자인 가이드의 12가지 기본 색상과 Panda 토큰입니다."
+      description="디자인 가이드의 13가지 기본 색상과 Panda 토큰입니다."
     >
       <p className={styles.hex}>썸네일을 클릭하면 해당 색상의 tone 코드를 복사합니다.</p>
       <p className={styles.status} role="status" aria-live="polite" aria-atomic="true">
