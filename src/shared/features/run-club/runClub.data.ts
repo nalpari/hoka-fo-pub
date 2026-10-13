@@ -5,7 +5,8 @@ export type RunClubSession = {
   image: string;
   detailImage: string;
   overlayDate: string;
-  course: string;
+  location: string;
+  distance: string;
   schedule: string;
   status: 'open' | 'closed' | 'upcoming';
 };
@@ -18,7 +19,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-01.png',
     detailImage: 'session-card-01.png',
     overlayDate: '27.2.12 19:00',
-    course: '여의도 5K',
+    location: '여의도',
+    distance: '5K',
     schedule: '2월 12일 (금) 19:00',
     status: 'open',
   },
@@ -29,7 +31,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-02.png',
     detailImage: 'session-card-02.png',
     overlayDate: '27.1.30 08:00',
-    course: '인왕산 10K',
+    location: '인왕산',
+    distance: '10K',
     schedule: '1월 30일 (토) 08:00',
     status: 'open',
   },
@@ -40,7 +43,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-03.png',
     detailImage: 'session-detail-bukhansan.png',
     overlayDate: '27.2.6 07:00',
-    course: '북악산 10K',
+    location: '북악산',
+    distance: '10K',
     schedule: '2월 6일 (토) 07:00',
     status: 'closed',
   },
@@ -51,7 +55,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-04.png',
     detailImage: 'session-detail-bukchon.png',
     overlayDate: '27.3.16 07:00',
-    course: '경복궁 5K',
+    location: '경복궁',
+    distance: '5K',
     schedule: '3월 16일 (화) 07:00',
     status: 'open',
   },
@@ -62,7 +67,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-05.png',
     detailImage: 'session-card-05.png',
     overlayDate: '27.2.12 19:00',
-    course: '여의도 5K',
+    location: '여의도',
+    distance: '5K',
     schedule: '2월 12일 (금) 19:00',
     status: 'open',
   },
@@ -73,7 +79,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-06.png',
     detailImage: 'session-card-06.png',
     overlayDate: '27.2.6 07:00',
-    course: '올림픽 공원 10K',
+    location: '올림픽 공원',
+    distance: '10K',
     schedule: '2월 6일 (토) 07:00',
     status: 'open',
   },
@@ -84,7 +91,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-07.png',
     detailImage: 'session-card-07.png',
     overlayDate: '27.3.16 07:00',
-    course: '경복궁 5K',
+    location: '경복궁',
+    distance: '5K',
     schedule: '3월 16일 (화) 07:00',
     status: 'open',
   },
@@ -95,7 +103,8 @@ export const runClubSessions: RunClubSession[] = [
     image: 'session-card-08.png',
     detailImage: 'session-card-08.png',
     overlayDate: '27.1.30 08:00',
-    course: '인왕산 10K',
+    location: '인왕산',
+    distance: '10K',
     schedule: '1월 30일 (토) 08:00',
     status: 'upcoming',
   },
@@ -117,3 +126,7 @@ export const sessionPrecautions = [
   '주차를 지원하지 않으니, 대중교통 이용을 권장드립니다.',
   '참가자를 대상으로 사진, 영상 촬영 및 활용을 위한 동의서 작성이 진행됩니다. 동의 거부 시 프로그램 참여가 제한될 수 있습니다.',
 ];
+
+export const runClubVenue = '호카 더현대 서울 매장';
+
+export const runClubAddress = '서울 영등포구 여의대로 108 더현대서울, 3F';
