@@ -143,7 +143,6 @@ const iconOnlyButtonStyle = css({
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
-  | 'secondaryInverse'
   | 'bottomSheetPrimary'
   | 'ghost'
   | 'brand'
@@ -151,32 +150,34 @@ export type ButtonVariant =
   | 'filterTrigger'
   | 'headerSearch';
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-  tone?: ButtonVariant;
-  density?: 'auto' | 'wide' | 'compact';
-  colorway?: 'black' | 'white';
-  language?: 'kr' | 'en';
-  /** Legacy sizing; explicit density takes precedence. */
-  size?: 'sm' | 'md' | 'lg';
-  height?: 'short' | 'tall';
-  fullWidth?: boolean;
-  icon?: ReactNode;
-  loading?: boolean;
-  invalid?: boolean;
-  render?: ReactElement;
-  nativeButton?: boolean;
-};
+export type ButtonSizingProps =
+  | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
+  | { variant: 'filterTrigger' | 'headerSearch'; size?: never }
+  | {
+      variant?: Exclude<ButtonVariant, 'link' | 'filterTrigger' | 'headerSearch'>;
+      size?: 'tall' | 'short';
+    };
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  ButtonSizingProps & {
+    density?: 'auto' | 'wide' | 'compact';
+    colorway?: 'black' | 'white';
+    language?: 'kr' | 'en';
+    fullWidth?: boolean;
+    icon?: ReactNode;
+    loading?: boolean;
+    invalid?: boolean;
+    render?: ReactElement;
+    nativeButton?: boolean;
+  };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'secondary',
-    tone,
     density,
     colorway = 'black',
     language = 'kr',
     size,
-    height,
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -190,47 +191,33 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const resolvedVariant = tone ?? variant;
   const iconOnly = Boolean(icon && children == null);
-  const primary = resolvedVariant === 'primary' || resolvedVariant === 'bottomSheetPrimary';
+  const primary = variant === 'primary' || variant === 'bottomSheetPrimary';
   const white = colorway === 'white';
-  const unframed = resolvedVariant === 'link' || resolvedVariant === 'ghost';
-  const inverseLegacy = resolvedVariant === 'secondaryInverse';
-  const labelTypographyVariant =
-    height === 'short' ? 'cta2' : height === 'tall' ? 'cta1' : undefined;
+  const unframed = variant === 'link' || variant === 'ghost';
+  const labelTypographyVariant = size === 'short' ? 'cta2' : size === 'tall' ? 'cta1' : undefined;
   const resolvedDensity =
-    density ??
-    (height
-      ? height === 'tall'
-        ? 'wide'
-        : 'compact'
-      : size
-        ? size === 'lg'
-          ? 'wide'
-          : 'compact'
-        : 'auto');
+    density ?? (size ? (size === 'tall' || size === 'lg' ? 'wide' : 'compact') : 'auto');
   const variables: Record<string, string> = {
-    '--button-bg':
-      primary || inverseLegacy
-        ? white
-          ? 'var(--color-white-000)'
-          : 'var(--color-black-100)'
-        : white
-          ? 'transparent'
-          : 'var(--color-white-000)',
-    '--button-color':
-      primary || inverseLegacy
-        ? white
-          ? 'var(--color-black-100)'
-          : 'var(--color-white-000)'
-        : white
-          ? 'var(--color-white-000)'
-          : 'var(--color-black-100)',
+    '--button-bg': primary
+      ? white
+        ? 'var(--color-white-000)'
+        : 'var(--color-black-100)'
+      : white
+        ? 'transparent'
+        : 'var(--color-white-000)',
+    '--button-color': primary
+      ? white
+        ? 'var(--color-black-100)'
+        : 'var(--color-white-000)'
+      : white
+        ? 'var(--color-white-000)'
+        : 'var(--color-black-100)',
     '--button-bg-hover': white && !primary ? 'transparent' : 'var(--color-black-60)',
     '--button-color-hover': 'var(--color-white-000)',
     '--button-bg-active': white && !primary ? 'transparent' : 'var(--color-black-100)',
     '--button-color-active': 'var(--color-white-000)',
-    '--button-border-width': primary || inverseLegacy ? '0px' : '1px',
+    '--button-border-width': primary ? '0px' : '1px',
     '--button-border-color': white ? 'var(--color-white-000)' : 'var(--color-black-100)',
     '--button-border-width-hover': white && !primary ? '2px' : '0px',
     '--button-focus-ring':
@@ -254,20 +241,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-border-width-hover': '0px',
       '--button-radius': '0px',
     });
-  if (resolvedVariant === 'link')
+  if (variant === 'link')
     Object.assign(variables, {
       '--button-height': size === 'sm' ? '16px' : 'auto',
       '--button-padding-x': '0px',
       '--button-label-weight': '500',
     });
-  if (size === 'sm' && resolvedVariant === 'link') variables['--button-label-size'] = '12px';
-  if (resolvedVariant === 'brand')
+  if (size === 'sm' && variant === 'link') variables['--button-label-size'] = '12px';
+  if (variant === 'brand')
     Object.assign(variables, {
       '--button-bg': 'var(--color-blue-100)',
       '--button-color': 'var(--color-white-000)',
       '--button-border-width': '0px',
     });
-  if (resolvedVariant === 'filterTrigger')
+  if (variant === 'filterTrigger')
     Object.assign(variables, {
       '--button-height': '32.2px',
       '--button-padding-x': '14px',
@@ -275,7 +262,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-border-width': '0.9px',
       '--button-label-size': '14px',
     });
-  if (resolvedVariant === 'headerSearch')
+  if (variant === 'headerSearch')
     Object.assign(variables, {
       '--button-height': '36px',
       '--button-padding-x': '15px',
@@ -295,15 +282,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={[
         button({
           density: resolvedDensity,
-          fullWidth: fullWidth || resolvedVariant === 'bottomSheetPrimary',
+          fullWidth: fullWidth || variant === 'bottomSheetPrimary',
           language,
           unframed,
         }),
         iconOnly ? iconOnlyButtonStyle : '',
-        resolvedVariant === 'link'
-          ? css({ textDecoration: 'underline', textUnderlineOffset: '3px' })
-          : '',
-        resolvedVariant === 'headerSearch' ? css({ w: '178px' }) : '',
+        variant === 'link' ? css({ textDecoration: 'underline', textUnderlineOffset: '3px' }) : '',
+        variant === 'headerSearch' ? css({ w: '178px' }) : '',
         className,
       ]
         .filter(Boolean)
@@ -313,14 +298,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         <span
           className={[
             content,
-            resolvedVariant === 'headerSearch' ? css({ justifyContent: 'space-between' }) : '',
+            variant === 'headerSearch' ? css({ justifyContent: 'space-between' }) : '',
           ]
             .filter(Boolean)
             .join(' ')}
         >
           {iconOnly ? null : (
             <span
-              className={[label, resolvedVariant === 'link' ? css({ lineHeight: '1.3' }) : '']
+              className={[label, variant === 'link' ? css({ lineHeight: '1.3' }) : '']
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -348,9 +333,6 @@ export type ButtonLinkProps = Pick<
     ButtonProps,
     | 'className'
     | 'style'
-    | 'variant'
-    | 'size'
-    | 'height'
     | 'density'
     | 'colorway'
     | 'language'
@@ -358,7 +340,8 @@ export type ButtonLinkProps = Pick<
     | 'icon'
     | 'loading'
     | 'invalid'
-  > & {
+  > &
+  ButtonSizingProps & {
     children: ReactNode;
   };
 

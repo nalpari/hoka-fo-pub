@@ -200,7 +200,7 @@ function MainCardAction({
   tone,
 }: MainContentCardAction & { tone: ContentTone }) {
   const resolvedVariant =
-    variant === 'secondary' ? (tone === 'light' ? 'secondary' : 'secondaryInverse') : variant;
+    variant === 'secondary' ? (tone === 'light' ? 'secondary' : 'primary') : variant;
 
   return (
     <ButtonLink to={to} variant={resolvedVariant}>

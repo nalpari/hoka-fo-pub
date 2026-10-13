@@ -128,7 +128,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           onClick={() => onSelect(methodById.get('kakao')!.id)}
           style={kakaoStyle}
           variant="primary"
-          height="tall"
+          size="tall"
         >
           카카오 계정으로 신규가입
         </Button>
@@ -139,7 +139,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           onClick={() => onSelect(methodById.get('naver')!.id)}
           style={naverStyle}
           variant="primary"
-          height="tall"
+          size="tall"
         >
           네이버 계정으로 신규가입
         </Button>
@@ -149,7 +149,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
           onClick={() => onSelect(methodById.get('local')!.id)}
           style={localStyle}
           variant="primary"
-          height="tall"
+          size="tall"
         >
           만 14세 이상 회원가입
         </Button>

@@ -103,7 +103,7 @@ export function SignupTermsContent(props: Props) {
         <Grid className={styles.actions}>
           <Button
             variant="secondary"
-            height="tall"
+            size="tall"
             fullWidth
             className={styles.button}
             onClick={props.onCancel}
@@ -112,7 +112,7 @@ export function SignupTermsContent(props: Props) {
           </Button>
           <Button
             variant="primary"
-            height="tall"
+            size="tall"
             fullWidth
             className={styles.button}
             onClick={props.onNext}
@@ -132,7 +132,7 @@ export function SignupTermsContent(props: Props) {
         mobilePresentation="fullscreen"
         scrollFade
         footer={
-          <Button variant="primary" height="tall" fullWidth onClick={() => props.onDetail(null)}>
+          <Button variant="primary" size="tall" fullWidth onClick={() => props.onDetail(null)}>
             확인
           </Button>
         }

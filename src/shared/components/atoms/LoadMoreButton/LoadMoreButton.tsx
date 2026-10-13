@@ -1,10 +1,14 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import {
+  Button,
+  type ButtonProps,
+  type ButtonSizingProps,
+} from '@/shared/components/atoms/Button/Button';
 
-export type LoadMoreButtonProps = Omit<ComponentPropsWithoutRef<typeof Button>, 'children'> & {
-  remaining: number;
-  label?: string;
-};
+export type LoadMoreButtonProps = Omit<ButtonProps, 'children' | 'variant' | 'size'> &
+  ButtonSizingProps & {
+    remaining: number;
+    label?: string;
+  };
 
 /** Paginated-list action that consistently announces the number of items still available. */
 export function LoadMoreButton({ remaining, label = '더보기', ...props }: LoadMoreButtonProps) {

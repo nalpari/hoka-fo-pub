@@ -24,7 +24,7 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
       closeLabel="이미 가입한 회원 안내 닫기"
       size="md"
       footer={
-        <Button variant="primary" height="short" fullWidth onClick={onConfirm}>
+        <Button variant="primary" size="short" fullWidth onClick={onConfirm}>
           확인
         </Button>
       }

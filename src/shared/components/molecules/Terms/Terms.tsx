@@ -59,7 +59,7 @@ export function Terms({
         onCheckedChange={onCheckedChange}
         required={required}
         disabled={disabled}
-        labelVariant="bodyKr4"
+        labelVariant="body4"
         interactiveLabel
         label={
           <Typography variant="body4" tone={hasError ? 'error' : 'inherit'}>

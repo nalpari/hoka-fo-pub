@@ -20,7 +20,7 @@ export const WithSections: Story = {
           <Card.Description>주문 상품을 받을 주소를 선택하세요.</Card.Description>
         </div>
         <Card.Action>
-          <Button size="sm">변경</Button>
+          <Button size="short">변경</Button>
         </Card.Action>
       </Card.Header>
       <Card.Content>

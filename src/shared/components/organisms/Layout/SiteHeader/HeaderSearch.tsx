@@ -14,7 +14,7 @@ export function HeaderSearch({ onSearch }: HeaderSearchProps) {
     return (
       <Button
         aria-label="검색"
-        icon={<Icon src="/images/header/search.svg" size="16px" />}
+        icon={<Icon src="/images/header/search.svg" size="16px" mask />}
         onClick={onSearch}
         variant="headerSearch"
       >
@@ -25,7 +25,7 @@ export function HeaderSearch({ onSearch }: HeaderSearchProps) {
 
   return (
     <IconButton size="32px" onClick={onSearch} aria-label="검색">
-      <Icon src="/images/header/search.svg" size="19px" />
+      <Icon src="/images/header/search.svg" size="19px" mask />
     </IconButton>
   );
 }
