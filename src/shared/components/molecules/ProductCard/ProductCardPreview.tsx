@@ -18,7 +18,6 @@ const styles = {
     p: '4',
     bg: 'var(--color-surface-subtle)',
     border: '1px solid var(--color-border-tertiary)',
-    boxShadow: '0 8px 24px rgb(0 0 0 / 8%)',
   }),
   link: css({
     display: 'block',
@@ -28,7 +27,6 @@ const styles = {
   }),
   image: css({ display: 'block', w: '100%', aspectRatio: '1', objectFit: 'contain' }),
   promotion: css({ minH: '20px' }),
-  specs: css({ m: '0' }),
   row: css({ py: '2', borderBottom: '1px solid var(--color-border-tertiary)' }),
 };
 
@@ -97,7 +95,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
           widthCount={widths.size}
         />
       </Link>
-      <Stack as="dl" className={styles.specs} gap="0">
+      <Stack as="dl" gap="0">
         {[
           ['안정성', product.stability],
           ['쿠셔닝', product.cushioning],
@@ -107,7 +105,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
             <Typography as="dt" variant="body4" weight="medium">
               {label}
             </Typography>
-            <Typography as="dd" variant="body4" tone="subtle" className={css({ m: '0' })}>
+            <Typography as="dd" variant="body4" tone="subtle">
               {value}
             </Typography>
           </Grid>

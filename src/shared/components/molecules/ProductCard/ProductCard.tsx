@@ -72,15 +72,21 @@ export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specification
 
 export type ProductCardProps = {
   options?: readonly ProductCardOption[];
+  previewEnabled?: boolean;
   product: Product;
   variant?: ProductCardVariant;
 };
 
-export function ProductCard({ options = [], product, variant = 'listing' }: ProductCardProps) {
+export function ProductCard({
+  options = [],
+  previewEnabled = true,
+  product,
+  variant = 'listing',
+}: ProductCardProps) {
   const [liked, setLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const platform = usePlatform();
-  const showPreview = platform === 'web' && variant === 'listing' && previewOpen;
+  const showPreview = previewEnabled && platform === 'web' && variant === 'listing' && previewOpen;
   const hasOption = (option: ProductCardOption) => options.includes(option);
 
   return (
@@ -88,11 +94,11 @@ export function ProductCard({ options = [], product, variant = 'listing' }: Prod
       className={root({ variant })}
       data-preview-open={showPreview ? '' : undefined}
       onPointerEnter={(event) => {
-        if (event.pointerType === 'mouse') setPreviewOpen(true);
+        if (previewEnabled && event.pointerType === 'mouse') setPreviewOpen(true);
       }}
       onPointerLeave={() => setPreviewOpen(false)}
       onFocusCapture={(event) => {
-        if (event.target.matches(':focus-visible')) setPreviewOpen(true);
+        if (previewEnabled && event.target.matches(':focus-visible')) setPreviewOpen(true);
       }}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setPreviewOpen(false);
