@@ -1,5 +1,6 @@
 import type { Meta as StorybookMeta, StoryObj } from '@storybook/react';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { PlatformProvider } from '@/shared/context/platform';
 import { Box, Stack } from 'styled-system/jsx';
 
 type TypographyStorySpec = {
@@ -360,26 +361,28 @@ export const AutomaticLanguage: Story = {
   render: () => (
     <Stack gap="6">
       {[false, true].map((mobile) => (
-        <Stack key={String(mobile)} gap="2" className={mobile ? 'platform-mobile' : undefined}>
-          <Typography as="h2" variant="heading8">
-            No results
-          </Typography>
-          <Typography as="h2" variant="heading8">
-            검색 결과가 없습니다
-          </Typography>
-          <Typography as="p" variant="body3">
-            HOKA <strong>검색 결과</strong> 0
-          </Typography>
-          <Typography variant="body3" language="ko">
-            HOKA 123
-          </Typography>
-          <Box color="var(--color-text-tertiary)">
-            <Typography variant="body3">부모 색상 상속</Typography>
-            <Typography variant="body3" tone="primary">
-              명시적인 primary 색상
+        <PlatformProvider key={String(mobile)} platform={mobile ? 'mobile' : 'web'}>
+          <Stack gap="2" className={mobile ? 'platform-mobile' : undefined}>
+            <Typography as="h2" variant="heading8">
+              No results
             </Typography>
-          </Box>
-        </Stack>
+            <Typography as="h2" variant="heading8">
+              검색 결과가 없습니다
+            </Typography>
+            <Typography as="p" variant="body3">
+              HOKA <strong>검색 결과</strong> 0
+            </Typography>
+            <Typography variant="body3" language="ko">
+              HOKA 123
+            </Typography>
+            <Box color="var(--color-text-tertiary)">
+              <Typography variant="body3">부모 색상 상속</Typography>
+              <Typography variant="body3" tone="primary">
+                명시적인 primary 색상
+              </Typography>
+            </Box>
+          </Stack>
+        </PlatformProvider>
       ))}
     </Stack>
   ),
@@ -389,65 +392,71 @@ export const ApprovedScale: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 32 }}>
       {[false, true].map((mobile) => (
-        <div key={String(mobile)} className={mobile ? 'platform-mobile' : undefined}>
-          <h2>{mobile ? 'Compact' : 'Wide'}</h2>
-          {Array.from({ length: 9 }, (_, i) => (
-            <div key={i} style={{ marginBottom: 16 }}>
-              <Typography variant={`heading${i + 1}` as 'heading1'}>H{i + 1} HOKA</Typography>
-              <br />
-              <Typography variant={`headingKr${i + 1}` as 'headingKr1'}>H{i + 1} 호카</Typography>
-            </div>
-          ))}
-          {Array.from({ length: 5 }, (_, i) => (
-            <div key={i}>
-              <Typography variant={`body${i + 1}` as 'body1'}>Body {i + 1}</Typography> /{' '}
-              <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'}>본문 {i + 1}</Typography> /{' '}
-              <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'} weight="medium">
-                Medium
-              </Typography>
-            </div>
-          ))}
-          {(
-            [
-              'cta1',
-              'cta2',
-              'ctaKr1',
-              'ctaKr2',
-              'textLink1',
-              'textLink2',
-              'textLink3',
-              'textLinkKr1',
-              'textLinkKr2',
-              'textLinkKr3',
-            ] as const
-          ).map((variant) => (
-            <div key={variant}>
-              <Typography variant={variant}>{variant} 버튼과 링크</Typography>
-            </div>
-          ))}
-        </div>
+        <PlatformProvider key={String(mobile)} platform={mobile ? 'mobile' : 'web'}>
+          <div className={mobile ? 'platform-mobile' : undefined}>
+            <h2>{mobile ? 'Compact' : 'Wide'}</h2>
+            {Array.from({ length: 9 }, (_, i) => (
+              <div key={i} style={{ marginBottom: 16 }}>
+                <Typography variant={`heading${i + 1}` as 'heading1'}>H{i + 1} HOKA</Typography>
+                <br />
+                <Typography variant={`headingKr${i + 1}` as 'headingKr1'}>H{i + 1} 호카</Typography>
+              </div>
+            ))}
+            {Array.from({ length: 5 }, (_, i) => (
+              <div key={i}>
+                <Typography variant={`body${i + 1}` as 'body1'}>Body {i + 1}</Typography> /{' '}
+                <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'}>본문 {i + 1}</Typography> /{' '}
+                <Typography variant={`bodyKr${i + 1}` as 'bodyKr1'} weight="medium">
+                  Medium
+                </Typography>
+              </div>
+            ))}
+            {(
+              [
+                'cta1',
+                'cta2',
+                'ctaKr1',
+                'ctaKr2',
+                'textLink1',
+                'textLink2',
+                'textLink3',
+                'textLinkKr1',
+                'textLinkKr2',
+                'textLinkKr3',
+              ] as const
+            ).map((variant) => (
+              <div key={variant}>
+                <Typography variant={variant}>{variant} 버튼과 링크</Typography>
+              </div>
+            ))}
+          </div>
+        </PlatformProvider>
       ))}
     </div>
   ),
 };
 
-export const MobileVariant: Story = {
+export const WebMoVariant: Story = {
   args: {
     as: 'h1',
-    variant: 'heading6',
-    mobileVariant: 'heading4',
+    web: 'heading6',
+    mo: 'heading4',
     children: '회원가입 완료',
   },
   render: (args) => (
     <div>
-      <p>Desktop: 36px</p>
-      <Typography {...args} />
-      <div className="platform-mobile">
-        <p>Mobile: 28px</p>
+      <PlatformProvider platform="web">
+        <p>Desktop: 36px</p>
         <Typography {...args} />
-        <Typography {...args} weight="regular">
-          명시한 weight 유지
-        </Typography>
+      </PlatformProvider>
+      <div className="platform-mobile">
+        <PlatformProvider platform="mobile">
+          <p>Mobile: 28px</p>
+          <Typography {...args} />
+          <Typography {...args} weight="regular">
+            명시한 weight 유지
+          </Typography>
+        </PlatformProvider>
       </div>
     </div>
   ),
