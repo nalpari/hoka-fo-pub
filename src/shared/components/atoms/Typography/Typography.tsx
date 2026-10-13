@@ -393,6 +393,420 @@ export const figmaTypographyVariants = {
 const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
+    mobileVariant: {
+      heading1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading1,
+            ...figmaTypographyVariants.heading1._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading2,
+            ...figmaTypographyVariants.heading2._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading3,
+            ...figmaTypographyVariants.heading3._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading4: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading4,
+            ...figmaTypographyVariants.heading4._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading5: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading5,
+            ...figmaTypographyVariants.heading5._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading6: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading6,
+            ...figmaTypographyVariants.heading6._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading7: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading7,
+            ...figmaTypographyVariants.heading7._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading8: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading8,
+            ...figmaTypographyVariants.heading8._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      heading9: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.heading9,
+            ...figmaTypographyVariants.heading9._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      body1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.body1,
+          },
+        },
+      },
+      body2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.body2,
+          },
+        },
+      },
+      body3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.body3,
+          },
+        },
+      },
+      body4: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.body4,
+          },
+        },
+      },
+      body5: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.body5,
+          },
+        },
+      },
+      cta1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.cta1,
+          },
+        },
+      },
+      cta2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.cta2,
+          },
+        },
+      },
+      textLink1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLink1,
+          },
+        },
+      },
+      textLink2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLink2,
+          },
+        },
+      },
+      textLink3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLink3,
+          },
+        },
+      },
+      headingKr1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr1,
+            ...figmaTypographyVariants.headingKr1._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr2,
+            ...figmaTypographyVariants.headingKr2._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr3,
+            ...figmaTypographyVariants.headingKr3._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr4: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr4,
+            ...figmaTypographyVariants.headingKr4._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr5: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr5,
+            ...figmaTypographyVariants.headingKr5._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr6: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr6,
+            ...figmaTypographyVariants.headingKr6._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr7: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr7,
+            ...figmaTypographyVariants.headingKr7._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr8: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr8,
+            ...figmaTypographyVariants.headingKr8._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      headingKr9: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.headingKr9,
+            ...figmaTypographyVariants.headingKr9._mobile,
+            _mobile: undefined,
+          },
+        },
+      },
+      bodyKr1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.bodyKr1,
+          },
+        },
+      },
+      bodyKr2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.bodyKr2,
+          },
+        },
+      },
+      bodyKr3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.bodyKr3,
+          },
+        },
+      },
+      bodyKr4: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.bodyKr4,
+          },
+        },
+      },
+      bodyKr5: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.bodyKr5,
+          },
+        },
+      },
+      ctaKr1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.ctaKr1,
+          },
+        },
+      },
+      ctaKr2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            textTransform: 'none',
+            ...figmaTypographyVariants.ctaKr2,
+          },
+        },
+      },
+      textLinkKr1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLinkKr1,
+          },
+        },
+      },
+      textLinkKr2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLinkKr2,
+          },
+        },
+      },
+      textLinkKr3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textTransform: 'none',
+            ...figmaTypographyVariants.textLinkKr3,
+          },
+        },
+      },
+      mono1: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            ...figmaTypographyVariants.mono1,
+          },
+        },
+      },
+      mono2: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            ...figmaTypographyVariants.mono2,
+          },
+        },
+      },
+      mono3: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            ...figmaTypographyVariants.mono3,
+          },
+        },
+      },
+      mono4: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            ...figmaTypographyVariants.mono4,
+          },
+        },
+      },
+      mono5: {
+        _mobile: {
+          '&[data-mobile-variant]': {
+            textDecoration: 'none',
+            ...figmaTypographyVariants.mono5,
+          },
+        },
+      },
+    },
     variant: {
       authTitle: {
         fontSize: 'var(--type-authTitle-font-size)',
@@ -504,12 +918,30 @@ const typography = cva({
       ...figmaTypographyVariants,
     },
     weight: {
-      regular: { fontWeight: 'normal' },
-      medium: { fontWeight: 'medium' },
-      semibold: { fontWeight: 'semibold', _mobile: { fontWeight: 'semibold' } },
-      bold: { fontWeight: 'bold', _mobile: { fontWeight: 'bold' } },
-      black: { fontWeight: 'black', _mobile: { fontWeight: 'black' } },
-      inherit: { fontWeight: 'inherit', _mobile: { fontWeight: 'inherit' } },
+      regular: {
+        fontWeight: 'normal',
+        _mobile: { '&[data-mobile-variant]': { fontWeight: 'normal' } },
+      },
+      medium: {
+        fontWeight: 'medium',
+        _mobile: { '&[data-mobile-variant]': { fontWeight: 'medium' } },
+      },
+      semibold: {
+        fontWeight: 'semibold',
+        _mobile: { fontWeight: 'semibold', '&[data-mobile-variant]': { fontWeight: 'semibold' } },
+      },
+      bold: {
+        fontWeight: 'bold',
+        _mobile: { fontWeight: 'bold', '&[data-mobile-variant]': { fontWeight: 'bold' } },
+      },
+      black: {
+        fontWeight: 'black',
+        _mobile: { fontWeight: 'black', '&[data-mobile-variant]': { fontWeight: 'black' } },
+      },
+      inherit: {
+        fontWeight: 'inherit',
+        _mobile: { fontWeight: 'inherit', '&[data-mobile-variant]': { fontWeight: 'inherit' } },
+      },
     },
     tone: {
       error: { color: 'red.100' },
@@ -582,6 +1014,8 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   children: ReactNode;
   tone?: TypographyTone;
   variant?: TypographyVariant;
+  /** Optional mobile scale; defaults to the variant’s existing responsive styles. */
+  mobileVariant?: keyof typeof figmaTypographyVariants;
   /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';
   weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
@@ -619,17 +1053,29 @@ export function Typography<T extends ElementType = 'span'>({
   className,
   tone,
   variant,
+  mobileVariant,
   language = 'auto',
   weight,
   ...props
 }: TypographyProps<T>) {
   const Element = as ?? 'span';
   const resolvedVariant = resolveLanguageVariant(variant, language, children);
+  const resolvedMobileVariant = resolveLanguageVariant(mobileVariant, language, children) as
+    keyof typeof figmaTypographyVariants | undefined;
 
   return (
     <Element
       {...props}
-      className={[typography({ tone, variant: resolvedVariant as never, weight }), className]
+      data-mobile-variant={resolvedMobileVariant}
+      className={[
+        typography({
+          tone,
+          variant: resolvedVariant as never,
+          mobileVariant: resolvedMobileVariant,
+          weight,
+        }),
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
