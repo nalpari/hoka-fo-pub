@@ -22,6 +22,24 @@ type RawScreenDefinition = [
 
 // FO.html의 1~250번을 유지하고, 프로젝트 추가 화면은 251번부터 배정합니다.
 const rawScreens: RawScreenDefinition[] = [
+  [
+    258,
+    ['EXPLORE', 'HOKA Run Club', '목록', '', ''],
+    'page',
+    '1',
+    false,
+    '',
+    '신규 러닝세션 모집 목록',
+  ],
+  [
+    259,
+    ['EXPLORE', 'HOKA Run Club', '상세', '', ''],
+    'page',
+    '1',
+    false,
+    '',
+    '신청 가능 / 모집 마감 / 신청 예정',
+  ],
   [1, ['Main', '', '', '', ''], 'page', '1', false, 'eland_hma_01', ''],
   [2, ['', 'Pop-up', '', '', ''], 'popup', '1', false, 'eland_hma_02', ''],
   [3, ['MEN', 'Featured', 'BEST', '목록', ''], 'page', '1', false, 'eland_hca_01', ''],
