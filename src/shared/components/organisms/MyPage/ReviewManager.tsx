@@ -165,7 +165,7 @@ export function ReviewManager() {
                   </Typography>
                 ) : null}
               </div>
-              <Button variant="primary" size="sm" onClick={() => setEditing(review.id)}>
+              <Button variant="primary" size="short" onClick={() => setEditing(review.id)}>
                 {tab === 'ready' ? '리뷰 작성하기' : '수정하기'}
               </Button>
             </article>

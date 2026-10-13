@@ -219,7 +219,7 @@ export function PhoneVerificationContent(props: Props) {
           {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
           <Button
             variant="primary"
-            height="tall"
+            size="tall"
             fullWidth
             disabled={requested && resendWait > 0}
             onClick={props.onRequest}
@@ -256,7 +256,7 @@ export function PhoneVerificationContent(props: Props) {
                 입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
                 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
               </Typography>
-              <Button variant="primary" height="tall" type="submit" fullWidth>
+              <Button variant="primary" size="tall" type="submit" fullWidth>
                 인증번호 확인
               </Button>
             </>

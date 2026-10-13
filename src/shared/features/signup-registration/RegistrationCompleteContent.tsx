@@ -31,7 +31,7 @@ export function RegistrationCompleteContent() {
             최선을 다하겠습니다
           </Typography>
         </Stack>
-        <ButtonLink to="/" variant="primary" height="tall" fullWidth className={styles.button}>
+        <ButtonLink to="/" variant="primary" size="tall" fullWidth className={styles.button}>
           쇼핑하러 가기
         </ButtonLink>
       </Stack>

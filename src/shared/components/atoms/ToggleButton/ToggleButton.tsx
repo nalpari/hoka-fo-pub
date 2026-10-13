@@ -1,8 +1,8 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { Button, type ButtonProps } from '@/shared/components/atoms/Button/Button';
+import { Button, type ButtonSizingProps } from '@/shared/components/atoms/Button/Button';
 
 export type ToggleButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> &
-  Pick<ButtonProps, 'size' | 'variant'> & {
+  ButtonSizingProps & {
     expanded: boolean;
     children: ReactNode;
     indicator?: boolean;
@@ -13,12 +13,17 @@ export function ToggleButton({
   expanded,
   children,
   indicator = true,
-  variant = 'ghost',
-  size,
-  ...props
+  ...buttonProps
 }: ToggleButtonProps) {
+  const resolvedProps =
+    buttonProps.variant === 'link' ||
+    buttonProps.variant === 'filterTrigger' ||
+    buttonProps.variant === 'headerSearch'
+      ? buttonProps
+      : { ...buttonProps, variant: buttonProps.variant ?? 'ghost' };
+
   return (
-    <Button {...props} aria-expanded={expanded} size={size} variant={variant}>
+    <Button {...resolvedProps} aria-expanded={expanded}>
       {children}
       {indicator ? <span aria-hidden="true">{expanded ? '︿' : '﹀'}</span> : null}
     </Button>

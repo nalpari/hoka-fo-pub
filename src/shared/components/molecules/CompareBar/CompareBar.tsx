@@ -38,10 +38,10 @@ export function CompareBar({
           {products.map((product) => product.name).join('  ·  ')}
         </Typography>
       </Stack>
-      <Button className={css({ p: '8px 12px' })} onClick={onClear} size="sm">
+      <Button onClick={onClear} size="short">
         선택 해제
       </Button>
-      <Button className={css({ p: '8px 12px' })} onClick={onCompare} size="sm" variant="primary">
+      <Button onClick={onCompare} size="short" variant="primary">
         비교하기 ({products.length})
       </Button>
     </aside>

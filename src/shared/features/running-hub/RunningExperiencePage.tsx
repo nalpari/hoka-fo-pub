@@ -231,7 +231,7 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
               <article className={timelineItem} key={name}>
                 <time>{date}</time>
                 <strong>{name}</strong>
-                <Button size="sm">{status}</Button>
+                <Button size="short">{status}</Button>
               </article>
             ))}
           </section>

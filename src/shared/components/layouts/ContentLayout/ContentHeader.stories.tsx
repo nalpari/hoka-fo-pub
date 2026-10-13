@@ -25,7 +25,7 @@ export const WithIntro: Story = {
     title: '상품 목록',
     description: '조건에 맞는 상품을 찾아보세요.',
     eyebrow: 'CATALOG',
-    headerAction: <Button size="sm">필터 초기화</Button>,
+    headerAction: <Button size="short">필터 초기화</Button>,
   },
 };
 
