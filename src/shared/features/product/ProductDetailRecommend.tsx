@@ -5,8 +5,7 @@ import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCa
 
 const styles = {
   root: css({
-    gridColumn: '1 / -1',
-    mt: '16',
+    mt: '24',
     _mobile: { mt: '10', px: '4' },
   }),
   title: css({ mb: '5' }),

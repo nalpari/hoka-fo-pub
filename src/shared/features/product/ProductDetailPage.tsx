@@ -132,8 +132,8 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
             width={width}
             wish={wish}
           />
-          <ProductDetailRecommend products={recommendations} />
         </main>
+        <ProductDetailRecommend products={recommendations} />
         {platform === 'mobile' && (
           <ProductPurchaseActions
             onAddToCart={() => submit(false)}
