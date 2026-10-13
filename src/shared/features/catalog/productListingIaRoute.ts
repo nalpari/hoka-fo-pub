@@ -18,13 +18,17 @@ const featuredSortValues: Record<string, string> = {
 const categoryValues: Record<string, string> = {
   신발: 'footwear',
   의류: 'apparel',
-  상의: 'tops',
-  하의: 'shorts',
+  '러닝 웨어': 'apparel',
+  아우터: 'outerwear',
+  '탑&티셔츠': 'tops',
+  '후디&스웻셔츠': 'hoodies-sweatshirts',
+  쇼츠: 'shorts',
+  타이즈: 'tights',
   용품: 'accessories',
   모자: 'hats',
   양말: 'socks',
   '베스트&벨트': 'vests-belts',
-  기타: 'other-accessories',
+  '기타 용품': 'other-accessories',
 };
 
 export function getProductListingIaKey(iaNumber: number) {

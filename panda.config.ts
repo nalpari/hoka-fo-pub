@@ -90,7 +90,7 @@ export default defineConfig({
           white: { 0: { value: '#FFFFFF' } },
           blue: { 100: { value: '#009DFF' } },
           citrus: { 100: { value: '#E1FF04' } },
-          green: { 100: { value: '#5E661F' } },
+          mossGreen: { 100: { value: '#5E661F' } },
           offWhite: { 100: { value: '#E8EDF3' } },
           red: { 100: { value: '#A60000' }, 80: { value: '#E10F00' } },
           headerBorder: { value: '#E9EAEB' },

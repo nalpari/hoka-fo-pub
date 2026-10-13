@@ -11,7 +11,7 @@ const colorGroups = [
     name: 'Neutral',
     colors: ['black.100', 'black.60', 'black.50', 'black.40', 'black.20', 'black.10', 'white.0'],
   },
-  { name: 'Brand', colors: ['blue.100', 'citrus.100', 'green.100', 'offWhite.100'] },
+  { name: 'Brand', colors: ['blue.100', 'citrus.100', 'mossGreen.100', 'offWhite.100'] },
   { name: 'Red', colors: ['red.100', 'red.80'] },
 ] as const;
 
