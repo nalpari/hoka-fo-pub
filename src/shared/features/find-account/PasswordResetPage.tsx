@@ -142,7 +142,7 @@ export function PasswordResetPage() {
         <form noValidate className={styles.form} onSubmit={submit}>
           {field('password', '새로운 비밀번호', '새로운 비밀번호를 입력해주세요', password)}
           {field('confirmation', '비밀번호 재입력', '비밀번호를 다시 입력해주세요', confirmation)}
-          <Button type="submit" variant="primary" size="lg" fullWidth className={styles.button}>
+          <Button type="submit" variant="primary" size="tall" fullWidth className={styles.button}>
             비밀번호 변경
           </Button>
         </form>

@@ -256,7 +256,7 @@ export function ProductReviews() {
                     </IconButton>
                   ))}
                 </Box>
-                <Button size="sm" variant="ghost">
+                <Button size="short" variant="ghost">
                   신고 및 차단
                 </Button>
               </Box>

@@ -86,7 +86,7 @@ export function FaqControls({
             aria-label="질문 또는 답변 검색"
           />
         </Typography>
-        <Button type="submit" variant="primary" size="sm">
+        <Button type="submit" variant="primary" size="short">
           검색
         </Button>
       </form>

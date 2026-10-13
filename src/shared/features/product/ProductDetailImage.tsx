@@ -3,9 +3,7 @@ import { css } from 'styled-system/css';
 const image = css({
   display: 'block',
   w: '100%',
-  aspectRatio: '1',
-  objectFit: 'cover',
-  bg: 'var(--color-black-10)',
+  h: 'auto',
 });
 
 const trigger = css({

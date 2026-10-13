@@ -184,7 +184,7 @@ export function RegistrationContent(props: Props) {
               />
               <Button
                 variant="primary"
-                height="tall"
+                size="tall"
                 fullWidth
                 className={styles.button}
                 onClick={props.onDuplicateCheck}
@@ -249,20 +249,14 @@ export function RegistrationContent(props: Props) {
           <Grid className={styles.actions}>
             <Button
               variant="secondary"
-              height="tall"
+              size="tall"
               fullWidth
               className={styles.button}
               onClick={props.onCancel}
             >
               취소
             </Button>
-            <Button
-              variant="primary"
-              type="submit"
-              height="tall"
-              fullWidth
-              className={styles.button}
-            >
+            <Button variant="primary" type="submit" size="tall" fullWidth className={styles.button}>
               다음
             </Button>
           </Grid>

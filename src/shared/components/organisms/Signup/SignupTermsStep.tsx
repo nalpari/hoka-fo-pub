@@ -107,7 +107,7 @@ export function SignupTermsStep({
             <Typography variant="body5">
               <b>[필수]</b> 이용약관 동의
             </Typography>
-            <Button size="sm" variant="ghost">
+            <Button size="short" variant="ghost">
               보기
             </Button>
           </>
@@ -122,7 +122,7 @@ export function SignupTermsStep({
             <Typography variant="body5">
               <b>[필수]</b> 개인정보 수집 및 이용 동의
             </Typography>
-            <Button size="sm" variant="ghost">
+            <Button size="short" variant="ghost">
               보기
             </Button>
           </>

@@ -105,7 +105,7 @@ export function LoginContent({
           <HStack className={styles.options}>
             <Checkbox
               label="아이디 저장"
-              labelVariant="bodyKr4"
+              labelVariant="body4"
               checked={rememberId}
               onCheckedChange={onRememberChange}
             />

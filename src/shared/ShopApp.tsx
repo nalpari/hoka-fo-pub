@@ -32,6 +32,8 @@ import { TeamwearPage } from '@/shared/features/teamwear/TeamwearPage';
 import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
 import { MyPage } from '@/shared/features/mypage/MyPage';
 import { RunningProfilePage } from '@/shared/features/mypage/RunningProfilePage';
+import { RunClubPage } from '@/shared/features/run-club/RunClubPage';
+import { RunClubDetailPage } from '@/shared/features/run-club/RunClubDetailPage';
 import { MyPageStatusPage, type MyPageStatusKind } from '@/shared/features/mypage/MyPageStatusPage';
 import { SupportPage } from '@/shared/features/support/SupportPage';
 import {
@@ -122,6 +124,8 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
             <Route path="/running/alerts" element={<RunningExperienceRoute kind="alerts" />} />
             <Route path="/running/rotation" element={<RunningExperienceRoute kind="rotation" />} />
             <Route path="/running/plans" element={<RunningExperienceRoute kind="plans" />} />
+            <Route path="/running/run-club" element={<RunClubPage />} />
+            <Route path="/running/run-club/:sessionId" element={<RunClubDetailPage />} />
             <Route
               path="/store/experience"
               element={<RunningExperienceRoute kind="store-experience" />}

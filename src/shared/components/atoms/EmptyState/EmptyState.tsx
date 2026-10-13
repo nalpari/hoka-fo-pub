@@ -1,6 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { Box, Grid, Stack, VStack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Grid } from 'styled-system/jsx';
 
 type EmptyStateProps = {
   title: string;
@@ -25,9 +26,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
   if (variant === 'minimal') {
     return (
       <Box as="section" aria-label={title} minH="180px" pt="42px" textAlign="center">
-        <Typography as="h2" variant="heading8">
-          {title}
-        </Typography>
+        <EmptyStateTitle>{title}</EmptyStateTitle>
         {description ? (
           <Box mt="2" mx="0" mb="0">
             <Typography as="p" variant="body3">
@@ -41,40 +40,29 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
   }
 
   return (
-    <Stack
+    <Box
       as="section"
       aria-label={title}
-      minH="240px"
-      placeContent="center"
-      justifyItems="center"
-      gap="2.5"
-      p="30px"
-      bg="var(--color-black-10)"
-      textAlign="center"
+      className={css({
+        w: '100%',
+        pt: '96px',
+        pb: '160px',
+        px: '4',
+        bg: 'white.0',
+        color: 'black.100',
+        textAlign: 'center',
+      })}
     >
-      <Grid
-        w="32px"
-        h="32px"
-        placeItems="center"
-        border="1px solid var(--color-black-40)"
-        borderRadius="full"
-        color="var(--color-text-tertiary)"
-        aria-hidden="true"
-      >
-        —
-      </Grid>
-      <VStack gap="1" maxW="320px" mt="1" mx="auto" textAlign="center">
-        <Typography as="h2" variant="heading9">
-          {title}
-        </Typography>
-        {description ? (
+      <EmptyStateTitle>{title}</EmptyStateTitle>
+      {description ? (
+        <Box mt="2">
           <Typography as="p" variant="body3">
             {description}
           </Typography>
-        ) : null}
-        {action ? <Box mt="2">{action}</Box> : null}
-      </VStack>
-    </Stack>
+        </Box>
+      ) : null}
+      {action ? <Box mt="2">{action}</Box> : null}
+    </Box>
   );
 }
 
@@ -94,8 +82,17 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
   );
 }
 
-export function EmptyStateTitle({ className, ...props }: EmptyStateTitleProps) {
-  return <h2 {...props} className={withClassName('empty-state__title', className)} />;
+export function EmptyStateTitle({ className, children, ...props }: EmptyStateTitleProps) {
+  return (
+    <Typography
+      {...props}
+      as="h2"
+      variant="heading7"
+      className={withClassName('empty-state__title', className)}
+    >
+      {children}
+    </Typography>
+  );
 }
 
 export function EmptyStateDescription({ className, ...props }: EmptyStateDescriptionProps) {

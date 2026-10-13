@@ -1,20 +1,21 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Button } from '@/shared/components/atoms/Button/Button';
 import { Fragment, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Stack } from 'styled-system/jsx';
 
 const styles = {
   info: css({
-    mt: '7',
-    p: '5',
+    px: '8',
+    py: '8',
     bg: 'var(--color-black-10)',
-    '& h2': { mb: '3' },
-    '& h3': { mt: '5', mb: '2' },
+    _mobile: { px: '4' },
   }),
   specs: css({
     display: 'grid',
-    gridTemplateColumns: '76px 1fr',
-    gap: '1.5 3',
-    mt: '5',
+    gridTemplateColumns: '26.6% 1fr',
+    columnGap: '3',
+    rowGap: '6',
   }),
 };
 
@@ -32,33 +33,51 @@ export function ProductInformation({
   sections,
   specifications,
 }: ProductInformationProps) {
+  const [description, ...features] = sections;
+
   return (
-    <section className={styles.info} id={id}>
-      <Typography as="h2" variant="heading9">
-        {title}
-      </Typography>
-      {sections.map((section, index) => (
-        <Fragment key={index}>
-          <Typography as="h3" variant="body5" weight="bold">
+    <Stack as="section" gap="10" className={styles.info} id={id}>
+      <Stack gap="6">
+        <Typography as="h2" variant="heading8">
+          {title}
+        </Typography>
+        {description && (
+          <Stack gap="6">
+            <Typography as="h3" variant="heading9">
+              {description.title}
+            </Typography>
+            <Typography as="p" variant="body3">
+              {description.content}
+            </Typography>
+          </Stack>
+        )}
+      </Stack>
+      {features.map((section, index) => (
+        <Stack gap="6" key={index}>
+          <Typography as="h3" variant="heading9">
             {section.title}
           </Typography>
-          <Typography as="p" variant="body5">
+          <Typography as="p" variant="body3">
             {section.content}
           </Typography>
-        </Fragment>
+        </Stack>
       ))}
       <dl className={styles.specs}>
         {specifications.map((specification, index) => (
           <Fragment key={index}>
-            <Typography as="dt" variant="body5" weight="bold">
+            <Typography as="dt" variant="cta1">
               {specification.label}
             </Typography>
-            <Typography as="dd" variant="body5">
+            <Typography as="dd" variant="body4">
               {specification.value}
             </Typography>
           </Fragment>
         ))}
       </dl>
-    </section>
+
+      <Button variant="link" colorway="black" size="md">
+        더 보기
+      </Button>
+    </Stack>
   );
 }

@@ -86,7 +86,7 @@ export function NoticesPage() {
             <Typography variant="body5">조회수</Typography>
           </Box>
           {notices.slice(0, shown).map(([title, date, views]) => (
-            <Button onClick={() => location.assign('/support/notices/1')} key={title} size="sm">
+            <Button onClick={() => location.assign('/support/notices/1')} key={title} size="short">
               <span>{title}</span>
               <Typography as="time" variant="body5" tone="tertiary">
                 {date}

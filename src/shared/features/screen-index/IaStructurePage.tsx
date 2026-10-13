@@ -55,7 +55,11 @@ type WbsAssignment = {
   owners: string;
 };
 
-const deletedIaNumbers = new Set([12, 49, 118, 216]);
+const deletedIaNumbers = new Set(
+  screens
+    .filter((screen) => screen.note.replace(/상품\s*삭제/g, '').includes('삭제'))
+    .map((screen) => screen.iaNumber),
+);
 
 type PreviewStoryIds = {
   pc: string;
@@ -63,15 +67,17 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
-  213: {
+  258: { pc: 'pages-runclub--list', mo: 'pages-runclub--mobile-list' },
+  259: { pc: 'pages-runclub--open', mo: 'pages-runclub--mobile-open' },
+  229: {
     pc: 'pages-auth-findaccount-passwordresetpage--default',
     mo: 'pages-auth-findaccount-passwordresetpage--mobile',
   },
-  236: {
+  252: {
     pc: 'pages-auth-findaccount-passwordresetcompletemodal--default',
     mo: 'pages-auth-findaccount-passwordresetcompletemodal--mobile',
   },
-  235: {
+  226: {
     pc: 'pages-auth-findaccount-idconfirmationmodal--default',
     mo: 'pages-auth-findaccount-idconfirmationmodal--mobile',
   },
@@ -79,51 +85,51 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
     pc: 'pages-home-main--width-1920',
     mo: 'pages-home-main--width-375',
   },
-  234: {
+  251: {
     pc: 'pages-auth-findaccount-accountlockedmodal--default',
     mo: 'pages-auth-findaccount-accountlockedmodal--mobile',
   },
-  237: {
+  253: {
     pc: 'pages-auth-phoneverification--account-unlock',
     mo: 'pages-auth-phoneverification--mobile-account-unlock',
   },
-  238: {
+  254: {
     pc: 'pages-auth-accountunlockcompletepage--default',
     mo: 'pages-auth-accountunlockcompletepage--mobile',
   },
-  241: {
+  257: {
     pc: 'pages-auth-signup-alreadyregisteredmodal--default',
     mo: 'pages-auth-signup-alreadyregisteredmodal--mobile',
   },
-  217: {
+  233: {
     pc: 'pages-auth-signup--default',
     mo: 'pages-auth-signup--mobile',
   },
-  218: {
+  234: {
     pc: 'pages-auth-phoneverification--default',
     mo: 'pages-auth-phoneverification--mobile',
   },
-  219: {
+  235: {
     pc: 'pages-auth-identityverification--default',
     mo: 'pages-auth-identityverification--mobile',
   },
-  220: {
+  236: {
     pc: 'pages-auth-signupterms--default',
     mo: 'pages-auth-signupterms--mobile',
   },
-  221: {
+  237: {
     pc: 'pages-auth-registration--default',
     mo: 'pages-auth-registration--mobile',
   },
-  239: {
+  255: {
     pc: 'pages-auth-registration--additional',
     mo: 'pages-auth-registration--mobile-additional',
   },
-  240: {
+  256: {
     pc: 'pages-auth-registration-marketingconsentsummarymodal--default',
     mo: 'pages-auth-registration-marketingconsentsummarymodal--mobile',
   },
-  222: {
+  238: {
     pc: 'pages-auth-registration--complete',
     mo: 'pages-auth-registration--complete',
   },
@@ -178,7 +184,7 @@ const directWbsAssignments: Record<string, WbsAssignment> = {
   고객센터: { period: '2026.10.29 ~ 2026.10.31', owners: '조맑은, 박서현' },
   로그인: { period: '2026.10.02 ~ 2026.10.05', owners: '박서현' },
   회원가입: { period: '2026.10.06 ~ 2026.10.07', owners: '박서현' },
-  'About HOKA': { period: '2026.11.06 ~ 2026.11.10', owners: '조맑은' },
+  Company: { period: '2026.11.06 ~ 2026.11.10', owners: '조맑은' },
 };
 
 const categoryWbsAssignments = {
@@ -480,23 +486,25 @@ const styles = {
 };
 
 function getStatus(screen: ScreenDefinition): DeliveryStatus {
+  if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
   if (isStorybookPending(screen.iaNumber)) return 'pending';
   if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
-  if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
   if (isStorybookWorking(screen.screenCode)) return 'working';
   return 'pending';
 }
 
 function getPreviewStoryIds(screen: ScreenDefinition): PreviewStoryIds | undefined {
+  const previewStoryIds = previewStoryIdsByIaNumber[screen.iaNumber];
+
+  if (previewStoryIds) return previewStoryIds;
+
   if (screen.screenCode.startsWith('eland_hlo_')) {
     return findAccountScreenCodes.has(screen.screenCode)
       ? findAccountPreviewStoryIds
       : loginPreviewStoryIds;
   }
 
-  return (
-    previewStoryIdsByIaNumber[screen.iaNumber] ?? previewStoryIdsByScreenCode[screen.screenCode]
-  );
+  return previewStoryIdsByScreenCode[screen.screenCode];
 }
 
 function getPreviewHref(storyId: string, screen?: ScreenDefinition) {

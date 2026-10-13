@@ -1,10 +1,16 @@
 import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 
 const root = css({ m: '36px', textAlign: 'center' });
 
 const ellipsis = css({ px: '4px' });
+
+const navigationButton = css({ display: 'inline-grid' });
+
+const previousIcon = css({ transform: 'rotate(180deg)' });
 
 function getPageItems(total: number, current: number) {
   const safeCurrent = Math.min(Math.max(current, 1), total);
@@ -52,16 +58,16 @@ export function Pagination({
 
   return (
     <Flex as="nav" aria-label="페이지네이션" alignItems="center" className={root} gap="2">
-      <Button
+      <IconButton
         aria-label="이전 페이지"
+        className={navigationButton}
         disabled={page <= 1}
         onClick={() => onChange(Math.max(1, page - 1))}
-        size="sm"
-        variant="ghost"
+        tone={page <= 1 ? 'disabled' : 'default'}
         type="button"
       >
-        이전
-      </Button>
+        <Icon name="chevron-right" className={previousIcon} />
+      </IconButton>
 
       {items.map((item, index) => {
         if (item === 'ellipsis-start' || item === 'ellipsis-end') {
@@ -79,7 +85,7 @@ export function Pagination({
             aria-current={isCurrent ? 'page' : undefined}
             key={item}
             onClick={() => onChange(item)}
-            size="sm"
+            size="short"
             type="button"
             variant={isCurrent ? 'primary' : 'ghost'}
           >
@@ -88,16 +94,16 @@ export function Pagination({
         );
       })}
 
-      <Button
+      <IconButton
         aria-label="다음 페이지"
+        className={navigationButton}
         disabled={page >= total}
         onClick={() => onChange(Math.min(total, page + 1))}
-        size="sm"
-        variant="ghost"
+        tone={page >= total ? 'disabled' : 'default'}
         type="button"
       >
-        다음
-      </Button>
+        <Icon name="chevron-right" />
+      </IconButton>
     </Flex>
   );
 }

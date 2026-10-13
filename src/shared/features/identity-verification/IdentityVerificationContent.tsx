@@ -67,7 +67,7 @@ export function IdentityVerificationContent({
               <Box className={styles.illustration} aria-hidden="true">
                 <Icon name={method.iconName} size="80px" />
               </Box>
-              <Button variant="primary" height="tall" fullWidth onClick={() => onSelect(method.id)}>
+              <Button variant="primary" size="tall" fullWidth onClick={() => onSelect(method.id)}>
                 {method.label}
               </Button>
             </Stack>

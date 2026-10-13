@@ -15,9 +15,9 @@ const webSlide = css({
   w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - 30px) / 4)!',
   '& > *': { w: '100%' },
 });
-// At the 375px mobile design width, each card is 253px wide (67.46666666666667vw).
+// Keep the 375px design width without enlarging slides on wider mobile screens.
 // The existing 8px gutters stay inside the slide to retain the 16px card gap.
-const mobileSlide = css({ w: '67.46666666666667vw!', '& > *': { w: '100%' } });
+const mobileSlide = css({ w: 'min(67.46666666666667vw, 253px)!', '& > *': { w: '100%' } });
 
 type HomeShoeFinderSectionProps = {
   platform: Platform;

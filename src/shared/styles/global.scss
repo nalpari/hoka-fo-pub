@@ -85,6 +85,7 @@ $font-faces: (
     --color-white-000: var(--colors-white-0);
     --color-blue-100: var(--colors-blue-100);
     --color-citrus-100: var(--colors-citrus-100);
+    --color-moss-green-100: var(--colors-moss-green-100);
     --color-off-white-100: var(--colors-off-white-100);
     --color-red-100: var(--colors-red-100);
 
@@ -93,6 +94,8 @@ $font-faces: (
     --hoka-black: var(--color-black-100);
     --hoka-white: var(--color-white-000);
     --hoka-brand: var(--color-blue-100);
+    --hoka-moss-green: var(--color-moss-green-100);
+    --hoka-yellow: var(--color-citrus-100);
 
     --color-action-primary-bg: var(--hoka-black);
     --color-action-primary-color: var(--hoka-white);

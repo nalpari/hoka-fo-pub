@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ProductCardPreview } from './ProductCardPreview';
 import type { Product } from '@/mocks/products';
 import { css, cva } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
@@ -21,6 +22,7 @@ const root = cva({
     _focusWithin: {
       '& [data-product-thumbnail-hover-image]': { opacity: '1' },
     },
+    '&[data-preview-open]': { zIndex: '5' },
     _mobile: { gap: '2.5' },
   },
   variants: {
@@ -42,7 +44,7 @@ const action = css({
   position: 'absolute',
   right: '4',
   top: '4',
-  zIndex: '2',
+  zIndex: '4',
   _mobile: {
     right: '2.5',
     top: '2.5',
@@ -66,8 +68,7 @@ const activityLabel = (use: Product['use']) => {
   return '워킹';
 };
 
-export type ProductCardOption =
-  'promotion' | 'like' | 'colors' | 'specifications';
+export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
 
 export type ProductCardProps = {
   options?: readonly ProductCardOption[];
@@ -75,17 +76,34 @@ export type ProductCardProps = {
   variant?: ProductCardVariant;
 };
 
-export function ProductCard({
-  options = [],
-  product,
-  variant = 'listing',
-}: ProductCardProps) {
+export function ProductCard({ options = [], product, variant = 'listing' }: ProductCardProps) {
   const [liked, setLiked] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const platform = usePlatform();
+  const showPreview = platform === 'web' && variant === 'listing' && previewOpen;
   const hasOption = (option: ProductCardOption) => options.includes(option);
 
   return (
-    <Card className={root({ variant })}>
+    <Card
+      className={root({ variant })}
+      data-preview-open={showPreview ? '' : undefined}
+      onPointerEnter={(event) => {
+        if (event.pointerType === 'mouse') setPreviewOpen(true);
+      }}
+      onPointerLeave={() => setPreviewOpen(false)}
+      onFocusCapture={(event) => {
+        if (event.target.matches(':focus-visible')) setPreviewOpen(true);
+      }}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setPreviewOpen(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') {
+          setPreviewOpen(false);
+          event.stopPropagation();
+        }
+      }}
+    >
       <ProductCardHeader product={product} variant={variant} />
 
       {hasOption('like') && (
@@ -112,10 +130,9 @@ export function ProductCard({
         widthCount={productWidthCount(product)}
       />
 
-      <ProductCardFooter
-        product={product}
-        showSpecifications={hasOption('specifications')}
-      />
+      {showPreview && <ProductCardPreview product={product} />}
+
+      <ProductCardFooter product={product} showSpecifications={hasOption('specifications')} />
     </Card>
   );
 }

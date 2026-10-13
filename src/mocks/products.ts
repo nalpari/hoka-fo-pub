@@ -35,9 +35,33 @@ export type Product = {
   primaryImage: string;
   hoverImage: string;
   galleryImages?: string[];
+  colorThumbnails?: { id: string; label: string; image: string; galleryImages?: string[] }[];
   detailDescription?: string;
   styleCode?: string;
 };
+
+// Bondi 9 color samples for the publishing preview.
+// Source: https://www.hoka.com/en/us/womens-everyday-running-shoes/bondi-9/1162012.html
+const bondiColorThumbnails = [
+  {
+    id: 'LRMT',
+    label: 'Lilac Cream / Tangerine Glow',
+    image: '/images/products/bondi-9/lrmt.png',
+  },
+  { id: 'BWHT', label: 'Black / White', image: '/images/products/bondi-9/bwht.png' },
+  { id: 'VCH', label: 'Vanilla / Birch', image: '/images/products/bondi-9/vch.png' },
+  { id: 'FTCL', label: 'Frost / Cielo Blue', image: '/images/products/bondi-9/ftcl.png' },
+  { id: 'SNNR', label: 'Sienna / Rose Gold', image: '/images/products/bondi-9/snnr.png' },
+  { id: 'MLLW', label: 'Mellow Lilac / Purple Fog', image: '/images/products/bondi-9/mllw.png' },
+].map((color) => ({
+  ...color,
+  galleryImages: [
+    color.image,
+    ...[2, 3, 4, 5].map(
+      (index) => `/images/products/bondi-9/${color.id.toLowerCase()}-${index}.png`,
+    ),
+  ],
+}));
 
 const hokaProductImages = [
   {
@@ -77,6 +101,7 @@ const hokaProductImages = [
       'https://dms.deckers.com/hoka/image/upload/f_auto/q_auto/dpr_auto/b_rgb:F7F7F9/w_800/v1782323049/1164930-VTLV_2.png?bgcolor=F3F3F3',
   },
 ] as const;
+
 const names = [
   'Aero Flow Runner',
   'Cloud Ridge Trail',
@@ -106,6 +131,7 @@ const catalogColors = [
 export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   id: `shoe-${i + 1}`,
   name: `${names[i % names.length]} ${i + 1}`,
+  colorThumbnails: bondiColorThumbnails,
   category: (['라이프스타일', '러닝', '트레일', '리커버리'] as const)[i % 4],
   gender: (["Men's", "Women's", 'All Gender'] as const)[i % 3],
   price: 129000 + (i % 5) * 15000,
@@ -245,3 +271,22 @@ products[0] = {
     '어떤 날씨에도 편안한 주행을 돕는 리프레시드 클리프턴 11 GTX는 보이지 않는 뒷면부터 앞발의 편안함을 위해 설계되었습니다. 조절 가능한 스피드 레이스 시스템과 강화된 아웃솔은 안정감 있는 착화감을 선사합니다.',
   styleCode: 'HOKADFG34S',
 };
+
+// Preview single-line name truncation and the full catalog color selection.
+products.splice(1, 0, {
+  ...products[1],
+  id: 'shoe-25',
+  name: 'HOKA Clifton Ultra Long Distance Everyday Running All Weather Limited Edition Special Collection',
+  colors: [...catalogColors],
+  colorThumbnails: catalogColors.map((color, index) => ({
+    ...bondiColorThumbnails[index % bondiColorThumbnails.length],
+    id: color,
+    label: color,
+  })),
+  colorOptions: catalogColors.map((color) => ({
+    color,
+    widths: [{ label: 'Regular', sizes: [...products[1].sizes], soldOut: [] }],
+  })),
+  soldOut: [],
+  launchStatus: 'IN_STOCK',
+});

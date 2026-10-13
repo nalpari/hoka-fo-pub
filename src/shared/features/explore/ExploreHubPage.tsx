@@ -111,6 +111,7 @@ const groups = [
     title: 'COMMUNITY',
     description: '러너와 브랜드 커뮤니티 콘텐츠',
     links: [
+      ['HOKA Run Club', '/running/run-club'],
       ['러닝 저널', '/explore/journal'],
       ['커뮤니티 챌린지', '/explore/community/challenges'],
       ['이벤트 캘린더', '/explore/community/events'],

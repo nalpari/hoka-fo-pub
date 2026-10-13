@@ -21,7 +21,7 @@ const styles = {
     cursor: 'pointer',
   }),
   indicator: css({
-    display: 'block',
+    display: 'flex',
     flexShrink: 0,
     transition: 'transform 0.15s ease',
     '[data-open] &': { transform: 'rotate(180deg)' },

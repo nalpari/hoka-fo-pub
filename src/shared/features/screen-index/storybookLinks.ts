@@ -1,11 +1,11 @@
 const storybookReadyIaNumbers = new Set([
-  1, 207, 208, 210, 211, 213, 214, 215, 217, 218, 219, 220, 221, 222, 234, 236, 237, 238, 239, 240,
-  241,
+  1, 223, 224, 226, 227, 229, 230, 231, 233, 234, 235, 236, 237, 238, 251, 252, 253, 254, 255, 256,
+  257, 258, 259,
 ]);
 
 const storybookReadyScreenCodes = new Set(['eland_hca_01', 'eland_hut_01']);
 
-const storybookPendingIaNumbers = new Set([209, 212]);
+const storybookPendingIaNumbers = new Set([225, 228]);
 
 const storybookWorkingScreenCodes = new Set(['eland_hca_02']);
 

@@ -48,6 +48,8 @@ export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'
   (IconSourceProps | FontAwesomeSourceProps) & {
     size?: string | number;
     color?: 'white' | 'currentColor' | 'black' | string;
+    /** Render a monochrome src as a mask so it follows the current text color. */
+    mask?: boolean;
     /** Direction for the reusable carousel arrow. */
     direction?: 'previous' | 'next';
   };
@@ -110,6 +112,7 @@ export function Icon({
   fontAwesomeIcon,
   size = '16px',
   color = 'currentColor',
+  mask = false,
   className,
   alt = '',
   role = 'img',
@@ -169,6 +172,25 @@ export function Icon({
           color: resolveIconColor(color),
           maskImage: `url(/images/icon/${name}.svg)`,
           WebkitMaskImage: `url(/images/icon/${name}.svg)`,
+          ...props.style,
+        }}
+      />
+    );
+  }
+
+  if (mask && props.src) {
+    return (
+      <span
+        aria-hidden={alt ? undefined : true}
+        aria-label={alt || undefined}
+        className={[iconMask, className].filter(Boolean).join(' ')}
+        role={role}
+        style={{
+          width: size,
+          height: size,
+          color: resolveIconColor(color),
+          maskImage: `url(${props.src})`,
+          WebkitMaskImage: `url(${props.src})`,
           ...props.style,
         }}
       />

@@ -1,10 +1,14 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { HStack, VStack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import {
+  Typography,
+  type TypographyVariant,
+} from '@/shared/components/atoms/Typography/Typography';
 
 export type MainSectionProps = {
   title: string;
+  titleVariant?: TypographyVariant;
   actionSlot?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -39,6 +43,7 @@ const heading = css({ m: '0' });
 /** A home-page content region with a heading and optional header controls. */
 export function MainSection({
   title,
+  titleVariant = 'sectionHeading',
   actionSlot,
   children,
   className,
@@ -56,7 +61,7 @@ export function MainSection({
         }
       >
         <HStack className={header}>
-          <Typography as="h2" className={heading} variant="sectionHeading">
+          <Typography as="h2" className={heading} variant={titleVariant}>
             {title}
           </Typography>
           {actionSlot}

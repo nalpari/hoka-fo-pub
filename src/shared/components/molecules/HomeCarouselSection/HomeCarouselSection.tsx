@@ -5,7 +5,10 @@ import {
   CarouselControls,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
-import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
+import {
+  MainSection,
+  type MainSectionProps,
+} from '@/shared/components/molecules/MainSection/MainSection';
 import type { Platform } from '@/shared/lib/device';
 
 const desktopOnly = css({ _mobile: { display: 'none' } });
@@ -16,6 +19,7 @@ export type HomeCarouselSectionProps = {
   platform: Platform;
   slideClassName: string;
   title: string;
+  titleVariant?: MainSectionProps['titleVariant'];
   beforeViewport?: ReactNode;
   desktopCenteredItemCount: number;
   desktopItemGutter: number;
@@ -31,6 +35,7 @@ export function HomeCarouselSection({
   platform,
   slideClassName,
   title,
+  titleVariant,
   beforeViewport,
   desktopCenteredItemCount,
   desktopItemGutter,
@@ -48,6 +53,7 @@ export function HomeCarouselSection({
         }
         spacing={spacing}
         title={title}
+        titleVariant={titleVariant}
       >
         {beforeViewport}
         <CarouselViewport

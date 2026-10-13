@@ -15,7 +15,7 @@ export const WithContent: Story = {
   args: {
     eyebrow: 'MEMBERSHIP',
     description: '이번 달 이용 가능한 혜택입니다.',
-    action: <Button size="sm">전체 보기</Button>,
+    action: <Button size="short">전체 보기</Button>,
     divider: 'strong',
     titleSize: 'lg',
   },
