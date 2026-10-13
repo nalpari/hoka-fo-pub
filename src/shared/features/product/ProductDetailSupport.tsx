@@ -1,5 +1,6 @@
-import { cva } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Accordion, type AccordionEntry } from '@/shared/components/atoms/Accordion/Accordion';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductDetailAfterSalesContent } from '@/shared/features/product/ProductDetailAfterSalesContent';
 import { ProductDetailDeliveryContent } from '@/shared/features/product/ProductDetailDeliveryContent';
 import { ProductDetailInquiryContent } from '@/shared/features/product/ProductDetailInquiryContent';
@@ -7,22 +8,29 @@ import { ProductDetailInquiryContent } from '@/shared/features/product/ProductDe
 const root = cva({
   base: {
     borderTop: '1px solid var(--color-black-20)',
-    '& > *': { borderBottom: '1px solid var(--color-black-20)' },
-    '& button': { minH: '13', fontSize: '14' /* 기존 13px */, fontWeight: 'bold' },
-    '& p': { pb: '4', color: 'var(--color-text-subtle)', fontSize: '12', lineHeight: 'body' },
   },
 });
 
+const wrapper = css({
+  borderBottom: '1px solid var(--color-black-20)',
+  py: '6',
+  _mobile: { py: '4' },
+});
+
 const items: AccordionEntry[] = [
-  { value: 'inquiry', title: '상품 문의', content: <ProductDetailInquiryContent /> },
+  {
+    value: 'inquiry',
+    title: <Typography variant="heading9">상품 문의</Typography>,
+    content: <ProductDetailInquiryContent />,
+  },
   {
     value: 'delivery',
-    title: '배송 및 반품',
+    title: <Typography variant="heading9">배송 및 반품</Typography>,
     content: <ProductDetailDeliveryContent />,
   },
   {
     value: 'after-sales',
-    title: 'A/S 안내',
+    title: <Typography variant="heading9">A/S 안내</Typography>,
     content: <ProductDetailAfterSalesContent />,
   },
 ];
@@ -30,7 +38,7 @@ const items: AccordionEntry[] = [
 export function ProductDetailSupport() {
   return (
     <section aria-label="상품 안내" className={root()}>
-      <Accordion indicatorSize="13px" items={items} multiple={false} />
+      <Accordion indicatorSize="13px" items={items} multiple={false} itemClassName={wrapper} />
     </section>
   );
 }

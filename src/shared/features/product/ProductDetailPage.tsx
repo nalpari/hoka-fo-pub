@@ -17,6 +17,7 @@ import { productWidthOptions } from '@/shared/features/product/ProductVariantSel
 
 const styles = {
   page: css({ maxW: '1532px', mx: 'auto', pt: '14', pb: '24', _mobile: { p: '0 0 24' } }),
+  main: css({ display: 'grid', gap: '8', _mobile: { display: 'block' } }),
   layout: css({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 2fr) minmax(340px, .85fr)',

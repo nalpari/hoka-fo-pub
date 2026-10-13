@@ -51,7 +51,7 @@ export function ProductDetailContent({
       <ProductInformation
         id="product-information"
         sections={[
-          { title: '어떤 날씨에도 무심함 있는 편안한 주행', content: product.detailDescription },
+          { title: '어떤 날씨에도 쿠션감 있는 편안한 주행', content: product.detailDescription },
           {
             title: '새로운 특징',
             content:

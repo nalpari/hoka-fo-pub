@@ -26,6 +26,16 @@ const styles = {
       overflow: 'hidden',
       bg: 'var(--color-black-10)',
       cursor: 'pointer',
+      _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
+      _after: {
+        content: '""',
+        position: 'absolute',
+        bottom: '0',
+        insetInline: '0',
+        h: '4px',
+        borderRadius: '50px',
+        bg: 'transparent',
+      },
     },
     '& [role="radio"][data-checked]::after': {
       content: '""',
