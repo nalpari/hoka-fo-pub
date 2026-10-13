@@ -46,8 +46,8 @@ export function ProductDetails({
 }: ProductDetailsProps) {
   return (
     <Card.Content className={root}>
-      <VStack gap="4" alignItems="flex-start" minW="0" w="100%">
-        <VStack gap="3" alignItems="flex-start" minW="0" w="100%">
+      <VStack gap="4" alignItems="flex-start">
+        <VStack gap="1" alignItems="flex-start">
           {promotion && <PromotionBadge promotion={promotion} />}
           {gender && <ProductGender gender={gender} variant={variant} />}
           <ProductName name={name} variant={variant} />
@@ -55,7 +55,7 @@ export function ProductDetails({
         </VStack>
 
         {showVariantSummary && (
-          <VStack gap="3" alignItems="flex-start">
+          <VStack gap="0" alignItems="flex-start">
             {activities && activities.length > 0 && <ProductActivity activities={activities} />}
             <ProductVariantSummary
               colorCount={colorCount}

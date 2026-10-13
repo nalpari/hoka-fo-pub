@@ -8,9 +8,8 @@ import { usePlatform } from '@/shared/context/platform';
 
 const styles = {
   root: css({
-    minW: '0',
-    mt: '16',
-    _mobile: { mt: '10' },
+    mt: '24',
+    _mobile: { mt: '10', px: '4' },
   }),
   fullBleed: css({ w: '100vw', mx: 'calc(50% - 50vw)' }),
   webRail: css({ w: '100%' }),

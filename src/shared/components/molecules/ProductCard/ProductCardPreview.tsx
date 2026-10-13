@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from 'styled-system/css';
+import { Grid, HStack, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
@@ -15,11 +16,8 @@ const styles = {
     right: '-16px',
     zIndex: '3',
     p: '4',
-    display: 'grid',
-    gap: '4',
     bg: 'var(--color-surface-subtle)',
     border: '1px solid var(--color-border-tertiary)',
-    boxShadow: '0 8px 24px rgb(0 0 0 / 8%)',
   }),
   link: css({
     display: 'block',
@@ -29,15 +27,7 @@ const styles = {
   }),
   image: css({ display: 'block', w: '100%', aspectRatio: '1', objectFit: 'contain' }),
   promotion: css({ minH: '20px' }),
-  rating: css({ display: 'flex', alignItems: 'center', gap: '2' }),
-  specs: css({ m: '0' }),
-  row: css({
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '2',
-    py: '2',
-    borderBottom: '1px solid var(--color-border-tertiary)',
-  }),
+  row: css({ py: '2', borderBottom: '1px solid var(--color-border-tertiary)' }),
 };
 
 export function ProductCardPreview({ product }: { product: Product }) {
@@ -57,7 +47,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
         : '워킹';
 
   return (
-    <section aria-label={`${product.name} 상품 요약`} className={styles.panel}>
+    <Stack as="section" aria-label={`${product.name} 상품 요약`} className={styles.panel} gap="4">
       <Link
         className={styles.link}
         to={`/products/${product.id}`}
@@ -85,12 +75,12 @@ export function ProductCardPreview({ product }: { product: Product }) {
           </Typography>
         )}
       </div>
-      <div className={styles.rating}>
+      <HStack alignItems="center" gap="2">
         <RatingStars value={product.rating} aria-label={`평점 ${product.rating}점`} />
         <Typography variant="body5" tone="subtle">
           ({product.reviewCount})
         </Typography>
-      </div>
+      </HStack>
       <Link className={styles.link} to={`/products/${product.id}`}>
         <ProductDetails
           activities={[activity]}
@@ -105,22 +95,22 @@ export function ProductCardPreview({ product }: { product: Product }) {
           widthCount={widths.size}
         />
       </Link>
-      <dl className={styles.specs}>
+      <Stack as="dl" gap="0">
         {[
           ['안정성', product.stability],
           ['쿠셔닝', product.cushioning],
           ['발볼', product.width],
         ].map(([label, value]) => (
-          <div className={styles.row} key={label}>
+          <Grid className={styles.row} gap="2" gridTemplateColumns="1fr 1fr" key={label}>
             <Typography as="dt" variant="body4" weight="medium">
               {label}
             </Typography>
-            <Typography as="dd" variant="body4" tone="subtle" className={css({ m: '0' })}>
+            <Typography as="dd" variant="body4" tone="subtle">
               {value}
             </Typography>
-          </div>
+          </Grid>
         ))}
-      </dl>
-    </section>
+      </Stack>
+    </Stack>
   );
 }
