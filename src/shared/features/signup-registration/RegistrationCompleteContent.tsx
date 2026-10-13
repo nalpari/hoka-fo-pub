@@ -17,7 +17,7 @@ export function RegistrationCompleteContent() {
   return (
     <Box as="main" className={styles.page}>
       <Stack className={styles.content}>
-        <Typography as="h1" variant="heading6" mobileVariant="heading4" className={styles.title}>
+        <Typography as="h1" web="heading6" mo="heading4" className={styles.title}>
           회원가입 완료
         </Typography>
         <Icon src="/images/icon/join-check.svg" size="48px" className={styles.icon} />

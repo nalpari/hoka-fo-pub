@@ -154,7 +154,7 @@ export function RegistrationContent(props: Props) {
   return (
     <Box as="main" className={styles.page}>
       <Box className={styles.content}>
-        <Typography as="h1" variant="heading7" mobileVariant="heading6" className={styles.title}>
+        <Typography as="h1" web="heading7" mo="heading6" className={styles.title}>
           {props.stage === 'information' ? '회원 정보' : '부가 정보'}
         </Typography>
         <form className={styles.form} onSubmit={props.onSubmit}>
