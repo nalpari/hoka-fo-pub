@@ -35,9 +35,33 @@ export type Product = {
   primaryImage: string;
   hoverImage: string;
   galleryImages?: string[];
+  colorThumbnails?: { id: string; label: string; image: string; galleryImages?: string[] }[];
   detailDescription?: string;
   styleCode?: string;
 };
+
+// Bondi 9 color samples for the publishing preview.
+// Source: https://www.hoka.com/en/us/womens-everyday-running-shoes/bondi-9/1162012.html
+const bondiColorThumbnails = [
+  {
+    id: 'LRMT',
+    label: 'Lilac Cream / Tangerine Glow',
+    image: '/images/products/bondi-9/lrmt.png',
+  },
+  { id: 'BWHT', label: 'Black / White', image: '/images/products/bondi-9/bwht.png' },
+  { id: 'VCH', label: 'Vanilla / Birch', image: '/images/products/bondi-9/vch.png' },
+  { id: 'FTCL', label: 'Frost / Cielo Blue', image: '/images/products/bondi-9/ftcl.png' },
+  { id: 'SNNR', label: 'Sienna / Rose Gold', image: '/images/products/bondi-9/snnr.png' },
+  { id: 'MLLW', label: 'Mellow Lilac / Purple Fog', image: '/images/products/bondi-9/mllw.png' },
+].map((color) => ({
+  ...color,
+  galleryImages: [
+    color.image,
+    ...[2, 3, 4, 5].map(
+      (index) => `/images/products/bondi-9/${color.id.toLowerCase()}-${index}.png`,
+    ),
+  ],
+}));
 
 const hokaProductImages = [
   {
@@ -106,6 +130,7 @@ const catalogColors = [
 export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   id: `shoe-${i + 1}`,
   name: `${names[i % names.length]} ${i + 1}`,
+  colorThumbnails: bondiColorThumbnails,
   category: (['라이프스타일', '러닝', '트레일', '리커버리'] as const)[i % 4],
   gender: (["Men's", "Women's", 'All Gender'] as const)[i % 3],
   price: 129000 + (i % 5) * 15000,

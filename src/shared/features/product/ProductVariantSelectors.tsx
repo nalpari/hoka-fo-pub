@@ -51,6 +51,7 @@ export function ProductVariantSelectors({
         <ProductWidthSelector onValueChange={onWidthChange} options={widthOptions} value={width} />
         <ProductColorSelector
           colors={product.colors}
+          colorThumbnails={product.colorThumbnails}
           gallery={gallery}
           onValueChange={onColorChange}
           value={color}

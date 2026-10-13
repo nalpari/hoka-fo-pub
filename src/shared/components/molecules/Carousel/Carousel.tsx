@@ -12,6 +12,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import type { Swiper as SwiperInstance } from 'swiper';
 import { FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -30,6 +31,7 @@ type CarouselState = {
   activeIndex: number;
   initialIndex: number;
   itemCount: number;
+  loop: boolean;
   registerSwiper: (swiper: SwiperInstance) => void;
   updateState: (swiper: SwiperInstance) => void;
 };
@@ -45,6 +47,10 @@ const viewport = css({
   '& .swiper-slide > *': { h: '100%' },
   '&.swiper-free-mode': { cursor: 'grab' },
   '&.swiper-free-mode:active': { cursor: 'grabbing' },
+});
+
+const snapViewport = css({
+  '--swiper-wrapper-transition-timing-function': 'cubic-bezier(0.22, 1, 0.36, 1)',
 });
 
 const controls = css({ display: 'flex', gap: '2.5' });
@@ -124,26 +130,34 @@ export type CarouselProps = {
   children: ReactNode;
   initialIndex?: number;
   itemCount: number;
+  loop?: boolean;
 };
 
 /** Swiper-backed carousel with free dragging and an optional draggable scrollbar. */
-export function Carousel({ children, initialIndex = 0, itemCount }: CarouselProps) {
+export function Carousel({ children, initialIndex = 0, itemCount, loop = false }: CarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [canGoPrevious, setCanGoPrevious] = useState(initialIndex > 0);
   const [canGoNext, setCanGoNext] = useState(initialIndex < itemCount - 1);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
 
-  const updateState = useCallback((swiper: SwiperInstance) => {
-    setCanGoPrevious(!swiper.isBeginning);
-    setCanGoNext(!swiper.isEnd);
-    setActiveIndex(swiper.realIndex);
-  }, []);
+  const updateState = useCallback(
+    (swiper: SwiperInstance) => {
+      setCanGoPrevious(!swiper.isBeginning);
+      setCanGoNext(!swiper.isEnd);
+      setActiveIndex(swiper.realIndex);
+    },
+    [],
+  );
 
   const goPrevious = useCallback(() => swiperRef.current?.slidePrev(), []);
 
   const goNext = useCallback(() => swiperRef.current?.slideNext(), []);
 
-  const goToSlide = useCallback((index: number) => swiperRef.current?.slideTo(index), []);
+  const goToSlide = useCallback(
+    (index: number) =>
+      loop ? swiperRef.current?.slideToLoop(index) : swiperRef.current?.slideTo(index),
+    [loop],
+  );
 
   const registerSwiper = useCallback(
     (swiper: SwiperInstance) => {
@@ -163,6 +177,7 @@ export function Carousel({ children, initialIndex = 0, itemCount }: CarouselProp
       activeIndex,
       initialIndex,
       itemCount,
+      loop,
       registerSwiper,
       updateState,
     }),
@@ -175,6 +190,7 @@ export function Carousel({ children, initialIndex = 0, itemCount }: CarouselProp
       goToSlide,
       initialIndex,
       itemCount,
+      loop,
       registerSwiper,
       updateState,
     ],
@@ -216,7 +232,7 @@ export function CarouselViewport({
   slideClassName,
   showScrollbar = true,
 }: CarouselViewportProps) {
-  const { initialIndex, itemCount, registerSwiper, updateState } = useCarousel();
+  const { initialIndex, itemCount, loop, registerSwiper, updateState } = useCarousel();
   const swiperRef = useRef<SwiperInstance | null>(null);
   const scrollbarRef = useRef<HTMLElement | null>(null);
   const [scrollbarContentWidth, setScrollbarContentWidth] = useState(0);
@@ -272,12 +288,14 @@ export function CarouselViewport({
     <Swiper
       className={[
         viewport,
+        !freeMode ? snapViewport : '',
         className,
         !isMobile && desktopCenteredItemCount ? desktopOverflowVisible : '',
       ]
         .filter(Boolean)
         .join(' ')}
       freeMode={freeMode ? { enabled: true, sticky: isMobile } : false}
+      loop={loop && itemCount > 1}
       followFinger
       modules={[FreeMode]}
       initialSlide={initialIndex}
@@ -293,8 +311,10 @@ export function CarouselViewport({
       slidesOffsetAfter={isMobile && mobileItemGutter === undefined ? 32 : 0}
       slidesPerView="auto"
       spaceBetween={isMobile && mobileItemGutter === undefined ? 16 : 0}
-      speed={350}
-      threshold={0}
+      speed={freeMode ? 350 : 280}
+      threshold={freeMode ? 0 : 5}
+      resistanceRatio={freeMode ? 0.85 : 0.65}
+      longSwipesRatio={freeMode ? 0.5 : 0.25}
     >
       {Children.toArray(children).map((child, index) => (
         <SwiperSlide
@@ -346,14 +366,15 @@ export function CarouselViewport({
 const pagination = css({ display: 'flex', justifyContent: 'center', gap: '1', mt: '2' });
 
 const paginationItem = css({
-  w: '24px',
-  h: '4px',
+  w: '5px',
+  h: '5px',
+  flexShrink: 0,
   p: '0',
   border: '0',
   borderRadius: 'full',
-  bg: 'var(--color-black-20)',
+  bg: 'var(--color-black-40)',
   cursor: 'pointer',
-  '&[aria-pressed="true"]': { bg: 'var(--color-black-60)' },
+  '&[aria-pressed="true"]': { w: '21px', bg: 'var(--color-black-100)' },
 });
 
 export type CarouselPaginationProps = {
@@ -369,6 +390,8 @@ export function CarouselPagination({
 }: CarouselPaginationProps) {
   const { activeIndex, goToSlide, itemCount } = useCarousel();
 
+  const reducedMotion = useReducedMotion();
+
   if (itemCount < 2) return null;
 
   return (
@@ -377,7 +400,14 @@ export function CarouselPagination({
         renderItem ? (
           <Fragment key={index}>{renderItem(index, activeIndex === index, goToSlide)}</Fragment>
         ) : (
-          <button
+          <motion.button
+            initial={false}
+            animate={{ width: activeIndex === index ? 21 : 5 }}
+            transition={
+              reducedMotion
+                ? { duration: 0 }
+                : { type: 'spring', stiffness: 200, damping: 20, mass: 1 }
+            }
             aria-label={`${index + 1}번 이미지`}
             aria-pressed={activeIndex === index}
             className={paginationItem}

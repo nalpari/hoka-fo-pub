@@ -10,12 +10,13 @@ const support = css({ _mobile: { display: 'none' } });
 type ProductDetailMediaProps = {
   images: string[];
   productName: string;
+  onOpenImage: (index: number) => void;
 };
 
-export function ProductDetailMedia({ images, productName }: ProductDetailMediaProps) {
+export function ProductDetailMedia({ images, productName, onOpenImage }: ProductDetailMediaProps) {
   return (
     <Flex className={root} direction="column" gap="96px">
-      <ProductDetailGallery images={images} productName={productName} />
+      <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
       <div className={support}>
         <ProductDetailSupport />
       </div>
