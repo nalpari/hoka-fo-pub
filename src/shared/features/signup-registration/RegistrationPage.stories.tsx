@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
+import { PlatformProvider } from '@/shared/context/platform';
 import { RegistrationContent } from './RegistrationContent';
 import { RegistrationPage } from './RegistrationPage';
 import { RegistrationCompleteContent } from './RegistrationCompleteContent';
@@ -32,11 +33,13 @@ const meta = {
     domainChoice: 'direct',
     notice: '',
     duplicateNotice: '',
+    addressOpen: false,
     fieldErrors: { email: '', domain: '', name: '', password: '', confirmation: '' },
     onChange: () => {},
     onPreferenceChange: () => {},
     onDomainChoice: () => {},
     onDuplicateCheck: () => {},
+    onAddressOpen: () => {},
     onSubmit: (event) => event.preventDefault(),
     onCancel: () => {},
   },
@@ -52,7 +55,9 @@ export const Mobile: Story = {
   decorators: [
     (Story) => (
       <div className="platform-mobile" style={{ width: 375 }}>
-        <Story />
+        <PlatformProvider platform="mobile">
+          <Story />
+        </PlatformProvider>
       </div>
     ),
   ],
@@ -65,7 +70,9 @@ export const MobileAdditional: Story = {
   decorators: [
     (Story) => (
       <div className="platform-mobile" style={{ width: 375 }}>
-        <Story />
+        <PlatformProvider platform="mobile">
+          <Story />
+        </PlatformProvider>
       </div>
     ),
   ],

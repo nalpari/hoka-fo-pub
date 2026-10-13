@@ -296,12 +296,7 @@ export function PhoneVerificationContent(props: Props) {
                 </Typography>
               </Stack>
             ))}
-            <Button
-              variant="primary"
-              fullWidth
-              className={styles.modalButton}
-              onClick={() => props.onDetail(null)}
-            >
+            <Button variant="primary" fullWidth onClick={() => props.onDetail(null)}>
               확인
             </Button>
           </Stack>

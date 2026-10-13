@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { token, type Token } from 'styled-system/tokens';
 import {
@@ -101,9 +102,44 @@ const styles = {
     minW: '560px',
     '& tbody tr:nth-child(even)': { bg: '#fafbff' },
   }),
+  variantCell: css({
+    cursor: 'pointer',
+    _hover: { bg: '#e8edf3' },
+  }),
+  copyButton: css({
+    display: 'block',
+    w: '100%',
+    bg: 'transparent',
+    border: '0',
+    p: '0',
+    color: 'inherit',
+    font: 'inherit',
+    textAlign: 'left',
+    cursor: 'pointer',
+    _focusVisible: { outline: '2px solid #009DFF', outlineOffset: '4px' },
+  }),
+  status: css({ minH: '24px', fontSize: '14', color: '#4D4D4D' }),
 };
 
 export function DesignGuideTypography() {
+  const [copyStatus, setCopyStatus] = useState('');
+
+  async function copyVariant(variant: GuideVariant) {
+    const code = `<Typography variant="${variant}">가나다라마바사abcdefg</Typography>`;
+
+    try {
+      if (!navigator.clipboard?.writeText) {
+        setCopyStatus(`클립보드를 사용할 수 없습니다. ${code}를 직접 복사해 주세요.`);
+        return;
+      }
+
+      await navigator.clipboard.writeText(code);
+      setCopyStatus(`${variant} 코드 복사 완료`);
+    } catch {
+      setCopyStatus(`복사하지 못했습니다. ${code}를 직접 복사해 주세요.`);
+    }
+  }
+
   return (
     <ContentLayout
       className={styles.page}
@@ -116,6 +152,10 @@ export function DesignGuideTypography() {
       title="Typography"
       description="디자인 가이드의 영문·한글 타이포그래피와 실제 렌더링 예시입니다."
     >
+      <p className={styles.status}>Variant 셀을 클릭하면 Typography 예시 코드를 복사합니다.</p>
+      <p className={styles.status} role="status" aria-live="polite" aria-atomic="true">
+        {copyStatus}
+      </p>
       <section className={styles.typographySection} aria-labelledby="typography-comparison-title">
         <h2 id="typography-comparison-title">Typography · 한영 비교</h2>
         <p>
@@ -149,8 +189,19 @@ export function DesignGuideTypography() {
               return (
                 <tbody key={english}>
                   <tr>
-                    <th scope="rowgroup" rowSpan={2}>
-                      {english}
+                    <th
+                      scope="rowgroup"
+                      rowSpan={2}
+                      className={styles.variantCell}
+                      onClick={() => void copyVariant(english)}
+                    >
+                      <button
+                        type="button"
+                        className={styles.copyButton}
+                        aria-label={`${english} Typography 코드 복사`}
+                      >
+                        {english}
+                      </button>
                     </th>
                     <th scope="row">EN</th>
                     {enValues.map((value, index) => (
@@ -210,7 +261,19 @@ export function DesignGuideTypography() {
             <tbody>
               {monoVariants.map((variant) => (
                 <tr key={variant}>
-                  <th scope="row">{variant}</th>
+                  <th
+                    scope="row"
+                    className={styles.variantCell}
+                    onClick={() => void copyVariant(variant)}
+                  >
+                    <button
+                      type="button"
+                      className={styles.copyButton}
+                      aria-label={`${variant} Typography 코드 복사`}
+                    >
+                      {variant}
+                    </button>
+                  </th>
                   {getTypographyValues(variant).map((value, index) => (
                     <td key={columnLabels[index + 1]}>{value}</td>
                   ))}

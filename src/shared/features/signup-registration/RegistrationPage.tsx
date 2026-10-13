@@ -54,6 +54,7 @@ export function RegistrationPage() {
   });
   const [checkedEmail, setCheckedEmail] = useState('');
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [addressOpen, setAddressOpen] = useState(false);
 
   const change = (key: keyof RegistrationInformation, value: string) => {
     setInformation((previous) => ({ ...previous, [key]: value }));
@@ -158,6 +159,7 @@ export function RegistrationPage() {
         domainChoice={domainChoice}
         notice={notice}
         duplicateNotice={duplicateNotice}
+        addressOpen={addressOpen}
         fieldErrors={fieldErrors}
         onChange={change}
         onPreferenceChange={(key, value) =>
@@ -168,6 +170,7 @@ export function RegistrationPage() {
           change('domain', value === 'direct' ? '' : value);
         }}
         onDuplicateCheck={checkEmail}
+        onAddressOpen={setAddressOpen}
         onSubmit={submit}
         onCancel={() => {
           if (stage === 'additional') {

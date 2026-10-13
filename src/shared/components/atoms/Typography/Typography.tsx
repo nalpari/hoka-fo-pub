@@ -1,6 +1,9 @@
+'use client';
+
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { isValidElement } from 'react';
 import { cva } from 'styled-system/css';
+import { usePlatform } from '@/shared/context/platform';
 
 // Compact EN H7 uses the approved guide (500); the Figma style currently says 700.
 export const figmaTypographyVariants = {
@@ -504,12 +507,30 @@ const typography = cva({
       ...figmaTypographyVariants,
     },
     weight: {
-      regular: { fontWeight: 'normal' },
-      medium: { fontWeight: 'medium' },
-      semibold: { fontWeight: 'semibold', _mobile: { fontWeight: 'semibold' } },
-      bold: { fontWeight: 'bold', _mobile: { fontWeight: 'bold' } },
-      black: { fontWeight: 'black', _mobile: { fontWeight: 'black' } },
-      inherit: { fontWeight: 'inherit', _mobile: { fontWeight: 'inherit' } },
+      regular: {
+        fontWeight: 'normal',
+        _mobile: { fontWeight: 'normal' },
+      },
+      medium: {
+        fontWeight: 'medium',
+        _mobile: { fontWeight: 'medium' },
+      },
+      semibold: {
+        fontWeight: 'semibold',
+        _mobile: { fontWeight: 'semibold' },
+      },
+      bold: {
+        fontWeight: 'bold',
+        _mobile: { fontWeight: 'bold' },
+      },
+      black: {
+        fontWeight: 'black',
+        _mobile: { fontWeight: 'black' },
+      },
+      inherit: {
+        fontWeight: 'inherit',
+        _mobile: { fontWeight: 'inherit' },
+      },
     },
     tone: {
       error: { color: 'red.100' },
@@ -582,6 +603,10 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   children: ReactNode;
   tone?: TypographyTone;
   variant?: TypographyVariant;
+  /** Web override; falls back to variant when omitted. */
+  web?: TypographyVariant;
+  /** Mobile override; falls back to variant when omitted. */
+  mo?: TypographyVariant;
   /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';
   weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
@@ -619,17 +644,28 @@ export function Typography<T extends ElementType = 'span'>({
   className,
   tone,
   variant,
+  web,
+  mo,
   language = 'auto',
   weight,
   ...props
 }: TypographyProps<T>) {
   const Element = as ?? 'span';
-  const resolvedVariant = resolveLanguageVariant(variant, language, children);
+  const platform = usePlatform();
+  const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
+  const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
 
   return (
     <Element
       {...props}
-      className={[typography({ tone, variant: resolvedVariant as never, weight }), className]
+      className={[
+        typography({
+          tone,
+          variant: resolvedVariant as never,
+          weight,
+        }),
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
