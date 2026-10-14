@@ -14,5 +14,5 @@ okf_version: '0.2'
 
 ## 문서 관리
 
-- [OKF 유지보수](maintenance.md) - 문서 형식, 출처와 변경 이력을 관리하는 절차를 설명한다.
+- [OKF 유지보수](maintenance.md) - 문서 형식, 출처와 변경 이력, PowerShell 훅 설치·검사 명령을 안내한다.
 - [변경 이력](log.md) - 지식 번들의 변경을 날짜별로 기록한다.

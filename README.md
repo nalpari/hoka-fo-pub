@@ -18,6 +18,8 @@ Node.js `v24.21.0`, npm `11.19.0`, Next.js `16.3.5`, React·React DOM `19.2.8`�
 
 ## 프로젝트 지식 (OKF)
 
+PowerShell에서는 `npm.cmd run hooks:install`, `npm.cmd run okf:check`, `npm.cmd run test:okf`를 사용한다. 전용 명령 `.\scripts\okf.ps1 install`과 `.\scripts\okf.ps1 check`도 제공한다. 자세한 셸 호환성은 [PowerShell 안내](okf/maintenance.md#powershell)를 참고한다.
+
 [okf/index.md](okf/index.md)에서 프로젝트 개요, 라우팅·상태·스타일 구조, 개발·검증·Git 작업 절차를 확인한다. 문서는 OKF v0.2 형식으로 관리하며, 유지보수 기준은 [okf/maintenance.md](okf/maintenance.md)에 있다.
 
 `npm ci`의 `prepare` 또는 `npm run hooks:install`로 Git pre-commit 검사를 설치한다. `src/` 변경에 연결된 OKF 문서와 `okf/log.md`가 같은 커밋에 없으면 차단한다. `npm run okf:check`는 스테이징 검사, `npm run test:okf`는 훅 회귀 테스트다. Codex는 `.codex/hooks.json`의 파일 편집 후 안내를 사용하며, 처음에는 `/hooks`에서 해당 훅을 검토하고 신뢰해야 한다.

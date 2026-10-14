@@ -11,6 +11,7 @@ source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - scripts/okf-sync.mjs
   - scripts/install-okf-hooks.mjs
+  - scripts/okf.ps1
   - .codex/hooks.json
   - .githooks/pre-commit
   - tests/okf-sync.test.mjs
@@ -85,6 +86,27 @@ Codex·Claude `PostToolUse`는 파일 편집 후 미갱신 문서를 에이전�
 `npm run hooks:install`로 Git 훅을 설치한다. `npm ci`의 prepare에서도 같은 설치를 실행한다. 기존 `core.hooksPath`나 기본 pre-commit이 있으면 덮어쓰지 않고 수동 연결을 안내한다. 현재 Claude 설정이 존재하면 기존 graft 훅을 보존하면서 OKF 훅을 중복 없이 추가한다. 로컬 Claude 설정은 Git에서 제외되어 있으며, 새 환경에서도 설치 명령을 실행해야 한다.
 
 Codex 프로젝트 훅은 런타임의 신뢰 검토가 필요하다. `/hooks`에서 `.codex/hooks.json`을 검토·신뢰한 후 적용한다. 신뢰 우회 플래그를 기본 실행 절차에 넣지 않는다.
+
+### PowerShell
+
+PowerShell에서는 다음 명령을 저장소 루트에서 실행한다. npm 실행 정책 때문에 `npm.ps1`이 차단되는 환경은 `npm.cmd`를 사용한다.
+
+```powershell
+npm.cmd run hooks:install
+npm.cmd run okf:check
+npm.cmd run test:okf
+```
+
+PowerShell 전용 진입점도 제공한다. 기본 동작은 `check`이며 Node의 종료 코드를 그대로 반환한다. 스크립트 위치를 기준으로 저장소 루트에서 실행하므로 다른 현재 디렉터리에서도 절대 경로로 호출할 수 있다. 실행 정책으로 `.ps1`이 차단되면 위 `npm.cmd` 명령을 사용한다.
+
+```powershell
+.\scripts\okf.ps1 install
+.\scripts\okf.ps1 check
+```
+
+`.codex/hooks.json`의 `node "$(git rev-parse --show-toplevel)/scripts/okf-sync.mjs" hook`은 PowerShell과 POSIX sh 모두에서 경로를 인용해 실행하는 표현이다. `.githooks/pre-commit`의 `#!/bin/sh`와 `exec`는 Git for Windows가 제공하는 sh로 실행하는 Git 훅 형식이며 PowerShell에 직접 붙여 넣는 명령이 아니다. Node 스크립트는 `execFileSync`로 Git 인수를 전달하므로 셸 전용 문법을 요구하지 않는다.
+
+`package.json`의 `&&`는 기본 Windows npm 스크립트 셸인 cmd.exe에서 지원한다. Windows PowerShell 5.1을 npm의 사용자 지정 `script-shell`로 설정하면 이 연산자를 사용할 수 없으므로 기본 npm 셸을 사용한다.
 
 이 검사는 동시 갱신 누락을 잡으며, 문서 내용의 사실 정확성을 자동으로 보증하지 않는다. 훅은 문서를 자동 재작성하거나 파일을 스테이징하지 않는다. 훅 구현의 작성 당시 작업 트리 출처는 `scripts/okf-sync.mjs`, `scripts/install-okf-hooks.mjs`, `.githooks/pre-commit`, `.codex/hooks.json`, `tests/okf-sync.test.mjs`다.
 
