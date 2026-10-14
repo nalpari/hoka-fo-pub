@@ -23,6 +23,7 @@ const meta = {
       confirmation: '',
       birthDate: '19830522',
       phone: '010-6698-5552',
+      postalCode: '',
       address: '',
       addressDetail: '',
       email: '',
