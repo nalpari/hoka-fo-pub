@@ -1,7 +1,7 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
+import { isValidName } from '@/shared/lib/validation';
+import { useVerificationCountdown } from '@/shared/lib/useVerificationCountdown';
 import { FindAccountContent, type FindAccountNotice } from './FindAccountContent';
-
-const isValidName = (value: string) => /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/.test(value.trim());
 
 const getPhoneDigits = (value: string) => value.replace(/\D/g, '').slice(0, 11);
 
@@ -22,19 +22,8 @@ export function FindAccountPage() {
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [code, setCode] = useState('');
-  const [deadline, setDeadline] = useState<number | null>(null);
-  const [secondsLeft, setSecondsLeft] = useState(0);
+  const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const [notice, setNotice] = useState<FindAccountNotice | null>(null);
-
-  useEffect(() => {
-    if (deadline === null) return;
-
-    const tick = () => setSecondsLeft(Math.max(0, Math.ceil((deadline - Date.now()) / 1000)));
-    tick();
-    const timer = window.setInterval(tick, 1000);
-
-    return () => window.clearInterval(timer);
-  }, [deadline]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,8 +41,7 @@ export function FindAccountPage() {
     }
 
     setCode('');
-    setDeadline(Date.now() + 180000);
-    setSecondsLeft(180);
+    start();
     setNotice({ tone: 'info', message: '화면 미리보기입니다. 실제 인증번호는 발송되지 않습니다.' });
   };
 
@@ -71,8 +59,7 @@ export function FindAccountPage() {
         setName(value);
         setNameTouched(true);
         setNameError(!value.trim() || isValidName(value) ? '' : '이름을 올바르게 입력해주세요');
-        setDeadline(null);
-        setSecondsLeft(0);
+        reset();
         setCode('');
         setNotice(null);
       }}
@@ -84,8 +71,7 @@ export function FindAccountPage() {
             ? ''
             : '휴대폰 번호를 올바르게 입력해주세요',
         );
-        setDeadline(null);
-        setSecondsLeft(0);
+        reset();
         setCode('');
         setNotice(null);
       }}

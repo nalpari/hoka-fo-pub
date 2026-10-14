@@ -8,13 +8,12 @@ import {
   type MarketingPreferences,
 } from './RegistrationContent';
 import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
+import { isValidName } from '@/shared/lib/validation';
 
 const emailLocalPartPattern = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$/;
 
 const emailDomainPattern =
   /^(?=.{1,253}$)(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
-
-const namePattern = /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/;
 
 const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{10,12}$/;
 
@@ -120,7 +119,7 @@ export function RegistrationPage() {
     const errors = {
       email: emailError,
       domain: domainError,
-      name: namePattern.test(information.name.trim()) ? '' : '올바른 이름을 입력해주세요',
+      name: isValidName(information.name) ? '' : '올바른 이름을 입력해주세요',
       password: passwordPattern.test(information.password)
         ? ''
         : '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',

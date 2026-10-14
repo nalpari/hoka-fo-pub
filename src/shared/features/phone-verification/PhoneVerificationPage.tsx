@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   PhoneVerificationContent,
   type PhoneInformation,
   type PhoneVerificationErrors,
 } from './PhoneVerificationContent';
+import { isValidName } from '@/shared/lib/validation';
+import { useVerificationCountdown } from '@/shared/lib/useVerificationCountdown';
 import { AlreadyRegisteredModal } from '@/shared/features/signup-registration/AlreadyRegisteredModal';
-
-const isValidName = (value: string) => /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/.test(value.trim());
 
 const isValidBirthDate = (value: string) => {
   if (!/^\d{8}$/.test(value)) return false;
@@ -39,20 +39,12 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
   });
   const [agreements, setAgreements] = useState([false, false, false, false]);
   const [showAgreementErrors, setShowAgreementErrors] = useState(false);
-  const [deadline, setDeadline] = useState<number | null>(null);
-  const [secondsLeft, setSecondsLeft] = useState(0);
+  const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const [code, setCode] = useState('');
   const [notice, setNotice] = useState('');
   const [fieldErrors, setFieldErrors] = useState<PhoneVerificationErrors>({});
   const [detail, setDetail] = useState<string | null>(null);
   const [alreadyRegisteredOpen, setAlreadyRegisteredOpen] = useState(false);
-
-  useEffect(() => {
-    if (deadline === null) return;
-    const tick = () => setSecondsLeft(Math.max(0, Math.ceil((deadline - Date.now()) / 1000)));
-    const timer = window.setInterval(tick, 1000);
-    return () => window.clearInterval(timer);
-  }, [deadline]);
 
   const changeInformation = (key: keyof PhoneInformation, value: string) => {
     setInformation((previous) => ({ ...previous, [key]: value }));
@@ -68,8 +60,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
 
       return next;
     });
-    setDeadline(null);
-    setSecondsLeft(0);
+    reset();
     setCode('');
     setNotice('');
   };
@@ -93,8 +84,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
     }
     if (missingAgreements) return;
 
-    setDeadline(Date.now() + 180000);
-    setSecondsLeft(180);
+    start();
     setCode('');
     setNotice(
       '화면 미리보기입니다. 실제 문자는 발송되지 않으며 인증번호 검증은 서비스 연결 후 가능합니다.',

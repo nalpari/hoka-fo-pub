@@ -33,15 +33,16 @@ sources:
 
 ## 코드 배치
 
-| 위치                               | 책임                                    |
-| ---------------------------------- | --------------------------------------- |
-| `src/app/`                         | URL별 페이지와 루트 레이아웃            |
-| `src/shared/features/`             | 기능별 화면, UI 조합과 정책·정적 콘텐츠 |
-| `src/shared/components/atoms/`     | 기본 UI 요소                            |
-| `src/shared/components/molecules/` | 기본 요소를 조합한 UI                   |
-| `src/shared/components/organisms/` | 화면 영역 단위 UI                       |
-| `src/shared/components/layouts/`   | 공통 페이지 구조                        |
-| `src/stories/`                     | Storybook이 탐색하는 스토리             |
+| 위치                               | 책임                                           |
+| ---------------------------------- | ---------------------------------------------- |
+| `src/app/`                         | URL별 페이지와 루트 레이아웃                   |
+| `src/shared/lib/`                  | 기기 판별, 이름 검증, 인증 타이머 등 공용 로직 |
+| `src/shared/features/`             | 기능별 화면, UI 조합과 정책·정적 콘텐츠        |
+| `src/shared/components/atoms/`     | 기본 UI 요소                                   |
+| `src/shared/components/molecules/` | 기본 요소를 조합한 UI                          |
+| `src/shared/components/organisms/` | 화면 영역 단위 UI                              |
+| `src/shared/components/layouts/`   | 공통 페이지 구조                               |
+| `src/stories/`                     | Storybook이 탐색하는 스토리                    |
 
 주문/결제 화면(`src/shared/features/checkout/`)은 `FormField`·`TextInput`·`Radio`·`StepIndicator` 등 기존 요소를 조합한 목 화면이며 실제 결제와 연동하지 않는다.
 
