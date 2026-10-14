@@ -72,6 +72,15 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
       // ignore storage failures in demo mode
     }
   };
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    try {
+      localStorage.removeItem('hoka-is-logged-in');
+    } catch {
+      // ignore storage failures in demo mode
+    }
+    navigate('/login');
+  };
   const add = (item: CartItem) =>
     setCart((previous) => {
       const found = previous.find(
@@ -184,7 +193,7 @@ export function ShopShell({ platform = 'web' }: { platform?: Platform }) {
             <Route path="/signup/complete" element={<RegistrationCompleteContent />} />
             <Route path="/signup/verify" element={<IdentityVerificationPage />} />
             <Route path="/signup/verify/phone" element={<PhoneVerificationPage />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage" element={<MyPage onLogout={handleLogout} />} />
             <Route path="/mypage/running-profile" element={<RunningProfilePage />} />
             {(
               [
