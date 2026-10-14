@@ -6,9 +6,11 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T06:33:58Z'
+  at: '2026-10-14T09:09:10Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/account-recovery.test.mjs
+  - tests/checkout-summary.test.mjs
   - eslint.config.js
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
@@ -50,6 +52,10 @@ node --test tests/app-router.test.mjs
 스토리를 바꾼 경우 `npm run build-storybook`도 실행한다. 스타일이나 토큰을 바꾼 경우 Panda 생성 결과를 사용해 PC·모바일 화면을 확인한다.
 
 ## 수동 확인
+
+계정 복구 규칙·국가 선택 메타데이터는 `node --test tests/account-recovery.test.mjs`로 비밀번호 강도/일치/필수 입력, 전화번호 부분 입력/접두어/절단, 지역 ID와 언어별 링크를 확인한다. UI는 PasswordResetPage의 필수·불일치·완료·MobileError, AccountLockedModal의 확인·닫기·Escape 이동과 Locales의 PC/모바일 스토리로 확인한다. 포털 모달은 `findByRole`로 실제 렌더링을 기다린 뒤 상호작용을 검증한다.
+
+주문/결제의 순수 계산 모듈을 바꾼 경우 `node --test tests/checkout-summary.test.mjs`로 옵션별 행·수량 합계, 누락 상품 제외, 빈 장바구니와 입력 불변성을 확인한다. UI 조합은 `PAGES/Checkout`의 PC·모바일·빈 상태·완료 흐름 스토리, 헤더 조합은 `Organisms/Layout/SiteHeader`의 PC·모바일·메뉴 조합 스토리로 확인한다. 스토리 추가만으로 play 테스트 실행 완료를 의미하지 않는다.
 
 - 변경한 URL의 직접 진입과 내부 링크 이동을 확인한다.
 - URL 필터·정렬은 새로고침, 뒤로 가기와 모바일 적용 버튼을 확인한다.

@@ -397,6 +397,42 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      localeHeading: {
+        fontSize: 'var(--type-locale-heading-font-size)',
+        fontWeight: 'var(--type-locale-heading-font-weight)',
+        lineHeight: 'var(--type-locale-heading-line-height)',
+        letterSpacing: 'var(--type-locale-heading-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-locale-heading-mobile-font-size)' },
+      },
+      profileTitle: {
+        fontSize: 'var(--type-profile-title-font-size)',
+        fontWeight: 'var(--type-profile-title-font-weight)',
+        lineHeight: 'var(--type-profile-title-line-height)',
+        letterSpacing: 'var(--type-profile-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-profile-title-mobile-font-size)' },
+      },
+      sessionTitle: {
+        fontSize: 'var(--type-session-title-font-size)',
+        fontWeight: 'var(--type-session-title-font-weight)',
+        lineHeight: 'var(--type-session-title-line-height)',
+        letterSpacing: 'var(--type-session-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-session-title-mobile-font-size)' },
+      },
+      loginTitle: {
+        fontFamily: 'korean',
+        fontSize: 'var(--type-login-title-font-size)',
+        fontWeight: 'var(--type-login-title-font-weight)',
+        lineHeight: 'var(--type-login-title-line-height)',
+        letterSpacing: 'var(--type-login-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-login-title-mobile-font-size)' },
+      },
+      pageTitle: {
+        fontSize: 'var(--type-page-title-font-size)',
+        fontWeight: 'var(--type-page-title-font-weight)',
+        lineHeight: 'var(--type-page-title-line-height)',
+        letterSpacing: 'var(--type-page-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-page-title-mobile-font-size)' },
+      },
       authTitle: {
         fontSize: 'var(--type-authTitle-font-size)',
         fontWeight: 'var(--type-authTitle-font-weight)',
@@ -551,6 +587,11 @@ const typography = cva({
 });
 
 export type TypographyVariant =
+  | 'localeHeading'
+  | 'profileTitle'
+  | 'sessionTitle'
+  | 'loginTitle'
+  | 'pageTitle'
   | 'authTitle'
   | 'authCaption'
   | 'authBody'

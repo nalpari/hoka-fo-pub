@@ -1,8 +1,8 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
-import { Toggle } from '@base-ui/react/toggle';
-import { ToggleGroup } from '@base-ui/react/toggle-group';
-import { css, cva } from 'styled-system/css';
+import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
+import { css } from 'styled-system/css';
+import { RatingInput, type RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
@@ -64,18 +64,6 @@ const error = css({
   mt: '1.5',
 });
 
-const stars = cva({
-  base: {
-    minW: '34px',
-    border: '0',
-    bg: 'transparent',
-    px: '0',
-    color: 'var(--color-black-40)',
-    fontSize: '24' /* 기존 26px */,
-  },
-  variants: { selected: { true: { color: 'var(--color-text-primary)' }, false: {} } },
-});
-
 const purchases = Array.from({ length: 12 }, (_, index) => ({
   id: String(index + 1),
   date: `2026.09.${String(18 - index).padStart(2, '0')}`,
@@ -89,7 +77,7 @@ export function ReviewManager() {
   const [tab, setTab] = useState<'ready' | 'written'>('ready');
   const [page, setPage] = useState(1);
   const [editing, setEditing] = useState<string | null>(null);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState<RatingValue>(0);
   const [body, setBody] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -105,25 +93,21 @@ export function ReviewManager() {
   };
   return (
     <section aria-label="상품리뷰 관리">
-      <ToggleGroup
-        aria-label="리뷰 상태"
+      <SegmentedControl
+        ariaLabel="리뷰 상태"
         className={tabs}
-        onValueChange={(value) => {
-          const nextTab = value[0] as 'ready' | 'written' | undefined;
-          if (nextTab) {
-            setTab(nextTab);
-            setPage(1);
-          }
+        onValueChange={(nextTab) => {
+          setTab(nextTab);
+          setPage(1);
         }}
-        value={[tab]}
-      >
-        <Toggle className={tab === 'ready' ? active : ''} value="ready">
-          작성 가능한 리뷰
-        </Toggle>
-        <Toggle className={tab === 'written' ? active : ''} value="written">
-          내가 작성한 리뷰
-        </Toggle>
-      </ToggleGroup>
+        value={tab}
+        unstyled
+        itemClassName={(_, selected) => (selected ? active : '')}
+        options={[
+          { value: 'ready', label: '작성 가능한 리뷰' },
+          { value: 'written', label: '내가 작성한 리뷰' },
+        ]}
+      />
       <div
         className={css({
           display: 'flex',
@@ -184,18 +168,7 @@ export function ReviewManager() {
               상품은 만족스러우셨나요?{' '}
               <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
-            <div>
-              {[1, 2, 3, 4, 5].map((value) => (
-                <Button
-                  aria-label={`${value}점`}
-                  className={stars({ selected: value <= rating })}
-                  key={value}
-                  onClick={() => setRating(value)}
-                >
-                  ★
-                </Button>
-              ))}
-            </div>
+            <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
             {invalid && !rating ? (
               <Typography variant="body5" weight="bold" tone="error" className={error}>
                 별점을 선택해 주세요.
@@ -207,6 +180,7 @@ export function ReviewManager() {
               리뷰내용 <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
             <textarea
+              aria-label="리뷰내용"
               maxLength={1000}
               value={body}
               onChange={(event) => setBody(event.target.value)}
@@ -224,6 +198,7 @@ export function ReviewManager() {
           <div className={css({ mt: '18px' })}>
             <b>사진/영상 첨부 (선택)</b>
             <TextInput
+              aria-label="사진/영상 첨부"
               className={css({ mt: '2' })}
               type="file"
               multiple

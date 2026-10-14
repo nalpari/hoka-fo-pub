@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from 'storybook/test';
+import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import { PlatformProvider } from '@/shared/context/platform';
 import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
 
@@ -34,4 +36,28 @@ export const Default: Story = {};
 export const Mobile: Story = {
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },
+};
+
+export const ConfirmNavigation: Story = {
+  play: async ({ canvasElement }) => {
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog');
+    await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
+    await expect(getRouter().push).toHaveBeenCalledWith('/login/account-locked/verification');
+  },
+};
+
+export const CloseNavigation: Story = {
+  play: async ({ canvasElement }) => {
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog');
+    await userEvent.click(within(dialog).getByRole('button', { name: '안내 닫기' }));
+    await expect(getRouter().push).toHaveBeenCalledWith('/login');
+  },
+};
+
+export const EscapeNavigation: Story = {
+  play: async ({ canvasElement }) => {
+    await within(canvasElement.ownerDocument.body).findByRole('dialog');
+    await userEvent.keyboard('{Escape}');
+    await expect(getRouter().push).toHaveBeenCalledWith('/login');
+  },
 };

@@ -3,11 +3,9 @@
 import type { ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
+import { ModalDialogHeader } from '@/shared/components/molecules/ModalDialog/ModalDialogHeader';
+import { ModalDialogFooter } from '@/shared/components/molecules/ModalDialog/ModalDialogFooter';
 import { usePlatform } from '@/shared/context/platform';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { faXmark } from '@/shared/icons/fontAwesome';
 
 const viewport = cva({
   base: {
@@ -84,49 +82,11 @@ const popup = cva({
   defaultVariants: { size: 'md', mobilePresentation: 'popup' },
 });
 
-const header = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  minH: '14',
-  px: '4',
-  bg: 'var(--color-surface-subtle)',
-  _mobile: {
-    px: '4',
-  },
-});
-
-const titleStyle = css({ height: '32px' });
-
 const popupWithFooter = css({ display: 'flex', flexDirection: 'column', overflow: 'hidden' });
 
 const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
-
-const footerStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
-  flexShrink: '0',
-  px: '4',
-  pb: '6',
-  '& > button': { w: '40', _mobile: { w: '100%' } },
-});
-
-const footerWithScrollFade = css({
-  position: 'relative',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    right: '0',
-    bottom: '100%',
-    left: '0',
-    h: '20',
-    background:
-      'linear-gradient(180deg, color-mix(in srgb, var(--color-white-000) 0%, transparent) 0%, var(--color-white-000) 80%, var(--color-white-000) 100%)',
-    pointerEvents: 'none',
-  },
-});
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -180,27 +140,10 @@ export function ModalDialog({
                 .filter(Boolean)
                 .join(' ')}
             >
-              <header className={header}>
-                <Dialog.Title className={titleStyle}>
-                  <Typography variant="body3">{title}</Typography>
-                </Dialog.Title>
-                <Dialog.Close
-                  render={
-                    <Button
-                      aria-label={closeLabel}
-                      icon={<Icon fontAwesomeIcon={faXmark} size="16px" />}
-                      variant="ghost"
-                    />
-                  }
-                />
-              </header>
+              <ModalDialogHeader title={title} closeLabel={closeLabel} />
               <div className={footer ? `${content} ${scrollableContent}` : content}>{children}</div>
               {footer ? (
-                <footer
-                  className={scrollFade ? `${footerStyle} ${footerWithScrollFade}` : footerStyle}
-                >
-                  {footer}
-                </footer>
+                <ModalDialogFooter scrollFade={scrollFade}>{footer}</ModalDialogFooter>
               ) : null}
             </Dialog.Popup>
           </Dialog.Viewport>

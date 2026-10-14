@@ -73,7 +73,7 @@ export function ProductWidthSelector({
       onValueChange={onValueChange}
       options={options.map((option) => ({
         label: (
-          <Typography variant="productWidthOption" style={{ color: 'inherit' }}>
+          <Typography variant="productWidthOption" tone="inherit">
             {option.label}
           </Typography>
         ),

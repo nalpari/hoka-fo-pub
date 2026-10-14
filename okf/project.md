@@ -6,8 +6,12 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T06:02:14Z'
+  at: '2026-10-14T08:32:40Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+working_tree_sources:
+  - README.md
+  - src/app/checkout/page.tsx
+  - src/shared/features/checkout/CheckoutPage.tsx
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -43,14 +47,14 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 
 ## 구현 범위
 
-홈, 상품 목록·상세, 검색, 장바구니, 로그인·회원가입, 마이페이지, 고객지원, 런클럽·러닝 콘텐츠 화면을 제공한다. URL 목록은 `src/app/**/page.tsx`가 결정한다.
+홈, 상품 목록·상세, 검색, 장바구니·주문/결제, 로그인·회원가입, 마이페이지, 고객지원, 런클럽·러닝 콘텐츠 화면을 제공한다. URL 목록은 `src/app/**/page.tsx`가 결정한다. 현재 README는 작업 트리의 주문/결제 화면과 기능별 UI 조합, 실행·검증 절차를 반영한다.
 
 `src/data/screenRegistry.ts`는 IA 화면 메타데이터다. IA에 등록된 화면이 실제 라우트나 완성된 기능이라는 뜻은 아니다. 상품 정보는 `src/mocks/products.ts`, 기능별 정적 콘텐츠는 해당 기능 폴더에서 관리한다. 첫 번째 상품(`shoe-1`, Clifton 11 GTX)은 생성된 기본 상품을 덮어써 자체 색상·폭·갤러리를 가진다.
 
 ## 현재 제약
 
 - 로그인과 회원 관련 흐름은 데모 구현이다.
-- 주문·결제 화면 `/checkout`은 구현되지 않았다.
+- 주문·결제 화면 `/checkout`은 배송 정보·결제 수단·합계·완료 상태를 표시하는 데모다. 완료 시 장바구니를 비우며 실제 주문 저장·결제 승인은 연결하지 않았다.
 - 목 데이터 기반 화면에 실제 데이터 저장·결제·인증을 기대하지 않는다.
 - 화면 존재, 빌드 성공, 실제 서비스 연동 완료를 구분한다.
 

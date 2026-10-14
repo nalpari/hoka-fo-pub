@@ -1,5 +1,6 @@
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { runClubImage, runClubVenue, runClubAddress, type RunClubSession } from './runClub.data';
 import { RunClubBadge } from './RunClubBadge';
 import { RunClubSessionNotes } from './RunClubSessionNotes';
@@ -24,11 +25,6 @@ const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
   heading: css({
     m: '12px 0 10px',
-    fontSize: '36px',
-    fontWeight: '900',
-    letterSpacing: '-0.04em',
-    lineHeight: '1.2',
-    _mobile: { fontSize: '28px' },
   }),
   schedule: css({ m: '0 0 24px', fontSize: '16px' }),
   opening: css({ color: 'var(--color-blue-100)', fontSize: '14px', mb: '24px' }),
@@ -66,7 +62,9 @@ export function RunClubSessionHero({ session, onApply }: RunClubSessionHeroProps
       />
       <div>
         <RunClubBadge category={session.category} />
-        <h1 className={styles.heading}>{session.title}</h1>
+        <Typography as="h1" variant="sessionTitle" className={styles.heading}>
+          {session.title}
+        </Typography>
         <p className={styles.schedule}>
           {session.schedule} | {session.location} {session.distance}
         </p>

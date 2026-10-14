@@ -35,6 +35,16 @@ export const Mobile: Story = {
   globals: { viewport: 'hoka375' },
 };
 
+export const Details: Story = {
+  parameters: { nextjs: { navigation: { query: { step: 'details' } } } },
+};
+
+export const MobileDetails: Story = {
+  ...Details,
+  parameters: { ...Details.parameters, platform: 'mobile' },
+  globals: { viewport: 'hoka375' },
+};
+
 export const Terms: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

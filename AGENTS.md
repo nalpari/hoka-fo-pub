@@ -17,6 +17,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - For source changes, follow the related-document mapping in `scripts/okf-sync.mjs`; update the relevant concepts and `okf/log.md` before finishing.
 - Keep source changes and their directly related OKF updates in the same commit. Run `npm run okf:check` against the staged changes before committing.
 
+## Storybook rules
+
+- Keep all `*.stories.ts` and `*.stories.tsx` files under `src/stories/`. Do not colocate stories in `src/shared/` or `src/app/`.
+- Mirror the source hierarchy under `src/stories/components/` and `src/stories/features/`, and import implementation code using the existing aliases.
+- Keep `.storybook/main.ts` story discovery scoped to `src/stories/`.
+
 ## Styling rules
 
 - Do not create, modify, or retain `*.module.scss` files. CSS Modules are not used in this project.

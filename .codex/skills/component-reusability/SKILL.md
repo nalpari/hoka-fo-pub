@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Use when a codebase needs composable UI primitives or a repeatable UI architecture review.
+description: Audit and improve React component reuse, low-level composition, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Use when a codebase needs composable UI primitives or a repeatable UI architecture review.
 ---
 
 # Component Reusability
@@ -40,6 +40,7 @@ Audit only folders explicitly named by the user. If the request does not name a 
    - Extract on a responsibility boundary, not a line-count threshold: state lifetime, URL synchronization, display region, platform presentation, or domain policy must be independently changeable or testable. Do not split JSX merely to create smaller files, increase prop drilling, or add meaningless one-line wrappers.
    - Keep a single-feature or product-contextual component feature-local. Consider promotion to atom, molecule, or organism only after at least two feature consumers demonstrate the same semantic markup or interaction contract, with a stable typed API and Storybook coverage.
    - Use this reference pattern when it fits: `ProductListingPage` owns filters, URL updates, comparison state, and displayed-data calculation; `ProductListingLayout` assembles the page frame and platform header action; `ProductListingContent` places results, desktop sticky filters, and mobile bottom sheets; leaf components and pure modules own triggers, sort controls, titles, tabs, metadata, and filter policy.
+   - Apply the low-level composition criteria below when a region benefits from smaller structural parts, even when those parts have only one consumer.
 6. Choose the lowest useful component layer:
    - **Atom:** a semantic HTML primitive or a single interaction, such as a field group, disclosure, badge, table, or stepper.
    - **Molecule:** a stable combination of atoms with reusable slots or typed data, such as a state panel, contact card, summary grid, or row list.
@@ -51,6 +52,19 @@ Audit only folders explicitly named by the user. If the request does not name a 
 10. Update at least one existing caller when extracting a component, unless the task is explicitly library-only. Do not rewrite unrelated pages merely to force adoption.
 11. Add a `*.stories.tsx` file for every new public atom, molecule, or organism. Cover the default state, meaningful variants, empty/error states where relevant, and a controlled interaction story for stateful controls. Add stories for new public Typography variants and newly introduced Base UI behavior. For feature-local composition, test pure policy/metadata modules directly and cover web/mobile layout branches in a feature story or existing route story.
 12. Run the project styling generator when shared style extraction uses generated CSS, then run type checking, linting, and a production build. Build Storybook when stories are added or changed.
+
+## Low-level composition
+
+Here, **low-level composition** is a descriptive working term for assembling a UI region from small components with explicit structural, styling, or interaction responsibilities. It is not an additional Atomic Design tier and does not require a compound-component API or shared context.
+
+- Inspect each region for useful boundaries: an outer frame, width-constrained content, navigation, an action group, or a search control. A possible header composition is `HeaderWrapper` containing `HeaderContent`, which composes `HeaderNav`, `HeaderAction`, and `HeaderSearch`. Follow the observed DOM hierarchy; these names are examples, not a required component list.
+- A small structural component is useful when it owns a meaningful contract, such as a landmark, sticky positioning, content width, responsive arrangement, or action spacing. A single DOM element or single consumer does not disqualify it. Keep the DOM and its Panda styles together; avoid empty wrappers that only rename a tag and own no such contract.
+- Keep structural parts presentational. Pass prepared content through `children`, named slots, or typed props, and pass interactions through explicit callbacks. Keep routing, data retrieval, and business-state derivation in the existing orchestration owner. Do not add context, polymorphism, or configurable variants solely to support decomposition.
+- Keep parts inside the owning feature or organism folder unless their reuse contract is demonstrated across features. Nesting within an organism does not make every part a public atom or molecule. Export only the parts needed by actual callers; introduce a compound-component API only when callers need to assemble the parts themselves.
+- Preserve DOM order and nesting, landmarks, accessible names, focus and keyboard behavior, refs, event propagation, sticky/overflow behavior, and all responsive values during extraction. Do not add DOM wrappers merely to establish component boundaries.
+- Judge the result by whether each part has a clear responsibility and the parent makes the region's composition easier to read and change. Keep markup inline when extraction adds indirection or prop forwarding without establishing an independent contract. Do not use file size or component count as success criteria.
+
+For each composition finding, name the current responsibility, proposed part and owner folder, its props or slots, and the behavior to preserve. Classify existing small components as `keep` when their structural contract is already clear. Validate changed composition through the existing region or route story, including responsive branches; private structural parts do not each need a public story.
 
 ## Local conventions
 

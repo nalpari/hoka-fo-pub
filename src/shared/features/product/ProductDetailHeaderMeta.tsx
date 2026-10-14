@@ -21,13 +21,13 @@ export function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProp
       <VStack alignItems="start" gap="2">
         {product.promotion && <PromotionBadge weight="medium" promotion={product.promotion} />}
         <HStack gap="2" color="var(--color-black-60)">
-          <Typography variant="productDetailGender" style={{ color: 'inherit' }}>
+          <Typography variant="productDetailGender" tone="inherit">
             {product.gender}
           </Typography>
           {uses && (
             <>
               <Divider orientation="vertical" h="3" w="1px" bg="var(--color-black-60)" />
-              <Typography variant="productUse" style={{ color: 'inherit' }}>
+              <Typography variant="productUse" tone="inherit">
                 {uses}
               </Typography>
             </>

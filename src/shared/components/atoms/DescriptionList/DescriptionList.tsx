@@ -9,10 +9,12 @@ const list = css({
   m: '0',
 });
 
-export type DescriptionListItem = { term: ReactNode; description: ReactNode };
+const row = css({ display: 'contents' });
+
+export type DescriptionListItem = { id?: string; term: ReactNode; description: ReactNode };
 
 export type DescriptionListProps = {
-  items: DescriptionListItem[];
+  items: readonly DescriptionListItem[];
   labelWidth?: string;
   className?: string;
 };
@@ -25,7 +27,7 @@ export function DescriptionList({ items, labelWidth, className }: DescriptionLis
       style={{ '--description-list-label-width': labelWidth } as CSSProperties}
     >
       {items.map((item, index) => (
-        <div key={index} style={{ display: 'contents' }}>
+        <div key={item.id ?? index} className={row}>
           <Typography as="dt" variant="heading9">
             {item.term}
           </Typography>

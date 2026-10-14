@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
@@ -70,7 +71,7 @@ export const MobileBottomSheet: Story = {
   globals: { viewport: 'hoka375' },
 };
 
-function InteractiveModal() {
+function InteractiveModal({ withFooter = false }: { withFooter?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -81,11 +82,61 @@ function InteractiveModal() {
         onOpenChange={setOpen}
         open={open}
         title="인터랙티브 모달"
+        scrollFade={withFooter}
+        footer={
+          withFooter ? (
+            <Button variant="primary" onClick={() => setOpen(false)}>
+              확인
+            </Button>
+          ) : undefined
+        }
       >
-        <p>닫기 버튼이나 바깥 영역을 눌러 닫을 수 있어요.</p>
+        {withFooter ? (
+          Array.from({ length: 40 }, (_, index) => (
+            <p key={index}>스크롤 가능한 안내 내용 {index + 1}</p>
+          ))
+        ) : (
+          <p>닫기 버튼이나 바깥 영역을 눌러 닫을 수 있어요.</p>
+        )}
       </ModalDialog>
     </>
   );
 }
 
 export const Interactive: Story = { render: () => <InteractiveModal /> };
+
+export const HeaderDismissal: Story = {
+  ...Interactive,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: '모달 열기' }));
+    const dialog = await body.findByRole('dialog', { name: '인터랙티브 모달' });
+    await expect(dialog).toBeVisible();
+    await userEvent.click(body.getByRole('button', { name: '안내 닫기' }));
+    await expect(dialog).not.toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: '모달 열기' }));
+    await userEvent.keyboard('{Escape}');
+    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
+  },
+};
+
+export const ScrollFooter: Story = {
+  render: () => <InteractiveModal withFooter />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: '모달 열기' }));
+    const dialog = await body.findByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await expect(within(dialog).getByRole('button', { name: '확인' })).toBeVisible();
+    await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
+    await expect(dialog).not.toBeVisible();
+  },
+};
+
+export const MobileScrollFooter: Story = {
+  ...ScrollFooter,
+  decorators: [withPlatform('mobile')],
+  globals: { viewport: 'hoka375' },
+};

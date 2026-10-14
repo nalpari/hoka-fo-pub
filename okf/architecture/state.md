@@ -8,6 +8,12 @@ generated:
   by: codex/gpt-6
   at: '2026-10-14T06:02:14Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+working_tree_sources:
+  - src/shared/features/login/LoginContent.tsx
+  - src/shared/features/login/LoginLayout.tsx
+  - src/shared/features/login/LoginForm.tsx
+  - src/shared/features/login/LoginActions.tsx
+  - src/shared/features/login/LoginMembership.tsx
 sources:
   - id: src-shared-shopshell-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/ShopShell.tsx
@@ -40,6 +46,8 @@ sources:
 | 관심·최근 개수 | `ShopShell`의 상수                                   | 현재 데모 값은 각각 3, 7                                   |
 
 로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 비어 있지 않은 아이디·비밀번호만 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
+
+로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
 ## 장바구니 항목
 

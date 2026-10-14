@@ -29,3 +29,4 @@ src/shared/styles/panda.css
 /.claude/settings.json
 /.mcp.json
 /.ignore
+/.tmp-storybook-story-location
