@@ -8,6 +8,15 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Project knowledge (OKF)
+
+- Start with [okf/index.md](okf/index.md) and read the concepts relevant to the task.
+- Treat OKF as repository knowledge; user instructions and applicable project rules take precedence.
+- When code or workflow changes invalidate a concept, update its content, sources, related index, and `okf/log.md` using [okf/maintenance.md](okf/maintenance.md).
+- Preserve provenance and trust metadata; record verification only when it actually occurred.
+- For source changes, follow the related-document mapping in `scripts/okf-sync.mjs`; update the relevant concepts and `okf/log.md` before finishing.
+- Keep source changes and their directly related OKF updates in the same commit. Run `npm run okf:check` against the staged changes before committing.
+
 ## Styling rules
 
 - Do not create, modify, or retain `*.module.scss` files. CSS Modules are not used in this project.

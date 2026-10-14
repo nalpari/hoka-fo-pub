@@ -16,6 +16,12 @@ Node.js `v24.21.0`, npm `11.19.0`, Next.js `16.3.5`, React·React DOM `19.2.8`�
 
 `npm run storybook`으로 컴포넌트·페이지 검수 환경을 실행한다. 정적 결과물은 `npm run build-storybook`으로 생성한다. `nextjs.appDirectory`와 Next.js 탐색 모킹을 사용한다.
 
+## 프로젝트 지식 (OKF)
+
+[okf/index.md](okf/index.md)에서 프로젝트 개요, 라우팅·상태·스타일 구조, 개발·검증·Git 작업 절차를 확인한다. 문서는 OKF v0.2 형식으로 관리하며, 유지보수 기준은 [okf/maintenance.md](okf/maintenance.md)에 있다.
+
+`npm ci`의 `prepare` 또는 `npm run hooks:install`로 Git pre-commit 검사를 설치한다. `src/` 변경에 연결된 OKF 문서와 `okf/log.md`가 같은 커밋에 없으면 차단한다. `npm run okf:check`는 스테이징 검사, `npm run test:okf`는 훅 회귀 테스트다. Codex는 `.codex/hooks.json`의 파일 편집 후 안내를 사용하며, 처음에는 `/hooks`에서 해당 훅을 검토하고 신뢰해야 한다.
+
 ## 팀 Codex 스킬
 
 공유 스킬 원본은 [`.codex/skills/component-reusability/`](.codex/skills/component-reusability/)에 있다. 저장소를 최신화한 뒤 아래 PowerShell 명령으로 개인 Codex 스킬 폴더에 설치하거나 업데이트한다.
