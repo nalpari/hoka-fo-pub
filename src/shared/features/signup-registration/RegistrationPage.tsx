@@ -30,6 +30,7 @@ export function RegistrationPage() {
     confirmation: '',
     birthDate: receivedVerificationInfo.birthDate,
     phone: receivedVerificationInfo.phone,
+    postalCode: '',
     address: '',
     addressDetail: '',
     email: '',
@@ -137,6 +138,7 @@ export function RegistrationPage() {
       return;
     }
     if (
+      !information.postalCode.trim() ||
       !information.address.trim() ||
       !information.addressDetail.trim() ||
       !emailLocalPartPattern.test(information.email.trim()) ||

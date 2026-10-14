@@ -22,7 +22,3 @@ export const Mobile: Story = {
     ),
   ],
 };
-
-export const ServiceUnavailable: Story = {
-  args: { notice: '휴대폰 인증 서비스 연결을 준비 중입니다.' },
-};

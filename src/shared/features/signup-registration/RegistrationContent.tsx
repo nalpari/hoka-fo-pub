@@ -16,6 +16,7 @@ export type RegistrationInformation = {
   confirmation: string;
   birthDate: string;
   phone: string;
+  postalCode: string;
   address: string;
   addressDetail: string;
   email: string;
@@ -26,18 +27,9 @@ export type RegistrationInformation = {
 export type MarketingPreferences = { email: string; coupon: string; sms: string; married: string };
 
 const styles = {
-  page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
-  content: css({ maxW: '420px', mx: 'auto' }),
-  title: css({ m: '0', mb: '10', _mobile: { mb: '8' } }),
-  form: css({ display: 'flex', flexDirection: 'column' }),
-  button: css({ w: '100%', py: '2' }),
-  actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2' }),
-  hint: css({ m: '0', mt: '-2' }),
-  heading: css({ m: '0', mb: '6' }),
-  preferences: css({ pb: '6', mb: '6', borderBottom: '1px solid var(--color-black-20)' }),
-  row: css({ justifyContent: 'space-between', gap: '3', alignItems: 'start' }),
+  preferences: css({ borderBottom: '1px solid var(--color-black-20)' }),
+  smsLabel: css({ whiteSpace: 'pre-line' }),
   radio: css({ display: 'flex!', gap: '6', flexShrink: '0' }),
-  married: css({ mb: '4' }),
   disabledInput: css({
     bg: 'var(--color-black-10)',
     color: 'var(--color-text-subtle)',
@@ -129,15 +121,12 @@ export function RegistrationContent(props: Props) {
     yes = '수신',
     no = '수신안함',
   ) => (
-    <HStack className={styles.row}>
-      <Typography
-        variant="body4"
-        className={
-          key === 'sms' ? css({ w: '176px', flexShrink: '0', whiteSpace: 'pre-line' }) : undefined
-        }
-      >
-        {label}
-      </Typography>
+    <HStack justify="space-between" gap="3" alignItems="start">
+      <Box w={key === 'sms' ? '176px' : undefined} flexShrink={key === 'sms' ? '0' : undefined}>
+        <Typography variant="body4" className={key === 'sms' ? styles.smsLabel : undefined}>
+          {label}
+        </Typography>
+      </Box>
       <Radio
         className={styles.radio}
         ariaLabel={label}
@@ -152,132 +141,166 @@ export function RegistrationContent(props: Props) {
   );
 
   return (
-    <Box as="main" className={styles.page}>
-      <Box className={styles.content}>
-        <Typography as="h1" web="heading7" mo="heading6" className={styles.title}>
-          {props.stage === 'information' ? '회원 정보' : '부가 정보'}
-        </Typography>
-        <form className={styles.form} onSubmit={props.onSubmit}>
-          {props.stage === 'information' ? (
-            <>
-              {field('email', '이메일 주소', '이메일 주소를 입력해주세요.')}
-              {field(
-                'domain',
-                '도메인',
-                '도메인을 입력해주세요',
-                'text',
-                'registration-domain',
-                props.domainChoice !== 'direct',
-              )}
-              <Dropdown
-                ariaLabel="이메일 도메인 선택"
-                label="직접입력"
-                required
-                value={props.domainChoice}
-                onValueChange={props.onDomainChoice}
-                options={[
-                  { value: 'direct', label: '직접입력' },
-                  { value: 'naver.com', label: 'naver.com' },
-                  { value: 'gmail.com', label: 'gmail.com' },
-                  { value: 'daum.net', label: 'daum.net' },
-                ]}
-              />
-              <Button
-                variant="primary"
-                size="tall"
-                fullWidth
-                className={styles.button}
-                onClick={props.onDuplicateCheck}
-              >
-                이메일 중복확인
-              </Button>
-              {props.duplicateNotice ? (
-                <StatusMessage>{props.duplicateNotice}</StatusMessage>
-              ) : null}
-              {field('name', '이름', '이름을 입력해주세요.')}
-              {field('password', '비밀번호', '비밀번호를 입력해주세요', 'password')}
-              <Typography as="p" variant="body5" className={styles.hint}>
-                연속적인 숫자나 생일, 전화번호 등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호
-                사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 조합하여
-                입력해주세요.
-              </Typography>
-              {field('confirmation', '비밀번호 재입력', '비밀번호를 다시 입력해주세요', 'password')}
-              {field(
-                'birthDate',
-                '생년월일',
-                '생년월일 8자리를 입력해주세요',
-                'text',
-                undefined,
-                true,
-              )}
-              {field('phone', '휴대폰번호', '휴대폰번호를 입력해주세요', 'text', undefined, true)}
-              <FormField variant="boxed" htmlFor="registration-address" label="주소" required>
-                <TextInput
-                  id="registration-address"
-                  readOnly
-                  value={props.information.address}
-                  placeholder="주소를 입력해주세요"
-                  onClick={() => props.onAddressOpen(true)}
-                  aria-haspopup="dialog"
+    <Box as="main" pt="24" px="5" pb="20" _mobile={{ pt: '10', px: '4', pb: '8' }}>
+      <Box maxW="420px" mx="auto">
+        <Box mb="10" _mobile={{ mb: '8' }}>
+          <Typography as="h1" web="heading7" mo="heading5">
+            {props.stage === 'information' ? '회원 정보' : '부가 정보'}
+          </Typography>
+        </Box>
+        <form onSubmit={props.onSubmit}>
+          <Stack gap="4">
+            {props.stage === 'information' ? (
+              <>
+                {field('email', '이메일 주소', '이메일 주소를 입력해주세요.')}
+                {field(
+                  'domain',
+                  '도메인',
+                  '도메인을 입력해주세요',
+                  'text',
+                  'registration-domain',
+                  props.domainChoice !== 'direct',
+                )}
+                <Dropdown
+                  ariaLabel="이메일 도메인 선택"
+                  label="직접입력"
+                  required
+                  value={props.domainChoice}
+                  onValueChange={props.onDomainChoice}
+                  options={[
+                    { value: 'direct', label: '직접입력' },
+                    { value: 'naver.com', label: 'naver.com' },
+                    { value: 'gmail.com', label: 'gmail.com' },
+                    { value: 'daum.net', label: 'daum.net' },
+                  ]}
                 />
-              </FormField>
-              {field('addressDetail', '상세주소', '상세주소를 입력해주세요')}
-            </>
-          ) : (
-            <>
-              <Box as="section">
-                <Typography as="h2" variant="body3" weight="medium" className={styles.heading}>
-                  마케팅 정보 수신 동의
-                </Typography>
-                <Stack gap="4" className={styles.preferences}>
-                  {preference('email', '이메일 수신')}
-                  {preference('coupon', '모바일 쿠폰북 수신')}
-                  {preference('sms', '문자수신(LMS, SMS),\n카카오톡 등 전자적 전송매체')}
-                </Stack>
-              </Box>
-              <Box as="section">
-                <Typography as="h2" variant="body3" weight="medium" className={styles.heading}>
-                  부가정보
-                </Typography>
-                <Box className={styles.married}>
-                  {preference('married', '결혼유무', '기혼', '미혼')}
+                <Box py="2">
+                  <Button variant="primary" size="tall" fullWidth onClick={props.onDuplicateCheck}>
+                    이메일 중복확인
+                  </Button>
                 </Box>
-              </Box>
-            </>
-          )}
-          {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
-          <Grid className={styles.actions}>
-            <Button
-              variant="secondary"
-              size="tall"
-              fullWidth
-              className={styles.button}
-              onClick={props.onCancel}
-            >
-              취소
-            </Button>
-            <Button variant="primary" type="submit" size="tall" fullWidth className={styles.button}>
-              다음
-            </Button>
-          </Grid>
+                {props.duplicateNotice ? (
+                  <StatusMessage>{props.duplicateNotice}</StatusMessage>
+                ) : null}
+                {field('name', '이름', '이름을 입력해주세요.')}
+                {field('password', '비밀번호', '비밀번호를 입력해주세요', 'password')}
+                <Box mt="-2">
+                  <Typography as="p" variant="body5">
+                    연속적인 숫자나 생일, 전화번호 등 추측하기 쉬운 개인정보 및 아이디와 비슷한
+                    전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을
+                    조합하여 입력해주세요.
+                  </Typography>
+                </Box>
+                {field(
+                  'confirmation',
+                  '비밀번호 재입력',
+                  '비밀번호를 다시 입력해주세요',
+                  'password',
+                )}
+                {field(
+                  'birthDate',
+                  '생년월일',
+                  '생년월일 8자리를 입력해주세요',
+                  'text',
+                  undefined,
+                  true,
+                )}
+                {field('phone', '휴대폰번호', '휴대폰번호를 입력해주세요', 'text', undefined, true)}
+                <HStack gap="6" alignItems="center">
+                  <Box flex="1" minW="0">
+                    <FormField
+                      variant="boxed"
+                      htmlFor="registration-postalCode"
+                      label="우편번호"
+                      required
+                      disabled
+                    >
+                      <TextInput
+                        id="registration-postalCode"
+                        disabled
+                        value={props.information.postalCode}
+                        placeholder="우편번호 찾기 버튼을 눌러주세요"
+                      />
+                    </FormField>
+                  </Box>
+                  <Box flexShrink="0">
+                    <Button
+                      variant="link"
+                      aria-haspopup="dialog"
+                      onClick={() => props.onAddressOpen(true)}
+                    >
+                      우편번호 찾기
+                    </Button>
+                  </Box>
+                </HStack>
+                <FormField
+                  variant="boxed"
+                  htmlFor="registration-address"
+                  label="주소"
+                  required
+                  disabled
+                >
+                  <TextInput
+                    id="registration-address"
+                    disabled
+                    className={styles.disabledInput}
+                    value={props.information.address}
+                    placeholder="주소를 입력해주세요"
+                  />
+                </FormField>
+                {field('addressDetail', '상세주소', '상세주소를 입력해주세요')}
+              </>
+            ) : (
+              <>
+                <Stack as="section" gap="6">
+                  <Typography as="h2" variant="body3" weight="medium">
+                    마케팅 정보 수신 동의
+                  </Typography>
+                  <Stack gap="4" pb="6" mb="6" className={styles.preferences}>
+                    {preference('email', '이메일 수신')}
+                    {preference('coupon', '모바일 쿠폰북 수신')}
+                    {preference('sms', '문자수신(LMS, SMS),\n카카오톡 등 전자적 전송매체')}
+                  </Stack>
+                </Stack>
+                <Stack as="section" gap="6">
+                  <Typography as="h2" variant="body3" weight="medium">
+                    부가정보
+                  </Typography>
+                  {preference('married', '결혼유무', '기혼', '미혼')}
+                </Stack>
+              </>
+            )}
+            {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
+            <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="2">
+              <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
+                취소
+              </Button>
+              <Button variant="primary" type="submit" size="tall" fullWidth>
+                다음
+              </Button>
+            </Grid>
+          </Stack>
         </form>
       </Box>
       <ModalDialog
         open={props.addressOpen}
         onOpenChange={props.onAddressOpen}
-        title="주소찾기"
-        closeLabel="주소찾기 닫기"
+        title="우편번호 찾기"
+        closeLabel="우편번호 찾기 닫기"
       >
         <Stack>
           <Typography as="p" variant="body4">
-            주소 검색 서비스 연결 전입니다. 미리보기 주소를 직접 입력해주세요.
+            주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
           </Typography>
+          {field(
+            'postalCode',
+            '우편번호',
+            '우편번호를 입력해주세요',
+            'text',
+            'registration-postalCode-dialog',
+          )}
           {field('address', '주소', '주소를 입력해주세요', 'text', 'registration-address-dialog')}
-          <Button
-            variant="primary"
-            className={styles.button}
-            onClick={() => props.onAddressOpen(false)}
-          >
+          <Button variant="primary" onClick={() => props.onAddressOpen(false)}>
             확인
           </Button>
         </Stack>
