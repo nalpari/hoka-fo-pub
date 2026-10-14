@@ -118,7 +118,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
       <Center mt="6">
         <Link className={styles.benefitsLink} to="/support/member-benefits">
-          <Typography as="span" variant="textLinkKr3">
+          <Typography as="span" variant="textLinkKr2">
             회원 등급별 혜택 더 보기
           </Typography>
         </Link>

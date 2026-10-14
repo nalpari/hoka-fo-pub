@@ -48,7 +48,7 @@ export function SignupTermsContent(props: Props) {
       }}
     >
       <Box maxW="420px" mx="auto">
-        <Box mb="6">
+        <Box mb="8">
           <Typography as="h1" web="heading7" mo="heading5">
             약관동의
           </Typography>
@@ -58,7 +58,7 @@ export function SignupTermsContent(props: Props) {
             <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>
         </Box>
-        <Stack gap="2">
+        <Stack gap="4">
           {signupTerms.map((term, index) => (
             <HStack key={index} gap="2" justify="space-between" alignItems="center">
               <Terms
@@ -73,22 +73,22 @@ export function SignupTermsContent(props: Props) {
               </Terms>
               <Button
                 variant="link"
-                size="sm"
+                size="md"
                 className={styles.detail}
                 onClick={() => props.onDetail(index)}
                 aria-label={`${term.required ? '필수' : '선택'} ${term.label} 자세히 보기`}
               >
-                <Typography variant="body5">자세히 보기</Typography>
+                자세히 보기
               </Button>
             </HStack>
           ))}
         </Stack>
-        <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="6">
+        <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="8">
           <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
             취소
           </Button>
           <Button variant="primary" size="tall" fullWidth onClick={props.onNext}>
-            다음
+            확인
           </Button>
         </Grid>
       </Box>

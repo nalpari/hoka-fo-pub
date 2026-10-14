@@ -144,17 +144,15 @@ export function PhoneVerificationContent(props: Props) {
         ) : null}
         <Stack
           as="section"
-          gap="2"
+          gap="4"
           pb="6"
           className={styles.terms}
           aria-labelledby="phone-terms-title"
         >
-          <HStack justify="space-between" mb="4">
-            <Box mb="2">
-              <Typography as="h2" id="phone-terms-title" variant="headingKr7">
-                휴대폰 인증약관
-              </Typography>
-            </Box>
+          <HStack justify="space-between" mb="2">
+            <Typography as="h2" id="phone-terms-title" variant="headingKr7">
+              휴대폰 인증약관
+            </Typography>
             <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
               <Typography variant="body4">모두동의</Typography>
             </Terms>
@@ -167,15 +165,15 @@ export function PhoneVerificationContent(props: Props) {
                 required
                 invalid={showAgreementErrors && !agreements[index]}
               >
-                <Typography variant="body5">(필수) {term}</Typography>
+                <Typography variant="body4">(필수) {term}</Typography>
               </Terms>
               <Button
                 variant="link"
-                size="sm"
+                size="md"
                 className={styles.detail}
                 onClick={() => props.onDetail(term)}
               >
-                <Typography variant="body5">자세히 보기</Typography>
+                자세히 보기
               </Button>
             </HStack>
           ))}
@@ -209,10 +207,11 @@ export function PhoneVerificationContent(props: Props) {
               ])}
               <Button
                 variant="link"
+                size="md"
                 className={styles.detail}
                 onClick={() => props.onDetail('알뜰폰 사업자')}
               >
-                <Typography variant="body5">알뜰폰 사업자 보기</Typography>
+                알뜰폰 사업자 보기
               </Button>
             </Grid>
             {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
