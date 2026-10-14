@@ -6,9 +6,10 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T06:18:38Z'
+  at: '2026-10-14T06:33:58Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - eslint.config.js
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
 sources:
@@ -34,6 +35,8 @@ npm run typecheck
 npm run lint
 npm run build
 ```
+
+`npm run lint`는 로컬 graft 연동 스크립트인 `.claude/helpers/**`를 검사 대상에서 제외한다. 이 파일들은 Git에서도 제외되며, 앱 소스와 OKF 검사 스크립트는 계속 검사한다. 제외 규칙은 `eslint.config.js`에서 관리한다.
 
 라우팅·의존성 변경은 빌드 후 아래 테스트도 실행한다.
 
