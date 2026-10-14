@@ -19,3 +19,13 @@ src/shared/features/*/*.png
 src/shared/features/*/*.svg
 src/shared/styles/panda.css
 .tmp-storybook-ia-routes
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# graft's Claude Code integration (hooks, statusline, skill, settings)
+/.claude/helpers/
+/.claude/skills/graft/
+/.claude/settings.json
+/.mcp.json
+/.ignore
