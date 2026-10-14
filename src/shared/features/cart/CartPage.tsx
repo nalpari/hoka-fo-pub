@@ -2,7 +2,7 @@
 
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
 import { StepIndicator } from '@/shared/components/molecules/StepIndicator/StepIndicator';
@@ -212,16 +212,17 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                 총 결제예정 금액{' '}
                 <b className={css({ color: 'var(--color-red-80)' })}>{total.toLocaleString()}원</b>
               </strong>
-              <Button
+              <ButtonLink
                 className={css({
                   w: { _mobile: '100%' },
                   p: '14px 38px',
                   bg: 'var(--color-black-100)',
                   color: 'var(--color-text-inverse)',
                 })}
+                href="/checkout"
               >
                 주문하기
-              </Button>
+              </ButtonLink>
             </Flex>
           </>
         ) : (

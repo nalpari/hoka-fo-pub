@@ -10,6 +10,7 @@ const manifest = JSON.parse(
 const expectedRoutes = [
   '/',
   '/cart',
+  '/checkout',
   '/collection/[id]',
   '/explore',
   '/explore/[...slug]',

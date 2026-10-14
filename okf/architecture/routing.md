@@ -41,6 +41,7 @@ sources:
 | `src/app/page.tsx`                              | `/`                   |
 | `src/app/products/page.tsx`                     | `/products`           |
 | `src/app/products/[id]/page.tsx`                | `/products/:id`       |
+| `src/app/cart/page.tsx`, `checkout/page.tsx`    | `/cart`, `/checkout`  |
 | `src/app/collection/[id]/page.tsx`              | `/collection/:id`     |
 | `src/app/explore/[...slug]/page.tsx`            | EXPLORE 하위 경로     |
 | `src/app/running/run-club/[sessionId]/page.tsx` | 런클럽 상세           |
@@ -49,7 +50,7 @@ sources:
 | `src/app/support/**`                            | 고객지원              |
 | `src/app/not-found.tsx`                         | 미등록 URL의 404 화면 |
 
-현재 회귀 테스트는 기존 62개 URL을 검증한다. 경로를 의도적으로 추가·변경할 때는 실제 페이지와 테스트의 기대 경로를 함께 갱신한다.
+현재 회귀 테스트는 기존 62개 URL과 `/checkout`을 검증한다. 경로를 의도적으로 추가·변경할 때는 실제 페이지와 테스트의 기대 경로를 함께 갱신한다.
 
 ## 탐색과 쿼리
 

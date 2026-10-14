@@ -43,6 +43,8 @@ sources:
 | `src/shared/components/layouts/`   | 공통 페이지 구조                        |
 | `src/stories/`                     | Storybook이 탐색하는 스토리             |
 
+주문/결제 화면(`src/shared/features/checkout/`)은 `FormField`·`TextInput`·`Radio`·`StepIndicator` 등 기존 요소를 조합한 목 화면이며 실제 결제와 연동하지 않는다.
+
 공통 UI로 올리기 전에 기존 컴포넌트를 검색한다. 여러 기능에 공통으로 적용되는 의미·인터랙션 계약이 있을 때 재사용 컴포넌트로 추출한다. 자세한 검토 절차는 `.codex/skills/component-reusability/SKILL.md`에 있다.
 
 ## 스타일 기준
