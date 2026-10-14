@@ -13,9 +13,13 @@ const meta = {
     action: <Button variant="primary">필터 초기화</Button>,
   },
 } satisfies Meta<typeof StatePanel>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Empty: Story = {};
+
 export const Error: Story = {
   args: {
     variant: 'error',
@@ -23,6 +27,7 @@ export const Error: Story = {
     description: '잠시 후 다시 시도해 주세요.',
   },
 };
+
 export const Success: Story = {
   args: { variant: 'success', title: '저장되었습니다.', description: '변경사항이 반영되었습니다.' },
 };

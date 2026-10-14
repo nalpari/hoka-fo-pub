@@ -4,8 +4,11 @@ import { DataTable } from '@/shared/components/atoms/DataTable/DataTable';
 const meta = { title: 'Atoms/DataTable', component: DataTable, tags: ['autodocs'] } satisfies Meta<
   typeof DataTable
 >;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
   render: () => (
     <DataTable caption="사이즈 표">

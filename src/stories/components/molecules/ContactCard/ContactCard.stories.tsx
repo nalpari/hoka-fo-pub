@@ -15,6 +15,9 @@ const meta = {
     notice: '토, 일, 공휴일은 휴무입니다.',
   },
 } satisfies Meta<typeof ContactCard>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {};

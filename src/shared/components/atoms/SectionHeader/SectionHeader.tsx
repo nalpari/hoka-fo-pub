@@ -25,6 +25,7 @@ const eyebrowStyle = css({
   color: 'var(--hoka-brand)',
   letterSpacing: 'mono',
 });
+
 const descriptionStyle = css({ m: '8px 0 0' });
 
 export type SectionHeaderProps<T extends ElementType = 'h2'> = Omit<

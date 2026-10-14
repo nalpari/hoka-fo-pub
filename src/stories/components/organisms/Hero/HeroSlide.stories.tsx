@@ -19,7 +19,9 @@ const meta = {
 } satisfies Meta<typeof HeroSlide>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {};
+
 export const Mobile: Story = { globals: { viewport: { value: 'hokaMobile', isRotated: false } } };

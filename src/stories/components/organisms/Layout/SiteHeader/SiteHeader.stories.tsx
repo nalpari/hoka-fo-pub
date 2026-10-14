@@ -6,8 +6,11 @@ const meta = {
   title: 'Organisms/Layout/SiteHeader',
   component: SiteHeader,
 } satisfies Meta<typeof SiteHeader>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Web: Story = {
   args: { cart: 2, onMenu: () => undefined },
   render: (args) => (

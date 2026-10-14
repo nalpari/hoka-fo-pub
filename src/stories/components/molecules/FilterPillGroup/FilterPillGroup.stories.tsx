@@ -20,7 +20,10 @@ function InteractiveFilterPills() {
 const meta = { title: 'Molecules/Filter Pill Group', component: InteractiveFilterPills } satisfies Meta<
   typeof InteractiveFilterPills
 >;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
 };

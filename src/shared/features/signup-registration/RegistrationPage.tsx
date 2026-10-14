@@ -10,9 +10,12 @@ import {
 import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
 
 const emailLocalPartPattern = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$/;
+
 const emailDomainPattern =
   /^(?=.{1,253}$)(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
+
 const namePattern = /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/;
+
 const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{10,12}$/;
 
 const receivedVerificationInfo = {

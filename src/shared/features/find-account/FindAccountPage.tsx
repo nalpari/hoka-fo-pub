@@ -2,7 +2,9 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { FindAccountContent, type FindAccountNotice } from './FindAccountContent';
 
 const isValidName = (value: string) => /^[가-힣a-zA-Z]+(?:\s[가-힣a-zA-Z]+)*$/.test(value.trim());
+
 const getPhoneDigits = (value: string) => value.replace(/\D/g, '').slice(0, 11);
+
 const formatPhoneNumber = (value: string) => {
   const digits = getPhoneDigits(value);
 
@@ -10,6 +12,7 @@ const formatPhoneNumber = (value: string) => {
   if (digits.length < 8) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
   return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
 };
+
 const isValidPhone = (value: string) => /^01[016789]\d{7,8}$/.test(getPhoneDigits(value));
 
 export function FindAccountPage() {

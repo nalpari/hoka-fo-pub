@@ -2,11 +2,17 @@ import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import { css } from 'styled-system/css';
 
 type CardProps = ComponentPropsWithoutRef<'article'>;
+
 type CardHeaderProps = ComponentPropsWithoutRef<'header'>;
+
 type CardFooterProps = ComponentPropsWithoutRef<'footer'>;
+
 type CardContentProps = ComponentPropsWithoutRef<'div'>;
+
 type CardTitleProps = ComponentPropsWithoutRef<'h3'> & { as?: ElementType };
+
 type CardDescriptionProps = ComponentPropsWithoutRef<'p'>;
+
 type CardActionProps = ComponentPropsWithoutRef<'div'>;
 
 const cardFooter = css({

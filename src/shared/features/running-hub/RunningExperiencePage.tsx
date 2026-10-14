@@ -19,7 +19,9 @@ const page = css({
   py: '70px',
   _mobile: { px: 'var(--layout-mobile-inline-gutter)', py: '38px' },
 });
+
 const panel = css({ mt: '30px', p: '8', bg: 'var(--color-surface-muted)', _mobile: { p: '5' } });
+
 const optionGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -27,6 +29,7 @@ const optionGrid = css({
   mt: '22px',
   _mobile: { gridTemplateColumns: '1fr' },
 });
+
 const option = cva({
   base: {
     minH: '16',
@@ -45,6 +48,7 @@ const option = cva({
     },
   },
 });
+
 const productGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -52,7 +56,9 @@ const productGrid = css({
   mt: '7',
   _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', gap: '2.5' },
 });
+
 const tabs = css({ display: 'flex', gap: '2', flexWrap: 'wrap', mt: '6' });
+
 const tab = cva({
   base: {
     px: '4',
@@ -72,12 +78,14 @@ const tab = cva({
     },
   },
 });
+
 const timeline = css({
   display: 'grid',
   gap: '0',
   mt: '26px',
   borderTop: '2px solid var(--color-black-100)',
 });
+
 const timelineItem = css({
   display: 'grid',
   gridTemplateColumns: '100px 1fr auto',
@@ -90,6 +98,7 @@ const timelineItem = css({
     '& time': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
   },
 });
+
 const action = css({
   mt: '6',
   px: '18px',

@@ -21,7 +21,11 @@ const meta = {
     ],
   },
 } satisfies Meta<typeof SideNavigation>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Desktop: Story = {};
+
 export const MobileHidden: Story = { args: { mobileNavigation: 'hidden' } };

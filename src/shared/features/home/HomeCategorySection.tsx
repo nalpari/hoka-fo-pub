@@ -5,16 +5,19 @@ import { MainContentCard } from '@/shared/components/molecules/MainContentCard/M
 import { homeCategories } from './homeContent';
 
 const webRail = css({ w: '100%' });
+
 const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '2' },
 });
+
 const webSlide = css({
   w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - var(--layout-web-category-four-card-gap)) / 4)!',
   '& > *': { w: '100%' },
 });
+
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
 // leaving a deliberate preview of the following card.
 const mobileSlide = css({ w: 'calc(83.2vw + var(--spacing-4))!', '& > *': { w: '100%' } });

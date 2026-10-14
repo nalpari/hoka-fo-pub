@@ -1,4 +1,5 @@
 import { koreanSizes } from '@/shared/components/molecules/SizeSelector/koreanSizes';
+
 type FilterValueLabels = Record<string, string>;
 
 export const colorOptions = [

@@ -24,10 +24,13 @@ const meta = {
 } satisfies Meta<typeof Hero>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {};
+
 export const Mobile: Story = { globals: { viewport: { value: 'hokaMobile', isRotated: false } } };
+
 export const BackgroundCarousel: Story = {
   args: {
     slides: [

@@ -16,13 +16,17 @@ function RangeStory() {
     </div>
   );
 }
+
 const meta = {
   title: 'Atoms/RangeInput',
   component: RangeStory,
   tags: ['autodocs'],
 } satisfies Meta<typeof RangeStory>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {};
 
 function RangePairStory() {

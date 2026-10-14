@@ -5,16 +5,19 @@ import { MainContentCard } from '@/shared/components/molecules/MainContentCard/M
 import { shoeFinderItems, type HomeShoeFinderCardVariant } from './homeContent';
 
 const webRail = css({ w: '100%' });
+
 const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '2' },
 });
+
 const webSlide = css({
   w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - 30px) / 4)!',
   '& > *': { w: '100%' },
 });
+
 // Keep the 375px design width without enlarging slides on wider mobile screens.
 // The existing 8px gutters stay inside the slide to retain the 16px card gap.
 const mobileSlide = css({ w: 'min(67.46666666666667vw, 253px)!', '& > *': { w: '100%' } });

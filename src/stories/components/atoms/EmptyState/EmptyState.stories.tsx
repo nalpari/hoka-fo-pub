@@ -15,7 +15,9 @@ const meta = {
 } satisfies Meta<typeof EmptyState>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {};
 
 export const WithAction: Story = { args: { action: <Button>다시 시도</Button> } };

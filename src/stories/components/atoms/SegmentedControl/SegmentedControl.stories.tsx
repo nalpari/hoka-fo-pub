@@ -17,11 +17,15 @@ function SegmentedStory() {
     />
   );
 }
+
 const meta = {
   title: 'Atoms/SegmentedControl',
   component: SegmentedStory,
   tags: ['autodocs'],
 } satisfies Meta<typeof SegmentedStory>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {};

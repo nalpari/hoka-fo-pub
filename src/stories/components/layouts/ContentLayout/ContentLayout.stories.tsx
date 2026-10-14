@@ -7,6 +7,7 @@ const meta = {
 } satisfies Meta<typeof ContentLayout>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const WithIntro: Story = {

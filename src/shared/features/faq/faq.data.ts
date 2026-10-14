@@ -7,7 +7,9 @@ export type FaqCategory =
   | '제품'
   | '멤버스/쿠폰'
   | '교환/반품';
+
 export type FaqEntry = { category: Exclude<FaqCategory, '전체'>; question: string; answer: string };
+
 export const faqCategories: FaqCategory[] = [
   '전체',
   '웹사이트',
@@ -18,6 +20,7 @@ export const faqCategories: FaqCategory[] = [
   '멤버스/쿠폰',
   '교환/반품',
 ];
+
 export const faqs: FaqEntry[] = [
   {
     category: '웹사이트',

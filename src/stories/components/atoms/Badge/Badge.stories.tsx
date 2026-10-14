@@ -7,8 +7,13 @@ const meta = {
   tags: ['autodocs'],
   args: { children: 'NEW' },
 } satisfies Meta<typeof Badge>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Neutral: Story = {};
+
 export const Accent: Story = { args: { tone: 'accent' } };
+
 export const Danger: Story = { args: { tone: 'danger', children: 'COMING SOON' } };

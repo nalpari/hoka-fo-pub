@@ -5,8 +5,11 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 const meta = { title: 'Atoms/Card', component: Card, tags: ['autodocs'] } satisfies Meta<
   typeof Card
 >;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
   args: { children: <div style={{ padding: 20 }}>Card content</div> },
 };

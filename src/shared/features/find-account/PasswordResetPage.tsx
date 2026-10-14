@@ -36,6 +36,7 @@ const styles = {
 };
 
 type FieldName = 'password' | 'confirmation';
+
 type Errors = Partial<Record<FieldName, string>>;
 
 const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{12,}$/;

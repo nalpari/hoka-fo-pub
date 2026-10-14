@@ -11,7 +11,11 @@ const meta = {
     items: [{ label: '장바구니' }, { label: '주문/결제' }, { label: '주문완료' }],
   },
 } satisfies Meta<typeof StepIndicator>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {};
+
 export const MobileHidden: Story = { args: { mobileHidden: true } };

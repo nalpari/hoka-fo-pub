@@ -20,6 +20,7 @@ export type MainSectionProps = {
 const section = css({
   w: '100%',
 });
+
 const header = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   mx: 'auto',
@@ -29,15 +30,18 @@ const header = css({
     w: 'calc(100% - var(--layout-mobile-content-inline-space))',
   },
 });
+
 const content = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   mx: 'auto',
   _mobile: { w: '100%' },
 });
+
 const fullBleedContent = css({
   w: '100vw',
   mx: 'calc(50% - 50vw)',
 });
+
 const heading = css({ m: '0' });
 
 /** A home-page content region with a heading and optional header controls. */

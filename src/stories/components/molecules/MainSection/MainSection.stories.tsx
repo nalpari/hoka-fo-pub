@@ -12,8 +12,11 @@ const meta = {
 } satisfies Meta<typeof MainSection>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
 export const CompactDesktop: Story = { args: { spacing: 'compact' } };
+
 export const FullBleedContent: Story = { args: { contentWidth: 'fullBleed' } };

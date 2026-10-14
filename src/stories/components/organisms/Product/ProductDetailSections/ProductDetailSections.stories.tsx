@@ -7,7 +7,9 @@ const meta = {
 } satisfies Meta<typeof ProductDetailSections>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
 export const WithoutSizeGuide: Story = { args: { hasSizeGuide: false } };

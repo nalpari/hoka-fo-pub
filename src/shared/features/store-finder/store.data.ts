@@ -1,5 +1,7 @@
 export type StoreType = '전체' | '백화점/쇼핑몰' | '상설 매장' | '키즈 매장' | '직영/대리점';
+
 export type Store = { name: string; address: string; type: StoreType; phone: string };
+
 export const storeTypes: StoreType[] = [
   '전체',
   '백화점/쇼핑몰',
@@ -7,7 +9,9 @@ export const storeTypes: StoreType[] = [
   '키즈 매장',
   '직영/대리점',
 ];
+
 export const regions = ['전체', '서울', '경기', '충청', '전라'];
+
 export const stores: Store[] = [
   {
     name: '금촌',

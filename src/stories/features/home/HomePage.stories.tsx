@@ -10,7 +10,9 @@ const meta = {
 } satisfies Meta<typeof ShopShell>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Width1920: Story = {
   name: '1920px',
   args: { platform: 'web' },

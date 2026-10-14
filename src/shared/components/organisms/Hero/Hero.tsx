@@ -57,13 +57,16 @@ const hero = css({
   color: 'var(--color-text-inverse)',
   _mobile: { minH: '0', h: 'auto', aspectRatio: '375 / 500' },
 });
+
 const media = css({ position: 'absolute', inset: '0', overflow: 'hidden', touchAction: 'pan-y' });
+
 const mediaTrack = css({
   display: 'flex',
   w: '100%',
   h: '100%',
   transition: 'transform 400ms ease',
 });
+
 const overlay = css({
   position: 'absolute',
   inset: '0',

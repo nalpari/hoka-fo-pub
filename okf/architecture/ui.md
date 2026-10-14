@@ -54,6 +54,7 @@ sources:
 - 컴포넌트 스타일은 해당 TSX 파일에서 Panda `css`·`cva`로 작성한다.
 - `*.module.scss`를 만들거나 유지하지 않는다.
 - 반응형 스타일은 기존 값과 동작을 유지한다.
+- 최상위 선언과 `export` 사이에는 빈 줄을 둔다(`AGENTS.md`의 코드 포맷 규칙).
 - `panda.config.ts`에 토큰과 `.platform-mobile &` 조건이 있다. 포털로 `<body>`에 렌더되는 요소도 이 조건을 받도록 `platform-*` 클래스는 `src/app/layout.tsx`의 `<body>`에 붙는다.
 - `styled-system/jsx`의 레이아웃 도구와 공통 `Typography`를 재사용한다.
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.

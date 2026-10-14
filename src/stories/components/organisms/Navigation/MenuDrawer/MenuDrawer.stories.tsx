@@ -5,6 +5,9 @@ const meta = {
   title: 'Organisms/Navigation/MenuDrawer',
   component: MenuDrawer,
 } satisfies Meta<typeof MenuDrawer>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = { args: { close: () => undefined } };

@@ -5,8 +5,11 @@ const meta = {
   title: 'Layouts/App Layout',
   component: AppLayout,
 } satisfies Meta<typeof AppLayout>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
   args: { cart: 2, children: <main style={{ minHeight: 280, padding: 32 }}>페이지 콘텐츠</main> },
 };

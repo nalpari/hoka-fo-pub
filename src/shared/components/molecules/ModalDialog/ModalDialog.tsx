@@ -129,7 +129,9 @@ const footerWithScrollFade = css({
 });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
+
 export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
+
 export type ModalOverlayTone = 'dark' | 'light';
 
 export type ModalDialogProps = {

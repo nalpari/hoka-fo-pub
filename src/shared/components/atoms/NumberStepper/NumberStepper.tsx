@@ -9,6 +9,7 @@ const root = css({
   gap: '2.5',
   minW: '130px',
 });
+
 const control = css({
   minW: '8',
   minH: '8',
@@ -18,6 +19,7 @@ const control = css({
   fontSize: '20',
   cursor: 'pointer',
 });
+
 const valueStyle = css({
   minW: '1.5em',
   border: '0',

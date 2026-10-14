@@ -8,6 +8,7 @@ export type HeroSlideProps = {
 };
 
 const slide = css({ flex: '0 0 100%', w: '100%', h: '100%' });
+
 const image = css({ w: '100%', h: '100%', objectFit: 'cover' });
 
 /** One responsive, decorative background image in a Hero carousel track. */

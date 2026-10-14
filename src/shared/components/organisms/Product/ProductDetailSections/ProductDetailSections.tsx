@@ -19,6 +19,7 @@ const tabBar = css({
   borderBottom: '1px solid var(--color-black-100)',
   bg: 'var(--color-white-000)',
 });
+
 const tab = cva({
   base: {
     position: 'relative',

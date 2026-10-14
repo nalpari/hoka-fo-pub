@@ -9,6 +9,7 @@ const root = cva({
   variants: { fullWidth: { true: { '& > button': { flex: '1' } }, false: {} } },
   defaultVariants: { fullWidth: false },
 });
+
 const item = cva({
   base: { borderColor: 'var(--color-black-20)' },
   variants: {
@@ -22,11 +23,13 @@ const item = cva({
     },
   },
 });
+
 export type SegmentedControlOption<T extends string = string> = {
   value: T;
   label: ReactNode;
   disabled?: boolean;
 };
+
 export type SegmentedControlProps<T extends string = string> = {
   options: SegmentedControlOption<T>[];
   value: T;
