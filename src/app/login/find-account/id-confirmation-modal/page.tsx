@@ -7,9 +7,9 @@ export default function Page() {
   const router = useRouter();
   return (
     <IdConfirmationModal
-      onOpenChange={() => {}}
+      onOpenChange={(open) => !open && router.push('/login/find-account')}
       onPasswordReset={() => router.push('/login/find-account/password-reset')}
-      onConfirm={() => {}}
+      onConfirm={() => router.push('/login')}
     />
   );
 }

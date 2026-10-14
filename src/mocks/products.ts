@@ -267,6 +267,8 @@ products[0] = {
   primaryImage: cliftonGalleryImages[0],
   hoverImage: cliftonGalleryImages[1],
   galleryImages: cliftonGalleryImages,
+  // The Bondi thumbnails inherited from the generated base would hide the Clifton colour options and gallery.
+  colorThumbnails: undefined,
   detailDescription:
     '어떤 날씨에도 편안한 주행을 돕는 리프레시드 클리프턴 11 GTX는 보이지 않는 뒷면부터 앞발의 편안함을 위해 설계되었습니다. 조절 가능한 스피드 레이스 시스템과 강화된 아웃솔은 안정감 있는 착화감을 선사합니다.',
   styleCode: 'HOKADFG34S',

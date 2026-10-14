@@ -48,7 +48,7 @@ export function AccountLockedPage() {
     <Box className={styles.page}>
       <ModalDialog
         open
-        onOpenChange={() => {}}
+        onOpenChange={(open) => !open && router.push('/login')}
         title="아이디 / 비밀번호 찾기"
         closeLabel="안내 닫기"
         popupClassName={styles.dialog}

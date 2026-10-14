@@ -23,7 +23,7 @@ export function FaqPage() {
       faqs.filter(
         (item) =>
           (category === '전체' || item.category === category) &&
-          item.question.toLowerCase().includes(query.toLowerCase()),
+          `${item.question} ${item.answer}`.toLowerCase().includes(query.toLowerCase()),
       ),
     [category, query],
   );

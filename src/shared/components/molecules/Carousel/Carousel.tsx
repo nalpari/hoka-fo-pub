@@ -238,6 +238,7 @@ export function CarouselViewport({
   const [scrollbarContentWidth, setScrollbarContentWidth] = useState(0);
   const isMobile = mode === 'mobile';
   const itemGutter = isMobile ? mobileItemGutter : desktopItemGutter;
+  const slides = Children.toArray(children);
 
   const updateScrollbar = useCallback((swiper: SwiperInstance) => {
     const scrollbar = scrollbarRef.current;
@@ -316,14 +317,14 @@ export function CarouselViewport({
       resistanceRatio={freeMode ? 0.85 : 0.65}
       longSwipesRatio={freeMode ? 0.5 : 0.25}
     >
-      {Children.toArray(children).map((child, index) => (
+      {slides.map((child, index) => (
         <SwiperSlide
           className={[
             slideClassName,
             !isMobile && desktopCenteredItemCount && desktopItemGutter !== undefined
               ? index === 0
                 ? desktopFirstSlideGutter
-                : index === Children.count(children) - 1
+                : index === slides.length - 1
                   ? desktopLastSlideGutter
                   : desktopSlideGutter
               : isMobile && mobileItemGutter !== undefined

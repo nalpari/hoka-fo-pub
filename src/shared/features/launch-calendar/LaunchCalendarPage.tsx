@@ -430,7 +430,7 @@ export function LaunchCalendarPage() {
           HOKA
         </Typography>
         <h1 className={pageTitle}>Launch Calendar</h1>
-        <Flex className={audience} aria-label="상품 대상 선택">
+        <Flex aria-label="상품 대상 선택">
           <Button
             className={audienceButton({ selected: audience === 'adult' })}
             onClick={() => setAudience('adult')}
