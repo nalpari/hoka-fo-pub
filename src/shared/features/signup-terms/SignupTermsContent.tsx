@@ -3,7 +3,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SignupTermsDetail } from '@/shared/features/signup-terms/SignupTermsDetail';
 
 export const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
@@ -15,7 +15,6 @@ export const signupTerms = [
 const styles = {
   all: css({ borderBottom: '1px solid var(--color-black-20)' }),
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
-  document: css({ border: '1px solid var(--color-black-20)' }),
 };
 
 type Props = {
@@ -92,59 +91,12 @@ export function SignupTermsContent(props: Props) {
           </Button>
         </Grid>
       </Box>
-      <ModalDialog
-        open={selected !== null}
-        onOpenChange={(open) => {
-          if (!open) props.onDetail(null);
-        }}
-        title="HOKA Korea 이용약관"
-        closeLabel="약관 닫기"
-        mobilePresentation="fullscreen"
-        scrollFade
-        footer={
-          <Button variant="primary" size="tall" fullWidth onClick={() => props.onDetail(null)}>
-            확인
-          </Button>
-        }
-      >
-        <Stack gap="0" minH="0" flex="1" pb="20">
-          <HStack justify="space-between" gap="2" mb="4">
-            <Typography variant="body3">
-              ({selected?.required ? '필수' : '선택'}) {selected?.label}
-            </Typography>
-            <Button variant="link" size="sm" className={styles.detail} onClick={props.onPrevious}>
-              <Typography variant="body5">
-                {props.previous ? '현재 약관 보기' : '이전 약관 보기'}
-              </Typography>
-            </Button>
-          </HStack>
-          <Box as="article" p="4" className={styles.document} tabIndex={0} aria-label="약관 내용">
-            {props.previous ? (
-              <Box mb="4">
-                <Typography as="p" variant="body5">
-                  이전 약관은 등록 준비 중입니다.
-                </Typography>
-              </Box>
-            ) : (
-              [1, 2].map((number) => (
-                <Stack key={number} gap="4" mb="4">
-                  <Typography as="h2" variant="body4">
-                    약관 타이틀{number}
-                  </Typography>
-                  <Typography as="p" variant="body4">
-                    {'약관내용'.repeat(155)}
-                  </Typography>
-                </Stack>
-              ))
-            )}
-          </Box>
-          <Box mt="2">
-            <Typography as="p" variant="body5" tone="subtle">
-              공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
-            </Typography>
-          </Box>
-        </Stack>
-      </ModalDialog>
+      <SignupTermsDetail
+        selected={selected ?? null}
+        previous={props.previous}
+        onClose={() => props.onDetail(null)}
+        onPrevious={props.onPrevious}
+      />
     </Box>
   );
 }

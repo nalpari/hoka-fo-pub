@@ -5,11 +5,7 @@ import { MegaMenuPanel } from '@/shared/components/organisms/Layout/SiteHeader/M
 import { SiteHeaderContainer } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeaderContainer';
 import { megaMenus, type MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { usePlatform } from '@/shared/context/platform';
-import { css } from 'styled-system/css';
-
-const styles = {
-  headerArea: css({ position: 'sticky', top: 0, zIndex: 20 }),
-};
+import { SiteHeaderFrame } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame';
 
 type SiteHeaderProps = {
   cart: number;
@@ -64,7 +60,9 @@ export function SiteHeader({
 
     requestAnimationFrame(() => {
       const focusable = Array.from(
-        document.querySelectorAll<HTMLElement>(`#mega-menu-${menuId} a[href], #mega-menu-${menuId} button:not([disabled])`),
+        document.querySelectorAll<HTMLElement>(
+          `#mega-menu-${menuId} a[href], #mega-menu-${menuId} button:not([disabled])`,
+        ),
       );
 
       (position === 'first' ? focusable[0] : focusable.at(-1))?.focus();
@@ -111,7 +109,9 @@ export function SiteHeader({
     setActiveMenu(null);
 
     requestAnimationFrame(() => {
-      document.querySelector<HTMLElement>('#site-header-tools a[href], #site-header-tools button')?.focus();
+      document
+        .querySelector<HTMLElement>('#site-header-tools a[href], #site-header-tools button')
+        ?.focus();
     });
   };
 
@@ -119,7 +119,7 @@ export function SiteHeader({
     <>
       {platform === 'web' ? <HeaderPromotionBanner /> : null}
 
-      <div className={styles.headerArea} onMouseLeave={closeMegaMenu}>
+      <SiteHeaderFrame onLeave={closeMegaMenu}>
         <SiteHeaderContainer
           cart={cart}
           isLoggedIn={isLoggedIn}
@@ -142,7 +142,7 @@ export function SiteHeader({
             onFocusBoundary={handleMegaMenuFocusBoundary}
           />
         ) : null}
-      </div>
+      </SiteHeaderFrame>
 
       {search ? <SearchOverlay onClose={() => setSearch(false)} /> : null}
     </>

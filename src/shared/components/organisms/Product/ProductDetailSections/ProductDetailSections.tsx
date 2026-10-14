@@ -114,16 +114,15 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
 
   return (
     <Box as="section" mt={{ base: '64px', _mobile: '35px' }} aria-label="상품 상세 정보">
-      <Grid className={tabBar} role="tablist" aria-label="상품 상세 메뉴">
+      <Grid as="nav" className={tabBar} aria-label="상품 상세 메뉴">
         {visibleSections.map((section) => (
           <Button
             aria-controls={section.id}
-            aria-selected={activeId === section.id}
+            aria-current={activeId === section.id ? 'location' : undefined}
             className={tab({ active: activeId === section.id })}
             id={`${section.id}-tab`}
             key={section.id}
             onClick={() => scrollToSection(section.id)}
-            role="tab"
           >
             <span className={desktopTabTitle}>{section.title}</span>
             <span className={mobileTabTitle}>{section.mobileTitle}</span>
@@ -152,7 +151,6 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
             ref={(element) => {
               sectionRefs.current[section.id] = element;
             }}
-            role="tabpanel"
             tabIndex={-1}
           >
             <h2>{section.title}</h2>

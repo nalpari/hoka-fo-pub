@@ -170,6 +170,66 @@ export const Heading: Story = {
   args: { as: 'h2', children: typographyLabel(typographyStorySpecs.heading), variant: 'heading' },
 };
 
+export const PageTitle: Story = {
+  args: { as: 'h1', variant: 'pageTitle', children: '주문/결제' },
+};
+
+export const LoginTitle: Story = {
+  args: { as: 'h1', variant: 'loginTitle', children: 'HOKA Korea에 오신것을 환영합니다' },
+};
+
+export const ProfileTitle: Story = {
+  args: { as: 'h1', variant: 'profileTitle', children: '나의 러닝 프로필' },
+};
+
+export const SessionTitle: Story = {
+  args: { as: 'h1', variant: 'sessionTitle', children: '러닝 세션 제목' },
+};
+
+export const MobileContextTitles: Story = {
+  globals: { viewport: 'hoka375' },
+  render: () => (
+    <PlatformProvider platform="mobile">
+      <div className="platform-mobile">
+        <Typography as="h1" variant="profileTitle">
+          나의 러닝 프로필
+        </Typography>
+        <Typography as="h2" variant="sessionTitle">
+          러닝 세션 제목
+        </Typography>
+      </div>
+    </PlatformProvider>
+  ),
+};
+
+export const MobileLoginTitle: Story = {
+  ...LoginTitle,
+  globals: { viewport: 'hoka375' },
+  decorators: [
+    (Story) => (
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile">
+          <Story />
+        </div>
+      </PlatformProvider>
+    ),
+  ],
+};
+
+export const MobilePageTitle: Story = {
+  ...PageTitle,
+  globals: { viewport: 'hoka375' },
+  decorators: [
+    (Story) => (
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile">
+          <Story />
+        </div>
+      </PlatformProvider>
+    ),
+  ],
+};
+
 export const SectionHeading: Story = {
   args: {
     as: 'h3',
@@ -459,5 +519,20 @@ export const WebMoVariant: Story = {
         </PlatformProvider>
       </div>
     </div>
+  ),
+};
+
+export const LocaleHeading: Story = {
+  args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
+};
+
+export const LocaleHeadingMobile: Story = {
+  args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
+  render: (args) => (
+    <PlatformProvider platform="mobile">
+      <div className="platform-mobile">
+        <Typography {...args} />
+      </div>
+    </PlatformProvider>
   ),
 };

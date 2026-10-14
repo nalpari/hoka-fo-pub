@@ -3,8 +3,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 import { useState } from 'react';
-import { Toggle } from '@base-ui/react/toggle';
-import { ToggleGroup } from '@base-ui/react/toggle-group';
+import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { ReviewGalleryModal } from '@/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -192,21 +191,18 @@ export function ProductReviews() {
           <small>리뷰 104개</small>
         </Box>
       </section>
-      <ToggleGroup
-        aria-label="리뷰 정렬"
+      <SegmentedControl
+        ariaLabel="리뷰 정렬"
         className={reviewFilters}
-        onValueChange={(values) => {
-          const nextFilter = values[0];
-          if (nextFilter) setFilter(nextFilter);
-        }}
-        value={[filter]}
-      >
-        {['최신순', 'AI 추천순', '별점순'].map((value) => (
-          <Toggle className={reviewFilter({ active: filter === value })} key={value} value={value}>
-            <Typography variant="body5">{value}</Typography>
-          </Toggle>
-        ))}
-      </ToggleGroup>
+        onValueChange={setFilter}
+        value={filter}
+        unstyled
+        itemClassName={(_, selected) => reviewFilter({ active: selected })}
+        options={['최신순', 'AI 추천순', '별점순'].map((value) => ({
+          value,
+          label: <Typography variant="body5">{value}</Typography>,
+        }))}
+      />
       <Box className={reviewList}>
         {reviews.map((review, reviewIndex) => {
           const expanded = expandedAuthor === review.author;

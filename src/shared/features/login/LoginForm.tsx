@@ -1,0 +1,97 @@
+import type { FormEvent } from 'react';
+import { css } from 'styled-system/css';
+import { Box, HStack } from 'styled-system/jsx';
+import { Button } from '@/shared/components/atoms/Button/Button';
+import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { LoginActions } from '@/shared/features/login/LoginActions';
+
+const styles = {
+  form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
+  options: css({ justifyContent: 'space-between', gap: '2', minH: '6' }),
+  rememberId: css({ gap: '2', flexShrink: '0' }),
+  links: css({ gap: '2', flexShrink: '0' }),
+  accountLink: css({ '--button-label-size': '14px!', '--button-height': 'auto!' }),
+  divider: css({ w: '1px', h: '10px', bg: '#dadada' }),
+};
+
+export type LoginNotice = { tone: 'error' | 'success'; message: string };
+
+export type LoginFormProps = {
+  id: string;
+  password: string;
+  rememberId: boolean;
+  notice: LoginNotice | null;
+  onIdChange: (value: string) => void;
+  onPasswordChange: (value: string) => void;
+  onRememberChange: (value: boolean) => void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onFindAccount: () => void;
+  onUnavailable: (feature: string) => void;
+};
+
+export function LoginForm({
+  id,
+  password,
+  rememberId,
+  notice,
+  onIdChange,
+  onPasswordChange,
+  onRememberChange,
+  onSubmit,
+  onFindAccount,
+  onUnavailable,
+}: LoginFormProps) {
+  return (
+    <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title">
+      <FormField variant="boxed" htmlFor="login-id" label="이메일 아이디" required>
+        <TextInput
+          id="login-id"
+          name="username"
+          autoComplete="username"
+          placeholder="이메일 주소를 @까지 정확히 입력해 주세요"
+          value={id}
+          onChange={(event) => onIdChange(event.target.value)}
+        />
+      </FormField>
+      <FormField variant="boxed" htmlFor="login-password" label="비밀번호" required>
+        <TextInput
+          id="login-password"
+          name="password"
+          autoComplete="current-password"
+          placeholder="비밀번호를 입력해 주세요"
+          type="password"
+          value={password}
+          onChange={(event) => onPasswordChange(event.target.value)}
+        />
+      </FormField>
+      <HStack className={styles.options}>
+        <Checkbox
+          className={styles.rememberId}
+          label="아이디 저장"
+          labelVariant="body4"
+          checked={rememberId}
+          onCheckedChange={onRememberChange}
+        />
+        <HStack className={styles.links}>
+          <Button variant="link" size="md" className={styles.accountLink} onClick={onFindAccount}>
+            아이디 찾기
+          </Button>
+          <Box as="span" className={styles.divider} aria-hidden="true" />
+          <Button
+            variant="link"
+            size="md"
+            className={styles.accountLink}
+            onClick={() => onUnavailable('비밀번호 찾기')}
+          >
+            비밀번호 찾기
+          </Button>
+        </HStack>
+      </HStack>
+      {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
+      <LoginActions onUnavailable={onUnavailable} />
+    </form>
+  );
+}

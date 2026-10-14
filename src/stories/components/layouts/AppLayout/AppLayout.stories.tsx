@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
+import { PlatformProvider } from '@/shared/context/platform';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
   title: 'Layouts/App Layout',
@@ -22,4 +24,26 @@ export const Mobile: Story = {
       <AppLayout {...args} />
     </div>
   ),
+};
+
+export const MenuDismissal: Story = {
+  args: Default.args,
+  globals: { viewport: 'hoka375' },
+  decorators: [
+    (Story) => (
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile">
+          <Story />
+        </div>
+      </PlatformProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: '전체 메뉴' }));
+    const body = within(canvasElement.ownerDocument.body);
+    const dialog = await body.findByRole('dialog', { name: '전체 메뉴' });
+    await expect(dialog).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await expect(dialog).not.toBeVisible();
+  },
 };

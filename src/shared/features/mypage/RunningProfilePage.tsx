@@ -13,8 +13,6 @@ const header = css({
   },
   '& h1': {
     m: '10px 0',
-    fontSize: '32',
-    _mobile: { fontSize: '28' /* 기존 27px */ },
   },
   '& p': { color: 'var(--color-text-tertiary)' },
 });
@@ -60,7 +58,9 @@ export function RunningProfilePage() {
         <Typography as="small" variant="body5" weight="bold">
           HOKA PERSONALIZATION
         </Typography>
-        <h1>나의 러닝 프로필</h1>
+        <Typography as="h1" variant="profileTitle">
+          나의 러닝 프로필
+        </Typography>
         <Typography as="p" variant="body4">
           세 가지 질문으로 나에게 맞는 러닝 경험을 찾아보세요.
         </Typography>

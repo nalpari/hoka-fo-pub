@@ -1,7 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
-import { Toggle } from '@base-ui/react/toggle';
-import { ToggleGroup } from '@base-ui/react/toggle-group';
+import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { css, cva } from 'styled-system/css';
@@ -120,21 +119,18 @@ export function CouponManager({ coupons }: Props) {
           {message}
         </Typography>
       ) : null}
-      <ToggleGroup
-        aria-label="쿠폰 종류"
+      <SegmentedControl
+        ariaLabel="쿠폰 종류"
         className={filters}
-        onValueChange={(values) => {
-          const nextCategory = values[0] as '전체' | CouponItem['category'] | undefined;
-          if (nextCategory) setCategory(nextCategory);
-        }}
-        value={[category]}
-      >
-        {(['전체', '상품 할인', '배송 할인'] as const).map((value) => (
-          <Toggle className={filter({ active: category === value })} key={value} value={value}>
-            <Typography variant="body4">{value}</Typography>
-          </Toggle>
-        ))}
-      </ToggleGroup>
+        onValueChange={setCategory}
+        value={category}
+        unstyled
+        itemClassName={(_, selected) => filter({ active: selected })}
+        options={(['전체', '상품 할인', '배송 할인'] as const).map((value) => ({
+          value,
+          label: <Typography variant="body4">{value}</Typography>,
+        }))}
+      />
       <div className={table}>
         {visibleCoupons.map((coupon) => (
           <article className={couponRow} key={coupon.id}>

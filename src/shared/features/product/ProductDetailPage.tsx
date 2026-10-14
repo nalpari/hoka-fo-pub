@@ -2,9 +2,8 @@
 
 import { useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { css } from 'styled-system/css';
 import { products } from '@/mocks/products';
-import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
+import { ProductDetailLayout } from '@/shared/features/product/ProductDetailLayout';
 import type { CartItem } from '@/shared/types/cart';
 import { usePlatform } from '@/shared/context/platform';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
@@ -14,17 +13,6 @@ import { ProductDetailPanel } from '@/shared/features/product/ProductDetailPanel
 import { ProductPurchaseActions } from '@/shared/features/product/ProductPurchaseActions';
 import { ProductDetailRecommend } from '@/shared/features/product/ProductDetailRecommend';
 import { productWidthOptions } from '@/shared/features/product/ProductVariantSelectors';
-
-const styles = {
-  page: css({ maxW: '1532px', mx: 'auto', pt: '14', pb: '24', _mobile: { p: '0 0 24' } }),
-  main: css({ display: 'grid', gap: '8', _mobile: { display: 'block' } }),
-  layout: css({
-    display: 'grid',
-    gridTemplateColumns: 'minmax(0, 2fr) minmax(340px, .85fr)',
-    gap: '8',
-    _mobile: { display: 'block' },
-  }),
-};
 
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { id } = useParams<{ id: string }>();
@@ -69,80 +57,84 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
   };
 
   return (
-    <ContentLayout className={styles.page}>
-      {viewerIndex !== null && (
-        <ProductDetailImageViewer
-          images={gallery}
-          productName={product.name}
-          initialIndex={viewerIndex}
-          onClose={() => {
-            setViewerIndex(null);
-            requestAnimationFrame(() => {
-              viewerOrigin.current?.element?.focus({ preventScroll: true });
-              window.scrollTo({ top: viewerOrigin.current?.scrollY ?? 0, behavior: 'instant' });
-            });
-          }}
-        />
-      )}
-      <div hidden={viewerIndex !== null}>
-        <div className={styles.layout}>
-          <ProductDetailMedia
-            key={`${product.id}-${color}`}
+    <ProductDetailLayout
+      isViewing={viewerIndex !== null}
+      viewer={
+        viewerIndex !== null && (
+          <ProductDetailImageViewer
             images={gallery}
             productName={product.name}
-            onOpenImage={(index) => {
-              viewerOrigin.current = {
-                element: document.activeElement as HTMLElement | null,
-                scrollY: window.scrollY,
-              };
-              setViewerIndex(index);
-              window.scrollTo({ top: 0, behavior: 'instant' });
+            initialIndex={viewerIndex}
+            onClose={() => {
+              setViewerIndex(null);
+              requestAnimationFrame(() => {
+                viewerOrigin.current?.element?.focus({ preventScroll: true });
+                window.scrollTo({ top: viewerOrigin.current?.scrollY ?? 0, behavior: 'instant' });
+              });
             }}
           />
-          <ProductDetailPanel
-            color={color}
-            error={error}
-            gallery={gallery}
-            onAddToCart={() => submit(false)}
-            onColorChange={(nextColor) => {
-              setColor(nextColor);
-              setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
-              setSize('');
-              setError('');
-            }}
-            onOpenSizeGuide={() =>
-              window.open(
-                'https://www.hoka.com/',
-                'shoe-size-guide',
-                'popup=yes,width=900,height=1000,resizable=yes,scrollbars=yes',
-              )
-            }
-            onOrder={() => submit(true)}
-            onSizeChange={(nextSize) => {
-              setSize(nextSize);
-              setError('');
-            }}
-            onWidthChange={(nextWidth) => {
-              setWidth(nextWidth);
-              setSize('');
-              setError('');
-            }}
-            onWishChange={() => setWish(!wish)}
-            product={product}
-            size={size}
-            width={width}
-            wish={wish}
-          />
-        </div>
-        <ProductDetailRecommend products={recommendations} />
-        {platform === 'mobile' && (
-          <ProductPurchaseActions
-            onAddToCart={() => submit(false)}
-            onOrder={() => submit(true)}
-            placement="fixed"
-          />
-        )}
-      </div>
-    </ContentLayout>
+        )
+      }
+      footer={
+        <>
+          <ProductDetailRecommend products={recommendations} />
+          {platform === 'mobile' && (
+            <ProductPurchaseActions
+              onAddToCart={() => submit(false)}
+              onOrder={() => submit(true)}
+              placement="fixed"
+            />
+          )}
+        </>
+      }
+    >
+      <ProductDetailMedia
+        key={`${product.id}-${color}`}
+        images={gallery}
+        productName={product.name}
+        onOpenImage={(index) => {
+          viewerOrigin.current = {
+            element: document.activeElement as HTMLElement | null,
+            scrollY: window.scrollY,
+          };
+          setViewerIndex(index);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }}
+      />
+      <ProductDetailPanel
+        color={color}
+        error={error}
+        gallery={gallery}
+        onAddToCart={() => submit(false)}
+        onColorChange={(nextColor) => {
+          setColor(nextColor);
+          setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
+          setSize('');
+          setError('');
+        }}
+        onOpenSizeGuide={() =>
+          window.open(
+            'https://www.hoka.com/',
+            'shoe-size-guide',
+            'popup=yes,width=900,height=1000,resizable=yes,scrollbars=yes',
+          )
+        }
+        onOrder={() => submit(true)}
+        onSizeChange={(nextSize) => {
+          setSize(nextSize);
+          setError('');
+        }}
+        onWidthChange={(nextWidth) => {
+          setWidth(nextWidth);
+          setSize('');
+          setError('');
+        }}
+        onWishChange={() => setWish(!wish)}
+        product={product}
+        size={size}
+        width={width}
+        wish={wish}
+      />
+    </ProductDetailLayout>
   );
 }

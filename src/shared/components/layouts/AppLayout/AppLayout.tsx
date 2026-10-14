@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { MenuDrawer } from '@/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer';
 import { SiteFooter } from '@/shared/components/organisms/Layout/SiteFooter/SiteFooter';
 import { SiteHeader } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeader';
@@ -17,13 +17,6 @@ export function AppLayout({
   recentCount?: number;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => {
-    const close = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    };
-    addEventListener('keydown', close);
-    return () => removeEventListener('keydown', close);
-  }, []);
   return (
     <>
       <SiteHeader
