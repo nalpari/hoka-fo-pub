@@ -61,13 +61,14 @@ export function ProductListingResults({
       {shown.length ? (
         <>
           <Grid className={catalogGrid}>
-            {shown.map((product, index) =>
-              index === 5 ? (
-                <PromotionCard key="promotion" />
-              ) : (
-                <ProductCard key={product.id} options={catalogProductCardOptions} product={product} />
-              ),
-            )}
+            {shown.flatMap((product, index) => [
+              ...(index === 5 ? [<PromotionCard key="promotion" />] : []),
+              <ProductCard
+                key={product.id}
+                options={catalogProductCardOptions}
+                product={product}
+              />,
+            ])}
           </Grid>
           {platform === 'mobile' && (
             <Box className={fullWidthPromotion}>

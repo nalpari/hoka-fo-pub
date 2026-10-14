@@ -47,6 +47,8 @@ const facetKeys = [
   'width',
 ] as const;
 
+const sortTokenLabels: Record<string, string> = { new: '신상품순', popular: '베스트순' };
+
 const productsPerLoad = 8;
 
 const emptyFilters = (): FilterValues => ({
@@ -101,7 +103,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   }, [maxPrice, minPrice, paramsKey]);
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
-  const sort = selectedSort || '베스트순';
+  const sort = (selectedSort && sortTokenLabels[selectedSort]) || selectedSort || '베스트순';
   const breadcrumbItems = getBreadcrumbItems({
     gender: activeFilters.gender[0] ?? '',
     category,
@@ -146,7 +148,12 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const reset = () => {
-    setParams(new URLSearchParams());
+    const next = new URLSearchParams();
+    for (const key of ['q', 'sort']) {
+      const value = params.get(key);
+      if (value) next.set(key, value);
+    }
+    setParams(next);
     setMinPrice(productListingPriceRange.min);
     setMaxPrice(productListingPriceRange.defaultMax);
     setMobileFilters(emptyFilters());

@@ -40,9 +40,7 @@ export function HomeHeroSection({ platform }: HomeHeroSectionProps) {
           },
           desktopImage: '/images/temp/home-hero-trail-desktop.png',
           mobileImage: '/images/temp/home-hero-trail-mobile.png',
-          actions: [
-            { label: '트레일 러닝 보러가기', to: '/products?category=Trail%20Running' },
-          ],
+          actions: [{ label: '트레일 러닝 보러가기', to: '/products?activity=trail-running' }],
         },
         {
           content: {
@@ -57,9 +55,7 @@ export function HomeHeroSection({ platform }: HomeHeroSectionProps) {
           },
           desktopImage: '/images/temp/home-hero-city-desktop.png',
           mobileImage: '/images/temp/home-hero-city-mobile.png',
-          actions: [
-            { label: '로드 러닝 보러가기', to: '/products?category=Road%20Running' },
-          ],
+          actions: [{ label: '로드 러닝 보러가기', to: '/products?activity=road-running' }],
         },
       ]}
     />

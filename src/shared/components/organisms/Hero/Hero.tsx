@@ -186,7 +186,9 @@ export function Hero({ ariaLabel, platform, slides }: HeroProps) {
     setIsHovering(true);
   };
 
-  const handleFocus = () => {
+  const handleFocus = (event: FocusEvent<HTMLElement>) => {
+    if (!event.target.matches(':focus-visible')) return;
+
     freezeProgress();
     setIsFocused(true);
   };
@@ -207,6 +209,7 @@ export function Hero({ ariaLabel, platform, slides }: HeroProps) {
       <div
         className={media}
         onPointerCancel={handlePointerCancel}
+        onPointerLeave={handlePointerCancel}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >

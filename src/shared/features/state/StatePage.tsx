@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { StatePanel } from '@/shared/components/molecules/StatePanel/StatePanel';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 
@@ -59,11 +58,9 @@ export function StatePage({
     >
       <StatePanel
         action={
-          <Link href={actionHref}>
-            <Button variant={variant === 'error' ? 'secondary' : 'primary'}>
-              {actionLabel ?? meta.cta}
-            </Button>
-          </Link>
+          <ButtonLink href={actionHref} variant={variant === 'error' ? 'secondary' : 'primary'}>
+            {actionLabel ?? meta.cta}
+          </ButtonLink>
         }
         description={resolvedDescription}
         title={resolvedTitle}

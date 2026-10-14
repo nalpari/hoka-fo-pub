@@ -25,7 +25,7 @@ export function RunClubSessionCard({ session }: { session: RunClubSession }) {
     <Stack as="article" gap="5">
       <LinkOverlay
         as={Link}
-        {...{ to: `/running/run-club/${session.id}` }}
+        href={`/running/run-club/${session.id}`}
         className={styles.image}
         aria-label={`${session.title} 상세 보기`}
       >

@@ -14,8 +14,8 @@ export const homeCategories: readonly HomeCategory[] = [
     title: 'Road Running',
     image: '/images/temp/category-road-running.webp',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Road%20Running&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Road%20Running&gender=women' },
+      { label: '남성 바로가기', to: '/products?activity=road-running&gender=men' },
+      { label: '여성 바로가기', to: '/products?activity=road-running&gender=women' },
     ],
   },
   {
@@ -24,11 +24,11 @@ export const homeCategories: readonly HomeCategory[] = [
     actions: [
       {
         label: '남성 바로가기',
-        to: '/products?category=Trail%20Running&gender=men',
+        to: '/products?activity=trail-running&gender=men',
       },
       {
         label: '여성 바로가기',
-        to: '/products?category=Trail%20Running&gender=women',
+        to: '/products?activity=trail-running&gender=women',
       },
     ],
   },
@@ -36,32 +36,32 @@ export const homeCategories: readonly HomeCategory[] = [
     title: 'Lifestyle',
     image: '/images/temp/category-lifestyle.webp',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Lifestyle&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Lifestyle&gender=women' },
+      { label: '남성 바로가기', to: '/products?activity=lifestyle&gender=men' },
+      { label: '여성 바로가기', to: '/products?activity=lifestyle&gender=women' },
     ],
   },
   {
     title: 'Hiking',
     image: '/images/temp/category-hiking.png',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Hiking&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Hiking&gender=women' },
+      { label: '남성 바로가기', to: '/products?activity=hiking&gender=men' },
+      { label: '여성 바로가기', to: '/products?activity=hiking&gender=women' },
     ],
   },
   {
     title: 'Walking',
     image: '/images/temp/category-walking.webp',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Walking&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Walking&gender=women' },
+      { label: '남성 바로가기', to: '/products?activity=walking&gender=men' },
+      { label: '여성 바로가기', to: '/products?activity=walking&gender=women' },
     ],
   },
   {
     title: 'Working',
     image: '/images/temp/category-working.webp',
     actions: [
-      { label: '남성 바로가기', to: '/products?category=Working&gender=men' },
-      { label: '여성 바로가기', to: '/products?category=Working&gender=women' },
+      { label: '남성 바로가기', to: '/products?activity=training&gender=men' },
+      { label: '여성 바로가기', to: '/products?activity=training&gender=women' },
     ],
   },
 ];

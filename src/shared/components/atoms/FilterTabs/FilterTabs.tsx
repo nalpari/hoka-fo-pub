@@ -300,7 +300,7 @@ export function FilterTabs<T extends string = string>({
         className={rail({ platform, variant })}
         onValueChange={(nextValue) => {
           const next = nextValue[0];
-          if (next) onValueChange(next as T);
+          if (next !== undefined) onValueChange(next as T);
         }}
         value={[value]}
       >

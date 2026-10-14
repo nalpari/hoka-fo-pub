@@ -19,7 +19,11 @@ export function useRecentSearches() {
 
   const persistRecentSearches = (next: string[]) => {
     setRecentSearches(next);
-    window.localStorage.setItem(storageKey, JSON.stringify(next));
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(next));
+    } catch {
+      // Storage can be blocked or full; keep the in-memory list.
+    }
   };
 
   const addRecentSearch = (query: string) => {

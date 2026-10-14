@@ -45,7 +45,7 @@ const activities = [
 ] as const;
 
 const cushioning = [
-  ['max', '맥시 쿠셔닝'],
+  ['plush', '맥시 쿠셔닝'],
   ['balanced', '밸런스'],
   ['responsive', '반응성'],
 ] as const;

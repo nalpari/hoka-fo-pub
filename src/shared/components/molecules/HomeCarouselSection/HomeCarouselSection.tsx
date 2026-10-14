@@ -26,6 +26,8 @@ export type HomeCarouselSectionProps = {
   mobileItemGutter: number;
   railClassName: string;
   spacing?: 'default' | 'compact';
+  /** Remounts the viewport (and resets its position) when this changes. */
+  viewportKey?: string;
 };
 
 /** Home content rail with a shared responsive carousel frame and controls. */
@@ -42,6 +44,7 @@ export function HomeCarouselSection({
   mobileItemGutter,
   railClassName,
   spacing,
+  viewportKey,
 }: HomeCarouselSectionProps) {
   return (
     <Carousel itemCount={itemCount}>
@@ -57,6 +60,7 @@ export function HomeCarouselSection({
       >
         {beforeViewport}
         <CarouselViewport
+          key={viewportKey}
           className={railClassName}
           desktopCenteredItemCount={desktopCenteredItemCount}
           desktopItemGutter={desktopItemGutter}

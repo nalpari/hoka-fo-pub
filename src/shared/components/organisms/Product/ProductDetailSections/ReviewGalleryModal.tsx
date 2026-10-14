@@ -165,7 +165,7 @@ export function ReviewGalleryModal({
         <Dialog.Backdrop className={styles.backdrop} />
         <Dialog.Viewport className={styles.viewport}>
           <Dialog.Popup aria-label="리뷰 이미지 상세" className={styles.dialog}>
-            <main className={styles.viewer}>
+            <div className={styles.viewer}>
               <IconButton
                 aria-label="이전 이미지"
                 disabled={imageIndex === 0}
@@ -193,7 +193,7 @@ export function ReviewGalleryModal({
                   </Button>
                 ))}
               </Box>
-            </main>
+            </div>
             <aside className={styles.side}>
               <header>
                 <Box>

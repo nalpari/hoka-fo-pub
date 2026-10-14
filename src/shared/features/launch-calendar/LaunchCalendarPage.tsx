@@ -16,6 +16,8 @@ type LaunchTone =
 
 type LaunchItem = {
   id: string;
+  /** Mock catalog product this launch links to. */
+  productId: string;
   title: string;
   detail: string;
   date: string;
@@ -291,6 +293,7 @@ const featureBrand = css({
 const launches: LaunchItem[] = [
   {
     id: '2002r',
+    productId: 'shoe-1',
     title: '2002R Brown Restock',
     detail: 'U2002RAB',
     date: 'September 16',
@@ -300,6 +303,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'sold-out-530',
+    productId: 'shoe-2',
     title: '530 Limited Pack',
     detail: 'MR530NBX',
     date: 'September 8',
@@ -309,6 +313,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'abzorb',
+    productId: 'shoe-3',
     title: 'ABZORB 1890A',
     detail: 'U1890M2',
     date: 'September 14',
@@ -318,6 +323,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'flying',
+    productId: 'shoe-4',
     title: 'Flying77 구스다운, WINTER',
     detail: '더 깊어진 무드의 프리미엄 다운 컬렉션',
     date: 'September 12',
@@ -327,6 +333,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'rover',
+    productId: 'shoe-5',
     title: 'A Daily Stroll, NB Rover',
     detail: '일상에 스며드는 기분 좋은 발걸음',
     date: 'September 10',
@@ -336,6 +343,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: '2010',
+    productId: 'shoe-6',
     title: 'The ABZORB 2010',
     detail: 'M2010NB',
     date: 'September 23',
@@ -345,6 +353,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: '1954r',
+    productId: 'shoe-7',
     title: 'The 1954R',
     detail: 'U1954GR',
     date: 'September 21',
@@ -354,6 +363,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'seasonal',
+    productId: 'shoe-8',
     title: 'Made in USA 26FW Seasonal Collection',
     detail: 'U992 & U990',
     date: 'September 18',
@@ -363,6 +373,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'flat',
+    productId: 'shoe-9',
     title: 'Refined for Fall, FW Flat Breeze',
     detail: 'MEGAWEEK',
     date: 'September 18',
@@ -372,6 +383,7 @@ const launches: LaunchItem[] = [
   },
   {
     id: 'daynight',
+    productId: 'shoe-10',
     title: 'DAY & NIGHT : 530 & 1906',
     detail: '530JPB / 1906RCH',
     date: 'September 17',
@@ -386,7 +398,7 @@ function LaunchCard({ item, mode }: { item: LaunchItem; mode: CalendarTab }) {
   const actionLabel =
     item.status === 'now' ? '구매하기' : item.status === 'coming' ? 'COMING SOON' : 'SOLD OUT';
   return (
-    <Link className={card} href={`/products/${item.id}`}>
+    <Link className={card} href={`/products/${item.productId}`}>
       <Box className={art({ tone: item.tone })} data-launch-art>
         {mode === 'coming' && <span className={date}>{item.date}</span>}
         <span className={mark}>NB</span>
@@ -456,7 +468,7 @@ export function LaunchCalendarPage() {
           <Box className={featureCopy}>
             <p>{featured.release} 런칭</p>
             <h2>{featured.title}</h2>
-            <Link href={`/products/${featured.id}`}>구매하기</Link>
+            <Link href={`/products/${featured.productId}`}>구매하기</Link>
           </Box>
           <Box className={featureArt}>
             <span className={featureShoe}>N</span>

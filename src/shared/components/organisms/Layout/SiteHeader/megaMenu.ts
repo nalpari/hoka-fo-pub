@@ -29,7 +29,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
         { label: 'Best', to: productLink(`gender=${gender}&sort=popular`) },
         { label: 'New', to: productLink(`gender=${gender}&sort=new`) },
         { label: 'Coming Soon', to: productLink(`gender=${gender}&sort=coming-soon`) },
-        { label: 'Triple Black', to: productLink(`gender=${gender}&color=triple-black`) },
+        { label: 'Triple Black', to: productLink(`gender=${gender}&color=black`) },
         { label: 'Ready for UTMB', to: `/collection/utmb-${gender}` },
         { label: '가을 러닝의 시작, Bondi', to: productLink(`gender=${gender}&model=bondi`) },
         { label: 'Sale', to: productLink(`gender=${gender}&sort=sale`) },
@@ -49,21 +49,21 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
     {
       title: '신발',
       items: [
-        { label: '전체보기', to: productLink(`gender=${gender}&category=footwear`) },
+        { label: '전체보기', to: productLink(`gender=${gender}`) },
         {
           label: '로드 러닝',
-          to: productLink(`gender=${gender}&category=footwear&activity=road-running`),
+          to: productLink(`gender=${gender}&activity=road-running`),
         },
         {
           label: '트레일 러닝',
-          to: productLink(`gender=${gender}&category=footwear&activity=trail-running`),
+          to: productLink(`gender=${gender}&activity=trail-running`),
         },
         {
           label: '라이프스타일',
-          to: productLink(`gender=${gender}&category=footwear&activity=lifestyle`),
+          to: productLink(`gender=${gender}&activity=lifestyle`),
         },
-        { label: '하이킹', to: productLink(`gender=${gender}&category=footwear&activity=hiking`) },
-        { label: '워킹', to: productLink(`gender=${gender}&category=footwear&activity=walking`) },
+        { label: '하이킹', to: productLink(`gender=${gender}&activity=hiking`) },
+        { label: '워킹', to: productLink(`gender=${gender}&activity=walking`) },
         { label: '리커버리', to: productLink(`gender=${gender}&activity=recovery`) },
       ],
     },
@@ -127,9 +127,9 @@ export const megaMenus: MegaMenu[] = [
       {
         title: 'Shop By Feel',
         items: [
-          { label: '맥시 쿠셔닝', to: productLink('cushioning=max') },
+          { label: '맥시 쿠셔닝', to: productLink('cushioning=plush') },
           { label: '밸런스 쿠셔닝', to: productLink('cushioning=balanced') },
-          { label: '안정화', to: productLink('support=stability') },
+          { label: '안정화', to: productLink('support=stable') },
           { label: '와이드', to: productLink('width=wide') },
         ],
       },

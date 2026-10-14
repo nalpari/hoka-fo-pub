@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { css, cva } from 'styled-system/css';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
@@ -218,9 +218,9 @@ function InquiryPage() {
         궁금한 사항을 남겨 주시면 확인 후 답변해 드립니다.
       </Typography>
       <div className={actions}>
-        <Link href="/support/inquiries/new">
-          <Button variant="primary">문의하기</Button>
-        </Link>
+        <ButtonLink href="/support/inquiries/new" variant="primary">
+          문의하기
+        </ButtonLink>
       </div>
       <div className={panel}>
         {pageItems.map((item) => (

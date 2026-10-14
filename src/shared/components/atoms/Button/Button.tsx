@@ -1,8 +1,8 @@
 'use client';
 
-import { Button as BaseButton } from '@base-ui/react/button';
+import { Button as BaseButton, type ButtonProps as BaseButtonProps } from '@base-ui/react/button';
 import { forwardRef } from 'react';
-import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 import Link from 'next/link';
 import type { LinkProps } from 'next/link';
 import { css, cva } from 'styled-system/css';
@@ -168,7 +168,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     icon?: ReactNode;
     loading?: boolean;
     invalid?: boolean;
-    render?: ReactElement;
+    render?: BaseButtonProps['render'];
     nativeButton?: boolean;
   };
 
@@ -356,7 +356,16 @@ export function ButtonLink({
     <Button
       {...buttonProps}
       nativeButton={false}
-      render={<Link href={href} replace={replace} scroll={scroll} prefetch={prefetch} />}
+      render={(props) => (
+        <Link
+          {...props}
+          href={href}
+          replace={replace}
+          scroll={scroll}
+          prefetch={prefetch}
+          role={undefined}
+        />
+      )}
     >
       {children}
     </Button>

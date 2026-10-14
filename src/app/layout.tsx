@@ -20,7 +20,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang="ko">
-      <body>
+      <body className={`platform-${platform}`}>
         <Suspense fallback={<main className="loading">화면을 불러오는 중입니다.</main>}>
           <div className={platform === 'web' ? webPlatform : undefined}>
             <ShopShell platform={platform}>{children}</ShopShell>

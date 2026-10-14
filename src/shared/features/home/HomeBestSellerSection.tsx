@@ -71,13 +71,13 @@ export function HomeBestSellerSection() {
       desktopCenteredItemCount={5}
       desktopItemGutter={8}
       itemCount={bestSellerProducts.length}
-      key={selectedTab}
       mobileItemGutter={5}
       platform={platform}
       railClassName={isWeb ? webRail : mobileRail}
       slideClassName={isWeb ? webSlide : mobileSlide}
       spacing="compact"
       title="Best sellers"
+      viewportKey={selectedTab}
     >
       {bestSellerProducts.map((product) => (
         <ProductCard key={product.id} product={product} variant="showcase" />

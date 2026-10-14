@@ -27,7 +27,7 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
 
     addRecentSearch(normalizedQuery);
     router.push(
-      `/search?q=${encodeURIComponent(normalizedQuery)}&category=${encodeURIComponent(category)}`,
+      `/search?q=${encodeURIComponent(normalizedQuery)}&scope=${encodeURIComponent(category)}`,
     );
     onClose();
   };

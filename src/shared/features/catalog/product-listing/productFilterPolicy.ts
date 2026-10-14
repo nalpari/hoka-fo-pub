@@ -8,6 +8,7 @@ const matchingActivities: Record<string, string[]> = {
   walking: ['러닝', '라이프스타일'],
   training: ['라이프스타일', '러닝'],
   lifestyle: ['라이프스타일'],
+  recovery: ['리커버리'],
 };
 
 const matchesAny = <T>(selected: T[], predicate: (value: T) => boolean) =>

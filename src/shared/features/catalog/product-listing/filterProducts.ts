@@ -21,12 +21,17 @@ export function filterProducts(products: Product[], filters: ProductListingFilte
   return products.filter((product) => matchesProductFilters(product, filters));
 }
 
+const compareId = (a: Product, b: Product) =>
+  a.id.localeCompare(b.id, undefined, { numeric: true });
+
 export function sortProducts(products: Product[], sort: string) {
   return [...products].sort((a, b) =>
     sort === '낮은가격순'
       ? a.price - b.price
       : sort === '높은가격순'
         ? b.price - a.price
-        : a.id.localeCompare(b.id),
+        : sort === '신상품순'
+          ? Number(b.promotion === 'New') - Number(a.promotion === 'New') || compareId(a, b)
+          : compareId(a, b),
   );
 }

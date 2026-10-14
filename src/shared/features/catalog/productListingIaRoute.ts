@@ -16,7 +16,6 @@ const featuredSortValues: Record<string, string> = {
 };
 
 const categoryValues: Record<string, string> = {
-  신발: 'footwear',
   의류: 'apparel',
   '러닝 웨어': 'apparel',
   아우터: 'outerwear',
@@ -67,8 +66,6 @@ export function getProductListingRoute(iaKey?: string) {
       if (activity) query.set('activity', activity);
     }
   } else if (depth1 === 'SHOES') {
-    query.set('category', 'footwear');
-
     const activity = activityValues[depth3];
     if (activity) query.set('activity', activity);
   }

@@ -85,7 +85,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         />
       )}
       <div hidden={viewerIndex !== null}>
-        <main className={styles.layout}>
+        <div className={styles.layout}>
           <ProductDetailMedia
             key={`${product.id}-${color}`}
             images={gallery}
@@ -133,7 +133,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
             width={width}
             wish={wish}
           />
-        </main>
+        </div>
         <ProductDetailRecommend products={recommendations} />
         {platform === 'mobile' && (
           <ProductPurchaseActions
