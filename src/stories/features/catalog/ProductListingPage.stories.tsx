@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
-import { ShopShell } from '@/shared/ShopApp';
+import { ShopShell } from '@/shared/ShopShell';
+import { ReadonlyURLSearchParams, useSearchParams } from '@storybook/nextjs-vite/navigation.mock';
+import { ProductListingPage } from '@/shared/features/catalog/ProductListingPage';
 import { getProductListingRoute } from '@/shared/features/catalog/productListingIaRoute';
 
 type ProductListingStoryArgs = {
@@ -10,26 +11,28 @@ type ProductListingStoryArgs = {
 
 const meta = {
   title: 'PAGES/PRODUCTS/List',
-  component: ShopShell,
   decorators: [
-    (Story, context) => (
-      <MemoryRouter
-        initialEntries={[
-          getProductListingRoute(context.args.listing) ?? context.parameters.route ?? '/products',
-        ]}
-      >
-        <Story />
-      </MemoryRouter>
-    ),
+    (Story, context) => {
+      const route =
+        getProductListingRoute(context.args.listing) ?? context.parameters.route ?? '/products';
+      const url = new URL(route, 'http://localhost');
+      useSearchParams.mockReturnValue(new ReadonlyURLSearchParams(url.search));
+      return <Story />;
+    },
   ],
+  beforeEach: () => () => useSearchParams.mockRestore(),
   argTypes: {
     listing: {
       control: false,
       description: 'IA 구조도에서 전달하는 상품 목록 필터 키',
     },
   },
-  parameters: { layout: 'fullscreen' },
-  render: ({ platform }) => <ShopShell platform={platform} />,
+  parameters: { nextjs: { navigation: { pathname: '/products' } }, layout: 'fullscreen' },
+  render: ({ platform }) => (
+    <ShopShell platform={platform}>
+      <ProductListingPage />
+    </ShopShell>
+  ),
 } satisfies Meta<ProductListingStoryArgs>;
 
 export default meta;

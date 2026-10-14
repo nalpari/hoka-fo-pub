@@ -1,17 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { LoginContent } from '@/shared/features/login/LoginContent';
 
 const meta = {
   title: 'Pages/AUTH/Login',
   component: LoginContent,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: {
     id: '',
     password: '',

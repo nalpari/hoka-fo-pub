@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from 'storybook/test';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { SignupPage } from '@/shared/features/signup/SignupPage';
 
@@ -12,17 +11,17 @@ const meta = {
       const platform = context.parameters.platform === 'mobile' ? 'mobile' : 'web';
 
       return (
-        <MemoryRouter initialEntries={['/signup']}>
+        <>
           <PlatformProvider platform={platform}>
             <div className={`platform-${platform}`}>
               <Story />
             </div>
           </PlatformProvider>
-        </MemoryRouter>
+        </>
       );
     },
   ],
-  parameters: { layout: 'fullscreen' },
+  parameters: { nextjs: { navigation: { pathname: '/signup' } }, layout: 'fullscreen' },
 } satisfies Meta<typeof SignupPage>;
 
 export default meta;

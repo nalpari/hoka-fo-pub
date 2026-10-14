@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -16,7 +15,7 @@ function RunClubPreview({ platform, view }: PreviewProps) {
   )!;
 
   return (
-    <MemoryRouter>
+    <>
       <PlatformProvider platform={platform}>
         <div
           className={`platform-${platform} ${platform === 'web' ? css({ minW: '1200px' }) : ''}`}
@@ -30,7 +29,7 @@ function RunClubPreview({ platform, view }: PreviewProps) {
           </AppLayout>
         </div>
       </PlatformProvider>
-    </MemoryRouter>
+    </>
   );
 }
 

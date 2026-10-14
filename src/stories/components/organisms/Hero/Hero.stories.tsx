@@ -1,17 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { Hero } from '@/shared/components/organisms/Hero/Hero';
 
 const meta = {
   title: 'Organisms/Hero',
   component: Hero,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   parameters: { layout: 'fullscreen' },
   args: {
     slides: [

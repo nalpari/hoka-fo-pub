@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { products } from '@/mocks/products';
 import { ProductCardPreview } from '@/shared/components/molecules/ProductCard/ProductCardPreview';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -10,11 +9,11 @@ const meta = {
   component: ProductCard,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
         <div style={{ maxWidth: 280 }}>
           <Story />
         </div>
-      </MemoryRouter>
+      </>
     ),
   ],
 } satisfies Meta<typeof ProductCard>;

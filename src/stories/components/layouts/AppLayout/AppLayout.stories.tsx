@@ -1,17 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
 
 const meta = {
   title: 'Layouts/App Layout',
   component: AppLayout,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof AppLayout>;
 export default meta;
 type Story = StoryObj<typeof meta>;

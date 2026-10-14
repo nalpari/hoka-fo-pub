@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { RegistrationContent } from '@/shared/features/signup-registration/RegistrationContent';
 import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
@@ -8,13 +7,6 @@ import { RegistrationCompleteContent } from '@/shared/features/signup-registrati
 const meta = {
   title: 'Pages/AUTH/Registration',
   component: RegistrationContent,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: {
     stage: 'information',
     information: {

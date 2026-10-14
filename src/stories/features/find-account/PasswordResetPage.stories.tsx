@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from 'storybook/test';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { PasswordResetPage } from '@/shared/features/find-account/PasswordResetPage';
 
@@ -14,9 +13,9 @@ const withPlatform =
   );
 
 const withRouter = (Story: React.ComponentType) => (
-  <MemoryRouter>
+  <>
     <Story />
-  </MemoryRouter>
+  </>
 );
 
 const meta = {

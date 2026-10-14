@@ -3,6 +3,7 @@ import '../src/shared/styles/global.scss';
 
 const preview: Preview = {
   parameters: {
+    nextjs: { appDirectory: true },
     a11y: { test: 'todo' },
     controls: { expanded: true },
     layout: 'padded',

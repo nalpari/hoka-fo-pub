@@ -1,18 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
-import { ShopShell } from '@/shared/ShopApp';
+import { ShopShell } from '@/shared/ShopShell';
+import ProductPage from '@/app/products/[id]/page';
 
 const meta = {
   title: 'PAGES/PRODUCTS/Detail',
   component: ShopShell,
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/products/shoe-1']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
-  parameters: { layout: 'fullscreen' },
+  args: { children: <ProductPage /> },
+  parameters: {
+    nextjs: { navigation: { pathname: '/products/shoe-1', segments: [['id', 'shoe-1']] } },
+    layout: 'fullscreen',
+  },
 } satisfies Meta<typeof ShopShell>;
 
 export default meta;

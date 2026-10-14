@@ -1,18 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
-import { ShopShell } from '@/shared/ShopApp';
+import { ShopShell } from '@/shared/ShopShell';
+import HomePage from '@/app/page';
 
 const meta = {
   title: 'PAGES/HOME/Main',
   component: ShopShell,
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/']}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
-  parameters: { layout: 'fullscreen' },
+  args: { children: <HomePage /> },
+  parameters: { nextjs: { navigation: { pathname: '/' } }, layout: 'fullscreen' },
 } satisfies Meta<typeof ShopShell>;
 
 export default meta;

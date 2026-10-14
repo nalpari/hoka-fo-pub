@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from 'storybook/test';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
 
-const withPlatform = (platform: 'web' | 'mobile', width?: number) =>
-  (Story: React.ComponentType) => (
+const withPlatform =
+  (platform: 'web' | 'mobile', width?: number) => (Story: React.ComponentType) => (
     <PlatformProvider platform={platform}>
       <div className={`platform-${platform}`} style={width ? { width } : undefined}>
         <Story />
@@ -18,13 +17,13 @@ const meta = {
   component: FindAccountPage,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
         <PlatformProvider platform="web">
           <div className="platform-web">
             <Story />
           </div>
         </PlatformProvider>
-      </MemoryRouter>
+      </>
     ),
   ],
   parameters: { layout: 'fullscreen' },

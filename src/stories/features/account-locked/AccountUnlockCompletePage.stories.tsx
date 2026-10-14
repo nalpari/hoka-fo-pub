@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { AccountUnlockCompletePage } from '@/shared/features/account-locked/AccountUnlockCompletePage';
 
@@ -17,13 +16,6 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 const meta = {
   title: 'Pages/AUTH/AccountUnlockCompletePage',
   component: AccountUnlockCompletePage,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof AccountUnlockCompletePage>;
 

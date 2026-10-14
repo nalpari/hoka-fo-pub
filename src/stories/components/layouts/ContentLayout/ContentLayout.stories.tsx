@@ -1,17 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 
 const meta = {
   title: 'Layouts/Content Layout',
   component: ContentLayout,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof ContentLayout>;
 
 export default meta;

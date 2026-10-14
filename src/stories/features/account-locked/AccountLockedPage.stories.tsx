@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
 
 const withRouter = (Story: React.ComponentType) => (
-  <MemoryRouter>
+  <>
     <Story />
-  </MemoryRouter>
+  </>
 );
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (

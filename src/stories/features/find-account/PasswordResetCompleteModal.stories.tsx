@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PlatformProvider } from '@/shared/context/platform';
 import { PasswordResetCompleteModal } from '@/shared/features/find-account/PasswordResetCompleteModal';
 
@@ -18,13 +17,6 @@ const meta = {
   title: 'Pages/AUTH/FindAccount/PasswordResetCompleteModal',
   component: PasswordResetCompleteModal,
   args: { onOpenChange: () => {}, onConfirm: () => {} },
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof PasswordResetCompleteModal>;
 

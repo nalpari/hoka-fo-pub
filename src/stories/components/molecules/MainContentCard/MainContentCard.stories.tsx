@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 
 const meta = {
@@ -7,11 +6,11 @@ const meta = {
   component: MainContentCard,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
         <div style={{ width: '360px' }}>
           <Story />
         </div>
-      </MemoryRouter>
+      </>
     ),
   ],
   args: {

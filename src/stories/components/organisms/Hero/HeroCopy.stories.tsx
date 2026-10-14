@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { HeroCopy } from '@/shared/components/organisms/Hero/HeroCopy';
 
 const meta = {
@@ -7,11 +6,11 @@ const meta = {
   component: HeroCopy,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
         <div style={{ position: 'relative', minHeight: 500, background: '#425d62', color: '#fff' }}>
           <Story />
         </div>
-      </MemoryRouter>
+      </>
     ),
   ],
   args: {

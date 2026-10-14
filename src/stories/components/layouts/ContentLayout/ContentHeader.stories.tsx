@@ -1,18 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ContentHeader } from '@/shared/components/layouts/ContentLayout/ContentHeader';
 
 const meta = {
   title: 'Layouts/Content Header',
   component: ContentHeader,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof ContentHeader>;
 
 export default meta;

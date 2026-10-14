@@ -1,19 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { SearchOverlay } from '@/shared/components/organisms/Search/SearchOverlay';
 
 const meta = {
   title: 'Organisms/Search/SearchOverlay',
   component: SearchOverlay,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: { onClose: () => {} },
   render: function ControlledOverlay(args) {
     const [isOpen, setIsOpen] = useState(true);

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
 import { PromotionCard } from '@/shared/components/molecules/PromotionCard/PromotionCard';
 
 const meta = {
@@ -7,11 +6,11 @@ const meta = {
   component: PromotionCard,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
         <div style={{ maxWidth: 320 }}>
           <Story />
         </div>
-      </MemoryRouter>
+      </>
     ),
   ],
 } satisfies Meta<typeof PromotionCard>;

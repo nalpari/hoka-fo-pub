@@ -1,19 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/shared/context/platform';
-import { MemoryRouter } from 'react-router-dom';
 import { SignupTermsContent } from '@/shared/features/signup-terms/SignupTermsContent';
 import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
 
 const meta = {
   title: 'Pages/AUTH/SignupTerms',
   component: SignupTermsContent,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: {
     agreements: [false, false, false, false],
     detail: null,
