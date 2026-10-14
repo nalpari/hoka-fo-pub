@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react';
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
@@ -7,43 +7,50 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { faComment } from '@/shared/icons/fontAwesome';
 
 const styles = {
-  page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
+  page: css({ pt: '24', px: '5', pb: '124px', _mobile: { pt: '10', px: '4', pb: '8' } }),
   content: css({ maxW: '500px', mx: 'auto' }),
-  title: css({ m: 0, mb: '10' }),
+  title: css({ m: '0', mb: '10', _mobile: { fontSize: '22!' } }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  options: css({
-    justifyContent: 'space-between',
-    gap: '2',
+  options: css({ justifyContent: 'space-between', gap: '2', minH: '6' }),
+  rememberId: css({ gap: '2', flexShrink: '0' }),
+  links: css({ gap: '2', flexShrink: '0' }),
+  accountLink: css({ '--button-label-size': '14px!', '--button-height': 'auto!' }),
+  divider: css({ w: '1px', h: '10px', bg: '#dadada' }),
+  actions: css({ gap: '2', mt: '2' }),
+  socialIcon: css({ display: 'block', flexShrink: '0' }),
+  membership: css({
+    mt: '6',
+    pt: '6',
+    borderTop: '1px solid token(colors.black.20)',
+    gap: '6',
+    _mobile: { mt: '8', pt: '8' },
   }),
-  links: css({
-    gap: '2',
-    '& a': { color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' },
-  }),
-  actions: css({ gap: '2', mt: '3' }),
-  button: css({
-    '& svg': { w: '14px', h: '14px' },
-  }),
-  kakao: css({
-    '--button-bg': 'var(--color-citrus-100)!',
-    '--button-color': 'var(--color-black-100)!',
-  }),
-  naver: css({
-    '--button-bg': 'var(--color-black-60)!',
-    '--button-color': 'var(--color-white-000)!',
-  }),
-  membership: css({ mt: '8', pt: '8', borderTop: '1px solid var(--color-black-20)', gap: '2' }),
-  signup: css({
-    mt: '4',
-    '--button-border-width': '1px!',
-    '--button-bg': 'var(--color-white-000)!',
-    '--button-color': 'var(--color-black-100)!',
-    '--button-border-color': 'var(--color-black-100)!',
-  }),
+  benefits: css({ gap: '2' }),
+  benefitTitle: css({ m: '0', fontWeight: 'medium' }),
+  benefitDescription: css({ m: '0' }),
 };
+
+const socialButton = cva({
+  base: { '--button-icon-size': '18px' },
+  variants: {
+    provider: {
+      kakao: {
+        '--button-bg': '#fae100!',
+        '--button-color': 'token(colors.black.100)!',
+        '--button-bg-hover': '#fae100!',
+        '--button-color-hover': 'token(colors.black.100)!',
+      },
+      naver: {
+        '--button-bg': '#03c75a!',
+        '--button-color': 'token(colors.white.0)!',
+        '--button-bg-hover': '#03c75a!',
+        '--button-color-hover': 'token(colors.white.0)!',
+      },
+    },
+  },
+});
 
 export type LoginNotice = { tone: 'error' | 'success'; message: string };
 
@@ -104,50 +111,53 @@ export function LoginContent({
           </FormField>
           <HStack className={styles.options}>
             <Checkbox
+              className={styles.rememberId}
               label="아이디 저장"
               labelVariant="body4"
               checked={rememberId}
               onCheckedChange={onRememberChange}
             />
             <HStack className={styles.links}>
-              <Button variant="link" size="sm" onClick={onFindAccount}>
+              <Button
+                variant="link"
+                size="md"
+                className={styles.accountLink}
+                onClick={onFindAccount}
+              >
                 아이디 찾기
               </Button>
-              <Typography variant="body5" aria-hidden="true">
-                |
-              </Typography>
-              <Button variant="link" size="sm" onClick={() => onUnavailable('비밀번호 찾기')}>
+              <Box as="span" className={styles.divider} aria-hidden="true" />
+              <Button
+                variant="link"
+                size="md"
+                className={styles.accountLink}
+                onClick={() => onUnavailable('비밀번호 찾기')}
+              >
                 비밀번호 찾기
               </Button>
             </HStack>
           </HStack>
           {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
           <Stack className={styles.actions}>
-            <Button
-              className={styles.button}
-              fullWidth
-              variant="primary"
-              density="auto"
-              type="submit"
-            >
+            <Button fullWidth variant="primary" size="tall" type="submit">
               로그인
             </Button>
             <Button
-              className={[styles.button, styles.kakao].join(' ')}
+              className={socialButton({ provider: 'kakao' })}
               fullWidth
               variant="primary"
-              density="auto"
-              icon={<Icon fontAwesomeIcon={faComment} />}
+              size="tall"
+              icon={<img src="/assets/login/kakao.svg" alt="" className={styles.socialIcon} />}
               onClick={() => onUnavailable('카카오 로그인')}
             >
               카카오 로그인
             </Button>
             <Button
-              className={[styles.button, styles.naver].join(' ')}
+              className={socialButton({ provider: 'naver' })}
               fullWidth
               variant="primary"
-              density="auto"
-              icon={<b aria-hidden="true">N</b>}
+              size="tall"
+              icon={<img src="/assets/login/naver.svg" alt="" className={styles.socialIcon} />}
               onClick={() => onUnavailable('네이버 로그인')}
             >
               네이버 로그인
@@ -155,19 +165,20 @@ export function LoginContent({
           </Stack>
         </form>
         <Stack as="section" className={styles.membership} aria-labelledby="membership-title">
-          <Typography as="h2" variant="body3" id="membership-title" className={css({ m: 0 })}>
-            가입과 동시에 시작되는 혜택!
-          </Typography>
-          <Typography as="p" variant="body4" className={css({ m: 0 })}>
-            신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
-          </Typography>
-          <ButtonLink
-            to="/signup"
-            fullWidth
-            variant="primary"
-            density="auto"
-            className={styles.signup}
-          >
+          <Stack className={styles.benefits}>
+            <Typography
+              as="h2"
+              variant="body3"
+              id="membership-title"
+              className={styles.benefitTitle}
+            >
+              가입과 동시에 시작되는 혜택!
+            </Typography>
+            <Typography as="p" variant="body4" className={styles.benefitDescription}>
+              신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
+            </Typography>
+          </Stack>
+          <ButtonLink to="/signup" fullWidth variant="secondary" size="tall">
             회원가입
           </ButtonLink>
         </Stack>

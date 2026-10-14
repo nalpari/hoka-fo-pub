@@ -11,31 +11,10 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
 const styles = {
-  page: css({ pt: '24', px: '5', pb: '20', _mobile: { pt: '10', px: '4', pb: '8' } }),
-  content: css({ maxW: '568px', mx: 'auto' }),
-  title: css({ m: '0', mb: '8' }),
-  terms: css({ gap: '2', pb: '6', borderBottom: '1px solid var(--color-black-20)' }),
-  termsTitle: css({ justifyContent: 'space-between', mb: '4' }),
-  termRow: css({ justifyContent: 'space-between', gap: '2', alignItems: 'center' }),
+  terms: css({ borderBottom: '1px solid var(--color-black-20)' }),
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
-  heading: css({ m: '0', mt: '6', mb: '6' }),
-  fields: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  pair: css({ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '2' }),
-  carrier: css({
-    gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)',
-    gap: '3',
-    alignItems: 'center',
-    '& > button': { justifySelf: 'end' },
-  }),
-  countdown: css({ m: '0', mt: '-2' }),
-  text: css({ mb: '2' }),
-  intro: css({ m: '-6 0 6', color: 'var(--color-text-subtle)' }),
-  help: css({ m: '0', mt: '4' }),
-  carrierList: css({ gap: '4' }),
-  carrierSection: css({ gap: '3', pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
-  carrierSectionLast: css({ gap: '3' }),
-  carrierTitle: css({ m: '0' }),
-  carrierNames: css({ m: '0' }),
+  carrier: css({ '& > button': { justifySelf: 'end' } }),
+  carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
 };
 
 const mvnoCarriers = [
@@ -149,19 +128,29 @@ export function PhoneVerificationContent(props: Props) {
   );
 
   return (
-    <Box as="main" className={styles.page}>
-      <Box className={styles.content}>
-        <Typography as="h1" variant="headingKr6" className={styles.title}>
-          {props.title ?? '휴대폰 인증'}
-        </Typography>
-        {props.description ? (
-          <Typography as="p" variant="body5" className={styles.intro}>
-            {props.description}
+    <Box as="main" pt="24" px="5" pb="20" _mobile={{ pt: '10', px: '4', pb: '8' }}>
+      <Box maxW="568px" mx="auto">
+        <Box mb="8">
+          <Typography as="h1" web="heading7" mo="heading5">
+            {props.title ?? '휴대폰 인증'}
           </Typography>
+        </Box>
+        {props.description ? (
+          <Box mt="-6" mb="6">
+            <Typography as="p" variant="body5" tone="subtle">
+              {props.description}
+            </Typography>
+          </Box>
         ) : null}
-        <Stack as="section" className={styles.terms} aria-labelledby="phone-terms-title">
-          <HStack className={styles.termsTitle}>
-            <Typography as="h2" id="phone-terms-title" variant="headingKr7" className={styles.text}>
+        <Stack
+          as="section"
+          gap="4"
+          pb="6"
+          className={styles.terms}
+          aria-labelledby="phone-terms-title"
+        >
+          <HStack justify="space-between" mb="2">
+            <Typography as="h2" id="phone-terms-title" variant="headingKr7">
               휴대폰 인증약관
             </Typography>
             <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
@@ -169,103 +158,115 @@ export function PhoneVerificationContent(props: Props) {
             </Terms>
           </HStack>
           {verificationTerms.map((term, index) => (
-            <HStack key={term} className={styles.termRow}>
+            <HStack key={term} justify="space-between" gap="2" alignItems="center">
               <Terms
                 checked={agreements[index]}
                 onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
                 required
                 invalid={showAgreementErrors && !agreements[index]}
               >
-                <Typography variant="body5">(필수) {term}</Typography>
+                <Typography variant="body4">(필수) {term}</Typography>
               </Terms>
               <Button
                 variant="link"
-                size="sm"
+                size="md"
                 className={styles.detail}
                 onClick={() => props.onDetail(term)}
               >
-                <Typography variant="body5">자세히 보기</Typography>
+                자세히 보기
               </Button>
             </HStack>
           ))}
         </Stack>
-        <Typography as="h2" variant="headingKr9" className={styles.heading}>
-          인증 정보
-        </Typography>
-        <form className={styles.fields} onSubmit={props.onConfirm}>
-          {textField('name', '이름', '이름을 입력해 주세요')}
-          {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
-          <Grid className={styles.pair}>
-            {selectField('nationality', '국적', ['내국인', '외국인'])}
-            {selectField('gender', '성별', ['남자', '여자'])}
-          </Grid>
-          <Grid className={styles.carrier}>
-            {selectField('carrier', '통신사', [
-              'SKT',
-              'KT',
-              'LG U+',
-              'SKT 알뜰폰',
-              'KT 알뜰폰',
-              'LG U+ 알뜰폰',
-            ])}
-            <Button
-              variant="link"
-              className={styles.detail}
-              onClick={() => props.onDetail('알뜰폰 사업자')}
+        <Box my="6">
+          <Typography as="h2" variant="headingKr9">
+            인증 정보
+          </Typography>
+        </Box>
+        <form onSubmit={props.onConfirm}>
+          <Stack gap="4">
+            {textField('name', '이름', '이름을 입력해 주세요')}
+            {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
+            <Grid columns={2} gap="2">
+              {selectField('nationality', '국적', ['내국인', '외국인'])}
+              {selectField('gender', '성별', ['남자', '여자'])}
+            </Grid>
+            <Grid
+              gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)"
+              gap="3"
+              alignItems="center"
+              className={styles.carrier}
             >
-              <Typography variant="body5">알뜰폰 사업자 보기</Typography>
-            </Button>
-          </Grid>
-          {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
-          <Button
-            variant="primary"
-            size="tall"
-            fullWidth
-            disabled={requested && resendWait > 0}
-            onClick={props.onRequest}
-          >
-            {requested ? '인증번호 재요청' : '인증번호 요청'}
-          </Button>
-          {requested ? (
-            <>
-              <FormField
-                variant="boxed"
-                htmlFor="phone-code"
-                label="인증번호"
-                required
-                className={css({ mt: '2' })}
+              {selectField('carrier', '통신사', [
+                'SKT',
+                'KT',
+                'LG U+',
+                'SKT 알뜰폰',
+                'KT 알뜰폰',
+                'LG U+ 알뜰폰',
+              ])}
+              <Button
+                variant="link"
+                size="md"
+                className={styles.detail}
+                onClick={() => props.onDetail('알뜰폰 사업자')}
               >
-                <TextInput
-                  id="phone-code"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  maxLength={6}
-                  placeholder="인증번호 6자리를 입력해 주세요"
-                  value={code}
-                  onChange={(event) => props.onCodeChange(event.target.value)}
-                />
-              </FormField>
-              <Typography as="p" variant="body5" tone="error" className={styles.countdown}>
-                남은 시간{' '}
-                {Math.floor(secondsLeft / 60)
-                  .toString()
-                  .padStart(2, '0')}
-                :{(secondsLeft % 60).toString().padStart(2, '0')}초
-              </Typography>
-              <Typography as="p" variant="body5" className={styles.text}>
-                입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
-                입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
-              </Typography>
-              <Button variant="primary" size="tall" type="submit" fullWidth>
-                인증번호 확인
+                알뜰폰 사업자 보기
               </Button>
-            </>
-          ) : null}
-          {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
+            </Grid>
+            {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
+            <Button
+              variant="primary"
+              size="tall"
+              fullWidth
+              disabled={requested && resendWait > 0}
+              onClick={props.onRequest}
+            >
+              {requested ? '인증번호 재요청' : '인증번호 요청'}
+            </Button>
+            {requested ? (
+              <>
+                <Box mt="2">
+                  <FormField variant="boxed" htmlFor="phone-code" label="인증번호" required>
+                    <TextInput
+                      id="phone-code"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      maxLength={6}
+                      placeholder="인증번호 6자리를 입력해 주세요"
+                      value={code}
+                      onChange={(event) => props.onCodeChange(event.target.value)}
+                    />
+                  </FormField>
+                </Box>
+                <Box mt="-2">
+                  <Typography as="p" variant="body5" tone="error">
+                    남은 시간{' '}
+                    {Math.floor(secondsLeft / 60)
+                      .toString()
+                      .padStart(2, '0')}
+                    :{(secondsLeft % 60).toString().padStart(2, '0')}초
+                  </Typography>
+                </Box>
+                <Box mb="2">
+                  <Typography as="p" variant="body5">
+                    입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호
+                    6자리를 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
+                  </Typography>
+                </Box>
+                <Button variant="primary" size="tall" type="submit" fullWidth>
+                  인증번호 확인
+                </Button>
+              </>
+            ) : null}
+            {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
+          </Stack>
         </form>
-        <Typography as="p" variant="body4" tone="tertiary" className={styles.help}>
-          * 인증문의 (주)KCB고객센터 02-708-1000
-        </Typography>
+        <Box mt="4">
+          <Typography as="p" variant="body4" tone="tertiary">
+            * 인증문의 (주)KCB고객센터 02-708-1000
+          </Typography>
+        </Box>
       </Box>
       <ModalDialog
         open={detail !== null}
@@ -278,20 +279,18 @@ export function PhoneVerificationContent(props: Props) {
         mobilePresentation="fullscreen"
       >
         {detail === '알뜰폰 사업자' ? (
-          <Stack className={styles.carrierList}>
+          <Stack gap="4">
             {mvnoCarriers.map((carrier, index) => (
               <Stack
                 key={carrier.title}
-                className={
-                  index === mvnoCarriers.length - 1
-                    ? styles.carrierSectionLast
-                    : styles.carrierSection
-                }
+                gap="3"
+                pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
+                className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
               >
-                <Typography as="h2" variant="body3" className={styles.carrierTitle}>
+                <Typography as="h2" variant="body3">
                   {carrier.title}
                 </Typography>
-                <Typography as="p" variant="body4" className={styles.carrierNames}>
+                <Typography as="p" variant="body4">
                   {carrier.names}
                 </Typography>
               </Stack>

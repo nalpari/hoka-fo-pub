@@ -13,39 +13,9 @@ export const signupTerms = [
 ] as const;
 
 const styles = {
-  page: css({
-    pt: '24',
-    px: '5',
-    pb: '20',
-    _mobile: {
-      pt: '10',
-      px: '4',
-      pb: '8',
-      minH: 'calc(100svh - var(--layout-site-header-height))',
-    },
-  }),
-  content: css({ maxW: '420px', mx: 'auto' }),
-  title: css({ m: '0', mb: '6' }),
-  all: css({ pb: '4', mb: '4', borderBottom: '1px solid var(--color-black-20)' }),
-  list: css({ gap: '2' }),
-  row: css({ gap: '2', justifyContent: 'space-between', alignItems: 'center' }),
+  all: css({ borderBottom: '1px solid var(--color-black-20)' }),
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
-  actions: css({ gridTemplateColumns: '1fr 1fr', gap: '2', mt: '6' }),
-  button: css({ w: '100%' }),
-  popup: css({
-    display: 'flex',
-    flexDirection: 'column',
-    maxH: '90svh',
-    _mobile: { h: '100svh', maxH: '100svh', borderRadius: '0' },
-  }),
-  body: css({ display: 'flex', flexDirection: 'column', minH: '0', flex: '1', pb: '20' }),
-  documentHeader: css({ justifyContent: 'space-between', gap: '2', mb: '4' }),
-  document: css({
-    border: '1px solid var(--color-black-20)',
-    p: '4',
-  }),
-  text: css({ m: '0', mb: '4' }),
-  dates: css({ m: '0', mt: '2' }),
+  document: css({ border: '1px solid var(--color-black-20)' }),
 };
 
 type Props = {
@@ -65,19 +35,32 @@ export function SignupTermsContent(props: Props) {
   const selected = props.detail === null ? null : signupTerms[props.detail];
 
   return (
-    <Box as="main" className={styles.page}>
-      <Box className={styles.content}>
-        <Typography as="h1" variant="headingKr6" className={styles.title}>
-          약관동의
-        </Typography>
-        <Box className={styles.all}>
+    <Box
+      as="main"
+      pt="24"
+      px="5"
+      pb="20"
+      _mobile={{
+        pt: '10',
+        px: '4',
+        pb: '8',
+        minH: 'calc(100svh - var(--layout-site-header-height))',
+      }}
+    >
+      <Box maxW="420px" mx="auto">
+        <Box mb="8">
+          <Typography as="h1" web="heading7" mo="heading5">
+            약관동의
+          </Typography>
+        </Box>
+        <Box pb="4" mb="4" className={styles.all}>
           <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
             <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>
         </Box>
-        <Stack className={styles.list}>
+        <Stack gap="4">
           {signupTerms.map((term, index) => (
-            <HStack key={index} className={styles.row}>
+            <HStack key={index} gap="2" justify="space-between" alignItems="center">
               <Terms
                 checked={props.agreements[index]}
                 onCheckedChange={(checked) => props.onChange(index, checked)}
@@ -90,34 +73,22 @@ export function SignupTermsContent(props: Props) {
               </Terms>
               <Button
                 variant="link"
-                size="sm"
+                size="md"
                 className={styles.detail}
                 onClick={() => props.onDetail(index)}
                 aria-label={`${term.required ? '필수' : '선택'} ${term.label} 자세히 보기`}
               >
-                <Typography variant="body5">자세히 보기</Typography>
+                자세히 보기
               </Button>
             </HStack>
           ))}
         </Stack>
-        <Grid className={styles.actions}>
-          <Button
-            variant="secondary"
-            size="tall"
-            fullWidth
-            className={styles.button}
-            onClick={props.onCancel}
-          >
+        <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="8">
+          <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
             취소
           </Button>
-          <Button
-            variant="primary"
-            size="tall"
-            fullWidth
-            className={styles.button}
-            onClick={props.onNext}
-          >
-            다음
+          <Button variant="primary" size="tall" fullWidth onClick={props.onNext}>
+            확인
           </Button>
         </Grid>
       </Box>
@@ -128,7 +99,6 @@ export function SignupTermsContent(props: Props) {
         }}
         title="HOKA Korea 이용약관"
         closeLabel="약관 닫기"
-        popupClassName={styles.popup}
         mobilePresentation="fullscreen"
         scrollFade
         footer={
@@ -137,8 +107,8 @@ export function SignupTermsContent(props: Props) {
           </Button>
         }
       >
-        <Box className={styles.body}>
-          <HStack className={styles.documentHeader}>
+        <Stack gap="0" minH="0" flex="1" pb="20">
+          <HStack justify="space-between" gap="2" mb="4">
             <Typography variant="body3">
               ({selected?.required ? '필수' : '선택'}) {selected?.label}
             </Typography>
@@ -148,28 +118,32 @@ export function SignupTermsContent(props: Props) {
               </Typography>
             </Button>
           </HStack>
-          <Box as="article" className={styles.document} tabIndex={0} aria-label="약관 내용">
+          <Box as="article" p="4" className={styles.document} tabIndex={0} aria-label="약관 내용">
             {props.previous ? (
-              <Typography as="p" variant="body5" className={styles.text}>
-                이전 약관은 등록 준비 중입니다.
-              </Typography>
+              <Box mb="4">
+                <Typography as="p" variant="body5">
+                  이전 약관은 등록 준비 중입니다.
+                </Typography>
+              </Box>
             ) : (
               [1, 2].map((number) => (
-                <Box key={number}>
-                  <Typography as="h2" variant="body4" className={styles.text}>
+                <Stack key={number} gap="4" mb="4">
+                  <Typography as="h2" variant="body4">
                     약관 타이틀{number}
                   </Typography>
-                  <Typography as="p" variant="body4" className={styles.text}>
+                  <Typography as="p" variant="body4">
                     {'약관내용'.repeat(155)}
                   </Typography>
-                </Box>
+                </Stack>
               ))
             )}
           </Box>
-          <Typography as="p" variant="body5" tone="subtle" className={styles.dates}>
-            공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
-          </Typography>
-        </Box>
+          <Box mt="2">
+            <Typography as="p" variant="body5" tone="subtle">
+              공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+            </Typography>
+          </Box>
+        </Stack>
       </ModalDialog>
     </Box>
   );

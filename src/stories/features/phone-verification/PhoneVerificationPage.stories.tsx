@@ -1,0 +1,88 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { PhoneVerificationContent } from '@/shared/features/phone-verification/PhoneVerificationContent';
+import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
+
+const meta = {
+  title: 'Pages/AUTH/PhoneVerification',
+  component: PhoneVerificationContent,
+  args: {
+    information: {
+      name: '',
+      birthDate: '',
+      nationality: '내국인',
+      gender: '남자',
+      carrier: 'SKT',
+      phone: '',
+    },
+    agreements: [false, false, false, false],
+    requested: false,
+    code: '',
+    secondsLeft: 180,
+    resendWait: 180,
+    notice: '',
+    detail: null,
+    onInformationChange: () => {},
+    onAgreementChange: () => {},
+    onAllAgree: () => {},
+    onCodeChange: () => {},
+    onRequest: () => {},
+    onConfirm: (event) => event.preventDefault(),
+    onDetail: () => {},
+  },
+} satisfies Meta<typeof PhoneVerificationContent>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const AccountUnlock: Story = {
+  args: {
+    title: '계정 잠금 해제',
+    description:
+      '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.',
+  },
+};
+
+export const Mobile: Story = {
+  decorators: [
+    (Story) => (
+      <div className="platform-mobile" style={{ width: 375 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const MobileFieldErrors: Story = {
+  ...Mobile,
+  args: {
+    fieldErrors: {
+      name: '올바른 이름을 입력해주세요',
+      birthDate: '생년월일을 입력해주세요',
+      gender: '성별을 입력해주세요',
+      carrier: '통신사를 선택해주세요',
+    },
+  },
+};
+
+export const MobileAccountUnlock: Story = {
+  ...Mobile,
+  args: AccountUnlock.args,
+};
+
+export const CodeEntry: Story = {
+  args: { requested: true, code: '900668', secondsLeft: 125, resendWait: 125 },
+};
+
+export const Expired: Story = {
+  args: {
+    requested: true,
+    secondsLeft: 0,
+    resendWait: 0,
+    notice: '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.',
+  },
+};
+
+export const Interactive: Story = { render: () => <PhoneVerificationPage /> };
