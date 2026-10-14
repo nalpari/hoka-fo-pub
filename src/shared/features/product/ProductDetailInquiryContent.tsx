@@ -19,7 +19,7 @@ export function ProductDetailInquiryContent() {
       defaultExpandedIds={['product-inquiry-1']}
       action={
         <ButtonLink
-          to="/support/inquiries/new"
+          href="/support/inquiries/new"
           variant="primary"
           size="short"
           className={inquiryButton}

@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css, cva } from 'styled-system/css';
 
 export type SideNavigationGroup = {
@@ -70,7 +72,7 @@ export function SideNavigation({
 }: SideNavigationProps) {
   return (
     <aside className={[sidebar({ mobileNavigation }), className].filter(Boolean).join(' ')}>
-      <Link className={titleStyle} to={titleTo}>
+      <Link className={titleStyle} href={titleTo}>
         {title}
       </Link>
       {groups.map((group) => (
@@ -83,7 +85,7 @@ export function SideNavigation({
               aria-current={item.to === activePath ? 'page' : undefined}
               className={navLink({ active: item.to === activePath, disabled: item.disabled })}
               key={item.to}
-              to={item.to}
+              href={item.to}
             >
               {item.label}
             </Link>

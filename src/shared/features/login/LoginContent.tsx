@@ -178,7 +178,7 @@ export function LoginContent({
               신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
             </Typography>
           </Stack>
-          <ButtonLink to="/signup" fullWidth variant="secondary" size="tall">
+          <ButtonLink href="/signup" fullWidth variant="secondary" size="tall">
             회원가입
           </ButtonLink>
         </Stack>

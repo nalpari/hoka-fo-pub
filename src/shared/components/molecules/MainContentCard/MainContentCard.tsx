@@ -203,7 +203,7 @@ function MainCardAction({
     variant === 'secondary' ? (tone === 'light' ? 'secondary' : 'primary') : variant;
 
   return (
-    <ButtonLink to={to} variant={resolvedVariant}>
+    <ButtonLink href={to} variant={resolvedVariant}>
       {label}
     </ButtonLink>
   );

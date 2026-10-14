@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Divider } from 'styled-system/jsx';
 
@@ -13,11 +15,11 @@ const authLink = css({
 export function HeaderAuthLink() {
   return (
     <HStack gap="1.5" alignItems="center">
-      <Link to="/login" className={authLink}>
+      <Link href="/login" className={authLink}>
         <Typography variant="body3">로그인</Typography>
       </Link>
       <Divider aria-hidden="true" orientation="vertical" h="4" w="1px" bg="var(--hoka-black)" />
-      <Link to="/signup" className={authLink}>
+      <Link href="/signup" className={authLink}>
         <Typography variant="body3">회원가입</Typography>
       </Link>
     </HStack>

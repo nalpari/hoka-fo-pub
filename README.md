@@ -2,19 +2,19 @@
 
 ## 실행
 
-Node.js `v24.21.0`, npm `11.19.0`, Next.js App Router에서 구성했다. `npm install` 후 `npm run dev`를 실행한다. 운영 서버는 `npm run build` 후 `npm run start`로 실행한다. 검증 명령은 `npm run typecheck`, `npm run lint`, `npm run build`다.
+Node.js `v24.21.0`, npm `11.19.0`, Next.js `16.3.5`, React·React DOM `19.2.8`을 사용한다. Next.js와 React 버전은 고정한다. `npm ci` 후 `npm run dev`를 실행한다. 운영 서버는 `npm run build` 후 `npm run start`로 실행한다. 검증 명령은 `npm run typecheck`, `npm run lint`, `npm run build`다.
 
-개발 환경에서만 `?__platform=web` 또는 `?__platform=mobile`로 강제 선택할 수 있다. 운영 빌드에서는 무시한다.
+루트 레이아웃에서 User-Agent로 PC·모바일을 선택한다. 공통 `ShopShell`이 로그인·장바구니 상태를 유지하고 각 `src/app/**/page.tsx`가 화면을 렌더링한다. 내부 링크는 `next/link`, 탐색은 `next/navigation`을 사용한다.
 
 ## 제공 경로
 
-`/`, `/products`, `/products/:productId`, `/search`, `/cart`, `/checkout`, `/login`, `/signup`, `/mypage`, `/launch-calendar`, `/collections`, `/events`, `/support`, `/about`, `/dev/screens`, `/dev/components`.
+`/`, `/products`, `/products/[id]`, `/collection/[id]`, `/search`, `/cart`, `/login`, `/signup`, `/mypage`, `/launch-calendar`, `/locales`, `/explore`, `/running/run-club`, `/support` 및 회원·고객지원·러닝 하위 경로를 제공한다.
 
-`/dev/screens`는 원본 메뉴 항목과 임시 화면/경로 매핑을 보여준다.
+등록되지 않은 경로는 `src/app/not-found.tsx`로 처리한다. 주문·결제 화면(`/checkout`)은 아직 구현되지 않았다. 빌드 후 `node --test tests/app-router.test.mjs`로 기존 62개 경로와 버전 고정을 검증한다.
 
 ## Storybook
 
-`npm run storybook`으로 컴포넌트 검수 환경을 실행한다. 정적 결과물은 `npm run build-storybook`으로 생성한다. 현재 Product Card와 상품 목록 필터 컨트롤 스토리를 제공한다.
+`npm run storybook`으로 컴포넌트·페이지 검수 환경을 실행한다. 정적 결과물은 `npm run build-storybook`으로 생성한다. `nextjs.appDirectory`와 Next.js 탐색 모킹을 사용한다.
 
 ## 팀 Codex 스킬
 

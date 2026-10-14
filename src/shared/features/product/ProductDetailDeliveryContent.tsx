@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -135,7 +137,7 @@ export function ProductDetailDeliveryContent() {
           <li>결제일로부터 1~5일 이내에 상품이 출고됩니다. (토·일요일 및 공휴일 제외)</li>
           <li>상품은 호카 물류센터 또는 매장에서 발송됩니다.</li>
           <li>
-            <Link to="/mypage/orders" className={textLink}>
+            <Link href="/mypage/orders" className={textLink}>
               마이페이지 &gt; 주문/배송 조회
             </Link>
             에서 구매하신 상품의 배송 상태를 확인하실 수 있습니다.
@@ -213,7 +215,7 @@ export function ProductDetailDeliveryContent() {
                 {description}
               </Typography>
             </div>
-            <Link to={to} className={supportLink}>
+            <Link href={to} className={supportLink}>
               <Typography variant="body5" weight="medium">
                 {label}
               </Typography>

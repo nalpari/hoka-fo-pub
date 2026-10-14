@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 import { usePlatform } from '@/shared/context/platform';
 import { products } from '@/mocks/products';
@@ -15,7 +15,7 @@ import { RunClubApplicationNotice } from './RunClubApplicationNotice';
 type RunClubDetailPageProps = { session?: RunClubSession };
 
 export function RunClubDetailPage({ session: suppliedSession }: RunClubDetailPageProps) {
-  const { sessionId } = useParams();
+  const { sessionId } = useParams<{ sessionId: string }>();
   const platform = usePlatform();
   const [showApplicationNotice, setShowApplicationNotice] = useState(false);
   const session =

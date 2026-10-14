@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -69,7 +71,8 @@ const styles = {
 };
 
 export function ExploreDetailPage() {
-  const { '*': slug = '' } = useParams();
+  const { slug: segments = [] } = useParams<{ slug: string[] }>();
+  const slug = segments.join('/');
   const screen = findExploreScreen(slug);
 
   if (!screen) {
@@ -79,7 +82,7 @@ export function ExploreDetailPage() {
         title="준비 중인 EXPLORE 화면"
         description="콘텐츠 구조와 경로는 등록되었습니다."
       >
-        <ButtonLink to="/explore" variant="primary">
+        <ButtonLink href="/explore" variant="primary">
           EXPLORE로 돌아가기
         </ButtonLink>
       </ContentLayout>
@@ -120,7 +123,7 @@ export function ExploreDetailPage() {
           </section>
         ))}
       </div>
-      <ButtonLink to="/products" variant="primary">
+      <ButtonLink href="/products" variant="primary">
         상품 탐색하기
       </ButtonLink>
     </ContentLayout>

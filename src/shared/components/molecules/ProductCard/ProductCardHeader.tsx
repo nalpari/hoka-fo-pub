@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import type { Product } from '@/mocks/products';
 import { css } from 'styled-system/css';
 import { Card } from '@/shared/components/atoms/Card/Card';
@@ -19,7 +21,7 @@ export type ProductCardHeaderProps = {
 export function ProductCardHeader({ product, variant }: ProductCardHeaderProps) {
   return (
     <Card.Header className={root}>
-      <Link to={`/products/${product.id}`}>
+      <Link href={`/products/${product.id}`}>
         <ProductThumbnail
           alt={product.name}
           hover

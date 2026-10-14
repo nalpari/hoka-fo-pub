@@ -1,6 +1,8 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { CSSProperties } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -117,7 +119,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
       </Grid>
 
       <Center mt="6">
-        <Link className={styles.benefitsLink} to="/support/member-benefits">
+        <Link className={styles.benefitsLink} href="/support/member-benefits">
           <Typography as="span" variant="textLinkKr2">
             회원 등급별 혜택 더 보기
           </Typography>

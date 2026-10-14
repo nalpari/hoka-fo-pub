@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -39,7 +41,7 @@ type Errors = Partial<Record<FieldName, string>>;
 const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{12,}$/;
 
 export function PasswordResetPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [errors, setErrors] = useState<Errors>({});
@@ -151,9 +153,9 @@ export function PasswordResetPage() {
         <PasswordResetCompleteModal
           onOpenChange={(open) => {
             setCompleteOpen(open);
-            if (!open) navigate('/login');
+            if (!open) router.push('/login');
           }}
-          onConfirm={() => navigate('/login')}
+          onConfirm={() => router.push('/login')}
         />
       ) : null}
     </Box>

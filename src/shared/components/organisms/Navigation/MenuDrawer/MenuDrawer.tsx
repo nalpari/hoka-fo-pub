@@ -1,5 +1,7 @@
+'use client';
+
 import { Drawer } from '@base-ui/react/drawer';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 const drawer = css({
@@ -127,7 +129,7 @@ export function MenuDrawer({ close }: { close: () => void }) {
                 <ul className={primaryList}>
                   {primaryItems.map(([label, to]) => (
                     <li key={label}>
-                      <Link className={primaryLink} to={to} onClick={close}>
+                      <Link className={primaryLink} href={to} onClick={close}>
                         {label}
                       </Link>
                     </li>
@@ -140,7 +142,7 @@ export function MenuDrawer({ close }: { close: () => void }) {
               <ul className={utilityList}>
                 {utilityItems.map(([icon, label, to]) => (
                   <li key={label}>
-                    <Link className={utilityLink} to={to} onClick={close}>
+                    <Link className={utilityLink} href={to} onClick={close}>
                       <span className={utilityIcon} aria-hidden="true">
                         {icon}
                       </span>

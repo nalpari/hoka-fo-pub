@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { cva, css } from 'styled-system/css';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -101,7 +103,7 @@ export function ShoeFinderPage() {
           bg: 'var(--color-black-100)',
           color: 'var(--color-text-inverse)',
         })}
-        to={`/products?activity=${activity}&cushioning=${feel}`}
+        href={`/products?activity=${activity}&cushioning=${feel}`}
       >
         추천 상품 보기
       </Link>

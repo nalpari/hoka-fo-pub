@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
 
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [rememberId, setRememberId] = useState(false);
@@ -31,7 +31,7 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
       tone: 'success',
       message: `${id}${rememberId ? ' 아이디를 저장하고' : ''} 로그인했습니다. (데모)`,
     });
-    navigate('/');
+    router.push('/');
   };
 
   return (
@@ -44,7 +44,7 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
       onPasswordChange={setPassword}
       onRememberChange={setRememberId}
       onSubmit={handleLogin}
-      onFindAccount={() => navigate('/login/find-account')}
+      onFindAccount={() => router.push('/login/find-account')}
       onUnavailable={showUnavailable}
     />
   );

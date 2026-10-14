@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 export type OrderStatusItem = { label: string; count: number; to?: string };
@@ -55,13 +57,13 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
         <Typography as="h2" variant="heading9">
           주문 / 배송 조회
         </Typography>
-        <Link to={to}>
+        <Link href={to}>
           <Typography variant="body5">전체 보기 →</Typography>
         </Link>
       </div>
       <div className={list}>
         {items.map((status) => (
-          <Link className={statusLink} key={status.label} to={status.to ?? to}>
+          <Link className={statusLink} key={status.label} href={status.to ?? to}>
             <Typography as="strong" variant="heading8">
               {status.count}
             </Typography>

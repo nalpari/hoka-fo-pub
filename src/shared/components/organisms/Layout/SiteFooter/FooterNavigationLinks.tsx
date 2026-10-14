@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { VStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -30,7 +32,7 @@ export function FooterNavigationLinks({ links, platform }: FooterNavigationLinks
     >
       {links.map((link) => (
         <li key={link.label}>
-          <Link to={link.to} className={styles.link}>
+          <Link href={link.to} className={styles.link}>
             <Typography variant="body4" tone="inverse">
               {link.label}
             </Typography>

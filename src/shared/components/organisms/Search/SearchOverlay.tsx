@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { SearchCollectionLinks } from './SearchCollectionLinks';
 import { SearchDialog } from './SearchDialog';
 import { SearchForm } from './SearchForm';
@@ -17,21 +19,21 @@ export function SearchOverlay({ onClose }: SearchOverlayProps) {
   const [isFocused, setIsFocused] = useState(false);
   const { recentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } =
     useRecentSearches();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const search = (nextQuery = query) => {
     const normalizedQuery = nextQuery.trim();
     if (!normalizedQuery) return;
 
     addRecentSearch(normalizedQuery);
-    navigate(
+    router.push(
       `/search?q=${encodeURIComponent(normalizedQuery)}&category=${encodeURIComponent(category)}`,
     );
     onClose();
   };
 
   const openCollection = (id: string) => {
-    navigate(`/collection/${id}`);
+    router.push(`/collection/${id}`);
     onClose();
   };
 

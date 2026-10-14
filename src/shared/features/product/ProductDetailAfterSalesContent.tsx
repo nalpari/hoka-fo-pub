@@ -1,7 +1,9 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 import {
@@ -124,7 +126,7 @@ export function ProductDetailAfterSalesContent() {
               상담 채널과 운영시간은 고객센터에서 확인해 주세요.
             </Typography>
             <Typography variant="body5">
-              <Link className={styles.link} to="/support">
+              <Link className={styles.link} href="/support">
                 고객센터 안내
               </Link>
             </Typography>
@@ -162,7 +164,7 @@ export function ProductDetailAfterSalesContent() {
               자주 묻는 질문의 답변을 찾아보세요.
             </Typography>
           </Stack>
-          <ButtonLink to="/support/faq" variant="secondary" size="short">
+          <ButtonLink href="/support/faq" variant="secondary" size="short">
             자주 묻는 질문 찾기
           </ButtonLink>
         </Grid>
@@ -175,7 +177,7 @@ export function ProductDetailAfterSalesContent() {
               문의 내용을 남겨 주시면 확인 후 답변해 드리겠습니다.
             </Typography>
           </Stack>
-          <ButtonLink to="/support/inquiries/new" variant="secondary" size="short">
+          <ButtonLink href="/support/inquiries/new" variant="secondary" size="short">
             1:1 문의하기
           </ButtonLink>
         </Grid>

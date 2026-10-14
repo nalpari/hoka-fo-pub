@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
-import { ShopShell } from '@/shared/ShopApp';
+import { ShopShell } from '@/shared/ShopShell';
+import MyPage from '@/app/mypage/page';
 
 type MyPageStoryArgs = { platform?: 'web' | 'mobile' };
 
 const meta = {
   title: 'PAGES/MYPAGE/Main',
-  component: ShopShell,
-  parameters: { layout: 'fullscreen' },
+  parameters: { nextjs: { navigation: { pathname: '/mypage' } }, layout: 'fullscreen' },
   render: ({ platform }) => (
-    <MemoryRouter initialEntries={['/mypage']}>
-      <ShopShell platform={platform} />
-    </MemoryRouter>
+    <ShopShell platform={platform}>
+      <MyPage />
+    </ShopShell>
   ),
 } satisfies Meta<MyPageStoryArgs>;
 

@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
@@ -127,7 +129,7 @@ export function NoticeDetailPage() {
           </section>
         </article>
         <Box className={styles.back}>
-          <Link to="/support/notices">
+          <Link href="/support/notices">
             <Typography variant="body5">목록보기</Typography>
           </Link>
         </Box>

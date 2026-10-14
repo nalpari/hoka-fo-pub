@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Box, Grid, HStack, Stack, styled } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -191,7 +191,7 @@ function MyPageMenuSection({
             display="block"
             borderBottom="1px solid var(--color-border-subtle)"
             key={item.to}
-            to={item.to}
+            href={item.to}
           >
             <HStack minH="14" justifyContent="space-between">
               <Typography web="bodyKr3" mo="bodyKr3">
@@ -222,7 +222,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
               aria-label="회원 정보 확인 및 수정"
               color="inherit"
               textDecoration="none"
-              to="/mypage/profile"
+              href="/mypage/profile"
             >
               <HStack gap="0.5">
                 <Typography as="h1" web="headingKr4" mo="headingKr4">
@@ -258,7 +258,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                       color="inherit"
                       textDecoration="underline"
                       textUnderlineOffset="2px"
-                      to="/mypage/rewards"
+                      href="/mypage/rewards"
                     >
                       <Typography web="body5" mo="body5">
                         등급안내
@@ -279,7 +279,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                   p="5"
                   color="inherit"
                   textDecoration="none"
-                  to="/mypage/coupons"
+                  href="/mypage/coupons"
                 >
                   <Stack h="14" justifyContent="space-between">
                     <Typography web="body4" mo="body4">
@@ -301,7 +301,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                   p="5"
                   color="inherit"
                   textDecoration="none"
-                  to="/mypage/wishlist"
+                  href="/mypage/wishlist"
                 >
                   <Stack h="14" justifyContent="space-between">
                     <Typography web="body4" mo="body4">
@@ -326,7 +326,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
               <Typography as="h2" web="headingKr8" mo="headingKr5">
                 주문 배송 내역
               </Typography>
-              <StyledLink to="/mypage/orders">
+              <StyledLink href="/mypage/orders">
                 <Typography web="body5" mo="body5">
                   자세히 보기
                 </Typography>

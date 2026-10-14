@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -144,7 +146,7 @@ export function ExploreHubPage() {
           HOKA EXPLORE
         </Typography>
         <h2>어디로, 어떻게 달릴지부터 시작하세요.</h2>
-        <ButtonLink to="/explore/shoe-finder">SHOE FINDER 시작하기</ButtonLink>
+        <ButtonLink href="/explore/shoe-finder">SHOE FINDER 시작하기</ButtonLink>
       </section>
       <div className={styles.grid}>
         {groups.map((group) => (
@@ -158,7 +160,7 @@ export function ExploreHubPage() {
             <ul>
               {group.links.map(([label, to]) => (
                 <li key={to}>
-                  <Link to={to}>
+                  <Link href={to}>
                     <Typography variant="body4" weight="bold">
                       {label} →
                     </Typography>

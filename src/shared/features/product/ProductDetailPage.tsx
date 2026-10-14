@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams, useRouter } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { products } from '@/mocks/products';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -27,9 +27,10 @@ const styles = {
 };
 
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
-  const { pathname } = useLocation();
+  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
   const platform = usePlatform();
-  const product = products.find((item) => pathname.endsWith(item.id));
+  const product = products.find((item) => item.id === id);
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
   const [width, setWidth] = useState(
@@ -64,7 +65,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
     }
     setError('');
     onAddToCart({ id: product.id, color, width, size, quantity: 1 });
-    if (order) location.assign('/checkout');
+    if (order) router.push('/checkout');
   };
 
   return (

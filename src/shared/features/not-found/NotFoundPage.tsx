@@ -19,7 +19,7 @@ export function NotFoundPage() {
         <p className={css({ m: '0', color: 'var(--color-text-tertiary)' })}>
           주소가 잘못 입력되었거나 페이지가 이동 또는 삭제되었을 수 있습니다.
         </p>
-        <ButtonLink to="/" variant="primary">
+        <ButtonLink href="/" variant="primary">
           홈으로 돌아가기
         </ButtonLink>
       </Stack>

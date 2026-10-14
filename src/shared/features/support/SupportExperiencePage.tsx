@@ -1,6 +1,9 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
@@ -175,17 +178,17 @@ function SupportFrame({ activePath, children }: { activePath: string; children: 
 function QuickLinks() {
   return (
     <nav className={quickLinks} aria-label="고객지원 바로가기">
-      <Link to="/support">
+      <Link href="/support">
         <Typography variant="body4" weight="bold">
           고객센터
         </Typography>
       </Link>
-      <Link to="/support/faq">
+      <Link href="/support/faq">
         <Typography variant="body4" weight="bold">
           FAQs
         </Typography>
       </Link>
-      <Link to="/support/inquiries">
+      <Link href="/support/inquiries">
         <Typography variant="body4" weight="bold">
           1:1 문의하기
         </Typography>
@@ -215,7 +218,7 @@ function InquiryPage() {
         궁금한 사항을 남겨 주시면 확인 후 답변해 드립니다.
       </Typography>
       <div className={actions}>
-        <Link to="/support/inquiries/new">
+        <Link href="/support/inquiries/new">
           <Button variant="primary">문의하기</Button>
         </Link>
       </div>
@@ -276,7 +279,7 @@ function InquiryPage() {
 }
 
 function InquiryNewPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -284,7 +287,7 @@ function InquiryNewPage() {
   const invalid = submitted && (!title.trim() || !body.trim());
   const submit = () => {
     setSubmitted(true);
-    if (title.trim() && body.trim()) navigate('/support/inquiries');
+    if (title.trim() && body.trim()) router.push('/support/inquiries');
   };
   return (
     <SupportFrame activePath="/support/inquiries">
@@ -356,7 +359,7 @@ function InquiryNewPage() {
       <div className={actions}>
         <Button
           onClick={() =>
-            confirm('작성 중인 문의를 취소하시겠습니까?') && navigate('/support/inquiries')
+            confirm('작성 중인 문의를 취소하시겠습니까?') && router.push('/support/inquiries')
           }
         >
           취소

@@ -1,5 +1,7 @@
+'use client';
+
 import type { MouseEventHandler } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 const logo = css({
@@ -18,7 +20,7 @@ type HeaderLogoProps = {
 
 export function HeaderLogo({ onClick }: HeaderLogoProps) {
   return (
-    <Link className={logo} to="/" onClick={onClick} aria-label="HOKA 홈으로">
+    <Link className={logo} href="/" onClick={onClick} aria-label="HOKA 홈으로">
       <img src="/images/header/logo-primary.svg" alt="HOKA" />
     </Link>
   );

@@ -4,7 +4,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import {
   Carousel,
   CarouselPagination,
@@ -120,7 +120,7 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               className={thumbnail({ active: variant.selected })}
               key={variant.id}
               title={variant.name}
-              to={`/products/${variant.id}`}
+              href={`/products/${variant.id}`}
             >
               <img alt="" aria-hidden="true" className={thumbnailImage} src={variant.image} />
             </Link>

@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -25,7 +27,7 @@ const styles = {
 
 export function FooterLocaleSelectors() {
   return (
-    <Link to="/locales" className={styles.link}>
+    <Link href="/locales" className={styles.link}>
       <img className={styles.flag} src="/images/flag/kr.svg" alt="대한민국" />
       <HStack gap="0">
         <Typography variant="body5" tone="inverse">

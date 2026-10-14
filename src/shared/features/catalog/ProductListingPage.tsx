@@ -1,5 +1,7 @@
+'use client';
+
 import { useCallback, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { products } from '@/mocks/products';
 import { usePlatform } from '@/shared/context/platform';
 import { ProductListingFilterPanel } from '@/shared/features/catalog/ProductListingFilterPanel';
@@ -65,7 +67,13 @@ const emptyFilters = (): FilterValues => ({
 /** Coordinates catalog URL filters, local price controls, and listing layout. */
 export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps) {
   const platform = usePlatform();
-  const [params, setParams] = useSearchParams();
+  const params = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const setParams = (next: URLSearchParams) => {
+    const query = next.toString();
+    router.push(`${pathname}${query ? `?${query}` : ''}`, { scroll: false });
+  };
   const [minPrice, setMinPrice] = useState(productListingPriceRange.min);
   const [maxPrice, setMaxPrice] = useState(productListingPriceRange.defaultMax);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
@@ -122,7 +130,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   const mobileResultCount = filterProducts(products, { ...mobileFilters, searchQuery }).length;
 
   const updateFacet = (key: string, values: string[]) => {
-    const next = new URLSearchParams(params);
+    const next = new URLSearchParams(params.toString());
     next.delete(key);
     values.forEach((value) => next.append(key, value));
     next.delete('page');
@@ -130,7 +138,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const update = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
+    const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
     next.delete('page');
@@ -138,7 +146,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const reset = () => {
-    setParams({});
+    setParams(new URLSearchParams());
     setMinPrice(productListingPriceRange.min);
     setMaxPrice(productListingPriceRange.defaultMax);
     setMobileFilters(emptyFilters());
@@ -150,7 +158,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const applyMobileFilters = () => {
-    const next = new URLSearchParams(params);
+    const next = new URLSearchParams(params.toString());
     facetKeys.forEach((key) => {
       next.delete(key);
       const values =
@@ -169,7 +177,8 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const updateMobileFilter = (key: string, values: string[]) => {
-    const normalizedKey = key === 'support' ? 'stability' : key === 'color' ? 'selectedColors' : key;
+    const normalizedKey =
+      key === 'support' ? 'stability' : key === 'color' ? 'selectedColors' : key;
     setMobileFilters((previous) => ({ ...previous, [normalizedKey]: values }));
   };
 

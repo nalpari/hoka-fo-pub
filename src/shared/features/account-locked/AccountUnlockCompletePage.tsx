@@ -42,7 +42,7 @@ export function AccountUnlockCompletePage() {
           <br />
           다시 로그인을 진행해 주세요.
         </Typography>
-        <ButtonLink to="/login" variant="primary" fullWidth>
+        <ButtonLink href="/login" variant="primary" fullWidth>
           홈으로
         </ButtonLink>
       </Stack>

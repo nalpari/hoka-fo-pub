@@ -1,6 +1,8 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
@@ -161,17 +163,17 @@ const privacy = (
 );
 
 export function TermsPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const [date, setDate] = useState('2025-06-02');
 
   const tab = searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms';
 
   const setTab = (value: 'terms' | 'privacy') => {
-    setSearchParams((current) => {
-      const next = new URLSearchParams(current);
-      next.set('tab', value);
-      return next;
-    });
+    const next = new URLSearchParams(searchParams.toString());
+    next.set('tab', value);
+    router.push(`${pathname}?${next.toString()}`, { scroll: false });
   };
 
   return (

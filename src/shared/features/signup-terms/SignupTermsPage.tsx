@@ -1,9 +1,11 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { SignupTermsContent, signupTerms } from './SignupTermsContent';
 
 export function SignupTermsPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [agreements, setAgreements] = useState([false, false, false, false]);
   const [detail, setDetail] = useState<number | null>(null);
   const [previous, setPrevious] = useState(false);
@@ -14,7 +16,7 @@ export function SignupTermsPage() {
       setNotice('필수 약관에 모두 동의해 주세요.');
       return;
     }
-    navigate('/signup/information');
+    router.push('/signup/information');
   };
 
   return (
@@ -38,7 +40,7 @@ export function SignupTermsPage() {
         setPrevious(false);
       }}
       onPrevious={() => setPrevious(!previous)}
-      onCancel={() => navigate('/signup/verify')}
+      onCancel={() => router.push('/signup/verify')}
       onNext={next}
     />
   );

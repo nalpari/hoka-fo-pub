@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Grid, HStack, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
@@ -50,7 +52,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
     <Stack as="section" aria-label={`${product.name} 상품 요약`} className={styles.panel} gap="4">
       <Link
         className={styles.link}
-        to={`/products/${product.id}`}
+        href={`/products/${product.id}`}
         aria-label={`${product.name} 상세 보기`}
       >
         <img
@@ -81,7 +83,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
           ({product.reviewCount})
         </Typography>
       </HStack>
-      <Link className={styles.link} to={`/products/${product.id}`}>
+      <Link className={styles.link} href={`/products/${product.id}`}>
         <ProductDetails
           activities={[activity]}
           colorCount={colorOptions.length || product.colors.length}

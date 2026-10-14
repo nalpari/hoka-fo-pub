@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { SignupCompleteStep } from '@/shared/components/organisms/Signup/SignupCompleteStep';
@@ -52,8 +54,8 @@ const styles = {
 };
 
 export function SignupPage() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<SignupStep>(searchParams.get('step') === 'details' ? 2 : 0);
   const [method, setMethod] = useState<SignupMethod>('local');
   const [serviceTerms, setServiceTerms] = useState(false);
@@ -69,7 +71,7 @@ export function SignupPage() {
 
   const startSignup = (nextMethod: SignupMethod) => {
     if (nextMethod === 'local') {
-      navigate('/signup/verify');
+      router.push('/signup/verify');
       return;
     }
 

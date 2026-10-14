@@ -12,10 +12,10 @@ export function checkButtonSizingTypes() {
       <Button variant="link" size="sm" />
       <Button variant="link" size="md" />
       <Button variant="link" size="lg" />
-      <ButtonLink to="/" size="tall">
+      <ButtonLink href="/" size="tall">
         Button
       </ButtonLink>
-      <ButtonLink to="/" variant="link" size="sm">
+      <ButtonLink href="/" variant="link" size="sm">
         Link
       </ButtonLink>
       <ToggleButton expanded={false} size="short">
@@ -28,10 +28,10 @@ export function checkButtonSizingTypes() {
       <LoadMoreButton remaining={10} variant="link" size="lg" />
       <Button variant="filterTrigger">Filter</Button>
       <Button variant="headerSearch">Search</Button>
-      <ButtonLink to="/" variant="filterTrigger">
+      <ButtonLink href="/" variant="filterTrigger">
         Filter
       </ButtonLink>
-      <ButtonLink to="/" variant="headerSearch">
+      <ButtonLink href="/" variant="headerSearch">
         Search
       </ButtonLink>
       <ToggleButton expanded={false} variant="filterTrigger">
@@ -62,21 +62,21 @@ export function checkButtonSizingTypes() {
 
   const navigationSmall = (
     // @ts-expect-error ButtonLink must preserve variant/size correlation.
-    <ButtonLink to="/" size="sm">
+    <ButtonLink href="/" size="sm">
       Button
     </ButtonLink>
   );
 
   const navigationShort = (
     // @ts-expect-error A text navigation link cannot use short.
-    <ButtonLink to="/" variant="link" size="short">
+    <ButtonLink href="/" variant="link" size="short">
       Link
     </ButtonLink>
   );
 
   const navigationHeight = (
     // @ts-expect-error ButtonLink no longer accepts height either.
-    <ButtonLink to="/" height="short">
+    <ButtonLink href="/" height="short">
       Button
     </ButtonLink>
   );
@@ -112,7 +112,7 @@ export function checkButtonSizingTypes() {
 
   const fixedNavigation = (
     // @ts-expect-error ButtonLink preserves the fixed-size constraint.
-    <ButtonLink to="/" variant="headerSearch" size="tall">
+    <ButtonLink href="/" variant="headerSearch" size="tall">
       Search
     </ButtonLink>
   );

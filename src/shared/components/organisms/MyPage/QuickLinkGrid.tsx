@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 export type QuickLinkItem = { label: string; value: string; to: string };
@@ -38,7 +40,7 @@ export function QuickLinkGrid({ items, label = '바로가기' }: Props) {
   return (
     <nav className={grid} aria-label={label}>
       {items.map((item) => (
-        <Link className={link} key={item.label} to={item.to}>
+        <Link className={link} key={item.label} href={item.to}>
           <Typography variant="body5" tone="tertiary">
             {item.label}
           </Typography>

@@ -1,6 +1,8 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Box, Flex } from 'styled-system/jsx';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -384,7 +386,7 @@ function LaunchCard({ item, mode }: { item: LaunchItem; mode: CalendarTab }) {
   const actionLabel =
     item.status === 'now' ? '구매하기' : item.status === 'coming' ? 'COMING SOON' : 'SOLD OUT';
   return (
-    <Link className={card} to={`/products/${item.id}`}>
+    <Link className={card} href={`/products/${item.id}`}>
       <Box className={art({ tone: item.tone })} data-launch-art>
         {mode === 'coming' && <span className={date}>{item.date}</span>}
         <span className={mark}>NB</span>
@@ -454,7 +456,7 @@ export function LaunchCalendarPage() {
           <Box className={featureCopy}>
             <p>{featured.release} 런칭</p>
             <h2>{featured.title}</h2>
-            <Link to={`/products/${featured.id}`}>구매하기</Link>
+            <Link href={`/products/${featured.id}`}>구매하기</Link>
           </Box>
           <Box className={featureArt}>
             <span className={featureShoe}>N</span>

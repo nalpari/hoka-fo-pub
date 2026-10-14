@@ -32,7 +32,7 @@ export function HeaderPromotionBanner() {
         <Typography tone="inverse" variant="action">
           신규회원 첫구매 5% 할인 및 스페셜 혜택
         </Typography>
-        <ButtonLink className={promotionLink} to="/products" variant="link" size="sm">
+        <ButtonLink className={promotionLink} href="/products" variant="link" size="sm">
           <Typography variant="textLink2">자세히 보기</Typography>
         </ButtonLink>
       </HStack>

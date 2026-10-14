@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import type { MegaMenuPromo } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { css } from 'styled-system/css';
 import { Square, VStack } from 'styled-system/jsx';
@@ -57,7 +59,7 @@ const styles = {
 
 export function MegaMenuAD({ to, imageSrc, title, onClick }: MegaMenuADProps) {
   return (
-    <Link className={styles.link} to={to} onClick={onClick}>
+    <Link className={styles.link} href={to} onClick={onClick}>
       <Square className={`${styles.card} mega-menu-ad-card`} size="358px">
         <img className={styles.image} src={imageSrc} alt="" />
         <VStack className={styles.gradient}>

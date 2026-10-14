@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { usePlatform } from '@/shared/context/platform';
@@ -42,8 +44,8 @@ export function FooterLegalLinks() {
       </Typography>
       <Stack gap={platform === 'mobile' ? '4' : '18px'} className={styles.meta}>
         <Flex className={styles.row}>
-          <Link to="/support/terms">서비스이용약관</Link>
-          <Link to="/support/terms?tab=privacy" className={styles.privacy}>
+          <Link href="/support/terms">서비스이용약관</Link>
+          <Link href="/support/terms?tab=privacy" className={styles.privacy}>
             개인정보처리방침
           </Link>
         </Flex>
@@ -71,7 +73,7 @@ export function FooterLegalLinks() {
             </Typography>
           </span>
           <Link
-            to="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1568801028"
+            href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1568801028"
             target="_blank"
             rel="noreferrer"
           >

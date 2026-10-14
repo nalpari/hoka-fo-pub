@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 const styles = {
@@ -43,7 +45,7 @@ export function SignupCompleteStep({ name }: { name: string }) {
       <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '3', mb: '0' })}>
         {name}님, HOKA 멤버십에 오신 것을 환영합니다.
       </Typography>
-      <Link className={styles.primary} to="/login">
+      <Link className={styles.primary} href="/login">
         <Typography as="span" variant="cta1" tone="inverse">
           로그인하러 가기
         </Typography>

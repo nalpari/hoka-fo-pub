@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { LinkOverlay, Stack, VStack, HStack, Square, Flex } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
@@ -52,7 +54,7 @@ export function RunClubSessionCard({ session }: { session: RunClubSession }) {
             </Typography>
           </Stack>
         </Stack>
-        <ButtonLink to={`/running/run-club/${session.id}`} variant="primary">
+        <ButtonLink href={`/running/run-club/${session.id}`} variant="primary">
           자세히 보기
         </ButtonLink>
       </Stack>

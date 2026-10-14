@@ -1,5 +1,7 @@
+'use client';
+
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { usePlatform } from '@/shared/context/platform';
 import { css } from 'styled-system/css';
@@ -50,7 +52,7 @@ export function HeaderIconLink({
 }: HeaderIconLinkProps) {
   return (
     <Link
-      to={to}
+      href={to}
       aria-label={ariaLabel}
       className={[iconLink, className].filter(Boolean).join(' ')}
     >

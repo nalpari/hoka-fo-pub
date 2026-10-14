@@ -55,11 +55,7 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
       </VStack>
       <HStack alignItems="flex-start" gap={{ base: '8px', _mobile: '8px' }}>
         {actions.map((action) => (
-          <ButtonLink
-            key={`${action.to}-${action.label}`}
-            variant="secondary"
-            to={action.to}
-          >
+          <ButtonLink key={`${action.to}-${action.label}`} variant="secondary" href={action.to}>
             {action.label}
           </ButtonLink>
         ))}

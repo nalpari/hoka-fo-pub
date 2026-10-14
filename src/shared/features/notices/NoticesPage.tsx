@@ -1,4 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
@@ -69,6 +72,7 @@ const notices = [
 ];
 
 export function NoticesPage() {
+  const router = useRouter();
   const [shown, setShown] = useState(15);
   return (
     <SidebarNavigationLayout
@@ -86,7 +90,7 @@ export function NoticesPage() {
             <Typography variant="body5">조회수</Typography>
           </Box>
           {notices.slice(0, shown).map(([title, date, views]) => (
-            <Button onClick={() => location.assign('/support/notices/1')} key={title} size="short">
+            <Button onClick={() => router.push('/support/notices/1')} key={title} size="short">
               <span>{title}</span>
               <Typography as="time" variant="body5" tone="tertiary">
                 {date}

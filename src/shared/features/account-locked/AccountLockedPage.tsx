@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -38,9 +40,9 @@ const styles = {
 };
 
 export function AccountLockedPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const continueToVerification = () => navigate('/login/account-locked/verification');
+  const continueToVerification = () => router.push('/login/account-locked/verification');
 
   return (
     <Box className={styles.page}>

@@ -1,15 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import {
   IdentityVerificationContent,
   type VerificationMethod,
 } from './IdentityVerificationContent';
 
 export function IdentityVerificationPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const selectMethod = (method: VerificationMethod) => {
     if (method === 'phone') {
-      navigate('/signup/verify/phone');
+      router.push('/signup/verify/phone');
       return;
     }
   };

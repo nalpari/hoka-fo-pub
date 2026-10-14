@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
@@ -232,7 +234,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                 borderBottom: '1px solid var(--color-black-100)',
                 fontSize: '14' /* 기존 13px */,
               })}
-              to="/products"
+              href="/products"
             >
               쇼핑 계속하기
             </Link>
@@ -255,7 +257,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           {suggestions.map((product, index) => (
             <Link
               className={css({ display: 'grid', gap: '2.5' })}
-              to={`/products/${product.id}`}
+              href={`/products/${product.id}`}
               key={product.id}
             >
               <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>

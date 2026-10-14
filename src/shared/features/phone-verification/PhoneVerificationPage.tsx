@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   PhoneVerificationContent,
   type PhoneInformation,
@@ -26,7 +28,7 @@ const isValidBirthDate = (value: string) => {
 };
 
 export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | 'account-unlock' }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [information, setInformation] = useState<PhoneInformation>({
     name: '',
     birthDate: '',
@@ -118,7 +120,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
       return;
     }
     if (mode === 'account-unlock') {
-      navigate('/login/account-locked/complete');
+      router.push('/login/account-locked/complete');
       return;
     }
 
@@ -162,7 +164,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
       {alreadyRegisteredOpen ? (
         <AlreadyRegisteredModal
           onOpenChange={setAlreadyRegisteredOpen}
-          onConfirm={() => navigate('/signup')}
+          onConfirm={() => router.push('/signup')}
         />
       ) : null}
     </>

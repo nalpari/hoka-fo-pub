@@ -1,5 +1,8 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import type { MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { Flex, Grid } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
@@ -50,9 +53,11 @@ type MegaMenuListProps = {
 };
 
 export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
-  const location = useLocation();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const currentPath = `${location.pathname}${location.search}`;
+  const query = searchParams.toString();
+  const currentPath = `${pathname}${query ? `?${query}` : ''}`;
 
   return (
     <Grid gridTemplateColumns="repeat(5, minmax(110px, 1fr))" gap="4">
@@ -64,7 +69,7 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
           <Grid as="ul" className={styles.list} gap="30px">
             {column.items.map((item) => (
               <li key={item.label}>
-                <Link to={item.to} onClick={onClose}>
+                <Link href={item.to} onClick={onClose}>
                   <Typography
                     variant="body3"
                     tone={item.label === 'Sale' ? 'red80' : 'primary'}

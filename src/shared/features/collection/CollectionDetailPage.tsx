@@ -1,4 +1,6 @@
-import { useParams } from 'react-router-dom';
+'use client';
+
+import { useParams } from 'next/navigation';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 
@@ -11,12 +13,12 @@ const collectionNames: Record<string, string> = {
 };
 
 export function CollectionDetailPage() {
-  const { id = '' } = useParams();
+  const { id = '' } = useParams<{ id: string }>();
   const title = collectionNames[id] ?? 'HOKA 컬렉션';
 
   return (
     <ContentLayout description="선택한 테마의 상품과 이야기를 만나보세요." title={title}>
-      <ButtonLink to="/products" variant="primary">
+      <ButtonLink href="/products" variant="primary">
         상품 보러 가기
       </ButtonLink>
     </ContentLayout>

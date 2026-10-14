@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
@@ -169,7 +171,7 @@ export function SupportPage() {
             ['▱', 'FAQs', '가장 자주 묻는 질문과 답변을 찾아보세요.', '/support/faq'],
             ['●', 'A/S 처리현황', 'A/S 접수 후 처리 상황을 확인해 보세요.', '/support/after-sales'],
           ].map(([icon, title, description, to]) => (
-            <Link to={to} key={title}>
+            <Link href={to} key={title}>
               <b>{icon}</b>
               <span>
                 <Typography as="strong" variant="body4" weight="bold">

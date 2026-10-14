@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 type Props = { eyebrow: string; title: string; description: string; to: string; action: string };
@@ -48,7 +50,7 @@ export function PersonalizationCard({ eyebrow, title, description, to, action }:
           {description}
         </Typography>
       </div>
-      <Link to={to}>
+      <Link href={to}>
         <Typography variant="textLink2" className={actionStyle}>
           {action} →
         </Typography>

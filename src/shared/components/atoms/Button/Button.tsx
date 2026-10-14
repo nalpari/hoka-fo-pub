@@ -3,7 +3,8 @@
 import { Button as BaseButton } from '@base-ui/react/button';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from 'react';
-import { Link, type LinkProps } from 'react-router-dom';
+import Link from 'next/link';
+import type { LinkProps } from 'next/link';
 import { css, cva } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -325,10 +326,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   );
 });
 
-export type ButtonLinkProps = Pick<
-  LinkProps,
-  'to' | 'replace' | 'state' | 'relative' | 'preventScrollReset' | 'viewTransition'
-> &
+export type ButtonLinkProps = Pick<LinkProps, 'href' | 'replace' | 'scroll' | 'prefetch'> &
   Pick<
     ButtonProps,
     | 'className'
@@ -347,29 +345,18 @@ export type ButtonLinkProps = Pick<
 
 /** A navigation link with the same variants and focus treatment as Button. */
 export function ButtonLink({
-  to,
+  href,
   children,
   replace,
-  state,
-  relative,
-  preventScrollReset,
-  viewTransition,
+  scroll,
+  prefetch,
   ...buttonProps
 }: ButtonLinkProps) {
   return (
     <Button
       {...buttonProps}
       nativeButton={false}
-      render={
-        <Link
-          to={to}
-          replace={replace}
-          state={state}
-          relative={relative}
-          preventScrollReset={preventScrollReset}
-          viewTransition={viewTransition}
-        />
-      }
+      render={<Link href={href} replace={replace} scroll={scroll} prefetch={prefetch} />}
     >
       {children}
     </Button>

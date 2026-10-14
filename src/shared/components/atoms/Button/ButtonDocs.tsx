@@ -1,6 +1,5 @@
 import { useEffect, useState, type PropsWithChildren } from 'react';
 import { DocsContainer, Unstyled, type DocsContainerProps } from '@storybook/addon-docs/blocks';
-import { MemoryRouter } from 'react-router-dom';
 import { css } from 'styled-system/css';
 import {
   Button,
@@ -434,20 +433,20 @@ export function ButtonDocs() {
               Shop Women’s
             </Button>
           </div>
-          <MemoryRouter>
+          <>
             <div>
               <h3>ButtonLink</h3>
-              <ButtonLink to="/products" variant="secondary">
+              <ButtonLink href="/products" variant="secondary">
                 바로가기
               </ButtonLink>
             </div>
             <div>
               <h3>Text Link · sm</h3>
-              <ButtonLink to="/products" variant="link" size="sm">
+              <ButtonLink href="/products" variant="link" size="sm">
                 바로가기
               </ButtonLink>
             </div>
-          </MemoryRouter>
+          </>
         </div>
       </section>
       <div

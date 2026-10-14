@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatePanel } from '@/shared/components/molecules/StatePanel/StatePanel';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -57,7 +59,7 @@ export function StatePage({
     >
       <StatePanel
         action={
-          <Link to={actionHref}>
+          <Link href={actionHref}>
             <Button variant={variant === 'error' ? 'secondary' : 'primary'}>
               {actionLabel ?? meta.cta}
             </Button>

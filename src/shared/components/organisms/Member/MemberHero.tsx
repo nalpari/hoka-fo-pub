@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css } from 'styled-system/css';
 
 export type MemberHeroData = {
@@ -71,7 +73,7 @@ export function MemberHero({ member }: Props) {
         ) : null}
       </div>
       <div className={stats}>
-        <Link to="/mypage/rewards" className={stat}>
+        <Link href="/mypage/rewards" className={stat}>
           <Typography variant="body5" tone="black40">
             HOKA 리워드
           </Typography>
@@ -80,7 +82,7 @@ export function MemberHero({ member }: Props) {
             <small className={statUnit}>P</small>
           </strong>
         </Link>
-        <Link to="/mypage/coupons" className={stat}>
+        <Link href="/mypage/coupons" className={stat}>
           <Typography variant="body5" tone="black40">
             사용 가능 쿠폰
           </Typography>

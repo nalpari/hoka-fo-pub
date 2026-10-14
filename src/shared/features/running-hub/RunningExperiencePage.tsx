@@ -1,5 +1,7 @@
+'use client';
+
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { css, cva } from 'styled-system/css';
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
@@ -137,7 +139,7 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
       <PageHeader
         title={header.title}
         description={header.description}
-        action={<Link to="/mypage">MY HOKA →</Link>}
+        action={<Link href="/mypage">MY HOKA →</Link>}
       />
       {kind === 'shoe-finder' ? (
         <>

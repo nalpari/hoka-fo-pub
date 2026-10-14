@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, type FormEvent } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   RegistrationContent,
   type RegistrationInformation,
@@ -19,8 +21,8 @@ const receivedVerificationInfo = {
 };
 
 export function RegistrationPage() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [stage, setStage] = useState<'information' | 'additional'>(
     searchParams.get('step') === 'additional' ? 'additional' : 'information',
   );
@@ -178,14 +180,14 @@ export function RegistrationPage() {
           if (stage === 'additional') {
             setStage('information');
             setNotice('');
-          } else navigate('/signup/terms');
+          } else router.push('/signup/terms');
         }}
       />
       {summaryOpen ? (
         <MarketingConsentSummaryModal
           preferences={preferences}
           onOpenChange={setSummaryOpen}
-          onConfirm={() => navigate('/signup/complete')}
+          onConfirm={() => router.push('/signup/complete')}
         />
       ) : null}
     </>

@@ -1,5 +1,7 @@
+'use client';
+
 import type { ComponentPropsWithoutRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import RouterLink from 'next/link';
 import { cva } from 'styled-system/css';
 
 const link = cva({

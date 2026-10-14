@@ -1,5 +1,7 @@
+'use client';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { css } from 'styled-system/css';
 
@@ -31,7 +33,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             </span>
           )}
           {item.href && index < items.length - 1 ? (
-            <Link className={link} to={item.href}>
+            <Link className={link} href={item.href}>
               <Typography variant="body4" weight="inherit">
                 {item.label}
               </Typography>
