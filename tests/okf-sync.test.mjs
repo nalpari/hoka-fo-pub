@@ -13,9 +13,16 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 function fixture(t) {
   const cwd = mkdtempSync(join(tmpdir(), 'hoka-okf-'));
   t.after(() => rmSync(cwd, { recursive: true, force: true }));
-  const env = { ...process.env, GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1' };
+  const globalConfig = join(cwd, 'empty-gitconfig');
+  writeFileSync(globalConfig, '');
+  const env = { ...process.env, GIT_CONFIG_GLOBAL: globalConfig, GIT_CONFIG_NOSYSTEM: '1' };
   execFileSync('git', ['init', '--quiet', cwd], { env });
-  for (const path of ['scripts/okf-sync.mjs', '.githooks/pre-commit', '.codex/hooks.json']) {
+  for (const path of [
+    'scripts/okf-sync.mjs',
+    'scripts/okf.ps1',
+    '.githooks/pre-commit',
+    '.codex/hooks.json',
+  ]) {
     mkdirSync(dirname(join(cwd, path)), { recursive: true });
     copyFileSync(join(root, path), join(cwd, path));
   }
@@ -126,7 +133,31 @@ test('installer enables Git, preserves Claude hooks, and is idempotent', (t) => 
   assert.equal(updated.hooks.PostToolUse.length, 1);
   assert.equal(updated.hooks.Stop[0].hooks[0].command, 'existing-hook');
   stage(repo, 'src/app/page.tsx');
-  assert.equal(spawnSync(join(repo.cwd, '.githooks/pre-commit'), [], repo).status, 1);
+  const commit = spawnSync(
+    'git',
+    ['-c', 'user.name=OKF Test', '-c', 'user.email=okf@example.invalid', 'commit', '-m', 'test'],
+    { ...repo, encoding: 'utf8' },
+  );
+  assert.equal(commit.status, 1);
+  assert.match(commit.stderr, /OKF/);
+});
+
+test('PowerShell entry point preserves check failures and works outside the repository', {
+  skip: process.platform !== 'win32',
+}, (t) => {
+  const repo = fixture(t);
+  const run = () => spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', join(repo.cwd, 'scripts/okf.ps1'), 'check'],
+    { cwd: tmpdir(), env: repo.env, encoding: 'utf8' },
+  );
+  const clean = run();
+  assert.equal(clean.status, 0, clean.stderr);
+  stage(repo, 'src/app/page.tsx');
+  assert.equal(run().status, 1);
+  stage(repo, 'okf/architecture/routing.md');
+  stage(repo, 'okf/log.md');
+  assert.equal(run().status, 0);
 });
 
 test('installer leaves an existing hooksPath or pre-commit intact', (t) => {

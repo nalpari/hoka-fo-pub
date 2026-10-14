@@ -12,6 +12,7 @@ working_tree_sources:
   - eslint.config.js
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
+  - scripts/okf.ps1
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -61,6 +62,8 @@ node --test tests/app-router.test.mjs
 `npm run okf:check`는 스테이징된 소스·설정 변경에 관련 OKF 개념과 `okf/log.md`가 포함되어 있는지 검사한다. 작업 트리에서 문서를 수정했더라도 스테이징하지 않았다면 통과하지 않는다. 필요한 문서는 [유지보수 매핑](../maintenance.md)에 있다.
 
 `npm run test:okf`는 별도의 임시 Git 저장소에서 코드만 스테이징한 경우의 차단, 관련 문서를 포함한 경우의 통과, 에이전트 안내와 기존 훅 보존을 검증한다. 실제 저장소에 커밋을 만들지 않는다. 작성 당시 작업 트리에서 확인한 테스트 출처는 `tests/okf-sync.test.mjs`다.
+
+Windows에서는 Git 자체의 커밋 실행을 통해 sh pre-commit의 차단을 확인하고, Windows PowerShell 진입점을 임시 저장소 밖에서 호출해 종료 코드와 문서 동시 스테이징을 검증한다. 테스트 프로세스에만 `-ExecutionPolicy Bypass`를 지정하며 시스템 실행 정책은 변경하지 않는다. 테스트의 글로벌 Git 설정은 운영체제 전용 `/dev/null` 대신 빈 임시 파일로 격리한다. PowerShell 실행 예시는 [유지보수](../maintenance.md#powershell)를 참고한다.
 
 ## 문서만 변경
 
