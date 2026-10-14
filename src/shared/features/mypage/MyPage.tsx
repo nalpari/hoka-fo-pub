@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Grid, HStack, Stack, styled } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Breadcrumb } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
 import {
@@ -196,7 +197,7 @@ function MyPageMenuSection({
               <Typography web="bodyKr3" mo="bodyKr3">
                 {item.label}
               </Typography>
-              <styled.img alt="" height="16" src="/images/mypage/chevron-right.svg" width="16" />
+              <Icon name="chevron-right" size="16px" />
             </HStack>
           </StyledLink>
         ))}
@@ -227,7 +228,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                 <Typography as="h1" web="headingKr4" mo="headingKr4">
                   박*진
                 </Typography>
-                <styled.img alt="" height="16" src="/images/mypage/chevron-right.svg" width="16" />
+                <Icon name="chevron-right" size="16px" />
               </HStack>
             </StyledLink>
             <Stack gap="2">
