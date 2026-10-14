@@ -5,7 +5,7 @@ import type { RunClubSession } from './runClub.data';
 
 const runClubBadge = cva({
   base: {
-    h: '52px',
+    h: '28px',
   },
   variants: {
     category: { Road: { bg: '#dfff00', color: '#000' }, Trail: { bg: '#5d6825', color: '#fff' } },
