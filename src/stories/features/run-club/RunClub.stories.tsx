@@ -34,7 +34,7 @@ function RunClubPreview({ platform, view }: PreviewProps) {
 }
 
 const meta = {
-  title: 'PAGES/RunClub',
+  title: 'PAGES/MYPAGE/RunClub',
   component: RunClubPreview,
   parameters: { layout: 'fullscreen' },
   args: { platform: 'web', view: 'list' },

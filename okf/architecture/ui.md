@@ -9,6 +9,12 @@ generated:
   at: '2026-10-15T16:05:54+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/mypage/mypage.data.ts
+  - src/shared/features/mypage/MyPageStatusPage.tsx
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/shared/features/screen-index/storybookLinks.ts
+  - src/stories/features/run-club/RunClub.stories.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerBackButton.tsx
   - src/shared/components/organisms/Layout/SiteHeader/MegaMenuContent.tsx
   - src/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
@@ -432,3 +438,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 검증 결과: `npm run typecheck`, 변경 파일 ESLint, Panda 생성, `npm run okf:check`와 전체 작업 트리 `pendingDocs(false)` 매핑 검사, `git diff --check`를 통과했다. Storybook 브라우저에서 375px 첫 화면 및 Men 상세, 로그인 상태, 메뉴 그룹 독립 토글·뒤로가기 포커스·Escape·닫기·재진입 초기화를 확인했다. 320×568 화면의 Drawer clientWidth와 scrollWidth가 모두 305px로 같고 내부 세로 스크롤을 확인했다. 데스크톱 SiteHeader MenuComposition 스토리의 메뉴 표시와 키보드 포커스도 확인했다. Figma 원본과의 일치 검증은 수행하지 않았다.
 모바일 전체 메뉴의 비로그인 헤더는 `HeaderAuthLink`를 재사용해 로그인(`/login`)·Divider·회원가입(`/signup`)을 각각 표시한다. 선택적 `onNavigate` 콜백으로 어느 링크를 선택해도 메뉴를 닫는다. 로그인 상태에서는 마이페이지 링크를 유지한다.
+
+## 마이페이지 러닝세션 신청내역
+
+메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub` 아래에 목록·빈 목록·상세 상태·모바일 스토리를 제공한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub--list`·`pages-mypage-runclub--mobile-list`, 259는 `pages-mypage-runclub--open`·`pages-mypage-runclub--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.

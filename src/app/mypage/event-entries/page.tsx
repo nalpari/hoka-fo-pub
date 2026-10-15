@@ -1,7 +1,3 @@
 'use client';
 
-import { MyPageStatusPage } from '@/shared/features/mypage/MyPageStatusPage';
-
-export default function Page() {
-  return <MyPageStatusPage kind="event-entries" />;
-}
+export { RunClubPage as default } from '@/shared/features/run-club/RunClubPage';

@@ -6,8 +6,10 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T06:02:14Z'
+  at: '2026-10-15T16:38:00+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+working_tree_sources:
+  - src/app/mypage/event-entries/page.tsx
 sources:
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
@@ -63,3 +65,7 @@ sources:
 새 페이지에서 서버·클라이언트 경계를 판단하고, 설치된 `node_modules/next/dist/docs/`의 해당 API 문서를 먼저 읽는다. 새 서버 페이지에 클라이언트 콜백을 직접 넘기지 않는다.
 
 [공통 상태](state.md), [UI 구성](ui.md), [변경 검증](../development/verification.md)을 참고한다.
+
+## 러닝세션 신청내역 연결
+
+마이페이지 MY HOKA의 러닝세션 신청내역은 `/mypage/event-entries`에서 `RunClubPage.tsx`를 직접 표시한다. 기존 `/running/run-club`도 같은 컴포넌트를 표시하며 세션 상세 주소는 `/running/run-club/:sessionId`를 유지한다. 기존 이벤트·대회 신청 임시 화면은 이 경로에서 사용하지 않는다.

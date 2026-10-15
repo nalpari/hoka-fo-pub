@@ -2,6 +2,7 @@ import { ShopShell } from '@/shared/ShopShell';
 import MyPage from '@/app/mypage/page';
 import { MyPageStatusPage, type MyPageStatusKind } from '@/shared/features/mypage/MyPageStatusPage';
 import { RunningProfilePage } from '@/shared/features/mypage/RunningProfilePage';
+import { RunClubPage } from '@/shared/features/run-club/RunClubPage';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 
 const kinds = [
@@ -17,7 +18,6 @@ const kinds = [
   'addresses',
   'payment-methods',
   'restock-alerts',
-  'event-entries',
   'member-activity',
   'refund-account',
 ] satisfies MyPageStatusKind[];
@@ -31,6 +31,8 @@ export function createMyPageStory(path: string) {
           <MyPage />
         ) : path === '/mypage/running-profile' ? (
           <RunningProfilePage />
+        ) : path === '/mypage/event-entries' ? (
+          <RunClubPage />
         ) : kind ? (
           <MyPageStatusPage kind={kind} />
         ) : (
