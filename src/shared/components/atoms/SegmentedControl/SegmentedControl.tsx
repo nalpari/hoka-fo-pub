@@ -5,6 +5,7 @@ import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const root = cva({
   base: { display: 'flex', flexWrap: 'wrap', gap: '2' },
@@ -37,10 +38,6 @@ const item = cva({
         bg: 'transparent',
         color: 'var(--color-text-primary)',
         cursor: 'pointer',
-        fontFamily: 'korean',
-        fontSize: '16px',
-        fontWeight: 'medium',
-        lineHeight: 'body',
       },
     },
     active: {
@@ -126,7 +123,11 @@ export function SegmentedControl<T extends string = string>({
             .filter(Boolean)
             .join(' ')}
           render={
-            unstyled || variant === 'underline' ? undefined : (
+            unstyled ? undefined : variant === 'underline' ? (
+              <Typography as="button" variant="selectionLabel" tone="primary">
+                {option.label}
+              </Typography>
+            ) : (
               <Button className={item({ variant, active: option.value === value })} />
             )
           }

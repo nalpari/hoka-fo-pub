@@ -173,6 +173,12 @@ $font-faces: (
     --type-page-title-font-weight: 700;
     --type-page-title-line-height: normal;
     --type-page-title-letter-spacing: normal;
+    // Single-choice view/filter labels keep the same scale on both platforms.
+    --type-selection-label-font-size: 16px;
+    --type-selection-label-mobile-font-size: 16px;
+    --type-selection-label-font-weight: 500;
+    --type-selection-label-line-height: 1.3;
+    --type-selection-label-letter-spacing: normal;
     --type-locale-heading-font-size: 20px;
     --type-locale-heading-mobile-font-size: 16px;
     --type-locale-heading-font-weight: 700;

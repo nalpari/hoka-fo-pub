@@ -2,4 +2,4 @@
 
 - [라우팅과 플랫폼](routing.md) - App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.
 - [공통 상태와 데모 데이터](state.md) - 로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.
-- [컴포넌트와 스타일](ui.md) - 공통 UI 계층, Panda CSS·Storybook의 `src/stories/` 배치 규칙과 재사용·구조 조합 점검 결과를 설명한다.
+- [컴포넌트와 스타일](ui.md) - 공통 UI 계층, Panda CSS·Storybook의 `src/stories/` 배치 규칙과 재사용·구조 조합 점검 결과와 마이페이지 내부 구성·선택 레이블 계약을 설명한다.

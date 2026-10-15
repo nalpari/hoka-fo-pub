@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
@@ -10,21 +9,13 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 import { EmployeeCoupons } from './EmployeeCoupons';
+import { CouponCard, type CouponItem } from './CouponCard';
 
-export type CouponItem = {
-  id: string;
-  name: string;
-  benefit: string;
-  condition: string;
-  expiresAt: string;
-  category: '상품 할인' | '배송 할인';
-};
+export type { CouponItem } from './CouponCard';
 
 type Props = { coupons: CouponItem[] };
 
 type Category = '전체' | CouponItem['category'];
-
-const couponCard = css({ border: '1px solid var(--colors-black-20)' });
 
 export function CouponManager({ coupons }: Props) {
   const [category, setCategory] = useState<Category>('전체');
@@ -134,25 +125,7 @@ export function CouponManager({ coupons }: Props) {
             </HStack>
             <Stack gap="4">
               {visibleCoupons.slice(0, visibleCount).map((coupon) => (
-                <Stack as="article" className={couponCard} gap="6" key={coupon.id} px="4" py="6">
-                  <HStack justifyContent="space-between" alignItems="flex-start">
-                    <Typography as="h3" variant="heading6">
-                      {coupon.name}
-                    </Typography>
-                    <Button size="sm" variant="link" onClick={() => setSelectedCoupon(coupon)}>
-                      상세보기
-                    </Button>
-                  </HStack>
-                  <Stack gap="3">
-                    <Typography variant="heading7">{coupon.benefit}</Typography>
-                    <Stack gap="1">
-                      <Typography variant="body4">{coupon.condition}</Typography>
-                      <Typography variant="body4" language="en" tone="tertiary">
-                        {coupon.expiresAt}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                </Stack>
+                <CouponCard key={coupon.id} coupon={coupon} onDetails={setSelectedCoupon} />
               ))}
             </Stack>
           </Stack>
