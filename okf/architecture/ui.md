@@ -301,6 +301,8 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 | 쿠폰 목록의 article 표시와 필터·등록·상세 상태 혼재      | organism 내부 `CouponCard({ coupon, onDetails })`                                                   | article/h3, 패딩 16px/24px, 카드 내부 24px/12px/4px 간격, 상세보기 콜백 유지. 카테고리 변경 시 5개로 초기화, 등록·모달 상태는 Manager 소유. 기존 `CouponManager`의 `CouponItem` 타입 import 경로는 re-export로 유지                                                                                                              |
 | 밑줄형 선택 버튼의 직접 타입 선언                        | `Typography as="button" variant="selectionLabel"`를 Toggle의 render로 사용                          | 버튼 DOM을 추가하지 않고 Base UI 이벤트·ref·선택 속성을 전달. 한국어 글꼴, PC/모바일 16px·500·행간 1.3·자간 normal. `--type-selection-label-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}` 토큰 계약. 기존 `ctaKr1`은 600·음수 자간이므로 대체하지 않음. 기본형·unstyled·옵션 비활성·빈 문자열 인코딩 유지 |
 
+`EmployeeCoupons`의 목록 ID와 버튼 `aria-controls`는 인스턴스별 `useId()`로 연결한다. 여러 쿠폰 영역이 함께 렌더링되어도 대상 ID가 겹치지 않는다. 기존 52px 접힘 높이, wrap/nowrap 전환, 280ms 접힘 타이머·재클릭 취소, 움직임 감소 설정, 페이드·화살표는 유지한다. 현재 작업 트리에서 타입 검사와 `.tmp*` 산출물을 제외한 lint를 통과했다. 인스턴스 두 개의 브라우저 동작 검증은 수행하지 않았다.
+
 ### Base UI와 유지 판단
 
 설치된 `@base-ui/react` 1.8.0 전체 exports를 [공식 카탈로그](https://base-ui.com/react/overview/quick-start)와 대조했다. Accordion, Alert Dialog, Autocomplete, Avatar, Button, Checkbox/Group, Collapsible, Combobox, Context Menu, Dialog, Drawer, Field/Fieldset/Form/Input, Menu/Menubar, Meter, Navigation Menu, Number Field, OTP Field, Popover, Preview Card, Progress, Radio/Group, Scroll Area, Select, Separator, Slider, Switch, Tabs, Toast, Toggle/Group, Toolbar, Tooltip 모두 설치 버전에 있다. 이번 범위에는 업그레이드가 필요한 후보가 없다.

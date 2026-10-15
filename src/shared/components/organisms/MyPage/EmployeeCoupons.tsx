@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -56,15 +56,19 @@ const animatedChevron = css({
 });
 
 export function EmployeeCoupons() {
+  const listId = useId();
   const [expanded, setExpanded] = useState(false);
   const [wrapping, setWrapping] = useState(false);
   const [listHeight, setListHeight] = useState(52);
   const listRef = useRef<HTMLDivElement>(null);
   const collapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => () => {
-    if (collapseTimer.current) clearTimeout(collapseTimer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (collapseTimer.current) clearTimeout(collapseTimer.current);
+    },
+    [],
+  );
 
   useLayoutEffect(() => {
     if (expanded && wrapping && listRef.current) {
@@ -96,7 +100,7 @@ export function EmployeeCoupons() {
       </Typography>
       <Box position="relative" minH="52px">
         <HStack
-          id="employee-coupon-list"
+          id={listId}
           ref={listRef}
           className={animatedList}
           columnGap="1"
@@ -119,7 +123,7 @@ export function EmployeeCoupons() {
         <Box className={collapsedFade} opacity={expanded ? '0' : '1'} />
         <Box position="absolute" top="0" right="0">
           <IconButton
-            aria-controls="employee-coupon-list"
+            aria-controls={listId}
             aria-expanded={expanded}
             aria-label={expanded ? '임직원 쿠폰 접기' : '임직원 쿠폰 펼치기'}
             className={expandButton}
