@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T08:32:40Z'
+  at: '2026-10-15T16:38:00+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/data/screenRegistry.ts
   - README.md
   - src/app/checkout/page.tsx
   - src/shared/features/checkout/CheckoutPage.tsx
@@ -59,3 +60,7 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 - 화면 존재, 빌드 성공, 실제 서비스 연동 완료를 구분한다.
 
 [라우팅](architecture/routing.md), [공통 상태](architecture/state.md), [로컬 실행](development/setup.md)을 함께 읽는다.
+
+## 러닝세션 신청내역 IA
+
+IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook 위치는 `PAGES/MYPAGE/RunClub`이다.

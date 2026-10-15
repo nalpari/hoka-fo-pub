@@ -22,7 +22,6 @@ export type MyPageStatusKind =
   | 'addresses'
   | 'payment-methods'
   | 'restock-alerts'
-  | 'event-entries'
   | 'member-activity'
   | 'refund-account';
 
@@ -101,12 +100,6 @@ const content: Record<
     description: '품절된 관심 제품의 재입고 알림을 관리합니다.',
     action: '상품 둘러보기',
     href: '/products',
-  },
-  'event-entries': {
-    title: '이벤트 · 대회 신청',
-    description: '이벤트 응모와 러닝 대회 신청 내역을 확인합니다.',
-    action: '이벤트 보기',
-    href: '/explore',
   },
   'member-activity': {
     title: '멤버십 활동 내역',
@@ -189,19 +182,11 @@ export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
             ? [{ label: '기본 결제수단', value: '등록된 결제수단이 없습니다.', status: '등록' }]
             : kind === 'restock-alerts'
               ? [{ label: 'Mafate Speed 4 · 250', value: 'Black / White', status: '알림 켜짐' }]
-              : kind === 'event-entries'
-                ? [
-                    {
-                      label: 'HOKA Trail Day',
-                      value: '2026.10.04 · 서울 성수',
-                      status: '신청 완료',
-                    },
-                  ]
-                : kind === 'member-activity'
-                  ? [{ label: '2026.09.12', value: '포토 리뷰 작성', status: '+1,000P' }]
-                  : kind === 'refund-account'
-                    ? [{ label: '환불계좌', value: '등록된 환불계좌가 없습니다.', status: '등록' }]
-                    : [];
+              : kind === 'member-activity'
+                ? [{ label: '2026.09.12', value: '포토 리뷰 작성', status: '+1,000P' }]
+                : kind === 'refund-account'
+                  ? [{ label: '환불계좌', value: '등록된 환불계좌가 없습니다.', status: '등록' }]
+                  : [];
   return (
     <SidebarNavigationLayout
       activePath={activePath}
@@ -249,7 +234,6 @@ export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
             'returns',
             'payment-methods',
             'restock-alerts',
-            'event-entries',
             'member-activity',
             'refund-account',
           ].includes(kind) ? (

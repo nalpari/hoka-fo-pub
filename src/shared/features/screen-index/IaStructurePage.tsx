@@ -67,8 +67,9 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
-  258: { pc: 'pages-runclub--list', mo: 'pages-runclub--mobile-list' },
-  259: { pc: 'pages-runclub--open', mo: 'pages-runclub--mobile-open' },
+  200: { pc: 'pages-mypage-runclub--list', mo: 'pages-mypage-runclub--mobile-list' },
+  258: { pc: 'pages-mypage-runclub--list', mo: 'pages-mypage-runclub--mobile-list' },
+  259: { pc: 'pages-mypage-runclub--open', mo: 'pages-mypage-runclub--mobile-open' },
   229: {
     pc: 'pages-auth-findaccount-passwordresetpage--default',
     mo: 'pages-auth-findaccount-passwordresetpage--mobile',

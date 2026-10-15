@@ -426,6 +426,37 @@ const typography = cva({
         letterSpacing: 'var(--type-session-title-letter-spacing)',
         _mobile: { fontSize: 'var(--type-session-title-mobile-font-size)' },
       },
+      sessionOverlay: {
+        ...figmaTypographyVariants.heading6,
+        _mobile: { fontSize: 'var(--type-session-overlay-mobile-font-size)' },
+      },
+      sessionFactBody: {
+        ...figmaTypographyVariants.body3,
+        lineHeight: 'var(--type-session-fact-line-height)',
+        _mobile: { fontSize: 'var(--font-sizes-14)' },
+      },
+      sessionGuideBody: {
+        ...figmaTypographyVariants.body4,
+        lineHeight: 'var(--type-session-fact-line-height)',
+      },
+      sessionNote: {
+        ...figmaTypographyVariants.body4,
+        lineHeight: 'var(--type-session-note-line-height)',
+        _mobile: { fontSize: 'var(--font-sizes-12)' },
+      },
+      sessionImagePlaceholder: {
+        fontSize: 'var(--type-session-image-placeholder-font-size)',
+        fontWeight: 'black',
+        lineHeight: 'inherit',
+        _mobile: { fontSize: 'var(--type-session-image-placeholder-mobile-font-size)' },
+      },
+      sessionPosterTitle: {
+        fontWeight: 'black',
+        fontSize: 'var(--type-session-poster-title-font-size)',
+        lineHeight: 'var(--type-session-poster-title-line-height)',
+        letterSpacing: 'var(--type-session-poster-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-session-poster-title-mobile-font-size)' },
+      },
       loginTitle: {
         fontFamily: 'korean',
         fontSize: 'var(--type-login-title-font-size)',
@@ -576,6 +607,10 @@ const typography = cva({
         _mobile: { fontWeight: 'inherit' },
       },
     },
+    script: {
+      en: { fontFamily: 'hoka', letterSpacing: '0' },
+      ko: { fontFamily: 'korean', letterSpacing: 'korean' },
+    },
     tone: {
       error: { color: 'red.100' },
       inherit: { color: 'inherit' },
@@ -599,6 +634,12 @@ export type TypographyVariant =
   | 'localeHeading'
   | 'profileTitle'
   | 'sessionTitle'
+  | 'sessionOverlay'
+  | 'sessionFactBody'
+  | 'sessionGuideBody'
+  | 'sessionNote'
+  | 'sessionImagePlaceholder'
+  | 'sessionPosterTitle'
   | 'loginTitle'
   | 'pageTitle'
   | 'authTitle'
@@ -704,6 +745,15 @@ export function Typography<T extends ElementType = 'span'>({
   const platform = usePlatform();
   const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
+  const isSessionBody =
+    selectedVariant === 'sessionFactBody' ||
+    selectedVariant === 'sessionGuideBody' ||
+    selectedVariant === 'sessionNote';
+  const script = isSessionBody
+    ? language === 'ko' || (language === 'auto' && containsHangul(children))
+      ? 'ko'
+      : 'en'
+    : undefined;
 
   return (
     <Element
@@ -712,6 +762,7 @@ export function Typography<T extends ElementType = 'span'>({
         typography({
           tone,
           variant: resolvedVariant as never,
+          script,
           weight,
         }),
         className,
