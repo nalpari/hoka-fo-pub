@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T17:51:00+09:00'
+  at: '2026-10-15T09:25:33Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/mypage/RunningProfileContent.tsx
+  - src/shared/components/organisms/MyPage/CouponCard.tsx
   - src/shared/features/run-club/RunClubDetailLayout.tsx
   - src/shared/features/run-club/RunClubFilters.tsx
   - src/shared/features/run-club/RunClubSessionImage.tsx
@@ -154,12 +156,14 @@ working_tree_sources:
   - src/stories/components/atoms/Typography/Typography.stories.tsx
   - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
   - src/shared/components/organisms/MyPage/CouponManager.tsx
+  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
   - src/shared/components/organisms/Product/ProductDetailSections/ProductReviews.tsx
   - src/shared/components/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
   - src/stories/components/layouts/AppLayout/AppLayout.stories.tsx
   - src/stories/components/organisms/Product/ProductDetailSections/ProductDetailSections.stories.tsx
+  - src/shared/features/mypage/MyPage.tsx
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -421,8 +425,60 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - `panda.config.ts`에 토큰과 `.platform-mobile &` 조건이 있다. 포털로 `<body>`에 렌더되는 요소도 이 조건을 받도록 `platform-*` 클래스는 `src/app/layout.tsx`의 `<body>`에 붙는다.
 - `styled-system/jsx`의 레이아웃 도구와 공통 `Typography`를 재사용한다.
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.
+- 마이페이지 주문 카드 상품 사진은 공용 `ProductThumbnail`로 렌더하고 96px 정사각형 슬롯은 페이지 레이아웃에서 지정한다. Typography는 기본 `language="auto"`가 한글을 감지해 한국어 토큰을 선택하므로 호출부에서 `Kr` 접미사를 반복하지 않는다. 프로필 이동은 공용 `ButtonLink`, 구분선은 Panda `Divider`를 사용한다.
+- 마이페이지의 리뷰·등급·쿠폰·회원정보·배송지·관심상품·최근 본 상품·재입고 알림 화면은 `MyPageStatusPage`에서 기능별 화면으로 분기한다. 공통 `MyPageFrame`이 탐색 메뉴와 Breadcrumb을 소유하고 각 화면은 기존 Button, FormField, TextInput, SegmentedControl, ModalDialog, ProductCard, ProductThumbnail을 재사용한다. 현재 목록과 입력 결과는 화면 내부의 데모 상태이며 서버 저장소와 연결하지 않는다. 대응 모바일 시나리오는 `src/stories/features/mypage/MyPageDesign.stories.tsx`에 둔다.
+- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 이메일·모바일 쿠폰북·문자/카카오톡 전송매체를 각각 표시한다. 편집 폼에도 모바일 쿠폰북 선택값을 둬 요약 상태와 일치시킨다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev) 및 `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/shared/features/mypage/MyPageReviews.tsx`와 `src/shared/components/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
+- 이 여덟 화면의 타이포는 Figma의 12·14·16·20·22px 역할을 기존 Typography variant로 표현한다. 날짜·숫자는 영문 서체, 뒤따르는 한국어 단위·라벨은 한국어 서체를 각 Typography에 명시해 한 줄에서도 언어별 굵기와 자간을 유지한다. 여백과 정렬은 Box·Stack·HStack이 담당한다.
+- `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
+- `MyPageRewards`의 등급 카드에서 `--tier-color`는 카드 배경과 검은 원 안 이니셜 글자색에 함께 적용한다. ELITE·ADVANCED·RUNNER는 각각 Figma color foundation의 `blue.100`·`citrus.100`·`offWhite.100` 토큰을 변수에 연결한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `panda.config.ts` 및 생성 CSS 확인(2026-10-15).
+- 등급 혜택과 회원 공통 혜택의 순번은 `ol`의 CSS 마커 대신 `map`의 인덱스를 `Typography`로 출력한다. 주항목과 순번은 모바일 `body4`(14px), 보조 설명은 `body5`(12px)를 쓰며 설명 불릿도 텍스트로 표시한다. 목록의 의미 구조는 `ol`·`li`로 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/shared/components/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
+- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이의 독립 섹션이다. 접힌 상태는 칩을 줄바꿈 없이 가로 한 줄(`nowrap`)로 이어서 보여주고, 52px 높이에서 오른쪽으로 넘친 부분만 잘린다. 펼치면 줄바꿈(`wrap`)해 가로 4px·세로 8px 간격으로 세 줄에 걸쳐 5개 칩을 모두 보여주며 아래 쿠폰 내역을 밀어낸다. 우측 원형 버튼은 `aria-expanded`와 목록 연결을 제공한다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19372&m=dev), 제공된 두 상태 이미지 및 `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
+- 임직원 쿠폰의 펼침은 실제 칩 목록 높이를 측정해 52px에서 확장 높이까지 애니메이션한다. 접을 때는 280ms 높이 전환 후 `nowrap`으로 확실히 복원하고, 빠르게 다시 펼치면 대기 중인 접힘 타이머를 취소한다. 화살표와 가장자리 페이드도 함께 전환하며, 움직임 감소 환경에서는 즉시 접는다. 근거: `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
+- `SegmentedControl variant="underline"`는 리뷰·쿠폰의 동일한 전체 폭 밑줄 탭 표현을 소유한다. 옵션 수에 관계없이 버튼을 균등하게 배치하고 선택 항목에 검은 하단선을 표시한다. 기존 기본 버튼형과 `unstyled` 확장 API는 유지한다.
 
 `styled-system/`과 `src/shared/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
+
+## 마이페이지 지정 범위 재사용 점검 (2026-10-15)
+
+범위는 `features/mypage`, `organisms/MyPage`, `atoms/SegmentedControl`이다. Typography·토큰·관련 스토리는 타입 스케일 이전과 검증을 위해 확인했다. 기능 전용 구성은 기존 소유 폴더 안에 두며 공용 계층으로 승격하지 않았다.
+
+| 관찰한 책임                                              | 반영한 API와 소유자                                                                                 | 보존 계약                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 러닝 프로필 페이지가 답변 상태와 화면 스타일을 함께 소유 | 기능 내부 `RunningProfileContent({ questions, answers, answeredCount, completed, onAnswerChange })` | 상태·완료 계산은 `RunningProfilePage` 소유. header → 진행률 → 질문 → footer 순서, 진행률 여백 32px/50px, 질문 간격 42px, 모바일 sticky bottom 0·좌우 -16px·상단 30px·패딩 14px/16px 유지. `Box`·`Grid`는 기존 div를 그대로 렌더링                                                                                                |
+| 쿠폰 목록의 article 표시와 필터·등록·상세 상태 혼재      | organism 내부 `CouponCard({ coupon, onDetails })`                                                   | article/h3, 패딩 16px/24px, 카드 내부 24px/12px/4px 간격, 상세보기 콜백 유지. 카테고리 변경 시 5개로 초기화, 등록·모달 상태는 Manager 소유. 기존 `CouponManager`의 `CouponItem` 타입 import 경로는 re-export로 유지                                                                                                              |
+| 밑줄형 선택 버튼의 직접 타입 선언                        | `Typography as="button" variant="selectionLabel"`를 Toggle의 render로 사용                          | 버튼 DOM을 추가하지 않고 Base UI 이벤트·ref·선택 속성을 전달. 한국어 글꼴, PC/모바일 16px·500·행간 1.3·자간 normal. `--type-selection-label-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}` 토큰 계약. 기존 `ctaKr1`은 600·음수 자간이므로 대체하지 않음. 기본형·unstyled·옵션 비활성·빈 문자열 인코딩 유지 |
+
+`EmployeeCoupons`의 목록 ID와 버튼 `aria-controls`는 인스턴스별 `useId()`로 연결한다. 여러 쿠폰 영역이 함께 렌더링되어도 대상 ID가 겹치지 않는다. 기존 52px 접힘 높이, wrap/nowrap 전환, 280ms 접힘 타이머·재클릭 취소, 움직임 감소 설정, 페이드·화살표는 유지한다. 현재 작업 트리에서 타입 검사와 `.tmp*` 산출물을 제외한 lint를 통과했다. 인스턴스 두 개의 브라우저 동작 검증은 수행하지 않았다.
+
+### Base UI와 유지 판단
+
+설치된 `@base-ui/react` 1.8.0 전체 exports를 [공식 카탈로그](https://base-ui.com/react/overview/quick-start)와 대조했다. Accordion, Alert Dialog, Autocomplete, Avatar, Button, Checkbox/Group, Collapsible, Combobox, Context Menu, Dialog, Drawer, Field/Fieldset/Form/Input, Menu/Menubar, Meter, Navigation Menu, Number Field, OTP Field, Popover, Preview Card, Progress, Radio/Group, Scroll Area, Select, Separator, Slider, Switch, Tabs, Toast, Toggle/Group, Toolbar, Tooltip 모두 설치 버전에 있다. 이번 범위에는 업그레이드가 필요한 후보가 없다.
+
+- **keep — Toggle Group/Toggle**: 쿠폰·리뷰는 목록 필터이며 독립 탭 패널을 연결하지 않는다. 공용 SegmentedControl의 controlled 선택과 roving focus를 유지한다. 설치 버전 지원, 업그레이드 불필요.
+- **keep — Dialog, Checkbox, Radio Group, Progress**: 상세·수정 모달, 기본 배송지, 수신 동의, 진행률은 기존 wrapper가 담당한다. 기능에서 primitive를 직접 재구현하지 않는다. 모두 설치 버전 지원, 업그레이드 불필요.
+- **keep — 네이티브 select/input/form 및 confirm**: 기존 정렬·입력·필수 검증·리뷰 취소 의미를 유지한다. Select, Input, Form, Alert Dialog는 설치 버전에서 지원하지만 네이티브 동작을 교체할 추가 요구가 없다. 업그레이드 불필요.
+- **keep — EmployeeCoupons**: 펼침은 숨긴 패널 전체를 여닫는 것이 아니라 일부 칩이 보이는 목록의 줄바꿈·측정 높이를 바꾼다. Collapsible은 설치 버전에 있으나 패널 숨김 계약이 달라 기계적으로 이전하지 않는다. 업그레이드 불필요.
+- **keep — MyPageFrame, OrderTile, MyPageMenuSection, ProfileField, QuickLinkGrid**: 프레임·주문 표시·섹션 내비게이션·필드·반응형 링크 격자의 책임이 이미 명확하다. nav·article·form·목록 의미와 DOM 순서를 유지한다. 단순 태그 교체나 public component 추가 근거로 삼지 않는다.
+
+### 후속 추출 후보
+
+- `MyPageReviews`의 목록과 편집 화면 → 같은 기능 폴더의 `MyPageReviewList`(준비된 행·전체 개수·정렬값·작성/정렬/더보기 콜백)와 `MyPageReviewEditor`(별점·본문·오류·저장/닫기 콜백). 정렬·10개씩 더보기·작성 데이터 상태는 페이지에 남기고, 기존 빈 상태·모달 포커스 복귀·64px 썸네일을 보존한다. 정렬 select의 16px·500 직접 선언은 글꼴·상속 행간까지 확인한 후 Typography `as={Select}`로 이전한다.
+- `MyPageProfile`의 보기/편집 영역 → 기능 내부 `ProfileDetails`·`ProfileForm`에 준비된 필드와 변경/제출 콜백을 전달한다. 마케팅 세 행·수신 동의별 상태·폼 검증·탈퇴 모달의 수명과 간격을 보존한다.
+- `MyPageRewards`의 두 번호형 혜택 목록 → 기능 내부 `MembershipBenefitList({ items })`. 번호·보조 불릿·본문/설명 Typography·간격 8px/4px과 현재 목록 DOM을 보존한다. 단일 기능 소비이므로 공용 organism 승격 근거는 없다.
+
+현재 변경에는 신규 스토리 파일과 기존 스토리 수정이 포함되지 않는다. 후속 검증에서는 PC/모바일 러닝 프로필의 진행률·완료 버튼, 쿠폰 필터 초기화·더보기·상세 모달과 밑줄형 선택의 키보드 동작을 확인해야 한다.
+
+### 이번 검증 결과
+
+이전 구현 작업에서 `npm run panda`, `npm run typecheck`, `npm run build`, `npm run build-storybook`, `git diff --check`를 통과했다. 이 기록은 당시 스토리를 포함한 작업 트리 기준이며 현재 커밋의 브라우저 검증을 의미하지 않는다. 전체 `npm run lint`는 기존 `.tmp*` Storybook 번들 산출물에서 실패했으며 `npm run lint -- --ignore-pattern '.tmp*/**'`는 통과했다. Storybook 빌드의 의존성 `use client` 번들 경고는 빌드를 실패시키지 않았다. 연결 가능한 브라우저가 없어 PC/모바일 시각 확인과 play 실행은 수행하지 못했다. `pendingDocs(false)`의 작업 트리 OKF 검사에는 누락 문서가 없으며, 스테이징 기준 검사나 커밋을 수행한 것으로 기록하지 않는다.
+
+## PR #30 충돌 해결 (2026-10-15)
+
+`publishing` 병합 시 양쪽의 Typography 추가를 함께 유지했다. `selectionLabel`과 `navigationPromoTitle`, 러닝세션 전용 variant 및 대응 CSS 토큰을 보존한다. `MyPageStatusPage`는 개별 마이페이지 화면을 선택하는 현재 구조를 유지하고 옛 `event-entries` 종류·샘플 데이터는 제거했다. 실제 `/mypage/event-entries` 경로와 route story는 publishing의 `RunClubPage` 직접 연결을 유지한다. 메뉴·러닝세션 문서와 마이페이지 재사용 점검 기록은 함께 남긴다. 병합 결과에서 Panda 생성, 타입 검사, `.tmp*` 산출물을 제외한 lint, 앱·Storybook 빌드, `node --test tests/app-router.test.mjs`의 두 검사를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
 ## Storybook
 

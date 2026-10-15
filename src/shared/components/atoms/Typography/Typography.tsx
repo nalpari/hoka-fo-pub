@@ -397,6 +397,14 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      selectionLabel: {
+        fontFamily: 'korean',
+        fontSize: 'var(--type-selection-label-font-size)',
+        fontWeight: 'var(--type-selection-label-font-weight)',
+        lineHeight: 'var(--type-selection-label-line-height)',
+        letterSpacing: 'var(--type-selection-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-selection-label-mobile-font-size)' },
+      },
       navigationPromoTitle: {
         fontFamily: 'hoka',
         fontSize: 'var(--type-navigation-promo-title-font-size)',
@@ -630,6 +638,7 @@ const typography = cva({
 });
 
 export type TypographyVariant =
+  | 'selectionLabel'
   | 'navigationPromoTitle'
   | 'localeHeading'
   | 'profileTitle'

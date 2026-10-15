@@ -1,148 +1,188 @@
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { useState } from 'react';
-import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { css, cva } from 'styled-system/css';
+'use client';
 
-export type CouponItem = {
-  id: string;
-  name: string;
-  benefit: string;
-  condition: string;
-  expiresAt: string;
-  category: '상품 할인' | '배송 할인';
-};
+import { useState } from 'react';
+import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Button } from '@/shared/components/atoms/Button/Button';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
+import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { EmployeeCoupons } from './EmployeeCoupons';
+import { CouponCard, type CouponItem } from './CouponCard';
+
+export type { CouponItem } from './CouponCard';
 
 type Props = { coupons: CouponItem[] };
 
-const register = css({
-  display: 'grid',
-  gridTemplateColumns: '1fr auto',
-  gap: '2',
-  p: '5',
-  bg: 'var(--color-surface-muted)',
-  _mobile: { gridTemplateColumns: '1fr' },
-});
-
-const filters = css({ display: 'flex', gap: '2', mt: '6', overflowX: 'auto', pb: '0.5' });
-
-const filter = cva({
-  base: {
-    flex: '0 0 auto',
-    px: '15px',
-    py: '9px',
-    border: '1px solid var(--color-border-tertiary)',
-    bg: 'var(--color-white-000)',
-  },
-  variants: {
-    active: {
-      true: {
-        bg: 'var(--color-black-100)',
-        color: 'var(--color-text-inverse)',
-        borderColor: 'var(--color-black-100)',
-      },
-      false: {},
-    },
-  },
-});
-
-const table = css({ mt: '18px', borderTop: '2px solid var(--color-black-100)' });
-
-const couponRow = css({
-  display: 'grid',
-  gridTemplateColumns: '120px 1.3fr 1.4fr 1.2fr',
-  gap: '3.5',
-  alignItems: 'center',
-  minH: '92px',
-  px: '4',
-  borderBottom: '1px solid var(--color-border-subtle)',
-  fontSize: '14' /* 기존 13px */,
-  _mobile: {
-    gridTemplateColumns: '1fr auto',
-    gap: '1.5',
-    py: '4',
-    '& strong': { fontSize: '20' },
-    '& span': { gridColumn: '1 / -1', color: 'var(--color-text-tertiary)' },
-    '& time': {
-      gridColumn: '1 / -1',
-      color: 'var(--color-text-tertiary)',
-      fontSize: '12',
-    },
-  },
-});
-
-/** Coupon registration, category filtering, and mobile-first coupon history. */
+type Category = '전체' | CouponItem['category'];
 
 export function CouponManager({ coupons }: Props) {
-  const [category, setCategory] = useState<'전체' | CouponItem['category']>('전체');
+  const [category, setCategory] = useState<Category>('전체');
   const [code, setCode] = useState('');
-  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState('');
+  const [registered, setRegistered] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(null);
   const visibleCoupons = coupons.filter(
     (coupon) => category === '전체' || coupon.category === category,
   );
 
+  function registerCoupon() {
+    if (code.trim().length < 6) {
+      setError('쿠폰 일련번호를 확인해 주세요.');
+      return;
+    }
+    setError('');
+    setRegistered(true);
+    setCode('');
+  }
+
   return (
-    <section aria-label="쿠폰 관리">
-      <div className={register}>
-        <TextInput
-          aria-label="쿠폰 번호"
-          invalid={message === '쿠폰 번호를 확인해 주세요.'}
-          value={code}
-          onChange={(event) => {
-            setCode(event.target.value);
-            setMessage(null);
-          }}
-          placeholder="쿠폰 번호를 입력해 주세요"
-        />
-        <Button
-          type="button"
-          onClick={() =>
-            setMessage(
-              code.trim().length >= 6 ? '쿠폰이 등록되었습니다.' : '쿠폰 번호를 확인해 주세요.',
-            )
-          }
-        >
+    <Stack gap="10" px="4" pt="6" pb="16">
+      <Stack as="section" gap="4" aria-label="쿠폰 등록">
+        <Typography as="h1" web="heading8" mo="heading5">
           쿠폰 등록
-        </Button>
-      </div>
-      {message ? (
-        <Typography
-          as="p"
-          variant="body5"
-          weight="bold"
-          className={css({
-            mt: '2',
-            color: message.includes('등록') ? 'var(--color-black-60)' : 'var(--color-red-100)',
-          })}
-        >
-          {message}
         </Typography>
-      ) : null}
-      <SegmentedControl
-        ariaLabel="쿠폰 종류"
-        className={filters}
-        onValueChange={setCategory}
-        value={category}
-        unstyled
-        itemClassName={(_, selected) => filter({ active: selected })}
-        options={(['전체', '상품 할인', '배송 할인'] as const).map((value) => ({
-          value,
-          label: <Typography variant="body4">{value}</Typography>,
-        }))}
-      />
-      <div className={table}>
-        {visibleCoupons.map((coupon) => (
-          <article className={couponRow} key={coupon.id}>
-            <strong>{coupon.benefit}</strong>
-            <Typography as="b" variant="body4" weight="bold">
-              {coupon.name}
+        <Typography as="p" variant="body3" tone="subtle">
+          이벤트를 통해 발급 받은 쿠폰의 일련번호를 입력하십시오. 발급 받으신 쿠폰 일련번호를
+          등록기간 내에 등록 하셔야 사용 가능합니다.
+        </Typography>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            registerCoupon();
+          }}
+        >
+          <FormField
+            htmlFor="coupon-code"
+            label="일련번호"
+            required
+            variant="boxed"
+            invalid={Boolean(error)}
+          >
+            <TextInput
+              id="coupon-code"
+              aria-label="쿠폰 일련번호"
+              placeholder="일련 번호를 입력해 주세요"
+              value={code}
+              onChange={(event) => {
+                setCode(event.target.value);
+                setError('');
+              }}
+            />
+          </FormField>
+          {error ? (
+            <Typography variant="body5" tone="error">
+              {error}
             </Typography>
-            <Typography variant="body4">{coupon.condition}</Typography>
-            <time>{coupon.expiresAt}</time>
-          </article>
-        ))}
-      </div>
-    </section>
+          ) : null}
+          {code ? (
+            <Box mt="3">
+              <Button fullWidth type="submit" size="short" variant="primary">
+                쿠폰 등록
+              </Button>
+            </Box>
+          ) : null}
+        </form>
+      </Stack>
+
+      <EmployeeCoupons />
+
+      <Stack as="section" gap="6" aria-label="쿠폰 내역">
+        <Stack gap="3">
+          <Typography as="h2" web="heading8" mo="heading5">
+            쿠폰 내역
+          </Typography>
+          <Typography as="p" variant="body3" tone="subtle">
+            쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.
+          </Typography>
+        </Stack>
+        <Stack gap="6">
+          <SegmentedControl
+            ariaLabel="쿠폰 종류"
+            onValueChange={(value) => {
+              setCategory(value);
+              setVisibleCount(5);
+            }}
+            options={[
+              { value: '전체', label: '전체' },
+              { value: '상품 할인', label: '상품할인' },
+              { value: '배송 할인', label: '배송할인' },
+            ]}
+            variant="underline"
+            value={category}
+          />
+          <Stack gap="2">
+            <HStack justifyContent="flex-end">
+              <HStack gap="0.5">
+                <Typography variant="body4">총</Typography>
+                <Typography variant="body4" weight="medium">
+                  {visibleCoupons.length}
+                  <Typography variant="bodyKr4">건</Typography>
+                </Typography>
+              </HStack>
+            </HStack>
+            <Stack gap="4">
+              {visibleCoupons.slice(0, visibleCount).map((coupon) => (
+                <CouponCard key={coupon.id} coupon={coupon} onDetails={setSelectedCoupon} />
+              ))}
+            </Stack>
+          </Stack>
+          {visibleCount < visibleCoupons.length ? (
+            <Button
+              fullWidth
+              size="short"
+              variant="secondary"
+              onClick={() => setVisibleCount((count) => count + 5)}
+            >
+              <HStack gap="1">
+                <Typography mo="ctaKr2">더보기</Typography>
+                <Typography mo="body5" tone="tertiary">
+                  ({Math.ceil(visibleCount / 5)}/{Math.ceil(visibleCoupons.length / 5)})
+                </Typography>
+              </HStack>
+            </Button>
+          ) : null}
+        </Stack>
+      </Stack>
+
+      <ModalDialog
+        closeLabel="쿠폰 등록 결과 닫기"
+        open={registered}
+        onOpenChange={setRegistered}
+        size="sm"
+        title="쿠폰등록"
+      >
+        <Stack gap="6">
+          <Typography as="p" variant="body3">
+            쿠폰이 등록되었습니다.
+          </Typography>
+          <Button fullWidth size="short" variant="primary" onClick={() => setRegistered(false)}>
+            확인
+          </Button>
+        </Stack>
+      </ModalDialog>
+      <ModalDialog
+        closeLabel="쿠폰 상세 닫기"
+        open={selectedCoupon !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedCoupon(null);
+        }}
+        size="sm"
+        title="쿠폰 상세"
+      >
+        <Stack gap="3">
+          <Typography variant="body3" weight="semibold">
+            {selectedCoupon?.name}
+          </Typography>
+          <Typography variant="body4">{selectedCoupon?.benefit}</Typography>
+          <Typography variant="body4">{selectedCoupon?.condition}</Typography>
+          <Typography variant="body5" tone="tertiary">
+            {selectedCoupon?.expiresAt}
+          </Typography>
+        </Stack>
+      </ModalDialog>
+    </Stack>
   );
 }

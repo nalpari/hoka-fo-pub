@@ -4,7 +4,11 @@ import { expect, userEvent, within } from 'storybook/test';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { css } from 'styled-system/css';
 
-function SegmentedStory({ unstyled = false, fullWidth = false }) {
+function SegmentedStory({ unstyled = false, fullWidth = false, variant = 'default' }: {
+  unstyled?: boolean;
+  fullWidth?: boolean;
+  variant?: 'default' | 'underline';
+}) {
   const [value, setValue] = useState('all');
   return (
     <SegmentedControl
@@ -12,6 +16,7 @@ function SegmentedStory({ unstyled = false, fullWidth = false }) {
       onValueChange={setValue}
       unstyled={unstyled}
       fullWidth={fullWidth}
+      variant={variant}
       className={unstyled ? css({ display: 'flex', gap: '2', overflowX: 'auto' }) : undefined}
       itemClassName={
         unstyled
@@ -51,6 +56,19 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const FullWidth: Story = { args: { fullWidth: true } };
+
+export const Underline: Story = {
+  args: { variant: 'underline' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const all = canvas.getByRole('button', { name: '전체' });
+    const next = canvas.getByRole('button', { name: '신상품' });
+    await expect(all).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(next);
+    await expect(next).toHaveAttribute('aria-pressed', 'true');
+    await expect(all).toHaveAttribute('aria-pressed', 'false');
+  },
+};
 
 export const CustomPresentation: Story = {
   args: { unstyled: true },
