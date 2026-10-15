@@ -536,28 +536,3 @@ export const LocaleHeadingMobile: Story = {
     </PlatformProvider>
   ),
 };
-
-export const NavigationTypeScale: Story = {
-  render: () => (
-    <Stack gap="6">
-      {(['web', 'mobile'] as const).map((platform) => (
-        <PlatformProvider key={platform} platform={platform}>
-          <Stack className={`platform-${platform}`} gap="3">
-            <Typography as="h2" variant="navigationHeading">
-              Featured
-            </Typography>
-            <Typography as="h2" variant="navigationHeading">
-              액티비티
-            </Typography>
-            <Typography as="h3" variant="navigationHeading" language="ko">
-              HOKA 멤버십
-            </Typography>
-            <Typography as="h2" variant="navigationPromoTitle">
-              Clifton UTL
-            </Typography>
-          </Stack>
-        </PlatformProvider>
-      ))}
-    </Stack>
-  ),
-};

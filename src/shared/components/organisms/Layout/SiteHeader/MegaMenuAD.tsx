@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { sva, cx } from 'styled-system/css';
-import { Square, VStack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Square, VStack, styled } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { MegaMenuPromo } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 
@@ -12,67 +12,7 @@ export type MegaMenuADProps = MegaMenuPromo & {
   className?: string;
 };
 
-const promo = sva({
-  slots: ['link', 'card', 'image', 'gradient', 'title', 'action'],
-  base: {
-    link: {
-      display: 'block',
-      _focusVisible: {
-        '& > [data-mega-menu-ad-card]': {
-          outline: '2px solid var(--hoka-black)',
-          outlineOffset: '3px',
-        },
-      },
-    },
-    card: { position: 'relative', overflow: 'hidden' },
-    image: { display: 'block', w: '100%', h: '100%', objectFit: 'cover' },
-    gradient: {
-      alignItems: 'flex-start',
-      justifyContent: 'flex-end',
-      pos: 'absolute',
-      w: '100%',
-      h: '100%',
-      left: 0,
-      bottom: 0,
-      bgPosition: 'center',
-      bgRepeat: 'no-repeat',
-      bgSize: 'cover',
-      '&&': { color: 'var(--hoka-white)' },
-    },
-    title: { m: 0 },
-    action: { textDecoration: 'underline', textDecorationStyle: 'solid' },
-  },
-  variants: {
-    presentation: {
-      desktop: {
-        link: { w: '358px' },
-        gradient: {
-          gap: '4',
-          p: '30px 24px',
-          bgImage:
-            'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 32%, color-mix(in srgb, var(--color-black-100) 72%, transparent) 100%)',
-        },
-        action: { textUnderlineOffset: '2px' },
-      },
-      mobile: {
-        link: {
-          w: '100%',
-          aspectRatio: '1',
-          color: 'var(--color-white-000)',
-          textDecoration: 'none',
-          overflow: 'hidden',
-        },
-        gradient: {
-          gap: '8px',
-          p: '24px 22px',
-          bgImage: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%)',
-        },
-        action: { textUnderlineOffset: '3px' },
-      },
-    },
-  },
-  defaultVariants: { presentation: 'desktop' },
-});
+const PromoLink = styled(Link);
 
 export function MegaMenuAD({
   to,
@@ -82,26 +22,72 @@ export function MegaMenuAD({
   presentation = 'desktop',
   className,
 }: MegaMenuADProps) {
-  const styles = promo({ presentation });
   const isMobile = presentation === 'mobile';
 
   return (
-    <Link className={cx(styles.link, className)} href={to} onClick={onClick}>
-      <Square className={styles.card} data-mega-menu-ad-card size={isMobile ? '100%' : '358px'}>
-        <img className={styles.image} src={imageSrc} alt="" />
-        <VStack className={styles.gradient}>
+    <PromoLink
+      href={to}
+      onClick={onClick}
+      className={className}
+      display="block"
+      w={isMobile ? '100%' : '358px'}
+      aspectRatio={isMobile ? '1' : undefined}
+      color={isMobile ? 'var(--color-white-000)' : undefined}
+      textDecoration={isMobile ? 'none' : undefined}
+      overflow={isMobile ? 'hidden' : undefined}
+      _focusVisible={{
+        '& > [data-mega-menu-ad-card]': {
+          outline: '2px solid var(--hoka-black)',
+          outlineOffset: '3px',
+        },
+      }}
+    >
+      <Square
+        position="relative"
+        overflow="hidden"
+        data-mega-menu-ad-card
+        size={isMobile ? '100%' : '358px'}
+      >
+        <styled.img display="block" w="100%" h="100%" objectFit="cover" src={imageSrc} alt="" />
+        <VStack
+          alignItems="flex-start"
+          justifyContent="flex-end"
+          pos="absolute"
+          w="100%"
+          h="100%"
+          left="0"
+          bottom="0"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          bgSize="cover"
+          css={{ '&&': { color: 'var(--hoka-white)' } }}
+          gap={isMobile ? '8px' : '4'}
+          p={isMobile ? '24px 22px' : '30px 24px'}
+          bgImage={
+            isMobile
+              ? 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%)'
+              : 'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 32%, color-mix(in srgb, var(--color-black-100) 72%, transparent) 100%)'
+          }
+        >
           <Typography
             as={isMobile ? 'h2' : 'h3'}
-            variant={isMobile ? 'navigationPromoTitle' : 'heading9'}
-            className={styles.title}
+            variant="navigationPromoTitle"
+            className={css({ m: 0 })}
           >
             {title}
           </Typography>
-          <Typography variant={isMobile ? 'textLink2' : 'textLink1'} className={styles.action}>
+          <Typography
+            variant={isMobile ? 'textLink2' : 'textLink1'}
+            className={css({
+              textDecoration: 'underline',
+              textDecorationStyle: 'solid',
+              textUnderlineOffset: isMobile ? '3px' : '2px',
+            })}
+          >
             자세히 보기
           </Typography>
         </VStack>
       </Square>
-    </Link>
+    </PromoLink>
   );
 }

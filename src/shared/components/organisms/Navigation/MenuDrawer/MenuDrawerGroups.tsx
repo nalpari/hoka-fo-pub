@@ -1,19 +1,18 @@
 import Link from 'next/link';
 import { css, cx } from 'styled-system/css';
+import { Stack } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 
 const styles = {
-  list: css({ listStyle: 'none', p: 0, m: 0 }),
   accordion: css({ '& h3': { m: 0 } }),
   group: css({ minH: '50px' }),
-  panel: css({ pb: '10px' }),
+  panel: css({ pt: '4', pb: '6' }),
   subLink: css({
     display: 'flex',
     alignItems: 'center',
-    minH: '40px',
-    pl: '16px',
+    pl: '4',
     color: 'inherit',
     textDecoration: 'none',
   }),
@@ -61,9 +60,9 @@ export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps)
       indicator={<span className={styles.indicator} />}
       items={columns.map((column) => ({
         value: column.title,
-        title: <Typography variant="navigationHeading">{column.title}</Typography>,
+        title: <Typography variant="heading5">{column.title}</Typography>,
         content: (
-          <ul className={styles.list}>
+          <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
             {column.items.map((item) => (
               <li key={item.to + item.label}>
                 <Link
@@ -71,11 +70,13 @@ export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps)
                   href={item.to}
                   onClick={onNavigate}
                 >
-                  <Typography variant="body3">{item.label}</Typography>
+                  <Typography variant="body3" weight={item.label === 'Sale' ? 'medium' : undefined}>
+                    {item.label}
+                  </Typography>
                 </Link>
               </li>
             ))}
-          </ul>
+          </Stack>
         ),
       }))}
     />
