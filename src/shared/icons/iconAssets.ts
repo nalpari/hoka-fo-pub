@@ -1,5 +1,6 @@
 /** SVG assets served from `public` and addressed by a stable icon name. */
 export const iconAssets = {
+  'navigation/membership': '/images/icon/navigation/membership.svg',
   gift: '/images/icon/gift.svg',
   ipinVerification: '/images/icon/ipin-verification.svg',
   medal: '/images/icon/medal.svg',

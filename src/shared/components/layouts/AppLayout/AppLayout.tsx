@@ -17,6 +17,7 @@ export function AppLayout({
   recentCount?: number;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
       <SiteHeader
@@ -26,7 +27,7 @@ export function AppLayout({
         wishlistCount={wishlistCount}
         recentCount={recentCount}
       />
-      {menuOpen && <MenuDrawer close={() => setMenuOpen(false)} />}
+      {menuOpen && <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />}
       {children}
       <SiteFooter />
     </>

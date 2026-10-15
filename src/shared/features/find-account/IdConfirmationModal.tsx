@@ -14,7 +14,6 @@ const styles = {
   intro: css({ m: '0' }),
   email: css({ m: '20px 0 0' }),
   description: css({ m: '24px 0', color: 'var(--color-text-tertiary)' }),
-  actions: css({ justifyContent: 'center', gap: '2', _mobile: { flexDirection: 'column' } }),
   action: css({
     w: '160px',
     mx: 'auto',
@@ -61,7 +60,7 @@ export function IdConfirmationModal({
         <Typography as="p" variant="body4" className={styles.description}>
           비밀번호가 생각나지 않으시는 경우 임시비밀번호를 통해 재설정하실 수 있습니다.
         </Typography>
-        <Flex className={styles.actions}>
+        <Flex justifyContent="center" gap="2" _mobile={{ flexDirection: 'column' }}>
           <Button variant="secondary" fullWidth className={styles.action} onClick={onPasswordReset}>
             비밀번호 재설정
           </Button>

@@ -27,7 +27,6 @@ export type RegistrationInformation = {
 export type MarketingPreferences = { email: string; coupon: string; sms: string; married: string };
 
 const styles = {
-  preferences: css({ borderBottom: '1px solid var(--color-black-20)' }),
   smsLabel: css({ whiteSpace: 'pre-line' }),
   radio: css({ display: 'flex!', gap: '6', flexShrink: '0' }),
   disabledInput: css({
@@ -256,7 +255,7 @@ export function RegistrationContent(props: Props) {
                   <Typography as="h2" variant="body3" weight="medium">
                     마케팅 정보 수신 동의
                   </Typography>
-                  <Stack gap="4" pb="6" mb="6" className={styles.preferences}>
+                  <Stack gap="4" pb="6" mb="6" borderBottom="1px solid var(--color-black-20)">
                     {preference('email', '이메일 수신')}
                     {preference('coupon', '모바일 쿠폰북 수신')}
                     {preference('sms', '문자수신(LMS, SMS),\n카카오톡 등 전자적 전송매체')}

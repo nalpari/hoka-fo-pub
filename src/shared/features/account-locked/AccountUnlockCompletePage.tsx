@@ -6,14 +6,6 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faCheck } from '@/shared/icons/fontAwesome';
 
 const styles = {
-  page: css({
-    pt: '12',
-    px: '4',
-    pb: '8',
-    minH: 'calc(100svh - var(--layout-site-header-height))',
-  }),
-  content: css({ maxW: '500px', mx: 'auto', gap: '4', _mobile: { pt: '2' } }),
-  title: css({ m: '0', gap: '2', alignItems: 'center' }),
   check: css({
     display: 'inline-flex',
     w: '4',
@@ -29,9 +21,9 @@ const styles = {
 
 export function AccountUnlockCompletePage() {
   return (
-    <Box as="main" className={styles.page}>
-      <Stack className={styles.content}>
-        <HStack as="h1" className={styles.title}>
+    <Box as="main" pt="12" px="4" pb="8" minH="calc(100svh - var(--layout-site-header-height))">
+      <Stack maxW="500px" mx="auto" gap="2" _mobile={{ pt: '2' }}>
+        <HStack as="h1" m="0" gap="2" alignItems="center">
           <Typography variant="heading9">계정 잠금 해제 완료</Typography>
           <span className={styles.check} aria-hidden="true">
             <Icon fontAwesomeIcon={faCheck} />

@@ -36,15 +36,6 @@ export type InquiryBoardProps = {
 
 const styles = {
   root: css({ w: '100%', minW: 0 }),
-  toolbar: css({
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '16px',
-    pb: '20px',
-    borderBottom: '1px solid var(--color-black-100)',
-    _mobile: { flexWrap: 'wrap' },
-  }),
-  heading: css({ alignItems: 'center', flexWrap: 'wrap', gap: '20px', _mobile: { gap: '12px' } }),
   checkbox: css({
     gap: '8px',
     color: 'var(--color-text-tertiary)',
@@ -149,8 +140,15 @@ export function InquiryBoard({
       aria-labelledby={headingId}
       className={[styles.root, className].filter(Boolean).join(' ')}
     >
-      <Flex className={styles.toolbar}>
-        <Flex className={styles.heading}>
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        gap="4"
+        pb="5"
+        borderBottom="1px solid var(--color-black-100)"
+        _mobile={{ flexWrap: 'wrap' }}
+      >
+        <Flex alignItems="center" flexWrap="wrap" gap="5" _mobile={{ gap: '3' }}>
           <Typography as="h3" id={headingId} variant="body2" weight="bold">
             {title}({items.length})
           </Typography>

@@ -24,28 +24,6 @@ const styles = {
       content: "''",
     },
   }),
-  personOne: css({
-    position: 'absolute',
-    bottom: '-44px',
-    left: '160px',
-    w: '185px',
-    h: '300px',
-    borderRadius: '48% 48% 10% 10%',
-    bg: 'linear-gradient(90deg, var(--color-black-40) 0 28%, var(--color-black-60) 29% 75%, var(--color-black-40) 76%)',
-    transform: 'rotate(7deg)',
-    _mobile: { left: '45px', transform: 'scale(0.72)', transformOrigin: 'bottom' },
-  }),
-  personTwo: css({
-    position: 'absolute',
-    bottom: '-44px',
-    right: '55px',
-    w: '170px',
-    h: '300px',
-    borderRadius: '48% 48% 10% 10%',
-    bg: 'linear-gradient(90deg, var(--color-black-60), var(--color-black-100) 55%, var(--color-black-50))',
-    transform: 'rotate(-8deg)',
-    _mobile: { right: '-20px', transform: 'scale(0.72)', transformOrigin: 'bottom' },
-  }),
   heroCopy: css({
     position: 'relative',
     zIndex: '1',
@@ -111,8 +89,28 @@ export function TeamwearPage() {
       <section className={styles.content}>
         <PageHeader title="팀/단체복 주문 안내" />
         <section className={styles.hero}>
-          <Box className={styles.personOne} />
-          <Box className={styles.personTwo} />
+          <Box
+            position="absolute"
+            bottom="-44px"
+            left="40"
+            w="185px"
+            h="300px"
+            borderRadius="48% 48% 10% 10%"
+            bg="linear-gradient(90deg, var(--color-black-40) 0 28%, var(--color-black-60) 29% 75%, var(--color-black-40) 76%)"
+            transform="rotate(7deg)"
+            _mobile={{ left: '45px', transform: 'scale(0.72)', transformOrigin: 'bottom' }}
+          />
+          <Box
+            position="absolute"
+            bottom="-44px"
+            right="55px"
+            w="170px"
+            h="300px"
+            borderRadius="48% 48% 10% 10%"
+            bg="linear-gradient(90deg, var(--color-black-60), var(--color-black-100) 55%, var(--color-black-50))"
+            transform="rotate(-8deg)"
+            _mobile={{ right: '-20px', transform: 'scale(0.72)', transformOrigin: 'bottom' }}
+          />
           <Box className={styles.heroCopy}>
             <h2>TEAM WEAR ORDER</h2>
             <Typography as="p" variant="body5">

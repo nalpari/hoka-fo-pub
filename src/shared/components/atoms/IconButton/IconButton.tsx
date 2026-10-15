@@ -1,5 +1,5 @@
 import { Button as BaseButton } from '@base-ui/react/button';
-import type { ButtonHTMLAttributes, CSSProperties } from 'react';
+import type { ComponentPropsWithRef, CSSProperties } from 'react';
 import { css } from 'styled-system/css';
 import { circle } from 'styled-system/patterns';
 
@@ -23,7 +23,7 @@ const iconButton = css({
   _hover: { bg: 'var(--icon-button-hover-bg, var(--color-black-10))' },
 });
 
-export type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'size'> & {
+export type IconButtonProps = Omit<ComponentPropsWithRef<'button'>, 'color' | 'size'> & {
   color?: CSSProperties['color'];
   size?: string | number;
   shape?: 'square' | 'circle';

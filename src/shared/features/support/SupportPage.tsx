@@ -11,12 +11,6 @@ import { supportNavigation } from '@/shared/features/support/support.navigation'
 const styles = {
   page: css({ minH: '750px', '--support-padding-bottom': '130px', _mobile: { minH: '0' } }),
   content: css({ '--support-content-title-gap': '37px' }),
-  service: css({
-    display: 'grid',
-    gridTemplateColumns: '1fr 1.08fr',
-    borderTop: '2px solid var(--color-black-60)',
-    _mobile: { gridTemplateColumns: '1fr' },
-  }),
   labels: css({
     display: 'grid',
     gridTemplateRows: '1fr 1fr',
@@ -89,7 +83,12 @@ export function SupportPage() {
     >
       <section className={styles.content}>
         <PageHeader title="고객센터" />
-        <Grid className={styles.service}>
+        <Grid
+          display="grid"
+          gridTemplateColumns="1fr 1.08fr"
+          borderTop="2px solid var(--color-black-60)"
+          _mobile={{ gridTemplateColumns: '1fr' }}
+        >
           <Box className={styles.labels}>
             <article>
               <h2>고객상담실</h2>

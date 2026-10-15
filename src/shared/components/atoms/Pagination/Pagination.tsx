@@ -4,8 +4,6 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 
-const root = css({ m: '36px', textAlign: 'center' });
-
 const ellipsis = css({ px: '4px' });
 
 const navigationButton = css({ display: 'inline-grid' });
@@ -57,7 +55,7 @@ export function Pagination({
   const items = getPageItems(total, page);
 
   return (
-    <Flex as="nav" aria-label="페이지네이션" alignItems="center" className={root} gap="2">
+    <Flex as="nav" aria-label="페이지네이션" alignItems="center" m="9" textAlign="center" gap="2">
       <IconButton
         aria-label="이전 페이지"
         className={navigationButton}

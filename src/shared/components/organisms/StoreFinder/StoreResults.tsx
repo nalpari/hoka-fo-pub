@@ -1,8 +1,16 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import type { Store } from '@/shared/features/store-finder/store.data';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+
+export type StoreResult = {
+  name: string;
+  address: string;
+  type: string;
+  phone: string;
+};
+
+export type StoreResultsProps = { stores: readonly StoreResult[] };
 
 const storeList = css({
   '& article': {
@@ -42,7 +50,7 @@ const noResult = css({
   textAlign: 'center',
 });
 
-export function StoreResults({ stores }: { stores: Store[] }) {
+export function StoreResults({ stores }: StoreResultsProps) {
   return (
     <Box className={storeList} id="stores">
       {stores.map((store) => (
