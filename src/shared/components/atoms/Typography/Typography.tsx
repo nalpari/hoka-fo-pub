@@ -397,22 +397,6 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
-      navigationHeading: {
-        fontFamily: 'hoka',
-        fontSize: 'var(--type-navigation-heading-font-size)',
-        fontWeight: 'var(--type-navigation-heading-font-weight)',
-        lineHeight: 'var(--type-navigation-heading-line-height)',
-        letterSpacing: '0',
-        _mobile: { fontSize: 'var(--type-navigation-heading-mobile-font-size)' },
-      },
-      navigationHeadingKr: {
-        fontFamily: 'korean',
-        fontSize: 'var(--type-navigation-heading-kr-font-size)',
-        fontWeight: 'var(--type-navigation-heading-font-weight)',
-        lineHeight: 'var(--type-navigation-heading-line-height)',
-        letterSpacing: 'korean',
-        _mobile: { fontSize: 'var(--type-navigation-heading-kr-mobile-font-size)' },
-      },
       navigationPromoTitle: {
         fontFamily: 'hoka',
         fontSize: 'var(--type-navigation-promo-title-font-size)',
@@ -611,8 +595,6 @@ const typography = cva({
 });
 
 export type TypographyVariant =
-  | 'navigationHeading'
-  | 'navigationHeadingKr'
   | 'navigationPromoTitle'
   | 'localeHeading'
   | 'profileTitle'
@@ -695,12 +677,6 @@ function resolveLanguageVariant(
   children: ReactNode,
 ): TypographyVariant | undefined {
   if (!variant || !language) return variant;
-
-  if (variant === 'navigationHeading' || variant === 'navigationHeadingKr') {
-    return language === 'ko' || (language === 'auto' && containsHangul(children))
-      ? 'navigationHeadingKr'
-      : 'navigationHeading';
-  }
 
   const pair = /^(heading|body|cta|textLink)(?:Kr)?(\d)$/.exec(variant);
   if (!pair) return variant;
