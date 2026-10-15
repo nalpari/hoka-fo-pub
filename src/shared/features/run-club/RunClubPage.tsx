@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { runClubSessions, type RunClubSession } from './runClub.data';
-import { RunClubHeader, type RunClubFilter } from './RunClubHeader';
+import { RunClubHeader } from './RunClubHeader';
+import type { RunClubFilter } from './RunClubFilters';
 import { RunClubLayout } from './RunClubLayout';
 import { RunClubResults } from './RunClubResults';
 
@@ -15,7 +16,10 @@ export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
   );
 
   return (
-    <RunClubLayout header={<RunClubHeader filter={filter} onFilterChange={setFilter} />}>
+    <RunClubLayout
+      empty={visibleSessions.length === 0}
+      header={<RunClubHeader filter={filter} onFilterChange={setFilter} />}
+    >
       <RunClubResults sessions={visibleSessions} />
     </RunClubLayout>
   );

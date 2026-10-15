@@ -11,7 +11,8 @@ type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'clo
 
 function RunClubPreview({ platform, view }: PreviewProps) {
   const session = runClubSessions.find(
-    (item) => item.id === (view === 'open' ? 'bukchon-night' : 'bukhansan-trail'),
+    (item) =>
+      item.id === (view === 'open' && platform === 'web' ? 'bukchon-night' : 'bukhansan-trail'),
   )!;
 
   return (
@@ -22,7 +23,15 @@ function RunClubPreview({ platform, view }: PreviewProps) {
         >
           <AppLayout cart={0} isLoggedIn={false} wishlistCount={0} recentCount={0}>
             {view === 'list' || view === 'empty' ? (
-              <RunClubPage sessions={view === 'empty' ? [] : runClubSessions} />
+              <RunClubPage
+                sessions={
+                  view === 'empty'
+                    ? []
+                    : platform === 'mobile'
+                      ? runClubSessions.slice(0, 3)
+                      : runClubSessions
+                }
+              />
             ) : (
               <RunClubDetailPage key={view} session={{ ...session, status: view }} />
             )}
@@ -58,5 +67,20 @@ export const MobileList: Story = { args: { platform: 'mobile' }, globals: { view
 
 export const MobileOpen: Story = {
   args: { platform: 'mobile', view: 'open' },
+  globals: { viewport: 'hoka375' },
+};
+
+export const MobileEmpty: Story = {
+  args: { platform: 'mobile', view: 'empty' },
+  globals: { viewport: 'hoka375' },
+};
+
+export const MobileClosed: Story = {
+  args: { platform: 'mobile', view: 'closed' },
+  globals: { viewport: 'hoka375' },
+};
+
+export const MobileUpcoming: Story = {
+  args: { platform: 'mobile', view: 'upcoming' },
   globals: { viewport: 'hoka375' },
 };

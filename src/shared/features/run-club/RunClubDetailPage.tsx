@@ -11,6 +11,9 @@ import { RunClubSessionGuide, type RunClubGuideRow } from './RunClubSessionGuide
 import { RunClubSessionImage } from './RunClubSessionImage';
 import { RunClubRecommendations } from './RunClubRecommendations';
 import { RunClubApplicationNotice } from './RunClubApplicationNotice';
+import { RunClubMobileActionBar } from './RunClubMobileActionBar';
+import { RunClubDetailLayout } from './RunClubDetailLayout';
+import type { RunClubFact } from './RunClubFacts';
 
 type RunClubDetailPageProps = { session?: RunClubSession };
 
@@ -28,6 +31,17 @@ export function RunClubDetailPage({ session: suppliedSession }: RunClubDetailPag
   if (!session) return <NotFoundPage />;
 
   const recommendedProducts = products.slice(0, 6);
+  const heroRows: RunClubFact[] = [
+    { label: '일시', value: session.schedule },
+    { label: '장소', value: runClubVenue, detail: runClubAddress },
+    { label: '정원', value: '20명', mobileOnly: true },
+    {
+      label: '예약금',
+      value: '5,000원',
+      detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',
+    },
+    { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },
+  ];
   const guideRows: RunClubGuideRow[] = [
     { label: '장소', value: `${runClubVenue} · ${runClubAddress}` },
     { label: '체크인', value: '세션 시작 20분 전부터' },
@@ -40,15 +54,33 @@ export function RunClubDetailPage({ session: suppliedSession }: RunClubDetailPag
   ];
 
   return (
-    <main>
-      <RunClubSessionHero session={session} onApply={() => setShowApplicationNotice(true)} />
-      <RunClubSessionGuide session={session} rows={guideRows} />
-      {session.id === 'bukchon-night' ? <RunClubSessionImage /> : null}
-      <RunClubRecommendations products={recommendedProducts} platform={platform} />
-      <RunClubApplicationNotice
-        open={showApplicationNotice}
-        onOpenChange={setShowApplicationNotice}
-      />
-    </main>
+    <RunClubDetailLayout
+      hero={
+        <RunClubSessionHero
+          session={session}
+          rows={heroRows}
+          onApply={() => setShowApplicationNotice(true)}
+        />
+      }
+      guide={<RunClubSessionGuide session={session} rows={guideRows} />}
+      desktopContent={
+        <>
+          {session.id === 'bukchon-night' ? <RunClubSessionImage /> : null}
+          <RunClubRecommendations products={recommendedProducts} platform={platform} />
+        </>
+      }
+      mobileAction={
+        <RunClubMobileActionBar
+          status={session.status}
+          onApply={() => setShowApplicationNotice(true)}
+        />
+      }
+      applicationNotice={
+        <RunClubApplicationNotice
+          open={showApplicationNotice}
+          onOpenChange={setShowApplicationNotice}
+        />
+      }
+    />
   );
 }
