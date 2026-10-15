@@ -7,16 +7,8 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
-  page: css({
-    pt: '10',
-    px: '4',
-    pb: '8',
-    minH: 'calc(100svh - var(--layout-site-header-height))',
-  }),
-  content: css({ maxW: '420px', mx: 'auto', gap: '0' }),
   title: css({ m: '0', mb: '3' }),
   description: css({ m: '0', mb: '6', color: 'var(--color-text-tertiary)' }),
-  fields: css({ gap: '4' }),
   fieldGroup: css({ gap: '2' }),
   countdown: css({ m: '0', mt: '2', color: 'var(--color-red-80)' }),
   codeHelp: css({ m: '0', mt: '2', color: 'var(--color-text-tertiary)' }),
@@ -60,8 +52,8 @@ export function FindAccountContent({
   onSubmit,
 }: FindAccountContentProps) {
   return (
-    <Box as="main" className={styles.page}>
-      <Stack as="section" className={styles.content} aria-labelledby="find-account-title">
+    <Box as="main" pt="10" px="4" pb="8" minH="calc(100svh - var(--layout-site-header-height))">
+      <Stack as="section" maxW="420px" mx="auto" gap="0" aria-labelledby="find-account-title">
         <Typography as="h1" variant="headingKr6" className={styles.title} id="find-account-title">
           아이디 / 비밀번호 찾기
         </Typography>
@@ -70,7 +62,7 @@ export function FindAccountContent({
         </Typography>
 
         <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
-          <Stack className={styles.fields}>
+          <Stack gap="2">
             <Stack className={styles.fieldGroup}>
               <FormField
                 variant="boxed"

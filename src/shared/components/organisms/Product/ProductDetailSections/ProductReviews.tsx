@@ -11,8 +11,6 @@ import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { ToggleButton } from '@/shared/components/atoms/ToggleButton/ToggleButton';
 import { css, cva } from 'styled-system/css';
 
-const root = css({ maxW: '760px' });
-
 const reward = css({
   m: '0 0 var(--spacing-7)',
   color: 'var(--color-text-subtle) !important',
@@ -172,7 +170,7 @@ export function ProductReviews() {
   const [gallery, setGallery] = useState<{ reviewIndex: number; imageIndex: number } | null>(null);
   const [filter, setFilter] = useState('최신순');
   return (
-    <Box className={root}>
+    <Box maxW="760px">
       <p className={reward}>
         배송 완료 후 30일 이내에 상품평 작성 시, 최대 2,000 마일리지 혜택을 드립니다.
       </p>

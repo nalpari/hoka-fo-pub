@@ -4,22 +4,22 @@ import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
-  membership: css({
-    mt: '6',
-    pt: '6',
-    borderTop: '1px solid token(colors.black.20)',
-    gap: '6',
-    _mobile: { mt: '8', pt: '8' },
-  }),
-  benefits: css({ gap: '2' }),
   benefitTitle: css({ m: '0' }),
   benefitDescription: css({ m: '0' }),
 };
 
 export function LoginMembership() {
   return (
-    <Stack as="section" className={styles.membership} aria-labelledby="membership-title">
-      <Stack className={styles.benefits}>
+    <Stack
+      as="section"
+      mt="6"
+      pt="6"
+      borderTop="1px solid token(colors.black.20)"
+      gap="6"
+      _mobile={{ mt: '8', pt: '8' }}
+      aria-labelledby="membership-title"
+    >
+      <Stack gap="2">
         <Typography
           as="h2"
           variant="body3"

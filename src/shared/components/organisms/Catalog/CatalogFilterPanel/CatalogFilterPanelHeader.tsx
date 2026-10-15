@@ -1,9 +1,6 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Tag } from '@/shared/components/atoms/Tag/Tag';
-import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
-
-const selectedFilterHeader = css({ pb: '6', _mobile: { pb: '0' } });
 
 export type CatalogSelectedFilter = {
   id: string;
@@ -25,7 +22,8 @@ export function CatalogFilterPanelHeader({
       <Flex
         alignItems="center"
         aria-label="선택된 필터"
-        className={selectedFilterHeader}
+        pb="6"
+        _mobile={{ pb: '0' }}
         flexWrap="wrap"
         gap="2"
         w="100%"

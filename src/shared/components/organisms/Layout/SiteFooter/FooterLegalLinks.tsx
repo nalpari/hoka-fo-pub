@@ -7,10 +7,6 @@ import { usePlatform } from '@/shared/context/platform';
 import { Stack, Flex } from 'styled-system/jsx';
 
 const styles = {
-  section: css({
-    gridArea: 'legal',
-  }),
-
   meta: css({
     fontFamily: 'korean',
     fontSize: '14',
@@ -20,7 +16,6 @@ const styles = {
     '& span > span, & span > a, & p': { fontSize: 'inherit' },
     '& h3, & p, & span, & a, & div': { textBoxTrim: 'trim-both', textBoxEdge: 'cap alphabetic' },
   }),
-
   row: css({
     flexWrap: 'wrap',
     alignItems: 'baseline',
@@ -35,7 +30,7 @@ export function FooterLegalLinks() {
   return (
     <Stack
       as="section"
-      className={styles.section}
+      gridArea="legal"
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >

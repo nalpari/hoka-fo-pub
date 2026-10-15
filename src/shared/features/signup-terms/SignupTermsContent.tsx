@@ -13,7 +13,6 @@ export const signupTerms = [
 ] as const;
 
 const styles = {
-  all: css({ borderBottom: '1px solid var(--color-black-20)' }),
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
 };
 
@@ -52,7 +51,7 @@ export function SignupTermsContent(props: Props) {
             약관동의
           </Typography>
         </Box>
-        <Box pb="4" mb="4" className={styles.all}>
+        <Box pb="4" mb="4" borderBottom="1px solid var(--color-black-20)">
           <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
             <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
           </Terms>

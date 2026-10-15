@@ -10,19 +10,8 @@ import { PromotionCard } from '@/shared/components/molecules/PromotionCard/Promo
 import { CatalogResults } from '@/shared/components/organisms/Catalog/CatalogResults/CatalogResults';
 import type { Platform } from '@/shared/lib/device';
 import { Box, Grid } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
-
-const catalogGrid = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  columnGap: '4',
-  rowGap: '12',
-  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '2', rowGap: '10' },
-});
 
 const catalogProductCardOptions: readonly ProductCardOption[] = ['promotion', 'like', 'colors'];
-
-const fullWidthPromotion = css({ mt: '10', w: '100%' });
 
 type ProductListingResultsProps = {
   hasMore: boolean;
@@ -60,7 +49,13 @@ export function ProductListingResults({
     <CatalogResults>
       {shown.length ? (
         <>
-          <Grid className={catalogGrid}>
+          <Grid
+            display="grid"
+            gridTemplateColumns="repeat(4, 1fr)"
+            columnGap="4"
+            rowGap="12"
+            _mobile={{ gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '2', rowGap: '10' }}
+          >
             {shown.flatMap((product, index) => [
               ...(index === 5 ? [<PromotionCard key="promotion" />] : []),
               <ProductCard
@@ -71,7 +66,7 @@ export function ProductListingResults({
             ])}
           </Grid>
           {platform === 'mobile' && (
-            <Box className={fullWidthPromotion}>
+            <Box mt="10" w="100%">
               <PromotionCard variant="fullWidth" />
             </Box>
           )}

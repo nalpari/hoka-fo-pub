@@ -35,11 +35,6 @@ const styles = {
       textTransform: 'capitalize',
     },
   }),
-  list: css({
-    m: 0,
-    p: 0,
-    listStyle: 'none',
-  }),
   activeItemLabel: css({
     '&&': {
       fontWeight: 'bold',
@@ -66,7 +61,7 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
           <Typography as="h2" variant="heading8" className={styles.title}>
             {column.title}
           </Typography>
-          <Grid as="ul" className={styles.list} gap="30px">
+          <Grid as="ul" m={0} p={0} listStyle="none" gap="30px">
             {column.items.map((item) => (
               <li key={item.label}>
                 <Link href={item.to} onClick={onClose}>

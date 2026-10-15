@@ -1,16 +1,5 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
-
-const stickyFilterPanel = css({
-  position: 'sticky',
-  top: 'calc(var(--layout-site-header-height) + var(--content-layout-header-height))',
-  alignSelf: 'start',
-  maxH: 'calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))',
-  overflowX: 'hidden',
-  overflowY: 'auto',
-  scrollbar: 'hidden',
-});
 
 type DesktopProductFilterProps = {
   children: ReactNode;
@@ -18,5 +7,17 @@ type DesktopProductFilterProps = {
 
 /** Desktop-only sticky container for the product listing filter. */
 export function DesktopProductFilter({ children }: DesktopProductFilterProps) {
-  return <Box className={stickyFilterPanel}>{children}</Box>;
+  return (
+    <Box
+      position="sticky"
+      top="calc(var(--layout-site-header-height) + var(--content-layout-header-height))"
+      alignSelf="start"
+      maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))"
+      overflowX="hidden"
+      overflowY="auto"
+      scrollbar="hidden"
+    >
+      {children}
+    </Box>
+  );
 }

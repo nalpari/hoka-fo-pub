@@ -6,7 +6,6 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FieldName } from '@/shared/features/find-account/passwordValidation';
 
 const styles = {
-  fieldGroup: css({ gap: '2' }),
   input: css({ minW: '0' }),
   fieldError: css({ m: '0', '&&': { color: 'var(--color-red-100)' } }),
 };
@@ -25,7 +24,7 @@ export function PasswordResetField({ name, label, placeholder, value, error, onC
   const errorMessage = error && error !== 'required' ? error : undefined;
 
   return (
-    <Stack className={styles.fieldGroup}>
+    <Stack gap="2">
       <FormField
         variant="boxed"
         invalid={Boolean(error)}

@@ -1,15 +1,8 @@
-import { css } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 import { MainSection } from '@/shared/components/molecules/MainSection/MainSection';
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { usePlatform } from '@/shared/context/platform';
 import { homeExplores } from './homeContent';
-
-const storyGrid = css({
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '4',
-  _mobile: { gap: '12', gridTemplateColumns: 'repeat(1, 1fr)' },
-});
 
 export function HomeExploreSection() {
   const platform = usePlatform();
@@ -17,7 +10,11 @@ export function HomeExploreSection() {
 
   return (
     <MainSection title="Explore">
-      <Grid className={storyGrid}>
+      <Grid
+        gridTemplateColumns="repeat(3, 1fr)"
+        gap="4"
+        _mobile={{ gap: '12', gridTemplateColumns: 'repeat(1, 1fr)' }}
+      >
         {homeExplores.map((explore) => (
           <MainContentCard
             key={explore.title}

@@ -1,5 +1,9 @@
 export {
   faCakeCandles,
+  faBox,
+  faComments,
+  faLocationDot,
+  faUser as faUserSolid,
   faCircleInfo,
   faCircleQuestion,
   faChevronDown,

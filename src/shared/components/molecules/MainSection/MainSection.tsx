@@ -21,16 +21,6 @@ const section = css({
   w: '100%',
 });
 
-const header = css({
-  w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
-  mx: 'auto',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  _mobile: {
-    w: 'calc(100% - var(--layout-mobile-content-inline-space))',
-  },
-});
-
 const content = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   mx: 'auto',
@@ -64,7 +54,13 @@ export function MainSection({
             : { base: '40px', _mobile: '24px' }
         }
       >
-        <HStack className={header}>
+        <HStack
+          w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
+          mx="auto"
+          justifyContent="space-between"
+          alignItems="center"
+          _mobile={{ w: 'calc(100% - var(--layout-mobile-content-inline-space))' }}
+        >
           <Typography as="h2" className={heading} variant={titleVariant}>
             {title}
           </Typography>

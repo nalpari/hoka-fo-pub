@@ -1,6 +1,5 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 
 type EmptyStateProps = {
@@ -43,15 +42,13 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
     <Box
       as="section"
       aria-label={title}
-      className={css({
-        w: '100%',
-        pt: '96px',
-        pb: '160px',
-        px: '4',
-        bg: 'white.0',
-        color: 'black.100',
-        textAlign: 'center',
-      })}
+      w="100%"
+      pt="24"
+      pb="40"
+      px="4"
+      bg="white.0"
+      color="black.100"
+      textAlign="center"
     >
       <EmptyStateTitle>{title}</EmptyStateTitle>
       {description ? (
