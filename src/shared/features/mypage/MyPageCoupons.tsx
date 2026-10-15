@@ -1,0 +1,42 @@
+import { CouponManager, type CouponItem } from '@/shared/components/organisms/MyPage/CouponManager';
+import { MyPageFrame } from './MyPageFrame';
+
+const couponSamples: Omit<CouponItem, 'id'>[] = [
+  {
+    name: '신규 회원가입 쿠폰',
+    benefit: '10,000원',
+    condition: '50,000원 이상 구매 시',
+    expiresAt: '2026.05.19 - 2026.10.15',
+    category: '상품 할인',
+  },
+  {
+    name: '15% 감사 쿠폰',
+    benefit: '5,000원',
+    condition: '온라인, 성인 의류/신발/용품',
+    expiresAt: '2026.05.19 - 2026.10.15',
+    category: '상품 할인',
+  },
+  {
+    name: '생일 쿠폰',
+    benefit: '10,000원',
+    condition: '50,000원 이상 구매 시',
+    expiresAt: '2026.05.19 - 2026.10.15',
+    category: '배송 할인',
+  },
+];
+
+const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
+  ...couponSamples[index % couponSamples.length],
+  id: `coupon-${index + 1}`,
+}));
+
+export function MyPageCoupons() {
+  return (
+    <MyPageFrame
+      activePath="/mypage/coupons"
+      breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '쿠폰' }]}
+    >
+      <CouponManager coupons={coupons} />
+    </MyPageFrame>
+  );
+}

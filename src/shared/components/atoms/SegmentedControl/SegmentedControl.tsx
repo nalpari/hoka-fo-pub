@@ -8,13 +8,41 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 
 const root = cva({
   base: { display: 'flex', flexWrap: 'wrap', gap: '2' },
-  variants: { fullWidth: { true: { '& > button': { flex: '1' } }, false: {} } },
-  defaultVariants: { fullWidth: false },
+  variants: {
+    fullWidth: { true: { '& > button': { flex: '1' } }, false: {} },
+    variant: {
+      default: {},
+      underline: {
+        w: '100%',
+        flexWrap: 'nowrap',
+        gap: '0',
+        borderBottom: '1px solid var(--colors-black-20)',
+      },
+    },
+  },
+  defaultVariants: { fullWidth: false, variant: 'default' },
 });
 
 const item = cva({
   base: { borderColor: 'var(--color-black-20)' },
   variants: {
+    variant: {
+      default: {},
+      underline: {
+        flex: '1',
+        minW: '0',
+        minH: '32px',
+        border: '0',
+        borderBottom: '2px solid transparent',
+        bg: 'transparent',
+        color: 'var(--color-text-primary)',
+        cursor: 'pointer',
+        fontFamily: 'korean',
+        fontSize: '16px',
+        fontWeight: 'medium',
+        lineHeight: 'body',
+      },
+    },
     active: {
       true: {
         borderColor: 'var(--color-black-100)',
@@ -24,6 +52,17 @@ const item = cva({
       false: {},
     },
   },
+  compoundVariants: [
+    {
+      variant: 'underline',
+      active: true,
+      css: {
+        bg: 'transparent',
+        color: 'var(--color-text-primary)',
+        borderBottomColor: 'var(--color-black-100)',
+      },
+    },
+  ],
 });
 
 export type SegmentedControlOption<T extends string = string> = {
@@ -38,6 +77,7 @@ export type SegmentedControlProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   ariaLabel: string;
   fullWidth?: boolean;
+  variant?: 'default' | 'underline';
   className?: string;
   /** Use native toggle buttons and let the caller own all presentation styles. */
   unstyled?: boolean;
@@ -51,6 +91,7 @@ export function SegmentedControl<T extends string = string>({
   onValueChange,
   ariaLabel,
   fullWidth,
+  variant = 'default',
   className,
   unstyled = false,
   itemClassName,
@@ -58,7 +99,9 @@ export function SegmentedControl<T extends string = string>({
   return (
     <ToggleGroup
       aria-label={ariaLabel}
-      className={[unstyled ? '' : root({ fullWidth }), className].filter(Boolean).join(' ')}
+      className={[unstyled ? '' : root({ fullWidth, variant }), className]
+        .filter(Boolean)
+        .join(' ')}
       onValueChange={(nextValue) => {
         const next = nextValue[0];
         const option = options.find(
@@ -74,9 +117,18 @@ export function SegmentedControl<T extends string = string>({
         <Toggle
           disabled={option.disabled}
           key={option.value}
-          className={itemClassName?.(option, option.value === value)}
+          className={[
+            !unstyled && variant === 'underline'
+              ? item({ variant, active: option.value === value })
+              : '',
+            itemClassName?.(option, option.value === value),
+          ]
+            .filter(Boolean)
+            .join(' ')}
           render={
-            unstyled ? undefined : <Button className={item({ active: option.value === value })} />
+            unstyled || variant === 'underline' ? undefined : (
+              <Button className={item({ variant, active: option.value === value })} />
+            )
           }
           value={JSON.stringify(option.value)}
         >

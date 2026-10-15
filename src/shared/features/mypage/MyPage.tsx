@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Box, Grid, HStack, Stack, styled } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { css } from 'styled-system/css';
+import { Box, Divider, Grid, HStack, Stack, styled } from 'styled-system/jsx';
+import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Breadcrumb } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
@@ -13,9 +14,12 @@ import {
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { ProductThumbnail } from '@/shared/components/molecules/ProductThumbnail/ProductThumbnail';
 import { usePlatform } from '@/shared/context/platform';
 
 const StyledLink = styled(Link);
+
+const profileLink = css({ textDecoration: 'none!' });
 
 type OrderItem = {
   name: string;
@@ -115,18 +119,9 @@ const menuSections = [
 function OrderTile({ item }: { item: (typeof orderItems)[number] }) {
   return (
     <HStack position="relative" alignItems="flex-start" gap="4">
-      <styled.img
-        alt={item.name}
-        display="block"
-        w="24"
-        h="24"
-        flexShrink="0"
-        bg="black.10"
-        objectFit="contain"
-        height="96"
-        src={item.image}
-        width="96"
-      />
+      <Box w="24" h="24" flexShrink="0">
+        <ProductThumbnail alt={item.name} src={item.image} />
+      </Box>
       <Stack minW="0" flex="1" gap="1.5" pr="17">
         <HStack minH="18px">
           {item.isNew ? (
@@ -181,10 +176,10 @@ function MyPageMenuSection({
 }) {
   return (
     <Stack as="section" gap="4" aria-label={title}>
-      <Typography as="h2" web="headingKr8" mo="headingKr5">
+      <Typography as="h2" web="heading8" mo="heading5">
         {title}
       </Typography>
-      <Box h="1px" bg="black.100" />
+      <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
       <Stack gap="0">
         {items.map((item) => (
           <StyledLink
@@ -194,7 +189,7 @@ function MyPageMenuSection({
             href={item.to}
           >
             <HStack minH="14" justifyContent="space-between">
-              <Typography web="bodyKr3" mo="bodyKr3">
+              <Typography web="body3" mo="body3">
                 {item.label}
               </Typography>
               <Icon name="chevron-right" size="16px" />
@@ -217,20 +212,22 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
           <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: '마이페이지' }]} />
         </Box>
         <Stack pt="6" gap="10">
-          <Stack gap="8px">
-            <StyledLink
-              aria-label="회원 정보 확인 및 수정"
-              color="inherit"
-              textDecoration="none"
-              href="/mypage/profile"
-            >
-              <HStack gap="0.5">
-                <Typography as="h1" web="headingKr4" mo="headingKr4">
-                  박*진
-                </Typography>
-                <Icon name="chevron-right" size="16px" />
-              </HStack>
-            </StyledLink>
+          <Stack gap="4">
+            <Typography as="h1" web="heading4" mo="heading4">
+              <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
+                <HStack as="span" gap="1">
+                  <HStack as="span" gap="0.5">
+                    <Typography as="span" web="heading4" mo="heading4">
+                      박연진
+                    </Typography>
+                    <Typography as="span" web="heading4" mo="heading4">
+                      님
+                    </Typography>
+                  </HStack>
+                  <Icon name="chevron-right" size="16px" />
+                </HStack>
+              </ButtonLink>
+            </Typography>
             <Stack gap="2">
               <Box bg="black.10" px="4" py="5">
                 <Stack gap="1">
@@ -244,7 +241,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                         h="8"
                         borderRadius="full"
                         bg="black.100"
-                        color="#e8edf3"
+                        color="offWhite.100"
                       >
                         <Typography web="heading6" mo="heading6" language="en" weight="black">
                           R
@@ -286,10 +283,10 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                       내 쿠폰
                     </Typography>
                     <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
-                      <Typography web="headingKr8" mo="headingKr5">
+                      <Typography web="heading8" mo="heading5">
                         3
                       </Typography>
-                      <Typography web="bodyKr3" mo="bodyKr3">
+                      <Typography web="body3" mo="body3">
                         개
                       </Typography>
                     </HStack>
@@ -308,10 +305,10 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                       관심상품
                     </Typography>
                     <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
-                      <Typography web="headingKr8" mo="headingKr5">
+                      <Typography web="heading8" mo="heading5">
                         6
                       </Typography>
-                      <Typography web="bodyKr3" mo="bodyKr3">
+                      <Typography web="body3" mo="body3">
                         건
                       </Typography>
                     </HStack>
@@ -323,14 +320,12 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
 
           <Stack as="section" gap="6" aria-label="주문 배송 내역">
             <HStack justifyContent="space-between">
-              <Typography as="h2" web="headingKr8" mo="headingKr5">
+              <Typography as="h2" web="heading8" mo="heading5">
                 주문 배송 내역
               </Typography>
-              <StyledLink href="/mypage/orders">
-                <Typography web="body5" mo="body5">
-                  자세히 보기
-                </Typography>
-              </StyledLink>
+              <ButtonLink href="/mypage/orders" size="md" variant="link">
+                전체 보기
+              </ButtonLink>
             </HStack>
             <Carousel itemCount={orderItems.length}>
               <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
@@ -344,14 +339,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
             </Carousel>
           </Stack>
 
-          <styled.img
-            alt=""
-            display="block"
-            maxW="100%"
-            height="1"
-            src="/images/mypage/divider.svg"
-            width="343"
-          />
+          <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
 
           <Stack gap="10">
             {menuSections.map((section) => (

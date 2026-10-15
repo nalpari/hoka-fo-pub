@@ -60,7 +60,9 @@ const productWidthCount = (product: Product) => {
 };
 
 const productOptionThumbnails = (product: Product): ProductOptionThumbnail[] =>
-  product.colors.map((color) => ({ id: color, image: product.primaryImage, label: color }));
+  product.colorThumbnails?.length
+    ? product.colorThumbnails
+    : product.colors.map((color) => ({ id: color, image: product.primaryImage, label: color }));
 
 const activityLabel = (use: Product['use']) => {
   if (use === 'Everyday Run') return '데일리 러닝';
@@ -71,15 +73,18 @@ const activityLabel = (use: Product['use']) => {
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
 
 export type ProductCardProps = {
+  liked?: boolean;
+  onLikedChange?: (liked: boolean) => void;
   options?: readonly ProductCardOption[];
   product: Product;
   variant?: ProductCardVariant;
 };
 
-export function ProductCard({ options = [], product, variant = 'listing' }: ProductCardProps) {
-  const [liked, setLiked] = useState(false);
+export function ProductCard({ liked, onLikedChange, options = [], product, variant = 'listing' }: ProductCardProps) {
+  const [internalLiked, setInternalLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const platform = usePlatform();
+  const isLiked = liked ?? internalLiked;
   const showPreview = platform === 'web' && variant === 'listing' && previewOpen;
   const hasOption = (option: ProductCardOption) => options.includes(option);
 
@@ -109,9 +114,12 @@ export function ProductCard({ options = [], product, variant = 'listing' }: Prod
       {hasOption('like') && (
         <Card.Action className={action}>
           <Wishlist
-            active={liked}
+            active={isLiked}
             ariaLabel={`${product.name} 관심상품`}
-            onActiveChange={setLiked}
+            onActiveChange={(active) => {
+              if (liked === undefined) setInternalLiked(active);
+              onLikedChange?.(active);
+            }}
           />
         </Card.Action>
       )}
