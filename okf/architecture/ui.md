@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T02:04:35Z'
+  at: '2026-10-15T05:29:40Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
   - src/shared/components/atoms/EmptyState/EmptyState.tsx
   - src/shared/components/atoms/Pagination/Pagination.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
@@ -159,6 +160,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품 카드 상품명 말줄임
+
+ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, minW=0으로 카드 너비 안에 제한한다. 부모의 alignItems=flex-start 아래에서 내부 묶음이 긴 상품명의 내용 너비로 확장되면 ProductName의 truncate가 있어도 옆 카드와 겹친다. ProductName의 기존 한 줄 말줄임 스타일을 유지하고 부모 너비를 제한해 HOME 베스트셀러를 포함한 상품 카드에서 적용되도록 한다.
+
+2026-10-15 Codex 검증: HOME의 긴 상품명 너비가 667px에서 카드와 같은 218px로 제한되고 text-overflow=ellipsis, overflow=hidden이 적용되는 것을 브라우저 DOM과 화면으로 확인했다. 변경 파일 ESLint와 TypeScript 검사가 통과했다.
 
 ## Components·Features JSX 스타일 점검 (2026-10-15)
 

@@ -47,7 +47,7 @@ export function ProductDetails({
   return (
     <Card.Content className={root}>
       <VStack gap="4" alignItems="flex-start">
-        <VStack gap="1" alignItems="flex-start">
+        <VStack gap="1" alignItems="flex-start" minW="0" w="100%">
           {promotion && <PromotionBadge promotion={promotion} />}
           {gender && <ProductGender gender={gender} variant={variant} />}
           <ProductName name={name} variant={variant} />
