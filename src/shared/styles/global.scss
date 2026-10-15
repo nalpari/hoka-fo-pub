@@ -179,6 +179,10 @@ $font-faces: (
     --type-selection-label-font-weight: 500;
     --type-selection-label-line-height: 1.3;
     --type-selection-label-letter-spacing: normal;
+    --type-navigation-promo-title-font-size: 24px;
+    --type-navigation-promo-title-mobile-font-size: 24px;
+    --type-navigation-promo-title-font-weight: 900;
+    --type-navigation-promo-title-line-height: 1.2;
     --type-locale-heading-font-size: 20px;
     --type-locale-heading-mobile-font-size: 16px;
     --type-locale-heading-font-weight: 700;
@@ -199,6 +203,15 @@ $font-faces: (
     --type-session-title-font-weight: 900;
     --type-session-title-line-height: 1.2;
     --type-session-title-letter-spacing: -0.04em;
+    --type-session-overlay-mobile-font-size: 32px;
+    --type-session-fact-line-height: 1.6;
+    --type-session-note-line-height: 1.8;
+    --type-session-image-placeholder-font-size: 28px;
+    --type-session-image-placeholder-mobile-font-size: 20px;
+    --type-session-poster-title-font-size: 96px;
+    --type-session-poster-title-mobile-font-size: 42px;
+    --type-session-poster-title-line-height: 1.05;
+    --type-session-poster-title-letter-spacing: -0.04em;
     --type-heading-font-size: var(--font-sizes-28);
     --type-heading-mobile-font-size: var(--font-sizes-16);
     --type-heading-font-weight: 900;

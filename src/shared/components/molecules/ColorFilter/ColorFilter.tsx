@@ -37,13 +37,6 @@ const control = css({
   opacity: '0',
 });
 
-const swatch = css({
-  w: '9',
-  h: '9',
-  border: '0.5px solid color-mix(in srgb, var(--color-black-100) 20%, transparent)',
-  bg: 'var(--swatch-color)',
-});
-
 export function ColorFilter({ options, selected, onChange }: ColorFilterProps) {
   return (
     <BaseCheckboxGroup value={selected} onValueChange={onChange} className={optionsLayout}>
@@ -59,7 +52,10 @@ export function ColorFilter({ options, selected, onChange }: ColorFilterProps) {
           <BaseCheckbox.Root value={value} aria-label={label} className={control} />
           <Circle
             as="span"
-            className={swatch}
+            w="9"
+            h="9"
+            border="0.5px solid color-mix(in srgb, var(--color-black-100) 20%, transparent)"
+            bg="var(--swatch-color)"
             data-swatch
             style={{ '--swatch-color': hex } as CSSProperties}
           />

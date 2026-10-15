@@ -41,12 +41,6 @@ const cartItem = css({
   borderBottom: '1px solid var(--color-black-20)',
 });
 
-const itemInfo = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: { base: '18px', _mobile: '10px' },
-});
-
 const art = css({
   display: 'grid',
   w: { base: '100px', _mobile: '72px' },
@@ -76,22 +70,7 @@ const summary = css({
   fontSize: '14',
 });
 
-const empty = css({
-  display: 'grid',
-  minH: '285px',
-  placeItems: 'center',
-  alignContent: 'center',
-  gap: '14px',
-  borderBottom: '1px solid var(--color-black-20)',
-});
-
 const recommend = css({ mt: '20' });
-
-const recommendGrid = css({
-  display: 'grid',
-  gridTemplateColumns: { base: 'repeat(4, 1fr)', _mobile: 'repeat(2, 1fr)' },
-  gap: { base: '30px', _mobile: '25px 10px' },
-});
 
 const recommendArt = cva({
   base: {
@@ -161,7 +140,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                   key={`${item.id}-${item.color}-${item.width}-${item.size}`}
                 >
                   <Checkbox aria-label={`${product.name} 선택`} defaultChecked label={null} />
-                  <Flex className={itemInfo}>
+                  <Flex display="flex" alignItems="center" gap={{ base: '18px', _mobile: '2.5' }}>
                     <span className={art}>N</span>
                     <Box>
                       <strong>{product.name}</strong>
@@ -226,7 +205,14 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
             </Flex>
           </>
         ) : (
-          <Grid className={empty}>
+          <Grid
+            display="grid"
+            minH="285px"
+            placeItems="center"
+            alignContent="center"
+            gap="3.5"
+            borderBottom="1px solid var(--color-black-20)"
+          >
             <b className={css({ fontSize: '50' })}>!</b>
             <p className={css({ m: '0' })}>장바구니에 담은 상품이 없습니다.</p>
             <Link
@@ -254,7 +240,11 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
         >
           함께 구매하면 좋은 상품
         </Typography>
-        <Grid className={recommendGrid}>
+        <Grid
+          display="grid"
+          gridTemplateColumns={{ base: 'repeat(4, 1fr)', _mobile: 'repeat(2, 1fr)' }}
+          gap={{ base: '30px', _mobile: '25px 10px' }}
+        >
           {suggestions.map((product, index) => (
             <Link
               className={css({ display: 'grid', gap: '2.5' })}

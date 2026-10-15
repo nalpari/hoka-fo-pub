@@ -5,12 +5,6 @@ import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 const styles = {
-  info: css({
-    px: '8',
-    py: '8',
-    bg: 'var(--color-black-10)',
-    _mobile: { px: '4' },
-  }),
   specs: css({
     display: 'grid',
     gridTemplateColumns: '26.6% 1fr',
@@ -36,7 +30,15 @@ export function ProductInformation({
   const [description, ...features] = sections;
 
   return (
-    <Stack as="section" gap="10" className={styles.info} id={id}>
+    <Stack
+      as="section"
+      gap="10"
+      px="8"
+      py="8"
+      bg="var(--color-black-10)"
+      _mobile={{ px: '4' }}
+      id={id}
+    >
       <Stack gap="6">
         <Typography as="h2" variant="heading8">
           {title}

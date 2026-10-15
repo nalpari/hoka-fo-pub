@@ -6,13 +6,6 @@ import { BottomSheetContent } from '@/shared/components/layouts/BottomSheet/Bott
 import { BottomSheetFooter } from '@/shared/components/layouts/BottomSheet/BottomSheetFooter';
 import { BottomSheetHeader } from '@/shared/components/layouts/BottomSheet/BottomSheetHeader';
 
-const sheet = css({
-  maxH: 'calc(100dvh - 56px)',
-  borderRadius: '16px 16px 0 0',
-  bg: 'var(--color-white-000)',
-  boxShadow: '0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)',
-});
-
 const backdrop = css({
   position: 'fixed',
   inset: '0',
@@ -52,7 +45,12 @@ export function BottomSheet({
         <Drawer.Backdrop className={backdrop} />
         <Drawer.Viewport className={viewport}>
           <Drawer.Popup aria-label={ariaLabel}>
-            <Stack className={sheet}>
+            <Stack
+              maxH="calc(100dvh - 56px)"
+              borderRadius="16px 16px 0 0"
+              bg="var(--color-white-000)"
+              boxShadow="0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)"
+            >
               <BottomSheetHeader action={headerAction} onClose={onClose} title={title} />
               <BottomSheetContent>{children}</BottomSheetContent>
               {footer && <BottomSheetFooter>{footer}</BottomSheetFooter>}

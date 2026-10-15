@@ -11,7 +11,6 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
 const styles = {
-  terms: css({ borderBottom: '1px solid var(--color-black-20)' }),
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
   carrier: css({ '& > button': { justifySelf: 'end' } }),
   carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
@@ -146,7 +145,7 @@ export function PhoneVerificationContent(props: Props) {
           as="section"
           gap="4"
           pb="6"
-          className={styles.terms}
+          borderBottom="1px solid var(--color-black-20)"
           aria-labelledby="phone-terms-title"
         >
           <HStack justify="space-between" mb="2">

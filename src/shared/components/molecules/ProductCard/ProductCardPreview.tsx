@@ -11,16 +11,6 @@ import { ProductDetails } from '@/shared/components/molecules/ProductDetails/Pro
 import { ProductOptionList } from '@/shared/components/molecules/ProductOptionList/ProductOptionList';
 
 const styles = {
-  panel: css({
-    position: 'absolute',
-    top: '-16px',
-    left: '-16px',
-    right: '-16px',
-    zIndex: '3',
-    p: '4',
-    bg: 'var(--color-surface-subtle)',
-    border: '1px solid var(--color-border-tertiary)',
-  }),
   link: css({
     display: 'block',
     color: 'inherit',
@@ -29,7 +19,6 @@ const styles = {
   }),
   image: css({ display: 'block', w: '100%', aspectRatio: '1', objectFit: 'contain' }),
   promotion: css({ minH: '20px' }),
-  row: css({ py: '2', borderBottom: '1px solid var(--color-border-tertiary)' }),
 };
 
 export function ProductCardPreview({ product }: { product: Product }) {
@@ -49,7 +38,19 @@ export function ProductCardPreview({ product }: { product: Product }) {
         : '워킹';
 
   return (
-    <Stack as="section" aria-label={`${product.name} 상품 요약`} className={styles.panel} gap="4">
+    <Stack
+      as="section"
+      aria-label={`${product.name} 상품 요약`}
+      position="absolute"
+      top="-16px"
+      left="-16px"
+      right="-16px"
+      zIndex="3"
+      p="4"
+      bg="var(--color-surface-subtle)"
+      border="1px solid var(--color-border-tertiary)"
+      gap="4"
+    >
       <Link
         className={styles.link}
         href={`/products/${product.id}`}
@@ -103,7 +104,13 @@ export function ProductCardPreview({ product }: { product: Product }) {
           ['쿠셔닝', product.cushioning],
           ['발볼', product.width],
         ].map(([label, value]) => (
-          <Grid className={styles.row} gap="2" gridTemplateColumns="1fr 1fr" key={label}>
+          <Grid
+            py="2"
+            borderBottom="1px solid var(--color-border-tertiary)"
+            gap="2"
+            gridTemplateColumns="1fr 1fr"
+            key={label}
+          >
             <Typography as="dt" variant="body4" weight="medium">
               {label}
             </Typography>

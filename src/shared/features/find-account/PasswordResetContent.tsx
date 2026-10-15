@@ -7,16 +7,6 @@ import { PasswordResetField } from '@/shared/features/find-account/PasswordReset
 import type { Errors, FieldName } from '@/shared/features/find-account/passwordValidation';
 
 const styles = {
-  page: css({
-    pt: '24',
-    px: '4',
-    pb: '8',
-    minH: 'calc(100svh - var(--layout-site-header-height))',
-    _mobile: {
-      pt: '10',
-    },
-  }),
-  content: css({ maxW: '500px', mx: 'auto', gap: '0' }),
   title: css({ mb: '2.5' }),
   description: css({ m: '0', mb: '10', color: 'var(--color-text-tertiary)' }),
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
@@ -46,8 +36,15 @@ export function PasswordResetContent({
   onSubmit,
 }: Props) {
   return (
-    <Box as="main" className={styles.page}>
-      <Stack as="section" className={styles.content} aria-labelledby="password-reset-title">
+    <Box
+      as="main"
+      pt="24"
+      px="4"
+      pb="8"
+      minH="calc(100svh - var(--layout-site-header-height))"
+      _mobile={{ pt: '10' }}
+    >
+      <Stack as="section" maxW="500px" mx="auto" gap="0" aria-labelledby="password-reset-title">
         <Typography as="h1" variant="headingKr6" className={styles.title} id="password-reset-title">
           비밀번호 재설정
         </Typography>

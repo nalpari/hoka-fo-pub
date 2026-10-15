@@ -10,11 +10,8 @@ import { LoginActions } from '@/shared/features/login/LoginActions';
 
 const styles = {
   form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
-  options: css({ justifyContent: 'space-between', gap: '2', minH: '6' }),
   rememberId: css({ gap: '2', flexShrink: '0' }),
-  links: css({ gap: '2', flexShrink: '0' }),
   accountLink: css({ '--button-label-size': '14px!', '--button-height': 'auto!' }),
-  divider: css({ w: '1px', h: '10px', bg: '#dadada' }),
 };
 
 export type LoginNotice = { tone: 'error' | 'success'; message: string };
@@ -67,7 +64,7 @@ export function LoginForm({
           onChange={(event) => onPasswordChange(event.target.value)}
         />
       </FormField>
-      <HStack className={styles.options}>
+      <HStack justifyContent="space-between" gap="2" minH="6">
         <Checkbox
           className={styles.rememberId}
           label="아이디 저장"
@@ -75,11 +72,11 @@ export function LoginForm({
           checked={rememberId}
           onCheckedChange={onRememberChange}
         />
-        <HStack className={styles.links}>
+        <HStack gap="2" flexShrink="0">
           <Button variant="link" size="md" className={styles.accountLink} onClick={onFindAccount}>
             아이디 찾기
           </Button>
-          <Box as="span" className={styles.divider} aria-hidden="true" />
+          <Box as="span" w="1px" h="2.5" bg="#dadada" aria-hidden="true" />
           <Button
             variant="link"
             size="md"

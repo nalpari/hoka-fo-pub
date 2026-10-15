@@ -6,7 +6,6 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
   detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
-  document: css({ border: '1px solid var(--color-black-20)' }),
 };
 
 type Props = {
@@ -44,7 +43,13 @@ export function SignupTermsDetail({ selected, previous, onClose, onPrevious }: P
             </Typography>
           </Button>
         </HStack>
-        <Box as="article" p="4" className={styles.document} tabIndex={0} aria-label="약관 내용">
+        <Box
+          as="article"
+          p="4"
+          border="1px solid var(--color-black-20)"
+          tabIndex={0}
+          aria-label="약관 내용"
+        >
           {previous ? (
             <Box mb="4">
               <Typography as="p" variant="body5">

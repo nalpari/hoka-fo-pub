@@ -19,14 +19,6 @@ const backdrop = css({
 
 const viewport = css({ position: 'fixed', inset: '0', zIndex: '100', overflowY: 'auto' });
 
-const inner = css({
-  w: 'min(100% - 48px, 820px)',
-  mx: 'auto',
-  pt: '26px',
-  pb: '20',
-  _mobile: { w: 'min(100% - 32px, 820px)', pt: '4' },
-});
-
 type SearchDialogProps = { children: ReactNode; onClose: () => void };
 
 export function SearchDialog({ children, onClose }: SearchDialogProps) {
@@ -36,7 +28,15 @@ export function SearchDialog({ children, onClose }: SearchDialogProps) {
         <Dialog.Backdrop className={backdrop} />
         <Dialog.Viewport className={viewport}>
           <Dialog.Popup aria-labelledby="site-search-title" className={dialog}>
-            <Box className={inner}>{children}</Box>
+            <Box
+              w="min(100% - 48px, 820px)"
+              mx="auto"
+              pt="26px"
+              pb="20"
+              _mobile={{ w: 'min(100% - 32px, 820px)', pt: '4' }}
+            >
+              {children}
+            </Box>
           </Dialog.Popup>
         </Dialog.Viewport>
       </Dialog.Portal>

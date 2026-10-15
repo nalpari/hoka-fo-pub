@@ -186,6 +186,64 @@ export const SessionTitle: Story = {
   args: { as: 'h1', variant: 'sessionTitle', children: '러닝 세션 제목' },
 };
 
+export const SessionOverlay: Story = {
+  args: { as: 'span', variant: 'sessionOverlay', children: '27.2.12 19:00' },
+};
+
+export const SessionPosterTitle: Story = {
+  args: { as: 'h2', variant: 'sessionPosterTitle', children: 'Bugaksan Uphill Interval Session' },
+};
+
+export const SessionFactBody: Story = {
+  args: { as: 'dd', variant: 'sessionFactBody', children: '10월 30일 (금) 19:30 - 21:30' },
+  render: (args) => (
+    <dl>
+      <dt>일시</dt>
+      <Typography {...args} />
+    </dl>
+  ),
+};
+
+export const SessionGuideBody: Story = {
+  args: { as: 'p', variant: 'sessionGuideBody', children: '그룹 러닝의 즐거움을 느껴보세요!' },
+};
+
+export const SessionNote: Story = {
+  args: { as: 'p', variant: 'sessionNote', children: '신청은 선착순으로 진행됩니다.' },
+};
+
+export const SessionImagePlaceholder: Story = {
+  args: { as: 'span', variant: 'sessionImagePlaceholder', children: '이미지 영역' },
+};
+
+export const MobileSessionTypography: Story = {
+  globals: { viewport: 'hoka375' },
+  render: () => (
+    <PlatformProvider platform="mobile">
+      <div className="platform-mobile">
+        <Typography as="span" variant="sessionOverlay">
+          27.2.12 19:00
+        </Typography>
+        <Typography as="h2" variant="sessionPosterTitle">
+          Bugaksan Uphill Interval Session
+        </Typography>
+        <Typography as="p" variant="sessionFactBody">
+          10월 30일 (금) 19:30 - 21:30
+        </Typography>
+        <Typography as="p" variant="sessionGuideBody">
+          그룹 러닝의 즐거움을 느껴보세요!
+        </Typography>
+        <Typography as="p" variant="sessionNote">
+          신청은 선착순으로 진행됩니다.
+        </Typography>
+        <Typography as="span" variant="sessionImagePlaceholder">
+          이미지 영역
+        </Typography>
+      </div>
+    </PlatformProvider>
+  ),
+};
+
 export const MobileContextTitles: Story = {
   globals: { viewport: 'hoka375' },
   render: () => (

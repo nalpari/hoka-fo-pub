@@ -8,12 +8,6 @@ import type { Platform } from '@/shared/lib/device';
 import type { FooterGroup } from './footerData';
 
 const styles = {
-  list: css({
-    m: 0,
-    p: 0,
-    listStyle: 'none',
-    _mobile: { m: '-2px 0 0' },
-  }),
   link: css({ color: 'var(--color-black-10)' }),
 };
 
@@ -28,7 +22,10 @@ export function FooterNavigationLinks({ links, platform }: FooterNavigationLinks
       as="ul"
       alignItems="flex-start"
       gap={platform === 'mobile' ? '22px' : '10px'}
-      className={styles.list}
+      m={0}
+      p={0}
+      listStyle="none"
+      _mobile={{ m: '-2px 0 0' }}
     >
       {links.map((link) => (
         <li key={link.label}>

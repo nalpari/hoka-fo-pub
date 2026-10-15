@@ -15,8 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const styles = {
-  root: css({ pt: '6' }),
-  contacts: css({ border: '1px solid var(--color-black-20)', p: '8', _mobile: { p: '4' } }),
   contact: css({
     gridTemplateColumns: 'minmax(140px, 1fr) 2fr',
     gap: '6',
@@ -48,12 +46,6 @@ const styles = {
       '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
     },
   }),
-  faq: css({
-    gridTemplateColumns: '160px minmax(0, 1fr)',
-    gap: '8',
-    _mobile: { gridTemplateColumns: '1fr', gap: '6' },
-  }),
-  answer: css({ pb: '8', borderBottom: '1px solid var(--color-black-20)' }),
 };
 
 const serviceUrl = 'https://service.joy-works.co.kr/';
@@ -106,14 +98,14 @@ const questions = [
 
 export function ProductDetailAfterSalesContent() {
   return (
-    <Stack gap="10" className={styles.root}>
+    <Stack gap="10" pt="6">
       <Typography as="p" variant="body5">
         HOKA 상품에 이상이 있거나 수선이 필요한 경우 구매처 또는 A/S 접수 창구로 문의해 주세요.
         <br />
         A/S 관련 문의는 고객센터 또는 1:1 문의를 이용해 주세요.
       </Typography>
 
-      <Stack gap="8" className={styles.contacts}>
+      <Stack gap="8" border="1px solid var(--color-black-20)" p="8" _mobile={{ p: '4' }}>
         <Grid className={styles.contact}>
           <Typography as="h4" variant="body5" weight="bold">
             HOKA 온라인 스토어
@@ -207,13 +199,17 @@ export function ProductDetailAfterSalesContent() {
         </Grid>
       </Stack>
 
-      <Grid className={styles.faq}>
+      <Grid
+        gridTemplateColumns="160px minmax(0, 1fr)"
+        gap="8"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '6' }}
+      >
         <Typography as="h4" variant="heading8">
           궁금하신 점이 있으세요?
         </Typography>
         <Stack gap="8">
           {questions.map(({ question, answer }) => (
-            <Box key={question} className={styles.answer}>
+            <Box key={question} pb="8" borderBottom="1px solid var(--color-black-20)">
               <Stack gap="4">
                 <Typography as="h5" variant="body4" weight="bold">
                   Q. {question}

@@ -3,7 +3,6 @@ import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 const styles = {
-  actions: css({ gap: '2', mt: '2' }),
   socialIcon: css({ display: 'block', flexShrink: '0' }),
 };
 
@@ -29,7 +28,7 @@ const socialButton = cva({
 
 export function LoginActions({ onUnavailable }: { onUnavailable: (feature: string) => void }) {
   return (
-    <Stack className={styles.actions}>
+    <Stack gap="2" mt="2">
       <Button fullWidth variant="primary" size="tall" type="submit">
         로그인
       </Button>

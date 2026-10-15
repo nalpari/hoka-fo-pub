@@ -3,8 +3,6 @@ import { Flex } from 'styled-system/jsx';
 import { ProductDetailGallery } from '@/shared/features/product/ProductDetailGallery';
 import { ProductDetailSupport } from '@/shared/features/product/ProductDetailSupport';
 
-const root = css({ minW: '0' });
-
 const support = css({ _mobile: { display: 'none' } });
 
 type ProductDetailMediaProps = {
@@ -15,7 +13,7 @@ type ProductDetailMediaProps = {
 
 export function ProductDetailMedia({ images, productName, onOpenImage }: ProductDetailMediaProps) {
   return (
-    <Flex className={root} direction="column" gap="96px">
+    <Flex minW="0" direction="column" gap="96px">
       <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
       <div className={support}>
         <ProductDetailSupport />

@@ -26,7 +26,6 @@ const styles = {
     position: 'relative',
     zIndex: '1',
   }),
-  body: css({ gap: '4' }),
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
   button: css({
     w: '160px!',
@@ -46,7 +45,7 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
         closeLabel="안내 닫기"
         popupClassName={styles.dialog}
       >
-        <Stack className={styles.body}>
+        <Stack gap="4">
           <Typography as="h2" variant="headingKr6">
             계정 잠금상태입니다
           </Typography>

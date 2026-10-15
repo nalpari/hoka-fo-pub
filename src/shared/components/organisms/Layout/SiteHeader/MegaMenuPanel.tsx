@@ -1,6 +1,5 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { MegaMenuAD } from '@/shared/components/organisms/Layout/SiteHeader/MegaMenuAD';
-import { MegaMenuList } from '@/shared/components/organisms/Layout/SiteHeader/MegaMenuList';
+import { MegaMenuContent } from '@/shared/components/organisms/Layout/SiteHeader/MegaMenuContent';
 import type { MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { css } from 'styled-system/css';
 
@@ -25,15 +24,6 @@ const styles = {
     borderBottom: '1px solid var(--hoka-black)',
     bg: 'var(--hoka-white)',
     _mobile: { display: 'none' },
-  }),
-  inner: css({
-    display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1fr) 358px',
-    gap: '4',
-    w: 'min(1384px, calc(100% - 56px))',
-    mx: 'auto',
-    pt: '34px',
-    pb: '38px',
   }),
 };
 
@@ -72,10 +62,7 @@ export function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelP
           }
         }}
       >
-        <div className={styles.inner}>
-          <MegaMenuList columns={menu.columns} onClose={onClose} />
-          <MegaMenuAD {...menu.promo} onClick={onClose} />
-        </div>
+        <MegaMenuContent menu={menu} onClose={onClose} />
       </section>
     </>
   );

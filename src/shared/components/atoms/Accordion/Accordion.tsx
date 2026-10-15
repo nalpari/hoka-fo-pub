@@ -38,6 +38,8 @@ export type AccordionProps = {
   items: AccordionEntry[];
   multiple?: boolean;
   defaultValue?: string[];
+  value?: string[];
+  onValueChange?: (value: string[]) => void;
   className?: string;
   itemClassName?: string;
   triggerClassName?: string;
@@ -52,6 +54,8 @@ export function Accordion({
   items,
   multiple = true,
   defaultValue,
+  value,
+  onValueChange,
   className,
   itemClassName,
   triggerClassName,
@@ -65,7 +69,13 @@ export function Accordion({
   );
 
   return (
-    <BaseAccordion.Root className={className} multiple={multiple} defaultValue={defaultValue}>
+    <BaseAccordion.Root
+      className={className}
+      multiple={multiple}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onValueChange}
+    >
       {items.map((item) => (
         <BaseAccordion.Item className={itemClassName} key={item.value} value={item.value}>
           <BaseAccordion.Header>

@@ -3,9 +3,9 @@ import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselS
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
 import type { Product } from '@/mocks/products';
 import type { Platform } from '@/shared/lib/device';
+import { Box } from 'styled-system/jsx';
 
 const styles = {
-  recommendations: css({ py: '72px', overflow: 'hidden', _mobile: { py: '40px' } }),
   rail: css({ overflow: 'visible!' }),
   slide: css({
     w: 'calc((100% - 64px) / 5 + 16px)!',
@@ -22,7 +22,7 @@ type RunClubRecommendationsProps = { products: Product[]; platform: Platform };
 
 export function RunClubRecommendations({ products, platform }: RunClubRecommendationsProps) {
   return (
-    <section className={styles.recommendations}>
+    <Box as="section" py="72px" overflow="hidden" _mobile={{ py: '10' }}>
       <HomeCarouselSection
         title="로드 러닝 Essential"
         titleVariant="heading7"
@@ -38,6 +38,6 @@ export function RunClubRecommendations({ products, platform }: RunClubRecommenda
           <ProductCard key={product.id} product={product} variant="showcase" />
         ))}
       </HomeCarouselSection>
-    </section>
+    </Box>
   );
 }

@@ -9,17 +9,6 @@ import { css, cva } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
-const tabBar = css({
-  position: 'sticky',
-  top: 'var(--layout-site-header-height)',
-  zIndex: '2',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-  borderTop: '1px solid var(--color-black-100)',
-  borderBottom: '1px solid var(--color-black-100)',
-  bg: 'var(--color-white-000)',
-});
-
 const tab = cva({
   base: {
     position: 'relative',
@@ -114,7 +103,18 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
 
   return (
     <Box as="section" mt={{ base: '64px', _mobile: '35px' }} aria-label="상품 상세 정보">
-      <Grid as="nav" className={tabBar} aria-label="상품 상세 메뉴">
+      <Grid
+        as="nav"
+        position="sticky"
+        top="var(--layout-site-header-height)"
+        zIndex="2"
+        display="grid"
+        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+        borderTop="1px solid var(--color-black-100)"
+        borderBottom="1px solid var(--color-black-100)"
+        bg="var(--color-white-000)"
+        aria-label="상품 상세 메뉴"
+      >
         {visibleSections.map((section) => (
           <Button
             aria-controls={section.id}

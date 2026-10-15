@@ -13,7 +13,6 @@ export const myPageNavigation: MyPageNavGroup[] = [
       { label: '최근 본 상품', to: '/mypage/recent' },
       { label: '리뷰', to: '/mypage/reviews' },
       { label: '재입고 알림', to: '/mypage/restock-alerts' },
-      { label: '이벤트 · 대회 신청', to: '/mypage/event-entries' },
     ],
   },
   {
@@ -25,6 +24,7 @@ export const myPageNavigation: MyPageNavGroup[] = [
       { label: '친구 추천', to: '/mypage/referral' },
       { label: '멤버십 활동 내역', to: '/mypage/member-activity' },
       { label: '러닝 프로필', to: '/mypage/running-profile' },
+      { label: '러닝세션 신청내역', to: '/mypage/event-entries' },
     ],
   },
   {

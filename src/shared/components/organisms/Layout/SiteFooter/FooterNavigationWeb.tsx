@@ -5,7 +5,6 @@ import { footerGroups } from './footerData';
 import { FooterNavigationLinks } from './FooterNavigationLinks';
 
 const styles = {
-  content: css({ display: 'contents' }),
   group: css({
     gridRow: 1,
     alignSelf: 'start',
@@ -23,7 +22,7 @@ const styles = {
 
 export function FooterNavigationWeb() {
   return (
-    <Box className={styles.content}>
+    <Box display="contents">
       {footerGroups.map((group) => (
         <Flex direction="column" gap="20px" className={styles.group} key={group.title}>
           <Typography as="h3" variant="heading9" tone="inverse" className={styles.title}>

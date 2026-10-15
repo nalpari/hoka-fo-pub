@@ -6,11 +6,92 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T09:16:20Z'
+  at: '2026-10-15T09:25:33Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/mypage/RunningProfileContent.tsx
   - src/shared/components/organisms/MyPage/CouponCard.tsx
+  - src/shared/features/run-club/RunClubDetailLayout.tsx
+  - src/shared/features/run-club/RunClubFilters.tsx
+  - src/shared/features/run-club/RunClubSessionImage.tsx
+  - src/shared/features/run-club/RunClubRecommendations.tsx
+  - src/shared/features/run-club/RunClubPage.tsx
+  - src/shared/features/run-club/RunClubApplyButton.tsx
+  - src/shared/features/run-club/RunClubMobileActionBar.tsx
+  - src/shared/features/run-club/RunClubFacts.tsx
+  - src/shared/features/run-club/RunClubHeader.tsx
+  - src/shared/features/run-club/RunClubHistoryLink.tsx
+  - src/shared/features/run-club/RunClubSessionCard.tsx
+  - src/shared/features/run-club/RunClubDetailPage.tsx
+  - src/shared/features/run-club/RunClubSessionGuide.tsx
+  - src/shared/features/run-club/RunClubSessionNotes.tsx
+  - src/shared/features/mypage/mypage.data.ts
+  - src/shared/features/mypage/MyPageStatusPage.tsx
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/shared/features/screen-index/storybookLinks.ts
+  - src/stories/features/run-club/RunClub.stories.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerBackButton.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuContent.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerBase.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/atoms/EmptyState/EmptyState.tsx
+  - src/shared/components/atoms/Pagination/Pagination.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetHeader.tsx
+  - src/shared/components/molecules/ColorFilter/ColorFilter.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/ProductCard/ProductCardPreview.tsx
+  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanel.tsx
+  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterBrand.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterBrandSocial.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterContent.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/SiteFooter.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
+  - src/shared/components/organisms/Search/SearchDialog.tsx
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/cart/CartPage.tsx
+  - src/shared/features/catalog/product-listing/DesktopProductFilter.tsx
+  - src/shared/features/catalog/ProductListingResults.tsx
+  - src/shared/features/find-account/FindAccountContent.tsx
+  - src/shared/features/find-account/IdConfirmationModal.tsx
+  - src/shared/features/home/HomeExploreSection.tsx
+  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
+  - src/shared/features/product/ProductDetailAfterSalesContent.tsx
+  - src/shared/features/product/ProductDetailMedia.tsx
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/run-club/RunClubLayout.tsx
+  - src/shared/features/run-club/RunClubResults.tsx
+  - src/shared/features/signup-registration/RegistrationContent.tsx
+  - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/teamwear/TeamwearPage.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
+  - src/shared/components/atoms/IconButton/IconButton.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerHeader.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerNavigation.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerUtilityLinks.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuAD.tsx
+  - src/shared/components/organisms/Faq/FaqList.tsx
+  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
+  - src/stories/components/organisms/Faq/FaqList.stories.tsx
+  - src/stories/components/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
+  - src/stories/components/atoms/Accordion/Accordion.stories.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/icons/fontAwesome.ts
+  - src/shared/icons/iconAssets.ts
+  - public/images/icon/navigation/membership.svg
+  - src/stories/components/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
   - src/shared/features/run-club/RunClubBadge.tsx
   - src/shared/features/locales/LocalesPage.tsx
   - src/shared/features/locales/LocalesLayout.tsx
@@ -84,6 +165,9 @@ working_tree_sources:
   - src/stories/components/organisms/Product/ProductDetailSections/ProductDetailSections.stories.tsx
   - src/shared/features/mypage/MyPage.tsx
 sources:
+  - id: base-ui-jsx-audit
+    resource: https://base-ui.com/react/overview/quick-start
+    title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
   - id: agents-md
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/AGENTS.md
     title: 'AGENTS.md'
@@ -105,6 +189,73 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
+
+`MenuDrawerUtilityLinks`의 아이콘 슬롯은 Flex(span) 24×24px이며 가로 flex-start·세로 center로 16px 아이콘을 배치한다. 텍스트와의 gap은 spacing 2(8px)로 설정해 슬롯 시작부터 텍스트까지 32px를 유지한다.
+
+`MenuDrawerGroups`의 Sale 링크는 빨간색을 링크에서 지정하고 굵기는 자식 Typography의 `weight="medium"`으로 지정한다. 부모 font-weight만 변경하면 body3의 명시적 기본 굵기가 적용되므로 텍스트 API로 제어한다.
+
+`MenuDrawerGroups`의 Accordion 패널은 위쪽 spacing 4(16px), 아래쪽 spacing 6(24px)를 사용한다. Stack 목록은 gap=7(28px)을 사용하고 마진·패딩은 0으로 유지한다.
+
+`MenuDrawerGroups`의 하위 링크 목록은 `Stack as="ul" gap="7"`를 사용하고 목록 마커·기본 패딩·마진을 제거한다. li 의미와 16px 들여쓰기·Sale 색상은 유지하며 링크 간격은 Stack이 소유한다.
+
+`MenuDrawerBackButton`은 IconButton 자체에도 `display: flex`, `alignItems: center`, `justifyContent: flex-start`를 지정해 내부 아이콘·제목이 버튼 왼쪽에 배치되도록 한다. 내부 Flex만 정렬해서는 native button의 자식 배치를 제어할 수 없다.
+
+`MenuDrawerBackButton`은 공통 `IconButton size="auto"`로 아이콘과 제목 전체를 감싼다. local Panda css로 전체 너비·기존 패딩·포커스 표시·투명 hover를 유지하고 내부 Flex가 정렬과 12px 간격을 소유한다. 포커스 ref는 IconButton을 통해 실제 버튼에 전달한다.
+
+`MenuDrawerUtilityLinks`는 Box(nav)·Stack(ul)·styled(Link)·Flex(span) JSX props로 기존 목록·행·아이콘 스타일을 표현한다. 링크 최소 높이는 spacing 9(36px), 목록 gap은 spacing 1(4px), 아이콘 슬롯은 24px이며 safe area를 유지한다. `MenuDrawerBackButton`은 내부 Flex가 정렬·12px 간격을, IconButton과 local css가 패딩·클릭 영역·focus-visible을 소유하며 ref를 native button에 유지한다.
+
+`MenuDrawerNavigation`의 외곽 배치는 Panda `Box` JSX props로 지정하며 상세 33px/기본 48px 하단 여백을 유지한다. 내부 `MenuDrawerBackButton({ label, onBack, buttonRef })`은 뒤로가기 버튼·아이콘·스타일을 소유하고 native button·접근성 이름·ref·클릭 동작을 보존한다.
+
+`MegaMenuAD`는 `styled(Link)`와 Square·VStack·styled.img의 Panda JSX props로 링크·카드·이미지·그라데이션을 표현한다. desktop/mobile presentation에 따라 기존 358px/전체 너비, 패딩·간격·배경과 자식 카드 포커스 표시를 유지하며 Typography의 제목 여백·밑줄은 local css로 지정한다.
+
+`MegaMenuContent({ menu, onClose })`는 PC 메뉴 목록과 광고를 Panda `Grid`로 조합하고 기존 열 너비·간격·최대 너비·상하 여백을 소유한다. `MegaMenuPanel`은 overlay·section 및 Tab 경계 처리를 유지한다.
+
+`MenuDrawerShoppingLinks`의 목록은 `Stack as="ul" gap="0"`로 배치하고 목록 기본 여백·마커를 제거한다. 각 링크/버튼의 가로 정렬과 `py: 4`는 행 스타일에 남겨 기존 클릭 영역을 유지한다.
+
+`MenuDrawerShoppingLinks`는 Best·카테고리·런칭캘린더를 순서가 있는 하나의 목록으로 만든다. `type: 'link' | 'category'`로 이동 링크와 상세 메뉴 버튼을 구분하고 제목·화살표 렌더링을 공유한다. Best는 화살표 없이, 카테고리와 런칭캘린더는 화살표를 표시하며 기존 경로·포커스용 data 속성을 유지한다.
+
+`MenuDrawerShoppingLinks({ menus, onSelectMenu, onNavigate })`는 기본 쇼핑 메뉴의 nav·목록·행 스타일을 소유한다. `MenuDrawerBase`는 이 목록과 광고를 `Stack gap="56px"`로 배치한다. 링크 경로·버튼의 포커스 복귀용 data 속성·콜백은 유지한다.
+
+`MenuDrawerBase({ menus, onSelectMenu, onNavigate })`는 기본 쇼핑 메뉴와 모바일 광고를 소유하며 `<Stack gap="56px">`으로 두 영역의 간격을 정한다. 광고의 개별 margin-top은 사용하지 않는다. `MenuDrawerNavigation`은 기본/상세 분기와 외곽 패딩, 상세 뒤로가기를 유지한다.
+
+## 상품 카드 상품명 말줄임
+
+ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, minW=0으로 카드 너비 안에 제한한다. 부모의 alignItems=flex-start 아래에서 내부 묶음이 긴 상품명의 내용 너비로 확장되면 ProductName의 truncate가 있어도 옆 카드와 겹친다. ProductName의 기존 한 줄 말줄임 스타일을 유지하고 부모 너비를 제한해 HOME 베스트셀러를 포함한 상품 카드에서 적용되도록 한다.
+
+2026-10-15 Codex 검증: HOME의 긴 상품명 너비가 667px에서 카드와 같은 218px로 제한되고 text-overflow=ellipsis, overflow=hidden이 적용되는 것을 브라우저 DOM과 화면으로 확인했다. 변경 파일 ESLint와 TypeScript 검사가 통과했다.
+
+## Components·Features JSX 스타일 점검 (2026-10-15)
+
+지정 범위는 `src/shared/components/`와 `src/shared/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
+
+| 분류 | 관찰과 반영                                                                                                                                            | 보존·유지 기준                                                                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 개선 | `MenuDrawerHeader`의 header 클래스 → HStack의 `justifyContent`, `minH`, `flexShrink`, `px`, `borderBottom`                                             | `px="4"` = 1rem = 16px, 58px 최소 높이, 닫기 ref와 인증 링크 콜백 유지                                                                                     |
+| 개선 | Footer의 프레임·그리드·브랜드·소셜·링크 목록, BottomSheet의 프레임·헤더, HeroCopy·InquiryBoard·Catalog의 단일 사용 클래스 → 기존 Panda JSX props       | DOM·랜드마크·링크·포털·내부 스크롤과 PC/모바일 조건 유지. FooterLegalLinks의 공유 row와 하위 타입 선택자, FooterNavigationWeb의 nth-child 배치는 유지      |
+| 개선 | 로그인·계정 복구·가입·상품·런클럽·지원·팀웨어의 단일 사용 배치 → Box/Stack/Grid/Flex 등의 props                                                        | 지역 상태·URL·콜백·필터·데이터 소유자와 레이아웃 조합 API 유지. 일치하는 spacing/sizes 토큰만 사용하며 58px 등 대응 토큰이 없는 값과 복합 값은 유지        |
+| 개선 | AccountUnlockCompletePage의 content, FindAccountContent의 fields 간격을 `gap="2"`로 명시                                                               | 기존 css의 gap 16px은 Stack 기본 gap 8px 클래스에 덮여 실제로는 8px이었다. 선언을 그대로 props로 옮기면 16px로 달라져, 브라우저에서 확인한 기존 8px을 유지 |
+| 유지 | MenuDrawer의 Frame/Header/Navigation/Groups/UtilityLinks, SiteHeader의 Container/Frame/Content, 로그인·checkout·catalog의 feature-local Layout/Content | 작은 부품은 이미 구조·반응형·표시 책임을 소유한다. 추가 Wrapper나 context, 공용 atom 승격 없이 유지                                                        |
+| 유지 | 공유 스타일·recipe, 상품 옵션 상태 선택자, FAQ/리뷰/지원의 하위 선택자, CSS 변수 override, IconButton·Next Link에 전달하는 클래스                      | 네이티브 요소·외부 컴포넌트에는 Panda 스타일 props를 전달하지 않는다. 타이포그래피·아이콘 glyph·동적 스타일을 단순 배치 변환에 섞지 않는다                 |
+
+Typography의 검색 제목 heading9, 메뉴 navigationHeading/navigationHeadingKr, 로그인 loginTitle, 상품 productTitle/productPrice, 런클럽 sessionTitle 등 기존 variant 호출은 유지했다. 직접 타입 선언이 남은 Cart, RunClubSessionNotes/Guide, FooterLegalLinks 등은 부모의 font-family·굵기·행간 상속과 모바일 값을 확인한 후 semantic variant로 이전할 후속 후보다. 크기 하나만 맞춰 body4/body5로 치환하거나 새로운 레이아웃 props에 타입 선언을 숨기지 않았다.
+
+Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-start)와 설치된 1.8.0의 공개 exports를 대조했다. Accordion/Collapsible, Drawer/Dialog, Checkbox/Checkbox Group, Radio/Radio Group, Toggle/Toggle Group, Select, Number Field, Slider, Progress, Separator, Button, Field/Fieldset/Form/Input은 기존 공통 래퍼와 네이티브 계약을 유지한다. Navigation Menu/Menu/Menubar는 SiteHeader의 사용자 정의 키보드 탐색, Scroll Area는 Carousel·필터의 측정/스크롤 동작, Alert Dialog는 문의·리뷰 취소 confirm의 후속 후보이며 모두 설치 버전에서 지원하고 업그레이드는 불필요하다. Autocomplete/Combobox/OTP Field/Context Menu/Popover/Preview Card/Switch/Tabs/Toast/Toolbar/Tooltip/Meter/Avatar도 가용성을 확인했으나 새 전환을 정당화하는 독립적인 동작 근거가 없어 도입하지 않았다. 정적 링크를 명령 메뉴나 탭으로 바꾸지 않았다.
+
+구조 후속 후보는 CartPage의 행·합계·추천 영역과 StoreFinderPage의 검색·종류 탐색·결과 영역이다. 추출한다면 같은 feature 폴더에서 준비된 행/합계 또는 필터 값과 명시적인 콜백을 받고, Page가 수량·삭제·필터 상태를 계속 소유해야 한다. 기존 표/폼/링크 의미와 모든 PC/모바일 값을 확인해야 하므로 이번 JSX 스타일 이전과 함께 일괄 추출하지 않았다.
+
+검증: 최종 `npm run panda`(build의 prebuild 포함), `npm run typecheck`, `npm run build`, `npm run lint -- --ignore-pattern '.tmp*/**'`, `npm run okf:check`와 전체 작업 트리 `pendingDocs(false)` 매핑 검사를 통과했다. lint는 기존 임시 Storybook 산출물을 제외한 결과다. 스토리 파일을 추가·변경하지 않아 Storybook 정적 빌드는 다시 실행하지 않았다.
+
+브라우저에서 변경 전후 27개 대표 스토리의 주요 CSS 속성을 비교했고 두 Stack 간격 차이를 수정한 뒤 기존 8px과 일치함을 확인했다. 푸터·로그인·런클럽·MainSection·메뉴·EmptyState·Pagination·ColorFilter·바텀시트·필터·HeroCopy·InquiryBoard·상품 모바일·가입·약관의 21개 스토리는 기록한 요소 크기도 일치했다. 일부 PC 상품·계정 화면의 텍스트 너비는 글꼴 로딩 시점에 차이가 있어 전체 치수 일치를 주장하지 않는다. 별도로 375px 메뉴의 58px 헤더·16px 좌우 여백, Men 전환·단일 Accordion·뒤로가기 포커스·Escape 후 열기 버튼 포커스, 모바일 로그인 흐름의 성공 안내, 비밀번호 재설정 MobileError의 오류 표시, 모바일 푸터의 scrollWidth 375px을 확인했다. 모든 라우트와 Base UI 후속 후보의 동작 검증을 수행한 것은 아니다.
+
+## MenuDrawer 상세 그룹
+
+`MenuDrawerGroups({ columns, onNavigate })`는 MenuDrawer 폴더 내부에서 상세 카테고리의 Accordion·하위 링크·펼침 표시 스타일을 소유한다. 탐색 프레임·뒤로가기와 광고는 `MenuDrawerNavigation`, 선택 상태·포커스 정책은 `MenuDrawer`가 유지한다. 선택 메뉴 ID를 key로 사용해 메뉴 변경 시 첫 그룹의 기본 열림을 초기화한다.
+
+`HeaderAuthLink`의 로그인·구분선·회원가입 사이 간격은 PC에서 Panda spacing `1.5`, `.platform-mobile` 환경에서 `2px`이다.
+
+`MenuDrawerHeader`의 닫기 버튼은 공통 `IconButton`을 사용하며 현재 버튼과 아이콘 크기는 18px이다. 접근성 이름과 기존 포커스 표시를 유지한다. `IconButtonProps`는 `ComponentPropsWithRef<'button'>`을 기반으로 React 19의 ref prop을 내부 Base UI 버튼에 전달한다.
 
 ## 코드 배치
 
@@ -325,6 +476,10 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 이전 구현 작업에서 `npm run panda`, `npm run typecheck`, `npm run build`, `npm run build-storybook`, `git diff --check`를 통과했다. 이 기록은 당시 스토리를 포함한 작업 트리 기준이며 현재 커밋의 브라우저 검증을 의미하지 않는다. 전체 `npm run lint`는 기존 `.tmp*` Storybook 번들 산출물에서 실패했으며 `npm run lint -- --ignore-pattern '.tmp*/**'`는 통과했다. Storybook 빌드의 의존성 `use client` 번들 경고는 빌드를 실패시키지 않았다. 연결 가능한 브라우저가 없어 PC/모바일 시각 확인과 play 실행은 수행하지 못했다. `pendingDocs(false)`의 작업 트리 OKF 검사에는 누락 문서가 없으며, 스테이징 기준 검사나 커밋을 수행한 것으로 기록하지 않는다.
 
+## PR #30 충돌 해결 (2026-10-15)
+
+`publishing` 병합 시 양쪽의 Typography 추가를 함께 유지했다. `selectionLabel`과 `navigationPromoTitle`, 러닝세션 전용 variant 및 대응 CSS 토큰을 보존한다. `MyPageStatusPage`는 개별 마이페이지 화면을 선택하는 현재 구조를 유지하고 옛 `event-entries` 종류·샘플 데이터는 제거했다. 실제 `/mypage/event-entries` 경로와 route story는 publishing의 `RunClubPage` 직접 연결을 유지한다. 메뉴·러닝세션 문서와 마이페이지 재사용 점검 기록은 함께 남긴다. 병합 결과에서 Panda 생성, 타입 검사, `.tmp*` 산출물을 제외한 lint, 앱·Storybook 빌드, `node --test tests/app-router.test.mjs`의 두 검사를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
 ## Storybook
 
 `.storybook/main.ts`는 `src/stories/**/*.stories.@(ts|tsx)`만 탐색한다. 다른 폴더의 스토리는 이 패턴에 포함되지 않는다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
@@ -336,3 +491,54 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 뷰포트 프리셋은 1920, 1600, 1200, 768, 375px이다. 접근성 검사 설정 `a11y.test: todo`는 검증 통과를 의미하지 않는다.
 
 [로컬 실행](../development/setup.md), [변경 검증](../development/verification.md)을 참고한다.
+
+## 모바일 전체 메뉴 (2026-10-15)
+
+첫 화면 메뉴 링크·버튼과 상세 뒤로가기의 공통 row는 49px 최소 높이 대신 Panda py=4(상하 16px)를 사용한다. 버튼 초기화는 px=0만 적용해 세로 패딩을 보존하며 실제 높이는 텍스트 높이와 패딩으로 결정한다. 2026-10-15 Codex 검증: MenuDrawer Default 스토리의 Best 링크와 Men 버튼에서 padding-top/bottom이 모두 16px인 것을 확인했다. 변경 파일 ESLint와 TypeScript 검사를 통과했다.
+
+후속 구조 개선과 공개 API 변경은 [Organisms 재사용 점검](organisms.md)을 참고한다. Drawer 프레임·헤더·탐색·고객 지원 DOM과 스타일은 같은 organism 폴더의 전용 컴포넌트가 소유하며, 메뉴 상태와 포커스 전환 정책은 `MenuDrawer`에 남겼다. 웹·모바일 배너는 `MegaMenuAD`의 `presentation`으로 조합한다. 메뉴 제목은 기존 Typography `heading5`, 고객 지원은 `heading9`를 사용하며 미사용 `navigationHeading`·`navigationHeadingKr` variant와 토큰·스토리를 제거했다. 광고 제목은 두 presentation에서 `navigationPromoTitle`을 사용하고 PC·모바일 크기를 24px로 맞췄다.
+
+`AppLayout`이 메뉴 열림을 소유하고 기존 `SiteHeader`의 `onMenu`로 `MenuDrawer`를 연다. `MenuDrawer`의 `close` 계약은 유지하며 `isLoggedIn?: boolean`을 전달해 상단 로그인/회원가입 링크를 마이페이지 링크로 전환한다. 닫힌 Drawer는 마운트 해제되므로 다시 열면 첫 화면으로 초기화된다.
+
+첫 화면의 Best와 런칭캘린더는 직접 이동하며 Men·Women·Shoes·Explore는 웹 `megaMenus`의 그룹과 링크를 상세 화면으로 표시한다. 공통 Accordion을 `multiple={false}`로 재사용해 첫 그룹을 펼친다. 다른 그룹을 열면 기존 그룹을 닫고, 열린 그룹을 다시 누르면 모두 닫는다. 상세 화면에는 배너를 표시하지 않으며 Sale은 빨간색으로 표시한다. 화면 전환 후 layout effect에서 스크롤과 포커스를 이동하고, 뒤로가기는 선택했던 카테고리 버튼에 포커스를 돌린다. Base UI Drawer의 포커스 가두기, Escape, 배경 스크롤 잠금과 닫기 후 포커스 복귀를 유지한다.
+
+고객 지원 영역은 콘텐츠 뒤에 검은 배경으로 배치하며 짧은 화면에서는 Drawer 내부를 스크롤한다. 마이페이지·주문/배송 조회·매장 찾기·고객센터는 Free Solid 아이콘을 사용하고 멤버십은 제공된 `/images/icon/navigation/membership.svg`를 등록된 Icon 자산으로 사용한다. 기존 Regular `faUser`를 보존하고 Solid는 `faUserSolid`로 구분한다. 상단과 본문 스타일은 Panda CSS, 문구는 Typography를 사용한다.
+
+첨부된 두 이미지를 시각 기준으로 삼았다. Figma 원본은 연결 재인증 문제로 확인하지 못했다. Storybook에서 375px 첫 화면·Men 상세·로그인 상태, 320px 화면의 수평 넘침 없음과 내부 스크롤, 독립적인 그룹 토글·뒤로가기·Escape·닫기·재진입 초기화를 검증한다. 작업 트리 출처는 이 문서 frontmatter의 MenuDrawer, AppLayout, 아이콘 등록과 스토리 파일이다.
+
+검증 결과: `npm run typecheck`, 변경 파일 ESLint, Panda 생성, `npm run okf:check`와 전체 작업 트리 `pendingDocs(false)` 매핑 검사, `git diff --check`를 통과했다. Storybook 브라우저에서 375px 첫 화면 및 Men 상세, 로그인 상태, 메뉴 그룹 독립 토글·뒤로가기 포커스·Escape·닫기·재진입 초기화를 확인했다. 320×568 화면의 Drawer clientWidth와 scrollWidth가 모두 305px로 같고 내부 세로 스크롤을 확인했다. 데스크톱 SiteHeader MenuComposition 스토리의 메뉴 표시와 키보드 포커스도 확인했다. Figma 원본과의 일치 검증은 수행하지 않았다.
+모바일 전체 메뉴의 비로그인 헤더는 `HeaderAuthLink`를 재사용해 로그인(`/login`)·Divider·회원가입(`/signup`)을 각각 표시한다. 선택적 `onNavigate` 콜백으로 어느 링크를 선택해도 메뉴를 닫는다. 로그인 상태에서는 마이페이지 링크를 유지한다.
+
+## 마이페이지 러닝세션 신청내역
+
+메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub` 아래에 목록·빈 목록·상세 상태·모바일 스토리를 제공한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub--list`·`pages-mypage-runclub--mobile-list`, 259는 `pages-mypage-runclub--open`·`pages-mypage-runclub--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.
+
+타입 검사, 변경 범위 ESLint, Storybook 빌드와 생성된 `index.json`의 네 미리보기 ID·분류 일치를 확인했다. OKF 작업 트리 매핑 검사도 통과했다. 브라우저 상호작용 검증은 수행하지 않았다.
+
+## 러닝세션 모바일 디자인 (2026-10-15)
+
+사용자가 제공한 모바일 이미지 8장을 기준으로 구현했다. Figma 4064:6604·6687·6728·6836·6947·7062는 재인증 오류로 읽지 못했으며 사용자가 첨부 이미지 기반 구현을 명시적으로 선택했다. 기존 세션 목 데이터와 PC의 4열 목록·2열 상세·추천 상품 영역을 유지한다. 모바일 목록 스토리는 3개 세션을 제공하며 실제 페이지는 전달된 전체 세션을 표시한다. 공통 헤더·푸터의 기존 아이콘·사업자 문구 등은 이번 작업 범위에서 변경하지 않는다.
+
+모바일 목록은 16px 제목 여백, 필터·신청내역 링크의 같은 행 배치, 화면 너비의 정사각형 이미지, 20px 카테고리 배지, 이미지 아래 제목·일정으로 구성한다. 카드 자세히 보기 버튼은 모바일에서 숨기고 이미지 링크로 상세에 진입한다. 빈 목록은 340px 높이의 중앙 상태 문구와 추가 하단 여백 없는 구성을 사용한다. 상세는 이미지→세션 정보→안내 사항→회색 세션 안내 영역 순서다. 모바일에서 PC 추천 상품과 이미지 영역 placeholder를 숨긴다.
+
+`RunClubFacts`는 hero·guide 두 variant와 label/value/detail/mobileOnly 데이터로 의미 있는 dl/dt/dd 구조를 재사용한다. `DescriptionList`의 고정 글꼴·색상·행 구조와 안내 표의 구분선 계약이 달라 공통 컴포넌트 확장 대신 feature 내부에 두었다. `RunClubApplyButton`은 기존 공통 Button을 재사용해 open/closed/upcoming의 문구·disabled 계약을 한곳에서 소유한다. `RunClubMobileActionBar`는 16px 좌우 여백·44px 버튼·safe-area·fixed 위치를 소유하고 클릭 콜백은 DetailPage가 전달한다. 인접 푸터 아래 여백으로 마지막 콘텐츠가 고정 바에 가려지지 않게 한다.
+
+component-reusability 점검: 설치된 Base UI 1.8.0의 전체 package exports를 확인했다. 기존 Button 및 ModalDialog 래퍼를 재사용한다. 단일 필터 선택에는 기존 aria-pressed 버튼 계약을 유지하며 새로운 Tabs/ToggleGroup이나 의존성 업그레이드는 추가하지 않는다. 표·안내 문구에는 native dl·aside·ul을 유지하고 배치에는 Panda JSX, 상태 스타일에는 cva를 사용한다. 새 공유 Typography sessionOverlay는 PC heading6/모바일 32px, sessionPosterTitle은 PC 96px/모바일 42px·line-height 1.05·letter-spacing -0.04em으로 정의했다. 모바일 대응 스토리를 추가했고 다른 문구에는 기존 Typography variant와 mo를 재사용한다.
+
+검증: Panda 생성, TypeScript, 변경 범위 ESLint, Next.js production build, Storybook build, 기존 App Router 회귀 테스트 2개, OKF 작업 트리 매핑 검사를 통과했다. 브라우저에서 375px 목록의 정사각형 이미지·필터 선택(로드 1개)·빈 상태(footer top 약 614px), 상세 신청 안내 모달 열기·닫기·포커스 복귀, 모집 마감·신청 예정 버튼 disabled 상태를 확인했다. 320px 목록의 clientWidth·scrollWidth는 모두 305px이며 수평 넘침이 없었다. 1600px PC 목록은 8개 카드·4열·3:4 이미지 비율을 유지했다. 기존 목 데이터 날짜·장소를 사용하며 원본 Figma와의 픽셀 일치를 주장하지 않는다.
+
+## RunClub 재사용·조합 재점검 (2026-10-15)
+
+사용자가 지정한 `src/shared/features/run-club/`를 component-reusability 기준으로 점검했다. 앞선 staged 변경은 보존한다.
+
+| 대상                                                | 조치 | 책임·유지 계약                                                                                                                                                                                                                                                                                                                                              |
+| --------------------------------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DetailPage → DetailLayout                           | 개선 | Page는 세션 조회·정보 행 준비·모달 상태·콜백을 소유한다. Layout의 hero/guide/desktopContent/mobileAction/applicationNotice 슬롯이 main의 DOM 순서, 모바일 푸터 아래 92px+safe-area 여백, PC 전용 콘텐츠 표시를 소유한다.                                                                                                                                    |
+| Header → Filters                                    | 개선 | Filters는 filter/onFilterChange로 제어하며 120px PC 버튼·32px 모바일 버튼·두 플랫폼 문구·aria-pressed·group 이름을 소유한다. 필터 적용 상태는 Page에 남긴다.                                                                                                                                                                                                |
+| Hero·Guide·Recommendations·SessionImage             | 개선 | Grid·Box·Center의 단일 배치 스타일은 JSX props로 옮긴다. PC 72px/모바일 40px 여백과 60px·48px·32px 간격을 보존한다. selector가 있는 포스터·안내 콘텐츠와 이미지 css, 슬라이드의 !important 계약, Facts의 hero/guide cva는 유지한다.                                                                                                                         |
+| Facts·ApplyButton·MobileActionBar·ApplicationNotice | 유지 | 표의 typed row/variant, 신청 상태별 문구·disabled, fixed CTA, 기존 ModalDialog의 포커스·닫기 책임이 명확하다. 다른 feature 소비자가 없어 공용 atom/organism으로 승격하지 않는다.                                                                                                                                                                            |
+| Typography                                          | 개선 | sessionFactBody는 PC 16px/모바일 14px·행간 1.6, sessionGuideBody는 14px·행간 1.6, sessionNote는 PC 14px/모바일 12px·행간 1.8, sessionImagePlaceholder는 PC 28px/모바일 20px·900·상속 행간이다. 기존 본문 variant의 한글 감지에 따른 Pretendard·korean 자간, 영문의 HOKA·0 자간을 새 세션 본문 variant에서도 보존한다. 공개 스토리와 모바일 예제를 추가했다. |
+
+Base UI 전체 exports(설치 버전 1.8.0)를 기준으로 Accordion·AlertDialog·Autocomplete·Combobox·ContextMenu·Dialog·Drawer·Menu·Menubar·NavigationMenu·Popover·PreviewCard·ScrollArea·Select·Separator·Switch·Tabs·Toast·Toolbar·Tooltip·Meter·OTPField·NumberField·Slider·Checkbox·Radio·ToggleGroup·Form 등을 대조했다. 현재 관찰된 상호작용은 필터 버튼과 신청 안내 모달이다. Button·Dialog는 설치 버전에서 지원하며 기존 공통 Button·ModalDialog 래퍼를 재사용한다. 단일 선택 필터는 native 버튼의 aria-pressed 및 group 계약으로 충분해 Tabs·ToggleGroup으로 교체하지 않는다. dl·aside·ul에는 추가 Base UI가 필요 없다. 의존성 업그레이드가 필요한 후보는 없다.
+
+재점검 검증: Panda 생성·타입 검사·변경 범위 ESLint·Next.js production build·Storybook build·App Router 회귀 2개·OKF 작업 트리 매핑·git diff --check를 통과했다. 브라우저에서 모바일 트레일 2개/전체 3개 선택, 모달 확인 후 신청 버튼 포커스 복귀, 320px clientWidth=scrollWidth=305px을 확인했다. 375px 상세는 360px 정사각형 이미지와 높이 93px 고정 바를 유지하고 본문 14px/22.4px·안내 12px/21.6px 및 Pretendard를 확인했다. PC 상세는 640px 두 열·72px 상하 여백, 안내 두 열, 모바일 바 display:none, 본문 16px/25.6px, placeholder 28px/900을 확인했다.

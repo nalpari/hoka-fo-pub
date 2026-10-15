@@ -405,6 +405,14 @@ const typography = cva({
         letterSpacing: 'var(--type-selection-label-letter-spacing)',
         _mobile: { fontSize: 'var(--type-selection-label-mobile-font-size)' },
       },
+      navigationPromoTitle: {
+        fontFamily: 'hoka',
+        fontSize: 'var(--type-navigation-promo-title-font-size)',
+        fontWeight: 'var(--type-navigation-promo-title-font-weight)',
+        lineHeight: 'var(--type-navigation-promo-title-line-height)',
+        letterSpacing: '0',
+        _mobile: { fontSize: 'var(--type-navigation-promo-title-mobile-font-size)' },
+      },
       localeHeading: {
         fontSize: 'var(--type-locale-heading-font-size)',
         fontWeight: 'var(--type-locale-heading-font-weight)',
@@ -425,6 +433,37 @@ const typography = cva({
         lineHeight: 'var(--type-session-title-line-height)',
         letterSpacing: 'var(--type-session-title-letter-spacing)',
         _mobile: { fontSize: 'var(--type-session-title-mobile-font-size)' },
+      },
+      sessionOverlay: {
+        ...figmaTypographyVariants.heading6,
+        _mobile: { fontSize: 'var(--type-session-overlay-mobile-font-size)' },
+      },
+      sessionFactBody: {
+        ...figmaTypographyVariants.body3,
+        lineHeight: 'var(--type-session-fact-line-height)',
+        _mobile: { fontSize: 'var(--font-sizes-14)' },
+      },
+      sessionGuideBody: {
+        ...figmaTypographyVariants.body4,
+        lineHeight: 'var(--type-session-fact-line-height)',
+      },
+      sessionNote: {
+        ...figmaTypographyVariants.body4,
+        lineHeight: 'var(--type-session-note-line-height)',
+        _mobile: { fontSize: 'var(--font-sizes-12)' },
+      },
+      sessionImagePlaceholder: {
+        fontSize: 'var(--type-session-image-placeholder-font-size)',
+        fontWeight: 'black',
+        lineHeight: 'inherit',
+        _mobile: { fontSize: 'var(--type-session-image-placeholder-mobile-font-size)' },
+      },
+      sessionPosterTitle: {
+        fontWeight: 'black',
+        fontSize: 'var(--type-session-poster-title-font-size)',
+        lineHeight: 'var(--type-session-poster-title-line-height)',
+        letterSpacing: 'var(--type-session-poster-title-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-session-poster-title-mobile-font-size)' },
       },
       loginTitle: {
         fontFamily: 'korean',
@@ -576,6 +615,10 @@ const typography = cva({
         _mobile: { fontWeight: 'inherit' },
       },
     },
+    script: {
+      en: { fontFamily: 'hoka', letterSpacing: '0' },
+      ko: { fontFamily: 'korean', letterSpacing: 'korean' },
+    },
     tone: {
       error: { color: 'red.100' },
       inherit: { color: 'inherit' },
@@ -596,9 +639,16 @@ const typography = cva({
 
 export type TypographyVariant =
   | 'selectionLabel'
+  | 'navigationPromoTitle'
   | 'localeHeading'
   | 'profileTitle'
   | 'sessionTitle'
+  | 'sessionOverlay'
+  | 'sessionFactBody'
+  | 'sessionGuideBody'
+  | 'sessionNote'
+  | 'sessionImagePlaceholder'
+  | 'sessionPosterTitle'
   | 'loginTitle'
   | 'pageTitle'
   | 'authTitle'
@@ -657,7 +707,7 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   web?: TypographyVariant;
   /** Mobile override; falls back to variant when omitted. */
   mo?: TypographyVariant;
-  /** Defaults to auto: Hangul selects KR, otherwise EN. Semantic variants stay unchanged. */
+  /** Defaults to auto: Hangul selects KR for paired variants; other semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';
   weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
 };
@@ -704,6 +754,15 @@ export function Typography<T extends ElementType = 'span'>({
   const platform = usePlatform();
   const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
+  const isSessionBody =
+    selectedVariant === 'sessionFactBody' ||
+    selectedVariant === 'sessionGuideBody' ||
+    selectedVariant === 'sessionNote';
+  const script = isSessionBody
+    ? language === 'ko' || (language === 'auto' && containsHangul(children))
+      ? 'ko'
+      : 'en'
+    : undefined;
 
   return (
     <Element
@@ -712,6 +771,7 @@ export function Typography<T extends ElementType = 'span'>({
         typography({
           tone,
           variant: resolvedVariant as never,
+          script,
           weight,
         }),
         className,
