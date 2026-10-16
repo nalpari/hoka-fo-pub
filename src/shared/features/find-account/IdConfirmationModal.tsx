@@ -34,6 +34,16 @@ export function IdConfirmationModal({
 }: IdConfirmationModalProps) {
   return (
     <ModalDialog
+      footer={
+        <Flex w="100%" justifyContent="center" gap="2" _mobile={{ flexDirection: 'column' }}>
+          <Button variant="secondary" fullWidth className={styles.action} onClick={onPasswordReset}>
+            비밀번호 재설정
+          </Button>
+          <Button variant="primary" fullWidth className={styles.action} onClick={onConfirm}>
+            확인
+          </Button>
+        </Flex>
+      }
       open
       onOpenChange={onOpenChange}
       title={
@@ -60,14 +70,6 @@ export function IdConfirmationModal({
         <Typography as="p" variant="body4" className={styles.description}>
           비밀번호가 생각나지 않으시는 경우 임시비밀번호를 통해 재설정하실 수 있습니다.
         </Typography>
-        <Flex justifyContent="center" gap="2" _mobile={{ flexDirection: 'column' }}>
-          <Button variant="secondary" fullWidth className={styles.action} onClick={onPasswordReset}>
-            비밀번호 재설정
-          </Button>
-          <Button variant="primary" fullWidth className={styles.action} onClick={onConfirm}>
-            확인
-          </Button>
-        </Flex>
       </Stack>
     </ModalDialog>
   );

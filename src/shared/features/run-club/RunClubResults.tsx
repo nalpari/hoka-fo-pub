@@ -1,8 +1,7 @@
-import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
-import { Box, Center, Grid } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Grid } from 'styled-system/jsx';
 import type { RunClubSession } from './runClub.data';
 import { RunClubSessionCard } from './RunClubSessionCard';
+import { RunClubEmptyState } from './RunClubEmptyState';
 
 export function RunClubResults({ sessions }: { sessions: RunClubSession[] }) {
   return sessions.length ? (
@@ -17,15 +16,6 @@ export function RunClubResults({ sessions }: { sessions: RunClubSession[] }) {
       ))}
     </Grid>
   ) : (
-    <div role="status">
-      <Box _mobile={{ display: 'none' }}>
-        <EmptyState title="현재 운영중인 세션이 없습니다." />
-      </Box>
-      <Center display="none" _mobile={{ display: 'flex', h: '340px', px: '4' }}>
-        <Typography as="h2" variant="body1" weight="black">
-          현재 운영중인 세션이 없습니다.
-        </Typography>
-      </Center>
-    </div>
+    <RunClubEmptyState />
   );
 }

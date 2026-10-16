@@ -7,7 +7,8 @@ import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { MyPageWithdrawalCompleteDialog } from '@/shared/features/mypage/MyPageWithdrawalCompleteDialog';
+import { MyPageWithdrawalDialog } from '@/shared/features/mypage/MyPageWithdrawalDialog';
 import { MyPageFrame } from './MyPageFrame';
 
 type Preference = '동의' | '수신안함';
@@ -216,57 +217,15 @@ export function MyPageProfile() {
           )}
         </Stack>
       </Stack>
-      <ModalDialog
-        closeLabel="회원탈퇴 확인창 닫기"
-        onOpenChange={setWithdrawOpen}
+      <MyPageWithdrawalDialog
         open={withdrawOpen}
-        size="sm"
-        title="회원탈퇴"
-      >
-        <Stack gap="6">
-          <Stack gap="4">
-            <Typography as="h2" variant="heading9">
-              회원탈퇴를 진행 하시겠습니까?
-            </Typography>
-            <Typography as="p" variant="body3">
-              탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이
-              불가합니다.
-            </Typography>
-          </Stack>
-          <HStack gap="2">
-            <Button
-              fullWidth
-              size="short"
-              variant="secondary"
-              onClick={() => setWithdrawOpen(false)}
-            >
-              취소
-            </Button>
-            <Button
-              fullWidth
-              size="short"
-              variant="primary"
-              onClick={() => {
-                setWithdrawOpen(false);
-                setWithdrawn(true);
-              }}
-            >
-              확인
-            </Button>
-          </HStack>
-        </Stack>
-      </ModalDialog>
-      <ModalDialog
-        closeLabel="회원탈퇴 안내 닫기"
-        onOpenChange={setWithdrawn}
-        open={withdrawn}
-        size="sm"
-        title="회원탈퇴"
-      >
-        <Typography as="p" variant="body3">
-          회원탈퇴 요청을 확인했습니다.
-        </Typography>
-      </ModalDialog>
+        onOpenChange={setWithdrawOpen}
+        onConfirm={() => {
+          setWithdrawOpen(false);
+          setWithdrawn(true);
+        }}
+      />
+      <MyPageWithdrawalCompleteDialog open={withdrawn} onOpenChange={setWithdrawn} />
     </MyPageFrame>
   );
 }

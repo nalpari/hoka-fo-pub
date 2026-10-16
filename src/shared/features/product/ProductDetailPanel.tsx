@@ -3,7 +3,7 @@ import { Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { ProductDetailContent } from '@/shared/features/product/ProductDetailContent';
 import { ProductDetailHeader } from '@/shared/features/product/ProductDetailHeader';
-import { ProductDetailSupport } from '@/shared/features/product/ProductDetailSupport';
+import { ProductDetailSupportRegion } from './ProductDetailSupportRegion';
 
 const styles = {
   root: css({
@@ -13,7 +13,6 @@ const styles = {
     px: '4',
     _mobile: { position: 'static', px: '4', pt: '6' },
   }),
-  support: css({ display: 'none', _mobile: { display: 'block' } }),
 };
 
 type ProductDetailPanelProps = {
@@ -67,9 +66,7 @@ export function ProductDetailPanel({
           size={size}
           width={width}
         />
-        <div className={styles.support}>
-          <ProductDetailSupport />
-        </div>
+        <ProductDetailSupportRegion platform="mobile" />
       </Stack>
     </article>
   );

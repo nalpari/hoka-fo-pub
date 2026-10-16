@@ -8,7 +8,7 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { AddressSearchModal } from '@/shared/features/signup-registration/AddressSearchModal';
 
 export type RegistrationInformation = {
   name: string;
@@ -281,29 +281,15 @@ export function RegistrationContent(props: Props) {
           </Stack>
         </form>
       </Box>
-      <ModalDialog
+      <AddressSearchModal
         open={props.addressOpen}
         onOpenChange={props.onAddressOpen}
-        title="우편번호 찾기"
-        closeLabel="우편번호 찾기 닫기"
-      >
-        <Stack>
-          <Typography as="p" variant="body4">
-            주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
-          </Typography>
-          {field(
-            'postalCode',
-            '우편번호',
-            '우편번호를 입력해주세요',
-            'text',
-            'registration-postalCode-dialog',
-          )}
-          {field('address', '주소', '주소를 입력해주세요', 'text', 'registration-address-dialog')}
-          <Button variant="primary" onClick={() => props.onAddressOpen(false)}>
-            확인
-          </Button>
-        </Stack>
-      </ModalDialog>
+        postalCode={props.information.postalCode}
+        address={props.information.address}
+        idPrefix="registration"
+        onPostalCodeChange={(value) => props.onChange('postalCode', value)}
+        onAddressChange={(value) => props.onChange('address', value)}
+      />
     </Box>
   );
 }

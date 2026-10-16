@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { PlatformProvider } from '@/shared/context/platform';
 import { RegistrationContent } from '@/shared/features/signup-registration/RegistrationContent';
 import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
@@ -87,3 +88,27 @@ export const Error: Story = {
 export const Complete: Story = { render: () => <RegistrationCompleteContent /> };
 
 export const Interactive: Story = { render: () => <RegistrationPage /> };
+
+function AddressSearchPreview() {
+  const [information, setInformation] = useState(meta.args.information);
+
+  const [addressOpen, setAddressOpen] = useState(true);
+
+  return (
+    <RegistrationContent
+      {...meta.args}
+      information={information}
+      addressOpen={addressOpen}
+      onAddressOpen={setAddressOpen}
+      onChange={(key, value) => setInformation((current) => ({ ...current, [key]: value }))}
+    />
+  );
+}
+
+export const AddressSearch: Story = { render: () => <AddressSearchPreview /> };
+
+export const MobileAddressSearch: Story = {
+  render: () => <AddressSearchPreview />,
+  decorators: Mobile.decorators,
+  globals: { viewport: 'hoka375' },
+};

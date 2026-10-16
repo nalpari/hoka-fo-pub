@@ -1,9 +1,6 @@
-import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 import { ProductDetailGallery } from '@/shared/features/product/ProductDetailGallery';
-import { ProductDetailSupport } from '@/shared/features/product/ProductDetailSupport';
-
-const support = css({ _mobile: { display: 'none' } });
+import { ProductDetailSupportRegion } from './ProductDetailSupportRegion';
 
 type ProductDetailMediaProps = {
   images: string[];
@@ -15,9 +12,7 @@ export function ProductDetailMedia({ images, productName, onOpenImage }: Product
   return (
     <Flex minW="0" direction="column" gap="96px">
       <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
-      <div className={support}>
-        <ProductDetailSupport />
-      </div>
+      <ProductDetailSupportRegion platform="web" />
     </Flex>
   );
 }

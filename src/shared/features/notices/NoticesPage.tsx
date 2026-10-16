@@ -81,7 +81,7 @@ export function NoticesPage() {
       title="SUPPORT"
       titleTo="/support"
     >
-      <section>
+      <Box as="section">
         <PageHeader title="공지사항" />
         <Box className={styles.table}>
           <Box className={styles.head}>
@@ -108,7 +108,7 @@ export function NoticesPage() {
             remaining={notices.length - shown}
           />
         )}
-      </section>
+      </Box>
     </SidebarNavigationLayout>
   );
 }

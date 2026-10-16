@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type RunClubFact = {
@@ -43,9 +44,13 @@ export function RunClubFacts({
   variant: 'hero' | 'guide';
 }) {
   return (
-    <dl className={facts({ variant })}>
+    <Box as="dl" className={facts({ variant })}>
       {rows.map(({ label, value, detail, mobileOnly }) => (
-        <div key={label} className={mobileOnly ? mobileRow : undefined}>
+        <Box
+          key={label}
+          display={mobileOnly ? 'none!' : undefined}
+          _mobile={mobileOnly ? { display: 'grid!' } : undefined}
+        >
           <Typography
             as="dt"
             variant={variant === 'hero' ? 'body3' : 'body4'}
@@ -62,12 +67,10 @@ export function RunClubFacts({
               </Typography>
             ) : null}
           </Typography>
-        </div>
+        </Box>
       ))}
-    </dl>
+    </Box>
   );
 }
-
-const mobileRow = css({ display: 'none!', _mobile: { display: 'grid!' } });
 
 const detailText = css({ display: 'block' });

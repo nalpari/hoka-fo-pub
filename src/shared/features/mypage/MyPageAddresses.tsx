@@ -9,7 +9,7 @@ import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { MyPageAddressDeleteDialog } from '@/shared/features/mypage/MyPageAddressDeleteDialog';
 import { MyPageFrame } from './MyPageFrame';
 
 type Address = {
@@ -152,18 +152,16 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
           </form>
         </Stack>
       )}
-      <ModalDialog closeLabel="배송지 삭제 확인창 닫기" open={deleteId !== null} onOpenChange={(open) => { if (!open) setDeleteId(null); }} size="sm" title="배송지 관리">
-        <Stack gap="6">
-          <Typography as="p" variant="body3">배송지를 삭제 하시겠습니까?</Typography>
-          <HStack gap="2">
-            <Button fullWidth size="short" variant="secondary" onClick={() => setDeleteId(null)}>취소</Button>
-            <Button fullWidth size="short" variant="primary" onClick={() => {
-              setAddresses((current) => current.filter((address) => address.id !== deleteId));
-              setDeleteId(null);
-            }}>확인</Button>
-          </HStack>
-        </Stack>
-      </ModalDialog>
+      <MyPageAddressDeleteDialog
+        open={deleteId !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeleteId(null);
+        }}
+        onConfirm={() => {
+          setAddresses((current) => current.filter((address) => address.id !== deleteId));
+          setDeleteId(null);
+        }}
+      />
     </MyPageFrame>
   );
 }
