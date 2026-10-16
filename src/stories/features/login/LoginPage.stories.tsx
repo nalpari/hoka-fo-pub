@@ -40,7 +40,11 @@ export const Error: Story = {
       id=""
       password=""
       rememberId={false}
-      notice={{ tone: 'error', message: '아이디와 비밀번호를 모두 입력해 주세요.' }}
+      notice={{
+        tone: 'error',
+        message: '아이디와 비밀번호를 모두 입력해 주세요.',
+        invalidFields: ['id', 'password'],
+      }}
       onIdChange={fn()}
       onPasswordChange={fn()}
       onRememberChange={fn()}
@@ -49,15 +53,51 @@ export const Error: Story = {
       onUnavailable={fn()}
     />
   ),
+  play: async ({ canvasElement }) => {
+    const notice = within(canvasElement).getByRole('alert');
+    await expect(notice).toHaveTextContent('아이디와 비밀번호를 모두 입력해 주세요.');
+    await expect(notice).toHaveAttribute('data-tone', 'error');
+    const errorColor = canvasElement.ownerDocument
+      .defaultView!.getComputedStyle(notice)
+      .getPropertyValue('--colors-red-100')
+      .trim();
+    await expect(errorColor).not.toBe('');
+    await expect(notice).toHaveStyle({ color: errorColor });
+    await expect(within(canvasElement).getByLabelText(/이메일 아이디/)).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+    await expect(
+      within(canvasElement).getByLabelText(/비밀번호/, { selector: 'input' }),
+    ).toHaveAttribute('aria-invalid', 'true');
+  },
 };
+
+export const MobileError: Story = { ...Error, ...Mobile };
 
 export const LoginFlow: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
     await expect(args.onLogin).not.toHaveBeenCalled();
+    await expect(canvas.getByRole('alert')).toHaveTextContent(
+      '아이디와 비밀번호를 모두 입력해 주세요.',
+    );
+    await expect(canvas.getByLabelText(/이메일 아이디/)).toHaveAttribute('aria-invalid', 'true');
+    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
     await userEvent.type(canvas.getByLabelText(/이메일 아이디/), 'demo@example.com');
+    await expect(canvas.getByLabelText(/이메일 아이디/)).not.toHaveAttribute('aria-invalid');
+    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
     await userEvent.type(canvas.getByLabelText(/비밀번호/, { selector: 'input' }), 'demo-password');
+    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).not.toHaveAttribute(
+      'aria-invalid',
+    );
     await userEvent.click(canvas.getByRole('button', { name: '비밀번호 보기' }));
     await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
       'type',
@@ -85,6 +125,10 @@ export const UnavailableActions: Story = {
       await userEvent.click(canvas.getByRole('button', { name: feature }));
       await expect(canvas.getByRole('alert')).toHaveTextContent(
         `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
+      );
+      await expect(canvas.getByLabelText(/이메일 아이디/)).not.toHaveAttribute('aria-invalid');
+      await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).not.toHaveAttribute(
+        'aria-invalid',
       );
     }
     await userEvent.click(canvas.getByRole('button', { name: '아이디 찾기' }));
