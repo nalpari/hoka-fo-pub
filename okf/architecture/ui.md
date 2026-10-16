@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T07:09:15+00:00'
+  at: '2026-10-16T08:31:57.116Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/product/ProductColorSelector.tsx
@@ -310,6 +310,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## Typography 스타일 미적용 옵션
+
+2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe 전체를 생략해 tone·weight·언어별 타입 스타일을 적용하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
 
 ## 상품 상세 컬러 선택 배치 수정 (2026-10-16)
 
