@@ -117,7 +117,7 @@ export function SiteHeader({
 
   return (
     <>
-      {platform === 'web' ? <HeaderPromotionBanner /> : null}
+      <HeaderPromotionBanner />
 
       <SiteHeaderFrame onLeave={closeMegaMenu}>
         <SiteHeaderContainer

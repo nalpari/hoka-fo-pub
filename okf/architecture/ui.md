@@ -6,21 +6,26 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T02:12:37.349Z'
+  at: '2026-10-16T02:14:02Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/shared/components/molecules/Carousel/Carousel.tsx
-  - src/shared/components/molecules/Carousel/CarouselContext.ts
-  - src/shared/components/molecules/Carousel/CarouselControls.tsx
-  - src/shared/components/molecules/Carousel/CarouselPagination.tsx
-  - src/shared/components/molecules/Carousel/CarouselScrollbar.tsx
-  - src/shared/components/molecules/Carousel/CarouselViewport.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationMobile.tsx
   - src/shared/components/organisms/Layout/SiteFooter/SiteFooter.tsx
   - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
+  - src/shared/components/molecules/Carousel/Carousel.tsx
+  - src/shared/components/molecules/Carousel/CarouselContext.ts
+  - src/shared/components/molecules/Carousel/CarouselViewport.tsx
+  - src/shared/components/molecules/Carousel/CarouselScrollbar.tsx
+  - src/shared/components/molecules/Carousel/CarouselPagination.tsx
+  - src/shared/components/molecules/Carousel/CarouselControls.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/headerPromotionData.ts
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionBanner.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
   - src/shared/features/mypage/RunningProfileContent.tsx
   - src/shared/components/organisms/MyPage/CouponCard.tsx
   - src/shared/features/run-club/RunClubDetailLayout.tsx
@@ -216,6 +221,24 @@ sources:
 
 커밋 전 검증(Codex): 타입 검사·푸터 ESLint·Panda 생성 통과. Prettier 기본 검사는 LF/CRLF 차이로 경고를 보고했으며, 줄바꿈을 각 파일에 맞추면 포맷 차이가 없다. 브라우저 시각·Accordion 동작 검증은 이번 커밋 작업에서 수행하지 않았다.
 
+## 헤더 회원 혜택 배너
+
+2026-10-16 Nav 간격 수정: 960px까지 확장하던 프레임을 현재 슬라이드 콘텐츠 너비에 맞췄다. 내부 `PromotionCarouselFrame`이 Carousel의 activeIndex와 콘텐츠 ref를 사용하고 ResizeObserver로 문구·폰트·컨테이너 변경을 반영한다. 좌우 32px 버튼과 콘텐츠 사이 간격은 각각 35px, 외곽 여백은 각각 8px다. 콘텐츠는 max-content 너비·중앙 정렬이며 배너의 inline-size 컨테이너 기준으로 사용 가능한 폭을 제한한다. 슬라이드 overflow를 숨겨 너비 변경 후 인접 문구가 비치는 것을 막는다. PC·375px·320px 모바일에서 좌우 35px 간격과 중앙 오차 0.01px 미만을 브라우저로 확인했다. 타입 검사·변경 파일 ESLint·Panda 생성을 통과했다.
+
+2026-10-16 데모·Nav 검증(Codex): 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 브라우저에서 `PromotionNavigation` play로 4개 슬라이드의 정방향 순환·첫 항목에서 이전 이동·버튼 종류별 row/column 배치를 확인했다. 별도로 375px 모바일 기본 슬라이드의 문구와 좌우 버튼 표시를 확인했다.
+
+2026-10-16 Carousel 구성은 같은 폴더의 내부 `HeaderPromotionCarousel`로 분리했다. 이 컴포넌트가 뷰포트·슬라이드 스타일과 4개 콘텐츠·순환 설정을 소유하며, `HeaderPromotionBanner`는 외곽 레이아웃과 `buttonType` 전달만 담당한다. 분리 과정에서 DOM·슬라이드 개수·동작·스타일은 유지했다.
+
+2026-10-16 배너 콘텐츠는 `headerPromotionData.ts`의 서로 다른 데모 문구 4개를 순회해 렌더링한다. 각 항목은 id·message·href·buttonType을 가지며 `HeaderPromotionCarousel`의 `items` prop으로 교체할 수 있다. 슬라이드는 너비 100%·중앙 정렬이며 50px 배너 안에서 하나씩 표시한다. `loop`·snap 전환(`freeMode={false}`)을 사용하고 스크롤바는 숨긴다. 공통 `CarouselControls`를 배너 양 끝에 32px 버튼·24px 흰색 화살표로 배치한다. 공통 컨트롤은 `className`을 받고 순환 모드에서는 항목이 2개 이상일 때 양쪽 버튼을 활성화한다. 자동 재생은 설정하지 않는다.
+
+2026-10-16 배너 외곽은 `HStack as="aside"`로 표현한다. 기본 가로 배치·세로 중앙 정렬을 사용하고 높이·간격·배경은 JSX 스타일 props로 지정한다. 흰색 글자의 기존 `&&` 명시도는 `css` prop으로 유지한다.
+
+2026-10-16 구성 분리: `HeaderPromotionBanner`는 aside와 배너 외곽 스타일을 담당하고, 같은 폴더의 내부 구성 `HeaderPromotionContent`는 안내 문구·상세 링크·버튼 종류별 배치를 담당한다. `details`는 `HStack`·gap 4·“자세히 보기”, `memberBenefits`는 `VStack`·gap 0·“회원 혜택 자세히 보기”를 선택한다. 기본 배너는 데이터의 버튼 종류를 사용하고 배너의 선택적 `buttonType` prop으로 전체 슬라이드를 덮어쓸 수 있다. 플랫폼과 무관한 계약이며 Typography·링크 색상은 유지한다.
+
+`SiteHeader`는 PC와 모바일 모두 같은 데모 데이터를 표시한다. 배너는 50px 높이를 유지하고 Carousel 내부 프레임은 현재 콘텐츠 너비에 맞춰 좌우 8px 여백을 사용한다. 모바일 안내와 링크는 12px Typography를 사용한다. 안내 문구와 경로는 데이터에서 받고 링크 문구와 가로·세로 배치는 버튼 종류에 따른다. 데모 링크는 모두 기존 `/products` 경로를 사용한다.
+
+사용자 제공 이미지와 Figma 노드 `362:44160`을 구현 요청의 출처로 기록한다. Figma 연결은 재인증 오류로 상세 조회하지 못했으며, 첨부 이미지와 기존 스타일 기준으로 구현했다. 320px·375px Storybook 모바일 배너에서 가로 넘침 없음과 50px 높이를 확인했고, PC에서 row 방향·16px 간격·50px 높이를 확인했다. TypeScript 검사, 변경 파일 ESLint와 Panda 생성을 통과했다. Figma 원본 수치와의 일치 검증은 수행하지 않았다.
+
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 
 `MenuDrawerUtilityLinks`의 아이콘 슬롯은 Flex(span) 24×24px이며 가로 flex-start·세로 center로 16px 아이콘을 배치한다. 텍스트와의 gap은 spacing 2(8px)로 설정해 슬롯 시작부터 텍스트까지 32px를 유지한다.
@@ -301,6 +324,8 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
 
 2026-10-16 Carousel 내부 분리: `Carousel.tsx`는 상태·Swiper 등록·이동 콜백·Provider를 담당한다. `CarouselContext.ts`는 내부 Context와 `useCarousel`을 제공하고, `CarouselViewport.tsx`는 Swiper·슬라이드 여백·SimpleBar 위치 동기화를 담당한다. `CarouselScrollbar.tsx`는 전달받은 ref·콜백·측정값으로 모바일 스크롤바를 렌더링한다. `CarouselPagination.tsx`와 `CarouselControls.tsx`는 각각 선택 표시·이동 버튼과 해당 Panda 스타일을 소유한다. 기존 `Carousel.tsx` 경로에서 Viewport·Pagination·Controls와 공개 props 타입을 재export하므로 호출자 import는 유지한다. 분리 과정에서는 기존 DOM·여백·전환·reduced-motion 동작을 유지한다. 표시 크기는 위 props 계약에 따라 변경할 수 있으며, Controls는 순환 모드에서 항목이 2개 이상이면 양쪽 이동 버튼을 활성화한다.
+
+Carousel 분리 검증(Codex, 2026-10-16): 타입 검사·해당 폴더 ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 기존 배너 `PromotionNavigation` play에서 정방향 순환·역방향 이동·버튼 종류별 배치를 확인했고, `MobilePeek`에서 슬라이드 5개와 SimpleBar 수평 스크롤바 렌더링을 확인했다. 모바일 스크롤바 드래그와 페이지네이션 선택의 추가 브라우저 검증은 수행하지 않았다.
 
 공통 UI로 올리기 전에 기존 컴포넌트를 검색한다. 여러 기능에 공통으로 적용되는 의미·인터랙션 계약이 있을 때 재사용 컴포넌트로 추출한다. 자세한 검토 절차는 `.codex/skills/component-reusability/SKILL.md`에 있다.
 
