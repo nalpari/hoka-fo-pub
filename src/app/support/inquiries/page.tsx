@@ -1,7 +1,7 @@
 'use client';
 
-import { SupportExperiencePage } from '@/shared/features/support/SupportExperiencePage';
+import { InquiryPage } from '@/shared/features/support/InquiryPage';
 
 export default function Page() {
-  return <SupportExperiencePage kind="inquiries" />;
+  return <InquiryPage />;
 }

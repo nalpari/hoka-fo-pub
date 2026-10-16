@@ -1,169 +1,158 @@
 'use client';
 
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useState } from 'react';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { Box, Grid } from 'styled-system/jsx';
-import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
-import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { Box, Divider, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { FaqList } from '@/shared/components/organisms/Faq/FaqList';
+import { faqs } from '@/shared/features/faq/faq.data';
+import { SupportContactCard } from '@/shared/features/support/SupportContactCard';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 
+const notices = [
+  { title: '[공통] 네이버페이 9월 프로모션 안내', date: '2026-08-13' },
+  { title: '[공통] 2026 광복절 고객센터 및 빠른배송 운영 안내', date: '2026-08-13' },
+  { title: '[공통] 2026 광복절 고객센터 및 빠른배송 운영 안내', date: '2026-08-13' },
+  { title: '[공통] 네이버페이 9월 프로모션 안내', date: '2026-08-13' },
+  { title: '[공통] 네이버페이 9월 프로모션 안내', date: '2026-08-13' },
+];
+
 const styles = {
-  page: css({ minH: '750px', '--support-padding-bottom': '130px', _mobile: { minH: '0' } }),
-  content: css({ '--support-content-title-gap': '37px' }),
-  labels: css({
-    display: 'grid',
-    gridTemplateRows: '1fr 1fr',
-    _mobile: { display: 'block' },
-    '& article': {
-      minH: '214px',
-      p: 'var(--spacing-11) 0 0 3',
-      _mobile: { minH: '0', p: '30px 0 3' },
-    },
-    '& h2': {
-      m: '0 0 10px',
-      fontFamily: 'var(--font-family-base)',
-      fontSize: '36' /* 기존 35px */,
-      fontWeight: 'var(--font-weights-normal)',
-      _mobile: { fontSize: '28' /* 기존 29px */ },
-    },
-    '& p': { m: '0' },
-  }),
-  details: css({
-    '& article': {
-      minH: '214px',
-      p: 'var(--spacing-12) 0 5',
-      borderBottom: '1px solid var(--color-black-20)',
-      _mobile: { minH: '0', py: '6' },
-    },
-    '& hr': {
-      m: '42px 0 22px',
-      border: '0',
-      borderTop: '1px solid var(--color-black-20)',
-      _mobile: { m: '26px 0 var(--spacing-4)' },
-    },
-    '& p': {
-      m: '6px 0 0',
-    },
-  }),
-  actions: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    mt: '78px',
-    border: '1px solid var(--color-black-20)',
-    _mobile: { gridTemplateColumns: '1fr', mt: '46px' },
-    '& a': {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '3',
-      minH: '124px',
-      p: '18px 26px',
-      borderRight: '1px solid var(--color-black-20)',
-      _mobile: {
-        minH: '85px',
-        p: '4',
-        borderRight: '0',
-        borderBottom: '1px solid var(--color-black-20)',
-      },
-    },
-    '& a:last-child': { border: '0' },
-    '& b': { fontSize: '32' /* 기존 31px */, fontWeight: 'var(--font-weights-normal)' },
-    '& span': { display: 'grid', gap: '1.5' },
+  noticeLink: css({ display: 'block' }),
+  noticeTitle: css({
+    minW: '0',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   }),
 };
 
 export function SupportPage() {
+  const [openQuestion, setOpenQuestion] = useState<string | null>(faqs[0].question);
+
   return (
-    <SidebarNavigationLayout
+    <CustomerCenterLayout
       activePath="/support"
-      className={styles.page}
       groups={supportNavigation}
-      title="SUPPORT"
-      titleTo="/support"
+      breadcrumbItems={[{ label: 'Home', href: '/' }, { label: '고객센터' }]}
     >
-      <section className={styles.content}>
-        <PageHeader title="고객센터" />
+      <Stack gap="4" _mobile={{ gap: '2' }}>
         <Grid
-          display="grid"
-          gridTemplateColumns="1fr 1.08fr"
-          borderTop="2px solid var(--color-black-60)"
-          _mobile={{ gridTemplateColumns: '1fr' }}
+          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+          gap="4"
+          _mobile={{ gridTemplateColumns: '1fr', gap: '2' }}
         >
-          <Box className={styles.labels}>
-            <article>
-              <h2>고객상담실</h2>
-              <Typography as="p" variant="body5" tone="tertiary">
-                A/S 및 오프라인 매장 관련 문의
-              </Typography>
-            </article>
-            <article>
-              <h2>온라인 스토어</h2>
-              <Typography as="p" variant="body5" tone="tertiary">
-                주문/배송 및 반품 관련 문의
-              </Typography>
-            </article>
-          </Box>
-          <Box className={styles.details}>
-            <article>
-              <Typography as="strong" variant="body5" weight="bold">
-                호카 고객상담실
-                <br />
-                TEL. 080-999-0456
-              </Typography>
-              <hr />
-              <Typography as="b" variant="body5" weight="bold">
-                운영시간
-              </Typography>
-              <Typography as="p" variant="body5" tone="tertiary">
-                평일 : 09:00 ~ 18:00 (점심시간 12:00 ~ 13:00) / 토, 일, 공휴일 휴무
-              </Typography>
-            </article>
-            <article>
-              <Typography as="strong" variant="body5" weight="bold">
-                호카 온라인 스토어
-                <br />
-                TEL. 1566-0086
-              </Typography>
-              <Typography as="p" variant="body5" tone="primary">
-                * 아래 1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
-              </Typography>
-              <hr />
-              <Typography as="b" variant="body5" weight="bold">
-                운영시간
-              </Typography>
-              <Typography as="p" variant="body5" tone="tertiary">
-                - 일반 유선상담 : 평일 10:00~17:00 (점심시간 12:00~13:00)
-                <br />- 채팅, 카카오톡 : 휴무
-                <br />- A/S상담예약 : 점심시간 및 토요일/일요일/공휴일 운영
-              </Typography>
-            </article>
-          </Box>
+          <SupportContactCard
+            title="고객상담실"
+            description="AS 및 오프라인 매장 관련 문의"
+            phone="080-665-5552"
+            phoneHref="tel:0806655552"
+          />
+          <SupportContactCard
+            title="온라인 스토어"
+            description="주문/배송/교환 및 반품 관련 문의"
+            phone="080-2225-6660"
+            phoneHref="tel:08022256660"
+          />
         </Grid>
-        <section className={styles.actions}>
-          {[
-            [
-              '✉',
-              '1:1 문의',
-              '1:1 문의를 남겨 주시면 빠른 시간 내에 도와드리겠습니다.',
-              '/support/inquiries',
-            ],
-            ['▱', 'FAQs', '가장 자주 묻는 질문과 답변을 찾아보세요.', '/support/faq'],
-            ['●', 'A/S 처리현황', 'A/S 접수 후 처리 상황을 확인해 보세요.', '/support/after-sales'],
-          ].map(([icon, title, description, to]) => (
-            <Link href={to} key={title}>
-              <b>{icon}</b>
-              <span>
-                <Typography as="strong" variant="body4" weight="bold">
-                  {title}
-                </Typography>
-                <Typography as="small" variant="body5" tone="tertiary">
-                  {description}
-                </Typography>
-              </span>
-            </Link>
+        <Stack bg="black.10" p="8" gap="5" _mobile={{ px: '4', pt: '5', pb: '6' }}>
+          <Typography as="h2" web="heading8" mo="heading9">
+            운영시간
+          </Typography>
+          <Grid gridTemplateColumns="1fr 1px 1fr" gap="4">
+            <VStack alignItems="start" gap="4">
+              <Typography web="body3" mo="body4">
+                평일
+              </Typography>
+              <Typography web="body1" mo="body4">
+                09:00 ~ 18:00
+              </Typography>
+            </VStack>
+            <Divider aria-hidden="true" orientation="vertical" w="1px" h="63px" bg="black.20" />
+            <VStack alignItems="start" gap="4">
+              <Typography web="body3" mo="body4">
+                일반 유선상담
+              </Typography>
+              <Typography web="body1" mo="body4">
+                10:00 ~ 17:00
+              </Typography>
+            </VStack>
+          </Grid>
+          <Typography as="p" web="body4" mo="body5" tone="tertiary">
+            *점심시간은 12:00~13:00이며 토,일, 공휴일은 휴무입니다.
+          </Typography>
+        </Stack>
+      </Stack>
+
+      <Box as="section" mt="80px" _mobile={{ mt: '10' }} aria-labelledby="support-notices-title">
+        <HStack justifyContent="space-between" pb="6">
+          <Typography as="h2" web="heading8" mo="heading5" id="support-notices-title">
+            공지사항
+          </Typography>
+          <ButtonLink href="/support/notices" size="md" variant="link">
+            전체보기
+          </ButtonLink>
+        </HStack>
+        <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
+        <Box as="ul" m="0" p="0" listStyleType="none">
+          {notices.map((notice, index) => (
+            <Box as="li" key={`${notice.title}-${index}`}>
+              <Link className={styles.noticeLink} href="/support/notices/1">
+                <HStack
+                  justifyContent="space-between"
+                  gap="4"
+                  minH={{ base: '69px', _mobile: '51px' }}
+                  px="4"
+                  py="6"
+                  _mobile={{ gap: '2', px: '0', py: '4' }}
+                >
+                  <Typography className={styles.noticeTitle} web="heading9" mo="body4">
+                    {notice.title}
+                  </Typography>
+                  <Box flexShrink="0">
+                    <Typography
+                      as="time"
+                      dateTime={notice.date}
+                      web="body4"
+                      mo="body5"
+                      tone="tertiary"
+                    >
+                      {notice.date}
+                    </Typography>
+                  </Box>
+                </HStack>
+              </Link>
+              <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+            </Box>
           ))}
-        </section>
-      </section>
-    </SidebarNavigationLayout>
+        </Box>
+      </Box>
+
+      <Box as="section" mt="80px" _mobile={{ mt: '10' }} aria-labelledby="support-faq-title">
+        <Stack gap="2">
+          <Typography as="h2" web="heading7" mo="heading5" id="support-faq-title">
+            FAQs
+          </Typography>
+          <Typography as="p" web="body3" mo="body3">
+            가장 자주 찾는 질문의 답변을 찾아보세요!
+          </Typography>
+        </Stack>
+        <Box mt="6" _mobile={{ display: 'none' }}>
+          <FaqList
+            entries={faqs.slice(0, 5)}
+            openQuestion={openQuestion}
+            onToggle={(question) => setOpenQuestion(openQuestion === question ? null : question)}
+          />
+        </Box>
+        <Box mt="9" mx="auto" maxW="500px" _mobile={{ maxW: 'none' }}>
+          <ButtonLink href="/support/faq" size="tall" variant="secondary" fullWidth>
+            FAQs 바로가기
+          </ButtonLink>
+        </Box>
+      </Box>
+    </CustomerCenterLayout>
   );
 }

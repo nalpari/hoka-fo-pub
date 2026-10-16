@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FilterTabs, type FilterTabsProps } from '@/shared/components/atoms/FilterTabs/FilterTabs';
+import { PlatformProvider } from '@/shared/context/platform';
 
 const options = [
   { label: '전체', value: 'all' },
@@ -18,6 +19,31 @@ function InteractiveFilterTabs({ variant }: Pick<FilterTabsProps, 'variant'>) {
       options={options}
       value={value}
       variant={variant}
+    />
+  );
+}
+
+const faqOptions = [
+  '전체',
+  '상품정보',
+  '교환/반품/환불',
+  '주문/결제',
+  '배송',
+  '회원/멤버십',
+  'AS/품질',
+  '매장/이벤트',
+] as const;
+
+function InteractiveLineTabs() {
+  const [value, setValue] = useState<(typeof faqOptions)[number]>('전체');
+
+  return (
+    <FilterTabs
+      ariaLabel="FAQ 카테고리"
+      onValueChange={setValue}
+      options={faqOptions.map((label) => ({ label, value: label }))}
+      value={value}
+      variant="line"
     />
   );
 }
@@ -44,4 +70,22 @@ export const Default: Story = {
 
 export const Fill: Story = {
   render: () => <InteractiveFilterTabs variant="fill" />,
+};
+
+export const Line: Story = {
+  render: () => <InteractiveLineTabs />,
+};
+
+export const LineMobile: Story = {
+  globals: { viewport: 'hoka375' },
+  decorators: [
+    (Story) => (
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile">
+          <Story />
+        </div>
+      </PlatformProvider>
+    ),
+  ],
+  render: () => <InteractiveLineTabs />,
 };
