@@ -6,9 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T01:07:01.787Z'
+  at: '2026-10-16T02:12:37.349Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/Carousel/Carousel.tsx
+  - src/shared/components/molecules/Carousel/CarouselContext.ts
+  - src/shared/components/molecules/Carousel/CarouselControls.tsx
+  - src/shared/components/molecules/Carousel/CarouselPagination.tsx
+  - src/shared/components/molecules/Carousel/CarouselScrollbar.tsx
+  - src/shared/components/molecules/Carousel/CarouselViewport.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
@@ -196,6 +202,14 @@ sources:
 
 # 컴포넌트와 스타일
 
+2026-10-16 표시 옵션 커밋 전 검증(Codex): 타입 검사·Carousel 폴더 ESLint·Prettier·Storybook 빌드 통과. 이번 커밋 작업에서 브라우저 상호작용 검증은 추가 실행하지 않았다. Storybook 빌드는 의존성의 use client 지시문·청크 크기 관련 경고를 출력했으나 완료됐다.
+
+2026-10-16 CarouselPagination의 `size` prop은 기본 점의 너비·높이를 설정하며 기본값은 `5px`이다. 문자열 또는 숫자(px)를 받고 비활성 너비 애니메이션에도 적용한다. 활성 항목의 21px 너비와 사용자 정의 `renderItem`은 유지한다.
+
+2026-10-16 CarouselScrollbar의 `h`·`mt` props는 높이·위쪽 여백을 설정하며 기본값은 `20px`·`24px`이다. 숫자는 px로 처리하고 내부 수평 트랙에도 같은 높이를 적용한다. 공개 `CarouselViewport`의 `scrollbarHeight`·`scrollbarMarginTop` props로 전달할 수 있다. 기존 표시 조건·Swiper 동기화는 유지한다.
+
+2026-10-16 CarouselControls의 `iconName`·`iconSize` props는 양쪽 화살표의 Icon name·size를 설정하며 기본값은 `carousel-arrow`·`48px`이다. `iconSize`는 문자열 또는 숫자(px)를 받으며 버튼의 너비·높이에도 CSS 변수로 적용한다. 기존 `className`의 버튼·아이콘 스타일 재정의와 기본 화살표의 이전·다음 방향을 유지한다. `Carousel.tsx`에서 `CarouselControlsProps`도 재export한다.
+
 ## 푸터 레이아웃과 모바일 메뉴 (2026-10-16)
 
 브랜드 로고 너비는 PC 104px·모바일 115px이며 높이는 비율에 따라 자동 결정한다. 모바일 메뉴 제목의 세로 여백은 spacing 5, 펼친 패널은 위 0·왼쪽 spacing 7·아래 spacing 4, 링크 간격은 spacing 2를 사용한다. Accordion은 여러 그룹을 동시에 펼칠 수 있다. 사업자 제목은 PC body3·모바일 body4, 모바일 정보 간격은 12px이며 사업자정보확인 링크에 밑줄과 4px 오프셋을 지정한다. Shop 링크는 매장 찾기·본디·클리프톤·스피드고트·마파테·호파라로 구성한다. PC 푸터 여백은 세로 96px·가로 32px로 명시한다.
@@ -285,6 +299,8 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 주문/결제 화면(`src/shared/features/checkout/`)은 `FormField`·`TextInput`·`Radio`·`StepIndicator` 등 기존 요소를 조합한 목 화면이며 실제 결제와 연동하지 않는다.
 
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
+
+2026-10-16 Carousel 내부 분리: `Carousel.tsx`는 상태·Swiper 등록·이동 콜백·Provider를 담당한다. `CarouselContext.ts`는 내부 Context와 `useCarousel`을 제공하고, `CarouselViewport.tsx`는 Swiper·슬라이드 여백·SimpleBar 위치 동기화를 담당한다. `CarouselScrollbar.tsx`는 전달받은 ref·콜백·측정값으로 모바일 스크롤바를 렌더링한다. `CarouselPagination.tsx`와 `CarouselControls.tsx`는 각각 선택 표시·이동 버튼과 해당 Panda 스타일을 소유한다. 기존 `Carousel.tsx` 경로에서 Viewport·Pagination·Controls와 공개 props 타입을 재export하므로 호출자 import는 유지한다. 분리 과정에서는 기존 DOM·여백·전환·reduced-motion 동작을 유지한다. 표시 크기는 위 props 계약에 따라 변경할 수 있으며, Controls는 순환 모드에서 항목이 2개 이상이면 양쪽 이동 버튼을 활성화한다.
 
 공통 UI로 올리기 전에 기존 컴포넌트를 검색한다. 여러 기능에 공통으로 적용되는 의미·인터랙션 계약이 있을 때 재사용 컴포넌트로 추출한다. 자세한 검토 절차는 `.codex/skills/component-reusability/SKILL.md`에 있다.
 
