@@ -63,4 +63,4 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 
 ## 러닝세션 신청내역 IA
 
-IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook 위치는 `PAGES/MYPAGE/RunClub`이다.
+IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook은 `PAGES/MYPAGE/RunClub/List`(목록·빈 상태)와 `PAGES/MYPAGE/RunClub/Detail`(상세 상태·대형 화면)로 분류한다.

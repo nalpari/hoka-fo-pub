@@ -2,6 +2,8 @@
 
 ## 2026-10-16
 
+- **Refactor**: 런클럽 스토리 분류와 공용 미리보기·IA 링크 변경을 독립 변경으로 반영했다. [UI 아키텍처](architecture/ui.md)에 기본 목록/상세 스토리 식별자를 명시했다.
+
 - **Refactor**: 마이페이지 모달 5개와 휴대폰 인증 상세 모달을 기능 내부 컴포넌트로 분리했다. 상태·저장·삭제·단계 전환은 부모에 유지하고 알뜰폰 확인은 footer로 이전했다. 기존 독립 모달 유지 판단과 브라우저 확인 결과를 [UI 아키텍처](architecture/ui.md)에 기록했다.
 
 - **Refactor**: 회원가입 우편번호 찾기를 기능 내부 AddressSearchModal로 분리하고 확인 버튼을 ModalDialog.footer로 옮겼다. 독립적인 값/콜백 API와 PC·모바일 controlled 스토리를 추가하고 [UI 아키텍처](architecture/ui.md)에 현재 수동 입력 계약을 기록했다.

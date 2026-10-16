@@ -1,49 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { css } from 'styled-system/css';
-import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
-import { PlatformProvider } from '@/shared/context/platform';
-import type { Platform } from '@/shared/lib/device';
-import { RunClubPage } from '@/shared/features/run-club/RunClubPage';
-import { RunClubDetailPage } from '@/shared/features/run-club/RunClubDetailPage';
-import { runClubSessions } from '@/shared/features/run-club/runClub.data';
-
-type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'closed' | 'upcoming' };
-
-function RunClubPreview({ platform, view }: PreviewProps) {
-  const session = runClubSessions.find(
-    (item) =>
-      item.id === (view === 'open' && platform === 'web' ? 'bukchon-night' : 'bukhansan-trail'),
-  )!;
-
-  return (
-    <>
-      <PlatformProvider platform={platform}>
-        <div
-          className={`platform-${platform} ${platform === 'web' ? css({ minW: '1200px' }) : ''}`}
-        >
-          <AppLayout cart={0} isLoggedIn={false} wishlistCount={0} recentCount={0}>
-            {view === 'list' || view === 'empty' ? (
-              <RunClubPage
-                sessions={
-                  view === 'empty'
-                    ? []
-                    : platform === 'mobile'
-                      ? runClubSessions.slice(0, 3)
-                      : runClubSessions
-                }
-              />
-            ) : (
-              <RunClubDetailPage key={view} session={{ ...session, status: view }} />
-            )}
-          </AppLayout>
-        </div>
-      </PlatformProvider>
-    </>
-  );
-}
+import { RunClubPreview } from '@/stories/features/run-club/RunClubPreview';
 
 const meta = {
-  title: 'PAGES/MYPAGE/RunClub',
+  title: 'PAGES/MYPAGE/RunClub/List',
   component: RunClubPreview,
   parameters: { layout: 'fullscreen' },
   args: { platform: 'web', view: 'list' },
@@ -57,30 +16,9 @@ export const List: Story = {};
 
 export const Empty: Story = { args: { view: 'empty' } };
 
-export const Open: Story = { args: { view: 'open' } };
-
-export const Closed: Story = { args: { view: 'closed' } };
-
-export const Upcoming: Story = { args: { view: 'upcoming' } };
-
 export const MobileList: Story = { args: { platform: 'mobile' }, globals: { viewport: 'hoka375' } };
-
-export const MobileOpen: Story = {
-  args: { platform: 'mobile', view: 'open' },
-  globals: { viewport: 'hoka375' },
-};
 
 export const MobileEmpty: Story = {
   args: { platform: 'mobile', view: 'empty' },
-  globals: { viewport: 'hoka375' },
-};
-
-export const MobileClosed: Story = {
-  args: { platform: 'mobile', view: 'closed' },
-  globals: { viewport: 'hoka375' },
-};
-
-export const MobileUpcoming: Story = {
-  args: { platform: 'mobile', view: 'upcoming' },
   globals: { viewport: 'hoka375' },
 };

@@ -741,3 +741,5 @@ MyPage의 로그아웃, 배송지 삭제, 탈퇴 확인/완료, 리뷰 편집은
 PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 데이터·구분선 스타일을 소유한다. 부모는 detail 선택 상태와 닫기 콜백을 전달한다. 기존 모바일 fullscreen 조건을 유지하며 알뜰폰 확인 버튼은 ModalDialog.footer로 옮겨 공통 고정 푸터 계약을 따른다. PasswordResetCompleteModal과 RunClubApplicationNotice는 이미 독립된 모달로서 유지한다. 새 컴포넌트는 기능 내부 조합이며 공용 라이브러리로 승격하지 않는다.
 
 브라우저에서 리뷰 필수값 검증/저장, 배송지 삭제, 탈퇴 취소 및 확인→완료 안내 닫기, 로그아웃 취소, 런클럽 확인 닫기를 확인했다. 1920/375px 알뜰폰 안내의 사업자 3개 그룹과 footer 확인 닫기도 확인했다.
+
+런클럽 목록·상세 스토리는 RunClubPreview를 공유하며, 목록은 `pages-mypage-runclub-list--list`, 상세 기본은 `pages-mypage-runclub-detail--open`으로 접근한다. IA 200/258/259 미리보기도 새 분류를 사용한다.
