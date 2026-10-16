@@ -6,15 +6,19 @@ import { ProductVariantSection } from '@/shared/features/product/ProductVariantS
 
 const styles = {
   colors: css({
-    display: 'flex',
-    gap: '8px',
+    '&[role="radiogroup"]': {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, 80px)',
+      gap: '8px',
+      _mobile: { display: 'flex' },
+    },
     pb: '8px',
     scrollbarWidth: 'thin',
     scrollbarColor: 'var(--color-black-40) transparent',
     '&::-webkit-scrollbar': { h: '4px' },
     '&::-webkit-scrollbar-thumb': { bg: 'var(--color-black-40)' },
-    overflowX: 'auto',
     _mobile: {
+      overflowX: 'auto',
       w: 'calc(100% + 16px)',
       mr: '-16px',
     },

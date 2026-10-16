@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T15:57:44+09:00'
+  at: '2026-10-16T07:09:15+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/product/ProductColorSelector.tsx
+  - src/stories/features/product/ProductColorSelector.stories.tsx
   - src/shared/components/molecules/ProductCard/ProductCard.tsx
   - src/shared/components/molecules/ProductCard/ProductCardPreview.tsx
   - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
@@ -288,6 +290,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품 상세 컬러 선택 배치 수정 (2026-10-16)
+
+ProductColorSelector는 PC에서 `repeat(auto-fill, 80px)` 그리드로 영역 너비에 맞춰 줄바꿈하고, 모바일에서만 flex 한 줄·가로 스크롤을 사용한다. 썸네일 80×53px, 항목 간격 8px, 선택 밑줄·focus 표시, 모바일 너비 확장과 오른쪽 여백은 유지한다. 공통 Radio의 기본 `display: grid`·gap=4와 원자 유틸리티 생성 순서가 충돌하지 않도록 `&[role="radiogroup"]`에 display·열 정의·간격을 지정하고 모바일 display를 같은 선택자에서 분기한다. 공통 Radio나 발볼 선택기의 스타일은 변경하지 않는다.
+
+기존 PC/모바일 스토리에 배치·80×53px 크기·8px 간격·선택 변경 확인을 위한 play 함수를 추가했다. PC는 여러 행과 가로 넘침 없음, 모바일은 한 행과 내부 스크롤을 검사하도록 구성한다. Panda 생성·타입 검사·변경 파일 ESLint·Next.js production build·Storybook build와 OKF 작업 트리 매핑 검사를 통과했다. 생성 CSS에서 PC 열 정의와 모바일 한정 display 분기를 확인했다. 사용 가능한 브라우저가 없어 play 함수의 실제 실행과 화면 조작 검증은 수행하지 않았다.
 
 ## 확인 버튼 하나를 가진 팝업 (2026-10-16)
 
