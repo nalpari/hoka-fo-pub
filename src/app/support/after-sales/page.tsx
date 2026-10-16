@@ -1,7 +1,5 @@
-'use client';
-
-import { SupportExperiencePage } from '@/shared/features/support/SupportExperiencePage';
+import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
 
 export default function Page() {
-  return <SupportExperiencePage kind="after-sales" />;
+  return <ShippingReturnsPage />;
 }

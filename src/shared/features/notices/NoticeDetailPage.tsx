@@ -1,139 +1,42 @@
-'use client';
-
+import { Box, HStack, Stack } from 'styled-system/jsx';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import Link from 'next/link';
-import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
-import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
-import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
-
-const styles = {
-  noticeHead: css({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minH: '77px',
-    px: '5',
-    borderTop: '2px solid var(--color-black-60)',
-    borderBottom: '1px solid var(--color-black-20)',
-    _mobile: { display: 'block', p: '4.5 1.25' },
-    '& h2': {
-      m: '0',
-    },
-    '& span': {
-      _mobile: { display: 'block', mt: '2.5' },
-    },
-  }),
-  poster: css({
-    w: '565px',
-    minH: '1110px',
-    mt: '30px',
-    p: 'var(--spacing-14) 7',
-    border: '8px solid var(--color-black-20)',
-    borderTop: '8px solid var(--color-red-80)',
-    _mobile: { w: '100%', minH: '0', p: '8 var(--spacing-5)', borderWidth: '5px' },
-    '& > h2': {
-      m: '0',
-      fontSize: '32' /* 기존 34px */,
-      lineHeight: 'var(--line-heights-body)',
-      _mobile: { fontSize: '24' /* 기존 26px */ },
-    },
-    '& em': { fontStyle: 'normal' },
-    '& section': { mt: '11' },
-    '& h3': {
-      m: '30px 0 2',
-      fontSize: '20',
-      _mobile: { fontSize: '16' /* 기존 17px */ },
-    },
-    '& p': {
-      m: '0',
-    },
-  }),
-  brand: css({
-    mb: '38px',
-    color: 'var(--color-red-80)',
-    fontSize: '48',
-    fontStyle: 'italic',
-    fontWeight: 'var(--font-weights-black)',
-    letterSpacing: 'var(--letter-spacings-korean)',
-  }),
-  back: css({
-    mt: '180px',
-    pt: '6',
-    borderTop: '1px solid var(--color-black-20)',
-    textAlign: 'right',
-    _mobile: { mt: '66px' },
-    '& a': {
-      display: 'inline-block',
-      p: '2.5 7',
-      border: '1px solid var(--color-black-100)',
-    },
-  }),
-};
 
 export function NoticeDetailPage() {
   return (
-    <SidebarNavigationLayout
+    <CustomerCenterLayout
       activePath="/support/notices"
+      breadcrumbItems={[
+        { label: 'Home', href: '/' },
+        { label: '고객센터', href: '/support' },
+        { label: '공지사항', href: '/support/notices' },
+        { label: '상세' },
+      ]}
       groups={supportNavigation}
-      title="SUPPORT"
-      titleTo="/support"
+      hideIntroMobile
     >
-      <section>
-        <PageHeader title="공지사항" />
-        <header className={styles.noticeHead}>
-          <Typography as="h2" variant="body4" weight="bold">
-            [공통] 네이버페이 9월 프로모션 안내 (9/1 00:00 ~ 9/14 9:59)
-          </Typography>
-          <Typography variant="body5" tone="tertiary">
-            2026-08-31 | 5054
-          </Typography>
-        </header>
-        <article className={styles.poster}>
-          <Box className={styles.brand}>NB</Box>
-          <h2>
-            네이버페이 결제 혜택
-            <br />
-            <em>
-              10만원 이상 결제 시<br />
-              7천원 즉시할인
-            </em>
-          </h2>
-          <section>
-            <h3>1. 이벤트 진행기간</h3>
-            <Typography as="p" variant="body">
-              - 9/1 00:00 - 9/14 09:59
-              <br />
-              <Typography as="strong" variant="body3" weight="regular" tone="red80">
-                ※해당 이벤트는 당사 사정(예산 소진 등)에 의해 조기 종료될 수 있습니다.
-              </Typography>
-            </Typography>
-            <h3>2. 이벤트 적용 조건</h3>
-            <Typography as="p" variant="body">
-              - 네이버페이로 결제 시
-            </Typography>
-            <h3>3. 대상 상품</h3>
-            <Typography as="p" variant="body">
-              - 호카 공식 홈페이지 내 전 상품
-            </Typography>
-            <h3>4. 유의 사항</h3>
-            <Typography as="p" variant="body">
-              - 이벤트 기간 내 1회 한정으로 진행됩니다.
-              <br />- 할인 금액 및 적용 여부는 네이버페이 결제창 및 결제 상세에서 확인 부탁드립니다.
-              <br />- 해당 이벤트는 당사 사정에 의해 조기 종료될 수 있습니다.
-              <br />- 즉시 할인 금액은 네이버페이 포인트 적립 및 현금영수증 발급 대상 금액에
-              포함되지 않습니다.
-              <br />- 결제 취소 시 할인 금액이 회수될 수 있습니다.
-            </Typography>
-          </section>
-        </article>
-        <Box className={styles.back}>
-          <Link href="/support/notices">
-            <Typography variant="body5">목록보기</Typography>
-          </Link>
-        </Box>
-      </section>
-    </SidebarNavigationLayout>
+      <Box mb="6">
+        <Typography as="h2" web="heading6" mo="heading7">공지사항</Typography>
+      </Box>
+      <HStack justifyContent="space-between" gap="4" py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
+        <Typography web="heading9" mo="body3">[공통] 네이버페이 9월 프로모션 안내</Typography>
+        <Typography as="time" web="body4" mo="body4" tone="tertiary">2026-08-13</Typography>
+      </HStack>
+      <Stack gap="4" px="6" py="8" bg="black.10" _mobile={{ px: '4', py: '6' }}>
+        <Typography as="p" web="body4" mo="body4">안녕하세요, HOKA 코리아입니다.</Typography>
+        <Typography as="p" web="body4" mo="body4">네이버페이 9월 프로모션을 안내드립니다.</Typography>
+        <Typography as="p" web="body4" mo="body4">1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59</Typography>
+        <Typography as="p" web="body4" mo="body4">2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인</Typography>
+        <Typography as="p" web="body4" mo="body4">3. 대상 상품: 호카 공식 홈페이지 내 전 상품</Typography>
+        <Typography as="p" web="body4" mo="body4">이용해 주셔서 감사합니다.</Typography>
+      </Stack>
+      <Box mt="6" maxW="343px" mx="auto">
+        <ButtonLink href="/support/notices" variant="secondary" size="short" fullWidth>
+          목록보기
+        </ButtonLink>
+      </Box>
+    </CustomerCenterLayout>
   );
 }

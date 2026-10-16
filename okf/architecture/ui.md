@@ -72,6 +72,24 @@ working_tree_sources:
   - src/shared/features/run-club/RunClubResults.tsx
   - src/shared/features/signup-registration/RegistrationContent.tsx
   - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/support/SupportContactCard.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/support/InquiryNewPage.tsx
+  - src/shared/features/support/InquiryCautions.tsx
+  - src/shared/features/support/SupportExperiencePage.tsx
+  - src/shared/features/support/ShippingReturnsPage.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/app/support/inquiries/page.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/features/faq/faq.data.ts
+  - src/shared/components/molecules/Faq/FaqControls.tsx
+  - src/shared/components/molecules/SearchField/SearchField.tsx
+  - src/shared/components/organisms/Faq/FaqList.tsx
+  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
+  - src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx
   - src/shared/features/teamwear/TeamwearPage.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
   - src/shared/components/atoms/IconButton/IconButton.tsx
@@ -84,6 +102,7 @@ working_tree_sources:
   - src/shared/components/organisms/Faq/FaqList.tsx
   - src/shared/components/organisms/StoreFinder/StoreResults.tsx
   - src/stories/components/organisms/Faq/FaqList.stories.tsx
+  - src/stories/components/molecules/SearchField/SearchField.stories.tsx
   - src/stories/components/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
   - src/stories/components/atoms/Accordion/Accordion.stories.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
@@ -133,6 +152,7 @@ working_tree_sources:
   - src/stories/features/signup-terms/SignupTermsPage.stories.tsx
   - AGENTS.md
   - src/stories/features/mypage/MyPage.stories.tsx
+  - src/stories/features/support/SupportPages.stories.tsx
   - src/shared/features/login/LoginContent.tsx
   - src/shared/features/login/LoginLayout.tsx
   - src/shared/features/login/LoginForm.tsx
@@ -189,6 +209,42 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 고객센터 메인 (2026-10-16)
+
+고객센터 공통 소개 영역은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+
+고객센터 메인의 공지사항 미리보기는 제목 아래 `black.100` 1px Divider와 각 공지 행 아래 `black.20` 1px Divider를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
+
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 소개 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
+
+## FAQ (2026-10-16)
+
+FAQ 카테고리 선택은 공통 `FilterTabs`의 `line` 변형을 사용한다. PC는 Figma 노드 `1056:42189`의 24px 탭 간격·CTA1 글자·선택 항목 2px 밑줄을 따르고, 모바일은 가로 스크롤과 CTA2 글자·하단 경계선을 유지한다. `FaqControls`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/FilterTabs/FilterTabs.tsx`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx`와 Figma 노드 `1056:42189`다.
+
+`SearchField` 안의 `TextInput`은 포커스 시 별도 outline을 표시하지 않고 검색창의 기존 테두리만 유지한다. 출처는 작업 트리의 `src/shared/components/molecules/SearchField/SearchField.tsx`다.
+
+FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과 검색 동작을 호출자가 전달하며, 검색창은 데스크톱에서 돋보기를 오른쪽에, 모바일에서 왼쪽에 배치한다. `FaqControls`는 검색창 최대 폭 590px과 주변 간격만 소유한다. 출처는 작업 트리의 `src/shared/components/molecules/SearchField/SearchField.tsx`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/stories/components/molecules/SearchField/SearchField.stories.tsx`다.
+
+`FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/shared/components/organisms/Faq/FaqList.tsx`다.
+
+`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·소개·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인의 FAQ teaser도 기존 `FaqList`를 재사용한다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
+
+## 공지사항·1:1 문의 (2026-10-16)
+
+`/support/after-sales`는 Figma 모바일 `803:25138`과 PC `1066:57459`에 따라 배송 및 반품안내 화면을 표시한다. 공통 `CustomerCenterLayout`의 PC 소개·좌측 메뉴와 모바일 breadcrumb를 재사용하고, 본문에는 제목·세 항목 탭·배송 안내 네 문장을 둔다. 탭은 Base UI Tabs를 사용한다. 아직 내용이 확인되지 않은 `반품 주의사항`과 `상품 반품 안내` 탭은 선택을 비활성화했다. 헤더·푸터 자산은 기존 공통 레이아웃을 재사용한다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/features/support/support.navigation.ts`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+
+공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`다.
+
+공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`와 Figma 노드 `1056:42533`, `991:23590`이다.
+
+문의 등록 화면도 `CustomerCenterLayout`의 고객센터 제목과 소개 문구를 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+
+문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 기존 선택값과 2열 배치를 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
+
+답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`와 `src/shared/components/atoms/Accordion/Accordion.tsx`다.
+
+`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·소개·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/shared/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/shared/components/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
 
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 

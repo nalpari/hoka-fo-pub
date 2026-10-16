@@ -1,5 +1,31 @@
 # 지식 번들 변경 이력
 
+## 2026-10-16
+
+- **Update**: `/support/after-sales`의 A/S 처리현황을 Figma PC·모바일 배송 및 반품안내 화면으로 교체하고 메뉴명·탭·배송 안내 내용을 맞췄다. 내용 확인을 미룬 나머지 두 탭은 비활성화했다. [라우팅](architecture/routing.md)과 [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 검색창과 공지사항 화면의 잘못된 `white.000` 배경 토큰을 `white.0`으로 바꿔 CSS 빌드 오류를 해소했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 답변된 1:1 문의 행의 직접 구현한 펼침 상태를 공통 `Accordion`으로 이전하고, 미답변 행의 빈 클릭 동작을 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 문의 등록 화면에서 공통 고객센터 제목·소개 문구 숨김을 취소하고 PC·모바일 모두 다시 표시한다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 1:1 문의 등록의 문의 유형·상세 유형 선택창을 기본 `Select`에서 공통 `Dropdown`으로 교체하고 필수 라벨과 기존 선택값을 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 1:1 문의 유의사항의 직접 구현한 열림 상태·버튼·화살표를 공통 `Accordion`으로 바꾸고 기본 펼침 상태와 목록 스타일을 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: Figma FAQ 줄 탭을 공통 `FilterTabs`의 `line` 변형으로 추가하고 FAQ 카테고리 탭을 이전했다. PC·모바일 Storybook 사례를 추가했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: FAQ 공통 검색창의 입력 포커스 outline을 제거해 외곽선이 겹쳐 보이지 않도록 했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: FAQ 검색 입력·돋보기·반응형 배치를 공통 `SearchField` molecule로 분리하고 FAQ에서 재사용한다. PC·모바일 Storybook 사례를 추가했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 공지사항 목록 첫 행 위와 펼친 행의 제목·내용 사이에 옅은 Divider를 추가했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: `FaqList`의 섹션 상단선과 답변 영역 스타일을 Panda Box 속성으로 옮기고 Accordion 슬롯에 필요한 CSS만 남겼다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 고객센터 공통 소개 영역을 데스크톱 1200px 폭·좌우 34px 패딩으로 맞추고 모바일 페이지 여백은 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 고객센터 메인 공지사항 미리보기의 제목 아래 강조선과 각 공지 행 아래 옅은 구분선을 공통 Divider로 표시했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 공지사항 목록의 PC 상단 강조선과 PC·모바일 행 구분선을 Panda Divider로 분리하고 행 높이·제목/날짜·더보기 배치를 최신 Figma에 맞췄다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: Figma 문의 등록 화면처럼 `/support/inquiries/new`에서 공통 고객센터 소개 영역을 PC·모바일 모두 숨기고 Breadcrumb과 사이드 메뉴는 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Update**: 고객센터 Figma에서 누락됐던 공지사항·1:1 문의 PC/모바일 화면을 확인하고 별도 라우트를 공통 고객센터 레이아웃에 연결했다. 공지 아코디언·모바일 상세, 문의 빈 상태·Q/A, 등록 폼과 재사용 유의사항을 적용했다. 구형 문의 구현을 제거하고 Storybook 화면을 추가했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Update**: 최신 Figma 고객센터 메인 `327:5231`에 맞춰 Breadcrumb·소개·사이드 메뉴를 Support/FAQ 공통 `CustomerCenterLayout`으로 합치고 반복 상담 카드를 feature-local `SupportContactCard`로 추출했다. PC·모바일 공지 행·FAQ 미리보기와 FAQ 첫 질문 문구를 최신 시안에 맞췄으며, Support/FAQ PC·모바일 Storybook 화면을 추가했다. [UI 아키텍처](architecture/ui.md)에 재사용 경계와 화면 동작을 기록했다.
+- **Update**: Figma 고객센터 메인 노드 `327:5231`을 기준으로 PC·모바일 상담 카드, 운영시간, 공지사항, FAQ 구성을 `SupportPage`에 적용했다. 공통 SideNavigation·FaqList·ButtonLink를 재사용하고 [UI 아키텍처](architecture/ui.md)에 화면 구성과 정적 공지 데이터 범위를 기록했다.
+- **Fix**: PC 고객센터 메뉴를 Figma의 LNB에 맞춰 실제 항목명·순서, Help Center 타이포, 링크 간격, 불필요한 그룹 제목 숨김, 그룹 구분선으로 조정했다. 상세는 [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 고객센터 본문의 배치·여백을 Panda JSX props로 옮기고 공통 SideNavigation에 support appearance를 추가해 메뉴 구조와 간격도 JSX에서 읽히도록 정리했다. 스타일 원칙과 적용 범위를 [UI 아키텍처](architecture/ui.md)에 기록했다.
+- **Refactor**: SideNavigation 제목과 링크 텍스트를 공통 Typography heading7·heading9·body4/body5로 이전하고 자체 글자 스타일 CSS를 제거했다. [UI 아키텍처](architecture/ui.md)에 적용한 variant를 기록했다.
+- **Fix**: 고객센터 메뉴는 현재 경로만 검정으로, 비선택 항목은 tertiary 회색으로 표시하도록 Typography tone을 연결했다. [UI 아키텍처](architecture/ui.md)에 상태별 색상 규칙을 반영했다.
+- **Update**: Figma FAQ의 모바일 접힘·펼침과 데스크톱 펼침 화면을 `FaqPage`에 반영했다. 검색·8개 카테고리·첫 10개 표시·질문 아코디언을 기존 컴포넌트로 구성하고 [UI 아키텍처](architecture/ui.md)에 동작과 정적 데이터 범위를 기록했다.
+
 ## 2026-10-15
 
 - **Fix**: PR #30의 publishing 병합 충돌을 해결해 마이페이지 개별 화면·selectionLabel과 메뉴·러닝세션 Typography 추가를 모두 보존했다. 러닝세션 신청내역의 직접 연결에 맞춰 옛 이벤트 분기를 제거하고 양쪽 [UI 아키텍처](architecture/ui.md)·인덱스·변경 기록을 통합했다.

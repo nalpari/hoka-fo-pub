@@ -2,11 +2,12 @@
 
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
-import { css, cva } from 'styled-system/css';
+import { cva } from 'styled-system/css';
+import { Box, Stack, VStack } from 'styled-system/jsx';
 
 export type SideNavigationGroup = {
   heading: string;
-  items: { label: string; to: string; disabled?: boolean }[];
+  items: { label: string; to: string; active?: boolean; disabled?: boolean }[];
 };
 
 export type SideNavigationProps = {
@@ -15,48 +16,14 @@ export type SideNavigationProps = {
   groups: SideNavigationGroup[];
   activePath: string;
   mobileNavigation?: 'scroll' | 'hidden';
+  appearance?: 'default' | 'support';
   className?: string;
 };
 
-const sidebar = cva({
-  base: {
-    flex: '0 0 180px',
-    _mobile: {
-      display: 'flex',
-      gap: '9px',
-      overflow: 'auto',
-      mb: '7',
-      pb: '2',
-      borderBottom: '1px solid var(--color-border-subtle)',
-    },
-  },
-  variants: { mobileNavigation: { scroll: {}, hidden: { _mobile: { display: 'none' } } } },
-  defaultVariants: { mobileNavigation: 'scroll' },
-});
-
-const titleStyle = css({
-  display: 'block',
-  mb: '7',
-  fontSize: '28' /* 기존 30px */,
-  fontWeight: 'extrabold',
-  letterSpacing: 'korean',
-  _mobile: { flex: 'none', m: '0 10px 0 0', fontSize: '16' /* 기존 18px */ },
-});
-
-const navGroup = css({ mb: '25px', _mobile: { display: 'contents' } });
-
-const navHeading = css({ m: '0 0 10px', _mobile: { display: 'none' } });
-
 const navLink = cva({
-  base: {
-    display: 'block',
-    my: '2',
-    color: 'var(--color-text-tertiary)',
-    fontSize: '14' /* 기존 13px */,
-    _mobile: { flex: 'none', m: '0', py: '1', fontSize: '12', whiteSpace: 'nowrap' },
-  },
+  base: { color: 'var(--color-text-tertiary)' },
   variants: {
-    active: { true: { color: 'var(--color-blue-100)', fontWeight: 'bold' }, false: {} },
+    active: { true: { color: 'var(--color-blue-100)' }, false: {} },
     disabled: { true: { cursor: 'not-allowed', opacity: '0.5', pointerEvents: 'none' }, false: {} },
   },
 });
@@ -68,30 +35,124 @@ export function SideNavigation({
   groups,
   activePath,
   mobileNavigation,
+  appearance = 'default',
   className,
 }: SideNavigationProps) {
-  return (
-    <aside className={[sidebar({ mobileNavigation }), className].filter(Boolean).join(' ')}>
-      <Link className={titleStyle} href={titleTo}>
-        {title}
-      </Link>
-      {groups.map((group) => (
-        <section className={navGroup} key={group.heading}>
-          <Typography as="h2" variant="body4" weight="bold" className={navHeading}>
-            {group.heading}
-          </Typography>
-          {group.items.map((item) => (
-            <Link
-              aria-current={item.to === activePath ? 'page' : undefined}
-              className={navLink({ active: item.to === activePath, disabled: item.disabled })}
-              key={item.to}
-              href={item.to}
-            >
-              {item.label}
+  if (appearance === 'support') {
+    return (
+      <Box as="aside" className={className} flex="0 0 180px" _mobile={{ display: 'none' }}>
+        <Stack alignItems="stretch" gap="0">
+          <Box mb="6">
+            <Link href={titleTo}>
+              <Typography as="span" variant="heading7">
+                {title}
+              </Typography>
             </Link>
+          </Box>
+          {groups.map((group, index) => (
+            <VStack
+              as="section"
+              alignItems="stretch"
+              gap="0"
+              mb={index === 0 ? '4' : '0'}
+              pb={index === 0 ? '4' : '0'}
+              borderBottom={index === 0 ? '1px solid var(--color-black-40)' : '0'}
+              key={group.heading}
+            >
+              {group.items.map((item) => {
+                const isActive = item.active ?? item.to === activePath;
+
+                return (
+                  <Box as="div" py="2" key={`${item.to}-${item.label}`}>
+                    <Link aria-current={isActive ? 'page' : undefined} href={item.to}>
+                      <Typography
+                        as="span"
+                        variant="heading9"
+                        tone={isActive ? 'primary' : 'tertiary'}
+                      >
+                        {item.label}
+                      </Typography>
+                    </Link>
+                  </Box>
+                );
+              })}
+            </VStack>
           ))}
-        </section>
+        </Stack>
+      </Box>
+    );
+  }
+
+  return (
+    <Box
+      as="aside"
+      className={className}
+      flex="0 0 180px"
+      _mobile={{
+        display: mobileNavigation === 'hidden' ? 'none' : 'flex',
+        flexDirection: 'row',
+        gap: '9',
+        overflow: 'auto',
+        mb: '7',
+        pb: '2',
+        borderBottom: '1px solid var(--color-border-subtle)',
+      }}
+    >
+      <Box display="block" mb="7" _mobile={{ flex: 'none', mr: '10', mb: '0' }}>
+        <Link href={titleTo}>
+          <Typography as="span" variant="heading7">
+            {title}
+          </Typography>
+        </Link>
+      </Box>
+      {groups.map((group) => (
+        <Stack
+          as="section"
+          alignItems="stretch"
+          gap="0"
+          mb="25px"
+          _mobile={{ display: 'contents' }}
+          key={group.heading}
+        >
+          <Box mb="2" _mobile={{ display: 'none' }}>
+            <Typography as="h2" variant="body4" weight="bold">
+              {group.heading}
+            </Typography>
+          </Box>
+          {group.items.map((item) => {
+            const isActive = item.active ?? item.to === activePath;
+
+            return (
+              <Box
+                as="div"
+                my="2"
+                _mobile={{
+                  flex: 'none',
+                  my: '0',
+                  py: '1',
+                  whiteSpace: 'nowrap',
+                }}
+                key={`${item.to}-${item.label}`}
+              >
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={navLink({ active: isActive, disabled: item.disabled })}
+                  href={item.to}
+                >
+                  <Typography
+                    as="span"
+                    web="body4"
+                    mo="body5"
+                    weight={isActive ? 'bold' : 'regular'}
+                  >
+                    {item.label}
+                  </Typography>
+                </Link>
+              </Box>
+            );
+          })}
+        </Stack>
       ))}
-    </aside>
+    </Box>
   );
 }
