@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T07:09:15+00:00'
+  at: '2026-10-16T09:15:53.8541576Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
+  - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
+  - src/stories/features/login/LoginPage.stories.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
   - src/shared/features/product/ProductColorSelector.tsx
   - src/stories/features/product/ProductColorSelector.stories.tsx
   - src/shared/components/molecules/ProductCard/ProductCard.tsx
@@ -310,6 +315,30 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상태 안내의 tone 색상 (2026-10-16)
+
+### Form 오류 상태 전달 조사
+
+FormField는 `invalid || Boolean(error)`를 프로젝트 FormFieldContext.invalid 및 Base UI Field.Root.invalid로 각각 전달한다. 프로젝트 Context의 직접 소비자는 TextInput뿐이며 일반 input·password·multiline textarea 모두 `invalid || field.invalid`로 aria-invalid/data-invalid를 설정한다. boxed의 테두리는 FormField가 소유하므로 자식 TextInput.invalid만 설정하면 외곽 테두리에 역전파되지 않는다. StatusMessage.tone은 이 Context와 연결되지 않는다.
+
+네이티브 Select는 자체 invalid prop만 읽고 부모 Context를 소비하지 않는다. Checkbox(단일/그룹), Radio, RatingInput, SizeSelector, RangeInput, NumberStepper는 내부 Base UI가 Field Context를 읽어 오류 접근성 상태를 전달받지만 프로젝트 스타일에 오류 색상 규칙이 없다. Dropdown도 Base UI 상태는 전달받으나 빨간 테두리와 내부 오류 문구는 자체 error prop에만 의존한다. Terms의 hasError는 자체 invalid/error만 읽는다. Fieldset·SegmentedControl·EmailSignupField는 오류 Context를 소비하지 않으며 SearchField의 내부 TextInput은 상속되지만 검색 외곽 테두리에 오류 스타일은 없다. FormField.Message를 자식 슬롯으로 추가하는 것만으로 부모의 hasError가 설정되지는 않는다.
+
+조사 근거는 해당 컴포넌트 소스와 설치된 `node_modules/@base-ui/react`의 Field/Checkbox/RadioGroup/Select/Slider/NumberField 구현이다. Base UI의 Checkbox·CheckboxGroup·RadioGroup·Select·Slider·NumberField를 invalid Field.Root 안에서 서버 렌더링해 aria-invalid/data-invalid 출력을 확인했다. 전체 조합의 브라우저 검증을 의미하지 않는다. 로그인의 연결 수정은 [상태 문서](state.md)에 기록한다. Login Error 스토리는 `var(...)` 표현 자체와 계산된 rgb를 비교하지 않고, `--colors-red-100`의 실제 값을 읽어 toHaveStyle에 전달한다. CSS 변수 누락도 검사하며 필드 상속 실패와는 구분한다.
+
+`StatusMessage`는 Panda CSS의 `data-tone` 선택자로 error는 의미 토큰 `error`(#A60000), success는 #16794b, info는 `text.subtle`(#4D4D4D)을 적용한다. 속성만 출력하던 기존 구현에는 색상 규칙이 없어 로그인 Error 안내가 기본 검정색으로 표시됐다. 호출자의 className은 함께 유지하고 오류의 alert/assertive, 나머지의 status/polite 및 aria-atomic 계약은 유지한다.
+
+Atoms/StatusMessage의 세 tone과 Login의 Error·MobileError에 실제 적용 색상 검사를 둔다. Panda 생성, 타입 검사, 변경 파일 ESLint와 Storybook production build를 통과했다. 브라우저에서 로그인 PC·모바일 플랫폼의 error 색상 rgb(166, 0, 0)을 확인했고 MobileError play의 콘솔 오류가 없었다. 캡처의 ProductColorSelector heading 오류는 로그인과 다른 스토리의 검사이며, 현재 Desktop 스토리를 직접 열었을 때 h2와 두 번째 컬러 선택을 확인했고 콘솔 오류는 재현되지 않았다. 과거 오류의 발생 원인은 확정하지 않는다.
+
+## 주문 상태 조회 링크
+
+2026-10-16 OrderStatusTracker의 “전체 보기 →” Typography에 tertiary tone을 명시했다. body5 타입과 기존 링크 경로·주문 상태 목록은 유지한다. 타입 검사·변경 TSX ESLint 통과. Prettier는 이 파일의 CRLF 줄바꿈 기준으로 통과했으며 브라우저 시각 검증은 수행하지 않았다.
+
+## Typography 스타일 미적용 옵션
+
+2026-10-16 `variant` prop의 기본값을 `unstyled`로 지정했다. variant 및 해당 플랫폼의 web/mo를 생략하면 recipe를 적용하지 않고 네이티브/상위/호출자 스타일을 사용한다. web/mo가 있으면 기존 플랫폼 선택 순서대로 우선한다. 기존 기본 body 타입이 필요한 호출자는 `variant="body"`를 명시해야 하며, unstyled에서는 tone·weight도 recipe와 함께 생략된다. 타입 검사·변경 파일 ESLint·Storybook production build를 통과했다. 전체 호출 화면의 시각적 동일성을 검증한 것은 아니다.
+
+2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe 전체를 생략해 tone·weight·언어별 타입 스타일을 적용하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
 
 ## 상품 상세 컬러 선택 배치 수정 (2026-10-16)
 

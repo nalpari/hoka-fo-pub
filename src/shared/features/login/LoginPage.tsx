@@ -22,7 +22,14 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
     event.preventDefault();
 
     if (!id.trim() || !password) {
-      setNotice({ tone: 'error', message: '아이디와 비밀번호를 모두 입력해 주세요.' });
+      setNotice({
+        tone: 'error',
+        message: '아이디와 비밀번호를 모두 입력해 주세요.',
+        invalidFields: [
+          ...(!id.trim() ? (['id'] as const) : []),
+          ...(!password ? (['password'] as const) : []),
+        ],
+      });
       return;
     }
 

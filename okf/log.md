@@ -2,6 +2,16 @@
 
 ## 2026-10-16
 
+- **Feature**: Typography의 생략된 variant 기본값을 unstyled로 지정했다. [UI 아키텍처](architecture/ui.md)에 플랫폼 우선순위·body 명시 사용과 검증 한계를 기록했다.
+
+- **Fix / Audit**: 로그인 필수값 검증을 FormField.invalid와 연결하고 입력 후 오류 해제·기능 미연결 안내 구분을 추가했다. 전체 공통 Form 입력/선택/그룹 컴포넌트의 프로젝트 Context·Base UI Context 전달 및 오류 색상 적용 차이를 [UI 아키텍처](architecture/ui.md)와 [상태 문서](architecture/state.md)에 기록했다.
+
+- **Fix**: StatusMessage의 data-tone별 Panda 색상 누락을 수정하고 로그인 Error·MobileError와 공통 안내 스토리에 색상 회귀 검사를 추가했다. [UI 아키텍처](architecture/ui.md)에 원인과 검증 범위, 별도 상품 스토리 heading 오류의 재현 결과를 기록했다.
+
+- **Fix**: OrderStatusTracker의 전체 보기 링크에 tertiary tone을 지정했다. 기존 body5·경로·목록을 유지하고 [UI 아키텍처](architecture/ui.md)에 변경 범위와 검증 결과를 기록했다.
+
+- **Feature**: Typography에 unstyled variant를 추가해 호출자 스타일과 네이티브 표현을 유지할 수 있도록 했다. [UI 아키텍처](architecture/ui.md)에 recipe 생략 범위와 플랫폼 선택 계약을 기록했다.
+
 - **Fix**: 상품 상세 컬러 선택의 공통 Radio 스타일 충돌을 해소했다. PC는 너비에 맞춘 80px 열 그리드, 모바일만 가로 스크롤을 사용하고 크기·간격·선택 표시를 유지한다. 기존 스토리의 배치 회귀 검사와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
 
 - **Feature**: 상품 목록 목 데이터에 Daily Motion 3의 20% 할인 예시를 추가하고 카드·hover 미리보기에서 정상가를 ProductPrice까지 전달했다. 카드 할인 스토리와 [프로젝트 개요](project.md)·[UI 아키텍처](architecture/ui.md)를 갱신했다.
