@@ -6,9 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T09:25:33Z'
+  at: '2026-10-16T01:07:01.787Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationMobile.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/SiteFooter.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
   - src/shared/features/mypage/RunningProfileContent.tsx
   - src/shared/components/organisms/MyPage/CouponCard.tsx
   - src/shared/features/run-club/RunClubDetailLayout.tsx
@@ -189,6 +195,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 푸터 레이아웃과 모바일 메뉴 (2026-10-16)
+
+브랜드 로고 너비는 PC 104px·모바일 115px이며 높이는 비율에 따라 자동 결정한다. 모바일 메뉴 제목의 세로 여백은 spacing 5, 펼친 패널은 위 0·왼쪽 spacing 7·아래 spacing 4, 링크 간격은 spacing 2를 사용한다. Accordion은 여러 그룹을 동시에 펼칠 수 있다. 사업자 제목은 PC body3·모바일 body4, 모바일 정보 간격은 12px이며 사업자정보확인 링크에 밑줄과 4px 오프셋을 지정한다. Shop 링크는 매장 찾기·본디·클리프톤·스피드고트·마파테·호파라로 구성한다. PC 푸터 여백은 세로 96px·가로 32px로 명시한다.
+
+커밋 전 검증(Codex): 타입 검사·푸터 ESLint·Panda 생성 통과. Prettier 기본 검사는 LF/CRLF 차이로 경고를 보고했으며, 줄바꿈을 각 파일에 맞추면 포맷 차이가 없다. 브라우저 시각·Accordion 동작 검증은 이번 커밋 작업에서 수행하지 않았다.
 
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 

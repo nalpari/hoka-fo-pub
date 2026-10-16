@@ -11,13 +11,14 @@ const styles = {
     textBoxTrim: 'none',
     textBoxEdge: 'cap alphabetic',
   }),
+  panel: css({ pt: '0', pl: '7', pb: '4' }),
 };
 
 export function FooterNavigationMobile() {
   const items: AccordionEntry[] = footerGroups.map((group) => ({
     value: group.title,
     title: (
-      <HStack py="22px">
+      <HStack py="5">
         <Typography variant="heading9" tone="inverse" className={styles.title}>
           {group.title}
         </Typography>
@@ -31,7 +32,12 @@ export function FooterNavigationMobile() {
       borderTop="1px solid var(--color-border-tertiary)"
       borderBottom="1px solid var(--color-border-tertiary)"
     >
-      <Accordion items={items} indicatorColor="var(--color-black-10)" multiple={false} />
+      <Accordion
+        items={items}
+        indicatorColor="var(--color-black-10)"
+        panelClassName={styles.panel}
+        multiple
+      />
     </Box>
   );
 }
