@@ -25,6 +25,16 @@ const promotionFrame = css({
 
 const promotionViewport = css({ minW: '0', h: '100%', gridColumn: '2', gridRow: '1' });
 
+const singlePromotion = css({
+  '--promotion-frame-space': '16px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  w: '100%',
+  h: '100%',
+  px: '2',
+});
+
 const promotionControls = css({
   display: 'contents',
   '& button': {
@@ -55,6 +65,22 @@ export function HeaderPromotionCarousel({
   buttonType?: HeaderPromotionButtonType;
   items?: HeaderPromotionItem[];
 }) {
+  if (items.length === 0) return null;
+
+  if (items.length === 1) {
+    const item = items[0];
+
+    return (
+      <div className={singlePromotion}>
+        <HeaderPromotionContent
+          message={item.message}
+          href={item.href}
+          buttonType={buttonType ?? item.buttonType}
+        />
+      </div>
+    );
+  }
+
   return (
     <Carousel itemCount={items.length} loop>
       <PromotionCarouselFrame buttonType={buttonType} items={items} />
@@ -94,6 +120,7 @@ function PromotionCarouselFrame({
       }
     >
       <CarouselViewport
+        effect="fade"
         className={promotionViewport}
         slideClassName={promotionSlide}
         freeMode={false}

@@ -2,10 +2,11 @@
 
 import { Children, type CSSProperties, type ReactNode, useCallback, useRef, useState } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
-import { FreeMode } from 'swiper/modules';
+import { EffectFade, FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import 'swiper/css/effect-fade';
 import { css } from 'styled-system/css';
 import { useCarousel } from './CarouselContext';
 import { CarouselScrollbar } from './CarouselScrollbar';
@@ -40,6 +41,8 @@ const mobileSlideGutter = css({ px: 'var(--carousel-item-gutter)' });
 export type CarouselViewportProps = {
   children: ReactNode;
   className?: string;
+  /** Fade displays one slide at a time and disables free dragging. */
+  effect?: 'slide' | 'fade';
   /** On web, aligns the first and last slides to a centered N-card content frame. */
   desktopCenteredItemCount?: number;
   /** Horizontal desktop slide gutter, in pixels; the first slide remains flush to the rail start. */
@@ -60,6 +63,7 @@ export function CarouselViewport({
   className,
   desktopCenteredItemCount,
   desktopItemGutter,
+  effect = 'slide',
   freeMode = true,
   mobileItemGutter,
   mode = 'web',
@@ -73,6 +77,8 @@ export function CarouselViewport({
   const scrollbarRef = useRef<HTMLElement | null>(null);
   const [scrollbarContentWidth, setScrollbarContentWidth] = useState(0);
   const isMobile = mode === 'mobile';
+  const isFade = effect === 'fade';
+  const isFreeMode = freeMode && !isFade;
   const itemGutter = isMobile ? mobileItemGutter : desktopItemGutter;
   const slides = Children.toArray(children);
 
@@ -125,16 +131,18 @@ export function CarouselViewport({
     <Swiper
       className={[
         viewport,
-        !freeMode ? snapViewport : '',
+        !isFreeMode ? snapViewport : '',
         className,
         !isMobile && desktopCenteredItemCount ? desktopOverflowVisible : '',
       ]
         .filter(Boolean)
         .join(' ')}
-      freeMode={freeMode ? { enabled: true, sticky: isMobile } : false}
+      effect={effect}
+      fadeEffect={isFade ? { mode: 'cross-fade' } : undefined}
+      freeMode={isFreeMode ? { enabled: true, sticky: isMobile } : false}
       loop={loop && itemCount > 1}
       followFinger
-      modules={[FreeMode]}
+      modules={isFade ? [EffectFade] : [FreeMode]}
       initialSlide={initialIndex}
       onAfterInit={handleAfterInit}
       onReachBeginning={updateState}
@@ -145,13 +153,13 @@ export function CarouselViewport({
       onTouchEnd={updateState}
       // When the rail itself has end padding, slide padding supplies the
       // visual gap and Swiper does not add another trailing offset.
-      slidesOffsetAfter={isMobile && mobileItemGutter === undefined ? 32 : 0}
-      slidesPerView="auto"
-      spaceBetween={isMobile && mobileItemGutter === undefined ? 16 : 0}
-      speed={freeMode ? 350 : 280}
-      threshold={freeMode ? 0 : 5}
-      resistanceRatio={freeMode ? 0.85 : 0.65}
-      longSwipesRatio={freeMode ? 0.5 : 0.25}
+      slidesOffsetAfter={!isFade && isMobile && mobileItemGutter === undefined ? 32 : 0}
+      slidesPerView={isFade ? 1 : 'auto'}
+      spaceBetween={!isFade && isMobile && mobileItemGutter === undefined ? 16 : 0}
+      speed={isFreeMode ? 350 : 280}
+      threshold={isFreeMode ? 0 : 5}
+      resistanceRatio={isFreeMode ? 0.85 : 0.65}
+      longSwipesRatio={isFreeMode ? 0.5 : 0.25}
     >
       {slides.map((child, index) => (
         <SwiperSlide

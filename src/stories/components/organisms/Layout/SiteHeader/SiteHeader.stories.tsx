@@ -43,6 +43,16 @@ export const PromotionNavigation: Story = {
     const banner = within(canvasElement).getByRole('complementary', { name: '홍보 배너' });
     const canvas = within(banner);
 
+    if (headerPromotionItems.length < 2) {
+      expect(canvas.queryByRole('button', { name: '다음 항목' })).not.toBeInTheDocument();
+      expect(canvas.queryByRole('button', { name: '이전 항목' })).not.toBeInTheDocument();
+      expect(banner.querySelector('.swiper')).toBeNull();
+      if (headerPromotionItems.length === 1) {
+        expect(canvas.getByText(headerPromotionItems[0].message)).toBeVisible();
+      }
+      return;
+    }
+
     const expectSlide = async (index: number) => {
       await waitFor(
         () => {
@@ -52,6 +62,8 @@ export const PromotionNavigation: Story = {
             headerPromotionItems[index].buttonType === 'memberBenefits' ? 'column' : 'row',
           );
           const viewport = banner.querySelector('.swiper')!;
+          expect(viewport).toHaveClass('swiper-fade');
+          expect(Number(getComputedStyle(slide!).opacity)).toBe(1);
           expect(
             (viewport as HTMLElement & { swiper: { animating: boolean } }).swiper.animating,
           ).toBe(false);
@@ -64,12 +76,12 @@ export const PromotionNavigation: Story = {
     };
 
     await expectSlide(0);
-    for (const index of [1, 2, 3, 0]) {
+    for (let step = 1; step <= headerPromotionItems.length; step += 1) {
       await userEvent.click(canvas.getByRole('button', { name: '다음 항목' }));
-      await expectSlide(index);
+      await expectSlide(step % headerPromotionItems.length);
     }
     await userEvent.click(canvas.getByRole('button', { name: '이전 항목' }));
-    await expectSlide(3);
+    await expectSlide(headerPromotionItems.length - 1);
   },
 };
 

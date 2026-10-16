@@ -35,7 +35,7 @@ export function HeaderPromotionContent({
       ref={ref}
       gap={isMemberBenefits ? '0' : '4'}
       w="max-content"
-      maxW="calc(100cqw - 150px)"
+      maxW="calc(100cqw - var(--promotion-frame-space, 150px))"
       textAlign="center"
       justifyContent={isMemberBenefits ? 'center' : undefined}
     >

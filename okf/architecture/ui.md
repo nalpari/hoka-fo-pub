@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T03:45:14.574Z'
+  at: '2026-10-16T03:51:12.549Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
@@ -222,6 +222,12 @@ sources:
 커밋 전 검증(Codex): 타입 검사·푸터 ESLint·Panda 생성 통과. Prettier 기본 검사는 LF/CRLF 차이로 경고를 보고했으며, 줄바꿈을 각 파일에 맞추면 포맷 차이가 없다. 브라우저 시각·Accordion 동작 검증은 이번 커밋 작업에서 수행하지 않았다.
 
 ## 헤더 회원 혜택 배너
+
+2026-10-16 fade·단일 항목 변경 검증(Codex): 타입 검사·변경 TSX ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 이번 작업에서 Storybook play의 브라우저 실행은 수행하지 않았다.
+
+2026-10-16 단일 데이터 처리: `HeaderPromotionCarousel`은 items가 1개면 Carousel·Swiper·Nav를 생성하지 않고 정적 중앙 콘텐츠를 렌더링한다. Nav 공간 없이 좌우 8px 여백만 사용하며 링크·버튼 종류별 배치는 유지한다. 0개면 콘텐츠를 렌더링하지 않고 2개 이상이면 순환 fade를 사용한다. 현재 데모 데이터는 나머지 항목을 주석 처리해 1개를 표시한다. `PromotionNavigation` play는 단일 항목의 문구·Swiper 미생성·Nav 숨김과 다중 항목의 순환을 데이터 개수에 따라 검사한다.
+
+2026-10-16 전환 효과: `HeaderPromotionCarousel`은 `CarouselViewport effect="fade"`를 사용한다. Viewport의 기본값은 `slide`이며 fade는 Swiper EffectFade·전용 CSS와 `fadeEffect.mode="cross-fade"`를 사용한다. fade에서는 한 항목씩 표시하고 자유 이동·슬라이드 간격·모바일 끝 여백을 비활성화한다. 헤더의 좌우 이동 버튼·순환·활성 문구 너비 측정은 유지한다. `PromotionNavigation` play에 fade 클래스와 전환 후 활성 슬라이드 opacity 검사를 추가했다.
 
 2026-10-16 콘텐츠 타이포·정렬 수정: 안내 문구는 PC `body3`·모바일 `body5`, 링크는 PC `textLink2`·모바일 `textLink3`를 명시한다. `memberBenefits`의 VStack에만 `justifyContent="center"`를 적용하고, `details`에는 `undefined`를 전달해 기본 정렬을 사용한다. Panda의 `justifyContent` 타입은 `null`을 허용하지 않는다. 커밋 전 타입 검사·해당 파일 ESLint·Prettier·Panda 생성을 통과했다. 이번 작업에서 브라우저 시각 검증은 수행하지 않았다.
 
