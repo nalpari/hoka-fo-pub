@@ -745,7 +745,7 @@ export function Typography<T extends ElementType = 'span'>({
   children,
   className,
   tone,
-  variant,
+  variant = 'unstyled',
   web,
   mo,
   language = 'auto',

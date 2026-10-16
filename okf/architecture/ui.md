@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T09:04:03Z'
+  at: '2026-10-16T09:15:53.8541576Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Typography/Typography.tsx
   - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
   - src/stories/features/login/LoginPage.stories.tsx
@@ -334,6 +335,8 @@ Atoms/StatusMessage의 세 tone과 Login의 Error·MobileError에 실제 적용 
 2026-10-16 OrderStatusTracker의 “전체 보기 →” Typography에 tertiary tone을 명시했다. body5 타입과 기존 링크 경로·주문 상태 목록은 유지한다. 타입 검사·변경 TSX ESLint 통과. Prettier는 이 파일의 CRLF 줄바꿈 기준으로 통과했으며 브라우저 시각 검증은 수행하지 않았다.
 
 ## Typography 스타일 미적용 옵션
+
+2026-10-16 `variant` prop의 기본값을 `unstyled`로 지정했다. variant 및 해당 플랫폼의 web/mo를 생략하면 recipe를 적용하지 않고 네이티브/상위/호출자 스타일을 사용한다. web/mo가 있으면 기존 플랫폼 선택 순서대로 우선한다. 기존 기본 body 타입이 필요한 호출자는 `variant="body"`를 명시해야 하며, unstyled에서는 tone·weight도 recipe와 함께 생략된다. 타입 검사·변경 파일 ESLint·Storybook production build를 통과했다. 전체 호출 화면의 시각적 동일성을 검증한 것은 아니다.
 
 2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe 전체를 생략해 tone·weight·언어별 타입 스타일을 적용하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
 

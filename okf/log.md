@@ -2,6 +2,8 @@
 
 ## 2026-10-16
 
+- **Feature**: Typography의 생략된 variant 기본값을 unstyled로 지정했다. [UI 아키텍처](architecture/ui.md)에 플랫폼 우선순위·body 명시 사용과 검증 한계를 기록했다.
+
 - **Fix / Audit**: 로그인 필수값 검증을 FormField.invalid와 연결하고 입력 후 오류 해제·기능 미연결 안내 구분을 추가했다. 전체 공통 Form 입력/선택/그룹 컴포넌트의 프로젝트 Context·Base UI Context 전달 및 오류 색상 적용 차이를 [UI 아키텍처](architecture/ui.md)와 [상태 문서](architecture/state.md)에 기록했다.
 
 - **Fix**: StatusMessage의 data-tone별 Panda 색상 누락을 수정하고 로그인 Error·MobileError와 공통 안내 스토리에 색상 회귀 검사를 추가했다. [UI 아키텍처](architecture/ui.md)에 원인과 검증 범위, 별도 상품 스토리 heading 오류의 재현 결과를 기록했다.
