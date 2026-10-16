@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T02:14:02Z'
+  at: '2026-10-16T03:45:14.574Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
@@ -222,6 +222,8 @@ sources:
 커밋 전 검증(Codex): 타입 검사·푸터 ESLint·Panda 생성 통과. Prettier 기본 검사는 LF/CRLF 차이로 경고를 보고했으며, 줄바꿈을 각 파일에 맞추면 포맷 차이가 없다. 브라우저 시각·Accordion 동작 검증은 이번 커밋 작업에서 수행하지 않았다.
 
 ## 헤더 회원 혜택 배너
+
+2026-10-16 콘텐츠 타이포·정렬 수정: 안내 문구는 PC `body3`·모바일 `body5`, 링크는 PC `textLink2`·모바일 `textLink3`를 명시한다. `memberBenefits`의 VStack에만 `justifyContent="center"`를 적용하고, `details`에는 `undefined`를 전달해 기본 정렬을 사용한다. Panda의 `justifyContent` 타입은 `null`을 허용하지 않는다. 커밋 전 타입 검사·해당 파일 ESLint·Prettier·Panda 생성을 통과했다. 이번 작업에서 브라우저 시각 검증은 수행하지 않았다.
 
 2026-10-16 Nav 간격 수정: 960px까지 확장하던 프레임을 현재 슬라이드 콘텐츠 너비에 맞췄다. 내부 `PromotionCarouselFrame`이 Carousel의 activeIndex와 콘텐츠 ref를 사용하고 ResizeObserver로 문구·폰트·컨테이너 변경을 반영한다. 좌우 32px 버튼과 콘텐츠 사이 간격은 각각 35px, 외곽 여백은 각각 8px다. 콘텐츠는 max-content 너비·중앙 정렬이며 배너의 inline-size 컨테이너 기준으로 사용 가능한 폭을 제한한다. 슬라이드 overflow를 숨겨 너비 변경 후 인접 문구가 비치는 것을 막는다. PC·375px·320px 모바일에서 좌우 35px 간격과 중앙 오차 0.01px 미만을 브라우저로 확인했다. 타입 검사·변경 파일 ESLint·Panda 생성을 통과했다.
 

@@ -37,12 +37,13 @@ export function HeaderPromotionContent({
       w="max-content"
       maxW="calc(100cqw - 150px)"
       textAlign="center"
+      justifyContent={isMemberBenefits ? 'center' : undefined}
     >
-      <Typography tone="inverse" variant="action" mo="body5" weight="medium">
+      <Typography tone="inverse" web="body3" mo="body5" weight="medium">
         {message}
       </Typography>
       <ButtonLink className={promotionLink} href={href} variant="link" size="sm">
-        <Typography variant="textLink2" mo="textLink3">
+        <Typography web="textLink2" mo="textLink3">
           <span>{isMemberBenefits ? '회원 혜택 자세히 보기' : '자세히 보기'}</span>
         </Typography>
       </ButtonLink>
