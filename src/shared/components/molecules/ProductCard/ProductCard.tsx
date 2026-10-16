@@ -80,7 +80,13 @@ export type ProductCardProps = {
   variant?: ProductCardVariant;
 };
 
-export function ProductCard({ liked, onLikedChange, options = [], product, variant = 'listing' }: ProductCardProps) {
+export function ProductCard({
+  liked,
+  onLikedChange,
+  options = [],
+  product,
+  variant = 'listing',
+}: ProductCardProps) {
   const [internalLiked, setInternalLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const platform = usePlatform();
@@ -132,6 +138,7 @@ export function ProductCard({ liked, onLikedChange, options = [], product, varia
         optionThumbnails={productOptionThumbnails(product)}
         platform={platform}
         price={product.price}
+        originalPrice={product.originalPrice}
         promotion={hasOption('promotion') ? product.promotion : undefined}
         showVariantSummary={hasOption('colors')}
         variant={variant}

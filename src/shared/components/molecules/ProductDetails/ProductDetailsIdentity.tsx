@@ -5,15 +5,25 @@ import { ProductName } from '@/shared/components/molecules/ProductName/ProductNa
 import { ProductPrice } from '@/shared/components/molecules/ProductPrice/ProductPrice';
 import type { ProductDetailsProps } from './ProductDetails';
 
-type Props = Pick<ProductDetailsProps, 'promotion' | 'gender' | 'name' | 'price' | 'variant'>;
+type Props = Pick<
+  ProductDetailsProps,
+  'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'variant'
+>;
 
-export function ProductDetailsIdentity({ promotion, gender, name, price, variant }: Props) {
+export function ProductDetailsIdentity({
+  promotion,
+  gender,
+  name,
+  price,
+  originalPrice,
+  variant,
+}: Props) {
   return (
     <VStack gap="1" alignItems="flex-start" minW="0" w="100%">
       {promotion && <PromotionBadge promotion={promotion} />}
       {gender && <ProductGender gender={gender} variant={variant} />}
       <ProductName name={name} variant={variant} />
-      <ProductPrice price={price} variant={variant} />
+      <ProductPrice price={price} originalPrice={originalPrice} variant={variant} />
     </VStack>
   );
 }

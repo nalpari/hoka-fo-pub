@@ -26,6 +26,10 @@ export const Default: Story = { args: { product: products[1] } };
 
 export const ComingSoon: Story = { args: { product: products[0] } };
 
+export const Discounted: Story = {
+  args: { product: products.find((product) => product.id === 'shoe-3')! },
+};
+
 export const HoverPreview: Story = {
   args: { product: products[0] },
   render: ({ product }) => (

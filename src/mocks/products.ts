@@ -16,6 +16,7 @@ export type Product = {
   category: '라이프스타일' | '러닝' | '트레일' | '리커버리';
   gender?: "Men's" | "Women's" | 'All Gender';
   price: number;
+  originalPrice?: number;
   colors: string[];
   sizes: string[];
   hasSizeGuide?: boolean;
@@ -134,7 +135,9 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   colorThumbnails: bondiColorThumbnails,
   category: (['라이프스타일', '러닝', '트레일', '리커버리'] as const)[i % 4],
   gender: (["Men's", "Women's", 'All Gender'] as const)[i % 3],
-  price: 129000 + (i % 5) * 15000,
+  // Publishing example: Daily Motion 3 is 20% off.
+  price: i === 2 ? 232000 : 129000 + (i % 5) * 15000,
+  originalPrice: i === 2 ? 290000 : undefined,
   colors: [catalogColors[i % catalogColors.length], catalogColors[(i + 5) % catalogColors.length]],
   sizes: ['230', '240', '250', '260', '270', '280'],
   soldOut: i % 4 === 0 ? ['260', '280'] : [],

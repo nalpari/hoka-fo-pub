@@ -2,6 +2,10 @@
 
 ## 2026-10-16
 
+- **Feature**: 상품 목록 목 데이터에 Daily Motion 3의 20% 할인 예시를 추가하고 카드·hover 미리보기에서 정상가를 ProductPrice까지 전달했다. 카드 할인 스토리와 [프로젝트 개요](project.md)·[UI 아키텍처](architecture/ui.md)를 갱신했다.
+
+- **Feature**: ProductPrice에 선택적 originalPrice, 정상가 취소선과 자동 계산한 빨간 할인율을 추가하고 일반·할인·모바일·동일 가격 스토리 및 [UI 아키텍처](architecture/ui.md)를 갱신했다.
+
 - **Refactor**: TermsDialog의 단일 확인 footer도 SingleActionDialog로 통일했다. tall/fullWidth 버튼, 확인 닫기와 모바일 fullscreen·scrollFade·버전 전환 계약을 유지했다.
 
 - **Refactor**: SingleActionDialog로 확인 버튼 하나의 footer를 공용화하고 기가입·마케팅 수신내역·주소 입력 팝업에 적용했다. 버튼 크기/너비와 확인·닫기 콜백을 유지하고 공용 스토리 및 [UI 아키텍처](architecture/ui.md)를 갱신했다.

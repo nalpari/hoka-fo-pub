@@ -19,6 +19,7 @@ export type ProductDetailsProps = {
   optionThumbnails: readonly ProductOptionThumbnail[];
   platform: Platform;
   price: number;
+  originalPrice?: number;
   promotion?: Promotion;
   showVariantSummary?: boolean;
   variant: ProductCardVariant;
@@ -34,6 +35,7 @@ export function ProductDetails({
   optionThumbnails,
   platform,
   price,
+  originalPrice,
   promotion,
   showVariantSummary = false,
   variant,
@@ -47,6 +49,7 @@ export function ProductDetails({
           gender={gender}
           name={name}
           price={price}
+          originalPrice={originalPrice}
           variant={variant}
         />
 

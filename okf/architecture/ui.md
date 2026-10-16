@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T06:37:57+00:00'
+  at: '2026-10-16T15:57:44+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/ProductCard/ProductCard.tsx
+  - src/shared/components/molecules/ProductCard/ProductCardPreview.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/stories/components/molecules/ProductCard/ProductCard.stories.tsx
+  - src/shared/components/molecules/ProductPrice/ProductPrice.tsx
+  - src/stories/components/molecules/ProductPrice/ProductPrice.stories.tsx
   - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
   - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
   - src/shared/features/phone-verification/PhoneVerificationPage.tsx
@@ -435,6 +442,14 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 `MenuDrawerBase({ menus, onSelectMenu, onNavigate })`는 기본 쇼핑 메뉴와 모바일 광고를 소유하며 `<Stack gap="56px">`으로 두 영역의 간격을 정한다. 광고의 개별 margin-top은 사용하지 않는다. `MenuDrawerNavigation`은 기본/상세 분기와 외곽 패딩, 상세 뒤로가기를 유지한다.
 
+## 상품 가격 할인 표시
+
+`ProductPrice`의 `price`는 현재 판매가이며 선택적인 `originalPrice`가 판매가보다 크고 판매가가 0 이상이면 할인 표시를 사용한다. 정상가는 위쪽에 회색 취소선(`del`)으로, 반올림한 정수 할인율은 아래 판매가 왼쪽에 `red80` 색으로 표시한다. 할인 정보가 없거나 정상가와 판매가가 같으면 기존 판매가만 표시한다. 가격 Typography의 PC·모바일 크기와 원 단위 강조를 유지한다. `ProductCard`와 hover 미리보기는 `ProductDetails` → `ProductDetailsIdentity` → `ProductPrice`로 `originalPrice`를 전달한다. 목 상품 `shoe-3`(Daily Motion 3)은 정상가 290,000원·판매가 232,000원의 20% 할인 예시이며, 가격 필터와 정렬은 기존 판매가 `price`를 사용한다. `Molecules/Product Card`의 Discounted 스토리에서도 확인할 수 있다.
+
+`Molecules/Product Price` 스토리에서 일반가·20% 할인(290,000원 → 232,000원)·모바일 할인·동일 가격을 확인할 수 있다.
+
+커밋 전 검증(Codex): 타입 검사, 임시 생성 산출물을 제외한 전체 린트(`npm run lint -- --ignore-pattern ".tmp-*/**"`), 변경 소스 Prettier 검사, Next.js production build·Storybook build와 기존 주문 합계 테스트 3개를 통과했다. 이번 커밋 작업에서 브라우저 상호작용 검증은 실행하지 않았다.
+
 ## 상품 카드 상품명 말줄임
 
 ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, minW=0으로 카드 너비 안에 제한한다. 부모의 alignItems=flex-start 아래에서 내부 묶음이 긴 상품명의 내용 너비로 확장되면 ProductName의 truncate가 있어도 옆 카드와 겹친다. ProductName의 기존 한 줄 말줄임 스타일을 유지하고 부모 너비를 제한해 HOME 베스트셀러를 포함한 상품 카드에서 적용되도록 한다.
@@ -614,12 +629,12 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 
 지정 범위는 locales, identity-verification, find-account, catalog, account-locked다. 아래 구현은 기능 내부에 두며 공용 atom으로 승격하지 않는다.
 
-| 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                   |
+| 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음  |
-| PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유 |
-| 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
-| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 별도 fixed 배경·blur·z-index 90 래퍼를 제거하고 공통 ModalDialog backdrop을 사용한다. 버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                      |
+| LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음                            |
+| PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유                           |
+| 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                                                  |
+| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 별도 fixed 배경·blur·z-index 90 래퍼를 제거하고 공통 ModalDialog backdrop을 사용한다. 버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유 |
 
 지역 제목의 `region-Asia Pacific`처럼 공백이 있던 id/aria-labelledby는 `region-asia-pacific` 등 명시적 고유 ID로 수정했다. aria-labelledby의 공백 토큰 분리로 지역 이름을 잃는 문제를 해소한다. 국가 링크 URL 자체는 변경하지 않았다.
 

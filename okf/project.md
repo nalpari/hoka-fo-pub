@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T16:38:00+09:00'
+  at: '2026-10-16T15:57:44+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/mocks/products.ts
   - src/data/screenRegistry.ts
   - README.md
   - src/app/checkout/page.tsx
@@ -53,6 +54,8 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 `src/data/screenRegistry.ts`는 IA 화면 메타데이터다. IA에 등록된 화면이 실제 라우트나 완성된 기능이라는 뜻은 아니다. 상품 정보는 `src/mocks/products.ts`, 기능별 정적 콘텐츠는 해당 기능 폴더에서 관리한다. 첫 번째 상품(`shoe-1`, Clifton 11 GTX)은 생성된 기본 상품을 덮어써 자체 색상·폭·갤러리를 가진다.
 
 ## 현재 제약
+
+목 상품의 `price`는 판매가, 선택적인 `originalPrice`는 할인 전 정상가다. 상품 목록의 `shoe-3`(Daily Motion 3)에 정상가 290,000원 → 판매가 232,000원(20%)의 퍼블리싱 예시를 제공하며 실제 프로모션 가격을 의미하지 않는다. 상품 카드와 hover 미리보기의 할인 표시 계약은 [컴포넌트와 스타일](architecture/ui.md)의 상품 가격 할인 표시를 참고한다.
 
 - 로그인과 회원 관련 흐름은 데모 구현이다.
 - 주문·결제 화면 `/checkout`은 배송 정보·결제 수단·합계·완료 상태를 표시하는 데모다. 완료 시 장바구니를 비우며 실제 주문 저장·결제 승인은 연결하지 않았다.
