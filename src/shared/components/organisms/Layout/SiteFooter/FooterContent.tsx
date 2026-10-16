@@ -12,7 +12,7 @@ export function FooterContent() {
       }
       gap={0}
       w="100%"
-      maxW="1532px"
+      maxW="var(--layout-web-content-max-width)"
       mx="auto"
       _mobile={{
         gridTemplateColumns: 'minmax(0, 1fr)',

@@ -4,18 +4,11 @@ import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselS
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { homeCategories } from './homeContent';
 
-const webRail = css({ w: '100%' });
-
 const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '2' },
-});
-
-const webSlide = css({
-  w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - var(--layout-web-category-four-card-gap)) / 4)!',
-  '& > *': { w: '100%' },
 });
 
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
@@ -34,8 +27,8 @@ export function HomeCategorySection({ platform }: HomeCategorySectionProps) {
       itemCount={homeCategories.length}
       mobileItemGutter={8}
       platform={platform}
-      railClassName={isWeb ? webRail : mobileRail}
-      slideClassName={isWeb ? webSlide : mobileSlide}
+      railClassName={isWeb ? undefined : mobileRail}
+      slideClassName={isWeb ? undefined : mobileSlide}
       title="Shop by category"
     >
       {homeCategories.map((category) => (

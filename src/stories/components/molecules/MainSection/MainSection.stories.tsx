@@ -20,3 +20,9 @@ export const Default: Story = {};
 export const CompactDesktop: Story = { args: { spacing: 'compact' } };
 
 export const FullBleedContent: Story = { args: { contentWidth: 'fullBleed' } };
+
+export const ExtendedContent: Story = {
+  args: { contentWidth: 'extended' },
+  parameters: { layout: 'fullscreen' },
+  globals: { viewport: 'hoka2560' },
+};

@@ -59,8 +59,9 @@ $font-faces: (
     --soft: #{$soft};
     --content-width: 1140px;
 
-    // WEB is a fixed desktop canvas. These values intentionally remain in
-    // effect below 1200px, where the page is horizontally scrollable.
+    // WEB keeps a 1200px minimum canvas and a centered 1532px content grid.
+    // Campaign media, section backgrounds, and carousel rails may extend beyond it.
+    // Below 1200px the desktop canvas remains horizontally scrollable.
     --layout-web-min-width: 1200px;
     --layout-web-content-max-width: 1532px;
     --layout-web-content-gutter: 55px;

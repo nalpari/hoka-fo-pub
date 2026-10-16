@@ -1,10 +1,8 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { HStack, VStack } from 'styled-system/jsx';
-import {
-  Typography,
-  type TypographyVariant,
-} from '@/shared/components/atoms/Typography/Typography';
+import { Box, VStack } from 'styled-system/jsx';
+import type { TypographyVariant } from '@/shared/components/atoms/Typography/Typography';
+import { MainSectionHeader } from './MainSectionHeader';
 
 export type MainSectionProps = {
   title: string;
@@ -12,14 +10,10 @@ export type MainSectionProps = {
   actionSlot?: ReactNode;
   children: ReactNode;
   className?: string;
-  /** Keeps the header in the content frame while allowing the content rail to span the viewport. */
-  contentWidth?: 'contained' | 'fullBleed';
+  /** Extended content starts on the central grid and reaches the frame's right edge. */
+  contentWidth?: 'contained' | 'fullBleed' | 'extended';
   spacing?: 'default' | 'compact';
 };
-
-const section = css({
-  w: '100%',
-});
 
 const content = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
@@ -32,7 +26,12 @@ const fullBleedContent = css({
   mx: 'calc(50% - 50vw)',
 });
 
-const heading = css({ m: '0' });
+const extendedContent = css({
+  w: 'calc(100% - var(--section-content-offset))',
+  ml: 'var(--section-content-offset)',
+  minW: '0',
+  _mobile: { w: '100%', ml: '0' },
+});
 
 /** A home-page content region with a heading and optional header controls. */
 export function MainSection({
@@ -45,7 +44,17 @@ export function MainSection({
   spacing = 'default',
 }: MainSectionProps) {
   return (
-    <section className={[section, className].filter(Boolean).join(' ')}>
+    <Box
+      as="section"
+      className={className}
+      w="100%"
+      containerType="inline-size"
+      css={{
+        '--section-content-width':
+          'min(calc(100cqw - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
+        '--section-content-offset': 'calc((100cqw - var(--section-content-width)) / 2)',
+      }}
+    >
       <VStack
         alignItems="flex-start"
         gap={
@@ -54,20 +63,19 @@ export function MainSection({
             : { base: '40px', _mobile: '24px' }
         }
       >
-        <HStack
-          w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
-          mx="auto"
-          justifyContent="space-between"
-          alignItems="center"
-          _mobile={{ w: 'calc(100% - var(--layout-mobile-content-inline-space))' }}
+        <MainSectionHeader title={title} titleVariant={titleVariant} actionSlot={actionSlot} />
+        <div
+          className={
+            contentWidth === 'extended'
+              ? extendedContent
+              : contentWidth === 'fullBleed'
+                ? fullBleedContent
+                : content
+          }
         >
-          <Typography as="h2" className={heading} variant={titleVariant}>
-            {title}
-          </Typography>
-          {actionSlot}
-        </HStack>
-        <div className={contentWidth === 'fullBleed' ? fullBleedContent : content}>{children}</div>
+          {children}
+        </div>
       </VStack>
-    </section>
+    </Box>
   );
 }

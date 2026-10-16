@@ -2,6 +2,24 @@
 
 ## 2026-10-16
 
+- **Refactor**: 마이페이지 모달 5개와 휴대폰 인증 상세 모달을 기능 내부 컴포넌트로 분리했다. 상태·저장·삭제·단계 전환은 부모에 유지하고 알뜰폰 확인은 footer로 이전했다. 기존 독립 모달 유지 판단과 브라우저 확인 결과를 [UI 아키텍처](architecture/ui.md)에 기록했다.
+
+- **Refactor**: 회원가입 우편번호 찾기를 기능 내부 AddressSearchModal로 분리하고 확인 버튼을 ModalDialog.footer로 옮겼다. 독립적인 값/콜백 API와 PC·모바일 controlled 스토리를 추가하고 [UI 아키텍처](architecture/ui.md)에 현재 수동 입력 계약을 기록했다.
+
+- **Refactor**: 지정 레이아웃 9개 파일의 단일 스타일을 Panda JSX로 이전하고 모달 8곳의 액션을 공통 footer 슬롯으로 옮겼다. 기존 콜백과 반응형 계약, 브라우저 검증 결과를 [UI 아키텍처](architecture/ui.md)에 기록했다.
+
+- **Fix**: 재입고 취소 다이얼로그 액션을 공통 ModalDialog footer 슬롯으로 옮겼다. 상품 이미지 뷰어의 메인 이미지·페이지네이션을 gap=0의 Grid 기반 ProductDetailViewerGallery로 분리하고 [UI 아키텍처](architecture/ui.md)에 계약을 기록했다.
+
+- **Refactor**: 사용자 지정 run-club·product·mypage·locales·catalog 영역의 단일 사용 DOM/스타일을 Panda JSX로 이전했다. 런클럽 포스터/안내/빈 상태, 국가 선택 헤더/제목/목록, 마이페이지 breadcrumb·상품내역 5개 영역, 상품 상세 그리드/지원/액션, 배송·반품 안내 4개 영역을 기능 내부에서 분리했다. 기존 상태·콜백·반응형 값과 검증 범위를 [UI 아키텍처](architecture/ui.md)에 기록했다.
+
+- **Refactor**: 사용자 지정 영역을 HomeCarouselRail·MainSectionHeader·ProductDetailsIdentity/Options·SiteHeaderInner·ProductDetailBody로 분리했다. MainSection·SiteHeaderContent 바깥 프레임을 Panda JSX props로 전환하고 DOM·반응형 값·상태 수명을 유지했다. 5개 화면의 분리 전후 구조·치수 비교와 검증 결과를 [UI 아키텍처](architecture/ui.md)에 기록했다.
+
+- **Update**: RunClub Storybook을 `List`·`Detail` 하위 그룹으로 분리하고 공통 Preview를 공유했다. IA 200·258·259 미리보기 링크와 [UI 아키텍처](architecture/ui.md), [프로젝트 개요](project.md)를 새 story ID에 맞췄다.
+
+- **Fix**: 확장 캐러셀 마지막 카드 뒤에 중앙 그리드 바깥 여백을 추가하고, 카드 간격을 오른쪽 한쪽에 배치해 끝에서 여백만큼 추가 클릭되던 snap 단계를 제거했다. 시작/끝 대칭 정렬·정확한 클릭 횟수·컨트롤 disabled 상태를 검사하는 Storybook play와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
+
+- **Update**: 중앙 최대 1532px과 일부 영역 확장 규칙을 공통 MainSection·HomeCarouselSection에 적용했다. 홈·상품 추천·런클럽 추천의 카드 계산을 통일하고, 헤더·푸터·상품 상세·세션 안내 정렬, 홈 테스트 항목 12개, 모바일 옵션 행 넘침을 정리했다. 대형 화면·빈 항목·단일 항목 스토리와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
+
 - **Update**: 헤더 홍보 데이터가 1개면 정적 콘텐츠만 표시하고 Carousel·Nav를 생략하도록 변경했다. 단일 데모 데이터와 개수별 Storybook 검사를 [UI 아키텍처](architecture/ui.md)에 기록했다.
 
 - **Update**: CarouselViewport에 기본 slide·선택 fade 전환을 추가하고 헤더 홍보 배너에 cross-fade를 적용했다. Storybook에 효과·불투명도 검사를 추가하고 [UI 아키텍처](architecture/ui.md)에 설정을 기록했다.

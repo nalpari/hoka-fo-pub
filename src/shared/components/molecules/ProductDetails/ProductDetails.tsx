@@ -1,15 +1,10 @@
 import { css } from 'styled-system/css';
 import { Card } from '@/shared/components/atoms/Card/Card';
 import { VStack } from 'styled-system/jsx';
-import { PromotionBadge, type Promotion } from '@/shared/components/atoms/Badge/PromotionBadge';
-import {
-  ProductGender,
-  type ProductGenderOption,
-} from '@/shared/components/atoms/ProductGender/ProductGender';
-import { ProductPrice } from '@/shared/components/molecules/ProductPrice/ProductPrice';
-import { ProductName } from '@/shared/components/molecules/ProductName/ProductName';
-import { ProductActivity } from '@/shared/components/molecules/ProductActivity/ProductActivity';
-import { ProductVariantSummary } from '@/shared/components/molecules/ProductVariantSummary/ProductVariantSummary';
+import type { Promotion } from '@/shared/components/atoms/Badge/PromotionBadge';
+import type { ProductGenderOption } from '@/shared/components/atoms/ProductGender/ProductGender';
+import { ProductDetailsIdentity } from './ProductDetailsIdentity';
+import { ProductDetailsOptions } from './ProductDetailsOptions';
 import type { ProductOptionThumbnail } from '@/shared/components/molecules/ProductOptionList/ProductOptionList';
 import type { Platform } from '@/shared/lib/device';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
@@ -46,24 +41,23 @@ export function ProductDetails({
 }: ProductDetailsProps) {
   return (
     <Card.Content className={root}>
-      <VStack gap="4" alignItems="flex-start">
-        <VStack gap="1" alignItems="flex-start" minW="0" w="100%">
-          {promotion && <PromotionBadge promotion={promotion} />}
-          {gender && <ProductGender gender={gender} variant={variant} />}
-          <ProductName name={name} variant={variant} />
-          <ProductPrice price={price} variant={variant} />
-        </VStack>
+      <VStack gap="4" alignItems="flex-start" minW="0" w="100%">
+        <ProductDetailsIdentity
+          promotion={promotion}
+          gender={gender}
+          name={name}
+          price={price}
+          variant={variant}
+        />
 
         {showVariantSummary && (
-          <VStack gap="0" alignItems="flex-start">
-            {activities && activities.length > 0 && <ProductActivity activities={activities} />}
-            <ProductVariantSummary
-              colorCount={colorCount}
-              options={optionThumbnails}
-              platform={platform}
-              widthCount={widthCount}
-            />
-          </VStack>
+          <ProductDetailsOptions
+            activities={activities}
+            colorCount={colorCount}
+            optionThumbnails={optionThumbnails}
+            platform={platform}
+            widthCount={widthCount}
+          />
         )}
       </VStack>
     </Card.Content>

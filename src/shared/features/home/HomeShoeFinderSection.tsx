@@ -3,19 +3,15 @@ import { css } from 'styled-system/css';
 import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselSection/HomeCarouselSection';
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { shoeFinderItems, type HomeShoeFinderCardVariant } from './homeContent';
+import { createHomeCarouselPreviewItems } from './homeCarouselPreview';
 
-const webRail = css({ w: '100%' });
+const previewItems = createHomeCarouselPreviewItems(shoeFinderItems);
 
 const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '2' },
-});
-
-const webSlide = css({
-  w: 'calc((min(100vw - var(--layout-web-content-inline-space), var(--layout-web-content-max-width)) - 30px) / 4)!',
-  '& > *': { w: '100%' },
 });
 
 // Keep the 375px design width without enlarging slides on wider mobile screens.
@@ -37,15 +33,20 @@ export function HomeShoeFinderSection({
     <HomeCarouselSection
       desktopCenteredItemCount={4}
       desktopItemGutter={5}
-      itemCount={shoeFinderItems.length}
+      itemCount={previewItems.length}
       mobileItemGutter={8}
       platform={platform}
-      railClassName={isWeb ? webRail : mobileRail}
-      slideClassName={isWeb ? webSlide : mobileSlide}
+      railClassName={isWeb ? undefined : mobileRail}
+      slideClassName={isWeb ? undefined : mobileSlide}
       title="Find my HOKA"
     >
-      {shoeFinderItems.map(({ images, ...item }) => (
-        <MainContentCard key={item.title} {...item} image={images[variant]} variant={variant} />
+      {previewItems.map(({ images, ...item }, index) => (
+        <MainContentCard
+          key={`${item.title}-${index}`}
+          {...item}
+          image={images[variant]}
+          variant={variant}
+        />
       ))}
     </HomeCarouselSection>
   );

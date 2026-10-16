@@ -6,9 +6,70 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T03:51:12.549Z'
+  at: '2026-10-16T05:46:26+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/shared/features/mypage/MyPageReviewDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalCompleteDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
+  - src/shared/features/mypage/MyPageAddressDeleteDialog.tsx
+  - src/shared/features/mypage/MyPageLogoutDialog.tsx
+  - src/stories/features/signup-registration/RegistrationPage.stories.tsx
+  - src/shared/features/signup-registration/AddressSearchModal.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/product/ProductDetailSupport.tsx
+  - src/shared/features/run-club/RunClubApplicationNotice.tsx
+  - src/shared/features/mypage/MyPageReviews.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
+  - src/shared/features/product/ProductDetailViewerGallery.tsx
+  - src/shared/features/run-club/RunClubEmptyState.tsx
+  - src/shared/features/product/ProductVariantAction.tsx
+  - src/shared/features/product/ProductDetailSupportRegion.tsx
+  - src/shared/features/product/ProductDetailShippingGuide.tsx
+  - src/shared/features/product/ProductDetailReturnPrecautions.tsx
+  - src/shared/features/product/ProductDetailReturnGuide.tsx
+  - src/shared/features/product/ProductDetailGrid.tsx
+  - src/shared/features/product/ProductDetailDeliverySupport.tsx
+  - src/shared/features/product/ProductDetailDeliverySection.tsx
+  - src/shared/features/mypage/MyPageRestockList.tsx
+  - src/shared/features/mypage/MyPageRestockCancelDialog.tsx
+  - src/shared/features/run-club/RunClubSessionPoster.tsx
+  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
+  - src/shared/features/product/ProductVariantSection.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailMobileGallery.tsx
+  - src/shared/features/product/ProductDetailImageViewer.tsx
+  - src/shared/features/product/ProductDetailDeliveryContent.tsx
+  - src/shared/features/mypage/MyPageProductHistoryNote.tsx
+  - src/shared/features/mypage/MyPageProductHistoryHeading.tsx
+  - src/shared/features/mypage/MyPageProductHistoryGrid.tsx
+  - src/shared/features/mypage/MyPageProductHistory.tsx
+  - src/shared/features/mypage/MyPageFrame.tsx
+  - src/shared/features/mypage/MyPageBreadcrumbs.tsx
+  - src/shared/features/locales/LocalesHeading.tsx
+  - src/shared/features/locales/LocaleRegionHeading.tsx
+  - src/shared/features/locales/LocaleCountryList.tsx
+  - src/shared/features/home/HomeShoeFinderSection.tsx
+  - src/shared/features/home/HomeCategorySection.tsx
+  - src/shared/features/home/HomeBestSellerSection.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/shared/features/catalog/product-listing/DesktopProductSort.tsx
+  - src/shared/features/product/ProductDetailBody.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderInner.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
+  - src/stories/features/run-club/RunClubDetail.stories.tsx
+  - src/stories/features/run-club/RunClubPreview.tsx
+  - src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
+  - .storybook/preview.ts
+  - src/shared/features/home/homeCarouselPreview.ts
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
@@ -215,6 +276,65 @@ sources:
 
 2026-10-16 CarouselControls의 `iconName`·`iconSize` props는 양쪽 화살표의 Icon name·size를 설정하며 기본값은 `carousel-arrow`·`48px`이다. `iconSize`는 문자열 또는 숫자(px)를 받으며 버튼의 너비·높이에도 CSS 변수로 적용한다. 기존 `className`의 버튼·아이콘 스타일 재정의와 기본 화살표의 이전·다음 방향을 유지한다. `Carousel.tsx`에서 `CarouselControlsProps`도 재export한다.
 
+## 지정 기능의 JSX 이전과 내부 영역 분리 (2026-10-16)
+
+사용자가 지정한 run-club·product·mypage·locales·catalog의 개별 DOM/스타일 영역만 Panda JSX로 옮기거나 기능 내부 구성 요소로 분리했다. 기존 공개 props, 플랫폼 선택, 데이터, URL·선택·삭제 상태와 이벤트 처리 정책은 유지한다. 새 구성 요소는 각 기능 폴더 내부에서 조합하며 새 공용 atom·molecule이나 의존성을 추가하지 않는다.
+
+| 영역                 | 책임 분리와 유지 계약                                                                                                                                                                                                                                                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 런클럽 세션 안내     | `RunClubSessionPoster`가 카테고리별 포스터 제목·일자를, `RunClubSessionGuideContent({ title, rows })`가 안내 문구·Facts·주의사항과 스타일을 소유. 부모 Guide는 전체 배경·1532px 중앙 그리드·PC 2열/모바일 1열 조합 유지                                                                                                              |
+| 런클럽 빈 상태·Facts | `RunClubEmptyState`가 role=status, PC EmptyState·모바일 340px 안내를 소유. Facts의 바깥은 Box as=dl, 행은 Box로 이전하고 dt/dd·mobileOnly의 중요도 있는 display 조건 유지. hero/guide의 복합 variant는 기존 cva 유지                                                                                                                 |
+| 국가 선택            | `LocalesHeading`이 SVG·localeHeading·PC 92px/모바일 minH=15를 소유. Layout 내용 Box는 1200px 상한·기존 여백 유지. Region은 Box as=section이며 `LocaleRegionHeading({ id, name })`과 `LocaleCountryList({ countries })`를 조합. aria-labelledby·제목 ID·링크/국기 순서·4열/2열 column-count 유지                                      |
+| 마이페이지 프레임    | Grid as=main에 기존 180px 사이드바·50px gap·최대 너비·70px/120px 상하 여백과 모바일 block/0 여백을 이전. `MyPageBreadcrumbs`가 기존 prefix와 여백을 소유. 콘텐츠 Box는 minW=0 유지                                                                                                                                                   |
+| 상품 내역            | `MyPageProductHistoryHeading`, `MyPageRestockList`, `MyPageProductHistoryGrid`, `MyPageProductHistoryNote`, `MyPageRestockCancelDialog`로 표시 책임 분리. items·liked·pendingCancel과 관심 해제/재입고 취소 삭제는 부모에 유지. 자식은 준비된 데이터와 onLikedChange(id, active), onCancelRequest(id), onClose/onConfirm 콜백만 받음 |
+| 상품 상세 배치       | `ProductDetailGrid`가 중앙 구매 그리드를 소유. `ProductDetailSupportRegion({ platform })`을 Media(web)·Panel(mobile)에서 재사용해 지원 안내 노출 위치를 유지. `ProductVariantAction`은 옵션 액션의 baseline·space-between 정렬을 소유. Body는 Box hidden=isViewing 유지                                                              |
+| 상품 이미지          | 모바일 슬라이드와 이미지 뷰어의 콘텐츠/뷰어/슬라이드 래퍼를 Grid·Box JSX props와 Panda css prop으로 이전. wrapper·순서·ref·현재 인덱스·이미지 크기·썸네일/페이지네이션·Escape/초점 복원은 유지                                                                                                                                       |
+| 배송·반품 안내       | `ProductDetailShippingGuide`, `ProductDetailReturnPrecautions`, `ProductDetailDeliverySupport`, `ProductDetailReturnGuide`로 네 안내 영역 분리. 반복되는 section/h3·번호 목록은 기능 내부 `ProductDetailDeliverySection`/`ProductDetailDeliveryList`로 조합. 문구·리스트·전화/경로 링크·반품 단계·반응형 값 유지                     |
+| 상품 목록            | MobileProductFilter의 내용은 Box px=4. DesktopProductSort의 두 wrapper는 Box로 이전하고 onBlurCapture·키보드/포인터 선택 판별 ref와 Radio/Disclosure 계약 유지                                                                                                                                                                       |
+
+재입고 취소 다이얼로그의 취소·확인 액션은 사용자 지적에 따라 `ModalDialog.footer` 슬롯으로 옮겼다. 본문에는 안내 문구만 두고 footer의 HStack은 w=100%·gap=2와 두 fullWidth 버튼을 사용한다. 이 변경은 기존 body 내부 액션 배치를 공통 footer 계약으로 수정하는 의도적인 DOM/간격 변경이며, 위 JSX 이전의 시각적 유지 범위와 구분한다. open·onClose·onConfirm 계약과 삭제 상태는 유지한다.
+
+JSX로 옮긴 단일 사용 클래스는 제거했다. Typography 자체의 타입 스케일과 복합 선택자/variant는 기존 css·cva를 유지하며, inline style 객체나 별도 styles.ts 파일을 추가하지 않았다. 새로운 DOM 래퍼를 추가하지 않고 기존 div/section/main/dl에 대응하는 Panda primitive를 사용한다. 기본/빈 상태/모바일/상세는 기존 기능 스토리에서 검증한다.
+
+검증 (2026-10-16, Codex): 국가 선택·마이페이지 상품내역·상품 목록·상품 상세·런클럽 안내의 변경 전 렌더를 저장해 DOM tag·문구·링크·요소 치수를 비교했다. 국가 선택의 제목 ID 연결과 PC 4열/모바일 2열, 런클럽 정원 행의 mobileOnly·빈 상태 role=status, 관심상품 해제 후 빈 상태, 재입고 취소 다이얼로그의 취소/확인, 상품 정렬의 포인터/키보드/blur, 모바일 필터 열기/적용/닫기, 이미지 뷰어의 본문 숨김·썸네일·Escape·초점 복원과 모바일 갤러리 선택을 확인했다. 타입 검사·임시 생성 폴더 제외 전체 소스 lint·프로덕션 빌드·Storybook 빌드가 통과했다. Storybook은 기존 출력 폴더의 복사 충돌을 피하도록 임시 디렉터리에 빌드했다. 재입고 취소 footer 안의 두 버튼 너비·8px 간격·취소/확인, 분리된 이미지 뷰어 Grid의 gap=0·썸네일 선택·Escape·초점 복원도 확인했다.
+
+## 공통 UI 내부 구성 분리 (2026-10-16)
+
+사용자가 지정한 HomeCarouselSection, MainSection, ProductDetails, SiteHeaderContent와 ProductDetailLayout의 내부 영역을 책임 단위로 분리했다. 기존 공개 props와 호출부는 유지하며 새 구성 요소를 별도 공용 API로 승격하지 않는다. 타입을 공유하는 내부 구성 요소는 부모 props를 type-only `Pick`으로 참조하므로 런타임 순환 의존성을 추가하지 않는다.
+
+| 부모                | 내부 구성 요소                                    | 소유하는 계약                                                                                                                                                               |
+| ------------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HomeCarouselSection | `HomeCarouselRail`                                | Box의 카드 너비·간격 CSS 변수, WEB 슬라이드 스타일·끝 여백, CarouselViewport props와 내부 `viewportKey` 유지. 부모는 Carousel·MainSection·제목·컨트롤·필터 슬롯 조합을 담당 |
+| MainSection         | `MainSectionHeader`                               | HStack의 중앙 너비·모바일 여백·제목 Typography·actionSlot. 부모는 section 컨테이너와 본문 너비 모드·세로 간격을 담당                                                        |
+| ProductDetails      | `ProductDetailsIdentity`, `ProductDetailsOptions` | Identity는 프로모션·성별·상품명·가격과 gap=1, Options는 활동·색상/발볼 요약과 gap=0. 부모가 showVariantSummary 조건과 두 영역의 gap=4를 유지. 모든 minW=0·w=100% 계약 유지  |
+| SiteHeaderContent   | `SiteHeaderInner`                                 | 중앙 max-width·primary/actions HStack과 그룹 간 정렬. 부모는 header landmark·높이·테두리·배경·WEB/모바일 바깥 여백을 담당                                                   |
+| ProductDetailLayout | `ProductDetailBody`                               | hidden=isViewing 래퍼, 최대 1532px 내부 구매 Grid와 그 바깥 footer. viewer는 부모에 남아 hidden 영역 바깥에 표시                                                            |
+
+MainSection의 바깥 section은 Panda `Box as="section"`의 JSX props로 전환했다. 정적 그리드 CSS 변수는 Panda `css` prop에 둔다. SiteHeaderContent는 `Flex as="header"`에 기존 css 선언을 완전히 옮겼고 미사용 header 클래스·css import를 제거했다. ProductDetailBody의 그리드는 Grid JSX props를 사용한다. MainSection의 본문 너비 variant 클래스와 HomeCarouselRail의 복합 슬라이드 선택자는 해당 계약을 드러내는 명명된 css 선언으로 유지한다. 동적 카드 계산용 CSS 변수는 Rail의 기존 style 전달을 유지한다.
+
+DOM 래퍼·순서·landmark·숨김 속성·Typography variant·반응형 값·상태 수명을 바꾸지 않았다. 기존 Carousel와 native 의미 요소를 조합했으며 새 Base UI primitive나 의존성은 추가하지 않았다. 내부 구성 요소는 기존 MainSection·HomeCarouselSection·상품 카드·페이지·헤더 스토리로 검증한다.
+
+검증 (2026-10-16, Codex): 분리 전 Storybook 빌드와 분리 후 렌더를 비교했다. 홈 2560/375px, 상품 목록 375px, 상품 상세 2560/375px의 5개 화면에서 2304개 요소의 DOM tag·role·hidden 및 위치/크기가 0.1px 허용 오차 내에서 동일했다. 캐러셀 play 검사의 정확한 클릭 횟수·끝 정렬·뒤로 이동, 필터 변경 후 rail 초기화, 상품 이미지 뷰어의 본문 숨김·Escape·초점 복원을 다시 확인했다. 타입 검사·임시 생성 폴더 제외 전체 소스 lint·프로덕션 빌드·Storybook 빌드가 통과했다.
+
+## 중앙 그리드와 확장 영역 (2026-10-16)
+
+WEB은 최소 1200px 캔버스와 최대 1532px 중앙 그리드를 사용한다. 좌우 기본 여백은 각각 55px이며, 프레임 너비는 `min(100% - 110px, 1532px)`다. 화면이 커져도 본문·구매 패널·버튼·아이콘의 크기를 viewport에 비례해 확대하지 않는다. 모바일은 기존 플랫폼 조건과 16px 여백을 유지한다.
+
+- 헤더·푸터 내용, 홈 Explore, 상품 목록은 중앙 그리드에 정렬한다. 상품 상세의 바깥 프레임은 전체 너비이며 갤러리·구매 패널을 배치하는 내부 그리드만 너비를 제한한다. 추천 상품은 이 그리드의 형제이므로 `100vw`와 음수 margin으로 탈출하지 않는다.
+- 홈 Hero 이미지는 전체 너비, 기존 500px 최소·816px 최대 높이와 `object-fit: cover`를 유지한다. 캠페인 문구·버튼은 중앙 그리드에 정렬한다. 큰 화면에서는 이미지 상하가 더 크롭될 수 있다.
+- 런클럽 세션 안내의 배경은 전체 너비, 내부 내용은 최대 1532px다. 신청 Hero는 기존의 더 좁은 1340px 상한을 유지한다.
+- `MainSection.contentWidth`에 `extended`를 추가했다. 제목은 중앙 그리드에 두고 내용은 그리드 왼쪽에서 바깥 프레임 오른쪽 끝까지 확장한다. 기존 `contained`·`fullBleed`도 유지한다. inline-size query container와 `cqw`를 사용하므로 브라우저 스크롤바 너비나 WEB 최소 캔버스와 `100vw`의 차이로 넘치지 않는다.
+- `HomeCarouselSection`은 WEB에서 extended 프레임과 공통 카드 계산을 소유한다. 카드 크기는 중앙 그리드 너비·표시 개수·좌우 gutter로 결정하며, Swiper 뷰포트는 확장 영역의 실제 너비를 사용한다. WEB 슬라이드는 카드 오른쪽에 전체 카드 간격을 두어 첫 슬라이드부터 동일한 간격으로 snap한다. 마지막 슬라이드는 카드 간격 대신 중앙 그리드 바깥 여백을 오른쪽 padding과 너비에 포함한다. 끝까지 이동하면 마지막 카드 오른쪽이 제목/컨트롤 프레임 오른쪽에 정렬되며, 여백만큼 추가 클릭하는 단계가 생기지 않는다. 단일 카드는 padding을 생략한다. 모바일 gutter와 기본 CarouselViewport의 양쪽 gutter 계약은 유지한다. `slideClassName`은 모바일 카드 크기용이며 `railClassName`과 함께 선택 사항이다.
+- 홈 Category·Best sellers·Find my HOKA, 상품 상세 추천, 런클럽 추천이 같은 프레임을 사용한다. 데이터·필터·URL·상품 동작은 각 기능에 남긴다. 기존 Typography·Carousel·Base UI 기반 FilterTabs를 재사용하며 새 인터랙션 primitive나 의존성을 추가하지 않는다.
+- Best sellers와 Find my HOKA는 `createHomeCarouselPreviewItems`로 테스트용 항목 12개를 표시한다. Best sellers는 필터에 맞는 상품을 최대 12개 사용하며 부족하면 순환 반복한다. Find my HOKA도 기존 5개 카드를 반복한다. 빈 배열은 그대로 비우며, 반복 항목의 React key는 원본 식별자와 위치를 결합하고 원본 링크·상품 ID를 변경하지 않는다. 이 데이터 보충은 홈 wireframe 검증용이다.
+- 모바일 상품 카드의 정보·옵션 부모에 `minW=0`, `w=100%`를 적용하고 옵션 스크롤 행의 너비를 부모 안으로 제한했다. 썸네일 개수가 많아도 페이지를 밀어내지 않고 행 내부에서 스크롤한다.
+
+끝 정렬 후속 검증 (2026-10-16, Codex): 2560px에서 중앙 그리드 시작 514px·끝 2046px에 첫/마지막 카드를 맞췄다. `EndAlignedToGrid` play 검사는 중앙 그리드에 표시하는 개수를 제외한 정확한 클릭 횟수 안에 끝에 도달하고 다음 버튼이 disabled 되는지, 이전 버튼으로 같은 횟수 이동하면 시작 정렬과 disabled 상태로 복귀하는지를 확인한다. 끝 여백을 별도 카드나 추가 snap으로 취급하지 않는다. 1200·1920·2560·3840px의 홈에서 Best sellers 7회·Find my HOKA 8회 이동 직후 끝 정렬과 다음 버튼 disabled를 확인했으며, 실제 Next 앱 2560px에서도 같은 클릭 횟수와 끝 좌표 2046px를 확인했다.
+
+Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 대형 화면 스토리를 제공한다. HomeCarouselSection에는 4/5열, 대형 화면, 단일 항목, 빈 항목, 모바일 스토리가 있다. 모든 스토리는 `src/stories/`에 둔다.
+
+검증 (2026-10-16, Codex): Edge headless에서 홈·상품 목록·상품 상세·런클럽 상세를 375·768·1200·1600·1920·2560·3840px로 렌더해 28개 화면의 페이지 가로 넘침과 WEB 중앙 프레임·헤더·캐러셀 정렬을 측정했다. 1920·2560·3840px에서 Best sellers·Find my HOKA 각 12개 항목, 마우스 드래그와 좌우 컨트롤을 확인했다. 끝 정렬 기준은 후속 수정으로 화면 끝에서 중앙 그리드 끝으로 변경했다. 공통 캐러셀의 단일/빈 항목 컨트롤 비활성화, 필터 변경 시 위치 초기화, 상품 이미지 뷰어의 초점·Escape·복원도 확인했다. 실제 Next 앱의 900px 뷰포트에서 WEB 캔버스 1200px와 레일 55~1200px를 측정했다. 타입 검사·프로덕션 빌드·Storybook 빌드가 통과했다. 기본 lint는 기존 `.tmp*/`의 생성 번들을 검사해 실패했으며, `npm run lint -- --ignore-pattern '.tmp*/**'`는 통과했다.
+
 ## 푸터 레이아웃과 모바일 메뉴 (2026-10-16)
 
 브랜드 로고 너비는 PC 104px·모바일 115px이며 높이는 비율에 따라 자동 결정한다. 모바일 메뉴 제목의 세로 여백은 spacing 5, 펼친 패널은 위 0·왼쪽 spacing 7·아래 spacing 4, 링크 간격은 spacing 2를 사용한다. Accordion은 여러 그룹을 동시에 펼칠 수 있다. 사업자 제목은 PC body3·모바일 body4, 모바일 정보 간격은 12px이며 사업자정보확인 링크에 밑줄과 4px 오프셋을 지정한다. Shop 링크는 매장 찾기·본디·클리프톤·스피드고트·마파테·호파라로 구성한다. PC 푸터 여백은 세로 96px·가로 32px로 명시한다.
@@ -411,17 +531,17 @@ Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField�
 
 사용자가 지정한 catalog, find-account, home, identity-verification, mypage, product, run-club, signup-terms, signup을 점검했다. 기존 staged 변경을 보존하고 아래 책임 경계와 타입 스케일을 개선했다. 모든 폴더에 새 추상화를 강제로 추가하지 않는다.
 
-| 폴더                  | 판단·반영      | API와 보존할 계약                                                                                                                                                                                                                                                                                   |
-| --------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| catalog               | 유지           | ProductListingPage의 URL·필터·결과 계산, 기존 Layout/Content와 desktop/mobile leaf, 순수 filter/policy/metadata가 이미 분리됨. 필터 적용·초기화·정렬·뒤로가기 정책을 레이아웃으로 옮기지 않음                                                                                                       |
-| find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                             |
-| identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                |
-| home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                            |
-| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 main/section·너비 500px·반응형 여백·제목·진행 표시를 소유. 단계 상태와 약관/입력 검증, 방법 선택·라우팅은 기존 Page 유지. step 0은 기존 방법 선택 화면, 나머지는 기존 h1/진행 표시를 유지                                                    |
-| product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·1532px 너비·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지           |
-| signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                            |
-| mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함 |
-| run-club              | 반영·유지      | SessionHero h1을 `Typography sessionTitle`로 이전. 기존 목록의 Page→Layout→Header/Results 및 상세의 Hero/Guide/Recommendations/Notice 책임은 명확해 유지. Guide의 포스터·안내 본문 스케일은 후속 Typography 정리 후보이며 PC 96px/모바일 42px 포스터와 행간 1.05·자간 -0.04em을 보존해야 함         |
+| 폴더                  | 판단·반영      | API와 보존할 계약                                                                                                                                                                                                                                                                                                        |
+| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| catalog               | 유지           | ProductListingPage의 URL·필터·결과 계산, 기존 Layout/Content와 desktop/mobile leaf, 순수 filter/policy/metadata가 이미 분리됨. 필터 적용·초기화·정렬·뒤로가기 정책을 레이아웃으로 옮기지 않음                                                                                                                            |
+| find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                                                  |
+| identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                                     |
+| home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                                                 |
+| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 main/section·너비 500px·반응형 여백·제목·진행 표시를 소유. 단계 상태와 약관/입력 검증, 방법 선택·라우팅은 기존 Page 유지. step 0은 기존 방법 선택 화면, 나머지는 기존 h1/진행 표시를 유지                                                                         |
+| product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·전체 너비 프레임과 최대 1532px 내부 그리드·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지 |
+| signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                                                 |
+| mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함                      |
+| run-club              | 반영·유지      | SessionHero h1을 `Typography sessionTitle`로 이전. 기존 목록의 Page→Layout→Header/Results 및 상세의 Hero/Guide/Recommendations/Notice 책임은 명확해 유지. Guide의 포스터·안내 본문 스케일은 후속 Typography 정리 후보이며 PC 96px/모바일 42px 포스터와 행간 1.05·자간 -0.04em을 보존해야 함                              |
 
 `profileTitle`은 기본 글꼴·PC 32px/모바일 28px·굵기 700·행간/자간 normal, `sessionTitle`은 기본 글꼴·36px/28px·900·1.2·-0.04em이다. 각각 `--type-profile-title-*`, `--type-session-title-*`의 PC/모바일 크기·굵기·행간·자간 토큰과 public variant 타입을 추가했다. 기존 heading variants와 전체 스케일이 달라 무조건 치환하지 않았다. 기존 h1 의미와 여백을 유지하며 PC·모바일 스토리를 추가했다. 상품 너비·메타 Typography의 정적인 `style={{ color: 'inherit' }}`는 같은 의미의 `tone="inherit"`로 옮겼다.
 
@@ -549,7 +669,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 전역 `nextjs.appDirectory: true`가 App Router 탐색 컨텍스트를 제공한다. 경로·파라미터가 필요한 스토리는 Next.js navigation 설정이나 제공되는 모킹을 사용한다. React Router 래퍼를 추가하지 않는다.
 
-뷰포트 프리셋은 1920, 1600, 1200, 768, 375px이다. 접근성 검사 설정 `a11y.test: todo`는 검증 통과를 의미하지 않는다.
+뷰포트 프리셋은 3840, 2560, 1920, 1600, 1200, 768, 375px이다. 접근성 검사 설정 `a11y.test: todo`는 검증 통과를 의미하지 않는다.
 
 [로컬 실행](../development/setup.md), [변경 검증](../development/verification.md)을 참고한다.
 
@@ -572,7 +692,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 ## 마이페이지 러닝세션 신청내역
 
-메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub` 아래에 목록·빈 목록·상세 상태·모바일 스토리를 제공한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub--list`·`pages-mypage-runclub--mobile-list`, 259는 `pages-mypage-runclub--open`·`pages-mypage-runclub--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.
+메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub/List`에 목록·빈 목록·모바일 목록을, `PAGES/MYPAGE/RunClub/Detail`에 Open·Closed·Upcoming과 모바일 상태·대형 화면 스토리를 제공한다. 두 CSF 파일은 `src/stories/features/run-club/RunClubPreview.tsx`를 공유해 플랫폼·AppLayout·데모 세션 구성을 유지한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub-list--list`·`pages-mypage-runclub-list--mobile-list`, 259는 `pages-mypage-runclub-detail--open`·`pages-mypage-runclub-detail--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.
 
 타입 검사, 변경 범위 ESLint, Storybook 빌드와 생성된 `index.json`의 네 미리보기 ID·분류 일치를 확인했다. OKF 작업 트리 매핑 검사도 통과했다. 브라우저 상호작용 검증은 수행하지 않았다.
 
@@ -603,3 +723,21 @@ component-reusability 점검: 설치된 Base UI 1.8.0의 전체 package exports�
 Base UI 전체 exports(설치 버전 1.8.0)를 기준으로 Accordion·AlertDialog·Autocomplete·Combobox·ContextMenu·Dialog·Drawer·Menu·Menubar·NavigationMenu·Popover·PreviewCard·ScrollArea·Select·Separator·Switch·Tabs·Toast·Toolbar·Tooltip·Meter·OTPField·NumberField·Slider·Checkbox·Radio·ToggleGroup·Form 등을 대조했다. 현재 관찰된 상호작용은 필터 버튼과 신청 안내 모달이다. Button·Dialog는 설치 버전에서 지원하며 기존 공통 Button·ModalDialog 래퍼를 재사용한다. 단일 선택 필터는 native 버튼의 aria-pressed 및 group 계약으로 충분해 Tabs·ToggleGroup으로 교체하지 않는다. dl·aside·ul에는 추가 Base UI가 필요 없다. 의존성 업그레이드가 필요한 후보는 없다.
 
 재점검 검증: Panda 생성·타입 검사·변경 범위 ESLint·Next.js production build·Storybook build·App Router 회귀 2개·OKF 작업 트리 매핑·git diff --check를 통과했다. 브라우저에서 모바일 트레일 2개/전체 3개 선택, 모달 확인 후 신청 버튼 포커스 복귀, 320px clientWidth=scrollWidth=305px을 확인했다. 375px 상세는 360px 정사각형 이미지와 높이 93px 고정 바를 유지하고 본문 14px/22.4px·안내 12px/21.6px 및 Pretendard를 확인했다. PC 상세는 640px 두 열·72px 상하 여백, 안내 두 열, 모바일 바 display:none, 본문 16px/25.6px, placeholder 28px/900을 확인했다.
+
+## 레이아웃 JSX와 모달 액션 슬롯 (2026-10-16)
+
+Signup·Home·Locales·RunClub 상세·Notices·상품 지원/배송 영역·이미지 뷰어의 단일 배치 스타일은 Panda Box/Stack JSX props로 표현한다. main/section 의미, 기존 너비·간격·반응형 조건, 이미지 뷰어의 키보드 처리와 런클럽 모바일 고정 바에 필요한 인접 footer 여백을 유지한다.
+
+RunClubApplicationNotice, MyPageReviews, MyPageProfile의 탈퇴 확인, MyPageAddresses의 삭제 확인, MyPage의 로그아웃 확인, PasswordResetCompleteModal, IdConfirmationModal, AccountLockedContent의 액션은 ModalDialog의 footer 슬롯이 렌더링한다. 본문은 스크롤 영역에 남고 액션은 공통 고정 푸터 배치·여백을 따른다. 두 버튼을 담는 HStack/Flex는 w=100%로 영역을 채우며 아이디 확인의 모바일 세로 배치를 유지한다. 기존 저장 검증·상태 변경·닫기·이동 콜백과 공통 Dialog의 포커스/키보드 책임을 유지한다. 본문에서 푸터로 이동하면서 공통 footer의 여백이 적용되는 것은 의도된 변경이다.
+
+브라우저에서 계정 찾기 모달 3종의 PC/모바일 footer, 리뷰 필수값 검증과 저장, 배송지 삭제, 탈퇴/로그아웃 취소, 런클럽 확인 후 닫기를 확인했다. JSX 이전 후 회원가입 4개 상태와 기존 홈·상품·국가 선택·마이페이지·런클럽·배송 안내의 DOM/좌표 비교도 통과했다.
+
+회원가입의 우편번호 찾기는 기능 내부 `AddressSearchModal`로 분리했다. open·postalCode·address·변경 콜백·idPrefix를 받는 controlled API로 회원가입 데이터 타입에 의존하지 않는다. 현재 수동 입력 안내와 기존 label/id·입력 즉시 반영·확인 시 닫기를 유지하고 확인 버튼은 ModalDialog.footer에 둔다. 두 번째 사용처가 생기면 공통 컴포넌트 승격을 검토하며 현재는 주소 검색 서비스 연동을 제공하지 않는다. Registration Storybook의 AddressSearch·MobileAddressSearch는 부모 입력 상태를 함께 제어한다.
+
+## 기능별 모달 구성 분리 (2026-10-16)
+
+MyPage의 로그아웃, 배송지 삭제, 탈퇴 확인/완료, 리뷰 편집은 각각 MyPageLogoutDialog·MyPageAddressDeleteDialog·MyPageWithdrawalDialog·MyPageWithdrawalCompleteDialog·MyPageReviewDialog로 분리한다. 모달은 controlled open·표시 값·콜백만 받으며 목록 삭제, 로그아웃, 탈퇴 단계 전환, 리뷰 검증/저장과 상태 수명은 기존 부모가 소유한다. 문구·입력 label·Dialog 크기·footer 버튼 배치를 유지한다.
+
+PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 데이터·구분선 스타일을 소유한다. 부모는 detail 선택 상태와 닫기 콜백을 전달한다. 기존 모바일 fullscreen 조건을 유지하며 알뜰폰 확인 버튼은 ModalDialog.footer로 옮겨 공통 고정 푸터 계약을 따른다. PasswordResetCompleteModal과 RunClubApplicationNotice는 이미 독립된 모달로서 유지한다. 새 컴포넌트는 기능 내부 조합이며 공용 라이브러리로 승격하지 않는다.
+
+브라우저에서 리뷰 필수값 검증/저장, 배송지 삭제, 탈퇴 취소 및 확인→완료 안내 닫기, 로그아웃 취소, 런클럽 확인 닫기를 확인했다. 1920/375px 알뜰폰 안내의 사업자 3개 그룹과 footer 확인 닫기도 확인했다.

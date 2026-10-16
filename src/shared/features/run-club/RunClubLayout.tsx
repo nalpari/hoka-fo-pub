@@ -9,7 +9,7 @@ export function RunClubLayout({ header, children, empty = false }: RunClubLayout
     <VStack
       as="main"
       gap="4"
-      w="min(calc(100% - 110px), 1532px)"
+      w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
       mx="auto"
       pt="88px"
       pb="24"
