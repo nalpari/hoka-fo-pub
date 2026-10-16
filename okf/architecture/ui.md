@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T08:31:57.116Z'
+  at: '2026-10-16T08:32:24.327Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
   - src/shared/features/product/ProductColorSelector.tsx
   - src/stories/features/product/ProductColorSelector.stories.tsx
   - src/shared/components/molecules/ProductCard/ProductCard.tsx
@@ -310,6 +311,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 주문 상태 조회 링크
+
+2026-10-16 OrderStatusTracker의 “전체 보기 →” Typography에 tertiary tone을 명시했다. body5 타입과 기존 링크 경로·주문 상태 목록은 유지한다. 타입 검사·변경 TSX ESLint 통과. Prettier는 이 파일의 CRLF 줄바꿈 기준으로 통과했으며 브라우저 시각 검증은 수행하지 않았다.
 
 ## Typography 스타일 미적용 옵션
 

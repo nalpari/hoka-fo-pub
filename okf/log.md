@@ -2,6 +2,8 @@
 
 ## 2026-10-16
 
+- **Fix**: OrderStatusTracker의 전체 보기 링크에 tertiary tone을 지정했다. 기존 body5·경로·목록을 유지하고 [UI 아키텍처](architecture/ui.md)에 변경 범위와 검증 결과를 기록했다.
+
 - **Feature**: Typography에 unstyled variant를 추가해 호출자 스타일과 네이티브 표현을 유지할 수 있도록 했다. [UI 아키텍처](architecture/ui.md)에 recipe 생략 범위와 플랫폼 선택 계약을 기록했다.
 
 - **Fix**: 상품 상세 컬러 선택의 공통 Radio 스타일 충돌을 해소했다. PC는 너비에 맞춘 80px 열 그리드, 모바일만 가로 스크롤을 사용하고 크기·간격·선택 표시를 유지한다. 기존 스토리의 배치 회귀 검사와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
