@@ -2,6 +2,12 @@
 
 ## 2026-10-16
 
+- **Refactor**: TermsDialog의 단일 확인 footer도 SingleActionDialog로 통일했다. tall/fullWidth 버튼, 확인 닫기와 모바일 fullscreen·scrollFade·버전 전환 계약을 유지했다.
+
+- **Refactor**: SingleActionDialog로 확인 버튼 하나의 footer를 공용화하고 기가입·마케팅 수신내역·주소 입력 팝업에 적용했다. 버튼 크기/너비와 확인·닫기 콜백을 유지하고 공용 스토리 및 [UI 아키텍처](architecture/ui.md)를 갱신했다.
+
+- **Refactor**: ConfirmDialog와 주소·로그아웃·기가입·마케팅 수신내역·약관 팝업을 공용 영역에 정리하고 기존 호출부를 연결했다. 마이페이지 주소 버튼을 공용 수동 입력 팝업으로 전환하고 공용 스토리·IA 링크와 [UI 아키텍처](architecture/ui.md)를 갱신했다. 빌드/정적 검사와 기존 회귀 테스트 결과, 브라우저 검증 미실행을 기록했다.
+
 - **Refactor**: 기능별 JSX·국가/마이페이지/상품/가입/인증 모달 분리 구현을 반영했다. 계정 잠금의 중복 배경 제거와 공통 ModalDialog footer 사용 계약을 [UI 아키텍처](architecture/ui.md)에 보완했다.
 
 - **Refactor**: 런클럽 스토리 분류와 공용 미리보기·IA 링크 변경을 독립 변경으로 반영했다. [UI 아키텍처](architecture/ui.md)에 기본 목록/상세 스토리 식별자를 명시했다.

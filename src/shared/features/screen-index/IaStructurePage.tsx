@@ -99,8 +99,8 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
     mo: 'pages-auth-accountunlockcompletepage--mobile',
   },
   257: {
-    pc: 'pages-auth-signup-alreadyregisteredmodal--default',
-    mo: 'pages-auth-signup-alreadyregisteredmodal--mobile',
+    pc: 'organisms-account-alreadyregisteredmodal--default',
+    mo: 'organisms-account-alreadyregisteredmodal--mobile',
   },
   233: {
     pc: 'pages-auth-signup--default',

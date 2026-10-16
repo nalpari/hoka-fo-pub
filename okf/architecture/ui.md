@@ -6,17 +6,31 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T05:46:26+00:00'
+  at: '2026-10-16T06:37:57+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
+  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
+  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
+  - src/shared/features/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
+  - src/shared/components/organisms/Account/AlreadyRegisteredModal.tsx
+  - src/shared/components/organisms/Account/LogoutDialog.tsx
+  - src/shared/components/organisms/Account/MarketingConsentSummaryModal.tsx
+  - src/shared/components/organisms/Address/AddressSearchModal.tsx
+  - src/shared/components/organisms/Terms/TermsDialog.tsx
+  - src/stories/components/molecules/ConfirmDialog/ConfirmDialog.stories.tsx
+  - src/stories/components/organisms/Account/AlreadyRegisteredModal.stories.tsx
+  - src/stories/components/organisms/Account/LogoutDialog.stories.tsx
+  - src/stories/components/organisms/Account/MarketingConsentSummaryModal.stories.tsx
+  - src/stories/components/organisms/Address/AddressSearchModal.stories.tsx
+  - src/stories/components/organisms/Terms/TermsDialog.stories.tsx
   - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
   - src/shared/features/mypage/MyPageReviewDialog.tsx
   - src/shared/features/mypage/MyPageWithdrawalCompleteDialog.tsx
   - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
   - src/shared/features/mypage/MyPageAddressDeleteDialog.tsx
-  - src/shared/features/mypage/MyPageLogoutDialog.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
-  - src/shared/features/signup-registration/AddressSearchModal.tsx
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/product/ProductDetailSupport.tsx
   - src/shared/features/run-club/RunClubApplicationNotice.tsx
@@ -267,6 +281,30 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 확인 버튼 하나를 가진 팝업 (2026-10-16)
+
+커밋 전 검증(Codex): 기본 `npm run lint`는 기존 `.tmp-storybook-*` 생성 산출물을 포함해 실패했다. `npm run lint -- --ignore-pattern ".tmp-*/**"`로 임시 산출물을 제외한 전체 린트를 통과했다. 생성 파일과 ESLint 설정은 변경하지 않았다. 스테이징된 소스·문서에 대해 `npm run okf:check`도 통과했다.
+
+`molecules/SingleActionDialog`는 `ModalDialog`의 footer에 primary 확인 버튼 하나를 구성한다. `ModalDialogProps`에서 footer를 제외한 표시 계약과 `onConfirm`, 기본값이 확인인 `confirmLabel`을 받는다. `confirmButtonProps`는 short/tall 크기, fullWidth, density, disabled, className만 허용하며 버튼 variant와 클릭 콜백은 공용 계약으로 유지한다. 이 래퍼는 자동으로 모달을 닫지 않는다. 확인은 `onConfirm`만 실행하고, 헤더 닫기·ESC·바깥 영역 닫기는 기존 `onOpenChange`를 사용한다.
+
+AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModal은 기본 크기/fullWidth 버튼을, AddressSearchModal은 기본 버튼을 사용하도록 이전했다. 두 계정 안내의 확인 콜백과 주소 모달의 `onOpenChange(false)`를 유지한다. 새 DOM 래퍼를 추가하지 않아 ModalDialogFooter의 직접 버튼 너비와 모바일 표시 계약이 동일하다. TermsDialog도 SingleActionDialog를 사용하며 tall/fullWidth 확인 버튼, 확인 시 닫기, 모바일 fullscreen·scrollFade와 버전 전환 버튼은 유지한다. 나머지 기능별 footer는 이번 변경 범위에 포함하지 않는다.
+
+공용 Storybook은 기본·short/fullWidth·사용자 문구·disabled·controlled 상호작용·모바일 사례를 제공한다. play 함수는 확인 콜백과 자동 닫기 없음, 헤더/ESC 닫기에서 확인 콜백 미호출을 검증하도록 작성했다. 브라우저가 없어 play 함수는 실행하지 않았으며 타입 검사·변경 범위 ESLint·Panda 생성·Next.js production build·Storybook 빌드와 OKF 작업 트리 매핑 검사를 통과했다.
+
+## 대분류 간 공용 팝업 (2026-10-16)
+
+기능별 독립 모달 분리 이후, 사용자 승인 범위에 따라 공용 표현과 업무 정책을 구분했다.
+
+- `molecules/ConfirmDialog`는 공통 `ModalDialog` 위에 확인·취소 액션을 구성한다. `title`, `children`, `closeLabel`, 크기·모바일 표시 옵션, 버튼 문구와 `onConfirm`을 받는다. 취소는 `onOpenChange(false)`만 호출하고 확인 후 닫기·삭제·로그아웃 등은 부모가 결정한다. `fullWidthActions`는 기존 HStack 전체 너비/gap=2 배치와 직접 버튼 footer 배치를 보존한다. 배송지 삭제·재입고 취소·탈퇴 확인과 공용 LogoutDialog가 사용한다.
+- `organisms/Address/AddressSearchModal`은 회원가입에서 공용 영역으로 이동했다. 회원가입과 마이페이지 배송지 추가/수정이 동일한 controlled 값/콜백 API를 사용한다. 마이페이지의 우편번호 버튼은 고정 목 주소를 주입하는 대신 팝업을 연다. 팝업 입력은 부모 draft에 즉시 반영되고 확인·닫기에서 입력을 롤백하지 않는다. `idPrefix`로 호출부별 label/id를 구분한다. 실제 주소 검색 서비스는 여전히 연결하지 않았으며 수동 입력 미리보기다.
+- `organisms/Account/LogoutDialog`는 MyPage 접두사를 제거한 공용 로그아웃 확인 표현이며 실제 로그아웃은 MyPage가 처리한다. `AlreadyRegisteredModal`도 가입 폴더에서 Account로 이동했고 기존 PhoneVerificationPage 호출을 연결했다. 두 팝업의 현재 업무 호출부는 각각 한 곳이며 다른 진입점의 미래 사용을 이미 구현한 것으로 간주하지 않는다.
+- `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
+- `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
+
+새 공용 팝업 6종은 `src/stories/components/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
+
+검증(Codex): Panda 생성, 타입 검사, 변경 TSX ESLint, Next.js production build, Storybook build와 기존 계정 복구/App Router 테스트 5개 통과. 이 세션에는 사용 가능한 브라우저가 없어 play 함수와 화면 상호작용은 실행하지 않았다. 빌드 성공을 브라우저 검증으로 기록하지 않는다.
 
 2026-10-16 표시 옵션 커밋 전 검증(Codex): 타입 검사·Carousel 폴더 ESLint·Prettier·Storybook 빌드 통과. 이번 커밋 작업에서 브라우저 상호작용 검증은 추가 실행하지 않았다. Storybook 빌드는 의존성의 use client 지시문·청크 크기 관련 경고를 출력했으나 완료됐다.
 
@@ -577,7 +615,7 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 지정 범위는 locales, identity-verification, find-account, catalog, account-locked다. 아래 구현은 기능 내부에 두며 공용 atom으로 승격하지 않는다.
 
 | 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                   |
-| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음  |
 | PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유 |
 | 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
@@ -732,13 +770,13 @@ RunClubApplicationNotice, MyPageReviews, MyPageProfile의 탈퇴 확인, MyPageA
 
 브라우저에서 계정 찾기 모달 3종의 PC/모바일 footer, 리뷰 필수값 검증과 저장, 배송지 삭제, 탈퇴/로그아웃 취소, 런클럽 확인 후 닫기를 확인했다. JSX 이전 후 회원가입 4개 상태와 기존 홈·상품·국가 선택·마이페이지·런클럽·배송 안내의 DOM/좌표 비교도 통과했다.
 
-회원가입의 우편번호 찾기는 기능 내부 `AddressSearchModal`로 분리했다. open·postalCode·address·변경 콜백·idPrefix를 받는 controlled API로 회원가입 데이터 타입에 의존하지 않는다. 현재 수동 입력 안내와 기존 label/id·입력 즉시 반영·확인 시 닫기를 유지하고 확인 버튼은 ModalDialog.footer에 둔다. 두 번째 사용처가 생기면 공통 컴포넌트 승격을 검토하며 현재는 주소 검색 서비스 연동을 제공하지 않는다. Registration Storybook의 AddressSearch·MobileAddressSearch는 부모 입력 상태를 함께 제어한다.
+회원가입의 우편번호 찾기는 기능 내부 `AddressSearchModal`로 분리했다. open·postalCode·address·변경 콜백·idPrefix를 받는 controlled API로 회원가입 데이터 타입에 의존하지 않는다. 현재 수동 입력 안내와 기존 label/id·입력 즉시 반영·확인 시 닫기를 유지하고 확인 버튼은 ModalDialog.footer에 둔다. 이후 공용 팝업 작업에서 organisms/Address로 승격하고 마이페이지에도 연결했다. 현재는 주소 검색 서비스 연동을 제공하지 않는다. Registration Storybook의 AddressSearch·MobileAddressSearch는 부모 입력 상태를 함께 제어한다.
 
 ## 기능별 모달 구성 분리 (2026-10-16)
 
 MyPage의 로그아웃, 배송지 삭제, 탈퇴 확인/완료, 리뷰 편집은 각각 MyPageLogoutDialog·MyPageAddressDeleteDialog·MyPageWithdrawalDialog·MyPageWithdrawalCompleteDialog·MyPageReviewDialog로 분리한다. 모달은 controlled open·표시 값·콜백만 받으며 목록 삭제, 로그아웃, 탈퇴 단계 전환, 리뷰 검증/저장과 상태 수명은 기존 부모가 소유한다. 문구·입력 label·Dialog 크기·footer 버튼 배치를 유지한다.
 
-PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 데이터·구분선 스타일을 소유한다. 부모는 detail 선택 상태와 닫기 콜백을 전달한다. 기존 모바일 fullscreen 조건을 유지하며 알뜰폰 확인 버튼은 ModalDialog.footer로 옮겨 공통 고정 푸터 계약을 따른다. PasswordResetCompleteModal과 RunClubApplicationNotice는 이미 독립된 모달로서 유지한다. 새 컴포넌트는 기능 내부 조합이며 공용 라이브러리로 승격하지 않는다.
+PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 데이터·구분선 스타일을 소유한다. 부모는 detail 선택 상태와 닫기 콜백을 전달한다. 기존 모바일 fullscreen 조건을 유지하며 알뜰폰 확인 버튼은 ModalDialog.footer로 옮겨 공통 고정 푸터 계약을 따른다. PasswordResetCompleteModal과 RunClubApplicationNotice는 이미 독립된 모달로서 유지한다. 당시에는 기능 내부 조합으로 유지했다. 이후 로그아웃과 공통 확인·취소 표현은 위의 대분류 간 공용 팝업 작업에서 공용화했다.
 
 브라우저에서 리뷰 필수값 검증/저장, 배송지 삭제, 탈퇴 취소 및 확인→완료 안내 닫기, 로그아웃 취소, 런클럽 확인 닫기를 확인했다. 1920/375px 알뜰폰 안내의 사업자 3개 그룹과 footer 확인 닫기도 확인했다.
 

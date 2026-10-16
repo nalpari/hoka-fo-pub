@@ -1,6 +1,5 @@
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Stack } from 'styled-system/jsx';
 
 type Props = {
@@ -11,17 +10,9 @@ type Props = {
 
 export function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: Props) {
   return (
-    <ModalDialog
-      footer={
-        <>
-          <Button fullWidth size="short" variant="secondary" onClick={() => onOpenChange(false)}>
-            취소
-          </Button>
-          <Button fullWidth size="short" variant="primary" onClick={onConfirm}>
-            확인
-          </Button>
-        </>
-      }
+    <ConfirmDialog
+      onConfirm={onConfirm}
+      fullWidthActions={false}
       closeLabel="회원탈퇴 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
@@ -36,6 +27,6 @@ export function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: Props)
           탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다.
         </Typography>
       </Stack>
-    </ModalDialog>
+    </ConfirmDialog>
   );
 }

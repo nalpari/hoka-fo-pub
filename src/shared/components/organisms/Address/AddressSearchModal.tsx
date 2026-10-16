@@ -1,11 +1,10 @@
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
-type AddressSearchModalProps = {
+export type AddressSearchModalProps = {
   open: boolean;
   postalCode: string;
   address: string;
@@ -29,16 +28,12 @@ export function AddressSearchModal({
   const addressId = `${idPrefix}-address-dialog`;
 
   return (
-    <ModalDialog
+    <SingleActionDialog
       open={open}
       onOpenChange={onOpenChange}
       title="우편번호 찾기"
       closeLabel="우편번호 찾기 닫기"
-      footer={
-        <Button variant="primary" onClick={() => onOpenChange(false)}>
-          확인
-        </Button>
-      }
+      onConfirm={() => onOpenChange(false)}
     >
       <Stack>
         <Typography as="p" variant="body4">
@@ -73,6 +68,6 @@ export function AddressSearchModal({
           />
         </FormField>
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

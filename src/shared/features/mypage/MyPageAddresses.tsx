@@ -10,6 +10,7 @@ import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { MyPageAddressDeleteDialog } from '@/shared/features/mypage/MyPageAddressDeleteDialog';
+import { AddressSearchModal } from '@/shared/components/organisms/Address/AddressSearchModal';
 import { MyPageFrame } from './MyPageFrame';
 
 type Address = {
@@ -45,6 +46,8 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
   const [addresses, setAddresses] = useState<Address[]>(initialItems);
   const [editingId, setEditingId] = useState<number | 'new' | null>(null);
   const [draft, setDraft] = useState<Address>(emptyAddress);
+  const [addressOpen, setAddressOpen] = useState(false);
+
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
   function startNew() {
@@ -126,10 +129,7 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
                     <TextInput id="address-zip" required readOnly placeholder="우편번호 찾기 버튼을 눌러주세요" value={draft.zip} />
                   </FormField>
                 </Box>
-                <Button size="sm" variant="link" type="button" onClick={() => {
-                  update('zip', '05226');
-                  update('address', '서울시 성북구 테헤란로 27길 54');
-                }}>우편번호 찾기</Button>
+                <Button size="sm" variant="link" type="button" onClick={() => setAddressOpen(true)}>우편번호 찾기</Button>
               </HStack>
               <FormField htmlFor="address-line" label="주소" required disabled={!draft.zip} variant="boxed">
                 <TextInput id="address-line" disabled={!draft.zip} required placeholder="주소를 입력해 주세요" value={draft.address} readOnly />
@@ -152,6 +152,15 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
           </form>
         </Stack>
       )}
+      <AddressSearchModal
+        open={addressOpen}
+        onOpenChange={setAddressOpen}
+        postalCode={draft.zip}
+        address={draft.address}
+        onPostalCodeChange={(value) => update('zip', value)}
+        onAddressChange={(value) => update('address', value)}
+        idPrefix="mypage-address"
+      />
       <MyPageAddressDeleteDialog
         open={deleteId !== null}
         onOpenChange={(open) => {

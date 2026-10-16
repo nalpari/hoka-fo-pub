@@ -8,7 +8,7 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { AddressSearchModal } from '@/shared/features/signup-registration/AddressSearchModal';
+import { AddressSearchModal } from '@/shared/components/organisms/Address/AddressSearchModal';
 
 export type RegistrationInformation = {
   name: string;

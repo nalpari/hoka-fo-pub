@@ -13,7 +13,7 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
-import { MyPageLogoutDialog } from '@/shared/features/mypage/MyPageLogoutDialog';
+import { LogoutDialog } from '@/shared/components/organisms/Account/LogoutDialog';
 import { ProductThumbnail } from '@/shared/components/molecules/ProductThumbnail/ProductThumbnail';
 import { usePlatform } from '@/shared/context/platform';
 
@@ -352,7 +352,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
           </Button>
         </Stack>
       </Box>
-      <MyPageLogoutDialog
+      <LogoutDialog
         open={logoutOpen}
         onOpenChange={setLogoutOpen}
         onConfirm={() => {

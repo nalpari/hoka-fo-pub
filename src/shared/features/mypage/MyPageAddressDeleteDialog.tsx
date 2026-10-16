@@ -1,7 +1,5 @@
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { HStack } from 'styled-system/jsx';
 
 type Props = {
   open: boolean;
@@ -11,17 +9,8 @@ type Props = {
 
 export function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm }: Props) {
   return (
-    <ModalDialog
-      footer={
-        <HStack w="100%" gap="2">
-          <Button fullWidth size="short" variant="secondary" onClick={() => onOpenChange(false)}>
-            취소
-          </Button>
-          <Button fullWidth size="short" variant="primary" onClick={onConfirm}>
-            확인
-          </Button>
-        </HStack>
-      }
+    <ConfirmDialog
+      onConfirm={onConfirm}
       closeLabel="배송지 삭제 확인창 닫기"
       open={open}
       onOpenChange={onOpenChange}
@@ -31,6 +20,6 @@ export function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm }: Pro
       <Typography as="p" variant="body3">
         배송지를 삭제 하시겠습니까?
       </Typography>
-    </ModalDialog>
+    </ConfirmDialog>
   );
 }

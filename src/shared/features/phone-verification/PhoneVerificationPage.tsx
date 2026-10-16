@@ -9,7 +9,7 @@ import {
 } from './PhoneVerificationContent';
 import { isValidName } from '@/shared/lib/validation';
 import { useVerificationCountdown } from '@/shared/lib/useVerificationCountdown';
-import { AlreadyRegisteredModal } from '@/shared/features/signup-registration/AlreadyRegisteredModal';
+import { AlreadyRegisteredModal } from '@/shared/components/organisms/Account/AlreadyRegisteredModal';
 
 const isValidBirthDate = (value: string) => {
   if (!/^\d{8}$/.test(value)) return false;
