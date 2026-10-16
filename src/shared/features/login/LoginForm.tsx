@@ -14,7 +14,11 @@ const styles = {
   accountLink: css({ '--button-label-size': '14px!', '--button-height': 'auto!' }),
 };
 
-export type LoginNotice = { tone: 'error' | 'success'; message: string };
+export type LoginNotice = {
+  tone: 'error' | 'success';
+  message: string;
+  invalidFields?: ('id' | 'password')[];
+};
 
 export type LoginFormProps = {
   id: string;
@@ -42,8 +46,14 @@ export function LoginForm({
   onUnavailable,
 }: LoginFormProps) {
   return (
-    <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title">
-      <FormField variant="boxed" htmlFor="login-id" label="이메일 아이디" required>
+    <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
+      <FormField
+        variant="boxed"
+        htmlFor="login-id"
+        label="이메일 아이디"
+        required
+        invalid={notice?.invalidFields?.includes('id') && !id.trim()}
+      >
         <TextInput
           id="login-id"
           name="username"
@@ -53,7 +63,13 @@ export function LoginForm({
           onChange={(event) => onIdChange(event.target.value)}
         />
       </FormField>
-      <FormField variant="boxed" htmlFor="login-password" label="비밀번호" required>
+      <FormField
+        variant="boxed"
+        htmlFor="login-password"
+        label="비밀번호"
+        required
+        invalid={notice?.invalidFields?.includes('password') && !password}
+      >
         <TextInput
           id="login-password"
           name="password"

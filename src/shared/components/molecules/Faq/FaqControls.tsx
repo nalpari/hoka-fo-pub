@@ -1,64 +1,7 @@
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { FilterTabs } from '@/shared/components/atoms/FilterTabs/FilterTabs';
+import { SearchField } from '@/shared/components/molecules/SearchField/SearchField';
 import type { FaqCategory } from '@/shared/features/faq/faq.data';
-import { cva, css } from 'styled-system/css';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-
-const styles = {
-  search: css({
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2',
-    p: { base: '27px 25px', _mobile: '17px 13px' },
-    borderTop: '2px solid var(--color-black-60)',
-    bg: 'var(--color-surface-muted)',
-    '& label': {
-      display: 'flex',
-      flex: '1',
-      alignItems: 'center',
-      gap: { base: '25px', _mobile: '10px' },
-    },
-    '& input': {
-      flex: '1',
-      h: '34px',
-      border: '1px solid var(--color-border-subtle)',
-      bg: 'var(--color-white-000)',
-    },
-    '& button': {
-      h: '34px',
-      minW: '51px',
-      p: '0',
-      bg: 'var(--color-black-100)',
-      color: 'var(--color-text-inverse)',
-    },
-  }),
-  tabs: css({
-    display: 'grid',
-    overflow: { _mobile: 'auto' },
-    gridTemplateColumns: { base: 'repeat(8, 1fr)', _mobile: 'repeat(8, 110px)' },
-    mt: '49px',
-    borderBottom: '1px solid var(--color-black-100)',
-  }),
-  tab: cva({
-    base: {
-      minH: '38px',
-      py: '5px',
-      px: '3px',
-      border: '1px solid var(--color-border-subtle)',
-      borderBottom: '0',
-      bg: 'var(--color-white-000)',
-    },
-    variants: {
-      active: {
-        true: {
-          borderColor: 'var(--color-black-100)',
-          borderBottom: '1px solid var(--color-white-000)',
-        },
-        false: {},
-      },
-    },
-  }),
-};
+import { Box, Divider, Stack } from 'styled-system/jsx';
 
 type Props = {
   category: FaqCategory;
@@ -76,33 +19,33 @@ export function FaqControls({
   onQueryChange,
 }: Props) {
   return (
-    <>
-      <form className={styles.search} onSubmit={(event) => event.preventDefault()}>
-        <Typography as="label" variant="body5">
-          질문/답변 검색
-          <TextInput
+    <Stack gap="0">
+      <Box display="flex" justifyContent="center" py="9" _mobile={{ py: '0' }}>
+        <Box w="590px" maxW="100%" _mobile={{ w: '100%' }}>
+          <SearchField
+            label="질문 또는 답변 검색"
+            placeholder="검색어를 입력해주세요"
             value={query}
-            onChange={(event) => onQueryChange(event.target.value)}
-            aria-label="질문 또는 답변 검색"
+            onValueChange={onQueryChange}
           />
-        </Typography>
-        <Button type="submit" variant="primary" size="short">
-          검색
-        </Button>
-      </form>
-      <nav className={styles.tabs}>
-        {categories.map((item) => (
-          <Button
-            className={styles.tab({ active: category === item })}
-            onClick={() => onCategoryChange(item)}
-            key={item}
-          >
-            <Typography variant="body5" weight={category === item ? 'bold' : 'inherit'}>
-              {item}
-            </Typography>
-          </Button>
-        ))}
-      </nav>
-    </>
+        </Box>
+      </Box>
+      <Divider
+        aria-hidden="true"
+        orientation="horizontal"
+        h="2px"
+        bg="black.100"
+        _mobile={{ display: 'none' }}
+      />
+      <Box as="nav" aria-label="FAQ 카테고리" pt="3" pb="6" _mobile={{ pt: '4' }}>
+        <FilterTabs
+          ariaLabel="FAQ 카테고리"
+          onValueChange={onCategoryChange}
+          options={categories.map((item) => ({ label: item, value: item }))}
+          value={category}
+          variant="line"
+        />
+      </Box>
+    </Stack>
   );
 }

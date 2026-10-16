@@ -638,6 +638,7 @@ const typography = cva({
 });
 
 export type TypographyVariant =
+  | 'unstyled'
   | 'selectionLabel'
   | 'navigationPromoTitle'
   | 'localeHeading'
@@ -702,6 +703,7 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   as?: T;
   children: ReactNode;
   tone?: TypographyTone;
+  /** Unstyled preserves caller styles and native appearance without applying the typography recipe. */
   variant?: TypographyVariant;
   /** Web override; falls back to variant when omitted. */
   web?: TypographyVariant;
@@ -743,7 +745,7 @@ export function Typography<T extends ElementType = 'span'>({
   children,
   className,
   tone,
-  variant,
+  variant = 'unstyled',
   web,
   mo,
   language = 'auto',
@@ -767,17 +769,21 @@ export function Typography<T extends ElementType = 'span'>({
   return (
     <Element
       {...props}
-      className={[
-        typography({
-          tone,
-          variant: resolvedVariant as never,
-          script,
-          weight,
-        }),
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      className={
+        selectedVariant === 'unstyled'
+          ? className
+          : [
+              typography({
+                tone,
+                variant: resolvedVariant as never,
+                script,
+                weight,
+              }),
+              className,
+            ]
+              .filter(Boolean)
+              .join(' ')
+      }
     >
       {children}
     </Element>

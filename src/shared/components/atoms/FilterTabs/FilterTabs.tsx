@@ -20,6 +20,14 @@ const viewport = css({
   },
 });
 
+const lineViewport = css({
+  _mobile: {
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'black.20',
+  },
+});
+
 const rail = cva({
   base: { display: 'flex' },
   variants: {
@@ -44,6 +52,15 @@ const rail = cva({
         gap: '2',
         _mobile: {
           gap: '6px',
+        },
+      },
+      line: {
+        gap: '6',
+        mb: '0',
+        _mobile: {
+          gap: '5',
+          mb: '0',
+          px: '0',
         },
       },
       default: {},
@@ -85,6 +102,7 @@ const label = cva({
       },
       default: {},
       categoryNavigation: {},
+      line: {},
     },
     selected: {
       true: {
@@ -194,6 +212,24 @@ const item = cva({
           whiteSpace: 'nowrap',
         },
       },
+      line: {
+        display: 'flex',
+        flex: '0 0 auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        py: '6px',
+        borderBottomWidth: '2px',
+        borderBottomStyle: 'solid',
+        borderBottomColor: 'transparent',
+        whiteSpace: 'nowrap',
+        _hover: { textDecoration: 'none' },
+        _mobile: {
+          h: '36px',
+          p: '0',
+          borderRadius: '0',
+          bg: 'transparent',
+        },
+      },
       default: {},
     },
     selected: {
@@ -201,6 +237,9 @@ const item = cva({
         _mobile: {
           bg: 'var(--color-black-100)',
           '&[data-filter-tabs-variant="categoryNavigation"]': {
+            bg: 'transparent',
+          },
+          '&[data-filter-tabs-variant="line"]': {
             bg: 'transparent',
           },
         },
@@ -220,6 +259,11 @@ const item = cva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'line',
+      selected: true,
+      css: { borderBottomColor: 'black.100' },
+    },
     {
       variant: 'fill',
       selected: true,
@@ -252,7 +296,7 @@ export type FilterTabsProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
   value: T;
-  variant?: 'default' | 'categoryNavigation' | 'fill';
+  variant?: 'default' | 'categoryNavigation' | 'fill' | 'line';
 };
 
 /** Controlled single-select filter buttons for replacing a related result set. */
@@ -294,7 +338,12 @@ export function FilterTabs<T extends string = string>({
   }, [platform, value]);
 
   return (
-    <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
+    <div
+      className={[viewport, variant === 'line' ? lineViewport : '', className]
+        .filter(Boolean)
+        .join(' ')}
+      ref={viewportRef}
+    >
       <ToggleGroup
         aria-label={ariaLabel}
         className={rail({ platform, variant })}
@@ -324,7 +373,13 @@ export function FilterTabs<T extends string = string>({
               }}
               value={option.value}
             >
-              <Typography variant="body3" className={label({ selected: isSelected, variant })}>
+              <Typography
+                web={variant === 'line' ? 'cta1' : 'body3'}
+                mo={variant === 'line' ? 'cta2' : 'body3'}
+                weight={variant === 'line' ? 'semibold' : undefined}
+                tone={variant === 'line' ? (isSelected ? 'primary' : 'tertiary') : undefined}
+                className={variant === 'line' ? undefined : label({ selected: isSelected, variant })}
+              >
                 {option.label}
               </Typography>
             </Toggle>

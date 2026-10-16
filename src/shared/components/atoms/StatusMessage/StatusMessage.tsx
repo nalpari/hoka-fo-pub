@@ -1,4 +1,11 @@
 import type { ReactNode } from 'react';
+import { css } from 'styled-system/css';
+
+const message = css({
+  '&[data-tone="error"]': { color: 'error' },
+  '&[data-tone="success"]': { color: '#16794b' },
+  '&[data-tone="info"]': { color: 'text.subtle' },
+});
 
 type StatusMessageProps = {
   children: ReactNode;
@@ -14,7 +21,7 @@ export function StatusMessage({ children, tone = 'info', className }: StatusMess
     <p
       aria-live={isError ? 'assertive' : 'polite'}
       aria-atomic="true"
-      className={className}
+      className={[message, className].filter(Boolean).join(' ')}
       data-tone={tone}
       role={isError ? 'alert' : 'status'}
     >

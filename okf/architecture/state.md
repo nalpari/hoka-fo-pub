@@ -6,9 +6,11 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T02:04:35Z'
+  at: '2026-10-16T09:09:28Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/login/LoginPage.tsx
+  - src/stories/features/login/LoginPage.stories.tsx
   - src/shared/features/cart/CartPage.tsx
   - src/shared/features/login/LoginContent.tsx
   - src/shared/features/login/LoginLayout.tsx
@@ -49,6 +51,10 @@ sources:
 로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 비어 있지 않은 아이디·비밀번호만 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
+
+## 로그인 필드 오류
+
+로그인 필수값 검증 실패 시 `LoginNotice.invalidFields`에 비어 있는 필드 이름을 기록한다. LoginForm은 현재 입력값과 함께 이 목록을 확인해 해당 FormField의 invalid를 설정하며 TextInput은 Context를 통해 오류 상태를 받는다. 입력하면 해당 필드 표시가 해제되고, 기능 미연결 안내는 invalidFields를 갖지 않는다. 폼에는 noValidate를 설정해 네이티브 required 검증이 onSubmit을 차단하지 않도록 하고 required 속성 자체는 유지한다. 타입 검사·변경 범위 ESLint를 통과했고 브라우저 LoginFlow에서 빈 값 검증·입력 후 오류 해제·데모 성공 흐름을 확인했다.
 
 ## 장바구니 항목
 
