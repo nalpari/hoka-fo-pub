@@ -6,6 +6,7 @@ import { productSizeOptions } from '@/shared/features/product/productSizeOptions
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
@@ -36,20 +37,17 @@ export function ProductSizeSelector({
       title="사이즈"
     >
       <Stack gap="4">
-        <SizeSelector
-          mode="single"
-          ariaLabel="사이즈 선택"
-          columns={5}
-          soldOutAppearance="gray"
-          onValueChange={onValueChange}
-          options={productSizeOptions(selectedWidth)}
-          value={value}
-        />
-        {error && (
-          <Typography as="p" variant="body4" tone="error" role="alert">
-            {error}
-          </Typography>
-        )}
+        <FormField htmlFor="product-size-choice" error={error || undefined}>
+          <SizeSelector
+            mode="single"
+            ariaLabel="사이즈 선택"
+            columns={5}
+            soldOutAppearance="gray"
+            onValueChange={onValueChange}
+            options={productSizeOptions(selectedWidth)}
+            value={value}
+          />
+        </FormField>
         <Typography as="p" variant="body4" tone="tertiary">
           사이즈 추천: 정사이즈
         </Typography>

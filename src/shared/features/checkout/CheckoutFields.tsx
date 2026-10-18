@@ -16,9 +16,11 @@ export type PaymentMethod = (typeof paymentMethods)[number]['value'];
 export function CheckoutFields({
   payment,
   onPaymentChange,
+  errors,
 }: {
   payment: PaymentMethod;
   onPaymentChange: (payment: PaymentMethod) => void;
+  errors?: Partial<Record<'name' | 'phone' | 'address', string>>;
 }) {
   return (
     <div>
@@ -26,13 +28,31 @@ export function CheckoutFields({
         <Typography as="h2" variant="body1" weight="bold">
           배송 정보
         </Typography>
-        <FormField variant="boxed" htmlFor="checkout-name" label="받는 분" required>
+        <FormField
+          variant="boxed"
+          htmlFor="checkout-name"
+          label="받는 분"
+          required
+          error={errors?.name}
+        >
           <TextInput id="checkout-name" name="name" autoComplete="name" required />
         </FormField>
-        <FormField variant="boxed" htmlFor="checkout-phone" label="연락처" required>
+        <FormField
+          variant="boxed"
+          htmlFor="checkout-phone"
+          label="연락처"
+          required
+          error={errors?.phone}
+        >
           <TextInput id="checkout-phone" name="phone" autoComplete="tel" type="tel" required />
         </FormField>
-        <FormField variant="boxed" htmlFor="checkout-address" label="주소" required>
+        <FormField
+          variant="boxed"
+          htmlFor="checkout-address"
+          label="주소"
+          required
+          error={errors?.address}
+        >
           <TextInput id="checkout-address" name="address" autoComplete="street-address" required />
         </FormField>
       </section>

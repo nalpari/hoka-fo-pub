@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
@@ -23,6 +26,8 @@ export function AddressSearchModal({
   onPostalCodeChange,
   onAddressChange,
 }: AddressSearchModalProps) {
+  const [submitted, setSubmitted] = useState(false);
+
   const postalCodeId = `${idPrefix}-postalCode-dialog`;
 
   const addressId = `${idPrefix}-address-dialog`;
@@ -30,10 +35,18 @@ export function AddressSearchModal({
   return (
     <SingleActionDialog
       open={open}
-      onOpenChange={onOpenChange}
+      onOpenChange={(nextOpen) => {
+        if (!nextOpen) setSubmitted(false);
+        onOpenChange(nextOpen);
+      }}
       title="우편번호 찾기"
       closeLabel="우편번호 찾기 닫기"
-      onConfirm={() => onOpenChange(false)}
+      onConfirm={() => {
+        setSubmitted(true);
+        if (!postalCode.trim() || !address.trim()) return;
+        setSubmitted(false);
+        onOpenChange(false);
+      }}
     >
       <Stack>
         <Typography as="p" variant="body4">
@@ -42,7 +55,9 @@ export function AddressSearchModal({
         <FormField
           variant="boxed"
           htmlFor={postalCodeId}
-          label={<Typography variant="body5">* 우편번호</Typography>}
+          label="우편번호"
+          required
+          error={submitted && !postalCode.trim() ? '우편번호를 입력해 주세요.' : undefined}
         >
           <TextInput
             id={postalCodeId}
@@ -56,7 +71,9 @@ export function AddressSearchModal({
         <FormField
           variant="boxed"
           htmlFor={addressId}
-          label={<Typography variant="body5">* 주소</Typography>}
+          label="주소"
+          required
+          error={submitted && !address.trim() ? '주소를 입력해 주세요.' : undefined}
         >
           <TextInput
             id={addressId}

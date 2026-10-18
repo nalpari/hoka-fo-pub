@@ -67,15 +67,21 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
   const [editingId, setEditingId] = useState<number | 'new' | null>(null);
   const [draft, setDraft] = useState<Address>(emptyAddress);
   const [addressOpen, setAddressOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const fieldError = (key: 'recipient' | 'name' | 'phone' | 'zip' | 'address' | 'detail') =>
+    submitted && !draft[key].trim() ? '필수 항목을 입력해 주세요.' : undefined;
 
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
   function startNew() {
+    setSubmitted(false);
     setDraft({ ...emptyAddress, isDefault: addresses.length === 0 });
     setEditingId('new');
   }
 
   function startEdit(address: Address) {
+    setSubmitted(false);
     setDraft({ ...address });
     setEditingId(address.id);
   }
@@ -85,11 +91,13 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
   }
 
   function save() {
+    setSubmitted(true);
     if (
       !draft.recipient.trim() ||
       !draft.name.trim() ||
       !draft.phone.trim() ||
       !draft.zip.trim() ||
+      !draft.address.trim() ||
       !draft.detail.trim()
     )
       return;
@@ -174,13 +182,20 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
             {editingId === 'new' ? '배송지 추가' : '배송지 수정'}
           </Typography>
           <form
+            noValidate
             onSubmit={(event) => {
               event.preventDefault();
               save();
             }}
           >
             <Stack gap="2">
-              <FormField htmlFor="address-recipient" label="이름" required variant="boxed">
+              <FormField
+                htmlFor="address-recipient"
+                label="이름"
+                required
+                variant="boxed"
+                error={fieldError('recipient')}
+              >
                 <TextInput
                   id="address-recipient"
                   required
@@ -189,7 +204,13 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
                   onChange={(event) => update('recipient', event.target.value)}
                 />
               </FormField>
-              <FormField htmlFor="address-name" label="배송지명" required variant="boxed">
+              <FormField
+                htmlFor="address-name"
+                label="배송지명"
+                required
+                variant="boxed"
+                error={fieldError('name')}
+              >
                 <TextInput
                   id="address-name"
                   required
@@ -198,7 +219,13 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
                   onChange={(event) => update('name', event.target.value)}
                 />
               </FormField>
-              <FormField htmlFor="address-phone" label="휴대폰 번호" required variant="boxed">
+              <FormField
+                htmlFor="address-phone"
+                label="휴대폰 번호"
+                required
+                variant="boxed"
+                error={fieldError('phone')}
+              >
                 <TextInput
                   id="address-phone"
                   required
@@ -219,7 +246,13 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
               </FormField>
               <HStack alignItems="end" gap="2">
                 <Box flex="1">
-                  <FormField htmlFor="address-zip" label="우편번호" required variant="boxed">
+                  <FormField
+                    htmlFor="address-zip"
+                    label="우편번호"
+                    required
+                    variant="boxed"
+                    error={fieldError('zip')}
+                  >
                     <TextInput
                       id="address-zip"
                       required
@@ -239,6 +272,7 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
                 required
                 disabled={!draft.zip}
                 variant="boxed"
+                error={fieldError('address')}
               >
                 <TextInput
                   id="address-line"
@@ -249,7 +283,13 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
                   readOnly
                 />
               </FormField>
-              <FormField htmlFor="address-detail" label="상세주소" required variant="boxed">
+              <FormField
+                htmlFor="address-detail"
+                label="상세주소"
+                required
+                variant="boxed"
+                error={fieldError('detail')}
+              >
                 <TextInput
                   id="address-detail"
                   required

@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, type FormEvent, type InputHTMLAttributes } from 'react';
+import { useId, useState, type FormEvent, type InputHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 
 const field = css({
+  '&[data-invalid]': { outline: '2px solid var(--colors-red-100)' },
   display: 'flex',
   alignItems: 'center',
   height: '38px',
@@ -61,31 +63,57 @@ export function EmailSignupField({
   onChange,
   ...props
 }: EmailSignupFieldProps) {
+  const errorId = useId();
+  const [invalid, setInvalid] = useState(false);
   const [uncontrolledValue, setUncontrolledValue] = useState(String(defaultValue ?? ''));
   const value = controlledValue === undefined ? uncontrolledValue : String(controlledValue);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!event.currentTarget.checkValidity()) return;
+    setInvalid(false);
     onSubmit?.(value);
   };
 
   return (
-    <form className={[field, className].filter(Boolean).join(' ')} onSubmit={handleSubmit}>
-      <input
-        {...props}
-        aria-label={label}
-        className={input}
-        onChange={(event) => {
-          if (controlledValue === undefined) setUncontrolledValue(event.target.value);
-          onChange?.(event);
-        }}
-        placeholder={label}
-        type="email"
-        value={value}
-      />
-      <button type="submit" aria-label={buttonLabel} title={buttonLabel} className={submitButton}>
-        <Icon name="chevron-right" size="12px" color="white" />
-      </button>
-    </form>
+    <>
+      <form
+        noValidate
+        data-invalid={invalid ? '' : undefined}
+        className={[field, className].filter(Boolean).join(' ')}
+        onSubmit={handleSubmit}
+      >
+        <input
+          {...props}
+          aria-invalid={invalid || props['aria-invalid'] || undefined}
+          aria-describedby={
+            [props['aria-describedby'], invalid ? errorId : ''].filter(Boolean).join(' ') ||
+            undefined
+          }
+          onInvalid={(event) => {
+            setInvalid(true);
+            props.onInvalid?.(event);
+          }}
+          aria-label={label}
+          className={input}
+          onChange={(event) => {
+            if (event.target.validity.valid) setInvalid(false);
+            if (controlledValue === undefined) setUncontrolledValue(event.target.value);
+            onChange?.(event);
+          }}
+          placeholder={label}
+          type="email"
+          value={value}
+        />
+        <button type="submit" aria-label={buttonLabel} title={buttonLabel} className={submitButton}>
+          <Icon name="chevron-right" size="12px" color="white" />
+        </button>
+      </form>
+      {invalid ? (
+        <StatusMessage tone="error">
+          <span id={errorId}>올바른 이메일 주소를 입력해 주세요.</span>
+        </StatusMessage>
+      ) : null}
+    </>
   );
 }

@@ -50,7 +50,7 @@ type Props = {
     name: string;
     password: string;
     confirmation: string;
-  };
+  } & Partial<Record<keyof RegistrationInformation, string>>;
   addressOpen: boolean;
   onChange: (key: keyof RegistrationInformation, value: string) => void;
   onPreferenceChange: (key: keyof MarketingPreferences, value: string) => void;
@@ -70,18 +70,7 @@ export function RegistrationContent(props: Props) {
     fieldId = `registration-${key}`,
     disabled = false,
   ) => {
-    const error =
-      key === 'email'
-        ? props.fieldErrors.email
-        : key === 'domain'
-          ? props.fieldErrors.domain
-          : key === 'name'
-            ? props.fieldErrors.name
-            : key === 'password'
-              ? props.fieldErrors.password
-              : key === 'confirmation'
-                ? props.fieldErrors.confirmation
-                : '';
+    const error = props.fieldErrors[key] ?? '';
 
     return (
       <FormField
@@ -147,7 +136,7 @@ export function RegistrationContent(props: Props) {
             {props.stage === 'information' ? '회원 정보' : '부가 정보'}
           </Typography>
         </Box>
-        <form onSubmit={props.onSubmit}>
+        <form noValidate onSubmit={props.onSubmit}>
           <Stack gap="4">
             {props.stage === 'information' ? (
               <>
@@ -210,6 +199,7 @@ export function RegistrationContent(props: Props) {
                     <FormField
                       variant="boxed"
                       htmlFor="registration-postalCode"
+                      error={props.fieldErrors.postalCode}
                       label="우편번호"
                       required
                       disabled
@@ -235,6 +225,7 @@ export function RegistrationContent(props: Props) {
                 <FormField
                   variant="boxed"
                   htmlFor="registration-address"
+                  error={props.fieldErrors.address}
                   label="주소"
                   required
                   disabled

@@ -7,6 +7,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
 const tabs = css({
   display: 'flex',
@@ -168,18 +169,21 @@ export function ReviewManager() {
               상품은 만족스러우셨나요?{' '}
               <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
-            <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
-            {invalid && !rating ? (
-              <Typography variant="body5" weight="bold" tone="error" className={error}>
-                별점을 선택해 주세요.
-              </Typography>
-            ) : null}
+            <FormField
+              htmlFor="manager-rating"
+              error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
+            >
+              <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
+            </FormField>
           </div>
           <div className={css({ mt: '18px' })}>
             <b>
               리뷰내용 <span className={css({ color: 'var(--color-red-100)' })}>*</span>
             </b>
             <textarea
+              aria-invalid={(invalid && !body.trim()) || undefined}
+              aria-describedby={invalid && !body.trim() ? 'manager-body-error' : undefined}
+              className={css({ '&[aria-invalid="true"]': { borderColor: 'error!' } })}
               aria-label="리뷰내용"
               maxLength={1000}
               value={body}
@@ -187,7 +191,14 @@ export function ReviewManager() {
               placeholder="내용을 입력해 주세요."
             />
             {invalid && !body.trim() ? (
-              <Typography variant="body5" weight="bold" tone="error" className={error}>
+              <Typography
+                id="manager-body-error"
+                role="alert"
+                variant="body5"
+                weight="bold"
+                tone="error"
+                className={error}
+              >
                 리뷰 내용을 입력해 주세요.
               </Typography>
             ) : null}

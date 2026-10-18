@@ -6,9 +6,11 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T09:09:10Z'
+  at: '2026-10-18T23:12:46.389Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/form-controls.test.mjs
+  - src/stories/features/forms/FormStateAudit.stories.tsx
   - tests/account-recovery.test.mjs
   - tests/checkout-summary.test.mjs
   - eslint.config.js
@@ -28,6 +30,12 @@ sources:
 ---
 
 # 변경 검증
+
+## Form 전수 점검 회귀 검사
+
+2026-10-19 [전수 점검 보고서](form-state-audit.md)는 63개 라우트의 소스 분류와 PC·모바일 HTTP 응답을 구분해서 기록한다. `node --test tests/form-controls.test.mjs`는 Node 24의 registerHooks와 설치된 TypeScript로 실제 TSX/Panda 런타임을 로드해 14개 입력 조합의 오류·정상 상태 및 3개 안내 tone을 서버 렌더링한다. CSS만 제외하므로 계산된 색상·포커스·브라우저 상호작용 검사를 대신하지 않는다. `node --test tests/*.test.mjs`로 기존 검사와 함께 실행한다.
+
+`Development/FormStateAudit`의 PC·모바일 play는 실제 오류 색상, 설명 연결, 필수값 제출·수정 후 오류 해제·완료와 모달 닫힘을 확인한다. 기존 Login/Checkout/PasswordReset과 함께 form-audit 태그로 선택한다. 임시 설치한 Storybook test-runner/Chromium으로 정적 Storybook(127.0.0.1:6007)을 검사했으며 프로젝트 의존성에는 추가하지 않았다. 이 runner는 공식 지원 종료 안내가 있으므로 상시 CI 도입은 별도 결정이 필요하다. 개발 서버 HMR 중 테스트 실패와 모달 종료 애니메이션 대기를 구분하고, 최종 실행은 정적 빌드에서 한다.
 
 검증 결과는 실행한 명령과 관찰한 동작으로 보고한다. 이 문서는 검증 절차이며, 명령이 최근에 실행되거나 통과했다는 기록은 아니다.
 

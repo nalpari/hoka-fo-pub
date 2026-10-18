@@ -4,6 +4,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Stack } from 'styled-system/jsx';
 import { RatingInput, type RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
 type Props = {
   open: boolean;
@@ -45,14 +46,25 @@ export function MyPageReviewDialog({
         <Typography as="p" variant="body3">
           클리프톤 9은(는) 어떠셨나요?
         </Typography>
-        <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
-        <TextInput
-          aria-label="리뷰 내용"
-          multiline
-          placeholder="상품 사용 경험을 입력해 주세요"
-          value={body}
-          onChange={(event) => onBodyChange(event.target.value)}
-        />
+        <FormField
+          htmlFor="review-rating"
+          error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
+        >
+          <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
+        </FormField>
+        <FormField
+          htmlFor="review-body"
+          error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
+        >
+          <TextInput
+            id="review-body"
+            aria-label="리뷰 내용"
+            multiline
+            placeholder="상품 사용 경험을 입력해 주세요"
+            value={body}
+            onChange={(event) => onBodyChange(event.target.value)}
+          />
+        </FormField>
         {invalid ? (
           <Typography variant="body5" tone="error">
             별점과 리뷰 내용을 입력해 주세요.

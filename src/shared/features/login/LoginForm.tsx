@@ -56,6 +56,9 @@ export function LoginForm({
       >
         <TextInput
           id="login-id"
+          aria-describedby={
+            notice?.invalidFields?.includes('id') && !id.trim() ? 'login-notice' : undefined
+          }
           name="username"
           autoComplete="username"
           placeholder="이메일 주소를 @까지 정확히 입력해 주세요"
@@ -72,6 +75,9 @@ export function LoginForm({
       >
         <TextInput
           id="login-password"
+          aria-describedby={
+            notice?.invalidFields?.includes('password') && !password ? 'login-notice' : undefined
+          }
           name="password"
           autoComplete="current-password"
           placeholder="비밀번호를 입력해 주세요"
@@ -103,7 +109,11 @@ export function LoginForm({
           </Button>
         </HStack>
       </HStack>
-      {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
+      {notice ? (
+        <StatusMessage id="login-notice" tone={notice.tone}>
+          {notice.message}
+        </StatusMessage>
+      ) : null}
       <LoginActions onUnavailable={onUnavailable} />
     </form>
   );

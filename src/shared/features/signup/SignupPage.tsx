@@ -37,6 +37,14 @@ export function SignupPage() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<'name' | 'email' | 'id' | 'password', string>>
+  >({});
+
+  const clearFieldError = (field: 'name' | 'email' | 'id' | 'password') => {
+    setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
+    setMessage('');
+  };
 
   const selectedMethod = signupMethods.find((item) => item.id === method)!;
 
@@ -62,8 +70,20 @@ export function SignupPage() {
 
   const submitDetails = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const emailInvalid =
+      !email.trim() ||
+      Boolean(
+        event.currentTarget.querySelector<HTMLInputElement>('#signup-email')?.validity.typeMismatch,
+      );
+    setFieldErrors({
+      name: name.trim() ? '' : '이름을 입력해 주세요.',
+      email: emailInvalid ? '올바른 이메일을 입력해 주세요.' : '',
+      id: method !== 'local' || id.trim() ? '' : '아이디를 입력해 주세요.',
+      password:
+        method !== 'local' || password.length >= 8 ? '' : '비밀번호는 8자 이상이어야 합니다.',
+    });
     const localFieldsMissing = method === 'local' && (!id.trim() || password.length < 8);
-    if (!name.trim() || !email.trim() || localFieldsMissing) {
+    if (!name.trim() || emailInvalid || localFieldsMissing) {
       setMessage('필수 정보를 모두 입력해 주세요. 비밀번호는 8자 이상이어야 합니다.');
       return;
     }
@@ -103,12 +123,25 @@ export function SignupPage() {
               id={id}
               message={message}
               method={method}
+              fieldErrors={fieldErrors}
               methodOption={selectedMethod}
               name={name}
-              onEmailChange={setEmail}
-              onIdChange={setId}
-              onNameChange={setName}
-              onPasswordChange={setPassword}
+              onEmailChange={(value) => {
+                setEmail(value);
+                clearFieldError('email');
+              }}
+              onIdChange={(value) => {
+                setId(value);
+                clearFieldError('id');
+              }}
+              onNameChange={(value) => {
+                setName(value);
+                clearFieldError('name');
+              }}
+              onPasswordChange={(value) => {
+                setPassword(value);
+                clearFieldError('password');
+              }}
               onSubmit={submitDetails}
               password={password}
             />

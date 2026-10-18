@@ -30,10 +30,9 @@ export function SignupTermsPage() {
         setNotice('');
       }}
       onChange={(index, checked) => {
-        setAgreements((values) =>
-          values.map((value, position) => (position === index ? checked : value)),
-        );
-        setNotice('');
+        const next = agreements.map((value, position) => (position === index ? checked : value));
+        setAgreements(next);
+        if (!signupTerms.some((term, position) => term.required && !next[position])) setNotice('');
       }}
       onDetail={(index) => {
         setDetail(index);

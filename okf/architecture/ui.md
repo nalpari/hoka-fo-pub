@@ -6,9 +6,25 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:20:38.283Z'
+  at: '2026-10-18T23:20:53.989Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Checkbox/Checkbox.tsx
+  - src/shared/components/atoms/Dropdown/Dropdown.tsx
+  - src/shared/components/atoms/EmailSignupField/EmailSignupField.tsx
+  - src/shared/components/atoms/NumberStepper/NumberStepper.tsx
+  - src/shared/components/atoms/Radio/Radio.tsx
+  - src/shared/components/atoms/RangeInput/RangeInput.tsx
+  - src/shared/components/atoms/Select/Select.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
+  - src/shared/components/molecules/Terms/Terms.tsx
+  - src/shared/components/organisms/Signup/SignupDetailsStep.tsx
+  - src/shared/features/product/ProductSizeSelector.tsx
+  - src/shared/features/signup-registration/RegistrationPage.tsx
+  - src/shared/features/signup-terms/SignupTermsPage.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
+  - src/stories/features/forms/FormStateAudit.stories.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
   - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
@@ -320,6 +336,18 @@ sources:
 
 MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
 
+
+## 전체 페이지 Form 점검 이후 계약 (2026-10-19)
+
+63개 App Router 페이지 및 공통 검색·푸터의 검사 목록과 재현 시나리오는 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다. 아래 계약은 2026-10-16의 ‘Form 오류 상태 전달 조사’에서 발견한 누락을 보완한 현재 구현이다.
+
+- Select는 TextInput처럼 FormFieldContext의 오류·required·disabled·htmlFor·설명을 소비한다. 자체 invalid 또는 부모 invalid는 OR로 합치며 aria-invalid=true로 명시한 TextInput/Select에도 오류 테두리를 적용한다.
+- Dropdown은 선택적 invalid를 받으며 자체 error·부모 invalid와 합쳐 상태/테두리를 표시한다. 부모 label/id와 오류 설명, 필수·비활성 상태를 연결하고 포커스·팝업이 열려도 오류 테두리를 유지한다.
+- Checkbox·Radio·RatingInput·RangeInput·NumberStepper·SizeSelector는 Base UI의 필드 상태를 유지하면서 빨간 오류 표시를 추가한다. 서버 렌더링에서도 설명을 연결하도록 FormFieldContext.describedBy를 전달한다. Terms의 문구도 부모 오류를 반영한다. Fieldset·검색/필터 자체에는 신규 필수값 규칙을 추가하지 않는다.
+- StatusMessage는 선택적 id로 오류 설명 연결을 지원한다. error #A60000, success #16794b, info #4D4D4D와 기존 alert/status 계약은 유지한다. 인증·중복확인의 서비스 미연결 안내는 info이며, 전용 완료 화면은 기존 디자인을 유지한다.
+- 인증번호의 길이 오류는 해당 FormField.error로, 인증 만료는 error 안내로 표시한다. 회원가입 주소·약관·기본정보, 배송지·프로필·리뷰·문의·상품 사이즈·주문·쿠폰의 기존 검증 규칙을 필드 표시/설명과 연결한다. native required/type=email 검증에 의존하던 제출 경로는 동일한 규칙을 커스텀 상태로 표시한다. 주소 모달은 필수 두 입력이 있어야 확인으로 닫힌다.
+
+실제 실행한 검사 수·PC/모바일 결과·기존 임시 산출물의 ESLint 영향과 a11y todo 경고는 보고서의 검증 기록을 참고한다. 스토리 추가와 실행 완료를 구분한다.
 
 ## 상태 안내의 tone 색상 (2026-10-16)
 

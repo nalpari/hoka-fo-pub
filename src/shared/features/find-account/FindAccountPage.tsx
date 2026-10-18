@@ -11,6 +11,7 @@ export function FindAccountPage() {
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [code, setCode] = useState('');
+  const [codeError, setCodeError] = useState('');
   const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const [notice, setNotice] = useState<FindAccountNotice | null>(null);
 
@@ -24,6 +25,7 @@ export function FindAccountPage() {
     setNameError(nextNameError);
     setPhoneError(nextPhoneError);
     setNotice(null);
+    setCodeError('');
 
     if (nextNameError || nextPhoneError) {
       return;
@@ -43,6 +45,7 @@ export function FindAccountPage() {
       secondsLeft={secondsLeft}
       nameError={nameTouched ? nameError : ''}
       phoneError={phoneError}
+      codeError={codeError}
       notice={notice}
       onNameChange={(value) => {
         setName(value);
@@ -50,6 +53,7 @@ export function FindAccountPage() {
         setNameError(!value.trim() || isValidName(value) ? '' : '이름을 올바르게 입력해주세요');
         reset();
         setCode('');
+        setCodeError('');
         setNotice(null);
       }}
       onPhoneChange={(value) => {
@@ -62,12 +66,18 @@ export function FindAccountPage() {
         );
         reset();
         setCode('');
+        setCodeError('');
         setNotice(null);
       }}
-      onCodeChange={(value) => setCode(value.replace(/\D/g, '').slice(0, 6))}
+      onCodeChange={(value) => {
+        setCode(value.replace(/\D/g, '').slice(0, 6));
+        setCodeError('');
+        setNotice(null);
+      }}
       onConfirmCode={() => {
         if (deadline === null) return;
         if (secondsLeft === 0) {
+          setCodeError('');
           setNotice({
             tone: 'error',
             message: '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.',
@@ -75,9 +85,11 @@ export function FindAccountPage() {
           return;
         }
         if (!/^\d{6}$/.test(code)) {
-          setNotice({ tone: 'error', message: '인증번호 6자리를 입력해 주세요.' });
+          setCodeError('인증번호 6자리를 입력해 주세요.');
+          setNotice(null);
           return;
         }
+        setCodeError('');
         setNotice({
           tone: 'info',
           message: '인증번호 입력을 확인했습니다. 실제 검증은 서비스 연결 후 가능합니다.',

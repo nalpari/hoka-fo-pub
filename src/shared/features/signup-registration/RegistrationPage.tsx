@@ -50,7 +50,15 @@ export function RegistrationPage() {
   const [domainChoice, setDomainChoice] = useState('direct');
   const [notice, setNotice] = useState('');
   const [duplicateNotice, setDuplicateNotice] = useState('');
-  const [fieldErrors, setFieldErrors] = useState({
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<keyof RegistrationInformation, string>> & {
+      email: string;
+      domain: string;
+      name: string;
+      password: string;
+      confirmation: string;
+    }
+  >({
     email: '',
     domain: '',
     name: '',
@@ -64,19 +72,11 @@ export function RegistrationPage() {
   const change = (key: keyof RegistrationInformation, value: string) => {
     setInformation((previous) => ({ ...previous, [key]: value }));
     setNotice('');
-    if (
-      key === 'email' ||
-      key === 'domain' ||
-      key === 'name' ||
-      key === 'password' ||
-      key === 'confirmation'
-    ) {
-      setFieldErrors((previous) => ({
-        ...previous,
-        [key]: '',
-        ...(key === 'password' ? { confirmation: '' } : {}),
-      }));
-    }
+    setFieldErrors((previous) => ({
+      ...previous,
+      [key]: '',
+      ...(key === 'password' ? { confirmation: '' } : {}),
+    }));
     if (key === 'email' || key === 'domain') {
       setCheckedEmail('');
       setDuplicateNotice('');
@@ -118,6 +118,9 @@ export function RegistrationPage() {
       : '올바른 도메인 형식으로 입력해 주세요';
     const errors = {
       email: emailError,
+      postalCode: information.postalCode.trim() ? '' : '우편번호 찾기로 우편번호를 입력해주세요.',
+      address: information.address.trim() ? '' : '우편번호 찾기로 주소를 입력해주세요.',
+      addressDetail: information.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
       domain: domainError,
       name: isValidName(information.name) ? '' : '올바른 이름을 입력해주세요',
       password: passwordPattern.test(information.password)
@@ -130,7 +133,9 @@ export function RegistrationPage() {
     };
     setFieldErrors(errors);
     if (Object.values(errors).some(Boolean)) {
-      setCheckedEmail('');
+      if (errors.email || errors.domain || errors.name || errors.password || errors.confirmation) {
+        setCheckedEmail('');
+      }
       setNotice('');
       return;
     }

@@ -1,5 +1,7 @@
 # 아키텍처
 
+2026-10-19 전체 페이지의 오류·성공 안내와 필드 상태 연결 수정은 [Form 전수 점검 보고서](../development/form-state-audit.md) 및 [현재 Form 계약](ui.md#전체-페이지-form-점검-이후-계약-2026-10-19)을 참고한다.
+
 로그인 오류와 공통 StatusMessage의 data-tone 색상·접근성 계약은 [컴포넌트와 스타일](ui.md)의 상태 안내의 tone 색상 항목을 참고한다.
 
 Form 컴포넌트별 오류 Context 전달과 접근성·색상 적용 차이는 [Form 오류 상태 전달 조사](ui.md#form-오류-상태-전달-조사)를 참고한다.
