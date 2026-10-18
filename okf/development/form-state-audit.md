@@ -6,9 +6,12 @@ tags: [audit, forms, validation, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:11:15.957Z'
+  at: '2026-10-18T23:34:03Z'
 source_revision: 91725786fd78138c44e6e5c099261ae84c7a613e
 working_tree_sources:
+  - src/shared/features/login/LoginPage.tsx
+  - src/shared/features/login/LoginForm.tsx
+  - src/stories/features/login/LoginPage.stories.tsx
   - src/stories/features/forms/FormStateAudit.stories.tsx
   - tests/form-controls.test.mjs
   - src/shared/components/atoms/Select/Select.tsx
@@ -25,6 +28,10 @@ sources:
 # 전체 페이지 오류·성공 색상과 필드 검증 점검
 
 ## 범위와 판정 방식
+
+### 로그인 디자인 후속 확인 (2026-10-19)
+
+아래 전수 점검은 기존 필수값 검증과 오류 전달을 확인한 기록이며, 첨부 디자인의 이메일·비밀번호 형식 안내 문구 누락까지 확인한 것은 아니었다. 후속 수정에서 두 필드에 형식 검증과 FormField.error를 연결하고 Error·MobileError 예시를 교체했다. 로그인만 포함한 별도 production Storybook 빌드와 범위 타입 검사·ESLint가 통과했다. 전체 작업 트리 검사는 다른 화면의 JSX 문법 오류로 제한되며 세부 사항은 [UI 문서](../architecture/ui.md#로그인-형식-오류-안내-보완-2026-10-19)를 참고한다. 아래 49개 성공 기록은 이전 점검 시점의 결과다.
 
 2026-10-19 Codex가 63개 page.tsx의 로컬 import·re-export 경로를 TypeScript AST로 추적했다. 공통 ShopShell은 페이지별 기능에서 제외하고 헤더 검색·푸터 이메일 입력을 별도 공통 범위로 검사했다. MyPageStatusPage와 RunningExperiencePage처럼 kind로 분기하는 컴포넌트는 실제 라우트 인자를 읽어 분류했다. 모든 본문에 폼이 있는 것은 아니므로 ‘해당 없음’은 미검사가 아니라 소스 조사 결과다.
 
@@ -127,3 +134,5 @@ error는 기존 #A60000, 일반 success는 기존 #16794b를 유지한다. 인�
 - Storybook의 기존 a11y todo 경고는 별도 기록하며, 이번 검증이 전체 접근성 인증을 의미하지 않는다. 실제 인증·외부 발송·결제는 데모 범위이므로 검증하지 않는다.
 
 [컴포넌트 계약](../architecture/ui.md), [로그인 상태](../architecture/state.md), [검증 절차](verification.md)를 참고한다.
+
+후속 로그인 브라우저 검사 9개가 모두 통과했다. PC·모바일의 필드별 오류 문구·계산 색상·설명 연결·입력 수정과 데모 성공 흐름을 확인하고, 375×812 캡처에서 두 빨간 문구와 테두리를 확인했다.

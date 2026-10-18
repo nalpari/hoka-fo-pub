@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:20:53.989Z'
+  at: '2026-10-18T23:34:03Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/atoms/Checkbox/Checkbox.tsx
@@ -336,6 +336,16 @@ sources:
 
 MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
 
+
+## 로그인 형식 오류 안내 보완 (2026-10-19)
+
+LoginForm의 이메일·비밀번호에 첨부 디자인의 필드별 오류 문구를 FormField.error로 연결했다. Error·MobileError 스토리는 공통 누락 안내 대신 두 문구와 각각의 빨간 테두리·TextInput 오류 상태·접근 가능한 설명을 표시한다. 로그인 검증 규칙과 제출 이후 수정 계약은 [상태 문서](state.md#로그인-필드-오류)를 참고한다. LoginFlow의 정상 비밀번호 예시도 새 규칙에 맞췄으며 InvalidFormats·MobileInvalidFormats에 이메일 형식, 비밀번호 길이 경계·문자 조합·공백 오류 및 수정 후 성공 검사를 추가했다.
+
+변경한 로그인 TSX 3개는 ESLint를 통과했다. 전체 타입 검사는 작업 트리의 ButtonDocs·ProductDetailSections·SupportExperiencePage JSX 문법 오류로, 전체 Storybook 빌드는 ButtonDocs·ProductDetailSections 문법 오류로 실패했다. 이 파일들은 이번 수정 범위에 포함하지 않는다. 이전 전수 점검의 성공 기록은 당시 코드 기준이며 이번 작업 트리 전체의 성공을 뜻하지 않는다.
+
+로그인 소스·스토리와 실제 의존 코드를 포함한 별도 tsconfig의 타입 검사는 통과했다. 저장소 설정을 재사용하고 로그인 스토리만 선택한 임시 Storybook production build도 통과했다. 임시 설정·빌드 결과는 node_modules/.cache 아래에만 생성했다.
+
+정적 빌드를 Chromium에서 실행한 로그인 스토리 9개가 모두 통과했다. Error·MobileError의 두 문구 계산 색상·aria-invalid·접근 가능한 설명, PC·모바일의 빈 값·형식·비밀번호 경계값·수정 후 로그인, 기능 미연결 안내를 확인했다. 375×812 캡처에서도 두 문구와 빨간 테두리가 표시됨을 확인했다. 기존 a11y todo 경고는 별도이며 전체 접근성 검증을 뜻하지 않는다.
 
 ## 전체 페이지 Form 점검 이후 계약 (2026-10-19)
 

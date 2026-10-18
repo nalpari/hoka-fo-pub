@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:12:46.389Z'
+  at: '2026-10-18T23:34:03Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/phone-verification/PhoneVerificationPage.tsx
@@ -49,7 +49,7 @@ sources:
 | 플랫폼         | 서버가 선택한 값을 `PlatformProvider`에 전달         | 공통 레이아웃의 플랫폼 선택을 공유                         |
 | 관심·최근 개수 | `ShopShell`의 상수                                   | 현재 데모 값은 각각 3, 7                                   |
 
-로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 비어 있지 않은 아이디·비밀번호만 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
+로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 이메일 형식과 영문·숫자·특수문자를 모두 포함한 공백 없는 10~12자 비밀번호를 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
@@ -57,7 +57,9 @@ sources:
 
 2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.
 
-로그인 필수값 검증 실패 시 `LoginNotice.invalidFields`에 비어 있는 필드 이름을 기록한다. LoginForm은 현재 입력값과 함께 이 목록을 확인해 해당 FormField의 invalid를 설정하며 TextInput은 Context를 통해 오류 상태를 받는다. 입력하면 해당 필드 표시가 해제되고, 기능 미연결 안내는 invalidFields를 갖지 않는다. 폼에는 noValidate를 설정해 네이티브 required 검증이 onSubmit을 차단하지 않도록 하고 required 속성 자체는 유지한다. 타입 검사·변경 범위 ESLint를 통과했고 브라우저 LoginFlow에서 빈 값 검증·입력 후 오류 해제·데모 성공 흐름을 확인했다.
+첨부 디자인의 필드별 형식 안내가 빠져 있어 2026-10-19 후속 수정으로 `LoginNotice.invalidFields`를 `LoginForm.errors`로 대체했다. LoginPage는 최초 제출 후 현재 입력값에서 오류를 계산한다. 빈 값과 잘못된 이메일에는 “올바른 이메일 형식으로 입력해 주세요”, 비밀번호 규칙 위반에는 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”를 전달한다. 값이 규칙에 맞아야 해당 오류가 해제되고 다시 잘못된 값으로 수정하면 재표시된다.
+
+LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를 통해 invalid와 해당 오류의 aria-describedby를 상속한다. `LoginNotice`는 성공·기능 미연결 안내만 담당한다. 폼의 noValidate와 required는 유지하고 형식 오류가 있으면 onLogin·홈 이동을 차단한다. Error·MobileError는 두 문구의 정적 예시이고, LoginFlow와 InvalidFormats는 실제 제출·수정 흐름을 검사한다. 후속 검증 결과와 작업 트리의 다른 화면 문법 오류로 인한 전체 검사 제한은 [UI 문서](ui.md#로그인-형식-오류-안내-보완-2026-10-19)에 기록한다.
 
 ## 장바구니 항목
 

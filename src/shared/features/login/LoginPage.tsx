@@ -4,12 +4,27 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
 
+const emailPattern =
+  /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
+
+const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{10,12}$/;
+
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const router = useRouter();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [rememberId, setRememberId] = useState(false);
   const [notice, setNotice] = useState<LoginNotice | null>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const validEmail = emailPattern.test(id.trim());
+  const validPassword = passwordPattern.test(password);
+  const errors = {
+    id: hasSubmitted && !validEmail ? '올바른 이메일 형식으로 입력해 주세요' : undefined,
+    password:
+      hasSubmitted && !validPassword
+        ? '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'
+        : undefined,
+  };
 
   const showUnavailable = (feature: string) => {
     setNotice({
@@ -20,16 +35,10 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setHasSubmitted(true);
+    setNotice(null);
 
-    if (!id.trim() || !password) {
-      setNotice({
-        tone: 'error',
-        message: '아이디와 비밀번호를 모두 입력해 주세요.',
-        invalidFields: [
-          ...(!id.trim() ? (['id'] as const) : []),
-          ...(!password ? (['password'] as const) : []),
-        ],
-      });
+    if (!validEmail || !validPassword) {
       return;
     }
 
@@ -47,8 +56,15 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
       password={password}
       rememberId={rememberId}
       notice={notice}
-      onIdChange={setId}
-      onPasswordChange={setPassword}
+      errors={errors}
+      onIdChange={(value) => {
+        setId(value);
+        setNotice(null);
+      }}
+      onPasswordChange={(value) => {
+        setPassword(value);
+        setNotice(null);
+      }}
       onRememberChange={setRememberId}
       onSubmit={handleLogin}
       onFindAccount={() => router.push('/login/find-account')}

@@ -17,7 +17,6 @@ const styles = {
 export type LoginNotice = {
   tone: 'error' | 'success';
   message: string;
-  invalidFields?: ('id' | 'password')[];
 };
 
 export type LoginFormProps = {
@@ -25,6 +24,7 @@ export type LoginFormProps = {
   password: string;
   rememberId: boolean;
   notice: LoginNotice | null;
+  errors?: Partial<Record<'id' | 'password', string>>;
   onIdChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onRememberChange: (value: boolean) => void;
@@ -38,6 +38,7 @@ export function LoginForm({
   password,
   rememberId,
   notice,
+  errors,
   onIdChange,
   onPasswordChange,
   onRememberChange,
@@ -52,13 +53,10 @@ export function LoginForm({
         htmlFor="login-id"
         label="이메일 아이디"
         required
-        invalid={notice?.invalidFields?.includes('id') && !id.trim()}
+        error={errors?.id}
       >
         <TextInput
           id="login-id"
-          aria-describedby={
-            notice?.invalidFields?.includes('id') && !id.trim() ? 'login-notice' : undefined
-          }
           name="username"
           autoComplete="username"
           placeholder="이메일 주소를 @까지 정확히 입력해 주세요"
@@ -71,13 +69,10 @@ export function LoginForm({
         htmlFor="login-password"
         label="비밀번호"
         required
-        invalid={notice?.invalidFields?.includes('password') && !password}
+        error={errors?.password}
       >
         <TextInput
           id="login-password"
-          aria-describedby={
-            notice?.invalidFields?.includes('password') && !password ? 'login-notice' : undefined
-          }
           name="password"
           autoComplete="current-password"
           placeholder="비밀번호를 입력해 주세요"
