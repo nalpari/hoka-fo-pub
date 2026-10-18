@@ -1,5 +1,11 @@
 # 지식 번들 변경 이력
 
+## 2026-10-19
+
+- **Style**: 마이페이지 배송지·프로필의 기존 코드 포맷을 정리했다. 동작 변경을 포함하지 않는 포맷 기준선을 [UI 아키텍처](architecture/ui.md)에 기록했다.
+
+
+
 ## 2026-10-16
 
 - **Feature**: Typography의 생략된 variant 기본값을 unstyled로 지정했다. [UI 아키텍처](architecture/ui.md)에 플랫폼 우선순위·body 명시 사용과 검증 한계를 기록했다.

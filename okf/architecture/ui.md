@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T09:15:53.8541576Z'
+  at: '2026-10-18T23:20:38.283Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/atoms/Typography/Typography.tsx
@@ -315,6 +315,11 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 마이페이지 폼 포맷 정리 (2026-10-19)
+
+MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
+
 
 ## 상태 안내의 tone 색상 (2026-10-16)
 

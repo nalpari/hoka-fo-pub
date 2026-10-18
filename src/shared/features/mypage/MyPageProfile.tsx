@@ -26,7 +26,9 @@ function ProfileField({ label, value }: { label: string; value: string }) {
   return (
     <Stack gap="2">
       <Typography variant="heading7">{label}</Typography>
-      <Typography variant="body3" tone="tertiary">{value}</Typography>
+      <Typography variant="body3" tone="tertiary">
+        {value}
+      </Typography>
     </Stack>
   );
 }
