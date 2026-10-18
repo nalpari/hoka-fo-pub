@@ -49,6 +49,7 @@ export function CouponManager({ coupons }: Props) {
           등록기간 내에 등록 하셔야 사용 가능합니다.
         </Typography>
         <form
+          noValidate
           onSubmit={(event) => {
             event.preventDefault();
             registerCoupon();
@@ -60,6 +61,7 @@ export function CouponManager({ coupons }: Props) {
             required
             variant="boxed"
             invalid={Boolean(error)}
+            error={error || undefined}
           >
             <TextInput
               id="coupon-code"
@@ -69,14 +71,10 @@ export function CouponManager({ coupons }: Props) {
               onChange={(event) => {
                 setCode(event.target.value);
                 setError('');
+                setRegistered(false);
               }}
             />
           </FormField>
-          {error ? (
-            <Typography variant="body5" tone="error">
-              {error}
-            </Typography>
-          ) : null}
           {code ? (
             <Box mt="3">
               <Button fullWidth type="submit" size="short" variant="primary">

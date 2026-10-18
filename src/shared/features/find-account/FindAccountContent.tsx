@@ -28,6 +28,7 @@ type FindAccountContentProps = {
   secondsLeft: number;
   nameError: string;
   phoneError: string;
+  codeError?: string;
   notice: FindAccountNotice | null;
   onNameChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
@@ -44,6 +45,7 @@ export function FindAccountContent({
   secondsLeft,
   nameError,
   phoneError,
+  codeError,
   notice,
   onNameChange,
   onPhoneChange,
@@ -118,6 +120,7 @@ export function FindAccountContent({
                 variant="boxed"
                 htmlFor="find-account-code"
                 label="인증번호"
+                error={codeError}
                 className={css({ mt: '6' })}
               >
                 <TextInput

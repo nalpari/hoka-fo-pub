@@ -106,12 +106,13 @@ export function InquiryNewPage() {
               value={title}
               maxLength={50}
               invalid={invalid && !title.trim()}
+              aria-describedby={invalid && !title.trim() ? 'inquiry-title-error' : undefined}
               onChange={(event) => setTitle(event.target.value)}
               placeholder="제목을 입력해주세요. (50자 이하)"
               style={{ minHeight: '60px' }}
             />
             {invalid && !title.trim() ? (
-              <Typography web="body5" mo="body5" tone="error">
+              <Typography id="inquiry-title-error" role="alert" web="body5" mo="body5" tone="error">
                 제목을 입력해 주세요.
               </Typography>
             ) : null}
@@ -126,6 +127,7 @@ export function InquiryNewPage() {
               value={body}
               maxLength={1000}
               invalid={invalid && !body.trim()}
+              aria-describedby={invalid && !body.trim() ? 'inquiry-body-error' : undefined}
               onChange={(event) => setBody(event.target.value)}
               placeholder="내용을 입력해주세요."
               style={{ minHeight: '174px', paddingTop: '16px' }}
@@ -136,7 +138,7 @@ export function InquiryNewPage() {
               </Typography>
             </Box>
             {invalid && !body.trim() ? (
-              <Typography web="body5" mo="body5" tone="error">
+              <Typography id="inquiry-body-error" role="alert" web="body5" mo="body5" tone="error">
                 내용을 입력해 주세요.
               </Typography>
             ) : null}

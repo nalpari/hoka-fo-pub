@@ -39,6 +39,7 @@ type SignupDetailsStepProps = {
   id: string;
   password: string;
   message: string;
+  fieldErrors?: Partial<Record<'name' | 'email' | 'id' | 'password', string>>;
   onNameChange: (value: string) => void;
   onEmailChange: (value: string) => void;
   onIdChange: (value: string) => void;
@@ -54,6 +55,7 @@ export function SignupDetailsStep({
   id,
   password,
   message,
+  fieldErrors,
   onNameChange,
   onEmailChange,
   onIdChange,
@@ -61,7 +63,7 @@ export function SignupDetailsStep({
   onSubmit,
 }: SignupDetailsStepProps) {
   return (
-    <form className={styles.formSection} onSubmit={onSubmit}>
+    <form noValidate className={styles.formSection} onSubmit={onSubmit}>
       <Typography as="h2" variant="heading7">
         기본 정보 입력
       </Typography>
@@ -71,6 +73,7 @@ export function SignupDetailsStep({
       <FormField
         variant="boxed"
         htmlFor="signup-name"
+        error={fieldErrors?.name}
         label="이름"
         required
         className={styles.field}
@@ -85,6 +88,7 @@ export function SignupDetailsStep({
       <FormField
         variant="boxed"
         htmlFor="signup-email"
+        error={fieldErrors?.email}
         label="이메일"
         required
         className={styles.field}
@@ -103,6 +107,7 @@ export function SignupDetailsStep({
           <FormField
             variant="boxed"
             htmlFor="signup-id"
+            error={fieldErrors?.id}
             label="아이디"
             required
             className={styles.field}
@@ -118,6 +123,7 @@ export function SignupDetailsStep({
           <FormField
             variant="boxed"
             htmlFor="signup-password"
+            error={fieldErrors?.password}
             label="비밀번호"
             required
             className={styles.field}

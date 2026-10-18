@@ -1,0 +1,150 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { readFileSync, existsSync } from 'node:fs';
+import { registerHooks } from 'node:module';
+import { URL, fileURLToPath, pathToFileURL } from 'node:url';
+import path from 'node:path';
+import ts from 'typescript';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+
+const root = fileURLToPath(new URL('../', import.meta.url));
+
+// Load the real TSX controls and generated Panda runtime without a browser or mocks.
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    const base = specifier.startsWith('@/')
+      ? path.join(root, 'src', specifier.slice(2))
+      : specifier.startsWith('styled-system/')
+        ? path.join(root, specifier, 'index.mjs')
+        : specifier.startsWith('.') && context.parentURL?.includes('/src/')
+          ? fileURLToPath(new URL(specifier, context.parentURL))
+          : null;
+    if (base) {
+      const file = [base, `${base}.tsx`, `${base}.ts`].find((candidate) => existsSync(candidate));
+      if (file) return nextResolve(pathToFileURL(file).href, context);
+    }
+    if (
+      ['next/link', 'next/navigation'].includes(specifier) &&
+      context.parentURL?.includes('/src/')
+    )
+      return nextResolve(
+        pathToFileURL(path.join(root, 'node_modules', `${specifier}.js`)).href,
+        context,
+      );
+    return nextResolve(specifier, context);
+  },
+  load(url, context, nextLoad) {
+    // Server markup assertions do not evaluate stylesheets; color is covered by stories.
+    if (url.endsWith('.css')) return { format: 'module', shortCircuit: true, source: '' };
+    if (url.startsWith(pathToFileURL(path.join(root, 'src')).href) && /\.tsx?$/.test(url)) {
+      return {
+        format: 'module',
+        shortCircuit: true,
+        source: ts.transpileModule(readFileSync(fileURLToPath(url), 'utf8'), {
+          compilerOptions: {
+            module: ts.ModuleKind.ESNext,
+            jsx: ts.JsxEmit.ReactJSX,
+            target: ts.ScriptTarget.ES2022,
+          },
+        }).outputText,
+      };
+    }
+    return nextLoad(url, context);
+  },
+});
+
+const h = React.createElement;
+
+const { FormField } = await import('../src/shared/components/atoms/FormField/FormField.tsx');
+
+const fixtures = [
+  ['TextInput', 'atoms/TextInput/TextInput', {}],
+  ['TextInput', 'atoms/TextInput/TextInput', { type: 'password' }],
+  ['TextInput', 'atoms/TextInput/TextInput', { multiline: true }],
+  ['Select', 'atoms/Select/Select', { children: h('option', null, '선택') }],
+  [
+    'Dropdown',
+    'atoms/Dropdown/Dropdown',
+    { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }] },
+  ],
+  ['Checkbox', 'atoms/Checkbox/Checkbox', { label: '동의', checked: false }],
+  [
+    'Checkbox',
+    'atoms/Checkbox/Checkbox',
+    {
+      ariaLabel: '동의 목록',
+      options: [{ value: 'a', label: 'A' }],
+      value: [],
+      onValueChange() {},
+    },
+  ],
+  [
+    'Radio',
+    'atoms/Radio/Radio',
+    { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }], value: '', onValueChange() {} },
+  ],
+  [
+    'RatingInput',
+    'atoms/RatingInput/RatingInput',
+    { ariaLabel: '별점', value: 0, onValueChange() {} },
+  ],
+  [
+    'RangeInput',
+    'atoms/RangeInput/RangeInput',
+    { 'aria-label': '범위', value: 10, onValueChange() {} },
+  ],
+  ['NumberStepper', 'atoms/NumberStepper/NumberStepper', { value: 1, onChange() {} }],
+  ['Terms', 'molecules/Terms/Terms', { checked: false, children: '동의', onCheckedChange() {} }],
+  [
+    'SizeSelector',
+    'molecules/SizeSelector/SizeSelector',
+    {
+      mode: 'single',
+      ariaLabel: '사이즈',
+      value: '',
+      options: [{ value: '250' }],
+      onValueChange() {},
+    },
+  ],
+  [
+    'SizeSelector',
+    'molecules/SizeSelector/SizeSelector',
+    {
+      mode: 'multiple',
+      ariaLabel: '사이즈',
+      value: [],
+      options: [{ value: '250' }],
+      onValueChange() {},
+    },
+  ],
+];
+
+for (const [index, [name, modulePath, props]] of fixtures.entries()) {
+  const { [name]: Control } = await import(`../src/shared/components/${modulePath}.tsx`);
+  test(`${index}: ${name} inherits field error and description`, () => {
+    const html = renderToStaticMarkup(
+      h(FormField, { htmlFor: 'audit', error: '필수 입력' }, h(Control, props)),
+    );
+    assert.match(html, /aria-invalid="true"/);
+    assert.match(html, /aria-describedby="[^"]*audit-error/);
+    assert.match(html, /role="alert"/);
+  });
+  test(`${index}: ${name} has no invalid state without an error`, () => {
+    const html = renderToStaticMarkup(h(FormField, { htmlFor: 'audit' }, h(Control, props)));
+    assert.doesNotMatch(html, /aria-invalid="true"/);
+  });
+}
+
+const { StatusMessage } =
+  await import('../src/shared/components/atoms/StatusMessage/StatusMessage.tsx');
+
+for (const tone of ['error', 'success', 'info']) {
+  test(`StatusMessage ${tone} retains accessible tone`, () => {
+    const html = renderToStaticMarkup(h(StatusMessage, { tone }, '안내'));
+    assert.match(html, new RegExp(`data-tone="${tone}"`));
+    assert.match(html, new RegExp(`role="${tone === 'error' ? 'alert' : 'status'}"`));
+    assert.match(html, new RegExp(`aria-live="${tone === 'error' ? 'assertive' : 'polite'}"`));
+    assert.match(html, /class="[^"]+"/);
+  });
+}

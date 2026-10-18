@@ -44,6 +44,8 @@ type Props = {
   secondsLeft: number;
   resendWait: number;
   notice: string;
+  noticeTone?: 'error' | 'info';
+  codeError?: string;
   fieldErrors?: PhoneVerificationErrors;
   detail: string | null;
   onInformationChange: (key: keyof PhoneInformation, value: string) => void;
@@ -163,7 +165,7 @@ export function PhoneVerificationContent(props: Props) {
             인증 정보
           </Typography>
         </Box>
-        <form onSubmit={props.onConfirm}>
+        <form noValidate onSubmit={props.onConfirm}>
           <Stack gap="4">
             {textField('name', '이름', '이름을 입력해 주세요')}
             {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
@@ -207,7 +209,13 @@ export function PhoneVerificationContent(props: Props) {
             {requested ? (
               <>
                 <Box mt="2">
-                  <FormField variant="boxed" htmlFor="phone-code" label="인증번호" required>
+                  <FormField
+                    variant="boxed"
+                    htmlFor="phone-code"
+                    label="인증번호"
+                    required
+                    error={props.codeError}
+                  >
                     <TextInput
                       id="phone-code"
                       inputMode="numeric"
@@ -239,7 +247,9 @@ export function PhoneVerificationContent(props: Props) {
                 </Button>
               </>
             ) : null}
-            {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
+            {notice ? (
+              <StatusMessage tone={props.noticeTone ?? 'info'}>{notice}</StatusMessage>
+            ) : null}
           </Stack>
         </form>
         <Box mt="4">

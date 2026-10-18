@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T09:09:28Z'
+  at: '2026-10-18T23:12:46.389Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - src/shared/features/cart/CartPage.tsx
@@ -53,6 +54,8 @@ sources:
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
 ## 로그인 필드 오류
+
+2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.
 
 로그인 필수값 검증 실패 시 `LoginNotice.invalidFields`에 비어 있는 필드 이름을 기록한다. LoginForm은 현재 입력값과 함께 이 목록을 확인해 해당 FormField의 invalid를 설정하며 TextInput은 Context를 통해 오류 상태를 받는다. 입력하면 해당 필드 표시가 해제되고, 기능 미연결 안내는 invalidFields를 갖지 않는다. 폼에는 noValidate를 설정해 네이티브 required 검증이 onSubmit을 차단하지 않도록 하고 required 속성 자체는 유지한다. 타입 검사·변경 범위 ESLint를 통과했고 브라우저 LoginFlow에서 빈 값 검증·입력 후 오류 해제·데모 성공 흐름을 확인했다.
 

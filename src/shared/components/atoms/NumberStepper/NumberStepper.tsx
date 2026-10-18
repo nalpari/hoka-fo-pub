@@ -1,8 +1,12 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import { css } from 'styled-system/css';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const root = css({
+  '&[data-invalid]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -50,6 +54,7 @@ export function NumberStepper({
   className,
   formatValue,
 }: NumberStepperProps) {
+  const field = useFormFieldContext();
   return (
     <BaseNumberField.Root
       aria-label={ariaLabel}
@@ -64,6 +69,7 @@ export function NumberStepper({
         −
       </BaseNumberField.Decrement>
       <BaseNumberField.Input
+        aria-describedby={field?.describedBy}
         aria-label={ariaLabel}
         aria-valuetext={formatValue ? String(formatValue(value)) : undefined}
         className={valueStyle}

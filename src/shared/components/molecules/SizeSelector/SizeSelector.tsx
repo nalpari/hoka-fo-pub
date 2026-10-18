@@ -8,6 +8,7 @@ import { CheckboxGroup } from '@base-ui/react/checkbox-group';
 import { css, cva } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const grid = css({
   display: 'grid',
@@ -17,6 +18,7 @@ const grid = css({
 
 const pill = cva({
   base: {
+    '&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
@@ -91,6 +93,7 @@ const stateLabels: Record<SizeOptionState, string> = {
 
 /** Shared size pills with native single- or multiple-choice semantics. */
 export function SizeSelector(props: SizeSelectorProps) {
+  const field = useFormFieldContext();
   const { options, ariaLabel, columns = 5, soldOutAppearance = 'gray' } = props;
   const children = options.map(({ value, state = 'available' }) => {
     const disabled = state === 'soldOut' || state === 'unavailable';
@@ -137,6 +140,7 @@ export function SizeSelector(props: SizeSelectorProps) {
   const style = { '--size-columns': columns } as CSSProperties;
   return props.mode === 'single' ? (
     <RadioGroup
+      aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       className={grid}
       style={style}
@@ -147,6 +151,7 @@ export function SizeSelector(props: SizeSelectorProps) {
     </RadioGroup>
   ) : (
     <CheckboxGroup
+      aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       className={grid}
       style={style}

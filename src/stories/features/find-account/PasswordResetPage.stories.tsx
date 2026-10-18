@@ -21,6 +21,7 @@ const withRouter = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Pages/AUTH/FindAccount/PasswordResetPage',
+  tags: ['form-audit'],
   component: PasswordResetPage,
   decorators: [withRouter],
   parameters: { layout: 'fullscreen' },

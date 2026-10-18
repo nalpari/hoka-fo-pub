@@ -78,6 +78,7 @@ export const CodeEntry: Story = {
 
 export const Expired: Story = {
   args: {
+    noticeTone: 'error',
     requested: true,
     secondsLeft: 0,
     resendWait: 0,
