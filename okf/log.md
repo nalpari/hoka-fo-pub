@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: secondary Button/ButtonLink 내부 Typography의 hover/focus-visible/active 색상을 공통 상속하도록 수정했다. 기본 tertiary·비활성 색상은 유지하며 Button 스토리 3개, 브라우저 11건과 타입·린트·포맷·Panda·Next/Storybook 빌드를 확인했다.
+
 - **Refactor**: FaqList의 질문·답변·검색 결과 없음 표시를 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. DOM·스타일·외부 API·아코디언 제어를 유지하고 타입·린트·포맷·Panda 및 기존 PC/MO·빈 상태·키보드 Storybook 흐름을 확인했다.
 
 - **Fix**: 디자인이 반영된 매장 찾기를 Mockup에서 정식 features/store-finder와 organisms/StoreFinder로 복귀시켰다. 페이지·데이터·라우트·고객센터 스토리의 참조를 갱신했다.

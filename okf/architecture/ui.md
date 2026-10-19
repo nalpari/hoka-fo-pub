@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:21.527Z'
+  at: '2026-10-19T09:07:23.473Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/organisms/Faq/FaqQuestion.tsx
@@ -1445,3 +1445,9 @@ Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검�
 FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 organism 폴더의 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. FaqList의 외부 props와 FaqListEntry/FaqListProps export, Accordion의 단일 펼침 제어와 onToggle 연결은 유지한다. 추가 DOM 래퍼 없이 기존 태그·Panda 값·PC/MO Typography·ReactNode 답변을 보존한다.
 
 검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 Default/Mobile 열기·닫기, Empty 표시와 버튼 부재, ControlledDisclosure의 Enter·클릭·Space 및 aria-expanded/aria-controls 연결 play를 확인했다. production build는 재실행하지 않았다.
+
+## Secondary 버튼 자식 텍스트의 상태색 (2026-10-19)
+
+Button variant secondary의 hover/focus-visible/active에서는 프레임 안 자식의 color가 프레임 색을 상속한다. ButtonLink도 같은 Button 구현을 사용한다. 기본 상태의 Typography tertiary tone은 유지하고 disabled/data-disabled 버튼은 상태색 상속에서 제외한다. PageActionButton에는 별도 상태색 스타일이 없으며 기본 Typography 조합만 사용한다.
+
+검증: Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js/Storybook production build를 통과했다. Edge headless에서 FAQ/공지 PC/MO 4건의 기본 회색·hover/focus 흰색·40px 프레임·상단 36/24px·500px 폭·더보기 완료, Support/문의 PC/MO 링크 4건의 href와 48/40px 높이, 일반 secondary 버튼/링크/disabled 스토리 3건의 hover/focus/active 상속·비활성 유지 등 총 11건을 확인했다. PageActionButton 4개 및 Button 3개 스토리를 보강했다. Storybook 빌드는 기존 의존성 use-client·청크 크기·플러그인 시간 경고를 포함해 성공했다.

@@ -141,6 +141,12 @@ const iconOnlyButtonStyle = css.raw({
   '& > span > span': { w: '100%', h: '100%', minH: '0', gap: '0', px: '0' },
 });
 
+const secondaryContentColor = css.raw({
+  '&:is(:hover, :focus-visible, :active):not(:disabled):not([data-disabled]) > span *': {
+    color: 'inherit',
+  },
+});
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -293,6 +299,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             unframed,
           }),
           iconOnly && iconOnlyButtonStyle,
+          variant === 'secondary' && secondaryContentColor,
           variant === 'link' && { textDecoration: 'underline', textUnderlineOffset: '3px' },
           variant === 'headerSearch' && { w: '178px' },
         ),
