@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:07:21Z'
+  at: '2026-10-19T05:57:03Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
@@ -46,6 +46,10 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 장바구니 버튼 크기 명시 검토 (2026-10-19)
+
+작업 트리 출처 `src/shared/features/cart/CartPage.tsx`의 삭제·주문하기 버튼에 short 크기를 명시했다. 삭제 콜백과 주문 이동 경로, 상품 선택·수량·금액 계산 및 장바구니 Context 상태 처리는 변경하지 않았다. 이번 검토는 버튼 크기 지정 범위이며 결제 서버 연동 검증을 의미하지 않는다.
 
 ## ShopShell
 

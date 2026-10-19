@@ -6,15 +6,11 @@
 
 - **Refactor**: AccountLockedContent의 확인 버튼 하나인 수동 footer를 SingleActionDialog로 교체했다. 공통 short/fullWidth·본문 패딩을 사용하며 기존 닫기/확인 이동 콜백을 유지했다. 타입·린트·포맷·PC/MO 표시와 이동 play 3개를 확인했다.
 
-- **Refactor**: PhoneVerificationDetailDialog를 open/onOpenChange만 받는 알뜰폰 사업자 전용 SingleActionDialog로 정리했다. 고정 제목·목록과 공통 확인 버튼을 사용하고 약관 팝업의 기존 연결은 Content에 유지했다. 타입·린트·포맷 및 확인/닫기/Escape·약관 4개 열기/닫기를 검증했다.
-
-- **Refactor**: 실제 화면에서 참조하지 않는 ReviewManager와 전용 부품·타입·스토리 7개를 제거했다. MyPageReviews의 상태/이벤트는 유지하고 본문·탭·툴바·목록·항목·더보기 6개 기능 내부 컴포넌트와 타입으로 분리했다. 타입·ESLint·Prettier·앱/Storybook 빌드, 전후 SSR 6개와 실제 PC/MO 작성·수정·검증·정렬·더보기 흐름을 확인했다. [UI 기록](architecture/ui.md#마이페이지-리뷰-분리와-미사용-목업-제거-2026-10-19)을 참고한다.
-
-- **Refactor**: ReviewManager의 탭·정렬/건수·리뷰 목록·작성 영역을 전용 컴포넌트 4개로 분리했다. 상태·검증·페이지 처리는 부모에 유지하고 DOM·스타일·첨부/취소 동작을 보존했다. 타입·ESLint·Prettier·Panda·기존 PC/MO play 및 페이지/탭/첨부/취소 브라우저 흐름을 확인했다.
-
 - **Refactor**: ExploreDetailPage와 exploreContent.ts를 Mockup/explore로 함께 옮기고 catch-all 라우트 import를 갱신했다. 기존 화면·데이터·URL과 미커밋 수정을 보존했으며 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
 
 - **Refactor**: LaunchCalendarPage와 내부 카드·데이터·스타일을 src/shared/Mockup/launch-calendar로 이동하고 앱 라우트 import를 갱신했다. 기존 URL·대상/탭 선택·상품 링크를 유지했다. [UI 기록](architecture/ui.md#런칭-캘린더-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#런칭-캘린더-목업-진입점-2026-10-19)을 참고한다.
+
+- **Refactor**: PhoneVerificationDetailDialog를 open/onOpenChange만 받는 알뜰폰 사업자 전용 SingleActionDialog로 정리했다. 고정 제목·목록과 공통 확인 버튼을 사용하고 약관 팝업의 기존 연결은 Content에 유지했다. 타입·린트·포맷 및 확인/닫기/Escape·약관 4개 열기/닫기를 검증했다.
 
 - **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-목업-진입점-2026-10-19)을 참고한다.
 
@@ -24,21 +20,29 @@
 
 - **Refactor**: ProductDetailSections 구현 12개와 전용 스토리를 Mockup 영역으로 옮기고 import·Storybook 분류를 갱신했다. 기존 미커밋 수정과 시나리오를 유지했으며 타입·ESLint·Prettier·Panda·파일 내용 비교 및 브라우저 스토리 3개를 확인했다.
 
+- **Refactor**: 실제 화면에서 참조하지 않는 ReviewManager와 전용 부품·타입·스토리 7개를 제거했다. MyPageReviews의 상태/이벤트는 유지하고 본문·탭·툴바·목록·항목·더보기 6개 기능 내부 컴포넌트와 타입으로 분리했다. 타입·ESLint·Prettier·앱/Storybook 빌드, 전후 SSR 6개와 실제 PC/MO 작성·수정·검증·정렬·더보기 흐름을 확인했다. [UI 기록](architecture/ui.md#마이페이지-리뷰-분리와-미사용-목업-제거-2026-10-19)을 참고한다.
+
+- **Refactor**: ReviewManager의 탭·정렬/건수·리뷰 목록·작성 영역을 전용 컴포넌트 4개로 분리했다. 상태·검증·페이지 처리는 부모에 유지하고 DOM·스타일·첨부/취소 동작을 보존했다. 타입·ESLint·Prettier·Panda·기존 PC/MO play 및 페이지/탭/첨부/취소 브라우저 흐름을 확인했다.
+
 - **Refactor**: SHOE FINDER 페이지와 내부 선택 데이터·상태·스타일을 src/shared/Mockup/shoe-finder로 이동하고 앱 라우트 import를 갱신했다. 기존 URL·추천 쿼리·short 버튼과 공유 UI를 유지했다. [구성 기록](architecture/ui.md#shoe-finder-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#shoe-finder-목업-진입점-2026-10-19)을 참고한다.
 
 - **Refactor**: RatingStars에 정수 별점 선택 모드를 통합하고 리뷰 작성·폼 스토리·회귀 검사의 RatingInput 참조를 이전했다. 문자열 별/CTA 래퍼를 동일 Icon 별로 바꾸고 Base UI 키보드·disabled·오류 연결과 기존 반별점 표시를 유지한다. 이전 RatingInput 구현·스토리를 제거하고 선택 스토리를 RatingStars 아래로 이동했다. [UI 계약](architecture/ui.md#별점-표시선택의-ratingstars-통합-2026-10-19)과 [검사 기록](development/verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)에 범위를 기록했다.
 
 - **Refactor**: 러닝 프로필 페이지·본문·질문 컴포넌트·질문 데이터를 `src/shared/Mockup/running-profile`로 분리했다. 전용 스토리도 src/stories/features/Mockup 아래로 이동하고 Mockup 분류를 적용했다. 기존 URL·메뉴·화면·상태와 PC/MO 스토리를 유지하며 라우트·Story helper import를 갱신했다. [목업 구성](architecture/ui.md#러닝-프로필-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#러닝-프로필-목업-진입점-2026-10-19)을 참고한다.
 
+- **Fix**: MainContentCard의 link 분기에 md를 명시하고 HeroCopy 액션에 short를 지정했다. 타입 계약과 변경 파일 ESLint/Prettier를 확인했다.
+
 - **Fix**: SingleActionDialog 확인 버튼의 fullWidth를 기본 true로 처리하고 계정 안내·약관의 중복 지정을 제거했다. 명시적 false 옵션과 확인·닫기 동작을 Storybook에서 검증하고 타입·ESLint·Prettier를 확인했다.
 
 - **Fix**: SingleActionDialog의 기본 확인 버튼을 short로 공통화하고 ModalDialog의 actionCount(1·2·null) 옵션에서 1일 때 PC 본문 패딩을 24px 24px 16px로 지정했다. 모바일 패딩·일반 모달 기본값과 명시적 tall 옵션은 유지했다. 호출부의 중복 short를 제거하고 타입·린트·포맷·Panda·모달 표시 7건 및 기존 play 4개를 확인했다.
+
+- **Update**: ProfileQuestionGroup의 PC/MO 미선택·선택 스토리 4개를 추가했다. 클릭 선택과 Controls 초기값 변경을 제공하며 타입·ESLint·Prettier·브라우저 렌더링/배치/선택 상태를 확인했다. 기존 버튼 테두리·선택 배경 스타일 충돌은 관찰 결과로 UI 문서에 기록했다.
 
 - **Refactor**: import·재수출·스토리·사용처가 없는 ProductCompareButton 컴포넌트를 삭제했다. 이전 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 제거했다. [UI 기록](architecture/ui.md#미사용-productcomparebutton-제거-2026-10-19)에 삭제 근거를 남겼다.
 
 - **Refactor**: 자체 선언 외 참조가 없는 ProductActionBar.tsx를 삭제했다. 실제 상품 상세 구매 액션은 ProductPurchaseActions가 담당함을 확인했다. 기존 short 명시 작업 중 해당 파일의 두 버튼은 삭제되며 다른 변경은 유지한다.
 
-- **Fix**: MainContentCard의 link 분기에 md를 명시하고 HeroCopy 액션에 short를 지정했다. 타입 계약과 변경 파일 ESLint/Prettier를 확인했다.
+- **Fix**: 사용자가 선택한 Button·ButtonLink·공용 래퍼 사용처의 65개 JSX 위치와 두 팝업 확인 옵션에 short 크기를 명시했다. MainContentCard link는 md 계약을 유지하고 일반 버튼 분기만 short를 사용한다. [UI 계약](architecture/ui.md#영향-목록-버튼의-short-명시-2026-10-19)과 [장바구니 상태 검토](architecture/state.md#장바구니-버튼-크기-명시-검토-2026-10-19)에 범위를 기록했다.
 
 - **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
 

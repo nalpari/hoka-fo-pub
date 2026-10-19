@@ -6,62 +6,56 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:12:44Z'
+  at: '2026-10-19T07:20:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/shared/features/mypage/reviews/reviews.types.ts
-  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewToolbar.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewTabs.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewList.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewItem.tsx
-  - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
-  - src/shared/Mockup/store-finder/store.data.ts
-  - src/shared/Mockup/store-finder/StoreResults.tsx
+  - src/shared/Mockup/explore/exploreContent.ts
+  - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
   - src/shared/Mockup/store-finder/StoreFinderPage.tsx
-  - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
+  - src/shared/Mockup/store-finder/StoreResults.tsx
+  - src/shared/Mockup/store-finder/store.data.ts
   - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
-  - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
+  - src/shared/Mockup/explore/ExploreHubPage.tsx
   - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
-  - src/shared/Mockup/product-detail-sections/ReviewGalleryModal.tsx
-  - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
-  - src/shared/Mockup/product-detail-sections/ProductInquiryToolbar.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryNotices.tsx
-  - src/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryDeliveryNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryCareNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryAfterSalesNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiry.tsx
-  - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
-  - src/shared/Mockup/product-detail-sections/ProductDetailSections.tsx
-  - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
-  - src/shared/Mockup/explore/exploreContent.ts
-  - src/shared/Mockup/explore/ExploreHubPage.tsx
-  - src/shared/Mockup/explore/ExploreDetailPage.tsx
-  - src/app/support/store/page.tsx
-  - src/app/store/experience/page.tsx
-  - src/app/running/shoe-finder/page.tsx
-  - src/app/running/rotation/page.tsx
-  - src/app/running/rewards/page.tsx
-  - src/app/running/reviews/page.tsx
-  - src/app/running/plans/page.tsx
-  - src/app/running/alerts/page.tsx
-  - src/app/launch-calendar/page.tsx
-  - src/app/explore/shoe-finder/page.tsx
-  - src/app/explore/page.tsx
-  - src/app/explore/[...slug]/page.tsx
-  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
-  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewTabs.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewToolbar.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewList.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewItem.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/shared/features/mypage/reviews/reviews.types.ts
+  - src/shared/components/organisms/MyPage/ReviewEditor.tsx
+  - src/shared/components/organisms/MyPage/ReviewList.tsx
+  - src/shared/components/organisms/MyPage/ReviewListToolbar.tsx
+  - src/shared/components/organisms/MyPage/ReviewStatusTabs.tsx
+  - src/shared/components/organisms/MyPage/ReviewManager.types.ts
+  - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
   - src/shared/components/atoms/RatingStars/RatingStars.tsx
-  - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
-  - src/shared/Mockup/running-profile/running-profile.data.ts
+  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
+  - src/shared/components/organisms/MyPage/ReviewManager.tsx
+  - src/shared/features/mypage/MyPageReviewDialog.tsx
+  - src/shared/features/mypage/MyPageReviews.tsx
+  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/shared/Mockup/running-profile/RunningProfilePage.tsx
   - src/shared/Mockup/running-profile/RunningProfileContent.tsx
   - src/shared/Mockup/running-profile/ProfileQuestionGroup.tsx
-  - src/app/mypage/running-profile/page.tsx
-  - src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx
+  - src/shared/Mockup/running-profile/running-profile.data.ts
+  - src/shared/features/mypage/mypage.data.ts
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
+  - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
+  - src/stories/components/molecules/MyPage/ProfileQuestionGroup.stories.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryToolbar.tsx
+  - src/shared/components/organisms/Search/SearchKeywordButton.tsx
+  - src/shared/features/collection/CollectionDetailPage.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/state/StatePage.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
   - src/stories/components/atoms/Button/Button.stories.tsx
@@ -125,9 +119,9 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
   - src/shared/components/organisms/Member/MemberHero.tsx
   - src/shared/components/organisms/MyPage/QuickLinkGrid.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductInformation.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection.tsx
+  - src/shared/Mockup/product-detail-sections/ReviewGalleryModal.tsx
   - src/shared/components/organisms/Product/ProductGallery/ProductGallery.tsx
   - src/shared/components/organisms/Search/RecommendedSearches.tsx
   - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
@@ -136,11 +130,11 @@ working_tree_sources:
   - src/shared/components/organisms/Signup/SignupCompleteStep.tsx
   - src/shared/components/organisms/Signup/SignupTermsStep.tsx
   - src/shared/features/catalog/product-listing/ProductListingContent.tsx
-  - src/shared/features/explore/ExploreDetailPage.tsx
+  - src/shared/Mockup/explore/ExploreDetailPage.tsx
   - src/shared/features/explore/ExploreHubPage.tsx
   - src/shared/features/explore/ShoeFinderPage.tsx
   - src/shared/features/launch-calendar/LaunchCalendarPage.tsx
-  - src/shared/features/running-hub/RunningExperiencePage.tsx
+  - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
   - src/shared/features/screen-index/DesignGuideColor.tsx
   - src/shared/features/screen-index/DesignGuidePage.tsx
   - src/shared/features/screen-index/DesignGuideTypography.tsx
@@ -443,12 +437,12 @@ working_tree_sources:
   - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
   - src/shared/components/organisms/MyPage/CouponManager.tsx
   - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductReviews.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
+  - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
+  - src/shared/Mockup/product-detail-sections/ProductDetailSections.tsx
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
   - src/stories/components/layouts/AppLayout/AppLayout.stories.tsx
-  - src/stories/components/organisms/Product/ProductDetailSections/ProductDetailSections.stories.tsx
+  - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
   - src/shared/features/mypage/MyPage.tsx
 sources:
   - id: base-ui-jsx-audit
@@ -488,28 +482,6 @@ AccountLockedContent의 수동 primary 확인 footer를 SingleActionDialog로 �
 
 검증: 전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. 기존 Storybook PC/MO의 본문 패딩·확인 버튼 14px와 확인→인증 화면·헤더 닫기/Escape→로그인 이동 play 3개를 Edge headless에서 확인했다. production build는 재실행하지 않았다.
 
-## 휴대폰 인증의 알뜰폰 사업자 전용 팝업 (2026-10-19)
-
-PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자 제목과 통신망별 목록을 고정 표시한다. 문자열 detail 분기와 자체 footer를 제거하고 SingleActionDialog의 기본 short/fullWidth 확인 버튼·단일 액션 패딩을 사용한다. 확인은 onOpenChange(false)를 호출한다. PhoneVerificationContent에서 detail이 알뜰폰 사업자일 때 이 전용 팝업을 연결하고 다른 약관의 기존 제목 전용 ModalDialog 동작은 유지한다. Content/Page의 외부 detail/onDetail API는 바꾸지 않는다.
-
-검증: 전체 타입 검사·변경 파일 ESLint/Prettier와 Edge headless에서 알뜰폰 3개 통신망 표시·확인/헤더 닫기/Escape·단일 액션 패딩/14px 확인 버튼, 기존 약관 팝업 4개의 열기·닫기를 확인했다. production build는 재실행하지 않았다.
-
-## 마이페이지 리뷰 분리와 미사용 목업 제거 (2026-10-19)
-
-실제 /mypage/reviews는 MyPageStatusPage가 MyPageReviews를 렌더링한다. organisms/MyPage/ReviewManager는 실제 화면의 import·재수출·호출이 없고 단독 Storybook만 참조하므로 삭제했다. 전용 ReviewEditor·ReviewList·ReviewListToolbar·ReviewStatusTabs·ReviewManager.types와 ReviewManager 스토리도 다른 사용처가 없어 함께 제거했다. 공용 RatingStars·Pagination·첨부 컴포넌트와 실제 MyPageReviewDialog는 삭제 대상이 아니다.
-
-MyPageReviews는 탭·정렬·표시 건수·편집값·검증·작성 리뷰 저장 상태와 이벤트를 소유한다. features/mypage/reviews의 MyPageReviewsContent는 탭·빈 상태·목록·더보기를 배치하며 MyPageReviewTabs, MyPageReviewToolbar, MyPageReviewList, MyPageReviewItem, MyPageReviewLoadMore가 각 화면 영역을 담당한다. reviews.types는 탭·작성 리뷰·목록 항목 타입을 공유한다. MyPageReviewDialog는 기존 컴포넌트를 재사용하고 상태는 페이지에 유지한다. 새 DOM 래퍼·client 경계를 추가하지 않았으며 기존 텍스트·버튼 크기·간격·목록 키·선택/정렬·작성값·닫기 초기화를 보존한다.
-
-검증: 전체 타입·변경 파일 ESLint/Prettier·Panda·Next/Storybook production build를 통과했다. 기존 페이지 소스를 별도로 읽어 웹/모바일 × 초기 건수 0/1/62의 6개 SSR 마크업을 비교했고 React 생성 ID를 정규화한 DOM이 일치했다. Edge/Playwright는 실제 production /mypage/reviews를 PC 1280px·모바일 UA/375px로 열어 더보기 10→20개, 탭 복귀 10개, 필수 별점/본문 오류, 작성 후 목록 3개, 수정 팝업 기존 값, 별점·본문 저장, 오래된 순 정렬, 닫기 초기화와 브라우저 오류 부재를 확인했다. 제거 대상은 소스·테스트에 참조가 없고 기존 화면/폼 상태 스토리는 유지한다.
-
-## ReviewManager 역할별 구성 분리 (2026-10-19)
-
-이 절은 삭제 전 작업 이력이다. 현재 실제 화면에는 사용되지 않는 목업으로 확인되어 위의 미사용 제거 작업에서 구현·전용 부품·스토리를 삭제했다.
-
-ReviewManager는 상태·페이지·편집값·검증·초기화를 소유하고, 같은 organism 폴더의 ReviewStatusTabs(상태 탭), ReviewListToolbar(정렬·건수), ReviewList(빈 상태·상품 행), ReviewEditor(별점·본문·첨부·액션)를 값과 콜백으로 조합한다. ReviewManager.types는 탭·구매 항목 타입만 공유한다. 새 DOM 래퍼나 client 경계를 추가하지 않고 기존 버튼 크기·필드 ID·접근성 연결·스타일·파일 5개/10MB 제한을 유지한다. 정렬 select의 기존 표시 전용 동작도 유지한다.
-
-검증: Panda 생성·타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 PC/MO WriteReview play 2개(오류→별점/본문 입력→완료), 페이지 이동·탭 전환 시 1페이지 복귀·첨부 5개 제한·취소 거절/수락을 확인했다. production build는 재실행하지 않았다.
-
 ## EXPLORE 상세 화면 목업 분리 (2026-10-19)
 
 ExploreDetailPage와 해당 화면에서만 사용하는 exploreContent.ts를 src/shared/Mockup/explore로 함께 옮겼다. 이전 허브 이동에서 제외했던 상세 구현도 이제 같은 목업 폴더에 위치한다. 화면·준비 중 상태·콘텐츠 데이터·버튼의 기존 미커밋 수정은 유지하고 import만 새 경로로 연결한다.
@@ -521,6 +493,12 @@ ExploreDetailPage와 해당 화면에서만 사용하는 exploreContent.ts를 sr
 LaunchCalendarPage 전용 구현을 src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx로 이동했다. 내부 LaunchCard·런칭 데이터·톤 타입·Panda 스타일·성인/키즈 선택·History/Now/Coming 상태와 필터·현재 출시 상품·상품 상세 링크를 유지한다. 전용 외부 파일이나 스토리는 없다. 공유 Button·Typography·Panda 레이아웃은 기존 위치에서 재사용한다.
 
 검증: Prettier 포맷을 정규화해 이동 전후 페이지 내용 보존과 이전 경로 참조 제거를 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## 휴대폰 인증의 알뜰폰 사업자 전용 팝업 (2026-10-19)
+
+PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자 제목과 통신망별 목록을 고정 표시한다. 문자열 detail 분기와 자체 footer를 제거하고 SingleActionDialog의 기본 short/fullWidth 확인 버튼·단일 액션 패딩을 사용한다. 확인은 onOpenChange(false)를 호출한다. PhoneVerificationContent에서 detail이 알뜰폰 사업자일 때 이 전용 팝업을 연결하고 다른 약관의 기존 제목 전용 ModalDialog 동작은 유지한다. Content/Page의 외부 detail/onDetail API는 바꾸지 않는다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier와 Edge headless에서 알뜰폰 3개 통신망 표시·확인/헤더 닫기/Escape·단일 액션 패딩/14px 확인 버튼, 기존 약관 팝업 4개의 열기·닫기를 확인했다. production build는 재실행하지 않았다.
 
 ## 매장 찾기 목업 분리 (2026-10-19)
 
@@ -546,6 +524,22 @@ ExploreHubPage의 전용 구현은 src/shared/Mockup/explore/ExploreHubPage.tsx�
 
 검증: 이동 전 파일 12개와 import 경로 치환·포맷 정규화 후 내용이 동일함을 비교했다. 기존 경로 참조가 src에 없고 Panda 생성·전체 타입 검사·이동 파일 ESLint/Prettier가 통과했다. Edge headless에서 기본·사이즈 가이드 제외·모바일 3개 스토리의 렌더링과 리뷰 섹션 이동, 콘솔 pageerror 부재를 확인했다. production build는 재실행하지 않았다.
 
+## 마이페이지 리뷰 분리와 미사용 목업 제거 (2026-10-19)
+
+실제 /mypage/reviews는 MyPageStatusPage가 MyPageReviews를 렌더링한다. organisms/MyPage/ReviewManager는 실제 화면의 import·재수출·호출이 없고 단독 Storybook만 참조하므로 삭제했다. 전용 ReviewEditor·ReviewList·ReviewListToolbar·ReviewStatusTabs·ReviewManager.types와 ReviewManager 스토리도 다른 사용처가 없어 함께 제거했다. 공용 RatingStars·Pagination·첨부 컴포넌트와 실제 MyPageReviewDialog는 삭제 대상이 아니다.
+
+MyPageReviews는 탭·정렬·표시 건수·편집값·검증·작성 리뷰 저장 상태와 이벤트를 소유한다. features/mypage/reviews의 MyPageReviewsContent는 탭·빈 상태·목록·더보기를 배치하며 MyPageReviewTabs, MyPageReviewToolbar, MyPageReviewList, MyPageReviewItem, MyPageReviewLoadMore가 각 화면 영역을 담당한다. reviews.types는 탭·작성 리뷰·목록 항목 타입을 공유한다. MyPageReviewDialog는 기존 컴포넌트를 재사용하고 상태는 페이지에 유지한다. 새 DOM 래퍼·client 경계를 추가하지 않았으며 기존 텍스트·버튼 크기·간격·목록 키·선택/정렬·작성값·닫기 초기화를 보존한다.
+
+검증: 전체 타입·변경 파일 ESLint/Prettier·Panda·Next/Storybook production build를 통과했다. 기존 페이지 소스를 별도로 읽어 웹/모바일 × 초기 건수 0/1/62의 6개 SSR 마크업을 비교했고 React 생성 ID를 정규화한 DOM이 일치했다. Edge/Playwright는 실제 production /mypage/reviews를 PC 1280px·모바일 UA/375px로 열어 더보기 10→20개, 탭 복귀 10개, 필수 별점/본문 오류, 작성 후 목록 3개, 수정 팝업 기존 값, 별점·본문 저장, 오래된 순 정렬, 닫기 초기화와 브라우저 오류 부재를 확인했다. 제거 대상은 소스·테스트에 참조가 없고 기존 화면/폼 상태 스토리는 유지한다.
+
+## ReviewManager 역할별 구성 분리 (2026-10-19)
+
+이 절은 삭제 전 작업 이력이다. 현재 실제 화면에는 사용되지 않는 목업으로 확인되어 위의 미사용 제거 작업에서 구현·전용 부품·스토리를 삭제했다.
+
+ReviewManager는 상태·페이지·편집값·검증·초기화를 소유하고, 같은 organism 폴더의 ReviewStatusTabs(상태 탭), ReviewListToolbar(정렬·건수), ReviewList(빈 상태·상품 행), ReviewEditor(별점·본문·첨부·액션)를 값과 콜백으로 조합한다. ReviewManager.types는 탭·구매 항목 타입만 공유한다. 새 DOM 래퍼나 client 경계를 추가하지 않고 기존 버튼 크기·필드 ID·접근성 연결·스타일·파일 5개/10MB 제한을 유지한다. 정렬 select의 기존 표시 전용 동작도 유지한다.
+
+검증: Panda 생성·타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 PC/MO WriteReview play 2개(오류→별점/본문 입력→완료), 페이지 이동·탭 전환 시 1페이지 복귀·첨부 5개 제한·취소 거절/수락을 확인했다. production build는 재실행하지 않았다.
+
 ## SHOE FINDER 목업 분리 (2026-10-19)
 
 디자인 미확정 SHOE FINDER 구현은 src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx로 이동했다. 기존 파일의 활동·쿠셔닝 선택 데이터, 상태, Panda 스타일과 추천 상품 쿼리 연결을 그대로 옮겼으며 전용 외부 컴포넌트·데이터·스토리는 없다. 기존 short 버튼 크기와 클라이언트 경계를 유지한다. 공유 ContentLayout·Button·Typography는 기존 위치에서 재사용한다. 홈의 HomeShoeFinderSection과 /running/shoe-finder의 RunningExperiencePage는 별도 구현이므로 이번 이동 대상이 아니다.
@@ -568,6 +562,10 @@ ExploreHubPage의 전용 구현은 src/shared/Mockup/explore/ExploreHubPage.tsx�
 
 검증: 전체 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next 및 Storybook production build를 통과했다. 앱 라우트 검사 2개로 기존 URL 목록의 빌드 포함을 확인했으며, Storybook index에서 새 Mockup 분류의 4개 스토리와 이전 분류 제거를 확인했다. 이동 후 브라우저 play·시각 비교는 재실행하지 않았다. Storybook 빌드는 기존 의존성 use-client·청크 크기·플러그인 시간 경고를 포함해 성공했다.
 
+## 카드 링크와 히어로 버튼 크기 지정 (2026-10-19)
+
+MainContentCard는 link 분기를 분리해 size md를 명시하고, HeroCopy의 액션은 size short를 명시한다. 링크 전용 sm/md/lg와 일반 버튼 tall/short 타입 계약을 유지한다. 전체 타입 검사·변경 파일 ESLint/Prettier를 확인했다.
+
 ## 단일 확인 버튼 모달의 공통 기본값 (2026-10-19)
 
 확인 버튼은 `fullWidth`도 기본 true로 처리한다. disabled 등 다른 confirmButtonProps만 전달하거나 size/fullWidth가 undefined여도 short/true 기본값을 유지하며 명시적 false는 허용한다. 계정 안내 2곳과 TermsDialog의 중복 fullWidth 지정을 제거했다. 기존 ShortFullWidth 스토리는 기본값을 사용하고 ContentWidth 스토리로 false 재정의를 제공한다. 타입·변경 파일 ESLint/Prettier와 브라우저 기본/false/disabled/MO 옵션 적용 및 기존 확인·닫기·Escape play를 확인했다. fullWidth는 기존 ModalDialogFooter의 버튼 너비 규칙 안에서 적용된다.
@@ -575,6 +573,12 @@ ExploreHubPage의 전용 구현은 src/shared/Mockup/explore/ExploreHubPage.tsx�
 ModalDialog의 `actionCount?: 1 | 2 | null`은 footer 액션 개수를 나타내며 기본값은 null이다. SingleActionDialog는 내부에서 `actionCount={1}`을 전달한다. 액션이 하나면 본문 패딩은 PC `24px 24px 16px`, MO `24px 16px 16px 16px`이며, 2 또는 null이면 기존 기본 패딩을 사용한다. 일반적인 간격 선택 API를 노출하지 않는다. SingleActionDialog의 확인 버튼은 기본 short이며 명시적인 tall 지정은 계속 지원한다. 계정 안내·주소 검색의 중복 short 설정은 제거했다. TermsDialog도 별도 크기 지정 없이 공통 short/fullWidth 기본값을 사용한다.
 
 검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier, Edge headless에서 단일 모달 PC/MO·disabled·fullWidth·마케팅 안내와 일반 모달 PC/MO 총 7건의 패딩 및 버튼 크기를 확인했다. 기존 단일 모달과 마케팅 안내의 PC/MO play 4개도 통과했다. actionCount 적용 후 타입 검사와 단일 모달 PC/MO·일반 모달 PC의 패딩을 다시 확인했다. production build는 실행하지 않았다.
+
+## ProfileQuestionGroup 화면 확인 스토리 (2026-10-19)
+
+`Molecules/MyPage/ProfileQuestionGroup`에 PC/MO 각각 미선택·선택 스토리 4개를 추가했다. 실제 profileQuestions의 첫 질문을 사용하며 클릭으로 단일 선택을 변경하고 Controls로 초기 value를 바꿀 수 있다. 플랫폼 Provider와 platform 클래스를 함께 지정해 PC 3열·MO 1열을 재현한다.
+
+검증: 타입 검사·스토리 ESLint/Prettier 및 Edge headless에서 4개 스토리의 렌더링·열 배치·클릭 후 선택 클래스 변경을 확인했다. 모바일 스크린샷에서는 기존 Button과 option 스타일 충돌에 따른 테두리 중첩과 선택 배경색 미적용도 관찰했다. 이 변경은 스토리만 추가하며 컴포넌트 스타일은 수정하지 않았다. production build는 실행하지 않았다.
 
 ## 미사용 ProductCompareButton 제거 (2026-10-19)
 
@@ -584,9 +588,15 @@ ModalDialog의 `actionCount?: 1 | 2 | null`은 footer 액션 개수를 나타내
 
 `src/shared/components/molecules/Product/ProductActionBar.tsx`는 저장소 검색에서 자체 선언 이외 import·export·스토리·사용처가 없어 삭제했다. 실제 상품 상세 구매 액션은 `src/shared/features/product/ProductPurchaseActions.tsx`가 담당한다. 앞선 short 명시 작업에 포함되었던 해당 파일의 버튼 두 개도 삭제 대상이며, 나머지 크기 명시 변경은 유지한다.
 
-## 카드 링크와 히어로 버튼 크기 지정 (2026-10-19)
+## 영향 목록 버튼의 short 명시 (2026-10-19)
 
-MainContentCard는 link 분기를 분리해 size md를 명시하고, HeroCopy의 액션은 size short를 명시한다. 링크 전용 sm/md/lg와 일반 버튼 tall/short 타입 계약을 유지한다. 전체 타입 검사·변경 파일 ESLint/Prettier를 확인했다.
+사용자가 선택한 크기 미지정 일반 버튼·자체 스타일 버튼·간접 사용처에 short 크기를 명시했다. 직접 Button/ButtonLink와 ToggleButton·LoadMoreButton 호출, SegmentedControl 기본형과 RatingInput render 버튼을 합해 65개 JSX 위치에 `size="short"`를 지정했다. 주소 검색·마케팅 수신내역 팝업은 SingleActionDialog 호출의 `confirmButtonProps.size`를 short로 지정했다. 공용 SingleActionDialog·ToggleButton·LoadMoreButton의 기본값과 다른 호출자의 옵션은 바꾸지 않았다.
+
+홈 MainContentCard는 link 분기에서 지원되는 md를 명시하고, 테두리형 primary/secondary 분기만 short로 지정한다. link의 size는 sm/md/lg 계약을 유지한다. 별도 표로 안내했던 검색 headerSearch·모바일 filterTrigger, 이미 tall이던 인증·로그인 주요 버튼과 아이콘 전용 닫기 버튼은 이번 지정 목록에 포함하지 않는다.
+
+short 기본 높이는 웹·모바일 모두 40px, 좌우 내부 여백은 16px이며 라벨은 CTA2를 사용한다. 호출자의 별도 높이·Typography·important 선언은 계속 적용되므로 모든 버튼의 계산 높이나 글자가 일률적으로 같아지는 변경은 아니다. 크기 지정 외 이벤트·상태·라우팅·접근성 속성은 유지한다. 작업 트리 출처는 frontmatter에 기록한 관련 TSX다.
+
+검증: 52개 TSX의 추가 short JSX 위치 65개를 AST로 확인했고, 전체 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Next production build를 통과했다. 실제 Button/ButtonLink/ToggleButton/LoadMoreButton의 웹·모바일 12개 SSR 조합에서 short 높이·여백 클래스와 14px CTA, 기본 tall 대조군의 48px·24px·16px를 확인했다. 공용 Button 및 전달 래퍼 3개의 소스가 변경되지 않았음도 확인했다. Edge headless가 DOM 결과를 반환하지 않아 브라우저 계산 스타일·화면 비교는 검증하지 못했다. SSR 검사는 생성 클래스·구조 확인 범위다.
 
 ## 버튼 유형별 기본 크기와 라벨 (2026-10-19)
 
