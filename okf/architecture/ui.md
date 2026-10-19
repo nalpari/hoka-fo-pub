@@ -9,6 +9,7 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
@@ -63,7 +64,6 @@ working_tree_sources:
   - src/shared/components/molecules/MetricGrid/MetricGrid.tsx
   - src/shared/components/molecules/MyPage/PersonalizationCard.tsx
   - src/shared/components/molecules/MyPage/ProfileQuestionGroup.tsx
-  - src/shared/components/molecules/Product/ProductActionBar.tsx
   - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
   - src/shared/components/molecules/Signup/SignupProgress.tsx
   - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
@@ -424,6 +424,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 미사용 ProductCompareButton 제거 (2026-10-19)
+
+`src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx`는 자체 컴포넌트·props 타입 선언 외 import·재수출·사용처·스토리가 없어 삭제했다. 앞선 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 함께 제거한다. frontmatter의 해당 경로는 삭제 전 검토 출처다.
+
+## 미사용 ProductActionBar 제거 (2026-10-19)
+
+`src/shared/components/molecules/Product/ProductActionBar.tsx`는 저장소 검색에서 자체 선언 이외 import·export·스토리·사용처가 없어 삭제했다. 실제 상품 상세 구매 액션은 `src/shared/features/product/ProductPurchaseActions.tsx`가 담당한다. 앞선 short 명시 작업에 포함되었던 해당 파일의 버튼 두 개도 삭제 대상이며, 나머지 크기 명시 변경은 유지한다.
 
 ## 카드 링크와 히어로 버튼 크기 지정 (2026-10-19)
 

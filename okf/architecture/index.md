@@ -1,5 +1,9 @@
 # 아키텍처
 
+자체 선언 외 참조가 없는 ProductCompareButton 삭제는 [미사용 비교 버튼 제거](ui.md#미사용-productcomparebutton-제거-2026-10-19)를 참고한다.
+
+참조 없는 ProductActionBar 삭제와 실제 구매 액션의 위치는 [미사용 컴포넌트 제거](ui.md#미사용-productactionbar-제거-2026-10-19)를 참고한다.
+
 카드 링크의 md 분기와 히어로 short 지정은 [버튼 크기 지정](ui.md#카드-링크와-히어로-버튼-크기-지정-2026-10-19)을 참고한다.
 
 link 기본 md와 검색·필터의 명시적 Typography 조합은 [버튼 유형별 기본 크기와 라벨](ui.md#버튼-유형별-기본-크기와-라벨-2026-10-19)을 참고한다.

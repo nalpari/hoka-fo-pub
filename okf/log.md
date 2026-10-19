@@ -2,6 +2,10 @@
 
 ## 2026-10-19
 
+- **Refactor**: import·재수출·스토리·사용처가 없는 ProductCompareButton 컴포넌트를 삭제했다. 이전 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 제거했다. [UI 기록](architecture/ui.md#미사용-productcomparebutton-제거-2026-10-19)에 삭제 근거를 남겼다.
+
+- **Refactor**: 자체 선언 외 참조가 없는 ProductActionBar.tsx를 삭제했다. 실제 상품 상세 구매 액션은 ProductPurchaseActions가 담당함을 확인했다. 기존 short 명시 작업 중 해당 파일의 두 버튼은 삭제되며 다른 변경은 유지한다.
+
 - **Fix**: MainContentCard의 link 분기에 md를 명시하고 HeroCopy 액션에 short를 지정했다. 타입 계약과 변경 파일 ESLint/Prettier를 확인했다.
 
 - **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
