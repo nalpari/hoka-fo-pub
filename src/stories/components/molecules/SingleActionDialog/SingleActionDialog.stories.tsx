@@ -40,6 +40,7 @@ export const ContentWidth: Story = {
 };
 
 export const MobileDefault: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [withPlatform('mobile')],
   globals: { viewport: { value: 'hoka375', isRotated: false } },
 };
@@ -90,6 +91,7 @@ export const Interactive: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Interactive,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

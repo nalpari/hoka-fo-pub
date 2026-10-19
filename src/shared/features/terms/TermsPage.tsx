@@ -8,7 +8,6 @@ import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 
@@ -112,6 +111,9 @@ export function TermsPage() {
 
   return (
     <CustomerCenterLayout
+      title="약관"
+      mobileTitleVariant="heading5"
+      showHeadingDivider
       activePath="/support/terms"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -119,10 +121,8 @@ export function TermsPage() {
         { label: '약관' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
       <Stack gap="6">
-        <SupportPageHeading title="약관" />
         <SupportTabs
           ariaLabel="약관 종류"
           defaultValue="terms"

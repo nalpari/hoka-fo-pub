@@ -15,11 +15,6 @@ import { Stack, HStack, Box, Flex } from 'styled-system/jsx';
 const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },
   { variant: 'secondary', title: 'Secondary', note: '테두리로 구분하는 보조 액션 버튼' },
-  {
-    variant: 'bottomSheetPrimary',
-    title: 'Bottom Sheet Primary',
-    note: '비교 셀의 전체 너비를 사용하는 버튼',
-  },
   { variant: 'ghost', title: 'Ghost', note: '배경과 테두리가 없는 버튼' },
   { variant: 'brand', title: 'Brand', note: '브랜드 블루 배경 · 기본 상태는 Black / White 동일' },
   {
@@ -46,7 +41,7 @@ const buttonSizes = ['tall', 'short'] as const;
 
 const linkSizes = ['sm', 'md', 'lg'] as const;
 
-const section = css({ mt: '40px', pt: '24px', borderTop: '1px solid #E9EAEB' });
+const section = css({ pt: '24px', borderTop: '1px solid #E9EAEB' });
 
 const muted = css({ color: '#595959', fontSize: '13px' });
 
@@ -147,12 +142,7 @@ function Sample({
   return (
     <Stack flex="1" minW="0" alignItems="flex-start" gap="8px">
       <HStack gap="normal" w="100%" minH="56px">
-        <div
-          className={[copyTarget, variant === 'bottomSheetPrimary' ? css({ w: '100%' }) : '']
-            .filter(Boolean)
-            .join(' ')}
-          title={code}
-        >
+        <div className={copyTarget} title={code}>
           <Button
             {...sizing}
             colorway={colorway}
@@ -311,7 +301,8 @@ export function ButtonDocs() {
   }
 
   return (
-    <Box
+    <Stack
+      gap="10"
       w="100%"
       maxW="1800px"
       mx="auto"
@@ -467,6 +458,6 @@ export function ButtonDocs() {
       >
         {copyFeedback}
       </Box>
-    </Box>
+    </Stack>
   );
 }

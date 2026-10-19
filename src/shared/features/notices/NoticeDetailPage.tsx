@@ -7,6 +7,7 @@ import { supportNavigation } from '@/shared/features/support/support.navigation'
 export function NoticeDetailPage() {
   return (
     <CustomerCenterLayout
+      title="공지사항"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -15,13 +16,7 @@ export function NoticeDetailPage() {
         { label: '상세' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
-      <Box mb="6">
-        <Typography as="h2" web="heading6" mo="heading7">
-          공지사항
-        </Typography>
-      </Box>
       <HStack
         justifyContent="space-between"
         gap="4"

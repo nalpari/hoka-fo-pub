@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
-  parameters: { platform: 'mobile' },
+  parameters: { layout: 'fullscreen', platform: 'mobile' },
   globals: { viewport: 'hoka375' },
 };
 
@@ -86,7 +86,12 @@ export const Error: Story = {
   },
 };
 
-export const MobileError: Story = { ...Error, ...Mobile, play: Error.play };
+export const MobileError: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Error,
+  ...Mobile,
+  play: Error.play,
+};
 
 export const LoginFlow: Story = {
   play: async ({ canvasElement, args }) => {
@@ -130,7 +135,11 @@ export const LoginFlow: Story = {
   },
 };
 
-export const MobileLoginFlow: Story = { ...Mobile, play: LoginFlow.play };
+export const MobileLoginFlow: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  play: LoginFlow.play,
+};
 
 export const InvalidFormats: Story = {
   play: async ({ canvasElement, args }) => {
@@ -175,7 +184,11 @@ export const InvalidFormats: Story = {
   },
 };
 
-export const MobileInvalidFormats: Story = { ...Mobile, play: InvalidFormats.play };
+export const MobileInvalidFormats: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  play: InvalidFormats.play,
+};
 
 export const UnavailableActions: Story = {
   play: async ({ canvasElement }) => {

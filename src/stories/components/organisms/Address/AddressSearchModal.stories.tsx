@@ -73,6 +73,7 @@ export const Default: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Default,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

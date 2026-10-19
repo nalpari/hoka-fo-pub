@@ -37,4 +37,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Mobile: Story = { globals: { viewport: { value: 'hokaMobile', isRotated: false } } };
+export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
+  globals: { viewport: { value: 'hokaMobile', isRotated: false } },
+};

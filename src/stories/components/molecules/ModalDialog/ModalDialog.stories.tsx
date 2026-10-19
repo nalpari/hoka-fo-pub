@@ -50,18 +50,21 @@ export const DesktopSmall: Story = {
 export const LightOverlay: Story = { args: { overlayTone: 'light', title: 'Light overlay' } };
 
 export const MobilePopup: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { mobilePresentation: 'popup', title: '모바일 팝업' },
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },
 };
 
 export const MobileFullscreen: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { mobilePresentation: 'fullscreen', title: '모바일 전체화면' },
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },
 };
 
 export const MobileBottomSheet: Story = {
+  parameters: { layout: 'fullscreen' },
   args: {
     children: <Button variant="primary">확인</Button>,
     mobilePresentation: 'bottomSheet',
@@ -136,6 +139,7 @@ export const ScrollFooter: Story = {
 };
 
 export const MobileScrollFooter: Story = {
+  parameters: { layout: 'fullscreen' },
   ...ScrollFooter,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

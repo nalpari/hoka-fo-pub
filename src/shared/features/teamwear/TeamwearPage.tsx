@@ -2,7 +2,6 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 
 function ContactCard({ offline = false }: { offline?: boolean }) {
@@ -62,6 +61,9 @@ function ContactCard({ offline = false }: { offline?: boolean }) {
 export function TeamwearPage() {
   return (
     <CustomerCenterLayout
+      title="팀/ 단체복 주문 안내"
+      mobileTitleVariant="heading5"
+      showHeadingDivider
       activePath="/support/teamwear"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -69,10 +71,8 @@ export function TeamwearPage() {
         { label: '팀/ 단체복 주문 안내' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
       <Stack gap="6" pb={{ base: '16', _mobile: '6' }}>
-        <SupportPageHeading title="팀/ 단체복 주문 안내" />
         <Stack gap="6">
           <Stack gap="4">
             <Typography as="h3" web="heading8" mo="heading6">

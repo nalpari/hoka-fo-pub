@@ -46,10 +46,14 @@ export const Empty: Story = { args: { cart: [] } };
 
 export const Mobile: Story = {
   globals: { viewport: 'hoka375' },
-  parameters: { platform: 'mobile' },
+  parameters: { layout: 'fullscreen', platform: 'mobile' },
 };
 
-export const MobileEmpty: Story = { ...Mobile, args: { cart: [] } };
+export const MobileEmpty: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  args: { cart: [] },
+};
 
 function CheckoutClearingCart({ onComplete }: { onComplete: () => void }) {
   const [items, setItems] = useState(cart);
@@ -82,6 +86,7 @@ export const CompleteOrder: Story = {
 };
 
 export const MobileCompleteOrder: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   render: CompleteOrder.render,
   play: CompleteOrder.play,

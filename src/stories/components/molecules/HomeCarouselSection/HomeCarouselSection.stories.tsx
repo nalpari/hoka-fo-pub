@@ -100,6 +100,7 @@ export const SingleCard: Story = {
 export const Empty: Story = { args: { itemCount: 0, children: null } };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   args: {
     platform: 'mobile',
     slideClassName: css({ w: '170px!', '& > *': { w: '100%' } }),

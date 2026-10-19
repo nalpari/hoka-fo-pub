@@ -71,6 +71,7 @@ export const CenteredFourOnDesktop: Story = {
 };
 
 export const MobilePeek: Story = {
+  parameters: { layout: 'fullscreen' },
   args: {
     itemCount: 5,
     children: Array.from({ length: 5 }, (_, index) => (
@@ -92,6 +93,7 @@ export const MobilePeek: Story = {
 };
 
 export const BestSellerMobilePeek: Story = {
+  parameters: { layout: 'fullscreen' },
   args: {
     itemCount: 6,
     children: Array.from({ length: 6 }, (_, index) => (

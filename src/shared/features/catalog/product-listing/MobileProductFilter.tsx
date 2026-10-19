@@ -21,7 +21,7 @@ export function MobileProductFilter({
     <BottomSheet
       ariaLabel="상품 필터"
       footer={
-        <Button onClick={onApply} variant="bottomSheetPrimary">
+        <Button onClick={onApply} variant="primary">
           필터 적용하기 ({resultCount})
         </Button>
       }

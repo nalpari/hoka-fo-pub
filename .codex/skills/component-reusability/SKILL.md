@@ -46,6 +46,34 @@ Use this mode when the user asks to convert HTML tags or existing Panda classes 
 
 Report the migrated scope, actual conversion counts when available, retained native elements with reasons, and verification results. For a narrow migration, omit unrelated reuse recommendations.
 
+### Repeated sibling spacing
+
+Treat repeated sibling margins as a layout ownership finding in reuse audits and Panda migrations. Within the authorized scope, prefer the parent owning a common vertical interval over each later child declaring the same `mt` or `marginTop`.
+
+- Inspect rendered sibling order, not just repeated text in a file. Include JSX props, responsive objects, inline/named `css` styles, shared classes, and component-owned margins. Separate branches that cannot render together; equal values in different parents are not evidence of one common gap.
+- Prefer reusing the existing parent as `Stack` with an explicit `gap`, preserving its HTML element through `as`. Remove the replaced child margins and redundant flex display/direction declarations together. Preserve a meaningful grid layout with its own row gap rather than switching it to flex merely to use `Stack`.
+- For mixed intervals, group only the uniform portion. Keep the group's leading space and other boundaries unchanged; do not add negative margins to compensate for an overly broad gap. For example, repeated 16px field margins can become a field group with `gap="4"` and an initial `mt="4"`, while its error notice and submit action retain their distinct intervals.
+- A new group wrapper is justified when it owns this spacing contract and an existing parent cannot express it. Check direct-child selectors, flex/grid participation, width/stretch, min-height, form ownership, accessibility connections, and component boundaries before adding it. Preserve the existing structure when wrapping would change those contracts; do not add wrappers solely to rename components.
+- Keep conditional content conditional. Check description/action omissions, local/social field branches, fragments, and responsive hidden nodes so a group does not leave an empty wrapper or an unintended gap. Do not remove margins that serve negative positioning, sticky/overlap behavior, independent component placement, or a genuinely different responsive interval.
+- Compare effective spacing before and after the change, including adjacent `mb`/`my`, margin collapse, parent padding and existing gaps. Preserve exact PC/mobile values; `gap="8"` is appropriate for an existing 32px interval, not a universal default. Reusing one parent gap must not add spacing between siblings that previously had none.
+- For implementation changes, verify affected PC/mobile geometry and relevant conditional states using existing stories/routes or temporary fixtures. Include form interaction checks when regrouping fields. Remove temporary fixtures after verification and report the checks actually run; do not prescribe a fixed number of scenarios. A policy/skill-only update does not authorize source migration or require application builds.
+
+```tsx
+// Before: each later sibling owns the same 32px interval.
+<Flex as="main" direction="column" alignItems="center">
+  <Icon />
+  <Box mt="8">{message}</Box>
+  <Box mt="8">{action}</Box>
+</Flex>
+
+// After: preserve the main element, alignment, and 32px intervals.
+<Stack as="main" gap="8" alignItems="center">
+  <Icon />
+  <Box>{message}</Box>
+  <Box>{action}</Box>
+</Stack>
+```
+
 ### Layout primitive selection
 
 Use this table only after the HTML and JSX selection criteria identify styles to migrate. It governs structural wrappers, not text-bearing span/p/headings. Preserve `as` and DOM structure, and resolve conditional and responsive styles before selecting a component.

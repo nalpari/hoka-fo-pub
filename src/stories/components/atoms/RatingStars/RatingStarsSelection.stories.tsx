@@ -68,6 +68,7 @@ export const KeyboardSelection: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...KeyboardSelection,
   globals: { viewport: 'hoka375' },
   decorators: [

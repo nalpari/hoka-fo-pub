@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import type { ButtonProps } from '@/shared/components/atoms/Button/Button';
 import { Drawer } from '@base-ui/react/drawer';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -25,7 +26,7 @@ type BottomSheetProps = {
   title: ReactNode;
   children: ReactNode;
   onClose: () => void;
-  footer?: ReactNode;
+  footer?: ReactElement<ButtonProps>;
   headerAction?: ReactNode;
   ariaLabel?: string;
 };

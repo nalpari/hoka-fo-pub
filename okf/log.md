@@ -2,6 +2,7 @@
 
 ## 2026-10-20
 
+- **Fix**: 공통 고객센터 레이아웃에서 제거된 제목 컴포넌트·prop과 매장 찾기의 오래된 import를 현재 API로 맞췄다. [UI 기록](architecture/ui.md)에 타입 검사 범위를 기록했다.
 - **Fix**: 매장 찾기 파일 이동 후 남아 있던 import 경로를 새 `Mockup/store-finder` 경로로 고치고 전체 타입 검사를 통과했다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.
 - **Update**: 디자인이 확정되지 않은 회원등급·마일리지 페이지의 임시 정책 본문을 제거하고 "디자인 작업 중입니다." 안내로 교체했다. [UI 기록](architecture/ui.md)에 현재 화면 범위를 반영했다.
 
@@ -14,6 +15,38 @@
 - **Update**: 세탁 및 손질 방법 안내의 신발·의류/용품 탭과 상세 문구를 추가하고, 약관 페이지의 웹·모바일 탭·시행일 선택 디자인을 공통 고객센터 레이아웃으로 옮겼다. 회원등급 안내의 좌측 메뉴도 같은 레이아웃으로 맞췄다. [UI 아키텍처](architecture/ui.md)에 Figma 출처와 약관 자리표시자 범위를 기록했다.
 - **Update**: 매장찾기와 팀/단체복 주문안내를 최신 고객센터 시안에 맞춰 재구성하고, 배송·반품 안내의 세 탭을 모두 활성화해 본문을 반영했다. 공통 제목·탭 컴포넌트와 매장 지도 자산을 추가하고 [UI 아키텍처](architecture/ui.md)에 출처와 데이터 범위를 기록했다.
 - **Fix**: 1:1 문의 제목 아래 구분선을 모바일에서 숨기지 않고 `black.20`으로 표시했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Docs**: AGENTS와 component-reusability에 반복 형제 여백의 부모 gap 이전, 부분 그룹화·반응형/조건부 예외와 검증 기준을 추가했다.
+
+- **Feat**: 페이지 없음 화면에 Font Awesome 경고 아이콘·중앙 안내·홈 링크와 PC/MO 스토리를 적용했다. Stack gap 8로 32px 간격을 표현한다.
+
+- **Feat**: 헤더 실제 검색 input·PC 패널·모바일 전체 화면·자동완성·오류와 장바구니 기준 정렬을 적용했다. 최근 검색어 전체 삭제는 Button link/md로 표현하며 onClear·빈 상태·저장소 초기화를 유지한다.
+
+- **Refactor**: 반복 상단 여백을 Stack gap으로 이전하고 계정 찾기 폼의 입력·인증 요청·인증번호·확인·상태 안내도 중첩 Stack으로 배치했다. 기존 7곳의 PC/MO 좌표 비교·가입 play 검증과 커밋 전 전체 타입 검사를 확인했다. 계정 찾기의 상태 안내 간격은 현재 스테이징된 gap 6(24px)을 반영한다.
+
+- **Refactor**: 상품 필터 버튼을 primary로 전환하고 BottomSheetFooter에서 tall·fullWidth를 적용했다. Button과 문서의 bottomSheetPrimary를 제거하고 375/768px 시트 표시·적용·닫기·Escape, 기존 테스트 33개와 Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
+
+- **Fix**: 휴대폰 인증 Storybook을 fullscreen으로 표시하고 모바일 래퍼를 가용 너비에 맞춰 외곽 여백과 고정 너비로 인한 가로 넘침을 수정했다.
+
+- **Fix**: 모바일 스토리 108개에 fullscreen을 지정하고 고정 너비 래퍼 13곳에 maxWidth 100%를 적용했다.
+
+- **Fix**: Checkbox 오류 outline의 offset을 -2px로 바꿔 아이콘과 떨어진 간격을 제거하고 미선택·선택 오류 스토리를 추가했다.
+
+- **Refactor**: AccountFormHeader를 추가해 본인인증·계정 찾기·가입 방법·AccountFormLayout의 제목과 설명을 공통화했다. 기존 간격·설명 색상·제목 ID를 보존하고 PC/MO 14개와 기존 상호작용 스토리, Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
+
+- **Refactor**: CustomerCenterLayout에 페이지별 title·description을 전달하고 제목을 본문 열로 이동했다. 메인 소개는 SupportPage만 제공하며 12개 사용처·기존 모바일 크기와 간격을 반영하고 SupportPageHeading을 제거했다. 기존 스토리 24개의 PC/MO 제목·메뉴 배치와 더보기·탭, Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
+
+- **Refactor**: Support·문의·FAQ·공지의 페이지 하단 버튼을 PageActionButton으로 조합했다. 화면별 크기·여백·링크·더보기 계산을 보존하고 전용 Storybook 4개를 추가했다.
+
+- **Fix**: secondary Button/ButtonLink 내부 Typography의 hover/focus-visible/active 색상을 공통 상속하도록 수정했다. 기본 tertiary·비활성 색상은 유지하며 Button 스토리 3개, 브라우저 11건과 타입·린트·포맷·Panda·Next/Storybook 빌드를 확인했다.
+
+- **Refactor**: FaqList의 질문·답변·검색 결과 없음 표시를 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. DOM·스타일·외부 API·아코디언 제어를 유지하고 타입·린트·포맷·Panda 및 기존 PC/MO·빈 상태·키보드 Storybook 흐름을 확인했다.
+
+- **Fix**: 디자인이 반영된 매장 찾기를 Mockup에서 정식 features/store-finder와 organisms/StoreFinder로 복귀시켰다. 페이지·데이터·라우트·고객센터 스토리의 참조를 갱신했다.
+
+- **Fix**: RunClubFilters의 유형 버튼에 short를 명시했다. PC 40px·모바일 기존 32px 높이와 필터 선택 상태를 브라우저에서 확인하고 타입·ESLint·Prettier를 통과했다.
+
+- **Refactor**: 목업으로 이전된 profileQuestions의 mypage.data.ts 중복 정의를 제거했다. 페이지·스토리가 목업 데이터만 사용함을 확인하고 타입·ESLint·Prettier를 통과했다.
+
 - **Refactor**: 비밀번호 재설정 완료·마이페이지 리뷰 작성·런클럽 신청 안내·이전 약관 선택의 수동 footer를 SingleActionDialog로 통합했다. 저장 라벨·콜백·검증과 모바일 선택기 예외 스타일을 유지하고 타입·린트·포맷 및 PC/MO 표시·상호작용 8건을 확인했다.
 
 - **Refactor**: AccountLockedContent의 확인 버튼 하나인 수동 footer를 SingleActionDialog로 교체했다. 공통 short/fullWidth·본문 패딩을 사용하며 기존 닫기/확인 이동 콜백을 유지했다. 타입·린트·포맷·PC/MO 표시와 이동 play 3개를 확인했다.
@@ -24,7 +57,7 @@
 
 - **Refactor**: PhoneVerificationDetailDialog를 open/onOpenChange만 받는 알뜰폰 사업자 전용 SingleActionDialog로 정리했다. 고정 제목·목록과 공통 확인 버튼을 사용하고 약관 팝업의 기존 연결은 Content에 유지했다. 타입·린트·포맷 및 확인/닫기/Escape·약관 4개 열기/닫기를 검증했다.
 
-- **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-목업-진입점-2026-10-19)을 참고한다.
+- **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-디자인-반영-후-정식-경로-복귀-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-정식-화면-진입점-2026-10-19)을 참고한다.
 
 - **Refactor**: running-hub 구현과 스토리 helper를 Mockup/running-hub로 옮기고 앱 라우트 7곳의 import를 갱신했다. 기존 내용·URL·kind·상태·스타일을 유지하고 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
 
@@ -58,6 +91,13 @@
 
 - **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
 
+- **Update**: 모바일 장바구니·주문/결제를 Figma 시안에 맞춰 교체하고 데모 상품, 선택 상품 전달, 배송지·결제 수단과 정적 자산을 반영했다. [상태](architecture/state.md), [UI](architecture/ui.md), [프로젝트 개요](project.md)에 목 동작과 검증 범위를 기록했다.
+- **Update**: `/support/care` 경로를 추가하고 고객센터 정보 메뉴에 연결했다. [라우팅과 플랫폼](architecture/routing.md)에 진입 경로와 페이지 책임을 기록했다.
+- **Refactor**: 회원등급 혜택 상세와 문의 등록 유의사항 목록의 불릿을 독립 `Typography`로 분리해 줄바꿈 정렬을 통일했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 반품 주의사항 불릿의 기호와 본문을 분리해 `(ex. …)` 및 배송비 하위 줄이 본문 시작선에 정렬되도록 했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Update**: 세탁 및 손질 방법 안내의 신발·의류/용품 탭과 상세 문구를 추가하고, 약관 페이지의 웹·모바일 탭·시행일 선택 디자인을 공통 고객센터 레이아웃으로 옮겼다. 회원등급 안내의 좌측 메뉴도 같은 레이아웃으로 맞췄다. [UI 아키텍처](architecture/ui.md)에 Figma 출처와 약관 자리표시자 범위를 기록했다.
+- **Update**: 매장찾기와 팀/단체복 주문안내를 최신 고객센터 시안에 맞춰 재구성하고, 배송·반품 안내의 세 탭을 모두 활성화해 본문을 반영했다. 공통 제목·탭 컴포넌트와 매장 지도 자산을 추가하고 [UI 아키텍처](architecture/ui.md)에 출처와 데이터 범위를 기록했다.
+- **Fix**: 1:1 문의 제목 아래 구분선을 모바일에서 숨기지 않고 `black.20`으로 표시했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Style**: Form 전수 점검 보고서의 기존 표 열 너비와 구분선을 Prettier 형식으로 정리했다. 표 셀 내용과 기존 검증 기록은 유지했다.
 
 - **Refactor**: FormStateAudit 단일 파일을 PC/MO → Validation/Expired/Inheritance 6개 Storybook 그룹과 도메인별 5개 시나리오 모듈로 분리했다. 기존 30개 검사와 태그를 유지하고 공통 플랫폼 메타·주소 helper를 재사용하며 플랫폼/상태 태그와 정렬을 추가했다. 원본 시나리오 15개 선언 일치, 인덱스 30개·태그, 타입·ESLint·Prettier·Storybook 빌드 및 정적 Storybook play 30개를 확인했다.

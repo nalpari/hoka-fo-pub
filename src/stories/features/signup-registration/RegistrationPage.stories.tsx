@@ -50,10 +50,11 @@ export const Default: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   play: Default.play,
   decorators: [
     (Story) => (
-      <div className="platform-mobile" style={{ width: 375 }}>
+      <div className="platform-mobile" style={{ maxWidth: '100%', width: 375 }}>
         <PlatformProvider platform="mobile">
           <Story />
         </PlatformProvider>
@@ -65,11 +66,12 @@ export const Mobile: Story = {
 export const Additional: Story = { args: { stage: 'additional' }, play: Default.play };
 
 export const MobileAdditional: Story = {
+  parameters: { layout: 'fullscreen' },
   play: Default.play,
   args: { stage: 'additional' },
   decorators: [
     (Story) => (
-      <div className="platform-mobile" style={{ width: 375 }}>
+      <div className="platform-mobile" style={{ maxWidth: '100%', width: 375 }}>
         <PlatformProvider platform="mobile">
           <Story />
         </PlatformProvider>
@@ -115,6 +117,7 @@ export const PasswordValidation: Story = {
 };
 
 export const MobilePasswordValidation: Story = {
+  parameters: { layout: 'fullscreen' },
   ...PasswordValidation,
   tags: ['password-policy'],
   decorators: Mobile.decorators,
@@ -166,6 +169,7 @@ export const EmailCheckState: Story = {
 };
 
 export const MobileEmailCheckState: Story = {
+  parameters: { layout: 'fullscreen' },
   ...EmailCheckState,
   tags: ['signup-phone-feedback'],
   decorators: Mobile.decorators,
@@ -192,6 +196,7 @@ function AddressSearchPreview() {
 export const AddressSearch: Story = { render: () => <AddressSearchPreview /> };
 
 export const MobileAddressSearch: Story = {
+  parameters: { layout: 'fullscreen' },
   render: () => <AddressSearchPreview />,
   decorators: Mobile.decorators,
   globals: { viewport: 'hoka375' },

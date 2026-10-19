@@ -16,6 +16,7 @@ export const Default: Story = {};
 export const WithoutSizeGuide: Story = { args: { hasSizeGuide: false } };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   decorators: [
     (Story) => (

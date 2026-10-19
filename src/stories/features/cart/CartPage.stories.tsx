@@ -52,7 +52,7 @@ export const Web: Story = {};
 
 export const Mobile: Story = {
   globals: { viewport: 'hoka375' },
-  parameters: { platform: 'mobile' },
+  parameters: { layout: 'fullscreen', platform: 'mobile' },
 };
 
 export const Empty: Story = { render: () => <CartPreview empty /> };

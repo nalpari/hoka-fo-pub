@@ -6,18 +6,29 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T07:20:44Z'
+  at: '2026-10-19T09:44:08.759Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/shared/features/cart/CartPage.tsx
-  - src/shared/features/checkout/CheckoutFields.tsx
-  - src/shared/features/checkout/CheckoutSummary.tsx
-  - src/stories/features/cart/CartPage.stories.tsx
+  - src/stories/features/not-found/NotFoundPage.stories.tsx
+  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
+  - src/shared/components/organisms/Search/searchOverlayData.ts
+  - src/shared/components/organisms/Search/SearchOverlay.tsx
+  - src/shared/components/organisms/Search/RecentSearchItem.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderTools.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetFooter.tsx
+  - src/shared/components/organisms/Signup/SignupMethodStep.tsx
+  - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
+  - src/shared/features/care-guide/CareGuidePage.tsx
+  - src/stories/components/molecules/PageActionButton/PageActionButton.stories.tsx
+  - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
+  - src/shared/components/organisms/Faq/FaqEmptyState.tsx
+  - src/shared/components/organisms/Faq/FaqAnswer.tsx
+  - src/shared/components/organisms/Faq/FaqQuestion.tsx
   - src/shared/Mockup/explore/exploreContent.ts
   - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
-  - src/shared/Mockup/store-finder/StoreFinderPage.tsx
-  - src/shared/Mockup/store-finder/StoreResults.tsx
-  - src/shared/Mockup/store-finder/store.data.ts
+  - src/shared/features/store-finder/StoreFinderPage.tsx
+  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
+  - src/shared/features/store-finder/store.data.ts
   - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
   - src/shared/Mockup/explore/ExploreHubPage.tsx
   - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
@@ -63,6 +74,10 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
   - src/stories/components/atoms/Button/Button.stories.tsx
+  - src/shared/features/cart/CartPage.tsx
+  - src/shared/features/checkout/CheckoutFields.tsx
+  - src/shared/features/checkout/CheckoutSummary.tsx
+  - src/stories/features/cart/CartPage.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -474,6 +489,44 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 휴대폰 인증 Storybook 모바일 여백 (2026-10-19)
+
+PhoneVerificationPage.stories.tsx는 페이지 단위 미리보기에 fullscreen을 지정한다. 전역 padded의 외곽 여백을 제거하고 모바일 래퍼는 width 100%, maxWidth 375px로 가용 너비에 맞춘다. 고정 375px와 세로 스크롤바가 겹쳐 발생하던 가로 넘침을 방지한다.
+
+
+## 모바일 Storybook 여백 공통 기준 (2026-10-19)
+
+모바일 이름·플랫폼·375px viewport를 지정한 스토리 108개에 layout fullscreen을 명시했다. 고정 모바일 너비를 사용하는 래퍼 13곳에는 maxWidth 100%를 적용해 스크롤바를 포함한 가용 너비를 넘지 않게 한다. 페이지 내부의 디자인 여백과 PC 스토리 설정은 유지한다. 출처는 src/stories/ 아래 모바일 스토리와 features/forms/form-state-audit/shared.tsx다.
+
+## Checkbox 오류 테두리 간격 (2026-10-19)
+
+Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/shared/components/atoms/Checkbox/Checkbox.tsx, src/stories/components/atoms/Checkbox/Checkbox.stories.tsx.
+
+
+## 페이지 하단 공통 액션 (2026-10-19)
+
+PageActionButton은 최대 500px 중앙 정렬 영역과 fullWidth Button/ButtonLink를 조합한다. children·href 또는 onClick·primary/secondary·short/tall·선택적 current/total counter를 받고, containerProps는 기존 mt/pt/_mobile 차이를 보존한다. 기본값은 secondary/short와 상단 padding 36px이다. SupportPage의 FAQs 링크는 기존 tall·margin·모바일 maxW none을, InquiryPage는 primary/short를, FAQ/공지 더보기는 short·모바일 상단 24px와 기존 페이지 계산/표시 조건을 유지한다. 기존 LoadMoreButton의 남은 항목 수 API는 변경하지 않는다.
+
+## Secondary 버튼 자식 텍스트의 상태색 (2026-10-19)
+
+Button variant secondary의 hover/focus-visible/active에서는 프레임 안 자식의 color가 프레임 색을 상속한다. ButtonLink도 같은 Button 구현을 사용한다. 기본 상태의 Typography tertiary tone은 유지하고 disabled/data-disabled 버튼은 상태색 상속에서 제외한다. PageActionButton에는 별도 상태색 스타일이 없으며 기본 Typography 조합만 사용한다.
+
+검증: Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js/Storybook production build를 통과했다. Edge headless에서 FAQ/공지 PC/MO 4건의 기본 회색·hover/focus 흰색·40px 프레임·상단 36/24px·500px 폭·더보기 완료, Support/문의 PC/MO 링크 4건의 href와 48/40px 높이, 일반 secondary 버튼/링크/disabled 스토리 3건의 hover/focus/active 상속·비활성 유지 등 총 11건을 확인했다. PageActionButton 4개 및 Button 3개 스토리를 보강했다. Storybook 빌드는 기존 의존성 use-client·청크 크기·플러그인 시간 경고를 포함해 성공했다.
+
+## FAQ 목록 표현 영역 분리 (2026-10-19)
+
+FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 organism 폴더의 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. FaqList의 외부 props와 FaqListEntry/FaqListProps export, Accordion의 단일 펼침 제어와 onToggle 연결은 유지한다. 추가 DOM 래퍼 없이 기존 태그·Panda 값·PC/MO Typography·ReactNode 답변을 보존한다.
+
+검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 Default/Mobile 열기·닫기, Empty 표시와 버튼 부재, ControlledDisclosure의 Enter·클릭·Space 및 aria-expanded/aria-controls 연결 play를 확인했다. production build는 재실행하지 않았다.
+
+## 런클럽 필터 버튼 크기 지정 (2026-10-19)
+
+RunClubFilters의 유형 버튼에 size short를 명시했다. PC는 40px 프레임과 CTA2를 사용하고 모바일은 기존 전용 32px 높이 override·레이블 전환·aria-pressed 및 onFilterChange를 유지한다. 전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless PC/MO에서 프레임 높이와 로드 러닝 선택 후 aria-pressed 갱신을 확인했다.
+
+## 러닝 프로필 중복 데이터 제거 (2026-10-19)
+
+Mockup/running-profile/running-profile.data.ts로 이미 분리한 profileQuestions를 features/mypage/mypage.data.ts에서도 제거했다. 현재 페이지와 전용 스토리는 목업 데이터만 import하므로 공용 마이페이지 데이터에는 메뉴·링크만 남는다. 전체 타입 검사·변경 파일 ESLint/Prettier와 참조 검색을 확인했다.
+
 ## 단일 확인 모달 추가 적용 (2026-10-19)
 
 PasswordResetCompleteModal·MyPageReviewDialog·RunClubApplicationNotice·PreviousTermsPicker의 수동 footer를 SingleActionDialog로 교체했다. 기본 short/fullWidth와 actionCount 1 패딩을 사용하며 리뷰는 confirmLabel 저장·onSave, 비밀번호 완료는 onConfirm, 런클럽은 onOpenChange(false), 이전 약관은 onSelect를 연결한다. 기존 외부 props·필드 검증·날짜 상태와 모바일 시트의 footer 숨김/휠 선택·popupClassName 스타일은 유지한다. PreviousTermsPicker의 기존 선택기 전용 본문 패딩 override도 유지한다.
@@ -504,13 +557,11 @@ PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자
 
 검증: 전체 타입 검사·변경 파일 ESLint/Prettier와 Edge headless에서 알뜰폰 3개 통신망 표시·확인/헤더 닫기/Escape·단일 액션 패딩/14px 확인 버튼, 기존 약관 팝업 4개의 열기·닫기를 확인했다. production build는 재실행하지 않았다.
 
-## 매장 찾기 목업 분리 (2026-10-19)
+## 매장 찾기 디자인 반영 후 정식 경로 복귀 (2026-10-19)
 
-매장 찾기 구현은 src/shared/Mockup/store-finder에 모은다. StoreFinderPage·store.data는 기존 features/store-finder에서 이동하고, 이 화면만 사용하는 StoreResults는 organisms/StoreFinder에서 함께 이동했다. 전용 외부 사용처나 스토리는 없다. 기존 매장 데이터·지역/유형·검색 상태·6개 단위 더보기·결과 없음·스타일·버튼 크기는 유지한다. 공유 SidebarNavigationLayout·PageHeader·입력/선택·버튼과 supportNavigation은 기존 위치에서 재사용한다.
+디자인이 반영된 매장 찾기 페이지와 데이터는 src/shared/features/store-finder에 두고, StoreResults는 src/shared/components/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
 
-2026-10-20 확인: 이동 후 StoreFinderPage·store.data의 내부 import와 고객센터 Storybook의 StoreFinderPage import도 `src/shared/Mockup/store-finder/`로 갱신했다. 전체 타입 검사와 수정 범위의 ESLint·Prettier를 실행해 통과했다.
-
-검증: import 경로와 Prettier 포맷을 정규화해 이동 파일 3개의 기존 내용 보존을 확인했다. 이전 경로 참조 제거, 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+이번 정리는 디자인이 반영된 구현을 정식 경로로 복귀시키고 라우트·스토리 참조를 갱신하는 변경이다.
 
 ## running-hub 목업 분리 (2026-10-19)
 
@@ -823,11 +874,11 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 ## 고객센터 메인 (2026-10-16)
 
-고객센터 공통 소개 영역은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
 고객센터 메인의 공지사항 미리보기는 제목 아래 `black.100` 1px Divider와 각 공지 행 아래 `black.20` 1px Divider를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
 
-`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 소개 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
 
 ## FAQ (2026-10-16)
 
@@ -839,7 +890,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 `FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/shared/components/organisms/Faq/FaqList.tsx`다.
 
-`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·소개·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인의 FAQ teaser도 기존 `FaqList`를 재사용한다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
+`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인의 FAQ teaser도 기존 `FaqList`를 재사용한다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
 
 ## 공지사항·1:1 문의 (2026-10-16)
 
@@ -847,15 +898,13 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/shared/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
 
-`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`과 `SupportPageHeading`, Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/components/molecules/SupportTabs/SupportTabs.tsx`, `src/shared/components/molecules/SupportPageHeading/SupportPageHeading.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`의 제목 영역과 Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/components/molecules/SupportTabs/SupportTabs.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
 
 반품 주의사항의 불릿은 표시 기호와 본문을 별도 가로 요소로 배치한다. 본문의 `<br>` 뒤에 오는 `(ex. …)`와 배송비 하위 `-` 설명은 기호 아래로 되돌아가지 않고 같은 항목의 텍스트 시작선에 맞춰진다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`와 사용자 제공 비교 이미지다.
 
-`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 기존 시안 데이터의 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/shared/features/store-finder/`, `src/shared/components/organisms/StoreFinder/StoreResults.tsx`, `src/shared/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
+`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. 구현과 데이터는 `src/shared/features/store-finder/`에 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/shared/features/store-finder/`, `src/shared/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
 
-`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 소개 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/shared/features/care-guide/`, `src/shared/features/terms/TermsPage.tsx`, `src/shared/features/support/SupportExperiencePage.tsx`, `src/shared/features/support/support.navigation.ts`와 해당 Figma 노드다.
-
-`/support/member-benefits`와 `/support/mileage`는 디자인 확정 전 임시 혜택·마일리지 정책 본문을 제거했다. 두 경로는 `CustomerCenterLayout`과 각각의 제목을 유지하고 "디자인 작업 중입니다."만 표시한다. 출처는 작업 트리의 `src/shared/features/support/SupportExperiencePage.tsx`이다. 이 기록은 이전 회원등급 안내 본문 구현 설명보다 우선한다.
+`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 페이지 제목 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/shared/features/care-guide/`, `src/shared/features/terms/TermsPage.tsx`, `src/shared/features/support/SupportExperiencePage.tsx`, `src/shared/features/support/support.navigation.ts`와 해당 Figma 노드다.
 
 공통 푸터의 세탁 및 손질 방법 링크도 신규 `/support/care` 경로로 연결한다. 출처는 작업 트리의 `src/shared/components/organisms/Layout/SiteFooter/footerData.ts`다.
 
@@ -863,13 +912,13 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`와 Figma 노드 `1056:42533`, `991:23590`이다.
 
-문의 등록 화면도 `CustomerCenterLayout`의 고객센터 제목과 소개 문구를 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
 문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 기존 선택값과 2열 배치를 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
 
 답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`와 `src/shared/components/atoms/Accordion/Accordion.tsx`다.
 
-`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·소개·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/shared/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/shared/components/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
+`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·페이지 제목·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/shared/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/shared/components/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
 
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 
@@ -1424,3 +1473,69 @@ Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검�
 6개 *.stories.tsx는 분류와 시나리오 선택만 담당한다. 계정·마이페이지·상품·고객문의·공통 컨트롤의 5개 *.scenarios.tsx는 기존 render/play를 소유하고, shared.tsx는 플랫폼 Provider·375px 모바일 wrapper·fullscreen을, enterAddress.ts는 반복 주소 모달 입력을 담당한다. 모바일 전용 story 복제와 parameters 덮어쓰기를 제거해 상품 pathname과 가입 step query를 공통 플랫폼 메타와 함께 유지한다. 기존 form-audit/form-audit-new 태그에 form-audit-pc/mo와 form-audit-validation/expired/inheritance를 추가했다. CSF 정적 인덱싱을 위해 태그는 각 meta에 문자열 리터럴로 명시한다. 이전 단일 그룹 story ID는 새 플랫폼/상태 경로로 바뀐다.
 
 검증: 원본 15개 render/play 선언의 이동 전후 소스 일치, 정적 index의 6개 그룹·30개 story·기존/신규 태그 등록을 확인했다. 변경 파일 ESLint·Prettier·전체 타입 검사·Storybook production build가 통과했으며 정적 Storybook(127.0.0.1:6007)을 대상으로 Edge headless에서 PC/MO play 30개가 모두 통과했다. 앱 구현과 검증 조건은 변경하지 않았다. 출처는 frontmatter의 새 스토리/시나리오·helper·preview 작업 트리 경로다.
+
+## 고객센터 페이지 제목의 레이아웃 소유권 (2026-10-19)
+
+CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 본문 상단에 단일 h1과 설명을 배치한다. PC에서는 제목과 좌측 메뉴의 시작점을 맞추고 모바일에서는 메뉴를 숨긴다. 고객센터 메인의 제목·소개 문구와 모바일 줄바꿈은 SupportPage만 전달한다. 하위 화면에는 메인 소개를 표시하지 않는다. 이전 hideIntro·hideIntroMobile 분기를 제거하고 사용처 12곳을 전환했다.
+
+제목은 PC heading6을 유지한다. mobileTitleVariant는 기존 heading4·heading5·heading7을 보존하고, headingProps는 gap·mb·모바일 간격을 전달한다. 기본 제목 영역은 gap 16px·하단 24px이며 메인은 제목→소개 24px(모바일 16px)·하단 40px, FAQ 모바일은 하단 8px, 공지 목록은 PC 하단 36px, 문의 모바일은 하단 16px을 유지한다. showHeadingDivider는 기존 SupportPageHeading의 PC 2px 검은 구분선을 표현하며 모바일에서 숨긴다. 미사용이 된 SupportPageHeading은 제거했다. Breadcrumb·활성 메뉴·탭·필터·문의 상태와 제출 처리는 기존 소유자에 둔다.
+
+실제 검증: Edge 브라우저로 기존 고객센터 스토리 24개에서 PC/MO 제목·단일 main/h1·메인 소개의 표시 범위·메뉴 정렬과 모바일 숨김을 확인했다. FAQ·공지 더보기, 배송/반품 탭 전환을 확인했다. Panda 생성, TypeScript, 변경 TSX ESLint·Prettier, Next.js와 Storybook 빌드를 통과했다. Storybook의 기존 directive·청크·플러그인 시간 경고는 남아 있다. 출처는 작업 트리의 CustomerCenterLayout, 해당 기능 페이지와 src/stories/features/support/SupportPages.stories.tsx다.
+
+## 계정 폼 제목의 AccountFormHeader 공통화 (2026-10-19)
+
+AccountFormHeader는 제목과 선택 설명을 한 영역에 배치한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 12px이다. spacingCss는 css.raw로 전달해 Panda에서 추출하고 공통 스타일과 하나의 css 호출로 병합한다. 상태나 추가 client 경계는 만들지 않는다.
+
+IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLayout 네 곳이 이를 사용한다. 본문 간격은 호출부에서 유지한다. 본인인증은 32px·설명 subtle, 계정 찾기는 PC 40px/MO 32px·제목→설명 PC 10px/MO 12px, 가입 방법은 본문 mt 24px, AccountFormLayout은 PC 40px/MO 32px이다. verification-title·find-account-title·signup-title과 section/form의 aria-labelledby 연결을 유지한다. AccountFormLayout의 공개 props·버튼·모달과 각 feature 상태·콜백은 유지한다.
+
+실제 검증: 기존 PC/MO 스토리 14개에서 본문 간격, 설명 유무와 제목→설명 간격, 단일 h1과 기존 ID 연결을 확인했다. 계정 찾기 오류·인증번호 입력, 약관 상세 상호작용, 회원가입 이메일 중복확인 스토리를 확인했다. Panda 생성·TypeScript·변경 TSX ESLint/Prettier·Next.js/Storybook 빌드를 통과했다. 본인인증 모바일 스토리는 기존처럼 platform-mobile 클래스만 지정하므로 Typography의 web 컨텍스트 동작을 이번 변경에서 수정하지 않았다. 출처는 작업 트리의 AccountFormHeader와 네 사용처, 해당 기존 Storybook이다.
+
+## 바텀시트 버튼 크기의 Footer 소유권 (2026-10-19)
+
+MobileProductFilter의 적용 액션은 일반 Button variant="primary"를 사용한다. BottomSheetFooter가 전달받은 단일 버튼 요소를 cloneElement로 조합해 size="tall"·fullWidth=true를 적용한다. onClick·라벨·기존 ref 등 나머지 props는 보존한다. 이에 맞춰 BottomSheet.footer와 Footer.children 타입은 ReactElement<ButtonProps>로 지정한다. 기존 Footer 패딩·safe-area·상단 경계, Drawer 포털·닫기·스크롤 구조는 유지한다.
+
+ButtonVariant에서 bottomSheetPrimary와 해당 primary 판정·강제 전체 너비 분기를 제거했다. ButtonDocs의 전용 variant 비교 셀과 너비 분기도 제거했다. 기본 primary의 색상·상태 처리는 그대로 사용한다. 크기와 전체 너비의 책임은 시트 Footer에 둔다.
+
+실제 검증: Edge에서 상품 목록 375px·768px의 필터를 열어 적용 버튼 높이 48px·Footer 내부 전체 너비(각 343px·608px)·검은 배경, 적용·닫기 버튼·Escape 동작을 확인했다. src에서 bottomSheetPrimary 참조가 사라졌으며 기존 form-controls 테스트 33개, Panda 생성·TypeScript·변경 TSX ESLint/Prettier·Next.js와 Storybook 빌드를 통과했다. 출처는 작업 트리의 위 5개 변경 파일과 기존 ProductListingPage Storybook이다.
+
+## 반복 상단 여백의 Stack 간격 소유권 (2026-10-19)
+
+선택한 7개 소스의 동일 구간 반복 mt를 Stack gap으로 이전했다. EmptyState의 standard/minimal 루트는 gap 2로 설명·액션의 조건부 표시를 유지한다. SupportPage는 상담·공지·FAQ 본문 그룹을 PC gap 20(80px)·MO gap 10(40px)으로 배치한다. SignupDetailsStep은 입력 필드 그룹에 gap 4와 그룹 시작 mt 4를 적용하고 각 필드의 styles.field를 제거했다. local의 아이디·비밀번호와 오류 표시·폼 제출 연결을 유지한다. SignupMethodStep은 제목·혜택·링크 구간만 gap 6으로 묶고 뒤의 36px·16px 간격을 유지한다.
+
+DesignGuideTypography는 두 표 섹션을 gap 6·시작 mt 6인 그룹으로 묶는다. IaStructurePage의 진행률·진행 막대·요약 그룹은 gap 3·시작 mt 4를 사용한다. ButtonDocs 루트는 gap 10(40px)으로 헤더·variant별 섹션·사용 예시를 배치하고 section 클래스의 mt를 제거한다. 고정 위치 복사 안내는 기존 위치를 유지한다. 그룹에 따라 간격을 소유하는 Stack 래퍼를 추가하며 기존 section·form·제목 ID·표·링크·콜백과 외부 props는 유지한다.
+
+검증: 임시 Storybook fixture로 PC/MO 24개 조합의 변경 전후 제목·본문·입력·버튼·링크·표 등의 좌표와 크기를 비교해 일치를 확인했다. EmptyState 설명/액션 생략, standard/minimal, 가입 local/social·오류 상태를 포함한다. 임시 fixture는 검증 후 제거했다. 기존 가입 비밀번호·필드 검증 PC/MO play 4개도 통과했다. Panda 생성·전체 작업 트리 TypeScript·변경 TSX ESLint/Prettier, 별도 작업 폴더의 Storybook 빌드를 확인했다. 현재 작업 트리의 기본 Next.js production build도 통과했다. 별도 폴더의 기본 빌드는 외부 node_modules 링크 제한, webpack 빌드는 기존 라우트의 자동 생성 PageProps 오류로 실패했으며 최종 결과는 현재 작업 트리의 기본 빌드로 확인했다. 출처는 작업 트리의 위 7개 파일이다.
+
+추가 스테이징 범위: FindAccountContent는 폼 본문 gap 6·이름/휴대폰 gap 4·인증번호와 안내 gap 2를 사용하며 요청·확인 콜백과 입력 ID를 유지한다. 상태 안내는 이전 16px에서 현재 공통 24px 간격을 사용한다. 이 파일은 기존 24개 좌표 비교 대상 7개에 포함되지 않았으므로 해당 비교 결과를 확대 적용하지 않는다.
+
+## 헤더 input과 검색 패널 확정 디자인 (2026-10-19)
+
+HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보기 submit으로 구성한다. SiteHeader가 검색 열림·입력값·오류를 소유하며 HeaderTools·SiteHeaderContainer를 통해 전달한다. 입력 포커스/클릭은 패널을 열고 Enter는 연결된 site-search-form을 제출한다. ArrowDown은 검색어 목록의 첫 버튼에 진입한다. 검색 패널의 오른쪽 끝은 헤더 장바구니 아이콘 영역(data-search-panel-anchor)의 오른쪽 끝에 맞춘다. useLayoutEffect에서 헤더 프레임과 장바구니 영역의 실제 좌표 차이를 CSS 변수로 전달하고 ResizeObserver·resize로 화면 크기 및 로그인 도구 너비 변경에 대응한다. 왼쪽 화면 여백 24px도 확보한다. 기본 너비 1020px, 자동완성 시 540px이며 화면 너비와 높이에 제한된다. 바깥 클릭/포커스·Escape로 닫고 패널에서 닫을 때 헤더 input으로 포커스를 돌린다. 메가 메뉴와 검색 패널은 동시에 열리지 않는다.
+
+모바일은 Base UI Dialog 전체 화면·스크롤·초기 입력 포커스를 사용한다. 닫기 행, 왼쪽 돋보기 입력, 최근 검색어, 추천 태그, 2열 인기 검색어 순서다. 자동완성은 PC 최대 9개·모바일 최대 3개와 파란 일치 문구를 표시하며 모바일은 기존 검색 섹션도 유지한다. 최근 검색어의 저장/개별 삭제/전체 삭제와 /search?q=…&scope=전체 이동을 유지한다. 데이터는 검색 API와 연결되지 않은 목 데이터다. 빈 검색 제출은 입력 요청 오류를 표시하며, 외부 error/onErrorChange 계약과 Invalid/MobileInvalid 스토리로 시안의 금칙어 오류 표시를 제공한다. 금칙어 목록이나 판정 정책을 새로 만들지 않았다. 기존 Button의 headerSearch variant는 호환성을 위해 남아 있으나 SiteHeader는 사용하지 않는다.
+
+검증: Panda 생성·전체 TypeScript·변경 TSX ESLint/Prettier와 Next/Storybook production build 통과. 브라우저에서 PC input 입력·자동완성 및 Enter의 실제 검색 결과 이동, 375px 모바일 자동완성 배치와 빈 검색 오류를 확인했다. 장바구니 기준 정렬 수정은 브라우저에서 기본 1020px·자동완성 540px 패널과 장바구니 영역의 오른쪽 좌표 차이 0px로 확인했으며 Panda·타입·변경 ESLint/Prettier를 확인했다. Storybook에는 PC/모바일 기본·자동완성·오류 6개 상태를 제공한다. 출처는 아래 working_tree_sources의 검색·헤더 구현과 스토리이며 첨부 시안은 사용자 제공 디자인이다.
+
+## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
+
+RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
+
+검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.
+
+## 404 안내 화면 (2026-10-19)
+
+본문 main은 Stack gap="8"로 세로 배치하며 아이콘·안내문·홈 버튼 사이를 각각 32px로 유지한다. 자식 Box의 중복 mt="8"은 제거했다. 이번 간격 정리는 변경 파일 ESLint·Prettier와 기존 PC/MO 스토리의 실제 32px 간격으로 확인했다.
+
+`src/shared/features/not-found/NotFoundPage.tsx`는 중앙 정렬한 Font Awesome `faTriangleExclamation`(48px), 한국어 제목·두 줄 설명과 홈 링크로 구성한다. 공통 Icon·Typography·ButtonLink를 재사용하고 PC 버튼 너비는 180px, 모바일은 좌우 16px 여백 안에서 전체 너비·48px 높이를 사용한다. 모바일 본문 최소 높이는 화면 높이에서 헤더 높이를 빼서 푸터가 첫 화면 아래에 오도록 한다. Storybook `PAGES/NotFound`의 Default/Mobile에서 앱 레이아웃과 함께 확인한다.
+
+첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 노드 `577:11405`는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
+
+Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드가 통과했다. 브라우저에서 PC 화면과 모바일 375px 스토리를 확인했고 모바일 버튼 343×48px·홈 링크 `/`·Font Awesome SVG 48×48px를 확인했다. 기존 공통 헤더의 프로모션 배너 등 첨부 이미지와 다른 영역은 이번 수정 범위 밖이다.
+
+## 반복 형제 여백의 프로젝트 정책 (2026-10-19)
+
+AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나타내면 부모 Stack gap을 우선 사용하도록 규정한다. 세부 기준은 component-reusability의 Repeated sibling spacing을 참조한다. 실제 형제 순서·조건부 분기·직접 props와 css/공유 클래스/컴포넌트 내부 여백을 확인하고, 같은 간격 구간만 묶어 그룹 시작 여백·PC/MO 값·HTML 의미를 유지한다. Grid의 배치 의도, 음수·sticky·겹침과 서로 다른 경계는 일괄 전환하지 않는다.
+
+기존 부모를 우선 재사용하고 새 wrapper는 실제 간격 책임과 직접 자식 선택자·폭/정렬·최소 높이·form/접근성 연결을 확인한 뒤 검토한다. margin collapse와 기존 mb/my·padding/gap도 비교한다. 구현 시 PC/MO 좌표·크기·조건부 상태 및 필요한 폼 동작을 검증하고 임시 fixture를 제거한다. 이전 32px 값이나 24개 검증 조합을 모든 작업의 고정 기준으로 삼지 않는다. 정책만 수정하는 요청은 추가 소스 마이그레이션이나 앱 빌드를 요구하지 않는다.
+
+검증: 임시 검증 경로에 PyYAML을 설치해 skill-creator의 quick_validate.py 통과를 확인했고 AGENTS·스킬 Prettier와 변경 diff를 검사했다. 애플리케이션 소스는 수정하지 않았다. 출처는 작업 트리의 AGENTS.md와 .codex/skills/component-reusability/SKILL.md다.

@@ -19,6 +19,10 @@ export type SiteHeaderContainerProps = {
   onMenuOpen: (menuId: MegaMenu['id']) => void;
   onMenuToggle: (menuId: MegaMenu['id']) => void;
   onSearch: () => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
+  searchOpen?: boolean;
+  searchError?: string;
 };
 
 export function SiteHeaderContainer({
@@ -34,6 +38,10 @@ export function SiteHeaderContainer({
   onMenuOpen,
   onMenuToggle,
   onSearch,
+  searchQuery,
+  onSearchQueryChange,
+  searchOpen,
+  searchError,
 }: SiteHeaderContainerProps) {
   const platform = usePlatform();
 
@@ -61,6 +69,10 @@ export function SiteHeaderContainer({
             isLoggedIn={isLoggedIn}
             wishlistCount={wishlistCount}
             onEnterPreviousMenu={platform === 'web' ? onHeaderToolsEnterPreviousMenu : undefined}
+            searchQuery={searchQuery}
+            onSearchQueryChange={onSearchQueryChange}
+            searchOpen={searchOpen}
+            searchError={searchError}
             onSearch={onSearch}
           />
           <HeaderMobileMenuButton onClick={onMenu} />

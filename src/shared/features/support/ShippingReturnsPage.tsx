@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 
@@ -178,6 +177,9 @@ const tabs = [
 export function ShippingReturnsPage() {
   return (
     <CustomerCenterLayout
+      title="배송 및 반품안내"
+      mobileTitleVariant="heading5"
+      showHeadingDivider
       activePath="/support/after-sales"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -185,10 +187,8 @@ export function ShippingReturnsPage() {
         { label: '배송 및 반품안내' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
       <Stack gap="6">
-        <SupportPageHeading title="배송 및 반품안내" />
         <SupportTabs ariaLabel="배송 및 반품 안내 항목" defaultValue="shipping" tabs={tabs} />
       </Stack>
     </CustomerCenterLayout>

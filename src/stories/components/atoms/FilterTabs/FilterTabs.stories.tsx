@@ -77,6 +77,7 @@ export const Line: Story = {
 };
 
 export const LineMobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   decorators: [
     (Story) => (

@@ -1,7 +1,6 @@
 import { Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 
 export type SupportExperienceKind = 'member-benefits' | 'mileage';
@@ -16,6 +15,9 @@ export function SupportExperiencePage({ kind }: { kind: SupportExperienceKind })
 
   return (
     <CustomerCenterLayout
+      title={title}
+      mobileTitleVariant="heading5"
+      showHeadingDivider
       activePath={path}
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -23,10 +25,8 @@ export function SupportExperiencePage({ kind }: { kind: SupportExperienceKind })
         { label: title },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
-      <Stack as="section" gap="8">
-        <SupportPageHeading title={title} />
+      <Stack as="section">
         <Typography as="p" web="body3" mo="body4" tone="subtle">
           디자인 작업 중입니다.
         </Typography>
