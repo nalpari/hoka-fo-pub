@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T07:20:44Z'
+  at: '2026-10-19T08:06:47.185Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/explore/[...slug]/page.tsx
@@ -14,7 +14,7 @@ working_tree_sources:
   - src/app/launch-calendar/page.tsx
   - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
   - src/app/support/store/page.tsx
-  - src/shared/Mockup/store-finder/StoreFinderPage.tsx
+  - src/shared/features/store-finder/StoreFinderPage.tsx
   - src/app/running/reviews/page.tsx
   - src/app/running/rewards/page.tsx
   - src/app/running/rotation/page.tsx
@@ -63,11 +63,11 @@ src/app/launch-calendar/page.tsx는 src/shared/Mockup/launch-calendar/LaunchCale
 
 검증: Prettier 포맷을 정규화해 이동 전후 페이지 내용 보존과 이전 경로 참조 제거를 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
 
-## 매장 찾기 목업 진입점 (2026-10-19)
+## 매장 찾기 정식 화면 진입점 (2026-10-19)
 
-src/app/support/store/page.tsx는 src/shared/Mockup/store-finder/StoreFinderPage.tsx를 기본 export로 연결한다. /support/store URL과 use client 경계, 고객센터 메뉴·헤더 등의 매장 찾기 링크를 유지한다. 페이지는 같은 폴더의 StoreResults·store.data를 상대 경로로 import한다. 이전 features/store-finder와 organisms/StoreFinder 경로의 중간 재수출 파일은 두지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
+src/app/support/store/page.tsx와 고객센터 Storybook은 src/shared/features/store-finder/StoreFinderPage를 연결한다. /support/store URL과 use client 경계는 유지하며 페이지·데이터는 정식 organisms/StoreFinder/StoreResults를 참조한다.
 
-검증: import 경로와 Prettier 포맷을 정규화해 이동 파일 3개의 기존 내용 보존을 확인했다. 이전 경로 참조 제거, 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+디자인이 반영된 매장 찾기는 Mockup 분류에서 제외하고 정식 feature와 organism 위치로 복귀시켰다.
 
 ## running-hub 목업 라우트 연결 (2026-10-19)
 
