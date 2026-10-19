@@ -59,7 +59,7 @@ export const PasswordValidation: Story = {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText(/이름/), '홍길동');
     await userEvent.type(canvas.getByLabelText(/이메일/), 'demo@example.com');
-    await userEvent.type(canvas.getByLabelText(/아이디/), 'hoka-demo');
+    await userEvent.type(canvas.getByLabelText(/아이디/), 'hokademo1');
     const password = canvas.getByLabelText(/비밀번호/, { selector: 'input' });
     await expect(password).toHaveAttribute('placeholder', '영문, 숫자, 특수문자 포함 10~12자');
     await userEvent.type(password, '12345678');
@@ -84,4 +84,43 @@ export const MobilePasswordValidation: Story = {
   parameters: { ...Details.parameters, platform: 'mobile' },
   globals: { viewport: 'hoka375' },
   play: PasswordValidation.play,
+};
+
+export const FieldValidation: Story = {
+  ...Details,
+  tags: ['signup-phone-feedback'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText(/이름/), '홍길동');
+    await userEvent.type(canvas.getByLabelText(/비밀번호/, { selector: 'input' }), 'Hoka12345!');
+    const email = canvas.getByLabelText(/이메일/);
+    const id = canvas.getByLabelText(/아이디/);
+    await userEvent.type(email, 'demo@example');
+    await userEvent.type(id, 'ab');
+    const submit = canvas.getByRole('button', { name: '가입 완료' });
+    await userEvent.click(submit);
+    await expect(email).toHaveAccessibleDescription('올바른 이메일 형식으로 입력해 주세요');
+    await expect(id).toHaveAccessibleDescription('영문, 숫자 조합으로 4자 이상 입력해 주세요.');
+    await userEvent.clear(email);
+    await userEvent.type(email, 'first..last@example.com');
+    await userEvent.clear(id);
+    await userEvent.type(id, 'hoka-demo');
+    await userEvent.click(submit);
+    await expect(email).toHaveAttribute('aria-invalid', 'true');
+    await expect(id).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.clear(email);
+    await userEvent.type(email, 'demo@example.com');
+    await userEvent.clear(id);
+    await userEvent.type(id, 'hokademo1');
+    await userEvent.click(submit);
+    await expect(canvas.getByRole('heading', { name: '회원가입이 완료되었습니다.' })).toBeVisible();
+  },
+};
+
+export const MobileFieldValidation: Story = {
+  ...FieldValidation,
+  tags: ['signup-phone-feedback'],
+  parameters: { ...Details.parameters, platform: 'mobile' },
+  globals: { viewport: 'hoka375' },
+  play: FieldValidation.play,
 };

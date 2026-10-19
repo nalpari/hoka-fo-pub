@@ -138,7 +138,7 @@ export const InvalidFormats: Story = {
     const email = canvas.getByLabelText(/이메일 아이디/);
     const password = canvas.getByLabelText(/비밀번호/, { selector: 'input' });
     const login = canvas.getByRole('button', { name: '로그인' });
-    await userEvent.type(email, 'invalid-email');
+    await userEvent.type(email, 'first..last@example.com');
     await userEvent.type(password, 'demo-password');
     await userEvent.click(login);
     await expect(args.onLogin).not.toHaveBeenCalled();

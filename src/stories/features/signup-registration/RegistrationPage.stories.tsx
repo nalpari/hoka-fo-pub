@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
 import { RegistrationContent } from '@/shared/features/signup-registration/RegistrationContent';
 import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
@@ -115,6 +115,57 @@ export const MobilePasswordValidation: Story = {
   decorators: Mobile.decorators,
   globals: { viewport: 'hoka375' },
   play: PasswordValidation.play,
+};
+
+export const EmailCheckState: Story = {
+  render: () => <RegistrationPage />,
+  tags: ['signup-phone-feedback'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const email = canvas.getByLabelText(/이메일 주소/);
+    const domain = canvas.getByLabelText(/도메인/, { selector: 'input' });
+    await userEvent.type(email, '.demo');
+    await userEvent.type(domain, '-example.com');
+    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
+    await expect(email).toHaveAccessibleDescription('올바른 이메일 형식으로 입력해 주세요');
+    await expect(domain).toHaveAccessibleDescription('올바른 도메인 형식으로 입력해 주세요');
+    await userEvent.clear(email);
+    await userEvent.type(email, 'demo');
+    await userEvent.clear(domain);
+    await userEvent.type(domain, 'example.com');
+    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
+    await expect(canvas.getByRole('status')).toHaveAttribute('data-tone', 'info');
+    await userEvent.type(email, '2');
+    await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
+    await userEvent.click(canvas.getByRole('button', { name: '다음' }));
+    await expect(canvas.getByLabelText(/이름/)).toHaveAttribute('aria-invalid', 'true');
+    await expect(canvas.getByRole('status')).toBeVisible();
+    await userEvent.type(canvas.getByLabelText(/이름/), '홍길동');
+    await userEvent.type(
+      canvas.getByLabelText(/비밀번호/, { selector: '#registration-password' }),
+      'Hoka12345!',
+    );
+    await userEvent.type(canvas.getByLabelText(/비밀번호 재입력/), 'Hoka12345!');
+    await userEvent.click(canvas.getByRole('button', { name: '우편번호 찾기' }));
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog');
+    const addressFields = within(dialog);
+    await userEvent.type(addressFields.getByRole('textbox', { name: /우편번호/ }), '12345');
+    await userEvent.type(addressFields.getByRole('textbox', { name: /주소/ }), '서울시 예시 주소');
+    await userEvent.click(addressFields.getByRole('button', { name: '확인' }));
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    await userEvent.type(canvas.getByLabelText(/상세주소/), '101호');
+    await userEvent.click(canvas.getByRole('button', { name: '다음' }));
+    await expect(canvas.getByRole('heading', { name: '부가 정보' })).toBeVisible();
+  },
+};
+
+export const MobileEmailCheckState: Story = {
+  ...EmailCheckState,
+  tags: ['signup-phone-feedback'],
+  decorators: Mobile.decorators,
+  globals: { viewport: 'hoka375' },
+  play: EmailCheckState.play,
 };
 
 function AddressSearchPreview() {

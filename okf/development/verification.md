@@ -6,9 +6,12 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T00:02:28.937Z'
+  at: '2026-10-19T00:12:41.476Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/email-validation.test.mjs
+  - src/shared/lib/emailValidation.ts
+  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
   - src/shared/lib/passwordValidation.ts
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
@@ -34,6 +37,12 @@ sources:
 ---
 
 # 변경 검증
+
+## 회원가입·휴대폰 인증 문구 회귀 검사 (2026-10-19)
+
+email-validation.test.mjs는 분리/통합 이메일 규칙의 일치, 정상 부분 주소, 잘못된 점·도메인·구분자 및 길이 경계를 검사한다. signup-phone-feedback 태그는 일반 가입·회원정보 가입·휴대폰 인증의 PC·모바일 6개 스토리를 선택한다. 로그인 검사도 연속 점이 있는 이메일을 거부하도록 보완했고 기존 비밀번호 회귀와 함께 실행한다. 성공 문구는 실제 가입 완료/다음 단계 표시로 확인하고 외부 중복·인증 결과를 모의 성공으로 판정하지 않는다.
+
+2026-10-19 이번 추가 검사 결과: Node 전체 51개, 정적 Chromium의 login-validation/password-policy/signup-phone-feedback 태그 총 27개가 통과했다. 전체 타입 검사·변경 파일 ESLint·Storybook 빌드도 통과했다. 휴대폰 약관 설명은 region의 접근 가능한 설명과 실제 빨간 색상까지 검사했다.
 
 ## 비밀번호 정책 회귀 검사 (2026-10-19)
 

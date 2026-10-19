@@ -4,9 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
 import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
-
-const emailPattern =
-  /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
+import { isValidEmail, emailFormatErrorMessage } from '@/shared/lib/emailValidation';
 
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const router = useRouter();
@@ -15,10 +13,10 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const [rememberId, setRememberId] = useState(false);
   const [notice, setNotice] = useState<LoginNotice | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const validEmail = emailPattern.test(id.trim());
+  const validEmail = isValidEmail(id);
   const validPassword = isValidPassword(password);
   const errors = {
-    id: hasSubmitted && !validEmail ? '올바른 이메일 형식으로 입력해 주세요' : undefined,
+    id: hasSubmitted && !validEmail ? emailFormatErrorMessage : undefined,
     password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
   };
 
