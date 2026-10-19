@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: RunClubFilters의 유형 버튼에 short를 명시했다. PC 40px·모바일 기존 32px 높이와 필터 선택 상태를 브라우저에서 확인하고 타입·ESLint·Prettier를 통과했다.
+
 - **Refactor**: 목업으로 이전된 profileQuestions의 mypage.data.ts 중복 정의를 제거했다. 페이지·스토리가 목업 데이터만 사용함을 확인하고 타입·ESLint·Prettier를 통과했다.
 
 - **Refactor**: 비밀번호 재설정 완료·마이페이지 리뷰 작성·런클럽 신청 안내·이전 약관 선택의 수동 footer를 SingleActionDialog로 통합했다. 저장 라벨·콜백·검증과 모바일 선택기 예외 스타일을 유지하고 타입·린트·포맷 및 PC/MO 표시·상호작용 8건을 확인했다.

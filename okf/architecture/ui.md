@@ -470,6 +470,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 런클럽 필터 버튼 크기 지정 (2026-10-19)
+
+RunClubFilters의 유형 버튼에 size short를 명시했다. PC는 40px 프레임과 CTA2를 사용하고 모바일은 기존 전용 32px 높이 override·레이블 전환·aria-pressed 및 onFilterChange를 유지한다. 전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless PC/MO에서 프레임 높이와 로드 러닝 선택 후 aria-pressed 갱신을 확인했다.
+
 ## 러닝 프로필 중복 데이터 제거 (2026-10-19)
 
 Mockup/running-profile/running-profile.data.ts로 이미 분리한 profileQuestions를 features/mypage/mypage.data.ts에서도 제거했다. 현재 페이지와 전용 스토리는 목업 데이터만 import하므로 공용 마이페이지 데이터에는 메뉴·링크만 남는다. 전체 타입 검사·변경 파일 ESLint/Prettier와 참조 검색을 확인했다.
