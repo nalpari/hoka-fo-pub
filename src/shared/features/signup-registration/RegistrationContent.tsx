@@ -163,7 +163,7 @@ export function RegistrationContent(props: Props) {
                   ]}
                 />
                 <Box py="2">
-                  <Button variant="primary" size="tall" fullWidth onClick={props.onDuplicateCheck}>
+                  <Button variant="primary" fullWidth onClick={props.onDuplicateCheck}>
                     이메일 중복확인
                   </Button>
                 </Box>
@@ -262,10 +262,10 @@ export function RegistrationContent(props: Props) {
             )}
             {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
             <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="2">
-              <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
+              <Button variant="secondary" fullWidth onClick={props.onCancel}>
                 취소
               </Button>
-              <Button variant="primary" type="submit" size="tall" fullWidth>
+              <Button variant="primary" type="submit" fullWidth>
                 다음
               </Button>
             </Grid>

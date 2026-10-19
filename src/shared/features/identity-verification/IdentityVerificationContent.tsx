@@ -57,7 +57,7 @@ export function IdentityVerificationContent({ onSelect }: IdentityVerificationCo
               >
                 <Icon name={method.iconName} size="80px" />
               </Center>
-              <Button variant="primary" size="tall" fullWidth onClick={() => onSelect(method.id)}>
+              <Button variant="primary" fullWidth onClick={() => onSelect(method.id)}>
                 {method.label}
               </Button>
             </Stack>

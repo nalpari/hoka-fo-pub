@@ -248,6 +248,8 @@ working_tree_sources:
   - src/shared/features/find-account/phoneNumber.ts
   - src/shared/features/account-locked/AccountLockedPage.tsx
   - src/shared/features/account-locked/AccountLockedContent.tsx
+  - src/shared/features/identity-verification/IdentityVerificationContent.tsx
+  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
   - src/stories/features/locales/LocalesPage.stories.tsx
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/account-locked/AccountLockedPage.stories.tsx
@@ -556,6 +558,8 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 ## 공지사항·1:1 문의 (2026-10-16)
 
+1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/shared/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
+
 `/support/after-sales`는 Figma 모바일 `803:25138`과 PC `1066:57459`에 따라 배송 및 반품안내 화면을 표시한다. 공통 `CustomerCenterLayout`의 PC 소개·좌측 메뉴와 모바일 breadcrumb를 재사용하고, 본문에는 제목·세 항목 탭·배송 안내 네 문장을 둔다. 탭은 Base UI Tabs를 사용한다. 아직 내용이 확인되지 않은 `반품 주의사항`과 `상품 반품 안내` 탭은 선택을 비활성화했다. 헤더·푸터 자산은 기존 공통 레이아웃을 재사용한다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/features/support/support.navigation.ts`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
 
 공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`다.
@@ -615,6 +619,18 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 2026-10-15 Codex 검증: HOME의 긴 상품명 너비가 667px에서 카드와 같은 218px로 제한되고 text-overflow=ellipsis, overflow=hidden이 적용되는 것을 브라우저 DOM과 화면으로 확인했다. 변경 파일 ESLint와 TypeScript 검사가 통과했다.
 
 ## Components·Features JSX 스타일 점검 (2026-10-15)
+
+`FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`다.
+
+로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
+
+휴대폰 인증의 알뜰폰 사업자 안내는 사업자 목록만 `ModalDialog` 본문에 두고 확인 버튼을 `footer`에 전달한다. 긴 목록은 본문에서 스크롤되며 공통 푸터가 확인 버튼을 데스크톱 160px·모바일 전체 너비로 배치한다. 출처는 작업 트리의 `src/shared/features/phone-verification/PhoneVerificationContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+
+공통 `ModalDialogFooter`는 직계 버튼 높이를 40px로 지정한다. 데스크톱 버튼 너비 160px과 모바일 전체 너비는 유지한다. 출처는 작업 트리의 `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+
+계정 잠금 안내 모달의 확인 동작은 공통 `ModalDialog`의 `footer` 슬롯으로 구성한다. 본문은 안내 문구만 담당하고 푸터가 버튼의 크기·정렬을 맡는다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`다.
+
+`IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
 
 지정 범위는 `src/shared/components/`와 `src/shared/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
 
@@ -787,6 +803,14 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 
 지정 범위는 locales, identity-verification, find-account, catalog, account-locked다. 아래 구현은 기능 내부에 두며 공용 atom으로 승격하지 않는다.
 
+| 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                   |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음  |
+| PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유 |
+| 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
+| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                      |
+
+`AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
 | 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음                            |

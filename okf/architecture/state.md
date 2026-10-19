@@ -59,6 +59,7 @@ sources:
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
+로그인 액션과 회원가입 이동 버튼은 공통 `Button`·`ButtonLink`의 기본 `tall` 크기를 사용한다. 명시적 크기 속성만 정리했으며 `LoginPage`의 상태, 제출 및 이동 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `src/shared/features/login/LoginActions.tsx`, `src/shared/features/login/LoginMembership.tsx`다.
 ## 로그인 필드 오류
 
 2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.

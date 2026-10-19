@@ -17,6 +17,7 @@ const meta = {
   title: 'Pages/AUTH/FindAccount/IdConfirmationModal',
   component: IdConfirmationModal,
   args: {
+    userName: '김호가',
     onOpenChange: () => {},
     onPasswordReset: () => {},
     onConfirm: () => {},

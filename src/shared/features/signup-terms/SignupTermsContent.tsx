@@ -84,10 +84,10 @@ export function SignupTermsContent(props: Props) {
         </Stack>
         {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="8">
-          <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
+          <Button variant="secondary" fullWidth onClick={props.onCancel}>
             취소
           </Button>
-          <Button variant="primary" size="tall" fullWidth onClick={props.onNext}>
+          <Button variant="primary" fullWidth onClick={props.onNext}>
             확인
           </Button>
         </Grid>

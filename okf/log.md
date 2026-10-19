@@ -6,6 +6,22 @@
 
 - **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.
 
+- **Refactor**: SearchCategorySelect의 검색 범위 레이블에 Typography.srOnly를 적용하고 중복 숨김 CSS를 제거했다. [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)에 출처와 타입 검사·ESLint·Prettier 통과를 기록했다.
+
+- **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.
+
+- **Refactor**: 로그인 액션·회원가입 이동 버튼의 기본 크기 사용을 [상태 아키텍처](architecture/state.md)에 기록했다.
+- **Refactor**: 계정 잠금 안내의 확인 버튼을 공통 모달 푸터로 옮겨 중복 너비·정렬 래퍼를 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 공통 모달 푸터의 버튼 높이를 40px로 맞췄다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 알뜰폰 사업자 안내 모달의 확인 버튼을 스크롤 본문에서 공통 푸터로 옮겼다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 로그인·회원가입과 연결된 계정 복구·인증 버튼의 중복 `size="tall"`을 제거하고 공통 Button 기본 크기를 사용한다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 계정 잠금 모달에 공통 `size="md"`를 명시하고 사용하지 않는 별도 오버레이 스타일을 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 계정 잠금 모달의 별도 fixed 프레임을 제거하고 공통 모달 배경을 사용한다. 모바일 설명 줄바꿈은 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 계정 찾기 인증 버튼의 `density="auto"`를 제거해 `size="tall"`이 정하는 모바일 높이와 타이포가 함께 적용되도록 했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 아이디 확인 모달의 PC·모바일 제목을 플랫폼별 문자열 하나로 선택하고 중복 Typography·숨김 CSS를 제거해 공통 헤더의 body3 16px을 사용한다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 아이디 확인 모달의 이름을 `userName` 입력값으로 표시하고, PC 버튼 두 개를 각각 160px로 가운데 정렬했다. 모달 폭은 공통 `md` 크기로 전환했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 아이디 확인 모달의 문단 간격과 버튼 너비를 Panda `Box`·`Stack` 속성으로 옮기고 기존 반응형 폭을 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Refactor**: 계정 찾기 화면의 일회성 간격을 Panda `Box`·`Stack` 속성으로 옮기고 중복 필드 래퍼를 제거했다. 기존 색상과 폼 동작은 유지했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Fix**: 비밀번호 외 회원가입·휴대폰 인증을 점검해 필수 약관 오류 설명과 아이디 형식 검증을 추가했다. 이메일 형식/문구를 공유하고 다른 필드 오류로 이메일 확인 상태가 취소되는 문제를 수정했다. [상태 문서](architecture/state.md)·[UI 문서](architecture/ui.md)·[검증 절차](development/verification.md)에 실제 확인 범위와 외부 인증 미연결 한계를 기록했다.
 
 - **Fix**: 사용자 제공 로그인 스크린샷의 비밀번호 규칙을 공통화해 가입·로그인·재설정의 길이·공백 검증 충돌을 제거하고, 비밀번호 재설정의 빈 입력 오류 문구를 FormField.error로 연결했다. 관련 placeholder·테스트·스토리를 보완하고 [상태 문서](architecture/state.md)·[UI 문서](architecture/ui.md)·[검증 절차](development/verification.md)에 Figma 원본 미대조와 데모 범위를 기록했다.
@@ -94,6 +110,8 @@
 
 ## 2026-10-16
 
+- **Test**: 1:1 문의 접수완료 상태를 확인할 수 있는 데스크톱·모바일 Storybook 화면을 추가했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 1:1 문의 유의사항 아코디언의 제목 아래 구분선은 펼쳤을 때만 표시하고 목록 간격과 화살표의 subtle 색상을 화면 이미지에 맞췄다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Update**: `/support/after-sales`의 A/S 처리현황을 Figma PC·모바일 배송 및 반품안내 화면으로 교체하고 메뉴명·탭·배송 안내 내용을 맞췄다. 내용 확인을 미룬 나머지 두 탭은 비활성화했다. [라우팅](architecture/routing.md)과 [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Fix**: 검색창과 공지사항 화면의 잘못된 `white.000` 배경 토큰을 `white.0`으로 바꿔 CSS 빌드 오류를 해소했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Refactor**: 답변된 1:1 문의 행의 직접 구현한 펼침 상태를 공통 `Accordion`으로 이전하고, 미답변 행의 빈 클릭 동작을 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.

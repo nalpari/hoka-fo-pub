@@ -84,7 +84,7 @@ const popup = cva({
 
 const popupWithFooter = css({ display: 'flex', flexDirection: 'column', overflow: 'hidden' });
 
-const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
+const content = css({ p: '24px', _mobile: { p: '24px 16px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 

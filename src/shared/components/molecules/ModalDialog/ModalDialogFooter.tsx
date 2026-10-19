@@ -7,7 +7,7 @@ const footerStyle = css({
   flexShrink: '0',
   px: '4',
   pb: '6',
-  '& > button': { w: '40', _mobile: { w: '100%' } },
+  '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },
 });
 
 const footerWithScrollFade = css({
