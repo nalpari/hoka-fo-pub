@@ -24,7 +24,7 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
       closeLabel="안내 닫기"
     >
       <Stack gap="4">
-        <Typography as="h2" variant="headingKr6">
+        <Typography as="h2" variant="body2">
           계정 잠금상태입니다
         </Typography>
         <Typography as="p" variant="body4">

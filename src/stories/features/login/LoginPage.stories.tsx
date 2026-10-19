@@ -180,7 +180,7 @@ export const MobileInvalidFormats: Story = { ...Mobile, play: InvalidFormats.pla
 export const UnavailableActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    for (const feature of ['카카오 로그인', '네이버 로그인', '비밀번호 찾기']) {
+    for (const feature of ['카카오 로그인', '네이버 로그인']) {
       await userEvent.click(canvas.getByRole('button', { name: feature }));
       await expect(canvas.getByRole('alert')).toHaveTextContent(
         `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
@@ -190,7 +190,7 @@ export const UnavailableActions: Story = {
         'aria-invalid',
       );
     }
-    await userEvent.click(canvas.getByRole('button', { name: '아이디 찾기' }));
+    await userEvent.click(canvas.getByRole('button', { name: '아이디/비밀번호 찾기' }));
     await expect(getRouter().push).toHaveBeenCalledWith('/login/find-account');
   },
 };

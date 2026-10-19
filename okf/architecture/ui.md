@@ -286,6 +286,9 @@ working_tree_sources:
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/shared/icons/fontAwesome.ts
   - src/shared/icons/iconAssets.ts
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/stories/components/atoms/Icon/Icon.stories.tsx
+  - public/images/icon/unlock-keyhole.svg
   - public/images/icon/navigation/membership.svg
   - src/stories/components/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
   - src/shared/features/run-club/RunClubBadge.tsx
@@ -325,6 +328,7 @@ working_tree_sources:
   - src/shared/features/product/ProductDetailHeaderMeta.tsx
   - src/shared/features/signup-terms/SignupTermsDetail.tsx
   - src/shared/features/signup-terms/SignupTermsContent.tsx
+  - src/shared/features/signup-terms/PreviousTermsPicker.tsx
   - src/shared/features/mypage/RunningProfilePage.tsx
   - src/shared/features/run-club/RunClubSessionHero.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
@@ -392,7 +396,6 @@ sources:
 ## 마이페이지 폼 포맷 정리 (2026-10-19)
 
 MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
-
 
 ## 회원가입·휴대폰 인증 오류 문구 보완 (2026-10-19)
 
@@ -485,6 +488,10 @@ AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModa
 - `organisms/Account/LogoutDialog`는 MyPage 접두사를 제거한 공용 로그아웃 확인 표현이며 실제 로그아웃은 MyPage가 처리한다. `AlreadyRegisteredModal`도 가입 폴더에서 Account로 이동했고 기존 PhoneVerificationPage 호출을 연결했다. 두 팝업의 현재 업무 호출부는 각각 한 곳이며 다른 진입점의 미래 사용을 이미 구현한 것으로 간주하지 않는다.
 - `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
 - `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
+
+회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/shared/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma `957:30452`이다.
+
+`AccountUnlockCompletePage`는 Figma desktop `957:30471`·mobile `957:29862` 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 노드 `957:30479`의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
 
 새 공용 팝업 6종은 `src/stories/components/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
 
@@ -675,6 +682,8 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 
 `FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`다.
 
+아이디·비밀번호 찾기 화면은 Figma 모바일 `957:29176`과 PC `957:29231` 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
+
 로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
 
 휴대폰 인증의 알뜰폰 사업자 안내는 사업자 목록만 `ModalDialog` 본문에 두고 확인 버튼을 `footer`에 전달한다. 긴 목록은 본문에서 스크롤되며 공통 푸터가 확인 버튼을 데스크톱 160px·모바일 전체 너비로 배치한다. 출처는 작업 트리의 `src/shared/features/phone-verification/PhoneVerificationContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
@@ -684,6 +693,8 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 계정 잠금 안내 모달의 확인 동작은 공통 `ModalDialog`의 `footer` 슬롯으로 구성한다. 본문은 안내 문구만 담당하고 푸터가 버튼의 크기·정렬을 맡는다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`다.
 
 `IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
+
+아이디 확인 모달은 모바일 Figma `957:29520`에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
 
 지정 범위는 `src/shared/components/`와 `src/shared/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
 
@@ -805,6 +816,8 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 `Typography loginTitle`은 로그인 환영 제목의 의미를 표현한다. 기존 `headingKr6`의 PC 36px와 로컬 모바일 강제 22px를 합친 토큰이며 두 플랫폼에서 Pretendard, 굵기 900, 행간 1.2, 자간 -0.02em을 유지한다. `--type-login-title-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}`를 사용한다. 호출자는 `as="h1"`을 유지하고 로컬에서는 여백만 지정한다. 가입 안내 h2의 로컬 `fontWeight: medium`도 기존 `body3`에 `weight="medium"`을 전달하도록 옮겼다.
 
+2026-10-19 Figma 로그인 화면 `957:28877`(모바일)·`957:28953`(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/shared/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
+
 Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField의 Field, Checkbox, Button은 기존 공용 래퍼를 유지한다. Form·Input·Separator·Toast는 설치 버전에서 지원하지만 네이티브 form/input, 장식용 구분선, 인라인 상태 안내의 기존 계약만으로 교체할 근거가 없어 유지한다. Dialog·OTP Field·Combobox 등 별도 상호작용을 추가할 관찰 근거는 없으며 의존성 업그레이드는 필요하지 않다.
 
 ## 추가 기능 폴더 점검 (2026-10-14)
@@ -861,9 +874,10 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음  |
 | PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유 |
 | 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
-| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                      |
+| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                                 |
 
 `AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+
 | 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음                            |
@@ -1042,13 +1056,11 @@ PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 
 
 작업 트리 출처는 `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/product/ProductDetailImageViewer.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`다. 상품 이미지 뷰어 제목에 적용하고 ScreenReaderOnly 스토리에서 Controls로 숨김을 전환할 수 있다. Panda 생성·전체 타입 검사·변경 TSX ESLint 통과. 브라우저·실제 스크린 리더 검증은 수행하지 않았다.
 
-
 ## Typography unstyled의 명시적 tone (2026-10-19)
 
 `variant="unstyled"`(기본값)에서도 명시한 `tone`은 색상만 적용한다. tone을 생략하면 상위/네이티브 색상을 보존한다. 글꼴·크기·굵기·행간은 그대로 유지하고 weight는 계속 생략한다. web/mo에서 unstyled가 선택될 때도 동일하다. 색상 매핑을 typographyTones로 공유하며 기존 명시적 variant의 색상 계약을 유지한다. NotFoundPage의 tertiary 색상 선언을 `tone="tertiary"`로 이전하고 m=0을 유지했다.
 
 작업 트리 출처: `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/not-found/NotFoundPage.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`. UnstyledTone 스토리는 상위 글꼴·크기·굵기를 상속하면서 tone 지정/생략 시 색상을 비교한다. 브라우저 시각 검증은 수행하지 않았다.
-
 
 ## Features 재사용성과 JSX 표현 점검 (2026-10-19)
 
@@ -1061,7 +1073,6 @@ Base UI 1.8.0의 package exports 전체를 공식 [컴포넌트 카탈로그](ht
 분리 후보는 장바구니의 목록/합계/추천 영역, 런칭 캘린더의 필터/대표 상품/카드 레일, IA 대시보드의 요약/필터/표 영역이다. 상태와 정책은 기존 부모에 유지하며 여러 기능의 같은 계약이 확인되기 전까지 공용 컴포넌트로 승격하지 않는다. 기존 CheckoutLayout/Fields/Summary 및 상품·런클럽의 기능 내부 분리는 유지했다.
 
 검증: Panda 생성, Features ESLint, 전체 타입 검사와 Next production build, Storybook production build를 실행했다. 변경 전 스냅샷 43개 파일의 JSX 976개를 정적으로 대조해 기존 Grid의 gap 보존을 보완했다. 대표 6개 컴포넌트(CheckoutLayout, CheckoutSummary, ProductInformation, ProductDetailDeliveryContent, ProductDetailReturnGuide, RunClubSessionNotes)의 PC/모바일 SSR 12건은 class 속성을 제외한 마크업이 일치했다. SSR 비교는 Next Link를 anchor로 대체하므로 실제 라우팅 검증을 포함하지 않는다. Storybook은 use client directive 및 번들 크기/타이밍 경고와 함께 빌드됐다. 브라우저 픽셀 비교·전체 상호작용 검증은 수행하지 않았다. 작업 트리 출처는 frontmatter의 해당 Features 경로다.
-
 
 ## Components 재사용성과 JSX 표현 점검 (2026-10-19)
 
@@ -1077,13 +1088,11 @@ component-reusability 스킬로 `src/shared/components/`의 213개 TSX를 점검
 
 상호작용 유지 판단과 후속 재사용 후보는 [Organisms 기록](organisms.md#components-점검-후-재사용-판단-2026-10-19)을 참고한다. 작업 트리 출처는 frontmatter의 관련 Components 경로다.
 
-
 ## 단일 자식 선택자의 스타일 소유권 (2026-10-19)
 
 RecommendedSearches의 유일한 ol에 적용하던 부모 `& ol`의 counterReset=item을 `<Box as="ol" counterReset="item">`로 이전했다. ol/li 의미·순서와 검색 클릭 콜백은 유지한다. mapped li의 justifyContent·gap과 li::before의 counterIncrement·content도 각 네이티브 li의 Panda css/_before로 이전했다. button 규칙은 기존 부모 선택자로 유지한다. 작업 트리 출처는 `src/shared/components/organisms/Search/RecommendedSearches.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
 
 스킬은 단순 자식 선택자의 소유자가 하나의 로컬 JSX이고 해당 요소가 독립적으로 소유할 스타일이면 직접 적용하도록 정리했다. map으로 여러 DOM을 생성해도 동일한 JSX 소유자면 이전할 수 있고, 자체 before/after 스타일도 함께 옮길 수 있다. 조건부/반응형 분기·외부 children·경쟁 스타일을 확인하며 태그·counter 범위/순서·유효한 cascade를 보존해야 한다. 다른 소유자/외부 children을 포괄하는 공유 규칙, 부모 상태·형제/위치 관계와 실제 CSS 상속은 일괄 이전 대상이 아니다. 반복이나 가상 요소라는 이유만으로 부모에 남기지 않는다. 타입 검사·해당 TSX ESLint·Prettier·Panda 생성 통과. 브라우저 시각 검증은 수행하지 않았다.
-
 
 ## Features·Components 자식 선택자 소유권 전수 점검 (2026-10-19)
 
@@ -1098,7 +1107,6 @@ RecommendedSearches의 유일한 ol에 적용하던 부모 `& ol`의 counterRese
 
 검증: Panda 생성·전체 타입 검사·양쪽 폴더 ESLint·변경 파일 Prettier·Next production build·Storybook production build를 통과했다. TypeScript AST로 변경 28개 파일의 JSX 552개의 원래 의미 태그·네이티브 속성을 비교해 차이가 없었다(스타일 자체의 computed cascade 비교는 제외). SignupProgress(local/naver와 step 0~3), RunClubFacts(hero/guide 및 mobileOnly/detail), 세션 안내·포스터·주의 사항, HeaderLogo/SearchHeader, StoreResults(빈 값/매장), ProductReviews, ExploreHub, LaunchCalendar, 이미지 뷰어의 PC/모바일 SSR 46건은 class 속성 외 마크업이 일치했다. SSR은 Next Link를 anchor 대역으로 사용하므로 실제 라우팅/클릭·키보드 검증은 포함하지 않는다. 브라우저 computed CSS·픽셀 비교는 수행하지 않았다. 작업 트리 출처는 frontmatter의 관련 경로이며 이전 점검의 수치는 해당 작업 당시 기준이다.
 
-
 ## 다단계 자식 선택자의 로컬 소유권 (2026-10-19)
 
 ReviewGalleryModal의 aside 아래 `& header div/small/button`, `& section div/button/.active` 6개 선택자를 정리했다. header의 정보 div는 Grid gap=1, section의 목록 div는 Flex gap=6px로 옮겼고, small 색상과 닫기 버튼 스타일도 각 JSX에 직접 적용했다. 반복 리뷰 Button의 크기·배치·테두리·색상·글자 크기는 해당 Button의 Panda className으로 옮겼다. Button 기본 recipe보다 우선하던 효과는 자체 `&&` 선택자로 보존한다. 중복된 section .active 규칙은 제거하고 기존 important 활성 클래스를 유지했다. 태그·DOM 구조·선택 조건·클릭 콜백과 모바일 조건은 바꾸지 않는다.
@@ -1106,7 +1114,6 @@ ReviewGalleryModal의 aside 아래 `& header div/small/button`, `& section div/b
 component-reusability의 단일 소유자 기준은 한 단계 선택자에 제한하지 않는다. `& header div`와 `& > header > div`처럼 여러 단계라도 전체 JSX 경로의 대상이 하나의 로컬 작성 노드로 확정되면 직접 적용한다. 공백 선택자는 직계 자식만 의미하지 않으므로 모든 매칭 분기와 커스텀 컴포넌트 출력까지 확인한다. 이번 추가 점검은 해당 모달 범위이며 앞선 381개 파일의 다단계 선택자까지 전수 검증했다는 뜻은 아니다.
 
 검증: 전체 타입 검사, 해당 TSX ESLint, TSX·스킬 Prettier, Panda 생성을 통과했다. 변경 전후 TypeScript AST의 JSX 24개에서 의미 태그·네이티브 속성 차이가 없었고, 생성 CSS의 Button 자체 이중 클래스 우선순위를 확인했다. 브라우저 computed CSS·시각 비교는 수행하지 않았다. 작업 트리 출처는 `src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
-
 
 ## 다단계 선택자 Features·Components 재점검 (2026-10-19)
 
@@ -1122,14 +1129,14 @@ Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 �
 
 두 단계 이상인 22개 중 3개를 옮기고 19개는 다음 근거로 유지했다. 깊이가 깊다는 이유로 제외한 항목은 없다.
 
-| 유지 영역 | 선택자 키 수 | 근거 |
-| --- | --- | --- |
-| DesignGuideTypography, ButtonDocs, DataTable, SizeGuideTable | 11 | 여러 작성 셀/표가 공유하거나 외부 children, rowspan, 행·열·짝수·형제 관계를 표현한다. SizeGuideTable의 두 번째 헤더 행도 네 개의 서로 다른 th를 대상으로 한다. |
-| IconButton의 SVG fill/stroke | 2 | 호출자가 제공하는 아이콘 내부의 여러 도형을 대상으로 하는 공용 계약이다. |
-| CarouselViewport, Terms | 2 | Swiper/외부 children과 Checkbox 라벨 내부의 외부 문구 전체에 적용하는 계약이다. |
-| Button의 iconOnly 내부 span 경로 | 1 | 공용 Button의 조건부 iconOnly 슬롯 계약이다. 부모 조건과 서로 다른 frame/content 소비자를 분리하는 API 변경은 이번 스타일 이전 범위에 포함하지 않는다. |
-| FooterLegalLinks | 1 | 여러 문구·링크 작성 노드가 공유하는 폰트 상속 규칙이다. |
-| MegaMenuList | 1 | 링크 hover/focus와 sale 자식 사이의 상태 관계를 표현한다. |
-| SignupTermsStep | 1 | 서로 다른 세 Terms 인스턴스의 Checkbox 내부 라벨을 함께 대상으로 한다. |
+| 유지 영역                                                    | 선택자 키 수 | 근거                                                                                                                                                           |
+| ------------------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DesignGuideTypography, ButtonDocs, DataTable, SizeGuideTable | 11           | 여러 작성 셀/표가 공유하거나 외부 children, rowspan, 행·열·짝수·형제 관계를 표현한다. SizeGuideTable의 두 번째 헤더 행도 네 개의 서로 다른 th를 대상으로 한다. |
+| IconButton의 SVG fill/stroke                                 | 2            | 호출자가 제공하는 아이콘 내부의 여러 도형을 대상으로 하는 공용 계약이다.                                                                                       |
+| CarouselViewport, Terms                                      | 2            | Swiper/외부 children과 Checkbox 라벨 내부의 외부 문구 전체에 적용하는 계약이다.                                                                                |
+| Button의 iconOnly 내부 span 경로                             | 1            | 공용 Button의 조건부 iconOnly 슬롯 계약이다. 부모 조건과 서로 다른 frame/content 소비자를 분리하는 API 변경은 이번 스타일 이전 범위에 포함하지 않는다.         |
+| FooterLegalLinks                                             | 1            | 여러 문구·링크 작성 노드가 공유하는 폰트 상속 규칙이다.                                                                                                        |
+| MegaMenuList                                                 | 1            | 링크 hover/focus와 sale 자식 사이의 상태 관계를 표현한다.                                                                                                      |
+| SignupTermsStep                                              | 1            | 서로 다른 세 Terms 인스턴스의 Checkbox 내부 라벨을 함께 대상으로 한다.                                                                                         |
 
 검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier·최종 소스의 Next/Storybook production build·git diff --check 통과. OKF 소스 매핑 누락도 없었다. TypeScript AST로 13개 파일의 JSX 164개를 비교해 의미 태그·네이티브 속성 차이가 없었다. PC/모바일 SSR 28건(선택된 질문, 주문 조회, Sale/일반 메뉴, 리뷰, 검색 입력·카테고리·기획전, 검색어 있음/없음, 매장 있음/없음, 휴대폰 약관 오류 유무, Explore fallback)은 class 이외 마크업이 일치했다. SSR의 Next Link·navigation은 대역을 사용했으며 모달 열린 상태·실제 이벤트·브라우저 computed CSS·시각 동일성은 검증하지 않았다. 작업 트리 출처는 frontmatter의 이번 관련 경로다.

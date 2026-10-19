@@ -5,6 +5,7 @@ const footerStyle = css({
   display: 'flex',
   justifyContent: 'center',
   flexShrink: '0',
+  gap: '2',
   px: '4',
   pb: '6',
   '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },

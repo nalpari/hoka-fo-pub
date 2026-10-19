@@ -5,6 +5,7 @@ import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { SignupTermsDetail } from '@/shared/features/signup-terms/SignupTermsDetail';
+import { PreviousTermsPicker } from '@/shared/features/signup-terms/PreviousTermsPicker';
 
 export const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
@@ -21,11 +22,14 @@ type Props = {
   agreements: boolean[];
   detail: number | null;
   previous: boolean;
+  previousPickerOpen: boolean;
   notice: string;
   onAllChange: (checked: boolean) => void;
   onChange: (index: number, checked: boolean) => void;
   onDetail: (index: number | null) => void;
   onPrevious: () => void;
+  onPreviousPickerClose: () => void;
+  onPreviousVersionSelect: () => void;
   onCancel: () => void;
   onNext: () => void;
 };
@@ -93,10 +97,15 @@ export function SignupTermsContent(props: Props) {
         </Grid>
       </Box>
       <SignupTermsDetail
-        selected={selected ?? null}
+        selected={props.previousPickerOpen ? null : (selected ?? null)}
         previous={props.previous}
         onClose={() => props.onDetail(null)}
         onPrevious={props.onPrevious}
+      />
+      <PreviousTermsPicker
+        open={props.previousPickerOpen}
+        onClose={props.onPreviousPickerClose}
+        onSelect={props.onPreviousVersionSelect}
       />
     </Box>
   );

@@ -1,39 +1,35 @@
-import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { faCheck } from '@/shared/icons/fontAwesome';
-
-const styles = {
-  check: css({
-    display: 'inline-flex',
-    w: '4',
-    h: '4',
-    border: '1px solid currentColor',
-    borderRadius: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    '& svg': { w: '2.5', h: '2.5' },
-  }),
-  description: css({ m: '0' }),
-};
 
 export function AccountUnlockCompletePage() {
   return (
-    <Box as="main" pt="12" px="4" pb="8" minH="calc(100svh - var(--layout-site-header-height))">
-      <Stack maxW="500px" mx="auto" gap="2" _mobile={{ pt: '2' }}>
-        <HStack as="h1" m="0" gap="2" alignItems="center">
-          <Typography variant="heading9">계정 잠금 해제 완료</Typography>
-          <span className={styles.check} aria-hidden="true">
-            <Icon fontAwesomeIcon={faCheck} />
-          </span>
-        </HStack>
-        <Typography as="p" variant="body5" tone="tertiary" className={styles.description}>
-          계정 잠금 상태가 성공적으로 해제되었습니다.
-          <br />
-          다시 로그인을 진행해 주세요.
-        </Typography>
+    <Box
+      as="main"
+      minH={{ base: '600px', _mobile: 'calc(100svh - var(--layout-site-header-height))' }}
+      pt={{ base: '24', _mobile: '10' }}
+      px={{ base: '36', _mobile: '4' }}
+      pb={{ base: '124px', _mobile: '8' }}
+    >
+      <Stack maxW="500px" mx="auto" gap="9">
+        <Stack gap="3">
+          <HStack as="h1" m="0" gap="2" alignItems="center">
+            <Typography as="span" web="heading7" mo="heading5">
+              계정 잠금 해제 완료
+            </Typography>
+            <Icon name="unlock-keyhole" size="18px" />
+          </HStack>
+          <Box as="p" m="0">
+            <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
+              계정 잠금 상태가 성공적으로 해제되었습니다.
+            </Typography>
+            <br />
+            <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
+              다시 로그인을 진행해 주세요.
+            </Typography>
+          </Box>
+        </Stack>
         <ButtonLink href="/login" variant="primary" fullWidth>
           홈으로
         </ButtonLink>
