@@ -1,19 +1,14 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
-import { StoreResults } from '@/shared/components/organisms/StoreFinder/StoreResults';
+import { StoreResults } from './StoreResults';
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { LoadMoreButton } from '@/shared/components/atoms/LoadMoreButton/LoadMoreButton';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import {
-  regions,
-  stores,
-  storeTypes,
-  type StoreType,
-} from '@/shared/features/store-finder/store.data';
+import { regions, stores, storeTypes, type StoreType } from './store.data';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { Box, Grid } from 'styled-system/jsx';
 
@@ -108,7 +103,7 @@ export function StoreFinderPage() {
               }}
             />
           </Typography>
-          <Button type="submit" variant="primary">
+          <Button size="short" type="submit" variant="primary">
             <Typography variant="body5" weight="inherit">
               검색
             </Typography>
@@ -146,6 +141,7 @@ export function StoreFinderPage() {
         >
           {storeTypes.map((item) => (
             <Button
+              size="short"
               className={type === item ? storeFinderStyles.active : ''}
               onClick={() => {
                 setType(item);
@@ -162,6 +158,7 @@ export function StoreFinderPage() {
         <StoreResults stores={filtered.slice(0, shown)} />
         {shown < filtered.length && (
           <LoadMoreButton
+            size="short"
             className={storeFinderStyles.more}
             onClick={() => setShown((count) => count + 6)}
             remaining={filtered.length - shown}

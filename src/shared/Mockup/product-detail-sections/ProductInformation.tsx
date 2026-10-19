@@ -70,6 +70,7 @@ export function ProductInformation() {
         )}
       </Grid>
       <ToggleButton
+        size="short"
         expanded={expanded}
         className={css({ mt: '30px', p: '0', border: '0', color: 'var(--color-text-tertiary)' })}
         onClick={() => setExpanded((previous) => !previous)}

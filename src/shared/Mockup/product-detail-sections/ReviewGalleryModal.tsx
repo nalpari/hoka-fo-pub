@@ -135,6 +135,7 @@ export function ReviewGalleryModal({
               <Flex pos="absolute" right={0} bottom="20px" left={0} justifyContent="center" gap="2">
                 {review.images.map((image, index) => (
                   <Button
+                    size="short"
                     aria-pressed={index === imageIndex}
                     className={[
                       css({
@@ -197,6 +198,7 @@ export function ReviewGalleryModal({
                 <Flex gap="6px">
                   {reviews.map((item, index) => (
                     <Button
+                      size="short"
                       aria-pressed={index === reviewIndex}
                       className={[
                         // Keep the local overrides above the Button recipe's base styles.

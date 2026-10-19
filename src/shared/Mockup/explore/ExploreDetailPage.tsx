@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
-import { findExploreScreen } from '@/shared/features/explore/exploreContent';
+import { findExploreScreen } from '@/shared/Mockup/explore/exploreContent';
 import { Stack, Grid, Box } from 'styled-system/jsx';
 
 const styles = {

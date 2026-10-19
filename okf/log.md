@@ -2,6 +2,20 @@
 
 ## 2026-10-19
 
+- **Refactor**: ExploreDetailPage와 exploreContent.ts를 Mockup/explore로 함께 옮기고 catch-all 라우트 import를 갱신했다. 기존 화면·데이터·URL과 미커밋 수정을 보존했으며 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
+
+- **Refactor**: LaunchCalendarPage와 내부 카드·데이터·스타일을 src/shared/Mockup/launch-calendar로 이동하고 앱 라우트 import를 갱신했다. 기존 URL·대상/탭 선택·상품 링크를 유지했다. [UI 기록](architecture/ui.md#런칭-캘린더-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#런칭-캘린더-목업-진입점-2026-10-19)을 참고한다.
+
+- **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-목업-진입점-2026-10-19)을 참고한다.
+
+- **Refactor**: running-hub 구현과 스토리 helper를 Mockup/running-hub로 옮기고 앱 라우트 7곳의 import를 갱신했다. 기존 내용·URL·kind·상태·스타일을 유지하고 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
+
+- **Refactor**: ExploreHubPage를 src/shared/Mockup/explore로 이동하고 /explore 라우트 import를 갱신했다. 페이지 내부 데이터·스타일·링크와 URL을 유지하며 상세 화면·데이터는 기존 위치에 둔다. [UI 기록](architecture/ui.md#explore-허브-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#explore-허브-목업-진입점-2026-10-19)을 참고한다.
+
+- **Refactor**: ProductDetailSections 구현 12개와 전용 스토리를 Mockup 영역으로 옮기고 import·Storybook 분류를 갱신했다. 기존 미커밋 수정과 시나리오를 유지했으며 타입·ESLint·Prettier·Panda·파일 내용 비교 및 브라우저 스토리 3개를 확인했다.
+
+- **Refactor**: SHOE FINDER 페이지와 내부 선택 데이터·상태·스타일을 src/shared/Mockup/shoe-finder로 이동하고 앱 라우트 import를 갱신했다. 기존 URL·추천 쿼리·short 버튼과 공유 UI를 유지했다. [구성 기록](architecture/ui.md#shoe-finder-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#shoe-finder-목업-진입점-2026-10-19)을 참고한다.
+
 - **Refactor**: RatingStars에 정수 별점 선택 모드를 통합하고 리뷰 작성·폼 스토리·회귀 검사의 RatingInput 참조를 이전했다. 문자열 별/CTA 래퍼를 동일 Icon 별로 바꾸고 Base UI 키보드·disabled·오류 연결과 기존 반별점 표시를 유지한다. 이전 RatingInput 구현·스토리를 제거하고 선택 스토리를 RatingStars 아래로 이동했다. [UI 계약](architecture/ui.md#별점-표시선택의-ratingstars-통합-2026-10-19)과 [검사 기록](development/verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)에 범위를 기록했다.
 
 - **Refactor**: 러닝 프로필 페이지·본문·질문 컴포넌트·질문 데이터를 `src/shared/Mockup/running-profile`로 분리했다. 전용 스토리도 src/stories/features/Mockup 아래로 이동하고 Mockup 분류를 적용했다. 기존 URL·메뉴·화면·상태와 PC/MO 스토리를 유지하며 라우트·Story helper import를 갱신했다. [목업 구성](architecture/ui.md#러닝-프로필-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#러닝-프로필-목업-진입점-2026-10-19)을 참고한다.

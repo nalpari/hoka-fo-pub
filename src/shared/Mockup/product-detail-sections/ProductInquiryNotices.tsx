@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { ProductInquiryAfterSalesNotice } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryAfterSalesNotice';
-import { ProductInquiryCareNotice } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryCareNotice';
-import { ProductInquiryDeliveryNotice } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryDeliveryNotice';
+import { ProductInquiryAfterSalesNotice } from '@/shared/Mockup/product-detail-sections/ProductInquiryAfterSalesNotice';
+import { ProductInquiryCareNotice } from '@/shared/Mockup/product-detail-sections/ProductInquiryCareNotice';
+import { ProductInquiryDeliveryNotice } from '@/shared/Mockup/product-detail-sections/ProductInquiryDeliveryNotice';
 import { Box } from 'styled-system/jsx';
 
 export function ProductInquiryNotices() {

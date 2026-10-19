@@ -1,5 +1,19 @@
 # 아키텍처
 
+EXPLORE 상세 페이지·전용 데이터도 허브와 같은 Mockup/explore로 이동했다. [상세 화면 목업 구성](ui.md#explore-상세-화면-목업-분리-2026-10-19)과 [진입점](routing.md#explore-상세-목업-진입점-2026-10-19)을 참고한다.
+
+런칭 캘린더의 전용 구현 이동은 [목업 구성](ui.md#런칭-캘린더-목업-분리-2026-10-19), 기존 URL 연결은 [라우트 기록](routing.md#런칭-캘린더-목업-진입점-2026-10-19)을 참고한다.
+
+매장 찾기 페이지·전용 데이터·결과 컴포넌트의 Mockup 이동은 [목업 구성](ui.md#매장-찾기-목업-분리-2026-10-19), 기존 URL 연결은 [라우트 기록](routing.md#매장-찾기-목업-진입점-2026-10-19)을 참고한다.
+
+running-hub 구현·helper의 Mockup 이동은 [목업 구성](ui.md#running-hub-목업-분리-2026-10-19), 7개 URL의 연결은 [라우트 기록](routing.md#running-hub-목업-라우트-연결-2026-10-19)을 참고한다.
+
+EXPLORE 허브의 Mockup 이동 범위는 [목업 구성](ui.md#explore-허브-목업-분리-2026-10-19), 기존 URL 연결은 [라우트 기록](routing.md#explore-허브-목업-진입점-2026-10-19)을 참고한다.
+
+ProductDetailSections 12개 파일과 전용 스토리의 Mockup 이동은 [상품 상세 섹션 목업 분리](ui.md#productdetailsections-목업-분리-2026-10-19)를 참고한다.
+
+SHOE FINDER의 전용 구현 이동은 [목업 구성](ui.md#shoe-finder-목업-분리-2026-10-19), 기존 URL 연결은 [목업 라우트](routing.md#shoe-finder-목업-진입점-2026-10-19)를 참고한다.
+
 별점 표시·선택의 RatingStars 통합과 RatingInput 제거는 [별점 컴포넌트 계약](ui.md#별점-표시선택의-ratingstars-통합-2026-10-19)을 참고한다.
 
 디자인 미확정 러닝 프로필의 Mockup 폴더·전용 데이터·스토리 분리는 [목업 구성](ui.md#러닝-프로필-목업-분리-2026-10-19), 기존 URL 연결은 [목업 라우트](routing.md#러닝-프로필-목업-진입점-2026-10-19)를 참고한다.

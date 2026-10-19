@@ -1,3 +1,3 @@
 'use client';
 
-export { LaunchCalendarPage as default } from '@/shared/features/launch-calendar/LaunchCalendarPage';
+export { LaunchCalendarPage as default } from '@/shared/Mockup/launch-calendar/LaunchCalendarPage';

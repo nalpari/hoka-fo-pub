@@ -26,6 +26,7 @@ export function ProductInquiryToolbar({
         onCheckedChange={onPrivateOnlyChange}
       />
       <Button
+        size="short"
         className={css({
           minW: '120px',
           minH: '10',

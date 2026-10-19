@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
-import { ProductInquiryNotices } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNotices';
-import { ProductInquiryToolbar } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryToolbar';
+import { ProductInquiryNotices } from '@/shared/Mockup/product-detail-sections/ProductInquiryNotices';
+import { ProductInquiryToolbar } from '@/shared/Mockup/product-detail-sections/ProductInquiryToolbar';
 import { Box } from 'styled-system/jsx';
 
 /** 상품별 문의 목록과 구매 전 안내를 제공합니다. */

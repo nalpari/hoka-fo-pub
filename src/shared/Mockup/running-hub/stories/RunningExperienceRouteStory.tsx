@@ -2,7 +2,7 @@ import { ShopShell } from '@/shared/ShopShell';
 import {
   RunningExperiencePage,
   type RunningExperienceKind,
-} from '@/shared/features/running-hub/RunningExperiencePage';
+} from '@/shared/Mockup/running-hub/RunningExperiencePage';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 
 const kinds = [

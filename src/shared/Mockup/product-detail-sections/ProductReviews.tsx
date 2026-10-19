@@ -4,7 +4,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 import { useState } from 'react';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
-import { ReviewGalleryModal } from '@/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal';
+import { ReviewGalleryModal } from '@/shared/Mockup/product-detail-sections/ReviewGalleryModal';
 import { Grid, Flex, Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
@@ -208,6 +208,7 @@ export function ProductReviews() {
                   )}
                 </Typography>
                 <ToggleButton
+                  size="short"
                   expanded={expanded}
                   className={moreButton}
                   onClick={() => setExpandedAuthor(expanded ? null : review.author)}

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProductDetailSections } from '@/shared/components/organisms/Product/ProductDetailSections/ProductDetailSections';
+import { ProductDetailSections } from '@/shared/Mockup/product-detail-sections/ProductDetailSections';
 import { PlatformProvider } from '@/shared/context/platform';
 
 const meta = {
-  title: 'Organisms/Product/ProductDetailSections',
+  title: 'Mockup/ProductDetailSections',
   component: ProductDetailSections,
 } satisfies Meta<typeof ProductDetailSections>;
 

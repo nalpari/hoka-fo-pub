@@ -9,6 +9,41 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
+  - src/shared/Mockup/store-finder/store.data.ts
+  - src/shared/Mockup/store-finder/StoreResults.tsx
+  - src/shared/Mockup/store-finder/StoreFinderPage.tsx
+  - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
+  - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
+  - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
+  - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
+  - src/shared/Mockup/product-detail-sections/ReviewGalleryModal.tsx
+  - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryToolbar.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryNotices.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryDeliveryNotice.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryCareNotice.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiryAfterSalesNotice.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInquiry.tsx
+  - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
+  - src/shared/Mockup/product-detail-sections/ProductDetailSections.tsx
+  - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
+  - src/shared/Mockup/explore/exploreContent.ts
+  - src/shared/Mockup/explore/ExploreHubPage.tsx
+  - src/shared/Mockup/explore/ExploreDetailPage.tsx
+  - src/app/support/store/page.tsx
+  - src/app/store/experience/page.tsx
+  - src/app/running/shoe-finder/page.tsx
+  - src/app/running/rotation/page.tsx
+  - src/app/running/rewards/page.tsx
+  - src/app/running/reviews/page.tsx
+  - src/app/running/plans/page.tsx
+  - src/app/running/alerts/page.tsx
+  - src/app/launch-calendar/page.tsx
+  - src/app/explore/shoe-finder/page.tsx
+  - src/app/explore/page.tsx
+  - src/app/explore/[...slug]/page.tsx
   - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
   - src/shared/components/atoms/RatingStars/RatingStars.tsx
@@ -433,6 +468,48 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## EXPLORE 상세 화면 목업 분리 (2026-10-19)
+
+ExploreDetailPage와 해당 화면에서만 사용하는 exploreContent.ts를 src/shared/Mockup/explore로 함께 옮겼다. 이전 허브 이동에서 제외했던 상세 구현도 이제 같은 목업 폴더에 위치한다. 화면·준비 중 상태·콘텐츠 데이터·버튼의 기존 미커밋 수정은 유지하고 import만 새 경로로 연결한다.
+
+검증: 이동 전후 import 치환·포맷 정규화 후 내용 일치와 src의 이전 구현·데이터 경로 참조 부재를 확인했다. Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. production build와 브라우저 화면 검증은 재실행하지 않았다.
+
+## 런칭 캘린더 목업 분리 (2026-10-19)
+
+LaunchCalendarPage 전용 구현을 src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx로 이동했다. 내부 LaunchCard·런칭 데이터·톤 타입·Panda 스타일·성인/키즈 선택·History/Now/Coming 상태와 필터·현재 출시 상품·상품 상세 링크를 유지한다. 전용 외부 파일이나 스토리는 없다. 공유 Button·Typography·Panda 레이아웃은 기존 위치에서 재사용한다.
+
+검증: Prettier 포맷을 정규화해 이동 전후 페이지 내용 보존과 이전 경로 참조 제거를 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## 매장 찾기 목업 분리 (2026-10-19)
+
+매장 찾기 구현은 src/shared/Mockup/store-finder에 모은다. StoreFinderPage·store.data는 기존 features/store-finder에서 이동하고, 이 화면만 사용하는 StoreResults는 organisms/StoreFinder에서 함께 이동했다. 전용 외부 사용처나 스토리는 없다. 기존 매장 데이터·지역/유형·검색 상태·6개 단위 더보기·결과 없음·스타일·버튼 크기는 유지한다. 공유 SidebarNavigationLayout·PageHeader·입력/선택·버튼과 supportNavigation은 기존 위치에서 재사용한다.
+
+검증: import 경로와 Prettier 포맷을 정규화해 이동 파일 3개의 기존 내용 보존을 확인했다. 이전 경로 참조 제거, 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## running-hub 목업 분리 (2026-10-19)
+
+RunningExperiencePage와 stories/RunningExperienceRouteStory helper를 src/shared/Mockup/running-hub로 옮겼다. 7개 kind의 화면·상태·Panda 스타일·기존 버튼 수정은 유지하며 내부 helper와 앱 진입점 import만 갱신한다. helper는 *.stories.tsx가 아니며 새로운 Storybook 분류나 스토리는 추가하지 않았다.
+
+검증: 이동 전 내용과 import 치환·포맷 정규화 후 내용이 동일함을 비교했다. src의 기존 features/running-hub 참조가 없고 Panda 생성·전체 타입 검사·관련 파일 ESLint/Prettier를 통과했다. production build와 브라우저 화면 검증은 재실행하지 않았다.
+
+## EXPLORE 허브 목업 분리 (2026-10-19)
+
+ExploreHubPage의 전용 구현은 src/shared/Mockup/explore/ExploreHubPage.tsx로 이동했다. 페이지 내부 groups 데이터·Panda 스타일·배너·카테고리 링크를 그대로 유지하며 ContentLayout·ButtonLink·Typography 등 실제 공용 UI는 기존 위치에서 재사용한다. 전용 외부 컴포넌트·데이터·스토리는 없다. 별도 상세 화면 ExploreDetailPage와 상세 데이터 exploreContent.ts는 이번 이동 대상이 아니다.
+
+검증: 이동 전후 페이지 내용이 줄바꿈을 제외하고 일치하며 이전 경로 import가 남지 않았음을 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## ProductDetailSections 목업 분리 (2026-10-19)
+
+상품 상세 섹션 목업 12개 파일을 `src/shared/Mockup/product-detail-sections/`로 옮기고 내부 import를 새 경로로 갱신했다. 구현 외부 참조는 전용 Storybook뿐이며 실제 상품 상세 feature로 적용 범위를 넓히지 않았다. 전용 스토리는 `src/stories/features/Mockup/product-detail-sections/`로 이동해 `Mockup/ProductDetailSections`로 분류한다. 기존 default·without-size-guide·mobile 시나리오와 이동 전 미커밋 수정 내용은 유지한다.
+
+검증: 이동 전 파일 12개와 import 경로 치환·포맷 정규화 후 내용이 동일함을 비교했다. 기존 경로 참조가 src에 없고 Panda 생성·전체 타입 검사·이동 파일 ESLint/Prettier가 통과했다. Edge headless에서 기본·사이즈 가이드 제외·모바일 3개 스토리의 렌더링과 리뷰 섹션 이동, 콘솔 pageerror 부재를 확인했다. production build는 재실행하지 않았다.
+
+## SHOE FINDER 목업 분리 (2026-10-19)
+
+디자인 미확정 SHOE FINDER 구현은 src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx로 이동했다. 기존 파일의 활동·쿠셔닝 선택 데이터, 상태, Panda 스타일과 추천 상품 쿼리 연결을 그대로 옮겼으며 전용 외부 컴포넌트·데이터·스토리는 없다. 기존 short 버튼 크기와 클라이언트 경계를 유지한다. 공유 ContentLayout·Button·Typography는 기존 위치에서 재사용한다. 홈의 HomeShoeFinderSection과 /running/shoe-finder의 RunningExperiencePage는 별도 구현이므로 이번 이동 대상이 아니다.
+
+검증: 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 기존 URL 목록의 앱 라우트 검사 2개를 통과했다. 이전 ShoeFinderPage import가 소스에 남지 않았음을 확인했다. 브라우저 화면 비교는 재실행하지 않았다.
 
 ## 별점 표시·선택의 RatingStars 통합 (2026-10-19)
 

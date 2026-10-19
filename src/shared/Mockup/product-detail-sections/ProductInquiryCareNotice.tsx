@@ -1,4 +1,4 @@
-import { ProductInquiryNoticeSection } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection';
+import { ProductInquiryNoticeSection } from '@/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection';
 
 type ProductInquiryCareNoticeProps = {
   isOpen: boolean;

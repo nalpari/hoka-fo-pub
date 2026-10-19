@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ProductInformation } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInformation';
-import { ProductInquiry } from '@/shared/components/organisms/Product/ProductDetailSections/ProductInquiry';
-import { ProductReviews } from '@/shared/components/organisms/Product/ProductDetailSections/ProductReviews';
-import { SizeGuideTable } from '@/shared/components/organisms/Product/ProductDetailSections/SizeGuideTable';
+import { ProductInformation } from '@/shared/Mockup/product-detail-sections/ProductInformation';
+import { ProductInquiry } from '@/shared/Mockup/product-detail-sections/ProductInquiry';
+import { ProductReviews } from '@/shared/Mockup/product-detail-sections/ProductReviews';
+import { SizeGuideTable } from '@/shared/Mockup/product-detail-sections/SizeGuideTable';
 import { css, cva } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
