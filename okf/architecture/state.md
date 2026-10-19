@@ -6,9 +6,15 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:12:46.389Z'
+  at: '2026-10-19T00:12:41.476Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/lib/emailValidation.ts
+  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
+  - src/shared/lib/passwordValidation.ts
+  - src/shared/features/signup/SignupPage.tsx
+  - src/shared/features/signup-registration/RegistrationPage.tsx
+  - src/shared/features/find-account/passwordValidation.ts
   - src/shared/features/phone-verification/PhoneVerificationPage.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/stories/features/login/LoginPage.stories.tsx
@@ -49,7 +55,7 @@ sources:
 | 플랫폼         | 서버가 선택한 값을 `PlatformProvider`에 전달         | 공통 레이아웃의 플랫폼 선택을 공유                         |
 | 관심·최근 개수 | `ShopShell`의 상수                                   | 현재 데모 값은 각각 3, 7                                   |
 
-로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 비어 있지 않은 아이디·비밀번호만 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
+로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 이메일 형식과 영문·숫자·특수문자를 모두 포함한 공백 없는 10~12자 비밀번호를 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
@@ -57,7 +63,27 @@ sources:
 
 2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.
 
-로그인 필수값 검증 실패 시 `LoginNotice.invalidFields`에 비어 있는 필드 이름을 기록한다. LoginForm은 현재 입력값과 함께 이 목록을 확인해 해당 FormField의 invalid를 설정하며 TextInput은 Context를 통해 오류 상태를 받는다. 입력하면 해당 필드 표시가 해제되고, 기능 미연결 안내는 invalidFields를 갖지 않는다. 폼에는 noValidate를 설정해 네이티브 required 검증이 onSubmit을 차단하지 않도록 하고 required 속성 자체는 유지한다. 타입 검사·변경 범위 ESLint를 통과했고 브라우저 LoginFlow에서 빈 값 검증·입력 후 오류 해제·데모 성공 흐름을 확인했다.
+첨부 디자인의 필드별 형식 안내가 빠져 있어 2026-10-19 후속 수정으로 `LoginNotice.invalidFields`를 `LoginForm.errors`로 대체했다. LoginPage는 최초 제출 후 현재 입력값에서 오류를 계산한다. 빈 값과 잘못된 이메일에는 “올바른 이메일 형식으로 입력해 주세요”, 비밀번호 규칙 위반에는 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”를 전달한다. 값이 규칙에 맞아야 해당 오류가 해제되고 다시 잘못된 값으로 수정하면 재표시된다.
+
+LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를 통해 invalid와 해당 오류의 aria-describedby를 상속한다. `LoginNotice`는 성공·기능 미연결 안내만 담당한다. 폼의 noValidate와 required는 유지하고 형식 오류가 있으면 onLogin·홈 이동을 차단한다. Error·MobileError는 두 문구의 정적 예시이고, LoginFlow와 InvalidFormats는 실제 제출·수정 흐름을 검사한다. 후속 검증 결과와 작업 트리의 다른 화면 문법 오류로 인한 전체 검사 제한은 [UI 문서](ui.md#로그인-형식-오류-안내-보완-2026-10-19)에 기록한다.
+
+## 회원가입·휴대폰 인증 오류 상태 보완 (2026-10-19)
+
+일반 가입은 아이디 placeholder의 영문·숫자 4자 이상 조건을 실제 제출 검사에 연결한다. 빈 아이디에는 기존 필수 입력 문구를 유지하고 4자 미만·공백·특수문자가 포함된 아이디에는 “영문, 숫자 조합으로 4자 이상 입력해 주세요.”를 필드 오류로 표시한다. 소셜 가입에는 이 로컬 계정 조건을 적용하지 않는다.
+
+이메일은 src/shared/lib/emailValidation.ts를 통해 일반 가입·회원정보 가입·로그인이 같은 형식과 오류 문구를 사용한다. 회원정보의 분리된 이메일/도메인 입력도 동일한 부분 검사를 사용한다. 이메일 앞뒤 공백은 기존대로 제거하며 로컬 부분의 선행·후행·연속 점, 64자 초과 및 잘못된 도메인은 거부한다. 기존 일반 가입에서 통과하고 로그인에서 거부되던 점 없는 도메인 차이도 제거했다.
+
+RegistrationPage의 checkedEmail은 이메일·도메인 변경이나 실패한 이메일 확인에서만 초기화한다. 다른 필드의 오류로 이를 취소하면서 기존 형식 확인 안내는 남아 있던 상태 불일치를 수정했다. 이메일을 바꾸면 안내와 확인 상태가 함께 해제된다. 중복확인은 여전히 형식 확인 데모이며 실제 사용 가능 판정을 추가하지 않는다.
+
+휴대폰 인증의 필수 약관 누락은 개별 invalid 외에 “필수 약관에 모두 동의해 주세요.”를 표시한다. 모두 동의하면 해제되고, 인증번호 요청 후 동의를 취소해 확인을 누르면 다시 표시된다. 실제 문자 발송·인증 성공/실패·가입 여부 확인은 외부 서비스 미연결 범위로 남긴다.
+
+## 가입·로그인·재설정 비밀번호 정책 (2026-10-19)
+
+사용자가 제공한 로그인 오류 화면의 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”와 기존 회원정보 가입 규칙을 기준으로, 일반 가입·회원정보 가입·로그인·비밀번호 재설정이 `src/shared/lib/passwordValidation.ts`의 isValidPassword와 passwordRequirementsMessage를 공유한다. 공백 없는 10~12자에 영문·숫자·특수문자가 모두 있어야 한다. 기존 일반 가입의 8자 이상, 재설정의 12자 이상, 회원정보 가입의 공백 허용 차이를 제거해 생성·변경 가능한 비밀번호가 로그인에서 거부되는 충돌을 해소했다. 실제 인증이나 저장을 추가하지 않는다.
+
+재설정의 validatePasswordReset도 공통 모듈에서 제공하며 기존 기능 경로는 재수출로 호환한다. 빈 비밀번호는 공통 규칙 문구, 빈 확인란은 “비밀번호를 다시 입력해 주세요.”, 불일치는 기존 “동일한 비밀번호가 입력되었는지 확인해주세요.”를 반환한다. required라는 내부 표식을 반환해 화면에서 설명을 숨기던 경로는 제거했다.
+
+Figma 제공 링크의 291:53311·291:60808은 재인증 오류로 원문을 읽지 못했다. 이 정책 통일은 사용자가 확인한 로그인 스크린샷과 코드의 충돌을 보완한 것이며 두 Figma 영역 전체와 일치한다는 판정은 아니다. 이메일 중복·인증번호의 실제 서버 검증은 계속 데모 안내로 표시한다.
 
 ## 장바구니 항목
 

@@ -9,13 +9,13 @@ import {
 } from './RegistrationContent';
 import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
 import { isValidName } from '@/shared/lib/validation';
-
-const emailLocalPartPattern = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$/;
-
-const emailDomainPattern =
-  /^(?=.{1,253}$)(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
-
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{10,12}$/;
+import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
+import {
+  isValidEmailLocalPart,
+  isValidEmailDomain,
+  emailFormatErrorMessage,
+  emailDomainErrorMessage,
+} from '@/shared/lib/emailValidation';
 
 const receivedVerificationInfo = {
   birthDate: '19830522',
@@ -85,12 +85,8 @@ export function RegistrationPage() {
 
   const checkEmail = () => {
     const errors = {
-      email: emailLocalPartPattern.test(information.email.trim())
-        ? ''
-        : '올바른 이메일 형식으로 입력해 주세요',
-      domain: emailDomainPattern.test(information.domain.trim())
-        ? ''
-        : '올바른 도메인 형식으로 입력해 주세요',
+      email: isValidEmailLocalPart(information.email.trim()) ? '' : emailFormatErrorMessage,
+      domain: isValidEmailDomain(information.domain.trim()) ? '' : emailDomainErrorMessage,
     };
     setFieldErrors((previous) => ({ ...previous, ...errors }));
     if (errors.email || errors.domain) {
@@ -110,12 +106,12 @@ export function RegistrationPage() {
       setSummaryOpen(true);
       return;
     }
-    const emailError = emailLocalPartPattern.test(information.email.trim())
+    const emailError = isValidEmailLocalPart(information.email.trim())
       ? ''
-      : '올바른 이메일 형식으로 입력해 주세요';
-    const domainError = emailDomainPattern.test(information.domain.trim())
+      : emailFormatErrorMessage;
+    const domainError = isValidEmailDomain(information.domain.trim())
       ? ''
-      : '올바른 도메인 형식으로 입력해 주세요';
+      : emailDomainErrorMessage;
     const errors = {
       email: emailError,
       postalCode: information.postalCode.trim() ? '' : '우편번호 찾기로 우편번호를 입력해주세요.',
@@ -123,9 +119,7 @@ export function RegistrationPage() {
       addressDetail: information.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
       domain: domainError,
       name: isValidName(information.name) ? '' : '올바른 이름을 입력해주세요',
-      password: passwordPattern.test(information.password)
-        ? ''
-        : '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+      password: isValidPassword(information.password) ? '' : passwordRequirementsMessage,
       confirmation:
         information.confirmation && information.password === information.confirmation
           ? ''
@@ -133,9 +127,6 @@ export function RegistrationPage() {
     };
     setFieldErrors(errors);
     if (Object.values(errors).some(Boolean)) {
-      if (errors.email || errors.domain || errors.name || errors.password || errors.confirmation) {
-        setCheckedEmail('');
-      }
       setNotice('');
       return;
     }
@@ -150,8 +141,8 @@ export function RegistrationPage() {
       !information.postalCode.trim() ||
       !information.address.trim() ||
       !information.addressDetail.trim() ||
-      !emailLocalPartPattern.test(information.email.trim()) ||
-      !emailDomainPattern.test(information.domain.trim())
+      !isValidEmailLocalPart(information.email.trim()) ||
+      !isValidEmailDomain(information.domain.trim())
     ) {
       setNotice('필수 회원정보와 올바른 이메일 주소를 입력해주세요.');
       return;

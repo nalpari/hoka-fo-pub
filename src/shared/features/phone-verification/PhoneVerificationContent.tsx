@@ -130,6 +130,7 @@ export function PhoneVerificationContent(props: Props) {
           pb="6"
           borderBottom="1px solid var(--color-black-20)"
           aria-labelledby="phone-terms-title"
+          aria-describedby={showAgreementErrors ? 'phone-terms-error' : undefined}
         >
           <HStack justify="space-between" mb="2">
             <Typography as="h2" id="phone-terms-title" variant="headingKr7">
@@ -159,6 +160,11 @@ export function PhoneVerificationContent(props: Props) {
               </Button>
             </HStack>
           ))}
+          {showAgreementErrors ? (
+            <StatusMessage id="phone-terms-error" tone="error">
+              필수 약관에 모두 동의해 주세요.
+            </StatusMessage>
+          ) : null}
         </Stack>
         <Box my="6">
           <Typography as="h2" variant="headingKr9">

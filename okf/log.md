@@ -2,6 +2,12 @@
 
 ## 2026-10-19
 
+- **Fix**: 비밀번호 외 회원가입·휴대폰 인증을 점검해 필수 약관 오류 설명과 아이디 형식 검증을 추가했다. 이메일 형식/문구를 공유하고 다른 필드 오류로 이메일 확인 상태가 취소되는 문제를 수정했다. [상태 문서](architecture/state.md)·[UI 문서](architecture/ui.md)·[검증 절차](development/verification.md)에 실제 확인 범위와 외부 인증 미연결 한계를 기록했다.
+
+- **Fix**: 사용자 제공 로그인 스크린샷의 비밀번호 규칙을 공통화해 가입·로그인·재설정의 길이·공백 검증 충돌을 제거하고, 비밀번호 재설정의 빈 입력 오류 문구를 FormField.error로 연결했다. 관련 placeholder·테스트·스토리를 보완하고 [상태 문서](architecture/state.md)·[UI 문서](architecture/ui.md)·[검증 절차](development/verification.md)에 Figma 원본 미대조와 데모 범위를 기록했다.
+
+- **Fix**: 로그인에서 빠져 있던 이메일·비밀번호 형식 오류 문구를 FormField.error로 표시하고 제출 이후 입력 수정에 따라 오류를 갱신한다. Error·MobileError를 디자인의 두 문구 예시로 바꾸고 형식·길이·문자 조합 검증 스토리를 추가했다. [상태 문서](architecture/state.md)와 [UI 문서](architecture/ui.md)에 계약과 검증 제한을 기록했다.
+
 - **Fix / Audit**: 63개 페이지의 Form·안내 사용 경로를 조사하고 부모 오류 상속·선택형 컨트롤 표시·오류 설명 연결을 보완했다. 인증 만료 색상과 인증번호·가입·주소·프로필·리뷰·사이즈·주문·쿠폰·푸터 이메일 검증 연결을 수정했다. [전수 점검 보고서](development/form-state-audit.md)에 라우트별 범위와 실제 검사 결과, 검증 한계를 기록하고 PC·모바일 회귀 스토리와 서버 렌더링 검사를 추가했다.
 
 - **Style**: 마이페이지 배송지·프로필의 기존 코드 포맷을 정리했다. 동작 변경을 포함하지 않는 포맷 기준선을 [UI 아키텍처](architecture/ui.md)에 기록했다.
