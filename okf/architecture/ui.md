@@ -425,6 +425,14 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 단일 확인 버튼 모달의 공통 기본값 (2026-10-19)
+
+확인 버튼은 `fullWidth`도 기본 true로 처리한다. disabled 등 다른 confirmButtonProps만 전달하거나 size/fullWidth가 undefined여도 short/true 기본값을 유지하며 명시적 false는 허용한다. 계정 안내 2곳과 TermsDialog의 중복 fullWidth 지정을 제거했다. 기존 ShortFullWidth 스토리는 기본값을 사용하고 ContentWidth 스토리로 false 재정의를 제공한다. 타입·변경 파일 ESLint/Prettier와 브라우저 기본/false/disabled/MO 옵션 적용 및 기존 확인·닫기·Escape play를 확인했다. fullWidth는 기존 ModalDialogFooter의 버튼 너비 규칙 안에서 적용된다.
+
+ModalDialog의 `actionCount?: 1 | 2 | null`은 footer 액션 개수를 나타내며 기본값은 null이다. SingleActionDialog는 내부에서 `actionCount={1}`을 전달한다. 액션이 하나면 본문 패딩은 PC `24px 24px 16px`, MO `24px 16px 16px 16px`이며, 2 또는 null이면 기존 기본 패딩을 사용한다. 일반적인 간격 선택 API를 노출하지 않는다. SingleActionDialog의 확인 버튼은 기본 short이며 명시적인 tall 지정은 계속 지원한다. 계정 안내·주소 검색의 중복 short 설정은 제거했다. TermsDialog도 별도 크기 지정 없이 공통 short/fullWidth 기본값을 사용한다.
+
+검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier, Edge headless에서 단일 모달 PC/MO·disabled·fullWidth·마케팅 안내와 일반 모달 PC/MO 총 7건의 패딩 및 버튼 크기를 확인했다. 기존 단일 모달과 마케팅 안내의 PC/MO play 4개도 통과했다. actionCount 적용 후 타입 검사와 단일 모달 PC/MO·일반 모달 PC의 패딩을 다시 확인했다. production build는 실행하지 않았다.
+
 ## 미사용 ProductCompareButton 제거 (2026-10-19)
 
 `src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx`는 자체 컴포넌트·props 타입 선언 외 import·재수출·사용처·스토리가 없어 삭제했다. 앞선 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 함께 제거한다. frontmatter의 해당 경로는 삭제 전 검토 출처다.

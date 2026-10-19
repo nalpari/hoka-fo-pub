@@ -1,5 +1,7 @@
 # 아키텍처
 
+SingleActionDialog의 확인 버튼은 기본 short/fullWidth true이며 명시적 false 재정의를 지원한다. [공통 기본값](ui.md#단일-확인-버튼-모달의-공통-기본값-2026-10-19)을 참고한다.
+
 자체 선언 외 참조가 없는 ProductCompareButton 삭제는 [미사용 비교 버튼 제거](ui.md#미사용-productcomparebutton-제거-2026-10-19)를 참고한다.
 
 참조 없는 ProductActionBar 삭제와 실제 구매 액션의 위치는 [미사용 컴포넌트 제거](ui.md#미사용-productactionbar-제거-2026-10-19)를 참고한다.

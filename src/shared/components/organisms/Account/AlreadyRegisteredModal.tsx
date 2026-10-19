@@ -23,7 +23,6 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
       closeLabel="이미 가입한 회원 안내 닫기"
       size="md"
       onConfirm={onConfirm}
-      confirmButtonProps={{ size: 'short', fullWidth: true }}
     >
       <Stack gap="4" className={styles.body}>
         <Typography as="h2" variant="body2" className={styles.heading}>
