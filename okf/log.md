@@ -2,6 +2,10 @@
 
 ## 2026-10-19
 
+- **Refactor**: 실제 화면에서 참조하지 않는 ReviewManager와 전용 부품·타입·스토리 7개를 제거했다. MyPageReviews의 상태/이벤트는 유지하고 본문·탭·툴바·목록·항목·더보기 6개 기능 내부 컴포넌트와 타입으로 분리했다. 타입·ESLint·Prettier·앱/Storybook 빌드, 전후 SSR 6개와 실제 PC/MO 작성·수정·검증·정렬·더보기 흐름을 확인했다. [UI 기록](architecture/ui.md#마이페이지-리뷰-분리와-미사용-목업-제거-2026-10-19)을 참고한다.
+
+- **Refactor**: ReviewManager의 탭·정렬/건수·리뷰 목록·작성 영역을 전용 컴포넌트 4개로 분리했다. 상태·검증·페이지 처리는 부모에 유지하고 DOM·스타일·첨부/취소 동작을 보존했다. 타입·ESLint·Prettier·Panda·기존 PC/MO play 및 페이지/탭/첨부/취소 브라우저 흐름을 확인했다.
+
 - **Refactor**: ExploreDetailPage와 exploreContent.ts를 Mockup/explore로 함께 옮기고 catch-all 라우트 import를 갱신했다. 기존 화면·데이터·URL과 미커밋 수정을 보존했으며 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
 
 - **Refactor**: LaunchCalendarPage와 내부 카드·데이터·스타일을 src/shared/Mockup/launch-calendar로 이동하고 앱 라우트 import를 갱신했다. 기존 URL·대상/탭 선택·상품 링크를 유지했다. [UI 기록](architecture/ui.md#런칭-캘린더-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#런칭-캘린더-목업-진입점-2026-10-19)을 참고한다.

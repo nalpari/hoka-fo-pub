@@ -9,6 +9,13 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/mypage/reviews/reviews.types.ts
+  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewToolbar.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewTabs.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewList.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewItem.tsx
   - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
   - src/shared/Mockup/store-finder/store.data.ts
   - src/shared/Mockup/store-finder/StoreResults.tsx
@@ -468,6 +475,22 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 마이페이지 리뷰 분리와 미사용 목업 제거 (2026-10-19)
+
+실제 /mypage/reviews는 MyPageStatusPage가 MyPageReviews를 렌더링한다. organisms/MyPage/ReviewManager는 실제 화면의 import·재수출·호출이 없고 단독 Storybook만 참조하므로 삭제했다. 전용 ReviewEditor·ReviewList·ReviewListToolbar·ReviewStatusTabs·ReviewManager.types와 ReviewManager 스토리도 다른 사용처가 없어 함께 제거했다. 공용 RatingStars·Pagination·첨부 컴포넌트와 실제 MyPageReviewDialog는 삭제 대상이 아니다.
+
+MyPageReviews는 탭·정렬·표시 건수·편집값·검증·작성 리뷰 저장 상태와 이벤트를 소유한다. features/mypage/reviews의 MyPageReviewsContent는 탭·빈 상태·목록·더보기를 배치하며 MyPageReviewTabs, MyPageReviewToolbar, MyPageReviewList, MyPageReviewItem, MyPageReviewLoadMore가 각 화면 영역을 담당한다. reviews.types는 탭·작성 리뷰·목록 항목 타입을 공유한다. MyPageReviewDialog는 기존 컴포넌트를 재사용하고 상태는 페이지에 유지한다. 새 DOM 래퍼·client 경계를 추가하지 않았으며 기존 텍스트·버튼 크기·간격·목록 키·선택/정렬·작성값·닫기 초기화를 보존한다.
+
+검증: 전체 타입·변경 파일 ESLint/Prettier·Panda·Next/Storybook production build를 통과했다. 기존 페이지 소스를 별도로 읽어 웹/모바일 × 초기 건수 0/1/62의 6개 SSR 마크업을 비교했고 React 생성 ID를 정규화한 DOM이 일치했다. Edge/Playwright는 실제 production /mypage/reviews를 PC 1280px·모바일 UA/375px로 열어 더보기 10→20개, 탭 복귀 10개, 필수 별점/본문 오류, 작성 후 목록 3개, 수정 팝업 기존 값, 별점·본문 저장, 오래된 순 정렬, 닫기 초기화와 브라우저 오류 부재를 확인했다. 제거 대상은 소스·테스트에 참조가 없고 기존 화면/폼 상태 스토리는 유지한다.
+
+## ReviewManager 역할별 구성 분리 (2026-10-19)
+
+이 절은 삭제 전 작업 이력이다. 현재 실제 화면에는 사용되지 않는 목업으로 확인되어 위의 미사용 제거 작업에서 구현·전용 부품·스토리를 삭제했다.
+
+ReviewManager는 상태·페이지·편집값·검증·초기화를 소유하고, 같은 organism 폴더의 ReviewStatusTabs(상태 탭), ReviewListToolbar(정렬·건수), ReviewList(빈 상태·상품 행), ReviewEditor(별점·본문·첨부·액션)를 값과 콜백으로 조합한다. ReviewManager.types는 탭·구매 항목 타입만 공유한다. 새 DOM 래퍼나 client 경계를 추가하지 않고 기존 버튼 크기·필드 ID·접근성 연결·스타일·파일 5개/10MB 제한을 유지한다. 정렬 select의 기존 표시 전용 동작도 유지한다.
+
+검증: Panda 생성·타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 PC/MO WriteReview play 2개(오류→별점/본문 입력→완료), 페이지 이동·탭 전환 시 1페이지 복귀·첨부 5개 제한·취소 거절/수락을 확인했다. production build는 재실행하지 않았다.
 
 ## EXPLORE 상세 화면 목업 분리 (2026-10-19)
 
