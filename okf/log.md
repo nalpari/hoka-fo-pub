@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: Support·문의·FAQ·공지의 페이지 하단 버튼을 PageActionButton으로 조합했다. 화면별 크기·여백·링크·더보기 계산을 보존하고 전용 Storybook 4개를 추가했다.
+
 - **Fix**: secondary Button/ButtonLink 내부 Typography의 hover/focus-visible/active 색상을 공통 상속하도록 수정했다. 기본 tertiary·비활성 색상은 유지하며 Button 스토리 3개, 브라우저 11건과 타입·린트·포맷·Panda·Next/Storybook 빌드를 확인했다.
 
 - **Refactor**: FaqList의 질문·답변·검색 결과 없음 표시를 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. DOM·스타일·외부 API·아코디언 제어를 유지하고 타입·린트·포맷·Panda 및 기존 PC/MO·빈 상태·키보드 Storybook 흐름을 확인했다.

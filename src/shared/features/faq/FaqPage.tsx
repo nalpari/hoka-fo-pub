@@ -1,16 +1,17 @@
 'use client';
 
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { useMemo, useState } from 'react';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Divider } from 'styled-system/jsx';
 import { FaqControls } from '@/shared/components/molecules/Faq/FaqControls';
 import { FaqList } from '@/shared/components/organisms/Faq/FaqList';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { faqCategories, faqs, type FaqCategory } from '@/shared/features/faq/faq.data';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { usePlatform } from '@/shared/context/platform';
-import { Box, HStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 
 export function FaqPage() {
   const platform = usePlatform();
@@ -76,23 +77,13 @@ export function FaqPage() {
           onToggle={(question) => setOpen(open === question ? null : question)}
         />
         {shown < entries.length && (
-          <Box pt="9" maxW="500px" mx="auto" _mobile={{ pt: '6' }}>
-            <Button
-              fullWidth
-              density="compact"
-              variant="secondary"
-              onClick={() => setShown((count) => count + 10)}
-            >
-              <HStack gap="1" justifyContent="center">
-                <Typography variant="cta2" weight="semibold">
-                  더보기
-                </Typography>
-                <Typography variant="body5" tone="tertiary">
-                  ({Math.ceil(shown / 10)}/10)
-                </Typography>
-              </HStack>
-            </Button>
-          </Box>
+          <PageActionButton
+            onClick={() => setShown((count) => count + 10)}
+            counter={{ current: Math.ceil(shown / 10), total: 10 }}
+            containerProps={{ _mobile: { pt: '6' } }}
+          >
+            더보기
+          </PageActionButton>
         )}
       </Box>
     </CustomerCenterLayout>

@@ -2,7 +2,7 @@
 
 import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
-import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
@@ -123,11 +123,9 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         )}
       </Stack>
       <InquiryCautions />
-      <Box pt="9" maxW="500px" mx="auto">
-        <ButtonLink href="/support/inquiries/new" variant="primary" fullWidth>
-          1:1 문의하기
-        </ButtonLink>
-      </Box>
+      <PageActionButton href="/support/inquiries/new" variant="primary">
+        1:1 문의하기
+      </PageActionButton>
     </CustomerCenterLayout>
   );
 }

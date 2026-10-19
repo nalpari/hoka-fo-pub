@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Divider, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { FaqList } from '@/shared/components/organisms/Faq/FaqList';
@@ -147,11 +148,13 @@ export function SupportPage() {
             onToggle={(question) => setOpenQuestion(openQuestion === question ? null : question)}
           />
         </Box>
-        <Box mt="9" mx="auto" maxW="500px" _mobile={{ maxW: 'none' }}>
-          <ButtonLink href="/support/faq" size="tall" variant="secondary" fullWidth>
-            FAQs 바로가기
-          </ButtonLink>
-        </Box>
+        <PageActionButton
+          href="/support/faq"
+          size="tall"
+          containerProps={{ pt: '0', mt: '9', _mobile: { maxW: 'none' } }}
+        >
+          FAQs 바로가기
+        </PageActionButton>
       </Box>
     </CustomerCenterLayout>
   );
