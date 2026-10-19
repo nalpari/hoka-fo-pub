@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T00:12:41.476Z'
+  at: '2026-10-19T02:18:01Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/lib/emailValidation.ts
@@ -233,6 +233,9 @@ working_tree_sources:
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/shared/icons/fontAwesome.ts
   - src/shared/icons/iconAssets.ts
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/stories/components/atoms/Icon/Icon.stories.tsx
+  - public/images/icon/unlock-keyhole.svg
   - public/images/icon/navigation/membership.svg
   - src/stories/components/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
   - src/shared/features/run-club/RunClubBadge.tsx
@@ -340,7 +343,6 @@ sources:
 
 MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
 
-
 ## 회원가입·휴대폰 인증 오류 문구 보완 (2026-10-19)
 
 비밀번호 외 코드 점검에서 휴대폰 필수 약관의 설명 문구 누락, 아이디 안내 조건과 실제 검증 차이, 화면별 이메일 규칙 차이와 확인 상태 불일치를 수정했다. 필드 문구는 FormField.error로, 약관 그룹은 StatusMessage.error와 section의 aria-describedby로 연결한다. 약관의 기존 개별 빨간 표시·모두동의 동작은 유지한다. 상태 소유자와 규칙은 [상태 문서](state.md#회원가입휴대폰-인증-오류-상태-보완-2026-10-19)를 참고한다.
@@ -432,6 +434,8 @@ AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModa
 - `organisms/Account/LogoutDialog`는 MyPage 접두사를 제거한 공용 로그아웃 확인 표현이며 실제 로그아웃은 MyPage가 처리한다. `AlreadyRegisteredModal`도 가입 폴더에서 Account로 이동했고 기존 PhoneVerificationPage 호출을 연결했다. 두 팝업의 현재 업무 호출부는 각각 한 곳이며 다른 진입점의 미래 사용을 이미 구현한 것으로 간주하지 않는다.
 - `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
 - `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
+
+`AccountUnlockCompletePage`는 Figma desktop `957:30471`·mobile `957:29862` 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 노드 `957:30479`의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
 
 새 공용 팝업 6종은 `src/stories/components/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
 
@@ -622,6 +626,8 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 
 `FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`다.
 
+아이디·비밀번호 찾기 화면은 Figma 모바일 `957:29176`과 PC `957:29231` 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
+
 로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
 
 휴대폰 인증의 알뜰폰 사업자 안내는 사업자 목록만 `ModalDialog` 본문에 두고 확인 버튼을 `footer`에 전달한다. 긴 목록은 본문에서 스크롤되며 공통 푸터가 확인 버튼을 데스크톱 160px·모바일 전체 너비로 배치한다. 출처는 작업 트리의 `src/shared/features/phone-verification/PhoneVerificationContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
@@ -631,6 +637,8 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 계정 잠금 안내 모달의 확인 동작은 공통 `ModalDialog`의 `footer` 슬롯으로 구성한다. 본문은 안내 문구만 담당하고 푸터가 버튼의 크기·정렬을 맡는다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`다.
 
 `IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
+
+아이디 확인 모달은 모바일 Figma `957:29520`에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
 
 지정 범위는 `src/shared/components/`와 `src/shared/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
 
@@ -752,6 +760,8 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 `Typography loginTitle`은 로그인 환영 제목의 의미를 표현한다. 기존 `headingKr6`의 PC 36px와 로컬 모바일 강제 22px를 합친 토큰이며 두 플랫폼에서 Pretendard, 굵기 900, 행간 1.2, 자간 -0.02em을 유지한다. `--type-login-title-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}`를 사용한다. 호출자는 `as="h1"`을 유지하고 로컬에서는 여백만 지정한다. 가입 안내 h2의 로컬 `fontWeight: medium`도 기존 `body3`에 `weight="medium"`을 전달하도록 옮겼다.
 
+2026-10-19 Figma 로그인 화면 `957:28877`(모바일)·`957:28953`(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/shared/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
+
 Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField의 Field, Checkbox, Button은 기존 공용 래퍼를 유지한다. Form·Input·Separator·Toast는 설치 버전에서 지원하지만 네이티브 form/input, 장식용 구분선, 인라인 상태 안내의 기존 계약만으로 교체할 근거가 없어 유지한다. Dialog·OTP Field·Combobox 등 별도 상호작용을 추가할 관찰 근거는 없으며 의존성 업그레이드는 필요하지 않다.
 
 ## 추가 기능 폴더 점검 (2026-10-14)
@@ -808,9 +818,10 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음  |
 | PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유 |
 | 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
-| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                      |
+| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                                 |
 
 `AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+
 | 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음                            |

@@ -2,6 +2,11 @@
 
 ## 2026-10-19
 
+- **Update**: Figma 로그인 PC·모바일 화면에 맞춰 아이디/비밀번호 찾기를 한 버튼으로 합치고, `LoginForm`의 폼 간격을 Panda `Stack`으로 옮겼다. 해당 Storybook 동작 검사와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
+- **Update**: 계정 잠금 해제 완료 화면의 잠금 아이콘을 Figma 노드 `957:30479`에서 내보낸 SVG로 교체하고 공통 Icon 자산과 Storybook 카탈로그에 등록했다. [UI 아키텍처](architecture/ui.md)에 출처와 사용 경로를 기록했다.
+- **Fix**: 계정 잠금 해제 완료 화면을 Figma web/mo 규격으로 다시 구성했다. 600px 본문 높이와 96/144/124px 웹 여백, 모바일 40/16/32px 여백, 12px·36px 간격, 플랫폼별 제목 크기와 잠금 해제 아이콘을 반영하고 일회성 스타일 객체를 Panda JSX로 옮겼다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 아이디 확인 모달의 버튼을 모바일에서는 본문, 웹에서는 공통 푸터에 배치하고 모바일 간격과 버튼 타이포를 Figma에 맞췄다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 아이디·비밀번호 찾기 PC·모바일의 콘텐츠 폭, 여백과 제목 타이포를 Figma에 맞추고 인증번호 입력 중복 렌더링을 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Refactor**: 로그인 액션·회원가입 이동 버튼의 기본 크기 사용을 [상태 아키텍처](architecture/state.md)에 기록했다.
 - **Refactor**: 계정 잠금 안내의 확인 버튼을 공통 모달 푸터로 옮겨 중복 너비·정렬 래퍼를 제거했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Fix**: 공통 모달 푸터의 버튼 높이를 40px로 맞췄다. [UI 아키텍처](architecture/ui.md)에 반영했다.

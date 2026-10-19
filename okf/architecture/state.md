@@ -98,4 +98,8 @@ Figma 제공 링크의 291:53311·291:60808은 재인증 오류로 원문을 읽
 
 LoginLayout·LoginForm·LoginActions·LoginMembership와 CartPage의 단일 사용 배치 스타일을 Panda JSX props로 이전했다. 검토 범위는 로그인 화면의 페이지/콘텐츠 여백·옵션/링크/구분선·액션/혜택 배치와 장바구니의 상품 정보·빈 상태·추천 그리드다. LoginPage의 입력/체크/안내 상태·데모 검증·onLogin·라우팅, CartPage의 행 조회·합계·수량 변경/삭제 콜백과 ShopShell 상태 수명은 변경하지 않았다. 구조 이전 결과와 검증 범위는 [UI 아키텍처](ui.md#componentsfeatures-jsx-스타일-점검-2026-10-15)에 기록한다.
 
+## 로그인 화면 완료 기록 (2026-10-19)
+
+PC·모바일 로그인 폼의 아이디/비밀번호 찾기 진입 링크를 하나의 버튼으로 합쳤다. 목적지는 기존 `/login/find-account`를 유지하며 로그인 상태와 데모 인증 동작은 변경하지 않았다. 관련 화면 구성은 [UI 아키텍처](ui.md)에 기록한다.
+
 [프로젝트 범위](../project.md), [라우팅](routing.md), [변경 검증](../development/verification.md)을 참고한다.

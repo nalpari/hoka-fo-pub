@@ -67,6 +67,7 @@ const svgIconGroups = [
       'radio-checked',
       'radio-unchecked',
       'tag-delete',
+      'unlock-keyhole',
     ],
   },
   {

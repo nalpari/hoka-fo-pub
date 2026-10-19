@@ -41,10 +41,16 @@ export function FindAccountContent({
   onSubmit,
 }: FindAccountContentProps) {
   return (
-    <Box as="main" pt="10" px="4" pb="8" minH="calc(100svh - var(--layout-site-header-height))">
-      <Stack as="section" maxW="420px" mx="auto" gap="0" aria-labelledby="find-account-title">
-        <Stack gap="3" mb="6">
-          <Typography as="h1" variant="headingKr6" id="find-account-title">
+    <Box
+      as="main"
+      pt={{ base: '24', _mobile: '10' }}
+      px="4"
+      pb={{ base: '124px', _mobile: '8' }}
+      minH={{ base: '600px', _mobile: 'calc(100svh - var(--layout-site-header-height))' }}
+    >
+      <Stack as="section" maxW="500px" mx="auto" gap="0" aria-labelledby="find-account-title">
+        <Stack gap={{ base: '10px', _mobile: '3' }} mb={{ base: '10', _mobile: '8' }}>
+          <Typography as="h1" web="heading7" mo="heading5" id="find-account-title">
             아이디 / 비밀번호 찾기
           </Typography>
           <Typography as="p" variant="body3" tone="tertiary">
@@ -53,7 +59,7 @@ export function FindAccountContent({
         </Stack>
 
         <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
-          <Stack gap="2">
+          <Stack gap="4">
             <FormField
               variant="boxed"
               htmlFor="find-account-name"
@@ -102,7 +108,12 @@ export function FindAccountContent({
           {requested ? (
             <>
               <Box mt="6">
-                <FormField variant="boxed" htmlFor="find-account-code" label="인증번호">
+                <FormField
+                  variant="boxed"
+                  htmlFor="find-account-code"
+                  label="인증번호"
+                  error={codeError}
+                >
                   <TextInput
                     id="find-account-code"
                     name="code"
@@ -134,44 +145,6 @@ export function FindAccountContent({
                   인증번호 확인
                 </Button>
               </Box>
-              <FormField
-                variant="boxed"
-                htmlFor="find-account-code"
-                label="인증번호"
-                error={codeError}
-              >
-                <TextInput
-                  id="find-account-code"
-                  name="code"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  maxLength={6}
-                  placeholder="인증번호 6자리를 입력해 주세요"
-                  value={code}
-                  onChange={(event) => onCodeChange(event.target.value)}
-                />
-              </FormField>
-              <Typography as="p" variant="body5" >
-                남은 시간{' '}
-                {Math.floor(secondsLeft / 60)
-                  .toString()
-                  .padStart(2, '0')}
-                :{(secondsLeft % 60).toString().padStart(2, '0')}초
-              </Typography>
-              <Typography as="p" variant="body5">
-                입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
-                <br />
-                인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
-              </Typography>
-              <Button
-                type="button"
-                variant="primary"
-                density="auto"
-                fullWidth
-                onClick={onConfirmCode}
-              >
-                인증번호 확인
-              </Button>
             </>
           ) : null}
           {notice ? (
