@@ -148,14 +148,7 @@ const secondaryContentColor = css.raw({
 });
 
 export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'bottomSheetPrimary'
-  | 'ghost'
-  | 'brand'
-  | 'link'
-  | 'filterTrigger'
-  | 'headerSearch';
+  'primary' | 'secondary' | 'ghost' | 'brand' | 'link' | 'filterTrigger' | 'headerSearch';
 
 export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
@@ -199,7 +192,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const iconOnly = Boolean(icon && children == null);
-  const primary = variant === 'primary' || variant === 'bottomSheetPrimary';
+  const primary = variant === 'primary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'ghost';
   const labelTypographyVariant =
@@ -294,7 +287,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         css(
           button.raw({
             density: resolvedDensity,
-            fullWidth: fullWidth || variant === 'bottomSheetPrimary',
+            fullWidth,
             language,
             unframed,
           }),

@@ -2,6 +2,10 @@
 
 ## 2026-10-19
 
+- **Refactor**: 상품 필터 버튼을 primary로 전환하고 BottomSheetFooter에서 tall·fullWidth를 적용했다. Button과 문서의 bottomSheetPrimary를 제거하고 375/768px 시트 표시·적용·닫기·Escape, 기존 테스트 33개와 Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
+
+- **Fix**: 휴대폰 인증 Storybook을 fullscreen으로 표시하고 모바일 래퍼를 가용 너비에 맞춰 외곽 여백과 고정 너비로 인한 가로 넘침을 수정했다.
+
 - **Fix**: 모바일 스토리 108개에 fullscreen을 지정하고 고정 너비 래퍼 13곳에 maxWidth 100%를 적용했다.
 
 - **Fix**: Checkbox 오류 outline의 offset을 -2px로 바꿔 아이콘과 떨어진 간격을 제거하고 미선택·선택 오류 스토리를 추가했다.
@@ -32,7 +36,7 @@
 
 - **Refactor**: PhoneVerificationDetailDialog를 open/onOpenChange만 받는 알뜰폰 사업자 전용 SingleActionDialog로 정리했다. 고정 제목·목록과 공통 확인 버튼을 사용하고 약관 팝업의 기존 연결은 Content에 유지했다. 타입·린트·포맷 및 확인/닫기/Escape·약관 4개 열기/닫기를 검증했다.
 
-- **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-목업-진입점-2026-10-19)을 참고한다.
+- **Refactor**: StoreFinderPage·store.data·전용 StoreResults를 src/shared/Mockup/store-finder로 이동하고 /support/store 라우트 import를 갱신했다. 검색·지역/유형·더보기·결과 없음과 기존 데이터·UI를 유지했다. [UI 기록](architecture/ui.md#매장-찾기-디자인-반영-후-정식-경로-복귀-2026-10-19)과 [라우트 기록](architecture/routing.md#매장-찾기-정식-화면-진입점-2026-10-19)을 참고한다.
 
 - **Refactor**: running-hub 구현과 스토리 helper를 Mockup/running-hub로 옮기고 앱 라우트 7곳의 import를 갱신했다. 기존 내용·URL·kind·상태·스타일을 유지하고 내용 비교·Panda·타입·ESLint·Prettier를 확인했다.
 
