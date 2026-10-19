@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Feat**: 헤더 실제 검색 input·PC 패널·모바일 전체 화면·자동완성·오류와 장바구니 기준 정렬을 적용했다. 최근 검색어 전체 삭제는 Button link/md로 표현하며 onClear·빈 상태·저장소 초기화를 유지한다.
+
 - **Refactor**: 반복 상단 여백을 Stack gap으로 이전하고 계정 찾기 폼의 입력·인증 요청·인증번호·확인·상태 안내도 중첩 Stack으로 배치했다. 기존 7곳의 PC/MO 좌표 비교·가입 play 검증과 커밋 전 전체 타입 검사를 확인했다. 계정 찾기의 상태 안내 간격은 현재 스테이징된 gap 6(24px)을 반영한다.
 
 - **Refactor**: 상품 필터 버튼을 primary로 전환하고 BottomSheetFooter에서 tall·fullWidth를 적용했다. Button과 문서의 bottomSheetPrimary를 제거하고 375/768px 시트 표시·적용·닫기·Escape, 기존 테스트 33개와 Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.

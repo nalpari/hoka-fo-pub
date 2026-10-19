@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:44:00.728Z'
+  at: '2026-10-19T09:44:05.476Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
+  - src/shared/components/organisms/Search/searchOverlayData.ts
+  - src/shared/components/organisms/Search/SearchOverlay.tsx
+  - src/shared/components/organisms/Search/RecentSearchItem.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderTools.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheetFooter.tsx
   - src/shared/components/organisms/Signup/SignupMethodStep.tsx
   - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
@@ -1501,3 +1506,17 @@ DesignGuideTypography는 두 표 섹션을 gap 6·시작 mt 6인 그룹으로 �
 검증: 임시 Storybook fixture로 PC/MO 24개 조합의 변경 전후 제목·본문·입력·버튼·링크·표 등의 좌표와 크기를 비교해 일치를 확인했다. EmptyState 설명/액션 생략, standard/minimal, 가입 local/social·오류 상태를 포함한다. 임시 fixture는 검증 후 제거했다. 기존 가입 비밀번호·필드 검증 PC/MO play 4개도 통과했다. Panda 생성·전체 작업 트리 TypeScript·변경 TSX ESLint/Prettier, 별도 작업 폴더의 Storybook 빌드를 확인했다. 현재 작업 트리의 기본 Next.js production build도 통과했다. 별도 폴더의 기본 빌드는 외부 node_modules 링크 제한, webpack 빌드는 기존 라우트의 자동 생성 PageProps 오류로 실패했으며 최종 결과는 현재 작업 트리의 기본 빌드로 확인했다. 출처는 작업 트리의 위 7개 파일이다.
 
 추가 스테이징 범위: FindAccountContent는 폼 본문 gap 6·이름/휴대폰 gap 4·인증번호와 안내 gap 2를 사용하며 요청·확인 콜백과 입력 ID를 유지한다. 상태 안내는 이전 16px에서 현재 공통 24px 간격을 사용한다. 이 파일은 기존 24개 좌표 비교 대상 7개에 포함되지 않았으므로 해당 비교 결과를 확대 적용하지 않는다.
+
+## 헤더 input과 검색 패널 확정 디자인 (2026-10-19)
+
+HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보기 submit으로 구성한다. SiteHeader가 검색 열림·입력값·오류를 소유하며 HeaderTools·SiteHeaderContainer를 통해 전달한다. 입력 포커스/클릭은 패널을 열고 Enter는 연결된 site-search-form을 제출한다. ArrowDown은 검색어 목록의 첫 버튼에 진입한다. 검색 패널의 오른쪽 끝은 헤더 장바구니 아이콘 영역(data-search-panel-anchor)의 오른쪽 끝에 맞춘다. useLayoutEffect에서 헤더 프레임과 장바구니 영역의 실제 좌표 차이를 CSS 변수로 전달하고 ResizeObserver·resize로 화면 크기 및 로그인 도구 너비 변경에 대응한다. 왼쪽 화면 여백 24px도 확보한다. 기본 너비 1020px, 자동완성 시 540px이며 화면 너비와 높이에 제한된다. 바깥 클릭/포커스·Escape로 닫고 패널에서 닫을 때 헤더 input으로 포커스를 돌린다. 메가 메뉴와 검색 패널은 동시에 열리지 않는다.
+
+모바일은 Base UI Dialog 전체 화면·스크롤·초기 입력 포커스를 사용한다. 닫기 행, 왼쪽 돋보기 입력, 최근 검색어, 추천 태그, 2열 인기 검색어 순서다. 자동완성은 PC 최대 9개·모바일 최대 3개와 파란 일치 문구를 표시하며 모바일은 기존 검색 섹션도 유지한다. 최근 검색어의 저장/개별 삭제/전체 삭제와 /search?q=…&scope=전체 이동을 유지한다. 데이터는 검색 API와 연결되지 않은 목 데이터다. 빈 검색 제출은 입력 요청 오류를 표시하며, 외부 error/onErrorChange 계약과 Invalid/MobileInvalid 스토리로 시안의 금칙어 오류 표시를 제공한다. 금칙어 목록이나 판정 정책을 새로 만들지 않았다. 기존 Button의 headerSearch variant는 호환성을 위해 남아 있으나 SiteHeader는 사용하지 않는다.
+
+검증: Panda 생성·전체 TypeScript·변경 TSX ESLint/Prettier와 Next/Storybook production build 통과. 브라우저에서 PC input 입력·자동완성 및 Enter의 실제 검색 결과 이동, 375px 모바일 자동완성 배치와 빈 검색 오류를 확인했다. 장바구니 기준 정렬 수정은 브라우저에서 기본 1020px·자동완성 540px 패널과 장바구니 영역의 오른쪽 좌표 차이 0px로 확인했으며 Panda·타입·변경 ESLint/Prettier를 확인했다. Storybook에는 PC/모바일 기본·자동완성·오류 6개 상태를 제공한다. 출처는 아래 working_tree_sources의 검색·헤더 구현과 스토리이며 첨부 시안은 사용자 제공 디자인이다.
+
+## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
+
+RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
+
+검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.

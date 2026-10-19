@@ -26,6 +26,23 @@ export function SiteHeader({
   const platform = usePlatform();
   const [search, setSearch] = useState(false);
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const [searchError, setSearchError] = useState('');
+
+  const changeSearchQuery = (query: string) => {
+    setSearchError('');
+    setSearchQuery(query);
+  };
+
+  const closeSearch = () => {
+    const panel = document.getElementById('site-search-panel');
+    if (platform === 'web' && panel?.contains(document.activeElement)) {
+      document.getElementById('header-search-input')?.focus();
+    }
+    setSearch(false);
+  };
+
   const [activeMenu, setActiveMenu] = useState<MegaMenu['id'] | null>(null);
 
   const activeMegaMenu = megaMenus.find((menu) => menu.id === activeMenu);
@@ -49,9 +66,13 @@ export function SiteHeader({
 
   const closeMegaMenu = () => setActiveMenu(null);
 
-  const openMegaMenu = (menuId: MegaMenu['id']) => setActiveMenu(menuId);
+  const openMegaMenu = (menuId: MegaMenu['id']) => {
+    setSearch(false);
+    setActiveMenu(menuId);
+  };
 
   const toggleMegaMenu = (menuId: MegaMenu['id']) => {
+    setSearch(false);
     setActiveMenu((current) => (current === menuId ? null : menuId));
   };
 
@@ -110,7 +131,9 @@ export function SiteHeader({
 
     requestAnimationFrame(() => {
       document
-        .querySelector<HTMLElement>('#site-header-tools a[href], #site-header-tools button')
+        .querySelector<HTMLElement>(
+          '#site-header-tools input, #site-header-tools a[href], #site-header-tools button',
+        )
         ?.focus();
     });
   };
@@ -132,7 +155,14 @@ export function SiteHeader({
           onMenu={onMenu}
           onMenuOpen={openMegaMenu}
           onMenuToggle={toggleMegaMenu}
-          onSearch={() => setSearch(true)}
+          searchQuery={searchQuery}
+          onSearchQueryChange={changeSearchQuery}
+          searchError={searchError}
+          searchOpen={search}
+          onSearch={() => {
+            setActiveMenu(null);
+            setSearch(true);
+          }}
         />
 
         {platform === 'web' && activeMegaMenu ? (
@@ -142,9 +172,16 @@ export function SiteHeader({
             onFocusBoundary={handleMegaMenuFocusBoundary}
           />
         ) : null}
+        {search ? (
+          <SearchOverlay
+            query={searchQuery}
+            onQueryChange={changeSearchQuery}
+            error={searchError}
+            onErrorChange={setSearchError}
+            onClose={closeSearch}
+          />
+        ) : null}
       </SiteHeaderFrame>
-
-      {search ? <SearchOverlay onClose={() => setSearch(false)} /> : null}
     </>
   );
 }
