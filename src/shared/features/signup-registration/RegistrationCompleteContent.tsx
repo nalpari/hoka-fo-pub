@@ -23,7 +23,7 @@ export function RegistrationCompleteContent() {
             최선을 다하겠습니다
           </Typography>
         </Stack>
-        <ButtonLink href="/" variant="primary" size="tall" fullWidth>
+        <ButtonLink href="/" variant="primary" fullWidth>
           쇼핑하러 가기
         </ButtonLink>
       </Stack>

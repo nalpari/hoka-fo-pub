@@ -178,7 +178,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     density,
     colorway = 'black',
     language = 'kr',
-    size,
+    size = 'tall',
     fullWidth = false,
     loading = false,
     invalid = false,

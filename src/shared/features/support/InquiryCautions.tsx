@@ -12,7 +12,12 @@ const cautions = [
   '계좌정보는 MY > 계정관리 > 환불계좌관리에 등록해 주시기 바랍니다.',
 ];
 
-const trigger = css({ px: '4', py: '4', textAlign: 'left' });
+const trigger = css({
+  px: '4',
+  py: '4',
+  '[data-open] &': { borderBottom: '1px solid token(colors.black.40)' },
+  textAlign: 'left',
+});
 
 export function InquiryCautions() {
   return (
@@ -20,19 +25,23 @@ export function InquiryCautions() {
       borderTop="1px solid"
       borderBottom="1px solid"
       borderColor="black.40"
-      pb="6"
       _mobile={{ borderBottom: '0' }}
     >
       <Accordion
         defaultValue={['cautions']}
+        indicatorColor="var(--color-text-subtle)"
         multiple={false}
         triggerClassName={trigger}
         items={[
           {
             value: 'cautions',
-            title: <Typography web="heading9" mo="body4">유의사항 ⓘ</Typography>,
+            title: (
+              <Typography web="heading9" mo="body4" tone="subtle">
+                유의사항 ⓘ
+              </Typography>
+            ),
             content: (
-              <Stack as="ul" gap="1" pl="5" pr="4" listStyleType="disc">
+              <Stack as="ul" gap="0" m="0" p="6" listStyleType="disc">
                 {cautions.map((item) => (
                   <Box as="li" key={item}>
                     <Typography web="body4" mo="body5" tone="tertiary">

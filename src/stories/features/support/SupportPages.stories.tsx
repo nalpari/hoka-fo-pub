@@ -60,63 +60,121 @@ export const FaqMobile375: Story = {
 
 export const NoticesDesktop: Story = {
   name: 'Notices / Desktop',
-  render: () => <ShopShell platform="web"><NoticesPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="web">
+      <NoticesPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/notices' } } },
   globals: { viewport: 'hoka1600' },
 };
 
 export const NoticesMobile375: Story = {
   name: 'Notices / Mobile / 375px',
-  render: () => <ShopShell platform="mobile"><NoticesPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <NoticesPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/notices' } } },
   globals: { viewport: 'hoka375' },
 };
 
 export const NoticeDetailMobile375: Story = {
   name: 'Notice Detail / Mobile / 375px',
-  render: () => <ShopShell platform="mobile"><NoticeDetailPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <NoticeDetailPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/notices/1' } } },
   globals: { viewport: 'hoka375' },
 };
 
 export const InquiriesDesktop: Story = {
   name: 'Inquiries / Desktop',
-  render: () => <ShopShell platform="web"><InquiryPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka1600' },
 };
 
 export const InquiriesMobile375: Story = {
   name: 'Inquiries / Mobile / 375px',
-  render: () => <ShopShell platform="mobile"><InquiryPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
 export const InquiryNewMobile375: Story = {
   name: 'Inquiry Form / Mobile / 375px',
-  render: () => <ShopShell platform="mobile"><InquiryNewPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/inquiries/new' } } },
+  globals: { viewport: 'hoka375' },
+};
+
+export const InquiryPendingDesktop: Story = {
+  name: 'Inquiries / Pending / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryPage preview="pending" />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryPendingMobile375: Story = {
+  name: 'Inquiries / Pending / Mobile',
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryPage preview="pending" />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
 export const InquiryAnsweredMobile375: Story = {
   name: 'Inquiries / Answered / Mobile',
-  render: () => <ShopShell platform="mobile"><InquiryPage preview="answered" /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryPage preview="answered" />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
 export const ShippingReturnsDesktop: Story = {
   name: 'Shipping & Returns / Desktop',
-  render: () => <ShopShell platform="web"><ShippingReturnsPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="web">
+      <ShippingReturnsPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/after-sales' } } },
   globals: { viewport: 'hoka1600' },
 };
 
 export const ShippingReturnsMobile375: Story = {
   name: 'Shipping & Returns / Mobile / 375px',
-  render: () => <ShopShell platform="mobile"><ShippingReturnsPage /></ShopShell>,
+  render: () => (
+    <ShopShell platform="mobile">
+      <ShippingReturnsPage />
+    </ShopShell>
+  ),
   parameters: { nextjs: { navigation: { pathname: '/support/after-sales' } } },
   globals: { viewport: 'hoka375' },
 };

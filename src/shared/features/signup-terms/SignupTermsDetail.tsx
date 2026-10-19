@@ -27,7 +27,7 @@ export function SignupTermsDetail({ selected, previous, onClose, onPrevious }: P
       mobilePresentation="fullscreen"
       scrollFade
       footer={
-        <Button variant="primary" size="tall" fullWidth onClick={() => onClose()}>
+        <Button variant="primary" fullWidth onClick={() => onClose()}>
           확인
         </Button>
       }

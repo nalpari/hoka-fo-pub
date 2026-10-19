@@ -50,6 +50,8 @@ sources:
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
+로그인 액션과 회원가입 이동 버튼은 공통 `Button`·`ButtonLink`의 기본 `tall` 크기를 사용한다. 명시적 크기 속성만 정리했으며 `LoginPage`의 상태, 제출 및 이동 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `src/shared/features/login/LoginActions.tsx`, `src/shared/features/login/LoginMembership.tsx`다.
+
 ## 장바구니 항목
 
 `id`, `color`, `width`, `size`가 모두 같은 항목을 다시 담으면 수량을 합산한다. 수량을 1 미만으로 바꾸거나 삭제 콜백을 호출하면 해당 항목을 제거한다. 금액과 상품 표시는 목 상품 목록을 조회해 계산한다.

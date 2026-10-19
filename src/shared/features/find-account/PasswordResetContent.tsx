@@ -68,7 +68,7 @@ export function PasswordResetContent({
             error={errors.confirmation}
             onChange={(value) => onFieldChange('confirmation', value)}
           />
-          <Button type="submit" variant="primary" size="tall" fullWidth className={styles.button}>
+          <Button type="submit" variant="primary" fullWidth className={styles.button}>
             비밀번호 변경
           </Button>
         </form>

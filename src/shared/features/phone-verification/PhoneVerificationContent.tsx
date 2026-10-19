@@ -129,14 +129,14 @@ export function PhoneVerificationContent(props: Props) {
   return (
     <Box as="main" pt="24" px="5" pb="20" _mobile={{ pt: '10', px: '4', pb: '8' }}>
       <Box maxW="568px" mx="auto">
-        <Box mb="8">
+        <Box pb="3">
           <Typography as="h1" web="heading7" mo="heading5">
             {props.title ?? '휴대폰 인증'}
           </Typography>
         </Box>
         {props.description ? (
-          <Box mt="-6" mb="6">
-            <Typography as="p" variant="body5" tone="subtle">
+          <Box pb="8">
+            <Typography as="p" variant="body3" tone="tertiary">
               {props.description}
             </Typography>
           </Box>
@@ -216,7 +216,6 @@ export function PhoneVerificationContent(props: Props) {
             {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
             <Button
               variant="primary"
-              size="tall"
               fullWidth
               disabled={requested && resendWait > 0}
               onClick={props.onRequest}
@@ -253,7 +252,7 @@ export function PhoneVerificationContent(props: Props) {
                     6자리를 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
                   </Typography>
                 </Box>
-                <Button variant="primary" size="tall" type="submit" fullWidth>
+                <Button variant="primary" type="submit" fullWidth>
                   인증번호 확인
                 </Button>
               </>
@@ -276,6 +275,13 @@ export function PhoneVerificationContent(props: Props) {
         closeLabel="안내 닫기"
         size="md"
         mobilePresentation="fullscreen"
+        footer={
+          detail === '알뜰폰 사업자' ? (
+            <Button variant="primary" fullWidth onClick={() => props.onDetail(null)}>
+              확인
+            </Button>
+          ) : null
+        }
       >
         {detail === '알뜰폰 사업자' ? (
           <Stack gap="4">
@@ -294,9 +300,6 @@ export function PhoneVerificationContent(props: Props) {
                 </Typography>
               </Stack>
             ))}
-            <Button variant="primary" fullWidth onClick={() => props.onDetail(null)}>
-              확인
-            </Button>
           </Stack>
         ) : null}
       </ModalDialog>
