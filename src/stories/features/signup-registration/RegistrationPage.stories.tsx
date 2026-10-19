@@ -1,3 +1,4 @@
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
@@ -44,9 +45,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 420, 24),
+};
 
 export const Mobile: Story = {
+  play: Default.play,
   decorators: [
     (Story) => (
       <div className="platform-mobile" style={{ width: 375 }}>
@@ -58,9 +62,10 @@ export const Mobile: Story = {
   ],
 };
 
-export const Additional: Story = { args: { stage: 'additional' } };
+export const Additional: Story = { args: { stage: 'additional' }, play: Default.play };
 
 export const MobileAdditional: Story = {
+  play: Default.play,
   args: { stage: 'additional' },
   decorators: [
     (Story) => (

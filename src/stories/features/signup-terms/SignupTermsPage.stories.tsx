@@ -1,3 +1,4 @@
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -28,9 +29,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 420, 32),
+};
 
 export const Mobile: Story = {
+  play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
@@ -71,9 +75,10 @@ export const DetailInteraction: Story = {
     const dialog = await body.findByRole('dialog');
     await expect(dialog).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '이전 약관 보기' }));
-    await userEvent.click(within(dialog).getByRole('radio', { name: '2025-07-01' }));
-    await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
-    await expect(body.getByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
+    const picker = await body.findByRole('dialog', { name: '이전 약관 보기' });
+    await userEvent.click(await within(picker).findByRole('radio', { name: '2025-07-01' }));
+    await userEvent.click(within(picker).getByRole('button', { name: '확인' }));
+    await expect(await body.findByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '약관 닫기' }));
     await expect(dialog).not.toBeVisible();
   },
@@ -92,7 +97,7 @@ export const MobileDetailInteraction: Story = {
     await expect(dialog).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '이전 약관 보기' }));
     await userEvent.click(await body.findByRole('button', { name: '2022-03-16 이전 약관 선택' }));
-    await expect(body.getByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
+    await expect(await body.findByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '약관 닫기' }));
     await expect(dialog).not.toBeVisible();
   },

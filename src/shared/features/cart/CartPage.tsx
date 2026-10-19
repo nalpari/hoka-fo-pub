@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
-import { StepIndicator } from '@/shared/components/molecules/StepIndicator/StepIndicator';
+import { OrderPageLayout } from '@/shared/components/layouts/OrderPageLayout/OrderPageLayout';
 import { products } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
 import { css, cva } from 'styled-system/css';
@@ -64,25 +64,15 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
   });
   const total = rows.reduce((sum, { item, product }) => sum + product.price * item.quantity, 0);
   return (
-    <Box
-      as="main"
-      maxW="1100px"
-      mx="auto"
-      pt={{ base: '62px', _mobile: '38px' }}
-      px={{ base: '0', _mobile: '4' }}
-      pb={{ base: '110px', _mobile: '62px' }}
-    >
-      <Flex as="header" alignItems="center" justifyContent="space-between">
+    <OrderPageLayout
+      step={1}
+      headerSpacing="none"
+      title={
         <Typography as="h1" className={css({ m: '0', fontSize: '32' })}>
           장바구니
         </Typography>
-        <StepIndicator
-          ariaLabel="주문 진행 단계"
-          current={1}
-          items={[{ label: '장바구니' }, { label: '주문/결제' }, { label: '주문완료' }]}
-          mobileHidden
-        />
-      </Flex>
+      }
+    >
       <Typography as="p" className={css({ m: 'var(--spacing-10) 0 14px' })}>
         총{' '}
         <b className={css({ color: 'var(--color-red-80)' })}>
@@ -255,6 +245,6 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           ))}
         </Grid>
       </Box>
-    </Box>
+    </OrderPageLayout>
   );
 }
