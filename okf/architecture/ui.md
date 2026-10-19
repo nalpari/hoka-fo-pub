@@ -9,6 +9,9 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/stories/components/atoms/Button/Button.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -420,6 +423,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 버튼 유형별 기본 크기와 라벨 (2026-10-19)
+
+Button의 link 기본 size는 md이며, 생략해도 tall/CTA1 래핑을 받지 않는다. 일반 버튼의 tall/short는 CTA1/CTA2를 유지한다. headerSearch/filterTrigger는 CTA 자동 래핑과 중복 라벨 크기·굵기 지정을 제거하고 HeaderSearch·MobileProductFilterTrigger에서 Typography body4를 직접 전달한다. ButtonDocs 예제와 복사 코드도 같은 조합을 사용하고 DefaultLink 스토리로 size 생략 사례를 제공한다. 회원가입 주소 검색은 size md를 명시한다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier, Panda 생성, Edge headless에서 검색 PC/MO 열기·웹 14px/400·178×36px·hover/focus 색 상속, 필터 375/768px의 14px/400·32.2px 높이·모달 열기, 기본 link 웹/모바일 14px/500·CTA 래퍼 부재 및 일반 tall/short 표시를 확인했다. production build는 재실행하지 않았다. 출처는 frontmatter의 작업 트리 경로다.
 
 ## Button 내부 스타일 병합 (2026-10-19)
 

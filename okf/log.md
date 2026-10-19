@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
+
 - **Style**: Form 전수 점검 보고서의 기존 표 열 너비와 구분선을 Prettier 형식으로 정리했다. 표 셀 내용과 기존 검증 기록은 유지했다.
 
 - **Refactor**: FormStateAudit 단일 파일을 PC/MO → Validation/Expired/Inheritance 6개 Storybook 그룹과 도메인별 5개 시나리오 모듈로 분리했다. 기존 30개 검사와 태그를 유지하고 공통 플랫폼 메타·주소 helper를 재사용하며 플랫폼/상태 태그와 정렬을 추가했다. 원본 시나리오 15개 선언 일치, 인덱스 30개·태그, 타입·ESLint·Prettier·Storybook 빌드 및 정적 Storybook play 30개를 확인했다.

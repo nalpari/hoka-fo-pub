@@ -20,3 +20,7 @@ type Story = StoryObj<typeof meta>;
 export const Overview: Story = {
   render: () => <ButtonDocs />,
 };
+
+export const DefaultLink: Story = {
+  args: { variant: 'link', children: '기본 링크' },
+};

@@ -43,7 +43,12 @@ export function RegistrationAddressFields(props: Props) {
           </FormField>
         </Box>
         <Box flexShrink="0">
-          <Button variant="link" aria-haspopup="dialog" onClick={() => props.onAddressOpen(true)}>
+          <Button
+            variant="link"
+            size="md"
+            aria-haspopup="dialog"
+            onClick={() => props.onAddressOpen(true)}
+          >
             우편번호 찾기
           </Button>
         </Box>

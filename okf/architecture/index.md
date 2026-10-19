@@ -1,5 +1,7 @@
 # 아키텍처
 
+link 기본 md와 검색·필터의 명시적 Typography 조합은 [버튼 유형별 기본 크기와 라벨](ui.md#버튼-유형별-기본-크기와-라벨-2026-10-19)을 참고한다.
+
 FormStateAudit의 PC/MO·상태별 6개 그룹과 30개 시나리오 재사용은 [스토리 분류](ui.md#formstateaudit의-pcmo상태-분류-2026-10-19)를 참고한다.
 
 계정 10개 화면의 AccountPageLayout, 장바구니·결제의 OrderPageLayout과 마이페이지의 SidebarNavigationLayout 재사용, 화면별 기존 값 보존은 [유사 화면 레이아웃 그룹](ui.md#유사-화면의-레이아웃-그룹-공통화-2026-10-19), 로그인 상태 유지 검토는 [상태 계약](state.md#공통-계정-프레임-적용-이후-로그인-상태-계약-2026-10-19)을 참고한다.

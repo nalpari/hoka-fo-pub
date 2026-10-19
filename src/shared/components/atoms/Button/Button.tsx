@@ -178,7 +178,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     density,
     colorway = 'black',
     language = 'kr',
-    size = 'tall',
+    size = variant === 'link' ? 'md' : 'tall',
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -196,7 +196,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const primary = variant === 'primary' || variant === 'bottomSheetPrimary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'ghost';
-  const labelTypographyVariant = size === 'short' ? 'cta2' : size === 'tall' ? 'cta1' : undefined;
+  const labelTypographyVariant =
+    variant === 'headerSearch' || variant === 'filterTrigger'
+      ? undefined
+      : size === 'short'
+        ? 'cta2'
+        : size === 'tall'
+          ? 'cta1'
+          : undefined;
   const resolvedDensity =
     density ?? (size ? (size === 'tall' || size === 'lg' ? 'wide' : 'compact') : 'auto');
   const variables: Record<string, string> = {
@@ -261,15 +268,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-padding-x': '14px',
       '--button-radius': '46.8px',
       '--button-border-width': '0.9px',
-      '--button-label-size': '14px',
     });
   if (variant === 'headerSearch')
     Object.assign(variables, {
       '--button-height': '36px',
       '--button-padding-x': '15px',
       '--button-radius': '999px',
-      '--button-label-size': '14px',
-      '--button-label-weight': '400',
     });
   if (invalid) variables['--button-border-color'] = 'var(--color-red-100)';
   return (
