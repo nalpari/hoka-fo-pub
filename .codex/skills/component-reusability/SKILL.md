@@ -87,6 +87,7 @@ After conversion, check both the chosen component and its props: no duplicate de
    - If the official candidate is unavailable in the installed version, report it as `dependency upgrade required`; name the required compatibility, API-change, and migration checks. Do not imply that an upgrade is approved or implement it as part of the audit.
 3. Audit Panda styles and layout composition.
    - For components that render DOM, verify that styling uses the repository's Panda APIs: JSX style props for straightforward local styles on Panda primitives, `css` for styles that benefit from a named declaration or targets without style props, `cva` for typed visual variants, and `sva` for multi-slot components. Flag CSS Modules, ad-hoc SCSS, inline style objects, or repeated class composition only when Panda would clearly preserve the behavior.
+   - Apply the Panda style composition rules below when base, variant, slot, or caller styles overlap. Inspect the final DOM element's classes rather than assuming that later className entries override earlier ones.
    - Apply the JSX style prop criteria below before keeping a single-use `styles.*` class on a Panda layout primitive.
    - Inspect simple descendant selectors using the single-descendant ownership rule below, rather than treating every ancestor selector as a reason to retain parent-owned CSS.
    - Apply the HTML and JSX selection criteria and layout table before recommending a primitive. A raw HTML tag alone is not a refactoring finding.
@@ -142,6 +143,30 @@ For example, a single-use header class on `HStack` containing only these five pr
 ```
 
 For each finding, state which declaration can move to JSX props, which named styles should remain and why, and whether any proposed token conversion changes the original value contract.
+
+## Panda style composition
+
+- Do not concatenate independently generated Panda classes to override the same property under the same condition. Arrays with `.join(' ')`, template strings, and class-name concatenation helpers do not resolve conflicting atomic classes. CSS cascade order decides the winner; Panda's generated stylesheet order can change with the consuming project's style inventory. Matching source paths or placing a class last does not establish precedence.
+- For internal base/variant/slot overrides, merge style objects before generating classes. Keep reusable declarations as `css.raw({ ... })`, resolve a `cva` recipe with `recipe.raw(variants)`, and pass them with conditional override objects to one `css(...)` call per DOM element. Later objects resolve overlapping properties before class generation. The result still contains multiple atomic classes; the goal is one resolved value per property and condition, not one total class.
+
+```tsx
+const content = css.raw({
+  display: 'inline-flex',
+  justifyContent: 'center',
+});
+
+// Merge before generating classes, so headerSearch has no competing jc_center.
+<span
+  className={css(content, variant === 'headerSearch' && { justifyContent: 'space-between' })}
+/>;
+
+// Merge recipe and icon-only overrides at the same stage.
+const rootClassName = css(button.raw({ density, fullWidth }), iconOnly && iconOnlyButtonStyle);
+```
+
+- Check all affected slots and properties, including custom CSS variables, line height, dimensions, padding, and nested selectors. Preserve responsive conditions, pseudo-states, selector specificity, defaults, and override order. Different values under different conditions are intentional and must not be removed merely as duplicates. Account for shorthand/longhand interactions instead of assuming that object merging resolves every possible CSS cascade conflict.
+- Preserve the public `className` contract and unrelated classes. Appending a caller class remains valid for composition, but does not guarantee that its conflicting declarations win; a generated class string is not a style object and must not be passed to `css()` as one. Prefer existing typed variants or a supported style-object API for caller overrides. When those cannot express a required override, use a deliberate, narrowly scoped Panda `!` value or existing specificity mechanism after checking states and responsive behavior. Do not add blanket `!important`, new public APIs, or migrate unrelated callers as part of a local fix.
+- For implementation changes, regenerate Panda CSS and inspect rendered classes for affected combinations, then check computed styles in existing web/mobile stories or routes where available. Verify intended overrides and unchanged ordinary variants, states, and dimensions; distinguish markup checks from browser and consuming-project integration checks. A skill-only request changes this guidance without triggering a repository-wide audit or component migration.
 
 ## Low-level composition
 

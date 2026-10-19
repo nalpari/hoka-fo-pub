@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: Button 외곽·내용·글자의 내부 스타일을 객체 단계에서 병합해 검색 정렬·링크 줄 높이·아이콘 전용 기본 변수의 클래스 충돌을 제거했다. [UI 기록](architecture/ui.md#button-내부-스타일-병합-2026-10-19)에 병합 계약, 180개 SSR 조합 검사와 통합 화면 검증 한계를 기록했다.
+
 - **Refactor / Audit**: Features·Components 381개 TSX의 다단계·중첩 선택자를 재점검하고 13개 파일에서 17개 부모 규칙을 직접 적용하거나 중복/미사용 제거했다. [UI 기록](architecture/ui.md#다단계-선택자-featurescomponents-재점검-2026-10-19)에 2단계 이상 선택자 22개의 판단과 유지 19개의 근거, AST 164개·SSR 28건·검증 범위를 기록했다.
 
 - **Refactor**: ReviewGalleryModal의 header/section 아래 다단계 선택자 6개를 직접 적용하거나 중복 제거하고, 스킬에 전체 JSX 경로로 단일 소유자를 확인하는 기준을 추가했다. [UI 기록](architecture/ui.md#다단계-자식-선택자의-로컬-소유권-2026-10-19)에 cascade 보존과 타입·ESLint·Prettier·Panda·AST 24개 검증 범위를 기록했다.

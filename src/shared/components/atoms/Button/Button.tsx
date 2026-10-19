@@ -104,7 +104,7 @@ const frame = css({
   transition: 'background-color 160ms ease, color 160ms ease, box-shadow 160ms ease',
 });
 
-const content = css({
+const content = css.raw({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -115,7 +115,7 @@ const content = css({
   whiteSpace: 'nowrap',
 });
 
-const label = css({
+const label = css.raw({
   fontSize: 'var(--button-label-size)',
   fontWeight: 'var(--button-label-weight, inherit)',
   lineHeight: 'body',
@@ -130,7 +130,7 @@ const iconStyle = css({
   color: 'inherit',
 });
 
-const iconOnlyButtonStyle = css({
+const iconOnlyButtonStyle = css.raw({
   w: '6',
   h: '6',
   minW: '6',
@@ -281,15 +281,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       type={type}
       style={{ ...variables, ...style } as CSSProperties}
       className={[
-        button({
-          density: resolvedDensity,
-          fullWidth: fullWidth || variant === 'bottomSheetPrimary',
-          language,
-          unframed,
-        }),
-        iconOnly ? iconOnlyButtonStyle : '',
-        variant === 'link' ? css({ textDecoration: 'underline', textUnderlineOffset: '3px' }) : '',
-        variant === 'headerSearch' ? css({ w: '178px' }) : '',
+        css(
+          button.raw({
+            density: resolvedDensity,
+            fullWidth: fullWidth || variant === 'bottomSheetPrimary',
+            language,
+            unframed,
+          }),
+          iconOnly && iconOnlyButtonStyle,
+          variant === 'link' && { textDecoration: 'underline', textUnderlineOffset: '3px' },
+          variant === 'headerSearch' && { w: '178px' },
+        ),
         className,
       ]
         .filter(Boolean)
@@ -297,19 +299,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     >
       <span className={frame}>
         <span
-          className={[
+          className={css(
             content,
-            variant === 'headerSearch' ? css({ justifyContent: 'space-between' }) : '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
+            variant === 'headerSearch' && { justifyContent: 'space-between' },
+          )}
         >
           {iconOnly ? null : (
-            <span
-              className={[label, variant === 'link' ? css({ lineHeight: '1.3' }) : '']
-                .filter(Boolean)
-                .join(' ')}
-            >
+            <span className={css(label, variant === 'link' && { lineHeight: '1.3' })}>
               {labelTypographyVariant ? (
                 <Typography as="span" variant={labelTypographyVariant} style={{ color: 'inherit' }}>
                   {children}
