@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
@@ -18,7 +18,6 @@ const styles = {
     _focusVisible: { outline: '2px solid var(--color-text-primary)', outlineOffset: '2px' },
   }),
   image: css({ display: 'block', w: '100%', aspectRatio: '1', objectFit: 'contain' }),
-  promotion: css({ minH: '20px' }),
 };
 
 export function ProductCardPreview({ product }: { product: Product }) {
@@ -71,13 +70,13 @@ export function ProductCardPreview({ product }: { product: Product }) {
           onSelect={setSelectedColorId}
         />
       )}
-      <div className={styles.promotion}>
+      <Box minH="20px">
         {product.promotion && (
           <Typography variant="body4" tone="red80">
             {product.promotion}
           </Typography>
         )}
-      </div>
+      </Box>
       <HStack alignItems="center" gap="2">
         <RatingStars value={product.rating} aria-label={`평점 ${product.rating}점`} />
         <Typography variant="body5" tone="subtle">

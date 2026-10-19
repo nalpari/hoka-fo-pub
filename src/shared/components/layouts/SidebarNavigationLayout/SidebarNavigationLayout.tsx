@@ -4,6 +4,7 @@ import {
   SideNavigation,
   type SideNavigationGroup,
 } from '@/shared/components/organisms/Navigation/SideNavigation/SideNavigation';
+import { Box } from 'styled-system/jsx';
 
 export type SidebarNavigationGroup = SideNavigationGroup;
 
@@ -33,8 +34,6 @@ const page = css({
   },
 });
 
-const content = css({ minW: '0' });
-
 export function SidebarNavigationLayout({
   title: navigationTitle,
   titleTo,
@@ -53,7 +52,7 @@ export function SidebarNavigationLayout({
         title={navigationTitle}
         titleTo={titleTo}
       />
-      <div className={content}>{children}</div>
+      <Box minW="0">{children}</Box>
     </main>
   );
 }

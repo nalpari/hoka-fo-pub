@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { Box, Flex, Stack, styled } from 'styled-system/jsx';
+import { Box, Flex, Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faBox, faComments, faLocationDot, faUserSolid } from '@/shared/icons/fontAwesome';
-
-const UtilityLink = styled(Link);
 
 const utilityItems = [
   { label: '마이페이지', to: '/mypage', icon: faUserSolid },
@@ -29,15 +28,17 @@ export function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void 
       <Stack as="ul" gap="1" listStyleType="none" p="0" m="0">
         {utilityItems.map((item) => (
           <li key={item.to}>
-            <UtilityLink
+            <Link
               href={item.to}
               onClick={onNavigate}
-              display="flex"
-              alignItems="center"
-              gap="2"
-              minH="9"
-              color="inherit"
-              textDecoration="none"
+              className={css({
+                display: 'flex',
+                alignItems: 'center',
+                gap: '2',
+                minH: '9',
+                color: 'inherit',
+                textDecoration: 'none',
+              })}
             >
               <Flex
                 as="span"
@@ -54,7 +55,7 @@ export function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void 
                 )}
               </Flex>
               <Typography variant="heading9">{item.label}</Typography>
-            </UtilityLink>
+            </Link>
           </li>
         ))}
       </Stack>

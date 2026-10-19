@@ -2,6 +2,20 @@
 
 ## 2026-10-19
 
+- **Refactor / Audit**: Features·Components 381개 TSX의 다단계·중첩 선택자를 재점검하고 13개 파일에서 17개 부모 규칙을 직접 적용하거나 중복/미사용 제거했다. [UI 기록](architecture/ui.md#다단계-선택자-featurescomponents-재점검-2026-10-19)에 2단계 이상 선택자 22개의 판단과 유지 19개의 근거, AST 164개·SSR 28건·검증 범위를 기록했다.
+
+- **Refactor**: ReviewGalleryModal의 header/section 아래 다단계 선택자 6개를 직접 적용하거나 중복 제거하고, 스킬에 전체 JSX 경로로 단일 소유자를 확인하는 기준을 추가했다. [UI 기록](architecture/ui.md#다단계-자식-선택자의-로컬-소유권-2026-10-19)에 cascade 보존과 타입·ESLint·Prettier·Panda·AST 24개 검증 범위를 기록했다.
+
+- **Refactor / Audit**: Features·Components 381개 TSX에서 단순 자식 선택자 185개를 점검하고 28개 소스의 67개 규칙을 해당 JSX에 직접 적용하거나 중복 제거했다. 반복 li·자체 가상 요소·런클럽 행·썸네일 선택 상태를 보존했다. [UI 기록](architecture/ui.md#featurescomponents-자식-선택자-소유권-전수-점검-2026-10-19)에 잔여 선택자 유지 사유, AST 552개·SSR 46건·빌드 검사와 브라우저 검증 한계를 기록했다.
+
+- **Refactor**: 추천 검색어의 mapped li와 before 스타일을 해당 li에 직접 적용했다. 스킬의 단일 소유자 판단을 렌더링 DOM 수가 아닌 로컬 JSX 기준으로 바로잡고, 반복·가상 요소만으로 이전을 제외하지 않도록 했다. [UI 계약](architecture/ui.md#단일-자식-선택자의-스타일-소유권-2026-10-19)과 타입·ESLint·Prettier·Panda 검증을 갱신했다.
+
+- **Refactor**: 추천 검색어 ol의 counterReset을 요소에 직접 적용하고 스킬에 단일 자식 선택자 소유권 점검 기준을 통합했다. [UI 기록](architecture/ui.md#단일-자식-선택자의-스타일-소유권-2026-10-19)에 보존 조건과 타입·ESLint·Prettier·Panda 검사 결과를 기록했다.
+
+- **Refactor / Audit**: Components 213개 TSX를 점검하고 텍스트 50곳·단일 사용 스타일 86곳·동일 플랫폼 옵션 2곳·고정 recipe 배치를 정리했다. 무스타일 구조 HTML·공개 props·기존 상호작용을 유지하고 styled 사용을 제거했다. [UI 기록](architecture/ui.md#components-재사용성과-jsx-표현-점검-2026-10-19)과 [재사용 판단](architecture/organisms.md#components-점검-후-재사용-판단-2026-10-19)에 AST 665개·SSR 30건·빌드 검증과 브라우저 검증 미실행을 기록했다.
+
+- **Refactor / Audit**: Features 168개 TSX를 점검하고 동일 web/mo 59곳, 텍스트 94곳, 단일 사용 스타일 67곳, 중복 display 5곳과 styled 2곳을 정리했다. 무스타일 구조 HTML과 기존 상태 계약을 유지했다. [UI 기록](architecture/ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)·[상태 검토](architecture/state.md#features-표현-정리-후-상태-계약-검토-2026-10-19)에 실제 검증과 후속 후보를 기록했다.
+
 - **Refactor**: SearchCategorySelect의 검색 범위 레이블에 Typography.srOnly를 적용하고 중복 숨김 CSS를 제거했다. [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)에 출처와 타입 검사·ESLint·Prettier 통과를 기록했다.
 
 - **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.

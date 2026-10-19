@@ -1,23 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { Product } from '@/mocks/products';
-import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-
-const root = css({
-  position: 'sticky',
-  bottom: { base: '18px', _mobile: '8px' },
-  zIndex: '3',
-  display: 'flex',
-  alignItems: 'center',
-  flexWrap: { base: 'nowrap', _mobile: 'wrap' },
-  gap: '2.5',
-  mt: '5',
-  border: '1px solid var(--color-black-100)',
-  p: { base: '14px 18px', _mobile: '10px' },
-  bg: 'var(--color-white-000)',
-  boxShadow: '0 8px 24px color-mix(in srgb, var(--color-black-100) 12%, transparent)',
-});
 
 export function CompareBar({
   products,
@@ -29,7 +13,20 @@ export function CompareBar({
   onCompare: () => void;
 }) {
   return (
-    <aside className={root} aria-live="polite">
+    <HStack
+      as="aside"
+      pos="sticky"
+      bottom={{ base: '18px', _mobile: '8px' }}
+      zIndex="3"
+      flexWrap={{ base: 'nowrap', _mobile: 'wrap' }}
+      gap="2.5"
+      mt="5"
+      border="1px solid var(--color-black-100)"
+      p={{ base: '14px 18px', _mobile: '10px' }}
+      bg="var(--color-white-000)"
+      boxShadow="0 8px 24px color-mix(in srgb, var(--color-black-100) 12%, transparent)"
+      aria-live="polite"
+    >
       <Stack flex="1" gap="3px">
         <Typography as="small" variant="body5">
           상품 비교 · 최대 3개
@@ -44,6 +41,6 @@ export function CompareBar({
       <Button onClick={onCompare} size="short" variant="primary">
         비교하기 ({products.length})
       </Button>
-    </aside>
+    </HStack>
   );
 }

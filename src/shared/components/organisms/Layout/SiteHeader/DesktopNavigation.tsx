@@ -2,19 +2,9 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { megaMenus, type MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { cva, css } from 'styled-system/css';
+import { HStack } from 'styled-system/jsx';
 
 const styles = {
-  navigation: css({
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-    minW: 0,
-    h: '58px',
-    gap: 0,
-    _mobile: {
-      display: 'none !important',
-    },
-  }),
   item: cva({
     base: {
       position: 'relative',
@@ -90,7 +80,17 @@ export function DesktopNavigation({
   onMenuToggle,
 }: DesktopNavigationProps) {
   return (
-    <nav className={styles.navigation} aria-label="주요 메뉴">
+    <HStack
+      as="nav"
+      flex={1}
+      minW={0}
+      h="58px"
+      gap={0}
+      _mobile={{
+        display: 'none !important',
+      }}
+      aria-label="주요 메뉴"
+    >
       {megaMenus.map((menu, index) => (
         <Button
           key={menu.id}
@@ -122,6 +122,6 @@ export function DesktopNavigation({
           </Typography>
         </Button>
       ))}
-    </nav>
+    </HStack>
   );
 }

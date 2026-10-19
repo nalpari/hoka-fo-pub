@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
-import { Flex } from 'styled-system/jsx';
+import { Grid, Box, Flex } from 'styled-system/jsx';
 import { screens, type ScreenDefinition } from '@/data/screenRegistry';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -30,6 +30,7 @@ import {
   isStorybookWorking,
 } from '@/shared/features/screen-index/storybookLinks';
 import { getProductListingIaKey } from '@/shared/features/catalog/productListingIaRoute';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 config.autoAddCss = false;
 
@@ -195,14 +196,7 @@ const categoryWbsAssignments = {
 
 const styles = {
   page: css({ maxW: 'none', bg: '#f6f8ff', px: '6', py: '6', _mobile: { px: '4', py: '4' } }),
-  dashboard: css({
-    display: 'grid',
-    gridTemplateColumns: 'minmax(280px, 0.9fr) minmax(0, 2.1fr)',
-    gap: '4',
-    mb: '4',
-    _mobile: { gridTemplateColumns: '1fr' },
-  }),
-  summaryColumn: css({ display: 'grid', gap: '3' }),
+
   card: css({
     border: '1px solid #dbe5ff',
     borderRadius: '10px',
@@ -225,36 +219,13 @@ const styles = {
     },
     '& span': { color: '#68718a', fontSize: '12' /* 기존: 10px */, fontWeight: '700' },
   }),
-  summaryValue: css({
-    display: 'flex',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
-    mt: '4',
-    '& strong': { color: '#2a14b4', fontSize: '28' /* 기존 27px */, letterSpacing: '-0.04em' },
-    '& span': { color: '#68718a', fontFamily: 'mono', fontSize: '12' /* 기존: 11px */ },
-  }),
-  progress: css({
-    display: 'flex',
-    overflow: 'hidden',
-    h: '2.5',
-    mt: '3',
-    borderRadius: 'full',
-    bg: '#dce4f5',
-  }),
+
   readyProgress: css({ h: 'full', bg: '#17643b' }),
   workingProgress: css({ h: 'full', bg: '#5148d7' }),
   pendingProgress: css({ h: 'full', bg: '#68718a' }),
   delayedProgress: css({ h: 'full', bg: '#c51c1c' }),
   deletedProgress: css({ h: 'full', bg: '#7a7f8c' }),
-  summaryFooter: css({
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '2',
-    mt: '3',
-    color: '#68718a',
-    fontSize: '12' /* 기존: 11px */,
-    '& b': { color: '#17223d' },
-  }),
+
   issueCard: css({
     p: '3',
     borderColor: '#f2b8b5',
@@ -273,13 +244,7 @@ const styles = {
     textDecoration: 'underline',
   }),
   navCard: css({ p: '4' }),
-  groupGrid: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-    gap: '2',
-    mt: '3',
-    _mobile: { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
-  }),
+
   groupButton: css({
     display: 'grid',
     gap: '1.5',
@@ -307,25 +272,7 @@ const styles = {
     borderRadius: 'full',
     bg: '#dce4f5',
   }),
-  toolbar: css({
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '3',
-    mb: '3',
-    p: '3',
-    border: '1px solid #dbe5ff',
-    borderRadius: '7px',
-    bg: '#fff',
-  }),
-  controls: css({
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: '2',
-    _mobile: { w: '100%' },
-  }),
+
   button: css({
     px: '3',
     py: '2',
@@ -348,13 +295,7 @@ const styles = {
     color: '#3e4965',
     fontSize: '12px',
   }),
-  legend: css({
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '1.5',
-    fontSize: '12' /* 기존: 10px */,
-    fontWeight: '800',
-  }),
+
   chip: css({ px: '2', py: '1', border: '1px solid', borderRadius: '3px', cursor: 'pointer' }),
   readyChip: css({ borderColor: '#b9dfc8', bg: '#effbf3', color: '#17643b' }),
   workingChip: css({ borderColor: '#cbc5ff', bg: '#f0eeff', color: '#5148d7' }),
@@ -366,12 +307,7 @@ const styles = {
     color: '#7a7f8c',
     textDecoration: 'line-through',
   }),
-  tableWrap: css({
-    overflowX: 'auto',
-    border: '1px solid #dbe5ff',
-    borderRadius: '7px',
-    bg: '#fff',
-  }),
+
   table: css({
     w: '100%',
     minW: '1500px',
@@ -390,7 +326,7 @@ const styles = {
   groupRow: css({
     bg: '#eaf0ff',
     '& td': { borderBottomColor: '#d4e0fb' },
-    '& strong': { color: '#2a14b4', fontSize: '14' /* 기존 13px */ },
+
     '& span': { color: '#68718a', fontSize: '12' /* 기존: 11px */, fontWeight: '600' },
   }),
   delayedRow: css({ bg: '#fff0ef', color: '#bd2d2d', '& td': { borderBottomColor: '#f6d0cd' } }),
@@ -706,23 +642,45 @@ export function IaStructurePage() {
       title="IA 구조도"
       description="확정 IA 기준 화면 체계와 구현 현황을 관리합니다."
     >
-      <section className={styles.dashboard} aria-label="IA 구현 현황">
-        <div className={styles.summaryColumn}>
+      <Grid
+        as="section"
+        gridTemplateColumns="minmax(280px, 0.9fr) minmax(0, 2.1fr)"
+        gap="4"
+        mb="4"
+        _mobile={{ gridTemplateColumns: '1fr' }}
+        aria-label="IA 구현 현황"
+      >
+        <Grid gap="3">
           <article className={styles.card + ' ' + styles.summaryCard}>
             <div className={styles.cardHeading}>
-              <h2>
+              <Typography as="h2">
                 <FontAwesomeIcon icon={faChartLine} aria-hidden="true" />
                 IA OVERALL SPRINT
-              </h2>
-              <span>Real-time</span>
+              </Typography>
+              <Typography as="span">Real-time</Typography>
             </div>
-            <div className={styles.summaryValue}>
-              <strong>{completePercent.toFixed(1)}%</strong>
-              <span>
+            <Flex alignItems="baseline" justifyContent="space-between" mt="4">
+              <strong
+                className={css({
+                  color: '#2a14b4',
+                  fontSize: '28' /* 기존 27px */,
+                  letterSpacing: '-0.04em',
+                })}
+              >
+                {completePercent.toFixed(1)}%
+              </strong>
+              <Typography
+                as="span"
+                className={css({
+                  color: '#68718a',
+                  fontFamily: 'mono',
+                  fontSize: '12' /* 기존: 11px */,
+                })}
+              >
                 {counts.ready} / {screens.length}P
-              </span>
-            </div>
-            <div className={styles.progress}>
+              </Typography>
+            </Flex>
+            <Flex overflow="hidden" h="2.5" mt="3" borderRadius="full" bg="#dce4f5">
               <span
                 className={styles.readyProgress}
                 style={{ width: String(completePercent) + '%' }}
@@ -743,26 +701,37 @@ export function IaStructurePage() {
                 className={styles.deletedProgress}
                 style={{ width: String(deletedPercent) + '%' }}
               />
-            </div>
-            <div className={styles.summaryFooter}>
-              <span>총 {screens.length}개 화면</span>
-              <span>
+            </Flex>
+            <Flex
+              justifyContent="space-between"
+              gap="2"
+              mt="3"
+              color="#68718a"
+              fontSize="12"
+              css={{ '& b': { color: '#17223d' } }}
+            >
+              <Typography as="span">총 {screens.length}개 화면</Typography>
+              <Typography as="span">
                 완료 <b>{counts.ready}</b> · 작업 중 {counts.working} · 대기 {counts.pending} · 지연{' '}
                 <b>{counts.delayed}</b>
-              </span>
-            </div>
+              </Typography>
+            </Flex>
           </article>
           <article className={styles.card + ' ' + styles.issueCard}>
             <div className={styles.cardHeading}>
-              <h2>
+              <Typography as="h2">
                 <FontAwesomeIcon icon={faTriangleExclamation} aria-hidden="true" />
                 BLOCKED / 긴급 이슈
-              </h2>
-              <span>{counts.delayed ? counts.delayed + '건 대응중' : '정상'}</span>
+              </Typography>
+              <Typography as="span">
+                {counts.delayed ? counts.delayed + '건 대응중' : '정상'}
+              </Typography>
             </div>
             {counts.delayed ? (
               <>
-                <p>지연 상태로 분류된 IA 화면의 일정과 의존성을 확인해야 합니다.</p>
+                <Typography as="p">
+                  지연 상태로 분류된 IA 화면의 일정과 의존성을 확인해야 합니다.
+                </Typography>
                 <button
                   type="button"
                   className={styles.issueButton}
@@ -775,25 +744,30 @@ export function IaStructurePage() {
                 </button>
               </>
             ) : (
-              <p>현재 등록된 지연 또는 블락 이슈가 없습니다.</p>
+              <Typography as="p">현재 등록된 지연 또는 블락 이슈가 없습니다.</Typography>
             )}
           </article>
-        </div>
+        </Grid>
 
         <section className={styles.card + ' ' + styles.navCard} aria-label="화면 체계 NAV 탭 분류">
           <div className={styles.cardHeading}>
-            <h2>
+            <Typography as="h2">
               <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
               화면 체계 NAV 탭 분류 ({groups.length}개 영역)
-            </h2>
-            <span>
+            </Typography>
+            <Typography as="span">
               <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 완료 ·{' '}
               <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 작업 중 ·{' '}
               <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 대기 ·{' '}
               <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 지연
-            </span>
+            </Typography>
           </div>
-          <div className={styles.groupGrid}>
+          <Grid
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            gap="2"
+            mt="3"
+            _mobile={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}
+          >
             {groups.map((group) => {
               const groupCounts = group.screens.reduce(
                 (current, screen) => {
@@ -822,7 +796,7 @@ export function IaStructurePage() {
                 >
                   <Flex gap="2" alignItems="center">
                     <strong>{group.depth1}</strong>
-                    <span>{groupTotal}P</span>
+                    <Typography as="span">{groupTotal}P</Typography>
                   </Flex>
                   <span className={styles.miniProgress}>
                     <span
@@ -846,20 +820,30 @@ export function IaStructurePage() {
                       style={{ width: String((groupCounts.deleted / groupTotal) * 100) + '%' }}
                     />
                   </span>
-                  <span>
+                  <Typography as="span">
                     완료 {groupCounts.ready} · 작업 중 {groupCounts.working} · 대기{' '}
                     {groupCounts.pending} · 지연 {groupCounts.delayed}
-                  </span>
+                  </Typography>
                 </button>
               );
             })}
-          </div>
+          </Grid>
         </section>
-      </section>
+      </Grid>
 
       <section aria-label="IA 화면 목록">
-        <div className={styles.toolbar}>
-          <div className={styles.controls}>
+        <Flex
+          flexWrap="wrap"
+          alignItems="center"
+          justifyContent="space-between"
+          gap="3"
+          mb="3"
+          p="3"
+          border="1px solid #dbe5ff"
+          borderRadius="7px"
+          bg="#fff"
+        >
+          <Flex flexWrap="wrap" alignItems="center" gap="2" _mobile={{ w: '100%' }}>
             <button
               type="button"
               className={styles.button}
@@ -904,8 +888,14 @@ export function IaStructurePage() {
               <option value="delayed">지연 / 블락</option>
               <option value="deleted">삭제 / 제외</option>
             </select>
-          </div>
-          <div className={styles.legend} aria-label="구현 상태 범례">
+          </Flex>
+          <Flex
+            flexWrap="wrap"
+            gap="1.5"
+            fontSize="12"
+            fontWeight="800"
+            aria-label="구현 상태 범례"
+          >
             {(['ready', 'working', 'pending', 'delayed', 'deleted'] as DeliveryStatus[]).map(
               (status) => (
                 <button
@@ -931,10 +921,10 @@ export function IaStructurePage() {
                 </button>
               ),
             )}
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
-        <div className={styles.tableWrap}>
+        <Box overflowX="auto" border="1px solid #dbe5ff" borderRadius="7px" bg="#fff">
           <table className={styles.table}>
             <thead>
               <tr>
@@ -960,9 +950,15 @@ export function IaStructurePage() {
               ))}
             </tbody>
           </table>
-          {!visibleGroups.length && <p className={styles.empty}>선택한 조건의 화면이 없습니다.</p>}
-        </div>
-        <p className={styles.empty}>현재 {activeTotal}개 화면을 표시합니다.</p>
+          {!visibleGroups.length && (
+            <Typography as="p" className={styles.empty}>
+              선택한 조건의 화면이 없습니다.
+            </Typography>
+          )}
+        </Box>
+        <Typography as="p" className={styles.empty}>
+          현재 {activeTotal}개 화면을 표시합니다.
+        </Typography>
       </section>
     </ContentLayout>
   );
@@ -1000,21 +996,35 @@ function GroupRows({
                 aria-hidden="true"
               />
             </button>
-            <span className={styles.depthMarker}>D1</span>
+            <Typography as="span" className={styles.depthMarker}>
+              D1
+            </Typography>
             <span className={styles.hierarchyIcon}>
               <FontAwesomeIcon icon={faFolderOpen} aria-hidden="true" />
             </span>
-            <strong>{group.depth1}</strong>
-            <span>({group.screens.length} screens)</span>
+            <strong className={css({ color: '#2a14b4', fontSize: '14' /* 기존 13px */ })}>
+              {group.depth1}
+            </strong>
+            <Typography as="span">({group.screens.length} screens)</Typography>
           </div>
         </td>
         <td>대분류</td>
         <td className={styles.code}>CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}</td>
         <td className={styles.wbs}>{groupWbs?.period ?? '-'}</td>
         <td>-</td>
-        <td>{groupWbs ? <span className={styles.owner}>{groupWbs.owners}</span> : '-'}</td>
         <td>
-          <span className={styles.preview}>-</span>
+          {groupWbs ? (
+            <Typography as="span" className={styles.owner}>
+              {groupWbs.owners}
+            </Typography>
+          ) : (
+            '-'
+          )}
+        </td>
+        <td>
+          <Typography as="span" className={styles.preview}>
+            -
+          </Typography>
         </td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
       </tr>
@@ -1056,7 +1066,9 @@ function GroupRows({
                   ) : (
                     <span className={styles.spacer} />
                   )}
-                  <span className={styles.depthMarker}>D{row.depth + 1}</span>
+                  <Typography as="span" className={styles.depthMarker}>
+                    D{row.depth + 1}
+                  </Typography>
                   <span className={styles.hierarchyIcon}>
                     <FontAwesomeIcon
                       icon={
@@ -1071,7 +1083,7 @@ function GroupRows({
                       aria-hidden="true"
                     />
                   </span>
-                  <span>{row.label}</span>
+                  <Typography as="span">{row.label}</Typography>
                 </div>
               </td>
               <td>
@@ -1082,14 +1094,25 @@ function GroupRows({
               <td className={styles.wbs}>{rowWbs?.period ?? '-'}</td>
               <td>
                 {status ? (
-                  <span className={styles.statusTag + ' ' + getStatusTagClass(status)}>
+                  <Typography
+                    as="span"
+                    className={styles.statusTag + ' ' + getStatusTagClass(status)}
+                  >
                     {statusLabels[status]}
-                  </span>
+                  </Typography>
                 ) : (
                   '-'
                 )}
               </td>
-              <td>{rowWbs ? <span className={styles.owner}>{rowWbs.owners}</span> : '-'}</td>
+              <td>
+                {rowWbs ? (
+                  <Typography as="span" className={styles.owner}>
+                    {rowWbs.owners}
+                  </Typography>
+                ) : (
+                  '-'
+                )}
+              </td>
               <td>
                 {rowPreviewStoryIds ? (
                   <div className={styles.preview}>
@@ -1110,13 +1133,21 @@ function GroupRows({
                   </div>
                 ) : (
                   <div className={styles.preview}>
-                    <span>N/A</span>
+                    <Typography as="span">N/A</Typography>
                   </div>
                 )}
               </td>
               <td className={styles.note}>
-                {status === 'delayed' && <span className={styles.delayedTag}>WBS 초과</span>}
-                {status === 'deleted' && <span className={styles.deletedTag}>삭제 / 제외</span>}
+                {status === 'delayed' && (
+                  <Typography as="span" className={styles.delayedTag}>
+                    WBS 초과
+                  </Typography>
+                )}
+                {status === 'deleted' && (
+                  <Typography as="span" className={styles.deletedTag}>
+                    삭제 / 제외
+                  </Typography>
+                )}
                 {row.screen ? row.screen.note || '-' : '-'}
               </td>
             </tr>

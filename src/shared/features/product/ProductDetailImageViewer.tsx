@@ -21,25 +21,6 @@ const styles = {
     flexDirection: 'column',
     gap: '2',
     alignSelf: 'start',
-    '& button': {
-      position: 'relative',
-      w: '100px',
-      p: '0',
-      overflow: 'hidden',
-      border: 'none',
-      bg: 'var(--color-black-10)',
-      cursor: 'pointer',
-    },
-    '& button[aria-pressed="true"]': {
-      _after: {
-        content: '""',
-        position: 'absolute',
-        inset: '0',
-        bg: 'rgb(0 0 0 / 15%)',
-        pointerEvents: 'none',
-      },
-    },
-    '& img': { display: 'block', w: '100%', h: 'auto' },
   }),
 };
 
@@ -101,8 +82,30 @@ export function ProductDetailImageViewer({
                 key={images[index]}
                 onClick={() => select(index)}
                 type="button"
+                className={css({
+                  pos: 'relative',
+                  w: '100px',
+                  p: '0',
+                  overflow: 'hidden',
+                  border: 'none',
+                  bg: 'var(--color-black-10)',
+                  cursor: 'pointer',
+                  '&[aria-pressed="true"]': {
+                    _after: {
+                      content: '""',
+                      pos: 'absolute',
+                      inset: '0',
+                      bg: 'rgb(0 0 0 / 15%)',
+                      pointerEvents: 'none',
+                    },
+                  },
+                })}
               >
-                <img alt="" src={images[index]} />
+                <img
+                  alt=""
+                  src={images[index]}
+                  className={css({ display: 'block', w: '100%', h: 'auto' })}
+                />
               </button>
             )}
           />

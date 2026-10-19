@@ -3,17 +3,11 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 
 export type QuickLinkItem = { label: string; value: string; to: string };
 
 type Props = { items: QuickLinkItem[]; label?: string };
-
-const grid = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  border: '1px solid var(--color-border-subtle)',
-  _mobile: { gridTemplateColumns: 'repeat(2, 1fr)' },
-});
 
 const link = css({
   position: 'relative',
@@ -38,7 +32,14 @@ const arrow = css({
 
 export function QuickLinkGrid({ items, label = '바로가기' }: Props) {
   return (
-    <nav className={grid} aria-label={label}>
+    <Grid
+      as="nav"
+      gap="normal"
+      gridTemplateColumns="repeat(4, 1fr)"
+      border="1px solid var(--color-border-subtle)"
+      _mobile={{ gridTemplateColumns: 'repeat(2, 1fr)' }}
+      aria-label={label}
+    >
       {items.map((item) => (
         <Link className={link} key={item.label} href={item.to}>
           <Typography variant="body5" tone="tertiary">
@@ -52,6 +53,6 @@ export function QuickLinkGrid({ items, label = '바로가기' }: Props) {
           </b>
         </Link>
       ))}
-    </nav>
+    </Grid>
   );
 }

@@ -3,36 +3,11 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
+import { HStack, Grid } from 'styled-system/jsx';
 
 export type OrderStatusItem = { label: string; count: number; to?: string };
 
 type Props = { items: OrderStatusItem[]; to?: string };
-
-const heading = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  mb: '3',
-  '& h2': {
-    m: '0',
-  },
-  '&&': {
-    '& a': {
-      color: 'var(--color-text-tertiary)',
-    },
-  },
-});
-
-const list = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, 1fr)',
-  borderTop: '1px solid var(--color-black-100)',
-  borderBottom: '1px solid var(--color-border-subtle)',
-  _mobile: {
-    overflowX: 'auto',
-    gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))',
-  },
-});
 
 const statusLink = css({
   display: 'grid',
@@ -53,17 +28,32 @@ const statusLink = css({
 export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
   return (
     <section aria-label="주문 배송 현황">
-      <div className={heading}>
-        <Typography as="h2" variant="heading9">
+      <HStack gap="normal" justifyContent="space-between" mb="3">
+        <Typography
+          as="h2"
+          variant="heading9"
+          className={css({
+            m: '0',
+          })}
+        >
           주문 / 배송 조회
         </Typography>
-        <Link href={to}>
+        <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
           <Typography variant="body5" tone="tertiary">
             전체 보기 →
           </Typography>
         </Link>
-      </div>
-      <div className={list}>
+      </HStack>
+      <Grid
+        gap="normal"
+        gridTemplateColumns="repeat(5, 1fr)"
+        borderTop="1px solid var(--color-black-100)"
+        borderBottom="1px solid var(--color-border-subtle)"
+        _mobile={{
+          overflowX: 'auto',
+          gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))',
+        }}
+      >
         {items.map((status) => (
           <Link className={statusLink} key={status.label} href={status.to ?? to}>
             <Typography as="strong" variant="heading8">
@@ -72,7 +62,7 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
             <Typography variant="body5">{status.label}</Typography>
           </Link>
         ))}
-      </div>
+      </Grid>
     </section>
   );
 }

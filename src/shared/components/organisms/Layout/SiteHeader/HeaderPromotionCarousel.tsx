@@ -10,30 +10,9 @@ import {
 } from '@/shared/components/molecules/Carousel/Carousel';
 import { HeaderPromotionContent, type HeaderPromotionButtonType } from './HeaderPromotionContent';
 import { headerPromotionItems, type HeaderPromotionItem } from './headerPromotionData';
-
-const promotionFrame = css({
-  display: 'grid',
-  gridTemplateColumns: '32px minmax(0, 1fr) 32px',
-  alignItems: 'center',
-  gap: '35px',
-  w: 'calc(var(--promotion-content-width, 280px) + 150px)',
-  maxW: '100%',
-  minW: '0',
-  h: '100%',
-  px: '2',
-});
+import { HStack, Grid } from 'styled-system/jsx';
 
 const promotionViewport = css({ minW: '0', h: '100%', gridColumn: '2', gridRow: '1' });
-
-const singlePromotion = css({
-  '--promotion-frame-space': '16px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  w: '100%',
-  h: '100%',
-  px: '2',
-});
 
 const promotionControls = css({
   display: 'contents',
@@ -71,13 +50,20 @@ export function HeaderPromotionCarousel({
     const item = items[0];
 
     return (
-      <div className={singlePromotion}>
+      <HStack
+        gap="normal"
+        justifyContent="center"
+        w="100%"
+        h="100%"
+        px="2"
+        css={{ '--promotion-frame-space': '16px' }}
+      >
         <HeaderPromotionContent
           message={item.message}
           href={item.href}
           buttonType={buttonType ?? item.buttonType}
         />
-      </div>
+      </HStack>
     );
   }
 
@@ -111,8 +97,15 @@ function PromotionCarouselFrame({
   }, [activeIndex, items, buttonType]);
 
   return (
-    <div
-      className={promotionFrame}
+    <Grid
+      gridTemplateColumns="32px minmax(0, 1fr) 32px"
+      alignItems="center"
+      gap="35px"
+      w="calc(var(--promotion-content-width, 280px) + 150px)"
+      maxW="100%"
+      minW="0"
+      h="100%"
+      px="2"
       style={
         {
           '--promotion-content-width': contentWidth === undefined ? undefined : `${contentWidth}px`,
@@ -139,6 +132,6 @@ function PromotionCarouselFrame({
         ))}
       </CarouselViewport>
       <CarouselControls className={promotionControls} />
-    </div>
+    </Grid>
   );
 }

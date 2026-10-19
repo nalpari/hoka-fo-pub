@@ -29,23 +29,6 @@ const styles = {
     _mobile: { gridTemplateColumns: '1fr', justifyItems: 'start' },
   }),
   link: css({ textDecoration: 'underline', textUnderlineOffset: '3px' }),
-  steps: css({
-    gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
-    gap: '10 4',
-    listStyle: 'none',
-    m: '0',
-    py: '10',
-    px: '0',
-    borderTop: '2px solid var(--color-black-100)',
-    borderBottom: '1px solid var(--color-black-40)',
-    '& > li': { gridColumn: 'span 2', textAlign: 'center', alignItems: 'center' },
-    '& > li:nth-child(4)': { gridColumn: '2 / 4' },
-    '& > li:nth-child(5)': { gridColumn: '4 / 6' },
-    _mobile: {
-      gridTemplateColumns: '1fr',
-      '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
-    },
-  }),
 };
 
 const serviceUrl = 'https://service.joy-works.co.kr/';
@@ -183,7 +166,26 @@ export function ProductDetailAfterSalesContent() {
           온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리 일정은
           상품 확인 후 안내됩니다.
         </Typography>
-        <Grid as="ol" className={styles.steps}>
+        <Grid
+          as="ol"
+          gridTemplateColumns="repeat(6, minmax(0, 1fr))"
+          gap="10 4"
+          listStyle="none"
+          m="0"
+          py="10"
+          px="0"
+          borderTop="2px solid var(--color-black-100)"
+          borderBottom="1px solid var(--color-black-40)"
+          _mobile={{
+            gridTemplateColumns: '1fr',
+            '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
+          }}
+          css={{
+            '& > li': { gridColumn: 'span 2', textAlign: 'center', alignItems: 'center' },
+            '& > li:nth-child(4)': { gridColumn: '2 / 4' },
+            '& > li:nth-child(5)': { gridColumn: '4 / 6' },
+          }}
+        >
           {steps.map((step, index) => (
             <Stack as="li" gap="3" key={step.title}>
               <Icon fontAwesomeIcon={step.icon} size="48px" />

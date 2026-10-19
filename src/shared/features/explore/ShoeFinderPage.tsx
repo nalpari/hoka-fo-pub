@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { cva, css } from 'styled-system/css';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const exploreLayout = css({
   maxW: 'var(--content-width)',
@@ -66,8 +67,8 @@ export function ShoeFinderPage() {
       description="활동과 원하는 착화감을 고르면 다음 단계에서 추천 상품을 연결합니다."
     >
       <div className={finderStep}>
-        <span>01 / ACTIVITY</span>
-        <h2>어떤 움직임을 준비하고 있나요?</h2>
+        <Typography as="span">01 / ACTIVITY</Typography>
+        <Typography as="h2">어떤 움직임을 준비하고 있나요?</Typography>
         <div className={finderOptions}>
           {activities.map(([value, label]) => (
             <Button
@@ -81,8 +82,8 @@ export function ShoeFinderPage() {
         </div>
       </div>
       <div className={finderStep}>
-        <span>02 / FEEL</span>
-        <h2>어떤 착화감을 원하시나요?</h2>
+        <Typography as="span">02 / FEEL</Typography>
+        <Typography as="h2">어떤 착화감을 원하시나요?</Typography>
         <div className={finderOptions}>
           {cushioning.map(([value, label]) => (
             <Button

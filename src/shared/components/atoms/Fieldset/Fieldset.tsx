@@ -1,9 +1,8 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 
 const fieldset = css({ m: '0', border: '0', p: '0' });
-
-const legend = css({ p: '0', fontWeight: 'bold' });
 
 const visuallyHidden = css({
   position: 'absolute',
@@ -31,13 +30,14 @@ export function Fieldset({
   return (
     <fieldset {...props} className={[fieldset, className].filter(Boolean).join(' ')}>
       {label ? (
-        <legend
-          className={[legend, visuallyHiddenLegend ? visuallyHidden : undefined]
-            .filter(Boolean)
-            .join(' ')}
+        <Box
+          as="legend"
+          p="0"
+          fontWeight="bold"
+          className={visuallyHiddenLegend ? visuallyHidden : undefined}
         >
           {label}
-        </legend>
+        </Box>
       ) : null}
       {children}
     </fieldset>

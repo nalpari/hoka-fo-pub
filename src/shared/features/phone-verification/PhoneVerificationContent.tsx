@@ -12,7 +12,6 @@ import { PhoneVerificationDetailDialog } from '@/shared/features/phone-verificat
 
 const styles = {
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
-  carrier: css({ '& > button': { justifySelf: 'end' } }),
 };
 
 export const verificationTerms = [
@@ -179,12 +178,7 @@ export function PhoneVerificationContent(props: Props) {
               {selectField('nationality', '국적', ['내국인', '외국인'])}
               {selectField('gender', '성별', ['남자', '여자'])}
             </Grid>
-            <Grid
-              gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)"
-              gap="3"
-              alignItems="center"
-              className={styles.carrier}
-            >
+            <Grid gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)" gap="3" alignItems="center">
               {selectField('carrier', '통신사', [
                 'SKT',
                 'KT',
@@ -196,7 +190,7 @@ export function PhoneVerificationContent(props: Props) {
               <Button
                 variant="link"
                 size="md"
-                className={styles.detail}
+                className={[styles.detail, css({ justifySelf: 'end' })].join(' ')}
                 onClick={() => props.onDetail('알뜰폰 사업자')}
               >
                 알뜰폰 사업자 보기

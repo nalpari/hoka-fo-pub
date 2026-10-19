@@ -9,24 +9,11 @@ import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavi
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
+import { Box } from 'styled-system/jsx';
 
 const styles = {
   page: css({ minH: '760px', '--support-padding-bottom': '130px', _mobile: { minH: 0 } }),
-  content: css({
-    '--support-content-title-gap': '37px',
-    '& > select': {
-      display: 'block',
-      w: '175px',
-      h: '37px',
-      my: '12',
-      ml: 'auto',
-      px: '3',
-      border: '1px solid var(--color-border-subtle)',
-      bg: 'var(--color-white-000)',
-      fontSize: '12',
-    },
-    _mobile: { '& > select': { mt: '7' } },
-  }),
+
   tabs: css({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
@@ -43,22 +30,6 @@ const styles = {
       border: '2px solid var(--color-black-60)',
       borderBottom: '2px solid var(--color-white-000)',
     },
-  }),
-  document: css({
-    overflow: 'auto',
-    h: '575px',
-    p: '34px var(--spacing-8)',
-    border: '1px solid var(--color-border-subtle)',
-    '& h3': {
-      mt: 0,
-      mb: '26px',
-    },
-    '& h4': { my: '4.5' },
-    '& p': { m: 0 },
-    '& table': { w: '100%', mt: '4.5', borderCollapse: 'collapse', textAlign: 'center' },
-    '& th, & td': { p: '3 1.5', border: '1px solid var(--color-black-60)' },
-    '& th': { bg: 'var(--color-black-20)' },
-    _mobile: { h: '490px', p: '22px 4' },
   }),
 };
 
@@ -184,7 +155,24 @@ export function TermsPage() {
       title="SUPPORT"
       titleTo="/support"
     >
-      <section className={styles.content}>
+      <Box
+        as="section"
+        _mobile={{ '& > select': { mt: '7' } }}
+        css={{
+          '--support-content-title-gap': '37px',
+          '& > select': {
+            display: 'block',
+            w: '175px',
+            h: '37px',
+            my: '12',
+            ml: 'auto',
+            px: '3',
+            border: '1px solid var(--color-border-subtle)',
+            bg: 'var(--color-white-000)',
+            fontSize: '12',
+          },
+        }}
+      >
         <PageHeader title="약관" />
         <SegmentedControl
           ariaLabel="약관 종류"
@@ -204,8 +192,28 @@ export function TermsPage() {
           <option>2025-06-02</option>
           <option>2026-05-04</option>
         </Select>
-        <article className={styles.document}>{tab === 'terms' ? terms : privacy}</article>
-      </section>
+        <Box
+          as="article"
+          overflow="auto"
+          h="575px"
+          p="34px var(--spacing-8)"
+          border="1px solid var(--color-border-subtle)"
+          _mobile={{ h: '490px', p: '22px 4' }}
+          css={{
+            '& h3': {
+              mt: 0,
+              mb: '26px',
+            },
+            '& h4': { my: '4.5' },
+            '& p': { m: 0 },
+            '& table': { w: '100%', mt: '4.5', borderCollapse: 'collapse', textAlign: 'center' },
+            '& th, & td': { p: '3 1.5', border: '1px solid var(--color-black-60)' },
+            '& th': { bg: 'var(--color-black-20)' },
+          }}
+        >
+          {tab === 'terms' ? terms : privacy}
+        </Box>
+      </Box>
     </SidebarNavigationLayout>
   );
 }

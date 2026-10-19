@@ -7,8 +7,7 @@ import {
 } from '@/shared/components/molecules/MainSection/MainSection';
 import type { Platform } from '@/shared/lib/device';
 import { HomeCarouselRail } from './HomeCarouselRail';
-
-const desktopOnly = css({ _mobile: { display: 'none' } });
+import { Box } from 'styled-system/jsx';
 
 export type HomeCarouselSectionProps = {
   children: ReactNode;
@@ -50,9 +49,9 @@ export function HomeCarouselSection({
         contentWidth={platform === 'web' ? 'extended' : 'contained'}
         className={css({ overflowX: 'clip' })}
         actionSlot={
-          <div className={desktopOnly}>
+          <Box _mobile={{ display: 'none' }}>
             <CarouselControls />
-          </div>
+          </Box>
         }
         spacing={spacing}
         title={title}

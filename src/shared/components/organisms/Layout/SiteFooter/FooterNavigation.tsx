@@ -1,24 +1,21 @@
-import { css } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
 import { FooterNavigationWeb } from './FooterNavigationWeb';
 import { FooterNavigationMobile } from './FooterNavigationMobile';
-
-const styles = {
-  section: css({
-    gridArea: 'navigation',
-    display: 'grid',
-    gridTemplateColumns: 'subgrid',
-    gap: 0,
-    _mobile: { display: 'block', gridTemplateColumns: 'none' },
-  }),
-};
+import { Grid } from 'styled-system/jsx';
 
 export function FooterNavigation() {
   const platform = usePlatform();
 
   return (
-    <section className={styles.section} aria-label="Footer navigation">
+    <Grid
+      as="section"
+      gridArea="navigation"
+      gridTemplateColumns="subgrid"
+      gap={0}
+      _mobile={{ display: 'block', gridTemplateColumns: 'none' }}
+      aria-label="Footer navigation"
+    >
       {platform === 'web' ? <FooterNavigationWeb /> : <FooterNavigationMobile />}
-    </section>
+    </Grid>
   );
 }

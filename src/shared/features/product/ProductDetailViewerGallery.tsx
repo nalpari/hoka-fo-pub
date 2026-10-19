@@ -23,7 +23,7 @@ export function ProductDetailViewerGallery({ images, productName }: Props) {
     <Grid minW="0" w="100%" alignContent="start" gap="0">
       <CarouselViewport className={styles.carousel} freeMode={false} showScrollbar={false}>
         {images.map((image, index) => (
-          <Box w="100%" css={{ '& img': { display: 'block', w: '100%', h: 'auto' } }} key={image}>
+          <Box w="100%" key={image}>
             <ProductDetailImage alt={`${productName} ${index + 1}`} src={image} />
           </Box>
         ))}

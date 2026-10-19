@@ -6,9 +6,62 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T00:12:41.476Z'
+  at: '2026-10-19T03:42:23+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Search/SearchForm.tsx
+  - src/shared/components/organisms/Search/SearchCategorySelect.tsx
+  - src/shared/components/organisms/Search/RecentSearches.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderLogo.tsx
+  - src/shared/components/atoms/Button/Button.tsx
+  - src/shared/components/atoms/Button/ButtonDocs.tsx
+  - src/shared/components/atoms/DataTable/DataTable.tsx
+  - src/shared/components/atoms/Fieldset/Fieldset.tsx
+  - src/shared/components/atoms/FormField/FormField.tsx
+  - src/shared/components/atoms/IconButton/IconButtonDocs.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/atoms/Tag/Tag.tsx
+  - src/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
+  - src/shared/components/molecules/Breadcrumb/Breadcrumb.tsx
+  - src/shared/components/molecules/CatalogFilterSection/CatalogFilterSection.tsx
+  - src/shared/components/molecules/CompareBar/CompareBar.tsx
+  - src/shared/components/molecules/DataRows/DataRows.tsx
+  - src/shared/components/molecules/MetricGrid/MetricGrid.tsx
+  - src/shared/components/molecules/MyPage/PersonalizationCard.tsx
+  - src/shared/components/molecules/MyPage/ProfileQuestionGroup.tsx
+  - src/shared/components/molecules/Product/ProductActionBar.tsx
+  - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
+  - src/shared/components/molecules/Signup/SignupProgress.tsx
+  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
+  - src/shared/components/organisms/Hero/Hero.tsx
+  - src/shared/components/organisms/Hero/HeroPagination.tsx
+  - src/shared/components/organisms/Hero/HeroSlide.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigation.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
+  - src/shared/components/organisms/Member/MemberHero.tsx
+  - src/shared/components/organisms/MyPage/QuickLinkGrid.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductInformation.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
+  - src/shared/components/organisms/Product/ProductGallery/ProductGallery.tsx
+  - src/shared/components/organisms/Search/RecommendedSearches.tsx
+  - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
+  - src/shared/components/organisms/Search/SearchHeader.tsx
+  - src/shared/components/organisms/Search/SearchSuggestions.tsx
+  - src/shared/components/organisms/Signup/SignupCompleteStep.tsx
+  - src/shared/components/organisms/Signup/SignupTermsStep.tsx
+  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
+  - src/shared/features/explore/ExploreDetailPage.tsx
+  - src/shared/features/explore/ExploreHubPage.tsx
+  - src/shared/features/explore/ShoeFinderPage.tsx
+  - src/shared/features/launch-calendar/LaunchCalendarPage.tsx
+  - src/shared/features/running-hub/RunningExperiencePage.tsx
+  - src/shared/features/screen-index/DesignGuideColor.tsx
+  - src/shared/features/screen-index/DesignGuidePage.tsx
+  - src/shared/features/screen-index/DesignGuideTypography.tsx
+  - src/shared/features/store-finder/StoreFinderPage.tsx
+  - src/shared/features/terms/TermsPage.tsx
   - src/shared/lib/emailValidation.ts
   - src/shared/lib/passwordValidation.ts
   - src/shared/components/atoms/Checkbox/Checkbox.tsx
@@ -995,3 +1048,88 @@ PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 
 `variant="unstyled"`(기본값)에서도 명시한 `tone`은 색상만 적용한다. tone을 생략하면 상위/네이티브 색상을 보존한다. 글꼴·크기·굵기·행간은 그대로 유지하고 weight는 계속 생략한다. web/mo에서 unstyled가 선택될 때도 동일하다. 색상 매핑을 typographyTones로 공유하며 기존 명시적 variant의 색상 계약을 유지한다. NotFoundPage의 tertiary 색상 선언을 `tone="tertiary"`로 이전하고 m=0을 유지했다.
 
 작업 트리 출처: `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/not-found/NotFoundPage.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`. UnstyledTone 스토리는 상위 글꼴·크기·굵기를 상속하면서 tone 지정/생략 시 색상을 비교한다. 브라우저 시각 검증은 수행하지 않았다.
+
+
+## Features 재사용성과 JSX 표현 점검 (2026-10-19)
+
+component-reusability 스킬로 `src/shared/features/`의 168개 TSX를 조사하고 사용자 요청에 따라 동작을 보존하는 표현 개선을 적용했다. 동일한 web/mo 59곳을 단일 variant로 통합하고, 텍스트 span/p/h1~h6 94곳을 의미 태그·속성·기존 className을 유지한 Typography로 이전했다. 기존 타입 선언을 유지하기 위해 이 이전은 unstyled를 사용하며 임의의 유사 variant를 대입하지 않는다.
+
+단일 사용 css 67곳(네이티브 구조 요소 56곳·기존 Panda 요소 11곳)을 Box/Flex/Grid/Stack/HStack props로 옮기고 기존 선택자는 css prop으로 유지했다. 무스타일 구조 HTML과 상위/공유 스타일을 사용하는 요소, li/dt/dd·폼 컨트롤·표·SVG·장식 span은 유지했다. Grid/Stack의 추가 gap은 원래 값에 맞췄고 기존 Grid가 제공하던 8px gap도 보존했다. 기본 display 중복 5곳을 제거했다. styled.button·styled.label은 네이티브 button/label과 Panda css로 바꿔 타입·htmlFor·이벤트·스타일 계약을 유지했다. 기존 Panda 태그를 무스타일 HTML로 되돌리는 정리는 수행하지 않았다.
+
+Base UI 1.8.0의 package exports 전체를 공식 [컴포넌트 카탈로그](https://base-ui.com/react/overview/quick-start)와 대조했다. 공지사항은 openIndex·aria-expanded·조건부 본문을 직접 관리하므로 [Accordion](https://base-ui.com/react/components/accordion) 재사용 후보이며 설치 버전에서 지원한다(업그레이드 불필요). 공통 Accordion의 Header/Trigger/Panel과 구분선·초기 PC 열림·모바일 닫힘·더보기 계약을 함께 검증할 별도 변경으로 남겼다. role=status/alert 안내, 파일 input/label, 상품 Radio 래퍼와 이미지 뷰어 Escape 처리는 각각 네이티브 의미·기존 공용 상호작용을 유지한다. 정적 마크업에 새 Base UI를 추가하지 않았다.
+
+분리 후보는 장바구니의 목록/합계/추천 영역, 런칭 캘린더의 필터/대표 상품/카드 레일, IA 대시보드의 요약/필터/표 영역이다. 상태와 정책은 기존 부모에 유지하며 여러 기능의 같은 계약이 확인되기 전까지 공용 컴포넌트로 승격하지 않는다. 기존 CheckoutLayout/Fields/Summary 및 상품·런클럽의 기능 내부 분리는 유지했다.
+
+검증: Panda 생성, Features ESLint, 전체 타입 검사와 Next production build, Storybook production build를 실행했다. 변경 전 스냅샷 43개 파일의 JSX 976개를 정적으로 대조해 기존 Grid의 gap 보존을 보완했다. 대표 6개 컴포넌트(CheckoutLayout, CheckoutSummary, ProductInformation, ProductDetailDeliveryContent, ProductDetailReturnGuide, RunClubSessionNotes)의 PC/모바일 SSR 12건은 class 속성을 제외한 마크업이 일치했다. SSR 비교는 Next Link를 anchor로 대체하므로 실제 라우팅 검증을 포함하지 않는다. Storybook은 use client directive 및 번들 크기/타이밍 경고와 함께 빌드됐다. 브라우저 픽셀 비교·전체 상호작용 검증은 수행하지 않았다. 작업 트리 출처는 frontmatter의 해당 Features 경로다.
+
+
+## Components 재사용성과 JSX 표현 점검 (2026-10-19)
+
+component-reusability 스킬로 `src/shared/components/`의 213개 TSX를 점검하고 동작을 보존하는 표현 개선을 적용했다. 텍스트 50곳의 span/p/h1~h6는 Typography unstyled와 원래 as로 이전했고 기존 스타일·이벤트·접근성 속성을 유지했다. 동일 web/mo 2곳을 variant로 통합했다. Typography 자체 API와 기존 타입 스케일은 변경하지 않았다.
+
+단일 사용 css 86곳(네이티브 구조 요소 64곳·기존 Panda 요소 22곳)을 Box/Flex/Grid/Stack/HStack/VStack props로 이전했다. 선택자와 복합 상태는 css prop, 공유 클래스와 변형은 기존 recipe에 유지했다. SectionHeader의 고정 flex 배치와 FormField boxed의 column·7px gap은 JSX로 옮기고 divider·spacing·invalid·disabled 변형은 recipe에 남겼다. Fieldset legend는 Box as=legend로 padding·bold를 표현하되 기존 조건부 숨김 CSS는 유지한다.
+
+추가로 Box display=grid 2곳은 Grid gap=normal, Box display=flex 1곳은 Flex로 바꿨으며 기존 primitive의 중복 display 1곳을 제거했다. 새 Grid/Stack 계열의 기본 gap·정렬은 기존 값과 같도록 명시했다. MegaMenuAD의 styled(Link)·styled.img, MenuDrawerUtilityLinks의 styled(Link)는 Next Link/네이티브 img와 Panda css로 통일했다. href·onClick·className·desktop/mobile 표현은 유지했다.
+
+무스타일 구조 div·section과 공유 스타일/상위 선택자를 사용하는 요소는 그대로 둔다. 아이콘·툴팁·진행 표시·Base UI render 슬롯의 span, 표·폼 컨트롤, li 12개·dt 7개·dd 7개와 SVG·motion 요소를 보존했다. Card.Description·EmptyState.Description의 p는 선택적인 children과 네이티브 props 전달 계약을 유지하기 위해 그대로 둔다. 기존 Panda 태그를 무스타일 HTML로 되돌리는 정리나 새 DOM 래퍼 추가는 수행하지 않았다.
+
+검증: Panda 생성, 전체 타입 검사, Components ESLint, 변경 파일 Prettier, Next production build와 Storybook production build를 실행했다. 임시 TypeScript AST 비교에서 변경 65개 파일의 JSX 665개를 원래 의미 태그·속성과 css/recipe/JSX props·primitive 기본값을 해석해 대조했고 차이가 없었다. JSX 내부 표현식은 하위 JSX를 따로 비교하는 정적 검사이며 계산된 브라우저 CSS 검증을 대신하지 않는다. Button·Fieldset 일반/숨김·SectionHeader·FormField 기본/boxed error·TextInput·DataTable·StatusMessage·Tag·MetricGrid·MegaMenuAD PC/모바일·MenuDrawerUtilityLinks·FooterLegalLinks의 PC/모바일 SSR 30건은 class 속성을 제외한 마크업이 일치했다. Next Link는 anchor 대역이므로 실제 라우팅 검증은 포함하지 않는다. Storybook의 use client directive 및 번들 크기/타이밍 경고는 남았다. 브라우저 픽셀 비교·전체 키보드/포커스 회귀는 수행하지 않았다.
+
+상호작용 유지 판단과 후속 재사용 후보는 [Organisms 기록](organisms.md#components-점검-후-재사용-판단-2026-10-19)을 참고한다. 작업 트리 출처는 frontmatter의 관련 Components 경로다.
+
+
+## 단일 자식 선택자의 스타일 소유권 (2026-10-19)
+
+RecommendedSearches의 유일한 ol에 적용하던 부모 `& ol`의 counterReset=item을 `<Box as="ol" counterReset="item">`로 이전했다. ol/li 의미·순서와 검색 클릭 콜백은 유지한다. mapped li의 justifyContent·gap과 li::before의 counterIncrement·content도 각 네이티브 li의 Panda css/_before로 이전했다. button 규칙은 기존 부모 선택자로 유지한다. 작업 트리 출처는 `src/shared/components/organisms/Search/RecommendedSearches.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
+
+스킬은 단순 자식 선택자의 소유자가 하나의 로컬 JSX이고 해당 요소가 독립적으로 소유할 스타일이면 직접 적용하도록 정리했다. map으로 여러 DOM을 생성해도 동일한 JSX 소유자면 이전할 수 있고, 자체 before/after 스타일도 함께 옮길 수 있다. 조건부/반응형 분기·외부 children·경쟁 스타일을 확인하며 태그·counter 범위/순서·유효한 cascade를 보존해야 한다. 다른 소유자/외부 children을 포괄하는 공유 규칙, 부모 상태·형제/위치 관계와 실제 CSS 상속은 일괄 이전 대상이 아니다. 반복이나 가상 요소라는 이유만으로 부모에 남기지 않는다. 타입 검사·해당 TSX ESLint·Prettier·Panda 생성 통과. 브라우저 시각 검증은 수행하지 않았다.
+
+
+## Features·Components 자식 선택자 소유권 전수 점검 (2026-10-19)
+
+현재 component-reusability 정책으로 Features 168개·Components 213개, 합계 381개 TSX를 점검했다. 단순 자식/직계 자식 및 before/after 선택자 185개를 찾고, 실제 로컬 JSX 소유자와 map·조건부 분기·커스텀 컴포넌트 경계를 검토했다. 이번 작업에서 28개 소스 파일의 단순 선택자 67개를 직접 적용하거나 중복 제거해 잔여 개수는 118개다. 렌더링되는 DOM 수가 아니라 하나의 로컬 JSX가 소유하는 스타일 계약으로 판단했다.
+
+- 단순 로컬 적용 56개 규칙은 제목/본문 여백·자체 폰트 스타일·리스트/이미지·리뷰 항목·회원가입 진행 li와 before 등 해당 JSX에 이전했다. Typography에는 className의 Panda css, Panda 레이아웃에는 지원하는 스타일 props, 네이티브 li·strong·small·img·textarea 등에는 css를 적용했다. 옮긴 규칙과 빈 부모 css는 제거했다. 외부/변형 recipe와 경쟁하는 폰트·색상 규칙은 무조건 낮은 specificity의 일반 클래스로 바꾸지 않았다.
+- RunClubFacts는 부모의 행/설명 선택자를 각 Grid 행과 dd로 옮겼다. hero/guide의 64px 열, 모바일 62px 열, gap·padding·구분선·마지막 행 테두리와 mobileOnly의 none!/grid!를 유지한다. root의 배경/여백/hero 경계 책임은 그대로 둔다.
+- 이미지 뷰어 썸네일의 button·img와 aria-pressed=true 오버레이는 renderItem이 소유한 네이티브 요소로 옮겼다. CarouselPagination이 renderItem 제공 시 기본 버튼을 추가하지 않는 실제 구현을 확인했다. RunClubSessionCard의 이미지 크기·objectFit는 Next Image의 className에 직접 적용했다. ProductDetailMobileGallery/ViewerGallery의 중복 img 선택자는 ProductDetailImage가 이미 동일한 display/block·100% 너비·auto 높이를 소유하므로 제거했다.
+- 자체 before·상태는 필요에 따라 _before 또는 자기 자신을 지정하는 선택자로 유지한다. counter·순서·선택 상태를 바꾸거나 DOM 래퍼를 추가하지 않는다. native li/dt/dd 제외와 무스타일 구조 HTML 유지 기준도 계속 적용한다.
+
+유지한 118개 단순 규칙에는 여러 로컬 소유자에 걸친 공통 문서/표 스타일, ContentLayout·SearchSuggestions·Terms의 외부/공용 자식 계약, Button·Select·Icon 등 공통 primitive 내부 스타일/variant override, 반응형·관계 선택자와 결합된 규칙이 포함된다. 예를 들어 ExploreHub hero의 span 규칙은 ButtonLink 내부 span에도 적용되므로 로컬 eyebrow 하나로 축소하지 않았고, h2의 반응형 규칙도 한 그룹으로 유지했다. 수선 안내의 nth-child 배치, 표의 행/열 관계, 역할·data 상태를 활용한 선택자는 무조건 삭제하지 않는다. CSS 상속 자체를 선택자 이전과 혼동하지 않는다.
+
+검증: Panda 생성·전체 타입 검사·양쪽 폴더 ESLint·변경 파일 Prettier·Next production build·Storybook production build를 통과했다. TypeScript AST로 변경 28개 파일의 JSX 552개의 원래 의미 태그·네이티브 속성을 비교해 차이가 없었다(스타일 자체의 computed cascade 비교는 제외). SignupProgress(local/naver와 step 0~3), RunClubFacts(hero/guide 및 mobileOnly/detail), 세션 안내·포스터·주의 사항, HeaderLogo/SearchHeader, StoreResults(빈 값/매장), ProductReviews, ExploreHub, LaunchCalendar, 이미지 뷰어의 PC/모바일 SSR 46건은 class 속성 외 마크업이 일치했다. SSR은 Next Link를 anchor 대역으로 사용하므로 실제 라우팅/클릭·키보드 검증은 포함하지 않는다. 브라우저 computed CSS·픽셀 비교는 수행하지 않았다. 작업 트리 출처는 frontmatter의 관련 경로이며 이전 점검의 수치는 해당 작업 당시 기준이다.
+
+
+## 다단계 자식 선택자의 로컬 소유권 (2026-10-19)
+
+ReviewGalleryModal의 aside 아래 `& header div/small/button`, `& section div/button/.active` 6개 선택자를 정리했다. header의 정보 div는 Grid gap=1, section의 목록 div는 Flex gap=6px로 옮겼고, small 색상과 닫기 버튼 스타일도 각 JSX에 직접 적용했다. 반복 리뷰 Button의 크기·배치·테두리·색상·글자 크기는 해당 Button의 Panda className으로 옮겼다. Button 기본 recipe보다 우선하던 효과는 자체 `&&` 선택자로 보존한다. 중복된 section .active 규칙은 제거하고 기존 important 활성 클래스를 유지했다. 태그·DOM 구조·선택 조건·클릭 콜백과 모바일 조건은 바꾸지 않는다.
+
+component-reusability의 단일 소유자 기준은 한 단계 선택자에 제한하지 않는다. `& header div`와 `& > header > div`처럼 여러 단계라도 전체 JSX 경로의 대상이 하나의 로컬 작성 노드로 확정되면 직접 적용한다. 공백 선택자는 직계 자식만 의미하지 않으므로 모든 매칭 분기와 커스텀 컴포넌트 출력까지 확인한다. 이번 추가 점검은 해당 모달 범위이며 앞선 381개 파일의 다단계 선택자까지 전수 검증했다는 뜻은 아니다.
+
+검증: 전체 타입 검사, 해당 TSX ESLint, TSX·스킬 Prettier, Panda 생성을 통과했다. 변경 전후 TypeScript AST의 JSX 24개에서 의미 태그·네이티브 속성 차이가 없었고, 생성 CSS의 Button 자체 이중 클래스 우선순위를 확인했다. 브라우저 computed CSS·시각 비교는 수행하지 않았다. 작업 트리 출처는 `src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
+
+
+## 다단계 선택자 Features·Components 재점검 (2026-10-19)
+
+Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 조사했다. 작업 시작 시 `&`를 포함한 스타일 속성 키는 333개였으며 자체 상태·우선순위 키도 포함한 수치다. 선택자 파서로 & 이후 자식/후손/형제 결합자를 가진 키 218개와 결합자가 두 단계 이상인 키 22개를 구분하고, 중첩 css/recipe 조건과 실제 JSX·공통 컴포넌트 출력도 확인했다. 이전 한 단계 위주 집계와 모집단이 다르므로 단순 잔여 개수로 비교하지 않는다.
+
+이번 변경은 13개 소스 파일의 부모 선택자 17개다. 14개를 실제 작성 JSX에 직접 적용하고, 중복 활성 테두리 1개와 대상이 없는 규칙 2개를 제거했다.
+
+- StoreResults의 `& article button`과 `& article button b`를 각각 mapped Button과 b에 옮겼다. 공통 Button 내부에는 b가 추가되지 않으며 로컬 자식 하나가 대상이다. 같은 부모의 p 규칙은 주소·빈 결과 두 작성 노드를 함께 대상으로 하므로 유지했다.
+- SearchSuggestions의 `& header button`은 RecentSearches에만 있는 전체 기록 삭제 Button으로 옮겼다. RecentSearches의 현재 유일한 호출자는 SearchSuggestions임을 확인했다. 그 외 두 검색 섹션의 공통 제목·목록·항목·빈 상태 규칙은 공유 관계를 유지한다.
+- ProfileQuestionGroup·OrderStatusTracker의 중첩 `&&` 아래 small/a 색상도 각각 로컬 Typography와 Link로 옮겼다. MegaMenuList의 링크 배치·자체 hover/focus 스타일은 mapped Link로 옮기고, 상위 링크의 상태에 의존하는 sale 자식 색상은 관계 선택자로 유지했다.
+- ProductReviews 이미지 버튼, ReviewGalleryModal의 이미지 선택 Button, SearchCategorySelect의 Select, SearchForm의 TextInput/placeholder, SearchCollectionLinks의 mapped Button/마지막 구분선, 휴대폰 인증의 알뜰폰 상세 Button에 스타일을 직접 적용했다. 커스텀 컴포넌트는 className 전달 위치를 확인하고 공통 recipe보다 우선하던 선언은 자체 `&&`로 보존했다. 마지막 구분선은 동일 Button의 _last로 유지하며, 썸네일 활성 important 클래스·모바일 크기·클릭 조건은 유지한다. 휴대폰 상세 공통 class의 다른 소비자에는 justifySelf를 추가하지 않았다.
+- ExploreDetailPage의 콘텐츠 section에는 ul/a 및 이를 출력하는 자식이 없으므로 해당 두 규칙을 제거했다. ContentLayout 외곽의 header나 바깥 ButtonLink를 잘못 대상으로 간주하지 않았다.
+
+두 단계 이상인 22개 중 3개를 옮기고 19개는 다음 근거로 유지했다. 깊이가 깊다는 이유로 제외한 항목은 없다.
+
+| 유지 영역 | 선택자 키 수 | 근거 |
+| --- | --- | --- |
+| DesignGuideTypography, ButtonDocs, DataTable, SizeGuideTable | 11 | 여러 작성 셀/표가 공유하거나 외부 children, rowspan, 행·열·짝수·형제 관계를 표현한다. SizeGuideTable의 두 번째 헤더 행도 네 개의 서로 다른 th를 대상으로 한다. |
+| IconButton의 SVG fill/stroke | 2 | 호출자가 제공하는 아이콘 내부의 여러 도형을 대상으로 하는 공용 계약이다. |
+| CarouselViewport, Terms | 2 | Swiper/외부 children과 Checkbox 라벨 내부의 외부 문구 전체에 적용하는 계약이다. |
+| Button의 iconOnly 내부 span 경로 | 1 | 공용 Button의 조건부 iconOnly 슬롯 계약이다. 부모 조건과 서로 다른 frame/content 소비자를 분리하는 API 변경은 이번 스타일 이전 범위에 포함하지 않는다. |
+| FooterLegalLinks | 1 | 여러 문구·링크 작성 노드가 공유하는 폰트 상속 규칙이다. |
+| MegaMenuList | 1 | 링크 hover/focus와 sale 자식 사이의 상태 관계를 표현한다. |
+| SignupTermsStep | 1 | 서로 다른 세 Terms 인스턴스의 Checkbox 내부 라벨을 함께 대상으로 한다. |
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier·최종 소스의 Next/Storybook production build·git diff --check 통과. OKF 소스 매핑 누락도 없었다. TypeScript AST로 13개 파일의 JSX 164개를 비교해 의미 태그·네이티브 속성 차이가 없었다. PC/모바일 SSR 28건(선택된 질문, 주문 조회, Sale/일반 메뉴, 리뷰, 검색 입력·카테고리·기획전, 검색어 있음/없음, 매장 있음/없음, 휴대폰 약관 오류 유무, Explore fallback)은 class 이외 마크업이 일치했다. SSR의 Next Link·navigation은 대역을 사용했으며 모달 열린 상태·실제 이벤트·브라우저 computed CSS·시각 동일성은 검증하지 않았다. 작업 트리 출처는 frontmatter의 이번 관련 경로다.

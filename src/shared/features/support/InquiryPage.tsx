@@ -31,7 +31,7 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         <Typography as="h2" web="heading6" mo="heading7">
           1:1 문의
         </Typography>
-        <Typography as="p" web="body3" mo="body3">
+        <Typography as="p" variant="body3">
           궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다.
         </Typography>
       </Stack>
@@ -68,18 +68,16 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
                       bg={item.answered ? 'black.20' : undefined}
                     >
                       <Typography
-                        web="body5"
-                        mo="body5"
+                        variant="body5"
+
                         tone={item.answered ? 'tertiary' : undefined}
                       >
                         {item.answered ? '답변완료' : '접수완료'}
                       </Typography>
                     </Box>
-                    <Typography web="heading9" mo="heading9">
-                      {item.title}
-                    </Typography>
+                    <Typography variant="heading9">{item.title}</Typography>
                   </Stack>
-                  <Typography as="span" web="body4" mo="body4">
+                  <Typography as="span" variant="body4">
                     문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역
                   </Typography>
                 </Stack>
@@ -103,7 +101,7 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
                               A
                             </Typography>
                             <Box flex="1" minW="0" p="4" bg="black.10">
-                              <Typography as="p" web="body4" mo="body4">
+                              <Typography as="p" variant="body4">
                                 문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역
                               </Typography>
                             </Box>

@@ -1,7 +1,7 @@
 import { FilterTabs } from '@/shared/components/atoms/FilterTabs/FilterTabs';
 import { SearchField } from '@/shared/components/molecules/SearchField/SearchField';
 import type { FaqCategory } from '@/shared/features/faq/faq.data';
-import { Box, Divider, Stack } from 'styled-system/jsx';
+import { Flex, Box, Divider, Stack } from 'styled-system/jsx';
 
 type Props = {
   category: FaqCategory;
@@ -20,7 +20,7 @@ export function FaqControls({
 }: Props) {
   return (
     <Stack gap="0">
-      <Box display="flex" justifyContent="center" py="9" _mobile={{ py: '0' }}>
+      <Flex justifyContent="center" py="9" _mobile={{ py: '0' }}>
         <Box w="590px" maxW="100%" _mobile={{ w: '100%' }}>
           <SearchField
             label="질문 또는 답변 검색"
@@ -29,7 +29,7 @@ export function FaqControls({
             onValueChange={onQueryChange}
           />
         </Box>
-      </Box>
+      </Flex>
       <Divider
         aria-hidden="true"
         orientation="horizontal"

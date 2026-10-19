@@ -1,5 +1,17 @@
 # 아키텍처
 
+Features·Components 다단계 선택자 재점검, 13개 파일의 17개 추가 정리와 잔여 다단계 19개 유지 근거는 [재점검 기록](ui.md#다단계-선택자-featurescomponents-재점검-2026-10-19)을 참고한다.
+
+ReviewGalleryModal의 다단계 선택자 직접 적용과 깊이 제한 없는 JSX 경로 점검 기준은 [다단계 소유권 기록](ui.md#다단계-자식-선택자의-로컬-소유권-2026-10-19)을 참고한다.
+
+Features·Components 381개 TSX의 단일 JSX 소유자 선택자 점검, 직접 적용/중복 제거 67개와 유지 사유·검증 범위는 [자식 선택자 소유권 기록](ui.md#featurescomponents-자식-선택자-소유권-전수-점검-2026-10-19)을 참고한다.
+
+단일 JSX 소유자(반복 노드 포함)의 직접 스타일 기준과 추천 검색어 ol/li 적용은 [UI 기록](ui.md#단일-자식-선택자의-스타일-소유권-2026-10-19)을 참고한다.
+
+Components 213개 TSX의 표현 개선·native 유지 기준·검증은 [UI 기록](ui.md#components-재사용성과-jsx-표현-점검-2026-10-19), Base UI와 내부 구성의 유지/후속 후보는 [Organisms 기록](organisms.md#components-점검-후-재사용-판단-2026-10-19)을 참고한다.
+
+Features 168개 TSX의 재사용성·Typography/Panda 표현 점검과 유지/분리 후보, 검증 한계는 [UI 기록](ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)과 [상태 검토](state.md#features-표현-정리-후-상태-계약-검토-2026-10-19)를 참고한다.
+
 Typography unstyled에서 명시한 tone만 적용하는 계약과 404 안내 적용은 [UI 문서](ui.md#typography-unstyled의-명시적-tone-2026-10-19)를 참고한다.
 
 검색 범위 레이블의 Typography.srOnly 적용도 [스크린 리더 전용 옵션](ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 참고한다.

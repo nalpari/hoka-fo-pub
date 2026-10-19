@@ -17,7 +17,7 @@ export function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProp
       size="sm"
       title="로그아웃"
     >
-      <Typography as="p" web="body3" mo="body3">
+      <Typography as="p" variant="body3">
         로그아웃 하시겠습니까??
       </Typography>
     </ConfirmDialog>

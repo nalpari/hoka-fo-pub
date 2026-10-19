@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const message = css({
   '&[data-tone="error"]': { color: 'error' },
@@ -19,7 +20,8 @@ export function StatusMessage({ children, tone = 'info', className, id }: Status
   const isError = tone === 'error';
 
   return (
-    <p
+    <Typography
+      as="p"
       id={id}
       aria-live={isError ? 'assertive' : 'polite'}
       aria-atomic="true"
@@ -28,6 +30,6 @@ export function StatusMessage({ children, tone = 'info', className, id }: Status
       role={isError ? 'alert' : 'status'}
     >
       {children}
-    </p>
+    </Typography>
   );
 }

@@ -1,14 +1,9 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Flex } from 'styled-system/jsx';
 
 const root = cva({
-  base: {
-    display: 'flex',
-    alignItems: 'end',
-    justifyContent: 'space-between',
-    gap: '4',
-  },
   variants: {
     divider: {
       none: {},
@@ -60,8 +55,12 @@ export function SectionHeader<T extends ElementType = 'h2'>({
   const Heading = titleAs ?? 'h2';
 
   return (
-    <header
+    <Flex
+      as="header"
       {...props}
+      alignItems="end"
+      justifyContent="space-between"
+      gap="4"
       className={[root({ divider, spacing }), className].filter(Boolean).join(' ')}
     >
       <div>
@@ -80,6 +79,6 @@ export function SectionHeader<T extends ElementType = 'h2'>({
         ) : null}
       </div>
       {action ? <div>{action}</div> : null}
-    </header>
+    </Flex>
   );
 }

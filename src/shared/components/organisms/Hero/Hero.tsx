@@ -11,8 +11,8 @@ import {
 import { HeroCopy, type HeroCopyAction, type HeroCopyContent } from './HeroCopy';
 import { HeroPagination } from './HeroPagination';
 import { HeroSlide, type HeroSlideProps } from './HeroSlide';
-import { css } from 'styled-system/css';
 import type { Platform } from '@/shared/lib/device';
+import { Box, Flex } from 'styled-system/jsx';
 
 export type HeroAction = HeroCopyAction;
 
@@ -44,38 +44,6 @@ function usePrefersReducedMotion() {
 
   return prefersReducedMotion;
 }
-
-const hero = css({
-  position: 'relative',
-  w: '100%',
-  maxW: 'none!',
-  m: '0!',
-  p: '0!',
-  minH: '500px',
-  h: 'min(42.5vw, 816px)',
-  overflow: 'hidden',
-  color: 'var(--color-text-inverse)',
-  _mobile: { minH: '0', h: 'auto', aspectRatio: '375 / 500' },
-});
-
-const media = css({ position: 'absolute', inset: '0', overflow: 'hidden', touchAction: 'pan-y' });
-
-const mediaTrack = css({
-  display: 'flex',
-  w: '100%',
-  h: '100%',
-  transition: 'transform 400ms ease',
-});
-
-const overlay = css({
-  position: 'absolute',
-  inset: '0',
-  pointerEvents: 'none',
-  _mobile: {
-    background:
-      'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)',
-  },
-});
 
 export function Hero({ ariaLabel, platform, slides }: HeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -201,28 +169,55 @@ export function Hero({ ariaLabel, platform, slides }: HeroProps) {
   };
 
   return (
-    <section
+    <Box
       aria-label={ariaLabel ?? currentSlide.content.title}
-      className={hero}
+      as="section"
+      pos="relative"
+      w="100%"
+      maxW="none!"
+      m="0!"
+      p="0!"
+      minH="500px"
+      h="min(42.5vw, 816px)"
+      overflow="hidden"
+      color="var(--color-text-inverse)"
+      _mobile={{ minH: '0', h: 'auto', aspectRatio: '375 / 500' }}
       onBlurCapture={handleBlur}
       onFocusCapture={handleFocus}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div
-        className={media}
+      <Box
+        pos="absolute"
+        inset="0"
+        overflow="hidden"
+        touchAction="pan-y"
         onPointerCancel={handlePointerCancel}
         onPointerLeave={handlePointerCancel}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
-        <div className={mediaTrack} style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
+        <Flex
+          w="100%"
+          h="100%"
+          transition="transform 400ms ease"
+          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+        >
           {slides.map((slide, index) => (
             <HeroSlide {...slide} key={`${slide.desktopImage}-${index}`} platform={platform} />
           ))}
-        </div>
-      </div>
-      <div className={overlay} aria-hidden="true" />
+        </Flex>
+      </Box>
+      <Box
+        pos="absolute"
+        inset="0"
+        pointerEvents="none"
+        _mobile={{
+          background:
+            'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)',
+        }}
+        aria-hidden="true"
+      />
       <HeroCopy content={currentSlide.content} actions={currentSlide.actions} />
       <HeroPagination
         activeSlide={activeSlide}
@@ -235,6 +230,6 @@ export function Hero({ ariaLabel, platform, slides }: HeroProps) {
           title: content.title,
         }))}
       />
-    </section>
+    </Box>
   );
 }

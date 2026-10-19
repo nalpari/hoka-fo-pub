@@ -1,41 +1,6 @@
-import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Grid } from 'styled-system/jsx';
 import { RecentSearches } from './RecentSearches';
 import { RecommendedSearches } from './RecommendedSearches';
-
-const suggestions = css({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  minH: '250px',
-  border: '1px solid var(--color-black-20)',
-  borderTop: '0',
-  _mobile: { gridTemplateColumns: '1fr' },
-  '& section': { p: '4' },
-  '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  '& h3': { m: '0' },
-  '& header button': {
-    border: '0',
-    p: '0',
-    bg: 'transparent',
-    color: 'var(--color-black-40)',
-  },
-  '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
-  '& li': {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minH: '26px',
-    fontSize: '14' /* 기존 13px */,
-  },
-  '& p': {
-    display: 'grid',
-    minH: '158px',
-    m: '0',
-    placeItems: 'center',
-    color: 'var(--color-text-tertiary)',
-    textAlign: 'center',
-  },
-});
 
 type SearchSuggestionsProps = {
   recentSearches: readonly string[];
@@ -53,7 +18,35 @@ export function SearchSuggestions({
   onClearRecent,
 }: SearchSuggestionsProps) {
   return (
-    <Box className={suggestions}>
+    <Grid
+      gap="normal"
+      gridTemplateColumns="1fr 1fr"
+      minH="250px"
+      border="1px solid var(--color-black-20)"
+      borderTop="0"
+      _mobile={{ gridTemplateColumns: '1fr' }}
+      css={{
+        '& section': { p: '4' },
+        '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+        '& h3': { m: '0' },
+        '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
+        '& li': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          minH: '26px',
+          fontSize: '14' /* 기존 13px */,
+        },
+        '& p': {
+          display: 'grid',
+          minH: '158px',
+          m: '0',
+          placeItems: 'center',
+          color: 'var(--color-text-tertiary)',
+          textAlign: 'center',
+        },
+      }}
+    >
       <RecentSearches
         recentSearches={recentSearches}
         onSearch={onSearch}
@@ -61,6 +54,6 @@ export function SearchSuggestions({
         onClear={onClearRecent}
       />
       <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
-    </Box>
+    </Grid>
   );
 }

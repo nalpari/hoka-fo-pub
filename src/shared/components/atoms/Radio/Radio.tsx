@@ -17,11 +17,6 @@ const group = css({
   },
 });
 
-const option = css({
-  cursor: 'pointer',
-  '&[data-disabled]': { cursor: 'not-allowed' },
-});
-
 const control = css({
   position: 'relative',
   display: 'grid',
@@ -115,7 +110,8 @@ export function Radio<T extends string = string>({
         return (
           <HStack
             as="label"
-            className={option}
+            cursor="pointer"
+            css={{ '&[data-disabled]': { cursor: 'not-allowed' } }}
             data-disabled={isDisabled ? '' : undefined}
             key={item.value}
           >

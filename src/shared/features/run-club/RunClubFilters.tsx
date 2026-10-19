@@ -2,6 +2,7 @@ import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import type { RunClubSession } from './runClub.data';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type RunClubFilter = 'all' | RunClubSession['category'];
 
@@ -38,10 +39,15 @@ export function RunClubFilters({ filter, onFilterChange }: RunClubFiltersProps) 
           aria-pressed={filter === value}
           onClick={() => onFilterChange(value)}
         >
-          <span className={css({ _mobile: { display: 'none' } })}>{label}</span>
-          <span className={css({ display: 'none', _mobile: { display: 'inline' } })}>
+          <Typography as="span" className={css({ _mobile: { display: 'none' } })}>
+            {label}
+          </Typography>
+          <Typography
+            as="span"
+            className={css({ display: 'none', _mobile: { display: 'inline' } })}
+          >
             {mobileLabel}
-          </span>
+          </Typography>
         </Button>
       ))}
     </HStack>

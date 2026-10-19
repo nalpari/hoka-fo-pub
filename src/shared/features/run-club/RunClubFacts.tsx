@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Box, Grid } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type RunClubFact = {
@@ -13,25 +13,17 @@ export type RunClubFact = {
 const facts = cva({
   base: {
     m: '0',
-    '& > div': { display: 'grid', gridTemplateColumns: '64px minmax(0, 1fr)' },
-    '& dd': { m: '0' },
   },
   variants: {
     variant: {
       hero: {
         py: '5',
         borderBlock: '1px solid var(--color-border-default)',
-        '& > div': { gap: '2', py: '1.5' },
         _mobile: {
           py: '5',
-          '& > div': { gridTemplateColumns: '62px minmax(0, 1fr)', gap: '3', py: '1.5' },
         },
       },
-      guide: {
-        '& > div': { gap: '4', py: '4', borderTop: '1px solid var(--color-border-default)' },
-        '& > div:last-child': { borderBottom: '1px solid var(--color-border-default)' },
-        _mobile: { '& > div': { gridTemplateColumns: '62px minmax(0, 1fr)', gap: '3', py: '5' } },
-      },
+      guide: {},
     },
   },
 });
@@ -46,10 +38,24 @@ export function RunClubFacts({
   return (
     <Box as="dl" className={facts({ variant })}>
       {rows.map(({ label, value, detail, mobileOnly }) => (
-        <Box
+        <Grid
           key={label}
-          display={mobileOnly ? 'none!' : undefined}
-          _mobile={mobileOnly ? { display: 'grid!' } : undefined}
+          display={mobileOnly ? 'none!' : 'grid'}
+          gridTemplateColumns="64px minmax(0, 1fr)"
+          gap={variant === 'hero' ? '2' : '4'}
+          py={variant === 'hero' ? '1.5' : '4'}
+          borderTop={variant === 'guide' ? '1px solid var(--color-border-default)' : undefined}
+          _last={
+            variant === 'guide'
+              ? { borderBottom: '1px solid var(--color-border-default)' }
+              : undefined
+          }
+          _mobile={{
+            display: mobileOnly ? 'grid!' : undefined,
+            gridTemplateColumns: '62px minmax(0, 1fr)',
+            gap: '3',
+            py: variant === 'hero' ? '1.5' : '5',
+          }}
         >
           <Typography
             as="dt"
@@ -59,7 +65,11 @@ export function RunClubFacts({
           >
             {label}
           </Typography>
-          <Typography as="dd" variant={variant === 'hero' ? 'sessionFactBody' : 'sessionGuideBody'}>
+          <Typography
+            as="dd"
+            variant={variant === 'hero' ? 'sessionFactBody' : 'sessionGuideBody'}
+            className={css({ m: '0' })}
+          >
             {value}
             {detail ? (
               <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
@@ -67,7 +77,7 @@ export function RunClubFacts({
               </Typography>
             ) : null}
           </Typography>
-        </Box>
+        </Grid>
       ))}
     </Box>
   );

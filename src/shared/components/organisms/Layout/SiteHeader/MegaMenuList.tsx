@@ -8,26 +8,6 @@ import { Flex, Grid } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
 const styles = {
-  column: css({
-    minW: 0,
-    '& a': {
-      display: 'inline-flex',
-      gap: '5px',
-      _hover: {
-        textDecoration: 'underline',
-        textUnderlineOffset: '3px',
-      },
-      _focusVisible: {
-        textDecoration: 'underline',
-        textUnderlineOffset: '3px',
-      },
-    },
-    '&&': {
-      '& a:hover [data-sale], & a:focus-visible [data-sale]': {
-        color: 'sale',
-      },
-    },
-  }),
   title: css({
     m: 0,
     '&&': {
@@ -57,14 +37,35 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
   return (
     <Grid gridTemplateColumns="repeat(5, minmax(110px, 1fr))" gap="4">
       {columns.map((column) => (
-        <Flex className={styles.column} direction="column" gap="30px" key={column.title}>
+        <Flex
+          minW={0}
+          css={{
+            '&&': {
+              '& a:hover [data-sale], & a:focus-visible [data-sale]': {
+                color: 'sale',
+              },
+            },
+          }}
+          direction="column"
+          gap="30px"
+          key={column.title}
+        >
           <Typography as="h2" variant="heading8" className={styles.title}>
             {column.title}
           </Typography>
           <Grid as="ul" m={0} p={0} listStyle="none" gap="30px">
             {column.items.map((item) => (
               <li key={item.label}>
-                <Link href={item.to} onClick={onClose}>
+                <Link
+                  href={item.to}
+                  onClick={onClose}
+                  className={css({
+                    display: 'inline-flex',
+                    gap: '5px',
+                    _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+                    _focusVisible: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+                  })}
+                >
                   <Typography
                     variant="body3"
                     tone={item.label === 'Sale' ? 'red80' : 'primary'}

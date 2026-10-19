@@ -2,6 +2,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { MegaMenuContent } from '@/shared/components/organisms/Layout/SiteHeader/MegaMenuContent';
 import type { MegaMenu } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 
 const styles = {
   overlay: css({
@@ -13,16 +14,6 @@ const styles = {
     border: 0,
     p: 0,
     bg: 'color-mix(in srgb, var(--color-black-100) 52%, transparent)',
-    _mobile: { display: 'none' },
-  }),
-  menu: css({
-    position: 'absolute',
-    zIndex: 1,
-    top: 'var(--layout-site-header-height)',
-    right: 0,
-    left: 0,
-    borderBottom: '1px solid var(--hoka-black)',
-    bg: 'var(--hoka-white)',
     _mobile: { display: 'none' },
   }),
 };
@@ -43,8 +34,16 @@ export function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelP
         tabIndex={-1}
         variant="ghost"
       />
-      <section
-        className={styles.menu}
+      <Box
+        as="section"
+        pos="absolute"
+        zIndex={1}
+        top="var(--layout-site-header-height)"
+        right={0}
+        left={0}
+        borderBottom="1px solid var(--hoka-black)"
+        bg="var(--hoka-white)"
+        _mobile={{ display: 'none' }}
         id={`mega-menu-${menu.id}`}
         aria-label={`${menu.label} 메뉴`}
         onKeyDown={(event) => {
@@ -63,7 +62,7 @@ export function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelP
         }}
       >
         <MegaMenuContent menu={menu} onClose={onClose} />
-      </section>
+      </Box>
     </>
   );
 }

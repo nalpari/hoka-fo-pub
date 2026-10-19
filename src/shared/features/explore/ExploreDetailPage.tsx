@@ -6,6 +6,7 @@ import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
 import { findExploreScreen } from '@/shared/features/explore/exploreContent';
+import { Stack, Grid, Box } from 'styled-system/jsx';
 
 const styles = {
   layout: css({
@@ -18,50 +19,7 @@ const styles = {
       py: 'var(--layout-mobile-page-block-padding)',
     },
   }),
-  hero: css({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    minH: '180px',
-    mb: '11',
-    p: '34px',
-    bg: 'linear-gradient(135deg, var(--color-blue-100), var(--color-black-100))',
-    color: 'var(--color-text-inverse)',
-    '& span': {
-      mb: '18px',
-    },
-    '& strong': {
-      maxW: '280px',
-      fontSize: '28',
-      lineHeight: 'var(--line-heights-hoka)',
-    },
-    _mobile: { minH: '230px', mb: '6', p: '22px' },
-  }),
-  grid: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '4',
-    mb: '38px',
-    _mobile: { gridTemplateColumns: '1fr', gap: '2.5' },
-  }),
-  group: css({
-    minH: '230px',
-    p: '6',
-    border: '1px solid var(--line)',
-    '& h2': { mb: '2.5' },
-    '& p': {
-      minH: '12',
-      mb: '6',
-    },
-    '& ul': { display: 'grid', gap: '9px', m: 0, p: 0, listStyle: 'none' },
-    '& a': {
-      fontSize: '14',
-      fontWeight: 'var(--font-weights-bold)',
-      _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
-    },
-    _mobile: { minH: 'auto' },
-  }),
+
   statusChip: css({
     display: 'inline-block',
     px: '7px',
@@ -100,29 +58,72 @@ export function ExploreDetailPage() {
       title={screen.title}
       description={screen.description}
     >
-      <section className={styles.hero}>
-        <Typography variant="body5" weight="bold">
+      <Stack
+        as="section"
+        gap="normal"
+        alignItems="flex-start"
+        justifyContent="space-between"
+        minH="180px"
+        mb="11"
+        p="34px"
+        bg="linear-gradient(135deg, var(--color-blue-100), var(--color-black-100))"
+        color="var(--color-text-inverse)"
+        _mobile={{ minH: '230px', mb: '6', p: '22px' }}
+      >
+        <Typography
+          variant="body5"
+          weight="bold"
+          className={css({
+            mb: '18px',
+          })}
+        >
           {screen.eyebrow}
         </Typography>
-        <strong>
+        <strong
+          className={css({
+            maxW: '280px',
+            fontSize: '28',
+            lineHeight: 'var(--line-heights-hoka)',
+          })}
+        >
           {screen.status === 'planned' ? 'CONTENT READY FOR PLANNING' : 'NOW AVAILABLE'}
         </strong>
-      </section>
-      <div className={styles.grid}>
+      </Stack>
+      <Grid
+        gridTemplateColumns="repeat(3, 1fr)"
+        gap="4"
+        mb="38px"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '2.5' }}
+      >
         {screen.sections.map((section) => (
-          <section className={styles.group} key={section.title}>
-            <Typography as="h2" variant="body2" weight="bold">
+          <Box
+            as="section"
+            minH="230px"
+            p="6"
+            border="1px solid var(--line)"
+            _mobile={{ minH: 'auto' }}
+            key={section.title}
+          >
+            <Typography as="h2" variant="body2" weight="bold" className={css({ mb: '2.5' })}>
               {section.title}
             </Typography>
-            <Typography as="p" variant="body4" tone="tertiary">
+            <Typography
+              as="p"
+              variant="body4"
+              tone="tertiary"
+              className={css({
+                minH: '12',
+                mb: '6',
+              })}
+            >
               {section.description}
             </Typography>
             <Typography variant="body5" tone="tertiary" className={styles.statusChip}>
               콘텐츠 준비 중
             </Typography>
-          </section>
+          </Box>
         ))}
-      </div>
+      </Grid>
       <ButtonLink href="/products" variant="primary">
         상품 탐색하기
       </ButtonLink>

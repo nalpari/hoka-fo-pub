@@ -28,7 +28,18 @@ export function RecentSearches({
           최근 검색어
         </Typography>
         {recentSearches.length ? (
-          <Button onClick={onClear} onMouseDown={(event) => event.preventDefault()}>
+          <Button
+            onClick={onClear}
+            onMouseDown={(event) => event.preventDefault()}
+            className={css({
+              '&&': {
+                border: '0',
+                p: '0',
+                bg: 'transparent',
+                color: 'var(--color-black-40)',
+              },
+            })}
+          >
             <Typography variant="body5" weight="inherit">
               전체 기록 삭제
             </Typography>

@@ -4,6 +4,7 @@ import { useId, useState, type FormEvent, type InputHTMLAttributes } from 'react
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const field = css({
   '&[data-invalid]': { outline: '2px solid var(--colors-red-100)' },
@@ -111,7 +112,9 @@ export function EmailSignupField({
       </form>
       {invalid ? (
         <StatusMessage tone="error">
-          <span id={errorId}>올바른 이메일 주소를 입력해 주세요.</span>
+          <Typography as="span" id={errorId}>
+            올바른 이메일 주소를 입력해 주세요.
+          </Typography>
         </StatusMessage>
       ) : null}
     </>

@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T00:12:41.476Z'
+  at: '2026-10-19T01:19:28Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/lib/emailValidation.ts
@@ -99,3 +99,8 @@ Figma 제공 링크의 291:53311·291:60808은 재인증 오류로 원문을 읽
 LoginLayout·LoginForm·LoginActions·LoginMembership와 CartPage의 단일 사용 배치 스타일을 Panda JSX props로 이전했다. 검토 범위는 로그인 화면의 페이지/콘텐츠 여백·옵션/링크/구분선·액션/혜택 배치와 장바구니의 상품 정보·빈 상태·추천 그리드다. LoginPage의 입력/체크/안내 상태·데모 검증·onLogin·라우팅, CartPage의 행 조회·합계·수량 변경/삭제 콜백과 ShopShell 상태 수명은 변경하지 않았다. 구조 이전 결과와 검증 범위는 [UI 아키텍처](ui.md#componentsfeatures-jsx-스타일-점검-2026-10-15)에 기록한다.
 
 [프로젝트 범위](../project.md), [라우팅](routing.md), [변경 검증](../development/verification.md)을 참고한다.
+
+
+## Features 표현 정리 후 상태 계약 검토 (2026-10-19)
+
+작업 트리 `src/shared/features/cart/CartPage.tsx`의 텍스트·단일 사용 스타일을 Typography와 Panda JSX로 옮겼다. cart props, 수량 변경/제거 콜백, 상품 조회, rows와 total 계산은 유지했다. 체크박스·수량 입력·결제 경로와 상태 소유자도 변경하지 않았다. 전체 Features의 적용 범위와 검사 한계는 [UI 기록](ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 이번 검토는 실제 주문·결제나 장바구니 전체 브라우저 회귀를 검증한 기록이 아니다.

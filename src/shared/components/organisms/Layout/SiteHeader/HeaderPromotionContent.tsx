@@ -44,7 +44,9 @@ export function HeaderPromotionContent({
       </Typography>
       <ButtonLink className={promotionLink} href={href} variant="link" size="sm">
         <Typography web="textLink2" mo="textLink3">
-          <span>{isMemberBenefits ? '회원 혜택 자세히 보기' : '자세히 보기'}</span>
+          <Typography as="span">
+            {isMemberBenefits ? '회원 혜택 자세히 보기' : '자세히 보기'}
+          </Typography>
         </Typography>
       </ButtonLink>
     </PromotionStack>

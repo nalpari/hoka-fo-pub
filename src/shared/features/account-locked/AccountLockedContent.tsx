@@ -29,7 +29,9 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
         </Typography>
         <Typography as="p" variant="body4">
           서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
-          <span className={styles.descriptionSecondLine}>휴대폰 인증화면으로 이동합니다.</span>
+          <Typography as="span" className={styles.descriptionSecondLine}>
+            휴대폰 인증화면으로 이동합니다.
+          </Typography>
         </Typography>
       </Stack>
     </ModalDialog>

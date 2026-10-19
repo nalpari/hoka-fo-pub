@@ -15,10 +15,11 @@ import {
   type StoreType,
 } from '@/shared/features/store-finder/store.data';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+import { Box, Grid } from 'styled-system/jsx';
 
 export const storeFinderStyles = {
   page: css({ '--support-content-width': '710px', '--support-max-width': '1100px' }),
-  content: css({ '--support-content-title-gap': '37px' }),
+
   search: css({
     display: 'grid',
     gridTemplateColumns: '80px 315px 63px',
@@ -48,19 +49,7 @@ export const storeFinderStyles = {
     },
     '& input': { _mobile: { minW: '0' } },
   }),
-  tabs: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    mt: '16',
-    borderBottom: '1px solid var(--color-black-100)',
-    _mobile: { overflow: 'auto', gridTemplateColumns: 'repeat(5, 125px)' },
-    '& button': {
-      h: '12',
-      border: '1px solid var(--color-black-20)',
-      borderBottom: '0',
-      bg: 'var(--color-white-000)',
-    },
-  }),
+
   active: css({
     borderColor: 'var(--color-black-100)!',
     borderBottom: '1px solid var(--color-white-000)!',
@@ -98,7 +87,7 @@ export function StoreFinderPage() {
       title="SUPPORT"
       titleTo="/support"
     >
-      <section className={storeFinderStyles.content}>
+      <Box as="section" css={{ '--support-content-title-gap': '37px' }}>
         <PageHeader title="매장 찾기" />
         <form
           className={storeFinderStyles.search}
@@ -139,7 +128,22 @@ export function StoreFinderPage() {
             </Select>
           </Typography>
         </form>
-        <nav className={storeFinderStyles.tabs}>
+        <Grid
+          as="nav"
+          gap="normal"
+          gridTemplateColumns="repeat(5, 1fr)"
+          mt="16"
+          borderBottom="1px solid var(--color-black-100)"
+          _mobile={{ overflow: 'auto', gridTemplateColumns: 'repeat(5, 125px)' }}
+          css={{
+            '& button': {
+              h: '12',
+              border: '1px solid var(--color-black-20)',
+              borderBottom: '0',
+              bg: 'var(--color-white-000)',
+            },
+          }}
+        >
           {storeTypes.map((item) => (
             <Button
               className={type === item ? storeFinderStyles.active : ''}
@@ -154,7 +158,7 @@ export function StoreFinderPage() {
               </Typography>
             </Button>
           ))}
-        </nav>
+        </Grid>
         <StoreResults stores={filtered.slice(0, shown)} />
         {shown < filtered.length && (
           <LoadMoreButton
@@ -163,7 +167,7 @@ export function StoreFinderPage() {
             remaining={filtered.length - shown}
           />
         )}
-      </section>
+      </Box>
     </SidebarNavigationLayout>
   );
 }

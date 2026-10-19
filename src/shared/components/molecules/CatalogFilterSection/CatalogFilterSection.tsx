@@ -16,19 +16,20 @@ const content = css({
   overflow: 'hidden',
 });
 
-const divider = css({
-  _mobile: {
-    '&:first-child': { display: 'none' },
-  },
-});
-
 export function CatalogFilterSection({ title, children }: { title: string; children: ReactNode }) {
   const [expanded, setExpanded] = useState(true);
   const contentId = useId();
 
   return (
     <>
-      <Box bg="var(--color-black-40)" className={divider} h="1px" w="100%" />
+      <Box
+        bg="var(--color-black-40)"
+        _mobile={{
+          '&:first-child': { display: 'none' },
+        }}
+        h="1px"
+        w="100%"
+      />
       <div>
         <CatalogFilterTrigger
           controlsId={contentId}

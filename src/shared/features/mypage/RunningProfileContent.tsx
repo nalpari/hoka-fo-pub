@@ -18,13 +18,9 @@ const header = css({
   '& small': {
     color: 'var(--color-blue-100)',
   },
-  '& h1': {
-    m: '10px 0',
-  },
+
   '& p': { color: 'var(--color-text-tertiary)' },
 });
-
-const progress = css({ my: '32px 50px' });
 
 const footer = css({
   display: 'flex',
@@ -57,14 +53,20 @@ export function RunningProfileContent({
         <Typography as="small" variant="body5" weight="bold">
           HOKA PERSONALIZATION
         </Typography>
-        <Typography as="h1" variant="profileTitle">
+        <Typography
+          as="h1"
+          variant="profileTitle"
+          className={css({
+            m: '10px 0',
+          })}
+        >
           나의 러닝 프로필
         </Typography>
         <Typography as="p" variant="body4">
           세 가지 질문으로 나에게 맞는 러닝 경험을 찾아보세요.
         </Typography>
       </header>
-      <Box className={progress}>
+      <Box my="32px 50px">
         <ProgressBar label="러닝 프로필 진행률" max={questions.length} value={answeredCount} />
       </Box>
       <Grid gap="42px">
