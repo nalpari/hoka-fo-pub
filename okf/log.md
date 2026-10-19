@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: 러닝 프로필 페이지·본문·질문 컴포넌트·질문 데이터를 `src/shared/Mockup/running-profile`로 분리했다. 전용 스토리도 src/stories/features/Mockup 아래로 이동하고 Mockup 분류를 적용했다. 기존 URL·메뉴·화면·상태와 PC/MO 스토리를 유지하며 라우트·Story helper import를 갱신했다. [목업 구성](architecture/ui.md#러닝-프로필-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#러닝-프로필-목업-진입점-2026-10-19)을 참고한다.
+
 - **Fix**: SingleActionDialog 확인 버튼의 fullWidth를 기본 true로 처리하고 계정 안내·약관의 중복 지정을 제거했다. 명시적 false 옵션과 확인·닫기 동작을 Storybook에서 검증하고 타입·ESLint·Prettier를 확인했다.
 
 - **Fix**: SingleActionDialog의 기본 확인 버튼을 short로 공통화하고 ModalDialog의 actionCount(1·2·null) 옵션에서 1일 때 PC 본문 패딩을 24px 24px 16px로 지정했다. 모바일 패딩·일반 모달 기본값과 명시적 tall 옵션은 유지했다. 호출부의 중복 short를 제거하고 타입·린트·포맷·Panda·모달 표시 7건 및 기존 play 4개를 확인했다.

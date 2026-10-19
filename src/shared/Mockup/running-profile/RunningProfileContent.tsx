@@ -4,7 +4,7 @@ import { Box, Grid } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ProgressBar } from '@/shared/components/atoms/ProgressBar/ProgressBar';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ProfileQuestionGroup } from '@/shared/components/molecules/MyPage/ProfileQuestionGroup';
+import { ProfileQuestionGroup } from './ProfileQuestionGroup';
 
 type RunningProfileContentProps = {
   questions: readonly ComponentProps<typeof ProfileQuestionGroup>['question'][];
@@ -84,7 +84,7 @@ export function RunningProfileContent({
         <Typography variant="body4">
           {answeredCount} / {questions.length} 완료
         </Typography>
-        <Button variant="primary" disabled={!completed}>
+        <Button size="short" variant="primary" disabled={!completed}>
           추천 결과 보기
         </Button>
       </footer>

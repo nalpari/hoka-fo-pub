@@ -6,9 +6,12 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T16:38:00+09:00'
+  at: '2026-10-19T06:38:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/running-profile/page.tsx
+  - src/shared/Mockup/running-profile/RunningProfilePage.tsx
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
   - src/app/mypage/event-entries/page.tsx
   - src/app/support/after-sales/page.tsx
 sources:
@@ -30,6 +33,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 러닝 프로필 목업 진입점 (2026-10-19)
+
+`src/app/mypage/running-profile/page.tsx`는 `src/shared/Mockup/running-profile/RunningProfilePage.tsx`를 기본 export로 연결한다. 디자인 미확정 목업 구현을 공용 feature/component 영역에서 분리한 것이며 `/mypage/running-profile` URL, dynamic 설정, 마이페이지 메뉴 링크와 클라이언트 상태 경계는 유지한다. MyPageRouteStory도 같은 목업 구현을 직접 import한다. 작업 트리 출처는 frontmatter에 기록한다.
 
 ## 진입점과 책임
 

@@ -1,5 +1,7 @@
 # 아키텍처
 
+디자인 미확정 러닝 프로필의 Mockup 폴더·전용 데이터·스토리 분리는 [목업 구성](ui.md#러닝-프로필-목업-분리-2026-10-19), 기존 URL 연결은 [목업 라우트](routing.md#러닝-프로필-목업-진입점-2026-10-19)를 참고한다.
+
 SingleActionDialog의 확인 버튼은 기본 short/fullWidth true이며 명시적 false 재정의를 지원한다. [공통 기본값](ui.md#단일-확인-버튼-모달의-공통-기본값-2026-10-19)을 참고한다.
 
 자체 선언 외 참조가 없는 ProductCompareButton 삭제는 [미사용 비교 버튼 제거](ui.md#미사용-productcomparebutton-제거-2026-10-19)를 참고한다.

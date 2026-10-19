@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { RunningProfileContent } from './RunningProfileContent';
-import { myPageNavigation, profileQuestions } from './mypage.data';
+import { myPageNavigation } from '@/shared/features/mypage/mypage.data';
+import { profileQuestions } from './running-profile.data';
 
 export function RunningProfilePage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});

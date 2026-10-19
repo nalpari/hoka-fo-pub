@@ -9,6 +9,12 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
+  - src/shared/Mockup/running-profile/running-profile.data.ts
+  - src/shared/Mockup/running-profile/RunningProfilePage.tsx
+  - src/shared/Mockup/running-profile/RunningProfileContent.tsx
+  - src/shared/Mockup/running-profile/ProfileQuestionGroup.tsx
+  - src/app/mypage/running-profile/page.tsx
   - src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
@@ -424,6 +430,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 러닝 프로필 목업 분리 (2026-10-19)
+
+디자인 미확정인 러닝 프로필 전용 페이지·본문·질문 컴포넌트·질문 데이터는 `src/shared/Mockup/running-profile/`에 모은다. RunningProfilePage·RunningProfileContent는 기존 mypage feature에서, ProfileQuestionGroup은 공용 molecules/MyPage에서 옮겼다. profileQuestions는 공통 mypage.data에서 `running-profile.data.ts`로 분리했다. 실제 공용 SidebarNavigationLayout·Typography·ProgressBar·Button과 마이페이지 메뉴 데이터는 기존 위치에서 재사용한다. 답변·진행률·완료 판정·버튼 크기·마크업·스타일은 이전 상태를 유지한다.
+
+질문 스토리는 `src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx`로 이동하며 Storybook 분류는 `Mockup/RunningProfile/ProfileQuestionGroup`이다. 기존 PC/MO·선택/미선택 4개 스토리와 상호작용 코드는 유지한다. 모든 stories 파일을 src/stories 아래에 두며 .storybook/main.ts의 탐색 규칙은 유지한다. 이전 경로의 중간 재수출 파일은 두지 않고 앱 라우트와 MyPageRouteStory의 import를 새 경로로 연결한다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next 및 Storybook production build를 통과했다. 앱 라우트 검사 2개로 기존 URL 목록의 빌드 포함을 확인했으며, Storybook index에서 새 Mockup 분류의 4개 스토리와 이전 분류 제거를 확인했다. 이동 후 브라우저 play·시각 비교는 재실행하지 않았다. Storybook 빌드는 기존 의존성 use-client·청크 크기·플러그인 시간 경고를 포함해 성공했다.
 
 ## 단일 확인 버튼 모달의 공통 기본값 (2026-10-19)
 

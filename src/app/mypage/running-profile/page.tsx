@@ -1,3 +1,3 @@
 'use client';
 
-export { RunningProfilePage as default } from '@/shared/features/mypage/RunningProfilePage';
+export { RunningProfilePage as default } from '@/shared/Mockup/running-profile/RunningProfilePage';
