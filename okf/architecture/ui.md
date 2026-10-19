@@ -6,9 +6,12 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:18.062Z'
+  at: '2026-10-19T09:07:21.527Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Faq/FaqQuestion.tsx
+  - src/shared/components/organisms/Faq/FaqEmptyState.tsx
+  - src/shared/components/organisms/Faq/FaqAnswer.tsx
   - src/shared/features/store-finder/store.data.ts
   - src/app/support/store/page.tsx
   - src/shared/Mockup/explore/exploreContent.ts
@@ -1436,3 +1439,9 @@ Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검�
 디자인이 반영된 매장 찾기 페이지와 데이터는 src/shared/features/store-finder에 두고, StoreResults는 src/shared/components/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
 
 이번 정리는 디자인이 반영된 구현을 정식 경로로 복귀시키고 라우트·스토리 참조를 갱신하는 변경이다.
+
+## FAQ 목록 표현 영역 분리 (2026-10-19)
+
+FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 organism 폴더의 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. FaqList의 외부 props와 FaqListEntry/FaqListProps export, Accordion의 단일 펼침 제어와 onToggle 연결은 유지한다. 추가 DOM 래퍼 없이 기존 태그·Panda 값·PC/MO Typography·ReactNode 답변을 보존한다.
+
+검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 Default/Mobile 열기·닫기, Empty 표시와 버튼 부재, ControlledDisclosure의 Enter·클릭·Space 및 aria-expanded/aria-controls 연결 play를 확인했다. production build는 재실행하지 않았다.

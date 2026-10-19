@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: FaqList의 질문·답변·검색 결과 없음 표시를 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. DOM·스타일·외부 API·아코디언 제어를 유지하고 타입·린트·포맷·Panda 및 기존 PC/MO·빈 상태·키보드 Storybook 흐름을 확인했다.
+
 - **Fix**: 디자인이 반영된 매장 찾기를 Mockup에서 정식 features/store-finder와 organisms/StoreFinder로 복귀시켰다. 페이지·데이터·라우트·고객센터 스토리의 참조를 갱신했다.
 
 - **Fix**: RunClubFilters의 유형 버튼에 short를 명시했다. PC 40px·모바일 기존 32px 높이와 필터 선택 상태를 브라우저에서 확인하고 타입·ESLint·Prettier를 통과했다.
