@@ -1,3 +1,4 @@
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -37,9 +38,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 568),
+};
 
 export const AccountUnlock: Story = {
+  play: Default.play,
   args: {
     title: '계정 잠금 해제',
     description:
@@ -48,6 +52,7 @@ export const AccountUnlock: Story = {
 };
 
 export const Mobile: Story = {
+  play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
@@ -77,10 +82,12 @@ export const MobileAccountUnlock: Story = {
 };
 
 export const CodeEntry: Story = {
+  play: Default.play,
   args: { requested: true, code: '900668', secondsLeft: 125, resendWait: 125 },
 };
 
 export const Expired: Story = {
+  play: Default.play,
   args: {
     noticeTone: 'error',
     requested: true,
@@ -131,3 +138,5 @@ export const MobileRequiredAgreements: Story = {
   globals: { viewport: 'hoka375' },
   play: RequiredAgreements.play,
 };
+
+export const MobileCodeEntry: Story = { ...Mobile, args: CodeEntry.args };

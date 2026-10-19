@@ -6,9 +6,38 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T04:41:59+00:00'
+  at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/forms/form-state-audit/account.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/enterAddress.ts
+  - src/stories/features/forms/form-state-audit/MO.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/mypage.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/PC.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/product.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/shared.tsx
+  - src/stories/features/forms/form-state-audit/support.scenarios.tsx
+  - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
+  - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
+  - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/shared/features/signup-terms/SignupTermsAgreementList.tsx
+  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/shared/features/phone-verification/PhoneInformationFields.tsx
+  - src/shared/features/phone-verification/VerificationCodeFields.tsx
+  - src/shared/features/phone-verification/phone-verification.types.ts
+  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
+  - src/shared/features/signup-registration/RegistrationPersonalFields.tsx
+  - src/shared/features/signup-registration/RegistrationAddressFields.tsx
+  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
+  - src/shared/features/signup-registration/RegistrationField.tsx
+  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
+  - src/shared/features/signup-registration/registration.types.ts
+  - src/stories/utils/assertAccountFormLayout.ts
   - src/shared/components/organisms/Search/SearchForm.tsx
   - src/shared/components/organisms/Search/SearchCategorySelect.tsx
   - src/shared/components/organisms/Search/RecentSearches.tsx
@@ -79,7 +108,6 @@ working_tree_sources:
   - src/shared/features/signup-registration/RegistrationPage.tsx
   - src/shared/features/signup-terms/SignupTermsPage.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
-  - src/stories/features/forms/FormStateAudit.stories.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
   - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
@@ -1150,3 +1178,47 @@ Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 �
 | SignupTermsStep                                              | 1            | 서로 다른 세 Terms 인스턴스의 Checkbox 내부 라벨을 함께 대상으로 한다.                                                                                         |
 
 검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier·최종 소스의 Next/Storybook production build·git diff --check 통과. OKF 소스 매핑 누락도 없었다. TypeScript AST로 13개 파일의 JSX 164개를 비교해 의미 태그·네이티브 속성 차이가 없었다. PC/모바일 SSR 28건(선택된 질문, 주문 조회, Sale/일반 메뉴, 리뷰, 검색 입력·카테고리·기획전, 검색어 있음/없음, 매장 있음/없음, 휴대폰 약관 오류 유무, Explore fallback)은 class 이외 마크업이 일치했다. SSR의 Next Link·navigation은 대역을 사용했으며 모달 열린 상태·실제 이벤트·브라우저 computed CSS·시각 동일성은 검증하지 않았다. 작업 트리 출처는 frontmatter의 이번 관련 경로다.
+
+## 가입·인증 공통 폼 레이아웃과 내부 구성 (2026-10-19)
+
+`AccountFormLayout`은 약관동의·휴대폰 인증·회원 정보/부가 정보의 제목과 설명 영역을 소유하며 main·중앙 폭 제한은 공통 `AccountPageLayout`에 위임한다. 공개 props는 `title`, 선택적 `description`, `contentWidth`(기본 420px, 인증 568px), `fillMobileViewport`, `children`, `dialogs`, `actions`, `actionsSpacing`다. 제목은 `Typography as="h1" web="heading7" mo="heading5"`로 통일하고 제목 영역과 첫 본문 사이를 웹 40px·모바일 32px로 둔다. 설명이 있으면 제목 아래 12px에 배치하며 설명까지 포함한 영역 다음에 공통 간격을 적용한다. 외곽 패딩과 약관동의만 사용하는 모바일 화면 최소 높이는 기존 값을 유지한다. dialogs는 중앙 폭 제한 밖 main 내부에 조합한다. 기존 SignupLayout·ContentLayout·다른 인증 화면은 변경하지 않았다.
+
+약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 분리용 DOM 래퍼를 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
+
+검증: Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 및 Storybook production build, 기존 폼·계정 복구·이메일 테스트 38개가 통과했다. Edge headless에서 Storybook 21개 상태/상호작용을 확인했다. 13개 레이아웃 상태는 웹/모바일 간격 40px/32px, 한국어 제목 28px/22px·굵기 900, 폭 제한 420px/568px, 단일 main/h1과 설명문 간격 12px를 검증했다. 나머지는 웹/모바일 약관 이전 버전 선택·닫기, 필수 인증 약관 오류·전체 동의, 회원 정보 비밀번호 검증과 이메일 중복확인·주소 모달 입력·부가 정보 전환이다. 기존 데스크톱 약관 스토리의 닫힌 상세 팝업 참조를 새 이전 약관 팝업을 기다리는 방식으로 수정한 뒤 재검증했다. 계정 잠금 해제 웹·부가 정보 모바일 스크린샷도 확인했다. Storybook의 기존 tertiary 텍스트 색 대비 경고와 의존성 use-client 번들 경고는 이번 구조 변경에서 수정하지 않았다. 출처는 frontmatter에 기록한 작업 트리 경로다.
+
+### AccountFormLayout 공통 액션 영역 (2026-10-19)
+
+`actions?: ReactNode` 슬롯은 제목/본문과 동일한 폭 제한 안에서 children 다음에 렌더된다. 레이아웃이 동일 너비 2열·버튼 사이 8px Grid를 소유하며 각 feature는 버튼의 문구·variant·콜백을 전달한다. `actionsSpacing`의 기본값 `default`는 본문 아래 32px, `compact`는 24px다. 약관동의는 기본값으로 취소/확인, 회원 정보·부가 정보는 compact로 취소/다음을 전달해 기존 실효 간격(Stack gap 16px + 버튼 영역 margin 8px)을 유지한다. 액션이 없는 휴대폰 인증은 인증 요청·확인 버튼을 기존 폼 내부에 둔다.
+
+회원가입 form은 `id="registration-form"`을 유지 식별자로 사용하고 레이아웃 액션의 submit 버튼은 `form="registration-form"`으로 연결한다. 버튼이 폼 밖에 있어도 기존 onSubmit·noValidate와 Enter 제출을 유지하며, 레이아웃은 폼 상태나 제출 정책을 소유하지 않는다.
+
+검증: Panda 생성·타입 검사·변경 파일 ESLint·Prettier·Next.js production build 통과. 웹/모바일 Storybook 12개(약관 4개, 회원가입 8개)에서 간격·동일 너비·2열/8px gap과 submit.form 연결 및 기존 팝업·비밀번호·이메일/주소 입력 흐름을 확인했다. 별도 브라우저 검사로 웹/모바일 Enter 제출이 기존 검증 핸들러를 실행하는 것도 확인했다. 관련 출처는 AccountFormLayout, SignupTermsContent, RegistrationContent와 세 파일의 기존 Storybook 검증 경로다.
+
+## 유사 화면의 레이아웃 그룹 공통화 (2026-10-19)
+
+Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검한 뒤 중앙 정렬 계정 화면·주문 화면·사이드바 화면을 공통화했다. 상태·검증·데이터·라우팅은 각 feature에 유지한다.
+
+| 그룹             | 공통 구성과 적용 화면                                                                                                                                                                | 유지 계약                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| 계정 중앙 프레임 | `AccountPageLayout` → LoginLayout, SignupLayout, 계정 찾기, 비밀번호 재설정, 본인인증, 잠금 해제 완료, 가입 완료, 기존 AccountFormLayout의 약관동의·휴대폰 인증·회원 정보: 10개 화면 | main/내부 div·section 2단 구조, 기존 폭 420/500/568px·외곽 패딩·최소 높이·제목 크기/간격·완료 안내 배치 유지     |
+| 주문 프레임      | `OrderPageLayout` → 장바구니와 CheckoutLayout의 주문/결제·주문완료                                                                                                                   | 1100px 폭, 웹/모바일 외곽 패딩, 제목과 주문 단계의 header, 단계 1/2/3 및 모바일 숨김 유지                        |
+| 사이드바 프레임  | `MyPageFrame` → 기존 `SidebarNavigationLayout` 조합으로 주소·프로필·쿠폰·리워드·리뷰·상품 이용내역에 적용                                                                            | 데스크톱 180px 사이드바·50px gap·상단 70px/하단 120px, 마이페이지의 모바일 무여백·숨김 메뉴·Breadcrumb 순서 유지 |
+
+`AccountPageLayout`은 `children`, `contentWidth`(기본 500px), `contentAs`(div/section), `contentLabelledBy`, `fillMobileViewport`, `outsideContent`, `pageCss`, `contentCss`를 받는다. 기본 외곽은 기존 AccountFormLayout과 같은 웹 상단 96px·좌우 20px·하단 80px, 모바일 상단 40px·좌우 16px·하단 32px이다. 기능별 차이는 타입이 지정된 `pageCss`·`contentCss`에 `css.raw` 객체를 전달해 보존한다. 공통 기본 스타일과 호출부 차이를 하나의 `css(...)`에서 병합하며, 호출부 `css.raw`는 Panda 정적 추출 대상이다. 모달/완료 안내는 폭 제한 밖 main 내부 `outsideContent`로 전달한다. 추가 DOM 래퍼나 client 경계는 만들지 않는다.
+
+제목·진행 단계는 LoginLayout·SignupLayout에 남고, AccountFormLayout의 공개 제목·설명·actions 계약도 유지한다. 비밀번호 재설정·본인인증·완료 화면의 서로 다른 제목이나 안내 배치는 해당 feature가 소유한다. 가입 완료는 기존 모바일에서도 상단 96px·하단 124px을 쓰므로 공통 모바일 기본값을 명시적으로 덮어쓴다. `SidebarNavigationLayout.mobileSpacing`은 기본 `default`로 기존 지원 화면의 모바일 여백을 유지하며 `none`을 사용하는 MyPageFrame만 모바일 좌우·상하 여백을 0으로 둔다.
+
+기존 ContentLayout·CustomerCenterLayout·상품 목록/상세·런클럽 레이아웃은 각자의 Breadcrumb·폭·sticky·모바일 배치 책임을 유지한다. 서로 다른 화면을 동일한 제목 variant나 여백으로 강제 통일하지 않았다.
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier, 폼/계정 복구/App Router 테스트 37개·주문 합계 테스트 3개, Next.js·Storybook production build가 통과했다. 변경 전후 웹/모바일 31건(Storybook 29개·장바구니 실제 경로 2개)에서 정규화한 DOM(클래스 제외·자동 ID 정규화), main 기준 좌표·크기·padding/margin/gap·최소 높이·font-size/display가 일치했다. 로그인 성공/형식 오류, 가입 필드 검증, 계정 찾기 인증번호 요청/오류, 비밀번호 재설정 오류/완료의 기존 play 11개와 주문 완료 웹/모바일 play 2개도 통과했다. 실제 경로 `/mypage/addresses`, `/mypage/profile`, `/support/store`, `/support/terms`, `/support/teamwear`의 웹/모바일 10건에서 공통 사이드바 배치와 마이페이지 무여백/기존 지원 화면 여백을 확인했다. Storybook 의존성의 기존 번들 경고는 유지된다. 출처는 frontmatter의 작업 트리 경로다.
+
+`OrderPageLayout`의 API는 `title: ReactNode`, `step: 1 | 2 | 3`, `headerSpacing?: 'default' | 'none'`, `children`이다. title 슬롯에 각 feature의 기존 h1 Typography를 전달해 장바구니와 결제 화면의 다른 타입 스케일을 보존한다. 공통 StepIndicator는 장바구니→주문/결제→주문완료 항목을 사용하고 모바일에서는 숨긴다. 기본 제목 아래 간격은 40px이며 장바구니는 `none`으로 기존 상품 수 안내의 자체 margin을 유지한다. CartPage의 수량·삭제 콜백과 합계 계산, CheckoutPage의 검증·완료 상태와 onComplete는 기존 소유자에 남고, CheckoutLayout의 외부 API도 유지한다.
+
+## FormStateAudit의 PC/MO·상태 분류 (2026-10-19)
+
+기존 단일 FormStateAudit.stories.tsx는 `src/stories/features/forms/form-state-audit/`로 나눴다. Storybook 탐색 경로는 `Development/FormStateAudit/{PC|MO}/{Validation|Expired|Inheritance}`다. 각 플랫폼은 Validation(오류→수정·복구/완료) 13개, Expired(휴대폰 인증 만료) 1개, Inheritance(공통 컨트롤의 오류 상속·해제) 1개로 구성되며 총 30개다. preview의 storySort는 PC→MO, Validation→Expired→Inheritance 순서를 지정한다.
+
+6개 *.stories.tsx는 분류와 시나리오 선택만 담당한다. 계정·마이페이지·상품·고객문의·공통 컨트롤의 5개 *.scenarios.tsx는 기존 render/play를 소유하고, shared.tsx는 플랫폼 Provider·375px 모바일 wrapper·fullscreen을, enterAddress.ts는 반복 주소 모달 입력을 담당한다. 모바일 전용 story 복제와 parameters 덮어쓰기를 제거해 상품 pathname과 가입 step query를 공통 플랫폼 메타와 함께 유지한다. 기존 form-audit/form-audit-new 태그에 form-audit-pc/mo와 form-audit-validation/expired/inheritance를 추가했다. CSF 정적 인덱싱을 위해 태그는 각 meta에 문자열 리터럴로 명시한다. 이전 단일 그룹 story ID는 새 플랫폼/상태 경로로 바뀐다.
+
+검증: 원본 15개 render/play 선언의 이동 전후 소스 일치, 정적 index의 6개 그룹·30개 story·기존/신규 태그 등록을 확인했다. 변경 파일 ESLint·Prettier·전체 타입 검사·Storybook production build가 통과했으며 정적 Storybook(127.0.0.1:6007)을 대상으로 Edge headless에서 PC/MO play 30개가 모두 통과했다. 앱 구현과 검증 조건은 변경하지 않았다. 출처는 frontmatter의 새 스토리/시나리오·helper·preview 작업 트리 경로다.
