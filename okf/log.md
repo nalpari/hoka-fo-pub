@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Docs**: AGENTS와 component-reusability에 반복 형제 여백의 부모 gap 이전, 부분 그룹화·반응형/조건부 예외와 검증 기준을 추가했다.
+
 - **Feat**: 페이지 없음 화면에 Font Awesome 경고 아이콘·중앙 안내·홈 링크와 PC/MO 스토리를 적용했다. Stack gap 8로 32px 간격을 표현한다.
 
 - **Feat**: 헤더 실제 검색 input·PC 패널·모바일 전체 화면·자동완성·오류와 장바구니 기준 정렬을 적용했다. 최근 검색어 전체 삭제는 Button link/md로 표현하며 onClear·빈 상태·저장소 초기화를 유지한다.

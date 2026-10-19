@@ -29,6 +29,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Implement component styles in the corresponding TSX file using Panda CSS `css` or `cva`.
 - When migrating existing CSS Module styles, preserve all behavior and responsive breakpoints/values exactly unless the task explicitly requests a visual change.
 - Remove the migrated `*.module.scss` file after its styles are fully represented in Panda CSS.
+- Prefer parent-owned spacing for vertical siblings: when repeated child `mt`/`marginTop` values express a common interval, use an existing parent `Stack gap` and remove the replaced margins. Group only the uniform portion when intervals differ; preserve the group's starting space, PC/mobile values, conditional visibility, and HTML semantics. Follow the [component-reusability spacing guidance](.codex/skills/component-reusability/SKILL.md#repeated-sibling-spacing) for exceptions and verification.
 
 ## Code formatting rules
 

@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:44:07.192Z'
+  at: '2026-10-19T09:44:08.759Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/features/not-found/NotFoundPage.stories.tsx
@@ -1531,3 +1531,11 @@ RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므�
 첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 노드 `577:11405`는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
 
 Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드가 통과했다. 브라우저에서 PC 화면과 모바일 375px 스토리를 확인했고 모바일 버튼 343×48px·홈 링크 `/`·Font Awesome SVG 48×48px를 확인했다. 기존 공통 헤더의 프로모션 배너 등 첨부 이미지와 다른 영역은 이번 수정 범위 밖이다.
+
+## 반복 형제 여백의 프로젝트 정책 (2026-10-19)
+
+AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나타내면 부모 Stack gap을 우선 사용하도록 규정한다. 세부 기준은 component-reusability의 Repeated sibling spacing을 참조한다. 실제 형제 순서·조건부 분기·직접 props와 css/공유 클래스/컴포넌트 내부 여백을 확인하고, 같은 간격 구간만 묶어 그룹 시작 여백·PC/MO 값·HTML 의미를 유지한다. Grid의 배치 의도, 음수·sticky·겹침과 서로 다른 경계는 일괄 전환하지 않는다.
+
+기존 부모를 우선 재사용하고 새 wrapper는 실제 간격 책임과 직접 자식 선택자·폭/정렬·최소 높이·form/접근성 연결을 확인한 뒤 검토한다. margin collapse와 기존 mb/my·padding/gap도 비교한다. 구현 시 PC/MO 좌표·크기·조건부 상태 및 필요한 폼 동작을 검증하고 임시 fixture를 제거한다. 이전 32px 값이나 24개 검증 조합을 모든 작업의 고정 기준으로 삼지 않는다. 정책만 수정하는 요청은 추가 소스 마이그레이션이나 앱 빌드를 요구하지 않는다.
+
+검증: 임시 검증 경로에 PyYAML을 설치해 skill-creator의 quick_validate.py 통과를 확인했고 AGENTS·스킬 Prettier와 변경 diff를 검사했다. 애플리케이션 소스는 수정하지 않았다. 출처는 작업 트리의 AGENTS.md와 .codex/skills/component-reusability/SKILL.md다.
