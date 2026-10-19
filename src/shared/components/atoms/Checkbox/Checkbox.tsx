@@ -27,7 +27,7 @@ const option = css({
 });
 
 const control = css({
-  '&&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
+  '&&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '-2px' },
   position: 'relative',
   display: 'grid',
   placeItems: 'center',

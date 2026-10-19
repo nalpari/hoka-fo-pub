@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: Checkbox 오류 outline의 offset을 -2px로 바꿔 아이콘과 떨어진 간격을 제거하고 미선택·선택 오류 스토리를 추가했다.
+
 - **Refactor**: AccountFormHeader를 추가해 본인인증·계정 찾기·가입 방법·AccountFormLayout의 제목과 설명을 공통화했다. 기존 간격·설명 색상·제목 ID를 보존하고 PC/MO 14개와 기존 상호작용 스토리, Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
 
 - **Refactor**: CustomerCenterLayout에 페이지별 title·description을 전달하고 제목을 본문 열로 이동했다. 메인 소개는 SupportPage만 제공하며 12개 사용처·기존 모바일 크기와 간격을 반영하고 SupportPageHeading을 제거했다. 기존 스토리 24개의 PC/MO 제목·메뉴 배치와 더보기·탭, Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.

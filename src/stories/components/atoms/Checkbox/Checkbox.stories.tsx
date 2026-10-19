@@ -40,6 +40,10 @@ export const Default: Story = {};
 
 export const Checked: Story = { args: { defaultChecked: true } };
 
+export const Error: Story = { args: { 'aria-invalid': true } };
+
+export const ErrorChecked: Story = { args: { 'aria-invalid': true, defaultChecked: true } };
+
 export const Disabled: Story = { args: { disabled: true } };
 
 export const DisabledChecked: Story = { args: { defaultChecked: true, disabled: true } };

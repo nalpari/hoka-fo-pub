@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:30.963Z'
+  at: '2026-10-19T09:07:32.986Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/atoms/Checkbox/Checkbox.stories.tsx
   - src/shared/components/organisms/Signup/SignupMethodStep.tsx
   - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
   - src/shared/features/care-guide/CareGuidePage.tsx
@@ -1476,3 +1477,7 @@ AccountFormHeader는 제목과 선택 설명을 한 영역에 배치한다. titl
 IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLayout 네 곳이 이를 사용한다. 본문 간격은 호출부에서 유지한다. 본인인증은 32px·설명 subtle, 계정 찾기는 PC 40px/MO 32px·제목→설명 PC 10px/MO 12px, 가입 방법은 본문 mt 24px, AccountFormLayout은 PC 40px/MO 32px이다. verification-title·find-account-title·signup-title과 section/form의 aria-labelledby 연결을 유지한다. AccountFormLayout의 공개 props·버튼·모달과 각 feature 상태·콜백은 유지한다.
 
 실제 검증: 기존 PC/MO 스토리 14개에서 본문 간격, 설명 유무와 제목→설명 간격, 단일 h1과 기존 ID 연결을 확인했다. 계정 찾기 오류·인증번호 입력, 약관 상세 상호작용, 회원가입 이메일 중복확인 스토리를 확인했다. Panda 생성·TypeScript·변경 TSX ESLint/Prettier·Next.js/Storybook 빌드를 통과했다. 본인인증 모바일 스토리는 기존처럼 platform-mobile 클래스만 지정하므로 Typography의 web 컨텍스트 동작을 이번 변경에서 수정하지 않았다. 출처는 작업 트리의 AccountFormHeader와 네 사용처, 해당 기존 Storybook이다.
+
+## Checkbox 오류 테두리 간격 (2026-10-19)
+
+Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/shared/components/atoms/Checkbox/Checkbox.tsx, src/stories/components/atoms/Checkbox/Checkbox.stories.tsx.
