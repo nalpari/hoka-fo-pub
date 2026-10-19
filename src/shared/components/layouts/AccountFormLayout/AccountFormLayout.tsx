@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
-import { Box, Grid } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 
 type Props = {
   title: ReactNode;
@@ -30,18 +31,11 @@ export function AccountFormLayout({
       fillMobileViewport={fillMobileViewport}
       outsideContent={dialogs}
     >
-      <Box mb="10" _mobile={{ mb: '8' }}>
-        <Typography as="h1" web="heading7" mo="heading5">
-          {title}
-        </Typography>
-        {description ? (
-          <Box mt="3">
-            <Typography as="p" variant="body3" tone="tertiary">
-              {description}
-            </Typography>
-          </Box>
-        ) : null}
-      </Box>
+      <AccountFormHeader
+        title={title}
+        description={description}
+        spacingCss={css.raw({ mb: '10', _mobile: { mb: '8' } })}
+      />
       {children}
       {actions ? (
         <Grid gridTemplateColumns="1fr 1fr" gap="2" mt={actionsSpacing === 'compact' ? '6' : '8'}>

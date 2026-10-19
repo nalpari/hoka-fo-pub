@@ -1,5 +1,6 @@
 'use client';
 
+import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
@@ -58,14 +59,11 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
   return (
     <section aria-labelledby="signup-title">
-      <Stack gap="3">
-        <Typography as="h1" web="heading7" mo="heading5" id="signup-title">
-          가입과 동시에 시작되는 혜택!
-        </Typography>
-        <Typography as="p" variant="body3" tone="tertiary">
-          HOKA Korea 온라인 회원만을 위한 특별한 혜택!
-        </Typography>
-      </Stack>
+      <AccountFormHeader
+        title="가입과 동시에 시작되는 혜택!"
+        titleId="signup-title"
+        description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
+      />
 
       <Grid columns={3} gap="1.5" mt="6" aria-label="회원가입 혜택">
         <Grid

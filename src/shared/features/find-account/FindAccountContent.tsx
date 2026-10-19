@@ -1,3 +1,4 @@
+import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
@@ -54,14 +55,15 @@ export function FindAccountContent({
       })}
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
     >
-      <Stack gap={{ base: '10px', _mobile: '3' }} mb={{ base: '10', _mobile: '8' }}>
-        <Typography as="h1" web="heading7" mo="heading5" id="find-account-title">
-          아이디 / 비밀번호 찾기
-        </Typography>
-        <Typography as="p" variant="body3" tone="tertiary">
-          회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.
-        </Typography>
-      </Stack>
+      <AccountFormHeader
+        title="아이디 / 비밀번호 찾기"
+        titleId="find-account-title"
+        description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
+        spacingCss={css.raw({
+          gap: { base: '10px', _mobile: '3' },
+          mb: { base: '10', _mobile: '8' },
+        })}
+      />
 
       <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
         <Stack gap="4">

@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:28.924Z'
+  at: '2026-10-19T09:07:30.963Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Signup/SignupMethodStep.tsx
+  - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
   - src/shared/features/care-guide/CareGuidePage.tsx
   - src/stories/components/molecules/PageActionButton/PageActionButton.stories.tsx
   - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
@@ -1466,3 +1468,11 @@ CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 �
 제목은 PC heading6을 유지한다. mobileTitleVariant는 기존 heading4·heading5·heading7을 보존하고, headingProps는 gap·mb·모바일 간격을 전달한다. 기본 제목 영역은 gap 16px·하단 24px이며 메인은 제목→소개 24px(모바일 16px)·하단 40px, FAQ 모바일은 하단 8px, 공지 목록은 PC 하단 36px, 문의 모바일은 하단 16px을 유지한다. showHeadingDivider는 기존 SupportPageHeading의 PC 2px 검은 구분선을 표현하며 모바일에서 숨긴다. 미사용이 된 SupportPageHeading은 제거했다. Breadcrumb·활성 메뉴·탭·필터·문의 상태와 제출 처리는 기존 소유자에 둔다.
 
 실제 검증: Edge 브라우저로 기존 고객센터 스토리 24개에서 PC/MO 제목·단일 main/h1·메인 소개의 표시 범위·메뉴 정렬과 모바일 숨김을 확인했다. FAQ·공지 더보기, 배송/반품 탭 전환을 확인했다. Panda 생성, TypeScript, 변경 TSX ESLint·Prettier, Next.js와 Storybook 빌드를 통과했다. Storybook의 기존 directive·청크·플러그인 시간 경고는 남아 있다. 출처는 작업 트리의 CustomerCenterLayout, 해당 기능 페이지와 src/stories/features/support/SupportPages.stories.tsx다.
+
+## 계정 폼 제목의 AccountFormHeader 공통화 (2026-10-19)
+
+AccountFormHeader는 제목과 선택 설명을 한 영역에 배치한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 12px이다. spacingCss는 css.raw로 전달해 Panda에서 추출하고 공통 스타일과 하나의 css 호출로 병합한다. 상태나 추가 client 경계는 만들지 않는다.
+
+IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLayout 네 곳이 이를 사용한다. 본문 간격은 호출부에서 유지한다. 본인인증은 32px·설명 subtle, 계정 찾기는 PC 40px/MO 32px·제목→설명 PC 10px/MO 12px, 가입 방법은 본문 mt 24px, AccountFormLayout은 PC 40px/MO 32px이다. verification-title·find-account-title·signup-title과 section/form의 aria-labelledby 연결을 유지한다. AccountFormLayout의 공개 props·버튼·모달과 각 feature 상태·콜백은 유지한다.
+
+실제 검증: 기존 PC/MO 스토리 14개에서 본문 간격, 설명 유무와 제목→설명 간격, 단일 h1과 기존 ID 연결을 확인했다. 계정 찾기 오류·인증번호 입력, 약관 상세 상호작용, 회원가입 이메일 중복확인 스토리를 확인했다. Panda 생성·TypeScript·변경 TSX ESLint/Prettier·Next.js/Storybook 빌드를 통과했다. 본인인증 모바일 스토리는 기존처럼 platform-mobile 클래스만 지정하므로 Typography의 web 컨텍스트 동작을 이번 변경에서 수정하지 않았다. 출처는 작업 트리의 AccountFormHeader와 네 사용처, 해당 기존 Storybook이다.
