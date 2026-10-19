@@ -1,4 +1,4 @@
-import type { StoreResult } from '@/shared/Mockup/store-finder/StoreResults';
+import type { StoreResult } from '@/shared/components/organisms/StoreFinder/StoreResults';
 
 export type StoreCity = '서울' | '인천' | '경기';
 
