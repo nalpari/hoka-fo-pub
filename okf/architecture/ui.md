@@ -401,9 +401,9 @@ Atoms/StatusMessage의 세 tone과 Login의 Error·MobileError에 실제 적용 
 
 ## Typography 스타일 미적용 옵션
 
-2026-10-16 `variant` prop의 기본값을 `unstyled`로 지정했다. variant 및 해당 플랫폼의 web/mo를 생략하면 recipe를 적용하지 않고 네이티브/상위/호출자 스타일을 사용한다. web/mo가 있으면 기존 플랫폼 선택 순서대로 우선한다. 기존 기본 body 타입이 필요한 호출자는 `variant="body"`를 명시해야 하며, unstyled에서는 tone·weight도 recipe와 함께 생략된다. 타입 검사·변경 파일 ESLint·Storybook production build를 통과했다. 전체 호출 화면의 시각적 동일성을 검증한 것은 아니다.
+2026-10-16 `variant` prop의 기본값을 `unstyled`로 지정했다. variant 및 해당 플랫폼의 web/mo를 생략하면 recipe를 적용하지 않고 네이티브/상위/호출자 스타일을 사용한다. web/mo가 있으면 기존 플랫폼 선택 순서대로 우선한다. 기존 기본 body 타입이 필요한 호출자는 `variant="body"`를 명시해야 하며, unstyled에서는 weight·언어별 타입 스타일을 생략하고, 명시한 tone만 독립적으로 색상을 적용한다(2026-10-19 보완). 타입 검사·변경 파일 ESLint·Storybook production build를 통과했다. 전체 호출 화면의 시각적 동일성을 검증한 것은 아니다.
 
-2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe 전체를 생략해 tone·weight·언어별 타입 스타일을 적용하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
+2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe를 생략해 weight·언어별 타입 스타일을 적용하지 않는다. 2026-10-19부터 명시한 tone은 색상 전용 recipe로 적용하며, tone 생략 시 색상 선언도 추가하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
 
 ## 상품 상세 컬러 선택 배치 수정 (2026-10-16)
 
@@ -956,3 +956,18 @@ PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 
 런클럽 목록·상세 스토리는 RunClubPreview를 공유하며, 목록은 `pages-mypage-runclub-list--list`, 상세 기본은 `pages-mypage-runclub-detail--open`으로 접근한다. IA 200/258/259 미리보기도 새 분류를 사용한다.
 
 기능별 JSX·모달 분리 구현은 자체 파일에 배치와 안내 문구를 두고 기존 부모가 제어하는 값/콜백을 받는다. 계정 잠금 화면은 중복 배경 래퍼 없이 공통 ModalDialog의 backdrop·포커스 처리를 사용한다. 가입 주소 모달의 확인 액션과 각 기능의 모달 액션은 footer 슬롯을 사용한다.
+
+## Typography 스크린 리더 전용 옵션 (2026-10-19)
+
+추가 적용: `src/shared/components/organisms/Search/SearchCategorySelect.tsx`의 검색 범위 레이블도 `<Typography as="span" srOnly>`로 통일하고 중복 숨김 CSS를 제거했다. 기존 label/select 연결과 선택 이벤트는 유지한다. 타입 검사·해당 파일 ESLint·Prettier 통과. 브라우저·실제 스크린 리더 검증은 미실행이다.
+
+`Typography`는 선택적 boolean `srOnly`를 제공한다(기본값 false). `<Typography as="h1" srOnly>`는 Panda의 `css({ srOnly: true })`로 시각적으로 숨기면서 제목 의미와 스크린 리더 접근을 유지한다. 숨김 클래스는 typography recipe와 독립적이므로 unstyled·명시적 variant 모두에 적용된다. prop은 내부에서 소비하고 DOM에는 전달하지 않는다. 기존 className·네이티브 속성과 web/mo 선택 계약을 유지한다.
+
+작업 트리 출처는 `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/product/ProductDetailImageViewer.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`다. 상품 이미지 뷰어 제목에 적용하고 ScreenReaderOnly 스토리에서 Controls로 숨김을 전환할 수 있다. Panda 생성·전체 타입 검사·변경 TSX ESLint 통과. 브라우저·실제 스크린 리더 검증은 수행하지 않았다.
+
+
+## Typography unstyled의 명시적 tone (2026-10-19)
+
+`variant="unstyled"`(기본값)에서도 명시한 `tone`은 색상만 적용한다. tone을 생략하면 상위/네이티브 색상을 보존한다. 글꼴·크기·굵기·행간은 그대로 유지하고 weight는 계속 생략한다. web/mo에서 unstyled가 선택될 때도 동일하다. 색상 매핑을 typographyTones로 공유하며 기존 명시적 variant의 색상 계약을 유지한다. NotFoundPage의 tertiary 색상 선언을 `tone="tertiary"`로 이전하고 m=0을 유지했다.
+
+작업 트리 출처: `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/not-found/NotFoundPage.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`. UnstyledTone 스토리는 상위 글꼴·크기·굵기를 상속하면서 tone 지정/생략 시 색상을 비교한다. 브라우저 시각 검증은 수행하지 않았다.

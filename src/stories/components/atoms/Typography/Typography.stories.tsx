@@ -584,6 +584,18 @@ export const LocaleHeading: Story = {
   args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
 };
 
+export const ScreenReaderOnly: Story = {
+  args: { as: 'h1', srOnly: true, children: '상품 이미지' },
+  render: (args) => (
+    <Box>
+      <Typography {...args} />
+      <Typography as="p">
+        제목은 스크린 리더로 읽을 수 있습니다. Controls에서 srOnly를 꺼 확인하세요.
+      </Typography>
+    </Box>
+  ),
+};
+
 export const LocaleHeadingMobile: Story = {
   args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
   render: (args) => (
@@ -592,5 +604,22 @@ export const LocaleHeadingMobile: Story = {
         <Typography {...args} />
       </div>
     </PlatformProvider>
+  ),
+};
+
+export const UnstyledTone: Story = {
+  args: {
+    as: 'p',
+    variant: 'unstyled',
+    tone: 'tertiary',
+    children: '글꼴과 크기를 유지하고 색상만 적용합니다.',
+  },
+  render: (args) => (
+    <Box fontFamily="serif" fontSize="24px" fontWeight="bold" color="var(--color-text-brand)">
+      <Typography {...args} />
+      <Typography {...args} tone={undefined}>
+        tone을 생략하면 상위 색상을 유지합니다.
+      </Typography>
+    </Box>
   ),
 };

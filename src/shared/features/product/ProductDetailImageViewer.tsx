@@ -6,6 +6,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { ProductDetailViewerGallery } from './ProductDetailViewerGallery';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faXmark } from '@/shared/icons/fontAwesome';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
   close: css({
@@ -77,7 +78,9 @@ export function ProductDetailImageViewer({
         }
       }}
     >
-      <h1 className={css({ srOnly: true })}>{productName} 상품 이미지</h1>
+      <Typography as="h1" srOnly>
+        {productName} 상품 이미지
+      </Typography>
       <Button
         ref={closeRef}
         aria-label="이미지 뷰어 닫기"
