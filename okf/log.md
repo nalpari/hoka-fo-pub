@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: MainContentCard의 link 분기에 md를 명시하고 HeroCopy 액션에 short를 지정했다. 타입 계약과 변경 파일 ESLint/Prettier를 확인했다.
+
 - **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
 
 - **Style**: Form 전수 점검 보고서의 기존 표 열 너비와 구분선을 Prettier 형식으로 정리했다. 표 셀 내용과 기존 검증 기록은 유지했다.

@@ -9,6 +9,7 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
   - src/stories/components/atoms/Button/Button.stories.tsx
@@ -423,6 +424,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 카드 링크와 히어로 버튼 크기 지정 (2026-10-19)
+
+MainContentCard는 link 분기를 분리해 size md를 명시하고, HeroCopy의 액션은 size short를 명시한다. 링크 전용 sm/md/lg와 일반 버튼 tall/short 타입 계약을 유지한다. 전체 타입 검사·변경 파일 ESLint/Prettier를 확인했다.
 
 ## 버튼 유형별 기본 크기와 라벨 (2026-10-19)
 
