@@ -275,6 +275,7 @@ working_tree_sources:
   - src/shared/features/product/ProductDetailHeaderMeta.tsx
   - src/shared/features/signup-terms/SignupTermsDetail.tsx
   - src/shared/features/signup-terms/SignupTermsContent.tsx
+  - src/shared/features/signup-terms/PreviousTermsPicker.tsx
   - src/shared/features/mypage/RunningProfilePage.tsx
   - src/shared/features/run-club/RunClubSessionHero.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
@@ -434,6 +435,8 @@ AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModa
 - `organisms/Account/LogoutDialog`는 MyPage 접두사를 제거한 공용 로그아웃 확인 표현이며 실제 로그아웃은 MyPage가 처리한다. `AlreadyRegisteredModal`도 가입 폴더에서 Account로 이동했고 기존 PhoneVerificationPage 호출을 연결했다. 두 팝업의 현재 업무 호출부는 각각 한 곳이며 다른 진입점의 미래 사용을 이미 구현한 것으로 간주하지 않는다.
 - `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
 - `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
+
+회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/shared/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma `957:30452`이다.
 
 `AccountUnlockCompletePage`는 Figma desktop `957:30471`·mobile `957:29862` 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 노드 `957:30479`의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
 
