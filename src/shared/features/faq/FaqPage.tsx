@@ -1,7 +1,5 @@
 'use client';
 
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-
 import { useMemo, useState } from 'react';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Divider } from 'styled-system/jsx';
@@ -39,6 +37,8 @@ export function FaqPage() {
 
   return (
     <CustomerCenterLayout
+      title="FAQs"
+      headingProps={{ _mobile: { mb: '2' } }}
       activePath="/support/faq"
       groups={supportNavigation}
       breadcrumbItems={[
@@ -46,13 +46,7 @@ export function FaqPage() {
         { label: '고객센터', href: '/support' },
         { label: 'FAQs' },
       ]}
-      hideIntroMobile
     >
-      <Box mb="6" _mobile={{ mb: '2' }}>
-        <Typography as="h2" web="heading6" mo="heading7">
-          FAQs
-        </Typography>
-      </Box>
       <Divider
         aria-hidden="true"
         orientation="horizontal"

@@ -18,6 +18,9 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
 
   return (
     <CustomerCenterLayout
+      title="1:1 문의"
+      description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
+      headingProps={{ _mobile: { mb: '4' } }}
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -25,16 +28,7 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         { label: '1:1 문의' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
-      <Stack gap="4" pb="6" _mobile={{ pb: '4' }}>
-        <Typography as="h2" web="heading6" mo="heading7">
-          1:1 문의
-        </Typography>
-        <Typography as="p" variant="body3">
-          궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다.
-        </Typography>
-      </Stack>{' '}
       <Divider
         aria-hidden="true"
         orientation="horizontal"

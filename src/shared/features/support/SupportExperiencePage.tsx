@@ -8,7 +8,6 @@ import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure'
 import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { Box, Flex } from 'styled-system/jsx';
 
@@ -19,12 +18,14 @@ const activeTab = css({
   fontWeight: 'var(--font-weights-extrabold)',
 });
 
-
-
 function SupportFrame({ activePath, children }: { activePath: string; children: React.ReactNode }) {
   if (activePath === '/support/member-benefits') {
     return (
       <CustomerCenterLayout
+        title="온라인 회원 등급 안내"
+        mobileTitleVariant="heading5"
+        showHeadingDivider
+        headingProps={{ mb: '0' }}
         activePath={activePath}
         breadcrumbItems={[
           { label: 'Home', href: '/' },
@@ -32,7 +33,6 @@ function SupportFrame({ activePath, children }: { activePath: string; children: 
           { label: '온라인 회원 등급 안내' },
         ]}
         groups={supportNavigation}
-        hideIntroMobile
       >
         <section>{children}</section>
       </CustomerCenterLayout>
@@ -68,11 +68,7 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
 
   return (
     <SupportFrame activePath={kind === 'mileage' ? '/support/mileage' : '/support/member-benefits'}>
-      {kind === 'mileage' ? (
-        <PageHeader title="통합 마일리지 안내" />
-      ) : (
-        <SupportPageHeading title="온라인 회원 등급 안내" />
-      )}
+      {kind === 'mileage' && <PageHeader title="통합 마일리지 안내" />}
       {kind === 'mileage' ? (
         <>
           <Flex

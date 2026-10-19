@@ -30,6 +30,8 @@ export function NoticesPage() {
 
   return (
     <CustomerCenterLayout
+      title="공지사항"
+      headingProps={{ mb: { base: '9', _mobile: '6' } }}
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -37,13 +39,7 @@ export function NoticesPage() {
         { label: '공지사항' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
-      <Box mb={{ base: '9', _mobile: '6' }}>
-        <Typography as="h2" web="heading6" mo="heading7">
-          공지사항
-        </Typography>
-      </Box>
       <Divider
         aria-hidden="true"
         orientation="horizontal"

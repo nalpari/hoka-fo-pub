@@ -3,7 +3,6 @@
 import { HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import {
   apparelCareSections,
@@ -55,6 +54,9 @@ const tabs = [
 export function CareGuidePage() {
   return (
     <CustomerCenterLayout
+      title="세탁 및 손질 방법 안내"
+      mobileTitleVariant="heading5"
+      showHeadingDivider
       activePath="/support/care"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -62,10 +64,8 @@ export function CareGuidePage() {
         { label: '세탁 및 손질 방법 안내' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
       <Stack gap="6">
-        <SupportPageHeading title="세탁 및 손질 방법 안내" />
         <SupportTabs ariaLabel="세탁 및 손질 방법" defaultValue="shoes" tabs={tabs} />
       </Stack>
     </CustomerCenterLayout>

@@ -28,6 +28,7 @@ export function InquiryNewPage() {
 
   return (
     <CustomerCenterLayout
+      title="1:1 문의등록"
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -37,11 +38,6 @@ export function InquiryNewPage() {
       ]}
       groups={supportNavigation}
     >
-      <Box mb="6">
-        <Typography as="h2" web="heading6" mo="heading7">
-          1:1 문의등록
-        </Typography>
-      </Box>
       <form onSubmit={submit}>
         <Stack gap="6">
           <Box p="4" bg="black.10">

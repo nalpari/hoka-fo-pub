@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:25.468Z'
+  at: '2026-10-19T09:07:28.924Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/care-guide/CareGuidePage.tsx
   - src/stories/components/molecules/PageActionButton/PageActionButton.stories.tsx
   - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
   - src/shared/components/organisms/Faq/FaqQuestion.tsx
@@ -1457,3 +1458,11 @@ Button variant secondary의 hover/focus-visible/active에서는 프레임 안 �
 ## 페이지 하단 공통 액션 (2026-10-19)
 
 PageActionButton은 최대 500px 중앙 정렬 영역과 fullWidth Button/ButtonLink를 조합한다. children·href 또는 onClick·primary/secondary·short/tall·선택적 current/total counter를 받고, containerProps는 기존 mt/pt/_mobile 차이를 보존한다. 기본값은 secondary/short와 상단 padding 36px이다. SupportPage의 FAQs 링크는 기존 tall·margin·모바일 maxW none을, InquiryPage는 primary/short를, FAQ/공지 더보기는 short·모바일 상단 24px와 기존 페이지 계산/표시 조건을 유지한다. 기존 LoadMoreButton의 남은 항목 수 API는 변경하지 않는다.
+
+## 고객센터 페이지 제목의 레이아웃 소유권 (2026-10-19)
+
+CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 본문 상단에 단일 h1과 설명을 배치한다. PC에서는 제목과 좌측 메뉴의 시작점을 맞추고 모바일에서는 메뉴를 숨긴다. 고객센터 메인의 제목·소개 문구와 모바일 줄바꿈은 SupportPage만 전달한다. 하위 화면에는 메인 소개를 표시하지 않는다. 이전 hideIntro·hideIntroMobile 분기를 제거하고 사용처 12곳을 전환했다.
+
+제목은 PC heading6을 유지한다. mobileTitleVariant는 기존 heading4·heading5·heading7을 보존하고, headingProps는 gap·mb·모바일 간격을 전달한다. 기본 제목 영역은 gap 16px·하단 24px이며 메인은 제목→소개 24px(모바일 16px)·하단 40px, FAQ 모바일은 하단 8px, 공지 목록은 PC 하단 36px, 문의 모바일은 하단 16px을 유지한다. showHeadingDivider는 기존 SupportPageHeading의 PC 2px 검은 구분선을 표현하며 모바일에서 숨긴다. 미사용이 된 SupportPageHeading은 제거했다. Breadcrumb·활성 메뉴·탭·필터·문의 상태와 제출 처리는 기존 소유자에 둔다.
+
+실제 검증: Edge 브라우저로 기존 고객센터 스토리 24개에서 PC/MO 제목·단일 main/h1·메인 소개의 표시 범위·메뉴 정렬과 모바일 숨김을 확인했다. FAQ·공지 더보기, 배송/반품 탭 전환을 확인했다. Panda 생성, TypeScript, 변경 TSX ESLint·Prettier, Next.js와 Storybook 빌드를 통과했다. Storybook의 기존 directive·청크·플러그인 시간 경고는 남아 있다. 출처는 작업 트리의 CustomerCenterLayout, 해당 기능 페이지와 src/stories/features/support/SupportPages.stories.tsx다.
