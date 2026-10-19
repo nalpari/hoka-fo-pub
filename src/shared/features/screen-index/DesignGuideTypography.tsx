@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { token, type Token } from 'styled-system/tokens';
 import {
@@ -61,7 +62,6 @@ const styles = {
     _mobile: { px: '4', py: '4' },
   }),
   typographySection: css({
-    mt: '6',
     minW: '0',
     p: '6',
     border: '1px solid #dbe5ff',
@@ -164,142 +164,148 @@ export function DesignGuideTypography() {
       >
         {copyStatus}
       </Typography>
-      <section className={styles.typographySection} aria-labelledby="typography-comparison-title">
-        <Typography as="h2" id="typography-comparison-title">
-          Typography · 한영 비교
-        </Typography>
-        <Typography as="p">
-          디자인 가이드의 Heading, Body, CTA, Text Link를 같은 번호의 EN·KO 행으로 비교합니다.
-          크기는 px, 굵기는 숫자로 표시하며 모바일 굵기가 다르면 함께 표기합니다. 좁은 화면에서는
-          표를 좌우로 스크롤할 수 있습니다.
-        </Typography>
-        <div
-          className={styles.tableScroll}
-          role="region"
-          aria-label="한영 타이포그래피 비교표"
-          tabIndex={0}
-        >
-          <table
-            className={`${styles.table} ${styles.pairedTable}`}
-            aria-labelledby="typography-comparison-title"
+      <Stack gap="6" mt="6">
+        <section className={styles.typographySection} aria-labelledby="typography-comparison-title">
+          <Typography as="h2" id="typography-comparison-title">
+            Typography · 한영 비교
+          </Typography>
+          <Typography as="p">
+            디자인 가이드의 Heading, Body, CTA, Text Link를 같은 번호의 EN·KO 행으로 비교합니다.
+            크기는 px, 굵기는 숫자로 표시하며 모바일 굵기가 다르면 함께 표기합니다. 좁은 화면에서는
+            표를 좌우로 스크롤할 수 있습니다.
+          </Typography>
+          <div
+            className={styles.tableScroll}
+            role="region"
+            aria-label="한영 타이포그래피 비교표"
+            tabIndex={0}
           >
-            <thead>
-              <tr>
-                {comparisonColumnLabels.map((label) => (
-                  <th key={label} scope="col">
-                    {label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            {pairedVariants.map(({ english, korean }) => {
-              const enValues = getTypographyValues(english);
-              const koValues = getTypographyValues(korean);
+            <table
+              className={`${styles.table} ${styles.pairedTable}`}
+              aria-labelledby="typography-comparison-title"
+            >
+              <thead>
+                <tr>
+                  {comparisonColumnLabels.map((label) => (
+                    <th key={label} scope="col">
+                      {label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              {pairedVariants.map(({ english, korean }) => {
+                const enValues = getTypographyValues(english);
+                const koValues = getTypographyValues(korean);
 
-              return (
-                <tbody key={english}>
-                  <tr>
+                return (
+                  <tbody key={english}>
+                    <tr>
+                      <th
+                        scope="rowgroup"
+                        rowSpan={2}
+                        className={styles.variantCell}
+                        onClick={() => void copyVariant(english)}
+                      >
+                        <button
+                          type="button"
+                          className={styles.copyButton}
+                          aria-label={`${english} Typography 코드 복사`}
+                        >
+                          {english}
+                        </button>
+                      </th>
+                      <th scope="row">EN</th>
+                      {enValues.map((value, index) => (
+                        <td
+                          key={columnLabels[index + 1]}
+                          rowSpan={value === koValues[index] ? 2 : 1}
+                        >
+                          {value}
+                        </td>
+                      ))}
+                      <td>
+                        <Typography variant={english} lang="en">
+                          abcdefghijklmn
+                        </Typography>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">KO</th>
+                      {koValues.map((value, index) =>
+                        value === enValues[index] ? null : (
+                          <td key={columnLabels[index + 1]}>{value}</td>
+                        ),
+                      )}
+                      <td>
+                        <Typography variant={korean} lang="ko">
+                          가나다라마바사
+                        </Typography>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
+          </div>
+        </section>
+        <section className={styles.typographySection} aria-labelledby="typography-mono-title">
+          <Typography as="h2" id="typography-mono-title">
+            Typography · Mono
+          </Typography>
+          <Typography as="p">
+            한글 대응 variant가 없는 Mono 스타일입니다. 웹과 모바일에서 같은 크기와 굵기를
+            사용합니다.
+          </Typography>
+          <div
+            className={styles.tableScroll}
+            role="region"
+            aria-label="Mono 타이포그래피 표"
+            tabIndex={0}
+          >
+            <table
+              className={`${styles.table} ${styles.monoTable}`}
+              aria-labelledby="typography-mono-title"
+            >
+              <thead>
+                <tr>
+                  {[...columnLabels, 'Example'].map((label) => (
+                    <th key={label} scope="col">
+                      {label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {monoVariants.map((variant) => (
+                  <tr key={variant}>
                     <th
-                      scope="rowgroup"
-                      rowSpan={2}
+                      scope="row"
                       className={styles.variantCell}
-                      onClick={() => void copyVariant(english)}
+                      onClick={() => void copyVariant(variant)}
                     >
                       <button
                         type="button"
                         className={styles.copyButton}
-                        aria-label={`${english} Typography 코드 복사`}
+                        aria-label={`${variant} Typography 코드 복사`}
                       >
-                        {english}
+                        {variant}
                       </button>
                     </th>
-                    <th scope="row">EN</th>
-                    {enValues.map((value, index) => (
-                      <td key={columnLabels[index + 1]} rowSpan={value === koValues[index] ? 2 : 1}>
-                        {value}
-                      </td>
+                    {getTypographyValues(variant).map((value, index) => (
+                      <td key={columnLabels[index + 1]}>{value}</td>
                     ))}
                     <td>
-                      <Typography variant={english} lang="en">
+                      <Typography variant={variant} lang="en">
                         abcdefghijklmn
                       </Typography>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">KO</th>
-                    {koValues.map((value, index) =>
-                      value === enValues[index] ? null : (
-                        <td key={columnLabels[index + 1]}>{value}</td>
-                      ),
-                    )}
-                    <td>
-                      <Typography variant={korean} lang="ko">
-                        가나다라마바사
-                      </Typography>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-        </div>
-      </section>
-      <section className={styles.typographySection} aria-labelledby="typography-mono-title">
-        <Typography as="h2" id="typography-mono-title">
-          Typography · Mono
-        </Typography>
-        <Typography as="p">
-          한글 대응 variant가 없는 Mono 스타일입니다. 웹과 모바일에서 같은 크기와 굵기를 사용합니다.
-        </Typography>
-        <div
-          className={styles.tableScroll}
-          role="region"
-          aria-label="Mono 타이포그래피 표"
-          tabIndex={0}
-        >
-          <table
-            className={`${styles.table} ${styles.monoTable}`}
-            aria-labelledby="typography-mono-title"
-          >
-            <thead>
-              <tr>
-                {[...columnLabels, 'Example'].map((label) => (
-                  <th key={label} scope="col">
-                    {label}
-                  </th>
                 ))}
-              </tr>
-            </thead>
-            <tbody>
-              {monoVariants.map((variant) => (
-                <tr key={variant}>
-                  <th
-                    scope="row"
-                    className={styles.variantCell}
-                    onClick={() => void copyVariant(variant)}
-                  >
-                    <button
-                      type="button"
-                      className={styles.copyButton}
-                      aria-label={`${variant} Typography 코드 복사`}
-                    >
-                      {variant}
-                    </button>
-                  </th>
-                  {getTypographyValues(variant).map((value, index) => (
-                    <td key={columnLabels[index + 1]}>{value}</td>
-                  ))}
-                  <td>
-                    <Typography variant={variant} lang="en">
-                      abcdefghijklmn
-                    </Typography>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </Stack>
     </ContentLayout>
   );
 }

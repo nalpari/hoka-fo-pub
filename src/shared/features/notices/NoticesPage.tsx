@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
@@ -30,6 +30,8 @@ export function NoticesPage() {
 
   return (
     <CustomerCenterLayout
+      title="공지사항"
+      headingProps={{ mb: { base: '9', _mobile: '6' } }}
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -37,13 +39,7 @@ export function NoticesPage() {
         { label: '공지사항' },
       ]}
       groups={supportNavigation}
-      hideIntroMobile
     >
-      <Box mb={{ base: '9', _mobile: '6' }}>
-        <Typography as="h2" web="heading6" mo="heading7">
-          공지사항
-        </Typography>
-      </Box>
       <Divider
         aria-hidden="true"
         orientation="horizontal"
@@ -131,23 +127,13 @@ export function NoticesPage() {
         ))}
       </Stack>
       {shown < notices.length ? (
-        <Box pt="9" maxW="500px" mx="auto" _mobile={{ pt: '6' }}>
-          <Button
-            fullWidth
-            density="compact"
-            variant="secondary"
-            onClick={() => setShown((count) => count + 10)}
-          >
-            <HStack gap="1" justifyContent="center">
-              <Typography variant="cta2" weight="semibold">
-                더보기
-              </Typography>
-              <Typography variant="body5" tone="tertiary">
-                ({Math.ceil(shown / 10)}/{Math.ceil(notices.length / 10)})
-              </Typography>
-            </HStack>
-          </Button>
-        </Box>
+        <PageActionButton
+          onClick={() => setShown((count) => count + 10)}
+          counter={{ current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) }}
+          containerProps={{ _mobile: { pt: '6' } }}
+        >
+          더보기
+        </PageActionButton>
       ) : null}
     </CustomerCenterLayout>
   );

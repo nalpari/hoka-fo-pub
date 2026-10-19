@@ -71,6 +71,7 @@ export const Empty: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Default,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

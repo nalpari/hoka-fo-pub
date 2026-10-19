@@ -72,6 +72,7 @@ const verifyLayout =
 export const Desktop: Story = { render: () => <Example />, play: verifyLayout(false) };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   render: () => <Example mobile />,
   play: verifyLayout(true),
   globals: { viewport: 'hoka375' },

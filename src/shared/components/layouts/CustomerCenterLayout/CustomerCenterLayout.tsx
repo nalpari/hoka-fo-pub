@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import type { ComponentProps, ReactNode } from 'react';
+import { Box, Divider, Grid, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import {
   Breadcrumb,
@@ -15,8 +15,11 @@ type Props = {
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
   groups: SideNavigationGroup[];
-  hideIntro?: boolean;
-  hideIntroMobile?: boolean;
+  title: string;
+  description?: ReactNode;
+  showHeadingDivider?: boolean;
+  mobileTitleVariant?: 'heading4' | 'heading5' | 'heading7';
+  headingProps?: Pick<ComponentProps<typeof Stack>, 'gap' | 'mb' | '_mobile'>;
 };
 
 export function CustomerCenterLayout({
@@ -24,8 +27,11 @@ export function CustomerCenterLayout({
   breadcrumbItems,
   children,
   groups,
-  hideIntro = false,
-  hideIntroMobile = false,
+  title,
+  description,
+  showHeadingDivider = false,
+  mobileTitleVariant = 'heading7',
+  headingProps,
 }: Props) {
   return (
     <Box as="main" maxW="1532px" mx="auto" pb="24" _mobile={{ px: '4', pb: '10' }}>
@@ -33,28 +39,10 @@ export function CustomerCenterLayout({
         <Breadcrumb items={breadcrumbItems} />
       </Box>
       <Box w="1200px" maxW="100%" mx="auto" px="34px" _mobile={{ px: '0' }}>
-        <Stack
-          mt={{ base: '14', _mobile: '6' }}
-          mb="10"
-          gap={{ base: '6', _mobile: '4' }}
-          display={
-            hideIntro ? 'none' : hideIntroMobile ? { base: 'flex', _mobile: 'none' } : 'flex'
-          }
-        >
-          <Typography as="h1" web="heading6" mo="heading4">
-            고객센터
-          </Typography>
-          <Typography as="p" variant="body3">
-            HOKA와 함께하는 모든 순간,
-            <Box as="br" display={{ base: 'none', _mobile: 'block' }} /> 더 나은 경험을 위해 항상
-            도와드리겠습니다.
-          </Typography>
-        </Stack>
-
         <Grid
           gridTemplateColumns="240px minmax(0, 1fr)"
           gap="3.5"
-          mt={hideIntro || hideIntroMobile ? { base: '0', _mobile: '6' } : '0'}
+          mt={{ base: '14', _mobile: '6' }}
           _mobile={{ display: 'block' }}
         >
           <SideNavigation
@@ -62,10 +50,32 @@ export function CustomerCenterLayout({
             appearance="support"
             groups={groups}
             mobileNavigation="hidden"
-            title="Help Center"
+            title="고객센터"
             titleTo="/support"
           />
-          <Box minW="0">{children}</Box>
+          <Box minW="0">
+            <Stack gap="4" mb="6" {...headingProps}>
+              <Typography as="h1" web="heading6" mo={mobileTitleVariant}>
+                {title}
+              </Typography>
+              {description && (
+                <Typography as="p" variant="body3">
+                  {description}
+                </Typography>
+              )}
+              {showHeadingDivider && (
+                <Divider
+                  aria-hidden="true"
+                  orientation="horizontal"
+                  h="2px"
+                  mt="2"
+                  bg="black.100"
+                  display={{ base: 'block', _mobile: 'none' }}
+                />
+              )}
+            </Stack>
+            {children}
+          </Box>
         </Grid>
       </Box>
     </Box>

@@ -1,8 +1,7 @@
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Stack } from 'styled-system/jsx';
-import { RatingInput, type RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
+import { RatingStars, type RatingValue } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
@@ -30,12 +29,9 @@ export function MyPageReviewDialog({
   onSave,
 }: Props) {
   return (
-    <ModalDialog
-      footer={
-        <Button fullWidth size="short" variant="primary" onClick={onSave}>
-          저장
-        </Button>
-      }
+    <SingleActionDialog
+      confirmLabel="저장"
+      onConfirm={onSave}
       closeLabel="리뷰 작성창 닫기"
       onOpenChange={onOpenChange}
       open={open}
@@ -50,7 +46,7 @@ export function MyPageReviewDialog({
           htmlFor="review-rating"
           error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
         >
-          <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
+          <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
         </FormField>
         <FormField
           htmlFor="review-body"
@@ -71,6 +67,6 @@ export function MyPageReviewDialog({
           </Typography>
         ) : null}
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

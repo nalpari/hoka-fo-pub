@@ -1,4 +1,7 @@
-import { Box, Stack } from 'styled-system/jsx';
+import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
+import { css } from 'styled-system/css';
+import { Stack } from 'styled-system/jsx';
+import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
@@ -41,24 +44,29 @@ export function FindAccountContent({
   onSubmit,
 }: FindAccountContentProps) {
   return (
-    <Box
-      as="main"
-      pt={{ base: '24', _mobile: '10' }}
-      px="4"
-      pb={{ base: '124px', _mobile: '8' }}
-      minH={{ base: '600px', _mobile: 'calc(100svh - var(--layout-site-header-height))' }}
+    <AccountPageLayout
+      contentAs="section"
+      contentLabelledBy="find-account-title"
+      pageCss={css.raw({
+        px: '4',
+        pb: '124px',
+        minH: '600px',
+        _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
+      })}
+      contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
     >
-      <Stack as="section" maxW="500px" mx="auto" gap="0" aria-labelledby="find-account-title">
-        <Stack gap={{ base: '10px', _mobile: '3' }} mb={{ base: '10', _mobile: '8' }}>
-          <Typography as="h1" web="heading7" mo="heading5" id="find-account-title">
-            아이디 / 비밀번호 찾기
-          </Typography>
-          <Typography as="p" variant="body3" tone="tertiary">
-            회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.
-          </Typography>
-        </Stack>
+      <AccountFormHeader
+        title="아이디 / 비밀번호 찾기"
+        titleId="find-account-title"
+        description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
+        spacingCss={css.raw({
+          gap: { base: '10px', _mobile: '3' },
+          mb: { base: '10', _mobile: '8' },
+        })}
+      />
 
-        <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
+      <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
+        <Stack gap="6">
           <Stack gap="4">
             <FormField
               variant="boxed"
@@ -95,19 +103,12 @@ export function FindAccountContent({
               />
             </FormField>
           </Stack>
-          <Box mt="6">
-            <Button
-              type="submit"
-              variant="primary"
-              fullWidth
-              disabled={requested && secondsLeft > 0}
-            >
-              {requested ? '인증번호 재요청' : '인증번호 요청'}
-            </Button>
-          </Box>
+          <Button type="submit" variant="primary" fullWidth disabled={requested && secondsLeft > 0}>
+            {requested ? '인증번호 재요청' : '인증번호 요청'}
+          </Button>
           {requested ? (
             <>
-              <Box mt="6">
+              <Stack gap="2">
                 <FormField
                   variant="boxed"
                   htmlFor="find-account-code"
@@ -125,35 +126,29 @@ export function FindAccountContent({
                     onChange={(event) => onCodeChange(event.target.value)}
                   />
                 </FormField>
-              </Box>
-              <Stack gap="2" mt="2">
-                <Typography as="p" variant="body5" tone="error">
-                  남은 시간{' '}
-                  {Math.floor(secondsLeft / 60)
-                    .toString()
-                    .padStart(2, '0')}
-                  :{(secondsLeft % 60).toString().padStart(2, '0')}초
-                </Typography>
-                <Typography as="p" variant="body5" tone="tertiary">
-                  입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
-                  <br />
-                  인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
-                </Typography>
+                <Stack gap="2">
+                  <Typography as="p" variant="body5" tone="error">
+                    남은 시간{' '}
+                    {Math.floor(secondsLeft / 60)
+                      .toString()
+                      .padStart(2, '0')}
+                    :{(secondsLeft % 60).toString().padStart(2, '0')}초
+                  </Typography>
+                  <Typography as="p" variant="body5" tone="tertiary">
+                    입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
+                    <br />
+                    인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
+                  </Typography>
+                </Stack>
               </Stack>
-              <Box mt="6">
-                <Button type="button" variant="primary" fullWidth onClick={onConfirmCode}>
-                  인증번호 확인
-                </Button>
-              </Box>
+              <Button type="button" variant="primary" fullWidth onClick={onConfirmCode}>
+                인증번호 확인
+              </Button>
             </>
           ) : null}
-          {notice ? (
-            <Box mt="4">
-              <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage>
-            </Box>
-          ) : null}
-        </form>
-      </Stack>
-    </Box>
+          {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
+        </Stack>
+      </form>
+    </AccountPageLayout>
   );
 }

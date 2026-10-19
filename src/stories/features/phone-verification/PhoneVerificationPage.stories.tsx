@@ -1,3 +1,4 @@
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -7,6 +8,7 @@ import { PhoneVerificationPage } from '@/shared/features/phone-verification/Phon
 const meta = {
   title: 'Pages/AUTH/PhoneVerification',
   component: PhoneVerificationContent,
+  parameters: { layout: 'fullscreen' },
   args: {
     information: {
       name: '',
@@ -37,9 +39,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 568),
+};
 
 export const AccountUnlock: Story = {
+  play: Default.play,
   args: {
     title: '계정 잠금 해제',
     description:
@@ -48,10 +53,12 @@ export const AccountUnlock: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
+  play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
-        <div className="platform-mobile" style={{ width: 375 }}>
+        <div className="platform-mobile" style={{ width: '100%', maxWidth: 375 }}>
           <Story />
         </div>
       </PlatformProvider>
@@ -60,6 +67,7 @@ export const Mobile: Story = {
 };
 
 export const MobileFieldErrors: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: {
     fieldErrors: {
@@ -72,15 +80,18 @@ export const MobileFieldErrors: Story = {
 };
 
 export const MobileAccountUnlock: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: AccountUnlock.args,
 };
 
 export const CodeEntry: Story = {
+  play: Default.play,
   args: { requested: true, code: '900668', secondsLeft: 125, resendWait: 125 },
 };
 
 export const Expired: Story = {
+  play: Default.play,
   args: {
     noticeTone: 'error',
     requested: true,
@@ -125,9 +136,16 @@ export const RequiredAgreements: Story = {
 };
 
 export const MobileRequiredAgreements: Story = {
+  parameters: { layout: 'fullscreen' },
   ...RequiredAgreements,
   tags: ['signup-phone-feedback'],
   decorators: Mobile.decorators,
   globals: { viewport: 'hoka375' },
   play: RequiredAgreements.play,
+};
+
+export const MobileCodeEntry: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  args: CodeEntry.args,
 };

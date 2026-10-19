@@ -1,7 +1,7 @@
 import { ShopShell } from '@/shared/ShopShell';
 import MyPage from '@/app/mypage/page';
 import { MyPageStatusPage, type MyPageStatusKind } from '@/shared/features/mypage/MyPageStatusPage';
-import { RunningProfilePage } from '@/shared/features/mypage/RunningProfilePage';
+import { RunningProfilePage } from '@/shared/Mockup/running-profile/RunningProfilePage';
 import { RunClubPage } from '@/shared/features/run-club/RunClubPage';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 

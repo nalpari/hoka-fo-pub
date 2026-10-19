@@ -1,263 +1,97 @@
-import type { FormEvent } from 'react';
-import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Terms } from '@/shared/components/molecules/Terms/Terms';
-import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { PhoneVerificationDetailDialog } from '@/shared/features/phone-verification/PhoneVerificationDetailDialog';
+import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
+import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { PhoneVerificationDetailDialog } from './PhoneVerificationDetailDialog';
+import { PhoneVerificationAgreements } from './PhoneVerificationAgreements';
+import { PhoneInformationFields } from './PhoneInformationFields';
+import { VerificationCodeFields } from './VerificationCodeFields';
+import type { PhoneVerificationContentProps } from './phone-verification.types';
 
-const styles = {
-  detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
-};
+export type { PhoneInformation, PhoneVerificationErrors } from './phone-verification.types';
 
-export const verificationTerms = [
-  '개인정보 이용약관 동의',
-  '고유식별 정보 처리동의',
-  '통신사 이용약관 동의',
-  '휴대폰 본인확인 이용약관 동의',
-] as const;
+export { verificationTerms } from './PhoneVerificationAgreements';
 
-export type PhoneInformation = {
-  name: string;
-  birthDate: string;
-  nationality: string;
-  gender: string;
-  carrier: string;
-  phone: string;
-};
-
-export type PhoneVerificationErrors = Partial<Record<keyof PhoneInformation, string>>;
-
-type Props = {
-  title?: string;
-  description?: string;
-  information: PhoneInformation;
-  agreements: boolean[];
-  showAgreementErrors?: boolean;
-  requested: boolean;
-  code: string;
-  secondsLeft: number;
-  resendWait: number;
-  notice: string;
-  noticeTone?: 'error' | 'info';
-  codeError?: string;
-  fieldErrors?: PhoneVerificationErrors;
-  detail: string | null;
-  onInformationChange: (key: keyof PhoneInformation, value: string) => void;
-  onAgreementChange: (index: number, checked: boolean) => void;
-  onAllAgree: (checked: boolean) => void;
-  onCodeChange: (value: string) => void;
-  onRequest: () => void;
-  onConfirm: (event: FormEvent<HTMLFormElement>) => void;
-  onDetail: (title: string | null) => void;
-};
-
-export function PhoneVerificationContent(props: Props) {
-  const {
-    information,
-    agreements,
-    showAgreementErrors = false,
-    requested,
-    code,
-    secondsLeft,
-    resendWait,
-    notice,
-    detail,
-  } = props;
-
-  const textField = (
-    key: keyof PhoneInformation,
-    label: string,
-    placeholder: string,
-    maxLength?: number,
-  ) => (
-    <FormField
-      variant="boxed"
-      htmlFor={`phone-${key}`}
-      label={label}
-      required
-      error={props.fieldErrors?.[key]}
-    >
-      <TextInput
-        id={`phone-${key}`}
-        value={information[key]}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        type={key === 'phone' ? 'tel' : 'text'}
-        inputMode={key === 'name' ? 'text' : 'numeric'}
-        autoComplete={key === 'name' ? 'name' : key === 'phone' ? 'tel-national' : 'off'}
-        onChange={(event) => props.onInformationChange(key, event.target.value)}
-      />
-    </FormField>
-  );
-
-  const selectField = (key: keyof PhoneInformation, label: string, options: string[]) => (
-    <Dropdown
-      ariaLabel={label}
-      label={label}
-      required
-      error={props.fieldErrors?.[key]}
-      name={`phone-${key}`}
-      value={information[key]}
-      options={options.map((option) => ({ value: option, label: option }))}
-      onValueChange={(value) => props.onInformationChange(key, value)}
-    />
-  );
+export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
+  const { requested, resendWait, notice } = props;
 
   return (
-    <Box as="main" pt="24" px="5" pb="20" _mobile={{ pt: '10', px: '4', pb: '8' }}>
-      <Box maxW="568px" mx="auto">
-        <Box pb="3">
-          <Typography as="h1" web="heading7" mo="heading5">
-            {props.title ?? '휴대폰 인증'}
-          </Typography>
-        </Box>
-        {props.description ? (
-          <Box pb="8">
-            <Typography as="p" variant="body3" tone="tertiary">
-              {props.description}
-            </Typography>
-          </Box>
-        ) : null}
-        <Stack
-          as="section"
-          gap="4"
-          pb="6"
-          borderBottom="1px solid var(--color-black-20)"
-          aria-labelledby="phone-terms-title"
-          aria-describedby={showAgreementErrors ? 'phone-terms-error' : undefined}
-        >
-          <HStack justify="space-between" mb="2">
-            <Typography as="h2" id="phone-terms-title" variant="headingKr7">
-              휴대폰 인증약관
-            </Typography>
-            <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
-              <Typography variant="body4">모두동의</Typography>
-            </Terms>
-          </HStack>
-          {verificationTerms.map((term, index) => (
-            <HStack key={term} justify="space-between" gap="2" alignItems="center">
-              <Terms
-                checked={agreements[index]}
-                onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
-                required
-                invalid={showAgreementErrors && !agreements[index]}
-              >
-                <Typography variant="body4">(필수) {term}</Typography>
-              </Terms>
-              <Button
-                variant="link"
-                size="md"
-                className={styles.detail}
-                onClick={() => props.onDetail(term)}
-              >
-                자세히 보기
-              </Button>
-            </HStack>
-          ))}
-          {showAgreementErrors ? (
-            <StatusMessage id="phone-terms-error" tone="error">
-              필수 약관에 모두 동의해 주세요.
-            </StatusMessage>
+    <AccountFormLayout
+      title={props.title ?? '휴대폰 인증'}
+      description={props.description}
+      contentWidth="568px"
+      dialogs={
+        props.detail === '알뜰폰 사업자' ? (
+          <PhoneVerificationDetailDialog
+            open
+            onOpenChange={(open) => {
+              if (!open) props.onDetail(null);
+            }}
+          />
+        ) : (
+          <ModalDialog
+            open={props.detail !== null}
+            onOpenChange={(open) => {
+              if (!open) props.onDetail(null);
+            }}
+            title={props.detail ?? ''}
+            closeLabel="안내 닫기"
+            size="md"
+            mobilePresentation="fullscreen"
+          >
+            {null}
+          </ModalDialog>
+        )
+      }
+    >
+      <PhoneVerificationAgreements
+        agreements={props.agreements}
+        showAgreementErrors={props.showAgreementErrors}
+        onAllAgree={props.onAllAgree}
+        onAgreementChange={props.onAgreementChange}
+        onDetail={props.onDetail}
+      />
+      <Box my="6">
+        <Typography as="h2" variant="headingKr9">
+          인증 정보
+        </Typography>
+      </Box>
+      <form noValidate onSubmit={props.onConfirm}>
+        <Stack gap="4">
+          <PhoneInformationFields
+            information={props.information}
+            fieldErrors={props.fieldErrors}
+            onInformationChange={props.onInformationChange}
+            onDetail={props.onDetail}
+          />
+          <Button
+            variant="primary"
+            fullWidth
+            disabled={requested && resendWait > 0}
+            onClick={props.onRequest}
+          >
+            {requested ? '인증번호 재요청' : '인증번호 요청'}
+          </Button>
+          {requested ? (
+            <VerificationCodeFields
+              code={props.code}
+              codeError={props.codeError}
+              secondsLeft={props.secondsLeft}
+              onCodeChange={props.onCodeChange}
+            />
+          ) : null}
+          {notice ? (
+            <StatusMessage tone={props.noticeTone ?? 'info'}>{notice}</StatusMessage>
           ) : null}
         </Stack>
-        <Box my="6">
-          <Typography as="h2" variant="headingKr9">
-            인증 정보
-          </Typography>
-        </Box>
-        <form noValidate onSubmit={props.onConfirm}>
-          <Stack gap="4">
-            {textField('name', '이름', '이름을 입력해 주세요')}
-            {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
-            <Grid columns={2} gap="2">
-              {selectField('nationality', '국적', ['내국인', '외국인'])}
-              {selectField('gender', '성별', ['남자', '여자'])}
-            </Grid>
-            <Grid gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)" gap="3" alignItems="center">
-              {selectField('carrier', '통신사', [
-                'SKT',
-                'KT',
-                'LG U+',
-                'SKT 알뜰폰',
-                'KT 알뜰폰',
-                'LG U+ 알뜰폰',
-              ])}
-              <Button
-                variant="link"
-                size="md"
-                className={[styles.detail, css({ justifySelf: 'end' })].join(' ')}
-                onClick={() => props.onDetail('알뜰폰 사업자')}
-              >
-                알뜰폰 사업자 보기
-              </Button>
-            </Grid>
-            {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
-            <Button
-              variant="primary"
-              fullWidth
-              disabled={requested && resendWait > 0}
-              onClick={props.onRequest}
-            >
-              {requested ? '인증번호 재요청' : '인증번호 요청'}
-            </Button>
-            {requested ? (
-              <>
-                <Box mt="2">
-                  <FormField
-                    variant="boxed"
-                    htmlFor="phone-code"
-                    label="인증번호"
-                    required
-                    error={props.codeError}
-                  >
-                    <TextInput
-                      id="phone-code"
-                      inputMode="numeric"
-                      autoComplete="one-time-code"
-                      maxLength={6}
-                      placeholder="인증번호 6자리를 입력해 주세요"
-                      value={code}
-                      onChange={(event) => props.onCodeChange(event.target.value)}
-                    />
-                  </FormField>
-                </Box>
-                <Box mt="-2">
-                  <Typography as="p" variant="body5" tone="error">
-                    남은 시간{' '}
-                    {Math.floor(secondsLeft / 60)
-                      .toString()
-                      .padStart(2, '0')}
-                    :{(secondsLeft % 60).toString().padStart(2, '0')}초
-                  </Typography>
-                </Box>
-                <Box mb="2">
-                  <Typography as="p" variant="body5">
-                    입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호
-                    6자리를 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
-                  </Typography>
-                </Box>
-                <Button variant="primary" type="submit" fullWidth>
-                  인증번호 확인
-                </Button>
-              </>
-            ) : null}
-            {notice ? (
-              <StatusMessage tone={props.noticeTone ?? 'info'}>{notice}</StatusMessage>
-            ) : null}
-          </Stack>
-        </form>
-        <Box mt="4">
-          <Typography as="p" variant="body4" tone="tertiary">
-            * 인증문의 (주)KCB고객센터 02-708-1000
-          </Typography>
-        </Box>
+      </form>
+      <Box mt="4">
+        <Typography as="p" variant="body4" tone="tertiary">
+          * 인증문의 (주)KCB고객센터 02-708-1000
+        </Typography>
       </Box>
-      <PhoneVerificationDetailDialog detail={detail} onDetailChange={props.onDetail} />
-    </Box>
+    </AccountFormLayout>
   );
 }

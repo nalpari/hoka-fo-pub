@@ -16,9 +16,10 @@ type Props = {
   children: ReactNode;
   mobileNavigation?: 'scroll' | 'hidden';
   className?: string;
+  mobileSpacing?: 'default' | 'none';
 };
 
-const page = css({
+const page = css.raw({
   display: 'grid',
   gridTemplateColumns: '180px minmax(0, 1fr)',
   gap: '50px',
@@ -42,9 +43,17 @@ export function SidebarNavigationLayout({
   children,
   mobileNavigation = 'scroll',
   className,
+  mobileSpacing = 'default',
 }: Props) {
   return (
-    <main className={[page, className].filter(Boolean).join(' ')}>
+    <main
+      className={[
+        css(page, mobileSpacing === 'none' && { _mobile: { px: '0', py: '0', pb: '0' } }),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <SideNavigation
         activePath={activePath}
         groups={groups}

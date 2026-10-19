@@ -1,6 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
+
 import { SignupProgress } from '@/shared/components/molecules/Signup/SignupProgress';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -18,38 +19,31 @@ type Props = ComponentProps<typeof SignupProgress> & { children: ReactNode };
 
 export function SignupLayout({ step, method, children }: Props) {
   return (
-    <Box
-      as="main"
-      pt="20"
-      px="5"
-      pb="24"
-      _mobile={{
-        pt: '10',
-        px: '4',
-        pb: '8',
-        minH: 'calc(100svh - var(--layout-site-header-height))',
-      }}
+    <AccountPageLayout
+      contentAs="section"
+      contentLabelledBy="signup-title"
+      fillMobileViewport
+      pageCss={css.raw({ pt: '20', pb: '24' })}
+      contentCss={css.raw({ w: '100%', minW: 0 })}
     >
-      <Box as="section" w="100%" maxW="500px" minW={0} mx="auto" aria-labelledby="signup-title">
-        {step !== 0 ? (
-          <>
-            <Typography
-              as="p"
-              variant="body5"
-              tone="tertiary"
-              weight="medium"
-              className={styles.eyebrow}
-            >
-              JOIN HOKA
-            </Typography>
-            <Typography as="h1" variant="heading6" className={styles.pageTitle} id="signup-title">
-              회원가입
-            </Typography>
-            <SignupProgress method={method} step={step} />
-          </>
-        ) : null}
-        {children}
-      </Box>
-    </Box>
+      {step !== 0 ? (
+        <>
+          <Typography
+            as="p"
+            variant="body5"
+            tone="tertiary"
+            weight="medium"
+            className={styles.eyebrow}
+          >
+            JOIN HOKA
+          </Typography>
+          <Typography as="h1" variant="heading6" className={styles.pageTitle} id="signup-title">
+            회원가입
+          </Typography>
+          <SignupProgress method={method} step={step} />
+        </>
+      ) : null}
+      {children}
+    </AccountPageLayout>
   );
 }

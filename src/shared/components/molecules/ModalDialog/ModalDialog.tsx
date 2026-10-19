@@ -86,6 +86,11 @@ const popupWithFooter = css({ display: 'flex', flexDirection: 'column', overflow
 
 const content = css({ p: '24px', _mobile: { p: '24px 16px 16px 16px' } });
 
+const singleActionContent = css({
+  p: '24px 24px 16px',
+  _mobile: { p: '24px 16px 16px 16px' },
+});
+
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -104,6 +109,8 @@ export type ModalDialogProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
+  /** Footer action count; one action uses the single-action content padding. */
+  actionCount?: 1 | 2 | null;
   /** Fade the scrollable content into the fixed footer. */
   scrollFade?: boolean;
   title: ReactNode;
@@ -120,6 +127,7 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   overlayTone = 'dark',
   popupClassName,
+  actionCount = null,
   scrollFade = false,
   title,
 }: ModalDialogProps) {
@@ -141,7 +149,16 @@ export function ModalDialog({
                 .join(' ')}
             >
               <ModalDialogHeader title={title} closeLabel={closeLabel} />
-              <div className={footer ? `${content} ${scrollableContent}` : content}>{children}</div>
+              <div
+                className={[
+                  actionCount === 1 ? singleActionContent : content,
+                  footer && scrollableContent,
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {children}
+              </div>
               {footer ? (
                 <ModalDialogFooter scrollFade={scrollFade}>{footer}</ModalDialogFooter>
               ) : null}

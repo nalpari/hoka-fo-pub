@@ -58,6 +58,7 @@ export const Interactive: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Interactive,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

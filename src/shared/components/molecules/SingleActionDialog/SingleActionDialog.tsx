@@ -4,7 +4,7 @@ import {
   type ModalDialogProps,
 } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
-export type SingleActionDialogProps = Omit<ModalDialogProps, 'footer'> & {
+export type SingleActionDialogProps = Omit<ModalDialogProps, 'footer' | 'actionCount'> & {
   confirmLabel?: string;
   /** The caller decides whether confirming closes the dialog or advances its flow. */
   onConfirm: () => void;
@@ -23,8 +23,15 @@ export function SingleActionDialog({
   return (
     <ModalDialog
       {...props}
+      actionCount={1}
       footer={
-        <Button {...confirmButtonProps} variant="primary" onClick={onConfirm}>
+        <Button
+          {...confirmButtonProps}
+          size={confirmButtonProps?.size ?? 'short'}
+          fullWidth={confirmButtonProps?.fullWidth ?? true}
+          variant="primary"
+          onClick={onConfirm}
+        >
           {confirmLabel}
         </Button>
       }

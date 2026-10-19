@@ -2,9 +2,11 @@
 
 import type { ReactNode } from 'react';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
-import { Box, HStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
+import { FaqQuestion } from './FaqQuestion';
+import { FaqAnswer } from './FaqAnswer';
+import { FaqEmptyState } from './FaqEmptyState';
 
 export type FaqListEntry = { question: string; answer: ReactNode };
 
@@ -52,33 +54,12 @@ export function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }}
           items={entries.map((item) => ({
             value: item.question,
-            title: (
-              <HStack gap="2" minW="0">
-                <Typography as="b" web="heading8" mo="heading9" weight="black">
-                  Q
-                </Typography>
-                <Typography as="span" web="heading9" mo="body5" weight="semibold">
-                  {item.question}
-                </Typography>
-              </HStack>
-            ),
-            content: (
-              <Box bg="black.10" px="6" py="8" whiteSpace="pre-line" _mobile={{ px: '3', py: '5' }}>
-                <Box as="p" m="0">
-                  <Typography as="span" web="body4" mo="body5">
-                    {item.answer}
-                  </Typography>
-                </Box>
-              </Box>
-            ),
+            title: <FaqQuestion question={item.question} />,
+            content: <FaqAnswer answer={item.answer} />,
           }))}
         />
       ) : (
-        <Box py="15" textAlign="center">
-          <Typography as="p" web="body4" mo="body5" tone="tertiary">
-            검색 결과가 없습니다.
-          </Typography>
-        </Box>
+        <FaqEmptyState />
       )}
     </Box>
   );

@@ -28,7 +28,6 @@ export function MarketingConsentSummaryModal({
       closeLabel="마케팅 정보 수신내역 안내 닫기"
       size="md"
       onConfirm={onConfirm}
-      confirmButtonProps={{ fullWidth: true }}
     >
       <Stack gap="4">
         <Typography as="h2" variant="body2" className={css({ m: '0' })}>

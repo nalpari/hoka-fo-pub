@@ -1,73 +1,80 @@
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { usePlatform } from '@/shared/context/platform';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { SearchCategorySelect } from './SearchCategorySelect';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
-
-const form = css({
-  display: 'grid',
-  gridTemplateColumns: '78px minmax(0, 1fr) 66px',
-  border: '1px solid var(--color-black-20)',
-});
-
-const submit = css({
-  border: '0',
-  bg: 'var(--color-black-100)',
-  color: 'var(--color-text-inverse)',
-  fontSize: '14' /* 기존 13px */,
-  fontWeight: 'var(--font-weights-bold)',
-});
+import { Box, HStack } from 'styled-system/jsx';
 
 type SearchFormProps = {
-  category: string;
   query: string;
-  onCategoryChange: (category: string) => void;
   onQueryChange: (query: string) => void;
-  onFocusChange: (focused: boolean) => void;
   onSearch: () => void;
+  error?: string;
 };
 
-export function SearchForm({
-  category,
-  query,
-  onCategoryChange,
-  onQueryChange,
-  onFocusChange,
-  onSearch,
-}: SearchFormProps) {
+export function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormProps) {
+  const mobile = usePlatform() === 'mobile';
+
   return (
-    <form
-      className={form}
+    <Box
+      as="form"
+      id="site-search-form"
+      role="search"
+      px={mobile ? '16px' : '32px'}
+      pt={mobile ? '32px' : '0'}
       onSubmit={(event) => {
         event.preventDefault();
         onSearch();
       }}
     >
-      <SearchCategorySelect value={category} onChange={onCategoryChange} />
-      <TextInput
-        autoFocus
-        className={css({
-          '&&': {
-            w: '100%',
-            h: '11',
-            minW: '0',
-            border: '0',
-            bg: 'var(--color-white-000)',
-            color: 'var(--color-text-primary)',
-            px: '3.5',
-            fontSize: '14' /* 기존 13px */,
-            _placeholder: { color: 'var(--color-black-40)' },
-          },
-        })}
-        onBlur={() => onFocusChange(false)}
-        onChange={(event) => onQueryChange(event.target.value)}
-        onFocus={() => onFocusChange(true)}
-        placeholder="상품명 혹은 스타일코드 검색"
-        type="search"
-        value={query}
-      />
-      <Button className={submit} type="submit" variant="primary">
-        검색
-      </Button>
-    </form>
+      <HStack
+        h="56px"
+        px="12px"
+        gap="8px"
+        border="1px solid"
+        borderColor={error ? 'red.100' : 'black.100'}
+        display={mobile ? 'flex' : 'none'}
+      >
+        <IconButton type="submit" aria-label="검색 실행" size="16px">
+          <Icon src="/images/header/search.svg" size="16px" mask />
+        </IconButton>
+        <TextInput
+          autoFocus
+          aria-label="검색어"
+          aria-invalid={Boolean(error) || undefined}
+          aria-describedby={error ? 'site-search-error' : undefined}
+          type="search"
+          autoComplete="off"
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          placeholder="검색어를 입력해주세요"
+          className={css({
+            '&&': {
+              minH: '0',
+              h: '100%',
+              border: '0',
+              p: '0',
+              outline: 'none!',
+              fontSize: '14',
+              bg: 'transparent',
+              '&::-webkit-search-cancel-button': { display: 'none' },
+            },
+          })}
+        />
+      </HStack>
+      <button type="submit" hidden aria-label="검색 실행" />
+      {error ? (
+        <Typography
+          as="p"
+          variant="body5"
+          id="site-search-error"
+          role="alert"
+          className={css({ mt: '8px', color: 'red.100' })}
+        >
+          {error}
+        </Typography>
+      ) : null}
+    </Box>
   );
 }

@@ -35,7 +35,6 @@ export function TermsDialog({
       mobilePresentation="fullscreen"
       scrollFade
       onConfirm={() => onOpenChange(false)}
-      confirmButtonProps={{ size: 'tall', fullWidth: true }}
     >
       <Stack gap="0" minH="0" flex="1" pb="20">
         <HStack justify="space-between" gap="2" mb="4">

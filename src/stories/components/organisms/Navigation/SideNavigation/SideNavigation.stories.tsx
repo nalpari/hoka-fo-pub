@@ -28,4 +28,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {};
 
-export const MobileHidden: Story = { args: { mobileNavigation: 'hidden' } };
+export const MobileHidden: Story = {
+  parameters: { layout: 'fullscreen' },
+  args: { mobileNavigation: 'hidden' },
+};

@@ -1,3 +1,4 @@
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
@@ -28,13 +29,17 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 420, 32),
+};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
+  play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
-        <div className="platform-mobile" style={{ width: 375 }}>
+        <div className="platform-mobile" style={{ maxWidth: '100%', width: 375 }}>
           <Story />
         </div>
       </PlatformProvider>
@@ -52,9 +57,14 @@ export const PreviousPicker: Story = {
 
 export const Interactive: Story = { render: () => <SignupTermsPage /> };
 
-export const MobileDetail: Story = { ...Mobile, args: { detail: 0 } };
+export const MobileDetail: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  args: { detail: 0 },
+};
 
 export const MobilePreviousPicker: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: { detail: 0, previousPickerOpen: true },
   globals: { viewport: 'hoka375' },
@@ -71,15 +81,17 @@ export const DetailInteraction: Story = {
     const dialog = await body.findByRole('dialog');
     await expect(dialog).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '이전 약관 보기' }));
-    await userEvent.click(within(dialog).getByRole('radio', { name: '2025-07-01' }));
-    await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
-    await expect(body.getByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
+    const picker = await body.findByRole('dialog', { name: '이전 약관 보기' });
+    await userEvent.click(await within(picker).findByRole('radio', { name: '2025-07-01' }));
+    await userEvent.click(within(picker).getByRole('button', { name: '확인' }));
+    await expect(await body.findByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '약관 닫기' }));
     await expect(dialog).not.toBeVisible();
   },
 };
 
 export const MobileDetailInteraction: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   render: DetailInteraction.render,
   play: async ({ canvasElement }) => {
@@ -92,7 +104,7 @@ export const MobileDetailInteraction: Story = {
     await expect(dialog).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '이전 약관 보기' }));
     await userEvent.click(await body.findByRole('button', { name: '2022-03-16 이전 약관 선택' }));
-    await expect(body.getByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
+    await expect(await body.findByText('이전 약관은 등록 준비 중입니다.')).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '약관 닫기' }));
     await expect(dialog).not.toBeVisible();
   },

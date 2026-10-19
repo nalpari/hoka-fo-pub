@@ -40,6 +40,7 @@ export const HoverPreview: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { product: products[0] },
   decorators: [
     (Story) => (

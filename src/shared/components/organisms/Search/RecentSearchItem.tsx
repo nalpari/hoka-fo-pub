@@ -1,14 +1,9 @@
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
+import { faXmark } from '@/shared/icons/fontAwesome';
 import { css } from 'styled-system/css';
 import { SearchKeywordButton } from './SearchKeywordButton';
-
-const remove = css({
-  border: '0',
-  bg: 'transparent',
-  color: 'var(--color-black-40)',
-  fontSize: '16' /* 기존 17px */,
-  lineHeight: 'hoka',
-});
 
 type RecentSearchItemProps = {
   query: string;
@@ -18,16 +13,16 @@ type RecentSearchItemProps = {
 
 export function RecentSearchItem({ query, onSearch, onRemove }: RecentSearchItemProps) {
   return (
-    <li>
+    <li className={css({ display: 'flex', alignItems: 'center', gap: '8px' })}>
+      <Icon fontAwesomeIcon={faClockRotateLeft} size="16px" />
       <SearchKeywordButton query={query} onSearch={onSearch} />
       <IconButton
-        aria-label={`${query} 삭제`}
-        className={remove}
-        onMouseDown={(event) => event.preventDefault()}
+        aria-label={query + ' 삭제'}
         onClick={() => onRemove(query)}
-        size="26px"
+        size="16px"
+        className={css({ _mobile: { ml: 'auto' } })}
       >
-        ×
+        <Icon fontAwesomeIcon={faXmark} size="14px" />
       </IconButton>
     </li>
   );

@@ -33,8 +33,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const ShortFullWidth: Story = {
-  args: { confirmButtonProps: { size: 'short', fullWidth: true } },
+export const ShortFullWidth: Story = {};
+
+export const ContentWidth: Story = {
+  args: { confirmButtonProps: { fullWidth: false } },
+};
+
+export const MobileDefault: Story = {
+  parameters: { layout: 'fullscreen' },
+  decorators: [withPlatform('mobile')],
+  globals: { viewport: { value: 'hoka375', isRotated: false } },
 };
 
 export const CustomLabel: Story = { args: { confirmLabel: '계속하기' } };
@@ -83,6 +91,7 @@ export const Interactive: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Interactive,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

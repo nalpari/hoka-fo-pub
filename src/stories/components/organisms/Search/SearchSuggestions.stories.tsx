@@ -38,6 +38,7 @@ export const Default: Story = {};
 export const Empty: Story = { args: { recentSearches: [] } };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: { value: 'hoka375', isRotated: false } },
   decorators: [
     (Story) => (

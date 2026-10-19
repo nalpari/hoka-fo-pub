@@ -33,6 +33,7 @@ export function RunClubFilters({ filter, onFilterChange }: RunClubFiltersProps) 
     <HStack gap="4" role="group" aria-label="러닝 유형" _mobile={{ gap: '2' }}>
       {filters.map(({ value, label, mobileLabel }) => (
         <Button
+          size="short"
           key={value}
           variant={filter === value ? 'primary' : 'secondary'}
           className={filterButton}

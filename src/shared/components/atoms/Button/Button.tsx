@@ -141,15 +141,14 @@ const iconOnlyButtonStyle = css.raw({
   '& > span > span': { w: '100%', h: '100%', minH: '0', gap: '0', px: '0' },
 });
 
+const secondaryContentColor = css.raw({
+  '&:is(:hover, :focus-visible, :active):not(:disabled):not([data-disabled]) > span *': {
+    color: 'inherit',
+  },
+});
+
 export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'bottomSheetPrimary'
-  | 'ghost'
-  | 'brand'
-  | 'link'
-  | 'filterTrigger'
-  | 'headerSearch';
+  'primary' | 'secondary' | 'ghost' | 'brand' | 'link' | 'filterTrigger' | 'headerSearch';
 
 export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
@@ -178,7 +177,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     density,
     colorway = 'black',
     language = 'kr',
-    size = 'tall',
+    size = variant === 'link' ? 'md' : 'tall',
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -193,10 +192,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const iconOnly = Boolean(icon && children == null);
-  const primary = variant === 'primary' || variant === 'bottomSheetPrimary';
+  const primary = variant === 'primary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'ghost';
-  const labelTypographyVariant = size === 'short' ? 'cta2' : size === 'tall' ? 'cta1' : undefined;
+  const labelTypographyVariant =
+    variant === 'headerSearch' || variant === 'filterTrigger'
+      ? undefined
+      : size === 'short'
+        ? 'cta2'
+        : size === 'tall'
+          ? 'cta1'
+          : undefined;
   const resolvedDensity =
     density ?? (size ? (size === 'tall' || size === 'lg' ? 'wide' : 'compact') : 'auto');
   const variables: Record<string, string> = {
@@ -261,15 +267,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-padding-x': '14px',
       '--button-radius': '46.8px',
       '--button-border-width': '0.9px',
-      '--button-label-size': '14px',
     });
   if (variant === 'headerSearch')
     Object.assign(variables, {
       '--button-height': '36px',
       '--button-padding-x': '15px',
       '--button-radius': '999px',
-      '--button-label-size': '14px',
-      '--button-label-weight': '400',
     });
   if (invalid) variables['--button-border-color'] = 'var(--color-red-100)';
   return (
@@ -284,11 +287,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         css(
           button.raw({
             density: resolvedDensity,
-            fullWidth: fullWidth || variant === 'bottomSheetPrimary',
+            fullWidth,
             language,
             unframed,
           }),
           iconOnly && iconOnlyButtonStyle,
+          variant === 'secondary' && secondaryContentColor,
           variant === 'link' && { textDecoration: 'underline', textUnderlineOffset: '3px' },
           variant === 'headerSearch' && { w: '178px' },
         ),

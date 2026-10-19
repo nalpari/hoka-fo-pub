@@ -19,16 +19,19 @@ export const Closed: Story = { args: { view: 'closed' } };
 export const Upcoming: Story = { args: { view: 'upcoming' } };
 
 export const MobileOpen: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { platform: 'mobile', view: 'open' },
   globals: { viewport: 'hoka375' },
 };
 
 export const MobileClosed: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { platform: 'mobile', view: 'closed' },
   globals: { viewport: 'hoka375' },
 };
 
 export const MobileUpcoming: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { platform: 'mobile', view: 'upcoming' },
   globals: { viewport: 'hoka375' },
 };

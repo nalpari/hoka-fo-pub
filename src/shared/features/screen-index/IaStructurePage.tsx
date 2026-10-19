@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
-import { Grid, Box, Flex } from 'styled-system/jsx';
+import { Grid, Box, Flex, Stack } from 'styled-system/jsx';
 import { screens, type ScreenDefinition } from '@/data/screenRegistry';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
@@ -659,63 +659,65 @@ export function IaStructurePage() {
               </Typography>
               <Typography as="span">Real-time</Typography>
             </div>
-            <Flex alignItems="baseline" justifyContent="space-between" mt="4">
-              <strong
-                className={css({
-                  color: '#2a14b4',
-                  fontSize: '28' /* 기존 27px */,
-                  letterSpacing: '-0.04em',
-                })}
+            <Stack gap="3" mt="4">
+              <Flex alignItems="baseline" justifyContent="space-between">
+                <strong
+                  className={css({
+                    color: '#2a14b4',
+                    fontSize: '28' /* 기존 27px */,
+                    letterSpacing: '-0.04em',
+                  })}
+                >
+                  {completePercent.toFixed(1)}%
+                </strong>
+                <Typography
+                  as="span"
+                  className={css({
+                    color: '#68718a',
+                    fontFamily: 'mono',
+                    fontSize: '12' /* 기존: 11px */,
+                  })}
+                >
+                  {counts.ready} / {screens.length}P
+                </Typography>
+              </Flex>
+              <Flex overflow="hidden" h="2.5" borderRadius="full" bg="#dce4f5">
+                <span
+                  className={styles.readyProgress}
+                  style={{ width: String(completePercent) + '%' }}
+                />
+                <span
+                  className={styles.workingProgress}
+                  style={{ width: String(workingPercent) + '%' }}
+                />
+                <span
+                  className={styles.pendingProgress}
+                  style={{ width: String(pendingPercent) + '%' }}
+                />
+                <span
+                  className={styles.delayedProgress}
+                  style={{ width: String(delayedPercent) + '%' }}
+                />
+                <span
+                  className={styles.deletedProgress}
+                  style={{ width: String(deletedPercent) + '%' }}
+                />
+              </Flex>
+              <Flex
+                justifyContent="space-between"
+                gap="2"
+
+                color="#68718a"
+                fontSize="12"
+                css={{ '& b': { color: '#17223d' } }}
               >
-                {completePercent.toFixed(1)}%
-              </strong>
-              <Typography
-                as="span"
-                className={css({
-                  color: '#68718a',
-                  fontFamily: 'mono',
-                  fontSize: '12' /* 기존: 11px */,
-                })}
-              >
-                {counts.ready} / {screens.length}P
-              </Typography>
-            </Flex>
-            <Flex overflow="hidden" h="2.5" mt="3" borderRadius="full" bg="#dce4f5">
-              <span
-                className={styles.readyProgress}
-                style={{ width: String(completePercent) + '%' }}
-              />
-              <span
-                className={styles.workingProgress}
-                style={{ width: String(workingPercent) + '%' }}
-              />
-              <span
-                className={styles.pendingProgress}
-                style={{ width: String(pendingPercent) + '%' }}
-              />
-              <span
-                className={styles.delayedProgress}
-                style={{ width: String(delayedPercent) + '%' }}
-              />
-              <span
-                className={styles.deletedProgress}
-                style={{ width: String(deletedPercent) + '%' }}
-              />
-            </Flex>
-            <Flex
-              justifyContent="space-between"
-              gap="2"
-              mt="3"
-              color="#68718a"
-              fontSize="12"
-              css={{ '& b': { color: '#17223d' } }}
-            >
-              <Typography as="span">총 {screens.length}개 화면</Typography>
-              <Typography as="span">
-                완료 <b>{counts.ready}</b> · 작업 중 {counts.working} · 대기 {counts.pending} · 지연{' '}
-                <b>{counts.delayed}</b>
-              </Typography>
-            </Flex>
+                <Typography as="span">총 {screens.length}개 화면</Typography>
+                <Typography as="span">
+                  완료 <b>{counts.ready}</b> · 작업 중 {counts.working} · 대기 {counts.pending} ·
+                  지연 <b>{counts.delayed}</b>
+                </Typography>
+              </Flex>
+            </Stack>
           </article>
           <article className={styles.card + ' ' + styles.issueCard}>
             <div className={styles.cardHeading}>
