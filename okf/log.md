@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: RatingStars에 정수 별점 선택 모드를 통합하고 리뷰 작성·폼 스토리·회귀 검사의 RatingInput 참조를 이전했다. 문자열 별/CTA 래퍼를 동일 Icon 별로 바꾸고 Base UI 키보드·disabled·오류 연결과 기존 반별점 표시를 유지한다. 이전 RatingInput 구현·스토리를 제거하고 선택 스토리를 RatingStars 아래로 이동했다. [UI 계약](architecture/ui.md#별점-표시선택의-ratingstars-통합-2026-10-19)과 [검사 기록](development/verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)에 범위를 기록했다.
+
 - **Refactor**: 러닝 프로필 페이지·본문·질문 컴포넌트·질문 데이터를 `src/shared/Mockup/running-profile`로 분리했다. 전용 스토리도 src/stories/features/Mockup 아래로 이동하고 Mockup 분류를 적용했다. 기존 URL·메뉴·화면·상태와 PC/MO 스토리를 유지하며 라우트·Story helper import를 갱신했다. [목업 구성](architecture/ui.md#러닝-프로필-목업-분리-2026-10-19)과 [라우트 기록](architecture/routing.md#러닝-프로필-목업-진입점-2026-10-19)을 참고한다.
 
 - **Fix**: SingleActionDialog 확인 버튼의 fullWidth를 기본 true로 처리하고 계정 안내·약관의 중복 지정을 제거했다. 명시적 false 옵션과 확인·닫기 동작을 Storybook에서 검증하고 타입·ESLint·Prettier를 확인했다.

@@ -9,6 +9,9 @@ generated:
   at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
+  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
+  - src/shared/components/atoms/RatingStars/RatingStars.tsx
   - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
   - src/shared/Mockup/running-profile/running-profile.data.ts
   - src/shared/Mockup/running-profile/RunningProfilePage.tsx
@@ -430,6 +433,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 별점 표시·선택의 RatingStars 통합 (2026-10-19)
+
+별점 공개 컴포넌트는 RatingStars로 통일한다. onValueChange가 없으면 기존 표시 모드(기본 16px, 0~5점 반별점 반올림, role img)를 유지한다. ariaLabel·정수 value·onValueChange를 주면 선택 모드이며 0은 미응답, 1~5는 단일 선택이다. 선택 타입 RatingValue와 RatingStarsSelectionProps를 같은 모듈에서 제공한다. 선택 모드는 내부 client 부품 RatingStarsControl이 기존 Base UI RadioGroup/Radio로 클릭·방향키·disabled·name·FormField 오류/설명 연결을 담당한다. 표시 모듈 자체에 use client 경계를 추가하지 않았다.
+
+선택 별은 문자열 ★와 일반 CTA Button 대신 RatingStars와 같은 Icon·Font Awesome 채움/빈 별을 사용한다. 기본 아이콘 크기는 24px, 각 선택 버튼의 최소 크기는 34px이며 네이티브 button을 렌더링한다. 리뷰 작성 팝업·ReviewManager·폼 상태 스토리·회귀 검사의 RatingInput 참조와 RatingValue 타입 경로를 교체하고 기존 RatingInput 파일을 삭제했다. 마이페이지 리뷰 작성값·목록 상태와 기존 표시 호출부 API는 유지한다. 선택 스토리는 Atoms/RatingStars/Selection에 모으고 기존 표시 스토리와 반별점 예제도 유지한다.
+
+검증: 타입 검사·변경 소스 ESLint/Prettier·폼 회귀 33개·Panda 생성·Next 및 Storybook production build를 통과했다. 정적 Storybook과 Edge/Playwright에서 1280px·375px의 미응답·클릭 3점·채운 Icon 개수·좌우 방향키 선택과 포커스, disabled 변경 차단 및 기존 4.5점 표시를 확인했다. 소스·테스트에 RatingInput 참조가 없으며 브라우저 오류도 관찰되지 않았다. Mobile 스토리의 내부 완료 상태를 기다리는 첫 검사 harness는 타임아웃이 발생해, 재검증은 play가 없는 Default 스토리에서 화면 폭·모바일 클래스를 지정하고 직접 상호작용을 검사했다.
 
 ## 러닝 프로필 목업 분리 (2026-10-19)
 

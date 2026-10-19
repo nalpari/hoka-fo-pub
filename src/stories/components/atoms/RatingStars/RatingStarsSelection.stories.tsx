@@ -2,18 +2,19 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import {
-  RatingInput,
-  type RatingInputProps,
-} from '@/shared/components/atoms/RatingInput/RatingInput';
+  RatingStars,
+  type RatingStarsSelectionProps,
+  type RatingValue,
+} from '@/shared/components/atoms/RatingStars/RatingStars';
 import { PlatformProvider } from '@/shared/context/platform';
 
-function ControlledRating(args: RatingInputProps) {
+function ControlledRating(args: RatingStarsSelectionProps) {
   const [value, setValue] = useState(args.value);
   return (
-    <RatingInput
+    <RatingStars
       {...args}
       value={value}
-      onValueChange={(next) => {
+      onValueChange={(next: RatingValue) => {
         setValue(next);
         args.onValueChange(next);
       }}
@@ -22,12 +23,12 @@ function ControlledRating(args: RatingInputProps) {
 }
 
 const meta = {
-  title: 'Atoms/RatingInput',
-  component: RatingInput,
+  title: 'Atoms/RatingStars/Selection',
+  component: RatingStars,
   args: { ariaLabel: '상품 만족도', value: 0, onValueChange: fn() },
   render: (args) => <ControlledRating {...args} />,
   tags: ['autodocs'],
-} satisfies Meta<typeof RatingInput>;
+} satisfies Meta<RatingStarsSelectionProps>;
 
 export default meta;
 

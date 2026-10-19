@@ -2,7 +2,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { css } from 'styled-system/css';
-import { RatingInput, type RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
+import { RatingStars, type RatingValue } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
@@ -135,8 +135,8 @@ export function ReviewManager() {
                   </Typography>
                 ) : null}
               </div>
-              <Button variant="primary" size="short" onClick={() => setEditing(review.id)}>
-                {tab === 'ready' ? '리뷰 작성하기' : '수정하기'}
+              <Button variant="link" size="md" onClick={() => setEditing(review.id)}>
+                {tab === 'ready' ? '리뷰 작성' : '수정하기'}
               </Button>
             </Grid>
           ))}
@@ -167,7 +167,7 @@ export function ReviewManager() {
               htmlFor="manager-rating"
               error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
             >
-              <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
+              <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
             </FormField>
           </div>
           <Box mt="18px">

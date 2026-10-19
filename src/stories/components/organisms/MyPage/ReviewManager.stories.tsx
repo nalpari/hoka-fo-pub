@@ -16,7 +16,7 @@ export const Default: Story = {};
 export const WriteReview: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getAllByRole('button', { name: '리뷰 작성하기' })[0]);
+    await userEvent.click(canvas.getAllByRole('button', { name: '리뷰 작성' })[0]);
     await userEvent.click(canvas.getByRole('button', { name: '확인' }));
     await expect(canvas.getByText('별점을 선택해 주세요.')).toBeVisible();
     await expect(canvas.getByText('리뷰 내용을 입력해 주세요.')).toBeVisible();

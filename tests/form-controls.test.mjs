@@ -85,8 +85,8 @@ const fixtures = [
     { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }], value: '', onValueChange() {} },
   ],
   [
-    'RatingInput',
-    'atoms/RatingInput/RatingInput',
+    'RatingStars',
+    'atoms/RatingStars/RatingStars',
     { ariaLabel: '별점', value: 0, onValueChange() {} },
   ],
   [
@@ -135,6 +135,27 @@ for (const [index, [name, modulePath, props]] of fixtures.entries()) {
     assert.doesNotMatch(html, /aria-invalid="true"/);
   });
 }
+
+const { RatingStars } = await import('../src/shared/components/atoms/RatingStars/RatingStars.tsx');
+
+test('RatingStars display retains half stars without interactive controls', () => {
+  const html = renderToStaticMarkup(h(RatingStars, { value: 4.5 }));
+  assert.match(html, /role="img"/);
+  assert.match(html, /aria-label="4.5 out of 5 stars"/);
+  assert.match(html, /rating-star-half/);
+  assert.doesNotMatch(html, /role="radio/);
+});
+
+test('RatingStars selection renders five icon radios with one selected value', () => {
+  const html = renderToStaticMarkup(
+    h(RatingStars, { ariaLabel: '별점', value: 3, name: 'rating', onValueChange() {} }),
+  );
+  assert.match(html, /role="radiogroup"/);
+  assert.equal((html.match(/role="radio"/g) ?? []).length, 5);
+  assert.equal((html.match(/aria-checked="true"/g) ?? []).length, 1);
+  assert.equal((html.match(/data-icon="star"/g) ?? []).length, 5);
+  assert.doesNotMatch(html, /★/);
+});
 
 const { StatusMessage } =
   await import('../src/shared/components/atoms/StatusMessage/StatusMessage.tsx');

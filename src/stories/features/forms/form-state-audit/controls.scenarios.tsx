@@ -6,7 +6,7 @@ import { Select } from '@/shared/components/atoms/Select/Select';
 import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
-import { RatingInput } from '@/shared/components/atoms/RatingInput/RatingInput';
+import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { RangeInput } from '@/shared/components/atoms/RangeInput/RangeInput';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
 import { EmailSignupField } from '@/shared/components/atoms/EmailSignupField/EmailSignupField';
@@ -33,7 +33,7 @@ function InheritanceExample() {
       value=""
       onValueChange={() => {}}
     />,
-    <RatingInput key="rating" ariaLabel="별점" value={0} onValueChange={() => {}} />,
+    <RatingStars key="rating" ariaLabel="별점" value={0} onValueChange={() => {}} />,
     <RangeInput key="range" aria-label="범위" value={10} onValueChange={() => {}} />,
     <NumberStepper key="number" ariaLabel="수량" value={1} onChange={() => {}} />,
     <Terms key="terms" checked={false} onCheckedChange={() => {}}>
