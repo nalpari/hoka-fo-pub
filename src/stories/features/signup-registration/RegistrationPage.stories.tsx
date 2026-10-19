@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
 import { RegistrationContent } from '@/shared/features/signup-registration/RegistrationContent';
 import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
@@ -88,6 +89,33 @@ export const Error: Story = {
 export const Complete: Story = { render: () => <RegistrationCompleteContent /> };
 
 export const Interactive: Story = { render: () => <RegistrationPage /> };
+
+export const PasswordValidation: Story = {
+  render: () => <RegistrationPage />,
+  tags: ['password-policy'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const password = canvas.getByLabelText(/비밀번호/, { selector: '#registration-password' });
+    await userEvent.type(password, 'Hoka1234 !');
+    await userEvent.click(canvas.getByRole('button', { name: '다음' }));
+    await expect(password).toHaveAttribute('aria-invalid', 'true');
+    await expect(password).toHaveAccessibleDescription(
+      '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+    );
+    await userEvent.clear(password);
+    await userEvent.type(password, 'Hoka12345!');
+    await userEvent.click(canvas.getByRole('button', { name: '다음' }));
+    await expect(password).not.toHaveAttribute('aria-invalid');
+  },
+};
+
+export const MobilePasswordValidation: Story = {
+  ...PasswordValidation,
+  tags: ['password-policy'],
+  decorators: Mobile.decorators,
+  globals: { viewport: 'hoka375' },
+  play: PasswordValidation.play,
+};
 
 function AddressSearchPreview() {
   const [information, setInformation] = useState(meta.args.information);

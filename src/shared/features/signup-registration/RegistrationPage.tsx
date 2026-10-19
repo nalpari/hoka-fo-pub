@@ -9,13 +9,12 @@ import {
 } from './RegistrationContent';
 import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
 import { isValidName } from '@/shared/lib/validation';
+import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
 
 const emailLocalPartPattern = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$/;
 
 const emailDomainPattern =
   /^(?=.{1,253}$)(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
-
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{10,12}$/;
 
 const receivedVerificationInfo = {
   birthDate: '19830522',
@@ -123,9 +122,7 @@ export function RegistrationPage() {
       addressDetail: information.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
       domain: domainError,
       name: isValidName(information.name) ? '' : '올바른 이름을 입력해주세요',
-      password: passwordPattern.test(information.password)
-        ? ''
-        : '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+      password: isValidPassword(information.password) ? '' : passwordRequirementsMessage,
       confirmation:
         information.confirmation && information.password === information.confirmation
           ? ''

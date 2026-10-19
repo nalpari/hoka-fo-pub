@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:34:03Z'
+  at: '2026-10-19T00:02:28.937Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/lib/passwordValidation.ts
   - src/shared/components/atoms/Checkbox/Checkbox.tsx
   - src/shared/components/atoms/Dropdown/Dropdown.tsx
   - src/shared/components/atoms/EmailSignupField/EmailSignupField.tsx
@@ -336,6 +337,16 @@ sources:
 
 MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
 
+
+## 비밀번호 오류 안내 일관성 보완 (2026-10-19)
+
+로그인 스크린샷과 현재 코드에서 확인한 충돌을 수정했다. 가입·로그인·재설정의 규칙과 오류 문구는 [공통 정책](state.md#가입로그인재설정-비밀번호-정책-2026-10-19)을 따른다. SignupDetailsStep의 8자 이상 placeholder도 10~12자·문자 조합 안내로 변경했고, 기본 정보 오류 안내에 무조건 8자 규칙을 덧붙이던 문구를 제거했다.
+
+PasswordResetField는 오류 문구·색상·설명 id·invalid를 FormField.error에 위임한다. 별도 Typography 오류 출력과 required일 때 문구를 숨기는 분기를 제거해 빈 값 제출에서도 두 필드의 오류를 읽을 수 있다. 비밀번호 보기/숨기기와 완료 모달은 유지한다. 재설정 PC·모바일의 빈 값 문구·색상·접근 가능한 설명·10자 비밀번호 완료, 일반 가입의 8자 거부 후 10자 완료, 회원정보 가입의 공백 포함 값 거부 후 수정 스토리를 추가했다.
+
+Figma 원본은 재인증 오류로 대조하지 못했다. 서버 확인이 필요한 중복 이메일·잘못된 인증번호에 임의의 성공/실패 결과를 추가하지 않는다. 현재 작업 트리에서 전체 타입 검사·변경 파일 ESLint·Node 테스트 48개·전체 Storybook 빌드는 통과했다. 이전 절의 전체 검사 실패 기록은 당시 작업 트리를 나타낸다.
+
+최종 정적 브라우저 검사는 로그인 9개·재설정 8개·일반 가입 2개·회원정보 가입 2개, 총 21개를 모두 통과했다. 신규 가입 정책 검사는 PC와 모바일에 모두 명시적 password-policy 태그를 부여했다. 375×812 모바일 캡처에서 재설정의 빈 두 입력 아래 오류 문구와 빨간 테두리를 확인했다. 기존 a11y todo 경고는 별도로 남아 있다.
 
 ## 로그인 형식 오류 안내 보완 (2026-10-19)
 

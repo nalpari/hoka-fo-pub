@@ -6,9 +6,13 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:34:03Z'
+  at: '2026-10-19T00:02:28.937Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/lib/passwordValidation.ts
+  - src/shared/features/signup/SignupPage.tsx
+  - src/shared/features/signup-registration/RegistrationPage.tsx
+  - src/shared/features/find-account/passwordValidation.ts
   - src/shared/features/phone-verification/PhoneVerificationPage.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/stories/features/login/LoginPage.stories.tsx
@@ -60,6 +64,14 @@ sources:
 첨부 디자인의 필드별 형식 안내가 빠져 있어 2026-10-19 후속 수정으로 `LoginNotice.invalidFields`를 `LoginForm.errors`로 대체했다. LoginPage는 최초 제출 후 현재 입력값에서 오류를 계산한다. 빈 값과 잘못된 이메일에는 “올바른 이메일 형식으로 입력해 주세요”, 비밀번호 규칙 위반에는 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”를 전달한다. 값이 규칙에 맞아야 해당 오류가 해제되고 다시 잘못된 값으로 수정하면 재표시된다.
 
 LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를 통해 invalid와 해당 오류의 aria-describedby를 상속한다. `LoginNotice`는 성공·기능 미연결 안내만 담당한다. 폼의 noValidate와 required는 유지하고 형식 오류가 있으면 onLogin·홈 이동을 차단한다. Error·MobileError는 두 문구의 정적 예시이고, LoginFlow와 InvalidFormats는 실제 제출·수정 흐름을 검사한다. 후속 검증 결과와 작업 트리의 다른 화면 문법 오류로 인한 전체 검사 제한은 [UI 문서](ui.md#로그인-형식-오류-안내-보완-2026-10-19)에 기록한다.
+
+## 가입·로그인·재설정 비밀번호 정책 (2026-10-19)
+
+사용자가 제공한 로그인 오류 화면의 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”와 기존 회원정보 가입 규칙을 기준으로, 일반 가입·회원정보 가입·로그인·비밀번호 재설정이 `src/shared/lib/passwordValidation.ts`의 isValidPassword와 passwordRequirementsMessage를 공유한다. 공백 없는 10~12자에 영문·숫자·특수문자가 모두 있어야 한다. 기존 일반 가입의 8자 이상, 재설정의 12자 이상, 회원정보 가입의 공백 허용 차이를 제거해 생성·변경 가능한 비밀번호가 로그인에서 거부되는 충돌을 해소했다. 실제 인증이나 저장을 추가하지 않는다.
+
+재설정의 validatePasswordReset도 공통 모듈에서 제공하며 기존 기능 경로는 재수출로 호환한다. 빈 비밀번호는 공통 규칙 문구, 빈 확인란은 “비밀번호를 다시 입력해 주세요.”, 불일치는 기존 “동일한 비밀번호가 입력되었는지 확인해주세요.”를 반환한다. required라는 내부 표식을 반환해 화면에서 설명을 숨기던 경로는 제거했다.
+
+Figma 제공 링크의 291:53311·291:60808은 재인증 오류로 원문을 읽지 못했다. 이 정책 통일은 사용자가 확인한 로그인 스크린샷과 코드의 충돌을 보완한 것이며 두 Figma 영역 전체와 일치한다는 판정은 아니다. 이메일 중복·인증번호의 실제 서버 검증은 계속 데모 안내로 표시한다.
 
 ## 장바구니 항목
 

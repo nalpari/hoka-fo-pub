@@ -132,7 +132,7 @@ export function SignupDetailsStep({
               autoComplete="new-password"
               id="signup-password"
               onChange={(event) => onPasswordChange(event.target.value)}
-              placeholder="8자 이상 입력해 주세요"
+              placeholder="영문, 숫자, 특수문자 포함 10~12자"
               type="password"
               value={password}
             />

@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
+import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
 
 const emailPattern =
   /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/;
-
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{10,12}$/;
 
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const router = useRouter();
@@ -17,13 +16,10 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const [notice, setNotice] = useState<LoginNotice | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const validEmail = emailPattern.test(id.trim());
-  const validPassword = passwordPattern.test(password);
+  const validPassword = isValidPassword(password);
   const errors = {
     id: hasSubmitted && !validEmail ? '올바른 이메일 형식으로 입력해 주세요' : undefined,
-    password:
-      hasSubmitted && !validPassword
-        ? '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'
-        : undefined,
+    password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
   };
 
   const showUnavailable = (feature: string) => {
