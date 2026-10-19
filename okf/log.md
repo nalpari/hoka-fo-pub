@@ -24,6 +24,7 @@
 
 - **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.
 
+- **Refactor**: 로그인 소셜 버튼의 카카오·네이버 SVG를 기존 `<img>`에서 등록된 공통 `Icon` 자산으로 전환했다. 크기와 버튼 동작은 유지하며 [UI 아키텍처](architecture/ui.md)에 사용 경로를 기록했다.
 - **Update**: Figma 로그인 PC·모바일 화면에 맞춰 아이디/비밀번호 찾기를 한 버튼으로 합치고, `LoginForm`의 폼 간격을 Panda `Stack`으로 옮겼다. 해당 Storybook 동작 검사와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
 - **Update**: 계정 잠금 해제 완료 화면의 잠금 아이콘을 Figma 노드 `957:30479`에서 내보낸 SVG로 교체하고 공통 Icon 자산과 Storybook 카탈로그에 등록했다. [UI 아키텍처](architecture/ui.md)에 출처와 사용 경로를 기록했다.
 - **Fix**: 계정 잠금 해제 완료 화면을 Figma web/mo 규격으로 다시 구성했다. 600px 본문 높이와 96/144/124px 웹 여백, 모바일 40/16/32px 여백, 12px·36px 간격, 플랫폼별 제목 크기와 잠금 해제 아이콘을 반영하고 일회성 스타일 객체를 Panda JSX로 옮겼다. [UI 아키텍처](architecture/ui.md)에 반영했다.

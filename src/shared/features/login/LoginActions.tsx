@@ -1,10 +1,7 @@
-import { css, cva } from 'styled-system/css';
+import { cva } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-
-const styles = {
-  socialIcon: css({ display: 'block', flexShrink: '0' }),
-};
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
 const socialButton = cva({
   base: { '--button-icon-size': '18px' },
@@ -36,7 +33,7 @@ export function LoginActions({ onUnavailable }: { onUnavailable: (feature: strin
         className={socialButton({ provider: 'kakao' })}
         fullWidth
         variant="primary"
-        icon={<img src="/assets/login/kakao.svg" alt="" className={styles.socialIcon} />}
+        icon={<Icon name="social/kakao" size="18px" />}
         onClick={() => onUnavailable('카카오 로그인')}
       >
         카카오 로그인
@@ -45,7 +42,7 @@ export function LoginActions({ onUnavailable }: { onUnavailable: (feature: strin
         className={socialButton({ provider: 'naver' })}
         fullWidth
         variant="primary"
-        icon={<img src="/assets/login/naver.svg" alt="" className={styles.socialIcon} />}
+        icon={<Icon name="social/naver" size="18px" />}
         onClick={() => onUnavailable('네이버 로그인')}
       >
         네이버 로그인

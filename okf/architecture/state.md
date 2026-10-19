@@ -102,6 +102,8 @@ LoginLayout·LoginForm·LoginActions·LoginMembership와 CartPage의 단일 사�
 
 PC·모바일 로그인 폼의 아이디/비밀번호 찾기 진입 링크를 하나의 버튼으로 합쳤다. 목적지는 기존 `/login/find-account`를 유지하며 로그인 상태와 데모 인증 동작은 변경하지 않았다. 관련 화면 구성은 [UI 아키텍처](ui.md)에 기록한다.
 
+소셜 로그인 버튼은 카카오·네이버 표시를 공통 `Icon` 자산으로 전환했다. 클릭 시 기존 미제공 안내 콜백을 호출하는 데모 상태는 그대로 유지한다.
+
 [프로젝트 범위](../project.md), [라우팅](routing.md), [변경 검증](../development/verification.md)을 참고한다.
 
 
