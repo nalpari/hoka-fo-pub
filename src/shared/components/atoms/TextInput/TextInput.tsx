@@ -114,7 +114,11 @@ export function TextInput({
   const field = useFormFieldContext();
   const controlRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const [visible, setVisible] = useState(false);
-  const hasError = invalid || Boolean(field?.invalid);
+  const hasError =
+    invalid ||
+    Boolean(field?.invalid) ||
+    props['aria-invalid'] === true ||
+    props['aria-invalid'] === 'true';
   const disabled = props.disabled || field?.disabled;
   const password =
     !multiline && (props as InputHTMLAttributes<HTMLInputElement>).type === 'password';

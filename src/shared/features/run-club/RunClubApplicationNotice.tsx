@@ -12,6 +12,11 @@ type RunClubApplicationNoticeProps = { open: boolean; onOpenChange: (open: boole
 export function RunClubApplicationNotice({ open, onOpenChange }: RunClubApplicationNoticeProps) {
   return (
     <ModalDialog
+      footer={
+        <Button variant="primary" fullWidth onClick={() => onOpenChange(false)}>
+          확인
+        </Button>
+      }
       open={open}
       onOpenChange={onOpenChange}
       title="세션 신청 안내"
@@ -21,9 +26,6 @@ export function RunClubApplicationNotice({ open, onOpenChange }: RunClubApplicat
       <Typography as="p" variant="body3" className={styles.modalText}>
         신청 기능 준비 중입니다.
       </Typography>
-      <Button variant="primary" fullWidth onClick={() => onOpenChange(false)}>
-        확인
-      </Button>
     </ModalDialog>
   );
 }

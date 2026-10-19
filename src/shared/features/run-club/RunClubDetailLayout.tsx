@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 
 type RunClubDetailLayoutProps = {
@@ -18,16 +17,12 @@ export function RunClubDetailLayout({
   applicationNotice,
 }: RunClubDetailLayoutProps) {
   return (
-    <main
-      className={css({
-        _mobile: { '& ~ footer': { mb: 'calc(92px + env(safe-area-inset-bottom))' } },
-      })}
-    >
+    <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(92px + env(safe-area-inset-bottom))' } }}>
       {hero}
       {guide}
       <Box _mobile={{ display: 'none' }}>{desktopContent}</Box>
       {mobileAction}
       {applicationNotice}
-    </main>
+    </Box>
   );
 }

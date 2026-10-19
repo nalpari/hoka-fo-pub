@@ -3,6 +3,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { SignupTermsDetail } from '@/shared/features/signup-terms/SignupTermsDetail';
 
 export const signupTerms = [
@@ -81,6 +82,7 @@ export function SignupTermsContent(props: Props) {
             </HStack>
           ))}
         </Stack>
+        {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="8">
           <Button variant="secondary" fullWidth onClick={props.onCancel}>
             취소

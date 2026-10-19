@@ -6,8 +6,8 @@ export function SiteFooter() {
     <Wrap
       as="footer"
       minW="var(--layout-web-min-width)"
-      py="24"
-      px="8"
+      py="96px"
+      px="var(--layout-web-content-gutter)"
       _mobile={{ p: '36px 16px', minW: 0 }}
       bg="black.100"
       color="black.10"

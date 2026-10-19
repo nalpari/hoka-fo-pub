@@ -7,7 +7,8 @@ import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { MyPageWithdrawalCompleteDialog } from '@/shared/features/mypage/MyPageWithdrawalCompleteDialog';
+import { MyPageWithdrawalDialog } from '@/shared/features/mypage/MyPageWithdrawalDialog';
 import { MyPageFrame } from './MyPageFrame';
 
 type Preference = '동의' | '수신안함';
@@ -25,7 +26,9 @@ function ProfileField({ label, value }: { label: string; value: string }) {
   return (
     <Stack gap="2">
       <Typography variant="heading7">{label}</Typography>
-      <Typography variant="body3" tone="tertiary">{value}</Typography>
+      <Typography variant="body3" tone="tertiary">
+        {value}
+      </Typography>
     </Stack>
   );
 }
@@ -35,6 +38,7 @@ export function MyPageProfile() {
   const [email, setEmail] = useState('dww******@gmail.com');
   const [phone, setPhone] = useState('010-****-0522');
   const [password, setPassword] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; phone?: string }>({});
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
   const [couponBookPreference, setCouponBookPreference] = useState<Preference>('수신안함');
   const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
@@ -57,8 +61,20 @@ export function MyPageProfile() {
           ))}
           {editing ? (
             <form
+              noValidate
               onSubmit={(event) => {
                 event.preventDefault();
+                const emailInput =
+                  event.currentTarget.querySelector<HTMLInputElement>('#profile-email');
+                const errors = {
+                  email:
+                    email.trim() && !emailInput?.validity.typeMismatch
+                      ? ''
+                      : '올바른 이메일을 입력해 주세요.',
+                  phone: phone.trim() ? '' : '휴대폰 번호를 입력해 주세요.',
+                };
+                setFieldErrors(errors);
+                if (Object.values(errors).some(Boolean)) return;
                 setEditing(false);
               }}
             >
@@ -72,20 +88,38 @@ export function MyPageProfile() {
                     onChange={(event) => setPassword(event.target.value)}
                   />
                 </FormField>
-                <FormField htmlFor="profile-email" label="이메일" required variant="boxed">
+                <FormField
+                  htmlFor="profile-email"
+                  label="이메일"
+                  required
+                  variant="boxed"
+                  error={fieldErrors.email}
+                >
                   <TextInput
                     id="profile-email"
                     type="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                      setFieldErrors((previous) => ({ ...previous, email: undefined }));
+                    }}
                   />
                 </FormField>
-                <FormField htmlFor="profile-phone" label="휴대폰 번호" required variant="boxed">
+                <FormField
+                  htmlFor="profile-phone"
+                  label="휴대폰 번호"
+                  required
+                  variant="boxed"
+                  error={fieldErrors.phone}
+                >
                   <TextInput
                     id="profile-phone"
                     type="tel"
                     value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
+                    onChange={(event) => {
+                      setPhone(event.target.value);
+                      setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+                    }}
                   />
                 </FormField>
                 <Stack gap="4">
@@ -142,7 +176,10 @@ export function MyPageProfile() {
                     size="short"
                     variant="secondary"
                     type="button"
-                    onClick={() => setEditing(false)}
+                    onClick={() => {
+                      setFieldErrors({});
+                      setEditing(false);
+                    }}
                   >
                     취소
                   </Button>
@@ -216,57 +253,15 @@ export function MyPageProfile() {
           )}
         </Stack>
       </Stack>
-      <ModalDialog
-        closeLabel="회원탈퇴 확인창 닫기"
-        onOpenChange={setWithdrawOpen}
+      <MyPageWithdrawalDialog
         open={withdrawOpen}
-        size="sm"
-        title="회원탈퇴"
-      >
-        <Stack gap="6">
-          <Stack gap="4">
-            <Typography as="h2" variant="heading9">
-              회원탈퇴를 진행 하시겠습니까?
-            </Typography>
-            <Typography as="p" variant="body3">
-              탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이
-              불가합니다.
-            </Typography>
-          </Stack>
-          <HStack gap="2">
-            <Button
-              fullWidth
-              size="short"
-              variant="secondary"
-              onClick={() => setWithdrawOpen(false)}
-            >
-              취소
-            </Button>
-            <Button
-              fullWidth
-              size="short"
-              variant="primary"
-              onClick={() => {
-                setWithdrawOpen(false);
-                setWithdrawn(true);
-              }}
-            >
-              확인
-            </Button>
-          </HStack>
-        </Stack>
-      </ModalDialog>
-      <ModalDialog
-        closeLabel="회원탈퇴 안내 닫기"
-        onOpenChange={setWithdrawn}
-        open={withdrawn}
-        size="sm"
-        title="회원탈퇴"
-      >
-        <Typography as="p" variant="body3">
-          회원탈퇴 요청을 확인했습니다.
-        </Typography>
-      </ModalDialog>
+        onOpenChange={setWithdrawOpen}
+        onConfirm={() => {
+          setWithdrawOpen(false);
+          setWithdrawn(true);
+        }}
+      />
+      <MyPageWithdrawalCompleteDialog open={withdrawn} onOpenChange={setWithdrawn} />
     </MyPageFrame>
   );
 }

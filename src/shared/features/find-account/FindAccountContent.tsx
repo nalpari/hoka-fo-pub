@@ -15,6 +15,7 @@ type FindAccountContentProps = {
   secondsLeft: number;
   nameError: string;
   phoneError: string;
+  codeError?: string;
   notice: FindAccountNotice | null;
   onNameChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
@@ -31,6 +32,7 @@ export function FindAccountContent({
   secondsLeft,
   nameError,
   phoneError,
+  codeError,
   notice,
   onNameChange,
   onPhoneChange,
@@ -132,6 +134,44 @@ export function FindAccountContent({
                   인증번호 확인
                 </Button>
               </Box>
+              <FormField
+                variant="boxed"
+                htmlFor="find-account-code"
+                label="인증번호"
+                error={codeError}
+              >
+                <TextInput
+                  id="find-account-code"
+                  name="code"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  placeholder="인증번호 6자리를 입력해 주세요"
+                  value={code}
+                  onChange={(event) => onCodeChange(event.target.value)}
+                />
+              </FormField>
+              <Typography as="p" variant="body5" >
+                남은 시간{' '}
+                {Math.floor(secondsLeft / 60)
+                  .toString()
+                  .padStart(2, '0')}
+                :{(secondsLeft % 60).toString().padStart(2, '0')}초
+              </Typography>
+              <Typography as="p" variant="body5">
+                입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
+                <br />
+                인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
+              </Typography>
+              <Button
+                type="button"
+                variant="primary"
+                density="auto"
+                fullWidth
+                onClick={onConfirmCode}
+              >
+                인증번호 확인
+              </Button>
             </>
           ) : null}
           {notice ? (

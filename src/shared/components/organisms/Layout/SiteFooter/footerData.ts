@@ -33,10 +33,11 @@ export const footerGroups: FooterGroup[] = [
     title: 'Shop',
     links: [
       { label: '매장 찾기', to: '/support/store' },
+      { label: '본디', to: '/products?collection=본디' },
       { label: '클리프톤', to: '/products?collection=클리프톤' },
-      { label: '아라히', to: '/products?collection=아라히' },
-      { label: '가비오타', to: '/products?collection=가비오타' },
-      { label: '마하', to: '/products?collection=마하' },
+      { label: '스피드고트', to: '/products?collection=스피드고트' },
+      { label: '마파테', to: '/products?collection=마파테' },
+      { label: '호파라', to: '/products?collection=호파라' },
     ],
   },
 ];

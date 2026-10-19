@@ -27,6 +27,17 @@ export function PasswordResetCompleteModal({
 }: PasswordResetCompleteModalProps) {
   return (
     <ModalDialog
+      footer={
+        <Button
+          type="button"
+          variant="primary"
+          fullWidth
+          className={styles.button}
+          onClick={onConfirm}
+        >
+          확인
+        </Button>
+      }
       open
       onOpenChange={onOpenChange}
       title="비밀번호 재설정"
@@ -41,15 +52,6 @@ export function PasswordResetCompleteModal({
         <Typography as="p" variant="body4" className={styles.description}>
           비밀번호 변경이 완료되었습니다.
         </Typography>
-        <Button
-          type="button"
-          variant="primary"
-          fullWidth
-          className={styles.button}
-          onClick={onConfirm}
-        >
-          확인
-        </Button>
       </Stack>
     </ModalDialog>
   );

@@ -13,19 +13,18 @@ type Props = { onClose: () => void; onConfirm: () => void };
 export function AccountLockedContent({ onClose, onConfirm }: Props) {
   return (
     <ModalDialog
-      open
-      size="md"
-      onOpenChange={(open) => !open && onClose()}
-      title="아이디 / 비밀번호 찾기"
-      closeLabel="안내 닫기"
       footer={
-        <Button variant="primary" onClick={onConfirm}>
+        <Button variant="primary" fullWidth onClick={onConfirm}>
           확인
         </Button>
       }
+      open
+      onOpenChange={(open) => !open && onClose()}
+      title="아이디 / 비밀번호 찾기"
+      closeLabel="안내 닫기"
     >
       <Stack gap="4">
-        <Typography as="h2" variant="body2">
+        <Typography as="h2" variant="headingKr6">
           계정 잠금상태입니다
         </Typography>
         <Typography as="p" variant="body4">

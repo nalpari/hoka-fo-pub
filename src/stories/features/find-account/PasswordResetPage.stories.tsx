@@ -21,6 +21,7 @@ const withRouter = (Story: React.ComponentType) => (
 
 const meta = {
   title: 'Pages/AUTH/FindAccount/PasswordResetPage',
+  tags: ['form-audit', 'password-policy'],
   component: PasswordResetPage,
   decorators: [withRouter],
   parameters: { layout: 'fullscreen' },
@@ -50,6 +51,16 @@ export const RequiredFieldsError: Story = {
       'aria-invalid',
       'true',
     );
+    await expect(canvas.getAllByRole('alert')).toHaveLength(2);
+    await expect(canvas.getByLabelText('* 새로운 비밀번호')).toHaveAccessibleDescription(
+      '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+    );
+    await expect(canvas.getByLabelText('* 비밀번호 재입력')).toHaveAccessibleDescription(
+      '비밀번호를 다시 입력해 주세요.',
+    );
+    for (const message of canvas.getAllByRole('alert')) {
+      await expect(message).toHaveStyle({ color: 'rgb(166, 0, 0)' });
+    }
   },
 };
 
@@ -70,8 +81,8 @@ export const Complete: Story = {
   decorators: [withPlatform('web')],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByLabelText('* 새로운 비밀번호'), 'Hoka1234567!');
-    await userEvent.type(canvas.getByLabelText('* 비밀번호 재입력'), 'Hoka1234567!');
+    await userEvent.type(canvas.getByLabelText('* 새로운 비밀번호'), 'Hoka12345!');
+    await userEvent.type(canvas.getByLabelText('* 비밀번호 재입력'), 'Hoka12345!');
     await userEvent.click(canvas.getByRole('button', { name: '비밀번호 변경' }));
     const dialog = within(canvasElement.ownerDocument.body).getByRole('dialog');
     await expect(dialog).toHaveTextContent('비밀번호 변경이 완료되었습니다.');
@@ -79,6 +90,13 @@ export const Complete: Story = {
     await expect(getRouter().push).toHaveBeenCalledWith('/login');
   },
 };
+
+export const MobileRequiredFieldsError: Story = {
+  ...Mobile,
+  play: RequiredFieldsError.play,
+};
+
+export const MobileComplete: Story = { ...Mobile, play: Complete.play };
 
 export const MobileError: Story = {
   decorators: [withPlatform('mobile', 375)],

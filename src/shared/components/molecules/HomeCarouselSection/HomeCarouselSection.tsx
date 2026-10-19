@@ -1,15 +1,12 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import {
-  Carousel,
-  CarouselControls,
-  CarouselViewport,
-} from '@/shared/components/molecules/Carousel/Carousel';
+import { Carousel, CarouselControls } from '@/shared/components/molecules/Carousel/Carousel';
 import {
   MainSection,
   type MainSectionProps,
 } from '@/shared/components/molecules/MainSection/MainSection';
 import type { Platform } from '@/shared/lib/device';
+import { HomeCarouselRail } from './HomeCarouselRail';
 
 const desktopOnly = css({ _mobile: { display: 'none' } });
 
@@ -17,14 +14,15 @@ export type HomeCarouselSectionProps = {
   children: ReactNode;
   itemCount: number;
   platform: Platform;
-  slideClassName: string;
+  /** Mobile slide sizing; desktop sizing is derived from the central content grid. */
+  slideClassName?: string;
   title: string;
   titleVariant?: MainSectionProps['titleVariant'];
   beforeViewport?: ReactNode;
   desktopCenteredItemCount: number;
   desktopItemGutter: number;
   mobileItemGutter: number;
-  railClassName: string;
+  railClassName?: string;
   spacing?: 'default' | 'compact';
   /** Remounts the viewport (and resets its position) when this changes. */
   viewportKey?: string;
@@ -49,6 +47,8 @@ export function HomeCarouselSection({
   return (
     <Carousel itemCount={itemCount}>
       <MainSection
+        contentWidth={platform === 'web' ? 'extended' : 'contained'}
+        className={css({ overflowX: 'clip' })}
         actionSlot={
           <div className={desktopOnly}>
             <CarouselControls />
@@ -59,18 +59,17 @@ export function HomeCarouselSection({
         titleVariant={titleVariant}
       >
         {beforeViewport}
-        <CarouselViewport
-          key={viewportKey}
-          className={railClassName}
+        <HomeCarouselRail
+          platform={platform}
           desktopCenteredItemCount={desktopCenteredItemCount}
           desktopItemGutter={desktopItemGutter}
           mobileItemGutter={mobileItemGutter}
-          mode={platform}
-          showScrollbar={false}
+          railClassName={railClassName}
           slideClassName={slideClassName}
+          viewportKey={viewportKey}
         >
           {children}
-        </CarouselViewport>
+        </HomeCarouselRail>
       </MainSection>
     </Carousel>
   );

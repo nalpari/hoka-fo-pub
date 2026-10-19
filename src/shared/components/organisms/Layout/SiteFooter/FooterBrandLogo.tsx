@@ -3,10 +3,10 @@ import { css } from 'styled-system/css';
 const styles = {
   logo: css({
     display: 'block',
-    w: '145px',
-    h: '28px',
+    w: '104px',
+    h: 'auto',
     objectFit: 'contain',
-    _mobile: { w: '124px', h: '24px' },
+    _mobile: { w: '115px' },
   }),
 };
 

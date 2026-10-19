@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 
 const sortOptions = css({ minW: '106px' });
 
@@ -22,13 +23,13 @@ export function DesktopProductSort({ placeholder, value, onChange }: DesktopProd
   const selectingWithKeyboard = useRef(false);
 
   return (
-    <div
+    <Box
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
     >
       <Disclosure onOpenChange={setOpen} open={open} title={placeholder ?? value} variant="panel">
-        <div
+        <Box
           onKeyDownCapture={(event) => {
             selectingWithKeyboard.current = event.key === ' ' || event.key.startsWith('Arrow');
           }}
@@ -49,8 +50,8 @@ export function DesktopProductSort({ placeholder, value, onChange }: DesktopProd
             options={options.map((option) => ({ label: option, value: option }))}
             value={value as SortOption}
           />
-        </div>
+        </Box>
       </Disclosure>
-    </div>
+    </Box>
   );
 }

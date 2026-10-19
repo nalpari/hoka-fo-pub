@@ -58,7 +58,9 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
           주문 / 배송 조회
         </Typography>
         <Link href={to}>
-          <Typography variant="body5">전체 보기 →</Typography>
+          <Typography variant="body5" tone="tertiary">
+            전체 보기 →
+          </Typography>
         </Link>
       </div>
       <div className={list}>

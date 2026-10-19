@@ -1,41 +1,21 @@
-import { css } from 'styled-system/css';
-import { ButtonLink } from '@/shared/components/atoms/Button/Button';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { HStack } from 'styled-system/jsx';
+import { HeaderPromotionCarousel } from './HeaderPromotionCarousel';
+import type { HeaderPromotionButtonType } from './HeaderPromotionContent';
 
-const promotionBanner = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  h: '50px',
-  gap: '10px',
-  px: '72px',
-  bg: 'var(--hoka-black)',
-  '&&': {
-    color: 'var(--hoka-white)',
-  },
-});
-
-const promotionLink = css({
-  '&&': {
-    '& span': {
-      color: 'var(--hoka-white)',
-    },
-  },
-});
-
-/** Desktop-only first-purchase promotion shown above the sticky global navigation. */
-export function HeaderPromotionBanner() {
+/** Member promotion shown above the sticky navigation on web and mobile. */
+export function HeaderPromotionBanner({ buttonType }: { buttonType?: HeaderPromotionButtonType }) {
   return (
-    <aside className={promotionBanner} aria-label="신규회원 혜택 안내">
-      <HStack gap="4">
-        <Typography tone="inverse" variant="action">
-          신규회원 첫구매 5% 할인 및 스페셜 혜택
-        </Typography>
-        <ButtonLink className={promotionLink} href="/products" variant="link" size="sm">
-          <Typography variant="textLink2">자세히 보기</Typography>
-        </ButtonLink>
-      </HStack>
-    </aside>
+    <HStack
+      as="aside"
+      aria-label="홍보 배너"
+      justifyContent="center"
+      containerType="inline-size"
+      h="50px"
+      gap="10px"
+      bg="var(--hoka-black)"
+      css={{ '&&': { color: 'var(--hoka-white)' } }}
+    >
+      <HeaderPromotionCarousel buttonType={buttonType} />
+    </HStack>
   );
 }

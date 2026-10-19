@@ -8,10 +8,6 @@ import {
 import { ProductDetailImage } from '@/shared/features/product/ProductDetailImage';
 
 const styles = {
-  slide: css({
-    w: '100%',
-    '& img': { w: '100%', h: 'auto' },
-  }),
   dots: css({
     position: 'relative',
     zIndex: '1',
@@ -37,9 +33,9 @@ export function ProductDetailMobileGallery({
       <Carousel itemCount={images.length} loop>
         <CarouselViewport freeMode={false} mobileItemGutter={0} mode="mobile" showScrollbar={false}>
           {images.map((image, index) => (
-            <div className={styles.slide} key={image}>
+            <Box w="100%" css={{ '& img': { w: '100%', h: 'auto' } }} key={image}>
               <ProductDetailImage alt={`${productName} ${index + 1}`} src={image} />
-            </div>
+            </Box>
           ))}
         </CarouselViewport>
         <CarouselPagination className={styles.dots} label="상품 이미지 선택" />

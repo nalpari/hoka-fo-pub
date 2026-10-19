@@ -13,7 +13,7 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/shared/components/molecules/Carousel/Carousel';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { LogoutDialog } from '@/shared/components/organisms/Account/LogoutDialog';
 import { ProductThumbnail } from '@/shared/components/molecules/ProductThumbnail/ProductThumbnail';
 import { usePlatform } from '@/shared/context/platform';
 
@@ -352,35 +352,14 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
           </Button>
         </Stack>
       </Box>
-      <ModalDialog
-        closeLabel="로그아웃 확인창 닫기"
-        onOpenChange={setLogoutOpen}
+      <LogoutDialog
         open={logoutOpen}
-        size="sm"
-        title="로그아웃"
-      >
-        <Stack gap="6">
-          <Typography as="p" web="body3" mo="body3">
-            로그아웃 하시겠습니까??
-          </Typography>
-          <HStack gap="2">
-            <Button fullWidth size="short" variant="secondary" onClick={() => setLogoutOpen(false)}>
-              취소
-            </Button>
-            <Button
-              fullWidth
-              size="short"
-              variant="primary"
-              onClick={() => {
-                setLogoutOpen(false);
-                onLogout();
-              }}
-            >
-              확인
-            </Button>
-          </HStack>
-        </Stack>
-      </ModalDialog>
+        onOpenChange={setLogoutOpen}
+        onConfirm={() => {
+          setLogoutOpen(false);
+          onLogout();
+        }}
+      />
     </>
   );
 }

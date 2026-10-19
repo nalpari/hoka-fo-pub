@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T16:38:00+09:00'
+  at: '2026-10-16T15:57:44+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/mocks/products.ts
   - src/data/screenRegistry.ts
   - README.md
   - src/app/checkout/page.tsx
@@ -54,6 +55,8 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 
 ## 현재 제약
 
+목 상품의 `price`는 판매가, 선택적인 `originalPrice`는 할인 전 정상가다. 상품 목록의 `shoe-3`(Daily Motion 3)에 정상가 290,000원 → 판매가 232,000원(20%)의 퍼블리싱 예시를 제공하며 실제 프로모션 가격을 의미하지 않는다. 상품 카드와 hover 미리보기의 할인 표시 계약은 [컴포넌트와 스타일](architecture/ui.md)의 상품 가격 할인 표시를 참고한다.
+
 - 로그인과 회원 관련 흐름은 데모 구현이다.
 - 주문·결제 화면 `/checkout`은 배송 정보·결제 수단·합계·완료 상태를 표시하는 데모다. 완료 시 장바구니를 비우며 실제 주문 저장·결제 승인은 연결하지 않았다.
 - 목 데이터 기반 화면에 실제 데이터 저장·결제·인증을 기대하지 않는다.
@@ -63,4 +66,4 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 
 ## 러닝세션 신청내역 IA
 
-IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook 위치는 `PAGES/MYPAGE/RunClub`이다.
+IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook은 `PAGES/MYPAGE/RunClub/List`(목록·빈 상태)와 `PAGES/MYPAGE/RunClub/Detail`(상세 상태·대형 화면)로 분류한다.

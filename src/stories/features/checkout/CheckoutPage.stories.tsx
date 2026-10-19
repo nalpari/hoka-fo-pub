@@ -18,6 +18,7 @@ const cart: CartItem[] = [
 
 const meta = {
   title: 'PAGES/Checkout',
+  tags: ['form-audit'],
   component: CheckoutPage,
   args: { cart, onComplete: fn() },
   parameters: { layout: 'fullscreen' },

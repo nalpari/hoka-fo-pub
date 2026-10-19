@@ -6,9 +6,133 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T09:25:33Z'
+  at: '2026-10-19T00:12:41.476Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/lib/emailValidation.ts
+  - src/shared/lib/passwordValidation.ts
+  - src/shared/components/atoms/Checkbox/Checkbox.tsx
+  - src/shared/components/atoms/Dropdown/Dropdown.tsx
+  - src/shared/components/atoms/EmailSignupField/EmailSignupField.tsx
+  - src/shared/components/atoms/NumberStepper/NumberStepper.tsx
+  - src/shared/components/atoms/Radio/Radio.tsx
+  - src/shared/components/atoms/RangeInput/RangeInput.tsx
+  - src/shared/components/atoms/Select/Select.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
+  - src/shared/components/molecules/Terms/Terms.tsx
+  - src/shared/components/organisms/Signup/SignupDetailsStep.tsx
+  - src/shared/features/product/ProductSizeSelector.tsx
+  - src/shared/features/signup-registration/RegistrationPage.tsx
+  - src/shared/features/signup-terms/SignupTermsPage.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
+  - src/stories/features/forms/FormStateAudit.stories.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
+  - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
+  - src/stories/features/login/LoginPage.stories.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
+  - src/shared/features/product/ProductColorSelector.tsx
+  - src/stories/features/product/ProductColorSelector.stories.tsx
+  - src/shared/components/molecules/ProductCard/ProductCard.tsx
+  - src/shared/components/molecules/ProductCard/ProductCardPreview.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/stories/components/molecules/ProductCard/ProductCard.stories.tsx
+  - src/shared/components/molecules/ProductPrice/ProductPrice.tsx
+  - src/stories/components/molecules/ProductPrice/ProductPrice.stories.tsx
+  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
+  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
+  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
+  - src/shared/features/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
+  - src/shared/components/organisms/Account/AlreadyRegisteredModal.tsx
+  - src/shared/components/organisms/Account/LogoutDialog.tsx
+  - src/shared/components/organisms/Account/MarketingConsentSummaryModal.tsx
+  - src/shared/components/organisms/Address/AddressSearchModal.tsx
+  - src/shared/components/organisms/Terms/TermsDialog.tsx
+  - src/stories/components/molecules/ConfirmDialog/ConfirmDialog.stories.tsx
+  - src/stories/components/organisms/Account/AlreadyRegisteredModal.stories.tsx
+  - src/stories/components/organisms/Account/LogoutDialog.stories.tsx
+  - src/stories/components/organisms/Account/MarketingConsentSummaryModal.stories.tsx
+  - src/stories/components/organisms/Address/AddressSearchModal.stories.tsx
+  - src/stories/components/organisms/Terms/TermsDialog.stories.tsx
+  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/shared/features/mypage/MyPageReviewDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalCompleteDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
+  - src/shared/features/mypage/MyPageAddressDeleteDialog.tsx
+  - src/stories/features/signup-registration/RegistrationPage.stories.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/product/ProductDetailSupport.tsx
+  - src/shared/features/run-club/RunClubApplicationNotice.tsx
+  - src/shared/features/mypage/MyPageReviews.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
+  - src/shared/features/product/ProductDetailViewerGallery.tsx
+  - src/shared/features/run-club/RunClubEmptyState.tsx
+  - src/shared/features/product/ProductVariantAction.tsx
+  - src/shared/features/product/ProductDetailSupportRegion.tsx
+  - src/shared/features/product/ProductDetailShippingGuide.tsx
+  - src/shared/features/product/ProductDetailReturnPrecautions.tsx
+  - src/shared/features/product/ProductDetailReturnGuide.tsx
+  - src/shared/features/product/ProductDetailGrid.tsx
+  - src/shared/features/product/ProductDetailDeliverySupport.tsx
+  - src/shared/features/product/ProductDetailDeliverySection.tsx
+  - src/shared/features/mypage/MyPageRestockList.tsx
+  - src/shared/features/mypage/MyPageRestockCancelDialog.tsx
+  - src/shared/features/run-club/RunClubSessionPoster.tsx
+  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
+  - src/shared/features/product/ProductVariantSection.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailMobileGallery.tsx
+  - src/shared/features/product/ProductDetailImageViewer.tsx
+  - src/shared/features/product/ProductDetailDeliveryContent.tsx
+  - src/shared/features/mypage/MyPageProductHistoryNote.tsx
+  - src/shared/features/mypage/MyPageProductHistoryHeading.tsx
+  - src/shared/features/mypage/MyPageProductHistoryGrid.tsx
+  - src/shared/features/mypage/MyPageProductHistory.tsx
+  - src/shared/features/mypage/MyPageFrame.tsx
+  - src/shared/features/mypage/MyPageBreadcrumbs.tsx
+  - src/shared/features/locales/LocalesHeading.tsx
+  - src/shared/features/locales/LocaleRegionHeading.tsx
+  - src/shared/features/locales/LocaleCountryList.tsx
+  - src/shared/features/home/HomeShoeFinderSection.tsx
+  - src/shared/features/home/HomeCategorySection.tsx
+  - src/shared/features/home/HomeBestSellerSection.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/shared/features/catalog/product-listing/DesktopProductSort.tsx
+  - src/shared/features/product/ProductDetailBody.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderInner.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
+  - src/stories/features/run-club/RunClubDetail.stories.tsx
+  - src/stories/features/run-club/RunClubPreview.tsx
+  - src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
+  - .storybook/preview.ts
+  - src/shared/features/home/homeCarouselPreview.ts
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationMobile.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/SiteFooter.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
+  - src/shared/components/molecules/Carousel/Carousel.tsx
+  - src/shared/components/molecules/Carousel/CarouselContext.ts
+  - src/shared/components/molecules/Carousel/CarouselViewport.tsx
+  - src/shared/components/molecules/Carousel/CarouselScrollbar.tsx
+  - src/shared/components/molecules/Carousel/CarouselPagination.tsx
+  - src/shared/components/molecules/Carousel/CarouselControls.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/headerPromotionData.ts
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionBanner.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
   - src/shared/features/mypage/RunningProfileContent.tsx
   - src/shared/components/organisms/MyPage/CouponCard.tsx
   - src/shared/features/run-club/RunClubDetailLayout.tsx
@@ -212,6 +336,206 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 마이페이지 폼 포맷 정리 (2026-10-19)
+
+MyPageAddresses와 MyPageProfile의 기존 JSX·객체·함수 표현을 Prettier로 정리했다. 이 포맷 변경 자체는 상태·검증·문구·스타일 값을 바꾸지 않는다. 기능 변경은 별도 커밋의 Form 전수 점검에 기록한다.
+
+
+## 회원가입·휴대폰 인증 오류 문구 보완 (2026-10-19)
+
+비밀번호 외 코드 점검에서 휴대폰 필수 약관의 설명 문구 누락, 아이디 안내 조건과 실제 검증 차이, 화면별 이메일 규칙 차이와 확인 상태 불일치를 수정했다. 필드 문구는 FormField.error로, 약관 그룹은 StatusMessage.error와 section의 aria-describedby로 연결한다. 약관의 기존 개별 빨간 표시·모두동의 동작은 유지한다. 상태 소유자와 규칙은 [상태 문서](state.md#회원가입휴대폰-인증-오류-상태-보완-2026-10-19)를 참고한다.
+
+PhoneVerification의 Mobile 스토리에 PlatformProvider를 연결해 실제 모바일 Typography 컨텍스트도 적용한다. PC·모바일 RequiredAgreements는 일부 동의 시 남은 오류, 전체 동의 후 해제, 요청 후 동의 취소 시 재표시를 확인한다. Signup FieldValidation은 아이디·이메일 오류 후 완료, Registration EmailCheckState는 이메일 변경 시 안내 해제·다른 필드 오류 후 이메일 확인 유지·다음 단계 진행을 검사한다.
+
+사용자가 제공한 전체 화면 축소 이미지에서 세부 문구를 확정할 수 없고 Figma 원본은 재인증 오류 상태다. 추가 문구는 현재 화면 안내와 코드에서 확인한 누락을 보완한 것이며 두 Figma 영역 전체와의 일치를 주장하지 않는다. 기존 가입 완료 화면, 이메일 확인의 info 데모 안내와 실제 인증 결과 미연결 계약은 유지한다.
+
+검증 결과: 전체 타입 검사·변경 파일 ESLint·Node 검사 51개·전체 Storybook 빌드가 통과했다. 로그인·재설정·가입·회원정보·휴대폰의 정적 Chromium 검사 27개가 모두 통과했고, 이번 추가 시나리오 6개는 PC와 모바일에서 각각 실행했다. 기존 a11y todo 경고는 별도다.
+
+## 비밀번호 오류 안내 일관성 보완 (2026-10-19)
+
+로그인 스크린샷과 현재 코드에서 확인한 충돌을 수정했다. 가입·로그인·재설정의 규칙과 오류 문구는 [공통 정책](state.md#가입로그인재설정-비밀번호-정책-2026-10-19)을 따른다. SignupDetailsStep의 8자 이상 placeholder도 10~12자·문자 조합 안내로 변경했고, 기본 정보 오류 안내에 무조건 8자 규칙을 덧붙이던 문구를 제거했다.
+
+PasswordResetField는 오류 문구·색상·설명 id·invalid를 FormField.error에 위임한다. 별도 Typography 오류 출력과 required일 때 문구를 숨기는 분기를 제거해 빈 값 제출에서도 두 필드의 오류를 읽을 수 있다. 비밀번호 보기/숨기기와 완료 모달은 유지한다. 재설정 PC·모바일의 빈 값 문구·색상·접근 가능한 설명·10자 비밀번호 완료, 일반 가입의 8자 거부 후 10자 완료, 회원정보 가입의 공백 포함 값 거부 후 수정 스토리를 추가했다.
+
+Figma 원본은 재인증 오류로 대조하지 못했다. 서버 확인이 필요한 중복 이메일·잘못된 인증번호에 임의의 성공/실패 결과를 추가하지 않는다. 현재 작업 트리에서 전체 타입 검사·변경 파일 ESLint·Node 테스트 48개·전체 Storybook 빌드는 통과했다. 이전 절의 전체 검사 실패 기록은 당시 작업 트리를 나타낸다.
+
+최종 정적 브라우저 검사는 로그인 9개·재설정 8개·일반 가입 2개·회원정보 가입 2개, 총 21개를 모두 통과했다. 신규 가입 정책 검사는 PC와 모바일에 모두 명시적 password-policy 태그를 부여했다. 375×812 모바일 캡처에서 재설정의 빈 두 입력 아래 오류 문구와 빨간 테두리를 확인했다. 기존 a11y todo 경고는 별도로 남아 있다.
+
+## 로그인 형식 오류 안내 보완 (2026-10-19)
+
+LoginForm의 이메일·비밀번호에 첨부 디자인의 필드별 오류 문구를 FormField.error로 연결했다. Error·MobileError 스토리는 공통 누락 안내 대신 두 문구와 각각의 빨간 테두리·TextInput 오류 상태·접근 가능한 설명을 표시한다. 로그인 검증 규칙과 제출 이후 수정 계약은 [상태 문서](state.md#로그인-필드-오류)를 참고한다. LoginFlow의 정상 비밀번호 예시도 새 규칙에 맞췄으며 InvalidFormats·MobileInvalidFormats에 이메일 형식, 비밀번호 길이 경계·문자 조합·공백 오류 및 수정 후 성공 검사를 추가했다.
+
+변경한 로그인 TSX 3개는 ESLint를 통과했다. 전체 타입 검사는 작업 트리의 ButtonDocs·ProductDetailSections·SupportExperiencePage JSX 문법 오류로, 전체 Storybook 빌드는 ButtonDocs·ProductDetailSections 문법 오류로 실패했다. 이 파일들은 이번 수정 범위에 포함하지 않는다. 이전 전수 점검의 성공 기록은 당시 코드 기준이며 이번 작업 트리 전체의 성공을 뜻하지 않는다.
+
+로그인 소스·스토리와 실제 의존 코드를 포함한 별도 tsconfig의 타입 검사는 통과했다. 저장소 설정을 재사용하고 로그인 스토리만 선택한 임시 Storybook production build도 통과했다. 임시 설정·빌드 결과는 node_modules/.cache 아래에만 생성했다.
+
+정적 빌드를 Chromium에서 실행한 로그인 스토리 9개가 모두 통과했다. Error·MobileError의 두 문구 계산 색상·aria-invalid·접근 가능한 설명, PC·모바일의 빈 값·형식·비밀번호 경계값·수정 후 로그인, 기능 미연결 안내를 확인했다. 375×812 캡처에서도 두 문구와 빨간 테두리가 표시됨을 확인했다. 기존 a11y todo 경고는 별도이며 전체 접근성 검증을 뜻하지 않는다.
+
+## 전체 페이지 Form 점검 이후 계약 (2026-10-19)
+
+63개 App Router 페이지 및 공통 검색·푸터의 검사 목록과 재현 시나리오는 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다. 아래 계약은 2026-10-16의 ‘Form 오류 상태 전달 조사’에서 발견한 누락을 보완한 현재 구현이다.
+
+- Select는 TextInput처럼 FormFieldContext의 오류·required·disabled·htmlFor·설명을 소비한다. 자체 invalid 또는 부모 invalid는 OR로 합치며 aria-invalid=true로 명시한 TextInput/Select에도 오류 테두리를 적용한다.
+- Dropdown은 선택적 invalid를 받으며 자체 error·부모 invalid와 합쳐 상태/테두리를 표시한다. 부모 label/id와 오류 설명, 필수·비활성 상태를 연결하고 포커스·팝업이 열려도 오류 테두리를 유지한다.
+- Checkbox·Radio·RatingInput·RangeInput·NumberStepper·SizeSelector는 Base UI의 필드 상태를 유지하면서 빨간 오류 표시를 추가한다. 서버 렌더링에서도 설명을 연결하도록 FormFieldContext.describedBy를 전달한다. Terms의 문구도 부모 오류를 반영한다. Fieldset·검색/필터 자체에는 신규 필수값 규칙을 추가하지 않는다.
+- StatusMessage는 선택적 id로 오류 설명 연결을 지원한다. error #A60000, success #16794b, info #4D4D4D와 기존 alert/status 계약은 유지한다. 인증·중복확인의 서비스 미연결 안내는 info이며, 전용 완료 화면은 기존 디자인을 유지한다.
+- 인증번호의 길이 오류는 해당 FormField.error로, 인증 만료는 error 안내로 표시한다. 회원가입 주소·약관·기본정보, 배송지·프로필·리뷰·문의·상품 사이즈·주문·쿠폰의 기존 검증 규칙을 필드 표시/설명과 연결한다. native required/type=email 검증에 의존하던 제출 경로는 동일한 규칙을 커스텀 상태로 표시한다. 주소 모달은 필수 두 입력이 있어야 확인으로 닫힌다.
+
+실제 실행한 검사 수·PC/모바일 결과·기존 임시 산출물의 ESLint 영향과 a11y todo 경고는 보고서의 검증 기록을 참고한다. 스토리 추가와 실행 완료를 구분한다.
+
+## 상태 안내의 tone 색상 (2026-10-16)
+
+### Form 오류 상태 전달 조사
+
+FormField는 `invalid || Boolean(error)`를 프로젝트 FormFieldContext.invalid 및 Base UI Field.Root.invalid로 각각 전달한다. 프로젝트 Context의 직접 소비자는 TextInput뿐이며 일반 input·password·multiline textarea 모두 `invalid || field.invalid`로 aria-invalid/data-invalid를 설정한다. boxed의 테두리는 FormField가 소유하므로 자식 TextInput.invalid만 설정하면 외곽 테두리에 역전파되지 않는다. StatusMessage.tone은 이 Context와 연결되지 않는다.
+
+네이티브 Select는 자체 invalid prop만 읽고 부모 Context를 소비하지 않는다. Checkbox(단일/그룹), Radio, RatingInput, SizeSelector, RangeInput, NumberStepper는 내부 Base UI가 Field Context를 읽어 오류 접근성 상태를 전달받지만 프로젝트 스타일에 오류 색상 규칙이 없다. Dropdown도 Base UI 상태는 전달받으나 빨간 테두리와 내부 오류 문구는 자체 error prop에만 의존한다. Terms의 hasError는 자체 invalid/error만 읽는다. Fieldset·SegmentedControl·EmailSignupField는 오류 Context를 소비하지 않으며 SearchField의 내부 TextInput은 상속되지만 검색 외곽 테두리에 오류 스타일은 없다. FormField.Message를 자식 슬롯으로 추가하는 것만으로 부모의 hasError가 설정되지는 않는다.
+
+조사 근거는 해당 컴포넌트 소스와 설치된 `node_modules/@base-ui/react`의 Field/Checkbox/RadioGroup/Select/Slider/NumberField 구현이다. Base UI의 Checkbox·CheckboxGroup·RadioGroup·Select·Slider·NumberField를 invalid Field.Root 안에서 서버 렌더링해 aria-invalid/data-invalid 출력을 확인했다. 전체 조합의 브라우저 검증을 의미하지 않는다. 로그인의 연결 수정은 [상태 문서](state.md)에 기록한다. Login Error 스토리는 `var(...)` 표현 자체와 계산된 rgb를 비교하지 않고, `--colors-red-100`의 실제 값을 읽어 toHaveStyle에 전달한다. CSS 변수 누락도 검사하며 필드 상속 실패와는 구분한다.
+
+`StatusMessage`는 Panda CSS의 `data-tone` 선택자로 error는 의미 토큰 `error`(#A60000), success는 #16794b, info는 `text.subtle`(#4D4D4D)을 적용한다. 속성만 출력하던 기존 구현에는 색상 규칙이 없어 로그인 Error 안내가 기본 검정색으로 표시됐다. 호출자의 className은 함께 유지하고 오류의 alert/assertive, 나머지의 status/polite 및 aria-atomic 계약은 유지한다.
+
+Atoms/StatusMessage의 세 tone과 Login의 Error·MobileError에 실제 적용 색상 검사를 둔다. Panda 생성, 타입 검사, 변경 파일 ESLint와 Storybook production build를 통과했다. 브라우저에서 로그인 PC·모바일 플랫폼의 error 색상 rgb(166, 0, 0)을 확인했고 MobileError play의 콘솔 오류가 없었다. 캡처의 ProductColorSelector heading 오류는 로그인과 다른 스토리의 검사이며, 현재 Desktop 스토리를 직접 열었을 때 h2와 두 번째 컬러 선택을 확인했고 콘솔 오류는 재현되지 않았다. 과거 오류의 발생 원인은 확정하지 않는다.
+
+## 주문 상태 조회 링크
+
+2026-10-16 OrderStatusTracker의 “전체 보기 →” Typography에 tertiary tone을 명시했다. body5 타입과 기존 링크 경로·주문 상태 목록은 유지한다. 타입 검사·변경 TSX ESLint 통과. Prettier는 이 파일의 CRLF 줄바꿈 기준으로 통과했으며 브라우저 시각 검증은 수행하지 않았다.
+
+## Typography 스타일 미적용 옵션
+
+2026-10-16 `variant` prop의 기본값을 `unstyled`로 지정했다. variant 및 해당 플랫폼의 web/mo를 생략하면 recipe를 적용하지 않고 네이티브/상위/호출자 스타일을 사용한다. web/mo가 있으면 기존 플랫폼 선택 순서대로 우선한다. 기존 기본 body 타입이 필요한 호출자는 `variant="body"`를 명시해야 하며, unstyled에서는 tone·weight도 recipe와 함께 생략된다. 타입 검사·변경 파일 ESLint·Storybook production build를 통과했다. 전체 호출 화면의 시각적 동일성을 검증한 것은 아니다.
+
+2026-10-16 `Typography`에 `unstyled` variant를 추가했다. 현재 플랫폼의 web/mo와 variant에서 선택한 값이 unstyled이면 typography recipe 전체를 생략해 tone·weight·언어별 타입 스타일을 적용하지 않는다. 호출자의 className·네이티브 속성·자식과 as 태그는 유지한다. 기존 variant와 플랫폼별 선택 순서는 유지한다.
+
+## 상품 상세 컬러 선택 배치 수정 (2026-10-16)
+
+ProductColorSelector는 PC에서 `repeat(auto-fill, 80px)` 그리드로 영역 너비에 맞춰 줄바꿈하고, 모바일에서만 flex 한 줄·가로 스크롤을 사용한다. 썸네일 80×53px, 항목 간격 8px, 선택 밑줄·focus 표시, 모바일 너비 확장과 오른쪽 여백은 유지한다. 공통 Radio의 기본 `display: grid`·gap=4와 원자 유틸리티 생성 순서가 충돌하지 않도록 `&[role="radiogroup"]`에 display·열 정의·간격을 지정하고 모바일 display를 같은 선택자에서 분기한다. 공통 Radio나 발볼 선택기의 스타일은 변경하지 않는다.
+
+기존 PC/모바일 스토리에 배치·80×53px 크기·8px 간격·선택 변경 확인을 위한 play 함수를 추가했다. PC는 여러 행과 가로 넘침 없음, 모바일은 한 행과 내부 스크롤을 검사하도록 구성한다. Panda 생성·타입 검사·변경 파일 ESLint·Next.js production build·Storybook build와 OKF 작업 트리 매핑 검사를 통과했다. 생성 CSS에서 PC 열 정의와 모바일 한정 display 분기를 확인했다. 사용 가능한 브라우저가 없어 play 함수의 실제 실행과 화면 조작 검증은 수행하지 않았다.
+
+## 확인 버튼 하나를 가진 팝업 (2026-10-16)
+
+커밋 전 검증(Codex): 기본 `npm run lint`는 기존 `.tmp-storybook-*` 생성 산출물을 포함해 실패했다. `npm run lint -- --ignore-pattern ".tmp-*/**"`로 임시 산출물을 제외한 전체 린트를 통과했다. 생성 파일과 ESLint 설정은 변경하지 않았다. 스테이징된 소스·문서에 대해 `npm run okf:check`도 통과했다.
+
+`molecules/SingleActionDialog`는 `ModalDialog`의 footer에 primary 확인 버튼 하나를 구성한다. `ModalDialogProps`에서 footer를 제외한 표시 계약과 `onConfirm`, 기본값이 확인인 `confirmLabel`을 받는다. `confirmButtonProps`는 short/tall 크기, fullWidth, density, disabled, className만 허용하며 버튼 variant와 클릭 콜백은 공용 계약으로 유지한다. 이 래퍼는 자동으로 모달을 닫지 않는다. 확인은 `onConfirm`만 실행하고, 헤더 닫기·ESC·바깥 영역 닫기는 기존 `onOpenChange`를 사용한다.
+
+AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModal은 기본 크기/fullWidth 버튼을, AddressSearchModal은 기본 버튼을 사용하도록 이전했다. 두 계정 안내의 확인 콜백과 주소 모달의 `onOpenChange(false)`를 유지한다. 새 DOM 래퍼를 추가하지 않아 ModalDialogFooter의 직접 버튼 너비와 모바일 표시 계약이 동일하다. TermsDialog도 SingleActionDialog를 사용하며 tall/fullWidth 확인 버튼, 확인 시 닫기, 모바일 fullscreen·scrollFade와 버전 전환 버튼은 유지한다. 나머지 기능별 footer는 이번 변경 범위에 포함하지 않는다.
+
+공용 Storybook은 기본·short/fullWidth·사용자 문구·disabled·controlled 상호작용·모바일 사례를 제공한다. play 함수는 확인 콜백과 자동 닫기 없음, 헤더/ESC 닫기에서 확인 콜백 미호출을 검증하도록 작성했다. 브라우저가 없어 play 함수는 실행하지 않았으며 타입 검사·변경 범위 ESLint·Panda 생성·Next.js production build·Storybook 빌드와 OKF 작업 트리 매핑 검사를 통과했다.
+
+## 대분류 간 공용 팝업 (2026-10-16)
+
+기능별 독립 모달 분리 이후, 사용자 승인 범위에 따라 공용 표현과 업무 정책을 구분했다.
+
+- `molecules/ConfirmDialog`는 공통 `ModalDialog` 위에 확인·취소 액션을 구성한다. `title`, `children`, `closeLabel`, 크기·모바일 표시 옵션, 버튼 문구와 `onConfirm`을 받는다. 취소는 `onOpenChange(false)`만 호출하고 확인 후 닫기·삭제·로그아웃 등은 부모가 결정한다. `fullWidthActions`는 기존 HStack 전체 너비/gap=2 배치와 직접 버튼 footer 배치를 보존한다. 배송지 삭제·재입고 취소·탈퇴 확인과 공용 LogoutDialog가 사용한다.
+- `organisms/Address/AddressSearchModal`은 회원가입에서 공용 영역으로 이동했다. 회원가입과 마이페이지 배송지 추가/수정이 동일한 controlled 값/콜백 API를 사용한다. 마이페이지의 우편번호 버튼은 고정 목 주소를 주입하는 대신 팝업을 연다. 팝업 입력은 부모 draft에 즉시 반영되고 확인·닫기에서 입력을 롤백하지 않는다. `idPrefix`로 호출부별 label/id를 구분한다. 실제 주소 검색 서비스는 여전히 연결하지 않았으며 수동 입력 미리보기다.
+- `organisms/Account/LogoutDialog`는 MyPage 접두사를 제거한 공용 로그아웃 확인 표현이며 실제 로그아웃은 MyPage가 처리한다. `AlreadyRegisteredModal`도 가입 폴더에서 Account로 이동했고 기존 PhoneVerificationPage 호출을 연결했다. 두 팝업의 현재 업무 호출부는 각각 한 곳이며 다른 진입점의 미래 사용을 이미 구현한 것으로 간주하지 않는다.
+- `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
+- `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
+
+새 공용 팝업 6종은 `src/stories/components/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
+
+검증(Codex): Panda 생성, 타입 검사, 변경 TSX ESLint, Next.js production build, Storybook build와 기존 계정 복구/App Router 테스트 5개 통과. 이 세션에는 사용 가능한 브라우저가 없어 play 함수와 화면 상호작용은 실행하지 않았다. 빌드 성공을 브라우저 검증으로 기록하지 않는다.
+
+2026-10-16 표시 옵션 커밋 전 검증(Codex): 타입 검사·Carousel 폴더 ESLint·Prettier·Storybook 빌드 통과. 이번 커밋 작업에서 브라우저 상호작용 검증은 추가 실행하지 않았다. Storybook 빌드는 의존성의 use client 지시문·청크 크기 관련 경고를 출력했으나 완료됐다.
+
+2026-10-16 CarouselPagination의 `size` prop은 기본 점의 너비·높이를 설정하며 기본값은 `5px`이다. 문자열 또는 숫자(px)를 받고 비활성 너비 애니메이션에도 적용한다. 활성 항목의 21px 너비와 사용자 정의 `renderItem`은 유지한다.
+
+2026-10-16 CarouselScrollbar의 `h`·`mt` props는 높이·위쪽 여백을 설정하며 기본값은 `20px`·`24px`이다. 숫자는 px로 처리하고 내부 수평 트랙에도 같은 높이를 적용한다. 공개 `CarouselViewport`의 `scrollbarHeight`·`scrollbarMarginTop` props로 전달할 수 있다. 기존 표시 조건·Swiper 동기화는 유지한다.
+
+2026-10-16 CarouselControls의 `iconName`·`iconSize` props는 양쪽 화살표의 Icon name·size를 설정하며 기본값은 `carousel-arrow`·`48px`이다. `iconSize`는 문자열 또는 숫자(px)를 받으며 버튼의 너비·높이에도 CSS 변수로 적용한다. 기존 `className`의 버튼·아이콘 스타일 재정의와 기본 화살표의 이전·다음 방향을 유지한다. `Carousel.tsx`에서 `CarouselControlsProps`도 재export한다.
+
+## 지정 기능의 JSX 이전과 내부 영역 분리 (2026-10-16)
+
+사용자가 지정한 run-club·product·mypage·locales·catalog의 개별 DOM/스타일 영역만 Panda JSX로 옮기거나 기능 내부 구성 요소로 분리했다. 기존 공개 props, 플랫폼 선택, 데이터, URL·선택·삭제 상태와 이벤트 처리 정책은 유지한다. 새 구성 요소는 각 기능 폴더 내부에서 조합하며 새 공용 atom·molecule이나 의존성을 추가하지 않는다.
+
+| 영역                 | 책임 분리와 유지 계약                                                                                                                                                                                                                                                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 런클럽 세션 안내     | `RunClubSessionPoster`가 카테고리별 포스터 제목·일자를, `RunClubSessionGuideContent({ title, rows })`가 안내 문구·Facts·주의사항과 스타일을 소유. 부모 Guide는 전체 배경·1532px 중앙 그리드·PC 2열/모바일 1열 조합 유지                                                                                                              |
+| 런클럽 빈 상태·Facts | `RunClubEmptyState`가 role=status, PC EmptyState·모바일 340px 안내를 소유. Facts의 바깥은 Box as=dl, 행은 Box로 이전하고 dt/dd·mobileOnly의 중요도 있는 display 조건 유지. hero/guide의 복합 variant는 기존 cva 유지                                                                                                                 |
+| 국가 선택            | `LocalesHeading`이 SVG·localeHeading·PC 92px/모바일 minH=15를 소유. Layout 내용 Box는 1200px 상한·기존 여백 유지. Region은 Box as=section이며 `LocaleRegionHeading({ id, name })`과 `LocaleCountryList({ countries })`를 조합. aria-labelledby·제목 ID·링크/국기 순서·4열/2열 column-count 유지                                      |
+| 마이페이지 프레임    | Grid as=main에 기존 180px 사이드바·50px gap·최대 너비·70px/120px 상하 여백과 모바일 block/0 여백을 이전. `MyPageBreadcrumbs`가 기존 prefix와 여백을 소유. 콘텐츠 Box는 minW=0 유지                                                                                                                                                   |
+| 상품 내역            | `MyPageProductHistoryHeading`, `MyPageRestockList`, `MyPageProductHistoryGrid`, `MyPageProductHistoryNote`, `MyPageRestockCancelDialog`로 표시 책임 분리. items·liked·pendingCancel과 관심 해제/재입고 취소 삭제는 부모에 유지. 자식은 준비된 데이터와 onLikedChange(id, active), onCancelRequest(id), onClose/onConfirm 콜백만 받음 |
+| 상품 상세 배치       | `ProductDetailGrid`가 중앙 구매 그리드를 소유. `ProductDetailSupportRegion({ platform })`을 Media(web)·Panel(mobile)에서 재사용해 지원 안내 노출 위치를 유지. `ProductVariantAction`은 옵션 액션의 baseline·space-between 정렬을 소유. Body는 Box hidden=isViewing 유지                                                              |
+| 상품 이미지          | 모바일 슬라이드와 이미지 뷰어의 콘텐츠/뷰어/슬라이드 래퍼를 Grid·Box JSX props와 Panda css prop으로 이전. wrapper·순서·ref·현재 인덱스·이미지 크기·썸네일/페이지네이션·Escape/초점 복원은 유지                                                                                                                                       |
+| 배송·반품 안내       | `ProductDetailShippingGuide`, `ProductDetailReturnPrecautions`, `ProductDetailDeliverySupport`, `ProductDetailReturnGuide`로 네 안내 영역 분리. 반복되는 section/h3·번호 목록은 기능 내부 `ProductDetailDeliverySection`/`ProductDetailDeliveryList`로 조합. 문구·리스트·전화/경로 링크·반품 단계·반응형 값 유지                     |
+| 상품 목록            | MobileProductFilter의 내용은 Box px=4. DesktopProductSort의 두 wrapper는 Box로 이전하고 onBlurCapture·키보드/포인터 선택 판별 ref와 Radio/Disclosure 계약 유지                                                                                                                                                                       |
+
+재입고 취소 다이얼로그의 취소·확인 액션은 사용자 지적에 따라 `ModalDialog.footer` 슬롯으로 옮겼다. 본문에는 안내 문구만 두고 footer의 HStack은 w=100%·gap=2와 두 fullWidth 버튼을 사용한다. 이 변경은 기존 body 내부 액션 배치를 공통 footer 계약으로 수정하는 의도적인 DOM/간격 변경이며, 위 JSX 이전의 시각적 유지 범위와 구분한다. open·onClose·onConfirm 계약과 삭제 상태는 유지한다.
+
+JSX로 옮긴 단일 사용 클래스는 제거했다. Typography 자체의 타입 스케일과 복합 선택자/variant는 기존 css·cva를 유지하며, inline style 객체나 별도 styles.ts 파일을 추가하지 않았다. 새로운 DOM 래퍼를 추가하지 않고 기존 div/section/main/dl에 대응하는 Panda primitive를 사용한다. 기본/빈 상태/모바일/상세는 기존 기능 스토리에서 검증한다.
+
+검증 (2026-10-16, Codex): 국가 선택·마이페이지 상품내역·상품 목록·상품 상세·런클럽 안내의 변경 전 렌더를 저장해 DOM tag·문구·링크·요소 치수를 비교했다. 국가 선택의 제목 ID 연결과 PC 4열/모바일 2열, 런클럽 정원 행의 mobileOnly·빈 상태 role=status, 관심상품 해제 후 빈 상태, 재입고 취소 다이얼로그의 취소/확인, 상품 정렬의 포인터/키보드/blur, 모바일 필터 열기/적용/닫기, 이미지 뷰어의 본문 숨김·썸네일·Escape·초점 복원과 모바일 갤러리 선택을 확인했다. 타입 검사·임시 생성 폴더 제외 전체 소스 lint·프로덕션 빌드·Storybook 빌드가 통과했다. Storybook은 기존 출력 폴더의 복사 충돌을 피하도록 임시 디렉터리에 빌드했다. 재입고 취소 footer 안의 두 버튼 너비·8px 간격·취소/확인, 분리된 이미지 뷰어 Grid의 gap=0·썸네일 선택·Escape·초점 복원도 확인했다.
+
+## 공통 UI 내부 구성 분리 (2026-10-16)
+
+사용자가 지정한 HomeCarouselSection, MainSection, ProductDetails, SiteHeaderContent와 ProductDetailLayout의 내부 영역을 책임 단위로 분리했다. 기존 공개 props와 호출부는 유지하며 새 구성 요소를 별도 공용 API로 승격하지 않는다. 타입을 공유하는 내부 구성 요소는 부모 props를 type-only `Pick`으로 참조하므로 런타임 순환 의존성을 추가하지 않는다.
+
+| 부모                | 내부 구성 요소                                    | 소유하는 계약                                                                                                                                                               |
+| ------------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HomeCarouselSection | `HomeCarouselRail`                                | Box의 카드 너비·간격 CSS 변수, WEB 슬라이드 스타일·끝 여백, CarouselViewport props와 내부 `viewportKey` 유지. 부모는 Carousel·MainSection·제목·컨트롤·필터 슬롯 조합을 담당 |
+| MainSection         | `MainSectionHeader`                               | HStack의 중앙 너비·모바일 여백·제목 Typography·actionSlot. 부모는 section 컨테이너와 본문 너비 모드·세로 간격을 담당                                                        |
+| ProductDetails      | `ProductDetailsIdentity`, `ProductDetailsOptions` | Identity는 프로모션·성별·상품명·가격과 gap=1, Options는 활동·색상/발볼 요약과 gap=0. 부모가 showVariantSummary 조건과 두 영역의 gap=4를 유지. 모든 minW=0·w=100% 계약 유지  |
+| SiteHeaderContent   | `SiteHeaderInner`                                 | 중앙 max-width·primary/actions HStack과 그룹 간 정렬. 부모는 header landmark·높이·테두리·배경·WEB/모바일 바깥 여백을 담당                                                   |
+| ProductDetailLayout | `ProductDetailBody`                               | hidden=isViewing 래퍼, 최대 1532px 내부 구매 Grid와 그 바깥 footer. viewer는 부모에 남아 hidden 영역 바깥에 표시                                                            |
+
+MainSection의 바깥 section은 Panda `Box as="section"`의 JSX props로 전환했다. 정적 그리드 CSS 변수는 Panda `css` prop에 둔다. SiteHeaderContent는 `Flex as="header"`에 기존 css 선언을 완전히 옮겼고 미사용 header 클래스·css import를 제거했다. ProductDetailBody의 그리드는 Grid JSX props를 사용한다. MainSection의 본문 너비 variant 클래스와 HomeCarouselRail의 복합 슬라이드 선택자는 해당 계약을 드러내는 명명된 css 선언으로 유지한다. 동적 카드 계산용 CSS 변수는 Rail의 기존 style 전달을 유지한다.
+
+DOM 래퍼·순서·landmark·숨김 속성·Typography variant·반응형 값·상태 수명을 바꾸지 않았다. 기존 Carousel와 native 의미 요소를 조합했으며 새 Base UI primitive나 의존성은 추가하지 않았다. 내부 구성 요소는 기존 MainSection·HomeCarouselSection·상품 카드·페이지·헤더 스토리로 검증한다.
+
+검증 (2026-10-16, Codex): 분리 전 Storybook 빌드와 분리 후 렌더를 비교했다. 홈 2560/375px, 상품 목록 375px, 상품 상세 2560/375px의 5개 화면에서 2304개 요소의 DOM tag·role·hidden 및 위치/크기가 0.1px 허용 오차 내에서 동일했다. 캐러셀 play 검사의 정확한 클릭 횟수·끝 정렬·뒤로 이동, 필터 변경 후 rail 초기화, 상품 이미지 뷰어의 본문 숨김·Escape·초점 복원을 다시 확인했다. 타입 검사·임시 생성 폴더 제외 전체 소스 lint·프로덕션 빌드·Storybook 빌드가 통과했다.
+
+## 중앙 그리드와 확장 영역 (2026-10-16)
+
+WEB은 최소 1200px 캔버스와 최대 1532px 중앙 그리드를 사용한다. 좌우 기본 여백은 각각 55px이며, 프레임 너비는 `min(100% - 110px, 1532px)`다. 화면이 커져도 본문·구매 패널·버튼·아이콘의 크기를 viewport에 비례해 확대하지 않는다. 모바일은 기존 플랫폼 조건과 16px 여백을 유지한다.
+
+- 헤더·푸터 내용, 홈 Explore, 상품 목록은 중앙 그리드에 정렬한다. 상품 상세의 바깥 프레임은 전체 너비이며 갤러리·구매 패널을 배치하는 내부 그리드만 너비를 제한한다. 추천 상품은 이 그리드의 형제이므로 `100vw`와 음수 margin으로 탈출하지 않는다.
+- 홈 Hero 이미지는 전체 너비, 기존 500px 최소·816px 최대 높이와 `object-fit: cover`를 유지한다. 캠페인 문구·버튼은 중앙 그리드에 정렬한다. 큰 화면에서는 이미지 상하가 더 크롭될 수 있다.
+- 런클럽 세션 안내의 배경은 전체 너비, 내부 내용은 최대 1532px다. 신청 Hero는 기존의 더 좁은 1340px 상한을 유지한다.
+- `MainSection.contentWidth`에 `extended`를 추가했다. 제목은 중앙 그리드에 두고 내용은 그리드 왼쪽에서 바깥 프레임 오른쪽 끝까지 확장한다. 기존 `contained`·`fullBleed`도 유지한다. inline-size query container와 `cqw`를 사용하므로 브라우저 스크롤바 너비나 WEB 최소 캔버스와 `100vw`의 차이로 넘치지 않는다.
+- `HomeCarouselSection`은 WEB에서 extended 프레임과 공통 카드 계산을 소유한다. 카드 크기는 중앙 그리드 너비·표시 개수·좌우 gutter로 결정하며, Swiper 뷰포트는 확장 영역의 실제 너비를 사용한다. WEB 슬라이드는 카드 오른쪽에 전체 카드 간격을 두어 첫 슬라이드부터 동일한 간격으로 snap한다. 마지막 슬라이드는 카드 간격 대신 중앙 그리드 바깥 여백을 오른쪽 padding과 너비에 포함한다. 끝까지 이동하면 마지막 카드 오른쪽이 제목/컨트롤 프레임 오른쪽에 정렬되며, 여백만큼 추가 클릭하는 단계가 생기지 않는다. 단일 카드는 padding을 생략한다. 모바일 gutter와 기본 CarouselViewport의 양쪽 gutter 계약은 유지한다. `slideClassName`은 모바일 카드 크기용이며 `railClassName`과 함께 선택 사항이다.
+- 홈 Category·Best sellers·Find my HOKA, 상품 상세 추천, 런클럽 추천이 같은 프레임을 사용한다. 데이터·필터·URL·상품 동작은 각 기능에 남긴다. 기존 Typography·Carousel·Base UI 기반 FilterTabs를 재사용하며 새 인터랙션 primitive나 의존성을 추가하지 않는다.
+- Best sellers와 Find my HOKA는 `createHomeCarouselPreviewItems`로 테스트용 항목 12개를 표시한다. Best sellers는 필터에 맞는 상품을 최대 12개 사용하며 부족하면 순환 반복한다. Find my HOKA도 기존 5개 카드를 반복한다. 빈 배열은 그대로 비우며, 반복 항목의 React key는 원본 식별자와 위치를 결합하고 원본 링크·상품 ID를 변경하지 않는다. 이 데이터 보충은 홈 wireframe 검증용이다.
+- 모바일 상품 카드의 정보·옵션 부모에 `minW=0`, `w=100%`를 적용하고 옵션 스크롤 행의 너비를 부모 안으로 제한했다. 썸네일 개수가 많아도 페이지를 밀어내지 않고 행 내부에서 스크롤한다.
+
+끝 정렬 후속 검증 (2026-10-16, Codex): 2560px에서 중앙 그리드 시작 514px·끝 2046px에 첫/마지막 카드를 맞췄다. `EndAlignedToGrid` play 검사는 중앙 그리드에 표시하는 개수를 제외한 정확한 클릭 횟수 안에 끝에 도달하고 다음 버튼이 disabled 되는지, 이전 버튼으로 같은 횟수 이동하면 시작 정렬과 disabled 상태로 복귀하는지를 확인한다. 끝 여백을 별도 카드나 추가 snap으로 취급하지 않는다. 1200·1920·2560·3840px의 홈에서 Best sellers 7회·Find my HOKA 8회 이동 직후 끝 정렬과 다음 버튼 disabled를 확인했으며, 실제 Next 앱 2560px에서도 같은 클릭 횟수와 끝 좌표 2046px를 확인했다.
+
+Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 대형 화면 스토리를 제공한다. HomeCarouselSection에는 4/5열, 대형 화면, 단일 항목, 빈 항목, 모바일 스토리가 있다. 모든 스토리는 `src/stories/`에 둔다.
+
+검증 (2026-10-16, Codex): Edge headless에서 홈·상품 목록·상품 상세·런클럽 상세를 375·768·1200·1600·1920·2560·3840px로 렌더해 28개 화면의 페이지 가로 넘침과 WEB 중앙 프레임·헤더·캐러셀 정렬을 측정했다. 1920·2560·3840px에서 Best sellers·Find my HOKA 각 12개 항목, 마우스 드래그와 좌우 컨트롤을 확인했다. 끝 정렬 기준은 후속 수정으로 화면 끝에서 중앙 그리드 끝으로 변경했다. 공통 캐러셀의 단일/빈 항목 컨트롤 비활성화, 필터 변경 시 위치 초기화, 상품 이미지 뷰어의 초점·Escape·복원도 확인했다. 실제 Next 앱의 900px 뷰포트에서 WEB 캔버스 1200px와 레일 55~1200px를 측정했다. 타입 검사·프로덕션 빌드·Storybook 빌드가 통과했다. 기본 lint는 기존 `.tmp*/`의 생성 번들을 검사해 실패했으며, `npm run lint -- --ignore-pattern '.tmp*/**'`는 통과했다.
+
+## 푸터 레이아웃과 모바일 메뉴 (2026-10-16)
+
+브랜드 로고 너비는 PC 104px·모바일 115px이며 높이는 비율에 따라 자동 결정한다. 모바일 메뉴 제목의 세로 여백은 spacing 5, 펼친 패널은 위 0·왼쪽 spacing 7·아래 spacing 4, 링크 간격은 spacing 2를 사용한다. Accordion은 여러 그룹을 동시에 펼칠 수 있다. 사업자 제목은 PC body3·모바일 body4, 모바일 정보 간격은 12px이며 사업자정보확인 링크에 밑줄과 4px 오프셋을 지정한다. Shop 링크는 매장 찾기·본디·클리프톤·스피드고트·마파테·호파라로 구성한다. PC 푸터 여백은 세로 96px·가로 32px로 명시한다.
+
+커밋 전 검증(Codex): 타입 검사·푸터 ESLint·Panda 생성 통과. Prettier 기본 검사는 LF/CRLF 차이로 경고를 보고했으며, 줄바꿈을 각 파일에 맞추면 포맷 차이가 없다. 브라우저 시각·Accordion 동작 검증은 이번 커밋 작업에서 수행하지 않았다.
+
+## 헤더 회원 혜택 배너
+
+2026-10-16 fade·단일 항목 변경 검증(Codex): 타입 검사·변경 TSX ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 이번 작업에서 Storybook play의 브라우저 실행은 수행하지 않았다.
+
+2026-10-16 단일 데이터 처리: `HeaderPromotionCarousel`은 items가 1개면 Carousel·Swiper·Nav를 생성하지 않고 정적 중앙 콘텐츠를 렌더링한다. Nav 공간 없이 좌우 8px 여백만 사용하며 링크·버튼 종류별 배치는 유지한다. 0개면 콘텐츠를 렌더링하지 않고 2개 이상이면 순환 fade를 사용한다. 현재 데모 데이터는 나머지 항목을 주석 처리해 1개를 표시한다. `PromotionNavigation` play는 단일 항목의 문구·Swiper 미생성·Nav 숨김과 다중 항목의 순환을 데이터 개수에 따라 검사한다.
+
+2026-10-16 전환 효과: `HeaderPromotionCarousel`은 `CarouselViewport effect="fade"`를 사용한다. Viewport의 기본값은 `slide`이며 fade는 Swiper EffectFade·전용 CSS와 `fadeEffect.mode="cross-fade"`를 사용한다. fade에서는 한 항목씩 표시하고 자유 이동·슬라이드 간격·모바일 끝 여백을 비활성화한다. 헤더의 좌우 이동 버튼·순환·활성 문구 너비 측정은 유지한다. `PromotionNavigation` play에 fade 클래스와 전환 후 활성 슬라이드 opacity 검사를 추가했다.
+
+2026-10-16 콘텐츠 타이포·정렬 수정: 안내 문구는 PC `body3`·모바일 `body5`, 링크는 PC `textLink2`·모바일 `textLink3`를 명시한다. `memberBenefits`의 VStack에만 `justifyContent="center"`를 적용하고, `details`에는 `undefined`를 전달해 기본 정렬을 사용한다. Panda의 `justifyContent` 타입은 `null`을 허용하지 않는다. 커밋 전 타입 검사·해당 파일 ESLint·Prettier·Panda 생성을 통과했다. 이번 작업에서 브라우저 시각 검증은 수행하지 않았다.
+
+2026-10-16 Nav 간격 수정: 960px까지 확장하던 프레임을 현재 슬라이드 콘텐츠 너비에 맞췄다. 내부 `PromotionCarouselFrame`이 Carousel의 activeIndex와 콘텐츠 ref를 사용하고 ResizeObserver로 문구·폰트·컨테이너 변경을 반영한다. 좌우 32px 버튼과 콘텐츠 사이 간격은 각각 35px, 외곽 여백은 각각 8px다. 콘텐츠는 max-content 너비·중앙 정렬이며 배너의 inline-size 컨테이너 기준으로 사용 가능한 폭을 제한한다. 슬라이드 overflow를 숨겨 너비 변경 후 인접 문구가 비치는 것을 막는다. PC·375px·320px 모바일에서 좌우 35px 간격과 중앙 오차 0.01px 미만을 브라우저로 확인했다. 타입 검사·변경 파일 ESLint·Panda 생성을 통과했다.
+
+2026-10-16 데모·Nav 검증(Codex): 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 브라우저에서 `PromotionNavigation` play로 4개 슬라이드의 정방향 순환·첫 항목에서 이전 이동·버튼 종류별 row/column 배치를 확인했다. 별도로 375px 모바일 기본 슬라이드의 문구와 좌우 버튼 표시를 확인했다.
+
+2026-10-16 Carousel 구성은 같은 폴더의 내부 `HeaderPromotionCarousel`로 분리했다. 이 컴포넌트가 뷰포트·슬라이드 스타일과 4개 콘텐츠·순환 설정을 소유하며, `HeaderPromotionBanner`는 외곽 레이아웃과 `buttonType` 전달만 담당한다. 분리 과정에서 DOM·슬라이드 개수·동작·스타일은 유지했다.
+
+2026-10-16 배너 콘텐츠는 `headerPromotionData.ts`의 서로 다른 데모 문구 4개를 순회해 렌더링한다. 각 항목은 id·message·href·buttonType을 가지며 `HeaderPromotionCarousel`의 `items` prop으로 교체할 수 있다. 슬라이드는 너비 100%·중앙 정렬이며 50px 배너 안에서 하나씩 표시한다. `loop`·snap 전환(`freeMode={false}`)을 사용하고 스크롤바는 숨긴다. 공통 `CarouselControls`를 배너 양 끝에 32px 버튼·24px 흰색 화살표로 배치한다. 공통 컨트롤은 `className`을 받고 순환 모드에서는 항목이 2개 이상일 때 양쪽 버튼을 활성화한다. 자동 재생은 설정하지 않는다.
+
+2026-10-16 배너 외곽은 `HStack as="aside"`로 표현한다. 기본 가로 배치·세로 중앙 정렬을 사용하고 높이·간격·배경은 JSX 스타일 props로 지정한다. 흰색 글자의 기존 `&&` 명시도는 `css` prop으로 유지한다.
+
+2026-10-16 구성 분리: `HeaderPromotionBanner`는 aside와 배너 외곽 스타일을 담당하고, 같은 폴더의 내부 구성 `HeaderPromotionContent`는 안내 문구·상세 링크·버튼 종류별 배치를 담당한다. `details`는 `HStack`·gap 4·“자세히 보기”, `memberBenefits`는 `VStack`·gap 0·“회원 혜택 자세히 보기”를 선택한다. 기본 배너는 데이터의 버튼 종류를 사용하고 배너의 선택적 `buttonType` prop으로 전체 슬라이드를 덮어쓸 수 있다. 플랫폼과 무관한 계약이며 Typography·링크 색상은 유지한다.
+
+`SiteHeader`는 PC와 모바일 모두 같은 데모 데이터를 표시한다. 배너는 50px 높이를 유지하고 Carousel 내부 프레임은 현재 콘텐츠 너비에 맞춰 좌우 8px 여백을 사용한다. 모바일 안내와 링크는 12px Typography를 사용한다. 안내 문구와 경로는 데이터에서 받고 링크 문구와 가로·세로 배치는 버튼 종류에 따른다. 데모 링크는 모두 기존 `/products` 경로를 사용한다.
+
+사용자 제공 이미지와 Figma 노드 `362:44160`을 구현 요청의 출처로 기록한다. Figma 연결은 재인증 오류로 상세 조회하지 못했으며, 첨부 이미지와 기존 스타일 기준으로 구현했다. 320px·375px Storybook 모바일 배너에서 가로 넘침 없음과 50px 높이를 확인했고, PC에서 row 방향·16px 간격·50px 높이를 확인했다. TypeScript 검사, 변경 파일 ESLint와 Panda 생성을 통과했다. Figma 원본 수치와의 일치 검증은 수행하지 않았다.
+
 ## 고객센터 메인 (2026-10-16)
 
 고객센터 공통 소개 영역은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
@@ -280,6 +604,14 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 `MenuDrawerBase({ menus, onSelectMenu, onNavigate })`는 기본 쇼핑 메뉴와 모바일 광고를 소유하며 `<Stack gap="56px">`으로 두 영역의 간격을 정한다. 광고의 개별 margin-top은 사용하지 않는다. `MenuDrawerNavigation`은 기본/상세 분기와 외곽 패딩, 상세 뒤로가기를 유지한다.
 
+## 상품 가격 할인 표시
+
+`ProductPrice`의 `price`는 현재 판매가이며 선택적인 `originalPrice`가 판매가보다 크고 판매가가 0 이상이면 할인 표시를 사용한다. 정상가는 위쪽에 회색 취소선(`del`)으로, 반올림한 정수 할인율은 아래 판매가 왼쪽에 `red80` 색으로 표시한다. 할인 정보가 없거나 정상가와 판매가가 같으면 기존 판매가만 표시한다. 가격 Typography의 PC·모바일 크기와 원 단위 강조를 유지한다. `ProductCard`와 hover 미리보기는 `ProductDetails` → `ProductDetailsIdentity` → `ProductPrice`로 `originalPrice`를 전달한다. 목 상품 `shoe-3`(Daily Motion 3)은 정상가 290,000원·판매가 232,000원의 20% 할인 예시이며, 가격 필터와 정렬은 기존 판매가 `price`를 사용한다. `Molecules/Product Card`의 Discounted 스토리에서도 확인할 수 있다.
+
+`Molecules/Product Price` 스토리에서 일반가·20% 할인(290,000원 → 232,000원)·모바일 할인·동일 가격을 확인할 수 있다.
+
+커밋 전 검증(Codex): 타입 검사, 임시 생성 산출물을 제외한 전체 린트(`npm run lint -- --ignore-pattern ".tmp-*/**"`), 변경 소스 Prettier 검사, Next.js production build·Storybook build와 기존 주문 합계 테스트 3개를 통과했다. 이번 커밋 작업에서 브라우저 상호작용 검증은 실행하지 않았다.
+
 ## 상품 카드 상품명 말줄임
 
 ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, minW=0으로 카드 너비 안에 제한한다. 부모의 alignItems=flex-start 아래에서 내부 묶음이 긴 상품명의 내용 너비로 확장되면 ProductName의 truncate가 있어도 옆 카드와 겹친다. ProductName의 기존 한 줄 말줄임 스타일을 유지하고 부모 너비를 제한해 HOME 베스트셀러를 포함한 상품 카드에서 적용되도록 한다.
@@ -345,6 +677,10 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 주문/결제 화면(`src/shared/features/checkout/`)은 `FormField`·`TextInput`·`Radio`·`StepIndicator` 등 기존 요소를 조합한 목 화면이며 실제 결제와 연동하지 않는다.
 
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
+
+2026-10-16 Carousel 내부 분리: `Carousel.tsx`는 상태·Swiper 등록·이동 콜백·Provider를 담당한다. `CarouselContext.ts`는 내부 Context와 `useCarousel`을 제공하고, `CarouselViewport.tsx`는 Swiper·슬라이드 여백·SimpleBar 위치 동기화를 담당한다. `CarouselScrollbar.tsx`는 전달받은 ref·콜백·측정값으로 모바일 스크롤바를 렌더링한다. `CarouselPagination.tsx`와 `CarouselControls.tsx`는 각각 선택 표시·이동 버튼과 해당 Panda 스타일을 소유한다. 기존 `Carousel.tsx` 경로에서 Viewport·Pagination·Controls와 공개 props 타입을 재export하므로 호출자 import는 유지한다. 분리 과정에서는 기존 DOM·여백·전환·reduced-motion 동작을 유지한다. 표시 크기는 위 props 계약에 따라 변경할 수 있으며, Controls는 순환 모드에서 항목이 2개 이상이면 양쪽 이동 버튼을 활성화한다.
+
+Carousel 분리 검증(Codex, 2026-10-16): 타입 검사·해당 폴더 ESLint·Prettier·Panda 생성·Storybook 빌드 통과. 기존 배너 `PromotionNavigation` play에서 정방향 순환·역방향 이동·버튼 종류별 배치를 확인했고, `MobilePeek`에서 슬라이드 5개와 SimpleBar 수평 스크롤바 렌더링을 확인했다. 모바일 스크롤바 드래그와 페이지네이션 선택의 추가 브라우저 검증은 수행하지 않았다.
 
 공통 UI로 올리기 전에 기존 컴포넌트를 검색한다. 여러 기능에 공통으로 적용되는 의미·인터랙션 계약이 있을 때 재사용 컴포넌트로 추출한다. 자세한 검토 절차는 `.codex/skills/component-reusability/SKILL.md`에 있다.
 
@@ -422,17 +758,17 @@ Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField�
 
 사용자가 지정한 catalog, find-account, home, identity-verification, mypage, product, run-club, signup-terms, signup을 점검했다. 기존 staged 변경을 보존하고 아래 책임 경계와 타입 스케일을 개선했다. 모든 폴더에 새 추상화를 강제로 추가하지 않는다.
 
-| 폴더                  | 판단·반영      | API와 보존할 계약                                                                                                                                                                                                                                                                                   |
-| --------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| catalog               | 유지           | ProductListingPage의 URL·필터·결과 계산, 기존 Layout/Content와 desktop/mobile leaf, 순수 filter/policy/metadata가 이미 분리됨. 필터 적용·초기화·정렬·뒤로가기 정책을 레이아웃으로 옮기지 않음                                                                                                       |
-| find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                             |
-| identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                |
-| home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                            |
-| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 main/section·너비 500px·반응형 여백·제목·진행 표시를 소유. 단계 상태와 약관/입력 검증, 방법 선택·라우팅은 기존 Page 유지. step 0은 기존 방법 선택 화면, 나머지는 기존 h1/진행 표시를 유지                                                    |
-| product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·1532px 너비·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지           |
-| signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                            |
-| mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함 |
-| run-club              | 반영·유지      | SessionHero h1을 `Typography sessionTitle`로 이전. 기존 목록의 Page→Layout→Header/Results 및 상세의 Hero/Guide/Recommendations/Notice 책임은 명확해 유지. Guide의 포스터·안내 본문 스케일은 후속 Typography 정리 후보이며 PC 96px/모바일 42px 포스터와 행간 1.05·자간 -0.04em을 보존해야 함         |
+| 폴더                  | 판단·반영      | API와 보존할 계약                                                                                                                                                                                                                                                                                                        |
+| --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| catalog               | 유지           | ProductListingPage의 URL·필터·결과 계산, 기존 Layout/Content와 desktop/mobile leaf, 순수 filter/policy/metadata가 이미 분리됨. 필터 적용·초기화·정렬·뒤로가기 정책을 레이아웃으로 옮기지 않음                                                                                                                            |
+| find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                                                  |
+| identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                                     |
+| home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                                                 |
+| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 main/section·너비 500px·반응형 여백·제목·진행 표시를 소유. 단계 상태와 약관/입력 검증, 방법 선택·라우팅은 기존 Page 유지. step 0은 기존 방법 선택 화면, 나머지는 기존 h1/진행 표시를 유지                                                                         |
+| product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·전체 너비 프레임과 최대 1532px 내부 그리드·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지 |
+| signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                                                 |
+| mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함                      |
+| run-club              | 반영·유지      | SessionHero h1을 `Typography sessionTitle`로 이전. 기존 목록의 Page→Layout→Header/Results 및 상세의 Hero/Guide/Recommendations/Notice 책임은 명확해 유지. Guide의 포스터·안내 본문 스케일은 후속 Typography 정리 후보이며 PC 96px/모바일 42px 포스터와 행간 1.05·자간 -0.04em을 보존해야 함                              |
 
 `profileTitle`은 기본 글꼴·PC 32px/모바일 28px·굵기 700·행간/자간 normal, `sessionTitle`은 기본 글꼴·36px/28px·900·1.2·-0.04em이다. 각각 `--type-profile-title-*`, `--type-session-title-*`의 PC/모바일 크기·굵기·행간·자간 토큰과 public variant 타입을 추가했다. 기존 heading variants와 전체 스케일이 달라 무조건 치환하지 않았다. 기존 h1 의미와 여백을 유지하며 PC·모바일 스토리를 추가했다. 상품 너비·메타 Typography의 정적인 `style={{ color: 'inherit' }}`는 같은 의미의 `tone="inherit"`로 옮겼다.
 
@@ -475,6 +811,12 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 | AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                      |
 
 `AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+| 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LocalesPage의 데이터·프레임·지역 목록 혼합          | `locales.data.ts`의 readonly `LocaleRegion`/`LocaleCountry`, `LocalesLayout({ children })`, `LocaleRegionSection({ region })`                                               | main → 제목 영역 → 콘텐츠 → section 순서, 링크·언어별 항목·국기·목록 순서 유지. PC 4단/모바일 2단 CSS columns, 간격 48px/24px 유지. Grid로 바꾸면 순서가 달라져 채택하지 않음                            |
+| PasswordResetPage의 중첩 필드 렌더 함수·페이지 표현 | `PasswordResetContent({ password, confirmation, errors, onFieldChange, onSubmit, completion })`, `PasswordResetField({ name, label, placeholder, value, error, onChange })` | main/section/form, 최대 500px, PC 상단 96px/모바일 40px, required·autocomplete·label·오류 설명 연결·alert 유지. 상태, touched 이후 확인 검증, 제출, 완료 모달/이동은 Page 소유                           |
+| 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                                                  |
+| AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 별도 fixed 배경·blur·z-index 90 래퍼를 제거하고 공통 ModalDialog backdrop을 사용한다. 버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유 |
 
 지역 제목의 `region-Asia Pacific`처럼 공백이 있던 id/aria-labelledby는 `region-asia-pacific` 등 명시적 고유 ID로 수정했다. aria-labelledby의 공백 토큰 분리로 지역 이름을 잃는 문제를 해소한다. 국가 링크 URL 자체는 변경하지 않았다.
 
@@ -562,7 +904,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 전역 `nextjs.appDirectory: true`가 App Router 탐색 컨텍스트를 제공한다. 경로·파라미터가 필요한 스토리는 Next.js navigation 설정이나 제공되는 모킹을 사용한다. React Router 래퍼를 추가하지 않는다.
 
-뷰포트 프리셋은 1920, 1600, 1200, 768, 375px이다. 접근성 검사 설정 `a11y.test: todo`는 검증 통과를 의미하지 않는다.
+뷰포트 프리셋은 3840, 2560, 1920, 1600, 1200, 768, 375px이다. 접근성 검사 설정 `a11y.test: todo`는 검증 통과를 의미하지 않는다.
 
 [로컬 실행](../development/setup.md), [변경 검증](../development/verification.md)을 참고한다.
 
@@ -585,7 +927,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 ## 마이페이지 러닝세션 신청내역
 
-메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub` 아래에 목록·빈 목록·상세 상태·모바일 스토리를 제공한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub--list`·`pages-mypage-runclub--mobile-list`, 259는 `pages-mypage-runclub--open`·`pages-mypage-runclub--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.
+메인 메뉴와 하위 페이지 공통 메뉴의 명칭·주소는 러닝세션 신청내역, `/mypage/event-entries`로 일치한다. 실제 화면과 경로 미리보기는 `RunClubPage`를 사용하고 기존 `MyPageStatusPage`의 이벤트·대회 신청 임시 분기는 제거했다. Storybook은 `PAGES/MYPAGE/RunClub/List`에 목록·빈 목록·모바일 목록을, `PAGES/MYPAGE/RunClub/Detail`에 Open·Closed·Upcoming과 모바일 상태·대형 화면 스토리를 제공한다. 두 CSF 파일은 `src/stories/features/run-club/RunClubPreview.tsx`를 공유해 플랫폼·AppLayout·데모 세션 구성을 유지한다. IA 200·258의 PC·모바일 링크는 `pages-mypage-runclub-list--list`·`pages-mypage-runclub-list--mobile-list`, 259는 `pages-mypage-runclub-detail--open`·`pages-mypage-runclub-detail--mobile-open`을 사용한다. IA 200을 기존 런클럽 목록과 동일한 완료 상태로 연결한다.
 
 타입 검사, 변경 범위 ESLint, Storybook 빌드와 생성된 `index.json`의 네 미리보기 ID·분류 일치를 확인했다. OKF 작업 트리 매핑 검사도 통과했다. 브라우저 상호작용 검증은 수행하지 않았다.
 
@@ -616,3 +958,25 @@ component-reusability 점검: 설치된 Base UI 1.8.0의 전체 package exports�
 Base UI 전체 exports(설치 버전 1.8.0)를 기준으로 Accordion·AlertDialog·Autocomplete·Combobox·ContextMenu·Dialog·Drawer·Menu·Menubar·NavigationMenu·Popover·PreviewCard·ScrollArea·Select·Separator·Switch·Tabs·Toast·Toolbar·Tooltip·Meter·OTPField·NumberField·Slider·Checkbox·Radio·ToggleGroup·Form 등을 대조했다. 현재 관찰된 상호작용은 필터 버튼과 신청 안내 모달이다. Button·Dialog는 설치 버전에서 지원하며 기존 공통 Button·ModalDialog 래퍼를 재사용한다. 단일 선택 필터는 native 버튼의 aria-pressed 및 group 계약으로 충분해 Tabs·ToggleGroup으로 교체하지 않는다. dl·aside·ul에는 추가 Base UI가 필요 없다. 의존성 업그레이드가 필요한 후보는 없다.
 
 재점검 검증: Panda 생성·타입 검사·변경 범위 ESLint·Next.js production build·Storybook build·App Router 회귀 2개·OKF 작업 트리 매핑·git diff --check를 통과했다. 브라우저에서 모바일 트레일 2개/전체 3개 선택, 모달 확인 후 신청 버튼 포커스 복귀, 320px clientWidth=scrollWidth=305px을 확인했다. 375px 상세는 360px 정사각형 이미지와 높이 93px 고정 바를 유지하고 본문 14px/22.4px·안내 12px/21.6px 및 Pretendard를 확인했다. PC 상세는 640px 두 열·72px 상하 여백, 안내 두 열, 모바일 바 display:none, 본문 16px/25.6px, placeholder 28px/900을 확인했다.
+
+## 레이아웃 JSX와 모달 액션 슬롯 (2026-10-16)
+
+Signup·Home·Locales·RunClub 상세·Notices·상품 지원/배송 영역·이미지 뷰어의 단일 배치 스타일은 Panda Box/Stack JSX props로 표현한다. main/section 의미, 기존 너비·간격·반응형 조건, 이미지 뷰어의 키보드 처리와 런클럽 모바일 고정 바에 필요한 인접 footer 여백을 유지한다.
+
+RunClubApplicationNotice, MyPageReviews, MyPageProfile의 탈퇴 확인, MyPageAddresses의 삭제 확인, MyPage의 로그아웃 확인, PasswordResetCompleteModal, IdConfirmationModal, AccountLockedContent의 액션은 ModalDialog의 footer 슬롯이 렌더링한다. 본문은 스크롤 영역에 남고 액션은 공통 고정 푸터 배치·여백을 따른다. 두 버튼을 담는 HStack/Flex는 w=100%로 영역을 채우며 아이디 확인의 모바일 세로 배치를 유지한다. 기존 저장 검증·상태 변경·닫기·이동 콜백과 공통 Dialog의 포커스/키보드 책임을 유지한다. 본문에서 푸터로 이동하면서 공통 footer의 여백이 적용되는 것은 의도된 변경이다.
+
+브라우저에서 계정 찾기 모달 3종의 PC/모바일 footer, 리뷰 필수값 검증과 저장, 배송지 삭제, 탈퇴/로그아웃 취소, 런클럽 확인 후 닫기를 확인했다. JSX 이전 후 회원가입 4개 상태와 기존 홈·상품·국가 선택·마이페이지·런클럽·배송 안내의 DOM/좌표 비교도 통과했다.
+
+회원가입의 우편번호 찾기는 기능 내부 `AddressSearchModal`로 분리했다. open·postalCode·address·변경 콜백·idPrefix를 받는 controlled API로 회원가입 데이터 타입에 의존하지 않는다. 현재 수동 입력 안내와 기존 label/id·입력 즉시 반영·확인 시 닫기를 유지하고 확인 버튼은 ModalDialog.footer에 둔다. 이후 공용 팝업 작업에서 organisms/Address로 승격하고 마이페이지에도 연결했다. 현재는 주소 검색 서비스 연동을 제공하지 않는다. Registration Storybook의 AddressSearch·MobileAddressSearch는 부모 입력 상태를 함께 제어한다.
+
+## 기능별 모달 구성 분리 (2026-10-16)
+
+MyPage의 로그아웃, 배송지 삭제, 탈퇴 확인/완료, 리뷰 편집은 각각 MyPageLogoutDialog·MyPageAddressDeleteDialog·MyPageWithdrawalDialog·MyPageWithdrawalCompleteDialog·MyPageReviewDialog로 분리한다. 모달은 controlled open·표시 값·콜백만 받으며 목록 삭제, 로그아웃, 탈퇴 단계 전환, 리뷰 검증/저장과 상태 수명은 기존 부모가 소유한다. 문구·입력 label·Dialog 크기·footer 버튼 배치를 유지한다.
+
+PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 데이터·구분선 스타일을 소유한다. 부모는 detail 선택 상태와 닫기 콜백을 전달한다. 기존 모바일 fullscreen 조건을 유지하며 알뜰폰 확인 버튼은 ModalDialog.footer로 옮겨 공통 고정 푸터 계약을 따른다. PasswordResetCompleteModal과 RunClubApplicationNotice는 이미 독립된 모달로서 유지한다. 당시에는 기능 내부 조합으로 유지했다. 이후 로그아웃과 공통 확인·취소 표현은 위의 대분류 간 공용 팝업 작업에서 공용화했다.
+
+브라우저에서 리뷰 필수값 검증/저장, 배송지 삭제, 탈퇴 취소 및 확인→완료 안내 닫기, 로그아웃 취소, 런클럽 확인 닫기를 확인했다. 1920/375px 알뜰폰 안내의 사업자 3개 그룹과 footer 확인 닫기도 확인했다.
+
+런클럽 목록·상세 스토리는 RunClubPreview를 공유하며, 목록은 `pages-mypage-runclub-list--list`, 상세 기본은 `pages-mypage-runclub-detail--open`으로 접근한다. IA 200/258/259 미리보기도 새 분류를 사용한다.
+
+기능별 JSX·모달 분리 구현은 자체 파일에 배치와 안내 문구를 두고 기존 부모가 제어하는 값/콜백을 받는다. 계정 잠금 화면은 중복 배경 래퍼 없이 공통 ModalDialog의 backdrop·포커스 처리를 사용한다. 가입 주소 모달의 확인 액션과 각 기능의 모달 액션은 footer 슬롯을 사용한다.

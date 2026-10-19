@@ -21,11 +21,10 @@ export function FooterNavigationLinks({ links, platform }: FooterNavigationLinks
     <VStack
       as="ul"
       alignItems="flex-start"
-      gap={platform === 'mobile' ? '22px' : '10px'}
+      gap={platform === 'mobile' ? '2' : '10px'}
       m={0}
       p={0}
       listStyle="none"
-      _mobile={{ m: '-2px 0 0' }}
     >
       {links.map((link) => (
         <li key={link.label}>

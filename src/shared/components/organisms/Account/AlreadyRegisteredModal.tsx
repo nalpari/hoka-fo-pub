@@ -1,8 +1,7 @@
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 const styles = {
   body: css({ gap: '4' }),
@@ -10,24 +9,21 @@ const styles = {
   description: css({ m: '0' }),
 };
 
-type AlreadyRegisteredModalProps = {
+export type AlreadyRegisteredModalProps = {
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
 
 export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegisteredModalProps) {
   return (
-    <ModalDialog
+    <SingleActionDialog
       open
       onOpenChange={onOpenChange}
       title="회원가입"
       closeLabel="이미 가입한 회원 안내 닫기"
       size="md"
-      footer={
-        <Button variant="primary" size="short" fullWidth onClick={onConfirm}>
-          확인
-        </Button>
-      }
+      onConfirm={onConfirm}
+      confirmButtonProps={{ size: 'short', fullWidth: true }}
     >
       <Stack gap="4" className={styles.body}>
         <Typography as="h2" variant="body2" className={styles.heading}>
@@ -38,6 +34,6 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
           메뉴를 사용하거나 고객센터로 문의해주세요.
         </Typography>
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

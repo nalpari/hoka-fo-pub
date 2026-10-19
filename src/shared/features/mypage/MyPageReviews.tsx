@@ -5,13 +5,12 @@ import { css } from 'styled-system/css';
 import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
-import { RatingInput, type RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
+import type { RatingValue } from '@/shared/components/atoms/RatingInput/RatingInput';
 import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { Select } from '@/shared/components/atoms/Select/Select';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { MyPageReviewDialog } from '@/shared/features/mypage/MyPageReviewDialog';
 import { ProductThumbnail } from '@/shared/components/molecules/ProductThumbnail/ProductThumbnail';
 import { MyPageFrame } from './MyPageFrame';
 
@@ -163,54 +162,31 @@ export function MyPageReviews({ initialReadyCount = 62 }: { initialReadyCount?: 
           <EmptyState title="작성한 리뷰가 없습니다." variant="minimal" />
         )}
       </Stack>
-      <ModalDialog
-        closeLabel="리뷰 작성창 닫기"
+      <MyPageReviewDialog
+        open={editing !== null}
+        title={tab === 'ready' ? '상품리뷰 작성' : '상품리뷰 수정'}
+        rating={rating}
+        body={body}
+        invalid={submitted && (!rating || !body.trim())}
         onOpenChange={(open) => {
           if (!open) closeEditor();
         }}
-        open={editing !== null}
-        size="sm"
-        title={tab === 'ready' ? '상품리뷰 작성' : '상품리뷰 수정'}
-      >
-        <Stack gap="5">
-          <Typography as="p" variant="body3">
-            클리프톤 9은(는) 어떠셨나요?
-          </Typography>
-          <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
-          <TextInput
-            aria-label="리뷰 내용"
-            multiline
-            placeholder="상품 사용 경험을 입력해 주세요"
-            value={body}
-            onChange={(event) => setBody(event.target.value)}
-          />
-          {submitted && (!rating || !body.trim()) ? (
-            <Typography variant="body5" tone="error">
-              별점과 리뷰 내용을 입력해 주세요.
-            </Typography>
-          ) : null}
-          <Button
-            fullWidth
-            size="short"
-            variant="primary"
-            onClick={() => {
-              setSubmitted(true);
-              if (rating && body.trim()) {
-                if (editing !== null && !writtenIds.includes(editing))
-                  setWrittenIds((current) => [...current, editing]);
-                if (editing !== null)
-                  setWrittenReviews((current) => ({
-                    ...current,
-                    [editing]: { rating, body: body.trim() },
-                  }));
-                closeEditor();
-              }
-            }}
-          >
-            저장
-          </Button>
-        </Stack>
-      </ModalDialog>
+        onRatingChange={setRating}
+        onBodyChange={setBody}
+        onSave={() => {
+          setSubmitted(true);
+          if (rating && body.trim()) {
+            if (editing !== null && !writtenIds.includes(editing))
+              setWrittenIds((current) => [...current, editing]);
+            if (editing !== null)
+              setWrittenReviews((current) => ({
+                ...current,
+                [editing]: { rating, body: body.trim() },
+              }));
+            closeEditor();
+          }
+        }}
+      />
     </MyPageFrame>
   );
 }

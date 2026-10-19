@@ -4,8 +4,13 @@ import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
-const group = css({ display: 'flex', gap: '0' });
+const group = css({
+  display: 'flex',
+  gap: '0',
+  '&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
+});
 
 // The star is an icon glyph. Retain the review control's existing Button presentation.
 const star = cva({
@@ -42,8 +47,10 @@ export function RatingInput({
   name,
   className,
 }: RatingInputProps) {
+  const field = useFormFieldContext();
   return (
     <RadioGroup<RatingValue>
+      aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       value={value}
       onValueChange={onValueChange}

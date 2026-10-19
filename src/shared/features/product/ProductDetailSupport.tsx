@@ -1,15 +1,10 @@
-import { css, cva } from 'styled-system/css';
+import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 import { Accordion, type AccordionEntry } from '@/shared/components/atoms/Accordion/Accordion';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductDetailAfterSalesContent } from '@/shared/features/product/ProductDetailAfterSalesContent';
 import { ProductDetailDeliveryContent } from '@/shared/features/product/ProductDetailDeliveryContent';
 import { ProductDetailInquiryContent } from '@/shared/features/product/ProductDetailInquiryContent';
-
-const root = cva({
-  base: {
-    borderTop: '1px solid var(--color-black-20)',
-  },
-});
 
 const wrapper = css({
   borderBottom: '1px solid var(--color-black-20)',
@@ -37,8 +32,8 @@ const items: AccordionEntry[] = [
 
 export function ProductDetailSupport() {
   return (
-    <section aria-label="상품 안내" className={root()}>
+    <Box as="section" aria-label="상품 안내" borderTop="1px solid var(--color-black-20)">
       <Accordion indicatorSize="13px" items={items} multiple={false} itemClassName={wrapper} />
-    </section>
+    </Box>
   );
 }

@@ -13,6 +13,18 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Width3840: Story = {
+  name: '3840px',
+  args: { platform: 'web' },
+  globals: { viewport: 'hoka3840' },
+};
+
+export const Width2560: Story = {
+  name: '2560px',
+  args: { platform: 'web' },
+  globals: { viewport: 'hoka2560' },
+};
+
 export const Width1920: Story = {
   name: '1920px',
   args: { platform: 'web' },

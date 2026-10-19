@@ -8,7 +8,7 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { AddressSearchModal } from '@/shared/components/organisms/Address/AddressSearchModal';
 
 export type RegistrationInformation = {
   name: string;
@@ -50,7 +50,7 @@ type Props = {
     name: string;
     password: string;
     confirmation: string;
-  };
+  } & Partial<Record<keyof RegistrationInformation, string>>;
   addressOpen: boolean;
   onChange: (key: keyof RegistrationInformation, value: string) => void;
   onPreferenceChange: (key: keyof MarketingPreferences, value: string) => void;
@@ -70,18 +70,7 @@ export function RegistrationContent(props: Props) {
     fieldId = `registration-${key}`,
     disabled = false,
   ) => {
-    const error =
-      key === 'email'
-        ? props.fieldErrors.email
-        : key === 'domain'
-          ? props.fieldErrors.domain
-          : key === 'name'
-            ? props.fieldErrors.name
-            : key === 'password'
-              ? props.fieldErrors.password
-              : key === 'confirmation'
-                ? props.fieldErrors.confirmation
-                : '';
+    const error = props.fieldErrors[key] ?? '';
 
     return (
       <FormField
@@ -147,7 +136,7 @@ export function RegistrationContent(props: Props) {
             {props.stage === 'information' ? '회원 정보' : '부가 정보'}
           </Typography>
         </Box>
-        <form onSubmit={props.onSubmit}>
+        <form noValidate onSubmit={props.onSubmit}>
           <Stack gap="4">
             {props.stage === 'information' ? (
               <>
@@ -210,6 +199,7 @@ export function RegistrationContent(props: Props) {
                     <FormField
                       variant="boxed"
                       htmlFor="registration-postalCode"
+                      error={props.fieldErrors.postalCode}
                       label="우편번호"
                       required
                       disabled
@@ -235,6 +225,7 @@ export function RegistrationContent(props: Props) {
                 <FormField
                   variant="boxed"
                   htmlFor="registration-address"
+                  error={props.fieldErrors.address}
                   label="주소"
                   required
                   disabled
@@ -281,29 +272,15 @@ export function RegistrationContent(props: Props) {
           </Stack>
         </form>
       </Box>
-      <ModalDialog
+      <AddressSearchModal
         open={props.addressOpen}
         onOpenChange={props.onAddressOpen}
-        title="우편번호 찾기"
-        closeLabel="우편번호 찾기 닫기"
-      >
-        <Stack>
-          <Typography as="p" variant="body4">
-            주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
-          </Typography>
-          {field(
-            'postalCode',
-            '우편번호',
-            '우편번호를 입력해주세요',
-            'text',
-            'registration-postalCode-dialog',
-          )}
-          {field('address', '주소', '주소를 입력해주세요', 'text', 'registration-address-dialog')}
-          <Button variant="primary" onClick={() => props.onAddressOpen(false)}>
-            확인
-          </Button>
-        </Stack>
-      </ModalDialog>
+        postalCode={props.information.postalCode}
+        address={props.information.address}
+        idPrefix="registration"
+        onPostalCodeChange={(value) => props.onChange('postalCode', value)}
+        onAddressChange={(value) => props.onChange('address', value)}
+      />
     </Box>
   );
 }

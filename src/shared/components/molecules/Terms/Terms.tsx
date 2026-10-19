@@ -4,6 +4,7 @@ import { useId, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const root = css({
   display: 'flex',
@@ -49,7 +50,8 @@ export function Terms({
 }: TermsProps) {
   const id = useId();
 
-  const hasError = invalid || Boolean(error);
+  const field = useFormFieldContext();
+  const hasError = invalid || Boolean(error) || Boolean(field?.invalid);
 
   return (
     <div className={[root, className].filter(Boolean).join(' ')}>
@@ -68,7 +70,9 @@ export function Terms({
         }
         className={checkbox}
         aria-invalid={hasError || undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={
+          [field?.describedBy, error ? `${id}-error` : ''].filter(Boolean).join(' ') || undefined
+        }
       />
       {error ? (
         <Typography

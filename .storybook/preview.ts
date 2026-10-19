@@ -10,6 +10,16 @@ const preview: Preview = {
     options: { storySort: { order: ['Development', 'PAGES'] } },
     viewport: {
       options: {
+        hoka3840: {
+          name: 'HOKA · 3840px',
+          styles: { width: '3840px', height: '2160px' },
+          type: 'desktop',
+        },
+        hoka2560: {
+          name: 'HOKA · 2560px',
+          styles: { width: '2560px', height: '1440px' },
+          type: 'desktop',
+        },
         hoka1920: {
           name: 'HOKA · 1920px',
           styles: { width: '1920px', height: '1080px' },

@@ -1,5 +1,8 @@
+'use client';
+
 import type { CSSProperties, SelectHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const select = css({
   minH: 'var(--field-height, 38px)',
@@ -35,16 +38,29 @@ export function Select({
   fullWidth = false,
   ...props
 }: SelectProps) {
+  const field = useFormFieldContext();
+  const hasError =
+    invalid ||
+    Boolean(field?.invalid) ||
+    props['aria-invalid'] === true ||
+    props['aria-invalid'] === 'true';
+
   return (
     <select
       {...props}
-      aria-invalid={invalid || props['aria-invalid'] || undefined}
-      data-invalid={invalid ? 'true' : undefined}
+      id={props.id ?? field?.htmlFor}
+      required={props.required ?? field?.required}
+      disabled={props.disabled || field?.disabled}
+      aria-describedby={
+        [props['aria-describedby'], field?.describedBy].filter(Boolean).join(' ') || undefined
+      }
+      aria-invalid={hasError || props['aria-invalid'] || undefined}
+      data-invalid={hasError ? 'true' : undefined}
       style={
         {
           '--field-height': '38px',
           '--field-border-width': '1px',
-          '--field-border-color': invalid
+          '--field-border-color': hasError
             ? 'var(--color-danger-border, var(--color-error))'
             : 'var(--color-field-border)',
           '--field-radius': 'var(--radius-sm)',

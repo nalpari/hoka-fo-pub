@@ -7,6 +7,8 @@ const list = cva({
     layout: {
       scroll: {
         display: 'flex',
+        minW: '0',
+        maxW: '100%',
         gap: '1',
         overflowX: 'auto',
         scrollbarWidth: 'none',

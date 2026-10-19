@@ -22,6 +22,7 @@ const styles = {
     gap: '4',
   }),
   privacy: css({ fontWeight: 'bold' }),
+  businessLink: css({ textDecoration: 'underline', textUnderlineOffset: '4px' }),
 };
 
 export function FooterLegalLinks() {
@@ -34,10 +35,10 @@ export function FooterLegalLinks() {
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >
-      <Typography as="h3" variant="body3" tone="inverse">
+      <Typography as="h3" web="body3" mo="body4" tone="inverse">
         ㈜ 이랜드글로벌스포츠
       </Typography>
-      <Stack gap={platform === 'mobile' ? '4' : '18px'} className={styles.meta}>
+      <Stack gap={platform === 'mobile' ? '12px' : '18px'} className={styles.meta}>
         <Flex className={styles.row}>
           <Link href="/support/terms">서비스이용약관</Link>
           <Link href="/support/terms?tab=privacy" className={styles.privacy}>
@@ -71,6 +72,7 @@ export function FooterLegalLinks() {
             href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1568801028"
             target="_blank"
             rel="noreferrer"
+            className={styles.businessLink}
           >
             사업자정보확인
           </Link>

@@ -1,9 +1,7 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
 import { Stack, HStack, Box } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-
-const header = css({ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' });
+import { ProductVariantAction } from './ProductVariantAction';
 
 type ProductVariantSectionProps = {
   action?: ReactNode;
@@ -20,7 +18,7 @@ export function ProductVariantSection({ action, children, id, title }: ProductVa
         <Typography as="h2" variant="productSelectorLabel">
           {title}
         </Typography>
-        {action ? <div className={header}>{action}</div> : null}
+        {action ? <ProductVariantAction>{action}</ProductVariantAction> : null}
       </HStack>
       <Box>{children}</Box>
     </Stack>

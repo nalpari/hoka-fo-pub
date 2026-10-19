@@ -1,11 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { BottomSheet } from '@/shared/components/layouts/BottomSheet/BottomSheet';
-import { css } from 'styled-system/css';
-
-const filterSheetContent = css({
-  px: '4',
-});
+import { Box } from 'styled-system/jsx';
 
 type MobileProductFilterProps = {
   children: ReactNode;
@@ -32,7 +28,7 @@ export function MobileProductFilter({
       onClose={onClose}
       title="필터"
     >
-      <div className={filterSheetContent}>{children}</div>
+      <Box px="4">{children}</Box>
     </BottomSheet>
   );
 }

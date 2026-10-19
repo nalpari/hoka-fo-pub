@@ -14,13 +14,17 @@ const styles = {
   accountLink: css({ '--button-label-size': '14px!', '--button-height': 'auto!' }),
 };
 
-export type LoginNotice = { tone: 'error' | 'success'; message: string };
+export type LoginNotice = {
+  tone: 'error' | 'success';
+  message: string;
+};
 
 export type LoginFormProps = {
   id: string;
   password: string;
   rememberId: boolean;
   notice: LoginNotice | null;
+  errors?: Partial<Record<'id' | 'password', string>>;
   onIdChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onRememberChange: (value: boolean) => void;
@@ -34,6 +38,7 @@ export function LoginForm({
   password,
   rememberId,
   notice,
+  errors,
   onIdChange,
   onPasswordChange,
   onRememberChange,
@@ -42,8 +47,14 @@ export function LoginForm({
   onUnavailable,
 }: LoginFormProps) {
   return (
-    <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title">
-      <FormField variant="boxed" htmlFor="login-id" label="이메일 아이디" required>
+    <form className={styles.form} onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
+      <FormField
+        variant="boxed"
+        htmlFor="login-id"
+        label="이메일 아이디"
+        required
+        error={errors?.id}
+      >
         <TextInput
           id="login-id"
           name="username"
@@ -53,7 +64,13 @@ export function LoginForm({
           onChange={(event) => onIdChange(event.target.value)}
         />
       </FormField>
-      <FormField variant="boxed" htmlFor="login-password" label="비밀번호" required>
+      <FormField
+        variant="boxed"
+        htmlFor="login-password"
+        label="비밀번호"
+        required
+        error={errors?.password}
+      >
         <TextInput
           id="login-password"
           name="password"
@@ -87,7 +104,11 @@ export function LoginForm({
           </Button>
         </HStack>
       </HStack>
-      {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
+      {notice ? (
+        <StatusMessage id="login-notice" tone={notice.tone}>
+          {notice.message}
+        </StatusMessage>
+      ) : null}
       <LoginActions onUnavailable={onUnavailable} />
     </form>
   );

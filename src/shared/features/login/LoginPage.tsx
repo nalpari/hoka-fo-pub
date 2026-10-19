@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
+import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
+import { isValidEmail, emailFormatErrorMessage } from '@/shared/lib/emailValidation';
 
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const router = useRouter();
@@ -10,6 +12,13 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const [password, setPassword] = useState('');
   const [rememberId, setRememberId] = useState(false);
   const [notice, setNotice] = useState<LoginNotice | null>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const validEmail = isValidEmail(id);
+  const validPassword = isValidPassword(password);
+  const errors = {
+    id: hasSubmitted && !validEmail ? emailFormatErrorMessage : undefined,
+    password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
+  };
 
   const showUnavailable = (feature: string) => {
     setNotice({
@@ -20,9 +29,10 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setHasSubmitted(true);
+    setNotice(null);
 
-    if (!id.trim() || !password) {
-      setNotice({ tone: 'error', message: '아이디와 비밀번호를 모두 입력해 주세요.' });
+    if (!validEmail || !validPassword) {
       return;
     }
 
@@ -40,8 +50,15 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
       password={password}
       rememberId={rememberId}
       notice={notice}
-      onIdChange={setId}
-      onPasswordChange={setPassword}
+      errors={errors}
+      onIdChange={(value) => {
+        setId(value);
+        setNotice(null);
+      }}
+      onPasswordChange={(value) => {
+        setPassword(value);
+        setNotice(null);
+      }}
       onRememberChange={setRememberId}
       onSubmit={handleLogin}
       onFindAccount={() => router.push('/login/find-account')}

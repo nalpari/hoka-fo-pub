@@ -93,6 +93,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
           optionThumbnails={[]}
           platform="web"
           price={product.price}
+          originalPrice={product.originalPrice}
           showVariantSummary
           variant="listing"
           widthCount={widths.size}
