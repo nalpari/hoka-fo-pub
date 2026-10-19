@@ -912,6 +912,8 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 ## Storybook
 
+로그인 소셜 버튼의 카카오·네이버 표시는 등록된 공통 `Icon` 자산 `social/kakao`, `social/naver`를 18px로 사용한다. 버튼의 브랜드 색과 클릭 시 데모 안내는 `LoginActions`에 유지한다.
+
 `.storybook/main.ts`는 `src/stories/**/*.stories.@(ts|tsx)`만 탐색한다. 다른 폴더의 스토리는 이 패턴에 포함되지 않는다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
 
 모든 `*.stories.ts`·`*.stories.tsx`는 `src/stories/` 아래에 작성한다. 컴포넌트는 `components/`, 기능 화면은 `features/`에서 원본 계층을 따르고 기존 별칭으로 구현을 가져온다. `src/shared/`·`src/app/`에는 스토리를 함께 두지 않는다. 이 기본 규칙은 `AGENTS.md`에 명시하며 마이페이지 스토리도 `src/stories/features/mypage/MyPage.stories.tsx`로 옮겼다.
