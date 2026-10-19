@@ -14,7 +14,7 @@ export function CheckoutLayout({
     <OrderPageLayout
       step={completed ? 3 : 2}
       title={
-        <Typography as="h1" variant="pageTitle" className={css({ m: '0' })}>
+        <Typography as="h1" web="heading6" mo="heading5" className={css({ m: '0' })}>
           {completed ? '주문완료' : '주문/결제'}
         </Typography>
       }

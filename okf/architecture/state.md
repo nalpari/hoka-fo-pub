@@ -9,6 +9,9 @@ generated:
   at: '2026-10-19T05:07:21Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/ShopShell.tsx
+  - src/mocks/cartDisplay.ts
+  - src/shared/features/checkout/CheckoutPage.tsx
   - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
   - src/shared/features/checkout/CheckoutLayout.tsx
   - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
@@ -123,3 +126,7 @@ LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한�
 ## 주문 프레임 공통화와 상태 유지 (2026-10-19)
 
 주문 프레임 공통화에서는 CartPage의 main/header/StepIndicator를 OrderPageLayout에 위임했다. 수량·삭제 콜백·행 구성·총액 계산은 수정하지 않았다. CheckoutLayout은 completed에 따라 단계 2/3과 기존 제목을 전달하고 CheckoutPage의 입력·검증·완료·onComplete 상태 코드는 수정하지 않았다. 주문 합계 테스트 3개, 결제 완료 웹/모바일 play 2개, 장바구니 실제 경로와 주문 상태의 DOM·좌표 비교 6건으로 기존 계약을 확인했다.
+
+## 장바구니·결제 모바일 시안 (2026-10-19)
+
+`ShopShell`은 퍼블리싱 미리보기에 4개 장바구니 목 항목을 초기화한다. 장바구니의 선택 상태는 `CartPage`가 소유하며 선택 키를 `/checkout?selected=...`에 전달한다. `CheckoutPage`는 URL 키에 맞는 항목만 합산하고 완료 시 기존 `onComplete`로 장바구니를 비운다. 화면의 결제 수단과 완료 상태는 데모이며 실제 결제 승인·주소 변경·쿠폰 조회와 연동하지 않는다. 출처는 작업 트리의 `src/shared/ShopShell.tsx`, `src/shared/features/cart/CartPage.tsx`, `src/shared/features/checkout/CheckoutPage.tsx`다.

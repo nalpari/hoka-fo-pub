@@ -18,15 +18,17 @@ export function OrderPageLayout({ title, step, headerSpacing = 'default', childr
       as="main"
       maxW="1100px"
       mx="auto"
-      pt={{ base: '62px', _mobile: '38px' }}
+      pt={{ base: '62px', _mobile: '6' }}
       px={{ base: '0', _mobile: '4' }}
-      pb={{ base: '110px', _mobile: '62px' }}
+      pb={{ base: '110px', _mobile: '120px' }}
     >
       <Flex
         as="header"
         alignItems="center"
         justifyContent="space-between"
-        mb={headerSpacing === 'default' ? '10' : undefined}
+        mb={
+          headerSpacing === 'default' ? { base: '10', _mobile: '6' } : { base: '0', _mobile: '6' }
+        }
       >
         {title}
         <StepIndicator ariaLabel="주문 진행 단계" current={step} items={stepItems} mobileHidden />
