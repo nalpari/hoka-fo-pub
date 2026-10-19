@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T08:58:40Z'
+  at: '2026-10-19T09:44:00.728Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/layouts/BottomSheet/BottomSheetFooter.tsx
@@ -1491,3 +1491,13 @@ MobileProductFilter의 적용 액션은 일반 Button variant="primary"를 사�
 ButtonVariant에서 bottomSheetPrimary와 해당 primary 판정·강제 전체 너비 분기를 제거했다. ButtonDocs의 전용 variant 비교 셀과 너비 분기도 제거했다. 기본 primary의 색상·상태 처리는 그대로 사용한다. 크기와 전체 너비의 책임은 시트 Footer에 둔다.
 
 실제 검증: Edge에서 상품 목록 375px·768px의 필터를 열어 적용 버튼 높이 48px·Footer 내부 전체 너비(각 343px·608px)·검은 배경, 적용·닫기 버튼·Escape 동작을 확인했다. src에서 bottomSheetPrimary 참조가 사라졌으며 기존 form-controls 테스트 33개, Panda 생성·TypeScript·변경 TSX ESLint/Prettier·Next.js와 Storybook 빌드를 통과했다. 출처는 작업 트리의 위 5개 변경 파일과 기존 ProductListingPage Storybook이다.
+
+## 반복 상단 여백의 Stack 간격 소유권 (2026-10-19)
+
+선택한 7개 소스의 동일 구간 반복 mt를 Stack gap으로 이전했다. EmptyState의 standard/minimal 루트는 gap 2로 설명·액션의 조건부 표시를 유지한다. SupportPage는 상담·공지·FAQ 본문 그룹을 PC gap 20(80px)·MO gap 10(40px)으로 배치한다. SignupDetailsStep은 입력 필드 그룹에 gap 4와 그룹 시작 mt 4를 적용하고 각 필드의 styles.field를 제거했다. local의 아이디·비밀번호와 오류 표시·폼 제출 연결을 유지한다. SignupMethodStep은 제목·혜택·링크 구간만 gap 6으로 묶고 뒤의 36px·16px 간격을 유지한다.
+
+DesignGuideTypography는 두 표 섹션을 gap 6·시작 mt 6인 그룹으로 묶는다. IaStructurePage의 진행률·진행 막대·요약 그룹은 gap 3·시작 mt 4를 사용한다. ButtonDocs 루트는 gap 10(40px)으로 헤더·variant별 섹션·사용 예시를 배치하고 section 클래스의 mt를 제거한다. 고정 위치 복사 안내는 기존 위치를 유지한다. 그룹에 따라 간격을 소유하는 Stack 래퍼를 추가하며 기존 section·form·제목 ID·표·링크·콜백과 외부 props는 유지한다.
+
+검증: 임시 Storybook fixture로 PC/MO 24개 조합의 변경 전후 제목·본문·입력·버튼·링크·표 등의 좌표와 크기를 비교해 일치를 확인했다. EmptyState 설명/액션 생략, standard/minimal, 가입 local/social·오류 상태를 포함한다. 임시 fixture는 검증 후 제거했다. 기존 가입 비밀번호·필드 검증 PC/MO play 4개도 통과했다. Panda 생성·전체 작업 트리 TypeScript·변경 TSX ESLint/Prettier, 별도 작업 폴더의 Storybook 빌드를 확인했다. 현재 작업 트리의 기본 Next.js production build도 통과했다. 별도 폴더의 기본 빌드는 외부 node_modules 링크 제한, webpack 빌드는 기존 라우트의 자동 생성 PageProps 오류로 실패했으며 최종 결과는 현재 작업 트리의 기본 빌드로 확인했다. 출처는 작업 트리의 위 7개 파일이다.
+
+추가 스테이징 범위: FindAccountContent는 폼 본문 gap 6·이름/휴대폰 gap 4·인증번호와 안내 gap 2를 사용하며 요청·확인 콜백과 입력 ID를 유지한다. 상태 안내는 이전 16px에서 현재 공통 24px 간격을 사용한다. 이 파일은 기존 24개 좌표 비교 대상 7개에 포함되지 않았으므로 해당 비교 결과를 확대 적용하지 않는다.

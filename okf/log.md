@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: 반복 상단 여백을 Stack gap으로 이전하고 계정 찾기 폼의 입력·인증 요청·인증번호·확인·상태 안내도 중첩 Stack으로 배치했다. 기존 7곳의 PC/MO 좌표 비교·가입 play 검증과 커밋 전 전체 타입 검사를 확인했다. 계정 찾기의 상태 안내 간격은 현재 스테이징된 gap 6(24px)을 반영한다.
+
 - **Refactor**: 상품 필터 버튼을 primary로 전환하고 BottomSheetFooter에서 tall·fullWidth를 적용했다. Button과 문서의 bottomSheetPrimary를 제거하고 375/768px 시트 표시·적용·닫기·Escape, 기존 테스트 33개와 Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
 
 - **Fix**: 휴대폰 인증 Storybook을 fullscreen으로 표시하고 모바일 래퍼를 가용 너비에 맞춰 외곽 여백과 고정 너비로 인한 가로 넘침을 수정했다.

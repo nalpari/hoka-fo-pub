@@ -41,7 +41,7 @@ const buttonSizes = ['tall', 'short'] as const;
 
 const linkSizes = ['sm', 'md', 'lg'] as const;
 
-const section = css({ mt: '40px', pt: '24px', borderTop: '1px solid #E9EAEB' });
+const section = css({ pt: '24px', borderTop: '1px solid #E9EAEB' });
 
 const muted = css({ color: '#595959', fontSize: '13px' });
 
@@ -301,7 +301,8 @@ export function ButtonDocs() {
   }
 
   return (
-    <Box
+    <Stack
+      gap="10"
       w="100%"
       maxW="1800px"
       mx="auto"
@@ -457,6 +458,6 @@ export function ButtonDocs() {
       >
         {copyFeedback}
       </Box>
-    </Box>
+    </Stack>
   );
 }

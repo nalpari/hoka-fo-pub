@@ -59,70 +59,72 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
   return (
     <section aria-labelledby="signup-title">
-      <AccountFormHeader
-        title="가입과 동시에 시작되는 혜택!"
-        titleId="signup-title"
-        description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
-      />
+      <Stack gap="6">
+        <AccountFormHeader
+          title="가입과 동시에 시작되는 혜택!"
+          titleId="signup-title"
+          description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
+        />
 
-      <Grid columns={3} gap="1.5" mt="6" aria-label="회원가입 혜택">
-        <Grid
-          alignContent="center"
-          justifyItems="center"
-          gap="3"
-          minH="108px"
-          py="3"
-          px="1"
-          className={styles.benefit}
-        >
-          <Icon name="gift" size="18px" />
-          <Typography as="span" variant="body4">
-            신규가입
-            <br />
-            1만원 쿠폰
-          </Typography>
+        <Grid columns={3} gap="1.5" aria-label="회원가입 혜택">
+          <Grid
+            alignContent="center"
+            justifyItems="center"
+            gap="3"
+            minH="108px"
+            py="3"
+            px="1"
+            className={styles.benefit}
+          >
+            <Icon name="gift" size="18px" />
+            <Typography as="span" variant="body4">
+              신규가입
+              <br />
+              1만원 쿠폰
+            </Typography>
+          </Grid>
+          <Grid
+            alignContent="center"
+            justifyItems="center"
+            gap="3"
+            minH="108px"
+            py="3"
+            px="1"
+            className={styles.benefit}
+          >
+            <Icon name="partyHorn" size="18px" />
+            <Typography as="span" variant="body4">
+              기념일
+              <br />
+              축하 쿠폰
+            </Typography>
+          </Grid>
+          <Grid
+            alignContent="center"
+            justifyItems="center"
+            gap="3"
+            minH="108px"
+            py="3"
+            px="1"
+            className={styles.benefit}
+          >
+            <Icon name="medal" size="18px" />
+            <Typography as="span" variant="body4">
+              회원 등급별
+              <br />
+              혜택
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid
-          alignContent="center"
-          justifyItems="center"
-          gap="3"
-          minH="108px"
-          py="3"
-          px="1"
-          className={styles.benefit}
-        >
-          <Icon name="partyHorn" size="18px" />
-          <Typography as="span" variant="body4">
-            기념일
-            <br />
-            축하 쿠폰
-          </Typography>
-        </Grid>
-        <Grid
-          alignContent="center"
-          justifyItems="center"
-          gap="3"
-          minH="108px"
-          py="3"
-          px="1"
-          className={styles.benefit}
-        >
-          <Icon name="medal" size="18px" />
-          <Typography as="span" variant="body4">
-            회원 등급별
-            <br />
-            혜택
-          </Typography>
-        </Grid>
-      </Grid>
 
-      <Center mt="6">
-        <Link className={styles.benefitsLink} href="/support/member-benefits">
-          <Typography as="span" variant="textLinkKr2">
-            회원 등급별 혜택 더 보기
-          </Typography>
-        </Link>
-      </Center>
+        <Center>
+          <Link className={styles.benefitsLink} href="/support/member-benefits">
+            <Typography as="span" variant="textLinkKr2">
+              회원 등급별 혜택 더 보기
+            </Typography>
+          </Link>
+        </Center>
+      </Stack>
 
       <Stack gap="2" mt="9">
         <Button
