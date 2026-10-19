@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:44:05.476Z'
+  at: '2026-10-19T09:44:07.192Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/not-found/NotFoundPage.stories.tsx
   - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
   - src/shared/components/organisms/Search/searchOverlayData.ts
   - src/shared/components/organisms/Search/SearchOverlay.tsx
@@ -1520,3 +1521,13 @@ HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보�
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
 
 검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.
+
+## 404 안내 화면 (2026-10-19)
+
+본문 main은 Stack gap="8"로 세로 배치하며 아이콘·안내문·홈 버튼 사이를 각각 32px로 유지한다. 자식 Box의 중복 mt="8"은 제거했다. 이번 간격 정리는 변경 파일 ESLint·Prettier와 기존 PC/MO 스토리의 실제 32px 간격으로 확인했다.
+
+`src/shared/features/not-found/NotFoundPage.tsx`는 중앙 정렬한 Font Awesome `faTriangleExclamation`(48px), 한국어 제목·두 줄 설명과 홈 링크로 구성한다. 공통 Icon·Typography·ButtonLink를 재사용하고 PC 버튼 너비는 180px, 모바일은 좌우 16px 여백 안에서 전체 너비·48px 높이를 사용한다. 모바일 본문 최소 높이는 화면 높이에서 헤더 높이를 빼서 푸터가 첫 화면 아래에 오도록 한다. Storybook `PAGES/NotFound`의 Default/Mobile에서 앱 레이아웃과 함께 확인한다.
+
+첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 노드 `577:11405`는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
+
+Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드가 통과했다. 브라우저에서 PC 화면과 모바일 375px 스토리를 확인했고 모바일 버튼 343×48px·홈 링크 `/`·Font Awesome SVG 48×48px를 확인했다. 기존 공통 헤더의 프로모션 배너 등 첨부 이미지와 다른 영역은 이번 수정 범위 밖이다.
