@@ -7,6 +7,11 @@ import { NoticeDetailPage } from '@/shared/features/notices/NoticeDetailPage';
 import { InquiryPage } from '@/shared/features/support/InquiryPage';
 import { InquiryNewPage } from '@/shared/features/support/InquiryNewPage';
 import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
+import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
+import { TeamwearPage } from '@/shared/features/teamwear/TeamwearPage';
+import { CareGuidePage } from '@/shared/features/care-guide/CareGuidePage';
+import { TermsPage } from '@/shared/features/terms/TermsPage';
+import { SupportExperiencePage } from '@/shared/features/support/SupportExperiencePage';
 
 type Args = { platform: 'web' | 'mobile' };
 
@@ -31,6 +36,7 @@ export const Desktop: Story = {
 };
 
 export const Mobile375: Story = {
+  parameters: { layout: 'fullscreen' },
   name: 'Mobile / 375px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka375' },
@@ -54,7 +60,7 @@ export const FaqMobile375: Story = {
       <FaqPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/faq' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/faq' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -76,7 +82,7 @@ export const NoticesMobile375: Story = {
       <NoticesPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/notices' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/notices' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -87,7 +93,7 @@ export const NoticeDetailMobile375: Story = {
       <NoticeDetailPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/notices/1' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/notices/1' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -109,7 +115,7 @@ export const InquiriesMobile375: Story = {
       <InquiryPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -120,7 +126,10 @@ export const InquiryNewMobile375: Story = {
       <InquiryNewPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries/new' } } },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/inquiries/new' } },
+  },
   globals: { viewport: 'hoka375' },
 };
 
@@ -142,7 +151,7 @@ export const InquiryPendingMobile375: Story = {
       <InquiryPage preview="pending" />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -153,7 +162,7 @@ export const InquiryAnsweredMobile375: Story = {
       <InquiryPage preview="answered" />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -175,6 +184,108 @@ export const ShippingReturnsMobile375: Story = {
       <ShippingReturnsPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/after-sales' } } },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/after-sales' } },
+  },
   globals: { viewport: 'hoka375' },
+};
+
+export const StoreFinderDesktop: Story = {
+  name: 'Store Finder / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <StoreFinderPage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/store' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const StoreFinderMobile375: Story = {
+  name: 'Store Finder / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <StoreFinderPage />
+    </ShopShell>
+  ),
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/store' } } },
+  globals: { viewport: 'hoka375' },
+};
+
+export const TeamwearDesktop: Story = {
+  name: 'Teamwear / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <TeamwearPage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/teamwear' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const TeamwearMobile375: Story = {
+  name: 'Teamwear / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <TeamwearPage />
+    </ShopShell>
+  ),
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/teamwear' } } },
+  globals: { viewport: 'hoka375' },
+};
+
+export const CareGuideDesktop: Story = {
+  name: 'Care Guide / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <CareGuidePage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/care' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const CareGuideMobile375: Story = {
+  name: 'Care Guide / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <CareGuidePage />
+    </ShopShell>
+  ),
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/care' } } },
+  globals: { viewport: 'hoka375' },
+};
+
+export const TermsDesktop: Story = {
+  name: 'Terms / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <TermsPage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/terms' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const TermsMobile375: Story = {
+  name: 'Terms / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <TermsPage />
+    </ShopShell>
+  ),
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/terms' } } },
+  globals: { viewport: 'hoka375' },
+};
+
+export const MemberBenefitsDesktop: Story = {
+  name: 'Member Benefits / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <SupportExperiencePage kind="member-benefits" />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/member-benefits' } } },
+  globals: { viewport: 'hoka1600' },
 };

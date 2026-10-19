@@ -26,6 +26,7 @@ export const Web: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   args: { cart: 2, onMenu: () => undefined },
   render: (args) => (

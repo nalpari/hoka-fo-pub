@@ -40,6 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   decorators: [
     (Story) => (

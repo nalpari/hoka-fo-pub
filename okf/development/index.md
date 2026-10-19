@@ -1,5 +1,7 @@
 # 개발
 
+RatingStars 표시·선택 모드의 회귀 검사 범위는 [별점 통합 검사](verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)를 참고한다.
+
 - [Form 전수 점검](form-state-audit.md) - 63개 페이지의 오류·성공 색상·필드 검증 조사, 수정과 PC/MO·상태별 Storybook 분류·검증 결과를 기록한다.
 
 - [로컬 실행](setup.md) - 설치, Panda 생성과 앱·Storybook 실행 명령을 안내한다.

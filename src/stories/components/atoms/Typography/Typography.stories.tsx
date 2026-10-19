@@ -217,6 +217,7 @@ export const SessionImagePlaceholder: Story = {
 };
 
 export const MobileSessionTypography: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   render: () => (
     <PlatformProvider platform="mobile">
@@ -245,6 +246,7 @@ export const MobileSessionTypography: Story = {
 };
 
 export const MobileContextTitles: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
   render: () => (
     <PlatformProvider platform="mobile">
@@ -261,6 +263,7 @@ export const MobileContextTitles: Story = {
 };
 
 export const MobileLoginTitle: Story = {
+  parameters: { layout: 'fullscreen' },
   ...LoginTitle,
   globals: { viewport: 'hoka375' },
   decorators: [
@@ -275,6 +278,7 @@ export const MobileLoginTitle: Story = {
 };
 
 export const MobilePageTitle: Story = {
+  parameters: { layout: 'fullscreen' },
   ...PageTitle,
   globals: { viewport: 'hoka375' },
   decorators: [
@@ -597,6 +601,7 @@ export const ScreenReaderOnly: Story = {
 };
 
 export const LocaleHeadingMobile: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
   render: (args) => (
     <PlatformProvider platform="mobile">

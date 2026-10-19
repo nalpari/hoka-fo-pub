@@ -70,6 +70,7 @@ export const Default: Story = {
 export const WithoutVersionHistory: Story = { render: () => <TermsPreview versions={false} /> };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Default,
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },

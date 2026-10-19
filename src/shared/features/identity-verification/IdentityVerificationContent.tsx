@@ -1,3 +1,4 @@
+import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { css } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
@@ -28,14 +29,13 @@ export function IdentityVerificationContent({ onSelect }: IdentityVerificationCo
       fillMobileViewport
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
     >
-      <Stack gap="3" mb="8">
-        <Typography as="h1" web="heading7" mo="heading5" id="verification-title">
-          본인인증
-        </Typography>
-        <Typography as="p" variant="body3" tone="subtle">
-          HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다
-        </Typography>
-      </Stack>
+      <AccountFormHeader
+        title="본인인증"
+        titleId="verification-title"
+        description="HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다"
+        descriptionTone="subtle"
+        spacingCss={css.raw({ mb: '8' })}
+      />
       <Grid columns={2} gap="2">
         {(
           [

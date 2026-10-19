@@ -1,5 +1,4 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { css } from 'styled-system/css';
 
 const recentQuery = css({
@@ -9,6 +8,7 @@ const recentQuery = css({
   color: 'var(--color-text-subtle)',
   fontSize: 'inherit',
   textAlign: 'left',
+  cursor: 'pointer',
   _hover: { textDecoration: 'underline' },
 });
 
@@ -16,7 +16,8 @@ type SearchKeywordButtonProps = { query: string; onSearch: (query: string) => vo
 
 export function SearchKeywordButton({ query, onSearch }: SearchKeywordButtonProps) {
   return (
-    <Button
+    <button
+      type="button"
       className={recentQuery}
       onMouseDown={(event) => event.preventDefault()}
       onClick={() => onSearch(query)}
@@ -24,6 +25,6 @@ export function SearchKeywordButton({ query, onSearch }: SearchKeywordButtonProp
       <Typography variant="body4" weight="inherit">
         {query}
       </Typography>
-    </Button>
+    </button>
   );
 }

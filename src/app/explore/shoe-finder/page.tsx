@@ -1,3 +1,3 @@
 'use client';
 
-export { ShoeFinderPage as default } from '@/shared/features/explore/ShoeFinderPage';
+export { ShoeFinderPage as default } from '@/shared/Mockup/shoe-finder/ShoeFinderPage';

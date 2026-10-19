@@ -1,7 +1,6 @@
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 type PasswordResetCompleteModalProps = {
   onOpenChange: (open: boolean) => void;
@@ -13,12 +12,8 @@ export function PasswordResetCompleteModal({
   onConfirm,
 }: PasswordResetCompleteModalProps) {
   return (
-    <ModalDialog
-      footer={
-        <Button type="button" variant="primary" fullWidth onClick={onConfirm}>
-          확인
-        </Button>
-      }
+    <SingleActionDialog
+      onConfirm={onConfirm}
       open
       onOpenChange={onOpenChange}
       title="비밀번호 재설정"
@@ -33,6 +28,6 @@ export function PasswordResetCompleteModal({
           비밀번호 변경이 완료되었습니다.
         </Typography>
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

@@ -1,8 +1,7 @@
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 const styles = {
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
@@ -12,12 +11,8 @@ type Props = { onClose: () => void; onConfirm: () => void };
 
 export function AccountLockedContent({ onClose, onConfirm }: Props) {
   return (
-    <ModalDialog
-      footer={
-        <Button variant="primary" fullWidth onClick={onConfirm}>
-          확인
-        </Button>
-      }
+    <SingleActionDialog
+      onConfirm={onConfirm}
       open
       onOpenChange={(open) => !open && onClose()}
       title="아이디 / 비밀번호 찾기"
@@ -34,6 +29,6 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
           </Typography>
         </Typography>
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, useSyncExternalStore, type FormEvent } from 'react';
 import { products } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
 import { CheckoutContent } from '@/shared/features/checkout/CheckoutContent';
@@ -13,10 +13,24 @@ type Props = {
   onComplete: () => void;
 };
 
+const subscribeLocation = () => () => {};
+
+const serverSelected = () => null;
+
+const clientSelected = () => new URLSearchParams(window.location.search).get('selected');
+
 export function CheckoutPage({ cart, onComplete }: Props) {
-  const [payment, setPayment] = useState<PaymentMethod>('card');
+  const [payment, setPayment] = useState<PaymentMethod>('kakao');
   const [completed, setCompleted] = useState(false);
-  const { rows, total } = getCheckoutSummary(cart, products);
+  const selectedParam = useSyncExternalStore(subscribeLocation, clientSelected, serverSelected);
+  const selectedKeys = selectedParam?.split('|');
+
+  const selectedCart = selectedKeys
+    ? cart.filter((item) =>
+        selectedKeys.includes(`${item.id}-${item.color}-${item.width}-${item.size}`),
+      )
+    : cart;
+  const { rows, total } = getCheckoutSummary(selectedCart, products);
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

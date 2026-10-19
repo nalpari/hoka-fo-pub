@@ -1,6 +1,10 @@
-import { Grid } from 'styled-system/jsx';
+import { Box, Grid, Stack } from 'styled-system/jsx';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { css } from 'styled-system/css';
 import { RecentSearches } from './RecentSearches';
 import { RecommendedSearches } from './RecommendedSearches';
+import { SearchKeywordButton } from './SearchKeywordButton';
+import { popularSearches } from './searchOverlayData';
 
 type SearchSuggestionsProps = {
   recentSearches: readonly string[];
@@ -19,33 +23,10 @@ export function SearchSuggestions({
 }: SearchSuggestionsProps) {
   return (
     <Grid
-      gap="normal"
       gridTemplateColumns="1fr 1fr"
-      minH="250px"
-      border="1px solid var(--color-black-20)"
-      borderTop="0"
-      _mobile={{ gridTemplateColumns: '1fr' }}
-      css={{
-        '& section': { p: '4' },
-        '& header': { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-        '& h3': { m: '0' },
-        '& ul, & ol': { m: '22px 0 0', p: '0', listStyle: 'none' },
-        '& li': {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          minH: '26px',
-          fontSize: '14' /* 기존 13px */,
-        },
-        '& p': {
-          display: 'grid',
-          minH: '158px',
-          m: '0',
-          placeItems: 'center',
-          color: 'var(--color-text-tertiary)',
-          textAlign: 'center',
-        },
-      }}
+      gap="48px"
+      p="32px"
+      _mobile={{ gridTemplateColumns: '1fr', gap: '40px', px: '16px', py: '40px' }}
     >
       <RecentSearches
         recentSearches={recentSearches}
@@ -53,7 +34,38 @@ export function SearchSuggestions({
         onRemove={onRemoveRecent}
         onClear={onClearRecent}
       />
-      <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
+      <Stack gap="40px">
+        <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
+        <Box as="section" aria-labelledby="popular-search-title">
+          <Typography as="h3" variant="body2" weight="bold" id="popular-search-title">
+            인기 검색어
+          </Typography>
+          <Box
+            as="ol"
+            mt="24px"
+            mb="0"
+            p="0"
+            display="grid"
+            gridAutoFlow="column"
+            gridTemplateRows="repeat(5, auto)"
+            gridTemplateColumns="1fr 1fr"
+            gap="12px 24px"
+            listStyleType="none"
+          >
+            {popularSearches.map((query, index) => (
+              <li
+                key={query}
+                className={css({ display: 'flex', alignItems: 'center', gap: '16px' })}
+              >
+                <Typography variant="body4" className={css({ minW: '12px' })}>
+                  {index + 1}
+                </Typography>
+                <SearchKeywordButton query={query} onSearch={onSearch} />
+              </li>
+            ))}
+          </Box>
+        </Box>
+      </Stack>
     </Grid>
   );
 }

@@ -11,6 +11,10 @@ type HeaderToolsProps = {
   wishlistCount: number;
   onEnterPreviousMenu?: () => void;
   onSearch: () => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
+  searchOpen?: boolean;
+  searchError?: string;
 };
 
 export function HeaderTools({
@@ -19,6 +23,10 @@ export function HeaderTools({
   wishlistCount,
   onEnterPreviousMenu,
   onSearch,
+  searchQuery,
+  onSearchQueryChange,
+  searchOpen,
+  searchError,
 }: HeaderToolsProps) {
   const platform = usePlatform();
 
@@ -30,7 +38,9 @@ export function HeaderTools({
       onKeyDown={(event) => {
         if (event.key !== 'Tab' || !event.shiftKey || !onEnterPreviousMenu) return;
 
-        const firstFocusable = event.currentTarget.querySelector<HTMLElement>('a[href], button:not([disabled])');
+        const firstFocusable = event.currentTarget.querySelector<HTMLElement>(
+          'a[href], input:not([disabled]), button:not([disabled])',
+        );
 
         if (event.target !== firstFocusable) return;
 
@@ -38,8 +48,14 @@ export function HeaderTools({
         onEnterPreviousMenu();
       }}
     >
-      <HeaderSearch onSearch={onSearch} />
-      <HStack gap={platform === 'mobile' ? '6px' : '4px'}>
+      <HeaderSearch
+        onSearch={onSearch}
+        query={searchQuery}
+        onQueryChange={onSearchQueryChange}
+        error={searchError}
+        open={searchOpen}
+      />
+      <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '4px'}>
         <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
         <HeaderCartLink cart={cart} />
       </HStack>

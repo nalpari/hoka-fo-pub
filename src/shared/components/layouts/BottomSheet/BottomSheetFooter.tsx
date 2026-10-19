@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { cloneElement, type ReactElement } from 'react';
+import type { ButtonProps } from '@/shared/components/atoms/Button/Button';
 import { css } from 'styled-system/css';
 
 const footer = css({
@@ -10,9 +11,11 @@ const footer = css({
 });
 
 type BottomSheetFooterProps = {
-  children: ReactNode;
+  children: ReactElement<ButtonProps>;
 };
 
 export function BottomSheetFooter({ children }: BottomSheetFooterProps) {
-  return <footer className={footer}>{children}</footer>;
+  return (
+    <footer className={footer}>{cloneElement(children, { size: 'tall', fullWidth: true })}</footer>
+  );
 }

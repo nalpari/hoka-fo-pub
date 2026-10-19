@@ -1,12 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { css } from 'styled-system/css';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 import { RecentSearchItem } from './RecentSearchItem';
-
-const recent = css({
-  borderRight: '1px solid var(--color-black-20)',
-  _mobile: { borderRight: '0', borderBottom: '1px solid var(--color-black-20)' },
-});
 
 type RecentSearchesProps = {
   recentSearches: readonly string[];
@@ -22,41 +17,28 @@ export function RecentSearches({
   onClear,
 }: RecentSearchesProps) {
   return (
-    <section className={recent} aria-labelledby="recent-search-title">
-      <header>
-        <Typography as="h3" variant="body4" weight="bold" id="recent-search-title">
+    <Box as="section" aria-labelledby="recent-search-title">
+      <HStack gap="16px" mb="24px" _mobile={{ justifyContent: 'space-between' }}>
+        <Typography as="h3" variant="body2" weight="bold" id="recent-search-title">
           최근 검색어
         </Typography>
         {recentSearches.length ? (
-          <Button
-            onClick={onClear}
-            onMouseDown={(event) => event.preventDefault()}
-            className={css({
-              '&&': {
-                border: '0',
-                p: '0',
-                bg: 'transparent',
-                color: 'var(--color-black-40)',
-              },
-            })}
-          >
-            <Typography variant="body5" weight="inherit">
-              전체 기록 삭제
-            </Typography>
+          <Button variant="link" size="md" onClick={onClear}>
+            전체 삭제
           </Button>
         ) : null}
-      </header>
+      </HStack>
       {recentSearches.length ? (
-        <ul>
+        <Stack as="ul" gap="12px" m="0" p="0" listStyleType="none">
           {recentSearches.map((recent) => (
             <RecentSearchItem key={recent} query={recent} onSearch={onSearch} onRemove={onRemove} />
           ))}
-        </ul>
+        </Stack>
       ) : (
-        <Typography as="p" variant="body4">
+        <Typography as="p" variant="body4" tone="tertiary">
           최근 검색어 내역이 없습니다.
         </Typography>
       )}
-    </section>
+    </Box>
   );
 }

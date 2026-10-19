@@ -24,6 +24,13 @@ const clientSnapshot = () => true;
 
 const serverSnapshot = () => false;
 
+const initialCart: CartItem[] = [
+  { id: 'shoe-1', color: '브라운', width: 'Regular', size: '235', quantity: 1 },
+  { id: 'shoe-2', color: '레드', width: 'X-Wide', size: '225', quantity: 2 },
+  { id: 'shoe-3', color: '화이트', width: 'Wide', size: '270', quantity: 5 },
+  { id: 'shoe-4', color: '옐로우골드', width: 'X-Wide', size: '250', quantity: 4 },
+];
+
 export function useShop() {
   const shop = useContext(ShopContext);
   if (!shop) throw new Error('useShop requires ShopShell');
@@ -38,7 +45,7 @@ export function ShopShell({
   readonly children: ReactNode;
 }) {
   const router = useRouter();
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(initialCart);
   const hydrated = useSyncExternalStore(subscribeHydration, clientSnapshot, serverSnapshot);
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     try {

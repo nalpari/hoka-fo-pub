@@ -1,7 +1,7 @@
 'use client';
 
 import { css } from 'styled-system/css';
-import { Box, Stack } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -41,13 +41,16 @@ export function InquiryCautions() {
               </Typography>
             ),
             content: (
-              <Stack as="ul" gap="0" m="0" p="6" listStyleType="disc">
+              <Stack as="ul" gap="0" m="0" p="6" listStyleType="none">
                 {cautions.map((item) => (
-                  <Box as="li" key={item}>
+                  <HStack as="li" key={item} alignItems="flex-start" gap="1">
+                    <Typography as="span" web="body4" mo="body5" tone="tertiary" aria-hidden="true">
+                      ・
+                    </Typography>
                     <Typography web="body4" mo="body5" tone="tertiary">
                       {item}
                     </Typography>
-                  </Box>
+                  </HStack>
                 ))}
               </Stack>
             ),

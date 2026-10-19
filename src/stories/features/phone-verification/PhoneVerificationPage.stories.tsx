@@ -8,6 +8,7 @@ import { PhoneVerificationPage } from '@/shared/features/phone-verification/Phon
 const meta = {
   title: 'Pages/AUTH/PhoneVerification',
   component: PhoneVerificationContent,
+  parameters: { layout: 'fullscreen' },
   args: {
     information: {
       name: '',
@@ -52,11 +53,12 @@ export const AccountUnlock: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
-        <div className="platform-mobile" style={{ width: 375 }}>
+        <div className="platform-mobile" style={{ width: '100%', maxWidth: 375 }}>
           <Story />
         </div>
       </PlatformProvider>
@@ -65,6 +67,7 @@ export const Mobile: Story = {
 };
 
 export const MobileFieldErrors: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: {
     fieldErrors: {
@@ -77,6 +80,7 @@ export const MobileFieldErrors: Story = {
 };
 
 export const MobileAccountUnlock: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: AccountUnlock.args,
 };
@@ -132,6 +136,7 @@ export const RequiredAgreements: Story = {
 };
 
 export const MobileRequiredAgreements: Story = {
+  parameters: { layout: 'fullscreen' },
   ...RequiredAgreements,
   tags: ['signup-phone-feedback'],
   decorators: Mobile.decorators,
@@ -139,4 +144,8 @@ export const MobileRequiredAgreements: Story = {
   play: RequiredAgreements.play,
 };
 
-export const MobileCodeEntry: Story = { ...Mobile, args: CodeEntry.args };
+export const MobileCodeEntry: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  args: CodeEntry.args,
+};

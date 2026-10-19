@@ -19,6 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Mobile375: Story = {
+  parameters: { layout: 'fullscreen' },
   name: 'Mobile / 375px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka375' },

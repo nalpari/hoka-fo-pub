@@ -3,10 +3,9 @@
 import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Stack, styled } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 const previousTerms = [
   '2025-07-01',
@@ -47,7 +46,7 @@ export function PreviousTermsPicker({
   const [selectedDate, setSelectedDate] = useState<string>(previousTerms[0]);
 
   return (
-    <ModalDialog
+    <SingleActionDialog
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) onClose();
@@ -57,11 +56,7 @@ export function PreviousTermsPicker({
       size="md"
       mobilePresentation="bottomSheet"
       popupClassName={popup}
-      footer={
-        <Button variant="primary" fullWidth onClick={onSelect}>
-          확인
-        </Button>
-      }
+      onConfirm={onSelect}
     >
       <Stack className={desktopOptions} gap="4">
         <Typography as="p" variant="body3">
@@ -114,6 +109,6 @@ export function PreviousTermsPicker({
           ))}
         </Stack>
       </Box>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

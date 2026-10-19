@@ -1,6 +1,6 @@
 import type { CartItem } from '@/shared/types/cart';
 
-type CheckoutProduct = { id: string; name: string; price: number };
+type CheckoutProduct = { id: string; name: string; price: number; primaryImage?: string };
 
 export type CheckoutRow = { item: CartItem; product: CheckoutProduct };
 

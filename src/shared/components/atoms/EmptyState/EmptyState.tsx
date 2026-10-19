@@ -1,6 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { Box, Grid } from 'styled-system/jsx';
+import { Box, Grid, Stack } from 'styled-system/jsx';
 
 type EmptyStateProps = {
   title: string;
@@ -24,22 +24,23 @@ function withClassName(baseClassName: string, className?: string) {
 function EmptyStateRoot({ title, description, action, variant = 'standard' }: EmptyStateProps) {
   if (variant === 'minimal') {
     return (
-      <Box as="section" aria-label={title} minH="180px" pt="42px" textAlign="center">
+      <Stack as="section" gap="2" aria-label={title} minH="180px" pt="42px" textAlign="center">
         <EmptyStateTitle>{title}</EmptyStateTitle>
         {description ? (
-          <Box mt="2" mx="0" mb="0">
+          <Box mx="0" mb="0">
             <Typography as="p" variant="body3">
               {description}
             </Typography>
           </Box>
         ) : null}
-        {action ? <Box mt="2">{action}</Box> : null}
-      </Box>
+        {action ? <Box>{action}</Box> : null}
+      </Stack>
     );
   }
 
   return (
-    <Box
+    <Stack
+      gap="2"
       as="section"
       aria-label={title}
       w="100%"
@@ -52,14 +53,14 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
     >
       <EmptyStateTitle>{title}</EmptyStateTitle>
       {description ? (
-        <Box mt="2">
+        <Box>
           <Typography as="p" variant="body3">
             {description}
           </Typography>
         </Box>
       ) : null}
-      {action ? <Box mt="2">{action}</Box> : null}
-    </Box>
+      {action ? <Box>{action}</Box> : null}
+    </Stack>
   );
 }
 

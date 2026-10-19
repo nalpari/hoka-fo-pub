@@ -1,5 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FormEvent } from 'react';
+import { Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -16,7 +17,6 @@ const styles = {
   formSection: css({
     display: 'grid',
   }),
-  field: css({ mt: '4' }),
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
@@ -70,75 +70,73 @@ export function SignupDetailsStep({
       <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
         {methodOption.label} 후 필요한 정보를 입력해 주세요.
       </Typography>
-      <FormField
-        variant="boxed"
-        htmlFor="signup-name"
-        error={fieldErrors?.name}
-        label="이름"
-        required
-        className={styles.field}
-      >
-        <TextInput
-          id="signup-name"
-          onChange={(event) => onNameChange(event.target.value)}
-          placeholder="이름을 입력해 주세요"
-          value={name}
-        />
-      </FormField>
-      <FormField
-        variant="boxed"
-        htmlFor="signup-email"
-        error={fieldErrors?.email}
-        label="이메일"
-        required
-        className={styles.field}
-      >
-        <TextInput
-          autoComplete="email"
-          id="signup-email"
-          onChange={(event) => onEmailChange(event.target.value)}
-          placeholder="example@email.com"
-          type="email"
-          value={email}
-        />
-      </FormField>
-      {method === 'local' ? (
-        <>
-          <FormField
-            variant="boxed"
-            htmlFor="signup-id"
-            error={fieldErrors?.id}
-            label="아이디"
-            required
-            className={styles.field}
-          >
-            <TextInput
-              autoComplete="username"
-              id="signup-id"
-              onChange={(event) => onIdChange(event.target.value)}
-              placeholder="영문, 숫자 조합 4자 이상"
-              value={id}
-            />
-          </FormField>
-          <FormField
-            variant="boxed"
-            htmlFor="signup-password"
-            error={fieldErrors?.password}
-            label="비밀번호"
-            required
-            className={styles.field}
-          >
-            <TextInput
-              autoComplete="new-password"
-              id="signup-password"
-              onChange={(event) => onPasswordChange(event.target.value)}
-              placeholder="영문, 숫자, 특수문자 포함 10~12자"
-              type="password"
-              value={password}
-            />
-          </FormField>
-        </>
-      ) : null}
+      <Stack gap="4" mt="4">
+        <FormField
+          variant="boxed"
+          htmlFor="signup-name"
+          error={fieldErrors?.name}
+          label="이름"
+          required
+        >
+          <TextInput
+            id="signup-name"
+            onChange={(event) => onNameChange(event.target.value)}
+            placeholder="이름을 입력해 주세요"
+            value={name}
+          />
+        </FormField>
+        <FormField
+          variant="boxed"
+          htmlFor="signup-email"
+          error={fieldErrors?.email}
+          label="이메일"
+          required
+        >
+          <TextInput
+            autoComplete="email"
+            id="signup-email"
+            onChange={(event) => onEmailChange(event.target.value)}
+            placeholder="example@email.com"
+            type="email"
+            value={email}
+          />
+        </FormField>
+        {method === 'local' ? (
+          <>
+            <FormField
+              variant="boxed"
+              htmlFor="signup-id"
+              error={fieldErrors?.id}
+              label="아이디"
+              required
+            >
+              <TextInput
+                autoComplete="username"
+                id="signup-id"
+                onChange={(event) => onIdChange(event.target.value)}
+                placeholder="영문, 숫자 조합 4자 이상"
+                value={id}
+              />
+            </FormField>
+            <FormField
+              variant="boxed"
+              htmlFor="signup-password"
+              error={fieldErrors?.password}
+              label="비밀번호"
+              required
+            >
+              <TextInput
+                autoComplete="new-password"
+                id="signup-password"
+                onChange={(event) => onPasswordChange(event.target.value)}
+                placeholder="영문, 숫자, 특수문자 포함 10~12자"
+                type="password"
+                value={password}
+              />
+            </FormField>
+          </>
+        ) : null}
+      </Stack>
       {message ? (
         <StatusMessage className={styles.error} tone="error">
           <Typography as="span" variant="body4" tone="error">
