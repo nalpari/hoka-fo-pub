@@ -14,9 +14,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
-      <div className="platform-mobile" style={{ width: 360 }}>
+      <div className="platform-mobile" style={{ maxWidth: '100%', width: 360 }}>
         <Story />
       </div>
     ),

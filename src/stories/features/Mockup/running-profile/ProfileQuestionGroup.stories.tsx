@@ -68,11 +68,12 @@ export const PCSelected: Story = {
 
 export const MobileDefault: Story = {
   name: 'MO / 미선택',
-  parameters: { platform: 'mobile' },
+  parameters: { layout: 'fullscreen', platform: 'mobile' },
   globals: { viewport: { value: 'hoka375', isRotated: false } },
 };
 
 export const MobileSelected: Story = {
+  parameters: { layout: 'fullscreen' },
   ...MobileDefault,
   name: 'MO / 선택',
   args: { value: profileQuestions[0].options[1] },

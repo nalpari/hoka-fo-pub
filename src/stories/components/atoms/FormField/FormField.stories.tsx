@@ -18,7 +18,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 343 }}>
+      <div style={{ maxWidth: '100%', width: 343 }}>
         <Story />
       </div>
     ),
@@ -62,10 +62,11 @@ export const BoxedSelect: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Boxed,
   decorators: [
     (Story) => (
-      <div className="platform-mobile" style={{ width: 343 }}>
+      <div className="platform-mobile" style={{ maxWidth: '100%', width: 343 }}>
         <Story />
       </div>
     ),

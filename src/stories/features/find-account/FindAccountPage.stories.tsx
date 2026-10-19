@@ -36,6 +36,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [withPlatform('mobile', 375)],
   globals: { viewport: 'hoka375' },
 };
@@ -57,6 +58,7 @@ export const CodeEntry: Story = {
 };
 
 export const MobileError: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   name: 'Mobile Error',
   play: Error.play,

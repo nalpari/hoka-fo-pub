@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
   <PlatformProvider platform={platform}>
     <div
       className={`platform-${platform}`}
-      style={platform === 'mobile' ? { width: 375, minHeight: 812 } : undefined}
+      style={platform === 'mobile' ? { maxWidth: '100%', width: 375, minHeight: 812 } : undefined}
     >
       <Story />
     </div>
@@ -34,6 +34,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },
 };

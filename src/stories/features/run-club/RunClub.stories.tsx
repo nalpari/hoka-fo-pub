@@ -16,9 +16,14 @@ export const List: Story = {};
 
 export const Empty: Story = { args: { view: 'empty' } };
 
-export const MobileList: Story = { args: { platform: 'mobile' }, globals: { viewport: 'hoka375' } };
+export const MobileList: Story = {
+  parameters: { layout: 'fullscreen' },
+  args: { platform: 'mobile' },
+  globals: { viewport: 'hoka375' },
+};
 
 export const MobileEmpty: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { platform: 'mobile', view: 'empty' },
   globals: { viewport: 'hoka375' },
 };

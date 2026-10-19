@@ -12,7 +12,7 @@ export const auditMeta = {
         <PlatformProvider platform={mobile ? 'mobile' : 'web'}>
           <div
             className={mobile ? 'platform-mobile' : 'platform-web'}
-            style={{ width: mobile ? 375 : undefined }}
+            style={{ maxWidth: '100%', width: mobile ? 375 : undefined }}
           >
             <Story />
           </div>

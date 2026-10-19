@@ -34,6 +34,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = { decorators: [withPlatform('web')] };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [withPlatform('mobile', 375)],
   globals: { viewport: 'hoka375' },
 };
@@ -92,13 +93,19 @@ export const Complete: Story = {
 };
 
 export const MobileRequiredFieldsError: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   play: RequiredFieldsError.play,
 };
 
-export const MobileComplete: Story = { ...Mobile, play: Complete.play };
+export const MobileComplete: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  play: Complete.play,
+};
 
 export const MobileError: Story = {
+  parameters: { layout: 'fullscreen' },
   decorators: [withPlatform('mobile', 375)],
   globals: { viewport: 'hoka375' },
   play: async ({ canvasElement }) => {

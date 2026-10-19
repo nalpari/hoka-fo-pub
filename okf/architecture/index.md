@@ -1,5 +1,7 @@
 # 아키텍처
 
+[모바일 Storybook 여백 공통 기준 (2026-10-19)](ui.md#모바일-storybook-여백-공통-기준-2026-10-19)를 참고한다.
+
 [Checkbox 오류 테두리 간격 (2026-10-19)](ui.md#checkbox-오류-테두리-간격-2026-10-19)를 참고한다.
 
 [계정 폼 제목의 AccountFormHeader 공통화 (2026-10-19)](ui.md#계정-폼-제목의-accountformheader-공통화-2026-10-19)를 참고한다.

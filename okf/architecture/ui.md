@@ -6,9 +6,28 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T09:07:32.986Z'
+  at: '2026-10-19T09:07:40.270Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/signup-registration/MarketingConsentSummaryModal.stories.tsx
+  - src/stories/features/product/ProductDetailPage.stories.tsx
+  - src/stories/features/identity-verification/IdentityVerificationPage.stories.tsx
+  - src/stories/features/home/HomePage.stories.tsx
+  - src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx
+  - src/stories/features/find-account/IdConfirmationModal.stories.tsx
+  - src/stories/features/find-account/FindAccountPage.stories.tsx
+  - src/stories/features/catalog/ProductListingPage.stories.tsx
+  - src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx
+  - src/stories/components/organisms/Search/SearchSuggestions.stories.tsx
+  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
+  - src/stories/components/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx
+  - src/stories/components/organisms/Layout/SiteFooter/SiteFooter.stories.tsx
+  - src/stories/components/organisms/Hero/HeroSlide.stories.tsx
+  - src/stories/components/organisms/Hero/HeroCopy.stories.tsx
+  - src/stories/components/organisms/Hero/Hero.stories.tsx
+  - src/stories/components/molecules/StepIndicator/StepIndicator.stories.tsx
+  - src/stories/components/molecules/Carousel/Carousel.stories.tsx
+  - src/stories/components/atoms/FormField/FormField.stories.tsx
   - src/stories/components/atoms/Checkbox/Checkbox.stories.tsx
   - src/shared/components/organisms/Signup/SignupMethodStep.tsx
   - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
@@ -1481,3 +1500,7 @@ IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLa
 ## Checkbox 오류 테두리 간격 (2026-10-19)
 
 Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/shared/components/atoms/Checkbox/Checkbox.tsx, src/stories/components/atoms/Checkbox/Checkbox.stories.tsx.
+
+## 모바일 Storybook 여백 공통 기준 (2026-10-19)
+
+모바일 이름·플랫폼·375px viewport를 지정한 스토리 108개에 layout fullscreen을 명시했다. 고정 모바일 너비를 사용하는 래퍼 13곳에는 maxWidth 100%를 적용해 스크롤바를 포함한 가용 너비를 넘지 않게 한다. 페이지 내부의 디자인 여백과 PC 스토리 설정은 유지한다. 출처는 src/stories/ 아래 모바일 스토리와 features/forms/form-state-audit/shared.tsx다.

@@ -34,11 +34,12 @@ export const Default: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   play: Default.play,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
-        <div className="platform-mobile" style={{ width: 375 }}>
+        <div className="platform-mobile" style={{ maxWidth: '100%', width: 375 }}>
           <Story />
         </div>
       </PlatformProvider>
@@ -56,9 +57,14 @@ export const PreviousPicker: Story = {
 
 export const Interactive: Story = { render: () => <SignupTermsPage /> };
 
-export const MobileDetail: Story = { ...Mobile, args: { detail: 0 } };
+export const MobileDetail: Story = {
+  parameters: { layout: 'fullscreen' },
+  ...Mobile,
+  args: { detail: 0 },
+};
 
 export const MobilePreviousPicker: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: { detail: 0, previousPickerOpen: true },
   globals: { viewport: 'hoka375' },
@@ -85,6 +91,7 @@ export const DetailInteraction: Story = {
 };
 
 export const MobileDetailInteraction: Story = {
+  parameters: { layout: 'fullscreen' },
   ...Mobile,
   render: DetailInteraction.render,
   play: async ({ canvasElement }) => {

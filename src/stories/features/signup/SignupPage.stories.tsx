@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
-  parameters: { platform: 'mobile' },
+  parameters: { layout: 'fullscreen', platform: 'mobile' },
   globals: { viewport: 'hoka375' },
 };
 
@@ -41,7 +41,7 @@ export const Details: Story = {
 
 export const MobileDetails: Story = {
   ...Details,
-  parameters: { ...Details.parameters, platform: 'mobile' },
+  parameters: { layout: 'fullscreen', ...Details.parameters, platform: 'mobile' },
   globals: { viewport: 'hoka375' },
 };
 
@@ -81,7 +81,7 @@ export const PasswordValidation: Story = {
 export const MobilePasswordValidation: Story = {
   ...PasswordValidation,
   tags: ['password-policy'],
-  parameters: { ...Details.parameters, platform: 'mobile' },
+  parameters: { layout: 'fullscreen', ...Details.parameters, platform: 'mobile' },
   globals: { viewport: 'hoka375' },
   play: PasswordValidation.play,
 };
@@ -120,7 +120,7 @@ export const FieldValidation: Story = {
 export const MobileFieldValidation: Story = {
   ...FieldValidation,
   tags: ['signup-phone-feedback'],
-  parameters: { ...Details.parameters, platform: 'mobile' },
+  parameters: { layout: 'fullscreen', ...Details.parameters, platform: 'mobile' },
   globals: { viewport: 'hoka375' },
   play: FieldValidation.play,
 };

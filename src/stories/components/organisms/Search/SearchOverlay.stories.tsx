@@ -31,6 +31,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   globals: { viewport: { value: 'hoka375', isRotated: false } },
   beforeEach: () => {
     const wasMobile = document.body.classList.contains('platform-mobile');

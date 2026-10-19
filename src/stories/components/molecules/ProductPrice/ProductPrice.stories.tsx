@@ -17,6 +17,7 @@ export const Default: Story = {};
 export const Discounted: Story = { args: { price: 232000, originalPrice: 290000 } };
 
 export const MobileDiscounted: Story = {
+  parameters: { layout: 'fullscreen' },
   args: { price: 232000, originalPrice: 290000 },
   decorators: [
     (Story) => (

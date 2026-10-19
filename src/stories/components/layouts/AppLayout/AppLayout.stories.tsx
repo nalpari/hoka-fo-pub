@@ -18,7 +18,7 @@ export const Default: Story = {
 
 export const Mobile: Story = {
   args: { cart: 2, children: <main style={{ minHeight: 280, padding: 32 }}>페이지 콘텐츠</main> },
-  parameters: { viewport: { defaultViewport: 'hokaMobile' } },
+  parameters: { layout: 'fullscreen', viewport: { defaultViewport: 'hokaMobile' } },
   render: (args) => (
     <div className="mobile">
       <AppLayout {...args} />
@@ -27,6 +27,7 @@ export const Mobile: Story = {
 };
 
 export const MenuDismissal: Story = {
+  parameters: { layout: 'fullscreen' },
   args: Default.args,
   globals: { viewport: 'hoka375' },
   decorators: [

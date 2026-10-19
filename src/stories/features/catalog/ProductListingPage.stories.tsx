@@ -70,12 +70,14 @@ export const Width1200: Story = {
 };
 
 export const Width768: Story = {
+  parameters: { layout: 'fullscreen' },
   name: '768px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka768' },
 };
 
 export const Width375: Story = {
+  parameters: { layout: 'fullscreen' },
   name: '375px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka375' },

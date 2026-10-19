@@ -25,6 +25,7 @@ export const Web: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { layout: 'fullscreen' },
   render: () => (
     <div className="platform-mobile">
       <>

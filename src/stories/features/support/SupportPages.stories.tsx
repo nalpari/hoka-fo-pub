@@ -36,6 +36,7 @@ export const Desktop: Story = {
 };
 
 export const Mobile375: Story = {
+  parameters: { layout: 'fullscreen' },
   name: 'Mobile / 375px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka375' },
@@ -59,7 +60,7 @@ export const FaqMobile375: Story = {
       <FaqPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/faq' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/faq' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -81,7 +82,7 @@ export const NoticesMobile375: Story = {
       <NoticesPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/notices' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/notices' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -92,7 +93,7 @@ export const NoticeDetailMobile375: Story = {
       <NoticeDetailPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/notices/1' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/notices/1' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -114,7 +115,7 @@ export const InquiriesMobile375: Story = {
       <InquiryPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -125,7 +126,10 @@ export const InquiryNewMobile375: Story = {
       <InquiryNewPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries/new' } } },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/inquiries/new' } },
+  },
   globals: { viewport: 'hoka375' },
 };
 
@@ -147,7 +151,7 @@ export const InquiryPendingMobile375: Story = {
       <InquiryPage preview="pending" />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -158,7 +162,7 @@ export const InquiryAnsweredMobile375: Story = {
       <InquiryPage preview="answered" />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/inquiries' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -180,7 +184,10 @@ export const ShippingReturnsMobile375: Story = {
       <ShippingReturnsPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/after-sales' } } },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/after-sales' } },
+  },
   globals: { viewport: 'hoka375' },
 };
 
@@ -202,7 +209,7 @@ export const StoreFinderMobile375: Story = {
       <StoreFinderPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/store' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/store' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -224,7 +231,7 @@ export const TeamwearMobile375: Story = {
       <TeamwearPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/teamwear' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/teamwear' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -246,7 +253,7 @@ export const CareGuideMobile375: Story = {
       <CareGuidePage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/care' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/care' } } },
   globals: { viewport: 'hoka375' },
 };
 
@@ -268,7 +275,7 @@ export const TermsMobile375: Story = {
       <TermsPage />
     </ShopShell>
   ),
-  parameters: { nextjs: { navigation: { pathname: '/support/terms' } } },
+  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/terms' } } },
   globals: { viewport: 'hoka375' },
 };
 

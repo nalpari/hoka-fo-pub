@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Fix**: 모바일 스토리 108개에 fullscreen을 지정하고 고정 너비 래퍼 13곳에 maxWidth 100%를 적용했다.
+
 - **Fix**: Checkbox 오류 outline의 offset을 -2px로 바꿔 아이콘과 떨어진 간격을 제거하고 미선택·선택 오류 스토리를 추가했다.
 
 - **Refactor**: AccountFormHeader를 추가해 본인인증·계정 찾기·가입 방법·AccountFormLayout의 제목과 설명을 공통화했다. 기존 간격·설명 색상·제목 ID를 보존하고 PC/MO 14개와 기존 상호작용 스토리, Panda·타입·린트·포맷·Next/Storybook 빌드를 확인했다.
