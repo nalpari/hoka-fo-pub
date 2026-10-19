@@ -16,11 +16,17 @@ import { MyPageFrame } from './MyPageFrame';
 
 type ReviewTab = 'ready' | 'written';
 
-const reviewRow = css({ borderBottom: '1px solid var(--colors-black-20)' });
-
 const textAction = css({ textDecoration: 'underline' });
 
-const sortSelect = css({ border: '0', bg: 'transparent', p: '0', minH: '20px', h: '20px', fontSize: '16px', fontWeight: 'medium' });
+const sortSelect = css({
+  border: '0',
+  bg: 'transparent',
+  p: '0',
+  minH: '20px',
+  h: '20px',
+  fontSize: '16px',
+  fontWeight: 'medium',
+});
 
 const reviewImage = '/images/mypage/speedgoat-7-gtx.png';
 
@@ -33,7 +39,9 @@ export function MyPageReviews({ initialReadyCount = 62 }: { initialReadyCount?: 
   const [body, setBody] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [writtenIds, setWrittenIds] = useState<number[]>([0, 1]);
-  const [writtenReviews, setWrittenReviews] = useState<Record<number, { rating: RatingValue; body: string }>>({});
+  const [writtenReviews, setWrittenReviews] = useState<
+    Record<number, { rating: RatingValue; body: string }>
+  >({});
   const readyIds = Array.from({ length: initialReadyCount }, (_, index) => index);
   const ids = tab === 'ready' ? readyIds : writtenIds;
   const sortedIds = sort === 'oldest' ? [...ids].reverse() : ids;
@@ -83,16 +91,20 @@ export function MyPageReviews({ initialReadyCount = 62 }: { initialReadyCount?: 
                 <Typography variant="body4">총</Typography>
                 <Typography variant="body4" weight="medium">
                   {ids.length}
-                  <Typography variant="bodyKr4">
-                    건
-                  </Typography>
+                  <Typography variant="bodyKr4">건</Typography>
                 </Typography>
               </HStack>
             </HStack>
             <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
             <Stack gap="0">
               {displayedIds.map((id) => (
-                <HStack key={id} className={reviewRow} alignItems="flex-start" gap="4" py="6">
+                <HStack
+                  key={id}
+                  borderBottom="1px solid var(--colors-black-20)"
+                  alignItems="flex-start"
+                  gap="4"
+                  py="6"
+                >
                   <Box w="64px" h="64px" flexShrink="0">
                     <ProductThumbnail alt="클리프톤 9" src={reviewImage} />
                   </Box>
@@ -106,13 +118,12 @@ export function MyPageReviews({ initialReadyCount = 62 }: { initialReadyCount?: 
                       </Typography>
                     </HStack>
                     <Stack gap="1">
-
-                    <Typography variant="body4" weight="medium">
-                      클리프톤 9
-                    </Typography>
-                    <Typography variant="body4" weight="medium">
-                      옵션 : 화이트 / 270
-                    </Typography>
+                      <Typography variant="body4" weight="medium">
+                        클리프톤 9
+                      </Typography>
+                      <Typography variant="body4" weight="medium">
+                        옵션 : 화이트 / 270
+                      </Typography>
                     </Stack>
                     {tab === 'written' ? (
                       <Stack gap="2" mt="1">
@@ -147,12 +158,10 @@ export function MyPageReviews({ initialReadyCount = 62 }: { initialReadyCount?: 
                   onClick={() => setVisibleCount((count) => count + 10)}
                 >
                   <HStack gap="1">
-                  <Typography mo="ctaKr2">
-                    더보기
-                    </Typography>
+                    <Typography mo="ctaKr2">더보기</Typography>
                     <Typography mo="body5" tone="tertiary">
-                    ({Math.ceil(visibleCount / 10)}/{Math.ceil(ids.length / 10)})
-                  </Typography>
+                      ({Math.ceil(visibleCount / 10)}/{Math.ceil(ids.length / 10)})
+                    </Typography>
                   </HStack>
                 </Button>
               </Box>

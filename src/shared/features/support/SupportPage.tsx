@@ -136,7 +136,7 @@ export function SupportPage() {
           <Typography as="h2" web="heading7" mo="heading5" id="support-faq-title">
             FAQs
           </Typography>
-          <Typography as="p" web="body3" mo="body3">
+          <Typography as="p" variant="body3">
             가장 자주 찾는 질문의 답변을 찾아보세요!
           </Typography>
         </Stack>

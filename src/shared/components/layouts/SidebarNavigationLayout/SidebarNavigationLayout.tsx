@@ -4,6 +4,7 @@ import {
   SideNavigation,
   type SideNavigationGroup,
 } from '@/shared/components/organisms/Navigation/SideNavigation/SideNavigation';
+import { Box } from 'styled-system/jsx';
 
 export type SidebarNavigationGroup = SideNavigationGroup;
 
@@ -15,9 +16,10 @@ type Props = {
   children: ReactNode;
   mobileNavigation?: 'scroll' | 'hidden';
   className?: string;
+  mobileSpacing?: 'default' | 'none';
 };
 
-const page = css({
+const page = css.raw({
   display: 'grid',
   gridTemplateColumns: '180px minmax(0, 1fr)',
   gap: '50px',
@@ -33,8 +35,6 @@ const page = css({
   },
 });
 
-const content = css({ minW: '0' });
-
 export function SidebarNavigationLayout({
   title: navigationTitle,
   titleTo,
@@ -43,9 +43,17 @@ export function SidebarNavigationLayout({
   children,
   mobileNavigation = 'scroll',
   className,
+  mobileSpacing = 'default',
 }: Props) {
   return (
-    <main className={[page, className].filter(Boolean).join(' ')}>
+    <main
+      className={[
+        css(page, mobileSpacing === 'none' && { _mobile: { px: '0', py: '0', pb: '0' } }),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <SideNavigation
         activePath={activePath}
         groups={groups}
@@ -53,7 +61,7 @@ export function SidebarNavigationLayout({
         title={navigationTitle}
         titleTo={titleTo}
       />
-      <div className={content}>{children}</div>
+      <Box minW="0">{children}</Box>
     </main>
   );
 }

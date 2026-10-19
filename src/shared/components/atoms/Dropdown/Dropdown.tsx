@@ -6,7 +6,7 @@ import { css, cva } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faCircleInfo } from '@/shared/icons/fontAwesome';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Flex } from 'styled-system/jsx';
+import { Stack, Flex } from 'styled-system/jsx';
 import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const styles = {
@@ -149,7 +149,7 @@ export function Dropdown({
   const selectedLabel = selectedOption?.label ?? placeholder;
 
   return (
-    <div className={css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' })}>
+    <Stack gap="8px" minW="0">
       <BaseSelect.Root
         items={options}
         name={name}
@@ -292,6 +292,6 @@ export function Dropdown({
           {hint}
         </Typography>
       ) : null}
-    </div>
+    </Stack>
   );
 }

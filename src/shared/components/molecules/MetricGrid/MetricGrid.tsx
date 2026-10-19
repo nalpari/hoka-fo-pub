@@ -1,6 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
-import { css, cva } from 'styled-system/css';
+import { cva } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 
 export type MetricGridItem = {
   label: ReactNode;
@@ -43,31 +44,32 @@ const grid = cva({
   defaultVariants: { columns: 3, tone: 'neutral' },
 });
 
-const metricItem = css({
-  display: 'grid',
-  gap: '2',
-  minH: '138px',
-  alignContent: 'center',
-  px: '7',
-  borderRight: '1px solid var(--color-border-subtle)',
-  '&:last-child': {
-    borderRight: '0',
-  },
-  _mobile: {
-    borderRight: '0',
-    borderBottom: '1px solid var(--color-border-subtle)',
-    '&:last-child': {
-      borderBottom: '0',
-    },
-  },
-});
-
 /** Summary metric layout for account, cart, order, and membership dashboards. */
 export function MetricGrid({ items, tone, columns, className }: MetricGridProps) {
   return (
     <section className={[grid({ tone, columns }), className].filter(Boolean).join(' ')}>
       {items.map((item, index) => (
-        <article className={metricItem} key={item.id ?? index}>
+        <Grid
+          as="article"
+          gap="2"
+          minH="138px"
+          alignContent="center"
+          px="7"
+          borderRight="1px solid var(--color-border-subtle)"
+          _mobile={{
+            borderRight: '0',
+            borderBottom: '1px solid var(--color-border-subtle)',
+            '&:last-child': {
+              borderBottom: '0',
+            },
+          }}
+          css={{
+            '&:last-child': {
+              borderRight: '0',
+            },
+          }}
+          key={item.id ?? index}
+        >
           <Typography variant="body5" tone="tertiary">
             {item.label}
           </Typography>
@@ -79,7 +81,7 @@ export function MetricGrid({ items, tone, columns, className }: MetricGridProps)
               {item.detail}
             </Typography>
           ) : null}
-        </article>
+        </Grid>
       ))}
     </section>
   );

@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { css } from 'styled-system/css';
-import { Square, VStack, styled } from 'styled-system/jsx';
+import { css, cx } from 'styled-system/css';
+import { Square, VStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { MegaMenuPromo } from '@/shared/components/organisms/Layout/SiteHeader/megaMenu';
 
@@ -11,8 +11,6 @@ export type MegaMenuADProps = MegaMenuPromo & {
   presentation?: 'desktop' | 'mobile';
   className?: string;
 };
-
-const PromoLink = styled(Link);
 
 export function MegaMenuAD({
   to,
@@ -25,30 +23,38 @@ export function MegaMenuAD({
   const isMobile = presentation === 'mobile';
 
   return (
-    <PromoLink
+    <Link
       href={to}
       onClick={onClick}
-      className={className}
-      display="block"
-      w={isMobile ? '100%' : '358px'}
-      aspectRatio={isMobile ? '1' : undefined}
-      color={isMobile ? 'var(--color-white-000)' : undefined}
-      textDecoration={isMobile ? 'none' : undefined}
-      overflow={isMobile ? 'hidden' : undefined}
-      _focusVisible={{
-        '& > [data-mega-menu-ad-card]': {
-          outline: '2px solid var(--hoka-black)',
-          outlineOffset: '3px',
-        },
-      }}
+      className={cx(
+        css({
+          display: 'block',
+          w: isMobile ? '100%' : '358px',
+          aspectRatio: isMobile ? '1' : undefined,
+          color: isMobile ? 'var(--color-white-000)' : undefined,
+          textDecoration: isMobile ? 'none' : undefined,
+          overflow: isMobile ? 'hidden' : undefined,
+          _focusVisible: {
+            '& > [data-mega-menu-ad-card]': {
+              outline: '2px solid var(--hoka-black)',
+              outlineOffset: '3px',
+            },
+          },
+        }),
+        className,
+      )}
     >
       <Square
-        position="relative"
+        pos="relative"
         overflow="hidden"
         data-mega-menu-ad-card
         size={isMobile ? '100%' : '358px'}
       >
-        <styled.img display="block" w="100%" h="100%" objectFit="cover" src={imageSrc} alt="" />
+        <img
+          className={css({ display: 'block', w: '100%', h: '100%', objectFit: 'cover' })}
+          src={imageSrc}
+          alt=""
+        />
         <VStack
           alignItems="flex-start"
           justifyContent="flex-end"
@@ -88,6 +94,6 @@ export function MegaMenuAD({
           </Typography>
         </VStack>
       </Square>
-    </PromoLink>
+    </Link>
   );
 }

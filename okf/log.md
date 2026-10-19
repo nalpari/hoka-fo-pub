@@ -8,6 +8,40 @@
 - **Update**: 세탁 및 손질 방법 안내의 신발·의류/용품 탭과 상세 문구를 추가하고, 약관 페이지의 웹·모바일 탭·시행일 선택 디자인을 공통 고객센터 레이아웃으로 옮겼다. 회원등급 안내의 좌측 메뉴도 같은 레이아웃으로 맞췄다. [UI 아키텍처](architecture/ui.md)에 Figma 출처와 약관 자리표시자 범위를 기록했다.
 - **Update**: 매장찾기와 팀/단체복 주문안내를 최신 고객센터 시안에 맞춰 재구성하고, 배송·반품 안내의 세 탭을 모두 활성화해 본문을 반영했다. 공통 제목·탭 컴포넌트와 매장 지도 자산을 추가하고 [UI 아키텍처](architecture/ui.md)에 출처와 데이터 범위를 기록했다.
 - **Fix**: 1:1 문의 제목 아래 구분선을 모바일에서 숨기지 않고 `black.20`으로 표시했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Style**: Form 전수 점검 보고서의 기존 표 열 너비와 구분선을 Prettier 형식으로 정리했다. 표 셀 내용과 기존 검증 기록은 유지했다.
+
+- **Refactor**: FormStateAudit 단일 파일을 PC/MO → Validation/Expired/Inheritance 6개 Storybook 그룹과 도메인별 5개 시나리오 모듈로 분리했다. 기존 30개 검사와 태그를 유지하고 공통 플랫폼 메타·주소 helper를 재사용하며 플랫폼/상태 태그와 정렬을 추가했다. 원본 시나리오 15개 선언 일치, 인덱스 30개·태그, 타입·ESLint·Prettier·Storybook 빌드 및 정적 Storybook play 30개를 확인했다.
+
+- **Refactor**: 유사 화면을 계정 중앙 프레임·주문 프레임·사이드바 그룹으로 묶었다. AccountPageLayout을 계정 10개 화면에 적용하고 MyPageFrame이 SidebarNavigationLayout을 재사용하도록 정리하고 장바구니·주문/결제/완료에 OrderPageLayout을 적용했다. 화면별 기존 DOM·타이포·여백·폭·폼/모달 계약을 유지했으며 웹/모바일 31건 전후 비교·상호작용 13개·실제 사이드바 경로 10건, 기존 테스트 40개·타입·ESLint·Prettier·Panda·Next/Storybook 빌드를 검증했다. [UI 기록](architecture/ui.md#유사-화면의-레이아웃-그룹-공통화-2026-10-19)에 API·그룹과 유지 판단을 기록했다.
+
+- **Refactor**: AccountFormLayout에 actions/actionsSpacing을 추가해 약관동의·회원가입의 2열 버튼 영역을 공통화했다. 기존 32px/24px 간격과 form 연결·Enter 제출을 유지하고 웹/모바일 스토리 12개, Enter 제출 2개 및 타입·ESLint·Prettier·Panda·Next 빌드를 검증했다. [UI 계약](architecture/ui.md#accountformlayout-공통-액션-영역-2026-10-19)에 기록했다.
+
+- **Refactor**: 약관동의·휴대폰 인증·회원가입에 AccountFormLayout을 적용해 제목 영역→본문을 웹 40px·모바일 32px로 통일하고 약관·입력·인증번호·부가 정보 컴포넌트를 분리했다. 기존 export·폼/오류/모달 계약과 소제목 수정을 유지했다. 타입·ESLint·Prettier·Panda·Next/Storybook 빌드, 기존 테스트 38개와 웹/모바일 Storybook 21개 시나리오를 검증했다.
+
+- **Fix**: Button 외곽·내용·글자의 내부 스타일을 객체 단계에서 병합해 검색 정렬·링크 줄 높이·아이콘 전용 기본 변수의 클래스 충돌을 제거했다. [UI 기록](architecture/ui.md#button-내부-스타일-병합-2026-10-19)에 병합 계약, 180개 SSR 조합 검사와 통합 화면 검증 한계를 기록했다.
+
+- **Refactor / Audit**: Features·Components 381개 TSX의 다단계·중첩 선택자를 재점검하고 13개 파일에서 17개 부모 규칙을 직접 적용하거나 중복/미사용 제거했다. [UI 기록](architecture/ui.md#다단계-선택자-featurescomponents-재점검-2026-10-19)에 2단계 이상 선택자 22개의 판단과 유지 19개의 근거, AST 164개·SSR 28건·검증 범위를 기록했다.
+
+- **Refactor**: ReviewGalleryModal의 header/section 아래 다단계 선택자 6개를 직접 적용하거나 중복 제거하고, 스킬에 전체 JSX 경로로 단일 소유자를 확인하는 기준을 추가했다. [UI 기록](architecture/ui.md#다단계-자식-선택자의-로컬-소유권-2026-10-19)에 cascade 보존과 타입·ESLint·Prettier·Panda·AST 24개 검증 범위를 기록했다.
+
+- **Refactor / Audit**: Features·Components 381개 TSX에서 단순 자식 선택자 185개를 점검하고 28개 소스의 67개 규칙을 해당 JSX에 직접 적용하거나 중복 제거했다. 반복 li·자체 가상 요소·런클럽 행·썸네일 선택 상태를 보존했다. [UI 기록](architecture/ui.md#featurescomponents-자식-선택자-소유권-전수-점검-2026-10-19)에 잔여 선택자 유지 사유, AST 552개·SSR 46건·빌드 검사와 브라우저 검증 한계를 기록했다.
+
+- **Refactor**: 추천 검색어의 mapped li와 before 스타일을 해당 li에 직접 적용했다. 스킬의 단일 소유자 판단을 렌더링 DOM 수가 아닌 로컬 JSX 기준으로 바로잡고, 반복·가상 요소만으로 이전을 제외하지 않도록 했다. [UI 계약](architecture/ui.md#단일-자식-선택자의-스타일-소유권-2026-10-19)과 타입·ESLint·Prettier·Panda 검증을 갱신했다.
+
+- **Refactor**: 추천 검색어 ol의 counterReset을 요소에 직접 적용하고 스킬에 단일 자식 선택자 소유권 점검 기준을 통합했다. [UI 기록](architecture/ui.md#단일-자식-선택자의-스타일-소유권-2026-10-19)에 보존 조건과 타입·ESLint·Prettier·Panda 검사 결과를 기록했다.
+
+- **Refactor / Audit**: Components 213개 TSX를 점검하고 텍스트 50곳·단일 사용 스타일 86곳·동일 플랫폼 옵션 2곳·고정 recipe 배치를 정리했다. 무스타일 구조 HTML·공개 props·기존 상호작용을 유지하고 styled 사용을 제거했다. [UI 기록](architecture/ui.md#components-재사용성과-jsx-표현-점검-2026-10-19)과 [재사용 판단](architecture/organisms.md#components-점검-후-재사용-판단-2026-10-19)에 AST 665개·SSR 30건·빌드 검증과 브라우저 검증 미실행을 기록했다.
+
+- **Refactor / Audit**: Features 168개 TSX를 점검하고 동일 web/mo 59곳, 텍스트 94곳, 단일 사용 스타일 67곳, 중복 display 5곳과 styled 2곳을 정리했다. 무스타일 구조 HTML과 기존 상태 계약을 유지했다. [UI 기록](architecture/ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)·[상태 검토](architecture/state.md#features-표현-정리-후-상태-계약-검토-2026-10-19)에 실제 검증과 후속 후보를 기록했다.
+
+- **Refactor**: SearchCategorySelect의 검색 범위 레이블에 Typography.srOnly를 적용하고 중복 숨김 CSS를 제거했다. [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)에 출처와 타입 검사·ESLint·Prettier 통과를 기록했다.
+
+- **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.
+
+- **Refactor**: SearchCategorySelect의 검색 범위 레이블에 Typography.srOnly를 적용하고 중복 숨김 CSS를 제거했다. [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)에 출처와 타입 검사·ESLint·Prettier 통과를 기록했다.
+
+- **Feature**: Typography에 `srOnly` boolean prop을 추가하고 상품 이미지 뷰어에 적용했다. ScreenReaderOnly 스토리와 [UI 계약](architecture/ui.md#typography-스크린-리더-전용-옵션-2026-10-19)을 추가했다. Panda 생성·타입 검사·변경 TSX ESLint·Prettier 통과.
+
 - **Refactor**: 로그인 소셜 버튼의 카카오·네이버 SVG를 기존 `<img>`에서 등록된 공통 `Icon` 자산으로 전환했다. 크기와 버튼 동작은 유지하며 [UI 아키텍처](architecture/ui.md)에 사용 경로를 기록했다.
 - **Update**: Figma 로그인 PC·모바일 화면에 맞춰 아이디/비밀번호 찾기를 한 버튼으로 합치고, `LoginForm`의 폼 간격을 Panda `Stack`으로 옮겼다. 해당 Storybook 동작 검사와 [UI 아키텍처](architecture/ui.md)를 갱신했다.
 - **Update**: 계정 잠금 해제 완료 화면의 잠금 아이콘을 Figma 노드 `957:30479`에서 내보낸 SVG로 교체하고 공통 Icon 자산과 Storybook 카탈로그에 등록했다. [UI 아키텍처](architecture/ui.md)에 출처와 사용 경로를 기록했다.

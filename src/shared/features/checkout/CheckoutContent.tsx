@@ -51,7 +51,9 @@ export function CheckoutContent({
   if (rows.length === 0)
     return (
       <section className={done}>
-        <p className={css({ m: '0' })}>주문할 상품이 없습니다.</p>
+        <Typography as="p" className={css({ m: '0' })}>
+          주문할 상품이 없습니다.
+        </Typography>
         <Link href="/products">쇼핑 계속하기</Link>
       </section>
     );

@@ -1,6 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Box } from 'styled-system/jsx';
 
 export type ProfileQuestion = { id: string; title: string; options: string[] };
 
@@ -10,19 +11,6 @@ type Props = {
   value?: string;
   onChange: (value: string) => void;
 };
-
-const block = css({
-  pb: '10',
-  borderBottom: '1px solid var(--color-border-subtle)',
-  '& h2': {
-    m: '10px 0 24px',
-  },
-  '&&': {
-    '& small': {
-      color: 'var(--color-blue-100)',
-    },
-  },
-});
 
 const options = css({
   display: 'grid',
@@ -67,11 +55,21 @@ const option = cva({
 
 export function ProfileQuestionGroup({ question, number, value, onChange }: Props) {
   return (
-    <section className={block}>
-      <Typography as="small" variant="body5">
+    <Box as="section" pb="10" borderBottom="1px solid var(--color-border-subtle)">
+      <Typography
+        as="small"
+        variant="body5"
+        className={css({ '&&': { color: 'var(--color-blue-100)' } })}
+      >
         QUESTION {number}
       </Typography>
-      <Typography as="h2" variant="heading8">
+      <Typography
+        as="h2"
+        variant="heading8"
+        className={css({
+          m: '10px 0 24px',
+        })}
+      >
         {question.title}
       </Typography>
       <div className={options}>
@@ -85,6 +83,6 @@ export function ProfileQuestionGroup({ question, number, value, onChange }: Prop
           </Button>
         ))}
       </div>
-    </section>
+    </Box>
   );
 }

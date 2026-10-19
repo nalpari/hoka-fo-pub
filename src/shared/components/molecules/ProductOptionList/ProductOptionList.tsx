@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { css, cva } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 
 const list = cva({
   variants: {
@@ -29,13 +30,6 @@ const list = cva({
       grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '2' },
     },
   },
-});
-
-const previewRow = css({
-  display: 'grid',
-  gridTemplateColumns: '16px minmax(0, 1fr) 16px',
-  alignItems: 'center',
-  minW: '0',
 });
 
 const arrow = css({ w: '16px!', minW: '16px!', '--button-height': '32px' });
@@ -173,7 +167,7 @@ export function ProductOptionList({
   if (layout !== 'preview') return content;
 
   return (
-    <div className={previewRow}>
+    <Grid gap="normal" gridTemplateColumns="16px minmax(0, 1fr) 16px" alignItems="center" minW="0">
       <Button
         variant="ghost"
         aria-label="이전 색상"
@@ -191,6 +185,6 @@ export function ProductOptionList({
         onClick={() => move(1)}
         icon={<span aria-hidden="true">▸</span>}
       />
-    </div>
+    </Grid>
   );
 }

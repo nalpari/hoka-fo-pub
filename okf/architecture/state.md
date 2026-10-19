@@ -6,9 +6,12 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T00:12:41.476Z'
+  at: '2026-10-19T05:07:21Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
+  - src/shared/features/checkout/CheckoutLayout.tsx
+  - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
   - src/shared/lib/emailValidation.ts
   - src/shared/features/phone-verification/PhoneVerificationContent.tsx
   - src/shared/lib/passwordValidation.ts
@@ -60,6 +63,7 @@ sources:
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
 로그인 액션과 회원가입 이동 버튼은 공통 `Button`·`ButtonLink`의 기본 `tall` 크기를 사용한다. 명시적 크기 속성만 정리했으며 `LoginPage`의 상태, 제출 및 이동 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `src/shared/features/login/LoginActions.tsx`, `src/shared/features/login/LoginMembership.tsx`다.
+
 ## 로그인 필드 오류
 
 2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.
@@ -105,3 +109,17 @@ PC·모바일 로그인 폼의 아이디/비밀번호 찾기 진입 링크를 �
 소셜 로그인 버튼은 카카오·네이버 표시를 공통 `Icon` 자산으로 전환했다. 클릭 시 기존 미제공 안내 콜백을 호출하는 데모 상태는 그대로 유지한다.
 
 [프로젝트 범위](../project.md), [라우팅](routing.md), [변경 검증](../development/verification.md)을 참고한다.
+
+## Features 표현 정리 후 상태 계약 검토 (2026-10-19)
+
+작업 트리 `src/shared/features/cart/CartPage.tsx`의 텍스트·단일 사용 스타일을 Typography와 Panda JSX로 옮겼다. cart props, 수량 변경/제거 콜백, 상품 조회, rows와 total 계산은 유지했다. 체크박스·수량 입력·결제 경로와 상태 소유자도 변경하지 않았다. 전체 Features의 적용 범위와 검사 한계는 [UI 기록](ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 이번 검토는 실제 주문·결제나 장바구니 전체 브라우저 회귀를 검증한 기록이 아니다.
+
+## 공통 계정 프레임 적용 이후 로그인 상태 계약 (2026-10-19)
+
+LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한다. LoginLayout은 기존 login-title 제목과 children 조합을 유지하며 새 Context·hook·client 경계를 추가하지 않는다. LoginPage의 이메일/비밀번호·아이디 저장·제출 여부·오류/성공 안내 상태, 입력 시 안내 초기화, 검증 성공 후 onLogin 호출과 홈 이동은 기존 책임을 유지한다. LoginForm·LoginContent·LoginPage의 상태 코드는 수정하지 않았다.
+
+검증은 실제 LoginPage 코드와 기존 상태 설명을 대조했고, 웹/모바일 login-flow·invalid-formats Storybook play 4개와 default/mobile DOM·좌표 비교를 통과했다. 전체 타입 검사와 Next/Storybook 빌드도 통과했다. 이번 변경으로 데모 로그인 저장 방식이나 실제 인증 연동 범위는 달라지지 않는다. 출처는 frontmatter의 LoginPage·LoginContent·LoginLayout·AccountPageLayout과 기존 로그인 스토리다.
+
+## 주문 프레임 공통화와 상태 유지 (2026-10-19)
+
+주문 프레임 공통화에서는 CartPage의 main/header/StepIndicator를 OrderPageLayout에 위임했다. 수량·삭제 콜백·행 구성·총액 계산은 수정하지 않았다. CheckoutLayout은 completed에 따라 단계 2/3과 기존 제목을 전달하고 CheckoutPage의 입력·검증·완료·onComplete 상태 코드는 수정하지 않았다. 주문 합계 테스트 3개, 결제 완료 웹/모바일 play 2개, 장바구니 실제 경로와 주문 상태의 DOM·좌표 비교 6건으로 기존 계약을 확인했다.

@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
-
-const frame = css({ position: 'sticky', top: 0, zIndex: 20 });
+import { Box } from 'styled-system/jsx';
 
 /** Keep the header and its expanded menu in the same sticky hover region. */
 export function SiteHeaderFrame({
@@ -12,8 +10,8 @@ export function SiteHeaderFrame({
   onLeave: () => void;
 }) {
   return (
-    <div className={frame} onMouseLeave={onLeave}>
+    <Box pos="sticky" top={0} zIndex={20} onMouseLeave={onLeave}>
       {children}
-    </div>
+    </Box>
   );
 }

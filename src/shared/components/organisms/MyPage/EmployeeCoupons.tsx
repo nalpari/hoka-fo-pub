@@ -15,17 +15,6 @@ const employeeCouponLabels = [
   '15% 할인 쿠폰',
 ];
 
-const chip = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-  h: '36px',
-  px: '14px',
-  borderRadius: '52px',
-  bg: 'black.20',
-});
-
 const expandButton = css({
   display: 'grid',
   border: '1px solid var(--colors-black-40)',
@@ -33,25 +22,8 @@ const expandButton = css({
   boxShadow: '1',
 });
 
-const collapsedFade = css({
-  position: 'absolute',
-  top: '0',
-  right: '0',
-  w: '84px',
-  h: '52px',
-  bg: 'linear-gradient(90deg, transparent 0%, var(--colors-white-0) 50%)',
-  pointerEvents: 'none',
-  transition: 'opacity 180ms ease',
-  '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
-});
-
 const animatedList = css({
   transition: 'height 280ms ease',
-  '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
-});
-
-const animatedChevron = css({
-  transition: 'transform 280ms ease',
   '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 });
 
@@ -113,14 +85,36 @@ export function EmployeeCoupons() {
           py="2"
         >
           {employeeCouponLabels.map((label) => (
-            <Box as="span" key={label} className={chip}>
+            <Box
+              as="span"
+              key={label}
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
+              flexShrink={0}
+              h="36px"
+              px="14px"
+              borderRadius="52px"
+              bg="black.20"
+            >
               <Typography mo="body4" weight="medium">
                 {label}
               </Typography>
             </Box>
           ))}
         </HStack>
-        <Box className={collapsedFade} opacity={expanded ? '0' : '1'} />
+        <Box
+          pos="absolute"
+          top="0"
+          right="0"
+          w="84px"
+          h="52px"
+          bg="linear-gradient(90deg, transparent 0%, var(--colors-white-0) 50%)"
+          pointerEvents="none"
+          transition="opacity 180ms ease"
+          css={{ '@media (prefers-reduced-motion: reduce)': { transition: 'none' } }}
+          opacity={expanded ? '0' : '1'}
+        />
         <Box position="absolute" top="0" right="0">
           <IconButton
             aria-controls={listId}
@@ -131,7 +125,11 @@ export function EmployeeCoupons() {
             shape="circle"
             size="52px"
           >
-            <Box className={animatedChevron} transform={expanded ? 'rotate(180deg)' : undefined}>
+            <Box
+              transition="transform 280ms ease"
+              css={{ '@media (prefers-reduced-motion: reduce)': { transition: 'none' } }}
+              transform={expanded ? 'rotate(180deg)' : undefined}
+            >
               <Icon src="/images/icon/chevron-down-small.svg" size="16px" />
             </Box>
           </IconButton>

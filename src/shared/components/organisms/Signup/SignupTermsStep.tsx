@@ -1,6 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { VStack } from 'styled-system/jsx';
+import { Grid, VStack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
@@ -10,9 +10,6 @@ type SignupMethodOption = {
 };
 
 const styles = {
-  formSection: css({
-    display: 'grid',
-  }),
   allTerms: css({
     display: 'flex',
     alignItems: 'center',
@@ -21,27 +18,7 @@ const styles = {
     p: '17px',
     bg: 'var(--color-black-10)',
   }),
-  termList: css({
-    borderBottom: '1px solid var(--color-border-subtle)',
-    '& > div': {
-      w: '100%',
-      p: '4 0.5',
-      borderTop: '1px solid var(--color-border-subtle)',
-    },
-    '& [data-checkbox-label] > span:last-child': {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      flex: '1',
-    },
-    '& button': {
-      ml: 'auto',
-      p: 0,
-      border: 0,
-      color: 'var(--color-text-tertiary)',
-      textDecoration: 'underline',
-    },
-  }),
+
   error: css({
     mt: '18px',
     color: 'var(--color-red-100)',
@@ -84,7 +61,7 @@ export function SignupTermsStep({
   const allRequiredTerms = serviceTerms && privacyTerms && ageTerms;
 
   return (
-    <section className={styles.formSection} aria-labelledby="terms-title">
+    <Grid as="section" gap="normal" aria-labelledby="terms-title">
       <Typography as="h2" variant="heading7" id="terms-title">
         약관 동의
       </Typography>
@@ -96,7 +73,29 @@ export function SignupTermsStep({
           필수 약관 전체 동의
         </Typography>
       </Terms>
-      <VStack className={styles.termList}>
+      <VStack
+        borderBottom="1px solid var(--color-border-subtle)"
+        css={{
+          '& > div': {
+            w: '100%',
+            p: '4 0.5',
+            borderTop: '1px solid var(--color-border-subtle)',
+          },
+          '& [data-checkbox-label] > span:last-child': {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            flex: '1',
+          },
+          '& button': {
+            ml: 'auto',
+            p: 0,
+            border: 0,
+            color: 'var(--color-text-tertiary)',
+            textDecoration: 'underline',
+          },
+        }}
+      >
         <Terms
           checked={serviceTerms}
           onCheckedChange={onServiceTermsChange}
@@ -148,6 +147,6 @@ export function SignupTermsStep({
       <Button className={styles.primary} onClick={onContinue} variant="primary">
         다음
       </Button>
-    </section>
+    </Grid>
   );
 }

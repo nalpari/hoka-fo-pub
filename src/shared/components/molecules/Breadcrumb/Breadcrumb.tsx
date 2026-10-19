@@ -4,13 +4,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { css } from 'styled-system/css';
-
-const root = css({
-  '&&': {
-    fontWeight: 'semibold',
-    color: 'var(--color-text-primary)',
-  },
-});
+import { Box } from 'styled-system/jsx';
 
 const link = css({
   _hover: {
@@ -24,7 +18,16 @@ export type BreadcrumbItem = { label: string; href?: string };
 
 export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav className={root} aria-label="현재 위치">
+    <Box
+      as="nav"
+      css={{
+        '&&': {
+          fontWeight: 'semibold',
+          color: 'var(--color-text-primary)',
+        },
+      }}
+      aria-label="현재 위치"
+    >
       {items.map((item, index) => (
         <span key={`${item.label}-${index}`}>
           {index > 0 && (
@@ -50,6 +53,6 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
           )}
         </span>
       ))}
-    </nav>
+    </Box>
   );
 }

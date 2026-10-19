@@ -1,19 +1,8 @@
-import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { ProductDetailContent } from '@/shared/features/product/ProductDetailContent';
 import { ProductDetailHeader } from '@/shared/features/product/ProductDetailHeader';
 import { ProductDetailSupportRegion } from './ProductDetailSupportRegion';
-
-const styles = {
-  root: css({
-    position: 'sticky',
-    top: '104px',
-    alignSelf: 'start',
-    px: '4',
-    _mobile: { position: 'static', px: '4', pt: '6' },
-  }),
-};
 
 type ProductDetailPanelProps = {
   product: Product;
@@ -49,7 +38,14 @@ export function ProductDetailPanel({
   onWishChange,
 }: ProductDetailPanelProps) {
   return (
-    <article className={styles.root}>
+    <Box
+      as="article"
+      pos="sticky"
+      top="104px"
+      alignSelf="start"
+      px="4"
+      _mobile={{ position: 'static', px: '4', pt: '6' }}
+    >
       <Stack gap="10">
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
         <ProductDetailContent
@@ -68,6 +64,6 @@ export function ProductDetailPanel({
         />
         <ProductDetailSupportRegion platform="mobile" />
       </Stack>
-    </article>
+    </Box>
   );
 }

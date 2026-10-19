@@ -84,10 +84,10 @@ export function FaqPage() {
               onClick={() => setShown((count) => count + 10)}
             >
               <HStack gap="1" justifyContent="center">
-                <Typography web="cta2" mo="cta2" weight="semibold">
+                <Typography variant="cta2" weight="semibold">
                   더보기
                 </Typography>
-                <Typography web="body5" mo="body5" tone="tertiary">
+                <Typography variant="body5" tone="tertiary">
                   ({Math.ceil(shown / 10)}/10)
                 </Typography>
               </HStack>

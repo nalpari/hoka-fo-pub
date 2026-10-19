@@ -33,7 +33,7 @@ export function ProductDetailMobileGallery({
       <Carousel itemCount={images.length} loop>
         <CarouselViewport freeMode={false} mobileItemGutter={0} mode="mobile" showScrollbar={false}>
           {images.map((image, index) => (
-            <Box w="100%" css={{ '& img': { w: '100%', h: 'auto' } }} key={image}>
+            <Box w="100%" key={image}>
               <ProductDetailImage alt={`${productName} ${index + 1}`} src={image} />
             </Box>
           ))}

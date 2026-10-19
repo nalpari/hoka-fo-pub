@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box } from 'styled-system/jsx';
 
 const list = css({
   display: 'grid',
@@ -8,8 +9,6 @@ const list = css({
   gap: '10px 16px',
   m: '0',
 });
-
-const row = css({ display: 'contents' });
 
 export type DescriptionListItem = { id?: string; term: ReactNode; description: ReactNode };
 
@@ -27,14 +26,14 @@ export function DescriptionList({ items, labelWidth, className }: DescriptionLis
       style={{ '--description-list-label-width': labelWidth } as CSSProperties}
     >
       {items.map((item, index) => (
-        <div key={item.id ?? index} className={row}>
+        <Box key={item.id ?? index} display="contents">
           <Typography as="dt" variant="heading9">
             {item.term}
           </Typography>
           <Typography as="dd" variant="body4" tone="tertiary">
             {item.description}
           </Typography>
-        </div>
+        </Box>
       ))}
     </dl>
   );

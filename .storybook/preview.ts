@@ -7,7 +7,23 @@ const preview: Preview = {
     a11y: { test: 'todo' },
     controls: { expanded: true },
     layout: 'padded',
-    options: { storySort: { order: ['Development', 'PAGES'] } },
+    options: {
+      storySort: {
+        order: [
+          'Development',
+          [
+            'FormStateAudit',
+            [
+              'PC',
+              ['Validation', 'Expired', 'Inheritance'],
+              'MO',
+              ['Validation', 'Expired', 'Inheritance'],
+            ],
+          ],
+          'PAGES',
+        ],
+      },
+    },
     viewport: {
       options: {
         hoka3840: {

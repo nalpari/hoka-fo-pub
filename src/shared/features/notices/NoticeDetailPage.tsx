@@ -18,19 +18,44 @@ export function NoticeDetailPage() {
       hideIntroMobile
     >
       <Box mb="6">
-        <Typography as="h2" web="heading6" mo="heading7">공지사항</Typography>
+        <Typography as="h2" web="heading6" mo="heading7">
+          공지사항
+        </Typography>
       </Box>
-      <HStack justifyContent="space-between" gap="4" py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
-        <Typography web="heading9" mo="body3">[공통] 네이버페이 9월 프로모션 안내</Typography>
-        <Typography as="time" web="body4" mo="body4" tone="tertiary">2026-08-13</Typography>
+      <HStack
+        justifyContent="space-between"
+        gap="4"
+        py="6"
+        borderTop="1px solid"
+        borderBottom="1px solid"
+        borderColor="black.20"
+      >
+        <Typography web="heading9" mo="body3">
+          [공통] 네이버페이 9월 프로모션 안내
+        </Typography>
+        <Typography as="time" variant="body4" tone="tertiary">
+          2026-08-13
+        </Typography>
       </HStack>
       <Stack gap="4" px="6" py="8" bg="black.10" _mobile={{ px: '4', py: '6' }}>
-        <Typography as="p" web="body4" mo="body4">안녕하세요, HOKA 코리아입니다.</Typography>
-        <Typography as="p" web="body4" mo="body4">네이버페이 9월 프로모션을 안내드립니다.</Typography>
-        <Typography as="p" web="body4" mo="body4">1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59</Typography>
-        <Typography as="p" web="body4" mo="body4">2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인</Typography>
-        <Typography as="p" web="body4" mo="body4">3. 대상 상품: 호카 공식 홈페이지 내 전 상품</Typography>
-        <Typography as="p" web="body4" mo="body4">이용해 주셔서 감사합니다.</Typography>
+        <Typography as="p" variant="body4">
+          안녕하세요, HOKA 코리아입니다.
+        </Typography>
+        <Typography as="p" variant="body4">
+          네이버페이 9월 프로모션을 안내드립니다.
+        </Typography>
+        <Typography as="p" variant="body4">
+          1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
+        </Typography>
+        <Typography as="p" variant="body4">
+          2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
+        </Typography>
+        <Typography as="p" variant="body4">
+          3. 대상 상품: 호카 공식 홈페이지 내 전 상품
+        </Typography>
+        <Typography as="p" variant="body4">
+          이용해 주셔서 감사합니다.
+        </Typography>
       </Stack>
       <Box mt="6" maxW="343px" mx="auto">
         <ButtonLink href="/support/notices" variant="secondary" size="short" fullWidth>

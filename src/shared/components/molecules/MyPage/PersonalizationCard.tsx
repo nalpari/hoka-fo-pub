@@ -3,22 +3,9 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
+import { HStack } from 'styled-system/jsx';
 
 type Props = { eyebrow: string; title: string; description: string; to: string; action: string };
-
-const card = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '6',
-  minH: '185px',
-  p: '30px 38px',
-  bg: 'var(--color-off-white-100)',
-  _mobile: {
-    minH: '210px',
-    p: '25px',
-  },
-});
 
 const titleStyle = css({
   my: '2',
@@ -38,7 +25,18 @@ const actionStyle = css({
 
 export function PersonalizationCard({ eyebrow, title, description, to, action }: Props) {
   return (
-    <article className={card}>
+    <HStack
+      as="article"
+      justifyContent="space-between"
+      gap="6"
+      minH="185px"
+      p="30px 38px"
+      bg="var(--color-off-white-100)"
+      _mobile={{
+        minH: '210px',
+        p: '25px',
+      }}
+    >
       <div>
         <Typography as="small" variant="body5">
           {eyebrow}
@@ -55,6 +53,6 @@ export function PersonalizationCard({ eyebrow, title, description, to, action }:
           {action} →
         </Typography>
       </Link>
-    </article>
+    </HStack>
   );
 }

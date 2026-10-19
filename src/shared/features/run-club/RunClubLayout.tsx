@@ -17,7 +17,7 @@ export function RunClubLayout({ header, children, empty = false }: RunClubLayout
     >
       {header}
       <Stack gap="8" _mobile={{ gap: '0' }}>
-        <Stack display="flex" _mobile={{ display: 'none' }}>
+        <Stack _mobile={{ display: 'none' }}>
           <RunClubHistoryLink />
         </Stack>
         {children}

@@ -3,6 +3,8 @@ import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { IconButton, type IconButtonProps } from '@/shared/components/atoms/IconButton/IconButton';
 import * as fontAwesome from '@/shared/icons/fontAwesome';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box, Grid } from 'styled-system/jsx';
 
 export const fontAwesomeNames = Object.keys(fontAwesome).sort() as (keyof typeof fontAwesome)[];
 
@@ -102,8 +104,6 @@ const surface = css({
 
 const inverseSurface = css({ p: '16px', bg: '#111', color: '#fff' });
 
-const scroll = css({ overflowX: 'auto', maxW: '100%', w: 'full' });
-
 const table = css({
   w: 'full',
   minW: '480px',
@@ -119,8 +119,6 @@ const table = css({
   '& th': { bg: '#f3f3f3', fontWeight: '700' },
   '& caption': { textAlign: 'left', fontWeight: '700', py: '12px' },
 });
-
-const copyTarget = css({ position: 'relative', display: 'inline-block' });
 
 const copyButton = css({
   position: 'absolute',
@@ -162,7 +160,7 @@ function CopyPreview({ args, label }: { args: IconButtonStoryArgs; label: string
 
   return (
     <div>
-      <div className={copyTarget}>
+      <Box pos="relative" display="inline-block">
         <div aria-hidden="true">
           <IconButtonPreview {...args} tabIndex={-1} />
         </div>
@@ -173,7 +171,7 @@ function CopyPreview({ args, label }: { args: IconButtonStoryArgs; label: string
           aria-label={`${label} 사용 코드 복사`}
           title="클릭하여 사용 코드 복사"
         />
-      </div>
+      </Box>
       <div role="status" className={copyStatus}>
         {message}
       </div>
@@ -227,7 +225,9 @@ export function IconButtonPreview(args: IconButtonStoryArgs) {
   return (
     <div className={args.tone === 'inverse' ? inverseSurface : surface}>
       {error ? (
-        <p role="alert">{error}</p>
+        <Typography as="p" role="alert">
+          {error}
+        </Typography>
       ) : (
         <IconButton {...buttonProps}>
           {iconSource === 'fontAwesome' && definition ? (
@@ -251,7 +251,14 @@ function ExampleTable({
   children: ReactNode;
 }) {
   return (
-    <div className={scroll} tabIndex={0} role="region" aria-label={`${caption} · 가로 스크롤`}>
+    <Box
+      overflowX="auto"
+      maxW="100%"
+      w="full"
+      tabIndex={0}
+      role="region"
+      aria-label={`${caption} · 가로 스크롤`}
+    >
       <table className={table}>
         <caption>{caption}</caption>
         <thead>
@@ -265,16 +272,9 @@ function ExampleTable({
         </thead>
         <tbody>{children}</tbody>
       </table>
-    </div>
+    </Box>
   );
 }
-
-const catalogGrid = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(48px, 1fr))',
-  gap: '4px',
-  w: 'full',
-});
 
 const catalogCell = css({
   display: 'grid',
@@ -335,15 +335,21 @@ export function IconCatalog() {
 
   return (
     <div className={surface}>
-      <h2>미리보기 · 클릭하여 복사</h2>
-      <p>
+      <Typography as="h2">미리보기 · 클릭하여 복사</Typography>
+      <Typography as="p">
         전체 {catalogItems.length}개 · 클릭 또는 Enter·Space로 import와 JSX 코드를 복사합니다.
         아이콘 이름은 마우스를 올려 확인하세요. SVG는 원본 색상을 유지합니다.
-      </p>
+      </Typography>
       <div role="status" className={copyStatus}>
         {message}
       </div>
-      <div className={catalogGrid} role="group" aria-label="전체 아이콘 미리보기">
+      <Grid
+        gridTemplateColumns="repeat(auto-fill, minmax(48px, 1fr))"
+        gap="4px"
+        w="full"
+        role="group"
+        aria-label="전체 아이콘 미리보기"
+      >
         {catalogItems.map(({ label, args }) => (
           <button
             key={label}
@@ -366,7 +372,7 @@ export function IconCatalog() {
             )}
           </button>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }
@@ -406,15 +412,15 @@ const examples: { label: string; props: Partial<IconButtonStoryArgs>; note: stri
 export function PropertyComparison({ defaults }: { defaults: IconButtonStoryArgs }) {
   return (
     <div className={surface}>
-      <h2>속성별 비교</h2>
-      <p>
+      <Typography as="h2">속성별 비교</Typography>
+      <Typography as="p">
         tone="disabled"는 색상만 변경합니다. 상호작용을 막으려면 disabled를 지정하세요. 버튼마다
         실제 용도를 나타내는 aria-label이 필요하며 자식 아이콘은 장식 요소로 처리합니다.
-      </p>
-      <p>
+      </Typography>
+      <Typography as="p">
         미리보기를 클릭하면 해당 속성의 사용 코드를 복사합니다. 비활성 예시 위의 복사 버튼은 문서
         전용이며, 복사되는 코드는 disabled 상태를 유지합니다.
-      </p>
+      </Typography>
       <ExampleTable
         caption="크기 · 모양 · 색상 · 비활성 상태"
         headers={['예시', '미리보기 · 클릭하여 복사', '설명']}

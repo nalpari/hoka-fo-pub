@@ -10,49 +10,13 @@ import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavi
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+import { Box, Flex, Grid } from 'styled-system/jsx';
 
 export type SupportExperienceKind = 'member-benefits' | 'mileage';
-
-const content = css({ maxW: '760px', '& h2': { fontSize: '20' } });
-
-const tabList = css({
-  display: 'flex',
-  overflowX: 'auto',
-  borderBottom: '1px solid var(--color-border-subtle)',
-  '& button': {
-    flex: '0 0 auto',
-    minH: '11',
-    border: '0',
-    borderBottom: '2px solid transparent',
-    bg: 'transparent',
-    px: '3.5',
-  },
-});
 
 const activeTab = css({
   borderBottomColor: 'var(--color-black-100) !important',
   fontWeight: 'var(--font-weights-extrabold)',
-});
-
-const policyCard = css({
-  display: 'grid',
-  gridTemplateColumns: '92px 1fr',
-  gap: '4',
-  p: '5',
-  mt: '4',
-  borderRadius: 'full',
-  bg: 'var(--color-black-10)',
-  '& b': {
-    display: 'grid',
-    placeItems: 'center',
-    minH: '18',
-    bg: 'var(--color-white-000)',
-  },
-  '& h3': { mb: '1.5' },
-  '& p': {
-    m: '0',
-    color: 'var(--color-text-subtle)',
-  },
 });
 
 const tooltip = css({
@@ -87,7 +51,9 @@ function SupportFrame({ activePath, children }: { activePath: string; children: 
       title="SUPPORT"
       titleTo="/support"
     >
-      <section className={content}>{children}</section>
+      <Box as="section" maxW="760px" css={{ '& h2': { fontSize: '20' } }}>
+        {children}
+      </Box>
     </SidebarNavigationLayout>
   );
 }
@@ -119,7 +85,21 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
       )}
       {kind === 'mileage' ? (
         <>
-          <nav className={tabList}>
+          <Flex
+            as="nav"
+            overflowX="auto"
+            borderBottom="1px solid var(--color-border-subtle)"
+            css={{
+              '& button': {
+                flex: '0 0 auto',
+                minH: '11',
+                border: '0',
+                borderBottom: '2px solid transparent',
+                bg: 'transparent',
+                px: '3.5',
+              },
+            }}
+          >
             {mileageTabs.map((item) => (
               <Button
                 key={item}
@@ -129,28 +109,25 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
                 {item}
               </Button>
             ))}
-          </nav>
-          <article
-            className={css({ py: '7', minH: '280px', lineHeight: 'var(--line-heights-body)' })}
-          >
-            <h2>{active}</h2>
-            <p>
+          </Flex>
+          <Box as="article" py="7" minH="280px" lineHeight="var(--line-heights-body)">
+            <Typography as="h2">{active}</Typography>
+            <Typography as="p">
               온라인과 오프라인에서 적립 및 사용할 수 있는 통합 마일리지 정책을 안내합니다. 정책별
               적용 기준과 소멸 조건은 주문 시점에 따라 달라질 수 있습니다.
-            </p>
-          </article>
+            </Typography>
+          </Box>
         </>
       ) : (
         <>
-          <h2 className={css({ mt: '30px' })}>공통 혜택</h2>
-          <div
-            className={css({
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '3',
-              mt: '3.5',
-              '.platform-mobile &': { gridTemplateColumns: '1fr' },
-            })}
+          <Typography as="h2" className={css({ mt: '30px' })}>
+            공통 혜택
+          </Typography>
+          <Grid
+            gridTemplateColumns="repeat(2, 1fr)"
+            gap="3"
+            mt="3.5"
+            css={{ '.platform-mobile &': { gridTemplateColumns: '1fr' } }}
           >
             {[
               '신규 가입 5천원 할인쿠폰',
@@ -179,30 +156,58 @@ function PolicyPage({ kind }: { kind: 'member-benefits' | 'mileage' }) {
                 ) : null}
               </Button>
             ))}
-          </div>
-          <h2 className={css({ mt: '38px' })}>온라인 회원등급 및 혜택 안내</h2>
+          </Grid>
+          <Typography as="h2" className={css({ mt: '38px' })}>
+            온라인 회원등급 및 혜택 안내
+          </Typography>
           {tiers.map(([tier, criteria, benefit]) => (
-            <article className={policyCard} key={tier}>
-              <Typography as="b" variant="heading9">
+            <Grid
+              as="article"
+              gridTemplateColumns="92px 1fr"
+              gap="4"
+              p="5"
+              mt="4"
+              borderRadius="full"
+              bg="var(--color-black-10)"
+              css={{
+                '& p': {
+                  m: '0',
+                  color: 'var(--color-text-subtle)',
+                },
+              }}
+              key={tier}
+            >
+              <Typography
+                as="b"
+                variant="heading9"
+                className={css({
+                  display: 'grid',
+                  placeItems: 'center',
+                  minH: '18',
+                  bg: 'var(--color-white-000)',
+                })}
+              >
                 {tier}
               </Typography>
               <div>
-                <h3>{criteria}</h3>
+                <Typography as="h3" className={css({ mb: '1.5' })}>
+                  {criteria}
+                </Typography>
                 <Typography as="p" variant="body4">
                   {benefit}
                   <br />
                   온라인과 오프라인 혜택은 중복 적용되지 않을 수 있습니다.
                 </Typography>
               </div>
-            </article>
+            </Grid>
           ))}
         </>
       )}
       <SupportNotice>
-        <p>
+        <Typography as="p">
           등급은 최근 구매 실적을 기준으로 산정되며, 쿠폰·마일리지 정책은 운영 상황에 따라 변경될 수
           있습니다.
-        </p>
+        </Typography>
       </SupportNotice>
     </SupportFrame>
   );

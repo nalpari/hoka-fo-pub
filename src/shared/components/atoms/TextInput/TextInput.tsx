@@ -13,6 +13,7 @@ import { css } from 'styled-system/css';
 import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faEye, faEyeSlash, faXmark } from '@/shared/icons/fontAwesome';
+import { HStack } from 'styled-system/jsx';
 
 const textInput = css({
   minH: 'var(--field-height, 42px)',
@@ -54,15 +55,6 @@ const boxedControl = css({
 });
 
 const textareaControl = css({ '&&': { h: 'auto', minH: '84px', resize: 'vertical' } });
-
-const row = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-  minW: '0',
-  flex: '1',
-  w: '100%',
-});
 
 const icon = css({ display: 'block', flexShrink: '0', w: '16px', h: '16px' });
 
@@ -185,7 +177,7 @@ export function TextInput({
   if (!startIcon && !endIcon && !password && !clearable) return control;
 
   return (
-    <div className={row}>
+    <HStack gap="10px" minW="0" flex="1" w="100%">
       {startIcon ? <span className={icon}>{startIcon}</span> : null}
       {control}
       {password ? (
@@ -211,6 +203,6 @@ export function TextInput({
         </button>
       ) : null}
       {endIcon}
-    </div>
+    </HStack>
   );
 }

@@ -5,41 +5,11 @@ import Link from 'next/link';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
-import { StepIndicator } from '@/shared/components/molecules/StepIndicator/StepIndicator';
+import { OrderPageLayout } from '@/shared/components/layouts/OrderPageLayout/OrderPageLayout';
 import { products } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
 import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid } from 'styled-system/jsx';
-
-const cartPage = css({
-  maxW: '1100px',
-  mx: 'auto',
-  pt: { base: '62px', _mobile: '38px' },
-  px: { base: '0', _mobile: '4' },
-  pb: { base: '110px', _mobile: '62px' },
-});
-
-const titleRow = css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between' });
-
-const table = css({ borderTop: '1px solid var(--color-black-100)' });
-
-const tableHead = css({
-  display: 'grid',
-  gridTemplateColumns: { base: '48px 1fr 130px 160px', _mobile: '28px 1fr 66px 0' },
-  alignItems: 'center',
-  h: '49px',
-  borderBottom: '1px solid var(--color-black-20)',
-  fontSize: '12',
-  textAlign: 'center',
-});
-
-const cartItem = css({
-  display: 'grid',
-  gridTemplateColumns: { base: '48px 1fr 130px 160px', _mobile: '28px 1fr 68px' },
-  alignItems: 'center',
-  minH: '155px',
-  borderBottom: '1px solid var(--color-black-20)',
-});
 
 const art = css({
   display: 'grid',
@@ -58,19 +28,6 @@ const quantity = css({
   alignItems: 'center',
   gap: { base: '18px', _mobile: '2' },
 });
-
-const summary = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: { base: 'flex-end', _mobile: 'center' },
-  flexWrap: { base: 'nowrap', _mobile: 'wrap' },
-  gap: { base: '7', _mobile: '3' },
-  p: '26px',
-  bg: 'var(--color-black-10)',
-  fontSize: '14',
-});
-
-const recommend = css({ mt: '20' });
 
 const recommendArt = cva({
   base: {
@@ -107,41 +64,54 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
   });
   const total = rows.reduce((sum, { item, product }) => sum + product.price * item.quantity, 0);
   return (
-    <main className={cartPage}>
-      <header className={titleRow}>
-        <h1 className={css({ m: '0', fontSize: '32' })}>장바구니</h1>
-        <StepIndicator
-          ariaLabel="주문 진행 단계"
-          current={1}
-          items={[{ label: '장바구니' }, { label: '주문/결제' }, { label: '주문완료' }]}
-          mobileHidden
-        />
-      </header>
-      <p className={css({ m: 'var(--spacing-10) 0 14px' })}>
+    <OrderPageLayout
+      step={1}
+      headerSpacing="none"
+      title={
+        <Typography as="h1" className={css({ m: '0', fontSize: '32' })}>
+          장바구니
+        </Typography>
+      }
+    >
+      <Typography as="p" className={css({ m: 'var(--spacing-10) 0 14px' })}>
         총{' '}
         <b className={css({ color: 'var(--color-red-80)' })}>
           {rows.reduce((sum, { item }) => sum + item.quantity, 0)}
         </b>
         개
-      </p>
-      <section className={table}>
-        <Grid className={tableHead}>
-          <span>✓</span>
-          <span>상품/옵션 정보</span>
-          <span>수량</span>
-          <span>주문금액</span>
+      </Typography>
+      <Box as="section" borderTop="1px solid var(--color-black-100)">
+        <Grid
+          gridTemplateColumns={{ base: '48px 1fr 130px 160px', _mobile: '28px 1fr 66px 0' }}
+          alignItems="center"
+          h="49px"
+          borderBottom="1px solid var(--color-black-20)"
+          fontSize="12"
+          textAlign="center"
+        >
+          <Typography as="span">✓</Typography>
+          <Typography as="span">상품/옵션 정보</Typography>
+          <Typography as="span">수량</Typography>
+          <Typography as="span">주문금액</Typography>
         </Grid>
         {rows.length ? (
           <>
             <Box>
               {rows.map(({ item, product }) => (
-                <article
-                  className={cartItem}
+                <Grid
+                  as="article"
+                  gap="normal"
+                  gridTemplateColumns={{ base: '48px 1fr 130px 160px', _mobile: '28px 1fr 68px' }}
+                  alignItems="center"
+                  minH="155px"
+                  borderBottom="1px solid var(--color-black-20)"
                   key={`${item.id}-${item.color}-${item.width}-${item.size}`}
                 >
                   <Checkbox aria-label={`${product.name} 선택`} defaultChecked label={null} />
-                  <Flex display="flex" alignItems="center" gap={{ base: '18px', _mobile: '2.5' }}>
-                    <span className={art}>N</span>
+                  <Flex alignItems="center" gap={{ base: '18px', _mobile: '2.5' }}>
+                    <Typography as="span" className={art}>
+                      N
+                    </Typography>
                     <Box>
                       <strong>{product.name}</strong>
                       <Typography
@@ -177,16 +147,24 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
                   <strong className={css({ textAlign: 'center', display: { _mobile: 'none' } })}>
                     {(product.price * item.quantity).toLocaleString()}원
                   </strong>
-                </article>
+                </Grid>
               ))}
             </Box>
-            <Flex className={summary}>
-              <span>
+            <Flex
+              alignItems="center"
+              justifyContent={{ base: 'flex-end', _mobile: 'center' }}
+              flexWrap={{ base: 'nowrap', _mobile: 'wrap' }}
+              gap={{ base: '7', _mobile: '3' }}
+              p="26px"
+              bg="var(--color-black-10)"
+              fontSize="14"
+            >
+              <Typography as="span">
                 상품 금액 <b>{total.toLocaleString()}원</b>
-              </span>
-              <span>
+              </Typography>
+              <Typography as="span">
                 배송비 <b>0원</b>
-              </span>
+              </Typography>
               <strong>
                 총 결제예정 금액{' '}
                 <b className={css({ color: 'var(--color-red-80)' })}>{total.toLocaleString()}원</b>
@@ -206,7 +184,6 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           </>
         ) : (
           <Grid
-            display="grid"
             minH="285px"
             placeItems="center"
             alignContent="center"
@@ -214,7 +191,9 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
             borderBottom="1px solid var(--color-black-20)"
           >
             <b className={css({ fontSize: '50' })}>!</b>
-            <p className={css({ m: '0' })}>장바구니에 담은 상품이 없습니다.</p>
+            <Typography as="p" className={css({ m: '0' })}>
+              장바구니에 담은 상품이 없습니다.
+            </Typography>
             <Link
               className={css({
                 p: '2.5 18px',
@@ -227,8 +206,8 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
             </Link>
           </Grid>
         )}
-      </section>
-      <section className={recommend}>
+      </Box>
+      <Box as="section" mt="20">
         <Typography
           as="h2"
           variant="body1"
@@ -241,7 +220,6 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
           함께 구매하면 좋은 상품
         </Typography>
         <Grid
-          display="grid"
           gridTemplateColumns={{ base: 'repeat(4, 1fr)', _mobile: 'repeat(2, 1fr)' }}
           gap={{ base: '30px', _mobile: '25px 10px' }}
         >
@@ -251,7 +229,9 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
               href={`/products/${product.id}`}
               key={product.id}
             >
-              <span className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>N</span>
+              <Typography as="span" className={recommendArt({ tone: index as 0 | 1 | 2 | 3 })}>
+                N
+              </Typography>
               <small className={css({ color: 'var(--color-text-tertiary)' })}>
                 {product.id.toUpperCase()}
               </small>
@@ -264,7 +244,7 @@ export function CartPage({ cart, onQuantityChange, onRemove }: Props) {
             </Link>
           ))}
         </Grid>
-      </section>
-    </main>
+      </Box>
+    </OrderPageLayout>
   );
 }

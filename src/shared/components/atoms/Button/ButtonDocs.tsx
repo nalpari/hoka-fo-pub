@@ -9,6 +9,8 @@ import {
   type ButtonVariant,
 } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Stack, HStack, Box, Flex } from 'styled-system/jsx';
 
 const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },
@@ -44,33 +46,9 @@ const buttonSizes = ['tall', 'short'] as const;
 
 const linkSizes = ['sm', 'md', 'lg'] as const;
 
-const page = css({
-  w: '100%',
-  maxW: '1800px',
-  mx: 'auto',
-  p: '32px',
-  color: '#111',
-  bg: 'white',
-  fontFamily: 'korean',
-  fontSize: '14px',
-  lineHeight: '1.5',
-  '& h1': { fontSize: '32px', fontWeight: '700', mb: '12px' },
-  '& h2': { fontSize: '22px', fontWeight: '600' },
-  '& h3': { fontSize: '14px', fontWeight: '600', my: '16px' },
-  '& p': { margin: '0' },
-  '@media (max-width: 600px)': { p: '16px' },
-});
-
 const section = css({ mt: '40px', pt: '24px', borderTop: '1px solid #E9EAEB' });
 
 const muted = css({ color: '#595959', fontSize: '13px' });
-
-const scroll = css({
-  overflowX: 'auto',
-  mt: '16px',
-  border: '1px solid #E9EAEB',
-  borderRadius: '8px',
-});
 
 const table = css({
   w: '100%',
@@ -86,23 +64,7 @@ const table = css({
   '& tbody + tbody': { borderTop: '1px solid #E9EAEB' },
 });
 
-const sample = css({
-  display: 'flex',
-  flex: '1',
-  minW: '0',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: '8px',
-});
-
 const caption = css({ fontSize: '12px', lineHeight: '1.5' });
-
-const preview = css({
-  w: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  minH: '56px',
-});
 
 const copyTarget = css({ position: 'relative', display: 'inline-flex', maxW: '100%' });
 
@@ -178,8 +140,8 @@ function Sample({
   const copyLabel = `${variant} ${colorway} ${size ?? 'fixed'} ${state} 코드 복사`;
 
   return (
-    <div className={sample}>
-      <div className={preview}>
+    <Stack flex="1" minW="0" alignItems="flex-start" gap="8px">
+      <HStack gap="normal" w="100%" minH="56px">
         <div
           className={[copyTarget, variant === 'bottomSheetPrimary' ? css({ w: '100%' }) : '']
             .filter(Boolean)
@@ -210,9 +172,11 @@ function Sample({
             />
           )}
         </div>
-      </div>
-      <span className={caption}>{dimensions(sizing)}</span>
-    </div>
+      </HStack>
+      <Typography as="span" className={caption}>
+        {dimensions(sizing)}
+      </Typography>
+    </Stack>
   );
 }
 
@@ -253,10 +217,17 @@ function VariantSection({
 
   return (
     <section id={`button-${variant}`} className={section} aria-labelledby={`heading-${variant}`}>
-      <h2 id={`heading-${variant}`}>{title}</h2>
-      <p className={muted}>{note}</p>
-      <div
-        className={scroll}
+      <Typography as="h2" id={`heading-${variant}`}>
+        {title}
+      </Typography>
+      <Typography as="p" className={muted}>
+        {note}
+      </Typography>
+      <Box
+        overflowX="auto"
+        mt="16px"
+        border="1px solid #E9EAEB"
+        borderRadius="8px"
         role="region"
         aria-label={`${title} 색상·상태·크기 비교`}
         tabIndex={0}
@@ -289,23 +260,23 @@ function VariantSection({
             </tbody>
           ))}
         </table>
-      </div>
+      </Box>
     </section>
   );
 }
 
 export function ButtonDocsContainer({ children, ...props }: PropsWithChildren<DocsContainerProps>) {
   return (
-    <div
-      className={css({
+    <Box
+      css={{
         '& .sbdocs-wrapper': { p: '0!' },
         '& .sbdocs-content': { maxW: 'none!', minW: '0', w: '100%' },
-      })}
+      }}
     >
       <DocsContainer {...props}>
         <Unstyled>{children}</Unstyled>
       </DocsContainer>
-    </div>
+    </Box>
   );
 }
 
@@ -331,26 +302,43 @@ export function ButtonDocs() {
   }
 
   return (
-    <div className={page}>
+    <Box
+      w="100%"
+      maxW="1800px"
+      mx="auto"
+      p="32px"
+      color="#111"
+      bg="white"
+      fontFamily="korean"
+      fontSize="14px"
+      lineHeight="1.5"
+      css={{
+        '& h2': { fontSize: '22px', fontWeight: '600' },
+        '& h3': { fontSize: '14px', fontWeight: '600', my: '16px' },
+        '& p': { margin: '0' },
+        '@media (max-width: 600px)': { p: '16px' },
+      }}
+    >
       <header>
-        <p className={muted}>COMPONENTS / BUTTON</p>
-        <h1>Buttons</h1>
-        <p>
+        <Typography as="p" className={muted}>
+          COMPONENTS / BUTTON
+        </Typography>
+        <Typography as="h1" className={css({ fontSize: '32px', fontWeight: '700', mb: '12px' })}>
+          Buttons
+        </Typography>
+        <Typography as="p">
           variant별 색상과 상태, size를 비교합니다. 일반 버튼은 Tall·Short, Link는 sm·md·lg를
           사용합니다.
-        </p>
-        <p className={muted}>
+        </Typography>
+        <Typography as="p" className={muted}>
           비교 표의 버튼을 클릭하면 해당 예시의 JSX 코드를 복사합니다. Disabled 예시도 복사할 수
           있습니다.
-        </p>
-        <p className={muted}>
+        </Typography>
+        <Typography as="p" className={muted}>
           Default와 Disabled를 비교합니다. Hover·Focus·Active는 Default 버튼을 마우스와 키보드로
           직접 확인할 수 있습니다.
-        </p>
-        <nav
-          aria-label="Button variant"
-          className={css({ display: 'flex', flexWrap: 'wrap', gap: '8px', my: '20px' })}
-        >
+        </Typography>
+        <Flex aria-label="Button variant" as="nav" flexWrap="wrap" gap="8px" my="20px">
           {variants.map(({ variant, title }) => (
             <a
               key={variant}
@@ -369,109 +357,107 @@ export function ButtonDocs() {
               {title}
             </a>
           ))}
-        </nav>
+        </Flex>
         <details
           className={css({
             p: '16px',
             bg: '#F7F7F9',
             borderRadius: '8px',
-            '& summary': { cursor: 'pointer', fontWeight: '600' },
+
             '& p': { mt: '8px' },
           })}
         >
-          <summary>크기 기준 및 속성 안내</summary>
-          <p>
+          <summary className={css({ cursor: 'pointer', fontWeight: '600' })}>
+            크기 기준 및 속성 안내
+          </summary>
+          <Typography as="p">
             <strong>크기 기준</strong> Tall: 48px / 16px / 좌우 24px · Short: 40px / 14px / 좌우
             16px
-          </p>
-          <p>
+          </Typography>
+          <Typography as="p">
             <strong>size</strong> 일반 버튼은 tall → CTA1, short → CTA2를 사용합니다. Link는 sm 12px
             · md 14px · lg 16px입니다.
-          </p>
-          <p>
+          </Typography>
+          <Typography as="p">
             <strong>우선순위</strong> density → size → auto. auto는 기본 wide, .platform-mobile
             안에서는 compact입니다.
-          </p>
-          <p>
+          </Typography>
+          <Typography as="p">
             <strong>예외</strong> FilterTrigger·HeaderSearch는 size를 받지 않고 각각 32.2px·36px
             높이와 14px 글자를 사용합니다. 아이콘 전용 버튼은 24px입니다. 일반 버튼의 size는 라벨
             Typography도 선택하므로 density와 함께 쓰면 높이와 글자 크기가 다를 수 있습니다.
-          </p>
-          <p>
+          </Typography>
+          <Typography as="p">
             <strong>색상</strong> colorway는 Black / White 색상 조합입니다.
-          </p>
+          </Typography>
         </details>
       </header>
       {variants.map((spec) => (
         <VariantSection key={spec.variant} {...spec} onCopy={copyCode} />
       ))}
       <section className={section} aria-labelledby="button-examples">
-        <h2 id="button-examples">사용 예시</h2>
-        <div
-          className={css({
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '24px',
-            mt: '20px',
-            '& > div': { display: 'grid', gap: '12px' },
-          })}
+        <Typography as="h2" id="button-examples">
+          사용 예시
+        </Typography>
+        <HStack
+          flexWrap="wrap"
+          gap="24px"
+          mt="20px"
+          css={{ '& > div': { display: 'grid', gap: '12px' } }}
         >
           <div>
-            <h3>Loading</h3>
+            <Typography as="h3">Loading</Typography>
             <Button variant="primary" loading>
               처리 중
             </Button>
           </div>
           <div>
-            <h3>Icon</h3>
+            <Typography as="h3">Icon</Typography>
             <Button icon={<Icon name="filter" />}>필터</Button>
           </div>
           <div>
-            <h3>English</h3>
+            <Typography as="h3">English</Typography>
             <Button variant="primary" language="en">
               Shop Women’s
             </Button>
           </div>
           <>
             <div>
-              <h3>ButtonLink</h3>
+              <Typography as="h3">ButtonLink</Typography>
               <ButtonLink href="/products" variant="secondary">
                 바로가기
               </ButtonLink>
             </div>
             <div>
-              <h3>Text Link · sm</h3>
+              <Typography as="h3">Text Link · sm</Typography>
               <ButtonLink href="/products" variant="link" size="sm">
                 바로가기
               </ButtonLink>
             </div>
           </>
-        </div>
+        </HStack>
       </section>
-      <div
+      <Box
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className={css({
-          position: 'fixed',
-          bottom: '20px',
-          left: '20px',
-          right: '20px',
-          zIndex: '10',
-          maxW: '900px',
-          mx: 'auto',
-          bg: '#111',
-          color: 'white',
-          borderRadius: '8px',
-          fontSize: '13px',
-          overflowWrap: 'anywhere',
-          boxShadow: '0 4px 16px #0003',
-          '&:not(:empty)': { p: '12px 16px' },
-        })}
+        pos="fixed"
+        bottom="20px"
+        left="20px"
+        right="20px"
+        zIndex="10"
+        maxW="900px"
+        mx="auto"
+        bg="#111"
+        color="white"
+        borderRadius="8px"
+        fontSize="13px"
+        overflowWrap="anywhere"
+        boxShadow="0 4px 16px #0003"
+        css={{ '&:not(:empty)': { p: '12px 16px' } }}
       >
         {copyFeedback}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

@@ -8,6 +8,7 @@ import { SizeGuideTable } from '@/shared/components/organisms/Product/ProductDet
 import { css, cva } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const tab = cva({
   base: {
@@ -108,7 +109,7 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
         position="sticky"
         top="var(--layout-site-header-height)"
         zIndex="2"
-        display="grid"
+
         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
         borderTop="1px solid var(--color-black-100)"
         borderBottom="1px solid var(--color-black-100)"
@@ -124,28 +125,24 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
             key={section.id}
             onClick={() => scrollToSection(section.id)}
           >
-            <span className={desktopTabTitle}>{section.title}</span>
-            <span className={mobileTabTitle}>{section.mobileTitle}</span>
+            <Typography as="span" className={desktopTabTitle}>
+              {section.title}
+            </Typography>
+            <Typography as="span" className={mobileTabTitle}>
+              {section.mobileTitle}
+            </Typography>
           </Button>
         ))}
       </Grid>
       <Box minW="0">
         {visibleSections.map((section) => (
-          <article
+          <Box
             aria-labelledby={`${section.id}-tab`}
-            className={css({
-              minH: { base: '520px', _mobile: '400px' },
-              py: { base: '72px', _mobile: '48px' },
-              scrollMarginTop: { base: '150px', _mobile: '125px' },
-              borderBottom: '1px solid var(--color-black-20)',
-              '& h2': { m: '0 0 18px', fontSize: { base: '28', _mobile: '24' } },
-              '& > p': {
-                maxW: '620px',
-                m: '0',
-                color: 'var(--color-text-tertiary)',
-                lineHeight: 'body',
-              },
-            })}
+            as="article"
+            minH={{ base: '520px', _mobile: '400px' }}
+            py={{ base: '72px', _mobile: '48px' }}
+            scrollMarginTop={{ base: '150px', _mobile: '125px' }}
+            borderBottom="1px solid var(--color-black-20)"
             id={section.id}
             key={section.id}
             ref={(element) => {
@@ -153,16 +150,31 @@ export function ProductDetailSections({ hasSizeGuide = true }: ProductDetailSect
             }}
             tabIndex={-1}
           >
-            <h2>{section.title}</h2>
+            <Typography
+              as="h2"
+              className={css({ m: '0 0 18px', fontSize: { base: '28', _mobile: '24' } })}
+            >
+              {section.title}
+            </Typography>
             {section.id === 'product-information' ? (
               <ProductInformation />
             ) : (
-              <p>{section.description}</p>
+              <Typography
+                as="p"
+                className={css({
+                  maxW: '620px',
+                  m: '0',
+                  color: 'var(--color-text-tertiary)',
+                  lineHeight: 'body',
+                })}
+              >
+                {section.description}
+              </Typography>
             )}
             {section.id === 'size-guide' && <SizeGuideTable />}
             {section.id === 'reviews' && <ProductReviews />}
             {section.id === 'inquiries' && <ProductInquiry />}
-          </article>
+          </Box>
         ))}
       </Box>
     </Box>

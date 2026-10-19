@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+import { Grid, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const textLink = css({
@@ -10,24 +10,7 @@ const textLink = css({
   _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
 });
 
-const contactRow = css({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 2fr)',
-  gap: '6',
-  pb: '6',
-  borderBottom: '1px solid token(colors.border.default)',
-  _mobile: { gridTemplateColumns: '1fr', gap: '3' },
-});
-
 const contactDetails = css({ display: 'flex', flexDirection: 'column', gap: '2' });
-
-const supportRow = css({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(0, 1fr) 160px',
-  alignItems: 'center',
-  gap: '5',
-  _mobile: { gridTemplateColumns: '1fr', gap: '3' },
-});
 
 const supportLink = css({
   display: 'flex',
@@ -72,7 +55,13 @@ export function ProductDetailDeliverySupport() {
       _mobile={{ p: '5' }}
       aria-label="배송 및 반품 고객센터"
     >
-      <div className={contactRow}>
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)"
+        gap="6"
+        pb="6"
+        borderBottom="1px solid token(colors.border.default)"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
+      >
         <Typography as="h4" variant="body5" weight="bold">
           호카 온라인 스토어 고객센터
         </Typography>
@@ -93,9 +82,15 @@ export function ProductDetailDeliverySupport() {
             평일 10:00~17:00 (점심시간 12:00~13:00) / 토·일요일 및 공휴일 휴무
           </Typography>
         </div>
-      </div>
+      </Grid>
       {supportLinks.map(({ title, description, label, to }) => (
-        <div key={to} className={supportRow}>
+        <Grid
+          key={to}
+          gridTemplateColumns="minmax(0, 1fr) 160px"
+          alignItems="center"
+          gap="5"
+          _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
+        >
           <div className={contactDetails}>
             <Typography as="h4" variant="body5" weight="bold">
               {title}
@@ -109,7 +104,7 @@ export function ProductDetailDeliverySupport() {
               {label}
             </Typography>
           </Link>
-        </div>
+        </Grid>
       ))}
     </Stack>
   );

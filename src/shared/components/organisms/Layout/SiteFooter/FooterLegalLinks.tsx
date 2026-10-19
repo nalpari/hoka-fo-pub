@@ -46,28 +46,28 @@ export function FooterLegalLinks() {
           </Link>
         </Flex>
         <Flex className={styles.row}>
-          <span>
+          <Typography as="span">
             고객센터 :{' '}
             <Typography variant="body5" tone="inverse">
               1234-0000
             </Typography>
-          </span>
-          <span>
+          </Typography>
+          <Typography as="span">
             통신판매 신고번호 :{' '}
             <Typography variant="body5" tone="inverse">
               0000-0000-0000
             </Typography>
-          </span>
+          </Typography>
         </Flex>
         <div>주소 : 서울특별시 금천구 가산디지털1로 159</div>
         <Flex className={styles.row}>
-          <span>대표이사 : 조동주</span>
-          <span>
+          <Typography as="span">대표이사 : 조동주</Typography>
+          <Typography as="span">
             사업자 등록번호 :{' '}
             <Typography variant="body5" tone="inverse">
               156-88-01028
             </Typography>
-          </span>
+          </Typography>
           <Link
             href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1568801028"
             target="_blank"
@@ -78,13 +78,13 @@ export function FooterLegalLinks() {
           </Link>
         </Flex>
         <Flex className={styles.row}>
-          <span>개인정보보호책임자 : 김태위</span>
-          <span>
+          <Typography as="span">개인정보보호책임자 : 김태위</Typography>
+          <Typography as="span">
             대표이메일 :{' '}
             <Typography as="a" href="mailto:webmaster@hoka.com" variant="body5" tone="inverse">
               webmaster@hoka.com
             </Typography>
-          </span>
+          </Typography>
         </Flex>
         <div>호스팅 서비스 제공자 : ㈜쓰리탑</div>
         <Typography as="p" variant="body5" tone="inverse">

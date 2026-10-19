@@ -125,7 +125,7 @@ function OrderTile({ item }: { item: (typeof orderItems)[number] }) {
       <Stack minW="0" flex="1" gap="1.5" pr="17">
         <HStack minH="18px">
           {item.isNew ? (
-            <Typography web="body4" mo="body4" tone="red80">
+            <Typography variant="body4" tone="red80">
               New
             </Typography>
           ) : null}
@@ -133,20 +133,14 @@ function OrderTile({ item }: { item: (typeof orderItems)[number] }) {
         <Stack gap="2.5">
           <Stack gap="1">
             <Stack gap="0.5">
-              <Typography web="body4" mo="body4">
-                {item.gender}
-              </Typography>
-              <Typography web="body4" mo="body4">
-                {item.name}
-              </Typography>
+              <Typography variant="body4">{item.gender}</Typography>
+              <Typography variant="body4">{item.name}</Typography>
             </Stack>
-            <Typography web="body4" mo="body4" weight="semibold">
+            <Typography variant="body4" weight="semibold">
               {item.price}
             </Typography>
           </Stack>
-          <Typography web="body5" mo="body5">
-            {item.description}
-          </Typography>
+          <Typography variant="body5">{item.description}</Typography>
         </Stack>
       </Stack>
       <Box
@@ -159,9 +153,7 @@ function OrderTile({ item }: { item: (typeof orderItems)[number] }) {
         py="1.5"
         bg="white.0"
       >
-        <Typography web="body5" mo="body5">
-          {item.status}
-        </Typography>
+        <Typography variant="body5">{item.status}</Typography>
       </Box>
     </HStack>
   );
@@ -189,9 +181,7 @@ function MyPageMenuSection({
             href={item.to}
           >
             <HStack minH="14" justifyContent="space-between">
-              <Typography web="body3" mo="body3">
-                {item.label}
-              </Typography>
+              <Typography variant="body3">{item.label}</Typography>
               <Icon name="chevron-right" size="16px" />
             </HStack>
           </StyledLink>
@@ -213,14 +203,14 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
         </Box>
         <Stack pt="6" gap="10">
           <Stack gap="4">
-            <Typography as="h1" web="heading4" mo="heading4">
+            <Typography as="h1" variant="heading4">
               <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
                 <HStack as="span" gap="1">
                   <HStack as="span" gap="0.5">
-                    <Typography as="span" web="heading4" mo="heading4">
+                    <Typography as="span" variant="heading4">
                       박연진
                     </Typography>
-                    <Typography as="span" web="heading4" mo="heading4">
+                    <Typography as="span" variant="heading4">
                       님
                     </Typography>
                   </HStack>
@@ -243,7 +233,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                         bg="black.100"
                         color="offWhite.100"
                       >
-                        <Typography web="heading6" mo="heading6" language="en" weight="black">
+                        <Typography variant="heading6" language="en" weight="black">
                           R
                         </Typography>
                       </HStack>
@@ -257,13 +247,11 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                       textUnderlineOffset="2px"
                       href="/mypage/rewards"
                     >
-                      <Typography web="body5" mo="body5">
-                        등급안내
-                      </Typography>
+                      <Typography variant="body5">등급안내</Typography>
                     </StyledLink>
                   </HStack>
                   <Box w="full" pl="10" boxSizing="border-box">
-                    <Typography web="body5" mo="body5">
+                    <Typography variant="body5">
                       다음 등급까지 300,000원 구매시 등급 업 혜택 제공
                     </Typography>
                   </Box>
@@ -279,16 +267,12 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                   href="/mypage/coupons"
                 >
                   <Stack h="14" justifyContent="space-between">
-                    <Typography web="body4" mo="body4">
-                      내 쿠폰
-                    </Typography>
+                    <Typography variant="body4">내 쿠폰</Typography>
                     <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
                       <Typography web="heading8" mo="heading5">
                         3
                       </Typography>
-                      <Typography web="body3" mo="body3">
-                        개
-                      </Typography>
+                      <Typography variant="body3">개</Typography>
                     </HStack>
                   </Stack>
                 </StyledLink>
@@ -301,16 +285,12 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                   href="/mypage/wishlist"
                 >
                   <Stack h="14" justifyContent="space-between">
-                    <Typography web="body4" mo="body4">
-                      관심상품
-                    </Typography>
+                    <Typography variant="body4">관심상품</Typography>
                     <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
                       <Typography web="heading8" mo="heading5">
                         6
                       </Typography>
-                      <Typography web="body3" mo="body3">
-                        건
-                      </Typography>
+                      <Typography variant="body3">건</Typography>
                     </HStack>
                   </Stack>
                 </StyledLink>

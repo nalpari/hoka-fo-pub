@@ -152,17 +152,27 @@ export function DesignGuideTypography() {
       title="Typography"
       description="디자인 가이드의 영문·한글 타이포그래피와 실제 렌더링 예시입니다."
     >
-      <p className={styles.status}>Variant 셀을 클릭하면 Typography 예시 코드를 복사합니다.</p>
-      <p className={styles.status} role="status" aria-live="polite" aria-atomic="true">
+      <Typography as="p" className={styles.status}>
+        Variant 셀을 클릭하면 Typography 예시 코드를 복사합니다.
+      </Typography>
+      <Typography
+        as="p"
+        className={styles.status}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {copyStatus}
-      </p>
+      </Typography>
       <section className={styles.typographySection} aria-labelledby="typography-comparison-title">
-        <h2 id="typography-comparison-title">Typography · 한영 비교</h2>
-        <p>
+        <Typography as="h2" id="typography-comparison-title">
+          Typography · 한영 비교
+        </Typography>
+        <Typography as="p">
           디자인 가이드의 Heading, Body, CTA, Text Link를 같은 번호의 EN·KO 행으로 비교합니다.
           크기는 px, 굵기는 숫자로 표시하며 모바일 굵기가 다르면 함께 표기합니다. 좁은 화면에서는
           표를 좌우로 스크롤할 수 있습니다.
-        </p>
+        </Typography>
         <div
           className={styles.tableScroll}
           role="region"
@@ -235,10 +245,12 @@ export function DesignGuideTypography() {
         </div>
       </section>
       <section className={styles.typographySection} aria-labelledby="typography-mono-title">
-        <h2 id="typography-mono-title">Typography · Mono</h2>
-        <p>
+        <Typography as="h2" id="typography-mono-title">
+          Typography · Mono
+        </Typography>
+        <Typography as="p">
           한글 대응 variant가 없는 Mono 스타일입니다. 웹과 모바일에서 같은 크기와 굵기를 사용합니다.
-        </p>
+        </Typography>
         <div
           className={styles.tableScroll}
           role="region"
