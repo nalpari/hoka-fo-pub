@@ -98,7 +98,12 @@ function buttonCode({
       : undefined,
   ].filter(Boolean);
 
-  return `<Button ${attributes.join(' ')}>버튼명 텍스트</Button>`;
+  const children =
+    variant === 'headerSearch' || variant === 'filterTrigger'
+      ? '<Typography variant="body4">버튼명 텍스트</Typography>'
+      : '버튼명 텍스트';
+
+  return `<Button ${attributes.join(' ')}>${children}</Button>`;
 }
 
 function dimensions({ variant, size }: ButtonSizingProps) {
@@ -161,7 +166,11 @@ function Sample({
               ) : undefined
             }
           >
-            버튼명 텍스트
+            {variant === 'headerSearch' || variant === 'filterTrigger' ? (
+              <Typography variant="body4">버튼명 텍스트</Typography>
+            ) : (
+              '버튼명 텍스트'
+            )}
           </Button>
           {disabled && (
             <button

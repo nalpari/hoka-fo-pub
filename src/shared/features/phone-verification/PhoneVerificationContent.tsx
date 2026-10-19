@@ -3,6 +3,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
+import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 import { PhoneVerificationDetailDialog } from './PhoneVerificationDetailDialog';
 import { PhoneVerificationAgreements } from './PhoneVerificationAgreements';
 import { PhoneInformationFields } from './PhoneInformationFields';
@@ -22,7 +23,27 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       description={props.description}
       contentWidth="568px"
       dialogs={
-        <PhoneVerificationDetailDialog detail={props.detail} onDetailChange={props.onDetail} />
+        props.detail === '알뜰폰 사업자' ? (
+          <PhoneVerificationDetailDialog
+            open
+            onOpenChange={(open) => {
+              if (!open) props.onDetail(null);
+            }}
+          />
+        ) : (
+          <ModalDialog
+            open={props.detail !== null}
+            onOpenChange={(open) => {
+              if (!open) props.onDetail(null);
+            }}
+            title={props.detail ?? ''}
+            closeLabel="안내 닫기"
+            size="md"
+            mobilePresentation="fullscreen"
+          >
+            {null}
+          </ModalDialog>
+        )
       }
     >
       <PhoneVerificationAgreements

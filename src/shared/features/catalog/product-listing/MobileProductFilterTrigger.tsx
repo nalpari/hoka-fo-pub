@@ -1,5 +1,6 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type MobileProductFilterTriggerProps = {
   onClick: () => void;
@@ -14,7 +15,7 @@ export function MobileProductFilterTrigger({ onClick }: MobileProductFilterTrigg
       onClick={onClick}
       variant="filterTrigger"
     >
-      필터
+      <Typography variant="body4">필터</Typography>
     </Button>
   );
 }

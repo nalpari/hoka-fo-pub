@@ -1,6 +1,7 @@
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { usePlatform } from '@/shared/context/platform';
 import { css } from 'styled-system/css';
 
@@ -20,7 +21,7 @@ export function HeaderSearch({ onSearch }: HeaderSearchProps) {
         onClick={onSearch}
         variant="headerSearch"
       >
-        검색하기
+        <Typography variant="body4">검색하기</Typography>
       </Button>
     );
   }

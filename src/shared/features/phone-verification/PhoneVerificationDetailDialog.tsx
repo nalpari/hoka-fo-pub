@@ -1,6 +1,5 @@
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
@@ -24,46 +23,36 @@ const mvnoCarriers = [
   },
 ] as const;
 
-type Props = { detail: string | null; onDetailChange: (detail: string | null) => void };
+type Props = { open: boolean; onOpenChange: (open: boolean) => void };
 
-export function PhoneVerificationDetailDialog({ detail, onDetailChange }: Props) {
+export function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
-    <ModalDialog
-      open={detail !== null}
-      onOpenChange={(open) => {
-        if (!open) onDetailChange(null);
-      }}
-      title={detail ?? ''}
+    <SingleActionDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="알뜰폰 사업자"
       closeLabel="안내 닫기"
       size="md"
       mobilePresentation="fullscreen"
-      footer={
-        detail === '알뜰폰 사업자' ? (
-          <Button variant="primary" fullWidth onClick={() => onDetailChange(null)}>
-            확인
-          </Button>
-        ) : undefined
-      }
+      onConfirm={() => onOpenChange(false)}
     >
-      {detail === '알뜰폰 사업자' ? (
-        <Stack gap="4">
-          {mvnoCarriers.map((carrier, index) => (
-            <Stack
-              key={carrier.title}
-              gap="3"
-              pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
-              className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
-            >
-              <Typography as="h2" variant="body3">
-                {carrier.title}
-              </Typography>
-              <Typography as="p" variant="body4">
-                {carrier.names}
-              </Typography>
-            </Stack>
-          ))}
-        </Stack>
-      ) : null}
-    </ModalDialog>
+      <Stack gap="4">
+        {mvnoCarriers.map((carrier, index) => (
+          <Stack
+            key={carrier.title}
+            gap="3"
+            pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
+            className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
+          >
+            <Typography as="h2" variant="body3">
+              {carrier.title}
+            </Typography>
+            <Typography as="p" variant="body4">
+              {carrier.names}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
+    </SingleActionDialog>
   );
 }

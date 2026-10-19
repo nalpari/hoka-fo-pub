@@ -6,9 +6,13 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:12:44Z'
+  at: '2026-10-19T06:45:26Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/form-controls.test.mjs
+  - src/shared/components/atoms/RatingStars/RatingStars.tsx
+  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
+  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -50,6 +54,14 @@ sources:
 ---
 
 # 변경 검증
+
+## RatingStars 선택 모드 통합 검사 (2026-10-19)
+
+커밋 전 스테이징된 파일만 임시 디렉터리에 복원하고 설치된 의존성·Panda 런타임을 연결한 별도 스냅샷에서도 타입 검사와 form-controls 테스트 33개가 통과했다. ReviewManager의 미스테이징 버튼 크기 수정 등 다른 작업 트리 변경을 포함하지 않은 검증이다.
+
+form-controls.test.mjs의 기존 RatingInput 오류/정상 fixture를 RatingStars 선택 모드로 이전했다. 표시 모드의 role img·4.5점 반별점·radio 부재와 선택 모드의 5개 radio·단일 선택·Icon 사용 검사를 추가했으며 총 33개가 통과했다. 실제 브라우저 클릭·방향키·disabled 검사는 Atoms/RatingStars/Selection의 기존 이전 스토리로 확인하며 SSR 검사와 구분한다.
+
+정적 Storybook을 임시 로컬 HTTP 서버로 열고 Edge/Playwright에서 1280px·375px의 클릭·좌우 방향키·포커스·아이콘 수, disabled, 기존 반별점 표시를 확인했다. Default 스토리에 모바일 화면 폭과 platform-mobile 클래스를 적용하는 방식이며 Mobile 스토리 play 완료를 판정한 결과는 아니다. 타입·변경 파일 ESLint/Prettier·Next/Storybook build도 통과했다.
 
 ## 회원가입·휴대폰 인증 문구 회귀 검사 (2026-10-19)
 

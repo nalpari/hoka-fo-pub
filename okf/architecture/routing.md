@@ -6,9 +6,30 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T16:38:00+09:00'
+  at: '2026-10-19T07:20:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/explore/[...slug]/page.tsx
+  - src/shared/Mockup/explore/ExploreDetailPage.tsx
+  - src/app/launch-calendar/page.tsx
+  - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
+  - src/app/support/store/page.tsx
+  - src/shared/Mockup/store-finder/StoreFinderPage.tsx
+  - src/app/running/reviews/page.tsx
+  - src/app/running/rewards/page.tsx
+  - src/app/running/rotation/page.tsx
+  - src/app/running/alerts/page.tsx
+  - src/app/running/plans/page.tsx
+  - src/app/running/shoe-finder/page.tsx
+  - src/app/store/experience/page.tsx
+  - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
+  - src/app/explore/page.tsx
+  - src/shared/Mockup/explore/ExploreHubPage.tsx
+  - src/app/explore/shoe-finder/page.tsx
+  - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
+  - src/app/mypage/running-profile/page.tsx
+  - src/shared/Mockup/running-profile/RunningProfilePage.tsx
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
   - src/app/mypage/event-entries/page.tsx
   - src/app/support/after-sales/page.tsx
   - src/app/support/care/page.tsx
@@ -31,6 +52,42 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## EXPLORE 상세 목업 진입점 (2026-10-19)
+
+src/app/explore/[...slug]/page.tsx는 src/shared/Mockup/explore/ExploreDetailPage를 기본 export로 연결한다. 기존 /explore/[...slug] URL·use client 경계·slug별 화면 및 미등록 slug의 준비 중 화면을 유지한다.
+
+## 런칭 캘린더 목업 진입점 (2026-10-19)
+
+src/app/launch-calendar/page.tsx는 src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx를 기본 export로 연결한다. /launch-calendar URL과 use client 경계, 메뉴의 런칭 캘린더 링크, 페이지의 상품 상세 이동을 유지한다. 이전 features/launch-calendar 경로의 중간 재수출 파일은 두지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
+
+검증: Prettier 포맷을 정규화해 이동 전후 페이지 내용 보존과 이전 경로 참조 제거를 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## 매장 찾기 목업 진입점 (2026-10-19)
+
+src/app/support/store/page.tsx는 src/shared/Mockup/store-finder/StoreFinderPage.tsx를 기본 export로 연결한다. /support/store URL과 use client 경계, 고객센터 메뉴·헤더 등의 매장 찾기 링크를 유지한다. 페이지는 같은 폴더의 StoreResults·store.data를 상대 경로로 import한다. 이전 features/store-finder와 organisms/StoreFinder 경로의 중간 재수출 파일은 두지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
+
+검증: import 경로와 Prettier 포맷을 정규화해 이동 파일 3개의 기존 내용 보존을 확인했다. 이전 경로 참조 제거, 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## running-hub 목업 라우트 연결 (2026-10-19)
+
+/running/shoe-finder·rewards·reviews·alerts·rotation·plans 및 /store/experience의 페이지는 src/shared/Mockup/running-hub/RunningExperiencePage를 import한다. 기존 URL과 kind 값, use client 경계는 유지한다. 라우트별 내용은 바꾸지 않았다.
+
+## EXPLORE 허브 목업 진입점 (2026-10-19)
+
+src/app/explore/page.tsx는 src/shared/Mockup/explore/ExploreHubPage.tsx를 기본 export로 연결한다. /explore 주소와 use client 경계, 헤더·홈 등 진입 링크, 페이지 내부 SHOE FINDER·가이드·스토리·모델 링크를 유지한다. 이전 features/explore 경로의 중간 재수출 파일은 남기지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
+
+검증: 이동 전후 페이지 내용이 줄바꿈을 제외하고 일치하며 이전 경로 import가 남지 않았음을 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## SHOE FINDER 목업 진입점 (2026-10-19)
+
+src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx를 기본 export로 연결한다. /explore/shoe-finder URL과 헤더·홈·EXPLORE 링크는 유지하며 추천 상품 링크의 activity·cushioning 쿼리 구성도 변경하지 않는다. 이전 features/explore 경로의 중간 재수출 파일은 남기지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
+
+검증: 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 기존 URL 목록의 앱 라우트 검사 2개를 통과했다. 이전 ShoeFinderPage import가 소스에 남지 않았음을 확인했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## 러닝 프로필 목업 진입점 (2026-10-19)
+
+`src/app/mypage/running-profile/page.tsx`는 `src/shared/Mockup/running-profile/RunningProfilePage.tsx`를 기본 export로 연결한다. 디자인 미확정 목업 구현을 공용 feature/component 영역에서 분리한 것이며 `/mypage/running-profile` URL, dynamic 설정, 마이페이지 메뉴 링크와 클라이언트 상태 경계는 유지한다. MyPageRouteStory도 같은 목업 구현을 직접 import한다. 작업 트리 출처는 frontmatter에 기록한다.
 
 ## 진입점과 책임
 
