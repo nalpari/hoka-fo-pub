@@ -2,7 +2,7 @@
 
 ## 2026-10-20
 
-- **Fix**: 매장 찾기 파일 이동 후 남아 있던 세 import 경로를 새 `Mockup/store-finder` 경로로 고쳤다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.
+- **Fix**: 매장 찾기 파일 이동 후 남아 있던 import 경로를 새 `Mockup/store-finder` 경로로 고치고 전체 타입 검사를 통과했다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.
 - **Update**: 디자인이 확정되지 않은 회원등급·마일리지 페이지의 임시 정책 본문을 제거하고 "디자인 작업 중입니다." 안내로 교체했다. [UI 기록](architecture/ui.md)에 현재 화면 범위를 반영했다.
 
 ## 2026-10-19

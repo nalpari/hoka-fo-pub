@@ -7,7 +7,7 @@ import { NoticeDetailPage } from '@/shared/features/notices/NoticeDetailPage';
 import { InquiryPage } from '@/shared/features/support/InquiryPage';
 import { InquiryNewPage } from '@/shared/features/support/InquiryNewPage';
 import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
-import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
+import { StoreFinderPage } from '@/shared/Mockup/store-finder/StoreFinderPage';
 import { TeamwearPage } from '@/shared/features/teamwear/TeamwearPage';
 import { CareGuidePage } from '@/shared/features/care-guide/CareGuidePage';
 import { TermsPage } from '@/shared/features/terms/TermsPage';

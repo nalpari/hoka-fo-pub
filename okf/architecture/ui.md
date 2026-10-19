@@ -508,7 +508,7 @@ PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자
 
 매장 찾기 구현은 src/shared/Mockup/store-finder에 모은다. StoreFinderPage·store.data는 기존 features/store-finder에서 이동하고, 이 화면만 사용하는 StoreResults는 organisms/StoreFinder에서 함께 이동했다. 전용 외부 사용처나 스토리는 없다. 기존 매장 데이터·지역/유형·검색 상태·6개 단위 더보기·결과 없음·스타일·버튼 크기는 유지한다. 공유 SidebarNavigationLayout·PageHeader·입력/선택·버튼과 supportNavigation은 기존 위치에서 재사용한다.
 
-2026-10-20 확인: 이동 후 StoreFinderPage·store.data의 내부 import와 고객센터 Storybook의 StoreFinderPage import도 `src/shared/Mockup/store-finder/`로 갱신했다. 수정 범위의 타입 검사·ESLint·Prettier를 실행해 통과했다. 이 작업은 기존 병합의 미해결 상태를 확정하지 않는다.
+2026-10-20 확인: 이동 후 StoreFinderPage·store.data의 내부 import와 고객센터 Storybook의 StoreFinderPage import도 `src/shared/Mockup/store-finder/`로 갱신했다. 전체 타입 검사와 수정 범위의 ESLint·Prettier를 실행해 통과했다.
 
 검증: import 경로와 Prettier 포맷을 정규화해 이동 파일 3개의 기존 내용 보존을 확인했다. 이전 경로 참조 제거, 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
 
