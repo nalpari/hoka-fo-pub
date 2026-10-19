@@ -470,6 +470,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 러닝 프로필 중복 데이터 제거 (2026-10-19)
+
+Mockup/running-profile/running-profile.data.ts로 이미 분리한 profileQuestions를 features/mypage/mypage.data.ts에서도 제거했다. 현재 페이지와 전용 스토리는 목업 데이터만 import하므로 공용 마이페이지 데이터에는 메뉴·링크만 남는다. 전체 타입 검사·변경 파일 ESLint/Prettier와 참조 검색을 확인했다.
+
 ## 단일 확인 모달 추가 적용 (2026-10-19)
 
 PasswordResetCompleteModal·MyPageReviewDialog·RunClubApplicationNotice·PreviousTermsPicker의 수동 footer를 SingleActionDialog로 교체했다. 기본 short/fullWidth와 actionCount 1 패딩을 사용하며 리뷰는 confirmLabel 저장·onSave, 비밀번호 완료는 onConfirm, 런클럽은 onOpenChange(false), 이전 약관은 onSelect를 연결한다. 기존 외부 props·필드 검증·날짜 상태와 모바일 시트의 footer 숨김/휠 선택·popupClassName 스타일은 유지한다. PreviousTermsPicker의 기존 선택기 전용 본문 패딩 override도 유지한다.
