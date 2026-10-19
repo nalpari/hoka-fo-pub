@@ -32,6 +32,7 @@ working_tree_sources:
   - src/shared/features/mypage/stories/MyPageRouteStory.tsx
   - src/app/mypage/event-entries/page.tsx
   - src/app/support/after-sales/page.tsx
+  - src/app/support/care/page.tsx
 sources:
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
@@ -131,3 +132,7 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 ## 배송 및 반품안내
 
 `/support/after-sales` URL은 유지하면서 `ShippingReturnsPage`로 연결한다. 이전 A/S 처리현황 화면 대신 고객센터 배송 및 반품안내를 표시한다. 출처는 작업 트리의 `src/app/support/after-sales/page.tsx`와 `src/shared/features/support/ShippingReturnsPage.tsx`다.
+
+## 세탁 및 손질 방법 안내
+
+`/support/care`는 `CareGuidePage`를 표시한다. 고객센터 정보 메뉴에서 접근하며, 안내 탭을 페이지 내부 상태로 전환한다. 출처는 작업 트리의 `src/app/support/care/page.tsx`와 `src/shared/features/care-guide/CareGuidePage.tsx`다.

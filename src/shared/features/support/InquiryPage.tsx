@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -27,16 +27,20 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
       groups={supportNavigation}
       hideIntroMobile
     >
-      <Stack gap="4" pb="6">
+      <Stack gap="4" pb="6" _mobile={{ pb: '4' }}>
         <Typography as="h2" web="heading6" mo="heading7">
           1:1 문의
         </Typography>
         <Typography as="p" variant="body3">
           궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다.
         </Typography>
-      </Stack>
-      <Box h="1px" bg="black.20" />
-
+      </Stack>{' '}
+      <Divider
+        aria-hidden="true"
+        orientation="horizontal"
+        h={{ base: '2px', _mobile: '1px' }}
+        bg={{ base: 'black.100', _mobile: 'black.20' }}
+      />
       <Stack gap="0" py="6" _mobile={{ py: '6' }}>
         {inquiries.length === 0 ? (
           <Stack
@@ -118,7 +122,6 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
           })
         )}
       </Stack>
-
       <InquiryCautions />
       <Box pt="9" maxW="500px" mx="auto">
         <ButtonLink href="/support/inquiries/new" variant="primary" fullWidth>

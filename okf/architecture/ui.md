@@ -59,6 +59,10 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
   - src/stories/components/atoms/Button/Button.stories.tsx
+  - src/shared/features/cart/CartPage.tsx
+  - src/shared/features/checkout/CheckoutFields.tsx
+  - src/shared/features/checkout/CheckoutSummary.tsx
+  - src/stories/features/cart/CartPage.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -845,9 +849,19 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 ## 공지사항·1:1 문의 (2026-10-16)
 
+`InquiryPage` 제목 아래 구분선은 웹에서 `black.100`, 모바일에서 `black.20`으로 표시한다. 두 화면 모두 높이는 2px이다.
+
 1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/shared/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
 
-`/support/after-sales`는 Figma 모바일 `803:25138`과 PC `1066:57459`에 따라 배송 및 반품안내 화면을 표시한다. 공통 `CustomerCenterLayout`의 PC 소개·좌측 메뉴와 모바일 breadcrumb를 재사용하고, 본문에는 제목·세 항목 탭·배송 안내 네 문장을 둔다. 탭은 Base UI Tabs를 사용한다. 아직 내용이 확인되지 않은 `반품 주의사항`과 `상품 반품 안내` 탭은 선택을 비활성화했다. 헤더·푸터 자산은 기존 공통 레이아웃을 재사용한다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/features/support/support.navigation.ts`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`과 `SupportPageHeading`, Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/components/molecules/SupportTabs/SupportTabs.tsx`, `src/shared/components/molecules/SupportPageHeading/SupportPageHeading.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+
+반품 주의사항의 불릿은 표시 기호와 본문을 별도 가로 요소로 배치한다. 본문의 `<br>` 뒤에 오는 `(ex. …)`와 배송비 하위 `-` 설명은 기호 아래로 되돌아가지 않고 같은 항목의 텍스트 시작선에 맞춰진다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`와 사용자 제공 비교 이미지다.
+
+`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 기존 시안 데이터의 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/shared/features/store-finder/`, `src/shared/components/organisms/StoreFinder/StoreResults.tsx`, `src/shared/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
+
+`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 소개 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/shared/features/care-guide/`, `src/shared/features/terms/TermsPage.tsx`, `src/shared/features/support/SupportExperiencePage.tsx`, `src/shared/features/support/support.navigation.ts`와 해당 Figma 노드다.
+
+공통 푸터의 세탁 및 손질 방법 링크도 신규 `/support/care` 경로로 연결한다. 출처는 작업 트리의 `src/shared/components/organisms/Layout/SiteFooter/footerData.ts`다.
 
 공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`다.
 
@@ -965,7 +979,7 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 | `src/shared/components/layouts/`   | 공통 페이지 구조                               |
 | `src/stories/`                     | Storybook이 탐색하는 스토리                    |
 
-주문/결제 화면(`src/shared/features/checkout/`)은 `FormField`·`TextInput`·`Radio`·`StepIndicator` 등 기존 요소를 조합한 목 화면이며 실제 결제와 연동하지 않는다.
+주문/결제 화면(`src/shared/features/checkout/`)은 `Checkbox`·`Button`·`Typography`·`StepIndicator` 등을 조합한 목 화면이며 실제 결제와 연동하지 않는다. 모바일 장바구니·주문/결제는 Figma `962:8877`, `1108:12627`의 375px 시안을 기준으로 16px 좌우 여백, 상품 카드, 배송지 정보, 3열 결제 수단, 하단 주문·결제 버튼을 구성한다. 상품 이미지는 Figma 미리보기 목 자산을 `public/images/cart/`에 저장하고, 카카오페이 로고는 `public/images/checkout/`에 저장했다. 다른 상품 항목은 카탈로그 이미지로 표시한다.
 
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
 
@@ -1144,6 +1158,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
 - `MyPageRewards`의 등급 카드에서 `--tier-color`는 카드 배경과 검은 원 안 이니셜 글자색에 함께 적용한다. ELITE·ADVANCED·RUNNER는 각각 Figma color foundation의 `blue.100`·`citrus.100`·`offWhite.100` 토큰을 변수에 연결한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `panda.config.ts` 및 생성 CSS 확인(2026-10-15).
 - 등급 혜택과 회원 공통 혜택의 순번은 `ol`의 CSS 마커 대신 `map`의 인덱스를 `Typography`로 출력한다. 주항목과 순번은 모바일 `body4`(14px), 보조 설명은 `body5`(12px)를 쓰며 설명 불릿도 텍스트로 표시한다. 목록의 의미 구조는 `ol`·`li`로 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `src/shared/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
 - 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
 - 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/shared/components/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
 - `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이의 독립 섹션이다. 접힌 상태는 칩을 줄바꿈 없이 가로 한 줄(`nowrap`)로 이어서 보여주고, 52px 높이에서 오른쪽으로 넘친 부분만 잘린다. 펼치면 줄바꿈(`wrap`)해 가로 4px·세로 8px 간격으로 세 줄에 걸쳐 5개 칩을 모두 보여주며 아래 쿠폰 내역을 밀어낸다. 우측 원형 버튼은 `aria-expanded`와 목록 연결을 제공한다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19372&m=dev), 제공된 두 상태 이미지 및 `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).

@@ -26,7 +26,7 @@ export const footerGroups: FooterGroup[] = [
     title: 'Resources',
     links: [
       { label: '사이즈가이드', to: '/support' },
-      { label: '세탁 및 손질 방법', to: '/support' },
+      { label: '세탁 및 손질 방법', to: '/support/care' },
     ],
   },
   {

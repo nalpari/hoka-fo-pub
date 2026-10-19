@@ -66,20 +66,24 @@ const commonBenefits = [
   {
     title: '멤버 ‘첫 구매’ 유도',
     items: [
-      { text: '첫 구매 감사 쿠폰(100,000원, *최초 1회 지급)', details: ['최소 주문 가능 금액 : 100,000원'] },
+      {
+        text: '첫 구매 감사 쿠폰(100,000원, *최초 1회 지급)',
+        details: ['최소 주문 가능 금액 : 100,000원'],
+      },
     ],
   },
   {
     title: '멤버 ‘재구매’ 유도',
     items: [
-      { text: '생일 축하 쿠폰(10,000원, *연 1회 지급)', details: ['최소 주문 가능 금액 : 50,000원'] },
+      {
+        text: '생일 축하 쿠폰(10,000원, *연 1회 지급)',
+        details: ['최소 주문 가능 금액 : 50,000원'],
+      },
     ],
   },
   {
     title: '멤버 ‘CRM 채널’ 유입',
-    items: [
-      { text: 'HOKA 카플친 추가 시 5,000원 쿠폰(*최초 1회 지급)', details: [] },
-    ],
+    items: [{ text: 'HOKA 카플친 추가 시 5,000원 쿠폰(*최초 1회 지급)', details: [] }],
   },
 ] as const;
 
@@ -145,11 +149,14 @@ export function MyPageRewards() {
                         {benefit.title}
                       </Typography>
                       {benefit.details.length > 0 ? (
-                        <Stack as="ul" gap="1" listStyleType="none">
+                        <Stack as="ul" gap="1" pl="2" listStyleType="none">
                           {benefit.details.map((detail) => (
-                            <Typography as="li" key={detail} mo="body5">
-                              • &nbsp;{detail}
-                            </Typography>
+                            <HStack as="li" key={detail} alignItems="flex-start" gap="1">
+                              <Typography as="span" mo="body5" aria-hidden="true">
+                                ・
+                              </Typography>
+                              <Typography mo="body5">{detail}</Typography>
+                            </HStack>
                           ))}
                         </Stack>
                       ) : null}

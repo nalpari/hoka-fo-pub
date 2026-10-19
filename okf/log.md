@@ -50,6 +50,13 @@
 
 - **Fix**: Button link 기본 size를 md로 지정하고 검색·필터의 중복 CTA 래핑·라벨 변수를 제거해 호출부 Typography body4가 크기와 굵기를 소유하도록 수정했다. 주소 검색 md 명시, ButtonDocs 예제·복사 코드와 DefaultLink 스토리를 반영했다. 타입·ESLint·Prettier·Panda 및 검색/필터/기본 link의 웹·모바일 표시와 동작을 확인했다.
 
+- **Update**: 모바일 장바구니·주문/결제를 Figma 시안에 맞춰 교체하고 데모 상품, 선택 상품 전달, 배송지·결제 수단과 정적 자산을 반영했다. [상태](architecture/state.md), [UI](architecture/ui.md), [프로젝트 개요](project.md)에 목 동작과 검증 범위를 기록했다.
+- **Update**: `/support/care` 경로를 추가하고 고객센터 정보 메뉴에 연결했다. [라우팅과 플랫폼](architecture/routing.md)에 진입 경로와 페이지 책임을 기록했다.
+- **Refactor**: 회원등급 혜택 상세와 문의 등록 유의사항 목록의 불릿을 독립 `Typography`로 분리해 줄바꿈 정렬을 통일했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Fix**: 반품 주의사항 불릿의 기호와 본문을 분리해 `(ex. …)` 및 배송비 하위 줄이 본문 시작선에 정렬되도록 했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
+- **Update**: 세탁 및 손질 방법 안내의 신발·의류/용품 탭과 상세 문구를 추가하고, 약관 페이지의 웹·모바일 탭·시행일 선택 디자인을 공통 고객센터 레이아웃으로 옮겼다. 회원등급 안내의 좌측 메뉴도 같은 레이아웃으로 맞췄다. [UI 아키텍처](architecture/ui.md)에 Figma 출처와 약관 자리표시자 범위를 기록했다.
+- **Update**: 매장찾기와 팀/단체복 주문안내를 최신 고객센터 시안에 맞춰 재구성하고, 배송·반품 안내의 세 탭을 모두 활성화해 본문을 반영했다. 공통 제목·탭 컴포넌트와 매장 지도 자산을 추가하고 [UI 아키텍처](architecture/ui.md)에 출처와 데이터 범위를 기록했다.
+- **Fix**: 1:1 문의 제목 아래 구분선을 모바일에서 숨기지 않고 `black.20`으로 표시했다. [UI 아키텍처](architecture/ui.md)에 반영했다.
 - **Style**: Form 전수 점검 보고서의 기존 표 열 너비와 구분선을 Prettier 형식으로 정리했다. 표 셀 내용과 기존 검증 기록은 유지했다.
 
 - **Refactor**: FormStateAudit 단일 파일을 PC/MO → Validation/Expired/Inheritance 6개 Storybook 그룹과 도메인별 5개 시나리오 모듈로 분리했다. 기존 30개 검사와 태그를 유지하고 공통 플랫폼 메타·주소 helper를 재사용하며 플랫폼/상태 태그와 정렬을 추가했다. 원본 시나리오 15개 선언 일치, 인덱스 30개·태그, 타입·ESLint·Prettier·Storybook 빌드 및 정적 Storybook play 30개를 확인했다.

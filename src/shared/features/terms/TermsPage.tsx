@@ -1,219 +1,142 @@
 'use client';
 
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { css } from 'styled-system/css';
-import { PageHeader } from '@/shared/components/molecules/PageHeader/PageHeader';
-import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { Box, Stack, styled } from 'styled-system/jsx';
+import { Radio } from '@/shared/components/atoms/Radio/Radio';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { SupportPageHeading } from '@/shared/components/molecules/SupportPageHeading/SupportPageHeading';
+import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
-import { Select } from '@/shared/components/atoms/Select/Select';
-import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
-import { Box } from 'styled-system/jsx';
 
-const styles = {
-  page: css({ minH: '760px', '--support-padding-bottom': '130px', _mobile: { minH: 0 } }),
+const dates = [
+  { value: '2026.05.22', label: '2026.05.22' },
+  { value: '2026.02.01', label: '2026.02.01' },
+  { value: '2025.06.02', label: '2025.06.02' },
+] as const;
 
-  tabs: css({
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    borderBottom: '2px solid var(--color-black-60)',
-    '& button': {
-      h: '12',
-      border: '1px solid var(--color-border-subtle)',
-      borderBottom: 0,
-      bg: 'var(--color-white-000)',
-      fontSize: '14' /* 기존 13px */,
-      fontWeight: 'var(--font-weights-bold)',
-    },
-    '& .active': {
-      border: '2px solid var(--color-black-60)',
-      borderBottom: '2px solid var(--color-white-000)',
-    },
-  }),
-};
+const dateOptions = css({
+  position: 'absolute',
+  top: '100%',
+  left: '0',
+  zIndex: 2,
+  w: 'max-content',
+  mt: '2',
+  p: '3',
+  border: '1px solid token(colors.black.40)',
+  borderRadius: '4px',
+  bg: 'white.0',
+  '& [role="radiogroup"]': { gap: '4' },
+});
 
-const terms = (
-  <>
-    <Typography as="h3" variant="heading9" tone="red80">
-      제 1 장 총칙
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      제 1조 (목적)
-    </Typography>
-    <Typography as="p" variant="body5">
-      이 약관은 호카가 운영하는 웹사이트 및 모바일 페이지에서 제공하는 인터넷 관련 서비스의 이용
-      조건과 절차, 회원과 회사의 권리 및 의무를 규정함을 목적으로 합니다.
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      제 2조 (약관의 효력 및 변경)
-    </Typography>
-    <Typography as="p" variant="body5">
-      회사는 이용자가 쉽게 알 수 있도록 서비스 화면에 게시합니다. 회사는 관련 법령을 위배하지 않는
-      범위에서 이 약관을 변경할 수 있으며, 변경된 약관은 공지한 날부터 효력이 발생합니다.
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      제 3조 (약관 외 준칙)
-    </Typography>
-    <Typography as="p" variant="body5">
-      이 약관에 명시되지 않은 사항에 대해서는 관계 법령 및 회사가 정한 서비스의 세부 이용지침에
-      따릅니다.
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      제 4조 (용어의 정의)
-    </Typography>
-    <Typography as="p" variant="body5">
-      회원이란 이 약관에 동의하고 개인정보를 제공하여 아이디와 비밀번호를 발급 받아 회원 등록을
-      완료한 자를 말합니다. 서비스란 회사가 회원에게 제공하는 온라인 쇼핑 및 관련 서비스를
-      의미합니다.
-    </Typography>
-  </>
-);
+function TermsDocument({ privacy }: { privacy: boolean }) {
+  const [date, setDate] = useState<string>(dates[0].value);
+  const [dateOpen, setDateOpen] = useState(false);
 
-const privacy = (
-  <>
-    <Typography as="h3" variant="heading9" tone="red80">
-      [ 호카 개인정보 처리방침 ]
-    </Typography>
-    <Typography as="p" variant="body5">
-      호카는 이용자의 자유와 권리 보호를 위해 개인정보보호법 등 관련 법령을 준수합니다. 개인정보
-      처리방침을 통해 수집하는 개인정보의 항목과 이용 목적을 안내드립니다.
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      개인정보 처리방침의 주요 내용
-    </Typography>
-    <Typography as="p" variant="body5">
-      제 1조 개인정보 처리 목적, 항목, 보유 및 이용기간
-      <br />제 2조 개인정보의 제3자 제공
-      <br />제 3조 개인정보의 처리위탁
-      <br />제 4조 개인정보 파기 절차 및 방법
-      <br />제 5조 개인정보 보호조치
-    </Typography>
-    <Typography as="h4" variant="heading9">
-      제 1조 (개인정보 처리 목적, 항목, 보유 및 이용기간)
-    </Typography>
-    <Typography as="p" variant="body5">
-      회사는 서비스 제공을 위해 필요한 최소한의 범위에서 개인정보를 수집하고 이용합니다. 수집된
-      정보는 회원 가입, 주문 및 배송, 고객 상담과 서비스 개선을 위해 사용됩니다.
-    </Typography>
-    <table>
-      <thead>
-        <tr>
-          <Typography as="th" variant="body5">
-            법적 근거
+  return (
+    <Stack gap="4" pt="4" px={{ base: '4', _mobile: '0' }}>
+      <Box position="relative" alignSelf="flex-start">
+        <styled.button
+          type="button"
+          aria-label="약관 시행일 선택"
+          aria-expanded={dateOpen}
+          onClick={() => setDateOpen((open) => !open)}
+          display="flex"
+          alignItems="center"
+          gap="2"
+          p="0"
+          border="0"
+          bg="transparent"
+          cursor="pointer"
+          _focusVisible={{ outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' }}
+        >
+          <Typography web="body3" mo="body3" weight="medium">
+            {date.replaceAll('.', '. ')}
           </Typography>
-          <Typography as="th" variant="body5">
-            업무 및 수집목적
+          <Icon src="/images/icon/chevron-down-small.svg" size="14px" aria-hidden="true" />
+        </styled.button>
+        {dateOpen && (
+          <Box className={dateOptions}>
+            <Radio
+              ariaLabel="약관 시행일"
+              name={privacy ? 'privacy-date' : 'terms-date'}
+              options={dates}
+              value={date}
+              onValueChange={(next) => {
+                setDate(next);
+                setDateOpen(false);
+              }}
+            />
+          </Box>
+        )}
+      </Box>
+      <Box
+        display="grid"
+        placeItems="center"
+        w="100%"
+        h={{ base: '407px', _mobile: '404px' }}
+        bg="rgba(0, 0, 0, 0.5)"
+        aria-label={privacy ? '개인정보 처리방침 내용' : '이용 약관 내용'}
+      >
+        <Typography web="body5" mo="body5" tone="inverse">
+          약관내용
+        </Typography>
+      </Box>
+      {privacy && (
+        <Stack gap="0">
+          <Typography web="body5" mo="body5" tone="tertiary">
+            - 개인정보 처리방침 버전번호 : v.1.79
           </Typography>
-          <Typography as="th" variant="body5">
-            수집 항목
+          <Typography web="body5" mo="body5" tone="tertiary">
+            - 개인정보 처리방침 시행일자 : 2026.09.02
           </Typography>
-          <Typography as="th" variant="body5">
-            보유 및 이용기간
-          </Typography>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <Typography as="td" variant="body5">
-            개인정보보호법
-          </Typography>
-          <Typography as="td" variant="body5">
-            회원가입 및 관리
-          </Typography>
-          <Typography as="td" variant="body5">
-            아이디, 비밀번호, 성명, 연락처
-          </Typography>
-          <Typography as="td" variant="body5">
-            회원 탈퇴 시까지
-          </Typography>
-        </tr>
-      </tbody>
-    </table>
-  </>
-);
+        </Stack>
+      )}
+    </Stack>
+  );
+}
 
 export function TermsPage() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [date, setDate] = useState('2025-06-02');
+  const [tab, setTab] = useState(searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms');
 
-  const tab = searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms';
-
-  const setTab = (value: 'terms' | 'privacy') => {
-    const next = new URLSearchParams(searchParams.toString());
-    next.set('tab', value);
-    router.push(`${pathname}?${next.toString()}`, { scroll: false });
-  };
+  const tabs = [
+    { value: 'terms', label: '이용 약관', content: <TermsDocument privacy={false} /> },
+    { value: 'privacy', label: '개인정보 처리방침', content: <TermsDocument privacy /> },
+  ];
 
   return (
-    <SidebarNavigationLayout
+    <CustomerCenterLayout
       activePath="/support/terms"
-      className={styles.page}
+      breadcrumbItems={[
+        { label: 'Home', href: '/' },
+        { label: '고객센터', href: '/support' },
+        { label: '약관' },
+      ]}
       groups={supportNavigation}
-      title="SUPPORT"
-      titleTo="/support"
+      hideIntroMobile
     >
-      <Box
-        as="section"
-        _mobile={{ '& > select': { mt: '7' } }}
-        css={{
-          '--support-content-title-gap': '37px',
-          '& > select': {
-            display: 'block',
-            w: '175px',
-            h: '37px',
-            my: '12',
-            ml: 'auto',
-            px: '3',
-            border: '1px solid var(--color-border-subtle)',
-            bg: 'var(--color-white-000)',
-            fontSize: '12',
-          },
-        }}
-      >
-        <PageHeader title="약관" />
-        <SegmentedControl
+      <Stack gap="6">
+        <SupportPageHeading title="약관" />
+        <SupportTabs
           ariaLabel="약관 종류"
-          className={styles.tabs}
-          onValueChange={setTab}
-          options={[
-            { value: 'terms', label: '이용약관' },
-            { value: 'privacy', label: '개인정보 처리방침' },
-          ]}
+          defaultValue="terms"
           value={tab}
-        />
-        <Select
-          aria-label="시행일 선택"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-        >
-          <option>2025-06-02</option>
-          <option>2026-05-04</option>
-        </Select>
-        <Box
-          as="article"
-          overflow="auto"
-          h="575px"
-          p="34px var(--spacing-8)"
-          border="1px solid var(--color-border-subtle)"
-          _mobile={{ h: '490px', p: '22px 4' }}
-          css={{
-            '& h3': {
-              mt: 0,
-              mb: '26px',
-            },
-            '& h4': { my: '4.5' },
-            '& p': { m: 0 },
-            '& table': { w: '100%', mt: '4.5', borderCollapse: 'collapse', textAlign: 'center' },
-            '& th, & td': { p: '3 1.5', border: '1px solid var(--color-black-60)' },
-            '& th': { bg: 'var(--color-black-20)' },
+          onValueChange={(value) => {
+            setTab(value === 'privacy' ? 'privacy' : 'terms');
+            const next = new URLSearchParams(searchParams.toString());
+            if (value === 'privacy') next.set('tab', 'privacy');
+            else next.delete('tab');
+            router.push(`${pathname}${next.size ? `?${next.toString()}` : ''}`, { scroll: false });
           }}
-        >
-          {tab === 'terms' ? terms : privacy}
-        </Box>
-      </Box>
-    </SidebarNavigationLayout>
+          tabs={tabs}
+        />
+      </Stack>
+    </CustomerCenterLayout>
   );
 }

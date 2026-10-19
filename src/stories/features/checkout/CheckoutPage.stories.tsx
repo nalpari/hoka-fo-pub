@@ -68,15 +68,13 @@ export const CompleteOrder: Story = {
   render: (args) => <CheckoutClearingCart onComplete={args.onComplete} />,
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: '결제하기' }));
+    await userEvent.click(canvas.getByRole('button', { name: /결제하기/ }));
     await expect(canvas.getByRole('heading', { name: '주문/결제' })).toBeVisible();
     await expect(args.onComplete).not.toHaveBeenCalled();
-    await userEvent.type(canvas.getByLabelText('받는 분', { exact: false }), '홍길동');
-    await userEvent.type(canvas.getByLabelText('연락처', { exact: false }), '01012345678');
-    await userEvent.type(canvas.getByLabelText('주소', { exact: false }), '서울시 테스트로 1');
-    await userEvent.click(canvas.getByRole('radio', { name: '계좌이체' }));
-    await expect(canvas.getByRole('radio', { name: '계좌이체' })).toBeChecked();
-    await userEvent.click(canvas.getByRole('button', { name: '결제하기' }));
+    await userEvent.click(canvas.getByRole('radio', { name: '네이버페이' }));
+    await expect(canvas.getByRole('radio', { name: '네이버페이' })).toBeChecked();
+    await userEvent.click(canvas.getByRole('checkbox', { name: /주문 내용을 확인/ }));
+    await userEvent.click(canvas.getByRole('button', { name: /결제하기/ }));
     await expect(canvas.getByRole('heading', { name: '주문완료' })).toBeVisible();
     await expect(canvas.getByText('주문이 완료되었습니다.')).toBeVisible();
     await expect(args.onComplete).toHaveBeenCalledTimes(1);

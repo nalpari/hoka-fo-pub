@@ -17,7 +17,7 @@ export const supportNavigation: SidebarNavigationGroup[] = [
       { label: '온라인 회원등급 안내', to: '/support/member-benefits' },
       { label: '팀/단체복 주문 안내', to: '/support/teamwear' },
       { label: '배송 및 반품안내', to: '/support/after-sales' },
-      { label: '세탁 및 손질 방법 안내', to: '/support/after-sales', active: false },
+      { label: '세탁 및 손질 방법 안내', to: '/support/care' },
       { label: '약관', to: '/support/terms' },
     ],
   },

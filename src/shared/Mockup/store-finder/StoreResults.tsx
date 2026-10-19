@@ -1,96 +1,120 @@
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
 import { css } from 'styled-system/css';
-import { Flex, Box } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type StoreResult = {
   name: string;
   address: string;
-  type: string;
   phone: string;
+  hours?: string;
 };
 
-export type StoreResultsProps = { stores: readonly StoreResult[] };
-
-const noResult = css({
-  p: '70px',
-  color: 'var(--color-text-tertiary)',
-  textAlign: 'center',
+const mapImage = css({
+  position: 'absolute',
+  w: '105.36%',
+  h: '439.32%',
+  top: '-168.95%',
+  left: '-0.09%',
+  maxW: 'none',
 });
 
-export function StoreResults({ stores }: StoreResultsProps) {
+export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
+  const [openedMap, setOpenedMap] = useState<string | null>('영등포 타임스퀘어점');
+
+  if (stores.length === 0) {
+    return (
+      <Box py="16" textAlign="center">
+        <Typography web="body4" mo="body4" tone="tertiary">
+          등록된 매장이 없습니다.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
-    <Box
-      css={{
-        '& p': {
-          m: '0 0 1',
-          _mobile: { maxW: '260px' },
-        },
-      }}
-      id="stores"
-    >
-      {stores.map((store) => (
-        <Flex
-          key={store.name}
-          as="article"
-          alignItems="center"
-          justifyContent="space-between"
-          minH="135px"
-          px="4"
-          py="6"
-          borderBottom="1px solid var(--color-black-20)"
-          _mobile={{ p: '5 1' }}
-        >
-          <Box>
-            <Typography
-              as="h2"
-              variant="body4"
-              weight="bold"
-              className={css({ m: '0 0 var(--spacing-3)' })}
-            >
+    <Stack as="ul" m="0" p="0" listStyleType="none">
+      {stores.map((store) => {
+        const isOpen = openedMap === store.name;
+
+        return (
+          <Stack
+            as="li"
+            key={store.name}
+            gap="3"
+            px={{ base: '4', _mobile: '0' }}
+            py="6"
+            borderBottom="1px solid"
+            borderColor="black.20"
+          >
+            <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
               {store.name}
             </Typography>
-            <Typography as="p" variant="body5" tone="tertiary">
-              {store.address}
-            </Typography>
-            <Typography as="small" variant="body5" tone="red80">
-              {store.type}{' '}
-              <i className={css({ color: 'var(--color-black-40)', fontStyle: 'normal' })}>|</i>{' '}
-              {store.phone}
-            </Typography>
-          </Box>
-          <Button
-            aria-label={`${store.name} 약도 보기`}
-            variant="ghost"
-            className={css({
-              '&&': {
-                display: 'grid',
-                justifyItems: 'center',
-                gap: '0.5',
-                border: '0',
-                color: 'var(--color-text-tertiary)',
-                fontSize: '12' /* 기존: 10px */,
-              },
-            })}
-          >
-            <b
-              className={css({
-                fontSize: '28' /* 기존 30px */,
-                fontWeight: 'var(--font-weights-normal)',
-                lineHeight: 'var(--line-heights-hoka)',
-              })}
-            >
-              ♧
-            </b>
-            <Typography as="span">약도보기</Typography>
-          </Button>
-        </Flex>
-      ))}
-      {!stores.length && (
-        <Typography as="p" variant="body5" tone="tertiary" className={noResult}>
-          검색 결과가 없습니다.
-        </Typography>
-      )}
-    </Box>
+            <Stack gap="1">
+              <Typography web="body5" mo="body5" tone="tertiary">
+                {store.address}
+              </Typography>
+              <HStack gap="1">
+                <Typography web="body5" mo="body5" tone="tertiary">
+                  전화번호:
+                </Typography>
+                <Typography web="body5" mo="body5">
+                  {store.phone}
+                </Typography>
+              </HStack>
+              {store.hours && (
+                <HStack gap="1">
+                  <Typography web="body5" mo="body5" tone="tertiary">
+                    운영시간:
+                  </Typography>
+                  <Typography web="body5" mo="body5">
+                    {store.hours}
+                  </Typography>
+                </HStack>
+              )}
+            </Stack>
+            {isOpen && (
+              <Box
+                position="relative"
+                w="100%"
+                h={{ base: '422px', _mobile: '174px' }}
+                overflow="hidden"
+                aria-label={`${store.name} 지도 미리보기`}
+              >
+                <Image
+                  src="/images/store-finder/map-preview.png"
+                  alt=""
+                  width={1170}
+                  height={2532}
+                  className={mapImage}
+                  unoptimized
+                />
+                <Box position="absolute" inset="0" bg="rgba(0, 0, 0, 0.5)" />
+                <Box position="absolute" inset="0" display="grid" placeItems="center">
+                  <Typography web="body4" mo="body4" tone="inverse">
+                    API 지도 노출 영역
+                  </Typography>
+                </Box>
+              </Box>
+            )}
+            <Box>
+              <Button
+                type="button"
+                size="short"
+                variant={isOpen ? 'secondary' : 'primary'}
+                onClick={() => setOpenedMap(isOpen ? null : store.name)}
+                aria-expanded={isOpen}
+              >
+                길 찾기
+              </Button>
+            </Box>
+          </Stack>
+        );
+      })}
+    </Stack>
   );
 }
