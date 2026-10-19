@@ -476,6 +476,24 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 단일 확인 모달 추가 적용 (2026-10-19)
+
+PasswordResetCompleteModal·MyPageReviewDialog·RunClubApplicationNotice·PreviousTermsPicker의 수동 footer를 SingleActionDialog로 교체했다. 기본 short/fullWidth와 actionCount 1 패딩을 사용하며 리뷰는 confirmLabel 저장·onSave, 비밀번호 완료는 onConfirm, 런클럽은 onOpenChange(false), 이전 약관은 onSelect를 연결한다. 기존 외부 props·필드 검증·날짜 상태와 모바일 시트의 footer 숨김/휠 선택·popupClassName 스타일은 유지한다. PreviousTermsPicker의 기존 선택기 전용 본문 패딩 override도 유지한다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier 통과. Edge headless에서 비밀번호 완료 PC/MO 패딩·확인 크기 2건, 이전 약관 PC/MO 선택 play 2개, 리뷰 PC/MO 오류→입력→저장 play 2개, 런클럽 PC/MO 안내 열기→확인 닫기 2건을 확인했다. production build는 재실행하지 않았다.
+
+## 계정 잠금 안내의 SingleActionDialog 적용 (2026-10-19)
+
+AccountLockedContent의 수동 primary 확인 footer를 SingleActionDialog로 교체했다. 공통 short/fullWidth 확인 버튼과 actionCount 1의 PC 본문 패딩 24px 24px 16px·MO 24px 16px 16px 16px를 사용한다. 제목·본문·모바일 줄바꿈·onClose/onConfirm 외부 API와 AccountLockedPage의 로그인/인증 화면 이동은 유지한다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. 기존 Storybook PC/MO의 본문 패딩·확인 버튼 14px와 확인→인증 화면·헤더 닫기/Escape→로그인 이동 play 3개를 Edge headless에서 확인했다. production build는 재실행하지 않았다.
+
+## 휴대폰 인증의 알뜰폰 사업자 전용 팝업 (2026-10-19)
+
+PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자 제목과 통신망별 목록을 고정 표시한다. 문자열 detail 분기와 자체 footer를 제거하고 SingleActionDialog의 기본 short/fullWidth 확인 버튼·단일 액션 패딩을 사용한다. 확인은 onOpenChange(false)를 호출한다. PhoneVerificationContent에서 detail이 알뜰폰 사업자일 때 이 전용 팝업을 연결하고 다른 약관의 기존 제목 전용 ModalDialog 동작은 유지한다. Content/Page의 외부 detail/onDetail API는 바꾸지 않는다.
+
+검증: 전체 타입 검사·변경 파일 ESLint/Prettier와 Edge headless에서 알뜰폰 3개 통신망 표시·확인/헤더 닫기/Escape·단일 액션 패딩/14px 확인 버튼, 기존 약관 팝업 4개의 열기·닫기를 확인했다. production build는 재실행하지 않았다.
+
 ## 마이페이지 리뷰 분리와 미사용 목업 제거 (2026-10-19)
 
 실제 /mypage/reviews는 MyPageStatusPage가 MyPageReviews를 렌더링한다. organisms/MyPage/ReviewManager는 실제 화면의 import·재수출·호출이 없고 단독 Storybook만 참조하므로 삭제했다. 전용 ReviewEditor·ReviewList·ReviewListToolbar·ReviewStatusTabs·ReviewManager.types와 ReviewManager 스토리도 다른 사용처가 없어 함께 제거했다. 공용 RatingStars·Pagination·첨부 컴포넌트와 실제 MyPageReviewDialog는 삭제 대상이 아니다.

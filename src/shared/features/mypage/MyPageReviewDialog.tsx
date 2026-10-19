@@ -1,6 +1,5 @@
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Stack } from 'styled-system/jsx';
 import { RatingStars, type RatingValue } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
@@ -30,12 +29,9 @@ export function MyPageReviewDialog({
   onSave,
 }: Props) {
   return (
-    <ModalDialog
-      footer={
-        <Button fullWidth size="short" variant="primary" onClick={onSave}>
-          저장
-        </Button>
-      }
+    <SingleActionDialog
+      confirmLabel="저장"
+      onConfirm={onSave}
       closeLabel="리뷰 작성창 닫기"
       onOpenChange={onOpenChange}
       open={open}
@@ -71,6 +67,6 @@ export function MyPageReviewDialog({
           </Typography>
         ) : null}
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }
