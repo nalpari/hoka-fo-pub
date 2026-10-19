@@ -6,13 +6,26 @@ tags: [audit, forms, validation, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-18T23:34:03Z'
+  at: '2026-10-19T05:12:44Z'
 source_revision: 91725786fd78138c44e6e5c099261ae84c7a613e
 working_tree_sources:
+  - src/stories/features/forms/form-state-audit/account.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/enterAddress.ts
+  - src/stories/features/forms/form-state-audit/MO.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/mypage.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/PC.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/product.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/shared.tsx
+  - src/stories/features/forms/form-state-audit/support.scenarios.tsx
+  - .storybook/preview.ts
   - src/shared/features/login/LoginPage.tsx
   - src/shared/features/login/LoginForm.tsx
   - src/stories/features/login/LoginPage.stories.tsx
-  - src/stories/features/forms/FormStateAudit.stories.tsx
   - tests/form-controls.test.mjs
   - src/shared/components/atoms/Select/Select.tsx
   - src/shared/components/atoms/Dropdown/Dropdown.tsx
@@ -56,7 +69,7 @@ error는 기존 #A60000, 일반 success는 기존 #16794b를 유지한다. 인�
 
 ## 페이지별 검사 목록
 
-마지막 열의 이름은 Development/FormStateAudit 또는 기존 스토리의 재현 시나리오다. 브라우저 실행 결과는 아래 검증 기록과 함께 해석한다.
+마지막 열의 이름은 Development/FormStateAudit의 PC/MO → Validation/Expired/Inheritance 그룹 또는 기존 스토리의 재현 시나리오다. 브라우저 실행 결과는 아래 검증 기록과 함께 해석한다.
 
 | 라우트 | 본문 분류 | 서버 응답 | 재현 시나리오 / 소스 판정 |
 | --- | --- | --- | --- |
@@ -136,3 +149,9 @@ error는 기존 #A60000, 일반 success는 기존 #16794b를 유지한다. 인�
 [컴포넌트 계약](../architecture/ui.md), [로그인 상태](../architecture/state.md), [검증 절차](verification.md)를 참고한다.
 
 후속 로그인 브라우저 검사 9개가 모두 통과했다. PC·모바일의 필드별 오류 문구·계산 색상·설명 연결·입력 수정과 데모 성공 흐름을 확인하고, 375×812 캡처에서 두 빨간 문구와 테두리를 확인했다.
+
+## Storybook 분류 정리 (2026-10-19)
+
+단일 감사 스토리를 PC/MO → Validation(오류·복구)·Expired(인증 만료)·Inheritance(오류 상속)로 분리했다. 기존 표의 시나리오 이름은 유지하며 모바일은 Mobile 접두사 대신 MO 경로에서 찾는다. 플랫폼별 15개, 총 30개로 검사 범위는 유지한다. 원본 render/play 15개 선언은 변경 없이 계정·마이페이지·상품·고객문의·컨트롤 모듈로 이동했다. 기존 태그는 유지하고 플랫폼·상태 선택 태그를 추가했다.
+
+분리 이후 타입·변경 파일 ESLint/Prettier·정적 Storybook 빌드와 정적 서버(127.0.0.1:6007)의 Edge headless play 30개가 통과했다. 이 기록은 이번 FormStateAudit 30개의 재검증이며 앞선 49개 전체 조합을 다시 실행했다는 뜻은 아니다. 자세한 분류와 태그는 [변경 검증](verification.md#formstateaudit-분류별-선택-2026-10-19)을 참고한다.

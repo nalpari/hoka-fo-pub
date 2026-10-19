@@ -2,6 +2,8 @@
 
 ## 2026-10-19
 
+- **Refactor**: FormStateAudit 단일 파일을 PC/MO → Validation/Expired/Inheritance 6개 Storybook 그룹과 도메인별 5개 시나리오 모듈로 분리했다. 기존 30개 검사와 태그를 유지하고 공통 플랫폼 메타·주소 helper를 재사용하며 플랫폼/상태 태그와 정렬을 추가했다. 원본 시나리오 15개 선언 일치, 인덱스 30개·태그, 타입·ESLint·Prettier·Storybook 빌드 및 정적 Storybook play 30개를 확인했다.
+
 - **Refactor**: 유사 화면을 계정 중앙 프레임·주문 프레임·사이드바 그룹으로 묶었다. AccountPageLayout을 계정 10개 화면에 적용하고 MyPageFrame이 SidebarNavigationLayout을 재사용하도록 정리하고 장바구니·주문/결제/완료에 OrderPageLayout을 적용했다. 화면별 기존 DOM·타이포·여백·폭·폼/모달 계약을 유지했으며 웹/모바일 31건 전후 비교·상호작용 13개·실제 사이드바 경로 10건, 기존 테스트 40개·타입·ESLint·Prettier·Panda·Next/Storybook 빌드를 검증했다. [UI 기록](architecture/ui.md#유사-화면의-레이아웃-그룹-공통화-2026-10-19)에 API·그룹과 유지 판단을 기록했다.
 
 - **Refactor**: AccountFormLayout에 actions/actionsSpacing을 추가해 약관동의·회원가입의 2열 버튼 영역을 공통화했다. 기존 32px/24px 간격과 form 연결·Enter 제출을 유지하고 웹/모바일 스토리 12개, Enter 제출 2개 및 타입·ESLint·Prettier·Panda·Next 빌드를 검증했다. [UI 계약](architecture/ui.md#accountformlayout-공통-액션-영역-2026-10-19)에 기록했다.

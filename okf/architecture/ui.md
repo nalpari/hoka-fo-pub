@@ -6,10 +6,22 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:07:21Z'
+  at: '2026-10-19T05:12:44Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/stories/features/forms/FormStateAudit.stories.tsx
+  - src/stories/features/forms/form-state-audit/account.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/enterAddress.ts
+  - src/stories/features/forms/form-state-audit/MO.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/MO.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/mypage.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/PC.Expired.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Inheritance.stories.tsx
+  - src/stories/features/forms/form-state-audit/PC.Validation.stories.tsx
+  - src/stories/features/forms/form-state-audit/product.scenarios.tsx
+  - src/stories/features/forms/form-state-audit/shared.tsx
+  - src/stories/features/forms/form-state-audit/support.scenarios.tsx
   - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
   - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
   - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
@@ -1202,3 +1214,11 @@ Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검�
 검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier, 폼/계정 복구/App Router 테스트 37개·주문 합계 테스트 3개, Next.js·Storybook production build가 통과했다. 변경 전후 웹/모바일 31건(Storybook 29개·장바구니 실제 경로 2개)에서 정규화한 DOM(클래스 제외·자동 ID 정규화), main 기준 좌표·크기·padding/margin/gap·최소 높이·font-size/display가 일치했다. 로그인 성공/형식 오류, 가입 필드 검증, 계정 찾기 인증번호 요청/오류, 비밀번호 재설정 오류/완료의 기존 play 11개와 주문 완료 웹/모바일 play 2개도 통과했다. 실제 경로 `/mypage/addresses`, `/mypage/profile`, `/support/store`, `/support/terms`, `/support/teamwear`의 웹/모바일 10건에서 공통 사이드바 배치와 마이페이지 무여백/기존 지원 화면 여백을 확인했다. Storybook 의존성의 기존 번들 경고는 유지된다. 출처는 frontmatter의 작업 트리 경로다.
 
 `OrderPageLayout`의 API는 `title: ReactNode`, `step: 1 | 2 | 3`, `headerSpacing?: 'default' | 'none'`, `children`이다. title 슬롯에 각 feature의 기존 h1 Typography를 전달해 장바구니와 결제 화면의 다른 타입 스케일을 보존한다. 공통 StepIndicator는 장바구니→주문/결제→주문완료 항목을 사용하고 모바일에서는 숨긴다. 기본 제목 아래 간격은 40px이며 장바구니는 `none`으로 기존 상품 수 안내의 자체 margin을 유지한다. CartPage의 수량·삭제 콜백과 합계 계산, CheckoutPage의 검증·완료 상태와 onComplete는 기존 소유자에 남고, CheckoutLayout의 외부 API도 유지한다.
+
+## FormStateAudit의 PC/MO·상태 분류 (2026-10-19)
+
+기존 단일 FormStateAudit.stories.tsx는 `src/stories/features/forms/form-state-audit/`로 나눴다. Storybook 탐색 경로는 `Development/FormStateAudit/{PC|MO}/{Validation|Expired|Inheritance}`다. 각 플랫폼은 Validation(오류→수정·복구/완료) 13개, Expired(휴대폰 인증 만료) 1개, Inheritance(공통 컨트롤의 오류 상속·해제) 1개로 구성되며 총 30개다. preview의 storySort는 PC→MO, Validation→Expired→Inheritance 순서를 지정한다.
+
+6개 *.stories.tsx는 분류와 시나리오 선택만 담당한다. 계정·마이페이지·상품·고객문의·공통 컨트롤의 5개 *.scenarios.tsx는 기존 render/play를 소유하고, shared.tsx는 플랫폼 Provider·375px 모바일 wrapper·fullscreen을, enterAddress.ts는 반복 주소 모달 입력을 담당한다. 모바일 전용 story 복제와 parameters 덮어쓰기를 제거해 상품 pathname과 가입 step query를 공통 플랫폼 메타와 함께 유지한다. 기존 form-audit/form-audit-new 태그에 form-audit-pc/mo와 form-audit-validation/expired/inheritance를 추가했다. CSF 정적 인덱싱을 위해 태그는 각 meta에 문자열 리터럴로 명시한다. 이전 단일 그룹 story ID는 새 플랫폼/상태 경로로 바뀐다.
+
+검증: 원본 15개 render/play 선언의 이동 전후 소스 일치, 정적 index의 6개 그룹·30개 story·기존/신규 태그 등록을 확인했다. 변경 파일 ESLint·Prettier·전체 타입 검사·Storybook production build가 통과했으며 정적 Storybook(127.0.0.1:6007)을 대상으로 Edge headless에서 PC/MO play 30개가 모두 통과했다. 앱 구현과 검증 조건은 변경하지 않았다. 출처는 frontmatter의 새 스토리/시나리오·helper·preview 작업 트리 경로다.
