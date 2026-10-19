@@ -1,17 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Fragment, type ReactNode } from 'react';
-import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
-
-const styles = {
-  specs: css({
-    display: 'grid',
-    gridTemplateColumns: '26.6% 1fr',
-    columnGap: '3',
-    rowGap: '6',
-  }),
-};
+import { Grid, Stack } from 'styled-system/jsx';
 
 export type ProductInformationProps = {
   id?: string;
@@ -64,7 +54,7 @@ export function ProductInformation({
           </Typography>
         </Stack>
       ))}
-      <dl className={styles.specs}>
+      <Grid as="dl" gridTemplateColumns="26.6% 1fr" columnGap="3" rowGap="6">
         {specifications.map((specification, index) => (
           <Fragment key={index}>
             <Typography as="dt" variant="cta1">
@@ -75,7 +65,7 @@ export function ProductInformation({
             </Typography>
           </Fragment>
         ))}
-      </dl>
+      </Grid>
 
       <Button variant="link" colorway="black" size="md">
         더 보기

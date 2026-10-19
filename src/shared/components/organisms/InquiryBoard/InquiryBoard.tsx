@@ -2,7 +2,7 @@
 
 import { useId, useState, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Flex } from 'styled-system/jsx';
+import { Grid, Flex } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -78,7 +78,7 @@ const styles = {
     whiteSpace: 'pre-wrap',
     _mobile: { p: '24px 12px' },
   }),
-  answer: css({ mt: '24px', display: 'grid', gap: '8px' }),
+
   empty: css({
     py: '48px',
     textAlign: 'center',
@@ -184,14 +184,14 @@ export function InquiryBoard({
                     {item.content}
                   </Typography>
                   {item.answer != null && (
-                    <div className={styles.answer}>
+                    <Grid mt="24px" gap="8px">
                       <Typography variant="body4" weight="bold">
                         답변
                       </Typography>
                       <Typography as="div" variant="body4">
                         {item.answer}
                       </Typography>
-                    </div>
+                    </Grid>
                   )}
                 </>
               ),

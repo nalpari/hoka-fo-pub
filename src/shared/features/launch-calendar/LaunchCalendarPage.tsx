@@ -3,7 +3,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Box, Flex } from 'styled-system/jsx';
+import { Grid, Stack, Box, Flex } from 'styled-system/jsx';
 import { css, cva } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
@@ -25,16 +25,6 @@ type LaunchItem = {
   tone: LaunchTone;
   status: 'now' | 'coming' | 'sold-out';
 };
-
-const calendar = css({ paddingBottom: '28' });
-
-const intro = css({
-  display: 'grid',
-  justifyItems: 'center',
-  p: '88px var(--spacing-6) var(--spacing-12)',
-  textAlign: 'center',
-  '.platform-mobile &': { p: '13 var(--layout-mobile-inline-gutter) 34px' },
-});
 
 const kicker = css({
   mb: '2.5',
@@ -61,8 +51,6 @@ const audienceButton = cva({
   variants: { selected: { true: { bg: 'var(--color-black-100)' }, false: {} } },
 });
 
-const tabs = css({ display: 'flex', gap: '22px', mt: '30px' });
-
 const tabGroup = css({ display: 'flex', alignItems: 'center', gap: '22px' });
 
 const separator = css({ color: 'var(--color-black-40)', fontStyle: 'normal' });
@@ -77,20 +65,6 @@ const audienceNote = css({
   mt: '4',
   mb: 'calc(var(--spacing-4) * -1)',
   opacity: '0',
-});
-
-const grid = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-  gap: '50px var(--spacing-3)',
-  maxW: 'var(--layout-content-max-width)',
-  mx: 'auto',
-  px: '6',
-  '.platform-mobile &': {
-    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-    gap: 'var(--spacing-7) var(--spacing-2)',
-    px: 'var(--layout-mobile-inline-gutter)',
-  },
 });
 
 const card = css({
@@ -193,22 +167,6 @@ const date = css({
   '.platform-mobile &': { top: '11px', left: '11px', fontSize: '16' },
 });
 
-const cardInfo = css({
-  pt: '4',
-  '& p': {
-    minH: '18px',
-    mb: '2',
-    color: 'var(--color-black-40)',
-    fontSize: '14' /* 기존 13px */,
-    '.platform-mobile &': { fontSize: '12' /* 기존: 11px */ },
-  },
-  '& h2': {
-    fontSize: '20',
-    lineHeight: 'var(--line-heights-body)',
-    '.platform-mobile &': { fontSize: '16' },
-  },
-});
-
 const cardAction = cva({
   base: {
     display: 'none',
@@ -229,47 +187,6 @@ const cardAction = cva({
       'sold-out': { bg: 'var(--color-black-50)' },
     },
   },
-});
-
-const nowFeature = css({
-  display: 'grid',
-  gridTemplateColumns: '37% 63%',
-  minH: '580px',
-  bg: 'var(--color-black-60)',
-  color: 'var(--color-text-inverse)',
-  '.platform-mobile &': { gridTemplateColumns: '1fr' },
-});
-
-const featureCopy = css({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  p: 'clamp(var(--spacing-11), 6vw, var(--spacing-24))',
-  '& p': { mb: '3.5', fontSize: '16' /* 기존 17px */ },
-  '& h2': {
-    mb: '30px',
-    fontSize: 'clamp(var(--font-sizes-32), 3vw, var(--font-sizes-50))',
-    lineHeight: 'var(--line-heights-hoka)',
-  },
-  '& a': {
-    px: '42px',
-    py: '14px',
-    borderRadius: 'full',
-    bg: 'var(--color-white-000)',
-    color: 'var(--color-text-primary)',
-    fontWeight: 'var(--font-weights-bold)',
-  },
-  '.platform-mobile &': { minH: '260px', p: 'var(--spacing-10) 26px' },
-});
-
-const featureArt = css({
-  position: 'relative',
-  isolation: 'isolate',
-  overflow: 'hidden',
-  minH: '580px',
-  bg: 'radial-gradient(circle at 43% 25%, var(--color-black-40), var(--color-black-60) 52%, var(--color-black-60))',
-  '.platform-mobile &': { minH: '360px' },
 });
 
 const featureShoe = css({
@@ -400,18 +317,44 @@ function LaunchCard({ item, mode }: { item: LaunchItem; mode: CalendarTab }) {
   return (
     <Link className={card} href={`/products/${item.productId}`}>
       <Box className={art({ tone: item.tone })} data-launch-art>
-        {mode === 'coming' && <span className={date}>{item.date}</span>}
-        <span className={mark}>NB</span>
+        {mode === 'coming' && (
+          <Typography as="span" className={date}>
+            {item.date}
+          </Typography>
+        )}
+        <Typography as="span" className={mark}>
+          NB
+        </Typography>
         <span className={shoe} aria-hidden="true">
           N
         </span>
       </Box>
-      <Box className={cardInfo}>
-        <p>{mode === 'history' && !scheduled ? item.detail : `${item.release} 출시 예정`}</p>
-        <h2>{item.title}</h2>
-        <span className={cardAction({ status: item.status })} data-launch-action>
+      <Box pt="4">
+        <Typography
+          as="p"
+          className={css({
+            minH: '18px',
+            mb: '2',
+            color: 'var(--color-black-40)',
+            fontSize: '14' /* 기존 13px */,
+            '.platform-mobile &': { fontSize: '12' /* 기존: 11px */ },
+          })}
+        >
+          {mode === 'history' && !scheduled ? item.detail : `${item.release} 출시 예정`}
+        </Typography>
+        <Typography
+          as="h2"
+          className={css({
+            fontSize: '20',
+            lineHeight: 'var(--line-heights-body)',
+            '.platform-mobile &': { fontSize: '16' },
+          })}
+        >
+          {item.title}
+        </Typography>
+        <Typography as="span" className={cardAction({ status: item.status })} data-launch-action>
           {actionLabel}
-        </span>
+        </Typography>
       </Box>
     </Link>
   );
@@ -424,12 +367,21 @@ export function LaunchCalendarPage() {
   const featured = launches.find((item) => item.status === 'now')!;
 
   return (
-    <main className={calendar}>
-      <header className={intro}>
+    <Box as="main" paddingBottom="28">
+      <Grid
+        as="header"
+        gap="normal"
+        justifyItems="center"
+        p="88px var(--spacing-6) var(--spacing-12)"
+        textAlign="center"
+        css={{ '.platform-mobile &': { p: '13 var(--layout-mobile-inline-gutter) 34px' } }}
+      >
         <Typography as="p" variant="body5" weight="bold" tone="red80" className={kicker}>
           HOKA
         </Typography>
-        <h1 className={pageTitle}>Launch Calendar</h1>
+        <Typography as="h1" className={pageTitle}>
+          Launch Calendar
+        </Typography>
         <Flex aria-label="상품 대상 선택">
           <Button
             className={audienceButton({ selected: audience === 'adult' })}
@@ -444,7 +396,7 @@ export function LaunchCalendarPage() {
             키즈
           </Button>
         </Flex>
-        <nav className={tabs} aria-label="런칭 캘린더 탭">
+        <Flex as="nav" gap="22px" mt="30px" aria-label="런칭 캘린더 탭">
           {(['history', 'now', 'coming'] as CalendarTab[]).map((item, index) => (
             <span className={tabGroup} key={item}>
               {index > 0 && (
@@ -457,36 +409,91 @@ export function LaunchCalendarPage() {
               </Button>
             </span>
           ))}
-        </nav>
+        </Flex>
         <Typography as="p" variant="body5" tone="tertiary" className={audienceNote}>
           {audience === 'adult' ? '성인 컬렉션' : '키즈 컬렉션'}
         </Typography>
-      </header>
+      </Grid>
 
       {tab === 'now' ? (
-        <section className={nowFeature} aria-label="현재 출시 상품">
-          <Box className={featureCopy}>
-            <p>{featured.release} 런칭</p>
-            <h2>{featured.title}</h2>
+        <Grid
+          as="section"
+          gap="normal"
+          gridTemplateColumns="37% 63%"
+          minH="580px"
+          bg="var(--color-black-60)"
+          color="var(--color-text-inverse)"
+          css={{ '.platform-mobile &': { gridTemplateColumns: '1fr' } }}
+          aria-label="현재 출시 상품"
+        >
+          <Stack
+            gap="normal"
+            alignItems="flex-start"
+            justifyContent="center"
+            p="clamp(var(--spacing-11), 6vw, var(--spacing-24))"
+            css={{
+              '& a': {
+                px: '42px',
+                py: '14px',
+                borderRadius: 'full',
+                bg: 'var(--color-white-000)',
+                color: 'var(--color-text-primary)',
+                fontWeight: 'var(--font-weights-bold)',
+              },
+              '.platform-mobile &': { minH: '260px', p: 'var(--spacing-10) 26px' },
+            }}
+          >
+            <Typography as="p" className={css({ mb: '3.5', fontSize: '16' /* 기존 17px */ })}>
+              {featured.release} 런칭
+            </Typography>
+            <Typography
+              as="h2"
+              className={css({
+                mb: '30px',
+                fontSize: 'clamp(var(--font-sizes-32), 3vw, var(--font-sizes-50))',
+                lineHeight: 'var(--line-heights-hoka)',
+              })}
+            >
+              {featured.title}
+            </Typography>
             <Link href={`/products/${featured.productId}`}>구매하기</Link>
-          </Box>
-          <Box className={featureArt}>
+          </Stack>
+          <Box
+            pos="relative"
+            isolation="isolate"
+            overflow="hidden"
+            minH="580px"
+            bg="radial-gradient(circle at 43% 25%, var(--color-black-40), var(--color-black-60) 52%, var(--color-black-60))"
+            css={{ '.platform-mobile &': { minH: '360px' } }}
+          >
             <span className={featureShoe}>N</span>
             <Typography variant="body5" weight="bold" className={featureBrand}>
               HOKA
             </Typography>
           </Box>
-        </section>
+        </Grid>
       ) : (
-        <section
-          className={grid}
+        <Grid
+          as="section"
+          gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+          gap="50px var(--spacing-3)"
+          maxW="var(--layout-content-max-width)"
+          mx="auto"
+          px="6"
+          css={{
+            '.platform-mobile &': {
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+              gap: 'var(--spacing-7) var(--spacing-2)',
+              px: 'var(--layout-mobile-inline-gutter)',
+            },
+          }}
           aria-label={tab === 'history' ? '런칭 히스토리' : '출시 예정 상품'}
         >
           {visible.map((item) => (
             <LaunchCard item={item} mode={tab} key={item.id} />
           ))}
-        </section>
+        </Grid>
       )}
-    </main>
+    </Box>
   );
 }

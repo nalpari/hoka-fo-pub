@@ -1,4 +1,6 @@
-import type { FormEventHandler } from 'react';
+'use client';
+
+import { useState, type FormEventHandler } from 'react';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
@@ -33,6 +35,8 @@ export function CheckoutContent({
   onPaymentChange,
   onSubmit,
 }: CheckoutContentProps) {
+  const [errors, setErrors] = useState<Partial<Record<'name' | 'phone' | 'address', string>>>({});
+
   if (completed)
     return (
       <section className={done}>
@@ -47,13 +51,36 @@ export function CheckoutContent({
   if (rows.length === 0)
     return (
       <section className={done}>
-        <p className={css({ m: '0' })}>주문할 상품이 없습니다.</p>
+        <Typography as="p" className={css({ m: '0' })}>
+          주문할 상품이 없습니다.
+        </Typography>
         <Link href="/products">쇼핑 계속하기</Link>
       </section>
     );
   return (
-    <form className={layout} onSubmit={onSubmit}>
-      <CheckoutFields payment={payment} onPaymentChange={onPaymentChange} />
+    <form
+      noValidate
+      className={layout}
+      onInput={(event) => {
+        const input = event.target as HTMLInputElement;
+        if (input.value.trim()) setErrors((previous) => ({ ...previous, [input.name]: undefined }));
+      }}
+      onSubmit={(event) => {
+        const data = new FormData(event.currentTarget);
+        const nextErrors = {
+          name: String(data.get('name') ?? '').trim() ? '' : '받는 분을 입력해 주세요.',
+          phone: String(data.get('phone') ?? '').trim() ? '' : '연락처를 입력해 주세요.',
+          address: String(data.get('address') ?? '').trim() ? '' : '주소를 입력해 주세요.',
+        };
+        setErrors(nextErrors);
+        if (Object.values(nextErrors).some(Boolean)) {
+          event.preventDefault();
+          return;
+        }
+        onSubmit(event);
+      }}
+    >
+      <CheckoutFields payment={payment} onPaymentChange={onPaymentChange} errors={errors} />
       <CheckoutSummary rows={rows} total={total} />
     </form>
   );

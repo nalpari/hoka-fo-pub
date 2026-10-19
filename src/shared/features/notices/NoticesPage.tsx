@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Divider, HStack, Stack, styled } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
@@ -60,18 +61,20 @@ export function NoticesPage() {
         />
         {notices.slice(0, shown).map((notice, index) => (
           <Box key={notice.title}>
-            <styled.button
+            <button
               type="button"
               aria-expanded={openIndex === index}
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              w="100%"
-              h={{ base: '59px', _mobile: '55px' }}
-              px={{ base: '4', _mobile: '0' }}
-              py="0"
-              bg="white.0"
-              border="0"
-              textAlign="left"
-              cursor="pointer"
+              className={css({
+                w: '100%',
+                h: { base: '59px', _mobile: '55px' },
+                px: { base: '4', _mobile: '0' },
+                py: '0',
+                bg: 'white.0',
+                border: '0',
+                textAlign: 'left',
+                cursor: 'pointer',
+              })}
             >
               <HStack justifyContent="space-between" gap="4" alignItems="center">
                 <Box
@@ -87,36 +90,36 @@ export function NoticesPage() {
                 </Box>
                 <Typography
                   as="time"
-                  web="body4"
-                  mo="body4"
+                  variant="body4"
+
                   tone={platform === 'web' ? 'subtle' : 'tertiary'}
                 >
                   {notice.date}
                 </Typography>
               </HStack>
-            </styled.button>
+            </button>
             {openIndex === index ? (
               <>
                 <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
                 <Stack px="6" py="8" gap="3" bg="black.10" _mobile={{ px: '4', py: '6' }}>
                   {index === 0 ? (
                     <>
-                      <Typography as="p" web="body4" mo="body4">
+                      <Typography as="p" variant="body4">
                         1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
                       </Typography>
-                      <Typography as="p" web="body4" mo="body4">
+                      <Typography as="p" variant="body4">
                         2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
                       </Typography>
-                      <Typography as="p" web="body4" mo="body4">
+                      <Typography as="p" variant="body4">
                         3. 대상 상품: 호카 공식 홈페이지 내 전 상품
                       </Typography>
-                      <Typography as="p" web="body4" mo="body4">
+                      <Typography as="p" variant="body4">
                         4. 이벤트 기간 내 1회 한정으로 진행되며, 운영 상황에 따라 조기 종료될 수
                         있습니다.
                       </Typography>
                     </>
                   ) : (
-                    <Typography as="p" web="body4" mo="body4">
+                    <Typography as="p" variant="body4">
                       {notice.title} 상세 안내입니다.
                     </Typography>
                   )}
@@ -136,10 +139,10 @@ export function NoticesPage() {
             onClick={() => setShown((count) => count + 10)}
           >
             <HStack gap="1" justifyContent="center">
-              <Typography web="cta2" mo="cta2" weight="semibold">
+              <Typography variant="cta2" weight="semibold">
                 더보기
               </Typography>
-              <Typography web="body5" mo="body5" tone="tertiary">
+              <Typography variant="body5" tone="tertiary">
                 ({Math.ceil(shown / 10)}/{Math.ceil(notices.length / 10)})
               </Typography>
             </HStack>

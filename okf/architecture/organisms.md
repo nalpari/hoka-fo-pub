@@ -6,9 +6,41 @@ tags: [components, organisms, base-ui, panda-css, typography]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-15T10:45:40+09:00'
+  at: '2026-10-19T01:29:21Z'
 source_revision: e5e803ccd1ba98ac96c941fef33db5cfaa280ade
 working_tree_sources:
+  - src/shared/components/organisms/Account/LogoutDialog.tsx
+  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
+  - src/shared/components/organisms/Hero/Hero.tsx
+  - src/shared/components/organisms/Hero/HeroPagination.tsx
+  - src/shared/components/organisms/Hero/HeroSlide.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigation.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
+  - src/shared/components/organisms/Member/MemberHero.tsx
+  - src/shared/components/organisms/MyPage/CouponCard.tsx
+  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
+  - src/shared/components/organisms/MyPage/QuickLinkGrid.tsx
+  - src/shared/components/organisms/MyPage/ReviewManager.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductInformation.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ProductReviews.tsx
+  - src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
+  - src/shared/components/organisms/Product/ProductGallery/ProductGallery.tsx
+  - src/shared/components/organisms/Search/RecommendedSearches.tsx
+  - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
+  - src/shared/components/organisms/Search/SearchHeader.tsx
+  - src/shared/components/organisms/Search/SearchSuggestions.tsx
+  - src/shared/components/organisms/Signup/SignupCompleteStep.tsx
+  - src/shared/components/organisms/Signup/SignupTermsStep.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
@@ -121,3 +153,14 @@ sources:
 Navigation의 외곽 div는 상세/기본 상태별 패딩과 광고를 함께 소유하므로 단순 Box 치환의 이득이 없다. 링크용 hstack과 Drawer의 외부 DOM/ref 계약을 유지한다. 새 공용 atom/molecule/organism과 확장 API는 추가하지 않았으며 추가 추출 후보는 없다. 기존 스토리에 닫기 버튼 최초 포커스와 상세 진입 후 뒤로가기 포커스 assertion을 추가했다. 이 assertion 추가 자체를 브라우저 실행 완료로 기록하지 않는다.
 
 이번 재점검 검증: `npm run panda`, `npm run typecheck`, `npm run lint -- --ignore-pattern ".tmp*/**"`, `npm run build`, `npm run build-storybook`, `npm run okf:check`와 전체 작업 트리 OKF 매핑 검사를 통과했다. 기존 임시 산출물은 lint에서 제외했다. Storybook 빌드에는 의존 패키지의 module directive 경고가 있었다. 브라우저 자동화 도구를 사용할 수 없어 이번에 추가한 play assertion의 실제 실행과 시각 검증은 수행하지 못했다.
+
+
+## Components 점검 후 재사용 판단 (2026-10-19)
+
+213개 Components TSX의 공개 props·상태·refs를 점검하고 표현 변경만 적용했다. 적용 수치와 정적/SSR·빌드 검증 한계는 [UI 기록](ui.md#components-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 설치된 Base UI 1.8.0의 전체 package exports를 공식 컴포넌트 카탈로그와 비교했으며, 미사용 primitive라는 이유만으로 새 의존성이나 UI를 추가하지 않았다.
+
+- **후속 후보 — 헤더 탐색:** DesktopNavigation/SiteHeader/MegaMenuPanel의 hover·activeMenu·Escape/포커스 동작은 [Navigation Menu](https://base-ui.com/react/components/navigation-menu) 재사용 후보다. 설치 버전에서 지원하므로 업그레이드는 필요하지 않다. 제안할 소유자는 SiteHeader 내부 NavigationRegion이며 menus·activeMenu·onMenuChange·onNavigate를 받아 데스크톱 trigger/panel을 조합한다. hover 지연·클릭 이동·키보드 포커스·58px 높이·메가 메뉴 영역을 함께 검증해야 하므로 이번 표현 정리에서는 교체하지 않았다.
+- **후속 후보 — 임직원 쿠폰:** EmployeeCoupons의 expanded/wrapping/listHeight·scrollHeight 측정·280ms 접기 지연·reduced-motion 분기는 [Collapsible](https://base-ui.com/react/components/collapsible) 적용 검토 대상이다. 설치 버전에서 지원하며 업그레이드는 필요하지 않다. 기존 공통 Collapsible을 우선 검토하되 현재 한 줄 미리보기와 가로 넘침·줄바꿈 애니메이션을 보존할 수 있어야 한다. 현 동작은 유지했다.
+- **유지 — 공통 상호작용:** Accordion/Collapsible·Dialog/Drawer·Dropdown/Field·Radio/Checkbox·RatingInput·RangeInput·NumberStepper 등 기존 Base UI 기반 래퍼의 상태와 키보드 계약은 유지했다. 정적인 fieldset/table/label이나 status 안내에 새 primitive를 추가하지 않는다.
+- **유지 — 상품 옵션:** ProductOptionList는 scroll/grid/preview 세 배치와 선택 상태, 수동 가로 이동·ResizeObserver를 함께 제공한다. 단순히 스크롤 로직이 있다는 이유로 별도 Carousel API에 강제로 맞추지 않는다. 현재 layout·options·selectedId·onSelect와 ref/event cleanup을 유지했다.
+- **유지 — 작은 구성 요소:** FooterLegalLinks/Navigation, HeaderPromotionContent, CatalogFilterPanelBody, SearchHeader/Suggestions 등 이미 책임이 명확한 내부 구성은 그대로 두고 스타일 표현만 정리했다. 태그를 이름만 바꾸는 새 컴포넌트나 범용 래퍼는 만들지 않았다.

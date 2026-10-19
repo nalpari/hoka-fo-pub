@@ -4,24 +4,13 @@ import {
   ProductDetailDeliverySection,
   ProductDetailDeliveryList,
 } from './ProductDetailDeliverySection';
-
-const returnProcess = css({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 3fr)',
-  gap: '8',
-  borderTop: '2px solid token(colors.border.strong)',
-  borderBottom: '1px solid token(colors.border.default)',
-  py: '10',
-  _mobile: { gridTemplateColumns: '1fr', gap: '6', py: '6' },
-});
+import { Grid, Stack } from 'styled-system/jsx';
 
 const processTitle = css({
   borderRight: '1px solid token(colors.border.default)',
   pr: '6',
   _mobile: { borderRight: 'none', pr: '0' },
 });
-
-const stepsList = css({ display: 'flex', flexDirection: 'column', gap: '6' });
 
 const stepRow = css({ display: 'flex', alignItems: 'center', gap: '5' });
 
@@ -44,13 +33,20 @@ export function ProductDetailReturnGuide() {
         <li>고객님 변심으로 발생하는 반품 배송비는 환불 금액에서 차감될 수 있습니다.</li>
         <li>상품과 구성품을 수령 당시 상태로 포장하여 지정 택배사의 수거를 기다려 주세요.</li>
       </ProductDetailDeliveryList>
-      <div className={returnProcess}>
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) minmax(0, 3fr)"
+        gap="8"
+        borderTop="2px solid token(colors.border.strong)"
+        borderBottom="1px solid token(colors.border.default)"
+        py="10"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
+      >
         <Typography as="h4" variant="body2" tone="tertiary" className={processTitle}>
           상품 반품
           <br />
           STEP
         </Typography>
-        <ol className={stepsList}>
+        <Stack as="ol" gap="6">
           {returnSteps.map((step, index) => (
             <li key={step} className={stepRow}>
               <Typography variant="body1" className={stepNumber} aria-hidden="true">
@@ -59,8 +55,8 @@ export function ProductDetailReturnGuide() {
               <Typography variant="body5">{step}</Typography>
             </li>
           ))}
-        </ol>
-      </div>
+        </Stack>
+      </Grid>
     </ProductDetailDeliverySection>
   );
 }

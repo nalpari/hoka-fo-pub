@@ -6,14 +6,12 @@ import { Field as BaseField } from '@base-ui/react/field';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faCircleInfo } from '@/shared/icons/fontAwesome';
+import { HStack, Stack } from 'styled-system/jsx';
 
 const root = css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' });
 
 const boxedField = cva({
   base: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '7px',
     minH: 'formField',
     minW: '0',
     px: '12px',
@@ -43,10 +41,6 @@ const boxedField = cva({
     disabled: { true: { bg: 'black.10', color: 'black.40' } },
   },
 });
-
-const labelRow = css({ display: 'flex', alignItems: 'center', gap: '4px', h: '16px' });
-
-const controlRow = css({ display: 'flex', alignItems: 'center', gap: '10px', minW: '0' });
 
 type FormFieldContextValue = {
   htmlFor: string;
@@ -134,9 +128,9 @@ function FormFieldRoot({
         className={[boxed ? root : '', className].filter(Boolean).join(' ')}
       >
         {boxed ? (
-          <div className={boxedField({ invalid: hasError, disabled })}>
+          <Stack gap="7px" className={boxedField({ invalid: hasError, disabled })}>
             {labelElement ? (
-              <div className={labelRow}>
+              <HStack gap="4px" h="16px">
                 {labelElement}
                 {info ? (
                   <span title={typeof info === 'string' ? info : undefined}>
@@ -147,10 +141,12 @@ function FormFieldRoot({
                     )}
                   </span>
                 ) : null}
-              </div>
+              </HStack>
             ) : null}
-            <div className={controlRow}>{children}</div>
-          </div>
+            <HStack gap="10px" minW="0">
+              {children}
+            </HStack>
+          </Stack>
         ) : (
           <>
             {labelElement}

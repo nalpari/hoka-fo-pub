@@ -7,17 +7,6 @@ const form = css({
   display: 'grid',
   gridTemplateColumns: '78px minmax(0, 1fr) 66px',
   border: '1px solid var(--color-black-20)',
-  '& input': {
-    w: '100%',
-    h: '11',
-    minW: '0',
-    border: '0',
-    bg: 'var(--color-white-000)',
-    color: 'var(--color-text-primary)',
-    px: '3.5',
-    fontSize: '14' /* 기존 13px */,
-  },
-  '& input::placeholder': { color: 'var(--color-black-40)' },
 });
 
 const submit = css({
@@ -56,6 +45,19 @@ export function SearchForm({
       <SearchCategorySelect value={category} onChange={onCategoryChange} />
       <TextInput
         autoFocus
+        className={css({
+          '&&': {
+            w: '100%',
+            h: '11',
+            minW: '0',
+            border: '0',
+            bg: 'var(--color-white-000)',
+            color: 'var(--color-text-primary)',
+            px: '3.5',
+            fontSize: '14' /* 기존 13px */,
+            _placeholder: { color: 'var(--color-black-40)' },
+          },
+        })}
         onBlur={() => onFocusChange(false)}
         onChange={(event) => onQueryChange(event.target.value)}
         onFocus={() => onFocusChange(true)}

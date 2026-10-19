@@ -42,6 +42,8 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
   const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const [code, setCode] = useState('');
   const [notice, setNotice] = useState('');
+  const [noticeTone, setNoticeTone] = useState<'error' | 'info'>('info');
+  const [codeError, setCodeError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<PhoneVerificationErrors>({});
   const [detail, setDetail] = useState<string | null>(null);
   const [alreadyRegisteredOpen, setAlreadyRegisteredOpen] = useState(false);
@@ -62,6 +64,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
     });
     reset();
     setCode('');
+    setCodeError('');
     setNotice('');
   };
 
@@ -78,6 +81,8 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
 
     setFieldErrors(nextErrors);
     setShowAgreementErrors(missingAgreements);
+    setCodeError('');
+    setNoticeTone('info');
     setNotice('');
     if (Object.keys(nextErrors).length > 0) {
       return;
@@ -102,11 +107,14 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
       return;
     }
     if (Date.now() >= deadline) {
+      setCodeError('');
+      setNoticeTone('error');
       setNotice('인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.');
       return;
     }
     if (!/^\d{6}$/.test(code)) {
-      setNotice('인증번호 6자리를 입력해 주세요.');
+      setNotice('');
+      setCodeError('인증번호 6자리를 입력해 주세요.');
       return;
     }
     if (mode === 'account-unlock') {
@@ -134,6 +142,8 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
         secondsLeft={secondsLeft}
         resendWait={secondsLeft}
         notice={notice}
+        noticeTone={noticeTone}
+        codeError={codeError}
         fieldErrors={fieldErrors}
         detail={detail}
         onInformationChange={changeInformation}
@@ -146,7 +156,11 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
           setAgreements(agreements.map(() => checked));
           if (checked) setShowAgreementErrors(false);
         }}
-        onCodeChange={setCode}
+        onCodeChange={(value) => {
+          setCode(value.replace(/\D/g, '').slice(0, 6));
+          setCodeError('');
+          setNotice('');
+        }}
         onRequest={requestCode}
         onConfirm={confirmCode}
         onDetail={setDetail}

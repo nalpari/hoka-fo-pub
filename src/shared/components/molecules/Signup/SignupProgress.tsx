@@ -1,30 +1,12 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 
 type SignupMethod = 'local' | 'kakao' | 'naver';
 
 type SignupStep = 0 | 1 | 2 | 3;
 
 const styles = {
-  steps: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '2',
-    mb: '34px',
-    p: 0,
-    listStyle: 'none',
-    '& li': {
-      display: 'grid',
-      gap: '5px',
-      color: 'var(--color-black-40)',
-      textAlign: 'center',
-    },
-    '& li::before': {
-      h: '3px',
-      bg: 'var(--color-black-20)',
-      content: '""',
-    },
-  }),
   current: css({
     color: 'var(--color-text-primary) !important',
     '&::before': { bg: 'var(--color-black-100) !important' },
@@ -47,7 +29,16 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
   const currentStep = method === 'naver' ? step - 1 : step;
 
   return (
-    <ol className={styles.steps} aria-label="회원가입 단계">
+    <Grid
+      as="ol"
+      gridTemplateColumns="repeat(3, 1fr)"
+      gap="2"
+      mb="34px"
+      p={0}
+      listStyle="none"
+
+      aria-label="회원가입 단계"
+    >
       {labels.map((label, index) => {
         const position = index + 1;
         const state =
@@ -58,7 +49,23 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
               : undefined;
 
         return (
-          <li className={state} key={label}>
+          <li
+            className={cx(
+              state,
+              css({
+                display: 'grid',
+                gap: '5px',
+                color: 'var(--color-black-40)',
+                textAlign: 'center',
+                _before: {
+                  h: '3px',
+                  bg: 'var(--color-black-20)',
+                  content: '""',
+                },
+              }),
+            )}
+            key={label}
+          >
             <Typography variant="body4" weight={currentStep === position ? 'medium' : 'regular'}>
               {position}
             </Typography>
@@ -68,6 +75,6 @@ export function SignupProgress({ method, step }: SignupProgressProps) {
           </li>
         );
       })}
-    </ol>
+    </Grid>
   );
 }

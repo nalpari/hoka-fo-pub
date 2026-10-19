@@ -1,4 +1,3 @@
-import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -17,11 +16,9 @@ type CouponCardProps = {
   onDetails: (coupon: CouponItem) => void;
 };
 
-const couponCard = css({ border: '1px solid var(--colors-black-20)' });
-
 export function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <Stack as="article" className={couponCard} gap="6" px="4" py="6">
+    <Stack as="article" border="1px solid var(--colors-black-20)" gap="6" px="4" py="6">
       <HStack justifyContent="space-between" alignItems="flex-start">
         <Typography as="h3" variant="heading6">
           {coupon.name}

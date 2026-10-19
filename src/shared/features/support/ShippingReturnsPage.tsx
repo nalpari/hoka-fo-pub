@@ -78,7 +78,7 @@ export function ShippingReturnsPage() {
                 key={section.value}
                 value={section.value}
               >
-                <Typography web="body3" mo="body3" weight="medium">
+                <Typography variant="body3" weight="medium">
                   {section.title}
                 </Typography>
               </Tabs.Tab>
@@ -92,20 +92,16 @@ export function ShippingReturnsPage() {
               px={{ base: '4', _mobile: '2' }}
               pt={{ base: '3', _mobile: '4' }}
             >
-              <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
+              <Typography as="h3" variant="heading9" weight="semibold">
                 배송 안내
               </Typography>
               <Stack as="ol" gap="4" listStyleType="none" p="0" m="0">
                 {shippingItems.map((item, index) => (
                   <HStack as="li" key={index} alignItems="flex-start" gap="2">
                     <Box flexShrink="0">
-                      <Typography web="body4" mo="body4">
-                        {index + 1}.
-                      </Typography>
+                      <Typography variant="body4">{index + 1}.</Typography>
                     </Box>
-                    <Typography web="body4" mo="body4">
-                      {item}
-                    </Typography>
+                    <Typography variant="body4">{item}</Typography>
                   </HStack>
                 ))}
               </Stack>

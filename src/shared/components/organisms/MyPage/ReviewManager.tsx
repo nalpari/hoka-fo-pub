@@ -7,6 +7,8 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { Pagination } from '@/shared/components/atoms/Pagination/Pagination';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { FormField } from '@/shared/components/atoms/FormField/FormField';
+import { HStack, Box, Grid, Flex } from 'styled-system/jsx';
 
 const tabs = css({
   display: 'flex',
@@ -22,41 +24,6 @@ const tabs = css({
 const active = css({
   borderBottomColor: 'var(--color-black-100) !important',
   fontWeight: 'var(--font-weights-extrabold)',
-});
-
-const list = css({ borderTop: '2px solid var(--color-black-100)', mt: '18px' });
-
-const item = css({
-  display: 'grid',
-  gridTemplateColumns: '80px 1fr auto',
-  gap: '4',
-  alignItems: 'center',
-  p: '4 0',
-  borderBottom: '1px solid var(--color-border-subtle)',
-  '.platform-mobile &': { gridTemplateColumns: '64px 1fr', '& button': { gridColumn: '1 / -1' } },
-});
-
-const image = css({
-  display: 'grid',
-  width: '72px',
-  aspectRatio: '1',
-  placeItems: 'center',
-  bg: 'var(--color-black-20)',
-  color: 'var(--color-text-tertiary)',
-});
-
-const form = css({
-  mt: '22px',
-  p: '22px',
-  border: '1px solid var(--color-border-subtle)',
-  '& textarea': {
-    w: '100%',
-    minH: '140px',
-    mt: '2',
-    p: '3',
-    border: '1px solid var(--color-border-tertiary)',
-    fontFamily: 'var(--font-family-base)',
-  },
 });
 
 const error = css({
@@ -108,29 +75,48 @@ export function ReviewManager() {
           { value: 'written', label: '내가 작성한 리뷰' },
         ]}
       />
-      <div
-        className={css({
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mt: '18px',
-        })}
-      >
+      <HStack gap="normal" justifyContent="space-between" mt="18px">
         <Select aria-label="리뷰 정렬" className={css({ width: '132px' })}>
           <option>최근 구매순</option>
           <option>작성일순</option>
         </Select>
         <strong>{visible.length}건</strong>
-      </div>
+      </HStack>
       {!visible.length ? (
-        <p className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-tertiary)' })}>
+        <Typography
+          as="p"
+          className={css({ py: '20', textAlign: 'center', color: 'var(--color-text-tertiary)' })}
+        >
           작성할 리뷰가 없습니다.
-        </p>
+        </Typography>
       ) : (
-        <div className={list}>
+        <Box borderTop="2px solid var(--color-black-100)" mt="18px">
           {pageItems.map((review) => (
-            <article className={item} key={review.id}>
-              <div className={image}>IMG</div>
+            <Grid
+              as="article"
+              gridTemplateColumns="80px 1fr auto"
+              gap="4"
+              alignItems="center"
+              p="4 0"
+              borderBottom="1px solid var(--color-border-subtle)"
+              css={{
+                '.platform-mobile &': {
+                  gridTemplateColumns: '64px 1fr',
+                  '& button': { gridColumn: '1 / -1' },
+                },
+              }}
+              key={review.id}
+            >
+              <Grid
+                gap="normal"
+                width="72px"
+                aspectRatio="1"
+                placeItems="center"
+                bg="var(--color-black-20)"
+                color="var(--color-text-tertiary)"
+              >
+                IMG
+              </Grid>
               <div>
                 <small>{review.date} 구매</small>
                 <strong className={css({ display: 'block', mt: '1' })}>{review.product}</strong>
@@ -152,34 +138,57 @@ export function ReviewManager() {
               <Button variant="primary" size="short" onClick={() => setEditing(review.id)}>
                 {tab === 'ready' ? '리뷰 작성하기' : '수정하기'}
               </Button>
-            </article>
+            </Grid>
           ))}
-        </div>
+        </Box>
       )}
       {visible.length > 10 ? (
         <Pagination page={page} total={Math.ceil(visible.length / 10)} onChange={setPage} />
       ) : null}
       {editing ? (
-        <section className={form} aria-label="리뷰 작성">
-          <h2>상품리뷰 작성</h2>
-          <p>실제 착용하신 경험을 들려주세요.</p>
+        <Box
+          as="section"
+          mt="22px"
+          p="22px"
+          border="1px solid var(--color-border-subtle)"
+
+          aria-label="리뷰 작성"
+        >
+          <Typography as="h2">상품리뷰 작성</Typography>
+          <Typography as="p">실제 착용하신 경험을 들려주세요.</Typography>
           <div>
             <b>
               상품은 만족스러우셨나요?{' '}
-              <span className={css({ color: 'var(--color-red-100)' })}>*</span>
-            </b>
-            <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
-            {invalid && !rating ? (
-              <Typography variant="body5" weight="bold" tone="error" className={error}>
-                별점을 선택해 주세요.
+              <Typography as="span" className={css({ color: 'var(--color-red-100)' })}>
+                *
               </Typography>
-            ) : null}
+            </b>
+            <FormField
+              htmlFor="manager-rating"
+              error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
+            >
+              <RatingInput ariaLabel="상품 만족도" value={rating} onValueChange={setRating} />
+            </FormField>
           </div>
-          <div className={css({ mt: '18px' })}>
+          <Box mt="18px">
             <b>
-              리뷰내용 <span className={css({ color: 'var(--color-red-100)' })}>*</span>
+              리뷰내용{' '}
+              <Typography as="span" className={css({ color: 'var(--color-red-100)' })}>
+                *
+              </Typography>
             </b>
             <textarea
+              aria-invalid={(invalid && !body.trim()) || undefined}
+              aria-describedby={invalid && !body.trim() ? 'manager-body-error' : undefined}
+              className={css({
+                '&[aria-invalid="true"]': { borderColor: 'error!' },
+                w: '100%',
+                minH: '140px',
+                mt: '2',
+                p: '3',
+                border: '1px solid var(--color-border-tertiary)',
+                fontFamily: 'var(--font-family-base)',
+              })}
               aria-label="리뷰내용"
               maxLength={1000}
               value={body}
@@ -187,15 +196,22 @@ export function ReviewManager() {
               placeholder="내용을 입력해 주세요."
             />
             {invalid && !body.trim() ? (
-              <Typography variant="body5" weight="bold" tone="error" className={error}>
+              <Typography
+                id="manager-body-error"
+                role="alert"
+                variant="body5"
+                weight="bold"
+                tone="error"
+                className={error}
+              >
                 리뷰 내용을 입력해 주세요.
               </Typography>
             ) : null}
             <small className={css({ display: 'block', textAlign: 'right' })}>
               {body.length} / 1,000
             </small>
-          </div>
-          <div className={css({ mt: '18px' })}>
+          </Box>
+          <Box mt="18px">
             <b>사진/영상 첨부 (선택)</b>
             <TextInput
               aria-label="사진/영상 첨부"
@@ -216,15 +232,8 @@ export function ReviewManager() {
                 ? files.map((file) => file.name).join(', ')
                 : 'JPG, PNG, MP4 파일을 최대 5개, 파일당 10MB까지 첨부할 수 있습니다.'}
             </small>
-          </div>
-          <div
-            className={css({
-              display: 'flex',
-              justifyContent: 'flex-end',
-              gap: '2',
-              mt: '22px',
-            })}
-          >
+          </Box>
+          <Flex justifyContent="flex-end" gap="2" mt="22px">
             <Button onClick={() => confirm('리뷰 작성을 취소하시겠습니까?') && close()}>
               취소
             </Button>
@@ -237,8 +246,8 @@ export function ReviewManager() {
             >
               확인
             </Button>
-          </div>
-        </section>
+          </Flex>
+        </Box>
       ) : null}
     </section>
   );

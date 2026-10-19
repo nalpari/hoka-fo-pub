@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Disclosure } from '@/shared/components/molecules/Disclosure/Disclosure';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const content = css({ m: '0' });
 
@@ -19,7 +20,9 @@ export function ProductInquiryNoticeSection({
 }: ProductInquiryNoticeSectionProps) {
   return (
     <Disclosure open={isOpen} onOpenChange={onToggle} title={title}>
-      <p className={content}>{children}</p>
+      <Typography as="p" className={content}>
+        {children}
+      </Typography>
     </Disclosure>
   );
 }

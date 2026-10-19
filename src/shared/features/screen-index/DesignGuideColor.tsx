@@ -5,6 +5,8 @@ import { css } from 'styled-system/css';
 import { token } from 'styled-system/tokens';
 import type { TypographyTone } from '@/shared/components/atoms/Typography/Typography';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box, Grid } from 'styled-system/jsx';
 
 const colorGroups = [
   {
@@ -38,20 +40,7 @@ const styles = {
     py: '6',
     '@media (max-width: 479px)': { px: '4', py: '4' },
   }),
-  section: css({
-    mt: '6',
-    '& h2': { m: '0', mb: '4', fontSize: '24', fontWeight: 'bold', color: '#171f38' },
-  }),
-  grid: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-    gap: '4',
-    m: '0',
-    p: '0',
-    listStyle: 'none',
-    '@media (max-width: 767px)': { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
-    '@media (max-width: 479px)': { gridTemplateColumns: '1fr' },
-  }),
+
   card: css({
     minW: '0',
     p: '5',
@@ -108,18 +97,51 @@ export function DesignGuideColor() {
       title="Color"
       description="디자인 가이드의 13가지 기본 색상과 Panda 토큰입니다."
     >
-      <p className={styles.hex}>썸네일을 클릭하면 해당 색상의 tone 코드를 복사합니다.</p>
-      <p className={styles.status} role="status" aria-live="polite" aria-atomic="true">
+      <Typography as="p" className={styles.hex}>
+        썸네일을 클릭하면 해당 색상의 tone 코드를 복사합니다.
+      </Typography>
+      <Typography
+        as="p"
+        className={styles.status}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {copyStatus}
-      </p>
+      </Typography>
       {colorGroups.map((group) => (
-        <section
+        <Box
           key={group.name}
-          className={styles.section}
+          as="section"
+          mt="6"
+
           aria-labelledby={`color-${group.name}`}
         >
-          <h2 id={`color-${group.name}`}>{group.name}</h2>
-          <ul className={styles.grid}>
+          <Typography
+            as="h2"
+            id={`color-${group.name}`}
+            className={css({
+              m: '0',
+              mb: '4',
+              fontSize: '24',
+              fontWeight: 'bold',
+              color: '#171f38',
+            })}
+          >
+            {group.name}
+          </Typography>
+          <Grid
+            as="ul"
+            gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+            gap="4"
+            m="0"
+            p="0"
+            listStyle="none"
+            css={{
+              '@media (max-width: 767px)': { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
+              '@media (max-width: 479px)': { gridTemplateColumns: '1fr' },
+            }}
+          >
             {group.colors.map((name) => {
               const color = token(`colors.${name}`);
               const tone = toneByColor[name];
@@ -142,13 +164,15 @@ export function DesignGuideColor() {
                     />
                   )}
                   <code className={styles.name}>{`colors.${name}`}</code>
-                  <span className={styles.hex}>HEX: {color.toUpperCase()}</span>
+                  <Typography as="span" className={styles.hex}>
+                    HEX: {color.toUpperCase()}
+                  </Typography>
                   {tone && <code className={styles.hex}>{`tone="${tone}"`}</code>}
                 </li>
               );
             })}
-          </ul>
-        </section>
+          </Grid>
+        </Box>
       ))}
     </ContentLayout>
   );

@@ -6,7 +6,8 @@ import { css, cva } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faCircleInfo } from '@/shared/icons/fontAwesome';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Flex } from 'styled-system/jsx';
+import { Stack, Flex } from 'styled-system/jsx';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const styles = {
   trigger: cva({
@@ -31,6 +32,7 @@ const styles = {
       '&&': {
         color: 'var(--color-text-primary)',
       },
+      '&&[data-invalid]': { boxShadow: 'inset 0 0 0 2px var(--colors-red-100)' },
     },
     variants: {
       disabled: {
@@ -96,6 +98,7 @@ export type DropdownProps = {
   placeholder?: string;
   hint?: ReactNode;
   error?: ReactNode;
+  invalid?: boolean;
   info?: ReactNode;
   name?: string;
   options: readonly DropdownOption[];
@@ -114,10 +117,11 @@ export type DropdownProps = {
 export function Dropdown({
   ariaLabel,
   label,
-  required,
+  required: requiredProp,
   placeholder,
   hint,
   error,
+  invalid = false,
   info,
   name,
   options,
@@ -128,10 +132,14 @@ export function Dropdown({
   indicatorWidth = indicatorSize,
   indicatorHeight = indicatorSize,
   indicatorColor = 'currentColor',
-  disabled = false,
+  disabled: disabledProp = false,
   onValueChange,
   value: controlledValue,
 }: DropdownProps) {
+  const field = useFormFieldContext();
+  const disabled = disabledProp || Boolean(field?.disabled);
+  const required = requiredProp ?? field?.required;
+  const hasError = invalid || Boolean(error) || Boolean(field?.invalid);
   const id = useId();
   const fallbackValue = defaultValue ?? (placeholder ? '' : (options[0]?.value ?? ''));
   const [uncontrolledValue, setUncontrolledValue] = useState(fallbackValue);
@@ -141,7 +149,7 @@ export function Dropdown({
   const selectedLabel = selectedOption?.label ?? placeholder;
 
   return (
-    <div className={css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' })}>
+    <Stack gap="8px" minW="0">
       <BaseSelect.Root
         items={options}
         name={name}
@@ -157,11 +165,14 @@ export function Dropdown({
         value={value || null}
       >
         <BaseSelect.Trigger
+          id={field?.htmlFor}
           aria-label={ariaLabel}
-          aria-invalid={Boolean(error) || undefined}
+          aria-invalid={hasError || undefined}
+          data-invalid={hasError ? '' : undefined}
           aria-describedby={
-            [hint ? `${id}-hint` : '', error ? `${id}-error` : ''].filter(Boolean).join(' ') ||
-            undefined
+            [field?.describedBy, hint ? `${id}-hint` : '', error ? `${id}-error` : '']
+              .filter(Boolean)
+              .join(' ') || undefined
           }
           className={[
             styles.trigger({ disabled }),
@@ -176,7 +187,7 @@ export function Dropdown({
                   gap: '7px',
                 })
               : '',
-            error
+            hasError
               ? css({
                   '&&': {
                     boxShadow: 'inset 0 0 0 2px var(--colors-red-100)',
@@ -281,6 +292,6 @@ export function Dropdown({
           {hint}
         </Typography>
       ) : null}
-    </div>
+    </Stack>
   );
 }

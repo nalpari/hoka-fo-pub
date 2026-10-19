@@ -3,26 +3,9 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
+import { Grid } from 'styled-system/jsx';
 
 const styles = {
-  complete: css({
-    display: 'grid',
-    justifyItems: 'center',
-    pt: '46px',
-    pb: '2',
-    textAlign: 'center',
-    '& > span': {
-      display: 'grid',
-      w: '58px',
-      h: '58px',
-      mb: '5',
-      borderRadius: '50%',
-      placeItems: 'center',
-      bg: 'var(--color-black-100)',
-      color: 'var(--color-text-inverse)',
-      fontSize: '28',
-    },
-  }),
   primary: css({
     display: 'grid',
     w: '100%',
@@ -37,7 +20,28 @@ const styles = {
 
 export function SignupCompleteStep({ name }: { name: string }) {
   return (
-    <section className={styles.complete} aria-labelledby="complete-title">
+    <Grid
+      as="section"
+      gap="normal"
+      justifyItems="center"
+      pt="46px"
+      pb="2"
+      textAlign="center"
+      css={{
+        '& > span': {
+          display: 'grid',
+          w: '58px',
+          h: '58px',
+          mb: '5',
+          borderRadius: '50%',
+          placeItems: 'center',
+          bg: 'var(--color-black-100)',
+          color: 'var(--color-text-inverse)',
+          fontSize: '28',
+        },
+      }}
+      aria-labelledby="complete-title"
+    >
       <span aria-hidden="true">✓</span>
       <Typography as="h2" variant="heading7" id="complete-title">
         회원가입이 완료되었습니다.
@@ -50,6 +54,6 @@ export function SignupCompleteStep({ name }: { name: string }) {
           로그인하러 가기
         </Typography>
       </Link>
-    </section>
+    </Grid>
   );
 }

@@ -9,6 +9,7 @@ export function SignupTermsPage() {
   const [agreements, setAgreements] = useState([false, false, false, false]);
   const [detail, setDetail] = useState<number | null>(null);
   const [previous, setPrevious] = useState(false);
+  const [previousPickerOpen, setPreviousPickerOpen] = useState(false);
   const [notice, setNotice] = useState('');
 
   const next = () => {
@@ -24,22 +25,31 @@ export function SignupTermsPage() {
       agreements={agreements}
       detail={detail}
       previous={previous}
+      previousPickerOpen={previousPickerOpen}
       notice={notice}
       onAllChange={(checked) => {
         setAgreements(agreements.map(() => checked));
         setNotice('');
       }}
       onChange={(index, checked) => {
-        setAgreements((values) =>
-          values.map((value, position) => (position === index ? checked : value)),
-        );
-        setNotice('');
+        const next = agreements.map((value, position) => (position === index ? checked : value));
+        setAgreements(next);
+        if (!signupTerms.some((term, position) => term.required && !next[position])) setNotice('');
       }}
       onDetail={(index) => {
         setDetail(index);
         setPrevious(false);
+        setPreviousPickerOpen(false);
       }}
-      onPrevious={() => setPrevious(!previous)}
+      onPrevious={() => {
+        if (previous) setPrevious(false);
+        else setPreviousPickerOpen(true);
+      }}
+      onPreviousPickerClose={() => setPreviousPickerOpen(false)}
+      onPreviousVersionSelect={() => {
+        setPrevious(true);
+        setPreviousPickerOpen(false);
+      }}
       onCancel={() => router.push('/signup/verify')}
       onNext={next}
     />

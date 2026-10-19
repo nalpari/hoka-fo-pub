@@ -3,7 +3,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 import { css, cva } from 'styled-system/css';
-import { Box, Stack } from 'styled-system/jsx';
+import { Grid, Flex, Box, Stack } from 'styled-system/jsx';
 import Link from 'next/link';
 import {
   Carousel,
@@ -42,18 +42,6 @@ const thumbnail = cva({
   },
 });
 
-const thumbnailRail = css({
-  display: 'flex',
-  flexWrap: 'nowrap',
-  gap: '2',
-  mt: '2',
-  w: '100%',
-  overflowX: 'auto',
-  overflowY: 'hidden',
-  scrollbarWidth: 'none',
-  '&::-webkit-scrollbar': { display: 'none' },
-});
-
 const galleryFrame = css({
   position: 'relative',
   display: 'flex',
@@ -72,7 +60,6 @@ const galleryFrame = css({
   textAlign: 'center',
   appearance: 'none',
   cursor: 'pointer',
-  '& small': { position: 'absolute', right: '5', bottom: '5' },
 });
 
 const galleryViewport = css({ '& .swiper-slide': { w: '100%' } });
@@ -105,14 +92,29 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               type="button"
             >
               <img alt={`상품 이미지 ${index + 1}`} className={galleryImage} src={image} />
-              <Typography as="small" variant="body5">
+              <Typography
+                as="small"
+                variant="body5"
+                className={css({ position: 'absolute', right: '5', bottom: '5' })}
+              >
                 이미지 확대
               </Typography>
             </button>
           ))}
         </CarouselViewport>
         <CarouselPagination />
-        <div aria-label="같은 컬렉션의 다른 상품" className={thumbnailRail} role="group">
+        <Flex
+          aria-label="같은 컬렉션의 다른 상품"
+          flexWrap="nowrap"
+          gap="2"
+          mt="2"
+          w="100%"
+          overflowX="auto"
+          overflowY="hidden"
+          scrollbarWidth="none"
+          css={{ '&::-webkit-scrollbar': { display: 'none' } }}
+          role="group"
+        >
           {colorVariants.map((variant) => (
             <Link
               aria-current={variant.selected ? 'page' : undefined}
@@ -125,12 +127,12 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               <img alt="" aria-hidden="true" className={thumbnailImage} src={variant.image} />
             </Link>
           ))}
-        </div>
+        </Flex>
       </Carousel>
       <Stack mt="16" gap="4" aria-label="상품 상세 이미지">
-        <Box
+        <Grid
           minH="680px"
-          display="grid"
+          gap="normal"
           placeItems="center"
           bg="var(--color-black-10)"
           color="var(--color-black-40)"
@@ -138,10 +140,10 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
           letterSpacing="0.08em"
         >
           PRODUCT DETAIL IMAGE
-        </Box>
-        <Box
+        </Grid>
+        <Grid
           minH="680px"
-          display="grid"
+          gap="normal"
           placeItems="center"
           bg="var(--color-black-10)"
           color="var(--color-black-40)"
@@ -149,7 +151,7 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
           letterSpacing="0.08em"
         >
           PRODUCT DETAIL IMAGE
-        </Box>
+        </Grid>
       </Stack>
     </Box>
   );

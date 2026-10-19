@@ -1,5 +1,6 @@
 import type { ReactNode, TableHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 
 const table = css({
   w: '100%',
@@ -31,11 +32,11 @@ export type DataTableProps = TableHTMLAttributes<HTMLTableElement> & { caption?:
 
 export function DataTable({ className, caption, children, ...props }: DataTableProps) {
   return (
-    <div className={css({ overflowX: 'auto' })}>
+    <Box overflowX="auto">
       <table {...props} className={[table, className].filter(Boolean).join(' ')}>
         {caption ? <caption className={visuallyHidden}>{caption}</caption> : null}
         {children}
       </table>
-    </div>
+    </Box>
   );
 }

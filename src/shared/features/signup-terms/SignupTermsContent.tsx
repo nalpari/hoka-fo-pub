@@ -3,7 +3,9 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { SignupTermsDetail } from '@/shared/features/signup-terms/SignupTermsDetail';
+import { PreviousTermsPicker } from '@/shared/features/signup-terms/PreviousTermsPicker';
 
 export const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
@@ -20,11 +22,14 @@ type Props = {
   agreements: boolean[];
   detail: number | null;
   previous: boolean;
+  previousPickerOpen: boolean;
   notice: string;
   onAllChange: (checked: boolean) => void;
   onChange: (index: number, checked: boolean) => void;
   onDetail: (index: number | null) => void;
   onPrevious: () => void;
+  onPreviousPickerClose: () => void;
+  onPreviousVersionSelect: () => void;
   onCancel: () => void;
   onNext: () => void;
 };
@@ -81,20 +86,26 @@ export function SignupTermsContent(props: Props) {
             </HStack>
           ))}
         </Stack>
+        {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         <Grid gridTemplateColumns="1fr 1fr" gap="2" mt="8">
-          <Button variant="secondary" size="tall" fullWidth onClick={props.onCancel}>
+          <Button variant="secondary" fullWidth onClick={props.onCancel}>
             취소
           </Button>
-          <Button variant="primary" size="tall" fullWidth onClick={props.onNext}>
+          <Button variant="primary" fullWidth onClick={props.onNext}>
             확인
           </Button>
         </Grid>
       </Box>
       <SignupTermsDetail
-        selected={selected ?? null}
+        selected={props.previousPickerOpen ? null : (selected ?? null)}
         previous={props.previous}
         onClose={() => props.onDetail(null)}
         onPrevious={props.onPrevious}
+      />
+      <PreviousTermsPicker
+        open={props.previousPickerOpen}
+        onClose={props.onPreviousPickerClose}
+        onSelect={props.onPreviousVersionSelect}
       />
     </Box>
   );

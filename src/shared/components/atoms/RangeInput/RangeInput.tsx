@@ -2,8 +2,12 @@
 
 import { Slider as BaseSlider } from '@base-ui/react/slider';
 import { css } from 'styled-system/css';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
-const root = css({ w: '100%' });
+const root = css({
+  w: '100%',
+  '&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
+});
 
 const control = css({ position: 'relative', display: 'flex', alignItems: 'center', h: '34px' });
 
@@ -51,10 +55,12 @@ export function RangeInput<Value extends RangeValue>({
   thumbCollisionBehavior,
   value,
 }: RangeInputProps<Value>) {
+  const field = useFormFieldContext();
   const values = Array.isArray(value) ? value : [value];
 
   return (
     <BaseSlider.Root
+      aria-describedby={field?.describedBy}
       className={[root, className].filter(Boolean).join(' ')}
       disabled={disabled}
       form={form}

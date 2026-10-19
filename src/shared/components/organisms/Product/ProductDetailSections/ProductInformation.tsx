@@ -21,7 +21,7 @@ export function ProductInformation() {
         listStyle="none"
         fontWeight="700"
         lineHeight="1.45"
-        className={css({ '& li::before': { mr: '5px', content: '"■"' } })}
+        css={{ '& li::before': { mr: '5px', content: '"■"' } }}
       >
         <li>재고 품절 시 환불만 가능하오니 구매 시 유의해 주시기 바랍니다.</li>
         <li>모니터 해상도 및 기기에 따라 실제 색상이 다를 수 있습니다.</li>

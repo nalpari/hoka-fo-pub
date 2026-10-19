@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { isValidElement } from 'react';
-import { cva } from 'styled-system/css';
+import { css, cva, cx } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
 
 // Compact EN H7 uses the approved guide (500); the Figma style currently says 700.
@@ -393,6 +393,23 @@ export const figmaTypographyVariants = {
   },
 } as const;
 
+const typographyTones = {
+  error: { color: 'red.100' },
+  inherit: { color: 'inherit' },
+  primary: { color: 'var(--color-text-primary)' },
+  inverse: { color: 'var(--color-text-inverse)' },
+  brand: { color: 'var(--color-text-brand)' },
+  subtle: { color: 'var(--color-text-subtle)' },
+  disabled: { color: 'var(--color-text-disabled)' },
+  tertiary: { color: 'var(--color-text-tertiary)' },
+  black40: { color: 'var(--color-black-40)' },
+  black20: { color: 'var(--color-black-20)' },
+  black10: { color: 'var(--color-black-10)' },
+  red80: { color: 'var(--color-red-80)' },
+} as const;
+
+const typographyTone = cva({ variants: { tone: typographyTones } });
+
 const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
@@ -619,20 +636,7 @@ const typography = cva({
       en: { fontFamily: 'hoka', letterSpacing: '0' },
       ko: { fontFamily: 'korean', letterSpacing: 'korean' },
     },
-    tone: {
-      error: { color: 'red.100' },
-      inherit: { color: 'inherit' },
-      primary: { color: 'var(--color-text-primary)' },
-      inverse: { color: 'var(--color-text-inverse)' },
-      brand: { color: 'var(--color-text-brand)' },
-      subtle: { color: 'var(--color-text-subtle)' },
-      disabled: { color: 'var(--color-text-disabled)' },
-      tertiary: { color: 'var(--color-text-tertiary)' },
-      black40: { color: 'var(--color-black-40)' },
-      black20: { color: 'var(--color-black-20)' },
-      black10: { color: 'var(--color-black-10)' },
-      red80: { color: 'var(--color-red-80)' },
-    },
+    tone: typographyTones,
   },
   defaultVariants: { tone: 'inherit', variant: 'body' },
 });
@@ -703,7 +707,9 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   as?: T;
   children: ReactNode;
   tone?: TypographyTone;
-  /** Unstyled preserves caller styles and native appearance without applying the typography recipe. */
+  /** Visually hides text while keeping it available to screen readers. */
+  srOnly?: boolean;
+  /** Unstyled preserves native typography; an explicit tone still applies its color. */
   variant?: TypographyVariant;
   /** Web override; falls back to variant when omitted. */
   web?: TypographyVariant;
@@ -745,6 +751,7 @@ export function Typography<T extends ElementType = 'span'>({
   children,
   className,
   tone,
+  srOnly = false,
   variant = 'unstyled',
   web,
   mo,
@@ -769,21 +776,18 @@ export function Typography<T extends ElementType = 'span'>({
   return (
     <Element
       {...props}
-      className={
+      className={cx(
         selectedVariant === 'unstyled'
-          ? className
-          : [
-              typography({
-                tone,
-                variant: resolvedVariant as never,
-                script,
-                weight,
-              }),
-              className,
-            ]
-              .filter(Boolean)
-              .join(' ')
-      }
+          ? tone && typographyTone({ tone })
+          : typography({
+              tone,
+              variant: resolvedVariant as never,
+              script,
+              weight,
+            }),
+        srOnly && css({ srOnly: true }),
+        className,
+      )}
     >
       {children}
     </Element>

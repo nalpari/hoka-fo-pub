@@ -9,26 +9,13 @@ import { AccountDataList } from '@/shared/components/organisms/Account/AccountDa
 import { AccountMetricPanel } from '@/shared/components/organisms/Account/AccountMetricPanel';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { products } from '@/mocks/products';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box, Grid } from 'styled-system/jsx';
 
 export type RunningExperienceKind =
   'shoe-finder' | 'rewards' | 'reviews' | 'alerts' | 'rotation' | 'plans' | 'store-experience';
 
-const page = css({
-  maxW: '1100px',
-  mx: 'auto',
-  py: '70px',
-  _mobile: { px: 'var(--layout-mobile-inline-gutter)', py: '38px' },
-});
-
 const panel = css({ mt: '30px', p: '8', bg: 'var(--color-surface-muted)', _mobile: { p: '5' } });
-
-const optionGrid = css({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '2.5',
-  mt: '22px',
-  _mobile: { gridTemplateColumns: '1fr' },
-});
 
 const option = cva({
   base: {
@@ -144,7 +131,13 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
   );
   const header = copy[kind];
   return (
-    <main className={page}>
+    <Box
+      as="main"
+      maxW="1100px"
+      mx="auto"
+      py="70px"
+      _mobile={{ px: 'var(--layout-mobile-inline-gutter)', py: '38px' }}
+    >
       <PageHeader
         title={header.title}
         description={header.description}
@@ -154,7 +147,12 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
         <>
           <section className={panel}>
             <strong>어떤 러닝을 준비하고 있나요?</strong>
-            <div className={optionGrid}>
+            <Grid
+              gridTemplateColumns="repeat(3, 1fr)"
+              gap="2.5"
+              mt="22px"
+              _mobile={{ gridTemplateColumns: '1fr' }}
+            >
               {['데일리 러닝', '스피드 훈련', '트레일 러닝'].map((value) => (
                 <Button
                   key={value}
@@ -165,7 +163,7 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
                   {value}
                 </Button>
               ))}
-            </div>
+            </Grid>
           </section>
           <section className={productGrid}>
             {recommendation.map((product) => (
@@ -274,7 +272,7 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
             <article className={timelineItem} key={week}>
               <time>{week}</time>
               <strong>{name}</strong>
-              <span>{detail}</span>
+              <Typography as="span">{detail}</Typography>
             </article>
           ))}
         </section>
@@ -283,7 +281,9 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
         <>
           <section className={panel}>
             <strong>HOKA FIT SESSION</strong>
-            <p>발 측정, 러닝 목적 상담, 추천 모델 시착을 한 번에 경험하세요.</p>
+            <Typography as="p">
+              발 측정, 러닝 목적 상담, 추천 모델 시착을 한 번에 경험하세요.
+            </Typography>
             <Button className={action}>피팅 예약하기</Button>
           </section>
           <section className={timeline}>
@@ -294,12 +294,12 @@ export function RunningExperiencePage({ kind }: { kind: RunningExperienceKind })
               <article className={timelineItem} key={event}>
                 <time>{date}</time>
                 <strong>{event}</strong>
-                <span>{place}</span>
+                <Typography as="span">{place}</Typography>
               </article>
             ))}
           </section>
         </>
       ) : null}
-    </main>
+    </Box>
   );
 }

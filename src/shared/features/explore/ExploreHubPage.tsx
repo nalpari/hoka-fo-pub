@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
+import { Stack, Grid, Box } from 'styled-system/jsx';
 
 const styles = {
   layout: css({
@@ -16,54 +17,6 @@ const styles = {
       px: 'var(--layout-mobile-inline-gutter)',
       py: 'var(--layout-mobile-page-block-padding)',
     },
-  }),
-  hero: css({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    minH: '290px',
-    mb: '11',
-    p: '34px',
-    bg: 'var(--color-black-100)',
-    color: 'var(--color-text-inverse)',
-    '& span': {
-      mb: '18px',
-    },
-    '& h2': {
-      maxW: '540px',
-      mb: '30px',
-      fontSize: '48' /* 기존 46px */,
-      lineHeight: 'var(--line-heights-hoka)',
-    },
-    _mobile: {
-      minH: '230px',
-      mb: '6',
-      p: '22px',
-      '& h2': { fontSize: '32' /* 기존 33px */ },
-    },
-  }),
-  grid: css({
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '4',
-    mb: '38px',
-    _mobile: { gridTemplateColumns: '1fr', gap: '2.5' },
-  }),
-  group: css({
-    minH: '230px',
-    p: '6',
-    border: '1px solid var(--line)',
-    '& h2': { mb: '2.5' },
-    '& p': {
-      minH: '12',
-      mb: '6',
-    },
-    '& ul': { display: 'grid', gap: '9px', m: 0, p: 0, listStyle: 'none' },
-    '& a': {
-      _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
-    },
-    _mobile: { minH: 'auto' },
   }),
 };
 
@@ -141,23 +94,75 @@ export function ExploreHubPage() {
       title="더 오래, 더 즐겁게 움직이는 방법"
       description="제품 탐색을 돕는 가이드와 기술, 러닝 콘텐츠를 한곳에 모았습니다."
     >
-      <section className={styles.hero}>
+      <Stack
+        as="section"
+        gap="normal"
+        alignItems="flex-start"
+        justifyContent="flex-end"
+        minH="290px"
+        mb="11"
+        p="34px"
+        bg="var(--color-black-100)"
+        color="var(--color-text-inverse)"
+        _mobile={{
+          minH: '230px',
+          mb: '6',
+          p: '22px',
+          '& h2': { fontSize: '32' /* 기존 33px */ },
+        }}
+        css={{
+          '& span': {
+            mb: '18px',
+          },
+          '& h2': {
+            maxW: '540px',
+            mb: '30px',
+            fontSize: '48' /* 기존 46px */,
+            lineHeight: 'var(--line-heights-hoka)',
+          },
+        }}
+      >
         <Typography variant="body5" weight="bold">
           HOKA EXPLORE
         </Typography>
-        <h2>어디로, 어떻게 달릴지부터 시작하세요.</h2>
+        <Typography as="h2">어디로, 어떻게 달릴지부터 시작하세요.</Typography>
         <ButtonLink href="/explore/shoe-finder">SHOE FINDER 시작하기</ButtonLink>
-      </section>
-      <div className={styles.grid}>
+      </Stack>
+      <Grid
+        gridTemplateColumns="repeat(3, 1fr)"
+        gap="4"
+        mb="38px"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '2.5' }}
+      >
         {groups.map((group) => (
-          <section className={styles.group} key={group.title}>
-            <Typography as="h2" variant="body2" weight="bold">
+          <Box
+            as="section"
+            minH="230px"
+            p="6"
+            border="1px solid var(--line)"
+            _mobile={{ minH: 'auto' }}
+            css={{
+              '& a': {
+                _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+              },
+            }}
+            key={group.title}
+          >
+            <Typography as="h2" variant="body2" weight="bold" className={css({ mb: '2.5' })}>
               {group.title}
             </Typography>
-            <Typography as="p" variant="body4" tone="tertiary">
+            <Typography
+              as="p"
+              variant="body4"
+              tone="tertiary"
+              className={css({
+                minH: '12',
+                mb: '6',
+              })}
+            >
               {group.description}
             </Typography>
-            <ul>
+            <Grid as="ul" gap="9px" m={0} p={0} listStyle="none">
               {group.links.map(([label, to]) => (
                 <li key={to}>
                   <Link href={to}>
@@ -167,10 +172,10 @@ export function ExploreHubPage() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </section>
+            </Grid>
+          </Box>
         ))}
-      </div>
+      </Grid>
     </ContentLayout>
   );
 }

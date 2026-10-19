@@ -1,5 +1,4 @@
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -7,7 +6,6 @@ import type { FieldName } from '@/shared/features/find-account/passwordValidatio
 
 const styles = {
   input: css({ minW: '0' }),
-  fieldError: css({ m: '0', '&&': { color: 'var(--color-red-100)' } }),
 };
 
 type Props = {
@@ -20,36 +18,24 @@ type Props = {
 };
 
 export function PasswordResetField({ name, label, placeholder, value, error, onChange }: Props) {
-  const errorId = `password-reset-${name}-error`;
-  const errorMessage = error && error !== 'required' ? error : undefined;
-
   return (
-    <Stack gap="2">
-      <FormField
-        variant="boxed"
-        invalid={Boolean(error)}
-        htmlFor={`password-reset-${name}`}
-        label={<Typography variant="body5">* {label}</Typography>}
-      >
-        <TextInput
-          className={styles.input}
-          id={`password-reset-${name}`}
-          name={name}
-          type="password"
-          autoComplete="new-password"
-          placeholder={placeholder}
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          invalid={Boolean(error)}
-          aria-describedby={errorMessage ? errorId : undefined}
-          required
-        />
-      </FormField>
-      {errorMessage ? (
-        <Typography as="p" variant="body5" className={styles.fieldError} id={errorId} role="alert">
-          {errorMessage}
-        </Typography>
-      ) : null}
-    </Stack>
+    <FormField
+      variant="boxed"
+      error={error}
+      htmlFor={`password-reset-${name}`}
+      label={<Typography variant="body5">* {label}</Typography>}
+    >
+      <TextInput
+        className={styles.input}
+        id={`password-reset-${name}`}
+        name={name}
+        type="password"
+        autoComplete="new-password"
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        required
+      />
+    </FormField>
   );
 }

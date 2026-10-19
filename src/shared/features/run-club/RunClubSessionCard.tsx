@@ -16,7 +16,6 @@ const styles = {
     overflow: 'hidden',
     borderRadius: '8px',
     _mobile: { aspectRatio: '1', borderRadius: '0' },
-    '& img': { w: '100%', h: '100%', objectFit: 'cover' },
     '&::before': {
       bg: 'rgba(0, 0, 0, 0.3)',
     },
@@ -33,6 +32,7 @@ export function RunClubSessionCard({ session }: { session: RunClubSession }) {
         aria-label={`${session.title} 상세 보기`}
       >
         <Image
+          className={css({ w: '100%', h: '100%', objectFit: 'cover' })}
           src={runClubImage(session.image)}
           alt=""
           width={371}

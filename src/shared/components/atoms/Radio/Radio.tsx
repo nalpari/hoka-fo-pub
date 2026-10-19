@@ -6,12 +6,15 @@ import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
-const group = css({ display: 'grid', gap: '4' });
-
-const option = css({
-  cursor: 'pointer',
-  '&[data-disabled]': { cursor: 'not-allowed' },
+const group = css({
+  display: 'grid',
+  gap: '4',
+  '& [role="radio"][aria-invalid="true"]': {
+    outline: '2px solid var(--colors-red-100)',
+    outlineOffset: '2px',
+  },
 });
 
 const control = css({
@@ -66,8 +69,10 @@ export function Radio<T extends string = string>({
   optionClassName,
   selectedOptionClassName,
 }: RadioProps<T>) {
+  const field = useFormFieldContext();
   return (
     <BaseRadioGroup
+      aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       className={[group, className].filter(Boolean).join(' ')}
       disabled={disabled}
@@ -105,7 +110,8 @@ export function Radio<T extends string = string>({
         return (
           <HStack
             as="label"
-            className={option}
+            cursor="pointer"
+            css={{ '&[data-disabled]': { cursor: 'not-allowed' } }}
             data-disabled={isDisabled ? '' : undefined}
             key={item.value}
           >

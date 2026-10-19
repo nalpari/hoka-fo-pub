@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const message = css({
   '&[data-tone="error"]': { color: 'error' },
@@ -11,14 +12,17 @@ type StatusMessageProps = {
   children: ReactNode;
   tone?: 'error' | 'success' | 'info';
   className?: string;
+  id?: string;
 };
 
 /** Accessible feedback message for form validation and request state. */
-export function StatusMessage({ children, tone = 'info', className }: StatusMessageProps) {
+export function StatusMessage({ children, tone = 'info', className, id }: StatusMessageProps) {
   const isError = tone === 'error';
 
   return (
-    <p
+    <Typography
+      as="p"
+      id={id}
       aria-live={isError ? 'assertive' : 'polite'}
       aria-atomic="true"
       className={[message, className].filter(Boolean).join(' ')}
@@ -26,6 +30,6 @@ export function StatusMessage({ children, tone = 'info', className }: StatusMess
       role={isError ? 'alert' : 'status'}
     >
       {children}
-    </p>
+    </Typography>
   );
 }

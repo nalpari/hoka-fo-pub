@@ -1,4 +1,5 @@
 import { css } from 'styled-system/css';
+import { Flex } from 'styled-system/jsx';
 
 export type HeroPaginationSlide = {
   id: string;
@@ -13,18 +14,6 @@ export type HeroPaginationProps = {
   progressDuration: number;
   slides: readonly HeroPaginationSlide[];
 };
-
-const pagination = css({
-  position: 'absolute',
-  zIndex: '1',
-  right: '0',
-  bottom: '32px',
-  left: '0',
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '2',
-  _mobile: { bottom: '12px' },
-});
 
 const paginationButton = css({
   w: '8px',
@@ -75,7 +64,18 @@ export function HeroPagination({
   if (slides.length < 2) return null;
 
   return (
-    <div aria-label="히어로 슬라이드 선택" className={pagination} role="group">
+    <Flex
+      aria-label="히어로 슬라이드 선택"
+      pos="absolute"
+      zIndex="1"
+      right="0"
+      bottom="32px"
+      left="0"
+      justifyContent="center"
+      gap="2"
+      _mobile={{ bottom: '12px' }}
+      role="group"
+    >
       {slides.map((slide, index) => (
         <button
           aria-label={`${slide.title} 슬라이드`}
@@ -98,6 +98,6 @@ export function HeroPagination({
           ) : null}
         </button>
       ))}
-    </div>
+    </Flex>
   );
 }

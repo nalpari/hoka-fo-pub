@@ -5,17 +5,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 
 const styles = {
-  dialog: css({
-    borderRadius: '0',
-    boxShadow: 'none',
-    position: 'relative',
-    zIndex: '1',
-  }),
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
-  button: css({
-    w: '160px!',
-    mx: 'auto',
-  }),
 };
 
 type Props = { onClose: () => void; onConfirm: () => void };
@@ -24,7 +14,7 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
   return (
     <ModalDialog
       footer={
-        <Button variant="primary" fullWidth className={styles.button} onClick={onConfirm}>
+        <Button variant="primary" fullWidth onClick={onConfirm}>
           확인
         </Button>
       }
@@ -32,15 +22,16 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
       onOpenChange={(open) => !open && onClose()}
       title="아이디 / 비밀번호 찾기"
       closeLabel="안내 닫기"
-      popupClassName={styles.dialog}
     >
       <Stack gap="4">
-        <Typography as="h2" variant="headingKr6">
+        <Typography as="h2" variant="body2">
           계정 잠금상태입니다
         </Typography>
         <Typography as="p" variant="body4">
           서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
-          <span className={styles.descriptionSecondLine}>휴대폰 인증화면으로 이동합니다.</span>
+          <Typography as="span" className={styles.descriptionSecondLine}>
+            휴대폰 인증화면으로 이동합니다.
+          </Typography>
         </Typography>
       </Stack>
     </ModalDialog>

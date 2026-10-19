@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { URL } from 'node:url';
-import { validatePasswordReset } from '../src/shared/features/find-account/passwordValidation.ts';
+import {
+  isValidPassword,
+  passwordRequirementsMessage,
+  validatePasswordReset,
+} from '../src/shared/lib/passwordValidation.ts';
 import {
   formatPhoneNumber,
   getPhoneDigits,
@@ -11,12 +15,13 @@ import { localeRegions } from '../src/shared/features/locales/locales.data.ts';
 
 test('password reset distinguishes required fields, strength, and confirmation', () => {
   assert.deepEqual(validatePasswordReset('', ''), {
-    password: 'required',
-    confirmation: 'required',
+    password: passwordRequirementsMessage,
+    confirmation: '비밀번호를 다시 입력해 주세요.',
   });
   assert.deepEqual(validatePasswordReset('Hoka1234567!', 'Hoka1234567!'), {});
   for (const password of [
-    'Hoka123456!',
+    'Hoka1234!',
+    'Hoka12345678!',
     'Hokaabcdefgh!',
     '12345678901!',
     'Hoka12345678',
@@ -27,6 +32,28 @@ test('password reset distinguishes required fields, strength, and confirmation',
   const mismatch = validatePasswordReset('Hoka1234567!', 'Hoka1234567?');
   assert.equal(mismatch.password, undefined);
   assert.ok(mismatch.confirmation);
+});
+
+test('shared password policy accepts only 10–12 characters with all three character types', () => {
+  for (const password of ['Hoka12345!', 'Hoka123456!', 'Hoka1234567!']) {
+    assert.equal(isValidPassword(password), true, password);
+    assert.deepEqual(validatePasswordReset(password, password), {});
+  }
+  for (const password of [
+    '',
+    '12345678',
+    'Hoka1234!',
+    'Hoka12345678!',
+    'Hoka123456',
+    '123456789!',
+    'HokaHoka!!',
+    'Hoka1234 !',
+    'Hoka1234!\t',
+    'Hoka12345!\n',
+  ]) {
+    assert.equal(isValidPassword(password), false, JSON.stringify(password));
+    assert.equal(validatePasswordReset(password, password).password, passwordRequirementsMessage);
+  }
 });
 
 test('phone formatting preserves partial input, strips punctuation, and limits digits', () => {

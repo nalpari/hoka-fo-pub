@@ -10,7 +10,7 @@ const logo = css({
   flexShrink: 0,
   w: '85px',
   h: '23px',
-  '& img': { display: 'block', w: '100%', h: '100%', objectFit: 'contain' },
+
   _mobile: { order: 0, w: '74px', h: '5' },
 });
 
@@ -21,7 +21,11 @@ type HeaderLogoProps = {
 export function HeaderLogo({ onClick }: HeaderLogoProps) {
   return (
     <Link className={logo} href="/" onClick={onClick} aria-label="HOKA 홈으로">
-      <img src="/images/header/logo-primary.svg" alt="HOKA" />
+      <img
+        src="/images/header/logo-primary.svg"
+        alt="HOKA"
+        className={css({ display: 'block', w: '100%', h: '100%', objectFit: 'contain' })}
+      />
     </Link>
   );
 }

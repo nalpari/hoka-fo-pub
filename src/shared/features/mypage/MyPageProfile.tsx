@@ -26,7 +26,9 @@ function ProfileField({ label, value }: { label: string; value: string }) {
   return (
     <Stack gap="2">
       <Typography variant="heading7">{label}</Typography>
-      <Typography variant="body3" tone="tertiary">{value}</Typography>
+      <Typography variant="body3" tone="tertiary">
+        {value}
+      </Typography>
     </Stack>
   );
 }
@@ -36,6 +38,7 @@ export function MyPageProfile() {
   const [email, setEmail] = useState('dww******@gmail.com');
   const [phone, setPhone] = useState('010-****-0522');
   const [password, setPassword] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; phone?: string }>({});
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
   const [couponBookPreference, setCouponBookPreference] = useState<Preference>('수신안함');
   const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
@@ -58,8 +61,20 @@ export function MyPageProfile() {
           ))}
           {editing ? (
             <form
+              noValidate
               onSubmit={(event) => {
                 event.preventDefault();
+                const emailInput =
+                  event.currentTarget.querySelector<HTMLInputElement>('#profile-email');
+                const errors = {
+                  email:
+                    email.trim() && !emailInput?.validity.typeMismatch
+                      ? ''
+                      : '올바른 이메일을 입력해 주세요.',
+                  phone: phone.trim() ? '' : '휴대폰 번호를 입력해 주세요.',
+                };
+                setFieldErrors(errors);
+                if (Object.values(errors).some(Boolean)) return;
                 setEditing(false);
               }}
             >
@@ -73,20 +88,38 @@ export function MyPageProfile() {
                     onChange={(event) => setPassword(event.target.value)}
                   />
                 </FormField>
-                <FormField htmlFor="profile-email" label="이메일" required variant="boxed">
+                <FormField
+                  htmlFor="profile-email"
+                  label="이메일"
+                  required
+                  variant="boxed"
+                  error={fieldErrors.email}
+                >
                   <TextInput
                     id="profile-email"
                     type="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                      setFieldErrors((previous) => ({ ...previous, email: undefined }));
+                    }}
                   />
                 </FormField>
-                <FormField htmlFor="profile-phone" label="휴대폰 번호" required variant="boxed">
+                <FormField
+                  htmlFor="profile-phone"
+                  label="휴대폰 번호"
+                  required
+                  variant="boxed"
+                  error={fieldErrors.phone}
+                >
                   <TextInput
                     id="profile-phone"
                     type="tel"
                     value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
+                    onChange={(event) => {
+                      setPhone(event.target.value);
+                      setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+                    }}
                   />
                 </FormField>
                 <Stack gap="4">
@@ -143,7 +176,10 @@ export function MyPageProfile() {
                     size="short"
                     variant="secondary"
                     type="button"
-                    onClick={() => setEditing(false)}
+                    onClick={() => {
+                      setFieldErrors({});
+                      setEditing(false);
+                    }}
                   >
                     취소
                   </Button>

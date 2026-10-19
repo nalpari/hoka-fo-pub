@@ -5,7 +5,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { ReviewGalleryModal } from '@/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal';
-import { Box } from 'styled-system/jsx';
+import { Grid, Flex, Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { ToggleButton } from '@/shared/components/atoms/ToggleButton/ToggleButton';
@@ -15,30 +15,6 @@ const reward = css({
   m: '0 0 var(--spacing-7)',
   color: 'var(--color-text-subtle) !important',
   fontWeight: 'var(--font-weights-bold)',
-});
-
-const aiSummary = css({
-  p: '6',
-  bg: 'var(--color-black-10)',
-  '& h3': { m: '0 0 14px' },
-  '& p': { color: 'var(--color-black-40) !important' },
-});
-
-const rating = css({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1.1fr',
-  gap: '34px',
-  my: '8',
-  mx: '0',
-  px: '38px',
-  _mobile: { gridTemplateColumns: '1fr', gap: '22px', px: '0' },
-});
-
-const score = css({
-  textAlign: 'center',
-  '& strong': { display: 'block', fontSize: '42' },
-  '& p': { my: '2', mx: '0' },
-  '& small': { color: 'var(--color-text-tertiary)' },
 });
 
 const reviewFilters = css({
@@ -67,66 +43,6 @@ const reviewFilter = cva({
       },
       false: {},
     },
-  },
-});
-
-const reviewList = css({
-  borderTop: '1px solid var(--color-black-20)',
-  '& article': {
-    display: 'grid',
-    gridTemplateColumns: '1fr 150px',
-    gap: '30px',
-    py: '30px',
-    borderBottom: '1px solid var(--color-black-20)',
-    _mobile: { gridTemplateColumns: '1fr', gap: '2.5' },
-  },
-});
-
-const reviewMeta = css({
-  display: 'contents',
-  '& > span': {
-    gridColumn: '1',
-    w: 'fit-content',
-    px: '1.5',
-    py: '1',
-    bg: 'var(--color-black-10)',
-  },
-  '& > b': { gridColumn: '2', gridRow: '1', _mobile: { gridColumn: '1', gridRow: 'auto' } },
-  '& > small': {
-    gridColumn: '2',
-    gridRow: '2',
-    color: 'var(--color-black-40)',
-    _mobile: { gridColumn: '1', gridRow: 'auto' },
-  },
-});
-
-const reviewContent = css({
-  gridColumn: '1',
-  '& > strong': { letterSpacing: 'var(--letter-spacings-korean)' },
-  '& h3': { mt: '2', mx: '0', mb: '1' },
-  '& > button': {
-    px: '0',
-    border: '0',
-    color: 'var(--color-black-40)',
-    fontSize: '12' /* 기존: 11px */,
-  },
-});
-
-const reviewPhotos = css({
-  display: 'flex',
-  gap: '1.5',
-  my: '3.5',
-  '& button': {
-    display: 'grid',
-    w: '92px',
-    h: '92px',
-    placeItems: 'center',
-    p: '0',
-    border: '0',
-    bg: 'var(--color-black-20)',
-    color: 'var(--color-text-inverse)',
-    fontSize: '12' /* 기존: 10px */,
-    _mobile: { w: '70px', h: '70px' },
   },
 });
 
@@ -171,24 +87,34 @@ export function ProductReviews() {
   const [filter, setFilter] = useState('최신순');
   return (
     <Box maxW="760px">
-      <p className={reward}>
+      <Typography as="p" className={reward}>
         배송 완료 후 30일 이내에 상품평 작성 시, 최대 2,000 마일리지 혜택을 드립니다.
-      </p>
-      <section className={aiSummary}>
-        <Typography as="h3" variant="heading9">
+      </Typography>
+      <Box as="section" p="6" bg="var(--color-black-10)">
+        <Typography as="h3" variant="heading9" className={css({ m: '0 0 14px' })}>
           ✦ AI 리뷰 요약
         </Typography>
-        <p>리뷰가 더 모이면, AI가 내용을 정리해 알려드릴게요.</p>
-      </section>
-      <section className={rating}>
-        <Box className={score}>
-          <strong>★5.0</strong>
-          <Typography as="p" variant="body4">
+        <Typography as="p" className={css({ color: 'var(--color-black-40) !important' })}>
+          리뷰가 더 모이면, AI가 내용을 정리해 알려드릴게요.
+        </Typography>
+      </Box>
+      <Grid
+        as="section"
+        gridTemplateColumns="1fr 1.1fr"
+        gap="34px"
+        my="8"
+        mx="0"
+        px="38px"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '22px', px: '0' }}
+      >
+        <Box textAlign="center">
+          <strong className={css({ display: 'block', fontSize: '42' })}>★5.0</strong>
+          <Typography as="p" variant="body4" className={css({ my: '2', mx: '0' })}>
             97%가 <b>아주 좋아요</b>라고 평가했습니다.
           </Typography>
-          <small>리뷰 104개</small>
+          <small className={css({ color: 'var(--color-text-tertiary)' })}>리뷰 104개</small>
         </Box>
-      </section>
+      </Grid>
       <SegmentedControl
         ariaLabel="리뷰 정렬"
         className={reviewFilters}
@@ -201,25 +127,75 @@ export function ProductReviews() {
           label: <Typography variant="body5">{value}</Typography>,
         }))}
       />
-      <Box className={reviewList}>
+      <Box borderTop="1px solid var(--color-black-20)">
         {reviews.map((review, reviewIndex) => {
           const expanded = expandedAuthor === review.author;
           return (
-            <article key={review.author}>
-              <Box className={reviewMeta}>
-                <Typography variant="body5" weight="bold">
+            <Grid
+              key={review.author}
+              as="article"
+              gridTemplateColumns="1fr 150px"
+              gap="30px"
+              py="30px"
+              borderBottom="1px solid var(--color-black-20)"
+              _mobile={{ gridTemplateColumns: '1fr', gap: '2.5' }}
+            >
+              <Box display="contents">
+                <Typography
+                  variant="body5"
+                  weight="bold"
+                  className={css({
+                    gridColumn: '1',
+                    w: 'fit-content',
+                    px: '1.5',
+                    py: '1',
+                    bg: 'var(--color-black-10)',
+                  })}
+                >
                   상품평 추천
                 </Typography>
-                <b>{review.author}</b>
-                <small>
+                <b
+                  className={css({
+                    gridColumn: '2',
+                    gridRow: '1',
+                    _mobile: { gridColumn: '1', gridRow: 'auto' },
+                  })}
+                >
+                  {review.author}
+                </b>
+                <small
+                  className={css({
+                    gridColumn: '2',
+                    gridRow: '2',
+                    color: 'var(--color-black-40)',
+                    _mobile: { gridColumn: '1', gridRow: 'auto' },
+                  })}
+                >
                   관리자 리뷰
                   <br />
                   {review.date}
                 </small>
               </Box>
-              <Box className={reviewContent}>
-                <strong>★★★★★</strong>
-                <Typography as="h3" variant="body4" weight="bold">
+              <Box
+                gridColumn="1"
+                css={{
+                  '& > button': {
+                    px: '0',
+                    border: '0',
+                    color: 'var(--color-black-40)',
+                    fontSize: '12' /* 기존: 11px */,
+                  },
+                }}
+              >
+                <strong className={css({ letterSpacing: 'var(--letter-spacings-korean)' })}>
+                  ★★★★★
+                </strong>
+                <Typography
+                  as="h3"
+                  variant="body4"
+                  weight="bold"
+                  className={css({ mt: '2', mx: '0', mb: '1' })}
+                >
                   {review.title}
                 </Typography>
                 <Typography as="p" variant="body4">
@@ -239,22 +215,36 @@ export function ProductReviews() {
                 >
                   {expanded ? '리뷰 접기' : '리뷰 더보기'}
                 </ToggleButton>
-                <Box className={reviewPhotos}>
+                <Flex gap="1.5" my="3.5">
                   {review.images.map((image, imageIndex) => (
                     <IconButton
                       aria-label={`${image} 상세 보기`}
                       key={image}
                       onClick={() => setGallery({ reviewIndex, imageIndex })}
+                      className={css({
+                        '&&': {
+                          display: 'grid',
+                          w: '92px',
+                          h: '92px',
+                          placeItems: 'center',
+                          p: '0',
+                          border: '0',
+                          bg: 'var(--color-black-20)',
+                          color: 'var(--color-text-inverse)',
+                          fontSize: '12' /* 기존: 10px */,
+                          _mobile: { w: '70px', h: '70px' },
+                        },
+                      })}
                     >
                       {image}
                     </IconButton>
                   ))}
-                </Box>
+                </Flex>
                 <Button size="short" variant="ghost">
                   신고 및 차단
                 </Button>
               </Box>
-            </article>
+            </Grid>
           );
         })}
       </Box>

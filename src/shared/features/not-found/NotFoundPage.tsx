@@ -2,6 +2,7 @@ import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentLayout } from '@/shared/components/layouts/ContentLayout/ContentLayout';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const root = css({
   maxW: 'var(--layout-content-max-width)',
@@ -16,9 +17,9 @@ export function NotFoundPage() {
   return (
     <ContentLayout className={root} title="404" description="요청하신 페이지를 찾을 수 없습니다.">
       <Stack justifyItems="start" gap="6" py="8" borderTop="1px solid var(--color-black-100)">
-        <p className={css({ m: '0', color: 'var(--color-text-tertiary)' })}>
+        <Typography as="p" tone="tertiary" className={css({ m: '0' })}>
           주소가 잘못 입력되었거나 페이지가 이동 또는 삭제되었을 수 있습니다.
-        </p>
+        </Typography>
         <ButtonLink href="/" variant="primary">
           홈으로 돌아가기
         </ButtonLink>

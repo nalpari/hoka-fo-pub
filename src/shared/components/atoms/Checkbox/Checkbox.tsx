@@ -8,6 +8,7 @@ import { useId, useRef } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
 
 const group = cva({
   base: { display: 'flex', gap: '8px' },
@@ -26,6 +27,7 @@ const option = css({
 });
 
 const control = css({
+  '&&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
   position: 'relative',
   display: 'grid',
   placeItems: 'center',
@@ -100,6 +102,7 @@ function SingleCheckbox({
   onCheckedChange,
   ...rootProps
 }: SingleCheckboxProps) {
+  const field = useFormFieldContext();
   const labelId = useId();
   const controlRef = useRef<HTMLSpanElement>(null);
 
@@ -113,6 +116,9 @@ function SingleCheckbox({
     >
       <BaseCheckbox.Root
         {...rootProps}
+        aria-describedby={
+          [rootProps['aria-describedby'], field?.describedBy].filter(Boolean).join(' ') || undefined
+        }
         ref={controlRef}
         aria-labelledby={rootProps['aria-labelledby'] ?? (interactiveLabel ? labelId : undefined)}
         className={control}
@@ -145,8 +151,10 @@ function CheckboxGroup<T extends string>({
   renderOption,
   value,
 }: CheckboxGroupProps<T>) {
+  const field = useFormFieldContext();
   return (
     <BaseCheckboxGroup
+      aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       className={[group({ direction }), className].filter(Boolean).join(' ')}
       value={value}

@@ -2,7 +2,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { useState } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Grid, Flex, Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 
@@ -39,95 +39,9 @@ const styles = {
       overflow: 'auto',
     },
   }),
-  viewer: css({
-    position: 'relative',
-    display: 'grid',
-    minH: '540px',
-    p: '30px 70px 100px',
-    placeItems: 'center',
-    background: 'var(--color-black-100)',
-    '& > button': {
-      position: 'absolute',
-      top: '50%',
-      zIndex: 1,
-      p: '2',
-      border: 0,
-      background: 'transparent',
-      color: 'var(--color-text-inverse)',
-      fontSize: '50' /* 기존 52px */,
-      transform: 'translateY(-50%)',
-    },
-    '& > button:first-child': { left: '16px' },
-    '& > button:nth-child(3)': { right: '16px' },
-    '@media (max-width: 700px)': {
-      minH: '58vh',
-      p: '20px 42px 88px',
-    },
-  }),
-  mainImage: css({
-    display: 'grid',
-    w: 'min(100%, 620px)',
-    h: '100%',
-    minH: '420px',
-    placeItems: 'center',
-    background: 'var(--color-black-20)',
-    color: 'var(--color-text-inverse)',
-    '@media (max-width: 700px)': { minH: '340px' },
-  }),
-  carousel: css({
-    position: 'absolute',
-    right: 0,
-    bottom: '20px',
-    left: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '2',
-    '& button': {
-      display: 'grid',
-      w: '56px',
-      h: '56px',
-      p: '3px',
-      border: '2px solid transparent',
-      placeItems: 'center',
-      background: 'var(--color-black-20)',
-      color: 'var(--color-text-inverse)',
-      fontSize: '12' /* 기존: 9px */,
-    },
-    '& .selected': { borderColor: 'var(--color-black-100)' },
-  }),
+
   selected: css({ borderColor: 'var(--color-black-100) !important' }),
-  side: css({
-    overflow: 'auto',
-    p: '5',
-    '& header': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      borderBottom: '1px solid var(--color-black-20)',
-      pb: '4',
-    },
-    '& header div': { display: 'grid', gap: '1' },
-    '& header small': { color: 'var(--color-black-40)' },
-    '& header button': { p: 0, border: 0, fontSize: '24' /* 기존 26px */ },
-    '& > strong': { display: 'block', mt: '22px' },
-    '& section': {
-      mt: '30px',
-      pt: '18px',
-      borderTop: '1px solid var(--color-black-20)',
-    },
-    '& section div': { display: 'flex', gap: '6px' },
-    '& section button': {
-      display: 'grid',
-      w: '56px',
-      h: '56px',
-      p: '3px',
-      border: '2px solid transparent',
-      placeItems: 'center',
-      background: 'var(--color-black-20)',
-      color: 'var(--color-text-inverse)',
-      fontSize: '12' /* 기존: 9px */,
-    },
-    '& section .active': { borderColor: 'var(--color-black-100)' },
-  }),
+
   active: css({ borderColor: 'var(--color-black-100) !important' }),
 };
 
@@ -165,7 +79,33 @@ export function ReviewGalleryModal({
         <Dialog.Backdrop className={styles.backdrop} />
         <Dialog.Viewport className={styles.viewport}>
           <Dialog.Popup aria-label="리뷰 이미지 상세" className={styles.dialog}>
-            <div className={styles.viewer}>
+            <Grid
+              gap="normal"
+              pos="relative"
+              minH="540px"
+              p="30px 70px 100px"
+              placeItems="center"
+              background="var(--color-black-100)"
+              css={{
+                '& > button': {
+                  position: 'absolute',
+                  top: '50%',
+                  zIndex: 1,
+                  p: '2',
+                  border: 0,
+                  background: 'transparent',
+                  color: 'var(--color-text-inverse)',
+                  fontSize: '50' /* 기존 52px */,
+                  transform: 'translateY(-50%)',
+                },
+                '& > button:first-child': { left: '16px' },
+                '& > button:nth-child(3)': { right: '16px' },
+                '@media (max-width: 700px)': {
+                  minH: '58vh',
+                  p: '20px 42px 88px',
+                },
+              }}
+            >
               <IconButton
                 aria-label="이전 이미지"
                 disabled={imageIndex === 0}
@@ -173,7 +113,18 @@ export function ReviewGalleryModal({
               >
                 ‹
               </IconButton>
-              <Box className={styles.mainImage}>{review.images[imageIndex]}</Box>
+              <Grid
+                gap="normal"
+                w="min(100%, 620px)"
+                h="100%"
+                minH="420px"
+                placeItems="center"
+                background="var(--color-black-20)"
+                color="var(--color-text-inverse)"
+                css={{ '@media (max-width: 700px)': { minH: '340px' } }}
+              >
+                {review.images[imageIndex]}
+              </Grid>
               <IconButton
                 aria-label="다음 이미지"
                 disabled={imageIndex === review.images.length - 1}
@@ -181,54 +132,100 @@ export function ReviewGalleryModal({
               >
                 ›
               </IconButton>
-              <Box className={styles.carousel}>
+              <Flex pos="absolute" right={0} bottom="20px" left={0} justifyContent="center" gap="2">
                 {review.images.map((image, index) => (
                   <Button
                     aria-pressed={index === imageIndex}
-                    className={index === imageIndex ? styles.selected : undefined}
+                    className={[
+                      css({
+                        '&&': {
+                          display: 'grid',
+                          w: '56px',
+                          h: '56px',
+                          p: '3px',
+                          border: '2px solid transparent',
+                          placeItems: 'center',
+                          background: 'var(--color-black-20)',
+                          color: 'var(--color-text-inverse)',
+                          fontSize: '12' /* 기존: 9px */,
+                        },
+                      }),
+                      index === imageIndex ? styles.selected : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                     key={image}
                     onClick={() => setImageIndex(index)}
                   >
                     {image}
                   </Button>
                 ))}
-              </Box>
-            </div>
-            <aside className={styles.side}>
-              <header>
-                <Box>
+              </Flex>
+            </Grid>
+            <Box as="aside" overflow="auto" p="5">
+              <Flex
+                as="header"
+                justifyContent="space-between"
+                borderBottom="1px solid var(--color-black-20)"
+                pb="4"
+              >
+                <Grid gap="1">
                   <b>{review.author}</b>
-                  <small>관리자 리뷰 · {review.date}</small>
-                </Box>
-                <IconButton aria-label="닫기" onClick={onClose}>
+                  <small className={css({ color: 'var(--color-black-40)' })}>
+                    관리자 리뷰 · {review.date}
+                  </small>
+                </Grid>
+                <IconButton
+                  aria-label="닫기"
+                  onClick={onClose}
+                  className={css({ p: 0, border: 0, fontSize: '24' /* 기존 26px */ })}
+                >
                   ×
                 </IconButton>
-              </header>
-              <strong>★★★★★</strong>
+              </Flex>
+              <strong className={css({ display: 'block', mt: '22px' })}>★★★★★</strong>
               <Typography as="h2" variant="heading9">
                 {review.title}
               </Typography>
               <Typography as="p" variant="body4">
                 {review.body}
               </Typography>
-              <section>
+              <Box as="section" mt="30px" pt="18px" borderTop="1px solid var(--color-black-20)">
                 <Typography as="h3" variant="heading9">
                   이 상품의 다른 리뷰
                 </Typography>
-                <Box>
+                <Flex gap="6px">
                   {reviews.map((item, index) => (
                     <Button
                       aria-pressed={index === reviewIndex}
-                      className={index === reviewIndex ? styles.active : undefined}
+                      className={[
+                        // Keep the local overrides above the Button recipe's base styles.
+                        css({
+                          '&&': {
+                            display: 'grid',
+                            w: '56px',
+                            h: '56px',
+                            p: '3px',
+                            border: '2px solid transparent',
+                            placeItems: 'center',
+                            background: 'var(--color-black-20)',
+                            color: 'var(--color-text-inverse)',
+                            fontSize: '12' /* 기존: 9px */,
+                          },
+                        }),
+                        index === reviewIndex ? styles.active : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
                       key={item.author}
                       onClick={() => selectReview(index)}
                     >
                       {item.images[0]}
                     </Button>
                   ))}
-                </Box>
-              </section>
-            </aside>
+                </Flex>
+              </Box>
+            </Box>
           </Dialog.Popup>
         </Dialog.Viewport>
       </Dialog.Portal>

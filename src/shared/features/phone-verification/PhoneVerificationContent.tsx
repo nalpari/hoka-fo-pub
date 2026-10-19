@@ -12,7 +12,6 @@ import { PhoneVerificationDetailDialog } from '@/shared/features/phone-verificat
 
 const styles = {
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
-  carrier: css({ '& > button': { justifySelf: 'end' } }),
 };
 
 export const verificationTerms = [
@@ -44,6 +43,8 @@ type Props = {
   secondsLeft: number;
   resendWait: number;
   notice: string;
+  noticeTone?: 'error' | 'info';
+  codeError?: string;
   fieldErrors?: PhoneVerificationErrors;
   detail: string | null;
   onInformationChange: (key: keyof PhoneInformation, value: string) => void;
@@ -110,14 +111,14 @@ export function PhoneVerificationContent(props: Props) {
   return (
     <Box as="main" pt="24" px="5" pb="20" _mobile={{ pt: '10', px: '4', pb: '8' }}>
       <Box maxW="568px" mx="auto">
-        <Box mb="8">
+        <Box pb="3">
           <Typography as="h1" web="heading7" mo="heading5">
             {props.title ?? '휴대폰 인증'}
           </Typography>
         </Box>
         {props.description ? (
-          <Box mt="-6" mb="6">
-            <Typography as="p" variant="body5" tone="subtle">
+          <Box pb="8">
+            <Typography as="p" variant="body3" tone="tertiary">
               {props.description}
             </Typography>
           </Box>
@@ -128,6 +129,7 @@ export function PhoneVerificationContent(props: Props) {
           pb="6"
           borderBottom="1px solid var(--color-black-20)"
           aria-labelledby="phone-terms-title"
+          aria-describedby={showAgreementErrors ? 'phone-terms-error' : undefined}
         >
           <HStack justify="space-between" mb="2">
             <Typography as="h2" id="phone-terms-title" variant="headingKr7">
@@ -157,13 +159,18 @@ export function PhoneVerificationContent(props: Props) {
               </Button>
             </HStack>
           ))}
+          {showAgreementErrors ? (
+            <StatusMessage id="phone-terms-error" tone="error">
+              필수 약관에 모두 동의해 주세요.
+            </StatusMessage>
+          ) : null}
         </Stack>
         <Box my="6">
           <Typography as="h2" variant="headingKr9">
             인증 정보
           </Typography>
         </Box>
-        <form onSubmit={props.onConfirm}>
+        <form noValidate onSubmit={props.onConfirm}>
           <Stack gap="4">
             {textField('name', '이름', '이름을 입력해 주세요')}
             {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
@@ -171,12 +178,7 @@ export function PhoneVerificationContent(props: Props) {
               {selectField('nationality', '국적', ['내국인', '외국인'])}
               {selectField('gender', '성별', ['남자', '여자'])}
             </Grid>
-            <Grid
-              gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)"
-              gap="3"
-              alignItems="center"
-              className={styles.carrier}
-            >
+            <Grid gridTemplateColumns="minmax(0, 2fr) minmax(0, 1fr)" gap="3" alignItems="center">
               {selectField('carrier', '통신사', [
                 'SKT',
                 'KT',
@@ -188,7 +190,7 @@ export function PhoneVerificationContent(props: Props) {
               <Button
                 variant="link"
                 size="md"
-                className={styles.detail}
+                className={[styles.detail, css({ justifySelf: 'end' })].join(' ')}
                 onClick={() => props.onDetail('알뜰폰 사업자')}
               >
                 알뜰폰 사업자 보기
@@ -197,7 +199,6 @@ export function PhoneVerificationContent(props: Props) {
             {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
             <Button
               variant="primary"
-              size="tall"
               fullWidth
               disabled={requested && resendWait > 0}
               onClick={props.onRequest}
@@ -207,7 +208,13 @@ export function PhoneVerificationContent(props: Props) {
             {requested ? (
               <>
                 <Box mt="2">
-                  <FormField variant="boxed" htmlFor="phone-code" label="인증번호" required>
+                  <FormField
+                    variant="boxed"
+                    htmlFor="phone-code"
+                    label="인증번호"
+                    required
+                    error={props.codeError}
+                  >
                     <TextInput
                       id="phone-code"
                       inputMode="numeric"
@@ -234,12 +241,14 @@ export function PhoneVerificationContent(props: Props) {
                     6자리를 입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
                   </Typography>
                 </Box>
-                <Button variant="primary" size="tall" type="submit" fullWidth>
+                <Button variant="primary" type="submit" fullWidth>
                   인증번호 확인
                 </Button>
               </>
             ) : null}
-            {notice ? <StatusMessage tone="info">{notice}</StatusMessage> : null}
+            {notice ? (
+              <StatusMessage tone={props.noticeTone ?? 'info'}>{notice}</StatusMessage>
+            ) : null}
           </Stack>
         </form>
         <Box mt="4">
