@@ -2,6 +2,10 @@
 
 ## 2026-10-20
 
+- **Update**: ConfirmDialog에 actionDirection/onCancel API를 추가하고 IdConfirmationModal의 중복 버튼을 통합했다. PC 가로 배치를 유지하고 모바일은 본문 버튼을 세로형 공통 footer로 옮겼다. Vertical/VerticalMobile 스토리와 콜백 검사를 추가하고 [UI 기록](architecture/ui.md#확인-다이얼로그-세로-액션과-아이디-안내-적용-2026-10-20)을 갱신했다.
+
+- **Refactor**: CartOptionsDialog의 수동 footer를 ConfirmDialog로 교체했다. confirmDisabled API와 비활성 예시를 추가해 기존 품절/사이즈 검증·저장·취소·모바일 전체 화면·버튼 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI](architecture/ui.md#장바구니-옵션-확인-다이얼로그-재사용-2026-10-20)·[상태](architecture/state.md#장바구니-옵션-확인-상태-유지-2026-10-20)를 갱신했다.
+
 - **Refactor**: 결제 CouponDialog를 SingleActionDialog로 전환하고 기존 쿠폰 적용/닫기·취소 시 복원·버튼/모바일 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#결제-쿠폰-단일-액션-다이얼로그-재사용-2026-10-20)을 갱신했다.
 
 - **Refactor**: CouponRegistrationDialog를 SingleActionDialog로 전환하고 본문 확인 버튼을 공통 footer로 옮겼다. 문구·닫기 콜백·sm 크기를 유지하고 PC 160px/모바일 전체 너비의 공통 버튼 규격을 적용했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#쿠폰-등록-완료-단일-액션-다이얼로그-2026-10-20)을 갱신했다.

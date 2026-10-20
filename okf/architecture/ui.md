@@ -1981,3 +1981,17 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 결제 쿠폰 단일 액션 다이얼로그 재사용 (2026-10-20)
 
 `CouponDialog`의 수동 ModalDialog.footer/Button을 `SingleActionDialog`로 교체했다. confirmLabel=쿠폰 적용하기와 기존 적용 콜백을 전달하며 primary/short/fullWidth 기본 버튼·sm 크기·모바일 fullscreen·공통 고정 footer를 유지한다. 확인 시 onApply(discount) → 마지막 적용 선택값 저장 → 상위 onOpenChange(false) 순서를 유지한다. 취소/닫기 경로에서 마지막 적용값으로 복원하는 onOpenChange도 그대로 전달해 적용과 취소를 구분한다. 선택·할인 계산·펼침 상태와 본문은 CouponDialog가 계속 소유한다. 출처는 frontmatter의 CouponDialog/SingleActionDialog 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 장바구니 옵션 확인 다이얼로그 재사용 (2026-10-20)
+
+`CartOptionsDialog`의 수동 취소/변경 footer를 `ConfirmDialog`로 교체했다. `ConfirmDialog.confirmDisabled`는 기본 false이며 확인 버튼의 disabled만 제어한다. 옵션 모달은 confirmLabel=변경, confirmDisabled=!valid, onConfirm=onSave(draft)를 전달한다. 취소는 기존 onOpenChange(false) 경로로 onClose를 호출하고 draft를 저장하지 않는다. 기존 fullWidthActions 기본 HStack gap=2·전체 너비 버튼, size=sm·모바일 fullscreen, 본문 선택 컨트롤과 고정 footer를 유지한다. 공용 스토리에 확인 비활성/취소 활성 예시와 play 검사를 추가했다.
+
+출처는 frontmatter의 CartOptionsDialog/ConfirmDialog 및 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 확인했다. 브라우저/Storybook play는 실행하지 않았다.
+
+## 확인 다이얼로그 세로 액션과 아이디 안내 적용 (2026-10-20)
+
+`ConfirmDialog.actionDirection`은 horizontal(기본)/vertical을 지원한다. vertical은 fullWidthActions 값과 관계없이 w=100%·gap=2 Stack으로 두 버튼을 묶고, horizontal은 기존 fullWidthActions=true의 HStack/false의 직접 버튼 배치를 유지한다. `onCancel`을 전달하면 보조 버튼이 해당 콜백을 호출하며, 생략하면 기존 onOpenChange(false)를 호출한다. 확인은 onConfirm만 호출하며 이후 닫기나 이동은 소비처가 소유한다.
+
+`IdConfirmationModal`은 ConfirmDialog를 사용하고 비밀번호 재설정→onPasswordReset, 확인→onConfirm을 전달한다. PC는 fullWidthActions=false·horizontal로 기존 공통 footer의 가로 버튼 크기를 유지한다. 모바일은 vertical로 전환하며 본문 내 두 버튼을 제거해 공통 고정 footer에 배치한다. 이는 기존 모바일 본문 버튼 배치에서 의도적으로 변경한 부분이며, 본문 안내·userName 정규화·타이포그래피·여백·모바일 fullscreen과 플랫폼별 제목은 유지한다. Vertical/VerticalMobile 스토리와 보조 액션이 닫기를 자동 호출하지 않는 play 검사를 추가했다.
+
+출처는 frontmatter의 ConfirmDialog/IdConfirmationModal 구현과 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 및 Storybook play는 실행하지 않았다.

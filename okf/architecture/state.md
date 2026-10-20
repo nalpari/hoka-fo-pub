@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:11:55Z'
+  at: '2026-10-20T05:22:18Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
   - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
   - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
   - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
@@ -260,3 +261,7 @@ CartOptionsDialog는 발볼·컬러·사이즈·수량 초안을 관리한다. �
 CheckoutContent의 쿠폰 할인액은 요약과 결제 버튼에 함께 반영한다. CouponDialog는 상품별 10%/7%와 장바구니 정액 쿠폰을 선택하는 퍼블리싱 데모이며 닫기는 미적용 변경을 되돌린다. 배송지는 기존 정보/직접 입력으로 전환하며 주소 찾기는 기존 AddressSearchModal의 수동 미리보기를 사용한다. 배송 요청 직접 입력은 250자로 제한한다. CheckoutPage.onComplete는 실제 선택한 CartItem 목록을 전달하고 라우트가 해당 상품만 제거한다. 쿠폰 발급·저장 배송지·관심상품·결제 승인 서버 연동은 포함하지 않는다.
 
 출처는 작업 트리의 ShopShell.tsx, CartPage.tsx, CartOptionsDialog.tsx, CheckoutPage.tsx, CheckoutContent.tsx, CouponDialog.tsx 및 src/app/checkout/page.tsx다. 타입 검사·주문 합계 테스트 3개·Next production build를 확인했고 브라우저에서 사이즈 저장과 선택 상품 주문 이동, 528,000원에서 상품 28,800원+장바구니 5,000원 할인 후 494,200원 표시를 확인했다.
+
+## 장바구니 옵션 확인 상태 유지 (2026-10-20)
+
+CartOptionsDialog가 기존 draft와 발볼/색상별 사이즈·품절 상태에서 valid를 계산한다. ConfirmDialog는 confirmDisabled=!valid를 받아 확인 버튼만 비활성화하며 검증·옵션 변경·저장은 상위 기능에 남는다. 확인은 onSave(draft), 취소/닫기는 onClose를 호출한다. 공용 다이얼로그는 임의로 저장하거나 확인 후 닫지 않는다. 출처는 frontmatter의 CartOptionsDialog/ConfirmDialog 작업 트리 파일이다. 타입 검사·변경 ESLint를 확인했으며 브라우저 동작은 재검증하지 않았다.
