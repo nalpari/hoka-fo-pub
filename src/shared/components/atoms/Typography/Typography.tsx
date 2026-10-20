@@ -535,7 +535,7 @@ const typography = cva({
         ...figmaTypographyVariants.bodyKr3,
         _mobile: { fontSize: '14' },
       },
-      formLabel: figmaTypographyVariants.bodyKr3,
+      formLabel: figmaTypographyVariants.body4,
       productAudience: figmaTypographyVariants.body3,
       productUse: {
         fontFamily: 'korean',

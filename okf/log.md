@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Update**: Typography `formLabel`을 body4 스케일로 맞췄다. 체크박스·라디오를 포함한 폼 라벨의 공통 시각 스타일로 사용하며 그룹 제목 구조와는 구분한다고 [UI 기록](architecture/ui.md#typography-formlabel-스케일-2026-10-20)에 명시했다.
+
 - **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.
 
 - **Refactor**: 배송/반품 안내의 탭별 패널과 공통 번호·bullet 목록 표현을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#배송-반품-안내-패널과-목록-분리-2026-10-20)을 갱신했다.

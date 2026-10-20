@@ -1870,6 +1870,10 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
 
+## Typography formLabel 스케일 (2026-10-20)
+
+`Typography`의 `formLabel` variant는 폼 라벨에 쓰는 body4 타이포그래피를 사용한다. 라디오·체크박스 전용 표현이 아니라 라벨 문구에 공통으로 적용하는 시각 스타일이며, 그룹 제목의 의미 구조는 소비처에서 별도로 제공한다. 출처는 `src/shared/components/atoms/Typography/Typography.tsx`다.
+
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
