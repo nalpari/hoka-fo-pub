@@ -3,7 +3,8 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { HStack, Grid } from 'styled-system/jsx';
+import { Grid } from 'styled-system/jsx';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 
 export type OrderStatusItem = { label: string; count: number; to?: string };
 
@@ -27,23 +28,24 @@ const statusLink = css({
 /** Five-stage order snapshot that remains horizontally scannable on small screens. */
 export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
   return (
-    <section aria-label="주문 배송 현황">
-      <HStack gap="normal" justifyContent="space-between" mb="3">
-        <Typography
-          as="h2"
-          variant="heading9"
-          className={css({
-            m: '0',
-          })}
-        >
-          주문 / 배송 조회
-        </Typography>
-        <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
-          <Typography variant="body5" tone="tertiary">
-            전체 보기 →
-          </Typography>
-        </Link>
-      </HStack>
+    <ContentSection
+      as="section"
+      aria-label="주문 배송 현황"
+      gap="3"
+      title="주문 / 배송 조회"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: 'normal',
+        titleProps: { variant: 'heading9', className: css({ m: '0' }) },
+        action: (
+          <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
+            <Typography variant="body5" tone="tertiary">
+              전체 보기 →
+            </Typography>
+          </Link>
+        ),
+      }}
+    >
       <Grid
         gap="normal"
         gridTemplateColumns="repeat(5, 1fr)"
@@ -63,6 +65,6 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
           </Link>
         ))}
       </Grid>
-    </section>
+    </ContentSection>
   );
 }

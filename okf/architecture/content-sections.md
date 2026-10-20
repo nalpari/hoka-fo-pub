@@ -6,9 +6,10 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:56:17Z'
+  at: '2026-10-20T05:05:06Z'
 source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
 working_tree_sources:
+  - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
   - src/shared/features/mypage/MyPageRecentOrders.tsx
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/faq/FaqPage.tsx
@@ -132,6 +133,16 @@ working_tree_sources:
 ---
 
 # ContentHeader·ContentSection 적용 후보 전수 조사
+
+## 가로형 ContentHeader 소비처 확대 (2026-10-20)
+
+고객센터 공지·문의 파일 첨부, 최근 검색어, 쿠폰 카드, 상품 옵션, 휴대폰 인증약관과 MainSectionHeader·SectionHeading·OrderStatusTracker의 9개 구성에 orientation/action을 적용했다. 기존 ContentSection 또는 제목과 본문 간격을 소유하는 구성은 title/headerProps 기본 API를 사용한다. MainSectionHeader는 중앙 contentFrame 너비, SectionHeading은 기존 제목 레벨 API를 전달하는 어댑터를 유지한다.
+
+기존 HStack 기본 gap 8px과 Flex의 normal gap을 구분하고, 최근 검색어의 PC flex-start·모바일 space-between, 쿠폰의 flex-start 정렬, 공지 pb=6·약관 mb=2를 보존한다. 중첩 headerProps 스타일은 css.raw로 추출한다. 주문 현황의 헤더 mb=3은 ContentSection gap=3으로 옮겼다. 제목 레벨·ID·타이포그래피, 조건부 액션, 링크·콜백과 파일 입력 ref를 유지하며 상품 옵션 본문 children도 직접 렌더링한다.
+
+기존 표의 MainSectionHeader·OrderStatusTracker·CouponCard 가로 액션 유지 판정은 이번 적용으로 대체한다. InquiryBoardHeader는 제목/체크박스 그룹과 별도 우측 액션의 2단 구성을 유지한다. 모달·BottomSheet의 전용 헤더, PersonalizationCard의 small eyebrow, 장바구니 제목/건수·진행 단계, 제목이 아닌 가격·필드 라벨·목록 행은 이관하지 않는다.
+
+검증: 타입·변경 파일 ESLint/Prettier·Panda 생성·Next/Storybook production build, 기존 폼/계정 복구/주문 합계 테스트 40개가 통과했다. 실제 컴포넌트 SSR fixture 11개(최근 검색어 빈 상태·상품 옵션 액션 없음 포함)를 Chrome에서 1280px/375px로 비교한 22개 사례에서 제목·액션·목록·본문의 좌표/크기·타이포그래피·색상 차이가 없었다. 정적 Storybook에서 두 화면 폭의 검색어 전체 삭제·쿠폰 상세 열기/닫기·약관 모두동의/상세·파일 첨부/삭제·상품 사이즈 가이드 팝업 등 10개 동작도 확인했다. 사이즈 가이드의 외부 응답은 가로채고 팝업 대상 URL만 검사했다. 임시 fixture 기반 비교이며 실제 API 통합 검증을 의미하지 않는다.
 
 제목 그룹은 ContentHeader(H), 헤더와 후속 그룹의 간격은 ContentSection(S)으로 공통화할 수 있다. **단일 제목도 ContentHeader를 사용하며, 본문과 함께 묶을 때는 ContentSection의 title/headerProps로 기본 헤더를 생성한다.** 모든 제목에 H를 추가하거나 모든 Stack을 S로 바꿀 필요는 없다. 같은 간격의 본문 Stack을 중첩하지 말고 직접 자식으로 둔다.
 

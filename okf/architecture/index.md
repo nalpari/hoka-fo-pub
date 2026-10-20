@@ -1,5 +1,7 @@
 # 아키텍처
 
+가로형 ContentHeader의 9개 구성 적용과 PC/MO 보존 기준은 [소비처 확대](ui.md#가로형-contentheader-소비처-확대-2026-10-20)를 참고한다.
+
 상품 옵션 본문의 직접 children과 간격 소유권은 [본문 래퍼 제거](ui.md#상품-옵션-본문-래퍼-제거-2026-10-20)를 참고한다.
 
 ContentHeader의 orientation/action API는 [가로형 옵션](ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.

@@ -1,11 +1,12 @@
 'use client';
 
 import { useRef, useState, type ChangeEvent } from 'react';
-import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faXmark } from '@/shared/icons/fontAwesome';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 
 type Props = {
   files: File[];
@@ -37,20 +38,25 @@ export function InquiryAttachments({ files, onFilesChange }: Props) {
   };
 
   return (
-    <Stack gap="4">
-      <HStack justifyContent="space-between">
-        <Typography as="h2" variant="heading9">
-          파일 첨부
-        </Typography>
-        <Button
-          variant="link"
-          size="md"
-          onClick={() => inputRef.current?.click()}
-          aria-describedby="inquiry-files-help"
-        >
-          파일찾기
-        </Button>
-      </HStack>
+    <ContentSection
+      gap="4"
+      title="파일 첨부"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '8px',
+        titleProps: { variant: 'heading9' },
+        action: (
+          <Button
+            variant="link"
+            size="md"
+            onClick={() => inputRef.current?.click()}
+            aria-describedby="inquiry-files-help"
+          >
+            파일찾기
+          </Button>
+        ),
+      }}
+    >
       <input
         ref={inputRef}
         id="inquiry-files"
@@ -104,6 +110,6 @@ export function InquiryAttachments({ files, onFilesChange }: Props) {
         - 파일은 최대 5개까지 첨부할 수 있습니다.
         <br />- 첨부파일은 파일당 최대 10MB까지 등록 가능합니다.
       </Typography>
-    </Stack>
+    </ContentSection>
   );
 }

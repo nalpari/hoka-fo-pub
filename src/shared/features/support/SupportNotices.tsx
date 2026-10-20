@@ -1,8 +1,8 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Divider, HStack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import Link from 'next/link';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const styles = {
@@ -29,16 +29,18 @@ export function SupportNotices() {
       as="section"
       aria-labelledby="support-notices-title"
       gap="0"
-      header={
-        <HStack justifyContent="space-between" pb="6">
-          <Typography as="h2" web="heading8" mo="heading5" id="support-notices-title">
-            공지사항
-          </Typography>
+      title="공지사항"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '8px',
+        css: css.raw({ pb: '6' }),
+        titleProps: { web: 'heading8', mo: 'heading5', id: 'support-notices-title' },
+        action: (
           <ButtonLink href="/support/notices" size="md" variant="link">
             전체보기
           </ButtonLink>
-        </HStack>
-      }
+        ),
+      }}
     >
       <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
       <Box as="ul" m="0" p="0" listStyleType="none">
