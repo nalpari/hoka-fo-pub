@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:33:49.420Z'
+  at: '2026-10-20T03:52:21.278Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
+  - src/shared/features/catalog/product-listing/filterProducts.ts
+  - src/shared/components/atoms/Badge/PromotionBadge.tsx
   - .codex/skills/component-reusability/references/content-sections.md
   - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
   - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
@@ -567,6 +571,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 상품 필터 시트 너비와 여백 (2026-10-20)
+
+BottomSheet는 포털에 `platform-${platform}` 클래스를 전달해 본문 밖에서도 모바일 조건과 토큰을 유지한다. 상품 필터의 하단 패딩은 PC용 256px 대신 모바일 16px을 적용한다. Popup은 `100%` 너비로 고정 viewport의 가용 너비를 채운다. 내부 Stack은 gap 0, 스크롤 본문은 min-height 0으로 헤더·푸터 사이에서 축소된다. 위 두 BottomSheet 파일이 작업 트리 출처다.
+
+검증: Panda 생성과 변경 파일 ESLint를 통과했다. Storybook 모바일 상품 목록에서 너비·하단 패딩·적용/닫기/Escape를 확인했다. 전체 타입 검사는 기존 ProductCard.stories.tsx의 `new` 프로모션 타입 오류로 실패했다.
 
 ## ContentSection 기본 헤더와 전체 적용 (2026-10-20)
 
@@ -1796,3 +1806,17 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 `src/shared/Mockup/`의 구현 24개 파일과 `src/stories/features/Mockup/`의 전용 스토리 3개를 제거했다. Mockup을 직접 사용하던 앱 라우트 12개와 MyPageRouteStory의 running-profile 분기도 제거했다. 이 절은 위쪽의 과거 Mockup 이동 기록 이후의 현재 상태를 설명한다.
 
 검증(Codex): 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next·Storybook production build, 앱 라우트 테스트 2개를 통과했다. Storybook index에서 기존 페이지 시나리오 179개의 새 ID와 모든 IA 미리보기 ID가 존재하고 Mockup 분류가 없음을 확인했다. 소스·Storybook 설정에서 Mockup 참조가 남지 않았음을 확인했다. 브라우저 시각 비교와 play 재실행은 수행하지 않았다.
+
+## 상품 복수 프로모션 뱃지 (2026-10-20)
+
+`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 각 값이 `Exclusive`이면 브랜드 색상, 그 외에는 red80을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
+
+작업 트리의 위 소스를 기준으로 타입 검사·변경 파일 ESLint와 단일/복수/빈 뱃지의 JSX 결과·색상 prop 및 신상품 정렬을 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+### 복수 뱃지 스토리 표시 옵션 수정 (2026-10-20)
+
+`ProductCard`는 `options`에 `promotion`이 있을 때만 상품 뱃지를 전달한다. `MultiplePromotions` 스토리에서 빠진 `options: ['promotion']`을 추가해 복수 값이 실제 카드에 전달되도록 수정했다. 브라우저 연결이 제공되지 않아 화면 검증은 수행하지 못했다.
+
+### 프로모션별 색상과 구분선 (2026-10-20)
+
+사용자 요청에 따라 문자열 결합을 개별 Typography와 Panda Divider로 변경했다. HStack의 gap=1로 간격을 소유하고 세로 구분선은 h=3·border-tertiary 및 aria-hidden을 사용한다. weight와 className은 각각의 Typography에 전달한다. 단일 값에는 구분선을 넣지 않고 빈 배열은 생략한다. 동일한 값이 반복되어도 모두 렌더링한다.

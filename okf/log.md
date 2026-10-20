@@ -2,6 +2,16 @@
 
 ## 2026-10-20
 
+- **Update**: 프로모션을 개별 Typography와 세로 Divider로 렌더링하도록 변경했다. 각 뱃지의 값에 따라 브랜드/red80 색상을 적용하고 [UI 기록](architecture/ui.md#프로모션별-색상과-구분선-2026-10-20)을 갱신했다.
+
+- **Fix**: BottomSheet 포털에 플랫폼 범위를 유지하고 Popup 100% 너비·본문 축소와 gap 0을 적용했다. 모바일 상품 필터의 PC 하단 패딩 256px을 모바일 16px로 복원했다. Panda·변경 파일 ESLint와 브라우저 적용/닫기/Escape를 확인했다. 전체 타입 검사는 기존 ProductCard 스토리의 프로모션 타입 오류로 실패했다.
+
+- **Fix**: `MultiplePromotions` 스토리에 누락된 `options: ['promotion']`을 추가했다. 카드의 프로모션 표시 조건과 데이터 전달 경로를 확인하고 [UI 기록](architecture/ui.md#복수-뱃지-스토리-표시-옵션-수정-2026-10-20)에 반영했다.
+
+- **Audit**: src/shared·src/app TSX 512개에서 하단 Button/ButtonLink·액션 어댑터·footer/actions 슬롯을 조사했다. ContentSection footer 우선 적용 4곳·조건부 구성 경계 17개와 폼/간격/고정 영역 유지 조건을 [하단 액션 보고서](architecture/footer-actions.md)에 기록했다. API·화면 소스 이관과 브라우저/빌드 검증은 수행하지 않았다.
+
+- **Update**: 상품 프로모션에 복수 값을 허용하고 `Best | Exclusive` 표시·빈 배열 생략·미리보기 공통화·신상품 정렬을 반영했다. Storybook 예시와 [UI](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)·[상품 데이터](project.md#상품-프로모션-데이터-2026-10-20)를 갱신했다. 타입 검사·변경 파일 ESLint·뱃지와 정렬 동작 검사를 통과했다.
+
 - **Refactor**: 사용자 요청에 따라 AccountFormLayout·CustomerCenterLayout·OrderPageLayout의 본문 div를 제거하고 children을 직접 렌더링한다. 최상위 본문 요소가 ContentSection의 flex/gap에 참여한다. 타입·변경 파일 ESLint/Prettier를 확인했다.
 
 - **Refactor**: 제목·본문 후보의 UI 소스 65파일과 ContentHeader/ContentSection 2파일에 공통 구성을 적용했다. 단일 제목도 ContentHeader로 처리하고 ContentSection의 title/headerProps 기본 API를 제공했다. 예외 구조만 header 노드를 사용하며 기존 상태·폼·Grid·타이포그래피·간격을 보존했다.

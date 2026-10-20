@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 import { Card } from '@/shared/components/atoms/Card/Card';
 import { VStack } from 'styled-system/jsx';
-import type { Promotion } from '@/shared/components/atoms/Badge/PromotionBadge';
+import type { Promotions } from '@/shared/components/atoms/Badge/PromotionBadge';
 import type { ProductGenderOption } from '@/shared/components/atoms/ProductGender/ProductGender';
 import { ProductDetailsIdentity } from './ProductDetailsIdentity';
 import { ProductDetailsOptions } from './ProductDetailsOptions';
@@ -20,7 +20,7 @@ export type ProductDetailsProps = {
   platform: Platform;
   price: number;
   originalPrice?: number;
-  promotion?: Promotion;
+  promotion?: Promotions;
   showVariantSummary?: boolean;
   variant: ProductCardVariant;
   widthCount: number;
