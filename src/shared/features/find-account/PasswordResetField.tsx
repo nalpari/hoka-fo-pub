@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import type { FieldName } from '@/shared/features/find-account/passwordValidation';
+import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
 
 const styles = {
   input: css({ minW: '0' }),
@@ -18,24 +18,22 @@ type Props = {
 
 export function PasswordResetField({ name, label, placeholder, value, error, onChange }: Props) {
   return (
-    <FormField
+    <PasswordField
       variant="boxed"
       error={error}
-      htmlFor={`password-reset-${name}`}
+      id={`password-reset-${name}`}
       label={label}
       required
-    >
-      <TextInput
-        className={styles.input}
-        id={`password-reset-${name}`}
-        name={name}
-        type="password"
-        autoComplete="new-password"
-        placeholder={placeholder}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        required
-      />
-    </FormField>
+      inputProps={{
+        className: styles.input,
+        name: name,
+        type: 'password',
+        autoComplete: 'new-password',
+        placeholder: placeholder,
+        value: value,
+        onChange: (event) => onChange(event.target.value),
+        required: true,
+      }}
+    />
   );
 }

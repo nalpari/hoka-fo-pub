@@ -1,6 +1,11 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Box, HStack } from 'styled-system/jsx';
-import { AddressField, type AddressFieldName, type AddressFieldsVariant } from './AddressField';
+import {
+  AddressField,
+  type AddressFieldName,
+  type AddressFieldOptions,
+  type AddressFieldsVariant,
+} from './AddressField';
 import { AddressSearchModal } from './AddressSearchModal';
 
 type AddressValue = {
@@ -11,6 +16,8 @@ type AddressValue = {
 
 type Props = {
   variant: AddressFieldsVariant;
+  fieldOptions?: Partial<Record<AddressFieldName, AddressFieldOptions>>;
+  searchLabel?: string;
   idPrefix: string;
   value: AddressValue;
   errors?: Partial<Record<AddressFieldName, string>>;
@@ -21,6 +28,8 @@ type Props = {
 
 export function AddressFields({
   variant,
+  fieldOptions,
+  searchLabel = '주소 찾기',
   idPrefix,
   value,
   errors,
@@ -31,6 +40,7 @@ export function AddressFields({
   const postalCodeField = (
     <AddressField
       field="postalCode"
+      options={fieldOptions?.postalCode}
       variant={variant}
       idPrefix={idPrefix}
       value={value.postalCode}
@@ -40,11 +50,11 @@ export function AddressFields({
   const searchButton = (
     <Button
       variant="link"
-      size={variant === 'compact' ? 'sm' : 'md'}
+      size={variant === 'boxed' ? 'md' : 'sm'}
       aria-haspopup="dialog"
       onClick={() => onSearchOpenChange(true)}
     >
-      주소 찾기
+      {searchLabel}
     </Button>
   );
 
@@ -53,6 +63,11 @@ export function AddressFields({
       {variant === 'compact' ? (
         <HStack border="1px solid var(--colors-black-40)" p="3" justifyContent="space-between">
           {postalCodeField}
+          {searchButton}
+        </HStack>
+      ) : variant === 'separated' ? (
+        <HStack alignItems="end" gap="2">
+          <Box flex="1">{postalCodeField}</Box>
           {searchButton}
         </HStack>
       ) : (
@@ -67,6 +82,7 @@ export function AddressFields({
         <AddressField
           key={field}
           field={field}
+          options={fieldOptions?.[field]}
           variant={variant}
           idPrefix={idPrefix}
           value={value[field]}

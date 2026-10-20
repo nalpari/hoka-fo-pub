@@ -6,9 +6,29 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T00:41:19Z'
+  at: '2026-10-20T01:22:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/find-account/FindAccountIdentityFields.tsx
+  - src/shared/features/find-account/FindAccountCodeFields.tsx
+  - src/shared/features/support/InquiryMessageFields.tsx
+  - src/shared/components/molecules/FormFields/BirthDateField.tsx
+  - src/shared/components/molecules/FormFields/CharacterCount.tsx
+  - src/shared/components/molecules/FormFields/EmailField.tsx
+  - src/shared/components/molecules/FormFields/NameField.tsx
+  - src/shared/components/molecules/FormFields/PasswordField.tsx
+  - src/shared/components/molecules/FormFields/PhoneNumberField.tsx
+  - src/shared/components/molecules/FormFields/PreferenceField.tsx
+  - src/shared/components/molecules/FormFields/TextareaField.tsx
+  - src/shared/components/molecules/FormFields/TextFormField.tsx
+  - src/shared/components/molecules/FormFields/VerificationCodeField.tsx
+  - src/shared/components/molecules/FormFields/VerificationCountdown.tsx
+  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
+  - src/stories/components/molecules/FormFields/FormFields.stories.tsx
+  - .codex/skills/component-reusability/references/form-fields.md
+  - src/shared/components/organisms/Address/AddressFields.tsx
+  - src/shared/components/organisms/Address/AddressField.tsx
+  - src/shared/features/signup-registration/RegistrationContent.tsx
   - src/shared/components/atoms/Collapsible/Collapsible.tsx
   - src/shared/components/molecules/SupportTabs/SupportTabs.tsx
   - src/stories/components/atoms/Collapsible/Collapsible.stories.tsx
@@ -528,6 +548,28 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 미확정 회원등급·마일리지 화면 (2026-10-20)
+
+SupportExperiencePage는 회원등급과 마일리지 경로별 제목·breadcrumb·활성 메뉴를 pageDetails로 지정하고 공통 CustomerCenterLayout을 사용한다. 디자인이 확정되지 않은 정책 탭·유의사항 대신 본문에 “디자인 작업 중입니다.” 안내만 표시한다. 기존 라우트와 고객센터 탐색은 유지한다.
+
+## 폼 필드 공통화와 스킬 반영 (2026-10-20)
+
+TextFormField와 이름·전화·이메일·비밀번호·생년월일·인증번호·textarea의 의미별 조합을 molecules/FormFields에 추가했다. 입력/설명/오류는 기존 FormField/TextInput을 사용하며, 별도 DOM 래퍼나 검증 라이브러리를 도입하지 않는다. 시간·글자수·수신 동의 표시도 공유하며 split 이메일은 organisms/EmailAddressFields로 분리했다. 기능 어댑터와 부모 콜백은 유지한다. AddressFields는 separated/fieldOptions로 마이페이지의 ID·필수·읽기 전용·비활성 상태·버튼 배치를 보존한다.
+
+실제 API·소비처·유지 대상·검증은 [폼 필드 이관 결과](form-fields.md#공통-필드-이관-결과-2026-10-20)에 기록했다. 변경 타입·린트/포맷·Next/Storybook 빌드와 40개 테스트, PC/MO 18쌍 좌표/속성 비교, Storybook play 22개와 별도 동작 9개를 확인했다. 외부 주소 검색·인증·메일·결제 API 연결은 추가하지 않았다.
+
+component-reusability의 [진입 문서](../../.codex/skills/component-reusability/SKILL.md)와 [폼 필드 참조](../../.codex/skills/component-reusability/references/form-fields.md)에 이번 조사에서 확인한 공통화 경계와 속성 보존 기준을 반영했다. 조사 요청·이관 요청·스킬만 수정하는 요청의 범위를 구분하며, 동일 placeholder를 동일 검증 정책으로 해석하지 않는다. 정적인 조사 개수나 특정 화면 목록을 향후 모든 작업의 의무 범위로 고정하지 않는다.
+
+## 주소 필드 공통화와 폼 전수 조사 (2026-10-20)
+
+CheckoutAddressFields와 RegistrationAddressFields는 공용 organisms/Address/AddressFields에 값·오류·변경 콜백과 팝업 제어를 전달하는 어댑터다. AddressFields는 우편번호·찾기 버튼·주소·상세주소와 AddressSearchModal 연결을 담당하고, AddressField는 label/input/error를 compact/boxed로 표시한다. 이전 구성 분리 기록의 주소 재사용 보류 판단은 이 구현으로 대체했다.
+
+variant=compact는 기존 결제의 14px native input·우편번호 readOnly·수정 가능한 주소·비제어 상세주소와 name/FormData를 보존한다. boxed는 기존 회원가입 FormField/TextInput·우편번호/주소 disabled·제어 상세주소를 보존한다. 회원가입의 기존 상세주소 별표/required 차이도 임의로 변경하지 않았다. 값·오류·팝업 상태는 각 부모가 소유하며 모달 렌더링만 AddressFields가 담당한다. 회원가입 AccountFormLayout의 별도 dialogs 조합과 CheckoutShipping의 별도 AddressSearchModal은 제거했다. 마이페이지 주소는 required/readOnly/disabled·배치 계약이 달라 이번 이관에서 제외하고 후속 후보로 기록했다.
+
+타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 40개를 확인했다. 결제/회원가입 각각 PC 1600px·MO 375px의 변경 전후 모달 오류/값 반영, 상세주소 입력과 위치·크기·font/padding·name/disabled/readOnly 일치를 확인했다. 결제 FormData·배송지 전환 후 주소 유지와 기존 회원가입 이메일 확인→부가정보 이동/비밀번호 오류 회귀 PC/MO 4개 사례를 확인했다. 실제 주소 검색은 미연결 미리보기다.
+
+전체 소스의 이름·연락처·인증번호·비밀번호·이메일·생년월일·주소·textarea·동의 항목을 조사했다. 적용 후보·기존 공용화 유지·필수 표시와 검증 정책 차이 및 확인 파일은 [폼 필드 전수 조사](form-fields.md)에 기록한다. 주소 외 후보의 자동 이관은 수행하지 않았다.
+
 ## 기능 화면 구성 분리와 고객센터 메뉴 정리 (2026-10-20)
 
 선택된 UI를 feature 내부 컴포넌트 29개로 분리했다. 부모의 데이터 조회·상태·콜백을 유지하고 children을 추가 DOM 래퍼 없이 대체했다. 기존 FormField/TextInput/Radio/Accordion/Collapsible/Dropdown과 공용 레이아웃을 그대로 사용한다.
@@ -699,6 +741,8 @@ PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자
 ## 매장 찾기 디자인 반영 후 정식 경로 복귀 (2026-10-19)
 
 디자인이 반영된 매장 찾기 페이지와 데이터는 src/shared/features/store-finder에 두고, StoreResults는 src/shared/components/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
+
+병합 후 남은 `src/shared/Mockup/store-finder/StoreFinderPage.tsx` 중복 파일을 제거하고 고객센터 Storybook도 실제 `/support/store`와 같은 feature 페이지를 사용하도록 맞췄다. `store.data.ts` 타입 참조는 정식 `StoreResults` 경로를 사용한다.
 
 이번 정리는 디자인이 반영된 구현을 정식 경로로 복귀시키고 라우트·스토리 참조를 갱신하는 변경이다.
 

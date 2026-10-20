@@ -1,12 +1,14 @@
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
+import {
+  TextFormField,
+  type SingleLineFormFieldProps,
+} from '@/shared/components/molecules/FormFields/TextFormField';
 
 export type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 
-export type AddressFieldsVariant = 'boxed' | 'compact';
+export type AddressFieldsVariant = 'boxed' | 'compact' | 'separated';
 
 const fields = {
   postalCode: { label: '우편번호', placeholder: '주소 찾기 버튼을 눌러주세요' },
@@ -31,8 +33,16 @@ const disabledInput = css({
   _disabled: { opacity: '1' },
 });
 
+export type AddressFieldOptions = {
+  id?: string;
+  required?: boolean;
+  disabled?: boolean;
+  inputProps?: Partial<SingleLineFormFieldProps['inputProps']>;
+};
+
 type Props = {
   field: AddressFieldName;
+  options?: AddressFieldOptions;
   variant: AddressFieldsVariant;
   idPrefix: string;
   value?: string;
@@ -40,36 +50,44 @@ type Props = {
   onValueChange?: (value: string) => void;
 };
 
-export function AddressField({ field, variant, idPrefix, value, error, onValueChange }: Props) {
+export function AddressField({
+  field,
+  variant,
+  idPrefix,
+  value,
+  error,
+  onValueChange,
+  options,
+}: Props) {
   const { label, placeholder } = fields[field];
   const postalCode = field === 'postalCode';
   const detail = field === 'addressDetail';
-  const id = `${idPrefix}-${variant === 'compact' && detail ? 'detail' : field}`;
+  const id = options?.id ?? `${idPrefix}-${variant === 'compact' && detail ? 'detail' : field}`;
 
-  if (variant === 'boxed') {
-    const disabled = !detail;
+  if (variant !== 'compact') {
+    const disabled = options?.disabled ?? !detail;
+    const required = options?.required ?? !detail;
 
     return (
-      <FormField
+      <TextFormField
         variant="boxed"
-        htmlFor={id}
+        id={id}
         error={error || undefined}
         invalid={Boolean(error)}
-        label={detail ? <Typography variant="body5">* {label}</Typography> : label}
-        required={!detail}
+        label={detail && !required ? <Typography variant="body5">* {label}</Typography> : label}
+        required={required}
         disabled={disabled}
-      >
-        <TextInput
-          id={id}
-          type={detail ? 'text' : undefined}
-          disabled={disabled}
-          className={field === 'address' ? disabledInput : undefined}
-          value={value}
-          placeholder={placeholder}
-          autoComplete={detail ? 'off' : undefined}
-          onChange={onValueChange ? (event) => onValueChange(event.target.value) : undefined}
-        />
-      </FormField>
+        inputProps={{
+          type: detail ? 'text' : undefined,
+          disabled,
+          className: field === 'address' && variant === 'boxed' ? disabledInput : undefined,
+          value,
+          placeholder,
+          autoComplete: detail ? 'off' : undefined,
+          onChange: onValueChange ? (event) => onValueChange(event.target.value) : undefined,
+          ...options?.inputProps,
+        }}
+      />
     );
   }
 

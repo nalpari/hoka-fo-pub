@@ -1,3 +1,4 @@
+import { CharacterCount } from '@/shared/components/molecules/FormFields/CharacterCount';
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
@@ -53,9 +54,12 @@ export function CheckoutDeliveryRequest() {
               fontSize: '14px',
             })}
           />
-          <Typography variant="body5" tone="subtle" className={css({ textAlign: 'right' })}>
-            {message.length}/250
-          </Typography>
+          <CharacterCount
+            length={message.length}
+            limit={250}
+            tone="subtle"
+            className={css({ textAlign: 'right' })}
+          />
         </Stack>
       ) : null}
     </>

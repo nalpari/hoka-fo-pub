@@ -6,9 +6,18 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T00:28:23Z'
+  at: '2026-10-20T01:14:02Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/find-account/PasswordResetField.tsx
+  - src/shared/features/find-account/FindAccountIdentityFields.tsx
+  - src/shared/features/find-account/FindAccountCodeFields.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/phone-verification/VerificationCodeFields.tsx
+  - src/shared/features/phone-verification/PhoneInformationFields.tsx
+  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
+  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
   - src/shared/features/cart/CartPage.tsx
   - src/shared/features/cart/CartDialogs.tsx
   - src/shared/features/cart/CartLimitDialog.tsx
@@ -63,6 +72,14 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 공통 폼 필드의 상태 소유권 (2026-10-20)
+
+LoginForm과 가입·계정 찾기·휴대폰 인증·회원정보·문의·쿠폰·마이페이지의 필드 조합을 검토했다. TextFormField/의미별 필드는 기존 값·onChange·error를 받아 표시하며 검증·정규화·오류 초기화·로그인 저장·제출·라우팅의 소유권을 바꾸지 않는다. VerificationCountdown은 남은 초의 표시만 맡고 기존 카운트다운 생성·만료·재요청·인증 무효화는 부모와 기존 훅에 남긴다. split 이메일은 표시와 도메인 선택 콜백을 공유하고 중복확인 결과/정책은 RegistrationPage에 남긴다.
+
+MyPageAddresses는 AddressFields에 draft 값·오류·모달 열림 상태를 전달한다. 입력/주소 반영 콜백을 통해 기존 draft를 갱신하며 기본배송지·추가·저장·삭제 로직은 그대로 유지한다. 결제는 기존 name/FormData·비제어 상세주소를 유지한다. disabled와 readOnly, 수동 필수 표시와 native required의 차이를 공통 필드에서 통일하지 않았다.
+
+기존 폼·계정·주문 테스트 40개와 로그인·가입·계정 찾기·휴대폰 인증·재설정·결제의 Storybook 흐름, 마이페이지 배송지 저장·프로필 저장·문의 취소 값 유지 등을 확인했다. 검증 범위와 실제 API는 [이관 기록](form-fields.md#공통-필드-이관-결과-2026-10-20)을 참고한다. 세션·장바구니 공통 상태의 계약 변경은 없다.
 
 ## 장바구니 팝업과 배송지 구성의 상태 유지 (2026-10-20)
 

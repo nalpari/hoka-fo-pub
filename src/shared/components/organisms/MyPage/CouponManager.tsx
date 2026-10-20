@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
+
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
 import { EmployeeCoupons } from './EmployeeCoupons';
 import { CouponCard, type CouponItem } from './CouponCard';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 
 export type { CouponItem } from './CouponCard';
 
@@ -55,26 +56,24 @@ export function CouponManager({ coupons }: Props) {
             registerCoupon();
           }}
         >
-          <FormField
-            htmlFor="coupon-code"
+          <TextFormField
+            id="coupon-code"
             label="일련번호"
             required
             variant="boxed"
             invalid={Boolean(error)}
             error={error || undefined}
-          >
-            <TextInput
-              id="coupon-code"
-              aria-label="쿠폰 일련번호"
-              placeholder="일련 번호를 입력해 주세요"
-              value={code}
-              onChange={(event) => {
+            inputProps={{
+              'aria-label': '쿠폰 일련번호',
+              placeholder: '일련 번호를 입력해 주세요',
+              value: code,
+              onChange: (event) => {
                 setCode(event.target.value);
                 setError('');
                 setRegistered(false);
-              }}
-            />
-          </FormField>
+              },
+            }}
+          />
           {code ? (
             <Box mt="3">
               <Button fullWidth type="submit" size="short" variant="primary">
