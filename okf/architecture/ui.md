@@ -738,6 +738,8 @@ PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자
 
 디자인이 반영된 매장 찾기 페이지와 데이터는 src/shared/features/store-finder에 두고, StoreResults는 src/shared/components/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
 
+병합 후 남은 `src/shared/Mockup/store-finder/StoreFinderPage.tsx` 중복 파일을 제거하고 고객센터 Storybook도 실제 `/support/store`와 같은 feature 페이지를 사용하도록 맞췄다. `store.data.ts` 타입 참조는 정식 `StoreResults` 경로를 사용한다.
+
 이번 정리는 디자인이 반영된 구현을 정식 경로로 복귀시키고 라우트·스토리 참조를 갱신하는 변경이다.
 
 ## running-hub 목업 분리 (2026-10-19)
