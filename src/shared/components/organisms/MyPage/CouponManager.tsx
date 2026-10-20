@@ -110,6 +110,22 @@ export function CouponManager({ coupons }: Props) {
           description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
           descriptionProps: { variant: 'body3', tone: 'subtle' },
         }}
+        footer={
+          visibleCount < visibleCoupons.length ? (
+            <LoadMoreButton
+              fullWidth
+              size="short"
+              variant="secondary"
+              onClick={() => setVisibleCount((count) => count + 5)}
+              counter={{
+                current: Math.ceil(visibleCount / 5),
+                total: Math.ceil(visibleCoupons.length / 5),
+              }}
+              labelProps={{ mo: 'ctaKr2' }}
+              counterProps={{ mo: 'body5' }}
+            />
+          ) : null
+        }
       >
         <SegmentedControl
           ariaLabel="쿠폰 종류"
@@ -141,20 +157,6 @@ export function CouponManager({ coupons }: Props) {
             ))}
           </Stack>
         </Stack>
-        {visibleCount < visibleCoupons.length ? (
-          <LoadMoreButton
-            fullWidth
-            size="short"
-            variant="secondary"
-            onClick={() => setVisibleCount((count) => count + 5)}
-            counter={{
-              current: Math.ceil(visibleCount / 5),
-              total: Math.ceil(visibleCoupons.length / 5),
-            }}
-            labelProps={{ mo: 'ctaKr2' }}
-            counterProps={{ mo: 'body5' }}
-          />
-        ) : null}
       </ContentSection>
 
       <CouponRegistrationDialog open={registered} onOpenChange={setRegistered} />

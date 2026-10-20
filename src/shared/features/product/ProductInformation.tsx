@@ -3,7 +3,7 @@ import { ContentHeader } from '@/shared/components/molecules/ContentHeader/Conte
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Fragment, type ReactNode } from 'react';
-import { Grid, Stack } from 'styled-system/jsx';
+import { Grid } from 'styled-system/jsx';
 
 export type ProductInformationProps = {
   id?: string;
@@ -22,7 +22,7 @@ export function ProductInformation({
   const [description, ...features] = sections;
 
   return (
-    <Stack
+    <ContentSection
       as="section"
       gap="10"
       px="8"
@@ -30,23 +30,30 @@ export function ProductInformation({
       bg="var(--color-black-10)"
       _mobile={{ px: '4' }}
       id={id}
+      header={
+        <ContentSection
+          gap="6"
+          title={<>{title}</>}
+          headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading8' } }}
+        >
+          {description && (
+            <ContentHeader
+              gap="6"
+              titleAs="h3"
+              title={<>{description.title}</>}
+              titleProps={{ variant: 'heading9' }}
+              description={<>{description.content}</>}
+              descriptionProps={{ variant: 'body3' }}
+            />
+          )}
+        </ContentSection>
+      }
+      footer={
+        <Button variant="link" colorway="black" size="md">
+          더 보기
+        </Button>
+      }
     >
-      <ContentSection
-        gap="6"
-        title={<>{title}</>}
-        headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading8' } }}
-      >
-        {description && (
-          <ContentHeader
-            gap="6"
-            titleAs="h3"
-            title={<>{description.title}</>}
-            titleProps={{ variant: 'heading9' }}
-            description={<>{description.content}</>}
-            descriptionProps={{ variant: 'body3' }}
-          />
-        )}
-      </ContentSection>
       {features.map((section, index) => (
         <ContentHeader
           gap="6"
@@ -70,10 +77,6 @@ export function ProductInformation({
           </Fragment>
         ))}
       </Grid>
-
-      <Button variant="link" colorway="black" size="md">
-        더 보기
-      </Button>
-    </Stack>
+    </ContentSection>
   );
 }

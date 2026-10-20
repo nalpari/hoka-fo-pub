@@ -1,4 +1,4 @@
-import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
 
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
@@ -17,10 +17,8 @@ export function AccountUnlockCompletePage() {
       })}
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '9' })}
     >
-      <ContentHeader
-        gap="3"
-        titleAs="h1"
-        titleProps={{ className: css({ display: 'flex', gap: '2', alignItems: 'center', m: '0' }) }}
+      <ContentSection
+        gap="9"
         title={
           <>
             <Typography as="span" web="heading7" mo="heading5">
@@ -29,23 +27,32 @@ export function AccountUnlockCompletePage() {
             <Icon name="unlock-keyhole" size="18px" />
           </>
         }
-        description={
-          <>
-            {' '}
-            <Typography as="span" variant="bodyKr3" tone="tertiary">
-              계정 잠금 상태가 성공적으로 해제되었습니다.
-            </Typography>
-            <br />
-            <Typography as="span" variant="bodyKr3" tone="tertiary">
-              다시 로그인을 진행해 주세요.
-            </Typography>
-          </>
+        headerProps={{
+          gap: '3',
+          titleAs: 'h1',
+          titleProps: {
+            className: css({ display: 'flex', gap: '2', alignItems: 'center', m: '0' }),
+          },
+          description: (
+            <>
+              {' '}
+              <Typography as="span" variant="bodyKr3" tone="tertiary">
+                계정 잠금 상태가 성공적으로 해제되었습니다.
+              </Typography>
+              <br />
+              <Typography as="span" variant="bodyKr3" tone="tertiary">
+                다시 로그인을 진행해 주세요.
+              </Typography>
+            </>
+          ),
+          descriptionProps: { className: css({ m: '0' }) },
+        }}
+        footer={
+          <ButtonLink href="/login" variant="primary" fullWidth>
+            홈으로
+          </ButtonLink>
         }
-        descriptionProps={{ className: css({ m: '0' }) }}
       />
-      <ButtonLink href="/login" variant="primary" fullWidth>
-        홈으로
-      </ButtonLink>
     </AccountPageLayout>
   );
 }

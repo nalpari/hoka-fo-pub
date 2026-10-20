@@ -13,6 +13,17 @@ working_tree_sources:
   - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
   - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
   - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
+  - src/shared/components/layouts/ContentSection/ContentSection.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/content-sections.md
   - src/shared/features/support/SupportPage.tsx
   - src/shared/features/signup/SignupLayout.tsx
   - src/shared/features/support/SupportNotices.tsx
@@ -116,6 +127,14 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
+
+CouponManager·MyPageReviewLoadMore·FAQ·공지와 PageActionButton/LoadMoreButton을 검토했다. 공통 버튼은 표시와 클릭 전달만 담당한다. 쿠폰의 5개 증가·분류 변경 시 초기화, 리뷰·FAQ·공지의 10개 단위 계산과 기존 노출 조건은 각 화면에 유지하며 상태 모델 변경은 없다. 출처: working_tree_sources의 CouponManager·MyPageReviewLoadMore·LoadMoreButton·PageActionButton과 src/shared/features/faq/FaqPage.tsx, src/shared/features/notices/NoticesPage.tsx.
+
+## ContentSection footer 이관의 상태 경계 (2026-10-20)
+
+쿠폰 내역 더보기, 프로필 조회/편집, 매장 지도 토글과 고객센터 목록 더보기의 상태·콜백·표시 조건을 유지하고 마무리 액션 노드의 배치 API만 footer로 이전했다. 폼 내부의 인증/저장·회원탈퇴·취소/확인 및 주문/구매 고정 바는 기존 소유권을 유지한다. 업무 상태·Context·타이머·검증 정책은 추가하지 않았다. 공용 스토리의 form id 연결·필수 검증·Enter 제출은 footer 소비 방법을 확인하는 예시이며 실제 폼을 모두 이동했다는 뜻이 아니다. 적용/유지 범위와 실제 검증은 [footer 기록](footer-actions.md)을 참고한다.
 
 ## 제목·본문 공통화의 상태 유지 (2026-10-20)
 
@@ -241,7 +260,3 @@ CartOptionsDialog는 발볼·컬러·사이즈·수량 초안을 관리한다. �
 CheckoutContent의 쿠폰 할인액은 요약과 결제 버튼에 함께 반영한다. CouponDialog는 상품별 10%/7%와 장바구니 정액 쿠폰을 선택하는 퍼블리싱 데모이며 닫기는 미적용 변경을 되돌린다. 배송지는 기존 정보/직접 입력으로 전환하며 주소 찾기는 기존 AddressSearchModal의 수동 미리보기를 사용한다. 배송 요청 직접 입력은 250자로 제한한다. CheckoutPage.onComplete는 실제 선택한 CartItem 목록을 전달하고 라우트가 해당 상품만 제거한다. 쿠폰 발급·저장 배송지·관심상품·결제 승인 서버 연동은 포함하지 않는다.
 
 출처는 작업 트리의 ShopShell.tsx, CartPage.tsx, CartOptionsDialog.tsx, CheckoutPage.tsx, CheckoutContent.tsx, CouponDialog.tsx 및 src/app/checkout/page.tsx다. 타입 검사·주문 합계 테스트 3개·Next production build를 확인했고 브라우저에서 사이즈 저장과 선택 상품 주문 이동, 528,000원에서 상품 28,800원+장바구니 5,000원 할인 후 494,200원 표시를 확인했다.
-
-## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
-
-CouponManager·MyPageReviewLoadMore·FAQ·공지와 PageActionButton/LoadMoreButton을 검토했다. 공통 버튼은 표시와 클릭 전달만 담당한다. 쿠폰의 5개 증가·분류 변경 시 초기화, 리뷰·FAQ·공지의 10개 단위 계산과 기존 노출 조건은 각 화면에 유지하며 상태 모델 변경은 없다. 출처: working_tree_sources의 CouponManager·MyPageReviewLoadMore·LoadMoreButton·PageActionButton과 src/shared/features/faq/FaqPage.tsx, src/shared/features/notices/NoticesPage.tsx.

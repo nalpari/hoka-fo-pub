@@ -6,7 +6,8 @@ import {
 } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 
 type Props = Omit<ComponentProps<typeof Stack>, 'children' | 'title'> & {
-  children: ReactNode;
+  children?: ReactNode;
+  footer?: ReactNode;
 } & (
     | { title: ReactNode; headerProps?: Omit<ContentHeaderProps, 'title'>; header?: never }
     | { header: Exclude<ReactNode, undefined>; title?: never; headerProps?: never }
@@ -18,6 +19,7 @@ export function ContentSection({
   headerProps,
   header,
   children,
+  footer,
   gap = '6',
   ...props
 }: Props) {
@@ -25,6 +27,7 @@ export function ContentSection({
     <Stack gap={gap} {...props}>
       {header !== undefined ? header : <ContentHeader {...headerProps} title={title} />}
       {children}
+      {footer}
     </Stack>
   );
 }

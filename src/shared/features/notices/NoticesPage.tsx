@@ -38,6 +38,18 @@ export function NoticesPage() {
         { label: '공지사항' },
       ]}
       groups={supportNavigation}
+      footer={
+        shown < notices.length ? (
+          <PageActionButton
+            onClick={() => setShown((count) => count + 10)}
+            counter={{ current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) }}
+            width="narrow"
+            containerProps={{ _mobile: { pt: '6' } }}
+          >
+            더보기
+          </PageActionButton>
+        ) : null
+      }
     >
       <Divider
         aria-hidden="true"
@@ -62,16 +74,6 @@ export function NoticesPage() {
           platform={platform}
         />
       </Stack>
-      {shown < notices.length ? (
-        <PageActionButton
-          onClick={() => setShown((count) => count + 10)}
-          counter={{ current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) }}
-          width="narrow"
-          containerProps={{ _mobile: { pt: '6' } }}
-        >
-          더보기
-        </PageActionButton>
-      ) : null}
     </CustomerCenterLayout>
   );
 }

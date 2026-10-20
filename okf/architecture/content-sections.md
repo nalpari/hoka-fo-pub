@@ -6,9 +6,15 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:33:49.417Z'
+  at: '2026-10-20T04:11:05Z'
 source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
 working_tree_sources:
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/content-sections.md
   - src/shared/features/support/SupportPage.tsx
   - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
   - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
@@ -127,6 +133,8 @@ working_tree_sources:
 # ContentHeader·ContentSection 적용 후보 전수 조사
 
 제목 그룹은 ContentHeader(H), 헤더와 후속 그룹의 간격은 ContentSection(S)으로 공통화할 수 있다. **단일 제목도 ContentHeader를 사용하며, 본문과 함께 묶을 때는 ContentSection의 title/headerProps로 기본 헤더를 생성한다.** 모든 제목에 H를 추가하거나 모든 Stack을 S로 바꿀 필요는 없다. 같은 간격의 본문 Stack을 중첩하지 말고 직접 자식으로 둔다.
+
+후속 footer 슬롯·children 선택화와 소비처 이관은 [하단 액션 구현](footer-actions.md#footer-구현과-적용-2026-10-20)을 참고한다.
 
 ## 코드 이관과 기본 헤더 API (2026-10-20)
 

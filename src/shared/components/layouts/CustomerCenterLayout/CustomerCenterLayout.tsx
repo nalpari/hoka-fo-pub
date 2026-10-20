@@ -16,6 +16,7 @@ type Props = {
   activePath: string;
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
+  footer?: ReactNode;
   groups: SideNavigationGroup[];
   title: string;
   description?: ReactNode;
@@ -28,6 +29,7 @@ export function CustomerCenterLayout({
   activePath,
   breadcrumbItems,
   children,
+  footer,
   groups,
   title,
   description,
@@ -58,6 +60,7 @@ export function CustomerCenterLayout({
           <ContentSection
             minW="0"
             gap="0"
+            footer={footer}
             header={
               <Stack gap="4" mb="6" {...headingProps}>
                 <ContentHeader

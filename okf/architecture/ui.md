@@ -584,6 +584,12 @@ sources:
 
 # 컴포넌트와 스타일
 
+## ContentSection 하단 액션 슬롯 (2026-10-20)
+
+ContentSection.footer는 선택적 ReactNode로 헤더·직접 children 뒤에 렌더링된다. 자동 div/HTML footer나 빈 본문을 추가하지 않으며 children은 생략할 수 있다. 같은 Stack gap을 사용하므로 버튼 그룹은 기존 HStack/Grid로 전달하고 서로 다른 간격·form 소유권을 숨기지 않는다. CustomerCenterLayout의 footer를 내부 섹션으로 전달해 목록/상세의 하단 액션을 연결했다.
+
+공용 2파일·소비처 15파일에 적용했다. 우선 4곳과 조건부 8개 구성 경계의 결과, 폼/간격/Grid/제목 없는 목록으로 인해 현재 구성을 유지한 9개 경계 및 모달/카드/고정 바 유지 근거는 [footer 적용 조사와 구현](footer-actions.md)을 참고한다. 스킬의 관련 참조도 갱신했다. 기존 버튼의 링크·콜백·표시 조건·폼 제출 동작은 각 소유자가 관리한다.
+
 ## 모바일 상품 필터 시트 너비와 여백 (2026-10-20)
 
 BottomSheet는 포털에 `platform-${platform}` 클래스를 전달해 본문 밖에서도 모바일 조건과 토큰을 유지한다. 상품 필터의 하단 패딩은 PC용 256px 대신 모바일 16px을 적용한다. Popup은 `100%` 너비로 고정 viewport의 가용 너비를 채운다. 내부 Stack은 gap 0, 스크롤 본문은 min-height 0으로 헤더·푸터 사이에서 축소된다. 위 두 BottomSheet 파일이 작업 트리 출처다.
@@ -755,6 +761,12 @@ PhoneVerificationPage.stories.tsx는 페이지 단위 미리보기에 fullscreen
 ## 페이지 하단 공통 액션 (2026-10-19)
 
 PageActionButton은 최대 500px 중앙 정렬 영역과 fullWidth Button/ButtonLink를 조합한다. children·href 또는 onClick·primary/secondary·short/tall·선택적 current/total counter를 받고, containerProps는 기존 mt/pt/_mobile 차이를 보존한다. 기본값은 secondary/short와 상단 padding 36px이다. SupportPage의 FAQs 링크는 기존 tall·margin·모바일 maxW none을, InquiryPage는 primary/short를, FAQ/공지 더보기는 short·모바일 상단 24px와 기존 페이지 계산/표시 조건을 유지한다. LoadMoreButton의 남은 항목 수 API는 유지하며 페이지 카운터도 지원한다. 아래 더보기 버튼 공통화 기록을 참고한다.
+
+## 더보기 버튼 공통화 (2026-10-20)
+
+LoadMoreButton은 기존 `remaining` 남은 항목 수·화살표 표기를 유지하고 상호 배타적인 `counter: { current, total }` 페이지 표기를 지원한다. labelProps/counterProps는 기존 Typography의 PC/MO variant와 라벨 weight를 보존한다. LoadMoreButtonContent는 버튼과 링크의 표시를 공유한다. PageActionButton은 counter가 있는 버튼에 LoadMoreButton을 조합하고 링크에는 공통 content를 사용한다. 너비·상단 간격은 PageActionButton이 소유한다. FAQ·공지는 기존 PageActionButton 호출로 공통 버튼을 사용하고 쿠폰·리뷰는 직접 사용한다. 각 화면의 기존 배치와 리뷰의 mt=24px는 유지한다.
+
+출처: working_tree_sources의 LoadMoreButton·PageActionButton·CouponManager·MyPageReviewLoadMore와 LoadMoreButton 스토리. 스토리는 기존 remaining과 새 PageCounter·MyPageCounter 표시를 제공한다. 검증: 전체 타입 검사, 변경 TSX ESLint/Prettier, Panda 생성과 Storybook production build를 통과했다. 브라우저 계산 스타일과 PC/MO 화면 비교는 수행하지 않았다.
 
 ## Secondary 버튼 자식 텍스트의 상태색 (2026-10-19)
 
@@ -1852,9 +1864,3 @@ IA 미리보기의 story ID도 같은 분류로 연결한다. `/signup`은 가�
 AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDialog와 footer 확인 버튼 변경을 반영했다. ModalDialog 공통 본문 패딩과 SignupPage의 소셜 가입 미연결 안내는 incoming 변경을 유지한다. Storybook 분류는 로그인/회원가입과 Web/Mobile 두 변경을 함께 반영했으며 양쪽 문서 이력을 보존했다.
 
 검증(Codex, 2026-10-20): 전체 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next.js·Storybook production build와 기존 Node 테스트 53개가 통과했다. 생성된 Storybook index에서 IA 미리보기 48개와 가입 안내·목업 story ID를 확인했고 AUTH 분류가 없음을 확인했다. 브라우저 시각 비교와 Storybook play 실행은 수행하지 않았다.
-
-## 더보기 버튼 공통화 (2026-10-20)
-
-LoadMoreButton은 기존 `remaining` 남은 항목 수·화살표 표기를 유지하고 상호 배타적인 `counter: { current, total }` 페이지 표기를 지원한다. labelProps/counterProps는 기존 Typography의 PC/MO variant와 라벨 weight를 보존한다. LoadMoreButtonContent는 버튼과 링크의 표시를 공유한다. PageActionButton은 counter가 있는 버튼에 LoadMoreButton을 조합하고 링크에는 공통 content를 사용한다. 너비·상단 간격은 PageActionButton이 소유한다. FAQ·공지는 기존 PageActionButton 호출로 공통 버튼을 사용하고 쿠폰·리뷰는 직접 사용한다. 각 화면의 기존 배치와 리뷰의 mt=24px는 유지한다.
-
-출처: working_tree_sources의 LoadMoreButton·PageActionButton·CouponManager·MyPageReviewLoadMore와 LoadMoreButton 스토리. 스토리는 기존 remaining과 새 PageCounter·MyPageCounter 표시를 제공한다. 검증: 전체 타입 검사, 변경 TSX ESLint/Prettier, Panda 생성과 Storybook production build를 통과했다. 브라우저 계산 스타일과 PC/MO 화면 비교는 수행하지 않았다.

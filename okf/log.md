@@ -4,6 +4,12 @@
 
 - **Update**: 쿠폰·리뷰·FAQ·공지의 더보기 표시를 LoadMoreButton으로 공통화했다. remaining과 current/total API를 구분하고 기존 타이포그래피·너비·여백·페이지 상태를 보존했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Storybook production build를 통과했다. [UI 구성](architecture/ui.md#더보기-버튼-공통화-2026-10-20)과 [상태 검토](architecture/state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 갱신했다.
 
+- **Refactor**: ContentSection에 선택적 footer/children을 추가하고 CustomerCenterLayout 전달 API와 UI 소비처 15곳에 적용했다. 폼/간격/Grid·제목 없는 목록의 조건부 9개 경계 및 기존 전용 footer·고정 바는 유지했다. [적용 기록](architecture/footer-actions.md)을 갱신하고 공용 스토리 4개를 추가했다. 타입·변경 ESLint/포맷·Panda·Next/Storybook 빌드·기존 테스트 40개, PC/MO 변경 전후 비교 32개·Storybook 동작 17개·별도 동작 12개와 스킬 검증기를 통과했다.
+
+- **Docs**: component-reusability에 footer 적용·제외, 버튼 그룹·간격·폼 소유권·직접 children 기준과 이관 검증 지침을 추가했다.
+
+- **Merge**: 17개 충돌을 해결하고 로그인/회원가입 분류와 Web/Mobile 공통 시나리오 구조, ContentHeader와 직접 ModalDialog 조합, 양쪽 문서 이력을 보존했다. 폐기된 가입 단계 스토리를 제거하고 incoming의 signup 목업 세 구현·한 스토리를 보존했다. 타입 검사·변경 파일 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 53개와 IA 미리보기 ID 48개 검사를 통과했다. 브라우저 play는 실행하지 않았다.
+
 - **Verify**: 모바일 필터 시트 수정 커밋 전 전체 타입 검사와 BottomSheet·BottomSheetContent ESLint를 재실행해 통과했다. 앞선 상품 스토리 타입 오류의 해소를 [UI 검증 기록](architecture/ui.md#모바일-상품-필터-시트-너비와-여백-2026-10-20)에 반영했다.
 
 - **Update**: 프로모션을 개별 Typography와 세로 Divider로 렌더링하도록 변경했다. 각 뱃지의 값에 따라 브랜드/red80 색상을 적용하고 [UI 기록](architecture/ui.md#프로모션별-색상과-구분선-2026-10-20)을 갱신했다.
