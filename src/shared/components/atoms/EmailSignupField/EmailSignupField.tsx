@@ -107,7 +107,7 @@ export function EmailSignupField({
           value={value}
         />
         <button type="submit" aria-label={buttonLabel} title={buttonLabel} className={submitButton}>
-          <Icon name="chevron-right" size="12px" color="white" />
+          <Icon name="chevron-right" size="12px" color="white.0" />
         </button>
       </form>
       {invalid ? (

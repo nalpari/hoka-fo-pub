@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
+
 - **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
 
 - **Docs**: Storybook의 공통 `Pages/AUTH` 카테고리를 로그인·계정 복구 `Pages/Login`과 가입·인증 `Pages/Signup`으로 분리했다. 인증 화면을 묶었던 이유는 탐색 편의를 위한 것이며 두 흐름의 컴포넌트 공유를 나타내지 않는다. UI 문서와 아키텍처 인덱스에 구분 기준을 남겼다. 스토리 인덱스에 두 분류가 생성되고 `Pages/AUTH`가 사라진 것을 확인했으며, Storybook production build·변경 파일 ESLint/Prettier가 통과했다.
