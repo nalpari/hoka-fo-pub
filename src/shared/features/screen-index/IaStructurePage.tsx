@@ -79,68 +79,68 @@ const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
     mo: 'pages-mypage-runclub-detail-mobile--open',
   },
   229: {
-    pc: 'pages-auth-findaccount-passwordresetpage-web--default',
-    mo: 'pages-auth-findaccount-passwordresetpage-mobile--default',
+    pc: 'pages-login-findaccount-passwordresetpage-web--default',
+    mo: 'pages-login-findaccount-passwordresetpage-mobile--default',
   },
   252: {
-    pc: 'pages-auth-findaccount-passwordresetcompletemodal-web--default',
-    mo: 'pages-auth-findaccount-passwordresetcompletemodal-mobile--default',
+    pc: 'pages-login-findaccount-passwordresetcompletemodal-web--default',
+    mo: 'pages-login-findaccount-passwordresetcompletemodal-mobile--default',
   },
   226: {
-    pc: 'pages-auth-findaccount-idconfirmationmodal-web--default',
-    mo: 'pages-auth-findaccount-idconfirmationmodal-mobile--default',
+    pc: 'pages-login-findaccount-idconfirmationmodal-web--default',
+    mo: 'pages-login-findaccount-idconfirmationmodal-mobile--default',
   },
   1: {
     pc: 'pages-home-main-web--width-1920',
     mo: 'pages-home-main-mobile--width-375',
   },
   251: {
-    pc: 'pages-auth-findaccount-accountlockedmodal-web--default',
-    mo: 'pages-auth-findaccount-accountlockedmodal-mobile--default',
+    pc: 'pages-login-findaccount-accountlockedmodal-web--default',
+    mo: 'pages-login-findaccount-accountlockedmodal-mobile--default',
   },
   253: {
-    pc: 'pages-auth-phoneverification-web--account-unlock',
-    mo: 'pages-auth-phoneverification-mobile--account-unlock',
+    pc: 'pages-signup-phoneverification-web--account-unlock',
+    mo: 'pages-signup-phoneverification-mobile--account-unlock',
   },
   254: {
-    pc: 'pages-auth-accountunlockcompletepage-web--default',
-    mo: 'pages-auth-accountunlockcompletepage-mobile--default',
+    pc: 'pages-login-accountunlockcompletepage-web--default',
+    mo: 'pages-login-accountunlockcompletepage-mobile--default',
   },
   257: {
     pc: 'organisms-account-alreadyregisteredmodal--default',
     mo: 'organisms-account-alreadyregisteredmodal--mobile',
   },
   233: {
-    pc: 'pages-auth-signup-web--default',
-    mo: 'pages-auth-signup-mobile--default',
+    pc: 'pages-signup-signup-web--default',
+    mo: 'pages-signup-signup-mobile--default',
   },
   234: {
-    pc: 'pages-auth-phoneverification-web--default',
-    mo: 'pages-auth-phoneverification-mobile--default',
+    pc: 'pages-signup-phoneverification-web--default',
+    mo: 'pages-signup-phoneverification-mobile--default',
   },
   235: {
-    pc: 'pages-auth-identityverification-web--default',
-    mo: 'pages-auth-identityverification-mobile--default',
+    pc: 'pages-signup-identityverification-web--default',
+    mo: 'pages-signup-identityverification-mobile--default',
   },
   236: {
-    pc: 'pages-auth-signupterms-web--default',
-    mo: 'pages-auth-signupterms-mobile--default',
+    pc: 'pages-signup-terms-web--default',
+    mo: 'pages-signup-terms-mobile--default',
   },
   237: {
-    pc: 'pages-auth-registration-web--default',
-    mo: 'pages-auth-registration-mobile--default',
+    pc: 'pages-signup-registration-web--default',
+    mo: 'pages-signup-registration-mobile--default',
   },
   255: {
-    pc: 'pages-auth-registration-web--additional',
-    mo: 'pages-auth-registration-mobile--additional',
+    pc: 'pages-signup-registration-web--additional',
+    mo: 'pages-signup-registration-mobile--additional',
   },
   256: {
-    pc: 'pages-auth-registration-marketingconsentsummarymodal-web--default',
-    mo: 'pages-auth-registration-marketingconsentsummarymodal-mobile--default',
+    pc: 'pages-signup-registration-marketingconsentsummarymodal-web--default',
+    mo: 'pages-signup-registration-marketingconsentsummarymodal-mobile--default',
   },
   238: {
-    pc: 'pages-auth-registration-web--complete',
-    mo: 'pages-auth-registration-web--complete',
+    pc: 'pages-signup-registration-web--complete',
+    mo: 'pages-signup-registration-web--complete',
   },
 };
 
@@ -156,13 +156,13 @@ const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {
 };
 
 const loginPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-auth-login-web--default',
-  mo: 'pages-auth-login-mobile--default',
+  pc: 'pages-login-login-web--default',
+  mo: 'pages-login-login-mobile--default',
 };
 
 const findAccountPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-auth-findaccount-web--default',
-  mo: 'pages-auth-findaccount-mobile--default',
+  pc: 'pages-login-findaccount-web--default',
+  mo: 'pages-login-findaccount-mobile--default',
 };
 
 const findAccountScreenCodes = new Set([

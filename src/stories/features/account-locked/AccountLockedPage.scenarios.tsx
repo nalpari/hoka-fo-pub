@@ -22,7 +22,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/AccountLockedModal',
+  title: 'PAGES/Login/FindAccount/AccountLockedModal',
   component: AccountLockedPage,
   decorators: [withRouter, withPlatform('web')],
 } satisfies Meta<typeof AccountLockedPage>;

@@ -3,7 +3,7 @@ import base, * as scenarios from './SignupPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/Signup/Web',
+  title: 'PAGES/Signup/Signup/Web',
   globals: { viewport: 'hoka1600' },
 };
 
@@ -13,13 +13,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Default, name: 'Default' };
 
-export const Details: Story = { ...scenarios.Details, name: 'Details' };
-
-export const Terms: Story = { ...scenarios.Terms, name: 'Terms' };
-
-export const PasswordValidation: Story = {
-  ...scenarios.PasswordValidation,
-  name: 'Password Validation',
-};
-
-export const FieldValidation: Story = { ...scenarios.FieldValidation, name: 'Field Validation' };
+export const KakaoUnavailable: Story = { ...scenarios.KakaoUnavailable, name: 'Kakao Unavailable' };

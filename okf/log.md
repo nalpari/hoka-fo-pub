@@ -2,6 +2,18 @@
 
 ## 2026-10-20
 
+- **Verify**: 모바일 필터 시트 수정 커밋 전 전체 타입 검사와 BottomSheet·BottomSheetContent ESLint를 재실행해 통과했다. 앞선 상품 스토리 타입 오류의 해소를 [UI 검증 기록](architecture/ui.md#모바일-상품-필터-시트-너비와-여백-2026-10-20)에 반영했다.
+
+- **Update**: 프로모션을 개별 Typography와 세로 Divider로 렌더링하도록 변경했다. 각 뱃지의 값에 따라 브랜드/red80 색상을 적용하고 [UI 기록](architecture/ui.md#프로모션별-색상과-구분선-2026-10-20)을 갱신했다.
+
+- **Fix**: BottomSheet 포털에 플랫폼 범위를 유지하고 Popup 100% 너비·본문 축소와 gap 0을 적용했다. 모바일 상품 필터의 PC 하단 패딩 256px을 모바일 16px로 복원했다. Panda·변경 파일 ESLint와 브라우저 적용/닫기/Escape를 확인했다. 전체 타입 검사는 기존 ProductCard 스토리의 프로모션 타입 오류로 실패했다.
+
+- **Fix**: `MultiplePromotions` 스토리에 누락된 `options: ['promotion']`을 추가했다. 카드의 프로모션 표시 조건과 데이터 전달 경로를 확인하고 [UI 기록](architecture/ui.md#복수-뱃지-스토리-표시-옵션-수정-2026-10-20)에 반영했다.
+
+- **Audit**: src/shared·src/app TSX 512개에서 하단 Button/ButtonLink·액션 어댑터·footer/actions 슬롯을 조사했다. ContentSection footer 우선 적용 4곳·조건부 구성 경계 17개와 폼/간격/고정 영역 유지 조건을 [하단 액션 보고서](architecture/footer-actions.md)에 기록했다. API·화면 소스 이관과 브라우저/빌드 검증은 수행하지 않았다.
+
+- **Update**: 상품 프로모션에 복수 값을 허용하고 `Best | Exclusive` 표시·빈 배열 생략·미리보기 공통화·신상품 정렬을 반영했다. Storybook 예시와 [UI](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)·[상품 데이터](project.md#상품-프로모션-데이터-2026-10-20)를 갱신했다. 타입 검사·변경 파일 ESLint·뱃지와 정렬 동작 검사를 통과했다.
+
 - **Refactor**: 사용자 요청에 따라 AccountFormLayout·CustomerCenterLayout·OrderPageLayout의 본문 div를 제거하고 children을 직접 렌더링한다. 최상위 본문 요소가 ContentSection의 flex/gap에 참여한다. 타입·변경 파일 ESLint/Prettier를 확인했다.
 
 - **Refactor**: 제목·본문 후보의 UI 소스 65파일과 ContentHeader/ContentSection 2파일에 공통 구성을 적용했다. 단일 제목도 ContentHeader로 처리하고 ContentSection의 title/headerProps 기본 API를 제공했다. 예외 구조만 header 노드를 사용하며 기존 상태·폼·Grid·타이포그래피·간격을 보존했다.
@@ -20,6 +32,8 @@
 
 - **Refactor**: AccountFormHeader의 Box와 세로 flex 선언을 Stack gap="3"으로 정리했다. spacingCss의 gap·반응형 여백 덮어쓰기와 제목/설명의 DOM·조건부 표시를 유지한다. 타입·변경 ESLint/포맷·Panda 생성을 통과하고 기본/덮어쓰기 4가지 조합의 렌더링 DOM·클래스 일치를 확인했다.
 
+- **Docs**: Storybook의 공통 `Pages/AUTH` 카테고리를 로그인·계정 복구 `Pages/Login`과 가입·인증 `Pages/Signup`으로 분리했다. 인증 화면을 묶었던 이유는 탐색 편의를 위한 것이며 두 흐름의 컴포넌트 공유를 나타내지 않는다. UI 문서와 아키텍처 인덱스에 구분 기준을 남겼다. 스토리 인덱스에 두 분류가 생성되고 `Pages/AUTH`가 사라진 것을 확인했으며, Storybook production build·변경 파일 ESLint/Prettier가 통과했다.
+- **Refactor**: `/signup`에서 카카오가 구형 약관 동의 화면으로 이어지던 연결을 제거했다. 카카오·네이버는 미연결 안내를 표시하고, 캡처된 약관·정보 입력·가입 완료 단계는 `src/shared/Mockup/signup`으로 옮겨 Mockup Storybook에서 PC·MO로 볼 수 있게 했다. `/signup?step=details` 분기와 폐기된 구형 가입 단계 검증도 제거했다. 라우팅·UI·폼 필드·organism 기록과 Obsidian 주소 문서의 팝업 진입 안내를 갱신했다. 변경 파일 ESLint·Prettier, Storybook production build, OKF 테스트를 통과했다. 전체 typecheck는 기존 `.next/types`의 다른 라우트 오류로 통과하지 못했다.
 - **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
 - **Update**: Figma 고객센터 상담 카드의 전화 SVG를 `phone-call` 아이콘으로 등록하고 두 카드의 `TEL.` 라벨을 대체했다. 전화번호 링크는 유지했다. [UI 기록](architecture/ui.md)에 자산과 사용처를 남겼다.
 
@@ -51,6 +65,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: `ModalDialog`의 `content`/`singleActionContent` 분기와 `actionCount` prop을 제거했다. 모든 모달 본문을 PC 위·좌우 24px/아래 16px, 모바일 `24px 16px 16px`로 통일하고 `SingleActionDialog` 사용처도 같은 규칙을 쓴다. [UI 기록](architecture/ui.md#모달-본문-패딩-통일-2026-10-20)에 반영했다.
+- **Refactor**: 계정 잠금 안내를 공통 `ModalDialog` 직접 조합으로 변경하고 확인 버튼을 footer에 배치했다. md 크기, 단일 액션 본문 간격과 닫기·확인 이동 콜백을 유지했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.
 - **Fix**: 공통 고객센터 레이아웃에서 제거된 제목 컴포넌트·prop과 매장 찾기의 오래된 import를 현재 API로 맞췄다. [UI 기록](architecture/ui.md)에 타입 검사 범위를 기록했다.
 - **Fix**: 매장 찾기 파일 이동 후 남아 있던 import 경로를 새 `Mockup/store-finder` 경로로 고치고 전체 타입 검사를 통과했다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.

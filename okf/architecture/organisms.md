@@ -6,7 +6,7 @@ tags: [components, organisms, base-ui, panda-css, typography]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T01:29:21Z'
+  at: '2026-10-20T02:15:05Z'
 source_revision: e5e803ccd1ba98ac96c941fef33db5cfaa280ade
 working_tree_sources:
   - src/shared/components/organisms/Account/LogoutDialog.tsx
@@ -39,8 +39,8 @@ working_tree_sources:
   - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
   - src/shared/components/organisms/Search/SearchHeader.tsx
   - src/shared/components/organisms/Search/SearchSuggestions.tsx
-  - src/shared/components/organisms/Signup/SignupCompleteStep.tsx
-  - src/shared/components/organisms/Signup/SignupTermsStep.tsx
+  - src/shared/Mockup/signup/SignupCompleteStep.tsx
+  - src/shared/Mockup/signup/SignupTermsStep.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
@@ -153,7 +153,6 @@ sources:
 Navigation의 외곽 div는 상세/기본 상태별 패딩과 광고를 함께 소유하므로 단순 Box 치환의 이득이 없다. 링크용 hstack과 Drawer의 외부 DOM/ref 계약을 유지한다. 새 공용 atom/molecule/organism과 확장 API는 추가하지 않았으며 추가 추출 후보는 없다. 기존 스토리에 닫기 버튼 최초 포커스와 상세 진입 후 뒤로가기 포커스 assertion을 추가했다. 이 assertion 추가 자체를 브라우저 실행 완료로 기록하지 않는다.
 
 이번 재점검 검증: `npm run panda`, `npm run typecheck`, `npm run lint -- --ignore-pattern ".tmp*/**"`, `npm run build`, `npm run build-storybook`, `npm run okf:check`와 전체 작업 트리 OKF 매핑 검사를 통과했다. 기존 임시 산출물은 lint에서 제외했다. Storybook 빌드에는 의존 패키지의 module directive 경고가 있었다. 브라우저 자동화 도구를 사용할 수 없어 이번에 추가한 play assertion의 실제 실행과 시각 검증은 수행하지 못했다.
-
 
 ## Components 점검 후 재사용 판단 (2026-10-19)
 

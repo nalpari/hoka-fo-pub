@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:33:49.420Z'
+  at: '2026-10-20T03:57:45.017Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
+  - src/shared/features/catalog/product-listing/filterProducts.ts
+  - src/shared/components/atoms/Badge/PromotionBadge.tsx
   - .codex/skills/component-reusability/references/content-sections.md
   - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
   - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
@@ -236,8 +240,8 @@ working_tree_sources:
   - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
   - src/shared/components/organisms/Search/SearchHeader.tsx
   - src/shared/components/organisms/Search/SearchSuggestions.tsx
-  - src/shared/components/organisms/Signup/SignupCompleteStep.tsx
-  - src/shared/components/organisms/Signup/SignupTermsStep.tsx
+  - src/shared/Mockup/signup/SignupCompleteStep.tsx
+  - src/shared/Mockup/signup/SignupTermsStep.tsx
   - src/shared/features/catalog/product-listing/ProductListingContent.tsx
   - src/shared/Mockup/explore/ExploreDetailPage.tsx
   - src/shared/features/explore/ExploreHubPage.tsx
@@ -260,7 +264,7 @@ working_tree_sources:
   - src/shared/components/atoms/TextInput/TextInput.tsx
   - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
   - src/shared/components/molecules/Terms/Terms.tsx
-  - src/shared/components/organisms/Signup/SignupDetailsStep.tsx
+  - src/shared/Mockup/signup/SignupDetailsStep.tsx
   - src/shared/features/product/ProductSizeSelector.tsx
   - src/shared/features/signup-registration/RegistrationPage.tsx
   - src/shared/features/signup-terms/SignupTermsPage.tsx
@@ -471,6 +475,7 @@ working_tree_sources:
   - src/shared/features/home/HomeLayout.tsx
   - src/shared/features/home/HomePage.tsx
   - src/shared/features/signup/SignupPage.tsx
+  - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/shared/features/product/ProductDetailLayout.tsx
   - src/shared/features/product/ProductDetailPage.tsx
   - src/shared/features/product/ProductWidthSelector.tsx
@@ -482,6 +487,15 @@ working_tree_sources:
   - src/shared/features/run-club/RunClubSessionHero.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-terms/SignupTermsPage.stories.tsx
+  - src/stories/features/signup-registration/RegistrationPage.stories.tsx
+  - src/stories/features/signup-registration/MarketingConsentSummaryModal.stories.tsx
+  - src/stories/features/identity-verification/IdentityVerificationPage.stories.tsx
+  - src/stories/features/find-account/FindAccountPage.stories.tsx
+  - src/stories/features/find-account/PasswordResetPage.stories.tsx
+  - src/stories/features/find-account/IdConfirmationModal.stories.tsx
+  - src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx
+  - src/stories/features/account-locked/AccountLockedPage.stories.tsx
+  - src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx
   - AGENTS.md
   - src/stories/features/mypage/MyPage.stories.tsx
   - src/shared/features/login/LoginContent.tsx
@@ -567,6 +581,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 상품 필터 시트 너비와 여백 (2026-10-20)
+
+BottomSheet는 포털에 `platform-${platform}` 클래스를 전달해 본문 밖에서도 모바일 조건과 토큰을 유지한다. 상품 필터의 하단 패딩은 PC용 256px 대신 모바일 16px을 적용한다. Popup은 `100%` 너비로 고정 viewport의 가용 너비를 채운다. 내부 Stack은 gap 0, 스크롤 본문은 min-height 0으로 헤더·푸터 사이에서 축소된다. 위 두 BottomSheet 파일이 작업 트리 출처다.
+
+검증: Panda 생성과 변경 파일 ESLint를 통과했다. Storybook 모바일 상품 목록에서 너비·하단 패딩·적용/닫기/Escape를 확인했다. 최초 전체 타입 검사는 ProductCard.stories.tsx의 `new` 프로모션 타입 오류로 실패했다. 해당 값을 `New`로 수정한 뒤 커밋 전 재검증에서 전체 타입 검사와 BottomSheet 두 파일 ESLint를 통과했다.
 
 ## ContentSection 기본 헤더와 전체 적용 (2026-10-20)
 
@@ -856,9 +876,9 @@ MainContentCard는 link 분기를 분리해 size md를 명시하고, HeroCopy의
 
 확인 버튼은 `fullWidth`도 기본 true로 처리한다. disabled 등 다른 confirmButtonProps만 전달하거나 size/fullWidth가 undefined여도 short/true 기본값을 유지하며 명시적 false는 허용한다. 계정 안내 2곳과 TermsDialog의 중복 fullWidth 지정을 제거했다. 기존 ShortFullWidth 스토리는 기본값을 사용하고 ContentWidth 스토리로 false 재정의를 제공한다. 타입·변경 파일 ESLint/Prettier와 브라우저 기본/false/disabled/MO 옵션 적용 및 기존 확인·닫기·Escape play를 확인했다. fullWidth는 기존 ModalDialogFooter의 버튼 너비 규칙 안에서 적용된다.
 
-ModalDialog의 `actionCount?: 1 | 2 | null`은 footer 액션 개수를 나타내며 기본값은 null이다. SingleActionDialog는 내부에서 `actionCount={1}`을 전달한다. 액션이 하나면 본문 패딩은 PC `24px 24px 16px`, MO `24px 16px 16px 16px`이며, 2 또는 null이면 기존 기본 패딩을 사용한다. 일반적인 간격 선택 API를 노출하지 않는다. SingleActionDialog의 확인 버튼은 기본 short이며 명시적인 tall 지정은 계속 지원한다. 계정 안내·주소 검색의 중복 short 설정은 제거했다. TermsDialog도 별도 크기 지정 없이 공통 short/fullWidth 기본값을 사용한다.
+SingleActionDialog의 확인 버튼은 기본 short이며 명시적인 tall 지정은 계속 지원한다. 계정 안내·주소 검색의 중복 short 설정은 제거했다. TermsDialog도 별도 크기 지정 없이 공통 short/fullWidth 기본값을 사용한다.
 
-검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier, Edge headless에서 단일 모달 PC/MO·disabled·fullWidth·마케팅 안내와 일반 모달 PC/MO 총 7건의 패딩 및 버튼 크기를 확인했다. 기존 단일 모달과 마케팅 안내의 PC/MO play 4개도 통과했다. actionCount 적용 후 타입 검사와 단일 모달 PC/MO·일반 모달 PC의 패딩을 다시 확인했다. production build는 실행하지 않았다.
+검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier, Edge headless에서 단일 모달 PC/MO·disabled·fullWidth·마케팅 안내와 일반 모달 PC/MO 총 7건의 패딩 및 버튼 크기를 확인했다. 기존 단일 모달과 마케팅 안내의 PC/MO play 4개도 통과했다. production build는 실행하지 않았다.
 
 ## ProfileQuestionGroup 화면 확인 스토리 (2026-10-19)
 
@@ -1353,7 +1373,7 @@ Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField�
 | find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                                                  |
 | identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                                     |
 | home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                                                 |
-| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 main/section·너비 500px·반응형 여백·제목·진행 표시를 소유. 단계 상태와 약관/입력 검증, 방법 선택·라우팅은 기존 Page 유지. step 0은 기존 방법 선택 화면, 나머지는 기존 h1/진행 표시를 유지                                                                         |
+| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 가입 방법 화면과 Mockup 단계의 레이아웃을 소유. 실제 `/signup`은 방법 선택만 표시하고 이메일은 `/signup/verify`로 이동, 카카오·네이버는 연결되지 않음을 안내한다. 이전 약관·정보 입력·가입 완료 화면은 `src/shared/Mockup/signup`과 Mockup Storybook에 보존한다.  |
 | product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·전체 너비 프레임과 최대 1532px 내부 그리드·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지 |
 | signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                                                 |
 | mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함                      |
@@ -1796,3 +1816,37 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 `src/shared/Mockup/`의 구현 24개 파일과 `src/stories/features/Mockup/`의 전용 스토리 3개를 제거했다. Mockup을 직접 사용하던 앱 라우트 12개와 MyPageRouteStory의 running-profile 분기도 제거했다. 이 절은 위쪽의 과거 Mockup 이동 기록 이후의 현재 상태를 설명한다.
 
 검증(Codex): 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next·Storybook production build, 앱 라우트 테스트 2개를 통과했다. Storybook index에서 기존 페이지 시나리오 179개의 새 ID와 모든 IA 미리보기 ID가 존재하고 Mockup 분류가 없음을 확인했다. 소스·Storybook 설정에서 Mockup 참조가 남지 않았음을 확인했다. 브라우저 시각 비교와 play 재실행은 수행하지 않았다.
+
+## 상품 복수 프로모션 뱃지 (2026-10-20)
+
+`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 각 값이 `Exclusive`이면 브랜드 색상, 그 외에는 red80을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
+
+작업 트리의 위 소스를 기준으로 타입 검사·변경 파일 ESLint와 단일/복수/빈 뱃지의 JSX 결과·색상 prop 및 신상품 정렬을 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+### 복수 뱃지 스토리 표시 옵션 수정 (2026-10-20)
+
+`ProductCard`는 `options`에 `promotion`이 있을 때만 상품 뱃지를 전달한다. `MultiplePromotions` 스토리에서 빠진 `options: ['promotion']`을 추가해 복수 값이 실제 카드에 전달되도록 수정했다. 브라우저 연결이 제공되지 않아 화면 검증은 수행하지 못했다.
+
+### 프로모션별 색상과 구분선 (2026-10-20)
+
+사용자 요청에 따라 문자열 결합을 개별 Typography와 Panda Divider로 변경했다. HStack의 gap=1로 간격을 소유하고 세로 구분선은 h=3·border-tertiary 및 aria-hidden을 사용한다. weight와 className은 각각의 Typography에 전달한다. 단일 값에는 구분선을 넣지 않고 빈 배열은 생략한다. 동일한 값이 반복되어도 모두 렌더링한다.
+
+## Storybook 로그인·회원가입 분류 (2026-10-20)
+
+기존 `Pages/AUTH`는 인증 화면을 찾기 위한 상위 카테고리였으며, 로그인과 회원가입이 같은 컴포넌트를 공유한다는 뜻은 아니었다. Storybook에서는 로그인·계정 복구 화면을 `PAGES/Login`, 가입·등록·약관·본인/휴대폰 인증 화면을 `PAGES/Signup`으로 나눴다. 각 페이지의 Web·Mobile 하위 분류와 공통 scenarios 구조는 유지한다. 재사용 컴포넌트와 실제 화면 구현 위치, App Router는 바꾸지 않았다.
+
+IA 미리보기의 story ID도 같은 분류로 연결한다. `/signup`은 가입 방법 선택과 카카오 미연결 안내 시나리오를 제공한다. 운영 흐름에서 제거된 구형 details·terms·필드 검증 시나리오는 제거하고, 이전 가입 단계 세 화면은 incoming 변경대로 `Mockup/Signup`에 보존한다. 앞선 전체 Mockup 제거 기록 이후 이 병합에서 보존한 범위는 signup 세 구현과 전용 스토리 한 파일이다. 출처는 frontmatter의 로그인·회원가입 Storybook 파일과 작업 트리의 SignupPage.scenarios.tsx, SignupPage.mobile.stories.tsx, IaStructurePage.tsx다.
+
+## 계정 잠금 안내 모달의 직접 조합 (2026-10-20)
+
+`AccountLockedContent`는 공통 `ModalDialog`를 직접 사용하고 확인 버튼을 `footer` 슬롯에 둔다. 모달은 `size="md"`를 사용하며 확인 버튼은 공통 푸터 규격(PC 160px 너비·40px 높이, 모바일 전체 너비)을 따른다. 닫기·Escape는 `onClose`, 확인은 `onConfirm`을 호출하며 로그인 및 휴대폰 인증 이동 책임은 Page에 둔다. 제목·설명·모바일 줄바꿈과 접근성 동작을 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialog.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`, `src/shared/components/atoms/Button/Button.tsx`다.
+
+## ModalDialog 본문 패딩 통일 (2026-10-20)
+
+본문에 `content` 한 가지 스타일만 사용한다. PC 패딩은 위·좌우 24px, 아래 16px이며 모바일은 `24px 16px 16px`이다. 기존 `actionCount` API와 단일 액션 전용 스타일을 제거해 footer 액션 수와 본문 간격을 분리했다. `SingleActionDialog`도 동일한 본문 패딩을 사용한다. 출처는 작업 트리의 `src/shared/components/molecules/ModalDialog/ModalDialog.tsx`, `src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx`, `src/shared/features/account-locked/AccountLockedContent.tsx`다.
+
+## 충돌 병합 검토 (2026-10-20)
+
+AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDialog와 footer 확인 버튼 변경을 반영했다. ModalDialog 공통 본문 패딩과 SignupPage의 소셜 가입 미연결 안내는 incoming 변경을 유지한다. Storybook 분류는 로그인/회원가입과 Web/Mobile 두 변경을 함께 반영했으며 양쪽 문서 이력을 보존했다.
+
+검증(Codex, 2026-10-20): 전체 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next.js·Storybook production build와 기존 Node 테스트 53개가 통과했다. 생성된 Storybook index에서 IA 미리보기 48개와 가입 안내·목업 story ID를 확인했고 AUTH 분류가 없음을 확인했다. 브라우저 시각 비교와 Storybook play 실행은 수행하지 않았다.

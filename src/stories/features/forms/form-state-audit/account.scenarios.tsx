@@ -3,7 +3,6 @@ import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage'
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
 import { PhoneVerificationContent } from '@/shared/features/phone-verification/PhoneVerificationContent';
 import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
-import { SignupPage } from '@/shared/features/signup/SignupPage';
 import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
 import type { AuditStory as Story } from './shared';
 import { enterAddress } from './enterAddress';
@@ -145,25 +144,5 @@ export const SignupTerms: Story = {
       await userEvent.click(input);
     }
     await expect(c.queryByRole('alert')).not.toBeInTheDocument();
-  },
-};
-
-export const SignupDetails: Story = {
-  parameters: { nextjs: { navigation: { query: { step: 'details' } } } },
-  render: () => <SignupPage />,
-  play: async ({ canvasElement }) => {
-    const c = within(canvasElement);
-    await userEvent.click(c.getByRole('button', { name: '가입 완료' }));
-    for (const name of [/이름/, /이메일/, /아이디/, /비밀번호/])
-      await expect(c.getByLabelText(name, { selector: 'input' })).toHaveAttribute(
-        'aria-invalid',
-        'true',
-      );
-    await userEvent.type(c.getByLabelText(/이름/, { selector: 'input' }), '홍길동');
-    await userEvent.type(c.getByLabelText(/이메일/, { selector: 'input' }), 'demo@example.com');
-    await userEvent.type(c.getByLabelText(/아이디/, { selector: 'input' }), 'demouser');
-    await userEvent.type(c.getByLabelText(/비밀번호/, { selector: 'input' }), 'Hoka12345!');
-    await userEvent.click(c.getByRole('button', { name: '가입 완료' }));
-    await expect(c.getByRole('heading', { name: '회원가입이 완료되었습니다.' })).toBeVisible();
   },
 };

@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T00:41:19Z'
+  at: '2026-10-20T03:43:02.171Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/mocks/cartDisplay.ts
@@ -75,3 +75,7 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 ## 러닝세션 신청내역 IA
 
 IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`의 `RunClubPage.tsx`다. IA 258의 기존 모집 목록과 동일 화면을 사용하며 메타데이터에 이 관계를 기록한다. Storybook은 `PAGES/MYPAGE/RunClub/List`(목록·빈 상태)와 `PAGES/MYPAGE/RunClub/Detail`(상세 상태·대형 화면)로 분류한다.
+
+## 상품 프로모션 데이터 (2026-10-20)
+
+작업 트리 `src/mocks/products.ts`의 `Product.promotion`은 단일 프로모션 문자열과 readonly 배열을 모두 허용한다. 기존 목 상품 값은 유지하며 복수 값은 Storybook 예시로 제공한다. 상품 목록의 신상품순은 단일 값과 배열 모두에서 `New` 포함 여부를 사용한다. 표시 규칙은 [복수 프로모션 뱃지](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)를 참고한다. 타입 검사와 신상품 정렬 동작을 확인했다.

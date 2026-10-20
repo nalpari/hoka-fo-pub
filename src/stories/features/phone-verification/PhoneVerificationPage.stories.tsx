@@ -3,7 +3,7 @@ import base, * as scenarios from './PhoneVerificationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/PhoneVerification/Web',
+  title: 'PAGES/Signup/PhoneVerification/Web',
   globals: { viewport: 'hoka1600' },
 };
 
