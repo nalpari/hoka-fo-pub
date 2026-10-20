@@ -6,9 +6,33 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:57:03Z'
+  at: '2026-10-20T01:14:02Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/find-account/PasswordResetField.tsx
+  - src/shared/features/find-account/FindAccountIdentityFields.tsx
+  - src/shared/features/find-account/FindAccountCodeFields.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/phone-verification/VerificationCodeFields.tsx
+  - src/shared/features/phone-verification/PhoneInformationFields.tsx
+  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
+  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
+  - src/shared/features/cart/CartPage.tsx
+  - src/shared/features/cart/CartDialogs.tsx
+  - src/shared/features/cart/CartLimitDialog.tsx
+  - src/shared/features/checkout/CheckoutShipping.tsx
+  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
+  - src/stories/features/cart/CartPage.stories.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/cart/CartItemRow.tsx
+  - src/shared/features/cart/cart-item.ts
+  - src/shared/features/find-account/FindAccountPage.tsx
+  - src/shared/features/login/LoginForm.tsx
+  - src/shared/features/login/RememberIdHelp.tsx
+  - src/shared/features/cart/CartOptionsDialog.tsx
+  - src/shared/features/checkout/CouponDialog.tsx
+  - src/shared/features/checkout/CheckoutContent.tsx
   - src/shared/ShopShell.tsx
   - src/mocks/cartDisplay.ts
   - src/shared/features/checkout/CheckoutPage.tsx
@@ -27,7 +51,6 @@ working_tree_sources:
   - src/shared/features/cart/CartPage.tsx
   - src/shared/features/login/LoginContent.tsx
   - src/shared/features/login/LoginLayout.tsx
-  - src/shared/features/login/LoginForm.tsx
   - src/shared/features/login/LoginActions.tsx
   - src/shared/features/login/LoginMembership.tsx
 sources:
@@ -49,6 +72,32 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 공통 폼 필드의 상태 소유권 (2026-10-20)
+
+LoginForm과 가입·계정 찾기·휴대폰 인증·회원정보·문의·쿠폰·마이페이지의 필드 조합을 검토했다. TextFormField/의미별 필드는 기존 값·onChange·error를 받아 표시하며 검증·정규화·오류 초기화·로그인 저장·제출·라우팅의 소유권을 바꾸지 않는다. VerificationCountdown은 남은 초의 표시만 맡고 기존 카운트다운 생성·만료·재요청·인증 무효화는 부모와 기존 훅에 남긴다. split 이메일은 표시와 도메인 선택 콜백을 공유하고 중복확인 결과/정책은 RegistrationPage에 남긴다.
+
+MyPageAddresses는 AddressFields에 draft 값·오류·모달 열림 상태를 전달한다. 입력/주소 반영 콜백을 통해 기존 draft를 갱신하며 기본배송지·추가·저장·삭제 로직은 그대로 유지한다. 결제는 기존 name/FormData·비제어 상세주소를 유지한다. disabled와 readOnly, 수동 필수 표시와 native required의 차이를 공통 필드에서 통일하지 않았다.
+
+기존 폼·계정·주문 테스트 40개와 로그인·가입·계정 찾기·휴대폰 인증·재설정·결제의 Storybook 흐름, 마이페이지 배송지 저장·프로필 저장·문의 취소 값 유지 등을 확인했다. 검증 범위와 실제 API는 [이관 기록](form-fields.md#공통-필드-이관-결과-2026-10-20)을 참고한다. 세션·장바구니 공통 상태의 계약 변경은 없다.
+
+## 장바구니 팝업과 배송지 구성의 상태 유지 (2026-10-20)
+
+팝업 표시를 CartDialogs·CartLimitDialog로 분리했지만 CartPage가 편집 키·수량 제한·선택 상태를 소유한다. 저장 콜백은 기존 onOptionsChange/수량 변경 분기와 선택 키 치환 후 닫기를 유지한다. CheckoutShipping은 배송지 전환·주소 모달·우편번호·주소 상태를 소유하고, CheckoutDeliveryRequest가 배송 요청과 직접 입력 문구를 소유한다. 배송지 편집 모드 전환으로 이 요청 컴포넌트가 언마운트되지 않아 기존 요청값이 유지된다. CheckoutPage의 결제 수단·완료 상태와 CheckoutContent의 폼 검증·쿠폰·동의 상태는 변경하지 않았다.
+
+출처는 위 cart/checkout 작업 트리 파일이다. 타입 검사·주문 합계 3개·Next/Storybook 빌드와 1600px/375px 브라우저의 옵션 저장/선택 유지/취소, 주소 모달 적용/배송지 전환 후 값 유지, 직접 요청사항·결제 수단·주문 완료를 확인했다. 실제 주소·결제 API 검증은 아니다. 구성과 재사용 판단은 [UI 기록](ui.md#장바구니-팝업과-결제-구성-분리-2026-10-20)을 참고한다.
+
+## 장바구니 표현 분리와 상태 유지 (2026-10-20)
+
+CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 합계 계산, 삭제·수량·옵션 저장 콜백을 계속 소유한다. CartContent와 CartItemRow에는 준비된 값과 명시적 콜백만 전달한다. 기존 4개 시안 상품의 초기 2개 선택, 품절 옵션 제한과 선택 상품 주문 URL은 유지한다. itemKey를 feature의 cart-item.ts로 이동했으며 상품 ID·색상·너비·사이즈 계약과 수량 변경 시 선택 유지 동작은 바뀌지 않는다.
+
+쿠폰 선택/적용/취소, 로그인 상태와 저장소, ShopShell의 장바구니 수명은 변경하지 않았다. 로그인에 필요한 API 또는 라우트 변경도 없다.
+
+## 계정 찾기 디자인과 데모 결과 연결 (2026-10-19)
+
+`FindAccountPage`는 이름·휴대폰·인증번호와 3분 카운트다운을 소유한다. 휴대폰은 시안처럼 숫자로 표시하며 정보 변경 시 요청과 코드 오류를 초기화한다. 요청 안내에 예시 인증번호 `900668`과 실제 문자 미발송·예시 아이디 표시를 명시한다. 만료·자리수 오류·예시 코드 불일치를 구분하고, 일치하면 입력한 이름과 `honggildong@kakao.com`을 보여주는 기존 IdConfirmationModal을 연다. 실제 인증이나 계정 조회는 수행하지 않는다. 확인은 로그인, 비밀번호 재설정은 기존 `/login/find-account/password-reset`으로 이동한다.
+
+`RememberIdHelp`는 로그인 내부의 Base UI Popover로 공용 장소에서 아이디 저장 시 주의사항을 보여준다. 로그인 상태·비밀번호 정책·아이디 저장 체크 처리·소셜 로그인 데모 계약은 유지한다. 작업 트리 출처는 `src/shared/features/login/LoginForm.tsx`, `src/shared/features/login/RememberIdHelp.tsx`, `src/shared/features/find-account/FindAccountPage.tsx`다.
 
 ## 장바구니 버튼 크기 명시 검토 (2026-10-19)
 
@@ -134,3 +183,11 @@ LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한�
 ## 장바구니·결제 모바일 시안 (2026-10-19)
 
 `ShopShell`은 퍼블리싱 미리보기에 4개 장바구니 목 항목을 초기화한다. 장바구니의 선택 상태는 `CartPage`가 소유하며 선택 키를 `/checkout?selected=...`에 전달한다. `CheckoutPage`는 URL 키에 맞는 항목만 합산하고 완료 시 기존 `onComplete`로 장바구니를 비운다. 화면의 결제 수단과 완료 상태는 데모이며 실제 결제 승인·주소 변경·쿠폰 조회와 연동하지 않는다. 출처는 작업 트리의 `src/shared/ShopShell.tsx`, `src/shared/features/cart/CartPage.tsx`, `src/shared/features/checkout/CheckoutPage.tsx`다.
+
+## 장바구니 옵션과 결제 쿠폰 미리보기 (2026-10-19)
+
+CartOptionsDialog는 발볼·컬러·사이즈·수량 초안을 관리한다. 저장 시 ShopShell.updateOptions가 동일 옵션을 합치며 선택 키도 새 옵션으로 교체한다. 기존 수량 변경 콜백은 유지한다. 관심상품 버튼은 화면 내부 토글 상태다. 품절 옵션 변경 시 단일 확인 안내를 표시한다.
+
+CheckoutContent의 쿠폰 할인액은 요약과 결제 버튼에 함께 반영한다. CouponDialog는 상품별 10%/7%와 장바구니 정액 쿠폰을 선택하는 퍼블리싱 데모이며 닫기는 미적용 변경을 되돌린다. 배송지는 기존 정보/직접 입력으로 전환하며 주소 찾기는 기존 AddressSearchModal의 수동 미리보기를 사용한다. 배송 요청 직접 입력은 250자로 제한한다. CheckoutPage.onComplete는 실제 선택한 CartItem 목록을 전달하고 라우트가 해당 상품만 제거한다. 쿠폰 발급·저장 배송지·관심상품·결제 승인 서버 연동은 포함하지 않는다.
+
+출처는 작업 트리의 ShopShell.tsx, CartPage.tsx, CartOptionsDialog.tsx, CheckoutPage.tsx, CheckoutContent.tsx, CouponDialog.tsx 및 src/app/checkout/page.tsx다. 타입 검사·주문 합계 테스트 3개·Next production build를 확인했고 브라우저에서 사이즈 저장과 선택 상품 주문 이동, 528,000원에서 상품 28,800원+장바구니 5,000원 할인 후 494,200원 표시를 확인했다.

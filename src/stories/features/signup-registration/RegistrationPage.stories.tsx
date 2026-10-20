@@ -46,7 +46,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 420, 24),
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 500, 24),
 };
 
 export const Mobile: Story = {
@@ -154,8 +154,8 @@ export const EmailCheckState: Story = {
       canvas.getByLabelText(/비밀번호/, { selector: '#registration-password' }),
       'Hoka12345!',
     );
-    await userEvent.type(canvas.getByLabelText(/비밀번호 재입력/), 'Hoka12345!');
-    await userEvent.click(canvas.getByRole('button', { name: '우편번호 찾기' }));
+    await userEvent.type(canvas.getByLabelText(/비밀번호 재확인/), 'Hoka12345!');
+    await userEvent.click(canvas.getByRole('button', { name: '주소 찾기' }));
     const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog');
     const addressFields = within(dialog);
     await userEvent.type(addressFields.getByRole('textbox', { name: /우편번호/ }), '12345');

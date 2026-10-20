@@ -24,11 +24,11 @@ export function AccountUnlockCompletePage() {
           <Icon name="unlock-keyhole" size="18px" />
         </HStack>
         <Box as="p" m="0">
-          <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
+          <Typography as="span" variant="bodyKr3" tone="tertiary">
             계정 잠금 상태가 성공적으로 해제되었습니다.
           </Typography>
           <br />
-          <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
+          <Typography as="span" variant="bodyKr3" tone="tertiary">
             다시 로그인을 진행해 주세요.
           </Typography>
         </Box>

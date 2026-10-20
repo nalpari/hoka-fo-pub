@@ -40,7 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 568),
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 500),
 };
 
 export const AccountUnlock: Story = {

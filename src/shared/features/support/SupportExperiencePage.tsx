@@ -1,7 +1,7 @@
-import { Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+import { Stack } from 'styled-system/jsx';
 
 export type SupportExperienceKind = 'member-benefits' | 'mileage';
 

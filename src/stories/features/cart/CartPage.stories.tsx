@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { products } from '@/mocks/products';
 import { PlatformProvider } from '@/shared/context/platform';
 import { CartPage } from '@/shared/features/cart/CartPage';
@@ -21,7 +21,16 @@ function CartPreview({ empty = false }: { empty?: boolean }) {
     );
   const remove = (item: CartItem) =>
     setCart((previous) => previous.filter((current) => current !== item));
-  return <CartPage cart={cart} onQuantityChange={updateQuantity} onRemove={remove} />;
+  return (
+    <CartPage
+      cart={cart}
+      onQuantityChange={updateQuantity}
+      onRemove={remove}
+      onOptionsChange={(item, next) =>
+        setCart((previous) => previous.map((current) => (current === item ? next : current)))
+      }
+    />
+  );
 }
 
 const meta = {
@@ -56,3 +65,19 @@ export const Mobile: Story = {
 };
 
 export const Empty: Story = { render: () => <CartPreview empty /> };
+
+export const Selection: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('checkbox', { name: /전체 상품 선택/ }));
+    await expect(canvas.getByRole('checkbox', { name: /전체 상품 선택/ })).toBeChecked();
+    await expect(canvas.getByRole('link', { name: '주문하기' })).toBeVisible();
+    const favorite = canvas.getAllByRole('button', { name: /관심상품/ })[0];
+    await userEvent.click(favorite);
+    await expect(favorite).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('checkbox', { name: /전체 상품 선택/ }));
+    await expect(canvas.getByRole('button', { name: '주문하기' })).toBeDisabled();
+  },
+};
+
+export const MobileSelection: Story = { ...Mobile, play: Selection.play };

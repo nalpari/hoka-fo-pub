@@ -11,6 +11,7 @@ type ShopState = {
   readonly cart: CartItem[];
   readonly add: (item: CartItem) => void;
   readonly updateQuantity: (item: CartItem, quantity: number) => void;
+  readonly updateOptions: (item: CartItem, next: CartItem) => void;
   readonly remove: (item: CartItem) => void;
   readonly login: () => void;
   readonly logout: () => void;
@@ -97,12 +98,38 @@ export function ShopShell({
       : setCart((previous) =>
           previous.map((current) => (current === item ? { ...current, quantity } : current)),
         );
+  const updateOptions = (item: CartItem, next: CartItem) =>
+    setCart((previous) => {
+      const remaining = previous.filter((current) => current !== item);
+      const existing = remaining.find(
+        (current) =>
+          current.id === next.id &&
+          current.color === next.color &&
+          current.width === next.width &&
+          current.size === next.size,
+      );
+      return existing
+        ? remaining.map((current) =>
+            current === existing
+              ? { ...current, quantity: current.quantity + next.quantity }
+              : current,
+          )
+        : previous.map((current) => (current === item ? next : current));
+    });
   const remove = (item: CartItem) =>
     setCart((previous) => previous.filter((current) => current !== item));
 
   return (
     <ShopContext.Provider
-      value={{ cart, add, updateQuantity, remove, login: handleLogin, logout: handleLogout }}
+      value={{
+        cart,
+        add,
+        updateQuantity,
+        updateOptions,
+        remove,
+        login: handleLogin,
+        logout: handleLogout,
+      }}
     >
       <PlatformProvider platform={platform}>
         <div className={`app platform-${platform}`}>

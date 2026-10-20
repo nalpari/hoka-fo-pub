@@ -1,8 +1,12 @@
 import { css } from 'styled-system/css';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { RegistrationInformation, RegistrationContentProps } from './registration.types';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
+import { NameField } from '@/shared/components/molecules/FormFields/NameField';
+import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
+import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
+import { BirthDateField } from '@/shared/components/molecules/FormFields/BirthDateField';
 
 const styles = {
   disabledInput: css({
@@ -34,34 +38,41 @@ export function RegistrationField({
   onChange,
 }: Props) {
   const error = fieldErrors[key] ?? '';
+  const Field =
+    key === 'name'
+      ? NameField
+      : key === 'phone'
+        ? PhoneNumberField
+        : key === 'birthDate'
+          ? BirthDateField
+          : key === 'password' || key === 'confirmation'
+            ? PasswordField
+            : TextFormField;
 
   return (
-    <FormField
+    <Field
       variant="boxed"
-      htmlFor={fieldId}
+      id={fieldId}
       disabled={disabled}
       invalid={Boolean(error)}
       error={error || undefined}
       label={<Typography variant="body5">* {label}</Typography>}
-    >
-      <TextInput
-        id={fieldId}
-        type={type}
-        disabled={disabled}
-        className={disabled ? styles.disabledInput : undefined}
-        value={information[key]}
-        placeholder={placeholder}
-        autoComplete={
+      inputProps={{
+        type: type,
+        disabled: disabled,
+        className: disabled ? styles.disabledInput : undefined,
+        value: information[key],
+        placeholder: placeholder,
+        autoComplete:
           key === 'password' || key === 'confirmation'
             ? 'new-password'
             : key === 'name'
               ? 'name'
               : key === 'phone'
                 ? 'tel'
-                : 'off'
-        }
-        onChange={(event) => onChange(key, event.target.value)}
-      />
-    </FormField>
+                : 'off',
+        onChange: (event) => onChange(key, event.target.value),
+      }}
+    />
   );
 }

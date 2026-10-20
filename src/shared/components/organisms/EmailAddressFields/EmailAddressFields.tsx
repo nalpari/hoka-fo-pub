@@ -1,0 +1,97 @@
+import type { DropdownProps } from '@/shared/components/atoms/Dropdown/Dropdown';
+import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
+import { Button } from '@/shared/components/atoms/Button/Button';
+import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
+import { Box } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+
+const disabledInput = css({
+  bg: 'var(--color-black-10)',
+  color: 'var(--color-text-subtle)',
+  cursor: 'not-allowed',
+  _disabled: { opacity: '1' },
+});
+
+type Props = {
+  idPrefix: string;
+  local: string;
+  domain: string;
+  domainChoice: string;
+  errors: { local?: string; domain?: string };
+  options: DropdownProps['options'];
+  onLocalChange: (value: string) => void;
+  onDomainChange: (value: string) => void;
+  onDomainChoice: (value: string) => void;
+  onCheck: () => void;
+  checkNotice?: string;
+};
+
+export function EmailAddressFields({
+  idPrefix,
+  local,
+  domain,
+  domainChoice,
+  errors,
+  options,
+  onLocalChange,
+  onDomainChange,
+  onDomainChoice,
+  onCheck,
+  checkNotice,
+}: Props) {
+  const disabled = domainChoice !== 'direct';
+
+  return (
+    <>
+      <TextFormField
+        id={`${idPrefix}-email`}
+        variant="boxed"
+        error={errors.local || undefined}
+        invalid={Boolean(errors.local)}
+        disabled={false}
+        label={<Typography variant="body5">* {'이메일 주소'}</Typography>}
+        inputProps={{
+          type: 'text',
+          disabled: false,
+          value: local,
+          placeholder: '이메일 주소를 입력해주세요.',
+          autoComplete: 'off',
+          onChange: (event) => onLocalChange(event.target.value),
+        }}
+      />
+      <TextFormField
+        id={`${idPrefix}-domain`}
+        variant="boxed"
+        error={errors.domain || undefined}
+        invalid={Boolean(errors.domain)}
+        disabled={disabled}
+        label={<Typography variant="body5">* {'도메인'}</Typography>}
+        inputProps={{
+          type: 'text',
+          disabled,
+          className: disabled ? disabledInput : undefined,
+          value: domain,
+          placeholder: '도메인을 입력해주세요',
+          autoComplete: 'off',
+          onChange: (event) => onDomainChange(event.target.value),
+        }}
+      />
+      <Dropdown
+        ariaLabel="이메일 도메인 선택"
+        label="직접입력"
+        required
+        value={domainChoice}
+        onValueChange={onDomainChoice}
+        options={options}
+      />
+      <Box py="2">
+        <Button variant="primary" fullWidth onClick={onCheck}>
+          이메일 중복확인
+        </Button>
+      </Box>
+      {checkNotice ? <StatusMessage>{checkNotice}</StatusMessage> : null}
+    </>
+  );
+}

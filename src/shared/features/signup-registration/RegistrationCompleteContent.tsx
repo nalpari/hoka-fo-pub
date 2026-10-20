@@ -8,7 +8,7 @@ import { Icon } from '@/shared/components/atoms/Icon/Icon';
 export function RegistrationCompleteContent() {
   return (
     <AccountPageLayout
-      contentWidth="420px"
+      contentWidth="500px"
       pageCss={css.raw({ px: '4', pb: '124px', _mobile: { pt: '24', pb: '124px' } })}
       contentCss={css.raw({
         display: 'flex',
@@ -28,8 +28,8 @@ export function RegistrationCompleteContent() {
           가입이 성공적으로 이루어졌습니다!
         </Typography>
         <Typography as="p" variant="body4">
-          고객님께 알찬 정보, 다양한 이벤트와 혜택을 드리고자
-          <br />
+          고객님께 알찬 정보, 다양한 이벤트와 혜택을 드리고자{' '}
+          <br className={css({ display: 'none', _mobile: { display: 'inline' } })} />
           최선을 다하겠습니다
         </Typography>
       </Stack>

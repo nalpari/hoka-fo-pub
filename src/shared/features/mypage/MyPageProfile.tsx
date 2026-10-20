@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import { Divider, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { Radio } from '@/shared/components/atoms/Radio/Radio';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
+import { PreferenceField } from '@/shared/components/molecules/FormFields/PreferenceField';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { MyPageWithdrawalCompleteDialog } from '@/shared/features/mypage/MyPageWithdrawalCompleteDialog';
 import { MyPageWithdrawalDialog } from '@/shared/features/mypage/MyPageWithdrawalDialog';
 import { MyPageFrame } from './MyPageFrame';
+import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
+import { EmailField } from '@/shared/components/molecules/FormFields/EmailField';
+import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
 
 type Preference = '동의' | '수신안함';
 
@@ -79,56 +82,55 @@ export function MyPageProfile() {
               }}
             >
               <Stack gap="3">
-                <FormField htmlFor="profile-password" label="새 비밀번호" variant="boxed">
-                  <TextInput
-                    id="profile-password"
-                    type="password"
-                    placeholder="변경할 비밀번호를 입력해 주세요"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-                </FormField>
-                <FormField
-                  htmlFor="profile-email"
+                <PasswordField
+                  id="profile-password"
+                  label="새 비밀번호"
+                  variant="boxed"
+                  inputProps={{
+                    type: 'password',
+                    placeholder: '변경할 비밀번호를 입력해 주세요',
+                    value: password,
+                    onChange: (event) => setPassword(event.target.value),
+                  }}
+                />
+                <EmailField
+                  id="profile-email"
                   label="이메일"
                   required
                   variant="boxed"
                   error={fieldErrors.email}
-                >
-                  <TextInput
-                    id="profile-email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => {
+                  inputProps={{
+                    type: 'email',
+                    value: email,
+                    onChange: (event) => {
                       setEmail(event.target.value);
                       setFieldErrors((previous) => ({ ...previous, email: undefined }));
-                    }}
-                  />
-                </FormField>
-                <FormField
-                  htmlFor="profile-phone"
+                    },
+                  }}
+                />
+                <PhoneNumberField
+                  id="profile-phone"
                   label="휴대폰 번호"
                   required
                   variant="boxed"
                   error={fieldErrors.phone}
-                >
-                  <TextInput
-                    id="profile-phone"
-                    type="tel"
-                    value={phone}
-                    onChange={(event) => {
+                  inputProps={{
+                    type: 'tel',
+                    placeholder: undefined,
+                    value: phone,
+                    onChange: (event) => {
                       setPhone(event.target.value);
                       setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-                    }}
-                  />
-                </FormField>
+                    },
+                  }}
+                />
                 <Stack gap="4">
                   <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
                   <Stack gap="5">
                     <Typography as="h2" mo="heading7">
                       마케팅 정보 수신 동의
                     </Typography>
-                    <Radio
+                    <PreferenceField
                       ariaLabel="이메일 수신"
                       name="email-preference"
                       value={emailPreference}
@@ -138,7 +140,7 @@ export function MyPageProfile() {
                         { value: '수신안함', label: '이메일 수신안함' },
                       ]}
                     />
-                    <Radio
+                    <PreferenceField
                       ariaLabel="모바일 쿠폰북 수신"
                       name="coupon-book-preference"
                       value={couponBookPreference}
@@ -148,7 +150,7 @@ export function MyPageProfile() {
                         { value: '수신안함', label: '모바일 쿠폰북 수신안함' },
                       ]}
                     />
-                    <Radio
+                    <PreferenceField
                       ariaLabel="문자 수신"
                       name="sms-preference"
                       value={smsPreference}
@@ -158,7 +160,7 @@ export function MyPageProfile() {
                         { value: '수신안함', label: 'SMS 수신안함' },
                       ]}
                     />
-                    <Radio
+                    <PreferenceField
                       ariaLabel="카카오톡 수신"
                       name="kakao-preference"
                       value={kakaoPreference}

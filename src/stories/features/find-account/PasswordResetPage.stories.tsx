@@ -48,15 +48,12 @@ export const RequiredFieldsError: Story = {
       'aria-invalid',
       'true',
     );
-    await expect(canvas.getByLabelText('* 비밀번호 재입력')).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    await expect(canvas.getByLabelText('* 비밀번호 확인')).toHaveAttribute('aria-invalid', 'true');
     await expect(canvas.getAllByRole('alert')).toHaveLength(2);
     await expect(canvas.getByLabelText('* 새로운 비밀번호')).toHaveAccessibleDescription(
       '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
     );
-    await expect(canvas.getByLabelText('* 비밀번호 재입력')).toHaveAccessibleDescription(
+    await expect(canvas.getByLabelText('* 비밀번호 확인')).toHaveAccessibleDescription(
       '비밀번호를 다시 입력해 주세요.',
     );
     for (const message of canvas.getAllByRole('alert')) {
@@ -70,7 +67,7 @@ export const ConfirmationMismatch: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText('* 새로운 비밀번호'), 'Hoka1234567!');
-    await userEvent.type(canvas.getByLabelText('* 비밀번호 재입력'), 'Hoka1234567?');
+    await userEvent.type(canvas.getByLabelText('* 비밀번호 확인'), 'Hoka1234567?');
     await userEvent.click(canvas.getByRole('button', { name: '비밀번호 변경' }));
     await expect(canvas.getByRole('alert')).toHaveTextContent(
       '동일한 비밀번호가 입력되었는지 확인해주세요.',
@@ -83,7 +80,7 @@ export const Complete: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText('* 새로운 비밀번호'), 'Hoka12345!');
-    await userEvent.type(canvas.getByLabelText('* 비밀번호 재입력'), 'Hoka12345!');
+    await userEvent.type(canvas.getByLabelText('* 비밀번호 확인'), 'Hoka12345!');
     await userEvent.click(canvas.getByRole('button', { name: '비밀번호 변경' }));
     const dialog = within(canvasElement.ownerDocument.body).getByRole('dialog');
     await expect(dialog).toHaveTextContent('비밀번호 변경이 완료되었습니다.');
@@ -111,11 +108,11 @@ export const MobileError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText('* 새로운 비밀번호'), 'Hoka123!');
-    await expect(canvas.getByLabelText('* 비밀번호 재입력')).not.toHaveAttribute(
+    await expect(canvas.getByLabelText('* 비밀번호 확인')).not.toHaveAttribute(
       'aria-invalid',
       'true',
     );
-    await userEvent.type(canvas.getByLabelText('* 비밀번호 재입력'), 'Hoka456!');
+    await userEvent.type(canvas.getByLabelText('* 비밀번호 확인'), 'Hoka456!');
     await userEvent.click(canvas.getByRole('button', { name: '비밀번호 변경' }));
     await expect(canvas.getAllByRole('alert')).toHaveLength(2);
   },

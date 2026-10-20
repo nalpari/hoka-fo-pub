@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { Popover } from '@base-ui/react/popover';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { css } from 'styled-system/css';
-import { Box, Stack, styled } from 'styled-system/jsx';
+import { Grid, Stack } from 'styled-system/jsx';
+import { usePlatform } from '@/shared/context/platform';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -18,12 +20,7 @@ const dates = [
 ] as const;
 
 const dateOptions = css({
-  position: 'absolute',
-  top: '100%',
-  left: '0',
-  zIndex: 2,
   w: 'max-content',
-  mt: '2',
   p: '3',
   border: '1px solid token(colors.black.40)',
   borderRadius: '4px',
@@ -32,64 +29,75 @@ const dateOptions = css({
 });
 
 function TermsDocument({ privacy }: { privacy: boolean }) {
+  const platform = usePlatform();
   const [date, setDate] = useState<string>(dates[0].value);
   const [dateOpen, setDateOpen] = useState(false);
 
   return (
     <Stack gap="4" pt="4" px={{ base: '4', _mobile: '0' }}>
-      <Box position="relative" alignSelf="flex-start">
-        <styled.button
+      <Popover.Root open={dateOpen} onOpenChange={setDateOpen}>
+        <Popover.Trigger
           type="button"
           aria-label="약관 시행일 선택"
-          aria-expanded={dateOpen}
-          onClick={() => setDateOpen((open) => !open)}
-          display="flex"
-          alignItems="center"
-          gap="2"
-          p="0"
-          border="0"
-          bg="transparent"
-          cursor="pointer"
-          _focusVisible={{ outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' }}
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2',
+            p: '0',
+            border: '0',
+            bg: 'transparent',
+            cursor: 'pointer',
+            alignSelf: 'flex-start',
+            _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+          })}
         >
-          <Typography web="body3" mo="body3" weight="medium">
+          <Typography variant="body3" weight="medium">
             {date.replaceAll('.', '. ')}
           </Typography>
           <Icon src="/images/icon/chevron-down-small.svg" size="14px" aria-hidden="true" />
-        </styled.button>
-        {dateOpen && (
-          <Box className={dateOptions}>
-            <Radio
-              ariaLabel="약관 시행일"
-              name={privacy ? 'privacy-date' : 'terms-date'}
-              options={dates}
-              value={date}
-              onValueChange={(next) => {
-                setDate(next);
-                setDateOpen(false);
-              }}
-            />
-          </Box>
-        )}
-      </Box>
-      <Box
-        display="grid"
+        </Popover.Trigger>
+        <Popover.Portal>
+          <div className={`platform-${platform}`}>
+            <Popover.Positioner
+              side="bottom"
+              align="start"
+              sideOffset={8}
+              className={css({ zIndex: 2 })}
+            >
+              <Popover.Popup aria-label="약관 시행일 선택" className={dateOptions}>
+                <Radio
+                  ariaLabel="약관 시행일"
+                  name={privacy ? 'privacy-date' : 'terms-date'}
+                  options={dates}
+                  value={date}
+                  onValueChange={(next) => {
+                    setDate(next);
+                    setDateOpen(false);
+                  }}
+                />
+              </Popover.Popup>
+            </Popover.Positioner>
+          </div>
+        </Popover.Portal>
+      </Popover.Root>
+      <Grid
+        gap="normal"
         placeItems="center"
         w="100%"
         h={{ base: '407px', _mobile: '404px' }}
         bg="rgba(0, 0, 0, 0.5)"
         aria-label={privacy ? '개인정보 처리방침 내용' : '이용 약관 내용'}
       >
-        <Typography web="body5" mo="body5" tone="inverse">
+        <Typography variant="body5" tone="inverse">
           약관내용
         </Typography>
-      </Box>
+      </Grid>
       {privacy && (
         <Stack gap="0">
-          <Typography web="body5" mo="body5" tone="tertiary">
+          <Typography variant="body5" tone="tertiary">
             - 개인정보 처리방침 버전번호 : v.1.79
           </Typography>
-          <Typography web="body5" mo="body5" tone="tertiary">
+          <Typography variant="body5" tone="tertiary">
             - 개인정보 처리방침 시행일자 : 2026.09.02
           </Typography>
         </Stack>

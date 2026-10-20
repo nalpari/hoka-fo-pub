@@ -7,12 +7,12 @@ type Props = Pick<RegistrationContentProps, 'preferences' | 'onPreferenceChange'
 
 export function RegistrationAdditionalFields(props: Props) {
   return (
-    <>
-      <Stack as="section" gap="6">
-        <Typography as="h2" variant="body3" weight="medium">
+    <Stack gap="6">
+      <Stack as="section" gap="6" pb="6" borderBottom="1px solid var(--color-black-20)">
+        <Typography as="h2" variant="body3" weight="bold">
           마케팅 정보 수신 동의
         </Typography>
-        <Stack gap="4" pb="6" mb="6" borderBottom="1px solid var(--color-black-20)">
+        <Stack gap="4">
           <RegistrationPreferenceRow
             preferenceKey="email"
             label="이메일 수신"
@@ -34,7 +34,7 @@ export function RegistrationAdditionalFields(props: Props) {
         </Stack>
       </Stack>
       <Stack as="section" gap="6">
-        <Typography as="h2" variant="body3" weight="medium">
+        <Typography as="h2" variant="body3" weight="bold">
           부가정보
         </Typography>
         <RegistrationPreferenceRow
@@ -46,6 +46,6 @@ export function RegistrationAdditionalFields(props: Props) {
           onValueChange={(value) => props.onPreferenceChange('married', value)}
         />
       </Stack>
-    </>
+    </Stack>
   );
 }

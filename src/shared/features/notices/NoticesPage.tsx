@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { css } from 'styled-system/css';
-import { Box, Divider, HStack, Stack } from 'styled-system/jsx';
+import { Divider, Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { usePlatform } from '@/shared/context/platform';
+import { NoticesList } from './NoticesList';
 
 const notices = [
   { title: '[공통] 네이버페이 9월 프로모션 안내', date: '2026-08-13' },
@@ -55,81 +54,19 @@ export function NoticesPage() {
           bg="black.20"
           mt={{ base: '3', _mobile: '0' }}
         />
-        {notices.slice(0, shown).map((notice, index) => (
-          <Box key={notice.title}>
-            <button
-              type="button"
-              aria-expanded={openIndex === index}
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className={css({
-                w: '100%',
-                h: { base: '59px', _mobile: '55px' },
-                px: { base: '4', _mobile: '0' },
-                py: '0',
-                bg: 'white.0',
-                border: '0',
-                textAlign: 'left',
-                cursor: 'pointer',
-              })}
-            >
-              <HStack justifyContent="space-between" gap="4" alignItems="center">
-                <Box
-                  minW="0"
-                  flex="1"
-                  overflow="hidden"
-                  whiteSpace="nowrap"
-                  textOverflow="ellipsis"
-                >
-                  <Typography web="heading9" mo="body3">
-                    {notice.title}
-                  </Typography>
-                </Box>
-                <Typography
-                  as="time"
-                  variant="body4"
-
-                  tone={platform === 'web' ? 'subtle' : 'tertiary'}
-                >
-                  {notice.date}
-                </Typography>
-              </HStack>
-            </button>
-            {openIndex === index ? (
-              <>
-                <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
-                <Stack px="6" py="8" gap="3" bg="black.10" _mobile={{ px: '4', py: '6' }}>
-                  {index === 0 ? (
-                    <>
-                      <Typography as="p" variant="body4">
-                        1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
-                      </Typography>
-                      <Typography as="p" variant="body4">
-                        2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
-                      </Typography>
-                      <Typography as="p" variant="body4">
-                        3. 대상 상품: 호카 공식 홈페이지 내 전 상품
-                      </Typography>
-                      <Typography as="p" variant="body4">
-                        4. 이벤트 기간 내 1회 한정으로 진행되며, 운영 상황에 따라 조기 종료될 수
-                        있습니다.
-                      </Typography>
-                    </>
-                  ) : (
-                    <Typography as="p" variant="body4">
-                      {notice.title} 상세 안내입니다.
-                    </Typography>
-                  )}
-                </Stack>
-              </>
-            ) : null}
-            <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
-          </Box>
-        ))}
+        <NoticesList
+          notices={notices}
+          shown={shown}
+          openIndex={openIndex}
+          onOpenIndexChange={setOpenIndex}
+          platform={platform}
+        />
       </Stack>
       {shown < notices.length ? (
         <PageActionButton
           onClick={() => setShown((count) => count + 10)}
           counter={{ current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) }}
+          width="narrow"
           containerProps={{ _mobile: { pt: '6' } }}
         >
           더보기

@@ -1,7 +1,6 @@
 import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { AddressSearchModal } from '@/shared/components/organisms/Address/AddressSearchModal';
 import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
 import { RegistrationEmailFields } from './RegistrationEmailFields';
 import { RegistrationPersonalFields } from './RegistrationPersonalFields';
@@ -26,17 +25,6 @@ export function RegistrationContent(props: RegistrationContentProps) {
           </Button>
         </>
       }
-      dialogs={
-        <AddressSearchModal
-          open={props.addressOpen}
-          onOpenChange={props.onAddressOpen}
-          postalCode={props.information.postalCode}
-          address={props.information.address}
-          idPrefix="registration"
-          onPostalCodeChange={(value) => props.onChange('postalCode', value)}
-          onAddressChange={(value) => props.onChange('address', value)}
-        />
-      }
     >
       <form id="registration-form" noValidate onSubmit={props.onSubmit}>
         <Stack gap="4">
@@ -60,6 +48,7 @@ export function RegistrationContent(props: RegistrationContentProps) {
                 information={props.information}
                 fieldErrors={props.fieldErrors}
                 onChange={props.onChange}
+                addressOpen={props.addressOpen}
                 onAddressOpen={props.onAddressOpen}
               />
             </>

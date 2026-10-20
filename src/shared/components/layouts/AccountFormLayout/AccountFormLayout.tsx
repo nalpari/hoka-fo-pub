@@ -7,7 +7,7 @@ import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHead
 type Props = {
   title: ReactNode;
   description?: string;
-  contentWidth?: '420px' | '568px';
+  contentWidth?: '420px' | '500px' | '568px';
   fillMobileViewport?: boolean;
   children: ReactNode;
   dialogs?: ReactNode;
@@ -18,7 +18,7 @@ type Props = {
 export function AccountFormLayout({
   title,
   description,
-  contentWidth = '420px',
+  contentWidth = '500px',
   fillMobileViewport = false,
   children,
   dialogs,
