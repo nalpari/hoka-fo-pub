@@ -1,8 +1,9 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, HStack } from 'styled-system/jsx';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -66,10 +67,13 @@ export function EmployeeCoupons() {
   }
 
   return (
-    <Stack as="section" gap="4" aria-label="임직원 쿠폰">
-      <Typography as="h2" web="heading8" mo="heading5">
-        임직원 쿠폰
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="4"
+      aria-label="임직원 쿠폰"
+      title="임직원 쿠폰"
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
+    >
       <Box position="relative" minH="52px">
         <HStack
           id={listId}
@@ -135,6 +139,6 @@ export function EmployeeCoupons() {
           </IconButton>
         </Box>
       </Box>
-    </Stack>
+    </ContentSection>
   );
 }

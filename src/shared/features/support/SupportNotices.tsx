@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Divider, HStack } from 'styled-system/jsx';
@@ -24,15 +25,21 @@ const notices = [
 
 export function SupportNotices() {
   return (
-    <Box as="section" aria-labelledby="support-notices-title">
-      <HStack justifyContent="space-between" pb="6">
-        <Typography as="h2" web="heading8" mo="heading5" id="support-notices-title">
-          공지사항
-        </Typography>
-        <ButtonLink href="/support/notices" size="md" variant="link">
-          전체보기
-        </ButtonLink>
-      </HStack>
+    <ContentSection
+      as="section"
+      aria-labelledby="support-notices-title"
+      gap="0"
+      header={
+        <HStack justifyContent="space-between" pb="6">
+          <Typography as="h2" web="heading8" mo="heading5" id="support-notices-title">
+            공지사항
+          </Typography>
+          <ButtonLink href="/support/notices" size="md" variant="link">
+            전체보기
+          </ButtonLink>
+        </HStack>
+      }
+    >
       <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
       <Box as="ul" m="0" p="0" listStyleType="none">
         {notices.map((notice, index) => (
@@ -66,6 +73,6 @@ export function SupportNotices() {
           </Box>
         ))}
       </Box>
-    </Box>
+    </ContentSection>
   );
 }

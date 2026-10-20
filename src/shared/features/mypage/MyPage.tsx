@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
@@ -167,10 +168,13 @@ function MyPageMenuSection({
   items: { label: string; to: string }[];
 }) {
   return (
-    <Stack as="section" gap="4" aria-label={title}>
-      <Typography as="h2" web="heading8" mo="heading5">
-        {title}
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="4"
+      aria-label={title}
+      title={<>{title}</>}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
+    >
       <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
       <Stack gap="0">
         {items.map((item) => (
@@ -187,7 +191,7 @@ function MyPageMenuSection({
           </StyledLink>
         ))}
       </Stack>
-    </Stack>
+    </ContentSection>
   );
 }
 
@@ -202,22 +206,27 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
           <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: '마이페이지' }]} />
         </Box>
         <Stack pt="6" gap="10">
-          <Stack gap="4">
-            <Typography as="h1" variant="heading4">
-              <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
-                <HStack as="span" gap="1">
-                  <HStack as="span" gap="0.5">
-                    <Typography as="span" variant="heading4">
-                      박연진
-                    </Typography>
-                    <Typography as="span" variant="heading4">
-                      님
-                    </Typography>
+          <ContentSection
+            gap="4"
+            title={
+              <>
+                <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
+                  <HStack as="span" gap="1">
+                    <HStack as="span" gap="0.5">
+                      <Typography as="span" variant="heading4">
+                        박연진
+                      </Typography>
+                      <Typography as="span" variant="heading4">
+                        님
+                      </Typography>
+                    </HStack>
+                    <Icon name="chevron-right" size="16px" />
                   </HStack>
-                  <Icon name="chevron-right" size="16px" />
-                </HStack>
-              </ButtonLink>
-            </Typography>
+                </ButtonLink>
+              </>
+            }
+            headerProps={{ titleAs: 'h1', titleProps: { variant: 'heading4' } }}
+          >
             <Stack gap="2">
               <Box bg="black.10" px="4" py="5">
                 <Stack gap="1">
@@ -296,17 +305,23 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                 </StyledLink>
               </Grid>
             </Stack>
-          </Stack>
+          </ContentSection>
 
-          <Stack as="section" gap="6" aria-label="주문 배송 내역">
-            <HStack justifyContent="space-between">
-              <Typography as="h2" web="heading8" mo="heading5">
-                주문 배송 내역
-              </Typography>
-              <ButtonLink href="/mypage/orders" size="md" variant="link">
-                전체 보기
-              </ButtonLink>
-            </HStack>
+          <ContentSection
+            as="section"
+            gap="6"
+            aria-label="주문 배송 내역"
+            header={
+              <HStack justifyContent="space-between">
+                <Typography as="h2" web="heading8" mo="heading5">
+                  주문 배송 내역
+                </Typography>
+                <ButtonLink href="/mypage/orders" size="md" variant="link">
+                  전체 보기
+                </ButtonLink>
+              </HStack>
+            }
+          >
             <Carousel itemCount={orderItems.length}>
               <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
                 {orderItems.map((item, index) => (
@@ -317,7 +332,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
                 <CarouselPagination label="주문 상품 선택" />
               </Box>
             </Carousel>
-          </Stack>
+          </ContentSection>
 
           <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
 

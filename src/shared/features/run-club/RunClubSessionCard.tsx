@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import Link from 'next/link';
 import Image from 'next/image';
 import { css } from 'styled-system/css';
@@ -54,14 +55,19 @@ export function RunClubSessionCard({ session }: { session: RunClubSession }) {
           <Flex justifyContent="flex-start">
             <RunClubBadge category={session.category} />
           </Flex>
-          <Stack gap="4" _mobile={{ gap: '2' }}>
-            <Typography variant="heading6" mo="body1" weight="black" as="h2">
-              {session.title}
-            </Typography>
-            <Typography variant="body3" mo="body4" as="p">
-              {session.schedule} | {session.location} {session.distance}
-            </Typography>
-          </Stack>
+          <ContentHeader
+            gap="4"
+            _mobile={{ gap: '2' }}
+            titleAs="h2"
+            title={<>{session.title}</>}
+            titleProps={{ variant: 'heading6', mo: 'body1', weight: 'black' }}
+            description={
+              <>
+                {session.schedule} | {session.location} {session.distance}
+              </>
+            }
+            descriptionProps={{ variant: 'body3', mo: 'body4' }}
+          />
         </Stack>
         <ButtonLink
           href={`/running/run-club/${session.id}`}

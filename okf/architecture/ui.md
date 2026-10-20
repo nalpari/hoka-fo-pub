@@ -6,14 +6,29 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:03:12.161Z'
+  at: '2026-10-20T02:33:49.420Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - .codex/skills/component-reusability/references/content-sections.md
+  - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
+  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
+  - src/shared/features/support/SupportNotices.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/support/SupportMileageContent.tsx
+  - src/shared/components/molecules/ContactCard/ContactCard.tsx
+  - src/shared/features/support/SupportHours.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/product/ProductSupportLink.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - src/stories/features/login/LoginPage.mobile.stories.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
   - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationDialogs.tsx
+  - src/shared/components/organisms/MyPage/CouponDetailsDialog.tsx
+  - src/shared/components/organisms/MyPage/CouponRegistrationDialog.tsx
+  - src/shared/components/layouts/ContentSection/ContentSection.tsx
+  - src/shared/components/molecules/ContentHeader/ContentHeader.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
   - src/shared/features/support/InquiryMessageFields.tsx
@@ -552,6 +567,32 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## ContentSection 기본 헤더와 전체 적용 (2026-10-20)
+
+일반 제목은 단독일 때도 ContentHeader를 사용한다. 본문 그룹이 이어지면 ContentSection의 title과 headerProps를 전달해 내부 기본 ContentHeader를 사용하며, 같은 제목을 header={<Typography ...>}나 header={<ContentHeader ...>}로 반복 작성하지 않는다. title/headerProps 방식과 custom header 방식은 타입의 대안 분기로 구분한다. headerProps가 제목 레벨·Typography·설명·보조 문구·헤더 내부 간격을, ContentSection gap이 본문 그룹 간격을 소유한다. action·Divider·계정용 기존 어댑터 등 구조가 다른 경우에만 header 노드를 전달한다.
+
+ContentHeader의 titleAs는 실제 상품 A/S 소비처를 위해 h1~h6으로 확장했다. 의미별 제목 레벨·ID·Typography·PC/MO 크기와 기존 상태/이벤트를 보존했다. 계정·가입·로그인·쿠폰·마이페이지·결제·검색·상품·런클럽·고객센터의 UI 소스 65파일과 공용 컴포넌트 2파일에 적용하고 공용 API 스토리 2개를 추가했다. 단순 동일 gap 본문 Stack은 제거하되 다른 간격·목록·Grid·form·포털 구조는 유지했다. 후속 요청에 따라 AccountFormLayout·CustomerCenterLayout·OrderPageLayout의 무스타일 본문 div를 제거했다. children은 직접 렌더링하므로 Fragment의 최상위 요소도 ContentSection의 flex/gap에 참여한다. 본문 전체를 묶어야 할 때만 소비처에서 의미 있는 그룹을 제공한다.
+
+CustomerCenterLayout은 title/description에 ContentHeader를 사용하고 선택 Divider는 기존 헤더 그룹이 소유한다. headingProps의 mb/모바일 덮어쓰기는 기존 그룹에 유지하고 바깥 ContentSection gap=0으로 연결한다. runtime headingProps를 다른 속성으로 재해석해 기존 cascade를 바꾸지 않는다. SupportPage의 headingProps는 css.raw로 추출해 기존 mb=10 스타일이 다른 소비처의 잔여 클래스에 의존하지 않도록 했다. RunClubHeader의 headerProps.css도 css.raw로 모바일 좌측 정렬을 추출한다. MainContentCard는 card__header와 header 태그를 유지하고 header.raw(variant)를 css prop에서 기본 스타일과 병합한다. Grid·overlay·runtime foreground·Card.Footer는 유지한다.
+
+적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](../../.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
+
+## 쿠폰과 휴대폰 인증의 팝업 구성 분리 (2026-10-20)
+
+CouponRegistrationDialog는 open/onOpenChange로 등록 완료 안내와 확인 버튼을 표시한다. CouponDetailsDialog는 CouponItem 또는 null과 onOpenChange를 받아 선택 쿠폰의 이름·혜택·조건·만료일을 표시한다. CouponManager가 등록 결과와 선택 쿠폰을 계속 소유하며 상세 닫기에서 선택값을 null로 초기화한다. 기존 ModalDialog·Stack·Typography·Button의 DOM과 문구·간격·sm 크기를 유지한다.
+
+PhoneVerificationDialogs는 detail/onDetail을 받아 알뜰폰 사업자일 때 기존 PhoneVerificationDetailDialog를, 그 외에는 기존 빈 본문 안내 ModalDialog를 표시한다. md 크기·모바일 fullscreen·안내 닫기 이름과 닫을 때 onDetail(null) 호출을 유지한다. PhoneVerificationContent는 AccountFormLayout의 dialogs 슬롯에 이 구성을 전달한다. 새 상태나 client 경계는 추가하지 않았다.
+
+타입 검사와 변경 TSX ESLint/Prettier를 통과했다. 이 분리에 대한 추가 브라우저 검증은 수행하지 않았다.
+
+## 제목 그룹과 본문 간격의 공통 구성 (2026-10-20)
+
+ContentHeader는 Stack에 eyebrow(p)·제목(h1/h2/h3)·선택 설명(p)을 순서대로 배치한다. titleAs와 각 Typography props로 기존 PC/MO 크기·색상·ID를 유지하고, 기본 gap은 3이다. AccountFormHeader는 계정 화면의 제목/설명 기본값과 spacingCss를 이 컴포넌트에 위임하는 어댑터다. 기존 SectionHeader는 액션·구분선·별도 타이포그래피 계약을 가진 구성으로 유지한다.
+
+ContentSection은 header 슬롯과 children을 Stack으로 묶어 헤더와 각 본문 그룹 사이의 공통 간격을 소유한다. 같은 간격을 반복하는 본문 Stack은 제거하고 필터·목록·조건부 더보기 버튼을 직접 자식으로 배치한다. 기본 gap은 6이며 소비처가 명시적으로 바꿀 수 있다. 쿠폰 내역은 기존 section·aria-label과 헤더/필터/목록 구조, 헤더 내부 12px·본문 전 24px를 유지한다. SignupLayout은 JOIN HOKA→회원가입 제목의 8px와 진행 단계 전 28px를 각각 ContentHeader gap=2와 ContentSection gap=7로 옮긴다. SignupProgress의 기존 하단 34px와 step=0의 헤더/진행 단계 생략은 유지한다. 라우팅·가입 상태·쿠폰 필터/등록/팝업 상태는 기존 부모에 남긴다.
+
+타입·변경 ESLint/Prettier·Panda 생성·Storybook 빌드를 통과했다. 변경 전후 1600px/375px의 회원가입과 쿠폰 내역 4쌍에서 주요 제목/설명·진행 단계/필터·입력 위치·크기·글꼴을 0.1px 단위로 비교했다. 쿠폰의 짧은 코드 오류→유효 코드 등록→완료 모달 닫기를 두 너비에서 확인했다. 브라우저 비교 대상은 이 두 영역이며 전체 계정 화면의 추가 회귀 검증을 의미하지 않는다.
 
 ## 미확정 회원등급·마일리지 화면 (2026-10-20)
 
@@ -1680,7 +1721,7 @@ CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 �
 
 ## 계정 폼 제목의 AccountFormHeader 공통화 (2026-10-19)
 
-AccountFormHeader는 제목과 선택 설명을 한 영역에 배치한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 12px이다. spacingCss는 css.raw로 전달해 Panda에서 추출하고 공통 스타일과 하나의 css 호출로 병합한다. 상태나 추가 client 경계는 만들지 않는다.
+AccountFormHeader는 제목과 선택 설명을 공용 ContentHeader에 위임하며 내부 Stack 배치를 유지한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 gap="3"(12px)이다. spacingCss는 호출부의 css.raw 값을 Stack의 css prop으로 전달해 기본 스타일 뒤에 병합한다. 기존 div·세로 flex와 호출부의 gap/반응형 여백 덮어쓰기를 유지하며 중복 display/flexDirection 선언을 제거했다. 상태나 추가 client 경계는 만들지 않는다.
 
 IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLayout 네 곳이 이를 사용한다. 본문 간격은 호출부에서 유지한다. 본인인증은 32px·설명 subtle, 계정 찾기는 PC 40px/MO 32px·제목→설명 PC 10px/MO 12px, 가입 방법은 본문 mt 24px, AccountFormLayout은 PC 40px/MO 32px이다. verification-title·find-account-title·signup-title과 section/form의 aria-labelledby 연결을 유지한다. AccountFormLayout의 공개 props·버튼·모달과 각 feature 상태·콜백은 유지한다.
 
@@ -1719,6 +1760,7 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 ## Icon 색상 토큰
 
 `Icon.color`는 `white`, `black`, `currentColor`와 CSS 색상값을 지원한다. 추가로 `black.50`, `text.tertiary`처럼 Panda `colors.*` 토큰 경로를 받으면 생성된 CSS 변수를 사용한다. 토큰 경로가 아닌 값은 기존처럼 CSS 색상으로 전달한다. `FontAwesomeIcon`과 mask 방식 SVG에는 이 색을 적용하고, 색을 보존해야 하는 등록 이미지 아이콘은 기존 필터 동작(`white`/`black`)을 따른다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.

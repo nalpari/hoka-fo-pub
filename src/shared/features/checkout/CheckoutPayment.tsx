@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -21,10 +22,12 @@ export function CheckoutPayment({
   onPaymentChange: (payment: PaymentMethod) => void;
 }) {
   return (
-    <Stack as="section" gap="4">
-      <Typography as="h2" web="heading9" mo="heading7">
-        결제 정보
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="4"
+      title="결제 정보"
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
+    >
       <Grid
         as="div"
         role="radiogroup"
@@ -73,6 +76,6 @@ export function CheckoutPayment({
           </Typography>
         ))}
       </Stack>
-    </Stack>
+    </ContentSection>
   );
 }

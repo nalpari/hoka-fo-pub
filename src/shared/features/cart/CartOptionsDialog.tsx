@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
@@ -76,97 +77,100 @@ export function CartOptionsDialog({
             bg: 'black.10',
           })}
         />
-        <Typography as="h2" web="heading7" mo="heading5">
-          {product.name}
-        </Typography>
-        <Radio
-          ariaLabel="발볼"
-          variant="custom"
-          value={draft.width}
-          onValueChange={(value) => setDraft({ ...draft, width: value })}
-          options={(widths?.map((option) => option.label) ?? ['Regular', 'Wide', 'X-Wide']).map(
-            (value) => ({ value, label: value }),
-          )}
-          className={css({
-            display: 'flex!',
-            gap: '0',
-            bg: 'black.20',
-            borderRadius: 'full',
-            p: '0.5',
-          })}
-          optionClassName={css({
-            flex: '1',
-            textAlign: 'center',
-            cursor: 'pointer',
-            _focusVisible: { outline: '2px solid var(--colors-black-100)', outlineOffset: '2px' },
-            borderRadius: 'full',
-            py: '3',
-            justifyContent: 'center',
-          })}
-          selectedOptionClassName={css({ bg: 'black.100', color: 'white' })}
-        />
-        <Stack gap="3">
-          <Typography variant="body4" weight="semibold">
-            컬러: {draft.color}
-          </Typography>
-          <HStack gap="2" overflowX="auto">
-            {product.colors.map((value) => (
-              <Box
-                as="button"
-                key={value}
-                aria-label={value}
-                aria-pressed={draft.color === value}
-                border="0"
-                bg="transparent"
-                cursor="pointer"
-                flexShrink="0"
-                w="72px"
-                borderBottom={draft.color === value ? '2px solid black' : '2px solid transparent'}
-                onClick={() => setDraft({ ...draft, color: value })}
-              >
-                <img
-                  src={
-                    product.colorThumbnails?.find((option) => option.label === value)?.image ??
-                    product.primaryImage
-                  }
-                  alt={value}
-                  className={css({
-                    w: '100%',
-                    aspectRatio: '1',
-                    objectFit: 'contain',
-                    bg: 'black.10',
-                  })}
-                />
-              </Box>
-            ))}
-          </HStack>
-        </Stack>
-        <Stack gap="3">
-          <Typography variant="body4" weight="semibold">
-            사이즈
-          </Typography>
-          <SizeSelector
-            mode="single"
-            ariaLabel="사이즈"
-            columns={4}
-            value={draft.size}
-            onValueChange={(value) => setDraft({ ...draft, size: value })}
-            options={sizes.map((value) => ({
-              value,
-              state: soldOut.includes(value) ? 'soldOut' : 'available',
-            }))}
+        <ContentSection
+          gap="8"
+          title={<>{product.name}</>}
+          headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading5' } }}
+        >
+          <Radio
+            ariaLabel="발볼"
+            variant="custom"
+            value={draft.width}
+            onValueChange={(value) => setDraft({ ...draft, width: value })}
+            options={(widths?.map((option) => option.label) ?? ['Regular', 'Wide', 'X-Wide']).map(
+              (value) => ({ value, label: value }),
+            )}
+            className={css({
+              display: 'flex!',
+              gap: '0',
+              bg: 'black.20',
+              borderRadius: 'full',
+              p: '0.5',
+            })}
+            optionClassName={css({
+              flex: '1',
+              textAlign: 'center',
+              cursor: 'pointer',
+              _focusVisible: { outline: '2px solid var(--colors-black-100)', outlineOffset: '2px' },
+              borderRadius: 'full',
+              py: '3',
+              justifyContent: 'center',
+            })}
+            selectedOptionClassName={css({ bg: 'black.100', color: 'white' })}
           />
-        </Stack>
-        <Stack gap="3" alignItems="flex-start">
-          <Typography variant="body4" weight="semibold">
-            수량
-          </Typography>
-          <NumberStepper
-            min={1}
-            value={draft.quantity}
-            onChange={(quantity) => setDraft({ ...draft, quantity })}
-          />
-        </Stack>
+          <Stack gap="3">
+            <Typography variant="body4" weight="semibold">
+              컬러: {draft.color}
+            </Typography>
+            <HStack gap="2" overflowX="auto">
+              {product.colors.map((value) => (
+                <Box
+                  as="button"
+                  key={value}
+                  aria-label={value}
+                  aria-pressed={draft.color === value}
+                  border="0"
+                  bg="transparent"
+                  cursor="pointer"
+                  flexShrink="0"
+                  w="72px"
+                  borderBottom={draft.color === value ? '2px solid black' : '2px solid transparent'}
+                  onClick={() => setDraft({ ...draft, color: value })}
+                >
+                  <img
+                    src={
+                      product.colorThumbnails?.find((option) => option.label === value)?.image ??
+                      product.primaryImage
+                    }
+                    alt={value}
+                    className={css({
+                      w: '100%',
+                      aspectRatio: '1',
+                      objectFit: 'contain',
+                      bg: 'black.10',
+                    })}
+                  />
+                </Box>
+              ))}
+            </HStack>
+          </Stack>
+          <Stack gap="3">
+            <Typography variant="body4" weight="semibold">
+              사이즈
+            </Typography>
+            <SizeSelector
+              mode="single"
+              ariaLabel="사이즈"
+              columns={4}
+              value={draft.size}
+              onValueChange={(value) => setDraft({ ...draft, size: value })}
+              options={sizes.map((value) => ({
+                value,
+                state: soldOut.includes(value) ? 'soldOut' : 'available',
+              }))}
+            />
+          </Stack>
+          <Stack gap="3" alignItems="flex-start">
+            <Typography variant="body4" weight="semibold">
+              수량
+            </Typography>
+            <NumberStepper
+              min={1}
+              value={draft.quantity}
+              onChange={(quantity) => setDraft({ ...draft, quantity })}
+            />
+          </Stack>
+        </ContentSection>
       </Stack>
     </ModalDialog>
   );

@@ -1,17 +1,21 @@
-import { Stack, HStack } from 'styled-system/jsx';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+import { HStack } from 'styled-system/jsx';
 import { products } from '@/mocks/products';
 import { recommendationImages } from '@/mocks/cartDisplay';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { OrderRecommendationItem } from '@/shared/components/organisms/OrderRecommendations/OrderRecommendationItem';
 
 const suggestions = products.slice(0, 4);
 
 export function OrderRecommendations() {
   return (
-    <Stack as="section" gap="4" overflow="hidden">
-      <Typography as="h2" web="heading8" mo="heading7">
-        함께 구매하면 좋은 상품
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="4"
+      overflow="hidden"
+      title="함께 구매하면 좋은 상품"
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+    >
       <HStack gap="1" overflowX="auto" alignItems="flex-start">
         {suggestions.map((product, index) => (
           <OrderRecommendationItem
@@ -21,6 +25,6 @@ export function OrderRecommendations() {
           />
         ))}
       </HStack>
-    </Stack>
+    </ContentSection>
   );
 }

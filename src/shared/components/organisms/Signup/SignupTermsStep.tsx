@@ -1,3 +1,4 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { Grid, VStack } from 'styled-system/jsx';
@@ -62,12 +63,14 @@ export function SignupTermsStep({
 
   return (
     <Grid as="section" gap="normal" aria-labelledby="terms-title">
-      <Typography as="h2" variant="heading7" id="terms-title">
-        약관 동의
-      </Typography>
-      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
-        {method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.
-      </Typography>
+      <ContentHeader
+        gap="9px"
+        titleAs="h2"
+        title="약관 동의"
+        titleProps={{ variant: 'heading7', id: 'terms-title' }}
+        description={<>{method.label}을 선택하셨습니다. 가입을 위해 약관에 동의해 주세요.</>}
+        descriptionProps={{ variant: 'body4', tone: 'tertiary' }}
+      />
       <Terms className={styles.allTerms} checked={allRequiredTerms} onCheckedChange={onToggleAll}>
         <Typography as="span" variant="body4" weight="medium">
           필수 약관 전체 동의

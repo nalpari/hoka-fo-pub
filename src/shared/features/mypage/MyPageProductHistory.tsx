@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { products, type Product } from '@/mocks/products';
@@ -69,8 +70,7 @@ export function MyPageProductHistory({
     >
       <Stack gap="6">
         {items.length ? (
-          <>
-            <MyPageProductHistoryHeading title={current.title} />
+          <ContentSection gap="6" header={<MyPageProductHistoryHeading title={current.title} />}>
             {kind === 'restock-alerts' ? (
               <MyPageRestockList
                 items={items}
@@ -91,7 +91,7 @@ export function MyPageProductHistory({
                 }}
               />
             )}
-          </>
+          </ContentSection>
         ) : (
           <EmptyState title={current.empty} variant="minimal" />
         )}

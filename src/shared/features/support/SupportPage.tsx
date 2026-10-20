@@ -1,3 +1,4 @@
+import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
@@ -18,7 +19,7 @@ export function SupportPage() {
         </>
       }
       mobileTitleVariant="heading4"
-      headingProps={{ mb: '10', gap: { base: '6', _mobile: '4' } }}
+      headingProps={css.raw({ mb: '10', gap: { base: '6', _mobile: '4' } })}
       activePath="/support"
       groups={supportNavigation}
       breadcrumbItems={[{ label: 'Home', href: '/' }, { label: '고객센터' }]}

@@ -1,16 +1,23 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Box, Flex } from 'styled-system/jsx';
+import { Flex } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
 type RecommendedSearchesProps = { queries: readonly string[]; onSearch: (query: string) => void };
 
 export function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
   return (
-    <Box as="section" aria-labelledby="recommended-search-title">
-      <Typography as="h3" variant="body2" weight="bold" id="recommended-search-title">
-        추천 검색어
-      </Typography>
-      <Flex as="ul" flexWrap="wrap" gap="4px" mt="24px" p="0" mb="0" listStyleType="none">
+    <ContentSection
+      as="section"
+      aria-labelledby="recommended-search-title"
+      gap="6"
+      title="추천 검색어"
+      headerProps={{
+        titleAs: 'h3',
+        titleProps: { variant: 'body2', weight: 'bold', id: 'recommended-search-title' },
+      }}
+    >
+      <Flex as="ul" flexWrap="wrap" gap="4px" p="0" mb="0" listStyleType="none">
         {queries.map((query) => (
           <li key={query}>
             <button
@@ -30,6 +37,6 @@ export function RecommendedSearches({ queries, onSearch }: RecommendedSearchesPr
           </li>
         ))}
       </Flex>
-    </Box>
+    </ContentSection>
   );
 }

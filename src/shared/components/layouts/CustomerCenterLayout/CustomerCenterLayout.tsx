@@ -1,6 +1,8 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import type { ComponentProps, ReactNode } from 'react';
 import { Box, Divider, Grid, Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import {
   Breadcrumb,
   type BreadcrumbItem,
@@ -53,29 +55,35 @@ export function CustomerCenterLayout({
             title="고객센터"
             titleTo="/support"
           />
-          <Box minW="0">
-            <Stack gap="4" mb="6" {...headingProps}>
-              <Typography as="h1" web="heading6" mo={mobileTitleVariant}>
-                {title}
-              </Typography>
-              {description && (
-                <Typography as="p" variant="body3">
-                  {description}
-                </Typography>
-              )}
-              {showHeadingDivider && (
-                <Divider
-                  aria-hidden="true"
-                  orientation="horizontal"
-                  h="2px"
-                  mt="2"
-                  bg="black.100"
-                  display={{ base: 'block', _mobile: 'none' }}
+          <ContentSection
+            minW="0"
+            gap="0"
+            header={
+              <Stack gap="4" mb="6" {...headingProps}>
+                <ContentHeader
+                  gap={headingProps?.gap ?? '4'}
+                  _mobile={{ gap: headingProps?._mobile?.gap }}
+                  title={title}
+                  titleAs="h1"
+                  titleProps={{ web: 'heading6', mo: mobileTitleVariant }}
+                  description={description}
+                  descriptionProps={{ variant: 'body3' }}
                 />
-              )}
-            </Stack>
+                {showHeadingDivider && (
+                  <Divider
+                    aria-hidden="true"
+                    orientation="horizontal"
+                    h="2px"
+                    mt="2"
+                    bg="black.100"
+                    display={{ base: 'block', _mobile: 'none' }}
+                  />
+                )}
+              </Stack>
+            }
+          >
             {children}
-          </Box>
+          </ContentSection>
         </Grid>
       </Box>
     </Box>

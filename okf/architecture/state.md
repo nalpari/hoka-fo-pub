@@ -6,9 +6,49 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:14:02Z'
+  at: '2026-10-20T02:33:49.423Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/signup/SignupLayout.tsx
+  - src/shared/features/support/SupportNotices.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/support/SupportMileageContent.tsx
+  - src/shared/features/support/ShippingReturnsPage.tsx
+  - src/shared/features/run-club/RunClubSessionHero.tsx
+  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
+  - src/shared/features/run-club/RunClubSessionPoster.tsx
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/shared/features/care-guide/CareGuidePage.tsx
+  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
+  - src/shared/features/mypage/MyPageProductHistory.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/identity-verification/IdentityVerificationContent.tsx
+  - src/shared/features/find-account/PasswordResetContent.tsx
+  - src/shared/features/find-account/FindAccountContent.tsx
+  - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/shared/features/mypage/MyPage.tsx
+  - src/shared/features/support/SupportContactCard.tsx
+  - src/shared/features/support/SupportHours.tsx
+  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
+  - src/shared/features/product/ProductDetailDeliverySection.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/mypage/MyPageStatusPage.tsx
+  - src/shared/features/checkout/CheckoutSummary.tsx
+  - src/shared/features/checkout/CheckoutPayment.tsx
+  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
+  - src/shared/features/product/ProductSupportLink.tsx
+  - src/shared/features/product/ProductDetailAfterSalesContent.tsx
+  - src/shared/components/organisms/MyPage/CouponManager.tsx
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/signup-terms/SignupTermsDetail.tsx
+  - src/shared/features/run-club/RunClubHeader.tsx
+  - src/shared/features/run-club/RunClubSessionCard.tsx
+  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
+  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
+  - src/shared/features/account-locked/AccountLockedContent.tsx
   - src/shared/features/find-account/PasswordResetField.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
@@ -72,6 +112,12 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 제목·본문 공통화의 상태 유지 (2026-10-20)
+
+AccountFormLayout·로그인/계정 찾기·가입·회원정보/배송지·쿠폰·주문·런클럽·검색·고객센터의 제목과 후속 그룹을 검토했다. ContentHeader와 ContentSection은 props를 표시하는 조합이며 새 상태·context·정규화·검증을 소유하지 않는다. 기존 form/onSubmit, 쿠폰 필터/등록/선택, 임직원 쿠폰의 ref와 높이 측정, 배송지 draft, 주문의 FormData/요청값 수명, 인증 타이머/약관, 런클럽 필터와 신청 콜백은 기존 소유자에 유지한다.
+
+기존 기능 어댑터와 단일 child/Fragment 본문의 경계를 보존해 새 부모 gap이 폼 내부 간격이나 조건부 값 초기화를 바꾸지 않도록 했다. 포털과 모달은 현재 프레임/부모의 outsideContent 또는 dialogs 슬롯에 유지한다. title/headerProps와 custom header의 구분은 렌더링 API이며 상태 모델 변경은 없다. 검증 결과는 [이관 기록](content-sections.md)을 참고한다.
 
 ## 공통 폼 필드의 상태 소유권 (2026-10-20)
 

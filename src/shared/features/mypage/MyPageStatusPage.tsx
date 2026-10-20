@@ -1,5 +1,5 @@
-import { Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+
 import { SidebarNavigationLayout } from '@/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { AccountDataList } from '@/shared/components/organisms/Account/AccountDataList';
 import { AccountMetricPanel } from '@/shared/components/organisms/Account/AccountMetricPanel';
@@ -78,10 +78,11 @@ export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
       title="MY HOKA"
       titleTo="/mypage"
     >
-      <Stack gap="6">
-        <Typography as="h1" web="heading8" mo="heading5">
-          {page.title}
-        </Typography>
+      <ContentSection
+        gap="6"
+        title={<>{page.title}</>}
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
+      >
         {kind === 'referral' ? (
           <AccountMetricPanel
             tone="dark"
@@ -94,7 +95,7 @@ export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
         ) : (
           <AccountDataList rows={[...page.rows]} />
         )}
-      </Stack>
+      </ContentSection>
     </SidebarNavigationLayout>
   );
 }

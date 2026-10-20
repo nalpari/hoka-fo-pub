@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { SignupBenefit } from '@/shared/components/organisms/Signup/SignupBenefit';
@@ -37,13 +38,16 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
   return (
     <section aria-labelledby="signup-title">
-      <Stack gap="6">
-        <AccountFormHeader
-          title="가입과 동시에 시작되는 혜택!"
-          titleId="signup-title"
-          description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
-        />
-
+      <ContentSection
+        gap="6"
+        header={
+          <AccountFormHeader
+            title="가입과 동시에 시작되는 혜택!"
+            titleId="signup-title"
+            description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
+          />
+        }
+      >
         <Grid columns={3} gap="1.5" aria-label="회원가입 혜택">
           {benefits.map((benefit) => (
             <SignupBenefit key={benefit.iconName} {...benefit} />
@@ -57,7 +61,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
             </Typography>
           </Link>
         </Center>
-      </Stack>
+      </ContentSection>
 
       <Stack gap="2" mt="9">
         {methodOrder.map((method) => (
