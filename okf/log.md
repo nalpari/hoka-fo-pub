@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Merge**: 폼 라벨 변경 병합의 5개 충돌 파일을 해결했다. 최신 쿠폰 ContentSection·공통 Divider·SystemStatusPage 구성을 유지하고 formLabel body4 및 부가정보 제목 mo heading7 변경과 양쪽 문서 이력을 통합했다. [통합 기준](architecture/ui.md#폼-라벨-변경-병합-충돌-해결-2026-10-20)을 참고한다.
+
 - **Refactor**: 약관 시행일 선택을 TermsDateSelect로 분리하고 반복되는 장식용 가로 구분선을 공통 Divider의 세 variant로 정리했다. 기존 간격·모바일 조건·Popover/Radio 동작을 유지했다. [구성 계약](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 참고한다.
 
 - **Update**: 고객센터 첨부 시안을 대조해 SUPPORT 사이드 제목, FAQ 필터/구분선/모바일 간격, 공지의 PC 펼침·모바일 상세 이동, 문의 첨부 미리보기·답변 패널, 모바일 지도 비율을 정리했다. 세탁 안내와 약관 문서를 기능 내부 컴포넌트로 나누고 공통 Dialog·Carousel·ContentSection·PageActionButton을 재사용했다. [고객센터 시안 반영 기록](architecture/support-design.md)을 참고한다.
@@ -13,6 +15,8 @@
 - **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
 
 - **Merge**: UI 코드 3파일과 UI 문서의 충돌을 해결했다. 공통 ContentSection·footer와 들어오는 쿠폰 카드·프로필 편집·404 색상/간격 변경을 통합하고 양쪽 문서 이력을 보존했다. 타입·변경 ESLint·충돌 해결 파일 Prettier·Panda·Next.js 빌드·스테이징 기준 OKF 검사를 통과했다. [UI 통합 기록](architecture/ui.md#ui-병합-충돌-해결-2026-10-20)을 참고한다.
+
+- **Update**: Typography `formLabel`을 body4 스케일로 맞췄다. 체크박스·라디오를 포함한 폼 라벨의 공통 시각 스타일로 사용하며 그룹 제목 구조와는 구분한다고 [UI 기록](architecture/ui.md#typography-formlabel-스케일-2026-10-20)에 명시했다.
 
 - **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.
 

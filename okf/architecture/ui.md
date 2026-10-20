@@ -629,6 +629,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 폼 라벨 변경 병합 충돌 해결 (2026-10-20)
+
+`Typography.formLabel`의 body4 스케일과 프로필 부가정보 제목의 `mo: heading7` 변경을 반영했다. `EmployeeCoupons`의 고정 카드와 `ContentSection`, `MyPageProfile`의 공통 `Divider`·폼·footer, `NotFoundPage`의 `SystemStatusPage` 위임은 최신 구현을 유지한다. UI 문서의 단일 생성 시각과 양쪽 변경 이력을 보존한다. 출처는 `working_tree_sources`의 해당 네 TSX 파일이다. 타입·변경 TSX ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드·스테이징 기준 OKF 검사를 통과했다. 브라우저 시각·상호작용 검증은 실행하지 않았다.
+
 ## UI 병합 충돌 해결 (2026-10-20)
 
 `EmployeeCoupons`, `MyPageProfile`, `NotFoundPage`의 공통 `ContentSection` 구성을 유지하면서 들어오는 브랜치의 UI 변경을 통합했다. 임직원 쿠폰은 50%·30% 발급 안내 카드 두 건과 체크 아이콘을 표시한다. 프로필은 문자·카카오톡 수신 설정을 하나로 묶고 결혼 여부 편집, 변경사항 저장 문구와 탈퇴 안내를 반영한다. 프로필의 조회 화면 수정 버튼은 공통 footer에 두고 편집 폼의 검증·제출·취소·탈퇴 대화상자 상태를 유지한다. 404 화면은 `black.100` 아이콘 색상과 제목/설명 사이 간격 4를 적용하며 공통 헤더·footer를 유지한다.
@@ -1882,6 +1886,10 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 ## Font Awesome 아이콘 스토리 카탈로그
 
 Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+## Typography formLabel 스케일 (2026-10-20)
+
+`Typography`의 `formLabel` variant는 폼 라벨에 쓰는 body4 타이포그래피를 사용한다. 라디오·체크박스 전용 표현이 아니라 라벨 문구에 공통으로 적용하는 시각 스타일이며, 그룹 제목의 의미 구조는 소비처에서 별도로 제공한다. 출처는 `src/shared/components/atoms/Typography/Typography.tsx`다.
 
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 

@@ -187,7 +187,7 @@ export function MyPageProfile() {
                 <ContentSection
                   gap="6"
                   title="부가정보"
-                  headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading7' } }}
+                  headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading7' } }}
                 >
                   <PreferenceField
                     ariaLabel="결혼유무"
