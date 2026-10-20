@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Update**: 페이지 스토리 179개를 `PAGES/영역/페이지/Web·Mobile/상태`로 재분류하고 고객센터를 화면별로 분리했다. 기존 시나리오와 폭 설정을 공유 파일에 보존하고 IA 링크를 갱신했다. Mockup 구현 24개·전용 스토리 3개·앱 라우트 12개를 제거했다. 타입·변경 파일 ESLint/Prettier·Panda·Next/Storybook 빌드·앱 라우트 테스트 2개·스토리/IA ID 검사를 통과했다. 브라우저 play는 재실행하지 않았다.
+
 - **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
 - **Update**: Figma 고객센터 상담 카드의 전화 SVG를 `phone-call` 아이콘으로 등록하고 두 카드의 `TEL.` 라벨을 대체했다. 전화번호 링크는 유지했다. [UI 기록](architecture/ui.md)에 자산과 사용처를 남겼다.
 

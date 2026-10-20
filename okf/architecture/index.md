@@ -171,3 +171,4 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 단일 확인 버튼 footer의 SingleActionDialog 공용 계약과 계정·주소·약관 팝업 적용은 [컴포넌트와 스타일](ui.md)의 확인 버튼 하나를 가진 팝업 항목을 참고한다.
 
 상품 상세 컬러 선택의 PC 줄바꿈 그리드·모바일 가로 스크롤 및 Radio 기본 스타일 충돌 수정은 [컴포넌트와 스타일](ui.md)의 상품 상세 컬러 선택 배치 수정 항목을 참고한다.
+- [Storybook 페이지 분류와 Mockup 제거](ui.md#storybook-페이지-분류와-mockup-제거-2026-10-20): 페이지별 Web/Mobile 구조, 시나리오 공유와 IA 링크 갱신, Mockup 제거 범위를 기록한다.

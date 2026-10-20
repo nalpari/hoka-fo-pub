@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:22:17Z'
+  at: '2026-10-20T02:03:12.161Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/login/LoginPage.stories.tsx
+  - src/stories/features/login/LoginPage.mobile.stories.tsx
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/shared/features/screen-index/IaStructurePage.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
   - src/shared/features/support/InquiryMessageFields.tsx
@@ -1739,3 +1744,13 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 출처는 위 working_tree_sources의 회원가입 관련 TSX, SignupMethodStep.tsx, src/stories/features/signup-registration/RegistrationPage.stories.tsx, src/stories/features/signup-terms/SignupTermsPage.stories.tsx, src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx, src/stories/features/forms/form-state-audit/account.scenarios.tsx 및 enterAddress.ts다. 첨부 PNG는 외부 디자인 참고이며 저장소에 복사하지 않았다. 브라우저에서 PC 본문 500px·혜택 카드 줄바꿈 없음, 375px 부가 정보 본문 343px·가로 넘침 없음, 휴대폰 인증 오류 네 필드 표시, 모바일 이메일 형식 확인·주소 입력·부가 정보 전환 스토리의 최종 상태와 오류 로그 없음을 확인했다. Panda 생성·변경 파일 ESLint·Storybook production build는 통과했다. 동시 작업의 로그인 타입 오류가 해소된 최신 작업 트리에서 TypeScript와 Next production build(61개 경로)도 최종 통과했다. 실제 인증/SNS/이메일 중복 조회 등 서비스 연결을 검증한 것은 아니다.
 
 가입 완료의 설명도 PC에서는 한 줄, 모바일에서는 지정된 위치에서 줄바꿈하도록 보완했다. 본문 너비·버튼·모바일 간격은 그대로 유지한다.
+
+## Storybook 페이지 분류와 Mockup 제거 (2026-10-20)
+
+페이지 스토리 179개는 `PAGES/<영역>/<페이지>/Web/<상태>` 또는 `PAGES/<영역>/<페이지>/Mobile/<상태>`로 탐색한다. Web 기본 뷰포트는 1600px, Mobile은 375px이며 기존 개별 스토리의 375·768·1200·1600·1920·2560·3840px 설정을 유지한다. Mobile·Desktop 접두어는 상태 이름에서 제거한다. 고객센터는 Customer Center·Faq·Notices·Inquiries 등 화면별 분류 다음에 플랫폼을 둔다. 기존에 한 플랫폼만 있던 상태를 새로 복제하지 않는다.
+
+각 페이지의 렌더·decorator·args·play 정의는 동일 디렉터리의 `*.scenarios.tsx`에서 공유하고, `*.stories.tsx`는 플랫폼별 meta와 명시적인 상태 export를 제공한다. 스토리 탐색은 계속 `.storybook/main.ts`의 `src/stories/`로 제한한다. IA 구조도의 PC/MO 미리보기 링크는 새 story ID로 연결한다.
+
+`src/shared/Mockup/`의 구현 24개 파일과 `src/stories/features/Mockup/`의 전용 스토리 3개를 제거했다. Mockup을 직접 사용하던 앱 라우트 12개와 MyPageRouteStory의 running-profile 분기도 제거했다. 이 절은 위쪽의 과거 Mockup 이동 기록 이후의 현재 상태를 설명한다.
+
+검증(Codex): 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next·Storybook production build, 앱 라우트 테스트 2개를 통과했다. Storybook index에서 기존 페이지 시나리오 179개의 새 ID와 모든 IA 미리보기 ID가 존재하고 Mockup 분류가 없음을 확인했다. 소스·Storybook 설정에서 Mockup 참조가 남지 않았음을 확인했다. 브라우저 시각 비교와 play 재실행은 수행하지 않았다.
