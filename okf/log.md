@@ -2,6 +2,14 @@
 
 ## 2026-10-20
 
+- **Refactor**: SearchKeywordButton을 공통 ButtonLink로 바꾸고 실제 검색 경로·검색어 저장·오버레이 닫기와 수정 클릭의 기본 링크 동작을 유지했다. [UI 기록](architecture/ui.md#최근-검색어-키워드의-공통-버튼-재사용-2026-10-20)을 갱신했다.
+
+- **Refactor**: RecentSearchItem의 목록 레이아웃을 Flex JSX props로 옮기고 기존 8px 간격·모바일 삭제 버튼 정렬·콜백을 유지했다. IconButton에 Panda 스타일 props를 전달할 수 없어 모바일 여백 class는 유지했다고 [UI 기록](architecture/ui.md#최근-검색-timer-아이콘-2026-10-20)에 기록했다.
+
+- **Update**: `faXmark`를 Font Awesome Icon 스토리 카탈로그에 추가하고 [UI 기록](architecture/ui.md#font-awesome-아이콘-스토리-카탈로그)에 목록을 반영했다.
+
+- **Update**: 최근 검색 시계 아이콘을 Figma `901:31346` Timer SVG로 교체하고 공통 Icon 이름 및 Storybook SVG 카탈로그에 등록했다. [UI 기록](architecture/ui.md#최근-검색-timer-아이콘-2026-10-20)을 갱신했다.
+
 - **Update**: Typography `formLabel`을 body4 스케일로 맞췄다. 체크박스·라디오를 포함한 폼 라벨의 공통 시각 스타일로 사용하며 그룹 제목 구조와는 구분한다고 [UI 기록](architecture/ui.md#typography-formlabel-스케일-2026-10-20)에 명시했다.
 
 - **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.

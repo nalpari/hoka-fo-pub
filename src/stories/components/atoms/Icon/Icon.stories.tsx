@@ -22,6 +22,7 @@ import {
   faStarSolid,
   faTriangleExclamation,
   faUser,
+  faXmark,
 } from '@/shared/icons/fontAwesome';
 
 const catalogGrid = css({
@@ -71,6 +72,7 @@ const svgIconGroups = [
       'radio-checked',
       'radio-unchecked',
       'tag-delete',
+      'timer',
       'unlock-keyhole',
     ],
   },
@@ -167,6 +169,7 @@ const fontAwesomeIcons = [
   ['star-solid', faStarSolid],
   ['triangle-exclamation', faTriangleExclamation],
   ['user', faUser],
+  ['xmark', faXmark],
 ] as const;
 
 function SvgIconGroup({ label, names }: { label: string; names: readonly string[] }) {

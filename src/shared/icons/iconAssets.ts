@@ -6,6 +6,7 @@ export const iconAssets = {
   medal: '/images/icon/medal.svg',
   partyHorn: '/images/icon/party-horn.svg',
   phoneVerification: '/images/icon/phone-verification.svg',
+  timer: '/images/icon/timer.svg',
   'unlock-keyhole': '/images/icon/unlock-keyhole.svg',
   'social/kakao': '/images/icon/social/kakao.svg',
   'social/naver': '/images/icon/social/naver.svg',
