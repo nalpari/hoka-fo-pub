@@ -28,8 +28,6 @@ export const Registration: Story = { ...account.Registration };
 
 export const SignupTerms: Story = { ...account.SignupTerms };
 
-export const SignupDetails: Story = { ...account.SignupDetails };
-
 export const Addresses: Story = { ...mypage.Addresses };
 
 export const Profile: Story = { ...mypage.Profile };

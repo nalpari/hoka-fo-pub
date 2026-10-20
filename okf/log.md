@@ -32,6 +32,8 @@
 
 - **Refactor**: AccountFormHeader의 Box와 세로 flex 선언을 Stack gap="3"으로 정리했다. spacingCss의 gap·반응형 여백 덮어쓰기와 제목/설명의 DOM·조건부 표시를 유지한다. 타입·변경 ESLint/포맷·Panda 생성을 통과하고 기본/덮어쓰기 4가지 조합의 렌더링 DOM·클래스 일치를 확인했다.
 
+- **Docs**: Storybook의 공통 `Pages/AUTH` 카테고리를 로그인·계정 복구 `Pages/Login`과 가입·인증 `Pages/Signup`으로 분리했다. 인증 화면을 묶었던 이유는 탐색 편의를 위한 것이며 두 흐름의 컴포넌트 공유를 나타내지 않는다. UI 문서와 아키텍처 인덱스에 구분 기준을 남겼다. 스토리 인덱스에 두 분류가 생성되고 `Pages/AUTH`가 사라진 것을 확인했으며, Storybook production build·변경 파일 ESLint/Prettier가 통과했다.
+- **Refactor**: `/signup`에서 카카오가 구형 약관 동의 화면으로 이어지던 연결을 제거했다. 카카오·네이버는 미연결 안내를 표시하고, 캡처된 약관·정보 입력·가입 완료 단계는 `src/shared/Mockup/signup`으로 옮겨 Mockup Storybook에서 PC·MO로 볼 수 있게 했다. `/signup?step=details` 분기와 폐기된 구형 가입 단계 검증도 제거했다. 라우팅·UI·폼 필드·organism 기록과 Obsidian 주소 문서의 팝업 진입 안내를 갱신했다. 변경 파일 ESLint·Prettier, Storybook production build, OKF 테스트를 통과했다. 전체 typecheck는 기존 `.next/types`의 다른 라우트 오류로 통과하지 못했다.
 - **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
 - **Update**: Figma 고객센터 상담 카드의 전화 SVG를 `phone-call` 아이콘으로 등록하고 두 카드의 `TEL.` 라벨을 대체했다. 전화번호 링크는 유지했다. [UI 기록](architecture/ui.md)에 자산과 사용처를 남겼다.
 
@@ -63,6 +65,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: `ModalDialog`의 `content`/`singleActionContent` 분기와 `actionCount` prop을 제거했다. 모든 모달 본문을 PC 위·좌우 24px/아래 16px, 모바일 `24px 16px 16px`로 통일하고 `SingleActionDialog` 사용처도 같은 규칙을 쓴다. [UI 기록](architecture/ui.md#모달-본문-패딩-통일-2026-10-20)에 반영했다.
+- **Refactor**: 계정 잠금 안내를 공통 `ModalDialog` 직접 조합으로 변경하고 확인 버튼을 footer에 배치했다. md 크기, 단일 액션 본문 간격과 닫기·확인 이동 콜백을 유지했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.
 - **Fix**: 공통 고객센터 레이아웃에서 제거된 제목 컴포넌트·prop과 매장 찾기의 오래된 import를 현재 API로 맞췄다. [UI 기록](architecture/ui.md)에 타입 검사 범위를 기록했다.
 - **Fix**: 매장 찾기 파일 이동 후 남아 있던 import 경로를 새 `Mockup/store-finder` 경로로 고치고 전체 타입 검사를 통과했다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.

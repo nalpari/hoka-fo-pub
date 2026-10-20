@@ -3,7 +3,7 @@ import base, * as scenarios from './PasswordResetCompleteModal.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/FindAccount/PasswordResetCompleteModal/Mobile',
+  title: 'PAGES/Login/FindAccount/PasswordResetCompleteModal/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

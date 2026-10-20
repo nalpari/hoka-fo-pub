@@ -3,7 +3,7 @@ import base, * as scenarios from './FindAccountPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/FindAccount/Mobile',
+  title: 'PAGES/Login/FindAccount/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

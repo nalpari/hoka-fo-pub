@@ -3,7 +3,7 @@ import base, * as scenarios from './AccountUnlockCompletePage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/AccountUnlockCompletePage/Mobile',
+  title: 'PAGES/Login/AccountUnlockCompletePage/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

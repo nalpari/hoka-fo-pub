@@ -3,7 +3,7 @@ import base, * as scenarios from './AccountLockedPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/FindAccount/AccountLockedModal/Web',
+  title: 'PAGES/Login/FindAccount/AccountLockedModal/Web',
   globals: { viewport: 'hoka1600' },
 };
 

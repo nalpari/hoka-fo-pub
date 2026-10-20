@@ -3,7 +3,7 @@ import base, * as scenarios from './PasswordResetPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/FindAccount/PasswordResetPage/Web',
+  title: 'PAGES/Login/FindAccount/PasswordResetPage/Web',
   globals: { viewport: 'hoka1600' },
 };
 

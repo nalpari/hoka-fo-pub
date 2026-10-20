@@ -3,7 +3,7 @@ import base, * as scenarios from './IdentityVerificationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/IdentityVerification/Web',
+  title: 'PAGES/Signup/IdentityVerification/Web',
   globals: { viewport: 'hoka1600' },
 };
 

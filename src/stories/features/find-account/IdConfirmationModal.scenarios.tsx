@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/IdConfirmationModal',
+  title: 'PAGES/Login/FindAccount/IdConfirmationModal',
   component: IdConfirmationModal,
   args: {
     userName: '김호가',
