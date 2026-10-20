@@ -1885,7 +1885,13 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## Font Awesome 아이콘 스토리 카탈로그
 
-Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+## 최근 검색 Timer 아이콘 (2026-10-20)
+
+최근 검색 기록은 Figma `901:31346`의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/shared/icons/iconAssets.ts`, `src/shared/components/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+`RecentSearchItem`은 `Flex as="li"`의 JSX props로 기존 수평 정렬과 8px 간격을 표현한다. IconButton은 Panda JSX 스타일 props를 받지 않으므로 모바일에서 삭제 버튼을 오른쪽으로 미는 `ml: auto`는 기존 Panda `css` class로 유지한다. 검색·삭제 콜백과 목록 항목의 HTML 의미는 그대로 둔다.
 
 ## Typography formLabel 스케일 (2026-10-20)
 
@@ -1896,6 +1902,12 @@ Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
 
 검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.
+
+## 최근 검색어 키워드의 공통 버튼 재사용 (2026-10-20)
+
+SearchKeywordButton은 공통 ButtonLink의 link 변형으로 `/search?q=…&scope=전체` 주소를 제공하고 Typography body4 문구로 표시한다. Next Link의 onNavigate에서 검색어 저장과 오버레이 닫기를 처리해 실제 경로 이동은 링크에 맡긴다. 검색 폼·자동완성·추천 검색어 버튼은 기존 검색 콜백으로 이동한다. mouse down 기본 동작 방지로 오버레이 입력 포커스도 유지한다. ButtonLink는 Next Link의 onNavigate를 전달한다.
+
+작업 트리 출처: `src/shared/components/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
 
 ## 장바구니·주문 결제 첨부 시안 보완 (2026-10-19)
 
