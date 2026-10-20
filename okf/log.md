@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: 중앙 너비의 contentFrame Panda 패턴을 MainSection·MainSectionHeader·HeroCopy에 적용하고 SidebarColumns를 고객센터/사이드 내비게이션 레이아웃에 연결했다. DOM 래퍼 없이 모바일 너비·190px/98px 및 180px/50px 골격을 유지했다. Panda·타입 검사·변경 ESLint·Next/Storybook 빌드와 PC/MO 브라우저 배치를 확인했다. [UI 구성](architecture/ui.md#중앙-너비-패턴과-사이드바-골격-공통화-2026-10-20)을 갱신했다.
+
 - **Update**: 쿠폰·리뷰·FAQ·공지의 더보기 표시를 LoadMoreButton으로 공통화했다. remaining과 current/total API를 구분하고 기존 타이포그래피·너비·여백·페이지 상태를 보존했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Storybook production build를 통과했다. [UI 구성](architecture/ui.md#더보기-버튼-공통화-2026-10-20)과 [상태 검토](architecture/state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 갱신했다.
 
 - **Refactor**: ContentSection에 선택적 footer/children을 추가하고 CustomerCenterLayout 전달 API와 UI 소비처 15곳에 적용했다. 폼/간격/Grid·제목 없는 목록의 조건부 9개 경계 및 기존 전용 footer·고정 바는 유지했다. [적용 기록](architecture/footer-actions.md)을 갱신하고 공용 스토리 4개를 추가했다. 타입·변경 ESLint/포맷·Panda·Next/Storybook 빌드·기존 테스트 40개, PC/MO 변경 전후 비교 32개·Storybook 동작 17개·별도 동작 12개와 스킬 검증기를 통과했다.

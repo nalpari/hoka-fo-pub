@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:11:55Z'
+  at: '2026-10-20T04:25:49Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - panda.config.ts
+  - src/shared/components/layouts/SidebarColumns/SidebarColumns.tsx
+  - src/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
   - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
   - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
@@ -583,6 +590,17 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 중앙 너비 패턴과 사이드바 골격 공통화 (2026-10-20)
+
+`src/shared/components`의 레이아웃 조사 후 중앙 콘텐츠 너비와 사이드바 2열 골격을 공통화했다. 기능 화면의 소스와 기존 공개 레이아웃 props는 변경하지 않았다.
+
+- `panda.config.ts`의 `contentFrame` 패턴은 WEB 너비 `min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))`만 기본으로 제공한다. `mobileWidth`는 `_mobile.w`로 변환한다. MainSection의 contained 본문·MainSectionHeader·HeroCopy가 기존 요소에 생성 클래스를 적용하며 새 DOM 래퍼를 추가하지 않는다. 중앙 정렬 margin과 절대 위치는 소비자가 소유한다.
+- 모바일 너비는 MainSection 본문 100%, 제목은 양쪽 16px 제외, HeroCopy는 양쪽 16px 제외 및 343px 상한으로 유지한다. MainSection의 fullBleed/extended 모드와 `100cqw` 기반 확장 너비·offset, HomeCarouselRail 카드 계산은 기존 소유자에 남긴다. 부모가 이미 gutter를 소유하는 SiteHeaderInner/FooterContent에는 패턴을 중복 적용하지 않는다.
+- `layouts/SidebarColumns`는 `sidebar` 슬롯과 직접 `children`, 필수 `sidebarWidth`(180px/190px), `gap`(기본 50px), 기존 Grid 스타일 props를 받는다. WEB의 두 열과 모바일 block 전환을 소유한다. 본문 래퍼나 landmark를 자동 추가하지 않는다.
+- SidebarNavigationLayout은 기존 `main`을 `SidebarColumns as="main"`으로 대체하고 180px/50px을 유지한다. CustomerCenterLayout은 내부 Grid만 교체하고 190px/98px을 지정한다. Breadcrumb·제목·바깥 프레임·페이지 여백·메뉴 표시 정책과 본문의 `minW="0"`은 각 소비자가 유지한다. 마이페이지의 `mobileSpacing="none"`은 그대로 무여백을 적용한다.
+
+검증 (2026-10-20, Codex): Panda 생성, 전체 타입 검사, 변경 TS/TSX ESLint, Next production build와 Storybook production build를 통과했다. Storybook 첫 빌드는 정적 파일 복사 중 EEXIST로 실패했으며 새 출력 디렉터리에서 재실행해 통과했다. 브라우저에서 고객센터 PC의 190px/98px, 실제 쿠폰 페이지 PC의 180px/50px 및 본문 min-width 0·중첩 main 없음, 고객센터/쿠폰 모바일의 block 전환·메뉴 숨김과 쿠폰의 padding 0을 확인했다. 홈 2560px에서 제목 프레임 1532px과 Hero/제목의 왼쪽 정렬, 모바일의 제목 좌우 여백을 확인했다. 변경 전후 스크린샷 비교나 전체 Storybook play 실행은 하지 않았다.
 
 ## ContentSection 하단 액션 슬롯 (2026-10-20)
 
