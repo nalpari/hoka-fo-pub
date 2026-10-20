@@ -4,7 +4,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { HStack } from 'styled-system/jsx';
 
 const link = css({
   _hover: {
@@ -12,47 +12,33 @@ const link = css({
   },
 });
 
-const separator = css({ display: 'inline-flex', mx: '7px', verticalAlign: 'middle' });
-
 export type BreadcrumbItem = { label: string; href?: string };
 
 export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <Box
-      as="nav"
-      css={{
-        '&&': {
-          fontWeight: 'semibold',
-          color: 'var(--color-text-primary)',
-        },
-      }}
-      aria-label="현재 위치"
-    >
+    <HStack as="nav" gap="4px" alignItems="center" minH="24px" aria-label="현재 위치">
       {items.map((item, index) => (
-        <span key={`${item.label}-${index}`}>
+        <HStack as="span" key={`${item.label}-${index}`} gap="2" alignItems="center" minH="24px">
           {index > 0 && (
-            <span className={separator} aria-hidden="true">
-              <Icon name="breadcrumb" style={{ width: '4px', height: '8px' }} />
-            </span>
+            <HStack as="span" w="13px" h="11px" justifyContent="center" aria-hidden="true">
+              <Icon name="chevron-right" size="12px" color="black.50" />
+            </HStack>
           )}
           {item.href && index < items.length - 1 ? (
             <Link className={link} href={item.href}>
-              <Typography variant="body4" weight="inherit">
-                {item.label}
-              </Typography>
+              <Typography variant="body4">{item.label}</Typography>
             </Link>
           ) : (
             <Typography
               variant="body4"
-              weight="inherit"
               tone="tertiary"
               aria-current={index === items.length - 1 ? 'page' : undefined}
             >
               {item.label}
             </Typography>
           )}
-        </span>
+        </HStack>
       ))}
-    </Box>
+    </HStack>
   );
 }

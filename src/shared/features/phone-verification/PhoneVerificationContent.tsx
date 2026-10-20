@@ -1,8 +1,8 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Box } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
-import { PhoneVerificationDetailDialog } from './PhoneVerificationDetailDialog';
+import { PhoneVerificationDialogs } from './PhoneVerificationDialogs';
 import { PhoneVerificationAgreements } from './PhoneVerificationAgreements';
 import type { PhoneVerificationContentProps } from './phone-verification.types';
 import { PhoneVerificationForm } from './PhoneVerificationForm';
@@ -17,29 +17,7 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       title={props.title ?? '휴대폰 인증'}
       description={props.description}
       contentWidth="500px"
-      dialogs={
-        props.detail === '알뜰폰 사업자' ? (
-          <PhoneVerificationDetailDialog
-            open
-            onOpenChange={(open) => {
-              if (!open) props.onDetail(null);
-            }}
-          />
-        ) : (
-          <ModalDialog
-            open={props.detail !== null}
-            onOpenChange={(open) => {
-              if (!open) props.onDetail(null);
-            }}
-            title={props.detail ?? ''}
-            closeLabel="안내 닫기"
-            size="md"
-            mobilePresentation="fullscreen"
-          >
-            {null}
-          </ModalDialog>
-        )
-      }
+      dialogs={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
     >
       <PhoneVerificationAgreements
         agreements={props.agreements}
@@ -48,12 +26,14 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
         onAgreementChange={props.onAgreementChange}
         onDetail={props.onDetail}
       />
-      <Box my="6">
-        <Typography as="h2" variant="headingKr9">
-          인증 정보
-        </Typography>
-      </Box>
-      <PhoneVerificationForm {...props} />
+      <ContentSection
+        mt="6"
+        gap="6"
+        title="인증 정보"
+        headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
+      >
+        <PhoneVerificationForm {...props} />
+      </ContentSection>
       <Box mt="4">
         <Typography as="p" variant="body4" tone="tertiary">
           * 인증문의 (주)KCB고객센터 02-708-1000

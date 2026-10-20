@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { SideNavigation } from '@/shared/components/organisms/Navigation/SideNavigation/SideNavigation';
+import { supportNavigation } from '@/shared/features/support/support.navigation';
 
 const meta = {
   title: 'Organisms/Navigation/SideNavigation',
@@ -27,6 +28,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Desktop: Story = {};
+
+export const SupportDesktop: Story = {
+  args: {
+    appearance: 'support',
+    title: '고객센터',
+    activePath: '/support',
+    groups: supportNavigation,
+  },
+};
 
 export const MobileHidden: Story = {
   parameters: { layout: 'fullscreen' },

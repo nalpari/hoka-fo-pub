@@ -69,97 +69,100 @@ type PreviewStoryIds = {
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
   260: {
-    pc: 'pages-support-customer-center--size-guide-desktop',
-    mo: 'pages-support-customer-center--size-guide-mobile-375',
+    pc: 'pages-support-sizeguide-web--default',
+    mo: 'pages-support-sizeguide-mobile--default',
   },
-  200: { pc: 'pages-mypage-runclub-list--list', mo: 'pages-mypage-runclub-list--mobile-list' },
-  258: { pc: 'pages-mypage-runclub-list--list', mo: 'pages-mypage-runclub-list--mobile-list' },
-  259: { pc: 'pages-mypage-runclub-detail--open', mo: 'pages-mypage-runclub-detail--mobile-open' },
+  200: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
+  258: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
+  259: {
+    pc: 'pages-mypage-runclub-detail-web--open',
+    mo: 'pages-mypage-runclub-detail-mobile--open',
+  },
   229: {
-    pc: 'pages-auth-findaccount-passwordresetpage--default',
-    mo: 'pages-auth-findaccount-passwordresetpage--mobile',
+    pc: 'pages-auth-findaccount-passwordresetpage-web--default',
+    mo: 'pages-auth-findaccount-passwordresetpage-mobile--default',
   },
   252: {
-    pc: 'pages-auth-findaccount-passwordresetcompletemodal--default',
-    mo: 'pages-auth-findaccount-passwordresetcompletemodal--mobile',
+    pc: 'pages-auth-findaccount-passwordresetcompletemodal-web--default',
+    mo: 'pages-auth-findaccount-passwordresetcompletemodal-mobile--default',
   },
   226: {
-    pc: 'pages-auth-findaccount-idconfirmationmodal--default',
-    mo: 'pages-auth-findaccount-idconfirmationmodal--mobile',
+    pc: 'pages-auth-findaccount-idconfirmationmodal-web--default',
+    mo: 'pages-auth-findaccount-idconfirmationmodal-mobile--default',
   },
   1: {
-    pc: 'pages-home-main--width-1920',
-    mo: 'pages-home-main--width-375',
+    pc: 'pages-home-main-web--width-1920',
+    mo: 'pages-home-main-mobile--width-375',
   },
   251: {
-    pc: 'pages-auth-findaccount-accountlockedmodal--default',
-    mo: 'pages-auth-findaccount-accountlockedmodal--mobile',
+    pc: 'pages-auth-findaccount-accountlockedmodal-web--default',
+    mo: 'pages-auth-findaccount-accountlockedmodal-mobile--default',
   },
   253: {
-    pc: 'pages-auth-phoneverification--account-unlock',
-    mo: 'pages-auth-phoneverification--mobile-account-unlock',
+    pc: 'pages-auth-phoneverification-web--account-unlock',
+    mo: 'pages-auth-phoneverification-mobile--account-unlock',
   },
   254: {
-    pc: 'pages-auth-accountunlockcompletepage--default',
-    mo: 'pages-auth-accountunlockcompletepage--mobile',
+    pc: 'pages-auth-accountunlockcompletepage-web--default',
+    mo: 'pages-auth-accountunlockcompletepage-mobile--default',
   },
   257: {
     pc: 'organisms-account-alreadyregisteredmodal--default',
     mo: 'organisms-account-alreadyregisteredmodal--mobile',
   },
   233: {
-    pc: 'pages-auth-signup--default',
-    mo: 'pages-auth-signup--mobile',
+    pc: 'pages-auth-signup-web--default',
+    mo: 'pages-auth-signup-mobile--default',
   },
   234: {
-    pc: 'pages-auth-phoneverification--default',
-    mo: 'pages-auth-phoneverification--mobile',
+    pc: 'pages-auth-phoneverification-web--default',
+    mo: 'pages-auth-phoneverification-mobile--default',
   },
   235: {
-    pc: 'pages-auth-identityverification--default',
-    mo: 'pages-auth-identityverification--mobile',
+    pc: 'pages-auth-identityverification-web--default',
+    mo: 'pages-auth-identityverification-mobile--default',
   },
   236: {
-    pc: 'pages-auth-signupterms--default',
-    mo: 'pages-auth-signupterms--mobile',
+    pc: 'pages-auth-signupterms-web--default',
+    mo: 'pages-auth-signupterms-mobile--default',
   },
   237: {
-    pc: 'pages-auth-registration--default',
-    mo: 'pages-auth-registration--mobile',
+    pc: 'pages-auth-registration-web--default',
+    mo: 'pages-auth-registration-mobile--default',
   },
   255: {
-    pc: 'pages-auth-registration--additional',
-    mo: 'pages-auth-registration--mobile-additional',
+    pc: 'pages-auth-registration-web--additional',
+    mo: 'pages-auth-registration-mobile--additional',
   },
   256: {
-    pc: 'pages-auth-registration-marketingconsentsummarymodal--default',
-    mo: 'pages-auth-registration-marketingconsentsummarymodal--mobile',
+    pc: 'pages-auth-registration-marketingconsentsummarymodal-web--default',
+    mo: 'pages-auth-registration-marketingconsentsummarymodal-mobile--default',
   },
   238: {
-    pc: 'pages-auth-registration--complete',
-    mo: 'pages-auth-registration--complete',
+    pc: 'pages-auth-registration-web--complete',
+    mo: 'pages-auth-registration-web--complete',
   },
 };
 
 const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {
   eland_hca_01: {
-    pc: 'pages-products-list--width-1920',
-    mo: 'pages-products-list--width-375',
+    pc: 'pages-products-list-web--width-1920',
+    mo: 'pages-products-list-mobile--width-375',
   },
   eland_hca_02: {
-    pc: 'pages-products-detail--width-1920',
-    mo: 'pages-products-detail--width-375',
+    pc: 'pages-products-detail-web--width-1920',
+    mo: 'pages-products-detail-mobile--width-375',
   },
 };
 
 const loginPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-auth-login--default',
-  mo: 'pages-auth-login--mobile',
+  pc: 'pages-auth-login-web--default',
+  mo: 'pages-auth-login-mobile--default',
 };
 
 const findAccountPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-auth-findaccount--default',
-  mo: 'pages-auth-findaccount--mobile',
+  pc: 'pages-auth-findaccount-web--default',
+  mo: 'pages-auth-findaccount-mobile--default',
 };
 
 const findAccountScreenCodes = new Set([

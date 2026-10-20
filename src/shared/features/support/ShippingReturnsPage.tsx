@@ -1,5 +1,7 @@
 'use client';
 
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -101,11 +103,17 @@ function BulletList({ items }: { items: readonly ReactNode[] }) {
   );
 }
 
-function GuidePanel({ children }: { children: ReactNode }) {
+function GuidePanel({ title, children }: { title: ReactNode; children: ReactNode }) {
   return (
-    <Stack gap="4" px={{ base: '4', _mobile: '2' }} pt={{ base: '3', _mobile: '4' }}>
+    <ContentSection
+      title={title}
+      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading9', weight: 'semibold' } }}
+      gap="4"
+      px={{ base: '4', _mobile: '2' }}
+      pt={{ base: '3', _mobile: '4' }}
+    >
       {children}
-    </Stack>
+    </ContentSection>
   );
 }
 
@@ -114,10 +122,7 @@ const tabs = [
     value: 'shipping',
     label: '배송 안내',
     content: (
-      <GuidePanel>
-        <Typography as="h3" variant="heading9" weight="semibold">
-          배송 안내
-        </Typography>
+      <GuidePanel title="배송 안내">
         <NumberedList items={shippingItems} />
       </GuidePanel>
     ),
@@ -126,10 +131,7 @@ const tabs = [
     value: 'return-cautions',
     label: '반품 주의사항',
     content: (
-      <GuidePanel>
-        <Typography as="h3" variant="heading9" weight="semibold">
-          반품 유의 사항
-        </Typography>
+      <GuidePanel title="반품 유의 사항">
         <NumberedList
           items={[
             '상품 수령일로부터 7일 이내에 반품 신청을 해주시기 바랍니다.',
@@ -147,19 +149,18 @@ const tabs = [
     value: 'product-returns',
     label: '상품 반품 안내',
     content: (
-      <GuidePanel>
-        <Typography as="h3" variant="heading9" weight="semibold">
-          상품 반품 안내
-        </Typography>
+      <GuidePanel title="상품 반품 안내">
         <NumberedList
           items={[
             '온라인 스토어에서 구매한 상품만 온라인 반품이 가능합니다.',
             '고객님 변심으로 인해 발생되는 반품관련 배송 비용은, 시스템에서 자동으로 차감 후 환불처리 됩니다.',
           ]}
         />
-        <Typography as="h3" variant="heading9" weight="semibold">
-          상품 반품 절차
-        </Typography>
+        <ContentHeader
+          titleAs="h3"
+          title={<>상품 반품 절차</>}
+          titleProps={{ variant: 'heading9', weight: 'semibold' }}
+        />
         <NumberedList items={returnSteps} compact />
       </GuidePanel>
     ),

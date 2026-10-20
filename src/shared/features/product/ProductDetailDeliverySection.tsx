@@ -1,6 +1,7 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const numberedList = css({
@@ -19,12 +20,15 @@ export function ProductDetailDeliverySection({
   children: ReactNode;
 }) {
   return (
-    <Stack as="section" gap="5" aria-label={title}>
-      <Typography as="h3" variant="heading8">
-        {title}
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="5"
+      aria-label={title}
+      title={<>{title}</>}
+      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading8' } }}
+    >
       {children}
-    </Stack>
+    </ContentSection>
   );
 }
 

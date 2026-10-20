@@ -6,9 +6,29 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:22:17Z'
+  at: '2026-10-20T02:33:49.420Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - .codex/skills/component-reusability/references/content-sections.md
+  - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
+  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
+  - src/shared/features/support/SupportNotices.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/support/SupportMileageContent.tsx
+  - src/shared/components/molecules/ContactCard/ContactCard.tsx
+  - src/shared/features/support/SupportHours.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/product/ProductSupportLink.tsx
+  - src/stories/features/login/LoginPage.stories.tsx
+  - src/stories/features/login/LoginPage.mobile.stories.tsx
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationDialogs.tsx
+  - src/shared/components/organisms/MyPage/CouponDetailsDialog.tsx
+  - src/shared/components/organisms/MyPage/CouponRegistrationDialog.tsx
+  - src/shared/components/layouts/ContentSection/ContentSection.tsx
+  - src/shared/components/molecules/ContentHeader/ContentHeader.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
   - src/shared/features/support/InquiryMessageFields.tsx
@@ -548,6 +568,32 @@ sources:
 
 # 컴포넌트와 스타일
 
+## ContentSection 기본 헤더와 전체 적용 (2026-10-20)
+
+일반 제목은 단독일 때도 ContentHeader를 사용한다. 본문 그룹이 이어지면 ContentSection의 title과 headerProps를 전달해 내부 기본 ContentHeader를 사용하며, 같은 제목을 header={<Typography ...>}나 header={<ContentHeader ...>}로 반복 작성하지 않는다. title/headerProps 방식과 custom header 방식은 타입의 대안 분기로 구분한다. headerProps가 제목 레벨·Typography·설명·보조 문구·헤더 내부 간격을, ContentSection gap이 본문 그룹 간격을 소유한다. action·Divider·계정용 기존 어댑터 등 구조가 다른 경우에만 header 노드를 전달한다.
+
+ContentHeader의 titleAs는 실제 상품 A/S 소비처를 위해 h1~h6으로 확장했다. 의미별 제목 레벨·ID·Typography·PC/MO 크기와 기존 상태/이벤트를 보존했다. 계정·가입·로그인·쿠폰·마이페이지·결제·검색·상품·런클럽·고객센터의 UI 소스 65파일과 공용 컴포넌트 2파일에 적용하고 공용 API 스토리 2개를 추가했다. 단순 동일 gap 본문 Stack은 제거하되 다른 간격·목록·Grid·form·포털 구조는 유지했다. 후속 요청에 따라 AccountFormLayout·CustomerCenterLayout·OrderPageLayout의 무스타일 본문 div를 제거했다. children은 직접 렌더링하므로 Fragment의 최상위 요소도 ContentSection의 flex/gap에 참여한다. 본문 전체를 묶어야 할 때만 소비처에서 의미 있는 그룹을 제공한다.
+
+CustomerCenterLayout은 title/description에 ContentHeader를 사용하고 선택 Divider는 기존 헤더 그룹이 소유한다. headingProps의 mb/모바일 덮어쓰기는 기존 그룹에 유지하고 바깥 ContentSection gap=0으로 연결한다. runtime headingProps를 다른 속성으로 재해석해 기존 cascade를 바꾸지 않는다. SupportPage의 headingProps는 css.raw로 추출해 기존 mb=10 스타일이 다른 소비처의 잔여 클래스에 의존하지 않도록 했다. RunClubHeader의 headerProps.css도 css.raw로 모바일 좌측 정렬을 추출한다. MainContentCard는 card__header와 header 태그를 유지하고 header.raw(variant)를 css prop에서 기본 스타일과 병합한다. Grid·overlay·runtime foreground·Card.Footer는 유지한다.
+
+적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](../../.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
+
+## 쿠폰과 휴대폰 인증의 팝업 구성 분리 (2026-10-20)
+
+CouponRegistrationDialog는 open/onOpenChange로 등록 완료 안내와 확인 버튼을 표시한다. CouponDetailsDialog는 CouponItem 또는 null과 onOpenChange를 받아 선택 쿠폰의 이름·혜택·조건·만료일을 표시한다. CouponManager가 등록 결과와 선택 쿠폰을 계속 소유하며 상세 닫기에서 선택값을 null로 초기화한다. 기존 ModalDialog·Stack·Typography·Button의 DOM과 문구·간격·sm 크기를 유지한다.
+
+PhoneVerificationDialogs는 detail/onDetail을 받아 알뜰폰 사업자일 때 기존 PhoneVerificationDetailDialog를, 그 외에는 기존 빈 본문 안내 ModalDialog를 표시한다. md 크기·모바일 fullscreen·안내 닫기 이름과 닫을 때 onDetail(null) 호출을 유지한다. PhoneVerificationContent는 AccountFormLayout의 dialogs 슬롯에 이 구성을 전달한다. 새 상태나 client 경계는 추가하지 않았다.
+
+타입 검사와 변경 TSX ESLint/Prettier를 통과했다. 이 분리에 대한 추가 브라우저 검증은 수행하지 않았다.
+
+## 제목 그룹과 본문 간격의 공통 구성 (2026-10-20)
+
+ContentHeader는 Stack에 eyebrow(p)·제목(h1/h2/h3)·선택 설명(p)을 순서대로 배치한다. titleAs와 각 Typography props로 기존 PC/MO 크기·색상·ID를 유지하고, 기본 gap은 3이다. AccountFormHeader는 계정 화면의 제목/설명 기본값과 spacingCss를 이 컴포넌트에 위임하는 어댑터다. 기존 SectionHeader는 액션·구분선·별도 타이포그래피 계약을 가진 구성으로 유지한다.
+
+ContentSection은 header 슬롯과 children을 Stack으로 묶어 헤더와 각 본문 그룹 사이의 공통 간격을 소유한다. 같은 간격을 반복하는 본문 Stack은 제거하고 필터·목록·조건부 더보기 버튼을 직접 자식으로 배치한다. 기본 gap은 6이며 소비처가 명시적으로 바꿀 수 있다. 쿠폰 내역은 기존 section·aria-label과 헤더/필터/목록 구조, 헤더 내부 12px·본문 전 24px를 유지한다. SignupLayout은 JOIN HOKA→회원가입 제목의 8px와 진행 단계 전 28px를 각각 ContentHeader gap=2와 ContentSection gap=7로 옮긴다. SignupProgress의 기존 하단 34px와 step=0의 헤더/진행 단계 생략은 유지한다. 라우팅·가입 상태·쿠폰 필터/등록/팝업 상태는 기존 부모에 남긴다.
+
+타입·변경 ESLint/Prettier·Panda 생성·Storybook 빌드를 통과했다. 변경 전후 1600px/375px의 회원가입과 쿠폰 내역 4쌍에서 주요 제목/설명·진행 단계/필터·입력 위치·크기·글꼴을 0.1px 단위로 비교했다. 쿠폰의 짧은 코드 오류→유효 코드 등록→완료 모달 닫기를 두 너비에서 확인했다. 브라우저 비교 대상은 이 두 영역이며 전체 계정 화면의 추가 회귀 검증을 의미하지 않는다.
+
 ## 미확정 회원등급·마일리지 화면 (2026-10-20)
 
 SupportExperiencePage는 회원등급과 마일리지 경로별 제목·breadcrumb·활성 메뉴를 pageDetails로 지정하고 공통 CustomerCenterLayout을 사용한다. 디자인이 확정되지 않은 정책 탭·유의사항 대신 본문에 “디자인 작업 중입니다.” 안내만 표시한다. 기존 라우트와 고객센터 탐색은 유지한다.
@@ -1057,11 +1103,19 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 ## 고객센터 메인 (2026-10-16)
 
+### 고객센터 사이드 내비게이션 갱신 (2026-10-20)
+
+`SideNavigation`의 `support` 모드는 Figma `1241:78801`을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 노드 `1241:78795`, `1241:78801`이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
+
 고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
 고객센터 메인의 공지사항 미리보기는 제목 아래 `black.100` 1px Divider와 각 공지 행 아래 `black.20` 1px Divider를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
 
 `CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
+
+Figma 고객센터 메인 `1241:78709`의 운영시간 두 항목에는 같은 18×18px `clock-eight` SVG를 표시한다. SVG는 `public/images/icon/clock-eight.svg`에서 `Icon name="clock-eight"`으로 호출하며, Icon Storybook 목록과 자산 문서에도 등록되어 있다. 운영시간 문자열과 아이콘은 HStack으로 묶고 8px 간격으로 정렬한다.
+
+고객센터 상담 카드의 전화번호 앞에는 Figma `1241:78743`의 18×18px 전화 SVG를 공통 `Icon name="phone-call"`로 표시한다. 두 상담 카드의 기존 전화번호 링크는 유지하고 `TEL.` 문자 대신 아이콘을 사용한다. 자산은 `public/images/icon/phone-call.svg`이며 Icon Storybook·SVG 자산 목록에서 확인할 수 있다.
 
 ## FAQ (2026-10-16)
 
@@ -1667,7 +1721,7 @@ CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 �
 
 ## 계정 폼 제목의 AccountFormHeader 공통화 (2026-10-19)
 
-AccountFormHeader는 제목과 선택 설명을 한 영역에 배치한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 12px이다. spacingCss는 css.raw로 전달해 Panda에서 추출하고 공통 스타일과 하나의 css 호출로 병합한다. 상태나 추가 client 경계는 만들지 않는다.
+AccountFormHeader는 제목과 선택 설명을 공용 ContentHeader에 위임하며 내부 Stack 배치를 유지한다. title·titleId·description·descriptionTone과 호출부의 간격 객체 spacingCss를 받는다. 제목은 Typography as="h1" web="heading7" mo="heading5", 설명은 p/body3·기본 tertiary, 제목→설명 기본 간격은 gap="3"(12px)이다. spacingCss는 호출부의 css.raw 값을 Stack의 css prop으로 전달해 기본 스타일 뒤에 병합한다. 기존 div·세로 flex와 호출부의 gap/반응형 여백 덮어쓰기를 유지하며 중복 display/flexDirection 선언을 제거했다. 상태나 추가 client 경계는 만들지 않는다.
 
 IdentityVerificationContent·FindAccountContent·SignupMethodStep·AccountFormLayout 네 곳이 이를 사용한다. 본문 간격은 호출부에서 유지한다. 본인인증은 32px·설명 subtle, 계정 찾기는 PC 40px/MO 32px·제목→설명 PC 10px/MO 12px, 가입 방법은 본문 mt 24px, AccountFormLayout은 PC 40px/MO 32px이다. verification-title·find-account-title·signup-title과 section/form의 aria-labelledby 연결을 유지한다. AccountFormLayout의 공개 props·버튼·모달과 각 feature 상태·콜백은 유지한다.
 
@@ -1697,6 +1751,16 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 검증: 임시 검증 경로에 PyYAML을 설치해 skill-creator의 quick_validate.py 통과를 확인했고 AGENTS·스킬 Prettier와 변경 diff를 검사했다. 애플리케이션 소스는 수정하지 않았다. 출처는 작업 트리의 AGENTS.md와 .codex/skills/component-reusability/SKILL.md다.
 
+## 공통 Breadcrumb (2026-10-20)
+
+`Breadcrumb`는 Figma `1241:78730`의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/shared/components/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma `1241:78730`이다.
+
+검증: 변경 TSX ESLint·Prettier, Panda 생성, Storybook 빌드 통과. 전체 TypeScript 검사는 기존 `.next/types/app/`의 다른 페이지 props 오류로 실패했으며 Breadcrumb 관련 오류는 보고되지 않았다.
+
+## Icon 색상 토큰
+
+`Icon.color`는 `white`, `black`, `currentColor`와 CSS 색상값을 지원한다. 추가로 `black.50`, `text.tertiary`처럼 Panda `colors.*` 토큰 경로를 받으면 생성된 CSS 변수를 사용한다. 토큰 경로가 아닌 값은 기존처럼 CSS 색상으로 전달한다. `FontAwesomeIcon`과 mask 방식 SVG에는 이 색을 적용하고, 색을 보존해야 하는 등록 이미지 아이콘은 기존 필터 동작(`white`/`black`)을 따른다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
@@ -1722,3 +1786,13 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 출처는 위 working_tree_sources의 회원가입 관련 TSX, SignupMethodStep.tsx, src/stories/features/signup-registration/RegistrationPage.stories.tsx, src/stories/features/signup-terms/SignupTermsPage.stories.tsx, src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx, src/stories/features/forms/form-state-audit/account.scenarios.tsx 및 enterAddress.ts다. 첨부 PNG는 외부 디자인 참고이며 저장소에 복사하지 않았다. 브라우저에서 PC 본문 500px·혜택 카드 줄바꿈 없음, 375px 부가 정보 본문 343px·가로 넘침 없음, 휴대폰 인증 오류 네 필드 표시, 모바일 이메일 형식 확인·주소 입력·부가 정보 전환 스토리의 최종 상태와 오류 로그 없음을 확인했다. Panda 생성·변경 파일 ESLint·Storybook production build는 통과했다. 동시 작업의 로그인 타입 오류가 해소된 최신 작업 트리에서 TypeScript와 Next production build(61개 경로)도 최종 통과했다. 실제 인증/SNS/이메일 중복 조회 등 서비스 연결을 검증한 것은 아니다.
 
 가입 완료의 설명도 PC에서는 한 줄, 모바일에서는 지정된 위치에서 줄바꿈하도록 보완했다. 본문 너비·버튼·모바일 간격은 그대로 유지한다.
+
+## Storybook 페이지 분류와 Mockup 제거 (2026-10-20)
+
+페이지 스토리 179개는 `PAGES/<영역>/<페이지>/Web/<상태>` 또는 `PAGES/<영역>/<페이지>/Mobile/<상태>`로 탐색한다. Web 기본 뷰포트는 1600px, Mobile은 375px이며 기존 개별 스토리의 375·768·1200·1600·1920·2560·3840px 설정을 유지한다. Mobile·Desktop 접두어는 상태 이름에서 제거한다. 고객센터는 Customer Center·Faq·Notices·Inquiries 등 화면별 분류 다음에 플랫폼을 둔다. 기존에 한 플랫폼만 있던 상태를 새로 복제하지 않는다.
+
+각 페이지의 렌더·decorator·args·play 정의는 동일 디렉터리의 `*.scenarios.tsx`에서 공유하고, `*.stories.tsx`는 플랫폼별 meta와 명시적인 상태 export를 제공한다. 스토리 탐색은 계속 `.storybook/main.ts`의 `src/stories/`로 제한한다. IA 구조도의 PC/MO 미리보기 링크는 새 story ID로 연결한다.
+
+`src/shared/Mockup/`의 구현 24개 파일과 `src/stories/features/Mockup/`의 전용 스토리 3개를 제거했다. Mockup을 직접 사용하던 앱 라우트 12개와 MyPageRouteStory의 running-profile 분기도 제거했다. 이 절은 위쪽의 과거 Mockup 이동 기록 이후의 현재 상태를 설명한다.
+
+검증(Codex): 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next·Storybook production build, 앱 라우트 테스트 2개를 통과했다. Storybook index에서 기존 페이지 시나리오 179개의 새 ID와 모든 IA 미리보기 ID가 존재하고 Mockup 분류가 없음을 확인했다. 소스·Storybook 설정에서 Mockup 참조가 남지 않았음을 확인했다. 브라우저 시각 비교와 play 재실행은 수행하지 않았다.

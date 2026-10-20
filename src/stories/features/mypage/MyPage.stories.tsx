@@ -1,32 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ShopShell } from '@/shared/ShopShell';
-import MyPage from '@/app/mypage/page';
-
-type MyPageStoryArgs = { platform?: 'web' | 'mobile' };
+import type { StoryObj } from '@storybook/react';
+import base, * as scenarios from './MyPage.scenarios';
 
 const meta = {
-  title: 'PAGES/MYPAGE/Main',
-  parameters: { nextjs: { navigation: { pathname: '/mypage' } }, layout: 'fullscreen' },
-  render: ({ platform }) => (
-    <ShopShell platform={platform}>
-      <MyPage />
-    </ShopShell>
-  ),
-} satisfies Meta<MyPageStoryArgs>;
+  ...base,
+  title: 'PAGES/MYPAGE/Main/Mobile',
+  globals: { viewport: 'hoka375' },
+};
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Mobile375: Story = {
-  parameters: { layout: 'fullscreen' },
-  name: 'Mobile / 375px',
-  args: { platform: 'mobile' },
-  globals: { viewport: 'hoka375' },
-};
-
-export const Desktop1600: Story = {
-  name: 'Desktop / 1600px',
-  args: { platform: 'web' },
-  globals: { viewport: 'hoka1600' },
-};
+export const Width375: Story = { ...scenarios.Mobile375, name: '375px' };

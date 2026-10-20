@@ -1,5 +1,6 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
+
 import { Grid } from 'styled-system/jsx';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
 import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
@@ -31,12 +32,12 @@ export function AccountFormLayout({
       fillMobileViewport={fillMobileViewport}
       outsideContent={dialogs}
     >
-      <AccountFormHeader
-        title={title}
-        description={description}
-        spacingCss={css.raw({ mb: '10', _mobile: { mb: '8' } })}
-      />
-      {children}
+      <ContentSection
+        gap={{ base: '10', _mobile: '8' }}
+        header={<AccountFormHeader title={title} description={description} />}
+      >
+        {children}
+      </ContentSection>
       {actions ? (
         <Grid gridTemplateColumns="1fr 1fr" gap="2" mt={actionsSpacing === 'compact' ? '6' : '8'}>
           {actions}

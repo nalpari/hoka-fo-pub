@@ -1,5 +1,7 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -131,41 +133,49 @@ export function ProductDetailAfterSalesContent() {
           </Stack>
         </Grid>
         <Grid className={styles.action}>
-          <Stack gap="2">
-            <Typography as="h4" variant="body5" weight="bold">
-              FAQs
-            </Typography>
-            <Typography as="p" variant="body5">
-              자주 묻는 질문의 답변을 찾아보세요.
-            </Typography>
-          </Stack>
+          <ContentHeader
+            gap="2"
+            titleAs="h4"
+            title="FAQs"
+            titleProps={{ variant: 'body5', weight: 'bold' }}
+            description="자주 묻는 질문의 답변을 찾아보세요."
+            descriptionProps={{ variant: 'body5' }}
+          />
           <ButtonLink href="/support/faq" variant="secondary" size="short">
             자주 묻는 질문 찾기
           </ButtonLink>
         </Grid>
         <Grid className={styles.action}>
-          <Stack gap="2">
-            <Typography as="h4" variant="body5" weight="bold">
-              1:1 문의
-            </Typography>
-            <Typography as="p" variant="body5">
-              문의 내용을 남겨 주시면 확인 후 답변해 드리겠습니다.
-            </Typography>
-          </Stack>
+          <ContentHeader
+            gap="2"
+            titleAs="h4"
+            title="1:1 문의"
+            titleProps={{ variant: 'body5', weight: 'bold' }}
+            description="문의 내용을 남겨 주시면 확인 후 답변해 드리겠습니다."
+            descriptionProps={{ variant: 'body5' }}
+          />
           <ButtonLink href="/support/inquiries/new" variant="secondary" size="short">
             1:1 문의하기
           </ButtonLink>
         </Grid>
       </Stack>
 
-      <Stack gap="6">
-        <Typography as="h4" variant="heading9">
-          A/S 처리 절차
-        </Typography>
-        <Typography as="p" variant="body5">
-          온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리 일정은
-          상품 확인 후 안내됩니다.
-        </Typography>
+      <ContentSection
+        gap="6"
+        title="A/S 처리 절차"
+        headerProps={{
+          gap: '6',
+          titleAs: 'h4',
+          titleProps: { variant: 'heading9' },
+          description: (
+            <>
+              온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리
+              일정은 상품 확인 후 안내됩니다.
+            </>
+          ),
+          descriptionProps: { variant: 'body5' },
+        }}
+      >
         <Grid
           as="ol"
           gridTemplateColumns="repeat(6, minmax(0, 1fr))"
@@ -199,7 +209,7 @@ export function ProductDetailAfterSalesContent() {
             </Stack>
           ))}
         </Grid>
-      </Stack>
+      </ContentSection>
 
       <Grid
         gridTemplateColumns="160px minmax(0, 1fr)"
@@ -212,14 +222,14 @@ export function ProductDetailAfterSalesContent() {
         <Stack gap="8">
           {questions.map(({ question, answer }) => (
             <Box key={question} pb="8" borderBottom="1px solid var(--color-black-20)">
-              <Stack gap="4">
-                <Typography as="h5" variant="body4" weight="bold">
-                  Q. {question}
-                </Typography>
-                <Typography as="p" variant="body5">
-                  {answer}
-                </Typography>
-              </Stack>
+              <ContentHeader
+                gap="4"
+                titleAs="h5"
+                title={<>Q. {question}</>}
+                titleProps={{ variant: 'body4', weight: 'bold' }}
+                description={<>{answer}</>}
+                descriptionProps={{ variant: 'body5' }}
+              />
             </Box>
           ))}
         </Stack>

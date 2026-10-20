@@ -1,6 +1,6 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 export type MarketingConsentItem = { label: string; value: string };
@@ -29,14 +29,14 @@ export function MarketingConsentSummaryModal({
       size="md"
       onConfirm={onConfirm}
     >
-      <Stack gap="4">
-        <Typography as="h2" variant="body2" className={css({ m: '0' })}>
-          마케팅 정보 수신 내역
-        </Typography>
-        <Typography as="p" variant="body4" className={summaryStyle}>
-          {items.map(({ label, value }) => `${label} : ${value}`).join('\n')}
-        </Typography>
-      </Stack>
+      <ContentHeader
+        gap="4"
+        titleAs="h2"
+        title="마케팅 정보 수신 내역"
+        titleProps={{ variant: 'body2', className: css({ m: '0' }) }}
+        description={<>{items.map(({ label, value }) => `${label} : ${value}`).join('\n')}</>}
+        descriptionProps={{ variant: 'body4', className: summaryStyle }}
+      />
     </SingleActionDialog>
   );
 }

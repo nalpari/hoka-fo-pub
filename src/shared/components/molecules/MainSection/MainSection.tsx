@@ -1,6 +1,7 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Box, VStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 import type { TypographyVariant } from '@/shared/components/atoms/Typography/Typography';
 import { MainSectionHeader } from './MainSectionHeader';
 
@@ -55,15 +56,17 @@ export function MainSection({
         '--section-content-offset': 'calc((100cqw - var(--section-content-width)) / 2)',
       }}
     >
-      <VStack
+      <ContentSection
         alignItems="flex-start"
         gap={
           spacing === 'compact'
             ? { base: '32px', _mobile: '24px' }
             : { base: '40px', _mobile: '24px' }
         }
+        header={
+          <MainSectionHeader title={title} titleVariant={titleVariant} actionSlot={actionSlot} />
+        }
       >
-        <MainSectionHeader title={title} titleVariant={titleVariant} actionSlot={actionSlot} />
         <div
           className={
             contentWidth === 'extended'
@@ -75,7 +78,7 @@ export function MainSection({
         >
           {children}
         </div>
-      </VStack>
+      </ContentSection>
     </Box>
   );
 }

@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { FormEventHandler, ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
@@ -43,38 +44,44 @@ export function PasswordResetContent({
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
       outsideContent={completion}
     >
-      <AccountFormHeader
-        title="비밀번호 재설정"
-        titleId="password-reset-title"
-        description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."
-        spacingCss={css.raw({ gap: '10px', mb: { base: '10', _mobile: '8' } })}
-      />
-      <form
-        noValidate
-        className={styles.form}
-        onSubmit={onSubmit}
-        aria-labelledby="password-reset-title"
+      <ContentSection
+        gap={{ base: '10', _mobile: '8' }}
+        header={
+          <AccountFormHeader
+            title="비밀번호 재설정"
+            titleId="password-reset-title"
+            description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."
+            spacingCss={css.raw({ gap: '10px' })}
+          />
+        }
       >
-        <PasswordResetField
-          name="password"
-          label="새로운 비밀번호"
-          placeholder="비밀번호를 입력해 주세요"
-          value={password}
-          error={errors.password}
-          onChange={(value) => onFieldChange('password', value)}
-        />
-        <PasswordResetField
-          name="confirmation"
-          label="비밀번호 확인"
-          placeholder="비밀번호를 한 번 더 입력해 주세요"
-          value={confirmation}
-          error={errors.confirmation}
-          onChange={(value) => onFieldChange('confirmation', value)}
-        />
-        <Button type="submit" variant="primary" fullWidth className={styles.button}>
-          비밀번호 변경
-        </Button>
-      </form>
+        <form
+          noValidate
+          className={styles.form}
+          onSubmit={onSubmit}
+          aria-labelledby="password-reset-title"
+        >
+          <PasswordResetField
+            name="password"
+            label="새로운 비밀번호"
+            placeholder="비밀번호를 입력해 주세요"
+            value={password}
+            error={errors.password}
+            onChange={(value) => onFieldChange('password', value)}
+          />
+          <PasswordResetField
+            name="confirmation"
+            label="비밀번호 확인"
+            placeholder="비밀번호를 한 번 더 입력해 주세요"
+            value={confirmation}
+            error={errors.confirmation}
+            onChange={(value) => onFieldChange('confirmation', value)}
+          />
+          <Button type="submit" variant="primary" fullWidth className={styles.button}>
+            비밀번호 변경
+          </Button>
+        </form>
+      </ContentSection>
     </AccountPageLayout>
   );
 }

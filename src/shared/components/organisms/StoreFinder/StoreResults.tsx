@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import Image from 'next/image';
 import { css } from 'styled-system/css';
@@ -42,7 +43,7 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
         const isOpen = openedMap === store.name;
 
         return (
-          <Stack
+          <ContentSection
             as="li"
             key={store.name}
             gap="3"
@@ -50,10 +51,12 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
             py="6"
             borderBottom="1px solid"
             borderColor="black.20"
+            title={<>{store.name}</>}
+            headerProps={{
+              titleAs: 'h3',
+              titleProps: { web: 'heading9', mo: 'heading9', weight: 'semibold' },
+            }}
           >
-            <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
-              {store.name}
-            </Typography>
             <Stack gap="1">
               <Typography web="body5" mo="body5" tone="tertiary">
                 {store.address}
@@ -112,7 +115,7 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
                 길 찾기
               </Button>
             </Box>
-          </Stack>
+          </ContentSection>
         );
       })}
     </Stack>

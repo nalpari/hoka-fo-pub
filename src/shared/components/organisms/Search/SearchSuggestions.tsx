@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
@@ -36,13 +37,19 @@ export function SearchSuggestions({
       />
       <Stack gap="40px">
         <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
-        <Box as="section" aria-labelledby="popular-search-title">
-          <Typography as="h3" variant="body2" weight="bold" id="popular-search-title">
-            인기 검색어
-          </Typography>
+        <ContentSection
+          as="section"
+          aria-labelledby="popular-search-title"
+          gap="6"
+          title="인기 검색어"
+          headerProps={{
+            titleAs: 'h3',
+            titleProps: { variant: 'body2', weight: 'bold', id: 'popular-search-title' },
+          }}
+        >
           <Box
             as="ol"
-            mt="24px"
+
             mb="0"
             p="0"
             display="grid"
@@ -64,7 +71,7 @@ export function SearchSuggestions({
               </li>
             ))}
           </Box>
-        </Box>
+        </ContentSection>
       </Stack>
     </Grid>
   );

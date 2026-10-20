@@ -2,6 +2,31 @@
 
 ## 2026-10-20
 
+- **Refactor**: 사용자 요청에 따라 AccountFormLayout·CustomerCenterLayout·OrderPageLayout의 본문 div를 제거하고 children을 직접 렌더링한다. 최상위 본문 요소가 ContentSection의 flex/gap에 참여한다. 타입·변경 파일 ESLint/Prettier를 확인했다.
+
+- **Refactor**: 제목·본문 후보의 UI 소스 65파일과 ContentHeader/ContentSection 2파일에 공통 구성을 적용했다. 단일 제목도 ContentHeader로 처리하고 ContentSection의 title/headerProps 기본 API를 제공했다. 예외 구조만 header 노드를 사용하며 기존 상태·폼·Grid·타이포그래피·간격을 보존했다.
+
+- **Docs**: component-reusability에 기본 ContentHeader·ContentSection title API와 예외 header 슬롯·간격 소유권 지침을 추가했다.
+
+- **Verify**: 위 헤더/섹션 이관의 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 40개, 변경 전후 PC/MO 80개 사례의 좌표/스타일/native 속성 비교와 Storybook 동작 30개를 확인했다. 공용 API 스토리 2개와 스킬 검증기도 통과했다. 로컬 fixture 기반 검증이다.
+
+- **Update**: 페이지 스토리 179개를 `PAGES/영역/페이지/Web·Mobile/상태`로 재분류하고 고객센터를 화면별로 분리했다. 기존 시나리오와 폭 설정을 공유 파일에 보존하고 IA 링크를 갱신했다. Mockup 구현 24개·전용 스토리 3개·앱 라우트 12개를 제거했다. 타입·변경 파일 ESLint/Prettier·Panda·Next/Storybook 빌드·앱 라우트 테스트 2개·스토리/IA ID 검사를 통과했다. 브라우저 play는 재실행하지 않았다.
+
+- **Audit**: ContentHeader/ContentSection 적용 범위를 최신 TSX 718개에서 조사했다. 운영 제목/헤더 115곳·92파일과 추가 레이아웃·비의미 heading variant를 확인하고 즉시 36파일·조건부 25파일 및 추가 레이아웃 3파일, 기존 적용/유지 근거를 [조사 보고서](architecture/content-sections.md)에 기록했다. 조사 중 삭제된 Mockup은 제외했으며 소스 이관·브라우저 검증은 수행하지 않았다.
+
+- **Refactor**: 쿠폰 등록 결과·상세를 CouponRegistrationDialog/CouponDetailsDialog로, 휴대폰 인증 안내 분기를 PhoneVerificationDialogs로 분리했다. 기존 부모 상태·콜백·팝업 DOM/스타일을 유지하며 타입·변경 TSX ESLint/Prettier를 확인했다. 추가 브라우저 검증은 수행하지 않았다.
+
+- **Refactor**: 제목·설명·보조 문구를 ContentHeader로, 헤더/본문 간격을 ContentSection으로 공통화했다. 쿠폰 내역·회원가입 진행 단계·기존 AccountFormHeader를 연결하고 제목 레벨·ID·PC/MO 타이포그래피·간격·기존 상태를 유지한다. 쿠폰 본문의 중복 Stack을 제거해 공통 gap을 부모가 소유한다. 타입·린트/포맷·Panda·Storybook 빌드와 PC/MO 4쌍 좌표·스타일 비교 및 쿠폰 오류/등록/모달 닫기를 확인했다.
+
+- **Refactor**: AccountFormHeader의 Box와 세로 flex 선언을 Stack gap="3"으로 정리했다. spacingCss의 gap·반응형 여백 덮어쓰기와 제목/설명의 DOM·조건부 표시를 유지한다. 타입·변경 ESLint/포맷·Panda 생성을 통과하고 기본/덮어쓰기 4가지 조합의 렌더링 DOM·클래스 일치를 확인했다.
+
+- **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
+- **Update**: Figma 고객센터 상담 카드의 전화 SVG를 `phone-call` 아이콘으로 등록하고 두 카드의 `TEL.` 라벨을 대체했다. 전화번호 링크는 유지했다. [UI 기록](architecture/ui.md)에 자산과 사용처를 남겼다.
+
+- **Style**: 공통 Breadcrumb의 24px 행 높이, 항목 4px 간격, 구분 아이콘과 다음 항목 8px 간격, 14px 본문을 Figma `1241:78730`에 맞추고 공통 `chevron-right` 아이콘을 `#777`로 지정했다. 고객센터 Storybook 예시를 추가하고 [UI 기록](architecture/ui.md#공통-breadcrumb-2026-10-20)에 근거를 남겼다.
+- **Update**: `Icon.color`에 `black.50`, `text.tertiary` 같은 Panda 컬러 토큰 경로를 지원하고 기존 CSS 색상 입력은 유지했다. Breadcrumb 화살표가 `black.50`을 사용한다. [UI 기록](architecture/ui.md#icon-색상-토큰)에 렌더링별 동작을 남겼다.
+
+- **Style**: 고객센터 사이드 메뉴의 단일 목록·활성 밑줄·문자색·폭과 본문 간격을 Figma `1241:78801`에 맞췄다. [UI 기록](architecture/ui.md#고객센터-사이드-내비게이션-갱신-2026-10-20)에 범위와 검증을 남겼다.
 - **Docs**: 회원등급·마일리지 화면의 공통 고객센터 레이아웃과 디자인 준비 안내 상태를 UI 문서에 기록했다. 타입 검사·변경 화면 ESLint를 확인하고 문서와 화면 포맷을 정리했다.
 
 - **Docs**: form-fields 조사와 실제 이관의 차이를 component-reusability 스킬에 반영했다. 폼 필드 작업용 참조에 조사 범위·공통화 경계·native 속성·검증/상태 소유권·이관 검증 기준을 추가하고 SKILL.md에서 연결했다. skill-creator 검증기·문서 포맷·diff·OKF 누락 검사를 통과했다.

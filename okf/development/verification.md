@@ -6,9 +6,10 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T00:41:19Z'
+  at: '2026-10-20T02:03:12.420Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
   - src/shared/components/atoms/RatingStars/RatingStars.tsx
   - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
@@ -143,3 +144,7 @@ YAML 메타데이터, 인덱스 연결, 문서 내부 링크와 코드 출처를
 PC/MO는 각 15개이며 Validation 13개·Expired 1개·Inheritance 1개로 나눈다. 전체 선택은 기존 `form-audit`·`form-audit-new`, 플랫폼별 선택은 `form-audit-pc`·`form-audit-mo`, 상태별 선택은 `form-audit-validation`·`form-audit-expired`·`form-audit-inheritance` 태그를 사용한다. PC/MO의 story export 이름은 동일하며 Mobile 접두사는 경로의 MO 분류로 대체한다. render/play 선언은 5개 도메인별 scenarios 모듈에 한 번만 둔다. 플랫폼은 meta.parameters에, 상품/가입 경로는 scenario.parameters에 두어 Storybook의 계층 병합을 사용한다.
 
 이번 분리 후 타입·변경 파일 ESLint/Prettier·Storybook 빌드와 정적 Storybook의 Edge headless play 30개가 통과했다. 원본 15개 시나리오 선언이 변경 없이 이동했으며 정적 인덱스에도 누락 없이 30개가 등록됨을 확인했다. 검증용 브라우저 패키지와 실행 스크립트는 임시 디렉터리만 사용했고 프로젝트 의존성은 추가하지 않았다.
+
+## Mockup 제거 후 라우트 검사 (2026-10-20)
+
+`tests/app-router.test.mjs`의 expectedRoutes에서 Mockup 구현 전용 라우트 12개를 제외했다. `npm run build`로 manifest를 갱신한 뒤 `node --test tests/app-router.test.mjs`를 실행해 실제 페이지 목록 일치 및 의존성 버전 검사 2개가 통과했다. Storybook 재분류는 production index의 페이지 스토리 179개 ID·IA 링크 유효성·Mockup 분류 부재를 별도로 확인했다. 브라우저 play는 재실행하지 않았다.
