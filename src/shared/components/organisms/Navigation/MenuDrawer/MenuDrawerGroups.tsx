@@ -50,35 +50,60 @@ type MenuDrawerGroupsProps = {
 };
 
 export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
+  const groups = columns.filter((column) => !column.to);
+
   return (
-    <Accordion
-      multiple={false}
-      className={styles.accordion}
-      triggerClassName={styles.group}
-      panelClassName={styles.panel}
-      defaultValue={[columns[0].title]}
-      indicator={<span className={styles.indicator} />}
-      items={columns.map((column) => ({
-        value: column.title,
-        title: <Typography variant="navigationHeading">{column.title}</Typography>,
-        content: (
-          <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
-            {column.items.map((item) => (
-              <li key={item.to + item.label}>
-                <Link
-                  className={cx(styles.subLink, item.label === 'Sale' && styles.sale)}
-                  href={item.to}
-                  onClick={onNavigate}
-                >
-                  <Typography variant="body3" weight={item.label === 'Sale' ? 'medium' : undefined}>
-                    {item.label}
-                  </Typography>
-                </Link>
-              </li>
-            ))}
-          </Stack>
-        ),
-      }))}
-    />
+    <>
+      <Accordion
+        multiple={false}
+        className={styles.accordion}
+        triggerClassName={styles.group}
+        panelClassName={styles.panel}
+        defaultValue={groups[0] ? [groups[0].title] : []}
+        indicator={<span className={styles.indicator} />}
+        items={groups.map((column) => ({
+          value: column.title,
+          title: <Typography variant="navigationHeading">{column.title}</Typography>,
+          content: (
+            <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
+              {column.items.map((item) => (
+                <li key={item.to + item.label}>
+                  <Link
+                    className={cx(styles.subLink, item.label === 'Sale' && styles.sale)}
+                    href={item.to}
+                    onClick={onNavigate}
+                  >
+                    <Typography
+                      variant="body3"
+                      weight={item.label === 'Sale' ? 'medium' : undefined}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Link>
+                </li>
+              ))}
+            </Stack>
+          ),
+        }))}
+      />
+      {columns
+        .filter((column) => column.to)
+        .map((column) => (
+          <Link
+            key={column.title}
+            href={column.to!}
+            onClick={onNavigate}
+            className={css({
+              display: 'flex',
+              alignItems: 'center',
+              minH: '50px',
+              color: 'inherit',
+              textDecoration: 'none',
+            })}
+          >
+            <Typography variant="navigationHeading">{column.title}</Typography>
+          </Link>
+        ))}
+    </>
   );
 }

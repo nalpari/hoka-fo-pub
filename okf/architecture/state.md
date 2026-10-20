@@ -6,9 +6,13 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:22:18Z'
+  at: '2026-10-20T08:08:13.395691Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/forms/form-state-audit/account.scenarios.tsx
+  - src/stories/features/find-account/FindAccountPage.scenarios.tsx
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/shared/features/find-account/IdConfirmationModal.tsx
   - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
   - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
   - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
@@ -165,7 +169,7 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 
 ## 계정 찾기 디자인과 데모 결과 연결 (2026-10-19)
 
-`FindAccountPage`는 이름·휴대폰·인증번호와 3분 카운트다운을 소유한다. 휴대폰은 시안처럼 숫자로 표시하며 정보 변경 시 요청과 코드 오류를 초기화한다. 요청 안내에 예시 인증번호 `900668`과 실제 문자 미발송·예시 아이디 표시를 명시한다. 만료·자리수 오류·예시 코드 불일치를 구분하고, 일치하면 입력한 이름과 `honggildong@kakao.com`을 보여주는 기존 IdConfirmationModal을 연다. 실제 인증이나 계정 조회는 수행하지 않는다. 확인은 로그인, 비밀번호 재설정은 기존 `/login/find-account/password-reset`으로 이동한다.
+`FindAccountPage`는 이름·휴대폰·인증번호와 3분 카운트다운을 소유한다. 휴대폰은 시안처럼 숫자로 표시하며 정보 변경 시 요청과 코드 오류를 초기화한다. 요청 안내에 예시 인증번호 `900668`과 실제 문자 미발송·예시 아이디 표시를 명시한다. 만료·자리수 오류·예시 코드 불일치를 구분하고, 일치하면 입력한 이름과 `honggildong`을 보여주는 기존 IdConfirmationModal을 연다. 실제 인증이나 계정 조회는 수행하지 않는다. 확인은 로그인, 비밀번호 재설정은 기존 `/login/find-account/password-reset`으로 이동한다.
 
 `RememberIdHelp`는 로그인 내부의 Base UI Popover로 공용 장소에서 아이디 저장 시 주의사항을 보여준다. 로그인 상태·비밀번호 정책·아이디 저장 체크 처리·소셜 로그인 데모 계약은 유지한다. 작업 트리 출처는 `src/shared/features/login/LoginForm.tsx`, `src/shared/features/login/RememberIdHelp.tsx`, `src/shared/features/find-account/FindAccountPage.tsx`다.
 
@@ -184,7 +188,7 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 | 플랫폼         | 서버가 선택한 값을 `PlatformProvider`에 전달         | 공통 레이아웃의 플랫폼 선택을 공유                         |
 | 관심·최근 개수 | `ShopShell`의 상수                                   | 현재 데모 값은 각각 3, 7                                   |
 
-로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 이메일 형식과 영문·숫자·특수문자를 모두 포함한 공백 없는 10~12자 비밀번호를 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
+로그인 플래그는 인증 토큰이 아니다. 로그인 화면은 영문·숫자 4자 이상 아이디와 영문·숫자·특수문자를 모두 포함한 공백 없는 10~12자 비밀번호를 검사하며 실제 자격 증명을 검증하지 않는다. 서버 렌더링과 첫 클라이언트 렌더의 로그인 표시는 hydration 상태로 맞춘다.
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
@@ -194,7 +198,7 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 
 2026-10-19 전수 점검에서 로그인 오류 안내에 id를 주고 실제 오류 필드의 aria-describedby로 연결했다. 다른 페이지의 필드 상태는 각 부모가 소유하며 공통 컨트롤은 검증 규칙을 새로 만들지 않고 invalid/error를 표현한다. 휴대폰 인증은 noticeTone과 codeError를 분리하고 코드 입력·재요청·인증 정보 변경 시 코드 오류를 초기화한다. 전체 범위와 검증은 [전수 점검 보고서](../development/form-state-audit.md)에 기록한다.
 
-첨부 디자인의 필드별 형식 안내가 빠져 있어 2026-10-19 후속 수정으로 `LoginNotice.invalidFields`를 `LoginForm.errors`로 대체했다. LoginPage는 최초 제출 후 현재 입력값에서 오류를 계산한다. 빈 값과 잘못된 이메일에는 “올바른 이메일 형식으로 입력해 주세요”, 비밀번호 규칙 위반에는 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”를 전달한다. 값이 규칙에 맞아야 해당 오류가 해제되고 다시 잘못된 값으로 수정하면 재표시된다.
+첨부 디자인의 필드별 형식 안내가 빠져 있어 2026-10-19 후속 수정으로 `LoginNotice.invalidFields`를 `LoginForm.errors`로 대체했다. LoginPage는 최초 제출 후 현재 입력값에서 오류를 계산한다. 2026-10-20 일반 아이디 전환 이후 빈 아이디에는 “아이디를 입력해 주세요”, 형식 오류에는 “영문, 숫자 조합으로 4자 이상 입력해 주세요.”, 비밀번호 규칙 위반에는 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”를 전달한다. 값이 규칙에 맞아야 해당 오류가 해제되고 다시 잘못된 값으로 수정하면 재표시된다.
 
 LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를 통해 invalid와 해당 오류의 aria-describedby를 상속한다. `LoginNotice`는 성공·기능 미연결 안내만 담당한다. 폼의 noValidate와 required는 유지하고 형식 오류가 있으면 onLogin·홈 이동을 차단한다. Error·MobileError는 두 문구의 정적 예시이고, LoginFlow와 InvalidFormats는 실제 제출·수정 흐름을 검사한다. 후속 검증 결과와 작업 트리의 다른 화면 문법 오류로 인한 전체 검사 제한은 [UI 문서](ui.md#로그인-형식-오류-안내-보완-2026-10-19)에 기록한다.
 
@@ -202,7 +206,7 @@ LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를
 
 일반 가입은 아이디 placeholder의 영문·숫자 4자 이상 조건을 실제 제출 검사에 연결한다. 빈 아이디에는 기존 필수 입력 문구를 유지하고 4자 미만·공백·특수문자가 포함된 아이디에는 “영문, 숫자 조합으로 4자 이상 입력해 주세요.”를 필드 오류로 표시한다. 소셜 가입에는 이 로컬 계정 조건을 적용하지 않는다.
 
-이메일은 src/shared/lib/emailValidation.ts를 통해 일반 가입·회원정보 가입·로그인이 같은 형식과 오류 문구를 사용한다. 회원정보의 분리된 이메일/도메인 입력도 동일한 부분 검사를 사용한다. 이메일 앞뒤 공백은 기존대로 제거하며 로컬 부분의 선행·후행·연속 점, 64자 초과 및 잘못된 도메인은 거부한다. 기존 일반 가입에서 통과하고 로그인에서 거부되던 점 없는 도메인 차이도 제거했다.
+이메일은 src/shared/lib/emailValidation.ts를 통해 일반 가입·회원정보 가입이 같은 형식과 오류 문구를 사용한다. 로그인은 2026-10-20부터 이메일 검사를 제거하고 일반 아이디를 검사한다. 회원정보의 분리된 이메일/도메인 입력도 동일한 부분 검사를 사용한다. 이메일 앞뒤 공백은 기존대로 제거하며 로컬 부분의 선행·후행·연속 점, 64자 초과 및 잘못된 도메인은 거부한다. 기존 일반 가입에서 통과하고 로그인에서 거부되던 점 없는 도메인 차이도 제거했다.
 
 RegistrationPage의 checkedEmail은 이메일·도메인 변경이나 실패한 이메일 확인에서만 초기화한다. 다른 필드의 오류로 이를 취소하면서 기존 형식 확인 안내는 남아 있던 상태 불일치를 수정했다. 이메일을 바꾸면 안내와 확인 상태가 함께 해제된다. 중복확인은 여전히 형식 확인 데모이며 실제 사용 가능 판정을 추가하지 않는다.
 
@@ -242,7 +246,7 @@ PC·모바일 로그인 폼의 아이디/비밀번호 찾기 진입 링크를 �
 
 ## 공통 계정 프레임 적용 이후 로그인 상태 계약 (2026-10-19)
 
-LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한다. LoginLayout은 기존 login-title 제목과 children 조합을 유지하며 새 Context·hook·client 경계를 추가하지 않는다. LoginPage의 이메일/비밀번호·아이디 저장·제출 여부·오류/성공 안내 상태, 입력 시 안내 초기화, 검증 성공 후 onLogin 호출과 홈 이동은 기존 책임을 유지한다. LoginForm·LoginContent·LoginPage의 상태 코드는 수정하지 않았다.
+LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한다. LoginLayout은 기존 login-title 제목과 children 조합을 유지하며 새 Context·hook·client 경계를 추가하지 않는다. LoginPage의 아이디/비밀번호·아이디 저장·제출 여부·오류/성공 안내 상태, 입력 시 안내 초기화, 검증 성공 후 onLogin 호출과 홈 이동은 기존 책임을 유지한다. LoginForm·LoginContent·LoginPage의 상태 코드는 수정하지 않았다.
 
 검증은 실제 LoginPage 코드와 기존 상태 설명을 대조했고, 웹/모바일 login-flow·invalid-formats Storybook play 4개와 default/mobile DOM·좌표 비교를 통과했다. 전체 타입 검사와 Next/Storybook 빌드도 통과했다. 이번 변경으로 데모 로그인 저장 방식이나 실제 인증 연동 범위는 달라지지 않는다. 출처는 frontmatter의 LoginPage·LoginContent·LoginLayout·AccountPageLayout과 기존 로그인 스토리다.
 
@@ -265,3 +269,7 @@ CheckoutContent의 쿠폰 할인액은 요약과 결제 버튼에 함께 반영�
 ## 장바구니 옵션 확인 상태 유지 (2026-10-20)
 
 CartOptionsDialog가 기존 draft와 발볼/색상별 사이즈·품절 상태에서 valid를 계산한다. ConfirmDialog는 confirmDisabled=!valid를 받아 확인 버튼만 비활성화하며 검증·옵션 변경·저장은 상위 기능에 남는다. 확인은 onSave(draft), 취소/닫기는 onClose를 호출한다. 공용 다이얼로그는 임의로 저장하거나 확인 후 닫지 않는다. 출처는 frontmatter의 CartOptionsDialog/ConfirmDialog 작업 트리 파일이다. 타입 검사·변경 ESLint를 확인했으며 브라우저 동작은 재검증하지 않았다.
+
+## 일반 아이디 로그인 전환 (2026-10-20)
+
+LoginPage가 `^[a-zA-Z0-9]{4,}$`로 아이디를 검사한다. 영문만·숫자만·혼합을 허용하고 4자 미만·공백·한글·특수문자·이메일 주소를 거부한다. 공백을 자동 제거하지 않으며 비밀번호 정책은 유지한다. 빈 값과 형식 오류를 구분하고 최초 제출 이후 수정 시 오류를 갱신한다. 기존 onLogin·홈 이동·데모 안내와 아이디 저장 체크 상태는 유지한다. IdConfirmationModal은 첨부 설계서의 예시 `honggildong`을 표시하며 실제 인증·계정 조회를 추가하지 않는다.

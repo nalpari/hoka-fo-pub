@@ -6,9 +6,14 @@ tags: [forms, components, reuse, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:15:05Z'
+  at: '2026-10-20T08:08:13.395691Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/stories/features/forms/form-state-audit/account.scenarios.tsx
+  - src/stories/features/find-account/FindAccountPage.scenarios.tsx
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/shared/features/find-account/IdConfirmationModal.tsx
+  - src/shared/features/login/LoginPage.tsx
   - src/shared/Mockup/signup/SignupDetailsStep.tsx
   - src/shared/features/find-account/PasswordResetField.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
@@ -112,13 +117,13 @@ TextFormField는 기존 atom을 대체하는 또 하나의 스타일 시스템�
 
 아래 후보는 위 이관에서 구현했다. 마이페이지 주소도 separated/fieldOptions 계약을 지원한 뒤 연결했다. 표는 조사 당시 확인한 차이와 보존 기준을 기록한다.
 
-| 후보                            | 관련 사용처                                                          | 권장 경계와 유지 사항                                                                                                                                                                                                                    |
-| ------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| EmailField / EmailAddressFields | SignupDetailsStep, LoginForm, MyPageProfile, RegistrationEmailFields | 전체 이메일 1칸과 local/domain 2칸+도메인 Dropdown+중복확인을 구분. 로그인 username autocomplete와 신규 이메일 autocomplete, disabled 도메인·중복확인 상태 보존                                                                          |
-| BirthDateField                  | PhoneInformationFields, RegistrationPersonalFields                   | 생년월일 문자열 입력 UI만 공유 가능. editable 8자리 입력과 본인인증 완료 후 disabled 값을 구분하며 native date 입력으로 변환하지 않음                                                                                                    |
-| TextareaField / CharacterCount  | InquiryMessageFields, MyPageReviewDialog, CheckoutDeliveryRequest    | 문의 1000자·배송 요청 250자·리뷰의 현재 제한 없음 유지. 기본 입력 조합은 TextFormField의 multiline 계약으로도 처리 가능. 카운터는 제한이 있는 두 곳만 후보                                                                               |
-| PreferenceField                 | RegistrationPreferenceRow, MyPageProfile                             | 라벨+Radio 구성이 반복됨. yes/no 값과 동의/수신안함 값을 변환하지 않고 options를 받는 표현 API 검토. SMS 줄바꿈·좌우/세로 배치 보존                                                                                                      |
-| AddressFields의 마이페이지 적용 | MyPageAddresses                                                      | 같은 주소 찾기 프로세스지만 우편번호 readOnly·주소 readOnly/우편번호 전 disabled·다른 ID·required·버튼 문구/정렬을 사용함. 단순히 boxed로 교체하지 말고 해당 계약을 먼저 지원해야 함. 기본배송지 체크와 목록 저장/삭제는 마이페이지 소유 |
+| 후보                            | 관련 사용처                                                       | 권장 경계와 유지 사항                                                                                                                                                                                                                    |
+| ------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| EmailField / EmailAddressFields | SignupDetailsStep, MyPageProfile, RegistrationEmailFields         | 전체 이메일 1칸과 local/domain 2칸+도메인 Dropdown+중복확인을 구분. 신규 이메일 autocomplete, disabled 도메인·중복확인 상태 보존                                                                                                         |
+| BirthDateField                  | PhoneInformationFields, RegistrationPersonalFields                | 생년월일 문자열 입력 UI만 공유 가능. editable 8자리 입력과 본인인증 완료 후 disabled 값을 구분하며 native date 입력으로 변환하지 않음                                                                                                    |
+| TextareaField / CharacterCount  | InquiryMessageFields, MyPageReviewDialog, CheckoutDeliveryRequest | 문의 1000자·배송 요청 250자·리뷰의 현재 제한 없음 유지. 기본 입력 조합은 TextFormField의 multiline 계약으로도 처리 가능. 카운터는 제한이 있는 두 곳만 후보                                                                               |
+| PreferenceField                 | RegistrationPreferenceRow, MyPageProfile                          | 라벨+Radio 구성이 반복됨. yes/no 값과 동의/수신안함 값을 변환하지 않고 options를 받는 표현 API 검토. SMS 줄바꿈·좌우/세로 배치 보존                                                                                                      |
+| AddressFields의 마이페이지 적용 | MyPageAddresses                                                   | 같은 주소 찾기 프로세스지만 우편번호 readOnly·주소 readOnly/우편번호 전 disabled·다른 ID·required·버튼 문구/정렬을 사용함. 단순히 boxed로 교체하지 말고 해당 계약을 먼저 지원해야 함. 기본배송지 체크와 목록 저장/삭제는 마이페이지 소유 |
 
 ## 유지할 구성
 
@@ -147,7 +152,7 @@ FormField/TextInput 직접 사용 20파일과 별도 래퍼·native 입력 경�
 | 계정 찾기          | FindAccountIdentityFields, FindAccountCodeFields, PasswordResetField/Content                  | Name/Phone/OTP/Countdown/Password 후보                                                |
 | 휴대폰 인증        | PhoneInformationFields, VerificationCodeFields                                                | Name/Phone/BirthDate/OTP/Countdown 후보, Dropdown 유지                                |
 | 마이페이지         | MyPageAddresses, MyPageProfile, MyPageReviewDialog                                            | Name/Phone/Password/Email/textarea 후보, 주소 mode 확장 후보                          |
-| 로그인             | LoginForm                                                                                     | Email/Password 후보, 기억하기·제출·인증 정책 유지                                     |
+| 로그인             | LoginForm                                                                                     | TextFormField/PasswordField, 기억하기·제출·인증 정책 유지                             |
 | 문의               | InquiryMessageFields                                                                          | generic TextFormField + multiline/카운터 후보                                         |
 | 쿠폰               | components/organisms/MyPage/CouponManager                                                     | generic TextFormField 후보, 쿠폰 로직 유지                                            |
 | 검색               | SearchField, SearchForm, HeaderSearch, IaStructurePage                                        | 기존 검색 전용 구성 유지                                                              |
@@ -165,3 +170,7 @@ FormField/TextInput 직접 사용 20파일과 별도 래퍼·native 입력 경�
 위 문단은 주소 선행 작업의 검증 기록이다. 후속 공통 필드 이관의 실제 API와 추가 검증은 위의 이관 결과 절에 기록했다. 실제 주소 검색은 기존 미연결 안내와 직접 입력 미리보기 상태를 유지한다.
 
 검증 로직 출처: [이름 검사](../../src/shared/lib/validation.ts), [번호 처리](../../src/shared/features/find-account/phoneNumber.ts), [이메일](../../src/shared/lib/emailValidation.ts), [비밀번호](../../src/shared/lib/passwordValidation.ts), [카운트다운](../../src/shared/lib/useVerificationCountdown.ts). 공용 기반은 [FormField](../../src/shared/components/atoms/FormField/FormField.tsx)와 [TextInput](../../src/shared/components/atoms/TextInput/TextInput.tsx)이다.
+
+## 로그인 아이디 필드 전환 (2026-10-20)
+
+LoginForm의 아이디는 EmailField에서 TextFormField로 전환했다. label “아이디”, placeholder “아이디를 입력해 주세요”, type text를 쓰고 name/autocomplete username·boxed·required·error 전달을 유지한다. 아이디 검증은 공통 필드가 아닌 LoginPage에서 수행한다. 새 공용 컴포넌트·API는 추가하지 않는다. [전환 기록](ui.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.

@@ -10,6 +10,7 @@ const meta = {
     recentSearches: ['클리프톤', '본디'],
     suggestedSearches,
     onSearch: () => {},
+    onNavigateSearch: () => {},
     onRemoveRecent: () => {},
     onClearRecent: () => {},
   },

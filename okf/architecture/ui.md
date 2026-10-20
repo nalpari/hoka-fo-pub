@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:09:56.305Z'
+  at: '2026-10-20T08:08:13.395691Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/find-account/FindAccountPage.scenarios.tsx
+  - src/shared/features/login/LoginPage.tsx
+  - src/shared/features/catalog/productListingIaRoute.ts
+  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
   - src/stories/components/atoms/Divider/Divider.stories.tsx
   - src/shared/features/terms/TermsDocument.tsx
   - src/shared/features/terms/TermsDateSelect.tsx
@@ -628,6 +632,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## GNB 최종 메뉴 반영 (2026-10-20)
+
+사용자가 첨부한 최종 GNB 이미지 기준으로 PC·모바일이 공유하는 megaMenus를 갱신했다. Men/Women의 표기를 러닝웨어·기타용품 및 신발의 로드러닝·트레일러닝으로 맞췄다. Shoes는 ICONS(본디·클리프톤·스피드고트·마파테·호파라), 남성, 여성 순서이며 성별 신발 목록은 공통 데이터 함수로 생성한다. Explore는 Featured(로드 러닝 가이드·트레일 러닝 가이드·Running Session), Technology(고어텍스·비브람), 러닝 세션 신청 순서다.
+
+열의 선택적 to는 하위 메뉴가 없는 직접 링크다. MegaMenuList에서는 제목 링크, MenuDrawerGroups에서는 Accordion 다음의 독립 링크로 렌더링한다. 러닝 세션 신청은 /running/run-club로 이동하며 메뉴를 닫는다. 기존 Accordion 단일 펼침과 포커스 복귀 로직은 유지했다. 모바일 첫 화면의 Best·런칭캘린더 등 기존 보조 메뉴는 이번 4개 GNB 분류 변경 범위에 포함하지 않았다.
+
+상품 메뉴는 eland_hca_01에 맞춰 /products 쿼리로 연결한다. IA 링크 생성기도 새 Featured 이름, 색상·모델·UTMB collection, 용품 라이프스타일 조건을 동일하게 처리한다. 이 변경은 메뉴·URL 매핑이며 모델·컬렉션 필터 기능을 새로 구현하지 않는다. IA 158의 미리보기와 준비 상태는 기존 런클럽 목록 스토리로 연결했다.
+
+Explore 가이드 2개, Running Session 소개, 기술 소개 2개는 현재 저장소에 본문 라우트가 없으며 지정 경로만 메뉴에 정의했다. 이번 작업에서 소개 본문을 만들거나 화면 구현 완료로 표시하지 않았다.
+
+작업 트리의 위 6개 UI·링크 파일과 src/data/screenRegistry.ts를 대조했다. 90개 3Depth 항목의 IA 이름·순서 및 상품 URL 조건 일치, IA 번호 중복 없음과 기존 번호·비대상 화면 보존을 Node 단언으로 확인했다. npm run typecheck와 변경 소스 ESLint를 통과했다. 브라우저 화면 검증은 수행하지 않았다.
 
 ## 폼 라벨 변경 병합 충돌 해결 (2026-10-20)
 
@@ -1885,7 +1901,13 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## Font Awesome 아이콘 스토리 카탈로그
 
-Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+## 최근 검색 Timer 아이콘 (2026-10-20)
+
+최근 검색 기록은 Figma `901:31346`의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/shared/icons/iconAssets.ts`, `src/shared/components/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+`RecentSearchItem`은 `Flex as="li"`의 JSX props로 기존 수평 정렬과 8px 간격을 표현한다. IconButton은 Panda JSX 스타일 props를 받지 않으므로 모바일에서 삭제 버튼을 오른쪽으로 미는 `ml: auto`는 기존 Panda `css` class로 유지한다. 검색·삭제 콜백과 목록 항목의 HTML 의미는 그대로 둔다.
 
 ## Typography formLabel 스케일 (2026-10-20)
 
@@ -1896,6 +1918,12 @@ Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle
 RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므로 Button variant="link" size="md"로 표시한다. 기본 텍스트 스타일을 재사용해 로컬 button CSS와 중복 Typography를 제거했다. 검색어가 있을 때만 표시하며 목록·개별 삭제·외부 props는 유지한다. 기존 body5 라벨은 공통 md 링크 규격으로 전환한다.
 
 검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.
+
+## 최근 검색어 키워드의 공통 버튼 재사용 (2026-10-20)
+
+SearchKeywordButton은 공통 ButtonLink의 link 변형으로 `/search?q=…&scope=전체` 주소를 제공하고 Typography body4 문구로 표시한다. Next Link의 onNavigate에서 검색어 저장과 오버레이 닫기를 처리해 실제 경로 이동은 링크에 맡긴다. 검색 폼·자동완성·추천 검색어 버튼은 기존 검색 콜백으로 이동한다. mouse down 기본 동작 방지로 오버레이 입력 포커스도 유지한다. ButtonLink는 Next Link의 onNavigate를 전달한다.
+
+작업 트리 출처: `src/shared/components/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
 
 ## 장바구니·주문 결제 첨부 시안 보완 (2026-10-19)
 
@@ -2074,3 +2102,9 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
 
 검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 일반 아이디 로그인 전환 (2026-10-20)
+
+첨부 설계서와 사용자가 확정한 영문·숫자 4자 이상 규칙을 반영했다. LoginForm은 EmailField 대신 기존 TextFormField를 사용해 라벨 “아이디”, placeholder “아이디를 입력해 주세요”, type text와 기존 name/autocomplete username을 전달한다. boxed·required·오류 설명 연결과 Panda 배치는 유지한다. 로그인 오류·성공·형식 스토리와 아이디 찾기·폼 감사의 결과 예시를 갱신했다. 아이디 찾기 결과는 `honggildong`으로 표시하며 가입·비밀번호·인증·계정 잠금 화면은 변경하지 않는다. 이 기록은 이전 이메일 기반 로그인 설명을 대체한다. [상태 계약](state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
+
+검증: 전체 타입 검사·변경 TSX ESLint·변경 파일 Prettier·전체 Storybook production build가 통과했다. 빌드 결과를 로컬 HTTP 서버에서 Edge/Playwright로 실행해 로그인 PC 6개·모바일 5개, 아이디 찾기 결과 PC/모바일 2개·재설정 이동 1개, 폼 감사 찾기 PC/모바일 2개로 총 16개 스토리가 통과했다. 아이디 3자 거부·4자 영문/숫자/혼합 허용, 공백·한글·특수문자·이메일 거부, 오류 해제·재표시와 로그인 콜백·홈 이동을 확인했다. 1600px·375px 기본 화면 캡처와 375px 화면을 시각 확인했다. 실제 인증 API는 검사 대상이 아니다.

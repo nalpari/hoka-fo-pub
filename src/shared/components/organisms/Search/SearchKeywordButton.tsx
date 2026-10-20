@@ -1,30 +1,20 @@
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
 
-const recentQuery = css({
-  border: '0',
-  p: '0',
-  bg: 'transparent',
-  color: 'var(--color-text-subtle)',
-  fontSize: 'inherit',
-  textAlign: 'left',
-  cursor: 'pointer',
-  _hover: { textDecoration: 'underline' },
-});
+type SearchKeywordButtonProps = { query: string; onNavigateSearch: (query: string) => void };
 
-type SearchKeywordButtonProps = { query: string; onSearch: (query: string) => void };
-
-export function SearchKeywordButton({ query, onSearch }: SearchKeywordButtonProps) {
+export function SearchKeywordButton({ query, onNavigateSearch }: SearchKeywordButtonProps) {
   return (
-    <button
-      type="button"
-      className={recentQuery}
+    <ButtonLink
+      href={`/search?q=${encodeURIComponent(query)}&scope=${encodeURIComponent('전체')}`}
+      variant="link"
+      size="lg"
       onMouseDown={(event) => event.preventDefault()}
-      onClick={() => onSearch(query)}
+      onNavigate={() => onNavigateSearch(query)}
     >
-      <Typography variant="body4" weight="inherit">
+      <Typography variant="body4" weight="regular" tone="subtle">
         {query}
       </Typography>
-    </button>
+    </ButtonLink>
   );
 }

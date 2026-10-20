@@ -44,7 +44,7 @@ export function IdConfirmationModal({
         </Typography>
         <Box mt={{ base: '5', _mobile: '6' }}>
           <Typography as="p" mo="heading5" web="heading7">
-            honggildong@kakao.com
+            honggildong
           </Typography>
         </Box>
         <Box mt={{ base: '6', _mobile: '52px' }} mb="6">

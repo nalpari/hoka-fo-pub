@@ -326,7 +326,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   );
 });
 
-export type ButtonLinkProps = Pick<LinkProps, 'href' | 'replace' | 'scroll' | 'prefetch'> &
+export type ButtonLinkProps = Pick<
+  LinkProps,
+  'href' | 'replace' | 'scroll' | 'prefetch' | 'onNavigate'
+> &
   Pick<
     ButtonProps,
     | 'className'
@@ -338,6 +341,7 @@ export type ButtonLinkProps = Pick<LinkProps, 'href' | 'replace' | 'scroll' | 'p
     | 'icon'
     | 'loading'
     | 'invalid'
+    | 'onMouseDown'
   > &
   ButtonSizingProps & {
     children: ReactNode;
@@ -350,6 +354,7 @@ export function ButtonLink({
   replace,
   scroll,
   prefetch,
+  onNavigate,
   ...buttonProps
 }: ButtonLinkProps) {
   return (
@@ -363,6 +368,7 @@ export function ButtonLink({
           replace={replace}
           scroll={scroll}
           prefetch={prefetch}
+          onNavigate={onNavigate}
           role={undefined}
         />
       )}

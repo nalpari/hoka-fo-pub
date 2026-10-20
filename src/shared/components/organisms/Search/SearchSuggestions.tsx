@@ -11,6 +11,7 @@ type SearchSuggestionsProps = {
   recentSearches: readonly string[];
   suggestedSearches: readonly string[];
   onSearch: (query: string) => void;
+  onNavigateSearch: (query: string) => void;
   onRemoveRecent: (query: string) => void;
   onClearRecent: () => void;
 };
@@ -19,6 +20,7 @@ export function SearchSuggestions({
   recentSearches,
   suggestedSearches,
   onSearch,
+  onNavigateSearch,
   onRemoveRecent,
   onClearRecent,
 }: SearchSuggestionsProps) {
@@ -32,7 +34,7 @@ export function SearchSuggestions({
       {recentSearches.length > 0 && (
         <RecentSearches
           recentSearches={recentSearches}
-          onSearch={onSearch}
+          onNavigateSearch={onNavigateSearch}
           onRemove={onRemoveRecent}
           onClear={onClearRecent}
         />
@@ -67,7 +69,7 @@ export function SearchSuggestions({
                 <Typography variant="body4" className={css({ minW: '12px' })}>
                   {index + 1}
                 </Typography>
-                <SearchKeywordButton query={query} onSearch={onSearch} />
+                <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
               </li>
             ))}
           </Grid>

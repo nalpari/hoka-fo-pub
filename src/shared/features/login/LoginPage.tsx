@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoginContent, type LoginNotice } from './LoginContent';
 import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
-import { isValidEmail, emailFormatErrorMessage } from '@/shared/lib/emailValidation';
 
 export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const router = useRouter();
@@ -13,10 +12,11 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
   const [rememberId, setRememberId] = useState(false);
   const [notice, setNotice] = useState<LoginNotice | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const validEmail = isValidEmail(id);
+  const validId = /^[a-zA-Z0-9]{4,}$/.test(id);
+  const idError = !id ? '아이디를 입력해 주세요' : '영문, 숫자 조합으로 4자 이상 입력해 주세요.';
   const validPassword = isValidPassword(password);
   const errors = {
-    id: hasSubmitted && !validEmail ? emailFormatErrorMessage : undefined,
+    id: hasSubmitted && !validId ? idError : undefined,
     password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
   };
 
@@ -32,7 +32,7 @@ export function LoginPage({ onLogin }: { onLogin?: () => void }) {
     setHasSubmitted(true);
     setNotice(null);
 
-    if (!validEmail || !validPassword) {
+    if (!validId || !validPassword) {
       return;
     }
 
