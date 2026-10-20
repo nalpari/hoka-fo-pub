@@ -1,5 +1,6 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { RegistrationPreferenceRow } from './RegistrationPreferenceRow';
 import type { RegistrationContentProps } from './registration.types';
 
@@ -7,12 +8,16 @@ type Props = Pick<RegistrationContentProps, 'preferences' | 'onPreferenceChange'
 
 export function RegistrationAdditionalFields(props: Props) {
   return (
-    <>
-      <Stack as="section" gap="6">
-        <Typography as="h2" variant="body3" weight="medium">
-          마케팅 정보 수신 동의
-        </Typography>
-        <Stack gap="4" pb="6" mb="6" borderBottom="1px solid var(--color-black-20)">
+    <Stack gap="6">
+      <ContentSection
+        as="section"
+        gap="6"
+        pb="6"
+        borderBottom="1px solid var(--color-black-20)"
+        title="마케팅 정보 수신 동의"
+        headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'bold' } }}
+      >
+        <Stack gap="4">
           <RegistrationPreferenceRow
             preferenceKey="email"
             label="이메일 수신"
@@ -32,11 +37,13 @@ export function RegistrationAdditionalFields(props: Props) {
             onValueChange={(value) => props.onPreferenceChange('sms', value)}
           />
         </Stack>
-      </Stack>
-      <Stack as="section" gap="6">
-        <Typography as="h2" variant="body3" weight="medium">
-          부가정보
-        </Typography>
+      </ContentSection>
+      <ContentSection
+        as="section"
+        gap="6"
+        title="부가정보"
+        headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'bold' } }}
+      >
         <RegistrationPreferenceRow
           preferenceKey="married"
           label="결혼유무"
@@ -45,7 +52,7 @@ export function RegistrationAdditionalFields(props: Props) {
           value={props.preferences.married}
           onValueChange={(value) => props.onPreferenceChange('married', value)}
         />
-      </Stack>
-    </>
+      </ContentSection>
+    </Stack>
   );
 }

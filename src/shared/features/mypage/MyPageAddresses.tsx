@@ -1,17 +1,20 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Badge } from '@/shared/components/atoms/Badge/Badge';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { MyPageAddressDeleteDialog } from '@/shared/features/mypage/MyPageAddressDeleteDialog';
-import { AddressSearchModal } from '@/shared/components/organisms/Address/AddressSearchModal';
+import { AddressFields } from '@/shared/components/organisms/Address/AddressFields';
 import { MyPageFrame } from './MyPageFrame';
+import { NameField } from '@/shared/components/molecules/FormFields/NameField';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
+import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
 
 type Address = {
   id: number;
@@ -177,10 +180,14 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
           </Button>
         </Stack>
       ) : (
-        <Stack gap="5" px="4" pt="6" pb="16">
-          <Typography as="h1" web="heading8" mo="heading5">
-            {editingId === 'new' ? '배송지 추가' : '배송지 수정'}
-          </Typography>
+        <ContentSection
+          gap="5"
+          px="4"
+          pt="6"
+          pb="16"
+          title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
+          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
+        >
           <form
             noValidate
             onSubmit={(event) => {
@@ -189,115 +196,117 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
             }}
           >
             <Stack gap="2">
-              <FormField
-                htmlFor="address-recipient"
+              <NameField
+                id="address-recipient"
                 label="이름"
                 required
                 variant="boxed"
                 error={fieldError('recipient')}
-              >
-                <TextInput
-                  id="address-recipient"
-                  required
-                  placeholder="이름을 입력해 주세요"
-                  value={draft.recipient}
-                  onChange={(event) => update('recipient', event.target.value)}
-                />
-              </FormField>
-              <FormField
-                htmlFor="address-name"
+                inputProps={{
+                  required: true,
+                  placeholder: '이름을 입력해 주세요',
+                  value: draft.recipient,
+                  onChange: (event) => update('recipient', event.target.value),
+                }}
+              />
+              <TextFormField
+                id="address-name"
                 label="배송지명"
                 required
                 variant="boxed"
                 error={fieldError('name')}
-              >
-                <TextInput
-                  id="address-name"
-                  required
-                  placeholder="배송지명을 입력해 주세요"
-                  value={draft.name}
-                  onChange={(event) => update('name', event.target.value)}
-                />
-              </FormField>
-              <FormField
-                htmlFor="address-phone"
+                inputProps={{
+                  required: true,
+                  placeholder: '배송지명을 입력해 주세요',
+                  value: draft.name,
+                  onChange: (event) => update('name', event.target.value),
+                }}
+              />
+              <PhoneNumberField
+                id="address-phone"
                 label="휴대폰 번호"
                 required
                 variant="boxed"
                 error={fieldError('phone')}
-              >
-                <TextInput
-                  id="address-phone"
-                  required
-                  type="tel"
-                  placeholder="- 없이 입력해 주세요"
-                  value={draft.phone}
-                  onChange={(event) => update('phone', event.target.value)}
-                />
-              </FormField>
-              <FormField htmlFor="address-alternate-phone" label="다른 전화번호" variant="boxed">
-                <TextInput
-                  id="address-alternate-phone"
-                  type="tel"
-                  placeholder="- 없이 입력해 주세요"
-                  value={draft.alternatePhone}
-                  onChange={(event) => update('alternatePhone', event.target.value)}
-                />
-              </FormField>
-              <HStack alignItems="end" gap="2">
-                <Box flex="1">
-                  <FormField
-                    htmlFor="address-zip"
-                    label="우편번호"
-                    required
-                    variant="boxed"
-                    error={fieldError('zip')}
-                  >
-                    <TextInput
-                      id="address-zip"
-                      required
-                      readOnly
-                      placeholder="우편번호 찾기 버튼을 눌러주세요"
-                      value={draft.zip}
-                    />
-                  </FormField>
-                </Box>
-                <Button size="sm" variant="link" type="button" onClick={() => setAddressOpen(true)}>
-                  우편번호 찾기
-                </Button>
-              </HStack>
-              <FormField
-                htmlFor="address-line"
-                label="주소"
-                required
-                disabled={!draft.zip}
+                inputProps={{
+                  required: true,
+                  type: 'tel',
+                  placeholder: '- 없이 입력해 주세요',
+                  value: draft.phone,
+                  onChange: (event) => update('phone', event.target.value),
+                }}
+              />
+              <PhoneNumberField
+                id="address-alternate-phone"
+                label="다른 전화번호"
                 variant="boxed"
-                error={fieldError('address')}
-              >
-                <TextInput
-                  id="address-line"
-                  disabled={!draft.zip}
-                  required
-                  placeholder="주소를 입력해 주세요"
-                  value={draft.address}
-                  readOnly
-                />
-              </FormField>
-              <FormField
-                htmlFor="address-detail"
-                label="상세주소"
-                required
-                variant="boxed"
-                error={fieldError('detail')}
-              >
-                <TextInput
-                  id="address-detail"
-                  required
-                  placeholder="상세주소를 입력해 주세요"
-                  value={draft.detail}
-                  onChange={(event) => update('detail', event.target.value)}
-                />
-              </FormField>
+                inputProps={{
+                  type: 'tel',
+                  placeholder: '- 없이 입력해 주세요',
+                  value: draft.alternatePhone,
+                  onChange: (event) => update('alternatePhone', event.target.value),
+                }}
+              />
+              <AddressFields
+                variant="separated"
+                idPrefix="mypage-address"
+                searchLabel="우편번호 찾기"
+                searchOpen={addressOpen}
+                onSearchOpenChange={setAddressOpen}
+                value={{
+                  postalCode: draft.zip,
+                  address: draft.address,
+                  addressDetail: draft.detail,
+                }}
+                errors={{
+                  postalCode: fieldError('zip'),
+                  address: fieldError('address'),
+                  addressDetail: fieldError('detail'),
+                }}
+                onValueChange={(field, value) =>
+                  update(
+                    field === 'postalCode'
+                      ? 'zip'
+                      : field === 'addressDetail'
+                        ? 'detail'
+                        : 'address',
+                    value,
+                  )
+                }
+                fieldOptions={{
+                  postalCode: {
+                    id: 'address-zip',
+                    required: true,
+                    disabled: false,
+                    inputProps: {
+                      required: true,
+                      readOnly: true,
+                      placeholder: '우편번호 찾기 버튼을 눌러주세요',
+                    },
+                  },
+                  address: {
+                    id: 'address-line',
+                    required: true,
+                    disabled: !draft.zip,
+                    inputProps: {
+                      required: true,
+                      readOnly: true,
+                      placeholder: '주소를 입력해 주세요',
+                    },
+                  },
+                  addressDetail: {
+                    id: 'address-detail',
+                    required: true,
+                    disabled: false,
+                    inputProps: {
+                      required: true,
+                      placeholder: '상세주소를 입력해 주세요',
+                      type: undefined,
+                      autoComplete: undefined,
+                    },
+                  },
+                }}
+              />
               <Box py="3">
                 <Checkbox
                   checked={draft.isDefault}
@@ -327,17 +336,8 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
               )}
             </Stack>
           </form>
-        </Stack>
+        </ContentSection>
       )}
-      <AddressSearchModal
-        open={addressOpen}
-        onOpenChange={setAddressOpen}
-        postalCode={draft.zip}
-        address={draft.address}
-        onPostalCodeChange={(value) => update('zip', value)}
-        onAddressChange={(value) => update('address', value)}
-        idPrefix="mypage-address"
-      />
       <MyPageAddressDeleteDialog
         open={deleteId !== null}
         onOpenChange={(open) => {

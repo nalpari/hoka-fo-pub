@@ -1,15 +1,16 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import type { CSSProperties } from 'react';
+import { SignupBenefit } from '@/shared/components/organisms/Signup/SignupBenefit';
+import {
+  SignupMethodButton,
+  type SignupMethod,
+} from '@/shared/components/organisms/Signup/SignupMethodButton';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Icon } from '@/shared/components/atoms/Icon/Icon';
-
-type SignupMethod = 'local' | 'kakao' | 'naver';
 
 type SignupMethodOption = {
   id: SignupMethod;
@@ -17,37 +18,15 @@ type SignupMethodOption = {
   description: string;
 };
 
-const styles = {
-  benefit: css({
-    border: '1px solid var(--color-black-20)',
-    borderRadius: '8px',
-    color: 'var(--color-text-primary)',
-    textAlign: 'center',
-    '& svg': { w: '20px', h: '20px' },
-  }),
-  benefitsLink: css({ textUnderlineOffset: '3px' }),
-};
+const benefits = [
+  { iconName: 'gift', title: '신규가입', description: '1만원 쿠폰' },
+  { iconName: 'partyHorn', title: '기념일', description: '축하 쿠폰' },
+  { iconName: 'medal', title: '회원 등급별', description: '혜택' },
+];
 
-const kakaoStyle = {
-  '--button-bg': '#FAE100',
-  '--button-color': 'var(--color-black-100)',
-  '--button-border-color': '#FAE100',
-  '--button-border-width': '0px',
-} as CSSProperties;
+const methodOrder = ['kakao', 'naver', 'local'] as const;
 
-const naverStyle = {
-  '--button-bg': '#03C75A',
-  '--button-color': 'var(--color-white-000)',
-  '--button-border-color': '#03C75A',
-  '--button-border-width': '0px',
-} as CSSProperties;
-
-const localStyle = {
-  '--button-bg': 'var(--color-black-100)',
-  '--button-color': 'var(--color-white-000)',
-  '--button-border-color': 'var(--color-black-100)',
-  '--button-border-width': '0px',
-} as CSSProperties;
+const benefitsLink = css({ textUnderlineOffset: '3px' });
 
 type SignupMethodStepProps = {
   methods: SignupMethodOption[];
@@ -59,103 +38,39 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
   return (
     <section aria-labelledby="signup-title">
-      <Stack gap="6">
-        <AccountFormHeader
-          title="가입과 동시에 시작되는 혜택!"
-          titleId="signup-title"
-          description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
-        />
-
+      <ContentSection
+        gap="6"
+        header={
+          <AccountFormHeader
+            title="가입과 동시에 시작되는 혜택!"
+            titleId="signup-title"
+            description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
+          />
+        }
+      >
         <Grid columns={3} gap="1.5" aria-label="회원가입 혜택">
-          <Grid
-            alignContent="center"
-            justifyItems="center"
-            gap="3"
-            minH="108px"
-            py="3"
-            px="1"
-            className={styles.benefit}
-          >
-            <Icon name="gift" size="18px" />
-            <Typography as="span" variant="body4">
-              신규가입
-              <br />
-              1만원 쿠폰
-            </Typography>
-          </Grid>
-          <Grid
-            alignContent="center"
-            justifyItems="center"
-            gap="3"
-            minH="108px"
-            py="3"
-            px="1"
-            className={styles.benefit}
-          >
-            <Icon name="partyHorn" size="18px" />
-            <Typography as="span" variant="body4">
-              기념일
-              <br />
-              축하 쿠폰
-            </Typography>
-          </Grid>
-          <Grid
-            alignContent="center"
-            justifyItems="center"
-            gap="3"
-            minH="108px"
-            py="3"
-            px="1"
-            className={styles.benefit}
-          >
-            <Icon name="medal" size="18px" />
-            <Typography as="span" variant="body4">
-              회원 등급별
-              <br />
-              혜택
-            </Typography>
-          </Grid>
+          {benefits.map((benefit) => (
+            <SignupBenefit key={benefit.iconName} {...benefit} />
+          ))}
         </Grid>
 
         <Center>
-          <Link className={styles.benefitsLink} href="/support/member-benefits">
+          <Link className={benefitsLink} href="/support/member-benefits">
             <Typography as="span" variant="textLinkKr2">
               회원 등급별 혜택 더 보기
             </Typography>
           </Link>
         </Center>
-      </Stack>
+      </ContentSection>
 
       <Stack gap="2" mt="9">
-        <Button
-          fullWidth
-          icon={<Icon name="social/kakao" size="18px" />}
-          onClick={() => onSelect(methodById.get('kakao')!.id)}
-          style={kakaoStyle}
-          variant="primary"
-          size="tall"
-        >
-          카카오 계정으로 신규가입
-        </Button>
-        <Button
-          fullWidth
-          icon={<Icon name="social/naver" size="18px" />}
-          onClick={() => onSelect(methodById.get('naver')!.id)}
-          style={naverStyle}
-          variant="primary"
-          size="tall"
-        >
-          네이버 계정으로 신규가입
-        </Button>
-        <Button
-          fullWidth
-          onClick={() => onSelect(methodById.get('local')!.id)}
-          style={localStyle}
-          variant="primary"
-          size="tall"
-        >
-          만 14세 이상 회원가입
-        </Button>
+        {methodOrder.map((method) => (
+          <SignupMethodButton
+            key={method}
+            method={method}
+            onSelect={() => onSelect(methodById.get(method)!.id)}
+          />
+        ))}
       </Stack>
       <Box mt="4" textAlign="center">
         <Typography as="p" variant="body5">

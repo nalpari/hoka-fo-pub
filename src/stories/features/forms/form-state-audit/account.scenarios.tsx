@@ -14,19 +14,23 @@ export const FindAccount: Story = {
     const c = within(canvasElement);
     await userEvent.click(c.getByRole('button', { name: '인증번호 요청' }));
     await expect(c.getByLabelText(/이름/)).toHaveAttribute('aria-invalid', 'true');
-    await expect(c.getByLabelText(/휴대폰번호/)).toHaveAttribute('aria-invalid', 'true');
+    await expect(c.getByLabelText(/휴대폰 번호/)).toHaveAttribute('aria-invalid', 'true');
     await userEvent.type(c.getByLabelText(/이름/), '홍길동');
-    await userEvent.type(c.getByLabelText(/휴대폰번호/), '01012345678');
+    await userEvent.type(c.getByLabelText(/휴대폰 번호/), '01012345678');
     await userEvent.click(c.getByRole('button', { name: '인증번호 요청' }));
     await userEvent.click(c.getByRole('button', { name: '인증번호 확인' }));
-    await expect(c.getByLabelText('인증번호', { exact: true })).toHaveAttribute(
+    await expect(c.getByLabelText('* 인증번호', { exact: true })).toHaveAttribute(
       'aria-invalid',
       'true',
     );
-    await userEvent.type(c.getByLabelText('인증번호', { exact: true }), '123456');
+    await userEvent.type(c.getByLabelText('* 인증번호', { exact: true }), '900668');
     await userEvent.click(c.getByRole('button', { name: '인증번호 확인' }));
-    await expect(c.getByRole('status')).toHaveTextContent('실제 검증은 서비스 연결 후 가능합니다.');
-    await expect(c.getByLabelText('인증번호', { exact: true })).not.toHaveAttribute('aria-invalid');
+    await expect(within(canvasElement.ownerDocument.body).getByRole('dialog')).toHaveTextContent(
+      'honggildong@kakao.com',
+    );
+    await expect(c.getByLabelText('* 인증번호', { exact: true })).not.toHaveAttribute(
+      'aria-invalid',
+    );
   },
 };
 
@@ -117,10 +121,10 @@ export const Registration: Story = {
       c.getByLabelText(/비밀번호/, { selector: '#registration-password' }),
       'Hoka12345!',
     );
-    await userEvent.type(c.getByLabelText(/비밀번호 재입력/), 'Hoka12345!');
+    await userEvent.type(c.getByLabelText(/비밀번호 재확인/), 'Hoka12345!');
     await userEvent.click(c.getByRole('button', { name: '다음' }));
     await expect(c.getByRole('status')).toHaveAttribute('data-tone', 'info');
-    await enterAddress(canvasElement);
+    await enterAddress(canvasElement, '주소 찾기');
     await userEvent.type(c.getByLabelText(/상세주소/), '101호');
     await userEvent.click(c.getByRole('button', { name: '다음' }));
     await expect(c.getByRole('heading', { name: '부가 정보' })).toBeVisible();

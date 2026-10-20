@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Collapsible } from '@/shared/components/atoms/Collapsible/Collapsible';
+import { Button } from '@/shared/components/atoms/Button/Button';
+import { expect, userEvent, within } from 'storybook/test';
 
 function InteractiveCollapsible() {
   const [open, setOpen] = useState(false);
@@ -32,5 +34,23 @@ export const InitiallyOpen: Story = {
     children: '접을 수 있는 콘텐츠입니다.',
     defaultOpen: true,
     trigger: '상세 보기',
+  },
+};
+
+export const CustomTrigger: Story = {
+  args: {
+    trigger: '사용 가능 쿠폰',
+    triggerRender: <Button variant="link" size="sm" />,
+    indicator: null,
+    children: '상품 쿠폰 목록',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: '사용 가능 쿠폰' });
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByText('상품 쿠폰 목록')).toBeVisible();
+    await userEvent.keyboard('{Enter}');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   },
 };

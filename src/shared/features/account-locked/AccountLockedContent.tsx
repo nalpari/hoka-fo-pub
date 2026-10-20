@@ -1,5 +1,6 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
@@ -18,17 +19,21 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
       title="아이디 / 비밀번호 찾기"
       closeLabel="안내 닫기"
     >
-      <Stack gap="4">
-        <Typography as="h2" variant="body2">
-          계정 잠금상태입니다
-        </Typography>
-        <Typography as="p" variant="body4">
-          서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
-          <Typography as="span" className={styles.descriptionSecondLine}>
-            휴대폰 인증화면으로 이동합니다.
-          </Typography>
-        </Typography>
-      </Stack>
+      <ContentHeader
+        gap="4"
+        titleAs="h2"
+        title="계정 잠금상태입니다"
+        titleProps={{ variant: 'body2' }}
+        description={
+          <>
+            서비스 이용을 위해 계정잠금을 해제해주세요.&nbsp;
+            <Typography as="span" className={styles.descriptionSecondLine}>
+              휴대폰 인증화면으로 이동합니다.
+            </Typography>
+          </>
+        }
+        descriptionProps={{ variant: 'body4' }}
+      />
     </SingleActionDialog>
   );
 }

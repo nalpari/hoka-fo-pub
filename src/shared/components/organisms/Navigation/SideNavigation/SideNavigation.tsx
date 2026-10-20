@@ -3,7 +3,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { cva } from 'styled-system/css';
-import { Box, Stack, VStack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 
 export type SideNavigationGroup = {
   heading: string;
@@ -40,35 +40,39 @@ export function SideNavigation({
 }: SideNavigationProps) {
   if (appearance === 'support') {
     return (
-      <Box as="aside" className={className} flex="0 0 180px" _mobile={{ display: 'none' }}>
-        <Stack alignItems="stretch" gap="0">
-          <Box mb="6">
-            <Link href={titleTo}>
-              <Typography as="span" variant="heading7">
-                {title}
-              </Typography>
-            </Link>
-          </Box>
-          {groups.map((group, index) => (
-            <VStack
-              as="section"
-              alignItems="stretch"
-              gap="0"
-              mb={index === 0 ? '4' : '0'}
-              pb={index === 0 ? '4' : '0'}
-              borderBottom={index === 0 ? '1px solid var(--color-black-40)' : '0'}
-              key={group.heading}
-            >
-              {group.items.map((item) => {
+      <Box as="aside" className={className} w="190px" _mobile={{ display: 'none' }}>
+        <Stack alignItems="flex-start" gap="10">
+          <Link href={titleTo}>
+            <Typography as="span" variant="heading7">
+              {title}
+            </Typography>
+          </Link>
+          <Stack as="nav" aria-label={title} alignItems="flex-start" gap="6">
+            {groups
+              .flatMap((group) => group.items)
+              .map((item) => {
                 const isActive = item.active ?? item.to === activePath;
 
                 return (
-                  <Box as="div" py="2" key={`${item.to}-${item.label}`}>
-                    <Link aria-current={isActive ? 'page' : undefined} href={item.to}>
+                  <Box
+                    key={`${item.to}-${item.label}`}
+                    py="2"
+                    borderBottomWidth={isActive ? '2px' : '0'}
+                    borderBottomStyle="solid"
+                    borderBottomColor="black.100"
+                    pointerEvents={item.disabled ? 'none' : undefined}
+                  >
+                    <Link
+                      aria-current={isActive ? 'page' : undefined}
+                      aria-disabled={item.disabled || undefined}
+                      href={item.to}
+                      tabIndex={item.disabled ? -1 : undefined}
+                    >
                       <Typography
                         as="span"
-                        variant="heading9"
-                        tone={isActive ? 'primary' : 'tertiary'}
+                        variant="body2"
+                        weight="medium"
+                        tone={isActive ? 'primary' : 'subtle'}
                       >
                         {item.label}
                       </Typography>
@@ -76,8 +80,7 @@ export function SideNavigation({
                   </Box>
                 );
               })}
-            </VStack>
-          ))}
+          </Stack>
         </Stack>
       </Box>
     );

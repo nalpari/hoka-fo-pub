@@ -4,6 +4,7 @@ import { config, type IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { iconAssets, type IconAssetName } from '@/shared/icons/iconAssets';
+import { token } from 'styled-system/tokens';
 
 config.autoAddCss = false;
 
@@ -47,6 +48,7 @@ type FontAwesomeSourceProps = {
 export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'> &
   (IconSourceProps | FontAwesomeSourceProps) & {
     size?: string | number;
+    /** CSS color or Panda color token path such as `black.50` or `text.tertiary`. */
     color?: 'white' | 'currentColor' | 'black' | string;
     /** Render a monochrome src as a mask so it follows the current text color. */
     mask?: boolean;
@@ -104,7 +106,9 @@ const resolveIconFilter = (color?: IconProps['color']) => {
 const resolveIconColor = (color: IconProps['color']) => {
   if (color === 'white') return 'var(--color-white-000)';
   if (color === 'black') return 'var(--color-black-100)';
-  return color;
+  if (!color || color === 'currentColor') return color;
+
+  return token.var(`colors.${color}` as Parameters<typeof token.var>[0], color);
 };
 
 export function Icon({

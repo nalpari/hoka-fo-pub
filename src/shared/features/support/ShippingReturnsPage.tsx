@@ -1,5 +1,7 @@
 'use client';
 
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -75,13 +77,9 @@ function NumberedList({
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="2">
           <Box flexShrink="0">
-            <Typography web="body4" mo="body4">
-              {index + 1}.
-            </Typography>
+            <Typography variant="body4">{index + 1}.</Typography>
           </Box>
-          <Typography web="body4" mo="body4">
-            {item}
-          </Typography>
+          <Typography variant="body4">{item}</Typography>
         </HStack>
       ))}
     </Stack>
@@ -93,10 +91,10 @@ function BulletList({ items }: { items: readonly ReactNode[] }) {
     <Stack as="ul" gap="0" pl="2" listStyleType="none">
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="1">
-          <Typography as="span" web="body4" mo="body4" tone="subtle" aria-hidden="true">
+          <Typography as="span" variant="body4" tone="subtle" aria-hidden="true">
             ・
           </Typography>
-          <Typography web="body4" mo="body4" tone="subtle">
+          <Typography variant="body4" tone="subtle">
             {item}
           </Typography>
         </HStack>
@@ -105,11 +103,17 @@ function BulletList({ items }: { items: readonly ReactNode[] }) {
   );
 }
 
-function GuidePanel({ children }: { children: ReactNode }) {
+function GuidePanel({ title, children }: { title: ReactNode; children: ReactNode }) {
   return (
-    <Stack gap="4" px={{ base: '4', _mobile: '2' }} pt={{ base: '3', _mobile: '4' }}>
+    <ContentSection
+      title={title}
+      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading9', weight: 'semibold' } }}
+      gap="4"
+      px={{ base: '4', _mobile: '2' }}
+      pt={{ base: '3', _mobile: '4' }}
+    >
       {children}
-    </Stack>
+    </ContentSection>
   );
 }
 
@@ -118,10 +122,7 @@ const tabs = [
     value: 'shipping',
     label: '배송 안내',
     content: (
-      <GuidePanel>
-        <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
-          배송 안내
-        </Typography>
+      <GuidePanel title="배송 안내">
         <NumberedList items={shippingItems} />
       </GuidePanel>
     ),
@@ -130,23 +131,16 @@ const tabs = [
     value: 'return-cautions',
     label: '반품 주의사항',
     content: (
-      <GuidePanel>
-        <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
-          반품 유의 사항
-        </Typography>
+      <GuidePanel title="반품 유의 사항">
         <NumberedList
           items={[
             '상품 수령일로부터 7일 이내에 반품 신청을 해주시기 바랍니다.',
             '교환 정책 변경 : HOKA 코리아 온라인 공식 홈페이지 구매 상품은 2023년 8월 24일 부터 교환 서비스가 제공되지 않습니다. 수령하신 상품은 반품하시고, 교환을 희망하시는 상품은 별도로 구매 해주시기 바랍니다.',
           ]}
         />
-        <Typography web="body4" mo="body4">
-          3. 다음과 같은 경우 반품 처리가 불가합니다.
-        </Typography>
+        <Typography variant="body4">3. 다음과 같은 경우 반품 처리가 불가합니다.</Typography>
         <BulletList items={unavailableReturns} />
-        <Typography web="body4" mo="body4">
-          4. 반품 배송비 정책
-        </Typography>
+        <Typography variant="body4">4. 반품 배송비 정책</Typography>
         <BulletList items={returnCosts} />
       </GuidePanel>
     ),
@@ -155,19 +149,18 @@ const tabs = [
     value: 'product-returns',
     label: '상품 반품 안내',
     content: (
-      <GuidePanel>
-        <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
-          상품 반품 안내
-        </Typography>
+      <GuidePanel title="상품 반품 안내">
         <NumberedList
           items={[
             '온라인 스토어에서 구매한 상품만 온라인 반품이 가능합니다.',
             '고객님 변심으로 인해 발생되는 반품관련 배송 비용은, 시스템에서 자동으로 차감 후 환불처리 됩니다.',
           ]}
         />
-        <Typography as="h3" web="heading9" mo="heading9" weight="semibold">
-          상품 반품 절차
-        </Typography>
+        <ContentHeader
+          titleAs="h3"
+          title={<>상품 반품 절차</>}
+          titleProps={{ variant: 'heading9', weight: 'semibold' }}
+        />
         <NumberedList items={returnSteps} compact />
       </GuidePanel>
     ),
@@ -179,7 +172,6 @@ export function ShippingReturnsPage() {
     <CustomerCenterLayout
       title="배송 및 반품안내"
       mobileTitleVariant="heading5"
-      showHeadingDivider
       activePath="/support/after-sales"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

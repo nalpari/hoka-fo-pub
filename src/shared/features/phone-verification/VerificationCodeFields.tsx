@@ -1,9 +1,10 @@
+import { VerificationCountdown } from '@/shared/components/molecules/FormFields/VerificationCountdown';
 import { Box } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { PhoneVerificationContentProps } from './phone-verification.types';
+import { VerificationCodeField } from '@/shared/components/molecules/FormFields/VerificationCodeField';
 
 type Props = Pick<
   PhoneVerificationContentProps,
@@ -15,32 +16,24 @@ export function VerificationCodeFields(props: Props) {
   return (
     <>
       <Box mt="2">
-        <FormField
+        <VerificationCodeField
           variant="boxed"
-          htmlFor="phone-code"
+          id="phone-code"
           label="인증번호"
           required
           error={props.codeError}
-        >
-          <TextInput
-            id="phone-code"
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            maxLength={6}
-            placeholder="인증번호 6자리를 입력해 주세요"
-            value={code}
-            onChange={(event) => props.onCodeChange(event.target.value)}
-          />
-        </FormField>
+          inputProps={{
+            inputMode: 'numeric',
+            autoComplete: 'one-time-code',
+            maxLength: 6,
+            placeholder: '인증번호 6자리를 입력해 주세요',
+            value: code,
+            onChange: (event) => props.onCodeChange(event.target.value),
+          }}
+        />
       </Box>
       <Box mt="-2">
-        <Typography as="p" variant="body5" tone="error">
-          남은 시간{' '}
-          {Math.floor(secondsLeft / 60)
-            .toString()
-            .padStart(2, '0')}
-          :{(secondsLeft % 60).toString().padStart(2, '0')}초
-        </Typography>
+        <VerificationCountdown secondsLeft={secondsLeft} />
       </Box>
       <Box mb="2">
         <Typography as="p" variant="body5">

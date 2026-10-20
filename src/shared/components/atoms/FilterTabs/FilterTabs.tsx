@@ -54,6 +54,11 @@ const rail = cva({
           gap: '6px',
         },
       },
+      outline: {
+        gap: '3',
+        mb: '0',
+        _mobile: { gap: '2', mb: '0', px: '0' },
+      },
       line: {
         gap: '6',
         mb: '0',
@@ -103,6 +108,9 @@ const label = cva({
       default: {},
       categoryNavigation: {},
       line: {},
+      outline: {
+        '&&': { color: 'inherit', _mobile: { color: 'inherit' } },
+      },
     },
     selected: {
       true: {
@@ -118,6 +126,11 @@ const label = cva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'outline',
+      selected: true,
+      css: { '&&': { color: 'inherit', _mobile: { color: 'inherit' } } },
+    },
     {
       variant: 'fill',
       selected: true,
@@ -230,6 +243,22 @@ const item = cva({
           bg: 'transparent',
         },
       },
+      outline: {
+        display: 'flex',
+        flex: '0 0 auto',
+        alignItems: 'center',
+        justifyContent: 'center',
+        h: '36px',
+        px: '4',
+        border: '1px solid',
+        borderColor: 'black.40',
+        borderRadius: 'full',
+        bg: 'white.0',
+        whiteSpace: 'nowrap',
+        '&&': { color: 'var(--color-text-tertiary)' },
+        _hover: { textDecoration: 'none' },
+        _mobile: { h: '30px', bg: 'white.0', px: '3' },
+      },
       default: {},
     },
     selected: {
@@ -259,6 +288,16 @@ const item = cva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'outline',
+      selected: true,
+      css: {
+        bg: 'black.100',
+        borderColor: 'black.100',
+        '&&': { color: 'var(--color-text-inverse)' },
+        _mobile: { bg: 'black.100' },
+      },
+    },
     {
       variant: 'line',
       selected: true,
@@ -296,7 +335,7 @@ export type FilterTabsProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
   value: T;
-  variant?: 'default' | 'categoryNavigation' | 'fill' | 'line';
+  variant?: 'default' | 'categoryNavigation' | 'fill' | 'line' | 'outline';
 };
 
 /** Controlled single-select filter buttons for replacing a related result set. */
@@ -378,7 +417,9 @@ export function FilterTabs<T extends string = string>({
                 mo={variant === 'line' ? 'cta2' : 'body3'}
                 weight={variant === 'line' ? 'semibold' : undefined}
                 tone={variant === 'line' ? (isSelected ? 'primary' : 'tertiary') : undefined}
-                className={variant === 'line' ? undefined : label({ selected: isSelected, variant })}
+                className={
+                  variant === 'line' ? undefined : label({ selected: isSelected, variant })
+                }
               >
                 {option.label}
               </Typography>

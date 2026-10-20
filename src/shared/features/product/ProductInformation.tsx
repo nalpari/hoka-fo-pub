@@ -1,3 +1,5 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Fragment, type ReactNode } from 'react';
@@ -29,30 +31,32 @@ export function ProductInformation({
       _mobile={{ px: '4' }}
       id={id}
     >
-      <Stack gap="6">
-        <Typography as="h2" variant="heading8">
-          {title}
-        </Typography>
+      <ContentSection
+        gap="6"
+        title={<>{title}</>}
+        headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading8' } }}
+      >
         {description && (
-          <Stack gap="6">
-            <Typography as="h3" variant="heading9">
-              {description.title}
-            </Typography>
-            <Typography as="p" variant="body3">
-              {description.content}
-            </Typography>
-          </Stack>
+          <ContentHeader
+            gap="6"
+            titleAs="h3"
+            title={<>{description.title}</>}
+            titleProps={{ variant: 'heading9' }}
+            description={<>{description.content}</>}
+            descriptionProps={{ variant: 'body3' }}
+          />
         )}
-      </Stack>
+      </ContentSection>
       {features.map((section, index) => (
-        <Stack gap="6" key={index}>
-          <Typography as="h3" variant="heading9">
-            {section.title}
-          </Typography>
-          <Typography as="p" variant="body3">
-            {section.content}
-          </Typography>
-        </Stack>
+        <ContentHeader
+          gap="6"
+          key={index}
+          titleAs="h3"
+          title={<>{section.title}</>}
+          titleProps={{ variant: 'heading9' }}
+          description={<>{section.content}</>}
+          descriptionProps={{ variant: 'body3' }}
+        />
       ))}
       <Grid as="dl" gridTemplateColumns="26.6% 1fr" columnGap="3" rowGap="6">
         {specifications.map((specification, index) => (

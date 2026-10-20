@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { cva } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -91,17 +92,21 @@ export function MyPageRewards() {
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
       <Stack gap="10" px="4" pt="6" pb="16">
-        <Stack gap="4">
-          <Box as="h1">
-            <HStack gap="0.5" alignItems="baseline">
-              <Typography mo="heading5">박*진</Typography>
-              <Typography mo="body2">님의 회원등급은</Typography>
-            </HStack>
-            <HStack gap="0.5" alignItems="baseline">
-              <Typography mo="heading5">RUNNER</Typography>
-              <Typography mo="body2">입니다.</Typography>
-            </HStack>
-          </Box>
+        <ContentSection
+          gap="4"
+          header={
+            <Box as="h1">
+              <HStack gap="0.5" alignItems="baseline">
+                <Typography mo="heading5">박*진</Typography>
+                <Typography mo="body2">님의 회원등급은</Typography>
+              </HStack>
+              <HStack gap="0.5" alignItems="baseline">
+                <Typography mo="heading5">RUNNER</Typography>
+                <Typography mo="body2">입니다.</Typography>
+              </HStack>
+            </Box>
+          }
+        >
           <Stack bg="black.10" px="4" py="5" gap="3">
             <HStack justifyContent="space-between" alignItems="center">
               <Typography mo="body4" weight="medium">
@@ -118,7 +123,7 @@ export function MyPageRewards() {
               </Typography>
             </Box>
           </Stack>
-        </Stack>
+        </ContentSection>
         <Stack gap="4">
           {tiers.map((tier) => (
             <Stack key={tier.name} className={tierCard({ tier: tier.name })} gap="4" px="4" py="6">
@@ -166,43 +171,48 @@ export function MyPageRewards() {
               </Stack>
             </Stack>
           ))}
-          <Stack gap="5" px="4" py="6" border="1px solid var(--colors-black-20)">
-            <Typography as="h2" mo="heading6">
-              HOKA 회원 공통 혜택
-            </Typography>
-            <Stack gap="5">
-              {commonBenefits.map((benefit) => (
-                <Stack as="section" key={benefit.title} gap="3">
-                  <Typography as="h3" mo="heading7">
-                    {benefit.title}
-                  </Typography>
-                  <Stack as="ol" gap="2" listStyleType="none">
-                    {benefit.items.map((item, index) => (
-                      <HStack as="li" key={item.text} alignItems="flex-start" gap="1">
+          <ContentSection
+            gap="5"
+            px="4"
+            py="6"
+            border="1px solid var(--colors-black-20)"
+            title="HOKA 회원 공통 혜택"
+            headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading6' } }}
+          >
+            {commonBenefits.map((benefit) => (
+              <ContentSection
+                as="section"
+                key={benefit.title}
+                gap="3"
+                title={<>{benefit.title}</>}
+                headerProps={{ titleAs: 'h3', titleProps: { mo: 'heading7' } }}
+              >
+                <Stack as="ol" gap="2" listStyleType="none">
+                  {benefit.items.map((item, index) => (
+                    <HStack as="li" key={item.text} alignItems="flex-start" gap="1">
+                      <Typography as="span" mo="body4">
+                        {index + 1}.
+                      </Typography>
+                      <Stack flex="1" minW="0" gap="2">
                         <Typography as="span" mo="body4">
-                          {index + 1}.
+                          {item.text}
                         </Typography>
-                        <Stack flex="1" minW="0" gap="2">
-                          <Typography as="span" mo="body4">
-                            {item.text}
-                          </Typography>
-                          {item.details.length > 0 ? (
-                            <Stack as="ul" gap="1" listStyleType="none">
-                              {item.details.map((detail) => (
-                                <Typography as="li" key={detail} mo="body5">
-                                  • &nbsp;{detail}
-                                </Typography>
-                              ))}
-                            </Stack>
-                          ) : null}
-                        </Stack>
-                      </HStack>
-                    ))}
-                  </Stack>
+                        {item.details.length > 0 ? (
+                          <Stack as="ul" gap="1" listStyleType="none">
+                            {item.details.map((detail) => (
+                              <Typography as="li" key={detail} mo="body5">
+                                • &nbsp;{detail}
+                              </Typography>
+                            ))}
+                          </Stack>
+                        ) : null}
+                      </Stack>
+                    </HStack>
+                  ))}
                 </Stack>
-              ))}
-            </Stack>
-          </Stack>
+              </ContentSection>
+            ))}
+          </ContentSection>
         </Stack>
       </Stack>
     </MyPageFrame>

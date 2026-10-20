@@ -53,6 +53,7 @@ const svgIconGroups = [
     label: 'UI SVG',
     names: [
       'breadcrumb',
+      'clock-eight',
       'chevron-down-small',
       'chevron-right',
       'close',
@@ -63,6 +64,7 @@ const svgIconGroups = [
       'ipin-verification',
       'medal',
       'party-horn',
+      'phone-call',
       'phone-verification',
       'radio-checked',
       'radio-unchecked',

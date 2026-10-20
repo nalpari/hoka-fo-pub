@@ -1,3 +1,4 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
 import Image from 'next/image';
 import { Box, Grid } from 'styled-system/jsx';
@@ -10,10 +11,6 @@ import { RunClubFacts, type RunClubFact } from './RunClubFacts';
 
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
-  heading: css({
-    m: '12px 0 10px',
-  }),
-  schedule: css({ m: '0 0 24px', _mobile: { mb: '10' } }),
   opening: css({ color: 'var(--color-blue-100)', mb: '24px' }),
 };
 
@@ -47,18 +44,20 @@ export function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHer
       />
       <Box _mobile={{ px: '4', pt: '4', pb: '10' }}>
         <RunClubBadge category={session.category} />
-        <Typography
-          as="h1"
-          variant="sessionTitle"
-          mo="body1"
-          weight="black"
-          className={styles.heading}
-        >
-          {session.title}
-        </Typography>
-        <Typography as="p" variant="body3" className={styles.schedule}>
-          {session.schedule} | {session.location} {session.distance}
-        </Typography>
+        <ContentHeader
+          mt="3"
+          mb={{ base: '6', _mobile: '10' }}
+          gap="10px"
+          title={session.title}
+          titleAs="h1"
+          titleProps={{ variant: 'sessionTitle', mo: 'body1', weight: 'black' }}
+          description={
+            <>
+              {session.schedule} | {session.location} {session.distance}
+            </>
+          }
+          descriptionProps={{ variant: 'body3' }}
+        />
         {upcoming ? (
           <Typography as="p" variant="body4" weight="bold" className={styles.opening}>
             ⓘ 1월 23일 (토) 10:00 신청 시작

@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 import { Box, Flex } from 'styled-system/jsx';
 import { StepIndicator } from '@/shared/components/molecules/StepIndicator/StepIndicator';
@@ -22,18 +23,24 @@ export function OrderPageLayout({ title, step, headerSpacing = 'default', childr
       px={{ base: '0', _mobile: '4' }}
       pb={{ base: '110px', _mobile: '120px' }}
     >
-      <Flex
-        as="header"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={
+      <ContentSection
+        gap={
           headerSpacing === 'default' ? { base: '10', _mobile: '6' } : { base: '0', _mobile: '6' }
         }
+        header={
+          <Flex as="header" alignItems="center" justifyContent="space-between">
+            {title}
+            <StepIndicator
+              ariaLabel="주문 진행 단계"
+              current={step}
+              items={stepItems}
+              mobileHidden
+            />
+          </Flex>
+        }
       >
-        {title}
-        <StepIndicator ariaLabel="주문 진행 단계" current={step} items={stepItems} mobileHidden />
-      </Flex>
-      {children}
+        {children}
+      </ContentSection>
     </Box>
   );
 }

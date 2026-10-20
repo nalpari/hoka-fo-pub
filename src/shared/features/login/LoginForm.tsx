@@ -4,10 +4,12 @@ import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { LoginActions } from '@/shared/features/login/LoginActions';
+import { RememberIdHelp } from '@/shared/features/login/RememberIdHelp';
+import { EmailField } from '@/shared/components/molecules/FormFields/EmailField';
+import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
 
 const rememberIdCheckbox = css({ gap: '2', flexShrink: '0' });
 
@@ -46,47 +48,46 @@ export function LoginForm({
   return (
     <form onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
       <Stack gap="4">
-        <FormField
+        <EmailField
           variant="boxed"
-          htmlFor="login-id"
+          id="login-id"
           label="이메일 아이디"
           required
           error={errors?.id}
-        >
-          <TextInput
-            id="login-id"
-            name="username"
-            autoComplete="username"
-            placeholder="이메일 주소를 @까지 정확히 입력해 주세요"
-            value={id}
-            onChange={(event) => onIdChange(event.target.value)}
-          />
-        </FormField>
-        <FormField
+          inputProps={{
+            name: 'username',
+            autoComplete: 'username',
+            placeholder: '이메일 주소를 @까지 정확히 입력해 주세요',
+            value: id,
+            onChange: (event) => onIdChange(event.target.value),
+          }}
+        />
+        <PasswordField
           variant="boxed"
-          htmlFor="login-password"
+          id="login-password"
           label="비밀번호"
           required
           error={errors?.password}
-        >
-          <TextInput
-            id="login-password"
-            name="password"
-            autoComplete="current-password"
-            placeholder="비밀번호를 입력해 주세요"
-            type="password"
-            value={password}
-            onChange={(event) => onPasswordChange(event.target.value)}
-          />
-        </FormField>
+          inputProps={{
+            name: 'password',
+            autoComplete: 'current-password',
+            placeholder: '비밀번호를 입력해 주세요',
+            type: 'password',
+            value: password,
+            onChange: (event) => onPasswordChange(event.target.value),
+          }}
+        />
         <HStack justifyContent="space-between" gap="2" minH="6">
-          <Checkbox
-            className={rememberIdCheckbox}
-            label="아이디 저장"
-            labelVariant="body4"
-            checked={rememberId}
-            onCheckedChange={onRememberChange}
-          />
+          <HStack gap="2">
+            <Checkbox
+              className={rememberIdCheckbox}
+              label="아이디 저장"
+              labelVariant="body4"
+              checked={rememberId}
+              onCheckedChange={onRememberChange}
+            />
+            <RememberIdHelp />
+          </HStack>
           <Button variant="link" size="md" onClick={onFindAccount}>
             <Typography as="span" variant="body4">
               아이디/비밀번호 찾기

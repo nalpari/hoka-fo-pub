@@ -1,7 +1,6 @@
 import { ShopShell } from '@/shared/ShopShell';
 import MyPage from '@/app/mypage/page';
 import { MyPageStatusPage, type MyPageStatusKind } from '@/shared/features/mypage/MyPageStatusPage';
-import { RunningProfilePage } from '@/shared/Mockup/running-profile/RunningProfilePage';
 import { RunClubPage } from '@/shared/features/run-club/RunClubPage';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 
@@ -29,8 +28,6 @@ export function createMyPageStory(path: string) {
       <ShopShell>
         {path === '/mypage' ? (
           <MyPage />
-        ) : path === '/mypage/running-profile' ? (
-          <RunningProfilePage />
         ) : path === '/mypage/event-entries' ? (
           <RunClubPage />
         ) : kind ? (

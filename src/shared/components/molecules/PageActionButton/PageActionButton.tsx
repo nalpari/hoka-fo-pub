@@ -9,6 +9,7 @@ type Props = {
   onClick?: () => void;
   variant?: 'primary' | 'secondary';
   size?: 'short' | 'tall';
+  width?: 'default' | 'compact' | 'narrow';
   counter?: { current: number; total: number };
   containerProps?: Pick<ComponentProps<typeof Box>, 'mt' | 'pt' | '_mobile'>;
 };
@@ -20,6 +21,7 @@ export function PageActionButton({
   onClick,
   variant = 'secondary',
   size = 'short',
+  width = 'default',
   counter,
   containerProps,
 }: Props) {
@@ -37,7 +39,14 @@ export function PageActionButton({
   );
 
   return (
-    <Box pt="9" maxW="500px" mx="auto" {...containerProps}>
+    <Box
+      pt="9"
+      w="100%"
+      maxW={width === 'compact' ? '180px' : width === 'narrow' ? '160px' : '500px'}
+      mx="auto"
+      {...containerProps}
+      _mobile={{ maxW: width === 'default' ? '500px' : 'none', ...containerProps?._mobile }}
+    >
       {href ? (
         <ButtonLink href={href} variant={variant} size={size} fullWidth>
           {content}

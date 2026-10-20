@@ -73,7 +73,8 @@ export function FaqPage() {
         {shown < entries.length && (
           <PageActionButton
             onClick={() => setShown((count) => count + 10)}
-            counter={{ current: Math.ceil(shown / 10), total: 10 }}
+            counter={{ current: Math.ceil(shown / 10), total: Math.ceil(entries.length / 10) }}
+            width="narrow"
             containerProps={{ _mobile: { pt: '6' } }}
           >
             더보기

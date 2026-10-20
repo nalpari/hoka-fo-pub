@@ -1,65 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
-
-const withPlatform =
-  (platform: 'web' | 'mobile', width?: number) => (Story: React.ComponentType) => (
-    <PlatformProvider platform={platform}>
-      <div className={`platform-${platform}`} style={width ? { width } : undefined}>
-        <Story />
-      </div>
-    </PlatformProvider>
-  );
+import type { StoryObj } from '@storybook/react';
+import base, * as scenarios from './FindAccountPage.scenarios';
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount',
-  component: FindAccountPage,
-  decorators: [
-    (Story) => (
-      <>
-        <PlatformProvider platform="web">
-          <div className="platform-web">
-            <Story />
-          </div>
-        </PlatformProvider>
-      </>
-    ),
-  ],
-  parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof FindAccountPage>;
+  ...base,
+  title: 'PAGES/AUTH/FindAccount/Web',
+  globals: { viewport: 'hoka1600' },
+};
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = { ...scenarios.Default, name: 'Default' };
 
-export const Mobile: Story = {
-  parameters: { layout: 'fullscreen' },
-  decorators: [withPlatform('mobile', 375)],
-  globals: { viewport: 'hoka375' },
-};
+export const Error: Story = { ...scenarios.Error, name: 'Error' };
 
-export const Error: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: '인증번호 요청' }));
-  },
-};
+export const CodeEntry: Story = { ...scenarios.CodeEntry, name: 'Code Entry' };
 
-export const CodeEntry: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByLabelText('* 이름'), '홍길동');
-    await userEvent.type(canvas.getByLabelText('* 휴대폰번호'), '01012345678');
-    await userEvent.click(canvas.getByRole('button', { name: '인증번호 요청' }));
-  },
-};
+export const IdResult: Story = { ...scenarios.IdResult, name: 'Id Result' };
 
-export const MobileError: Story = {
-  parameters: { layout: 'fullscreen' },
-  ...Mobile,
-  name: 'Mobile Error',
-  play: Error.play,
-};
+export const ResetFromResult: Story = { ...scenarios.ResetFromResult, name: 'Reset From Result' };

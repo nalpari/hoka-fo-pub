@@ -1,5 +1,6 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -16,23 +17,32 @@ export function AccountUnlockCompletePage() {
       })}
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '9' })}
     >
-      <Stack gap="3">
-        <HStack as="h1" m="0" gap="2" alignItems="center">
-          <Typography as="span" web="heading7" mo="heading5">
-            계정 잠금 해제 완료
-          </Typography>
-          <Icon name="unlock-keyhole" size="18px" />
-        </HStack>
-        <Box as="p" m="0">
-          <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
-            계정 잠금 상태가 성공적으로 해제되었습니다.
-          </Typography>
-          <br />
-          <Typography as="span" web="bodyKr3" mo="bodyKr3" tone="tertiary">
-            다시 로그인을 진행해 주세요.
-          </Typography>
-        </Box>
-      </Stack>
+      <ContentHeader
+        gap="3"
+        titleAs="h1"
+        titleProps={{ className: css({ display: 'flex', gap: '2', alignItems: 'center', m: '0' }) }}
+        title={
+          <>
+            <Typography as="span" web="heading7" mo="heading5">
+              계정 잠금 해제 완료
+            </Typography>
+            <Icon name="unlock-keyhole" size="18px" />
+          </>
+        }
+        description={
+          <>
+            {' '}
+            <Typography as="span" variant="bodyKr3" tone="tertiary">
+              계정 잠금 상태가 성공적으로 해제되었습니다.
+            </Typography>
+            <br />
+            <Typography as="span" variant="bodyKr3" tone="tertiary">
+              다시 로그인을 진행해 주세요.
+            </Typography>
+          </>
+        }
+        descriptionProps={{ className: css({ m: '0' }) }}
+      />
       <ButtonLink href="/login" variant="primary" fullWidth>
         홈으로
       </ButtonLink>

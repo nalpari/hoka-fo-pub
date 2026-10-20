@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-16T15:57:44+09:00'
+  at: '2026-10-20T00:41:19Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/mocks/cartDisplay.ts
@@ -15,6 +15,9 @@ working_tree_sources:
   - README.md
   - src/app/checkout/page.tsx
   - src/shared/features/checkout/CheckoutPage.tsx
+  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/shared/Mockup/teamwear/TeamwearPage.tsx
+  - src/shared/features/support/support.navigation.ts
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -31,6 +34,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 고객센터 화면 범위 변경 (2026-10-20)
+
+팀/단체복 주문 안내는 운영 고객센터·IA에서 제외하고 Mockup/teamwear와 Storybook Mockup/Teamwear로 보존했다. screenRegistry의 IA 215/eland_hcu_08을 제거했다. 사이즈 가이드는 신규 IA 260으로 추가했으며 화면 코드가 아직 없으므로 빈 값으로 두고 디자인 대기를 기록했다. /support/size-guide는 공통 탐색·제목만 표시하고 본문은 비워 둔다. 다른 IA 번호는 변경하지 않았다.
 
 HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프로젝트다. 패키지 이름은 `eland-adaptive-wireframe`이다. 실제 상품·회원·주문 서버를 연결한 운영 서비스로 취급하지 않는다.
 

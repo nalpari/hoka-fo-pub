@@ -1,6 +1,7 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { RecentSearchItem } from './RecentSearchItem';
 
 type RecentSearchesProps = {
@@ -17,17 +18,23 @@ export function RecentSearches({
   onClear,
 }: RecentSearchesProps) {
   return (
-    <Box as="section" aria-labelledby="recent-search-title">
-      <HStack gap="16px" mb="24px" _mobile={{ justifyContent: 'space-between' }}>
-        <Typography as="h3" variant="body2" weight="bold" id="recent-search-title">
-          최근 검색어
-        </Typography>
-        {recentSearches.length ? (
-          <Button variant="link" size="md" onClick={onClear}>
-            전체 삭제
-          </Button>
-        ) : null}
-      </HStack>
+    <ContentSection
+      as="section"
+      aria-labelledby="recent-search-title"
+      gap="6"
+      header={
+        <HStack gap="16px" _mobile={{ justifyContent: 'space-between' }}>
+          <Typography as="h3" variant="body2" weight="bold" id="recent-search-title">
+            최근 검색어
+          </Typography>
+          {recentSearches.length ? (
+            <Button variant="link" size="md" onClick={onClear}>
+              전체 삭제
+            </Button>
+          ) : null}
+        </HStack>
+      }
+    >
       {recentSearches.length ? (
         <Stack as="ul" gap="12px" m="0" p="0" listStyleType="none">
           {recentSearches.map((recent) => (
@@ -39,6 +46,6 @@ export function RecentSearches({
           최근 검색어 내역이 없습니다.
         </Typography>
       )}
-    </Box>
+    </ContentSection>
   );
 }

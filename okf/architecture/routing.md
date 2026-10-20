@@ -6,9 +6,15 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T08:06:47.185Z'
+  at: '2026-10-20T02:03:12.291Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/app-router.test.mjs
+  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
+  - src/shared/features/find-account/IdConfirmationModal.tsx
+  - src/shared/features/find-account/FindAccountPage.tsx
+  - src/app/cart/page.tsx
+  - src/app/checkout/page.tsx
   - src/app/explore/[...slug]/page.tsx
   - src/shared/Mockup/explore/ExploreDetailPage.tsx
   - src/app/launch-calendar/page.tsx
@@ -33,6 +39,12 @@ working_tree_sources:
   - src/app/mypage/event-entries/page.tsx
   - src/app/support/after-sales/page.tsx
   - src/app/support/care/page.tsx
+  - src/app/support/size-guide/page.tsx
+  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/shared/features/support/support.navigation.ts
+  - src/data/screenRegistry.ts
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/shared/Mockup/teamwear/TeamwearPage.tsx
 sources:
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
@@ -52,6 +64,14 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 팀/단체복 제외와 사이즈 가이드 준비 (2026-10-20)
+
+/support/teamwear의 page.tsx를 제거해 운영 URL과 고객센터 메뉴에서 제외했다. 원본 화면은 src/shared/Mockup/teamwear/TeamwearPage.tsx에 보존하며 운영 경로를 추가하지 않았다. /support/size-guide는 SizeGuidePage를 내보내는 새 App Router 페이지다. 고객센터 공통 레이아웃·메뉴·breadcrumb·제목만 구성하고 본문은 null로 둔다. IA 215는 제거하고 신규 IA 260을 디자인 대기로 추가했으며 PC/MO Storybook 링크를 연결했다.
+
+## 계정 찾기 결과의 기존 경로 연결 (2026-10-19)
+
+첨부 로그인·계정 찾기 시안 반영 시 기존 `/login` → `/login/find-account` → `/login/find-account/password-reset` 경로를 검토했다. FindAccountPage의 예시 인증 결과 팝업에서 확인은 `/login`, 비밀번호 재설정은 `/login/find-account/password-reset`으로 이동한다. 새 App Router 파일이나 실제 인증 경계를 추가하지 않았다. PC 결과는 중앙 팝업, 모바일 결과는 기존 IdConfirmationModal의 fullscreen 표현을 사용한다. 작업 트리 출처: `src/shared/features/find-account/FindAccountPage.tsx`, `src/shared/features/find-account/IdConfirmationModal.tsx`.
 
 ## EXPLORE 상세 목업 진입점 (2026-10-19)
 
@@ -136,3 +156,11 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 ## 세탁 및 손질 방법 안내
 
 `/support/care`는 `CareGuidePage`를 표시한다. 고객센터 정보 메뉴에서 접근하며, 안내 탭을 페이지 내부 상태로 전환한다. 출처는 작업 트리의 `src/app/support/care/page.tsx`와 `src/shared/features/care-guide/CareGuidePage.tsx`다.
+
+## 장바구니 옵션·선택 주문 연결 보완 (2026-10-19)
+
+/cart는 ShopShell.updateOptions를 CartPage에 전달한다. 기존 /checkout?selected 옵션 키 전달을 유지하며, 결제 완료 콜백으로 전달된 항목만 제거하도록 /checkout 라우트를 연결했다. 결제 완료의 주문 내용 확인 링크는 기존 /mypage/orders로 이동한다. 새 URL은 추가하지 않았다. 출처는 작업 트리의 src/app/cart/page.tsx, src/app/checkout/page.tsx와 CheckoutPage.tsx다. Next production build와 브라우저의 선택 상품 주문 이동을 확인했다.
+
+## Mockup 전용 라우트 제거 (2026-10-20)
+
+미확정 Mockup 화면 제거에 따라 다음 앱 라우트 진입점을 삭제했다: `/explore`, `/explore/shoe-finder`, `/explore/[...slug]`, `/launch-calendar`, `/mypage/running-profile`, `/running/alerts`, `/running/plans`, `/running/reviews`, `/running/rewards`, `/running/rotation`, `/running/shoe-finder`, `/store/experience`. 해당 주소는 더 이상 이 화면을 제공하지 않는다. 정식 run-club·상품·고객센터·계정 페이지는 유지한다. MyPageRouteStory의 running-profile 구현 연결도 제거했다. 위쪽의 과거 라우트 목록·Mockup 이동 기록보다 이 변경 기록이 우선한다. Next production build 및 갱신된 앱 라우트 manifest 테스트 2개를 통과했다.

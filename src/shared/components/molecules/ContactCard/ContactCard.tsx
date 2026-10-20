@@ -1,3 +1,4 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
@@ -49,14 +50,13 @@ export function ContactCard({
 }: ContactCardProps) {
   return (
     <article className={[root, className].filter(Boolean).join(' ')}>
-      <Typography as="h2" variant="heading9" className={heading}>
-        {title}
-      </Typography>
-      {body ? (
-        <Typography as="p" variant="body4" className={description}>
-          {body}
-        </Typography>
-      ) : null}
+      <ContentHeader
+        gap="4"
+        title={title}
+        titleProps={{ variant: 'heading9', className: heading }}
+        description={body}
+        descriptionProps={{ variant: 'body4', className: description }}
+      />
       <DescriptionList items={details} />
       {notice ? (
         <Typography as="p" variant="body5" className={noticeStyle}>

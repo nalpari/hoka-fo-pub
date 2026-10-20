@@ -1,4 +1,5 @@
-import { Box, Stack } from 'styled-system/jsx';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import { Box } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { TermsDialog } from '@/shared/components/organisms/Terms/TermsDialog';
 
@@ -29,14 +30,16 @@ export function SignupTermsDetail({ selected, previous, onClose, onPrevious }: P
         </Box>
       ) : (
         [1, 2].map((number) => (
-          <Stack key={number} gap="4" mb="4">
-            <Typography as="h2" variant="body4">
-              약관 타이틀{number}
-            </Typography>
-            <Typography as="p" variant="body4">
-              {'약관내용'.repeat(155)}
-            </Typography>
-          </Stack>
+          <ContentHeader
+            key={number}
+            gap="4"
+            mb="4"
+            titleAs="h2"
+            title={<>약관 타이틀{number}</>}
+            titleProps={{ variant: 'body4' }}
+            description={<>{'약관내용'.repeat(155)}</>}
+            descriptionProps={{ variant: 'body4' }}
+          />
         ))
       )}
     </TermsDialog>

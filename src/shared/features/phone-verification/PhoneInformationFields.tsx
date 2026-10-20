@@ -2,9 +2,11 @@ import { css } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import type { PhoneInformation, PhoneVerificationContentProps } from './phone-verification.types';
+import { NameField } from '@/shared/components/molecules/FormFields/NameField';
+import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
+import { BirthDateField } from '@/shared/components/molecules/FormFields/BirthDateField';
 
 const styles = {
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
@@ -22,26 +24,27 @@ export function PhoneInformationFields(props: Props) {
     label: string,
     placeholder: string,
     maxLength?: number,
-  ) => (
-    <FormField
-      variant="boxed"
-      htmlFor={`phone-${key}`}
-      label={label}
-      required
-      error={props.fieldErrors?.[key]}
-    >
-      <TextInput
+  ) => {
+    const Field = key === 'name' ? NameField : key === 'phone' ? PhoneNumberField : BirthDateField;
+    return (
+      <Field
+        variant="boxed"
         id={`phone-${key}`}
-        value={information[key]}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        type={key === 'phone' ? 'tel' : 'text'}
-        inputMode={key === 'name' ? 'text' : 'numeric'}
-        autoComplete={key === 'name' ? 'name' : key === 'phone' ? 'tel-national' : 'off'}
-        onChange={(event) => props.onInformationChange(key, event.target.value)}
+        label={label}
+        required
+        error={props.fieldErrors?.[key]}
+        inputProps={{
+          value: information[key],
+          placeholder: placeholder,
+          maxLength: maxLength,
+          type: key === 'phone' ? 'tel' : 'text',
+          inputMode: key === 'name' ? 'text' : 'numeric',
+          autoComplete: key === 'name' ? 'name' : key === 'phone' ? 'tel-national' : 'off',
+          onChange: (event) => props.onInformationChange(key, event.target.value),
+        }}
       />
-    </FormField>
-  );
+    );
+  };
 
   const selectField = (key: keyof PhoneInformation, label: string, options: string[]) => (
     <Dropdown
