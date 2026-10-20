@@ -1,8 +1,10 @@
 'use client';
 
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
-import { Divider, HStack, Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 
 import { PreferenceField } from '@/shared/components/molecules/FormFields/PreferenceField';
@@ -138,7 +140,7 @@ export function MyPageProfile() {
                 }}
               />
               <Stack gap="4">
-                <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+                <Divider />
                 <ContentSection
                   gap="5"
                   title="마케팅 정보 수신 동의"
@@ -181,7 +183,7 @@ export function MyPageProfile() {
                 </ContentSection>
               </Stack>
               <Stack gap="6">
-                <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+                <Divider />
                 <ContentSection
                   gap="6"
                   title="부가정보"
@@ -234,7 +236,7 @@ export function MyPageProfile() {
             <ProfileField label="이메일" value={email} />
             <ProfileField label="휴대폰 번호" value={phone} />
             <Stack gap="6">
-              <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+              <Divider />
               <ContentSection
                 gap="6"
                 title="마케팅 정보 수신 동의"
@@ -271,10 +273,10 @@ export function MyPageProfile() {
               </ContentSection>
             </Stack>
             <Stack gap="5">
-              <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+              <Divider />
               <ProfileField label="결혼유무" value={maritalStatus} />
             </Stack>
-            <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+            <Divider />
             <Typography as="p" variant="body5" tone="tertiary">
               *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서
               가능합니다.

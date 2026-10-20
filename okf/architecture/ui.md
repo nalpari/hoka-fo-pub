@@ -6,9 +6,25 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:44:53Z'
+  at: '2026-10-20T07:17:16.410Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Divider/Divider.tsx
+  - src/shared/components/layouts/PageFrame/PageFrame.tsx
+  - src/shared/features/care-guide/CareGuidePage.tsx
+  - src/shared/features/care-guide/CareInstructions.tsx
+  - src/shared/features/mypage/MyPage.tsx
+  - src/shared/features/mypage/MyPageMenuSection.tsx
+  - src/shared/features/mypage/MyPageProductHistoryNote.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
+  - src/shared/features/notices/NoticeContent.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/support/SupportNoticeItem.tsx
+  - src/shared/features/support/SupportNotices.tsx
+  - src/shared/features/terms/TermsDateSelect.tsx
+  - src/shared/features/terms/TermsDocument.tsx
+  - src/stories/components/atoms/Divider/Divider.stories.tsx
   - src/shared/features/run-club/RunClubSessionCardContent.tsx
   - src/shared/features/run-club/RunClubSessionCardImage.tsx
   - src/shared/features/support/ProductReturnsPanel.tsx
@@ -2032,3 +2048,8 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 `RunClubSessionCard`는 article Stack에서 `RunClubSessionCardImage`와 `RunClubSessionCardContent`를 조합한다. 이미지는 LinkOverlay·Next Image·날짜/지역/거리 오버레이를, 상세 안내는 카테고리·ContentHeader·모바일 숨김 상세 링크를 소유한다. 기존 상세 URL·aria-label·빈 이미지 alt·sizes·PC/MO 종횡비·오버레이·카드 간격·모바일 CTA 생략을 유지하고 추가 DOM 래퍼를 만들지 않는다.
 
 출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+
+## 시안 반영 분할 기록 (1, 2026-10-20)
+
+공통 PageFrame과 Divider를 추가하고 구분선 사용처를 전환했다. 세탁 안내와 약관 문서·시행일 선택을 기능 내부 구성으로 분리했다. 고객센터 레이아웃의 PageFrame 적용과 시안 보정은 후속 고객센터 커밋에 포함한다.

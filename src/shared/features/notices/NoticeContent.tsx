@@ -1,10 +1,11 @@
-import { Divider, Stack } from 'styled-system/jsx';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+import { Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export function NoticeContent({ notice, index }: { notice: { title: string }; index: number }) {
   return (
     <>
-      <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+      <Divider />
       <Stack px="6" py="8" gap="3" bg="black.10" _mobile={{ px: '4', py: '6' }}>
         {index === 0 ? (
           <>

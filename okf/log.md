@@ -539,3 +539,8 @@
 
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
+
+
+## 2026-10-20 분할 커밋 기록
+
+- 공통 PageFrame과 Divider를 추가하고 구분선 사용처를 전환했다. 세탁 안내와 약관 문서·시행일 선택을 기능 내부 구성으로 분리했다. 고객센터 레이아웃의 PageFrame 적용과 시안 보정은 후속 고객센터 커밋에 포함한다.

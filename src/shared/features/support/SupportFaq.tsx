@@ -1,5 +1,6 @@
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { Divider, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -14,13 +15,7 @@ export function SupportFaq() {
           <Typography as="h2" web="heading7" mo="heading5" id="support-faq-title">
             FAQs
           </Typography>
-          <Divider
-            aria-hidden="true"
-            orientation="horizontal"
-            h="2px"
-            bg="black.100"
-            display={{ base: 'block', _mobile: 'none' }}
-          />
+          <Divider variant="heading" display={{ base: 'block', _mobile: 'none' }} />
         </Stack>
       }
       footer={

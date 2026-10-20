@@ -1,4 +1,5 @@
-import { Divider, Stack } from 'styled-system/jsx';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+import { Stack } from 'styled-system/jsx';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { MyPageMenuItem, type MyPageMenuItemProps } from './MyPageMenuItem';
 
@@ -17,7 +18,7 @@ export function MyPageMenuSection({
       title={<>{title}</>}
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
     >
-      <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
+      <Divider variant="strong" />
       <Stack gap="0">
         {items.map((item) => (
           <MyPageMenuItem key={item.to} label={item.label} to={item.to} />
