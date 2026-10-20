@@ -104,6 +104,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
   const sort = (selectedSort && sortTokenLabels[selectedSort]) || selectedSort || '베스트순';
+  const [mobileSort, setMobileSort] = useState(sort);
   const breadcrumbItems = getBreadcrumbItems({
     gender: activeFilters.gender[0] ?? '',
     category,
@@ -160,7 +161,10 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   };
 
   const openMobileFilters = (open: boolean) => {
-    if (open) setMobileFilters(activeFilters);
+    if (open) {
+      setMobileFilters(activeFilters);
+      setMobileSort(sort);
+    }
     setFilterDrawerOpen(open);
   };
 
@@ -177,6 +181,7 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       values.forEach((value) => next.append(key, value));
     });
     next.delete('page');
+    next.set('sort', mobileSort);
     setParams(next);
     setMinPrice(mobileFilters.minPrice);
     setMaxPrice(mobileFilters.maxPrice);
@@ -242,9 +247,19 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       onLoadMore={loadMore}
       onReset={reset}
       onSortChange={(nextSort) => update('sort', nextSort)}
+      onSearch={(query) => router.push(`/search?q=${encodeURIComponent(query)}`)}
+      onCloseSearch={() => router.push('/products')}
+      isSearchPage={pathname === '/search' || Boolean(searchQuery.trim())}
+      hasActiveFilters={
+        facetKeys.some((key) => params.has(key)) ||
+        minPrice !== productListingPriceRange.min ||
+        maxPrice !== productListingPriceRange.defaultMax
+      }
       platform={platform}
       productListingTitle={productListingTitle}
       mobileResultCount={mobileResultCount}
+      mobileSort={mobileSort}
+      onMobileSortChange={setMobileSort}
       result={result}
       searchQuery={searchQuery}
       shown={shown}

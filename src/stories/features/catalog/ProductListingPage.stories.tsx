@@ -22,3 +22,7 @@ export const Width1600: Story = { ...scenarios.Width1600, name: '1600px' };
 export const Width1200: Story = { ...scenarios.Width1200, name: '1200px' };
 
 export const MenTrailRunning: Story = { ...scenarios.MenTrailRunning, name: 'Men Trail Running' };
+
+export const SearchResults: Story = { ...scenarios.SearchResults };
+
+export const SearchEmpty: Story = { ...scenarios.SearchEmpty };

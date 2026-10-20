@@ -159,7 +159,7 @@ Navigation의 외곽 div는 상세/기본 상태별 패딩과 광고를 함께 �
 213개 Components TSX의 공개 props·상태·refs를 점검하고 표현 변경만 적용했다. 적용 수치와 정적/SSR·빌드 검증 한계는 [UI 기록](ui.md#components-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 설치된 Base UI 1.8.0의 전체 package exports를 공식 컴포넌트 카탈로그와 비교했으며, 미사용 primitive라는 이유만으로 새 의존성이나 UI를 추가하지 않았다.
 
 - **후속 후보 — 헤더 탐색:** DesktopNavigation/SiteHeader/MegaMenuPanel의 hover·activeMenu·Escape/포커스 동작은 [Navigation Menu](https://base-ui.com/react/components/navigation-menu) 재사용 후보다. 설치 버전에서 지원하므로 업그레이드는 필요하지 않다. 제안할 소유자는 SiteHeader 내부 NavigationRegion이며 menus·activeMenu·onMenuChange·onNavigate를 받아 데스크톱 trigger/panel을 조합한다. hover 지연·클릭 이동·키보드 포커스·58px 높이·메가 메뉴 영역을 함께 검증해야 하므로 이번 표현 정리에서는 교체하지 않았다.
-- **후속 후보 — 임직원 쿠폰:** EmployeeCoupons의 expanded/wrapping/listHeight·scrollHeight 측정·280ms 접기 지연·reduced-motion 분기는 [Collapsible](https://base-ui.com/react/components/collapsible) 적용 검토 대상이다. 설치 버전에서 지원하며 업그레이드는 필요하지 않다. 기존 공통 Collapsible을 우선 검토하되 현재 한 줄 미리보기와 가로 넘침·줄바꿈 애니메이션을 보존할 수 있어야 한다. 현 동작은 유지했다.
+- **유지 — 임직원 쿠폰:** 최신 Figma의 50%·30% 고정 안내 카드 두 건으로 갱신했다. 동적 펼침 상태가 없어 Collapsible 적용 대상이 아니다.
 - **유지 — 공통 상호작용:** Accordion/Collapsible·Dialog/Drawer·Dropdown/Field·Radio/Checkbox·RatingInput·RangeInput·NumberStepper 등 기존 Base UI 기반 래퍼의 상태와 키보드 계약은 유지했다. 정적인 fieldset/table/label이나 status 안내에 새 primitive를 추가하지 않는다.
 - **유지 — 상품 옵션:** ProductOptionList는 scroll/grid/preview 세 배치와 선택 상태, 수동 가로 이동·ResizeObserver를 함께 제공한다. 단순히 스크롤 로직이 있다는 이유로 별도 Carousel API에 강제로 맞추지 않는다. 현재 layout·options·selectedId·onSelect와 ref/event cleanup을 유지했다.
 - **유지 — 작은 구성 요소:** FooterLegalLinks/Navigation, HeaderPromotionContent, CatalogFilterPanelBody, SearchHeader/Suggestions 등 이미 책임이 명확한 내부 구성은 그대로 두고 스타일 표현만 정리했다. 태그를 이름만 바꾸는 새 컴포넌트나 범용 래퍼는 만들지 않았다.

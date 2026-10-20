@@ -17,6 +17,8 @@ export function CatalogFilterPanelHeader({
   onReset,
   selectedFilters,
 }: CatalogFilterPanelHeaderProps) {
+  if (!selectedFilters.length) return null;
+
   return (
     <>
       <Flex

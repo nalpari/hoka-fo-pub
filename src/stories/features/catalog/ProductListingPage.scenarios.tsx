@@ -7,6 +7,7 @@ import { getProductListingRoute } from '@/shared/features/catalog/productListing
 type ProductListingStoryArgs = {
   listing?: string;
   platform?: 'web' | 'mobile';
+  searchQuery?: string;
 };
 
 const meta = {
@@ -28,9 +29,9 @@ const meta = {
     },
   },
   parameters: { nextjs: { navigation: { pathname: '/products' } }, layout: 'fullscreen' },
-  render: ({ platform }) => (
+  render: ({ platform, searchQuery }) => (
     <ShopShell platform={platform}>
-      <ProductListingPage />
+      <ProductListingPage searchQuery={searchQuery} />
     </ShopShell>
   ),
 } satisfies Meta<ProductListingStoryArgs>;
@@ -88,4 +89,14 @@ export const MenTrailRunning: Story = {
   args: { platform: 'web' },
   globals: { viewport: 'hoka1600' },
   parameters: { route: '/products?gender=men&activity=trail-running' },
+};
+
+export const SearchResults: Story = {
+  args: { platform: 'web', searchQuery: 'Clifton' },
+  parameters: { route: '/search?q=Clifton', nextjs: { navigation: { pathname: '/search' } } },
+};
+
+export const SearchEmpty: Story = {
+  args: { platform: 'web', searchQuery: 'G45678' },
+  parameters: { route: '/search?q=G45678', nextjs: { navigation: { pathname: '/search' } } },
 };

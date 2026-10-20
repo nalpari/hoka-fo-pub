@@ -52,7 +52,7 @@ export const collectionValues = ['클리프톤', '아라히', '가비오타', '�
 
 export const runningTypeValues = ['데일리 러닝', '레이스 데이'];
 
-export const productListingPriceRange = { min: 50000, max: 389000, defaultMax: 189000 };
+export const productListingPriceRange = { min: 50000, max: 389000, defaultMax: 389000 };
 
 export const valuesToLabels = (values: string[], labels: FilterValueLabels) =>
   values.map((value) => labels[value] ?? value);

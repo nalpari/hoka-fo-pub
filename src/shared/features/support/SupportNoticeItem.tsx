@@ -1,6 +1,7 @@
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { Box, Divider, HStack } from 'styled-system/jsx';
+import { Box, HStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type SupportNoticeItemProps = {
@@ -40,7 +41,7 @@ export function SupportNoticeItem({ title, date }: SupportNoticeItemProps) {
           </Box>
         </HStack>
       </Link>
-      <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+      <Divider />
     </Box>
   );
 }

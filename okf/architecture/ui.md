@@ -6,9 +6,26 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:30:09Z'
+  at: '2026-10-20T07:09:56.305Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/atoms/Divider/Divider.stories.tsx
+  - src/shared/features/terms/TermsDocument.tsx
+  - src/shared/features/terms/TermsDateSelect.tsx
+  - src/shared/components/atoms/Divider/Divider.tsx
+  - src/shared/features/notices/NoticeContent.tsx
+  - okf/architecture/support-design.md
+  - src/shared/components/layouts/PageFrame/PageFrame.tsx
+  - okf/architecture/storefront-design.md
+  - src/shared/features/run-club/RunClubSessionCardContent.tsx
+  - src/shared/features/run-club/RunClubSessionCardImage.tsx
+  - src/shared/features/support/ProductReturnsPanel.tsx
+  - src/shared/features/support/ReturnCautionsPanel.tsx
+  - src/shared/features/support/ShippingGuidePanel.tsx
+  - src/shared/features/support/ShippingReturnsGuide.tsx
+  - src/shared/features/product/ProductAfterSalesQuestions.tsx
+  - src/shared/features/product/ProductAfterSalesProcess.tsx
+  - src/shared/features/product/ProductAfterSalesContacts.tsx
   - src/shared/features/mypage/MyPageBenefitItem.tsx
   - src/shared/features/support/SupportNoticeItem.tsx
   - src/shared/features/support/InquiryAttachmentHelp.tsx
@@ -611,6 +628,16 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 폼 라벨 변경 병합 충돌 해결 (2026-10-20)
+
+`Typography.formLabel`의 body4 스케일과 프로필 부가정보 제목의 `mo: heading7` 변경을 반영했다. `EmployeeCoupons`의 고정 카드와 `ContentSection`, `MyPageProfile`의 공통 `Divider`·폼·footer, `NotFoundPage`의 `SystemStatusPage` 위임은 최신 구현을 유지한다. UI 문서의 단일 생성 시각과 양쪽 변경 이력을 보존한다. 출처는 `working_tree_sources`의 해당 네 TSX 파일이다. 타입·변경 TSX ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드·스테이징 기준 OKF 검사를 통과했다. 브라우저 시각·상호작용 검증은 실행하지 않았다.
+
+## UI 병합 충돌 해결 (2026-10-20)
+
+`EmployeeCoupons`, `MyPageProfile`, `NotFoundPage`의 공통 `ContentSection` 구성을 유지하면서 들어오는 브랜치의 UI 변경을 통합했다. 임직원 쿠폰은 50%·30% 발급 안내 카드 두 건과 체크 아이콘을 표시한다. 프로필은 문자·카카오톡 수신 설정을 하나로 묶고 결혼 여부 편집, 변경사항 저장 문구와 탈퇴 안내를 반영한다. 프로필의 조회 화면 수정 버튼은 공통 footer에 두고 편집 폼의 검증·제출·취소·탈퇴 대화상자 상태를 유지한다. 404 화면은 `black.100` 아이콘 색상과 제목/설명 사이 간격 4를 적용하며 공통 헤더·footer를 유지한다.
+
+위 세 파일은 `working_tree_sources`에 포함된 작업 트리 출처다. 양쪽 문서 이력과 출처 메타데이터를 보존하고 충돌 난 생성 시각은 더 최신 값을 유지했다. 타입 검사·변경 TS/TSX ESLint·충돌 해결 파일 Prettier·Panda 생성·Next.js 프로덕션 빌드·스테이징 기준 OKF 검사를 통과했다. 브라우저 시각·상호작용 검증은 실행하지 않았다.
 
 ## 가로형 ContentHeader 소비처 확대 (2026-10-20)
 
@@ -1528,8 +1555,9 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.
 - 마이페이지 주문 카드 상품 사진은 공용 `ProductThumbnail`로 렌더하고 96px 정사각형 슬롯은 페이지 레이아웃에서 지정한다. Typography는 기본 `language="auto"`가 한글을 감지해 한국어 토큰을 선택하므로 호출부에서 `Kr` 접미사를 반복하지 않는다. 프로필 이동은 공용 `ButtonLink`, 구분선은 Panda `Divider`를 사용한다.
 - 마이페이지의 리뷰·등급·쿠폰·회원정보·배송지·관심상품·최근 본 상품·재입고 알림 화면은 `MyPageStatusPage`에서 기능별 화면으로 분기한다. 공통 `MyPageFrame`이 탐색 메뉴와 Breadcrumb을 소유하고 각 화면은 기존 Button, FormField, TextInput, SegmentedControl, ModalDialog, ProductCard, ProductThumbnail을 재사용한다. 현재 목록과 입력 결과는 화면 내부의 데모 상태이며 서버 저장소와 연결하지 않는다. 대응 모바일 시나리오는 `src/stories/features/mypage/MyPageDesign.stories.tsx`에 둔다.
-- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 이메일·모바일 쿠폰북·문자/카카오톡 전송매체를 각각 표시한다. 편집 폼에도 모바일 쿠폰북 선택값을 둬 요약 상태와 일치시킨다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev) 및 `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev), 제공된 편집 상태 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-25505&m=dev), 제공된 보기/수정 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/shared/features/mypage/MyPageReviews.tsx`와 `src/shared/components/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
 - 이 여덟 화면의 타이포는 Figma의 12·14·16·20·22px 역할을 기존 Typography variant로 표현한다. 날짜·숫자는 영문 서체, 뒤따르는 한국어 단위·라벨은 한국어 서체를 각 Typography에 명시해 한 줄에서도 언어별 굵기와 자간을 유지한다. 여백과 정렬은 Box·Stack·HStack이 담당한다.
 - `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
@@ -1538,8 +1566,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `src/shared/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
 - 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
 - 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/shared/components/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
-- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이의 독립 섹션이다. 접힌 상태는 칩을 줄바꿈 없이 가로 한 줄(`nowrap`)로 이어서 보여주고, 52px 높이에서 오른쪽으로 넘친 부분만 잘린다. 펼치면 줄바꿈(`wrap`)해 가로 4px·세로 8px 간격으로 세 줄에 걸쳐 5개 칩을 모두 보여주며 아래 쿠폰 내역을 밀어낸다. 우측 원형 버튼은 `aria-expanded`와 목록 연결을 제공한다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19372&m=dev), 제공된 두 상태 이미지 및 `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
-- 임직원 쿠폰의 펼침은 실제 칩 목록 높이를 측정해 52px에서 확장 높이까지 애니메이션한다. 접을 때는 280ms 높이 전환 후 `nowrap`으로 확실히 복원하고, 빠르게 다시 펼치면 대기 중인 접힘 타이머를 취소한다. 화살표와 가장자리 페이드도 함께 전환하며, 움직임 감소 환경에서는 즉시 접는다. 근거: `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
+- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19062&m=dev), `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
 - `SegmentedControl variant="underline"`는 리뷰·쿠폰의 동일한 전체 폭 밑줄 탭 표현을 소유한다. 옵션 수에 관계없이 버튼을 균등하게 배치하고 선택 항목에 검은 하단선을 표시한다. 기존 기본 버튼형과 `unstyled` 확장 API는 유지한다.
 
 `styled-system/`과 `src/shared/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
@@ -1554,7 +1581,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 | 쿠폰 목록의 article 표시와 필터·등록·상세 상태 혼재      | organism 내부 `CouponCard({ coupon, onDetails })`                                                   | article/h3, 패딩 16px/24px, 카드 내부 24px/12px/4px 간격, 상세보기 콜백 유지. 카테고리 변경 시 5개로 초기화, 등록·모달 상태는 Manager 소유. 기존 `CouponManager`의 `CouponItem` 타입 import 경로는 re-export로 유지                                                                                                              |
 | 밑줄형 선택 버튼의 직접 타입 선언                        | `Typography as="button" variant="selectionLabel"`를 Toggle의 render로 사용                          | 버튼 DOM을 추가하지 않고 Base UI 이벤트·ref·선택 속성을 전달. 한국어 글꼴, PC/모바일 16px·500·행간 1.3·자간 normal. `--type-selection-label-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}` 토큰 계약. 기존 `ctaKr1`은 600·음수 자간이므로 대체하지 않음. 기본형·unstyled·옵션 비활성·빈 문자열 인코딩 유지 |
 
-`EmployeeCoupons`의 목록 ID와 버튼 `aria-controls`는 인스턴스별 `useId()`로 연결한다. 여러 쿠폰 영역이 함께 렌더링되어도 대상 ID가 겹치지 않는다. 기존 52px 접힘 높이, wrap/nowrap 전환, 280ms 접힘 타이머·재클릭 취소, 움직임 감소 설정, 페이드·화살표는 유지한다. 현재 작업 트리에서 타입 검사와 `.tmp*` 산출물을 제외한 lint를 통과했다. 인스턴스 두 개의 브라우저 동작 검증은 수행하지 않았다.
+`EmployeeCoupons`는 Figma 업데이트에 따라 기존 5개 칩과 펼침·접힘 인터랙션을 제거하고 50%·30% 쿠폰 발급 안내 두 건으로 단순화했다. 두 항목은 균등 너비로 나란히 표시하며 체크 아이콘을 포함한다.
 
 ### Base UI와 유지 판단
 
@@ -1563,7 +1590,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - **keep — Toggle Group/Toggle**: 쿠폰·리뷰는 목록 필터이며 독립 탭 패널을 연결하지 않는다. 공용 SegmentedControl의 controlled 선택과 roving focus를 유지한다. 설치 버전 지원, 업그레이드 불필요.
 - **keep — Dialog, Checkbox, Radio Group, Progress**: 상세·수정 모달, 기본 배송지, 수신 동의, 진행률은 기존 wrapper가 담당한다. 기능에서 primitive를 직접 재구현하지 않는다. 모두 설치 버전 지원, 업그레이드 불필요.
 - **keep — 네이티브 select/input/form 및 confirm**: 기존 정렬·입력·필수 검증·리뷰 취소 의미를 유지한다. Select, Input, Form, Alert Dialog는 설치 버전에서 지원하지만 네이티브 동작을 교체할 추가 요구가 없다. 업그레이드 불필요.
-- **keep — EmployeeCoupons**: 펼침은 숨긴 패널 전체를 여닫는 것이 아니라 일부 칩이 보이는 목록의 줄바꿈·측정 높이를 바꾼다. Collapsible은 설치 버전에 있으나 패널 숨김 계약이 달라 기계적으로 이전하지 않는다. 업그레이드 불필요.
+- **keep — EmployeeCoupons**: 최신 Figma에서 두 개의 고정 안내 항목만 표시하므로 접힘·펼침 primitive가 필요하지 않다. 50%·30% 항목의 균등 배치와 아이콘을 유지한다.
 - **keep — MyPageFrame, OrderTile, MyPageMenuSection, ProfileField, QuickLinkGrid**: 프레임·주문 표시·섹션 내비게이션·필드·반응형 링크 격자의 책임이 이미 명확하다. nav·article·form·목록 의미와 DOM 순서를 유지한다. 단순 태그 교체나 public component 추가 근거로 삼지 않는다.
 
 ### 후속 추출 후보
@@ -1854,7 +1881,15 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## Icon 색상 토큰
 
-`Icon.color`는 `white`, `black`, `currentColor`와 CSS 색상값을 지원한다. 추가로 `black.50`, `text.tertiary`처럼 Panda `colors.*` 토큰 경로를 받으면 생성된 CSS 변수를 사용한다. 토큰 경로가 아닌 값은 기존처럼 CSS 색상으로 전달한다. `FontAwesomeIcon`과 mask 방식 SVG에는 이 색을 적용하고, 색을 보존해야 하는 등록 이미지 아이콘은 기존 필터 동작(`white`/`black`)을 따른다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+`Icon.color`는 `currentColor`, CSS 색상값과 Panda 색상 토큰 경로를 받는다. `FontAwesomeIcon`과 mask 방식 SVG는 토큰 경로를 생성된 CSS 변수로 바꿔 적용한다. 색을 보존해야 하는 등록 이미지 아이콘과 일반 `src` 이미지는 원본 색을 유지한다. 호출부는 기본 색상 별칭 대신 `black.100`·`white.0` 같은 디자인 토큰을 직접 전달한다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+
+## Font Awesome 아이콘 스토리 카탈로그
+
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+
+## Typography formLabel 스케일 (2026-10-20)
+
+`Typography`의 `formLabel` variant는 폼 라벨에 쓰는 body4 타이포그래피를 사용한다. 라디오·체크박스 전용 표현이 아니라 라벨 문구에 공통으로 적용하는 시각 스타일이며, 그룹 제목의 의미 구조는 소비처에서 별도로 제공한다. 출처는 `src/shared/components/atoms/Typography/Typography.tsx`다.
 
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 
@@ -1995,3 +2030,47 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 `IdConfirmationModal`은 ConfirmDialog를 사용하고 비밀번호 재설정→onPasswordReset, 확인→onConfirm을 전달한다. PC는 fullWidthActions=false·horizontal로 기존 공통 footer의 가로 버튼 크기를 유지한다. 모바일은 vertical로 전환하며 본문 내 두 버튼을 제거해 공통 고정 footer에 배치한다. 이는 기존 모바일 본문 버튼 배치에서 의도적으로 변경한 부분이며, 본문 안내·userName 정규화·타이포그래피·여백·모바일 fullscreen과 플랫폼별 제목은 유지한다. Vertical/VerticalMobile 스토리와 보조 액션이 닫기를 자동 호출하지 않는 play 검사를 추가했다.
 
 출처는 frontmatter의 ConfirmDialog/IdConfirmationModal 구현과 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 및 Storybook play는 실행하지 않았다.
+
+## 상품 수선 안내 컴포넌트 분리 (2026-10-20)
+
+`ProductDetailAfterSalesContent`는 도입 문구와 세 영역 조합만 소유한다. `ProductAfterSalesContacts`는 고객센터/A/S 문의처와 FAQ/1:1 문의 액션을 담당하며 동일한 문의처 행과 액션 행을 로컬 컴포넌트로 재사용한다. `ProductAfterSalesProcess`는 아이콘·절차 데이터와 6열/모바일 1열 ordered list를, `ProductAfterSalesQuestions`는 Q&A 데이터와 질문/답변 표시를 소유한다. 기존 외부 접수 URL·새 창/rel 속성·링크·h4/h5 레벨·Grid 직계 li 선택자와 PC/MO 스타일을 유지한다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 배송 반품 안내 패널과 목록 분리 (2026-10-20)
+
+`ShippingReturnsPage`는 고객센터 레이아웃과 세 탭 정의를 조합한다. `ShippingGuidePanel`, `ReturnCautionsPanel`, `ProductReturnsPanel`이 각 탭의 문구·데이터·절차를 소유하고 `ShippingReturnsGuide`의 GuidePanel/NumberedList/BulletList 표현을 재사용한다. 상위 공용 UI로 범위를 확장하지 않고 해당 기능 내부에 둔다. 기존 탭 value/label/defaultValue·본문 순서·ol/ul/li·번호·bullet 장식·compact 간격을 유지한다. 상품 상세 배송/반품 컴포넌트는 문구와 구성이 달라 그대로 유지한다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 런클럽 세션 카드 구성 분리 (2026-10-20)
+
+`RunClubSessionCard`는 article Stack에서 `RunClubSessionCardImage`와 `RunClubSessionCardContent`를 조합한다. 이미지는 LinkOverlay·Next Image·날짜/지역/거리 오버레이를, 상세 안내는 카테고리·ContentHeader·모바일 숨김 상세 링크를 소유한다. 기존 상세 URL·aria-label·빈 이미지 alt·sizes·PC/MO 종횡비·오버레이·카드 간격·모바일 CTA 생략을 유지하고 추가 DOM 래퍼를 만들지 않는다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 스토어프런트 첨부 시안 반영 (2026-10-20)
+
+메인·전체메뉴·전체검색·상품목록·상품상세·검색결과·에러 7개 화면의 변경과 유지 경계, 사진 출처, 기능 내부 구성과 Typography 계약은 [첨부 시안 대조 기록](storefront-design.md)에 정리했다. SearchListingLayout과 SystemStatusPage는 기능 내부에 두고 기존 ContentHeader·SearchField·상품 카드·필터·Base UI 래퍼를 재사용한다. 상품 데이터는 기존 목업을 유지한다.
+
+## 홍보 배너 전체 페이지 노출 (2026-10-20)
+
+사용자 요구에 따라 HeaderPromotionBanner는 PC·모바일 모든 페이지에 표시한다. SiteHeader의 플랫폼·홈 경로 조건을 제거했으며, 일반 헤더를 생략하는 모바일 검색 페이지에서도 AppLayout이 같은 배너를 표시한다. 배너의 기존 높이와 캐러셀 동작은 유지한다. 출처는 working_tree_sources의 SiteHeader.tsx와 AppLayout.tsx다.
+
+## 페이지 공통 프레임 (2026-10-20)
+
+CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts/PageFrame으로 추출했다. PageFrame은 선택적 breadcrumbItems와 children을 받아 PC 바깥 최대 1532px·본문 1200px/좌우 34px, 모바일 전체 너비/좌우 16px, 기존 하단 여백과 Breadcrumb 높이 56px을 소유한다. Breadcrumb을 생략하면 해당 영역도 생략한다. 사이드바·제목·본문 데이터·경로 정책은 호출자가 조합하므로 다른 메뉴와 사이드바 없는 페이지에서도 같은 프레임을 사용할 수 있다. CustomerCenterLayout은 기존 props를 유지하며 PageFrame 안에 SidebarColumns·ContentSection을 조합한다. 기존 DOM 순서와 고객센터 PC 190px/98px 및 모바일 표시 정책은 유지한다. 출처는 working_tree_sources의 PageFrame.tsx·CustomerCenterLayout.tsx다.
+
+## 고객센터 시안과 구성 정리 (2026-10-20)
+
+고객센터 첨부 시안 7종에 대한 차이·반영 범위·재사용 책임은 [고객센터 시안 반영 기록](support-design.md)에 정리했다. 이전 FAQ outline 카테고리와 모바일 공지 accordion 설명보다 이 기록이 우선한다. PC SUPPORT 사이드 제목과 PageFrame을 재사용하고, FAQ는 fill 카테고리 아래 검정 구분선을 둔다. 모바일 필터 rail의 기존 외부 margin/padding과 목록의 추가 margin을 정리해 FaqCategoryNav가 목록 앞 간격을 소유한다. 공지는 PC accordion, 모바일 상세 링크이며 제목·날짜는 공용 notices.data를 사용한다. StoreMapPreview는 PC 422px·모바일 240px 영역에서 지도 샘플의 종횡비를 보존한다.
+
+문의 읽기 파일 목록/선택은 InquiryReadAttachments, 공통 SingleActionDialog·Carousel 조합은 InquiryAttachmentPreview가 소유한다. CareInstructions는 ContentSection 기본 제목을 사용하고 TermsDocument는 선택된 시행일을, TermsDateSelect는 Popover 열림/닫힘과 Radio 선택 후 닫기를 소유한다. 문의 form/업로드 유효성 검사는 그대로 유지한다. 기능 내부 상태를 구분하는 추출이며 새 공용 atom이나 Base UI 의존성을 추가하지 않는다. 출처와 실제 검증 범위는 연결한 기록의 working_tree_sources와 검증 항목을 따른다.
+
+## 약관 시행일 선택과 가로 구분선 공통화 (2026-10-20)
+
+TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털·Radio·열림 상태를 소유한다. TermsDocument는 날짜 목록·선택값과 약관 본문을 소유하며 name/options/value/onValueChange를 전달한다. 플랫폼 포털 클래스, 선택 후 닫기, 날짜 표시 형식과 접근성 이름은 유지한다.
+
+공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
+
+검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.

@@ -60,7 +60,7 @@ export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps)
       indicator={<span className={styles.indicator} />}
       items={columns.map((column) => ({
         value: column.title,
-        title: <Typography variant="heading5">{column.title}</Typography>,
+        title: <Typography variant="navigationHeading">{column.title}</Typography>,
         content: (
           <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
             {column.items.map((item) => (

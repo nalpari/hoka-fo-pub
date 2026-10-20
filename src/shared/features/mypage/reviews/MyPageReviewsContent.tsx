@@ -1,4 +1,5 @@
-import { Box, Divider, Stack } from 'styled-system/jsx';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+import { Box, Stack } from 'styled-system/jsx';
 import { EmptyState } from '@/shared/components/atoms/EmptyState/EmptyState';
 import { MyPageReviewTabs } from './MyPageReviewTabs';
 import { MyPageReviewToolbar } from './MyPageReviewToolbar';
@@ -37,7 +38,7 @@ export function MyPageReviewsContent({
       {totalCount ? (
         <Box px="4" pt="8">
           <MyPageReviewToolbar count={totalCount} sort={sort} onSortChange={onSortChange} />
-          <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
+          <Divider variant="strong" />
           <MyPageReviewList entries={entries} tab={tab} onEdit={onEdit} />
           {hasMore ? (
             <MyPageReviewLoadMore

@@ -37,9 +37,9 @@ export function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
     <Box
       as="section"
       aria-label="자주 묻는 질문"
-      borderTopColor="black.20"
+      borderTopColor="black.100"
       borderTopStyle="solid"
-      borderTopWidth={entries.length ? '1px' : '0'}
+      borderTopWidth={entries.length ? '2px' : '0'}
     >
       {entries.length ? (
         <Accordion

@@ -9,6 +9,7 @@ import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
 import { MobileCategoryTabs } from './MobileCategoryTabs';
 import { css } from 'styled-system/css';
+import { SearchListingLayout } from './SearchListingLayout';
 
 const catalogLayout = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
@@ -35,9 +36,15 @@ type ProductListingLayoutProps = {
   onMobileFilterApply: () => void;
   onReset: () => void;
   onSortChange: (sort: string) => void;
+  onSearch: (query: string) => void;
+  onCloseSearch: () => void;
+  hasActiveFilters: boolean;
+  isSearchPage: boolean;
   platform: Platform;
   productListingTitle: string;
   mobileResultCount: number;
+  mobileSort: string;
+  onMobileSortChange: (sort: string) => void;
   result: Product[];
   searchQuery: string;
   shown: Product[];
@@ -56,9 +63,15 @@ export function ProductListingLayout({
   onMobileFilterApply,
   onReset,
   onSortChange,
+  onSearch,
+  onCloseSearch,
+  hasActiveFilters,
+  isSearchPage,
   platform,
   productListingTitle,
   mobileResultCount,
+  mobileSort,
+  onMobileSortChange,
   result,
   searchQuery,
   shown,
@@ -66,6 +79,45 @@ export function ProductListingLayout({
   sortPlaceholder,
 }: ProductListingLayoutProps) {
   const normalizedSearchQuery = searchQuery.trim();
+
+  const content = (
+    <ProductListingContent
+      filterDrawerOpen={filterDrawerOpen}
+      filterPanel={filterPanel}
+      mobileResultCount={mobileResultCount}
+      mobileSort={mobileSort}
+      onMobileSortChange={onMobileSortChange}
+      onFilterDrawerOpenChange={onFilterDrawerOpenChange}
+      onLoadMore={onLoadMore}
+      onMobileFilterApply={onMobileFilterApply}
+      onReset={onReset}
+      platform={platform}
+      result={result}
+      shown={shown}
+    />
+  );
+
+  if (isSearchPage) {
+    return (
+      <SearchListingLayout
+        key={normalizedSearchQuery}
+        query={normalizedSearchQuery}
+        platform={platform}
+        resultCount={result.length}
+        onSearch={onSearch}
+        onClose={onCloseSearch}
+        hasActiveFilters={hasActiveFilters}
+        filterAction={
+          <MobileProductFilterTrigger
+            onClick={() => onFilterDrawerOpenChange(true)}
+            label="Filter & Sort"
+          />
+        }
+      >
+        {content}
+      </SearchListingLayout>
+    );
+  }
 
   return (
     <ContentLayout
@@ -94,18 +146,7 @@ export function ProductListingLayout({
           onChange={(value) => onFilterChange('activity', value)}
         />
       )}
-      <ProductListingContent
-        filterDrawerOpen={filterDrawerOpen}
-        filterPanel={filterPanel}
-        mobileResultCount={mobileResultCount}
-        onFilterDrawerOpenChange={onFilterDrawerOpenChange}
-        onLoadMore={onLoadMore}
-        onMobileFilterApply={onMobileFilterApply}
-        onReset={onReset}
-        platform={platform}
-        result={result}
-        shown={shown}
-      />
+      {content}
     </ContentLayout>
   );
 }

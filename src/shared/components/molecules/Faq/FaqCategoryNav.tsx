@@ -1,6 +1,7 @@
 import { FilterTabs } from '@/shared/components/atoms/FilterTabs/FilterTabs';
 import type { FaqCategory } from '@/shared/features/faq/faq.data';
 import { Box } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
 
 type Props = {
   category: FaqCategory;
@@ -16,7 +17,8 @@ export function FaqCategoryNav({ category, categories, onCategoryChange }: Props
         onValueChange={onCategoryChange}
         options={categories.map((item) => ({ label: item, value: item }))}
         value={category}
-        variant="outline"
+        variant="fill"
+        className={css({ _mobile: { '& > [role="group"]': { mb: '0', px: '0' } } })}
       />
     </Box>
   );

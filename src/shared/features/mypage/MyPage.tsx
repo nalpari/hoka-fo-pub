@@ -1,7 +1,9 @@
 'use client';
 
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+
 import { useState } from 'react';
-import { Box, Divider, Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Breadcrumb } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
 import { LogoutDialog } from '@/shared/components/organisms/Account/LogoutDialog';
@@ -23,7 +25,7 @@ export function MyPage({ onLogout }: { onLogout: () => void }) {
           <MyPageOverviewProfile />
           <MyPageRecentOrders />
 
-          <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.20" />
+          <Divider />
 
           <Stack gap="10">
             {menuSections.map((section) => (
