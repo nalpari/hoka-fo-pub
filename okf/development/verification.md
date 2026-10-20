@@ -6,9 +6,18 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:03:12.420Z'
+  at: '2026-10-20T07:17:37.626Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/error.tsx
+  - src/app/maintenance/page.tsx
+  - src/app/service-unavailable/page.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/not-found/SystemStatusPage.tsx
+  - src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx
+  - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
+  - src/stories/features/not-found/SystemStatusPage.stories.tsx
+  - tests/app-router.test.mjs
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
   - src/shared/components/atoms/RatingStars/RatingStars.tsx
@@ -148,3 +157,8 @@ PC/MO는 각 15개이며 Validation 13개·Expired 1개·Inheritance 1개로 나
 ## Mockup 제거 후 라우트 검사 (2026-10-20)
 
 `tests/app-router.test.mjs`의 expectedRoutes에서 Mockup 구현 전용 라우트 12개를 제외했다. `npm run build`로 manifest를 갱신한 뒤 `node --test tests/app-router.test.mjs`를 실행해 실제 페이지 목록 일치 및 의존성 버전 검사 2개가 통과했다. Storybook 재분류는 production index의 페이지 스토리 179개 ID·IA 링크 유효성·Mockup 분류 부재를 별도로 확인했다. 브라우저 play는 재실행하지 않았다.
+
+
+## 시안 반영 분할 기록 (3, 2026-10-20)
+
+SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.

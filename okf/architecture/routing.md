@@ -6,9 +6,18 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T02:03:12.291Z'
+  at: '2026-10-20T07:17:37.359Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/error.tsx
+  - src/app/maintenance/page.tsx
+  - src/app/service-unavailable/page.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/not-found/SystemStatusPage.tsx
+  - src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx
+  - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
+  - src/stories/features/not-found/SystemStatusPage.stories.tsx
+  - tests/app-router.test.mjs
   - tests/app-router.test.mjs
   - src/shared/features/mypage/stories/MyPageRouteStory.tsx
   - src/shared/features/find-account/IdConfirmationModal.tsx
@@ -172,3 +181,8 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 ## Mockup 전용 라우트 제거 (2026-10-20)
 
 미확정 Mockup 화면 제거에 따라 다음 앱 라우트 진입점을 삭제했다: `/explore`, `/explore/shoe-finder`, `/explore/[...slug]`, `/launch-calendar`, `/mypage/running-profile`, `/running/alerts`, `/running/plans`, `/running/reviews`, `/running/rewards`, `/running/rotation`, `/running/shoe-finder`, `/store/experience`. 해당 주소는 더 이상 이 화면을 제공하지 않는다. 정식 run-club·상품·고객센터·계정 페이지는 유지한다. MyPageRouteStory의 running-profile 구현 연결도 제거했다. 위쪽의 과거 라우트 목록·Mockup 이동 기록보다 이 변경 기록이 우선한다. Next production build 및 갱신된 앱 라우트 manifest 테스트 2개를 통과했다.
+
+
+## 시안 반영 분할 기록 (3, 2026-10-20)
+
+SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.

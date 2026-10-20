@@ -6,9 +6,18 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:17:25.249Z'
+  at: '2026-10-20T07:17:37.473Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/error.tsx
+  - src/app/maintenance/page.tsx
+  - src/app/service-unavailable/page.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/not-found/SystemStatusPage.tsx
+  - src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx
+  - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
+  - src/stories/features/not-found/SystemStatusPage.stories.tsx
+  - tests/app-router.test.mjs
   - src/shared/components/atoms/Typography/Typography.tsx
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/shared/components/molecules/SearchField/SearchField.tsx
@@ -2087,3 +2096,8 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 시안 반영 분할 기록 (2, 2026-10-20)
 
 메인 카테고리 이미지, 메뉴 타이포그래피, 검색 입력·검색결과 프레임, 상품 목록·필터·상세 화면을 첨부 시안에 맞췄다. 모바일 검색의 헤더·푸터 구성도 조정했다.
+
+
+## 시안 반영 분할 기록 (3, 2026-10-20)
+
+SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
