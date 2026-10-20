@@ -2,6 +2,10 @@
 
 ## 2026-10-20
 
+- **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
+- **Fix**: 임직원 쿠폰 안내의 체크 이미지를 Figma와 같은 Font Awesome Regular `faCircleCheck`로 교체하고 공용 barrel 및 아이콘 Storybook에 추가했다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Docs**: Font Awesome 아이콘 목록에 `faTriangleExclamation`을 barrel export와 `Atoms/Icon` 카탈로그 스토리로 추가했다. [UI 기록](architecture/ui.md)에 반영했다.
+
 - **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
 
 - **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.

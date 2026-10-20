@@ -6,6 +6,7 @@ import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import {
   faCakeCandles,
   faCheck,
+  faCircleCheck,
   faChevronRight,
   faComment,
   faEye,
@@ -19,6 +20,7 @@ import {
   faShieldHalved,
   faStarRegular,
   faStarSolid,
+  faTriangleExclamation,
   faUser,
 } from '@/shared/icons/fontAwesome';
 
@@ -149,6 +151,7 @@ const svgIconGroups = [
 const fontAwesomeIcons = [
   ['cake-candles', faCakeCandles],
   ['check', faCheck],
+  ['circle-check', faCircleCheck],
   ['chevron-right', faChevronRight],
   ['comment', faComment],
   ['eye', faEye],
@@ -162,6 +165,7 @@ const fontAwesomeIcons = [
   ['shield-halved', faShieldHalved],
   ['star-regular', faStarRegular],
   ['star-solid', faStarSolid],
+  ['triangle-exclamation', faTriangleExclamation],
   ['user', faUser],
 ] as const;
 

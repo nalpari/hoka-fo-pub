@@ -39,6 +39,8 @@ Storybook에서 로그인·계정 복구와 가입·인증 화면을 나눈 이�
 
 404 안내의 중앙 정렬·Font Awesome 경고 아이콘·PC/모바일 버튼 배치는 [컴포넌트와 스타일](ui.md)의 404 안내 화면 항목을 참고한다.
 
+Font Awesome `faTriangleExclamation`의 공용 export와 Icon 스토리 카탈로그 추가는 [아이콘 스토리 카탈로그](ui.md#font-awesome-아이콘-스토리-카탈로그)를 참고한다.
+
 Icon에서 흑백 별칭 대신 `black.100`·`white.0` 토큰을 직접 사용하는 계약은 [Icon 색상 토큰](ui.md#icon-색상-토큰)을 참고한다.
 
 바텀시트의 primary 버튼과 Footer의 tall·fullWidth 적용은 [버튼 크기 소유권](ui.md#바텀시트-버튼-크기의-footer-소유권-2026-10-19)을 참고한다.
