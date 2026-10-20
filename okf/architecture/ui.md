@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:14:02Z'
+  at: '2026-10-20T01:22:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
@@ -547,6 +547,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 미확정 회원등급·마일리지 화면 (2026-10-20)
+
+SupportExperiencePage는 회원등급과 마일리지 경로별 제목·breadcrumb·활성 메뉴를 pageDetails로 지정하고 공통 CustomerCenterLayout을 사용한다. 디자인이 확정되지 않은 정책 탭·유의사항 대신 본문에 “디자인 작업 중입니다.” 안내만 표시한다. 기존 라우트와 고객센터 탐색은 유지한다.
 
 ## 폼 필드 공통화와 스킬 반영 (2026-10-20)
 

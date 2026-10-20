@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Docs**: 회원등급·마일리지 화면의 공통 고객센터 레이아웃과 디자인 준비 안내 상태를 UI 문서에 기록했다. 타입 검사·변경 화면 ESLint를 확인하고 문서와 화면 포맷을 정리했다.
+
 - **Docs**: form-fields 조사와 실제 이관의 차이를 component-reusability 스킬에 반영했다. 폼 필드 작업용 참조에 조사 범위·공통화 경계·native 속성·검증/상태 소유권·이관 검증 기준을 추가하고 SKILL.md에서 연결했다. skill-creator 검증기·문서 포맷·diff·OKF 누락 검사를 통과했다.
 
 - **Refactor**: TextFormField와 의미별 필드·시간/글자수/동의 표시, split 이메일을 공용화하고 기존 소스 19파일을 이관했다. 마이페이지 주소도 AddressFields separated에 연결하며 검증·native 속성·FormData·부모 상태를 보존했다. 타입·변경 린트/포맷·Next/Storybook 빌드·40개 테스트·PC/MO 18쌍 좌표/속성 비교·Storybook play 22개·별도 동작 9개를 확인했다.
