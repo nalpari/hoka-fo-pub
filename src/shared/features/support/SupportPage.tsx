@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Divider, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
@@ -75,22 +76,28 @@ export function SupportPage() {
               운영시간
             </Typography>
             <Grid gridTemplateColumns="1fr 1px 1fr" gap="4">
-              <VStack alignItems="start" gap="4">
+              <VStack alignItems="start" gap="3">
                 <Typography web="body3" mo="body4">
                   평일
                 </Typography>
-                <Typography web="body1" mo="body4">
-                  09:00 ~ 18:00
-                </Typography>
+                <HStack alignItems="center" gap="2">
+                  <Icon name="clock-eight" size="18px" color="black.100" />
+                  <Typography web="body1" mo="body4">
+                    09:00 ~ 18:00
+                  </Typography>
+                </HStack>
               </VStack>
               <Divider aria-hidden="true" orientation="vertical" w="1px" h="63px" bg="black.20" />
-              <VStack alignItems="start" gap="4">
+              <VStack alignItems="start" gap="3">
                 <Typography web="body3" mo="body4">
                   일반 유선상담
                 </Typography>
-                <Typography web="body1" mo="body4">
-                  10:00 ~ 17:00
-                </Typography>
+                <HStack alignItems="center" gap="2">
+                  <Icon name="clock-eight" size="18px" color="black.100" />
+                  <Typography web="body1" mo="body4">
+                    10:00 ~ 17:00
+                  </Typography>
+                </HStack>
               </VStack>
             </Grid>
             <Typography as="p" web="body4" mo="body5" tone="tertiary">

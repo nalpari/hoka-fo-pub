@@ -876,11 +876,19 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 ## 고객센터 메인 (2026-10-16)
 
+### 고객센터 사이드 내비게이션 갱신 (2026-10-20)
+
+`SideNavigation`의 `support` 모드는 Figma `1241:78801`을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 노드 `1241:78795`, `1241:78801`이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
+
 고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
 고객센터 메인의 공지사항 미리보기는 제목 아래 `black.100` 1px Divider와 각 공지 행 아래 `black.20` 1px Divider를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
 
 `CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
+
+Figma 고객센터 메인 `1241:78709`의 운영시간 두 항목에는 같은 18×18px `clock-eight` SVG를 표시한다. SVG는 `public/images/icon/clock-eight.svg`에서 `Icon name="clock-eight"`으로 호출하며, Icon Storybook 목록과 자산 문서에도 등록되어 있다. 운영시간 문자열과 아이콘은 HStack으로 묶고 8px 간격으로 정렬한다.
+
+고객센터 상담 카드의 전화번호 앞에는 Figma `1241:78743`의 18×18px 전화 SVG를 공통 `Icon name="phone-call"`로 표시한다. 두 상담 카드의 기존 전화번호 링크는 유지하고 `TEL.` 문자 대신 아이콘을 사용한다. 자산은 `public/images/icon/phone-call.svg`이며 Icon Storybook·SVG 자산 목록에서 확인할 수 있다.
 
 ## FAQ (2026-10-16)
 
@@ -1541,3 +1549,13 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 기존 부모를 우선 재사용하고 새 wrapper는 실제 간격 책임과 직접 자식 선택자·폭/정렬·최소 높이·form/접근성 연결을 확인한 뒤 검토한다. margin collapse와 기존 mb/my·padding/gap도 비교한다. 구현 시 PC/MO 좌표·크기·조건부 상태 및 필요한 폼 동작을 검증하고 임시 fixture를 제거한다. 이전 32px 값이나 24개 검증 조합을 모든 작업의 고정 기준으로 삼지 않는다. 정책만 수정하는 요청은 추가 소스 마이그레이션이나 앱 빌드를 요구하지 않는다.
 
 검증: 임시 검증 경로에 PyYAML을 설치해 skill-creator의 quick_validate.py 통과를 확인했고 AGENTS·스킬 Prettier와 변경 diff를 검사했다. 애플리케이션 소스는 수정하지 않았다. 출처는 작업 트리의 AGENTS.md와 .codex/skills/component-reusability/SKILL.md다.
+
+## 공통 Breadcrumb (2026-10-20)
+
+`Breadcrumb`는 Figma `1241:78730`의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/shared/components/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma `1241:78730`이다.
+
+검증: 변경 TSX ESLint·Prettier, Panda 생성, Storybook 빌드 통과. 전체 TypeScript 검사는 기존 `.next/types/app/`의 다른 페이지 props 오류로 실패했으며 Breadcrumb 관련 오류는 보고되지 않았다.
+
+## Icon 색상 토큰
+
+`Icon.color`는 `white`, `black`, `currentColor`와 CSS 색상값을 지원한다. 추가로 `black.50`, `text.tertiary`처럼 Panda `colors.*` 토큰 경로를 받으면 생성된 CSS 변수를 사용한다. 토큰 경로가 아닌 값은 기존처럼 CSS 색상으로 전달한다. `FontAwesomeIcon`과 mask 방식 SVG에는 이 색을 적용하고, 색을 보존해야 하는 등록 이미지 아이콘은 기존 필터 동작(`white`/`black`)을 따른다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.

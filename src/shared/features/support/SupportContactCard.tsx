@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type Props = {
@@ -21,19 +22,17 @@ export function SupportContactCard({ title, description, phone, phoneHref }: Pro
       gap="6"
       _mobile={{ minH: '0', px: '4', pt: '5', pb: '6', gap: '5' }}
     >
-      <Typography as="h2" web="heading8" mo="heading9">
+      <Typography as="h2" web="heading8" mo="heading7">
         {title}
       </Typography>
       <Stack gap="4" _mobile={{ gap: '3' }}>
         <Typography as="p" web="body3" mo="body4">
           {description}
         </Typography>
-        <HStack gap="1">
-          <Typography web="body1" mo="body4">
-            TEL.
-          </Typography>
+        <HStack gap="2" h="18px">
+          <Icon name="phone-call" size="18px" color="black.100" />
           <Link className={phoneLink} href={phoneHref}>
-            <Typography web="body1" mo="cta2">
+            <Typography web="body2" mo="cta2">
               {phone}
             </Typography>
           </Link>

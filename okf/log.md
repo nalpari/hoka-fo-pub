@@ -2,6 +2,13 @@
 
 ## 2026-10-20
 
+- **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
+- **Update**: Figma 고객센터 상담 카드의 전화 SVG를 `phone-call` 아이콘으로 등록하고 두 카드의 `TEL.` 라벨을 대체했다. 전화번호 링크는 유지했다. [UI 기록](architecture/ui.md)에 자산과 사용처를 남겼다.
+
+- **Style**: 공통 Breadcrumb의 24px 행 높이, 항목 4px 간격, 구분 아이콘과 다음 항목 8px 간격, 14px 본문을 Figma `1241:78730`에 맞추고 공통 `chevron-right` 아이콘을 `#777`로 지정했다. 고객센터 Storybook 예시를 추가하고 [UI 기록](architecture/ui.md#공통-breadcrumb-2026-10-20)에 근거를 남겼다.
+- **Update**: `Icon.color`에 `black.50`, `text.tertiary` 같은 Panda 컬러 토큰 경로를 지원하고 기존 CSS 색상 입력은 유지했다. Breadcrumb 화살표가 `black.50`을 사용한다. [UI 기록](architecture/ui.md#icon-색상-토큰)에 렌더링별 동작을 남겼다.
+
+- **Style**: 고객센터 사이드 메뉴의 단일 목록·활성 밑줄·문자색·폭과 본문 간격을 Figma `1241:78801`에 맞췄다. [UI 기록](architecture/ui.md#고객센터-사이드-내비게이션-갱신-2026-10-20)에 범위와 검증을 남겼다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.
 - **Fix**: 공통 고객센터 레이아웃에서 제거된 제목 컴포넌트·prop과 매장 찾기의 오래된 import를 현재 API로 맞췄다. [UI 기록](architecture/ui.md)에 타입 검사 범위를 기록했다.
 - **Fix**: 매장 찾기 파일 이동 후 남아 있던 import 경로를 새 `Mockup/store-finder` 경로로 고치고 전체 타입 검사를 통과했다. [UI 기록](architecture/ui.md)에 확인 범위를 반영했다.

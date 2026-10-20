@@ -35,14 +35,14 @@ export function CustomerCenterLayout({
 }: Props) {
   return (
     <Box as="main" maxW="1532px" mx="auto" pb="24" _mobile={{ px: '4', pb: '10' }}>
-      <Box h="14" pt="6">
+      <Box h="14" pt="6" pb="2">
         <Breadcrumb items={breadcrumbItems} />
       </Box>
       <Box w="1200px" maxW="100%" mx="auto" px="34px" _mobile={{ px: '0' }}>
         <Grid
-          gridTemplateColumns="240px minmax(0, 1fr)"
-          gap="3.5"
-          mt={{ base: '14', _mobile: '6' }}
+          gridTemplateColumns="190px minmax(0, 1fr)"
+          gap="98px"
+          pt={{ base: '14', _mobile: '6' }}
           _mobile={{ display: 'block' }}
         >
           <SideNavigation
