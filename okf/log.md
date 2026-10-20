@@ -2,14 +2,6 @@
 
 ## 2026-10-20
 
-- **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
-- **Fix**: 임직원 쿠폰 안내의 체크 이미지를 Figma와 같은 Font Awesome Regular `faCircleCheck`로 교체하고 공용 barrel 및 아이콘 Storybook에 추가했다. [UI 기록](architecture/ui.md)을 갱신했다.
-- **Docs**: Font Awesome 아이콘 목록에 `faTriangleExclamation`을 barrel export와 `Atoms/Icon` 카탈로그 스토리로 추가했다. [UI 기록](architecture/ui.md)에 반영했다.
-
-- **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
-
-- **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
-
 - **Docs**: Storybook의 공통 `Pages/AUTH` 카테고리를 로그인·계정 복구 `Pages/Login`과 가입·인증 `Pages/Signup`으로 분리했다. 인증 화면을 묶었던 이유는 탐색 편의를 위한 것이며 두 흐름의 컴포넌트 공유를 나타내지 않는다. UI 문서와 아키텍처 인덱스에 구분 기준을 남겼다. 스토리 인덱스에 두 분류가 생성되고 `Pages/AUTH`가 사라진 것을 확인했으며, Storybook production build·변경 파일 ESLint/Prettier가 통과했다.
 - **Refactor**: `/signup`에서 카카오가 구형 약관 동의 화면으로 이어지던 연결을 제거했다. 카카오·네이버는 미연결 안내를 표시하고, 캡처된 약관·정보 입력·가입 완료 단계는 `src/shared/Mockup/signup`으로 옮겨 Mockup Storybook에서 PC·MO로 볼 수 있게 했다. `/signup?step=details` 분기와 폐기된 구형 가입 단계 검증도 제거했다. 라우팅·UI·폼 필드·organism 기록과 Obsidian 주소 문서의 팝업 진입 안내를 갱신했다. 변경 파일 ESLint·Prettier, Storybook production build, OKF 테스트를 통과했다. 전체 typecheck는 기존 `.next/types`의 다른 라우트 오류로 통과하지 못했다.
 - **Update**: Figma 고객센터 운영시간의 `clock-eight` SVG를 추가해 Icon name으로 호출할 수 있게 하고 평일·일반 유선상담 시간 앞에 배치했다. Icon Storybook과 SVG 자산 목록에 포함했다. [UI 기록](architecture/ui.md)에 사용 위치를 남겼다.
@@ -43,6 +35,11 @@
 
 ## 2026-10-20
 
+- **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
+- **Fix**: 임직원 쿠폰 안내의 체크 이미지를 Figma와 같은 Font Awesome Regular `faCircleCheck`로 교체하고 공용 barrel 및 아이콘 Storybook에 추가했다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
+- **Docs**: Font Awesome 아이콘 목록에 `faTriangleExclamation`을 barrel export와 `Atoms/Icon` 카탈로그 스토리로 추가했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Refactor**: `ModalDialog`의 `content`/`singleActionContent` 분기와 `actionCount` prop을 제거했다. 모든 모달 본문을 PC 위·좌우 24px/아래 16px, 모바일 `24px 16px 16px`로 통일하고 `SingleActionDialog` 사용처도 같은 규칙을 쓴다. [UI 기록](architecture/ui.md#모달-본문-패딩-통일-2026-10-20)에 반영했다.
 - **Refactor**: 계정 잠금 안내를 공통 `ModalDialog` 직접 조합으로 변경하고 확인 버튼을 footer에 배치했다. md 크기, 단일 액션 본문 간격과 닫기·확인 이동 콜백을 유지했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.
