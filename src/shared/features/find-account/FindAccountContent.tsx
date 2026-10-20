@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
@@ -58,45 +59,54 @@ export function FindAccountContent({
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
       outsideContent={result}
     >
-      <AccountFormHeader
-        title="아이디 / 비밀번호 찾기"
-        titleId="find-account-title"
-        description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
-        spacingCss={css.raw({
-          gap: { base: '10px', _mobile: '3' },
-          mb: { base: '10', _mobile: '8' },
-        })}
-      />
-
-      <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
-        <Stack gap="6">
-          <FindAccountIdentityFields
-            name={name}
-            phone={phone}
-            nameError={nameError}
-            phoneError={phoneError}
-            onNameChange={onNameChange}
-            onPhoneChange={onPhoneChange}
+      <ContentSection
+        gap={{ base: '10', _mobile: '8' }}
+        header={
+          <AccountFormHeader
+            title="아이디 / 비밀번호 찾기"
+            titleId="find-account-title"
+            description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
+            spacingCss={css.raw({
+              gap: { base: '10px', _mobile: '3' },
+            })}
           />
-          <Button type="submit" variant="primary" fullWidth disabled={requested && secondsLeft > 0}>
-            {requested ? '인증번호 재요청' : '인증번호 요청'}
-          </Button>
-          {requested ? (
-            <>
-              <FindAccountCodeFields
-                code={code}
-                codeError={codeError}
-                secondsLeft={secondsLeft}
-                onCodeChange={onCodeChange}
-              />
-              <Button type="button" variant="primary" fullWidth onClick={onConfirmCode}>
-                인증번호 확인
-              </Button>
-            </>
-          ) : null}
-          {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
-        </Stack>
-      </form>
+        }
+      >
+        <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
+          <Stack gap="6">
+            <FindAccountIdentityFields
+              name={name}
+              phone={phone}
+              nameError={nameError}
+              phoneError={phoneError}
+              onNameChange={onNameChange}
+              onPhoneChange={onPhoneChange}
+            />
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              disabled={requested && secondsLeft > 0}
+            >
+              {requested ? '인증번호 재요청' : '인증번호 요청'}
+            </Button>
+            {requested ? (
+              <>
+                <FindAccountCodeFields
+                  code={code}
+                  codeError={codeError}
+                  secondsLeft={secondsLeft}
+                  onCodeChange={onCodeChange}
+                />
+                <Button type="button" variant="primary" fullWidth onClick={onConfirmCode}>
+                  인증번호 확인
+                </Button>
+              </>
+            ) : null}
+            {notice ? <StatusMessage tone={notice.tone}>{notice.message}</StatusMessage> : null}
+          </Stack>
+        </form>
+      </ContentSection>
     </AccountPageLayout>
   );
 }

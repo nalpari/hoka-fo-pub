@@ -1,4 +1,4 @@
-import { HStack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import {
   ModalDialog,
@@ -8,7 +8,12 @@ import {
 export type ConfirmDialogProps = Omit<ModalDialogProps, 'footer'> & {
   onConfirm: () => void;
   confirmLabel?: string;
+  confirmDisabled?: boolean;
   cancelLabel?: string;
+  /** Override the secondary action; otherwise it requests closing the dialog. */
+  onCancel?: () => void;
+  /** Vertical actions always use a full-width group, including compact footers. */
+  actionDirection?: 'horizontal' | 'vertical';
   /** Fill the footer with a spaced action row; false preserves compact direct-button footers. */
   fullWidthActions?: boolean;
 };
@@ -16,17 +21,31 @@ export type ConfirmDialogProps = Omit<ModalDialogProps, 'footer'> & {
 export function ConfirmDialog({
   onConfirm,
   confirmLabel = '확인',
+  confirmDisabled = false,
   cancelLabel = '취소',
+  onCancel,
+  actionDirection = 'horizontal',
   fullWidthActions = true,
   size = 'sm',
   ...props
 }: ConfirmDialogProps) {
   const actions = (
     <>
-      <Button fullWidth size="short" variant="secondary" onClick={() => props.onOpenChange(false)}>
+      <Button
+        fullWidth
+        size="short"
+        variant="secondary"
+        onClick={onCancel ?? (() => props.onOpenChange(false))}
+      >
         {cancelLabel}
       </Button>
-      <Button fullWidth size="short" variant="primary" onClick={onConfirm}>
+      <Button
+        fullWidth
+        size="short"
+        variant="primary"
+        disabled={confirmDisabled}
+        onClick={onConfirm}
+      >
         {confirmLabel}
       </Button>
     </>
@@ -37,7 +56,11 @@ export function ConfirmDialog({
       {...props}
       size={size}
       footer={
-        fullWidthActions ? (
+        actionDirection === 'vertical' ? (
+          <Stack w="100%" gap="2">
+            {actions}
+          </Stack>
+        ) : fullWidthActions ? (
           <HStack w="100%" gap="2">
             {actions}
           </HStack>

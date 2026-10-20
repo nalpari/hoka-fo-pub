@@ -1,6 +1,6 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Stack } from 'styled-system/jsx';
+
 import { CheckoutShippingForm } from './CheckoutShippingForm';
 import { CheckoutSavedAddress } from './CheckoutSavedAddress';
 import { CheckoutDeliveryRequest } from './CheckoutDeliveryRequest';
@@ -13,10 +13,12 @@ export function CheckoutShipping({ errors }: { errors?: ShippingErrors }) {
   const [address, setAddress] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   return (
-    <Stack as="section" gap="4">
-      <Typography as="h2" web="heading9" mo="heading7">
-        주문자 및 배송지 정보
-      </Typography>
+    <ContentSection
+      as="section"
+      gap="4"
+      title="주문자 및 배송지 정보"
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
+    >
       {editing ? (
         <CheckoutShippingForm
           errors={errors}
@@ -32,6 +34,6 @@ export function CheckoutShipping({ errors }: { errors?: ShippingErrors }) {
         <CheckoutSavedAddress errors={errors} onEdit={() => setEditing(true)} />
       )}
       <CheckoutDeliveryRequest />
-    </Stack>
+    </ContentSection>
   );
 }

@@ -1,10 +1,10 @@
 'use client';
 
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { cva } from 'styled-system/css';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Card } from '@/shared/components/atoms/Card/Card';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 export type MainContentCardAction = {
   label: string;
@@ -80,7 +80,6 @@ const categoryImage = cva({
 });
 
 const header = cva({
-  base: { display: 'flex', flexDirection: 'column' },
   variants: {
     variant: {
       titleLinks: { gap: '26px', _mobile: { gap: '5' } },
@@ -279,28 +278,25 @@ export function MainContentCard({
   return (
     <Card className={[root({ variant }), className].filter(Boolean).join(' ')}>
       <Card.Content className={categoryImage({ variant })} style={imageStyle} />
-      <Card.Header className={header({ variant })}>
-        <Typography
-          as="h3"
-          className={title({ variant })}
-          style={{ color: foreground }}
-          variant="cardTitle"
-        >
-          {cardTitle}
-        </Typography>
-        {description ? (
-          <Typography
-            as="p"
-            className={descriptionStyle({
-              variant: variant === 'titleLinks' ? undefined : variant,
-            })}
-            style={{ color: foreground }}
-            variant="body"
-          >
-            {description}
-          </Typography>
-        ) : null}
-      </Card.Header>
+      <ContentHeader
+        as="header"
+        gap="0"
+        className="card__header"
+        css={header.raw({ variant })}
+        titleAs="h3"
+        title={cardTitle}
+        titleProps={{
+          className: title({ variant }),
+          style: { color: foreground },
+          variant: 'cardTitle',
+        }}
+        description={description}
+        descriptionProps={{
+          className: descriptionStyle({ variant: variant === 'titleLinks' ? undefined : variant }),
+          style: { color: foreground },
+          variant: 'body',
+        }}
+      />
       <Card.Footer className={footer({ variant })}>
         <Card.Action className={actions({ variant })}>
           {cardActions.map((action) => (

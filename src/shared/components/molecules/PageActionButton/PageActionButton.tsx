@@ -1,7 +1,10 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { Box, HStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import {
+  LoadMoreButton,
+  LoadMoreButtonContent,
+} from '@/shared/components/atoms/LoadMoreButton/LoadMoreButton';
 
 type Props = {
   children: ReactNode;
@@ -25,18 +28,7 @@ export function PageActionButton({
   counter,
   containerProps,
 }: Props) {
-  const content = counter ? (
-    <HStack gap="1" justifyContent="center">
-      <Typography variant="cta2" weight="semibold">
-        {children}
-      </Typography>
-      <Typography variant="body5" tone="tertiary">
-        ({counter.current}/{counter.total})
-      </Typography>
-    </HStack>
-  ) : (
-    children
-  );
+  const content = counter ? <LoadMoreButtonContent counter={counter} label={children} /> : children;
 
   return (
     <Box
@@ -51,6 +43,15 @@ export function PageActionButton({
         <ButtonLink href={href} variant={variant} size={size} fullWidth>
           {content}
         </ButtonLink>
+      ) : counter ? (
+        <LoadMoreButton
+          counter={counter}
+          label={children}
+          variant={variant}
+          size={size}
+          fullWidth
+          onClick={onClick}
+        />
       ) : (
         <Button variant={variant} size={size} fullWidth onClick={onClick}>
           {content}

@@ -1,5 +1,6 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { HStack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -25,22 +26,26 @@ type Props = Pick<
 export function PhoneVerificationAgreements(props: Props) {
   const { agreements, showAgreementErrors = false } = props;
   return (
-    <Stack
+    <ContentSection
       as="section"
       gap="4"
       pb="6"
       borderBottom="1px solid var(--color-black-20)"
       aria-labelledby="phone-terms-title"
       aria-describedby={showAgreementErrors ? 'phone-terms-error' : undefined}
+      title="휴대폰 인증약관"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '8px',
+        css: css.raw({ mb: '2' }),
+        titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
+        action: (
+          <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
+            <Typography variant="body4">모두동의</Typography>
+          </Terms>
+        ),
+      }}
     >
-      <HStack justify="space-between" mb="2">
-        <Typography as="h2" id="phone-terms-title" web="heading9" mo="heading7">
-          휴대폰 인증약관
-        </Typography>
-        <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
-          <Typography variant="body4">모두동의</Typography>
-        </Terms>
-      </HStack>
       {verificationTerms.map((term, index) => (
         <HStack key={term} justify="space-between" gap="2" alignItems="center">
           <Terms
@@ -66,6 +71,6 @@ export function PhoneVerificationAgreements(props: Props) {
           필수 약관에 모두 동의해 주세요.
         </StatusMessage>
       ) : null}
-    </Stack>
+    </ContentSection>
   );
 }

@@ -6,9 +6,65 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:14:02Z'
+  at: '2026-10-20T05:22:18Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
+  - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
+  - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
+  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
+  - src/shared/components/layouts/ContentSection/ContentSection.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/content-sections.md
+  - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/signup/SignupLayout.tsx
+  - src/shared/features/support/SupportNotices.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/support/SupportMileageContent.tsx
+  - src/shared/features/support/ShippingReturnsPage.tsx
+  - src/shared/features/run-club/RunClubSessionHero.tsx
+  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
+  - src/shared/features/run-club/RunClubSessionPoster.tsx
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/shared/features/care-guide/CareGuidePage.tsx
+  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
+  - src/shared/features/mypage/MyPageProductHistory.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/identity-verification/IdentityVerificationContent.tsx
+  - src/shared/features/find-account/PasswordResetContent.tsx
+  - src/shared/features/find-account/FindAccountContent.tsx
+  - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/shared/features/mypage/MyPage.tsx
+  - src/shared/features/support/SupportContactCard.tsx
+  - src/shared/features/support/SupportHours.tsx
+  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
+  - src/shared/features/product/ProductDetailDeliverySection.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/mypage/MyPageStatusPage.tsx
+  - src/shared/features/checkout/CheckoutSummary.tsx
+  - src/shared/features/checkout/CheckoutPayment.tsx
+  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
+  - src/shared/features/product/ProductSupportLink.tsx
+  - src/shared/features/product/ProductDetailAfterSalesContent.tsx
+  - src/shared/components/organisms/MyPage/CouponManager.tsx
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/signup-terms/SignupTermsDetail.tsx
+  - src/shared/features/run-club/RunClubHeader.tsx
+  - src/shared/features/run-club/RunClubSessionCard.tsx
+  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
+  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
+  - src/shared/features/account-locked/AccountLockedContent.tsx
   - src/shared/features/find-account/PasswordResetField.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
@@ -72,6 +128,20 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
+
+CouponManager·MyPageReviewLoadMore·FAQ·공지와 PageActionButton/LoadMoreButton을 검토했다. 공통 버튼은 표시와 클릭 전달만 담당한다. 쿠폰의 5개 증가·분류 변경 시 초기화, 리뷰·FAQ·공지의 10개 단위 계산과 기존 노출 조건은 각 화면에 유지하며 상태 모델 변경은 없다. 출처: working_tree_sources의 CouponManager·MyPageReviewLoadMore·LoadMoreButton·PageActionButton과 src/shared/features/faq/FaqPage.tsx, src/shared/features/notices/NoticesPage.tsx.
+
+## ContentSection footer 이관의 상태 경계 (2026-10-20)
+
+쿠폰 내역 더보기, 프로필 조회/편집, 매장 지도 토글과 고객센터 목록 더보기의 상태·콜백·표시 조건을 유지하고 마무리 액션 노드의 배치 API만 footer로 이전했다. 폼 내부의 인증/저장·회원탈퇴·취소/확인 및 주문/구매 고정 바는 기존 소유권을 유지한다. 업무 상태·Context·타이머·검증 정책은 추가하지 않았다. 공용 스토리의 form id 연결·필수 검증·Enter 제출은 footer 소비 방법을 확인하는 예시이며 실제 폼을 모두 이동했다는 뜻이 아니다. 적용/유지 범위와 실제 검증은 [footer 기록](footer-actions.md)을 참고한다.
+
+## 제목·본문 공통화의 상태 유지 (2026-10-20)
+
+AccountFormLayout·로그인/계정 찾기·가입·회원정보/배송지·쿠폰·주문·런클럽·검색·고객센터의 제목과 후속 그룹을 검토했다. ContentHeader와 ContentSection은 props를 표시하는 조합이며 새 상태·context·정규화·검증을 소유하지 않는다. 기존 form/onSubmit, 쿠폰 필터/등록/선택, 임직원 쿠폰의 ref와 높이 측정, 배송지 draft, 주문의 FormData/요청값 수명, 인증 타이머/약관, 런클럽 필터와 신청 콜백은 기존 소유자에 유지한다.
+
+기존 기능 어댑터와 단일 child/Fragment 본문의 경계를 보존해 새 부모 gap이 폼 내부 간격이나 조건부 값 초기화를 바꾸지 않도록 했다. 포털과 모달은 현재 프레임/부모의 outsideContent 또는 dialogs 슬롯에 유지한다. title/headerProps와 custom header의 구분은 렌더링 API이며 상태 모델 변경은 없다. 검증 결과는 [이관 기록](content-sections.md)을 참고한다.
 
 ## 공통 폼 필드의 상태 소유권 (2026-10-20)
 
@@ -191,3 +261,7 @@ CartOptionsDialog는 발볼·컬러·사이즈·수량 초안을 관리한다. �
 CheckoutContent의 쿠폰 할인액은 요약과 결제 버튼에 함께 반영한다. CouponDialog는 상품별 10%/7%와 장바구니 정액 쿠폰을 선택하는 퍼블리싱 데모이며 닫기는 미적용 변경을 되돌린다. 배송지는 기존 정보/직접 입력으로 전환하며 주소 찾기는 기존 AddressSearchModal의 수동 미리보기를 사용한다. 배송 요청 직접 입력은 250자로 제한한다. CheckoutPage.onComplete는 실제 선택한 CartItem 목록을 전달하고 라우트가 해당 상품만 제거한다. 쿠폰 발급·저장 배송지·관심상품·결제 승인 서버 연동은 포함하지 않는다.
 
 출처는 작업 트리의 ShopShell.tsx, CartPage.tsx, CartOptionsDialog.tsx, CheckoutPage.tsx, CheckoutContent.tsx, CouponDialog.tsx 및 src/app/checkout/page.tsx다. 타입 검사·주문 합계 테스트 3개·Next production build를 확인했고 브라우저에서 사이즈 저장과 선택 상품 주문 이동, 528,000원에서 상품 28,800원+장바구니 5,000원 할인 후 494,200원 표시를 확인했다.
+
+## 장바구니 옵션 확인 상태 유지 (2026-10-20)
+
+CartOptionsDialog가 기존 draft와 발볼/색상별 사이즈·품절 상태에서 valid를 계산한다. ConfirmDialog는 confirmDisabled=!valid를 받아 확인 버튼만 비활성화하며 검증·옵션 변경·저장은 상위 기능에 남는다. 확인은 onSave(draft), 취소/닫기는 onClose를 호출한다. 공용 다이얼로그는 임의로 저장하거나 확인 후 닫지 않는다. 출처는 frontmatter의 CartOptionsDialog/ConfirmDialog 작업 트리 파일이다. 타입 검사·변경 ESLint를 확인했으며 브라우저 동작은 재검증하지 않았다.

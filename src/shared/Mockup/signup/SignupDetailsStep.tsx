@@ -1,3 +1,4 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FormEvent } from 'react';
 import { Stack } from 'styled-system/jsx';
@@ -66,12 +67,14 @@ export function SignupDetailsStep({
 }: SignupDetailsStepProps) {
   return (
     <form noValidate className={styles.formSection} onSubmit={onSubmit}>
-      <Typography as="h2" variant="heading7">
-        기본 정보 입력
-      </Typography>
-      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '9px', mb: '0' })}>
-        {methodOption.label} 후 필요한 정보를 입력해 주세요.
-      </Typography>
+      <ContentHeader
+        gap="9px"
+        titleAs="h2"
+        title="기본 정보 입력"
+        titleProps={{ variant: 'heading7' }}
+        description={<>{methodOption.label} 후 필요한 정보를 입력해 주세요.</>}
+        descriptionProps={{ variant: 'body4', tone: 'tertiary' }}
+      />
       <Stack gap="4" mt="4">
         <NameField
           variant="boxed"

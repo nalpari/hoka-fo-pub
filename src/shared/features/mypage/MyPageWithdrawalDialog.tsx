@@ -1,6 +1,5 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Stack } from 'styled-system/jsx';
 
 type Props = {
   open: boolean;
@@ -19,14 +18,14 @@ export function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: Props)
       size="sm"
       title="회원탈퇴"
     >
-      <Stack gap="4">
-        <Typography as="h2" variant="heading9">
-          회원탈퇴를 진행 하시겠습니까?
-        </Typography>
-        <Typography as="p" variant="body3">
-          탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다.
-        </Typography>
-      </Stack>
+      <ContentHeader
+        gap="4"
+        titleAs="h2"
+        title="회원탈퇴를 진행 하시겠습니까?"
+        titleProps={{ variant: 'heading9' }}
+        description="탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다."
+        descriptionProps={{ variant: 'body3' }}
+      />
     </ConfirmDialog>
   );
 }

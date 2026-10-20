@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
@@ -43,12 +44,14 @@ export function SignupCompleteStep({ name }: { name: string }) {
       aria-labelledby="complete-title"
     >
       <span aria-hidden="true">✓</span>
-      <Typography as="h2" variant="heading7" id="complete-title">
-        회원가입이 완료되었습니다.
-      </Typography>
-      <Typography as="p" variant="body4" tone="tertiary" className={css({ mt: '3', mb: '0' })}>
-        {name}님, HOKA 멤버십에 오신 것을 환영합니다.
-      </Typography>
+      <ContentHeader
+        gap="3"
+        titleAs="h2"
+        title="회원가입이 완료되었습니다."
+        titleProps={{ variant: 'heading7', id: 'complete-title' }}
+        description={<>{name}님, HOKA 멤버십에 오신 것을 환영합니다.</>}
+        descriptionProps={{ variant: 'body4', tone: 'tertiary' }}
+      />
       <Link className={styles.primary} href="/login">
         <Typography as="span" variant="cta1" tone="inverse">
           로그인하러 가기

@@ -1,5 +1,6 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
@@ -38,19 +39,17 @@ export function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
     >
       <Stack gap="4">
         {mvnoCarriers.map((carrier, index) => (
-          <Stack
+          <ContentHeader
             key={carrier.title}
             gap="3"
             pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
             className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
-          >
-            <Typography as="h2" variant="body3">
-              {carrier.title}
-            </Typography>
-            <Typography as="p" variant="body4">
-              {carrier.names}
-            </Typography>
-          </Stack>
+            titleAs="h2"
+            title={<>{carrier.title}</>}
+            titleProps={{ variant: 'body3' }}
+            description={<>{carrier.names}</>}
+            descriptionProps={{ variant: 'body4' }}
+          />
         ))}
       </Stack>
     </SingleActionDialog>

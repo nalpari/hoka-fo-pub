@@ -1,3 +1,4 @@
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -15,16 +16,15 @@ const phoneLink = css({ _mobile: { textDecoration: 'underline', textUnderlineOff
 
 export function SupportContactCard({ title, description, phone, phoneHref }: Props) {
   return (
-    <Stack
+    <ContentSection
       bg="black.10"
       minH="193px"
       p="8"
       gap="6"
       _mobile={{ minH: '0', px: '4', pt: '5', pb: '6', gap: '5' }}
+      title={<>{title}</>}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
     >
-      <Typography as="h2" web="heading8" mo="heading7">
-        {title}
-      </Typography>
       <Stack gap="4" _mobile={{ gap: '3' }}>
         <Typography as="p" web="body3" mo="body4">
           {description}
@@ -38,6 +38,6 @@ export function SupportContactCard({ title, description, phone, phoneHref }: Pro
           </Link>
         </HStack>
       </Stack>
-    </Stack>
+    </ContentSection>
   );
 }

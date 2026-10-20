@@ -1,10 +1,10 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 import type { CheckoutRow } from './checkout-summary';
 import { CouponProductItem } from './CouponProductItem';
 import { CartCouponOptions } from './CartCouponOptions';
@@ -46,7 +46,7 @@ export function CouponDialog({
   );
 
   return (
-    <ModalDialog
+    <SingleActionDialog
       open={open}
       onOpenChange={(next) => {
         if (!next) {
@@ -59,49 +59,47 @@ export function CouponDialog({
       closeLabel="쿠폰 닫기"
       size="sm"
       mobilePresentation="fullscreen"
-      footer={
-        <Button
-          variant="primary"
-          size="short"
-          fullWidth
-          onClick={() => {
-            onApply(discount);
-            setApplied({ selected, cartCoupon });
-            onOpenChange(false);
-          }}
-        >
-          쿠폰 적용하기
-        </Button>
-      }
+      confirmLabel="쿠폰 적용하기"
+      onConfirm={() => {
+        onApply(discount);
+        setApplied({ selected, cartCoupon });
+        onOpenChange(false);
+      }}
     >
       <Stack gap="6">
-        <Typography as="h2" variant="body3" weight="semibold">
-          상품 쿠폰
-        </Typography>
-        {rows.map(({ item, product }) => {
-          const key = `${item.id}-${item.color}-${item.width}-${item.size}`;
-          return (
-            <CouponProductItem
-              key={key}
-              item={item}
-              product={product}
-              expanded={expanded === key}
-              selected={selected[key] ?? '0'}
-              onExpandedChange={(open) => setExpanded(open ? key : null)}
-              onSelect={(value) => setSelected({ ...selected, [key]: value })}
-            />
-          );
-        })}
-        <Typography as="h2" variant="body3" weight="semibold">
-          장바구니 쿠폰
-        </Typography>
-        <CartCouponOptions
-          value={cartCoupon}
-          onValueChange={setCartCoupon}
-          eligible={total - productDiscount >= 50000}
-        />
+        <ContentSection
+          gap="6"
+          title="상품 쿠폰"
+          headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'semibold' } }}
+        >
+          {rows.map(({ item, product }) => {
+            const key = `${item.id}-${item.color}-${item.width}-${item.size}`;
+            return (
+              <CouponProductItem
+                key={key}
+                item={item}
+                product={product}
+                expanded={expanded === key}
+                selected={selected[key] ?? '0'}
+                onExpandedChange={(open) => setExpanded(open ? key : null)}
+                onSelect={(value) => setSelected({ ...selected, [key]: value })}
+              />
+            );
+          })}
+        </ContentSection>
+        <ContentSection
+          gap="6"
+          title="장바구니 쿠폰"
+          headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'semibold' } }}
+        >
+          <CartCouponOptions
+            value={cartCoupon}
+            onValueChange={setCartCoupon}
+            eligible={total - productDiscount >= 50000}
+          />
+        </ContentSection>
         <CouponAmountSummary total={total} discount={discount} />
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }

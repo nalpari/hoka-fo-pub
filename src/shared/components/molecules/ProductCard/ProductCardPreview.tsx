@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
+import { PromotionBadge } from '@/shared/components/atoms/Badge/PromotionBadge';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { ProductDetails } from '@/shared/components/molecules/ProductDetails/ProductDetails';
@@ -70,13 +71,7 @@ export function ProductCardPreview({ product }: { product: Product }) {
           onSelect={setSelectedColorId}
         />
       )}
-      <Box minH="20px">
-        {product.promotion && (
-          <Typography variant="body4" tone="red80">
-            {product.promotion}
-          </Typography>
-        )}
-      </Box>
+      <Box minH="20px">{product.promotion && <PromotionBadge promotion={product.promotion} />}</Box>
       <HStack alignItems="center" gap="2">
         <RatingStars value={product.rating} aria-label={`평점 ${product.rating}점`} />
         <Typography variant="body5" tone="subtle">

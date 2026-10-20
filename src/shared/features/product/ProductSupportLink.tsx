@@ -1,6 +1,7 @@
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
-import { Grid, Stack } from 'styled-system/jsx';
+import { Grid } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const supportLink = css({
@@ -25,14 +26,14 @@ export function ProductSupportLink({ title, description, label, to }: Props) {
       gap="5"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
     >
-      <Stack gap="2">
-        <Typography as="h4" variant="body5" weight="bold">
-          {title}
-        </Typography>
-        <Typography as="p" variant="body5" tone="tertiary">
-          {description}
-        </Typography>
-      </Stack>
+      <ContentHeader
+        gap="2"
+        titleAs="h4"
+        title={<>{title}</>}
+        titleProps={{ variant: 'body5', weight: 'bold' }}
+        description={<>{description}</>}
+        descriptionProps={{ variant: 'body5', tone: 'tertiary' }}
+      />
       <Link href={to} className={supportLink}>
         <Typography variant="body5" weight="medium">
           {label}

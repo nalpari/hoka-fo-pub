@@ -5,6 +5,26 @@ export default defineConfig({
   preflight: false,
   include: ['./src/**/*.{ts,tsx,js,jsx}'],
   exclude: ['./src/**/*.stories.{ts,tsx}'],
+  patterns: {
+    extend: {
+      contentFrame: {
+        description:
+          'Central desktop content width with caller-owned mobile width and positioning.',
+        properties: {
+          mobileWidth: { type: 'property', value: 'width' },
+        },
+        transform(props) {
+          const { mobileWidth, ...styles } = props;
+
+          return {
+            w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
+            ...(mobileWidth !== undefined ? { _mobile: { w: mobileWidth } } : {}),
+            ...styles,
+          };
+        },
+      },
+    },
+  },
   conditions: {
     extend: {
       // User-agent platform selection adds this class at the application root.

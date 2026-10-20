@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
-import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
 import type { SystemStyleObject } from 'styled-system/types';
-import { Typography, type TypographyTone } from '@/shared/components/atoms/Typography/Typography';
+import type { TypographyTone } from '@/shared/components/atoms/Typography/Typography';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 
 type Props = {
   title: ReactNode;
@@ -21,15 +20,13 @@ export function AccountFormHeader({
   spacingCss,
 }: Props) {
   return (
-    <Box className={css({ display: 'flex', flexDirection: 'column', gap: '3' }, spacingCss)}>
-      <Typography as="h1" web="heading7" mo="heading5" id={titleId}>
-        {title}
-      </Typography>
-      {description ? (
-        <Typography as="p" variant="body3" tone={descriptionTone}>
-          {description}
-        </Typography>
-      ) : null}
-    </Box>
+    <ContentHeader
+      title={title}
+      titleAs="h1"
+      titleProps={{ web: 'heading7', mo: 'heading5', id: titleId }}
+      description={description}
+      descriptionProps={{ variant: 'body3', tone: descriptionTone }}
+      css={spacingCss}
+    />
   );
 }

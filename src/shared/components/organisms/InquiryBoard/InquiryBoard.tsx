@@ -2,9 +2,9 @@
 
 import { useId, useState, type ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Grid, Flex } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { InquiryBoardHeader } from './InquiryBoardHeader';
+import { InquiryBoardContent } from './InquiryBoardContent';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type InquiryMetadata = {
@@ -36,11 +36,6 @@ export type InquiryBoardProps = {
 
 const styles = {
   root: css({ w: '100%', minW: 0 }),
-  checkbox: css({
-    gap: '8px',
-    color: 'var(--color-text-tertiary)',
-    '& [role="checkbox"]': { w: '18px', h: '18px' },
-  }),
   item: css({ borderBottom: '1px solid var(--color-border-default)' }),
   trigger: css({
     textAlign: 'left',
@@ -140,28 +135,14 @@ export function InquiryBoard({
       aria-labelledby={headingId}
       className={[styles.root, className].filter(Boolean).join(' ')}
     >
-      <Flex
-        alignItems="center"
-        justifyContent="space-between"
-        gap="4"
-        pb="5"
-        borderBottom="1px solid var(--color-black-100)"
-        _mobile={{ flexWrap: 'wrap' }}
-      >
-        <Flex alignItems="center" flexWrap="wrap" gap="5" _mobile={{ gap: '3' }}>
-          <Typography as="h3" id={headingId} variant="body2" weight="bold">
-            {title}({items.length})
-          </Typography>
-          <Checkbox
-            label="비밀글 제외"
-            labelVariant="body4"
-            className={styles.checkbox}
-            checked={excludePrivate}
-            onCheckedChange={setExcludePrivate}
-          />
-        </Flex>
-        {action}
-      </Flex>
+      <InquiryBoardHeader
+        headingId={headingId}
+        title={title}
+        count={items.length}
+        excludePrivate={excludePrivate}
+        onExcludePrivateChange={setExcludePrivate}
+        action={action}
+      />
       {visibleItems.length ? (
         <Accordion
           multiple={false}
@@ -173,28 +154,7 @@ export function InquiryBoard({
           items={visibleItems.map((item) => ({
             value: item.id,
             title: <InquirySubject item={item} />,
-            content:
-              item.visibility === 'restricted' ? (
-                <Typography as="p" variant="body4">
-                  비공개글은 작성자 본인만 확인할 수 있습니다.
-                </Typography>
-              ) : (
-                <>
-                  <Typography as="div" variant="body4">
-                    {item.content}
-                  </Typography>
-                  {item.answer != null && (
-                    <Grid mt="24px" gap="8px">
-                      <Typography variant="body4" weight="bold">
-                        답변
-                      </Typography>
-                      <Typography as="div" variant="body4">
-                        {item.answer}
-                      </Typography>
-                    </Grid>
-                  )}
-                </>
-              ),
+            content: <InquiryBoardContent item={item} />,
           }))}
         />
       ) : (

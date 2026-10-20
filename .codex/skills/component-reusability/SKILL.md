@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse, form-field composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
+description: Audit and improve React component reuse, form-field and content-header composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
 ---
 
 # Component Reusability
@@ -20,6 +20,10 @@ For form-field surveys or migrations, read [the form-field workflow](references/
 Use [the repository survey and migration record](../../../okf/architecture/form-fields.md) for concrete consumers, API boundaries, and preservation constraints. Confirm the current implementation before applying its findings. An audit request or a skill-only update does not authorize source migration; an explicit migration request uses the scope already established with the user.
 
 ## HTML and JSX selection
+
+For heading groups and their related content, also apply [the content-header workflow](references/content-sections.md). Ordinary single-title headings use `ContentHeader` too. Prefer `ContentSection`'s `title`/`headerProps` default header when assembling a titled region; reserve its `header` node for structures the default header cannot express.
+
+For actions that finish a titled region, use the optional `ContentSection.footer` slot when form ownership and spacing remain intact. The same workflow covers footer candidates, layout adapters, and existing modal/card/fixed-action exclusions; inspect the button's actual role rather than treating every visually low button as a footer.
 
 Apply this decision order in both audits and migrations:
 

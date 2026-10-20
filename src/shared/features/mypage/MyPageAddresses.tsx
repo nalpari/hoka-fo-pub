@@ -1,5 +1,6 @@
 'use client';
 
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Badge } from '@/shared/components/atoms/Badge/Badge';
@@ -179,10 +180,14 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
           </Button>
         </Stack>
       ) : (
-        <Stack gap="5" px="4" pt="6" pb="16">
-          <Typography as="h1" web="heading8" mo="heading5">
-            {editingId === 'new' ? '배송지 추가' : '배송지 수정'}
-          </Typography>
+        <ContentSection
+          gap="5"
+          px="4"
+          pt="6"
+          pb="16"
+          title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
+          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
+        >
           <form
             noValidate
             onSubmit={(event) => {
@@ -331,7 +336,7 @@ export function MyPageAddresses({ initialItems = initialAddresses }: { initialIt
               )}
             </Stack>
           </form>
-        </Stack>
+        </ContentSection>
       )}
       <MyPageAddressDeleteDialog
         open={deleteId !== null}

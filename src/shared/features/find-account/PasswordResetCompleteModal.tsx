@@ -1,5 +1,5 @@
-import { Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 
 type PasswordResetCompleteModalProps = {
@@ -20,14 +20,14 @@ export function PasswordResetCompleteModal({
       closeLabel="비밀번호 변경 완료 안내 닫기"
       size="md"
     >
-      <Stack gap="4">
-        <Typography as="h2" variant="body2">
-          비밀번호 변경완료
-        </Typography>
-        <Typography as="p" variant="body4">
-          비밀번호 변경이 완료되었습니다.
-        </Typography>
-      </Stack>
+      <ContentHeader
+        gap="4"
+        titleAs="h2"
+        title="비밀번호 변경완료"
+        titleProps={{ variant: 'body2' }}
+        description="비밀번호 변경이 완료되었습니다."
+        descriptionProps={{ variant: 'body4' }}
+      />
     </SingleActionDialog>
   );
 }

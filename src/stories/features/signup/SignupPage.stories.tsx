@@ -1,44 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { SignupPage } from '@/shared/features/signup/SignupPage';
+import type { StoryObj } from '@storybook/react';
+import base, * as scenarios from './SignupPage.scenarios';
 
 const meta = {
-  title: 'Pages/Signup',
-  component: SignupPage,
-  decorators: [
-    (Story, context) => {
-      const platform = context.parameters.platform === 'mobile' ? 'mobile' : 'web';
-
-      return (
-        <PlatformProvider platform={platform}>
-          <div className={`platform-${platform}`}>
-            <Story />
-          </div>
-        </PlatformProvider>
-      );
-    },
-  ],
-  parameters: { nextjs: { navigation: { pathname: '/signup' } }, layout: 'fullscreen' },
-} satisfies Meta<typeof SignupPage>;
+  ...base,
+  title: 'PAGES/Signup/Signup/Web',
+  globals: { viewport: 'hoka1600' },
+};
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = { ...scenarios.Default, name: 'Default' };
 
-export const Mobile: Story = {
-  parameters: { layout: 'fullscreen', platform: 'mobile' },
-  globals: { viewport: 'hoka375' },
-};
-
-export const KakaoUnavailable: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: '카카오 계정으로 신규가입' }));
-    await expect(within(canvasElement.ownerDocument.body).getByRole('dialog')).toHaveTextContent(
-      '카카오 회원가입 기능은 현재 연결되지 않았습니다.',
-    );
-  },
-};
+export const KakaoUnavailable: Story = { ...scenarios.KakaoUnavailable, name: 'Kakao Unavailable' };

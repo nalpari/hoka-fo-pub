@@ -1,4 +1,6 @@
-import { HStack, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -18,15 +20,26 @@ type CouponCardProps = {
 
 export function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <Stack as="article" border="1px solid var(--colors-black-20)" gap="6" px="4" py="6">
-      <HStack justifyContent="space-between" alignItems="flex-start">
-        <Typography as="h3" variant="heading6">
-          {coupon.name}
-        </Typography>
-        <Button size="sm" variant="link" onClick={() => onDetails(coupon)}>
-          상세보기
-        </Button>
-      </HStack>
+    <ContentSection
+      as="article"
+      border="1px solid var(--colors-black-20)"
+      gap="6"
+      px="4"
+      py="6"
+      title={coupon.name}
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '8px',
+        css: css.raw({ alignItems: 'flex-start' }),
+        titleAs: 'h3',
+        titleProps: { variant: 'heading6' },
+        action: (
+          <Button size="sm" variant="link" onClick={() => onDetails(coupon)}>
+            상세보기
+          </Button>
+        ),
+      }}
+    >
       <Stack gap="3">
         <Typography variant="heading7">{coupon.benefit}</Typography>
         <Stack gap="1">
@@ -36,6 +49,6 @@ export function CouponCard({ coupon, onDetails }: CouponCardProps) {
           </Typography>
         </Stack>
       </Stack>
-    </Stack>
+    </ContentSection>
   );
 }
