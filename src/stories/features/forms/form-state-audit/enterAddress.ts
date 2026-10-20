@@ -1,8 +1,8 @@
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
-export async function enterAddress(canvasElement: HTMLElement) {
+export async function enterAddress(canvasElement: HTMLElement, buttonName = '우편번호 찾기') {
   const c = within(canvasElement);
-  await userEvent.click(c.getByRole('button', { name: '우편번호 찾기' }));
+  await userEvent.click(c.getByRole('button', { name: buttonName }));
   const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog');
   const fields = within(dialog);
   await userEvent.click(fields.getByRole('button', { name: '확인' }));

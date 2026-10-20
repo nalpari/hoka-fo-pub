@@ -1,18 +1,9 @@
 import { AccountFormHeader } from '@/shared/components/molecules/AccountFormHeader/AccountFormHeader';
 import { css } from 'styled-system/css';
-import { Box, Center, Grid, Stack } from 'styled-system/jsx';
+import { Box, Grid } from 'styled-system/jsx';
 import { AccountPageLayout } from '@/shared/components/layouts/AccountPageLayout/AccountPageLayout';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-
-const styles = {
-  illustration: css({
-    border: '1px solid var(--color-black-20)',
-    color: 'text.primary',
-    '& > img': { w: '80px!', h: '80px!' },
-  }),
-};
+import { VerificationMethodCard } from './VerificationMethodCard';
 
 export type VerificationMethod = 'phone' | 'ipin';
 
@@ -23,7 +14,7 @@ type IdentityVerificationContentProps = {
 export function IdentityVerificationContent({ onSelect }: IdentityVerificationContentProps) {
   return (
     <AccountPageLayout
-      contentWidth="420px"
+      contentWidth="500px"
       contentAs="section"
       contentLabelledBy="verification-title"
       fillMobileViewport
@@ -43,19 +34,7 @@ export function IdentityVerificationContent({ onSelect }: IdentityVerificationCo
             { id: 'ipin', label: '아이핀 인증', iconName: 'ipinVerification' },
           ] as const
         ).map((method) => (
-          <Stack key={method.id} gap="6" minW="0">
-            <Center
-              h="160px"
-              position="relative"
-              className={styles.illustration}
-              aria-hidden="true"
-            >
-              <Icon name={method.iconName} size="80px" />
-            </Center>
-            <Button variant="primary" fullWidth onClick={() => onSelect(method.id)}>
-              {method.label}
-            </Button>
-          </Stack>
+          <VerificationMethodCard key={method.id} method={method} onSelect={onSelect} />
         ))}
       </Grid>
       <Box mt="4">

@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 
 type Props = {
   title: string;
@@ -29,9 +31,7 @@ export function SupportContactCard({ title, description, phone, phoneHref }: Pro
           {description}
         </Typography>
         <HStack gap="1">
-          <Typography web="body1" mo="body4">
-            TEL.
-          </Typography>
+          <Icon fontAwesomeIcon={faPhone} size="18px" />
           <Link className={phoneLink} href={phoneHref}>
             <Typography web="body1" mo="cta2">
               {phone}

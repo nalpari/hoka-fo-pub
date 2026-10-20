@@ -1,6 +1,8 @@
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ShopShell } from '@/shared/ShopShell';
 import { SupportPage } from '@/shared/features/support/SupportPage';
+import { SizeGuidePage } from '@/shared/features/size-guide/SizeGuidePage';
 import { FaqPage } from '@/shared/features/faq/FaqPage';
 import { NoticesPage } from '@/shared/features/notices/NoticesPage';
 import { NoticeDetailPage } from '@/shared/features/notices/NoticeDetailPage';
@@ -8,7 +10,6 @@ import { InquiryPage } from '@/shared/features/support/InquiryPage';
 import { InquiryNewPage } from '@/shared/features/support/InquiryNewPage';
 import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
 import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
-import { TeamwearPage } from '@/shared/features/teamwear/TeamwearPage';
 import { CareGuidePage } from '@/shared/features/care-guide/CareGuidePage';
 import { TermsPage } from '@/shared/features/terms/TermsPage';
 import { SupportExperiencePage } from '@/shared/features/support/SupportExperiencePage';
@@ -30,9 +31,58 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const verifyTerms: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const trigger = canvas.getByRole('button', { name: '약관 시행일 선택' });
+  await userEvent.click(trigger);
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  await userEvent.keyboard('{Escape}');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await waitFor(() => expect(trigger).toHaveFocus());
+  await userEvent.click(trigger);
+  await userEvent.click(
+    within(canvasElement.ownerDocument.body).getByRole('radio', { name: '2026.02.01' }),
+  );
+  await expect(trigger).toHaveTextContent('2026. 02. 01');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+};
+
+const verifyNotices: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const list = within(canvas.getByRole('region', { name: '공지사항 목록' }));
+  const first = list.getByRole('button', { name: /네이버페이 9월/ });
+  const second = list.getByRole('button', { name: /광복절/ });
+  await userEvent.click(second);
+  await expect(second).toHaveAttribute('aria-expanded', 'true');
+  await expect(first).toHaveAttribute('aria-expanded', 'false');
+  await expect(list.getByText(/광복절 고객센터 운영 안내 상세/)).toBeVisible();
+  await userEvent.tab({ shift: true });
+  await waitFor(() => expect(first).toHaveFocus());
+};
+
 export const Desktop: Story = {
   name: 'Desktop / 1600px',
   globals: { viewport: 'hoka1600' },
+};
+
+export const SizeGuideDesktop: Story = {
+  render: () => (
+    <ShopShell platform="web">
+      <SizeGuidePage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/size-guide' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const SizeGuideMobile375: Story = {
+  render: () => (
+    <ShopShell platform="mobile">
+      <SizeGuidePage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/size-guide' } } },
+  globals: { viewport: 'hoka375' },
 };
 
 export const Mobile375: Story = {
@@ -65,6 +115,7 @@ export const FaqMobile375: Story = {
 };
 
 export const NoticesDesktop: Story = {
+  play: verifyNotices,
   name: 'Notices / Desktop',
   render: () => (
     <ShopShell platform="web">
@@ -76,6 +127,7 @@ export const NoticesDesktop: Story = {
 };
 
 export const NoticesMobile375: Story = {
+  play: verifyNotices,
   name: 'Notices / Mobile / 375px',
   render: () => (
     <ShopShell platform="mobile">
@@ -131,6 +183,17 @@ export const InquiryNewMobile375: Story = {
     nextjs: { navigation: { pathname: '/support/inquiries/new' } },
   },
   globals: { viewport: 'hoka375' },
+};
+
+export const InquiryNewDesktop: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
 };
 
 export const InquiryPendingDesktop: Story = {
@@ -213,28 +276,6 @@ export const StoreFinderMobile375: Story = {
   globals: { viewport: 'hoka375' },
 };
 
-export const TeamwearDesktop: Story = {
-  name: 'Teamwear / Desktop',
-  render: () => (
-    <ShopShell platform="web">
-      <TeamwearPage />
-    </ShopShell>
-  ),
-  parameters: { nextjs: { navigation: { pathname: '/support/teamwear' } } },
-  globals: { viewport: 'hoka1600' },
-};
-
-export const TeamwearMobile375: Story = {
-  name: 'Teamwear / Mobile / 375px',
-  render: () => (
-    <ShopShell platform="mobile">
-      <TeamwearPage />
-    </ShopShell>
-  ),
-  parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/teamwear' } } },
-  globals: { viewport: 'hoka375' },
-};
-
 export const CareGuideDesktop: Story = {
   name: 'Care Guide / Desktop',
   render: () => (
@@ -258,6 +299,7 @@ export const CareGuideMobile375: Story = {
 };
 
 export const TermsDesktop: Story = {
+  play: verifyTerms,
   name: 'Terms / Desktop',
   render: () => (
     <ShopShell platform="web">
@@ -269,6 +311,7 @@ export const TermsDesktop: Story = {
 };
 
 export const TermsMobile375: Story = {
+  play: verifyTerms,
   name: 'Terms / Mobile / 375px',
   render: () => (
     <ShopShell platform="mobile">
@@ -288,4 +331,26 @@ export const MemberBenefitsDesktop: Story = {
   ),
   parameters: { nextjs: { navigation: { pathname: '/support/member-benefits' } } },
   globals: { viewport: 'hoka1600' },
+};
+
+export const MileageDesktop: Story = {
+  name: 'Mileage / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <SupportExperiencePage kind="mileage" />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/mileage' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const MileageMobile375: Story = {
+  ...MileageDesktop,
+  name: 'Mileage / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <SupportExperiencePage kind="mileage" />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka375' },
 };

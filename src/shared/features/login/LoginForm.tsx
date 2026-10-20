@@ -8,6 +8,7 @@ import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { LoginActions } from '@/shared/features/login/LoginActions';
+import { RememberIdHelp } from '@/shared/features/login/RememberIdHelp';
 
 const rememberIdCheckbox = css({ gap: '2', flexShrink: '0' });
 
@@ -80,13 +81,16 @@ export function LoginForm({
           />
         </FormField>
         <HStack justifyContent="space-between" gap="2" minH="6">
-          <Checkbox
-            className={rememberIdCheckbox}
-            label="아이디 저장"
-            labelVariant="body4"
-            checked={rememberId}
-            onCheckedChange={onRememberChange}
-          />
+          <HStack gap="2">
+            <Checkbox
+              className={rememberIdCheckbox}
+              label="아이디 저장"
+              labelVariant="body4"
+              checked={rememberId}
+              onCheckedChange={onRememberChange}
+            />
+            <RememberIdHelp />
+          </HStack>
           <Button variant="link" size="md" onClick={onFindAccount}>
             <Typography as="span" variant="body4">
               아이디/비밀번호 찾기
