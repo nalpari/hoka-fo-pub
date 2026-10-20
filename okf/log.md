@@ -2,6 +2,14 @@
 
 ## 2026-10-20
 
+- **Docs**: form-fields 조사와 실제 이관의 차이를 component-reusability 스킬에 반영했다. 폼 필드 작업용 참조에 조사 범위·공통화 경계·native 속성·검증/상태 소유권·이관 검증 기준을 추가하고 SKILL.md에서 연결했다. skill-creator 검증기·문서 포맷·diff·OKF 누락 검사를 통과했다.
+
+- **Refactor**: TextFormField와 의미별 필드·시간/글자수/동의 표시, split 이메일을 공용화하고 기존 소스 19파일을 이관했다. 마이페이지 주소도 AddressFields separated에 연결하며 검증·native 속성·FormData·부모 상태를 보존했다. 타입·변경 린트/포맷·Next/Storybook 빌드·40개 테스트·PC/MO 18쌍 좌표/속성 비교·Storybook play 22개·별도 동작 9개를 확인했다.
+
+- **Refactor**: 결제·회원가입의 주소 필드와 찾기 모달 연결을 AddressFields/AddressField로 공통화했다. compact/boxed의 스타일·제어/비제어·disabled/readOnly·FormData·부모 상태를 유지했다. 타입·린트/포맷·Panda·Next/Storybook 빌드·40개 테스트와 변경 전후 PC/MO 필드 좌표/속성·주소 반영/유지 및 회원가입 회귀 4개를 확인했다.
+
+- **Audit**: src TSX 666개와 TS 47개의 폼 필드 참조를 전수 조사했다. 이름·전화번호·비밀번호·인증번호의 우선 공통화, 이메일/생년월일/textarea/수신 동의 후보와 기존 컨트롤 유지 판단·검증 차이를 [조사 보고서](architecture/form-fields.md)에 기록했다. 이 항목은 후속 이관 이전의 조사 기록이다.
+
 - **Refactor**: 선택된 결제·쿠폰·계정 찾기·본인/휴대폰 인증·리뷰 정렬/건수·공지·상품 고객센터·문의·고객센터 메인 영역을 feature 내부 컴포넌트 29개로 분리했다. 기존 상태·콜백·DOM·반응형 스타일을 유지한다. 타입·린트/포맷·42개 테스트·Panda·Next/Storybook 빌드와 PC/MO 32개 Storybook 사례 및 상품 고객센터 펼침을 확인했다.
 
 - **Update**: 팀/단체복 화면을 Mockup으로 이동하고 운영 라우트·고객센터 메뉴·IA 215를 제거했다. 사이즈 가이드 메뉴·/support/size-guide·IA 260과 PC/MO Storybook을 준비하고 공통 제목·탐색 외 본문은 비워 두었다. 실제 경로의 신규 화면 200·삭제 경로 404와 IA 검색 결과를 확인했다.

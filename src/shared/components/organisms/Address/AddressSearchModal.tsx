@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 
 export type AddressSearchModalProps = {
   open: boolean;
@@ -52,38 +52,34 @@ export function AddressSearchModal({
         <Typography as="p" variant="body4">
           주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
         </Typography>
-        <FormField
+        <TextFormField
           variant="boxed"
-          htmlFor={postalCodeId}
+          id={postalCodeId}
           label="우편번호"
           required
           error={submitted && !postalCode.trim() ? '우편번호를 입력해 주세요.' : undefined}
-        >
-          <TextInput
-            id={postalCodeId}
-            type="text"
-            value={postalCode}
-            placeholder="우편번호를 입력해주세요"
-            autoComplete="off"
-            onChange={(event) => onPostalCodeChange(event.target.value)}
-          />
-        </FormField>
-        <FormField
+          inputProps={{
+            type: 'text',
+            value: postalCode,
+            placeholder: '우편번호를 입력해주세요',
+            autoComplete: 'off',
+            onChange: (event) => onPostalCodeChange(event.target.value),
+          }}
+        />
+        <TextFormField
           variant="boxed"
-          htmlFor={addressId}
+          id={addressId}
           label="주소"
           required
           error={submitted && !address.trim() ? '주소를 입력해 주세요.' : undefined}
-        >
-          <TextInput
-            id={addressId}
-            type="text"
-            value={address}
-            placeholder="주소를 입력해주세요"
-            autoComplete="off"
-            onChange={(event) => onAddressChange(event.target.value)}
-          />
-        </FormField>
+          inputProps={{
+            type: 'text',
+            value: address,
+            placeholder: '주소를 입력해주세요',
+            autoComplete: 'off',
+            onChange: (event) => onAddressChange(event.target.value),
+          }}
+        />
       </Stack>
     </SingleActionDialog>
   );

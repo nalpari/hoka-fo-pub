@@ -2,8 +2,9 @@ import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDi
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Stack } from 'styled-system/jsx';
 import { RatingStars, type RatingValue } from '@/shared/components/atoms/RatingStars/RatingStars';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
+import { TextareaField } from '@/shared/components/molecules/FormFields/TextareaField';
 
 type Props = {
   open: boolean;
@@ -48,19 +49,17 @@ export function MyPageReviewDialog({
         >
           <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
         </FormField>
-        <FormField
-          htmlFor="review-body"
+        <TextareaField
+          id="review-body"
           error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
-        >
-          <TextInput
-            id="review-body"
-            aria-label="리뷰 내용"
-            multiline
-            placeholder="상품 사용 경험을 입력해 주세요"
-            value={body}
-            onChange={(event) => onBodyChange(event.target.value)}
-          />
-        </FormField>
+          inputProps={{
+            'aria-label': '리뷰 내용',
+            multiline: true,
+            placeholder: '상품 사용 경험을 입력해 주세요',
+            value: body,
+            onChange: (event) => onBodyChange(event.target.value),
+          }}
+        />
         {invalid ? (
           <Typography variant="body5" tone="error">
             별점과 리뷰 내용을 입력해 주세요.
