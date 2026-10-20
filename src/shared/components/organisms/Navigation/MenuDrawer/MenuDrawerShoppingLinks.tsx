@@ -68,7 +68,7 @@ export function MenuDrawerShoppingLinks({
         {items.map((item) => {
           const content = (
             <>
-              <Typography variant="heading5">{item.label}</Typography>
+              <Typography variant="navigationHeading">{item.label}</Typography>
               {item.type === 'category' || item.showChevron ? (
                 <Icon fontAwesomeIcon={faChevronRight} size="14px" aria-hidden="true" />
               ) : null}

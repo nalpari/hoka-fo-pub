@@ -1,0 +1,45 @@
+import { css } from 'styled-system/css';
+import { Stack, Flex } from 'styled-system/jsx';
+import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+import type { RunClubSession } from './runClub.data';
+import { RunClubBadge } from './RunClubBadge';
+
+export function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
+  return (
+    <ContentSection
+      gap="8"
+      _mobile={{ px: '4' }}
+      header={
+        <Stack gap="3.5" _mobile={{ gap: '2' }}>
+          <Flex justifyContent="flex-start">
+            <RunClubBadge category={session.category} />
+          </Flex>
+          <ContentHeader
+            gap="4"
+            _mobile={{ gap: '2' }}
+            titleAs="h2"
+            title={<>{session.title}</>}
+            titleProps={{ variant: 'heading6', mo: 'body1', weight: 'black' }}
+            description={
+              <>
+                {session.schedule} | {session.location} {session.distance}
+              </>
+            }
+            descriptionProps={{ variant: 'body3', mo: 'body4' }}
+          />
+        </Stack>
+      }
+      footer={
+        <ButtonLink
+          href={`/running/run-club/${session.id}`}
+          variant="primary"
+          className={css({ _mobile: { display: 'none' } })}
+        >
+          자세히 보기
+        </ButtonLink>
+      }
+    />
+  );
+}

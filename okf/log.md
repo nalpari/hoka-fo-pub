@@ -2,6 +2,28 @@
 
 ## 2026-10-20
 
+- **Merge**: 폼 라벨 변경 병합의 5개 충돌 파일을 해결했다. 최신 쿠폰 ContentSection·공통 Divider·SystemStatusPage 구성을 유지하고 formLabel body4 및 부가정보 제목 mo heading7 변경과 양쪽 문서 이력을 통합했다. [통합 기준](architecture/ui.md#폼-라벨-변경-병합-충돌-해결-2026-10-20)을 참고한다.
+
+- **Refactor**: 약관 시행일 선택을 TermsDateSelect로 분리하고 반복되는 장식용 가로 구분선을 공통 Divider의 세 variant로 정리했다. 기존 간격·모바일 조건·Popover/Radio 동작을 유지했다. [구성 계약](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 참고한다.
+
+- **Update**: 고객센터 첨부 시안을 대조해 SUPPORT 사이드 제목, FAQ 필터/구분선/모바일 간격, 공지의 PC 펼침·모바일 상세 이동, 문의 첨부 미리보기·답변 패널, 모바일 지도 비율을 정리했다. 세탁 안내와 약관 문서를 기능 내부 컴포넌트로 나누고 공통 Dialog·Carousel·ContentSection·PageActionButton을 재사용했다. [고객센터 시안 반영 기록](architecture/support-design.md)을 참고한다.
+
+- **Refactor**: CustomerCenterLayout의 main·Breadcrumb·중앙 본문을 PageFrame으로 추출했다. 다른 메뉴에서 선택적 Breadcrumb과 children으로 재사용할 수 있고 고객센터의 기존 PC·모바일 구조와 스타일을 유지한다. [공통 프레임](architecture/ui.md#페이지-공통-프레임-2026-10-20)을 참고한다.
+
+- **Fix**: 홍보 배너의 PC 메인 한정 조건을 제거하고 모바일 검색을 포함한 PC·모바일 모든 페이지에 표시하도록 수정했다. [UI 노출 계약](architecture/ui.md#홍보-배너-전체-페이지-노출-2026-10-20)과 [시안 반영 기록](architecture/storefront-design.md)을 사용자 요구에 맞췄다.
+
+- **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
+
+- **Merge**: UI 코드 3파일과 UI 문서의 충돌을 해결했다. 공통 ContentSection·footer와 들어오는 쿠폰 카드·프로필 편집·404 색상/간격 변경을 통합하고 양쪽 문서 이력을 보존했다. 타입·변경 ESLint·충돌 해결 파일 Prettier·Panda·Next.js 빌드·스테이징 기준 OKF 검사를 통과했다. [UI 통합 기록](architecture/ui.md#ui-병합-충돌-해결-2026-10-20)을 참고한다.
+
+- **Update**: Typography `formLabel`을 body4 스케일로 맞췄다. 체크박스·라디오를 포함한 폼 라벨의 공통 시각 스타일로 사용하며 그룹 제목 구조와는 구분한다고 [UI 기록](architecture/ui.md#typography-formlabel-스케일-2026-10-20)에 명시했다.
+
+- **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 배송/반품 안내의 탭별 패널과 공통 번호·bullet 목록 표현을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#배송-반품-안내-패널과-목록-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 상품 수선 안내를 문의처·처리 절차·FAQ로 분리하고 반복 행을 재사용했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#상품-수선-안내-컴포넌트-분리-2026-10-20)을 갱신했다.
+
 - **Update**: ConfirmDialog에 actionDirection/onCancel API를 추가하고 IdConfirmationModal의 중복 버튼을 통합했다. PC 가로 배치를 유지하고 모바일은 본문 버튼을 세로형 공통 footer로 옮겼다. Vertical/VerticalMobile 스토리와 콜백 검사를 추가하고 [UI 기록](architecture/ui.md#확인-다이얼로그-세로-액션과-아이디-안내-적용-2026-10-20)을 갱신했다.
 
 - **Refactor**: CartOptionsDialog의 수동 footer를 ConfirmDialog로 교체했다. confirmDisabled API와 비활성 예시를 추가해 기존 품절/사이즈 검증·저장·취소·모바일 전체 화면·버튼 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI](architecture/ui.md#장바구니-옵션-확인-다이얼로그-재사용-2026-10-20)·[상태](architecture/state.md#장바구니-옵션-확인-상태-유지-2026-10-20)를 갱신했다.
@@ -103,6 +125,17 @@
 
 ## 2026-10-20
 
+- **Refactor**: CustomerCenterLayout의 main·Breadcrumb·중앙 본문을 PageFrame으로 추출했다. 다른 메뉴에서 선택적 Breadcrumb과 children으로 재사용할 수 있고 고객센터의 기존 PC·모바일 구조와 스타일을 유지한다. [공통 프레임](architecture/ui.md#페이지-공통-프레임-2026-10-20)을 참고한다.
+
+- **Fix**: 홍보 배너의 PC 메인 한정 조건을 제거하고 모바일 검색을 포함한 PC·모바일 모든 페이지에 표시하도록 수정했다. [UI 노출 계약](architecture/ui.md#홍보-배너-전체-페이지-노출-2026-10-20)과 [시안 반영 기록](architecture/storefront-design.md)을 사용자 요구에 맞췄다.
+
+- **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
+
+- **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
+- **Fix**: 임직원 쿠폰 안내의 체크 이미지를 Figma와 같은 Font Awesome Regular `faCircleCheck`로 교체하고 공용 barrel 및 아이콘 Storybook에 추가했다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
+- **Docs**: Font Awesome 아이콘 목록에 `faTriangleExclamation`을 barrel export와 `Atoms/Icon` 카탈로그 스토리로 추가했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Refactor**: `ModalDialog`의 `content`/`singleActionContent` 분기와 `actionCount` prop을 제거했다. 모든 모달 본문을 PC 위·좌우 24px/아래 16px, 모바일 `24px 16px 16px`로 통일하고 `SingleActionDialog` 사용처도 같은 규칙을 쓴다. [UI 기록](architecture/ui.md#모달-본문-패딩-통일-2026-10-20)에 반영했다.
 - **Refactor**: 계정 잠금 안내를 공통 `ModalDialog` 직접 조합으로 변경하고 확인 버튼을 footer에 배치했다. md 크기, 단일 액션 본문 간격과 닫기·확인 이동 콜백을 유지했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.

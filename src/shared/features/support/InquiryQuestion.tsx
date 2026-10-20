@@ -6,9 +6,7 @@ type Props = { item: { title: string; answered: boolean } };
 export function InquiryQuestion({ item }: Props) {
   return (
     <HStack as="span" w="100%" gap={{ base: '4', _mobile: '3' }} alignItems="flex-start">
-      <Typography web="heading7" mo="body2">
-        Q
-      </Typography>
+      <Typography variant="body2">Q</Typography>
       <Stack as="span" gap="3" flex="1" minW="0">
         <Stack as="span" gap="2" alignItems="flex-start">
           <Box

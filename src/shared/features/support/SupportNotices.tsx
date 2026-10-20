@@ -1,6 +1,7 @@
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
-import { Box, Divider } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { SupportNoticeItem } from './SupportNoticeItem';
 
@@ -31,7 +32,7 @@ export function SupportNotices() {
         ),
       }}
     >
-      <Divider aria-hidden="true" orientation="horizontal" h="1px" bg="black.100" />
+      <Divider variant="strong" />
       <Box as="ul" m="0" p="0" listStyleType="none">
         {notices.map((notice, index) => (
           <SupportNoticeItem

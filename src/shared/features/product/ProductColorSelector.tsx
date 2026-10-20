@@ -52,7 +52,6 @@ const styles = {
       borderRadius: '999px',
       pointerEvents: 'none',
     },
-    '& img': { w: '100%', h: '100%', objectFit: 'contain' },
   }),
 };
 
@@ -86,11 +85,23 @@ export function ProductColorSelector({
         options={
           colorThumbnails?.length
             ? colorThumbnails.map((option) => ({
-                label: <img alt={option.label} src={option.image} />,
+                label: (
+                  <img
+                    className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
+                    alt={option.label}
+                    src={option.image}
+                  />
+                ),
                 value: option.label,
               }))
             : colors.map((color, index) => ({
-                label: <img alt={color} src={gallery[index % gallery.length]} />,
+                label: (
+                  <img
+                    className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
+                    alt={color}
+                    src={gallery[index % gallery.length]}
+                  />
+                ),
                 value: color,
               }))
         }

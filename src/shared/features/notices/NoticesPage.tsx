@@ -1,26 +1,15 @@
 'use client';
 
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+
 import { useState } from 'react';
-import { Divider, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { usePlatform } from '@/shared/context/platform';
 import { NoticesList } from './NoticesList';
-
-const notices = [
-  { title: '[공통] 네이버페이 9월 프로모션 안내', date: '2026-08-13' },
-  { title: '[공통] 2026 광복절 고객센터 운영 안내', date: '2026-08-13' },
-  { title: '[공통] 네이버페이 8월 프로모션 안내', date: '2026-08-07' },
-  { title: '[공통] 호카 서비스 전환 안내', date: '2026-07-31' },
-  { title: '[호카] 테크 콤포 디자인 상품 관련 공식 입장', date: '2026-07-24' },
-  { title: '[호카] 신발 가격 상승관련 안내', date: '2026-07-23' },
-  { title: '[공통] 호카 멤버십 혜택 변경 안내', date: '2026-07-10' },
-  { title: '[공통] 호카 멤버십 혜택 수정 예정 안내', date: '2026-07-01' },
-  { title: '[호카 키즈] 920 프리들 발매 일정 변경 안내', date: '2026-05-15' },
-  { title: '[호카 키즈] 래플 접수 및 결제 가이드', date: '2026-03-23' },
-  { title: '[공통] 교환 정책 안내', date: '2026-01-26' },
-];
+import { notices } from './notices.data';
 
 export function NoticesPage() {
   const platform = usePlatform();
@@ -51,21 +40,8 @@ export function NoticesPage() {
         ) : null
       }
     >
-      <Divider
-        aria-hidden="true"
-        orientation="horizontal"
-        h="2px"
-        bg="black.100"
-        _mobile={{ display: 'none' }}
-      />
+      <Divider variant="heading" _mobile={{ display: 'none' }} />
       <Stack as="section" aria-label="공지사항 목록" gap="0">
-        <Divider
-          aria-hidden="true"
-          orientation="horizontal"
-          h="1px"
-          bg="black.20"
-          mt={{ base: '3', _mobile: '0' }}
-        />
         <NoticesList
           notices={notices}
           shown={shown}

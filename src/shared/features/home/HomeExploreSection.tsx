@@ -13,7 +13,7 @@ export function HomeExploreSection() {
       <Grid
         gridTemplateColumns="repeat(3, 1fr)"
         gap="4"
-        _mobile={{ gap: '12', gridTemplateColumns: 'repeat(1, 1fr)' }}
+        _mobile={{ gap: '2', gridTemplateColumns: 'repeat(1, 1fr)' }}
       >
         {homeExplores.map((explore) => (
           <MainContentCard

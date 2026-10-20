@@ -127,7 +127,17 @@ export const NoticesDesktop: Story = {
 };
 
 export const NoticesMobile375: Story = {
-  play: verifyNotices,
+  play: async ({ canvasElement }) => {
+    const list = within(within(canvasElement).getByRole('region', { name: '공지사항 목록' }));
+    await expect(list.getByRole('link', { name: /네이버페이 9월/ })).toHaveAttribute(
+      'href',
+      '/support/notices/1',
+    );
+    await expect(list.getByRole('link', { name: /광복절/ })).toHaveAttribute(
+      'href',
+      '/support/notices/2',
+    );
+  },
   name: 'Notices / Mobile / 375px',
   render: () => (
     <ShopShell platform="mobile">
@@ -227,6 +237,31 @@ export const InquiryAnsweredMobile375: Story = {
   ),
   parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/inquiries' } } },
   globals: { viewport: 'hoka375' },
+};
+
+export const InquiryAnsweredDesktop: Story = {
+  ...InquiryAnsweredMobile375,
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryPage preview="answered" />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryAttachmentPreviewMobile375: Story = {
+  ...InquiryPendingMobile375,
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'IMG_7899.JPG 미리보기' });
+    await userEvent.click(trigger);
+    const dialog = within(canvasElement.ownerDocument.body).getByRole('dialog', {
+      name: '첨부파일 미리보기',
+    });
+    await expect(dialog).toBeVisible();
+    await userEvent.click(within(dialog).getByRole('button', { name: /^확인$/ }));
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
 };
 
 export const ShippingReturnsDesktop: Story = {

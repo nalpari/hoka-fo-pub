@@ -45,6 +45,7 @@ const styles = {
         },
       },
       '&&': {
+        '--button-padding-x': '0px',
         color: 'var(--hoka-black)',
       },
     },

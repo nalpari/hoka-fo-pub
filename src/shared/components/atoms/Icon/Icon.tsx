@@ -49,7 +49,7 @@ export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'
   (IconSourceProps | FontAwesomeSourceProps) & {
     size?: string | number;
     /** CSS color or Panda color token path such as `black.50` or `text.tertiary`. */
-    color?: 'white' | 'currentColor' | 'black' | string;
+    color?: string;
     /** Render a monochrome src as a mask so it follows the current text color. */
     mask?: boolean;
     /** Direction for the reusable carousel arrow. */
@@ -90,22 +90,7 @@ function CarouselArrow({ className, size, style, direction = 'previous' }: Carou
   );
 }
 
-const resolveIconFilter = (color?: IconProps['color']) => {
-  switch (color) {
-    case 'white':
-      return 'brightness(0) invert(1)';
-    case 'black':
-      return 'brightness(0)';
-    case 'currentColor':
-      return 'none';
-    default:
-      return color ? 'none' : 'none';
-  }
-};
-
 const resolveIconColor = (color: IconProps['color']) => {
-  if (color === 'white') return 'var(--color-white-000)';
-  if (color === 'black') return 'var(--color-black-100)';
   if (!color || color === 'currentColor') return color;
 
   return token.var(`colors.${color}` as Parameters<typeof token.var>[0], color);
@@ -157,7 +142,6 @@ export function Icon({
           style={{
             width: size,
             height: size,
-            filter: resolveIconFilter(color),
             ...props.style,
           }}
         />
@@ -213,7 +197,6 @@ export function Icon({
         width: size,
         height: size,
         color,
-        filter: resolveIconFilter(color),
         ...props.style,
       }}
     />

@@ -1,4 +1,5 @@
 import { Box, Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
 
 import { CharacterCount } from '@/shared/components/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
@@ -40,7 +41,7 @@ export function InquiryMessageFields({ title, body, invalid, onTitleChange, onBo
           maxLength: 1000,
           onChange: (event) => onBodyChange(event.target.value),
           placeholder: '내용을 입력해주세요.',
-          style: { minHeight: '120px' },
+          className: css({ minH: '120px' }),
         }}
         renderControl={(control) => (
           <Stack gap="2" w="100%">

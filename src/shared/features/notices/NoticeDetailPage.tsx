@@ -1,10 +1,21 @@
-import { Box, HStack, Stack } from 'styled-system/jsx';
-import { ButtonLink } from '@/shared/components/atoms/Button/Button';
+'use client';
+
+import { Box, Stack } from 'styled-system/jsx';
+import { useParams } from 'next/navigation';
+import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
+import { NoticeHeading } from './NoticeHeading';
+import { usePlatform } from '@/shared/context/platform';
+import { notices } from './notices.data';
 
 export function NoticeDetailPage() {
+  const platform = usePlatform();
+  const { id } = useParams<{ id?: string }>();
+  const noticeIndex = Number(id ?? 1) - 1;
+  const notice = notices[noticeIndex] ?? notices[0];
+
   return (
     <CustomerCenterLayout
       title="공지사항"
@@ -17,47 +28,41 @@ export function NoticeDetailPage() {
       ]}
       groups={supportNavigation}
       footer={
-        <Box mt="6" maxW="343px" mx="auto">
-          <ButtonLink href="/support/notices" variant="secondary" size="short" fullWidth>
-            목록보기
-          </ButtonLink>
-        </Box>
+        <PageActionButton href="/support/notices" width="narrow" containerProps={{ pt: '6' }}>
+          목록보기
+        </PageActionButton>
       }
     >
-      <HStack
-        justifyContent="space-between"
-        gap="4"
-        py="6"
-        borderTop="1px solid"
-        borderBottom="1px solid"
-        borderColor="black.20"
-      >
-        <Typography web="heading9" mo="body3">
-          [공통] 네이버페이 9월 프로모션 안내
-        </Typography>
-        <Typography as="time" variant="body4" tone="tertiary">
-          2026-08-13
-        </Typography>
-      </HStack>
+      <Box py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
+        <NoticeHeading notice={notice} platform={platform} />
+      </Box>
       <Stack gap="4" px="6" py="8" bg="black.10" _mobile={{ px: '4', py: '6' }}>
-        <Typography as="p" variant="body4">
-          안녕하세요, HOKA 코리아입니다.
-        </Typography>
-        <Typography as="p" variant="body4">
-          네이버페이 9월 프로모션을 안내드립니다.
-        </Typography>
-        <Typography as="p" variant="body4">
-          1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
-        </Typography>
-        <Typography as="p" variant="body4">
-          2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
-        </Typography>
-        <Typography as="p" variant="body4">
-          3. 대상 상품: 호카 공식 홈페이지 내 전 상품
-        </Typography>
-        <Typography as="p" variant="body4">
-          이용해 주셔서 감사합니다.
-        </Typography>
+        {notice === notices[0] ? (
+          <>
+            <Typography as="p" variant="body4">
+              안녕하세요, HOKA 코리아입니다.
+            </Typography>
+            <Typography as="p" variant="body4">
+              네이버페이 9월 프로모션을 안내드립니다.
+            </Typography>
+            <Typography as="p" variant="body4">
+              1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
+            </Typography>
+            <Typography as="p" variant="body4">
+              2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
+            </Typography>
+            <Typography as="p" variant="body4">
+              3. 대상 상품: 호카 공식 홈페이지 내 전 상품
+            </Typography>
+            <Typography as="p" variant="body4">
+              이용해 주셔서 감사합니다.
+            </Typography>
+          </>
+        ) : (
+          <Typography as="p" variant="body4">
+            {notice.title} 상세 안내입니다.
+          </Typography>
+        )}
       </Stack>
     </CustomerCenterLayout>
   );
