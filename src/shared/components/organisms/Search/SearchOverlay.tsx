@@ -61,6 +61,12 @@ export function SearchOverlay({
     router.push('/search?q=' + encodeURIComponent(value) + '&scope=' + encodeURIComponent('전체'));
     onClose();
   };
+  const rememberSearchAndClose = (nextQuery: string) => {
+    const value = nextQuery.trim();
+    if (!value) return;
+    addRecentSearch(value);
+    onClose();
+  };
 
   return (
     <SearchDialog onClose={onClose} compact={showMatches}>
@@ -109,6 +115,7 @@ export function SearchOverlay({
           recentSearches={recentSearches}
           suggestedSearches={suggestedSearches}
           onSearch={search}
+          onNavigateSearch={rememberSearchAndClose}
           onRemoveRecent={removeRecentSearch}
           onClearRecent={clearRecentSearches}
         />

@@ -61,7 +61,7 @@ export const Error: Story = {
       rememberId={false}
       notice={null}
       errors={{
-        id: '올바른 이메일 형식으로 입력해 주세요',
+        id: '아이디를 입력해 주세요',
         password: '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
       }}
       onIdChange={fn()}
@@ -74,7 +74,7 @@ export const Error: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const notice = canvas.getByText('올바른 이메일 형식으로 입력해 주세요');
+    const notice = canvas.getByText('아이디를 입력해 주세요');
     await expect(notice).toHaveAttribute('role', 'alert');
     await expect(
       canvas.getByText('영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'),
@@ -88,16 +88,15 @@ export const Error: Story = {
     await expect(
       canvas.getByText('영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'),
     ).toHaveStyle({ color: errorColor });
-    await expect(within(canvasElement).getByLabelText(/이메일 아이디/)).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    await expect(
+      within(canvasElement).getByLabelText(/아이디$/, { selector: 'input' }),
+    ).toHaveAttribute('aria-invalid', 'true');
     await expect(
       within(canvasElement).getByLabelText(/비밀번호/, { selector: 'input' }),
     ).toHaveAttribute('aria-invalid', 'true');
-    await expect(canvas.getByLabelText(/이메일 아이디/)).toHaveAccessibleDescription(
-      '올바른 이메일 형식으로 입력해 주세요',
-    );
+    await expect(
+      canvas.getByLabelText(/아이디$/, { selector: 'input' }),
+    ).toHaveAccessibleDescription('아이디를 입력해 주세요');
     await expect(
       canvas.getByLabelText(/비밀번호/, { selector: 'input' }),
     ).toHaveAccessibleDescription('영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요');
@@ -117,16 +116,21 @@ export const LoginFlow: Story = {
     await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
     await expect(args.onLogin).not.toHaveBeenCalled();
     await expect(canvas.getAllByRole('alert')).toHaveLength(2);
-    await expect(canvas.getByLabelText(/이메일 아이디/)).toHaveAccessibleDescription(
-      '올바른 이메일 형식으로 입력해 주세요',
+    await expect(
+      canvas.getByLabelText(/아이디$/, { selector: 'input' }),
+    ).toHaveAccessibleDescription('아이디를 입력해 주세요');
+    await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).toHaveAttribute(
+      'aria-invalid',
+      'true',
     );
-    await expect(canvas.getByLabelText(/이메일 아이디/)).toHaveAttribute('aria-invalid', 'true');
     await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
       'aria-invalid',
       'true',
     );
-    await userEvent.type(canvas.getByLabelText(/이메일 아이디/), 'demo@example.com');
-    await expect(canvas.getByLabelText(/이메일 아이디/)).not.toHaveAttribute('aria-invalid');
+    await userEvent.type(canvas.getByLabelText(/아이디$/, { selector: 'input' }), 'demo1234');
+    await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).not.toHaveAttribute(
+      'aria-invalid',
+    );
     await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
       'aria-invalid',
       'true',
@@ -147,7 +151,7 @@ export const LoginFlow: Story = {
     await expect(args.onLogin).toHaveBeenCalledTimes(1);
     await expect(getRouter().push).toHaveBeenCalledWith('/');
     await expect(canvas.getByRole('status')).toHaveTextContent(
-      'demo@example.com 아이디를 저장하고 로그인했습니다. (데모)',
+      'demo1234 아이디를 저장하고 로그인했습니다. (데모)',
     );
     await expect(canvas.getByRole('link', { name: '회원가입' })).toHaveAttribute('href', '/signup');
   },
@@ -162,10 +166,10 @@ export const MobileLoginFlow: Story = {
 export const InvalidFormats: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const email = canvas.getByLabelText(/이메일 아이디/);
+    const id = canvas.getByLabelText(/아이디$/, { selector: 'input' });
     const password = canvas.getByLabelText(/비밀번호/, { selector: 'input' });
     const login = canvas.getByRole('button', { name: '로그인' });
-    await userEvent.type(email, 'first..last@example.com');
+    await userEvent.type(id, 'first..last@example.com');
     await userEvent.type(password, 'demo-password');
     await userEvent.click(login);
     await expect(args.onLogin).not.toHaveBeenCalled();
@@ -173,9 +177,31 @@ export const InvalidFormats: Story = {
     await expect(password).toHaveAccessibleDescription(
       '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
     );
-    await userEvent.clear(email);
-    await userEvent.type(email, 'demo@example.com');
-    await expect(email).not.toHaveAttribute('aria-invalid');
+    for (const value of [
+      'abc',
+      '    ',
+      '한글아이디',
+      'demo!',
+      'demo@example.com',
+      ' demo',
+      'demo ',
+    ]) {
+      await userEvent.clear(id);
+      await userEvent.type(id, value);
+      await userEvent.click(login);
+      await expect(id).toHaveAttribute('aria-invalid', 'true');
+      await expect(id).toHaveAccessibleDescription('영문, 숫자 조합으로 4자 이상 입력해 주세요.');
+      await expect(args.onLogin).not.toHaveBeenCalled();
+    }
+    for (const value of ['abcd', '1234', 'Ab12']) {
+      await userEvent.clear(id);
+      await userEvent.type(id, value);
+      await expect(id).not.toHaveAttribute('aria-invalid');
+    }
+    await userEvent.clear(id);
+    await expect(id).toHaveAccessibleDescription('아이디를 입력해 주세요');
+    await userEvent.type(id, 'demo1234');
+    await expect(id).not.toHaveAttribute('aria-invalid');
     for (const value of [
       'Hoka1234!',
       'Hoka123456789!',
@@ -216,7 +242,9 @@ export const UnavailableActions: Story = {
       await expect(canvas.getByRole('alert')).toHaveTextContent(
         `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
       );
-      await expect(canvas.getByLabelText(/이메일 아이디/)).not.toHaveAttribute('aria-invalid');
+      await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).not.toHaveAttribute(
+        'aria-invalid',
+      );
       await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).not.toHaveAttribute(
         'aria-invalid',
       );

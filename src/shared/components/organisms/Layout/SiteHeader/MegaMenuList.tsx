@@ -51,38 +51,46 @@ export function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
           key={column.title}
         >
           <Typography as="h2" variant="heading8" className={styles.title}>
-            {column.title}
+            {column.to ? (
+              <Link href={column.to} onClick={onClose}>
+                {column.title}
+              </Link>
+            ) : (
+              column.title
+            )}
           </Typography>
-          <Grid as="ul" m={0} p={0} listStyle="none" gap="30px">
-            {column.items.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.to}
-                  onClick={onClose}
-                  className={css({
-                    display: 'inline-flex',
-                    gap: '5px',
-                    _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
-                    _focusVisible: { textDecoration: 'underline', textUnderlineOffset: '3px' },
-                  })}
-                >
-                  <Typography
-                    variant="body3"
-                    tone={item.label === 'Sale' ? 'red80' : 'primary'}
-                    className={currentPath === item.to ? styles.activeItemLabel : undefined}
-                    data-sale={item.label === 'Sale' || undefined}
+          {column.items.length > 0 && (
+            <Grid as="ul" m={0} p={0} listStyle="none" gap="30px">
+              {column.items.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.to}
+                    onClick={onClose}
+                    className={css({
+                      display: 'inline-flex',
+                      gap: '5px',
+                      _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+                      _focusVisible: { textDecoration: 'underline', textUnderlineOffset: '3px' },
+                    })}
                   >
-                    {item.label}
-                  </Typography>
-                  {item.badge ? (
-                    <Typography as="small" variant="body5">
-                      {item.badge}
+                    <Typography
+                      variant="body3"
+                      tone={item.label === 'Sale' ? 'red80' : 'primary'}
+                      className={currentPath === item.to ? styles.activeItemLabel : undefined}
+                      data-sale={item.label === 'Sale' || undefined}
+                    >
+                      {item.label}
                     </Typography>
-                  ) : null}
-                </Link>
-              </li>
-            ))}
-          </Grid>
+                    {item.badge ? (
+                      <Typography as="small" variant="body5">
+                        {item.badge}
+                      </Typography>
+                    ) : null}
+                  </Link>
+                </li>
+              ))}
+            </Grid>
+          )}
         </Flex>
       ))}
     </Grid>

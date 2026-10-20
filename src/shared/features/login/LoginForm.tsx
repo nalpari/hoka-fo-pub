@@ -8,7 +8,7 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { LoginActions } from '@/shared/features/login/LoginActions';
 import { RememberIdHelp } from '@/shared/features/login/RememberIdHelp';
-import { EmailField } from '@/shared/components/molecules/FormFields/EmailField';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
 
 const rememberIdCheckbox = css({ gap: '2', flexShrink: '0' });
@@ -48,16 +48,17 @@ export function LoginForm({
   return (
     <form onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
       <Stack gap="4">
-        <EmailField
+        <TextFormField
           variant="boxed"
           id="login-id"
-          label="이메일 아이디"
+          label="아이디"
           required
           error={errors?.id}
           inputProps={{
             name: 'username',
+            type: 'text',
             autoComplete: 'username',
-            placeholder: '이메일 주소를 @까지 정확히 입력해 주세요',
+            placeholder: '아이디를 입력해 주세요',
             value: id,
             onChange: (event) => onIdChange(event.target.value),
           }}

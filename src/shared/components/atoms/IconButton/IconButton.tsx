@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 import { circle } from 'styled-system/patterns';
 
 const iconButton = css({
-  // display: 'inline-grid',
+  display: 'inline-grid',
   placeItems: 'center',
   w: 'var(--icon-button-size)',
   h: 'var(--icon-button-size)',
@@ -12,6 +12,7 @@ const iconButton = css({
   minH: 'var(--icon-button-size)',
   border: '0',
   bg: 'transparent',
+  p: '0',
   color: 'var(--icon-button-color, currentColor)',
   '& svg': { color: 'currentColor' },
   '& svg [fill]:not([fill="none"])': { fill: 'currentColor!' },

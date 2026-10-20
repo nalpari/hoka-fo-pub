@@ -7,14 +7,14 @@ import { RecentSearchItem } from './RecentSearchItem';
 
 type RecentSearchesProps = {
   recentSearches: readonly string[];
-  onSearch: (query: string) => void;
+  onNavigateSearch: (query: string) => void;
   onRemove: (query: string) => void;
   onClear: () => void;
 };
 
 export function RecentSearches({
   recentSearches,
-  onSearch,
+  onNavigateSearch,
   onRemove,
   onClear,
 }: RecentSearchesProps) {
@@ -43,7 +43,12 @@ export function RecentSearches({
       {recentSearches.length ? (
         <Stack as="ul" gap="12px" m="0" p="0" listStyleType="none">
           {recentSearches.map((recent) => (
-            <RecentSearchItem key={recent} query={recent} onSearch={onSearch} onRemove={onRemove} />
+            <RecentSearchItem
+              key={recent}
+              query={recent}
+              onNavigateSearch={onNavigateSearch}
+              onRemove={onRemove}
+            />
           ))}
         </Stack>
       ) : (

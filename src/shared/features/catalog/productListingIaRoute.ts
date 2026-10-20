@@ -1,6 +1,8 @@
 import { screens } from '@/data/screenRegistry';
 
 const activityValues: Record<string, string> = {
+  로드러닝: 'road-running',
+  트레일러닝: 'trail-running',
   '로드 러닝': 'road-running',
   '트레일 러닝': 'trail-running',
   라이프스타일: 'lifestyle',
@@ -10,12 +12,17 @@ const activityValues: Record<string, string> = {
 };
 
 const featuredSortValues: Record<string, string> = {
+  Best: 'popular',
+  New: 'new',
+  Sale: 'sale',
   BEST: 'popular',
   NEW: 'new',
   'Coming Soon': 'coming-soon',
 };
 
 const categoryValues: Record<string, string> = {
+  러닝웨어: 'apparel',
+  기타용품: 'other-accessories',
   의류: 'apparel',
   '러닝 웨어': 'apparel',
   아우터: 'outerwear',
@@ -54,6 +61,9 @@ export function getProductListingRoute(iaKey?: string) {
   if (depth2 === 'Featured') {
     const sort = featuredSortValues[depth3];
     if (sort) query.set('sort', sort);
+    if (depth3 === 'Triple Black') query.set('color', 'black');
+    if (depth3 === 'Ready for UTMB') query.set('collection', 'utmb');
+    if (depth3 === '가을 러닝의 시작, Bondi') query.set('model', 'bondi');
   } else if (depth2 === '액티비티') {
     const activity = activityValues[depth3];
     if (activity) query.set('activity', activity);
@@ -65,7 +75,22 @@ export function getProductListingRoute(iaKey?: string) {
       const activity = activityValues[depth3];
       if (activity) query.set('activity', activity);
     }
+    if (depth2 === '의류' && depth3 === '러닝웨어') query.set('activity', 'road-running');
+    if (depth2 === '용품' && depth3 === '라이프스타일') {
+      query.set('category', 'accessories');
+      query.set('activity', 'lifestyle');
+    }
   } else if (depth1 === 'SHOES') {
+    if (depth2 === 'ICONS') {
+      const models: Record<string, string> = {
+        본디: 'bondi',
+        클리프톤: 'clifton',
+        스피드고트: 'speedgoat',
+        마파테: 'mafate',
+        호파라: 'hopara',
+      };
+      if (models[depth3]) query.set('model', models[depth3]);
+    }
     const activity = activityValues[depth3];
     if (activity) query.set('activity', activity);
   }

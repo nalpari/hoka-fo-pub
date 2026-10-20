@@ -2,6 +2,10 @@
 
 ## 2026-10-20
 
+- **Update**: 로그인 이메일 형식 검사를 영문·숫자 4자 이상 아이디 검사로 전환하고 필수값·형식 오류를 구분했다. 기존 공통 TextFormField·배치를 사용하며 아이디 찾기 예시를 `honggildong`으로 맞췄다. 타입·변경 ESLint/Prettier·Storybook 빌드 및 관련 브라우저 스토리 16개가 통과했다. [UI 변경](architecture/ui.md#일반-아이디-로그인-전환-2026-10-20)과 [상태 계약](architecture/state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
+
+- **Update**: 첨부 최종안에 맞춰 Men/Women 표기와 Shoes·Explore GNB 구조를 갱신하고 러닝 세션 신청 직접 링크를 추가했다. IA 261~266을 추가하고 eland_hex_06을 신청 메뉴로 변경했으며 상품 URL과 런클럽 미리보기를 동기화했다. [메뉴 계약](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)과 [IA 데이터](project.md#gnb-최종안과-ia-동기화-2026-10-20)를 참고한다.
+
 - **Merge**: 폼 라벨 변경 병합의 5개 충돌 파일을 해결했다. 최신 쿠폰 ContentSection·공통 Divider·SystemStatusPage 구성을 유지하고 formLabel body4 및 부가정보 제목 mo heading7 변경과 양쪽 문서 이력을 통합했다. [통합 기준](architecture/ui.md#폼-라벨-변경-병합-충돌-해결-2026-10-20)을 참고한다.
 
 - **Refactor**: 약관 시행일 선택을 TermsDateSelect로 분리하고 반복되는 장식용 가로 구분선을 공통 Divider의 세 variant로 정리했다. 기존 간격·모바일 조건·Popover/Radio 동작을 유지했다. [구성 계약](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 참고한다.
@@ -15,6 +19,14 @@
 - **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
 
 - **Merge**: UI 코드 3파일과 UI 문서의 충돌을 해결했다. 공통 ContentSection·footer와 들어오는 쿠폰 카드·프로필 편집·404 색상/간격 변경을 통합하고 양쪽 문서 이력을 보존했다. 타입·변경 ESLint·충돌 해결 파일 Prettier·Panda·Next.js 빌드·스테이징 기준 OKF 검사를 통과했다. [UI 통합 기록](architecture/ui.md#ui-병합-충돌-해결-2026-10-20)을 참고한다.
+
+- **Refactor**: SearchKeywordButton을 공통 ButtonLink로 바꾸고 실제 검색 경로·검색어 저장·오버레이 닫기와 수정 클릭의 기본 링크 동작을 유지했다. [UI 기록](architecture/ui.md#최근-검색어-키워드의-공통-버튼-재사용-2026-10-20)을 갱신했다.
+
+- **Refactor**: RecentSearchItem의 목록 레이아웃을 Flex JSX props로 옮기고 기존 8px 간격·모바일 삭제 버튼 정렬·콜백을 유지했다. IconButton에 Panda 스타일 props를 전달할 수 없어 모바일 여백 class는 유지했다고 [UI 기록](architecture/ui.md#최근-검색-timer-아이콘-2026-10-20)에 기록했다.
+
+- **Update**: `faXmark`를 Font Awesome Icon 스토리 카탈로그에 추가하고 [UI 기록](architecture/ui.md#font-awesome-아이콘-스토리-카탈로그)에 목록을 반영했다.
+
+- **Update**: 최근 검색 시계 아이콘을 Figma `901:31346` Timer SVG로 교체하고 공통 Icon 이름 및 Storybook SVG 카탈로그에 등록했다. [UI 기록](architecture/ui.md#최근-검색-timer-아이콘-2026-10-20)을 갱신했다.
 
 - **Update**: Typography `formLabel`을 body4 스케일로 맞췄다. 체크박스·라디오를 포함한 폼 라벨의 공통 시각 스타일로 사용하며 그룹 제목 구조와는 구분한다고 [UI 기록](architecture/ui.md#typography-formlabel-스케일-2026-10-20)에 명시했다.
 

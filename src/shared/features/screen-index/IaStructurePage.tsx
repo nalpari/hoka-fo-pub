@@ -68,6 +68,7 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
+  158: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
   260: {
     pc: 'pages-support-sizeguide-web--default',
     mo: 'pages-support-sizeguide-mobile--default',
