@@ -22,6 +22,11 @@ export function RegistrationCompleteContent() {
         gap="8"
         title="회원가입 완료"
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading4' } }}
+        footer={
+          <ButtonLink href="/" variant="primary" fullWidth>
+            쇼핑하러 가기
+          </ButtonLink>
+        }
       >
         <Center>
           <Icon src="/images/icon/join-check.svg" size="48px" />
@@ -36,9 +41,6 @@ export function RegistrationCompleteContent() {
             최선을 다하겠습니다
           </Typography>
         </Stack>
-        <ButtonLink href="/" variant="primary" fullWidth>
-          쇼핑하러 가기
-        </ButtonLink>
       </ContentSection>
     </AccountPageLayout>
   );

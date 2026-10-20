@@ -31,7 +31,8 @@ export function sortProducts(products: Product[], sort: string) {
       : sort === '높은가격순'
         ? b.price - a.price
         : sort === '신상품순'
-          ? Number(b.promotion === 'New') - Number(a.promotion === 'New') || compareId(a, b)
+          ? Number(b.promotion?.includes('New') ?? false) -
+              Number(a.promotion?.includes('New') ?? false) || compareId(a, b)
           : compareId(a, b),
   );
 }

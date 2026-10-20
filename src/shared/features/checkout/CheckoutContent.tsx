@@ -7,9 +7,8 @@ import { CheckoutPaymentNotice } from './CheckoutPaymentNotice';
 import { useState, type FormEventHandler } from 'react';
 import Link from 'next/link';
 import { Stack } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { CheckoutAgreement } from './CheckoutAgreement';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CheckoutPayment, type PaymentMethod } from './CheckoutPayment';
 import { CheckoutShipping } from './CheckoutShipping';
@@ -91,27 +90,14 @@ export function CheckoutContent({
         />
         <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
         <CheckoutPaymentNotice />
-        <Checkbox
-          checked={agreed}
-          onCheckedChange={(checked) => {
+        <CheckoutAgreement
+          agreed={agreed}
+          error={agreementError}
+          onAgreedChange={(checked) => {
             setAgreed(checked);
             setAgreementError(false);
           }}
-          label={
-            <Typography variant="body4">주문 내용을 확인하였으며 결제에 동의합니다.</Typography>
-          }
         />
-        {agreementError ? (
-          <Typography
-            as="p"
-            variant="body5"
-
-            className={css({ color: 'red.100' })}
-            role="alert"
-          >
-            주문 내용 확인 및 결제 동의가 필요합니다.
-          </Typography>
-        ) : null}
         <OrderActionBar>
           <Button type="submit" variant="primary" fullWidth>
             {(total - discount).toLocaleString()}원 결제하기

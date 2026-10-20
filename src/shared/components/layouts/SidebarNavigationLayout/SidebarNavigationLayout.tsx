@@ -5,6 +5,7 @@ import {
   type SideNavigationGroup,
 } from '@/shared/components/organisms/Navigation/SideNavigation/SideNavigation';
 import { Box } from 'styled-system/jsx';
+import { SidebarColumns } from '@/shared/components/layouts/SidebarColumns/SidebarColumns';
 
 export type SidebarNavigationGroup = SideNavigationGroup;
 
@@ -20,15 +21,11 @@ type Props = {
 };
 
 const page = css.raw({
-  display: 'grid',
-  gridTemplateColumns: '180px minmax(0, 1fr)',
-  gap: '50px',
   maxW: 'var(--layout-content-max-width)',
   mx: 'auto',
   py: '70px',
   pb: '120px',
   _mobile: {
-    display: 'block',
     px: 'var(--layout-mobile-inline-gutter)',
     py: '38px',
     pb: '70px',
@@ -46,7 +43,18 @@ export function SidebarNavigationLayout({
   mobileSpacing = 'default',
 }: Props) {
   return (
-    <main
+    <SidebarColumns
+      as="main"
+      sidebarWidth="180px"
+      sidebar={
+        <SideNavigation
+          activePath={activePath}
+          groups={groups}
+          mobileNavigation={mobileNavigation}
+          title={navigationTitle}
+          titleTo={titleTo}
+        />
+      }
       className={[
         css(page, mobileSpacing === 'none' && { _mobile: { px: '0', py: '0', pb: '0' } }),
         className,
@@ -54,14 +62,7 @@ export function SidebarNavigationLayout({
         .filter(Boolean)
         .join(' ')}
     >
-      <SideNavigation
-        activePath={activePath}
-        groups={groups}
-        mobileNavigation={mobileNavigation}
-        title={navigationTitle}
-        titleTo={titleTo}
-      />
       <Box minW="0">{children}</Box>
-    </main>
+    </SidebarColumns>
   );
 }

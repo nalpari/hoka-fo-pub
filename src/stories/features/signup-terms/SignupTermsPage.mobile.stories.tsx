@@ -3,7 +3,7 @@ import base, * as scenarios from './SignupTermsPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/SignupTerms/Mobile',
+  title: 'PAGES/Signup/Terms/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

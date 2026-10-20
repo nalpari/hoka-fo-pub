@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 
 const meta = {
@@ -54,4 +55,32 @@ export const NestedHeading: Story = {
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).getByRole('heading', { level: 4 })).toBeVisible();
   },
+};
+
+export const Horizontal: Story = {
+  args: {
+    title: '주문 배송 내역',
+    titleAs: 'h2',
+    titleProps: { web: 'heading8', mo: 'heading5' },
+    description: undefined,
+    orientation: 'horizontal',
+    gap: '2',
+    action: (
+      <ButtonLink href="/mypage/orders" size="md" variant="link">
+        전체 보기
+      </ButtonLink>
+    ),
+  },
+};
+
+export const HorizontalWithDescription: Story = {
+  args: {
+    ...Horizontal.args,
+    description: '최근 주문한 상품의 배송 상태를 확인하세요.',
+    gap: '4',
+  },
+};
+
+export const HorizontalWithoutAction: Story = {
+  args: { ...Horizontal.args, action: undefined },
 };

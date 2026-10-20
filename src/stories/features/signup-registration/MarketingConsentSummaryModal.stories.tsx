@@ -3,7 +3,7 @@ import base, * as scenarios from './MarketingConsentSummaryModal.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/Registration/MarketingConsentSummaryModal/Web',
+  title: 'PAGES/Signup/Registration/MarketingConsentSummaryModal/Web',
   globals: { viewport: 'hoka1600' },
 };
 

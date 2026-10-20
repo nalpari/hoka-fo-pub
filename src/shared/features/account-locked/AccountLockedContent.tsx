@@ -13,11 +13,12 @@ type Props = { onClose: () => void; onConfirm: () => void };
 export function AccountLockedContent({ onClose, onConfirm }: Props) {
   return (
     <SingleActionDialog
-      onConfirm={onConfirm}
       open
       onOpenChange={(open) => !open && onClose()}
       title="아이디 / 비밀번호 찾기"
       closeLabel="안내 닫기"
+      size="md"
+      onConfirm={onConfirm}
     >
       <ContentHeader
         gap="4"

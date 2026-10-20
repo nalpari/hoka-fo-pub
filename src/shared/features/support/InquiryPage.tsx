@@ -28,6 +28,11 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         { label: '1:1 문의' },
       ]}
       groups={supportNavigation}
+      footer={
+        <PageActionButton href="/support/inquiries/new" variant="primary" width="compact">
+          1:1 문의하기
+        </PageActionButton>
+      }
     >
       <Divider
         aria-hidden="true"
@@ -43,9 +48,6 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         )}
       </Stack>
       <InquiryCautions />
-      <PageActionButton href="/support/inquiries/new" variant="primary" width="compact">
-        1:1 문의하기
-      </PageActionButton>
     </CustomerCenterLayout>
   );
 }

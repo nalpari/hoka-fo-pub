@@ -23,6 +23,15 @@ export function SupportFaq() {
           />
         </Stack>
       }
+      footer={
+        <PageActionButton
+          href="/support/faq"
+          width="compact"
+          containerProps={{ pt: '6', _mobile: { pt: '4' } }}
+        >
+          FAQs 바로가기
+        </PageActionButton>
+      }
     >
       <Stack
         gap="6"
@@ -33,9 +42,6 @@ export function SupportFaq() {
         <Typography as="p" variant="body3">
           가장 자주 찾는 질문의 답변을 찾아보세요!
         </Typography>
-        <PageActionButton href="/support/faq" width="compact" containerProps={{ pt: '0' }}>
-          FAQs 바로가기
-        </PageActionButton>
       </Stack>
     </ContentSection>
   );

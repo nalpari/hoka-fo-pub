@@ -23,6 +23,8 @@ Use [the repository survey and migration record](../../../okf/architecture/form-
 
 For heading groups and their related content, also apply [the content-header workflow](references/content-sections.md). Ordinary single-title headings use `ContentHeader` too. Prefer `ContentSection`'s `title`/`headerProps` default header when assembling a titled region; reserve its `header` node for structures the default header cannot express.
 
+For actions that finish a titled region, use the optional `ContentSection.footer` slot when form ownership and spacing remain intact. The same workflow covers footer candidates, layout adapters, and existing modal/card/fixed-action exclusions; inspect the button's actual role rather than treating every visually low button as a footer.
+
 Apply this decision order in both audits and migrations:
 
 1. Text-bearing `span`, `p`, and `h1`–`h6` follow the Typography section below, even without explicit CSS. Preserve the original tag through `as`.

@@ -3,7 +3,7 @@ import base, * as scenarios from './LoginPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/Login/Web',
+  title: 'PAGES/Login/Login/Web',
   globals: { viewport: 'hoka1600' },
 };
 

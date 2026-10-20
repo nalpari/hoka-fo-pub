@@ -33,16 +33,18 @@ export function PhoneVerificationAgreements(props: Props) {
       borderBottom="1px solid var(--color-black-20)"
       aria-labelledby="phone-terms-title"
       aria-describedby={showAgreementErrors ? 'phone-terms-error' : undefined}
-      header={
-        <HStack justify="space-between" mb="2">
-          <Typography as="h2" id="phone-terms-title" web="heading9" mo="heading7">
-            휴대폰 인증약관
-          </Typography>
+      title="휴대폰 인증약관"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '8px',
+        css: css.raw({ mb: '2' }),
+        titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
+        action: (
           <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
             <Typography variant="body4">모두동의</Typography>
           </Terms>
-        </HStack>
-      }
+        ),
+      }}
     >
       {verificationTerms.map((term, index) => (
         <HStack key={term} justify="space-between" gap="2" alignItems="center">

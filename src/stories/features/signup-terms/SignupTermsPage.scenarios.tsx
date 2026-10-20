@@ -6,7 +6,7 @@ import { SignupTermsContent } from '@/shared/features/signup-terms/SignupTermsCo
 import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
 
 const meta = {
-  title: 'Pages/AUTH/SignupTerms',
+  title: 'PAGES/Signup/Terms',
   component: SignupTermsContent,
   args: {
     agreements: [false, false, false, false],

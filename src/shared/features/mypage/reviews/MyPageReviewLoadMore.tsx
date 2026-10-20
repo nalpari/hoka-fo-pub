@@ -1,20 +1,20 @@
-import { Box, HStack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Box } from 'styled-system/jsx';
+import { LoadMoreButton } from '@/shared/components/atoms/LoadMoreButton/LoadMoreButton';
 
 type Props = { visibleCount: number; totalCount: number; onLoadMore: () => void };
 
 export function MyPageReviewLoadMore({ visibleCount, totalCount, onLoadMore }: Props) {
   return (
     <Box mt="6">
-      <Button fullWidth variant="secondary" size="short" onClick={onLoadMore}>
-        <HStack gap="1">
-          <Typography mo="ctaKr2">더보기</Typography>
-          <Typography mo="body5" tone="tertiary">
-            ({Math.ceil(visibleCount / 10)}/{Math.ceil(totalCount / 10)})
-          </Typography>
-        </HStack>
-      </Button>
+      <LoadMoreButton
+        fullWidth
+        variant="secondary"
+        size="short"
+        onClick={onLoadMore}
+        counter={{ current: Math.ceil(visibleCount / 10), total: Math.ceil(totalCount / 10) }}
+        labelProps={{ mo: 'ctaKr2' }}
+        counterProps={{ mo: 'body5' }}
+      />
     </Box>
   );
 }

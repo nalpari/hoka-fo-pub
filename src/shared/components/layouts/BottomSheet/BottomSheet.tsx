@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { ButtonProps } from '@/shared/components/atoms/Button/Button';
+import { usePlatform } from '@/shared/context/platform';
 import { Drawer } from '@base-ui/react/drawer';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -22,6 +23,11 @@ const viewport = css({
   alignItems: 'flex-end',
 });
 
+const popup = css({
+  w: '100%',
+  minW: '0',
+});
+
 type BottomSheetProps = {
   title: ReactNode;
   children: ReactNode;
@@ -40,13 +46,16 @@ export function BottomSheet({
   headerAction,
   ariaLabel,
 }: BottomSheetProps) {
+  const platform = usePlatform();
+
   return (
     <Drawer.Root open onOpenChange={(open) => !open && onClose()} swipeDirection="down">
-      <Drawer.Portal>
+      <Drawer.Portal className={`platform-${platform}`}>
         <Drawer.Backdrop className={backdrop} />
         <Drawer.Viewport className={viewport}>
-          <Drawer.Popup aria-label={ariaLabel}>
+          <Drawer.Popup aria-label={ariaLabel} className={popup}>
             <Stack
+              gap="0"
               maxH="calc(100dvh - 56px)"
               borderRadius="16px 16px 0 0"
               bg="var(--color-white-000)"

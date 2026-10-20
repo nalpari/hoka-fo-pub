@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { HStack, VStack } from 'styled-system/jsx';
+import { contentFrame } from 'styled-system/patterns';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -34,13 +35,14 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
       zIndex="1"
       top="50%"
       left="50%"
-      w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
+      className={contentFrame({
+        mobileWidth: 'min(calc(100% - var(--layout-mobile-content-inline-space)), 343px)',
+      })}
       transform="translate(-50%, -50%)"
       _mobile={{
         top: 'auto',
         bottom: '32.33px',
         left: 'var(--layout-mobile-inline-gutter)',
-        w: 'min(calc(100% - var(--layout-mobile-content-inline-space)), 343px)',
         transform: 'none',
       }}
       gap={{ base: '36px', _mobile: '24px' }}

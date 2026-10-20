@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/AccountUnlockCompletePage',
+  title: 'PAGES/Login/AccountUnlockCompletePage',
   component: AccountUnlockCompletePage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof AccountUnlockCompletePage>;

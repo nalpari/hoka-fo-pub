@@ -1,3 +1,5 @@
+import type { Promotions } from '@/shared/components/atoms/Badge/PromotionBadge';
+
 export type ProductWidthOption = {
   label: 'Regular' | 'Wide' | 'X-Wide';
   sizes: string[];
@@ -25,7 +27,7 @@ export type Product = {
   rating: number;
   reviewCount: number;
   colorOptions?: ProductColorOption[];
-  promotion?: 'Best' | 'New' | 'Exclusive';
+  promotion?: Promotions;
   launchStatus: 'COMING' | 'IN_STOCK';
   cushioning: 'Balanced' | 'Plush' | 'Responsive';
   collection: '클리프톤' | '아라히' | '가비오타' | '마하';

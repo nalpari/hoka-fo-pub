@@ -6,11 +6,10 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import type { Product } from '@/mocks/products';
 import { getCartImage } from '@/mocks/cartDisplay';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
 import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
 import type { CartItem } from '@/shared/types/cart';
 
@@ -34,7 +33,7 @@ export function CartOptionsDialog({
   const valid = sizes.includes(draft.size) && !soldOut.includes(draft.size);
 
   return (
-    <ModalDialog
+    <ConfirmDialog
       open
       onOpenChange={(open) => {
         if (!open) onClose();
@@ -43,22 +42,9 @@ export function CartOptionsDialog({
       closeLabel="옵션 변경 닫기"
       size="sm"
       mobilePresentation="fullscreen"
-      footer={
-        <HStack gap="2" w="100%">
-          <Button variant="secondary" size="short" fullWidth onClick={onClose}>
-            취소
-          </Button>
-          <Button
-            variant="primary"
-            size="short"
-            fullWidth
-            disabled={!valid}
-            onClick={() => onSave(draft)}
-          >
-            변경
-          </Button>
-        </HStack>
-      }
+      confirmLabel="변경"
+      confirmDisabled={!valid}
+      onConfirm={() => onSave(draft)}
     >
       <Stack gap="8">
         <img
@@ -172,6 +158,6 @@ export function CartOptionsDialog({
           </Stack>
         </ContentSection>
       </Stack>
-    </ModalDialog>
+    </ConfirmDialog>
   );
 }

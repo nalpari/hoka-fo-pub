@@ -3,7 +3,7 @@ import base, * as scenarios from './IdConfirmationModal.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/FindAccount/IdConfirmationModal/Web',
+  title: 'PAGES/Login/FindAccount/IdConfirmationModal/Web',
   globals: { viewport: 'hoka1600' },
 };
 

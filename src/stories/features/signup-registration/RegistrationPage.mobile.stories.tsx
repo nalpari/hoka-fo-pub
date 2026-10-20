@@ -3,7 +3,7 @@ import base, * as scenarios from './RegistrationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/AUTH/Registration/Mobile',
+  title: 'PAGES/Signup/Registration/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

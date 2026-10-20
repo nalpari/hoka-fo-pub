@@ -1,6 +1,5 @@
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import type { ReactNode } from 'react';
-import { Flex } from 'styled-system/jsx';
 
 type SectionHeadingProps = {
   title: ReactNode;
@@ -11,11 +10,13 @@ type SectionHeadingProps = {
 /** Standard page-section heading with an optional trailing action. */
 export function SectionHeading({ title, action, as: Heading = 'h2' }: SectionHeadingProps) {
   return (
-    <Flex alignItems="center" justifyContent="space-between">
-      <Typography as={Heading} variant="heading7">
-        {title}
-      </Typography>
-      {action}
-    </Flex>
+    <ContentHeader
+      title={title}
+      titleAs={Heading}
+      titleProps={{ variant: 'heading7' }}
+      orientation="horizontal"
+      gap="normal"
+      action={action}
+    />
   );
 }

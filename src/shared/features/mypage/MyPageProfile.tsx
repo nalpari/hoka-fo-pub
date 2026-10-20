@@ -62,6 +62,13 @@ export function MyPageProfile() {
         pb="16"
         title={<>{editing ? '회원정보 수정' : '회원정보'}</>}
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
+        footer={
+          !editing ? (
+            <Button fullWidth size="tall" variant="primary" onClick={() => setEditing(true)}>
+              회원정보 수정
+            </Button>
+          ) : null
+        }
       >
         {profileDetails.slice(0, 4).map(([label, value]) => (
           <ProfileField key={label} label={label} value={value} />
@@ -249,9 +256,6 @@ export function MyPageProfile() {
               *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서
               가능합니다.
             </Typography>
-            <Button fullWidth size="tall" variant="primary" onClick={() => setEditing(true)}>
-              회원정보 수정
-            </Button>
           </>
         )}
       </ContentSection>

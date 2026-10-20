@@ -6,10 +6,10 @@ tags: [forms, components, reuse, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T01:14:02Z'
+  at: '2026-10-20T02:15:05Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
-  - src/shared/components/organisms/Signup/SignupDetailsStep.tsx
+  - src/shared/Mockup/signup/SignupDetailsStep.tsx
   - src/shared/features/find-account/PasswordResetField.tsx
   - src/shared/features/find-account/FindAccountIdentityFields.tsx
   - src/shared/features/find-account/FindAccountCodeFields.tsx
@@ -91,7 +91,7 @@ TextFormField는 기존 atom을 대체하는 또 하나의 스타일 시스템�
 
 | 사용처                                                                                                     | 현재 표시/속성                                                                     | 검증·상태 소유자                                                                                                                          |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [SignupDetailsStep](../../src/shared/components/organisms/Signup/SignupDetailsStep.tsx)                    | 이름/이름을 입력해 주세요, boxed·required, name/autocomplete 미지정                | [SignupPage](../../src/shared/features/signup/SignupPage.tsx)는 이름의 빈 값만 검사                                                       |
+| [SignupDetailsStep](../../src/shared/Mockup/signup/SignupDetailsStep.tsx)                                  | 이전 가입 화면 목업의 이름·이메일 입력 구성, boxed·required                        | Mockup 전용이며 운영 `/signup` 흐름에서 사용하지 않음                                                                                     |
 | [FindAccountIdentityFields](../../src/shared/features/find-account/FindAccountIdentityFields.tsx)          | 같은 문구, name=name, autocomplete=name, boxed·required                            | [FindAccountPage](../../src/shared/features/find-account/FindAccountPage.tsx)는 isValidName과 입력 시 오류 갱신, 이름 변경 시 인증 초기화 |
 | [MyPageAddresses](../../src/shared/features/mypage/MyPageAddresses.tsx)                                    | 수령인 recipient를 이름으로 표시, 같은 문구, boxed·required                        | 배송지 저장 시 recipient.trim() 존재 여부 확인                                                                                            |
 | [PhoneInformationFields](../../src/shared/features/phone-verification/PhoneInformationFields.tsx)          | textField('name', ...) 호출, 같은 문구, type=text/inputMode=text/autocomplete=name | [PhoneVerificationPage](../../src/shared/features/phone-verification/PhoneVerificationPage.tsx)는 isValidName, 값 변경 시 인증 초기화     |
@@ -141,7 +141,7 @@ FormField/TextInput 직접 사용 20파일과 별도 래퍼·native 입력 경�
 
 | 영역               | 확인 파일                                                                                     | 판정                                                                                  |
 | ------------------ | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| 가입               | SignupDetailsStep                                                                             | Name/Email/Password와 generic TextFormField 후보                                      |
+| 가입 목업          | SignupDetailsStep                                                                             | 캡처 화면 보존용 Name/Email 필드 구성. 운영 가입 경로에서는 사용하지 않음             |
 | 회원정보 등록      | RegistrationField, RegistrationPersonalFields, RegistrationEmailFields                        | 어댑터 유지 + semantic 필드 후보, required 차이 확인                                  |
 | 주소               | AddressField, AddressSearchModal, CheckoutAddressFields, RegistrationAddressFields            | 주소 공통화 적용, 모달 필수값 안내 유지                                               |
 | 계정 찾기          | FindAccountIdentityFields, FindAccountCodeFields, PasswordResetField/Content                  | Name/Phone/OTP/Countdown/Password 후보                                                |

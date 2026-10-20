@@ -3,9 +3,8 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
 import type { CheckoutRow } from './checkout-summary';
 import { CouponProductItem } from './CouponProductItem';
 import { CartCouponOptions } from './CartCouponOptions';
@@ -47,7 +46,7 @@ export function CouponDialog({
   );
 
   return (
-    <ModalDialog
+    <SingleActionDialog
       open={open}
       onOpenChange={(next) => {
         if (!next) {
@@ -60,20 +59,12 @@ export function CouponDialog({
       closeLabel="쿠폰 닫기"
       size="sm"
       mobilePresentation="fullscreen"
-      footer={
-        <Button
-          variant="primary"
-          size="short"
-          fullWidth
-          onClick={() => {
-            onApply(discount);
-            setApplied({ selected, cartCoupon });
-            onOpenChange(false);
-          }}
-        >
-          쿠폰 적용하기
-        </Button>
-      }
+      confirmLabel="쿠폰 적용하기"
+      onConfirm={() => {
+        onApply(discount);
+        setApplied({ selected, cartCoupon });
+        onOpenChange(false);
+      }}
     >
       <Stack gap="6">
         <ContentSection
@@ -109,6 +100,6 @@ export function CouponDialog({
         </ContentSection>
         <CouponAmountSummary total={total} discount={discount} />
       </Stack>
-    </ModalDialog>
+    </SingleActionDialog>
   );
 }
