@@ -621,6 +621,12 @@ sources:
 
 # 컴포넌트와 스타일
 
+## UI 병합 충돌 해결 (2026-10-20)
+
+`EmployeeCoupons`, `MyPageProfile`, `NotFoundPage`의 공통 `ContentSection` 구성을 유지하면서 들어오는 브랜치의 UI 변경을 통합했다. 임직원 쿠폰은 50%·30% 발급 안내 카드 두 건과 체크 아이콘을 표시한다. 프로필은 문자·카카오톡 수신 설정을 하나로 묶고 결혼 여부 편집, 변경사항 저장 문구와 탈퇴 안내를 반영한다. 프로필의 조회 화면 수정 버튼은 공통 footer에 두고 편집 폼의 검증·제출·취소·탈퇴 대화상자 상태를 유지한다. 404 화면은 `black.100` 아이콘 색상과 제목/설명 사이 간격 4를 적용하며 공통 헤더·footer를 유지한다.
+
+위 세 파일은 `working_tree_sources`에 포함된 작업 트리 출처다. 양쪽 문서 이력과 출처 메타데이터를 보존하고 충돌 난 생성 시각은 더 최신 값을 유지했다. 타입 검사·변경 TS/TSX ESLint·충돌 해결 파일 Prettier·Panda 생성·Next.js 프로덕션 빌드·스테이징 기준 OKF 검사를 통과했다. 브라우저 시각·상호작용 검증은 실행하지 않았다.
+
 ## 가로형 ContentHeader 소비처 확대 (2026-10-20)
 
 고객센터 공지·문의 파일 첨부, 최근 검색어, 쿠폰 카드, 상품 옵션, 휴대폰 인증약관과 MainSectionHeader·SectionHeading·OrderStatusTracker의 9개 구성에 orientation/action을 적용했다. 기존 ContentSection 또는 제목과 본문 간격을 소유하는 구성은 title/headerProps 기본 API를 사용한다. MainSectionHeader는 중앙 contentFrame 너비, SectionHeading은 기존 제목 레벨 API를 전달하는 어댑터를 유지한다.
@@ -1537,8 +1543,9 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.
 - 마이페이지 주문 카드 상품 사진은 공용 `ProductThumbnail`로 렌더하고 96px 정사각형 슬롯은 페이지 레이아웃에서 지정한다. Typography는 기본 `language="auto"`가 한글을 감지해 한국어 토큰을 선택하므로 호출부에서 `Kr` 접미사를 반복하지 않는다. 프로필 이동은 공용 `ButtonLink`, 구분선은 Panda `Divider`를 사용한다.
 - 마이페이지의 리뷰·등급·쿠폰·회원정보·배송지·관심상품·최근 본 상품·재입고 알림 화면은 `MyPageStatusPage`에서 기능별 화면으로 분기한다. 공통 `MyPageFrame`이 탐색 메뉴와 Breadcrumb을 소유하고 각 화면은 기존 Button, FormField, TextInput, SegmentedControl, ModalDialog, ProductCard, ProductThumbnail을 재사용한다. 현재 목록과 입력 결과는 화면 내부의 데모 상태이며 서버 저장소와 연결하지 않는다. 대응 모바일 시나리오는 `src/stories/features/mypage/MyPageDesign.stories.tsx`에 둔다.
-- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 이메일·모바일 쿠폰북·문자/카카오톡 전송매체를 각각 표시한다. 편집 폼에도 모바일 쿠폰북 선택값을 둬 요약 상태와 일치시킨다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev) 및 `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev), 제공된 편집 상태 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-25505&m=dev), 제공된 보기/수정 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/shared/features/mypage/MyPageReviews.tsx`와 `src/shared/components/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
 - 이 여덟 화면의 타이포는 Figma의 12·14·16·20·22px 역할을 기존 Typography variant로 표현한다. 날짜·숫자는 영문 서체, 뒤따르는 한국어 단위·라벨은 한국어 서체를 각 Typography에 명시해 한 줄에서도 언어별 굵기와 자간을 유지한다. 여백과 정렬은 Box·Stack·HStack이 담당한다.
 - `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
@@ -1547,8 +1554,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `src/shared/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
 - 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
 - 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/shared/components/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
-- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이의 독립 섹션이다. 접힌 상태는 칩을 줄바꿈 없이 가로 한 줄(`nowrap`)로 이어서 보여주고, 52px 높이에서 오른쪽으로 넘친 부분만 잘린다. 펼치면 줄바꿈(`wrap`)해 가로 4px·세로 8px 간격으로 세 줄에 걸쳐 5개 칩을 모두 보여주며 아래 쿠폰 내역을 밀어낸다. 우측 원형 버튼은 `aria-expanded`와 목록 연결을 제공한다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19372&m=dev), 제공된 두 상태 이미지 및 `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
-- 임직원 쿠폰의 펼침은 실제 칩 목록 높이를 측정해 52px에서 확장 높이까지 애니메이션한다. 접을 때는 280ms 높이 전환 후 `nowrap`으로 확실히 복원하고, 빠르게 다시 펼치면 대기 중인 접힘 타이머를 취소한다. 화살표와 가장자리 페이드도 함께 전환하며, 움직임 감소 환경에서는 즉시 접는다. 근거: `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-15).
+- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19062&m=dev), `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
 - `SegmentedControl variant="underline"`는 리뷰·쿠폰의 동일한 전체 폭 밑줄 탭 표현을 소유한다. 옵션 수에 관계없이 버튼을 균등하게 배치하고 선택 항목에 검은 하단선을 표시한다. 기존 기본 버튼형과 `unstyled` 확장 API는 유지한다.
 
 `styled-system/`과 `src/shared/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
@@ -1563,7 +1569,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 | 쿠폰 목록의 article 표시와 필터·등록·상세 상태 혼재      | organism 내부 `CouponCard({ coupon, onDetails })`                                                   | article/h3, 패딩 16px/24px, 카드 내부 24px/12px/4px 간격, 상세보기 콜백 유지. 카테고리 변경 시 5개로 초기화, 등록·모달 상태는 Manager 소유. 기존 `CouponManager`의 `CouponItem` 타입 import 경로는 re-export로 유지                                                                                                              |
 | 밑줄형 선택 버튼의 직접 타입 선언                        | `Typography as="button" variant="selectionLabel"`를 Toggle의 render로 사용                          | 버튼 DOM을 추가하지 않고 Base UI 이벤트·ref·선택 속성을 전달. 한국어 글꼴, PC/모바일 16px·500·행간 1.3·자간 normal. `--type-selection-label-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}` 토큰 계약. 기존 `ctaKr1`은 600·음수 자간이므로 대체하지 않음. 기본형·unstyled·옵션 비활성·빈 문자열 인코딩 유지 |
 
-`EmployeeCoupons`의 목록 ID와 버튼 `aria-controls`는 인스턴스별 `useId()`로 연결한다. 여러 쿠폰 영역이 함께 렌더링되어도 대상 ID가 겹치지 않는다. 기존 52px 접힘 높이, wrap/nowrap 전환, 280ms 접힘 타이머·재클릭 취소, 움직임 감소 설정, 페이드·화살표는 유지한다. 현재 작업 트리에서 타입 검사와 `.tmp*` 산출물을 제외한 lint를 통과했다. 인스턴스 두 개의 브라우저 동작 검증은 수행하지 않았다.
+`EmployeeCoupons`는 Figma 업데이트에 따라 기존 5개 칩과 펼침·접힘 인터랙션을 제거하고 50%·30% 쿠폰 발급 안내 두 건으로 단순화했다. 두 항목은 균등 너비로 나란히 표시하며 체크 아이콘을 포함한다.
 
 ### Base UI와 유지 판단
 
@@ -1572,7 +1578,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - **keep — Toggle Group/Toggle**: 쿠폰·리뷰는 목록 필터이며 독립 탭 패널을 연결하지 않는다. 공용 SegmentedControl의 controlled 선택과 roving focus를 유지한다. 설치 버전 지원, 업그레이드 불필요.
 - **keep — Dialog, Checkbox, Radio Group, Progress**: 상세·수정 모달, 기본 배송지, 수신 동의, 진행률은 기존 wrapper가 담당한다. 기능에서 primitive를 직접 재구현하지 않는다. 모두 설치 버전 지원, 업그레이드 불필요.
 - **keep — 네이티브 select/input/form 및 confirm**: 기존 정렬·입력·필수 검증·리뷰 취소 의미를 유지한다. Select, Input, Form, Alert Dialog는 설치 버전에서 지원하지만 네이티브 동작을 교체할 추가 요구가 없다. 업그레이드 불필요.
-- **keep — EmployeeCoupons**: 펼침은 숨긴 패널 전체를 여닫는 것이 아니라 일부 칩이 보이는 목록의 줄바꿈·측정 높이를 바꾼다. Collapsible은 설치 버전에 있으나 패널 숨김 계약이 달라 기계적으로 이전하지 않는다. 업그레이드 불필요.
+- **keep — EmployeeCoupons**: 최신 Figma에서 두 개의 고정 안내 항목만 표시하므로 접힘·펼침 primitive가 필요하지 않다. 50%·30% 항목의 균등 배치와 아이콘을 유지한다.
 - **keep — MyPageFrame, OrderTile, MyPageMenuSection, ProfileField, QuickLinkGrid**: 프레임·주문 표시·섹션 내비게이션·필드·반응형 링크 격자의 책임이 이미 명확하다. nav·article·form·목록 의미와 DOM 순서를 유지한다. 단순 태그 교체나 public component 추가 근거로 삼지 않는다.
 
 ### 후속 추출 후보
@@ -1863,7 +1869,11 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## Icon 색상 토큰
 
-`Icon.color`는 `white`, `black`, `currentColor`와 CSS 색상값을 지원한다. 추가로 `black.50`, `text.tertiary`처럼 Panda `colors.*` 토큰 경로를 받으면 생성된 CSS 변수를 사용한다. 토큰 경로가 아닌 값은 기존처럼 CSS 색상으로 전달한다. `FontAwesomeIcon`과 mask 방식 SVG에는 이 색을 적용하고, 색을 보존해야 하는 등록 이미지 아이콘은 기존 필터 동작(`white`/`black`)을 따른다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+`Icon.color`는 `currentColor`, CSS 색상값과 Panda 색상 토큰 경로를 받는다. `FontAwesomeIcon`과 mask 방식 SVG는 토큰 경로를 생성된 CSS 변수로 바꿔 적용한다. 색을 보존해야 하는 등록 이미지 아이콘과 일반 `src` 이미지는 원본 색을 유지한다. 호출부는 기본 색상 별칭 대신 `black.100`·`white.0` 같은 디자인 토큰을 직접 전달한다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+
+## Font Awesome 아이콘 스토리 카탈로그
+
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`과 Regular `circle-check`(`faCircleCheck`)를 포함한다. 두 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
 
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 

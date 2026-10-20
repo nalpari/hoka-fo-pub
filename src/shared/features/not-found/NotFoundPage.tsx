@@ -21,9 +21,9 @@ export function NotFoundPage() {
       _mobile={{ minH: 'calc(100svh - var(--layout-site-header-height))' }}
       header={
         <>
-          <Icon fontAwesomeIcon={faTriangleExclamation} size={48} color="black" />
+          <Icon fontAwesomeIcon={faTriangleExclamation} size={48} color="black.100" />
           <ContentHeader
-            gap="3"
+            gap="4"
             titleAs="h1"
             title="요청하신 페이지를 찾을 수 없습니다."
             titleProps={{ variant: 'bodyKr2', weight: 'semibold' }}

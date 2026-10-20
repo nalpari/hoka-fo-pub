@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Merge**: UI 코드 3파일과 UI 문서의 충돌을 해결했다. 공통 ContentSection·footer와 들어오는 쿠폰 카드·프로필 편집·404 색상/간격 변경을 통합하고 양쪽 문서 이력을 보존했다. 타입·변경 ESLint·충돌 해결 파일 Prettier·Panda·Next.js 빌드·스테이징 기준 OKF 검사를 통과했다. [UI 통합 기록](architecture/ui.md#ui-병합-충돌-해결-2026-10-20)을 참고한다.
+
 - **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.
 
 - **Refactor**: 배송/반품 안내의 탭별 패널과 공통 번호·bullet 목록 표현을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#배송-반품-안내-패널과-목록-분리-2026-10-20)을 갱신했다.
@@ -109,6 +111,11 @@
 
 ## 2026-10-20
 
+- **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
+- **Fix**: 임직원 쿠폰 안내의 체크 이미지를 Figma와 같은 Font Awesome Regular `faCircleCheck`로 교체하고 공용 barrel 및 아이콘 Storybook에 추가했다. [UI 기록](architecture/ui.md)을 갱신했다.
+- **Refactor**: Icon의 `black`/`white` 별칭 변환과 이미지 필터를 제거하고 토큰 경로를 직접 받도록 정리했다. `faTriangleExclamation`과 회원가입 화살표 사용처를 `black.100`·`white.0`으로 변경했다. [UI 기록](architecture/ui.md)의 아이콘 색상 계약을 갱신했다.
+- **Docs**: Font Awesome 아이콘 목록에 `faTriangleExclamation`을 barrel export와 `Atoms/Icon` 카탈로그 스토리로 추가했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Refactor**: `ModalDialog`의 `content`/`singleActionContent` 분기와 `actionCount` prop을 제거했다. 모든 모달 본문을 PC 위·좌우 24px/아래 16px, 모바일 `24px 16px 16px`로 통일하고 `SingleActionDialog` 사용처도 같은 규칙을 쓴다. [UI 기록](architecture/ui.md#모달-본문-패딩-통일-2026-10-20)에 반영했다.
 - **Refactor**: 계정 잠금 안내를 공통 `ModalDialog` 직접 조합으로 변경하고 확인 버튼을 footer에 배치했다. md 크기, 단일 액션 본문 간격과 닫기·확인 이동 콜백을 유지했다. [UI 기록](architecture/ui.md)에 반영했다.
 - **Fix**: 병합 후 남은 매장 찾기 중복 페이지를 제거하고 Storybook·데이터 타입 경로를 정식 화면에 맞췄다. [UI 기록](architecture/ui.md)에 실제 참조 관계를 반영했다.

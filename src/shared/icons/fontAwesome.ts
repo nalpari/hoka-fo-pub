@@ -18,9 +18,11 @@ export {
   faShieldHalved,
   faXmark,
   faStar as faStarSolid,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 
 export {
+  faCircleCheck,
   faEye,
   faEyeSlash,
   faHeart as faHeartRegular,
