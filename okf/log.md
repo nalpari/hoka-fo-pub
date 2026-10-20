@@ -2,6 +2,12 @@
 
 ## 2026-10-20
 
+- **Refactor**: 결제 CouponDialog를 SingleActionDialog로 전환하고 기존 쿠폰 적용/닫기·취소 시 복원·버튼/모바일 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#결제-쿠폰-단일-액션-다이얼로그-재사용-2026-10-20)을 갱신했다.
+
+- **Refactor**: CouponRegistrationDialog를 SingleActionDialog로 전환하고 본문 확인 버튼을 공통 footer로 옮겼다. 문구·닫기 콜백·sm 크기를 유지하고 PC 160px/모바일 전체 너비의 공통 버튼 규격을 적용했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#쿠폰-등록-완료-단일-액션-다이얼로그-2026-10-20)을 갱신했다.
+
+- **Refactor**: AccountLockedContent를 SingleActionDialog로 전환하고 수동 확인 footer와 Button import를 제거했다. 동일한 버튼 기본값·닫기/확인 콜백·본문을 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#계정-잠금-단일-확인-다이얼로그-재사용-2026-10-20)을 갱신했다.
+
 - **Refactor**: MyPageBenefits의 쿠폰/관심상품 중복 JSX를 MyPageBenefitItem으로 통합했다. href·label·count·unit만 전달하고 기존 DOM·스타일·링크를 유지했다. 타입·변경 ESLint/Prettier·Panda 생성을 확인하고 [UI 기록](architecture/ui.md#마이페이지-혜택-항목-중복-제거-2026-10-20)을 갱신했다.
 
 - **Refactor**: 주문 상태 링크·문의 첨부 목록/안내·공지 한 행을 OrderStatusLink/InquiryAttachmentList/InquiryAttachmentHelp/SupportNoticeItem으로 분리했다. 기존 DOM·스타일·링크·첨부 검증/삭제 흐름을 유지하고 타입·변경 ESLint/Prettier·Panda 생성을 확인했다. [UI 기록](architecture/ui.md#주문-상태첨부파일공지-항목-분리-2026-10-20)을 갱신했다.

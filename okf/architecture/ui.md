@@ -1969,3 +1969,15 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 마이페이지 혜택 항목 중복 제거 (2026-10-20)
 
 `MyPageBenefits`의 쿠폰/관심상품 링크는 동일한 구조이므로 `MyPageBenefitItem`에 href·label·count·unit을 전달한다. Grid의 2열/gap=2는 부모가 유지하고 항목은 기존 Link·Stack·HStack·Typography와 Panda css를 그대로 사용한다. 추가 DOM·상태 없이 쿠폰 3개/관심상품 6건, 링크·PC/MO 타이포그래피·여백을 보존한다. 출처는 frontmatter의 MyPageBenefits/MyPageBenefitItem 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성을 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 계정 잠금 단일 확인 다이얼로그 재사용 (2026-10-20)
+
+`AccountLockedContent`의 수동 ModalDialog.footer/Button 조합을 `SingleActionDialog`로 교체했다. 기본 확인 문구·primary/short/fullWidth 버튼이 기존과 동일하므로 onConfirm만 전달한다. size=md·안내 닫기 레이블·닫기/Escape의 onClose·ContentHeader 본문·모바일 줄바꿈과 Page의 라우팅 책임을 유지한다. 앞선 직접 조합/병합 기록은 당시 상태이며 현재는 이 단일 액션 어댑터를 사용한다. 출처는 frontmatter의 AccountLockedContent/SingleActionDialog 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 쿠폰 등록 완료 단일 액션 다이얼로그 (2026-10-20)
+
+`CouponRegistrationDialog`는 `SingleActionDialog`를 사용하고 확인 시 onOpenChange(false)를 호출한다. 제목·닫기 레이블·sm 크기·완료 안내 Typography와 부모 open 상태 소유권을 유지한다. 기존 본문의 Stack/확인 버튼을 제거하고 공통 고정 footer로 옮겨 PC 160px 너비·40px 높이, 모바일 전체 너비와 공통 footer 여백을 적용한다. 기존 본문 내 fullWidth 버튼·gap=6 배치에서 공통 단일 액션 규격으로 바뀌는 것은 의도된 변경이다. 앞선 팝업 분리 기록의 DOM/간격 보존은 당시 구현 기준이다. 출처는 frontmatter의 CouponRegistrationDialog/SingleActionDialog/ModalDialogFooter 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 결제 쿠폰 단일 액션 다이얼로그 재사용 (2026-10-20)
+
+`CouponDialog`의 수동 ModalDialog.footer/Button을 `SingleActionDialog`로 교체했다. confirmLabel=쿠폰 적용하기와 기존 적용 콜백을 전달하며 primary/short/fullWidth 기본 버튼·sm 크기·모바일 fullscreen·공통 고정 footer를 유지한다. 확인 시 onApply(discount) → 마지막 적용 선택값 저장 → 상위 onOpenChange(false) 순서를 유지한다. 취소/닫기 경로에서 마지막 적용값으로 복원하는 onOpenChange도 그대로 전달해 적용과 취소를 구분한다. 선택·할인 계산·펼침 상태와 본문은 CouponDialog가 계속 소유한다. 출처는 frontmatter의 CouponDialog/SingleActionDialog 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
