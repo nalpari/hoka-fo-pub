@@ -6,9 +6,38 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:17:16.410Z'
+  at: '2026-10-20T07:17:25.249Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/components/molecules/SearchField/SearchField.tsx
+  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader.tsx
+  - src/shared/components/organisms/Catalog/CatalogResults/CatalogResults.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
+  - src/shared/components/organisms/Search/SearchSuggestions.tsx
+  - src/shared/features/catalog/ProductListingPage.tsx
+  - src/shared/features/catalog/ProductListingResults.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
+  - src/shared/features/catalog/productListingFilterValues.ts
+  - src/shared/features/home/HomeExploreSection.tsx
+  - src/shared/features/home/homeContent.ts
+  - src/shared/features/product/ProductColorSelector.tsx
+  - src/shared/features/product/ProductDetailGrid.tsx
+  - src/shared/features/product/ProductDetailHeaderTitle.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/styles/global.scss
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
+  - src/stories/components/molecules/SearchField/SearchField.stories.tsx
+  - src/stories/features/catalog/ProductListingPage.mobile.stories.tsx
+  - src/stories/features/catalog/ProductListingPage.scenarios.tsx
+  - src/stories/features/catalog/ProductListingPage.stories.tsx
   - src/shared/components/atoms/Divider/Divider.tsx
   - src/shared/components/layouts/PageFrame/PageFrame.tsx
   - src/shared/features/care-guide/CareGuidePage.tsx
@@ -2053,3 +2082,8 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 시안 반영 분할 기록 (1, 2026-10-20)
 
 공통 PageFrame과 Divider를 추가하고 구분선 사용처를 전환했다. 세탁 안내와 약관 문서·시행일 선택을 기능 내부 구성으로 분리했다. 고객센터 레이아웃의 PageFrame 적용과 시안 보정은 후속 고객센터 커밋에 포함한다.
+
+
+## 시안 반영 분할 기록 (2, 2026-10-20)
+
+메인 카테고리 이미지, 메뉴 타이포그래피, 검색 입력·검색결과 프레임, 상품 목록·필터·상세 화면을 첨부 시안에 맞췄다. 모바일 검색의 헤더·푸터 구성도 조정했다.

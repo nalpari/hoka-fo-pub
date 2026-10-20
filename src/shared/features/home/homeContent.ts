@@ -12,56 +12,48 @@ export type HomeCategory = {
 export const homeCategories: readonly HomeCategory[] = [
   {
     title: 'Road Running',
-    image: '/images/temp/category-road-running.webp',
+    image: '/images/home/categories/road-running.jpg',
     actions: [
-      { label: '남성 바로가기', to: '/products?activity=road-running&gender=men' },
-      { label: '여성 바로가기', to: '/products?activity=road-running&gender=women' },
+      { label: '남성 보러가기', to: '/products?activity=road-running&gender=men' },
+      { label: '여성 보러가기', to: '/products?activity=road-running&gender=women' },
     ],
   },
   {
     title: 'Trail Running',
-    image: '/images/temp/category-trail-running-hiking.webp',
+    image: '/images/home/categories/trail-running.jpg',
     actions: [
       {
-        label: '남성 바로가기',
+        label: '남성 보러가기',
         to: '/products?activity=trail-running&gender=men',
       },
       {
-        label: '여성 바로가기',
+        label: '여성 보러가기',
         to: '/products?activity=trail-running&gender=women',
       },
     ],
   },
   {
     title: 'Lifestyle',
-    image: '/images/temp/category-lifestyle.webp',
+    image: '/images/home/categories/lifestyle.jpg',
     actions: [
-      { label: '남성 바로가기', to: '/products?activity=lifestyle&gender=men' },
-      { label: '여성 바로가기', to: '/products?activity=lifestyle&gender=women' },
+      { label: '남성 보러가기', to: '/products?activity=lifestyle&gender=men' },
+      { label: '여성 보러가기', to: '/products?activity=lifestyle&gender=women' },
     ],
   },
   {
     title: 'Hiking',
-    image: '/images/temp/category-hiking.png',
+    image: '/images/home/categories/hiking.jpg',
     actions: [
-      { label: '남성 바로가기', to: '/products?activity=hiking&gender=men' },
-      { label: '여성 바로가기', to: '/products?activity=hiking&gender=women' },
+      { label: '남성 보러가기', to: '/products?activity=hiking&gender=men' },
+      { label: '여성 보러가기', to: '/products?activity=hiking&gender=women' },
     ],
   },
   {
     title: 'Walking',
-    image: '/images/temp/category-walking.webp',
+    image: '/images/home/categories/walking.jpg',
     actions: [
-      { label: '남성 바로가기', to: '/products?activity=walking&gender=men' },
-      { label: '여성 바로가기', to: '/products?activity=walking&gender=women' },
-    ],
-  },
-  {
-    title: 'Working',
-    image: '/images/temp/category-working.webp',
-    actions: [
-      { label: '남성 바로가기', to: '/products?activity=training&gender=men' },
-      { label: '여성 바로가기', to: '/products?activity=training&gender=women' },
+      { label: '남성 보러가기', to: '/products?activity=walking&gender=men' },
+      { label: '여성 보러가기', to: '/products?activity=walking&gender=women' },
     ],
   },
 ];
@@ -129,8 +121,7 @@ export type HomeShoeFinder = {
 export type HomeShoeFinderCardVariant = 'overlay' | 'imagePill';
 
 const shoeFinderActions: readonly MainContentCardAction[] = [
-  { label: '남성 바로가기', to: '/explore/shoe-finder' },
-  { label: '여성 바로가기', to: '/explore/shoe-finder' },
+  { label: '상품 보러가기', to: '/explore/shoe-finder' },
 ];
 
 export const shoeFinderItems: readonly HomeShoeFinder[] = [

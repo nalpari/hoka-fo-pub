@@ -628,3 +628,22 @@ export const UnstyledTone: Story = {
     </Box>
   ),
 };
+
+export const NavigationHeading: Story = {
+  args: { as: 'h2', variant: 'navigationHeading', children: 'Featured' },
+  render: (args) => (
+    <Stack gap="6">
+      <PlatformProvider platform="web">
+        <Typography {...args} />
+      </PlatformProvider>
+      <PlatformProvider platform="mobile">
+        <Stack className="platform-mobile" gap="4">
+          <Typography {...args} />
+          <Typography {...args} as="span">
+            액티비티
+          </Typography>
+        </Stack>
+      </PlatformProvider>
+    </Stack>
+  ),
+};

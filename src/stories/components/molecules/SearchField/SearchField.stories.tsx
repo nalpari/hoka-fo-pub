@@ -54,6 +54,8 @@ export const Desktop: Story = {
     await expect(args.onValueChange).toHaveBeenLastCalledWith('배송');
     await userEvent.keyboard('{Enter}');
     await expect(args.onSearch).toHaveBeenCalled();
+    await userEvent.click(within(canvasElement).getByRole('button', { name: '검색 실행' }));
+    await expect(args.onSearch).toHaveBeenCalledTimes(2);
   },
 };
 

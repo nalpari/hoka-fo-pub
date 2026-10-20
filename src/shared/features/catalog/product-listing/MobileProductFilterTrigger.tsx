@@ -4,10 +4,14 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type MobileProductFilterTriggerProps = {
   onClick: () => void;
+  label?: string;
 };
 
 /** Opens the mobile product filter sheet. */
-export function MobileProductFilterTrigger({ onClick }: MobileProductFilterTriggerProps) {
+export function MobileProductFilterTrigger({
+  onClick,
+  label = '필터',
+}: MobileProductFilterTriggerProps) {
   return (
     <Button
       aria-haspopup="dialog"
@@ -15,7 +19,7 @@ export function MobileProductFilterTrigger({ onClick }: MobileProductFilterTrigg
       onClick={onClick}
       variant="filterTrigger"
     >
-      <Typography variant="body4">필터</Typography>
+      <Typography variant="body4">{label}</Typography>
     </Button>
   );
 }

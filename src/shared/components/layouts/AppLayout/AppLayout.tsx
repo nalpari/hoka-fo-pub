@@ -1,7 +1,10 @@
 import { useState, type ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import { usePlatform } from '@/shared/context/platform';
 import { MenuDrawer } from '@/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer';
 import { SiteFooter } from '@/shared/components/organisms/Layout/SiteFooter/SiteFooter';
 import { SiteHeader } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeader';
+import { HeaderPromotionBanner } from '@/shared/components/organisms/Layout/SiteHeader/HeaderPromotionBanner';
 
 export function AppLayout({
   cart,
@@ -17,19 +20,26 @@ export function AppLayout({
   recentCount?: number;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const platform = usePlatform();
+  const pathname = usePathname();
+  const searchPage = platform === 'mobile' && pathname === '/search';
 
   return (
     <>
-      <SiteHeader
-        cart={cart}
-        onMenu={() => setMenuOpen(true)}
-        isLoggedIn={isLoggedIn}
-        wishlistCount={wishlistCount}
-        recentCount={recentCount}
-      />
+      {searchPage ? (
+        <HeaderPromotionBanner />
+      ) : (
+        <SiteHeader
+          cart={cart}
+          onMenu={() => setMenuOpen(true)}
+          isLoggedIn={isLoggedIn}
+          wishlistCount={wishlistCount}
+          recentCount={recentCount}
+        />
+      )}
       {menuOpen && <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />}
       {children}
-      <SiteFooter />
+      {!searchPage && <SiteFooter />}
     </>
   );
 }

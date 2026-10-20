@@ -50,7 +50,7 @@ export function ProductListingResults({
       {shown.length ? (
         <>
           <Grid
-            gridTemplateColumns="repeat(4, 1fr)"
+            gridTemplateColumns="repeat(3, minmax(0, 1fr))"
             columnGap="4"
             rowGap="12"
             _mobile={{ gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '2', rowGap: '10' }}

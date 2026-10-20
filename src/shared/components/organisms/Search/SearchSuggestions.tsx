@@ -1,5 +1,5 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { Grid, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { RecentSearches } from './RecentSearches';
@@ -29,13 +29,15 @@ export function SearchSuggestions({
       p="32px"
       _mobile={{ gridTemplateColumns: '1fr', gap: '40px', px: '16px', py: '40px' }}
     >
-      <RecentSearches
-        recentSearches={recentSearches}
-        onSearch={onSearch}
-        onRemove={onRemoveRecent}
-        onClear={onClearRecent}
-      />
-      <Stack gap="40px">
+      {recentSearches.length > 0 && (
+        <RecentSearches
+          recentSearches={recentSearches}
+          onSearch={onSearch}
+          onRemove={onRemoveRecent}
+          onClear={onClearRecent}
+        />
+      )}
+      <Stack gap="40px" gridColumn="2" _mobile={{ gridColumn: '1' }}>
         <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
         <ContentSection
           as="section"
@@ -47,12 +49,10 @@ export function SearchSuggestions({
             titleProps: { variant: 'body2', weight: 'bold', id: 'popular-search-title' },
           }}
         >
-          <Box
+          <Grid
             as="ol"
-
             mb="0"
             p="0"
-            display="grid"
             gridAutoFlow="column"
             gridTemplateRows="repeat(5, auto)"
             gridTemplateColumns="1fr 1fr"
@@ -70,7 +70,7 @@ export function SearchSuggestions({
                 <SearchKeywordButton query={query} onSearch={onSearch} />
               </li>
             ))}
-          </Box>
+          </Grid>
         </ContentSection>
       </Stack>
     </Grid>

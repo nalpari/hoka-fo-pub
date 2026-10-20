@@ -422,6 +422,13 @@ const typography = cva({
         letterSpacing: 'var(--type-selection-label-letter-spacing)',
         _mobile: { fontSize: 'var(--type-selection-label-mobile-font-size)' },
       },
+      navigationHeading: {
+        fontSize: 'var(--type-navigation-heading-font-size)',
+        fontWeight: 'var(--type-navigation-heading-font-weight)',
+        lineHeight: 'var(--type-navigation-heading-line-height)',
+        letterSpacing: '0',
+        _mobile: { fontSize: 'var(--type-navigation-heading-mobile-font-size)' },
+      },
       navigationPromoTitle: {
         fontFamily: 'hoka',
         fontSize: 'var(--type-navigation-promo-title-font-size)',
@@ -644,6 +651,7 @@ const typography = cva({
 export type TypographyVariant =
   | 'unstyled'
   | 'selectionLabel'
+  | 'navigationHeading'
   | 'navigationPromoTitle'
   | 'localeHeading'
   | 'profileTitle'

@@ -43,10 +43,10 @@ export function ProductDetailPanel({
       pos="sticky"
       top="104px"
       alignSelf="start"
-      px="4"
+      px="0"
       _mobile={{ position: 'static', px: '4', pt: '6' }}
     >
-      <Stack gap="10">
+      <Stack gap="8" _mobile={{ gap: '6' }}>
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
         <ProductDetailContent
           color={color}

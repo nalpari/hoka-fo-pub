@@ -3,6 +3,7 @@ import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { IconButton } from '@/shared/components/atoms/IconButton/IconButton';
 
 const input = css({
   '&&': {
@@ -54,7 +55,13 @@ export function SearchField({
         onSearch?.();
       }}
     >
-      <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
+      {onSearch ? (
+        <IconButton type="submit" aria-label="검색 실행" size="16px">
+          <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
+        </IconButton>
+      ) : (
+        <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
+      )}
       <TextInput
         aria-label={label}
         className={input}
