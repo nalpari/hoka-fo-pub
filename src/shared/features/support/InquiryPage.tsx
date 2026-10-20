@@ -1,12 +1,22 @@
 'use client';
 
-import { Divider, Stack } from 'styled-system/jsx';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
+
+import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { InquiryCautions } from '@/shared/features/support/InquiryCautions';
 import { InquiryEmptyState } from './InquiryEmptyState';
 import { InquiryListItem } from './InquiryListItem';
+import type { InquiryAttachment } from './InquiryAttachmentPreview';
+
+const previewAttachments: readonly InquiryAttachment[] = [
+  { name: 'IMG_7899.JPG', kind: 'image' },
+  { name: 'IMG_eklefej003.JPG', kind: 'image' },
+  { name: 'IMG_55559KKKK.PDF', kind: 'document' },
+  { name: 'IMG_55559KKKK.JPG', kind: 'image' },
+];
 
 type InquiryPreview = 'empty' | 'pending' | 'answered';
 
@@ -34,17 +44,14 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         </PageActionButton>
       }
     >
-      <Divider
-        aria-hidden="true"
-        orientation="horizontal"
-        h={{ base: '2px', _mobile: '1px' }}
-        bg={{ base: 'black.100', _mobile: 'black.20' }}
-      />
+      <Divider variant="heading" _mobile={{ h: '1px', bg: 'black.20' }} />
       <Stack gap="0" py="6" _mobile={{ py: '6' }}>
         {inquiries.length === 0 ? (
           <InquiryEmptyState />
         ) : (
-          inquiries.map((item) => <InquiryListItem key={item.id} item={item} />)
+          inquiries.map((item) => (
+            <InquiryListItem key={item.id} item={item} attachments={previewAttachments} />
+          ))
         )}
       </Stack>
       <InquiryCautions />

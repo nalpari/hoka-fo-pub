@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:17:37.473Z'
+  at: '2026-10-20T07:17:40.188Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/support/InquiryAttachmentPreview.tsx
+  - src/shared/features/support/InquiryListItem.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/support/InquiryReadAttachments.tsx
   - src/app/error.tsx
   - src/app/maintenance/page.tsx
   - src/app/service-unavailable/page.tsx
@@ -2101,3 +2105,8 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 시안 반영 분할 기록 (3, 2026-10-20)
 
 SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
+
+
+## 시안 반영 분할 기록 (4, 2026-10-20)
+
+문의 읽기 화면의 첨부파일 목록과 미리보기를 추가했다. 기존 SingleActionDialog·Carousel을 조합하며 목록에서 선택한 파일 열기·슬라이드 선택·닫기 후 포커스 복원을 지원한다.

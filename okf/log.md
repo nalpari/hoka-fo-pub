@@ -554,3 +554,8 @@
 ## 2026-10-20 분할 커밋 기록
 
 - SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
+
+
+## 2026-10-20 분할 커밋 기록
+
+- 문의 읽기 화면의 첨부파일 목록과 미리보기를 추가했다. 기존 SingleActionDialog·Carousel을 조합하며 목록에서 선택한 파일 열기·슬라이드 선택·닫기 후 포커스 복원을 지원한다.
