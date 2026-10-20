@@ -68,6 +68,10 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
+  260: {
+    pc: 'pages-support-customer-center--size-guide-desktop',
+    mo: 'pages-support-customer-center--size-guide-mobile-375',
+  },
   200: { pc: 'pages-mypage-runclub-list--list', mo: 'pages-mypage-runclub-list--mobile-list' },
   258: { pc: 'pages-mypage-runclub-list--list', mo: 'pages-mypage-runclub-list--mobile-list' },
   259: { pc: 'pages-mypage-runclub-detail--open', mo: 'pages-mypage-runclub-detail--mobile-open' },

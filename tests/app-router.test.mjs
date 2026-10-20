@@ -61,6 +61,7 @@ const expectedRoutes = [
   '/store/experience',
   '/support',
   '/support/after-sales',
+  '/support/care',
   '/support/faq',
   '/support/inquiries',
   '/support/inquiries/new',
@@ -68,8 +69,8 @@ const expectedRoutes = [
   '/support/mileage',
   '/support/notices',
   '/support/notices/[id]',
+  '/support/size-guide',
   '/support/store',
-  '/support/teamwear',
   '/support/terms',
 ];
 

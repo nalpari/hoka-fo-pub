@@ -15,6 +15,12 @@ type Story = StoryObj<typeof meta>;
 
 export const LoadMore: Story = {};
 
+export const NarrowLoadMore: Story = { args: { width: 'narrow' } };
+
+export const CompactLink: Story = {
+  args: { children: 'FAQs 바로가기', href: '/support/faq', width: 'compact', counter: undefined },
+};
+
 export const Link: Story = {
   args: { children: 'FAQs 바로가기', href: '/support/faq', size: 'tall', counter: undefined },
 };
@@ -41,4 +47,9 @@ export const Mobile: Story = {
     ),
   ],
   globals: { viewport: { value: 'hoka375', isRotated: false } },
+};
+
+export const CompactMobile: Story = {
+  ...Mobile,
+  args: { ...CompactLink.args },
 };

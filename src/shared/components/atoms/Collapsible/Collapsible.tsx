@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
 import { css } from 'styled-system/css';
 
@@ -45,6 +45,8 @@ function DefaultIndicator() {
 export type CollapsibleProps = {
   children: ReactNode;
   trigger: ReactNode;
+  /** Compose an existing button while Base UI owns the disclosure behavior. */
+  triggerRender?: ComponentProps<typeof BaseCollapsible.Trigger>['render'];
   className?: string;
   defaultOpen?: boolean;
   disabled?: boolean;
@@ -60,6 +62,7 @@ export type CollapsibleProps = {
 export function Collapsible({
   children,
   trigger: triggerContent,
+  triggerRender,
   className,
   defaultOpen,
   disabled,
@@ -77,7 +80,12 @@ export function Collapsible({
       onOpenChange={(nextOpen) => onOpenChange?.(nextOpen)}
       open={open}
     >
-      <BaseCollapsible.Trigger className={[trigger, triggerClassName].filter(Boolean).join(' ')}>
+      <BaseCollapsible.Trigger
+        render={triggerRender}
+        className={
+          triggerRender ? triggerClassName : [trigger, triggerClassName].filter(Boolean).join(' ')
+        }
+      >
         {triggerContent}
         {indicatorContent !== null ? (
           <span aria-hidden="true" className={indicator} data-collapsible-indicator>

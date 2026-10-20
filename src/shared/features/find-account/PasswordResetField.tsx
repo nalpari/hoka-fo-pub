@@ -1,7 +1,6 @@
 import { css } from 'styled-system/css';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { FieldName } from '@/shared/features/find-account/passwordValidation';
 
 const styles = {
@@ -23,7 +22,8 @@ export function PasswordResetField({ name, label, placeholder, value, error, onC
       variant="boxed"
       error={error}
       htmlFor={`password-reset-${name}`}
-      label={<Typography variant="body5">* {label}</Typography>}
+      label={label}
+      required
     >
       <TextInput
         className={styles.input}

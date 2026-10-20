@@ -34,7 +34,7 @@ const faqOptions = [
   '매장/이벤트',
 ] as const;
 
-function InteractiveLineTabs() {
+function InteractiveLineTabs({ variant = 'line' }: Pick<FilterTabsProps, 'variant'>) {
   const [value, setValue] = useState<(typeof faqOptions)[number]>('전체');
 
   return (
@@ -43,7 +43,7 @@ function InteractiveLineTabs() {
       onValueChange={setValue}
       options={faqOptions.map((label) => ({ label, value: label }))}
       value={value}
-      variant="line"
+      variant={variant}
     />
   );
 }
@@ -76,6 +76,10 @@ export const Line: Story = {
   render: () => <InteractiveLineTabs />,
 };
 
+export const Outline: Story = {
+  render: () => <InteractiveLineTabs variant="outline" />,
+};
+
 export const LineMobile: Story = {
   parameters: { layout: 'fullscreen' },
   globals: { viewport: 'hoka375' },
@@ -89,4 +93,9 @@ export const LineMobile: Story = {
     ),
   ],
   render: () => <InteractiveLineTabs />,
+};
+
+export const OutlineMobile: Story = {
+  ...LineMobile,
+  render: () => <InteractiveLineTabs variant="outline" />,
 };

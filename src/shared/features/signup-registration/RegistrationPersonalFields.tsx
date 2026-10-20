@@ -36,7 +36,7 @@ export function RegistrationPersonalFields(props: Props) {
         fieldErrors={props.fieldErrors}
         onChange={props.onChange}
         fieldKey="confirmation"
-        label="비밀번호 재입력"
+        label="비밀번호 재확인"
         placeholder="비밀번호를 다시 입력해주세요"
         type="password"
       />

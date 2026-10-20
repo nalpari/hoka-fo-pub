@@ -1,10 +1,16 @@
 import { useState, type FormEvent } from 'react';
-import { formatPhoneNumber, isValidPhone } from '@/shared/features/find-account/phoneNumber';
+import { useRouter } from 'next/navigation';
+import { getPhoneDigits, isValidPhone } from '@/shared/features/find-account/phoneNumber';
 import { isValidName } from '@/shared/lib/validation';
 import { useVerificationCountdown } from '@/shared/lib/useVerificationCountdown';
 import { FindAccountContent, type FindAccountNotice } from './FindAccountContent';
+import { IdConfirmationModal } from './IdConfirmationModal';
+
+const demoVerificationCode = '900668';
 
 export function FindAccountPage() {
+  const router = useRouter();
+  const [resultOpen, setResultOpen] = useState(false);
   const [name, setName] = useState('');
   const [nameTouched, setNameTouched] = useState(false);
   const [phone, setPhone] = useState('');
@@ -33,7 +39,10 @@ export function FindAccountPage() {
 
     setCode('');
     start();
-    setNotice({ tone: 'info', message: '화면 미리보기입니다. 실제 인증번호는 발송되지 않습니다.' });
+    setNotice({
+      tone: 'info',
+      message: `데모 인증번호는 ${demoVerificationCode}입니다. 실제 문자는 발송되지 않으며 예시 아이디가 표시됩니다.`,
+    });
   };
 
   return (
@@ -47,6 +56,16 @@ export function FindAccountPage() {
       phoneError={phoneError}
       codeError={codeError}
       notice={notice}
+      result={
+        resultOpen ? (
+          <IdConfirmationModal
+            userName={name}
+            onOpenChange={setResultOpen}
+            onConfirm={() => router.push('/login')}
+            onPasswordReset={() => router.push('/login/find-account/password-reset')}
+          />
+        ) : null
+      }
       onNameChange={(value) => {
         setName(value);
         setNameTouched(true);
@@ -57,7 +76,7 @@ export function FindAccountPage() {
         setNotice(null);
       }}
       onPhoneChange={(value) => {
-        const formattedValue = formatPhoneNumber(value);
+        const formattedValue = getPhoneDigits(value);
         setPhone(formattedValue);
         setPhoneError(
           !formattedValue || isValidPhone(formattedValue)
@@ -89,11 +108,14 @@ export function FindAccountPage() {
           setNotice(null);
           return;
         }
+        if (code !== demoVerificationCode) {
+          setCodeError('인증번호가 일치하지 않습니다.');
+          setNotice(null);
+          return;
+        }
         setCodeError('');
-        setNotice({
-          tone: 'info',
-          message: '인증번호 입력을 확인했습니다. 실제 검증은 서비스 연결 후 가능합니다.',
-        });
+        setNotice(null);
+        setResultOpen(true);
       }}
       onSubmit={handleSubmit}
     />

@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T06:45:26Z'
+  at: '2026-10-20T00:41:19Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -41,6 +41,9 @@ working_tree_sources:
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
   - scripts/okf.ps1
+  - tests/app-router.test.mjs
+  - src/stories/features/support/SupportPages.stories.tsx
+  - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -54,6 +57,12 @@ sources:
 ---
 
 # 변경 검증
+
+## 고객센터 라우트 범위 갱신 (2026-10-20)
+
+App Router manifest 검사에서 /support/teamwear를 제외하고 /support/size-guide를 포함하도록 expectedRoutes를 갱신했다. 삭제한 화면은 Mockup Storybook으로 이동했으며 사이즈 가이드는 PC/MO 빈 본문 스토리를 제공한다. 이 변경은 라우트 범위·화면 구성 분리의 검증이며 실제 인증·주소 검색·문의 저장·결제 API를 검증하지 않는다.
+
+기존 테스트가 누락한 현재 /support/care 경로도 expectedRoutes에 반영했다. 최종 Next build 후 manifest 검사 2개가 통과했고 실제 서버의 사이즈 가이드 200·팀/단체복 404를 확인했다. 폼·계정 복구·주문 합계 테스트 40개, 변경 파일 린트/포맷, Storybook build와 관련 브라우저 32개 사례를 확인했다.
 
 ## RatingStars 선택 모드 통합 검사 (2026-10-19)
 

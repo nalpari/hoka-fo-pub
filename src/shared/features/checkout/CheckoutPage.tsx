@@ -5,12 +5,12 @@ import { products } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
 import { CheckoutContent } from '@/shared/features/checkout/CheckoutContent';
 import { CheckoutLayout } from '@/shared/features/checkout/CheckoutLayout';
-import type { PaymentMethod } from '@/shared/features/checkout/CheckoutFields';
+import type { PaymentMethod } from '@/shared/features/checkout/CheckoutPayment';
 import { getCheckoutSummary } from '@/shared/features/checkout/checkout-summary';
 
 type Props = {
   cart: CartItem[];
-  onComplete: () => void;
+  onComplete: (items: readonly CartItem[]) => void;
 };
 
 const subscribeLocation = () => () => {};
@@ -35,7 +35,7 @@ export function CheckoutPage({ cart, onComplete }: Props) {
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setCompleted(true);
-    onComplete();
+    onComplete(selectedCart);
   };
 
   return (

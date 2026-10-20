@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 420, 32),
+  play: async ({ canvasElement }) => assertAccountFormLayout(canvasElement, 500, 32),
 };
 
 export const Mobile: Story = {

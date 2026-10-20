@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import { LoginContent } from '@/shared/features/login/LoginContent';
 import { LoginPage } from '@/shared/features/login/LoginPage';
@@ -33,6 +33,24 @@ export const Default: Story = {};
 export const Mobile: Story = {
   parameters: { layout: 'fullscreen', platform: 'mobile' },
   globals: { viewport: 'hoka375' },
+};
+
+export const RememberIdHelp: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: '아이디 저장 주의사항' }));
+    const help = within(canvasElement.ownerDocument.body).getByRole('dialog');
+    await expect(help).toHaveTextContent('주의해주세요');
+    await expect(help).toHaveTextContent('공용으로 사용하는 장소에서는');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(help).not.toBeInTheDocument());
+    await expect(canvas.getByRole('button', { name: '아이디 저장 주의사항' })).toHaveFocus();
+  },
+};
+
+export const MobileRememberIdHelp: Story = {
+  ...Mobile,
+  play: RememberIdHelp.play,
 };
 
 export const Error: Story = {

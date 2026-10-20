@@ -13,20 +13,14 @@ const cautions = [
 ];
 
 const trigger = css({
-  px: '4',
+  px: '0',
   py: '4',
-  '[data-open] &': { borderBottom: '1px solid token(colors.black.40)' },
   textAlign: 'left',
 });
 
 export function InquiryCautions() {
   return (
-    <Box
-      borderTop="1px solid"
-      borderBottom="1px solid"
-      borderColor="black.40"
-      _mobile={{ borderBottom: '0' }}
-    >
+    <Box borderTop="1px solid" borderColor="black.20">
       <Accordion
         defaultValue={['cautions']}
         indicatorColor="var(--color-text-subtle)"
@@ -37,11 +31,11 @@ export function InquiryCautions() {
             value: 'cautions',
             title: (
               <Typography web="heading9" mo="body4" tone="subtle">
-                유의사항 ⓘ
+                유의사항
               </Typography>
             ),
             content: (
-              <Stack as="ul" gap="0" m="0" p="6" listStyleType="none">
+              <Stack as="ul" gap="0" m="0" pb="4" listStyleType="none">
                 {cautions.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
                     <Typography as="span" web="body4" mo="body5" tone="tertiary" aria-hidden="true">

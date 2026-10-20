@@ -17,20 +17,20 @@ function CareInstructions({ sections }: { sections: readonly CareSection[] }) {
       {sections.map((section, index) => (
         <Stack as="li" key={section.title} gap="2">
           <HStack alignItems="flex-start" gap="1">
-            <Typography as="span" web="body4" mo="body4">
+            <Typography as="span" variant="body4">
               {index + 1}.
             </Typography>
-            <Typography as="h3" web="body4" mo="body4">
+            <Typography as="h3" variant="body4">
               {section.title}
             </Typography>
           </HStack>
           <Stack as="ul" gap="0" m="0" pl="3" listStyleType="none">
             {section.items.map((item) => (
               <HStack as="li" key={item} alignItems="flex-start" gap="1">
-                <Typography as="span" web="body4" mo="body4" tone="subtle" aria-hidden="true">
+                <Typography as="span" variant="body4" tone="subtle" aria-hidden="true">
                   ・
                 </Typography>
-                <Typography web="body4" mo="body4" tone="subtle">
+                <Typography variant="body4" tone="subtle">
                   {item}
                 </Typography>
               </HStack>
@@ -56,7 +56,6 @@ export function CareGuidePage() {
     <CustomerCenterLayout
       title="세탁 및 손질 방법 안내"
       mobileTitleVariant="heading5"
-      showHeadingDivider
       activePath="/support/care"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

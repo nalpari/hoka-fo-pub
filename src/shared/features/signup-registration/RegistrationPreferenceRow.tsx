@@ -28,7 +28,7 @@ export function RegistrationPreferenceRow({
 }: Props) {
   return (
     <HStack justify="space-between" gap="3" alignItems="start">
-      <Box w={key === 'sms' ? '176px' : undefined} flexShrink={key === 'sms' ? '0' : undefined}>
+      <Box flex="1" minW="0">
         <Typography variant="body4" className={key === 'sms' ? styles.smsLabel : undefined}>
           {label}
         </Typography>

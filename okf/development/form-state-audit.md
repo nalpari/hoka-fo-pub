@@ -6,7 +6,7 @@ tags: [audit, forms, validation, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-19T05:12:44Z'
+  at: '2026-10-20T00:41:19Z'
 source_revision: 91725786fd78138c44e6e5c099261ae84c7a613e
 working_tree_sources:
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
@@ -32,6 +32,8 @@ working_tree_sources:
   - src/shared/features/phone-verification/PhoneVerificationPage.tsx
   - src/shared/features/signup-registration/RegistrationPage.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
+  - src/app/support/size-guide/page.tsx
+  - src/shared/features/size-guide/SizeGuidePage.tsx
 sources:
   - id: route-tree
     resource: https://github.com/nalpari/hoka-fo-pub/tree/91725786fd78138c44e6e5c099261ae84c7a613e/src/app
@@ -39,6 +41,10 @@ sources:
 ---
 
 # 전체 페이지 오류·성공 색상과 필드 검증 점검
+
+## 고객센터 화면 범위 보정 (2026-10-20)
+
+팀/단체복 운영 경로를 제거하고 화면은 Mockup으로 옮겼다. 신규 /support/size-guide는 고객센터 공통 제목·탐색만 준비하며 본문에 입력·폼·완료 안내를 추가하지 않았다. 아래 표는 이 화면 교체를 반영하며, 과거 전체 점검 결과는 당시 범위의 기록이다.
 
 ## 범위와 판정 방식
 
@@ -71,71 +77,71 @@ error는 기존 #A60000, 일반 success는 기존 #16794b를 유지한다. 인�
 
 마지막 열의 이름은 Development/FormStateAudit의 PC/MO → Validation/Expired/Inheritance 그룹 또는 기존 스토리의 재현 시나리오다. 브라우저 실행 결과는 아래 검증 기록과 함께 해석한다.
 
-| 라우트                                      | 본문 분류                         | 서버 응답     | 재현 시나리오 / 소스 판정        |
-| ------------------------------------------- | --------------------------------- | ------------- | -------------------------------- |
-| `/cart`                                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/checkout`                                 | 배송 필수값·주문완료              | PC·모바일 200 | 기존 CompleteOrder               |
-| `/collection/[id]`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/explore/[...slug]`                        | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/explore`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/explore/shoe-finder`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/launch-calendar`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/locales`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/login/account-locked/complete`            | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/login/account-locked`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/login/account-locked/verification`        | 본인인증·인증번호                 | PC·모바일 200 | PhoneUnlock                      |
-| `/login/find-account/id-confirmation-modal` | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/login/find-account`                       | 이름·휴대폰·인증번호              | PC·모바일 200 | FindAccount                      |
-| `/login/find-account/password-reset`        | 비밀번호 강도·일치·완료           | PC·모바일 200 | 기존 PasswordReset               |
-| `/login`                                    | 로그인 필수값·안내                | PC·모바일 200 | 기존 LoginFlow / Error           |
-| `/mypage/addresses`                         | 배송지·주소 입력 모달             | PC·모바일 200 | Addresses                        |
-| `/mypage/coupons`                           | 쿠폰 검증·등록 완료 모달          | PC·모바일 200 | Coupon                           |
-| `/mypage/event-entries`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/member-activity`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/orders`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage`                                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/payment-methods`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/profile`                           | 회원정보 수정                     | PC·모바일 200 | Profile                          |
-| `/mypage/recent`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/referral`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/refund-account`                    | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/restock-alerts`                    | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/returns`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/reviews`                           | 별점·본문·리뷰 저장               | PC·모바일 200 | Reviews                          |
-| `/mypage/rewards`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/running-profile`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/mypage/wishlist`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/`                                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/products/[id]`                            | 사이즈 선택·담기                  | PC·모바일 200 | Product                          |
-| `/products`                                 | 검색·필터 / 필수값 검증 없음      | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/alerts`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/plans`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/reviews`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/rewards`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/rotation`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/run-club/[sessionId]`             | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/run-club`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/running/shoe-finder`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/search`                                   | 검색·필터 / 필수값 검증 없음      | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/signup/complete`                          | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/signup/information`                       | 회원 정보·주소·부가정보           | PC·모바일 200 | Registration                     |
-| `/signup`                                   | 가입 방식·기본 정보               | PC·모바일 200 | SignupDetails                    |
-| `/signup/terms`                             | 필수 약관                         | PC·모바일 200 | SignupTerms                      |
-| `/signup/verify`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/signup/verify/phone`                      | 본인인증·인증번호                 | PC·모바일 200 | Phone                            |
-| `/store/experience`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/after-sales`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/faq`                              | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/inquiries/new`                    | 제목·본문 필수값                  | PC·모바일 200 | Inquiry                          |
-| `/support/inquiries`                        | 검색·필터 / 필수값 검증 없음      | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/member-benefits`                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/mileage`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/notices/[id]`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/notices`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/store`                            | 검색·필터 / 필수값 검증 없음      | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/teamwear`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
-| `/support/terms`                            | 검색·필터 / 필수값 검증 없음      | PC·모바일 200 | 소스 점검; 공통 FooterEmail 별도 |
+| 라우트                                      | 본문 분류                         | 서버 응답          | 재현 시나리오 / 소스 판정        |
+| ------------------------------------------- | --------------------------------- | ------------------ | -------------------------------- |
+| `/cart`                                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/checkout`                                 | 배송 필수값·주문완료              | PC·모바일 200      | 기존 CompleteOrder               |
+| `/collection/[id]`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/explore/[...slug]`                        | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/explore`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/explore/shoe-finder`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/launch-calendar`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/locales`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/login/account-locked/complete`            | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/login/account-locked`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/login/account-locked/verification`        | 본인인증·인증번호                 | PC·모바일 200      | PhoneUnlock                      |
+| `/login/find-account/id-confirmation-modal` | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/login/find-account`                       | 이름·휴대폰·인증번호              | PC·모바일 200      | FindAccount                      |
+| `/login/find-account/password-reset`        | 비밀번호 강도·일치·완료           | PC·모바일 200      | 기존 PasswordReset               |
+| `/login`                                    | 로그인 필수값·안내                | PC·모바일 200      | 기존 LoginFlow / Error           |
+| `/mypage/addresses`                         | 배송지·주소 입력 모달             | PC·모바일 200      | Addresses                        |
+| `/mypage/coupons`                           | 쿠폰 검증·등록 완료 모달          | PC·모바일 200      | Coupon                           |
+| `/mypage/event-entries`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/member-activity`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/orders`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage`                                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/payment-methods`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/profile`                           | 회원정보 수정                     | PC·모바일 200      | Profile                          |
+| `/mypage/recent`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/referral`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/refund-account`                    | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/restock-alerts`                    | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/returns`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/reviews`                           | 별점·본문·리뷰 저장               | PC·모바일 200      | Reviews                          |
+| `/mypage/rewards`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/running-profile`                   | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/mypage/wishlist`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/`                                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/products/[id]`                            | 사이즈 선택·담기                  | PC·모바일 200      | Product                          |
+| `/products`                                 | 검색·필터 / 필수값 검증 없음      | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/alerts`                           | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/plans`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/reviews`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/rewards`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/rotation`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/run-club/[sessionId]`             | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/run-club`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/running/shoe-finder`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/search`                                   | 검색·필터 / 필수값 검증 없음      | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/signup/complete`                          | 전용 완료·회원 안내 / 필드 없음   | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/signup/information`                       | 회원 정보·주소·부가정보           | PC·모바일 200      | Registration                     |
+| `/signup`                                   | 가입 방식·기본 정보               | PC·모바일 200      | SignupDetails                    |
+| `/signup/terms`                             | 필수 약관                         | PC·모바일 200      | SignupTerms                      |
+| `/signup/verify`                            | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/signup/verify/phone`                      | 본인인증·인증번호                 | PC·모바일 200      | Phone                            |
+| `/store/experience`                         | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/after-sales`                      | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/faq`                              | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/inquiries/new`                    | 제목·본문 필수값                  | PC·모바일 200      | Inquiry                          |
+| `/support/inquiries`                        | 검색·필터 / 필수값 검증 없음      | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/member-benefits`                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/mileage`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/notices/[id]`                     | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/notices`                          | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support`                                  | 본문에 필수값 검증·상태 안내 없음 | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/store`                            | 검색·필터 / 필수값 검증 없음      | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
+| `/support/size-guide`                       | 디자인 대기, 본문·입력 없음       | 공통 프레임만 준비 | 실제 서비스 연동 없음            |
+| `/support/terms`                            | 검색·필터 / 필수값 검증 없음      | PC·모바일 200      | 소스 점검; 공통 FooterEmail 별도 |
 
 ## 검증 기록과 한계
 
