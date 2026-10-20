@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { LoadMoreButton } from '@/shared/components/atoms/LoadMoreButton/LoadMoreButton';
 
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 
@@ -141,19 +142,18 @@ export function CouponManager({ coupons }: Props) {
           </Stack>
         </Stack>
         {visibleCount < visibleCoupons.length ? (
-          <Button
+          <LoadMoreButton
             fullWidth
             size="short"
             variant="secondary"
             onClick={() => setVisibleCount((count) => count + 5)}
-          >
-            <HStack gap="1">
-              <Typography mo="ctaKr2">더보기</Typography>
-              <Typography mo="body5" tone="tertiary">
-                ({Math.ceil(visibleCount / 5)}/{Math.ceil(visibleCoupons.length / 5)})
-              </Typography>
-            </HStack>
-          </Button>
+            counter={{
+              current: Math.ceil(visibleCount / 5),
+              total: Math.ceil(visibleCoupons.length / 5),
+            }}
+            labelProps={{ mo: 'ctaKr2' }}
+            counterProps={{ mo: 'body5' }}
+          />
         ) : null}
       </ContentSection>
 
