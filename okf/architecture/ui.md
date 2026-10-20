@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:56:17Z'
+  at: '2026-10-20T04:59:58Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/mypage/MyPageMenuItem.tsx
@@ -1935,3 +1935,7 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 `ContentHeader`는 기본 `orientation="vertical"`을 유지하며 `orientation="horizontal"`에서 제목 그룹과 선택적 `action`을 좌우로 배치한다. 제목만 있으면 추가 DOM 그룹 없이 바로 렌더링하고, eyebrow/description이 있으면 이 텍스트만 내부 Stack으로 묶는다. `gap`은 텍스트 내부 및 액션과의 간격에 사용하며 기존 Stack 레이아웃 props로 반응형 값을 지정할 수 있다. 세로형에서는 기존 제목·설명 구조를 유지하고 action은 그 뒤에 온다.
 
 가로 제목/액션·설명 포함·액션 생략 Storybook 예시를 추가했다. 기존 세로형을 유지하며 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 확인했다. 브라우저 검증과 Storybook play는 실행하지 않았다. 출처는 frontmatter의 ContentHeader 구현과 스토리, content-sections 스킬 참조 문서다.
+
+## 상품 옵션 본문 래퍼 제거 (2026-10-20)
+
+`ProductVariantSection`의 본문 Box를 제거하고 children을 section Stack에 직접 렌더링한다. 제목/보조 액션은 기존 HStack에 유지하며 각 최상위 본문 요소가 부모의 gap=4 간격에 참여한다. 미사용 Box import도 제거했다. 출처는 frontmatter의 ProductVariantSection 작업 트리 파일이다. 타입 검사·ESLint·Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.

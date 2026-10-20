@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Stack, HStack, Box } from 'styled-system/jsx';
+import { Stack, HStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductVariantAction } from './ProductVariantAction';
 
@@ -20,7 +20,7 @@ export function ProductVariantSection({ action, children, id, title }: ProductVa
         </Typography>
         {action ? <ProductVariantAction>{action}</ProductVariantAction> : null}
       </HStack>
-      <Box>{children}</Box>
+      {children}
     </Stack>
   );
 }

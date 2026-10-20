@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: ProductVariantSection의 본문 Box를 제거하고 children이 section Stack의 gap=4에 직접 참여하도록 변경했다. 타입·ESLint·Prettier를 확인하고 [UI 구성](architecture/ui.md#상품-옵션-본문-래퍼-제거-2026-10-20)을 갱신했다.
+
 - **Update**: ContentHeader에 orientation/action API와 가로형 스토리 3개를 추가하고 제목 구성 지침을 갱신했다. 타입·변경 ESLint/Prettier·Panda 생성·Next/Storybook 빌드를 확인했다. [UI 기록](architecture/ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
 
 - **Refactor**: MyPageMenuSection의 링크 한 행을 MyPageMenuItem으로 분리하고 props 타입을 재사용했다. Next Link + Panda css, 기존 DOM·링크·스타일을 유지한다. [UI 구성](architecture/ui.md#마이페이지-메뉴-항목-분리-2026-10-20)을 갱신했다.
