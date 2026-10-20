@@ -9,6 +9,10 @@ generated:
   at: '2026-10-20T05:11:31Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/support/SupportNoticeItem.tsx
+  - src/shared/features/support/InquiryAttachmentHelp.tsx
+  - src/shared/features/support/InquiryAttachmentList.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusLink.tsx
   - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
   - src/shared/features/mypage/MyPageMenuItem.tsx
   - src/shared/features/checkout/CheckoutAgreement.tsx
@@ -1950,3 +1954,13 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 상품 옵션 본문 래퍼 제거 (2026-10-20)
 
 `ProductVariantSection`의 본문 Box를 제거하고 children을 section Stack에 직접 렌더링한다. 제목/보조 액션은 기존 HStack에 유지하며 각 최상위 본문 요소가 부모의 gap=4 간격에 참여한다. 미사용 Box import도 제거했다. 출처는 frontmatter의 ProductVariantSection 작업 트리 파일이다. 타입 검사·ESLint·Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 주문 상태·첨부파일·공지 항목 분리 (2026-10-20)
+
+`OrderStatusLink`는 주문 상태의 label/count/href를 받아 기존 Grid 링크와 마지막 항목 테두리 생략 스타일을 렌더링한다. `OrderStatusTracker`는 5열 반응형 목록과 상태별 주소의 기본값을 소유한다.
+
+`InquiryAttachmentList`는 파일명·삭제 버튼을 기존 ul/li로 표시하고 파일이 없으면 null을 반환한다. 삭제할 인덱스를 상위에 알리며 실제 배열 갱신과 오류 초기화는 `InquiryAttachments`에 남긴다. 숨겨진 input/ref, 선택 후 input 값 초기화, 확장자·5개·파일당 10MB 검증과 오류 표시는 기존 상위가 소유한다. `InquiryAttachmentHelp`는 기존 안내 문구와 inquiry-files-help ID를 유지해 파일찾기 버튼의 aria-describedby 연결을 보존한다.
+
+`SupportNoticeItem`은 title/date를 받아 기존 li 내부 링크·제목 말줄임·time·구분선을 렌더링한다. `SupportNotices`는 데이터와 목록 매핑을 소유하며 링크 주소와 PC/MO 여백·타이포그래피를 유지한다. 모두 추가 DOM 래퍼 없이 일반 Link와 Panda css/JSX를 사용한다. 출처는 frontmatter의 해당 작업 트리 파일이다.
+
+검증: 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·diff 공백 검사를 확인했다. 브라우저 시각/상호작용 검증은 수행하지 않았다.

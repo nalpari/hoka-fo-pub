@@ -3,9 +3,8 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Box, HStack, Stack } from 'styled-system/jsx';
-import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { faXmark } from '@/shared/icons/fontAwesome';
+import { InquiryAttachmentList } from './InquiryAttachmentList';
+import { InquiryAttachmentHelp } from './InquiryAttachmentHelp';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 
 type Props = {
@@ -67,49 +66,19 @@ export function InquiryAttachments({ files, onFilesChange }: Props) {
         onChange={addFiles}
         hidden
       />
-      {files.length ? (
-        <Stack
-          as="ul"
-          listStyleType="none"
-          m="0"
-          p="4"
-          gap="2"
-          border="1px solid"
-          borderColor="black.20"
-        >
-          {files.map((file, index) => (
-            <HStack as="li" key={`${file.name}-${index}`} justifyContent="space-between" gap="2">
-              <Box minW="0" overflowWrap="anywhere">
-                <Typography variant="body4">{file.name}</Typography>
-              </Box>
-              <Button
-                variant="link"
-                size="md"
-                aria-label={`${file.name} 삭제`}
-                onClick={() => {
-                  onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
-                  setError('');
-                }}
-              >
-                <Icon fontAwesomeIcon={faXmark} size="16px" />
-              </Button>
-            </HStack>
-          ))}
-        </Stack>
-      ) : null}
+      <InquiryAttachmentList
+        files={files}
+        onRemove={(index) => {
+          onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
+          setError('');
+        }}
+      />
       {error ? (
         <Typography as="p" variant="body5" tone="error" role="alert">
           {error}
         </Typography>
       ) : null}
-      <Typography as="p" id="inquiry-files-help" variant="body5" tone="tertiary">
-        - 파일을 첨부해 주세요. 첨부 가능한 파일 형식 및 용량을 확인해 주세요.
-        <br />
-        - JPG, PNG, PDF 등 지원 가능한 파일을 첨부해 주세요.
-        <br />
-        - 파일은 최대 5개까지 첨부할 수 있습니다.
-        <br />- 첨부파일은 파일당 최대 10MB까지 등록 가능합니다.
-      </Typography>
+      <InquiryAttachmentHelp />
     </ContentSection>
   );
 }

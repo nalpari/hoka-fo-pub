@@ -4,26 +4,12 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
+import { OrderStatusLink } from './OrderStatusLink';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 
 export type OrderStatusItem = { label: string; count: number; to?: string };
 
 type Props = { items: OrderStatusItem[]; to?: string };
-
-const statusLink = css({
-  display: 'grid',
-  justifyItems: 'center',
-  gap: '7px',
-  minH: '100px',
-  py: '5',
-  px: '2',
-  color: 'var(--color-text-primary)',
-  textAlign: 'center',
-  borderRight: '1px solid var(--color-black-20)',
-  '&:last-child': {
-    borderRight: '0',
-  },
-});
 
 /** Five-stage order snapshot that remains horizontally scannable on small screens. */
 export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
@@ -57,12 +43,12 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
         }}
       >
         {items.map((status) => (
-          <Link className={statusLink} key={status.label} href={status.to ?? to}>
-            <Typography as="strong" variant="heading8">
-              {status.count}
-            </Typography>
-            <Typography variant="body5">{status.label}</Typography>
-          </Link>
+          <OrderStatusLink
+            key={status.label}
+            label={status.label}
+            count={status.count}
+            href={status.to ?? to}
+          />
         ))}
       </Grid>
     </ContentSection>
