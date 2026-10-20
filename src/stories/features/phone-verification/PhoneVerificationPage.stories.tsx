@@ -6,7 +6,7 @@ import { PhoneVerificationContent } from '@/shared/features/phone-verification/P
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
 
 const meta = {
-  title: 'Pages/AUTH/PhoneVerification',
+  title: 'Pages/Signup/PhoneVerification',
   component: PhoneVerificationContent,
   parameters: { layout: 'fullscreen' },
   args: {

@@ -8,7 +8,7 @@ import { RegistrationPage } from '@/shared/features/signup-registration/Registra
 import { RegistrationCompleteContent } from '@/shared/features/signup-registration/RegistrationCompleteContent';
 
 const meta = {
-  title: 'Pages/AUTH/Registration',
+  title: 'Pages/Signup/Registration',
   component: RegistrationContent,
   args: {
     stage: 'information',

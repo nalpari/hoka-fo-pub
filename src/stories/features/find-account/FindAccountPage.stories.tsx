@@ -14,7 +14,7 @@ const withPlatform =
   );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount',
+  title: 'Pages/Login/FindAccount',
   component: FindAccountPage,
   decorators: [
     (Story) => (

@@ -20,7 +20,7 @@ const withRouter = (Story: React.ComponentType) => (
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/PasswordResetPage',
+  title: 'Pages/Login/FindAccount/PasswordResetPage',
   tags: ['form-audit', 'password-policy'],
   component: PasswordResetPage,
   decorators: [withRouter],

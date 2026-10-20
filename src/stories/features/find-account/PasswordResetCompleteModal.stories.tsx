@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/FindAccount/PasswordResetCompleteModal',
+  title: 'Pages/Login/FindAccount/PasswordResetCompleteModal',
   component: PasswordResetCompleteModal,
   args: { onOpenChange: () => {}, onConfirm: () => {} },
   parameters: { layout: 'fullscreen' },

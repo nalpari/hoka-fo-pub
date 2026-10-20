@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Pages/AUTH/Registration/MarketingConsentSummaryModal',
+  title: 'Pages/Signup/Registration/MarketingConsentSummaryModal',
   component: MarketingConsentSummaryModal,
   args: {
     preferences: { email: 'no', coupon: 'no', sms: 'no', married: 'no' },

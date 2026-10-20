@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T00:41:19Z'
+  at: '2026-10-20T02:15:05Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/features/find-account/IdConfirmationModal.tsx
@@ -43,6 +43,12 @@ working_tree_sources:
   - src/data/screenRegistry.ts
   - src/shared/features/screen-index/IaStructurePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
+  - src/app/signup/page.tsx
+  - src/shared/features/signup/SignupPage.tsx
+  - src/shared/Mockup/signup/SignupTermsStep.tsx
+  - src/shared/Mockup/signup/SignupDetailsStep.tsx
+  - src/shared/Mockup/signup/SignupCompleteStep.tsx
+  - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
 sources:
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
@@ -108,6 +114,8 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 `src/app/mypage/running-profile/page.tsx`는 `src/shared/Mockup/running-profile/RunningProfilePage.tsx`를 기본 export로 연결한다. 디자인 미확정 목업 구현을 공용 feature/component 영역에서 분리한 것이며 `/mypage/running-profile` URL, dynamic 설정, 마이페이지 메뉴 링크와 클라이언트 상태 경계는 유지한다. MyPageRouteStory도 같은 목업 구현을 직접 import한다. 작업 트리 출처는 frontmatter에 기록한다.
 
 ## 진입점과 책임
+
+`/signup`은 가입 방법만 표시한다. 이메일 가입은 `/signup/verify`로 이동하고, 카카오·네이버 가입은 연결되지 않았다는 안내를 표시한다. 이전 카카오 약관 동의·정보 입력·가입 완료 화면은 운영 가입 흐름에서 분리해 `src/shared/Mockup/signup` 및 `Mockup/Signup` Storybook에 보존한다. 별도 앱 URL은 추가하지 않았다.
 
 `src/app/layout.tsx`는 서버에서 `await headers()`로 User-Agent를 읽고 `detectPlatform`으로 플랫폼을 선택한다. 휴대폰과 태블릿은 `mobile`, 그 외는 `web`이다. 이 선택은 화면 너비만으로 결정되지 않는다. 선택한 플랫폼은 `<body>`의 `platform-*` 클래스로도 전달된다.
 

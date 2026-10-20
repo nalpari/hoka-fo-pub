@@ -6,7 +6,7 @@ import { LoginPage } from '@/shared/features/login/LoginPage';
 import { PlatformProvider } from '@/shared/context/platform';
 
 const meta = {
-  title: 'Pages/AUTH/Login',
+  title: 'Pages/Login',
   tags: ['form-audit', 'login-validation'],
   component: LoginPage,
   args: { onLogin: fn() },
