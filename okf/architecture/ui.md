@@ -9,6 +9,8 @@ generated:
   at: '2026-10-20T05:44:53Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/run-club/RunClubSessionCardContent.tsx
+  - src/shared/features/run-club/RunClubSessionCardImage.tsx
   - src/shared/features/support/ProductReturnsPanel.tsx
   - src/shared/features/support/ReturnCautionsPanel.tsx
   - src/shared/features/support/ShippingGuidePanel.tsx
@@ -2012,5 +2014,11 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 배송 반품 안내 패널과 목록 분리 (2026-10-20)
 
 `ShippingReturnsPage`는 고객센터 레이아웃과 세 탭 정의를 조합한다. `ShippingGuidePanel`, `ReturnCautionsPanel`, `ProductReturnsPanel`이 각 탭의 문구·데이터·절차를 소유하고 `ShippingReturnsGuide`의 GuidePanel/NumberedList/BulletList 표현을 재사용한다. 상위 공용 UI로 범위를 확장하지 않고 해당 기능 내부에 둔다. 기존 탭 value/label/defaultValue·본문 순서·ol/ul/li·번호·bullet 장식·compact 간격을 유지한다. 상품 상세 배송/반품 컴포넌트는 문구와 구성이 달라 그대로 유지한다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 런클럽 세션 카드 구성 분리 (2026-10-20)
+
+`RunClubSessionCard`는 article Stack에서 `RunClubSessionCardImage`와 `RunClubSessionCardContent`를 조합한다. 이미지는 LinkOverlay·Next Image·날짜/지역/거리 오버레이를, 상세 안내는 카테고리·ContentHeader·모바일 숨김 상세 링크를 소유한다. 기존 상세 URL·aria-label·빈 이미지 alt·sizes·PC/MO 종횡비·오버레이·카드 간격·모바일 CTA 생략을 유지하고 추가 DOM 래퍼를 만들지 않는다.
 
 출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
