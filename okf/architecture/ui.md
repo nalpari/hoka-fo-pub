@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:11:31Z'
+  at: '2026-10-20T05:30:09Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/mypage/MyPageBenefitItem.tsx
   - src/shared/features/support/SupportNoticeItem.tsx
   - src/shared/features/support/InquiryAttachmentHelp.tsx
   - src/shared/features/support/InquiryAttachmentList.tsx
@@ -1964,3 +1965,7 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 `SupportNoticeItem`은 title/date를 받아 기존 li 내부 링크·제목 말줄임·time·구분선을 렌더링한다. `SupportNotices`는 데이터와 목록 매핑을 소유하며 링크 주소와 PC/MO 여백·타이포그래피를 유지한다. 모두 추가 DOM 래퍼 없이 일반 Link와 Panda css/JSX를 사용한다. 출처는 frontmatter의 해당 작업 트리 파일이다.
 
 검증: 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·diff 공백 검사를 확인했다. 브라우저 시각/상호작용 검증은 수행하지 않았다.
+
+## 마이페이지 혜택 항목 중복 제거 (2026-10-20)
+
+`MyPageBenefits`의 쿠폰/관심상품 링크는 동일한 구조이므로 `MyPageBenefitItem`에 href·label·count·unit을 전달한다. Grid의 2열/gap=2는 부모가 유지하고 항목은 기존 Link·Stack·HStack·Typography와 Panda css를 그대로 사용한다. 추가 DOM·상태 없이 쿠폰 3개/관심상품 6건, 링크·PC/MO 타이포그래피·여백을 보존한다. 출처는 frontmatter의 MyPageBenefits/MyPageBenefitItem 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성을 확인했다. 브라우저 검증은 수행하지 않았다.

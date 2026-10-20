@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: MyPageBenefits의 쿠폰/관심상품 중복 JSX를 MyPageBenefitItem으로 통합했다. href·label·count·unit만 전달하고 기존 DOM·스타일·링크를 유지했다. 타입·변경 ESLint/Prettier·Panda 생성을 확인하고 [UI 기록](architecture/ui.md#마이페이지-혜택-항목-중복-제거-2026-10-20)을 갱신했다.
+
 - **Refactor**: 주문 상태 링크·문의 첨부 목록/안내·공지 한 행을 OrderStatusLink/InquiryAttachmentList/InquiryAttachmentHelp/SupportNoticeItem으로 분리했다. 기존 DOM·스타일·링크·첨부 검증/삭제 흐름을 유지하고 타입·변경 ESLint/Prettier·Panda 생성을 확인했다. [UI 기록](architecture/ui.md#주문-상태첨부파일공지-항목-분리-2026-10-20)을 갱신했다.
 
 - **Refactor**: 가로형 ContentHeader를 공지·파일 첨부·최근 검색어·쿠폰·상품 옵션·휴대폰 약관 및 공용 헤더 어댑터 등 9개 구성에 적용했다. 기존 제목/액션·조건부 표시·PC/MO 간격을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 40개와 Chrome 변경 전후 22개 사례·Storybook 동작 10개를 확인했다. [UI 기록](architecture/ui.md#가로형-contentheader-소비처-확대-2026-10-20)과 [조사 보고서](architecture/content-sections.md#가로형-contentheader-소비처-확대-2026-10-20)를 갱신했다.
