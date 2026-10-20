@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Refactor**: 배송/반품 안내의 탭별 패널과 공통 번호·bullet 목록 표현을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#배송-반품-안내-패널과-목록-분리-2026-10-20)을 갱신했다.
+
 - **Refactor**: 상품 수선 안내를 문의처·처리 절차·FAQ로 분리하고 반복 행을 재사용했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#상품-수선-안내-컴포넌트-분리-2026-10-20)을 갱신했다.
 
 - **Update**: ConfirmDialog에 actionDirection/onCancel API를 추가하고 IdConfirmationModal의 중복 버튼을 통합했다. PC 가로 배치를 유지하고 모바일은 본문 버튼을 세로형 공통 footer로 옮겼다. Vertical/VerticalMobile 스토리와 콜백 검사를 추가하고 [UI 기록](architecture/ui.md#확인-다이얼로그-세로-액션과-아이디-안내-적용-2026-10-20)을 갱신했다.

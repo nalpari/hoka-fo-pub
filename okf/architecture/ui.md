@@ -9,6 +9,10 @@ generated:
   at: '2026-10-20T05:44:53Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/support/ProductReturnsPanel.tsx
+  - src/shared/features/support/ReturnCautionsPanel.tsx
+  - src/shared/features/support/ShippingGuidePanel.tsx
+  - src/shared/features/support/ShippingReturnsGuide.tsx
   - src/shared/features/product/ProductAfterSalesQuestions.tsx
   - src/shared/features/product/ProductAfterSalesProcess.tsx
   - src/shared/features/product/ProductAfterSalesContacts.tsx
@@ -2002,5 +2006,11 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 ## 상품 수선 안내 컴포넌트 분리 (2026-10-20)
 
 `ProductDetailAfterSalesContent`는 도입 문구와 세 영역 조합만 소유한다. `ProductAfterSalesContacts`는 고객센터/A/S 문의처와 FAQ/1:1 문의 액션을 담당하며 동일한 문의처 행과 액션 행을 로컬 컴포넌트로 재사용한다. `ProductAfterSalesProcess`는 아이콘·절차 데이터와 6열/모바일 1열 ordered list를, `ProductAfterSalesQuestions`는 Q&A 데이터와 질문/답변 표시를 소유한다. 기존 외부 접수 URL·새 창/rel 속성·링크·h4/h5 레벨·Grid 직계 li 선택자와 PC/MO 스타일을 유지한다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 배송 반품 안내 패널과 목록 분리 (2026-10-20)
+
+`ShippingReturnsPage`는 고객센터 레이아웃과 세 탭 정의를 조합한다. `ShippingGuidePanel`, `ReturnCautionsPanel`, `ProductReturnsPanel`이 각 탭의 문구·데이터·절차를 소유하고 `ShippingReturnsGuide`의 GuidePanel/NumberedList/BulletList 표현을 재사용한다. 상위 공용 UI로 범위를 확장하지 않고 해당 기능 내부에 둔다. 기존 탭 value/label/defaultValue·본문 순서·ol/ul/li·번호·bullet 장식·compact 간격을 유지한다. 상품 상세 배송/반품 컴포넌트는 문구와 구성이 달라 그대로 유지한다.
 
 출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
