@@ -6,5 +6,9 @@ type BottomSheetContentProps = {
 };
 
 export function BottomSheetContent({ children }: BottomSheetContentProps) {
-  return <Box overflowY="auto">{children}</Box>;
+  return (
+    <Box minH="0" overflowY="auto">
+      {children}
+    </Box>
+  );
 }

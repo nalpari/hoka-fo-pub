@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Verify**: 모바일 필터 시트 수정 커밋 전 전체 타입 검사와 BottomSheet·BottomSheetContent ESLint를 재실행해 통과했다. 앞선 상품 스토리 타입 오류의 해소를 [UI 검증 기록](architecture/ui.md#모바일-상품-필터-시트-너비와-여백-2026-10-20)에 반영했다.
+
 - **Update**: 프로모션을 개별 Typography와 세로 Divider로 렌더링하도록 변경했다. 각 뱃지의 값에 따라 브랜드/red80 색상을 적용하고 [UI 기록](architecture/ui.md#프로모션별-색상과-구분선-2026-10-20)을 갱신했다.
 
 - **Fix**: BottomSheet 포털에 플랫폼 범위를 유지하고 Popup 100% 너비·본문 축소와 gap 0을 적용했다. 모바일 상품 필터의 PC 하단 패딩 256px을 모바일 16px로 복원했다. Panda·변경 파일 ESLint와 브라우저 적용/닫기/Escape를 확인했다. 전체 타입 검사는 기존 ProductCard 스토리의 프로모션 타입 오류로 실패했다.

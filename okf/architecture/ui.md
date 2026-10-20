@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T03:52:21.278Z'
+  at: '2026-10-20T03:54:47.154Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
@@ -576,7 +576,7 @@ sources:
 
 BottomSheet는 포털에 `platform-${platform}` 클래스를 전달해 본문 밖에서도 모바일 조건과 토큰을 유지한다. 상품 필터의 하단 패딩은 PC용 256px 대신 모바일 16px을 적용한다. Popup은 `100%` 너비로 고정 viewport의 가용 너비를 채운다. 내부 Stack은 gap 0, 스크롤 본문은 min-height 0으로 헤더·푸터 사이에서 축소된다. 위 두 BottomSheet 파일이 작업 트리 출처다.
 
-검증: Panda 생성과 변경 파일 ESLint를 통과했다. Storybook 모바일 상품 목록에서 너비·하단 패딩·적용/닫기/Escape를 확인했다. 전체 타입 검사는 기존 ProductCard.stories.tsx의 `new` 프로모션 타입 오류로 실패했다.
+검증: Panda 생성과 변경 파일 ESLint를 통과했다. Storybook 모바일 상품 목록에서 너비·하단 패딩·적용/닫기/Escape를 확인했다. 최초 전체 타입 검사는 ProductCard.stories.tsx의 `new` 프로모션 타입 오류로 실패했다. 해당 값을 `New`로 수정한 뒤 커밋 전 재검증에서 전체 타입 검사와 BottomSheet 두 파일 ESLint를 통과했다.
 
 ## ContentSection 기본 헤더와 전체 적용 (2026-10-20)
 
