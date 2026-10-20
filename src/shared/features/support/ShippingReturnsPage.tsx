@@ -1,6 +1,5 @@
 'use client';
 
-import { Stack } from 'styled-system/jsx';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
@@ -27,9 +26,7 @@ export function ShippingReturnsPage() {
       ]}
       groups={supportNavigation}
     >
-      <Stack gap="6">
-        <SupportTabs ariaLabel="배송 및 반품 안내 항목" defaultValue="shipping" tabs={tabs} />
-      </Stack>
+      <SupportTabs ariaLabel="배송 및 반품 안내 항목" defaultValue="shipping" tabs={tabs} />
     </CustomerCenterLayout>
   );
 }

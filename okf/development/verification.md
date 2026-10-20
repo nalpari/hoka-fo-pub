@@ -6,18 +6,10 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:17:37.626Z'
+  at: '2026-10-20T06:29:40.6561376Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/app/error.tsx
-  - src/app/maintenance/page.tsx
-  - src/app/service-unavailable/page.tsx
-  - src/shared/features/not-found/NotFoundPage.tsx
-  - src/shared/features/not-found/SystemStatusPage.tsx
-  - src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx
-  - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
-  - src/stories/features/not-found/SystemStatusPage.stories.tsx
-  - tests/app-router.test.mjs
+  - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
   - src/shared/components/atoms/RatingStars/RatingStars.tsx
@@ -158,7 +150,16 @@ PC/MO는 각 15개이며 Validation 13개·Expired 1개·Inheritance 1개로 나
 
 `tests/app-router.test.mjs`의 expectedRoutes에서 Mockup 구현 전용 라우트 12개를 제외했다. `npm run build`로 manifest를 갱신한 뒤 `node --test tests/app-router.test.mjs`를 실행해 실제 페이지 목록 일치 및 의존성 버전 검사 2개가 통과했다. Storybook 재분류는 production index의 페이지 스토리 179개 ID·IA 링크 유효성·Mockup 분류 부재를 별도로 확인했다. 브라우저 play는 재실행하지 않았다.
 
+## 스토어프런트 시안 반영 검증 (2026-10-20)
 
-## 시안 반영 분할 기록 (3, 2026-10-20)
+라우트 manifest 검사의 예상 목록에 `/maintenance`와 `/service-unavailable`를 추가했다. 기존 등록 경로와 Next/React 버전 검사를 함께 유지한다. 검색 필드 스토리는 Enter와 아이콘 submit이 같은 onSearch를 호출하는 시나리오를 포함한다. 검색결과/0개, 시스템 점검/접속 불가의 PC·모바일 스토리를 추가했다.
 
-SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
+이번 실행에서 Panda 생성, TypeScript, 변경 TS/TSX/MJS ESLint, 변경 파일 Prettier, Next.js production build, Storybook production build, `node --test tests/app-router.test.mjs` 2개를 확인했다. 전체 저장소 `npm run lint`는 오래 종료되지 않아 중단하고 변경 파일 ESLint를 완료했다. Storybook의 의존성 use-client/bundle 경고는 빌드 실패가 아니다.
+
+브라우저에서 모바일 375px의 메인·상품 2열·필터 시트·검색 0개·상세 고정 구매 버튼을 확인했다. 상세의 사이즈 미선택 오류와 250mm 선택 상태를 확인했다. 메뉴 글꼴은 최종 정적 빌드에서 24px/900 계산값을 확인했다. 개발 Storybook이 생성 CSS를 갱신하지 않은 상태가 관찰돼 정적 빌드로 재확인했다. 전체검색의 오류 테두리/안내도 정적 빌드에서 확인했다. 각 화면의 모든 필터 조합이나 실제 결제·서버 장애 유발을 검증한 것은 아니다.
+
+추가로 PC 목록의 3열 계산값, 검색 패널의 배경 dim·최근 검색어 없는 배치·자동완성 축소/강조·Escape 닫기, 키보드 Tab으로 진입하는 PC 5열 메뉴를 확인했다. 마지막 대조에서 Button 기본 변수와 메뉴 변수의 원자 클래스 충돌이 발견되어 `&&` 범위에 패딩 변수 재정의를 두었다. 점검 dl의 간격은 columnGap/rowGap으로 명시했다. 최종 정적 빌드에서 메뉴 내부 패딩 0px과 Men 버튼 폭 65px, 모바일 점검·접속 불가 화면을 확인했다. 이후 Next/Storybook 빌드와 변경 파일 ESLint, 라우트 2개 검사를 다시 통과했다. OKF 작업 트리 매핑 검사에서 누락 문서는 없었고 diff 공백 검사도 통과했다.
+
+## 고객센터 시안 반영 검증 (2026-10-20)
+
+고객센터 UI 변경 후 Panda 생성·타입·변경 TS/TSX ESLint·Next/Storybook production build를 통과했다. 기존 App Router manifest 테스트 2개와 diff 공백 검사, 미스테이징 변경을 포함한 pendingDocs(false) 매핑도 확인했다. production Storybook의 PC FAQ와 375px 모바일 화면에서 필터 간격·지도 비율·문의 첨부 목록/팝업을 확인했고 모바일 공지 링크, 팝업 닫기/포커스 복원, 약관 시행일 선택 시나리오를 실행했다. 문의 빈 제출 오류·입력 후 해제·글자 수, 배송/반품 세 탭과 의류/용품 탭은 수동 UI로 확인했다. 실제 서버 업로드/저장·지도 API·운영 약관 데이터는 추가/검증하지 않았다. [전체 범위와 출처](../architecture/support-design.md)를 참고한다.

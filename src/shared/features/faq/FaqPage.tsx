@@ -2,14 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
-import { Divider } from 'styled-system/jsx';
 import { FaqControls } from '@/shared/components/molecules/Faq/FaqControls';
 import { FaqList } from '@/shared/components/organisms/Faq/FaqList';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { faqCategories, faqs, type FaqCategory } from '@/shared/features/faq/faq.data';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { usePlatform } from '@/shared/context/platform';
-import { Box } from 'styled-system/jsx';
 
 export function FaqPage() {
   const platform = usePlatform();
@@ -59,13 +57,6 @@ export function FaqPage() {
         )
       }
     >
-      <Divider
-        aria-hidden="true"
-        orientation="horizontal"
-        h="2px"
-        bg="black.100"
-        _mobile={{ display: 'none' }}
-      />
       <FaqControls
         category={category}
         query={query}
@@ -76,13 +67,11 @@ export function FaqPage() {
           setShown(10);
         }}
       />
-      <Box _mobile={{ mt: '6' }}>
-        <FaqList
-          entries={entries.slice(0, shown)}
-          openQuestion={open}
-          onToggle={(question) => setOpen(open === question ? null : question)}
-        />
-      </Box>
+      <FaqList
+        entries={entries.slice(0, shown)}
+        openQuestion={open}
+        onToggle={(question) => setOpen(open === question ? null : question)}
+      />
     </CustomerCenterLayout>
   );
 }

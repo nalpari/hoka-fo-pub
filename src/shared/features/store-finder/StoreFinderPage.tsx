@@ -16,9 +16,8 @@ const tabs = storeCities.map((city) => ({
 export function StoreFinderPage() {
   return (
     <CustomerCenterLayout
-      title="매장찾기"
+      title="매장 찾기"
       mobileTitleVariant="heading5"
-      showHeadingDivider
       activePath="/support/store"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

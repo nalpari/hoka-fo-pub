@@ -6,67 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:17:40.188Z'
+  at: '2026-10-20T07:09:56.305Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/shared/features/support/InquiryAttachmentPreview.tsx
-  - src/shared/features/support/InquiryListItem.tsx
-  - src/shared/features/support/InquiryPage.tsx
-  - src/shared/features/support/InquiryReadAttachments.tsx
-  - src/app/error.tsx
-  - src/app/maintenance/page.tsx
-  - src/app/service-unavailable/page.tsx
-  - src/shared/features/not-found/NotFoundPage.tsx
-  - src/shared/features/not-found/SystemStatusPage.tsx
-  - src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx
-  - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
-  - src/stories/features/not-found/SystemStatusPage.stories.tsx
-  - tests/app-router.test.mjs
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/layouts/AppLayout/AppLayout.tsx
-  - src/shared/components/molecules/SearchField/SearchField.tsx
-  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader.tsx
-  - src/shared/components/organisms/Catalog/CatalogResults/CatalogResults.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
-  - src/shared/components/organisms/Search/SearchSuggestions.tsx
-  - src/shared/features/catalog/ProductListingPage.tsx
-  - src/shared/features/catalog/ProductListingResults.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
-  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
-  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/shared/features/catalog/productListingFilterValues.ts
-  - src/shared/features/home/HomeExploreSection.tsx
-  - src/shared/features/home/homeContent.ts
-  - src/shared/features/product/ProductColorSelector.tsx
-  - src/shared/features/product/ProductDetailGrid.tsx
-  - src/shared/features/product/ProductDetailHeaderTitle.tsx
-  - src/shared/features/product/ProductDetailPanel.tsx
-  - src/shared/styles/global.scss
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
-  - src/stories/components/molecules/SearchField/SearchField.stories.tsx
-  - src/stories/features/catalog/ProductListingPage.mobile.stories.tsx
-  - src/stories/features/catalog/ProductListingPage.scenarios.tsx
-  - src/stories/features/catalog/ProductListingPage.stories.tsx
-  - src/shared/components/atoms/Divider/Divider.tsx
-  - src/shared/components/layouts/PageFrame/PageFrame.tsx
-  - src/shared/features/care-guide/CareGuidePage.tsx
-  - src/shared/features/care-guide/CareInstructions.tsx
-  - src/shared/features/mypage/MyPage.tsx
-  - src/shared/features/mypage/MyPageMenuSection.tsx
-  - src/shared/features/mypage/MyPageProductHistoryNote.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
-  - src/shared/features/notices/NoticeContent.tsx
-  - src/shared/features/support/SupportFaq.tsx
-  - src/shared/features/support/SupportNoticeItem.tsx
-  - src/shared/features/support/SupportNotices.tsx
-  - src/shared/features/terms/TermsDateSelect.tsx
-  - src/shared/features/terms/TermsDocument.tsx
   - src/stories/components/atoms/Divider/Divider.stories.tsx
+  - src/shared/features/terms/TermsDocument.tsx
+  - src/shared/features/terms/TermsDateSelect.tsx
+  - src/shared/components/atoms/Divider/Divider.tsx
+  - src/shared/features/notices/NoticeContent.tsx
+  - okf/architecture/support-design.md
+  - src/shared/components/layouts/PageFrame/PageFrame.tsx
+  - okf/architecture/storefront-design.md
   - src/shared/features/run-club/RunClubSessionCardContent.tsx
   - src/shared/features/run-club/RunClubSessionCardImage.tsx
   - src/shared/features/support/ProductReturnsPanel.tsx
@@ -2091,22 +2041,28 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 
 출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
 
+## 스토어프런트 첨부 시안 반영 (2026-10-20)
 
-## 시안 반영 분할 기록 (1, 2026-10-20)
+메인·전체메뉴·전체검색·상품목록·상품상세·검색결과·에러 7개 화면의 변경과 유지 경계, 사진 출처, 기능 내부 구성과 Typography 계약은 [첨부 시안 대조 기록](storefront-design.md)에 정리했다. SearchListingLayout과 SystemStatusPage는 기능 내부에 두고 기존 ContentHeader·SearchField·상품 카드·필터·Base UI 래퍼를 재사용한다. 상품 데이터는 기존 목업을 유지한다.
 
-공통 PageFrame과 Divider를 추가하고 구분선 사용처를 전환했다. 세탁 안내와 약관 문서·시행일 선택을 기능 내부 구성으로 분리했다. 고객센터 레이아웃의 PageFrame 적용과 시안 보정은 후속 고객센터 커밋에 포함한다.
+## 홍보 배너 전체 페이지 노출 (2026-10-20)
 
+사용자 요구에 따라 HeaderPromotionBanner는 PC·모바일 모든 페이지에 표시한다. SiteHeader의 플랫폼·홈 경로 조건을 제거했으며, 일반 헤더를 생략하는 모바일 검색 페이지에서도 AppLayout이 같은 배너를 표시한다. 배너의 기존 높이와 캐러셀 동작은 유지한다. 출처는 working_tree_sources의 SiteHeader.tsx와 AppLayout.tsx다.
 
-## 시안 반영 분할 기록 (2, 2026-10-20)
+## 페이지 공통 프레임 (2026-10-20)
 
-메인 카테고리 이미지, 메뉴 타이포그래피, 검색 입력·검색결과 프레임, 상품 목록·필터·상세 화면을 첨부 시안에 맞췄다. 모바일 검색의 헤더·푸터 구성도 조정했다.
+CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts/PageFrame으로 추출했다. PageFrame은 선택적 breadcrumbItems와 children을 받아 PC 바깥 최대 1532px·본문 1200px/좌우 34px, 모바일 전체 너비/좌우 16px, 기존 하단 여백과 Breadcrumb 높이 56px을 소유한다. Breadcrumb을 생략하면 해당 영역도 생략한다. 사이드바·제목·본문 데이터·경로 정책은 호출자가 조합하므로 다른 메뉴와 사이드바 없는 페이지에서도 같은 프레임을 사용할 수 있다. CustomerCenterLayout은 기존 props를 유지하며 PageFrame 안에 SidebarColumns·ContentSection을 조합한다. 기존 DOM 순서와 고객센터 PC 190px/98px 및 모바일 표시 정책은 유지한다. 출처는 working_tree_sources의 PageFrame.tsx·CustomerCenterLayout.tsx다.
 
+## 고객센터 시안과 구성 정리 (2026-10-20)
 
-## 시안 반영 분할 기록 (3, 2026-10-20)
+고객센터 첨부 시안 7종에 대한 차이·반영 범위·재사용 책임은 [고객센터 시안 반영 기록](support-design.md)에 정리했다. 이전 FAQ outline 카테고리와 모바일 공지 accordion 설명보다 이 기록이 우선한다. PC SUPPORT 사이드 제목과 PageFrame을 재사용하고, FAQ는 fill 카테고리 아래 검정 구분선을 둔다. 모바일 필터 rail의 기존 외부 margin/padding과 목록의 추가 margin을 정리해 FaqCategoryNav가 목록 앞 간격을 소유한다. 공지는 PC accordion, 모바일 상세 링크이며 제목·날짜는 공용 notices.data를 사용한다. StoreMapPreview는 PC 422px·모바일 240px 영역에서 지도 샘플의 종횡비를 보존한다.
 
-SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
+문의 읽기 파일 목록/선택은 InquiryReadAttachments, 공통 SingleActionDialog·Carousel 조합은 InquiryAttachmentPreview가 소유한다. CareInstructions는 ContentSection 기본 제목을 사용하고 TermsDocument는 선택된 시행일을, TermsDateSelect는 Popover 열림/닫힘과 Radio 선택 후 닫기를 소유한다. 문의 form/업로드 유효성 검사는 그대로 유지한다. 기능 내부 상태를 구분하는 추출이며 새 공용 atom이나 Base UI 의존성을 추가하지 않는다. 출처와 실제 검증 범위는 연결한 기록의 working_tree_sources와 검증 항목을 따른다.
 
+## 약관 시행일 선택과 가로 구분선 공통화 (2026-10-20)
 
-## 시안 반영 분할 기록 (4, 2026-10-20)
+TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털·Radio·열림 상태를 소유한다. TermsDocument는 날짜 목록·선택값과 약관 본문을 소유하며 name/options/value/onValueChange를 전달한다. 플랫폼 포털 클래스, 선택 후 닫기, 날짜 표시 형식과 접근성 이름은 유지한다.
 
-문의 읽기 화면의 첨부파일 목록과 미리보기를 추가했다. 기존 SingleActionDialog·Carousel을 조합하며 목록에서 선택한 파일 열기·슬라이드 선택·닫기 후 포커스 복원을 지원한다.
+공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
+
+검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.

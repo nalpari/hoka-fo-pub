@@ -14,3 +14,5 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = { ...scenarios.InquiriesDesktop, name: 'Default' };
 
 export const Pending: Story = { ...scenarios.InquiryPendingDesktop, name: 'Pending' };
+
+export const Answered: Story = { ...scenarios.InquiryAnsweredDesktop, name: 'Answered' };

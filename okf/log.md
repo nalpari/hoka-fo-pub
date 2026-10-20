@@ -2,6 +2,16 @@
 
 ## 2026-10-20
 
+- **Refactor**: 약관 시행일 선택을 TermsDateSelect로 분리하고 반복되는 장식용 가로 구분선을 공통 Divider의 세 variant로 정리했다. 기존 간격·모바일 조건·Popover/Radio 동작을 유지했다. [구성 계약](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 참고한다.
+
+- **Update**: 고객센터 첨부 시안을 대조해 SUPPORT 사이드 제목, FAQ 필터/구분선/모바일 간격, 공지의 PC 펼침·모바일 상세 이동, 문의 첨부 미리보기·답변 패널, 모바일 지도 비율을 정리했다. 세탁 안내와 약관 문서를 기능 내부 컴포넌트로 나누고 공통 Dialog·Carousel·ContentSection·PageActionButton을 재사용했다. [고객센터 시안 반영 기록](architecture/support-design.md)을 참고한다.
+
+- **Refactor**: CustomerCenterLayout의 main·Breadcrumb·중앙 본문을 PageFrame으로 추출했다. 다른 메뉴에서 선택적 Breadcrumb과 children으로 재사용할 수 있고 고객센터의 기존 PC·모바일 구조와 스타일을 유지한다. [공통 프레임](architecture/ui.md#페이지-공통-프레임-2026-10-20)을 참고한다.
+
+- **Fix**: 홍보 배너의 PC 메인 한정 조건을 제거하고 모바일 검색을 포함한 PC·모바일 모든 페이지에 표시하도록 수정했다. [UI 노출 계약](architecture/ui.md#홍보-배너-전체-페이지-노출-2026-10-20)과 [시안 반영 기록](architecture/storefront-design.md)을 사용자 요구에 맞췄다.
+
+- **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
+
 - **Merge**: UI 코드 3파일과 UI 문서의 충돌을 해결했다. 공통 ContentSection·footer와 들어오는 쿠폰 카드·프로필 편집·404 색상/간격 변경을 통합하고 양쪽 문서 이력을 보존했다. 타입·변경 ESLint·충돌 해결 파일 Prettier·Panda·Next.js 빌드·스테이징 기준 OKF 검사를 통과했다. [UI 통합 기록](architecture/ui.md#ui-병합-충돌-해결-2026-10-20)을 참고한다.
 
 - **Refactor**: 런클럽 세션 카드의 이미지/오버레이와 상세 안내 구성을 분리했다. 기존 문구·링크·DOM·PC/MO 스타일을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드와 JSX 비교를 확인하고 [UI 기록](architecture/ui.md#런클럽-세션-카드-구성-분리-2026-10-20)을 갱신했다.
@@ -110,6 +120,12 @@
 - **Refactor**: features의 장바구니 상태/표현을 분리하고 장바구니·결제 하단 액션을 공용화했다. 약관·공지·쿠폰·마일리지에 Base UI 기반 공용 상호작용을 적용하고 동일 Typography web/mo 102곳, 상품 고객센터 Stack과 리뷰 정렬 Select 클래스 충돌을 정리했다. 공용 API와 PC/MO feature Storybook 회귀 사례를 추가했다. Panda·타입·임시 산출물 제외 전체 lint·Next/Storybook 빌드와 1600px/375px 브라우저의 선택·펼침·팝업 닫기·쿠폰 금액·주문 완료·탭 키보드·주요 computed geometry를 확인했다.
 
 ## 2026-10-20
+
+- **Refactor**: CustomerCenterLayout의 main·Breadcrumb·중앙 본문을 PageFrame으로 추출했다. 다른 메뉴에서 선택적 Breadcrumb과 children으로 재사용할 수 있고 고객센터의 기존 PC·모바일 구조와 스타일을 유지한다. [공통 프레임](architecture/ui.md#페이지-공통-프레임-2026-10-20)을 참고한다.
+
+- **Fix**: 홍보 배너의 PC 메인 한정 조건을 제거하고 모바일 검색을 포함한 PC·모바일 모든 페이지에 표시하도록 수정했다. [UI 노출 계약](architecture/ui.md#홍보-배너-전체-페이지-노출-2026-10-20)과 [시안 반영 기록](architecture/storefront-design.md)을 사용자 요구에 맞췄다.
+
+- **Update**: 메인·메뉴·검색·목록·상세·에러 첨부 시안을 대조해 카테고리 사진 5종, PC 3열·모바일 검색 전용 프레임, 가격 기본 상한, 모바일 정렬, 상품 상세와 에러 공통 구성을 반영했다. SearchListingLayout·SystemStatusPage와 기존 ContentHeader·SearchField를 조합하고 PC/MO 스토리를 보완했다. [시안 반영 기록](architecture/storefront-design.md), [에러 경로](architecture/routing.md#시안-기반-에러-진입점-2026-10-20), [검증 범위](development/verification.md#스토어프런트-시안-반영-검증-2026-10-20)를 참고한다.
 
 - **Update**: 회원정보 하단을 Figma `789:25505`의 보기/편집 상태에 맞췄다. 편집에 부가정보의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼, 회원탈퇴 안내와 링크를 배치하고 보기/편집이 같은 결혼유무 상태를 사용한다. 마케팅 수신 동의 편집은 항목명과 `수신`/`수신안함` 라디오를 가로 배치하고 문자·카카오톡 선택을 한 행으로 묶었다. [UI 기록](architecture/ui.md)을 갱신했다.
 - **Update**: 임직원 쿠폰을 Figma `764:19062`에 맞춰 기존 5개 칩과 펼침·접힘 동작 대신 50%·30% 쿠폰 발급 안내 두 건으로 변경했다. `black.10` 배경, 16px 내부 여백, 8px 간격, 18px 체크 아이콘을 적용하고 [UI 기록](architecture/ui.md) 및 [Organisms 판단](architecture/organisms.md)을 갱신했다.
@@ -539,23 +555,3 @@
 
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
-
-
-## 2026-10-20 분할 커밋 기록
-
-- 공통 PageFrame과 Divider를 추가하고 구분선 사용처를 전환했다. 세탁 안내와 약관 문서·시행일 선택을 기능 내부 구성으로 분리했다. 고객센터 레이아웃의 PageFrame 적용과 시안 보정은 후속 고객센터 커밋에 포함한다.
-
-
-## 2026-10-20 분할 커밋 기록
-
-- 메인 카테고리 이미지, 메뉴 타이포그래피, 검색 입력·검색결과 프레임, 상품 목록·필터·상세 화면을 첨부 시안에 맞췄다. 모바일 검색의 헤더·푸터 구성도 조정했다.
-
-
-## 2026-10-20 분할 커밋 기록
-
-- SystemStatusPage를 추가해 기존 404와 신규 점검·접속 불가 안내를 공유한다. /maintenance·/service-unavailable 및 App Router error 진입점, PC/MO 스토리와 라우트 검사 예상 목록을 추가했다.
-
-
-## 2026-10-20 분할 커밋 기록
-
-- 문의 읽기 화면의 첨부파일 목록과 미리보기를 추가했다. 기존 SingleActionDialog·Carousel을 조합하며 목록에서 선택한 파일 열기·슬라이드 선택·닫기 후 포커스 복원을 지원한다.
