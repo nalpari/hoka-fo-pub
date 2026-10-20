@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:25:49Z'
+  at: '2026-10-20T04:59:19Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - panda.config.ts
@@ -1882,3 +1882,9 @@ IA 미리보기의 story ID도 같은 분류로 연결한다. `/signup`은 가�
 AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDialog와 footer 확인 버튼 변경을 반영했다. ModalDialog 공통 본문 패딩과 SignupPage의 소셜 가입 미연결 안내는 incoming 변경을 유지한다. Storybook 분류는 로그인/회원가입과 Web/Mobile 두 변경을 함께 반영했으며 양쪽 문서 이력을 보존했다.
 
 검증(Codex, 2026-10-20): 전체 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next.js·Storybook production build와 기존 Node 테스트 53개가 통과했다. 생성된 Storybook index에서 IA 미리보기 48개와 가입 안내·목업 story ID를 확인했고 AUTH 분류가 없음을 확인했다. 브라우저 시각 비교와 Storybook play 실행은 수행하지 않았다.
+
+## ContentHeader 가로형 옵션 (2026-10-20)
+
+`ContentHeader`는 기본 `orientation="vertical"`을 유지하며 `orientation="horizontal"`에서 제목 그룹과 선택적 `action`을 좌우로 배치한다. 제목만 있으면 추가 DOM 그룹 없이 바로 렌더링하고, eyebrow/description이 있으면 이 텍스트만 내부 Stack으로 묶는다. `gap`은 텍스트 내부 및 액션과의 간격에 사용하며 기존 Stack 레이아웃 props로 반응형 값을 지정할 수 있다. 세로형에서는 기존 제목·설명 구조를 유지하고 action은 그 뒤에 온다.
+
+가로 제목/액션·설명 포함·액션 생략 Storybook 예시를 추가했다. 기존 세로형을 유지하며 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 확인했다. 브라우저 검증과 Storybook play는 실행하지 않았다. 출처는 frontmatter의 ContentHeader 구현과 스토리, content-sections 스킬 참조 문서다.

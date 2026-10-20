@@ -21,7 +21,7 @@ When the heading introduces related content, prefer the default `ContentHeader` 
 
 `gap` belongs to the section's sibling intervals. `headerProps.gap` belongs to the title/eyebrow/description group. Do not accidentally move one interval to the other. Pass description, eyebrow, titleAs, titleProps, descriptionProps, and heading-specific spacing through `headerProps`; do not repeat `<ContentHeader>` or a single heading `Typography` in the `header` slot when this API is sufficient.
 
-Use a custom `header` ReactNode only when the default structure cannot express the observed contract, such as a title with adjacent controls, a divider group, or an existing feature-specific header adapter. `title`/`headerProps` and `header` are alternative APIs; do not supply both or detect arbitrary object shapes at runtime. Keep existing dedicated frame/interaction components when their contract remains useful.
+Use `headerProps.orientation="horizontal"` and `headerProps.action` for a heading group with an adjacent action. The supporting text stays grouped with the title; `gap` controls the heading text interval and the space before the action. Set an explicit gap to preserve an existing HStack interval. Use a custom `header` ReactNode only when the default structure cannot express the observed contract, such as a divider group or an existing feature-specific header adapter. `title`/`headerProps` and `header` are alternative APIs; do not supply both or detect arbitrary object shapes at runtime. Keep existing dedicated frame/interaction components when their contract remains useful.
 
 ## Preserve layout and behavior
 

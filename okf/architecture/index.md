@@ -1,5 +1,7 @@
 # 아키텍처
 
+ContentHeader의 orientation/action API는 [가로형 옵션](ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
+
 MainSection·HeroCopy의 중앙 너비를 공유하는 contentFrame 패턴과 고객센터/마이페이지의 SidebarColumns 골격은 [레이아웃 공통화](ui.md#중앙-너비-패턴과-사이드바-골격-공통화-2026-10-20)를 참고한다.
 
 쿠폰·리뷰·FAQ·공지의 더보기 공통 API와 카운터·배치 보존은 [UI 구성](ui.md#더보기-버튼-공통화-2026-10-20), 상태 유지 범위는 [상태 검토](state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 참고한다.

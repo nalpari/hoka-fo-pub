@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Update**: ContentHeader에 orientation/action API와 가로형 스토리 3개를 추가하고 제목 구성 지침을 갱신했다. 타입·변경 ESLint/Prettier·Panda 생성·Next/Storybook 빌드를 확인했다. [UI 기록](architecture/ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
+
 - **Refactor**: 중앙 너비의 contentFrame Panda 패턴을 MainSection·MainSectionHeader·HeroCopy에 적용하고 SidebarColumns를 고객센터/사이드 내비게이션 레이아웃에 연결했다. DOM 래퍼 없이 모바일 너비·190px/98px 및 180px/50px 골격을 유지했다. Panda·타입 검사·변경 ESLint·Next/Storybook 빌드와 PC/MO 브라우저 배치를 확인했다. [UI 구성](architecture/ui.md#중앙-너비-패턴과-사이드바-골격-공통화-2026-10-20)을 갱신했다.
 
 - **Update**: 쿠폰·리뷰·FAQ·공지의 더보기 표시를 LoadMoreButton으로 공통화했다. remaining과 current/total API를 구분하고 기존 타이포그래피·너비·여백·페이지 상태를 보존했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Storybook production build를 통과했다. [UI 구성](architecture/ui.md#더보기-버튼-공통화-2026-10-20)과 [상태 검토](architecture/state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 갱신했다.

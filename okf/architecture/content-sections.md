@@ -6,7 +6,7 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T04:11:05Z'
+  at: '2026-10-20T04:56:17Z'
 source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
 working_tree_sources:
   - src/shared/features/notices/NoticesPage.tsx
@@ -151,7 +151,7 @@ working_tree_sources:
 </ContentSection>
 ```
 
-ContentHeader는 설명 없이 제목만 있을 때도 기본 제목 그룹이다. ContentSection의 title은 ReactNode이며 headerProps로 titleAs·titleProps·description·descriptionProps·eyebrow·헤더 내부 gap을 전달한다. section gap은 헤더/본문 및 직접 형제 그룹 간격이다. title/headerProps와 custom header는 동시에 전달할 수 없다. 가로 action·Divider·아이콘/기존 기능 어댑터가 필요한 경우만 별개 header 노드를 쓴다.
+ContentHeader는 설명 없이 제목만 있을 때도 기본 제목 그룹이다. ContentSection의 title은 ReactNode이며 headerProps로 titleAs·titleProps·description·descriptionProps·eyebrow·헤더 내부 gap을 전달한다. section gap은 헤더/본문 및 직접 형제 그룹 간격이다. title/headerProps와 custom header는 동시에 전달할 수 없다. 일반적인 가로 action은 headerProps.orientation="horizontal"과 headerProps.action으로 조합한다. Divider·아이콘/기존 기능 어댑터 등 기본 API로 표현할 수 없는 경우만 별개 header 노드를 쓴다.
 
 h4/h5 제한은 h1~h6 지원으로 해소했다. CustomerCenterLayout의 동적 headingProps 여백은 기존 헤더 그룹이 소유하고 ContentSection gap=0으로 감싼다. PC 가로 Grid와 별도 간격·padding·form·native 목록 의미는 보존했다. MainContentCard는 기존 header 태그/card__header class와 variant 스타일을 유지한다. 미사용 SupportMileageContent는 제목 조합만 정리했으며 운영 경로를 새로 만들지 않았다.
 
@@ -336,3 +336,7 @@ Typography.stories.tsx의 9개 제목 작성 위치는 native/unstyled/scale 예
 3. 공통 CustomerCenterLayout·MainContentCard·런클럽 hero·GuidePanel은 조건부/가로 배치/recipe 영향을 확인한 뒤 처리한다. h4/h5 지원은 실제 소비처를 전제로 별도 API 변경으로 검토한다.
 
 이 문단은 최초 조사 시점의 범위를 설명한다. 당시에는 컴포넌트 이관·API 확장·새 Storybook·브라우저 비교·빌드를 수행하지 않았다. 이후의 실제 변경과 검증은 위 코드 이관 절에 기록한다. 각 후보의 소스 위치, 형제 그룹, 현재 gap/여백·태그·타입 스케일·소비처를 확인했다. 구현 시 DOM/접근성·폼 이벤트·포털·PC/MO 간격과 의미 있는 오류/빈 상태·목록/모달 분기를 검증해야 한다. 과거의 헤더 이관 검증 기록을 이번 후보 전체의 검증으로 해석하지 않는다.
+
+## 가로 헤더 API 확장 (2026-10-20)
+
+제목과 우측 액션 조합을 ContentHeader의 orientation/action으로 지원한다. 과거 표의 가로 action 제외 판단은 당시 API 기준이며, 이제 일반적인 제목·버튼 조합에는 기본 title/headerProps API를 우선한다. [현재 구성과 검증](ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
