@@ -6,9 +6,12 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:30:09Z'
+  at: '2026-10-20T05:44:53Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/product/ProductAfterSalesQuestions.tsx
+  - src/shared/features/product/ProductAfterSalesProcess.tsx
+  - src/shared/features/product/ProductAfterSalesContacts.tsx
   - src/shared/features/mypage/MyPageBenefitItem.tsx
   - src/shared/features/support/SupportNoticeItem.tsx
   - src/shared/features/support/InquiryAttachmentHelp.tsx
@@ -1995,3 +1998,9 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 `IdConfirmationModal`은 ConfirmDialog를 사용하고 비밀번호 재설정→onPasswordReset, 확인→onConfirm을 전달한다. PC는 fullWidthActions=false·horizontal로 기존 공통 footer의 가로 버튼 크기를 유지한다. 모바일은 vertical로 전환하며 본문 내 두 버튼을 제거해 공통 고정 footer에 배치한다. 이는 기존 모바일 본문 버튼 배치에서 의도적으로 변경한 부분이며, 본문 안내·userName 정규화·타이포그래피·여백·모바일 fullscreen과 플랫폼별 제목은 유지한다. Vertical/VerticalMobile 스토리와 보조 액션이 닫기를 자동 호출하지 않는 play 검사를 추가했다.
 
 출처는 frontmatter의 ConfirmDialog/IdConfirmationModal 구현과 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 및 Storybook play는 실행하지 않았다.
+
+## 상품 수선 안내 컴포넌트 분리 (2026-10-20)
+
+`ProductDetailAfterSalesContent`는 도입 문구와 세 영역 조합만 소유한다. `ProductAfterSalesContacts`는 고객센터/A/S 문의처와 FAQ/1:1 문의 액션을 담당하며 동일한 문의처 행과 액션 행을 로컬 컴포넌트로 재사용한다. `ProductAfterSalesProcess`는 아이콘·절차 데이터와 6열/모바일 1열 ordered list를, `ProductAfterSalesQuestions`는 Q&A 데이터와 질문/답변 표시를 소유한다. 기존 외부 접수 URL·새 창/rel 속성·링크·h4/h5 레벨·Grid 직계 li 선택자와 PC/MO 스타일을 유지한다.
+
+출처는 frontmatter의 해당 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 임시 검증기로 외부 공용 컴포넌트 경계를 고정하고 JSX를 펼쳐 해당 진입점의 구조·문구·속성·스타일 값이 변경 전과 같음을 확인했다. 실제 DOM/브라우저 시각·상호작용 검증은 수행하지 않았다.
