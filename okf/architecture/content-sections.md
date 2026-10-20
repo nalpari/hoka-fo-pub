@@ -9,6 +9,7 @@ generated:
   at: '2026-10-20T04:56:17Z'
 source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
 working_tree_sources:
+  - src/shared/features/mypage/MyPageRecentOrders.tsx
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/faq/FaqPage.tsx
   - src/shared/features/support/InquiryPage.tsx
@@ -339,4 +340,4 @@ Typography.stories.tsx의 9개 제목 작성 위치는 native/unstyled/scale 예
 
 ## 가로 헤더 API 확장 (2026-10-20)
 
-제목과 우측 액션 조합을 ContentHeader의 orientation/action으로 지원한다. 과거 표의 가로 action 제외 판단은 당시 API 기준이며, 이제 일반적인 제목·버튼 조합에는 기본 title/headerProps API를 우선한다. [현재 구성과 검증](ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
+제목과 우측 액션 조합을 ContentHeader의 orientation/action으로 지원하고 MyPageRecentOrders에 적용했다. 과거 표의 가로 action 제외 판단은 당시 API 기준이며, 이제 일반적인 제목·버튼 조합에는 기본 title/headerProps API를 우선한다. [현재 구성과 검증](ui.md#contentheader-가로형과-마이페이지-링크-스타일-2026-10-20)을 참고한다.

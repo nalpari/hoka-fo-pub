@@ -4,6 +4,14 @@
 
 - **Update**: ContentHeader에 orientation/action API와 가로형 스토리 3개를 추가하고 제목 구성 지침을 갱신했다. 타입·변경 ESLint/Prettier·Panda 생성·Next/Storybook 빌드를 확인했다. [UI 기록](architecture/ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
 
+- **Refactor**: MyPageMenuSection의 링크 한 행을 MyPageMenuItem으로 분리하고 props 타입을 재사용했다. Next Link + Panda css, 기존 DOM·링크·스타일을 유지한다. [UI 구성](architecture/ui.md#마이페이지-메뉴-항목-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: ContentHeader의 가로형 API를 주문 배송 헤더에 연결했다. 이번에 분리한 마이페이지 3파일의 styled(Link)를 일반 Link + Panda css로 교체했다. [UI 기록](architecture/ui.md#contentheader-가로형과-마이페이지-링크-스타일-2026-10-20)과 제목 구성 지침을 갱신했다.
+
+- **Refactor**: MyPage의 프로필·회원등급·혜택 요약·주문 캐러셀/항목·메뉴와 정적 데이터를 분리했다. 쿠폰 등록/내역·문의 헤더/본문·결제 동의도 전용 컴포넌트로 추출하고 기존 DOM·스타일·상태 흐름을 유지했다. 타입·변경 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 확인했으며 [UI 구성](architecture/ui.md#마이페이지쿠폰문의결제-세부-구성-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 가입 목업의 전체/개별 필수 약관을 SignupTermsAgreements로 분리하고 개별 3개 약관의 반복 JSX를 항목 데이터와 map으로 통합했다. 상태 계산과 제목·오류·다음 버튼은 상위 단계에 남기고 기존 DOM·스타일·콜백을 유지했다. Panda·타입·변경 ESLint/포맷·Next/Storybook 빌드와 PC/MO 각각 54개 요소의 동일한 배치를 확인했다. [UI 기록](architecture/ui.md#가입-목업-약관-영역-분리-2026-10-20)을 갱신했다.
+
 - **Refactor**: 중앙 너비의 contentFrame Panda 패턴을 MainSection·MainSectionHeader·HeroCopy에 적용하고 SidebarColumns를 고객센터/사이드 내비게이션 레이아웃에 연결했다. DOM 래퍼 없이 모바일 너비·190px/98px 및 180px/50px 골격을 유지했다. Panda·타입 검사·변경 ESLint·Next/Storybook 빌드와 PC/MO 브라우저 배치를 확인했다. [UI 구성](architecture/ui.md#중앙-너비-패턴과-사이드바-골격-공통화-2026-10-20)을 갱신했다.
 
 - **Update**: 쿠폰·리뷰·FAQ·공지의 더보기 표시를 LoadMoreButton으로 공통화했다. remaining과 current/total API를 구분하고 기존 타이포그래피·너비·여백·페이지 상태를 보존했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Storybook production build를 통과했다. [UI 구성](architecture/ui.md#더보기-버튼-공통화-2026-10-20)과 [상태 검토](architecture/state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 갱신했다.
