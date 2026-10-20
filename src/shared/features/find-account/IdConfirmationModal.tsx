@@ -1,7 +1,6 @@
 import { Box, Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
 import { usePlatform } from '@/shared/context/platform';
 
 type IdConfirmationModalProps = {
@@ -19,20 +18,14 @@ export function IdConfirmationModal({
 }: IdConfirmationModalProps) {
   const platform = usePlatform();
   const displayName = userName?.trim();
-  const actions = (
-    <>
-      <Button variant="secondary" size="short" fullWidth onClick={onPasswordReset}>
-        비밀번호 재설정
-      </Button>
-      <Button variant="primary" size="short" fullWidth onClick={onConfirm}>
-        확인
-      </Button>
-    </>
-  );
 
   return (
-    <ModalDialog
-      footer={platform === 'web' ? actions : undefined}
+    <ConfirmDialog
+      fullWidthActions={false}
+      actionDirection={platform === 'mobile' ? 'vertical' : 'horizontal'}
+      cancelLabel="비밀번호 재설정"
+      onCancel={onPasswordReset}
+      onConfirm={onConfirm}
       open
       size="md"
       onOpenChange={onOpenChange}
@@ -59,8 +52,7 @@ export function IdConfirmationModal({
             비밀번호가 생각나지 않으시는 경우 임시비밀번호를 통해 재설정하실 수 있습니다.
           </Typography>
         </Box>
-        {platform === 'mobile' ? <Stack gap="2">{actions}</Stack> : null}
       </Stack>
-    </ModalDialog>
+    </ConfirmDialog>
   );
 }

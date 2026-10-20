@@ -56,6 +56,19 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
               titleAs: 'h3',
               titleProps: { web: 'heading9', mo: 'heading9', weight: 'semibold' },
             }}
+            footer={
+              <Box>
+                <Button
+                  type="button"
+                  size="short"
+                  variant={isOpen ? 'secondary' : 'primary'}
+                  onClick={() => setOpenedMap(isOpen ? null : store.name)}
+                  aria-expanded={isOpen}
+                >
+                  길 찾기
+                </Button>
+              </Box>
+            }
           >
             <Stack gap="1">
               <Typography web="body5" mo="body5" tone="tertiary">
@@ -104,17 +117,6 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
                 </Box>
               </Box>
             )}
-            <Box>
-              <Button
-                type="button"
-                size="short"
-                variant={isOpen ? 'secondary' : 'primary'}
-                onClick={() => setOpenedMap(isOpen ? null : store.name)}
-                aria-expanded={isOpen}
-              >
-                길 찾기
-              </Button>
-            </Box>
           </ContentSection>
         );
       })}

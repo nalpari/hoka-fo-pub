@@ -6,6 +6,8 @@ type TextProps = Omit<TypographyProps<'h2'>, 'as' | 'children'>;
 
 export type ContentHeaderProps = Omit<ComponentProps<typeof Stack>, 'title' | 'children'> & {
   title: ReactNode;
+  orientation?: 'vertical' | 'horizontal';
+  action?: ReactNode;
   titleAs?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   titleProps?: TextProps;
   eyebrow?: ReactNode;
@@ -18,6 +20,8 @@ export type ContentHeaderProps = Omit<ComponentProps<typeof Stack>, 'title' | 'c
 export function ContentHeader({
   title,
   titleAs = 'h2',
+  orientation = 'vertical',
+  action,
   titleProps,
   eyebrow,
   eyebrowProps,
@@ -26,8 +30,8 @@ export function ContentHeader({
   gap = '3',
   ...props
 }: ContentHeaderProps) {
-  return (
-    <Stack gap={gap} {...props}>
+  const text = (
+    <>
       {eyebrow ? (
         <Typography {...eyebrowProps} as="p">
           {eyebrow}
@@ -41,6 +45,21 @@ export function ContentHeader({
           {description}
         </Typography>
       ) : null}
+    </>
+  );
+
+  const horizontal = orientation === 'horizontal';
+
+  return (
+    <Stack
+      direction={horizontal ? 'row' : 'column'}
+      alignItems={horizontal ? 'center' : undefined}
+      justifyContent={horizontal ? 'space-between' : undefined}
+      gap={gap}
+      {...props}
+    >
+      {horizontal && (eyebrow || description) ? <Stack gap={gap}>{text}</Stack> : text}
+      {action}
     </Stack>
   );
 }

@@ -2,6 +2,44 @@
 
 ## 2026-10-20
 
+- **Update**: ConfirmDialog에 actionDirection/onCancel API를 추가하고 IdConfirmationModal의 중복 버튼을 통합했다. PC 가로 배치를 유지하고 모바일은 본문 버튼을 세로형 공통 footer로 옮겼다. Vertical/VerticalMobile 스토리와 콜백 검사를 추가하고 [UI 기록](architecture/ui.md#확인-다이얼로그-세로-액션과-아이디-안내-적용-2026-10-20)을 갱신했다.
+
+- **Refactor**: CartOptionsDialog의 수동 footer를 ConfirmDialog로 교체했다. confirmDisabled API와 비활성 예시를 추가해 기존 품절/사이즈 검증·저장·취소·모바일 전체 화면·버튼 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI](architecture/ui.md#장바구니-옵션-확인-다이얼로그-재사용-2026-10-20)·[상태](architecture/state.md#장바구니-옵션-확인-상태-유지-2026-10-20)를 갱신했다.
+
+- **Refactor**: 결제 CouponDialog를 SingleActionDialog로 전환하고 기존 쿠폰 적용/닫기·취소 시 복원·버튼/모바일 배치를 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#결제-쿠폰-단일-액션-다이얼로그-재사용-2026-10-20)을 갱신했다.
+
+- **Refactor**: CouponRegistrationDialog를 SingleActionDialog로 전환하고 본문 확인 버튼을 공통 footer로 옮겼다. 문구·닫기 콜백·sm 크기를 유지하고 PC 160px/모바일 전체 너비의 공통 버튼 규격을 적용했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#쿠폰-등록-완료-단일-액션-다이얼로그-2026-10-20)을 갱신했다.
+
+- **Refactor**: AccountLockedContent를 SingleActionDialog로 전환하고 수동 확인 footer와 Button import를 제거했다. 동일한 버튼 기본값·닫기/확인 콜백·본문을 유지했다. 타입·변경 ESLint/Prettier를 확인하고 [UI 기록](architecture/ui.md#계정-잠금-단일-확인-다이얼로그-재사용-2026-10-20)을 갱신했다.
+
+- **Refactor**: MyPageBenefits의 쿠폰/관심상품 중복 JSX를 MyPageBenefitItem으로 통합했다. href·label·count·unit만 전달하고 기존 DOM·스타일·링크를 유지했다. 타입·변경 ESLint/Prettier·Panda 생성을 확인하고 [UI 기록](architecture/ui.md#마이페이지-혜택-항목-중복-제거-2026-10-20)을 갱신했다.
+
+- **Refactor**: 주문 상태 링크·문의 첨부 목록/안내·공지 한 행을 OrderStatusLink/InquiryAttachmentList/InquiryAttachmentHelp/SupportNoticeItem으로 분리했다. 기존 DOM·스타일·링크·첨부 검증/삭제 흐름을 유지하고 타입·변경 ESLint/Prettier·Panda 생성을 확인했다. [UI 기록](architecture/ui.md#주문-상태첨부파일공지-항목-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 가로형 ContentHeader를 공지·파일 첨부·최근 검색어·쿠폰·상품 옵션·휴대폰 약관 및 공용 헤더 어댑터 등 9개 구성에 적용했다. 기존 제목/액션·조건부 표시·PC/MO 간격을 유지했다. 타입·변경 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 40개와 Chrome 변경 전후 22개 사례·Storybook 동작 10개를 확인했다. [UI 기록](architecture/ui.md#가로형-contentheader-소비처-확대-2026-10-20)과 [조사 보고서](architecture/content-sections.md#가로형-contentheader-소비처-확대-2026-10-20)를 갱신했다.
+
+- **Refactor**: ProductVariantSection의 본문 Box를 제거하고 children이 section Stack의 gap=4에 직접 참여하도록 변경했다. 타입·ESLint·Prettier를 확인하고 [UI 구성](architecture/ui.md#상품-옵션-본문-래퍼-제거-2026-10-20)을 갱신했다.
+
+- **Update**: ContentHeader에 orientation/action API와 가로형 스토리 3개를 추가하고 제목 구성 지침을 갱신했다. 타입·변경 ESLint/Prettier·Panda 생성·Next/Storybook 빌드를 확인했다. [UI 기록](architecture/ui.md#contentheader-가로형-옵션-2026-10-20)을 참고한다.
+
+- **Refactor**: MyPageMenuSection의 링크 한 행을 MyPageMenuItem으로 분리하고 props 타입을 재사용했다. Next Link + Panda css, 기존 DOM·링크·스타일을 유지한다. [UI 구성](architecture/ui.md#마이페이지-메뉴-항목-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: ContentHeader의 가로형 API를 주문 배송 헤더에 연결했다. 이번에 분리한 마이페이지 3파일의 styled(Link)를 일반 Link + Panda css로 교체했다. [UI 기록](architecture/ui.md#contentheader-가로형과-마이페이지-링크-스타일-2026-10-20)과 제목 구성 지침을 갱신했다.
+
+- **Refactor**: MyPage의 프로필·회원등급·혜택 요약·주문 캐러셀/항목·메뉴와 정적 데이터를 분리했다. 쿠폰 등록/내역·문의 헤더/본문·결제 동의도 전용 컴포넌트로 추출하고 기존 DOM·스타일·상태 흐름을 유지했다. 타입·변경 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 확인했으며 [UI 구성](architecture/ui.md#마이페이지쿠폰문의결제-세부-구성-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 가입 목업의 전체/개별 필수 약관을 SignupTermsAgreements로 분리하고 개별 3개 약관의 반복 JSX를 항목 데이터와 map으로 통합했다. 상태 계산과 제목·오류·다음 버튼은 상위 단계에 남기고 기존 DOM·스타일·콜백을 유지했다. Panda·타입·변경 ESLint/포맷·Next/Storybook 빌드와 PC/MO 각각 54개 요소의 동일한 배치를 확인했다. [UI 기록](architecture/ui.md#가입-목업-약관-영역-분리-2026-10-20)을 갱신했다.
+
+- **Refactor**: 중앙 너비의 contentFrame Panda 패턴을 MainSection·MainSectionHeader·HeroCopy에 적용하고 SidebarColumns를 고객센터/사이드 내비게이션 레이아웃에 연결했다. DOM 래퍼 없이 모바일 너비·190px/98px 및 180px/50px 골격을 유지했다. Panda·타입 검사·변경 ESLint·Next/Storybook 빌드와 PC/MO 브라우저 배치를 확인했다. [UI 구성](architecture/ui.md#중앙-너비-패턴과-사이드바-골격-공통화-2026-10-20)을 갱신했다.
+
+- **Update**: 쿠폰·리뷰·FAQ·공지의 더보기 표시를 LoadMoreButton으로 공통화했다. remaining과 current/total API를 구분하고 기존 타이포그래피·너비·여백·페이지 상태를 보존했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·Storybook production build를 통과했다. [UI 구성](architecture/ui.md#더보기-버튼-공통화-2026-10-20)과 [상태 검토](architecture/state.md#더보기-버튼의-상태-소유권-검토-2026-10-20)를 갱신했다.
+
+- **Refactor**: ContentSection에 선택적 footer/children을 추가하고 CustomerCenterLayout 전달 API와 UI 소비처 15곳에 적용했다. 폼/간격/Grid·제목 없는 목록의 조건부 9개 경계 및 기존 전용 footer·고정 바는 유지했다. [적용 기록](architecture/footer-actions.md)을 갱신하고 공용 스토리 4개를 추가했다. 타입·변경 ESLint/포맷·Panda·Next/Storybook 빌드·기존 테스트 40개, PC/MO 변경 전후 비교 32개·Storybook 동작 17개·별도 동작 12개와 스킬 검증기를 통과했다.
+
+- **Docs**: component-reusability에 footer 적용·제외, 버튼 그룹·간격·폼 소유권·직접 children 기준과 이관 검증 지침을 추가했다.
+
+- **Merge**: 17개 충돌을 해결하고 로그인/회원가입 분류와 Web/Mobile 공통 시나리오 구조, ContentHeader와 직접 ModalDialog 조합, 양쪽 문서 이력을 보존했다. 폐기된 가입 단계 스토리를 제거하고 incoming의 signup 목업 세 구현·한 스토리를 보존했다. 타입 검사·변경 파일 ESLint/Prettier·Panda·Next/Storybook 빌드·기존 테스트 53개와 IA 미리보기 ID 48개 검사를 통과했다. 브라우저 play는 실행하지 않았다.
+
 - **Verify**: 모바일 필터 시트 수정 커밋 전 전체 타입 검사와 BottomSheet·BottomSheetContent ESLint를 재실행해 통과했다. 앞선 상품 스토리 타입 오류의 해소를 [UI 검증 기록](architecture/ui.md#모바일-상품-필터-시트-너비와-여백-2026-10-20)에 반영했다.
 
 - **Update**: 프로모션을 개별 Typography와 세로 Divider로 렌더링하도록 변경했다. 각 뱃지의 값에 따라 브랜드/red80 색상을 적용하고 [UI 기록](architecture/ui.md#프로모션별-색상과-구분선-2026-10-20)을 갱신했다.

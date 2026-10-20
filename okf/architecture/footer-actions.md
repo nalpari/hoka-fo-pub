@@ -6,8 +6,29 @@ tags: [components, reuse, footer, actions, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T03:47:48Z'
+  at: '2026-10-20T04:11:05Z'
 source_revision: 2f6a7c12d24e2539f87f573211feecb58b104a97
+working_tree_sources:
+  - src/shared/components/layouts/ContentSection/ContentSection.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/components/organisms/MyPage/CouponManager.tsx
+  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/shared/features/support/SupportFaq.tsx
+  - src/shared/features/run-club/RunClubSessionCard.tsx
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/login/LoginMembership.tsx
+  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/content-sections.md
 sources:
   - id: content-section
     resource: https://github.com/nalpari/hoka-fo-pub/blob/2f6a7c12d24e2539f87f573211feecb58b104a97/src/shared/components/layouts/ContentSection/ContentSection.tsx
@@ -27,7 +48,19 @@ sources:
 
 2026-10-20 Codex가 src/shared 458개·src/app 54개, 총 512개 TSX를 조사했다. Button뿐 아니라 ButtonLink·PageActionButton·버튼 어댑터·native button·footer/actions/action 슬롯과 소비처를 확인했다. Storybook fixture는 운영 후보에 포함하지 않았다. 개발 화면·타입 fixture를 제외한 구현에는 Button 작성 위치 95곳/67파일, ButtonLink 23곳/19파일, PageActionButton 4곳/4파일, native button 17곳/15파일이 있다. 이는 래퍼 구현을 포함한 정적 JSX 작성 위치이며 화면 수·하단 버튼 수가 아니고, 파일 수도 서로 중복된다. 개발 화면·Docs·타입 fixture에는 Button 20곳·ButtonLink 10곳·native button 13곳이 별도로 있다.
 
-결론은 **선택적 footer 슬롯을 추가할 가치가 있다.** 기존 ContentSection의 직접 자식인 마무리 버튼은 우선 이관할 수 있다. 폼 제출·다른 간격·헤더가 없는 목록은 조건 확인 후 적용하고, 모달/고정 바/카드의 전용 footer와 입력 보조 버튼은 유지한다. footer API 추가와 소스 이관은 이번 조사에서 수행하지 않았다. [기존 제목/본문 조사와 이관](content-sections.md)과 함께 읽는다.
+결론은 **선택적 footer 슬롯을 추가할 가치가 있다.** 기존 ContentSection의 직접 자식인 마무리 버튼은 우선 이관할 수 있다. 폼 제출·다른 간격·헤더가 없는 목록은 조건 확인 후 적용하고, 모달/고정 바/카드의 전용 footer와 입력 보조 버튼은 유지한다. 최초 조사에서는 API·소스를 변경하지 않았으며, 후속 사용자 요청으로 아래 구현을 적용했다. [기존 제목/본문 조사와 이관](content-sections.md)과 함께 읽는다.
+
+## footer 구현과 적용 (2026-10-20)
+
+ContentSection에 `footer?: ReactNode`를 추가하고 children을 선택적으로 받는다. 헤더 → children → footer를 같은 Stack에 직접 렌더링하며 자동 본문/푸터 래퍼를 만들지 않는다. 버튼뿐인 완료 영역도 빈 본문 없이 표현한다. 제목 기본 API와 custom header의 상호 배타 계약은 유지한다. CustomerCenterLayout은 선택적 footer를 내부 ContentSection에 그대로 전달한다.
+
+공용 컴포넌트/레이아웃 2파일과 UI 소비처 15파일, 총 17개 구현 파일을 변경했다. 우선 대상 4곳 외에 고객센터 공지/FAQ/문의/공지 상세와 고객센터 메인 FAQ, 로그인 가입 안내, 가입/계정 잠금 해제/결제 완료, 404, 런클럽 카드, 상품 정보의 하단 액션을 적용했다. 조건부 구성 경계 17개 중 8개를 해결한 결과다. SupportFaq는 기존 본문 gap을 버튼 컨테이너의 PC pt=6/MO4로 이전해 바깥 section gap=0과 기존 간격을 보존한다. 나머지 소비처는 기존 액션 노드/그룹·조건·간격을 그대로 슬롯에 전달했다.
+
+조건부 경계 9개는 기존 구성 유지로 확정했다. AccountFormLayout의 actions와 PasswordResetContent·MyPageProfile 편집·MyPageAddresses 편집·InquiryNewPage·LoginForm의 액션은 폼 내부/외부 연결 및 서로 다른 헤더/본문/버튼 간격을 현재 소유자가 이미 관리한다. footer 이름을 쓰기 위해 새 간격 API·본문 래퍼·form 이동을 도입하지 않았다. SignupDetailsStep·SignupTermsStep은 별도 작업에서 src/shared/Mockup/signup으로 이동한 것을 확인해 운영 이관에서 제외했다. 나머지 7개 운영 경계는 기존 구성을 유지하며, MyPageReviewsContent는 로컬 제목이 없는 목록이어서 빈 header를 만들지 않았다. 기존 모달/카드/footer·고정 바와 국소 입력 보조 행동은 조사 판단대로 유지한다.
+
+공용 Storybook에 footer 버튼 그룹·본문 없는 구성·조건부 footer 제거·외부 form 연결/필수 검증/Enter 제출 4개 사례를 추가했다. 스킬에는 footer의 적용 경계, 부모 gap/조건부 노드·form 연결·전용 footer 유지 기준과 직접 children 렌더링 지침을 반영했다.
+
+아래 4곳/17개 표와 512개 TSX 집계는 이관 전 조사 기준이며(가입 단계 2개 링크는 현재 Mockup 위치로 갱신), 현재 적용/유지 상태는 이 구현 절을 우선한다. Codex가 2026-10-20에 타입·변경 TSX ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드, 기존 테스트 40개를 확인했다. 변경 전후 PC/MO 32개 사례의 제목/본문/컨트롤 좌표·스타일·native 속성 비교가 모두 통과했다. 공용 API와 기존 로그인/가입/결제/쿠폰/프로필 Storybook 동작 17개, 별도 PC/MO 프로필 편집/취소·매장 지도 토글·공지/FAQ/쿠폰 더보기·가입 완료 링크 12개도 통과했다. 스킬 검증기와 문서 포맷/링크를 확인했다. 로컬 fixture 기반 검증이며 외부 서비스 연동 검증을 의미하지 않는다.
 
 ## 제안 API와 적용 기준
 
@@ -48,7 +81,7 @@ sources:
 - footer는 배치 위치를 표현한다. Button의 크기·색·disabled·loading·링크·업무 상태를 해석하거나 버튼 개수로 Grid를 자동 생성하지 않는다.
 - 기본 간격은 기존 section gap을 사용한다. 현재 본문 내부 간격과 마지막 버튼 간격이 다르면 즉시 옮기지 않는다. 별도 간격 API가 필요한지 검토하거나 해당 액션을 현 위치에 유지한다. 기존 mt/pt에 section gap을 중복 합산하지 않는다.
 - 제출 버튼을 form 밖으로 옮기면 type=submit만으로는 제출되지 않는다. 기존 form 내부에서 섹션을 조합하거나, form id와 버튼의 form 속성을 명시해야 한다. Enter 제출·native validation·FormData·취소 버튼 type·상태/오류 위치를 함께 확인한다.
-- 헤더/설명/CTA뿐인 구성은 본문이 비어 있을 수 있다. 현재 children은 필수 ReactNode이므로 `children={null}`로 표현할 수 있으나, 이런 구성을 다수 지원할 때 children 선택화 여부를 별도로 결정한다. 이를 위해 가짜 본문/빈 DOM을 추가하지 않는다.
+- 헤더/설명/CTA뿐인 구성은 본문이 비어 있을 수 있다. 이관 구현에서 children을 선택화했으므로 본문을 생략할 수 있다. 이를 위해 가짜 본문/빈 DOM을 추가하지 않는다.
 
 ## 우선 적용 가능: 기존 ContentSection의 마무리 액션 4곳
 
@@ -75,8 +108,8 @@ footer API를 추가한 뒤 기존 노드를 그대로 전달하는 기준이다
 | [MyPageAddresses:318](../../src/shared/features/mypage/MyPageAddresses.tsx)                               | 신규 저장 / 편집 취소·변경사항 저장 | form 내부 Stack gap=2와 section gap=5가 다르다. form id/연결 또는 form 내부 Section 구성이 필요하다. 신규/편집 분기와 버튼 크기 tall/short를 유지한다. 제목이 없는 배송지 목록의 추가 버튼까지 같은 방식으로 강제하지 않는다.                                                                                                                                                                                                                                                                                                             |
 | [InquiryNewPage:58](../../src/shared/features/support/InquiryNewPage.tsx)                                 | InquiryFormActions                  | 제목은 CustomerCenterLayout, form은 그 아래다. 액션을 레이아웃 footer로 이동하면 form 밖이 된다. form 연결을 추가하거나 폼 내부 구성을 먼저 정리한다. [InquiryFormActions](../../src/shared/features/support/InquiryFormActions.tsx)의 HStack gap=2, PC pt=6/maxW=368px·MO pt=0/폭을 유지한다.                                                                                                                                                                                                                                            |
 | [LoginForm:102](../../src/shared/features/login/LoginForm.tsx)                                            | LoginActions 전체                   | 로그인/카카오/네이버가 별도 어댑터로 묶여 있다. LoginLayout의 gap=10과 form 내부 gap=4가 다르다. 소셜 버튼도 같은 어댑터를 유지하고 form 제출 연결을 끊지 않는다. 아이디 찾기 링크는 footer 대상이 아니다.                                                                                                                                                                                                                                                                                                                                |
-| [SignupDetailsStep:144](../../src/shared/components/organisms/Signup/SignupDetailsStep.tsx)               | 가입 완료                           | form 자체가 Grid이며 필드 그룹 mt=4·오류 mt=18px·버튼 mt=7로 간격이 다르다. Grid를 무조건 Stack으로 바꾸지 말고 form/간격 계약을 먼저 정리한다.                                                                                                                                                                                                                                                                                                                                                                                           |
-| [SignupTermsStep:150](../../src/shared/components/organisms/Signup/SignupTermsStep.tsx)                   | 다음                                | Grid gap=normal, 버튼 mt=7·조건부 오류 위치를 보존해야 한다. 약관 보기 버튼들은 본문에 둔다.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| [SignupDetailsStep:144](../../src/shared/Mockup/signup/SignupDetailsStep.tsx)                             | 가입 완료                           | form 자체가 Grid이며 필드 그룹 mt=4·오류 mt=18px·버튼 mt=7로 간격이 다르다. Grid를 무조건 Stack으로 바꾸지 말고 form/간격 계약을 먼저 정리한다.                                                                                                                                                                                                                                                                                                                                                                                           |
+| [SignupTermsStep:150](../../src/shared/Mockup/signup/SignupTermsStep.tsx)                                 | 다음                                | Grid gap=normal, 버튼 mt=7·조건부 오류 위치를 보존해야 한다. 약관 보기 버튼들은 본문에 둔다.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | [LoginMembership:24](../../src/shared/features/login/LoginMembership.tsx)                                 | 회원가입 링크                       | 제목/설명과 CTA만 있는 Stack. ContentSection으로 바꿀 수 있으나 본문 없음 표현과 기존 section·border·PC/MO mt/pt·gap=6를 먼저 확인한다.                                                                                                                                                                                                                                                                                                                                                                                                   |
 | [AccountUnlockCompletePage:46](../../src/shared/features/account-locked/AccountUnlockCompletePage.tsx)    | 로그인 이동 링크                    | 헤더/설명 다음 CTA만 있는 구성. AccountPageLayout 내부 gap=9와 현재 h1/아이콘을 보존하며 본문 없음 표현을 정한다.                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | [NotFoundPage:38](../../src/shared/features/not-found/NotFoundPage.tsx)                                   | 홈으로                              | 아이콘이 제목 앞에 있다. 이 순서를 유지한 custom header나 별도 구성 검토가 필요하다. Box 폭=180px/MO100%, gap=8·정렬·main 의미를 유지한다.                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -115,4 +148,4 @@ footer API를 추가한 뒤 기존 노드를 그대로 전달하는 기준이다
 3. AccountFormLayout/CustomerCenterLayout의 전달 API와 다른 간격을 정리한 뒤 조건부 후보를 이관한다. 기존 actions API는 어댑터로 재사용한다. 각 form의 제출/Enter/취소, 오류·타이머·모달·필터/더보기 상태를 검증한다.
 4. 고정 바·모달·카드의 기존 footer와 입력 보조 버튼은 유지한다.
 
-이번 조사는 소스/AST·호출 관계·Panda 선언·조건부 분기를 읽은 결과다. footer API·화면 코드·스킬은 변경하지 않았고 런타임/브라우저/빌드 검증은 수행하지 않았다. 실제 footer 이관 시 기존 헤더 작업의 검증 결과를 이번 변경의 검증으로 재사용하지 않는다.
+최초 조사는 소스/AST·호출 관계·Panda 선언·조건부 분기를 읽은 결과이며 당시 footer API·화면 코드·스킬 변경과 런타임/브라우저/빌드 검증은 수행하지 않았다. 후속 구현은 위 구현 절에 기록한다. 실제 footer 이관 시 기존 헤더 작업의 검증 결과를 이번 변경의 검증으로 재사용하지 않는다.

@@ -16,6 +16,13 @@ export function NoticeDetailPage() {
         { label: '상세' },
       ]}
       groups={supportNavigation}
+      footer={
+        <Box mt="6" maxW="343px" mx="auto">
+          <ButtonLink href="/support/notices" variant="secondary" size="short" fullWidth>
+            목록보기
+          </ButtonLink>
+        </Box>
+      }
     >
       <HStack
         justifyContent="space-between"
@@ -52,11 +59,6 @@ export function NoticeDetailPage() {
           이용해 주셔서 감사합니다.
         </Typography>
       </Stack>
-      <Box mt="6" maxW="343px" mx="auto">
-        <ButtonLink href="/support/notices" variant="secondary" size="short" fullWidth>
-          목록보기
-        </ButtonLink>
-      </Box>
     </CustomerCenterLayout>
   );
 }

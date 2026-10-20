@@ -6,9 +6,39 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T03:57:45.017Z'
+  at: '2026-10-20T05:30:09Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/mypage/MyPageBenefitItem.tsx
+  - src/shared/features/support/SupportNoticeItem.tsx
+  - src/shared/features/support/InquiryAttachmentHelp.tsx
+  - src/shared/features/support/InquiryAttachmentList.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusLink.tsx
+  - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
+  - src/shared/features/mypage/MyPageMenuItem.tsx
+  - src/shared/features/checkout/CheckoutAgreement.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardContent.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardHeader.tsx
+  - src/shared/components/organisms/MyPage/CouponHistorySection.tsx
+  - src/shared/components/organisms/MyPage/CouponRegistrationSection.tsx
+  - src/shared/features/mypage/mypage-home-data.ts
+  - src/shared/features/mypage/MyPageMenuSection.tsx
+  - src/shared/features/mypage/MyPageOrderTile.tsx
+  - src/shared/features/mypage/MyPageRecentOrders.tsx
+  - src/shared/features/mypage/MyPageBenefits.tsx
+  - src/shared/features/mypage/MyPageMembership.tsx
+  - src/shared/features/mypage/MyPageOverviewProfile.tsx
+  - src/shared/Mockup/signup/SignupTermsStep.tsx
+  - src/shared/Mockup/signup/SignupTermsAgreements.tsx
+  - panda.config.ts
+  - src/shared/components/layouts/SidebarColumns/SidebarColumns.tsx
+  - src/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
+  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
+  - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
   - src/shared/features/catalog/product-listing/filterProducts.ts
@@ -582,6 +612,45 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 가로형 ContentHeader 소비처 확대 (2026-10-20)
+
+고객센터 공지·문의 파일 첨부, 최근 검색어, 쿠폰 카드, 상품 옵션, 휴대폰 인증약관과 MainSectionHeader·SectionHeading·OrderStatusTracker의 9개 구성에 orientation/action을 적용했다. 기존 ContentSection 또는 제목과 본문 간격을 소유하는 구성은 title/headerProps 기본 API를 사용한다. MainSectionHeader는 중앙 contentFrame 너비, SectionHeading은 기존 제목 레벨 API를 전달하는 어댑터를 유지한다.
+
+기존 HStack 기본 gap 8px과 Flex의 normal gap을 구분하고, 최근 검색어의 PC flex-start·모바일 space-between, 쿠폰의 flex-start 정렬, 공지 pb=6·약관 mb=2를 보존한다. 중첩 headerProps 스타일은 css.raw로 추출한다. 주문 현황의 헤더 mb=3은 ContentSection gap=3으로 옮겼다. 제목 레벨·ID·타이포그래피, 조건부 액션, 링크·콜백과 파일 입력 ref를 유지하며 상품 옵션 본문 children도 직접 렌더링한다.
+
+기존 표의 MainSectionHeader·OrderStatusTracker·CouponCard 가로 액션 유지 판정은 이번 적용으로 대체한다. InquiryBoardHeader는 제목/체크박스 그룹과 별도 우측 액션의 2단 구성을 유지한다. 모달·BottomSheet의 전용 헤더, PersonalizationCard의 small eyebrow, 장바구니 제목/건수·진행 단계, 제목이 아닌 가격·필드 라벨·목록 행은 이관하지 않는다.
+
+검증: 타입·변경 파일 ESLint/Prettier·Panda 생성·Next/Storybook production build, 기존 폼/계정 복구/주문 합계 테스트 40개가 통과했다. 실제 컴포넌트 SSR fixture 11개(최근 검색어 빈 상태·상품 옵션 액션 없음 포함)를 Chrome에서 1280px/375px로 비교한 22개 사례에서 제목·액션·목록·본문의 좌표/크기·타이포그래피·색상 차이가 없었다. 정적 Storybook에서 두 화면 폭의 검색어 전체 삭제·쿠폰 상세 열기/닫기·약관 모두동의/상세·파일 첨부/삭제·상품 사이즈 가이드 팝업 등 10개 동작도 확인했다. 사이즈 가이드의 외부 응답은 가로채고 팝업 대상 URL만 검사했다. 임시 fixture 기반 비교이며 실제 API 통합 검증을 의미하지 않는다.
+
+## 가입 목업 약관 영역 분리 (2026-10-20)
+
+`Mockup/signup/SignupTermsStep`의 전체 동의와 개별 필수 약관 3개를 같은 목업 폴더의 `SignupTermsAgreements`로 분리했다. 새 컴포넌트는 전체 동의 표시값·개별 선택값·message와 네 개의 체크 콜백을 받고 Fragment로 기존 Terms와 VStack을 직접 반환한다. 별도 DOM 래퍼·상태·상세 모달은 추가하지 않았다.
+
+전체 동의 여부의 AND 계산과 제목·오류 안내·다음 버튼은 SignupTermsStep에 남긴다. 전체 동의의 배경·여백과 목록의 테두리·label/button 선택자, required·미선택 오류 조건과 보기 버튼을 그대로 이전했다. 운영용 signup-terms 기능의 약관 목록과는 별개이며 목업의 공개 props도 유지한다.
+
+개별 약관 3개는 로컬 `items` 배열의 안정적인 id·문구·checked·onCheckedChange·showDetails로 정의하고 한 번의 map으로 Terms를 렌더링한다. required와 미선택 오류 조건은 공통 JSX에서 처리한다. 이용약관·개인정보에는 보기 버튼이 있고 연령 항목에는 없다. 별도 범용 컴포넌트나 상태를 추가하지 않는다.
+
+검증 (2026-10-20, Codex): Panda 생성·전체 타입 검사·변경 TSX ESLint·Prettier·Next/Storybook production build를 통과했다. 기존 `Mockup/Signup` Terms/MobileTerms에서 PC 1600px·모바일 375px 각각 54개 요소의 태그·위치·크기·폰트·색상·padding·gap·display가 분리 전후 동일함을 확인했다. PC는 폰트 로딩이 안정된 뒤 재비교했다. 기존 스토리의 체크/다음 콜백은 no-op이므로 상태 전환 검증으로 기록하지 않는다.
+
+반복 JSX를 map으로 통합한 뒤 Panda·전체 타입·변경 ESLint/Prettier·Next/Storybook production build를 다시 통과했다. 위 브라우저 동일성 검증은 map 통합 전 컴포넌트 분리 단계의 결과이며, 통합 후 브라우저 재확인은 목업 로딩이 완료되지 않아 검증 결과로 기록하지 않는다.
+
+## 중앙 너비 패턴과 사이드바 골격 공통화 (2026-10-20)
+
+`src/shared/components`의 레이아웃 조사 후 중앙 콘텐츠 너비와 사이드바 2열 골격을 공통화했다. 기능 화면의 소스와 기존 공개 레이아웃 props는 변경하지 않았다.
+
+- `panda.config.ts`의 `contentFrame` 패턴은 WEB 너비 `min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))`만 기본으로 제공한다. `mobileWidth`는 `_mobile.w`로 변환한다. MainSection의 contained 본문·MainSectionHeader·HeroCopy가 기존 요소에 생성 클래스를 적용하며 새 DOM 래퍼를 추가하지 않는다. 중앙 정렬 margin과 절대 위치는 소비자가 소유한다.
+- 모바일 너비는 MainSection 본문 100%, 제목은 양쪽 16px 제외, HeroCopy는 양쪽 16px 제외 및 343px 상한으로 유지한다. MainSection의 fullBleed/extended 모드와 `100cqw` 기반 확장 너비·offset, HomeCarouselRail 카드 계산은 기존 소유자에 남긴다. 부모가 이미 gutter를 소유하는 SiteHeaderInner/FooterContent에는 패턴을 중복 적용하지 않는다.
+- `layouts/SidebarColumns`는 `sidebar` 슬롯과 직접 `children`, 필수 `sidebarWidth`(180px/190px), `gap`(기본 50px), 기존 Grid 스타일 props를 받는다. WEB의 두 열과 모바일 block 전환을 소유한다. 본문 래퍼나 landmark를 자동 추가하지 않는다.
+- SidebarNavigationLayout은 기존 `main`을 `SidebarColumns as="main"`으로 대체하고 180px/50px을 유지한다. CustomerCenterLayout은 내부 Grid만 교체하고 190px/98px을 지정한다. Breadcrumb·제목·바깥 프레임·페이지 여백·메뉴 표시 정책과 본문의 `minW="0"`은 각 소비자가 유지한다. 마이페이지의 `mobileSpacing="none"`은 그대로 무여백을 적용한다.
+
+검증 (2026-10-20, Codex): Panda 생성, 전체 타입 검사, 변경 TS/TSX ESLint, Next production build와 Storybook production build를 통과했다. Storybook 첫 빌드는 정적 파일 복사 중 EEXIST로 실패했으며 새 출력 디렉터리에서 재실행해 통과했다. 브라우저에서 고객센터 PC의 190px/98px, 실제 쿠폰 페이지 PC의 180px/50px 및 본문 min-width 0·중첩 main 없음, 고객센터/쿠폰 모바일의 block 전환·메뉴 숨김과 쿠폰의 padding 0을 확인했다. 홈 2560px에서 제목 프레임 1532px과 Hero/제목의 왼쪽 정렬, 모바일의 제목 좌우 여백을 확인했다. 변경 전후 스크린샷 비교나 전체 Storybook play 실행은 하지 않았다.
+
+## ContentSection 하단 액션 슬롯 (2026-10-20)
+
+ContentSection.footer는 선택적 ReactNode로 헤더·직접 children 뒤에 렌더링된다. 자동 div/HTML footer나 빈 본문을 추가하지 않으며 children은 생략할 수 있다. 같은 Stack gap을 사용하므로 버튼 그룹은 기존 HStack/Grid로 전달하고 서로 다른 간격·form 소유권을 숨기지 않는다. CustomerCenterLayout의 footer를 내부 섹션으로 전달해 목록/상세의 하단 액션을 연결했다.
+
+공용 2파일·소비처 15파일에 적용했다. 우선 4곳과 조건부 8개 구성 경계의 결과, 폼/간격/Grid/제목 없는 목록으로 인해 현재 구성을 유지한 9개 경계 및 모달/카드/고정 바 유지 근거는 [footer 적용 조사와 구현](footer-actions.md)을 참고한다. 스킬의 관련 참조도 갱신했다. 기존 버튼의 링크·콜백·표시 조건·폼 제출 동작은 각 소유자가 관리한다.
+
 ## 모바일 상품 필터 시트 너비와 여백 (2026-10-20)
 
 BottomSheet는 포털에 `platform-${platform}` 클래스를 전달해 본문 밖에서도 모바일 조건과 토큰을 유지한다. 상품 필터의 하단 패딩은 PC용 256px 대신 모바일 16px을 적용한다. Popup은 `100%` 너비로 고정 viewport의 가용 너비를 채운다. 내부 Stack은 gap 0, 스크롤 본문은 min-height 0으로 헤더·푸터 사이에서 축소된다. 위 두 BottomSheet 파일이 작업 트리 출처다.
@@ -752,7 +821,13 @@ PhoneVerificationPage.stories.tsx는 페이지 단위 미리보기에 fullscreen
 
 ## 페이지 하단 공통 액션 (2026-10-19)
 
-PageActionButton은 최대 500px 중앙 정렬 영역과 fullWidth Button/ButtonLink를 조합한다. children·href 또는 onClick·primary/secondary·short/tall·선택적 current/total counter를 받고, containerProps는 기존 mt/pt/_mobile 차이를 보존한다. 기본값은 secondary/short와 상단 padding 36px이다. SupportPage의 FAQs 링크는 기존 tall·margin·모바일 maxW none을, InquiryPage는 primary/short를, FAQ/공지 더보기는 short·모바일 상단 24px와 기존 페이지 계산/표시 조건을 유지한다. 기존 LoadMoreButton의 남은 항목 수 API는 변경하지 않는다.
+PageActionButton은 최대 500px 중앙 정렬 영역과 fullWidth Button/ButtonLink를 조합한다. children·href 또는 onClick·primary/secondary·short/tall·선택적 current/total counter를 받고, containerProps는 기존 mt/pt/_mobile 차이를 보존한다. 기본값은 secondary/short와 상단 padding 36px이다. SupportPage의 FAQs 링크는 기존 tall·margin·모바일 maxW none을, InquiryPage는 primary/short를, FAQ/공지 더보기는 short·모바일 상단 24px와 기존 페이지 계산/표시 조건을 유지한다. LoadMoreButton의 남은 항목 수 API는 유지하며 페이지 카운터도 지원한다. 아래 더보기 버튼 공통화 기록을 참고한다.
+
+## 더보기 버튼 공통화 (2026-10-20)
+
+LoadMoreButton은 기존 `remaining` 남은 항목 수·화살표 표기를 유지하고 상호 배타적인 `counter: { current, total }` 페이지 표기를 지원한다. labelProps/counterProps는 기존 Typography의 PC/MO variant와 라벨 weight를 보존한다. LoadMoreButtonContent는 버튼과 링크의 표시를 공유한다. PageActionButton은 counter가 있는 버튼에 LoadMoreButton을 조합하고 링크에는 공통 content를 사용한다. 너비·상단 간격은 PageActionButton이 소유한다. FAQ·공지는 기존 PageActionButton 호출로 공통 버튼을 사용하고 쿠폰·리뷰는 직접 사용한다. 각 화면의 기존 배치와 리뷰의 mt=24px는 유지한다.
+
+출처: working_tree_sources의 LoadMoreButton·PageActionButton·CouponManager·MyPageReviewLoadMore와 LoadMoreButton 스토리. 스토리는 기존 remaining과 새 PageCounter·MyPageCounter 표시를 제공한다. 검증: 전체 타입 검사, 변경 TSX ESLint/Prettier, Panda 생성과 Storybook production build를 통과했다. 브라우저 계산 스타일과 PC/MO 화면 비교는 수행하지 않았다.
 
 ## Secondary 버튼 자식 텍스트의 상태색 (2026-10-19)
 
@@ -1850,3 +1925,73 @@ IA 미리보기의 story ID도 같은 분류로 연결한다. `/signup`은 가�
 AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDialog와 footer 확인 버튼 변경을 반영했다. ModalDialog 공통 본문 패딩과 SignupPage의 소셜 가입 미연결 안내는 incoming 변경을 유지한다. Storybook 분류는 로그인/회원가입과 Web/Mobile 두 변경을 함께 반영했으며 양쪽 문서 이력을 보존했다.
 
 검증(Codex, 2026-10-20): 전체 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next.js·Storybook production build와 기존 Node 테스트 53개가 통과했다. 생성된 Storybook index에서 IA 미리보기 48개와 가입 안내·목업 story ID를 확인했고 AUTH 분류가 없음을 확인했다. 브라우저 시각 비교와 Storybook play 실행은 수행하지 않았다.
+
+## 마이페이지·쿠폰·문의·결제 세부 구성 분리 (2026-10-20)
+
+`MyPage`는 화면 골격과 로그아웃 다이얼로그 상태를 소유하고, 프로필 요약(`MyPageOverviewProfile`), 회원등급(`MyPageMembership`), 쿠폰/관심상품 요약(`MyPageBenefits`), 주문 캐러셀(`MyPageRecentOrders`), 주문 항목(`MyPageOrderTile`), 메뉴 그룹(`MyPageMenuSection`)을 별도 파일로 조합한다. 주문 샘플·타입과 메뉴 데이터는 `mypage-home-data.ts`에 두며, 플랫폼 판별은 캐러셀 소비처로 옮겼다. 회원정보 수정 화면인 기존 `MyPageProfile`은 별개 구현이다.
+
+`CouponManager`는 등록 입력·검증·완료/상세 팝업 상태를 유지하고 `CouponRegistrationSection`에 값과 콜백을 전달한다. `CouponHistorySection`은 카테고리와 5개 단위 더보기 상태를 소유하고 상세 선택을 상위로 알린다. `InquiryBoardHeader`는 제목·전체 건수·비밀글 제외 컨트롤을, `InquiryBoardContent`는 공개/본인/접근 제한 및 답변 표시를 담당하며 필터와 펼침 설정은 보드에 남는다. `CheckoutAgreement`는 결제 동의 체크와 오류 표시만 담당하고 제출 검증·동의 상태는 `CheckoutContent`에 유지한다. 오류 문구는 Fragment로 반환해 기존 Stack의 직접 자식 간격을 보존한다.
+
+기존 링크·문구·HTML 구조·Panda 스타일·반응형 값과 이벤트 흐름을 유지했다. 출처는 위 frontmatter의 작업 트리 파일이다. 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 검증은 수행하지 않았다.
+
+## ContentHeader 가로형과 마이페이지 링크 스타일 (2026-10-20)
+
+`ContentHeader`는 기본 `orientation="vertical"`을 유지하며 `orientation="horizontal"`에서 제목 그룹과 선택적 `action`을 좌우로 배치한다. 제목만 있으면 추가 DOM 그룹 없이 바로 렌더링하고, eyebrow/description이 있으면 이 텍스트만 내부 Stack으로 묶는다. `gap`은 텍스트 내부 및 액션과의 간격에 사용하며 기존 Stack 레이아웃 props로 반응형 값을 지정할 수 있다. 세로형에서는 기존 제목·설명 구조를 유지하고 action은 그 뒤에 온다.
+
+`MyPageRecentOrders`는 custom header 대신 `title`과 `headerProps.orientation/action`을 사용한다. 제목 h2·PC/MO 타이포그래피·기존 HStack의 8px 간격(gap=2)·전체 보기 링크를 유지한다. ContentHeader Storybook에 가로 제목/액션, 설명 포함, 액션 생략 세 가지 예시를 추가했다. `MyPageMembership`, `MyPageBenefits`, `MyPageMenuSection`의 `styled(Link)`는 모두 제거하고 일반 Next Link에 Panda `css` 클래스를 전달한다. 링크 주소와 스타일 값은 유지한다. 출처는 frontmatter의 해당 작업 트리 소스와 ContentHeader 스토리, content-sections 스킬 참조 문서다.
+
+가로형 변경의 타입 검사·변경 ESLint·Panda 생성·Next/Storybook 프로덕션 빌드를 확인했다. 브라우저 시각/상호작용 및 Storybook play는 실행하지 않았다.
+
+## 마이페이지 메뉴 항목 분리 (2026-10-20)
+
+`MyPageMenuItem`은 label/to를 받아 일반 Next Link와 Panda css로 메뉴 한 행의 제목·화살표·하단 테두리·최소 높이를 렌더링한다. `MyPageMenuSection`은 제목·구분선·gap=0 목록과 항목 매핑만 담당하고 항목 props 타입을 재사용한다. 기존 링크·키·DOM 구조·스타일 값을 유지했다. 출처는 frontmatter의 MyPageMenuItem/MyPageMenuSection 작업 트리 파일이다. 타입 검사·변경 파일 ESLint/Prettier·Panda 생성을 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## ContentHeader 가로형 옵션 (2026-10-20)
+
+`ContentHeader`는 기본 `orientation="vertical"`을 유지하며 `orientation="horizontal"`에서 제목 그룹과 선택적 `action`을 좌우로 배치한다. 제목만 있으면 추가 DOM 그룹 없이 바로 렌더링하고, eyebrow/description이 있으면 이 텍스트만 내부 Stack으로 묶는다. `gap`은 텍스트 내부 및 액션과의 간격에 사용하며 기존 Stack 레이아웃 props로 반응형 값을 지정할 수 있다. 세로형에서는 기존 제목·설명 구조를 유지하고 action은 그 뒤에 온다.
+
+가로 제목/액션·설명 포함·액션 생략 Storybook 예시를 추가했다. 기존 세로형을 유지하며 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 확인했다. 브라우저 검증과 Storybook play는 실행하지 않았다. 출처는 frontmatter의 ContentHeader 구현과 스토리, content-sections 스킬 참조 문서다.
+
+## 상품 옵션 본문 래퍼 제거 (2026-10-20)
+
+`ProductVariantSection`의 본문 Box를 제거하고 children을 section Stack에 직접 렌더링한다. 제목/보조 액션은 기존 HStack에 유지하며 각 최상위 본문 요소가 부모의 gap=4 간격에 참여한다. 미사용 Box import도 제거했다. 출처는 frontmatter의 ProductVariantSection 작업 트리 파일이다. 타입 검사·ESLint·Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 주문 상태·첨부파일·공지 항목 분리 (2026-10-20)
+
+`OrderStatusLink`는 주문 상태의 label/count/href를 받아 기존 Grid 링크와 마지막 항목 테두리 생략 스타일을 렌더링한다. `OrderStatusTracker`는 5열 반응형 목록과 상태별 주소의 기본값을 소유한다.
+
+`InquiryAttachmentList`는 파일명·삭제 버튼을 기존 ul/li로 표시하고 파일이 없으면 null을 반환한다. 삭제할 인덱스를 상위에 알리며 실제 배열 갱신과 오류 초기화는 `InquiryAttachments`에 남긴다. 숨겨진 input/ref, 선택 후 input 값 초기화, 확장자·5개·파일당 10MB 검증과 오류 표시는 기존 상위가 소유한다. `InquiryAttachmentHelp`는 기존 안내 문구와 inquiry-files-help ID를 유지해 파일찾기 버튼의 aria-describedby 연결을 보존한다.
+
+`SupportNoticeItem`은 title/date를 받아 기존 li 내부 링크·제목 말줄임·time·구분선을 렌더링한다. `SupportNotices`는 데이터와 목록 매핑을 소유하며 링크 주소와 PC/MO 여백·타이포그래피를 유지한다. 모두 추가 DOM 래퍼 없이 일반 Link와 Panda css/JSX를 사용한다. 출처는 frontmatter의 해당 작업 트리 파일이다.
+
+검증: 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·diff 공백 검사를 확인했다. 브라우저 시각/상호작용 검증은 수행하지 않았다.
+
+## 마이페이지 혜택 항목 중복 제거 (2026-10-20)
+
+`MyPageBenefits`의 쿠폰/관심상품 링크는 동일한 구조이므로 `MyPageBenefitItem`에 href·label·count·unit을 전달한다. Grid의 2열/gap=2는 부모가 유지하고 항목은 기존 Link·Stack·HStack·Typography와 Panda css를 그대로 사용한다. 추가 DOM·상태 없이 쿠폰 3개/관심상품 6건, 링크·PC/MO 타이포그래피·여백을 보존한다. 출처는 frontmatter의 MyPageBenefits/MyPageBenefitItem 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성을 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 계정 잠금 단일 확인 다이얼로그 재사용 (2026-10-20)
+
+`AccountLockedContent`의 수동 ModalDialog.footer/Button 조합을 `SingleActionDialog`로 교체했다. 기본 확인 문구·primary/short/fullWidth 버튼이 기존과 동일하므로 onConfirm만 전달한다. size=md·안내 닫기 레이블·닫기/Escape의 onClose·ContentHeader 본문·모바일 줄바꿈과 Page의 라우팅 책임을 유지한다. 앞선 직접 조합/병합 기록은 당시 상태이며 현재는 이 단일 액션 어댑터를 사용한다. 출처는 frontmatter의 AccountLockedContent/SingleActionDialog 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 쿠폰 등록 완료 단일 액션 다이얼로그 (2026-10-20)
+
+`CouponRegistrationDialog`는 `SingleActionDialog`를 사용하고 확인 시 onOpenChange(false)를 호출한다. 제목·닫기 레이블·sm 크기·완료 안내 Typography와 부모 open 상태 소유권을 유지한다. 기존 본문의 Stack/확인 버튼을 제거하고 공통 고정 footer로 옮겨 PC 160px 너비·40px 높이, 모바일 전체 너비와 공통 footer 여백을 적용한다. 기존 본문 내 fullWidth 버튼·gap=6 배치에서 공통 단일 액션 규격으로 바뀌는 것은 의도된 변경이다. 앞선 팝업 분리 기록의 DOM/간격 보존은 당시 구현 기준이다. 출처는 frontmatter의 CouponRegistrationDialog/SingleActionDialog/ModalDialogFooter 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 결제 쿠폰 단일 액션 다이얼로그 재사용 (2026-10-20)
+
+`CouponDialog`의 수동 ModalDialog.footer/Button을 `SingleActionDialog`로 교체했다. confirmLabel=쿠폰 적용하기와 기존 적용 콜백을 전달하며 primary/short/fullWidth 기본 버튼·sm 크기·모바일 fullscreen·공통 고정 footer를 유지한다. 확인 시 onApply(discount) → 마지막 적용 선택값 저장 → 상위 onOpenChange(false) 순서를 유지한다. 취소/닫기 경로에서 마지막 적용값으로 복원하는 onOpenChange도 그대로 전달해 적용과 취소를 구분한다. 선택·할인 계산·펼침 상태와 본문은 CouponDialog가 계속 소유한다. 출처는 frontmatter의 CouponDialog/SingleActionDialog 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier를 확인했다. 브라우저 검증은 수행하지 않았다.
+
+## 장바구니 옵션 확인 다이얼로그 재사용 (2026-10-20)
+
+`CartOptionsDialog`의 수동 취소/변경 footer를 `ConfirmDialog`로 교체했다. `ConfirmDialog.confirmDisabled`는 기본 false이며 확인 버튼의 disabled만 제어한다. 옵션 모달은 confirmLabel=변경, confirmDisabled=!valid, onConfirm=onSave(draft)를 전달한다. 취소는 기존 onOpenChange(false) 경로로 onClose를 호출하고 draft를 저장하지 않는다. 기존 fullWidthActions 기본 HStack gap=2·전체 너비 버튼, size=sm·모바일 fullscreen, 본문 선택 컨트롤과 고정 footer를 유지한다. 공용 스토리에 확인 비활성/취소 활성 예시와 play 검사를 추가했다.
+
+출처는 frontmatter의 CartOptionsDialog/ConfirmDialog 및 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 확인했다. 브라우저/Storybook play는 실행하지 않았다.
+
+## 확인 다이얼로그 세로 액션과 아이디 안내 적용 (2026-10-20)
+
+`ConfirmDialog.actionDirection`은 horizontal(기본)/vertical을 지원한다. vertical은 fullWidthActions 값과 관계없이 w=100%·gap=2 Stack으로 두 버튼을 묶고, horizontal은 기존 fullWidthActions=true의 HStack/false의 직접 버튼 배치를 유지한다. `onCancel`을 전달하면 보조 버튼이 해당 콜백을 호출하며, 생략하면 기존 onOpenChange(false)를 호출한다. 확인은 onConfirm만 호출하며 이후 닫기나 이동은 소비처가 소유한다.
+
+`IdConfirmationModal`은 ConfirmDialog를 사용하고 비밀번호 재설정→onPasswordReset, 확인→onConfirm을 전달한다. PC는 fullWidthActions=false·horizontal로 기존 공통 footer의 가로 버튼 크기를 유지한다. 모바일은 vertical로 전환하며 본문 내 두 버튼을 제거해 공통 고정 footer에 배치한다. 이는 기존 모바일 본문 버튼 배치에서 의도적으로 변경한 부분이며, 본문 안내·userName 정규화·타이포그래피·여백·모바일 fullscreen과 플랫폼별 제목은 유지한다. Vertical/VerticalMobile 스토리와 보조 액션이 닫기를 자동 호출하지 않는 play 검사를 추가했다.
+
+출처는 frontmatter의 ConfirmDialog/IdConfirmationModal 구현과 ConfirmDialog 스토리 작업 트리 파일이다. 타입 검사·변경 ESLint/Prettier·Panda 생성·Next/Storybook 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 및 Storybook play는 실행하지 않았다.
