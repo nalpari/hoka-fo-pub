@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:56:56Z'
+  at: '2026-10-20T08:08:13.395691Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/find-account/FindAccountPage.scenarios.tsx
+  - src/shared/features/login/LoginPage.tsx
   - src/shared/features/catalog/productListingIaRoute.ts
   - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
   - src/stories/components/atoms/Divider/Divider.stories.tsx
@@ -2100,3 +2102,9 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
 
 검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 일반 아이디 로그인 전환 (2026-10-20)
+
+첨부 설계서와 사용자가 확정한 영문·숫자 4자 이상 규칙을 반영했다. LoginForm은 EmailField 대신 기존 TextFormField를 사용해 라벨 “아이디”, placeholder “아이디를 입력해 주세요”, type text와 기존 name/autocomplete username을 전달한다. boxed·required·오류 설명 연결과 Panda 배치는 유지한다. 로그인 오류·성공·형식 스토리와 아이디 찾기·폼 감사의 결과 예시를 갱신했다. 아이디 찾기 결과는 `honggildong`으로 표시하며 가입·비밀번호·인증·계정 잠금 화면은 변경하지 않는다. 이 기록은 이전 이메일 기반 로그인 설명을 대체한다. [상태 계약](state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
+
+검증: 전체 타입 검사·변경 TSX ESLint·변경 파일 Prettier·전체 Storybook production build가 통과했다. 빌드 결과를 로컬 HTTP 서버에서 Edge/Playwright로 실행해 로그인 PC 6개·모바일 5개, 아이디 찾기 결과 PC/모바일 2개·재설정 이동 1개, 폼 감사 찾기 PC/모바일 2개로 총 16개 스토리가 통과했다. 아이디 3자 거부·4자 영문/숫자/혼합 허용, 공백·한글·특수문자·이메일 거부, 오류 해제·재표시와 로그인 콜백·홈 이동을 확인했다. 1600px·375px 기본 화면 캡처와 375px 화면을 시각 확인했다. 실제 인증 API는 검사 대상이 아니다.

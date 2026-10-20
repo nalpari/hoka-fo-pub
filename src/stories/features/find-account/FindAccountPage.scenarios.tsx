@@ -77,7 +77,7 @@ export const IdResult: Story = {
     await userEvent.click(canvas.getByRole('button', { name: '인증번호 확인' }));
     const dialog = within(context.canvasElement.ownerDocument.body).getByRole('dialog');
     await expect(dialog).toHaveTextContent('홍길동님 가입하신 아이디입니다');
-    await expect(dialog).toHaveTextContent('honggildong@kakao.com');
+    await expect(dialog).toHaveTextContent('honggildong');
   },
 };
 

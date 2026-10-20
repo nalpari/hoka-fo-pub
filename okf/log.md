@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Update**: 로그인 이메일 형식 검사를 영문·숫자 4자 이상 아이디 검사로 전환하고 필수값·형식 오류를 구분했다. 기존 공통 TextFormField·배치를 사용하며 아이디 찾기 예시를 `honggildong`으로 맞췄다. 타입·변경 ESLint/Prettier·Storybook 빌드 및 관련 브라우저 스토리 16개가 통과했다. [UI 변경](architecture/ui.md#일반-아이디-로그인-전환-2026-10-20)과 [상태 계약](architecture/state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
+
 - **Update**: 첨부 최종안에 맞춰 Men/Women 표기와 Shoes·Explore GNB 구조를 갱신하고 러닝 세션 신청 직접 링크를 추가했다. IA 261~266을 추가하고 eland_hex_06을 신청 메뉴로 변경했으며 상품 URL과 런클럽 미리보기를 동기화했다. [메뉴 계약](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)과 [IA 데이터](project.md#gnb-최종안과-ia-동기화-2026-10-20)를 참고한다.
 
 - **Merge**: 폼 라벨 변경 병합의 5개 충돌 파일을 해결했다. 최신 쿠폰 ContentSection·공통 Divider·SystemStatusPage 구성을 유지하고 formLabel body4 및 부가정보 제목 mo heading7 변경과 양쪽 문서 이력을 통합했다. [통합 기준](architecture/ui.md#폼-라벨-변경-병합-충돌-해결-2026-10-20)을 참고한다.

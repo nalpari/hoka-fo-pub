@@ -25,7 +25,7 @@ export const FindAccount: Story = {
     await userEvent.type(c.getByLabelText('* 인증번호', { exact: true }), '900668');
     await userEvent.click(c.getByRole('button', { name: '인증번호 확인' }));
     await expect(within(canvasElement.ownerDocument.body).getByRole('dialog')).toHaveTextContent(
-      'honggildong@kakao.com',
+      'honggildong',
     );
     await expect(c.getByLabelText('* 인증번호', { exact: true })).not.toHaveAttribute(
       'aria-invalid',
