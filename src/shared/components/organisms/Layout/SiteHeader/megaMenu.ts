@@ -13,11 +13,26 @@ export type MegaMenuPromo = {
 export type MegaMenu = {
   id: 'men' | 'women' | 'shoes' | 'explore';
   label: string;
-  columns: { title: string; items: MegaMenuItem[] }[];
+  columns: { title: string; to?: string; items: MegaMenuItem[] }[];
   promo: MegaMenuPromo;
 };
 
 const productLink = (query: string) => `/products?${query}`;
+
+const shoeMenuItems = (gender: 'men' | 'women', compactLabels = false): MegaMenuItem[] => [
+  { label: '전체보기', to: productLink(`gender=${gender}`) },
+  ...[
+    ['로드 러닝', 'road-running'],
+    ['트레일 러닝', 'trail-running'],
+    ['라이프스타일', 'lifestyle'],
+    ['하이킹', 'hiking'],
+    ['워킹', 'walking'],
+    ['리커버리', 'recovery'],
+  ].map(([label, activity]) => ({
+    label: compactLabels ? label.replaceAll(' ', '') : label,
+    to: productLink(`gender=${gender}&activity=${activity}`),
+  })),
+];
 
 const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
   id: gender,
@@ -30,7 +45,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
         { label: 'New', to: productLink(`gender=${gender}&sort=new`) },
         { label: 'Coming Soon', to: productLink(`gender=${gender}&sort=coming-soon`) },
         { label: 'Triple Black', to: productLink(`gender=${gender}&color=black`) },
-        { label: 'Ready for UTMB', to: `/collection/utmb-${gender}` },
+        { label: 'Ready for UTMB', to: productLink(`gender=${gender}&collection=utmb`) },
         { label: '가을 러닝의 시작, Bondi', to: productLink(`gender=${gender}&model=bondi`) },
         { label: 'Sale', to: productLink(`gender=${gender}&sort=sale`) },
       ],
@@ -48,31 +63,14 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
     },
     {
       title: '신발',
-      items: [
-        { label: '전체보기', to: productLink(`gender=${gender}`) },
-        {
-          label: '로드 러닝',
-          to: productLink(`gender=${gender}&activity=road-running`),
-        },
-        {
-          label: '트레일 러닝',
-          to: productLink(`gender=${gender}&activity=trail-running`),
-        },
-        {
-          label: '라이프스타일',
-          to: productLink(`gender=${gender}&activity=lifestyle`),
-        },
-        { label: '하이킹', to: productLink(`gender=${gender}&activity=hiking`) },
-        { label: '워킹', to: productLink(`gender=${gender}&activity=walking`) },
-        { label: '리커버리', to: productLink(`gender=${gender}&activity=recovery`) },
-      ],
+      items: shoeMenuItems(gender, true),
     },
     {
       title: '의류',
       items: [
         { label: '전체보기', to: productLink(`gender=${gender}&category=apparel`) },
         {
-          label: '러닝 웨어',
+          label: '러닝웨어',
           to: productLink(`gender=${gender}&category=apparel&activity=road-running`),
         },
         { label: '아우터', to: productLink(`gender=${gender}&category=outerwear`) },
@@ -96,7 +94,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
           to: productLink(`gender=${gender}&category=accessories&activity=lifestyle`),
         },
         { label: '베스트&벨트', to: productLink(`gender=${gender}&category=vests-belts`) },
-        { label: '기타 용품', to: productLink(`gender=${gender}&category=other-accessories`) },
+        { label: '기타용품', to: productLink(`gender=${gender}&category=other-accessories`) },
       ],
     },
   ],
@@ -115,45 +113,22 @@ export const megaMenus: MegaMenu[] = [
     label: 'Shoes',
     columns: [
       {
-        title: 'Shop By Activity',
+        title: 'ICONS',
         items: [
-          { label: '로드 러닝', to: productLink('activity=road-running') },
-          { label: '트레일 러닝', to: productLink('activity=trail-running') },
-          { label: '하이킹', to: productLink('activity=hiking') },
-          { label: '워킹', to: productLink('activity=walking') },
-          { label: '트레이닝', to: productLink('activity=training') },
+          { label: '본디', to: productLink('model=bondi') },
+          { label: '클리프톤', to: productLink('model=clifton') },
+          { label: '스피드고트', to: productLink('model=speedgoat') },
+          { label: '마파테', to: productLink('model=mafate') },
+          { label: '호파라', to: productLink('model=hopara') },
         ],
       },
-      {
-        title: 'Shop By Feel',
-        items: [
-          { label: '맥시 쿠셔닝', to: productLink('cushioning=plush') },
-          { label: '밸런스 쿠셔닝', to: productLink('cushioning=balanced') },
-          { label: '안정화', to: productLink('support=stable') },
-          { label: '와이드', to: productLink('width=wide') },
-        ],
-      },
-      {
-        title: 'Shop By Model',
-        items: [
-          { label: 'Bondi', to: '/explore/models/bondi' },
-          { label: 'Clifton', to: '/explore/models/clifton' },
-          { label: 'Speedgoat', to: '/explore/models/speedgoat' },
-          { label: 'Mach', to: '/explore/models/mach' },
-        ],
-      },
-      {
-        title: 'Essentials',
-        items: [
-          { label: '신상품', to: productLink('sort=new') },
-          { label: '베스트셀러', to: productLink('sort=popular') },
-          { label: '샌들 & 슬라이드', to: productLink('category=sandals') },
-          { label: 'SHOE FINDER', to: '/explore/shoe-finder' },
-        ],
-      },
+      ...(['men', 'women'] as const).map((gender) => ({
+        title: gender === 'men' ? '남성' : '여성',
+        items: shoeMenuItems(gender),
+      })),
     ],
     promo: {
-      to: '/explore/shoe-finder',
+      to: '/products?model=clifton',
       imageSrc: '/images/temp/MegaMenuAD.png',
       title: 'Clifton UTL',
     },
@@ -163,41 +138,24 @@ export const megaMenus: MegaMenu[] = [
     label: 'Explore',
     columns: [
       {
-        title: 'Guides',
+        title: 'Featured',
         items: [
           { label: '로드 러닝 가이드', to: '/explore/guides/road-running' },
           { label: '트레일 러닝 가이드', to: '/explore/guides/trail-running' },
-          { label: '하이킹 가이드', to: '/explore/guides/hiking' },
-          { label: '러닝 입문 가이드', to: '/explore/guides/running' },
+          { label: 'Running Session', to: '/explore/running-session' },
         ],
       },
       {
         title: 'Technology',
         items: [
-          { label: '쿠셔닝 기술', to: '/explore/technology/cushioning' },
-          { label: '안정성 기술', to: '/explore/technology/stability' },
-          { label: '트레일 기술', to: '/explore/technology/trail' },
+          { label: '고어텍스', to: '/explore/technology/gore-tex' },
+          { label: '비브람', to: '/explore/technology/vibram' },
         ],
       },
-      {
-        title: 'Stories',
-        items: [
-          { label: 'HOKA 스토리', to: '/explore/stories' },
-          { label: '러너 인터뷰', to: '/explore/stories/runners' },
-          { label: '이벤트', to: '/explore/stories/events' },
-        ],
-      },
-      {
-        title: 'Support',
-        items: [
-          { label: '고객센터', to: '/support' },
-          { label: '주문/배송 조회', to: '/mypage/orders' },
-          { label: '매장 안내', to: '/support/store' },
-        ],
-      },
+      { title: '러닝 세션 신청', to: '/running/run-club', items: [] },
     ],
     promo: {
-      to: '/explore/stories',
+      to: '/running/run-club',
       imageSrc: '/images/temp/MegaMenuAD.png',
       title: 'Clifton UTL',
     },

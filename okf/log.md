@@ -2,6 +2,8 @@
 
 ## 2026-10-20
 
+- **Update**: 첨부 최종안에 맞춰 Men/Women 표기와 Shoes·Explore GNB 구조를 갱신하고 러닝 세션 신청 직접 링크를 추가했다. IA 261~266을 추가하고 eland_hex_06을 신청 메뉴로 변경했으며 상품 URL과 런클럽 미리보기를 동기화했다. [메뉴 계약](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)과 [IA 데이터](project.md#gnb-최종안과-ia-동기화-2026-10-20)를 참고한다.
+
 - **Merge**: 폼 라벨 변경 병합의 5개 충돌 파일을 해결했다. 최신 쿠폰 ContentSection·공통 Divider·SystemStatusPage 구성을 유지하고 formLabel body4 및 부가정보 제목 mo heading7 변경과 양쪽 문서 이력을 통합했다. [통합 기준](architecture/ui.md#폼-라벨-변경-병합-충돌-해결-2026-10-20)을 참고한다.
 
 - **Refactor**: 약관 시행일 선택을 TermsDateSelect로 분리하고 반복되는 장식용 가로 구분선을 공통 Divider의 세 variant로 정리했다. 기존 간격·모바일 조건·Popover/Radio 동작을 유지했다. [구성 계약](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 참고한다.

@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T03:43:02.171Z'
+  at: '2026-10-20T07:56:56Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
   - src/mocks/cartDisplay.ts
   - src/mocks/products.ts
   - src/data/screenRegistry.ts
@@ -34,6 +35,14 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## GNB 최종안과 IA 동기화 (2026-10-20)
+
+사용자 첨부 최종 메뉴 이미지에 따라 screenRegistry의 Men/Women Featured에 Best·New 및 Triple Black·Ready for UTMB를 명시하고, 기존 IMC 이름을 교체했다. 기존 번호는 유지하며 신규 목록은 IA 261~266(남성 Bondi·Sale·용품 라이프스타일, 여성 동일 순서)으로 배정했다. 액티비티 위치와 여성 라이프스타일 순서, 신발·의류·용품 표기도 GNB에 맞췄다.
+
+IA 158 / eland_hex_06은 Partnerships > UTMB에서 Explore > 러닝 세션 신청으로 변경했다. 로그인 필요 값은 기존 true를 유지하고 기존 /running/run-club 목록에 연결한다. Featured의 Running Session / eland_hex_03은 별도 소개 항목으로 유지한다. 다른 기존 IA 번호·화면코드 및 159번 이후 기존 화면 정의는 보존했다. 새 목록의 화면번호는 eland_hca_01이다.
+
+작업 트리 출처는 src/data/screenRegistry.ts와 src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts다. Node 대조에서 90개 3Depth 항목의 IA 순서·이름 일치와 기존 번호 보존을 확인했다. [공통 메뉴 렌더링과 미구현 본문 범위](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)를 참고한다.
 
 ## 고객센터 화면 범위 변경 (2026-10-20)
 

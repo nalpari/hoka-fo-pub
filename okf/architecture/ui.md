@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:09:56.305Z'
+  at: '2026-10-20T07:56:56Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/catalog/productListingIaRoute.ts
+  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
   - src/stories/components/atoms/Divider/Divider.stories.tsx
   - src/shared/features/terms/TermsDocument.tsx
   - src/shared/features/terms/TermsDateSelect.tsx
@@ -628,6 +630,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## GNB 최종 메뉴 반영 (2026-10-20)
+
+사용자가 첨부한 최종 GNB 이미지 기준으로 PC·모바일이 공유하는 megaMenus를 갱신했다. Men/Women의 표기를 러닝웨어·기타용품 및 신발의 로드러닝·트레일러닝으로 맞췄다. Shoes는 ICONS(본디·클리프톤·스피드고트·마파테·호파라), 남성, 여성 순서이며 성별 신발 목록은 공통 데이터 함수로 생성한다. Explore는 Featured(로드 러닝 가이드·트레일 러닝 가이드·Running Session), Technology(고어텍스·비브람), 러닝 세션 신청 순서다.
+
+열의 선택적 to는 하위 메뉴가 없는 직접 링크다. MegaMenuList에서는 제목 링크, MenuDrawerGroups에서는 Accordion 다음의 독립 링크로 렌더링한다. 러닝 세션 신청은 /running/run-club로 이동하며 메뉴를 닫는다. 기존 Accordion 단일 펼침과 포커스 복귀 로직은 유지했다. 모바일 첫 화면의 Best·런칭캘린더 등 기존 보조 메뉴는 이번 4개 GNB 분류 변경 범위에 포함하지 않았다.
+
+상품 메뉴는 eland_hca_01에 맞춰 /products 쿼리로 연결한다. IA 링크 생성기도 새 Featured 이름, 색상·모델·UTMB collection, 용품 라이프스타일 조건을 동일하게 처리한다. 이 변경은 메뉴·URL 매핑이며 모델·컬렉션 필터 기능을 새로 구현하지 않는다. IA 158의 미리보기와 준비 상태는 기존 런클럽 목록 스토리로 연결했다.
+
+Explore 가이드 2개, Running Session 소개, 기술 소개 2개는 현재 저장소에 본문 라우트가 없으며 지정 경로만 메뉴에 정의했다. 이번 작업에서 소개 본문을 만들거나 화면 구현 완료로 표시하지 않았다.
+
+작업 트리의 위 6개 UI·링크 파일과 src/data/screenRegistry.ts를 대조했다. 90개 3Depth 항목의 IA 이름·순서 및 상품 URL 조건 일치, IA 번호 중복 없음과 기존 번호·비대상 화면 보존을 Node 단언으로 확인했다. npm run typecheck와 변경 소스 ESLint를 통과했다. 브라우저 화면 검증은 수행하지 않았다.
 
 ## 폼 라벨 변경 병합 충돌 해결 (2026-10-20)
 
