@@ -19,8 +19,20 @@ const root = cva({
   base: { w: '100%' },
   variants: {
     variant: {
-      inline: {},
-      fullWidth: {},
+      inline: {
+        _mobile: {
+          gap: '3',
+          '& .card__header': { px: '3', gap: '2' },
+          '& h3': { fontSize: '16px', fontWeight: 'bold', lineHeight: '1.4' },
+          '& .card__action': { px: '3' },
+        },
+      },
+      fullWidth: {
+        _mobile: {
+          gap: '4',
+          '& h3': { fontSize: '24px', fontWeight: 'black', lineHeight: '1.4' },
+        },
+      },
     },
   },
   defaultVariants: { variant: 'inline' },

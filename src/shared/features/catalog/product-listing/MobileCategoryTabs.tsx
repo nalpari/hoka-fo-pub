@@ -1,4 +1,11 @@
 import { FilterTabs } from '@/shared/components/atoms/FilterTabs/FilterTabs';
+import { css } from 'styled-system/css';
+
+const tabs = css({
+  flex: '1',
+  '& > [role="group"]': { h: '36px', mb: '0', gap: '5' },
+  '& [data-filter-tabs-variant="categoryNavigation"]': { px: '0', flexShrink: '0' },
+});
 
 const categories = [
   { label: '전체보기', activity: '' },
@@ -18,6 +25,7 @@ type MobileCategoryTabsProps = {
 export function MobileCategoryTabs({ activity, onChange }: MobileCategoryTabsProps) {
   return (
     <FilterTabs
+      className={tabs}
       ariaLabel="상품 카테고리"
       onValueChange={onChange}
       options={categories.map((category) => ({ label: category.label, value: category.activity }))}

@@ -2,6 +2,8 @@
 
 ## 2026-10-21
 
+- **Fix / Audit**: 모바일 상품목록의 전체 폭 이미지·배너, 제목, 탭 옆 필터 아이콘과 listing 카드 굵기·간격을 두 첨부 시안 및 사용자 정정에 맞췄다. 추가 로딩은 36개 단위로 변경했다. PC·홈 showcase 스타일은 유지하며 첨부 필터·상세·메인·PC 목록 설계서와 현재 목업 구현의 미적용 사항을 [대조 기록](architecture/ui.md#모바일-상품목록-디자인-보정과-설계서-대조-2026-10-21)에 남겼다.
+
 - **Refactor**: OrderProductSummary를 장바구니·주문·쿠폰에 적용하고 장바구니 선택/목록/고객센터, 옵션 본문, 금액 행과 CheckoutForm을 책임별로 분리했다. 결제수단은 공통 Radio, 관심상품은 Wishlist, 컬러 선택은 ProductOptionList의 cart 표시를 재사용한다. 문자 하트·완료 체크·옵션 화살표도 Icon으로 바꿨다. 설계·계산·폼 제출 정책을 유지하며 관련 API·검증을 [UI 기록](architecture/ui.md#주문-화면-구성-분리와-재사용-2026-10-21)에 기록한다.
 
 - **Fix**: CouponProductItem의 펼침/접힘 문자 표시를 공통 Icon의 faPlus/faMinus(12px)로 교체했다. 기존 펼침 상태와 접근성 이름은 유지한다.

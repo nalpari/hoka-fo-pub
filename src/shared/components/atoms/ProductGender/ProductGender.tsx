@@ -12,7 +12,7 @@ const genderLabel = cva({
     variant: {
       listing: {
         _mobile: {
-          fontWeight: 'medium',
+          fontWeight: 'bold',
           fontSize: '14' /* 기존 13px */,
           lineHeight: 'body',
         },

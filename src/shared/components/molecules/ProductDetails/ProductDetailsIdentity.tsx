@@ -19,7 +19,13 @@ export function ProductDetailsIdentity({
   variant,
 }: Props) {
   return (
-    <VStack gap="1" alignItems="flex-start" minW="0" w="100%">
+    <VStack
+      gap="1"
+      _mobile={variant === 'listing' ? { gap: '0' } : undefined}
+      alignItems="flex-start"
+      minW="0"
+      w="100%"
+    >
       {promotion && <PromotionBadge promotion={promotion} />}
       {gender && <ProductGender gender={gender} variant={variant} />}
       <ProductName name={name} variant={variant} />

@@ -9,6 +9,7 @@ import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
 import { MobileCategoryTabs } from './MobileCategoryTabs';
 import { css } from 'styled-system/css';
+import { HStack } from 'styled-system/jsx';
 import { SearchListingLayout } from './SearchListingLayout';
 
 const catalogLayout = css({
@@ -19,9 +20,11 @@ const catalogLayout = css({
   gap: '5',
   _mobile: {
     w: '100%',
-    gap: '2',
-    px: 'var(--layout-mobile-inline-gutter)',
-    py: 'var(--layout-mobile-page-block-padding)',
+    gap: '0',
+    px: '0',
+    pt: '7',
+    pb: '24',
+    '& > div:first-child': { px: '4', pb: '6' },
   },
 });
 
@@ -124,11 +127,9 @@ export function ProductListingLayout({
       breadcrumbItems={breadcrumbItems}
       className={catalogLayout}
       headerAction={
-        platform === 'mobile' ? (
-          <MobileProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />
-        ) : (
+        platform === 'web' ? (
           <DesktopProductSort placeholder={sortPlaceholder} onChange={onSortChange} value={sort} />
-        )
+        ) : undefined
       }
       stickyHeader={platform === 'web'}
       title={
@@ -141,10 +142,13 @@ export function ProductListingLayout({
       }
     >
       {platform === 'mobile' && (
-        <MobileCategoryTabs
-          activity={activity}
-          onChange={(value) => onFilterChange('activity', value)}
-        />
+        <HStack gap="2" pl="4" pr="2" h="9" alignItems="center">
+          <MobileCategoryTabs
+            activity={activity}
+            onChange={(value) => onFilterChange('activity', value)}
+          />
+          <MobileProductFilterTrigger iconOnly onClick={() => onFilterDrawerOpenChange(true)} />
+        </HStack>
       )}
       {content}
     </ContentLayout>

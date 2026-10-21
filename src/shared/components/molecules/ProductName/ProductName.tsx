@@ -2,7 +2,12 @@ import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
 
-const productName = css({ minW: '0', maxW: '100%', truncate: true });
+const productName = css({
+  minW: '0',
+  maxW: '100%',
+  truncate: true,
+  '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
+});
 
 export type ProductNameProps = {
   name: string;

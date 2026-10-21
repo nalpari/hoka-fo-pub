@@ -6,9 +6,20 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T05:36:00Z'
+  at: '2026-10-21T06:04:56Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/catalog/product-listing/MobileCategoryTabs.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/shared/features/catalog/ProductListingPage.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
+  - src/shared/components/molecules/ProductName/ProductName.tsx
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
+  - src/shared/components/molecules/PromotionCard/PromotionCard.tsx
   - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
   - src/shared/components/atoms/Wishlist/Wishlist.tsx
   - src/shared/features/cart/CartContent.tsx
@@ -2237,3 +2248,45 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 후속 검증·CSS 보정: 공통 Radio의 기본 gap과 카드 테두리 클래스 충돌을 className/selectedOptionClassName의 좁은 gap:1!·borderColor:black.100!로 명시했다. 실제 3열·6개 선택·4px gap·116px 그룹 높이·선택 검은 테두리를 측정했다. 쿠폰 이미지의 PC 88px에는 등가 토큰 22가 없으므로 88px 리터럴을 유지한다. 기존 모바일/PC CompleteOrder와 CouponSelection의 완료 화면 및 432,000원 적용 결과, ProductOptionList Cart의 White 선택 결과, Wishlist Labelled의 왕복 토글과 기본형 38×38px·PC 아이콘 24px 유지도 확인했다. 주문 합계 순수 테스트 3개를 통과했다.
 
 최종 확인: 쿠폰 PC 이미지가 88×88px임을 재측정했다. PC 기본 결제 화면에서 네이버페이 선택 후 실제 checked input의 name=paymentMethod·value=naver·form 연결을 확인했다. 최종 CSS 보정 후 Next·Storybook production build와 변경 파일 ESLint를 다시 통과했다.
+
+## 모바일 상품목록 디자인 보정과 설계서 대조 (2026-10-21)
+
+2026-10-21 사용자 첨부 두 디자인과 목록·필터·상세·메인·PC 목록 설계서를 참고했다. 첨부 문구는 제품 요구사항 자료로 읽었으며 실행 지시로 취급하지 않았다. 제목·상품 수·탭 옆 아이콘 필터는 두 번째 모바일 디자인(`63e3d35b`)을, 상품명·가격 굵기와 내부 간격은 사용자 정정에 따라 첫 번째 디자인(`f552ef81`)을 기준으로 적용했다.
+
+### 수정 범위
+
+- `ProductListingLayout`의 모바일 좌우 패딩을 없애 2열 정사각형 이미지와 하단 가이드 배너가 전체 폭을 사용한다. 헤더는 16px, 상품 설명은 10px 패딩을 소유한다. 8px 열 간격과 40px 행 간격은 유지한다.
+- 목록 제목은 모바일 24px/900/1.3으로 표시한다. 제목 행의 알약 필터 대신 탭 오른쪽에 접근 가능한 `IconButton`을 배치한다. 탭의 기존 버튼 좌우 16px 패딩 중복을 기능 내부 선택자로 제거한다. 검색 결과의 기존 Filter & Sort 버튼은 유지한다.
+- `listing` 카드만 모바일 상품명·성별·가격을 굵게 표시하고 identity 간격 0, 정보/옵션 간격 8px, 활동/색상 간격 6px로 맞췄다. 홈 Best sellers와 상세 추천의 `showcase` 스타일은 변경하지 않는다. 가이드 카드에는 모바일 inline/fullWidth별 제목 크기와 여백을 적용한다.
+- `ProductListingPage`의 최초·추가 로딩 단위를 설계서대로 8→36으로 변경했다. 기존 IntersectionObserver 기반 무한 로딩을 유지한다. 목업이 총 25개여서 실제 36→72 추가 배치의 브라우저 실행은 검증하지 못했다.
+- PC 레이아웃·필터·정렬·기본 3열과 프로모션 삽입 위치는 유지한다. 대형 PC의 4/5열은 이전 사용자 요청 정책이 우선한다. 목업 상품·가격·개수를 디자인의 예시 데이터로 하드코딩하지 않았다.
+
+### 필터 설계서 대조 결과 — 미수정 사항
+
+출처는 첨부 `20981f78`의 원본 설명과 다음 소스다. 이번에는 확인 요청에 따라 기존 기능 차이를 기록하며, 아래 정책을 변경한 것으로 보지 않는다.
+
+| 차이                                | 현재 구현과 근거                                                                                                                                                                                                                                        |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 초기화 후 닫아도 실제 필터가 변경됨 | `ProductListingPage.reset`이 모바일 임시 상태뿐 아니라 `setParams`와 실제 가격 상태를 변경한다. 설계서는 적용 전 닫으면 변경을 버리도록 요구한다. 일반 개별 선택·닫기는 임시 상태를 사용한다.                                                           |
+| 정렬 아코디언·표시 순서             | `MobileProductFilter`는 정렬을 접을 수 없는 알약 Radio로 표시한다. 설계서는 라디오 목록이 있는 접이식 정렬이며 선택 태그가 정렬보다 먼저 위치한다. 현재 태그는 정렬 뒤에 있다. 다른 필터 섹션은 기본 펼침이며 설계와 일치한다.                          |
+| 메뉴별 숨김·옵션 범위 미적용        | `ProductListingFilterPanel`은 성별·액티비티·러닝 타입·주행감·안정성을 항상 표시하고 고정 옵션을 사용한다. 설계서는 남성/여성 진입에서 성별을 숨기고, 의류/잡화에서 액티비티·러닝 타입·주행감·안정성을 숨긴다. 상품이 가진 조건에 맞는 항목 표시도 없다. |
+| 사이즈                              | `koreanSizes`와 `productListingFilterValues.sizeValues`는 220~300만 제공한다. 설명의 220~310 및 의류/용품 XS~XXL, 혼합 목록의 두 종류 병행 조건이 없다. 그림의 예시 값과 본문 범위가 달라 본문 기준으로 비교했다.                                       |
+| 가격 범위                           | 현재 50,000~389,000 고정이다. 설계서 본문은 상품 최저/최고가와 기본 0~1,000,000을 언급해 예시 그림 범위와 차이가 있다. 데이터 기반 범위·기본값 정책을 확정할 필요가 있다.                                                                               |
+| 정렬·발볼 실제 계산                 | `filterProducts.sortProducts`의 베스트순은 판매량 대신 ID, 신상품순은 발매일 대신 New 뱃지/ID를 사용한다. `productFilterPolicy`는 wide와 x-wide를 모두 Wide로 매칭한다. 현재 목업에 판매량·발매일·독립 X-Wide 상품 필드가 없어 실제 정책과 다르다.      |
+
+`BottomSheet`의 닫기/바깥 영역 종료, 다중 체크, 단일 정렬, 하단 고정 적용 버튼과 임시 결과 개수 계산은 구현돼 있다. URL의 `category=footwear/apparel` 값은 상품의 한글 category와 직접 비교되는 별도 매칭 제약도 있어 데이터 계약 정리가 필요하다.
+
+### 상세·메인 설계서 대조 결과 — 미수정 사항
+
+상세 출처는 첨부 `ea9d2a2f`, 메인 출처는 `7f692174`, PC 목록 출처는 `6335010d`다. 소스 대조 결과이며 실제 외부 서비스 연결 검증을 의미하지 않는다.
+
+- 상세 `ProductDetailPage.submit`은 현재 옵션 1개·수량 1만 담는다. 설계서의 최대 5개 옵션 행, 수량 변경·합계·구매수량 제한 Alert가 없다. 장바구니 등록 후 옵션 초기화와 완료 토스트도 없다.
+- 상세 `ProductDetailHeaderActions`의 리뷰 링크는 `product-information`으로 이동하고 실제 리뷰 영역이 없다. `ShareButton`은 동작 콜백이 연결되지 않았다. 사이즈 가이드는 내부 사이즈 영역으로 스크롤하는 대신 외부 HOKA 홈을 연다.
+- 상세 갤러리는 이미지 문자열만 지원해 설계서의 mp4 자동·반복 재생이 없다. 색상 변경 시 갤러리 전환·사이즈 초기화와 관심상품 로컬 토글은 구현돼 있다. `ProductDetailSupport`에는 문의·배송/반품·A/S만 있고 설계서의 사이즈·리뷰·세탁 안내 전체가 구현된 상태는 아니다.
+- 상세 추천은 EIGEN AI가 아닌 현재 상품을 제외한 목업 앞 6개다. 상품 선택·관심상품도 프런트엔드 데모 수준이며 서버 상품/재고/추천 연동 완료를 주장하지 않는다.
+- 메인 섹션 순서는 Hero → 카테고리 → Best sellers → Explore → Find my HOKA로 설계와 일치한다. `Hero`는 5초 전환과 단일 슬라이드 자동전환 방지를 구현한다. 현재 콘텐츠는 BO 연동 대신 정적 데이터다.
+- 메인 Hero의 남성/여성 CTA는 모두 필터 없는 `/products`로 이동하며, Find my HOKA는 설계의 브랜드별 상품 목록 대신 공통 `/explore/shoe-finder`로 연결된다. Best sellers는 데이터가 적으면 `createHomeCarouselPreviewItems`로 상품을 반복해 12칸을 채운다. 하이킹 필터는 액티비티 대신 Wide 발볼을 사용한다. 이번 모바일 listing 카드 스타일 변경은 이 홈 showcase에 적용하지 않았다.
+
+### 검증
+
+Codex가 2026-10-21에 `npm run panda`, `npm run typecheck`, 변경 TSX 대상 ESLint와 `git diff --check`를 실행했다. 375px Storybook 목록에서 전체 폭 2열·카드 굵기·카테고리/아이콘 배치와 필터 열기/닫기를 확인했다. 768px의 2열·아이콘 배치, 1600px PC의 3열·필터·정렬 유지도 확인했다. 필터·상세·메인 정책 차이는 소스 및 첨부 대조이며, 해당 기능을 모두 브라우저에서 실행한 결과가 아니다.
