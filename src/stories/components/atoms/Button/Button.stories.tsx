@@ -26,6 +26,21 @@ export const DefaultLink: Story = {
   args: { variant: 'link', children: '기본 링크' },
 };
 
+export const PlainButtonLink: Story = {
+  render: () => (
+    <ButtonLink href="/support/faq" variant="plain" size="lg">
+      밑줄 없는 텍스트 링크
+    </ButtonLink>
+  ),
+};
+
+export const Chip: Story = {
+  args: {
+    variant: 'chip',
+    children: '스피드고트',
+  },
+};
+
 const secondaryContent = (
   <>
     <Typography variant="cta2">더보기 </Typography>

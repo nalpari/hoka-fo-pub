@@ -1,5 +1,16 @@
 # 지식 번들 변경 이력
 
+## 2026-10-21
+
+- **Refactor**: Button `plain`의 내부 정렬을 왼쪽으로 조정해 공통 기본값에서 정렬 강제를 제거하고 SearchOverlay 자동완성에 적용했다. 목록 구조·검색 동작·body3 medium과 파란 일치 하이라이트를 유지하고 [UI 기록](architecture/ui.md#plain-버튼-내부-정렬과-자동완성-검색어-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.
+- **Update**: 공통 Button에 단일 크기 `chip` variant(높이 36px·패딩 9px 14px·body4 14px medium)를 추가하고 추천 검색어 이동 버튼에 적용했다. ButtonDocs·Storybook 예제를 추가하고 [UI 기록](architecture/ui.md#button-chip-변형과-추천-검색어-2026-10-21)을 갱신했다. 인기 검색어 순위 행은 Panda HStack으로 정리하면서 기존 행/열 간격과 번호 폭을 명시했다.
+- **Refactor**: SearchSuggestions의 인기 검색어 제목·순위 목록·키워드 링크를 `PopularSearches`로 분리했다. 데이터와 검색 이동 처리는 상위 구성에 두고 기존 반응형 타이포그래피·목록 레이아웃을 유지했다. [UI 기록](architecture/ui.md#인기-검색어-섹션-분리-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.
+- **Update**: 최근 검색어가 비어 있으면 안내 문구와 섹션을 렌더링하지 않도록 했다. SearchSuggestions의 기존 조건부 배치와 추천/인기 검색 레이아웃을 유지하고 [UI 기록](architecture/ui.md#최근-검색어-빈-영역-숨김-2026-10-21)을 갱신했다.
+- **Style**: 검색 결과 없음 안내를 Figma `906:8115`·`773:42681`에 맞춰 PC Body3 16px, 모바일 Body4 14px, regular·subtle로 통일했다. 문장 간격을 제거하고 PC 470px 최소 높이·모바일 상하 96px 패딩을 반영했다. [UI 기록](architecture/ui.md#검색-결과-없음-문구의-pcmo-시안-반영-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.
+- **Fix**: 검색 오류 안내에 Typography `tone="error"`를 적용해 오류 색상 토큰을 사용하고 PC·모바일 오류 스토리로 확인할 수 있게 했다. [UI 기록](architecture/ui.md#검색-오류-문구-색상-지정-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.
+- **Fix**: Figma 데스크탑 검색 오버레이 상태에 맞춰 SearchDialog를 최근 검색어 유무에 따라 1024px/544px로 표시하고 우측 정렬을 유지한다. SearchSuggestions는 Flex로 두 영역을 나누며, 최근 검색어가 없으면 추천/인기 검색 영역만 480px 폭을 채운다. SearchOverlay Storybook에 빈 최근 검색 상태를 추가했다.
+- **Update**: Button·ButtonLink의 `link`/`plain` variant로 밑줄 유무가 있는 텍스트 링크를 구분하고 ToggleButton 전달과 검색 키워드에 적용했다. ButtonDocs·Storybook 예제를 정리하고 [UI 기록](architecture/ui.md#밑줄-없는-텍스트-링크-변형-2026-10-21)을 갱신했다.
+
 ## 2026-10-20
 
 - **Update**: 로그인 이메일 형식 검사를 영문·숫자 4자 이상 아이디 검사로 전환하고 필수값·형식 오류를 구분했다. 기존 공통 TextFormField·배치를 사용하며 아이디 찾기 예시를 `honggildong`으로 맞췄다. 타입·변경 ESLint/Prettier·Storybook 빌드 및 관련 브라우저 스토리 16개가 통과했다. [UI 변경](architecture/ui.md#일반-아이디-로그인-전환-2026-10-20)과 [상태 계약](architecture/state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.

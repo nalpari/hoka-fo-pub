@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Box, Stack } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
+import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { usePlatform } from '@/shared/context/platform';
 import { SearchDialog } from './SearchDialog';
@@ -41,6 +41,7 @@ export function SearchOverlay({
   const platform = usePlatform();
   const { recentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } =
     useRecentSearches();
+  const hasRecentSearches = recentSearches.length > 0;
   const router = useRouter();
   const matches = [...new Set(autocompleteSearches)]
     .filter((item) => item.toLowerCase().includes(normalized.toLowerCase()))
@@ -69,7 +70,7 @@ export function SearchOverlay({
   };
 
   return (
-    <SearchDialog onClose={onClose} compact={showMatches}>
+    <SearchDialog onClose={onClose} compact={showMatches} hasRecentSearches={hasRecentSearches}>
       <SearchHeader onClose={onClose} />
       <SearchForm query={query} onQueryChange={changeQuery} onSearch={search} error={error} />
       {showMatches ? (
@@ -77,35 +78,24 @@ export function SearchOverlay({
           as="ul"
           aria-label="자동완성 검색어"
           gap="16px"
-          m="0"
-          px="48px"
-          py="32px"
+          p="32px 48px"
           listStyleType="none"
-          _mobile={{ px: '16px', pt: '16px', pb: '0' }}
+          _mobile={{ px: '16px', pt: '0', pb: '32px' }}
         >
           {matches.map((match) => {
             const index = match.toLowerCase().indexOf(normalized.toLowerCase());
             return (
-              <li key={match}>
-                <button
-                  onClick={() => search(match)}
-                  className={css({
-                    p: '0',
-                    border: '0',
-                    bg: 'transparent',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                  })}
-                >
-                  <Typography variant="body4">
+              <HStack as="li" key={match}>
+                <Button variant="plain" onClick={() => search(match)}>
+                  <Typography variant="body3" weight="medium">
                     {match.slice(0, index)}
                     <Box as="mark" bg="transparent" color="blue.100">
                       {match.slice(index, index + normalized.length)}
                     </Box>
                     {match.slice(index + normalized.length)}
                   </Typography>
-                </button>
-              </li>
+                </Button>
+              </HStack>
             );
           })}
         </Stack>

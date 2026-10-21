@@ -4,9 +4,19 @@ import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { usePlatform } from '@/shared/context/platform';
 
-type SearchDialogProps = { children: ReactNode; onClose: () => void; compact?: boolean };
+type SearchDialogProps = {
+  children: ReactNode;
+  onClose: () => void;
+  compact?: boolean;
+  hasRecentSearches: boolean;
+};
 
-export function SearchDialog({ children, onClose, compact = false }: SearchDialogProps) {
+export function SearchDialog({
+  children,
+  onClose,
+  compact = false,
+  hasRecentSearches,
+}: SearchDialogProps) {
   const platform = usePlatform();
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +83,7 @@ export function SearchDialog({ children, onClose, compact = false }: SearchDialo
           pos="absolute"
           top="100%"
           right="var(--search-panel-right, max(var(--layout-web-content-gutter), calc((100% - var(--layout-web-content-max-width)) / 2)))"
-          w={compact ? '540px' : '1020px'}
+          w={compact ? '540px' : hasRecentSearches ? '1024px' : '544px'}
           maxW="min(calc(100vw - 48px), calc(100% - var(--search-panel-right, 24px) - 24px))"
           maxH="calc(100dvh - var(--layout-site-header-height))"
           overflowY="auto"

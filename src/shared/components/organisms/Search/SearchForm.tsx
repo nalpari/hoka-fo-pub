@@ -21,8 +21,7 @@ export function SearchForm({ query, onQueryChange, onSearch, error = '' }: Searc
       as="form"
       id="site-search-form"
       role="search"
-      px={mobile ? '16px' : '32px'}
-      pt={mobile ? '32px' : '0'}
+      _mobile={{ px: '16px', pt: '32px', pb: '16px' }}
       onSubmit={(event) => {
         event.preventDefault();
         onSearch();
@@ -32,7 +31,7 @@ export function SearchForm({ query, onQueryChange, onSearch, error = '' }: Searc
         h="56px"
         px="12px"
         gap="8px"
-        border="1px solid"
+        border="2px solid"
         borderColor={error ? 'red.100' : 'black.100'}
         display={mobile ? 'flex' : 'none'}
       >
@@ -56,7 +55,7 @@ export function SearchForm({ query, onQueryChange, onSearch, error = '' }: Searc
               border: '0',
               p: '0',
               outline: 'none!',
-              fontSize: '14',
+              fontSize: '16',
               bg: 'transparent',
               '&::-webkit-search-cancel-button': { display: 'none' },
             },
@@ -65,15 +64,11 @@ export function SearchForm({ query, onQueryChange, onSearch, error = '' }: Searc
       </HStack>
       <button type="submit" hidden aria-label="검색 실행" />
       {error ? (
-        <Typography
-          as="p"
-          variant="body5"
-          id="site-search-error"
-          role="alert"
-          className={css({ mt: '8px', color: 'red.100' })}
-        >
-          {error}
-        </Typography>
+        <Box p={{ base: '32px 32px 0', _mobile: '8px 0 0' }}>
+          <Typography as="p" variant="body5" tone="error" id="site-search-error" role="alert">
+            {error}
+          </Typography>
+        </Box>
       ) : null}
     </Box>
   );

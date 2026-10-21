@@ -12,8 +12,8 @@ type RecentSearchItemProps = {
 
 export function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchItemProps) {
   return (
-    <HStack as="li" gap="2">
-      <HStack>
+    <HStack as="li" gap="2" _mobile={{ justifyContent: 'space-between' }}>
+      <HStack gap="2">
         <Icon name="timer" size="18px" />
         <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
       </HStack>

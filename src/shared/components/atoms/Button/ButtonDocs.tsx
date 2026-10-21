@@ -16,11 +16,21 @@ const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },
   { variant: 'secondary', title: 'Secondary', note: '테두리로 구분하는 보조 액션 버튼' },
   { variant: 'ghost', title: 'Ghost', note: '배경과 테두리가 없는 버튼' },
+  {
+    variant: 'chip',
+    title: 'Chip',
+    note: '높이 36px · 패딩 9px 14px · body4 14px medium',
+  },
   { variant: 'brand', title: 'Brand', note: '브랜드 블루 배경 · 기본 상태는 Black / White 동일' },
   {
     variant: 'link',
     title: 'Link',
-    note: '밑줄 텍스트 버튼 · 높이 auto, 좌우 패딩 0 · sm 글자 크기 12px',
+    note: '밑줄 텍스트 링크 · 높이 auto, 좌우 패딩 0 · sm 글자 크기 12px',
+  },
+  {
+    variant: 'plain',
+    title: 'Plain',
+    note: '밑줄 없는 텍스트 링크 · 높이 auto, 좌우 패딩 0 · sm 글자 크기 12px',
   },
   { variant: 'filterTrigger', title: 'Filter Trigger', note: '고정 높이 32.2px · 좌우 패딩 14px' },
   {
@@ -94,9 +104,11 @@ function buttonCode({
   ].filter(Boolean);
 
   const children =
-    variant === 'headerSearch' || variant === 'filterTrigger'
-      ? '<Typography variant="body4">버튼명 텍스트</Typography>'
-      : '버튼명 텍스트';
+    variant === 'chip'
+      ? '버튼명 텍스트'
+      : variant === 'headerSearch' || variant === 'filterTrigger'
+        ? '<Typography variant="body4">버튼명 텍스트</Typography>'
+        : '버튼명 텍스트';
 
   return `<Button ${attributes.join(' ')}>${children}</Button>`;
 }
@@ -115,7 +127,12 @@ function dimensions({ variant, size }: ButtonSizingProps) {
     height = '36px';
     padding = '15px';
   }
-  if (variant === 'link') {
+  if (variant === 'chip') {
+    height = '36px';
+    padding = '14px';
+    font = '14px medium';
+  }
+  if (variant === 'link' || variant === 'plain') {
     height = size === 'sm' ? '16px min' : 'auto';
     padding = '0px';
     if (size === 'sm') font = '12px';
@@ -156,8 +173,12 @@ function Sample({
               ) : undefined
             }
           >
-            {variant === 'headerSearch' || variant === 'filterTrigger' ? (
-              <Typography variant="body4">버튼명 텍스트</Typography>
+            {variant === 'headerSearch' || variant === 'filterTrigger' || variant === 'chip' ? (
+              variant === 'chip' ? (
+                '버튼명 텍스트'
+              ) : (
+                <Typography variant="body4">버튼명 텍스트</Typography>
+              )
             ) : (
               '버튼명 텍스트'
             )}
@@ -208,9 +229,9 @@ function VariantSection({
   onCopy,
 }: (typeof variants)[number] & { onCopy: CopyCode }) {
   const samples: ButtonSizingProps[] =
-    variant === 'link'
+    variant === 'link' || variant === 'plain'
       ? linkSizes.map((size) => ({ variant, size }))
-      : variant === 'filterTrigger' || variant === 'headerSearch'
+      : variant === 'filterTrigger' || variant === 'headerSearch' || variant === 'chip'
         ? [{ variant }]
         : buttonSizes.map((size) => ({ variant, size }));
 
@@ -432,6 +453,12 @@ export function ButtonDocs() {
               <Typography as="h3">Text Link · sm</Typography>
               <ButtonLink href="/products" variant="link" size="sm">
                 바로가기
+              </ButtonLink>
+            </div>
+            <div>
+              <Typography as="h3">Plain Text Link</Typography>
+              <ButtonLink href="/products" variant="plain" size="lg">
+                밑줄 없는 링크
               </ButtonLink>
             </div>
           </>

@@ -53,7 +53,7 @@ export function SearchListingLayout({
           <ContentHeader
             titleAs="h1"
             title={`“${query}”에 대한 ${resultCount}개의 검색결과`}
-            titleProps={{ web: 'heading6', mo: 'bodyKr3', weight: 'bold' }}
+            titleProps={{ web: 'heading6', mo: 'body3', weight: 'medium' }}
           />
           {platform === 'mobile' && (resultCount > 0 || hasActiveFilters) && (
             <Box>{filterAction}</Box>
@@ -65,15 +65,15 @@ export function SearchListingLayout({
           <ContentHeader
             as="section"
             title="검색된 결과가 없습니다."
-            titleProps={{ variant: 'bodyKr2', weight: 'semibold' }}
+            titleProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
             description="검색어를 정확하게 다시 한번 입력해 주세요."
-            descriptionProps={{ variant: 'bodyKr4', tone: 'subtle' }}
+            descriptionProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
             alignItems="center"
             justifyContent="center"
             textAlign="center"
-            minH="440px"
-            gap="4"
-            _mobile={{ minH: '340px' }}
+            minH="470px"
+            gap="0"
+            _mobile={{ minH: 'auto', py: '96px' }}
           />
         )}
       </Stack>

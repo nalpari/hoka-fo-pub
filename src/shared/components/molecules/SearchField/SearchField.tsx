@@ -15,7 +15,7 @@ const input = css({
     borderRadius: '0!',
     bg: 'transparent!',
     fontFamily: 'korean',
-    fontSize: { base: '16', _mobile: '12' },
+    fontSize: '16',
     letterSpacing: 'korean',
     _placeholder: { color: 'black.40' },
     _focusVisible: { outline: 'none!' },
