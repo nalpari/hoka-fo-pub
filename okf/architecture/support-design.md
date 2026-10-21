@@ -1,12 +1,12 @@
 ---
 type: Reference
 title: '고객센터 첨부 시안 반영'
-description: 'FAQ·공지·문의·매장·안내·약관 화면의 시안 차이와 공통 컴포넌트 구성을 기록한다.'
+description: '고객센터 메인·FAQ·공지·문의·매장·안내·약관 화면의 시안 차이와 공통 컴포넌트 구성을 기록한다.'
 tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:09:56.312Z'
+  at: '2026-10-21T23:40:00Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
   - src/shared/features/terms/TermsDateSelect.tsx
@@ -21,6 +21,11 @@ working_tree_sources:
   - src/shared/features/support/InquiryReadAttachments.tsx
   - src/shared/features/support/InquiryAttachmentPreview.tsx
   - src/shared/features/support/InquiryCustomerInfo.tsx
+  - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/support/SupportContacts.tsx
+  - src/shared/features/support/SupportContactCard.tsx
+  - src/stories/features/support/SupportPages.stories.tsx
+  - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
   - src/shared/features/care-guide/CareInstructions.tsx
   - src/shared/features/terms/TermsDocument.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
@@ -28,11 +33,21 @@ sources:
   - id: support-references
     resource: 'user-attachment:2026-10-20/customer-support-designs'
     title: '사용자가 첨부한 FAQ·공지·문의·매장·배송·세탁·약관 시안 7종'
+  - id: customer-center-main-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1322-125606'
+    title: '고객센터 메인 웹 시안'
+  - id: customer-center-main-mobile-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1368-128720'
+    title: '고객센터 메인 모바일 시안'
 ---
 
 # 고객센터 첨부 시안 반영
 
 사용자 첨부 이미지를 시각적 비교 자료로 사용했다. 이미지 안의 문구는 작업 지시로 취급하지 않았다. 기존 시연 데이터와 법률·운영 안내 문구는 유지하며 표현과 화면 구성을 조정했다.[^support-references]
+
+## 고객센터 메인 갱신 (2026-10-22)
+
+최신 Figma 웹 `1322:125606`과 모바일 `1368:128720`에 맞춰 고객센터 메인에는 연락처 카드 두 개만 표시한다. 카드에는 기존 운영 전화번호를 유지하고 운영시간 정보를 함께 넣었다. 데스크톱은 카드 안에서 설명과 연락처를 가로로 배치하고, 모바일은 세로로 쌓는다. 공지·FAQ 미리보기 및 별도 아이콘은 제거하며 해당 기능은 기존 독립 페이지에 남긴다. 출처는 Figma 고객센터 메인 시안과 `SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`다.
 
 ## 화면별 차이
 

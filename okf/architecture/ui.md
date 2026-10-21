@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T06:16:56Z'
+  at: '2026-10-21T23:40:00Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/features/support/SupportPage.tsx
+  - src/shared/features/support/SupportContacts.tsx
+  - src/shared/features/support/SupportContactCard.tsx
+  - src/stories/features/support/SupportPages.stories.tsx
+  - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/shared/features/catalog/productListingIaRoute.ts
@@ -1270,13 +1275,8 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-고객센터 메인의 공지사항 미리보기는 제목 아래 `black.100` 1px Divider와 각 공지 행 아래 `black.20` 1px Divider를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
-
-`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. `SupportContactCard`는 반복되는 고객상담실·온라인 스토어 카드의 제목·문의 설명·전화번호 슬롯을 갖는다. 화면 본문의 간격·크기·배치는 Panda JSX props를 사용하며, 전화 링크 밑줄은 모바일에서만 보인다. 데스크톱 FAQ teaser는 첫 항목을 펼치고 모바일은 FAQ 링크 버튼을 표시한다. 공지 행은 PC 69px·모바일 51px 높이로, 날짜는 PC body4·모바일 body5로 표현한다. 공지 데이터는 화면 시안용 정적 데이터이며 각 행은 기존 공지 상세 데모 경로로 연결된다. 사이드 메뉴의 동일 주소 항목은 고유 React key를 쓰며 활성 상태를 별도 지정할 수 있다. 고객센터·FAQ의 PC와 모바일을 각각 제공하는 route story가 이 레이아웃을 검증한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContactCard.tsx`, `support.navigation.ts`, `src/shared/features/faq/FaqPage.tsx`, `faq.data.ts`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 고객센터 메인 노드 `327:5231`이다.
-
-Figma 고객센터 메인 `1241:78709`의 운영시간 두 항목에는 같은 18×18px `clock-eight` SVG를 표시한다. SVG는 `public/images/icon/clock-eight.svg`에서 `Icon name="clock-eight"`으로 호출하며, Icon Storybook 목록과 자산 문서에도 등록되어 있다. 운영시간 문자열과 아이콘은 HStack으로 묶고 8px 간격으로 정렬한다.
-
-고객센터 상담 카드의 전화번호 앞에는 Figma `1241:78743`의 18×18px 전화 SVG를 공통 `Icon name="phone-call"`로 표시한다. 두 상담 카드의 기존 전화번호 링크는 유지하고 `TEL.` 문자 대신 아이콘을 사용한다. 자산은 `public/images/icon/phone-call.svg`이며 Icon Storybook·SVG 자산 목록에서 확인할 수 있다.
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
+고객센터 메인의 최신 PC·모바일 구성은 설명 아래 연락처 카드 두 개만 표시한다. 공지사항/FAQ 미리보기와 운영시간·전화 아이콘은 이 메인 시안에 없으므로 넣지 않으며, 각 공지·FAQ 페이지는 독립 라우트로 유지한다. 카드 배경은 `black.10`이며 얇은 외곽선을 추가하지 않는다. PC·모바일 Customer Center route story는 카드 정보와 메인에서 공지/FAQ가 빠진 상태를 검사한다.
 
 ## FAQ (2026-10-16)
 
@@ -1288,7 +1288,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 `FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/shared/components/organisms/Faq/FaqList.tsx`다.
 
-`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인의 FAQ teaser도 기존 `FaqList`를 재사용한다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
+`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인에는 FAQ teaser를 표시하지 않는다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
 
 ## 공지사항·1:1 문의 (2026-10-16)
 

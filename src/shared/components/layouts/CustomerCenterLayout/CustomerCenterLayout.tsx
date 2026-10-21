@@ -1,6 +1,9 @@
 import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
+import {
+  ContentHeader,
+  type ContentHeaderProps,
+} from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import type { ComponentProps, ReactNode } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { SidebarColumns } from '@/shared/components/layouts/SidebarColumns/SidebarColumns';
@@ -19,6 +22,7 @@ type Props = {
   groups: SideNavigationGroup[];
   title: string;
   description?: ReactNode;
+  descriptionProps?: ContentHeaderProps['descriptionProps'];
   showHeadingDivider?: boolean;
   mobileTitleVariant?: 'heading4' | 'heading5' | 'heading6' | 'heading7';
   headingProps?: Pick<ComponentProps<typeof Stack>, 'gap' | 'mb' | '_mobile'>;
@@ -32,6 +36,7 @@ export function CustomerCenterLayout({
   groups,
   title,
   description,
+  descriptionProps,
   showHeadingDivider = false,
   mobileTitleVariant = 'heading6',
   headingProps,
@@ -66,7 +71,7 @@ export function CustomerCenterLayout({
                 titleAs="h1"
                 titleProps={{ web: 'heading6', mo: mobileTitleVariant }}
                 description={description}
-                descriptionProps={{ variant: 'body3' }}
+                descriptionProps={{ variant: 'body3', ...descriptionProps }}
               />
               {showHeadingDivider && (
                 <Divider variant="heading" mt="2" display={{ base: 'block', _mobile: 'none' }} />
