@@ -2108,3 +2108,14 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 첨부 설계서와 사용자가 확정한 영문·숫자 4자 이상 규칙을 반영했다. LoginForm은 EmailField 대신 기존 TextFormField를 사용해 라벨 “아이디”, placeholder “아이디를 입력해 주세요”, type text와 기존 name/autocomplete username을 전달한다. boxed·required·오류 설명 연결과 Panda 배치는 유지한다. 로그인 오류·성공·형식 스토리와 아이디 찾기·폼 감사의 결과 예시를 갱신했다. 아이디 찾기 결과는 `honggildong`으로 표시하며 가입·비밀번호·인증·계정 잠금 화면은 변경하지 않는다. 이 기록은 이전 이메일 기반 로그인 설명을 대체한다. [상태 계약](state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
 
 검증: 전체 타입 검사·변경 TSX ESLint·변경 파일 Prettier·전체 Storybook production build가 통과했다. 빌드 결과를 로컬 HTTP 서버에서 Edge/Playwright로 실행해 로그인 PC 6개·모바일 5개, 아이디 찾기 결과 PC/모바일 2개·재설정 이동 1개, 폼 감사 찾기 PC/모바일 2개로 총 16개 스토리가 통과했다. 아이디 3자 거부·4자 영문/숫자/혼합 허용, 공백·한글·특수문자·이메일 거부, 오류 해제·재표시와 로그인 콜백·홈 이동을 확인했다. 1600px·375px 기본 화면 캡처와 375px 화면을 시각 확인했다. 실제 인증 API는 검사 대상이 아니다.
+
+## 런클럽 첨부 시안 보완 (2026-10-21)
+
+첨부된 PC·모바일 목록/빈 화면/상세 시안과 Storybook 렌더를 비교했다. RunClubLayout의 결과 영역은 PC에서 최대 1280px·전체 가용 너비로 지정하고 모바일은 전체 너비를 유지한다. 결과 영역의 신청 내역/카드 간격은 24px이며 PC 빈 화면에서는 신청 내역 링크를 생략한다. 모바일 헤더의 신청 내역 링크는 유지한다. RunClubHeader의 소개 문구는 PC 중앙·모바일 왼쪽 정렬이다.
+
+카드 제목은 PC heading7(28px)·모바일 body1을 사용하고 제목/설명 간격은 8px, 본문/CTA 간격은 24px이다. 이미지의 날짜와 코스 두 줄은 gap=0으로 조합한다. 상세의 정원 20명은 PC·모바일 모두 표시하고, RunClubSessionHero의 뱃지는 HStack으로 감싸 내용 너비에 맞게 배치한다. 실제 세션 데이터와 신청 준비 안내 동작은 유지하며, 시안 내 서로 다른 예시 날짜/코스를 고정 문구로 복제하지 않는다. 공통 헤더의 홍보 배너는 기존 전체 페이지 노출 정책을 유지한다.
+
+출처: 작업 트리의 `src/shared/features/run-club/RunClubLayout.tsx`, `RunClubHeader.tsx`, `RunClubSessionCardContent.tsx`, `RunClubSessionCardImage.tsx`, `RunClubDetailPage.tsx`, `RunClubSessionHero.tsx`. 이 기록은 이전 PC 정원의 mobileOnly 보존 설명을 대체한다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·런클럽 폴더 ESLint가 통과했다. Edge headless의 Storybook PC 1600px 목록/빈 목록/마감 상세와 모바일 375px 목록/빈 목록/오픈 예정 상세 6개 화면에서 가로 넘침이 없음을 확인했다. PC 카드 제목 28px, 빈 목록 신청 내역 링크 생략, PC 상세 정원 표시와 PC/MO 로드 필터 결과(4개/1개)를 확인했다. 목록·빈 화면·모바일 상세 캡처를 시각 검토했다. 실제 신청 API 연동 검증은 수행하지 않았다.
+`npm run build`의 Next.js 프로덕션 빌드도 통과했다.

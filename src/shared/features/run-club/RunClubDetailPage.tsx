@@ -34,7 +34,7 @@ export function RunClubDetailPage({ session: suppliedSession }: RunClubDetailPag
   const heroRows: RunClubFact[] = [
     { label: '일시', value: session.schedule },
     { label: '장소', value: runClubVenue, detail: runClubAddress },
-    { label: '정원', value: '20명', mobileOnly: true },
+    { label: '정원', value: '20명' },
     {
       label: '예약금',
       value: '5,000원',

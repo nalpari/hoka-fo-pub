@@ -9,7 +9,7 @@ import { RunClubBadge } from './RunClubBadge';
 export function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
   return (
     <ContentSection
-      gap="8"
+      gap="6"
       _mobile={{ px: '4' }}
       header={
         <Stack gap="3.5" _mobile={{ gap: '2' }}>
@@ -17,11 +17,11 @@ export function RunClubSessionCardContent({ session }: { session: RunClubSession
             <RunClubBadge category={session.category} />
           </Flex>
           <ContentHeader
-            gap="4"
+            gap="2"
             _mobile={{ gap: '2' }}
             titleAs="h2"
             title={<>{session.title}</>}
-            titleProps={{ variant: 'heading6', mo: 'body1', weight: 'black' }}
+            titleProps={{ variant: 'heading7', mo: 'body1', weight: 'black' }}
             description={
               <>
                 {session.schedule} | {session.location} {session.distance}

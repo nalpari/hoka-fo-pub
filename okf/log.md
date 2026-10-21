@@ -2,6 +2,8 @@
 
 ## 2026-10-21
 
+- **Update**: 런클럽 첨부 시안을 대조해 PC 목록 최대 1280px·카드 제목/간격·소개 중앙 정렬·빈 화면 링크 생략·PC 상세 정원 표시를 반영했다. [UI 기록](architecture/ui.md#런클럽-첨부-시안-보완-2026-10-21)을 참고한다.
+
 - **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/shared/components/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
 
 ## 2026-10-20
