@@ -7,13 +7,6 @@ import { createHomeCarouselPreviewItems } from './homeCarouselPreview';
 
 const previewItems = createHomeCarouselPreviewItems(shoeFinderItems);
 
-const mobileRail = css({
-  w: '100vw',
-  pr: '16px !important',
-  overflow: 'visible!',
-  '& .swiper-wrapper': { px: '2' },
-});
-
 // Keep the 375px design width without enlarging slides on wider mobile screens.
 // The existing 8px gutters stay inside the slide to retain the 16px card gap.
 const mobileSlide = css({ w: 'min(67.46666666666667vw, 253px)!', '& > *': { w: '100%' } });
@@ -36,7 +29,7 @@ export function HomeShoeFinderSection({
       itemCount={previewItems.length}
       mobileItemGutter={8}
       platform={platform}
-      railClassName={isWeb ? undefined : mobileRail}
+      mobileRail="bleed"
       slideClassName={isWeb ? undefined : mobileSlide}
       title="Find my HOKA"
     >

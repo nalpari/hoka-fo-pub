@@ -1,6 +1,7 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { cva } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import type { ReactNode } from 'react';
+import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { MyPageFrame } from './MyPageFrame';
 
@@ -88,6 +89,19 @@ const commonBenefits = [
   },
 ] as const;
 
+function RewardBenefitItem({ number, children }: { number: number; children: ReactNode }) {
+  return (
+    <HStack as="li" alignItems="flex-start" gap="1">
+      <Typography as="span" mo="body4">
+        {number}.
+      </Typography>
+      <Stack flex="1" minW="0" gap="2">
+        {children}
+      </Stack>
+    </HStack>
+  );
+}
+
 export function MyPageRewards() {
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
@@ -128,45 +142,32 @@ export function MyPageRewards() {
           {tiers.map((tier) => (
             <Stack key={tier.name} className={tierCard({ tier: tier.name })} gap="4" px="4" py="6">
               <HStack alignItems="center" gap="2">
-                <Box
-                  w="12"
-                  h="12"
-                  bg="black.100"
-                  color="var(--tier-color)"
-                  borderRadius="full"
-                  display="grid"
-                  placeItems="center"
-                >
+                <Circle size="12" flex="0 1 auto" bg="black.100" color="var(--tier-color)">
                   <Typography mo="heading5" weight="black">
                     {tier.initial}
                   </Typography>
-                </Box>
+                </Circle>
                 <Typography mo="heading5">{tier.name}</Typography>
               </HStack>
               <Stack as="ol" gap="2" listStyleType="none">
                 {tier.benefits.map((benefit, index) => (
-                  <HStack as="li" key={benefit.title} alignItems="flex-start" gap="1">
-                    <Typography as="span" mo="body4">
-                      {index + 1}.
+                  <RewardBenefitItem key={benefit.title} number={index + 1}>
+                    <Typography as="p" mo="body4">
+                      {benefit.title}
                     </Typography>
-                    <Stack flex="1" minW="0" gap="2">
-                      <Typography as="p" mo="body4">
-                        {benefit.title}
-                      </Typography>
-                      {benefit.details.length > 0 ? (
-                        <Stack as="ul" gap="1" pl="2" listStyleType="none">
-                          {benefit.details.map((detail) => (
-                            <HStack as="li" key={detail} alignItems="flex-start" gap="1">
-                              <Typography as="span" mo="body5" aria-hidden="true">
-                                ・
-                              </Typography>
-                              <Typography mo="body5">{detail}</Typography>
-                            </HStack>
-                          ))}
-                        </Stack>
-                      ) : null}
-                    </Stack>
-                  </HStack>
+                    {benefit.details.length > 0 ? (
+                      <Stack as="ul" gap="1" pl="2" listStyleType="none">
+                        {benefit.details.map((detail) => (
+                          <HStack as="li" key={detail} alignItems="flex-start" gap="1">
+                            <Typography as="span" mo="body5" aria-hidden="true">
+                              ・
+                            </Typography>
+                            <Typography mo="body5">{detail}</Typography>
+                          </HStack>
+                        ))}
+                      </Stack>
+                    ) : null}
+                  </RewardBenefitItem>
                 ))}
               </Stack>
             </Stack>
@@ -189,25 +190,20 @@ export function MyPageRewards() {
               >
                 <Stack as="ol" gap="2" listStyleType="none">
                   {benefit.items.map((item, index) => (
-                    <HStack as="li" key={item.text} alignItems="flex-start" gap="1">
+                    <RewardBenefitItem key={item.text} number={index + 1}>
                       <Typography as="span" mo="body4">
-                        {index + 1}.
+                        {item.text}
                       </Typography>
-                      <Stack flex="1" minW="0" gap="2">
-                        <Typography as="span" mo="body4">
-                          {item.text}
-                        </Typography>
-                        {item.details.length > 0 ? (
-                          <Stack as="ul" gap="1" listStyleType="none">
-                            {item.details.map((detail) => (
-                              <Typography as="li" key={detail} mo="body5">
-                                • &nbsp;{detail}
-                              </Typography>
-                            ))}
-                          </Stack>
-                        ) : null}
-                      </Stack>
-                    </HStack>
+                      {item.details.length > 0 ? (
+                        <Stack as="ul" gap="1" listStyleType="none">
+                          {item.details.map((detail) => (
+                            <Typography as="li" key={detail} mo="body5">
+                              • &nbsp;{detail}
+                            </Typography>
+                          ))}
+                        </Stack>
+                      ) : null}
+                    </RewardBenefitItem>
                   ))}
                 </Stack>
               </ContentSection>

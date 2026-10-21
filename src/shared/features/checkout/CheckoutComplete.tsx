@@ -1,3 +1,4 @@
+import { orderRecommendations } from '@/mocks/orderRecommendations';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Circle, Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
@@ -43,7 +44,7 @@ export function CheckoutComplete() {
           앞으로도 만족스러운 서비스로 보답하겠습니다.
         </Typography>
       </ContentSection>
-      <OrderRecommendations />
+      <OrderRecommendations items={orderRecommendations} />
     </Stack>
   );
 }

@@ -1,13 +1,6 @@
-import { css } from 'styled-system/css';
+import { ProductSupportTextLink } from './ProductSupportTextLink';
 import { Grid, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-
-const textLink = css({
-  color: 'text.primary',
-  textDecoration: 'underline',
-  textUnderlineOffset: '3px',
-  _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
-});
 
 export function ProductSupportContact() {
   return (
@@ -23,10 +16,7 @@ export function ProductSupportContact() {
       </Typography>
       <Stack gap="2">
         <Typography as="p" variant="body5">
-          TEL.{' '}
-          <a href="tel:15660086" className={textLink}>
-            1566-0086
-          </a>
+          TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
         </Typography>
         <Typography as="p" variant="body5" tone="tertiary">
           1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.

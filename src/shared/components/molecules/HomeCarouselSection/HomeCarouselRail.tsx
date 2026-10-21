@@ -16,6 +16,13 @@ const desktopSlide = css({
   '& > *': { w: '100%' },
 });
 
+const bleedRail = css({
+  w: '100vw',
+  pr: '16px !important',
+  overflow: 'visible!',
+  '& .swiper-wrapper': { px: '2' },
+});
+
 type Props = Pick<
   HomeCarouselSectionProps,
   | 'children'
@@ -26,6 +33,7 @@ type Props = Pick<
   | 'mobileItemGutter'
   | 'slideClassName'
   | 'railClassName'
+  | 'mobileRail'
   | 'viewportKey'
 >;
 
@@ -39,6 +47,7 @@ export function HomeCarouselRail({
   mobileItemGutter,
   slideClassName,
   railClassName,
+  mobileRail,
   viewportKey,
 }: Props) {
   return (
@@ -73,7 +82,9 @@ export function HomeCarouselRail({
     >
       <CarouselViewport
         key={viewportKey}
-        className={railClassName}
+        className={[platform !== 'web' && mobileRail === 'bleed' ? bleedRail : '', railClassName]
+          .filter(Boolean)
+          .join(' ')}
         desktopCenteredItemCount={desktopCenteredItemCount}
         mobileItemGutter={mobileItemGutter}
         mode={platform}

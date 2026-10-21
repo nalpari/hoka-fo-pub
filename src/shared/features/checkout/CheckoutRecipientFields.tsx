@@ -1,7 +1,7 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
-import { CheckoutShippingInput } from './CheckoutShippingInput';
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import type { ShippingErrors } from './CheckoutShipping';
 
 export function CheckoutRecipientFields({ errors }: { errors?: ShippingErrors }) {
@@ -27,7 +27,8 @@ export function CheckoutRecipientFields({ errors }: { errors?: ShippingErrors })
           <Typography as="label" htmlFor={`shipping-${input.name}`} variant="body5">
             * {input.label}
           </Typography>
-          <CheckoutShippingInput
+          <TextInput
+            appearance="compact"
             id={`shipping-${input.name}`}
             name={input.name}
             autoComplete={input.autoComplete}

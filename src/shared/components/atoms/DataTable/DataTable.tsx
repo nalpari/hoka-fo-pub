@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ReactNode, TableHTMLAttributes } from 'react';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
@@ -35,15 +36,6 @@ const spaced = css.raw({
   _mobile: { fontSize: '12px', borderSpacing: '0 8px', '& th, & td': { px: '2' } },
 });
 
-const visuallyHidden = css({
-  position: 'absolute',
-  w: '1px',
-  h: '1px',
-  overflow: 'hidden',
-  clip: 'rect(0 0 0 0)',
-  whiteSpace: 'nowrap',
-});
-
 export type DataTableProps = TableHTMLAttributes<HTMLTableElement> & {
   caption?: ReactNode;
   variant?: 'default' | 'spaced';
@@ -66,7 +58,11 @@ export function DataTable({
           .filter(Boolean)
           .join(' ')}
       >
-        {caption ? <caption className={visuallyHidden}>{caption}</caption> : null}
+        {caption ? (
+          <Typography as="caption" srOnly>
+            {caption}
+          </Typography>
+        ) : null}
         {children}
       </table>
     </Box>

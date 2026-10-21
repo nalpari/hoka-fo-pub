@@ -7,19 +7,6 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 
 const styles = {
-  contact: css({
-    gridTemplateColumns: 'minmax(140px, 1fr) 2fr',
-    gap: '6',
-    pb: '8',
-    borderBottom: '1px solid var(--color-black-20)',
-    _mobile: { gridTemplateColumns: '1fr', gap: '3', pb: '6' },
-  }),
-  action: css({
-    gridTemplateColumns: 'minmax(0, 1fr) auto',
-    alignItems: 'center',
-    gap: '4',
-    _mobile: { gridTemplateColumns: '1fr', justifyItems: 'start' },
-  }),
   link: css({ textDecoration: 'underline', textUnderlineOffset: '3px' }),
 };
 
@@ -35,7 +22,13 @@ function AfterSalesContact({
   link: ReactNode;
 }) {
   return (
-    <Grid className={styles.contact}>
+    <Grid
+      gridTemplateColumns="minmax(140px, 1fr) 2fr"
+      gap="6"
+      pb="8"
+      borderBottom="1px solid var(--color-black-20)"
+      _mobile={{ gridTemplateColumns: '1fr', gap: '3', pb: '6' }}
+    >
       <Typography as="h4" variant="body5" weight="bold">
         {title}
       </Typography>
@@ -63,7 +56,12 @@ function AfterSalesAction({
   label: string;
 }) {
   return (
-    <Grid className={styles.action}>
+    <Grid
+      gridTemplateColumns="minmax(0, 1fr) auto"
+      alignItems="center"
+      gap="4"
+      _mobile={{ gridTemplateColumns: '1fr', justifyItems: 'start' }}
+    >
       <ContentHeader
         gap="2"
         titleAs="h4"

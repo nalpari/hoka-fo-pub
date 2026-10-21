@@ -1,7 +1,7 @@
 import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { AmountRow } from './AmountRow';
+import { AmountRow } from '@/shared/components/molecules/AmountRow/AmountRow';
 
 export function CheckoutDiscountSummary({
   total,

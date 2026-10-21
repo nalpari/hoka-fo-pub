@@ -5,14 +5,6 @@ import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMes
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 import { Box } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
-
-const disabledInput = css({
-  bg: 'var(--color-black-10)',
-  color: 'var(--color-text-subtle)',
-  cursor: 'not-allowed',
-  _disabled: { opacity: '1' },
-});
 
 type Props = {
   idPrefix: string;
@@ -71,7 +63,7 @@ export function EmailAddressFields({
         inputProps={{
           type: 'text',
           disabled,
-          className: disabled ? disabledInput : undefined,
+          disabledAppearance: disabled ? 'muted' : 'default',
           value: domain,
           placeholder: '도메인을 입력해주세요',
           autoComplete: 'off',

@@ -1,3 +1,4 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import { css } from 'styled-system/css';
 
@@ -27,7 +28,6 @@ const cardRoot = css({
   flexDirection: 'column',
 });
 
-
 function withClassName(...classNames: Array<string | undefined>) {
   return classNames.filter(Boolean).join(' ');
 }
@@ -44,8 +44,12 @@ export function CardTitle({ as: TitleElement = 'h3', className, ...props }: Card
   return <TitleElement {...props} className={withClassName('card__title', className)} />;
 }
 
-export function CardDescription({ className, ...props }: CardDescriptionProps) {
-  return <p {...props} className={withClassName('card__description', className)} />;
+export function CardDescription({ className, children, ...props }: CardDescriptionProps) {
+  return (
+    <Typography as="p" {...props} className={withClassName('card__description', className)}>
+      {children}
+    </Typography>
+  );
 }
 
 export function CardAction({ className, ...props }: CardActionProps) {

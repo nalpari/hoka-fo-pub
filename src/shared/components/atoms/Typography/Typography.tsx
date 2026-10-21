@@ -539,6 +539,17 @@ const typography = cva({
         _mobile: { fontSize: 'var(--type-display-mobile-font-size)' },
       },
       heading: figmaTypographyVariants.headingKr7,
+      catalogTitle: {
+        fontFamily: 'korean',
+        fontSize: 'var(--type-catalog-title-font-size)',
+        fontWeight: 'var(--type-catalog-title-font-weight)',
+        lineHeight: 'var(--type-catalog-title-line-height)',
+        letterSpacing: 'korean',
+        _mobile: {
+          fontSize: 'var(--type-catalog-title-mobile-font-size)',
+          lineHeight: 'var(--type-catalog-title-mobile-line-height)',
+        },
+      },
       sectionHeading: {
         fontSize: 'var(--type-section-heading-font-size)',
         fontWeight: 'var(--type-section-heading-font-weight)',
@@ -708,6 +719,7 @@ export type TypographyVariant =
   | 'authSmall'
   | 'display'
   | 'heading'
+  | 'catalogTitle'
   | 'sectionHeading'
   | 'cardTitle'
   | 'body'

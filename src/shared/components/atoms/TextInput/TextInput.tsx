@@ -15,7 +15,7 @@ import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faEye, faEyeSlash, faXmark } from '@/shared/icons/fontAwesome';
 import { HStack } from 'styled-system/jsx';
 
-const textInput = css({
+const textInput = css.raw({
   minH: 'var(--field-height, 42px)',
   border:
     'var(--field-border-width, 1px) solid var(--field-border-color, var(--color-field-border))',
@@ -29,6 +29,16 @@ const textInput = css({
     outlineOffset: '2px',
   },
   _disabled: { opacity: '0.6', cursor: 'not-allowed' },
+});
+
+const compactControl = css({
+  w: '100%',
+  border: '0',
+  bg: 'transparent',
+  color: 'black.100',
+  fontSize: '14px',
+  lineHeight: '1.3',
+  _focusVisible: { outline: '1px solid var(--colors-black-100)' },
 });
 
 const boxedControl = css({
@@ -54,6 +64,13 @@ const boxedControl = css({
   },
 });
 
+const mutedControl = css.raw({
+  bg: 'var(--color-black-10)',
+  color: 'var(--color-text-subtle)',
+  cursor: 'not-allowed',
+  _disabled: { opacity: '1' },
+});
+
 const textareaControl = css({ '&&': { h: 'auto', minH: '84px', resize: 'vertical' } });
 
 const icon = css({ display: 'block', flexShrink: '0', w: '16px', h: '16px' });
@@ -72,6 +89,8 @@ const action = css({
 });
 
 type ControlProps = {
+  appearance?: 'default' | 'compact';
+  disabledAppearance?: 'default' | 'muted';
   invalid?: boolean;
   fullWidth?: boolean;
   startIcon?: ReactNode;
@@ -94,6 +113,8 @@ export function TextInput({
   className,
   style,
   invalid = false,
+  appearance = 'default',
+  disabledAppearance = 'default',
   fullWidth = false,
   startIcon,
   endIcon,
@@ -135,7 +156,10 @@ export function TextInput({
     id: props.id ?? field?.htmlFor,
     required: props.required ?? field?.required,
     disabled,
-    'aria-invalid': hasError || props['aria-invalid'] || undefined,
+    'aria-invalid':
+      appearance === 'compact'
+        ? (props['aria-invalid'] ?? (hasError || undefined))
+        : hasError || props['aria-invalid'] || undefined,
     'aria-describedby': describedBy,
     'data-invalid': hasError ? 'true' : undefined,
     style: {
@@ -151,8 +175,10 @@ export function TextInput({
       ...style,
     } as CSSProperties,
     className: [
-      textInput,
-      field?.boxed ? boxedControl : '',
+      appearance === 'compact'
+        ? compactControl
+        : css(textInput, disabledAppearance === 'muted' && mutedControl),
+      appearance !== 'compact' && field?.boxed ? boxedControl : '',
       multiline ? textareaControl : '',
       className,
     ]

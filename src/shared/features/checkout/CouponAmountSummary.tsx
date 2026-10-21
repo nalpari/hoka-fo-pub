@@ -1,5 +1,5 @@
 import { Stack } from 'styled-system/jsx';
-import { AmountRow } from './AmountRow';
+import { AmountRow } from '@/shared/components/molecules/AmountRow/AmountRow';
 
 export function CouponAmountSummary({ total, discount }: { total: number; discount: number }) {
   return (

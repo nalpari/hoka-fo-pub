@@ -1,16 +1,8 @@
-import Link from 'next/link';
-import { css } from 'styled-system/css';
+import { ProductSupportTextLink } from './ProductSupportTextLink';
 import {
   ProductDetailDeliverySection,
   ProductDetailDeliveryList,
 } from './ProductDetailDeliverySection';
-
-const textLink = css({
-  color: 'text.primary',
-  textDecoration: 'underline',
-  textUnderlineOffset: '3px',
-  _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
-});
 
 export function ProductDetailShippingGuide() {
   return (
@@ -20,9 +12,9 @@ export function ProductDetailShippingGuide() {
         <li>결제일로부터 1~5일 이내에 상품이 출고됩니다. (토·일요일 및 공휴일 제외)</li>
         <li>상품은 호카 물류센터 또는 매장에서 발송됩니다.</li>
         <li>
-          <Link href="/mypage/orders" className={textLink}>
+          <ProductSupportTextLink href="/mypage/orders">
             마이페이지 &gt; 주문/배송 조회
-          </Link>
+          </ProductSupportTextLink>
           에서 구매하신 상품의 배송 상태를 확인하실 수 있습니다.
         </li>
       </ProductDetailDeliveryList>

@@ -6,9 +6,28 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T05:36:00Z'
-source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+  at: '2026-10-21T08:15:46.840Z'
+source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/shared/features/mypage/AddressEditor.tsx
+  - src/shared/features/mypage/AddressList.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileField.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-address.types.ts
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/login/LoginActions.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
   - src/shared/features/cart/CartSelectionBar.tsx
   - src/shared/features/cart/CartProductList.tsx
   - src/shared/features/cart/CartOptionsContent.tsx
@@ -142,6 +161,12 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 재사용 적용 후 상태 소유권 (2026-10-21)
+
+CartContent의 금액 표시와 LoginActions의 소셜 버튼만 공용 UI로 대체했다. 합계·선택·로그인·미연결 안내 처리 및 ShopShell/Context의 수명은 변경하지 않았다. OrderRecommendations의 준비된 데이터는 mock fixture가 공급하며 공용 UI는 선택/계산/라우팅 정책을 소유하지 않는다.
+
+마이페이지 배송지의 draft·validation·기본 배송지 지정·삭제와 회원정보의 필드 오류·저장·취소·탈퇴 상태는 기존 페이지에 유지했다. feature 내부 view/editor는 준비된 값과 콜백을 받는다. FormActionGroup은 취소를 제출하지 않으며 실제 제출은 기존 form에 위임한다. compact TextInput의 native name/defaultValue/controlled value/readOnly/disabled 계약을 보존한다.
 
 ## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
 

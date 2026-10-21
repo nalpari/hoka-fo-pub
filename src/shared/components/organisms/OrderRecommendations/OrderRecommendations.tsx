@@ -1,28 +1,27 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { HStack } from 'styled-system/jsx';
-import { products } from '@/mocks/products';
-import { recommendationImages } from '@/mocks/cartDisplay';
 
 import { OrderRecommendationItem } from '@/shared/components/organisms/OrderRecommendations/OrderRecommendationItem';
 
-const suggestions = products.slice(0, 4);
+import type { OrderRecommendation } from './OrderRecommendationItem';
 
-export function OrderRecommendations() {
+export type OrderRecommendationsProps = { items: readonly OrderRecommendation[]; title?: string };
+
+export function OrderRecommendations({
+  items,
+  title = '함께 구매하면 좋은 상품',
+}: OrderRecommendationsProps) {
   return (
     <ContentSection
       as="section"
       gap="4"
       overflow="hidden"
-      title="함께 구매하면 좋은 상품"
+      title={title}
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
     >
       <HStack gap="1" overflowX="auto" alignItems="flex-start">
-        {suggestions.map((product, index) => (
-          <OrderRecommendationItem
-            key={product.id}
-            product={product}
-            imageSrc={recommendationImages[index] ?? product.primaryImage}
-          />
+        {items.map((item) => (
+          <OrderRecommendationItem key={item.id} item={item} />
         ))}
       </HStack>
     </ContentSection>

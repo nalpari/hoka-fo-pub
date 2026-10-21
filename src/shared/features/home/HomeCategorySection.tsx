@@ -4,13 +4,6 @@ import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselS
 import { MainContentCard } from '@/shared/components/molecules/MainContentCard/MainContentCard';
 import { homeCategories } from './homeContent';
 
-const mobileRail = css({
-  w: '100vw',
-  pr: '16px !important',
-  overflow: 'visible!',
-  '& .swiper-wrapper': { px: '2' },
-});
-
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
 // leaving a deliberate preview of the following card.
 const mobileSlide = css({ w: 'calc(83.2vw + var(--spacing-4))!', '& > *': { w: '100%' } });
@@ -27,7 +20,7 @@ export function HomeCategorySection({ platform }: HomeCategorySectionProps) {
       itemCount={homeCategories.length}
       mobileItemGutter={8}
       platform={platform}
-      railClassName={isWeb ? undefined : mobileRail}
+      mobileRail="bleed"
       slideClassName={isWeb ? undefined : mobileSlide}
       title="Shop by category"
     >

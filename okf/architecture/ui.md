@@ -6,9 +6,65 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T15:55:08+09:00'
-source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+  at: '2026-10-21T08:15:46.840Z'
+source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
+  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/shared/components/molecules/SocialAuthButton/SocialAuthButton.tsx
+  - src/shared/features/mypage/AddressEditor.tsx
+  - src/shared/features/mypage/AddressList.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileField.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-address.types.ts
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/shared/features/product/ProductSupportTextLink.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
+  - src/stories/components/molecules/AmountRow/AmountRow.stories.tsx
+  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/molecules/SocialAuthButton/SocialAuthButton.stories.tsx
+  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/shared/components/atoms/Card/Card.tsx
+  - src/shared/components/atoms/DataTable/DataTable.tsx
+  - src/shared/components/atoms/EmptyState/EmptyState.tsx
+  - src/shared/components/atoms/Fieldset/Fieldset.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
+  - src/shared/components/organisms/Address/AddressField.tsx
+  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
+  - src/shared/components/organisms/Faq/FaqQuestion.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/shared/components/organisms/Search/SearchDialog.tsx
+  - src/shared/components/organisms/Signup/SignupMethodButton.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/shared/features/checkout/CheckoutRecipientFields.tsx
+  - src/shared/features/checkout/CheckoutSavedAddress.tsx
+  - src/shared/features/checkout/CheckoutShippingInput.tsx
+  - src/shared/features/checkout/CouponAmountSummary.tsx
+  - src/shared/features/home/HomeCategorySection.tsx
+  - src/shared/features/home/HomeShoeFinderSection.tsx
+  - src/shared/features/login/LoginActions.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/product/ProductAfterSalesContacts.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductDetailShippingGuide.tsx
+  - src/shared/features/product/ProductSupportContact.tsx
+  - src/shared/features/run-club/RunClubFilters.tsx
+  - src/shared/features/signup-registration/RegistrationField.tsx
+  - src/shared/features/support/InquiryFormActions.tsx
+  - src/shared/styles/global.scss
+  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
+  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
   - src/shared/features/size-guide/SizeGuideMeasurementMethod.tsx
   - src/shared/features/size-guide/SizeGuideMeasurementImage.tsx
   - src/shared/features/size-guide/SizeGuideMeasurementInstructions.tsx
@@ -52,7 +108,7 @@ working_tree_sources:
   - src/shared/features/cart/CartProductList.tsx
   - src/shared/features/cart/CartSupportInfo.tsx
   - src/shared/features/cart/CartOptionsContent.tsx
-  - src/shared/features/checkout/AmountRow.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
   - src/shared/features/checkout/CheckoutForm.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
   - src/shared/features/checkout/CheckoutPayment.tsx
@@ -699,6 +755,22 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 전체 소스 재사용 조사 적용 (2026-10-21)
+
+[재사용 조사와 적용 기록](component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)을 기준으로 다음 공용 계약을 적용했다.
+
+- AmountRow를 molecules로 승격해 cart·checkout의 표시를 공유한다. 합계 계산은 기존 기능에 남긴다. OrderRecommendations는 items/title을 받으며 런타임 mock import를 제거했다. src/mocks/orderRecommendations.ts가 첫 네 상품·이미지 fallback·상품 링크를 준비한다.
+- SocialAuthButton은 provider와 appearance(login/signup)를 받는다. 기존 로그인 hover와 가입 border/inline 변수, 18px 아이콘, tall 크기를 유지한다. 문구·인증 업무와 미연결 안내는 기존 호출자가 소유한다.
+- TextInput의 appearance=compact는 wrapper 없는 native control 표현이다. 기존 14px/1.3·border0·1px focus를 배송·주소에서 사용하고 CheckoutShippingInput 중간 어댑터를 제거했다. disabledAppearance=muted로 가입·이메일·주소의 중복 회색 표현을 모았다. boxed의 && 우선순위 및 disabled/readOnly 정책은 유지한다.
+- HomeCarouselSection.mobileRail=bleed가 세 소비처의 100vw·우측 16px·wrapper 좌우 8px를 공유한다. 슬라이드 너비와 PC 2240/2560 표시 개수는 기존 소유자에 유지한다.
+- FormActionGroup은 기존 폼 안에서 취소(type=button)·제출(type=submit)을 같은 너비로 배치한다. 문의 등록·배송지 수정·회원정보 수정에 적용하며 새 배송지의 단일 저장 버튼, modal/fixed action은 유지한다.
+- AddressList/AddressEditor, ProfileField/ProfileReadView/ProfileEditForm을 mypage 내부 파일로 나눴다. 데이터/타입도 기능 내부에 둔다. 입력값·검증·저장·기본 배송지·삭제·탈퇴 상태는 기존 페이지가 소유한다. Rewards의 번호행과 product 지원 링크는 기능 내부 책임으로만 분리했다.
+- RunClubFilters는 기존 unstyled SegmentedControl/ToggleGroup을 사용한다. Fieldset/DataTable 숨김 텍스트는 Typography.srOnly를 사용하며 legend/caption 의미를 보존한다. 동일 web/mo variant, Card/EmptyState 문단, A/S Grid props, 회원등급 Circle도 정리했다.
+- 상품 목록 제목은 catalogTitle Typography/토큰으로 PC 기존 headingKr7·MO 24px/900/1.3을 유지한다. 일반 heading의 모바일 축척은 바꾸지 않는다.
+- PC SearchDialog는 비모달 Base UI Dialog로 Escape·outside/focus dismissal을 위임한다. Portal은 헤더 내부 host에 놓아 기존 위치/hover 영역을 유지하고 header-search-control로 이동할 때 닫기를 취소한다. 포커스 복원은 기존 SiteHeader 소유다. Autocomplete/NavigationMenu는 현재 독립 버튼/순차 Tab 계약을 유지한다.
+
+새 공용 API와 입력/검색 상호작용에 Storybook 사례를 추가했다. 최종 검증 결과는 위 적용 기록에 남긴다.
 
 ## 사이즈 가이드 재사용 개선 (2026-10-21)
 

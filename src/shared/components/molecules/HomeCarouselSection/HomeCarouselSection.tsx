@@ -22,6 +22,7 @@ export type HomeCarouselSectionProps = {
   desktopItemGutter: number;
   mobileItemGutter: number;
   railClassName?: string;
+  mobileRail?: 'default' | 'bleed';
   spacing?: 'default' | 'compact';
   /** Remounts the viewport (and resets its position) when this changes. */
   viewportKey?: string;
@@ -40,6 +41,7 @@ export function HomeCarouselSection({
   desktopItemGutter,
   mobileItemGutter,
   railClassName,
+  mobileRail,
   spacing,
   viewportKey,
 }: HomeCarouselSectionProps) {
@@ -65,6 +67,7 @@ export function HomeCarouselSection({
           desktopItemGutter={desktopItemGutter}
           mobileItemGutter={mobileItemGutter}
           railClassName={railClassName}
+          mobileRail={mobileRail}
           slideClassName={slideClassName}
           viewportKey={viewportKey}
         >

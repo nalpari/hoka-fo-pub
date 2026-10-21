@@ -1,7 +1,7 @@
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Box, HStack, Stack } from 'styled-system/jsx';
-import { CheckoutShippingInput } from './CheckoutShippingInput';
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import type { ShippingErrors } from './CheckoutShipping';
 
 type Props = {
@@ -33,7 +33,8 @@ export function CheckoutSavedAddress({ errors, onEdit }: Props) {
             </Typography>
           </Box>
           <Stack flex="1" gap="1">
-            <CheckoutShippingInput
+            <TextInput
+              appearance="compact"
               aria-label="주소"
               name="address"
               autoComplete="street-address"
@@ -52,7 +53,8 @@ export function CheckoutSavedAddress({ errors, onEdit }: Props) {
               받는 분
             </Typography>
           </Box>
-          <CheckoutShippingInput
+          <TextInput
+            appearance="compact"
             aria-label="받는 분"
             name="name"
             autoComplete="name"
@@ -65,7 +67,8 @@ export function CheckoutSavedAddress({ errors, onEdit }: Props) {
               연락처
             </Typography>
           </Box>
-          <CheckoutShippingInput
+          <TextInput
+            appearance="compact"
             aria-label="연락처"
             name="phone"
             autoComplete="tel"

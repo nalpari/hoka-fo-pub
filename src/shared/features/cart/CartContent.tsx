@@ -1,3 +1,5 @@
+import { AmountRow } from '@/shared/components/molecules/AmountRow/AmountRow';
+import { orderRecommendations } from '@/mocks/orderRecommendations';
 import { CartSelectionBar } from './CartSelectionBar';
 import { CartProductList } from './CartProductList';
 import { CartSupportInfo } from './CartSupportInfo';
@@ -79,18 +81,13 @@ export function CartContent({
               onEdit={onEdit}
               onToggleFavorite={onToggleFavorite}
             />
-            <HStack justifyContent="space-between" px="4" py="5" bg="black.10">
-              <Typography variant="body4">결제예정금액</Typography>
-              <Typography variant="body3" weight="semibold">
-                {total.toLocaleString()}원
-              </Typography>
-            </HStack>
+            <AmountRow label="결제예정금액" amount={total} emphasis px="4" py="5" bg="black.10" />
             <Typography variant="body5" tone="subtle">
               * 장바구니에 담긴 상품은 30일 동안 보관됩니다. 더 오래 상품을 보관하시려면 관심 상품에
               담아주시기 바랍니다.
             </Typography>
           </Stack>
-          <OrderRecommendations />
+          <OrderRecommendations items={orderRecommendations} />
           <CartSupportInfo />
           <OrderActionBar>
             {selectedCount ? (

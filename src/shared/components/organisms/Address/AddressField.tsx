@@ -1,3 +1,4 @@
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -15,23 +16,6 @@ const fields = {
   address: { label: '주소', placeholder: '주소를 입력해주세요' },
   addressDetail: { label: '상세주소', placeholder: '상세주소를 입력해주세요' },
 };
-
-const compactInput = css({
-  w: '100%',
-  border: '0',
-  bg: 'transparent',
-  color: 'black.100',
-  fontSize: '14px',
-  lineHeight: '1.3',
-  _focusVisible: { outline: '1px solid var(--colors-black-100)' },
-});
-
-const disabledInput = css({
-  bg: 'var(--color-black-10)',
-  color: 'var(--color-text-subtle)',
-  cursor: 'not-allowed',
-  _disabled: { opacity: '1' },
-});
 
 export type AddressFieldOptions = {
   id?: string;
@@ -80,7 +64,7 @@ export function AddressField({
         inputProps={{
           type: detail ? 'text' : undefined,
           disabled,
-          className: field === 'address' && variant === 'boxed' ? disabledInput : undefined,
+          disabledAppearance: field === 'address' && variant === 'boxed' ? 'muted' : 'default',
           value,
           placeholder,
           autoComplete: detail ? 'off' : undefined,
@@ -105,7 +89,7 @@ export function AddressField({
           * {label}
         </Typography>
       )}
-      <input
+      <TextInput
         id={postalCode ? undefined : id}
         aria-label={postalCode ? label : undefined}
         name={field}
@@ -113,7 +97,7 @@ export function AddressField({
         readOnly={postalCode}
         onChange={onValueChange ? (event) => onValueChange(event.target.value) : undefined}
         placeholder={placeholder}
-        className={compactInput}
+        appearance="compact"
         aria-invalid={field === 'address' ? Boolean(error) : undefined}
       />
       {error ? (

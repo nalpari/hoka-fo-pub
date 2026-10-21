@@ -2,6 +2,10 @@
 
 ## 2026-10-21
 
+- **Refactor**: [전체 소스 재사용 조사](architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
+
+- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
+
 - **Refactor**: 품목별 측정 방법과 신발 발볼 안내를 공통 SizeGuideMeasurementMethod로 분리했다. title/steps/description으로 조합하며 기존 목록·문구·간격·조건부 표시를 유지한다. [사이즈 가이드](architecture/size-guide.md)에 반영했다.
 
 - **Refactor**: 사이즈 가이드의 측정 이미지·측정 방법·차트를 기능 내부 컴포넌트로 분리했다. 선택 상태는 Panel에 유지하고 기존 DOM·반응형 스타일을 보존했다. [사이즈 가이드](architecture/size-guide.md)와 [UI 기록](architecture/ui.md)에 책임을 반영했다.
