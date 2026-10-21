@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T23:40:00Z'
+  at: '2026-10-21T23:59:04Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
   - src/shared/features/support/SupportPage.tsx
@@ -1422,7 +1422,7 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 연락처와 운영시간 묶음 사이 간격은 웹 52px·모바일 32px이다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
 고객센터 메인의 최신 PC·모바일 구성은 설명 아래 연락처 카드 두 개만 표시한다. 공지사항/FAQ 미리보기와 운영시간·전화 아이콘은 이 메인 시안에 없으므로 넣지 않으며, 각 공지·FAQ 페이지는 독립 라우트로 유지한다. 카드 배경은 `black.10`이며 얇은 외곽선을 추가하지 않는다. PC·모바일 Customer Center route story는 카드 정보와 메인에서 공지/FAQ가 빠진 상태를 검사한다.
 
 ## FAQ (2026-10-16)

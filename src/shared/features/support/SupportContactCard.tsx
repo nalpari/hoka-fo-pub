@@ -48,7 +48,7 @@ export function SupportContactCard({
         </Typography>
       </Stack>
 
-      <Stack gap="13" flex="1" minW="0">
+      <Stack gap={{ base: '52px', _mobile: '32px' }} flex="1" minW="0">
         <Stack gap="3">
           <Typography web="body3" mo="body3" weight="medium">
             호카/호카 키즈

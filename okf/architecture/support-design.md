@@ -6,7 +6,7 @@ tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T23:40:00Z'
+  at: '2026-10-21T23:59:04Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
   - src/shared/features/terms/TermsDateSelect.tsx
@@ -47,7 +47,7 @@ sources:
 
 ## 고객센터 메인 갱신 (2026-10-22)
 
-최신 Figma 웹 `1322:125606`과 모바일 `1368:128720`에 맞춰 고객센터 메인에는 연락처 카드 두 개만 표시한다. 카드에는 기존 운영 전화번호를 유지하고 운영시간 정보를 함께 넣었다. 데스크톱은 카드 안에서 설명과 연락처를 가로로 배치하고, 모바일은 세로로 쌓는다. 공지·FAQ 미리보기 및 별도 아이콘은 제거하며 해당 기능은 기존 독립 페이지에 남긴다. 출처는 Figma 고객센터 메인 시안과 `SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`다.
+최신 Figma 웹 `1322:125606`과 모바일 `1368:128720`에 맞춰 고객센터 메인에는 연락처 카드 두 개만 표시한다. 카드에는 기존 운영 전화번호를 유지하고 운영시간 정보를 함께 넣었다. 데스크톱은 카드 안에서 설명과 연락처를 가로로 배치하고, 모바일은 세로로 쌓는다. 연락처와 운영시간 묶음 사이 간격은 PC 52px·모바일 32px이다. 공지·FAQ 미리보기 및 별도 아이콘은 제거하며 해당 기능은 기존 독립 페이지에 남긴다. 출처는 Figma 고객센터 메인 시안과 `SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`다.
 
 ## 화면별 차이
 
