@@ -9,7 +9,7 @@ import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
 import { MobileCategoryTabs } from './MobileCategoryTabs';
 import { css } from 'styled-system/css';
-import { HStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 import { SearchListingLayout } from './SearchListingLayout';
 
 const catalogLayout = css({
@@ -127,9 +127,11 @@ export function ProductListingLayout({
       breadcrumbItems={breadcrumbItems}
       className={catalogLayout}
       headerAction={
-        platform === 'web' ? (
+        platform === 'mobile' ? (
+          <MobileProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />
+        ) : (
           <DesktopProductSort placeholder={sortPlaceholder} onChange={onSortChange} value={sort} />
-        ) : undefined
+        )
       }
       stickyHeader={platform === 'web'}
       title={
@@ -142,13 +144,12 @@ export function ProductListingLayout({
       }
     >
       {platform === 'mobile' && (
-        <HStack gap="2" pl="4" pr="2" h="9" alignItems="center">
+        <Box px="4" h="9">
           <MobileCategoryTabs
             activity={activity}
             onChange={(value) => onFilterChange('activity', value)}
           />
-          <MobileProductFilterTrigger iconOnly onClick={() => onFilterDrawerOpenChange(true)} />
-        </HStack>
+        </Box>
       )}
       {content}
     </ContentLayout>

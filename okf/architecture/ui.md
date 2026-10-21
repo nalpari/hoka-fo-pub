@@ -9,6 +9,8 @@ generated:
   at: '2026-10-21T08:15:46.840Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
   - src/shared/components/molecules/AmountRow/AmountRow.tsx
   - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
   - src/shared/components/molecules/SocialAuthButton/SocialAuthButton.tsx
@@ -2452,3 +2454,13 @@ ProductSizeSelector의 사이즈 가이드는 공통 ButtonLink로 `/support/siz
 SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. SizeGuideMeasurementImage는 성별·품목별 이미지 선택과 반응형 이미지 크기를, SizeGuideMeasurementInstructions는 품목 측정 단계와 신발 발볼 안내를 담당한다. SizeGuideChart는 단위 선택·표 제목·caption·행·준비 중 안내를 담당하며 category/gender/width/unit/onUnitChange를 받는다. 성별·발볼·단위 상태와 초기화 수명은 SizeGuidePanel에 유지한다. 추가 DOM 래퍼 없이 기존 스타일, 목록·표 의미와 조건부 표시를 보존했다.
 
 측정 안내 내부의 공통 제목·STEP 목록·선택적 보충 설명은 기능 내부 SizeGuideMeasurementMethod(title/steps/description)로 분리했다. SizeGuideMeasurementInstructions는 품목별 안내와 신발 전용 발볼 안내를 같은 컴포넌트로 조합한다. 기존 간격·문구·ol/li 구조와 신발 조건부 표시를 유지한다.
+
+## 모바일 상품목록 필터 버튼 원복 (2026-10-21)
+
+사용자가 첨부한 `codex-clipboard-b6ac903c-ee94-4a7a-8f6b-1b735ef540eb.png`와 필터 UI 원복 요청을 기준으로 `ProductListingLayout`의 모바일 `headerAction`에 기존 `MobileProductFilterTrigger`를 복원했다. 제목 오른쪽에 필터 문구·아이콘이 있는 테두리 알약 버튼을 표시하며, 탭 오른쪽 아이콘은 제거했다. 사용처가 없어진 `iconOnly` API와 IconButton import도 제거했다. 이 정책은 위의 모바일 상품목록 보정 기록 중 탭 옆 아이콘 배치 설명을 대체한다.
+
+상품 카드·이미지/배너 전체 폭·글자·36개 로딩, PC 정렬 및 검색 화면의 Filter & Sort 버튼과 필터 시트 상태/적용 방식은 유지한다. 카테고리 영역은 기존 좌우 16px 패딩과 36px 높이로 표시한다.
+
+출처: 작업 트리의 `src/shared/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
+
+검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
