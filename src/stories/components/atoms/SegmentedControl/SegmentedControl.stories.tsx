@@ -3,11 +3,18 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { css } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
-function SegmentedStory({ unstyled = false, fullWidth = false, variant = 'default' }: {
+function SegmentedStory({
+  unstyled = false,
+  fullWidth = false,
+  variant = 'default',
+  customTypography = false,
+}: {
   unstyled?: boolean;
   fullWidth?: boolean;
   variant?: 'default' | 'underline';
+  customTypography?: boolean;
 }) {
   const [value, setValue] = useState('all');
   return (
@@ -17,6 +24,15 @@ function SegmentedStory({ unstyled = false, fullWidth = false, variant = 'defaul
       unstyled={unstyled}
       fullWidth={fullWidth}
       variant={variant}
+      itemRender={
+        customTypography
+          ? ({ label }) => (
+              <Typography as="button" variant="choiceLabel">
+                {label}
+              </Typography>
+            )
+          : undefined
+      }
       className={unstyled ? css({ display: 'flex', gap: '2', overflowX: 'auto' }) : undefined}
       itemClassName={
         unstyled
@@ -86,6 +102,11 @@ export const CustomPresentation: Story = {
     await expect(canvas.getByRole('button', { name: '세일' })).toHaveFocus();
     await expect(canvas.getByRole('button', { name: '품절' })).toBeDisabled();
   },
+};
+
+export const CustomTypography: Story = {
+  args: { unstyled: true, customTypography: true },
+  play: CustomPresentation.play,
 };
 
 function EmptyValueStory() {

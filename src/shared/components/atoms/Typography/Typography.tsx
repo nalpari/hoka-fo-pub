@@ -414,6 +414,22 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      choiceLabel: {
+        fontFamily: 'var(--font-family-base)',
+        fontSize: 'var(--type-choice-label-font-size)',
+        fontWeight: 'var(--type-choice-label-font-weight)',
+        lineHeight: 'var(--type-choice-label-line-height)',
+        letterSpacing: 'var(--type-choice-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-choice-label-mobile-font-size)' },
+      },
+      unitLabel: {
+        fontFamily: 'var(--font-family-base)',
+        fontSize: 'var(--type-unit-label-font-size)',
+        fontWeight: 'var(--type-unit-label-font-weight)',
+        lineHeight: 'var(--type-unit-label-line-height)',
+        letterSpacing: 'var(--type-unit-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-unit-label-mobile-font-size)' },
+      },
       selectionLabel: {
         fontFamily: 'korean',
         fontSize: 'var(--type-selection-label-font-size)',
@@ -665,11 +681,13 @@ const typography = cva({
     },
     tone: typographyTones,
   },
-  defaultVariants: { tone: 'inherit', variant: 'body' },
+  defaultVariants: { variant: 'body' },
 });
 
 export type TypographyVariant =
   | 'unstyled'
+  | 'choiceLabel'
+  | 'unitLabel'
   | 'selectionLabel'
   | 'navigationHeading'
   | 'navigationPromoTitle'
@@ -791,6 +809,10 @@ export function Typography<T extends ElementType = 'span'>({
   const platform = usePlatform();
   const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
+  // Choice buttons own their state colors; keep the existing inherited-color default elsewhere.
+  const resolvedTone =
+    tone ??
+    (selectedVariant === 'choiceLabel' || selectedVariant === 'unitLabel' ? undefined : 'inherit');
   const isSessionBody =
     selectedVariant === 'sessionFactBody' ||
     selectedVariant === 'sessionGuideBody' ||
@@ -808,7 +830,7 @@ export function Typography<T extends ElementType = 'span'>({
         selectedVariant === 'unstyled'
           ? tone && typographyTone({ tone })
           : typography({
-              tone,
+              tone: resolvedTone,
               variant: resolvedVariant as never,
               script,
               weight,

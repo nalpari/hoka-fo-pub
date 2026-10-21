@@ -6,9 +6,10 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T05:05:06Z'
+  at: '2026-10-21T15:47:10+09:00'
 source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
 working_tree_sources:
+  - src/shared/features/size-guide/SizeGuidePanel.tsx
   - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
   - src/shared/features/mypage/MyPageRecentOrders.tsx
   - src/shared/features/notices/NoticesPage.tsx
@@ -133,6 +134,10 @@ working_tree_sources:
 ---
 
 # ContentHeader·ContentSection 적용 후보 전수 조사
+
+## 사이즈 가이드 적용 (2026-10-21)
+
+SizeGuidePanel의 품목 제목은 기본 ContentSection header의 h2/heading7로 옮겼고, 사이즈 차트는 h3/body2/bold와 orientation="horizontal"·action의 단위 선택으로 합성했다. 기본 header API로 표현 가능하므로 별도 header 노드는 사용하지 않는다. 바깥 20px gap, 차트 본문 4px gap과 가로 제목/액션 12px gap을 유지한다. PC·모바일 8개 품목의 제목·이미지·버튼·표 위치/크기를 실제 브라우저에서 적용 전후 비교해 동일함을 확인했다. [전체 재사용 기록](size-guide.md#재사용-개선과-사이드-메뉴-순서-2026-10-21)을 참고한다.
 
 ## 가로형 ContentHeader 소비처 확대 (2026-10-20)
 

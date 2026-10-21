@@ -176,6 +176,17 @@ $font-faces: (
     --type-page-title-letter-spacing: normal;
     // Single-choice view/filter labels keep the same scale on both platforms.
     --type-selection-label-font-size: 16px;
+    // Compact choices and measurement units retain native normal line boxes on both platforms.
+    --type-choice-label-font-size: 14px;
+    --type-choice-label-mobile-font-size: 14px;
+    --type-choice-label-font-weight: 400;
+    --type-choice-label-line-height: normal;
+    --type-choice-label-letter-spacing: normal;
+    --type-unit-label-font-size: 12px;
+    --type-unit-label-mobile-font-size: 12px;
+    --type-unit-label-font-weight: 400;
+    --type-unit-label-line-height: normal;
+    --type-unit-label-letter-spacing: normal;
     --type-selection-label-mobile-font-size: 16px;
     --type-selection-label-font-weight: 500;
     --type-selection-label-line-height: 1.3;

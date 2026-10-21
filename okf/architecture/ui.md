@@ -6,9 +6,22 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T15:22:34+09:00'
+  at: '2026-10-21T15:55:08+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/size-guide/SizeGuideMeasurementMethod.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurementImage.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurementInstructions.tsx
+  - src/shared/features/size-guide/SizeGuideChart.tsx
+  - src/shared/features/size-guide/SizeGuideChoiceGroup.tsx
+  - src/shared/components/atoms/DataTable/DataTable.tsx
+  - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/styles/global.scss
+  - src/shared/features/support/support.navigation.ts
+  - src/stories/components/atoms/DataTable/DataTable.stories.tsx
+  - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
+  - src/stories/components/atoms/Typography/Typography.ChoiceLabels.stories.tsx
   - src/shared/features/size-guide/SizeGuidePage.tsx
   - src/shared/features/size-guide/SizeGuidePanel.tsx
   - src/shared/features/size-guide/SizeGuideMeasurements.tsx
@@ -686,6 +699,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 사이즈 가이드 재사용 개선 (2026-10-21)
+
+[사이즈 가이드 재사용 기록](size-guide.md#재사용-개선과-사이드-메뉴-순서-2026-10-21)에 ContentSection·Grid·기능 내부 선택행, DataTable.spaced의 스타일 병합, SegmentedControl.itemRender와 Typography choiceLabel/unitLabel의 토큰·보존 검증을 기록했다. supportNavigation의 사이즈 가이드는 약관 다음 마지막 항목이다. 앞선 준비 단계의 기능별 표 클래스 구성은 이 변경으로 대체한다.
 
 ## 사이즈 가이드 화면 준비 (2026-10-21)
 
@@ -2357,3 +2374,9 @@ Codex가 2026-10-21에 `npm run panda`, `npm run typecheck`, 변경 TSX 대상 E
 ## 상품 상세 사이즈 가이드 링크 (2026-10-21)
 
 ProductSizeSelector의 사이즈 가이드는 공통 ButtonLink로 `/support/size-guide`에 현재 창에서 이동한다. 기존 link 변형·md 크기를 유지하며 ProductDetailPage부터 전달하던 팝업 콜백은 제거했다. 위 과거 설계서 대조 기록의 외부 HOKA 이동 설명은 이 변경으로 대체한다.
+
+## 사이즈 가이드 영역 분리 (2026-10-21)
+
+SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. SizeGuideMeasurementImage는 성별·품목별 이미지 선택과 반응형 이미지 크기를, SizeGuideMeasurementInstructions는 품목 측정 단계와 신발 발볼 안내를 담당한다. SizeGuideChart는 단위 선택·표 제목·caption·행·준비 중 안내를 담당하며 category/gender/width/unit/onUnitChange를 받는다. 성별·발볼·단위 상태와 초기화 수명은 SizeGuidePanel에 유지한다. 추가 DOM 래퍼 없이 기존 스타일, 목록·표 의미와 조건부 표시를 보존했다.
+
+측정 안내 내부의 공통 제목·STEP 목록·선택적 보충 설명은 기능 내부 SizeGuideMeasurementMethod(title/steps/description)로 분리했다. SizeGuideMeasurementInstructions는 품목별 안내와 신발 전용 발볼 안내를 같은 컴포넌트로 조합한다. 기존 간격·문구·ol/li 구조와 신발 조건부 표시를 유지한다.

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { cva } from 'styled-system/css';
@@ -79,6 +79,8 @@ export type SegmentedControlProps<T extends string = string> = {
   /** Use native toggle buttons and let the caller own all presentation styles. */
   unstyled?: boolean;
   itemClassName?: (option: SegmentedControlOption<T>, selected: boolean) => string | undefined;
+  /** Custom button renderer; Base UI preserves selection, focus and keyboard behavior. */
+  itemRender?: (option: SegmentedControlOption<T>) => ReactElement;
 };
 
 /** Accessible single-choice filters and view modes; not a tab-panel controller. */
@@ -92,6 +94,7 @@ export function SegmentedControl<T extends string = string>({
   className,
   unstyled = false,
   itemClassName,
+  itemRender,
 }: SegmentedControlProps<T>) {
   return (
     <ToggleGroup
@@ -123,13 +126,14 @@ export function SegmentedControl<T extends string = string>({
             .filter(Boolean)
             .join(' ')}
           render={
-            unstyled ? undefined : variant === 'underline' ? (
+            itemRender?.(option) ??
+            (unstyled ? undefined : variant === 'underline' ? (
               <Typography as="button" variant="selectionLabel" tone="primary">
                 {option.label}
               </Typography>
             ) : (
               <Button className={item({ variant, active: option.value === value })} />
-            )
+            ))
           }
           value={JSON.stringify(option.value)}
         >

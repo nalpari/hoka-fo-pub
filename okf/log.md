@@ -2,6 +2,12 @@
 
 ## 2026-10-21
 
+- **Refactor**: 품목별 측정 방법과 신발 발볼 안내를 공통 SizeGuideMeasurementMethod로 분리했다. title/steps/description으로 조합하며 기존 목록·문구·간격·조건부 표시를 유지한다. [사이즈 가이드](architecture/size-guide.md)에 반영했다.
+
+- **Refactor**: 사이즈 가이드의 측정 이미지·측정 방법·차트를 기능 내부 컴포넌트로 분리했다. 선택 상태는 Panel에 유지하고 기존 DOM·반응형 스타일을 보존했다. [사이즈 가이드](architecture/size-guide.md)와 [UI 기록](architecture/ui.md)에 책임을 반영했다.
+
+- **Refactor / Fix**: 사이즈 가이드에 ContentSection·Grid·기능 내부 선택행을 적용하고 DataTable.spaced에서 스타일을 병합해 PC 셀 패딩 충돌을 수정했다. SegmentedControl.itemRender로 Typography choiceLabel/unitLabel을 직접 합성해 기존 버튼 크기·글자 스타일을 유지했다. 사이드 메뉴는 약관 다음에 사이즈 가이드를 배치했다. [변경과 보존 검증](architecture/size-guide.md#재사용-개선과-사이드-메뉴-순서-2026-10-21)을 참고한다.
+
 - **Fix**: 상품 상세 사이즈 가이드를 팝업 버튼에서 현재 창의 `/support/size-guide`로 이동하는 ButtonLink로 변경하고 전달용 콜백을 제거했다. [사이즈 가이드](architecture/size-guide.md)와 [UI 기록](architecture/ui.md)에 반영했다.
 
 - **Feat**: 사이즈 가이드 빈 본문을 8개 품목의 측정 안내·성별·발볼·단위 선택·표로 채웠다. 첨부 시안에서 안내 이미지 9개를 추출하고 미확정 치수는 00 자리표시자로 유지했다. 푸터·상품 상세 진입을 연결하고 기존 Storybook PC/MO에 전환 검증을 추가했다. [구성과 검증 범위](architecture/size-guide.md)를 참고한다.
