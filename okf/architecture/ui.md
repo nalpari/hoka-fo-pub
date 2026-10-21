@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T04:02:10.835Z'
+  at: '2026-10-21T04:33:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/ProductGender/ProductGender.tsx
   - src/shared/features/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
@@ -2159,3 +2160,9 @@ ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정
 작업 트리 출처: panda.config.ts, src/shared/styles/global.scss, src/shared/components/atoms/Typography/Typography.tsx, src/shared/components/molecules/ProductDetails/ProductDetails.tsx, src/shared/components/molecules/HomeCarouselSection/{HomeCarouselSection,HomeCarouselRail}.tsx, src/shared/features/catalog/ProductListingResults.tsx, src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx. 해당 경로는 이 문서의 working_tree_sources에 기록되어 있다.
 
 검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TypeScript/TSX ESLint를 통과했다. 실제 Next 앱을 Edge headless에서 PC 1200·1920·2240·2560·3840px, 모바일 375·768px로 확인했다. PC 중앙 폭 1920/2240/2560/3840px에서 1532/1786/2040/2040px, 제목 40/46/52/52px, 상품명 16/17/18/18px와 목록 3/4/5/5열을 측정했다. 2560px Best sellers는 5번 이동 후 다음 버튼 비활성·마지막 카드 오른쪽 정렬 오차 1px 미만, 5번 역이동 후 이전 버튼 비활성을 확인했다. 모든 측정 화면에 페이지 가로 넘침이 없고 모바일 목록은 2열을 유지한다. 2560px 검색 결과와 상품 상세에도 가로 넘침이 없다. 홈·목록 2560px 스크린샷을 시각 검토했다. 이번 변경에서 프로덕션 빌드는 재실행하지 않았다.
+
+## 홈 Hero 버튼 외곽선 제거 (2026-10-21)
+
+HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.
+
+작업 트리 출처: `src/shared/components/organisms/Hero/HeroCopy.tsx`, `src/shared/components/atoms/Button/Button.tsx`. 브라우저 시각 검증은 수행하지 않았다.
