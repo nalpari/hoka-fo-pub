@@ -308,6 +308,8 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/HeaderLogo.tsx
   - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/Button/ButtonDocs.tsx
+  - src/shared/components/atoms/Button/Button.type-test.tsx
+  - src/shared/components/atoms/ToggleButton/ToggleButton.tsx
   - src/shared/components/atoms/DataTable/DataTable.tsx
   - src/shared/components/atoms/Fieldset/Fieldset.tsx
   - src/shared/components/atoms/FormField/FormField.tsx
@@ -340,6 +342,8 @@ working_tree_sources:
   - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
   - src/shared/components/organisms/Search/SearchHeader.tsx
   - src/shared/components/organisms/Search/SearchSuggestions.tsx
+  - src/shared/components/organisms/Search/PopularSearches.tsx
+  - src/shared/components/organisms/Search/RecommendedSearches.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
   - src/shared/Mockup/signup/SignupTermsStep.tsx
   - src/shared/features/catalog/product-listing/ProductListingContent.tsx
@@ -656,6 +660,7 @@ working_tree_sources:
   - src/shared/features/size-guide/SizeGuidePage.tsx
   - src/shared/features/support/support.navigation.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
+  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -891,7 +896,15 @@ HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보�
 
 모바일은 Base UI Dialog 전체 화면·스크롤·초기 입력 포커스를 사용한다. 닫기 행, 왼쪽 돋보기 입력, 최근 검색어, 추천 태그, 2열 인기 검색어 순서다. 자동완성은 PC 최대 9개·모바일 최대 3개와 파란 일치 문구를 표시하며 모바일은 기존 검색 섹션도 유지한다. 최근 검색어의 저장/개별 삭제/전체 삭제와 /search?q=…&scope=전체 이동을 유지한다. 데이터는 검색 API와 연결되지 않은 목 데이터다. 빈 검색 제출은 입력 요청 오류를 표시하며, 외부 error/onErrorChange 계약과 Invalid/MobileInvalid 스토리로 시안의 금칙어 오류 표시를 제공한다. 금칙어 목록이나 판정 정책을 새로 만들지 않았다. 기존 Button의 headerSearch variant는 호환성을 위해 남아 있으나 SiteHeader는 사용하지 않는다.
 
+추천 검색어는 Button의 `chip` variant를 사용하는 검색 이동 버튼이다. 칩은 size 옵션이 없으며 높이 36px, 패딩 9px 14px, body4 14px medium을 사용한다. 키워드별 onSearch 동작은 상위가 소유한다.
+
 검증: Panda 생성·전체 TypeScript·변경 TSX ESLint/Prettier와 Next/Storybook production build 통과. 브라우저에서 PC input 입력·자동완성 및 Enter의 실제 검색 결과 이동, 375px 모바일 자동완성 배치와 빈 검색 오류를 확인했다. 장바구니 기준 정렬 수정은 브라우저에서 기본 1020px·자동완성 540px 패널과 장바구니 영역의 오른쪽 좌표 차이 0px로 확인했으며 Panda·타입·변경 ESLint/Prettier를 확인했다. Storybook에는 PC/모바일 기본·자동완성·오류 6개 상태를 제공한다. 출처는 아래 working_tree_sources의 검색·헤더 구현과 스토리이며 첨부 시안은 사용자 제공 디자인이다.
+
+## plain 버튼 내부 정렬과 자동완성 검색어 (2026-10-21)
+
+공통 Button의 `plain`은 내부 내용을 왼쪽 정렬해 호출자가 별도 정렬 스타일을 넣지 않아도 된다. SearchOverlay의 자동완성은 이 `plain` variant를 사용한다. `ul`/`li` 구조, 검색 동작, 일치 문자열의 파란 `mark` 하이라이트와 body3 medium 타이포그래피를 유지한다. Button과 SearchOverlay 구현은 frontmatter의 작업 트리 출처에 포함한다.
+
+검증: 변경 파일 ESLint·Prettier, 타입 검사, Panda 생성, OKF 검사를 수행한다. 브라우저 시각 검증은 수행하지 않았다.
 
 ## 404 안내 화면 (2026-10-19)
 
@@ -1086,6 +1099,16 @@ Button의 link 기본 size는 md이며, 생략해도 tall/CTA1 래핑을 받지 
 작업 트리 출처는 `src/shared/components/atoms/Button/Button.tsx`다. 외곽은 `button.raw()`와 아이콘 전용/variant 스타일을 한 `css()` 호출에서 합친다. content·label·아이콘 전용 선언은 `css.raw()` 객체로 보관하며 content의 headerSearch 정렬과 label의 link 줄 높이도 각각 한 `css()`에서 병합한다. 같은 조건·속성의 값을 먼저 결정하므로 생성 CSS의 클래스 선언 순서에 의존하지 않는다. Panda는 여전히 속성별 클래스를 여러 개 생성한다.
 
 headerSearch 내용에는 `justifyContent: space-between`, link label에는 `lineHeight: 1.3`, 아이콘 전용 외곽에는 기본 높이 변수 24px·수평 여백 변수 0px가 남는다. density의 모바일 조건, fullWidth와 variant의 나머지 값, DOM·props·상태 처리·외부 className 후행 연결은 유지한다. 외부 className의 충돌 해결까지 보장하는 API는 아니다.
+
+## 밑줄 없는 텍스트 링크 변형 (2026-10-21)
+
+Button의 `link` variant는 밑줄 텍스트 링크, `plain` variant는 밑줄 없는 텍스트 링크다. 두 변형 모두 높이는 콘텐츠에 맞고 패딩은 0이라 별도 여백 없이 사용한다. SearchKeywordButton은 `plain`을 사용한다. ButtonDocs와 Storybook에 두 스타일 예제를 두고 ToggleButton도 두 variant를 전달한다. 출처는 `src/shared/components/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `ToggleButton.tsx`, `src/stories/components/atoms/Button/Button.stories.tsx`, `src/shared/components/organisms/Search/SearchKeywordButton.tsx`다.
+
+## Button chip 변형과 추천 검색어 (2026-10-21)
+
+Button에 단일 크기 `chip` variant를 추가했다. size 옵션은 없고 높이 36px, 패딩 9px 14px, body4 14px medium을 Button 자체에서 적용한다. 추천 검색어는 선택 상태를 토글하지 않고 검색 결과로 이동하는 버튼으로 이 변형을 사용한다. ButtonDocs·Button Storybook에 chip 예시를 제공한다.
+
+출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `Button.type-test.tsx`, `ToggleButton.tsx`, `src/stories/components/atoms/Button/Button.stories.tsx`, `src/shared/components/organisms/Search/RecommendedSearches.tsx`다.
 
 실제 Button TSX와 Panda 런타임을 사용한 임시 SSR 검사 180개 조합에서 variant·size·density·아이콘 전용·fullWidth를 바꾸며 동일 조건·속성 중복 제거, 정렬·줄 높이·아이콘 전용 기본 변수와 호출자 클래스 보존을 확인했다. 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next 프로덕션 빌드도 통과했다. 전체 lint는 기존 `.tmp-storybook-ia-routes/assets/` 등의 생성 파일 오류가 포함되어 실패했다. 이는 브라우저의 계산 스타일이나 fo-web 통합 화면 검증을 대신하지 않는다.
 
@@ -1972,9 +1995,33 @@ RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므�
 
 검증: 변경 파일 ESLint·Prettier 통과. 기존 SearchOverlay PC/MO 스토리에서 BUTTON 태그, 클릭 후 빈 상태·전체 삭제 버튼 숨김·localStorage 배열 초기화를 확인했다. 출처는 작업 트리의 RecentSearches.tsx와 기존 SearchOverlay.stories.tsx다.
 
+## 최근 검색어 빈 영역 숨김 (2026-10-21)
+
+최근 검색 기록이 없으면 안내 문구와 최근 검색어 섹션을 모두 렌더링하지 않는다. SearchSuggestions는 최근 검색 목록이 있을 때만 섹션을 배치하며, RecentSearches도 빈 목록에 대해 null을 반환한다. PC SearchDialog는 최근 검색어가 있을 때 1024px, 없을 때 544px 너비를 사용하고 기존 우측 정렬을 유지한다. 내부 Flex는 최근 검색어가 있을 때 두 영역을 같은 너비로 나누며, 없을 때 추천/인기 검색 영역이 480px 전체를 채운다. 모바일에서는 전체 화면과 기존 세로 배치·간격·패딩을 유지한다. SearchOverlay Storybook의 EmptyRecentSearches로 빈 상태 패널을 확인한다.
+
+출처는 작업 트리의 `src/shared/components/organisms/Search/RecentSearches.tsx`, `SearchSuggestions.tsx` 및 `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`다.
+
+## 검색 오류 문구 색상 지정 (2026-10-21)
+
+SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오류 색상 토큰을 직접 사용한다. 오류가 표시될 때 검색 입력의 빨간 테두리와 안내 문구 색상이 PC·모바일 모두 오류 상태를 나타낸다. SearchOverlay Storybook의 `Invalid`와 `MobileInvalid`가 각각 PC·모바일 예시를 제공한다.
+
+출처는 작업 트리의 `src/shared/components/organisms/Search/SearchForm.tsx`와 `src/stories/components/organisms/Search/SearchOverlay.stories.tsx`다.
+
+## 검색 결과 없음 문구의 PC/MO 시안 반영 (2026-10-21)
+
+SearchListingLayout의 결과 없음 상태를 Figma `906:8115`(PC)와 `773:42681`(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
+
+출처는 Figma `906:8115`, `773:42681`과 작업 트리의 `src/shared/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
+
+## 인기 검색어 섹션 분리 (2026-10-21)
+
+SearchSuggestions에서 인기 검색어의 제목·순위 목록·키워드 링크를 `PopularSearches`로 분리했다. 데이터와 검색 이동 처리는 상위가 소유하고, 새 컴포넌트는 `queries`와 `onNavigateSearch`를 받아 섹션 UI만 렌더링한다. 목록 항목은 Panda `HStack as="li"`로 배치하고, 2열 목록의 행/열 간격 12px·24px와 번호 폭 20px, PC/MO 제목 스케일 및 링크 동작을 유지한다. 기존 SearchSuggestions Storybook이 Default/Empty와 모바일 통합 구성을 계속 보여준다.
+
+출처는 작업 트리의 `src/shared/components/organisms/Search/PopularSearches.tsx`, `SearchSuggestions.tsx`, `searchOverlayData.ts` 및 `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`다.
+
 ## 최근 검색어 키워드의 공통 버튼 재사용 (2026-10-20)
 
-SearchKeywordButton은 공통 ButtonLink의 link 변형으로 `/search?q=…&scope=전체` 주소를 제공하고 Typography body4 문구로 표시한다. Next Link의 onNavigate에서 검색어 저장과 오버레이 닫기를 처리해 실제 경로 이동은 링크에 맡긴다. 검색 폼·자동완성·추천 검색어 버튼은 기존 검색 콜백으로 이동한다. mouse down 기본 동작 방지로 오버레이 입력 포커스도 유지한다. ButtonLink는 Next Link의 onNavigate를 전달한다.
+SearchKeywordButton은 공통 ButtonLink의 `plain` variant로 `/search?q=…&scope=전체` 주소를 제공하고 Typography body4 문구로 표시한다. 여백 없는 plain 기본 레이아웃을 사용한다. Next Link의 onNavigate에서 검색어 저장과 오버레이 닫기를 처리해 실제 경로 이동은 링크에 맡긴다. 검색 폼·자동완성·추천 검색어 버튼은 기존 검색 콜백으로 이동한다. mouse down 기본 동작 방지로 오버레이 입력 포커스도 유지한다. ButtonLink는 Next Link의 onNavigate를 전달한다.
 
 작업 트리 출처: `src/shared/components/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
 

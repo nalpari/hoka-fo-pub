@@ -108,9 +108,11 @@ const content = css.raw({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
+  boxSizing: 'border-box',
   w: '100%',
   gap: 'var(--button-content-gap)',
   px: 'var(--button-padding-x)',
+  py: 'var(--button-padding-y, 0px)',
   minH: 'var(--button-height)',
   whiteSpace: 'nowrap',
 });
@@ -148,13 +150,26 @@ const secondaryContentColor = css.raw({
 });
 
 export type ButtonVariant =
-  'primary' | 'secondary' | 'ghost' | 'brand' | 'link' | 'filterTrigger' | 'headerSearch';
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'brand'
+  | 'link'
+  | 'plain'
+  | 'chip'
+  | 'filterTrigger'
+  | 'headerSearch';
 
 export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
+  | { variant: 'plain'; size?: 'sm' | 'md' | 'lg' }
+  | { variant: 'chip'; size?: never }
   | { variant: 'filterTrigger' | 'headerSearch'; size?: never }
   | {
-      variant?: Exclude<ButtonVariant, 'link' | 'filterTrigger' | 'headerSearch'>;
+      variant?: Exclude<
+        ButtonVariant,
+        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch'
+      >;
       size?: 'tall' | 'short';
     };
 
@@ -177,7 +192,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     density,
     colorway = 'black',
     language = 'kr',
-    size = variant === 'link' ? 'md' : 'tall',
+    size = variant === 'link' || variant === 'plain' ? 'md' : 'tall',
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -194,15 +209,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const iconOnly = Boolean(icon && children == null);
   const primary = variant === 'primary';
   const white = colorway === 'white';
-  const unframed = variant === 'link' || variant === 'ghost';
+  const unframed = variant === 'link' || variant === 'plain' || variant === 'ghost';
   const labelTypographyVariant =
-    variant === 'headerSearch' || variant === 'filterTrigger'
-      ? undefined
-      : size === 'short'
-        ? 'cta2'
-        : size === 'tall'
-          ? 'cta1'
-          : undefined;
+    variant === 'chip'
+      ? 'body4'
+      : variant === 'headerSearch' || variant === 'filterTrigger'
+        ? undefined
+        : size === 'short'
+          ? 'cta2'
+          : size === 'tall'
+            ? 'cta1'
+            : undefined;
   const resolvedDensity =
     density ?? (size ? (size === 'tall' || size === 'lg' ? 'wide' : 'compact') : 'auto');
   const variables: Record<string, string> = {
@@ -213,6 +230,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       : white
         ? 'transparent'
         : 'var(--color-white-000)',
+    '--button-padding-y': '0px',
     '--button-color': primary
       ? white
         ? 'var(--color-black-100)'
@@ -248,13 +266,31 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-border-width-hover': '0px',
       '--button-radius': '0px',
     });
-  if (variant === 'link')
+  if (variant === 'link' || variant === 'plain')
     Object.assign(variables, {
       '--button-height': size === 'sm' ? '16px' : 'auto',
       '--button-padding-x': '0px',
       '--button-label-weight': '500',
     });
-  if (size === 'sm' && variant === 'link') variables['--button-label-size'] = '12px';
+  if (size === 'sm' && (variant === 'link' || variant === 'plain')) {
+    variables['--button-label-size'] = '12px';
+  }
+  if (variant === 'chip')
+    Object.assign(variables, {
+      '--button-height': '36px',
+      '--button-padding-x': '14px',
+      '--button-padding-y': '9px',
+      '--button-radius': '999px',
+      '--button-bg': 'var(--color-black-20)',
+      '--button-color': 'var(--color-black-100)',
+      '--button-bg-hover': 'var(--color-black-10)',
+      '--button-color-hover': 'var(--color-black-100)',
+      '--button-bg-active': 'var(--color-black-20)',
+      '--button-color-active': 'var(--color-black-100)',
+      '--button-border-width': '0px',
+      '--button-disabled-bg': 'var(--color-black-20)',
+      '--button-disabled-color': 'var(--color-black-40)',
+    });
   if (variant === 'brand')
     Object.assign(variables, {
       '--button-bg': 'var(--color-blue-100)',
@@ -305,13 +341,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         <span
           className={css(
             content,
+            variant === 'plain' && { justifyContent: 'flex-start' },
             variant === 'headerSearch' && { justifyContent: 'space-between' },
           )}
         >
           {iconOnly ? null : (
-            <span className={css(label, variant === 'link' && { lineHeight: '1.3' })}>
+            <span
+              className={css(
+                label,
+                (variant === 'link' || variant === 'plain') && {
+                  lineHeight: '1.3',
+                },
+              )}
+            >
               {labelTypographyVariant ? (
-                <Typography as="span" variant={labelTypographyVariant} style={{ color: 'inherit' }}>
+                <Typography
+                  as="span"
+                  variant={labelTypographyVariant}
+                  weight={variant === 'chip' ? 'medium' : undefined}
+                  style={{ color: 'inherit' }}
+                >
                   {children}
                 </Typography>
               ) : (

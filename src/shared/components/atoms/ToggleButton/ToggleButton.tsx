@@ -15,17 +15,30 @@ export function ToggleButton({
   indicator = true,
   ...buttonProps
 }: ToggleButtonProps) {
-  const resolvedProps =
-    buttonProps.variant === 'link' ||
-    buttonProps.variant === 'filterTrigger' ||
-    buttonProps.variant === 'headerSearch'
-      ? buttonProps
-      : { ...buttonProps, variant: buttonProps.variant ?? 'ghost' };
-
-  return (
-    <Button {...resolvedProps} aria-expanded={expanded}>
+  const content = (
+    <>
       {children}
       {indicator ? <span aria-hidden="true">{expanded ? '︿' : '﹀'}</span> : null}
+    </>
+  );
+
+  if (
+    buttonProps.variant === 'link' ||
+    buttonProps.variant === 'plain' ||
+    buttonProps.variant === 'chip' ||
+    buttonProps.variant === 'filterTrigger' ||
+    buttonProps.variant === 'headerSearch'
+  ) {
+    return (
+      <Button {...buttonProps} aria-expanded={expanded}>
+        {content}
+      </Button>
+    );
+  }
+
+  return (
+    <Button {...buttonProps} variant={buttonProps.variant ?? 'ghost'} aria-expanded={expanded}>
+      {content}
     </Button>
   );
 }

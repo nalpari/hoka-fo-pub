@@ -1,10 +1,7 @@
-import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { Grid, Stack } from 'styled-system/jsx';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
+import { Flex, Stack } from 'styled-system/jsx';
 import { RecentSearches } from './RecentSearches';
 import { RecommendedSearches } from './RecommendedSearches';
-import { SearchKeywordButton } from './SearchKeywordButton';
+import { PopularSearches } from './PopularSearches';
 import { popularSearches } from './searchOverlayData';
 
 type SearchSuggestionsProps = {
@@ -24,14 +21,15 @@ export function SearchSuggestions({
   onRemoveRecent,
   onClearRecent,
 }: SearchSuggestionsProps) {
+  const hasRecentSearches = recentSearches.length > 0;
+
   return (
-    <Grid
-      gridTemplateColumns="1fr 1fr"
-      gap="48px"
+    <Flex
+      gap="0"
       p="32px"
-      _mobile={{ gridTemplateColumns: '1fr', gap: '40px', px: '16px', py: '40px' }}
+      _mobile={{ flexDirection: 'column', gap: '32px', px: '16px', py: '16px' }}
     >
-      {recentSearches.length > 0 && (
+      {hasRecentSearches && (
         <RecentSearches
           recentSearches={recentSearches}
           onNavigateSearch={onNavigateSearch}
@@ -39,42 +37,10 @@ export function SearchSuggestions({
           onClear={onClearRecent}
         />
       )}
-      <Stack gap="40px" gridColumn="2" _mobile={{ gridColumn: '1' }}>
+      <Stack flex="1" gap="32px">
         <RecommendedSearches queries={suggestedSearches} onSearch={onSearch} />
-        <ContentSection
-          as="section"
-          aria-labelledby="popular-search-title"
-          gap="6"
-          title="인기 검색어"
-          headerProps={{
-            titleAs: 'h3',
-            titleProps: { variant: 'body2', weight: 'bold', id: 'popular-search-title' },
-          }}
-        >
-          <Grid
-            as="ol"
-            mb="0"
-            p="0"
-            gridAutoFlow="column"
-            gridTemplateRows="repeat(5, auto)"
-            gridTemplateColumns="1fr 1fr"
-            gap="12px 24px"
-            listStyleType="none"
-          >
-            {popularSearches.map((query, index) => (
-              <li
-                key={query}
-                className={css({ display: 'flex', alignItems: 'center', gap: '16px' })}
-              >
-                <Typography variant="body4" className={css({ minW: '12px' })}>
-                  {index + 1}
-                </Typography>
-                <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
-              </li>
-            ))}
-          </Grid>
-        </ContentSection>
+        <PopularSearches queries={popularSearches} onNavigateSearch={onNavigateSearch} />
       </Stack>
-    </Grid>
+    </Flex>
   );
 }

@@ -69,6 +69,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const EmptyRecentSearches: Story = {
+  beforeEach: () => {
+    const key = 'hoka-recent-searches';
+    const stored = window.localStorage.getItem(key);
+    window.localStorage.setItem(key, '[]');
+
+    return () => {
+      if (stored === null) window.localStorage.removeItem(key);
+      else window.localStorage.setItem(key, stored);
+    };
+  },
+};
+
 export const Autocomplete: Story = { args: { query: '러닝' } };
 
 export const Invalid: Story = { args: { error: '검색할 수 없는 단어가 포함되어 있습니다.' } };

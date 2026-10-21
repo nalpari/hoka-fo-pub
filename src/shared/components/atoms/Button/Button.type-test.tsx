@@ -12,6 +12,8 @@ export function checkButtonSizingTypes() {
       <Button variant="link" size="sm" />
       <Button variant="link" size="md" />
       <Button variant="link" size="lg" />
+      <Button variant="plain" size="md" />
+      <Button variant="chip">Chip</Button>
       <ButtonLink href="/" size="tall">
         Button
       </ButtonLink>
@@ -47,6 +49,9 @@ export function checkButtonSizingTypes() {
 
   // @ts-expect-error A default variant uses tall/short.
   const defaultSmall = <Button size="sm" />;
+
+  // @ts-expect-error Chip has one fixed size.
+  const chipShort = <Button variant="chip" size="short" />;
 
   // @ts-expect-error Non-link variants reject legacy sizes.
   const primaryLarge = <Button variant="primary" size="lg" />;
@@ -130,6 +135,7 @@ export function checkButtonSizingTypes() {
   return [
     valid,
     defaultSmall,
+    chipShort,
     primaryLarge,
     linkTall,
     legacyHeight,
