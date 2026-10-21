@@ -47,7 +47,7 @@ export function SupportTabs({
   defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
-  variant?: 'default' | 'scrollable';
+  variant?: 'default' | 'scrollable' | 'guide';
 }) {
   return (
     <Tabs.Root defaultValue={defaultValue} value={value} onValueChange={onValueChange}>
@@ -55,7 +55,7 @@ export function SupportTabs({
         aria-label={ariaLabel}
         className={css(
           list,
-          variant === 'scrollable' && {
+          variant !== 'default' && {
             overflowX: 'auto',
             borderBottom: '1px solid var(--color-border-subtle)',
           },
@@ -65,20 +65,37 @@ export function SupportTabs({
           <Tabs.Tab
             render={variant === 'scrollable' ? <Button /> : undefined}
             className={
-              variant === 'scrollable'
+              variant === 'guide'
                 ? css({
                     flex: '0 0 auto',
-                    minH: '11',
+                    minW: '0',
+                    h: '44px',
+                    px: '4',
+                    whiteSpace: 'nowrap',
                     border: '0',
                     borderBottom: '2px solid transparent',
                     bg: 'transparent',
-                    px: '3.5',
-                    '&[data-active]': {
-                      borderBottomColor: 'var(--color-black-100)',
-                      fontWeight: 'var(--font-weights-extrabold)',
+                    cursor: 'pointer',
+                    '&[data-active]': { borderBottomColor: 'var(--color-black-100)' },
+                    _focusVisible: {
+                      outline: '2px solid var(--color-focus-ring)',
+                      outlineOffset: '-2px',
                     },
                   })
-                : css(tab)
+                : variant === 'scrollable'
+                  ? css({
+                      flex: '0 0 auto',
+                      minH: '11',
+                      border: '0',
+                      borderBottom: '2px solid transparent',
+                      bg: 'transparent',
+                      px: '3.5',
+                      '&[data-active]': {
+                        borderBottomColor: 'var(--color-black-100)',
+                        fontWeight: 'var(--font-weights-extrabold)',
+                      },
+                    })
+                  : css(tab)
             }
             key={value}
             value={value}

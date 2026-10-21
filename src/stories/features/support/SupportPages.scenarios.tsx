@@ -65,7 +65,42 @@ export const Desktop: Story = {
   globals: { viewport: 'hoka1600' },
 };
 
+const verifySizeGuide: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  for (const category of [
+    '신발',
+    '상의',
+    '하의',
+    '러닝 베스트',
+    '러닝 벨트',
+    '모자',
+    '양말',
+    '장갑',
+  ]) {
+    await userEvent.click(canvas.getByRole('tab', { name: category }));
+    const panel = within(canvas.getByRole('tabpanel'));
+    await expect(panel.getByRole('heading', { name: category })).toBeVisible();
+    await userEvent.click(panel.getByRole('button', { name: '여성' }));
+    await expect(panel.getByRole('button', { name: '여성' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await userEvent.click(panel.getByRole('button', { name: 'INCH' }));
+    await expect(panel.getByRole('table')).toHaveAccessibleName(
+      new RegExp(`${category} 여성.*INCH`),
+    );
+    await userEvent.click(panel.getByRole('button', { name: '남성' }));
+    await userEvent.click(panel.getByRole('button', { name: 'CM' }));
+  }
+  await userEvent.click(canvas.getByRole('tab', { name: '신발' }));
+  const panel = within(canvas.getByRole('tabpanel'));
+  await userEvent.click(panel.getByRole('button', { name: 'X-와이드' }));
+  await expect(panel.getByRole('table')).toHaveAccessibleName(/X-와이드/);
+  await userEvent.click(panel.getByRole('button', { name: '레귤러' }));
+};
+
 export const SizeGuideDesktop: Story = {
+  play: verifySizeGuide,
   render: () => (
     <ShopShell platform="web">
       <SizeGuidePage />
@@ -76,6 +111,7 @@ export const SizeGuideDesktop: Story = {
 };
 
 export const SizeGuideMobile375: Story = {
+  play: verifySizeGuide,
   render: () => (
     <ShopShell platform="mobile">
       <SizeGuidePage />

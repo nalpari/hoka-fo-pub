@@ -27,7 +27,6 @@ type ProductVariantSelectorsProps = {
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
-  onOpenSizeGuide: () => void;
 };
 
 export function ProductVariantSelectors({
@@ -40,7 +39,6 @@ export function ProductVariantSelectors({
   onColorChange,
   onWidthChange,
   onSizeChange,
-  onOpenSizeGuide,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
   const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
@@ -58,7 +56,6 @@ export function ProductVariantSelectors({
         />
         <ProductSizeSelector
           error={error}
-          onOpenSizeGuide={onOpenSizeGuide}
           onValueChange={onSizeChange}
           selectedWidth={selected}
           value={size}

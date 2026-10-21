@@ -15,7 +15,6 @@ type ProductDetailPanelProps = {
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
-  onOpenSizeGuide: () => void;
   onAddToCart: () => void;
   onOrder: () => void;
   onWishChange: () => void;
@@ -32,7 +31,6 @@ export function ProductDetailPanel({
   onColorChange,
   onWidthChange,
   onSizeChange,
-  onOpenSizeGuide,
   onAddToCart,
   onOrder,
   onWishChange,
@@ -54,7 +52,6 @@ export function ProductDetailPanel({
           gallery={gallery}
           onAddToCart={onAddToCart}
           onColorChange={onColorChange}
-          onOpenSizeGuide={onOpenSizeGuide}
           onOrder={onOrder}
           onSizeChange={onSizeChange}
           onWidthChange={onWidthChange}

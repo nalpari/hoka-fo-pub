@@ -4,7 +4,7 @@ import type { ProductWidthOption } from '@/mocks/products';
 import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
 import { productSizeOptions } from '@/shared/features/product/productSizeOptions';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
 import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
@@ -13,7 +13,6 @@ type ProductSizeSelectorProps = {
   value: string;
   error: string;
   onValueChange: (size: string) => void;
-  onOpenSizeGuide: () => void;
 };
 
 export function ProductSizeSelector({
@@ -21,16 +20,15 @@ export function ProductSizeSelector({
   value,
   error,
   onValueChange,
-  onOpenSizeGuide,
 }: ProductSizeSelectorProps) {
   return (
     <ProductVariantSection
       action={
         <Flex gap="2" align="center">
           <Icon name="action/fa-ruler-horizontal" size="18px" color="currentColor" />
-          <Button variant="link" size="md" onClick={onOpenSizeGuide} type="button">
+          <ButtonLink variant="link" size="md" href="/support/size-guide">
             사이즈 가이드
-          </Button>
+          </ButtonLink>
         </Flex>
       }
       id="product-size"

@@ -14,7 +14,6 @@ type ProductDetailContentProps = {
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
-  onOpenSizeGuide: () => void;
   onAddToCart: () => void;
   onOrder: () => void;
 };
@@ -29,7 +28,6 @@ export function ProductDetailContent({
   onColorChange,
   onWidthChange,
   onSizeChange,
-  onOpenSizeGuide,
   onAddToCart,
   onOrder,
 }: ProductDetailContentProps) {
@@ -40,7 +38,6 @@ export function ProductDetailContent({
         error={error}
         gallery={gallery}
         onColorChange={onColorChange}
-        onOpenSizeGuide={onOpenSizeGuide}
         onSizeChange={onSizeChange}
         onWidthChange={onWidthChange}
         product={product}

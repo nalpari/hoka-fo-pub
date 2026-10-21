@@ -6,9 +6,21 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T06:04:56Z'
+  at: '2026-10-21T15:22:34+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/shared/features/size-guide/SizeGuidePanel.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurements.tsx
+  - src/shared/features/size-guide/size-guide.data.ts
+  - src/shared/components/molecules/SupportTabs/SupportTabs.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
+  - src/shared/features/product/ProductDetailPage.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailContent.tsx
+  - src/shared/features/product/ProductVariantSelectors.tsx
+  - src/shared/features/product/ProductSizeSelector.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
   - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
   - src/shared/features/catalog/product-listing/ProductListTitle.tsx
   - src/shared/features/catalog/product-listing/MobileCategoryTabs.tsx
@@ -669,6 +681,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 사이즈 가이드 화면 준비 (2026-10-21)
+
+[사이즈 가이드](size-guide.md)에 8개 품목 패널, 측정 안내 분리, SupportTabs guide 변형과 공통 선택·표 재사용을 기록했다. 기존 빈 본문은 측정 안내로 대체했고, 확정되지 않은 치수는 자리표시자로 유지한다. 첨부 이미지 출처와 PC/MO 검증 범위도 해당 문서를 참고한다.
 
 ## GNB 최종 메뉴 반영 (2026-10-20)
 
@@ -2290,3 +2306,7 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 ### 검증
 
 Codex가 2026-10-21에 `npm run panda`, `npm run typecheck`, 변경 TSX 대상 ESLint와 `git diff --check`를 실행했다. 375px Storybook 목록에서 전체 폭 2열·카드 굵기·카테고리/아이콘 배치와 필터 열기/닫기를 확인했다. 768px의 2열·아이콘 배치, 1600px PC의 3열·필터·정렬 유지도 확인했다. 필터·상세·메인 정책 차이는 소스 및 첨부 대조이며, 해당 기능을 모두 브라우저에서 실행한 결과가 아니다.
+
+## 상품 상세 사이즈 가이드 링크 (2026-10-21)
+
+ProductSizeSelector의 사이즈 가이드는 공통 ButtonLink로 `/support/size-guide`에 현재 창에서 이동한다. 기존 link 변형·md 크기를 유지하며 ProductDetailPage부터 전달하던 팝업 콜백은 제거했다. 위 과거 설계서 대조 기록의 외부 HOKA 이동 설명은 이 변경으로 대체한다.
