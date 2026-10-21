@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore, type FormEvent } from 'react';
 import { products } from '@/mocks/products';
 import type { CartItem } from '@/shared/types/cart';
-import { CheckoutContent } from '@/shared/features/checkout/CheckoutContent';
+import { CheckoutForm } from '@/shared/features/checkout/CheckoutForm';
 import { CheckoutLayout } from '@/shared/features/checkout/CheckoutLayout';
 import type { PaymentMethod } from '@/shared/features/checkout/CheckoutPayment';
 import { getCheckoutSummary } from '@/shared/features/checkout/checkout-summary';
@@ -40,7 +40,7 @@ export function CheckoutPage({ cart, onComplete }: Props) {
 
   return (
     <CheckoutLayout completed={completed}>
-      <CheckoutContent
+      <CheckoutForm
         completed={completed}
         rows={rows}
         total={total}

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { css, cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 
@@ -28,6 +30,7 @@ const list = cva({
         '&::-webkit-scrollbar-thumb': { bg: 'var(--color-black-40)' },
       },
       grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '2' },
+      cart: { display: 'flex', gap: '2', overflowX: 'auto' },
     },
   },
 });
@@ -41,12 +44,13 @@ const option = cva({
       scroll: { flex: '0 0 34px', w: '34px', h: '34px' },
       preview: { flex: '0 0 80px', w: '80px', h: '53px' },
       grid: { w: '76px', h: '60px' },
+      cart: { flex: '0 0 72px', w: '18' },
     },
     selected: { true: { boxShadow: 'inset 0 -3px var(--color-black-100)' }, false: {} },
   },
 });
 
-const optionButton = css({
+const optionButton = css.raw({
   cursor: 'pointer',
   border: '0',
   p: '0',
@@ -62,6 +66,8 @@ const image = css({ w: '100%', h: '100%', objectFit: 'contain' });
 
 const previewImage = css({ display: 'block', w: '100%', h: '53px', objectFit: 'contain' });
 
+const cartImage = css({ w: '100%', aspectRatio: '1', objectFit: 'contain', bg: 'black.10' });
+
 export type ProductOptionThumbnail = {
   id: string;
   image: string;
@@ -70,7 +76,7 @@ export type ProductOptionThumbnail = {
 
 export type ProductOptionListProps = {
   ariaLabel?: string;
-  layout: 'scroll' | 'grid' | 'preview';
+  layout: 'scroll' | 'grid' | 'preview' | 'cart';
   onSelect?: (id: string) => void;
   options: readonly ProductOptionThumbnail[];
   selectedId?: string;
@@ -126,9 +132,18 @@ export function ProductOptionList({
     >
       {options.map((optionItem) => {
         const selected = optionItem.id === selectedId;
-        const className = [option({ layout, selected }), onSelect && optionButton]
-          .filter(Boolean)
-          .join(' ');
+        const className = css(
+          option.raw({ layout, selected }),
+          onSelect && optionButton,
+          layout === 'cart' && {
+            display: 'block',
+            bg: 'transparent',
+            boxShadow: 'none',
+            borderBottom: selected ? '2px solid black' : '2px solid transparent',
+            _hover: { boxShadow: 'none' },
+            _focusVisible: { boxShadow: 'none', outline: '2px solid var(--colors-black-100)' },
+          },
+        );
 
         if (onSelect) {
           return (
@@ -143,7 +158,9 @@ export function ProductOptionList({
               <img
                 alt=""
                 aria-hidden="true"
-                className={layout === 'preview' ? previewImage : image}
+                className={
+                  layout === 'preview' ? previewImage : layout === 'cart' ? cartImage : image
+                }
                 src={optionItem.image}
               />
             </button>
@@ -155,7 +172,9 @@ export function ProductOptionList({
             <img
               alt=""
               aria-hidden="true"
-              className={layout === 'preview' ? previewImage : image}
+              className={
+                layout === 'preview' ? previewImage : layout === 'cart' ? cartImage : image
+              }
               src={optionItem.image}
             />
           </span>
@@ -174,7 +193,7 @@ export function ProductOptionList({
         className={arrow}
         disabled={edges.start}
         onClick={() => move(-1)}
-        icon={<span aria-hidden="true">◂</span>}
+        icon={<Icon fontAwesomeIcon={faChevronLeft} size={12} />}
       />
       {content}
       <Button
@@ -183,7 +202,7 @@ export function ProductOptionList({
         className={arrow}
         disabled={edges.end}
         onClick={() => move(1)}
-        icon={<span aria-hidden="true">▸</span>}
+        icon={<Icon fontAwesomeIcon={faChevronRight} size={12} />}
       />
     </Grid>
   );

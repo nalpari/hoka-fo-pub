@@ -1,10 +1,12 @@
-import { HStack, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getCartImage } from '@/mocks/cartDisplay';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Collapsible } from '@/shared/components/atoms/Collapsible/Collapsible';
+import { OrderProductSummary } from '@/shared/components/molecules/OrderProductSummary/OrderProductSummary';
 import type { CheckoutRow } from './checkout-summary';
 
 type Props = {
@@ -26,31 +28,24 @@ export function CouponProductItem({
 }: Props) {
   return (
     <Stack gap="4" py="4" borderTop="1px solid var(--colors-black-100)">
-      <HStack alignItems="flex-start" gap="4">
-        <img
-          src={getCartImage(item, product.primaryImage ?? '')}
-          alt={product.name}
-          className={css({ w: '88px', h: '88px', objectFit: 'contain', bg: 'black.10' })}
-        />
-        <Stack gap="1">
-          <Typography variant="body4" weight="semibold">
-            {product.name}
-          </Typography>
-          <Typography variant="body5">
-            옵션 : {item.width} / {item.color} / {item.size} {item.quantity}개
-          </Typography>
-          <Typography variant="body4">
-            {(product.price * item.quantity).toLocaleString()}원
-          </Typography>
-        </Stack>
-      </HStack>
+      <OrderProductSummary
+        variant="coupon"
+        image={getCartImage(item, product.primaryImage ?? '')}
+        name={product.name}
+        optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
+        amount={product.price * item.quantity}
+      />
       <Collapsible
         open={expanded}
         onOpenChange={onExpandedChange}
-        indicator={null}
+        indicator={<Icon fontAwesomeIcon={expanded ? faMinus : faPlus} size={12} />}
         panelClassName={css({ pt: '4' })}
-        triggerRender={<Button variant="link" size="sm" />}
-        trigger={<>사용 가능 쿠폰 2개 (전체 3개) {expanded ? '−' : '+'}</>}
+        triggerClassName={css({ minH: '24px', textAlign: 'left' })}
+        trigger={
+          <Typography as="span" variant="body5">
+            사용 가능 쿠폰 2개 (전체 3개)
+          </Typography>
+        }
       >
         <Radio
           ariaLabel={`${product.name} 상품 쿠폰`}

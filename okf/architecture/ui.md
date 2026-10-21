@@ -6,9 +6,32 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T04:33:11Z'
+  at: '2026-10-21T05:36:00Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/shared/components/atoms/Wishlist/Wishlist.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/cart/CartSelectionBar.tsx
+  - src/shared/features/cart/CartProductList.tsx
+  - src/shared/features/cart/CartSupportInfo.tsx
+  - src/shared/features/cart/CartOptionsContent.tsx
+  - src/shared/features/checkout/AmountRow.tsx
+  - src/shared/features/checkout/CheckoutForm.tsx
+  - src/shared/features/checkout/CheckoutContent.tsx
+  - src/shared/features/checkout/CheckoutPayment.tsx
+  - src/shared/features/checkout/CouponAmountSummary.tsx
+  - src/stories/components/molecules/OrderProductSummary/OrderProductSummary.stories.tsx
+  - src/stories/components/molecules/ProductOptionList/ProductOptionList.stories.tsx
+  - src/stories/components/atoms/Wishlist/Wishlist.stories.tsx
+  - src/shared/components/atoms/IconButton/IconButton.tsx
+  - src/shared/components/atoms/Icon/Icon.tsx
+  - src/shared/features/cart/CartItemRow.tsx
+  - src/shared/features/cart/CartOptionsDialog.tsx
+  - src/shared/features/checkout/CheckoutProductList.tsx
+  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/shared/features/checkout/CouponProductItem.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
   - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/ProductGender/ProductGender.tsx
   - src/shared/features/home/HomeBestSellerSection.tsx
@@ -2166,3 +2189,51 @@ ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정
 HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.
 
 작업 트리 출처: `src/shared/components/organisms/Hero/HeroCopy.tsx`, `src/shared/components/atoms/Button/Button.tsx`. 브라우저 시각 검증은 수행하지 않았다.
+
+## 주문 화면 시각 오차 보정 (2026-10-21)
+
+사용자 첨부 모바일 시안과 현재 Storybook을 대조해 표시만 보정했다. CartItemRow는 모바일 카드 최소 높이 164px, 80px 썸네일과 상단 체크 위치를 사용하고 옵션/수량을 한 흐름으로 표시한다. 상품 이미지는 contain으로 유지해 잘림과 flex 축소를 방지한다. CheckoutProductList와 CouponProductItem도 모바일 썸네일을 80px로 맞춘다. CartOptionsDialog의 큰 이미지는 PC 24px·모바일 16px 본문 좌우 패딩과 상단 24px 패딩을 상쇄해 팝업 경계에 맞춘다.
+
+CheckoutDiscountSummary는 쿠폰 조회 링크를 라벨 옆에 두고, 할인액을 오른쪽에 정렬한다. 총 결제금액 행에만 연한 배경을 적용하고 안내문은 테두리 밖에 둔다. CouponProductItem은 공통 Collapsible의 기본 버튼으로 문구와 우측 +/- 표시를 분리한다. 제어 상태·라디오 값·onOpenChange·onSelect 계약은 유지한다. CheckoutComplete의 체크 장식은 첨부 시안에 맞춰 모바일에서만 숨기고 PC에서는 유지한다.
+
+작업 트리 출처는 frontmatter의 CartItemRow·CartOptionsDialog·CheckoutProductList·CheckoutDiscountSummary·CouponProductItem·CheckoutComplete다. 금액 계산, 상품 선택 대상, 품절 처리, 주문 상태별 행동, 기간 필터와 실제 결제 정책은 사용자 범위 밖이므로 변경하지 않았다. 주문/배송 조회의 정적 구현을 새 흐름으로 확장하지 않았다.
+
+Panda 생성·전체 타입 검사·변경 TSX ESLint를 통과했다. 모바일 375px에서 카드와 쿠폰 팝업 정렬을 시각 확인하고 기존 CouponSelection 시나리오가 480,000원에서 48,000원 할인 후 432,000원을 표시하는 것을 확인했다. 실제 결제 승인·주문 저장은 검증 범위에 포함하지 않는다.
+
+추가 검증: Next.js 프로덕션 빌드(52개 정적 페이지 생성)와 변경 TSX Prettier 검사를 통과했다. PC 1280px에서도 기존 CouponSelection 적용 결과와 금액 요약 배치를 확인했다. 모바일 옵션 팝업의 이미지가 헤더 직후·좌우 경계에 맞고 취소/변경 버튼이 유지되는 것을 시각 확인했다. OKF 작업 트리 매핑 검사도 통과했다.
+
+## 주문 화면 공통 프리미티브 보완 (2026-10-21)
+
+직전 변경의 6개 컴포넌트를 재검토해 CartItemRow·CheckoutProductList·CouponProductItem의 정사각형 이미지 3곳을 Panda square 패턴으로 통합했다. 크기는 size 토큰 24/20(96/80px)과 쿠폰의 PC 88px 리터럴·모바일 20(80px)로 기존 PC/모바일 값을 유지하며 display:block·objectFit:contain·flex:0 0 auto를 사용한다. 설치된 SquareProps는 HTMLStyledProps<'div'> 기준으로 src/alt를 선언하지 않으므로, 타입 캐스팅이나 추가 래퍼 대신 네이티브 img에 square 패턴을 적용한다. 너비/높이의 중복 선언은 제거했다.
+
+CartItemRow의 삭제는 기존 IconButton(size=24)·Icon(faXmark)을 사용하며 접근성 이름과 onRemove 콜백을 유지한다. CheckoutComplete의 원형 장식은 Circle(size=10)로 이전하고 기존 block/모바일 숨김·flex:0 1 auto를 명시해 기본 중앙 정렬과 flex 기본값이 배치를 바꾸지 않도록 했다. 이 장식의 글리프 크기는 본문 Typography 척도가 아닌 장식 값으로 유지한다. CheckoutDiscountSummary의 안내문 앞 12px은 부모 Stack gap=3으로 이동하고 불필요한 Box 래퍼를 제거했다. 새 공개 컴포넌트나 API는 추가하지 않았다.
+
+CartOptionsDialog의 대표 이미지와 색상 썸네일은 고정 w/h 쌍이 아닌 너비+aspectRatio로 고유 비율을 유지하므로 기존 네이티브 img·Panda css를 유지한다. Square의 퍼센트 size를 적용하면 높이가 부모 높이에 의존할 수 있어 동등한 계약이 아니다. 색상 버튼은 선택 테두리를 가진 썸네일 버튼으로 일반 IconButton 적용 대상이 아니다. CartItemRow의 액션 mt=1은 앞선 gap=1에 추가되는 단일 4px 간격이며 반복 형제 간격이 아니므로 유지했다.
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint를 통과했다. 모바일 375px에서 이미지가 실제 IMG·80×80px·contain·flex:0 0 auto인 것을 측정했고, 삭제 클릭 후 행 제거·선택상품 수·합계 갱신을 확인했다. 작업 트리 출처는 frontmatter의 6개 주문 컴포넌트와 IconButton·Icon 및 설치된 styled-system의 square/Circle 구현이다.
+
+후속 검증: Next.js 프로덕션 빌드와 OKF 작업 트리 매핑 검사를 통과했다. PC 장바구니 이미지는 96×96px, 모바일 쿠폰 이미지는 80×80px로 측정했다. 기존 모바일 CouponSelection 시나리오의 쿠폰 선택·펼침 상태와 432,000원 결제 표시를 확인했다.
+
+쿠폰 펼침 아이콘 보완: CouponProductItem의 Typography 문자 +/-를 공통 Icon(fontAwesomeIcon=faPlus/faMinus, size=12)으로 교체했다. Collapsible의 장식용 aria-hidden 영역과 기존 open/onOpenChange를 유지한다. 별도 상태나 버튼은 추가하지 않았다. 출처는 기존 frontmatter의 CouponProductItem.tsx·Icon.tsx다.
+
+아이콘 보완 검증: 전체 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드를 통과했다. 이 보완에서는 브라우저 시각 검증을 재실행하지 않았다.
+
+## 주문 화면 구성 분리와 재사용 (2026-10-21)
+
+공통 molecule OrderProductSummary는 image/name/optionText/amount, 선택적 gender/children과 cart/checkout/coupon variant를 받는다. CartItemRow·CheckoutProductList·CouponProductItem이 사용한다. 목 상품 조회·합계 계산·선택·쿠폰 상태는 소비처가 유지한다. PC 이미지 96px(쿠폰 88px)·모바일 80px, cart의 두 줄 말줄임과 모바일 중앙 정렬, coupon의 기본색 옵션·보통 굵기 금액을 보존한다. 액션은 children으로 기존 정보 Stack에 직접 참여하며 추가 DOM 래퍼를 만들지 않는다. 새 공개 API는 이 컴포넌트 하나이며 src/stories/components/molecules/OrderProductSummary에서 세 context와 모바일 긴 이름을 제공한다.
+
+CartContent는 CartSelectionBar·CartProductList·CartSupportInfo를 조합한다. 각 부분은 기존 선택 바, ul/li 목록, 고객센터 section을 그대로 렌더링하며 신규 상태나 중간 래퍼를 추가하지 않는다. CartOptionsDialog가 draft·width/color별 sizes·soldOut·valid와 ConfirmDialog 저장/취소를 유지하고 CartOptionsContent에는 준비된 정보·색상 썸네일과 변경 콜백만 전달한다. 숫자·사이즈·발볼은 기존 NumberStepper·SizeSelector·Radio를 유지한다.
+
+ProductOptionList에 layout=cart를 추가했다. 72px 이미지·2px 선택 테두리·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
+
+Wishlist의 선택적 label·iconSize로 장바구니의 12px 하트+관심상품 표기를 지원한다. label이 없으면 기존 38px 토글과 PC 24px/MO 19px 아이콘을 유지한다. 선택은 기존 Base UI Toggle의 pressed/onPressedChange로 관리하고, CartPage favorites가 계속 원본 상태다. Labelled 스토리는 왕복 토글을 확인한다. CheckoutComplete의 원형 완료 장식도 문자 체크 대신 Icon(faCheck)을 사용하며 모바일 숨김을 유지한다.
+
+CheckoutPayment는 기존 공통 Radio(custom)로 3열·4px gap·56px 최소 높이와 선택 테두리를 유지한다. name=paymentMethod와 kakao/naver/toss/card/samsung/payco 값을 보존한다. 설치된 Base UI Radio·RadioGroup을 재사용하며 의존성 변경은 없다. 로고 자산 등록과 결제수단 추가는 하지 않는다. AmountRow는 결제 기능 안에서 label/amount/discount/emphasis/emphasizeLabel/action과 HStack 배치 props를 받고, CheckoutDiscountSummary·CouponAmountSummary가 기존 계산값과 행별 여백을 전달한다. 할인 색은 Typography tone=error(red.100)로 통일했다.
+
+CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트를 이동했다. CheckoutContent는 준비된 값·명시적 콜백으로 화면을 조립한다. CheckoutPage가 기존 완료·결제수단·URL 선택 책임을 유지하며 완료/빈 상품 분기는 form 밖에 남긴다. compact 배송 입력·주소·배송 요청의 기존 native 속성과 정책은 변경하지 않았다. 기존 OrderActionBar·Dialog footer·ContentSection 구성을 유지한다.
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Next production build·Storybook production build를 통과했다. 모바일 375px 장바구니 첫 행은 이전과 동일하게 x=16,y=108.578125,w=328,h=164, 이미지 x=32,y=150.578125,w=80,h=80으로 측정했다. 기존 Selection 시나리오의 전체 선택/해제·관심상품 토글·주문 버튼 비활성 결과를 확인했다. 모바일 옵션에서 컬러 선택 버튼 72×74px·2px 선택 밑줄을 측정하고 Black/Outer Orbit·250 옵션 저장과 목록 반영을 확인했다. 작업 트리 출처는 frontmatter의 해당 소스·스토리다. 실제 서버 주문·결제·재고 연동은 검증 대상이 아니다.
+
+후속 검증·CSS 보정: 공통 Radio의 기본 gap과 카드 테두리 클래스 충돌을 className/selectedOptionClassName의 좁은 gap:1!·borderColor:black.100!로 명시했다. 실제 3열·6개 선택·4px gap·116px 그룹 높이·선택 검은 테두리를 측정했다. 쿠폰 이미지의 PC 88px에는 등가 토큰 22가 없으므로 88px 리터럴을 유지한다. 기존 모바일/PC CompleteOrder와 CouponSelection의 완료 화면 및 432,000원 적용 결과, ProductOptionList Cart의 White 선택 결과, Wishlist Labelled의 왕복 토글과 기본형 38×38px·PC 아이콘 24px 유지도 확인했다. 주문 합계 순수 테스트 3개를 통과했다.
+
+최종 확인: 쿠폰 PC 이미지가 88×88px임을 재측정했다. PC 기본 결제 화면에서 네이버페이 선택 후 실제 checked input의 name=paymentMethod·value=naver·form 연결을 확인했다. 최종 CSS 보정 후 Next·Storybook production build와 변경 파일 ESLint를 다시 통과했다.

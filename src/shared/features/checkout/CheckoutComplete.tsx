@@ -1,7 +1,9 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { Box, Stack } from 'styled-system/jsx';
+import { Circle, Stack } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { faCheck } from '@/shared/icons/fontAwesome';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { OrderRecommendations } from '@/shared/components/organisms/OrderRecommendations/OrderRecommendations';
 
@@ -15,17 +17,15 @@ export function CheckoutComplete() {
         pt="16"
         header={
           <>
-            <Box
+            <Circle
               border="2px solid var(--colors-black-100)"
-              borderRadius="full"
-              w="10"
-              h="10"
-              textAlign="center"
-              fontSize="26px"
+              size="10"
+              flex="0 1 auto"
+              display={{ _mobile: 'none' }}
               aria-hidden="true"
             >
-              ✓
-            </Box>
+              <Icon fontAwesomeIcon={faCheck} size={26} />
+            </Circle>
             <Typography as="p" variant="heading7">
               구매해 주셔서 감사합니다.
             </Typography>
