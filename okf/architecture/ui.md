@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T00:13:31.3865778+00:00'
+  at: '2026-10-21T01:55:08Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/features/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/shared/features/catalog/productListingIaRoute.ts
@@ -2119,3 +2120,17 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 
 검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·런클럽 폴더 ESLint가 통과했다. Edge headless의 Storybook PC 1600px 목록/빈 목록/마감 상세와 모바일 375px 목록/빈 목록/오픈 예정 상세 6개 화면에서 가로 넘침이 없음을 확인했다. PC 카드 제목 28px, 빈 목록 신청 내역 링크 생략, PC 상세 정원 표시와 PC/MO 로드 필터 결과(4개/1개)를 확인했다. 목록·빈 화면·모바일 상세 캡처를 시각 검토했다. 실제 신청 API 연동 검증은 수행하지 않았다.
 `npm run build`의 Next.js 프로덕션 빌드도 통과했다.
+
+## Best sellers 모바일 비례 폭 (2026-10-21)
+
+사용자가 첨부한 메인 시안과 768px Storybook 화면을 기준으로 Best sellers의 모바일 카드 폭을 수정했다. 375px 디자인의 상품 이미지 160px과 좌우 gutter 각각 5px을 뷰포트에 비례시키며, 사용자 후속 요청에 따라 gutter도 고정 px 대신 비례값을 사용한다. 이미지 폭은 `42.66666666666667vw`, 각 gutter는 `1.3333333333333333vw`이며 슬라이드 폭은 셋의 합이다. 기존 `mobileItemGutter={5}`는 공통 캐러셀의 간격 모드 선택을 유지하고, 홈의 모바일 slide 스타일이 실제 padding을 덮어쓴다. 공통 API와 타입은 변경하지 않았다.
+
+공통 ProductCard showcase의 모바일 160px 폭과 ProductThumbnail의 160px 높이를 이 섹션 안에서만 해제한다. 최초 수정에서는 썸네일 영역을 정사각형으로 유지했으나, 아래 후속 시안 대조에 따라 PC·모바일 모두 3:4 영역으로 변경했다. 기존 중요도 지정 폭과 충돌하지 않도록 모바일 slide의 직접 카드 너비 및 레일 내부 `.image` 크기/비율에만 제한된 우선순위를 사용한다. PC 카드 폭과 개수, Find my HOKA의 253px 상한, 레일 여백과 필터 변경 시 viewport 재생성 계약은 유지한다. 출처는 frontmatter의 작업 트리 파일과 2026-10-21 사용자 요청이다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TSX ESLint/Prettier가 통과했다. 실행 중인 Storybook의 모바일 375px에서는 이미지 160×160px·gutter 5px, 768px에서는 이미지 약 327.7×327.7px·gutter 10.24px을 측정했다. 두 상품과 다음 상품 일부 노출, 모바일 페이지 가로 넘침 없음, 드래그로 마지막 상품 도달과 필터 변경 후 첫 슬라이드 x=8px 복귀를 확인했다. 독립 미리보기를 375→768px로 리사이즈해 같은 비례값으로 재계산됨을 확인했다. PC 1200·1920px의 중앙 그리드 기준 상품 이미지 폭 약 202.2·293.6px과 모바일 Find my HOKA 슬라이드 253px을 확인했다. PC 1200px 스토리는 기존 WEB 최소 1200px 캔버스를 유지한다. 이번 변경으로 프로덕션 빌드는 별도 수행하지 않았다.
+
+첨부 메인의 Hero→Shop by category→Best sellers→Explore→Find my HOKA 순서는 현재 구성과 일치한다. 상품 목업에는 시안의 신발 진열과 다른 상품·가격 및 의류 항목이 포함되고 테스트 레일은 12개 항목을 사용한다. 이 데이터 차이와 다른 메인 디자인은 이번 폭 수정에 포함하지 않는다.
+
+후속 비율 반영(Codex, 2026-10-21): 첨부 시안의 Best sellers 썸네일은 약 3:4 세로형으로 판단했으며 사용자 요청대로 기존 정사각형 상품 이미지는 수직 중앙에 유지한다. `thumbnailRatio`의 Panda raw 스타일을 PC·모바일 레일 스타일과 생성 전에 병합하고, 영역의 높이는 auto·aspect-ratio는 3/4로 적용했다. ProductThumbnail의 기존 이미지 width=100%·height=auto·top=50%·translateY(-50%)를 유지해 원본 이미지를 늘이거나 자르지 않는다. 공통 ProductThumbnail과 다른 소비처는 변경하지 않는다.
+
+후속 검증: Panda 생성·타입 검사·변경 TSX ESLint/Prettier가 통과했다. Storybook 375·768·1200·1920px에서 썸네일 영역은 각각 약 160×213.3·327.7×436.9·202.2×269.6·293.6×391.5px, 정사각형 원본 이미지의 수직 중심 차이는 0.01px 미만으로 측정했다. 앞선 정사각형 영역의 검증 수치는 비율 변경 전 기록이며 최종 영역 크기는 이 후속 검증을 따른다.

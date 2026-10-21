@@ -10,7 +10,13 @@ import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCa
 import { bestSellerTabs } from './homeContent';
 import { createHomeCarouselPreviewItems } from './homeCarouselPreview';
 
-const mobileRail = css({
+const thumbnailRatio = css.raw({
+  '& .image': { h: 'auto!', aspectRatio: '3 / 4!' },
+});
+
+const desktopRail = css(thumbnailRatio);
+
+const mobileRail = css(thumbnailRatio, {
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
@@ -18,8 +24,10 @@ const mobileRail = css({
 });
 
 const mobileSlide = css({
-  w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
-  '& > *': { w: '100%' },
+  // Scale the 375px design's 160px card and 5px side gutters together.
+  w: 'calc(42.66666666666667vw + 1.3333333333333333vw + 1.3333333333333333vw)!',
+  px: '1.3333333333333333vw!',
+  '& > *': { w: '100%!' },
 });
 
 type BestSellerTab = (typeof bestSellerTabs)[number];
@@ -67,7 +75,7 @@ export function HomeBestSellerSection() {
       itemCount={bestSellerProducts.length}
       mobileItemGutter={5}
       platform={platform}
-      railClassName={isWeb ? undefined : mobileRail}
+      railClassName={isWeb ? desktopRail : mobileRail}
       slideClassName={isWeb ? undefined : mobileSlide}
       spacing="compact"
       title="Best sellers"
