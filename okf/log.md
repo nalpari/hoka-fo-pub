@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-21
+
+- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/shared/components/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
+
 ## 2026-10-20
 
 - **Update**: 로그인 이메일 형식 검사를 영문·숫자 4자 이상 아이디 검사로 전환하고 필수값·형식 오류를 구분했다. 기존 공통 TextFormField·배치를 사용하며 아이디 찾기 예시를 `honggildong`으로 맞췄다. 타입·변경 ESLint/Prettier·Storybook 빌드 및 관련 브라우저 스토리 16개가 통과했다. [UI 변경](architecture/ui.md#일반-아이디-로그인-전환-2026-10-20)과 [상태 계약](architecture/state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.

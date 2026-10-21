@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T08:08:13.395691Z'
+  at: '2026-10-21T00:13:31.3865778+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
@@ -1957,7 +1957,7 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 
 ## 상품 복수 프로모션 뱃지 (2026-10-20)
 
-`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 각 값이 `Exclusive`이면 브랜드 색상, 그 외에는 red80을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
+`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 2026-10-21부터 `Exclusive` 여부와 관계없이 모든 라벨은 `tone="brand"`, 구분선은 같은 `var(--color-text-brand)` 색상을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
 
 작업 트리의 위 소스를 기준으로 타입 검사·변경 파일 ESLint와 단일/복수/빈 뱃지의 JSX 결과·색상 prop 및 신상품 정렬을 확인했다. 브라우저 시각 검증은 수행하지 않았다.
 
