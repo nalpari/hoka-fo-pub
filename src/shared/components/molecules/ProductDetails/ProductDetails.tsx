@@ -9,7 +9,12 @@ import type { ProductOptionThumbnail } from '@/shared/components/molecules/Produ
 import type { Platform } from '@/shared/lib/device';
 import type { ProductCardVariant } from '@/shared/components/molecules/ProductCard/productCardTypography';
 
-const root = css({ color: 'var(--color-text-primary)' });
+const root = css({
+  color: 'var(--color-text-primary)',
+  '--type-body-font-size': 'var(--layout-web-product-font-size, 16px)',
+  '--type-price-font-size': 'var(--layout-web-product-font-size, 16px)',
+  '--type-product-audience-font-size': 'var(--layout-web-product-font-size, 16px)',
+});
 
 export type ProductDetailsProps = {
   activities?: readonly string[];

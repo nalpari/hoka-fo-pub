@@ -59,6 +59,7 @@ export function HomeCarouselSection({
       >
         {beforeViewport}
         <HomeCarouselRail
+          itemCount={itemCount}
           platform={platform}
           desktopCenteredItemCount={desktopCenteredItemCount}
           desktopItemGutter={desktopItemGutter}

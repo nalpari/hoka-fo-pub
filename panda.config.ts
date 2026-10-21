@@ -29,6 +29,8 @@ export default defineConfig({
     extend: {
       // User-agent platform selection adds this class at the application root.
       mobile: '.platform-mobile &',
+      wideDesktop: '@media (min-width: 2240px)',
+      ultraWideDesktop: '@media (min-width: 2560px)',
     },
   },
   theme: {

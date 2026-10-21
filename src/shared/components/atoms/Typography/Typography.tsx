@@ -540,10 +540,14 @@ const typography = cva({
       },
       body: {
         ...figmaTypographyVariants.bodyKr3,
+        fontSize: 'var(--type-body-font-size)',
         _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
       },
       formLabel: figmaTypographyVariants.body4,
-      productAudience: figmaTypographyVariants.body3,
+      productAudience: {
+        ...figmaTypographyVariants.body3,
+        fontSize: 'var(--type-product-audience-font-size)',
+      },
       productUse: {
         fontFamily: 'korean',
         fontWeight: 'bold',

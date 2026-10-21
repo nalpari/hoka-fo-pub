@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T02:27:43.532Z'
+  at: '2026-10-21T04:02:10.835Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/shared/components/atoms/ProductGender/ProductGender.tsx
@@ -2147,3 +2147,15 @@ HeroPagination은 모바일 점 6→9px·활성 막대 32→48px·간격 8→12p
 검증(Codex, 2026-10-21): 실행 중인 Storybook의 모바일 320·375·430·620·768·900px에서 크기·상한·가로 넘침 없음·CTA/페이지 표시 겹침 없음을 측정했다. 375px의 제목/본문 40/14px·점/막대 6/32px, 768px의 60/17.5px·9/48px 및 필터 15px·가격 16.25px를 확인했다. 키보드 선택·흰 포커스 outline·포커스 중 진행률 정지, 자동 슬라이드 전환, 상품 레일 드래그와 필터 변경 후 transform=0 복귀를 확인했다. PC 1600px의 제목 64px·본문 16px·점/막대 8/42px 및 모바일 로그인에 홈 변수가 없음을 확인했다. 768px의 상품명 말줄임·Explore 오버레이를 시각 검토했다. 실제 브라우저 200% 확대는 자동화 키 입력으로 확대 상태를 만들 수 없어 검증하지 못했다.
 
 검증 명령: Panda 생성·전체 타입 검사·변경 TSX ESLint/Prettier·Next.js 프로덕션 빌드·Storybook 프로덕션 빌드가 통과했다. 작업 트리 전체의 OKF 관련 문서 누락 검사도 통과했다. 375px의 상품명 ellipsis·Explore 제목 24px/설명 14px/하단 CTA 여백 30px, 768px Find my HOKA의 제목 36px/설명 17.5px과 카드 안 텍스트 배치도 확인했다.
+
+## 2560px PC 상품 표시 확대 (2026-10-21)
+
+사용자 요청으로 PC의 1920px 시안 크기를 기준으로 2560px까지 콘텐츠 폭·의미별 글자 크기를 선형 확대한다. `.platform-web`의 중앙 최대 폭은 1532→2040px, sectionHeading은 40/38→52/50px(글자/행간), cardTitle은 24/23→28/27px, 상품 정보는 16→18px다. 2560px 이상은 상한을 유지한다. 공통 헤더·푸터·Hero 카피·상품 상세 중앙 그리드도 같은 콘텐츠 폭 토큰으로 정렬하며, 별도로 폭을 제한하는 계정/고객센터 폼은 확대하지 않는다. PC 최소 캔버스 1200px와 모바일 전용 크기·배치는 유지한다.
+
+Panda의 wideDesktop(2240px), ultraWideDesktop(2560px) 조건으로 상품 목록·검색 결과는 3→4→5열을 표시한다. HomeCarouselRail은 기본 표시 개수에서 단계별 1/2개를 늘리고 실제 항목 수를 넘겨 새 열을 추가하지 않는다(기존 기본 개수는 하한으로 보존). Best sellers는 5→6→7개, Find my HOKA는 4→5→6개, 카테고리는 4→5→5개다. 공유하는 상품 상세·런클럽 추천 레일에도 같은 규칙을 적용한다. 기존 오른쪽 다음 카드 미리보기와 마지막 카드의 중앙 그리드 끝 정렬을 유지한다. 추가 데이터·뷰포트 감지 React 상태·이벤트 리스너를 만들지 않는다.
+
+ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. Typography의 body/productAudience는 기존 Figma 기초 스타일을 유지하고 글자 크기만 기존 의미 토큰을 소비한다. 기본값은 기존 16px이며 모바일 body의 홈 유동 크기와 성별 variant·가격의 모바일 토큰은 유지한다. Storybook EndAlignedToGrid는 CSS가 결정한 실제 표시 개수로 끝까지 이동할 클릭 횟수를 계산한다.
+
+작업 트리 출처: panda.config.ts, src/shared/styles/global.scss, src/shared/components/atoms/Typography/Typography.tsx, src/shared/components/molecules/ProductDetails/ProductDetails.tsx, src/shared/components/molecules/HomeCarouselSection/{HomeCarouselSection,HomeCarouselRail}.tsx, src/shared/features/catalog/ProductListingResults.tsx, src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx. 해당 경로는 이 문서의 working_tree_sources에 기록되어 있다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TypeScript/TSX ESLint를 통과했다. 실제 Next 앱을 Edge headless에서 PC 1200·1920·2240·2560·3840px, 모바일 375·768px로 확인했다. PC 중앙 폭 1920/2240/2560/3840px에서 1532/1786/2040/2040px, 제목 40/46/52/52px, 상품명 16/17/18/18px와 목록 3/4/5/5열을 측정했다. 2560px Best sellers는 5번 이동 후 다음 버튼 비활성·마지막 카드 오른쪽 정렬 오차 1px 미만, 5번 역이동 후 이전 버튼 비활성을 확인했다. 모든 측정 화면에 페이지 가로 넘침이 없고 모바일 목록은 2열을 유지한다. 2560px 검색 결과와 상품 상세에도 가로 넘침이 없다. 홈·목록 2560px 스크린샷을 시각 검토했다. 이번 변경에서 프로덕션 빌드는 재실행하지 않았다.

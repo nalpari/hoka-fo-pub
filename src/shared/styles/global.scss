@@ -59,7 +59,7 @@ $font-faces: (
     --soft: #{$soft};
     --content-width: 1140px;
 
-    // WEB keeps a 1200px minimum canvas and a centered 1532px content grid.
+    // WEB keeps a 1200px minimum canvas; large desktop sizing is scoped below.
     // Campaign media, section backgrounds, and carousel rails may extend beyond it.
     // Below 1200px the desktop canvas remains horizontally scrollable.
     --layout-web-min-width: 1200px;
@@ -310,6 +310,16 @@ $font-faces: (
 
   .platform-mobile {
     --layout-site-header-height: 52px;
+  }
+
+  .platform-web {
+    // Preserve the 1920px design, grow through 2560px, then cap the content width.
+    --layout-web-content-max-width: clamp(1532px, calc(79.375vw + 8px), 2040px);
+    --type-section-heading-font-size: clamp(40px, calc(1.875vw + 4px), 52px);
+    --type-section-heading-line-height: clamp(38px, calc(1.875vw + 2px), 50px);
+    --type-card-title-font-size: clamp(24px, calc(0.625vw + 12px), 28px);
+    --type-card-title-line-height: clamp(23px, calc(0.625vw + 11px), 27px);
+    --layout-web-product-font-size: clamp(16px, calc(0.3125vw + 10px), 18px);
   }
 
   * {

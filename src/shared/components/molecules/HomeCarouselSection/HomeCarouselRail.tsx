@@ -19,6 +19,7 @@ const desktopSlide = css({
 type Props = Pick<
   HomeCarouselSectionProps,
   | 'children'
+  | 'itemCount'
   | 'platform'
   | 'desktopCenteredItemCount'
   | 'desktopItemGutter'
@@ -31,6 +32,7 @@ type Props = Pick<
 /** Own card sizing, terminal spacing, and the responsive carousel viewport. */
 export function HomeCarouselRail({
   children,
+  itemCount,
   platform,
   desktopCenteredItemCount,
   desktopItemGutter,
@@ -43,9 +45,28 @@ export function HomeCarouselRail({
     <Box
       w="100%"
       minW="0"
+      css={
+        platform === 'web'
+          ? {
+              '--carousel-visible-count': 'var(--carousel-default-count)',
+              _wideDesktop: { '--carousel-visible-count': 'var(--carousel-wide-count)' },
+              _ultraWideDesktop: { '--carousel-visible-count': 'var(--carousel-ultra-wide-count)' },
+            }
+          : undefined
+      }
       style={
         {
-          '--carousel-card-width': `calc((var(--section-content-width) - ${(desktopCenteredItemCount - 1) * desktopItemGutter * 2}px) / ${desktopCenteredItemCount})`,
+          '--carousel-default-count': desktopCenteredItemCount,
+          '--carousel-wide-count': Math.max(
+            desktopCenteredItemCount,
+            Math.min(itemCount, desktopCenteredItemCount + 1),
+          ),
+          '--carousel-ultra-wide-count': Math.max(
+            desktopCenteredItemCount,
+            Math.min(itemCount, desktopCenteredItemCount + 2),
+          ),
+          '--carousel-card-width':
+            'calc((var(--section-content-width) - (var(--carousel-visible-count) - 1) * var(--carousel-card-gap)) / var(--carousel-visible-count))',
           '--carousel-card-gap': `${desktopItemGutter * 2}px`,
         } as CSSProperties
       }
