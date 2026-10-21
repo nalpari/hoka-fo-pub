@@ -6,9 +6,13 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T07:56:56Z'
-source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+  at: '2026-10-21T08:15:46.840Z'
+source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/mocks/orderRecommendations.ts
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
   - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
   - src/mocks/cartDisplay.ts
   - src/mocks/products.ts
@@ -35,6 +39,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 추천 상품 목 데이터 경계 (2026-10-21)
+
+src/mocks/orderRecommendations.ts는 products의 첫 네 항목을 id/name/gender/price/imageSrc/href 표시 데이터로 준비한다. recommendationImages의 인덱스별 이미지와 primaryImage fallback, /products/{id} 링크는 이전과 같다. CartContent와 CheckoutComplete가 이를 OrderRecommendations.items로 전달한다. 공용 organism의 런타임 목 데이터 의존성을 제거했으며 API 연동·상품 수·가격·IA/경로는 변경하지 않았다.
 
 ## GNB 최종안과 IA 동기화 (2026-10-20)
 

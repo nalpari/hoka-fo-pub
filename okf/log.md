@@ -6,6 +6,46 @@
 
 ## 2026-10-21
 
+- **Fix**: 사용자 최신 첨부에 따라 모바일 상품목록 필터 버튼을 제목 오른쪽 알약형으로 원복하고, 카테고리 탭 오른쪽 아이콘과 사용하지 않는 iconOnly API를 제거했다. [원복 기록](architecture/ui.md#모바일-상품목록-필터-버튼-원복-2026-10-21)을 참고한다.
+
+- **Refactor**: [전체 소스 재사용 조사](architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
+
+- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
+
+- **Refactor**: 품목별 측정 방법과 신발 발볼 안내를 공통 SizeGuideMeasurementMethod로 분리했다. title/steps/description으로 조합하며 기존 목록·문구·간격·조건부 표시를 유지한다. [사이즈 가이드](architecture/size-guide.md)에 반영했다.
+
+- **Refactor**: 사이즈 가이드의 측정 이미지·측정 방법·차트를 기능 내부 컴포넌트로 분리했다. 선택 상태는 Panel에 유지하고 기존 DOM·반응형 스타일을 보존했다. [사이즈 가이드](architecture/size-guide.md)와 [UI 기록](architecture/ui.md)에 책임을 반영했다.
+
+- **Refactor / Fix**: 사이즈 가이드에 ContentSection·Grid·기능 내부 선택행을 적용하고 DataTable.spaced에서 스타일을 병합해 PC 셀 패딩 충돌을 수정했다. SegmentedControl.itemRender로 Typography choiceLabel/unitLabel을 직접 합성해 기존 버튼 크기·글자 스타일을 유지했다. 사이드 메뉴는 약관 다음에 사이즈 가이드를 배치했다. [변경과 보존 검증](architecture/size-guide.md#재사용-개선과-사이드-메뉴-순서-2026-10-21)을 참고한다.
+
+- **Fix**: 상품 상세 사이즈 가이드를 팝업 버튼에서 현재 창의 `/support/size-guide`로 이동하는 ButtonLink로 변경하고 전달용 콜백을 제거했다. [사이즈 가이드](architecture/size-guide.md)와 [UI 기록](architecture/ui.md)에 반영했다.
+
+- **Feat**: 사이즈 가이드 빈 본문을 8개 품목의 측정 안내·성별·발볼·단위 선택·표로 채웠다. 첨부 시안에서 안내 이미지 9개를 추출하고 미확정 치수는 00 자리표시자로 유지했다. 푸터·상품 상세 진입을 연결하고 기존 Storybook PC/MO에 전환 검증을 추가했다. [구성과 검증 범위](architecture/size-guide.md)를 참고한다.
+
+- **Fix / Audit**: 모바일 상품목록의 전체 폭 이미지·배너, 제목, 탭 옆 필터 아이콘과 listing 카드 굵기·간격을 두 첨부 시안 및 사용자 정정에 맞췄다. 추가 로딩은 36개 단위로 변경했다. PC·홈 showcase 스타일은 유지하며 첨부 필터·상세·메인·PC 목록 설계서와 현재 목업 구현의 미적용 사항을 [대조 기록](architecture/ui.md#모바일-상품목록-디자인-보정과-설계서-대조-2026-10-21)에 남겼다.
+
+- **Refactor**: OrderProductSummary를 장바구니·주문·쿠폰에 적용하고 장바구니 선택/목록/고객센터, 옵션 본문, 금액 행과 CheckoutForm을 책임별로 분리했다. 결제수단은 공통 Radio, 관심상품은 Wishlist, 컬러 선택은 ProductOptionList의 cart 표시를 재사용한다. 문자 하트·완료 체크·옵션 화살표도 Icon으로 바꿨다. 설계·계산·폼 제출 정책을 유지하며 관련 API·검증을 [UI 기록](architecture/ui.md#주문-화면-구성-분리와-재사용-2026-10-21)에 기록한다.
+
+- **Fix**: CouponProductItem의 펼침/접힘 문자 표시를 공통 Icon의 faPlus/faMinus(12px)로 교체했다. 기존 펼침 상태와 접근성 이름은 유지한다.
+
+- **Fix**: 직전 주문 화면 변경을 재검토해 이미지 3곳의 중복 너비/높이를 Panda square 패턴으로 통합하고 삭제 버튼을 기존 IconButton·Icon, 원형 완료 장식을 Circle로 이전했다. 결제 안내 간격은 부모 Stack이 소유한다. [재사용 보완](architecture/ui.md#주문-화면-공통-프리미티브-보완-2026-10-21)을 참고한다.
+
+- **Fix**: 장바구니·결제의 모바일 카드와 썸네일 크기, 체크 위치, 옵션 이미지 여백, 쿠폰 링크/펼침 정렬, 결제금액 강조 배경과 완료 장식을 첨부 시안에 맞춰 보정했다. 사용자 범위에 따라 계산·주문 상태·조회 정책을 유지했다. [UI 기록](architecture/ui.md#주문-화면-시각-오차-보정-2026-10-21)을 참고한다.
+
+- **Fix**: HeroCopy의 CTA를 `primary`·`white` 조합으로 변경해 홈 세 슬라이드의 기본 검은 외곽선을 제거했다. [UI 기록](architecture/ui.md#홈-hero-버튼-외곽선-제거-2026-10-21)을 참고한다.
+
+- **Update**: 1920→2560px에서 PC 콘텐츠 최대 폭을 1532→2040px, 섹션 제목을 40→52px, 상품명·성별·가격을 16→18px로 확대했다. 2240/2560px에서 목록은 4/5열, Best sellers는 6/7개를 표시하며 모바일 구성은 유지한다. Edge의 PC 1200·1920·2240·2560·3840px 및 모바일 375·768px, 캐러셀 끝 정렬과 검색/상세 가로 넘침 검증은 [UI 기록](architecture/ui.md#2560px-pc-상품-표시-확대-2026-10-21)을 참고한다.
+
+- **Update**: 모바일 홈에 375→768px 유동 크기를 적용했다. 제목 최대 1.5배·본문/버튼 최대 1.25배·Hero 페이지 표시의 비례 확대를 추가하고 공통 컴포넌트의 기본값은 유지했다. 화면 폭·상호작용·PC/다른 페이지 영향과 200% 확대 미검증 사항은 [UI 기록](architecture/ui.md#모바일-홈-유동-크기-2026-10-21)을 참고한다.
+
+- **Fix**: 메인 Best sellers의 모바일 카드와 좌우 gutter를 375px 기준 비례값으로 전환했다. 후속 시안 대조와 사용자 요청에 따라 PC·모바일 썸네일 영역을 3:4로 바꾸고 정사각형 원본 이미지는 수직 중앙에 유지했다. 모바일 375·768px의 두 상품/다음 상품 일부 노출, 드래그·필터 초기화·리사이즈와 PC 배치, 375·768·1200·1920px의 최종 영역 비율과 수직 중앙 정렬을 확인했다. [UI 기록](architecture/ui.md#best-sellers-모바일-비례-폭-2026-10-21)을 참고한다.
+
+- **Update**: 런클럽 첨부 시안을 대조해 PC 목록 최대 1280px·카드 제목/간격·소개 중앙 정렬·빈 화면 링크 생략·PC 상세 정원 표시를 반영했다. [UI 기록](architecture/ui.md#런클럽-첨부-시안-보완-2026-10-21)을 참고한다.
+
+- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/shared/components/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
+
+## 2026-10-21
+
 - **Refactor**: Button `plain`의 내부 정렬을 왼쪽으로 조정해 공통 기본값에서 정렬 강제를 제거하고 SearchOverlay 자동완성에 적용했다. 목록 구조·검색 동작·body3 medium과 파란 일치 하이라이트를 유지하고 [UI 기록](architecture/ui.md#plain-버튼-내부-정렬과-자동완성-검색어-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.
 - **Update**: 공통 Button에 단일 크기 `chip` variant(높이 36px·패딩 9px 14px·body4 14px medium)를 추가하고 추천 검색어 이동 버튼에 적용했다. ButtonDocs·Storybook 예제를 추가하고 [UI 기록](architecture/ui.md#button-chip-변형과-추천-검색어-2026-10-21)을 갱신했다. 인기 검색어 순위 행은 Panda HStack으로 정리하면서 기존 행/열 간격과 번호 폭을 명시했다.
 - **Refactor**: SearchSuggestions의 인기 검색어 제목·순위 목록·키워드 링크를 `PopularSearches`로 분리했다. 데이터와 검색 이동 처리는 상위 구성에 두고 기존 반응형 타이포그래피·목록 레이아웃을 유지했다. [UI 기록](architecture/ui.md#인기-검색어-섹션-분리-2026-10-21)과 [아키텍처 인덱스](architecture/index.md)를 갱신했다.

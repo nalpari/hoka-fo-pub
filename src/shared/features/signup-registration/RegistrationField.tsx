@@ -1,5 +1,3 @@
-import { css } from 'styled-system/css';
-
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { RegistrationInformation, RegistrationContentProps } from './registration.types';
 import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
@@ -7,15 +5,6 @@ import { NameField } from '@/shared/components/molecules/FormFields/NameField';
 import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
 import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
 import { BirthDateField } from '@/shared/components/molecules/FormFields/BirthDateField';
-
-const styles = {
-  disabledInput: css({
-    bg: 'var(--color-black-10)',
-    color: 'var(--color-text-subtle)',
-    cursor: 'not-allowed',
-    _disabled: { opacity: '1' },
-  }),
-};
 
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
@@ -60,7 +49,7 @@ export function RegistrationField({
       inputProps={{
         type: type,
         disabled: disabled,
-        className: disabled ? styles.disabledInput : undefined,
+        disabledAppearance: disabled ? 'muted' : 'default',
         value: information[key],
         placeholder: placeholder,
         autoComplete:

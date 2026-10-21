@@ -8,12 +8,6 @@ import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCa
 import { usePlatform } from '@/shared/context/platform';
 
 const styles = {
-  mobileRail: css({
-    w: '100vw',
-    pr: '16px !important',
-    overflow: 'visible!',
-    '& .swiper-wrapper': { px: '8px' },
-  }),
   mobileSlide: css({
     w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
     '& > *': { w: '100%' },
@@ -36,7 +30,7 @@ export function ProductDetailRecommend({ products }: ProductDetailRecommendProps
         itemCount={products.length}
         mobileItemGutter={5}
         platform={platform}
-        railClassName={isWeb ? undefined : styles.mobileRail}
+        mobileRail="bleed"
         slideClassName={isWeb ? undefined : styles.mobileSlide}
         spacing="compact"
         title="추천 상품"

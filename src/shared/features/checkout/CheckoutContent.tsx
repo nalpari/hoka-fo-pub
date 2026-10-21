@@ -1,109 +1,65 @@
-'use client';
-import { OrderActionBar } from '@/shared/components/molecules/OrderActionBar/OrderActionBar';
-
-import { CouponDialog } from './CouponDialog';
-import { CheckoutComplete } from './CheckoutComplete';
-import { CheckoutPaymentNotice } from './CheckoutPaymentNotice';
-import { useState, type FormEventHandler } from 'react';
-import Link from 'next/link';
 import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { OrderActionBar } from '@/shared/components/molecules/OrderActionBar/OrderActionBar';
+import { CouponDialog } from './CouponDialog';
+import { CheckoutPaymentNotice } from './CheckoutPaymentNotice';
 import { CheckoutAgreement } from './CheckoutAgreement';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CheckoutPayment, type PaymentMethod } from './CheckoutPayment';
-import { CheckoutShipping } from './CheckoutShipping';
-import { CheckoutSummary } from '@/shared/features/checkout/CheckoutSummary';
-import type { CheckoutRow } from '@/shared/features/checkout/checkout-summary';
+import { CheckoutShipping, type ShippingErrors } from './CheckoutShipping';
+import { CheckoutSummary } from './CheckoutSummary';
+import type { CheckoutRow } from './checkout-summary';
 
-type CheckoutContentProps = {
-  completed: boolean;
+type Props = {
   rows: readonly CheckoutRow[];
   total: number;
+  discount: number;
   payment: PaymentMethod;
+  errors: ShippingErrors;
+  couponOpen: boolean;
+  agreed: boolean;
+  agreementError: boolean;
   onPaymentChange: (payment: PaymentMethod) => void;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onCoupons: () => void;
+  onCouponOpenChange: (open: boolean) => void;
+  onDiscountChange: (discount: number) => void;
+  onAgreedChange: (checked: boolean) => void;
 };
 
+/** Prepared checkout sections; the form owns validation, consent and coupon state. */
 export function CheckoutContent({
-  completed,
   rows,
   total,
+  discount,
   payment,
+  errors,
+  couponOpen,
+  agreed,
+  agreementError,
   onPaymentChange,
-  onSubmit,
-}: CheckoutContentProps) {
-  const [errors, setErrors] = useState<Partial<Record<'name' | 'phone' | 'address', string>>>({});
-  const [couponOpen, setCouponOpen] = useState(false);
-  const [discount, setDiscount] = useState(0);
-  const [agreementError, setAgreementError] = useState(false);
-  const [agreed, setAgreed] = useState(false);
-
-  if (completed) return <CheckoutComplete />;
-
-  if (rows.length === 0)
-    return (
-      <Stack as="section" alignItems="center" gap="4" py="20">
-        <Typography as="p" variant="body3">
-          주문할 상품이 없습니다.
-        </Typography>
-        <Link href="/cart">장바구니로 돌아가기</Link>
-      </Stack>
-    );
-
+  onCoupons,
+  onCouponOpenChange,
+  onDiscountChange,
+  onAgreedChange,
+}: Props) {
   return (
-    <form
-      noValidate
-      onInput={(event) => {
-        const input = event.target as HTMLInputElement;
-        if (input.value.trim()) setErrors((previous) => ({ ...previous, [input.name]: undefined }));
-      }}
-      onSubmit={(event) => {
-        const data = new FormData(event.currentTarget);
-        const nextErrors = {
-          name: String(data.get('name') ?? '').trim() ? '' : '받는 분을 입력해 주세요.',
-          phone: String(data.get('phone') ?? '').trim() ? '' : '연락처를 입력해 주세요.',
-          address: String(data.get('address') ?? '').trim() ? '' : '주소를 입력해 주세요.',
-        };
-        setErrors(nextErrors);
-        setAgreementError(!agreed);
-        if (Object.values(nextErrors).some(Boolean) || !agreed) {
-          event.preventDefault();
-          return;
-        }
-        onSubmit(event);
-      }}
-    >
-      <Stack gap={{ base: '10', _mobile: '6' }}>
-        <CheckoutShipping errors={errors} />
-        <CheckoutSummary
-          rows={rows}
-          total={total}
-          discount={discount}
-          onCoupons={() => setCouponOpen(true)}
-        />
-        <CouponDialog
-          open={couponOpen}
-          onOpenChange={setCouponOpen}
-          rows={rows}
-          total={total}
-          onApply={setDiscount}
-        />
-        <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
-        <CheckoutPaymentNotice />
-        <CheckoutAgreement
-          agreed={agreed}
-          error={agreementError}
-          onAgreedChange={(checked) => {
-            setAgreed(checked);
-            setAgreementError(false);
-          }}
-        />
-        <OrderActionBar>
-          <Button type="submit" variant="primary" fullWidth>
-            {(total - discount).toLocaleString()}원 결제하기
-          </Button>
-        </OrderActionBar>
-      </Stack>
-    </form>
+    <Stack gap={{ base: '10', _mobile: '6' }}>
+      <CheckoutShipping errors={errors} />
+      <CheckoutSummary rows={rows} total={total} discount={discount} onCoupons={onCoupons} />
+      <CouponDialog
+        open={couponOpen}
+        onOpenChange={onCouponOpenChange}
+        rows={rows}
+        total={total}
+        onApply={onDiscountChange}
+      />
+      <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
+      <CheckoutPaymentNotice />
+      <CheckoutAgreement agreed={agreed} error={agreementError} onAgreedChange={onAgreedChange} />
+      <OrderActionBar>
+        <Button type="submit" variant="primary" fullWidth>
+          {(total - discount).toLocaleString()}원 결제하기
+        </Button>
+      </OrderActionBar>
+    </Stack>
   );
 }

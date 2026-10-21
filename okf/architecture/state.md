@@ -6,9 +6,38 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T08:08:13.395691Z'
-source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+  at: '2026-10-21T08:15:46.840Z'
+source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/shared/features/mypage/AddressEditor.tsx
+  - src/shared/features/mypage/AddressList.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileField.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-address.types.ts
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/login/LoginActions.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
+  - src/shared/features/cart/CartSelectionBar.tsx
+  - src/shared/features/cart/CartProductList.tsx
+  - src/shared/features/cart/CartOptionsContent.tsx
+  - src/shared/features/checkout/CheckoutForm.tsx
+  - src/shared/features/checkout/CheckoutContent.tsx
+  - src/shared/features/checkout/CheckoutPage.tsx
+  - src/shared/features/checkout/CheckoutPayment.tsx
+  - src/shared/components/atoms/Wishlist/Wishlist.tsx
+  - src/shared/features/cart/CartItemRow.tsx
+  - src/shared/features/cart/CartOptionsDialog.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -132,6 +161,12 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 재사용 적용 후 상태 소유권 (2026-10-21)
+
+CartContent의 금액 표시와 LoginActions의 소셜 버튼만 공용 UI로 대체했다. 합계·선택·로그인·미연결 안내 처리 및 ShopShell/Context의 수명은 변경하지 않았다. OrderRecommendations의 준비된 데이터는 mock fixture가 공급하며 공용 UI는 선택/계산/라우팅 정책을 소유하지 않는다.
+
+마이페이지 배송지의 draft·validation·기본 배송지 지정·삭제와 회원정보의 필드 오류·저장·취소·탈퇴 상태는 기존 페이지에 유지했다. feature 내부 view/editor는 준비된 값과 콜백을 받는다. FormActionGroup은 취소를 제출하지 않으며 실제 제출은 기존 form에 위임한다. compact TextInput의 native name/defaultValue/controlled value/readOnly/disabled 계약을 보존한다.
 
 ## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
 
@@ -273,3 +308,23 @@ CartOptionsDialog가 기존 draft와 발볼/색상별 사이즈·품절 상태�
 ## 일반 아이디 로그인 전환 (2026-10-20)
 
 LoginPage가 `^[a-zA-Z0-9]{4,}$`로 아이디를 검사한다. 영문만·숫자만·혼합을 허용하고 4자 미만·공백·한글·특수문자·이메일 주소를 거부한다. 공백을 자동 제거하지 않으며 비밀번호 정책은 유지한다. 빈 값과 형식 오류를 구분하고 최초 제출 이후 수정 시 오류를 갱신한다. 기존 onLogin·홈 이동·데모 안내와 아이디 저장 체크 상태는 유지한다. IdConfirmationModal은 첨부 설계서의 예시 `honggildong`을 표시하며 실제 인증·계정 조회를 추가하지 않는다.
+
+## 주문 화면 시각 보정의 상태 보존 (2026-10-21)
+
+CartItemRow·CartOptionsDialog의 변경은 모바일 배치·이미지 크기·본문 패딩 보정과 표시 줄바꿈에 한정한다. 선택·수량·옵션 draft·valid·onSave·onClose와 상위 CartPage/ShopShell 상태 코드는 변경하지 않았다. 금액과 선택 수, 품절 상품 주문 제외, 수량 제한, 주문 상태별 행동과 조회 기간의 설계 변경은 사용자 요청에 따라 적용하지 않는다. CouponProductItem도 Collapsible 기본 버튼을 사용하지만 기존 open/onOpenChange와 쿠폰 선택 상태를 유지한다. 관련 UI 기록은 [시각 오차 보정](ui.md#주문-화면-시각-오차-보정-2026-10-21)을 참고한다.
+
+작업 트리 출처는 CartItemRow.tsx·CartOptionsDialog.tsx와 ui.md의 결제 표시 컴포넌트다. 타입 검사·변경 TSX ESLint를 통과했고 모바일 기존 쿠폰 선택의 적용 금액을 브라우저에서 확인했다. 실제 주문·결제 서버 연결을 추가하거나 검증하지 않았다.
+
+## 주문 화면 공통 프리미티브 보완의 상태 유지 (2026-10-21)
+
+CartItemRow 삭제 버튼을 IconButton·Icon으로 바꿨으며 기존 aria-label·onRemove를 전달한다. 이미지 square 패턴·Circle·Stack 간격 이전은 표시 책임만 바꾸고 상품 선택·옵션 draft·수량·쿠폰 계산·완료 상태 소유권을 유지한다. 모바일 Storybook에서 삭제 클릭 후 해당 행 제거, 선택상품 2→1개, 합계 528,000→288,000원 갱신을 확인했다. 신규 상태나 실제 주문/결제 연동은 추가하지 않았다. 관련 출처와 DOM 유지 근거는 [UI 기록](ui.md#주문-화면-공통-프리미티브-보완-2026-10-21)을 참고한다.
+
+## 주문 화면 구성 분리 후 상태 소유권 (2026-10-21)
+
+CartPage의 selected/favorites/editingKey/limited와 ShopShell 콜백은 유지한다. CartSelectionBar·CartProductList·CartSupportInfo·OrderProductSummary는 준비된 값과 기존 콜백만 받는다. CartOptionsDialog가 기존 draft·valid와 저장/취소를 소유하고 CartOptionsContent는 값·옵션·변경 콜백만 받는다. Wishlist는 기존 favorites를 BaseToggle의 controlled pressed에 연결한다. ProductOptionList도 기존 색상값과 onSelect를 받아 옵션 정책을 계산하지 않는다.
+
+CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하고, 이전 CheckoutContent의 errors/couponOpen/discount/agreed/agreementError와 FormData 검증은 동일 수명 위치의 CheckoutForm으로 옮겼다. CheckoutContent는 상태 없는 구성 컴포넌트다. form noValidate·onInput 오류 해제·onSubmit의 빈 값/동의 확인·실제 onSubmit 호출 조건과 완료/빈 상품의 form 외부 분기를 보존한다. CouponDialog의 초안/적용/닫기 복원은 바꾸지 않았고 AmountRow/OrderProductSummary는 계산값을 표시한다. CheckoutPayment는 공통 Radio를 사용하되 기존 paymentMethod 이름·값과 상위 payment setter를 보존한다. 정책·가격·조회 기간·품절 처리를 변경하지 않았다.
+
+검증과 관련 출처는 [구성 분리 UI 기록](ui.md#주문-화면-구성-분리와-재사용-2026-10-21)을 참고한다. 모바일 기존 Selection과 옵션 저장의 목록 반영을 브라우저에서 확인했다.
+
+후속 검증: 모바일/PC 기존 CompleteOrder와 CouponSelection 결과, ProductOptionList Cart·Wishlist Labelled play의 최종 선택 상태를 확인했다. CheckoutForm의 완료/쿠폰 흐름과 공통 Radio의 결제수단 선택 상태를 유지한다. 주문 합계 테스트 3개를 통과했다.

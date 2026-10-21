@@ -25,6 +25,7 @@ const title = css({ m: '0' });
 const description = css({
   m: '0',
   w: '377px',
+  _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
 });
 
 export function HeroCopy({ content, actions }: HeroCopyProps) {
@@ -36,7 +37,7 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
       top="50%"
       left="50%"
       className={contentFrame({
-        mobileWidth: 'min(calc(100% - var(--layout-mobile-content-inline-space)), 343px)',
+        mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
       })}
       transform="translate(-50%, -50%)"
       _mobile={{
@@ -47,7 +48,7 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
       }}
       gap={{ base: '36px', _mobile: '24px' }}
     >
-      <VStack alignItems="flex-start" gap={{ base: '36px', _mobile: '24px' }}>
+      <VStack alignItems="flex-start" maxW="100%" gap={{ base: '36px', _mobile: '24px' }}>
         <Typography as="h1" className={title} tone="inverse" variant="display">
           {content.title}
         </Typography>
@@ -55,12 +56,13 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
           {content.description}
         </Typography>
       </VStack>
-      <HStack alignItems="flex-start" gap={{ base: '8px', _mobile: '8px' }}>
+      <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
         {actions.map((action) => (
           <ButtonLink
             size="short"
             key={`${action.to}-${action.label}`}
-            variant="secondary"
+            variant="primary"
+            colorway="white"
             href={action.to}
           >
             {action.label}

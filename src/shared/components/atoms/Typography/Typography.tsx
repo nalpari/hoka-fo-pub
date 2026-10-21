@@ -414,6 +414,22 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      choiceLabel: {
+        fontFamily: 'var(--font-family-base)',
+        fontSize: 'var(--type-choice-label-font-size)',
+        fontWeight: 'var(--type-choice-label-font-weight)',
+        lineHeight: 'var(--type-choice-label-line-height)',
+        letterSpacing: 'var(--type-choice-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-choice-label-mobile-font-size)' },
+      },
+      unitLabel: {
+        fontFamily: 'var(--font-family-base)',
+        fontSize: 'var(--type-unit-label-font-size)',
+        fontWeight: 'var(--type-unit-label-font-weight)',
+        lineHeight: 'var(--type-unit-label-line-height)',
+        letterSpacing: 'var(--type-unit-label-letter-spacing)',
+        _mobile: { fontSize: 'var(--type-unit-label-mobile-font-size)' },
+      },
       selectionLabel: {
         fontFamily: 'korean',
         fontSize: 'var(--type-selection-label-font-size)',
@@ -523,6 +539,17 @@ const typography = cva({
         _mobile: { fontSize: 'var(--type-display-mobile-font-size)' },
       },
       heading: figmaTypographyVariants.headingKr7,
+      catalogTitle: {
+        fontFamily: 'korean',
+        fontSize: 'var(--type-catalog-title-font-size)',
+        fontWeight: 'var(--type-catalog-title-font-weight)',
+        lineHeight: 'var(--type-catalog-title-line-height)',
+        letterSpacing: 'korean',
+        _mobile: {
+          fontSize: 'var(--type-catalog-title-mobile-font-size)',
+          lineHeight: 'var(--type-catalog-title-mobile-line-height)',
+        },
+      },
       sectionHeading: {
         fontSize: 'var(--type-section-heading-font-size)',
         fontWeight: 'var(--type-section-heading-font-weight)',
@@ -540,10 +567,14 @@ const typography = cva({
       },
       body: {
         ...figmaTypographyVariants.bodyKr3,
-        _mobile: { fontSize: '14' },
+        fontSize: 'var(--type-body-font-size)',
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
       },
       formLabel: figmaTypographyVariants.body4,
-      productAudience: figmaTypographyVariants.body3,
+      productAudience: {
+        ...figmaTypographyVariants.body3,
+        fontSize: 'var(--type-product-audience-font-size)',
+      },
       productUse: {
         fontFamily: 'korean',
         fontWeight: 'bold',
@@ -612,6 +643,22 @@ const typography = cva({
         letterSpacing: 'var(--type-bottom-sheet-title-letter-spacing)',
       },
       ...figmaTypographyVariants,
+      cta2: {
+        ...figmaTypographyVariants.cta2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      ctaKr2: {
+        ...figmaTypographyVariants.ctaKr2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      textLink2: {
+        ...figmaTypographyVariants.textLink2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      textLinkKr2: {
+        ...figmaTypographyVariants.textLinkKr2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
     },
     weight: {
       regular: {
@@ -645,11 +692,13 @@ const typography = cva({
     },
     tone: typographyTones,
   },
-  defaultVariants: { tone: 'inherit', variant: 'body' },
+  defaultVariants: { variant: 'body' },
 });
 
 export type TypographyVariant =
   | 'unstyled'
+  | 'choiceLabel'
+  | 'unitLabel'
   | 'selectionLabel'
   | 'navigationHeading'
   | 'navigationPromoTitle'
@@ -670,6 +719,7 @@ export type TypographyVariant =
   | 'authSmall'
   | 'display'
   | 'heading'
+  | 'catalogTitle'
   | 'sectionHeading'
   | 'cardTitle'
   | 'body'
@@ -771,6 +821,10 @@ export function Typography<T extends ElementType = 'span'>({
   const platform = usePlatform();
   const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
+  // Choice buttons own their state colors; keep the existing inherited-color default elsewhere.
+  const resolvedTone =
+    tone ??
+    (selectedVariant === 'choiceLabel' || selectedVariant === 'unitLabel' ? undefined : 'inherit');
   const isSessionBody =
     selectedVariant === 'sessionFactBody' ||
     selectedVariant === 'sessionGuideBody' ||
@@ -788,7 +842,7 @@ export function Typography<T extends ElementType = 'span'>({
         selectedVariant === 'unstyled'
           ? tone && typographyTone({ tone })
           : typography({
-              tone,
+              tone: resolvedTone,
               variant: resolvedVariant as never,
               script,
               weight,

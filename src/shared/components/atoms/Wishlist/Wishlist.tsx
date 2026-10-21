@@ -2,6 +2,7 @@ import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import type { CSSProperties } from 'react';
 import { css } from 'styled-system/css';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { usePlatform } from '@/shared/context/platform';
 import { faHeartRegular, faHeartSolid } from '@/shared/icons/fontAwesome';
 
@@ -10,7 +11,7 @@ const wishlist = css({
   flexShrink: '0',
 });
 
-const button = css({
+const button = css.raw({
   display: 'grid',
   w: 'var(--wishlist-button-size, 38px)',
   h: 'var(--wishlist-button-size, 38px)',
@@ -29,17 +30,35 @@ export type WishlistProps = {
   ariaLabel: string;
   className?: string;
   size?: string;
+  label?: string;
+  iconSize?: string;
   onActiveChange: (active: boolean) => void;
 };
 
 /** Accessible wishlist toggle with outline and filled icon states. */
-export function Wishlist({ active, ariaLabel, className, size, onActiveChange }: WishlistProps) {
+export function Wishlist({
+  active,
+  ariaLabel,
+  className,
+  size,
+  label,
+  iconSize,
+  onActiveChange,
+}: WishlistProps) {
   const platform = usePlatform();
 
   return (
     <BaseToggle
       aria-label={ariaLabel}
-      className={[button, className].filter(Boolean).join(' ')}
+      className={[
+        css(
+          button,
+          Boolean(label) && { display: 'inline-flex', gap: '1', w: 'auto', h: '4', p: '0' },
+        ),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       onPressedChange={onActiveChange}
       pressed={active}
       style={size ? ({ '--wishlist-button-size': size } as CSSProperties) : undefined}
@@ -49,8 +68,17 @@ export function Wishlist({ active, ariaLabel, className, size, onActiveChange }:
         alt=""
         className={wishlist}
         fontAwesomeIcon={active ? faHeartSolid : faHeartRegular}
-        size={platform === 'mobile' ? '19px' : '24px'}
+        size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
       />
+      {label ? (
+        <Typography
+          as="span"
+          variant="body5"
+          className={css({ textDecoration: 'underline', textUnderlineOffset: '3px' })}
+        >
+          {label}
+        </Typography>
+      ) : null}
     </BaseToggle>
   );
 }

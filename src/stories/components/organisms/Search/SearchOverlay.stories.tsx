@@ -1,3 +1,4 @@
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
@@ -102,4 +103,20 @@ export const MobileAutocomplete: Story = { ...Mobile, args: { query: '러닝' } 
 export const MobileInvalid: Story = {
   ...Mobile,
   args: { error: '검색할 수 없는 단어가 포함되어 있습니다.' },
+};
+
+export const DesktopDismissal: Story = {
+  args: { query: '러닝' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('searchbox', { name: '검색' });
+    await userEvent.click(input);
+    await userEvent.type(input, '화');
+    await expect(canvas.getByRole('dialog', { name: '검색' })).toBeVisible();
+    await expect(input).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(canvas.queryByRole('dialog')).not.toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('button', { name: '검색 열기' }));
+    await expect(canvas.getByRole('dialog', { name: '검색' })).toBeVisible();
+  },
 };

@@ -104,11 +104,13 @@ const title = cva({
     variant: {
       titleLinks: {},
       descriptionLink: {},
-      imagePill: { _mobile: { fontSize: '24', lineHeight: 'body' } },
+      imagePill: {
+        _mobile: { fontSize: 'var(--home-title-24, var(--font-sizes-24))', lineHeight: 'body' },
+      },
       overlay: {
         fontSize: '32',
         lineHeight: 'body',
-        _mobile: { fontSize: '24', lineHeight: 'body' },
+        _mobile: { fontSize: 'var(--home-title-24, var(--font-sizes-24))', lineHeight: 'body' },
       },
     },
   },
@@ -125,7 +127,10 @@ const descriptionStyle = cva({
     variant: {
       descriptionLink: {},
       imagePill: {},
-      overlay: { fontSize: '20', _mobile: { fontSize: '14' } },
+      overlay: {
+        fontSize: '20',
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
     },
   },
 });

@@ -58,16 +58,16 @@ const button = cva({
     density: {
       auto: {
         _mobile: {
-          '--button-height': '40px',
-          '--button-padding-x': '16px',
-          '--button-label-size': '14px',
+          '--button-height': 'var(--home-body-40, 40px)',
+          '--button-padding-x': 'var(--home-body-16, 16px)',
+          '--button-label-size': 'var(--home-body-14, 14px)',
         },
       },
       wide: {},
       compact: {
-        '--button-height': '40px',
-        '--button-padding-x': '16px',
-        '--button-label-size': '14px',
+        '--button-height': 'var(--home-body-40, 40px)',
+        '--button-padding-x': 'var(--home-body-16, 16px)',
+        '--button-label-size': 'var(--home-body-14, 14px)',
       },
     },
     fullWidth: { true: { w: '100%', '& > span': { w: '100%' } } },

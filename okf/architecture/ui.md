@@ -14,6 +14,129 @@ working_tree_sources:
   - src/shared/features/support/SupportContactCard.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
+  at: '2026-10-21T08:15:46.840Z'
+source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
+working_tree_sources:
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
+  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/shared/components/molecules/SocialAuthButton/SocialAuthButton.tsx
+  - src/shared/features/mypage/AddressEditor.tsx
+  - src/shared/features/mypage/AddressList.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileField.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-address.types.ts
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/shared/features/product/ProductSupportTextLink.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
+  - src/stories/components/molecules/AmountRow/AmountRow.stories.tsx
+  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/molecules/SocialAuthButton/SocialAuthButton.stories.tsx
+  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/shared/components/atoms/Card/Card.tsx
+  - src/shared/components/atoms/DataTable/DataTable.tsx
+  - src/shared/components/atoms/EmptyState/EmptyState.tsx
+  - src/shared/components/atoms/Fieldset/Fieldset.tsx
+  - src/shared/components/atoms/TextInput/TextInput.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
+  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
+  - src/shared/components/organisms/Address/AddressField.tsx
+  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
+  - src/shared/components/organisms/Faq/FaqQuestion.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
+  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/shared/components/organisms/Search/SearchDialog.tsx
+  - src/shared/components/organisms/Signup/SignupMethodButton.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/shared/features/checkout/CheckoutRecipientFields.tsx
+  - src/shared/features/checkout/CheckoutSavedAddress.tsx
+  - src/shared/features/checkout/CheckoutShippingInput.tsx
+  - src/shared/features/checkout/CouponAmountSummary.tsx
+  - src/shared/features/home/HomeCategorySection.tsx
+  - src/shared/features/home/HomeShoeFinderSection.tsx
+  - src/shared/features/login/LoginActions.tsx
+  - src/shared/features/mypage/MyPageAddresses.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/MyPageRewards.tsx
+  - src/shared/features/product/ProductAfterSalesContacts.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductDetailShippingGuide.tsx
+  - src/shared/features/product/ProductSupportContact.tsx
+  - src/shared/features/run-club/RunClubFilters.tsx
+  - src/shared/features/signup-registration/RegistrationField.tsx
+  - src/shared/features/support/InquiryFormActions.tsx
+  - src/shared/styles/global.scss
+  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
+  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurementMethod.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurementImage.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurementInstructions.tsx
+  - src/shared/features/size-guide/SizeGuideChart.tsx
+  - src/shared/features/size-guide/SizeGuideChoiceGroup.tsx
+  - src/shared/components/atoms/DataTable/DataTable.tsx
+  - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/styles/global.scss
+  - src/shared/features/support/support.navigation.ts
+  - src/stories/components/atoms/DataTable/DataTable.stories.tsx
+  - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
+  - src/stories/components/atoms/Typography/Typography.ChoiceLabels.stories.tsx
+  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/shared/features/size-guide/SizeGuidePanel.tsx
+  - src/shared/features/size-guide/SizeGuideMeasurements.tsx
+  - src/shared/features/size-guide/size-guide.data.ts
+  - src/shared/components/molecules/SupportTabs/SupportTabs.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
+  - src/shared/features/product/ProductDetailPage.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailContent.tsx
+  - src/shared/features/product/ProductVariantSelectors.tsx
+  - src/shared/features/product/ProductSizeSelector.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/catalog/product-listing/MobileCategoryTabs.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/shared/features/catalog/ProductListingPage.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
+  - src/shared/components/molecules/ProductName/ProductName.tsx
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
+  - src/shared/components/molecules/PromotionCard/PromotionCard.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/shared/components/atoms/Wishlist/Wishlist.tsx
+  - src/shared/features/cart/CartContent.tsx
+  - src/shared/features/cart/CartSelectionBar.tsx
+  - src/shared/features/cart/CartProductList.tsx
+  - src/shared/features/cart/CartSupportInfo.tsx
+  - src/shared/features/cart/CartOptionsContent.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
+  - src/shared/features/checkout/CheckoutForm.tsx
+  - src/shared/features/checkout/CheckoutContent.tsx
+  - src/shared/features/checkout/CheckoutPayment.tsx
+  - src/shared/features/checkout/CouponAmountSummary.tsx
+  - src/stories/components/molecules/OrderProductSummary/OrderProductSummary.stories.tsx
+  - src/stories/components/molecules/ProductOptionList/ProductOptionList.stories.tsx
+  - src/stories/components/atoms/Wishlist/Wishlist.stories.tsx
+  - src/shared/components/atoms/IconButton/IconButton.tsx
+  - src/shared/components/atoms/Icon/Icon.tsx
+  - src/shared/features/cart/CartItemRow.tsx
+  - src/shared/features/cart/CartOptionsDialog.tsx
+  - src/shared/features/checkout/CheckoutProductList.tsx
+  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/shared/features/checkout/CouponProductItem.tsx
+  - src/shared/features/checkout/CheckoutComplete.tsx
+  - src/shared/components/atoms/Button/Button.tsx
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
+  - src/shared/features/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/shared/features/login/LoginPage.tsx
   - src/shared/features/catalog/productListingIaRoute.ts
@@ -642,6 +765,30 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 전체 소스 재사용 조사 적용 (2026-10-21)
+
+[재사용 조사와 적용 기록](component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)을 기준으로 다음 공용 계약을 적용했다.
+
+- AmountRow를 molecules로 승격해 cart·checkout의 표시를 공유한다. 합계 계산은 기존 기능에 남긴다. OrderRecommendations는 items/title을 받으며 런타임 mock import를 제거했다. src/mocks/orderRecommendations.ts가 첫 네 상품·이미지 fallback·상품 링크를 준비한다.
+- SocialAuthButton은 provider와 appearance(login/signup)를 받는다. 기존 로그인 hover와 가입 border/inline 변수, 18px 아이콘, tall 크기를 유지한다. 문구·인증 업무와 미연결 안내는 기존 호출자가 소유한다.
+- TextInput의 appearance=compact는 wrapper 없는 native control 표현이다. 기존 14px/1.3·border0·1px focus를 배송·주소에서 사용하고 CheckoutShippingInput 중간 어댑터를 제거했다. disabledAppearance=muted로 가입·이메일·주소의 중복 회색 표현을 모았다. boxed의 && 우선순위 및 disabled/readOnly 정책은 유지한다.
+- HomeCarouselSection.mobileRail=bleed가 세 소비처의 100vw·우측 16px·wrapper 좌우 8px를 공유한다. 슬라이드 너비와 PC 2240/2560 표시 개수는 기존 소유자에 유지한다.
+- FormActionGroup은 기존 폼 안에서 취소(type=button)·제출(type=submit)을 같은 너비로 배치한다. 문의 등록·배송지 수정·회원정보 수정에 적용하며 새 배송지의 단일 저장 버튼, modal/fixed action은 유지한다.
+- AddressList/AddressEditor, ProfileField/ProfileReadView/ProfileEditForm을 mypage 내부 파일로 나눴다. 데이터/타입도 기능 내부에 둔다. 입력값·검증·저장·기본 배송지·삭제·탈퇴 상태는 기존 페이지가 소유한다. Rewards의 번호행과 product 지원 링크는 기능 내부 책임으로만 분리했다.
+- RunClubFilters는 기존 unstyled SegmentedControl/ToggleGroup을 사용한다. Fieldset/DataTable 숨김 텍스트는 Typography.srOnly를 사용하며 legend/caption 의미를 보존한다. 동일 web/mo variant, Card/EmptyState 문단, A/S Grid props, 회원등급 Circle도 정리했다.
+- 상품 목록 제목은 catalogTitle Typography/토큰으로 PC 기존 headingKr7·MO 24px/900/1.3을 유지한다. 일반 heading의 모바일 축척은 바꾸지 않는다.
+- PC SearchDialog는 비모달 Base UI Dialog로 Escape·outside/focus dismissal을 위임한다. Portal은 헤더 내부 host에 놓아 기존 위치/hover 영역을 유지하고 header-search-control로 이동할 때 닫기를 취소한다. 포커스 복원은 기존 SiteHeader 소유다. Autocomplete/NavigationMenu는 현재 독립 버튼/순차 Tab 계약을 유지한다.
+
+새 공용 API와 입력/검색 상호작용에 Storybook 사례를 추가했다. 최종 검증 결과는 위 적용 기록에 남긴다.
+
+## 사이즈 가이드 재사용 개선 (2026-10-21)
+
+[사이즈 가이드 재사용 기록](size-guide.md#재사용-개선과-사이드-메뉴-순서-2026-10-21)에 ContentSection·Grid·기능 내부 선택행, DataTable.spaced의 스타일 병합, SegmentedControl.itemRender와 Typography choiceLabel/unitLabel의 토큰·보존 검증을 기록했다. supportNavigation의 사이즈 가이드는 약관 다음 마지막 항목이다. 앞선 준비 단계의 기능별 표 클래스 구성은 이 변경으로 대체한다.
+
+## 사이즈 가이드 화면 준비 (2026-10-21)
+
+[사이즈 가이드](size-guide.md)에 8개 품목 패널, 측정 안내 분리, SupportTabs guide 변형과 공통 선택·표 재사용을 기록했다. 기존 빈 본문은 측정 안내로 대체했고, 확정되지 않은 치수는 자리표시자로 유지한다. 첨부 이미지 출처와 PC/MO 검증 범위도 해당 문서를 참고한다.
 
 ## GNB 최종 메뉴 반영 (2026-10-20)
 
@@ -2004,7 +2151,7 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 
 ## 상품 복수 프로모션 뱃지 (2026-10-20)
 
-`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 각 값이 `Exclusive`이면 브랜드 색상, 그 외에는 red80을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
+`PromotionBadge`와 `ProductDetails`의 `promotion`은 기존 단일 값과 readonly 배열을 모두 받는다. 배열 순서대로 개별 `Typography`와 세로 `Divider`를 렌더링한다. 2026-10-21부터 `Exclusive` 여부와 관계없이 모든 라벨은 `tone="brand"`, 구분선은 같은 `var(--color-text-brand)` 색상을 적용하며 빈 배열은 렌더링하지 않는다. 상품 카드·상세 헤더·hover 미리보기가 같은 컴포넌트를 사용하며, 신상품순 정렬은 배열 안의 `New`도 인식한다. `Molecules/Product Card`의 `MultiplePromotions` 스토리에서 `Best | Exclusive` 조합을 제공한다.
 
 작업 트리의 위 소스를 기준으로 타입 검사·변경 파일 ESLint와 단일/복수/빈 뱃지의 JSX 결과·색상 prop 및 신상품 정렬을 확인했다. 브라우저 시각 검증은 수행하지 않았다.
 
@@ -2155,3 +2302,168 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 첨부 설계서와 사용자가 확정한 영문·숫자 4자 이상 규칙을 반영했다. LoginForm은 EmailField 대신 기존 TextFormField를 사용해 라벨 “아이디”, placeholder “아이디를 입력해 주세요”, type text와 기존 name/autocomplete username을 전달한다. boxed·required·오류 설명 연결과 Panda 배치는 유지한다. 로그인 오류·성공·형식 스토리와 아이디 찾기·폼 감사의 결과 예시를 갱신했다. 아이디 찾기 결과는 `honggildong`으로 표시하며 가입·비밀번호·인증·계정 잠금 화면은 변경하지 않는다. 이 기록은 이전 이메일 기반 로그인 설명을 대체한다. [상태 계약](state.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
 
 검증: 전체 타입 검사·변경 TSX ESLint·변경 파일 Prettier·전체 Storybook production build가 통과했다. 빌드 결과를 로컬 HTTP 서버에서 Edge/Playwright로 실행해 로그인 PC 6개·모바일 5개, 아이디 찾기 결과 PC/모바일 2개·재설정 이동 1개, 폼 감사 찾기 PC/모바일 2개로 총 16개 스토리가 통과했다. 아이디 3자 거부·4자 영문/숫자/혼합 허용, 공백·한글·특수문자·이메일 거부, 오류 해제·재표시와 로그인 콜백·홈 이동을 확인했다. 1600px·375px 기본 화면 캡처와 375px 화면을 시각 확인했다. 실제 인증 API는 검사 대상이 아니다.
+
+## 런클럽 첨부 시안 보완 (2026-10-21)
+
+첨부된 PC·모바일 목록/빈 화면/상세 시안과 Storybook 렌더를 비교했다. RunClubLayout의 결과 영역은 PC에서 최대 1280px·전체 가용 너비로 지정하고 모바일은 전체 너비를 유지한다. 결과 영역의 신청 내역/카드 간격은 24px이며 PC 빈 화면에서는 신청 내역 링크를 생략한다. 모바일 헤더의 신청 내역 링크는 유지한다. RunClubHeader의 소개 문구는 PC 중앙·모바일 왼쪽 정렬이다.
+
+카드 제목은 PC heading7(28px)·모바일 body1을 사용하고 제목/설명 간격은 8px, 본문/CTA 간격은 24px이다. 이미지의 날짜와 코스 두 줄은 gap=0으로 조합한다. 상세의 정원 20명은 PC·모바일 모두 표시하고, RunClubSessionHero의 뱃지는 HStack으로 감싸 내용 너비에 맞게 배치한다. 실제 세션 데이터와 신청 준비 안내 동작은 유지하며, 시안 내 서로 다른 예시 날짜/코스를 고정 문구로 복제하지 않는다. 공통 헤더의 홍보 배너는 기존 전체 페이지 노출 정책을 유지한다.
+
+출처: 작업 트리의 `src/shared/features/run-club/RunClubLayout.tsx`, `RunClubHeader.tsx`, `RunClubSessionCardContent.tsx`, `RunClubSessionCardImage.tsx`, `RunClubDetailPage.tsx`, `RunClubSessionHero.tsx`. 이 기록은 이전 PC 정원의 mobileOnly 보존 설명을 대체한다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·런클럽 폴더 ESLint가 통과했다. Edge headless의 Storybook PC 1600px 목록/빈 목록/마감 상세와 모바일 375px 목록/빈 목록/오픈 예정 상세 6개 화면에서 가로 넘침이 없음을 확인했다. PC 카드 제목 28px, 빈 목록 신청 내역 링크 생략, PC 상세 정원 표시와 PC/MO 로드 필터 결과(4개/1개)를 확인했다. 목록·빈 화면·모바일 상세 캡처를 시각 검토했다. 실제 신청 API 연동 검증은 수행하지 않았다.
+`npm run build`의 Next.js 프로덕션 빌드도 통과했다.
+
+## Best sellers 모바일 비례 폭 (2026-10-21)
+
+사용자가 첨부한 메인 시안과 768px Storybook 화면을 기준으로 Best sellers의 모바일 카드 폭을 수정했다. 375px 디자인의 상품 이미지 160px과 좌우 gutter 각각 5px을 뷰포트에 비례시키며, 사용자 후속 요청에 따라 gutter도 고정 px 대신 비례값을 사용한다. 이미지 폭은 `42.66666666666667vw`, 각 gutter는 `1.3333333333333333vw`이며 슬라이드 폭은 셋의 합이다. 기존 `mobileItemGutter={5}`는 공통 캐러셀의 간격 모드 선택을 유지하고, 홈의 모바일 slide 스타일이 실제 padding을 덮어쓴다. 공통 API와 타입은 변경하지 않았다.
+
+공통 ProductCard showcase의 모바일 160px 폭과 ProductThumbnail의 160px 높이를 이 섹션 안에서만 해제한다. 최초 수정에서는 썸네일 영역을 정사각형으로 유지했으나, 아래 후속 시안 대조에 따라 PC·모바일 모두 3:4 영역으로 변경했다. 기존 중요도 지정 폭과 충돌하지 않도록 모바일 slide의 직접 카드 너비 및 레일 내부 `.image` 크기/비율에만 제한된 우선순위를 사용한다. PC 카드 폭과 개수, Find my HOKA의 253px 상한, 레일 여백과 필터 변경 시 viewport 재생성 계약은 유지한다. 출처는 frontmatter의 작업 트리 파일과 2026-10-21 사용자 요청이다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TSX ESLint/Prettier가 통과했다. 실행 중인 Storybook의 모바일 375px에서는 이미지 160×160px·gutter 5px, 768px에서는 이미지 약 327.7×327.7px·gutter 10.24px을 측정했다. 두 상품과 다음 상품 일부 노출, 모바일 페이지 가로 넘침 없음, 드래그로 마지막 상품 도달과 필터 변경 후 첫 슬라이드 x=8px 복귀를 확인했다. 독립 미리보기를 375→768px로 리사이즈해 같은 비례값으로 재계산됨을 확인했다. PC 1200·1920px의 중앙 그리드 기준 상품 이미지 폭 약 202.2·293.6px과 모바일 Find my HOKA 슬라이드 253px을 확인했다. PC 1200px 스토리는 기존 WEB 최소 1200px 캔버스를 유지한다. 이번 변경으로 프로덕션 빌드는 별도 수행하지 않았다.
+
+첨부 메인의 Hero→Shop by category→Best sellers→Explore→Find my HOKA 순서는 현재 구성과 일치한다. 상품 목업에는 시안의 신발 진열과 다른 상품·가격 및 의류 항목이 포함되고 테스트 레일은 12개 항목을 사용한다. 이 데이터 차이와 다른 메인 디자인은 이번 폭 수정에 포함하지 않는다.
+
+후속 비율 반영(Codex, 2026-10-21): 첨부 시안의 Best sellers 썸네일은 약 3:4 세로형으로 판단했으며 사용자 요청대로 기존 정사각형 상품 이미지는 수직 중앙에 유지한다. `thumbnailRatio`의 Panda raw 스타일을 PC·모바일 레일 스타일과 생성 전에 병합하고, 영역의 높이는 auto·aspect-ratio는 3/4로 적용했다. ProductThumbnail의 기존 이미지 width=100%·height=auto·top=50%·translateY(-50%)를 유지해 원본 이미지를 늘이거나 자르지 않는다. 공통 ProductThumbnail과 다른 소비처는 변경하지 않는다.
+
+후속 검증: Panda 생성·타입 검사·변경 TSX ESLint/Prettier가 통과했다. Storybook 375·768·1200·1920px에서 썸네일 영역은 각각 약 160×213.3·327.7×436.9·202.2×269.6·293.6×391.5px, 정사각형 원본 이미지의 수직 중심 차이는 0.01px 미만으로 측정했다. 앞선 정사각형 영역의 검증 수치는 비율 변경 전 기록이며 최종 영역 크기는 이 후속 검증을 따른다.
+
+## 모바일 홈 유동 크기 (2026-10-21)
+
+HomeLayout의 `.platform-mobile` 영역에서만 `--home-title-*`·`--home-body-*`·`--home-pagination-*` 변수를 정의한다. 기본 루트 글자 16px일 때 375→768px를 선형 보간하는 rem+vw clamp이며, 375px 이하 기존 크기·768px 이상 상한을 유지한다. 제목은 1.5배, 설명·상품 정보·필터·버튼 글자는 1.25배까지 확대한다. 예: display 40→60px, sectionHeading 30→45px, cardTitle 20→30px, overlay/imagePill 제목 24→36px, 본문/CTA 14→17.5px, 가격 13→16.25px, 필터 12→15px. 단위 없는 줄높이는 유지한다. rem을 사용하므로 사용자 기본 글자 크기에 따라 보간 경계와 실제 크기는 달라질 수 있다.
+
+Typography의 의미 토큰 및 body·cta2/ctaKr2·textLink2/textLinkKr2, ProductGender showcase, MainContentCard의 로컬 제목/설명, Button auto/compact, FilterTabs fill이 홈 변수를 소비한다. 변수가 없는 경우 기존 토큰/px로 돌아가며 Figma 기초 타이포그래피 정의와 공개 React props는 바꾸지 않는다. 버튼 높이 40→50px·좌우 패딩 16→20px, 필터 높이 30→37.5px를 적용한다. HeroCopy는 모바일 카피를 가용 폭으로 확장하고 설명 폭을 제한하며 CTA 그룹은 줄바꿈을 허용한다.
+
+HeroPagination은 모바일 점 6→9px·활성 막대 32→48px·간격 8→12px이며 진행 바의 시작 폭은 실제 점 크기 변수를 참조한다. 기존 자동 재생·정지·키보드 선택·포커스를 유지한다. 일반 CarouselPagination, 이미지 비율·레일 폭·Find my HOKA 카드 상한·공통 헤더/푸터는 유지한다. 기존 고정 글자 크기 설명 중 모바일 홈에는 이 기록이 우선한다.
+
+검증(Codex, 2026-10-21): 실행 중인 Storybook의 모바일 320·375·430·620·768·900px에서 크기·상한·가로 넘침 없음·CTA/페이지 표시 겹침 없음을 측정했다. 375px의 제목/본문 40/14px·점/막대 6/32px, 768px의 60/17.5px·9/48px 및 필터 15px·가격 16.25px를 확인했다. 키보드 선택·흰 포커스 outline·포커스 중 진행률 정지, 자동 슬라이드 전환, 상품 레일 드래그와 필터 변경 후 transform=0 복귀를 확인했다. PC 1600px의 제목 64px·본문 16px·점/막대 8/42px 및 모바일 로그인에 홈 변수가 없음을 확인했다. 768px의 상품명 말줄임·Explore 오버레이를 시각 검토했다. 실제 브라우저 200% 확대는 자동화 키 입력으로 확대 상태를 만들 수 없어 검증하지 못했다.
+
+검증 명령: Panda 생성·전체 타입 검사·변경 TSX ESLint/Prettier·Next.js 프로덕션 빌드·Storybook 프로덕션 빌드가 통과했다. 작업 트리 전체의 OKF 관련 문서 누락 검사도 통과했다. 375px의 상품명 ellipsis·Explore 제목 24px/설명 14px/하단 CTA 여백 30px, 768px Find my HOKA의 제목 36px/설명 17.5px과 카드 안 텍스트 배치도 확인했다.
+
+## 2560px PC 상품 표시 확대 (2026-10-21)
+
+사용자 요청으로 PC의 1920px 시안 크기를 기준으로 2560px까지 콘텐츠 폭·의미별 글자 크기를 선형 확대한다. `.platform-web`의 중앙 최대 폭은 1532→2040px, sectionHeading은 40/38→52/50px(글자/행간), cardTitle은 24/23→28/27px, 상품 정보는 16→18px다. 2560px 이상은 상한을 유지한다. 공통 헤더·푸터·Hero 카피·상품 상세 중앙 그리드도 같은 콘텐츠 폭 토큰으로 정렬하며, 별도로 폭을 제한하는 계정/고객센터 폼은 확대하지 않는다. PC 최소 캔버스 1200px와 모바일 전용 크기·배치는 유지한다.
+
+Panda의 wideDesktop(2240px), ultraWideDesktop(2560px) 조건으로 상품 목록·검색 결과는 3→4→5열을 표시한다. HomeCarouselRail은 기본 표시 개수에서 단계별 1/2개를 늘리고 실제 항목 수를 넘겨 새 열을 추가하지 않는다(기존 기본 개수는 하한으로 보존). Best sellers는 5→6→7개, Find my HOKA는 4→5→6개, 카테고리는 4→5→5개다. 공유하는 상품 상세·런클럽 추천 레일에도 같은 규칙을 적용한다. 기존 오른쪽 다음 카드 미리보기와 마지막 카드의 중앙 그리드 끝 정렬을 유지한다. 추가 데이터·뷰포트 감지 React 상태·이벤트 리스너를 만들지 않는다.
+
+ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. Typography의 body/productAudience는 기존 Figma 기초 스타일을 유지하고 글자 크기만 기존 의미 토큰을 소비한다. 기본값은 기존 16px이며 모바일 body의 홈 유동 크기와 성별 variant·가격의 모바일 토큰은 유지한다. Storybook EndAlignedToGrid는 CSS가 결정한 실제 표시 개수로 끝까지 이동할 클릭 횟수를 계산한다.
+
+작업 트리 출처: panda.config.ts, src/shared/styles/global.scss, src/shared/components/atoms/Typography/Typography.tsx, src/shared/components/molecules/ProductDetails/ProductDetails.tsx, src/shared/components/molecules/HomeCarouselSection/{HomeCarouselSection,HomeCarouselRail}.tsx, src/shared/features/catalog/ProductListingResults.tsx, src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx. 해당 경로는 이 문서의 working_tree_sources에 기록되어 있다.
+
+검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TypeScript/TSX ESLint를 통과했다. 실제 Next 앱을 Edge headless에서 PC 1200·1920·2240·2560·3840px, 모바일 375·768px로 확인했다. PC 중앙 폭 1920/2240/2560/3840px에서 1532/1786/2040/2040px, 제목 40/46/52/52px, 상품명 16/17/18/18px와 목록 3/4/5/5열을 측정했다. 2560px Best sellers는 5번 이동 후 다음 버튼 비활성·마지막 카드 오른쪽 정렬 오차 1px 미만, 5번 역이동 후 이전 버튼 비활성을 확인했다. 모든 측정 화면에 페이지 가로 넘침이 없고 모바일 목록은 2열을 유지한다. 2560px 검색 결과와 상품 상세에도 가로 넘침이 없다. 홈·목록 2560px 스크린샷을 시각 검토했다. 이번 변경에서 프로덕션 빌드는 재실행하지 않았다.
+
+## 홈 Hero 버튼 외곽선 제거 (2026-10-21)
+
+HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.
+
+작업 트리 출처: `src/shared/components/organisms/Hero/HeroCopy.tsx`, `src/shared/components/atoms/Button/Button.tsx`. 브라우저 시각 검증은 수행하지 않았다.
+
+## 주문 화면 시각 오차 보정 (2026-10-21)
+
+사용자 첨부 모바일 시안과 현재 Storybook을 대조해 표시만 보정했다. CartItemRow는 모바일 카드 최소 높이 164px, 80px 썸네일과 상단 체크 위치를 사용하고 옵션/수량을 한 흐름으로 표시한다. 상품 이미지는 contain으로 유지해 잘림과 flex 축소를 방지한다. CheckoutProductList와 CouponProductItem도 모바일 썸네일을 80px로 맞춘다. CartOptionsDialog의 큰 이미지는 PC 24px·모바일 16px 본문 좌우 패딩과 상단 24px 패딩을 상쇄해 팝업 경계에 맞춘다.
+
+CheckoutDiscountSummary는 쿠폰 조회 링크를 라벨 옆에 두고, 할인액을 오른쪽에 정렬한다. 총 결제금액 행에만 연한 배경을 적용하고 안내문은 테두리 밖에 둔다. CouponProductItem은 공통 Collapsible의 기본 버튼으로 문구와 우측 +/- 표시를 분리한다. 제어 상태·라디오 값·onOpenChange·onSelect 계약은 유지한다. CheckoutComplete의 체크 장식은 첨부 시안에 맞춰 모바일에서만 숨기고 PC에서는 유지한다.
+
+작업 트리 출처는 frontmatter의 CartItemRow·CartOptionsDialog·CheckoutProductList·CheckoutDiscountSummary·CouponProductItem·CheckoutComplete다. 금액 계산, 상품 선택 대상, 품절 처리, 주문 상태별 행동, 기간 필터와 실제 결제 정책은 사용자 범위 밖이므로 변경하지 않았다. 주문/배송 조회의 정적 구현을 새 흐름으로 확장하지 않았다.
+
+Panda 생성·전체 타입 검사·변경 TSX ESLint를 통과했다. 모바일 375px에서 카드와 쿠폰 팝업 정렬을 시각 확인하고 기존 CouponSelection 시나리오가 480,000원에서 48,000원 할인 후 432,000원을 표시하는 것을 확인했다. 실제 결제 승인·주문 저장은 검증 범위에 포함하지 않는다.
+
+추가 검증: Next.js 프로덕션 빌드(52개 정적 페이지 생성)와 변경 TSX Prettier 검사를 통과했다. PC 1280px에서도 기존 CouponSelection 적용 결과와 금액 요약 배치를 확인했다. 모바일 옵션 팝업의 이미지가 헤더 직후·좌우 경계에 맞고 취소/변경 버튼이 유지되는 것을 시각 확인했다. OKF 작업 트리 매핑 검사도 통과했다.
+
+## 주문 화면 공통 프리미티브 보완 (2026-10-21)
+
+직전 변경의 6개 컴포넌트를 재검토해 CartItemRow·CheckoutProductList·CouponProductItem의 정사각형 이미지 3곳을 Panda square 패턴으로 통합했다. 크기는 size 토큰 24/20(96/80px)과 쿠폰의 PC 88px 리터럴·모바일 20(80px)로 기존 PC/모바일 값을 유지하며 display:block·objectFit:contain·flex:0 0 auto를 사용한다. 설치된 SquareProps는 HTMLStyledProps<'div'> 기준으로 src/alt를 선언하지 않으므로, 타입 캐스팅이나 추가 래퍼 대신 네이티브 img에 square 패턴을 적용한다. 너비/높이의 중복 선언은 제거했다.
+
+CartItemRow의 삭제는 기존 IconButton(size=24)·Icon(faXmark)을 사용하며 접근성 이름과 onRemove 콜백을 유지한다. CheckoutComplete의 원형 장식은 Circle(size=10)로 이전하고 기존 block/모바일 숨김·flex:0 1 auto를 명시해 기본 중앙 정렬과 flex 기본값이 배치를 바꾸지 않도록 했다. 이 장식의 글리프 크기는 본문 Typography 척도가 아닌 장식 값으로 유지한다. CheckoutDiscountSummary의 안내문 앞 12px은 부모 Stack gap=3으로 이동하고 불필요한 Box 래퍼를 제거했다. 새 공개 컴포넌트나 API는 추가하지 않았다.
+
+CartOptionsDialog의 대표 이미지와 색상 썸네일은 고정 w/h 쌍이 아닌 너비+aspectRatio로 고유 비율을 유지하므로 기존 네이티브 img·Panda css를 유지한다. Square의 퍼센트 size를 적용하면 높이가 부모 높이에 의존할 수 있어 동등한 계약이 아니다. 색상 버튼은 선택 테두리를 가진 썸네일 버튼으로 일반 IconButton 적용 대상이 아니다. CartItemRow의 액션 mt=1은 앞선 gap=1에 추가되는 단일 4px 간격이며 반복 형제 간격이 아니므로 유지했다.
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint를 통과했다. 모바일 375px에서 이미지가 실제 IMG·80×80px·contain·flex:0 0 auto인 것을 측정했고, 삭제 클릭 후 행 제거·선택상품 수·합계 갱신을 확인했다. 작업 트리 출처는 frontmatter의 6개 주문 컴포넌트와 IconButton·Icon 및 설치된 styled-system의 square/Circle 구현이다.
+
+후속 검증: Next.js 프로덕션 빌드와 OKF 작업 트리 매핑 검사를 통과했다. PC 장바구니 이미지는 96×96px, 모바일 쿠폰 이미지는 80×80px로 측정했다. 기존 모바일 CouponSelection 시나리오의 쿠폰 선택·펼침 상태와 432,000원 결제 표시를 확인했다.
+
+쿠폰 펼침 아이콘 보완: CouponProductItem의 Typography 문자 +/-를 공통 Icon(fontAwesomeIcon=faPlus/faMinus, size=12)으로 교체했다. Collapsible의 장식용 aria-hidden 영역과 기존 open/onOpenChange를 유지한다. 별도 상태나 버튼은 추가하지 않았다. 출처는 기존 frontmatter의 CouponProductItem.tsx·Icon.tsx다.
+
+아이콘 보완 검증: 전체 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드를 통과했다. 이 보완에서는 브라우저 시각 검증을 재실행하지 않았다.
+
+## 주문 화면 구성 분리와 재사용 (2026-10-21)
+
+공통 molecule OrderProductSummary는 image/name/optionText/amount, 선택적 gender/children과 cart/checkout/coupon variant를 받는다. CartItemRow·CheckoutProductList·CouponProductItem이 사용한다. 목 상품 조회·합계 계산·선택·쿠폰 상태는 소비처가 유지한다. PC 이미지 96px(쿠폰 88px)·모바일 80px, cart의 두 줄 말줄임과 모바일 중앙 정렬, coupon의 기본색 옵션·보통 굵기 금액을 보존한다. 액션은 children으로 기존 정보 Stack에 직접 참여하며 추가 DOM 래퍼를 만들지 않는다. 새 공개 API는 이 컴포넌트 하나이며 src/stories/components/molecules/OrderProductSummary에서 세 context와 모바일 긴 이름을 제공한다.
+
+CartContent는 CartSelectionBar·CartProductList·CartSupportInfo를 조합한다. 각 부분은 기존 선택 바, ul/li 목록, 고객센터 section을 그대로 렌더링하며 신규 상태나 중간 래퍼를 추가하지 않는다. CartOptionsDialog가 draft·width/color별 sizes·soldOut·valid와 ConfirmDialog 저장/취소를 유지하고 CartOptionsContent에는 준비된 정보·색상 썸네일과 변경 콜백만 전달한다. 숫자·사이즈·발볼은 기존 NumberStepper·SizeSelector·Radio를 유지한다.
+
+ProductOptionList에 layout=cart를 추가했다. 72px 이미지·2px 선택 테두리·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
+
+Wishlist의 선택적 label·iconSize로 장바구니의 12px 하트+관심상품 표기를 지원한다. label이 없으면 기존 38px 토글과 PC 24px/MO 19px 아이콘을 유지한다. 선택은 기존 Base UI Toggle의 pressed/onPressedChange로 관리하고, CartPage favorites가 계속 원본 상태다. Labelled 스토리는 왕복 토글을 확인한다. CheckoutComplete의 원형 완료 장식도 문자 체크 대신 Icon(faCheck)을 사용하며 모바일 숨김을 유지한다.
+
+CheckoutPayment는 기존 공통 Radio(custom)로 3열·4px gap·56px 최소 높이와 선택 테두리를 유지한다. name=paymentMethod와 kakao/naver/toss/card/samsung/payco 값을 보존한다. 설치된 Base UI Radio·RadioGroup을 재사용하며 의존성 변경은 없다. 로고 자산 등록과 결제수단 추가는 하지 않는다. AmountRow는 결제 기능 안에서 label/amount/discount/emphasis/emphasizeLabel/action과 HStack 배치 props를 받고, CheckoutDiscountSummary·CouponAmountSummary가 기존 계산값과 행별 여백을 전달한다. 할인 색은 Typography tone=error(red.100)로 통일했다.
+
+CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트를 이동했다. CheckoutContent는 준비된 값·명시적 콜백으로 화면을 조립한다. CheckoutPage가 기존 완료·결제수단·URL 선택 책임을 유지하며 완료/빈 상품 분기는 form 밖에 남긴다. compact 배송 입력·주소·배송 요청의 기존 native 속성과 정책은 변경하지 않았다. 기존 OrderActionBar·Dialog footer·ContentSection 구성을 유지한다.
+
+검증: Panda 생성·전체 타입 검사·변경 TSX ESLint·Next production build·Storybook production build를 통과했다. 모바일 375px 장바구니 첫 행은 이전과 동일하게 x=16,y=108.578125,w=328,h=164, 이미지 x=32,y=150.578125,w=80,h=80으로 측정했다. 기존 Selection 시나리오의 전체 선택/해제·관심상품 토글·주문 버튼 비활성 결과를 확인했다. 모바일 옵션에서 컬러 선택 버튼 72×74px·2px 선택 밑줄을 측정하고 Black/Outer Orbit·250 옵션 저장과 목록 반영을 확인했다. 작업 트리 출처는 frontmatter의 해당 소스·스토리다. 실제 서버 주문·결제·재고 연동은 검증 대상이 아니다.
+
+후속 검증·CSS 보정: 공통 Radio의 기본 gap과 카드 테두리 클래스 충돌을 className/selectedOptionClassName의 좁은 gap:1!·borderColor:black.100!로 명시했다. 실제 3열·6개 선택·4px gap·116px 그룹 높이·선택 검은 테두리를 측정했다. 쿠폰 이미지의 PC 88px에는 등가 토큰 22가 없으므로 88px 리터럴을 유지한다. 기존 모바일/PC CompleteOrder와 CouponSelection의 완료 화면 및 432,000원 적용 결과, ProductOptionList Cart의 White 선택 결과, Wishlist Labelled의 왕복 토글과 기본형 38×38px·PC 아이콘 24px 유지도 확인했다. 주문 합계 순수 테스트 3개를 통과했다.
+
+최종 확인: 쿠폰 PC 이미지가 88×88px임을 재측정했다. PC 기본 결제 화면에서 네이버페이 선택 후 실제 checked input의 name=paymentMethod·value=naver·form 연결을 확인했다. 최종 CSS 보정 후 Next·Storybook production build와 변경 파일 ESLint를 다시 통과했다.
+
+## 모바일 상품목록 디자인 보정과 설계서 대조 (2026-10-21)
+
+2026-10-21 사용자 첨부 두 디자인과 목록·필터·상세·메인·PC 목록 설계서를 참고했다. 첨부 문구는 제품 요구사항 자료로 읽었으며 실행 지시로 취급하지 않았다. 제목·상품 수·탭 옆 아이콘 필터는 두 번째 모바일 디자인(`63e3d35b`)을, 상품명·가격 굵기와 내부 간격은 사용자 정정에 따라 첫 번째 디자인(`f552ef81`)을 기준으로 적용했다.
+
+### 수정 범위
+
+- `ProductListingLayout`의 모바일 좌우 패딩을 없애 2열 정사각형 이미지와 하단 가이드 배너가 전체 폭을 사용한다. 헤더는 16px, 상품 설명은 10px 패딩을 소유한다. 8px 열 간격과 40px 행 간격은 유지한다.
+- 목록 제목은 모바일 24px/900/1.3으로 표시한다. 제목 행의 알약 필터 대신 탭 오른쪽에 접근 가능한 `IconButton`을 배치한다. 탭의 기존 버튼 좌우 16px 패딩 중복을 기능 내부 선택자로 제거한다. 검색 결과의 기존 Filter & Sort 버튼은 유지한다.
+- `listing` 카드만 모바일 상품명·성별·가격을 굵게 표시하고 identity 간격 0, 정보/옵션 간격 8px, 활동/색상 간격 6px로 맞췄다. 홈 Best sellers와 상세 추천의 `showcase` 스타일은 변경하지 않는다. 가이드 카드에는 모바일 inline/fullWidth별 제목 크기와 여백을 적용한다.
+- `ProductListingPage`의 최초·추가 로딩 단위를 설계서대로 8→36으로 변경했다. 기존 IntersectionObserver 기반 무한 로딩을 유지한다. 목업이 총 25개여서 실제 36→72 추가 배치의 브라우저 실행은 검증하지 못했다.
+- PC 레이아웃·필터·정렬·기본 3열과 프로모션 삽입 위치는 유지한다. 대형 PC의 4/5열은 이전 사용자 요청 정책이 우선한다. 목업 상품·가격·개수를 디자인의 예시 데이터로 하드코딩하지 않았다.
+
+### 필터 설계서 대조 결과 — 미수정 사항
+
+출처는 첨부 `20981f78`의 원본 설명과 다음 소스다. 이번에는 확인 요청에 따라 기존 기능 차이를 기록하며, 아래 정책을 변경한 것으로 보지 않는다.
+
+| 차이                                | 현재 구현과 근거                                                                                                                                                                                                                                        |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 초기화 후 닫아도 실제 필터가 변경됨 | `ProductListingPage.reset`이 모바일 임시 상태뿐 아니라 `setParams`와 실제 가격 상태를 변경한다. 설계서는 적용 전 닫으면 변경을 버리도록 요구한다. 일반 개별 선택·닫기는 임시 상태를 사용한다.                                                           |
+| 정렬 아코디언·표시 순서             | `MobileProductFilter`는 정렬을 접을 수 없는 알약 Radio로 표시한다. 설계서는 라디오 목록이 있는 접이식 정렬이며 선택 태그가 정렬보다 먼저 위치한다. 현재 태그는 정렬 뒤에 있다. 다른 필터 섹션은 기본 펼침이며 설계와 일치한다.                          |
+| 메뉴별 숨김·옵션 범위 미적용        | `ProductListingFilterPanel`은 성별·액티비티·러닝 타입·주행감·안정성을 항상 표시하고 고정 옵션을 사용한다. 설계서는 남성/여성 진입에서 성별을 숨기고, 의류/잡화에서 액티비티·러닝 타입·주행감·안정성을 숨긴다. 상품이 가진 조건에 맞는 항목 표시도 없다. |
+| 사이즈                              | `koreanSizes`와 `productListingFilterValues.sizeValues`는 220~300만 제공한다. 설명의 220~310 및 의류/용품 XS~XXL, 혼합 목록의 두 종류 병행 조건이 없다. 그림의 예시 값과 본문 범위가 달라 본문 기준으로 비교했다.                                       |
+| 가격 범위                           | 현재 50,000~389,000 고정이다. 설계서 본문은 상품 최저/최고가와 기본 0~1,000,000을 언급해 예시 그림 범위와 차이가 있다. 데이터 기반 범위·기본값 정책을 확정할 필요가 있다.                                                                               |
+| 정렬·발볼 실제 계산                 | `filterProducts.sortProducts`의 베스트순은 판매량 대신 ID, 신상품순은 발매일 대신 New 뱃지/ID를 사용한다. `productFilterPolicy`는 wide와 x-wide를 모두 Wide로 매칭한다. 현재 목업에 판매량·발매일·독립 X-Wide 상품 필드가 없어 실제 정책과 다르다.      |
+
+`BottomSheet`의 닫기/바깥 영역 종료, 다중 체크, 단일 정렬, 하단 고정 적용 버튼과 임시 결과 개수 계산은 구현돼 있다. URL의 `category=footwear/apparel` 값은 상품의 한글 category와 직접 비교되는 별도 매칭 제약도 있어 데이터 계약 정리가 필요하다.
+
+### 상세·메인 설계서 대조 결과 — 미수정 사항
+
+상세 출처는 첨부 `ea9d2a2f`, 메인 출처는 `7f692174`, PC 목록 출처는 `6335010d`다. 소스 대조 결과이며 실제 외부 서비스 연결 검증을 의미하지 않는다.
+
+- 상세 `ProductDetailPage.submit`은 현재 옵션 1개·수량 1만 담는다. 설계서의 최대 5개 옵션 행, 수량 변경·합계·구매수량 제한 Alert가 없다. 장바구니 등록 후 옵션 초기화와 완료 토스트도 없다.
+- 상세 `ProductDetailHeaderActions`의 리뷰 링크는 `product-information`으로 이동하고 실제 리뷰 영역이 없다. `ShareButton`은 동작 콜백이 연결되지 않았다. 사이즈 가이드는 내부 사이즈 영역으로 스크롤하는 대신 외부 HOKA 홈을 연다.
+- 상세 갤러리는 이미지 문자열만 지원해 설계서의 mp4 자동·반복 재생이 없다. 색상 변경 시 갤러리 전환·사이즈 초기화와 관심상품 로컬 토글은 구현돼 있다. `ProductDetailSupport`에는 문의·배송/반품·A/S만 있고 설계서의 사이즈·리뷰·세탁 안내 전체가 구현된 상태는 아니다.
+- 상세 추천은 EIGEN AI가 아닌 현재 상품을 제외한 목업 앞 6개다. 상품 선택·관심상품도 프런트엔드 데모 수준이며 서버 상품/재고/추천 연동 완료를 주장하지 않는다.
+- 메인 섹션 순서는 Hero → 카테고리 → Best sellers → Explore → Find my HOKA로 설계와 일치한다. `Hero`는 5초 전환과 단일 슬라이드 자동전환 방지를 구현한다. 현재 콘텐츠는 BO 연동 대신 정적 데이터다.
+- 메인 Hero의 남성/여성 CTA는 모두 필터 없는 `/products`로 이동하며, Find my HOKA는 설계의 브랜드별 상품 목록 대신 공통 `/explore/shoe-finder`로 연결된다. Best sellers는 데이터가 적으면 `createHomeCarouselPreviewItems`로 상품을 반복해 12칸을 채운다. 하이킹 필터는 액티비티 대신 Wide 발볼을 사용한다. 이번 모바일 listing 카드 스타일 변경은 이 홈 showcase에 적용하지 않았다.
+
+### 검증
+
+Codex가 2026-10-21에 `npm run panda`, `npm run typecheck`, 변경 TSX 대상 ESLint와 `git diff --check`를 실행했다. 375px Storybook 목록에서 전체 폭 2열·카드 굵기·카테고리/아이콘 배치와 필터 열기/닫기를 확인했다. 768px의 2열·아이콘 배치, 1600px PC의 3열·필터·정렬 유지도 확인했다. 필터·상세·메인 정책 차이는 소스 및 첨부 대조이며, 해당 기능을 모두 브라우저에서 실행한 결과가 아니다.
+
+## 상품 상세 사이즈 가이드 링크 (2026-10-21)
+
+ProductSizeSelector의 사이즈 가이드는 공통 ButtonLink로 `/support/size-guide`에 현재 창에서 이동한다. 기존 link 변형·md 크기를 유지하며 ProductDetailPage부터 전달하던 팝업 콜백은 제거했다. 위 과거 설계서 대조 기록의 외부 HOKA 이동 설명은 이 변경으로 대체한다.
+
+## 사이즈 가이드 영역 분리 (2026-10-21)
+
+SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. SizeGuideMeasurementImage는 성별·품목별 이미지 선택과 반응형 이미지 크기를, SizeGuideMeasurementInstructions는 품목 측정 단계와 신발 발볼 안내를 담당한다. SizeGuideChart는 단위 선택·표 제목·caption·행·준비 중 안내를 담당하며 category/gender/width/unit/onUnitChange를 받는다. 성별·발볼·단위 상태와 초기화 수명은 SizeGuidePanel에 유지한다. 추가 DOM 래퍼 없이 기존 스타일, 목록·표 의미와 조건부 표시를 보존했다.
+
+측정 안내 내부의 공통 제목·STEP 목록·선택적 보충 설명은 기능 내부 SizeGuideMeasurementMethod(title/steps/description)로 분리했다. SizeGuideMeasurementInstructions는 품목별 안내와 신발 전용 발볼 안내를 같은 컴포넌트로 조합한다. 기존 간격·문구·ol/li 구조와 신발 조건부 표시를 유지한다.
+
+## 모바일 상품목록 필터 버튼 원복 (2026-10-21)
+
+사용자가 첨부한 `codex-clipboard-b6ac903c-ee94-4a7a-8f6b-1b735ef540eb.png`와 필터 UI 원복 요청을 기준으로 `ProductListingLayout`의 모바일 `headerAction`에 기존 `MobileProductFilterTrigger`를 복원했다. 제목 오른쪽에 필터 문구·아이콘이 있는 테두리 알약 버튼을 표시하며, 탭 오른쪽 아이콘은 제거했다. 사용처가 없어진 `iconOnly` API와 IconButton import도 제거했다. 이 정책은 위의 모바일 상품목록 보정 기록 중 탭 옆 아이콘 배치 설명을 대체한다.
+
+상품 카드·이미지/배너 전체 폭·글자·36개 로딩, PC 정렬 및 검색 화면의 Filter & Sort 버튼과 필터 시트 상태/적용 방식은 유지한다. 카테고리 영역은 기존 좌우 16px 패딩과 36px 높이로 표시한다.
+
+출처: 작업 트리의 `src/shared/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
+
+검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.

@@ -22,7 +22,11 @@ export function RunClubHeader({ filter, onFilterChange }: RunClubHeaderProps) {
       headerProps={{
         gap: '8',
         _mobile: { gap: '4' },
-        css: css.raw({ alignItems: 'center', _mobile: { alignItems: 'flex-start' } }),
+        css: css.raw({
+          alignItems: 'center',
+          textAlign: 'center',
+          _mobile: { alignItems: 'flex-start', textAlign: 'left' },
+        }),
         titleAs: 'h1',
         titleProps: { variant: 'heading5', mo: 'heading4' },
         description: (

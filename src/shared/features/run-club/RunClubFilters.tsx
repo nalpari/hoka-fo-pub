@@ -1,5 +1,5 @@
 import { css } from 'styled-system/css';
-import { HStack } from 'styled-system/jsx';
+import { SegmentedControl } from '@/shared/components/atoms/SegmentedControl/SegmentedControl';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import type { RunClubSession } from './runClub.data';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -28,29 +28,33 @@ const filterButton = css({
   },
 });
 
+const options = filters.map(({ value, label, mobileLabel }) => ({
+  value,
+  label: (
+    <>
+      <Typography as="span" className={css({ _mobile: { display: 'none' } })}>
+        {label}
+      </Typography>
+      <Typography as="span" className={css({ display: 'none', _mobile: { display: 'inline' } })}>
+        {mobileLabel}
+      </Typography>
+    </>
+  ),
+}));
+
 export function RunClubFilters({ filter, onFilterChange }: RunClubFiltersProps) {
   return (
-    <HStack gap="4" role="group" aria-label="러닝 유형" _mobile={{ gap: '2' }}>
-      {filters.map(({ value, label, mobileLabel }) => (
-        <Button
-          size="short"
-          key={value}
-          variant={filter === value ? 'primary' : 'secondary'}
-          className={filterButton}
-          aria-pressed={filter === value}
-          onClick={() => onFilterChange(value)}
-        >
-          <Typography as="span" className={css({ _mobile: { display: 'none' } })}>
-            {label}
-          </Typography>
-          <Typography
-            as="span"
-            className={css({ display: 'none', _mobile: { display: 'inline' } })}
-          >
-            {mobileLabel}
-          </Typography>
-        </Button>
-      ))}
-    </HStack>
+    <SegmentedControl
+      unstyled
+      ariaLabel="러닝 유형"
+      options={options}
+      value={filter}
+      onValueChange={onFilterChange}
+      className={css({ display: 'flex', alignItems: 'center', gap: '4', _mobile: { gap: '2' } })}
+      itemClassName={() => filterButton}
+      itemRender={(option) => (
+        <Button size="short" variant={filter === option.value ? 'primary' : 'secondary'} />
+      )}
+    />
   );
 }

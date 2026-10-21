@@ -112,13 +112,6 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
           setSize('');
           setError('');
         }}
-        onOpenSizeGuide={() =>
-          window.open(
-            'https://www.hoka.com/',
-            'shoe-size-guide',
-            'popup=yes,width=900,height=1000,resizable=yes,scrollbars=yes',
-          )
-        }
         onOrder={() => submit(true)}
         onSizeChange={(nextSize) => {
           setSize(nextSize);

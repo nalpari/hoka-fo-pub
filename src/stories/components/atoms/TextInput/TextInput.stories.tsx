@@ -52,3 +52,23 @@ export const Textarea: Story = {
     await expect(canvas.getByRole('textbox')).toHaveValue('변경된 문의');
   },
 };
+
+export const Compact: Story = {
+  args: {
+    appearance: 'compact',
+    name: 'recipient',
+    defaultValue: '홍길동',
+    'aria-label': '받는 분',
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const input = within(canvasElement).getByRole('textbox');
+    await userEvent.clear(input);
+    await userEvent.type(input, '김호카');
+    await expect(input).toHaveValue('김호카');
+    await expect(input).toHaveFocus();
+  },
+};
+
+export const CompactReadOnly: Story = {
+  args: { appearance: 'compact', readOnly: true, value: '02157', 'aria-label': '우편번호' },
+};

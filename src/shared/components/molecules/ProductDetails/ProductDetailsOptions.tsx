@@ -5,7 +5,7 @@ import type { ProductDetailsProps } from './ProductDetails';
 
 type Props = Pick<
   ProductDetailsProps,
-  'activities' | 'colorCount' | 'optionThumbnails' | 'platform' | 'widthCount'
+  'activities' | 'colorCount' | 'optionThumbnails' | 'platform' | 'widthCount' | 'variant'
 >;
 
 export function ProductDetailsOptions({
@@ -14,9 +14,16 @@ export function ProductDetailsOptions({
   optionThumbnails,
   platform,
   widthCount,
+  variant,
 }: Props) {
   return (
-    <VStack gap="0" alignItems="flex-start" minW="0" w="100%">
+    <VStack
+      gap="0"
+      _mobile={variant === 'listing' ? { gap: '1.5' } : undefined}
+      alignItems="flex-start"
+      minW="0"
+      w="100%"
+    >
       {activities && activities.length > 0 && <ProductActivity activities={activities} />}
       <ProductVariantSummary
         colorCount={colorCount}

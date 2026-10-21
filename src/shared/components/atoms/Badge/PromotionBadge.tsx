@@ -12,7 +12,7 @@ export type PromotionBadgeProps = {
   weight?: TypographyProps['weight'];
 };
 
-/** Promotional labels with individual colors and vertical dividers. */
+/** Brand-colored promotional labels and vertical dividers. */
 export function PromotionBadge({ className, promotion, weight }: PromotionBadgeProps) {
   const promotions = typeof promotion === 'string' ? [promotion] : promotion;
 
@@ -28,15 +28,10 @@ export function PromotionBadge({ className, promotion, weight }: PromotionBadgeP
               aria-hidden="true"
               orientation="vertical"
               h="3"
-              color="var(--color-border-tertiary)"
+              color="var(--color-text-brand)"
             />
           )}
-          <Typography
-            variant="body4"
-            weight={weight}
-            tone={label === 'Exclusive' ? 'brand' : 'red80'}
-            className={className}
-          >
+          <Typography variant="body4" weight={weight} tone="brand" className={className}>
             {label}
           </Typography>
         </Fragment>

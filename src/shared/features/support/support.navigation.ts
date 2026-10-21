@@ -15,10 +15,10 @@ export const supportNavigation: SidebarNavigationGroup[] = [
     heading: 'INFORMATION',
     items: [
       { label: '온라인 회원등급 안내', to: '/support/member-benefits' },
-      { label: '사이즈 가이드', to: '/support/size-guide' },
       { label: '배송 및 반품안내', to: '/support/after-sales' },
       { label: '세탁 및 손질 방법 안내', to: '/support/care' },
       { label: '약관', to: '/support/terms' },
+      { label: '사이즈 가이드', to: '/support/size-guide' },
     ],
   },
 ];

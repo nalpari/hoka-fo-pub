@@ -49,7 +49,7 @@ const facetKeys = [
 
 const sortTokenLabels: Record<string, string> = { new: '신상품순', popular: '베스트순' };
 
-const productsPerLoad = 8;
+const productsPerLoad = 36;
 
 const emptyFilters = (): FilterValues => ({
   activity: [],

@@ -65,7 +65,10 @@ export const EndAlignedToGrid: Story = {
       Math.abs(cards[0].getBoundingClientRect().left - frame.getBoundingClientRect().left),
     ).toBeLessThan(1);
 
-    const steps = args.itemCount - args.desktopCenteredItemCount;
+    const visibleCount = Number(
+      getComputedStyle(viewport.parentElement!).getPropertyValue('--carousel-visible-count'),
+    );
+    const steps = args.itemCount - visibleCount;
 
     for (let index = 0; index < steps; index++) {
       expect(next).toBeEnabled();

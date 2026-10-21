@@ -53,6 +53,14 @@ export function ProductListingResults({
             gridTemplateColumns="repeat(3, minmax(0, 1fr))"
             columnGap="4"
             rowGap="12"
+            css={
+              platform === 'web'
+                ? {
+                    _wideDesktop: { gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' },
+                    _ultraWideDesktop: { gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' },
+                  }
+                : undefined
+            }
             _mobile={{ gridTemplateColumns: 'repeat(2, 1fr)', columnGap: '2', rowGap: '10' }}
           >
             {shown.flatMap((product, index) => [

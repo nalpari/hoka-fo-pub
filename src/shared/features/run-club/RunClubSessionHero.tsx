@@ -1,7 +1,7 @@
 import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
 import Image from 'next/image';
-import { Box, Grid } from 'styled-system/jsx';
+import { Box, Grid, HStack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { runClubImage, type RunClubSession } from './runClub.data';
 import { RunClubBadge } from './RunClubBadge';
@@ -43,7 +43,9 @@ export function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHer
         sizes="(max-width: 767px) 100vw, 50vw"
       />
       <Box _mobile={{ px: '4', pt: '4', pb: '10' }}>
-        <RunClubBadge category={session.category} />
+        <HStack>
+          <RunClubBadge category={session.category} />
+        </HStack>
         <ContentHeader
           mt="3"
           mb={{ base: '6', _mobile: '10' }}

@@ -9,6 +9,7 @@ import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
 import { MobileCategoryTabs } from './MobileCategoryTabs';
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
 import { SearchListingLayout } from './SearchListingLayout';
 
 const catalogLayout = css({
@@ -19,9 +20,11 @@ const catalogLayout = css({
   gap: '5',
   _mobile: {
     w: '100%',
-    gap: '2',
-    px: 'var(--layout-mobile-inline-gutter)',
-    py: 'var(--layout-mobile-page-block-padding)',
+    gap: '0',
+    px: '0',
+    pt: '7',
+    pb: '24',
+    '& > div:first-child': { px: '4', pb: '6' },
   },
 });
 
@@ -141,10 +144,12 @@ export function ProductListingLayout({
       }
     >
       {platform === 'mobile' && (
-        <MobileCategoryTabs
-          activity={activity}
-          onChange={(value) => onFilterChange('activity', value)}
-        />
+        <Box px="4" h="9">
+          <MobileCategoryTabs
+            activity={activity}
+            onChange={(value) => onFilterChange('activity', value)}
+          />
+        </Box>
       )}
       {content}
     </ContentLayout>

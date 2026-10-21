@@ -35,7 +35,7 @@ export function RunClubSessionCardImage({ session }: { session: RunClubSession }
         sizes="(max-width: 767px) 100vw, 25vw"
       />
       <Square pos="absolute" left="0" top="0" w="100%" h="100%">
-        <VStack gap="4" color="#fff" _mobile={{ gap: '0' }}>
+        <VStack gap="0" color="#fff">
           <Typography variant="sessionOverlay">{session.overlayDate}</Typography>
           <HStack gap="2">
             <Typography variant="sessionOverlay">{session.location}</Typography>

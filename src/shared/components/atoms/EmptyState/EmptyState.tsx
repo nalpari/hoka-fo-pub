@@ -93,8 +93,16 @@ export function EmptyStateTitle({ className, children, ...props }: EmptyStateTit
   );
 }
 
-export function EmptyStateDescription({ className, ...props }: EmptyStateDescriptionProps) {
-  return <p {...props} className={withClassName('empty-state__description', className)} />;
+export function EmptyStateDescription({
+  className,
+  children,
+  ...props
+}: EmptyStateDescriptionProps) {
+  return (
+    <Typography as="p" {...props} className={withClassName('empty-state__description', className)}>
+      {children}
+    </Typography>
+  );
 }
 
 export function EmptyStateAction({ className, ...props }: EmptyStateActionProps) {

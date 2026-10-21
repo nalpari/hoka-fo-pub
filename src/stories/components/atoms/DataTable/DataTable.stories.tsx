@@ -10,8 +10,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
-    <DataTable caption="사이즈 표">
+  render: (args) => (
+    <DataTable {...args} caption="사이즈 표">
       <thead>
         <tr>
           <th>사이즈</th>
@@ -30,4 +30,9 @@ export const Default: Story = {
       </tbody>
     </DataTable>
   ),
+};
+
+export const Spaced: Story = {
+  ...Default,
+  args: { variant: 'spaced' },
 };

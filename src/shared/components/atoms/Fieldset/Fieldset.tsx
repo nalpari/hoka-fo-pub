@@ -1,17 +1,8 @@
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
 
 const fieldset = css({ m: '0', border: '0', p: '0' });
-
-const visuallyHidden = css({
-  position: 'absolute',
-  w: '1px',
-  h: '1px',
-  overflow: 'hidden',
-  clip: 'rect(0 0 0 0)',
-  whiteSpace: 'nowrap',
-});
 
 export type FieldsetProps = Omit<ComponentPropsWithoutRef<'fieldset'>, 'children'> & {
   legend?: ReactNode;
@@ -30,14 +21,13 @@ export function Fieldset({
   return (
     <fieldset {...props} className={[fieldset, className].filter(Boolean).join(' ')}>
       {label ? (
-        <Box
+        <Typography
           as="legend"
-          p="0"
-          fontWeight="bold"
-          className={visuallyHiddenLegend ? visuallyHidden : undefined}
+          srOnly={visuallyHiddenLegend}
+          className={css({ p: '0', fontWeight: 'bold' })}
         >
           {label}
-        </Box>
+        </Typography>
       ) : null}
       {children}
     </fieldset>
