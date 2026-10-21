@@ -540,7 +540,7 @@ const typography = cva({
       },
       body: {
         ...figmaTypographyVariants.bodyKr3,
-        _mobile: { fontSize: '14' },
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
       },
       formLabel: figmaTypographyVariants.body4,
       productAudience: figmaTypographyVariants.body3,
@@ -612,6 +612,22 @@ const typography = cva({
         letterSpacing: 'var(--type-bottom-sheet-title-letter-spacing)',
       },
       ...figmaTypographyVariants,
+      cta2: {
+        ...figmaTypographyVariants.cta2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      ctaKr2: {
+        ...figmaTypographyVariants.ctaKr2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      textLink2: {
+        ...figmaTypographyVariants.textLink2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
+      textLinkKr2: {
+        ...figmaTypographyVariants.textLinkKr2,
+        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+      },
     },
     weight: {
       regular: {

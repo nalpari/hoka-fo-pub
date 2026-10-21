@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T01:55:08Z'
+  at: '2026-10-21T02:27:43.532Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
   - src/shared/features/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/shared/features/login/LoginPage.tsx
@@ -2134,3 +2135,15 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 후속 비율 반영(Codex, 2026-10-21): 첨부 시안의 Best sellers 썸네일은 약 3:4 세로형으로 판단했으며 사용자 요청대로 기존 정사각형 상품 이미지는 수직 중앙에 유지한다. `thumbnailRatio`의 Panda raw 스타일을 PC·모바일 레일 스타일과 생성 전에 병합하고, 영역의 높이는 auto·aspect-ratio는 3/4로 적용했다. ProductThumbnail의 기존 이미지 width=100%·height=auto·top=50%·translateY(-50%)를 유지해 원본 이미지를 늘이거나 자르지 않는다. 공통 ProductThumbnail과 다른 소비처는 변경하지 않는다.
 
 후속 검증: Panda 생성·타입 검사·변경 TSX ESLint/Prettier가 통과했다. Storybook 375·768·1200·1920px에서 썸네일 영역은 각각 약 160×213.3·327.7×436.9·202.2×269.6·293.6×391.5px, 정사각형 원본 이미지의 수직 중심 차이는 0.01px 미만으로 측정했다. 앞선 정사각형 영역의 검증 수치는 비율 변경 전 기록이며 최종 영역 크기는 이 후속 검증을 따른다.
+
+## 모바일 홈 유동 크기 (2026-10-21)
+
+HomeLayout의 `.platform-mobile` 영역에서만 `--home-title-*`·`--home-body-*`·`--home-pagination-*` 변수를 정의한다. 기본 루트 글자 16px일 때 375→768px를 선형 보간하는 rem+vw clamp이며, 375px 이하 기존 크기·768px 이상 상한을 유지한다. 제목은 1.5배, 설명·상품 정보·필터·버튼 글자는 1.25배까지 확대한다. 예: display 40→60px, sectionHeading 30→45px, cardTitle 20→30px, overlay/imagePill 제목 24→36px, 본문/CTA 14→17.5px, 가격 13→16.25px, 필터 12→15px. 단위 없는 줄높이는 유지한다. rem을 사용하므로 사용자 기본 글자 크기에 따라 보간 경계와 실제 크기는 달라질 수 있다.
+
+Typography의 의미 토큰 및 body·cta2/ctaKr2·textLink2/textLinkKr2, ProductGender showcase, MainContentCard의 로컬 제목/설명, Button auto/compact, FilterTabs fill이 홈 변수를 소비한다. 변수가 없는 경우 기존 토큰/px로 돌아가며 Figma 기초 타이포그래피 정의와 공개 React props는 바꾸지 않는다. 버튼 높이 40→50px·좌우 패딩 16→20px, 필터 높이 30→37.5px를 적용한다. HeroCopy는 모바일 카피를 가용 폭으로 확장하고 설명 폭을 제한하며 CTA 그룹은 줄바꿈을 허용한다.
+
+HeroPagination은 모바일 점 6→9px·활성 막대 32→48px·간격 8→12px이며 진행 바의 시작 폭은 실제 점 크기 변수를 참조한다. 기존 자동 재생·정지·키보드 선택·포커스를 유지한다. 일반 CarouselPagination, 이미지 비율·레일 폭·Find my HOKA 카드 상한·공통 헤더/푸터는 유지한다. 기존 고정 글자 크기 설명 중 모바일 홈에는 이 기록이 우선한다.
+
+검증(Codex, 2026-10-21): 실행 중인 Storybook의 모바일 320·375·430·620·768·900px에서 크기·상한·가로 넘침 없음·CTA/페이지 표시 겹침 없음을 측정했다. 375px의 제목/본문 40/14px·점/막대 6/32px, 768px의 60/17.5px·9/48px 및 필터 15px·가격 16.25px를 확인했다. 키보드 선택·흰 포커스 outline·포커스 중 진행률 정지, 자동 슬라이드 전환, 상품 레일 드래그와 필터 변경 후 transform=0 복귀를 확인했다. PC 1600px의 제목 64px·본문 16px·점/막대 8/42px 및 모바일 로그인에 홈 변수가 없음을 확인했다. 768px의 상품명 말줄임·Explore 오버레이를 시각 검토했다. 실제 브라우저 200% 확대는 자동화 키 입력으로 확대 상태를 만들 수 없어 검증하지 못했다.
+
+검증 명령: Panda 생성·전체 타입 검사·변경 TSX ESLint/Prettier·Next.js 프로덕션 빌드·Storybook 프로덕션 빌드가 통과했다. 작업 트리 전체의 OKF 관련 문서 누락 검사도 통과했다. 375px의 상품명 ellipsis·Explore 제목 24px/설명 14px/하단 CTA 여백 30px, 768px Find my HOKA의 제목 36px/설명 17.5px과 카드 안 텍스트 배치도 확인했다.

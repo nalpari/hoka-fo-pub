@@ -19,7 +19,7 @@ const genderLabel = cva({
       },
       showcase: {
         _mobile: {
-          fontSize: '14',
+          fontSize: 'var(--home-body-14, var(--font-sizes-14))',
         },
       },
     },

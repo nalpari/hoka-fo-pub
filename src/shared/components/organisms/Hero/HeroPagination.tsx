@@ -16,8 +16,9 @@ export type HeroPaginationProps = {
 };
 
 const paginationButton = css({
-  w: '8px',
-  h: '8px',
+  '--hero-pagination-dot': '8px',
+  w: 'var(--hero-pagination-dot)',
+  h: 'var(--hero-pagination-dot)',
   p: '0',
   border: '0',
   borderRadius: '50px',
@@ -31,9 +32,8 @@ const paginationButton = css({
     bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)',
   },
   _mobile: {
-    w: '6px',
-    h: '6px',
-    '&[aria-pressed="true"]': { w: '32px' },
+    '--hero-pagination-dot': 'var(--home-pagination-dot, 6px)',
+    '&[aria-pressed="true"]': { w: 'var(--home-pagination-active, 32px)' },
   },
   _focusVisible: { outline: '2px solid var(--color-text-inverse)', outlineOffset: '3px' },
 });
@@ -50,7 +50,7 @@ const progressBar = css({
 });
 
 function getProgressWidth(progress: number) {
-  return `calc(${8 * (1 - progress)}px + ${progress * 100}%)`;
+  return `calc(var(--hero-pagination-dot) * ${1 - progress} + ${progress * 100}%)`;
 }
 
 export function HeroPagination({
@@ -73,7 +73,7 @@ export function HeroPagination({
       left="0"
       justifyContent="center"
       gap="2"
-      _mobile={{ bottom: '12px' }}
+      _mobile={{ bottom: '12px', gap: 'var(--home-pagination-gap, var(--spacing-2))' }}
       role="group"
     >
       {slides.map((slide, index) => (
