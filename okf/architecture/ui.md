@@ -1065,7 +1065,7 @@ FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 o
 
 ## FAQ 탭·질문 타이포그래피 (2026-10-22)
 
-FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다. FAQ와 공지 Accordion은 item/trigger 스타일을 각 컴포넌트의 styles 객체에서 전달한다. 행 높이와 패딩은 화면별 차이를 보존하고, FAQ root class는 전용 indicator 크기를 설정한다. NoticesList 모바일 링크 스타일도 styles 객체의 정적 `mobileLink` class로 관리한다. NoticesList는 section 안쪽의 상단 border가 목록 구분선을 소유하며 웹 2px·모바일 숨김을 유지한다. 페이지는 heading divider를 따로 두지 않고 목록 전 상단 간격을 소유한다.
+FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다. FAQ 질문 트리거는 PC 최소 높이 74px·상하 패딩 24px, 모바일 최소 높이 58px·상하 패딩 16px이다. FAQ root class는 전용 indicator 크기를 설정한다. 공지 목록은 링크 행으로 상세 페이지에 이동하며 화면별 높이·패딩·구분선은 [공지사항 페이지 이동](#공지사항-페이지-이동-2026-10-22)을 따른다.
 
 ## 런클럽 필터 버튼 크기 지정 (2026-10-19)
 

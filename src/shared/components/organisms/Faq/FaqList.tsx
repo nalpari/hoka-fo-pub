@@ -20,12 +20,12 @@ const styles = {
   root: css({ '& svg': { w: '24px', h: '24px', _mobile: { w: '16px', h: '16px' } } }),
   item: css({ borderBottom: '1px solid var(--color-black-20)' }),
   question: css({
-    minH: '56px',
-    gap: '4',
-    py: '15px',
+    minH: '74px',
+    gap: '16px',
+    py: '24px',
     textAlign: 'left',
     '&[aria-expanded="true"]': { fontWeight: 'semibold' },
-    _mobile: { minH: '42px', py: '15px' },
+    _mobile: { minH: '58px', py: '16px' },
   }),
 };
 
