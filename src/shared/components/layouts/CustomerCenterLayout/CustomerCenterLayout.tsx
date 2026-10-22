@@ -1,11 +1,9 @@
-import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import {
   ContentHeader,
   type ContentHeaderProps,
 } from '@/shared/components/molecules/ContentHeader/ContentHeader';
-import type { ComponentProps, ReactNode } from 'react';
-import { Stack } from 'styled-system/jsx';
+import type { ReactNode } from 'react';
 import { SidebarColumns } from '@/shared/components/layouts/SidebarColumns/SidebarColumns';
 import { PageFrame } from '@/shared/components/layouts/PageFrame/PageFrame';
 import type { BreadcrumbItem } from '@/shared/components/molecules/Breadcrumb/Breadcrumb';
@@ -14,33 +12,46 @@ import {
   type SideNavigationGroup,
 } from '@/shared/components/organisms/Navigation/SideNavigation/SideNavigation';
 
-type Props = {
+type LayoutProps = {
   activePath: string;
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
   footer?: ReactNode;
   groups: SideNavigationGroup[];
-  title: string;
-  description?: ReactNode;
-  descriptionProps?: ContentHeaderProps['descriptionProps'];
-  showHeadingDivider?: boolean;
-  mobileTitleVariant?: 'heading4' | 'heading5' | 'heading6' | 'heading7';
-  headingProps?: Pick<ComponentProps<typeof Stack>, 'gap' | 'mb' | '_mobile'>;
 };
 
-export function CustomerCenterLayout({
-  activePath,
-  breadcrumbItems,
-  children,
-  footer,
-  groups,
-  title,
-  description,
-  descriptionProps,
-  showHeadingDivider = false,
-  mobileTitleVariant = 'heading6',
-  headingProps,
-}: Props) {
+type Props = LayoutProps &
+  (
+    | {
+        title: string;
+        description?: ReactNode;
+        descriptionProps?: ContentHeaderProps['descriptionProps'];
+        mobileTitleVariant?: 'heading4' | 'heading5' | 'heading6' | 'heading7';
+        header?: never;
+      }
+    | {
+        header: Exclude<ReactNode, undefined>;
+        title?: never;
+        description?: never;
+        descriptionProps?: never;
+      }
+  );
+
+export function CustomerCenterLayout(props: Props) {
+  const { activePath, breadcrumbItems, children, footer, groups } = props;
+  const header =
+    props.header !== undefined ? (
+      props.header
+    ) : (
+      <ContentHeader
+        title={props.title}
+        titleAs="h1"
+        titleProps={{ web: 'heading6', mo: props.mobileTitleVariant ?? 'heading6' }}
+        description={props.description}
+        descriptionProps={{ variant: 'body3', ...props.descriptionProps }}
+      />
+    );
+
   return (
     <PageFrame breadcrumbItems={breadcrumbItems}>
       <SidebarColumns
@@ -58,27 +69,7 @@ export function CustomerCenterLayout({
           />
         }
       >
-        <ContentSection
-          minW="0"
-          gap="0"
-          footer={footer}
-          header={
-            <Stack gap="4" mb="6" {...headingProps}>
-              <ContentHeader
-                gap={headingProps?.gap ?? '4'}
-                _mobile={{ gap: headingProps?._mobile?.gap }}
-                title={title}
-                titleAs="h1"
-                titleProps={{ web: 'heading6', mo: mobileTitleVariant }}
-                description={description}
-                descriptionProps={{ variant: 'body3', ...descriptionProps }}
-              />
-              {showHeadingDivider && (
-                <Divider variant="heading" mt="2" display={{ base: 'block', _mobile: 'none' }} />
-              )}
-            </Stack>
-          }
-        >
+        <ContentSection minW="0" gap="0" footer={footer} header={header}>
           {children}
         </ContentSection>
       </SidebarColumns>

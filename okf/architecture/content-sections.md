@@ -6,9 +6,14 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T15:47:10+09:00'
-source_revision: a695cca567bfadaf57517df501a41ca20a4d6e00
+  at: '2026-10-22T00:35:48Z'
+source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
+  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/shared/features/store-finder/StoreFinderPage.tsx
+  - src/shared/features/support/InquiryNewPage.tsx
+  - src/shared/features/support/SupportExperiencePage.tsx
+  - src/shared/features/terms/TermsPage.tsx
   - src/shared/features/size-guide/SizeGuidePanel.tsx
   - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
   - src/shared/features/mypage/MyPageRecentOrders.tsx
@@ -170,7 +175,7 @@ SizeGuidePanel의 품목 제목은 기본 ContentSection header의 h2/heading7�
 
 ContentHeader는 설명 없이 제목만 있을 때도 기본 제목 그룹이다. ContentSection의 title은 ReactNode이며 headerProps로 titleAs·titleProps·description·descriptionProps·eyebrow·헤더 내부 gap을 전달한다. section gap은 헤더/본문 및 직접 형제 그룹 간격이다. title/headerProps와 custom header는 동시에 전달할 수 없다. 일반적인 가로 action은 headerProps.orientation="horizontal"과 headerProps.action으로 조합한다. Divider·아이콘/기존 기능 어댑터 등 기본 API로 표현할 수 없는 경우만 별개 header 노드를 쓴다.
 
-h4/h5 제한은 h1~h6 지원으로 해소했다. CustomerCenterLayout의 동적 headingProps 여백은 기존 헤더 그룹이 소유하고 ContentSection gap=0으로 감싼다. PC 가로 Grid와 별도 간격·padding·form·native 목록 의미는 보존했다. MainContentCard는 기존 header 태그/card__header class와 variant 스타일을 유지한다. 미사용 SupportMileageContent는 제목 조합만 정리했으며 운영 경로를 새로 만들지 않았다.
+h4/h5 제한은 h1~h6 지원으로 해소했다. 2026-10-22 후속 정리에서 CustomerCenterLayout의 `headingProps`와 자동 제목 하단 간격을 제거했다. 페이지별 ContentHeader gap과 본문 첫 간격은 각 기능 페이지가 소유하며, 고객센터 메인의 사용자 정의 header 노드는 `ContentSection.header`로 전달한다. PC 가로 Grid와 별도 간격·padding·form·native 목록 의미는 보존했다. MainContentCard는 기존 header 태그/card__header class와 variant 스타일을 유지한다. 미사용 SupportMileageContent는 제목 조합만 정리했으며 운영 경로를 새로 만들지 않았다.
 
 기존 구성 유지 판정은 그대로다. MyPageProductHistoryHeading은 단일 어댑터를 유지하고 소비처 MyPageProductHistory에서 S를 적용했다. 조사 당시의 ‘단일 제목을 Typography 노드로 직접 전달’ 권장은 사용자 후속 요청에 따라 기본 title API 사용으로 대체했다. 아래 후보 표의 줄 번호와 선행 조건은 이관 전 조사 기준이다.
 
@@ -240,7 +245,7 @@ Codex가 2026-10-20에 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·
 
 | 파일·기준 줄                                                                                                                                             | API       | 적용 영역                             | 보존할 계약·판단 근거                                                                                                                                            |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx:58](../../src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx) | H+S       | 공통 고객센터 제목·설명 → 본문        | 선택 Divider·mt=2, headingProps·mb=6 보존. H에는 Divider 슬롯이 없으므로 단순 치환 불가                                                                          |
+| [components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx:58](../../src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx) | H+S       | 공통 고객센터 제목·설명 → 본문        | 기본 ContentHeader 또는 페이지가 소유한 header 노드를 지원한다. page-specific headingProps와 자동 본문 여백은 없으며 Divider·간격은 페이지가 소유한다.           |
 | [components/molecules/ContactCard/ContactCard.tsx:52](../../src/shared/components/molecules/ContactCard/ContactCard.tsx)                                 | H+S       | 연락처 제목·설명 → 상세·주의문        | 현재 article Grid gap=4. 공개 className과 grid-item·설명 생략 계약 확인 후 전환                                                                                  |
 | [components/molecules/MainContentCard/MainContentCard.tsx:283](../../src/shared/components/molecules/MainContentCard/MainContentCard.tsx)                | H         | Card.Header의 제목·설명               | H as=header로 태그/기존 card__header class 보존 가능. variant별 gap/padding/음수 mt·runtime foreground·recipe.raw 병합을 먼저 확인. Card.Footer와 overlay는 유지 |
 | [components/organisms/Signup/SignupCompleteStep.tsx:46](../../src/shared/components/organisms/Signup/SignupCompleteStep.tsx)                             | H+S       | 완료 제목·환영 문구 → 링크            | H gap=3 가능. Grid justifyItems·체크 아이콘·direct-child span selector·링크 mt=7 확인                                                                            |

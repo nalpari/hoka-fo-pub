@@ -6,8 +6,8 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T23:59:04Z'
-source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
+  at: '2026-10-22T00:35:48Z'
+source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
   - src/shared/features/support/SupportPage.tsx
   - src/shared/features/support/SupportContacts.tsx
@@ -2023,7 +2023,7 @@ Features의 main·폭 제한·제목/본문 구조와 기존 layouts를 점검�
 
 CustomerCenterLayout은 필수 title과 선택 description을 받아 오른쪽 본문 상단에 단일 h1과 설명을 배치한다. PC에서는 제목과 좌측 메뉴의 시작점을 맞추고 모바일에서는 메뉴를 숨긴다. 고객센터 메인의 제목·소개 문구와 모바일 줄바꿈은 SupportPage만 전달한다. 하위 화면에는 메인 소개를 표시하지 않는다. 이전 hideIntro·hideIntroMobile 분기를 제거하고 사용처 12곳을 전환했다.
 
-제목은 PC heading6을 유지한다. mobileTitleVariant는 기존 heading4·heading5·heading7을 보존하고, headingProps는 gap·mb·모바일 간격을 전달한다. 기본 제목 영역은 gap 16px·하단 24px이며 메인은 제목→소개 24px(모바일 16px)·하단 40px, FAQ 모바일은 하단 8px, 공지 목록은 PC 하단 36px, 문의 모바일은 하단 16px을 유지한다. showHeadingDivider는 기존 SupportPageHeading의 PC 2px 검은 구분선을 표현하며 모바일에서 숨긴다. 미사용이 된 SupportPageHeading은 제거했다. Breadcrumb·활성 메뉴·탭·필터·문의 상태와 제출 처리는 기존 소유자에 둔다.
+제목은 PC heading6을 유지하며 `mobileTitleVariant`로 필요한 모바일 heading variant를 선택한다. `CustomerCenterLayout`은 제목/설명의 기본 `ContentHeader` 또는 페이지가 조합한 `header` 노드를 받아 breadcrumb·사이드 메뉴·본문 프레임을 담당한다. 페이지별 headingProps와 자동 하단 여백은 제거했고, 본문 시작 간격은 각 페이지의 첫 콘텐츠 Stack/요소가 소유한다. FAQ는 PC 24px·모바일 8px, 공지는 PC 36px·모바일 24px, 1:1 문의 목록은 PC 24px·모바일 16px, 기본 페이지는 24px을 유지한다. 고객센터 메인은 `ContentHeader`에서 제목→소개 간격 12px/16px과 본문 전 40px을 소유한다. 문의 설명 헤더는 페이지별 ContentHeader 간격 16px을 지정한다. 회원등급/마일리지 안내의 Divider도 `SupportExperiencePage`에서 콘텐츠와 함께 조합한다. Breadcrumb·활성 메뉴·탭·필터·문의 상태와 제출 처리는 기존 소유자에 둔다.
 
 실제 검증: Edge 브라우저로 기존 고객센터 스토리 24개에서 PC/MO 제목·단일 main/h1·메인 소개의 표시 범위·메뉴 정렬과 모바일 숨김을 확인했다. FAQ·공지 더보기, 배송/반품 탭 전환을 확인했다. Panda 생성, TypeScript, 변경 TSX ESLint·Prettier, Next.js와 Storybook 빌드를 통과했다. Storybook의 기존 directive·청크·플러그인 시간 경고는 남아 있다. 출처는 작업 트리의 CustomerCenterLayout, 해당 기능 페이지와 src/stories/features/support/SupportPages.stories.tsx다.
 

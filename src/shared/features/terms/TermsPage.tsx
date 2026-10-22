@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
+import { Stack } from 'styled-system/jsx';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { TermsDocument } from './TermsDocument';
 
@@ -30,19 +31,21 @@ export function TermsPage() {
       ]}
       groups={supportNavigation}
     >
-      <SupportTabs
-        ariaLabel="약관 종류"
-        defaultValue="terms"
-        value={tab}
-        onValueChange={(value) => {
-          setTab(value === 'privacy' ? 'privacy' : 'terms');
-          const next = new URLSearchParams(searchParams.toString());
-          if (value === 'privacy') next.set('tab', 'privacy');
-          else next.delete('tab');
-          router.push(`${pathname}${next.size ? `?${next.toString()}` : ''}`, { scroll: false });
-        }}
-        tabs={tabs}
-      />
+      <Stack mt="6">
+        <SupportTabs
+          ariaLabel="약관 종류"
+          defaultValue="terms"
+          value={tab}
+          onValueChange={(value) => {
+            setTab(value === 'privacy' ? 'privacy' : 'terms');
+            const next = new URLSearchParams(searchParams.toString());
+            if (value === 'privacy') next.set('tab', 'privacy');
+            else next.delete('tab');
+            router.push(`${pathname}${next.size ? `?${next.toString()}` : ''}`, { scroll: false });
+          }}
+          tabs={tabs}
+        />
+      </Stack>
     </CustomerCenterLayout>
   );
 }

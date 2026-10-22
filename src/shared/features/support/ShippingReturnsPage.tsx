@@ -2,6 +2,7 @@
 
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
+import { Stack } from 'styled-system/jsx';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { ShippingGuidePanel } from './ShippingGuidePanel';
 import { ReturnCautionsPanel } from './ReturnCautionsPanel';
@@ -26,7 +27,9 @@ export function ShippingReturnsPage() {
       ]}
       groups={supportNavigation}
     >
-      <SupportTabs ariaLabel="배송 및 반품 안내 항목" defaultValue="shipping" tabs={tabs} />
+      <Stack mt="6">
+        <SupportTabs ariaLabel="배송 및 반품 안내 항목" defaultValue="shipping" tabs={tabs} />
+      </Stack>
     </CustomerCenterLayout>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { Divider } from '@/shared/components/atoms/Divider/Divider';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 
 import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
@@ -28,9 +29,16 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
 
   return (
     <CustomerCenterLayout
-      title="1:1 문의"
-      description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
-      headingProps={{ _mobile: { mb: '4' } }}
+      header={
+        <ContentHeader
+          gap="4"
+          title="1:1 문의"
+          titleAs="h1"
+          titleProps={{ web: 'heading6', mo: 'heading6' }}
+          description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
+          descriptionProps={{ variant: 'body3' }}
+        />
+      }
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -44,17 +52,19 @@ export function InquiryPage({ preview = 'empty' }: { preview?: InquiryPreview })
         </PageActionButton>
       }
     >
-      <Divider variant="heading" _mobile={{ h: '1px', bg: 'black.20' }} />
-      <Stack gap="0" py="6" _mobile={{ py: '6' }}>
-        {inquiries.length === 0 ? (
-          <InquiryEmptyState />
-        ) : (
-          inquiries.map((item) => (
-            <InquiryListItem key={item.id} item={item} attachments={previewAttachments} />
-          ))
-        )}
+      <Stack gap="0" mt={{ base: '6', _mobile: '4' }}>
+        <Divider variant="heading" _mobile={{ h: '1px', bg: 'black.20' }} />
+        <Stack gap="0" py="6" _mobile={{ py: '6' }}>
+          {inquiries.length === 0 ? (
+            <InquiryEmptyState />
+          ) : (
+            inquiries.map((item) => (
+              <InquiryListItem key={item.id} item={item} attachments={previewAttachments} />
+            ))
+          )}
+        </Stack>
+        <InquiryCautions />
       </Stack>
-      <InquiryCautions />
     </CustomerCenterLayout>
   );
 }
