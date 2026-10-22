@@ -128,6 +128,7 @@ const descriptionStyle = cva({
       descriptionLink: {},
       imagePill: {},
       overlay: {
+        minH: '0',
         fontSize: '20',
         _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
       },

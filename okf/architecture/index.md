@@ -1,5 +1,7 @@
 # 아키텍처
 
+[메인 카드 overlay 설명 최소 높이 해제](ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)는 설명 높이 보정 범위를 설명한다.
+
 [Mockup Storybook 제외 및 회원가입 정리](ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)는 Mockup 비노출 정책과 안정화된 Signup Mockup 제거 범위를 설명한다.
 
 [IA 기준 한국어 페이지 Storybook](ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)은 한국어 메뉴·번호 폴더·WEB/Mobile 정렬과 IA 구조도 미리보기 링크 갱신을 설명한다.

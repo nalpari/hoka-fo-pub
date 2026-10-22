@@ -2,6 +2,8 @@
 
 ## 2026-10-22
 
+- **Fix**: 메인 카드 overlay 설명의 최소 높이를 해제해 실제 내용 높이를 사용하도록 수정했다. [UI 기록](architecture/ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)에 변경 범위를 기록했다.
+
 - **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.
 
 - **Organize**: 사용자 제공 IA 시트 FO 기준으로 PAGES 185개 스토리를 한국어 메뉴와 번호별 화면·WEB/Mobile 구조로 정리했다. 마이페이지 혼합 스토리와 검색결과·오류 화면을 분리하고 러닝세션을 탐색으로 옮겼다. 기존 시나리오와 비페이지 분류를 보존하고 IA 미리보기 링크 48개를 갱신했다. [UI 기록](architecture/ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)에 출처·적용 기준·검증을 기록했다.

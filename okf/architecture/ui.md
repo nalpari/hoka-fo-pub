@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:12:59.544Z'
+  at: '2026-10-22T01:35:15.992Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - AGENTS.md
   - .storybook/main.ts
   - src/shared/features/screen-index/IaStructurePage.tsx
@@ -2508,3 +2509,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
 
 [^ia-google-sheet-20261022]: 사용자 제공 Google Sheets, Eland_211_IA_20260928_v0.20의 FO 탭. 2026-10-22 읽기 전용으로 A1:Q35, B36:L300 범위를 확인했다.
+
+## 메인 카드 overlay 설명 최소 높이 해제 (2026-10-22)
+
+MainContentCard의 overlay 설명에 minH 0을 지정해 공통 설명 스타일의 최소 높이를 해제했다. 설명은 실제 내용 높이를 사용하며 기존 부모 gap과 다른 카드 variant의 최소 높이는 유지한다. 출처는 스테이징된 MainContentCard.tsx의 descriptionStyle이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
