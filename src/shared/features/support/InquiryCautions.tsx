@@ -14,23 +14,27 @@ const cautions = [
 
 const trigger = css({
   px: '0',
-  py: '4',
+  py: '0',
+  minH: '24px',
   textAlign: 'left',
 });
 
+const panel = css({ mt: '3' });
+
 export function InquiryCautions() {
   return (
-    <Box borderTop="1px solid" borderColor="black.20">
+    <Box borderTop="1px solid" borderColor="black.20" pt="5">
       <Accordion
         defaultValue={['cautions']}
-        indicatorColor="var(--color-text-subtle)"
+        indicatorColor="var(--color-text-primary)"
         multiple={false}
         triggerClassName={trigger}
+        panelClassName={panel}
         items={[
           {
             value: 'cautions',
             title: (
-              <Typography web="heading9" mo="body4" tone="subtle">
+              <Typography variant="body4" weight="medium" tone="primary">
                 유의사항
               </Typography>
             ),
@@ -38,10 +42,10 @@ export function InquiryCautions() {
               <Stack as="ul" gap="0" m="0" pb="4" listStyleType="none">
                 {cautions.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
-                    <Typography as="span" web="body4" mo="body5" tone="tertiary" aria-hidden="true">
+                    <Typography as="span" variant="body5" tone="tertiary" aria-hidden="true">
                       ・
                     </Typography>
-                    <Typography web="body4" mo="body5" tone="tertiary">
+                    <Typography variant="body5" tone="tertiary">
                       {item}
                     </Typography>
                   </HStack>

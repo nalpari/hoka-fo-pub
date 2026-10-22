@@ -12,6 +12,9 @@ working_tree_sources:
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/notices/NoticesList.tsx
   - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/shared/features/support/InquiryPage.tsx
+  - src/shared/features/support/InquiryCautions.tsx
+  - src/shared/features/support/InquiryEmptyState.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
   - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
   - src/shared/features/faq/FaqPage.tsx
@@ -2491,3 +2494,11 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 출처: 작업 트리의 `src/shared/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
 
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
+
+## 1:1 문의 빈 상태 시안 정밀 반영 (2026-10-22)
+
+`InquiryPage`의 PC·모바일 타이포그래피와 색을 Figma `1241:92230`·`1241:92543`에 맞췄다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 양쪽 body3(16px)이며 PC primary black·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px이고, 제목 아래 Divider는 PC 2px black.100·모바일 1px black.20이다.
+
+빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
+
+출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
