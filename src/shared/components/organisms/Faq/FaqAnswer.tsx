@@ -6,8 +6,8 @@ type Props = { answer: ReactNode };
 
 export function FaqAnswer({ answer }: Props) {
   return (
-    <Box bg="black.10" px="6" py="8" whiteSpace="pre-line" _mobile={{ px: '3', py: '5' }}>
-      <Typography as="p" web="body4" mo="body5">
+    <Box bg="black.10" px="4" py="6" whiteSpace="pre-line">
+      <Typography as="p" web="body4" mo="body4">
         {answer}
       </Typography>
     </Box>

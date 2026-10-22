@@ -2,6 +2,7 @@
 
 ## 2026-10-22
 
+- **Style**: FilterTabs 글자를 웹·모바일 CTA2, 높이를 37px로 통일하고 FAQ 질문을 body3 medium으로 조정했다. 답변과 검색/카테고리 간격도 FAQ 화면 기준으로 맞췄다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Refactor**: CustomerCenterLayout에서 `headingProps`와 공통 제목 하단 여백 전달을 제거했다. 페이지별 간격은 FAQ·공지·문의·안내 등 각 화면의 본문에서 소유하고, 간격이 다른 제목/설명 그룹은 페이지에서 ContentHeader를 조합한다. 회원등급 안내 Divider도 페이지로 이동했다. [UI 구성](architecture/ui.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)과 [ContentHeader/ContentSection 구성](architecture/content-sections.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)을 갱신했다.
 - **Style**: 고객센터 상담 카드의 연락처·운영시간 묶음 간격을 PC 52px, 모바일 32px로 조정하고 관련 UI·고객센터 시안 문서를 갱신했다.
 - **Update**: 고객센터 메인을 최신 PC·모바일 시안에 맞춰 연락처 카드 두 개만 보이도록 갱신했다. 현재 운영 전화번호를 유지하고 운영시간을 추가했으며, 웹은 카드 내부 가로 배치·모바일은 세로 배치로 반응형 처리했다. 공지·FAQ teaser와 시안에 없는 아이콘/외곽선은 넣지 않았고 두 화면 Storybook에 연락처 및 노출 검사를 추가했다. [UI 기록](architecture/ui.md#고객센터-메인-2026-10-16)과 [고객센터 시안 기록](architecture/support-design.md#고객센터-메인-갱신-2026-10-22)을 갱신했다.

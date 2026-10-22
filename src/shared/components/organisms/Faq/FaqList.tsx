@@ -23,12 +23,12 @@ const styles = {
   item: css({ borderBottom: '1px solid var(--color-black-20)' }),
   question: css({
     minH: '56px',
-    py: '6',
+    py: '15px',
     pl: '4',
     pr: '5',
     textAlign: 'left',
     '&[aria-expanded="true"]': { fontWeight: 'semibold' },
-    _mobile: { minH: '42px', px: '0', py: '3' },
+    _mobile: { minH: '42px', px: '0', py: '15px' },
   }),
 };
 
@@ -40,6 +40,7 @@ export function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
       borderTopColor="black.100"
       borderTopStyle="solid"
       borderTopWidth={entries.length ? '2px' : '0'}
+      pt={{ base: '32px', _mobile: '8px' }}
     >
       {entries.length ? (
         <Accordion

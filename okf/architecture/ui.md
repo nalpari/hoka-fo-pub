@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T00:35:48Z'
-source_revision: 288304522b2bd458c2fa2485ac665a9056525976
+  at: '2026-10-22T01:54:08Z'
+source_revision: 2935dd05c92fd2d4802d2259bd5288bfd6d6b5a5
 working_tree_sources:
+  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
+  - src/shared/components/molecules/Faq/FaqCategoryNav.tsx
+  - src/shared/components/molecules/Faq/FaqControls.tsx
+  - src/shared/components/molecules/Faq/FaqSearch.tsx
+  - src/shared/components/organisms/Faq/FaqAnswer.tsx
+  - src/shared/components/organisms/Faq/FaqList.tsx
+  - src/shared/components/organisms/Faq/FaqQuestion.tsx
   - src/shared/features/support/SupportPage.tsx
   - src/shared/features/support/SupportContacts.tsx
   - src/shared/features/support/SupportContactCard.tsx
@@ -1048,6 +1055,10 @@ Button variant secondary의 hover/focus-visible/active에서는 프레임 안 �
 FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 organism 폴더의 FaqQuestion·FaqAnswer·FaqEmptyState로 분리했다. FaqList의 외부 props와 FaqListEntry/FaqListProps export, Accordion의 단일 펼침 제어와 onToggle 연결은 유지한다. 추가 DOM 래퍼 없이 기존 태그·Panda 값·PC/MO Typography·ReactNode 답변을 보존한다.
 
 검증: Panda 생성·전체 타입 검사·변경 파일 ESLint/Prettier를 통과했다. Edge headless에서 기존 Default/Mobile 열기·닫기, Empty 표시와 버튼 부재, ControlledDisclosure의 Enter·클릭·Space 및 aria-expanded/aria-controls 연결 play를 확인했다. production build는 재실행하지 않았다.
+
+## FAQ 탭·질문 타이포그래피 (2026-10-22)
+
+FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. FAQ 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다.
 
 ## 런클럽 필터 버튼 크기 지정 (2026-10-19)
 

@@ -43,7 +43,7 @@ const rail = cva({
     variant: {
       categoryNavigation: {
         _mobile: {
-          h: '46px',
+          h: '37px',
           mb: '4',
           px: '0',
         },
@@ -78,33 +78,11 @@ const label = cva({
   base: {
     '&&': {
       color: 'var(--color-text-primary)',
-      fontSize: '16',
-      fontWeight: 'var(--font-weights-normal)',
-      letterSpacing: 'var(--letter-spacings-korean)',
-      lineHeight: 'var(--line-heights-body)',
-
-      _mobile: {
-        fontWeight: 'var(--font-weights-medium)',
-        fontSize: '12',
-        color: 'var(--color-text-subtle)',
-      },
     },
   },
   variants: {
     variant: {
-      fill: {
-        '&&': {
-          color: 'var(--color-text-subtle)',
-          fontSize: '16',
-          fontWeight: 'var(--font-weights-medium)',
-          letterSpacing: 'var(--letter-spacings-korean)',
-          lineHeight: 'var(--line-heights-body)',
-          _mobile: {
-            fontSize: 'var(--home-body-12, var(--font-sizes-12))',
-            fontWeight: 'var(--font-weights-medium)',
-          },
-        },
-      },
+      fill: { '&&': { color: 'var(--color-text-subtle)' } },
       default: {},
       categoryNavigation: {},
       line: {},
@@ -192,20 +170,10 @@ const item = cva({
           borderRadius: '0',
           bg: 'transparent',
         },
-        '&&': {
-          _mobile: {
-            '& > span': {
-              color: 'inherit',
-              fontSize: '14',
-              fontWeight: 'var(--font-weights-normal)',
-              lineHeight: 'normal',
-            },
-            color: 'var(--color-text-tertiary)',
-          },
-        },
+        '&&': { _mobile: { color: 'var(--color-text-tertiary)' } },
       },
       fill: {
-        h: '35px',
+        h: '37px',
         px: '4',
         borderRadius: '50px',
         bg: 'var(--color-black-20)',
@@ -218,7 +186,7 @@ const item = cva({
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          h: 'var(--home-body-30, 30px)',
+          h: '37px',
           px: 'var(--home-body-16, var(--spacing-4))',
           borderRadius: '50px',
           bg: 'var(--color-black-20)',
@@ -230,14 +198,13 @@ const item = cva({
         flex: '0 0 auto',
         alignItems: 'center',
         justifyContent: 'center',
-        py: '6px',
+        h: '37px',
         borderBottomWidth: '2px',
         borderBottomStyle: 'solid',
         borderBottomColor: 'transparent',
         whiteSpace: 'nowrap',
         _hover: { textDecoration: 'none' },
         _mobile: {
-          h: '36px',
           p: '0',
           borderRadius: '0',
           bg: 'transparent',
@@ -248,7 +215,7 @@ const item = cva({
         flex: '0 0 auto',
         alignItems: 'center',
         justifyContent: 'center',
-        h: '36px',
+        h: '37px',
         px: '4',
         border: '1px solid',
         borderColor: 'black.40',
@@ -257,7 +224,7 @@ const item = cva({
         whiteSpace: 'nowrap',
         '&&': { color: 'var(--color-text-tertiary)' },
         _hover: { textDecoration: 'none' },
-        _mobile: { h: '30px', bg: 'white.0', px: '3' },
+        _mobile: { bg: 'white.0', px: '3' },
       },
       default: {},
     },
@@ -413,8 +380,7 @@ export function FilterTabs<T extends string = string>({
               value={option.value}
             >
               <Typography
-                web={variant === 'line' ? 'cta1' : 'body3'}
-                mo={variant === 'line' ? 'cta2' : 'body3'}
+                variant="cta2"
                 weight={variant === 'line' ? 'semibold' : undefined}
                 tone={variant === 'line' ? (isSelected ? 'primary' : 'tertiary') : undefined}
                 className={
