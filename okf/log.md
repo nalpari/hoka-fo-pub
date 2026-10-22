@@ -2,6 +2,10 @@
 
 ## 2026-10-22
 
+- **Update**: 수량 배지용 Typography notificationCount variant와 공통 토큰을 추가해 PC·모바일 모두 500·8px·16px을 적용했다. NotificationCount 소비처와 PC·모바일 스토리를 갱신했다. [UI 기록](architecture/ui.md#수량-배지-typography-variant-2026-10-22)에 역할과 검증 범위를 기록했다.
+
+- **Refactor**: NotificationCount의 외부 Circle이 배지 외형을, 내부 Typography가 숫자를 담당하도록 중첩하고 전달 속성을 유지하며 Circle 크기를 사용자 지정 12px로 적용했다. 숫자 색상은 Typography tone="inverse"를 재사용하고 별도 색상 클래스를 제거했다. [UI 기록](architecture/ui.md#수량-배지-circle-조합-2026-10-22)에 구현과 검증 범위를 기록했다.
+
 - **Fix**: 헤더 장바구니에 검정색 가방 아이콘을 지정했다. [UI 기록](architecture/ui.md#헤더-장바구니-검정-가방-아이콘-지정-2026-10-22)에 변경 범위를 기록했다.
 
 - **Fix**: HomeLayout의 모바일 하단 패딩을 72px로 지정했다. [UI 기록](architecture/ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)에 변경 범위를 기록했다.

@@ -414,6 +414,11 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      notificationCount: {
+        fontSize: 'var(--type-notification-count-font-size)',
+        fontWeight: 'var(--type-notification-count-font-weight)',
+        lineHeight: 'var(--type-notification-count-line-height)',
+      },
       choiceLabel: {
         fontFamily: 'var(--font-family-base)',
         fontSize: 'var(--type-choice-label-font-size)',
@@ -697,6 +702,7 @@ const typography = cva({
 
 export type TypographyVariant =
   | 'unstyled'
+  | 'notificationCount'
   | 'choiceLabel'
   | 'unitLabel'
   | 'selectionLabel'

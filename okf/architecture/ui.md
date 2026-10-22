@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:39:09.500Z'
+  at: '2026-10-22T01:55:50.456Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/stories/components/atoms/NotificationIcon/NotificationIcon.stories.tsx
+  - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
   - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - AGENTS.md
@@ -2522,3 +2524,13 @@ HomeLayout의 모바일 하단 패딩을 18에서 명시적 72px로 변경했다
 ## 헤더 장바구니 검정 가방 아이콘 지정 (2026-10-22)
 
 HeaderCartLink에서 NotificationIcon의 bag variant와 검정색을 명시했다. 기존 notification-bag.svg 자산을 사용하고 수량에 따른 아이콘의 파란색 자동 전환을 막는다. 장바구니 링크와 접근성 이름, PC 22px·모바일 20px 크기 및 수량 전달은 유지한다. 출처는 스테이징된 HeaderCartLink.tsx와 기존 NotificationIcon.tsx이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 수량 배지 Circle 조합 (2026-10-22)
+
+NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. Circle은 span으로 렌더링하며 절대 위치(top -.3rem·right -4px)·size="12px"·좌우 패딩 2px·배경색·중앙 정렬·둥근 모서리를 담당한다. 내부 Typography는 notificationCount variant와 tone="inverse"로 숫자를 표시하며 전달받은 span 속성·aria-hidden·호출자 className을 유지한다. 흰색은 공통 text-inverse 토큰을 사용하고 notificationCount 클래스와 css import는 제거했다. 텍스트 정렬은 외부 Circle이 담당한다. 사용자 지정에 따라 Circle의 size="12px"로 너비와 높이를 함께 지정한다. 긴 수량에도 배지 외곽 크기는 12px로 유지한다. 출처는 작업 트리의 src/shared/components/atoms/NotificationIcon/NotificationCount.tsx와 생성된 styled-system/patterns/circle.mjs이다. 사용자 요청에 따라 단일 요소 조합을 중첩 구조로 수정했다. 이전 단일 요소 구조의 SSR·Storybook 결과는 이 중첩 구조의 검증 결과가 아니다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 수량 배지 Typography variant (2026-10-22)
+
+notificationCount variant는 수량 배지 숫자를 위한 공통 글자 스타일이다. global.scss의 --type-notification-count-font-size(8px)·--type-notification-count-font-weight(500)·--type-notification-count-line-height(16px)를 사용하며 플랫폼별 override 없이 PC·모바일에 동일하게 적용한다. NotificationCount가 body5 대신 이 variant를 사용하고 참고용 CSS 주석은 제거했다. Typography의 NotificationCount 스토리는 web·mobile PlatformProvider 아래에서 동일 variant를 렌더링한다. 출처는 작업 트리의 Typography.tsx, NotificationCount.tsx, global.scss와 Typography.stories.tsx이다. 타입 검사·변경 TSX ESLint·Prettier 정리·Panda 생성을 완료했다. 브라우저의 계산된 스타일은 검증하지 않았다.
+
+NotificationIcon의 BadgeCounts 스토리는 0·1·12·99·100 수량을 함께 제공한다. 0은 숨기고 100은 99+로 표시하는 기존 정책을 유지한다.

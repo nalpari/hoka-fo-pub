@@ -1,5 +1,9 @@
 # 아키텍처
 
+[수량 배지 Typography variant](ui.md#수량-배지-typography-variant-2026-10-22)는 PC·모바일 공통 500·8px·16px 글자 스타일을 설명한다.
+
+[수량 배지 Circle 조합](ui.md#수량-배지-circle-조합-2026-10-22)은 NotificationCount의 외부 Circle과 내부 Typography 역할을 나누는 Panda 조합을 설명한다.
+
 [헤더 장바구니 검정 가방 아이콘 지정](ui.md#헤더-장바구니-검정-가방-아이콘-지정-2026-10-22)은 아이콘 종류와 색상 변경을 설명한다.
 
 [모바일 메인 하단 여백 72px 지정](ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)은 HomeLayout의 모바일 하단 패딩 변경을 설명한다.

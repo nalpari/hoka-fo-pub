@@ -1,24 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef } from 'react';
-import { css } from 'styled-system/css';
-
-const notificationCount = css({
-  position: 'absolute',
-  top: '-2px',
-  right: '-4px',
-  display: 'inline-flex',
-  minWidth: '12px',
-  height: '12px',
-  alignItems: 'center',
-  justifyContent: 'center',
-  px: '1',
-  borderRadius: 'full',
-  bg: 'blue.100',
-  textAlign: 'center',
-  '&&': {
-    color: 'white.0',
-  },
-});
+import { Circle } from 'styled-system/jsx';
 
 export type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
   count?: number;
@@ -36,13 +18,27 @@ export function NotificationCount({
   const displayCount = count > max ? `${max}+` : count;
 
   return (
-    <Typography
-      variant="body5"
-      {...props}
-      aria-hidden="true"
-      className={[notificationCount, className].filter(Boolean).join(' ')}
+    <Circle
+      as="span"
+      pos="absolute"
+      top="-.3rem"
+      right="-4px"
+      display="inline-flex"
+      size="12px"
+      px="2px"
+      boxSizing="border-box"
+      bg="blue.100"
+      textAlign="center"
     >
-      {displayCount}
-    </Typography>
+      <Typography
+        variant="notificationCount"
+        tone="inverse"
+        {...props}
+        aria-hidden="true"
+        className={className}
+      >
+        {displayCount}
+      </Typography>
+    </Circle>
   );
 }

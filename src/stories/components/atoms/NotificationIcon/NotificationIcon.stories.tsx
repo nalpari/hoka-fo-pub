@@ -35,3 +35,19 @@ export const BrandNotification: Story = {
     color: 'var(--color-blue-100)',
   },
 };
+
+export const BadgeCounts: Story = {
+  render: () => (
+    <HStack gap="6">
+      {[0, 1, 12, 99, 100].map((count) => (
+        <NotificationIcon
+          key={count}
+          variant="bag"
+          count={count}
+          color="var(--color-black-100)"
+          label={`장바구니 ${count}개`}
+        />
+      ))}
+    </HStack>
+  ),
+};

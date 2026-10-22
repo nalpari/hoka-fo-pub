@@ -170,6 +170,22 @@ export const Heading: Story = {
   args: { as: 'h2', children: typographyLabel(typographyStorySpecs.heading), variant: 'heading' },
 };
 
+export const NotificationCount: Story = {
+  args: { as: 'span', variant: 'notificationCount', children: '12' },
+  render: (args) => (
+    <Stack gap="4">
+      <PlatformProvider platform="web">
+        <Typography {...args} />
+      </PlatformProvider>
+      <PlatformProvider platform="mobile">
+        <Box className="platform-mobile">
+          <Typography {...args} />
+        </Box>
+      </PlatformProvider>
+    </Stack>
+  ),
+};
+
 export const PageTitle: Story = {
   args: { as: 'h1', variant: 'pageTitle', children: '주문/결제' },
 };
