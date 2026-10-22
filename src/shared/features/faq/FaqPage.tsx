@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
 import { FaqControls } from '@/shared/components/molecules/Faq/FaqControls';
 import { FaqList } from '@/shared/components/organisms/Faq/FaqList';

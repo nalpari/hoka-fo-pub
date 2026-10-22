@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:54:08Z'
-source_revision: 2935dd05c92fd2d4802d2259bd5288bfd6d6b5a5
+  at: '2026-10-22T02:10:07Z'
+source_revision: 89606a6111c2ec81cb23e91798534a8397b3d6f2
 working_tree_sources:
+  - src/shared/features/faq/FaqPage.tsx
+  - src/shared/components/organisms/Faq/FaqList.tsx
   - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
   - src/shared/components/molecules/Faq/FaqCategoryNav.tsx
   - src/shared/components/molecules/Faq/FaqControls.tsx
@@ -1058,7 +1060,7 @@ FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 o
 
 ## FAQ 탭·질문 타이포그래피 (2026-10-22)
 
-FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. FAQ 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다.
+FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다.
 
 ## 런클럽 필터 버튼 크기 지정 (2026-10-19)
 
