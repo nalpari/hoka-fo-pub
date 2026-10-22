@@ -1,5 +1,7 @@
 # 아키텍처
 
+[모바일 푸터 사업자 정보 행](ui.md#모바일-푸터-사업자-정보-행-2026-10-22)은 사업자 정보의 모바일 줄바꿈·간격과 호스팅 안내 스타일을 설명한다.
+
 [수량 배지 Typography variant](ui.md#수량-배지-typography-variant-2026-10-22)는 PC·모바일 공통 500·8px·16px 글자 스타일을 설명한다.
 
 [수량 배지 Circle 조합](ui.md#수량-배지-circle-조합-2026-10-22)은 NotificationCount의 외부 Circle과 내부 Typography 역할을 나누는 Panda 조합을 설명한다.

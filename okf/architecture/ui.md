@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:57:43.272Z'
+  at: '2026-10-22T02:08:01.511Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - src/shared/features/home/HomeExploreSection.tsx
@@ -2544,3 +2545,9 @@ NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. 
 notificationCount variant는 수량 배지 숫자를 위한 공통 글자 스타일이다. global.scss의 --type-notification-count-font-size(8px)·--type-notification-count-font-weight(500)·--type-notification-count-line-height(16px)를 사용하며 플랫폼별 override 없이 PC·모바일에 동일하게 적용한다. NotificationCount가 body5 대신 이 variant를 사용하고 참고용 CSS 주석은 제거했다. Typography의 NotificationCount 스토리는 web·mobile PlatformProvider 아래에서 동일 variant를 렌더링한다. 출처는 작업 트리의 Typography.tsx, NotificationCount.tsx, global.scss와 Typography.stories.tsx이다. 타입 검사·변경 TSX ESLint·Prettier 정리·Panda 생성을 완료했다. 브라우저의 계산된 스타일은 검증하지 않았다.
 
 NotificationIcon의 BadgeCounts 스토리는 0·1·12·99·100 수량을 함께 제공한다. 0은 숨기고 100은 99+로 표시하는 기존 정책을 유지한다.
+
+## 모바일 푸터 사업자 정보 행 (2026-10-22)
+
+FooterLegalLinks의 대표이사·사업자 등록번호·사업자정보확인 행에만 모바일 예외를 적용했다. gap 0과 space-between, nowrap으로 불필요한 행간과 줄바꿈을 없애고, 너비는 100%·최대 343px(375px 기준 좌우 16px 안쪽)로 제한해 넓은 모바일에서도 항목이 전체 폭에 흩어지지 않도록 했다. 다른 정보 행의 gap 4와 PC의 기존 wrap·16px 간격은 유지한다. 호스팅 서비스 제공자 안내는 Typography as="p"·variant="body5"·tone="inverse"로 표현한다. 출처는 작업 트리의 FooterLegalLinks.tsx와 사용자가 첨부한 모바일 푸터 시안이다.
+
+2026-10-22 Codex가 Storybook 375px·768px 모바일에서 세 항목의 같은 top 좌표와 가로 넘침 없음을 확인했다. 넓은 모바일에서 행 너비가 343px로 제한되며 PC 1600px에서는 gap 16px·wrap·max-width none인 것을 확인했다.
