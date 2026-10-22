@@ -21,7 +21,7 @@ export function HomeExploreSection() {
             {...explore}
             actions={explore.actions.map((action) => ({
               ...action,
-              variant: isMobile ? 'secondary' : action.variant,
+              variant: isMobile ? 'primary' : action.variant,
             }))}
             variant={isMobile ? 'overlay' : 'descriptionLink'}
           />

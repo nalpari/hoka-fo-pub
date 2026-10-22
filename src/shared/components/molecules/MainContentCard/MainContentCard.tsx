@@ -9,7 +9,7 @@ import { Card } from '@/shared/components/atoms/Card/Card';
 export type MainContentCardAction = {
   label: string;
   to: string;
-  variant?: 'link' | 'secondary';
+  variant?: 'link' | 'primary' | 'secondary';
 };
 
 export type MainContentCardImageAspectRatio = {
@@ -216,7 +216,11 @@ function MainCardAction({
   }
 
   return (
-    <ButtonLink href={to} variant={resolvedVariant}>
+    <ButtonLink
+      href={to}
+      variant={resolvedVariant}
+      colorway={resolvedVariant === 'primary' && tone === 'light' ? 'white' : 'black'}
+    >
       {label}
     </ButtonLink>
   );

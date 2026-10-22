@@ -70,3 +70,13 @@ export const OverlayBright: Story = {
     actions: [{ label: '상품 바로가기', to: '/products', variant: 'secondary' }],
   },
 };
+
+export const OverlayPrimary: Story = {
+  args: {
+    variant: 'overlay',
+    image: '/images/temp/@explore-2.png',
+    title: 'Marathon Pack',
+    description: '획기적인 속도와 지속적인 편안함을 위해 설계되었습니다.',
+    actions: [{ label: '상품 보러가기', to: '/products', variant: 'primary' }],
+  },
+};

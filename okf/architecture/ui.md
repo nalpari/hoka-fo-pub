@@ -6,13 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:55:50.456Z'
+  at: '2026-10-22T01:57:43.272Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
-  - src/stories/components/atoms/NotificationIcon/NotificationIcon.stories.tsx
   - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/features/home/HomeExploreSection.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/NotificationIcon/NotificationIcon.stories.tsx
+  - src/stories/components/molecules/MainContentCard/MainContentCard.stories.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
+  - src/shared/components/atoms/NotificationIcon/NotificationIcon.tsx
   - AGENTS.md
   - .storybook/main.ts
   - src/shared/features/screen-index/IaStructurePage.tsx
@@ -2512,6 +2516,12 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
 
 [^ia-google-sheet-20261022]: 사용자 제공 Google Sheets, Eland_211_IA_20260928_v0.20의 FO 탭. 2026-10-22 읽기 전용으로 A1:Q35, B36:L300 범위를 확인했다.
+
+## 모바일 메인 카드와 푸터 간격 보정 (2026-10-22)
+
+HomeExploreSection의 모바일 액션은 secondary에서 primary로 전환했다. MainContentCardAction은 primary를 허용하며 밝은 텍스트를 쓰는 이미지 위에서는 ButtonLink의 기존 colorway=white를 사용해 흰 배경·검정 글자·무테 버튼을 표시한다. 어두운 텍스트를 쓰는 경우 black을 사용하고 기존 secondary·link 액션 동작은 유지한다. OverlayPrimary 스토리에 해당 색상 사례를 추가했다.
+
+앞서 커밋된 overlay 설명의 최소 높이 해제와 HomeLayout의 모바일 하단 패딩 72px 지정은 각각 아래 기록에 남긴다. 이번 변경은 카드 버튼 스타일에 한정한다. 출처는 작업 트리의 MainContentCard.tsx, HomeExploreSection.tsx와 MainContentCard.stories.tsx이다. 이 작업 트리의 타입 검사·변경 파일 ESLint·Storybook 빌드를 통과했다. 이번 커밋 준비에서 브라우저 시각 검증은 수행하지 않았다.
 
 ## 메인 카드 overlay 설명 최소 높이 해제 (2026-10-22)
 
