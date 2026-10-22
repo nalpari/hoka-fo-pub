@@ -2,6 +2,8 @@
 
 ## 2026-10-22
 
+- **Fix**: 모바일 메뉴 포털에 platform-mobile 스타일 범위를 연결해 Men 뒤로가기 제목이 42px로 과대 표시되던 문제를 22px로 수정했다. 기존 타이포그래피 variant를 유지하고 뒤로가기 포커스 복원·메뉴 닫기를 확인했다. [UI 기록](architecture/ui.md#모바일-메뉴-포털의-타이포그래피-범위-2026-10-22)에 원인과 검증을 기록했다.
+
 - **Fix**: 모바일 푸터의 대표이사·사업자 등록번호·사업자정보확인 행에만 gap 0·space-between·nowrap과 최대 343px 너비를 적용했다. 좁은 모바일 줄바꿈과 넓은 모바일 과도한 항목 간격을 함께 보정하고 호스팅 안내에 body5·inverse Typography를 적용했다. [UI 기록](architecture/ui.md#모바일-푸터-사업자-정보-행-2026-10-22)에 실측 검증을 남겼다.
 
 - **Update**: 수량 배지용 Typography notificationCount variant와 공통 토큰을 추가해 PC·모바일 모두 500·8px·16px을 적용했다. NotificationCount 소비처와 PC·모바일 스토리를 갱신했다. [UI 기록](architecture/ui.md#수량-배지-typography-variant-2026-10-22)에 역할과 검증 범위를 기록했다.

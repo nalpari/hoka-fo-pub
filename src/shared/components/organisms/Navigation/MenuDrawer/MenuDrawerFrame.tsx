@@ -34,7 +34,7 @@ export function MenuDrawerFrame({
     <Drawer.Root open onOpenChange={(open) => !open && close()} swipeDirection="left">
       <Drawer.Portal>
         <Drawer.Backdrop className={styles.backdrop} />
-        <Drawer.Viewport className={styles.viewport}>
+        <Drawer.Viewport className={`${styles.viewport} platform-mobile`}>
           <Drawer.Popup
             ref={popupRef}
             initialFocus={initialFocusRef}

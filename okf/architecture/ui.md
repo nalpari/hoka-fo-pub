@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T02:08:01.511Z'
+  at: '2026-10-22T02:10:19.574Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
@@ -2551,3 +2552,9 @@ NotificationIcon의 BadgeCounts 스토리는 0·1·12·99·100 수량을 함께 
 FooterLegalLinks의 대표이사·사업자 등록번호·사업자정보확인 행에만 모바일 예외를 적용했다. gap 0과 space-between, nowrap으로 불필요한 행간과 줄바꿈을 없애고, 너비는 100%·최대 343px(375px 기준 좌우 16px 안쪽)로 제한해 넓은 모바일에서도 항목이 전체 폭에 흩어지지 않도록 했다. 다른 정보 행의 gap 4와 PC의 기존 wrap·16px 간격은 유지한다. 호스팅 서비스 제공자 안내는 Typography as="p"·variant="body5"·tone="inverse"로 표현한다. 출처는 작업 트리의 FooterLegalLinks.tsx와 사용자가 첨부한 모바일 푸터 시안이다.
 
 2026-10-22 Codex가 Storybook 375px·768px 모바일에서 세 항목의 같은 top 좌표와 가로 넘침 없음을 확인했다. 넓은 모바일에서 행 너비가 343px로 제한되며 PC 1600px에서는 gap 16px·wrap·max-width none인 것을 확인했다.
+
+## 모바일 메뉴 포털의 타이포그래피 범위 (2026-10-22)
+
+MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 body 아래로 이동하는 포털 내부에도 Panda _mobile 조건이 적용되도록 했다. React PlatformContext는 포털에서 유지되지만 .platform-mobile 조상에 의존하는 CSS 범위는 별도로 연결해야 한다. 기존 MenuDrawerBackButton의 heading5 variant를 유지하며 Men·Women 등 뒤로가기 제목에 기본 42px 대신 모바일 22px를 적용한다. 공통 Typography 크기와 반응형 기준은 변경하지 않는다. 출처는 작업 트리의 MenuDrawerFrame.tsx, MenuDrawerBackButton.tsx, Typography.tsx와 panda.config.ts의 mobile 조건이다.
+
+2026-10-22 Codex가 기존 Men Storybook에서 수정 전 font-size 42px·모바일 조상 없음, 수정 후 22px·모바일 조상 존재를 확인했다. 제목 초기 포커스와 뒤로가기 후 Men 버튼 포커스 복원, 메뉴 닫기 후 dialog 제거도 브라우저에서 확인했다.
