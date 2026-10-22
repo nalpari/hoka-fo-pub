@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:35:15.992Z'
+  at: '2026-10-22T01:36:54.103Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
@@ -2513,3 +2513,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 ## 메인 카드 overlay 설명 최소 높이 해제 (2026-10-22)
 
 MainContentCard의 overlay 설명에 minH 0을 지정해 공통 설명 스타일의 최소 높이를 해제했다. 설명은 실제 내용 높이를 사용하며 기존 부모 gap과 다른 카드 variant의 최소 높이는 유지한다. 출처는 스테이징된 MainContentCard.tsx의 descriptionStyle이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 모바일 메인 하단 여백 72px 지정 (2026-10-22)
+
+HomeLayout의 모바일 하단 패딩을 18에서 명시적 72px로 변경했다. 마지막 메인 콘텐츠와 푸터 사이 여백은 HomeLayout이 소유하며 PC 하단 패딩은 유지한다. 출처는 스테이징된 HomeLayout.tsx의 _mobile.pb이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.

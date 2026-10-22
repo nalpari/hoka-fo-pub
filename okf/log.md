@@ -2,6 +2,8 @@
 
 ## 2026-10-22
 
+- **Fix**: HomeLayout의 모바일 하단 패딩을 72px로 지정했다. [UI 기록](architecture/ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)에 변경 범위를 기록했다.
+
 - **Fix**: 메인 카드 overlay 설명의 최소 높이를 해제해 실제 내용 높이를 사용하도록 수정했다. [UI 기록](architecture/ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)에 변경 범위를 기록했다.
 
 - **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.

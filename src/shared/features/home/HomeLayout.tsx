@@ -12,7 +12,7 @@ export function HomeLayout({ platform, children }: { platform: Platform; childre
       bg="var(--color-surface-default)"
       fontFamily="var(--font-family-base)"
       pb="24"
-      _mobile={{ pb: '18' }}
+      _mobile={{ pb: '72px' }}
       css={{
         _mobile: {
           // Linear 375–768px interpolation; rem bounds preserve user font preferences.
