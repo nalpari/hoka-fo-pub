@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T01:36:54.103Z'
+  at: '2026-10-22T01:39:09.500Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
   - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
   - AGENTS.md
   - .storybook/main.ts
@@ -2517,3 +2518,7 @@ MainContentCard의 overlay 설명에 minH 0을 지정해 공통 설명 스타일
 ## 모바일 메인 하단 여백 72px 지정 (2026-10-22)
 
 HomeLayout의 모바일 하단 패딩을 18에서 명시적 72px로 변경했다. 마지막 메인 콘텐츠와 푸터 사이 여백은 HomeLayout이 소유하며 PC 하단 패딩은 유지한다. 출처는 스테이징된 HomeLayout.tsx의 _mobile.pb이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 헤더 장바구니 검정 가방 아이콘 지정 (2026-10-22)
+
+HeaderCartLink에서 NotificationIcon의 bag variant와 검정색을 명시했다. 기존 notification-bag.svg 자산을 사용하고 수량에 따른 아이콘의 파란색 자동 전환을 막는다. 장바구니 링크와 접근성 이름, PC 22px·모바일 20px 크기 및 수량 전달은 유지한다. 출처는 스테이징된 HeaderCartLink.tsx와 기존 NotificationIcon.tsx이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
