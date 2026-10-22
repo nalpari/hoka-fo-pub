@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T02:10:07Z'
-source_revision: 89606a6111c2ec81cb23e91798534a8397b3d6f2
+  at: '2026-10-22T05:11:31Z'
+source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/features/notices/NoticesPage.tsx
+  - src/shared/features/notices/NoticesList.tsx
+  - src/shared/features/notices/NoticeDetailPage.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
   - src/shared/features/faq/FaqPage.tsx
   - src/shared/components/organisms/Faq/FaqList.tsx
   - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
@@ -1060,7 +1065,7 @@ FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 o
 
 ## FAQ 탭·질문 타이포그래피 (2026-10-22)
 
-FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다.
+FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다. FAQ와 공지 Accordion은 item/trigger 스타일을 각 컴포넌트의 styles 객체에서 전달한다. 행 높이와 패딩은 화면별 차이를 보존하고, FAQ root class는 전용 indicator 크기를 설정한다. NoticesList 모바일 링크 스타일도 styles 객체의 정적 `mobileLink` class로 관리한다. NoticesList는 section 안쪽의 상단 border가 목록 구분선을 소유하며 웹 2px·모바일 숨김을 유지한다. 페이지는 heading divider를 따로 두지 않고 목록 전 상단 간격을 소유한다.
 
 ## 런클럽 필터 버튼 크기 지정 (2026-10-19)
 
@@ -2298,7 +2303,13 @@ CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts
 
 ## 고객센터 시안과 구성 정리 (2026-10-20)
 
-고객센터 첨부 시안 7종에 대한 차이·반영 범위·재사용 책임은 [고객센터 시안 반영 기록](support-design.md)에 정리했다. 이전 FAQ outline 카테고리와 모바일 공지 accordion 설명보다 이 기록이 우선한다. PC SUPPORT 사이드 제목과 PageFrame을 재사용하고, FAQ는 fill 카테고리 아래 검정 구분선을 둔다. 모바일 필터 rail의 기존 외부 margin/padding과 목록의 추가 margin을 정리해 FaqCategoryNav가 목록 앞 간격을 소유한다. 공지는 PC accordion, 모바일 상세 링크이며 제목·날짜는 공용 notices.data를 사용한다. StoreMapPreview는 PC 422px·모바일 240px 영역에서 지도 샘플의 종횡비를 보존한다.
+고객센터 첨부 시안 7종에 대한 차이·반영 범위·재사용 책임은 [고객센터 시안 반영 기록](support-design.md)에 정리했다. 이전 FAQ outline 카테고리와 공지 표시 방식 설명은 이 기록의 후속 반영에 따른다. PC SUPPORT 사이드 제목과 PageFrame을 재사용하고, FAQ는 fill 카테고리 아래 검정 구분선을 둔다. 모바일 필터 rail의 기존 외부 margin/padding과 목록의 추가 margin을 정리해 FaqCategoryNav가 목록 앞 간격을 소유한다. StoreMapPreview는 PC 422px·모바일 240px 영역에서 지도 샘플의 종횡비를 보존한다.
+
+## 공지사항 페이지 이동 (2026-10-22)
+
+PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이동하며, 두 화면 모두 Accordion을 사용하지 않는다. 행은 PC 74px·모바일 58px이고 아래에 `black.20` 1px 선을 둔다. 상세 제목과 날짜는 세로로 배치하고 상단선은 PC 2px·모바일 1px, 본문 구분선은 `black.20` 1px이다. 목록보기는 PC 180px·모바일 전체 너비, 48px 높이로 표시한다. 기존 목업 공지 데이터와 상세 본문 예시는 유지하고, Accordion에서만 쓰던 `NoticeContent`는 제거했다.
+
+출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 노드 `1241:82607`, `1241:82530`, `1241:82660`, `1574:34894`다.
 
 문의 읽기 파일 목록/선택은 InquiryReadAttachments, 공통 SingleActionDialog·Carousel 조합은 InquiryAttachmentPreview가 소유한다. CareInstructions는 ContentSection 기본 제목을 사용하고 TermsDocument는 선택된 시행일을, TermsDateSelect는 Popover 열림/닫힘과 Radio 선택 후 닫기를 소유한다. 문의 form/업로드 유효성 검사는 그대로 유지한다. 기능 내부 상태를 구분하는 추출이며 새 공용 atom이나 Base UI 의존성을 추가하지 않는다. 출처와 실제 검증 범위는 연결한 기록의 working_tree_sources와 검증 항목을 따른다.
 

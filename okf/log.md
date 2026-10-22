@@ -2,6 +2,9 @@
 
 ## 2026-10-22
 
+- **Refactor**: FaqList와 NoticesList의 Accordion item/trigger class 및 공지 모바일 링크 class를 각 컴포넌트의 styles 객체에서 전달하도록 정리했다. FAQ·공지별 행 높이와 패딩은 유지하고 border 색 토큰 표기를 통일했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Refactor**: 공지 목록 section이 상단 2px border를 직접 소유하도록 옮겼다. 페이지의 외부 Divider는 제거하고, 웹 구분선·모바일 숨김 및 기존 상단 간격을 보존했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Update**: 공지사항 목록 PC·모바일을 모두 상세 페이지 링크로 바꾸고 PC Accordion과 관련 상태, Accordion 전용 `NoticeContent`를 제거했다. 상세 화면에 반응형 제목·날짜, 본문 구분선, 180px PC/전체 너비 모바일 목록보기 버튼을 적용하고 데스크톱 상세 스토리를 추가했다. 기존 목업 문구와 제목/날짜 데이터는 유지했다. [UI 구성](architecture/ui.md#공지사항-페이지-이동-2026-10-22)을 갱신했다.
 - **Style**: FAQ 질문 트리거의 Q 라벨과 질문 텍스트 간격을 16px로 조정하고 사용하지 않는 페이지 Stack import를 제거했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Style**: FilterTabs 글자를 웹·모바일 CTA2, 높이를 37px로 통일하고 FAQ 질문을 body3 medium으로 조정했다. 답변과 검색/카테고리 간격도 FAQ 화면 기준으로 맞췄다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Refactor**: CustomerCenterLayout에서 `headingProps`와 공통 제목 하단 여백 전달을 제거했다. 페이지별 간격은 FAQ·공지·문의·안내 등 각 화면의 본문에서 소유하고, 간격이 다른 제목/설명 그룹은 페이지에서 ContentHeader를 조합한다. 회원등급 안내 Divider도 페이지로 이동했다. [UI 구성](architecture/ui.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)과 [ContentHeader/ContentSection 구성](architecture/content-sections.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)을 갱신했다.
