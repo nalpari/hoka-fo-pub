@@ -2307,7 +2307,7 @@ CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts
 
 ## 공지사항 페이지 이동 (2026-10-22)
 
-PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이동하며, 두 화면 모두 Accordion을 사용하지 않는다. 행은 PC 74px·모바일 58px이고 아래에 `black.20` 1px 선을 둔다. 상세 제목과 날짜는 세로로 배치하고 상단선은 PC 2px·모바일 1px, 본문 구분선은 `black.20` 1px이다. 목록보기는 PC 180px·모바일 전체 너비, 48px 높이로 표시한다. 기존 목업 공지 데이터와 상세 본문 예시는 유지하고, Accordion에서만 쓰던 `NoticeContent`는 제거했다.
+PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이동하며, 두 화면 모두 Accordion을 사용하지 않는다. 행은 PC 74px·모바일 58px이고 아래에 `black.20` 1px 선을 둔다. 상세 제목과 날짜는 세로로 배치하고 상단선은 PC 2px·모바일 1px, 본문 구분선은 `black.20` 1px이다. 목록보기는 PC 180px·모바일 전체 너비, 48px 높이로 표시한다. 공지 상세 본문 예시는 유지하고, Accordion에서만 쓰던 `NoticeContent`는 제거했다. 화면 확인용 공지 목록 fixture의 두 번째 제목은 두 줄 표시를 점검하는 긴 예시 문구다.
 
 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 노드 `1241:82607`, `1241:82530`, `1241:82660`, `1574:34894`다.
 

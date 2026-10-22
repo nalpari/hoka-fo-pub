@@ -2,6 +2,7 @@
 
 ## 2026-10-22
 
+- **Test**: 공지사항 목록의 제목 줄바꿈 확인용 긴 목업 제목을 추가했다. 실제 공지 문구가 아닌 화면 검증 데이터임을 [UI 구성](architecture/ui.md#공지사항-페이지-이동-2026-10-22)에 기록했다.
 - **Style**: FAQ 아코디언 질문 행을 PC 최소 높이 74px·상하 패딩 24px, 모바일 최소 높이 58px·상하 패딩 16px로 조정했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)에 반영했다.
 - **Refactor**: FaqList와 NoticesList의 Accordion item/trigger class 및 공지 모바일 링크 class를 각 컴포넌트의 styles 객체에서 전달하도록 정리했다. FAQ·공지별 행 높이와 패딩은 유지하고 border 색 토큰 표기를 통일했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Refactor**: 공지 목록 section이 상단 2px border를 직접 소유하도록 옮겼다. 페이지의 외부 Divider는 제거하고, 웹 구분선·모바일 숨김 및 기존 상단 간격을 보존했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
