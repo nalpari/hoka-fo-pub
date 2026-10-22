@@ -9,7 +9,7 @@ export function FaqQuestion({ question }: Props) {
       <Typography as="b" variant="body2">
         Q
       </Typography>
-      <Typography as="span" web="heading9" mo="body5" weight="semibold">
+      <Typography as="span" variant="body3" weight="medium">
         {question}
       </Typography>
     </HStack>

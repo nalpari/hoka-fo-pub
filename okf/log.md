@@ -26,6 +26,33 @@
 
 - **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.
 
+- **Fix**: 모바일 메뉴 포털에 platform-mobile 스타일 범위를 연결해 Men 뒤로가기 제목이 42px로 과대 표시되던 문제를 22px로 수정했다. 기존 타이포그래피 variant를 유지하고 뒤로가기 포커스 복원·메뉴 닫기를 확인했다. [UI 기록](architecture/ui.md#모바일-메뉴-포털의-타이포그래피-범위-2026-10-22)에 원인과 검증을 기록했다.
+
+- **Fix**: 모바일 푸터의 대표이사·사업자 등록번호·사업자정보확인 행에만 gap 0·space-between·nowrap과 최대 343px 너비를 적용했다. 좁은 모바일 줄바꿈과 넓은 모바일 과도한 항목 간격을 함께 보정하고 호스팅 안내에 body5·inverse Typography를 적용했다. [UI 기록](architecture/ui.md#모바일-푸터-사업자-정보-행-2026-10-22)에 실측 검증을 남겼다.
+
+- **Update**: 수량 배지용 Typography notificationCount variant와 공통 토큰을 추가해 PC·모바일 모두 500·8px·16px을 적용했다. NotificationCount 소비처와 PC·모바일 스토리를 갱신했다. [UI 기록](architecture/ui.md#수량-배지-typography-variant-2026-10-22)에 역할과 검증 범위를 기록했다.
+
+- **Refactor**: NotificationCount의 외부 Circle이 배지 외형을, 내부 Typography가 숫자를 담당하도록 중첩하고 전달 속성을 유지하며 Circle 크기를 사용자 지정 12px로 적용했다. 숫자 색상은 Typography tone="inverse"를 재사용하고 별도 색상 클래스를 제거했다. [UI 기록](architecture/ui.md#수량-배지-circle-조합-2026-10-22)에 구현과 검증 범위를 기록했다.
+
+- **Fix**: 헤더 장바구니에 검정색 가방 아이콘을 지정했다. [UI 기록](architecture/ui.md#헤더-장바구니-검정-가방-아이콘-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: HomeLayout의 모바일 하단 패딩을 72px로 지정했다. [UI 기록](architecture/ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 메인 카드 overlay 설명의 최소 높이를 해제해 실제 내용 높이를 사용하도록 수정했다. [UI 기록](architecture/ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 모바일 Explore 카드에 primary 액션을 적용하고 밝은 이미지 위 버튼을 흰 배경·검정 글자로 표시했다. MainContentCard의 primary 지원과 OverlayPrimary 스토리를 추가했다. [UI 기록](architecture/ui.md#모바일-메인-카드와-푸터-간격-보정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.
+
+- **Organize**: 사용자 제공 IA 시트 FO 기준으로 PAGES 185개 스토리를 한국어 메뉴와 번호별 화면·WEB/Mobile 구조로 정리했다. 마이페이지 혼합 스토리와 검색결과·오류 화면을 분리하고 러닝세션을 탐색으로 옮겼다. 기존 시나리오와 비페이지 분류를 보존하고 IA 미리보기 링크 48개를 갱신했다. [UI 기록](architecture/ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)에 출처·적용 기준·검증을 기록했다.
+
+- **Rename**: 고객센터 Storybook 상위 경로를 `PAGES/SUPPORT`에서 `PAGES/고객센터`로 변경하고 정렬 설정과 UI 문서를 맞췄다. 하위 번호와 WEB·Mobile 구조는 유지한다.
+
+- **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.
+
+- **Style**: FAQ 질문 트리거의 Q 라벨과 질문 텍스트 간격을 16px로 조정하고 사용하지 않는 페이지 Stack import를 제거했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Style**: FilterTabs 글자를 웹·모바일 CTA2, 높이를 37px로 통일하고 FAQ 질문을 body3 medium으로 조정했다. 답변과 검색/카테고리 간격도 FAQ 화면 기준으로 맞췄다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Refactor**: CustomerCenterLayout에서 `headingProps`와 공통 제목 하단 여백 전달을 제거했다. 페이지별 간격은 FAQ·공지·문의·안내 등 각 화면의 본문에서 소유하고, 간격이 다른 제목/설명 그룹은 페이지에서 ContentHeader를 조합한다. 회원등급 안내 Divider도 페이지로 이동했다. [UI 구성](architecture/ui.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)과 [ContentHeader/ContentSection 구성](architecture/content-sections.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)을 갱신했다.
 - **Style**: 고객센터 상담 카드의 연락처·운영시간 묶음 간격을 PC 52px, 모바일 32px로 조정하고 관련 UI·고객센터 시안 문서를 갱신했다.
 - **Update**: 고객센터 메인을 최신 PC·모바일 시안에 맞춰 연락처 카드 두 개만 보이도록 갱신했다. 현재 운영 전화번호를 유지하고 운영시간을 추가했으며, 웹은 카드 내부 가로 배치·모바일은 세로 배치로 반응형 처리했다. 공지·FAQ teaser와 시안에 없는 아이콘/외곽선은 넣지 않았고 두 화면 Storybook에 연락처 및 노출 검사를 추가했다. [UI 기록](architecture/ui.md#고객센터-메인-2026-10-16)과 [고객센터 시안 기록](architecture/support-design.md#고객센터-메인-갱신-2026-10-22)을 갱신했다.
 

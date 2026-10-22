@@ -2,8 +2,10 @@
 
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { InquiryCautions } from '@/shared/features/support/InquiryCautions';
 import { InquiryAttachments } from '@/shared/features/support/InquiryAttachments';
@@ -31,8 +33,16 @@ export function InquiryNewPage() {
 
   return (
     <CustomerCenterLayout
-      title="1:1 문의"
-      description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
+      header={
+        <ContentHeader
+          gap="4"
+          title="1:1 문의"
+          titleAs="h1"
+          titleProps={{ web: 'heading6', mo: 'heading6' }}
+          description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
+          descriptionProps={{ variant: 'body3' }}
+        />
+      }
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -42,7 +52,7 @@ export function InquiryNewPage() {
       ]}
       groups={supportNavigation}
     >
-      <form noValidate onSubmit={submit}>
+      <form className={css({ mt: '6' })} noValidate onSubmit={submit}>
         <Stack gap="6">
           <InquiryCustomerInfo />
           <InquiryCategoryFields />

@@ -26,7 +26,7 @@ export function StoreFinderPage() {
       ]}
       groups={supportNavigation}
     >
-      <Stack gap="6">
+      <Stack gap="6" mt="6">
         <SupportTabs ariaLabel="매장 지역" defaultValue="서울" tabs={tabs} />
       </Stack>
     </CustomerCenterLayout>

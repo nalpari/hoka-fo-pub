@@ -2,6 +2,7 @@
 
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
+import { Stack } from 'styled-system/jsx';
 import { apparelCareSections, shoeCareSections } from './care.data';
 import { CareInstructions } from './CareInstructions';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
@@ -28,7 +29,9 @@ export function CareGuidePage() {
       ]}
       groups={supportNavigation}
     >
-      <SupportTabs ariaLabel="세탁 및 손질 방법" defaultValue="shoes" tabs={tabs} />
+      <Stack mt="6">
+        <SupportTabs ariaLabel="세탁 및 손질 방법" defaultValue="shoes" tabs={tabs} />
+      </Stack>
     </CustomerCenterLayout>
   );
 }

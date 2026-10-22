@@ -8,7 +8,7 @@ type Props = {
 
 export function FaqSearch({ query, onQueryChange }: Props) {
   return (
-    <Flex justifyContent="center" py="9" _mobile={{ py: '0' }}>
+    <Flex justifyContent="center" pt="6" _mobile={{ pt: '0' }}>
       <Box w="590px" maxW="100%" _mobile={{ w: '100%' }}>
         <SearchField
           label="질문 또는 답변 검색"

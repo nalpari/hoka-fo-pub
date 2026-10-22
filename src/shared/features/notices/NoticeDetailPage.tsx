@@ -33,7 +33,7 @@ export function NoticeDetailPage() {
         </PageActionButton>
       }
     >
-      <Box py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
+      <Box mt="6" py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
         <NoticeHeading notice={notice} platform={platform} />
       </Box>
       <Stack gap="4" px="6" py="8" bg="black.10" _mobile={{ px: '4', py: '6' }}>

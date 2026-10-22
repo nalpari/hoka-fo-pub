@@ -1,4 +1,5 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
 import { Stack } from 'styled-system/jsx';
@@ -17,7 +18,6 @@ export function SupportExperiencePage({ kind }: { kind: SupportExperienceKind })
     <CustomerCenterLayout
       title={title}
       mobileTitleVariant="heading5"
-      showHeadingDivider
       activePath={path}
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -26,10 +26,13 @@ export function SupportExperiencePage({ kind }: { kind: SupportExperienceKind })
       ]}
       groups={supportNavigation}
     >
-      <Stack as="section">
-        <Typography as="p" web="body3" mo="body4" tone="subtle">
-          디자인 작업 중입니다.
-        </Typography>
+      <Stack gap="6" mt="6">
+        <Divider variant="heading" display={{ base: 'block', _mobile: 'none' }} />
+        <Stack as="section">
+          <Typography as="p" web="body3" mo="body4" tone="subtle">
+            디자인 작업 중입니다.
+          </Typography>
+        </Stack>
       </Stack>
     </CustomerCenterLayout>
   );

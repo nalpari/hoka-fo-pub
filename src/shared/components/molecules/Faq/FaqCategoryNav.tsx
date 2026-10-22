@@ -11,7 +11,7 @@ type Props = {
 
 export function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
   return (
-    <Box as="nav" aria-label="FAQ 카테고리" pt="3" pb="6" _mobile={{ pt: '4' }}>
+    <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="4" _mobile={{ pt: '6', pb: '8' }}>
       <FilterTabs
         ariaLabel="FAQ 카테고리"
         onValueChange={onCategoryChange}

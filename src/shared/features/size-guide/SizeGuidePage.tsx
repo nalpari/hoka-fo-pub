@@ -3,6 +3,7 @@ import { supportNavigation } from '@/shared/features/support/support.navigation'
 import { SupportTabs } from '@/shared/components/molecules/SupportTabs/SupportTabs';
 import { guideCategories } from './size-guide.data';
 import { SizeGuidePanel } from './SizeGuidePanel';
+import { Stack } from 'styled-system/jsx';
 
 const tabs = guideCategories.map((category) => ({
   value: category.value,
@@ -22,12 +23,14 @@ export function SizeGuidePage() {
       ]}
       groups={supportNavigation}
     >
-      <SupportTabs
-        ariaLabel="사이즈 가이드 품목"
-        defaultValue="shoes"
-        variant="guide"
-        tabs={tabs}
-      />
+      <Stack mt="6">
+        <SupportTabs
+          ariaLabel="사이즈 가이드 품목"
+          defaultValue="shoes"
+          variant="guide"
+          tabs={tabs}
+        />
+      </Stack>
     </CustomerCenterLayout>
   );
 }

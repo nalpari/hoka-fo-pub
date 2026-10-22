@@ -17,18 +17,15 @@ export type FaqListProps = {
 };
 
 const styles = {
-  root: css({
-    '& svg': { w: '24px', h: '24px', _mobile: { w: '16px', h: '16px' } },
-  }),
+  root: css({ '& svg': { w: '24px', h: '24px', _mobile: { w: '16px', h: '16px' } } }),
   item: css({ borderBottom: '1px solid var(--color-black-20)' }),
   question: css({
     minH: '56px',
-    py: '6',
-    pl: '4',
-    pr: '5',
+    gap: '4',
+    py: '15px',
     textAlign: 'left',
     '&[aria-expanded="true"]': { fontWeight: 'semibold' },
-    _mobile: { minH: '42px', px: '0', py: '3' },
+    _mobile: { minH: '42px', py: '15px' },
   }),
 };
 
@@ -40,6 +37,7 @@ export function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
       borderTopColor="black.100"
       borderTopStyle="solid"
       borderTopWidth={entries.length ? '2px' : '0'}
+      pt={{ base: '32px', _mobile: '8px' }}
     >
       {entries.length ? (
         <Accordion

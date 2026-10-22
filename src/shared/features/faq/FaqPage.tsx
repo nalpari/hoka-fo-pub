@@ -36,7 +36,6 @@ export function FaqPage() {
   return (
     <CustomerCenterLayout
       title="FAQs"
-      headingProps={{ _mobile: { mb: '2' } }}
       activePath="/support/faq"
       groups={supportNavigation}
       breadcrumbItems={[

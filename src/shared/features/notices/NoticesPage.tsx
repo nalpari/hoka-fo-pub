@@ -19,7 +19,6 @@ export function NoticesPage() {
   return (
     <CustomerCenterLayout
       title="공지사항"
-      headingProps={{ mb: { base: '9', _mobile: '6' } }}
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -40,15 +39,17 @@ export function NoticesPage() {
         ) : null
       }
     >
-      <Divider variant="heading" _mobile={{ display: 'none' }} />
-      <Stack as="section" aria-label="공지사항 목록" gap="0">
-        <NoticesList
-          notices={notices}
-          shown={shown}
-          openIndex={openIndex}
-          onOpenIndexChange={setOpenIndex}
-          platform={platform}
-        />
+      <Stack gap="0" mt={{ base: '9', _mobile: '6' }}>
+        <Divider variant="heading" _mobile={{ display: 'none' }} />
+        <Stack as="section" aria-label="공지사항 목록" gap="0">
+          <NoticesList
+            notices={notices}
+            shown={shown}
+            openIndex={openIndex}
+            onOpenIndexChange={setOpenIndex}
+            platform={platform}
+          />
+        </Stack>
       </Stack>
     </CustomerCenterLayout>
   );
