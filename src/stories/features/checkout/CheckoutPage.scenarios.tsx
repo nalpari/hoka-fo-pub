@@ -17,7 +17,7 @@ const cart: CartItem[] = [
 ];
 
 const meta = {
-  title: 'PAGES/Checkout',
+  title: 'PAGES/주문/0. 주문서',
   tags: ['form-audit'],
   component: CheckoutPage,
   args: { cart, onComplete: fn() },

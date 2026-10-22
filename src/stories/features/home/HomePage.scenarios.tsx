@@ -3,7 +3,7 @@ import { ShopShell } from '@/shared/ShopShell';
 import HomePage from '@/app/page';
 
 const meta = {
-  title: 'PAGES/HOME/Main',
+  title: 'PAGES/메인/0. 메인',
   component: ShopShell,
   args: { children: <HomePage /> },
   parameters: { nextjs: { navigation: { pathname: '/' } }, layout: 'fullscreen' },

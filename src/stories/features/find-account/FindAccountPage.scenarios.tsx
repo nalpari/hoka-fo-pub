@@ -14,7 +14,7 @@ const withPlatform =
   );
 
 const meta = {
-  title: 'PAGES/Login/FindAccount',
+  title: 'PAGES/로그인/1. 아이디·비밀번호 찾기',
   component: FindAccountPage,
   decorators: [
     (Story) => (

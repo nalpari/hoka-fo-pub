@@ -6,7 +6,7 @@ import { SignupTermsContent } from '@/shared/features/signup-terms/SignupTermsCo
 import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
 
 const meta = {
-  title: 'PAGES/Signup/Terms',
+  title: 'PAGES/회원가입/3. 약관동의',
   component: SignupTermsContent,
   args: {
     agreements: [false, false, false, false],

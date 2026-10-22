@@ -20,7 +20,7 @@ const withRouter = (Story: React.ComponentType) => (
 );
 
 const meta = {
-  title: 'PAGES/Login/FindAccount/PasswordResetPage',
+  title: 'PAGES/로그인/3. 비밀번호 재설정',
   tags: ['form-audit', 'password-policy'],
   component: PasswordResetPage,
   decorators: [withRouter],

@@ -3,7 +3,7 @@ import base, * as scenarios from './NotFoundPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/NotFound/Mobile',
+  title: 'PAGES/공통/1. 404에러페이지/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

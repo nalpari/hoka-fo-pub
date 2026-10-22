@@ -3,7 +3,7 @@ import base, * as scenarios from './HomePage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/HOME/Main/Mobile',
+  title: 'PAGES/메인/0. 메인/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

@@ -7,7 +7,7 @@ import { MyPageReviews } from '@/shared/features/mypage/MyPageReviews';
 type Args = { kind: MyPageStatusKind };
 
 const meta = {
-  title: 'PAGES/MYPAGE/Figma Screens',
+  title: 'PAGES/마이페이지',
   parameters: { layout: 'fullscreen' },
   render: ({ kind }) => (
     <ShopShell platform="mobile">

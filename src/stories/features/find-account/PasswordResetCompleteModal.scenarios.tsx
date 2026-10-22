@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'PAGES/Login/FindAccount/PasswordResetCompleteModal',
+  title: 'PAGES/로그인/4. 비밀번호 재설정 완료',
   component: PasswordResetCompleteModal,
   args: { onOpenChange: () => {}, onConfirm: () => {} },
   parameters: { layout: 'fullscreen' },

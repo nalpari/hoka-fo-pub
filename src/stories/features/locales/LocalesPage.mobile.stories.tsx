@@ -3,7 +3,7 @@ import base, * as scenarios from './LocalesPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Locales/Mobile',
+  title: 'PAGES/공통/4. 국가 및 지역 선택/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

@@ -3,7 +3,7 @@ import base, * as scenarios from './ProductDetailPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/PRODUCTS/Detail/Mobile',
+  title: 'PAGES/상품/1. 상품상세/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

@@ -2,6 +2,10 @@
 
 ## 2026-10-22
 
+- **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.
+
+- **Organize**: 사용자 제공 IA 시트 FO 기준으로 PAGES 185개 스토리를 한국어 메뉴와 번호별 화면·WEB/Mobile 구조로 정리했다. 마이페이지 혼합 스토리와 검색결과·오류 화면을 분리하고 러닝세션을 탐색으로 옮겼다. 기존 시나리오와 비페이지 분류를 보존하고 IA 미리보기 링크 48개를 갱신했다. [UI 기록](architecture/ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)에 출처·적용 기준·검증을 기록했다.
+
 - **Rename**: 고객센터 Storybook 상위 경로를 `PAGES/SUPPORT`에서 `PAGES/고객센터`로 변경하고 정렬 설정과 UI 문서를 맞췄다. 하위 번호와 WEB·Mobile 구조는 유지한다.
 
 - **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.

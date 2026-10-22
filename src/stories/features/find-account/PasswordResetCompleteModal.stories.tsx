@@ -3,7 +3,7 @@ import base, * as scenarios from './PasswordResetCompleteModal.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Login/FindAccount/PasswordResetCompleteModal/Web',
+  title: 'PAGES/로그인/4. 비밀번호 재설정 완료/WEB',
   globals: { viewport: 'hoka1600' },
 };
 

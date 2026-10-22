@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T00:48:21.800Z'
+  at: '2026-10-22T01:12:59.544Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - AGENTS.md
+  - .storybook/main.ts
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/stories/features/mypage/MyPage.Wishlist.Mobile.stories.tsx
+  - src/stories/features/catalog/SearchResults.WEB.stories.tsx
   - .storybook/preview.ts
   - src/stories/features/support/SupportPages.scenarios.tsx
   - src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx
@@ -744,6 +749,9 @@ working_tree_sources:
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
 sources:
+  - id: ia-google-sheet-20261022
+    resource: https://docs.google.com/spreadsheets/d/1jWeAYSoZBSEM0DB-XfO8yG0Hhz9xHm2kwD6iI6ZnZ3U/edit#gid=0
+    title: 'Eland_211_IA_20260928_v0.20 — FO'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -1664,7 +1672,7 @@ Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField�
 | find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                                                  |
 | identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                                     |
 | home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                                                 |
-| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 가입 방법 화면과 Mockup 단계의 레이아웃을 소유. 실제 `/signup`은 방법 선택만 표시하고 이메일은 `/signup/verify`로 이동, 카카오·네이버는 연결되지 않음을 안내한다. 이전 약관·정보 입력·가입 완료 화면은 `src/shared/Mockup/signup`과 Mockup Storybook에 보존한다.  |
+| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 가입 화면 레이아웃을 소유. 실제 `/signup`은 방법 선택만 표시하고 이메일은 `/signup/verify`로 이동, 카카오·네이버는 연결되지 않음을 안내한다. 구형 Signup Mockup 구현 4개와 전용 스토리는 2026-10-22 제거했으며 운영 회원가입 기능과 스토리를 유지한다.            |
 | product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·전체 너비 프레임과 최대 1532px 내부 그리드·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지 |
 | signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                                                 |
 | mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함                      |
@@ -1798,6 +1806,18 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 `publishing` 병합 시 양쪽의 Typography 추가를 함께 유지했다. `selectionLabel`과 `navigationPromoTitle`, 러닝세션 전용 variant 및 대응 CSS 토큰을 보존한다. `MyPageStatusPage`는 개별 마이페이지 화면을 선택하는 현재 구조를 유지하고 옛 `event-entries` 종류·샘플 데이터는 제거했다. 실제 `/mypage/event-entries` 경로와 route story는 publishing의 `RunClubPage` 직접 연결을 유지한다. 메뉴·러닝세션 문서와 마이페이지 재사용 점검 기록은 함께 남긴다. 병합 결과에서 Panda 생성, 타입 검사, `.tmp*` 산출물을 제외한 lint, 앱·Storybook 빌드, `node --test tests/app-router.test.mjs`의 두 검사를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
+## IA 기준 한국어 페이지 Storybook (2026-10-22)
+
+사용자가 제공한 IA 시트 `FO` 탭의 메뉴명과 화면 구분을 참고해 기존 PAGES 스토리 185개를 한국어로 분류했다. 상위 순서는 메인 → 상품 → 탐색 → 장바구니 → 주문 → 마이페이지 → 고객센터 → 로그인 → 회원가입 → 공통이며, 화면별 번호 폴더 아래 WEB → Mobile 순서로 등록한다. 각 화면의 오류·빈 목록·상태·입력 흐름도 한국어로 표시하고 기본 사례 Default, 해상도 표기와 브랜드명은 유지한다.[^ia-google-sheet-20261022]
+
+- MEN·WOMEN·SHOES에서 공유하는 상품목록·상품상세는 상품 아래의 공통 화면으로 유지한다. 메뉴별 미구현 화면을 새로 만들거나 중복 등록하지 않는다.
+- 기존 마이페이지 RunClub 목록·상세는 IA의 EXPLORE에 대응하는 탐색 아래 러닝세션으로 옮겼다. Figma Screens에 섞여 있던 Mobile 화면은 관심상품·오늘 본 상품·재입고 알림 상품·상품리뷰·회원등급·쿠폰·회원정보확인 및 수정·배송지 관리로 분리했다. WEB 구현이 없는 화면에는 Mobile만 등록한다.
+- 로그인은 로그인·아이디 및 비밀번호 찾기·결과·재설정·계정 잠금 안내로, 회원가입은 가입 안내·가입여부확인·휴대폰 인증·약관동의·회원 정보 입력·마케팅 동의 안내로 분류한다. 하나의 기존 화면에서 처리하는 아이디·비밀번호 찾기는 합쳐 유지한다.
+- 검색결과는 상품목록에서 공통으로 옮기고, 404에러페이지·시스템점검페이지·기타에러페이지·국가 및 지역 선택을 공통에 둔다. 기존 시나리오·decorator·플랫폼 설정을 재사용한다.
+- 고객센터는 사용자가 앞서 지정한 0~9번 순서와 마일리지 보존을 우선한다. IA의 삭제 표시는 기존 스토리 삭제 지시로 취급하지 않는다. 공용 컴포넌트와 개발용 스토리의 분류는 유지한다.
+
+`IaStructurePage.tsx`의 미리보기 Storybook ID도 새 경로로 맞췄으며 IA 번호·화면 데이터·완료 상태는 변경하지 않았다. 소스는 작업 트리의 `.storybook/preview.ts`, `src/stories/features/`, `IaStructurePage.tsx`이다. 2026-10-22 Codex가 ESLint·타입 검사·Storybook production build를 통과했고, 빌드/개발 인덱스에서 185개 페이지 스토리 보존·비페이지 스토리 동일·IA 미리보기 링크 48개 해석을 확인했다. 브라우저에서 상위 한국어 분류와 번호 폴더 순서를 확인했다. 개발 서버가 파일 저장 중의 일시적 파싱 오류를 캐시한 경우 변경 완료 후 파일 감시 이벤트를 다시 발생시켜 인덱스를 갱신했다.
+
 ## SUPPORT Storybook 탐색 구조 (2026-10-22)
 
 고객센터 스토리는 `PAGES/고객센터/번호. 이름/WEB` 또는 `/Mobile`에 등록한다. 폴더는 0. 고객센터 메인, 1. FAQs, 2. 공지사항, 3. 1:1문의, 4. 매장 찾기, 5. 온라인 회원 등급 안내, 6. 사이즈 가이드, 7. 배송 및 반품안내, 8. 세탁 및 손질 방법 안내, 9. 약관 순서이며, `.storybook/preview.ts`의 `storySort.order`가 각 폴더와 WEB → Mobile 순서를 고정한다.
@@ -1806,11 +1826,19 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 출처는 작업 트리의 `.storybook/preview.ts`와 `src/stories/features/support/`이다. 2026-10-22 Codex가 타입 검사와 Storybook production build, 빌드 인덱스의 10개 폴더·20개 플랫폼 그룹·30개 스토리 등록을 확인했다. 브라우저에서 10개 폴더의 번호순·WEB → Mobile 순서와 공지 상세, WEB·Mobile 문의 작성, WEB·Mobile 마일리지 및 새 회원 안내 Mobile 렌더링을 확인했다. 회원 안내·마일리지 본문은 기존의 디자인 작업 중 상태를 유지한다.
 
+## Mockup Storybook 제외 및 회원가입 정리 (2026-10-22)
+
+사용자 요청에 따라 AGENTS.md의 Storybook 정책에 Mockup 노출 금지와 안정화된 기능의 구형 Mockup 제거 원칙을 추가했다. `.storybook/main.ts`는 `src/stories/`에서 파일을 열거하고 상대 경로나 파일명에 `mockup`이 포함된 스토리를 대소문자 구분 없이 제외한다. 다른 경로에 Mockup 제목으로 우회 등록하는 것도 정책상 허용하지 않는다. 앞선 Mockup Storybook 보존 기록은 당시 이력이며 현재 등록 정책은 이 절을 따른다.
+
+참조를 확인한 결과 회원가입 Mockup은 운영 코드에서 사용하지 않았으므로 `src/shared/Mockup/signup/`의 SignupTermsStep·SignupTermsAgreements·SignupDetailsStep·SignupCompleteStep과 `src/stories/features/Mockup/signup/SignupSteps.stories.tsx`를 삭제했다. 운영 회원가입의 약관·정보 입력·완료 기능과 한국어 PAGES 스토리는 유지한다. 출처는 작업 트리의 AGENTS.md, .storybook/main.ts와 제거 전 다섯 파일의 import 참조 조사다.
+
+2026-10-22 Codex가 설정 ESLint·Prettier, 전체 타입 검사와 Storybook production build를 확인했다. 이전 빌드와 비교해 Mockup/Signup 사례 6개만 제거되고 나머지 스토리가 동일하며 페이지 스토리 185개가 유지됨을 확인했다. 개발 서버 index에서도 Mockup 미노출과 페이지 스토리 수를 확인했고 OKF 작업 트리 매핑과 diff 공백 검사를 통과했다.
+
 ## Storybook
 
 로그인 소셜 버튼의 카카오·네이버 표시는 등록된 공통 `Icon` 자산 `social/kakao`, `social/naver`를 18px로 사용한다. 버튼의 브랜드 색과 클릭 시 데모 안내는 `LoginActions`에 유지한다.
 
-`.storybook/main.ts`는 `src/stories/**/*.stories.@(ts|tsx)`만 탐색한다. 다른 폴더의 스토리는 이 패턴에 포함되지 않는다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
+`.storybook/main.ts`는 `src/stories/` 아래의 `*.stories.ts`·`*.stories.tsx` 파일만 탐색하고, 상대 경로나 파일명에 `mockup`이 포함된 파일은 대소문자 구분 없이 제외한다. `readdirSync`로 파일을 열거하고 경로 구분자를 정규화한 뒤 명시적 스토리 경로를 반환한다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
 
 모든 `*.stories.ts`·`*.stories.tsx`는 `src/stories/` 아래에 작성한다. 컴포넌트는 `components/`, 기능 화면은 `features/`에서 원본 계층을 따르고 기존 별칭으로 구현을 가져온다. `src/shared/`·`src/app/`에는 스토리를 함께 두지 않는다. 이 기본 규칙은 `AGENTS.md`에 명시하며 마이페이지 스토리도 `src/stories/features/mypage/MyPage.stories.tsx`로 옮겼다.
 
@@ -2478,3 +2506,5 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 출처: 작업 트리의 `src/shared/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
 
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
+
+[^ia-google-sheet-20261022]: 사용자 제공 Google Sheets, Eland_211_IA_20260928_v0.20의 FO 탭. 2026-10-22 읽기 전용으로 A1:Q35, B36:L300 범위를 확인했다.

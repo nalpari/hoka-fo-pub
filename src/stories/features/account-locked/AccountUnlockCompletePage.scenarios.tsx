@@ -14,7 +14,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'PAGES/Login/AccountUnlockCompletePage',
+  title: 'PAGES/로그인/6. 계정 잠금 해제 완료',
   component: AccountUnlockCompletePage,
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof AccountUnlockCompletePage>;

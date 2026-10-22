@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/shared/context/platform';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 
 const meta = {
-  title: 'PAGES/NotFound',
+  title: 'PAGES/공통/1. 404에러페이지',
   component: NotFoundPage,
   parameters: { layout: 'fullscreen' },
   decorators: [
