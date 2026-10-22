@@ -3,7 +3,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/CareGuide/Mobile',
+  title: 'PAGES/고객센터/8. 세탁 및 손질 방법 안내/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

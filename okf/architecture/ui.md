@@ -6,9 +6,12 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T23:59:04Z'
+  at: '2026-10-22T00:48:21.800Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - .storybook/preview.ts
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx
   - src/shared/features/support/SupportPage.tsx
   - src/shared/features/support/SupportContacts.tsx
   - src/shared/features/support/SupportContactCard.tsx
@@ -1794,6 +1797,14 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 ## PR #30 충돌 해결 (2026-10-15)
 
 `publishing` 병합 시 양쪽의 Typography 추가를 함께 유지했다. `selectionLabel`과 `navigationPromoTitle`, 러닝세션 전용 variant 및 대응 CSS 토큰을 보존한다. `MyPageStatusPage`는 개별 마이페이지 화면을 선택하는 현재 구조를 유지하고 옛 `event-entries` 종류·샘플 데이터는 제거했다. 실제 `/mypage/event-entries` 경로와 route story는 publishing의 `RunClubPage` 직접 연결을 유지한다. 메뉴·러닝세션 문서와 마이페이지 재사용 점검 기록은 함께 남긴다. 병합 결과에서 Panda 생성, 타입 검사, `.tmp*` 산출물을 제외한 lint, 앱·Storybook 빌드, `node --test tests/app-router.test.mjs`의 두 검사를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## SUPPORT Storybook 탐색 구조 (2026-10-22)
+
+고객센터 스토리는 `PAGES/고객센터/번호. 이름/WEB` 또는 `/Mobile`에 등록한다. 폴더는 0. 고객센터 메인, 1. FAQs, 2. 공지사항, 3. 1:1문의, 4. 매장 찾기, 5. 온라인 회원 등급 안내, 6. 사이즈 가이드, 7. 배송 및 반품안내, 8. 세탁 및 손질 방법 안내, 9. 약관 순서이며, `.storybook/preview.ts`의 `storySort.order`가 각 폴더와 WEB → Mobile 순서를 고정한다.
+
+공지사항 Mobile에는 목록 Default와 상세를, 1:1문의의 각 플랫폼에는 기존 목록·상태와 문의 작성을 함께 둔다. 모바일 첨부파일 미리보기도 유지한다. 온라인 회원 등급 안내의 WEB·Mobile에는 회원 안내 Default와 마일리지를 함께 두며, Mobile 회원 안내는 기존 SupportExperiencePage를 재사용한다. 별도 NoticeDetail·InquiryNew·Mileage 스토리 등록 파일은 통합되어 제거했다. 앱 화면과 기능, 기존 play·viewport·navigation 경로는 유지한다. 상위 폴더 이름은 SUPPORT에서 고객센터로 변경했다. 제목 변경으로 Storybook ID와 링크는 변경된다.
+
+출처는 작업 트리의 `.storybook/preview.ts`와 `src/stories/features/support/`이다. 2026-10-22 Codex가 타입 검사와 Storybook production build, 빌드 인덱스의 10개 폴더·20개 플랫폼 그룹·30개 스토리 등록을 확인했다. 브라우저에서 10개 폴더의 번호순·WEB → Mobile 순서와 공지 상세, WEB·Mobile 문의 작성, WEB·Mobile 마일리지 및 새 회원 안내 Mobile 렌더링을 확인했다. 회원 안내·마일리지 본문은 기존의 디자인 작업 중 상태를 유지한다.
 
 ## Storybook
 

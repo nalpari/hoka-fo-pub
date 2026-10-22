@@ -3,7 +3,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/SizeGuide/Mobile',
+  title: 'PAGES/고객센터/6. 사이즈 가이드/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

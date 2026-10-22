@@ -3,7 +3,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/ShippingReturns/Mobile',
+  title: 'PAGES/고객센터/7. 배송 및 반품안내/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

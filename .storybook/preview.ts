@@ -21,6 +21,32 @@ const preview: Preview = {
             ],
           ],
           'PAGES',
+          [
+            '*',
+            '고객센터',
+            [
+              '0. 고객센터 메인',
+              ['WEB', 'Mobile'],
+              '1. FAQs',
+              ['WEB', 'Mobile'],
+              '2. 공지사항',
+              ['WEB', 'Mobile'],
+              '3. 1:1문의',
+              ['WEB', 'Mobile'],
+              '4. 매장 찾기',
+              ['WEB', 'Mobile'],
+              '5. 온라인 회원 등급 안내',
+              ['WEB', 'Mobile'],
+              '6. 사이즈 가이드',
+              ['WEB', 'Mobile'],
+              '7. 배송 및 반품안내',
+              ['WEB', 'Mobile'],
+              '8. 세탁 및 손질 방법 안내',
+              ['WEB', 'Mobile'],
+              '9. 약관',
+              ['WEB', 'Mobile'],
+            ],
+          ],
         ],
       },
     },
@@ -65,4 +91,5 @@ const preview: Preview = {
     },
   },
 };
+
 export default preview;

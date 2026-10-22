@@ -3,7 +3,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/Faq/Web',
+  title: 'PAGES/고객센터/1. FAQs/WEB',
   globals: { viewport: 'hoka1600' },
 };
 

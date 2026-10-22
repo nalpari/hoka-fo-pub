@@ -3,7 +3,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/Inquiries/Mobile',
+  title: 'PAGES/고객센터/3. 1:1문의/Mobile',
   globals: { viewport: 'hoka375' },
 };
 
@@ -21,3 +21,5 @@ export const AttachmentPreview: Story = {
   ...scenarios.InquiryAttachmentPreviewMobile375,
   name: 'Attachment preview',
 };
+
+export const New: Story = { ...scenarios.InquiryNewMobile375, name: '문의 작성' };
