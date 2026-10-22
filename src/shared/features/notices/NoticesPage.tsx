@@ -1,7 +1,5 @@
 'use client';
 
-import { Divider } from '@/shared/components/atoms/Divider/Divider';
-
 import { useState } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { PageActionButton } from '@/shared/components/molecules/PageActionButton/PageActionButton';
@@ -13,7 +11,6 @@ import { notices } from './notices.data';
 
 export function NoticesPage() {
   const platform = usePlatform();
-  const [openIndex, setOpenIndex] = useState<number | null>(platform === 'web' ? 0 : null);
   const [shown, setShown] = useState(10);
 
   return (
@@ -39,17 +36,8 @@ export function NoticesPage() {
         ) : null
       }
     >
-      <Stack gap="0" mt={{ base: '9', _mobile: '6' }}>
-        <Divider variant="heading" _mobile={{ display: 'none' }} />
-        <Stack as="section" aria-label="공지사항 목록" gap="0">
-          <NoticesList
-            notices={notices}
-            shown={shown}
-            openIndex={openIndex}
-            onOpenIndexChange={setOpenIndex}
-            platform={platform}
-          />
-        </Stack>
+      <Stack gap="0" pt={{ base: '10', _mobile: '6' }}>
+        <NoticesList notices={notices} shown={shown} platform={platform} />
       </Stack>
     </CustomerCenterLayout>
   );

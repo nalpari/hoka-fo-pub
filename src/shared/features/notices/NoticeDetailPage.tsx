@@ -6,12 +6,9 @@ import { PageActionButton } from '@/shared/components/molecules/PageActionButton
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { supportNavigation } from '@/shared/features/support/support.navigation';
-import { NoticeHeading } from './NoticeHeading';
-import { usePlatform } from '@/shared/context/platform';
 import { notices } from './notices.data';
 
 export function NoticeDetailPage() {
-  const platform = usePlatform();
   const { id } = useParams<{ id?: string }>();
   const noticeIndex = Number(id ?? 1) - 1;
   const notice = notices[noticeIndex] ?? notices[0];
@@ -28,15 +25,35 @@ export function NoticeDetailPage() {
       ]}
       groups={supportNavigation}
       footer={
-        <PageActionButton href="/support/notices" width="narrow" containerProps={{ pt: '6' }}>
+        <PageActionButton
+          href="/support/notices"
+          size="tall"
+          width="compact"
+          containerProps={{ pt: '6' }}
+        >
           목록보기
         </PageActionButton>
       }
     >
-      <Box mt="6" py="6" borderTop="1px solid" borderBottom="1px solid" borderColor="black.20">
-        <NoticeHeading notice={notice} platform={platform} />
+      <Box
+        mt="10"
+        borderTop="2px solid"
+        borderBottom="1px solid"
+        borderColor="black.20"
+        borderTopColor="black.100"
+        py="6"
+        _mobile={{ py: '4', borderTopWidth: '1px' }}
+      >
+        <Stack gap="2">
+          <Typography as="h2" web="body1" mo="body3" weight="medium">
+            {notice.title}
+          </Typography>
+          <Typography as="time" variant="body4" dateTime={notice.date} tone="tertiary">
+            {notice.date}
+          </Typography>
+        </Stack>
       </Box>
-      <Stack gap="4" px="6" py="8" bg="black.10" _mobile={{ px: '4', py: '6' }}>
+      <Stack gap="4" px="2" py="6" borderBottom="1px solid" borderColor="black.20">
         {notice === notices[0] ? (
           <>
             <Typography as="p" variant="body4">

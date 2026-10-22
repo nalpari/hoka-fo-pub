@@ -50,6 +50,13 @@
 
 - **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.
 
+- **Style**: 1:1 문의의 PC·모바일 설명/빈 상태 텍스트 색상, 유의사항 타이포그래피, 구분선, CTA 높이·너비와 모바일 하단 여백을 Figma 노드 `1241:92230`, `1241:92543` 기준으로 맞췄다. [UI 구성](architecture/ui.md#1:1-문의-빈-상태-시안-정밀-반영-2026-10-22)을 갱신했다.
+
+- **Test**: 공지사항 목록의 제목 줄바꿈 확인용 긴 목업 제목을 추가했다. 실제 공지 문구가 아닌 화면 검증 데이터임을 [UI 구성](architecture/ui.md#공지사항-페이지-이동-2026-10-22)에 기록했다.
+- **Style**: FAQ 아코디언 질문 행을 PC 최소 높이 74px·상하 패딩 24px, 모바일 최소 높이 58px·상하 패딩 16px로 조정했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)에 반영했다.
+- **Refactor**: FaqList와 NoticesList의 Accordion item/trigger class 및 공지 모바일 링크 class를 각 컴포넌트의 styles 객체에서 전달하도록 정리했다. FAQ·공지별 행 높이와 패딩은 유지하고 border 색 토큰 표기를 통일했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Refactor**: 공지 목록 section이 상단 2px border를 직접 소유하도록 옮겼다. 페이지의 외부 Divider는 제거하고, 웹 구분선·모바일 숨김 및 기존 상단 간격을 보존했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
+- **Update**: 공지사항 목록 PC·모바일을 모두 상세 페이지 링크로 바꾸고 PC Accordion과 관련 상태, Accordion 전용 `NoticeContent`를 제거했다. 상세 화면에 반응형 제목·날짜, 본문 구분선, 180px PC/전체 너비 모바일 목록보기 버튼을 적용하고 데스크톱 상세 스토리를 추가했다. 기존 목업 문구와 제목/날짜 데이터는 유지했다. [UI 구성](architecture/ui.md#공지사항-페이지-이동-2026-10-22)을 갱신했다.
 - **Style**: FAQ 질문 트리거의 Q 라벨과 질문 텍스트 간격을 16px로 조정하고 사용하지 않는 페이지 Stack import를 제거했다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Style**: FilterTabs 글자를 웹·모바일 CTA2, 높이를 37px로 통일하고 FAQ 질문을 body3 medium으로 조정했다. 답변과 검색/카테고리 간격도 FAQ 화면 기준으로 맞췄다. [UI 구성](architecture/ui.md#faq-탭질문-타이포그래피-2026-10-22)을 갱신했다.
 - **Refactor**: CustomerCenterLayout에서 `headingProps`와 공통 제목 하단 여백 전달을 제거했다. 페이지별 간격은 FAQ·공지·문의·안내 등 각 화면의 본문에서 소유하고, 간격이 다른 제목/설명 그룹은 페이지에서 ContentHeader를 조합한다. 회원등급 안내 Divider도 페이지로 이동했다. [UI 구성](architecture/ui.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)과 [ContentHeader/ContentSection 구성](architecture/content-sections.md#고객센터-페이지-제목의-레이아웃-소유권-2026-10-19)을 갱신했다.

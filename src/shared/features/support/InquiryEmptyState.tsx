@@ -9,7 +9,7 @@ export function InquiryEmptyState() {
       textAlign="center"
       minH={{ base: '430px', _mobile: '146px' }}
     >
-      <Typography web="body3" mo="body4" tone="tertiary">
+      <Typography web="body3" mo="body4" tone="subtle">
         등록된 문의사항이 없습니다.
       </Typography>
     </Stack>

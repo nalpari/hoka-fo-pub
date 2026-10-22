@@ -50,14 +50,14 @@ const verifyTerms: NonNullable<Story['play']> = async ({ canvasElement }) => {
 const verifyNotices: NonNullable<Story['play']> = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const list = within(canvas.getByRole('region', { name: '공지사항 목록' }));
-  const first = list.getByRole('button', { name: /네이버페이 9월/ });
-  const second = list.getByRole('button', { name: /광복절/ });
-  await userEvent.click(second);
-  await expect(second).toHaveAttribute('aria-expanded', 'true');
-  await expect(first).toHaveAttribute('aria-expanded', 'false');
-  await expect(list.getByText(/광복절 고객센터 운영 안내 상세/)).toBeVisible();
-  await userEvent.tab({ shift: true });
-  await waitFor(() => expect(first).toHaveFocus());
+  await expect(list.getByRole('link', { name: /네이버페이 9월/ })).toHaveAttribute(
+    'href',
+    '/support/notices/1',
+  );
+  await expect(list.getByRole('link', { name: /광복절/ })).toHaveAttribute(
+    'href',
+    '/support/notices/2',
+  );
 };
 
 export const Desktop: Story = {
@@ -193,6 +193,19 @@ export const NoticeDetailMobile375: Story = {
   ),
   parameters: { layout: 'fullscreen', nextjs: { navigation: { pathname: '/support/notices/1' } } },
   globals: { viewport: 'hoka375' },
+};
+
+export const NoticeDetailDesktop: Story = {
+  name: 'Notice Detail / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <NoticeDetailPage />
+    </ShopShell>
+  ),
+  parameters: {
+    nextjs: { navigation: { pathname: '/support/notices/1' } },
+  },
+  globals: { viewport: 'hoka1600' },
 };
 
 export const InquiriesDesktop: Story = {
