@@ -2,6 +2,8 @@
 
 ## 2026-10-23
 
+- **Fix**: 고객센터 문의 WEB 스토리의 중복 Answered export를 제거해 Storybook 전체 인덱스 로딩 실패를 복구했다. [UI 기록](architecture/ui.md#storybook-문의-스토리-중복-선언-복구-2026-10-23)에 원인과 검증을 기록했다.
+
 - **Update**: 비공개 문의의 직접 작성한 잠금 SVG를 사용자 제공 lock-keyhole.svg와 공통 Icon으로 교체했다. 14px 표시·장식 이미지 접근성·브라우저 문의 펼침과 정적 검사 결과를 [UI 기록](architecture/ui.md#비공개-문의-잠금-아이콘-2026-10-23)에 반영했다.
 
 - **Refactor**: ProductTechnicalScale의 막대 표시를 level만 받는 ProductTechnicalScaleBar로 분리하고 기존 DOM·스타일을 유지했다. 타입 검사·변경 파일 ESLint·Prettier·Panda 생성 통과를 [UI 기록](architecture/ui.md#상품-상세-기술-척도-5단계-그라데이션-2026-10-23)에 남겼다.

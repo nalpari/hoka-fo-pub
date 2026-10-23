@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T05:11:31Z'
+  at: '2026-10-23T04:11:07Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
   - public/images/icon/lock-keyhole.svg
   - src/shared/features/product/ProductInformation.tsx
   - src/shared/features/product/ProductDetailContent.tsx
@@ -850,6 +851,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## Storybook 문의 스토리 중복 선언 복구 (2026-10-23)
+
+고객센터 문의 WEB 스토리에서 동일한 InquiryAnsweredDesktop 시나리오를 Answered 이름으로 두 번 export해 CSF 파싱이 실패했다. 서버의 루트 HTTP 응답은 200이어도 전체 스토리 인덱스가 생성되지 않아 사이드바 오류와 빈 프리뷰가 표시됐다. 중복된 영문 이름 선언을 제거하고 기존 답변 완료 스토리를 유지한다. Codex가 변경 파일 ESLint와 Prettier, /index.json의 707개 항목 및 해당 WEB 스토리 5개 복구를 확인했다. 브라우저 새로고침 후 사이드바와 답변 완료 스토리의 실제 렌더링, 별도 출력 경로의 Storybook 프로덕션 빌드도 확인했다. 출처는 작업 트리 SupportPages.Inquiries.Web.stories.tsx와 Storybook 오류 화면이다.
 
 ## 전체 소스 재사용 조사 적용 (2026-10-21)
 
