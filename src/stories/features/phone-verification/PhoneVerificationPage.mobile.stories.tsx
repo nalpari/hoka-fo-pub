@@ -15,8 +15,6 @@ export const Default: Story = { ...scenarios.Mobile, name: 'Default' };
 
 export const FieldErrors: Story = { ...scenarios.MobileFieldErrors, name: '입력 오류' };
 
-export const AccountUnlock: Story = { ...scenarios.MobileAccountUnlock, name: '계정 잠금 해제' };
-
 export const RequiredAgreements: Story = {
   ...scenarios.MobileRequiredAgreements,
   name: '필수 약관동의',

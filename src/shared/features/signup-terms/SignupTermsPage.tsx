@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SignupTermsContent, signupTerms } from './SignupTermsContent';
 
+/** 약관 동의 상태와 다음 회원가입 단계로의 이동을 관리합니다. (Manages agreement state and navigation to the next signup step.) */
 export function SignupTermsPage() {
   const router = useRouter();
   const [agreements, setAgreements] = useState([false, false, false, false]);

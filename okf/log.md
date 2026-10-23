@@ -2,6 +2,14 @@
 
 ## 2026-10-23
 
+- **Fix**: 회원가입 약관 전체 동의·구분선·개별 항목을 Stack 하나로 묶어 외부 ContentSection의 제목 간격이 항목 사이에 중복되는 문제를 수정했다. Figma `957:36917` 기준 구조를 [UI 구성](architecture/ui.md#가입인증-공통-폼-레이아웃과-내부-구성-2026-10-19)에 반영했다.
+- **Docs**: `SignupTermsPage`에서 `SignupTermsContent`를 연결하는 JSX 위치에 한·영 역할 주석을 추가하고 [UI 구성](architecture/ui.md#컴포넌트-주석-정책-2026-10-23)에 기록했다.
+- **Docs**: `SignupTermsContent`와 `SignupTermsPage`에 한글 역할 설명과 영문 책임 설명을 JSDoc으로 추가하고 [UI 구성](architecture/ui.md#컴포넌트-주석-정책-2026-10-23)에 적용 범위를 기록했다.
+- **Style**: 회원가입 휴대폰 인증약관에도 계정 잠금 해제 화면의 제목 구분선·16px 약관 행 간격·목록 구분선을 적용했다. Web·Mobile 기본 스토리가 갱신되며 [UI 구성](architecture/ui.md#계정-잠금-해제-인증-화면과-로그인-스토리-분류-2026-10-23)에 Figma 노드를 기록했다.
+- **Fix**: 가입여부확인 Mobile Storybook에 `PlatformProvider`를 추가해 모바일 Typography variant가 실제로 렌더링되게 했다. [UI 구성](architecture/ui.md#계정-잠금-해제-인증-화면과-로그인-스토리-분류-2026-10-23)에 기록했다.
+- **Fix**: 로그인 계정 잠금 스토리 순서를 안내 5 → 해제 인증 6 → 해제 완료 7로 바로잡았다. [UI 구성](architecture/ui.md#계정-잠금-해제-인증-화면과-로그인-스토리-분류-2026-10-23)에 반영했다.
+- **Cleanup**: 계정 잠금 안내 Storybook에서 확인·닫기·Escape 이동 스토리를 제거하고 기본 Web·Mobile 사례만 남겼다. [UI 구성](architecture/ui.md#계정-잠금-해제-인증-화면과-로그인-스토리-분류-2026-10-23)에 기록했다.
+- **Update**: 계정 잠금 해제 인증 약관 구분선·행 간격을 Figma에 맞추고, 잠금 해제 스토리를 로그인 아래로 이동했다. 회원가입 휴대폰 인증 레이아웃은 유지했다. [UI 구성](architecture/ui.md#계정-잠금-해제-인증-화면과-로그인-스토리-분류-2026-10-23)에 기록했다.
 - **Style**: 1:1 문의 등록 제목·설명 색상 및 반응형 간격을 PC·모바일 Figma에 맞췄다. 첨부 안내를 두 줄로 갱신하고 실제 선택 허용 확장자도 JPG/JPEG/PNG로 제한했다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 기록했다.
 - **Fix**: 문의 등록 신청인 정보 패널의 PC·모바일 라벨/값 타이포그래피, 값의 medium 굵기, 카드 여백·행 간격을 시안에 맞췄다. 이메일 라벨 표기도 PC `E-mail`·모바일 `이메일`로 구분했다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 기록했다.
 - **Update**: 문의 등록 화면의 문의 유형·상세 유형 초기 선택을 비우고, 필수 선택 placeholder를 표시한다. 모바일 Storybook에 두 placeholder의 노출 확인을 추가했다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 반영했다.

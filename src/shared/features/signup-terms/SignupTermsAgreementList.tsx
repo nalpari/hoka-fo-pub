@@ -1,6 +1,7 @@
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
+import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
@@ -25,13 +26,12 @@ type Props = {
 
 export function SignupTermsAgreementList(props: Props) {
   return (
-    <>
-      <Box pb="4" mb="4" borderBottom="1px solid var(--color-black-20)">
-        <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
-          <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
-        </Terms>
-      </Box>
-      <Stack gap="4">
+    <Stack gap="4">
+      <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
+        <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
+      </Terms>
+      <Divider variant="strong" w="full" />
+      <Stack gap="4" pb="6" borderBottom="1px solid var(--color-black-20)">
         {signupTerms.map((term, index) => (
           <HStack key={index} gap="2" justify="space-between" alignItems="center">
             <Terms
@@ -56,6 +56,6 @@ export function SignupTermsAgreementList(props: Props) {
           </HStack>
         ))}
       </Stack>
-    </>
+    </Stack>
   );
 }

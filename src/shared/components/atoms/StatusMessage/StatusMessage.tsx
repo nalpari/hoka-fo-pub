@@ -28,6 +28,7 @@ export function StatusMessage({ children, tone = 'info', className, id }: Status
       className={[message, className].filter(Boolean).join(' ')}
       data-tone={tone}
       role={isError ? 'alert' : 'status'}
+      variant="body5"
     >
       {children}
     </Typography>

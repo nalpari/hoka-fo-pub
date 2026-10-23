@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/shared/context/platform';
 import { IdentityVerificationContent } from '@/shared/features/identity-verification/IdentityVerificationContent';
 
 const meta = {
@@ -17,9 +18,11 @@ export const Mobile: Story = {
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
-      <div className="platform-mobile" style={{ maxWidth: '100%', width: 360 }}>
-        <Story />
-      </div>
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile" style={{ maxWidth: '100%', width: 360 }}>
+          <Story />
+        </div>
+      </PlatformProvider>
     ),
   ],
 };

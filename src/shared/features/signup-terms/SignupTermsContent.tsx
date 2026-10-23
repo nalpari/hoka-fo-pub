@@ -4,6 +4,7 @@ import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout
 import { SignupTermsDetail } from './SignupTermsDetail';
 import { PreviousTermsPicker } from './PreviousTermsPicker';
 import { SignupTermsAgreementList, signupTerms } from './SignupTermsAgreementList';
+import { Box } from 'styled-system/jsx';
 
 export { signupTerms } from './SignupTermsAgreementList';
 
@@ -23,6 +24,7 @@ type Props = {
   onNext: () => void;
 };
 
+/** 회원가입 약관 목록과 상세 다이얼로그를 화면으로 구성합니다. (Composes the signup terms list and detail dialogs into the page content.) */
 export function SignupTermsContent(props: Props) {
   const selected = props.detail === null ? null : signupTerms[props.detail];
 
@@ -56,14 +58,18 @@ export function SignupTermsContent(props: Props) {
         </>
       }
     >
-      <SignupTermsAgreementList
-        agreements={props.agreements}
-        notice={props.notice}
-        onAllChange={props.onAllChange}
-        onChange={props.onChange}
-        onDetail={props.onDetail}
-      />
-      {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
+      <Box>
+        <SignupTermsAgreementList
+          agreements={props.agreements}
+          notice={props.notice}
+          onAllChange={props.onAllChange}
+          onChange={props.onChange}
+          onDetail={props.onDetail}
+        />
+        <Box pt="2">
+          {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
+        </Box>
+      </Box>
     </AccountFormLayout>
   );
 }

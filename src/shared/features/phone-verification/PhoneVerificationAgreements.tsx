@@ -1,6 +1,6 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
-import { HStack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Terms } from '@/shared/components/molecules/Terms/Terms';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
@@ -25,10 +25,35 @@ type Props = Pick<
 
 export function PhoneVerificationAgreements(props: Props) {
   const { agreements, showAgreementErrors = false } = props;
+  const agreementRows = verificationTerms.map((term, index) => (
+    <HStack key={term} justify="space-between" gap="4" alignItems="center">
+      <Terms
+        checked={agreements[index]}
+        onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
+        required
+        invalid={showAgreementErrors && !agreements[index]}
+      >
+        <Typography variant="body4">(필수) {term}</Typography>
+      </Terms>
+      <Button
+        variant="link"
+        size="md"
+        className={styles.detail}
+        onClick={() => props.onDetail(term)}
+      >
+        자세히 보기
+      </Button>
+    </HStack>
+  ));
+  const errorMessage = showAgreementErrors ? (
+    <StatusMessage id="phone-terms-error" tone="error">
+      필수 약관에 모두 동의해 주세요.
+    </StatusMessage>
+  ) : null;
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="6"
       pb="6"
       borderBottom="1px solid var(--color-black-20)"
       aria-labelledby="phone-terms-title"
@@ -37,7 +62,7 @@ export function PhoneVerificationAgreements(props: Props) {
       headerProps={{
         orientation: 'horizontal',
         gap: '8px',
-        css: css.raw({ mb: '2' }),
+        css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
         titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
         action: (
           <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
@@ -46,31 +71,10 @@ export function PhoneVerificationAgreements(props: Props) {
         ),
       }}
     >
-      {verificationTerms.map((term, index) => (
-        <HStack key={term} justify="space-between" gap="2" alignItems="center">
-          <Terms
-            checked={agreements[index]}
-            onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
-            required
-            invalid={showAgreementErrors && !agreements[index]}
-          >
-            <Typography variant="body4">(필수) {term}</Typography>
-          </Terms>
-          <Button
-            variant="link"
-            size="md"
-            className={styles.detail}
-            onClick={() => props.onDetail(term)}
-          >
-            자세히 보기
-          </Button>
-        </HStack>
-      ))}
-      {showAgreementErrors ? (
-        <StatusMessage id="phone-terms-error" tone="error">
-          필수 약관에 모두 동의해 주세요.
-        </StatusMessage>
-      ) : null}
+      <Stack gap="4">
+        {agreementRows}
+        {errorMessage}
+      </Stack>
     </ContentSection>
   );
 }

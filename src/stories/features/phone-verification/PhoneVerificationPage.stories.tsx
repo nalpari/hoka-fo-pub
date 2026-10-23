@@ -13,8 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Default, name: 'Default' };
 
-export const AccountUnlock: Story = { ...scenarios.AccountUnlock, name: '계정 잠금 해제' };
-
 export const CodeEntry: Story = { ...scenarios.CodeEntry, name: '인증번호 입력' };
 
 export const Expired: Story = { ...scenarios.Expired, name: '인증시간 만료' };

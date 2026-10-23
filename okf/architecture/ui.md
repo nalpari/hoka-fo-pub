@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T04:55:14Z'
+  at: '2026-10-23T06:02:55Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - src/shared/lib/useScrollPin.ts
@@ -690,6 +690,10 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
   - src/shared/components/organisms/Search/SearchDialog.tsx
   - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
+  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
+  - src/shared/features/phone-verification/phone-verification.types.ts
   - src/shared/features/catalog/product-listing/DesktopProductFilter.tsx
   - src/shared/features/catalog/ProductListingResults.tsx
   - src/shared/features/find-account/IdConfirmationModal.tsx
@@ -759,6 +763,7 @@ working_tree_sources:
   - src/shared/features/product/ProductDetailHeaderMeta.tsx
   - src/shared/features/signup-terms/SignupTermsDetail.tsx
   - src/shared/features/signup-terms/SignupTermsContent.tsx
+  - src/shared/features/signup-terms/SignupTermsPage.tsx
   - src/shared/features/signup-terms/PreviousTermsPicker.tsx
   - src/shared/features/mypage/RunningProfilePage.tsx
   - src/shared/features/run-club/RunClubSessionHero.tsx
@@ -773,6 +778,12 @@ working_tree_sources:
   - src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx
   - src/stories/features/account-locked/AccountLockedPage.stories.tsx
   - src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.scenarios.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.mobile.stories.tsx
+  - src/stories/features/login/AccountUnlockVerification.stories.tsx
+  - src/stories/features/login/AccountUnlockVerification.mobile.stories.tsx
+  - src/stories/features/identity-verification/IdentityVerificationPage.scenarios.tsx
   - AGENTS.md
   - src/stories/features/mypage/MyPage.stories.tsx
   - src/shared/features/login/LoginContent.tsx
@@ -2135,7 +2146,7 @@ Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 �
 
 `AccountFormLayout`은 약관동의·휴대폰 인증·회원 정보/부가 정보의 제목과 설명 영역을 소유하며 main·중앙 폭 제한은 공통 `AccountPageLayout`에 위임한다. 공개 props는 `title`, 선택적 `description`, `contentWidth`(기본 420px, 인증 568px), `fillMobileViewport`, `children`, `dialogs`, `actions`, `actionsSpacing`다. 제목은 `Typography as="h1" web="heading7" mo="heading5"`로 통일하고 제목 영역과 첫 본문 사이를 웹 40px·모바일 32px로 둔다. 설명이 있으면 제목 아래 12px에 배치하며 설명까지 포함한 영역 다음에 공통 간격을 적용한다. 외곽 패딩과 약관동의만 사용하는 모바일 화면 최소 높이는 기존 값을 유지한다. dialogs는 중앙 폭 제한 밖 main 내부에 조합한다. 기존 SignupLayout·ContentLayout·다른 인증 화면은 변경하지 않았다.
 
-약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 분리용 DOM 래퍼를 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
+약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 회원가입 약관은 전체 동의·strong Divider·개별 약관 목록을 내부 Stack gap 16px로 한 그룹에 묶어 외부 제목 간격 40/32px가 항목 사이에 중복 적용되지 않게 한다. 등록 폼 필드의 분리용 DOM 래퍼는 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
 
 검증: Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 및 Storybook production build, 기존 폼·계정 복구·이메일 테스트 38개가 통과했다. Edge headless에서 Storybook 21개 상태/상호작용을 확인했다. 13개 레이아웃 상태는 웹/모바일 간격 40px/32px, 한국어 제목 28px/22px·굵기 900, 폭 제한 420px/568px, 단일 main/h1과 설명문 간격 12px를 검증했다. 나머지는 웹/모바일 약관 이전 버전 선택·닫기, 필수 인증 약관 오류·전체 동의, 회원 정보 비밀번호 검증과 이메일 중복확인·주소 모달 입력·부가 정보 전환이다. 기존 데스크톱 약관 스토리의 닫힌 상세 팝업 참조를 새 이전 약관 팝업을 기다리는 방식으로 수정한 뒤 재검증했다. 계정 잠금 해제 웹·부가 정보 모바일 스크린샷도 확인했다. Storybook의 기존 tertiary 텍스트 색 대비 경고와 의존성 use-client 번들 경고는 이번 구조 변경에서 수정하지 않았다. 출처는 frontmatter에 기록한 작업 트리 경로다.
 
@@ -2710,7 +2721,7 @@ Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 
 
 `AGENTS.md`의 컴포넌트 주석 정책에 따라 export된 React 컴포넌트 선언 바로 위에 한 문장 JSDoc을 둔다. 설명은 `한국어 역할 설명 (English responsibility).` 형식이며, 컴포넌트의 목적과 필요한 경우 책임 경계를 알려준다. JSX나 명백한 props를 반복하지 않고, 헬퍼·데이터·타입에는 목적이나 제약이 이름만으로 불분명할 때만 주석을 추가한다.
 
-이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
+이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`, `SignupTermsContent`, `SignupTermsPage`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 회원가입 약관에서는 `SignupTermsContent`의 화면 조합 책임과 `SignupTermsPage`의 상태·이동 책임을 구분하고, 페이지에서 콘텐츠를 연결하는 위치에도 주석을 둔다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
 `InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
 
@@ -2719,3 +2730,13 @@ Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 
 Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
 프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+
+## 계정 잠금 해제 인증 화면과 로그인 스토리 분류 (2026-10-23)
+
+Figma `957:29749`(Mobile)·`957:30226`(Desktop)의 계정 잠금 해제 인증 화면에 적용했던 약관 구성을 회원가입 휴대폰 인증에도 공유한다. 제목 아래 검은 1px 구분선과 16px 여백, 약관 행 사이 16px 간격, 약관 목록 뒤 옅은 구분선을 두며 구분선부터 인증 정보 제목까지 간격은 24px이다. 가입 화면 Figma `957:36467`(Mobile)·`957:36723`(Desktop)도 같은 규격을 사용한다. 제목은 웹·모바일 모두 16px semibold, 항목 및 자세히 보기 텍스트는 14px이며 기존 약관 선택·오류 상태를 유지한다. 잠금 해제 안내문은 시안 문구로 갱신했다.
+
+Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 해제 인증` → `7. 계정 잠금 해제 완료` 순으로 표시한다. 인증 사례는 회원가입 휴대폰 인증 목록에서 분리해 로그인 아래에 배치했다. 출처는 Figma의 계정 잠금 해제·가입 휴대폰 인증 웹/모바일 노드와 `PhoneVerificationPage`, `PhoneVerificationContent`, `PhoneVerificationAgreements`, 관련 Storybook 모듈이다. 타입 검사·변경 파일 ESLint·Panda 생성·Storybook production build를 통과했다.
+
+계정 잠금 안내 Storybook은 기본 Web·Mobile 화면만 노출한다. 확인·닫기·Escape별 탐색 확인 스토리는 제거했으며 페이지 동작 구현은 변경하지 않았다.
+
+`IdentityVerificationPage`의 Mobile Storybook 데코레이터는 `platform-mobile` CSS 클래스와 함께 `PlatformProvider platform="mobile"`도 설정한다. 이를 통해 `Typography`가 `mo` variant를 선택해 가입여부확인 제목의 모바일 heading 크기(22px)를 보여준다. Web 스토리 동작은 유지한다.
