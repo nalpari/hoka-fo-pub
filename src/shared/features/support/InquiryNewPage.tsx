@@ -16,31 +16,41 @@ import { InquiryCategoryFields } from './InquiryCategoryFields';
 import { InquiryMessageFields } from './InquiryMessageFields';
 import { InquiryFormActions } from './InquiryFormActions';
 
+/** 1:1 문의 작성·검증과 취소 흐름을 구성합니다. (Composes inquiry entry, validation, and cancellation.) */
 export function InquiryNewPage() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [category, setCategory] = useState('');
+  const [detailCategory, setDetailCategory] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [cancelOpen, setCancelOpen] = useState(false);
-  const invalid = submitted && (!title.trim() || !body.trim());
+  const invalid = submitted;
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    if (title.trim() && body.trim()) router.push('/support/inquiries');
+    if (category && detailCategory && title.trim() && body.trim()) {
+      router.push('/support/inquiries');
+    }
   };
 
   return (
+    /* 고객센터 제목·경로와 메뉴를 제공하는 페이지 레이아웃 (Customer center page layout with heading, paths, and navigation). */
     <CustomerCenterLayout
       header={
+        /* 문의 등록 제목과 안내 문구 (Inquiry submission heading and guidance). */
         <ContentHeader
-          gap="4"
-          title="1:1 문의"
+          gap={{ base: '3', _mobile: '4' }}
+          title="1:1 문의등록"
           titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading6' }}
+          titleProps={{ web: 'heading6', mo: 'heading5' }}
           description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
-          descriptionProps={{ variant: 'body3' }}
+          descriptionProps={{
+            variant: 'body3',
+            className: css({ color: 'black.100', _mobile: { color: 'black.60' } }),
+          }}
         />
       }
       activePath="/support/inquiries"
@@ -52,22 +62,37 @@ export function InquiryNewPage() {
       ]}
       groups={supportNavigation}
     >
-      <form className={css({ mt: '6' })} noValidate onSubmit={submit}>
+      <form className={css({ mt: { base: '10', _mobile: '6' } })} noValidate onSubmit={submit}>
         <Stack gap="6">
+          {/* 신청인 기본 정보 (Submitter's basic information). */}
           <InquiryCustomerInfo />
-          <InquiryCategoryFields />
-          <InquiryMessageFields
-            title={title}
-            body={body}
-            invalid={invalid}
-            onTitleChange={setTitle}
-            onBodyChange={setBody}
-          />
+          <Stack gap="4">
+            {/* 문의 유형 선택 (Inquiry category selection). */}
+            <InquiryCategoryFields
+              category={category}
+              detailCategory={detailCategory}
+              invalid={invalid}
+              onCategoryChange={setCategory}
+              onDetailCategoryChange={setDetailCategory}
+            />
+            {/* 문의 제목·내용 입력과 필수값 오류 표시 (Inquiry subject/body input and required-field errors). */}
+            <InquiryMessageFields
+              title={title}
+              body={body}
+              invalid={invalid}
+              onTitleChange={setTitle}
+              onBodyChange={setBody}
+            />
+          </Stack>
+          {/* 문의에 첨부할 파일 관리 (Manage files attached to the inquiry). */}
           <InquiryAttachments files={files} onFilesChange={setFiles} />
+          {/* 문의 전 확인할 유의사항 (Inquiry submission cautions). */}
           <InquiryCautions />
+          {/* 취소 및 문의 등록 액션 (Cancel and submit actions). */}
           <InquiryFormActions onCancel={() => setCancelOpen(true)} />
         </Stack>
       </form>
+      {/* 취소 확인 다이얼로그 (Cancellation confirmation dialog). */}
       <ConfirmDialog
         open={cancelOpen}
         onOpenChange={setCancelOpen}

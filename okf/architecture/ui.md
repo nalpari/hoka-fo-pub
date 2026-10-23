@@ -1020,7 +1020,7 @@ FAQ 카테고리는 FilterTabs의 새 `outline` variant를 사용한다. 미선�
 
 PageActionButton의 `width`는 기본 500px, `compact` 180px, `narrow` 160px이며 compact/narrow는 모바일에서 본문 전체 너비다. 고객센터 메인·문의하기는 compact, FAQ·공지 더보기는 narrow를 사용한다. 너비는 컴포넌트 내부 Panda JSX에서 생성해 호출자의 임의 객체 속성이 CSS 추출에서 누락되지 않도록 한다.
 
-문의등록은 기존 FormField boxed와 Dropdown으로 필드 안쪽 라벨을 구성하고 모바일에서는 분류를 한 열로 배치한다. 제목·내용 오류와 문자 수 표시를 유지하고 취소는 ConfirmDialog로 표시한다. InquiryAttachments는 기능 내부 표현·입력 컴포넌트로, 선택 파일 목록·삭제·최대 5개·파일당 10MB·JPG/PNG/PDF 확장자 검사를 제공한다. 실제 업로드나 문의 저장 API는 추가하지 않았으며 기존 등록 후 목록 이동을 유지한다.
+문의등록은 기존 FormField boxed와 Dropdown으로 필드 안쪽 라벨을 구성하고 모바일에서는 분류를 한 열로 배치한다. 제목·내용 오류와 문자 수 표시를 유지하고 취소는 ConfirmDialog로 표시한다. InquiryAttachments는 기능 내부 표현·입력 컴포넌트로, 선택 파일 목록·삭제·최대 5개·파일당 10MB·JPG/JPEG/PNG 확장자 검사를 제공한다. 실제 업로드나 문의 저장 API는 추가하지 않았으며 기존 등록 후 목록 이동을 유지한다.
 
 팀/단체복의 ONLINE/OFFLINE STORE는 PC 두 열·동일 높이 카드, 모바일 한 열이며 문의 버튼은 온라인 카드의 운영시간 아래에 둔다. 배송·세탁 안내와 팀/단체복의 제목 아래 추가 구분선은 제거한다. 배송·세탁 본문과 매장 찾기 구현은 유지한다.
 
@@ -1500,7 +1500,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 기존 선택값과 2열 배치를 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
+문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 PC 2열(열 간격 8px)·모바일 1열(행 간격 16px)로 배치한다. 문의 유형 묶음과 제목·내용 입력 묶음 사이는 PC·모바일 모두 16px이다. 초기값은 비워 필수 선택 placeholder를 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryCategoryFields.tsx`, `InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
 
 답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`와 `src/shared/components/atoms/Accordion/Accordion.tsx`다.
 
@@ -2531,6 +2531,16 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 `InquiryQuestion`, `InquiryAnswer`, `InquiryListItem`과 `InquiryPage` 안에서 스타일을 조정했으며 `Accordion`, `Typography` 등 shared component의 구현이나 API는 변경하지 않았다. 출처는 작업 트리의 위 feature 파일과 `src/stories/features/support/SupportPages.scenarios.tsx`, 네 Figma 노드다.
 
+## 1:1 문의 등록 상세 시안 반영 (2026-10-23)
+
+Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 문의등록`으로 통일한다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 body3(16px)이며 PC black.100·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px, 설명과 첫 정보 영역 사이 간격은 PC 40px·모바일 24px로 둔다. 문의 유형·내용 입력과 다른 공통 컴포넌트는 변경하지 않는다.
+
+신청인 정보는 muted(`#f7f7f9`) 패널에 PC 좌우 32px·상하 24px, 모바일 좌우 16px·상하 20px 여백을 둔다. PC는 라벨·값 그룹 사이 88px, 행 간격 12px이며 모바일은 82px 라벨 열, 열 간격 8px·행 간격 12px이다. 라벨은 PC·모바일 body3(16px) regular subtle(`#4d4d4d`), 값은 PC body3(16px)·모바일 body4(14px) medium black이다. PC 라벨은 `E-mail`, 모바일은 `이메일`로 표기한다. 문의 유형과 상세 유형은 처음에 선택값 없이 각각 `문의 분류를 선택해주세요`, `상세 유형을 선택해주세요`를 보여준다. 두 필드는 필수로 유지하며, 등록 시 미선택이면 해당 Dropdown 아래에 항목별 오류 문구와 오류 테두리를 표시한다. Storybook에는 모바일·데스크톱 초기 상태, 필수 오류 상태와 필수 입력·첨부 오류가 함께 보이는 상태를 둔다.
+
+첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `InquiryNew/Mobile`·`InquiryNew/Web`의 별도 스토리 모듈에 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
+
+출처는 작업 트리의 `InquiryNewPage`, `InquiryAttachments`, `InquiryAttachmentHelp`와 Figma 노드 `1241:92705`, `1241:92753`, 오류 기획 노드 `1241:92895`, `1241:92822`이다.
+
 ## 1:1 문의 첨부파일 시안 반영 (2026-10-23)
 
 첨부파일이 있는 답변완료 문의의 PC·모바일 목록과 미리보기를 Figma `1241:92401`, `1241:92643`, `1241:92481`, `1241:92169`에 맞췄다. 질문 제목은 두 화면 모두 headingKr9(16px semibold), 상태 배지 위에 세로 배치하며 PC 간격은 16px·모바일은 8px이다. PC 목록은 첨부 제목 없이 4개 파일 행을 subtle(`#e9eaeb`) 테두리 패널 안에 두고, 패널 안쪽 여백 16px, 행 간격 8px, 썸네일 40×40px, 파일명 body5(12px) tertiary로 표시한다. 모바일 목록은 “첨부파일” body4(14px) 제목과 함께 8개 48×48px 썸네일을 감싸는 그리드로 배치한다. 이미지와 파일명 간격은 4px, 파일명은 썸네일 폭에 맞춰 한 줄 말줄임하고, 항목 간격은 가로 8px·세로 12px이다. 모바일 콘텐츠 여백은 상단 16px·왼쪽 29px·오른쪽 16px·하단 24px이다. 두 플랫폼의 첨부 수 차이는 Storybook 화면을 위한 Figma 예시 데이터이며 실제 첨부 데이터는 `InquiryReadAttachments`가 그대로 표시한다.
@@ -2543,7 +2553,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 `AGENTS.md`의 컴포넌트 주석 정책에 따라 export된 React 컴포넌트 선언 바로 위에 한 문장 JSDoc을 둔다. 설명은 `한국어 역할 설명 (English responsibility).` 형식이며, 컴포넌트의 목적과 필요한 경우 책임 경계를 알려준다. JSX나 명백한 props를 반복하지 않고, 헬퍼·데이터·타입에는 목적이나 제약이 이름만으로 불분명할 때만 주석을 추가한다.
 
-이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `Divider`에 역할 주석을 적용했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
+이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
 `InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
 
