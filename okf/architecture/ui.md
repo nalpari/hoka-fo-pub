@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T05:40:40Z'
+  at: '2026-10-23T07:25:15Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
@@ -2713,3 +2713,9 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
 프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+
+## 수량 선택기 사각형 기본 스타일 (2026-10-23)
+
+NumberStepper는 122×36px 사각 테두리와 동일 너비의 감소·입력·증가 영역을 기본으로 표시한다. plain 변형과 variant prop은 제거했다. 최소/최대·step·제어형 값·FormField 접근성 연결과 formatValue의 aria-valuetext는 유지한다. 기본 Bounded 스토리와 장바구니 수량에서 같은 표시를 사용한다. 출처는 작업 트리의 NumberStepper 구현이다.
+
+커밋 준비 시 plain/variant 제거와 모달 오버레이 타입 정리 후 타입 검사·변경 범위 ESLint·Panda 생성·Next 빌드·Storybook 빌드를 모두 통과했다. 앞선 오버레이 타입 오류 기록은 수정 전의 결과다.
