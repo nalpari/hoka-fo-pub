@@ -275,7 +275,7 @@ products[0] = {
   // The Bondi thumbnails inherited from the generated base would hide the Clifton colour options and gallery.
   colorThumbnails: undefined,
   detailDescription:
-    '어떤 날씨에도 편안한 주행을 돕는 리프레시드 클리프턴 11 GTX는 보이지 않는 뒷면부터 앞발의 편안함을 위해 설계되었습니다. 조절 가능한 스피드 레이스 시스템과 강화된 아웃솔은 안정감 있는 착화감을 선사합니다.',
+    '어떤 날씨에도 견딜 수 있도록 설계된 실루엣인 클리프턴 11 GTX는 보이지 않는 핏 멤브레인, 밀폐된 메쉬 갑피, 발수 코팅으로 외부 환경을 완벽히 차단합니다. 조절 가능한 스피드 레이스로 쉽게 착용할 수 있고, 날씨에 강한 접지력 포드와 반사 디테일까지 갖춘 클리프턴 11 GTX는 날씨와 상관없이 빛나도록 설계되었습니다.',
   styleCode: 'HOKADFG34S',
 };
 

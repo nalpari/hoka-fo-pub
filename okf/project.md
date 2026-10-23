@@ -6,9 +6,12 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T08:15:46.840Z'
+  at: '2026-10-23T02:18:15Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/features/product/productInquiries.ts
+  - src/shared/features/product/ProductDetailReviews.tsx
+  - src/shared/features/product/ProductDetailInquiryContent.tsx
   - src/mocks/orderRecommendations.ts
   - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
   - src/shared/features/cart/CartContent.tsx
@@ -39,6 +42,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 상품 리뷰·문의 표현 검토 (2026-10-23)
+
+리뷰 제목의 공통 Typography와 상품 문의 목록·답변·필터·더 보기 조합을 검토했다. productInquiries의 56건은 퍼블리싱 예시이며 실제 서버 연동·문의 등록 기능의 추가를 의미하지 않는다. ProductInquiryLink는 기존 /support/inquiries/new 경로를 사용한다. 프로젝트의 서비스 범위·라우팅·데모 경계에는 영향이 없다. 상세 API와 검증 범위는 [상품 문의 UI 기록](architecture/ui.md#상품-문의-시안과-필터-체크박스-2026-10-23)에 남겼다. 출처는 위 작업 트리의 productInquiries.ts·ProductDetailReviews.tsx·ProductDetailInquiryContent.tsx다.
 
 ## 추천 상품 목 데이터 경계 (2026-10-21)
 
@@ -96,3 +103,7 @@ IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`�
 ## 상품 프로모션 데이터 (2026-10-20)
 
 작업 트리 `src/mocks/products.ts`의 `Product.promotion`은 단일 프로모션 문자열과 readonly 배열을 모두 허용한다. 기존 목 상품 값은 유지하며 복수 값은 Storybook 예시로 제공한다. 상품 목록의 신상품순은 단일 값과 배열 모두에서 `New` 포함 여부를 사용한다. 표시 규칙은 [복수 프로모션 뱃지](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)를 참고한다. 타입 검사와 신상품 정렬 동작을 확인했다.
+
+## Clifton 상품 정보 시안 문구 (2026-10-23)
+
+src/mocks/products.ts의 Clifton 11 GTX detailDescription을 사용자가 첨부한 상품 정보 시안의 핏 멤브레인·밀폐된 메쉬 갑피·발수 코팅·스피드 레이스·접지력 포드·반사 디테일 문구로 갱신했다. 이는 첨부 시안에 따른 퍼블리싱 예시이며 제품 기능 검증을 의미하지 않는다. ProductDetailContent의 새로운 특징과 안정화·로드 러닝/워킹/라이프 스타일 예시는 기존 Clifton 품번에만 적용한다. 다른 상품은 자체 detailDescription·stability·use·runningType 값을 사용하고 Clifton 특징 설명을 상속하지 않는다. 출처는 사용자 첨부 이미지, 작업 트리의 src/mocks/products.ts와 ProductDetailContent.tsx다.

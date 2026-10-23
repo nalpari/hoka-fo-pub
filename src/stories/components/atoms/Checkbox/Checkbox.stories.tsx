@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Stack } from 'styled-system/jsx';
 import { Checkbox, type SingleCheckboxProps } from '@/shared/components/atoms/Checkbox/Checkbox';
 
 function CheckboxStory(props: SingleCheckboxProps) {
@@ -47,6 +48,26 @@ export const ErrorChecked: Story = { args: { 'aria-invalid': true, defaultChecke
 export const Disabled: Story = { args: { disabled: true } };
 
 export const DisabledChecked: Story = { args: { defaultChecked: true, disabled: true } };
+
+export const Filter: Story = { args: { label: '비밀글 제외', variant: 'filter' } };
+
+export const FilterChecked: Story = {
+  args: { label: '비밀글 제외', variant: 'filter', defaultChecked: true },
+};
+
+export const FilterDisabled: Story = {
+  args: { label: '비밀글 제외', variant: 'filter', disabled: true },
+};
+
+export const FilterStates: Story = {
+  render: () => (
+    <Stack alignItems="start" gap="10" style={{ padding: '40px' }}>
+      <Checkbox label="비밀글 제외" variant="filter" disabled />
+      <Checkbox label="비밀글 제외" variant="filter" defaultChecked />
+      <Checkbox label="비밀글 제외" variant="filter" />
+    </Stack>
+  ),
+};
 
 export const Group: Story = {
   render: () => <CheckboxGroupStory />,

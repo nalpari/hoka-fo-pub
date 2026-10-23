@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { InquiryBoard } from '@/shared/components/organisms/InquiryBoard/InquiryBoard';
+import { productInquiries } from '@/shared/features/product/productInquiries';
+import { ProductInquiryLink } from '@/shared/features/product/ProductInquiryLink';
+import { PlatformProvider } from '@/shared/context/platform';
 
 const meta = {
   title: 'Organisms/InquiryBoard',
@@ -35,7 +38,42 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const Mobile: Story = {
+  globals: { viewport: 'hoka375' },
+  render: (args) => (
+    <PlatformProvider platform="mobile">
+      <div className="platform-mobile">
+        <InquiryBoard {...args} />
+      </div>
+    </PlatformProvider>
+  ),
+};
+
 export const Empty: Story = { args: { items: [] } };
+
+export const Product: Story = {
+  args: {
+    variant: 'product',
+    items: productInquiries,
+    pageSize: 5,
+    loadMoreSize: 16,
+    defaultExpandedIds: [],
+    action: <ProductInquiryLink />,
+  },
+};
+
+export const ProductExpanded: Story = {
+  args: { ...Product.args, defaultExpandedIds: ['product-inquiry-2', 'product-inquiry-4'] },
+};
+
+export const ProductEmpty: Story = { args: { ...Product.args, items: [] } };
+
+export const ProductRestrictedOnly: Story = {
+  args: {
+    ...Product.args,
+    items: productInquiries.filter((item) => item.visibility === 'restricted'),
+  },
+};
 
 export const MyInquiries: Story = {
   args: {

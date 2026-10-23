@@ -6,9 +6,20 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T01:45:42.265Z'
+  at: '2026-10-23T02:18:15Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/product/ProductDetailContent.tsx
+  - src/shared/features/product/ProductInquiryLink.tsx
+  - src/shared/components/atoms/Checkbox/Checkbox.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardHeader.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardContent.tsx
+  - src/shared/features/product/ProductDetailInquiryContent.tsx
+  - src/shared/features/product/productInquiries.ts
+  - src/stories/components/atoms/Checkbox/Checkbox.stories.tsx
+  - src/stories/components/organisms/InquiryBoard/InquiryBoard.stories.tsx
   - src/stories/components/atoms/DescriptionList/DescriptionList.stories.tsx
   - src/shared/features/product/ProductDetailNoticeTable.tsx
   - src/stories/components/atoms/Typography/Typography.stories.tsx
@@ -2699,3 +2710,41 @@ DescriptionList는 slotStyles.root/row/term/description에 Panda SystemStyleObje
 ProductDetailNoticeTable은 상품 데이터·주석·복수 값의 표시 조합을 소유하고 공통 DescriptionList가 dl/div/dt/dd를 렌더링한다. 각 고시 행의 28.5% 두 열·60px 최소 높이·20px/24px 패딩, 마지막 행 구분선 제거와 루트 하단 여백 32px을 슬롯으로 전달한다. dt/dd는 unstyled로 두고 내부 body4 제목·주석·값을 유지해 글자 크기와 굵기가 중복 적용되지 않도록 했다. ContactCard는 추가 props 없이 기존 목록을 계속 사용한다.
 
 검증: 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 기존 Default 스토리의 10px/16px gap·16px 용어·14px tertiary 값, StyledRows의 display:contents→grid override와 60px 행 높이, 375px MobileStyledRows의 줄바꿈과 가로 넘침 없음을 확인했다. 상품 상세 WEB에서 고시 8행·60px 최소 높이·20px/24px 패딩·14px 글자·700 제목·주석·32px 하단 여백·마지막 선 제거를 확인했다. 출처는 작업 트리의 DescriptionList.tsx·DescriptionList.stories.tsx·ProductDetailNoticeTable.tsx와 기존 ContactCard.tsx이다.
+
+## 상품 리뷰 제목과 수량 폰트 분리 (2026-10-23)
+
+ProductDetailReviews가 제목 전체에 heading8을 적용해 괄호 안 수량까지 한글 제목의 굵기를 사용하던 구성을 분리했다. 첨부 Figma 속성 패널 기준으로 productSectionTitle은 Pretendard·24px·900·-0.02em, productSectionCount는 The Future HOKA·24px·500·0 자간을 사용하며 두 variant의 줄높이는 1.2다. 기존 ContentSection의 h2 안에 숫자 span을 넣어 제목 의미와 리뷰 앵커를 유지하고, Typography 스토리에 각 variant를 추가했다. 상품문의 제목에도 재사용하면서 최초 productReviewTitle/productReviewCount에서 범용 이름으로 정리했다. 현재 소비처는 WEB 상품 상세다.
+
+Codex가 브라우저 computed style에서 제목 24px/900·Pretendard·자간 -0.48px, 숫자 24px/500·The Future HOKA·0 자간, 두 요소 줄높이 28.8px을 확인했다. 변경 TSX ESLint·Prettier·Panda 생성·타입 검사와 Storybook 빌드가 통과했다. 출처는 사용자 첨부 폰트 속성 이미지, 작업 트리의 ProductDetailReviews.tsx·Typography.tsx·Typography.stories.tsx다.
+
+## 상품 문의 시안과 필터 체크박스 (2026-10-23)
+
+Checkbox의 단일 선택 API에 variant="filter"를 추가했다. 16px 컨트롤·8px 라벨 간격·body4 글자를 사용하며 미선택 black.50, 선택 black.100, 비활성 black.40 글자와 black.20 컨트롤 배경을 지정한다. 기존 SVG를 재사용하며 미선택 검정 테두리는 이미지 opacity로 회색화한다. disabled 상태의 부모 opacity는 1로 명시해 비활성 아이콘·라벨이 중복 흐려지지 않게 한다. 기본 단일·그룹·invalid 표현은 유지한다. InquiryBoardHeader가 직접 소유하던 18px 크기·회색 selector를 제거하고 이 variant를 소비한다. Checkbox 스토리에 Filter·FilterChecked·FilterDisabled·FilterStates를 추가했다.
+
+InquiryBoard에 variant="product", pageSize, loadMoreSize를 추가했다. 기본 variant는 기존 단일 펼침과 답변대기 문구를 유지하며, 상품 variant는 24px 혼합 폰트 제목, 접수/답변완료 문구, 잠금 아이콘을 제목 앞에 배치한다. 닫힌 행은 테두리 포함 60px이며 상품 패널은 black.10 배경·24px 패딩, 답변 앞 구분선·24px 간격·subtle 본문을 사용한다. 상품 variant에서는 공개 답변과 비공개 안내를 동시에 펼칠 수 있다. 제한된 항목은 제목·본문·답변 데이터 자체를 보유하지 않는 기존 계약을 유지한다.
+
+ProductDetailInquiryContent와 문의 스토리는 ProductInquiryLink를 재사용한다. 이 링크는 120px 폭의 컨테이너와 fullWidth secondary 버튼(36px 높이·둥근 모서리)으로 실제 테두리까지 120px을 확보한다. 목록은 처음 5건을 표시한다. 더 보기는 남은 수와 16 중 작은 수만큼 추가하며, 필터 변경 시 초기 표시 개수로 돌아간다. pageSize를 생략한 기존 소비처는 전체 목록을 표시한다. 빈 상품 목록에서는 비밀글 제외를 비활성화하고 등록된 문의글이 없습니다.를 표시한다. 필터로만 비어졌을 때는 다시 해제할 수 있다.
+
+productInquiries는 첨부 시안의 제목·상태·공개 답변 문구를 반영한 56건 퍼블리싱 예시이며 실제 문의·답변 서비스 데이터가 아니다. 재입고·UV·배송·비공개·사이즈 5건과 더 보기 확인용 추가 예시 51건으로 구성했다. Organisms/InquiryBoard의 Product·ProductExpanded·ProductEmpty·ProductRestrictedOnly 스토리가 목록·동시 펼침·빈 상태·제한 목록을 다룬다. 출처는 사용자 첨부 문의 시안과 working_tree_sources의 Checkbox·InquiryBoard·상품 문의 TSX 및 스토리다.
+
+Codex가 브라우저에서 필터 컨트롤 16×16px·gap 8px, 선택/미선택/비활성 색상과 배경을 실측했다. 상품 문의의 공개 답변과 비공개 안내 동시 펼침, 비밀글 필터 적용 시 제한 행 제거, 더 보기 5→21→37→53→56건과 최종 버튼 제거, 빈 상태 문구·aria-disabled=true를 확인했다. Next.js·Storybook 빌드(타입 검사 포함), 변경 파일 ESLint·Prettier, 기존 폼 컨트롤·상품 상세 테스트 36개를 통과했다.
+
+최종 버튼 보정 후 브라우저에서 ProductInquiryLink의 실제 테두리 프레임 120×36px과 닫힌 문의 행 60px을 실측했다. 페이지·스토리 공통 소비처로 연결한 최종 소스의 빌드도 확인했다.
+
+추가 시안 대조에 따라 상품 variant 행은 왼쪽 24px·오른쪽 0px 패딩으로 보정했다. 기본 row의 좌우 shorthand를 개별 pl/pr로 표현해 소비처에서 오른쪽만 바꿀 때 원래 px와 충돌하지 않도록 했다. 작성자·날짜·상태의 100px 열과 가운데 정렬, 기존 기본/모바일 행 간격은 유지한다. Codex가 브라우저에서 padding-left 24px·padding-right 0px과 행/버튼의 같은 너비를 확인했다. 이 보정은 ESLint·Prettier·Panda 생성·타입 검사로 확인했으며 전체 빌드는 직전 문의 구현까지의 결과다.
+
+## 상품 리뷰·문의 재사용 후속 점검 (2026-10-23)
+
+InquiryBoardHeader의 h3와 필터를 ContentHeader의 title/action으로 조합했다. 제목 ID·의미·20px 간격·모바일 12px 간격·줄바꿈을 보존하며, 문의 행은 Grid as="span", 목록 루트는 Box as="section", 더 보기 배치는 Flex의 직접 props로 표현한다. 반복되는 행은 같은 InquirySubject가 소유하므로 별도 공용 컴포넌트를 추가하지 않았다. Accordion 패널 슬롯과 Typography 빈 상태·말줄임 클래스는 직접 스타일 props를 받지 않는 기존 API에 남긴다. Checkbox의 단순 하위 img opacity selector는 렌더 함수의 상태·variant에 따라 실제 img에 적용한다. 선택 상태와 부모 라벨의 관계를 나타내는 :has selector는 유지한다. ProductInquiryLink의 버튼 CSS 변수는 기본 recipe보다 우선하는 기존 inline style 계약을 유지한다.
+
+후속 검증: Panda 생성·타입 검사·변경 TSX ESLint·Prettier·기존 폼 컨트롤/상품 표시 테스트 36개·별도 출력 경로의 Storybook 빌드를 통과했다. 브라우저에서 product 제목 h3·24px/900·헤더 간격 20px, 행 Grid·59px 내용 높이·좌우 패딩 24px/0px·gap 0, 체크박스 16px·아이콘 opacity 0.53→1, 선택 후 제한 행 제거와 공개/제한 패널 동시 펼침을 확인했다. 출처는 작업 트리의 Checkbox.tsx·InquiryBoard.tsx·InquiryBoardHeader.tsx와 기존 ContentHeader.tsx다.
+
+375px Mobile 스토리를 추가해 platform-mobile 범위를 실제 적용했다. 브라우저에서 문의 행의 3열 구성·12px gap·16px/12px 패딩, 헤더 간격 12px, 가로 넘침 없음과 기본 variant의 단일 펼침을 확인했다. Next.js 프로덕션 빌드도 통과했다.
+
+## 상품 정보 설명 접기와 더보기 위치 (2026-10-23)
+
+ProductInformation은 초기 설명을 CSS lineClamp 4로 줄이고 새로운 특징은 펼칠 때만 표시한다. useId로 연결한 aria-controls·aria-expanded 버튼이 설명 바로 아래, 사양 목록 위에 위치하며 더보기/닫기로 전환한다. 하단 목록은 접힘 상태와 무관하게 항상 표시한다. 버튼이 섹션 전체를 마치는 액션이 아니므로 기존 ContentSection.footer에서 제거하고 설명 그룹 내부에 둔다.
+
+상품 정보 제목은 productSectionTitle(24px/900, 모바일은 기존 heading8)을 사용한다. 본문은 productInformationBody Typography(16px/400, 1.5 줄높이, korean 자간)이며 해당 스토리를 추가했다. 설명/버튼 사이 12px, 설명 그룹과 목록 사이 32px, 32px 패널 패딩과 black.10 배경을 사용한다. 하단 목록은 공통 DescriptionList의 80px 용어 열·12px 가로 간격·16px 행 간격을 재사용하며 body3의 굵은 용어·기본 굵기 값을 표시한다. 신발 유형·추천 활동·러닝 유형으로 항목을 교체했다. 첨부의 접힘/펼침 사이 러닝 유형/러닝 용도 표기는 동일한 의미이므로 러닝 유형으로 일관되게 표시한다.
+
+Clifton의 설명과 새로운 특징 문구는 사용자 첨부를 사용한다. 다른 상품에 Clifton 전용 특징을 표시하지 않는다. 출처는 첨부 상품 정보 이미지, working_tree_sources의 ProductInformation.tsx·ProductDetailContent.tsx·Typography.tsx·Typography.stories.tsx와 src/mocks/products.ts다. Codex가 브라우저에서 초기 본문 높이 96px·줄높이 24px, 더보기의 aria-expanded=false→true와 새로운 특징 표시, 닫기로 초기 상태 복귀, 버튼이 사양 목록 앞에 있는 DOM 순서를 확인했다. 변경 파일 ESLint·Prettier·Panda·타입 검사·Next.js 빌드·별도 출력 경로의 Storybook 빌드와 기존 상품 상세 테스트 3개가 통과했다.

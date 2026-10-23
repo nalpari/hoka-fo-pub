@@ -413,6 +413,18 @@ export const ProductSupportTitle: Story = {
   args: { variant: 'productSupportTitle', children: '상품 고시 정보' },
 };
 
+export const ProductReviewTitle: Story = {
+  args: { as: 'h2', variant: 'productSectionTitle', children: '리뷰' },
+};
+
+export const ProductReviewCount: Story = {
+  args: { variant: 'productSectionCount', children: '(472)' },
+};
+
+export const ProductInformationBody: Story = {
+  args: { variant: 'productInformationBody', children: '어떤 날씨에도 쿠션감 있는 편안한 주행' },
+};
+
 export const ProductSelectorAction: Story = {
   args: {
     as: 'button',
