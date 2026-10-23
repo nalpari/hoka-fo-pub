@@ -6,9 +6,13 @@ tags: [forms, components, reuse, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T08:08:13.395691Z'
+  at: '2026-10-23T07:10:36Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -174,3 +178,7 @@ FormField/TextInput 직접 사용 20파일과 별도 래퍼·native 입력 경�
 ## 로그인 아이디 필드 전환 (2026-10-20)
 
 LoginForm의 아이디는 EmailField에서 TextFormField로 전환했다. label “아이디”, placeholder “아이디를 입력해 주세요”, type text를 쓰고 name/autocomplete username·boxed·required·error 전달을 유지한다. 아이디 검증은 공통 필드가 아닌 LoginPage에서 수행한다. 새 공용 컴포넌트·API는 추가하지 않는다. [전환 기록](ui.md#일반-아이디-로그인-전환-2026-10-20)을 참고한다.
+
+## 상품 옵션 선택 공통화 (2026-10-23)
+
+상품 상세와 장바구니의 발볼·컬러·사이즈를 ProductOptionSelectors의 제어형 공통 UI로 이관했다. 상품 데이터·재고 선택지 계산과 장바구니 초안·저장/취소는 기능에 남는다. 상세 사이즈의 FormField 오류 연결과 htmlFor, 품절/미제공 상태·키보드 동작을 유지하며 화면별 표현은 appearance로 구분한다. [공통화와 검증](ui.md#상품-상세와-장바구니-옵션-선택-공통화-2026-10-23)을 참고한다.

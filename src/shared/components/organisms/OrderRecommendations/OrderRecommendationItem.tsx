@@ -12,16 +12,35 @@ export type OrderRecommendation = {
   href: string;
 };
 
-type Props = { item: OrderRecommendation };
+export type OrderRecommendationLayout = 'compact' | 'portrait';
 
-export function OrderRecommendationItem({ item }: Props) {
+type Props = { item: OrderRecommendation; layout?: OrderRecommendationLayout };
+
+/** 추천 상품의 이미지와 상품명·가격을 연결합니다. (Links an order recommendation with its image and price.) */
+export function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
   return (
-    <Link href={item.href} className={css({ flex: '0 0 140px', color: 'black.100' })}>
+    <Link
+      href={item.href}
+      className={css({
+        flex: '0 0 140px',
+        color: 'black.100',
+        _mobile: { flexBasis: layout === 'portrait' ? '151px' : '140px' },
+      })}
+    >
       <Stack gap="1">
         <img
           src={item.imageSrc}
           alt=""
-          className={css({ w: '140px', h: '140px', objectFit: 'cover' })}
+          className={css({
+            w: '140px',
+            h: '140px',
+            objectFit: 'cover',
+            bg: 'black.10',
+            _mobile:
+              layout === 'portrait'
+                ? { w: '151px', h: '225px', mb: '2', objectFit: 'contain' }
+                : undefined,
+          })}
         />
         <Typography variant="body5">{item.gender ?? 'All Gender'}</Typography>
         <Typography variant="body5" weight="semibold" className={css({ lineClamp: 2 })}>

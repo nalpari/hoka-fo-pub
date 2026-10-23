@@ -6,9 +6,12 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T08:15:46.840Z'
+  at: '2026-10-23T06:41:41Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/features/cart/CartOrderActions.tsx
+  - src/stories/features/cart/CartPage.mobile.stories.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
   - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
   - src/shared/features/mypage/AddressEditor.tsx
   - src/shared/features/mypage/AddressList.tsx
@@ -328,3 +331,15 @@ CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하�
 검증과 관련 출처는 [구성 분리 UI 기록](ui.md#주문-화면-구성-분리와-재사용-2026-10-21)을 참고한다. 모바일 기존 Selection과 옵션 저장의 목록 반영을 브라우저에서 확인했다.
 
 후속 검증: 모바일/PC 기존 CompleteOrder와 CouponSelection 결과, ProductOptionList Cart·Wishlist Labelled play의 최종 선택 상태를 확인했다. CheckoutForm의 완료/쿠폰 흐름과 공통 Radio의 결제수단 선택 상태를 유지한다. 주문 합계 테스트 3개를 통과했다.
+
+## 모바일 장바구니 품절 선택과 옵션 상태 (2026-10-23)
+
+CartPage는 기존 선택·관심상품·옵션 편집 상태와 저장 콜백을 계속 소유한다. `isCartItemSoldOut`은 일치하는 색상·발볼의 soldOut을 우선하고 해당 옵션이 없으면 상품 soldOut으로 판정한다. 동일 판정을 카드의 비활성 체크박스·전체 선택 대상·품절 삭제·기존 변경 제한 안내에 적용한다. 품절 행은 전체 행 수에 포함하지만 선택 키와 합계 및 주문 링크에는 포함하지 않는다. 모든 행이 품절이면 전체 선택 체크박스는 체크되지 않는다.
+
+금액은 실제 카탈로그 가격×수량 계산을 유지하며 첨부의 예시 가격을 데이터에 덮어쓰지 않는다. 옵션 draft·valid·확인 저장·취소 복원·선택 키 교체와 ShopShell의 병합 콜백도 유지한다. 수량 선택기의 boxed 타입은 표시만 바꾸며 새 구매 수량 제한이나 서버 검증을 도입하지 않는다. 기존 품절 옵션의 안내 팝업을 디자인에 맞춰 표시한다.
+
+작업 트리 출처는 CartPage.tsx, cart-item.ts, CartItemRow.tsx, CartOptionsDialog.tsx와 CartPage.scenarios.tsx다. 모바일 SoldOut 시나리오에서 품절 체크박스의 aria-disabled와 전체 선택 후 3/4 표시를 확인했고, OptionSave 시나리오에서 사이즈 저장 후 2/4 선택 유지와 재편집 취소를 확인했다. 수량 1→2→1과 최솟값에서 감소 비활성도 브라우저로 확인했다. [UI 기록](ui.md#모바일-장바구니-시안-적용-2026-10-23)은 표시와 공통 컴포넌트의 변경을 설명한다.
+
+## 장바구니 표시 데이터 준비 경계 보완 (2026-10-23)
+
+CartPage가 선택 가능한 키로 allSelected와 선택 상품 주문 checkoutHref를 계산한다. CartContent에는 allKeys 대신 준비된 boolean·URL을 전달하며, 기능 내부 CartOrderActions는 total과 checkoutHref의 존재에 따라 금액 및 링크/비활성 버튼만 표시한다. 선택·합계·품절 판정·옵션 draft·저장/취소의 수명이나 계산 방식은 바꾸지 않는다. 브라우저의 기존 MobileSelection·MobileOptionSave에서 선택 해제 시 주문 비활성과 옵션 저장/취소 후 2/4 선택 및 사이즈 유지가 확인됐다. 출처는 CartPage.tsx, CartContent.tsx와 CartOrderActions.tsx의 작업 트리다. UI 경계는 [재사용 적용](ui.md#장바구니-재사용-점검-후-적용-2026-10-23)을 참고한다.

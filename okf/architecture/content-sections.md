@@ -6,9 +6,13 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T00:35:48Z'
+  at: '2026-10-23T07:10:36Z'
 source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
   - src/shared/features/size-guide/SizeGuidePage.tsx
   - src/shared/features/store-finder/StoreFinderPage.tsx
   - src/shared/features/support/InquiryNewPage.tsx
@@ -308,7 +312,7 @@ Codex가 2026-10-20에 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·
 | [features/product/ProductDetailImageViewer.tsx:62](../../src/shared/features/product/ProductDetailImageViewer.tsx)                                          | keep | 전용 구성 | srOnly 제목·뷰어 focus/keyboard 계약                                                                          |
 | [features/product/ProductDetailReturnGuide.tsx:44](../../src/shared/features/product/ProductDetailReturnGuide.tsx)                                          | keep | 전용 구성 | PC 가로 Grid/모바일 세로의 h4/ol 구성                                                                         |
 | [features/product/ProductSupportContact.tsx:21](../../src/shared/features/product/ProductSupportContact.tsx)                                                | keep | 전용 구성 | PC 가로 Grid의 h4·여러 안내문, 이미 전용 연락처 컴포넌트                                                      |
-| [features/product/ProductVariantSection.tsx:18](../../src/shared/features/product/ProductVariantSection.tsx)                                                | keep | 전용 구성 | 제목/action HStack와 선택 컨트롤의 전용 구성                                                                  |
+| [공통 ProductOptionSection](../../src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx)                                                | keep | 전용 구성 | 제목/action HStack와 선택 컨트롤의 전용 구성                                                                  |
 | [features/run-club/RunClubEmptyState.tsx:12](../../src/shared/features/run-club/RunClubEmptyState.tsx)                                                      | keep | 전용 구성 | 모바일 Center의 단일 상태 문구                                                                                |
 | [features/support/InquiryAttachments.tsx:42](../../src/shared/features/support/InquiryAttachments.tsx)                                                      | keep | 전용 구성 | 파일 첨부 제목+파일찾기 액션의 HStack. 파일 input/ref·aria-describedby·목록/오류 수명 유지. H는 action 미지원 |
 
@@ -362,3 +366,7 @@ Typography.stories.tsx의 9개 제목 작성 위치는 native/unstyled/scale 예
 ## 가로 헤더 API 확장 (2026-10-20)
 
 제목과 우측 액션 조합을 ContentHeader의 orientation/action으로 지원하고 MyPageRecentOrders에 적용했다. 과거 표의 가로 action 제외 판단은 당시 API 기준이며, 이제 일반적인 제목·버튼 조합에는 기본 title/headerProps API를 우선한다. [현재 구성과 검증](ui.md#contentheader-가로형과-마이페이지-링크-스타일-2026-10-20)을 참고한다.
+
+## 상품 옵션 섹션 공통화 (2026-10-23)
+
+기존 ProductVariantSection/Action은 ProductOptionSection으로 통합했다. 상세의 section·기본 ContentHeader·action Flex·16px 간격과 장바구니 Stack·기존 텍스트 레이블·12px 간격을 유지한다. 위 조사 표의 전용 구성 유지 판정은 조사 당시 결과이며 이 후속 이관이 구현을 대체한다. [공통화와 검증](ui.md#상품-상세와-장바구니-옵션-선택-공통화-2026-10-23)을 참고한다.

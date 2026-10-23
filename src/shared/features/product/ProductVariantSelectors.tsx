@@ -2,7 +2,7 @@ import { Stack } from 'styled-system/jsx';
 import type { Product, ProductWidthOption } from '@/mocks/products';
 import { ProductColorSelector } from '@/shared/features/product/ProductColorSelector';
 import { ProductSizeSelector } from '@/shared/features/product/ProductSizeSelector';
-import { ProductWidthSelector } from '@/shared/features/product/ProductWidthSelector';
+import { ProductWidthSelector } from '@/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector';
 
 export function productWidthOptions(product: Product, color: string): ProductWidthOption[] {
   return (
@@ -29,6 +29,7 @@ type ProductVariantSelectorsProps = {
   onSizeChange: (size: string) => void;
 };
 
+/** 상품별 옵션 데이터와 변경 콜백을 선택 영역에 연결합니다. (Connects product option data and callbacks to the selectors.) */
 export function ProductVariantSelectors({
   product,
   gallery,
@@ -46,7 +47,11 @@ export function ProductVariantSelectors({
   return (
     <>
       <Stack gap="10">
-        <ProductWidthSelector onValueChange={onWidthChange} options={widthOptions} value={width} />
+        <ProductWidthSelector
+          onValueChange={onWidthChange}
+          options={widthOptions.map((option) => option.label)}
+          value={width}
+        />
         <ProductColorSelector
           colors={product.colors}
           colorThumbnails={product.colorThumbnails}

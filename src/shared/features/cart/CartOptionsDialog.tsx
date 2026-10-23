@@ -6,7 +6,9 @@ import { getCartImage } from '@/mocks/cartDisplay';
 import { ConfirmDialog } from '@/shared/components/molecules/ConfirmDialog/ConfirmDialog';
 import type { CartItem } from '@/shared/types/cart';
 import { CartOptionsContent } from './CartOptionsContent';
+import { css } from 'styled-system/css';
 
+/** 상품 옵션 초안을 확인한 뒤 변경 사항을 저장합니다. (Edits and confirms a draft of cart product options.) */
 export function CartOptionsDialog({
   item,
   product,
@@ -36,7 +38,25 @@ export function CartOptionsDialog({
       closeLabel="옵션 변경 닫기"
       size="sm"
       mobilePresentation="fullscreen"
-      confirmLabel="변경"
+      confirmLabel="확인"
+      headerProps={{
+        css: css.raw({
+          _mobile: {
+            bg: 'white',
+            flexShrink: '0',
+            borderBottom: '1px solid var(--colors-black-20)',
+          },
+        }),
+      }}
+      footerProps={{
+        css: css.raw({
+          _mobile: {
+            borderTop: '1px solid var(--colors-black-20)',
+            pt: '4',
+            pb: 'max(32px, env(safe-area-inset-bottom))',
+          },
+        }),
+      }}
       confirmDisabled={!valid}
       onConfirm={() => onSave(draft)}
     >

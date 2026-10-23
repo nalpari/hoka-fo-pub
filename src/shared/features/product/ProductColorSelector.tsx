@@ -1,59 +1,5 @@
 import type { Product } from '@/mocks/products';
-import { css } from 'styled-system/css';
-import { Radio } from '@/shared/components/atoms/Radio/Radio';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
-
-const styles = {
-  colors: css({
-    '&[role="radiogroup"]': {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, 80px)',
-      gap: '8px',
-      _mobile: { display: 'flex' },
-    },
-    pb: '8px',
-    scrollbarWidth: 'thin',
-    scrollbarColor: 'var(--color-black-40) transparent',
-    '&::-webkit-scrollbar': { h: '4px' },
-    '&::-webkit-scrollbar-thumb': { bg: 'var(--color-black-40)' },
-    _mobile: {
-      overflowX: 'auto',
-      w: 'calc(100% + 16px)',
-      mr: '-16px',
-    },
-    '& [role="radio"]': {
-      position: 'relative',
-      flex: '0 0 80px',
-      w: '80px',
-      h: '53px',
-      overflow: 'hidden',
-      bg: 'var(--color-black-10)',
-      cursor: 'pointer',
-      _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
-      _after: {
-        content: '""',
-        position: 'absolute',
-        bottom: '0',
-        insetInline: '0',
-        h: '4px',
-        borderRadius: '50px',
-        bg: 'transparent',
-      },
-    },
-    '& [role="radio"][data-checked]::after': {
-      content: '""',
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      right: '0',
-      h: '4px',
-      bg: 'var(--color-black-100)',
-      borderRadius: '999px',
-      pointerEvents: 'none',
-    },
-  }),
-};
+import { ProductColorSelector as ColorSelector } from '@/shared/components/molecules/ProductOptionSelectors/ProductColorSelector';
 
 type ProductColorSelectorProps = {
   colors: string[];
@@ -63,6 +9,7 @@ type ProductColorSelectorProps = {
   onValueChange: (color: string) => void;
 };
 
+/** 상품의 컬러 이미지와 갤러리 대체 이미지를 공통 선택 UI에 전달합니다. (Prepares product color images and gallery fallbacks for the shared selector.) */
 export function ProductColorSelector({
   colors,
   gallery,
@@ -70,44 +17,17 @@ export function ProductColorSelector({
   value,
   onValueChange,
 }: ProductColorSelectorProps) {
-  return (
-    <ProductVariantSection
-      title={
-        <>
-          컬러: <Typography variant="productOptionValue">{value}</Typography>
-        </>
-      }
-    >
-      <Radio
-        ariaLabel="컬러 선택"
-        className={styles.colors}
-        onValueChange={onValueChange}
-        options={
-          colorThumbnails?.length
-            ? colorThumbnails.map((option) => ({
-                label: (
-                  <img
-                    className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
-                    alt={option.label}
-                    src={option.image}
-                  />
-                ),
-                value: option.label,
-              }))
-            : colors.map((color, index) => ({
-                label: (
-                  <img
-                    className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
-                    alt={color}
-                    src={gallery[index % gallery.length]}
-                  />
-                ),
-                value: color,
-              }))
-        }
-        value={value}
-        variant="custom"
-      />
-    </ProductVariantSection>
-  );
+  const options = colorThumbnails?.length
+    ? colorThumbnails.map((option) => ({
+        id: option.label,
+        label: option.label,
+        image: option.image,
+      }))
+    : colors.map((color, index) => ({
+        id: color,
+        label: color,
+        image: gallery[index % gallery.length],
+      }));
+
+  return <ColorSelector options={options} value={value} onValueChange={onValueChange} />;
 }

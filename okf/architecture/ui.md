@@ -6,9 +6,31 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:25:37Z'
+  at: '2026-10-23T07:25:47Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
+  - src/stories/components/molecules/ProductOptionSelectors/ProductWidthSelector.stories.tsx
+  - src/stories/components/molecules/ProductOptionSelectors/ProductColorSelector.stories.tsx
+  - src/stories/components/molecules/ProductOptionSelectors/ProductSizeSelector.stories.tsx
+  - src/stories/components/molecules/ProductOptionSelectors/ProductOptionSection.stories.tsx
+  - src/shared/features/cart/CartOptionWidth.tsx
+  - src/shared/features/cart/CartOptionColor.tsx
+  - src/shared/features/cart/CartOptionSize.tsx
+  - src/shared/features/cart/CartOptionQuantity.tsx
+  - src/shared/features/cart/CartSupportContact.tsx
+  - src/shared/features/cart/CartSupportHours.tsx
+  - src/shared/features/cart/CartProductSection.tsx
+  - src/shared/features/cart/CartEmptyState.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
+  - src/stories/components/molecules/OrderProductSummary/OrderProductSummaryContent.stories.tsx
+  - src/shared/features/cart/CartOrderActions.tsx
+  - src/stories/features/cart/CartPage.mobile.stories.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/stories/components/atoms/NumberStepper/NumberStepper.stories.tsx
   - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
   - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.Notices.Web.stories.tsx
@@ -2713,6 +2735,60 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
 프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+
+## 모바일 장바구니 시안 적용 (2026-10-23)
+
+첨부 화면을 기준으로 CartContent의 모바일 제목에서 총 수량을 숨기고 선택 바에 `전체 (선택 행/전체 행)`을 표시한다. 상품 카드는 최소 164px 높이와 16px 간격을 사용하며, 모바일 OrderProductSummary의 이미지 슬롯은 128×100px에 좌우 14px 내부 여백을 둔다. 긴 상품명은 두 줄까지 표시한다. 품절 상품의 이미지와 정보는 40% 불투명도로 표시하고 선택 체크박스는 비활성화한다. 삭제와 기존 옵션 제한 안내 진입은 유지한다.
+
+모바일 결제예정금액은 목록 아래에서 제거하고 OrderActionBar 안의 주문 버튼 위로 옮겼다. PC의 목록 아래 금액과 기존 주문 링크는 유지한다. 추천 상품의 모바일 이미지는 151×225px, 카드 간격은 10px이며 추천/고객센터 제목은 모바일 heading6을 사용한다. CartOptionsDialog는 전체 화면의 흰색 헤더와 본문 전용 스크롤, 구분선이 있는 고정 취소/확인 footer를 사용한다. CartLimitDialog는 기존 SingleActionDialog와 ModalDialog의 추가 `overlayTone="strong"`(검정 87.5%)을 사용한다. 기존 dark/light 소비처의 배경은 바꾸지 않는다.
+
+후속 수량 선택기 첨부에 따라 NumberStepper에 `variant="boxed"`를 추가했다. 122×36px 사각 테두리와 동일 폭 3열, 16px 수량, 둥근 끝의 SVG 증감 기호를 사용하며 비활성 버튼은 black.40이다. 기본 `plain` 타입과 기존 Base UI Number Field의 입력·범위·필드 설명 연결은 유지한다. CartOptionsContent와 공통 Boxed 스토리가 이 타입을 소비하며, 호출자의 자손 선택자나 충돌하는 atomic class로 모양을 덮어쓰지 않는다.
+
+출처는 위 작업 트리의 cart 기능, OrderProductSummary, OrderRecommendations, NumberStepper와 관련 스토리다. Panda 생성·변경 범위 ESLint·타입 검사와 Next/Storybook 빌드를 확인했다. Storybook 기본 출력의 정적 파일 복사 충돌은 별도 임시 출력 경로로 재시도하여 통과했다. 375px 화면에서 카드/고정 금액·전체 화면 옵션/스크롤을 확인했고, 브라우저에서 품절 행 선택 제외, 옵션 저장 후 선택 유지와 취소 복원, 수량 1→2→1 및 최소 수량에서 감소 비활성·122×36px 계산값을 확인했다. 전체 저장소 ESLint는 장시간 실행되어 중단하고 변경 범위를 검사했다. 상태 경계는 [품절 선택과 옵션 상태](state.md#모바일-장바구니-품절-선택과-옵션-상태-2026-10-23)를 참고한다.
+
+## 장바구니 재사용 점검 후 적용 (2026-10-23)
+
+OrderRecommendations와 OrderRecommendationItem에 `layout="compact" | "portrait"`를 추가했다. 기본 compact는 기존 PC·모바일의 140×140px cover 이미지·4px 간격·모바일 heading7을 유지한다. CartContent만 portrait를 지정하여 모바일 151×225px contain 이미지·10px 간격·heading6을 사용한다. CheckoutComplete는 기본값을 사용하며 장바구니 디자인에 영향을 받지 않는다. 기존 공통 추천 스토리에 Portrait와 CompactMobile을 추가했다.
+
+ModalDialog의 `headerProps.css`와 `footerProps.css`는 SystemStyleObject만 받는 스타일 슬롯이다. CartOptionsDialog의 `& > header`·`& > footer` 선택자를 제거하고 각 슬롯의 소유 컴포넌트가 기본 raw 스타일과 재정의 객체를 합쳐 한 번의 css 호출로 생성한다. popup의 기본/푸터 overflow도 생성 전에 합성한다. 헤더·푸터의 DOM, Dialog의 제목/닫기/포커스 관리, 본문 스크롤과 모바일 safe area는 보존한다. MobileStyledSlots 스토리로 흰색 헤더·구분선·32px 하단 여백을 확인한다.
+
+장바구니 제목은 ContentHeader의 h1·WEB heading6/MO heading5·가로 기준선 정렬·4px 간격으로 표현한다. PC 수량 노드의 모바일 숨김은 유지한다. 새 기능 내부 CartOrderActions는 total과 checkoutHref만 받아 OrderActionBar·모바일 금액·활성 링크/비활성 버튼을 조합하며 별도 DOM이나 상태를 추가하지 않는다. 공통 라이브러리로 승격하지 않고 기존 페이지 스토리에서 검증한다.
+
+출처는 CartContent, CartPage, CartOrderActions, CartOptionsDialog, ModalDialog와 Header/Footer, OrderRecommendations와 Item 및 두 공통 스토리의 작업 트리다. 타입 검사·변경 범위 ESLint·Panda 생성과 Next/Storybook 빌드를 확인했다. 브라우저에서 옵션 저장/취소 후 250 사이즈와 선택 2/4 유지, 선택 해제 시 주문 비활성, compact 140×140 cover와 portrait 151×225 contain, 슬롯의 흰색 헤더·1px 구분선·32px 하단 여백을 확인했다. 스크롤바가 있는 Windows 375px 미리보기와 실제 모바일 기기의 가용 폭 차이는 기존과 동일하다.
+
+## 주문 상품 요약 텍스트 분리 (2026-10-23)
+
+`OrderProductSummaryContent`는 성별·상품명·옵션·금액과 추가 `children`을 표시한다. `OrderProductSummary`는 이미지와 바깥 배치를 담당하고 텍스트 영역을 조합한다. 기존 cart/checkout/coupon의 PC·모바일 간격, 상품명 두 줄 제한, 글자 규격·색상·금액 포맷과 자식 순서를 유지한다. 독립 Storybook에 세 variant와 모바일 긴 상품명 예시를 둔다. 출처는 작업 트리의 두 구현과 관련 스토리다.
+
+## 장바구니 상품 영역과 빈 상태 분리 (2026-10-23)
+
+`CartProductSection`은 선택 도구·상품 목록·PC 결제예정금액과 보관 안내를 조합하고, `CartEmptyState`는 빈 상태 문구와 상품 목록 링크를 표시한다. `CartContent`는 두 상태의 분기와 추천·고객센터·주문 액션 배치를 맡는다. 상태와 이벤트는 기존 호출자가 소유하며 DOM 순서, Stack 간격, 모바일 금액 숨김과 링크 경로를 유지한다. 출처는 작업 트리의 세 cart 컴포넌트다. 기존 장바구니 스토리가 상품·빈 상태를 다룬다.
+
+`OrderRecommendationLayout`은 별도 컴포넌트 파일이 아니라 `OrderRecommendationItem.tsx`에서 내보내는 `'compact' | 'portrait'` 타입이다. 누락된 타입과 item의 layout prop·모바일 분기를 복원하여 기존 목록·장바구니·스토리 호출과 연결했다.
+
+이번 분리 후 Panda 생성과 변경 파일 ESLint를 통과했다. 타입 검사와 Next 빌드는 이번 변경 외 `ModalDialog.tsx:141`에서 `ModalOverlayTone`의 `strong` 값이 오버레이 타입과 일치하지 않아 실패했다. 브라우저 시각 검증은 실행하지 않았다.
+
+## 장바구니 옵션과 고객센터 표시 분리 (2026-10-23)
+
+`CartOptionsContent`는 이미지·상품명과 네 선택 영역을 조합한다. `CartOptionWidth`, `CartOptionColor`, `CartOptionSize`, `CartOptionQuantity`는 현재 값·선택지·명시적 변경 콜백을 받아 표시하고, 초안 상태·품절 계산·저장/취소는 기존 CartOptionsDialog가 소유한다. Radio와 썸네일 목록·사이즈 선택기·최소 1 수량 선택기의 접근성 레이블·선택 상태·스타일과 간격을 유지한다.
+
+`CartSupportInfo`는 섹션을 조합하고 `CartSupportContact`가 연락처·문의 링크, `CartSupportHours`가 운영시간·휴무를 표시한다. 두 부분은 Fragment를 반환하여 부모 Stack의 자식 간격과 운영시간 제목의 mt를 그대로 유지한다. 출처는 작업 트리의 옵션·고객센터 부모와 새 여섯 컴포넌트다. 기존 장바구니 옵션/고객센터 스토리로 조합을 확인한다.
+
+옵션·고객센터 분리 후 Panda 생성·변경 범위 ESLint·diff 공백 검사를 통과했다. 타입 검사에는 앞서 기록한 ModalDialog 오버레이 타입 오류만 남아 있다. 브라우저 시각·상호작용 검증은 실행하지 않았다.
+
+전체 분리 후 Storybook 빌드를 `.tmp/storybook-order-summary` 출력 경로에서 통과했다. OrderProductSummaryContent의 독립 스토리와 cart의 기존 상품·빈 상태·옵션 조합이 빌드에 포함된다.
+
+## 상품 상세와 장바구니 옵션 선택 공통화 (2026-10-23)
+
+`components/molecules/ProductOptionSelectors`의 ProductWidthSelector·ProductColorSelector·ProductSizeSelector를 상품 상세와 장바구니가 함께 사용한다. `appearance="detail" | "cart"`가 기존 화면별 표현을 선택한다. ProductOptionSection은 제목·보조 액션과 선택 영역의 간격을 담당한다. 공통 UI는 목 상품·라우트·장바구니 상태를 가져오지 않고 준비된 선택지·현재 값·변경 콜백을 받는다.
+
+발볼은 상세의 48px 기본/44px 단일 옵션·hover/disabled와 장바구니 pill을 유지한다. 컬러는 상세의 80×53px Radio·모바일 가로 스크롤과 장바구니 72px 정사각 ProductOptionList를 유지한다. 사이즈는 상세 5열·회색 품절·FormField 오류와 장바구니 4열·기존 품절 표현을 유지한다. 상세의 가이드 링크·추천 문구와 이미지 대체·재고 선택지 준비는 features/product 어댑터에 남고, 장바구니 초안·저장/취소는 CartOptionsDialog가 소유한다. 수량은 CartOptionQuantity를 유지한다.
+
+이 공통화가 위 '장바구니 옵션과 고객센터 표시 분리'의 CartOptionWidth/Color/Size를 대체한다. 세 장바구니 전용 파일과 기존 상세 발볼·섹션·액션 파일은 사용처를 확인하고 제거했다. 상세 컬러·사이즈 어댑터는 상품 데이터 준비와 기능별 안내를 담당하므로 유지한다. 새 공통 스토리는 detail/cart의 선택 변경·발볼 방향키·단일/비활성 옵션·빈 선택지·품절/미제공·오류/가이드 슬롯을 다룬다.
+
+출처는 위 작업 트리의 공통 선택 UI·cart/PDP 어댑터와 네 스토리다. Panda 생성·변경 범위 ESLint와 Storybook 빌드를 통과했다. Next 빌드는 컴파일을 통과했으나 기존 ModalDialog.tsx:141 오버레이 타입 불일치로 타입 검사에서 중단됐다. 브라우저 검증 기록은 아래에 추가한다.
+
+브라우저에서 새 공통 스토리의 detail/cart 6개를 실행해 발볼 클릭·방향키 이동, 컬러 변경, 사이즈 선택과 품절/미제공 aria-disabled를 확인했고 오류 로그가 없었다. 기존 장바구니 옵션 저장·취소 스토리는 저장한 250 사이즈와 선택 2/4를 유지하고 취소 후 다이얼로그가 닫힘을 확인했다. 상세 사이즈 오류 메시지·aria-invalid와 사이즈 가이드 링크도 확인했다. 기본 루트와 기존 정적 Storybook을 기준으로 375px 장바구니 옵션의 33개 요소 위치·크기·fontSize·gap·gridTemplateColumns, 1600px 상세 컬러의 21개 요소 위치·크기·gap·objectFit가 변경 전후 정확히 일치했다. 모바일 옵션과 PC 컬러 스크린샷도 확인했다. 최종 Storybook 빌드·Prettier·변경 범위 ESLint·diff 공백 검사는 통과했으며 타입 검사의 기존 ModalDialog 오류는 그대로 남는다.
 
 ## 수량 선택기 사각형 기본 스타일 (2026-10-23)
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { products } from '@/mocks/products';
 import { CartDialogs } from './CartDialogs';
 import { CartContent } from './CartContent';
-import { itemKey } from './cart-item';
+import { itemKey, isCartItemSoldOut } from './cart-item';
 import type { CartItem } from '@/shared/types/cart';
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   onOptionsChange?: (item: CartItem, next: CartItem) => void;
 };
 
+/** 장바구니 선택·관심상품과 옵션 편집 상태를 관리합니다. (Manages cart selection and option editing.) */
 export function CartPage({ cart, onQuantityChange, onRemove, onOptionsChange }: Props) {
   const [limited, setLimited] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -28,7 +29,9 @@ export function CartPage({ cart, onQuantityChange, onRemove, onOptionsChange }: 
     const product = products.find((candidate) => candidate.id === item.id);
     return product ? [{ item, product }] : [];
   });
-  const allKeys = rows.map(({ item }) => itemKey(item));
+  const allKeys = rows
+    .filter(({ item, product }) => !isCartItemSoldOut(item, product))
+    .map(({ item }) => itemKey(item));
   const selectedKeys =
     selected === null ? allKeys : selected.filter((key) => allKeys.includes(key));
   const selectedRows = rows.filter(({ item }) => selectedKeys.includes(itemKey(item)));
@@ -38,11 +41,16 @@ export function CartPage({ cart, onQuantityChange, onRemove, onOptionsChange }: 
   );
   const selectedCount = selectedRows.length;
   const itemCount = rows.reduce((sum, { item }) => sum + item.quantity, 0);
+  const allSelected = allKeys.length > 0 && selectedKeys.length === allKeys.length;
+  const checkoutHref = selectedCount
+    ? `/checkout?selected=${encodeURIComponent(selectedKeys.join('|'))}`
+    : null;
 
   return (
     <CartContent
       rows={rows}
-      allKeys={allKeys}
+      allSelected={allSelected}
+      checkoutHref={checkoutHref}
       selectedKeys={selectedKeys}
       favorites={favorites}
       itemCount={itemCount}
@@ -61,12 +69,12 @@ export function CartPage({ cart, onQuantityChange, onRemove, onOptionsChange }: 
       }
       onRemove={onRemove}
       onEdit={(item, product) =>
-        product.soldOut.includes(item.size) ? setLimited(true) : setEditingKey(itemKey(item))
+        isCartItemSoldOut(item, product) ? setLimited(true) : setEditingKey(itemKey(item))
       }
       onRemoveSelected={() => selectedRows.forEach(({ item }) => onRemove(item))}
       onRemoveSoldOut={() =>
         rows
-          .filter(({ item, product }) => product.soldOut.includes(item.size))
+          .filter(({ item, product }) => isCartItemSoldOut(item, product))
           .forEach(({ item }) => onRemove(item))
       }
       dialogs={

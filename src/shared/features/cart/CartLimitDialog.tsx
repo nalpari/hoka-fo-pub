@@ -7,6 +7,7 @@ type Props = {
   onOpenChange: (open: boolean) => void;
 };
 
+/** 구매 수량 제한 안내와 닫기 액션을 표시합니다. (Displays the cart purchase limit notice.) */
 export function CartLimitDialog({ open, onOpenChange }: Props) {
   return (
     <SingleActionDialog

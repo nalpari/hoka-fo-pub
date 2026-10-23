@@ -1,12 +1,10 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Flex, Stack } from 'styled-system/jsx';
+import { Flex } from 'styled-system/jsx';
 import type { ProductWidthOption } from '@/mocks/products';
-import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
+import { ProductSizeSelector as SizeSelector } from '@/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector';
 import { productSizeOptions } from '@/shared/features/product/productSizeOptions';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { ButtonLink } from '@/shared/components/atoms/Button/Button';
-import { ProductVariantSection } from '@/shared/features/product/ProductVariantSection';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
 
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
@@ -15,6 +13,7 @@ type ProductSizeSelectorProps = {
   onValueChange: (size: string) => void;
 };
 
+/** 상품 재고 선택지와 사이즈 가이드·오류 안내를 조합합니다. (Composes product availability, size guidance, and validation feedback.) */
 export function ProductSizeSelector({
   selectedWidth,
   value,
@@ -22,7 +21,7 @@ export function ProductSizeSelector({
   onValueChange,
 }: ProductSizeSelectorProps) {
   return (
-    <ProductVariantSection
+    <SizeSelector
       action={
         <Flex gap="2" align="center">
           <Icon name="action/fa-ruler-horizontal" size="18px" color="currentColor" />
@@ -32,24 +31,16 @@ export function ProductSizeSelector({
         </Flex>
       }
       id="product-size"
-      title="사이즈"
-    >
-      <Stack gap="4">
-        <FormField htmlFor="product-size-choice" error={error || undefined}>
-          <SizeSelector
-            mode="single"
-            ariaLabel="사이즈 선택"
-            columns={5}
-            soldOutAppearance="gray"
-            onValueChange={onValueChange}
-            options={productSizeOptions(selectedWidth)}
-            value={value}
-          />
-        </FormField>
+      fieldId="product-size-choice"
+      error={error}
+      options={productSizeOptions(selectedWidth)}
+      value={value}
+      onValueChange={onValueChange}
+      description={
         <Typography as="p" variant="body4" tone="tertiary">
           사이즈 추천: 정사이즈
         </Typography>
-      </Stack>
-    </ProductVariantSection>
+      }
+    />
   );
 }
