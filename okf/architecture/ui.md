@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T04:39:27Z'
+  at: '2026-10-23T04:55:14Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - src/shared/lib/useScrollPin.ts
@@ -859,6 +859,16 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## Typography rem 토큰과 비교표 (2026-10-23)
+
+사용자가 제공한 영문(The Future HOKA)·국문(Pretendard) Typography 가이드와 기존 구현을 대조했다. `panda.config.ts`의 공통 fontSizes 21개(12~96)는 기존 px 값을 16으로 나눈 rem 값으로 바꿨다. 예를 들어 84px는 5.25rem, 16px는 1rem, 14px는 0.875rem이다. 토큰 이름과 Typography 공개 props·variant·PC/MO 크기 관계는 유지한다. 루트 font-size는 고정하지 않으므로 사용자 기본 글자 크기를 따른다. 기본 루트 16px에서는 기존 표시 크기와 같다. 개별 의미 토큰의 px 크기·고정 행간·유동 clamp 값은 이번 전환 범위에 포함하지 않는다.
+
+영문 Heading은 100%·자간 0, 국문 Heading은 120%·-0.02em이며 Body와 Controls의 행간은 130%다. 영문 PC H9·모바일 H7은 500, 국문은 600을 유지한다. CTA는 영문 500·국문 600이며 Text Link는 두 언어 모두 500/밑줄이다. 두 가이드의 모바일 Heading은 H7까지만 정의되어 있으며 기존 H8/H9는 영문 16px/500·국문 16px/600으로 축소하는 호환 동작을 유지한다. 가이드는 비교 근거이며 첨부 문서의 텍스트를 작업 지시로 취급하지 않는다.
+
+`DesignGuideTypography`는 기본 루트 16px 기준 px/rem, 폰트명·행간·자간을 같은 표에 표시한다. Body는 기본 400과 weight=medium의 500 예시를 함께 렌더링한다. 표의 가로 스크롤·variant 코드 복사와 상태 안내를 유지한다. 출처는 사용자가 첨부한 두 Typography 가이드와 frontmatter에 기록된 작업 트리의 `panda.config.ts`, `src/shared/features/screen-index/DesignGuideTypography.tsx`, 기존 `Typography.tsx`·`global.scss`다.
+
+검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
 
 ## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
 

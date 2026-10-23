@@ -2,6 +2,8 @@
 
 ## 2026-10-23
 
+- **Update**: 공통 fontSizes 21개를 기존 크기/16의 rem 값으로 전환하고 Typography 비교표에 px/rem·폰트·행간·자간과 Body 400/500 예시를 추가했다. 기존 variant·영문/국문 규격·모바일 H8/H9 호환 규칙을 유지하며 [UI 기록](architecture/ui.md#typography-rem-토큰과-비교표-2026-10-23)에 범위와 검증을 남겼다.
+
 - **Refactor**: 모바일 상품 탐색의 가로 중앙 정렬을 HStack으로 표현하고 중복 alignItems를 제거했다. 기존 nav 의미·고정 전/후 간격과 높이는 유지하며 [UI 기록](architecture/ui.md#모바일-상품-목록-gnb와-활동-탐색-고정-2026-10-23)에 반영했다.
 
 - **Fix**: 모바일 상품 목록에서 최상단 복귀 후 활동 탐색의 fixed 상태가 남는 문제를 수정했다. useScrollPin이 스크롤·크기 변경 시 실제 마커 위치도 확인하도록 보완하고, 768px 반복 스크롤 복귀와 정적 검사 결과를 [UI 기록](architecture/ui.md#모바일-상품-목록-gnb와-활동-탐색-고정-2026-10-23)에 남겼다.
