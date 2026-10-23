@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:25:15Z'
+  at: '2026-10-23T07:25:37Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
@@ -2717,5 +2717,9 @@ Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 �
 ## 수량 선택기 사각형 기본 스타일 (2026-10-23)
 
 NumberStepper는 122×36px 사각 테두리와 동일 너비의 감소·입력·증가 영역을 기본으로 표시한다. plain 변형과 variant prop은 제거했다. 최소/최대·step·제어형 값·FormField 접근성 연결과 formatValue의 aria-valuetext는 유지한다. 기본 Bounded 스토리와 장바구니 수량에서 같은 표시를 사용한다. 출처는 작업 트리의 NumberStepper 구현이다.
+
+## 공통 모달 헤더와 푸터 스타일 슬롯 (2026-10-23)
+
+ModalDialog의 headerProps/footerProps는 css 스타일을 전달하고 각 영역이 기존 기본 스타일과 합성한다. title·closeLabel·scrollFade와 children의 제어는 모달이 유지한다. 푸터가 있으면 Popup의 x/y overflow를 숨겨 본문만 스크롤한다. 실제 recipe가 지원하는 overlayTone은 dark/light이며 구현과 사용처가 없는 strong 타입 선언은 제외했다. MobileStyledSlots 스토리가 전체 화면의 흰 헤더·상하 구분선·안전 영역 하단 여백을 예시한다. 출처는 작업 트리의 ModalDialog와 Header/Footer 및 해당 스토리다.
 
 커밋 준비 시 plain/variant 제거와 모달 오버레이 타입 정리 후 타입 검사·변경 범위 ESLint·Panda 생성·Next 빌드·Storybook 빌드를 모두 통과했다. 앞선 오버레이 타입 오류 기록은 수정 전의 결과다.

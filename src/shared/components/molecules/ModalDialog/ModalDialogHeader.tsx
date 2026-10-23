@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css } from 'styled-system/css';
+import type { SystemStyleObject } from 'styled-system/types';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { faXmark } from '@/shared/icons/fontAwesome';
 
-const header = css({
+const header = css.raw({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -20,10 +21,18 @@ const header = css({
 
 const titleStyle = css({ height: '32px' });
 
-/** Internal title and dismissal region, rendered within the parent Dialog context. */
-export function ModalDialogHeader({ title, closeLabel }: { title: ReactNode; closeLabel: string }) {
+/** 공통 모달의 제목과 닫기 영역을 표시합니다. (Displays the shared modal title and dismissal action.) */
+export function ModalDialogHeader({
+  title,
+  closeLabel,
+  css: styleOverrides,
+}: {
+  title: ReactNode;
+  closeLabel: string;
+  css?: SystemStyleObject;
+}) {
   return (
-    <header className={header}>
+    <header className={css(header, styleOverrides)}>
       <Dialog.Title className={titleStyle}>
         <Typography variant="body3">{title}</Typography>
       </Dialog.Title>

@@ -4,6 +4,7 @@ import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ModalDialog } from '@/shared/components/molecules/ModalDialog/ModalDialog';
+import { css } from 'styled-system/css';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -61,6 +62,33 @@ export const MobileFullscreen: Story = {
   args: { mobilePresentation: 'fullscreen', title: '모바일 전체화면' },
   decorators: [withPlatform('mobile')],
   globals: { viewport: 'hoka375' },
+};
+
+export const MobileStyledSlots: Story = {
+  ...MobileFullscreen,
+  args: {
+    mobilePresentation: 'fullscreen',
+    title: '모바일 헤더·푸터 슬롯',
+    headerProps: {
+      css: css.raw({
+        _mobile: { bg: 'white', flexShrink: '0', borderBottom: '1px solid var(--colors-black-20)' },
+      }),
+    },
+    footerProps: {
+      css: css.raw({
+        _mobile: {
+          borderTop: '1px solid var(--colors-black-20)',
+          pt: '4',
+          pb: 'max(32px, env(safe-area-inset-bottom))',
+        },
+      }),
+    },
+    footer: (
+      <Button variant="primary" fullWidth>
+        확인
+      </Button>
+    ),
+  },
 };
 
 export const MobileBottomSheet: Story = {

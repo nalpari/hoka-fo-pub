@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
 import { ModalDialogHeader } from '@/shared/components/molecules/ModalDialog/ModalDialogHeader';
@@ -82,7 +82,12 @@ const popup = cva({
   defaultVariants: { size: 'md', mobilePresentation: 'popup' },
 });
 
-const popupWithFooter = css({ display: 'flex', flexDirection: 'column', overflow: 'hidden' });
+const popupWithFooter = css.raw({
+  display: 'flex',
+  flexDirection: 'column',
+  overflowX: 'hidden',
+  overflowY: 'hidden',
+});
 
 const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
 
@@ -104,12 +109,14 @@ export type ModalDialogProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
+  headerProps?: Pick<ComponentProps<typeof ModalDialogHeader>, 'css'>;
+  footerProps?: Pick<ComponentProps<typeof ModalDialogFooter>, 'css'>;
   /** Fade the scrollable content into the fixed footer. */
   scrollFade?: boolean;
   title: ReactNode;
 };
 
-/** Controlled, focus-managed modal following HDS overlay, sizing, and mobile presentation rules. */
+/** 포커스와 모바일 표시 방식을 관리하는 공통 모달입니다. (Provides a controlled modal with focus management and mobile presentations.) */
 export function ModalDialog({
   children,
   closeLabel,
@@ -120,6 +127,8 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   overlayTone = 'dark',
   popupClassName,
+  headerProps,
+  footerProps,
   scrollFade = false,
   title,
 }: ModalDialogProps) {
@@ -133,19 +142,20 @@ export function ModalDialog({
           <Dialog.Viewport className={viewport({ mobilePresentation })}>
             <Dialog.Popup
               className={[
-                popup({ size, mobilePresentation }),
-                footer ? popupWithFooter : '',
+                css(popup.raw({ size, mobilePresentation }), Boolean(footer) && popupWithFooter),
                 popupClassName,
               ]
                 .filter(Boolean)
                 .join(' ')}
             >
-              <ModalDialogHeader title={title} closeLabel={closeLabel} />
+              <ModalDialogHeader {...headerProps} title={title} closeLabel={closeLabel} />
               <div className={[content, footer && scrollableContent].filter(Boolean).join(' ')}>
                 {children}
               </div>
               {footer ? (
-                <ModalDialogFooter scrollFade={scrollFade}>{footer}</ModalDialogFooter>
+                <ModalDialogFooter {...footerProps} scrollFade={scrollFade}>
+                  {footer}
+                </ModalDialogFooter>
               ) : null}
             </Dialog.Popup>
           </Dialog.Viewport>

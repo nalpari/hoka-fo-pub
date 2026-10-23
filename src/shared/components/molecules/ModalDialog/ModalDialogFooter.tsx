@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
+import type { SystemStyleObject } from 'styled-system/types';
 
-const footerStyle = css({
+const footerStyle = css.raw({
   display: 'flex',
   justifyContent: 'center',
   flexShrink: '0',
@@ -11,7 +12,7 @@ const footerStyle = css({
   '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },
 });
 
-const footerWithScrollFade = css({
+const footerWithScrollFade = css.raw({
   position: 'relative',
   '&::before': {
     content: '""',
@@ -26,16 +27,18 @@ const footerWithScrollFade = css({
   },
 });
 
-/** Internal fixed action region with an optional fade over scrollable content. */
+/** 모달의 고정 액션과 선택적 스크롤 페이드를 표시합니다. (Displays fixed modal actions and an optional scroll fade.) */
 export function ModalDialogFooter({
   children,
   scrollFade,
+  css: styleOverrides,
 }: {
   children: ReactNode;
   scrollFade: boolean;
+  css?: SystemStyleObject;
 }) {
   return (
-    <footer className={scrollFade ? `${footerStyle} ${footerWithScrollFade}` : footerStyle}>
+    <footer className={css(footerStyle, scrollFade && footerWithScrollFade, styleOverrides)}>
       {children}
     </footer>
   );
