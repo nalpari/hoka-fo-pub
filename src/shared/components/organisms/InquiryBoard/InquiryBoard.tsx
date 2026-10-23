@@ -117,10 +117,7 @@ function InquirySubject({
           {item.visibility === 'restricted' ? '비공개 문의글입니다.' : item.title}
         </Typography>
         {isPrivate && (
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true">
-            <rect x="2.5" y="7.5" width="11" height="9" rx="1" stroke="currentColor" />
-            <path d="M5 7V4a3 3 0 0 1 6 0v3M8 11v3" stroke="currentColor" />
-          </svg>
+          <Icon src="/images/icon/lock-keyhole.svg" size={14} alt="" aria-hidden="true" />
         )}
       </Flex>
       <Typography variant="body4" tone="tertiary" className={styles.metadata}>

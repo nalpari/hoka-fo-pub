@@ -2,6 +2,8 @@
 
 ## 2026-10-23
 
+- **Update**: 비공개 문의의 직접 작성한 잠금 SVG를 사용자 제공 lock-keyhole.svg와 공통 Icon으로 교체했다. 14px 표시·장식 이미지 접근성·브라우저 문의 펼침과 정적 검사 결과를 [UI 기록](architecture/ui.md#비공개-문의-잠금-아이콘-2026-10-23)에 반영했다.
+
 - **Refactor**: ProductTechnicalScale의 막대 표시를 level만 받는 ProductTechnicalScaleBar로 분리하고 기존 DOM·스타일을 유지했다. 타입 검사·변경 파일 ESLint·Prettier·Panda 생성 통과를 [UI 기록](architecture/ui.md#상품-상세-기술-척도-5단계-그라데이션-2026-10-23)에 남겼다.
 
 - **Review**: 상품 리뷰·문의 수정사항의 재사용 점검을 적용했다. 문의 제목/필터는 ContentHeader로 조합하고, 행·루트·더 보기 배치를 Panda JSX로 이전했으며 Checkbox 아이콘 상태 스타일을 실제 소유 요소로 옮겼다. [UI 기록](architecture/ui.md#상품-리뷰문의-재사용-후속-점검-2026-10-23)과 [프로젝트 범위 검토](project.md#상품-리뷰문의-표현-검토-2026-10-23)에 구현·검증·데모 경계를 기록했다.

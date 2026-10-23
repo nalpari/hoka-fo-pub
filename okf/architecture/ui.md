@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T03:50:08Z'
+  at: '2026-10-23T03:57:43Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - public/images/icon/lock-keyhole.svg
   - src/shared/features/product/ProductInformation.tsx
   - src/shared/features/product/ProductDetailContent.tsx
   - src/shared/features/product/ProductInquiryLink.tsx
@@ -2751,3 +2752,7 @@ ProductInformation은 초기 설명을 CSS lineClamp 4로 줄이고 새로운 �
 상품 정보 제목은 productSectionTitle(24px/900, 모바일은 기존 heading8)을 사용한다. 본문은 productInformationBody Typography(16px/400, 1.5 줄높이, korean 자간)이며 해당 스토리를 추가했다. 설명/버튼 사이 12px, 설명 그룹과 목록 사이 32px, 32px 패널 패딩과 black.10 배경을 사용한다. 하단 목록은 공통 DescriptionList의 80px 용어 열·12px 가로 간격·16px 행 간격을 재사용하며 body3의 굵은 용어·기본 굵기 값을 표시한다. 신발 유형·추천 활동·러닝 유형으로 항목을 교체했다. 첨부의 접힘/펼침 사이 러닝 유형/러닝 용도 표기는 동일한 의미이므로 러닝 유형으로 일관되게 표시한다.
 
 Clifton의 설명과 새로운 특징 문구는 사용자 첨부를 사용한다. 다른 상품에 Clifton 전용 특징을 표시하지 않는다. 출처는 첨부 상품 정보 이미지, working_tree_sources의 ProductInformation.tsx·ProductDetailContent.tsx·Typography.tsx·Typography.stories.tsx와 src/mocks/products.ts다. Codex가 브라우저에서 초기 본문 높이 96px·줄높이 24px, 더보기의 aria-expanded=false→true와 새로운 특징 표시, 닫기로 초기 상태 복귀, 버튼이 사양 목록 앞에 있는 DOM 순서를 확인했다. 변경 파일 ESLint·Prettier·Panda·타입 검사·Next.js 빌드·별도 출력 경로의 Storybook 빌드와 기존 상품 상세 테스트 3개가 통과했다.
+
+## 비공개 문의 잠금 아이콘 (2026-10-23)
+
+InquiryBoard의 비공개·열람 제한 문의는 직접 작성한 inline SVG 대신 공통 Icon으로 /images/icon/lock-keyhole.svg를 표시한다. 사용자 제공 public/images/icon/lock-keyhole.svg의 원본 크기인 14×14px로 표시하며 장식 이미지의 빈 alt·aria-hidden을 유지한다. 기존 아이콘 위치와 문의 펼침 동작은 유지한다. 출처는 사용자 제공 SVG와 작업 트리 InquiryBoard.tsx다. Codex가 Storybook에서 새 이미지 경로·표시와 제한 문의 펼침 안내를 확인했으며 변경 TSX ESLint·Prettier·타입 검사를 통과했다.
