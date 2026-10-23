@@ -6,8 +6,8 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T05:11:31Z'
-source_revision: deef0e46733e6e65dd2635d2d1256de627929064
+  at: '2026-10-22T23:59:50Z'
+source_revision: 5e287fdf0a6523d8c0127afb3353bd802f702659
 working_tree_sources:
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/notices/NoticesList.tsx
@@ -15,7 +15,15 @@ working_tree_sources:
   - src/shared/features/support/InquiryPage.tsx
   - src/shared/features/support/InquiryCautions.tsx
   - src/shared/features/support/InquiryEmptyState.tsx
+  - src/shared/features/support/InquiryQuestion.tsx
+  - src/shared/features/support/InquiryAnswer.tsx
+  - src/shared/features/support/InquiryListItem.tsx
+  - src/shared/features/support/InquiryReadAttachments.tsx
+  - src/shared/features/support/InquiryAttachmentPreview.tsx
+  - AGENTS.md
   - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
   - src/shared/features/faq/FaqPage.tsx
   - src/shared/components/organisms/Faq/FaqList.tsx
@@ -758,6 +766,18 @@ working_tree_sources:
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
 sources:
+  - id: figma-inquiry-received-mobile
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92565&m=dev
+    title: 'Figma 1:1 문의 접수완료 모바일 (2026-10-22)'
+  - id: figma-inquiry-received-desktop
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92278&m=dev
+    title: 'Figma 1:1 문의 접수완료 PC (2026-10-22)'
+  - id: figma-inquiry-answered-mobile
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92605&m=dev
+    title: 'Figma 1:1 문의 답변완료 모바일 (2026-10-22)'
+  - id: figma-inquiry-answered-desktop
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92335&m=dev
+    title: 'Figma 1:1 문의 답변완료 PC (2026-10-22)'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -2320,7 +2340,7 @@ PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이�
 
 TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털·Radio·열림 상태를 소유한다. TermsDocument는 날짜 목록·선택값과 약관 본문을 소유하며 name/options/value/onValueChange를 전달한다. 플랫폼 포털 클래스, 선택 후 닫기, 날짜 표시 형식과 접근성 이름은 유지한다.
 
-공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
+공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. `variant`가 웹·모바일 공통값이며, 값이 다를 때만 선택형 `mo` prop으로 모바일 variant를 덮어쓴다. `mo`를 생략하면 `variant` 값이 유지된다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시 여부는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
 
 검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
@@ -2502,3 +2522,33 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
 
 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
+
+## 1:1 문의 접수·답변 완료 상태 시안 반영 (2026-10-23)
+
+문의 목록의 접수완료·답변완료 상태를 PC·모바일 Figma `1241:92278`, `1241:92565`, `1241:92335`, `1241:92605`에 맞췄다. 두 화면 모두 질문은 Q 20px, 제목은 PC 20px medium·모바일 16px semibold, 본문은 14px regular black이다. PC는 배지와 제목을 가로 8px 간격으로 배치하고 본문 그룹과 24px 간격을 둔다. 모바일은 상태 배지와 제목을 세로로 배치하고 본문과 12px 간격을 둔다. 접수완료는 1px tertiary 테두리·black 텍스트, 답변완료는 black.20(`#e9eaeb`) 배경·tertiary(`#777`) 텍스트다. 답변완료 Q는 모바일에만 tertiary 색을 적용한다.
+
+답변 영역은 muted(`#f7f7f9`) 배경, 좌우 30px padding, 12px 간격이며 PC 세로 padding/top separation은 24px, 모바일은 16px이다. PC 답변 제목은 headingKr9이며 모바일에서는 숨긴다. A는 20px medium, 답변문은 14px regular이다. Divider부터 문의까지 24px, 문의 다음 유의사항까지 PC 24px·모바일 32px 간격을 둔다. 첨부파일이 있는 문의 상태는 별도의 PC·모바일 시안으로 다루며 세부 규격은 아래 첨부파일 시안 기록을 따른다.
+
+`InquiryQuestion`, `InquiryAnswer`, `InquiryListItem`과 `InquiryPage` 안에서 스타일을 조정했으며 `Accordion`, `Typography` 등 shared component의 구현이나 API는 변경하지 않았다. 출처는 작업 트리의 위 feature 파일과 `src/stories/features/support/SupportPages.scenarios.tsx`, 네 Figma 노드다.
+
+## 1:1 문의 첨부파일 시안 반영 (2026-10-23)
+
+첨부파일이 있는 답변완료 문의의 PC·모바일 목록과 미리보기를 Figma `1241:92401`, `1241:92643`, `1241:92481`, `1241:92169`에 맞췄다. 질문 제목은 두 화면 모두 headingKr9(16px semibold), 상태 배지 위에 세로 배치하며 PC 간격은 16px·모바일은 8px이다. PC 목록은 첨부 제목 없이 4개 파일 행을 subtle(`#e9eaeb`) 테두리 패널 안에 두고, 패널 안쪽 여백 16px, 행 간격 8px, 썸네일 40×40px, 파일명 body5(12px) tertiary로 표시한다. 모바일 목록은 “첨부파일” body4(14px) 제목과 함께 8개 48×48px 썸네일을 감싸는 그리드로 배치한다. 이미지와 파일명 간격은 4px, 파일명은 썸네일 폭에 맞춰 한 줄 말줄임하고, 항목 간격은 가로 8px·세로 12px이다. 모바일 콘텐츠 여백은 상단 16px·왼쪽 29px·오른쪽 16px·하단 24px이다. 두 플랫폼의 첨부 수 차이는 Storybook 화면을 위한 Figma 예시 데이터이며 실제 첨부 데이터는 `InquiryReadAttachments`가 그대로 표시한다.
+
+미리보기는 `ModalDialog`와 `Carousel`·`CarouselPagination`을 재사용한다. PC 팝업은 최대 568px, 모바일은 화면 전체 폭의 하단 시트이며 상단 모서리 20px, 공통 헤더 아래 구분선과 24px 본문 여백을 둔다. 미리보기 이미지는 240×240px이며, 파일명이나 하단 확인 버튼은 표시하지 않고 6×6px 사각 점으로 현재 파일을 선택한다. 답변 패널은 PC 16px 내부 여백과 첨부 목록 직후 배치, 모바일은 16px 내부 여백과 첨부 영역의 하단 24px 공간 뒤에 배치한다. PC에는 16px semibold 답변 제목과 14px 답변문을 두고, 모바일에는 답변 제목을 숨겨 답변문만 표시한다. 답변완료 질문은 답변의 열기/닫기를 제어하고, 첨부파일 목록은 질문과 답변 사이에 계속 표시되어 답변을 접어도 숨겨지지 않는다. PC·모바일 Storybook 상호작용에서 접은 뒤에도 파일 버튼이 남는지 확인한다. 공통 `ModalDialog`는 수정하지 않아 오버레이 blur는 기존 48px로 남아 있으며, Figma의 24px와 정확히 맞추려면 공통 Dialog 변경이 필요하다.
+
+출처는 작업 트리의 `InquiryPage`, `InquiryListItem`, `InquiryReadAttachments`, `InquiryAttachmentPreview`, 고객센터 Storybook과 위 네 Figma 노드다.
+
+## 컴포넌트 주석 정책 (2026-10-23)
+
+`AGENTS.md`의 컴포넌트 주석 정책에 따라 export된 React 컴포넌트 선언 바로 위에 한 문장 JSDoc을 둔다. 설명은 `한국어 역할 설명 (English responsibility).` 형식이며, 컴포넌트의 목적과 필요한 경우 책임 경계를 알려준다. JSX나 명백한 props를 반복하지 않고, 헬퍼·데이터·타입에는 목적이나 제약이 이름만으로 불분명할 때만 주석을 추가한다.
+
+이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `Divider`에 역할 주석을 적용했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
+
+`InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
+
+## 라운드 배지 디자인 시스템 반영 (2026-10-23)
+
+Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
+
+프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.

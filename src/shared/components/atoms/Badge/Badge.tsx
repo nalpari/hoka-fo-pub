@@ -1,37 +1,51 @@
 import type { ComponentPropsWithoutRef } from 'react';
-import { cva } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 const badge = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent: 'center',
     w: 'fit-content',
-    px: '7px',
-    py: '5px',
-    fontSize: '12' /* 기존: 10px */,
-    fontWeight: 'bold',
-    lineHeight: 'hoka',
+    minH: '16px',
+    px: '8px',
+    py: '6px',
   },
   variants: {
-    tone: {
-      neutral: { bg: 'var(--color-black-100)', color: 'var(--color-text-inverse)' },
-      accent: { bg: 'var(--color-blue-100)', color: 'var(--color-text-inverse)' },
-      danger: { bg: 'var(--color-red-100)', color: 'var(--color-text-inverse)' },
-      subtle: { bg: 'var(--color-black-10)', color: 'var(--color-text-subtle)' },
+    variant: {
+      filled: { bg: 'black.20' },
+      line: { border: '1px solid var(--color-border-tertiary)' },
     },
-    shape: { square: {}, pill: { borderRadius: 'full' } },
+    shape: {
+      round: { borderRadius: 'full' },
+    },
   },
-  defaultVariants: { tone: 'neutral', shape: 'square' },
+  defaultVariants: { variant: 'filled', shape: 'round' },
 });
 
+const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14px!' });
+
 export type BadgeProps = ComponentPropsWithoutRef<'span'> & {
-  tone?: 'neutral' | 'accent' | 'danger' | 'subtle';
-  shape?: 'square' | 'pill';
+  variant?: 'filled' | 'line';
+  tone?: 'primary' | 'tertiary';
+  shape?: 'round';
 };
 
-/** Compact semantic label for status, counts, and product metadata. */
-export function Badge({ tone, shape, className, ...props }: BadgeProps) {
+/** 둥근 채움형·라인형 라벨을 표시합니다. (Displays rounded filled and outlined labels.) */
+export function Badge({
+  variant,
+  tone = 'primary',
+  shape = 'round',
+  className,
+  children,
+  ...props
+}: BadgeProps) {
   return (
-    <span {...props} className={[badge({ tone, shape }), className].filter(Boolean).join(' ')} />
+    <span {...props} className={[badge({ variant, shape }), className].filter(Boolean).join(' ')}>
+      <Typography as="span" variant="bodyKr5" tone={tone} className={badgeText}>
+        {children}
+      </Typography>
+    </span>
   );
 }

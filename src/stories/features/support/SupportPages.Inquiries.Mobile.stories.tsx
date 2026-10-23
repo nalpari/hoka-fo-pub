@@ -17,6 +17,11 @@ export const Pending: Story = { ...scenarios.InquiryPendingMobile375, name: 'Pen
 
 export const Answered: Story = { ...scenarios.InquiryAnsweredMobile375, name: 'Answered' };
 
+export const Attachments: Story = {
+  ...scenarios.InquiryAttachmentsMobile375,
+  name: 'Attachments',
+};
+
 export const AttachmentPreview: Story = {
   ...scenarios.InquiryAttachmentPreviewMobile375,
   name: 'Attachment preview',

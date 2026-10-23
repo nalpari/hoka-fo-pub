@@ -7,10 +7,10 @@ export type BadgeLaunchStatusProps = {
   status: LaunchStatus;
 };
 
-/** Product launch status badge with its matching label and tone. */
+/** 출시 상태와 어울리는 배지 라벨을 표시합니다. (Shows the label for a product launch status.) */
 export function BadgeLaunchStatus({ className, status }: BadgeLaunchStatusProps) {
   return (
-    <Badge className={className} tone={status === 'COMING' ? 'danger' : 'neutral'}>
+    <Badge className={className} variant={status === 'COMING' ? 'line' : 'filled'}>
       {status === 'COMING' ? 'COMING SOON' : 'IN STOCK'}
     </Badge>
   );

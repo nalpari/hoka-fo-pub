@@ -34,3 +34,17 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Code formatting rules
 
 - Separate consecutive top-level declarations and `export` statements with a blank line for readability. Do not place `const`, `const`, and `export` on immediately adjacent lines without blank-line separation.
+
+## Component comment policy
+
+- Add a concise JSDoc comment immediately above each exported React component declaration. Start with a Korean description followed by its English equivalent in parentheses: `한국어 설명 (English description).`
+- Describe the component's purpose and, when useful, its responsibility boundary or notable behavior. Do not repeat JSX, list obvious props, or promise behavior the implementation does not provide.
+- Keep comments to one sentence when possible. Add detail only when it explains a non-obvious contract that a caller or maintainer needs.
+- Add comments to helpers, data, and types only when their purpose or constraints are not clear from their names and usage.
+
+```tsx
+/** 문의 한 건의 질문과 답변을 표시합니다. (Displays one inquiry's question and answer.) */
+export function InquiryListItem() {
+  return null;
+}
+```

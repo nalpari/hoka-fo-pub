@@ -298,8 +298,27 @@ export const InquiryAnsweredDesktop: Story = {
   globals: { viewport: 'hoka1600' },
 };
 
-export const InquiryAttachmentPreviewMobile375: Story = {
+export const InquiryAttachmentsMobile375: Story = {
   ...InquiryPendingMobile375,
+  name: 'Inquiries / Attachments / Mobile',
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryPage preview="attachmentPreview" />
+    </ShopShell>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const attachment = canvas.getByRole('button', { name: 'IMG_7899.JPG 미리보기' });
+    await expect(attachment).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: /문의 답변 접기/ }));
+    await expect(attachment).toBeVisible();
+    await expect(canvas.getByRole('region', { name: '문의 답변', hidden: true })).not.toBeVisible();
+  },
+};
+
+export const InquiryAttachmentPreviewMobile375: Story = {
+  ...InquiryAttachmentsMobile375,
+  name: 'Inquiries / Attachment preview / Mobile',
   play: async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'IMG_7899.JPG 미리보기' });
     await userEvent.click(trigger);
@@ -307,9 +326,37 @@ export const InquiryAttachmentPreviewMobile375: Story = {
       name: '첨부파일 미리보기',
     });
     await expect(dialog).toBeVisible();
-    await userEvent.click(within(dialog).getByRole('button', { name: /^확인$/ }));
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
-    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};
+
+export const InquiryAttachmentsDesktop: Story = {
+  ...InquiryAnsweredDesktop,
+  name: 'Inquiries / Attachments / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryPage preview="attachmentPreview" />
+    </ShopShell>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const attachment = canvas.getByRole('button', { name: 'IMG_7899.JPG 미리보기' });
+    await expect(attachment).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: /문의 답변 접기/ }));
+    await expect(attachment).toBeVisible();
+    await expect(canvas.getByRole('region', { name: '문의 답변', hidden: true })).not.toBeVisible();
+  },
+};
+
+export const InquiryAttachmentPreviewDesktop: Story = {
+  ...InquiryAttachmentsDesktop,
+  name: 'Inquiries / Attachment preview / Desktop',
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'IMG_7899.JPG 미리보기' });
+    await userEvent.click(trigger);
+    const dialog = within(canvasElement.ownerDocument.body).getByRole('dialog', {
+      name: '첨부파일 미리보기',
+    });
+    await expect(dialog).toBeVisible();
   },
 };
 

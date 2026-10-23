@@ -32,7 +32,11 @@ export function AddressList({
                 <Typography as="h2" variant="heading6">
                   {address.name}
                 </Typography>
-                {address.isDefault ? <Badge tone="subtle">기본 배송지</Badge> : null}
+                {address.isDefault ? (
+                  <Badge shape="round" variant="filled" tone="tertiary">
+                    기본 배송지
+                  </Badge>
+                ) : null}
               </HStack>
               <Typography variant="body4" language="en" tone="tertiary">
                 {address.phone}

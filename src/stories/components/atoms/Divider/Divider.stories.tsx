@@ -18,5 +18,5 @@ export const Strong: Story = { args: { variant: 'strong' } };
 export const Heading: Story = { args: { variant: 'heading' } };
 
 export const Responsive: Story = {
-  args: { variant: 'heading', _mobile: { h: '1px', bg: 'black.20' } },
+  args: { variant: 'heading', mo: 'subtle' },
 };
