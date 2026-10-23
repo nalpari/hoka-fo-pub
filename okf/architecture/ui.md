@@ -6,9 +6,22 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T23:57:11.239Z'
+  at: '2026-10-23T00:26:14.938Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - public/images/products/clifton-11-gtx/feature-upper.png
+  - public/images/products/clifton-11-gtx/feature-detail.png
+  - public/images/products/clifton-11-gtx/feature-cushioning.png
+  - src/shared/features/product/ProductDetailDesktopGallery.tsx
+  - src/shared/features/product/ProductDetailGrid.tsx
+  - src/shared/features/product/ProductDetailHeaderActions.tsx
+  - src/shared/features/product/ProductDetailMedia.tsx
+  - src/shared/features/product/ProductDetailPage.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductTechSpecs.tsx
+  - src/shared/features/product/ProductDetailEditorial.tsx
+  - src/shared/features/product/ProductDetailSections.tsx
   - src/shared/components/layouts/ContentLayout/ContentLayout.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
@@ -2600,3 +2613,23 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 PC 상품 목록 Quick 패널은 카드에서 양옆으로 16px 확장되지만 ContentLayout의 고정 제목 배경은 콘텐츠 폭에만 적용되어, 스크롤 시 오른쪽 확장 영역이 제목 옆으로 드러났다. stickyHeaderStyle에 동일한 흰 배경의 before 레이어를 좌우 16px 확장해 추가했다. 제목의 실제 크기·배치·ResizeObserver 측정값과 필터의 sticky offset은 유지하고, 모바일에서는 이 레이어를 숨긴다. Quick 패널 자체의 크기와 hover·키보드 포커스 동작은 유지한다. 출처는 작업 트리의 ContentLayout.tsx와 ProductCardPreview.tsx의 top/left/right -16px 정의다.
 
 2026-10-23 Codex가 1200px Storybook에서 오른쪽 열 Quick을 키보드 포커스로 열고 scrollY 276 상태를 재현했다. 수정 전 고정 제목 오른쪽 8px 지점의 hit 대상이 Quick section임을 확인했고, 수정 후 같은 위치를 고정 제목이 덮는 것을 확인했다. Quick의 오른쪽 16px 확장과 고정 제목의 sticky 동작은 유지된다.
+
+
+## 상품 상세 WEB 시안 갱신 (2026-10-23)
+
+- 사용자가 제공한 WEB 상세 스크린샷과 Figma 링크(node 3352:2628)를 참고했다. Figma 연결 재인증이 필요해 사용자의 지시에 따라 스크린샷으로 구현했으며, Figma 치수·에셋을 직접 확인한 것으로 기록하지 않는다.
+- WEB 갤러리는 2열·16px 간격이며, 좌측 미디어와 우측 구매 패널은 1016:480 비율과 32px 간격을 사용한다. 구매 패널의 고정 기준은 헤더 높이 + 32px이다. 낮은 WEB 창에서도 구매 버튼을 마우스로 누를 수 있도록 패널 최대 높이를 뷰포트 - 헤더 - 48px로 제한하고 내부 세로 스크롤을 허용한다. 모바일에는 높이 제한이나 내부 스크롤을 적용하지 않는다.
+- 갤러리 아래에 상품 정보·리뷰·상품 문의 앵커, Tech Specs, Why you’ll love it, 상세 이미지/IMC 영역, 크리마 리뷰 영역, 기존 문의 게시판 및 고시·배송·반품 아코디언을 배치한다. 리뷰 버튼은 WEB에서 실제 리뷰 영역으로 이동하며 헤더 높이만큼 스크롤 여백을 둔다.
+- Clifton의 312g·43/38mm (5mm) 표시는 첨부 시안의 퍼블리싱 샘플이며, 다른 상품에 동일 수치를 표시하지 않는다. 문의 게시판의 기존 목 데이터·비밀글 처리·문의하기 경로는 유지한다. 크리마 및 IMC는 시안의 자리 표시 영역이며 외부 서비스 연동을 구현한 것은 아니다.
+- 추천 상품 아래 WEB에만 다른 고객이 함께 본 상품 캐러셀을 추가했다. 두 목록은 기존 추천 목 데이터를 사용한다. 모바일 갤러리·지원 아코디언·하단 고정 구매 액션은 유지한다.
+- 사용자가 export한 feature-upper.png, feature-detail.png, feature-cushioning.png를 public/images/products/clifton-11-gtx/에서 연결했다. 세 파일 모두 328×411px이며 원본 비율로 표시하고 lazy loading을 적용한다. 누락 파일용 임시 빈 박스와 오류 상태 처리는 원본 추가 후 제거했다.
+- 검증: 변경 TSX ESLint, TypeScript 검사, Storybook 빌드 통과. 브라우저에서 1600px WEB의 980px/463px 열과 1200px WEB의 703px/340px 열, 갤러리 8장 로딩·16px 간격, 리뷰 앵커의 헤더 회피, 사이즈 미선택 오류, 사이즈 선택 후 장바구니 수량 반영, 이미지 확대 Escape 닫기와 원래 버튼 포커스 복원을 확인했다. 모바일 375px에서는 WEB 전용 정보 영역과 두 번째 추천 목록이 노출되지 않음을 확인했다. 세 feature 사진의 실물과 파일명별 사용 위치를 확인했다. 최종 브라우저에서 세 장 모두 328×411px 원본으로 정상 로딩되고 같은 높이·원본 비율로 렌더링됨을 확인했다.
+
+
+## 상품 상세 WEB ScrollSpy (2026-10-23)
+
+ProductDetailSections의 상품 정보·리뷰·상품 문의 탐색은 WEB 전용 ScrollSpy다. 탐색 바를 정보 영역 전체를 포함하는 부모의 직접 자식으로 두어, 갤러리 뒤에서 헤더 바로 아래에 고정되고 정보 영역 끝에서 고정이 해제된다. 현재 구간은 각 제목이 탐색 바 하단 + 24px 경계를 지난 순서로 결정한다. 클릭 시에만 활성 상태를 바꾸던 처리를 제거해 일반 스크롤·역방향 스크롤·리뷰 바로가기 이동도 같은 기준으로 반영한다. aria-current="location"으로 현재 링크를 표시한다.
+
+탐색 바 높이는 ResizeObserver로 측정하고 CSS 변수로 전달한다. 각 앵커는 헤더 + 탐색 바 + 24px만큼 scroll-margin-top을 확보한다. passive scroll 이벤트를 requestAnimationFrame으로 모아 프레임당 최대 한 번 위치를 읽고, 창 크기 변경과 이미지 로딩에 따른 영역 높이 변화에도 갱신한다. observer·이벤트·대기 프레임은 해제한다. 모바일에는 이 컴포넌트가 마운트되지 않는다.
+
+검증: ESLint·Prettier·TypeScript 검사 통과. 브라우저에서 리뷰/문의 앵커 클릭 시 nav top 88px, nav bottom 약 152.8px, 대상 top 약 177px을 확인했다. 클릭 없이 PageUp 및 방향키로 스크롤할 때 상품 정보→리뷰→상품 문의로 활성 표시가 바뀌고, 위로 스크롤하면 상품 문의→리뷰로 복귀하며 헤더 바로 아래 고정이 유지됨을 확인했다. 출처는 작업 트리의 src/shared/features/product/ProductDetailSections.tsx다.

@@ -78,6 +78,9 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
       footer={
         <>
           <ProductDetailRecommend products={recommendations} />
+          {platform === 'web' && (
+            <ProductDetailRecommend products={recommendations} title="다른 고객이 함께 본 상품" />
+          )}
           {platform === 'mobile' && (
             <ProductPurchaseActions
               onAddToCart={() => submit(false)}
@@ -91,6 +94,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
       <ProductDetailMedia
         key={`${product.id}-${color}`}
         images={gallery}
+        product={product}
         productName={product.name}
         onOpenImage={(index) => {
           viewerOrigin.current = {

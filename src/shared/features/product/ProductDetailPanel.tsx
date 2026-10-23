@@ -39,10 +39,14 @@ export function ProductDetailPanel({
     <Box
       as="article"
       pos="sticky"
-      top="104px"
+      top="calc(var(--layout-site-header-height) + 32px)"
       alignSelf="start"
+      maxH="calc(100dvh - var(--layout-site-header-height) - 48px)"
+      overflowY="auto"
+      overscrollBehavior="contain"
+      scrollbarWidth="thin"
       px="0"
-      _mobile={{ position: 'static', px: '4', pt: '6' }}
+      _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '6' }}
     >
       <Stack gap="8" _mobile={{ gap: '6' }}>
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />

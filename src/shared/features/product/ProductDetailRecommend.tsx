@@ -16,9 +16,13 @@ const styles = {
 
 type ProductDetailRecommendProps = {
   products: Product[];
+  title?: string;
 };
 
-export function ProductDetailRecommend({ products }: ProductDetailRecommendProps) {
+export function ProductDetailRecommend({
+  products,
+  title = '추천 상품',
+}: ProductDetailRecommendProps) {
   const platform = usePlatform();
   const isWeb = platform === 'web';
 
@@ -33,7 +37,7 @@ export function ProductDetailRecommend({ products }: ProductDetailRecommendProps
         mobileRail="bleed"
         slideClassName={isWeb ? undefined : styles.mobileSlide}
         spacing="compact"
-        title="추천 상품"
+        title={title}
         titleVariant="heading6"
       >
         {products.map((product) => (
