@@ -95,6 +95,11 @@ export const LineMobile: Story = {
   render: () => <InteractiveLineTabs />,
 };
 
+export const CategoryNavigationMobile: Story = {
+  ...LineMobile,
+  render: () => <InteractiveFilterTabs variant="categoryNavigation" />,
+};
+
 export const OutlineMobile: Story = {
   ...LineMobile,
   render: () => <InteractiveLineTabs variant="outline" />,

@@ -6,9 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T04:11:07Z'
+  at: '2026-10-23T04:39:27Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/lib/useScrollPin.ts
+  - src/shared/features/catalog/product-listing/MobileProductNavigation.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
+  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
+  - src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx
   - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
   - public/images/icon/lock-keyhole.svg
   - src/shared/features/product/ProductInformation.tsx
@@ -851,6 +859,22 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
+
+재사용 후속 점검에 따라 MobileProductNavigation의 Flex alignItems="center"를 HStack as="nav"로 변경했다. 고정 전/후 gap 0/12px을 명시해 HStack의 기본 8px gap이 적용되지 않도록 하고 36px 높이·좌우 16px 패딩·ARIA·고정 상태와 필터 아이콘 조건을 유지한다. SiteHeaderFrame과 useScrollPin은 기존 책임 분리를 유지한다. 이 변경은 Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드를 통과했고, 모바일 브라우저에서 NAV·flex/row·center 정렬·36px 높이·일반 상태 gap 0을 실측했다.
+
+사용자 브라우저 주석에 따라 모바일 /products는 제목·현재 위치를 일반 흐름에 두고 GNB와 활동 탭/필터 아이콘만 스크롤 시 고정한다. AppLayout이 이 경로에서만 SiteHeader.fixedOnScroll을 사용한다. SiteHeaderFrame은 홍보 배너 아래의 원래 자리를 지나면 position:fixed·top:0으로 전환하고 52px 공간을 보존한다. 다른 경로와 PC의 sticky 프레임은 기존 DOM을 유지한다.
+
+MobileProductNavigation은 상품 목록 feature 내부에서 MobileCategoryTabs와 공통 IconButton을 조합한다. 고정 전에는 제목 옆의 기존 필터 버튼과 36px 탭 행을 유지하고 별도 아이콘을 표시하지 않는다. 탐색 행의 원래 위치가 헤더 아래에 닿으면 position:fixed·top:var(--layout-site-header-height)로 전환하며 오른쪽에 상품 필터 열기 아이콘과 하단 선을 표시한다. 제목 옆 버튼은 제목과 함께 스크롤된다. 36px 자리 공간을 유지해 상품 그리드가 튀지 않고 좁은 폭에서는 탭만 가로 스크롤되며 고정된 필터 아이콘은 계속 보인다. 검색 결과의 기존 필터 버튼·레이아웃은 유지한다.
+
+useScrollPin은 두 프레임이 공유하는 위치 임계점 판정이다. 1px 마커의 scroll-margin-top을 고정 기준으로 읽는다. 초기 배치와 IntersectionObserver 알림에 더해 passive capture scroll·resize 이벤트에서도 requestAnimationFrame으로 현재 마커 위치를 측정한다. 임베디드 프리뷰의 외부 클리핑 때문에 교차 상태가 바뀌지 않아도 최상단 복귀를 감지한다. 프레임당 측정은 한 번으로 묶고 고정 여부가 바뀔 때만 React 상태를 갱신한다. 정리 시 observer·이벤트 리스너·예약 프레임을 해제한다.
+
+최상단 복귀 후 활동 탭이 사라지는 사용자 보고를 768px Storybook에서 확인했다. scrollY=0·마커 top=220.1875px인데 탐색이 fixed·top=52px로 남아 있었다. 위 보정 후 두 차례 하향/상향 스크롤에서 fixed(top=52px)→최상단 relative(top=220.1875px) 복귀와 고정 필터 아이콘 제거를 확인했다. 변경 훅 ESLint·Prettier·타입 검사를 통과했다. 이 후속 보정의 검증에는 전체 빌드를 포함하지 않는다. 출처는 사용자 브라우저 주석과 작업 트리 src/shared/lib/useScrollPin.ts다.
+
+사용자 제공 글자 규격에 따라 모바일 FilterTabs.categoryNavigation은 기존 Typography.bodyKr4를 사용한다. 미선택 글자는 Pretendard·14px·400·1.3 줄높이(18.2px)·-0.02em(-0.28px)·subtle(#4D4D4D)이다. 선택 항목은 검정·600을 유지하며 기존 흰색 selected 라벨 recipe를 사용하지 않아 전체보기의 글자가 사라지는 문제를 해결한다. 다른 variant의 선택 색상은 유지하고 CategoryNavigationMobile 스토리를 추가했다.
+
+Codex가 기존 375px·768px 상품 목록 스토리에서 GNB top:0·활동 탐색 top:52px의 fixed 배치, 제목의 화면 밖 스크롤, 가로 넘침 없음, 375px 필터 열기/닫기와 768px 전체 메뉴 열기/닫기를 확인했다. 초기에는 홍보 배너 50px 아래 GNB와 제목·탭이 일반 흐름으로 배치된다. 최종 소스에서 고정 전 제목 옆 필터·탭 행 아이콘 0개, 고정 후 36px 행·아이콘 1개, 상단 복귀 후 relative·아이콘 0개 전환을 확인했다. 브라우저에서 미선택 글자의 위 폰트·색상·줄높이·자간과 선택 전체보기 검정·600을 실측하고 새 스토리에서 선택 항목을 바꿀 때 검정/600과 회색/400이 전환됨을 확인했다. Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 주석·첨부 글자 규격, working_tree_sources의 상품 목록·SiteHeader·FilterTabs 코드다.
 
 ## Storybook 문의 스토리 중복 선언 복구 (2026-10-23)
 
