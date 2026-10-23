@@ -13,7 +13,15 @@ const stickyHeaderStyle = css({
   bg: 'var(--hoka-white)',
   pt: '6',
   pb: '5',
-  _mobile: { position: 'static', pt: 0 },
+  _before: {
+    content: '""',
+    position: 'absolute',
+    insetBlock: '0',
+    insetInline: '-16px',
+    zIndex: -1,
+    bg: 'var(--hoka-white)',
+  },
+  _mobile: { position: 'static', pt: 0, _before: { display: 'none' } },
 });
 
 type ContentLayoutProps = {

@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T02:10:19.574Z'
+  at: '2026-10-22T23:57:11.239Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/components/layouts/ContentLayout/ContentLayout.tsx
   - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
   - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
   - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
@@ -2593,3 +2594,9 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
 
 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
+
+## 상품 목록 고정 제목과 Quick 패널 겹침 (2026-10-23)
+
+PC 상품 목록 Quick 패널은 카드에서 양옆으로 16px 확장되지만 ContentLayout의 고정 제목 배경은 콘텐츠 폭에만 적용되어, 스크롤 시 오른쪽 확장 영역이 제목 옆으로 드러났다. stickyHeaderStyle에 동일한 흰 배경의 before 레이어를 좌우 16px 확장해 추가했다. 제목의 실제 크기·배치·ResizeObserver 측정값과 필터의 sticky offset은 유지하고, 모바일에서는 이 레이어를 숨긴다. Quick 패널 자체의 크기와 hover·키보드 포커스 동작은 유지한다. 출처는 작업 트리의 ContentLayout.tsx와 ProductCardPreview.tsx의 top/left/right -16px 정의다.
+
+2026-10-23 Codex가 1200px Storybook에서 오른쪽 열 Quick을 키보드 포커스로 열고 scrollY 276 상태를 재현했다. 수정 전 고정 제목 오른쪽 8px 지점의 hit 대상이 Quick section임을 확인했고, 수정 후 같은 위치를 고정 제목이 덮는 것을 확인했다. Quick의 오른쪽 16px 확장과 고정 제목의 sticky 동작은 유지된다.
