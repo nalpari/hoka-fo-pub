@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T01:09:03Z'
+  at: '2026-10-23T01:48:15.164Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/stories/components/atoms/DescriptionList/DescriptionList.stories.tsx
   - src/shared/features/product/ProductSpecificationHelp.tsx
   - src/stories/features/product/ProductTechSpecs.stories.tsx
   - src/shared/features/product/productDetailPresentation.ts
@@ -2669,3 +2670,9 @@ src/stories/features/product/ProductTechSpecs.stories.tsx의 FEATURES/Product/Te
 출처는 사용자 첨부 이미지와 브라우저 코멘트, working_tree_sources의 ProductSpecificationHelp.tsx·ProductDetailSpecificationList.tsx·ProductTechnicalScale.tsx·ProductDetailSupportSections.tsx·productDetailPresentation.ts·ProductTechSpecs.stories.tsx다. 2026-10-23 Codex가 ESLint·Prettier·TypeScript·Panda 생성, 기존 상품 상세 테스트 3개, Next.js 프로덕션 빌드를 통과했다. Storybook 빌드도 통과했으며 Base UI 모듈의 use client 번들 경고가 남는다. 브라우저에서 1200px 상품 상세의 세 안내 아이콘, 각 설명의 키보드 포커스 열림과 Escape 닫기, 별도 스토리의 남녀 값·세로 구분선과 쿠셔닝 말풍선을 확인했다.
 
 추가 요청에 따라 안정성·반발력에도 동일한 안내 아이콘과 Tooltip을 연결하고 문구는 두 항목 모두 `나중에 추가 예정`으로 지정했다. Codex가 남녀 무게 스토리에서 각 버튼에 키보드 포커스를 옮겨 해당 문구가 열리는 것을 확인했으며 ESLint·Prettier·기존 데이터 테스트 3개가 통과했다. 이후 변경은 안내 데이터 두 항목의 문자열 추가이며 전체 빌드는 그 직전 구현까지 검증했다.
+
+## DescriptionList 스타일 슬롯과 상품 고시 재사용 (2026-10-23)
+
+DescriptionList는 slotStyles.root/row/term/description에 Panda SystemStyleObject를 받고 기본 스타일과 css 호출 전에 합친다. 기존 className과 labelWidth 계약을 유지하고 termProps·descriptionProps는 Typography의 variant/web/mo/tone/weight를 설정한다. 스타일 슬롯은 레이아웃과 표현을, 텍스트 props는 타입 스케일과 톤을 담당한다. 소비처는 css.raw로 스타일 객체를 준비해 Panda의 정적 추출을 유지한다. 기본값은 기존 grid·10px/16px 간격·display:contents 행·heading9 용어·body4/tertiary 값이다.
+
+Default·StyledRows·MobileStyledRows 스토리로 기존 기본 스타일과 행별 스타일 슬롯을 제공한다. 타입·린트·Next.js·Storybook 빌드를 통과했고 브라우저에서 기본 간격·글자 스타일과 375px 모바일 가로 넘침 없음을 확인했다. 출처는 작업 트리의 DescriptionList.tsx와 DescriptionList.stories.tsx이다.
