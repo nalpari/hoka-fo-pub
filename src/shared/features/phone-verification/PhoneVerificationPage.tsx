@@ -131,7 +131,7 @@ export function PhoneVerificationPage({ mode = 'signup' }: { mode?: 'signup' | '
         title={mode === 'account-unlock' ? '계정 잠금 해제' : '휴대폰 인증'}
         description={
           mode === 'account-unlock'
-            ? '해킹, 계정 탈취 시도 등의 보안 이슈로 계정이 잠겼습니다. 계속 이용하시려면 본인 인증을 통해 계정 잠금을 해제해 주세요.'
+            ? '해킹, 계정탈취 시도 등의 보안이슈로 인하여 계정이잠금 처리되었습니다. 계속 이용 하시려면 본인인증을 통하여 계정잠금을 해제해 주세요.'
             : undefined
         }
         information={information}

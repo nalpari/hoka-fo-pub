@@ -12,12 +12,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Default, name: 'Default' };
-
-export const ConfirmNavigation: Story = {
-  ...scenarios.ConfirmNavigation,
-  name: '확인 후 이동',
-};
-
-export const CloseNavigation: Story = { ...scenarios.CloseNavigation, name: '닫기 후 이동' };
-
-export const EscapeNavigation: Story = { ...scenarios.EscapeNavigation, name: 'Escape로 닫기' };
+1

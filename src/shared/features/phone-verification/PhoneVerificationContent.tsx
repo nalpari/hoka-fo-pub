@@ -1,5 +1,5 @@
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
-import { Box } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
 import { PhoneVerificationDialogs } from './PhoneVerificationDialogs';
@@ -19,21 +19,22 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       contentWidth="500px"
       dialogs={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
     >
-      <PhoneVerificationAgreements
-        agreements={props.agreements}
-        showAgreementErrors={props.showAgreementErrors}
-        onAllAgree={props.onAllAgree}
-        onAgreementChange={props.onAgreementChange}
-        onDetail={props.onDetail}
-      />
-      <ContentSection
-        mt="6"
-        gap="6"
-        title="인증 정보"
-        headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
-      >
-        <PhoneVerificationForm {...props} />
-      </ContentSection>
+      <Stack gap="6">
+        <PhoneVerificationAgreements
+          agreements={props.agreements}
+          showAgreementErrors={props.showAgreementErrors}
+          onAllAgree={props.onAllAgree}
+          onAgreementChange={props.onAgreementChange}
+          onDetail={props.onDetail}
+        />
+        <ContentSection
+          gap="6"
+          title="인증 정보"
+          headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
+        >
+          <PhoneVerificationForm {...props} />
+        </ContentSection>
+      </Stack>
       <Box mt="4">
         <Typography as="p" variant="body4" tone="tertiary">
           * 인증문의 (주)KCB고객센터 02-708-1000

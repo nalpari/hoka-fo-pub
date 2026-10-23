@@ -29,27 +29,27 @@ export const AttachmentPreview: Story = {
 
 export const New: Story = { ...scenarios.InquiryNewDesktop, name: '문의 작성' };
 
-export const RequiredErrors: Story = {
+export const NewRequiredErrors: Story = {
   ...scenarios.InquiryNewRequiredErrorsDesktop,
-  name: '필수 항목 오류',
+  name: '문의 작성 / 필수 항목 오류',
 };
 
-export const AllValidationErrors: Story = {
+export const NewAllValidationErrors: Story = {
   ...scenarios.InquiryNewAllValidationErrorsDesktop,
-  name: '전체 입력 오류',
+  name: '문의 작성 / 전체 오류',
 };
 
-export const AttachmentInvalidType: Story = {
+export const NewAttachmentInvalidType: Story = {
   ...scenarios.InquiryAttachmentInvalidTypeDesktop,
-  name: '첨부파일 형식 오류',
+  name: '문의 작성 / 첨부 형식 오류',
 };
 
-export const AttachmentTooLarge: Story = {
+export const NewAttachmentTooLarge: Story = {
   ...scenarios.InquiryAttachmentTooLargeDesktop,
-  name: '첨부파일 용량 오류',
+  name: '문의 작성 / 첨부 용량 초과',
 };
 
-export const AttachmentCountExceeded: Story = {
+export const NewAttachmentCountExceeded: Story = {
   ...scenarios.InquiryAttachmentCountExceededDesktop,
-  name: '첨부파일 개수 오류',
+  name: '문의 작성 / 첨부 개수 초과',
 };

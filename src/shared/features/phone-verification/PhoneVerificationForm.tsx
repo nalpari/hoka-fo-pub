@@ -1,4 +1,4 @@
-import { Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { PhoneInformationFields } from './PhoneInformationFields';
@@ -33,14 +33,16 @@ export function PhoneVerificationForm(props: Props) {
           onInformationChange={props.onInformationChange}
           onDetail={props.onDetail}
         />
-        <Button
-          variant="primary"
-          fullWidth
-          disabled={props.requested && props.resendWait > 0}
-          onClick={props.onRequest}
-        >
-          {props.requested ? '인증번호 재요청' : '인증번호 요청'}
-        </Button>
+        <Box pt="2">
+          <Button
+            variant="primary"
+            fullWidth
+            disabled={props.requested && props.resendWait > 0}
+            onClick={props.onRequest}
+          >
+            {props.requested ? '인증번호 재요청' : '인증번호 요청'}
+          </Button>
+        </Box>
         {props.requested ? (
           <VerificationCodeFields
             code={props.code}

@@ -727,6 +727,10 @@ working_tree_sources:
   - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
   - src/shared/components/organisms/Search/SearchDialog.tsx
   - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
+  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
+  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
+  - src/shared/features/phone-verification/phone-verification.types.ts
   - src/shared/features/catalog/product-listing/DesktopProductFilter.tsx
   - src/shared/features/catalog/ProductListingResults.tsx
   - src/shared/features/find-account/IdConfirmationModal.tsx
@@ -796,6 +800,7 @@ working_tree_sources:
   - src/shared/features/product/ProductDetailHeaderMeta.tsx
   - src/shared/features/signup-terms/SignupTermsDetail.tsx
   - src/shared/features/signup-terms/SignupTermsContent.tsx
+  - src/shared/features/signup-terms/SignupTermsPage.tsx
   - src/shared/features/signup-terms/PreviousTermsPicker.tsx
   - src/shared/features/mypage/RunningProfilePage.tsx
   - src/shared/features/run-club/RunClubSessionHero.tsx
@@ -810,6 +815,12 @@ working_tree_sources:
   - src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx
   - src/stories/features/account-locked/AccountLockedPage.stories.tsx
   - src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.scenarios.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
+  - src/stories/features/phone-verification/PhoneVerificationPage.mobile.stories.tsx
+  - src/stories/features/login/AccountUnlockVerification.stories.tsx
+  - src/stories/features/login/AccountUnlockVerification.mobile.stories.tsx
+  - src/stories/features/identity-verification/IdentityVerificationPage.scenarios.tsx
   - AGENTS.md
   - src/stories/features/mypage/MyPage.stories.tsx
   - src/shared/features/login/LoginContent.tsx
@@ -2188,7 +2199,7 @@ Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 �
 
 `AccountFormLayout`은 약관동의·휴대폰 인증·회원 정보/부가 정보의 제목과 설명 영역을 소유하며 main·중앙 폭 제한은 공통 `AccountPageLayout`에 위임한다. 공개 props는 `title`, 선택적 `description`, `contentWidth`(기본 420px, 인증 568px), `fillMobileViewport`, `children`, `dialogs`, `actions`, `actionsSpacing`다. 제목은 `Typography as="h1" web="heading7" mo="heading5"`로 통일하고 제목 영역과 첫 본문 사이를 웹 40px·모바일 32px로 둔다. 설명이 있으면 제목 아래 12px에 배치하며 설명까지 포함한 영역 다음에 공통 간격을 적용한다. 외곽 패딩과 약관동의만 사용하는 모바일 화면 최소 높이는 기존 값을 유지한다. dialogs는 중앙 폭 제한 밖 main 내부에 조합한다. 기존 SignupLayout·ContentLayout·다른 인증 화면은 변경하지 않았다.
 
-약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 분리용 DOM 래퍼를 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
+약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 회원가입 약관은 전체 동의·strong Divider·개별 약관 목록을 내부 Stack gap 16px로 한 그룹에 묶어 외부 제목 간격 40/32px가 항목 사이에 중복 적용되지 않게 한다. 등록 폼 필드의 분리용 DOM 래퍼는 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
 
 검증: Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 및 Storybook production build, 기존 폼·계정 복구·이메일 테스트 38개가 통과했다. Edge headless에서 Storybook 21개 상태/상호작용을 확인했다. 13개 레이아웃 상태는 웹/모바일 간격 40px/32px, 한국어 제목 28px/22px·굵기 900, 폭 제한 420px/568px, 단일 main/h1과 설명문 간격 12px를 검증했다. 나머지는 웹/모바일 약관 이전 버전 선택·닫기, 필수 인증 약관 오류·전체 동의, 회원 정보 비밀번호 검증과 이메일 중복확인·주소 모달 입력·부가 정보 전환이다. 기존 데스크톱 약관 스토리의 닫힌 상세 팝업 참조를 새 이전 약관 팝업을 기다리는 방식으로 수정한 뒤 재검증했다. 계정 잠금 해제 웹·부가 정보 모바일 스크린샷도 확인했다. Storybook의 기존 tertiary 텍스트 색 대비 경고와 의존성 use-client 번들 경고는 이번 구조 변경에서 수정하지 않았다. 출처는 frontmatter에 기록한 작업 트리 경로다.
 
@@ -2742,6 +2753,7 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
 `InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
+출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
 
 ## 라운드 배지 디자인 시스템 반영 (2026-10-23)
 
@@ -2757,7 +2769,7 @@ Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 �
 
 후속 수량 선택기 첨부에 따라 NumberStepper에 `variant="boxed"`를 추가했다. 122×36px 사각 테두리와 동일 폭 3열, 16px 수량, 둥근 끝의 SVG 증감 기호를 사용하며 비활성 버튼은 black.40이다. 기본 `plain` 타입과 기존 Base UI Number Field의 입력·범위·필드 설명 연결은 유지한다. CartOptionsContent와 공통 Boxed 스토리가 이 타입을 소비하며, 호출자의 자손 선택자나 충돌하는 atomic class로 모양을 덮어쓰지 않는다.
 
-출처는 위 작업 트리의 cart 기능, OrderProductSummary, OrderRecommendations, NumberStepper와 관련 스토리다. Panda 생성·변경 범위 ESLint·타입 검사와 Next/Storybook 빌드를 확인했다. Storybook 기본 출력의 정적 파일 복사 충돌은 별도 임시 출력 경로로 재시도하여 통과했다. 375px 화면에서 카드/고정 금액·전체 화면 옵션/스크롤을 확인했고, 브라우저에서 품절 행 선택 제외, 옵션 저장 후 선택 유지와 취소 복원, 수량 1→2→1 및 최소 수량에서 감소 비활성·122×36px 계산값을 확인했다. 전체 저장소 ESLint는 장시간 실행되어 중단하고 변경 범위를 검사했다. 상태 경계는 [품절 선택과 옵션 상태](state.md#모바일-장바구니-품절-선택과-옵션-상태-2026-10-23)를 참고한다.
+첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `PAGES/고객센터/3. 1:1문의/Mobile`·`WEB` 통합 스토리 모듈에 신규 문의의 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
 
 ## 장바구니 재사용 점검 후 적용 (2026-10-23)
 
@@ -2802,6 +2814,11 @@ ModalDialog의 `headerProps.css`와 `footerProps.css`는 SystemStyleObject만 �
 출처는 위 작업 트리의 공통 선택 UI·cart/PDP 어댑터와 네 스토리다. Panda 생성·변경 범위 ESLint와 Storybook 빌드를 통과했다. Next 빌드는 컴파일을 통과했으나 기존 ModalDialog.tsx:141 오버레이 타입 불일치로 타입 검사에서 중단됐다. 브라우저 검증 기록은 아래에 추가한다.
 
 브라우저에서 새 공통 스토리의 detail/cart 6개를 실행해 발볼 클릭·방향키 이동, 컬러 변경, 사이즈 선택과 품절/미제공 aria-disabled를 확인했고 오류 로그가 없었다. 기존 장바구니 옵션 저장·취소 스토리는 저장한 250 사이즈와 선택 2/4를 유지하고 취소 후 다이얼로그가 닫힘을 확인했다. 상세 사이즈 오류 메시지·aria-invalid와 사이즈 가이드 링크도 확인했다. 기본 루트와 기존 정적 Storybook을 기준으로 375px 장바구니 옵션의 33개 요소 위치·크기·fontSize·gap·gridTemplateColumns, 1600px 상세 컬러의 21개 요소 위치·크기·gap·objectFit가 변경 전후 정확히 일치했다. 모바일 옵션과 PC 컬러 스크린샷도 확인했다. 최종 Storybook 빌드·Prettier·변경 범위 ESLint·diff 공백 검사는 통과했으며 타입 검사의 기존 ModalDialog 오류는 그대로 남는다.
+`AGENTS.md`의 컴포넌트 주석 정책에 따라 export된 React 컴포넌트 선언 바로 위에 한 문장 JSDoc을 둔다. 설명은 `한국어 역할 설명 (English responsibility).` 형식이며, 컴포넌트의 목적과 필요한 경우 책임 경계를 알려준다. JSX나 명백한 props를 반복하지 않고, 헬퍼·데이터·타입에는 목적이나 제약이 이름만으로 불분명할 때만 주석을 추가한다.
+
+이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`, `SignupTermsContent`, `SignupTermsPage`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 회원가입 약관에서는 `SignupTermsContent`의 화면 조합 책임과 `SignupTermsPage`의 상태·이동 책임을 구분하고, 페이지에서 콘텐츠를 연결하는 위치에도 주석을 둔다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
+
+`InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
 
 ## 수량 선택기 사각형 기본 스타일 (2026-10-23)
 
@@ -2812,3 +2829,19 @@ NumberStepper는 122×36px 사각 테두리와 동일 너비의 감소·입력·
 ModalDialog의 headerProps/footerProps는 css 스타일을 전달하고 각 영역이 기존 기본 스타일과 합성한다. title·closeLabel·scrollFade와 children의 제어는 모달이 유지한다. 푸터가 있으면 Popup의 x/y overflow를 숨겨 본문만 스크롤한다. 실제 recipe가 지원하는 overlayTone은 dark/light이며 구현과 사용처가 없는 strong 타입 선언은 제외했다. MobileStyledSlots 스토리가 전체 화면의 흰 헤더·상하 구분선·안전 영역 하단 여백을 예시한다. 출처는 작업 트리의 ModalDialog와 Header/Footer 및 해당 스토리다.
 
 커밋 준비 시 plain/variant 제거와 모달 오버레이 타입 정리 후 타입 검사·변경 범위 ESLint·Panda 생성·Next 빌드·Storybook 빌드를 모두 통과했다. 앞선 오버레이 타입 오류 기록은 수정 전의 결과다.
+
+## 라운드 배지 디자인 시스템 반영 (2026-10-23)
+
+Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
+
+프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+
+## 계정 잠금 해제 인증 화면과 로그인 스토리 분류 (2026-10-23)
+
+Figma `957:29749`(Mobile)·`957:30226`(Desktop)의 계정 잠금 해제 인증 화면에 적용했던 약관 구성을 회원가입 휴대폰 인증에도 공유한다. 제목 아래 검은 1px 구분선과 16px 여백, 약관 행 사이 16px 간격, 약관 목록 뒤 옅은 구분선을 두며 구분선부터 인증 정보 제목까지 간격은 24px이다. 가입 화면 Figma `957:36467`(Mobile)·`957:36723`(Desktop)도 같은 규격을 사용한다. 제목은 웹·모바일 모두 16px semibold, 항목 및 자세히 보기 텍스트는 14px이며 기존 약관 선택·오류 상태를 유지한다. 잠금 해제 안내문은 시안 문구로 갱신했다.
+
+Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 해제 인증` → `7. 계정 잠금 해제 완료` 순으로 표시한다. 인증 사례는 회원가입 휴대폰 인증 목록에서 분리해 로그인 아래에 배치했다. 출처는 Figma의 계정 잠금 해제·가입 휴대폰 인증 웹/모바일 노드와 `PhoneVerificationPage`, `PhoneVerificationContent`, `PhoneVerificationAgreements`, 관련 Storybook 모듈이다. 타입 검사·변경 파일 ESLint·Panda 생성·Storybook production build를 통과했다.
+
+계정 잠금 안내 Storybook은 기본 Web·Mobile 화면만 노출한다. 확인·닫기·Escape별 탐색 확인 스토리는 제거했으며 페이지 동작 구현은 변경하지 않았다.
+
+`IdentityVerificationPage`의 Mobile Storybook 데코레이터는 `platform-mobile` CSS 클래스와 함께 `PlatformProvider platform="mobile"`도 설정한다. 이를 통해 `Typography`가 `mo` variant를 선택해 가입여부확인 제목의 모바일 heading 크기(22px)를 보여준다. Web 스토리 동작은 유지한다.
