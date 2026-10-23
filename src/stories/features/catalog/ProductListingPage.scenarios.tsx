@@ -11,7 +11,7 @@ type ProductListingStoryArgs = {
 };
 
 const meta = {
-  title: 'PAGES/PRODUCTS/List',
+  title: 'PAGES/상품/0. 상품목록',
   decorators: [
     (Story, context) => {
       const route =

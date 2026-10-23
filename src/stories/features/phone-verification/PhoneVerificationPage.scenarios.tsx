@@ -6,7 +6,7 @@ import { PhoneVerificationContent } from '@/shared/features/phone-verification/P
 import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
 
 const meta = {
-  title: 'PAGES/Signup/PhoneVerification',
+  title: 'PAGES/회원가입/2. 휴대폰 인증',
   component: PhoneVerificationContent,
   parameters: { layout: 'fullscreen' },
   args: {

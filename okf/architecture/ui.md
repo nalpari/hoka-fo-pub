@@ -6,9 +6,78 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-22T23:59:50Z'
-source_revision: 5e287fdf0a6523d8c0127afb3353bd802f702659
+  at: '2026-10-23T04:55:14Z'
+source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/lib/useScrollPin.ts
+  - src/shared/features/catalog/product-listing/MobileProductNavigation.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
+  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
+  - src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
+  - public/images/icon/lock-keyhole.svg
+  - src/shared/features/product/ProductInformation.tsx
+  - src/shared/features/product/ProductDetailContent.tsx
+  - src/shared/features/product/ProductInquiryLink.tsx
+  - src/shared/components/atoms/Checkbox/Checkbox.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardHeader.tsx
+  - src/shared/components/organisms/InquiryBoard/InquiryBoardContent.tsx
+  - src/shared/features/product/ProductDetailInquiryContent.tsx
+  - src/shared/features/product/productInquiries.ts
+  - src/stories/components/atoms/Checkbox/Checkbox.stories.tsx
+  - src/stories/components/organisms/InquiryBoard/InquiryBoard.stories.tsx
+  - src/stories/components/atoms/DescriptionList/DescriptionList.stories.tsx
+  - src/shared/features/product/ProductDetailNoticeTable.tsx
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
+  - src/shared/features/product/ProductSpecificationHelp.tsx
+  - src/stories/features/product/ProductTechSpecs.stories.tsx
+  - src/shared/features/product/productDetailPresentation.ts
+  - src/shared/features/product/ProductTechnicalScale.tsx
+  - src/shared/features/product/ProductTechnicalScaleBar.tsx
+  - src/shared/features/product/ProductDetailSupportSections.tsx
+  - src/shared/features/product/ProductDetailSpecificationList.tsx
+  - src/shared/features/product/ProductDetailScrollSpy.tsx
+  - src/shared/features/product/ProductDetailReviews.tsx
+  - src/shared/features/product/ProductDetailRecommendations.tsx
+  - src/shared/features/product/ProductDetailPlaceholder.tsx
+  - src/shared/features/product/ProductDetailNavigation.tsx
+  - src/shared/features/product/ProductDetailFooter.tsx
+  - public/images/products/clifton-11-gtx/feature-upper.png
+  - public/images/products/clifton-11-gtx/feature-detail.png
+  - public/images/products/clifton-11-gtx/feature-cushioning.png
+  - src/shared/features/product/ProductDetailDesktopGallery.tsx
+  - src/shared/features/product/ProductDetailGrid.tsx
+  - src/shared/features/product/ProductDetailHeaderActions.tsx
+  - src/shared/features/product/ProductDetailMedia.tsx
+  - src/shared/features/product/ProductDetailPage.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailRecommend.tsx
+  - src/shared/features/product/ProductTechSpecs.tsx
+  - src/shared/features/product/ProductDetailEditorial.tsx
+  - src/shared/features/product/ProductDetailSections.tsx
+  - src/shared/components/layouts/ContentLayout/ContentLayout.tsx
+  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
+  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
+  - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/features/home/HomeExploreSection.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/NotificationIcon/NotificationIcon.stories.tsx
+  - src/stories/components/molecules/MainContentCard/MainContentCard.stories.tsx
+  - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
+  - src/shared/components/atoms/NotificationIcon/NotificationIcon.tsx
+  - AGENTS.md
+  - .storybook/main.ts
+  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/stories/features/mypage/MyPage.Wishlist.Mobile.stories.tsx
+  - src/stories/features/catalog/SearchResults.WEB.stories.tsx
+  - .storybook/preview.ts
+  - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx
   - src/shared/features/notices/NoticesPage.tsx
   - src/shared/features/notices/NoticesList.tsx
   - src/shared/features/notices/NoticeDetailPage.tsx
@@ -766,18 +835,6 @@ working_tree_sources:
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
 sources:
-  - id: figma-inquiry-received-mobile
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92565&m=dev
-    title: 'Figma 1:1 문의 접수완료 모바일 (2026-10-22)'
-  - id: figma-inquiry-received-desktop
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92278&m=dev
-    title: 'Figma 1:1 문의 접수완료 PC (2026-10-22)'
-  - id: figma-inquiry-answered-mobile
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92605&m=dev
-    title: 'Figma 1:1 문의 답변완료 모바일 (2026-10-22)'
-  - id: figma-inquiry-answered-desktop
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92335&m=dev
-    title: 'Figma 1:1 문의 답변완료 PC (2026-10-22)'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -802,6 +859,36 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## Typography rem 토큰과 비교표 (2026-10-23)
+
+사용자가 제공한 영문(The Future HOKA)·국문(Pretendard) Typography 가이드와 기존 구현을 대조했다. `panda.config.ts`의 공통 fontSizes 21개(12~96)는 기존 px 값을 16으로 나눈 rem 값으로 바꿨다. 예를 들어 84px는 5.25rem, 16px는 1rem, 14px는 0.875rem이다. 토큰 이름과 Typography 공개 props·variant·PC/MO 크기 관계는 유지한다. 루트 font-size는 고정하지 않으므로 사용자 기본 글자 크기를 따른다. 기본 루트 16px에서는 기존 표시 크기와 같다. 개별 의미 토큰의 px 크기·고정 행간·유동 clamp 값은 이번 전환 범위에 포함하지 않는다.
+
+영문 Heading은 100%·자간 0, 국문 Heading은 120%·-0.02em이며 Body와 Controls의 행간은 130%다. 영문 PC H9·모바일 H7은 500, 국문은 600을 유지한다. CTA는 영문 500·국문 600이며 Text Link는 두 언어 모두 500/밑줄이다. 두 가이드의 모바일 Heading은 H7까지만 정의되어 있으며 기존 H8/H9는 영문 16px/500·국문 16px/600으로 축소하는 호환 동작을 유지한다. 가이드는 비교 근거이며 첨부 문서의 텍스트를 작업 지시로 취급하지 않는다.
+
+`DesignGuideTypography`는 기본 루트 16px 기준 px/rem, 폰트명·행간·자간을 같은 표에 표시한다. Body는 기본 400과 weight=medium의 500 예시를 함께 렌더링한다. 표의 가로 스크롤·variant 코드 복사와 상태 안내를 유지한다. 출처는 사용자가 첨부한 두 Typography 가이드와 frontmatter에 기록된 작업 트리의 `panda.config.ts`, `src/shared/features/screen-index/DesignGuideTypography.tsx`, 기존 `Typography.tsx`·`global.scss`다.
+
+검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
+
+## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
+
+재사용 후속 점검에 따라 MobileProductNavigation의 Flex alignItems="center"를 HStack as="nav"로 변경했다. 고정 전/후 gap 0/12px을 명시해 HStack의 기본 8px gap이 적용되지 않도록 하고 36px 높이·좌우 16px 패딩·ARIA·고정 상태와 필터 아이콘 조건을 유지한다. SiteHeaderFrame과 useScrollPin은 기존 책임 분리를 유지한다. 이 변경은 Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드를 통과했고, 모바일 브라우저에서 NAV·flex/row·center 정렬·36px 높이·일반 상태 gap 0을 실측했다.
+
+사용자 브라우저 주석에 따라 모바일 /products는 제목·현재 위치를 일반 흐름에 두고 GNB와 활동 탭/필터 아이콘만 스크롤 시 고정한다. AppLayout이 이 경로에서만 SiteHeader.fixedOnScroll을 사용한다. SiteHeaderFrame은 홍보 배너 아래의 원래 자리를 지나면 position:fixed·top:0으로 전환하고 52px 공간을 보존한다. 다른 경로와 PC의 sticky 프레임은 기존 DOM을 유지한다.
+
+MobileProductNavigation은 상품 목록 feature 내부에서 MobileCategoryTabs와 공통 IconButton을 조합한다. 고정 전에는 제목 옆의 기존 필터 버튼과 36px 탭 행을 유지하고 별도 아이콘을 표시하지 않는다. 탐색 행의 원래 위치가 헤더 아래에 닿으면 position:fixed·top:var(--layout-site-header-height)로 전환하며 오른쪽에 상품 필터 열기 아이콘과 하단 선을 표시한다. 제목 옆 버튼은 제목과 함께 스크롤된다. 36px 자리 공간을 유지해 상품 그리드가 튀지 않고 좁은 폭에서는 탭만 가로 스크롤되며 고정된 필터 아이콘은 계속 보인다. 검색 결과의 기존 필터 버튼·레이아웃은 유지한다.
+
+useScrollPin은 두 프레임이 공유하는 위치 임계점 판정이다. 1px 마커의 scroll-margin-top을 고정 기준으로 읽는다. 초기 배치와 IntersectionObserver 알림에 더해 passive capture scroll·resize 이벤트에서도 requestAnimationFrame으로 현재 마커 위치를 측정한다. 임베디드 프리뷰의 외부 클리핑 때문에 교차 상태가 바뀌지 않아도 최상단 복귀를 감지한다. 프레임당 측정은 한 번으로 묶고 고정 여부가 바뀔 때만 React 상태를 갱신한다. 정리 시 observer·이벤트 리스너·예약 프레임을 해제한다.
+
+최상단 복귀 후 활동 탭이 사라지는 사용자 보고를 768px Storybook에서 확인했다. scrollY=0·마커 top=220.1875px인데 탐색이 fixed·top=52px로 남아 있었다. 위 보정 후 두 차례 하향/상향 스크롤에서 fixed(top=52px)→최상단 relative(top=220.1875px) 복귀와 고정 필터 아이콘 제거를 확인했다. 변경 훅 ESLint·Prettier·타입 검사를 통과했다. 이 후속 보정의 검증에는 전체 빌드를 포함하지 않는다. 출처는 사용자 브라우저 주석과 작업 트리 src/shared/lib/useScrollPin.ts다.
+
+사용자 제공 글자 규격에 따라 모바일 FilterTabs.categoryNavigation은 기존 Typography.bodyKr4를 사용한다. 미선택 글자는 Pretendard·14px·400·1.3 줄높이(18.2px)·-0.02em(-0.28px)·subtle(#4D4D4D)이다. 선택 항목은 검정·600을 유지하며 기존 흰색 selected 라벨 recipe를 사용하지 않아 전체보기의 글자가 사라지는 문제를 해결한다. 다른 variant의 선택 색상은 유지하고 CategoryNavigationMobile 스토리를 추가했다.
+
+Codex가 기존 375px·768px 상품 목록 스토리에서 GNB top:0·활동 탐색 top:52px의 fixed 배치, 제목의 화면 밖 스크롤, 가로 넘침 없음, 375px 필터 열기/닫기와 768px 전체 메뉴 열기/닫기를 확인했다. 초기에는 홍보 배너 50px 아래 GNB와 제목·탭이 일반 흐름으로 배치된다. 최종 소스에서 고정 전 제목 옆 필터·탭 행 아이콘 0개, 고정 후 36px 행·아이콘 1개, 상단 복귀 후 relative·아이콘 0개 전환을 확인했다. 브라우저에서 미선택 글자의 위 폰트·색상·줄높이·자간과 선택 전체보기 검정·600을 실측하고 새 스토리에서 선택 항목을 바꿀 때 검정/600과 회색/400이 전환됨을 확인했다. Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 주석·첨부 글자 규격, working_tree_sources의 상품 목록·SiteHeader·FilterTabs 코드다.
+
+## Storybook 문의 스토리 중복 선언 복구 (2026-10-23)
+
+고객센터 문의 WEB 스토리에서 동일한 InquiryAnsweredDesktop 시나리오를 Answered 이름으로 두 번 export해 CSF 파싱이 실패했다. 서버의 루트 HTTP 응답은 200이어도 전체 스토리 인덱스가 생성되지 않아 사이드바 오류와 빈 프리뷰가 표시됐다. 중복된 영문 이름 선언을 제거하고 기존 답변 완료 스토리를 유지한다. Codex가 변경 파일 ESLint와 Prettier, /index.json의 707개 항목 및 해당 WEB 스토리 5개 복구를 확인했다. 브라우저 새로고침 후 사이드바와 답변 완료 스토리의 실제 렌더링, 별도 출력 경로의 Storybook 프로덕션 빌드도 확인했다. 출처는 작업 트리 SupportPages.Inquiries.Web.stories.tsx와 Storybook 오류 화면이다.
 
 ## 전체 소스 재사용 조사 적용 (2026-10-21)
 
@@ -1702,7 +1789,7 @@ Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField�
 | find-account          | 유지           | FindAccountPage/Content의 상태·표시 분리, 공용 이름 검증·인증 타이머, FormField/TextInput/StatusMessage와 ModalDialog 재사용. 인증번호 6자리·재요청·오류 표시 계약 유지                                                                                                                                                  |
 | identity-verification | 유지           | Page가 인증 방식 이동을, Content가 두 버튼과 안내 배치를 담당. Grid·Center·Stack과 Typography, 명시적 onSelect 계약이 충분해 1개 버튼을 새 공용 카드로 승격하지 않음                                                                                                                                                     |
 | home                  | 반영           | 기능 내부 `HomeLayout({ platform, children })`가 main의 overflow·배경·PC 하단 96px/모바일 72px와 섹션 간격 112px/72px를 소유. Page의 플랫폼 선택과 Hero→Category→BestSeller→Explore→ShoeFinder 순서 유지                                                                                                                 |
-| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 가입 방법 화면과 Mockup 단계의 레이아웃을 소유. 실제 `/signup`은 방법 선택만 표시하고 이메일은 `/signup/verify`로 이동, 카카오·네이버는 연결되지 않음을 안내한다. 이전 약관·정보 입력·가입 완료 화면은 `src/shared/Mockup/signup`과 Mockup Storybook에 보존한다.  |
+| signup                | 반영           | 기능 내부 `SignupLayout({ step, method, children })`가 가입 화면 레이아웃을 소유. 실제 `/signup`은 방법 선택만 표시하고 이메일은 `/signup/verify`로 이동, 카카오·네이버는 연결되지 않음을 안내한다. 구형 Signup Mockup 구현 4개와 전용 스토리는 2026-10-22 제거했으며 운영 회원가입 기능과 스토리를 유지한다.            |
 | product               | 반영           | 기능 내부 `ProductDetailLayout({ viewer, isViewing, children, footer })`가 ContentLayout·전체 너비 프레임과 최대 1532px 내부 그리드·PC 2fr/.85fr 그리드·모바일 block·hidden 영역을 소유. viewer는 hidden 영역 바깥, 추천과 모바일 구매 액션은 그리드 뒤. 색상별 갤러리 key·크기 초기화·초점/스크롤 복원 콜백은 Page 유지 |
 | signup-terms          | 반영           | 기능 내부 `SignupTermsDetail({ selected, previous, onClose, onPrevious })`가 기존 ModalDialog와 약관 본문·이전 약관 전환을 소유. Content는 약관 선택값과 목록·모달 조합, Page는 체크·이동 상태를 유지. 포털·모바일 fullscreen·스크롤 fade·닫기 계약 유지                                                                 |
 | mypage                | 반영·후속 후보 | RunningProfilePage h1을 `Typography profileTitle`로 이전. 답변 상태·진행률과 추천 버튼의 완료 조건 유지. MyPage 회원 요약/메뉴와 MyPageStatusPage의 상태별 본문은 기능 내부 `MemberSummary`, `StatusContent` 추출 후보이며 준비된 데이터·액션 props와 기존 링크·모달 상태·모바일 배치를 보존해야 함                      |
@@ -1836,11 +1923,39 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 `publishing` 병합 시 양쪽의 Typography 추가를 함께 유지했다. `selectionLabel`과 `navigationPromoTitle`, 러닝세션 전용 variant 및 대응 CSS 토큰을 보존한다. `MyPageStatusPage`는 개별 마이페이지 화면을 선택하는 현재 구조를 유지하고 옛 `event-entries` 종류·샘플 데이터는 제거했다. 실제 `/mypage/event-entries` 경로와 route story는 publishing의 `RunClubPage` 직접 연결을 유지한다. 메뉴·러닝세션 문서와 마이페이지 재사용 점검 기록은 함께 남긴다. 병합 결과에서 Panda 생성, 타입 검사, `.tmp*` 산출물을 제외한 lint, 앱·Storybook 빌드, `node --test tests/app-router.test.mjs`의 두 검사를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
+## IA 기준 한국어 페이지 Storybook (2026-10-22)
+
+사용자가 제공한 IA 시트 `FO` 탭의 메뉴명과 화면 구분을 참고해 기존 PAGES 스토리 185개를 한국어로 분류했다. 상위 순서는 메인 → 상품 → 탐색 → 장바구니 → 주문 → 마이페이지 → 고객센터 → 로그인 → 회원가입 → 공통이며, 화면별 번호 폴더 아래 WEB → Mobile 순서로 등록한다. 각 화면의 오류·빈 목록·상태·입력 흐름도 한국어로 표시하고 기본 사례 Default, 해상도 표기와 브랜드명은 유지한다.[^ia-google-sheet-20261022]
+
+- MEN·WOMEN·SHOES에서 공유하는 상품목록·상품상세는 상품 아래의 공통 화면으로 유지한다. 메뉴별 미구현 화면을 새로 만들거나 중복 등록하지 않는다.
+- 기존 마이페이지 RunClub 목록·상세는 IA의 EXPLORE에 대응하는 탐색 아래 러닝세션으로 옮겼다. Figma Screens에 섞여 있던 Mobile 화면은 관심상품·오늘 본 상품·재입고 알림 상품·상품리뷰·회원등급·쿠폰·회원정보확인 및 수정·배송지 관리로 분리했다. WEB 구현이 없는 화면에는 Mobile만 등록한다.
+- 로그인은 로그인·아이디 및 비밀번호 찾기·결과·재설정·계정 잠금 안내로, 회원가입은 가입 안내·가입여부확인·휴대폰 인증·약관동의·회원 정보 입력·마케팅 동의 안내로 분류한다. 하나의 기존 화면에서 처리하는 아이디·비밀번호 찾기는 합쳐 유지한다.
+- 검색결과는 상품목록에서 공통으로 옮기고, 404에러페이지·시스템점검페이지·기타에러페이지·국가 및 지역 선택을 공통에 둔다. 기존 시나리오·decorator·플랫폼 설정을 재사용한다.
+- 고객센터는 사용자가 앞서 지정한 0~9번 순서와 마일리지 보존을 우선한다. IA의 삭제 표시는 기존 스토리 삭제 지시로 취급하지 않는다. 공용 컴포넌트와 개발용 스토리의 분류는 유지한다.
+
+`IaStructurePage.tsx`의 미리보기 Storybook ID도 새 경로로 맞췄으며 IA 번호·화면 데이터·완료 상태는 변경하지 않았다. 소스는 작업 트리의 `.storybook/preview.ts`, `src/stories/features/`, `IaStructurePage.tsx`이다. 2026-10-22 Codex가 ESLint·타입 검사·Storybook production build를 통과했고, 빌드/개발 인덱스에서 185개 페이지 스토리 보존·비페이지 스토리 동일·IA 미리보기 링크 48개 해석을 확인했다. 브라우저에서 상위 한국어 분류와 번호 폴더 순서를 확인했다. 개발 서버가 파일 저장 중의 일시적 파싱 오류를 캐시한 경우 변경 완료 후 파일 감시 이벤트를 다시 발생시켜 인덱스를 갱신했다.
+
+## SUPPORT Storybook 탐색 구조 (2026-10-22)
+
+고객센터 스토리는 `PAGES/고객센터/번호. 이름/WEB` 또는 `/Mobile`에 등록한다. 폴더는 0. 고객센터 메인, 1. FAQs, 2. 공지사항, 3. 1:1문의, 4. 매장 찾기, 5. 온라인 회원 등급 안내, 6. 사이즈 가이드, 7. 배송 및 반품안내, 8. 세탁 및 손질 방법 안내, 9. 약관 순서이며, `.storybook/preview.ts`의 `storySort.order`가 각 폴더와 WEB → Mobile 순서를 고정한다.
+
+공지사항 Mobile에는 목록 Default와 상세를, 1:1문의의 각 플랫폼에는 기존 목록·상태와 문의 작성을 함께 둔다. 모바일 첨부파일 미리보기도 유지한다. 온라인 회원 등급 안내의 WEB·Mobile에는 회원 안내 Default와 마일리지를 함께 두며, Mobile 회원 안내는 기존 SupportExperiencePage를 재사용한다. 별도 NoticeDetail·InquiryNew·Mileage 스토리 등록 파일은 통합되어 제거했다. 앱 화면과 기능, 기존 play·viewport·navigation 경로는 유지한다. 상위 폴더 이름은 SUPPORT에서 고객센터로 변경했다. 제목 변경으로 Storybook ID와 링크는 변경된다.
+
+출처는 작업 트리의 `.storybook/preview.ts`와 `src/stories/features/support/`이다. 2026-10-22 Codex가 타입 검사와 Storybook production build, 빌드 인덱스의 10개 폴더·20개 플랫폼 그룹·30개 스토리 등록을 확인했다. 브라우저에서 10개 폴더의 번호순·WEB → Mobile 순서와 공지 상세, WEB·Mobile 문의 작성, WEB·Mobile 마일리지 및 새 회원 안내 Mobile 렌더링을 확인했다. 회원 안내·마일리지 본문은 기존의 디자인 작업 중 상태를 유지한다.
+
+## Mockup Storybook 제외 및 회원가입 정리 (2026-10-22)
+
+사용자 요청에 따라 AGENTS.md의 Storybook 정책에 Mockup 노출 금지와 안정화된 기능의 구형 Mockup 제거 원칙을 추가했다. `.storybook/main.ts`는 `src/stories/`에서 파일을 열거하고 상대 경로나 파일명에 `mockup`이 포함된 스토리를 대소문자 구분 없이 제외한다. 다른 경로에 Mockup 제목으로 우회 등록하는 것도 정책상 허용하지 않는다. 앞선 Mockup Storybook 보존 기록은 당시 이력이며 현재 등록 정책은 이 절을 따른다.
+
+참조를 확인한 결과 회원가입 Mockup은 운영 코드에서 사용하지 않았으므로 `src/shared/Mockup/signup/`의 SignupTermsStep·SignupTermsAgreements·SignupDetailsStep·SignupCompleteStep과 `src/stories/features/Mockup/signup/SignupSteps.stories.tsx`를 삭제했다. 운영 회원가입의 약관·정보 입력·완료 기능과 한국어 PAGES 스토리는 유지한다. 출처는 작업 트리의 AGENTS.md, .storybook/main.ts와 제거 전 다섯 파일의 import 참조 조사다.
+
+2026-10-22 Codex가 설정 ESLint·Prettier, 전체 타입 검사와 Storybook production build를 확인했다. 이전 빌드와 비교해 Mockup/Signup 사례 6개만 제거되고 나머지 스토리가 동일하며 페이지 스토리 185개가 유지됨을 확인했다. 개발 서버 index에서도 Mockup 미노출과 페이지 스토리 수를 확인했고 OKF 작업 트리 매핑과 diff 공백 검사를 통과했다.
+
 ## Storybook
 
 로그인 소셜 버튼의 카카오·네이버 표시는 등록된 공통 `Icon` 자산 `social/kakao`, `social/naver`를 18px로 사용한다. 버튼의 브랜드 색과 클릭 시 데모 안내는 `LoginActions`에 유지한다.
 
-`.storybook/main.ts`는 `src/stories/**/*.stories.@(ts|tsx)`만 탐색한다. 다른 폴더의 스토리는 이 패턴에 포함되지 않는다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
+`.storybook/main.ts`는 `src/stories/` 아래의 `*.stories.ts`·`*.stories.tsx` 파일만 탐색하고, 상대 경로나 파일명에 `mockup`이 포함된 파일은 대소문자 구분 없이 제외한다. `readdirSync`로 파일을 열거하고 경로 구분자를 정규화한 뒤 명시적 스토리 경로를 반환한다. `public/`을 정적 자산으로 제공하고 접근성·문서 애드온을 사용한다.
 
 모든 `*.stories.ts`·`*.stories.tsx`는 `src/stories/` 아래에 작성한다. 컴포넌트는 `components/`, 기능 화면은 `features/`에서 원본 계층을 따르고 기존 별칭으로 구현을 가져온다. `src/shared/`·`src/app/`에는 스토리를 함께 두지 않는다. 이 기본 규칙은 `AGENTS.md`에 명시하며 마이페이지 스토리도 `src/stories/features/mypage/MyPage.stories.tsx`로 옮겼다.
 
@@ -2515,6 +2630,48 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
 
+[^ia-google-sheet-20261022]: 사용자 제공 Google Sheets, Eland_211_IA_20260928_v0.20의 FO 탭. 2026-10-22 읽기 전용으로 A1:Q35, B36:L300 범위를 확인했다.
+
+## 모바일 메인 카드와 푸터 간격 보정 (2026-10-22)
+
+HomeExploreSection의 모바일 액션은 secondary에서 primary로 전환했다. MainContentCardAction은 primary를 허용하며 밝은 텍스트를 쓰는 이미지 위에서는 ButtonLink의 기존 colorway=white를 사용해 흰 배경·검정 글자·무테 버튼을 표시한다. 어두운 텍스트를 쓰는 경우 black을 사용하고 기존 secondary·link 액션 동작은 유지한다. OverlayPrimary 스토리에 해당 색상 사례를 추가했다.
+
+앞서 커밋된 overlay 설명의 최소 높이 해제와 HomeLayout의 모바일 하단 패딩 72px 지정은 각각 아래 기록에 남긴다. 이번 변경은 카드 버튼 스타일에 한정한다. 출처는 작업 트리의 MainContentCard.tsx, HomeExploreSection.tsx와 MainContentCard.stories.tsx이다. 이 작업 트리의 타입 검사·변경 파일 ESLint·Storybook 빌드를 통과했다. 이번 커밋 준비에서 브라우저 시각 검증은 수행하지 않았다.
+
+## 메인 카드 overlay 설명 최소 높이 해제 (2026-10-22)
+
+MainContentCard의 overlay 설명에 minH 0을 지정해 공통 설명 스타일의 최소 높이를 해제했다. 설명은 실제 내용 높이를 사용하며 기존 부모 gap과 다른 카드 variant의 최소 높이는 유지한다. 출처는 스테이징된 MainContentCard.tsx의 descriptionStyle이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 모바일 메인 하단 여백 72px 지정 (2026-10-22)
+
+HomeLayout의 모바일 하단 패딩을 18에서 명시적 72px로 변경했다. 마지막 메인 콘텐츠와 푸터 사이 여백은 HomeLayout이 소유하며 PC 하단 패딩은 유지한다. 출처는 스테이징된 HomeLayout.tsx의 _mobile.pb이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 헤더 장바구니 검정 가방 아이콘 지정 (2026-10-22)
+
+HeaderCartLink에서 NotificationIcon의 bag variant와 검정색을 명시했다. 기존 notification-bag.svg 자산을 사용하고 수량에 따른 아이콘의 파란색 자동 전환을 막는다. 장바구니 링크와 접근성 이름, PC 22px·모바일 20px 크기 및 수량 전달은 유지한다. 출처는 스테이징된 HeaderCartLink.tsx와 기존 NotificationIcon.tsx이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
+
+## 수량 배지 Circle 조합 (2026-10-22)
+
+NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. Circle은 span으로 렌더링하며 절대 위치(top -.3rem·right -4px)·size="12px"·좌우 패딩 2px·배경색·중앙 정렬·둥근 모서리를 담당한다. 내부 Typography는 notificationCount variant와 tone="inverse"로 숫자를 표시하며 전달받은 span 속성·aria-hidden·호출자 className을 유지한다. 흰색은 공통 text-inverse 토큰을 사용하고 notificationCount 클래스와 css import는 제거했다. 텍스트 정렬은 외부 Circle이 담당한다. 사용자 지정에 따라 Circle의 size="12px"로 너비와 높이를 함께 지정한다. 긴 수량에도 배지 외곽 크기는 12px로 유지한다. 출처는 작업 트리의 src/shared/components/atoms/NotificationIcon/NotificationCount.tsx와 생성된 styled-system/patterns/circle.mjs이다. 사용자 요청에 따라 단일 요소 조합을 중첩 구조로 수정했다. 이전 단일 요소 구조의 SSR·Storybook 결과는 이 중첩 구조의 검증 결과가 아니다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 수량 배지 Typography variant (2026-10-22)
+
+notificationCount variant는 수량 배지 숫자를 위한 공통 글자 스타일이다. global.scss의 --type-notification-count-font-size(8px)·--type-notification-count-font-weight(500)·--type-notification-count-line-height(16px)를 사용하며 플랫폼별 override 없이 PC·모바일에 동일하게 적용한다. NotificationCount가 body5 대신 이 variant를 사용하고 참고용 CSS 주석은 제거했다. Typography의 NotificationCount 스토리는 web·mobile PlatformProvider 아래에서 동일 variant를 렌더링한다. 출처는 작업 트리의 Typography.tsx, NotificationCount.tsx, global.scss와 Typography.stories.tsx이다. 타입 검사·변경 TSX ESLint·Prettier 정리·Panda 생성을 완료했다. 브라우저의 계산된 스타일은 검증하지 않았다.
+
+NotificationIcon의 BadgeCounts 스토리는 0·1·12·99·100 수량을 함께 제공한다. 0은 숨기고 100은 99+로 표시하는 기존 정책을 유지한다.
+
+## 모바일 푸터 사업자 정보 행 (2026-10-22)
+
+FooterLegalLinks의 대표이사·사업자 등록번호·사업자정보확인 행에만 모바일 예외를 적용했다. gap 0과 space-between, nowrap으로 불필요한 행간과 줄바꿈을 없애고, 너비는 100%·최대 343px(375px 기준 좌우 16px 안쪽)로 제한해 넓은 모바일에서도 항목이 전체 폭에 흩어지지 않도록 했다. 다른 정보 행의 gap 4와 PC의 기존 wrap·16px 간격은 유지한다. 호스팅 서비스 제공자 안내는 Typography as="p"·variant="body5"·tone="inverse"로 표현한다. 출처는 작업 트리의 FooterLegalLinks.tsx와 사용자가 첨부한 모바일 푸터 시안이다.
+
+2026-10-22 Codex가 Storybook 375px·768px 모바일에서 세 항목의 같은 top 좌표와 가로 넘침 없음을 확인했다. 넓은 모바일에서 행 너비가 343px로 제한되며 PC 1600px에서는 gap 16px·wrap·max-width none인 것을 확인했다.
+
+## 모바일 메뉴 포털의 타이포그래피 범위 (2026-10-22)
+
+MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 body 아래로 이동하는 포털 내부에도 Panda _mobile 조건이 적용되도록 했다. React PlatformContext는 포털에서 유지되지만 .platform-mobile 조상에 의존하는 CSS 범위는 별도로 연결해야 한다. 기존 MenuDrawerBackButton의 heading5 variant를 유지하며 Men·Women 등 뒤로가기 제목에 기본 42px 대신 모바일 22px를 적용한다. 공통 Typography 크기와 반응형 기준은 변경하지 않는다. 출처는 작업 트리의 MenuDrawerFrame.tsx, MenuDrawerBackButton.tsx, Typography.tsx와 panda.config.ts의 mobile 조건이다.
+
+2026-10-22 Codex가 기존 Men Storybook에서 수정 전 font-size 42px·모바일 조상 없음, 수정 후 22px·모바일 조상 존재를 확인했다. 제목 초기 포커스와 뒤로가기 후 Men 버튼 포커스 복원, 메뉴 닫기 후 dialog 제거도 브라우저에서 확인했다.
+
 ## 1:1 문의 빈 상태 시안 정밀 반영 (2026-10-22)
 
 `InquiryPage`의 PC·모바일 타이포그래피와 색을 Figma `1241:92230`·`1241:92543`에 맞췄다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 양쪽 body3(16px)이며 PC primary black·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px이고, 제목 아래 Divider는 PC 2px black.100·모바일 1px black.20이다.
@@ -2537,7 +2694,7 @@ Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 
 
 신청인 정보는 muted(`#f7f7f9`) 패널에 PC 좌우 32px·상하 24px, 모바일 좌우 16px·상하 20px 여백을 둔다. PC는 라벨·값 그룹 사이 88px, 행 간격 12px이며 모바일은 82px 라벨 열, 열 간격 8px·행 간격 12px이다. 라벨은 PC·모바일 body3(16px) regular subtle(`#4d4d4d`), 값은 PC body3(16px)·모바일 body4(14px) medium black이다. PC 라벨은 `E-mail`, 모바일은 `이메일`로 표기한다. 문의 유형과 상세 유형은 처음에 선택값 없이 각각 `문의 분류를 선택해주세요`, `상세 유형을 선택해주세요`를 보여준다. 두 필드는 필수로 유지하며, 등록 시 미선택이면 해당 Dropdown 아래에 항목별 오류 문구와 오류 테두리를 표시한다. Storybook에는 모바일·데스크톱 초기 상태, 필수 오류 상태와 필수 입력·첨부 오류가 함께 보이는 상태를 둔다.
 
-첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `InquiryNew/Mobile`·`InquiryNew/Web`의 별도 스토리 모듈에 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
+첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `PAGES/고객센터/3. 1:1문의/Mobile`·`WEB` 통합 스토리 모듈에 신규 문의의 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
 
 출처는 작업 트리의 `InquiryNewPage`, `InquiryAttachments`, `InquiryAttachmentHelp`와 Figma 노드 `1241:92705`, `1241:92753`, 오류 기획 노드 `1241:92895`, `1241:92822`이다.
 

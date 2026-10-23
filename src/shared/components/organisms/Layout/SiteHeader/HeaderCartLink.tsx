@@ -15,8 +15,9 @@ export function HeaderCartLink({ cart }: HeaderCartLinkProps) {
       ariaLabel={`장바구니 ${cart}개`}
       iconSlot={
         <NotificationIcon
-          variant="basket"
+          variant="bag"
           count={cart}
+          color="var(--color-black-100)"
           size={platform === 'mobile' ? '20px' : '22px'}
         />
       }

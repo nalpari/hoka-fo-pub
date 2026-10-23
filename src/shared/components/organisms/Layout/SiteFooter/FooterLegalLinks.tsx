@@ -60,7 +60,17 @@ export function FooterLegalLinks() {
           </Typography>
         </Flex>
         <div>주소 : 서울특별시 금천구 가산디지털1로 159</div>
-        <Flex className={styles.row}>
+        <Flex
+          className={styles.row}
+          _mobile={{
+            w: '100%',
+            maxW: '343px',
+            gap: '0',
+            justifyContent: 'space-between',
+            flexWrap: 'nowrap',
+            whiteSpace: 'nowrap',
+          }}
+        >
           <Typography as="span">대표이사 : 조동주</Typography>
           <Typography as="span">
             사업자 등록번호 :{' '}
@@ -86,7 +96,9 @@ export function FooterLegalLinks() {
             </Typography>
           </Typography>
         </Flex>
-        <div>호스팅 서비스 제공자 : ㈜쓰리탑</div>
+        <Typography as="p" variant="body5" tone="inverse">
+          호스팅 서비스 제공자 : ㈜쓰리탑
+        </Typography>
         <Typography as="p" variant="body5" tone="inverse">
           © 2027 Deckers Brands
         </Typography>

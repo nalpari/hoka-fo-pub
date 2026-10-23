@@ -3,7 +3,7 @@ import base, * as scenarios from './ProductListingPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/PRODUCTS/List/Web',
+  title: 'PAGES/상품/0. 상품목록/WEB',
   globals: { viewport: 'hoka1600' },
 };
 
@@ -21,8 +21,4 @@ export const Width1600: Story = { ...scenarios.Width1600, name: '1600px' };
 
 export const Width1200: Story = { ...scenarios.Width1200, name: '1200px' };
 
-export const MenTrailRunning: Story = { ...scenarios.MenTrailRunning, name: 'Men Trail Running' };
-
-export const SearchResults: Story = { ...scenarios.SearchResults };
-
-export const SearchEmpty: Story = { ...scenarios.SearchEmpty };
+export const MenTrailRunning: Story = { ...scenarios.MenTrailRunning, name: '남성 트레일 러닝' };

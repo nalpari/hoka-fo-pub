@@ -3,7 +3,7 @@ import base, * as scenarios from './SignupPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Signup/Signup/Web',
+  title: 'PAGES/회원가입/0. 회원가입 안내/WEB',
   globals: { viewport: 'hoka1600' },
 };
 
@@ -13,4 +13,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Default, name: 'Default' };
 
-export const KakaoUnavailable: Story = { ...scenarios.KakaoUnavailable, name: 'Kakao Unavailable' };
+export const KakaoUnavailable: Story = { ...scenarios.KakaoUnavailable, name: '카카오 가입 안내' };

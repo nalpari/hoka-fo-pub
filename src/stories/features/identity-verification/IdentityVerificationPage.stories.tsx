@@ -3,7 +3,7 @@ import base, * as scenarios from './IdentityVerificationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Signup/IdentityVerification/Web',
+  title: 'PAGES/회원가입/1. 가입여부확인/WEB',
   globals: { viewport: 'hoka1600' },
 };
 

@@ -30,6 +30,7 @@ export function AppLayout({
         <HeaderPromotionBanner />
       ) : (
         <SiteHeader
+          fixedOnScroll={platform === 'mobile' && pathname === '/products'}
           cart={cart}
           onMenu={() => setMenuOpen(true)}
           isLoggedIn={isLoggedIn}

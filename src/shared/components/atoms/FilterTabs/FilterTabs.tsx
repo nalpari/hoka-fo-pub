@@ -242,9 +242,6 @@ const item = cva({
         '&&': {
           _mobile: {
             '&[data-filter-tabs-variant="categoryNavigation"]': {
-              '& > span': {
-                fontWeight: 'var(--font-weights-semibold)',
-              },
               color: 'var(--color-text-primary)',
             },
             color: 'var(--color-text-inverse)',
@@ -316,6 +313,7 @@ export function FilterTabs<T extends string = string>({
   variant = 'default',
 }: FilterTabsProps<T>) {
   const platform = usePlatform();
+  const mobileCategory = platform === 'mobile' && variant === 'categoryNavigation';
   const viewportRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef(new Map<T, HTMLButtonElement>());
 
@@ -380,11 +378,25 @@ export function FilterTabs<T extends string = string>({
               value={option.value}
             >
               <Typography
-                variant="cta2"
-                weight={variant === 'line' ? 'semibold' : undefined}
-                tone={variant === 'line' ? (isSelected ? 'primary' : 'tertiary') : undefined}
+                variant={mobileCategory ? 'bodyKr4' : 'cta2'}
+                weight={
+                  variant === 'line' || (mobileCategory && isSelected) ? 'semibold' : undefined
+                }
+                tone={
+                  mobileCategory
+                    ? isSelected
+                      ? 'primary'
+                      : 'subtle'
+                    : variant === 'line'
+                      ? isSelected
+                        ? 'primary'
+                        : 'tertiary'
+                      : undefined
+                }
                 className={
-                  variant === 'line' ? undefined : label({ selected: isSelected, variant })
+                  variant === 'line' || mobileCategory
+                    ? undefined
+                    : label({ selected: isSelected, variant })
                 }
               >
                 {option.label}

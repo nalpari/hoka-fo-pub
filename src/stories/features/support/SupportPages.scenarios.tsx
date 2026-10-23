@@ -17,7 +17,7 @@ import { SupportExperiencePage } from '@/shared/features/support/SupportExperien
 type Args = { platform: 'web' | 'mobile' };
 
 const meta = {
-  title: 'PAGES/SUPPORT/Customer Center',
+  title: 'PAGES/고객센터/0. 고객센터 메인',
   args: { platform: 'web' },
   render: ({ platform }) => (
     <ShopShell platform={platform}>
@@ -612,6 +612,17 @@ export const MemberBenefitsDesktop: Story = {
   ),
   parameters: { nextjs: { navigation: { pathname: '/support/member-benefits' } } },
   globals: { viewport: 'hoka1600' },
+};
+
+export const MemberBenefitsMobile375: Story = {
+  ...MemberBenefitsDesktop,
+  name: 'Member Benefits / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <SupportExperiencePage kind="member-benefits" />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka375' },
 };
 
 export const MileageDesktop: Story = {

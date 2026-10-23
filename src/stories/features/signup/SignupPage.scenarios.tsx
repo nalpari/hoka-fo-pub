@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/shared/context/platform';
 import { SignupPage } from '@/shared/features/signup/SignupPage';
 
 const meta = {
-  title: 'PAGES/Signup/Signup',
+  title: 'PAGES/회원가입/0. 회원가입 안내',
   component: SignupPage,
   decorators: [
     (Story, context) => {

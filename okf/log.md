@@ -9,8 +9,57 @@
 - **Style**: 문의 첨부 오류별 기획 문구를 반영하고, Validation 안내를 파일찾기 버튼 아래 기본 안내와 간격을 두어 배치했다. 파일 형식·개수·용량 제한별 Storybook 사례도 정확한 문구로 확인한다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 Figma `1241:92895`, `1241:92822` 출처를 기록했다.
 - **Test**: 문의등록의 필수 입력 오류와 첨부파일 형식·용량·개수 초과 사례를 모바일·데스크톱 Storybook에 추가하고, 필수 입력·첨부 형식 오류를 한 화면에서 확인하는 결합 사례도 추가했다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 반영했다.
 - **Fix**: 문의등록 오류 시나리오를 Storybook에서 실제 탐색 가능한 모바일·웹 스토리로 노출했다. [UI 구성](architecture/ui.md#1:1-문의-등록-상세-시안-반영-2026-10-23)에 기록했다.
+- **Fix**: 문의등록 스토리를 목록·작성 통합 모듈로 옮기면서 필수·전체 오류와 첨부 유형별 사례를 새 `1:1문의` Mobile·WEB 아래에 연결하고 기존 분리 모듈을 제거했다.
+- **Update**: 공지사항 상세 Web 스토리를 `고객센터/2. 공지사항` 모듈에 통합해 Storybook 경로의 영문 `SUPPORT/NoticeDetail`을 제거했다. UI 구조와 실행 흐름은 유지했다.
+- **Update**: 고객센터 Web·Mobile 문의 스토리의 첨부파일·미리보기 케이스 이름을 한글로 통일했다.
 - **Style**: 문의 유형과 제목 입력 묶음 사이를 16px로 두고, 드롭다운끼리는 PC 8px·모바일 16px 간격으로 맞췄다. [UI 구성](architecture/ui.md)에 반영했다.
 - **Docs**: `InquiryNewPage`에 한·영 역할 JSDoc을 추가하고 신청인 정보·문의 분류/내용·첨부·유의사항·액션·취소 확인 다이얼로그의 구성 지점을 한·영 JSX 주석으로 설명했다. [UI 구성](architecture/ui.md#컴포넌트-주석-정책-2026-10-23)에 기록했다.
+- **Update**: 공통 fontSizes 21개를 기존 크기/16의 rem 값으로 전환하고 Typography 비교표에 px/rem·폰트·행간·자간과 Body 400/500 예시를 추가했다. 기존 variant·영문/국문 규격·모바일 H8/H9 호환 규칙을 유지하며 [UI 기록](architecture/ui.md#typography-rem-토큰과-비교표-2026-10-23)에 범위와 검증을 남겼다.
+
+- **Refactor**: 모바일 상품 탐색의 가로 중앙 정렬을 HStack으로 표현하고 중복 alignItems를 제거했다. 기존 nav 의미·고정 전/후 간격과 높이는 유지하며 [UI 기록](architecture/ui.md#모바일-상품-목록-gnb와-활동-탐색-고정-2026-10-23)에 반영했다.
+
+- **Fix**: 모바일 상품 목록에서 최상단 복귀 후 활동 탐색의 fixed 상태가 남는 문제를 수정했다. useScrollPin이 스크롤·크기 변경 시 실제 마커 위치도 확인하도록 보완하고, 768px 반복 스크롤 복귀와 정적 검사 결과를 [UI 기록](architecture/ui.md#모바일-상품-목록-gnb와-활동-탐색-고정-2026-10-23)에 남겼다.
+
+- **Update**: 모바일 상품 목록의 GNB·활동 탐색/필터 아이콘만 스크롤 시 fixed로 고정하고 제목·현재 위치는 일반 흐름에 남겼다. 전체보기 선택 글자 누락을 수정하고 미선택 탭에 제공된 Pretendard 14px/400·#4D4D4D 규격을 적용했다. [UI 기록](architecture/ui.md#모바일-상품-목록-gnb와-활동-탐색-고정-2026-10-23)에 경로 범위·375/768px 실측과 동작 검증을 기록했다.
+
+- **Fix**: 고객센터 문의 WEB 스토리의 중복 Answered export를 제거해 Storybook 전체 인덱스 로딩 실패를 복구했다. [UI 기록](architecture/ui.md#storybook-문의-스토리-중복-선언-복구-2026-10-23)에 원인과 검증을 기록했다.
+
+- **Update**: 비공개 문의의 직접 작성한 잠금 SVG를 사용자 제공 lock-keyhole.svg와 공통 Icon으로 교체했다. 14px 표시·장식 이미지 접근성·브라우저 문의 펼침과 정적 검사 결과를 [UI 기록](architecture/ui.md#비공개-문의-잠금-아이콘-2026-10-23)에 반영했다.
+
+- **Refactor**: ProductTechnicalScale의 막대 표시를 level만 받는 ProductTechnicalScaleBar로 분리하고 기존 DOM·스타일을 유지했다. 타입 검사·변경 파일 ESLint·Prettier·Panda 생성 통과를 [UI 기록](architecture/ui.md#상품-상세-기술-척도-5단계-그라데이션-2026-10-23)에 남겼다.
+
+- **Review**: 상품 리뷰·문의 수정사항의 재사용 점검을 적용했다. 문의 제목/필터는 ContentHeader로 조합하고, 행·루트·더 보기 배치를 Panda JSX로 이전했으며 Checkbox 아이콘 상태 스타일을 실제 소유 요소로 옮겼다. [UI 기록](architecture/ui.md#상품-리뷰문의-재사용-후속-점검-2026-10-23)과 [프로젝트 범위 검토](project.md#상품-리뷰문의-표현-검토-2026-10-23)에 구현·검증·데모 경계를 기록했다.
+
+- **Update**: 상품 정보 패널의 설명을 4줄로 접고 더보기/닫기를 설명 바로 아래로 이동했다. 하단 신발 유형·추천 활동·러닝 유형은 항상 표시하며, [UI 기록](architecture/ui.md#상품-정보-설명-접기와-더보기-위치-2026-10-23)과 [목 데이터 출처](project.md#clifton-상품-정보-시안-문구-2026-10-23)를 갱신했다.
+
+- **Fix**: 상품 문의 행의 오른쪽 패딩을 24px에서 0으로 제거하고 왼쪽 24px을 유지했다. [문의 UI 기록](architecture/ui.md#상품-문의-시안과-필터-체크박스-2026-10-23)에 시안과 실측 범위를 기록했다.
+
+- **Update**: 공통 Checkbox에 미선택·선택·비활성 filter variant를 추가하고 상품 문의 시안을 적용했다. 56건 예시의 초기 5건·16건씩 더 보기, 공개/비공개 동시 펼침과 빈 상태를 [UI 기록](architecture/ui.md#상품-문의-시안과-필터-체크박스-2026-10-23)에 기록했다.
+
+- **Fix**: 상품 리뷰 제목을 24px Pretendard 900, 괄호 포함 수량을 24px The Future HOKA 500으로 분리했다. [UI 기록](architecture/ui.md#상품-리뷰-제목과-수량-폰트-분리-2026-10-23)에 첨부 규격과 실측을 기록했다.
+
+- **Refactor**: DescriptionList에 root·row·term·description 스타일 슬롯과 텍스트 설정을 추가하고 ProductDetailNoticeTable을 소비처로 연결했다. 기존 기본 목록과 상품 고시 표의 여백·글자 스타일을 유지했으며 PC·모바일 스토리·상품 상세 브라우저와 빌드를 확인했다. [UI 기록](architecture/ui.md#descriptionlist-스타일-슬롯과-상품-고시-재사용-2026-10-23)에 API와 검증 범위를 남겼다.
+
+- **Fix**: 상품 상세 지원 아코디언 트리거를 77px로 보정해 하단 테두리 1px 포함 닫힌 행 78px 규격을 맞췄다. 후속 보정의 브라우저 실측은 수행하지 않았다.
+
+- **Update**: 상품 고시 정보에 회색 배경·행 구분선과 8개 항목을 적용했다. Clifton의 소재·제조·보증 예시는 다른 상품에 상속하지 않으며, [UI 기록](architecture/ui.md#상품-고시-정보-신규-표-2026-10-23)에 출처와 검증을 남겼다.
+
+- **Fix**: WEB 상품 상세 지원 아코디언에 상단 구분선·78px 행 높이·18px/700 제목을 적용하고 마지막 항목을 관리 방법으로 변경했다. 기존 세탁·손질 안내를 재사용하며 [UI 기록](architecture/ui.md#상품-상세-지원-아코디언-시안-보정-2026-10-23)에 시안 출처와 변경 범위를 기록했다.
+
+- **Update**: 상품 상세의 무게·쿠셔닝·Heel-to-Toe Drop 옆에 안내 툴팁을 추가하고, 안정성·반발력은 `나중에 추가 예정` 문구로 연결했다. 남성 312g·여성 280g을 구분선으로 함께 표시하는 Storybook 케이스를 추가했다. [UI 기록](architecture/ui.md#상품-기술-사양-안내와-남녀-무게-병기-2026-10-23)에 데이터 계약과 문구 출처·검증 범위를 남겼다.
+
+- **Fix**: 상품 상세 기술 척도를 8px 직사각형 막대와 5단계 가로 그라데이션으로 변경했다. 단계별 색상 정지점과 Clifton의 5·1·3단계 매핑, 검증을 [UI 기록](architecture/ui.md#상품-상세-기술-척도-5단계-그라데이션-2026-10-23)에 남겼다.
+
+- **Refactor**: 상품 상세 표시 데이터를 분리하고 스크롤 탐색·리뷰·사양·추천·푸터를 feature 내부 구성요소로 나눴다. 추천 간격을 부모가 소유하며 상품별 샘플 데이터 분기를 검증하는 테스트 3개를 추가했다. [UI 기록](architecture/ui.md#상품-상세-표시-데이터와-구성-분리-2026-10-23)과 [검사 기록](development/verification.md#상품-상세-표시-데이터-분기-검사-2026-10-23)을 갱신했다.
+
+- **Fix**: WEB 상품 상세 탐색에 헤더 아래 고정과 스크롤 위치 기반 활성 표시를 적용했다. 클릭/수동 스크롤에 동일한 경계와 앵커 여백을 적용하며 [ScrollSpy 기록](architecture/ui.md#상품-상세-web-scrollspy-2026-10-23)에 검증을 남겼다.
+
+- **Update**: 제공된 스크린샷에 맞춰 WEB 상품 상세의 갤러리 간격, 정보/리뷰/문의 구조, Tech Specs 및 두 번째 추천 캐러셀을 추가했다. 모바일 구성을 유지하고 사용자가 export한 사진 3장 연결과 미연동 영역을 [UI 기록](architecture/ui.md#상품-상세-web-시안-갱신-2026-10-23)에 남겼다.
+
+- **Fix**: 상품 목록의 고정 제목 배경을 좌우 16px 확장해 스크롤 중 상품 Quick 패널이 제목 오른쪽으로 드러나는 문제를 수정했다. 제목·필터 고정 위치와 Quick 크기·포커스 동작은 유지하며 [UI 기록](architecture/ui.md#상품-목록-고정-제목과-quick-패널-겹침-2026-10-23)에 재현과 검증을 남겼다.
+
+## 2026-10-23
+
 - **Fix**: `InquiryAnswer`의 PC 답변 제목을 첨부 유무와 무관하게 표시하고 사용하지 않는 `hasAttachments` prop을 제거했다. 제목은 모바일에서 계속 숨긴다. [UI 구성](architecture/ui.md#1:1-문의-접수답변-완료-상태-시안-반영-2026-10-23)에 기록했다.
 - **Fix**: 답변완료 문의에서 첨부파일 목록을 답변 접기 영역 밖으로 옮겼다. 질문은 답변 열기/닫기를 유지하고, 답변을 접어도 PC·모바일 모두 첨부파일이 계속 보이는지 Storybook 상호작용으로 확인한다. [UI 구성](architecture/ui.md#1:1-문의-첨부파일-시안-반영-2026-10-23)에 기록했다.
 - **Style**: 첨부파일이 있는 답변완료 문의에 PC 파일 행과 모바일 썸네일 격자를 적용하고 기존 ModalDialog·Carousel로 파일 미리보기를 구현했다. PC·모바일 첨부 Storybook을 추가했으며 공통 Dialog API와 스타일은 유지했다. [UI 구성](architecture/ui.md#1:1-문의-첨부파일-시안-반영-2026-10-23)에 기록했다.
@@ -24,6 +73,54 @@
 - **Update**: 공통 Divider의 모바일 variant prop을 `mo`로 정리했다. 공통 스타일은 `variant`, 모바일 값이 다를 때만 `mo`로 지정하며 1:1 문의와 Divider Storybook 예시에 적용했다. [UI 구성](architecture/ui.md#약관-시행일-선택과-가로-구분선-공통화-2026-10-20)을 갱신했다.
 
 ## 2026-10-22
+
+- **Fix**: 모바일 메뉴 포털에 platform-mobile 스타일 범위를 연결해 Men 뒤로가기 제목이 42px로 과대 표시되던 문제를 22px로 수정했다. 기존 타이포그래피 variant를 유지하고 뒤로가기 포커스 복원·메뉴 닫기를 확인했다. [UI 기록](architecture/ui.md#모바일-메뉴-포털의-타이포그래피-범위-2026-10-22)에 원인과 검증을 기록했다.
+
+- **Fix**: 모바일 푸터의 대표이사·사업자 등록번호·사업자정보확인 행에만 gap 0·space-between·nowrap과 최대 343px 너비를 적용했다. 좁은 모바일 줄바꿈과 넓은 모바일 과도한 항목 간격을 함께 보정하고 호스팅 안내에 body5·inverse Typography를 적용했다. [UI 기록](architecture/ui.md#모바일-푸터-사업자-정보-행-2026-10-22)에 실측 검증을 남겼다.
+
+- **Update**: 수량 배지용 Typography notificationCount variant와 공통 토큰을 추가해 PC·모바일 모두 500·8px·16px을 적용했다. NotificationCount 소비처와 PC·모바일 스토리를 갱신했다. [UI 기록](architecture/ui.md#수량-배지-typography-variant-2026-10-22)에 역할과 검증 범위를 기록했다.
+
+- **Refactor**: NotificationCount의 외부 Circle이 배지 외형을, 내부 Typography가 숫자를 담당하도록 중첩하고 전달 속성을 유지하며 Circle 크기를 사용자 지정 12px로 적용했다. 숫자 색상은 Typography tone="inverse"를 재사용하고 별도 색상 클래스를 제거했다. [UI 기록](architecture/ui.md#수량-배지-circle-조합-2026-10-22)에 구현과 검증 범위를 기록했다.
+
+- **Fix**: 헤더 장바구니에 검정색 가방 아이콘을 지정했다. [UI 기록](architecture/ui.md#헤더-장바구니-검정-가방-아이콘-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: HomeLayout의 모바일 하단 패딩을 72px로 지정했다. [UI 기록](architecture/ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 메인 카드 overlay 설명의 최소 높이를 해제해 실제 내용 높이를 사용하도록 수정했다. [UI 기록](architecture/ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 모바일 Explore 카드에 primary 액션을 적용하고 밝은 이미지 위 버튼을 흰 배경·검정 글자로 표시했다. MainContentCard의 primary 지원과 OverlayPrimary 스토리를 추가했다. [UI 기록](architecture/ui.md#모바일-메인-카드와-푸터-간격-보정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.
+
+- **Organize**: 사용자 제공 IA 시트 FO 기준으로 PAGES 185개 스토리를 한국어 메뉴와 번호별 화면·WEB/Mobile 구조로 정리했다. 마이페이지 혼합 스토리와 검색결과·오류 화면을 분리하고 러닝세션을 탐색으로 옮겼다. 기존 시나리오와 비페이지 분류를 보존하고 IA 미리보기 링크 48개를 갱신했다. [UI 기록](architecture/ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)에 출처·적용 기준·검증을 기록했다.
+
+- **Rename**: 고객센터 Storybook 상위 경로를 `PAGES/SUPPORT`에서 `PAGES/고객센터`로 변경하고 정렬 설정과 UI 문서를 맞췄다. 하위 번호와 WEB·Mobile 구조는 유지한다.
+
+- **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.
+
+- **Fix**: 모바일 메뉴 포털에 platform-mobile 스타일 범위를 연결해 Men 뒤로가기 제목이 42px로 과대 표시되던 문제를 22px로 수정했다. 기존 타이포그래피 variant를 유지하고 뒤로가기 포커스 복원·메뉴 닫기를 확인했다. [UI 기록](architecture/ui.md#모바일-메뉴-포털의-타이포그래피-범위-2026-10-22)에 원인과 검증을 기록했다.
+
+- **Fix**: 모바일 푸터의 대표이사·사업자 등록번호·사업자정보확인 행에만 gap 0·space-between·nowrap과 최대 343px 너비를 적용했다. 좁은 모바일 줄바꿈과 넓은 모바일 과도한 항목 간격을 함께 보정하고 호스팅 안내에 body5·inverse Typography를 적용했다. [UI 기록](architecture/ui.md#모바일-푸터-사업자-정보-행-2026-10-22)에 실측 검증을 남겼다.
+
+- **Update**: 수량 배지용 Typography notificationCount variant와 공통 토큰을 추가해 PC·모바일 모두 500·8px·16px을 적용했다. NotificationCount 소비처와 PC·모바일 스토리를 갱신했다. [UI 기록](architecture/ui.md#수량-배지-typography-variant-2026-10-22)에 역할과 검증 범위를 기록했다.
+
+- **Refactor**: NotificationCount의 외부 Circle이 배지 외형을, 내부 Typography가 숫자를 담당하도록 중첩하고 전달 속성을 유지하며 Circle 크기를 사용자 지정 12px로 적용했다. 숫자 색상은 Typography tone="inverse"를 재사용하고 별도 색상 클래스를 제거했다. [UI 기록](architecture/ui.md#수량-배지-circle-조합-2026-10-22)에 구현과 검증 범위를 기록했다.
+
+- **Fix**: 헤더 장바구니에 검정색 가방 아이콘을 지정했다. [UI 기록](architecture/ui.md#헤더-장바구니-검정-가방-아이콘-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: HomeLayout의 모바일 하단 패딩을 72px로 지정했다. [UI 기록](architecture/ui.md#모바일-메인-하단-여백-72px-지정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 메인 카드 overlay 설명의 최소 높이를 해제해 실제 내용 높이를 사용하도록 수정했다. [UI 기록](architecture/ui.md#메인-카드-overlay-설명-최소-높이-해제-2026-10-22)에 변경 범위를 기록했다.
+
+- **Fix**: 모바일 Explore 카드에 primary 액션을 적용하고 밝은 이미지 위 버튼을 흰 배경·검정 글자로 표시했다. MainContentCard의 primary 지원과 OverlayPrimary 스토리를 추가했다. [UI 기록](architecture/ui.md#모바일-메인-카드와-푸터-간격-보정-2026-10-22)에 변경 범위를 기록했다.
+
+- **Cleanup**: AGENTS.md에 Mockup Storybook 비노출 정책을 추가하고 파일 탐색에서 Mockup 경로·파일명을 제외했다. 운영 참조가 없는 구형 Signup Mockup 구현 4개와 전용 스토리 1개를 삭제했다. [UI 기록](architecture/ui.md#mockup-storybook-제외-및-회원가입-정리-2026-10-22)에 정책·출처와 제거 범위를 기록했다.
+
+- **Organize**: 사용자 제공 IA 시트 FO 기준으로 PAGES 185개 스토리를 한국어 메뉴와 번호별 화면·WEB/Mobile 구조로 정리했다. 마이페이지 혼합 스토리와 검색결과·오류 화면을 분리하고 러닝세션을 탐색으로 옮겼다. 기존 시나리오와 비페이지 분류를 보존하고 IA 미리보기 링크 48개를 갱신했다. [UI 기록](architecture/ui.md#ia-기준-한국어-페이지-storybook-2026-10-22)에 출처·적용 기준·검증을 기록했다.
+
+- **Rename**: 고객센터 Storybook 상위 경로를 `PAGES/SUPPORT`에서 `PAGES/고객센터`로 변경하고 정렬 설정과 UI 문서를 맞췄다. 하위 번호와 WEB·Mobile 구조는 유지한다.
+
+- **Organize**: SUPPORT Storybook을 0~9번 고객센터 폴더와 WEB·Mobile 순서로 정리했다. 공지 상세·문의 작성·마일리지를 관련 폴더에 통합하고 회원 안내 Mobile 스토리를 추가했다. 앱 동작과 기존 시나리오 설정을 유지했으며 [UI 기록](architecture/ui.md#support-storybook-탐색-구조-2026-10-22)에 구조와 검증 범위를 기록했다.
 
 - **Style**: 1:1 문의의 PC·모바일 설명/빈 상태 텍스트 색상, 유의사항 타이포그래피, 구분선, CTA 높이·너비와 모바일 하단 여백을 Figma 노드 `1241:92230`, `1241:92543` 기준으로 맞췄다. [UI 구성](architecture/ui.md#1:1-문의-빈-상태-시안-정밀-반영-2026-10-22)을 갱신했다.
 

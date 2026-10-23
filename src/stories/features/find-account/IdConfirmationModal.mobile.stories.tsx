@@ -3,7 +3,7 @@ import base, * as scenarios from './IdConfirmationModal.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Login/FindAccount/IdConfirmationModal/Mobile',
+  title: 'PAGES/로그인/2. 아이디확인/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

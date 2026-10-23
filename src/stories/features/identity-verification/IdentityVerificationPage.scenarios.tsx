@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { IdentityVerificationContent } from '@/shared/features/identity-verification/IdentityVerificationContent';
 
 const meta = {
-  title: 'PAGES/Signup/IdentityVerification',
+  title: 'PAGES/회원가입/1. 가입여부확인',
   component: IdentityVerificationContent,
   args: { onSelect: () => {} },
 } satisfies Meta<typeof IdentityVerificationContent>;

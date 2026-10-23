@@ -2,7 +2,6 @@
 
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
-import type { ComponentRenderFn } from '@base-ui/react/types';
 import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from 'react';
 import { useId, useRef } from 'react';
 import { css, cva } from 'styled-system/css';
@@ -21,12 +20,14 @@ const group = cva({
   },
 });
 
-const option = css({
+const optionStyle = css.raw({
   cursor: 'pointer',
   '&[data-disabled]': { cursor: 'not-allowed', opacity: '0.55' },
 });
 
-const control = css({
+const option = css(optionStyle);
+
+const controlStyle = css.raw({
   '&&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '-2px' },
   position: 'relative',
   display: 'grid',
@@ -35,7 +36,9 @@ const control = css({
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
 });
 
-const icon = css({ display: 'block', w: '100%', h: '100%' });
+const control = css(controlStyle);
+
+const iconStyle = css.raw({ display: 'block', w: '100%', h: '100%' });
 
 function getCheckboxIconSource(checked: boolean, disabled: boolean) {
   if (disabled) {
@@ -49,19 +52,25 @@ function getCheckboxIconSource(checked: boolean, disabled: boolean) {
     : '/images/icon/form/checkbox-unchecked.svg';
 }
 
-const renderCheckboxControl: ComponentRenderFn<
-  HTMLAttributes<HTMLSpanElement>,
-  BaseCheckbox.Root.State
-> = (props, { checked, disabled, indeterminate }) => (
-  <span {...props}>
-    <img
-      alt=""
-      aria-hidden="true"
-      className={icon}
-      src={getCheckboxIconSource(checked || indeterminate, disabled)}
-    />
-  </span>
-);
+function renderCheckboxControl(
+  props: HTMLAttributes<HTMLSpanElement>,
+  { checked, disabled, indeterminate }: BaseCheckbox.Root.State,
+  variant: 'default' | 'filter' = 'default',
+) {
+  return (
+    <span {...props}>
+      <img
+        alt=""
+        aria-hidden="true"
+        className={css(
+          iconStyle,
+          variant === 'filter' && !checked && !indeterminate && !disabled && { opacity: '0.53' },
+        )}
+        src={getCheckboxIconSource(checked || indeterminate, disabled)}
+      />
+    </span>
+  );
+}
 
 type BaseCheckboxRootProps = ComponentPropsWithoutRef<typeof BaseCheckbox.Root>;
 
@@ -78,6 +87,8 @@ export type SingleCheckboxProps = Omit<
   className?: string;
   label: ReactNode;
   labelVariant?: 'formLabel' | 'body4';
+  /** Compact filter with state-dependent label color. */
+  variant?: 'default' | 'filter';
   /** Consent text may contain links or detail buttons. */
   interactiveLabel?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -98,6 +109,7 @@ function SingleCheckbox({
   disabled,
   label: checkboxLabel,
   labelVariant = 'formLabel',
+  variant = 'default',
   interactiveLabel = false,
   onCheckedChange,
   ...rootProps
@@ -110,7 +122,20 @@ function SingleCheckbox({
     <Flex
       as={interactiveLabel ? 'div' : 'label'}
       alignItems="center"
-      className={[option, className].filter(Boolean).join(' ')}
+      className={[
+        css(
+          optionStyle,
+          variant === 'filter' && {
+            gap: '2',
+            color: 'black.50',
+            '&:not([data-disabled]):has([data-checked])': { color: 'black.100' },
+            '&[data-disabled]': { color: 'black.40', opacity: '1' },
+          },
+        ),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       data-disabled={disabled ? '' : undefined}
       data-checkbox-label=""
     >
@@ -121,13 +146,20 @@ function SingleCheckbox({
         }
         ref={controlRef}
         aria-labelledby={rootProps['aria-labelledby'] ?? (interactiveLabel ? labelId : undefined)}
-        className={control}
+        className={css(
+          controlStyle,
+          variant === 'filter' && {
+            w: '4',
+            h: '4',
+            '&[data-disabled]': { bg: 'black.20' },
+          },
+        )}
         disabled={disabled}
         onCheckedChange={(checked) => onCheckedChange?.(checked)}
-        render={renderCheckboxControl}
+        render={(props, state) => renderCheckboxControl(props, state, variant)}
       />
       <Typography
-        variant={labelVariant}
+        variant={variant === 'filter' ? 'body4' : labelVariant}
         id={interactiveLabel ? labelId : undefined}
         onClick={(event) => {
           if (!interactiveLabel || disabled || (event.target as HTMLElement).closest('a, button'))

@@ -3,7 +3,7 @@ import base, * as scenarios from './PhoneVerificationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Signup/PhoneVerification/Mobile',
+  title: 'PAGES/회원가입/2. 휴대폰 인증/Mobile',
   globals: { viewport: 'hoka375' },
 };
 
@@ -13,13 +13,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Mobile, name: 'Default' };
 
-export const FieldErrors: Story = { ...scenarios.MobileFieldErrors, name: 'Field Errors' };
+export const FieldErrors: Story = { ...scenarios.MobileFieldErrors, name: '입력 오류' };
 
-export const AccountUnlock: Story = { ...scenarios.MobileAccountUnlock, name: 'Account Unlock' };
+export const AccountUnlock: Story = { ...scenarios.MobileAccountUnlock, name: '계정 잠금 해제' };
 
 export const RequiredAgreements: Story = {
   ...scenarios.MobileRequiredAgreements,
-  name: 'Required Agreements',
+  name: '필수 약관동의',
 };
 
-export const CodeEntry: Story = { ...scenarios.MobileCodeEntry, name: 'Code Entry' };
+export const CodeEntry: Story = { ...scenarios.MobileCodeEntry, name: '인증번호 입력' };

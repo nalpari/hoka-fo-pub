@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RunClubPreview } from '@/stories/features/run-club/RunClubPreview';
 
 const meta = {
-  title: 'PAGES/MYPAGE/RunClub/Detail',
+  title: 'PAGES/탐색/1. 러닝세션 상세',
   component: RunClubPreview,
   parameters: { layout: 'fullscreen' },
   args: { platform: 'web', view: 'open' },

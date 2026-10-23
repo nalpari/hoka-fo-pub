@@ -414,6 +414,11 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
+      notificationCount: {
+        fontSize: 'var(--type-notification-count-font-size)',
+        fontWeight: 'var(--type-notification-count-font-weight)',
+        lineHeight: 'var(--type-notification-count-line-height)',
+      },
       choiceLabel: {
         fontFamily: 'var(--font-family-base)',
         fontSize: 'var(--type-choice-label-font-size)',
@@ -604,6 +609,35 @@ const typography = cva({
         _mobile: { fontSize: 'var(--type-product-selector-label-mobile-font-size)' },
       },
       productSelectorAction: figmaTypographyVariants.body5,
+      productSectionTitle: {
+        fontFamily: 'korean',
+        fontSize: '24',
+        fontWeight: 'black',
+        lineHeight: 'koreanHeading',
+        letterSpacing: 'korean',
+      },
+      productSectionCount: {
+        fontFamily: 'hoka',
+        fontSize: '24',
+        fontWeight: 'medium',
+        lineHeight: 'koreanHeading',
+        letterSpacing: '0',
+      },
+      productInformationBody: {
+        fontFamily: 'korean',
+        fontSize: '16',
+        fontWeight: 'normal',
+        lineHeight: '1.5',
+        letterSpacing: 'korean',
+      },
+      productSupportTitle: {
+        fontFamily: 'korean',
+        fontSize: '18',
+        fontWeight: 'bold',
+        lineHeight: 'body',
+        letterSpacing: 'korean',
+        _mobile: { fontSize: '16' },
+      },
       productTitle: {
         fontSize: 'var(--type-product-title-font-size)',
         fontWeight: 'var(--type-product-title-font-weight)',
@@ -697,6 +731,7 @@ const typography = cva({
 
 export type TypographyVariant =
   | 'unstyled'
+  | 'notificationCount'
   | 'choiceLabel'
   | 'unitLabel'
   | 'selectionLabel'
@@ -732,6 +767,10 @@ export type TypographyVariant =
   | 'sizeOption'
   | 'productSelectorLabel'
   | 'productSelectorAction'
+  | 'productSectionTitle'
+  | 'productSectionCount'
+  | 'productInformationBody'
+  | 'productSupportTitle'
   | 'productTitle'
   | 'productPrice'
   | 'meta'

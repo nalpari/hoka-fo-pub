@@ -3,7 +3,7 @@ import base, * as scenarios from './RegistrationPage.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/Signup/Registration/Mobile',
+  title: 'PAGES/회원가입/4. 회원 정보 입력/Mobile',
   globals: { viewport: 'hoka375' },
 };
 
@@ -13,16 +13,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Mobile, name: 'Default' };
 
-export const Additional: Story = { ...scenarios.MobileAdditional, name: 'Additional' };
+export const Additional: Story = { ...scenarios.MobileAdditional, name: '추가 정보 입력' };
 
 export const PasswordValidation: Story = {
   ...scenarios.MobilePasswordValidation,
-  name: 'Password Validation',
+  name: '비밀번호 검증',
 };
 
 export const EmailCheckState: Story = {
   ...scenarios.MobileEmailCheckState,
-  name: 'Email Check State',
+  name: '이메일 중복확인',
 };
 
-export const AddressSearch: Story = { ...scenarios.MobileAddressSearch, name: 'Address Search' };
+export const AddressSearch: Story = { ...scenarios.MobileAddressSearch, name: '주소 검색' };

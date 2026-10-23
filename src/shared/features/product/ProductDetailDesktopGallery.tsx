@@ -13,7 +13,7 @@ export function ProductDetailDesktopGallery({
   onOpenImage,
 }: ProductDetailDesktopGalleryProps) {
   return (
-    <Grid aria-label="상품 이미지" gap="2" gridTemplateColumns="repeat(2, minmax(0, 1fr))">
+    <Grid aria-label="상품 이미지" gap="4" gridTemplateColumns="repeat(2, minmax(0, 1fr))">
       {images.map((image, index) => (
         <ProductDetailImage
           alt={`${productName} ${index + 1}`}

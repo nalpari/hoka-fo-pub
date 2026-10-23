@@ -7,9 +7,8 @@ import { DesktopProductSort } from './DesktopProductSort';
 import { MobileProductFilterTrigger } from './MobileProductFilterTrigger';
 import { ProductListingContent } from './ProductListingContent';
 import { ProductListTitle } from './ProductListTitle';
-import { MobileCategoryTabs } from './MobileCategoryTabs';
+import { MobileProductNavigation } from './MobileProductNavigation';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
 import { SearchListingLayout } from './SearchListingLayout';
 
 const catalogLayout = css({
@@ -144,12 +143,11 @@ export function ProductListingLayout({
       }
     >
       {platform === 'mobile' && (
-        <Box px="4" h="9">
-          <MobileCategoryTabs
-            activity={activity}
-            onChange={(value) => onFilterChange('activity', value)}
-          />
-        </Box>
+        <MobileProductNavigation
+          activity={activity}
+          onActivityChange={(value) => onFilterChange('activity', value)}
+          onOpenFilters={() => onFilterDrawerOpenChange(true)}
+        />
       )}
       {content}
     </ContentLayout>

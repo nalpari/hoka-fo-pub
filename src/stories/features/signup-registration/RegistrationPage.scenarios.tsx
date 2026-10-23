@@ -8,7 +8,7 @@ import { RegistrationPage } from '@/shared/features/signup-registration/Registra
 import { RegistrationCompleteContent } from '@/shared/features/signup-registration/RegistrationCompleteContent';
 
 const meta = {
-  title: 'PAGES/Signup/Registration',
+  title: 'PAGES/회원가입/4. 회원 정보 입력',
   component: RegistrationContent,
   args: {
     stage: 'information',

@@ -5,19 +5,16 @@ import { useParams, useRouter } from 'next/navigation';
 import { products } from '@/mocks/products';
 import { ProductDetailLayout } from '@/shared/features/product/ProductDetailLayout';
 import type { CartItem } from '@/shared/types/cart';
-import { usePlatform } from '@/shared/context/platform';
 import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
 import { ProductDetailImageViewer } from './ProductDetailImageViewer';
 import { ProductDetailMedia } from '@/shared/features/product/ProductDetailMedia';
 import { ProductDetailPanel } from '@/shared/features/product/ProductDetailPanel';
-import { ProductPurchaseActions } from '@/shared/features/product/ProductPurchaseActions';
-import { ProductDetailRecommend } from '@/shared/features/product/ProductDetailRecommend';
+import { ProductDetailFooter } from '@/shared/features/product/ProductDetailFooter';
 import { productWidthOptions } from '@/shared/features/product/ProductVariantSelectors';
 
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const platform = usePlatform();
   const product = products.find((item) => item.id === id);
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
@@ -76,21 +73,17 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         )
       }
       footer={
-        <>
-          <ProductDetailRecommend products={recommendations} />
-          {platform === 'mobile' && (
-            <ProductPurchaseActions
-              onAddToCart={() => submit(false)}
-              onOrder={() => submit(true)}
-              placement="fixed"
-            />
-          )}
-        </>
+        <ProductDetailFooter
+          recommendations={recommendations}
+          onAddToCart={() => submit(false)}
+          onOrder={() => submit(true)}
+        />
       }
     >
       <ProductDetailMedia
         key={`${product.id}-${color}`}
         images={gallery}
+        product={product}
         productName={product.name}
         onOpenImage={(index) => {
           viewerOrigin.current = {

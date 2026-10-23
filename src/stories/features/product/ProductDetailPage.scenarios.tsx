@@ -3,7 +3,7 @@ import { ShopShell } from '@/shared/ShopShell';
 import ProductPage from '@/app/products/[id]/page';
 
 const meta = {
-  title: 'PAGES/PRODUCTS/Detail',
+  title: 'PAGES/상품/1. 상품상세',
   component: ShopShell,
   args: { children: <ProductPage /> },
   parameters: {

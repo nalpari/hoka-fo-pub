@@ -6,9 +6,11 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T06:29:40.6561376Z'
+  at: '2026-10-23T01:25:15Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/product-detail-presentation.test.mjs
+  - src/shared/features/product/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
@@ -163,3 +165,11 @@ PC/MO는 각 15개이며 Validation 13개·Expired 1개·Inheritance 1개로 나
 ## 고객센터 시안 반영 검증 (2026-10-20)
 
 고객센터 UI 변경 후 Panda 생성·타입·변경 TS/TSX ESLint·Next/Storybook production build를 통과했다. 기존 App Router manifest 테스트 2개와 diff 공백 검사, 미스테이징 변경을 포함한 pendingDocs(false) 매핑도 확인했다. production Storybook의 PC FAQ와 375px 모바일 화면에서 필터 간격·지도 비율·문의 첨부 목록/팝업을 확인했고 모바일 공지 링크, 팝업 닫기/포커스 복원, 약관 시행일 선택 시나리오를 실행했다. 문의 빈 제출 오류·입력 후 해제·글자 수, 배송/반품 세 탭과 의류/용품 탭은 수동 UI로 확인했다. 실제 서버 업로드/저장·지도 API·운영 약관 데이터는 추가/검증하지 않았다. [전체 범위와 출처](../architecture/support-design.md)를 참고한다.
+
+## 상품 상세 표시 데이터 분기 검사 (2026-10-23)
+
+node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetailPresentation을 불러 Clifton 샘플 사양과 로컬 사진 파일 존재, 다른 상품의 Clifton 사양·척도·이미지 미상속, 품번 누락 고시 fallback을 검사한다. 2026-10-23 Codex 실행 결과 3개가 통과했다. 수치의 제품 정확성이나 브라우저 렌더링·ScrollSpy 상호작용을 검증하는 테스트는 아니다. 출처는 작업 트리의 tests/product-detail-presentation.test.mjs와 productDetailPresentation.ts다.
+
+## 상품 고시 표 데이터 분기 검사 (2026-10-23)
+
+기존 tests/product-detail-presentation.test.mjs의 3개 테스트를 보강해 Clifton의 고시 항목 8개·예시 제조국과 다른 상품의 소재 fallback을 검사했다. 기존 스타일코드 누락 fallback 검사도 유지한다. Codex가 node --test tests/product-detail-presentation.test.mjs로 3개 통과를 확인했으며, Next.js 빌드의 타입 검사와 Storybook 빌드·변경 파일 ESLint·Prettier도 통과했다. 출처는 해당 테스트와 작업 트리의 productDetailPresentation.ts다. UI 실측은 architecture/ui.md의 상품 상세 지원 아코디언 시안 보정·상품 고시 정보 신규 표 기록을 참고한다.

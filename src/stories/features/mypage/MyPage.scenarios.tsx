@@ -5,7 +5,7 @@ import MyPage from '@/app/mypage/page';
 type MyPageStoryArgs = { platform?: 'web' | 'mobile' };
 
 const meta = {
-  title: 'PAGES/MYPAGE/Main',
+  title: 'PAGES/마이페이지/0. 마이페이지 메인',
   parameters: { nextjs: { navigation: { pathname: '/mypage' } }, layout: 'fullscreen' },
   render: ({ platform }) => (
     <ShopShell platform={platform}>

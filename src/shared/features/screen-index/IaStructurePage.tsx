@@ -68,102 +68,111 @@ type PreviewStoryIds = {
 };
 
 const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
-  158: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
-  260: {
-    pc: 'pages-support-sizeguide-web--default',
-    mo: 'pages-support-sizeguide-mobile--default',
+  158: {
+    pc: 'pages-탐색-0-러닝세션-목록-web--list',
+    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
   },
-  200: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
-  258: { pc: 'pages-mypage-runclub-list-web--list', mo: 'pages-mypage-runclub-list-mobile--list' },
+  260: {
+    pc: 'pages-고객센터-6-사이즈-가이드-web--default',
+    mo: 'pages-고객센터-6-사이즈-가이드-mobile--default',
+  },
+  200: {
+    pc: 'pages-탐색-0-러닝세션-목록-web--list',
+    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
+  },
+  258: {
+    pc: 'pages-탐색-0-러닝세션-목록-web--list',
+    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
+  },
   259: {
-    pc: 'pages-mypage-runclub-detail-web--open',
-    mo: 'pages-mypage-runclub-detail-mobile--open',
+    pc: 'pages-탐색-1-러닝세션-상세-web--open',
+    mo: 'pages-탐색-1-러닝세션-상세-mobile--open',
   },
   229: {
-    pc: 'pages-login-findaccount-passwordresetpage-web--default',
-    mo: 'pages-login-findaccount-passwordresetpage-mobile--default',
+    pc: 'pages-로그인-3-비밀번호-재설정-web--default',
+    mo: 'pages-로그인-3-비밀번호-재설정-mobile--default',
   },
   252: {
-    pc: 'pages-login-findaccount-passwordresetcompletemodal-web--default',
-    mo: 'pages-login-findaccount-passwordresetcompletemodal-mobile--default',
+    pc: 'pages-로그인-4-비밀번호-재설정-완료-web--default',
+    mo: 'pages-로그인-4-비밀번호-재설정-완료-mobile--default',
   },
   226: {
-    pc: 'pages-login-findaccount-idconfirmationmodal-web--default',
-    mo: 'pages-login-findaccount-idconfirmationmodal-mobile--default',
+    pc: 'pages-로그인-2-아이디확인-web--default',
+    mo: 'pages-로그인-2-아이디확인-mobile--default',
   },
   1: {
-    pc: 'pages-home-main-web--width-1920',
-    mo: 'pages-home-main-mobile--width-375',
+    pc: 'pages-메인-0-메인-web--width-1920',
+    mo: 'pages-메인-0-메인-mobile--width-375',
   },
   251: {
-    pc: 'pages-login-findaccount-accountlockedmodal-web--default',
-    mo: 'pages-login-findaccount-accountlockedmodal-mobile--default',
+    pc: 'pages-로그인-5-계정-잠금-안내-web--default',
+    mo: 'pages-로그인-5-계정-잠금-안내-mobile--default',
   },
   253: {
-    pc: 'pages-signup-phoneverification-web--account-unlock',
-    mo: 'pages-signup-phoneverification-mobile--account-unlock',
+    pc: 'pages-회원가입-2-휴대폰-인증-web--account-unlock',
+    mo: 'pages-회원가입-2-휴대폰-인증-mobile--account-unlock',
   },
   254: {
-    pc: 'pages-login-accountunlockcompletepage-web--default',
-    mo: 'pages-login-accountunlockcompletepage-mobile--default',
+    pc: 'pages-로그인-6-계정-잠금-해제-완료-web--default',
+    mo: 'pages-로그인-6-계정-잠금-해제-완료-mobile--default',
   },
   257: {
     pc: 'organisms-account-alreadyregisteredmodal--default',
     mo: 'organisms-account-alreadyregisteredmodal--mobile',
   },
   233: {
-    pc: 'pages-signup-signup-web--default',
-    mo: 'pages-signup-signup-mobile--default',
+    pc: 'pages-회원가입-0-회원가입-안내-web--default',
+    mo: 'pages-회원가입-0-회원가입-안내-mobile--default',
   },
   234: {
-    pc: 'pages-signup-phoneverification-web--default',
-    mo: 'pages-signup-phoneverification-mobile--default',
+    pc: 'pages-회원가입-2-휴대폰-인증-web--default',
+    mo: 'pages-회원가입-2-휴대폰-인증-mobile--default',
   },
   235: {
-    pc: 'pages-signup-identityverification-web--default',
-    mo: 'pages-signup-identityverification-mobile--default',
+    pc: 'pages-회원가입-1-가입여부확인-web--default',
+    mo: 'pages-회원가입-1-가입여부확인-mobile--default',
   },
   236: {
-    pc: 'pages-signup-terms-web--default',
-    mo: 'pages-signup-terms-mobile--default',
+    pc: 'pages-회원가입-3-약관동의-web--default',
+    mo: 'pages-회원가입-3-약관동의-mobile--default',
   },
   237: {
-    pc: 'pages-signup-registration-web--default',
-    mo: 'pages-signup-registration-mobile--default',
+    pc: 'pages-회원가입-4-회원-정보-입력-web--default',
+    mo: 'pages-회원가입-4-회원-정보-입력-mobile--default',
   },
   255: {
-    pc: 'pages-signup-registration-web--additional',
-    mo: 'pages-signup-registration-mobile--additional',
+    pc: 'pages-회원가입-4-회원-정보-입력-web--additional',
+    mo: 'pages-회원가입-4-회원-정보-입력-mobile--additional',
   },
   256: {
-    pc: 'pages-signup-registration-marketingconsentsummarymodal-web--default',
-    mo: 'pages-signup-registration-marketingconsentsummarymodal-mobile--default',
+    pc: 'pages-회원가입-5-마케팅-정보-수신동의-안내-web--default',
+    mo: 'pages-회원가입-5-마케팅-정보-수신동의-안내-mobile--default',
   },
   238: {
-    pc: 'pages-signup-registration-web--complete',
-    mo: 'pages-signup-registration-web--complete',
+    pc: 'pages-회원가입-4-회원-정보-입력-web--complete',
+    mo: 'pages-회원가입-4-회원-정보-입력-web--complete',
   },
 };
 
 const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {
   eland_hca_01: {
-    pc: 'pages-products-list-web--width-1920',
-    mo: 'pages-products-list-mobile--width-375',
+    pc: 'pages-상품-0-상품목록-web--width-1920',
+    mo: 'pages-상품-0-상품목록-mobile--width-375',
   },
   eland_hca_02: {
-    pc: 'pages-products-detail-web--width-1920',
-    mo: 'pages-products-detail-mobile--width-375',
+    pc: 'pages-상품-1-상품상세-web--width-1920',
+    mo: 'pages-상품-1-상품상세-mobile--width-375',
   },
 };
 
 const loginPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-login-login-web--default',
-  mo: 'pages-login-login-mobile--default',
+  pc: 'pages-로그인-0-로그인-web--default',
+  mo: 'pages-로그인-0-로그인-mobile--default',
 };
 
 const findAccountPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-login-findaccount-web--default',
-  mo: 'pages-login-findaccount-mobile--default',
+  pc: 'pages-로그인-1-아이디·비밀번호-찾기-web--default',
+  mo: 'pages-로그인-1-아이디·비밀번호-찾기-mobile--default',
 };
 
 const findAccountScreenCodes = new Set([

@@ -1,9 +1,12 @@
+'use client';
+
+import { useId, useState, type CSSProperties, type ReactNode } from 'react';
+import { css } from 'styled-system/css';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { ContentHeader } from '@/shared/components/molecules/ContentHeader/ContentHeader';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Button } from '@/shared/components/atoms/Button/Button';
-import { Fragment, type ReactNode } from 'react';
-import { Grid } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
+import { DescriptionList } from '@/shared/components/atoms/DescriptionList/DescriptionList';
 
 export type ProductInformationProps = {
   id?: string;
@@ -20,63 +23,75 @@ export function ProductInformation({
   specifications,
 }: ProductInformationProps) {
   const [description, ...features] = sections;
+  const [expanded, setExpanded] = useState(false);
+  const contentId = useId();
 
   return (
     <ContentSection
       as="section"
-      gap="10"
+      gap="4"
       px="8"
       py="8"
       bg="var(--color-black-10)"
       _mobile={{ px: '4' }}
       id={id}
-      header={
-        <ContentSection
-          gap="6"
-          title={<>{title}</>}
-          headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading8' } }}
-        >
-          {description && (
-            <ContentHeader
-              gap="6"
-              titleAs="h3"
-              title={<>{description.title}</>}
-              titleProps={{ variant: 'heading9' }}
-              description={<>{description.content}</>}
-              descriptionProps={{ variant: 'body3' }}
-            />
-          )}
-        </ContentSection>
-      }
-      footer={
-        <Button variant="link" colorway="black" size="md">
-          더 보기
-        </Button>
-      }
+      title={title}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: { variant: 'productSectionTitle', mo: 'heading8' },
+      }}
     >
-      {features.map((section, index) => (
-        <ContentHeader
-          gap="6"
-          key={index}
-          titleAs="h3"
-          title={<>{section.title}</>}
-          titleProps={{ variant: 'heading9' }}
-          description={<>{section.content}</>}
-          descriptionProps={{ variant: 'body3' }}
+      <Stack gap="8">
+        <Stack gap="3" alignItems="start">
+          <Stack id={contentId} gap="4" w="100%">
+            {description && (
+              <ContentHeader
+                gap="3"
+                titleAs="h3"
+                title={<>{description.title}</>}
+                titleProps={{ variant: 'body3', weight: 'bold' }}
+                description={<>{description.content}</>}
+                descriptionProps={{
+                  variant: 'productInformationBody',
+                  className: expanded ? undefined : css({ lineClamp: 4 }),
+                }}
+              />
+            )}
+            {expanded &&
+              features.map((section, index) => (
+                <ContentHeader
+                  gap="3"
+                  key={index}
+                  titleAs="h3"
+                  title={<>{section.title}</>}
+                  titleProps={{ variant: 'body3', weight: 'bold' }}
+                  description={<>{section.content}</>}
+                  descriptionProps={{ variant: 'productInformationBody' }}
+                />
+              ))}
+          </Stack>
+          {description && (
+            <Button
+              variant="link"
+              colorway="black"
+              size="md"
+              aria-expanded={expanded}
+              aria-controls={contentId}
+              onClick={() => setExpanded((value) => !value)}
+              style={{ '--button-label-weight': '700' } as CSSProperties}
+            >
+              {expanded ? '닫기' : '더보기'}
+            </Button>
+          )}
+        </Stack>
+        <DescriptionList
+          items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
+          labelWidth="80px"
+          termProps={{ variant: 'body3', weight: 'bold' }}
+          descriptionProps={{ variant: 'body3', tone: 'primary' }}
+          slotStyles={{ root: css.raw({ columnGap: '3', rowGap: '4' }) }}
         />
-      ))}
-      <Grid as="dl" gridTemplateColumns="26.6% 1fr" columnGap="3" rowGap="6">
-        {specifications.map((specification, index) => (
-          <Fragment key={index}>
-            <Typography as="dt" variant="cta1">
-              {specification.label}
-            </Typography>
-            <Typography as="dd" variant="body4">
-              {specification.value}
-            </Typography>
-          </Fragment>
-        ))}
-      </Grid>
+      </Stack>
     </ContentSection>
   );
 }

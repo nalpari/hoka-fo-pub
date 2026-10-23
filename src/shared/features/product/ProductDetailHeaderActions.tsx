@@ -5,6 +5,7 @@ import { Button } from '@/shared/components/atoms/Button/Button';
 import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
 import { Wishlist } from '@/shared/components/atoms/Wishlist/Wishlist';
 import { ShareButton } from '@/shared/components/atoms/ShareButton/ShareButton';
+import { usePlatform } from '@/shared/context/platform';
 
 const styles = {
   reviewLink: css({
@@ -31,6 +32,8 @@ export function ProductDetailHeaderActions({
   wish,
   onWishChange,
 }: ProductDetailHeaderActionsProps) {
+  const platform = usePlatform();
+
   return (
     <Flex alignItems="center" justifyContent="space-between" w="full">
       <HStack gap="10px">
@@ -39,7 +42,9 @@ export function ProductDetailHeaderActions({
           className={styles.reviewLink}
           variant="link"
           onClick={() =>
-            document.getElementById('product-information')?.scrollIntoView({ behavior: 'smooth' })
+            document
+              .getElementById(platform === 'web' ? 'product-reviews' : 'product-information')
+              ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }
           type="button"
           size="md"

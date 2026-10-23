@@ -1,9 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { css } from 'styled-system/css';
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
+import { Typography, type TypographyProps } from '@/shared/components/atoms/Typography/Typography';
 import { Box } from 'styled-system/jsx';
+import type { SystemStyleObject } from 'styled-system/types';
 
-const list = css({
+const list = css.raw({
   display: 'grid',
   gridTemplateColumns: 'var(--description-list-label-width, max-content) minmax(0, 1fr)',
   gap: '10px 16px',
@@ -12,25 +13,51 @@ const list = css({
 
 export type DescriptionListItem = { id?: string; term: ReactNode; description: ReactNode };
 
+type TextProps = Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'>;
+
+export type DescriptionListSlotStyles = {
+  root?: SystemStyleObject;
+  row?: SystemStyleObject;
+  term?: SystemStyleObject;
+  description?: SystemStyleObject;
+};
+
 export type DescriptionListProps = {
   items: readonly DescriptionListItem[];
   labelWidth?: string;
   className?: string;
+  /** Merge layout styles before Panda class generation; use text props for type scales. */
+  slotStyles?: DescriptionListSlotStyles;
+  termProps?: TextProps;
+  descriptionProps?: TextProps;
 };
 
 /** Semantic key/value list for delivery, specifications, and account summaries. */
-export function DescriptionList({ items, labelWidth, className }: DescriptionListProps) {
+export function DescriptionList({
+  items,
+  labelWidth,
+  className,
+  slotStyles,
+  termProps,
+  descriptionProps,
+}: DescriptionListProps) {
   return (
     <dl
-      className={[list, className].filter(Boolean).join(' ')}
+      className={[css(list, slotStyles?.root), className].filter(Boolean).join(' ')}
       style={{ '--description-list-label-width': labelWidth } as CSSProperties}
     >
       {items.map((item, index) => (
-        <Box key={item.id ?? index} display="contents">
-          <Typography as="dt" variant="heading9">
+        <Box key={item.id ?? index} className={css({ display: 'contents' }, slotStyles?.row)}>
+          <Typography as="dt" variant="heading9" {...termProps} className={css(slotStyles?.term)}>
             {item.term}
           </Typography>
-          <Typography as="dd" variant="body4" tone="tertiary">
+          <Typography
+            as="dd"
+            variant="body4"
+            tone="tertiary"
+            {...descriptionProps}
+            className={css(slotStyles?.description)}
+          >
             {item.description}
           </Typography>
         </Box>

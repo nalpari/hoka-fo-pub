@@ -1,7 +1,11 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite';
+import { readdirSync } from 'node:fs';
 
 const config: StorybookConfig = {
-  stories: ['../src/stories/**/*.stories.@(ts|tsx)'],
+  stories: async () =>
+    readdirSync(new URL('../src/stories/', import.meta.url), { recursive: true })
+      .filter((file) => /\.stories\.tsx?$/.test(file) && !/mockup/i.test(file))
+      .map((file) => `../src/stories/${file.replaceAll('\\', '/')}`),
   staticDirs: ['../public'],
   addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: '@storybook/nextjs-vite',

@@ -31,6 +31,8 @@ export function ProductDetailContent({
   onAddToCart,
   onOrder,
 }: ProductDetailContentProps) {
+  const isClifton = product.styleCode === 'HOKADFG34S';
+
   return (
     <Stack gap="10">
       <ProductVariantSelectors
@@ -49,16 +51,23 @@ export function ProductDetailContent({
         id="product-information"
         sections={[
           { title: '어떤 날씨에도 쿠션감 있는 편안한 주행', content: product.detailDescription },
-          {
-            title: '새로운 특징',
-            content:
-              '알갱한 발볼 부분의 돔이 지지력과 착화감이 개선된 새로운 라스트를 만나보실 수 있습니다.',
-          },
+          ...(isClifton
+            ? [
+                {
+                  title: '새로운 특징',
+                  content:
+                    '앞발과 발등 부분의 드롭이 커지고 착화감이 개선된 새로운 라스트를 만나보실 수 있습니다. 또한 업그레이드된 러그 디자인으로 접지력을 더욱 강화했습니다.',
+                },
+              ]
+            : []),
         ]}
         specifications={[
-          { label: '컬러', value: color },
-          { label: '스타일코드', value: product.styleCode },
-          { label: '발볼 넓이', value: width },
+          {
+            label: '신발 유형',
+            value: isClifton || product.stability === 'Stable' ? '안정화' : '중립화',
+          },
+          { label: '추천 활동', value: isClifton ? '로드 러닝, 워킹, 라이프 스타일' : product.use },
+          { label: '러닝 유형', value: product.runningType },
         ]}
       />
     </Stack>

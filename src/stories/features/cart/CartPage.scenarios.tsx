@@ -34,7 +34,7 @@ function CartPreview({ empty = false }: { empty?: boolean }) {
 }
 
 const meta = {
-  title: 'PAGES/Cart',
+  title: 'PAGES/장바구니/0. 장바구니 목록',
   component: CartPage,
   args: { cart: initialCart, onQuantityChange: fn(), onRemove: fn() },
   parameters: { layout: 'fullscreen' },

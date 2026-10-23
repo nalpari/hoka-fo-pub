@@ -4,7 +4,7 @@ import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {
   ...base,
-  title: 'PAGES/SUPPORT/Customer Center/Mobile',
+  title: 'PAGES/고객센터/0. 고객센터 메인/Mobile',
   globals: { viewport: 'hoka375' },
 };
 

@@ -8,6 +8,7 @@ import { usePlatform } from '@/shared/context/platform';
 import { SiteHeaderFrame } from '@/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame';
 
 type SiteHeaderProps = {
+  fixedOnScroll?: boolean;
   cart: number;
   onMenu: () => void;
   isLoggedIn?: boolean;
@@ -18,6 +19,7 @@ type SiteHeaderProps = {
 type MenuFocusPosition = 'first' | 'last';
 
 export function SiteHeader({
+  fixedOnScroll = false,
   cart,
   onMenu,
   isLoggedIn = false,
@@ -142,7 +144,7 @@ export function SiteHeader({
     <>
       <HeaderPromotionBanner />
 
-      <SiteHeaderFrame onLeave={closeMegaMenu}>
+      <SiteHeaderFrame onLeave={closeMegaMenu} fixedOnScroll={fixedOnScroll}>
         <SiteHeaderContainer
           cart={cart}
           isLoggedIn={isLoggedIn}
