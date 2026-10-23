@@ -242,6 +242,156 @@ export const InquiryNewMobile375: Story = {
     nextjs: { navigation: { pathname: '/support/inquiries/new' } },
   },
   globals: { viewport: 'hoka375' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: '문의 유형' })).toHaveTextContent(
+      '문의 분류를 선택해주세요',
+    );
+    await expect(canvas.getByRole('button', { name: '상세 유형' })).toHaveTextContent(
+      '상세 유형을 선택해주세요',
+    );
+  },
+};
+
+export const InquiryNewRequiredErrorsMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Required field errors / Mobile',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: '문의 등록' }));
+    await expect(canvas.getByText('문의 분류를 선택해주세요.')).toBeVisible();
+    await expect(canvas.getByText('상세 유형을 선택해주세요.')).toBeVisible();
+  },
+};
+
+export const InquiryNewRequiredErrorsDesktop: Story = {
+  ...InquiryNewRequiredErrorsMobile375,
+  name: 'Inquiry Form / Required field errors / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryNewAllValidationErrorsMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / All validation errors / Mobile',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: '문의 등록' }));
+    await userEvent.upload(
+      canvas.getByLabelText('파일 첨부'),
+      new File(['unsupported'], 'document.pdf', { type: 'application/pdf' }),
+      { applyAccept: false },
+    );
+    for (const message of [
+      '문의 분류를 선택해주세요.',
+      '상세 유형을 선택해주세요.',
+      '제목을 입력해 주세요.',
+      '내용을 입력해 주세요.',
+      '첨부할 수 없는 파일 형식입니다.',
+    ]) {
+      await expect(canvas.getByText(message)).toBeVisible();
+    }
+  },
+};
+
+export const InquiryNewAllValidationErrorsDesktop: Story = {
+  ...InquiryNewAllValidationErrorsMobile375,
+  name: 'Inquiry Form / All validation errors / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
+};
+
+const verifyAttachmentError =
+  (
+    fileName: string,
+    contentType: string,
+    size: number,
+    message: string,
+  ): NonNullable<Story['play']> =>
+  async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByLabelText('파일 첨부');
+    const file = new File([new Uint8Array(size)], fileName, { type: contentType });
+    await userEvent.upload(input, file, { applyAccept: false });
+    await expect(canvas.getByText(message)).toBeVisible();
+  };
+
+export const InquiryAttachmentInvalidTypeMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Attachment type error / Mobile',
+  play: verifyAttachmentError(
+    'document.pdf',
+    'application/pdf',
+    100,
+    '첨부할 수 없는 파일 형식입니다.',
+  ),
+};
+
+export const InquiryAttachmentInvalidTypeDesktop: Story = {
+  ...InquiryAttachmentInvalidTypeMobile375,
+  name: 'Inquiry Form / Attachment type error / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryAttachmentTooLargeMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Attachment size error / Mobile',
+  play: verifyAttachmentError(
+    'large.jpg',
+    'image/jpeg',
+    10 * 1024 * 1024 + 1,
+    '첨부파일은 10MB 이하로 첨부해주세요.',
+  ),
+};
+
+export const InquiryAttachmentTooLargeDesktop: Story = {
+  ...InquiryAttachmentTooLargeMobile375,
+  name: 'Inquiry Form / Attachment size error / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryAttachmentCountExceededMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Attachment count error / Mobile',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByLabelText('파일 첨부');
+    const files = Array.from(
+      { length: 6 },
+      (_, index) => new File(['image'], `image-${index}.jpg`, { type: 'image/jpeg' }),
+    );
+    await userEvent.upload(input, files);
+    await expect(canvas.getByText('파일은 최대 5개까지 첨부할 수 있습니다.')).toBeVisible();
+  },
+};
+
+export const InquiryAttachmentCountExceededDesktop: Story = {
+  ...InquiryAttachmentCountExceededMobile375,
+  name: 'Inquiry Form / Attachment count error / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryNewPage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka1600' },
 };
 
 export const InquiryNewDesktop: Story = {

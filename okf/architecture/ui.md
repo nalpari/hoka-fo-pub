@@ -1114,7 +1114,7 @@ FAQ 카테고리는 FilterTabs의 새 `outline` variant를 사용한다. 미선�
 
 PageActionButton의 `width`는 기본 500px, `compact` 180px, `narrow` 160px이며 compact/narrow는 모바일에서 본문 전체 너비다. 고객센터 메인·문의하기는 compact, FAQ·공지 더보기는 narrow를 사용한다. 너비는 컴포넌트 내부 Panda JSX에서 생성해 호출자의 임의 객체 속성이 CSS 추출에서 누락되지 않도록 한다.
 
-문의등록은 기존 FormField boxed와 Dropdown으로 필드 안쪽 라벨을 구성하고 모바일에서는 분류를 한 열로 배치한다. 제목·내용 오류와 문자 수 표시를 유지하고 취소는 ConfirmDialog로 표시한다. InquiryAttachments는 기능 내부 표현·입력 컴포넌트로, 선택 파일 목록·삭제·최대 5개·파일당 10MB·JPG/PNG/PDF 확장자 검사를 제공한다. 실제 업로드나 문의 저장 API는 추가하지 않았으며 기존 등록 후 목록 이동을 유지한다.
+문의등록은 기존 FormField boxed와 Dropdown으로 필드 안쪽 라벨을 구성하고 모바일에서는 분류를 한 열로 배치한다. 제목·내용 오류와 문자 수 표시를 유지하고 취소는 ConfirmDialog로 표시한다. InquiryAttachments는 기능 내부 표현·입력 컴포넌트로, 선택 파일 목록·삭제·최대 5개·파일당 10MB·JPG/JPEG/PNG 확장자 검사를 제공한다. 실제 업로드나 문의 저장 API는 추가하지 않았으며 기존 등록 후 목록 이동을 유지한다.
 
 팀/단체복의 ONLINE/OFFLINE STORE는 PC 두 열·동일 높이 카드, 모바일 한 열이며 문의 버튼은 온라인 카드의 운영시간 아래에 둔다. 배송·세탁 안내와 팀/단체복의 제목 아래 추가 구분선은 제거한다. 배송·세탁 본문과 매장 찾기 구현은 유지한다.
 
@@ -1594,7 +1594,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 기존 선택값과 2열 배치를 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
+문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 PC 2열(열 간격 8px)·모바일 1열(행 간격 16px)로 배치한다. 문의 유형 묶음과 제목·내용 입력 묶음 사이는 PC·모바일 모두 16px이다. 초기값은 비워 필수 선택 placeholder를 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryCategoryFields.tsx`, `InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
 
 답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`와 `src/shared/components/atoms/Accordion/Accordion.tsx`다.
 
@@ -2657,6 +2657,16 @@ HomeLayout의 모바일 하단 패딩을 18에서 명시적 72px로 변경했다
 
 HeaderCartLink에서 NotificationIcon의 bag variant와 검정색을 명시했다. 기존 notification-bag.svg 자산을 사용하고 수량에 따른 아이콘의 파란색 자동 전환을 막는다. 장바구니 링크와 접근성 이름, PC 22px·모바일 20px 크기 및 수량 전달은 유지한다. 출처는 스테이징된 HeaderCartLink.tsx와 기존 NotificationIcon.tsx이다. 이번 커밋 준비에서는 브라우저 검증을 수행하지 않았다.
 
+## 1:1 문의 등록 상세 시안 반영 (2026-10-23)
+
+Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 문의등록`으로 통일한다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 body3(16px)이며 PC black.100·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px, 설명과 첫 정보 영역 사이 간격은 PC 40px·모바일 24px로 둔다. 문의 유형·내용 입력과 다른 공통 컴포넌트는 변경하지 않는다.
+
+신청인 정보는 muted(`#f7f7f9`) 패널에 PC 좌우 32px·상하 24px, 모바일 좌우 16px·상하 20px 여백을 둔다. PC는 라벨·값 그룹 사이 88px, 행 간격 12px이며 모바일은 82px 라벨 열, 열 간격 8px·행 간격 12px이다. 라벨은 PC·모바일 body3(16px) regular subtle(`#4d4d4d`), 값은 PC body3(16px)·모바일 body4(14px) medium black이다. PC 라벨은 `E-mail`, 모바일은 `이메일`로 표기한다. 문의 유형과 상세 유형은 처음에 선택값 없이 각각 `문의 분류를 선택해주세요`, `상세 유형을 선택해주세요`를 보여준다. 두 필드는 필수로 유지하며, 등록 시 미선택이면 해당 Dropdown 아래에 항목별 오류 문구와 오류 테두리를 표시한다. Storybook에는 모바일·데스크톱 초기 상태, 필수 오류 상태와 필수 입력·첨부 오류가 함께 보이는 상태를 둔다.
+
+첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `InquiryNew/Mobile`·`InquiryNew/Web`의 별도 스토리 모듈에 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
+
+출처는 작업 트리의 `InquiryNewPage`, `InquiryAttachments`, `InquiryAttachmentHelp`와 Figma 노드 `1241:92705`, `1241:92753`, 오류 기획 노드 `1241:92895`, `1241:92822`이다.
+
 ## 수량 배지 Circle 조합 (2026-10-22)
 
 NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. Circle은 span으로 렌더링하며 절대 위치(top -.3rem·right -4px)·size="12px"·좌우 패딩 2px·배경색·중앙 정렬·둥근 모서리를 담당한다. 내부 Typography는 notificationCount variant와 tone="inverse"로 숫자를 표시하며 전달받은 span 속성·aria-hidden·호출자 className을 유지한다. 흰색은 공통 text-inverse 토큰을 사용하고 notificationCount 클래스와 css import는 제거했다. 텍스트 정렬은 외부 Circle이 담당한다. 사용자 지정에 따라 Circle의 size="12px"로 너비와 높이를 함께 지정한다. 긴 수량에도 배지 외곽 크기는 12px로 유지한다. 출처는 작업 트리의 src/shared/components/atoms/NotificationIcon/NotificationCount.tsx와 생성된 styled-system/patterns/circle.mjs이다. 사용자 요청에 따라 단일 요소 조합을 중첩 구조로 수정했다. 이전 단일 요소 구조의 SSR·Storybook 결과는 이 중첩 구조의 검증 결과가 아니다. 브라우저 시각 검증은 수행하지 않았다.
@@ -2681,18 +2691,14 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 
 ## 1:1 문의 빈 상태 시안 정밀 반영 (2026-10-22)
 
-`InquiryPage`의 PC·모바일 타이포그래피와 색을 Figma `1241:92230`·`1241:92543`에 맞췄다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 양쪽 body3(16px)이며 PC primary black·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px이고, 제목 아래 Divider는 PC 2px black.100·모바일 1px black.20이다.
+`AGENTS.md`의 컴포넌트 주석 정책에 따라 export된 React 컴포넌트 선언 바로 위에 한 문장 JSDoc을 둔다. 설명은 `한국어 역할 설명 (English responsibility).` 형식이며, 컴포넌트의 목적과 필요한 경우 책임 경계를 알려준다. JSX나 명백한 props를 반복하지 않고, 헬퍼·데이터·타입에는 목적이나 제약이 이름만으로 불분명할 때만 주석을 추가한다.
 
-빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
+이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
-출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
+`InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
 
-## 바텀시트 내용 높이와 내부 스크롤 (2026-10-23)
+## 라운드 배지 디자인 시스템 반영 (2026-10-23)
 
-제목은 기존 body3를 재사용하며 사용처가 없어진 bottomSheetTitle variant·CSS 변수·전용 Typography 스토리를 제거했다. 커밋 전 점검에서 실수로 함께 삭제된 figmaTypographyVariants 전체 등록은 복원해 다른 제목·본문 스케일을 보존했다. 복원과 오래된 스토리 제거 후 타입 검사·변경 TSX ESLint/Prettier·Next.js 빌드·별도 출력 경로 Storybook 빌드를 통과했다.
+Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
-사용자 첨부의 기본형·버튼형 시안에 따라 공통 BottomSheet는 내용의 자연 높이를 사용하고 max-height를 calc(100dvh - 44px)로 제한한다. Stack의 overflow hidden으로 둥근 상단을 보존하며 헤더·Footer는 flex-shrink 0, 본문만 min-height 0·flex 0 1 auto·overflow-y auto로 축소된다. 본문은 overscroll-behavior-y contain으로 스크롤 전파를 제한한다. 본문 좌우 24px·하단 32px, 헤더 상하/좌우 24px과 body3 제목을 사용한다. MobileProductFilter는 공통 본문 패딩과 중복되는 자체 Box의 좌우 16px을 제거했다. Footer의 48px 전체 너비 버튼·safe-area와 Drawer의 닫기·모달 동작은 유지한다.
-
-Layouts/BottomSheet에 Default·WithButton·Scrollable·ScrollableWithButton·GrowingContent 스토리를 추가했다. GrowingContent는 실제 내용 높이를 늘리고 줄여 임계점 이전 성장·이후 스크롤·다시 축소를 확인할 수 있다. 출처는 사용자 첨부와 working_tree_sources의 BottomSheet 관련 코드다. 변경 TSX ESLint·Prettier·Panda 생성·타입 검사·Next.js 빌드·별도 출력 경로 Storybook 빌드를 통과했다.
-
-후속 브라우저 검증: 빌드된 GrowingContent의 720px 뷰포트에서 시트 높이가 361.8→561.8px로 내용과 함께 증가하고, 다음 증가 시 top 44px·높이 676px에 고정되어 본문 clientHeight 526px/scrollHeight 612px로 전환됨을 확인했다. 줄이기로 높이 361.8px·스크롤 없음으로 복귀했다. 버튼 없는 기본형과 긴 내용형에서도 자연 높이/스크롤 전환을 확인했다. 375px 상품 필터에서 본문 scrollTop 360px 이동 중 헤더 top 44px·Footer 하단이 뷰포트 끝에 유지됨을 확인했다. 개발 서버는 재시작 후 무응답이 있어 기존 Storybook 캐시를 별도 이름으로 보존하고 재생성해 HTTP 200과 원래 375px 스토리의 새 필터 렌더링을 확인했다. 정적 검증 전용 서버와 탭은 종료했다.
+프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
