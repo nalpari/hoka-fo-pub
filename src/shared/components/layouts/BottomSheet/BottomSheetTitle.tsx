@@ -7,7 +7,7 @@ type BottomSheetTitleProps = {
 
 export function BottomSheetTitle({ children }: BottomSheetTitleProps) {
   return (
-    <Typography as="h2" variant="bottomSheetTitle">
+    <Typography as="h2" variant="body3">
       {children}
     </Typography>
   );

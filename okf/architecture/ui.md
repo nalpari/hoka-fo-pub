@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T04:55:14Z'
+  at: '2026-10-23T05:31:35Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetHeader.tsx
+  - src/shared/components/layouts/BottomSheet/BottomSheetTitle.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/stories/components/layouts/BottomSheet/BottomSheet.stories.tsx
   - src/shared/lib/useScrollPin.ts
   - src/shared/features/catalog/product-listing/MobileProductNavigation.tsx
   - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
@@ -2679,3 +2686,13 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
 
 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
+
+## 바텀시트 내용 높이와 내부 스크롤 (2026-10-23)
+
+제목은 기존 body3를 재사용하며 사용처가 없어진 bottomSheetTitle variant·CSS 변수·전용 Typography 스토리를 제거했다. 커밋 전 점검에서 실수로 함께 삭제된 figmaTypographyVariants 전체 등록은 복원해 다른 제목·본문 스케일을 보존했다. 복원과 오래된 스토리 제거 후 타입 검사·변경 TSX ESLint/Prettier·Next.js 빌드·별도 출력 경로 Storybook 빌드를 통과했다.
+
+사용자 첨부의 기본형·버튼형 시안에 따라 공통 BottomSheet는 내용의 자연 높이를 사용하고 max-height를 calc(100dvh - 44px)로 제한한다. Stack의 overflow hidden으로 둥근 상단을 보존하며 헤더·Footer는 flex-shrink 0, 본문만 min-height 0·flex 0 1 auto·overflow-y auto로 축소된다. 본문은 overscroll-behavior-y contain으로 스크롤 전파를 제한한다. 본문 좌우 24px·하단 32px, 헤더 상하/좌우 24px과 body3 제목을 사용한다. MobileProductFilter는 공통 본문 패딩과 중복되는 자체 Box의 좌우 16px을 제거했다. Footer의 48px 전체 너비 버튼·safe-area와 Drawer의 닫기·모달 동작은 유지한다.
+
+Layouts/BottomSheet에 Default·WithButton·Scrollable·ScrollableWithButton·GrowingContent 스토리를 추가했다. GrowingContent는 실제 내용 높이를 늘리고 줄여 임계점 이전 성장·이후 스크롤·다시 축소를 확인할 수 있다. 출처는 사용자 첨부와 working_tree_sources의 BottomSheet 관련 코드다. 변경 TSX ESLint·Prettier·Panda 생성·타입 검사·Next.js 빌드·별도 출력 경로 Storybook 빌드를 통과했다.
+
+후속 브라우저 검증: 빌드된 GrowingContent의 720px 뷰포트에서 시트 높이가 361.8→561.8px로 내용과 함께 증가하고, 다음 증가 시 top 44px·높이 676px에 고정되어 본문 clientHeight 526px/scrollHeight 612px로 전환됨을 확인했다. 줄이기로 높이 361.8px·스크롤 없음으로 복귀했다. 버튼 없는 기본형과 긴 내용형에서도 자연 높이/스크롤 전환을 확인했다. 375px 상품 필터에서 본문 scrollTop 360px 이동 중 헤더 top 44px·Footer 하단이 뷰포트 끝에 유지됨을 확인했다. 개발 서버는 재시작 후 무응답이 있어 기존 Storybook 캐시를 별도 이름으로 보존하고 재생성해 HTTP 200과 원래 375px 스토리의 새 필터 렌더링을 확인했다. 정적 검증 전용 서버와 탭은 종료했다.

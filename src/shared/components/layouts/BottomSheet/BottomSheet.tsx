@@ -56,7 +56,8 @@ export function BottomSheet({
           <Drawer.Popup aria-label={ariaLabel} className={popup}>
             <Stack
               gap="0"
-              maxH="calc(100dvh - 56px)"
+              maxH="calc(100dvh - 44px)"
+              overflow="hidden"
               borderRadius="16px 16px 0 0"
               bg="var(--color-white-000)"
               boxShadow="0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)"

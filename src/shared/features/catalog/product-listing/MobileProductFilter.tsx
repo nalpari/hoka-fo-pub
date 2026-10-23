@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { BottomSheet } from '@/shared/components/layouts/BottomSheet/BottomSheet';
-import { Box } from 'styled-system/jsx';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Radio } from '@/shared/components/atoms/Radio/Radio';
 import { css } from 'styled-system/css';
@@ -52,7 +51,7 @@ export function MobileProductFilter({
       onClose={onClose}
       title="필터"
     >
-      <Box px="4">
+      <>
         <ContentSection
           as="section"
           title="정렬"
@@ -74,7 +73,7 @@ export function MobileProductFilter({
           />
         </ContentSection>
         {children}
-      </Box>
+      </>
     </BottomSheet>
   );
 }

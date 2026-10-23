@@ -124,13 +124,6 @@ const typographyStorySpecs = {
     fontWeight: '600',
     lineHeight: '130%',
   },
-  bottomSheetTitle: {
-    name: 'BottomSheetTitle',
-    desktopFontSize: '20px',
-    mobileFontSize: '20px',
-    fontWeight: '700',
-    lineHeight: '130%',
-  },
 } as const satisfies Record<string, TypographyStorySpec>;
 
 function typographyLabel({
@@ -467,13 +460,6 @@ export const Action: Story = {
 
 export const FilterLegend: Story = {
   args: { children: typographyLabel(typographyStorySpecs.filterLegend), variant: 'filterLegend' },
-};
-
-export const BottomSheetTitle: Story = {
-  args: {
-    children: typographyLabel(typographyStorySpecs.bottomSheetTitle),
-    variant: 'bottomSheetTitle',
-  },
 };
 
 export const AuthTitle: Story = {

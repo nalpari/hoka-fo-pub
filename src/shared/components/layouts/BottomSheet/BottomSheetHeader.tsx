@@ -16,9 +16,9 @@ export function BottomSheetHeader({ action, onClose, title }: BottomSheetHeaderP
       as="header"
       flexShrink="0"
       justifyContent="space-between"
-      pt="8"
+      pt="6"
       pb="6"
-      px="var(--layout-mobile-inline-gutter)"
+      px="6"
       gap="2.5"
     >
       <BottomSheetTitle>{title}</BottomSheetTitle>

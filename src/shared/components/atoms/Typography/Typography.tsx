@@ -670,12 +670,6 @@ const typography = cva({
         _mobile: { fontSize: '14' },
       },
       filterLegend: figmaTypographyVariants.ctaKr1,
-      bottomSheetTitle: {
-        fontWeight: 'var(--type-bottom-sheet-title-font-weight)',
-        fontSize: 'var(--type-bottom-sheet-title-font-size)',
-        lineHeight: 'var(--type-bottom-sheet-title-line-height)',
-        letterSpacing: 'var(--type-bottom-sheet-title-letter-spacing)',
-      },
       ...figmaTypographyVariants,
       cta2: {
         ...figmaTypographyVariants.cta2,
@@ -777,7 +771,6 @@ export type TypographyVariant =
   | 'price'
   | 'priceEmphasis'
   | 'filterLegend'
-  | 'bottomSheetTitle'
   | 'action'
   | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
