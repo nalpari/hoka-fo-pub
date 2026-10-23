@@ -10,6 +10,7 @@ import { MyPageProfile } from './MyPageProfile';
 import { MyPageReviews } from './MyPageReviews';
 import { MyPageRewards } from './MyPageRewards';
 import { myPageNavigation } from './mypage.data';
+import { OrdersRoute } from '@/shared/features/orders/OrdersRoute';
 
 export type MyPageStatusKind =
   | 'orders'
@@ -28,14 +29,6 @@ export type MyPageStatusKind =
   | 'refund-account';
 
 const remainingPages = {
-  orders: {
-    title: '주문 / 배송',
-    rows: [{ label: '2026.09.12', value: 'Mach 6 · Black / 250', status: '배송 완료' }],
-  },
-  returns: {
-    title: '취소 / 반품',
-    rows: [{ label: '2026.08.28', value: 'Clifton 10 · 교환 요청', status: '처리 완료' }],
-  },
   referral: { title: '친구 추천', rows: [] },
   'payment-methods': {
     title: '결제수단 관리',
@@ -51,8 +44,13 @@ const remainingPages = {
   },
 } as const;
 
+/** 마이페이지 경로를 해당 기능 화면에 연결합니다. (Routes each account section to its feature screen.) */
 export function MyPageStatusPage({ kind }: { kind: MyPageStatusKind }) {
   switch (kind) {
+    case 'orders':
+      return <OrdersRoute />;
+    case 'returns':
+      return <OrdersRoute returns />;
     case 'reviews':
       return <MyPageReviews />;
     case 'rewards':

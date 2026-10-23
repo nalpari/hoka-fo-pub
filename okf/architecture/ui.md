@@ -6,9 +6,30 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:41:25Z'
+  at: '2026-10-23T08:21:38Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/features/orders/OrderTrackingHistory.tsx
+  - src/shared/features/orders/OrdersDateRange.tsx
+  - src/shared/features/orders/ClaimInstructions.tsx
+  - src/shared/features/orders/OrderClaimStatus.tsx
+  - src/shared/features/orders/OrderDeliveryStatus.tsx
+  - src/shared/features/orders/ClaimProductChoice.tsx
+  - src/shared/features/orders/ClaimProductQuantity.tsx
+  - src/shared/features/orders/ClaimAmountBreakdown.tsx
+  - src/shared/features/checkout/CheckoutPaymentMethods.tsx
+  - src/shared/features/checkout/CheckoutPaymentMethodNotice.tsx
+  - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
+  - src/shared/features/checkout/CheckoutDeliveryMessageField.tsx
+  - src/shared/features/checkout/CheckoutCompleteHeader.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
+  - src/shared/features/orders/OrderDetail.tsx
+  - src/shared/features/orders/OrderClaimDetail.tsx
+  - src/shared/features/orders/OrdersPage.tsx
+  - src/shared/features/orders/order-policy.ts
+  - src/shared/features/orders/OrderClaimSheet.tsx
+  - src/shared/components/molecules/StepIndicator/StepIndicator.tsx
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - src/shared/features/cart/CartOrderActions.tsx
   - src/shared/features/cart/CartSupportContact.tsx
   - src/shared/features/cart/CartSupportHours.tsx
@@ -2845,3 +2866,45 @@ Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 �
 계정 잠금 안내 Storybook은 기본 Web·Mobile 화면만 노출한다. 확인·닫기·Escape별 탐색 확인 스토리는 제거했으며 페이지 동작 구현은 변경하지 않았다.
 
 `IdentityVerificationPage`의 Mobile Storybook 데코레이터는 `platform-mobile` CSS 클래스와 함께 `PlatformProvider platform="mobile"`도 설정한다. 이를 통해 `Typography`가 `mo` variant를 선택해 가입여부확인 제목의 모바일 heading 크기(22px)를 보여준다. Web 스토리 동작은 유지한다.
+
+## 모바일 주문 흐름과 신청 화면 (2026-10-23)
+
+Figma 원본은 재인증으로 읽지 못했으며, 사용자가 승인한 첨부 이미지 기준으로 구현했다. 기존 장바구니의 상품·옵션·수량/제한 안내 구성을 유지하고 주문서 연락처·배송 요청은 TextFormField, FormField, Select, TextareaField, CharacterCount로 합성했다. AddressFields의 boxed 변형, 결제 Radio 타일과 완료 화면의 portrait 추천을 사용한다.
+
+`features/orders`는 OrdersPage가 목록·조회 조건·상세 진입·신청·구매확정 상태를 소유하고 OrdersContent/OrdersListContent/OrdersFilters/OrderCard/OrderItemActions가 표현을 나눈다. OrderDetail과 OrderClaimDetail은 OrderCardHeader, OrderHistoryProduct, OrderInformationSection을 재사용한다. 상품 행은 기존 OrderProductSummary, 정보는 DescriptionList, 금액은 AmountRow, 신청은 BottomSheet, 배송조회는 SingleActionDialog·StepIndicator·DataTable, 삭제/구매확정은 ConfirmDialog를 사용한다. 별도 상품 카드·수량 선택기·모달 기반을 복제하지 않는다.
+
+기존 공통 컴포넌트는 기본 동작을 유지한다. OrderProductSummary의 hideAmount는 기본 false, OrderStatusTracker의 compact는 기본 false, StepIndicator의 variant는 기본 standard이며 연결형은 배송조회만 명시한다. 압축 현황의 열 수는 런타임 항목 개수에 맞춘 inline gridTemplateColumns로 지정한다. 기본 현황을 사용하는 마이페이지와 기본 단계를 사용하는 장바구니·주문서·가입 화면은 기존 표시 계약을 유지한다.
+
+`order-policy.ts`가 신청 가능 상태, 잔여 수량, 신청 금액·단일 반품비, 조회 기간과 상태별 집계를 준비한다. 결제완료는 취소, 배송완료는 반품 신청이 가능하며 기존 신청 수량을 제외해 중복 신청을 막는다. 단순변심/사이즈는 5,000원 반품비, 불량/오배송은 0원인 화면용 예제 정책이다. 실제 정책·기간·배송비 정산은 서버 연동 시 확정해야 한다.
+
+MyPageStatusPage의 orders/returns는 OrdersRoute로 연결하며 장바구니 다시 담기는 ShopShell의 기존 add를 호출한다. 주문과 배송 이력·수령인·결제 수단은 fixtures이며 신청/구매확정/삭제는 해당 마운트의 메모리 상태다. 실제 주문 API, 결제 승인, 환불 처리는 추가하지 않았다. Storybook은 src/stories/features/orders에서 목록·빈 상태·상세·취소/반품 상세·배송조회·두 신청 시트와 부분취소 검증을 제공한다.
+
+### 주문 상세 footer 액션 구성 (2026-10-23)
+
+OrderDetail과 OrderClaimDetail은 ContentSection의 header에 기존 OrderCardHeader를, footer에 상세 조회를 마무리하는 버튼을 전달한다. OrderDetail의 삭제·목록 버튼은 기존 Stack gap=4 그룹을 유지하며 두 상세의 바깥 gap=8, 버튼 순서·크기·콜백과 환불 안내 위치를 보존한다. 출처는 위 working_tree_sources의 두 상세 파일이며 브라우저 시각 검증은 수행하지 않았다.
+
+FilterTabs는 기존 소비자 간격을 유지하며 optional railClassName 슬롯으로 주문 필터의 자체 좌우 여백/하단 여백만 조정한다. 신청 시트는 ariaLabel을 명시하며 Footer의 form 속성으로 본문 form과 제출 버튼을 연결한다. 결제 마크는 CheckoutPaymentMark가 담당하고 시안의 미보유 로고는 브랜드 텍스트로 표시한다.
+
+배송지 boxed 전환에서는 기존 AddressFields 기본 disabled 설정을 그대로 사용하면 FormData의 address가 누락된다. CheckoutAddressFields만 fieldOptions에 name·readOnly를 명시하고 disabled를 false로 설정해 검색한 우편번호/주소가 주문 검증에 포함되도록 한다. 다른 주소 소비자의 기본 disabled 계약은 변경하지 않는다.
+
+## 주문·주문서 표시 영역 분리 (2026-10-23)
+
+사용자가 지정한 영역을 아래 내부 구성요소로 분리했다. 기능별 상태와 계산은 기존 소유자에 두며 새로운 공용 atom/molecule API나 DOM 래퍼는 추가하지 않았다. 각 파일은 위 working_tree_sources에 기록한 미커밋 소스다.
+
+| 기존 소유자             | 분리한 구성요소와 입력 계약                                                                             | 보존한 책임                                                                        |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| OrderTrackingDialog     | OrderTrackingHistory(date)                                                                              | 추적 표의 caption·열 순서·이력 날짜, ContentSection 기본 제목과 gap=3              |
+| OrdersFilters           | OrdersDateRange(dates, error, onDateChange, onDateSearch)                                               | 직접설정 조건, 두 날짜 입력과 오류·조회 액션, 기존 입력 크기와 간격                |
+| OrderClaimSheet         | ClaimInstructions(kind)                                                                                 | 취소/반품별 안내문, 폼 id·외부 footer submit 연결과 초안 상태는 기존 시트 소유     |
+| OrderClaimDetail        | OrderClaimStatus(kind, state)                                                                           | 취소/반품 및 접수/완료 표시와 오류색                                               |
+| OrderCard               | OrderDeliveryStatus(label, expectedDate)                                                                | 준비된 상태명과 예정일 표시, 상태 계산은 호출자 소유                               |
+| ClaimProductSelection   | ClaimProductChoice(line, checked, onToggle), ClaimProductQuantity(productKey, max, value, onQuantity)   | 체크박스 접근성 이름·상품 표시, 취소에만 수량 표시, 최소 1·잔여 수량 상한·들여쓰기 |
+| ClaimAmountSummary      | ClaimAmountBreakdown(amount, fee)                                                                       | 금액/사유 안내 분기와 내부 패딩, 계산 및 예상 환불액은 기존 소유자 유지            |
+| CheckoutPayment         | CheckoutPaymentMethods(payment, onPaymentChange), CheckoutPaymentMethodNotice(label)                    | Radio 그룹·선택 이미지·3열 배치와 PC/mobile 최소 높이·선택 테두리·결제별 안내      |
+| CheckoutDeliveryRequest | CheckoutDeliveryRequestSelect(value, onValueChange), CheckoutDeliveryMessageField(value, onValueChange) | 상태와 조건부 표시·기존 입력값 보관은 부모 유지, name/id/label·250자·카운터 보존   |
+| CheckoutComplete        | CheckoutCompleteHeader                                                                                  | Fragment로 아이콘과 감사 문구 반환, 섹션 gap과 모바일 아이콘 숨김 유지             |
+| OrderProductSummary     | 내부 OrderProductSummaryImage(image, name, variant)                                                     | cart/checkout/coupon별 이미지 크기·모바일 패딩·배경·alt, 부모 외부 API 유지        |
+
+기존 FormField/Select/TextareaField/CharacterCount·Radio·Checkbox·NumberStepper·DataTable을 재사용한다. 별도 상태 관리, 컨텍스트, Base UI 신규 도입은 없다. 이미지 부분은 molecule 내부 구성요소이며 독립 공용 컴포넌트로 승격하지 않았다. 기존 OrderProductSummary 및 주문/주문서 PC/mobile 스토리가 상위 조합을 다룬다.
+
+검증: 타입 검사, 지정 범위 ESLint, Panda 생성 포함 프로덕션 빌드 통과. 기존 Storybook 브라우저에서 부분취소 신청 완료·직접설정 날짜 입력 표시·배송 추적 표·결제 변경과 안내 동기화·직접 배송 요청 입력 및 10/250 카운터 갱신을 확인했다. 분리 전후 픽셀 비교는 수행하지 않았다.

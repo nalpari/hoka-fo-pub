@@ -11,6 +11,7 @@ type Props = {
   onSearchOpenChange: (open: boolean) => void;
 };
 
+/** 배송지 주소 입력과 주소 검색을 연결합니다. (Connects shipping address fields and address search.) */
 export function CheckoutAddressFields({
   errors,
   postalCode,
@@ -22,7 +23,12 @@ export function CheckoutAddressFields({
 }: Props) {
   return (
     <AddressFields
-      variant="compact"
+      variant="boxed"
+      fieldOptions={{
+        postalCode: { disabled: false, inputProps: { name: 'postalCode', readOnly: true } },
+        address: { disabled: false, inputProps: { name: 'address', readOnly: true } },
+        addressDetail: { inputProps: { name: 'addressDetail' } },
+      }}
       idPrefix="shipping"
       value={{ postalCode, address }}
       errors={errors}

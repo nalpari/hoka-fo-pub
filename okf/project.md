@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T02:18:15Z'
+  at: '2026-10-23T08:23:58Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/mocks/cartDisplay.ts
   - src/shared/features/product/productInquiries.ts
   - src/shared/features/product/ProductDetailReviews.tsx
   - src/shared/features/product/ProductDetailInquiryContent.tsx
@@ -107,3 +108,8 @@ IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`�
 ## Clifton 상품 정보 시안 문구 (2026-10-23)
 
 src/mocks/products.ts의 Clifton 11 GTX detailDescription을 사용자가 첨부한 상품 정보 시안의 핏 멤브레인·밀폐된 메쉬 갑피·발수 코팅·스피드 레이스·접지력 포드·반사 디테일 문구로 갱신했다. 이는 첨부 시안에 따른 퍼블리싱 예시이며 제품 기능 검증을 의미하지 않는다. ProductDetailContent의 새로운 특징과 안정화·로드 러닝/워킹/라이프 스타일 예시는 기존 Clifton 품번에만 적용한다. 다른 상품은 자체 detailDescription·stability·use·runningType 값을 사용하고 Clifton 특징 설명을 상속하지 않는다. 출처는 사용자 첨부 이미지, 작업 트리의 src/mocks/products.ts와 ProductDetailContent.tsx다.
+
+
+## 주문 시안 추천 이미지 순서 (2026-10-23)
+
+첨부 시안에 맞춰 cartDisplay의 공통 추천 이미지 순서를 브라운(recommend-2), 블랙(recommend-3), 화이트(recommend-1)로 조정했다. 장바구니와 주문 완료가 같은 배열을 재사용하며 실제 상품 카탈로그 이미지와 가격·옵션 데이터는 변경하지 않았다.

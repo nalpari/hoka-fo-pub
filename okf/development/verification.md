@@ -6,9 +6,11 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T01:25:15Z'
+  at: '2026-10-23T08:21:38Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/order-policy.test.mjs
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - tests/product-detail-presentation.test.mjs
   - src/shared/features/product/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
@@ -173,3 +175,14 @@ node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetai
 ## 상품 고시 표 데이터 분기 검사 (2026-10-23)
 
 기존 tests/product-detail-presentation.test.mjs의 3개 테스트를 보강해 Clifton의 고시 항목 8개·예시 제조국과 다른 상품의 소재 fallback을 검사했다. 기존 스타일코드 누락 fallback 검사도 유지한다. Codex가 node --test tests/product-detail-presentation.test.mjs로 3개 통과를 확인했으며, Next.js 빌드의 타입 검사와 Storybook 빌드·변경 파일 ESLint·Prettier도 통과했다. 출처는 해당 테스트와 작업 트리의 productDetailPresentation.ts다. UI 실측은 architecture/ui.md의 상품 상세 지원 아코디언 시안 보정·상품 고시 정보 신규 표 기록을 참고한다.
+
+
+## 주문 조회·신청 계산 검증 (2026-10-23)
+
+`node --test tests/order-policy.test.mjs tests/checkout-summary.test.mjs`는 9개 테스트를 통과했다. 부분 신청의 잔여 수량·원본 비변경·재신청 한도, 빈 선택/사유·알 수 없는 키·음수/소수/NaN 거부, 주문 상태별 허용 액션, 반품비 한도와 불량 면제, 날짜/상품 검색, 윤년/월말 기간을 검사한다. 신청 스토리는 오류 표시→상품/사유 선택→접수→상세 링크 반영을 확인하는 play를 포함한다.
+
+초기 타입 검사·변경 범위 ESLint, Next.js와 Storybook 정적 빌드는 통과했다. 개발 Storybook에서 기존 스토리의 acorn 인덱스 오류가 발생해 정적 빌드를 별도 로컬 포트로 제공하여 시각 검증한다. Figma 픽셀 대조 및 실제 서버 주문/결제/환불 검증은 수행하지 않았다.
+
+브라우저 정적 빌드에서 375px 주문 목록/직접 기간 입력·반품 신청 시트·반품 상세를 시각 확인했다. 부분 취소 play는 오류 표시 후 접수 상태와 취소상세 링크를 확인했고, 배송조회 play는 단계/송장/추적 표를 표시했다. 기존 주문 완료 play(감사 안내), 쿠폰 선택 play(432,000원 결제 금액), 장바구니 옵션 저장·취소 play를 실행했으며 콘솔 오류가 없었다. 최종 변경의 타입 검사·범위 ESLint·Next.js/Storybook 빌드도 통과했다.
+
+추가로 개발 서버에서 배송지 변경→주소 검색 모달 입력→이름/휴대폰 입력→동의→완료를 확인했다. boxed 주소의 disabled/name 누락을 주문서 어댑터에서 수정했으며 최신 타입 검사/해당 파일 ESLint가 통과했다. 반품 신청도 상품 선택·불량 사유로 접수 메시지까지 확인했고, PC 스토리는 단일 헤더와 MY HOKA 사이드바를 유지한다. 개발 Storybook은 재시작 후 정상화했다.

@@ -295,6 +295,7 @@ export type FilterTabOption<T extends string = string> = {
 export type FilterTabsProps<T extends string = string> = {
   ariaLabel: string;
   className?: string;
+  railClassName?: string;
   itemClassName?: (option: FilterTabOption<T>, isSelected: boolean) => string | undefined;
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
@@ -306,6 +307,7 @@ export type FilterTabsProps<T extends string = string> = {
 export function FilterTabs<T extends string = string>({
   ariaLabel,
   className,
+  railClassName,
   itemClassName,
   onValueChange,
   options,
@@ -350,7 +352,7 @@ export function FilterTabs<T extends string = string>({
     >
       <ToggleGroup
         aria-label={ariaLabel}
-        className={rail({ platform, variant })}
+        className={[rail({ platform, variant }), railClassName].filter(Boolean).join(' ')}
         onValueChange={(nextValue) => {
           const next = nextValue[0];
           if (next !== undefined) onValueChange(next as T);

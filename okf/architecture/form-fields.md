@@ -9,6 +9,10 @@ generated:
   at: '2026-10-23T07:10:36Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/shared/features/orders/OrdersDateRange.tsx
+  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
+  - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
+  - src/shared/features/checkout/CheckoutDeliveryMessageField.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
@@ -182,3 +186,7 @@ LoginForm의 아이디는 EmailField에서 TextFormField로 전환했다. label 
 ## 상품 옵션 선택 공통화 (2026-10-23)
 
 상품 상세와 장바구니의 발볼·컬러·사이즈를 ProductOptionSelectors의 제어형 공통 UI로 이관했다. 상품 데이터·재고 선택지 계산과 장바구니 초안·저장/취소는 기능에 남는다. 상세 사이즈의 FormField 오류 연결과 htmlFor, 품절/미제공 상태·키보드 동작을 유지하며 화면별 표현은 appearance로 구분한다. [공통화와 검증](ui.md#상품-상세와-장바구니-옵션-선택-공통화-2026-10-23)을 참고한다.
+
+## 주문 조회·배송 요청 표시 분리 (2026-10-23)
+
+OrdersDateRange는 주문 조회의 두 날짜 입력·오류·조회 버튼을 구성하고 날짜 값과 검증·검색은 기존 소유자가 담당한다. CheckoutDeliveryRequestSelect는 기존 FormField/Select를, CheckoutDeliveryMessageField는 TextareaField/CharacterCount와 250자 입력 계약을 사용한다. request/message 상태와 custom 분기 및 입력값 보관은 CheckoutDeliveryRequest에 유지했다. 폼의 id/name/label과 기존 필수 표시 정책을 변경하지 않았다. 브라우저에서 직접설정 입력 표시, 배송 요청 직접입력과 카운터 갱신을 확인했다. 상세 경계와 검증은 [UI 기록](ui.md#주문주문서-표시-영역-분리-2026-10-23)을 따른다.
