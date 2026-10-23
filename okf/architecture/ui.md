@@ -6,9 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:25:47Z'
+  at: '2026-10-23T07:41:25Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/features/cart/CartOrderActions.tsx
+  - src/shared/features/cart/CartSupportContact.tsx
+  - src/shared/features/cart/CartSupportHours.tsx
+  - src/shared/features/cart/CartSupportInfo.tsx
+  - src/shared/features/cart/CartContent.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
@@ -891,6 +896,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 장바구니 운영시간 가림 보정 (2026-10-23)
+
+동시에 정리한 장바구니 안내 표현은 CartSupportInfo의 제목/본문 간격 16px·내부 Stack 간격 24px을 사용하고 기존 상단 테두리·패딩과 운영시간 제목의 개별 mt를 제거한다. 연락처 주석과 휴무 안내는 tertiary, 문의 링크는 textLink3를 재사용한다. CartOrderActions의 금액/버튼 간격은 24px에서 20px로 보정했다. 연락처·운영시간 문구와 문의/주문 링크는 유지한다. 변경 TSX 전체의 ESLint·Prettier·타입 검사를 확인했다.
+
+모바일 장바구니의 OrderActionBar는 금액과 버튼을 포함해 약 141.8px인데 OrderPageLayout의 하단 패딩은 120px이었다. 맨 아래로 스크롤해도 운영시간의 점심/휴무 안내 마지막 줄이 주문 영역에 약 22px 가렸다. 상품이 있는 CartContent의 Stack에 모바일 전용 pb=12(48px)를 추가해 기존 페이지 여백과 합쳐 168px을 확보한다. PC·빈 장바구니·고정 주문 영역 자체의 치수는 유지한다.
+
+Codex가 375×812px 스토리 최하단에서 마지막 안내 bottom 644.1px·주문 영역 top 670.2px, 두 영역 사이 약 26.1px을 확인했다. Panda 생성·변경 파일 ESLint/Prettier·타입 검사를 통과했다. 출처는 사용자 브라우저 주석과 작업 트리 CartContent.tsx 및 기존 OrderPageLayout·OrderActionBar다.
 
 ## 병합 후 영문 고객센터 스토리 통합 (2026-10-23)
 
@@ -2792,7 +2805,7 @@ ModalDialog의 `headerProps.css`와 `footerProps.css`는 SystemStyleObject만 �
 
 ## 수량 선택기 사각형 기본 스타일 (2026-10-23)
 
-NumberStepper는 122×36px 사각 테두리와 동일 너비의 감소·입력·증가 영역을 기본으로 표시한다. plain 변형과 variant prop은 제거했다. 최소/최대·step·제어형 값·FormField 접근성 연결과 formatValue의 aria-valuetext는 유지한다. 기본 Bounded 스토리와 장바구니 수량에서 같은 표시를 사용한다. 출처는 작업 트리의 NumberStepper 구현이다.
+NumberStepper는 122×36px 사각 테두리와 동일 너비의 감소·입력·증가 영역을 기본으로 표시한다. plain 변형과 variant prop은 제거했다. 최소/최대·step·제어형 값·FormField 접근성 연결과 formatValue의 aria-valuetext는 유지한다. 기본 Bounded 스토리와 장바구니 수량에서 같은 표시를 사용한다. 감소·증가는 인라인 SVG 대신 공통 Icon의 `action/fa-minus`, `action/fa-plus`를 24px로 표시한다. 두 기존 SVG의 검정 실루엣은 Icon의 currentColor 마스크로 표시되어 비활성 버튼의 회색을 상속한다. 버튼의 접근성 이름과 최소/최대 비활성 처리는 유지한다. 출처는 작업 트리의 NumberStepper 구현과 기존 `public/images/icon/action/fa-minus.svg`, `fa-plus.svg`다.
 
 ## 공통 모달 헤더와 푸터 스타일 슬롯 (2026-10-23)
 

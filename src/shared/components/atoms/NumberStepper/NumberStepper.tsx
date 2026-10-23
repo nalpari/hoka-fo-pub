@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import { css } from 'styled-system/css';
 import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormField';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
 
 const root = css({
   '&[data-invalid]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
@@ -82,9 +83,7 @@ export function NumberStepper({
       value={value}
     >
       <BaseNumberField.Decrement aria-label="감소" className={control}>
-        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M2 8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+        <Icon name="action/fa-minus" size={24} />
       </BaseNumberField.Decrement>
       <BaseNumberField.Input
         aria-describedby={field?.describedBy}
@@ -93,9 +92,7 @@ export function NumberStepper({
         className={valueStyle}
       />
       <BaseNumberField.Increment aria-label="증가" className={control}>
-        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+        <Icon name="action/fa-plus" size={24} />
       </BaseNumberField.Increment>
     </BaseNumberField.Root>
   );

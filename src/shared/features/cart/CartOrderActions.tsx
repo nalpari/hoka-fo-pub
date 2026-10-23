@@ -12,7 +12,7 @@ type Props = {
 export function CartOrderActions({ total, checkoutHref }: Props) {
   return (
     <OrderActionBar>
-      <Stack gap="6">
+      <Stack gap="5">
         <AmountRow
           label="결제예정금액"
           amount={total}

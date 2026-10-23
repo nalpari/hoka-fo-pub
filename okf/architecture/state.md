@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T06:41:41Z'
+  at: '2026-10-23T07:41:25Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/shared/features/cart/CartContent.tsx
   - src/shared/features/cart/CartOrderActions.tsx
   - src/stories/features/cart/CartPage.mobile.stories.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
@@ -164,6 +165,12 @@ sources:
 ---
 
 # 공통 상태와 데모 데이터
+
+## 장바구니 하단 여백 검토 (2026-10-23)
+
+CartOrderActions의 금액/버튼 간격과 CartSupportContact·CartSupportHours·CartSupportInfo의 표현 변경도 검토했다. 선택된 상품 합계·주문 가능 여부·checkoutHref 계산과 문의 링크는 기존과 같고, 안내문·타이포그래피·간격만 보정한다. 수량 선택기는 기존 Base UI NumberField와 onValueChange 계약을 유지하며 공통 아이콘 표시만 변경했다.
+
+작업 트리 CartContent.tsx의 상품이 있는 분기에 모바일 하단 패딩 48px만 추가해 고정 주문 영역과 운영시간 안내의 겹침을 보정했다. 선택·수량·합계·주문 링크·관심상품·옵션 편집 상태의 계산과 수명은 변경하지 않았다. Panda 생성·변경 파일 ESLint/Prettier·타입 검사와 375px 브라우저의 안내 문구 가시 영역을 확인했다. 상세 치수와 출처는 [UI 기록](ui.md#모바일-장바구니-운영시간-가림-보정-2026-10-23)을 참고한다.
 
 ## 재사용 적용 후 상태 소유권 (2026-10-21)
 

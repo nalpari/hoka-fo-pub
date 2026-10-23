@@ -72,7 +72,7 @@ export function CartContent({
     >
       {dialogs}
       {rows.length ? (
-        <Stack gap="10">
+        <Stack gap="10" pb={{ _mobile: '12' }}>
           <CartProductSection
             rows={rows}
             allSelected={allSelected}
