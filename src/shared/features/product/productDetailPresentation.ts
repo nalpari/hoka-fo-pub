@@ -1,11 +1,16 @@
 import type { Product } from '@/mocks/products';
 
-export type ProductDetailSpecification = { label: string; value: string };
+export type ProductDetailSpecification = {
+  label: string;
+  value: string | readonly string[];
+  help?: string;
+};
 
 export type ProductTechnicalScaleData = {
   title: string;
   labels: readonly string[];
-  marker: 'start' | 'middle' | 'end';
+  level: 1 | 2 | 3 | 4 | 5;
+  help?: string;
 };
 
 export type ProductEditorialFeature = {
@@ -21,9 +26,24 @@ export const productDetailAnchors = [
 ] as const;
 
 const cliftonScales: readonly ProductTechnicalScaleData[] = [
-  { title: '쿠셔닝', labels: ['반응성', '균형잡힌', '부드러움'], marker: 'end' },
-  { title: '안정성', labels: ['중립', '안정적', '높은 안정성'], marker: 'start' },
-  { title: '반발력', labels: ['자연스러운', '균형잡힌 쿠션', '강력한 추진'], marker: 'middle' },
+  {
+    title: '쿠셔닝',
+    labels: ['반응성', '균형잡힌', '부드러움'],
+    level: 5,
+    help: '모든 신발의 미드솔에는 충격을 줄이고 발을 지지해 주는 쿠셔닝이 적용되어 있습니다. 쿠션의 두께와 단단함·부드러움 정도는 모델별로 다릅니다.',
+  },
+  {
+    title: '안정성',
+    labels: ['중립', '안정적', '높은 안정성'],
+    level: 1,
+    help: '나중에 추가 예정',
+  },
+  {
+    title: '반발력',
+    labels: ['자연스러운', '균형잡힌 쿠션', '강력한 추진'],
+    level: 3,
+    help: '나중에 추가 예정',
+  },
 ];
 
 const cliftonFeatures: readonly ProductEditorialFeature[] = [
@@ -56,8 +76,16 @@ export function getProductDetailPresentation(product: ProductDetailInput) {
   return {
     specifications: isClifton
       ? [
-          { label: '무게', value: '312g' },
-          { label: 'Heel-to-Toe Drop', value: '43/38mm (5mm)' },
+          {
+            label: '무게',
+            value: '312g',
+            help: '무게 관련 설명이 들어갑니다.\n무게 관련 설명이 들어갑니다.\n무게 관련 설명이 들어갑니다.',
+          },
+          {
+            label: 'Heel-to-Toe Drop',
+            value: '43/38mm (5mm)',
+            help: '뒤꿈치와 앞꿈치의 높이 차이를 나타냅니다.',
+          },
         ]
       : [
           { label: '용도', value: product.runningType },

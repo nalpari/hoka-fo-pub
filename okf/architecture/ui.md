@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T00:56:44.093Z'
+  at: '2026-10-23T01:09:03Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/features/product/ProductSpecificationHelp.tsx
+  - src/stories/features/product/ProductTechSpecs.stories.tsx
   - src/shared/features/product/productDetailPresentation.ts
   - src/shared/features/product/ProductTechnicalScale.tsx
   - src/shared/features/product/ProductDetailSupportSections.tsx
@@ -2649,3 +2651,21 @@ ProductDetailSections가 조합하는 ProductDetailScrollSpy의 상품 정보·�
 productDetailPresentation.ts는 상품별 사양·정성 척도·에디토리얼·고시 정보와 앵커 목록을 준비한다. Clifton 샘플 사양과 사진은 기존 품번에만 연결하며 다른 상품은 용도·발볼·쿠셔닝·안정성 값을 사용한다. ProductDetailSections는 이 데이터를 받아 기술 사양·에디토리얼·리뷰·문의·지원 영역을 조합한다. ProductDetailScrollSpy는 위치 감지와 높이 측정·이벤트 정리를, ProductDetailNavigation은 native nav와 HTMLElement ref·aria-current를 담당한다. 리뷰/IMC 자리 표시자, 사양 목록, 정성 척도와 지원 아코디언도 feature 내부 컴포넌트로 분리했다.
 
 ProductDetailFooter는 추천과 모바일 고정 구매 액션을 조합한다. ProductDetailRecommendations가 추천 목록의 시작 여백(PC 96px·모바일 40px)과 WEB 목록 간 간격 96px을 소유하며 하위 ProductDetailRecommend의 중복 마진은 제거했다. 에디토리얼 제목·설명은 ContentHeader를 재사용한다. 구매 상태와 이미지 확대 처리는 ProductDetailPage에 유지한다. 새 컴포넌트는 상품 상세 내부 조합이며 별도 공통 UI API로 승격하지 않았다. 출처는 working_tree_sources의 상품 상세 TSX와 productDetailPresentation.ts다. 타입 검사와 상품별 데이터 분기·사진 파일 존재·품번 누락 fallback 테스트 3개를 통과했다. 이번 커밋 준비에서 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## 상품 상세 기술 척도 5단계 그라데이션 (2026-10-23)
+
+사용자가 제공한 그래프 규격에 따라 ProductTechnicalScale의 타원형 표시를 높이 8px의 직사각형 막대로 변경했다. 전체 막대는 #F5F5F5이며 그라데이션 구간은 너비의 20%로, level 1~5에 따라 왼쪽부터 배치한다. 1단계는 90deg 검정 0%→연회색 100%, 2~4단계는 연회색 0%→검정 50%→연회색 100%, 5단계는 연회색 0%→검정 100%다. 색은 #000000과 #F5F5F5를 사용한다. 제공된 134px은 전체 670px에서 한 단계 너비이며, 다른 화면에서는 전체 너비에 비례한다. Clifton의 쿠셔닝·안정성·반발력은 각각 5·1·3단계다.
+
+출처는 사용자 브라우저 코멘트와 첨부 이미지, 작업 트리의 src/shared/features/product/ProductTechnicalScale.tsx와 productDetailPresentation.ts다. 2026-10-23 Codex가 ESLint·Prettier·TypeScript·Panda 생성과 기존 상품 상세 데이터 테스트 3개 통과를 확인했다. Storybook 브라우저에서 세 막대의 8px 높이, #F5F5F5 배경, 20% 구간 너비와 5·1·3단계의 실제 그라데이션 색상·정지점을 확인했다.
+
+## 상품 기술 사양 안내와 남녀 무게 병기 (2026-10-23)
+
+ProductSpecificationHelp는 상품 feature 내부에서 Base UI Tooltip과 기존 IconButton·Typography를 조합한다. 무게·쿠셔닝·Heel-to-Toe Drop 제목 옆에 16px 회색 안내 아이콘을 배치하고, hover 또는 키보드 포커스로 흰색 말풍선을 연다. 기본 위치는 아이콘 아래이며 삼각 포인터·4px 모서리·그림자를 적용한다. Tooltip이 위치 충돌과 Escape 닫기를 처리하며 포털에 현재 platform 스타일 범위를 전달한다. 쿠셔닝은 ContentHeader의 horizontal action 슬롯으로 제목 옆에 배치한다.
+
+무게 안내는 첫 첨부의 임시 설명 3줄, 쿠셔닝 안내는 첨부의 미드솔·쿠션 두께와 단단함·부드러움 설명을 사용했다. 드롭 설명은 뒤꿈치와 앞꿈치의 높이 차이라는 설명을 추가했으며 최종 승인된 상품 문구로 간주하지 않는다. ProductDetailSpecification.value는 단일 문자열 또는 문자열 배열을 받는다. 배열은 사양 목록에서 가로 구분선이 아닌 세로 구분선으로 나란히 표시하고 고시 정보에서는 ' | '로 연결한다. 기존 상품의 단일 312g 표시는 유지한다.
+
+src/stories/features/product/ProductTechSpecs.stories.tsx의 FEATURES/Product/Tech Specs에 단일 무게와 남성·여성 무게 케이스를 추가했다. 남성 312g·여성 280g은 추가 첨부 시안의 퍼블리싱 예시이며 상품 목 데이터의 실제 성별 무게를 확정한 것이 아니다. Storybook이 stories 목록을 시작 시 읽으므로 새 파일 추가 후 개발 서버를 재시작했다. Storybook은 Panda 추출에서 제외되어 예시 프레임의 고유 maxWidth는 inline style로 지정한다.
+
+출처는 사용자 첨부 이미지와 브라우저 코멘트, working_tree_sources의 ProductSpecificationHelp.tsx·ProductDetailSpecificationList.tsx·ProductTechnicalScale.tsx·ProductDetailSupportSections.tsx·productDetailPresentation.ts·ProductTechSpecs.stories.tsx다. 2026-10-23 Codex가 ESLint·Prettier·TypeScript·Panda 생성, 기존 상품 상세 테스트 3개, Next.js 프로덕션 빌드를 통과했다. Storybook 빌드도 통과했으며 Base UI 모듈의 use client 번들 경고가 남는다. 브라우저에서 1200px 상품 상세의 세 안내 아이콘, 각 설명의 키보드 포커스 열림과 Escape 닫기, 별도 스토리의 남녀 값·세로 구분선과 쿠셔닝 말풍선을 확인했다.
+
+추가 요청에 따라 안정성·반발력에도 동일한 안내 아이콘과 Tooltip을 연결하고 문구는 두 항목 모두 `나중에 추가 예정`으로 지정했다. Codex가 남녀 무게 스토리에서 각 버튼에 키보드 포커스를 옮겨 해당 문구가 열리는 것을 확인했으며 ESLint·Prettier·기존 데이터 테스트 3개가 통과했다. 이후 변경은 안내 데이터 두 항목의 문자열 추가이며 전체 빌드는 그 직전 구현까지 검증했다.

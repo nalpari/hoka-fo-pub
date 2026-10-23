@@ -30,7 +30,9 @@ export function ProductDetailSupportSections({
                     {specification.label}
                   </Typography>
                   <Typography as="dd" variant="body3">
-                    {specification.value}
+                    {typeof specification.value === 'string'
+                      ? specification.value
+                      : specification.value.join(' | ')}
                   </Typography>
                 </Fragment>
               ))}
