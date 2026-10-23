@@ -19,10 +19,37 @@ export const Answered: Story = { ...scenarios.InquiryAnsweredDesktop, name: '답
 
 export const Attachments: Story = {
   ...scenarios.InquiryAttachmentsDesktop,
-  name: 'Attachments',
+  name: '첨부파일',
 };
 
 export const AttachmentPreview: Story = {
   ...scenarios.InquiryAttachmentPreviewDesktop,
-  name: 'Attachment preview',
+  name: '첨부파일 미리보기',
+};
+
+export const New: Story = { ...scenarios.InquiryNewDesktop, name: '문의 작성' };
+
+export const RequiredErrors: Story = {
+  ...scenarios.InquiryNewRequiredErrorsDesktop,
+  name: '필수 항목 오류',
+};
+
+export const AllValidationErrors: Story = {
+  ...scenarios.InquiryNewAllValidationErrorsDesktop,
+  name: '전체 입력 오류',
+};
+
+export const AttachmentInvalidType: Story = {
+  ...scenarios.InquiryAttachmentInvalidTypeDesktop,
+  name: '첨부파일 형식 오류',
+};
+
+export const AttachmentTooLarge: Story = {
+  ...scenarios.InquiryAttachmentTooLargeDesktop,
+  name: '첨부파일 용량 오류',
+};
+
+export const AttachmentCountExceeded: Story = {
+  ...scenarios.InquiryAttachmentCountExceededDesktop,
+  name: '첨부파일 개수 오류',
 };

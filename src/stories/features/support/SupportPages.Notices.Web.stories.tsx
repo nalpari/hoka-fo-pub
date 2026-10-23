@@ -12,3 +12,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.NoticesDesktop, name: 'Default' };
+
+export const Detail: Story = { ...scenarios.NoticeDetailDesktop, name: '상세' };

@@ -6,9 +6,12 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T05:31:35Z'
+  at: '2026-10-23T05:40:40Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
+  - src/stories/features/support/SupportPages.Notices.Web.stories.tsx
   - src/stories/components/atoms/Typography/Typography.stories.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
   - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
@@ -866,6 +869,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 병합 후 영문 고객센터 스토리 통합 (2026-10-23)
+
+병합으로 다시 등록된 PAGES/SUPPORT/InquiryNew/Web·Mobile의 문의 작성과 필수/전체 입력 오류·첨부 형식/용량/개수 오류를 기존 PAGES/고객센터/3. 1:1문의/WEB·Mobile로 옮겼다. 모바일 문의 작성은 기존 New 스토리와 같은 시나리오이므로 하나만 유지한다. 문의 첨부파일·미리보기 및 오류 항목 이름은 한글로 맞췄다. PAGES/SUPPORT/NoticeDetail/Web은 기존 고객센터/2. 공지사항/WEB의 상세로 통합했다.
+
+SupportPages.scenarios의 render·play·viewport·라우팅 설정을 그대로 전달하며 페이지 구현은 변경하지 않는다. 참조 검색 후 중복 진입점 SupportPages.InquiryNew.Web/Mobile.stories.tsx와 SupportPages.NoticeDetail.Web.stories.tsx를 제거했다. 이전 pages-support-* 스토리 ID는 제거되며 새 ID는 pages-고객센터-3-1-1문의-web/mobile--new 및 오류별 export 이름, 공지 상세는 pages-고객센터-2-공지사항-web--detail이다. 저장소 내 이전 ID를 사용하는 링크는 없었다.
+
+Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/Mobile 각각 11개를 확인했다. 전체 항목 724→723은 모바일 문의 작성 중복 한 건을 합친 결과다. 브라우저에서 고객센터 사이드바·공지 상세와 이동한 모바일 첨부파일 형식 오류 스토리의 실제 오류 안내를 확인했다. 변경 스토리 ESLint/Prettier·타입 검사·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 브라우저 주석과 working_tree_sources의 세 스토리 파일 및 기존 SupportPages.scenarios.tsx다.
 
 ## Typography rem 토큰과 비교표 (2026-10-23)
 
