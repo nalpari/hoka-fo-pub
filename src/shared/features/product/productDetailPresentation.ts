@@ -4,6 +4,7 @@ export type ProductDetailSpecification = {
   label: string;
   value: string | readonly string[];
   help?: string;
+  note?: string;
 };
 
 export type ProductTechnicalScaleData = {
@@ -67,7 +68,8 @@ const cliftonFeatures: readonly ProductEditorialFeature[] = [
 type ProductDetailInput = Pick<
   Product,
   'styleCode' | 'name' | 'runningType' | 'width' | 'cushioning' | 'stability'
->;
+> &
+  Partial<Pick<Product, 'colors'>>;
 
 /** Prepare product-specific publishing data without coupling presentation to the mock catalogue. */
 export function getProductDetailPresentation(product: ProductDetailInput) {
@@ -98,8 +100,28 @@ export function getProductDetailPresentation(product: ProductDetailInput) {
     scales: isClifton ? cliftonScales : [],
     features: isClifton ? cliftonFeatures : [],
     notice: [
-      { label: '상품명', value: product.name },
-      { label: '품번', value: product.styleCode ?? '상품별 표기 참조' },
+      { label: '컬러', value: product.colors?.[0] ?? '상품별 표기 참조' },
+      { label: '스타일코드', value: product.styleCode ?? '상품별 표기 참조' },
+      { label: '발볼 넓이', value: product.width },
+      {
+        label: '소재',
+        value: isClifton
+          ? '겉감1: 폴리에스터 100% / 겉감2: 천연가죽(소) / 겉감3: 합성가죽 / 안감: 폴리에스터 92% + 천연가죽 3% + 합성가죽 5% / 창: 폴리에스터 / 겉감1: 폴리에스터 100% / 겉감2: 천연가죽(소) / 겉감3: 합성가죽'
+          : '상품별 표기 참조',
+      },
+      { label: '제조국', value: isClifton ? 'CHINA' : '상품별 표기 참조' },
+      { label: '제조년월', value: isClifton ? '2026년 12월' : '상품별 표기 참조' },
+      {
+        label: '제조자 또는 수입자',
+        note: '(국내산은 제조자 표시, 수입산은 수입자 표시)',
+        value: isClifton ? '(주)이랜드월드' : '상품별 표기 참조',
+      },
+      {
+        label: '품질보증기간',
+        value: isClifton
+          ? '구매일로부터 1년간/그외 기준은 관련법 및 소비자분쟁해결 규정에 따름'
+          : '상품별 표기 참조',
+      },
     ],
   };
 }

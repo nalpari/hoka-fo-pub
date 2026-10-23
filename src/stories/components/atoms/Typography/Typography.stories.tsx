@@ -409,6 +409,10 @@ export const ProductSelectorLabel: Story = {
   },
 };
 
+export const ProductSupportTitle: Story = {
+  args: { variant: 'productSupportTitle', children: '상품 고시 정보' },
+};
+
 export const ProductSelectorAction: Story = {
   args: {
     as: 'button',

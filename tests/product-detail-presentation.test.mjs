@@ -20,6 +20,8 @@ test('Clifton preview keeps its verified specifications and local editorial asse
     ['312g', '43/38mm (5mm)'],
   );
   assert.equal(presentation.scales.length, 3);
+  assert.equal(presentation.notice.length, 8);
+  assert.equal(presentation.notice.find(({ label }) => label === '제조국').value, 'CHINA');
   assert.equal(presentation.features.length, 3);
   for (const feature of presentation.features) {
     assert.ok(statSync(new URL(`../public${feature.image}`, import.meta.url)).size > 0);
@@ -35,6 +37,7 @@ test('another product cannot inherit Clifton measurements, scales, or imagery', 
   ]);
   assert.deepEqual(presentation.scales, []);
   assert.deepEqual(presentation.features, []);
+  assert.equal(presentation.notice.find(({ label }) => label === '소재').value, '상품별 표기 참조');
   assert.deepEqual(
     presentation.attributes.map(({ value }) => value),
     ['Plush', 'Neutral'],

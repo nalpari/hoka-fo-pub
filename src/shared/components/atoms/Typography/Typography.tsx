@@ -609,6 +609,14 @@ const typography = cva({
         _mobile: { fontSize: 'var(--type-product-selector-label-mobile-font-size)' },
       },
       productSelectorAction: figmaTypographyVariants.body5,
+      productSupportTitle: {
+        fontFamily: 'korean',
+        fontSize: '18',
+        fontWeight: 'bold',
+        lineHeight: 'body',
+        letterSpacing: 'korean',
+        _mobile: { fontSize: '16' },
+      },
       productTitle: {
         fontSize: 'var(--type-product-title-font-size)',
         fontWeight: 'var(--type-product-title-font-weight)',
@@ -738,6 +746,7 @@ export type TypographyVariant =
   | 'sizeOption'
   | 'productSelectorLabel'
   | 'productSelectorAction'
+  | 'productSupportTitle'
   | 'productTitle'
   | 'productPrice'
   | 'meta'

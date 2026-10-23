@@ -6,10 +6,12 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T01:48:15.164Z'
+  at: '2026-10-23T01:45:42.265Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
   - src/stories/components/atoms/DescriptionList/DescriptionList.stories.tsx
+  - src/shared/features/product/ProductDetailNoticeTable.tsx
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
   - src/shared/features/product/ProductSpecificationHelp.tsx
   - src/stories/features/product/ProductTechSpecs.stories.tsx
   - src/shared/features/product/productDetailPresentation.ts
@@ -2671,8 +2673,29 @@ src/stories/features/product/ProductTechSpecs.stories.tsx의 FEATURES/Product/Te
 
 추가 요청에 따라 안정성·반발력에도 동일한 안내 아이콘과 Tooltip을 연결하고 문구는 두 항목 모두 `나중에 추가 예정`으로 지정했다. Codex가 남녀 무게 스토리에서 각 버튼에 키보드 포커스를 옮겨 해당 문구가 열리는 것을 확인했으며 ESLint·Prettier·기존 데이터 테스트 3개가 통과했다. 이후 변경은 안내 데이터 두 항목의 문자열 추가이며 전체 빌드는 그 직전 구현까지 검증했다.
 
+## 상품 상세 지원 아코디언 시안 보정 (2026-10-23)
+
+사용자 첨부 시안(2032×468px, 2배 이미지)과 제공한 제목 규격을 기준으로 WEB 전용 ProductDetailSupportSections의 상단에 1px black.20 선을 추가했다. 닫힌 각 항목은 트리거 77px와 하단 선 1px를 합한 78px이며, 기존 item의 세로 padding 대신 트리거가 클릭 영역의 높이를 소유한다. 제목은 productSupportTitle Typography로 Pretendard·18px·700·130%·-0.02em을 사용한다. 이 variant는 fontSizes.18과 기존 korean/body/bold 토큰을 사용하고, 모바일 기본값은 16px이지만 현재 소비처는 WEB 전용이다. Typography 스토리에도 해당 variant를 추가했다.
+
+마지막 제목은 반품 정책에서 관리 방법으로 변경하고 기존 CareInstructions와 shoeCareSections를 재사용한다. 배송 및 반품 안의 기존 반품 안내는 유지한다. 공통 Accordion의 다른 소비처 스타일과 모바일 상품 상세 구성은 변경하지 않았다. 출처는 사용자 이미지와 CSS 코멘트, 작업 트리의 ProductDetailSupportSections.tsx·Typography.tsx·panda.config.ts·Typography.stories.tsx다.
+
+Codex가 브라우저에서 상단 선 1px, 닫힌 항목 78px, 제목 18px/700·줄높이 23.4px·자간 -0.36px을 실측했다. 관리 방법을 열어 신발 손질·보존 안내 표시와 다시 닫힘을 확인했다. 최종 Next.js 빌드(타입 검사 포함)와 Storybook 빌드, 변경 파일 ESLint·Prettier를 통과했다.
+
+2026-10-23 재사용성 점검 후 ProductDetailSupportSections의 트리거 minH를 78px에서 77px로 보정했다. 항목 하단 테두리 1px와 합쳐 기존에 문서화한 닫힌 행 78px 규격을 맞춘다. 이 후속 보정의 브라우저 실측은 수행하지 않았다.
+
+## 상품 고시 정보 신규 표 (2026-10-23)
+
+ProductDetailNoticeTable은 공통 DescriptionList에 항목과 스타일 슬롯을 전달해 의미상 사양 목록인 dl/dt/dd를 유지하면서 black.10 배경, black.20 행 구분선, 최소 60px 높이·세로 20px·가로 24px 여백, 28.5%/나머지 두 열을 사용한다. 제목·값은 body4(14px), 제목은 bold이며 긴 소재와 제조자 주석은 줄바꿈한다. 고시 항목은 컬러·스타일코드·발볼 넓이·소재·제조국·제조년월·제조자 또는 수입자·품질보증기간의 8개다. 제조자 주석은 일반 굵기로 구분한다.
+
+컬러는 상품의 첫 컬러, 스타일코드·발볼 넓이는 기존 상품 값이다. 첨부 시안의 (91)Silver를 현재 Black / Outer Orbit 상품에 강제 적용하지 않았다. Clifton의 소재·CHINA·2026년 12월·(주)이랜드월드·보증 문구는 사용자 제공 시안에 따른 퍼블리싱 예시이며 실제 상품 정보 검증을 뜻하지 않는다. 다른 상품은 해당 예시를 상속하지 않고 상품별 표기 참조를 표시한다. 스타일코드가 없을 때 기존 fallback을 유지한다.
+
+출처는 사용자 첨부 신규 고시 표 이미지, 작업 트리의 ProductDetailNoticeTable.tsx·ProductDetailSupportSections.tsx·productDetailPresentation.ts다. 1200px Storybook에서 회색 행, 상품 값, 긴 소재 문구 줄바꿈과 아코디언 열림을 확인했다. 기존 상품 상세 데이터 테스트 3개에 8개 고시 항목과 다른 상품 소재 fallback 검사를 보강했으며 모두 통과했다. 최종 Next.js·Storybook 빌드와 ESLint·Prettier를 통과했다.
+
+
 ## DescriptionList 스타일 슬롯과 상품 고시 재사용 (2026-10-23)
 
 DescriptionList는 slotStyles.root/row/term/description에 Panda SystemStyleObject를 받고 기본 스타일과 css 호출 전에 합친다. 기존 className과 labelWidth 계약을 유지하고 termProps·descriptionProps는 Typography의 variant/web/mo/tone/weight를 설정한다. 스타일 슬롯은 레이아웃과 표현을, 텍스트 props는 타입 스케일과 톤을 담당한다. 소비처는 css.raw로 스타일 객체를 준비해 Panda의 정적 추출을 유지한다. 기본값은 기존 grid·10px/16px 간격·display:contents 행·heading9 용어·body4/tertiary 값이다.
 
-Default·StyledRows·MobileStyledRows 스토리로 기존 기본 스타일과 행별 스타일 슬롯을 제공한다. 타입·린트·Next.js·Storybook 빌드를 통과했고 브라우저에서 기본 간격·글자 스타일과 375px 모바일 가로 넘침 없음을 확인했다. 출처는 작업 트리의 DescriptionList.tsx와 DescriptionList.stories.tsx이다.
+ProductDetailNoticeTable은 상품 데이터·주석·복수 값의 표시 조합을 소유하고 공통 DescriptionList가 dl/div/dt/dd를 렌더링한다. 각 고시 행의 28.5% 두 열·60px 최소 높이·20px/24px 패딩, 마지막 행 구분선 제거와 루트 하단 여백 32px을 슬롯으로 전달한다. dt/dd는 unstyled로 두고 내부 body4 제목·주석·값을 유지해 글자 크기와 굵기가 중복 적용되지 않도록 했다. ContactCard는 추가 props 없이 기존 목록을 계속 사용한다.
+
+검증: 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 기존 Default 스토리의 10px/16px gap·16px 용어·14px tertiary 값, StyledRows의 display:contents→grid override와 60px 행 높이, 375px MobileStyledRows의 줄바꿈과 가로 넘침 없음을 확인했다. 상품 상세 WEB에서 고시 8행·60px 최소 높이·20px/24px 패딩·14px 글자·700 제목·주석·32px 하단 여백·마지막 선 제거를 확인했다. 출처는 작업 트리의 DescriptionList.tsx·DescriptionList.stories.tsx·ProductDetailNoticeTable.tsx와 기존 ContactCard.tsx이다.

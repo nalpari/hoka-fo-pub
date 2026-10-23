@@ -137,6 +137,7 @@ export default defineConfig({
           12: { value: '12px' },
           14: { value: '14px' },
           16: { value: '16px' },
+          18: { value: '18px' }, // 고객사 디자인 추가사항 : productSupportTitle 26.10.23
           20: { value: '20px' },
           22: { value: '22px' },
           24: { value: '24px' },

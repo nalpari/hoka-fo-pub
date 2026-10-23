@@ -1,13 +1,17 @@
 import { css } from 'styled-system/css';
-import { Fragment } from 'react';
-import { Grid } from 'styled-system/jsx';
 import { Accordion } from '@/shared/components/atoms/Accordion/Accordion';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ProductDetailDeliveryContent } from './ProductDetailDeliveryContent';
-import { ProductDetailReturnGuide } from './ProductDetailReturnGuide';
+import { CareInstructions } from '@/shared/features/care-guide/CareInstructions';
+import { shoeCareSections } from '@/shared/features/care-guide/care.data';
 import type { ProductDetailSpecification } from './productDetailPresentation';
+import { ProductDetailNoticeTable } from './ProductDetailNoticeTable';
 
-const item = css({ py: '6', borderBottom: '1px solid var(--color-black-20)' });
+const root = css({ borderTop: '1px solid var(--color-black-20)' });
+
+const item = css({ borderBottom: '1px solid var(--color-black-20)' });
+
+const trigger = css({ minH: '77px' });
 
 export function ProductDetailSupportSections({
   specifications,
@@ -16,38 +20,25 @@ export function ProductDetailSupportSections({
 }) {
   return (
     <Accordion
-      indicatorSize="13px"
+      className={root}
+      indicatorSize="16px"
       itemClassName={item}
+      triggerClassName={trigger}
       items={[
         {
           value: 'notice',
-          title: <Typography variant="heading9">상품 고시 정보</Typography>,
-          content: (
-            <Grid as="dl" gridTemplateColumns="120px 1fr" gap="4" py="6">
-              {specifications.map((specification) => (
-                <Fragment key={specification.label}>
-                  <Typography as="dt" variant="body3">
-                    {specification.label}
-                  </Typography>
-                  <Typography as="dd" variant="body3">
-                    {typeof specification.value === 'string'
-                      ? specification.value
-                      : specification.value.join(' | ')}
-                  </Typography>
-                </Fragment>
-              ))}
-            </Grid>
-          ),
+          title: <Typography variant="productSupportTitle">상품 고시 정보</Typography>,
+          content: <ProductDetailNoticeTable items={specifications} />,
         },
         {
           value: 'delivery',
-          title: <Typography variant="heading9">배송 및 반품</Typography>,
+          title: <Typography variant="productSupportTitle">배송 및 반품</Typography>,
           content: <ProductDetailDeliveryContent />,
         },
         {
-          value: 'returns',
-          title: <Typography variant="heading9">반품 정책</Typography>,
-          content: <ProductDetailReturnGuide />,
+          value: 'care',
+          title: <Typography variant="productSupportTitle">관리 방법</Typography>,
+          content: <CareInstructions sections={shoeCareSections} />,
         },
       ]}
     />
