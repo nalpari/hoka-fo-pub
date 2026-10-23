@@ -6,9 +6,19 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T00:26:14.938Z'
+  at: '2026-10-23T00:56:44.093Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
+  - src/shared/features/product/productDetailPresentation.ts
+  - src/shared/features/product/ProductTechnicalScale.tsx
+  - src/shared/features/product/ProductDetailSupportSections.tsx
+  - src/shared/features/product/ProductDetailSpecificationList.tsx
+  - src/shared/features/product/ProductDetailScrollSpy.tsx
+  - src/shared/features/product/ProductDetailReviews.tsx
+  - src/shared/features/product/ProductDetailRecommendations.tsx
+  - src/shared/features/product/ProductDetailPlaceholder.tsx
+  - src/shared/features/product/ProductDetailNavigation.tsx
+  - src/shared/features/product/ProductDetailFooter.tsx
   - public/images/products/clifton-11-gtx/feature-upper.png
   - public/images/products/clifton-11-gtx/feature-detail.png
   - public/images/products/clifton-11-gtx/feature-cushioning.png
@@ -2628,8 +2638,14 @@ PC 상품 목록 Quick 패널은 카드에서 양옆으로 16px 확장되지만 
 
 ## 상품 상세 WEB ScrollSpy (2026-10-23)
 
-ProductDetailSections의 상품 정보·리뷰·상품 문의 탐색은 WEB 전용 ScrollSpy다. 탐색 바를 정보 영역 전체를 포함하는 부모의 직접 자식으로 두어, 갤러리 뒤에서 헤더 바로 아래에 고정되고 정보 영역 끝에서 고정이 해제된다. 현재 구간은 각 제목이 탐색 바 하단 + 24px 경계를 지난 순서로 결정한다. 클릭 시에만 활성 상태를 바꾸던 처리를 제거해 일반 스크롤·역방향 스크롤·리뷰 바로가기 이동도 같은 기준으로 반영한다. aria-current="location"으로 현재 링크를 표시한다.
+ProductDetailSections가 조합하는 ProductDetailScrollSpy의 상품 정보·리뷰·상품 문의 탐색은 WEB 전용이다. 탐색 바를 정보 영역 전체를 포함하는 부모의 직접 자식으로 두어, 갤러리 뒤에서 헤더 바로 아래에 고정되고 정보 영역 끝에서 고정이 해제된다. 현재 구간은 각 제목이 탐색 바 하단 + 24px 경계를 지난 순서로 결정한다. 클릭 시에만 활성 상태를 바꾸던 처리를 제거해 일반 스크롤·역방향 스크롤·리뷰 바로가기 이동도 같은 기준으로 반영한다. aria-current="location"으로 현재 링크를 표시한다.
 
 탐색 바 높이는 ResizeObserver로 측정하고 CSS 변수로 전달한다. 각 앵커는 헤더 + 탐색 바 + 24px만큼 scroll-margin-top을 확보한다. passive scroll 이벤트를 requestAnimationFrame으로 모아 프레임당 최대 한 번 위치를 읽고, 창 크기 변경과 이미지 로딩에 따른 영역 높이 변화에도 갱신한다. observer·이벤트·대기 프레임은 해제한다. 모바일에는 이 컴포넌트가 마운트되지 않는다.
 
 검증: ESLint·Prettier·TypeScript 검사 통과. 브라우저에서 리뷰/문의 앵커 클릭 시 nav top 88px, nav bottom 약 152.8px, 대상 top 약 177px을 확인했다. 클릭 없이 PageUp 및 방향키로 스크롤할 때 상품 정보→리뷰→상품 문의로 활성 표시가 바뀌고, 위로 스크롤하면 상품 문의→리뷰로 복귀하며 헤더 바로 아래 고정이 유지됨을 확인했다. 출처는 작업 트리의 src/shared/features/product/ProductDetailSections.tsx다.
+
+## 상품 상세 표시 데이터와 구성 분리 (2026-10-23)
+
+productDetailPresentation.ts는 상품별 사양·정성 척도·에디토리얼·고시 정보와 앵커 목록을 준비한다. Clifton 샘플 사양과 사진은 기존 품번에만 연결하며 다른 상품은 용도·발볼·쿠셔닝·안정성 값을 사용한다. ProductDetailSections는 이 데이터를 받아 기술 사양·에디토리얼·리뷰·문의·지원 영역을 조합한다. ProductDetailScrollSpy는 위치 감지와 높이 측정·이벤트 정리를, ProductDetailNavigation은 native nav와 HTMLElement ref·aria-current를 담당한다. 리뷰/IMC 자리 표시자, 사양 목록, 정성 척도와 지원 아코디언도 feature 내부 컴포넌트로 분리했다.
+
+ProductDetailFooter는 추천과 모바일 고정 구매 액션을 조합한다. ProductDetailRecommendations가 추천 목록의 시작 여백(PC 96px·모바일 40px)과 WEB 목록 간 간격 96px을 소유하며 하위 ProductDetailRecommend의 중복 마진은 제거했다. 에디토리얼 제목·설명은 ContentHeader를 재사용한다. 구매 상태와 이미지 확대 처리는 ProductDetailPage에 유지한다. 새 컴포넌트는 상품 상세 내부 조합이며 별도 공통 UI API로 승격하지 않았다. 출처는 working_tree_sources의 상품 상세 TSX와 productDetailPresentation.ts다. 타입 검사와 상품별 데이터 분기·사진 파일 존재·품번 누락 fallback 테스트 3개를 통과했다. 이번 커밋 준비에서 브라우저 시각·상호작용 검증은 수행하지 않았다.
