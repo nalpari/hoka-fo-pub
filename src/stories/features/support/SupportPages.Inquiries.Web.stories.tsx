@@ -17,4 +17,14 @@ export const Pending: Story = { ...scenarios.InquiryPendingDesktop, name: '답�
 
 export const Answered: Story = { ...scenarios.InquiryAnsweredDesktop, name: '답변 완료' };
 
-export const New: Story = { ...scenarios.InquiryNewDesktop, name: '문의 작성' };
+export const Answered: Story = { ...scenarios.InquiryAnsweredDesktop, name: 'Answered' };
+
+export const Attachments: Story = {
+  ...scenarios.InquiryAttachmentsDesktop,
+  name: 'Attachments',
+};
+
+export const AttachmentPreview: Story = {
+  ...scenarios.InquiryAttachmentPreviewDesktop,
+  name: 'Attachment preview',
+};

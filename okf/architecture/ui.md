@@ -6,8 +6,8 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T03:57:43Z'
-source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
+  at: '2026-10-22T05:11:31Z'
+source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - public/images/icon/lock-keyhole.svg
   - src/shared/features/product/ProductInformation.tsx
@@ -75,7 +75,15 @@ working_tree_sources:
   - src/shared/features/support/InquiryPage.tsx
   - src/shared/features/support/InquiryCautions.tsx
   - src/shared/features/support/InquiryEmptyState.tsx
+  - src/shared/features/support/InquiryQuestion.tsx
+  - src/shared/features/support/InquiryAnswer.tsx
+  - src/shared/features/support/InquiryListItem.tsx
+  - src/shared/features/support/InquiryReadAttachments.tsx
+  - src/shared/features/support/InquiryAttachmentPreview.tsx
+  - AGENTS.md
   - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
+  - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
   - src/shared/features/faq/FaqPage.tsx
   - src/shared/components/organisms/Faq/FaqList.tsx
@@ -818,9 +826,6 @@ working_tree_sources:
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
 sources:
-  - id: ia-google-sheet-20261022
-    resource: https://docs.google.com/spreadsheets/d/1jWeAYSoZBSEM0DB-XfO8yG0Hhz9xHm2kwD6iI6ZnZ3U/edit#gid=0
-    title: 'Eland_211_IA_20260928_v0.20 — FO'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -2411,7 +2416,7 @@ PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이�
 
 TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털·Radio·열림 상태를 소유한다. TermsDocument는 날짜 목록·선택값과 약관 본문을 소유하며 name/options/value/onValueChange를 전달한다. 플랫폼 포털 클래스, 선택 후 닫기, 날짜 표시 형식과 접근성 이름은 유지한다.
 
-공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시/두께 차이는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
+공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. `variant`가 웹·모바일 공통값이며, 값이 다를 때만 선택형 `mo` prop으로 모바일 variant를 덮어쓴다. `mo`를 생략하면 `variant` 값이 유지된다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시 여부는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
 
 검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
@@ -2635,124 +2640,3 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 빈 상태는 PC body3(16px)·모바일 body4(14px), 양쪽 모두 subtle(`#4d4d4d`)이다. 유의사항은 상단 1px black.20 선과 20px 상단 여백, 14px medium black 제목, 제목/목록 사이 12px 간격, PC·모바일 body5(12px) tertiary(`#777`) 항목을 사용한다. CTA는 기존 `PageActionButton`을 재사용해 48px tall·180px PC/전체 너비 모바일로 두고, 유의사항과 24px 간격 및 모바일 하단 64px 여백을 둔다. 문의 목록, 폼 동작과 유의사항의 열림 상태는 유지한다.
 
 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
-
-## 상품 목록 고정 제목과 Quick 패널 겹침 (2026-10-23)
-
-PC 상품 목록 Quick 패널은 카드에서 양옆으로 16px 확장되지만 ContentLayout의 고정 제목 배경은 콘텐츠 폭에만 적용되어, 스크롤 시 오른쪽 확장 영역이 제목 옆으로 드러났다. stickyHeaderStyle에 동일한 흰 배경의 before 레이어를 좌우 16px 확장해 추가했다. 제목의 실제 크기·배치·ResizeObserver 측정값과 필터의 sticky offset은 유지하고, 모바일에서는 이 레이어를 숨긴다. Quick 패널 자체의 크기와 hover·키보드 포커스 동작은 유지한다. 출처는 작업 트리의 ContentLayout.tsx와 ProductCardPreview.tsx의 top/left/right -16px 정의다.
-
-2026-10-23 Codex가 1200px Storybook에서 오른쪽 열 Quick을 키보드 포커스로 열고 scrollY 276 상태를 재현했다. 수정 전 고정 제목 오른쪽 8px 지점의 hit 대상이 Quick section임을 확인했고, 수정 후 같은 위치를 고정 제목이 덮는 것을 확인했다. Quick의 오른쪽 16px 확장과 고정 제목의 sticky 동작은 유지된다.
-
-
-## 상품 상세 WEB 시안 갱신 (2026-10-23)
-
-- 사용자가 제공한 WEB 상세 스크린샷과 Figma 링크(node 3352:2628)를 참고했다. Figma 연결 재인증이 필요해 사용자의 지시에 따라 스크린샷으로 구현했으며, Figma 치수·에셋을 직접 확인한 것으로 기록하지 않는다.
-- WEB 갤러리는 2열·16px 간격이며, 좌측 미디어와 우측 구매 패널은 1016:480 비율과 32px 간격을 사용한다. 구매 패널의 고정 기준은 헤더 높이 + 32px이다. 낮은 WEB 창에서도 구매 버튼을 마우스로 누를 수 있도록 패널 최대 높이를 뷰포트 - 헤더 - 48px로 제한하고 내부 세로 스크롤을 허용한다. 모바일에는 높이 제한이나 내부 스크롤을 적용하지 않는다.
-- 갤러리 아래에 상품 정보·리뷰·상품 문의 앵커, Tech Specs, Why you’ll love it, 상세 이미지/IMC 영역, 크리마 리뷰 영역, 기존 문의 게시판 및 고시·배송·반품 아코디언을 배치한다. 리뷰 버튼은 WEB에서 실제 리뷰 영역으로 이동하며 헤더 높이만큼 스크롤 여백을 둔다.
-- Clifton의 312g·43/38mm (5mm) 표시는 첨부 시안의 퍼블리싱 샘플이며, 다른 상품에 동일 수치를 표시하지 않는다. 문의 게시판의 기존 목 데이터·비밀글 처리·문의하기 경로는 유지한다. 크리마 및 IMC는 시안의 자리 표시 영역이며 외부 서비스 연동을 구현한 것은 아니다.
-- 추천 상품 아래 WEB에만 다른 고객이 함께 본 상품 캐러셀을 추가했다. 두 목록은 기존 추천 목 데이터를 사용한다. 모바일 갤러리·지원 아코디언·하단 고정 구매 액션은 유지한다.
-- 사용자가 export한 feature-upper.png, feature-detail.png, feature-cushioning.png를 public/images/products/clifton-11-gtx/에서 연결했다. 세 파일 모두 328×411px이며 원본 비율로 표시하고 lazy loading을 적용한다. 누락 파일용 임시 빈 박스와 오류 상태 처리는 원본 추가 후 제거했다.
-- 검증: 변경 TSX ESLint, TypeScript 검사, Storybook 빌드 통과. 브라우저에서 1600px WEB의 980px/463px 열과 1200px WEB의 703px/340px 열, 갤러리 8장 로딩·16px 간격, 리뷰 앵커의 헤더 회피, 사이즈 미선택 오류, 사이즈 선택 후 장바구니 수량 반영, 이미지 확대 Escape 닫기와 원래 버튼 포커스 복원을 확인했다. 모바일 375px에서는 WEB 전용 정보 영역과 두 번째 추천 목록이 노출되지 않음을 확인했다. 세 feature 사진의 실물과 파일명별 사용 위치를 확인했다. 최종 브라우저에서 세 장 모두 328×411px 원본으로 정상 로딩되고 같은 높이·원본 비율로 렌더링됨을 확인했다.
-
-
-## 상품 상세 WEB ScrollSpy (2026-10-23)
-
-ProductDetailSections가 조합하는 ProductDetailScrollSpy의 상품 정보·리뷰·상품 문의 탐색은 WEB 전용이다. 탐색 바를 정보 영역 전체를 포함하는 부모의 직접 자식으로 두어, 갤러리 뒤에서 헤더 바로 아래에 고정되고 정보 영역 끝에서 고정이 해제된다. 현재 구간은 각 제목이 탐색 바 하단 + 24px 경계를 지난 순서로 결정한다. 클릭 시에만 활성 상태를 바꾸던 처리를 제거해 일반 스크롤·역방향 스크롤·리뷰 바로가기 이동도 같은 기준으로 반영한다. aria-current="location"으로 현재 링크를 표시한다.
-
-탐색 바 높이는 ResizeObserver로 측정하고 CSS 변수로 전달한다. 각 앵커는 헤더 + 탐색 바 + 24px만큼 scroll-margin-top을 확보한다. passive scroll 이벤트를 requestAnimationFrame으로 모아 프레임당 최대 한 번 위치를 읽고, 창 크기 변경과 이미지 로딩에 따른 영역 높이 변화에도 갱신한다. observer·이벤트·대기 프레임은 해제한다. 모바일에는 이 컴포넌트가 마운트되지 않는다.
-
-검증: ESLint·Prettier·TypeScript 검사 통과. 브라우저에서 리뷰/문의 앵커 클릭 시 nav top 88px, nav bottom 약 152.8px, 대상 top 약 177px을 확인했다. 클릭 없이 PageUp 및 방향키로 스크롤할 때 상품 정보→리뷰→상품 문의로 활성 표시가 바뀌고, 위로 스크롤하면 상품 문의→리뷰로 복귀하며 헤더 바로 아래 고정이 유지됨을 확인했다. 출처는 작업 트리의 src/shared/features/product/ProductDetailSections.tsx다.
-
-## 상품 상세 표시 데이터와 구성 분리 (2026-10-23)
-
-productDetailPresentation.ts는 상품별 사양·정성 척도·에디토리얼·고시 정보와 앵커 목록을 준비한다. Clifton 샘플 사양과 사진은 기존 품번에만 연결하며 다른 상품은 용도·발볼·쿠셔닝·안정성 값을 사용한다. ProductDetailSections는 이 데이터를 받아 기술 사양·에디토리얼·리뷰·문의·지원 영역을 조합한다. ProductDetailScrollSpy는 위치 감지와 높이 측정·이벤트 정리를, ProductDetailNavigation은 native nav와 HTMLElement ref·aria-current를 담당한다. 리뷰/IMC 자리 표시자, 사양 목록, 정성 척도와 지원 아코디언도 feature 내부 컴포넌트로 분리했다.
-
-ProductDetailFooter는 추천과 모바일 고정 구매 액션을 조합한다. ProductDetailRecommendations가 추천 목록의 시작 여백(PC 96px·모바일 40px)과 WEB 목록 간 간격 96px을 소유하며 하위 ProductDetailRecommend의 중복 마진은 제거했다. 에디토리얼 제목·설명은 ContentHeader를 재사용한다. 구매 상태와 이미지 확대 처리는 ProductDetailPage에 유지한다. 새 컴포넌트는 상품 상세 내부 조합이며 별도 공통 UI API로 승격하지 않았다. 출처는 working_tree_sources의 상품 상세 TSX와 productDetailPresentation.ts다. 타입 검사와 상품별 데이터 분기·사진 파일 존재·품번 누락 fallback 테스트 3개를 통과했다. 이번 커밋 준비에서 브라우저 시각·상호작용 검증은 수행하지 않았다.
-
-## 상품 상세 기술 척도 5단계 그라데이션 (2026-10-23)
-
-막대 표시는 같은 feature의 `ProductTechnicalScaleBar`로 분리했다. `ProductTechnicalScaleData`에서 가져온 `level`(1~5)만 전달받아 막대와 그라데이션을 렌더링하며, 제목·도움말·라벨 조합은 `ProductTechnicalScale`이 유지한다. DOM 구조, `aria-hidden`, 높이·너비·위치·색상은 기존과 같다. 출처는 작업 트리의 두 TSX 파일이다. 2026-10-23 Codex가 타입 검사·변경 파일 ESLint·Prettier·Panda 생성을 통과했으며, 이번 분리의 브라우저 시각 검증은 수행하지 않았다.
-
-사용자가 제공한 그래프 규격에 따라 ProductTechnicalScale의 타원형 표시를 높이 8px의 직사각형 막대로 변경했다. 전체 막대는 #F5F5F5이며 그라데이션 구간은 너비의 20%로, level 1~5에 따라 왼쪽부터 배치한다. 1단계는 90deg 검정 0%→연회색 100%, 2~4단계는 연회색 0%→검정 50%→연회색 100%, 5단계는 연회색 0%→검정 100%다. 색은 #000000과 #F5F5F5를 사용한다. 제공된 134px은 전체 670px에서 한 단계 너비이며, 다른 화면에서는 전체 너비에 비례한다. Clifton의 쿠셔닝·안정성·반발력은 각각 5·1·3단계다.
-
-출처는 사용자 브라우저 코멘트와 첨부 이미지, 작업 트리의 src/shared/features/product/ProductTechnicalScale.tsx와 productDetailPresentation.ts다. 2026-10-23 Codex가 ESLint·Prettier·TypeScript·Panda 생성과 기존 상품 상세 데이터 테스트 3개 통과를 확인했다. Storybook 브라우저에서 세 막대의 8px 높이, #F5F5F5 배경, 20% 구간 너비와 5·1·3단계의 실제 그라데이션 색상·정지점을 확인했다.
-
-## 상품 기술 사양 안내와 남녀 무게 병기 (2026-10-23)
-
-ProductSpecificationHelp는 상품 feature 내부에서 Base UI Tooltip과 기존 IconButton·Typography를 조합한다. 무게·쿠셔닝·Heel-to-Toe Drop 제목 옆에 16px 회색 안내 아이콘을 배치하고, hover 또는 키보드 포커스로 흰색 말풍선을 연다. 기본 위치는 아이콘 아래이며 삼각 포인터·4px 모서리·그림자를 적용한다. Tooltip이 위치 충돌과 Escape 닫기를 처리하며 포털에 현재 platform 스타일 범위를 전달한다. 쿠셔닝은 ContentHeader의 horizontal action 슬롯으로 제목 옆에 배치한다.
-
-무게 안내는 첫 첨부의 임시 설명 3줄, 쿠셔닝 안내는 첨부의 미드솔·쿠션 두께와 단단함·부드러움 설명을 사용했다. 드롭 설명은 뒤꿈치와 앞꿈치의 높이 차이라는 설명을 추가했으며 최종 승인된 상품 문구로 간주하지 않는다. ProductDetailSpecification.value는 단일 문자열 또는 문자열 배열을 받는다. 배열은 사양 목록에서 가로 구분선이 아닌 세로 구분선으로 나란히 표시하고 고시 정보에서는 ' | '로 연결한다. 기존 상품의 단일 312g 표시는 유지한다.
-
-src/stories/features/product/ProductTechSpecs.stories.tsx의 FEATURES/Product/Tech Specs에 단일 무게와 남성·여성 무게 케이스를 추가했다. 남성 312g·여성 280g은 추가 첨부 시안의 퍼블리싱 예시이며 상품 목 데이터의 실제 성별 무게를 확정한 것이 아니다. Storybook이 stories 목록을 시작 시 읽으므로 새 파일 추가 후 개발 서버를 재시작했다. Storybook은 Panda 추출에서 제외되어 예시 프레임의 고유 maxWidth는 inline style로 지정한다.
-
-출처는 사용자 첨부 이미지와 브라우저 코멘트, working_tree_sources의 ProductSpecificationHelp.tsx·ProductDetailSpecificationList.tsx·ProductTechnicalScale.tsx·ProductDetailSupportSections.tsx·productDetailPresentation.ts·ProductTechSpecs.stories.tsx다. 2026-10-23 Codex가 ESLint·Prettier·TypeScript·Panda 생성, 기존 상품 상세 테스트 3개, Next.js 프로덕션 빌드를 통과했다. Storybook 빌드도 통과했으며 Base UI 모듈의 use client 번들 경고가 남는다. 브라우저에서 1200px 상품 상세의 세 안내 아이콘, 각 설명의 키보드 포커스 열림과 Escape 닫기, 별도 스토리의 남녀 값·세로 구분선과 쿠셔닝 말풍선을 확인했다.
-
-추가 요청에 따라 안정성·반발력에도 동일한 안내 아이콘과 Tooltip을 연결하고 문구는 두 항목 모두 `나중에 추가 예정`으로 지정했다. Codex가 남녀 무게 스토리에서 각 버튼에 키보드 포커스를 옮겨 해당 문구가 열리는 것을 확인했으며 ESLint·Prettier·기존 데이터 테스트 3개가 통과했다. 이후 변경은 안내 데이터 두 항목의 문자열 추가이며 전체 빌드는 그 직전 구현까지 검증했다.
-
-## 상품 상세 지원 아코디언 시안 보정 (2026-10-23)
-
-사용자 첨부 시안(2032×468px, 2배 이미지)과 제공한 제목 규격을 기준으로 WEB 전용 ProductDetailSupportSections의 상단에 1px black.20 선을 추가했다. 닫힌 각 항목은 트리거 77px와 하단 선 1px를 합한 78px이며, 기존 item의 세로 padding 대신 트리거가 클릭 영역의 높이를 소유한다. 제목은 productSupportTitle Typography로 Pretendard·18px·700·130%·-0.02em을 사용한다. 이 variant는 fontSizes.18과 기존 korean/body/bold 토큰을 사용하고, 모바일 기본값은 16px이지만 현재 소비처는 WEB 전용이다. Typography 스토리에도 해당 variant를 추가했다.
-
-마지막 제목은 반품 정책에서 관리 방법으로 변경하고 기존 CareInstructions와 shoeCareSections를 재사용한다. 배송 및 반품 안의 기존 반품 안내는 유지한다. 공통 Accordion의 다른 소비처 스타일과 모바일 상품 상세 구성은 변경하지 않았다. 출처는 사용자 이미지와 CSS 코멘트, 작업 트리의 ProductDetailSupportSections.tsx·Typography.tsx·panda.config.ts·Typography.stories.tsx다.
-
-Codex가 브라우저에서 상단 선 1px, 닫힌 항목 78px, 제목 18px/700·줄높이 23.4px·자간 -0.36px을 실측했다. 관리 방법을 열어 신발 손질·보존 안내 표시와 다시 닫힘을 확인했다. 최종 Next.js 빌드(타입 검사 포함)와 Storybook 빌드, 변경 파일 ESLint·Prettier를 통과했다.
-
-2026-10-23 재사용성 점검 후 ProductDetailSupportSections의 트리거 minH를 78px에서 77px로 보정했다. 항목 하단 테두리 1px와 합쳐 기존에 문서화한 닫힌 행 78px 규격을 맞춘다. 이 후속 보정의 브라우저 실측은 수행하지 않았다.
-
-## 상품 고시 정보 신규 표 (2026-10-23)
-
-ProductDetailNoticeTable은 공통 DescriptionList에 항목과 스타일 슬롯을 전달해 의미상 사양 목록인 dl/dt/dd를 유지하면서 black.10 배경, black.20 행 구분선, 최소 60px 높이·세로 20px·가로 24px 여백, 28.5%/나머지 두 열을 사용한다. 제목·값은 body4(14px), 제목은 bold이며 긴 소재와 제조자 주석은 줄바꿈한다. 고시 항목은 컬러·스타일코드·발볼 넓이·소재·제조국·제조년월·제조자 또는 수입자·품질보증기간의 8개다. 제조자 주석은 일반 굵기로 구분한다.
-
-컬러는 상품의 첫 컬러, 스타일코드·발볼 넓이는 기존 상품 값이다. 첨부 시안의 (91)Silver를 현재 Black / Outer Orbit 상품에 강제 적용하지 않았다. Clifton의 소재·CHINA·2026년 12월·(주)이랜드월드·보증 문구는 사용자 제공 시안에 따른 퍼블리싱 예시이며 실제 상품 정보 검증을 뜻하지 않는다. 다른 상품은 해당 예시를 상속하지 않고 상품별 표기 참조를 표시한다. 스타일코드가 없을 때 기존 fallback을 유지한다.
-
-출처는 사용자 첨부 신규 고시 표 이미지, 작업 트리의 ProductDetailNoticeTable.tsx·ProductDetailSupportSections.tsx·productDetailPresentation.ts다. 1200px Storybook에서 회색 행, 상품 값, 긴 소재 문구 줄바꿈과 아코디언 열림을 확인했다. 기존 상품 상세 데이터 테스트 3개에 8개 고시 항목과 다른 상품 소재 fallback 검사를 보강했으며 모두 통과했다. 최종 Next.js·Storybook 빌드와 ESLint·Prettier를 통과했다.
-
-
-## DescriptionList 스타일 슬롯과 상품 고시 재사용 (2026-10-23)
-
-DescriptionList는 slotStyles.root/row/term/description에 Panda SystemStyleObject를 받고 기본 스타일과 css 호출 전에 합친다. 기존 className과 labelWidth 계약을 유지하고 termProps·descriptionProps는 Typography의 variant/web/mo/tone/weight를 설정한다. 스타일 슬롯은 레이아웃과 표현을, 텍스트 props는 타입 스케일과 톤을 담당한다. 소비처는 css.raw로 스타일 객체를 준비해 Panda의 정적 추출을 유지한다. 기본값은 기존 grid·10px/16px 간격·display:contents 행·heading9 용어·body4/tertiary 값이다.
-
-ProductDetailNoticeTable은 상품 데이터·주석·복수 값의 표시 조합을 소유하고 공통 DescriptionList가 dl/div/dt/dd를 렌더링한다. 각 고시 행의 28.5% 두 열·60px 최소 높이·20px/24px 패딩, 마지막 행 구분선 제거와 루트 하단 여백 32px을 슬롯으로 전달한다. dt/dd는 unstyled로 두고 내부 body4 제목·주석·값을 유지해 글자 크기와 굵기가 중복 적용되지 않도록 했다. ContactCard는 추가 props 없이 기존 목록을 계속 사용한다.
-
-검증: 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 기존 Default 스토리의 10px/16px gap·16px 용어·14px tertiary 값, StyledRows의 display:contents→grid override와 60px 행 높이, 375px MobileStyledRows의 줄바꿈과 가로 넘침 없음을 확인했다. 상품 상세 WEB에서 고시 8행·60px 최소 높이·20px/24px 패딩·14px 글자·700 제목·주석·32px 하단 여백·마지막 선 제거를 확인했다. 출처는 작업 트리의 DescriptionList.tsx·DescriptionList.stories.tsx·ProductDetailNoticeTable.tsx와 기존 ContactCard.tsx이다.
-
-## 상품 리뷰 제목과 수량 폰트 분리 (2026-10-23)
-
-ProductDetailReviews가 제목 전체에 heading8을 적용해 괄호 안 수량까지 한글 제목의 굵기를 사용하던 구성을 분리했다. 첨부 Figma 속성 패널 기준으로 productSectionTitle은 Pretendard·24px·900·-0.02em, productSectionCount는 The Future HOKA·24px·500·0 자간을 사용하며 두 variant의 줄높이는 1.2다. 기존 ContentSection의 h2 안에 숫자 span을 넣어 제목 의미와 리뷰 앵커를 유지하고, Typography 스토리에 각 variant를 추가했다. 상품문의 제목에도 재사용하면서 최초 productReviewTitle/productReviewCount에서 범용 이름으로 정리했다. 현재 소비처는 WEB 상품 상세다.
-
-Codex가 브라우저 computed style에서 제목 24px/900·Pretendard·자간 -0.48px, 숫자 24px/500·The Future HOKA·0 자간, 두 요소 줄높이 28.8px을 확인했다. 변경 TSX ESLint·Prettier·Panda 생성·타입 검사와 Storybook 빌드가 통과했다. 출처는 사용자 첨부 폰트 속성 이미지, 작업 트리의 ProductDetailReviews.tsx·Typography.tsx·Typography.stories.tsx다.
-
-## 상품 문의 시안과 필터 체크박스 (2026-10-23)
-
-Checkbox의 단일 선택 API에 variant="filter"를 추가했다. 16px 컨트롤·8px 라벨 간격·body4 글자를 사용하며 미선택 black.50, 선택 black.100, 비활성 black.40 글자와 black.20 컨트롤 배경을 지정한다. 기존 SVG를 재사용하며 미선택 검정 테두리는 이미지 opacity로 회색화한다. disabled 상태의 부모 opacity는 1로 명시해 비활성 아이콘·라벨이 중복 흐려지지 않게 한다. 기본 단일·그룹·invalid 표현은 유지한다. InquiryBoardHeader가 직접 소유하던 18px 크기·회색 selector를 제거하고 이 variant를 소비한다. Checkbox 스토리에 Filter·FilterChecked·FilterDisabled·FilterStates를 추가했다.
-
-InquiryBoard에 variant="product", pageSize, loadMoreSize를 추가했다. 기본 variant는 기존 단일 펼침과 답변대기 문구를 유지하며, 상품 variant는 24px 혼합 폰트 제목, 접수/답변완료 문구, 잠금 아이콘을 제목 앞에 배치한다. 닫힌 행은 테두리 포함 60px이며 상품 패널은 black.10 배경·24px 패딩, 답변 앞 구분선·24px 간격·subtle 본문을 사용한다. 상품 variant에서는 공개 답변과 비공개 안내를 동시에 펼칠 수 있다. 제한된 항목은 제목·본문·답변 데이터 자체를 보유하지 않는 기존 계약을 유지한다.
-
-ProductDetailInquiryContent와 문의 스토리는 ProductInquiryLink를 재사용한다. 이 링크는 120px 폭의 컨테이너와 fullWidth secondary 버튼(36px 높이·둥근 모서리)으로 실제 테두리까지 120px을 확보한다. 목록은 처음 5건을 표시한다. 더 보기는 남은 수와 16 중 작은 수만큼 추가하며, 필터 변경 시 초기 표시 개수로 돌아간다. pageSize를 생략한 기존 소비처는 전체 목록을 표시한다. 빈 상품 목록에서는 비밀글 제외를 비활성화하고 등록된 문의글이 없습니다.를 표시한다. 필터로만 비어졌을 때는 다시 해제할 수 있다.
-
-productInquiries는 첨부 시안의 제목·상태·공개 답변 문구를 반영한 56건 퍼블리싱 예시이며 실제 문의·답변 서비스 데이터가 아니다. 재입고·UV·배송·비공개·사이즈 5건과 더 보기 확인용 추가 예시 51건으로 구성했다. Organisms/InquiryBoard의 Product·ProductExpanded·ProductEmpty·ProductRestrictedOnly 스토리가 목록·동시 펼침·빈 상태·제한 목록을 다룬다. 출처는 사용자 첨부 문의 시안과 working_tree_sources의 Checkbox·InquiryBoard·상품 문의 TSX 및 스토리다.
-
-Codex가 브라우저에서 필터 컨트롤 16×16px·gap 8px, 선택/미선택/비활성 색상과 배경을 실측했다. 상품 문의의 공개 답변과 비공개 안내 동시 펼침, 비밀글 필터 적용 시 제한 행 제거, 더 보기 5→21→37→53→56건과 최종 버튼 제거, 빈 상태 문구·aria-disabled=true를 확인했다. Next.js·Storybook 빌드(타입 검사 포함), 변경 파일 ESLint·Prettier, 기존 폼 컨트롤·상품 상세 테스트 36개를 통과했다.
-
-최종 버튼 보정 후 브라우저에서 ProductInquiryLink의 실제 테두리 프레임 120×36px과 닫힌 문의 행 60px을 실측했다. 페이지·스토리 공통 소비처로 연결한 최종 소스의 빌드도 확인했다.
-
-추가 시안 대조에 따라 상품 variant 행은 왼쪽 24px·오른쪽 0px 패딩으로 보정했다. 기본 row의 좌우 shorthand를 개별 pl/pr로 표현해 소비처에서 오른쪽만 바꿀 때 원래 px와 충돌하지 않도록 했다. 작성자·날짜·상태의 100px 열과 가운데 정렬, 기존 기본/모바일 행 간격은 유지한다. Codex가 브라우저에서 padding-left 24px·padding-right 0px과 행/버튼의 같은 너비를 확인했다. 이 보정은 ESLint·Prettier·Panda 생성·타입 검사로 확인했으며 전체 빌드는 직전 문의 구현까지의 결과다.
-
-## 상품 리뷰·문의 재사용 후속 점검 (2026-10-23)
-
-InquiryBoardHeader의 h3와 필터를 ContentHeader의 title/action으로 조합했다. 제목 ID·의미·20px 간격·모바일 12px 간격·줄바꿈을 보존하며, 문의 행은 Grid as="span", 목록 루트는 Box as="section", 더 보기 배치는 Flex의 직접 props로 표현한다. 반복되는 행은 같은 InquirySubject가 소유하므로 별도 공용 컴포넌트를 추가하지 않았다. Accordion 패널 슬롯과 Typography 빈 상태·말줄임 클래스는 직접 스타일 props를 받지 않는 기존 API에 남긴다. Checkbox의 단순 하위 img opacity selector는 렌더 함수의 상태·variant에 따라 실제 img에 적용한다. 선택 상태와 부모 라벨의 관계를 나타내는 :has selector는 유지한다. ProductInquiryLink의 버튼 CSS 변수는 기본 recipe보다 우선하는 기존 inline style 계약을 유지한다.
-
-후속 검증: Panda 생성·타입 검사·변경 TSX ESLint·Prettier·기존 폼 컨트롤/상품 표시 테스트 36개·별도 출력 경로의 Storybook 빌드를 통과했다. 브라우저에서 product 제목 h3·24px/900·헤더 간격 20px, 행 Grid·59px 내용 높이·좌우 패딩 24px/0px·gap 0, 체크박스 16px·아이콘 opacity 0.53→1, 선택 후 제한 행 제거와 공개/제한 패널 동시 펼침을 확인했다. 출처는 작업 트리의 Checkbox.tsx·InquiryBoard.tsx·InquiryBoardHeader.tsx와 기존 ContentHeader.tsx다.
-
-375px Mobile 스토리를 추가해 platform-mobile 범위를 실제 적용했다. 브라우저에서 문의 행의 3열 구성·12px gap·16px/12px 패딩, 헤더 간격 12px, 가로 넘침 없음과 기본 variant의 단일 펼침을 확인했다. Next.js 프로덕션 빌드도 통과했다.
-
-## 상품 정보 설명 접기와 더보기 위치 (2026-10-23)
-
-ProductInformation은 초기 설명을 CSS lineClamp 4로 줄이고 새로운 특징은 펼칠 때만 표시한다. useId로 연결한 aria-controls·aria-expanded 버튼이 설명 바로 아래, 사양 목록 위에 위치하며 더보기/닫기로 전환한다. 하단 목록은 접힘 상태와 무관하게 항상 표시한다. 버튼이 섹션 전체를 마치는 액션이 아니므로 기존 ContentSection.footer에서 제거하고 설명 그룹 내부에 둔다.
-
-상품 정보 제목은 productSectionTitle(24px/900, 모바일은 기존 heading8)을 사용한다. 본문은 productInformationBody Typography(16px/400, 1.5 줄높이, korean 자간)이며 해당 스토리를 추가했다. 설명/버튼 사이 12px, 설명 그룹과 목록 사이 32px, 32px 패널 패딩과 black.10 배경을 사용한다. 하단 목록은 공통 DescriptionList의 80px 용어 열·12px 가로 간격·16px 행 간격을 재사용하며 body3의 굵은 용어·기본 굵기 값을 표시한다. 신발 유형·추천 활동·러닝 유형으로 항목을 교체했다. 첨부의 접힘/펼침 사이 러닝 유형/러닝 용도 표기는 동일한 의미이므로 러닝 유형으로 일관되게 표시한다.
-
-Clifton의 설명과 새로운 특징 문구는 사용자 첨부를 사용한다. 다른 상품에 Clifton 전용 특징을 표시하지 않는다. 출처는 첨부 상품 정보 이미지, working_tree_sources의 ProductInformation.tsx·ProductDetailContent.tsx·Typography.tsx·Typography.stories.tsx와 src/mocks/products.ts다. Codex가 브라우저에서 초기 본문 높이 96px·줄높이 24px, 더보기의 aria-expanded=false→true와 새로운 특징 표시, 닫기로 초기 상태 복귀, 버튼이 사양 목록 앞에 있는 DOM 순서를 확인했다. 변경 파일 ESLint·Prettier·Panda·타입 검사·Next.js 빌드·별도 출력 경로의 Storybook 빌드와 기존 상품 상세 테스트 3개가 통과했다.
-
-## 비공개 문의 잠금 아이콘 (2026-10-23)
-
-InquiryBoard의 비공개·열람 제한 문의는 직접 작성한 inline SVG 대신 공통 Icon으로 /images/icon/lock-keyhole.svg를 표시한다. 사용자 제공 public/images/icon/lock-keyhole.svg의 원본 크기인 14×14px로 표시하며 장식 이미지의 빈 alt·aria-hidden을 유지한다. 기존 아이콘 위치와 문의 펼침 동작은 유지한다. 출처는 사용자 제공 SVG와 작업 트리 InquiryBoard.tsx다. Codex가 Storybook에서 새 이미지 경로·표시와 제한 문의 펼침 안내를 확인했으며 변경 TSX ESLint·Prettier·타입 검사를 통과했다.
