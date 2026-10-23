@@ -1,9 +1,10 @@
-import { Box, Flex } from 'styled-system/jsx';
+import { Flex } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ProductTechnicalScaleData } from './productDetailPresentation';
 import { ProductSpecificationHelp } from './ProductSpecificationHelp';
+import { ProductTechnicalScaleBar } from './ProductTechnicalScaleBar';
 
 /** Static qualitative scale; it is neither an editable Slider nor a numeric Meter. */
 export function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalScaleData) {
@@ -20,21 +21,7 @@ export function ProductTechnicalScale({ title, labels, level, help }: ProductTec
       }}
       gap="3"
     >
-      <Box h="8px" bg="#F5F5F5" pos="relative" aria-hidden="true">
-        <Box
-          pos="absolute"
-          insetY="0"
-          style={{ left: `${(level - 1) * 20}%` }}
-          w="20%"
-          bg={
-            level === 1
-              ? 'linear-gradient(90deg, #000000 0%, #F5F5F5 100%)'
-              : level === 5
-                ? 'linear-gradient(90deg, #F5F5F5 0%, #000000 100%)'
-                : 'linear-gradient(90deg, #F5F5F5 0%, #000000 50%, #F5F5F5 100%)'
-          }
-        />
-      </Box>
+      <ProductTechnicalScaleBar level={level} />
       <Flex justifyContent="space-between" gap="2">
         {labels.map((label) => (
           <Typography key={label} variant="body5">

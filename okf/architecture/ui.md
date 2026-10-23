@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T02:18:15Z'
+  at: '2026-10-23T03:50:08Z'
 source_revision: d6cfae87226f075c8b39d0ec8d0e416ddf7b1f08
 working_tree_sources:
   - src/shared/features/product/ProductInformation.tsx
@@ -27,6 +27,7 @@ working_tree_sources:
   - src/stories/features/product/ProductTechSpecs.stories.tsx
   - src/shared/features/product/productDetailPresentation.ts
   - src/shared/features/product/ProductTechnicalScale.tsx
+  - src/shared/features/product/ProductTechnicalScaleBar.tsx
   - src/shared/features/product/ProductDetailSupportSections.tsx
   - src/shared/features/product/ProductDetailSpecificationList.tsx
   - src/shared/features/product/ProductDetailScrollSpy.tsx
@@ -2667,6 +2668,8 @@ productDetailPresentation.ts는 상품별 사양·정성 척도·에디토리얼
 ProductDetailFooter는 추천과 모바일 고정 구매 액션을 조합한다. ProductDetailRecommendations가 추천 목록의 시작 여백(PC 96px·모바일 40px)과 WEB 목록 간 간격 96px을 소유하며 하위 ProductDetailRecommend의 중복 마진은 제거했다. 에디토리얼 제목·설명은 ContentHeader를 재사용한다. 구매 상태와 이미지 확대 처리는 ProductDetailPage에 유지한다. 새 컴포넌트는 상품 상세 내부 조합이며 별도 공통 UI API로 승격하지 않았다. 출처는 working_tree_sources의 상품 상세 TSX와 productDetailPresentation.ts다. 타입 검사와 상품별 데이터 분기·사진 파일 존재·품번 누락 fallback 테스트 3개를 통과했다. 이번 커밋 준비에서 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
 ## 상품 상세 기술 척도 5단계 그라데이션 (2026-10-23)
+
+막대 표시는 같은 feature의 `ProductTechnicalScaleBar`로 분리했다. `ProductTechnicalScaleData`에서 가져온 `level`(1~5)만 전달받아 막대와 그라데이션을 렌더링하며, 제목·도움말·라벨 조합은 `ProductTechnicalScale`이 유지한다. DOM 구조, `aria-hidden`, 높이·너비·위치·색상은 기존과 같다. 출처는 작업 트리의 두 TSX 파일이다. 2026-10-23 Codex가 타입 검사·변경 파일 ESLint·Prettier·Panda 생성을 통과했으며, 이번 분리의 브라우저 시각 검증은 수행하지 않았다.
 
 사용자가 제공한 그래프 규격에 따라 ProductTechnicalScale의 타원형 표시를 높이 8px의 직사각형 막대로 변경했다. 전체 막대는 #F5F5F5이며 그라데이션 구간은 너비의 20%로, level 1~5에 따라 왼쪽부터 배치한다. 1단계는 90deg 검정 0%→연회색 100%, 2~4단계는 연회색 0%→검정 50%→연회색 100%, 5단계는 연회색 0%→검정 100%다. 색은 #000000과 #F5F5F5를 사용한다. 제공된 134px은 전체 670px에서 한 단계 너비이며, 다른 화면에서는 전체 너비에 비례한다. Clifton의 쿠셔닝·안정성·반발력은 각각 5·1·3단계다.
 
