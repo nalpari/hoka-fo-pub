@@ -8,7 +8,7 @@ import {
   type MarketingPreferences,
 } from './RegistrationContent';
 import { MarketingConsentSummaryModal } from './MarketingConsentSummaryModal';
-import { isValidName } from '@/shared/lib/validation';
+import { isValidName, isValidRegistrationId } from '@/shared/lib/validation';
 import { isValidPassword, passwordRequirementsMessage } from '@/shared/lib/passwordValidation';
 import {
   isValidEmailLocalPart,
@@ -22,6 +22,9 @@ const receivedVerificationInfo = {
   phone: '010-6698-5552',
 };
 
+const registrationIdErrorMessage =
+  '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.';
+
 export function RegistrationPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,6 +32,7 @@ export function RegistrationPage() {
     searchParams.get('step') === 'additional' ? 'additional' : 'information',
   );
   const [information, setInformation] = useState<RegistrationInformation>({
+    id: '',
     name: '',
     password: '',
     confirmation: '',
@@ -43,15 +47,15 @@ export function RegistrationPage() {
   });
   const [preferences, setPreferences] = useState<MarketingPreferences>({
     email: 'no',
-    coupon: 'no',
     sms: 'no',
-    married: 'no',
+    kakao: 'no',
   });
   const [domainChoice, setDomainChoice] = useState('direct');
   const [notice, setNotice] = useState('');
   const [duplicateNotice, setDuplicateNotice] = useState('');
   const [fieldErrors, setFieldErrors] = useState<
     Partial<Record<keyof RegistrationInformation, string>> & {
+      id: string;
       email: string;
       domain: string;
       name: string;
@@ -59,13 +63,14 @@ export function RegistrationPage() {
       confirmation: string;
     }
   >({
+    id: '',
     email: '',
     domain: '',
     name: '',
     password: '',
     confirmation: '',
   });
-  const [checkedEmail, setCheckedEmail] = useState('');
+  const [checkedId, setCheckedId] = useState('');
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
 
@@ -77,27 +82,22 @@ export function RegistrationPage() {
       [key]: '',
       ...(key === 'password' ? { confirmation: '' } : {}),
     }));
-    if (key === 'email' || key === 'domain') {
-      setCheckedEmail('');
+    if (key === 'id') {
+      setCheckedId('');
       setDuplicateNotice('');
     }
   };
 
-  const checkEmail = () => {
-    const errors = {
-      email: isValidEmailLocalPart(information.email.trim()) ? '' : emailFormatErrorMessage,
-      domain: isValidEmailDomain(information.domain.trim()) ? '' : emailDomainErrorMessage,
-    };
-    setFieldErrors((previous) => ({ ...previous, ...errors }));
-    if (errors.email || errors.domain) {
-      setCheckedEmail('');
+  const checkId = () => {
+    const idError = isValidRegistrationId(information.id) ? '' : registrationIdErrorMessage;
+    setFieldErrors((previous) => ({ ...previous, id: idError }));
+    if (idError) {
+      setCheckedId('');
       setDuplicateNotice('');
       return;
     }
-    setCheckedEmail(`${information.email.trim()}@${information.domain.trim()}`);
-    setDuplicateNotice(
-      '이메일 주소 형식을 확인했습니다. 실제 중복 여부는 서비스 연결 후 확인됩니다.',
-    );
+    setCheckedId(information.id);
+    setDuplicateNotice('아이디 형식을 확인했습니다. 실제 중복 여부는 서비스 연결 후 확인됩니다.');
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -106,6 +106,7 @@ export function RegistrationPage() {
       setSummaryOpen(true);
       return;
     }
+    const idError = isValidRegistrationId(information.id) ? '' : registrationIdErrorMessage;
     const emailError = isValidEmailLocalPart(information.email.trim())
       ? ''
       : emailFormatErrorMessage;
@@ -113,6 +114,7 @@ export function RegistrationPage() {
       ? ''
       : emailDomainErrorMessage;
     const errors = {
+      id: idError,
       email: emailError,
       postalCode: information.postalCode.trim() ? '' : '우편번호 찾기로 우편번호를 입력해주세요.',
       address: information.address.trim() ? '' : '우편번호 찾기로 주소를 입력해주세요.',
@@ -130,21 +132,19 @@ export function RegistrationPage() {
       setNotice('');
       return;
     }
-    if (
-      checkedEmail !== `${information.email.trim()}@${information.domain.trim()}` ||
-      !checkedEmail
-    ) {
-      setNotice('이메일 중복확인 버튼으로 입력 형식을 확인해주세요.');
+    if (checkedId !== information.id || !checkedId) {
+      setNotice('아이디 중복확인을 해주세요.');
       return;
     }
     if (
       !information.postalCode.trim() ||
       !information.address.trim() ||
       !information.addressDetail.trim() ||
+      !isValidRegistrationId(information.id) ||
       !isValidEmailLocalPart(information.email.trim()) ||
       !isValidEmailDomain(information.domain.trim())
     ) {
-      setNotice('필수 회원정보와 올바른 이메일 주소를 입력해주세요.');
+      setNotice('필수 회원정보와 올바른 아이디, 이메일 주소를 입력해주세요.');
       return;
     }
     setNotice('');
@@ -171,7 +171,7 @@ export function RegistrationPage() {
           setDomainChoice(value);
           change('domain', value === 'direct' ? '' : value);
         }}
-        onDuplicateCheck={checkEmail}
+        onDuplicateCheck={checkId}
         onAddressOpen={setAddressOpen}
         onSubmit={submit}
         onCancel={() => {

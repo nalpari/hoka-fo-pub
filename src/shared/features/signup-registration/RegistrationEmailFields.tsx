@@ -3,13 +3,7 @@ import type { RegistrationContentProps } from './registration.types';
 
 type Props = Pick<
   RegistrationContentProps,
-  | 'information'
-  | 'fieldErrors'
-  | 'onChange'
-  | 'domainChoice'
-  | 'onDomainChoice'
-  | 'onDuplicateCheck'
-  | 'duplicateNotice'
+  'information' | 'fieldErrors' | 'onChange' | 'domainChoice' | 'onDomainChoice'
 >;
 
 const options = [
@@ -31,8 +25,6 @@ export function RegistrationEmailFields(props: Props) {
       onLocalChange={(value) => props.onChange('email', value)}
       onDomainChange={(value) => props.onChange('domain', value)}
       onDomainChoice={props.onDomainChoice}
-      onCheck={props.onDuplicateCheck}
-      checkNotice={props.duplicateNotice}
     />
   );
 }

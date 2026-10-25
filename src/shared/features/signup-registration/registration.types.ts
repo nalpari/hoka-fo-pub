@@ -1,6 +1,7 @@
 import type { FormEvent } from 'react';
 
 export type RegistrationInformation = {
+  id: string;
   name: string;
   password: string;
   confirmation: string;
@@ -14,7 +15,7 @@ export type RegistrationInformation = {
   anniversary: string;
 };
 
-export type MarketingPreferences = { email: string; coupon: string; sms: string; married: string };
+export type MarketingPreferences = { email: string; sms: string; kakao: string };
 
 export type RegistrationContentProps = {
   stage: 'information' | 'additional';
@@ -24,6 +25,7 @@ export type RegistrationContentProps = {
   notice: string;
   duplicateNotice: string;
   fieldErrors: {
+    id: string;
     email: string;
     domain: string;
     name: string;
