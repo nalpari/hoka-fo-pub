@@ -4,6 +4,7 @@ import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/shared/context/platform';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
+import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -48,6 +49,55 @@ export const MobileDefault: Story = {
 export const CustomLabel: Story = { args: { confirmLabel: '계속하기' } };
 
 export const Disabled: Story = { args: { confirmButtonProps: { disabled: true } } };
+
+function FormSubmitExample() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <output aria-label="제출 횟수">{count}</output>
+      <SingleActionDialog
+        open
+        onOpenChange={() => {}}
+        title="폼 제출"
+        closeLabel="폼 제출 닫기"
+        confirmLabel="저장"
+        confirmButtonProps={{ type: 'submit', form: 'dialog-example-form', size: 'tall' }}
+      >
+        <form
+          id="dialog-example-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setCount((value) => value + 1);
+          }}
+        >
+          <TextInput aria-label="이름" name="name" defaultValue="홍길동" />
+        </form>
+      </SingleActionDialog>
+    </>
+  );
+}
+
+export const FormSubmit: Story = {
+  render: () => <FormSubmitExample />,
+  play: async ({ canvasElement }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    const dialog = within(await body.findByRole('dialog', { name: '폼 제출' }));
+    await expect(dialog.getByRole('button', { name: '저장' })).toHaveAttribute('type', 'submit');
+    await expect(dialog.getByRole('button', { name: '저장' })).toHaveAttribute(
+      'form',
+      'dialog-example-form',
+    );
+    await userEvent.click(dialog.getByRole('button', { name: '저장' }));
+    await expect(within(canvasElement).getByLabelText('제출 횟수')).toHaveTextContent('1');
+  },
+};
+
+export const MobileFormSubmit: Story = {
+  ...FormSubmit,
+  decorators: [withPlatform('mobile')],
+  globals: { viewport: 'hoka375' },
+};
 
 function InteractiveSingleAction() {
   const [open, setOpen] = useState(false);

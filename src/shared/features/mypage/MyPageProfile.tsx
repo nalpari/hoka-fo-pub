@@ -3,7 +3,9 @@
 import { ProfileEditForm } from './ProfileEditForm';
 import { ProfileField } from './ProfileField';
 import { ProfileReadView } from './ProfileReadView';
-import type { MaritalStatus, Preference } from './mypage-profile.types';
+import { ProfilePasswordDialog } from './ProfilePasswordDialog';
+import type { Preference, ProfileAddress, ProfileEditProps } from './mypage-profile.types';
+import { isValidEmailLocalPart, isValidEmailDomain } from '@/shared/lib/emailValidation';
 
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
@@ -22,29 +24,53 @@ const profileDetails = [
   ['휴대폰 번호', '010-****-0522'],
 ] as const;
 
+const initialAddress: ProfileAddress = {
+  postalCode: '02157',
+  address: '서울시 성북구 테헤란로 27길 54',
+  addressDetail: '테헤란 아파트 701호',
+};
+
+/** 회원정보 조회·편집과 비밀번호 설정 흐름을 연결합니다. (Coordinates profile viewing, editing, and password settings.) */
 export function MyPageProfile() {
   const [editing, setEditing] = useState(false);
   const [email, setEmail] = useState('dww******@gmail.com');
+  const [emailLocal, setEmailLocal] = useState('dww******');
+  const [emailDomain, setEmailDomain] = useState('gmail.com');
+  const [domainChoice, setDomainChoice] = useState('gmail.com');
+  const [address, setAddress] = useState(initialAddress);
+  const [savedAddress, setSavedAddress] = useState(initialAddress);
+  const [addressOpen, setAddressOpen] = useState(false);
   const [phone, setPhone] = useState('010-****-0522');
-  const [password, setPassword] = useState('');
-  const [fieldErrors, setFieldErrors] = useState<{ email?: string; phone?: string }>({});
+  const [savedPhone, setSavedPhone] = useState(phone);
+  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
   const [couponBookPreference, setCouponBookPreference] = useState<Preference>('수신안함');
   const [messagePreference, setMessagePreference] = useState<Preference>('수신안함');
-  const [maritalStatus, setMaritalStatus] = useState<MaritalStatus>('기혼');
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [withdrawn, setWithdrawn] = useState(false);
 
   function submitProfile(event: import('react').FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const emailInput = event.currentTarget.querySelector<HTMLInputElement>('#profile-email');
     const errors = {
-      email:
-        email.trim() && !emailInput?.validity.typeMismatch ? '' : '올바른 이메일을 입력해 주세요.',
-      phone: phone.trim() ? '' : '휴대폰 번호를 입력해 주세요.',
+      email: isValidEmailLocalPart(emailLocal.trim()) ? '' : '올바른 이메일 주소를 입력해주세요.',
+      domain: isValidEmailDomain(emailDomain.trim()) ? '' : '올바른 도메인을 입력해주세요.',
+      postalCode: /^\d{5}$/.test(address.postalCode.trim()) ? '' : '우편번호 5자리를 입력해주세요.',
+      address: address.address.trim() ? '' : '주소를 입력해주세요.',
+      addressDetail: address.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
+      phone: !phone.trim()
+        ? '휴대폰 번호를 입력해 주세요.'
+        : phone !== savedPhone && !phoneVerified
+          ? '휴대폰 인증 후 변경사항을 저장해주세요.'
+          : '',
     };
     setFieldErrors(errors);
     if (Object.values(errors).some(Boolean)) return;
+    setEmail(`${emailLocal.trim()}@${emailDomain.trim()}`);
+    setSavedAddress(address);
+    setSavedPhone(phone);
     setEditing(false);
   }
 
@@ -68,35 +94,70 @@ export function MyPageProfile() {
           ) : null
         }
       >
-        {profileDetails.slice(0, 4).map(([label, value]) => (
+        {profileDetails.slice(0, 3).map(([label, value]) => (
           <ProfileField key={label} label={label} value={value} />
         ))}
+        <ProfileField
+          label="주소"
+          value={`${savedAddress.address} ${savedAddress.addressDetail}`}
+        />
         {editing ? (
           <ProfileEditForm
-            email={email}
+            emailLocal={emailLocal}
+            emailDomain={emailDomain}
+            domainChoice={domainChoice}
+            address={address}
+            addressOpen={addressOpen}
             phone={phone}
-            password={password}
+            phoneVerified={phoneVerified}
+            passwordChanged={passwordChanged}
             emailPreference={emailPreference}
             couponBookPreference={couponBookPreference}
             messagePreference={messagePreference}
-            maritalStatus={maritalStatus}
             fieldErrors={fieldErrors}
-            onEmailChange={(value) => {
-              setEmail(value);
+            onEmailLocalChange={(value) => {
+              setEmailLocal(value);
               setFieldErrors((previous) => ({ ...previous, email: undefined }));
             }}
+            onEmailDomainChange={(value) => {
+              setEmailDomain(value);
+              setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+            }}
+            onDomainChoice={(value) => {
+              setDomainChoice(value);
+              setEmailDomain(value === 'direct' ? '' : value);
+              setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+            }}
+            onAddressChange={(field, value) => {
+              setAddress((previous) => ({ ...previous, [field]: value }));
+              setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
+            }}
+            onAddressOpenChange={setAddressOpen}
             onPhoneChange={(value) => {
               setPhone(value);
+              setPhoneVerified(false);
               setFieldErrors((previous) => ({ ...previous, phone: undefined }));
             }}
-            onPasswordChange={setPassword}
+            onPhoneVerifiedChange={(verified) => {
+              setPhoneVerified(verified);
+              setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+            }}
+            onPasswordSettings={() => setPasswordOpen(true)}
             onEmailPreferenceChange={setEmailPreference}
             onCouponBookPreferenceChange={setCouponBookPreference}
             onMessagePreferenceChange={setMessagePreference}
-            onMaritalStatusChange={setMaritalStatus}
             onSubmit={submitProfile}
             onCancel={() => {
+              const [local, domain] = email.split('@');
+              setEmailLocal(local);
+              setEmailDomain(domain);
+              setDomainChoice(
+                ['naver.com', 'gmail.com', 'daum.net'].includes(domain) ? domain : 'direct',
+              );
+              setAddress(savedAddress);
+              setAddressOpen(false);
               setFieldErrors({});
+              setPhoneVerified(false);
               setEditing(false);
             }}
             onWithdraw={() => setWithdrawOpen(true)}
@@ -108,10 +169,15 @@ export function MyPageProfile() {
             emailPreference={emailPreference}
             couponBookPreference={couponBookPreference}
             messagePreference={messagePreference}
-            maritalStatus={maritalStatus}
           />
         )}
       </ContentSection>
+      {passwordOpen ? (
+        <ProfilePasswordDialog
+          onClose={() => setPasswordOpen(false)}
+          onComplete={() => setPasswordChanged(true)}
+        />
+      ) : null}
       <MyPageWithdrawalDialog
         open={withdrawOpen}
         onOpenChange={setWithdrawOpen}

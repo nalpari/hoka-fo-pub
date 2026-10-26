@@ -5,14 +5,14 @@ import { HStack, Stack } from 'styled-system/jsx';
 import type { ProfileValues } from './mypage-profile.types';
 import { ProfileField } from './ProfileField';
 
+/** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
 export function ProfileReadView({
   email,
   phone,
   emailPreference,
   couponBookPreference,
   messagePreference,
-  maritalStatus,
-}: Omit<ProfileValues, 'password'>) {
+}: ProfileValues) {
   return (
     <>
       <ProfileField label="이메일" value={email} />
@@ -53,10 +53,6 @@ export function ProfileReadView({
             </HStack>
           </Stack>
         </ContentSection>
-      </Stack>
-      <Stack gap="5">
-        <Divider />
-        <ProfileField label="결혼유무" value={maritalStatus} />
       </Stack>
       <Divider />
       <Typography as="p" variant="body5" tone="tertiary">

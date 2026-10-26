@@ -6,9 +6,16 @@ tags: [forms, components, reuse, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:10:36Z'
+  at: '2026-10-26T00:00:00Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
+  - src/shared/features/mypage/ProfilePhoneVerification.tsx
+  - src/shared/components/atoms/FormField/FormField.tsx
+  - src/shared/features/mypage/ProfilePasswordDialog.tsx
+  - src/stories/components/atoms/FormField/FormField.stories.tsx
   - src/shared/features/orders/OrdersDateRange.tsx
   - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
   - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
@@ -62,6 +69,18 @@ working_tree_sources:
 ---
 
 # 폼 필드 공통화 전수 조사
+
+## 회원정보 주소·이메일 입력 재사용 (2026-10-26)
+
+회원정보 편집은 회원가입에서 사용 중인 AddressFields(boxed), EmailAddressFields를 그대로 소비한다. 주소의 disabled 우편번호/기본주소·팝업·상세주소 계약과 이메일 아이디/도메인 분리·직접입력/목록 도메인 비활성화를 유지한다. 주소 초안·저장·취소와 이메일 검증·조합은 MyPageProfile에 남기고 공통 입력에 비즈니스 정책을 추가하지 않았다. 새로운 공용 필드 API나 컴포넌트는 없다. [화면 구성과 검증](ui.md#회원정보-주소이메일-편집-재사용-2026-10-26)을 참고한다.
+
+## 회원정보 휴대폰 인증 조합 (2026-10-26)
+
+ProfilePhoneVerification은 기존 PhoneNumberField·VerificationCodeField·VerificationCountdown과 useVerificationCountdown을 재사용하는 기능 내부 조합이다. phone/error/verified와 변경 콜백을 받고 요청·코드 확인·타이머는 내부에 둔다. PhoneNumberField는 tel/numeric/tel-national 속성을, 인증번호는 공통 one-time-code/numeric/6자리 속성을 유지한다. 숫자 정규화·오류·데모 코드 비교 및 저장 전 인증 판정은 공통 필드로 옮기지 않았다. 기존 비밀번호 팝업은 유지한다. 동작 범위와 확인 결과는 [UI 기록](ui.md#회원정보-휴대폰-인증-영역-2026-10-26)을 따른다.
+
+## 회원정보 비밀번호 필드 안내 재사용 (2026-10-26)
+
+ProfilePasswordDialog의 독립 Typography 안내를 PasswordField.hint로 이관했다. 기존 TextFormField를 통해 FormField의 hint/error 접근성 연결을 재사용한다. FormField.hintProps는 variant/className만 노출하고 FormFieldHint의 기본 body5와 0 margin은 유지한다. 팝업은 body4 및 paddingTop 8px을 지정해 기존 글자 크기 14px와 안내 앞뒤의 16px 간격을 보존한다. 값·검증·초기화는 팝업 소유이며 hint에 비밀번호 정책이나 검증 로직을 추가하지 않는다. hint/error 동시 연결과 팝업 Enter 제출·확인·완료를 브라우저에서 확인했다. 관련 공통 모달 API 및 빌드 검증은 [UI 기록](ui.md#비밀번호-팝업-공통-모달필드-안내-재사용-2026-10-26)을 따른다.
 
 이름·연락처·비밀번호·인증번호는 필드 UI의 공통화 효과가 크다. 이미 공유하는 FormField/TextInput 위에 작은 조합 컴포넌트를 두고, 화면별 검증·값 정리·타이머·제출·라우팅은 현재 부모에 남기는 방식이 적합하다. 같은 placeholder가 같은 검증 정책을 뜻하지는 않는다.
 

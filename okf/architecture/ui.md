@@ -9,6 +9,17 @@ generated:
   at: '2026-10-26T00:00:00Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/features/mypage/ProfilePhoneVerification.tsx
+  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
+  - src/shared/components/atoms/FormField/FormField.tsx
+  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
+  - src/stories/components/atoms/FormField/FormField.stories.tsx
+  - src/shared/features/mypage/ProfilePasswordDialog.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
   - src/shared/features/orders/OrderTrackingHistory.tsx
   - src/shared/features/orders/OrdersDateRange.tsx
   - src/shared/features/orders/ClaimInstructions.tsx
@@ -938,6 +949,50 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 결혼유무 항목 제거 (2026-10-26)
+
+사용자의 시스템 기획 변경에 따라 마이페이지 회원정보 조회·편집의 결혼유무 표시/라디오를 제거했다. 유일한 부가정보 항목이었으므로 빈 제목·구분선·간격 그룹도 제거하고 마케팅 수신 동의 다음에 저장/취소 액션을 표시한다. MyPageProfile의 상태와 관련 prop/callback, MaritalStatus 타입을 함께 삭제했다. 회원가입은 이미 해당 항목이 제거된 상태이며 src 전체 검색에서 결혼유무·maritalStatus·MaritalStatus·marital-status의 운영 구현 참조가 남지 않는 것을 확인했다(비노출을 확인하는 스토리 assertion은 제외). 아래 과거 Figma/병합 기록의 결혼유무 설명은 당시 상태에 대한 이력이며 현재 구현은 이 절을 따른다. 주소·이메일 편집과 휴대폰 인증·비밀번호 팝업은 유지한다.
+
+브라우저에서 편집·조회 화면 모두 결혼유무·부가정보 제목·라디오가 없는 것을 확인했다. 타입 검사·마이페이지 및 변경 공통 컴포넌트/스토리 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+## 회원정보 주소·이메일 편집 재사용 (2026-10-26)
+
+첨부 모바일 시안에 맞춰 ProfileEditForm의 휴대폰 인증 뒤에 기존 AddressFields(boxed)와 EmailAddressFields를 조합했다. 우편번호 찾기와 비활성 우편번호/기본주소, 필수 상세주소, 이메일 아이디/도메인 입력과 직접입력·naver.com·gmail.com·daum.net 선택을 제공한다. 도메인 목록 선택 시 자동 입력·비활성화하고 직접입력 선택 시 비운 도메인을 편집한다. 기존 공용 컴포넌트 API를 확장하거나 새 입력 컴포넌트를 추가하지 않았다.
+
+MyPageProfile은 주소/이메일 초안과 저장값, 주소 팝업 열림 상태를 소유한다. 이메일은 기존 shared/lib/emailValidation을 재사용해 아이디·도메인을 각각 검사하고 저장 시 전체 이메일로 합친다. 우편번호 5자리와 기본/상세주소 필수값도 저장 전에 검사한다. 저장 후 조회 화면에 변경 주소·이메일을 표시하고 취소하면 해당 초안을 마지막 저장값으로 되돌린다. 비밀번호 팝업과 휴대폰 인증 영역은 유지한다. AddressFields의 AddressSearchModal은 실제 주소 검색 API 연결 전의 수동 미리보기 입력이며 입력 변경은 부모 초안에 즉시 반영되는 기존 동작을 유지한다.
+
+출처는 작업 트리의 MyPageProfile.tsx, ProfileEditForm.tsx, mypage-profile.types.ts, MyPage.Profile.Mobile.stories.tsx와 기존 AddressFields/AddressSearchModal/EmailAddressFields, 사용자 첨부 모바일 시안이다. 타입 검사·변경 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 목록 도메인의 자동 입력/비활성화, 직접입력 전환, 도메인·상세주소 오류, 주소 모달 적용, 저장 후 주소·이메일 조회, 취소 후 재진입 시 저장값 복원과 기존 비밀번호 팝업 진입을 확인했다. 실제 주소 검색 서비스·계정 API 검증과 픽셀 비교는 수행하지 않았다.
+
+## 회원정보 휴대폰 인증 영역 (2026-10-26)
+
+사용자가 공유한 모바일 휴대폰 번호 → 전체 너비 검정 인증번호 요청 버튼 시안을 반영했다. ProfileEditForm은 기능 내부 ProfilePhoneVerification을 조합하며 PhoneNumberField, VerificationCodeField, VerificationCountdown, Button, StatusMessage와 useVerificationCountdown을 재사용한다. 별도 공개 컴포넌트나 인증 라이브러리는 추가하지 않았다. 기존 비밀번호 설정 팝업은 유지한다.
+
+ProfilePhoneVerification은 인증번호·오류·3분 제한시간을 소유하고 MyPageProfile은 입력 번호·인증 여부·마지막 저장 번호를 소유한다. 요청 시 기존 휴대폰 형식 검증을 사용하며 숫자 11자리까지 정규화한다. 인증 요청 후 6자리 입력·남은 시간·확인 버튼을 표시하고 제한시간 동안 재요청을 막는다. 만료 시 확인을 막고 재요청할 수 있으며, 확인 시 Date.now와 deadline도 비교한다. 번호를 바꾸면 입력 코드·오류·타이머·인증 여부를 초기화한다. 변경된 번호는 인증 완료 후에만 회원정보를 저장할 수 있다. 기존 번호를 그대로 두는 편집에는 새 인증을 요구하지 않는다.
+
+실제 SMS와 계정 API는 연결되지 않은 로컬 데모이며 인증번호 900668 및 실제 미발송 안내를 요청 후 표시한다. 첨부 시안에 없는 요청 후 표현은 기존 인증 UI로 구성했다. 출처는 위 작업 트리 소스와 사용자 첨부 시안(2026-10-26)이다. 타입·변경 ESLint·Panda 생성 포함 프로덕션 빌드 통과. 브라우저에서 번호 형식 오류, 미인증 저장 차단, 타이머/재요청 비활성화, 빈/틀린 코드, 인증 성공, 번호 변경 초기화, 비밀번호 팝업 완료와 인증된 번호 저장을 확인했다. 실제 SMS 전송 및 3분 경과 후 만료/재요청 실시간 검증은 수행하지 않았다.
+
+## 비밀번호 팝업 공통 모달·필드 안내 재사용 (2026-10-26)
+
+ProfilePasswordDialog는 SingleActionDialog를 사용한다. confirmButtonProps의 type/form으로 입력 단계의 외부 footer 버튼을 네이티브 form 제출에 연결하고, 확인·완료 단계는 onConfirm을 사용한다. onConfirm은 폼 제출용 소비처에서 생략할 수 있다. 버튼 크기는 tall로 명시하고 기존 소비처의 기본 short/fullWidth와 닫기·포커스·footer 책임은 유지한다. 새로운 공개 컴포넌트는 만들지 않았다.
+
+PasswordField의 hint로 비밀번호 안내를 옮기고 FormField.hintProps에 variant/className 전달을 추가했다. FormFieldHint의 기본 body5는 유지하며 이 팝업만 body4와 pt=2를 지정한다. boxed 필드의 8px gap과 안내의 8px padding을 합쳐 기존 16px 간격을 유지하고 다음 필드와의 16px Stack gap도 유지한다. 입력 aria-describedby는 hint id와 오류가 있을 때 error id를 포함한다. 필수값·불일치 메시지, 원문 초기화, 팝업 단계와 상위 폼으로의 submit 전파 방지는 기능에 남는다.
+
+출처는 위 working_tree_sources의 공통 컴포넌트·팝업·스토리다. 타입 검사·변경 파일 ESLint·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 PC/모바일 공통 모달의 footer 클릭 및 Enter가 각각 한 번 제출되는 것을 확인했고, hint/error 접근성 연결과 팝업의 검증 → Enter 제출 → 확인 → 완료 표시를 확인했다. 모바일 팝업 안내 글자는 14px, 앞뒤 텍스트 간격은 각 16px이었다(0.3px 허용). 전체 화면 픽셀 비교나 서버 API 검증은 수행하지 않았다. Storybook 빌드의 의존성 use client 지시문·번들 경고는 남아 있다.
+
+## 회원정보 비밀번호 설정 흐름 선반영 (2026-10-26)
+
+회원정보 팝업의 비밀번호 필수값·형식 검증 실패 문구는 “올바른 비밀번호를 입력해주세요.”로 표시한다. 공통 검증 규칙과 다른 화면의 오류 문구는 유지한다.
+
+회원정보 팝업에서 재입력 값이 있고 비밀번호와 다르면 “비밀번호가 일치하지 않습니다. 다시 확인해주세요.”를 표시한다. 비어 있을 때의 필수 입력 오류와 다른 화면의 공통 검증 문구는 유지한다.
+
+비밀번호 입력 아래 상시 안내는 사용자 지정 문구인 “연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요.”로 표시한다. 기존 검증 오류 문구와 검증 로직은 유지한다.
+
+사용자가 공유한 변경 화면설계서와 디자인 확정 전 흐름 구현 요청을 근거로, ProfileEditForm의 본문 새 비밀번호 입력을 비밀번호 설정 버튼으로 교체했다. MyPageProfile은 팝업 열림과 변경 완료 표시만 관리한다. ProfilePasswordDialog가 입력·재입력 검증 → 변경 확인 → 완료 안내를 소유하며 기존 ModalDialog, PasswordField, Button, Typography를 재사용한다. 회원정보의 변경사항 저장과 별도로 완료되며 팝업 제출은 상위 폼으로 전파하지 않는다.
+
+닫기·Escape로 나가면 팝업을 제거하여 입력값과 오류를 초기화한다. 변경 확인을 수락할 때 비밀번호 원문을 지우고 완료 표시를 설정하며, 다시 설정하다 취소해도 이미 완료한 표시를 취소하지 않는다. 계정 API가 없는 로컬 데모이며 실제 비밀번호 변경·저장·서버 검증을 구현한 것으로 간주하지 않는다. 디자인은 공통 UI의 현재 스타일을 사용한다. 기존 shared/lib/passwordValidation의 영문·숫자·특수문자 포함 10~12자 규칙을 재사용하며, 첨부 설계서의 10~20자 및 계정 정보·연속 문자 제한은 이번 흐름 선반영에 포함하지 않았다.
+
+출처: 위 working_tree_sources의 마이페이지 소스와 사용자 첨부 화면설계서(2026-10-26). Storybook은 기존 Mobile/Default를 유지하고 비밀번호 설정 흐름 스토리에서 편집 화면의 팝업 진입 상태를 제공한다. 타입 검사·변경 파일 ESLint·Panda 생성 통과. 브라우저에서 필수값·길이/조합·불일치 오류, 닫기/재진입 시 초기화, 변경 확인에서 Escape 취소, 정상 입력 → 확인 → 완료 → 본문 완료 문구 표시를 확인했다. 최종 디자인 대조와 서버 동작 검증은 포함하지 않았다.
 
 ## 모바일 장바구니 운영시간 가림 보정 (2026-10-23)
 

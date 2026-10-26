@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useContext, type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  type ComponentProps,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from 'react';
 import { css, cva } from 'styled-system/css';
 import { Field as BaseField } from '@base-ui/react/field';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
@@ -66,6 +72,7 @@ export type FormFieldProps = {
   invalid?: boolean;
   info?: ReactNode;
   hint?: ReactNode;
+  hintProps?: Pick<FormFieldHintProps, 'className' | 'variant'>;
   error?: ReactNode;
   variant?: 'default' | 'boxed';
   children: ReactNode;
@@ -76,7 +83,9 @@ type FormFieldLabelProps = ComponentPropsWithoutRef<'label'>;
 
 type FormFieldControlProps = ComponentPropsWithoutRef<'div'>;
 
-type FormFieldHintProps = ComponentPropsWithoutRef<'p'>;
+type FormFieldHintProps = ComponentPropsWithoutRef<'p'> & {
+  variant?: ComponentProps<typeof Typography>['variant'];
+};
 
 type FormFieldMessageProps = ComponentPropsWithoutRef<'p'>;
 
@@ -92,6 +101,7 @@ function FormFieldRoot({
   invalid = false,
   info,
   hint,
+  hintProps,
   error,
   children,
   className,
@@ -158,7 +168,11 @@ function FormFieldRoot({
             {error}
           </FormFieldMessage>
         ) : null}
-        {hint ? <FormFieldHint id={`${htmlFor}-hint`}>{hint}</FormFieldHint> : null}
+        {hint ? (
+          <FormFieldHint {...hintProps} id={`${htmlFor}-hint`}>
+            {hint}
+          </FormFieldHint>
+        ) : null}
       </BaseField.Root>
     </FormFieldContext.Provider>
   );
@@ -172,12 +186,13 @@ export function FormFieldControl({ className, ...props }: FormFieldControlProps)
   return <div {...props} className={withClassName('form-field__control', className)} />;
 }
 
-export function FormFieldHint({ className, ...props }: FormFieldHintProps) {
+/** 입력 필드에 연결된 안내를 지정한 글자 스타일로 표시합니다. (Displays an associated field hint using the specified typography.) */
+export function FormFieldHint({ className, variant = 'body5', ...props }: FormFieldHintProps) {
   return (
     <BaseField.Description
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="body5">
+        <Typography {...renderProps} as="p" variant={variant}>
           {renderProps.children}
         </Typography>
       )}

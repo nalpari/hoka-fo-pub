@@ -6,14 +6,17 @@ import {
 
 export type SingleActionDialogProps = Omit<ModalDialogProps, 'footer'> & {
   confirmLabel?: string;
-  /** The caller decides whether confirming closes the dialog or advances its flow. */
-  onConfirm: () => void;
-  confirmButtonProps?: Pick<ButtonProps, 'className' | 'disabled' | 'fullWidth' | 'density'> & {
+  /** Non-submit actions use this callback; submit actions use the associated form's handler. */
+  onConfirm?: () => void;
+  confirmButtonProps?: Pick<
+    ButtonProps,
+    'className' | 'disabled' | 'fullWidth' | 'density' | 'type' | 'form'
+  > & {
     size?: 'short' | 'tall';
   };
 };
 
-/** A modal with one primary footer action, preserving the shared fixed-footer layout. */
+/** 단일 확인 또는 폼 제출 액션을 고정 푸터에 표시합니다. (Displays one confirmation or form submission action in a fixed footer.) */
 export function SingleActionDialog({
   confirmLabel = '확인',
   onConfirm,

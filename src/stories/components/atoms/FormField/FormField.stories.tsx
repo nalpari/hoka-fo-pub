@@ -6,6 +6,7 @@ import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
 import { Select } from '@/shared/components/atoms/Select/Select';
 import { Icon } from '@/shared/components/atoms/Icon/Icon';
 import { faUser, faCircleQuestion } from '@/shared/icons/fontAwesome';
+import { css } from 'styled-system/css';
 
 const meta = {
   title: 'Atoms/FormField',
@@ -30,6 +31,24 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const CustomHint: Story = {
+  args: {
+    variant: 'boxed',
+    hint: '입력값에 대한 추가 안내입니다.',
+    hintProps: { variant: 'body4', className: css({ pt: '2' }) },
+    error: '입력값을 확인해주세요.',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('textbox')).toHaveAccessibleDescription(
+      '입력값에 대한 추가 안내입니다. 입력값을 확인해주세요.',
+    );
+    await expect(canvas.getByText('입력값에 대한 추가 안내입니다.')).toHaveStyle({
+      paddingTop: '8px',
+    });
+  },
+};
 
 export const Boxed: Story = {
   args: {
