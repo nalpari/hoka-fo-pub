@@ -2,6 +2,7 @@ import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { AccountFormLayout } from '@/shared/components/layouts/AccountFormLayout/AccountFormLayout';
+import { RegistrationIdFields } from './RegistrationIdFields';
 import { RegistrationEmailFields } from './RegistrationEmailFields';
 import { RegistrationPersonalFields } from './RegistrationPersonalFields';
 import { RegistrationAddressFields } from './RegistrationAddressFields';
@@ -27,30 +28,37 @@ export function RegistrationContent(props: RegistrationContentProps) {
       }
     >
       <form id="registration-form" noValidate onSubmit={props.onSubmit}>
-        <Stack gap="4">
+        <Stack gap="6">
           {props.stage === 'information' ? (
             <>
-              <RegistrationEmailFields
+              <RegistrationIdFields
                 information={props.information}
                 fieldErrors={props.fieldErrors}
                 onChange={props.onChange}
-                domainChoice={props.domainChoice}
-                onDomainChoice={props.onDomainChoice}
                 onDuplicateCheck={props.onDuplicateCheck}
                 duplicateNotice={props.duplicateNotice}
               />
-              <RegistrationPersonalFields
-                information={props.information}
-                fieldErrors={props.fieldErrors}
-                onChange={props.onChange}
-              />
-              <RegistrationAddressFields
-                information={props.information}
-                fieldErrors={props.fieldErrors}
-                onChange={props.onChange}
-                addressOpen={props.addressOpen}
-                onAddressOpen={props.onAddressOpen}
-              />
+              <Stack gap="4">
+                <RegistrationPersonalFields
+                  information={props.information}
+                  fieldErrors={props.fieldErrors}
+                  onChange={props.onChange}
+                />
+                <RegistrationAddressFields
+                  information={props.information}
+                  fieldErrors={props.fieldErrors}
+                  onChange={props.onChange}
+                  addressOpen={props.addressOpen}
+                  onAddressOpen={props.onAddressOpen}
+                />
+                <RegistrationEmailFields
+                  information={props.information}
+                  fieldErrors={props.fieldErrors}
+                  onChange={props.onChange}
+                  domainChoice={props.domainChoice}
+                  onDomainChoice={props.onDomainChoice}
+                />
+              </Stack>
             </>
           ) : (
             <RegistrationAdditionalFields

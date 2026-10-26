@@ -57,9 +57,11 @@ export function RegistrationField({
             ? 'new-password'
             : key === 'name'
               ? 'name'
-              : key === 'phone'
-                ? 'tel'
-                : 'off',
+              : key === 'id'
+                ? 'username'
+                : key === 'phone'
+                  ? 'tel'
+                  : 'off',
         onChange: (event) => onChange(key, event.target.value),
       }}
     />

@@ -17,7 +17,7 @@ const meta = {
   title: 'PAGES/회원가입/5. 마케팅 정보 수신동의 안내',
   component: MarketingConsentSummaryModal,
   args: {
-    preferences: { email: 'no', coupon: 'no', sms: 'no', married: 'no' },
+    preferences: { email: 'no', sms: 'no', kakao: 'no' },
     onOpenChange: () => {},
     onConfirm: () => {},
   },

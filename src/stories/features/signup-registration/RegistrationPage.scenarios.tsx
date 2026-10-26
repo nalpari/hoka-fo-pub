@@ -13,6 +13,7 @@ const meta = {
   args: {
     stage: 'information',
     information: {
+      id: '',
       name: '',
       password: '',
       confirmation: '',
@@ -25,12 +26,12 @@ const meta = {
       domain: '',
       anniversary: '',
     },
-    preferences: { email: 'no', coupon: 'no', sms: 'no', married: 'no' },
+    preferences: { email: 'no', sms: 'no', kakao: 'no' },
     domainChoice: 'direct',
     notice: '',
     duplicateNotice: '',
     addressOpen: false,
-    fieldErrors: { email: '', domain: '', name: '', password: '', confirmation: '' },
+    fieldErrors: { id: '', email: '', domain: '', name: '', password: '', confirmation: '' },
     onChange: () => {},
     onPreferenceChange: () => {},
     onDomainChoice: () => {},
@@ -84,6 +85,7 @@ export const MobileAdditional: Story = {
 export const Error: Story = {
   args: {
     fieldErrors: {
+      id: '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.',
       email: '올바른 이메일 형식으로 입력해 주세요',
       domain: '올바른 도메인 형식으로 입력해 주세요',
       name: '올바른 이름을 입력해주세요',
@@ -125,30 +127,29 @@ export const MobilePasswordValidation: Story = {
   play: PasswordValidation.play,
 };
 
-export const EmailCheckState: Story = {
+export const IdCheckState: Story = {
   render: () => <RegistrationPage />,
-  tags: ['signup-phone-feedback'],
+  tags: ['signup-id-feedback'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const email = canvas.getByLabelText(/이메일 주소/);
-    const domain = canvas.getByLabelText(/도메인/, { selector: 'input' });
-    await userEvent.type(email, '.demo');
-    await userEvent.type(domain, '-example.com');
-    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
-    await expect(email).toHaveAccessibleDescription('올바른 이메일 형식으로 입력해 주세요');
-    await expect(domain).toHaveAccessibleDescription('올바른 도메인 형식으로 입력해 주세요');
-    await userEvent.clear(email);
-    await userEvent.type(email, 'demo');
-    await userEvent.clear(domain);
-    await userEvent.type(domain, 'example.com');
-    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
+    const id = canvas.getByLabelText(/아이디/);
+    await userEvent.type(id, 'Demo');
+    await userEvent.click(canvas.getByRole('button', { name: '아이디 중복확인' }));
+    await expect(id).toHaveAccessibleDescription(
+      '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.',
+    );
+    await userEvent.clear(id);
+    await userEvent.type(id, 'demo_1');
+    await userEvent.click(canvas.getByRole('button', { name: '아이디 중복확인' }));
     await expect(canvas.getByRole('status')).toHaveAttribute('data-tone', 'info');
-    await userEvent.type(email, '2');
+    await userEvent.type(id, '2');
     await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', { name: '이메일 중복확인' }));
+    await userEvent.click(canvas.getByRole('button', { name: '아이디 중복확인' }));
+    await userEvent.type(canvas.getByLabelText(/이메일 주소/), 'demo');
+    await userEvent.type(canvas.getByLabelText(/도메인/, { selector: 'input' }), 'example.com');
     await userEvent.click(canvas.getByRole('button', { name: '다음' }));
     await expect(canvas.getByLabelText(/이름/)).toHaveAttribute('aria-invalid', 'true');
-    await expect(canvas.getByRole('status')).toBeVisible();
+    await expect(canvas.getByLabelText(/이메일 주소/)).not.toHaveAttribute('aria-invalid', 'true');
     await userEvent.type(canvas.getByLabelText(/이름/), '홍길동');
     await userEvent.type(
       canvas.getByLabelText(/비밀번호/, { selector: '#registration-password' }),
@@ -168,13 +169,13 @@ export const EmailCheckState: Story = {
   },
 };
 
-export const MobileEmailCheckState: Story = {
+export const MobileIdCheckState: Story = {
   parameters: { layout: 'fullscreen' },
-  ...EmailCheckState,
-  tags: ['signup-phone-feedback'],
+  ...IdCheckState,
+  tags: ['signup-id-feedback'],
   decorators: Mobile.decorators,
   globals: { viewport: 'hoka375' },
-  play: EmailCheckState.play,
+  play: IdCheckState.play,
 };
 
 function AddressSearchPreview() {

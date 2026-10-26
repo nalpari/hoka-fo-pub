@@ -17,8 +17,8 @@ export function MarketingConsentSummaryModal({ preferences, onOpenChange, onConf
       onConfirm={onConfirm}
       items={[
         { label: '이메일 수신', value: preferenceLabel(preferences.email) },
-        { label: '모바일 쿠폰북', value: preferenceLabel(preferences.coupon) },
-        { label: '문자,카카오톡 수신', value: preferenceLabel(preferences.sms) },
+        { label: '문자수신(LMS, SMS)', value: preferenceLabel(preferences.sms) },
+        { label: '카카오톡 알림톡 수신', value: preferenceLabel(preferences.kakao) },
       ]}
     />
   );

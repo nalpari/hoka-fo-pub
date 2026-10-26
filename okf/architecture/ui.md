@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T08:21:38Z'
+  at: '2026-10-26T00:00:00Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
   - src/shared/features/orders/OrderTrackingHistory.tsx
@@ -903,6 +903,16 @@ working_tree_sources:
   - src/shared/features/support/support.navigation.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
+  - src/shared/lib/validation.ts
+  - src/shared/features/signup-registration/RegistrationIdFields.tsx
+  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
+  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
+  - src/shared/features/signup-registration/registration.types.ts
+  - src/shared/features/signup-registration/RegistrationPage.tsx
+  - src/shared/features/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/stories/features/signup-registration/RegistrationPage.scenarios.tsx
+  - src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx
+  - src/stories/features/signup-registration/MarketingConsentSummaryModal.scenarios.tsx
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -2220,7 +2230,7 @@ Features 168개·Components 213개, 총 381개 TSX를 TypeScript AST로 다시 �
 
 `AccountFormLayout`은 약관동의·휴대폰 인증·회원 정보/부가 정보의 제목과 설명 영역을 소유하며 main·중앙 폭 제한은 공통 `AccountPageLayout`에 위임한다. 공개 props는 `title`, 선택적 `description`, `contentWidth`(기본 420px, 인증 568px), `fillMobileViewport`, `children`, `dialogs`, `actions`, `actionsSpacing`다. 제목은 `Typography as="h1" web="heading7" mo="heading5"`로 통일하고 제목 영역과 첫 본문 사이를 웹 40px·모바일 32px로 둔다. 설명이 있으면 제목 아래 12px에 배치하며 설명까지 포함한 영역 다음에 공통 간격을 적용한다. 외곽 패딩과 약관동의만 사용하는 모바일 화면 최소 높이는 기존 값을 유지한다. dialogs는 중앙 폭 제한 밖 main 내부에 조합한다. 기존 SignupLayout·ContentLayout·다른 인증 화면은 변경하지 않았다.
 
-약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 회원가입 약관은 전체 동의·strong Divider·개별 약관 목록을 내부 Stack gap 16px로 한 그룹에 묶어 외부 제목 간격 40/32px가 항목 사이에 중복 적용되지 않게 한다. 등록 폼 필드의 분리용 DOM 래퍼는 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
+약관동의는 `SignupTermsAgreementList`, 휴대폰 인증은 `PhoneVerificationAgreements`·`PhoneInformationFields`·`VerificationCodeFields`, 회원가입은 `RegistrationIdFields`·`RegistrationEmailFields`·`RegistrationPersonalFields`·`RegistrationAddressFields`·`RegistrationAdditionalFields`로 표현 책임을 분리했다. 반복 입력과 수신 동의 행은 기능 내부 `RegistrationField`·`RegistrationPreferenceRow`가 담당한다. 회원가입 약관은 전체 동의·strong Divider·개별 약관 목록을 내부 Stack gap 16px로 한 그룹에 묶어 외부 제목 간격 40/32px가 항목 사이에 중복 적용되지 않게 한다. 등록 폼 필드의 분리용 DOM 래퍼는 추가하지 않고 기존 form·Stack 자식 순서, 필드 ID, 오류 연결, disabled 상태, 약관 상세·주소 모달 계약을 유지한다. Content가 폼·섹션·버튼·모달을 조합하고 상태·검증·라우팅은 기존 Page에 남는다. 타입은 기능 내부 types 파일로 옮겼으나 기존 Content의 타입·상수 export 경로는 유지한다. 휴대폰 약관 소제목의 기존 작업 트리 수정(web heading9/mo heading7)도 유지했다.
 
 검증: Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 및 Storybook production build, 기존 폼·계정 복구·이메일 테스트 38개가 통과했다. Edge headless에서 Storybook 21개 상태/상호작용을 확인했다. 13개 레이아웃 상태는 웹/모바일 간격 40px/32px, 한국어 제목 28px/22px·굵기 900, 폭 제한 420px/568px, 단일 main/h1과 설명문 간격 12px를 검증했다. 나머지는 웹/모바일 약관 이전 버전 선택·닫기, 필수 인증 약관 오류·전체 동의, 회원 정보 비밀번호 검증과 이메일 중복확인·주소 모달 입력·부가 정보 전환이다. 기존 데스크톱 약관 스토리의 닫힌 상세 팝업 참조를 새 이전 약관 팝업을 기다리는 방식으로 수정한 뒤 재검증했다. 계정 잠금 해제 웹·부가 정보 모바일 스크린샷도 확인했다. Storybook의 기존 tertiary 텍스트 색 대비 경고와 의존성 use-client 번들 경고는 이번 구조 변경에서 수정하지 않았다. 출처는 frontmatter에 기록한 작업 트리 경로다.
 
@@ -2369,6 +2379,18 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 출처는 작업 트리의 src/shared/features/cart/, src/shared/features/checkout/, OrderRecommendations.tsx 및 장바구니·결제 스토리다. Panda 생성·TypeScript·변경 파일 ESLint·주문 합계 테스트 3개와 Next production build를 확인했다. 브라우저에서 옵션 저장·선택 주문 이동·상품/장바구니 쿠폰 선택 및 금액 반영을 확인했고, 375px 모바일 카드와 전체 화면 옵션 팝업을 시각 확인했다.
 
 추가 브라우저 확인: 375px 배송지 직접 입력 전환·요청사항 직접 입력 11/250 표시와 동의 후 완료 안내·주문 내역 링크·추천 상품 렌더링을 확인했다.
+
+## 회원 정보 아이디 입력과 이메일 분리 (2026-10-26)
+
+Figma `957:36970`의 회원 정보 입력에서 첫 번째 이메일 계정 필드는 아이디와 아이디 중복확인으로 변경됐다. 아이디는 영문 소문자로 시작하고 영문·숫자·밑줄을 포함해 5~20자로 검증한다. 연락 이메일 주소·도메인·도메인 선택은 주소 입력 뒤에 별도 필드로 유지하고 이메일 중복확인 버튼은 제거했다. ID 중복확인은 현재 형식 확인만 제공하며 실제 사용 가능 여부 조회는 서비스 연결이 필요하다. PC와 Mobile 모두 같은 순서와 규격을 사용하며 Storybook에 기본·오류·입력 흐름 사례가 있다.
+
+출처는 Figma `957:36970`, `957:36971`, `957:37020`, `957:37111`, `957:37162` 및 위 working_tree_sources의 회원가입 폼·검증·스토리 파일이다.
+
+## 회원가입 부가정보 수신 동의 갱신 (2026-10-26)
+
+Figma `957:37050`(Mobile), `957:37212`(Desktop)에 맞춰 부가정보에서 결혼유무와 모바일 쿠폰북 수신 항목을 제거했다. 마케팅 수신 동의는 이메일, 문자수신(LMS, SMS), 카카오톡 알림톡 수신의 세 항목으로 구성하고, 기존에 한 행에 묶여 있던 문자와 카카오톡을 독립된 동의 값으로 분리했다. 제목 아래에는 검은색 1px 구분선을 추가하고, 항목 아래의 옅은 선은 유지한다. 가입 완료 전 동의 확인 모달과 Storybook 기본 상태도 같은 세 항목을 표시한다. PC와 모바일의 행 레이아웃은 각 Figma 프레임에 맞춰 기존 반응형 PreferenceField 조합을 유지한다.
+
+출처는 Figma `957:37050`, `957:37212` 및 위 working_tree_sources의 회원가입 부가정보·동의 모달·스토리 파일이다. Figma Desktop/Mobile 프레임과 Storybook production build 및 타입 검사를 확인했다.
 
 ## 회원가입 첨부 시안 대조 (2026-10-19)
 

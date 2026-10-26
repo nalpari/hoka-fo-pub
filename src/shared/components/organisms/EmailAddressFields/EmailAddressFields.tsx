@@ -1,10 +1,7 @@
 import type { DropdownProps } from '@/shared/components/atoms/Dropdown/Dropdown';
 import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
-import { Box } from 'styled-system/jsx';
 
 type Props = {
   idPrefix: string;
@@ -16,8 +13,6 @@ type Props = {
   onLocalChange: (value: string) => void;
   onDomainChange: (value: string) => void;
   onDomainChoice: (value: string) => void;
-  onCheck: () => void;
-  checkNotice?: string;
 };
 
 export function EmailAddressFields({
@@ -30,8 +25,6 @@ export function EmailAddressFields({
   onLocalChange,
   onDomainChange,
   onDomainChoice,
-  onCheck,
-  checkNotice,
 }: Props) {
   const disabled = domainChoice !== 'direct';
 
@@ -78,12 +71,6 @@ export function EmailAddressFields({
         onValueChange={onDomainChoice}
         options={options}
       />
-      <Box py="2">
-        <Button variant="primary" fullWidth onClick={onCheck}>
-          이메일 중복확인
-        </Button>
-      </Box>
-      {checkNotice ? <StatusMessage>{checkNotice}</StatusMessage> : null}
     </>
   );
 }

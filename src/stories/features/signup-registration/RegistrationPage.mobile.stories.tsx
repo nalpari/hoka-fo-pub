@@ -20,9 +20,9 @@ export const PasswordValidation: Story = {
   name: '비밀번호 검증',
 };
 
-export const EmailCheckState: Story = {
-  ...scenarios.MobileEmailCheckState,
-  name: '이메일 중복확인',
+export const IdCheckState: Story = {
+  ...scenarios.MobileIdCheckState,
+  name: '아이디 중복확인',
 };
 
 export const AddressSearch: Story = { ...scenarios.MobileAddressSearch, name: '주소 검색' };
