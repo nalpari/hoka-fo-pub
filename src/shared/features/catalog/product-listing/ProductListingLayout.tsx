@@ -45,8 +45,6 @@ type ProductListingLayoutProps = {
   platform: Platform;
   productListingTitle: string;
   mobileResultCount: number;
-  mobileSort: string;
-  onMobileSortChange: (sort: string) => void;
   result: Product[];
   searchQuery: string;
   shown: Product[];
@@ -73,8 +71,6 @@ export function ProductListingLayout({
   platform,
   productListingTitle,
   mobileResultCount,
-  mobileSort,
-  onMobileSortChange,
   result,
   searchQuery,
   shown,
@@ -88,8 +84,6 @@ export function ProductListingLayout({
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
       mobileResultCount={mobileResultCount}
-      mobileSort={mobileSort}
-      onMobileSortChange={onMobileSortChange}
       onFilterDrawerOpenChange={onFilterDrawerOpenChange}
       onLoadMore={onLoadMore}
       onMobileFilterApply={onMobileFilterApply}
@@ -110,13 +104,7 @@ export function ProductListingLayout({
         onSearch={onSearch}
         onClose={onCloseSearch}
         hasActiveFilters={hasActiveFilters}
-        filterAction={
-          <MobileProductFilterTrigger
-            appearance="search"
-            onClick={() => onFilterDrawerOpenChange(true)}
-            label="Filter & Sort"
-          />
-        }
+        filterAction={<MobileProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />}
       >
         {content}
       </SearchListingLayout>

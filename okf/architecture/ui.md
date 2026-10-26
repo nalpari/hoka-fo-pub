@@ -6,9 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T08:23:57Z'
+  at: '2026-10-26T09:11:03Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
+  - src/shared/features/catalog/ProductListingFilterPanel.tsx
+  - src/shared/features/catalog/ProductListingPage.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/stories/features/catalog/SearchResults.Mobile.stories.tsx
   - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/Button/Button.type-test.tsx
   - src/shared/components/atoms/Button/ButtonDocs.tsx
@@ -1044,6 +1052,10 @@ Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/M
 검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
 
 ## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
+
+2026-10-26 모바일 필터 시안 후속 적용: 정렬은 MobileProductFilter의 별도 pill 영역에서 ProductListingFilterPanel의 첫 CatalogFilterSection으로 옮겼다. 선택 태그/초기화 다음·성별 바로 위 순서이며 기존 섹션 접기·펼치기와 기본 Radio의 세로 원형 선택 UI를 재사용한다. 정렬 옵션 4개(베스트순·신상품순·높은가격순·낮은가격순), ProductListingPage의 mobileSort 초안과 적용·취소 책임은 유지한다. PC에는 mobileSort props를 전달하지 않아 정렬 섹션을 추가하지 않는다. 시트와 중간 Layout/Content의 정렬 props 전달을 제거하고 페이지에서 필터 패널로 직접 전달한다. 이전 시안 기록의 모바일 정렬 pill은 이 Radio 배치로 대체됐다. 출처는 사용자 첨부 필터 시안·브라우저 주석과 작업 트리 ProductListingFilterPanel.tsx·ProductListingPage.tsx·MobileProductFilter.tsx·ProductListingContent.tsx·ProductListingLayout.tsx다.
+
+검증(Codex, 2026-10-26): Panda 생성·Next.js 빌드(타입 검사 포함)·변경 TSX ESLint를 통과했다. 모바일 검색 결과 스토리에서 정렬 Radio 4개와 세로 배치를 확인하고 남성 선택 후 태그→정렬→성별 순서를 실측했다. 높은가격순 선택 후 적용하지 않고 닫았다 다시 열면 기존 베스트순으로 복원됨을 확인했다. PC는 추가 정렬 섹션이 없는 소스 조건만 확인했다.
 
 2026-10-26 사용자 브라우저 주석과 첨부 시안에 따라 모바일 plain 버튼의 좌우 패딩을 보정했다. 공통 item의 `_mobile.px: 4`(16px)가 plain의 `p: 0`과 함께 생성되면서 좌우에 남아 있었다. plain에서 같은 longhand인 `px: 0`을 명시해 스타일 합성 시 공통 패딩을 대체한다. 상품 목록의 기존 rail gap 20px·36px 높이·선택 상태·가로 스크롤·고정 필터 버튼은 유지한다. 375px 브라우저에서 버튼 패딩 0, 고정 탐색 top 52px, 필터 아이콘 노출과 문서 가로 넘침 없음을 실측했다. 출처는 사용자 주석·첨부 이미지와 작업 트리 `FilterTabs.tsx`다.
 
@@ -2433,6 +2445,14 @@ SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오
 출처는 작업 트리의 `src/shared/components/organisms/Search/SearchForm.tsx`와 `src/stories/components/organisms/Search/SearchOverlay.stories.tsx`다.
 
 ## 검색 결과 없음 문구의 PC/MO 시안 반영 (2026-10-21)
+
+2026-10-26 후속 사용자 주석에 따라 모바일 검색 결과는 경로 기반 전체 화면 cover로 표시한다. AppLayout의 모바일 `/search`는 사이트 헤더·홍보 띠배너·푸터를 표시하지 않는다. SearchListingLayout의 모바일 main은 fixed/inset 0 프레임이며 닫기·검색 입력·결과/필터 영역은 스크롤 영역 밖의 고정된 상단에 두고 결과 본문만 내부 스크롤한다. 상단 높이는 콘텐츠에서 계산되므로 별도 고정 높이·resize 상태 없이 폰트·뷰포트에 대응한다. 기존 검색 제출·닫기 콜백과 상품/필터 상태는 유지하고 필터 시트(z-index 110)는 cover(z-index 80) 위에 표시된다. PC는 기존 페이지 구성을 유지한다.
+
+결과 문구 왼쪽·작은 공통 필터 버튼 오른쪽을 ContentHeader의 horizontal/action으로 조합한다. h1의 여는 따옴표·검색어·닫는 따옴표 이후 결과 개수를 분리해 검색어 span만 min-width 0/overflow hidden/text-overflow ellipsis로 줄인다. 결과 개수와 버튼은 축소하지 않고 한 줄로 유지하며 DOM의 검색어 전체 텍스트는 보존한다. 앞선 검색용 40px 세로 배치 기록은 이 작은 버튼 수평 배치로 대체됐다. 공통 Button의 regular API는 삭제하지 않는다. SearchResults.Mobile의 LongSearchQuery(긴 검색어와 필터)는 긴 query와 활성 성별 필터로 말줄임과 필터 접근을 재현한다. 존재하지 않는 긴 검색어이므로 결과 개수는 실제 fixture 조회 결과인 0개다.
+
+브라우저 실측(Codex, 2026-10-26): 375×812 main의 fixed 전체 영역·띠배너 없음·본문 scrollTop 180 전후 header top 0·필터 시트 열림을 확인했다. 긴 검색어의 표시 폭 93px/내용 폭 413px·ellipsis와 필터 동시 표시를 확인했다. 출처는 사용자 주석 4건과 추가 긴 검색어 요청, 작업 트리 AppLayout.tsx·SearchListingLayout.tsx·ProductListingLayout.tsx·SearchResults.Mobile.stories.tsx다.
+
+320px에서는 검색어 표시 폭 45px·내용 폭 391px으로 말줄임되고 768px에서는 내용 폭 391px 전체가 표시되며 두 폭 모두 문서 가로 넘침이 없다. Panda 생성·Next.js 빌드(타입 검사 포함)·변경 TSX ESLint·Storybook 빌드를 통과했다. PC 추가 브라우저 점검은 No Preview가 표시되어 완료하지 않았으며 PC 소스 분기의 기존 제목·결과 영역 유지와 빌드만 확인했다.
 
 2026-10-26 재사용 후속 적용으로 제목·필터의 외부 Stack을 제거하고 ContentHeader.action으로 합쳤다. 필터를 감싸는 Box는 inline-flex 버튼이 부모 Stack의 stretch로 전체 폭이 되는 것을 막기 위해 유지한다. h1·모바일 16px 제목/버튼 간격·조건부 노출과 PC 제목만 표시하는 계약은 유지한다. Button의 filterTrigger는 size="compact"(기본 32.2px/좌우 14px/테두리 0.9px)와 size="regular"(40px/좌우 24px/테두리 1px/아이콘 슬롯 20px)를 제공한다. MobileProductFilterTrigger.appearance는 이 크기와 Typography를 선택하며 고정 CSS 변수 인라인 재정의를 제거했다. Button은 기존 style 확장 계약과 다른 variant의 size 제한을 유지하고 FilterTriggerSizes 스토리·기존 compile-only 타입 사례로 API를 설명한다. 바로 아래 시안 반영 기록의 feature 인라인 변수 사용은 이 공통 size API로 대체됐다. 출처는 작업 트리 Button.tsx·Button.type-test.tsx·ButtonDocs.tsx·Button.stories.tsx와 검색 결과 구성이다.
 

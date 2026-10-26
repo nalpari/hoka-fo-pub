@@ -206,6 +206,9 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const filterPanel = (
     <ProductListingFilterPanel
+      mobileSort={
+        platform === 'mobile' ? { value: mobileSort, onValueChange: setMobileSort } : undefined
+      }
       activity={displayedFilters.activity}
       collection={displayedFilters.collection}
       cushioning={displayedFilters.cushioning}
@@ -258,8 +261,6 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
       platform={platform}
       productListingTitle={productListingTitle}
       mobileResultCount={mobileResultCount}
-      mobileSort={mobileSort}
-      onMobileSortChange={setMobileSort}
       result={result}
       searchQuery={searchQuery}
       shown={shown}
