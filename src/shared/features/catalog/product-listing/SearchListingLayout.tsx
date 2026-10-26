@@ -16,7 +16,7 @@ type SearchListingLayoutProps = {
   hasActiveFilters: boolean;
 };
 
-/** Search has its own introduction and empty state while sharing catalog results and filters. */
+/** 검색 안내와 빈 상태를 구성하고 상품 목록·필터를 공유합니다. (Composes the search introduction and empty state with shared catalog results and filters.) */
 export function SearchListingLayout({
   children,
   filterAction,
@@ -38,9 +38,9 @@ export function SearchListingLayout({
         pt="8"
         pb="16"
         gap="10"
-        _mobile={{ w: '100%', px: '4', pt: '8', pb: '12', gap: '6' }}
+        _mobile={{ w: '100%', px: '0', pt: '8', pb: '12', gap: '4' }}
       >
-        <Stack as="header" gap="6">
+        <Stack as="header" gap="6" _mobile={{ px: '4', gap: '8' }}>
           {platform === 'mobile' && (
             <SearchField
               label="검색어"
@@ -54,10 +54,14 @@ export function SearchListingLayout({
             titleAs="h1"
             title={`“${query}”에 대한 ${resultCount}개의 검색결과`}
             titleProps={{ web: 'heading6', mo: 'body3', weight: 'medium' }}
+            gap="6"
+            _mobile={{ gap: '4' }}
+            action={
+              platform === 'mobile' && (resultCount > 0 || hasActiveFilters) ? (
+                <Box>{filterAction}</Box>
+              ) : undefined
+            }
           />
-          {platform === 'mobile' && (resultCount > 0 || hasActiveFilters) && (
-            <Box>{filterAction}</Box>
-          )}
         </Stack>
         {resultCount > 0 || hasActiveFilters ? (
           children

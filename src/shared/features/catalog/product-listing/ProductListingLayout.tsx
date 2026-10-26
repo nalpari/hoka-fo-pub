@@ -54,6 +54,7 @@ type ProductListingLayoutProps = {
   sortPlaceholder?: string;
 };
 
+/** 목록과 검색 결과에 공통 상품·필터 영역을 배치합니다. (Arranges shared product results and filters for catalog and search pages.) */
 export function ProductListingLayout({
   breadcrumbItems,
   activity,
@@ -111,6 +112,7 @@ export function ProductListingLayout({
         hasActiveFilters={hasActiveFilters}
         filterAction={
           <MobileProductFilterTrigger
+            appearance="search"
             onClick={() => onFilterDrawerOpenChange(true)}
             label="Filter & Sort"
           />

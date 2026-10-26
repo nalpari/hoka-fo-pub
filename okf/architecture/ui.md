@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T06:44:54Z'
+  at: '2026-10-26T08:23:57Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
+  - src/shared/components/atoms/Button/Button.tsx
+  - src/shared/components/atoms/Button/Button.type-test.tsx
+  - src/shared/components/atoms/Button/ButtonDocs.tsx
+  - src/stories/components/atoms/Button/Button.stories.tsx
   - src/shared/features/mypage/ProfileEditDialogs.tsx
   - src/shared/features/mypage/ProfilePhoneVerification.tsx
   - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
@@ -1040,6 +1044,8 @@ Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/M
 검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
 
 ## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
+
+2026-10-26 사용자 브라우저 주석과 첨부 시안에 따라 모바일 plain 버튼의 좌우 패딩을 보정했다. 공통 item의 `_mobile.px: 4`(16px)가 plain의 `p: 0`과 함께 생성되면서 좌우에 남아 있었다. plain에서 같은 longhand인 `px: 0`을 명시해 스타일 합성 시 공통 패딩을 대체한다. 상품 목록의 기존 rail gap 20px·36px 높이·선택 상태·가로 스크롤·고정 필터 버튼은 유지한다. 375px 브라우저에서 버튼 패딩 0, 고정 탐색 top 52px, 필터 아이콘 노출과 문서 가로 넘침 없음을 실측했다. 출처는 사용자 주석·첨부 이미지와 작업 트리 `FilterTabs.tsx`다.
 
 재사용 후속 점검에 따라 MobileProductNavigation의 Flex alignItems="center"를 HStack as="nav"로 변경했다. 고정 전/후 gap 0/12px을 명시해 HStack의 기본 8px gap이 적용되지 않도록 하고 36px 높이·좌우 16px 패딩·ARIA·고정 상태와 필터 아이콘 조건을 유지한다. SiteHeaderFrame과 useScrollPin은 기존 책임 분리를 유지한다. 이 변경은 Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드를 통과했고, 모바일 브라우저에서 NAV·flex/row·center 정렬·36px 높이·일반 상태 gap 0을 실측했다.
 
@@ -2427,6 +2433,14 @@ SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오
 출처는 작업 트리의 `src/shared/components/organisms/Search/SearchForm.tsx`와 `src/stories/components/organisms/Search/SearchOverlay.stories.tsx`다.
 
 ## 검색 결과 없음 문구의 PC/MO 시안 반영 (2026-10-21)
+
+2026-10-26 재사용 후속 적용으로 제목·필터의 외부 Stack을 제거하고 ContentHeader.action으로 합쳤다. 필터를 감싸는 Box는 inline-flex 버튼이 부모 Stack의 stretch로 전체 폭이 되는 것을 막기 위해 유지한다. h1·모바일 16px 제목/버튼 간격·조건부 노출과 PC 제목만 표시하는 계약은 유지한다. Button의 filterTrigger는 size="compact"(기본 32.2px/좌우 14px/테두리 0.9px)와 size="regular"(40px/좌우 24px/테두리 1px/아이콘 슬롯 20px)를 제공한다. MobileProductFilterTrigger.appearance는 이 크기와 Typography를 선택하며 고정 CSS 변수 인라인 재정의를 제거했다. Button은 기존 style 확장 계약과 다른 variant의 size 제한을 유지하고 FilterTriggerSizes 스토리·기존 compile-only 타입 사례로 API를 설명한다. 바로 아래 시안 반영 기록의 feature 인라인 변수 사용은 이 공통 size API로 대체됐다. 출처는 작업 트리 Button.tsx·Button.type-test.tsx·ButtonDocs.tsx·Button.stories.tsx와 검색 결과 구성이다.
+
+후속 검증(Codex, 2026-10-26): Panda 생성·Next.js 빌드·내장 타입 검사·변경 TSX ESLint·Storybook 빌드를 통과했다. 브라우저에서 검색 버튼 40px/좌우 24px·제목과 간격 16px·필터 시트 열림, 상품 목록 기본 버튼 32.1875px(32.2px 지정의 렌더링 반올림)/좌우 14px과 빈 검색 결과의 필터 버튼 미노출을 확인했다.
+
+2026-10-26 사용자 첨부 검색 결과 시안과 브라우저 주석에 따라 모바일 SearchListingLayout의 좌우 16px 패딩을 header에만 적용하고 상품 결과 영역은 전체 폭으로 표시한다. 입력·제목 사이는 32px, 제목·필터 사이는 16px, header·상품 결과 사이는 16px으로 구성한다. MobileProductFilterTrigger는 기존 공통 Button의 style 변수 확장점을 이용하는 search 표현을 추가해 높이 40px·좌우 패딩 24px·1px 테두리·CTA1 16px 글자·20px 아이콘을 사용한다. 상품 목록의 기본 catalog 표현(32.2px 버튼)과 필터 상태·적용/취소 흐름은 유지한다. 모바일 브라우저에서 버튼 높이 40px·글자 16px·상품 이미지 시작 x=0·가로 넘침 없음과 상품 필터 열림을 확인했다. 출처는 사용자 첨부 PNG와 작업 트리 SearchListingLayout.tsx, MobileProductFilterTrigger.tsx, ProductListingLayout.tsx다.
+
+검증(Codex, 2026-10-26): Panda 생성·변경 TSX ESLint·Prettier·Next.js 프로덕션 빌드(내장 타입 검사 포함)를 통과했다. 이번 시각 점검은 375px 모바일 검색 결과와 상품 목록 고정 탐색을 대상으로 했으며 PC·768px·빈 결과의 추가 브라우저 점검은 완료하지 않았다. React 변경은 표현 props와 배치만 바꾸며 새 상태·이벤트·의존성을 추가하지 않았다.
 
 SearchListingLayout의 결과 없음 상태를 Figma `906:8115`(PC)와 `773:42681`(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
 

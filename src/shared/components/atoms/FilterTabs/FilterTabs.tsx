@@ -179,7 +179,7 @@ const item = cva({
   variants: {
     variant: {
       plain: {
-        _mobile: { h: '100%', p: '0', borderRadius: '0', bg: 'transparent' },
+        _mobile: { h: '100%', p: '0', px: '0', borderRadius: '0', bg: 'transparent' },
       },
       fill: {
         h: '37px',
