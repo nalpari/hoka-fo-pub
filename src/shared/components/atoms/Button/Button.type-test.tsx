@@ -29,6 +29,12 @@ export function checkButtonSizingTypes() {
       <LoadMoreButton remaining={10} size="short" />
       <LoadMoreButton remaining={10} variant="link" size="lg" />
       <Button variant="filterTrigger">Filter</Button>
+      <Button variant="filterTrigger" size="compact">
+        Filter
+      </Button>
+      <Button variant="filterTrigger" size="regular">
+        Filter &amp; Sort
+      </Button>
       <Button variant="headerSearch">Search</Button>
       <ButtonLink href="/" variant="filterTrigger">
         Filter
@@ -106,7 +112,7 @@ export function checkButtonSizingTypes() {
   // @ts-expect-error Link load-more buttons reject short.
   const moreShort = <LoadMoreButton remaining={10} variant="link" size="short" />;
 
-  // @ts-expect-error Fixed filter buttons reject explicit sizing.
+  // @ts-expect-error Filter triggers accept compact/regular, not tall/short.
   const fixedFilter = <Button variant="filterTrigger" size="tall" />;
 
   // @ts-expect-error Fixed search buttons reject explicit sizing.

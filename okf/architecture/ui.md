@@ -6,9 +6,54 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T06:44:54Z'
+  at: '2026-10-26T09:11:03Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
+  - src/shared/features/catalog/ProductListingFilterPanel.tsx
+  - src/shared/features/catalog/ProductListingPage.tsx
+  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
+  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
+  - src/shared/components/layouts/AppLayout/AppLayout.tsx
+  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
+  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/stories/features/catalog/SearchResults.Mobile.stories.tsx
+  - src/shared/components/atoms/Button/Button.tsx
+  - src/shared/components/atoms/Button/Button.type-test.tsx
+  - src/shared/components/atoms/Button/ButtonDocs.tsx
+  - src/stories/components/atoms/Button/Button.stories.tsx
+  - src/shared/features/mypage/ProfileEditDialogs.tsx
+  - src/shared/features/mypage/ProfilePhoneVerification.tsx
+  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
+  - src/shared/components/atoms/FormField/FormField.tsx
+  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
+  - src/stories/components/atoms/FormField/FormField.stories.tsx
+  - src/shared/features/mypage/ProfilePasswordDialog.tsx
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
+  - src/shared/features/orders/OrderTrackingHistory.tsx
+  - src/shared/features/orders/OrdersDateRange.tsx
+  - src/shared/features/orders/ClaimInstructions.tsx
+  - src/shared/features/orders/OrderClaimStatus.tsx
+  - src/shared/features/orders/OrderDeliveryStatus.tsx
+  - src/shared/features/orders/ClaimProductChoice.tsx
+  - src/shared/features/orders/ClaimProductQuantity.tsx
+  - src/shared/features/orders/ClaimAmountBreakdown.tsx
+  - src/shared/features/checkout/CheckoutPaymentMethods.tsx
+  - src/shared/features/checkout/CheckoutPaymentMethodNotice.tsx
+  - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
+  - src/shared/features/checkout/CheckoutDeliveryMessageField.tsx
+  - src/shared/features/checkout/CheckoutCompleteHeader.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
+  - src/shared/features/orders/OrderDetail.tsx
+  - src/shared/features/orders/OrderClaimDetail.tsx
+  - src/shared/features/orders/OrdersPage.tsx
+  - src/shared/features/orders/order-policy.ts
+  - src/shared/features/orders/OrderClaimSheet.tsx
+  - src/shared/components/molecules/StepIndicator/StepIndicator.tsx
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - src/shared/features/cart/CartOrderActions.tsx
   - src/shared/features/cart/CartSupportContact.tsx
   - src/shared/features/cart/CartSupportHours.tsx
@@ -924,6 +969,62 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
+
+ProfileEditDialogs는 회원정보 수정 취소/저장 확인을 ConfirmDialog로, 수정 완료/휴대폰 미인증 안내를 SingleActionDialog로 표시한다. MyPageProfile이 notice와 저장/취소 처리를 소유한다. 취소·저장 확인의 취소/X/Escape는 편집 초안을 유지한다. 수정 취소 확인을 수락해야 주소·이메일·전화번호·수신 동의 초안을 마지막 저장값으로 되돌리고 조회 화면으로 전환한다. 비밀번호 변경은 독립 흐름이므로 이 취소로 되돌리지 않는다.
+
+저장 시 기존 필수값/형식 검사를 유지하며 변경한 휴대폰이 미인증이면 본인인증 안내를 띄운다. 정상 입력은 저장 확인을 거쳐 값을 저장하고 수정 완료 알럿을 표시한다. 완료 확인 또는 닫기 이후에 조회 화면으로 전환한다. 기존 비밀번호 확인·완료 및 회원탈퇴 확인은 유지한다.
+
+ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 표시하고 확인/닫기 시 코드를 지우고 유효시간 내 입력 포커스를 복원한다. 6자리 미입력은 기존 필드 오류를 유지한다. deadline에 연결한 timeout으로 시간이 만료되면 시간 초과 알럿을 한 번 표시하고, 확인/닫기 시 코드를 비워 재요청할 수 있게 한다. 번호 변경·인증 성공·화면 종료 시 deadline 변경/cleanup으로 예약된 알럿을 해제한다. 알럿은 기능 내부 상태이며 새 공개 모달 컴포넌트나 공통 API 확장은 없다. 실제 SMS·회원정보 API는 미연결 데모다.
+
+출처는 사용자 첨부 회원정보 화면설계서와 위 작업 트리의 ProfileEditDialogs.tsx, MyPageProfile.tsx, ProfilePhoneVerification.tsx 및 Mobile Storybook이다. 이전 절의 즉시 저장·취소 및 인증 불일치/만료를 인라인으로만 처리한 설명은 이 절로 대체된다. 타입·변경 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+브라우저에서 취소 확인/취소 및 전화번호 초안 복원, 미인증 저장 안내, 인증번호 불일치 확인 후 코드 초기화, 저장 확인의 취소/확인과 수정 완료 확인 후 조회 전환을 확인했다. 테스트 탭의 timeout/시계를 가속하여 자동 시간 초과 알럿, 확인 후 코드 비움·입력 비활성, 재요청 후 재인증 성공도 확인했다. 실제 3분 대기·SMS/API 검증과 픽셀 비교는 수행하지 않았다.
+
+## 결혼유무 항목 제거 (2026-10-26)
+
+사용자의 시스템 기획 변경에 따라 마이페이지 회원정보 조회·편집의 결혼유무 표시/라디오를 제거했다. 유일한 부가정보 항목이었으므로 빈 제목·구분선·간격 그룹도 제거하고 마케팅 수신 동의 다음에 저장/취소 액션을 표시한다. MyPageProfile의 상태와 관련 prop/callback, MaritalStatus 타입을 함께 삭제했다. 회원가입은 이미 해당 항목이 제거된 상태이며 src 전체 검색에서 결혼유무·maritalStatus·MaritalStatus·marital-status의 운영 구현 참조가 남지 않는 것을 확인했다(비노출을 확인하는 스토리 assertion은 제외). 아래 과거 Figma/병합 기록의 결혼유무 설명은 당시 상태에 대한 이력이며 현재 구현은 이 절을 따른다. 주소·이메일 편집과 휴대폰 인증·비밀번호 팝업은 유지한다.
+
+브라우저에서 편집·조회 화면 모두 결혼유무·부가정보 제목·라디오가 없는 것을 확인했다. 타입 검사·마이페이지 및 변경 공통 컴포넌트/스토리 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+## 회원정보 주소·이메일 편집 재사용 (2026-10-26)
+
+첨부 모바일 시안에 맞춰 ProfileEditForm의 휴대폰 인증 뒤에 기존 AddressFields(boxed)와 EmailAddressFields를 조합했다. 우편번호 찾기와 비활성 우편번호/기본주소, 필수 상세주소, 이메일 아이디/도메인 입력과 직접입력·naver.com·gmail.com·daum.net 선택을 제공한다. 도메인 목록 선택 시 자동 입력·비활성화하고 직접입력 선택 시 비운 도메인을 편집한다. 기존 공용 컴포넌트 API를 확장하거나 새 입력 컴포넌트를 추가하지 않았다.
+
+MyPageProfile은 주소/이메일 초안과 저장값, 주소 팝업 열림 상태를 소유한다. 이메일은 기존 shared/lib/emailValidation을 재사용해 아이디·도메인을 각각 검사하고 저장 시 전체 이메일로 합친다. 우편번호 5자리와 기본/상세주소 필수값도 저장 전에 검사한다. 저장 후 조회 화면에 변경 주소·이메일을 표시하고 취소하면 해당 초안을 마지막 저장값으로 되돌린다. 비밀번호 팝업과 휴대폰 인증 영역은 유지한다. AddressFields의 AddressSearchModal은 실제 주소 검색 API 연결 전의 수동 미리보기 입력이며 입력 변경은 부모 초안에 즉시 반영되는 기존 동작을 유지한다.
+
+출처는 작업 트리의 MyPageProfile.tsx, ProfileEditForm.tsx, mypage-profile.types.ts, MyPage.Profile.Mobile.stories.tsx와 기존 AddressFields/AddressSearchModal/EmailAddressFields, 사용자 첨부 모바일 시안이다. 타입 검사·변경 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 목록 도메인의 자동 입력/비활성화, 직접입력 전환, 도메인·상세주소 오류, 주소 모달 적용, 저장 후 주소·이메일 조회, 취소 후 재진입 시 저장값 복원과 기존 비밀번호 팝업 진입을 확인했다. 실제 주소 검색 서비스·계정 API 검증과 픽셀 비교는 수행하지 않았다.
+
+## 회원정보 휴대폰 인증 영역 (2026-10-26)
+
+사용자가 공유한 모바일 휴대폰 번호 → 전체 너비 검정 인증번호 요청 버튼 시안을 반영했다. ProfileEditForm은 기능 내부 ProfilePhoneVerification을 조합하며 PhoneNumberField, VerificationCodeField, VerificationCountdown, Button, StatusMessage와 useVerificationCountdown을 재사용한다. 별도 공개 컴포넌트나 인증 라이브러리는 추가하지 않았다. 기존 비밀번호 설정 팝업은 유지한다.
+
+ProfilePhoneVerification은 인증번호·오류·3분 제한시간을 소유하고 MyPageProfile은 입력 번호·인증 여부·마지막 저장 번호를 소유한다. 요청 시 기존 휴대폰 형식 검증을 사용하며 숫자 11자리까지 정규화한다. 인증 요청 후 6자리 입력·남은 시간·확인 버튼을 표시하고 제한시간 동안 재요청을 막는다. 만료 시 확인을 막고 재요청할 수 있으며, 확인 시 Date.now와 deadline도 비교한다. 번호를 바꾸면 입력 코드·오류·타이머·인증 여부를 초기화한다. 변경된 번호는 인증 완료 후에만 회원정보를 저장할 수 있다. 기존 번호를 그대로 두는 편집에는 새 인증을 요구하지 않는다.
+
+실제 SMS와 계정 API는 연결되지 않은 로컬 데모이며 인증번호 900668 및 실제 미발송 안내를 요청 후 표시한다. 첨부 시안에 없는 요청 후 표현은 기존 인증 UI로 구성했다. 출처는 위 작업 트리 소스와 사용자 첨부 시안(2026-10-26)이다. 타입·변경 ESLint·Panda 생성 포함 프로덕션 빌드 통과. 브라우저에서 번호 형식 오류, 미인증 저장 차단, 타이머/재요청 비활성화, 빈/틀린 코드, 인증 성공, 번호 변경 초기화, 비밀번호 팝업 완료와 인증된 번호 저장을 확인했다. 실제 SMS 전송 및 3분 경과 후 만료/재요청 실시간 검증은 수행하지 않았다.
+
+## 비밀번호 팝업 공통 모달·필드 안내 재사용 (2026-10-26)
+
+ProfilePasswordDialog는 SingleActionDialog를 사용한다. confirmButtonProps의 type/form으로 입력 단계의 외부 footer 버튼을 네이티브 form 제출에 연결하고, 확인·완료 단계는 onConfirm을 사용한다. onConfirm은 폼 제출용 소비처에서 생략할 수 있다. 버튼 크기는 tall로 명시하고 기존 소비처의 기본 short/fullWidth와 닫기·포커스·footer 책임은 유지한다. 새로운 공개 컴포넌트는 만들지 않았다.
+
+PasswordField의 hint로 비밀번호 안내를 옮기고 FormField.hintProps에 variant/className 전달을 추가했다. FormFieldHint의 기본 body5는 유지하며 이 팝업만 body4와 pt=2를 지정한다. boxed 필드의 8px gap과 안내의 8px padding을 합쳐 기존 16px 간격을 유지하고 다음 필드와의 16px Stack gap도 유지한다. 입력 aria-describedby는 hint id와 오류가 있을 때 error id를 포함한다. 필수값·불일치 메시지, 원문 초기화, 팝업 단계와 상위 폼으로의 submit 전파 방지는 기능에 남는다.
+
+출처는 위 working_tree_sources의 공통 컴포넌트·팝업·스토리다. 타입 검사·변경 파일 ESLint·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 브라우저에서 PC/모바일 공통 모달의 footer 클릭 및 Enter가 각각 한 번 제출되는 것을 확인했고, hint/error 접근성 연결과 팝업의 검증 → Enter 제출 → 확인 → 완료 표시를 확인했다. 모바일 팝업 안내 글자는 14px, 앞뒤 텍스트 간격은 각 16px이었다(0.3px 허용). 전체 화면 픽셀 비교나 서버 API 검증은 수행하지 않았다. Storybook 빌드의 의존성 use client 지시문·번들 경고는 남아 있다.
+
+## 회원정보 비밀번호 설정 흐름 선반영 (2026-10-26)
+
+회원정보 팝업의 비밀번호 필수값·형식 검증 실패 문구는 “올바른 비밀번호를 입력해주세요.”로 표시한다. 공통 검증 규칙과 다른 화면의 오류 문구는 유지한다.
+
+회원정보 팝업에서 재입력 값이 있고 비밀번호와 다르면 “비밀번호가 일치하지 않습니다. 다시 확인해주세요.”를 표시한다. 비어 있을 때의 필수 입력 오류와 다른 화면의 공통 검증 문구는 유지한다.
+
+비밀번호 입력 아래 상시 안내는 사용자 지정 문구인 “연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요.”로 표시한다. 기존 검증 오류 문구와 검증 로직은 유지한다.
+
+사용자가 공유한 변경 화면설계서와 디자인 확정 전 흐름 구현 요청을 근거로, ProfileEditForm의 본문 새 비밀번호 입력을 비밀번호 설정 버튼으로 교체했다. MyPageProfile은 팝업 열림과 변경 완료 표시만 관리한다. ProfilePasswordDialog가 입력·재입력 검증 → 변경 확인 → 완료 안내를 소유하며 기존 ModalDialog, PasswordField, Button, Typography를 재사용한다. 회원정보의 변경사항 저장과 별도로 완료되며 팝업 제출은 상위 폼으로 전파하지 않는다.
+
+닫기·Escape로 나가면 팝업을 제거하여 입력값과 오류를 초기화한다. 변경 확인을 수락할 때 비밀번호 원문을 지우고 완료 표시를 설정하며, 다시 설정하다 취소해도 이미 완료한 표시를 취소하지 않는다. 계정 API가 없는 로컬 데모이며 실제 비밀번호 변경·저장·서버 검증을 구현한 것으로 간주하지 않는다. 디자인은 공통 UI의 현재 스타일을 사용한다. 기존 shared/lib/passwordValidation의 영문·숫자·특수문자 포함 10~12자 규칙을 재사용하며, 첨부 설계서의 10~20자 및 계정 정보·연속 문자 제한은 이번 흐름 선반영에 포함하지 않았다.
+
+출처: 위 working_tree_sources의 마이페이지 소스와 사용자 첨부 화면설계서(2026-10-26). Storybook은 기존 Mobile/Default를 유지하고 비밀번호 설정 흐름 스토리에서 편집 화면의 팝업 진입 상태를 제공한다. 타입 검사·변경 파일 ESLint·Panda 생성 통과. 브라우저에서 필수값·길이/조합·불일치 오류, 닫기/재진입 시 초기화, 변경 확인에서 Escape 취소, 정상 입력 → 확인 → 완료 → 본문 완료 문구 표시를 확인했다. 최종 디자인 대조와 서버 동작 검증은 포함하지 않았다.
+
 ## 모바일 장바구니 운영시간 가림 보정 (2026-10-23)
 
 동시에 정리한 장바구니 안내 표현은 CartSupportInfo의 제목/본문 간격 16px·내부 Stack 간격 24px을 사용하고 기존 상단 테두리·패딩과 운영시간 제목의 개별 mt를 제거한다. 연락처 주석과 휴무 안내는 tertiary, 문의 링크는 textLink3를 재사용한다. CartOrderActions의 금액/버튼 간격은 24px에서 20px로 보정했다. 연락처·운영시간 문구와 문의/주문 링크는 유지한다. 변경 TSX 전체의 ESLint·Prettier·타입 검사를 확인했다.
@@ -951,6 +1052,12 @@ Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/M
 검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
 
 ## 모바일 상품 목록 GNB와 활동 탐색 고정 (2026-10-23)
+
+2026-10-26 모바일 필터 시안 후속 적용: 정렬은 MobileProductFilter의 별도 pill 영역에서 ProductListingFilterPanel의 첫 CatalogFilterSection으로 옮겼다. 선택 태그/초기화 다음·성별 바로 위 순서이며 기존 섹션 접기·펼치기와 기본 Radio의 세로 원형 선택 UI를 재사용한다. 정렬 옵션 4개(베스트순·신상품순·높은가격순·낮은가격순), ProductListingPage의 mobileSort 초안과 적용·취소 책임은 유지한다. PC에는 mobileSort props를 전달하지 않아 정렬 섹션을 추가하지 않는다. 시트와 중간 Layout/Content의 정렬 props 전달을 제거하고 페이지에서 필터 패널로 직접 전달한다. 이전 시안 기록의 모바일 정렬 pill은 이 Radio 배치로 대체됐다. 출처는 사용자 첨부 필터 시안·브라우저 주석과 작업 트리 ProductListingFilterPanel.tsx·ProductListingPage.tsx·MobileProductFilter.tsx·ProductListingContent.tsx·ProductListingLayout.tsx다.
+
+검증(Codex, 2026-10-26): Panda 생성·Next.js 빌드(타입 검사 포함)·변경 TSX ESLint를 통과했다. 모바일 검색 결과 스토리에서 정렬 Radio 4개와 세로 배치를 확인하고 남성 선택 후 태그→정렬→성별 순서를 실측했다. 높은가격순 선택 후 적용하지 않고 닫았다 다시 열면 기존 베스트순으로 복원됨을 확인했다. PC는 추가 정렬 섹션이 없는 소스 조건만 확인했다.
+
+2026-10-26 사용자 브라우저 주석과 첨부 시안에 따라 모바일 plain 버튼의 좌우 패딩을 보정했다. 공통 item의 `_mobile.px: 4`(16px)가 plain의 `p: 0`과 함께 생성되면서 좌우에 남아 있었다. plain에서 같은 longhand인 `px: 0`을 명시해 스타일 합성 시 공통 패딩을 대체한다. 상품 목록의 기존 rail gap 20px·36px 높이·선택 상태·가로 스크롤·고정 필터 버튼은 유지한다. 375px 브라우저에서 버튼 패딩 0, 고정 탐색 top 52px, 필터 아이콘 노출과 문서 가로 넘침 없음을 실측했다. 출처는 사용자 주석·첨부 이미지와 작업 트리 `FilterTabs.tsx`다.
 
 재사용 후속 점검에 따라 MobileProductNavigation의 Flex alignItems="center"를 HStack as="nav"로 변경했다. 고정 전/후 gap 0/12px을 명시해 HStack의 기본 8px gap이 적용되지 않도록 하고 36px 높이·좌우 16px 패딩·ARIA·고정 상태와 필터 아이콘 조건을 유지한다. SiteHeaderFrame과 useScrollPin은 기존 책임 분리를 유지한다. 이 변경은 Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드를 통과했고, 모바일 브라우저에서 NAV·flex/row·center 정렬·36px 높이·일반 상태 gap 0을 실측했다.
 
@@ -2339,6 +2446,22 @@ SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오
 
 ## 검색 결과 없음 문구의 PC/MO 시안 반영 (2026-10-21)
 
+2026-10-26 후속 사용자 주석에 따라 모바일 검색 결과는 경로 기반 전체 화면 cover로 표시한다. AppLayout의 모바일 `/search`는 사이트 헤더·홍보 띠배너·푸터를 표시하지 않는다. SearchListingLayout의 모바일 main은 fixed/inset 0 프레임이며 닫기·검색 입력·결과/필터 영역은 스크롤 영역 밖의 고정된 상단에 두고 결과 본문만 내부 스크롤한다. 상단 높이는 콘텐츠에서 계산되므로 별도 고정 높이·resize 상태 없이 폰트·뷰포트에 대응한다. 기존 검색 제출·닫기 콜백과 상품/필터 상태는 유지하고 필터 시트(z-index 110)는 cover(z-index 80) 위에 표시된다. PC는 기존 페이지 구성을 유지한다.
+
+결과 문구 왼쪽·작은 공통 필터 버튼 오른쪽을 ContentHeader의 horizontal/action으로 조합한다. h1의 여는 따옴표·검색어·닫는 따옴표 이후 결과 개수를 분리해 검색어 span만 min-width 0/overflow hidden/text-overflow ellipsis로 줄인다. 결과 개수와 버튼은 축소하지 않고 한 줄로 유지하며 DOM의 검색어 전체 텍스트는 보존한다. 앞선 검색용 40px 세로 배치 기록은 이 작은 버튼 수평 배치로 대체됐다. 공통 Button의 regular API는 삭제하지 않는다. SearchResults.Mobile의 LongSearchQuery(긴 검색어와 필터)는 긴 query와 활성 성별 필터로 말줄임과 필터 접근을 재현한다. 존재하지 않는 긴 검색어이므로 결과 개수는 실제 fixture 조회 결과인 0개다.
+
+브라우저 실측(Codex, 2026-10-26): 375×812 main의 fixed 전체 영역·띠배너 없음·본문 scrollTop 180 전후 header top 0·필터 시트 열림을 확인했다. 긴 검색어의 표시 폭 93px/내용 폭 413px·ellipsis와 필터 동시 표시를 확인했다. 출처는 사용자 주석 4건과 추가 긴 검색어 요청, 작업 트리 AppLayout.tsx·SearchListingLayout.tsx·ProductListingLayout.tsx·SearchResults.Mobile.stories.tsx다.
+
+320px에서는 검색어 표시 폭 45px·내용 폭 391px으로 말줄임되고 768px에서는 내용 폭 391px 전체가 표시되며 두 폭 모두 문서 가로 넘침이 없다. Panda 생성·Next.js 빌드(타입 검사 포함)·변경 TSX ESLint·Storybook 빌드를 통과했다. PC 추가 브라우저 점검은 No Preview가 표시되어 완료하지 않았으며 PC 소스 분기의 기존 제목·결과 영역 유지와 빌드만 확인했다.
+
+2026-10-26 재사용 후속 적용으로 제목·필터의 외부 Stack을 제거하고 ContentHeader.action으로 합쳤다. 필터를 감싸는 Box는 inline-flex 버튼이 부모 Stack의 stretch로 전체 폭이 되는 것을 막기 위해 유지한다. h1·모바일 16px 제목/버튼 간격·조건부 노출과 PC 제목만 표시하는 계약은 유지한다. Button의 filterTrigger는 size="compact"(기본 32.2px/좌우 14px/테두리 0.9px)와 size="regular"(40px/좌우 24px/테두리 1px/아이콘 슬롯 20px)를 제공한다. MobileProductFilterTrigger.appearance는 이 크기와 Typography를 선택하며 고정 CSS 변수 인라인 재정의를 제거했다. Button은 기존 style 확장 계약과 다른 variant의 size 제한을 유지하고 FilterTriggerSizes 스토리·기존 compile-only 타입 사례로 API를 설명한다. 바로 아래 시안 반영 기록의 feature 인라인 변수 사용은 이 공통 size API로 대체됐다. 출처는 작업 트리 Button.tsx·Button.type-test.tsx·ButtonDocs.tsx·Button.stories.tsx와 검색 결과 구성이다.
+
+후속 검증(Codex, 2026-10-26): Panda 생성·Next.js 빌드·내장 타입 검사·변경 TSX ESLint·Storybook 빌드를 통과했다. 브라우저에서 검색 버튼 40px/좌우 24px·제목과 간격 16px·필터 시트 열림, 상품 목록 기본 버튼 32.1875px(32.2px 지정의 렌더링 반올림)/좌우 14px과 빈 검색 결과의 필터 버튼 미노출을 확인했다.
+
+2026-10-26 사용자 첨부 검색 결과 시안과 브라우저 주석에 따라 모바일 SearchListingLayout의 좌우 16px 패딩을 header에만 적용하고 상품 결과 영역은 전체 폭으로 표시한다. 입력·제목 사이는 32px, 제목·필터 사이는 16px, header·상품 결과 사이는 16px으로 구성한다. MobileProductFilterTrigger는 기존 공통 Button의 style 변수 확장점을 이용하는 search 표현을 추가해 높이 40px·좌우 패딩 24px·1px 테두리·CTA1 16px 글자·20px 아이콘을 사용한다. 상품 목록의 기본 catalog 표현(32.2px 버튼)과 필터 상태·적용/취소 흐름은 유지한다. 모바일 브라우저에서 버튼 높이 40px·글자 16px·상품 이미지 시작 x=0·가로 넘침 없음과 상품 필터 열림을 확인했다. 출처는 사용자 첨부 PNG와 작업 트리 SearchListingLayout.tsx, MobileProductFilterTrigger.tsx, ProductListingLayout.tsx다.
+
+검증(Codex, 2026-10-26): Panda 생성·변경 TSX ESLint·Prettier·Next.js 프로덕션 빌드(내장 타입 검사 포함)를 통과했다. 이번 시각 점검은 375px 모바일 검색 결과와 상품 목록 고정 탐색을 대상으로 했으며 PC·768px·빈 결과의 추가 브라우저 점검은 완료하지 않았다. React 변경은 표현 props와 배치만 바꾸며 새 상태·이벤트·의존성을 추가하지 않았다.
+
 SearchListingLayout의 결과 없음 상태를 Figma `906:8115`(PC)와 `773:42681`(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
 
 출처는 Figma `906:8115`, `773:42681`과 작업 트리의 `src/shared/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
@@ -2883,3 +3006,45 @@ Figma 디자인 시스템 `360:42125`(Mobile)·`1261:3529`(Web)의 line 탭을 �
 주문/결제·주문/배송·반품 분류를 선택하면 문의 폼의 두 분류 드롭다운 바로 아래에 주문상품 선택 버튼을 표시한다. Figma 화면에는 `상품정보*` 라벨이 없으므로 추가하지 않는다. 버튼은 PC 180px 폭·오른쪽 정렬, 모바일 전체 폭이며 안내 문구는 PC 오른쪽·모바일 왼쪽 정렬이다. 버튼은 `/support/inquiries/new/order-products` 전용 페이지로 이동한다. 페이지는 `CustomerCenterLayout` 안에서 기간 탭, 주문 목록, 주문별 상품 체크박스, 취소·문의 등록 액션을 표시한다. 조회 기간은 공통 `FilterTabs`의 `fill` variant를 사용하며 미선택은 회색 pill, 선택은 검정 pill로 표시한다. 모바일 버튼 좌우 패딩은 8px로 조정해 다섯 탭을 읽기 쉽게 유지하고, rail inset은 소비처에서 상쇄해 본문 텍스트와 탭 시작·끝을 정렬한다. 조회 결과는 선택 주문과 상품만 문의 작성 화면으로 돌려보내며 브라우저 `sessionStorage`를 통해 이동 중 초안을 전달한다. 일반 레이아웃은 Panda JSX 컴포넌트 props로 표현한다. 스타일 시스템 props를 받을 수 없는 네이티브 요소와 선택자·반응형 조합은 필요한 경우에만 이름 있는 Panda 스타일 상수로 선언한다. `FilterTabs`, `Radio`, `Checkbox`, `Button`을 기능 내부에서 조합하며 공통 컴포넌트 API는 바꾸지 않는다. 조회 기간은 1년(기본)·6개월·3개월·1개월·직접 설정이고 목업 주문 13건을 기간에 따라 필터링한다. 한 주문번호 선택 시 해당 주문 상품을 모두 선택하고 개별 체크 해제/재선택을 허용한다. 선택 완료 후 폼에 주문일·주문번호·상품코드를 표시하며 변경/초기화가 가능하다. 필수 주문 선택이 누락된 상태로 등록하면 기존 `SingleActionDialog`에서 안내한다.
 
 조회 데이터는 `inquiryOrders.data.ts`의 화면 확인용 fixture이며 서버 조회·문의 저장·선택 날짜 API는 연결되어 있지 않다. 기간과 직접 설정 범위는 fixture를 필터링한다. Storybook Web/Mobile에 문의 폼 진입 버튼과 주문상품 조회 독립 페이지 사례를 추가했다. 신규 공통 컴포넌트는 만들지 않았다. 출처는 사용자 제공 Figma `1241:92947`, `93018`, `93295`, `93422`, `93577`, `93733`, `93104`, `93188`, `92216`, `92523`, 첨부 기획 캡처와 작업 트리의 `InquiryNewPage`, `InquiryCategoryFields`, `InquiryOrderProducts`, `InquiryOrderLookupPage`, 선택 전달 helper, 주문 fixture 및 문의 Storybook 시나리오다.
+
+## 모바일 주문 흐름과 신청 화면 (2026-10-23)
+
+Figma 원본은 재인증으로 읽지 못했으며, 사용자가 승인한 첨부 이미지 기준으로 구현했다. 기존 장바구니의 상품·옵션·수량/제한 안내 구성을 유지하고 주문서 연락처·배송 요청은 TextFormField, FormField, Select, TextareaField, CharacterCount로 합성했다. AddressFields의 boxed 변형, 결제 Radio 타일과 완료 화면의 portrait 추천을 사용한다.
+
+`features/orders`는 OrdersPage가 목록·조회 조건·상세 진입·신청·구매확정 상태를 소유하고 OrdersContent/OrdersListContent/OrdersFilters/OrderCard/OrderItemActions가 표현을 나눈다. OrderDetail과 OrderClaimDetail은 OrderCardHeader, OrderHistoryProduct, OrderInformationSection을 재사용한다. 상품 행은 기존 OrderProductSummary, 정보는 DescriptionList, 금액은 AmountRow, 신청은 BottomSheet, 배송조회는 SingleActionDialog·StepIndicator·DataTable, 삭제/구매확정은 ConfirmDialog를 사용한다. 별도 상품 카드·수량 선택기·모달 기반을 복제하지 않는다.
+
+기존 공통 컴포넌트는 기본 동작을 유지한다. OrderProductSummary의 hideAmount는 기본 false, OrderStatusTracker의 compact는 기본 false, StepIndicator의 variant는 기본 standard이며 연결형은 배송조회만 명시한다. 압축 현황의 열 수는 런타임 항목 개수에 맞춘 inline gridTemplateColumns로 지정한다. 기본 현황을 사용하는 마이페이지와 기본 단계를 사용하는 장바구니·주문서·가입 화면은 기존 표시 계약을 유지한다.
+
+`order-policy.ts`가 신청 가능 상태, 잔여 수량, 신청 금액·단일 반품비, 조회 기간과 상태별 집계를 준비한다. 결제완료는 취소, 배송완료는 반품 신청이 가능하며 기존 신청 수량을 제외해 중복 신청을 막는다. 단순변심/사이즈는 5,000원 반품비, 불량/오배송은 0원인 화면용 예제 정책이다. 실제 정책·기간·배송비 정산은 서버 연동 시 확정해야 한다.
+
+MyPageStatusPage의 orders/returns는 OrdersRoute로 연결하며 장바구니 다시 담기는 ShopShell의 기존 add를 호출한다. 주문과 배송 이력·수령인·결제 수단은 fixtures이며 신청/구매확정/삭제는 해당 마운트의 메모리 상태다. 실제 주문 API, 결제 승인, 환불 처리는 추가하지 않았다. Storybook은 src/stories/features/orders에서 목록·빈 상태·상세·취소/반품 상세·배송조회·두 신청 시트와 부분취소 검증을 제공한다.
+
+### 주문 상세 footer 액션 구성 (2026-10-23)
+
+OrderDetail과 OrderClaimDetail은 ContentSection의 header에 기존 OrderCardHeader를, footer에 상세 조회를 마무리하는 버튼을 전달한다. OrderDetail의 삭제·목록 버튼은 기존 Stack gap=4 그룹을 유지하며 두 상세의 바깥 gap=8, 버튼 순서·크기·콜백과 환불 안내 위치를 보존한다. 출처는 위 working_tree_sources의 두 상세 파일이며 브라우저 시각 검증은 수행하지 않았다.
+
+FilterTabs는 기존 소비자 간격을 유지하며 optional railClassName 슬롯으로 주문 필터의 자체 좌우 여백/하단 여백만 조정한다. 신청 시트는 ariaLabel을 명시하며 Footer의 form 속성으로 본문 form과 제출 버튼을 연결한다. 결제 마크는 CheckoutPaymentMark가 담당하고 시안의 미보유 로고는 브랜드 텍스트로 표시한다.
+
+배송지 boxed 전환에서는 기존 AddressFields 기본 disabled 설정을 그대로 사용하면 FormData의 address가 누락된다. CheckoutAddressFields만 fieldOptions에 name·readOnly를 명시하고 disabled를 false로 설정해 검색한 우편번호/주소가 주문 검증에 포함되도록 한다. 다른 주소 소비자의 기본 disabled 계약은 변경하지 않는다.
+
+## 주문·주문서 표시 영역 분리 (2026-10-23)
+
+사용자가 지정한 영역을 아래 내부 구성요소로 분리했다. 기능별 상태와 계산은 기존 소유자에 두며 새로운 공용 atom/molecule API나 DOM 래퍼는 추가하지 않았다. 각 파일은 위 working_tree_sources에 기록한 미커밋 소스다.
+
+| 기존 소유자             | 분리한 구성요소와 입력 계약                                                                             | 보존한 책임                                                                        |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| OrderTrackingDialog     | OrderTrackingHistory(date)                                                                              | 추적 표의 caption·열 순서·이력 날짜, ContentSection 기본 제목과 gap=3              |
+| OrdersFilters           | OrdersDateRange(dates, error, onDateChange, onDateSearch)                                               | 직접설정 조건, 두 날짜 입력과 오류·조회 액션, 기존 입력 크기와 간격                |
+| OrderClaimSheet         | ClaimInstructions(kind)                                                                                 | 취소/반품별 안내문, 폼 id·외부 footer submit 연결과 초안 상태는 기존 시트 소유     |
+| OrderClaimDetail        | OrderClaimStatus(kind, state)                                                                           | 취소/반품 및 접수/완료 표시와 오류색                                               |
+| OrderCard               | OrderDeliveryStatus(label, expectedDate)                                                                | 준비된 상태명과 예정일 표시, 상태 계산은 호출자 소유                               |
+| ClaimProductSelection   | ClaimProductChoice(line, checked, onToggle), ClaimProductQuantity(productKey, max, value, onQuantity)   | 체크박스 접근성 이름·상품 표시, 취소에만 수량 표시, 최소 1·잔여 수량 상한·들여쓰기 |
+| ClaimAmountSummary      | ClaimAmountBreakdown(amount, fee)                                                                       | 금액/사유 안내 분기와 내부 패딩, 계산 및 예상 환불액은 기존 소유자 유지            |
+| CheckoutPayment         | CheckoutPaymentMethods(payment, onPaymentChange), CheckoutPaymentMethodNotice(label)                    | Radio 그룹·선택 이미지·3열 배치와 PC/mobile 최소 높이·선택 테두리·결제별 안내      |
+| CheckoutDeliveryRequest | CheckoutDeliveryRequestSelect(value, onValueChange), CheckoutDeliveryMessageField(value, onValueChange) | 상태와 조건부 표시·기존 입력값 보관은 부모 유지, name/id/label·250자·카운터 보존   |
+| CheckoutComplete        | CheckoutCompleteHeader                                                                                  | Fragment로 아이콘과 감사 문구 반환, 섹션 gap과 모바일 아이콘 숨김 유지             |
+| OrderProductSummary     | 내부 OrderProductSummaryImage(image, name, variant)                                                     | cart/checkout/coupon별 이미지 크기·모바일 패딩·배경·alt, 부모 외부 API 유지        |
+
+기존 FormField/Select/TextareaField/CharacterCount·Radio·Checkbox·NumberStepper·DataTable을 재사용한다. 별도 상태 관리, 컨텍스트, Base UI 신규 도입은 없다. 이미지 부분은 molecule 내부 구성요소이며 독립 공용 컴포넌트로 승격하지 않았다. 기존 OrderProductSummary 및 주문/주문서 PC/mobile 스토리가 상위 조합을 다룬다.
+
+검증: 타입 검사, 지정 범위 ESLint, Panda 생성 포함 프로덕션 빌드 통과. 기존 Storybook 브라우저에서 부분취소 신청 완료·직접설정 날짜 입력 표시·배송 추적 표·결제 변경과 안내 동기화·직접 배송 요청 입력 및 10/250 카운터 갱신을 확인했다. 분리 전후 픽셀 비교는 수행하지 않았다.

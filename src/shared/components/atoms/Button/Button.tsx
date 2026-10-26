@@ -164,7 +164,8 @@ export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
   | { variant: 'plain'; size?: 'sm' | 'md' | 'lg' }
   | { variant: 'chip'; size?: never }
-  | { variant: 'filterTrigger' | 'headerSearch'; size?: never }
+  | { variant: 'filterTrigger'; size?: 'compact' | 'regular' }
+  | { variant: 'headerSearch'; size?: never }
   | {
       variant?: Exclude<
         ButtonVariant,
@@ -186,13 +187,18 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     nativeButton?: boolean;
   };
 
+/** 공통 크기·상태와 접근 가능한 동작을 제공하는 버튼입니다. (Provides a button with shared sizing, states, and accessible behavior.) */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'secondary',
     density,
     colorway = 'black',
     language = 'kr',
-    size = variant === 'link' || variant === 'plain' ? 'md' : 'tall',
+    size = variant === 'filterTrigger'
+      ? 'compact'
+      : variant === 'link' || variant === 'plain'
+        ? 'md'
+        : 'tall',
     fullWidth = false,
     loading = false,
     invalid = false,
@@ -221,7 +227,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             ? 'cta1'
             : undefined;
   const resolvedDensity =
-    density ?? (size ? (size === 'tall' || size === 'lg' ? 'wide' : 'compact') : 'auto');
+    density ??
+    (variant === 'filterTrigger'
+      ? 'wide'
+      : size
+        ? size === 'tall' || size === 'lg'
+          ? 'wide'
+          : 'compact'
+        : 'auto');
   const variables: Record<string, string> = {
     '--button-bg': primary
       ? white
@@ -299,10 +312,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     });
   if (variant === 'filterTrigger')
     Object.assign(variables, {
-      '--button-height': '32.2px',
-      '--button-padding-x': '14px',
+      '--button-height': size === 'regular' ? '40px' : '32.2px',
+      '--button-padding-x': size === 'regular' ? '24px' : '14px',
       '--button-radius': '46.8px',
-      '--button-border-width': '0.9px',
+      '--button-border-width': size === 'regular' ? '1px' : '0.9px',
+      ...(size === 'regular' ? { '--button-icon-size': '20px' } : {}),
     });
   if (variant === 'headerSearch')
     Object.assign(variables, {

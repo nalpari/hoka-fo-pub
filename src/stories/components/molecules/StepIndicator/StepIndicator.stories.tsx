@@ -18,6 +18,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
+export const Connected: Story = {
+  args: {
+    variant: 'connected',
+    ariaLabel: '배송 진행 단계',
+    items: [
+      { label: '배송예약' },
+      { label: '상품이동중' },
+      { label: '배송중' },
+      { label: '배송완료' },
+    ],
+  },
+};
+
 export const MobileHidden: Story = {
   parameters: { layout: 'fullscreen' },
   args: { mobileHidden: true },

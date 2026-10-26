@@ -1,54 +1,57 @@
-import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { Stack } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
+import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 import type { ShippingErrors } from './CheckoutShipping';
 
-export function CheckoutRecipientFields({ errors }: { errors?: ShippingErrors }) {
-  return (
-    <>
-      {(
-        [
-          {
-            name: 'name',
-            label: '받는 분',
-            placeholder: '받으실 분의 이름을 입력해주세요',
-            autoComplete: 'name',
-          },
-          {
-            name: 'phone',
-            label: '연락처',
-            placeholder: '받으실 분의 연락처를 입력해주세요 (숫자만 가능)',
-            autoComplete: 'tel',
-          },
-        ] as const
-      ).map((input) => (
-        <Stack key={input.name} gap="1" border="1px solid var(--colors-black-40)" p="3">
-          <Typography as="label" htmlFor={`shipping-${input.name}`} variant="body5">
-            * {input.label}
-          </Typography>
-          <TextInput
-            appearance="compact"
-            id={`shipping-${input.name}`}
-            name={input.name}
-            autoComplete={input.autoComplete}
-            placeholder={input.placeholder}
-            aria-invalid={Boolean(errors?.[input.name])}
-            aria-describedby={errors?.[input.name] ? `shipping-${input.name}-error` : undefined}
-          />
-          {errors?.[input.name] ? (
-            <Typography
-              as="p"
-              id={`shipping-${input.name}-error`}
-              variant="body5"
+const fields = [
+  {
+    name: 'name',
+    label: '받는 분',
+    placeholder: '이름을 입력해주세요',
+    autoComplete: 'name',
+    type: 'text',
+    required: true,
+  },
+  {
+    name: 'email',
+    label: '이메일',
+    placeholder: '이메일을 입력해주세요',
+    autoComplete: 'email',
+    type: 'email',
+    required: false,
+  },
+  {
+    name: 'phone',
+    label: '휴대폰 번호',
+    placeholder: '휴대폰 번호를 입력해주세요',
+    autoComplete: 'tel',
+    type: 'tel',
+    required: true,
+  },
+  {
+    name: 'otherPhone',
+    label: '다른 전화번호',
+    placeholder: '다른 전화번호를 입력해주세요',
+    autoComplete: 'off',
+    type: 'tel',
+    required: false,
+  },
+] as const;
 
-              className={css({ color: 'red.100' })}
-            >
-              {errors[input.name]}
-            </Typography>
-          ) : null}
-        </Stack>
-      ))}
-    </>
-  );
+/** 주문 배송 연락처를 공통 필드로 표시합니다. (Displays shipping contact inputs using shared form fields.) */
+export function CheckoutRecipientFields({ errors }: { errors?: ShippingErrors }) {
+  return fields.map((field) => (
+    <TextFormField
+      key={field.name}
+      id={`shipping-${field.name}`}
+      label={field.label}
+      variant="boxed"
+      required={field.required}
+      error={field.name === 'name' || field.name === 'phone' ? errors?.[field.name] : undefined}
+      inputProps={{
+        name: field.name,
+        placeholder: field.placeholder,
+        autoComplete: field.autoComplete,
+        type: field.type,
+      }}
+    />
+  ));
 }

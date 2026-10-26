@@ -8,7 +8,7 @@ export function getCartImage(item: CartItem, fallback: string) {
 }
 
 export const recommendationImages = [
-  '/images/cart/recommend-1.png',
   '/images/cart/recommend-2.png',
   '/images/cart/recommend-3.png',
+  '/images/cart/recommend-1.png',
 ] as const;

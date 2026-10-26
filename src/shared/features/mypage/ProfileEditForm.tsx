@@ -3,29 +3,45 @@ import { Divider } from '@/shared/components/atoms/Divider/Divider';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
 import { FormActionGroup } from '@/shared/components/molecules/FormActionGroup/FormActionGroup';
-import { EmailField } from '@/shared/components/molecules/FormFields/EmailField';
-import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
-import { PhoneNumberField } from '@/shared/components/molecules/FormFields/PhoneNumberField';
+import { AddressFields } from '@/shared/components/organisms/Address/AddressFields';
+import { EmailAddressFields } from '@/shared/components/organisms/EmailAddressFields/EmailAddressFields';
+import { ProfilePhoneVerification } from './ProfilePhoneVerification';
 import { PreferenceField } from '@/shared/components/molecules/FormFields/PreferenceField';
 import { Stack } from 'styled-system/jsx';
 import type { ProfileEditProps } from './mypage-profile.types';
 
+const domainOptions = [
+  { value: 'direct', label: '직접입력' },
+  { value: 'naver.com', label: 'naver.com' },
+  { value: 'gmail.com', label: 'gmail.com' },
+  { value: 'daum.net', label: 'daum.net' },
+];
+
+/** 회원정보 편집과 독립된 비밀번호 설정 진입을 제공합니다. (Provides profile editing and entry to independent password settings.) */
 export function ProfileEditForm({
-  email,
+  emailLocal,
+  emailDomain,
+  domainChoice,
+  address,
+  addressOpen,
   phone,
-  password,
+  phoneVerified,
+  passwordChanged,
   emailPreference,
   couponBookPreference,
   messagePreference,
-  maritalStatus,
   fieldErrors,
-  onEmailChange,
+  onEmailLocalChange,
+  onEmailDomainChange,
+  onDomainChoice,
+  onAddressChange,
+  onAddressOpenChange,
   onPhoneChange,
-  onPasswordChange,
+  onPhoneVerifiedChange,
+  onPasswordSettings,
   onEmailPreferenceChange,
   onCouponBookPreferenceChange,
   onMessagePreferenceChange,
-  onMaritalStatusChange,
   onSubmit,
   onCancel,
   onWithdraw,
@@ -33,41 +49,44 @@ export function ProfileEditForm({
   return (
     <form noValidate onSubmit={onSubmit}>
       <Stack gap="3">
-        <PasswordField
-          id="profile-password"
-          label="새 비밀번호"
-          variant="boxed"
-          inputProps={{
-            type: 'password',
-            placeholder: '변경할 비밀번호를 입력해 주세요',
-            value: password,
-            onChange: (event) => onPasswordChange(event.target.value),
-          }}
-        />
-        <EmailField
-          id="profile-email"
-          label="이메일"
-          required
-          variant="boxed"
-          error={fieldErrors.email}
-          inputProps={{
-            type: 'email',
-            value: email,
-            onChange: (event) => onEmailChange(event.target.value),
-          }}
-        />
-        <PhoneNumberField
-          id="profile-phone"
-          label="휴대폰 번호"
-          required
-          variant="boxed"
+        <Stack gap="2">
+          <Button type="button" fullWidth variant="primary" onClick={onPasswordSettings}>
+            비밀번호 설정
+          </Button>
+          {passwordChanged ? (
+            <Typography variant="body4" role="status">
+              비밀번호 변경을 완료하였습니다.
+            </Typography>
+          ) : null}
+        </Stack>
+        <ProfilePhoneVerification
+          phone={phone}
+          verified={phoneVerified}
           error={fieldErrors.phone}
-          inputProps={{
-            type: 'tel',
-            placeholder: undefined,
-            value: phone,
-            onChange: (event) => onPhoneChange(event.target.value),
-          }}
+          onPhoneChange={onPhoneChange}
+          onVerifiedChange={onPhoneVerifiedChange}
+        />
+        <AddressFields
+          variant="boxed"
+          idPrefix="profile"
+          searchLabel="우편번호 찾기"
+          value={address}
+          errors={fieldErrors}
+          fieldOptions={{ addressDetail: { required: true } }}
+          onValueChange={onAddressChange}
+          searchOpen={addressOpen}
+          onSearchOpenChange={onAddressOpenChange}
+        />
+        <EmailAddressFields
+          idPrefix="profile"
+          local={emailLocal}
+          domain={emailDomain}
+          domainChoice={domainChoice}
+          options={domainOptions}
+          errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
+          onLocalChange={onEmailLocalChange}
+          onDomainChange={onEmailDomainChange}
+          onDomainChoice={onDomainChoice}
         />
         <Stack gap="4">
           <Divider />
@@ -109,26 +128,6 @@ export function ProfileEditForm({
                 { value: '수신', label: '수신' },
                 { value: '수신안함', label: '수신안함' },
               ]}
-            />
-          </ContentSection>
-        </Stack>
-        <Stack gap="6">
-          <Divider />
-          <ContentSection
-            gap="6"
-            title="부가정보"
-            headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading7' } }}
-          >
-            <PreferenceField
-              ariaLabel="결혼유무"
-              name="marital-status"
-              value={maritalStatus}
-              onValueChange={onMaritalStatusChange}
-              options={[
-                { value: '기혼', label: '기혼' },
-                { value: '미혼', label: '미혼' },
-              ]}
-              label="결혼유무"
             />
           </ContentSection>
         </Stack>

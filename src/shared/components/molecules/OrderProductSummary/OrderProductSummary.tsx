@@ -1,6 +1,5 @@
+import { OrderProductSummaryImage } from './OrderProductSummaryImage';
 import { HStack } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
-import { square } from 'styled-system/patterns';
 import {
   OrderProductSummaryContent,
   type OrderProductSummaryContentProps,
@@ -19,6 +18,7 @@ export function OrderProductSummary({
   gender,
   variant = 'checkout',
   children,
+  hideAmount,
 }: OrderProductSummaryProps) {
   return (
     <HStack
@@ -27,34 +27,14 @@ export function OrderProductSummary({
       py={variant === 'checkout' ? '6' : '0'}
       borderBottom={variant === 'checkout' ? '1px solid var(--colors-black-20)' : '0'}
     >
-      <img
-        src={image}
-        alt={name}
-        className={
-          variant === 'cart'
-            ? css({
-                w: '24',
-                h: '24',
-                flexShrink: '0',
-                display: 'block',
-                objectFit: 'contain',
-                bg: 'black.10',
-                _mobile: { w: '128px', h: '100px', px: '14px' },
-              })
-            : square({
-                size: { base: variant === 'coupon' ? '88px' : '24', _mobile: '20' },
-                display: 'block',
-                objectFit: 'contain',
-                bg: 'black.10',
-              })
-        }
-      />
+      <OrderProductSummaryImage image={image} name={name} variant={variant} />
       <OrderProductSummaryContent
         name={name}
         optionText={optionText}
         amount={amount}
         gender={gender}
         variant={variant}
+        hideAmount={hideAmount}
       >
         {children}
       </OrderProductSummaryContent>

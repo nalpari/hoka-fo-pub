@@ -179,7 +179,7 @@ const item = cva({
   variants: {
     variant: {
       plain: {
-        _mobile: { h: '100%', p: '0', borderRadius: '0', bg: 'transparent' },
+        _mobile: { h: '100%', p: '0', px: '0', borderRadius: '0', bg: 'transparent' },
       },
       fill: {
         h: '37px',
@@ -297,6 +297,7 @@ export type FilterTabOption<T extends string = string> = {
 export type FilterTabsProps<T extends string = string> = {
   ariaLabel: string;
   className?: string;
+  railClassName?: string;
   itemClassName?: (option: FilterTabOption<T>, isSelected: boolean) => string | undefined;
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
@@ -316,6 +317,7 @@ const typographyByVariant = {
 export function FilterTabs<T extends string = string>({
   ariaLabel,
   className,
+  railClassName,
   itemClassName,
   onValueChange,
   options,
@@ -354,7 +356,7 @@ export function FilterTabs<T extends string = string>({
     <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
       <ToggleGroup
         aria-label={ariaLabel}
-        className={rail({ platform, variant })}
+        className={[rail({ platform, variant }), railClassName].filter(Boolean).join(' ')}
         onValueChange={(nextValue) => {
           const next = nextValue[0];
           if (next !== undefined) onValueChange(next as T);

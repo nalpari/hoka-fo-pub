@@ -9,10 +9,37 @@ import { ContentSection } from '@/shared/components/layouts/ContentSection/Conte
 
 export type OrderStatusItem = { label: string; count: number; to?: string };
 
-type Props = { items: OrderStatusItem[]; to?: string };
+type Props = { items: OrderStatusItem[]; to?: string; compact?: boolean };
 
-/** Five-stage order snapshot that remains horizontally scannable on small screens. */
-export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
+/** 주문 단계별 수량을 기본형 또는 압축형으로 표시합니다. (Displays an order stage snapshot in standard or compact form.) */
+export function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: Props) {
+  const content = (
+    <Grid
+      gap="0"
+      style={
+        compact ? { gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` } : undefined
+      }
+      gridTemplateColumns="repeat(5, 1fr)"
+      bg={compact ? 'black.10' : undefined}
+      borderTop={compact ? '0' : '1px solid var(--color-black-100)'}
+      borderBottom={compact ? '0' : '1px solid var(--color-border-subtle)'}
+      _mobile={
+        compact ? {} : { overflowX: 'auto', gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))' }
+      }
+    >
+      {items.map((status) => (
+        <OrderStatusLink
+          key={status.label}
+          label={status.label}
+          count={status.count}
+          href={status.to ?? to}
+          compact={compact}
+        />
+      ))}
+    </Grid>
+  );
+
+  if (compact) return <section aria-label="주문 배송 현황">{content}</section>;
   return (
     <ContentSection
       as="section"
@@ -32,25 +59,7 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
         ),
       }}
     >
-      <Grid
-        gap="normal"
-        gridTemplateColumns="repeat(5, 1fr)"
-        borderTop="1px solid var(--color-black-100)"
-        borderBottom="1px solid var(--color-border-subtle)"
-        _mobile={{
-          overflowX: 'auto',
-          gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))',
-        }}
-      >
-        {items.map((status) => (
-          <OrderStatusLink
-            key={status.label}
-            label={status.label}
-            count={status.count}
-            href={status.to ?? to}
-          />
-        ))}
-      </Grid>
+      {content}
     </ContentSection>
   );
 }

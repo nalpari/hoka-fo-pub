@@ -45,8 +45,6 @@ type ProductListingLayoutProps = {
   platform: Platform;
   productListingTitle: string;
   mobileResultCount: number;
-  mobileSort: string;
-  onMobileSortChange: (sort: string) => void;
   result: Product[];
   searchQuery: string;
   shown: Product[];
@@ -54,6 +52,7 @@ type ProductListingLayoutProps = {
   sortPlaceholder?: string;
 };
 
+/** 목록과 검색 결과에 공통 상품·필터 영역을 배치합니다. (Arranges shared product results and filters for catalog and search pages.) */
 export function ProductListingLayout({
   breadcrumbItems,
   activity,
@@ -72,8 +71,6 @@ export function ProductListingLayout({
   platform,
   productListingTitle,
   mobileResultCount,
-  mobileSort,
-  onMobileSortChange,
   result,
   searchQuery,
   shown,
@@ -87,8 +84,6 @@ export function ProductListingLayout({
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
       mobileResultCount={mobileResultCount}
-      mobileSort={mobileSort}
-      onMobileSortChange={onMobileSortChange}
       onFilterDrawerOpenChange={onFilterDrawerOpenChange}
       onLoadMore={onLoadMore}
       onMobileFilterApply={onMobileFilterApply}
@@ -109,12 +104,7 @@ export function ProductListingLayout({
         onSearch={onSearch}
         onClose={onCloseSearch}
         hasActiveFilters={hasActiveFilters}
-        filterAction={
-          <MobileProductFilterTrigger
-            onClick={() => onFilterDrawerOpenChange(true)}
-            label="Filter & Sort"
-          />
-        }
+        filterAction={<MobileProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />}
       >
         {content}
       </SearchListingLayout>
