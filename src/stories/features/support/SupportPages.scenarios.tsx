@@ -8,6 +8,7 @@ import { NoticesPage } from '@/shared/features/notices/NoticesPage';
 import { NoticeDetailPage } from '@/shared/features/notices/NoticeDetailPage';
 import { InquiryPage } from '@/shared/features/support/InquiryPage';
 import { InquiryNewPage } from '@/shared/features/support/InquiryNewPage';
+import { InquiryOrderLookupPage } from '@/shared/features/support/InquiryOrderLookupPage';
 import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
 import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
 import { CareGuidePage } from '@/shared/features/care-guide/CareGuidePage';
@@ -403,6 +404,116 @@ export const InquiryNewDesktop: Story = {
     </ShopShell>
   ),
   globals: { viewport: 'hoka1600' },
+};
+
+const verifyInquiryOrderLookup: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole('button', { name: '문의 유형' }));
+  await userEvent.click(
+    within(canvasElement.ownerDocument.body).getByRole('option', { name: '주문/결제' }),
+  );
+  await expect(canvas.getByRole('button', { name: '주문 상품 조회' })).toBeVisible();
+};
+
+const verifyInquiryOrderSelection: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole('radio', { name: 'HK2026091635153701' }));
+  const firstProduct = canvas.getByRole('checkbox', { name: 'HRKRGF747G 클리프톤 6 선택' });
+  await expect(firstProduct).toBeChecked();
+  await userEvent.click(firstProduct);
+  await expect(firstProduct).not.toBeChecked();
+  await expect(canvas.getByRole('button', { name: '문의 등록' })).toBeVisible();
+};
+
+const verifyInquiryOrderRequired: NonNullable<Story['play']> = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole('button', { name: '문의 유형' }));
+  await userEvent.click(
+    within(canvasElement.ownerDocument.body).getByRole('option', { name: '주문/결제' }),
+  );
+  await userEvent.click(canvas.getByRole('button', { name: '문의 등록' }));
+  const dialog = within(canvasElement.ownerDocument.body);
+  await expect(dialog.getByText('주문번호를 선택해주세요.')).toBeVisible();
+};
+
+export const InquiryOrderLookupMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Order lookup / Mobile',
+  play: verifyInquiryOrderLookup,
+};
+
+export const InquiryOrderLookupDesktop: Story = {
+  ...InquiryNewDesktop,
+  name: 'Inquiry Form / Order lookup / Desktop',
+  play: verifyInquiryOrderLookup,
+};
+
+export const InquiryOrderSelectedMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Order selected / Mobile',
+  play: verifyInquiryOrderSelection,
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryOrderLookupPage />
+    </ShopShell>
+  ),
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/inquiries/new/order-products' } },
+  },
+};
+
+export const InquiryOrderSelectedDesktop: Story = {
+  ...InquiryNewDesktop,
+  name: 'Inquiry Form / Order selected / Desktop',
+  play: verifyInquiryOrderSelection,
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryOrderLookupPage />
+    </ShopShell>
+  ),
+  parameters: {
+    nextjs: { navigation: { pathname: '/support/inquiries/new/order-products' } },
+  },
+};
+
+export const InquiryOrderLookupPageMobile375: Story = {
+  name: 'Order product lookup page / Mobile / 375px',
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryOrderLookupPage />
+    </ShopShell>
+  ),
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: { navigation: { pathname: '/support/inquiries/new/order-products' } },
+  },
+  globals: { viewport: 'hoka375' },
+};
+
+export const InquiryOrderLookupPageDesktop: Story = {
+  name: 'Order product lookup page / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryOrderLookupPage />
+    </ShopShell>
+  ),
+  parameters: {
+    nextjs: { navigation: { pathname: '/support/inquiries/new/order-products' } },
+  },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryOrderRequiredMobile375: Story = {
+  ...InquiryNewMobile375,
+  name: 'Inquiry Form / Order required / Mobile',
+  play: verifyInquiryOrderRequired,
+};
+
+export const InquiryOrderRequiredDesktop: Story = {
+  ...InquiryNewDesktop,
+  name: 'Inquiry Form / Order required / Desktop',
+  play: verifyInquiryOrderRequired,
 };
 
 export const InquiryPendingDesktop: Story = {

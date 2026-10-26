@@ -29,6 +29,26 @@ export const AttachmentPreview: Story = {
 
 export const New: Story = { ...scenarios.InquiryNewDesktop, name: '문의 작성' };
 
+export const NewOrderLookup: Story = {
+  ...scenarios.InquiryOrderLookupDesktop,
+  name: '문의 작성 / 주문상품 조회',
+};
+
+export const NewOrderSelected: Story = {
+  ...scenarios.InquiryOrderSelectedDesktop,
+  name: '주문 상품 조회 / 선택 상태',
+};
+
+export const OrderProductLookup: Story = {
+  ...scenarios.InquiryOrderLookupPageDesktop,
+  name: '주문 상품 조회 페이지',
+};
+
+export const NewOrderRequired: Story = {
+  ...scenarios.InquiryOrderRequiredDesktop,
+  name: '문의 작성 / 주문번호 필수 안내',
+};
+
 export const NewRequiredErrors: Story = {
   ...scenarios.InquiryNewRequiredErrorsDesktop,
   name: '문의 작성 / 필수 항목 오류',

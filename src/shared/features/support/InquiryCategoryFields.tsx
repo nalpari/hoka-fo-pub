@@ -29,6 +29,7 @@ export function InquiryCategoryFields({
           onValueChange={onCategoryChange}
           error={invalid && !category ? '문의 분류를 선택해주세요.' : undefined}
           options={[
+            { value: '주문/결제', label: '주문/결제' },
             { value: '반품', label: '반품' },
             { value: '주문/배송', label: '주문/배송' },
             { value: '상품', label: '상품' },

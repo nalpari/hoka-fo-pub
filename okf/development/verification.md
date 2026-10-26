@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T01:25:15Z'
+  at: '2026-10-26T02:45:47Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/product-detail-presentation.test.mjs
@@ -47,6 +47,10 @@ working_tree_sources:
   - scripts/okf.ps1
   - tests/app-router.test.mjs
   - src/stories/features/support/SupportPages.stories.tsx
+  - src/app/support/inquiries/new/order-products/page.tsx
+  - src/shared/features/support/InquiryOrderLookupPage.tsx
+  - src/shared/features/support/InquiryNewPage.tsx
+  - src/shared/features/support/inquiryOrderSelection.storage.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
@@ -61,6 +65,10 @@ sources:
 ---
 
 # 변경 검증
+
+## 문의 주문상품 페이지 라우트 회귀 (2026-10-26)
+
+주문상품 조회를 문의 폼 내부 모달에서 별도 App Router 페이지로 전환하면서 `tests/app-router.test.mjs`의 기대 경로에 `/support/inquiries/new/order-products`를 추가했다. manifest 경로 검사는 페이지 URL의 존재를 확인하며 주문 fixture 조회나 선택 상태 보존 동작을 검증하지 않는다. 선택 상호작용은 지원 페이지 Storybook의 Mobile·Web 사례에서 확인한다.
 
 ## 고객센터 라우트 범위 갱신 (2026-10-20)
 

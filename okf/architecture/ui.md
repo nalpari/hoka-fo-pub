@@ -6,8 +6,8 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T00:00:00Z'
-source_revision: deef0e46733e6e65dd2635d2d1256de627929064
+  at: '2026-10-26T06:44:54Z'
+source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/cart/CartOrderActions.tsx
   - src/shared/features/cart/CartSupportContact.tsx
@@ -892,6 +892,12 @@ working_tree_sources:
   - src/stories/features/signup-registration/RegistrationPage.scenarios.tsx
   - src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.scenarios.tsx
+  - src/shared/features/support/InquiryOrderProducts.tsx
+  - src/shared/features/support/inquiryOrders.data.ts
+  - src/shared/features/support/InquiryOrderLookupPage.tsx
+  - src/shared/features/support/inquiryOrderSelection.storage.ts
+  - src/app/support/inquiries/new/order-products/page.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -2867,3 +2873,9 @@ Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 �
 계정 잠금 안내 Storybook은 기본 Web·Mobile 화면만 노출한다. 확인·닫기·Escape별 탐색 확인 스토리는 제거했으며 페이지 동작 구현은 변경하지 않았다.
 
 `IdentityVerificationPage`의 Mobile Storybook 데코레이터는 `platform-mobile` CSS 클래스와 함께 `PlatformProvider platform="mobile"`도 설정한다. 이를 통해 `Typography`가 `mo` variant를 선택해 가입여부확인 제목의 모바일 heading 크기(22px)를 보여준다. Web 스토리 동작은 유지한다.
+
+## 1:1 문의 주문상품 조회 및 선택 (2026-10-26)
+
+주문/결제·주문/배송·반품 분류를 선택하면 문의 폼의 두 분류 드롭다운 바로 아래에 주문상품 선택 버튼을 표시한다. Figma 화면에는 `상품정보*` 라벨이 없으므로 추가하지 않는다. 버튼은 PC 180px 폭·오른쪽 정렬, 모바일 전체 폭이며 안내 문구는 PC 오른쪽·모바일 왼쪽 정렬이다. 버튼은 `/support/inquiries/new/order-products` 전용 페이지로 이동한다. 페이지는 `CustomerCenterLayout` 안에서 기간 탭, 주문 목록, 주문별 상품 체크박스, 취소·문의 등록 액션을 표시한다. 조회 기간은 공통 `FilterTabs`의 `fill` variant를 사용하며 미선택은 회색 pill, 선택은 검정 pill로 표시한다. 모바일 버튼 좌우 패딩은 8px로 조정해 다섯 탭을 읽기 쉽게 유지하고, rail inset은 소비처에서 상쇄해 본문 텍스트와 탭 시작·끝을 정렬한다. 조회 결과는 선택 주문과 상품만 문의 작성 화면으로 돌려보내며 브라우저 `sessionStorage`를 통해 이동 중 초안을 전달한다. 일반 레이아웃은 Panda JSX 컴포넌트 props로 표현한다. 스타일 시스템 props를 받을 수 없는 네이티브 요소와 선택자·반응형 조합은 필요한 경우에만 이름 있는 Panda 스타일 상수로 선언한다. `FilterTabs`, `Radio`, `Checkbox`, `Button`을 기능 내부에서 조합하며 공통 컴포넌트 API는 바꾸지 않는다. 조회 기간은 1년(기본)·6개월·3개월·1개월·직접 설정이고 목업 주문 13건을 기간에 따라 필터링한다. 한 주문번호 선택 시 해당 주문 상품을 모두 선택하고 개별 체크 해제/재선택을 허용한다. 선택 완료 후 폼에 주문일·주문번호·상품코드를 표시하며 변경/초기화가 가능하다. 필수 주문 선택이 누락된 상태로 등록하면 기존 `SingleActionDialog`에서 안내한다.
+
+조회 데이터는 `inquiryOrders.data.ts`의 화면 확인용 fixture이며 서버 조회·문의 저장·선택 날짜 API는 연결되어 있지 않다. 기간과 직접 설정 범위는 fixture를 필터링한다. Storybook Web/Mobile에 문의 폼 진입 버튼과 주문상품 조회 독립 페이지 사례를 추가했다. 신규 공통 컴포넌트는 만들지 않았다. 출처는 사용자 제공 Figma `1241:92947`, `93018`, `93295`, `93422`, `93577`, `93733`, `93104`, `93188`, `92216`, `92523`, 첨부 기획 캡처와 작업 트리의 `InquiryNewPage`, `InquiryCategoryFields`, `InquiryOrderProducts`, `InquiryOrderLookupPage`, 선택 전달 helper, 주문 fixture 및 문의 Storybook 시나리오다.

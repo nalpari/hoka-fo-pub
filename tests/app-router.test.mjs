@@ -55,6 +55,7 @@ const expectedRoutes = [
   '/support/faq',
   '/support/inquiries',
   '/support/inquiries/new',
+  '/support/inquiries/new/order-products',
   '/support/member-benefits',
   '/support/mileage',
   '/support/notices',

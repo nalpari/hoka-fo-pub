@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-20T06:25:43.4912329Z'
+  at: '2026-10-26T02:45:47Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - okf/architecture/storefront-design.md
@@ -41,6 +41,11 @@ working_tree_sources:
   - src/app/support/after-sales/page.tsx
   - src/app/support/care/page.tsx
   - src/app/support/size-guide/page.tsx
+  - src/app/support/inquiries/new/order-products/page.tsx
+  - src/shared/features/support/InquiryOrderLookupPage.tsx
+  - src/shared/features/support/InquiryNewPage.tsx
+  - src/shared/features/support/inquiryOrderSelection.storage.ts
+  - tests/app-router.test.mjs
   - src/shared/features/size-guide/SizeGuidePage.tsx
   - src/shared/features/support/support.navigation.ts
   - src/data/screenRegistry.ts
@@ -71,6 +76,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 1:1 문의 주문상품 조회 경로 (2026-10-26)
+
+`/support/inquiries/new/order-products`는 문의 작성 중 별도 페이지로 이동해 주문 기간을 조회하고 주문 및 상품을 선택하는 경로다. 페이지 진입점은 `src/app/support/inquiries/new/order-products/page.tsx`이며 `InquiryOrderLookupPage`가 `CustomerCenterLayout`과 반응형 본문을 구성한다. 선택 중인 주문은 같은 탭의 `sessionStorage` 초안으로 전달하고, 취소 또는 선택 완료 후 문의 작성 경로로 돌아간다. App Router 경로 목록 테스트에 신규 URL을 포함한다. 주문 조회는 현재 화면 확인용 fixture다.
+
+출처는 작업 트리의 `src/app/support/inquiries/new/order-products/page.tsx`, `src/shared/features/support/InquiryOrderLookupPage.tsx`, `InquiryNewPage.tsx`, `inquiryOrderSelection.storage.ts`, `tests/app-router.test.mjs`와 Figma `1241:93422`, `1241:93577`이다.
 
 ## 팀/단체복 제외와 사이즈 가이드 준비 (2026-10-20)
 

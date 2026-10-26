@@ -29,6 +29,26 @@ export const AttachmentPreview: Story = {
 
 export const New: Story = { ...scenarios.InquiryNewMobile375, name: '문의 작성' };
 
+export const NewOrderLookup: Story = {
+  ...scenarios.InquiryOrderLookupMobile375,
+  name: '문의 작성 / 주문상품 조회',
+};
+
+export const NewOrderSelected: Story = {
+  ...scenarios.InquiryOrderSelectedMobile375,
+  name: '주문 상품 조회 / 선택 상태',
+};
+
+export const OrderProductLookup: Story = {
+  ...scenarios.InquiryOrderLookupPageMobile375,
+  name: '주문 상품 조회 페이지',
+};
+
+export const NewOrderRequired: Story = {
+  ...scenarios.InquiryOrderRequiredMobile375,
+  name: '문의 작성 / 주문번호 필수 안내',
+};
+
 export const NewRequiredErrors: Story = {
   ...scenarios.InquiryNewRequiredErrorsMobile375,
   name: '문의 작성 / 필수 항목 오류',
