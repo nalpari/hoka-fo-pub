@@ -9,6 +9,7 @@ import { HomeCarouselSection } from '@/shared/components/molecules/HomeCarouselS
 import { ProductCard } from '@/shared/components/molecules/ProductCard/ProductCard';
 import { bestSellerTabs } from './homeContent';
 import { createHomeCarouselPreviewItems } from './homeCarouselPreview';
+import { Box } from 'styled-system/jsx';
 
 const thumbnailRatio = css.raw({
   '& .image': { h: 'auto!', aspectRatio: '3 / 4!' },
@@ -62,13 +63,15 @@ export function HomeBestSellerSection() {
   return (
     <HomeCarouselSection
       beforeViewport={
-        <FilterTabs
-          ariaLabel="베스트셀러 카테고리 필터"
-          onValueChange={setSelectedTab}
-          options={bestSellerFilterTabs}
-          value={selectedTab}
-          variant="fill"
-        />
+        <Box  pl="0" pb="10" _mobile={{ pl: '4', pb: '4' }}>
+          <FilterTabs
+            ariaLabel="베스트셀러 카테고리 필터"
+            onValueChange={setSelectedTab}
+            options={bestSellerFilterTabs}
+            value={selectedTab}
+            variant="fill"
+          />
+        </Box>
       }
       desktopCenteredItemCount={5}
       desktopItemGutter={8}

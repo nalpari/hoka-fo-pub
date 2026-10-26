@@ -962,7 +962,7 @@ useScrollPin은 두 프레임이 공유하는 위치 임계점 판정이다. 1px
 
 최상단 복귀 후 활동 탭이 사라지는 사용자 보고를 768px Storybook에서 확인했다. scrollY=0·마커 top=220.1875px인데 탐색이 fixed·top=52px로 남아 있었다. 위 보정 후 두 차례 하향/상향 스크롤에서 fixed(top=52px)→최상단 relative(top=220.1875px) 복귀와 고정 필터 아이콘 제거를 확인했다. 변경 훅 ESLint·Prettier·타입 검사를 통과했다. 이 후속 보정의 검증에는 전체 빌드를 포함하지 않는다. 출처는 사용자 브라우저 주석과 작업 트리 src/shared/lib/useScrollPin.ts다.
 
-사용자 제공 글자 규격에 따라 모바일 FilterTabs.categoryNavigation은 기존 Typography.bodyKr4를 사용한다. 미선택 글자는 Pretendard·14px·400·1.3 줄높이(18.2px)·-0.02em(-0.28px)·subtle(#4D4D4D)이다. 선택 항목은 검정·600을 유지하며 기존 흰색 selected 라벨 recipe를 사용하지 않아 전체보기의 글자가 사라지는 문제를 해결한다. 다른 variant의 선택 색상은 유지하고 CategoryNavigationMobile 스토리를 추가했다.
+사용자 제공 글자 규격에 따라 FilterTabs.plain은 PC에서 CTA2, 모바일에서 Typography.bodyKr4를 적용한다. 미선택 모바일 글자는 Pretendard·14px·400·1.3 줄높이(18.2px)·-0.02em(-0.28px)·subtle(#4D4D4D), 선택 항목은 검정·600이다. Typography scale은 variant별 설정으로 선택하고, 텍스트 색상·굵기는 label cva recipe가 variant와 선택 상태에 따라 처리한다. Storybook의 PlainMobile 사례에서 선택 상태를 확인했다.
 
 Codex가 기존 375px·768px 상품 목록 스토리에서 GNB top:0·활동 탐색 top:52px의 fixed 배치, 제목의 화면 밖 스크롤, 가로 넘침 없음, 375px 필터 열기/닫기와 768px 전체 메뉴 열기/닫기를 확인했다. 초기에는 홍보 배너 50px 아래 GNB와 제목·탭이 일반 흐름으로 배치된다. 최종 소스에서 고정 전 제목 옆 필터·탭 행 아이콘 0개, 고정 후 36px 행·아이콘 1개, 상단 복귀 후 relative·아이콘 0개 전환을 확인했다. 브라우저에서 미선택 글자의 위 폰트·색상·줄높이·자간과 선택 전체보기 검정·600을 실측하고 새 스토리에서 선택 항목을 바꿀 때 검정/600과 회색/400이 전환됨을 확인했다. Panda 생성·타입 검사·변경 파일 ESLint/Prettier·Next.js 프로덕션 빌드·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 주석·첨부 글자 규격, working_tree_sources의 상품 목록·SiteHeader·FilterTabs 코드다.
 
@@ -1255,7 +1255,7 @@ FaqList의 질문 제목·답변 본문·검색 결과 없음 표시를 같은 o
 
 ## FAQ 탭·질문 타이포그래피 (2026-10-22)
 
-FilterTabs 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 모든 variant에서 37px이다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다. FAQ 질문 트리거는 PC 최소 높이 74px·상하 패딩 24px, 모바일 최소 높이 58px·상하 패딩 16px이다. FAQ root class는 전용 indicator 크기를 설정한다. 공지 목록은 링크 행으로 상세 페이지에 이동하며 화면별 높이·패딩·구분선은 [공지사항 페이지 이동](#공지사항-페이지-이동-2026-10-22)을 따른다.
+FilterTabs의 `default`, `plain`, `fill`, `outline` 라벨은 웹·모바일 모두 CTA2이며 탭 높이는 기존처럼 37px이다. 디자인 시스템 `line`만 웹 42px·모바일 32px과 BodyKr3 16px을 사용하며 밑줄 규격은 [공통 line 디자인 시스템](#공통-filtertabs-line-디자인-시스템-규격-2026-10-26)을 따른다. 기존 variant별 배경·선택색·테두리·패딩 동작은 유지한다. FAQ 카테고리 탭은 fill variant를 사용한다. FAQ 아코디언 질문은 body3 medium, 답변은 body4로 표시한다. 질문 트리거의 텍스트·Q 라벨 간격은 16px이며 검색·카테고리·목록 간격은 각 FAQ 컴포넌트에 둔다. FAQ 질문 트리거는 PC 최소 높이 74px·상하 패딩 24px, 모바일 최소 높이 58px·상하 패딩 16px이다. FAQ root class는 전용 indicator 크기를 설정한다. 공지 목록은 링크 행으로 상세 페이지에 이동하며 화면별 높이·패딩·구분선은 [공지사항 페이지 이동](#공지사항-페이지-이동-2026-10-22)을 따른다.
 
 ## 런클럽 필터 버튼 크기 지정 (2026-10-19)
 
@@ -1635,7 +1635,7 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 ## FAQ (2026-10-16)
 
-FAQ 카테고리 선택은 공통 `FilterTabs`의 `line` 변형을 사용한다. PC는 Figma 노드 `1056:42189`의 24px 탭 간격·CTA1 글자·선택 항목 2px 밑줄을 따르고, 모바일은 가로 스크롤과 CTA2 글자·하단 경계선을 유지한다. `FaqControls`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/FilterTabs/FilterTabs.tsx`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx`와 Figma 노드 `1056:42189`다.
+FAQ 카테고리 선택은 현재 공통 `FilterTabs`의 `fill` variant를 사용한다. `FaqCategoryNav`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/FilterTabs/FilterTabs.tsx`, `src/shared/components/molecules/Faq/FaqCategoryNav.tsx`와 Figma 노드 `1056:42189`다.
 
 `SearchField` 안의 `TextInput`은 포커스 시 별도 outline을 표시하지 않고 검색창의 기존 테두리만 유지한다. 출처는 작업 트리의 `src/shared/components/molecules/SearchField/SearchField.tsx`다.
 
@@ -2873,6 +2873,10 @@ Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 �
 계정 잠금 안내 Storybook은 기본 Web·Mobile 화면만 노출한다. 확인·닫기·Escape별 탐색 확인 스토리는 제거했으며 페이지 동작 구현은 변경하지 않았다.
 
 `IdentityVerificationPage`의 Mobile Storybook 데코레이터는 `platform-mobile` CSS 클래스와 함께 `PlatformProvider platform="mobile"`도 설정한다. 이를 통해 `Typography`가 `mo` variant를 선택해 가입여부확인 제목의 모바일 heading 크기(22px)를 보여준다. Web 스토리 동작은 유지한다.
+
+## 공통 FilterTabs line 디자인 시스템 규격 (2026-10-26)
+
+Figma 디자인 시스템 `360:42125`(Mobile)·`1261:3529`(Web)의 line 탭을 공통 `FilterTabs` variant로 구현한다. 각 탭은 동일 너비로 나뉘며 기본 하단선은 black.40(#B3B3B3) 1px, 선택선은 black.100 2px이다. 웹 탭 높이는 42px, 모바일은 32px이며 한글 BodyKr3(16px, medium)를 사용한다. 선택된 line 라벨은 검정(primary) 글자색을 사용하며 variant·선택 상태 스타일은 하나의 Panda style object로 합성해 색상 우선순위 충돌을 방지한다. 2개·3개 탭 스토리로 폭 균등 분배와 반응형 높이를 확인한다. 출처는 Figma 디자인 시스템 노드와 `FilterTabs.tsx`, 해당 Storybook 스토리다.
 
 ## 1:1 문의 주문상품 조회 및 선택 (2026-10-26)
 

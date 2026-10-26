@@ -20,50 +20,35 @@ const viewport = css({
   },
 });
 
-const lineViewport = css({
-  _mobile: {
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderBottomColor: 'black.20',
-  },
-});
-
 const rail = cva({
   base: { display: 'flex' },
   variants: {
     platform: {
-      web: { gap: '4', mb: '8' },
+      web: { gap: '2' },
       mobile: {
-        w: 'max-content',
         gap: '6px',
-        mb: '4',
-        px: 'var(--layout-mobile-inline-gutter)',
       },
     },
     variant: {
-      categoryNavigation: {
+      plain: {
         _mobile: {
+          w: 'max-content',
           h: '37px',
-          mb: '4',
-          px: '0',
         },
       },
-      fill: {
-        gap: '2',
-        _mobile: {
-          gap: '6px',
-        },
-      },
+      fill: { gap: '6px', _mobile: { w: 'max-content' } },
       outline: {
         gap: '3',
         mb: '0',
-        _mobile: { gap: '2', mb: '0', px: '0' },
+        _mobile: { w: 'max-content', gap: '2', mb: '0', px: '0' },
       },
       line: {
-        gap: '6',
+        w: '100%',
+        gap: '0',
         mb: '0',
         _mobile: {
-          gap: '5',
+          w: '100%',
+          gap: '0',
           mb: '0',
           px: '0',
         },
@@ -82,10 +67,15 @@ const label = cva({
   },
   variants: {
     variant: {
-      fill: { '&&': { color: 'var(--color-text-subtle)' } },
       default: {},
-      categoryNavigation: {},
-      line: {},
+      plain: { '&&': { _mobile: { color: 'var(--color-text-subtle)' } } },
+      fill: { '&&': { color: 'var(--color-text-subtle)' } },
+      line: {
+        '&&': {
+          color: 'var(--color-text-primary)',
+          fontWeight: 'var(--font-weights-medium)',
+        },
+      },
       outline: {
         '&&': { color: 'inherit', _mobile: { color: 'inherit' } },
       },
@@ -96,7 +86,7 @@ const label = cva({
           fontWeight: 'var(--font-weights-bold)',
           _mobile: {
             fontWeight: 'var(--font-weights-semibold)',
-            color: 'var(--color-text-inverse)',
+            // color: 'var(--color-text-inverse)',
           },
         },
       },
@@ -104,6 +94,28 @@ const label = cva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'plain',
+      selected: true,
+      css: {
+        '&&': {
+          _mobile: {
+            color: 'var(--color-text-primary)',
+            fontWeight: 'var(--font-weights-semibold)',
+          },
+        },
+      },
+    },
+    {
+      variant: 'line',
+      selected: true,
+      css: {
+        '&&': {
+          color: 'var(--color-text-primary)',
+          fontWeight: 'var(--font-weights-medium)',
+        },
+      },
+    },
     {
       variant: 'outline',
       selected: true,
@@ -125,6 +137,9 @@ const label = cva({
     },
   ],
 });
+
+const getLabelClassName = (variant: FilterTabsProps['variant'], selected: boolean) =>
+  css(label.raw({ variant, selected }));
 
 const item = cva({
   base: {
@@ -163,14 +178,8 @@ const item = cva({
   },
   variants: {
     variant: {
-      categoryNavigation: {
-        _mobile: {
-          h: '100%',
-          p: '0',
-          borderRadius: '0',
-          bg: 'transparent',
-        },
-        '&&': { _mobile: { color: 'var(--color-text-tertiary)' } },
+      plain: {
+        _mobile: { h: '100%', p: '0', borderRadius: '0', bg: 'transparent' },
       },
       fill: {
         h: '37px',
@@ -187,7 +196,6 @@ const item = cva({
           justifyContent: 'center',
           alignItems: 'center',
           h: '37px',
-          px: 'var(--home-body-16, var(--spacing-4))',
           borderRadius: '50px',
           bg: 'var(--color-black-20)',
           whiteSpace: 'nowrap',
@@ -195,17 +203,19 @@ const item = cva({
       },
       line: {
         display: 'flex',
-        flex: '0 0 auto',
+        flex: '1 0 0',
         alignItems: 'center',
         justifyContent: 'center',
-        h: '37px',
-        borderBottomWidth: '2px',
+        minW: '0',
+        h: '40px',
+        borderBottomWidth: '1px',
         borderBottomStyle: 'solid',
-        borderBottomColor: 'transparent',
+        borderBottomColor: 'black.40',
         whiteSpace: 'nowrap',
         _hover: { textDecoration: 'none' },
         _mobile: {
           p: '0',
+          h: '32px',
           borderRadius: '0',
           bg: 'transparent',
         },
@@ -226,25 +236,17 @@ const item = cva({
         _hover: { textDecoration: 'none' },
         _mobile: { bg: 'white.0', px: '3' },
       },
-      default: {},
+      default: { _mobile: { w: 'max-content' } },
     },
     selected: {
       true: {
         _mobile: {
           bg: 'var(--color-black-100)',
-          '&[data-filter-tabs-variant="categoryNavigation"]': {
+          '&[data-filter-tabs-variant="plain"]': {
             bg: 'transparent',
           },
           '&[data-filter-tabs-variant="line"]': {
             bg: 'transparent',
-          },
-        },
-        '&&': {
-          _mobile: {
-            '&[data-filter-tabs-variant="categoryNavigation"]': {
-              color: 'var(--color-text-primary)',
-            },
-            color: 'var(--color-text-inverse)',
           },
         },
       },
@@ -265,7 +267,7 @@ const item = cva({
     {
       variant: 'line',
       selected: true,
-      css: { borderBottomColor: 'black.100' },
+      css: { borderBottomWidth: '2px', borderBottomColor: 'black.100' },
     },
     {
       variant: 'fill',
@@ -299,10 +301,18 @@ export type FilterTabsProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   options: readonly FilterTabOption<T>[];
   value: T;
-  variant?: 'default' | 'categoryNavigation' | 'fill' | 'line' | 'outline';
+  variant?: 'default' | 'plain' | 'fill' | 'line' | 'outline';
 };
 
-/** Controlled single-select filter buttons for replacing a related result set. */
+const typographyByVariant = {
+  default: { variant: 'cta2' },
+  plain: { web: 'cta2', mo: 'bodyKr4' },
+  fill: { variant: 'cta2' },
+  line: { variant: 'bodyKr3', weight: 'medium' },
+  outline: { variant: 'cta2' },
+} as const;
+
+/** 관련 결과를 바꾸는 단일 선택 필터 탭을 표시합니다. (Displays single-select filter tabs for related results.) */
 export function FilterTabs<T extends string = string>({
   ariaLabel,
   className,
@@ -313,7 +323,6 @@ export function FilterTabs<T extends string = string>({
   variant = 'default',
 }: FilterTabsProps<T>) {
   const platform = usePlatform();
-  const mobileCategory = platform === 'mobile' && variant === 'categoryNavigation';
   const viewportRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef(new Map<T, HTMLButtonElement>());
 
@@ -342,12 +351,7 @@ export function FilterTabs<T extends string = string>({
   }, [platform, value]);
 
   return (
-    <div
-      className={[viewport, variant === 'line' ? lineViewport : '', className]
-        .filter(Boolean)
-        .join(' ')}
-      ref={viewportRef}
-    >
+    <div className={[viewport, className].filter(Boolean).join(' ')} ref={viewportRef}>
       <ToggleGroup
         aria-label={ariaLabel}
         className={rail({ platform, variant })}
@@ -378,26 +382,8 @@ export function FilterTabs<T extends string = string>({
               value={option.value}
             >
               <Typography
-                variant={mobileCategory ? 'bodyKr4' : 'cta2'}
-                weight={
-                  variant === 'line' || (mobileCategory && isSelected) ? 'semibold' : undefined
-                }
-                tone={
-                  mobileCategory
-                    ? isSelected
-                      ? 'primary'
-                      : 'subtle'
-                    : variant === 'line'
-                      ? isSelected
-                        ? 'primary'
-                        : 'tertiary'
-                      : undefined
-                }
-                className={
-                  variant === 'line' || mobileCategory
-                    ? undefined
-                    : label({ selected: isSelected, variant })
-                }
+                {...typographyByVariant[variant]}
+                className={getLabelClassName(variant, isSelected)}
               >
                 {option.label}
               </Typography>

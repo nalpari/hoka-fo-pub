@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 const tabs = css({
   flex: '1',
   '& > [role="group"]': { h: '36px', mb: '0', gap: '5' },
-  '& [data-filter-tabs-variant="categoryNavigation"]': { px: '0', flexShrink: '0' },
+  '& [data-filter-tabs-variant="plain"]': { px: '0', flexShrink: '0' },
 });
 
 const categories = [
@@ -30,7 +30,7 @@ export function MobileCategoryTabs({ activity, onChange }: MobileCategoryTabsPro
       onValueChange={onChange}
       options={categories.map((category) => ({ label: category.label, value: category.activity }))}
       value={activity}
-      variant="categoryNavigation"
+      variant="plain"
     />
   );
 }
