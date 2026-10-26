@@ -23,25 +23,20 @@ function InteractiveFilterTabs({ variant }: Pick<FilterTabsProps, 'variant'>) {
   );
 }
 
-const faqOptions = [
-  '전체',
-  '상품정보',
-  '교환/반품/환불',
-  '주문/결제',
-  '배송',
-  '회원/멤버십',
-  'AS/품질',
-  '매장/이벤트',
-] as const;
+const lineOptions = ['탭타이틀1', '탭타이틀2', '탭타이틀3'] as const;
+const twoLineOptions = lineOptions.slice(0, 2);
 
-function InteractiveLineTabs({ variant = 'line' }: Pick<FilterTabsProps, 'variant'>) {
-  const [value, setValue] = useState<(typeof faqOptions)[number]>('전체');
+function InteractiveLineTabs({
+  options = lineOptions,
+  variant = 'line',
+}: Pick<FilterTabsProps, 'variant'> & { options?: readonly string[] }) {
+  const [value, setValue] = useState<string>(options[0]);
 
   return (
     <FilterTabs
-      ariaLabel="FAQ 카테고리"
+      ariaLabel="탭 메뉴"
       onValueChange={setValue}
-      options={faqOptions.map((label) => ({ label, value: label }))}
+      options={options.map((label) => ({ label, value: label }))}
       value={value}
       variant={variant}
     />
@@ -76,6 +71,10 @@ export const Line: Story = {
   render: () => <InteractiveLineTabs />,
 };
 
+export const LineTwoTabs: Story = {
+  render: () => <InteractiveLineTabs options={twoLineOptions} />,
+};
+
 export const Outline: Story = {
   render: () => <InteractiveLineTabs variant="outline" />,
 };
@@ -95,9 +94,9 @@ export const LineMobile: Story = {
   render: () => <InteractiveLineTabs />,
 };
 
-export const CategoryNavigationMobile: Story = {
+export const PlainMobile: Story = {
   ...LineMobile,
-  render: () => <InteractiveFilterTabs variant="categoryNavigation" />,
+  render: () => <InteractiveFilterTabs variant="plain" />,
 };
 
 export const OutlineMobile: Story = {

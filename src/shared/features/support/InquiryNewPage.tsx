@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -15,6 +15,13 @@ import { InquiryCustomerInfo } from './InquiryCustomerInfo';
 import { InquiryCategoryFields } from './InquiryCategoryFields';
 import { InquiryMessageFields } from './InquiryMessageFields';
 import { InquiryFormActions } from './InquiryFormActions';
+import { InquiryOrderProducts } from './InquiryOrderProducts';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
+import {
+  readInquiryOrderResult,
+  saveInquiryOrderDraft,
+  type InquiryOrderSelection,
+} from './inquiryOrderSelection.storage';
 
 /** 1:1 문의 작성·검증과 취소 흐름을 구성합니다. (Composes inquiry entry, validation, and cancellation.) */
 export function InquiryNewPage() {
@@ -26,11 +33,42 @@ export function InquiryNewPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [cancelOpen, setCancelOpen] = useState(false);
+  const [orderSelection, setOrderSelection] = useState<InquiryOrderSelection>(null);
+  const [orderRequiredOpen, setOrderRequiredOpen] = useState(false);
   const invalid = submitted;
+  const requiresOrder = ['주문/결제', '주문/배송', '반품'].includes(category);
+
+  const handleCategoryChange = (nextCategory: string) => {
+    setCategory(nextCategory);
+    if (!['주문/결제', '주문/배송', '반품'].includes(nextCategory)) {
+      setOrderSelection(null);
+    }
+  };
+
+  useEffect(() => {
+    const restoreSelection = () => {
+      const result = readInquiryOrderResult();
+      if (result) setOrderSelection(result);
+    };
+
+    restoreSelection();
+    window.addEventListener('hoka-inquiry-order-selection-result', restoreSelection);
+    return () =>
+      window.removeEventListener('hoka-inquiry-order-selection-result', restoreSelection);
+  }, []);
+
+  const openOrderLookup = () => {
+    saveInquiryOrderDraft(orderSelection);
+    router.push('/support/inquiries/new/order-products');
+  };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+    if (requiresOrder && !orderSelection) {
+      setOrderRequiredOpen(true);
+      return;
+    }
     if (category && detailCategory && title.trim() && body.trim()) {
       router.push('/support/inquiries');
     }
@@ -68,13 +106,31 @@ export function InquiryNewPage() {
           <InquiryCustomerInfo />
           <Stack gap="4">
             {/* 문의 유형 선택 (Inquiry category selection). */}
-            <InquiryCategoryFields
-              category={category}
-              detailCategory={detailCategory}
-              invalid={invalid}
-              onCategoryChange={setCategory}
-              onDetailCategoryChange={setDetailCategory}
-            />
+            {requiresOrder ? (
+              <Stack gap="6">
+                <InquiryCategoryFields
+                  category={category}
+                  detailCategory={detailCategory}
+                  invalid={invalid}
+                  onCategoryChange={handleCategoryChange}
+                  onDetailCategoryChange={setDetailCategory}
+                />
+                <InquiryOrderProducts
+                  invalid={invalid}
+                  selection={orderSelection}
+                  onSelectionChange={setOrderSelection}
+                  onLookup={openOrderLookup}
+                />
+              </Stack>
+            ) : (
+              <InquiryCategoryFields
+                category={category}
+                detailCategory={detailCategory}
+                invalid={invalid}
+                onCategoryChange={handleCategoryChange}
+                onDetailCategoryChange={setDetailCategory}
+              />
+            )}
             {/* 문의 제목·내용 입력과 필수값 오류 표시 (Inquiry subject/body input and required-field errors). */}
             <InquiryMessageFields
               title={title}
@@ -104,6 +160,17 @@ export function InquiryNewPage() {
           문의 작성을 취소하시겠습니까?
         </Typography>
       </ConfirmDialog>
+      <SingleActionDialog
+        open={orderRequiredOpen}
+        onOpenChange={setOrderRequiredOpen}
+        title="1:1 문의등록"
+        closeLabel="주문번호 안내 닫기"
+        onConfirm={() => setOrderRequiredOpen(false)}
+      >
+        <Typography as="p" variant="body3">
+          주문번호를 선택해주세요.
+        </Typography>
+      </SingleActionDialog>
     </CustomerCenterLayout>
   );
 }
