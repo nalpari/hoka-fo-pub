@@ -4,6 +4,7 @@ import { ProfileEditForm } from './ProfileEditForm';
 import { ProfileField } from './ProfileField';
 import { ProfileReadView } from './ProfileReadView';
 import { ProfilePasswordDialog } from './ProfilePasswordDialog';
+import { ProfileEditDialogs, type ProfileEditNotice } from './ProfileEditDialogs';
 import type { Preference, ProfileAddress, ProfileEditProps } from './mypage-profile.types';
 import { isValidEmailLocalPart, isValidEmailDomain } from '@/shared/lib/emailValidation';
 
@@ -49,6 +50,12 @@ export function MyPageProfile() {
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
   const [couponBookPreference, setCouponBookPreference] = useState<Preference>('수신안함');
   const [messagePreference, setMessagePreference] = useState<Preference>('수신안함');
+  const [savedPreferences, setSavedPreferences] = useState({
+    emailPreference,
+    couponBookPreference,
+    messagePreference,
+  });
+  const [notice, setNotice] = useState<ProfileEditNotice | null>(null);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [withdrawn, setWithdrawn] = useState(false);
 
@@ -67,11 +74,42 @@ export function MyPageProfile() {
           : '',
     };
     setFieldErrors(errors);
+    if (phone !== savedPhone && !phoneVerified) {
+      setNotice('unverified');
+      return;
+    }
     if (Object.values(errors).some(Boolean)) return;
+    setNotice('save');
+  }
+
+  function saveProfile() {
     setEmail(`${emailLocal.trim()}@${emailDomain.trim()}`);
     setSavedAddress(address);
     setSavedPhone(phone);
+    setSavedPreferences({ emailPreference, couponBookPreference, messagePreference });
+    setNotice('complete');
+  }
+
+  function cancelProfile() {
+    const [local, domain] = email.split('@');
+    setEmailLocal(local);
+    setEmailDomain(domain);
+    setDomainChoice(['naver.com', 'gmail.com', 'daum.net'].includes(domain) ? domain : 'direct');
+    setAddress(savedAddress);
+    setPhone(savedPhone);
+    setEmailPreference(savedPreferences.emailPreference);
+    setCouponBookPreference(savedPreferences.couponBookPreference);
+    setMessagePreference(savedPreferences.messagePreference);
+    setAddressOpen(false);
+    setFieldErrors({});
+    setPhoneVerified(false);
+    setNotice(null);
     setEditing(false);
+  }
+
+  function dismissNotice() {
+    if (notice === 'complete') setEditing(false);
+    setNotice(null);
   }
 
   return (
@@ -147,19 +185,7 @@ export function MyPageProfile() {
             onCouponBookPreferenceChange={setCouponBookPreference}
             onMessagePreferenceChange={setMessagePreference}
             onSubmit={submitProfile}
-            onCancel={() => {
-              const [local, domain] = email.split('@');
-              setEmailLocal(local);
-              setEmailDomain(domain);
-              setDomainChoice(
-                ['naver.com', 'gmail.com', 'daum.net'].includes(domain) ? domain : 'direct',
-              );
-              setAddress(savedAddress);
-              setAddressOpen(false);
-              setFieldErrors({});
-              setPhoneVerified(false);
-              setEditing(false);
-            }}
+            onCancel={() => setNotice('cancel')}
             onWithdraw={() => setWithdrawOpen(true)}
           />
         ) : (
@@ -172,6 +198,15 @@ export function MyPageProfile() {
           />
         )}
       </ContentSection>
+      {notice ? (
+        <ProfileEditDialogs
+          notice={notice}
+          onDismiss={dismissNotice}
+          onConfirm={
+            notice === 'cancel' ? cancelProfile : notice === 'save' ? saveProfile : dismissNotice
+          }
+        />
+      ) : null}
       {passwordOpen ? (
         <ProfilePasswordDialog
           onClose={() => setPasswordOpen(false)}

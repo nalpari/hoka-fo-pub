@@ -14,6 +14,26 @@ type Story = StoryObj<typeof meta>;
 
 export const Profile: Story = { ...scenarios.Profile, name: 'Default' };
 
+export const CancelConfirmation: Story = {
+  ...scenarios.Profile,
+  name: '회원정보 수정 취소 확인',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: '회원정보 수정' }));
+    await userEvent.click(canvas.getByRole('button', { name: '취소' }));
+    const dialog = await page.findByRole('dialog', { name: '회원정보 수정 취소 확인' });
+    await expect(dialog).toHaveTextContent('입력한 변경사항을 취소하시겠습니까?');
+    await userEvent.click(within(dialog).getByRole('button', { name: '취소' }));
+    await expect(canvas.getByRole('button', { name: '변경사항 저장' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: '취소' }));
+    await userEvent.click(
+      within(await page.findByRole('dialog')).getByRole('button', { name: '확인' }),
+    );
+    await expect(canvas.getByRole('button', { name: '회원정보 수정' })).toBeVisible();
+  },
+};
+
 export const AddressAndEmail: Story = {
   ...scenarios.Profile,
   name: '주소 및 이메일 수정',

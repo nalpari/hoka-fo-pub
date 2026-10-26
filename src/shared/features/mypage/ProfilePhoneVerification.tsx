@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
@@ -9,6 +9,8 @@ import { VerificationCodeField } from '@/shared/components/molecules/FormFields/
 import { VerificationCountdown } from '@/shared/components/molecules/FormFields/VerificationCountdown';
 import { getPhoneDigits, isValidPhone } from '@/shared/features/find-account/phoneNumber';
 import { useVerificationCountdown } from '@/shared/lib/useVerificationCountdown';
+import { SingleActionDialog } from '@/shared/components/molecules/SingleActionDialog/SingleActionDialog';
+import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 type Props = {
   phone: string;
@@ -31,9 +33,29 @@ export function ProfilePhoneVerification({
   const [phoneError, setPhoneError] = useState('');
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
+  const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(null);
+  const codeInput = useRef<HTMLInputElement>(null);
   const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const requested = deadline !== null;
   const expired = requested && secondsLeft === 0;
+
+  useEffect(() => {
+    if (deadline === null) return;
+    const timeout = window.setTimeout(
+      () => setNotice('expired'),
+      Math.max(0, deadline - Date.now()),
+    );
+    return () => window.clearTimeout(timeout);
+  }, [deadline]);
+
+  function dismissNotice() {
+    setNotice(null);
+    setCode('');
+    setCodeError('');
+    if (deadline !== null && Date.now() < deadline) {
+      window.requestAnimationFrame(() => codeInput.current?.focus());
+    }
+  }
 
   function requestCode() {
     if (!isValidPhone(phone)) {
@@ -43,6 +65,7 @@ export function ProfilePhoneVerification({
     setPhoneError('');
     setCode('');
     setCodeError('');
+    setNotice(null);
     onVerifiedChange(false);
     start();
   }
@@ -50,13 +73,15 @@ export function ProfilePhoneVerification({
   function confirmCode() {
     if (deadline === null) return;
     if (Date.now() >= deadline) {
-      setCodeError('인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.');
+      setNotice('expired');
+      return;
+    }
+    if (!/^\d{6}$/.test(code)) {
+      setCodeError('인증번호 6자리를 입력해 주세요.');
       return;
     }
     if (code !== demoCode) {
-      setCodeError(
-        /^\d{6}$/.test(code) ? '인증번호가 일치하지 않습니다.' : '인증번호 6자리를 입력해 주세요.',
-      );
+      setNotice('mismatch');
       return;
     }
     setCode('');
@@ -85,6 +110,7 @@ export function ProfilePhoneVerification({
             setPhoneError('');
             setCode('');
             setCodeError('');
+            setNotice(null);
             reset();
           },
         }}
@@ -106,6 +132,7 @@ export function ProfilePhoneVerification({
             required
             error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : codeError}
             inputProps={{
+              ref: codeInput,
               value: code,
               disabled: expired,
               onChange: (event) => {
@@ -131,6 +158,24 @@ export function ProfilePhoneVerification({
       ) : null}
       {verified ? (
         <StatusMessage tone="success">휴대폰 인증이 완료되었습니다.</StatusMessage>
+      ) : null}
+      {notice ? (
+        <SingleActionDialog
+          open
+          size="sm"
+          title={notice === 'mismatch' ? '인증번호 불일치' : '인증번호 입력시간 초과'}
+          closeLabel="인증번호 안내 닫기"
+          onConfirm={dismissNotice}
+          onOpenChange={(open) => {
+            if (!open) dismissNotice();
+          }}
+        >
+          <Typography as="p" variant="body3">
+            {notice === 'mismatch'
+              ? '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
+              : '인증번호 입력 시간이 초과하였습니다. 인증번호 재전송 후 이용해주세요.'}
+          </Typography>
+        </SingleActionDialog>
       ) : null}
     </Stack>
   );

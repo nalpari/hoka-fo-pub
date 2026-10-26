@@ -9,6 +9,7 @@ generated:
   at: '2026-10-26T00:00:00Z'
 source_revision: deef0e46733e6e65dd2635d2d1256de627929064
 working_tree_sources:
+  - src/shared/features/mypage/ProfileEditDialogs.tsx
   - src/shared/features/mypage/ProfilePhoneVerification.tsx
   - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
   - src/shared/components/atoms/FormField/FormField.tsx
@@ -949,6 +950,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
+
+ProfileEditDialogs는 회원정보 수정 취소/저장 확인을 ConfirmDialog로, 수정 완료/휴대폰 미인증 안내를 SingleActionDialog로 표시한다. MyPageProfile이 notice와 저장/취소 처리를 소유한다. 취소·저장 확인의 취소/X/Escape는 편집 초안을 유지한다. 수정 취소 확인을 수락해야 주소·이메일·전화번호·수신 동의 초안을 마지막 저장값으로 되돌리고 조회 화면으로 전환한다. 비밀번호 변경은 독립 흐름이므로 이 취소로 되돌리지 않는다.
+
+저장 시 기존 필수값/형식 검사를 유지하며 변경한 휴대폰이 미인증이면 본인인증 안내를 띄운다. 정상 입력은 저장 확인을 거쳐 값을 저장하고 수정 완료 알럿을 표시한다. 완료 확인 또는 닫기 이후에 조회 화면으로 전환한다. 기존 비밀번호 확인·완료 및 회원탈퇴 확인은 유지한다.
+
+ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 표시하고 확인/닫기 시 코드를 지우고 유효시간 내 입력 포커스를 복원한다. 6자리 미입력은 기존 필드 오류를 유지한다. deadline에 연결한 timeout으로 시간이 만료되면 시간 초과 알럿을 한 번 표시하고, 확인/닫기 시 코드를 비워 재요청할 수 있게 한다. 번호 변경·인증 성공·화면 종료 시 deadline 변경/cleanup으로 예약된 알럿을 해제한다. 알럿은 기능 내부 상태이며 새 공개 모달 컴포넌트나 공통 API 확장은 없다. 실제 SMS·회원정보 API는 미연결 데모다.
+
+출처는 사용자 첨부 회원정보 화면설계서와 위 작업 트리의 ProfileEditDialogs.tsx, MyPageProfile.tsx, ProfilePhoneVerification.tsx 및 Mobile Storybook이다. 이전 절의 즉시 저장·취소 및 인증 불일치/만료를 인라인으로만 처리한 설명은 이 절로 대체된다. 타입·변경 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+브라우저에서 취소 확인/취소 및 전화번호 초안 복원, 미인증 저장 안내, 인증번호 불일치 확인 후 코드 초기화, 저장 확인의 취소/확인과 수정 완료 확인 후 조회 전환을 확인했다. 테스트 탭의 timeout/시계를 가속하여 자동 시간 초과 알럿, 확인 후 코드 비움·입력 비활성, 재요청 후 재인증 성공도 확인했다. 실제 3분 대기·SMS/API 검증과 픽셀 비교는 수행하지 않았다.
 
 ## 결혼유무 항목 제거 (2026-10-26)
 
