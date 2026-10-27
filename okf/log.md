@@ -2,6 +2,7 @@
 
 ## 2026-10-27
 
+- **Fix**: 단일 Checkbox의 라벨 간격을 모든 variant에서 gap 2로 통일하고 CartSelectionBar·CheckoutDiscountSummary의 중복 지정을 제거했다. LoginForm에는 flex 축소 방지 설정만 남겼다. Panda 생성, 변경 파일 ESLint, diff 공백 검사와 `npm run okf:check`를 통과했다. [UI 기록](architecture/ui.md#공통-checkbox-라벨-간격-2026-10-27)에 반영했다.
 
 - **Update**: 결제 하단에 주문 확인·개인정보 수집 동의 행과 약관 전문 링크를 추가하고, 두 항목 모두 동의해야 제출되도록 했다. checkout에서는 주소 찾기 버튼만 비활성화하고 기존 주소 입력 필드 설정은 유지한다. 공통 AddressFields의 검색 비활성 API는 선택 사항으로 추가해 다른 화면의 기본 동작은 유지한다. Panda CSS 생성·변경 파일 ESLint·diff 공백 검사는 통과했고, 전체 타입 검사는 결제 변경과 무관한 `.next/types` route props 오류 5건으로 실패했다. 브라우저와 Storybook play는 확인하지 않았다. 상세는 [UI 기록](architecture/ui.md#결제-동의-항목과-주소-찾기-비활성화-2026-10-27)과 [상태 기록](architecture/state.md#결제-동의와-주소-검색-비활성-상태-2026-10-27)에 적었다.
 

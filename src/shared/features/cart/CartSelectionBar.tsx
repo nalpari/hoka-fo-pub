@@ -2,7 +2,6 @@ import { HStack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
 import { usePlatform } from '@/shared/context/platform';
 
 type Props = {
@@ -33,7 +32,6 @@ export function CartSelectionBar({
         aria-label="전체 상품 선택"
         checked={allSelected}
         onCheckedChange={onSelectAll}
-        className={css({ gap: '2' })}
         label={
           <Typography variant="body4">
             {mobile ? (

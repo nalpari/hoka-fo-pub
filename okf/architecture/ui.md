@@ -1394,6 +1394,12 @@ Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드�
 
 Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/shared/components/atoms/Checkbox/Checkbox.tsx, src/stories/components/atoms/Checkbox/Checkbox.stories.tsx.
 
+## 공통 Checkbox 라벨 간격 (2026-10-27)
+
+단일 Checkbox는 일반형과 filter형 모두 컨트롤과 라벨 사이에 gap 2를 사용한다. filter 전용 색상·컨트롤 크기·비활성 스타일은 유지하며 그룹 Checkbox의 간격은 변경하지 않는다.
+
+기존 CartSelectionBar·CheckoutDiscountSummary의 중복 `gap: 2` 지정은 제거했다. LoginForm은 남은 flex 축소 방지 설정만 유지한다.
+
 ## 휴대폰 인증 Storybook 모바일 여백 (2026-10-19)
 
 PhoneVerificationPage.stories.tsx는 페이지 단위 미리보기에 fullscreen을 지정한다. 전역 padded의 외곽 여백을 제거하고 모바일 래퍼는 width 100%, maxWidth 375px로 가용 너비에 맞춘다. 고정 375px와 세로 스크롤바가 겹쳐 발생하던 가로 넘침을 방지한다.

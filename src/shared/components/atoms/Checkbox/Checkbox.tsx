@@ -120,11 +120,11 @@ function SingleCheckbox({
     <Flex
       as={interactiveLabel ? 'div' : 'label'}
       alignItems="center"
+      gap="2"
       className={[
         css(
           optionStyle,
           variant === 'filter' && {
-            gap: '2',
             color: 'black.50',
             '&:not([data-disabled]):has([data-checked])': { color: 'black.100' },
             '&[data-disabled]': { color: 'black.40', opacity: '1' },
