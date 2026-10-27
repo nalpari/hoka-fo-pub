@@ -75,7 +75,10 @@ export function ProductWidthSelector({
         value={value}
         disabled={disabled}
         onValueChange={onValueChange}
-        options={options.map((value) => ({ value, label: value }))}
+        options={options.map((value) => ({
+          value,
+          label: <Typography variant="body4" tone="inherit">{value}</Typography>,
+        }))}
         className={css({
           display: 'flex!',
           gap: '0',

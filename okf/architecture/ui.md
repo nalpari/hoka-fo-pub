@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T03:41:50Z'
+  at: '2026-10-27T04:58:35Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
@@ -1014,6 +1014,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
+
+`ProductOptionList`의 `cart` 배치에서 선택된 썸네일 밑줄을 4px 높이의 `::after` 표시로 구현하고 `border-radius: 50px`을 적용했다. 미선택 항목에도 투명 표시를 유지해 선택 시 항목 높이가 달라지지 않게 한다. 다른 배치의 선택·hover 스타일은 그대로 둔다. 변경 후 Panda 생성과 해당 파일 ESLint를 통과했으며 브라우저 시각 검증은 하지 않았다.
+
+## 장바구니 발볼 옵션 글자 크기 (2026-10-27)
+
+장바구니 옵션의 Regular/Wide/X-Wide 선택 라벨을 표준 `body4`(14px)로 표시한다. 변경은 발볼 라디오 그룹의 글자 크기에 한정되며 배치·선택 표현은 그대로 둔다. 브라우저 시각 검증은 하지 않았다.
 
 ## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
 

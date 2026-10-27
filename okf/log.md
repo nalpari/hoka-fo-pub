@@ -2,6 +2,10 @@
 
 ## 2026-10-27
 
+- **Update**: 장바구니 발볼 선택의 Regular/Wide/X-Wide 라벨을 표준 `body4` 14px로 표시한다. Radio의 값·비활성화·변경 콜백은 유지한다. 상세와 상태 영향은 [UI 기록](architecture/ui.md#장바구니-발볼-옵션-글자-크기-2026-10-27), [상태 기록](architecture/state.md#장바구니-옵션-표시-변경의-상태-영향-없음-2026-10-27)에 기록했다. 브라우저 시각 검증은 하지 않았다.
+
+- **Fix**: 장바구니 옵션 썸네일의 선택 밑줄을 4px로 맞추고 미선택 상태에도 같은 테두리 공간을 예약했다. 선택 상태·콜백 계약에는 영향이 없다. [UI 기록](architecture/ui.md#장바구니-컬러-선택-밑줄-두께-2026-10-27)과 [상태 기록](architecture/state.md#장바구니-옵션-표시-변경의-상태-영향-없음-2026-10-27)에 범위를 적었다. 브라우저 시각 검증은 하지 않았다.
+
 - **Refactor**: `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle` Typography variant와 전용 CSS 변수를 제거했다. Hero·상품 목록·메인 섹션·카드·공통 SectionHeader를 표준 `heading`/`body` 단계 및 `web`/`mo`로 옮기고 Storybook 예시를 갱신했다. 매핑과 화면별 scale 변경 가능성은 [UI 기록](architecture/ui.md#typography-전용-variant-표준화-2026-10-27)에 기록했다. 브라우저 시각 검증은 수행하지 않았다.
 
 - **Update**: 장바구니 Figma `962:8877`·`1338:40335` 기준으로 모바일 카드 체크 위치·옵션 액션 간격·관심상품 링크 타이포를 보정하고, 선택/품절 삭제의 활성 조건을 반영했다. 표시 규격은 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27), 상태 계산과 영향 범위는 [상태 기록](architecture/state.md#장바구니-삭제-액션의-활성-조건-검토-2026-10-27)에 기록했다. 브라우저 검증은 아직 수행하지 않았다.

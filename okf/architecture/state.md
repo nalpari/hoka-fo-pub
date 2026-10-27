@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T03:41:50Z'
+  at: '2026-10-27T04:58:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/shared/features/cart/CartContent.tsx
@@ -36,6 +36,8 @@ working_tree_sources:
   - src/shared/features/cart/CartProductSection.tsx
   - src/shared/features/cart/CartProductList.tsx
   - src/shared/features/cart/CartOptionsContent.tsx
+  - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
 
   - src/shared/features/checkout/CheckoutForm.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
@@ -175,6 +177,12 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
+
+`ProductOptionList` 장바구니 배치의 선택 밑줄만 4px로 수정했다. `selectedId`, `aria-pressed`, `onSelect`와 상위 장바구니 선택 상태에는 변경이 없다. 세부 스타일은 [UI 기록](ui.md#장바구니-컬러-선택-밑줄-두께-2026-10-27)에 기록했다.
+
+장바구니 발볼 선택 라벨을 14px로 바꾼 조정도 표시만 변경하며 Radio의 value, disabled 상태와 onValueChange 계약에는 영향이 없다. 상세 범위는 [UI 기록](ui.md#장바구니-발볼-옵션-글자-크기-2026-10-27)에 기록했다.
 
 ## 장바구니 하단 여백 검토 (2026-10-23)
 
