@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from 'storybook/test';
 import { ShopShell } from '@/shared/ShopShell';
 import ProductPage from '@/app/products/[id]/page';
 
@@ -58,4 +59,25 @@ export const Width375: Story = {
   name: '375px',
   args: { platform: 'mobile' },
   globals: { viewport: 'hoka375' },
+};
+
+export const AccumulatedOptions: Story = {
+  name: '옵션 누적 선택',
+  args: { platform: 'web' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const sizes = within(canvas.getByRole('radiogroup', { name: '사이즈 선택' }));
+    const available = sizes
+      .getAllByRole('radio')
+      .filter((option) => option.getAttribute('aria-disabled') !== 'true');
+    await userEvent.click(available[0]);
+    await userEvent.click(available[1]);
+    await userEvent.click(available[0]);
+    const selected = within(canvas.getByLabelText('선택한 상품 옵션'));
+    await expect(selected.getAllByRole('listitem')).toHaveLength(2);
+    const first = within(selected.getAllByRole('listitem')[0]);
+    await expect(first.getByRole('textbox')).toHaveValue('2');
+    await userEvent.click(first.getByRole('button', { name: '증가' }));
+    await expect(first.getByRole('textbox')).toHaveValue('3');
+  },
 };

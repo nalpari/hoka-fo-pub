@@ -20,3 +20,8 @@ export const Width1920: Story = { ...scenarios.Width1920, name: '1920px' };
 export const Width1600: Story = { ...scenarios.Width1600, name: '1600px' };
 
 export const Width1200: Story = { ...scenarios.Width1200, name: '1200px' };
+
+export const AccumulatedOptions: Story = {
+  ...scenarios.AccumulatedOptions,
+  args: { platform: 'web' },
+};

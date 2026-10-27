@@ -10,8 +10,10 @@ import { ProductDetailImageViewer } from './ProductDetailImageViewer';
 import { ProductDetailMedia } from '@/shared/features/product/ProductDetailMedia';
 import { ProductDetailPanel } from '@/shared/features/product/ProductDetailPanel';
 import { ProductDetailFooter } from '@/shared/features/product/ProductDetailFooter';
+import { ProductSelectedOptions } from '@/shared/features/product/ProductSelectedOptions';
 import { productWidthOptions } from '@/shared/features/product/ProductVariantSelectors';
 
+/** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
 export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartItem) => void }) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -21,7 +23,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
   const [width, setWidth] = useState(
     product ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
   );
-  const [size, setSize] = useState('');
+  const [selectedItems, setSelectedItems] = useState<CartItem[]>([]);
   const [wish, setWish] = useState(false);
   const [error, setError] = useState('');
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
@@ -41,7 +43,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
   if (!product) return <NotFoundPage />;
 
   const submit = (order: boolean) => {
-    if (!size) {
+    if (!selectedItems.length) {
       setError('사이즈를 선택해 주세요.');
       document
         .getElementById('product-size')
@@ -49,7 +51,7 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
       return;
     }
     setError('');
-    onAddToCart({ id: product.id, color, width, size, quantity: 1 });
+    selectedItems.forEach(onAddToCart);
     if (order) router.push('/checkout');
   };
 
@@ -95,6 +97,23 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         }}
       />
       <ProductDetailPanel
+        selectedOptions={
+          <ProductSelectedOptions
+            items={selectedItems}
+            unitPrice={product.price}
+            onQuantityChange={(index, quantity) => {
+              if (!Number.isSafeInteger(quantity) || quantity < 1) return;
+              setSelectedItems((items) =>
+                items.map((item, itemIndex) =>
+                  itemIndex === index ? { ...item, quantity } : item,
+                ),
+              );
+            }}
+            onRemove={(index) =>
+              setSelectedItems((items) => items.filter((_, itemIndex) => itemIndex !== index))
+            }
+          />
+        }
         color={color}
         error={error}
         gallery={gallery}
@@ -102,22 +121,36 @@ export function ProductDetailPage({ onAddToCart }: { onAddToCart: (item: CartIte
         onColorChange={(nextColor) => {
           setColor(nextColor);
           setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
-          setSize('');
           setError('');
         }}
         onOrder={() => submit(true)}
         onSizeChange={(nextSize) => {
-          setSize(nextSize);
+          const selectedWidth = productWidthOptions(product, color).find(
+            (option) => option.label === width,
+          );
+          if (!selectedWidth?.sizes.includes(nextSize) || selectedWidth.soldOut.includes(nextSize))
+            return;
+          setSelectedItems((items) => {
+            const exists = items.some(
+              (item) => item.color === color && item.width === width && item.size === nextSize,
+            );
+            return exists
+              ? items.map((item) =>
+                  item.color === color && item.width === width && item.size === nextSize
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item,
+                )
+              : [...items, { id: product.id, color, width, size: nextSize, quantity: 1 }];
+          });
           setError('');
         }}
         onWidthChange={(nextWidth) => {
           setWidth(nextWidth);
-          setSize('');
           setError('');
         }}
         onWishChange={() => setWish(!wish)}
         product={product}
-        size={size}
+        size=""
         width={width}
         wish={wish}
       />

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { ProductInformation } from '@/shared/features/product/ProductInformation';
@@ -11,6 +12,7 @@ type ProductDetailContentProps = {
   width: string;
   size: string;
   error: string;
+  selectedOptions: ReactNode;
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
@@ -18,6 +20,7 @@ type ProductDetailContentProps = {
   onOrder: () => void;
 };
 
+/** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 export function ProductDetailContent({
   product,
   gallery,
@@ -25,6 +28,7 @@ export function ProductDetailContent({
   width,
   size,
   error,
+  selectedOptions,
   onColorChange,
   onWidthChange,
   onSizeChange,
@@ -46,6 +50,7 @@ export function ProductDetailContent({
         size={size}
         width={width}
       />
+      {selectedOptions}
       <ProductPurchaseActions onAddToCart={onAddToCart} onOrder={onOrder} placement="inline" />
       <ProductInformation
         id="product-information"

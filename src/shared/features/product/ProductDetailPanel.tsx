@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Box, Stack } from 'styled-system/jsx';
 import type { Product } from '@/mocks/products';
 import { ProductDetailContent } from '@/shared/features/product/ProductDetailContent';
@@ -11,6 +12,7 @@ type ProductDetailPanelProps = {
   width: string;
   size: string;
   error: string;
+  selectedOptions: ReactNode;
   wish: boolean;
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
@@ -20,6 +22,7 @@ type ProductDetailPanelProps = {
   onWishChange: () => void;
 };
 
+/** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 export function ProductDetailPanel({
   product,
   gallery,
@@ -27,6 +30,7 @@ export function ProductDetailPanel({
   width,
   size,
   error,
+  selectedOptions,
   wish,
   onColorChange,
   onWidthChange,
@@ -51,6 +55,7 @@ export function ProductDetailPanel({
       <Stack gap="8" _mobile={{ gap: '6' }}>
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
         <ProductDetailContent
+          selectedOptions={selectedOptions}
           color={color}
           error={error}
           gallery={gallery}

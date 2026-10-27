@@ -6,9 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T09:11:03Z'
+  at: '2026-10-27T02:17:21Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
+  - src/shared/features/product/ProductSelectedOptions.tsx
+  - src/shared/features/product/ProductDetailPage.tsx
+  - src/shared/features/product/ProductDetailPanel.tsx
+  - src/shared/features/product/ProductDetailContent.tsx
+  - src/stories/features/product/ProductSelectedOptions.stories.tsx
+  - src/stories/features/product/ProductDetailPage.scenarios.tsx
+  - src/stories/features/product/ProductDetailPage.stories.tsx
+  - src/stories/features/product/ProductDetailPage.mobile.stories.tsx
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
   - src/shared/features/catalog/ProductListingPage.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
@@ -968,6 +976,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품 상세 옵션 누적 선택 (2026-10-27)
+
+첨부된 기획 캡처의 누적 옵션 영역을 기준으로 `ProductDetailPage`가 선택 목록을 소유한다. 구매 가능한 사이즈를 선택할 때 현재 컬러·발볼·사이즈 조합을 추가하고 같은 조합을 다시 선택하면 수량을 합산한다. 사이즈 선택값은 추가 후 비워 같은 사이즈를 재선택할 수 있다. 컬러·발볼을 바꾸어도 이미 추가한 항목은 유지한다. 품절·미제공 사이즈는 기존 선택 UI와 이벤트 핸들러에서 거부한다.
+
+`ProductSelectedOptions`는 목록 데이터와 단가·수량/삭제 콜백을 받아 동일한 행을 반복하고, 기존 NumberStepper(최소 1)·IconButton·Typography·AmountRow를 조합한다. 행별 금액과 전체 합계는 수량에서 계산한다. 개별 수량과 삭제 버튼에는 옵션 조합을 포함한 접근성 이름을 붙이고 합계 변경은 polite live 영역으로 알린다. 목록이 비면 영역을 숨기고 구매 액션의 기존 사이즈 필수 오류를 사용한다. 전용 디자인은 제공되지 않아 기존 컴포넌트와 구분선을 조합했으며 픽셀 일치 구현을 의미하지 않는다.
+
+Panel/Content의 `selectedOptions` 슬롯으로 사이즈와 구매 버튼 사이에 배치하며 모바일 고정 구매 버튼도 동일한 선택 목록을 제출한다. 장바구니에는 모든 행의 실제 수량을 전달하고 구매하기는 기존 방식대로 장바구니 반영 후 checkout으로 이동한다. 실제 주문 API를 새로 연결한 것은 아니다.
+
+스토리는 `PAGES/상품/1. 상품상세/WEB`·`Mobile`의 `옵션 누적 선택`, `FEATURES/상품/선택 옵션 목록`의 두 옵션 초기 화면·모바일 화면·수량/전체 삭제 검증을 제공한다. 상세 play는 두 사이즈 누적·중복 합산·수량 증가를, 목록 play는 최소 1·금액 갱신·행 삭제·전체 삭제를 검사한다. 출처는 위 작업 트리의 product 구현과 스토리이며 사용자 첨부 기획 이미지의 175,000원 두 옵션은 독립 스토리 예시로만 사용한다.
+
+2026-10-27 Codex가 타입 검사·변경 TSX ESLint·Panda 생성·Next.js/Storybook 프로덕션 빌드·diff 공백 검사를 통과했다. 정적 Storybook 브라우저에서 PC·375px 모바일 상세 play의 두 옵션·수량 3/1·960,000원 합계, 목록 play의 수량 변경·삭제 후 빈 상태, 초기 두 행의 PC/모바일 표시와 모바일 가로 넘침 부재를 확인했다. 모바일 장바구니 버튼 클릭 후 헤더 수량이 12에서 16으로 증가해 선택한 4개 수량 전달도 확인했다. 개발 Storybook은 React useContext 오류가 있어 정적 빌드로 검증했다. 실제 결제·서버 재고 검증은 수행하지 않았다.
 
 ## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
 
