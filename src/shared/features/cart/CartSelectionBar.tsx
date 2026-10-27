@@ -9,6 +9,7 @@ type Props = {
   allSelected: boolean;
   selectedCount: number;
   totalCount: number;
+  soldOutCount: number;
   onSelectAll: (checked: boolean) => void;
   onRemoveSelected: () => void;
   onRemoveSoldOut: () => void;
@@ -19,6 +20,7 @@ export function CartSelectionBar({
   allSelected,
   selectedCount,
   totalCount,
+  soldOutCount,
   onSelectAll,
   onRemoveSelected,
   onRemoveSoldOut,
@@ -34,15 +36,34 @@ export function CartSelectionBar({
         className={css({ gap: '2' })}
         label={
           <Typography variant="body4">
-            {mobile ? `전체 (${selectedCount}/${totalCount})` : `선택상품 ${selectedCount}개`}
+            {mobile ? (
+              <>
+                전체{' '}
+                <Typography as="span" variant="body4" weight="medium">
+                  ({selectedCount}/{totalCount})
+                </Typography>
+              </>
+            ) : (
+              `선택상품 ${selectedCount}개`
+            )}
           </Typography>
         }
       />
       <HStack gap={{ base: '3', _mobile: '2' }}>
-        <Button variant="link" size={mobile ? 'md' : 'sm'} onClick={onRemoveSelected}>
+        <Button
+          variant="link"
+          size={mobile ? 'md' : 'sm'}
+          disabled={selectedCount === 0}
+          onClick={onRemoveSelected}
+        >
           선택상품 삭제
         </Button>
-        <Button variant="link" size={mobile ? 'md' : 'sm'} onClick={onRemoveSoldOut}>
+        <Button
+          variant="link"
+          size={mobile ? 'md' : 'sm'}
+          disabled={soldOutCount === 0}
+          onClick={onRemoveSoldOut}
+        >
           품절상품 삭제
         </Button>
       </HStack>

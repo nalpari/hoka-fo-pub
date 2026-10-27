@@ -21,7 +21,7 @@ export function OrderProductSummaryImage({
               display: 'block',
               objectFit: 'contain',
               bg: 'black.10',
-              _mobile: { w: '128px', h: '100px', px: '14px' },
+              _mobile: { w: '96px', h: '96px' },
             })
           : square({
               size: { base: variant === 'coupon' ? '88px' : '24', _mobile: '20' },

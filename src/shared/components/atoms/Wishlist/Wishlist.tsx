@@ -71,11 +71,7 @@ export function Wishlist({
         size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
       />
       {label ? (
-        <Typography
-          as="span"
-          variant="body5"
-          className={css({ textDecoration: 'underline', textUnderlineOffset: '3px' })}
-        >
+        <Typography as="span" variant="body5">
           {label}
         </Typography>
       ) : null}

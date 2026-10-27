@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:41:25Z'
+  at: '2026-10-27T01:50:29Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/shared/features/cart/CartContent.tsx
@@ -33,6 +33,7 @@ working_tree_sources:
   - src/shared/features/mypage/MyPageRewards.tsx
   - src/stories/components/atoms/TextInput/TextInput.stories.tsx
   - src/shared/features/cart/CartSelectionBar.tsx
+  - src/shared/features/cart/CartProductSection.tsx
   - src/shared/features/cart/CartProductList.tsx
   - src/shared/features/cart/CartOptionsContent.tsx
   - src/shared/features/checkout/CheckoutForm.tsx
@@ -40,6 +41,10 @@ working_tree_sources:
   - src/shared/features/checkout/CheckoutPage.tsx
   - src/shared/features/checkout/CheckoutPayment.tsx
   - src/shared/components/atoms/Wishlist/Wishlist.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
+  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
+  - src/shared/components/molecules/AmountRow/AmountRow.tsx
   - src/shared/features/cart/CartItemRow.tsx
   - src/shared/features/cart/CartOptionsDialog.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
@@ -350,3 +355,13 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태와 저장 콜백�
 ## 장바구니 표시 데이터 준비 경계 보완 (2026-10-23)
 
 CartPage가 선택 가능한 키로 allSelected와 선택 상품 주문 checkoutHref를 계산한다. CartContent에는 allKeys 대신 준비된 boolean·URL을 전달하며, 기능 내부 CartOrderActions는 total과 checkoutHref의 존재에 따라 금액 및 링크/비활성 버튼만 표시한다. 선택·합계·품절 판정·옵션 draft·저장/취소의 수명이나 계산 방식은 바꾸지 않는다. 브라우저의 기존 MobileSelection·MobileOptionSave에서 선택 해제 시 주문 비활성과 옵션 저장/취소 후 2/4 선택 및 사이즈 유지가 확인됐다. 출처는 CartPage.tsx, CartContent.tsx와 CartOrderActions.tsx의 작업 트리다. UI 경계는 [재사용 적용](ui.md#장바구니-재사용-점검-후-적용-2026-10-23)을 참고한다.
+
+## 장바구니 삭제 액션의 활성 조건 검토 (2026-10-27)
+
+선택 삭제 버튼은 기존 selectedCount가 0이면 비활성화하고, 품절 삭제 버튼은 기존 `isCartItemSoldOut` 판정으로 준비한 품절 행이 없으면 비활성화한다. 선택 상태, 전체 선택 대상, 선택 상품 계산과 삭제 콜백의 소유권 및 수명은 변경하지 않았다. 해당 상태 경계 검토는 [UI 기록](ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)을 참고한다. 브라우저 동작은 아직 확인하지 않았다.
+
+선택 바 문구의 모바일 숫자 표기 웨이트만 분리했다. selectedCount·totalCount 계산과 전체 선택/삭제 상태에는 영향이 없다.
+
+CartItemRow의 체크박스/X 레이아웃은 상태 및 선택·삭제 이벤트 계약에 영향이 없다. 모바일 화면 구조만 시각 확인했으며 선택·삭제 상호작용은 별도로 시험하지 않았다.
+
+AmountRow 강조 금액의 숫자/단위 타이포 분리는 표시 전용이며 amount와 discount 계산, 입력, 상태 수명에 영향이 없다. 관련 UI 설명은 [금액 표시](ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)를 참고한다.

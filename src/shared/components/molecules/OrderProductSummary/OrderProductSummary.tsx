@@ -22,7 +22,7 @@ export function OrderProductSummary({
 }: OrderProductSummaryProps) {
   return (
     <HStack
-      gap={variant === 'cart' ? { base: '4', _mobile: '0' } : '4'}
+      gap={variant === 'cart' ? { base: '4', _mobile: '4' } : '4'}
       alignItems={variant === 'cart' ? { base: 'flex-start', _mobile: 'center' } : 'flex-start'}
       py={variant === 'checkout' ? '6' : '0'}
       borderBottom={variant === 'checkout' ? '1px solid var(--colors-black-20)' : '0'}

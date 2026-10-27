@@ -11,7 +11,7 @@ type Props = Omit<ComponentProps<typeof HStack>, 'children'> & {
   action?: ReactNode;
 };
 
-/** Displays a prepared amount without calculating discounts or totals. */
+/** 금액 합계를 계산하지 않고 전달받은 값으로 표시합니다. (Displays a prepared amount without calculating totals.) */
 export function AmountRow({
   label,
   amount,
@@ -37,14 +37,22 @@ export function AmountRow({
       ) : (
         labelContent
       )}
-      <Typography
-        variant={emphasis ? 'body3' : 'body4'}
-        weight={emphasis ? 'semibold' : undefined}
-        tone={discount ? 'error' : undefined}
-      >
-        {discount ? '- ' : ''}
-        {amount.toLocaleString()}원
-      </Typography>
+      {emphasis ? (
+        <HStack alignItems="baseline" gap="0.5">
+          <Typography variant="heading7" tone={discount ? 'error' : undefined}>
+            {discount ? '- ' : ''}
+            {amount.toLocaleString()}
+          </Typography>
+          <Typography variant="body3" tone={discount ? 'error' : undefined}>
+            원
+          </Typography>
+        </HStack>
+      ) : (
+        <Typography variant="body4" tone={discount ? 'error' : undefined}>
+          {discount ? '- ' : ''}
+          {amount.toLocaleString()}원
+        </Typography>
+      )}
     </HStack>
   );
 }

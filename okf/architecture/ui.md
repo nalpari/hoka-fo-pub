@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T09:11:03Z'
+  at: '2026-10-27T01:50:29Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
@@ -3048,3 +3048,15 @@ FilterTabs는 기존 소비자 간격을 유지하며 optional railClassName 슬
 기존 FormField/Select/TextareaField/CharacterCount·Radio·Checkbox·NumberStepper·DataTable을 재사용한다. 별도 상태 관리, 컨텍스트, Base UI 신규 도입은 없다. 이미지 부분은 molecule 내부 구성요소이며 독립 공용 컴포넌트로 승격하지 않았다. 기존 OrderProductSummary 및 주문/주문서 PC/mobile 스토리가 상위 조합을 다룬다.
 
 검증: 타입 검사, 지정 범위 ESLint, Panda 생성 포함 프로덕션 빌드 통과. 기존 Storybook 브라우저에서 부분취소 신청 완료·직접설정 날짜 입력 표시·배송 추적 표·결제 변경과 안내 동기화·직접 배송 요청 입력 및 10/250 카운터 갱신을 확인했다. 분리 전후 픽셀 비교는 수행하지 않았다.
+
+## 장바구니 체크와 상품 액션 간격 보정 (2026-10-27)
+
+Figma `962:8877`·`1338:40335`의 모바일 카드 기준으로 체크박스와 X 삭제 버튼을 absolute 배치에서 상단 flex 행으로 옮기고 양끝 정렬했다. OrderProductSummary의 모바일 이미지 슬롯은 96×96px, 이미지와 정보 사이 간격은 16px이다. 텍스트는 성별·상품명 사이 2px, 각 정보 줄 사이 4px 간격을 두며 CartItemRow 액션은 위쪽 6px 간격과 아래쪽 8px 여백을 둔다. 현재 Wishlist 라벨은 body5로 표시한다. 전체 선택/선택 가능 상품과 품절 판정은 기존 CartPage·`isCartItemSoldOut` 계산을 그대로 사용하며, 선택 삭제는 선택 행이 있을 때, 품절 삭제는 품절 행이 있을 때 활성화한다. 상품 선택/삭제 콜백은 바꾸지 않는다.
+
+출처는 위 working_tree_sources의 CartItemRow, Wishlist, CartSelectionBar, CartProductSection과 Figma 노드다. Chrome에서 localhost 장바구니를 375px 모바일 뷰로 열어 상단 체크박스·X 양끝 정렬과 본문 순서를 시각 확인했다. 삭제 동작과 데스크톱 화면은 이번 확인 범위가 아니다.
+
+선택 바의 모바일 `전체 (선택 수/전체 수)` 문구는 기존 body4 크기를 유지하며 괄호 안의 숫자 표기만 medium weight로 표시한다. PC `선택상품 n개` 표시는 유지한다. CartItemRow의 체크박스와 삭제 버튼은 별도 absolute 위치 대신 일반 flex 행으로 정렬하며 상품 콘텐츠 순서를 뒤따르게 한다. 이 구조는 Chrome 모바일 375px 장바구니에서 시각 확인했다.
+
+강조 금액(`emphasis`)은 숫자를 heading7, `원`을 body3로 나눠 표시한다. 일반 금액은 기존 body4 한 줄 표시를 유지하며, 할인 금액은 강조/일반 상태 모두 숫자와 단위에 오류 톤을 적용한다. 기존 AmountRow 사용처의 금액 계산과 합계 값은 변경하지 않는다.
+
+Chrome localhost 장바구니의 375px 화면에서 하단 결제예정금액 표기를 확인했다. 데스크톱 화면은 이번 시각 확인 범위가 아니다.
