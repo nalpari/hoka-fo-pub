@@ -25,6 +25,7 @@ type CatalogFilterTriggerProps = {
   title: string;
 };
 
+/** 카탈로그 필터 섹션의 열기 상태와 제목을 표시합니다. (Displays the title and toggle state of a catalog filter section.) */
 export function CatalogFilterTrigger({
   controlsId,
   expanded,
@@ -39,7 +40,7 @@ export function CatalogFilterTrigger({
       onClick={onToggle}
       type="button"
     >
-      <Typography variant="filterLegend">{title}</Typography>
+      <Typography variant="body3" weight="semibold">{title}</Typography>
       <img
         alt=""
         aria-hidden="true"

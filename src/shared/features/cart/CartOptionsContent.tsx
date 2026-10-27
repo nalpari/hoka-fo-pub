@@ -37,7 +37,7 @@ export function CartOptionsContent({
   onQuantityChange,
 }: Props) {
   return (
-    <Stack gap="8">
+    <Stack gap="6">
       <img
         src={image}
         alt={name}
@@ -53,32 +53,35 @@ export function CartOptionsContent({
         })}
       />
       <ContentSection
-        gap="8"
+        gap="6"
         title={<>{name}</>}
         headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading5' } }}
       >
-        <ProductWidthSelector
-          appearance="cart"
-          value={draft.width}
-          options={widths}
-          onValueChange={onWidthChange}
-        />
-        <ProductColorSelector
-          appearance="cart"
-          value={draft.color}
-          options={colorOptions}
-          onValueChange={onColorChange}
-        />
-        <ProductSizeSelector
-          appearance="cart"
-          value={draft.size}
-          options={sizes.map((value) => ({
-            value,
-            state: soldOut.includes(value) ? 'soldOut' : 'available',
-          }))}
-          onValueChange={onSizeChange}
-        />
-        <CartOptionQuantity value={draft.quantity} onChange={onQuantityChange} />
+        <Stack gap="10">
+          <ProductWidthSelector
+            appearance="cart"
+            value={draft.width}
+            options={widths}
+            onValueChange={onWidthChange}
+          />
+
+          <ProductColorSelector
+            appearance="cart"
+            value={draft.color}
+            options={colorOptions}
+            onValueChange={onColorChange}
+          />
+          <ProductSizeSelector
+            appearance="cart"
+            value={draft.size}
+            options={sizes.map((value) => ({
+              value,
+              state: soldOut.includes(value) ? 'soldOut' : 'available',
+            }))}
+            onValueChange={onSizeChange}
+          />
+          <CartOptionQuantity value={draft.quantity} onChange={onQuantityChange} />
+        </Stack>
       </ContentSection>
     </Stack>
   );

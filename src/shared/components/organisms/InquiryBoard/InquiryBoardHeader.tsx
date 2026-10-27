@@ -15,6 +15,7 @@ type InquiryBoardHeaderProps = {
   action?: ReactNode;
 };
 
+/** 문의 게시판의 제목·건수·필터 동작을 배치합니다. (Arranges the inquiry board title, count, and filter action.) */
 export function InquiryBoardHeader({
   headingId,
   title,
@@ -39,7 +40,7 @@ export function InquiryBoardHeader({
         title={
           variant === 'product' ? (
             <>
-              {title} <Typography variant="productSectionCount">({count})</Typography>
+              {title} <Typography variant="body1" weight="medium">({count})</Typography>
             </>
           ) : (
             `${title}(${count})`
@@ -47,7 +48,7 @@ export function InquiryBoardHeader({
         }
         titleProps={{
           id: headingId,
-          variant: variant === 'product' ? 'productSectionTitle' : 'body2',
+          variant: variant === 'product' ? 'heading8' : 'body2',
           weight: variant === 'product' ? undefined : 'bold',
         }}
         orientation="horizontal"

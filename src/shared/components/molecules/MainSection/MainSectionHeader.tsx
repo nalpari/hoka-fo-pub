@@ -7,12 +7,16 @@ type Props = Pick<MainSectionProps, 'title' | 'titleVariant' | 'actionSlot'>;
 
 const heading = css({ m: '0' });
 
-/** Keep the section heading and actions aligned to the central content grid. */
+/** 섹션 제목과 액션을 콘텐츠 그리드에 맞춥니다. (Aligns the section title and actions to the content grid.) */
 export function MainSectionHeader({ title, titleVariant, actionSlot }: Props) {
   return (
     <ContentHeader
       title={title}
-      titleProps={{ className: heading, variant: titleVariant }}
+      titleProps={{
+        className: heading,
+        web: titleVariant ?? 'heading5',
+        mo: titleVariant ?? 'heading4',
+      }}
       orientation="horizontal"
       gap="8px"
       action={actionSlot}

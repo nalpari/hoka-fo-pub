@@ -13,16 +13,12 @@ const root = cva({
   base: {
     color: 'var(--color-text-primary)',
     '--type-body-font-size': 'var(--layout-web-product-font-size, 16px)',
-    '--type-price-font-size': 'var(--layout-web-product-font-size, 16px)',
-    '--type-product-audience-font-size': 'var(--layout-web-product-font-size, 16px)',
   },
   variants: {
     variant: {
       listing: {
         _mobile: {
           px: '10px',
-          '--type-price-font-weight': '700',
-          '--type-price-emphasis-font-weight': '700',
         },
       },
       showcase: {},
@@ -45,7 +41,7 @@ export type ProductDetailsProps = {
   widthCount: number;
 };
 
-/** Product identity and price summary for product cards. */
+/** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 export function ProductDetails({
   activities,
   colorCount,

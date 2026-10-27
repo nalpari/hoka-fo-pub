@@ -34,10 +34,10 @@ const extendedContent = css({
   _mobile: { w: '100%', ml: '0' },
 });
 
-/** A home-page content region with a heading and optional header controls. */
+/** 홈 콘텐츠 영역과 반응형 제목 및 헤더 액션을 배치합니다. (Arranges a home content region with a responsive title and header actions.) */
 export function MainSection({
   title,
-  titleVariant = 'sectionHeading',
+  titleVariant,
   actionSlot,
   children,
   className,

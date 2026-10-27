@@ -2,6 +2,22 @@
 
 ## 2026-10-27
 
+- **Fix**: 장바구니 옵션 영역의 세로 간격을 조정하고, 발볼 제목을 body4 medium으로, 사이즈 선택 칩을 40px 높이·8px 간격·body4로 맞췄다. 선택·품절·저장 상태 흐름은 유지한다. 변경 범위는 [UI 기록](architecture/ui.md#장바구니-옵션-선택-영역-간격과-크기-2026-10-27)과 [상태 기록](architecture/state.md#장바구니-옵션-표시-변경의-상태-영향-없음-2026-10-27)에 기록했다. 브라우저 시각 검증은 하지 않았다.
+
+- **Update**: 장바구니 발볼 선택의 Regular/Wide/X-Wide 라벨을 표준 `body4` 14px로 표시한다. Radio의 값·비활성화·변경 콜백은 유지한다. 상세와 상태 영향은 [UI 기록](architecture/ui.md#장바구니-발볼-옵션-글자-크기-2026-10-27), [상태 기록](architecture/state.md#장바구니-옵션-표시-변경의-상태-영향-없음-2026-10-27)에 기록했다. 브라우저 시각 검증은 하지 않았다.
+
+- **Fix**: 장바구니 옵션 썸네일의 선택 밑줄을 4px로 맞추고 미선택 상태에도 같은 테두리 공간을 예약했다. 선택 상태·콜백 계약에는 영향이 없다. [UI 기록](architecture/ui.md#장바구니-컬러-선택-밑줄-두께-2026-10-27)과 [상태 기록](architecture/state.md#장바구니-옵션-표시-변경의-상태-영향-없음-2026-10-27)에 범위를 적었다. 브라우저 시각 검증은 하지 않았다.
+
+- **Refactor**: `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle` Typography variant와 전용 CSS 변수를 제거했다. Hero·상품 목록·메인 섹션·카드·공통 SectionHeader를 표준 `heading`/`body` 단계 및 `web`/`mo`로 옮기고 Storybook 예시를 갱신했다. 매핑과 화면별 scale 변경 가능성은 [UI 기록](architecture/ui.md#typography-전용-variant-표준화-2026-10-27)에 기록했다. 브라우저 시각 검증은 수행하지 않았다.
+
+- **Update**: 장바구니 Figma `962:8877`·`1338:40335` 기준으로 모바일 카드 체크 위치·옵션 액션 간격·관심상품 링크 타이포를 보정하고, 선택/품절 삭제의 활성 조건을 반영했다. 표시 규격은 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27), 상태 계산과 영향 범위는 [상태 기록](architecture/state.md#장바구니-삭제-액션의-활성-조건-검토-2026-10-27)에 기록했다. 브라우저 검증은 아직 수행하지 않았다.
+
+- **Fix**: 장바구니 모바일 선택 수/전체 수 표기만 medium 웨이트로 분리했다. 선택 수 계산과 데스크톱 표시는 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에 유지 범위를 기록했다.
+
+- **Refactor**: CartItemRow의 체크박스와 삭제 버튼을 absolute 위치에서 상단 flex/space-between 행으로 옮겼다. Chrome 375px 모바일에서 배치를 시각 확인했고 선택·삭제 동작은 시험하지 않았다. 레이아웃 변경은 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에, 상태 영향 없음은 [상태 기록](architecture/state.md#장바구니-삭제-액션의-활성-조건-검토-2026-10-27)에 적었다.
+
+- **Update**: 강조 금액의 숫자에 heading7, 원 단위에 body3를 적용하고 기존 계산 및 일반 금액 표시를 유지했다. Chrome 모바일 375px 장바구니에서 표시를 확인했다. [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에 표시 규칙과 확인 범위를 기록했다.
+
 - **Update**: 상품 상세에서 사이즈 선택 시 컬러·발볼·사이즈 조합을 누적하고 동일 조합은 수량을 합산한다. 기존 NumberStepper·IconButton·AmountRow로 반복 행·삭제·합계를 구성하고, 선택 목록 전체를 기존 장바구니/구매 흐름에 전달한다. PC·모바일 상세 예시와 독립 목록·상호작용 스토리를 추가하고 [UI 구성](architecture/ui.md#상품-상세-옵션-누적-선택-2026-10-27)에 기록했다.
 
 ## 2026-10-26
@@ -855,3 +871,4 @@
 
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
+- **Update**: 제품·화면 전용 Typography variant에 이어 `formLabel`, `sizeOption`, `action`도 제거하고 사용처를 표준 body scale로 옮겼다. Checkbox의 중복 label variant API와 전용 CSS 변수를 정리했으며 [UI 아키텍처](architecture/ui.md)에 매핑과 범위를 기록했다.

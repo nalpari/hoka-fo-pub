@@ -238,7 +238,6 @@ export function InquiryOrderLookupPage() {
                                 {item.code} {item.name} 선택
                               </span>
                             }
-                            labelVariant="body4"
                             disabled={!isSelected}
                             checked={Boolean(
                               selection?.products.some((product) => product.id === item.id),

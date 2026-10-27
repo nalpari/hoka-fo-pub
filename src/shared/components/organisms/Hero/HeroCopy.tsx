@@ -28,6 +28,7 @@ const description = css({
   _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
 });
 
+/** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
 export function HeroCopy({ content, actions }: HeroCopyProps) {
   return (
     <VStack
@@ -49,7 +50,7 @@ export function HeroCopy({ content, actions }: HeroCopyProps) {
       gap={{ base: '36px', _mobile: '24px' }}
     >
       <VStack alignItems="flex-start" maxW="100%" gap={{ base: '36px', _mobile: '24px' }}>
-        <Typography as="h1" className={title} tone="inverse" variant="display">
+        <Typography as="h1" className={title} tone="inverse" variant="heading1">
           {content.title}
         </Typography>
         <Typography as="div" className={description} tone="inverse" variant="body">

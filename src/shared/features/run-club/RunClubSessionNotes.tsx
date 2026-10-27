@@ -3,6 +3,7 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { Box } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 
+/** 세션 안내 또는 주의 사항 목록을 표시합니다. (Displays a session notice or precaution list.) */
 export function RunClubSessionNotes({ precautions = false }: { precautions?: boolean }) {
   return (
     <Box
@@ -20,7 +21,8 @@ export function RunClubSessionNotes({ precautions = false }: { precautions?: boo
         {(precautions ? sessionPrecautions : sessionNotices).map((notice) => (
           <Typography
             as="li"
-            variant="sessionNote"
+            variant="body4"
+            mo="body5"
             key={notice}
             className={css({ _before: { content: '"- "' } })}
           >

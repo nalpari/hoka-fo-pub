@@ -36,20 +36,8 @@ export function CartItemRow({
   const soldOut = isCartItemSoldOut(item, product);
 
   return (
-    <HStack
-      as="li"
-      alignItems="center"
-      gap="0"
-      bg="black.10"
-      minH={{ base: '185px', _mobile: '164px' }}
-      pos="relative"
-    >
-      <Box
-        px={{ base: '4', _mobile: '0' }}
-        pos={{ base: 'static', _mobile: 'absolute' }}
-        top={{ _mobile: '8' }}
-        left={{ _mobile: '4' }}
-      >
+    <Stack as="li" gap="0" bg="black.10" minH={{ base: '185px', _mobile: '164px' }}>
+      <HStack justifyContent="space-between" alignItems="center" w="100%" px="4" pt="4">
         <Checkbox
           aria-label={`${product.name} 선택`}
           checked={selected}
@@ -57,13 +45,19 @@ export function CartItemRow({
           onCheckedChange={onSelect}
           label={null}
         />
-      </Box>
-      <Stack flex="1" minW="0" pl={{ base: '0', _mobile: '4' }} pr="4" py="8" gap="3">
-        <HStack justifyContent="flex-end" pos="absolute" top="3" right="4">
-          <IconButton size={24} aria-label={`${product.name} 삭제`} onClick={onRemove}>
-            <Icon fontAwesomeIcon={faXmark} size={14} />
-          </IconButton>
-        </HStack>
+        <IconButton size={18} aria-label={`${product.name} 삭제`} onClick={onRemove}>
+          <Icon fontAwesomeIcon={faXmark} size={14} />
+        </IconButton>
+      </HStack>
+      <Stack
+        flex="1"
+        minW="0"
+        pl="4"
+        pr="4"
+        pt={{ base: '8', _mobile: '0' }}
+        pb={{ base: '8', _mobile: '4' }}
+        gap="3"
+      >
         <Box opacity={soldOut ? '0.4' : '1'}>
           <OrderProductSummary
             variant="cart"
@@ -73,7 +67,12 @@ export function CartItemRow({
             optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
             amount={product.price * item.quantity}
           >
-            <HStack justifyContent="space-between" mt="1" gap="1">
+            <HStack
+              justifyContent="space-between"
+              pt={{ base: '1', _mobile: '0.5' }}
+              pb={{ base: '0', _mobile: '2' }}
+              gap="1"
+            >
               <Button variant="link" size="sm" onClick={onEdit}>
                 옵션변경
               </Button>
@@ -88,6 +87,6 @@ export function CartItemRow({
           </OrderProductSummary>
         </Box>
       </Stack>
-    </HStack>
+    </Stack>
   );
 }

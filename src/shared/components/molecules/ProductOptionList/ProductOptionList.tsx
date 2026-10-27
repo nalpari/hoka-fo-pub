@@ -82,7 +82,7 @@ export type ProductOptionListProps = {
   selectedId?: string;
 };
 
-/** Reusable product-option thumbnails for PLP previews and PDP selection. */
+/** 상품 옵션 썸네일을 목록 미리보기와 상세 선택에 표시합니다. (Displays product option thumbnails in listing previews and detail selection.) */
 export function ProductOptionList({
   ariaLabel = '상품 옵션',
   layout,
@@ -137,9 +137,20 @@ export function ProductOptionList({
           onSelect && optionButton,
           layout === 'cart' && {
             display: 'block',
+            position: 'relative',
             bg: 'transparent',
             boxShadow: 'none',
-            borderBottom: selected ? '2px solid black' : '2px solid transparent',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              right: '0',
+              h: '4px',
+              borderRadius: '50px',
+              bg: selected ? 'var(--color-black-100)' : 'transparent',
+              pointerEvents: 'none',
+            },
             _hover: { boxShadow: 'none' },
             _focusVisible: { boxShadow: 'none', outline: '2px solid var(--colors-black-100)' },
           },

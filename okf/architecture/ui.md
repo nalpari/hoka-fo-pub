@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T02:17:21Z'
+  at: '2026-10-27T05:33:17Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/product/ProductSelectedOptions.tsx
@@ -24,6 +24,23 @@ working_tree_sources:
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
   - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/features/product/ProductDetailHeaderMeta.tsx
+  - src/shared/styles/global.scss
+  - panda.config.ts
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
   - src/stories/features/catalog/SearchResults.Mobile.stories.tsx
   - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/Button/Button.type-test.tsx
@@ -225,6 +242,14 @@ working_tree_sources:
   - src/shared/components/atoms/Fieldset/Fieldset.tsx
   - src/shared/components/atoms/TextInput/TextInput.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
   - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
   - src/shared/components/organisms/Address/AddressField.tsx
@@ -267,6 +292,14 @@ working_tree_sources:
   - src/shared/components/atoms/DataTable/DataTable.tsx
   - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/styles/global.scss
   - src/shared/features/support/support.navigation.ts
   - src/stories/components/atoms/DataTable/DataTable.stories.tsx
@@ -637,6 +670,14 @@ working_tree_sources:
   - src/shared/features/signup-terms/SignupTermsPage.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
   - src/stories/features/login/LoginPage.stories.tsx
@@ -951,6 +992,11 @@ working_tree_sources:
   - src/shared/features/support/inquiryOrderSelection.storage.ts
   - src/app/support/inquiries/new/order-products/page.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/shared/components/molecules/CatalogFilterSection/CatalogFilterTrigger.tsx
+  - src/shared/components/molecules/ProductActivity/ProductActivity.tsx
+  - src/shared/components/molecules/ProductSpec/ProductSpec.tsx
+  - src/shared/features/product/ProductDetailHeaderTitle.tsx
+
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -976,6 +1022,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
+
+`ProductOptionList`의 `cart` 배치에서 선택된 썸네일 밑줄을 4px 높이의 `::after` 표시로 구현하고 `border-radius: 50px`을 적용했다. 미선택 항목에도 투명 표시를 유지해 선택 시 항목 높이가 달라지지 않게 한다. 다른 배치의 선택·hover 스타일은 그대로 둔다. 변경 후 Panda 생성과 해당 파일 ESLint를 통과했으며 브라우저 시각 검증은 하지 않았다.
+
+## 장바구니 발볼 옵션 글자 크기 (2026-10-27)
+
+장바구니 옵션의 Regular/Wide/X-Wide 선택 라벨을 표준 `body4`(14px)로 표시한다. 변경은 발볼 라디오 그룹의 글자 크기에 한정되며 배치·선택 표현은 그대로 둔다. 브라우저 시각 검증은 하지 않았다.
+
+## 장바구니 옵션 선택 영역 간격과 크기 (2026-10-27)
+
+장바구니 옵션 콘텐츠의 바깥·섹션 간격을 조정하고 선택 영역 사이에 40px 간격을 둔다. 발볼 섹션 제목은 `body4` medium, 사이즈는 40px 높이·8px 간격·`body4` 크기로 표시한다. 선택 가능한 사이즈와 품절 상태 표현은 유지하며 브라우저 시각 검증은 하지 않았다.
 
 ## 상품 상세 옵션 누적 선택 (2026-10-27)
 
@@ -2743,11 +2801,13 @@ HeroPagination은 모바일 점 6→9px·활성 막대 32→48px·간격 8→12p
 
 Panda의 wideDesktop(2240px), ultraWideDesktop(2560px) 조건으로 상품 목록·검색 결과는 3→4→5열을 표시한다. HomeCarouselRail은 기본 표시 개수에서 단계별 1/2개를 늘리고 실제 항목 수를 넘겨 새 열을 추가하지 않는다(기존 기본 개수는 하한으로 보존). Best sellers는 5→6→7개, Find my HOKA는 4→5→6개, 카테고리는 4→5→5개다. 공유하는 상품 상세·런클럽 추천 레일에도 같은 규칙을 적용한다. 기존 오른쪽 다음 카드 미리보기와 마지막 카드의 중앙 그리드 끝 정렬을 유지한다. 추가 데이터·뷰포트 감지 React 상태·이벤트 리스너를 만들지 않는다.
 
-ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. Typography의 body/productAudience는 기존 Figma 기초 스타일을 유지하고 글자 크기만 기존 의미 토큰을 소비한다. 기본값은 기존 16px이며 모바일 body의 홈 유동 크기와 성별 variant·가격의 모바일 토큰은 유지한다. Storybook EndAlignedToGrid는 CSS가 결정한 실제 표시 개수로 끝까지 이동할 클릭 횟수를 계산한다.
+ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. 상품 성별 표시는 공통 `body3`를 사용하고 상세 화면의 기존 반응형 글자 크기는 ProductGender 로컬 스타일이 유지한다. 상품 사용 목적은 `body4` bold, 상세 성별은 `body4` medium, 발볼 옵션은 `body4` medium, 컬러 선택값은 `body4`를 사용한다. 이에 따라 Typography의 `productAudience`, `productUse`, `productDetailGender`, `productWidthOption`, `productOptionValue` 전용 variant와 전용 line-height·audience 변수는 제거했다. 상품명·가격의 홈 유동 크기와 Storybook EndAlignedToGrid 동작은 유지한다.
 
-작업 트리 출처: panda.config.ts, src/shared/styles/global.scss, src/shared/components/atoms/Typography/Typography.tsx, src/shared/components/molecules/ProductDetails/ProductDetails.tsx, src/shared/components/molecules/HomeCarouselSection/{HomeCarouselSection,HomeCarouselRail}.tsx, src/shared/features/catalog/ProductListingResults.tsx, src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx. 해당 경로는 이 문서의 working_tree_sources에 기록되어 있다.
+## Typography 전용 variant 표준화 (2026-10-27)
 
-검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TypeScript/TSX ESLint를 통과했다. 실제 Next 앱을 Edge headless에서 PC 1200·1920·2240·2560·3840px, 모바일 375·768px로 확인했다. PC 중앙 폭 1920/2240/2560/3840px에서 1532/1786/2040/2040px, 제목 40/46/52/52px, 상품명 16/17/18/18px와 목록 3/4/5/5열을 측정했다. 2560px Best sellers는 5번 이동 후 다음 버튼 비활성·마지막 카드 오른쪽 정렬 오차 1px 미만, 5번 역이동 후 이전 버튼 비활성을 확인했다. 모든 측정 화면에 페이지 가로 넘침이 없고 모바일 목록은 2열을 유지한다. 2560px 검색 결과와 상품 상세에도 가로 넘침이 없다. 홈·목록 2560px 스크린샷을 시각 검토했다. 이번 변경에서 프로덕션 빌드는 재실행하지 않았다.
+화면·제품 전용 Typography variant를 삭제하고 표준 `heading1`–`heading9` 및 `body1`–`body5` 조합으로 사용처를 바꿨다. 대상에는 알림·선택·폼 라벨, 메뉴·지역·세션 제목/본문, 상품 옵션·정보·가격, 메타·필터 텍스트, `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle`이 포함된다. 폼 라벨은 `body4`, 사이즈 옵션은 `body5`, 액션 텍스트는 `body3`/모바일 `body4`와 semibold로 표현한다. Checkbox의 중복 `labelVariant` API와 이에 종속된 호출 인자를 제거했다. 화면별 scale은 호출부의 `web`/`mo` 및 `weight`로 지정한다. Hero는 `heading1`, 상품 목록 제목은 web `heading7`/mobile `body1`, MainSection은 기본 web `heading5`/mobile `heading4`, 카드 제목은 web `heading8`/mobile `heading6`으로 옮겼다. SectionHeader 큰 제목은 `heading7`을 쓴다. `unstyled` 이름의 Typography variant를 제거했다. variant를 생략하면 기존처럼 상위/native 스타일을 유지하며 tone만 지정한 경우 색상만 적용한다. 알림 숫자처럼 미세한 크기가 필요한 예외는 컴포넌트 로컬 스타일로 유지한다. SegmentedControl의 `unstyled` prop과 RatingStars의 `selectionLabel` 접근성 이름은 Typography variant가 아니므로 그대로 둔다. 모든 변경은 화면 표현만 대상으로 하며 인터랙션·데이터 상태 흐름은 바꾸지 않는다.
+
+작업 트리 출처는 frontmatter의 `working_tree_sources`에 기록했다. 표준 scale 매핑으로 일부 이전의 화면별 글자 크기가 달라질 수 있다. 브라우저 시각 검증은 수행하지 않았다.
 
 ## 홈 Hero 버튼 외곽선 제거 (2026-10-21)
 
@@ -2789,7 +2849,7 @@ CartOptionsDialog의 대표 이미지와 색상 썸네일은 고정 w/h 쌍이 �
 
 CartContent는 CartSelectionBar·CartProductList·CartSupportInfo를 조합한다. 각 부분은 기존 선택 바, ul/li 목록, 고객센터 section을 그대로 렌더링하며 신규 상태나 중간 래퍼를 추가하지 않는다. CartOptionsDialog가 draft·width/color별 sizes·soldOut·valid와 ConfirmDialog 저장/취소를 유지하고 CartOptionsContent에는 준비된 정보·색상 썸네일과 변경 콜백만 전달한다. 숫자·사이즈·발볼은 기존 NumberStepper·SizeSelector·Radio를 유지한다.
 
-ProductOptionList에 layout=cart를 추가했다. 72px 이미지·2px 선택 테두리·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
+ProductOptionList에 layout=cart를 추가했다. 72px 이미지·4px 둥근 선택 밑줄·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
 
 Wishlist의 선택적 label·iconSize로 장바구니의 12px 하트+관심상품 표기를 지원한다. label이 없으면 기존 38px 토글과 PC 24px/MO 19px 아이콘을 유지한다. 선택은 기존 Base UI Toggle의 pressed/onPressedChange로 관리하고, CartPage favorites가 계속 원본 상태다. Labelled 스토리는 왕복 토글을 확인한다. CheckoutComplete의 원형 완료 장식도 문자 체크 대신 Icon(faCheck)을 사용하며 모바일 숨김을 유지한다.
 
@@ -3068,3 +3128,15 @@ FilterTabs는 기존 소비자 간격을 유지하며 optional railClassName 슬
 기존 FormField/Select/TextareaField/CharacterCount·Radio·Checkbox·NumberStepper·DataTable을 재사용한다. 별도 상태 관리, 컨텍스트, Base UI 신규 도입은 없다. 이미지 부분은 molecule 내부 구성요소이며 독립 공용 컴포넌트로 승격하지 않았다. 기존 OrderProductSummary 및 주문/주문서 PC/mobile 스토리가 상위 조합을 다룬다.
 
 검증: 타입 검사, 지정 범위 ESLint, Panda 생성 포함 프로덕션 빌드 통과. 기존 Storybook 브라우저에서 부분취소 신청 완료·직접설정 날짜 입력 표시·배송 추적 표·결제 변경과 안내 동기화·직접 배송 요청 입력 및 10/250 카운터 갱신을 확인했다. 분리 전후 픽셀 비교는 수행하지 않았다.
+
+## 장바구니 체크와 상품 액션 간격 보정 (2026-10-27)
+
+Figma `962:8877`·`1338:40335`의 모바일 카드 기준으로 체크박스와 X 삭제 버튼을 absolute 배치에서 상단 flex 행으로 옮기고 양끝 정렬했다. OrderProductSummary의 모바일 이미지 슬롯은 96×96px, 이미지와 정보 사이 간격은 16px이다. 텍스트는 성별·상품명 사이 2px, 각 정보 줄 사이 4px 간격을 두며 CartItemRow 액션은 위쪽 6px 간격과 아래쪽 8px 여백을 둔다. 현재 Wishlist 라벨은 body5로 표시한다. 전체 선택/선택 가능 상품과 품절 판정은 기존 CartPage·`isCartItemSoldOut` 계산을 그대로 사용하며, 선택 삭제는 선택 행이 있을 때, 품절 삭제는 품절 행이 있을 때 활성화한다. 상품 선택/삭제 콜백은 바꾸지 않는다.
+
+출처는 위 working_tree_sources의 CartItemRow, Wishlist, CartSelectionBar, CartProductSection과 Figma 노드다. Chrome에서 localhost 장바구니를 375px 모바일 뷰로 열어 상단 체크박스·X 양끝 정렬과 본문 순서를 시각 확인했다. 삭제 동작과 데스크톱 화면은 이번 확인 범위가 아니다.
+
+선택 바의 모바일 `전체 (선택 수/전체 수)` 문구는 기존 body4 크기를 유지하며 괄호 안의 숫자 표기만 medium weight로 표시한다. PC `선택상품 n개` 표시는 유지한다. CartItemRow의 체크박스와 삭제 버튼은 별도 absolute 위치 대신 일반 flex 행으로 정렬하며 상품 콘텐츠 순서를 뒤따르게 한다. 이 구조는 Chrome 모바일 375px 장바구니에서 시각 확인했다.
+
+강조 금액(`emphasis`)은 숫자를 heading7, `원`을 body3로 나눠 표시한다. 일반 금액은 기존 body4 한 줄 표시를 유지하며, 할인 금액은 강조/일반 상태 모두 숫자와 단위에 오류 톤을 적용한다. 기존 AmountRow 사용처의 금액 계산과 합계 값은 변경하지 않는다.
+
+Chrome localhost 장바구니의 375px 화면에서 하단 결제예정금액 표기를 확인했다. 데스크톱 화면은 이번 시각 확인 범위가 아니다.

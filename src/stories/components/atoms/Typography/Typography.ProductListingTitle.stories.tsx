@@ -3,10 +3,10 @@ import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { PlatformProvider } from '@/shared/context/platform';
 
 const meta = {
-  title: 'Atoms/Typography/CatalogTitle',
+  title: 'Atoms/Typography/Product Listing Title',
   component: Typography,
   tags: ['autodocs'],
-  args: { as: 'h1', variant: 'catalogTitle', children: '남성 러닝화' },
+  args: { as: 'h1', web: 'heading7', mo: 'body1', weight: 'black', children: '남성 러닝화' },
 } satisfies Meta<typeof Typography>;
 
 export default meta;

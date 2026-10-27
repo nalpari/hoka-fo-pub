@@ -86,7 +86,6 @@ export type SingleCheckboxProps = Omit<
 > & {
   className?: string;
   label: ReactNode;
-  labelVariant?: 'formLabel' | 'body4';
   /** Compact filter with state-dependent label color. */
   variant?: 'default' | 'filter';
   /** Consent text may contain links or detail buttons. */
@@ -108,7 +107,6 @@ function SingleCheckbox({
   className,
   disabled,
   label: checkboxLabel,
-  labelVariant = 'formLabel',
   variant = 'default',
   interactiveLabel = false,
   onCheckedChange,
@@ -159,7 +157,7 @@ function SingleCheckbox({
         render={(props, state) => renderCheckboxControl(props, state, variant)}
       />
       <Typography
-        variant={variant === 'filter' ? 'body4' : labelVariant}
+        variant="body4"
         id={interactiveLabel ? labelId : undefined}
         onClick={(event) => {
           if (!interactiveLabel || disabled || (event.target as HTMLElement).closest('a, button'))
@@ -217,7 +215,7 @@ function CheckboxGroup<T extends string>({
             key={item.value}
           >
             {controlNode}
-            <Typography variant="formLabel">{item.label}</Typography>
+            <Typography variant="body4">{item.label}</Typography>
           </Stack>
         );
       })}
@@ -229,7 +227,7 @@ export function Checkbox(props: SingleCheckboxProps): ReactNode;
 
 export function Checkbox<T extends string>(props: CheckboxGroupProps<T>): ReactNode;
 
-/** A Base UI checkbox supporting either one boolean value or a group of option values. */
+/** 단일 선택 또는 옵션 그룹을 지원하는 체크박스입니다. (Provides a Base UI checkbox for one value or a group of options.) */
 export function Checkbox<T extends string>(props: SingleCheckboxProps | CheckboxGroupProps<T>) {
   return 'options' in props ? <CheckboxGroup {...props} /> : <SingleCheckbox {...props} />;
 }

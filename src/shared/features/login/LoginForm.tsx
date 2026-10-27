@@ -83,7 +83,6 @@ export function LoginForm({
             <Checkbox
               className={rememberIdCheckbox}
               label="아이디 저장"
-              labelVariant="body4"
               checked={rememberId}
               onCheckedChange={onRememberChange}
             />

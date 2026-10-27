@@ -137,7 +137,7 @@ export default defineConfig({
           12: { value: '0.75rem' },
           14: { value: '0.875rem' },
           16: { value: '1rem' },
-          18: { value: '1.125rem' }, // 고객사 디자인 추가사항 : productSupportTitle 26.10.23
+          18: { value: '1.125rem' },
           20: { value: '1.25rem' },
           22: { value: '1.375rem' },
           24: { value: '1.5rem' },
@@ -157,8 +157,6 @@ export default defineConfig({
           96: { value: '6rem' },
         },
         lineHeights: {
-          productOptionValue: { value: '18px' },
-          productGender: { value: '16px' },
           hoka: { value: '1' },
           koreanHeading: { value: '1.2' },
           body: { value: '1.3' },

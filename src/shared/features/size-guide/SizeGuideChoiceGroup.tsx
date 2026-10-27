@@ -26,6 +26,7 @@ const option = cva({
   },
 });
 
+/** 사이즈 가이드의 선택 항목을 일반 또는 조밀한 버튼으로 표시합니다. (Displays size guide choices as regular or compact buttons.) */
 export function SizeGuideChoiceGroup<T extends string>({
   label,
   options,
@@ -49,7 +50,7 @@ export function SizeGuideChoiceGroup<T extends string>({
       className={css({ display: 'flex', flexWrap: 'wrap', gap: compact ? '0' : '3' })}
       itemClassName={(_, selected) => option({ selected, compact })}
       itemRender={({ label }) => (
-        <Typography as="button" variant={compact ? 'unitLabel' : 'choiceLabel'}>
+        <Typography as="button" variant={compact ? 'body5' : 'body4'}>
           {label}
         </Typography>
       )}

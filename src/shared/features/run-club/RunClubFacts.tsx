@@ -28,6 +28,7 @@ const facts = cva({
   },
 });
 
+/** 런클럽 세션 정보를 요약 행으로 표시합니다. (Displays run club session facts as summary rows.) */
 export function RunClubFacts({
   rows,
   variant,
@@ -67,7 +68,8 @@ export function RunClubFacts({
           </Typography>
           <Typography
             as="dd"
-            variant={variant === 'hero' ? 'sessionFactBody' : 'sessionGuideBody'}
+            variant={variant === 'hero' ? 'body3' : 'body4'}
+            mo="body4"
             className={css({ m: '0' })}
           >
             {value}

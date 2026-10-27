@@ -414,102 +414,6 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
-      notificationCount: {
-        fontSize: 'var(--type-notification-count-font-size)',
-        fontWeight: 'var(--type-notification-count-font-weight)',
-        lineHeight: 'var(--type-notification-count-line-height)',
-      },
-      choiceLabel: {
-        fontFamily: 'var(--font-family-base)',
-        fontSize: 'var(--type-choice-label-font-size)',
-        fontWeight: 'var(--type-choice-label-font-weight)',
-        lineHeight: 'var(--type-choice-label-line-height)',
-        letterSpacing: 'var(--type-choice-label-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-choice-label-mobile-font-size)' },
-      },
-      unitLabel: {
-        fontFamily: 'var(--font-family-base)',
-        fontSize: 'var(--type-unit-label-font-size)',
-        fontWeight: 'var(--type-unit-label-font-weight)',
-        lineHeight: 'var(--type-unit-label-line-height)',
-        letterSpacing: 'var(--type-unit-label-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-unit-label-mobile-font-size)' },
-      },
-      selectionLabel: {
-        fontFamily: 'korean',
-        fontSize: 'var(--type-selection-label-font-size)',
-        fontWeight: 'var(--type-selection-label-font-weight)',
-        lineHeight: 'var(--type-selection-label-line-height)',
-        letterSpacing: 'var(--type-selection-label-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-selection-label-mobile-font-size)' },
-      },
-      navigationHeading: {
-        fontSize: 'var(--type-navigation-heading-font-size)',
-        fontWeight: 'var(--type-navigation-heading-font-weight)',
-        lineHeight: 'var(--type-navigation-heading-line-height)',
-        letterSpacing: '0',
-        _mobile: { fontSize: 'var(--type-navigation-heading-mobile-font-size)' },
-      },
-      navigationPromoTitle: {
-        fontFamily: 'hoka',
-        fontSize: 'var(--type-navigation-promo-title-font-size)',
-        fontWeight: 'var(--type-navigation-promo-title-font-weight)',
-        lineHeight: 'var(--type-navigation-promo-title-line-height)',
-        letterSpacing: '0',
-        _mobile: { fontSize: 'var(--type-navigation-promo-title-mobile-font-size)' },
-      },
-      localeHeading: {
-        fontSize: 'var(--type-locale-heading-font-size)',
-        fontWeight: 'var(--type-locale-heading-font-weight)',
-        lineHeight: 'var(--type-locale-heading-line-height)',
-        letterSpacing: 'var(--type-locale-heading-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-locale-heading-mobile-font-size)' },
-      },
-      profileTitle: {
-        fontSize: 'var(--type-profile-title-font-size)',
-        fontWeight: 'var(--type-profile-title-font-weight)',
-        lineHeight: 'var(--type-profile-title-line-height)',
-        letterSpacing: 'var(--type-profile-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-profile-title-mobile-font-size)' },
-      },
-      sessionTitle: {
-        fontSize: 'var(--type-session-title-font-size)',
-        fontWeight: 'var(--type-session-title-font-weight)',
-        lineHeight: 'var(--type-session-title-line-height)',
-        letterSpacing: 'var(--type-session-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-session-title-mobile-font-size)' },
-      },
-      sessionOverlay: {
-        ...figmaTypographyVariants.heading6,
-        _mobile: { fontSize: 'var(--type-session-overlay-mobile-font-size)' },
-      },
-      sessionFactBody: {
-        ...figmaTypographyVariants.body3,
-        lineHeight: 'var(--type-session-fact-line-height)',
-        _mobile: { fontSize: 'var(--font-sizes-14)' },
-      },
-      sessionGuideBody: {
-        ...figmaTypographyVariants.body4,
-        lineHeight: 'var(--type-session-fact-line-height)',
-      },
-      sessionNote: {
-        ...figmaTypographyVariants.body4,
-        lineHeight: 'var(--type-session-note-line-height)',
-        _mobile: { fontSize: 'var(--font-sizes-12)' },
-      },
-      sessionImagePlaceholder: {
-        fontSize: 'var(--type-session-image-placeholder-font-size)',
-        fontWeight: 'black',
-        lineHeight: 'inherit',
-        _mobile: { fontSize: 'var(--type-session-image-placeholder-mobile-font-size)' },
-      },
-      sessionPosterTitle: {
-        fontWeight: 'black',
-        fontSize: 'var(--type-session-poster-title-font-size)',
-        lineHeight: 'var(--type-session-poster-title-line-height)',
-        letterSpacing: 'var(--type-session-poster-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-session-poster-title-mobile-font-size)' },
-      },
       loginTitle: {
         fontFamily: 'korean',
         fontSize: 'var(--type-login-title-font-size)',
@@ -536,140 +440,11 @@ const typography = cva({
       authBody: figmaTypographyVariants.bodyKr3,
       authSmall: figmaTypographyVariants.bodyKr4,
 
-      display: {
-        fontSize: 'var(--type-display-font-size)',
-        fontWeight: 'var(--type-display-font-weight)',
-        lineHeight: 'var(--type-display-line-height)',
-        letterSpacing: 'var(--type-display-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-display-mobile-font-size)' },
-      },
-      heading: figmaTypographyVariants.headingKr7,
-      catalogTitle: {
-        fontFamily: 'korean',
-        fontSize: 'var(--type-catalog-title-font-size)',
-        fontWeight: 'var(--type-catalog-title-font-weight)',
-        lineHeight: 'var(--type-catalog-title-line-height)',
-        letterSpacing: 'korean',
-        _mobile: {
-          fontSize: 'var(--type-catalog-title-mobile-font-size)',
-          lineHeight: 'var(--type-catalog-title-mobile-line-height)',
-        },
-      },
-      sectionHeading: {
-        fontSize: 'var(--type-section-heading-font-size)',
-        fontWeight: 'var(--type-section-heading-font-weight)',
-        lineHeight: 'var(--type-section-heading-line-height)',
-        _mobile: {
-          fontSize: 'var(--type-section-heading-mobile-font-size)',
-          lineHeight: 'var(--type-section-heading-mobile-line-height)',
-        },
-      },
-      cardTitle: {
-        fontSize: 'var(--type-card-title-font-size)',
-        fontWeight: 'var(--type-card-title-font-weight)',
-        lineHeight: 'var(--type-card-title-line-height)',
-        _mobile: { fontSize: 'var(--type-card-title-mobile-font-size)' },
-      },
       body: {
         ...figmaTypographyVariants.bodyKr3,
         fontSize: 'var(--type-body-font-size)',
         _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
       },
-      formLabel: figmaTypographyVariants.body4,
-      productAudience: {
-        ...figmaTypographyVariants.body3,
-        fontSize: 'var(--type-product-audience-font-size)',
-      },
-      productUse: {
-        fontFamily: 'korean',
-        fontWeight: 'bold',
-        fontSize: '14',
-        lineHeight: 'body',
-        letterSpacing: 'korean',
-      },
-      productDetailGender: {
-        fontFamily: 'hoka',
-        fontWeight: 'medium',
-        fontSize: '14',
-        lineHeight: 'productGender',
-      },
-      productWidthOption: figmaTypographyVariants.cta2,
-      sizeOption: figmaTypographyVariants.body5,
-      productOptionValue: {
-        fontFamily: 'hoka',
-        fontWeight: 'medium',
-        fontSize: '16',
-        lineHeight: 'productOptionValue',
-      },
-      productSelectorLabel: {
-        fontSize: 'var(--type-product-selector-label-font-size)',
-        fontWeight: 'var(--type-product-selector-label-font-weight)',
-        lineHeight: 'var(--type-product-selector-label-line-height)',
-        letterSpacing: 'var(--type-product-selector-label-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-product-selector-label-mobile-font-size)' },
-      },
-      productSelectorAction: figmaTypographyVariants.body5,
-      productSectionTitle: {
-        fontFamily: 'korean',
-        fontSize: '24',
-        fontWeight: 'black',
-        lineHeight: 'koreanHeading',
-        letterSpacing: 'korean',
-      },
-      productSectionCount: {
-        fontFamily: 'hoka',
-        fontSize: '24',
-        fontWeight: 'medium',
-        lineHeight: 'koreanHeading',
-        letterSpacing: '0',
-      },
-      productInformationBody: {
-        fontFamily: 'korean',
-        fontSize: '16',
-        fontWeight: 'normal',
-        lineHeight: '1.5',
-        letterSpacing: 'korean',
-      },
-      productSupportTitle: {
-        fontFamily: 'korean',
-        fontSize: '18',
-        fontWeight: 'bold',
-        lineHeight: 'body',
-        letterSpacing: 'korean',
-        _mobile: { fontSize: '16' },
-      },
-      productTitle: {
-        fontSize: 'var(--type-product-title-font-size)',
-        fontWeight: 'var(--type-product-title-font-weight)',
-        lineHeight: 'var(--type-product-title-line-height)',
-        letterSpacing: 'var(--type-product-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-product-title-mobile-font-size)' },
-      },
-      productPrice: {
-        fontSize: 'var(--type-product-price-font-size)',
-        fontWeight: 'var(--type-product-price-font-weight)',
-        lineHeight: 'var(--type-product-price-line-height)',
-        _mobile: { fontSize: 'var(--type-product-price-mobile-font-size)' },
-      },
-      meta: {
-        fontSize: 'var(--type-meta-font-size)',
-        fontWeight: 'var(--type-meta-font-weight)',
-        lineHeight: 'var(--type-meta-line-height)',
-        _mobile: { fontSize: 'var(--type-meta-mobile-font-size)' },
-      },
-      price: {
-        fontSize: 'var(--type-price-font-size)',
-        fontWeight: 'var(--type-price-font-weight)',
-        lineHeight: 'var(--type-price-line-height)',
-        letterSpacing: 'var(--type-body-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-price-mobile-font-size)' },
-      },
-      priceEmphasis: { fontWeight: 'var(--type-price-emphasis-font-weight)' },
-      action: {
-        ...figmaTypographyVariants.ctaKr1,
-        _mobile: { fontSize: '14' },
-      },
-      filterLegend: figmaTypographyVariants.ctaKr1,
       ...figmaTypographyVariants,
       cta2: {
         ...figmaTypographyVariants.cta2,
@@ -720,58 +495,16 @@ const typography = cva({
     },
     tone: typographyTones,
   },
-  defaultVariants: { variant: 'body' },
 });
 
 export type TypographyVariant =
-  | 'unstyled'
-  | 'notificationCount'
-  | 'choiceLabel'
-  | 'unitLabel'
-  | 'selectionLabel'
-  | 'navigationHeading'
-  | 'navigationPromoTitle'
-  | 'localeHeading'
-  | 'profileTitle'
-  | 'sessionTitle'
-  | 'sessionOverlay'
-  | 'sessionFactBody'
-  | 'sessionGuideBody'
-  | 'sessionNote'
-  | 'sessionImagePlaceholder'
-  | 'sessionPosterTitle'
   | 'loginTitle'
   | 'pageTitle'
   | 'authTitle'
   | 'authCaption'
   | 'authBody'
   | 'authSmall'
-  | 'display'
-  | 'heading'
-  | 'catalogTitle'
-  | 'sectionHeading'
-  | 'cardTitle'
   | 'body'
-  | 'formLabel'
-  | 'productAudience'
-  | 'productUse'
-  | 'productDetailGender'
-  | 'productWidthOption'
-  | 'productOptionValue'
-  | 'sizeOption'
-  | 'productSelectorLabel'
-  | 'productSelectorAction'
-  | 'productSectionTitle'
-  | 'productSectionCount'
-  | 'productInformationBody'
-  | 'productSupportTitle'
-  | 'productTitle'
-  | 'productPrice'
-  | 'meta'
-  | 'price'
-  | 'priceEmphasis'
-  | 'filterLegend'
-  | 'action'
   | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | `body${1 | 2 | 3 | 4 | 5}`
@@ -799,7 +532,7 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   tone?: TypographyTone;
   /** Visually hides text while keeping it available to screen readers. */
   srOnly?: boolean;
-  /** Unstyled preserves native typography; an explicit tone still applies its color. */
+  /** Explicit tone overrides the inherited color. */
   variant?: TypographyVariant;
   /** Web override; falls back to variant when omitted. */
   web?: TypographyVariant;
@@ -835,14 +568,14 @@ function resolveLanguageVariant(
   return resolved in figmaTypographyVariants ? (resolved as TypographyVariant) : variant;
 }
 
-/** Semantic text primitive with paired desktop and mobile type scales. */
+/** 웹·모바일의 표준 타이포그래피 scale을 적용하는 텍스트 요소입니다. (Applies standard web and mobile typography scales to text.) */
 export function Typography<T extends ElementType = 'span'>({
   as,
   children,
   className,
   tone,
   srOnly = false,
-  variant = 'unstyled',
+  variant,
   web,
   mo,
   language = 'auto',
@@ -853,32 +586,21 @@ export function Typography<T extends ElementType = 'span'>({
   const platform = usePlatform();
   const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
-  // Choice buttons own their state colors; keep the existing inherited-color default elsewhere.
-  const resolvedTone =
-    tone ??
-    (selectedVariant === 'choiceLabel' || selectedVariant === 'unitLabel' ? undefined : 'inherit');
-  const isSessionBody =
-    selectedVariant === 'sessionFactBody' ||
-    selectedVariant === 'sessionGuideBody' ||
-    selectedVariant === 'sessionNote';
-  const script = isSessionBody
-    ? language === 'ko' || (language === 'auto' && containsHangul(children))
-      ? 'ko'
-      : 'en'
-    : undefined;
+  const resolvedTone = tone ?? (selectedVariant ? 'inherit' : undefined);
 
   return (
     <Element
       {...props}
       className={cx(
-        selectedVariant === 'unstyled'
-          ? tone && typographyTone({ tone })
-          : typography({
+        selectedVariant
+          ? typography({
               tone: resolvedTone,
               variant: resolvedVariant as never,
-              script,
               weight,
-            }),
+            })
+          : tone
+            ? typographyTone({ tone })
+            : undefined,
         srOnly && css({ srOnly: true }),
         className,
       )}

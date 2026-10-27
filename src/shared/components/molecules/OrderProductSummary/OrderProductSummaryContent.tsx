@@ -24,19 +24,21 @@ export function OrderProductSummaryContent({
   hideAmount = false,
 }: OrderProductSummaryContentProps) {
   return (
-    <Stack minW="0" flex="1" gap={variant === 'cart' ? { base: '1', _mobile: '0' } : '1'}>
-      {gender ? (
-        <Typography web="body5" mo={variant === 'cart' ? 'body4' : 'body5'}>
-          {gender}
+    <Stack minW="0" flex="1" gap={variant === 'cart' ? { base: '1', _mobile: '1' } : '1'}>
+      <Stack gap="0.5">
+        {gender ? (
+          <Typography web="body5" mo={variant === 'cart' ? 'body4' : 'body5'} weight="medium">
+            {gender}
+          </Typography>
+        ) : null}
+        <Typography
+          variant="body4"
+          weight="medium"
+          className={variant === 'cart' ? css({ lineClamp: 2 }) : undefined}
+        >
+          {name}
         </Typography>
-      ) : null}
-      <Typography
-        variant="body4"
-        weight="semibold"
-        className={variant === 'cart' ? css({ lineClamp: 2 }) : undefined}
-      >
-        {name}
-      </Typography>
+      </Stack>
       <Typography
         web="body5"
         mo={variant === 'cart' ? 'body4' : 'body5'}
@@ -45,7 +47,7 @@ export function OrderProductSummaryContent({
         {optionText}
       </Typography>
       {!hideAmount ? (
-        <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'semibold'}>
+        <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
           {amount.toLocaleString()}원
         </Typography>
       ) : null}

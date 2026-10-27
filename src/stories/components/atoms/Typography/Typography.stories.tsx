@@ -12,33 +12,33 @@ type TypographyStorySpec = {
 };
 
 const typographyStorySpecs = {
-  display: {
-    name: 'Display',
-    desktopFontSize: 'clamp(44px, 4vw, 80px)',
-    mobileFontSize: '40px',
+  heading1: {
+    name: 'Heading1',
+    desktopFontSize: '84px',
+    mobileFontSize: '50px',
     fontWeight: '900',
-    lineHeight: '0.9625',
+    lineHeight: 'HOKA',
   },
-  heading: {
-    name: 'Heading',
+  heading7: {
+    name: 'Heading7',
     desktopFontSize: '28px',
     mobileFontSize: '16px',
-    fontWeight: '900 (mobile 600)',
+    fontWeight: '900 (mobile 500)',
     lineHeight: '1.2',
   },
-  sectionHeading: {
-    name: 'SectionHeading',
-    desktopFontSize: '40px',
-    mobileFontSize: '30px',
+  heading5: {
+    name: 'Heading5 / Mobile Heading4',
+    desktopFontSize: '42px',
+    mobileFontSize: '28px',
     fontWeight: '900',
-    lineHeight: '38px',
+    lineHeight: '1.2',
   },
-  cardTitle: {
-    name: 'CardTitle',
-    desktopFontSize: '24px',
+  heading8: {
+    name: 'Heading8 / Mobile Heading6',
+    desktopFontSize: '22px',
     mobileFontSize: '20px',
     fontWeight: '900',
-    lineHeight: '23px',
+    lineHeight: 'HOKA',
   },
   body: {
     name: 'Body',
@@ -46,83 +46,6 @@ const typographyStorySpecs = {
     mobileFontSize: '14px',
     fontWeight: '400',
     lineHeight: '1.3',
-  },
-  formLabel: {
-    name: 'FormLabel',
-    desktopFontSize: '16px',
-    mobileFontSize: '16px',
-    fontWeight: '400',
-    lineHeight: '1.3',
-  },
-  productAudience: {
-    name: 'ProductAudience',
-    desktopFontSize: '16px',
-    mobileFontSize: '16px',
-    fontWeight: '400',
-    lineHeight: '1.3',
-  },
-  productSelectorLabel: {
-    name: 'ProductSelectorLabel',
-    desktopFontSize: '13px',
-    mobileFontSize: '13px',
-    fontWeight: '700',
-    lineHeight: '1.3',
-  },
-  productSelectorAction: {
-    name: 'ProductSelectorAction',
-    desktopFontSize: '12px',
-    mobileFontSize: '12px',
-    fontWeight: '400',
-    lineHeight: '1.3',
-  },
-  productTitle: {
-    name: 'ProductTitle',
-    desktopFontSize: '34px',
-    mobileFontSize: '34px',
-    fontWeight: '900',
-    lineHeight: '1',
-  },
-  productPrice: {
-    name: 'ProductPrice',
-    desktopFontSize: '20px',
-    mobileFontSize: '20px',
-    fontWeight: '700',
-    lineHeight: '1.3',
-  },
-  meta: {
-    name: 'Meta',
-    desktopFontSize: '13px',
-    mobileFontSize: '13px',
-    fontWeight: '400',
-    lineHeight: '1.4',
-  },
-  price: {
-    name: 'Price',
-    desktopFontSize: '16px',
-    mobileFontSize: '13px',
-    fontWeight: '400',
-    lineHeight: '1.3',
-  },
-  priceEmphasis: {
-    name: 'PriceEmphasis',
-    desktopFontSize: 'inherited',
-    mobileFontSize: 'inherited',
-    fontWeight: '700',
-    lineHeight: 'inherited',
-  },
-  action: {
-    name: 'Action',
-    desktopFontSize: '16px',
-    mobileFontSize: '14px',
-    fontWeight: '600',
-    lineHeight: '1.3',
-  },
-  filterLegend: {
-    name: 'FilterLegend',
-    desktopFontSize: '16px',
-    mobileFontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '130%',
   },
 } as const satisfies Record<string, TypographyStorySpec>;
 
@@ -140,7 +63,7 @@ const meta = {
   title: 'Atoms/Typography',
   component: Typography,
   tags: ['autodocs'],
-  args: { children: typographyLabel(typographyStorySpecs.heading), variant: 'heading' },
+  args: { children: typographyLabel(typographyStorySpecs.heading7), variant: 'heading7' },
   parameters: {
     docs: {
       description: {
@@ -156,15 +79,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Display: Story = {
-  args: { as: 'h1', children: typographyLabel(typographyStorySpecs.display), variant: 'display' },
+  args: { as: 'h1', children: typographyLabel(typographyStorySpecs.heading1), variant: 'heading1' },
 };
 
 export const Heading: Story = {
-  args: { as: 'h2', children: typographyLabel(typographyStorySpecs.heading), variant: 'heading' },
+  args: { as: 'h2', children: typographyLabel(typographyStorySpecs.heading7), variant: 'heading7' },
 };
 
 export const NotificationCount: Story = {
-  args: { as: 'span', variant: 'notificationCount', children: '12' },
+  args: { as: 'span', variant: 'body5', children: '12' },
   render: (args) => (
     <Stack gap="4">
       <PlatformProvider platform="web">
@@ -188,23 +111,23 @@ export const LoginTitle: Story = {
 };
 
 export const ProfileTitle: Story = {
-  args: { as: 'h1', variant: 'profileTitle', children: '나의 러닝 프로필' },
+  args: { as: 'h1', variant: 'heading7', mo: 'heading4', weight: 'bold', children: '나의 러닝 프로필' },
 };
 
 export const SessionTitle: Story = {
-  args: { as: 'h1', variant: 'sessionTitle', children: '러닝 세션 제목' },
+  args: { as: 'h1', variant: 'heading6', mo: 'heading4', weight: 'black', children: '러닝 세션 제목' },
 };
 
 export const SessionOverlay: Story = {
-  args: { as: 'span', variant: 'sessionOverlay', children: '27.2.12 19:00' },
+  args: { as: 'span', variant: 'heading6', mo: 'heading4', children: '27.2.12 19:00' },
 };
 
 export const SessionPosterTitle: Story = {
-  args: { as: 'h2', variant: 'sessionPosterTitle', children: 'Bugaksan Uphill Interval Session' },
+  args: { as: 'h2', variant: 'heading1', mo: 'heading2', children: 'Bugaksan Uphill Interval Session' },
 };
 
 export const SessionFactBody: Story = {
-  args: { as: 'dd', variant: 'sessionFactBody', children: '10월 30일 (금) 19:30 - 21:30' },
+  args: { as: 'dd', variant: 'body3', mo: 'body4', children: '10월 30일 (금) 19:30 - 21:30' },
   render: (args) => (
     <dl>
       <dt>일시</dt>
@@ -214,15 +137,15 @@ export const SessionFactBody: Story = {
 };
 
 export const SessionGuideBody: Story = {
-  args: { as: 'p', variant: 'sessionGuideBody', children: '그룹 러닝의 즐거움을 느껴보세요!' },
+  args: { as: 'p', variant: 'body4', children: '그룹 러닝의 즐거움을 느껴보세요!' },
 };
 
 export const SessionNote: Story = {
-  args: { as: 'p', variant: 'sessionNote', children: '신청은 선착순으로 진행됩니다.' },
+  args: { as: 'p', variant: 'body4', mo: 'body5', children: '신청은 선착순으로 진행됩니다.' },
 };
 
 export const SessionImagePlaceholder: Story = {
-  args: { as: 'span', variant: 'sessionImagePlaceholder', children: '이미지 영역' },
+  args: { as: 'span', variant: 'heading7', mo: 'body2', weight: 'black', children: '이미지 영역' },
 };
 
 export const MobileSessionTypography: Story = {
@@ -231,22 +154,22 @@ export const MobileSessionTypography: Story = {
   render: () => (
     <PlatformProvider platform="mobile">
       <div className="platform-mobile">
-        <Typography as="span" variant="sessionOverlay">
+        <Typography as="span" variant="heading6" mo="heading4">
           27.2.12 19:00
         </Typography>
-        <Typography as="h2" variant="sessionPosterTitle">
+        <Typography as="h2" variant="heading1" mo="heading2">
           Bugaksan Uphill Interval Session
         </Typography>
-        <Typography as="p" variant="sessionFactBody">
+        <Typography as="p" variant="body3" mo="body4">
           10월 30일 (금) 19:30 - 21:30
         </Typography>
-        <Typography as="p" variant="sessionGuideBody">
+        <Typography as="p" variant="body4">
           그룹 러닝의 즐거움을 느껴보세요!
         </Typography>
-        <Typography as="p" variant="sessionNote">
+        <Typography as="p" variant="body4" mo="body5">
           신청은 선착순으로 진행됩니다.
         </Typography>
-        <Typography as="span" variant="sessionImagePlaceholder">
+        <Typography as="span" variant="heading7" mo="body2" weight="black">
           이미지 영역
         </Typography>
       </div>
@@ -260,10 +183,10 @@ export const MobileContextTitles: Story = {
   render: () => (
     <PlatformProvider platform="mobile">
       <div className="platform-mobile">
-        <Typography as="h1" variant="profileTitle">
+        <Typography as="h1" variant="heading7" mo="heading4" weight="bold">
           나의 러닝 프로필
         </Typography>
-        <Typography as="h2" variant="sessionTitle">
+        <Typography as="h2" variant="heading6" mo="heading4" weight="black">
           러닝 세션 제목
         </Typography>
       </div>
@@ -304,16 +227,18 @@ export const MobilePageTitle: Story = {
 export const SectionHeading: Story = {
   args: {
     as: 'h3',
-    children: typographyLabel(typographyStorySpecs.sectionHeading),
-    variant: 'sectionHeading',
+    children: typographyLabel(typographyStorySpecs.heading5),
+    web: 'heading5',
+    mo: 'heading4',
   },
 };
 
 export const CardTitle: Story = {
   args: {
     as: 'h4',
-    children: typographyLabel(typographyStorySpecs.cardTitle),
-    variant: 'cardTitle',
+    children: typographyLabel(typographyStorySpecs.heading8),
+    web: 'heading8',
+    mo: 'heading6',
   },
 };
 
@@ -378,88 +303,74 @@ export const Black10Body: Story = {
   args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black10', variant: 'body' },
 };
 
-export const FormLabel: Story = {
+export const Body4: Story = {
   args: {
     as: 'span',
-    children: typographyLabel(typographyStorySpecs.formLabel),
-    variant: 'formLabel',
+    children: 'Body4 / 14px / 400 / 1.3 / 가나다라마바사',
+    variant: 'body4',
   },
-};
-
-export const ProductAudience: Story = {
-  args: {
-    as: 'span',
-    children: typographyLabel(typographyStorySpecs.productAudience),
-    variant: 'productAudience',
-  },
-};
-
-export const ProductSelectorLabel: Story = {
-  args: {
-    as: 'h2',
-    children: typographyLabel(typographyStorySpecs.productSelectorLabel),
-    variant: 'productSelectorLabel',
-  },
-};
-
-export const ProductSupportTitle: Story = {
-  args: { variant: 'productSupportTitle', children: '상품 고시 정보' },
 };
 
 export const ProductReviewTitle: Story = {
-  args: { as: 'h2', variant: 'productSectionTitle', children: '리뷰' },
+  args: { as: 'h2', variant: 'heading8', children: '리뷰' },
 };
 
 export const ProductReviewCount: Story = {
-  args: { variant: 'productSectionCount', children: '(472)' },
+  args: { variant: 'body1', weight: 'medium', children: '(472)' },
 };
 
 export const ProductInformationBody: Story = {
-  args: { variant: 'productInformationBody', children: '어떤 날씨에도 쿠션감 있는 편안한 주행' },
+  args: { variant: 'body3', children: '어떤 날씨에도 쿠션감 있는 편안한 주행' },
 };
 
 export const ProductSelectorAction: Story = {
   args: {
     as: 'button',
-    children: typographyLabel(typographyStorySpecs.productSelectorAction),
-    variant: 'productSelectorAction',
+    children: 'Body5 / 12px / 400 / 1.3 / 가나다라마바사',
+    variant: 'body5',
   },
 };
 
 export const ProductTitle: Story = {
   args: {
     as: 'h1',
-    children: typographyLabel(typographyStorySpecs.productTitle),
-    variant: 'productTitle',
+    children: typographyLabel(typographyStorySpecs.heading7),
+    variant: 'heading7',
+    mo: 'heading4',
   },
 };
 
 export const ProductPrice: Story = {
   args: {
     as: 'p',
-    children: typographyLabel(typographyStorySpecs.productPrice),
-    variant: 'productPrice',
+    children: 'Body3 / 16px / 400 / 1.3 / 가나다라마바사',
+    variant: 'body3',
   },
 };
 
 export const Meta: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.meta), variant: 'meta' },
+  args: { children: 'Body5 / 12px / 400 / 1.3 / 가나다라마바사', variant: 'body5' },
 };
 
 export const Price: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.price), variant: 'price' },
+  args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body3', mo: 'body4' },
 };
 
 export const PriceEmphasis: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.priceEmphasis), variant: 'priceEmphasis' },
+  args: { children: '원', variant: 'body3', weight: 'bold' },
 };
 
 export const Action: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.action), variant: 'action' },
+  args: {
+    children: 'Body3 / Body4 / Semibold / 가나다라마바사',
+    variant: 'body3',
+    mo: 'body4',
+    weight: 'semibold',
+  },
 };
 
 export const FilterLegend: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.filterLegend), variant: 'filterLegend' },
+  args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body3', weight: 'semibold' },
 };
 
 export const AuthTitle: Story = {
@@ -603,7 +514,7 @@ export const WebMoVariant: Story = {
 };
 
 export const LocaleHeading: Story = {
-  args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
+  args: { as: 'h1', web: 'body2', mo: 'body3', weight: 'bold', children: 'Choose your shipping country' },
 };
 
 export const ScreenReaderOnly: Story = {
@@ -620,7 +531,7 @@ export const ScreenReaderOnly: Story = {
 
 export const LocaleHeadingMobile: Story = {
   parameters: { layout: 'fullscreen' },
-  args: { as: 'h1', variant: 'localeHeading', children: 'Choose your shipping country' },
+  args: { as: 'h1', web: 'body2', mo: 'body3', weight: 'bold', children: 'Choose your shipping country' },
   render: (args) => (
     <PlatformProvider platform="mobile">
       <div className="platform-mobile">
@@ -630,10 +541,10 @@ export const LocaleHeadingMobile: Story = {
   ),
 };
 
-export const UnstyledTone: Story = {
+export const InheritedTone: Story = {
   args: {
     as: 'p',
-    variant: 'unstyled',
+    variant: 'body3',
     tone: 'tertiary',
     children: '글꼴과 크기를 유지하고 색상만 적용합니다.',
   },
@@ -648,7 +559,7 @@ export const UnstyledTone: Story = {
 };
 
 export const NavigationHeading: Story = {
-  args: { as: 'h2', variant: 'navigationHeading', children: 'Featured' },
+  args: { as: 'h2', variant: 'heading8', children: 'Featured' },
   render: (args) => (
     <Stack gap="6">
       <PlatformProvider platform="web">

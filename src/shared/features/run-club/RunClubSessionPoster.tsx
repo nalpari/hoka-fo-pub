@@ -6,6 +6,7 @@ import { css } from 'styled-system/css';
 
 type Props = { session: Pick<RunClubSession, 'category' | 'overlayDate'> };
 
+/** 세션 카테고리에 맞는 홍보 제목과 날짜를 표시합니다. (Displays a promotional title and date for the session category.) */
 export function RunClubSessionPoster({ session }: Props) {
   return (
     <ContentSection
@@ -24,7 +25,9 @@ export function RunClubSessionPoster({ session }: Props) {
         eyebrowProps: { variant: 'body2', web: 'heading6', mo: 'body1', weight: 'black' },
         titleAs: 'h2',
         titleProps: {
-          variant: 'sessionPosterTitle',
+          variant: 'heading1',
+          mo: 'heading2',
+          weight: 'black',
           className: css({ overflowWrap: 'anywhere' }),
         },
       }}

@@ -13,7 +13,7 @@ import { useFormFieldContext } from '@/shared/components/atoms/FormField/FormFie
 const grid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(var(--size-columns), minmax(0, 1fr))',
-  gap: '5px',
+  gap: '2',
 });
 
 const pill = cva({
@@ -25,7 +25,7 @@ const pill = cva({
     justifyContent: 'center',
     gap: '1',
     minW: '0',
-    minH: '8',
+    minH: '10',
     px: '0.5',
     border: '1px solid var(--color-black-40)',
     borderRadius: 'full',
@@ -91,7 +91,7 @@ const stateLabels: Record<SizeOptionState, string> = {
   unavailable: '미제공',
 };
 
-/** Shared size pills with native single- or multiple-choice semantics. */
+/** 네이티브 단일·다중 선택 의미를 유지하는 공통 사이즈 옵션입니다. (Provides shared size options with native single- or multiple-choice semantics.) */
 export function SizeSelector(props: SizeSelectorProps) {
   const field = useFormFieldContext();
   const { options, ariaLabel, columns = 5, soldOutAppearance = 'gray' } = props;
@@ -110,7 +110,7 @@ export function SizeSelector(props: SizeSelectorProps) {
         {state === 'lowStock' && (
           <Icon name="action/fa-clock-nine" size="12px" color="currentColor" />
         )}
-        <Typography variant="sizeOption" style={{ color: 'inherit' }}>
+        <Typography variant="body4" style={{ color: 'inherit' }}>
           {value}
         </Typography>
       </>
