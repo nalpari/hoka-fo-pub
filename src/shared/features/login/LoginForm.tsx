@@ -11,7 +11,7 @@ import { RememberIdHelp } from '@/shared/features/login/RememberIdHelp';
 import { TextFormField } from '@/shared/components/molecules/FormFields/TextFormField';
 import { PasswordField } from '@/shared/components/molecules/FormFields/PasswordField';
 
-const rememberIdCheckbox = css({ gap: '2', flexShrink: '0' });
+const rememberIdCheckbox = css({ flexShrink: '0' });
 
 export type LoginNotice = {
   tone: 'error' | 'success';

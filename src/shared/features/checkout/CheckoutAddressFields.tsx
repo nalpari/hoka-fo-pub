@@ -24,6 +24,7 @@ export function CheckoutAddressFields({
   return (
     <AddressFields
       variant="boxed"
+      searchDisabled
       fieldOptions={{
         postalCode: { disabled: false, inputProps: { name: 'postalCode', readOnly: true } },
         address: { disabled: false, inputProps: { name: 'address', readOnly: true } },

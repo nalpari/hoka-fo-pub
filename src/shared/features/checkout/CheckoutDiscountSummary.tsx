@@ -1,37 +1,56 @@
-import { Stack } from 'styled-system/jsx';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
+import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { AmountRow } from '@/shared/components/molecules/AmountRow/AmountRow';
+import { Flex, Stack } from 'styled-system/jsx';
+import { checkoutCouponOptions } from './checkout-coupons';
+import { checkoutShippingFee } from './checkout-summary';
 
+/** 주문 금액과 쿠폰 선택 결과를 요약합니다. (Summarizes order amounts and coupon selection.) */
 export function CheckoutDiscountSummary({
   total,
   discount,
-  onCoupons,
+  itemCount,
+  coupon,
+  maxBenefit,
+  onCouponChange,
+  onMaxBenefitChange,
 }: {
   total: number;
   discount: number;
-  onCoupons: () => void;
+  itemCount: number;
+  coupon: string;
+  maxBenefit: boolean;
+  onCouponChange: (coupon: string) => void;
+  onMaxBenefitChange: (checked: boolean) => void;
 }) {
   return (
-    <Stack gap="3">
+    <Stack gap="4">
       <Stack gap="3" border="1px solid var(--colors-black-20)">
-        <AmountRow label="총 상품금액" amount={total} px="4" pt="4" />
+        <AmountRow label={`주문금액 (상품 ${itemCount}개)`} amount={total} px="4" pt="4" />
         <AmountRow label="상품 할인금액" amount={0} px="4" />
-        <AmountRow
-          label="쿠폰"
-          amount={discount}
-          discount
-          px="4"
-          pb="1"
-          action={
-            <Button variant="link" size="sm" onClick={onCoupons}>
-              조회하기
-            </Button>
-          }
-        />
+        <Stack gap="2" px="4">
+          <Flex justifyContent="flex-end">
+            <Checkbox
+              label="최대 혜택 적용"
+              checked={maxBenefit}
+              onCheckedChange={onMaxBenefitChange}
+            />
+          </Flex>
+          <Dropdown
+            ariaLabel="쿠폰 선택"
+            label="쿠폰"
+            required
+            value={coupon}
+            onValueChange={(value) => onCouponChange(value)}
+            options={checkoutCouponOptions}
+          />
+        </Stack>
+        <AmountRow label="쿠폰 할인금액" amount={discount} discount px="4" />
+        <AmountRow label="배송비" amount={checkoutShippingFee} px="4" />
         <AmountRow
           label="총 결제 금액"
-          amount={total - discount}
+          amount={total - discount + checkoutShippingFee}
           emphasis
           emphasizeLabel
           p="4"
@@ -41,7 +60,7 @@ export function CheckoutDiscountSummary({
       </Stack>
       <Stack gap="1">
         <Typography variant="body5" tone="subtle">
-          - 보유 쿠폰 조회에서 사용할 쿠폰을 선택할 수 있습니다.
+          - 쿠폰 보유 시 최대 할인 쿠폰으로 자동 적용됩니다.
         </Typography>
         <Typography variant="body5" tone="subtle">
           - 정상 상품과 세일 상품을 함께 결제 시 쿠폰 적용 가능 상품에만 쿠폰이 적용됩니다.

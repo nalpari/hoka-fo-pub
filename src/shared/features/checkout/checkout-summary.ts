@@ -4,6 +4,8 @@ type CheckoutProduct = { id: string; name: string; price: number; primaryImage?:
 
 export type CheckoutRow = { item: CartItem; product: CheckoutProduct };
 
+export const checkoutShippingFee = 0;
+
 /** Preserve option-level cart rows and ignore products absent from the catalogue. */
 export function getCheckoutSummary(
   cart: readonly CartItem[],
