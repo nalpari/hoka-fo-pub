@@ -32,7 +32,7 @@ export type DescriptionListProps = {
   descriptionProps?: TextProps;
 };
 
-/** Semantic key/value list for delivery, specifications, and account summaries. */
+/** 배송·상품 정보와 계정 요약을 의미 있는 이름/값 목록으로 표시합니다. (Displays semantic key/value lists for delivery, product details, and account summaries.) */
 export function DescriptionList({
   items,
   labelWidth,
@@ -48,7 +48,7 @@ export function DescriptionList({
     >
       {items.map((item, index) => (
         <Box key={item.id ?? index} className={css({ display: 'contents' }, slotStyles?.row)}>
-          <Typography as="dt" variant="heading9" {...termProps} className={css(slotStyles?.term)}>
+          <Typography as="dt" variant="body4" {...termProps} className={css(slotStyles?.term)}>
             {item.term}
           </Typography>
           <Typography

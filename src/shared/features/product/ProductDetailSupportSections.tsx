@@ -13,6 +13,7 @@ const item = css({ borderBottom: '1px solid var(--color-black-20)' });
 
 const trigger = css({ minH: '77px' });
 
+/** 상품 고시·배송·관리 안내 섹션을 구성합니다. (Composes product specification, delivery, and care sections.) */
 export function ProductDetailSupportSections({
   specifications,
 }: {
@@ -27,17 +28,17 @@ export function ProductDetailSupportSections({
       items={[
         {
           value: 'notice',
-          title: <Typography variant="productSupportTitle">상품 고시 정보</Typography>,
+          title: <Typography variant="body3" mo="body4" weight="bold">상품 고시 정보</Typography>,
           content: <ProductDetailNoticeTable items={specifications} />,
         },
         {
           value: 'delivery',
-          title: <Typography variant="productSupportTitle">배송 및 반품</Typography>,
+          title: <Typography variant="body3" mo="body4" weight="bold">배송 및 반품</Typography>,
           content: <ProductDetailDeliveryContent />,
         },
         {
           value: 'care',
-          title: <Typography variant="productSupportTitle">관리 방법</Typography>,
+          title: <Typography variant="body3" mo="body4" weight="bold">관리 방법</Typography>,
           content: <CareInstructions sections={shoeCareSections} />,
         },
       ]}

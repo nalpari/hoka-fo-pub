@@ -56,7 +56,7 @@ export type RadioProps<T extends string = string> = {
   selectedOptionClassName?: string;
 };
 
-/** Controlled single-choice radio group with project-standard radio icon assets. */
+/** 프로젝트 표준 아이콘으로 제어형 단일 선택 라디오 그룹을 표시합니다. (Displays a controlled single-choice radio group with project-standard icons.) */
 export function Radio<T extends string = string>({
   ariaLabel,
   className,
@@ -120,7 +120,7 @@ export function Radio<T extends string = string>({
                 <img alt="" aria-hidden="true" className={icon} src={radioAsset} />
               </span>
             </BaseRadio.Root>
-            <Typography variant="formLabel">{item.label}</Typography>
+            <Typography variant="body4">{item.label}</Typography>
           </HStack>
         );
       })}

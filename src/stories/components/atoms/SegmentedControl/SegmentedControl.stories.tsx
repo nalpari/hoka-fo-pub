@@ -27,7 +27,7 @@ function SegmentedStory({
       itemRender={
         customTypography
           ? ({ label }) => (
-              <Typography as="button" variant="choiceLabel">
+              <Typography as="button" variant="body4">
                 {label}
               </Typography>
             )

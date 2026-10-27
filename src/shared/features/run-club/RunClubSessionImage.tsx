@@ -1,6 +1,7 @@
 import { Center } from 'styled-system/jsx';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
+/** 런클럽 세션 대표 이미지 영역을 표시합니다. (Displays the run club session hero image area.) */
 export function RunClubSessionImage() {
   return (
     <Center
@@ -16,7 +17,7 @@ export function RunClubSessionImage() {
         aspectRatio: '1.5',
       }}
     >
-      <Typography variant="sessionImagePlaceholder">이미지 영역</Typography>
+      <Typography variant="heading7" mo="body2" weight="black">이미지 영역</Typography>
     </Center>
   );
 }

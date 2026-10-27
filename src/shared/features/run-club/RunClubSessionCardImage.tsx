@@ -18,6 +18,7 @@ const styles = {
   }),
 };
 
+/** 세션 이미지 위에 날짜·장소·거리를 겹쳐 표시합니다. (Overlays the session date, location, and distance on its image.) */
 export function RunClubSessionCardImage({ session }: { session: RunClubSession }) {
   return (
     <LinkOverlay
@@ -36,10 +37,10 @@ export function RunClubSessionCardImage({ session }: { session: RunClubSession }
       />
       <Square pos="absolute" left="0" top="0" w="100%" h="100%">
         <VStack gap="0" color="#fff">
-          <Typography variant="sessionOverlay">{session.overlayDate}</Typography>
+          <Typography variant="heading6" mo="heading4">{session.overlayDate}</Typography>
           <HStack gap="2">
-            <Typography variant="sessionOverlay">{session.location}</Typography>
-            <Typography variant="sessionOverlay">{session.distance}</Typography>
+            <Typography variant="heading6" mo="heading4">{session.location}</Typography>
+            <Typography variant="heading6" mo="heading4">{session.distance}</Typography>
           </HStack>
         </VStack>
       </Square>

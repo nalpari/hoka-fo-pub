@@ -117,7 +117,7 @@ function FormFieldRoot({
       <BaseField.Label
         htmlFor={htmlFor}
         render={(props) => (
-          <Typography {...props} as="label" variant={boxed ? 'body5' : 'formLabel'}>
+          <Typography {...props} as="label" variant={boxed ? 'body5' : 'body4'}>
             {props.children}
           </Typography>
         )}
@@ -216,6 +216,7 @@ export function FormFieldMessage({ className, ...props }: FormFieldMessageProps)
   );
 }
 
+/** 레이블·입력·안내·오류 메시지를 연결하는 폼 필드입니다. (Connects a form label, control, hint, and validation message.) */
 export const FormField = Object.assign(FormFieldRoot, {
   Label: FormFieldLabel,
   Control: FormFieldControl,

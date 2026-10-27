@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T01:50:29Z'
+  at: '2026-10-27T03:41:50Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/shared/features/cart/CartContent.tsx
@@ -36,6 +36,7 @@ working_tree_sources:
   - src/shared/features/cart/CartProductSection.tsx
   - src/shared/features/cart/CartProductList.tsx
   - src/shared/features/cart/CartOptionsContent.tsx
+
   - src/shared/features/checkout/CheckoutForm.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
   - src/shared/features/checkout/CheckoutPage.tsx
@@ -168,6 +169,10 @@ sources:
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/cart/page.tsx
     title: 'src/app/cart/page.tsx'
 ---
+
+## Typography variant 정리의 상태 경계 (2026-10-27)
+
+Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
 

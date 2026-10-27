@@ -15,7 +15,7 @@ export type ProductInformationProps = {
   specifications: readonly { label: string; value: ReactNode }[];
 };
 
-/** Product description sections and a semantic specification list. */
+/** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 export function ProductInformation({
   id,
   title = '상품 정보',
@@ -38,7 +38,7 @@ export function ProductInformation({
       title={title}
       headerProps={{
         titleAs: 'h2',
-        titleProps: { variant: 'productSectionTitle', mo: 'heading8' },
+        titleProps: { variant: 'heading8', mo: 'heading8' },
       }}
     >
       <Stack gap="8">
@@ -52,7 +52,7 @@ export function ProductInformation({
                 titleProps={{ variant: 'body3', weight: 'bold' }}
                 description={<>{description.content}</>}
                 descriptionProps={{
-                  variant: 'productInformationBody',
+                  variant: 'body3',
                   className: expanded ? undefined : css({ lineClamp: 4 }),
                 }}
               />
@@ -66,7 +66,7 @@ export function ProductInformation({
                   title={<>{section.title}</>}
                   titleProps={{ variant: 'body3', weight: 'bold' }}
                   description={<>{section.content}</>}
-                  descriptionProps={{ variant: 'productInformationBody' }}
+                  descriptionProps={{ variant: 'body3' }}
                 />
               ))}
           </Stack>

@@ -38,7 +38,7 @@ export type SectionHeaderProps<T extends ElementType = 'h2'> = Omit<
   titleSize?: 'sm' | 'md' | 'lg' | 'xl';
 };
 
-/** Reusable page and section heading with optional supporting content and action slot. */
+/** 페이지와 섹션의 제목·보조 콘텐츠·액션을 배치합니다. (Arranges a page or section heading with supporting content and an action slot.) */
 export function SectionHeader<T extends ElementType = 'h2'>({
   title,
   titleAs,
@@ -68,12 +68,12 @@ export function SectionHeader<T extends ElementType = 'h2'>({
         <Typography
           as={Heading as ElementType}
           className={[css({ m: '0' }), titleClassName].filter(Boolean).join(' ')}
-          variant={titleSize === 'lg' || titleSize === 'xl' ? 'heading' : 'body'}
+          variant={titleSize === 'lg' || titleSize === 'xl' ? 'heading7' : 'body3'}
         >
           {title}
         </Typography>
         {description ? (
-          <Typography as="p" className={descriptionStyle} tone="subtle" variant="meta">
+          <Typography as="p" className={descriptionStyle} tone="subtle" variant="body5">
             {description}
           </Typography>
         ) : null}

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Box, VStack } from 'styled-system/jsx';
 import type { Platform } from '@/shared/lib/device';
 
+/** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */
 export function HomeLayout({ platform, children }: { platform: Platform; children: ReactNode }) {
   return (
     <Box
@@ -29,10 +30,6 @@ export function HomeLayout({ platform, children }: { platform: Platform; childre
           '--home-pagination-dot': 'clamp(0.375rem, calc(0.19608779rem + 0.76335878vw), 0.5625rem)',
           '--home-pagination-active': 'clamp(2rem, calc(1.04580153rem + 4.07124682vw), 3rem)',
           '--home-pagination-gap': 'clamp(0.5rem, calc(0.26145038rem + 1.0178117vw), 0.75rem)',
-          '--type-display-mobile-font-size': 'var(--home-title-40)',
-          '--type-section-heading-mobile-font-size': 'var(--home-title-30)',
-          '--type-card-title-mobile-font-size': 'var(--home-title-20)',
-          '--type-price-mobile-font-size': 'var(--home-body-13)',
         },
       }}
     >

@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T01:50:29Z'
+  at: '2026-10-27T03:41:50Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
@@ -16,6 +16,23 @@ working_tree_sources:
   - src/shared/components/layouts/AppLayout/AppLayout.tsx
   - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
   - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
+  - src/shared/components/atoms/ProductGender/ProductGender.tsx
+  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/features/product/ProductDetailHeaderMeta.tsx
+  - src/shared/styles/global.scss
+  - panda.config.ts
+  - src/stories/components/atoms/Typography/Typography.stories.tsx
   - src/stories/features/catalog/SearchResults.Mobile.stories.tsx
   - src/shared/components/atoms/Button/Button.tsx
   - src/shared/components/atoms/Button/Button.type-test.tsx
@@ -217,6 +234,14 @@ working_tree_sources:
   - src/shared/components/atoms/Fieldset/Fieldset.tsx
   - src/shared/components/atoms/TextInput/TextInput.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
   - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
   - src/shared/components/organisms/Address/AddressField.tsx
@@ -259,6 +284,14 @@ working_tree_sources:
   - src/shared/components/atoms/DataTable/DataTable.tsx
   - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/styles/global.scss
   - src/shared/features/support/support.navigation.ts
   - src/stories/components/atoms/DataTable/DataTable.stories.tsx
@@ -629,6 +662,14 @@ working_tree_sources:
   - src/shared/features/signup-terms/SignupTermsPage.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
   - src/shared/components/atoms/Typography/Typography.tsx
+  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
+  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
+  - src/shared/components/molecules/MainSection/MainSection.tsx
+  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
+  - src/shared/components/organisms/Hero/HeroCopy.tsx
+  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
+  - src/shared/features/home/HomeLayout.tsx
+  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
   - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
   - src/stories/features/login/LoginPage.stories.tsx
@@ -943,6 +984,11 @@ working_tree_sources:
   - src/shared/features/support/inquiryOrderSelection.storage.ts
   - src/app/support/inquiries/new/order-products/page.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
+  - src/shared/components/molecules/CatalogFilterSection/CatalogFilterTrigger.tsx
+  - src/shared/components/molecules/ProductActivity/ProductActivity.tsx
+  - src/shared/components/molecules/ProductSpec/ProductSpec.tsx
+  - src/shared/features/product/ProductDetailHeaderTitle.tsx
+
 sources:
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -2723,12 +2769,13 @@ HeroPagination은 모바일 점 6→9px·활성 막대 32→48px·간격 8→12p
 
 Panda의 wideDesktop(2240px), ultraWideDesktop(2560px) 조건으로 상품 목록·검색 결과는 3→4→5열을 표시한다. HomeCarouselRail은 기본 표시 개수에서 단계별 1/2개를 늘리고 실제 항목 수를 넘겨 새 열을 추가하지 않는다(기존 기본 개수는 하한으로 보존). Best sellers는 5→6→7개, Find my HOKA는 4→5→6개, 카테고리는 4→5→5개다. 공유하는 상품 상세·런클럽 추천 레일에도 같은 규칙을 적용한다. 기존 오른쪽 다음 카드 미리보기와 마지막 카드의 중앙 그리드 끝 정렬을 유지한다. 추가 데이터·뷰포트 감지 React 상태·이벤트 리스너를 만들지 않는다.
 
-ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. Typography의 body/productAudience는 기존 Figma 기초 스타일을 유지하고 글자 크기만 기존 의미 토큰을 소비한다. 기본값은 기존 16px이며 모바일 body의 홈 유동 크기와 성별 variant·가격의 모바일 토큰은 유지한다. Storybook EndAlignedToGrid는 CSS가 결정한 실제 표시 개수로 끝까지 이동할 클릭 횟수를 계산한다.
+ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정한다. 상품 성별 표시는 공통 `body3`를 사용하고 상세 화면의 기존 반응형 글자 크기는 ProductGender 로컬 스타일이 유지한다. 상품 사용 목적은 `body4` bold, 상세 성별은 `body4` medium, 발볼 옵션은 `body4` medium, 컬러 선택값은 `body4`를 사용한다. 이에 따라 Typography의 `productAudience`, `productUse`, `productDetailGender`, `productWidthOption`, `productOptionValue` 전용 variant와 전용 line-height·audience 변수는 제거했다. 상품명·가격의 홈 유동 크기와 Storybook EndAlignedToGrid 동작은 유지한다.
 
-작업 트리 출처: panda.config.ts, src/shared/styles/global.scss, src/shared/components/atoms/Typography/Typography.tsx, src/shared/components/molecules/ProductDetails/ProductDetails.tsx, src/shared/components/molecules/HomeCarouselSection/{HomeCarouselSection,HomeCarouselRail}.tsx, src/shared/features/catalog/ProductListingResults.tsx, src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx. 해당 경로는 이 문서의 working_tree_sources에 기록되어 있다.
+## Typography 전용 variant 표준화 (2026-10-27)
 
-검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·변경 TypeScript/TSX ESLint를 통과했다. 실제 Next 앱을 Edge headless에서 PC 1200·1920·2240·2560·3840px, 모바일 375·768px로 확인했다. PC 중앙 폭 1920/2240/2560/3840px에서 1532/1786/2040/2040px, 제목 40/46/52/52px, 상품명 16/17/18/18px와 목록 3/4/5/5열을 측정했다. 2560px Best sellers는 5번 이동 후 다음 버튼 비활성·마지막 카드 오른쪽 정렬 오차 1px 미만, 5번 역이동 후 이전 버튼 비활성을 확인했다. 모든 측정 화면에 페이지 가로 넘침이 없고 모바일 목록은 2열을 유지한다. 2560px 검색 결과와 상품 상세에도 가로 넘침이 없다. 홈·목록 2560px 스크린샷을 시각 검토했다. 이번 변경에서 프로덕션 빌드는 재실행하지 않았다.
+화면·제품 전용 Typography variant를 삭제하고 표준 `heading1`–`heading9` 및 `body1`–`body5` 조합으로 사용처를 바꿨다. 대상에는 알림·선택·폼 라벨, 메뉴·지역·세션 제목/본문, 상품 옵션·정보·가격, 메타·필터 텍스트, `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle`이 포함된다. 폼 라벨은 `body4`, 사이즈 옵션은 `body5`, 액션 텍스트는 `body3`/모바일 `body4`와 semibold로 표현한다. Checkbox의 중복 `labelVariant` API와 이에 종속된 호출 인자를 제거했다. 화면별 scale은 호출부의 `web`/`mo` 및 `weight`로 지정한다. Hero는 `heading1`, 상품 목록 제목은 web `heading7`/mobile `body1`, MainSection은 기본 web `heading5`/mobile `heading4`, 카드 제목은 web `heading8`/mobile `heading6`으로 옮겼다. SectionHeader 큰 제목은 `heading7`을 쓴다. `unstyled` 이름의 Typography variant를 제거했다. variant를 생략하면 기존처럼 상위/native 스타일을 유지하며 tone만 지정한 경우 색상만 적용한다. 알림 숫자처럼 미세한 크기가 필요한 예외는 컴포넌트 로컬 스타일로 유지한다. SegmentedControl의 `unstyled` prop과 RatingStars의 `selectionLabel` 접근성 이름은 Typography variant가 아니므로 그대로 둔다. 모든 변경은 화면 표현만 대상으로 하며 인터랙션·데이터 상태 흐름은 바꾸지 않는다.
 
+작업 트리 출처는 frontmatter의 `working_tree_sources`에 기록했다. 표준 scale 매핑으로 일부 이전의 화면별 글자 크기가 달라질 수 있다. 브라우저 시각 검증은 수행하지 않았다.
 ## 홈 Hero 버튼 외곽선 제거 (2026-10-21)
 
 HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.

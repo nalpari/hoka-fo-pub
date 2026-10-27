@@ -12,6 +12,7 @@ export type MegaMenuADProps = MegaMenuPromo & {
   className?: string;
 };
 
+/** 메가 메뉴의 프로모션 링크와 텍스트를 표시합니다. (Displays a promotional link and copy in the mega menu.) */
 export function MegaMenuAD({
   to,
   imageSrc,
@@ -77,7 +78,8 @@ export function MegaMenuAD({
         >
           <Typography
             as={isMobile ? 'h2' : 'h3'}
-            variant="navigationPromoTitle"
+            variant="body1"
+            weight="black"
             className={css({ m: 0 })}
           >
             {title}

@@ -3,6 +3,7 @@ import { DescriptionList } from '@/shared/components/atoms/DescriptionList/Descr
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ProductDetailSpecification } from './productDetailPresentation';
 
+/** 상품 고시 정보를 이름과 값의 목록으로 표시합니다. (Displays product specifications as a list of labels and values.) */
 export function ProductDetailNoticeTable({
   items,
 }: {
@@ -26,8 +27,8 @@ export function ProductDetailNoticeTable({
           </Typography>
         ),
       }))}
-      termProps={{ variant: 'unstyled' }}
-      descriptionProps={{ variant: 'unstyled', tone: 'inherit' }}
+      termProps={{ variant: 'body4' }}
+      descriptionProps={{ variant: 'body4', tone: 'inherit' }}
       slotStyles={{
         root: css.raw({
           display: 'flex',

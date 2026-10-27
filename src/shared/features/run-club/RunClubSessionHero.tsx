@@ -20,6 +20,7 @@ type RunClubSessionHeroProps = {
   onApply: () => void;
 };
 
+/** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
 export function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
 
@@ -52,7 +53,7 @@ export function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHer
           gap="10px"
           title={session.title}
           titleAs="h1"
-          titleProps={{ variant: 'sessionTitle', mo: 'body1', weight: 'black' }}
+          titleProps={{ variant: 'heading6', mo: 'heading4', weight: 'black' }}
           description={
             <>
               {session.schedule} | {session.location} {session.distance}

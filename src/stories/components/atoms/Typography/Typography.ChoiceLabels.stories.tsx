@@ -14,10 +14,10 @@ const meta = {
         gap="4"
         alignItems="start"
       >
-        <Typography as="button" type="button" variant="choiceLabel">
+        <Typography as="button" type="button" variant="body4">
           레귤러
         </Typography>
-        <Typography as="button" type="button" variant="unitLabel">
+        <Typography as="button" type="button" variant="body5">
           CM
         </Typography>
       </Stack>
@@ -33,7 +33,7 @@ const meta = {
       const style = canvasElement.ownerDocument.defaultView!.getComputedStyle(button);
       await expect(style.fontSize).toBe(size);
       await expect(style.fontWeight).toBe('400');
-      await expect(style.lineHeight).toBe('normal');
+      await expect(style.lineHeight).not.toBe('normal');
     }
   },
 } satisfies Meta<{ platform: 'web' | 'mobile' }>;

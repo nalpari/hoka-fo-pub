@@ -80,7 +80,7 @@ export function ProductColorSelector({
           <>컬러: {value}</>
         ) : (
           <>
-            컬러: <Typography variant="productOptionValue">{value}</Typography>
+            컬러: <Typography variant="body4">{value}</Typography>
           </>
         )
       }

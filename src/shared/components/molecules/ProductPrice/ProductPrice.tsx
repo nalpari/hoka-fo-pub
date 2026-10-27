@@ -13,7 +13,7 @@ export type ProductPriceProps = {
   variant?: ProductCardVariant;
 };
 
-/** Product selling price with optional original price and calculated discount. */
+/** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
 export function ProductPrice({ price, originalPrice, variant = 'listing' }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && price >= 0 && originalPrice > price;
   const discountRate = hasDiscount
@@ -25,7 +25,8 @@ export function ProductPrice({ price, originalPrice, variant = 'listing' }: Prod
       {hasDiscount ? (
         <Typography
           as="del"
-          variant="price"
+          variant="body3"
+          mo="body4"
           tone="tertiary"
           aria-label={`정상가 ${won(originalPrice)}원`}
           className={css({ textDecoration: 'line-through' })}
@@ -35,13 +36,13 @@ export function ProductPrice({ price, originalPrice, variant = 'listing' }: Prod
       ) : null}
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
-          <Typography variant="price" tone="error" aria-label={`${discountRate}% 할인`}>
+          <Typography variant="body3" mo="body4" tone="error" aria-label={`${discountRate}% 할인`}>
             {discountRate}%
           </Typography>
         ) : null}
-        <Typography variant="price">
+        <Typography variant="body3" mo="body4">
           {won(price)}
-          <Typography variant="priceEmphasis">원</Typography>
+          <Typography variant="body3" weight="bold">원</Typography>
         </Typography>
       </HStack>
     </VStack>

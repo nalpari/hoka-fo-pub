@@ -2,6 +2,8 @@
 
 ## 2026-10-27
 
+- **Refactor**: `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle` Typography variant와 전용 CSS 변수를 제거했다. Hero·상품 목록·메인 섹션·카드·공통 SectionHeader를 표준 `heading`/`body` 단계 및 `web`/`mo`로 옮기고 Storybook 예시를 갱신했다. 매핑과 화면별 scale 변경 가능성은 [UI 기록](architecture/ui.md#typography-전용-variant-표준화-2026-10-27)에 기록했다. 브라우저 시각 검증은 수행하지 않았다.
+
 - **Update**: 장바구니 Figma `962:8877`·`1338:40335` 기준으로 모바일 카드 체크 위치·옵션 액션 간격·관심상품 링크 타이포를 보정하고, 선택/품절 삭제의 활성 조건을 반영했다. 표시 규격은 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27), 상태 계산과 영향 범위는 [상태 기록](architecture/state.md#장바구니-삭제-액션의-활성-조건-검토-2026-10-27)에 기록했다. 브라우저 검증은 아직 수행하지 않았다.
 
 - **Fix**: 장바구니 모바일 선택 수/전체 수 표기만 medium 웨이트로 분리했다. 선택 수 계산과 데스크톱 표시는 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에 유지 범위를 기록했다.
@@ -861,3 +863,4 @@
 
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
+- **Update**: 제품·화면 전용 Typography variant에 이어 `formLabel`, `sizeOption`, `action`도 제거하고 사용처를 표준 body scale로 옮겼다. Checkbox의 중복 label variant API와 전용 CSS 변수를 정리했으며 [UI 아키텍처](architecture/ui.md)에 매핑과 범위를 기록했다.

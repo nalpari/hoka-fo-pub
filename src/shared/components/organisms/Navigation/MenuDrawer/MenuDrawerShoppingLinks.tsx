@@ -40,6 +40,7 @@ type MenuDrawerShoppingLinksProps = {
   onNavigate: () => void;
 };
 
+/** 모바일 메뉴의 쇼핑 관련 바로가기를 표시합니다. (Displays shopping shortcuts in the mobile menu.) */
 export function MenuDrawerShoppingLinks({
   menus,
   onSelectMenu,
@@ -68,7 +69,7 @@ export function MenuDrawerShoppingLinks({
         {items.map((item) => {
           const content = (
             <>
-              <Typography variant="navigationHeading">{item.label}</Typography>
+              <Typography variant="heading8">{item.label}</Typography>
               {item.type === 'category' || item.showChevron ? (
                 <Icon fontAwesomeIcon={faChevronRight} size="14px" aria-hidden="true" />
               ) : null}

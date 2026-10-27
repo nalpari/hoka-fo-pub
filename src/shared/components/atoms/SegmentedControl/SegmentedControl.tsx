@@ -83,7 +83,7 @@ export type SegmentedControlProps<T extends string = string> = {
   itemRender?: (option: SegmentedControlOption<T>) => ReactElement;
 };
 
-/** Accessible single-choice filters and view modes; not a tab-panel controller. */
+/** 탭 패널을 전환하지 않는 단일 선택 필터와 보기 모드를 표시합니다. (Displays accessible single-choice filters and view modes without controlling tab panels.) */
 export function SegmentedControl<T extends string = string>({
   options,
   value,
@@ -128,7 +128,7 @@ export function SegmentedControl<T extends string = string>({
           render={
             itemRender?.(option) ??
             (unstyled ? undefined : variant === 'underline' ? (
-              <Typography as="button" variant="selectionLabel" tone="primary">
+              <Typography as="button" variant="body3" weight="medium" tone="primary">
                 {option.label}
               </Typography>
             ) : (

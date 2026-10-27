@@ -1,5 +1,6 @@
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef } from 'react';
+import { css } from 'styled-system/css';
 import { Circle } from 'styled-system/jsx';
 
 export type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
@@ -7,6 +8,7 @@ export type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
   max?: number;
 };
 
+/** 알림 건수를 작은 원형 배지로 표시합니다. (Displays a notification count in a compact circular badge.) */
 export function NotificationCount({
   count = 0,
   max = 99,
@@ -31,11 +33,14 @@ export function NotificationCount({
       textAlign="center"
     >
       <Typography
-        variant="notificationCount"
+        variant="body5"
+        weight="medium"
         tone="inverse"
         {...props}
         aria-hidden="true"
-        className={className}
+        className={[css({ fontSize: '8px', lineHeight: '16px' }), className]
+          .filter(Boolean)
+          .join(' ')}
       >
         {displayCount}
       </Typography>

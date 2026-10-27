@@ -49,6 +49,7 @@ type MenuDrawerGroupsProps = {
   onNavigate: () => void;
 };
 
+/** 모바일 메뉴의 카테고리 그룹과 하위 링크를 표시합니다. (Displays mobile menu category groups and their links.) */
 export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
   const groups = columns.filter((column) => !column.to);
 
@@ -63,7 +64,7 @@ export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps)
         indicator={<span className={styles.indicator} />}
         items={groups.map((column) => ({
           value: column.title,
-          title: <Typography variant="navigationHeading">{column.title}</Typography>,
+          title: <Typography variant="heading8">{column.title}</Typography>,
           content: (
             <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
               {column.items.map((item) => (
@@ -101,7 +102,7 @@ export function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps)
               textDecoration: 'none',
             })}
           >
-            <Typography variant="navigationHeading">{column.title}</Typography>
+            <Typography variant="heading8">{column.title}</Typography>
           </Link>
         ))}
     </>

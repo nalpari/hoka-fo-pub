@@ -104,14 +104,8 @@ const title = cva({
     variant: {
       titleLinks: {},
       descriptionLink: {},
-      imagePill: {
-        _mobile: { fontSize: 'var(--home-title-24, var(--font-sizes-24))', lineHeight: 'body' },
-      },
-      overlay: {
-        fontSize: '32',
-        lineHeight: 'body',
-        _mobile: { fontSize: 'var(--home-title-24, var(--font-sizes-24))', lineHeight: 'body' },
-      },
+      imagePill: {},
+      overlay: {},
     },
   },
 });
@@ -298,7 +292,9 @@ export function MainContentCard({
         titleProps={{
           className: title({ variant }),
           style: { color: foreground },
-          variant: 'cardTitle',
+          web: variant === 'overlay' ? 'heading6' : 'heading8',
+          mo: variant === 'titleLinks' || variant === 'descriptionLink' ? 'heading6' : 'body1',
+          weight: 'black',
         }}
         description={description}
         descriptionProps={{
