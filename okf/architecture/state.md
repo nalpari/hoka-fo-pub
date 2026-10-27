@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T04:58:35Z'
+  at: '2026-10-27T05:33:17Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/shared/features/cart/CartContent.tsx
@@ -38,6 +38,8 @@ working_tree_sources:
   - src/shared/features/cart/CartOptionsContent.tsx
   - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
   - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
+  - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
 
   - src/shared/features/checkout/CheckoutForm.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
@@ -183,6 +185,8 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 `ProductOptionList` 장바구니 배치의 선택 밑줄만 4px로 수정했다. `selectedId`, `aria-pressed`, `onSelect`와 상위 장바구니 선택 상태에는 변경이 없다. 세부 스타일은 [UI 기록](ui.md#장바구니-컬러-선택-밑줄-두께-2026-10-27)에 기록했다.
 
 장바구니 발볼 선택 라벨을 14px로 바꾼 조정도 표시만 변경하며 Radio의 value, disabled 상태와 onValueChange 계약에는 영향이 없다. 상세 범위는 [UI 기록](ui.md#장바구니-발볼-옵션-글자-크기-2026-10-27)에 기록했다.
+
+장바구니 옵션 영역 간격, 발볼 라벨 굵기, 사이즈 칩 크기 조정도 표시만 변경한다. CartOptionsDialog의 초안·저장/취소와 사이즈 선택·품절 판정은 그대로 유지한다. 세부 값은 [UI 기록](ui.md#장바구니-옵션-선택-영역-간격과-크기-2026-10-27)에 기록했다.
 
 ## 장바구니 하단 여백 검토 (2026-10-23)
 

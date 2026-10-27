@@ -17,7 +17,7 @@ export function ProductOptionSection({ appearance, title, children, action, id }
   if (appearance === 'cart') {
     return (
       <Stack gap="3" id={id}>
-        <Typography variant="body4" weight="semibold">
+        <Typography variant="body4" weight="medium">
           {title}
         </Typography>
         {children}

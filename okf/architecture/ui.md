@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T04:58:35Z'
+  at: '2026-10-27T05:33:17Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
@@ -1022,6 +1022,10 @@ sources:
 ## 장바구니 발볼 옵션 글자 크기 (2026-10-27)
 
 장바구니 옵션의 Regular/Wide/X-Wide 선택 라벨을 표준 `body4`(14px)로 표시한다. 변경은 발볼 라디오 그룹의 글자 크기에 한정되며 배치·선택 표현은 그대로 둔다. 브라우저 시각 검증은 하지 않았다.
+
+## 장바구니 옵션 선택 영역 간격과 크기 (2026-10-27)
+
+장바구니 옵션 콘텐츠의 바깥·섹션 간격을 조정하고 선택 영역 사이에 40px 간격을 둔다. 발볼 섹션 제목은 `body4` medium, 사이즈는 40px 높이·8px 간격·`body4` 크기로 표시한다. 선택 가능한 사이즈와 품절 상태 표현은 유지하며 브라우저 시각 검증은 하지 않았다.
 
 ## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
 
@@ -2824,7 +2828,7 @@ CartOptionsDialog의 대표 이미지와 색상 썸네일은 고정 w/h 쌍이 �
 
 CartContent는 CartSelectionBar·CartProductList·CartSupportInfo를 조합한다. 각 부분은 기존 선택 바, ul/li 목록, 고객센터 section을 그대로 렌더링하며 신규 상태나 중간 래퍼를 추가하지 않는다. CartOptionsDialog가 draft·width/color별 sizes·soldOut·valid와 ConfirmDialog 저장/취소를 유지하고 CartOptionsContent에는 준비된 정보·색상 썸네일과 변경 콜백만 전달한다. 숫자·사이즈·발볼은 기존 NumberStepper·SizeSelector·Radio를 유지한다.
 
-ProductOptionList에 layout=cart를 추가했다. 72px 이미지·2px 선택 테두리·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
+ProductOptionList에 layout=cart를 추가했다. 72px 이미지·4px 둥근 선택 밑줄·8px 가로 간격·기존 가로 스크롤을 보존한다. 버튼/선택 스타일은 recipe.raw와 css.raw를 단일 css 호출에서 병합해 cart의 밑줄과 기존 hover 규칙이 충돌하지 않게 한다. preview/grid/scroll 기본값은 유지하며 미리보기 화살표의 문자 표시는 기존 Icon의 Chevron으로 바꿨다. 공통 옵션 목록의 새 Storybook에 기존 layout과 cart의 제어 선택 play를 제공한다.
 
 Wishlist의 선택적 label·iconSize로 장바구니의 12px 하트+관심상품 표기를 지원한다. label이 없으면 기존 38px 토글과 PC 24px/MO 19px 아이콘을 유지한다. 선택은 기존 Base UI Toggle의 pressed/onPressedChange로 관리하고, CartPage favorites가 계속 원본 상태다. Labelled 스토리는 왕복 토글을 확인한다. CheckoutComplete의 원형 완료 장식도 문자 체크 대신 Icon(faCheck)을 사용하며 모바일 숨김을 유지한다.
 
