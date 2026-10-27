@@ -2,6 +2,8 @@
 
 ## 2026-10-27
 
+- **Merge**: 최신 `pub-jme` 기준으로 `origin/publishing` 포함 여부를 확인하고 `origin/main`의 선별 반영 이력을 병합했다. FilterTabs는 현재 `plain` API와 모바일 px 0을 유지하고, MobileProductFilter는 공통 BottomSheetContent의 px 6을 사용해 main 이식용 Box px 4가 중첩되지 않게 했다. 선별 반영 문서의 categoryNavigation·시트 패딩 설명은 당시 main 기준의 기록이며 현재 작업 브랜치 API를 대체하지 않는다. 병합 결과의 소스는 병합 전 pub-jme와 동일하다.
+
 - **Fix**: 단일 Checkbox의 라벨 간격을 모든 variant에서 gap 2로 통일하고 CartSelectionBar·CheckoutDiscountSummary의 중복 지정을 제거했다. LoginForm에는 flex 축소 방지 설정만 남겼다. Panda 생성, 변경 파일 ESLint, diff 공백 검사와 `npm run okf:check`를 통과했다. [UI 기록](architecture/ui.md#공통-checkbox-라벨-간격-2026-10-27)에 반영했다.
 
 - **Update**: 결제 하단에 주문 확인·개인정보 수집 동의 행과 약관 전문 링크를 추가하고, 두 항목 모두 동의해야 제출되도록 했다. checkout에서는 주소 찾기 버튼만 비활성화하고 기존 주소 입력 필드 설정은 유지한다. 공통 AddressFields의 검색 비활성 API는 선택 사항으로 추가해 다른 화면의 기본 동작은 유지한다. Panda CSS 생성·변경 파일 ESLint·diff 공백 검사는 통과했고, 전체 타입 검사는 결제 변경과 무관한 `.next/types` route props 오류 5건으로 실패했다. 브라우저와 Storybook play는 확인하지 않았다. 상세는 [UI 기록](architecture/ui.md#결제-동의-항목과-주소-찾기-비활성화-2026-10-27)과 [상태 기록](architecture/state.md#결제-동의와-주소-검색-비활성-상태-2026-10-27)에 적었다.
@@ -70,6 +72,8 @@
 - **Update**: 회원 정보 첫 입력을 이메일에서 아이디로 바꾸고 아이디 형식/중복확인을 연결했다. 연락용 이메일 주소·도메인은 별도 입력으로 유지하고, PC·모바일 회원가입 Storybook에도 변경을 반영했다. Figma `957:36970` 기준을 [UI 구성](architecture/ui.md#회원-정보-아이디-입력과-이메일-분리-2026-10-26)에 기록했다.
 - **Update**: 회원가입 부가정보에서 결혼유무·모바일 쿠폰북 동의를 제거하고, 이메일·문자·카카오톡 수신 동의 3개로 갱신했다. 확인 모달과 Storybook 상태도 업데이트했다. Figma `957:37050`, `957:37212` 기준을 [UI 구성](architecture/ui.md#회원가입-부가정보-수신-동의-갱신-2026-10-26)에 기록했다.
 - **Style**: 회원가입 부가정보의 마케팅 동의 제목 아래 Figma의 검은색 1px 구분선을 추가했다. 항목 아래의 옅은 구분선은 유지했다.
+
+- **Fix**: 지정한 `72461a26`·`78e932d6`의 모바일 상품 탐색·검색 전체 화면·검색어 말줄임·정렬 Radio와 공통 필터 버튼 크기를 main에 선별 반영한다. 기존 categoryNavigation API와 시트 본문 패딩을 유지하며 다른 진행 중 기능을 포함하지 않는 [이식 경계](architecture/ui.md#완료된-모바일-검색필터-변경의-main-선별-반영-2026-10-27)를 기록했다.
 
 ## 2026-10-23
 

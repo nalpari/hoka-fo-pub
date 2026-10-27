@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T05:33:17Z'
+  at: '2026-10-27T08:30:14Z'
 source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
 working_tree_sources:
   - src/shared/features/product/ProductSelectedOptions.tsx
@@ -1120,6 +1120,20 @@ Codex가 375×812px 스토리 최하단에서 마지막 안내 bottom 644.1px·�
 SupportPages.scenarios의 render·play·viewport·라우팅 설정을 그대로 전달하며 페이지 구현은 변경하지 않는다. 참조 검색 후 중복 진입점 SupportPages.InquiryNew.Web/Mobile.stories.tsx와 SupportPages.NoticeDetail.Web.stories.tsx를 제거했다. 이전 pages-support-* 스토리 ID는 제거되며 새 ID는 pages-고객센터-3-1-1문의-web/mobile--new 및 오류별 export 이름, 공지 상세는 pages-고객센터-2-공지사항-web--detail이다. 저장소 내 이전 ID를 사용하는 링크는 없었다.
 
 Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/Mobile 각각 11개를 확인했다. 전체 항목 724→723은 모바일 문의 작성 중복 한 건을 합친 결과다. 브라우저에서 고객센터 사이드바·공지 상세와 이동한 모바일 첨부파일 형식 오류 스토리의 실제 오류 안내를 확인했다. 변경 스토리 ESLint/Prettier·타입 검사·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 브라우저 주석과 working_tree_sources의 세 스토리 파일 및 기존 SupportPages.scenarios.tsx다.
+
+## 완료된 모바일 검색·필터 변경의 main 선별 반영 (2026-10-27)
+
+사용자가 지정한 작업 브랜치 커밋 `72461a26`·`78e932d6`의 상품 목록·검색 결과·필터 보정만 `main` 기준 `1400350f`에 이식한다. 원본 두 커밋과 이 작업 트리의 아래 명시 소스를 근거로 하며, 작업 브랜치 전체 병합이나 파일 전체의 최신 버전 대체를 사용하지 않는다. 회원정보·주문·장바구니·문의·회원가입 변경과 공통 FilterTabs plain/line 전환은 이 반영에 포함하지 않는다.
+
+- main의 `FilterTabs.categoryNavigation` API를 유지하고 모바일 버튼의 `px: 0`만 명시해 공통 좌우 16px 패딩이 남는 문제를 해결한다. 작업 브랜치의 plain 이름으로 바꾸지 않는다.
+- `Button.filterTrigger`는 compact(기본 높이 32.2px/좌우 14px)와 regular(40px/좌우 24px/아이콘 슬롯 20px)를 지원하며 기존 타입 검사·ButtonDocs·비교 스토리를 함께 반영한다. feature의 MobileProductFilterTrigger가 appearance에 따라 공통 크기와 Typography를 선택한다.
+- 모바일 `/search`는 AppLayout의 헤더·띠배너·푸터 없이 표시한다. SearchListingLayout은 fixed/inset 0 전체 화면과 고정 상단(닫기·검색 입력·결과/필터), 결과만 내부 스크롤로 구성한다. ContentHeader horizontal/action에 결과 문구 왼쪽·작은 필터 오른쪽을 배치하고 검색어 span만 말줄임한다. 결과 개수·필터 버튼·DOM 전체 검색어는 보존한다. PC의 페이지 프레임은 유지한다.
+- 모바일 정렬은 ProductListingFilterPanel에서 선택 태그 아래·성별 위의 CatalogFilterSection/기본 Radio로 표시한다. 페이지가 mobileSort 초안·적용·취소를 계속 소유하며 Layout/Content/시트의 중복 props 전달을 제거한다. PC에는 해당 정렬 섹션을 추가하지 않는다.
+- main의 BottomSheetContent는 작업 브랜치와 여백 계약이 다르므로 공통 BottomSheet 파일을 가져오지 않고 MobileProductFilter의 기존 `Box px="4"`를 유지한다. 필터 시트가 검색 cover 위에 열리는 z-index 계약은 기존 공통 컴포넌트로 충족한다.
+
+LongSearchQuery 모바일 스토리는 긴 검색어와 활성 성별 필터를 사용해 말줄임·필터 접근을 재현하며 결과 수는 실제 목업 검색 결과인 0개다. 원본 커밋의 검증은 이 main 이식에 대한 검증으로 간주하지 않고 별도로 확인한다.
+
+검증(Codex, 2026-10-27): main 기준 별도 작업 공간에서 `npm ci --ignore-scripts` 후 Panda 생성·Next.js 프로덕션 빌드(타입 검사 포함)·변경 소스 ESLint·Storybook 빌드를 통과했다. 이 빌드의 실제 Next 앱에서 모바일 검색 main의 fixed/812px 높이·띠배너 없음·본문 scrollTop 120에서도 header top 0을 확인했다. 높은가격순/남성 선택을 적용하면 URL의 sort/gender가 바뀌고 시트가 닫히며, 다시 열 때 적용 값이 유지되고 다른 정렬을 선택 후 취소하면 적용 값으로 복원됐다. 닫기 버튼은 `/products`로 이동한다. 상품 목록의 categoryNavigation 버튼은 좌우 패딩 0·rail gap 20px이다. 빌드한 Storybook의 긴 검색어는 320/375px에서 각각 표시 폭 40/95px(내용 폭 413px)으로 줄고 768px에서는 전체 표시되며 가로 넘침이 없다. 실제 PC 요청에서는 platform-web·static main·정상 검색 결과와 모바일 정렬 섹션 미노출을 확인했다. 이 검증 서버의 데이터는 기존 목업이며 실제 상품 API 호출을 검증한 것은 아니다.
 
 ## Typography rem 토큰과 비교표 (2026-10-23)
 
