@@ -6,8 +6,8 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T05:33:17Z'
-source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
+  at: '2026-10-27T22:37:56Z'
+source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/shared/features/cart/CartContent.tsx
   - src/shared/features/cart/CartOrderActions.tsx
@@ -370,7 +370,7 @@ CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하�
 
 ## 결제 동의와 주소 검색 비활성 상태 (2026-10-27)
 
-CheckoutForm이 주문 확인 동의와 개인정보 동의를 별도 boolean으로 소유하고, 두 항목 모두 선택되어야 기존 제출을 진행한다. 오류 표시는 기존 제출 시점과 같은 방식으로 유지한다. AddressFields는 주소 찾기 비활성 prop을 제공하며, checkout 소비처에서 검색 버튼만 비활성화한다. 주소 필드의 기존 readOnly/disabled 설정과 다른 소비처의 기본 검색 동작은 유지한다.
+CheckoutForm이 주문 확인 동의와 개인정보 동의를 별도 boolean으로 소유하고, 두 항목 모두 선택되어야 기존 제출을 진행한다. 오류 표시는 기존 제출 시점과 같은 방식으로 유지한다. CheckoutAddressFields에서는 주소 찾기 버튼을 활성화하고 우편번호·주소 입력을 비활성화한다. 상세주소는 controlled 우편번호와 주소가 모두 채워질 때 활성화된다. disabled 필드가 FormData에서 제외되므로 controlled 우편번호·주소 값은 hidden input으로 폼 데이터에 보존한다. 주소 검색 모달의 입력과 선택 상태는 기존 수명 및 콜백을 유지한다.
 
 검증과 관련 출처는 [구성 분리 UI 기록](ui.md#주문-화면-구성-분리와-재사용-2026-10-21)을 참고한다. 모바일 기존 Selection과 옵션 저장의 목록 반영을 브라우저에서 확인했다.
 

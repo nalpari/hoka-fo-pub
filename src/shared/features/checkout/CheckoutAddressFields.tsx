@@ -21,24 +21,32 @@ export function CheckoutAddressFields({
   searchOpen,
   onSearchOpenChange,
 }: Props) {
+  const addressDetailDisabled = !postalCode.trim() || !address.trim();
+
   return (
-    <AddressFields
-      variant="boxed"
-      searchDisabled
-      fieldOptions={{
-        postalCode: { disabled: false, inputProps: { name: 'postalCode', readOnly: true } },
-        address: { disabled: false, inputProps: { name: 'address', readOnly: true } },
-        addressDetail: { inputProps: { name: 'addressDetail' } },
-      }}
-      idPrefix="shipping"
-      value={{ postalCode, address }}
-      errors={errors}
-      onValueChange={(field, next) => {
-        if (field === 'postalCode') onPostalCodeChange(next);
-        if (field === 'address') onAddressChange(next);
-      }}
-      searchOpen={searchOpen}
-      onSearchOpenChange={onSearchOpenChange}
-    />
+    <>
+      <AddressFields
+        variant="boxed"
+        fieldOptions={{
+          postalCode: { disabled: true, inputProps: { name: 'postalCode', readOnly: true } },
+          address: { disabled: true, inputProps: { name: 'address', readOnly: true } },
+          addressDetail: {
+            disabled: addressDetailDisabled,
+            inputProps: { name: 'addressDetail' },
+          },
+        }}
+        idPrefix="shipping"
+        value={{ postalCode, address }}
+        errors={errors}
+        onValueChange={(field, next) => {
+          if (field === 'postalCode') onPostalCodeChange(next);
+          if (field === 'address') onAddressChange(next);
+        }}
+        searchOpen={searchOpen}
+        onSearchOpenChange={onSearchOpenChange}
+      />
+      <input type="hidden" name="postalCode" value={postalCode} />
+      <input type="hidden" name="address" value={address} />
+    </>
   );
 }

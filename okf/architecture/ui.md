@@ -6,8 +6,8 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T05:33:17Z'
-source_revision: 826de49b7719083d6ae5ba4bcb17a86207b0a951
+  at: '2026-10-27T22:37:56Z'
+source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
   - src/shared/features/catalog/ProductListingPage.tsx
@@ -2859,9 +2859,15 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 
 ## 결제 동의 항목과 주소 찾기 비활성화 (2026-10-27)
 
-결제 하단에 주문 확인 동의와 개인정보 수집·이용 동의를 별도 체크 행으로 표시하고 각각 기존 약관 화면 및 개인정보 처리방침 탭의 전문보기 링크를 연결한다. 제출에는 두 동의가 모두 필요하다. 공통 AddressFields에 선택적 검색 비활성 prop을 추가하고 checkout에서만 주소 찾기 버튼을 비활성화해 주소 필드와 다른 소비처의 기본 동작은 보존한다.
+결제 하단에 주문 확인 동의와 개인정보 수집·이용 동의를 별도 체크 행으로 표시하고 각각 기존 약관 화면 및 개인정보 처리방침 탭의 전문보기 링크를 연결한다. 제출에는 두 동의가 모두 필요하다. 주소 찾기 버튼은 활성 상태로 두고 우편번호·주소·상세주소 입력만 비활성화한다. 비활성 입력은 브라우저 FormData에서 제외되므로 controlled 우편번호와 주소 값은 hidden input으로 폼 제출 데이터에 포함한다. AddressFields는 검색 버튼을 기본 활성 상태로 유지하며 checkout에서만 세 입력을 비활성화한다.
 
 출처는 `CheckoutAgreement.tsx`, `CheckoutForm.tsx`, `CheckoutContent.tsx`, `CheckoutAddressFields.tsx`, 공통 `AddressFields.tsx`와 주문 스토리다. Panda CSS 생성·변경 파일 ESLint·diff 공백 검사는 통과했다. 전체 타입 검사는 결제 변경과 무관한 `.next/types` route props 오류 5건으로 실패했다. 브라우저 및 Storybook play는 확인하지 않았다.
+
+## 결제 주소 입력 비활성 상태 정정 (2026-10-27)
+
+Figma `1159:43128`와 사용자 정정에 따라 주소 찾기 버튼은 활성 상태로 복구하고 우편번호·주소 입력은 비활성화한다. 상세주소는 우편번호와 주소가 모두 입력된 뒤 활성화한다. 공통 AddressFields에 추가했던 검색 비활성 prop을 제거해 불필요한 API 확장을 되돌렸다. disabled 필드가 FormData에서 빠지는 동작은 hidden 우편번호·주소 필드로 보존한다.
+
+출처는 `CheckoutAddressFields.tsx`, `AddressFields.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql` 노드 `1159:43128`이다. 상세주소의 활성화 조건은 controlled 우편번호·주소 상태를 사용한다. 이번 수정은 스타일 코드를 변경하지 않는다. 2026-10-28에 `npm run okf:check`, 변경 파일 ESLint와 `git diff --check`를 통과했다. 브라우저 확인은 하지 않았다.
 
 ## 모바일 상품목록 디자인 보정과 설계서 대조 (2026-10-21)
 
