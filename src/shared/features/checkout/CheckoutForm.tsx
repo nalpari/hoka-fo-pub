@@ -8,6 +8,7 @@ import { CheckoutComplete } from './CheckoutComplete';
 import { CheckoutContent } from './CheckoutContent';
 import type { PaymentMethod } from './CheckoutPayment';
 import type { CheckoutRow } from './checkout-summary';
+import { getCheckoutCouponDiscount, getMaximumCheckoutCoupon } from './checkout-coupons';
 
 type CheckoutFormProps = {
   completed: boolean;
@@ -18,6 +19,7 @@ type CheckoutFormProps = {
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
+/** 결제 입력과 제출 검증 상태를 관리합니다. (Manages checkout inputs and submission validation state.) */
 export function CheckoutForm({
   completed,
   rows,
@@ -27,10 +29,12 @@ export function CheckoutForm({
   onSubmit,
 }: CheckoutFormProps) {
   const [errors, setErrors] = useState<Partial<Record<'name' | 'phone' | 'address', string>>>({});
-  const [couponOpen, setCouponOpen] = useState(false);
-  const [discount, setDiscount] = useState(0);
+  const [coupon, setCoupon] = useState('none');
+  const [maxBenefit, setMaxBenefit] = useState(false);
+  const discount = getCheckoutCouponDiscount(coupon, rows, total);
   const [agreementError, setAgreementError] = useState(false);
-  const [agreed, setAgreed] = useState(false);
+  const [orderAgreed, setOrderAgreed] = useState(false);
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
 
   if (completed) return <CheckoutComplete />;
 
@@ -59,8 +63,9 @@ export function CheckoutForm({
           address: String(data.get('address') ?? '').trim() ? '' : '주소를 입력해 주세요.',
         };
         setErrors(nextErrors);
-        setAgreementError(!agreed);
-        if (Object.values(nextErrors).some(Boolean) || !agreed) {
+        const missingAgreement = !orderAgreed || !privacyAgreed;
+        setAgreementError(missingAgreement);
+        if (Object.values(nextErrors).some(Boolean) || missingAgreement) {
           event.preventDefault();
           return;
         }
@@ -73,16 +78,27 @@ export function CheckoutForm({
         discount={discount}
         payment={payment}
         errors={errors}
-        couponOpen={couponOpen}
-        agreed={agreed}
+        coupon={coupon}
+        maxBenefit={maxBenefit}
+        orderAgreed={orderAgreed}
+        privacyAgreed={privacyAgreed}
         agreementError={agreementError}
         onPaymentChange={onPaymentChange}
-        onCoupons={() => setCouponOpen(true)}
-        onCouponOpenChange={setCouponOpen}
-        onDiscountChange={setDiscount}
-        onAgreedChange={(checked) => {
-          setAgreed(checked);
-          setAgreementError(false);
+        onCouponChange={(value) => {
+          setCoupon(value);
+          setMaxBenefit(false);
+        }}
+        onMaxBenefitChange={(checked) => {
+          setMaxBenefit(checked);
+          if (checked) setCoupon(getMaximumCheckoutCoupon(rows, total));
+        }}
+        onOrderAgreedChange={(checked) => {
+          setOrderAgreed(checked);
+          if (checked && privacyAgreed) setAgreementError(false);
+        }}
+        onPrivacyAgreedChange={(checked) => {
+          setPrivacyAgreed(checked);
+          if (checked && orderAgreed) setAgreementError(false);
         }}
       />
     </form>

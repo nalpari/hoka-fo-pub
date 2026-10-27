@@ -18,6 +18,7 @@ type Props = {
   variant: AddressFieldsVariant;
   fieldOptions?: Partial<Record<AddressFieldName, AddressFieldOptions>>;
   searchLabel?: string;
+  searchDisabled?: boolean;
   idPrefix: string;
   value: AddressValue;
   errors?: Partial<Record<AddressFieldName, string>>;
@@ -26,10 +27,12 @@ type Props = {
   onSearchOpenChange: (open: boolean) => void;
 };
 
+/** 주소 입력과 주소 검색을 조합합니다. (Combines address fields with address lookup.) */
 export function AddressFields({
   variant,
   fieldOptions,
   searchLabel = '주소 찾기',
+  searchDisabled = false,
   idPrefix,
   value,
   errors,
@@ -51,6 +54,7 @@ export function AddressFields({
     <Button
       variant="link"
       size={variant === 'boxed' ? 'md' : 'sm'}
+      disabled={searchDisabled}
       aria-haspopup="dialog"
       onClick={() => onSearchOpenChange(true)}
     >

@@ -102,7 +102,7 @@ SignupDetailsStep·계정 찾기·휴대폰 인증·로그인·마이페이지·
 
 MyPageAddresses도 AddressFields에 연결했다. `separated` variant와 `fieldOptions`로 기존 ID, required, 우편번호 readOnly, 주소 readOnly/우편번호 전 disabled, 버튼 크기·문구·정렬을 보존한다. 결제 compact와 가입 boxed를 유지하며 목록·기본배송지·추가/저장/삭제 상태는 마이페이지가 소유한다.
 
-검색 전용 입력, 상품 크기·리뷰 별점 등의 선택 컨트롤, 파일 첨부, 결제 수령인·저장 배송지의 compact native 입력은 기존 구성을 유지한다. 배송 요청의 native textarea/select는 유지하고 카운터만 공유한다. 같은 문구만을 이유로 서로 다른 FormData·비제어·스타일 계약을 바꾸지 않았다.
+검색 전용 입력, 상품 크기·리뷰 별점 등의 선택 컨트롤, 파일 첨부, 결제 수령인·저장 배송지의 compact native 입력은 기존 구성을 유지한다. 배송 요청 선택은 공통 Dropdown을 사용하고 직접 입력 textarea와 250자 카운터를 유지한다. 같은 문구만을 이유로 서로 다른 FormData·비제어·스타일 계약을 바꾸지 않았다.
 
 이 이관에서 변경 파일 ESLint/Prettier, 타입 검사, Next 및 Storybook 빌드와 기존 폼·계정·주문 테스트 40개를 통과했다. 변경 전후 9개 영역의 1600px/375px 입력·라벨 좌표와 native 속성을 18쌍 비교했으며 좌표는 0.1px 단위로 비교했다. 공용 API와 기존 흐름의 Storybook play 22개, 주소 저장·문의 카운터/취소·결제 주소/FormData/완료·프로필·수신 동의·리뷰 오류의 별도 동작 9개를 확인했다. 이는 외부 주소 검색·메일·인증·결제 API 검증을 의미하지 않는다.
 

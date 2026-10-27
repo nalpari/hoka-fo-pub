@@ -43,6 +43,13 @@ working_tree_sources:
 
   - src/shared/features/checkout/CheckoutForm.tsx
   - src/shared/features/checkout/CheckoutContent.tsx
+  - src/shared/features/checkout/CheckoutAgreement.tsx
+  - src/shared/features/checkout/CheckoutAddressFields.tsx
+  - src/shared/components/organisms/Address/AddressFields.tsx
+  - src/shared/components/organisms/Address/AddressField.tsx
+  - src/shared/features/checkout/checkout-coupons.ts
+  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/stories/features/checkout/CheckoutPage.scenarios.tsx
   - src/shared/features/checkout/CheckoutPage.tsx
   - src/shared/features/checkout/CheckoutPayment.tsx
   - src/shared/components/atoms/Wishlist/Wishlist.tsx
@@ -356,6 +363,14 @@ CartItemRow 삭제 버튼을 IconButton·Icon으로 바꿨으며 기존 aria-lab
 CartPage의 selected/favorites/editingKey/limited와 ShopShell 콜백은 유지한다. CartSelectionBar·CartProductList·CartSupportInfo·OrderProductSummary는 준비된 값과 기존 콜백만 받는다. CartOptionsDialog가 기존 draft·valid와 저장/취소를 소유하고 CartOptionsContent는 값·옵션·변경 콜백만 받는다. Wishlist는 기존 favorites를 BaseToggle의 controlled pressed에 연결한다. ProductOptionList도 기존 색상값과 onSelect를 받아 옵션 정책을 계산하지 않는다.
 
 CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하고, 이전 CheckoutContent의 errors/couponOpen/discount/agreed/agreementError와 FormData 검증은 동일 수명 위치의 CheckoutForm으로 옮겼다. CheckoutContent는 상태 없는 구성 컴포넌트다. form noValidate·onInput 오류 해제·onSubmit의 빈 값/동의 확인·실제 onSubmit 호출 조건과 완료/빈 상품의 form 외부 분기를 보존한다. CouponDialog의 초안/적용/닫기 복원은 바꾸지 않았고 AmountRow/OrderProductSummary는 계산값을 표시한다. CheckoutPayment는 공통 Radio를 사용하되 기존 paymentMethod 이름·값과 상위 payment setter를 보존한다. 정책·가격·조회 기간·품절 처리를 변경하지 않았다.
+
+## 결제 요약 쿠폰 선택 상태 (2026-10-27)
+
+쿠폰 선택·최대 혜택 체크 상태는 CheckoutForm이 소유한다. 쿠폰 선택은 할인액을 즉시 계산하고, 수동 쿠폰 변경 시 최대 혜택 체크를 해제한다. 체크 시 현재 주문 합계에서 할인액이 가장 큰 기존 데모 쿠폰을 선택한다. 할인 산정과 배송비 0원 상수는 기능 내부에 있으며 쿠폰 서버 조회·적용/취소 API는 연결하지 않는다. 쿠폰 UI는 기존 Dropdown과 Checkbox의 controlled 상태를 사용한다.
+
+## 결제 동의와 주소 검색 비활성 상태 (2026-10-27)
+
+CheckoutForm이 주문 확인 동의와 개인정보 동의를 별도 boolean으로 소유하고, 두 항목 모두 선택되어야 기존 제출을 진행한다. 오류 표시는 기존 제출 시점과 같은 방식으로 유지한다. AddressFields는 주소 찾기 비활성 prop을 제공하며, checkout 소비처에서 검색 버튼만 비활성화한다. 주소 필드의 기존 readOnly/disabled 설정과 다른 소비처의 기본 검색 동작은 유지한다.
 
 검증과 관련 출처는 [구성 분리 UI 기록](ui.md#주문-화면-구성-분리와-재사용-2026-10-21)을 참고한다. 모바일 기존 Selection과 옵션 저장의 목록 반영을 브라우저에서 확인했다.
 

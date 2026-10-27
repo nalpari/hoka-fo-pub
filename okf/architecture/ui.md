@@ -256,6 +256,8 @@ working_tree_sources:
   - src/shared/components/molecules/AmountRow/AmountRow.tsx
   - src/shared/features/checkout/CheckoutComplete.tsx
   - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/shared/features/checkout/checkout-coupons.ts
+  - src/stories/features/checkout/CheckoutPage.scenarios.tsx
   - src/shared/features/checkout/CheckoutRecipientFields.tsx
   - src/shared/features/checkout/CheckoutSavedAddress.tsx
   - src/shared/features/checkout/CheckoutShippingInput.tsx
@@ -1300,7 +1302,7 @@ variant=compact는 기존 결제의 14px native input·우편번호 readOnly·�
 
 `CartDialogs`는 rows/editingKey로 기존 옵션 팝업을 표시하고 onSave(item, next)·onEditClose를 호출한다. `CartLimitDialog`는 open/onOpenChange로 수량 제한 안내를 표시한다. 옵션 저장에 따른 선택 키 치환과 onOptionsChange/onQuantityChange 분기는 CartPage에 유지한다.
 
-`CheckoutFields.tsx`를 제거하고 사용처를 개별 컴포넌트로 연결했다. `CheckoutShipping`은 편집 여부·우편번호·주소·모달 상태, `CheckoutSavedAddress`는 기존 배송지 요약, `CheckoutShippingForm`은 직접 입력 구성을 담당한다. 그 안의 `CheckoutRecipientFields`는 이름·연락처, `CheckoutAddressFields`는 우편번호·주소·상세주소를 표시한다. 두 입력 모드는 `CheckoutShippingInput`으로 native input의 스타일·속성을 공유한다. `CheckoutDeliveryRequest`는 요청 선택·250자 직접 입력 상태, `CheckoutPayment`는 native radio 결제 수단과 PaymentMethod 타입을 소유한다. 폼 검증·쿠폰·동의 상태는 CheckoutContent에 유지한다. 완료 화면은 `CheckoutComplete`, 결제 안내문은 `CheckoutPaymentNotice`로 분리했다. 추가 DOM 래퍼 없이 기존 section/form·간격·반응형 스타일을 유지한다.
+`CheckoutFields.tsx`를 제거하고 사용처를 개별 컴포넌트로 연결했다. `CheckoutShipping`은 편집 여부·우편번호·주소·모달 상태, `CheckoutSavedAddress`는 기존 배송지 요약, `CheckoutShippingForm`은 직접 입력 구성을 담당한다. 그 안의 `CheckoutRecipientFields`는 이름·연락처, `CheckoutAddressFields`는 우편번호·주소·상세주소를 표시한다. 두 입력 모드는 `CheckoutShippingInput`으로 native input의 스타일·속성을 공유한다. `CheckoutDeliveryRequest`는 요청 선택·250자 직접 입력 상태, `CheckoutPayment`는 native radio 결제 수단과 PaymentMethod 타입을 소유한다. 배송 요청 선택은 공통 `Dropdown`을 사용하며 상태 소유 컴포넌트의 Client 경계에서 선택값과 직접 입력 조건을 처리한다. 폼 검증·쿠폰·동의 상태는 CheckoutContent에 유지한다. 완료 화면은 `CheckoutComplete`, 결제 안내문은 `CheckoutPaymentNotice`로 분리했다. 추가 DOM 래퍼 없이 기존 section/form·간격·반응형 스타일을 유지한다.
 
 재사용 검토: 주소 모달은 회원가입 RegistrationContent·마이페이지 MyPageAddresses와 같은 공용 `AddressSearchModal`을 이미 사용하므로 그대로 유지했다. Button·Checkbox·Typography·OrderRecommendations·SingleActionDialog도 재사용한다. RegistrationAddressFields는 회원가입 information/fieldErrors에 결합되어 있고 disabled 입력을 사용한다. 결제는 readOnly 우편번호와 수정 가능한 주소를 FormData에 포함하므로 직접 가져오지 않았다. 공용 FormField/TextInput의 boxed 입력은 21px 높이·16px 글꼴 등 별도 계약이 있어, 결제의 14px 입력·여백·포커스를 보존하는 feature 내부 input만 공통화했다. 실제 주소 검색 서비스는 미연결이며 모달의 미리보기 직접 입력 안내를 유지한다.
 
@@ -2616,7 +2618,7 @@ AccountLockedContent는 기존 ContentHeader 조합을 유지하면서 ModalDial
 
 `MyPage`는 화면 골격과 로그아웃 다이얼로그 상태를 소유하고, 프로필 요약(`MyPageOverviewProfile`), 회원등급(`MyPageMembership`), 쿠폰/관심상품 요약(`MyPageBenefits`), 주문 캐러셀(`MyPageRecentOrders`), 주문 항목(`MyPageOrderTile`), 메뉴 그룹(`MyPageMenuSection`)을 별도 파일로 조합한다. 주문 샘플·타입과 메뉴 데이터는 `mypage-home-data.ts`에 두며, 플랫폼 판별은 캐러셀 소비처로 옮겼다. 회원정보 수정 화면인 기존 `MyPageProfile`은 별개 구현이다.
 
-`CouponManager`는 등록 입력·검증·완료/상세 팝업 상태를 유지하고 `CouponRegistrationSection`에 값과 콜백을 전달한다. `CouponHistorySection`은 카테고리와 5개 단위 더보기 상태를 소유하고 상세 선택을 상위로 알린다. `InquiryBoardHeader`는 제목·전체 건수·비밀글 제외 컨트롤을, `InquiryBoardContent`는 공개/본인/접근 제한 및 답변 표시를 담당하며 필터와 펼침 설정은 보드에 남는다. `CheckoutAgreement`는 결제 동의 체크와 오류 표시만 담당하고 제출 검증·동의 상태는 `CheckoutContent`에 유지한다. 오류 문구는 Fragment로 반환해 기존 Stack의 직접 자식 간격을 보존한다.
+`CouponManager`는 등록 입력·검증·완료/상세 팝업 상태를 유지하고 `CouponRegistrationSection`에 값과 콜백을 전달한다. `CouponHistorySection`은 카테고리와 5개 단위 더보기 상태를 소유하고 상세 선택을 상위로 알린다. `InquiryBoardHeader`는 제목·전체 건수·비밀글 제외 컨트롤을, `InquiryBoardContent`는 공개/본인/접근 제한 및 답변 표시를 담당하며 필터와 펼침 설정은 보드에 남는다. `CheckoutAgreement`는 결제 동의 행만 표시하며 동의 상태와 제출 검증은 `CheckoutForm`에 둔다. 현재 결제 동의는 주문 확인·개인정보 수집 두 항목이며, 주소 찾기 비활성 상태는 checkout 소비처에서 지정한다.
 
 기존 링크·문구·HTML 구조·Panda 스타일·반응형 값과 이벤트 흐름을 유지했다. 출처는 위 frontmatter의 작업 트리 파일이다. 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next.js 프로덕션 빌드를 통과했다. 브라우저 시각/상호작용 검증은 수행하지 않았다.
 
@@ -2788,6 +2790,7 @@ ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정
 화면·제품 전용 Typography variant를 삭제하고 표준 `heading1`–`heading9` 및 `body1`–`body5` 조합으로 사용처를 바꿨다. 대상에는 알림·선택·폼 라벨, 메뉴·지역·세션 제목/본문, 상품 옵션·정보·가격, 메타·필터 텍스트, `display`, `heading`, `catalogTitle`, `sectionHeading`, `cardTitle`이 포함된다. 폼 라벨은 `body4`, 사이즈 옵션은 `body5`, 액션 텍스트는 `body3`/모바일 `body4`와 semibold로 표현한다. Checkbox의 중복 `labelVariant` API와 이에 종속된 호출 인자를 제거했다. 화면별 scale은 호출부의 `web`/`mo` 및 `weight`로 지정한다. Hero는 `heading1`, 상품 목록 제목은 web `heading7`/mobile `body1`, MainSection은 기본 web `heading5`/mobile `heading4`, 카드 제목은 web `heading8`/mobile `heading6`으로 옮겼다. SectionHeader 큰 제목은 `heading7`을 쓴다. `unstyled` 이름의 Typography variant를 제거했다. variant를 생략하면 기존처럼 상위/native 스타일을 유지하며 tone만 지정한 경우 색상만 적용한다. 알림 숫자처럼 미세한 크기가 필요한 예외는 컴포넌트 로컬 스타일로 유지한다. SegmentedControl의 `unstyled` prop과 RatingStars의 `selectionLabel` 접근성 이름은 Typography variant가 아니므로 그대로 둔다. 모든 변경은 화면 표현만 대상으로 하며 인터랙션·데이터 상태 흐름은 바꾸지 않는다.
 
 작업 트리 출처는 frontmatter의 `working_tree_sources`에 기록했다. 표준 scale 매핑으로 일부 이전의 화면별 글자 크기가 달라질 수 있다. 브라우저 시각 검증은 수행하지 않았다.
+
 ## 홈 Hero 버튼 외곽선 제거 (2026-10-21)
 
 HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.
@@ -2841,6 +2844,18 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 후속 검증·CSS 보정: 공통 Radio의 기본 gap과 카드 테두리 클래스 충돌을 className/selectedOptionClassName의 좁은 gap:1!·borderColor:black.100!로 명시했다. 실제 3열·6개 선택·4px gap·116px 그룹 높이·선택 검은 테두리를 측정했다. 쿠폰 이미지의 PC 88px에는 등가 토큰 22가 없으므로 88px 리터럴을 유지한다. 기존 모바일/PC CompleteOrder와 CouponSelection의 완료 화면 및 432,000원 적용 결과, ProductOptionList Cart의 White 선택 결과, Wishlist Labelled의 왕복 토글과 기본형 38×38px·PC 아이콘 24px 유지도 확인했다. 주문 합계 순수 테스트 3개를 통과했다.
 
 최종 확인: 쿠폰 PC 이미지가 88×88px임을 재측정했다. PC 기본 결제 화면에서 네이버페이 선택 후 실제 checked input의 name=paymentMethod·value=naver·form 연결을 확인했다. 최종 CSS 보정 후 Next·Storybook production build와 변경 파일 ESLint를 다시 통과했다.
+
+## 결제 요약의 쿠폰 드롭다운과 혜택 적용 (2026-10-27)
+
+결제 요약에서 쿠폰 조회 팝업 대신 기존 Dropdown을 사용해 쿠폰을 고른다. 기존 퍼블리싱 데모에 있던 상품 10%·등급 7%·장바구니 5,000원·4,000원 쿠폰을 선택지로 사용하며 “최대 혜택 적용” 체크 시 현재 주문 기준 할인액이 가장 큰 항목을 고른다. 주문금액은 상품 수량 합계를 괄호로 표시하고, 쿠폰 할인·배송비·총 결제 금액을 각각 행으로 보여준다. 상품·주문 합계와 쿠폰 할인 계산은 기능 모듈에 남으며 공통 Dropdown/Checkbox/AmountRow를 재사용한다. 배송비는 기존 데이터/요금 규칙이 없어 0원 데모값이다. Figma에 예시된 임직원 쿠폰 재고나 서버 쿠폰 연동은 추가하지 않았다.
+
+출처는 `src/shared/features/checkout/CheckoutDiscountSummary.tsx`, `CheckoutSummary.tsx`, `CheckoutForm.tsx`, `CheckoutContent.tsx`, `checkout-summary.ts`, `checkout-coupons.ts`와 주문 스토리다. Panda CSS 생성과 변경 파일 ESLint, diff 공백 검사는 통과했다. 전체 타입 검사는 결제 변경과 무관한 `.next/types`의 기존 route props 오류 5건으로 실패했다. 브라우저와 Storybook play 검증은 하지 않았다.
+
+## 결제 동의 항목과 주소 찾기 비활성화 (2026-10-27)
+
+결제 하단에 주문 확인 동의와 개인정보 수집·이용 동의를 별도 체크 행으로 표시하고 각각 기존 약관 화면 및 개인정보 처리방침 탭의 전문보기 링크를 연결한다. 제출에는 두 동의가 모두 필요하다. 공통 AddressFields에 선택적 검색 비활성 prop을 추가하고 checkout에서만 주소 찾기 버튼을 비활성화해 주소 필드와 다른 소비처의 기본 동작은 보존한다.
+
+출처는 `CheckoutAgreement.tsx`, `CheckoutForm.tsx`, `CheckoutContent.tsx`, `CheckoutAddressFields.tsx`, 공통 `AddressFields.tsx`와 주문 스토리다. Panda CSS 생성·변경 파일 ESLint·diff 공백 검사는 통과했다. 전체 타입 검사는 결제 변경과 무관한 `.next/types` route props 오류 5건으로 실패했다. 브라우저 및 Storybook play는 확인하지 않았다.
 
 ## 모바일 상품목록 디자인 보정과 설계서 대조 (2026-10-21)
 

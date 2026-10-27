@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckoutDeliveryMessageField } from './CheckoutDeliveryMessageField';
 import { CheckoutDeliveryRequestSelect } from './CheckoutDeliveryRequestSelect';
 import { useState } from 'react';

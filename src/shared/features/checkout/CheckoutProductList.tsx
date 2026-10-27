@@ -13,7 +13,7 @@ export function CheckoutProductList({ rows }: Props) {
           key={`${item.id}-${item.color}-${item.width}-${item.size}`}
           image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
           name={product.name}
-          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
+          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`}
           amount={product.price * item.quantity}
         />
       ))}
