@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonLink } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ButtonDocs, ButtonDocsContainer } from '@/shared/components/atoms/Button/ButtonDocs';
+import { Icon } from '@/shared/components/atoms/Icon/Icon';
+import { HStack } from 'styled-system/jsx';
 
 const meta = {
   title: 'Atoms/Button',
@@ -39,6 +41,19 @@ export const Chip: Story = {
     variant: 'chip',
     children: '스피드고트',
   },
+};
+
+export const FilterTriggerSizes: Story = {
+  render: () => (
+    <HStack gap="4">
+      <Button variant="filterTrigger" icon={<Icon name="filter" />}>
+        <Typography variant="body4">필터</Typography>
+      </Button>
+      <Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}>
+        <Typography variant="cta1">Filter &amp; Sort</Typography>
+      </Button>
+    </HStack>
+  ),
 };
 
 const secondaryContent = (

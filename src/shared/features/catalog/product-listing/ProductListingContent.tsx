@@ -10,8 +10,6 @@ type ProductListingContentProps = {
   filterDrawerOpen: boolean;
   filterPanel: ReactNode;
   mobileResultCount: number;
-  mobileSort: string;
-  onMobileSortChange: (sort: string) => void;
   onFilterDrawerOpenChange: (open: boolean) => void;
   onLoadMore: () => void;
   onMobileFilterApply: () => void;
@@ -26,8 +24,6 @@ export function ProductListingContent({
   filterDrawerOpen,
   filterPanel,
   mobileResultCount,
-  mobileSort,
-  onMobileSortChange,
   onFilterDrawerOpenChange,
   onLoadMore,
   onMobileFilterApply,
@@ -59,8 +55,6 @@ export function ProductListingContent({
           onClose={() => onFilterDrawerOpenChange(false)}
           onApply={onMobileFilterApply}
           resultCount={mobileResultCount}
-          sort={mobileSort}
-          onSortChange={onMobileSortChange}
         >
           {filterPanel}
         </MobileProductFilter>

@@ -22,3 +22,13 @@ export const SearchEmpty: Story = {
   name: '검색결과 없음',
   args: { ...scenarios.SearchEmpty.args, platform: 'mobile' },
 };
+
+export const LongSearchQuery: Story = {
+  ...SearchResults,
+  name: '긴 검색어와 필터',
+  args: {
+    platform: 'mobile',
+    searchQuery: 'Clifton TESTTESTESTSET 긴 검색어가 화면 너비를 넘는 경우',
+  },
+  parameters: { ...scenarios.SearchResults.parameters, route: '/search?gender=men' },
+};

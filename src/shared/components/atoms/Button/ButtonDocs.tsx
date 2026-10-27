@@ -32,7 +32,11 @@ const variants = [
     title: 'Plain',
     note: '밑줄 없는 텍스트 링크 · 높이 auto, 좌우 패딩 0 · sm 글자 크기 12px',
   },
-  { variant: 'filterTrigger', title: 'Filter Trigger', note: '고정 높이 32.2px · 좌우 패딩 14px' },
+  {
+    variant: 'filterTrigger',
+    title: 'Filter Trigger',
+    note: 'compact(기본) 32.2px/14px · regular 40px/24px (높이/좌우 패딩)',
+  },
   {
     variant: 'headerSearch',
     title: 'Header Search',

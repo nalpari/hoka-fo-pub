@@ -167,6 +167,7 @@ const item = cva({
         _mobile: {
           h: '100%',
           p: '0',
+          px: '0',
           borderRadius: '0',
           bg: 'transparent',
         },
