@@ -1,5 +1,4 @@
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
-import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
 
 // Compile-only API checks, validated by `npm run typecheck`.
 export function checkButtonSizingTypes() {
@@ -23,8 +22,8 @@ export function checkButtonSizingTypes() {
         Link
       </ButtonLink>
 
-      <LoadMoreButton remaining={10} size="short" />
-      <LoadMoreButton remaining={10} variant="link" size="lg" />
+      <Button loadMore={{ remaining: 10 }} size="short" />
+      <Button loadMore={{ remaining: 10 }} variant="link" size="lg" />
       <Button variant="filterTrigger">Filter</Button>
       <Button variant="filterTrigger" size="compact">
         Filter
@@ -40,8 +39,8 @@ export function checkButtonSizingTypes() {
         Search
       </ButtonLink>
 
-      <LoadMoreButton remaining={10} variant="filterTrigger" />
-      <LoadMoreButton remaining={10} variant="headerSearch" />
+      <Button loadMore={{ remaining: 10 }} variant="filterTrigger" />
+      <Button loadMore={{ remaining: 10 }} variant="headerSearch" />
     </>
   );
 
@@ -84,11 +83,11 @@ export function checkButtonSizingTypes() {
     </ButtonLink>
   );
 
-  // @ts-expect-error LoadMoreButton must preserve variant/size correlation.
-  const moreSmall = <LoadMoreButton remaining={10} size="sm" />;
+  // @ts-expect-error Button loadMore must preserve variant/size correlation.
+  const moreSmall = <Button loadMore={{ remaining: 10 }} size="sm" />;
 
   // @ts-expect-error Link load-more buttons reject short.
-  const moreShort = <LoadMoreButton remaining={10} variant="link" size="short" />;
+  const moreShort = <Button loadMore={{ remaining: 10 }} variant="link" size="short" />;
 
   // @ts-expect-error Filter triggers accept compact/regular, not tall/short.
   const fixedFilter = <Button variant="filterTrigger" size="tall" />;
@@ -106,8 +105,8 @@ export function checkButtonSizingTypes() {
     </ButtonLink>
   );
 
-  // @ts-expect-error LoadMoreButton preserves the fixed-size constraint.
-  const fixedMore = <LoadMoreButton remaining={10} variant="headerSearch" size="tall" />;
+  // @ts-expect-error Button loadMore preserves the fixed-size constraint.
+  const fixedMore = <Button loadMore={{ remaining: 10 }} variant="headerSearch" size="tall" />;
 
   // @ts-expect-error Icon-only shape options do not belong to text variants.
   const textShape = <Button variant="primary" shape="circle" />;
@@ -139,5 +138,52 @@ export function checkButtonSizingTypes() {
     fixedSmall,
     fixedNavigation,
     fixedMore,
+  ];
+}
+
+// Generated content and provider styles must not conflict with caller-owned content.
+export function checkButtonPresentationTypes() {
+  const valid = (
+    <>
+      <Button loadMore={{ remaining: 0 }} />
+      <Button loadMore={{ counter: { current: 1, total: 3 } }} variant="primary" size="short" />
+      <ButtonLink href="/support" loadMore={{ counter: { current: 1, total: 3 } }} />
+      <Button social={{ provider: 'kakao' }}>카카오 로그인</Button>
+      <Button social={{ provider: 'naver', appearance: 'signup' }} size="short">
+        가입
+      </Button>
+    </>
+  );
+  // @ts-expect-error Generated count content replaces custom children.
+  const countChildren = <Button loadMore={{ remaining: 1 }}>더보기</Button>;
+  // @ts-expect-error Remaining and page-counter modes are mutually exclusive.
+  const bothCounts = <Button loadMore={{ remaining: 1, counter: { current: 1, total: 2 } }} />;
+  // @ts-expect-error Social presentation owns its icon.
+  const socialIcon = <Button social={{ provider: 'kakao' }} icon="icon" />;
+
+  // @ts-expect-error Social presentation owns its appearance variant.
+  const socialVariant = <Button social={{ provider: 'kakao' }} variant="secondary" />;
+  // @ts-expect-error Social and load-more modes cannot be combined.
+  const bothModes = <Button social={{ provider: 'naver' }} loadMore={{ remaining: 1 }} />;
+  // @ts-expect-error Icon-only geometry cannot contain a generated counter.
+  const iconCount = <Button variant="icon" loadMore={{ remaining: 1 }} />;
+  // @ts-expect-error Social sizing follows the primary button's tall/short scale.
+  const socialSize = <Button social={{ provider: 'naver' }} size="sm" />;
+  const linkChildren = (
+    // @ts-expect-error Link counter content replaces custom children too.
+    <ButtonLink href="/" loadMore={{ remaining: 1 }}>
+      링크
+    </ButtonLink>
+  );
+  return [
+    valid,
+    countChildren,
+    bothCounts,
+    socialIcon,
+    socialVariant,
+    bothModes,
+    iconCount,
+    socialSize,
+    linkChildren,
   ];
 }

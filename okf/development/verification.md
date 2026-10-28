@@ -6,9 +6,11 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:35:32.419Z'
+  at: '2026-10-28T11:03:50.461Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
+  - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
   - src/types/type-tests/Button.type-test.tsx
   - tests/import-order.test.mjs
   - AGENTS.md
@@ -271,3 +273,13 @@ Button.type-test.tsx는 src/types/type-tests/에서 npm run typecheck에 포함�
 작성: codex/gpt-6, 2026-10-28T10:35:32.419Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
 
 검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.
+
+## 더보기·소셜 버튼 부모 옵션 검증 (2026-10-28)
+
+Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례를 src/types/type-tests/Button.type-test.tsx에서 검사한다. Prettier로 여러 줄이 된 JSX의 @ts-expect-error 위치를 맞춰 실제 진단을 소비하도록 수정했으며 후속 타입 검사와 Next 빌드가 통과했다. tests/form-controls.test.mjs에 남은 수량 0·커스텀 라벨·type/form 유지, 수량 링크의 실제 anchor/href·role, loading 비활성화와 카카오/네이버 아이콘·DOM 옵션 누출 검사를 추가했다. 기존 일반·아이콘 버튼 검증을 유지했고 폼·import 순서 테스트 56개 및 빌드 후 App Router 테스트 2개가 통과했다.
+
+이전 래퍼 스토리와 새 부모 옵션 스토리의 PC 1600px·375px 사례 18개에서 DOM 구조, 위치·치수, 색상·배경·글꼴·굵기·행간·간격·패딩·그림자와 아이콘 경로를 비교해 모두 일치했다. 래퍼 제거로 Typography의 한글 탐지 대상이 바뀌던 부분은 기존 바깥 스케일을 명시해 보존했다. Storybook은 다른 작업의 출력과 분리한 .tmp-button-options-storybook에 빌드했고 비교 전후 페이지는 별도 6018/6019 포트에서 확인했다. 스크린샷 픽셀 비교나 전체 접근성 인증을 수행했다는 의미는 아니다.
+
+작성: codex/gpt-6, 2026-10-28T10:54:54.282Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 전체 작업 트리의 다른 작업 검증과 구분한다.
+
+브라우저 상호작용에서는 제어형 수량 1→2→3 이후 비활성화, 두 모드의 loading/aria-busy, 수량 링크의 href와 링크 의미, 로그인 소셜 미지원 안내, 가입의 두 제공자 안내 모달 열기·확인 닫기, 쿠폰 5→10개 확장, 리뷰 페이지 수 1/7→2/7과 고객센터 일반 링크를 확인했다.

@@ -8,9 +8,11 @@ import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ComponentPropsWithRef, CSSProperties, ReactNode } from 'react';
 
 import { css, cva } from 'styled-system/css';
+import { HStack } from 'styled-system/jsx';
 import { circle } from 'styled-system/patterns';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 const button = cva({
   base: {
@@ -174,6 +176,64 @@ const iconButton = css.raw({
   _hover: { bg: 'var(--icon-button-hover-bg, var(--color-black-10))' },
 });
 
+const socialLogin = cva({
+  base: { '--button-icon-size': '18px' },
+  variants: {
+    provider: {
+      kakao: {
+        '--button-bg': '#fae100!',
+        '--button-color': 'token(colors.black.100)!',
+        '--button-bg-hover': '#fae100!',
+        '--button-color-hover': 'token(colors.black.100)!',
+      },
+      naver: {
+        '--button-bg': '#03c75a!',
+        '--button-color': 'token(colors.white.0)!',
+        '--button-bg-hover': '#03c75a!',
+        '--button-color-hover': 'token(colors.white.0)!',
+      },
+    },
+  },
+});
+
+export type ButtonLoadMore = (
+  | { remaining: number; counter?: never }
+  | { remaining?: never; counter: { current: number; total: number } }
+) & {
+  label?: ReactNode;
+  labelProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web' | 'weight'>;
+  counterProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web'>;
+};
+
+export type ButtonSocial = {
+  provider: 'kakao' | 'naver';
+  appearance?: 'login' | 'signup';
+};
+
+function renderLoadMoreContent({
+  remaining,
+  counter,
+  label = '더보기',
+  labelProps,
+  counterProps,
+}: ButtonLoadMore) {
+  if (counter === undefined)
+    return (
+      <>
+        {label} ({remaining}) ⌄
+      </>
+    );
+
+  return (
+    <HStack gap="1" justifyContent="center">
+      <Typography {...(labelProps ?? { variant: 'cta2', weight: 'semibold' })}>{label}</Typography>
+      <Typography {...(counterProps ?? { variant: 'body5' })} tone="tertiary">
+        ({counter.current}/{counter.total})
+      </Typography>
+    </HStack>
+  );
+}
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -200,18 +260,35 @@ export type ButtonSizingProps =
       size?: 'tall' | 'short';
     };
 
-export type ButtonTextProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonSizingProps & {
-    density?: 'auto' | 'wide' | 'compact';
-    colorway?: 'black' | 'white';
-    language?: 'kr' | 'en';
-    fullWidth?: boolean;
-    icon?: ReactNode;
-    loading?: boolean;
-    invalid?: boolean;
-    render?: BaseButtonProps['render'];
-    nativeButton?: boolean;
-  };
+type ButtonTextBaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
+  density?: 'auto' | 'wide' | 'compact';
+  colorway?: 'black' | 'white';
+  language?: 'kr' | 'en';
+  fullWidth?: boolean;
+  icon?: ReactNode;
+  loading?: boolean;
+  invalid?: boolean;
+  render?: BaseButtonProps['render'];
+  nativeButton?: boolean;
+};
+
+type ButtonContentProps =
+  { loadMore: ButtonLoadMore; children?: never } | { loadMore?: never; children?: ReactNode };
+
+export type ButtonTextProps =
+  | (ButtonTextBaseProps & ButtonSizingProps & ButtonContentProps & { social?: never })
+  | (Omit<ButtonTextBaseProps, 'icon' | 'fullWidth' | 'className' | 'style' | 'colorway'> & {
+      social: ButtonSocial;
+      children?: ReactNode;
+      size?: 'short' | 'tall';
+      variant?: never;
+      icon?: never;
+      fullWidth?: never;
+      className?: never;
+      style?: never;
+      colorway?: never;
+      loadMore?: never;
+    });
 
 export type ButtonIconProps = Omit<ComponentPropsWithRef<'button'>, 'color'> & {
   variant: 'icon';
@@ -222,6 +299,8 @@ export type ButtonIconProps = Omit<ComponentPropsWithRef<'button'>, 'color'> & {
   loading?: boolean;
   render?: BaseButtonProps['render'];
   nativeButton?: boolean;
+  social?: never;
+  loadMore?: never;
 };
 
 export type ButtonProps = ButtonTextProps | ButtonIconProps;
@@ -276,7 +355,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   }
 
   const {
-    variant = 'secondary',
+    variant = props.social ? 'primary' : 'secondary',
     density,
     colorway = 'black',
     language = 'kr',
@@ -285,10 +364,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       : variant === 'link' || variant === 'plain'
         ? 'md'
         : 'tall',
-    fullWidth = false,
+    fullWidth = props.social !== undefined,
     loading = false,
     invalid = false,
-    icon,
+    icon: customIcon,
+    social,
+    loadMore,
     className,
     children,
     type = 'button',
@@ -296,7 +377,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     disabled,
     ...buttonProps
   } = props;
-  const iconOnly = Boolean(icon && children == null);
+  const icon = social ? <Icon name={`social/${social.provider}`} size="18px" /> : customIcon;
+  const resolvedChildren = loadMore ? renderLoadMoreContent(loadMore) : children;
+  const iconOnly = Boolean(icon && resolvedChildren == null);
   const primary = variant === 'primary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'plain' || variant === 'ghost';
@@ -409,6 +492,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-radius': '999px',
     });
   if (invalid) variables['--button-border-color'] = 'var(--color-red-100)';
+  if (social?.appearance === 'signup')
+    Object.assign(variables, {
+      '--button-bg': social.provider === 'kakao' ? '#FAE100' : '#03C75A',
+      '--button-color':
+        social.provider === 'kakao' ? 'var(--color-black-100)' : 'var(--color-white-000)',
+      '--button-border-color': social.provider === 'kakao' ? '#FAE100' : '#03C75A',
+      '--button-border-width': '0px',
+    });
   return (
     <BaseButton
       {...buttonProps}
@@ -429,6 +520,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           variant === 'secondary' && secondaryContentColor,
           variant === 'link' && { textDecoration: 'underline', textUnderlineOffset: '3px' },
           variant === 'headerSearch' && { w: '178px' },
+          social &&
+            social.appearance !== 'signup' &&
+            socialLogin.raw({ provider: social.provider }),
         ),
         className,
       ]
@@ -456,13 +550,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
                 <Typography
                   as="span"
                   variant={labelTypographyVariant}
+                  // The former count wrapper kept the outer scale independent of its label.
+                  language={loadMore ? 'en' : undefined}
                   weight={variant === 'chip' ? 'medium' : undefined}
                   style={{ color: 'inherit' }}
                 >
-                  {children}
+                  {resolvedChildren}
                 </Typography>
               ) : (
-                children
+                resolvedChildren
               )}
             </span>
           )}
@@ -478,7 +574,7 @@ export type ButtonLinkProps = Pick<
   'href' | 'replace' | 'scroll' | 'prefetch' | 'onNavigate'
 > &
   Pick<
-    ButtonTextProps,
+    ButtonTextBaseProps,
     | 'className'
     | 'style'
     | 'density'
@@ -490,14 +586,14 @@ export type ButtonLinkProps = Pick<
     | 'invalid'
     | 'onMouseDown'
   > &
-  ButtonSizingProps & {
-    children: ReactNode;
+  ButtonSizingProps &
+  ({ loadMore: ButtonLoadMore; children?: never } | { loadMore?: never; children: ReactNode }) & {
+    social?: never;
   };
 
-/** A navigation link with the same variants and focus treatment as Button. */
+/** 공통 버튼의 외형과 수량 표시를 제공하는 탐색 링크입니다. (Provides a navigation link with shared button appearance and optional counts.) */
 export function ButtonLink({
   href,
-  children,
   replace,
   scroll,
   prefetch,
@@ -519,8 +615,6 @@ export function ButtonLink({
           role={undefined}
         />
       )}
-    >
-      {children}
-    </Button>
+    />
   );
 }

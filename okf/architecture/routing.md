@@ -6,9 +6,12 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:35:32.416Z'
+  at: '2026-10-28T11:03:50.419Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/reviews/page.tsx
+  - src/app/mypage/coupons/page.tsx
+  - src/app/login/page.tsx
   - src/types/component-contracts/app-products-id-page.d.ts
   - .storybook/fonts.scss
   - .storybook/preview.ts
@@ -311,3 +314,9 @@ RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기�
 운영 페이지의 Button import를 src/components/common/atoms/Button.tsx로 바꾸고 기존 IconButton 호출은 variant="icon"으로 전환했다. 라우트·URL·쿼리·페이지 상태·서버/클라이언트 경계는 변경하지 않았다. 상품 상세의 공유 버튼 타입은 ButtonIconProps에서 children·variant를 제외한 계약으로 유지한다. 변경 검증은 UI 문서의 Button 아이콘 모드 통합 기록을 참고한다.
 
 작성: codex/gpt-6, 2026-10-28T10:35:32.416Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+## 더보기·소셜 버튼의 부모 표시 옵션 통합 (2026-10-28)
+
+로그인·가입의 SocialAuthButton은 Button.social로, 쿠폰·리뷰의 LoadMoreButton은 Button.loadMore로 전환했다. URL·라우트 소유권·서버/클라이언트 경계·화면 상태와 이벤트 처리 책임은 바뀌지 않는다. 카카오·네이버 미연결 안내, 가입 수단 선택과 쿠폰·리뷰 더보기의 기존 상태 갱신을 유지한다. 공통 표시 API는 [UI 계약](ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
+
+작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.

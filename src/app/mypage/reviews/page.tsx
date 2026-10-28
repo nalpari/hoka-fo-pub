@@ -10,7 +10,6 @@ import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
-import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Select } from '@/components/common/atoms/Select';
@@ -236,14 +235,16 @@ type MyPageReviewLoadMoreProps = {
 function MyPageReviewLoadMore({ visibleCount, totalCount, onLoadMore }: MyPageReviewLoadMoreProps) {
   return (
     <Box mt="6">
-      <LoadMoreButton
+      <Button
         fullWidth
         variant="secondary"
         size="short"
         onClick={onLoadMore}
-        counter={{ current: Math.ceil(visibleCount / 10), total: Math.ceil(totalCount / 10) }}
-        labelProps={{ mo: 'ctaKr2' }}
-        counterProps={{ mo: 'body5' }}
+        loadMore={{
+          counter: { current: Math.ceil(visibleCount / 10), total: Math.ceil(totalCount / 10) },
+          labelProps: { mo: 'ctaKr2' },
+          counterProps: { mo: 'body5' },
+        }}
       />
     </Box>
   );

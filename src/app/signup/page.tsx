@@ -14,7 +14,6 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -68,9 +67,9 @@ type SignupMethodButtonProps = { method: SignupMethodButtonSignupMethod; onSelec
 function SignupMethodButton({ method, onSelect }: SignupMethodButtonProps) {
   if (method !== 'local')
     return (
-      <SocialAuthButton provider={method} appearance="signup" size="tall" onClick={onSelect}>
+      <Button social={{ provider: method, appearance: 'signup' }} size="tall" onClick={onSelect}>
         {labels[method]}
-      </SocialAuthButton>
+      </Button>
     );
 
   return (

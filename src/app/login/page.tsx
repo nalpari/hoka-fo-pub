@@ -18,7 +18,6 @@ import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -52,12 +51,12 @@ function LoginActions({ onUnavailable }: { onUnavailable: (feature: string) => v
       <Button fullWidth variant="primary" type="submit">
         로그인
       </Button>
-      <SocialAuthButton provider="kakao" onClick={() => onUnavailable('카카오 로그인')}>
+      <Button social={{ provider: 'kakao' }} onClick={() => onUnavailable('카카오 로그인')}>
         카카오 로그인
-      </SocialAuthButton>
-      <SocialAuthButton provider="naver" onClick={() => onUnavailable('네이버 로그인')}>
+      </Button>
+      <Button social={{ provider: 'naver' }} onClick={() => onUnavailable('네이버 로그인')}>
         네이버 로그인
-      </SocialAuthButton>
+      </Button>
     </Stack>
   );
 }

@@ -3,7 +3,6 @@ import { type ComponentProps, type ReactNode } from 'react';
 import { Box } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
-import { LoadMoreButton, LoadMoreButtonContent } from '@/components/common/atoms/LoadMoreButton';
 
 import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 import {
@@ -79,17 +78,22 @@ function CustomerCenterFooter({ action }: { action: CustomerCenterFooterAction }
       _mobile={{ maxW: width === 'default' ? '500px' : 'none', ...containerProps?._mobile }}
     >
       {action.kind === 'link' ? (
-        <ButtonLink href={action.href} variant={variant} size={size} fullWidth>
-          {action.counter ? (
-            <LoadMoreButtonContent counter={action.counter} label={label} />
-          ) : (
-            label
-          )}
-        </ButtonLink>
+        action.counter ? (
+          <ButtonLink
+            href={action.href}
+            variant={variant}
+            size={size}
+            fullWidth
+            loadMore={{ counter: action.counter, label }}
+          />
+        ) : (
+          <ButtonLink href={action.href} variant={variant} size={size} fullWidth>
+            {label}
+          </ButtonLink>
+        )
       ) : action.kind === 'loadMore' ? (
-        <LoadMoreButton
-          counter={action.counter}
-          label={label}
+        <Button
+          loadMore={{ counter: action.counter, label }}
           variant={variant}
           size={size}
           fullWidth

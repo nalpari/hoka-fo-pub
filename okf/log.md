@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- LoadMoreButton·SocialAuthButton을 Button·ButtonLink의 배타적 표시 옵션으로 통합하고 실제 호출부·스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
+
 - IconButton을 Button variant="icon"으로 통합하고 Button 구현 경로를 평탄화했다. 문서 구현은 Storybook, 타입 검증은 src/types/type-tests로 이동했다. 기존 호출부·preview 타입·테스트 경로를 함께 갱신했다. [API와 소유권](architecture/ui.md#button의-아이콘-모드와-문서-소유권-통합-2026-10-28)을 참고한다.
 
 - 승인된 미사용·Storybook 전용 공통 UI 17개와 전용 스토리 11개를 제거하고 SideNavigation을 SidebarNavigationLayout 모듈로 통합했다. 관련 폼·타입 검사 참조와 OKF를 함께 정리했다. [범위와 검증](architecture/ui.md#미사용-공통-ui-17개-제거와-사이드-탐색-소유권-통합-2026-10-28)을 참고한다.

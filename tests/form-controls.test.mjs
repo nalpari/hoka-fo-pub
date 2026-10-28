@@ -251,3 +251,46 @@ test('icon loading disables the control while disabled tone remains presentation
   assert.match(toned, /--icon-button-color:var\(--color-black-40\)/);
   assert.doesNotMatch(toned, /disabled=""/);
 });
+
+test('generated remaining counts retain zero, custom labels and native form ownership', () => {
+  const html = renderToStaticMarkup(
+    h(UnifiedButton, {
+      loadMore: { remaining: 0, label: '리뷰 더보기' },
+      type: 'submit',
+      form: 'reviews',
+    }),
+  );
+  assert.match(html.replace(/<[^>]*>/g, ''), /리뷰 더보기 \(0\) ⌄/);
+  assert.match(html, /type="submit"/);
+  assert.match(html, /form="reviews"/);
+  assert.doesNotMatch(html, /loadmore=|remaining=|\[object Object\]/i);
+});
+
+test('counter links retain navigation semantics and loading buttons remain disabled', async () => {
+  const { ButtonLink } = await import('../src/components/common/atoms/Button.tsx');
+  const loadMore = { counter: { current: 1, total: 3 }, label: '전체보기' };
+  const html = renderToStaticMarkup(h(ButtonLink, { href: '/support/faq', loadMore }));
+  assert.match(html, /<a[^>]*href="\/support\/faq"/);
+  assert.match(html.replace(/<[^>]*>/g, ''), /전체보기.*\(1\/3\)/);
+  assert.doesNotMatch(html, /<button|role="button"|loadmore=/i);
+  const loading = renderToStaticMarkup(h(UnifiedButton, { loadMore, loading: true }));
+  assert.match(loading, /disabled=""/);
+  assert.match(loading, /aria-busy="true"/);
+});
+
+for (const provider of ['kakao', 'naver']) {
+  test(`social ${provider} keeps its icon, label and submit association`, () => {
+    const html = renderToStaticMarkup(
+      h(
+        UnifiedButton,
+        { social: { provider, appearance: 'signup' }, type: 'submit', form: 'signup' },
+        '가입',
+      ),
+    );
+    assert.ok(html.includes(`/images/icon/social/${provider}.svg`));
+    assert.match(html, /type="submit"/);
+    assert.match(html, /form="signup"/);
+    assert.match(html, /가입/);
+    assert.doesNotMatch(html, /social=|provider=|appearance=|\[object Object\]/);
+  });
+}

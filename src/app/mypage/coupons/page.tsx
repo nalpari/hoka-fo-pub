@@ -8,7 +8,6 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -163,17 +162,19 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
       }}
       footer={
         visibleCount < visibleCoupons.length ? (
-          <LoadMoreButton
+          <Button
             fullWidth
             size="short"
             variant="secondary"
             onClick={() => setVisibleCount((count) => count + 5)}
-            counter={{
-              current: Math.ceil(visibleCount / 5),
-              total: Math.ceil(visibleCoupons.length / 5),
+            loadMore={{
+              counter: {
+                current: Math.ceil(visibleCount / 5),
+                total: Math.ceil(visibleCoupons.length / 5),
+              },
+              labelProps: { mo: 'ctaKr2' },
+              counterProps: { mo: 'body5' },
             }}
-            labelProps={{ mo: 'ctaKr2' }}
-            counterProps={{ mo: 'body5' }}
           />
         ) : null
       }

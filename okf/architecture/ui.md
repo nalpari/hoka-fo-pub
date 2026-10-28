@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:35:32.412Z'
+  at: '2026-10-28T11:03:50.371Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
+  - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
   - src/types/type-tests/Button.type-test.tsx
   - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
   - src/stories/components/common/atoms/Button/ButtonDocs.tsx
@@ -3158,3 +3160,15 @@ Button은 variant="icon"에서 아이콘 버튼의 실제 치수 size(숫자 px 
 작성: codex/gpt-6, 2026-10-28T10:35:32.412Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
 
 검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.
+
+## 더보기·소셜 버튼의 부모 표시 옵션 통합 (2026-10-28)
+
+Button·ButtonLink는 loadMore 옵션으로 남은 수량 또는 현재/전체 페이지 수와 라벨·라벨/카운터 타이포그래피를 표시한다. 두 수량 방식은 배타적이고 loadMore와 custom children도 함께 사용할 수 없다. 기존 LoadMoreButtonContent의 JSX를 부모 모듈 내부 렌더 helper로 옮겨 별도 공개 컴포넌트를 추가하지 않았다. 래퍼 제거 전 Typography가 내부 텍스트를 직접 탐지하지 않던 바깥 스케일은 명시적 language로 보존하고 라벨·카운터의 개별 타이포그래피는 유지한다. ButtonLink의 href·탐색 의미와 일반 children 방식, Button의 variant/size 상관관계는 유지한다.
+
+Button.social은 kakao/naver 제공자와 login(기본)/signup 외형을 받으며 기존 전체 너비·18px 아이콘·색상과 hover/focus/disabled 표현을 보존한다. 인증과 요청 상태는 호출부가 소유한다. 소셜 모드에서는 충돌하는 variant·icon·colorway·fullWidth·className·style·loadMore를 허용하지 않으며 크기는 tall/short다. icon 모드에도 loadMore/social을 허용하지 않는다. 기존 아이콘 모드와 폴더 평탄화의 동시 변경은 보존했다.
+
+LoadMoreButton·SocialAuthButton 구현 2개를 제거했다. 쿠폰·리뷰·고객센터 footer 및 로그인·가입 호출부를 새 옵션으로 전환하고, 전용 스토리를 Atoms/Button/LoadMore와 Atoms/Button/Social로 이전해 의미 있는 시나리오를 유지했다. 이전 전용 title·ID는 새 소유 경로로 바뀌며 소스·IA에서 그 ID를 참조하지 않음을 확인한다. 타입 검증에는 상호 배타적 옵션·소셜 크기 제약과 기존 일반/아이콘 모드를 함께 검사한다.
+
+작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.
+
+더보기·소셜 옵션 통합 후 검증: 타입 검사·전체 린트·Panda 생성·Next/Storybook production build가 통과했다. 폼·import 순서 56개와 App Router 2개 테스트가 통과했고 18개 PC/375px 표시 사례의 DOM·계산 스타일 비교가 일치했다. 자세한 검증은 [더보기·소셜 버튼 부모 옵션 검증](../development/verification.md#더보기소셜-버튼-부모-옵션-검증-2026-10-28)을 참고한다.
