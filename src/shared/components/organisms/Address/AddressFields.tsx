@@ -18,7 +18,6 @@ type Props = {
   variant: AddressFieldsVariant;
   fieldOptions?: Partial<Record<AddressFieldName, AddressFieldOptions>>;
   searchLabel?: string;
-  searchDisabled?: boolean;
   idPrefix: string;
   value: AddressValue;
   errors?: Partial<Record<AddressFieldName, string>>;
@@ -32,7 +31,6 @@ export function AddressFields({
   variant,
   fieldOptions,
   searchLabel = '주소 찾기',
-  searchDisabled = false,
   idPrefix,
   value,
   errors,
@@ -54,7 +52,6 @@ export function AddressFields({
     <Button
       variant="link"
       size={variant === 'boxed' ? 'md' : 'sm'}
-      disabled={searchDisabled}
       aria-haspopup="dialog"
       onClick={() => onSearchOpenChange(true)}
     >

@@ -4,6 +4,10 @@
 
 - **Merge**: 최신 `pub-jme` 기준으로 `origin/publishing` 포함 여부를 확인하고 `origin/main`의 선별 반영 이력을 병합했다. FilterTabs는 현재 `plain` API와 모바일 px 0을 유지하고, MobileProductFilter는 공통 BottomSheetContent의 px 6을 사용해 main 이식용 Box px 4가 중첩되지 않게 했다. 선별 반영 문서의 categoryNavigation·시트 패딩 설명은 당시 main 기준의 기록이며 현재 작업 브랜치 API를 대체하지 않는다. 병합 결과의 소스는 병합 전 pub-jme와 동일하다.
 
+- **Fix**: 주소 찾기로 우편번호와 주소가 모두 채워진 경우 상세주소 입력을 활성화하도록 조건을 연결했다. 비어 있거나 하나만 입력된 상태에서는 계속 비활성화한다. 상태 소유권은 [결제 동의와 주소 검색 비활성 상태](architecture/state.md#결제-동의와-주소-검색-비활성-상태-2026-10-27)에 기록했다. 2026-10-28 `npm run okf:check`, 변경 파일 ESLint와 `git diff --check`를 통과했으며 브라우저 확인은 하지 않았다.
+
+- **Fix**: Figma `1159:43128` 기준을 다시 확인해 주소 찾기 버튼은 활성화하고 우편번호·주소·상세주소 입력 필드만 비활성화했다. disabled 입력이 FormData에서 빠지므로 controlled 우편번호·주소 값은 hidden 필드로 제출 데이터에 유지한다. AddressFields의 검색 비활성 prop을 제거했다. 상세는 [결제 주소 입력 비활성 상태 정정](architecture/ui.md#결제-주소-입력-비활성-상태-정정-2026-10-27)에 기록했다. 아직 정적 검사와 브라우저 검증은 하지 않았다.
+
 - **Fix**: 단일 Checkbox의 라벨 간격을 모든 variant에서 gap 2로 통일하고 CartSelectionBar·CheckoutDiscountSummary의 중복 지정을 제거했다. LoginForm에는 flex 축소 방지 설정만 남겼다. Panda 생성, 변경 파일 ESLint, diff 공백 검사와 `npm run okf:check`를 통과했다. [UI 기록](architecture/ui.md#공통-checkbox-라벨-간격-2026-10-27)에 반영했다.
 
 - **Update**: 결제 하단에 주문 확인·개인정보 수집 동의 행과 약관 전문 링크를 추가하고, 두 항목 모두 동의해야 제출되도록 했다. checkout에서는 주소 찾기 버튼만 비활성화하고 기존 주소 입력 필드 설정은 유지한다. 공통 AddressFields의 검색 비활성 API는 선택 사항으로 추가해 다른 화면의 기본 동작은 유지한다. Panda CSS 생성·변경 파일 ESLint·diff 공백 검사는 통과했고, 전체 타입 검사는 결제 변경과 무관한 `.next/types` route props 오류 5건으로 실패했다. 브라우저와 Storybook play는 확인하지 않았다. 상세는 [UI 기록](architecture/ui.md#결제-동의-항목과-주소-찾기-비활성화-2026-10-27)과 [상태 기록](architecture/state.md#결제-동의와-주소-검색-비활성-상태-2026-10-27)에 적었다.
