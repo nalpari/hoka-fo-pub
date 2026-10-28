@@ -9,6 +9,10 @@ generated:
   at: '2026-10-28T08:57:37.238Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - .storybook/fonts.scss
+  - src/app/layout.tsx
+  - src/app/products/[id]/_components/ProductDetailViewerContent.tsx
+  - src/components/product/ProductDetailImage.tsx
   - next.config.ts
   - src/components/common/molecules/ProductThumbnail.tsx
   - src/components/common/organisms/Product/ProductGallery.tsx
@@ -3110,3 +3114,11 @@ ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배
 공통 ProductThumbnail과 ProductGallery, 상품 상세 이미지·확대 뷰어·특징 이미지, 홈 HeroSlide를 next/image로 전환했다. 이미지의 기존 CSS 비율·크롭·호버·확대 동작은 유지하고 sizes를 지정했다. ProductThumbnail의 lazy 옵션과 기본 eager 동작을 유지하며, 상품 상세 첫 이미지와 홈 첫 슬라이드는 eager로 요청한다. 홈 첫 슬라이드에만 fetchPriority=high를 지정한다. 갤러리 Storybook의 임시 문자열은 실제 로컬 이미지 경로로 바꿨다. SVG 아이콘과 업로드 미리보기는 이번 범위에 포함하지 않았다.
 
 외부 상품 이미지는 기존 Deckers CDN 원본 URL을 유지하며 next.config.ts에서 HTTPS dms.deckers.com/hoka/image/upload/**만 허용한다. CDN의 기존 변환 위에서 Next 이미지 최적화를 사용하므로 성능 개선 수치는 별도 측정이 필요하다. 작업 트리에서 lint·타입 검사와 프로덕션 빌드를 확인했고, 브라우저에서 홈 배너·로컬/외부 상품 썸네일·PC 상세 이미지의 최적화 URL 및 로딩을 확인했다. 스크린샷 캡처는 브라우저 도구 시간 초과로 완료하지 못했다.
+
+## Next.js 기능 채택과 런타임 경계 (2026-10-28)
+
+RootLayout에서 next/font/local로 HOKA 8개·Pretendard 9개 폰트를 등록하고 CSS 변수로 기존 타이포그래피에 연결한다. 기존 굵기·기울임·swap·fallback 순서는 유지한다. 모든 정적 face가 preload되는 것을 피하기 위해 preload=false를 명시하고 adjustFontFallback=false로 기존 fallback을 보존한다. 프로덕션은 Next 생성 폰트 파일을 사용하고, Vite 기반 Storybook만 .storybook/fonts.scss에서 동일 원본 파일을 등록한다. 전역 SCSS의 프로덕션 @font-face 중복은 제거했다.
+
+상품 확대 뷰어는 route-local shell이 선택 상태·닫기·Escape·포커스·스크롤 복귀를 유지하고, _components/ProductDetailViewerContent.tsx의 갤러리를 next/dynamic으로 요청 시 로딩한다. 해당 파일의 단일 생산 부모는 상품 상세 page.tsx이며, 지연 청크 경계가 통합 예외 사유다. ProductDetailImage는 페이지와 지연 갤러리의 두 생산 부모가 공유하므로 src/components/product에 둔다. 로딩 상태 및 갤러리 오류 경계는 부모가 제공하고 닫기 버튼은 로딩 성공 여부와 무관하게 유지한다.
+
+검증: lint·타입 검사·Next 프로덕션 빌드·Storybook 빌드, 기존 테스트 77개를 확인했다. 프로덕션 브라우저에서 폰트 preload 0건과 실제 face 로딩, 갤러리 청크의 클릭 전 미요청/클릭 후 요청, Escape 후 원래 버튼으로의 포커스 복귀를 확인했다. Storybook 주문서에서 원래 HOKA·Pretendard face 로딩도 확인했다. 갤러리 청크 요청 차단 시 오류 안내·닫기·포커스 복귀와 375px 모바일 주문서 표시를 확인했다. 해당 갤러리 청크는 이 빌드에서 1,875바이트(gzip 1,042바이트)였으며 전체 페이지 속도 개선 수치는 측정하지 않았다. 작성: codex/gpt-6, 2026-10-28T09:57:37.856Z. 출처는 working_tree_sources의 이번 변경 파일이다.

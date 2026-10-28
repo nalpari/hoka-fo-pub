@@ -1,4 +1,5 @@
 import type { Preview } from 'storybook';
+import './fonts.scss';
 import '../src/styles/global.scss';
 
 const preview: Preview = {

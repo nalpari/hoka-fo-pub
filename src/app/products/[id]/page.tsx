@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
@@ -13,6 +14,7 @@ import {
   faTruckFast,
 } from '@fortawesome/free-solid-svg-icons';
 import {
+  Component,
   type ComponentPropsWithoutRef,
   type CSSProperties,
   Fragment,
@@ -61,6 +63,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import { ProductDetailImage } from '@/components/product/ProductDetailImage';
 import {
   getProductDetailPresentation,
   productDetailAnchors,
@@ -73,6 +76,29 @@ import { productSizeOptions } from '@/components/product/productSizeOptions';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
+
+const ProductDetailViewerContent = dynamic(
+  () => import('./_components/ProductDetailViewerContent'),
+  { loading: () => <Typography role="status">상품 이미지를 불러오는 중입니다.</Typography> },
+);
+
+class ViewerContentBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? (
+      <Typography role="alert">
+        이미지를 불러오지 못했습니다. 뷰어를 닫고 페이지를 새로고침해 주세요.
+      </Typography>
+    ) : (
+      this.props.children
+    );
+  }
+}
 
 function ProductDetailGrid({ children }: { children: ReactNode }) {
   return (
@@ -122,110 +148,20 @@ function ProductDetailLayout({ viewer, isViewing, children, footer }: ProductDet
   );
 }
 
-const image = css({
-  display: 'block',
-  w: '100%',
-  h: 'auto',
-});
-
-const trigger = css({
-  display: 'block',
-  w: '100%',
-  p: '0',
-  border: '0',
-  bg: 'transparent',
-  cursor: 'zoom-in',
-});
-
-type ProductDetailImageProps = {
-  eager?: boolean;
-  alt: string;
-  src: string;
-  onClick?: () => void;
-};
-
-function ProductDetailImage({ alt, src, onClick, eager = false }: ProductDetailImageProps) {
-  const content = (
-    <Image
-      alt={alt}
-      loading={eager ? 'eager' : 'lazy'}
-      className={image}
-      src={src}
-      width={1600}
-      height={1600}
-      sizes="(max-width: 1023px) 100vw, 50vw"
-    />
-  );
-
-  if (!onClick) return content;
-
-  return (
-    <button aria-label={`${alt} 크게 보기`} className={trigger} onClick={onClick} type="button">
-      {content}
-    </button>
-  );
-}
-
-type ProductDetailViewerGalleryProps = { images: string[]; productName: string };
-
-const ProductDetailViewerGalleryStyles = {
-  carousel: css({ '& .swiper-slide': { w: '100%' } }),
-  pagination: css({
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '5px',
-    mt: '5',
-  }),
-};
-
-function ProductDetailViewerGallery({ images, productName }: ProductDetailViewerGalleryProps) {
-  return (
-    <Grid minW="0" w="100%" alignContent="start" gap="0">
-      <CarouselViewport
-        className={ProductDetailViewerGalleryStyles.carousel}
-        freeMode={false}
-        showScrollbar={false}
-      >
-        {images.map((image, index) => (
-          <Box w="100%" key={image}>
-            <ProductDetailImage
-              eager={index === 0}
-              alt={`${productName} ${index + 1}`}
-              src={image}
-            />
-          </Box>
-        ))}
-      </CarouselViewport>
-      <CarouselPagination
-        className={ProductDetailViewerGalleryStyles.pagination}
-        label="상품 이미지 선택"
-      />
-    </Grid>
-  );
-}
-
-const ProductDetailImageViewerStyles = {
-  close: css({
-    position: 'absolute',
-    top: '8',
-    right: '8',
-    zIndex: '2',
-    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
-  }),
-  thumbnails: css({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '2',
-    alignSelf: 'start',
-  }),
-};
-
 type ProductDetailImageViewerProps = {
   images: string[];
   initialIndex: number;
   onClose: () => void;
   productName: string;
 };
+
+const viewerClose = css({
+  position: 'absolute',
+  top: '8',
+  right: '8',
+  zIndex: '2',
+  _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+});
 
 function ProductDetailImageViewer({
   images,
@@ -261,56 +197,18 @@ function ProductDetailImageViewer({
       <Button
         ref={closeRef}
         aria-label="이미지 뷰어 닫기"
-        className={ProductDetailImageViewerStyles.close}
+        className={viewerClose}
         onClick={onClose}
         variant="ghost"
         icon={<Icon fontAwesomeIcon={faXmark} size="24px" />}
       />
-      <Carousel initialIndex={initialIndex} itemCount={images.length} loop>
-        <Grid gridTemplateColumns="100px minmax(0, 1fr)" alignItems="start" gap="4" pb="10">
-          <CarouselPagination
-            className={ProductDetailImageViewerStyles.thumbnails}
-            label="상품 이미지 미리보기"
-            renderItem={(index, isActive, select) => (
-              <button
-                aria-label={`${index + 1}번 이미지 선택`}
-                aria-pressed={isActive}
-                key={images[index]}
-                onClick={() => select(index)}
-                type="button"
-                className={css({
-                  pos: 'relative',
-                  w: '100px',
-                  p: '0',
-                  overflow: 'hidden',
-                  border: 'none',
-                  bg: 'var(--color-black-10)',
-                  cursor: 'pointer',
-                  '&[aria-pressed="true"]': {
-                    _after: {
-                      content: '""',
-                      pos: 'absolute',
-                      inset: '0',
-                      bg: 'rgb(0 0 0 / 15%)',
-                      pointerEvents: 'none',
-                    },
-                  },
-                })}
-              >
-                <Image
-                  width={88}
-                  height={88}
-                  sizes="88px"
-                  alt=""
-                  src={images[index]}
-                  className={css({ display: 'block', w: '100%', h: 'auto' })}
-                />
-              </button>
-            )}
-          />
-          <ProductDetailViewerGallery images={images} productName={productName} />
-        </Grid>
-      </Carousel>
+      <ViewerContentBoundary>
+        <ProductDetailViewerContent
+          images={images}
+          initialIndex={initialIndex}
+          productName={productName}
+        />
+      </ViewerContentBoundary>
     </Box>
   );
 }

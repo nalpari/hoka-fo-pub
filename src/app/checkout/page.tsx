@@ -1,15 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import {
-  type FormEvent,
-  type FormEventHandler,
-  type ReactNode,
-  useState,
-  useSyncExternalStore,
-} from 'react';
+import { type FormEvent, type FormEventHandler, type ReactNode, useState } from 'react';
 import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
@@ -947,19 +942,13 @@ function CheckoutLayout({ completed, children }: { completed: boolean; children:
   );
 }
 
-const subscribeLocation = () => () => {};
-
-const serverSelected = () => null;
-
-const clientSelected = () => new URLSearchParams(window.location.search).get('selected');
-
 /** 선택 상품의 주문 상태와 결제 완료 후 장바구니 정리를 관리합니다. (Manages selected-item checkout and removes completed items from the cart.) */
 export default function Page() {
   const { cart, remove } = useShop();
   const onComplete = (items: readonly CartItem[]) => items.forEach(remove);
   const [payment, setPayment] = useState<PaymentMethod>('kakao');
   const [completed, setCompleted] = useState(false);
-  const selectedParam = useSyncExternalStore(subscribeLocation, clientSelected, serverSelected);
+  const selectedParam = useSearchParams().get('selected');
   const selectedKeys = selectedParam?.split('|');
 
   const selectedCart = selectedKeys
