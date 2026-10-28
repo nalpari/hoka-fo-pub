@@ -3,11 +3,11 @@
 import { css } from 'styled-system/css';
 
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 /** 계정 잠금 해제 완료 안내를 표시합니다. (Displays the account unlock completion notice.) */
 export default function Page() {

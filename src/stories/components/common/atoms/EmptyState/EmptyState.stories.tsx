@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 
 const meta = {
   title: 'Atoms/Empty State',

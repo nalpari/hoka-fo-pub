@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import { Pagination } from '@/components/common/atoms/Pagination/Pagination';
+import { Pagination } from '@/components/common/atoms/Pagination';
 
 function InteractivePagination() {
   const [page, setPage] = useState(1);

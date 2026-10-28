@@ -3,9 +3,9 @@ import type { ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 type Props = {
   appearance: 'detail' | 'cart';

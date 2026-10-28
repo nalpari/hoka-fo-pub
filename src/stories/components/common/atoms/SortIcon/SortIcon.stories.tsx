@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { HStack } from 'styled-system/jsx';
 
-import { SortIcon } from '@/components/common/atoms/SortIcon/SortIcon';
+import { SortIcon } from '@/components/common/atoms/SortIcon';
 
 const meta = {
   title: 'Atoms/SortIcon',

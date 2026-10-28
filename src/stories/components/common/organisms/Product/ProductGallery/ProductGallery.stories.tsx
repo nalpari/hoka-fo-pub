@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ProductGallery } from '@/components/common/organisms/Product/ProductGallery/ProductGallery';
+import { ProductGallery } from '@/components/common/organisms/Product/ProductGallery';
 
 const meta = {
   title: 'Organisms/Product/ProductGallery',

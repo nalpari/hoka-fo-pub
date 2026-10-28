@@ -9,19 +9,19 @@ import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Radio } from '@/components/common/atoms/Radio';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
+import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   type RegistrationContentProps,

@@ -2,12 +2,9 @@ import { type ReactNode } from 'react';
 
 import { Box } from 'styled-system/jsx';
 
-import {
-  Breadcrumb,
-  type BreadcrumbItem,
-} from '@/components/common/molecules/Breadcrumb/Breadcrumb';
+import { Breadcrumb, type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
 

@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 
-import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 
 const meta = {
   title: 'Atoms/DescriptionList',

@@ -4,7 +4,7 @@ import { type ReactNode, useId } from 'react';
 
 import { Stack } from 'styled-system/jsx';
 
-import { FormField } from '@/components/common/atoms/FormField/FormField';
+import { FormField } from '@/components/common/atoms/FormField';
 
 import {
   SizeSelector,

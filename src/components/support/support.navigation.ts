@@ -1,4 +1,4 @@
-import type { SidebarNavigationGroup } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import type { SidebarNavigationGroup } from '@/components/common/layouts/SidebarNavigationLayout';
 
 export const supportNavigation: SidebarNavigationGroup[] = [
   {

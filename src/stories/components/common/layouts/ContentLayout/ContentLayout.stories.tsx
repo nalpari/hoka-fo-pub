@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 const meta = {
   title: 'Layouts/Content Layout',

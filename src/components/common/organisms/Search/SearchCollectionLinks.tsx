@@ -2,7 +2,7 @@ import { css } from 'styled-system/css';
 import { Flex } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import type { SearchCollection } from './searchOverlayData';
 

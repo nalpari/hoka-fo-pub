@@ -12,16 +12,16 @@ import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Icon } from '@/components/common/atoms/Icon';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
+import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { faCircleInfo } from '@/icons/fontAwesome';
 import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';

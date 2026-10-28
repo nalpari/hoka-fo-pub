@@ -19,7 +19,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { usePlatform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva } from 'styled-system/css';
@@ -27,26 +27,26 @@ import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/js
 import { token } from 'styled-system/tokens';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { useFormFieldContext } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
+import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
+import { SearchField } from '@/components/common/molecules/SearchField';
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
 
 import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { BottomSheet } from '@/components/common/layouts/BottomSheet';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 import { filterProducts, sortProducts } from '@/components/catalog/product-listing/filterProducts';
 import {
@@ -69,7 +69,6 @@ import {
   valuesToLabels,
   widthLabels,
 } from '@/components/catalog/productListingFilterValues';
-import { type Platform } from '@/lib/device';
 import { type Product, products } from '@/mocks/products';
 import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
 

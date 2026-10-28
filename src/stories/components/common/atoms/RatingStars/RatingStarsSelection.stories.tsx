@@ -7,7 +7,7 @@ import {
   RatingStars,
   type RatingStarsSelectionProps,
   type RatingValue,
-} from '@/components/common/atoms/RatingStars/RatingStars';
+} from '@/components/common/atoms/RatingStars';
 
 function ControlledRating(args: RatingStarsSelectionProps) {
   const [value, setValue] = useState(args.value);

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { FormField, type FormFieldProps } from '@/components/common/atoms/FormField/FormField';
-import { TextInput, type TextInputProps } from '@/components/common/atoms/TextInput/TextInput';
+import { FormField, type FormFieldProps } from '@/components/common/atoms/FormField';
+import { TextInput, type TextInputProps } from '@/components/common/atoms/TextInput';
 
 export type TextFormFieldProps = Omit<FormFieldProps, 'htmlFor' | 'children'> & {
   id: string;

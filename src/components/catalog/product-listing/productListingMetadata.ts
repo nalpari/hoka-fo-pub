@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
+import type { BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
 const genderBreadcrumbs: Record<string, { label: string }> = {
   men: { label: 'Men' },

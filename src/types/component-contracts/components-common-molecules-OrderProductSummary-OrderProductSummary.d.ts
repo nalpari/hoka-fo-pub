@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
 // Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type OrderProductSummaryProps as ImportedOrderProductSummaryProps } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+import { type OrderProductSummaryProps as ImportedOrderProductSummaryProps } from '@/components/common/molecules/OrderProductSummary';
 /** 주문 상품 이미지의 용도별 크기와 배경을 표시합니다. (Displays an order product image with context-specific sizing and background.) */
 declare function OrderProductSummaryImage({
   image,

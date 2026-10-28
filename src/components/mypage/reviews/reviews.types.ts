@@ -1,4 +1,4 @@
-import type { RatingValue } from '@/components/common/atoms/RatingStars/RatingStars';
+import type { RatingValue } from '@/components/common/atoms/RatingStars';
 
 export type ReviewTab = 'ready' | 'written';
 

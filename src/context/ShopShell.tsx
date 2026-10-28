@@ -23,7 +23,7 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
-import { PlatformProvider, usePlatform } from '@/context/platform';
+import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
 import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva, cx } from 'styled-system/css';
@@ -42,12 +42,12 @@ import {
 } from 'styled-system/jsx';
 import { hstack } from 'styled-system/patterns';
 
-import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
+import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { TextInput } from '@/components/common/atoms/TextInput';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   Carousel,
@@ -78,7 +78,7 @@ import {
 } from '@/components/common/organisms/Search/searchOverlayData';
 import { useRecentSearches } from '@/components/common/organisms/Search/useRecentSearches';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   faBox,
@@ -89,7 +89,6 @@ import {
   faUserSolid,
   faXmark,
 } from '@/icons/fontAwesome';
-import { type Platform } from '@/lib/device';
 import { type CartItem } from '@/types/cart';
 
 const styles = {
@@ -2982,7 +2981,7 @@ export function useShop() {
 
 /** 쇼핑 상태와 플랫폼 컨텍스트를 제공하고 공통 레이아웃을 구성합니다. (Provides shopping state and platform context within the common layout.) */
 export function ShopShell({
-  platform = 'web',
+  platform,
   children,
 }: {
   readonly platform?: Platform;
@@ -3075,7 +3074,7 @@ export function ShopShell({
       }}
     >
       <PlatformProvider platform={platform}>
-        <div className={`app platform-${platform}`}>
+        <ShopFrame>
           <AppLayout
             cart={count}
             isLoggedIn={hydrated && isLoggedIn}
@@ -3084,10 +3083,16 @@ export function ShopShell({
           >
             {children}
           </AppLayout>
-        </div>
+        </ShopFrame>
       </PlatformProvider>
     </ShopStateProvider>
   );
+}
+
+function ShopFrame({ children }: { children: ReactNode }) {
+  const platform = usePlatform();
+
+  return <div className={`app platform-${platform}`}>{children}</div>;
 }
 
 export {

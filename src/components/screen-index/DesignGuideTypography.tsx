@@ -6,12 +6,9 @@ import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 import { token, type Token } from 'styled-system/tokens';
 
-import {
-  figmaTypographyVariants,
-  Typography,
-} from '@/components/common/atoms/Typography/Typography';
+import { figmaTypographyVariants, Typography } from '@/components/common/atoms/Typography';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 type GuideVariant = keyof typeof figmaTypographyVariants;
 

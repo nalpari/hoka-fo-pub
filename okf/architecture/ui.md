@@ -10,12 +10,14 @@ generated:
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - next.config.ts
-  - src/components/common/molecules/ProductThumbnail/ProductThumbnail.tsx
+  - src/components/common/molecules/ProductThumbnail.tsx
+  - src/components/common/organisms/Product/ProductGallery.tsx
   - src/stories/components/common/organisms/Product/ProductGallery/ProductGallery.stories.tsx
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - src/components/screen-index/screenConnections.ts
-  - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/components/
   - src/stories/
   - src/types/component-contracts/
@@ -3094,6 +3096,14 @@ ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배
 사용자가 대화에 붙여 넣은 퍼블리싱 WBS 표의 앞쪽 계획 시작·종료일과 작업자를 IA에 반영했다. 메인 10/2~5, 로그인 10/6~7, 회원가입 10/8~12, 마이페이지·고객센터 10/15~21, 카테고리·상품 목록·상세 10/7~14, 장바구니·검색 10/22~23, 주문서 10/26~27, 런칭 캘린더 10/28, 기획전 10/29, 이벤트 10/30, About HOKA 11/6~10을 사용한다. 전체메뉴 9/30과 레이아웃 9/21~23은 유지한다.
 
 상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.
+
+## 화면 폭 반응형·폴더 평탄화·Badge 통합 (2026-10-28)
+
+모바일 경계는 1024px 이하이며 1024px 초과~1200px 미만은 PC 1200px 캔버스를 사용한다. 기존 _mobile 조건과 usePlatform 호출부를 유지했다. 공통의 단일 구현 폴더 60개를 평탄화하고 BadgeLaunchStatus/PromotionBadge를 Badge의 배타적 status/promotion 옵션으로 통합했다. 기존 일반 배지·상품 프로모션 표현과 Storybook 분류를 유지한다. [현재 API·이동 목록·검증](responsive-platform-2026-10-28.md)을 참고한다. 이전 절들의 UA 판별·해당 컴포넌트 경로는 당시 기록이다. 작업 트리 출처: src/components/common/, src/styles/global.scss, src/stories/, src/context/platform.tsx.
+
+## 폴더·반응형·표현 옵션 정책과 스킬 (2026-10-28)
+
+사용자 요청으로 AGENTS.md와 component-reusability에 단일 구현 폴더 평탄화, Badge의 배타적 표현 옵션, 자동 화면 폭/명시적 플랫폼 구분과 상태·포털 검증 기준을 추가했다. 폴더 이동과 컴포넌트 삭제의 범위를 분리하고 기존 다중 파일 폴더·기본 호출부·도메인 정책을 보존한다. 상세 절차는 .codex/skills/component-reusability/references/folder-and-responsive.md 및 wrapper-consolidation.md를 따른다. [현재 구현 기록](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md와 위 참조 문서.
 
 ## 상품 이미지와 홈 배너 최적화 (2026-10-28)
 

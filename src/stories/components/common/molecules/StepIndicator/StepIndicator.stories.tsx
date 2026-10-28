@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { StepIndicator } from '@/components/common/molecules/StepIndicator/StepIndicator';
+import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
 const meta = {
   title: 'Molecules/StepIndicator',

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
+import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton';
 
 const meta = {
   title: 'Molecules/SocialAuthButton',

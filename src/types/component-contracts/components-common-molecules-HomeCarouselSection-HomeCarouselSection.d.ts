@@ -1,9 +1,9 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type ReactNode } from 'react';
+import { type Platform } from '@/context/platform';
 
-import { type HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
+import { type HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/components/common/molecules/HomeCarouselSection';
 
-import { type Platform } from '@/lib/device';
 import { type MainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
 type Props = Pick<
   ImportedHomeCarouselSectionProps,

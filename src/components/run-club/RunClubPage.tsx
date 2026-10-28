@@ -19,13 +19,13 @@ import {
 } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   runClubImage,

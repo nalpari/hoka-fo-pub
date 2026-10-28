@@ -2,10 +2,10 @@
 
 import { Stack } from 'styled-system/jsx';
 
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Divider } from '@/components/common/atoms/Divider';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { supportNavigation } from '@/components/support/support.navigation';
 

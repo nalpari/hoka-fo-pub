@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 const collectionNames: Record<string, string> = {
   '8386': '플라잉77 경량 다운',

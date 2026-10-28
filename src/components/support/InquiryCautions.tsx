@@ -3,8 +3,8 @@
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Accordion } from '@/components/common/atoms/Accordion';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const cautions = [
   '특정 상품에 대한 문의는 상품 정보 상세 페이지를 이용해 주시기 바랍니다.',

@@ -63,6 +63,10 @@ $font-faces: (
     // Campaign media, section backgrounds, and carousel rails may extend beyond it.
     // Below 1200px the desktop canvas remains horizontally scrollable.
     --layout-web-min-width: 1200px;
+    // At 1200px, a classic vertical scrollbar must not create horizontal overflow.
+    @media (min-width: 1200px) {
+      --layout-web-min-width: 0px;
+    }
     --layout-web-content-max-width: 1532px;
     --layout-web-content-gutter: 55px;
     --layout-web-content-inline-space: 110px;
@@ -220,6 +224,10 @@ $font-faces: (
 
   body {
     margin: 0;
+  }
+
+  .app.platform-web {
+    min-width: var(--layout-web-min-width);
   }
 
   h1,

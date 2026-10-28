@@ -11,37 +11,37 @@ import { useShop } from '@/context/ShopShell';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Badge } from '@/components/common/atoms/Badge/Badge';
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { DataTable } from '@/components/common/atoms/DataTable';
 import {
   DescriptionList,
   type DescriptionListItem,
-} from '@/components/common/atoms/DescriptionList/DescriptionList';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+} from '@/components/common/atoms/DescriptionList';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { FormField } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
+import { Select } from '@/components/common/atoms/Select';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { TextInput } from '@/components/common/atoms/TextInput';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { AmountRow } from '@/components/common/molecules/AmountRow';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
-import { StepIndicator } from '@/components/common/molecules/StepIndicator/StepIndicator';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+import { SearchField } from '@/components/common/molecules/SearchField';
+import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { BottomSheet } from '@/components/common/layouts/BottomSheet';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
 import {

@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const meta = {
   title: 'Atoms/Typography/Choice Labels',

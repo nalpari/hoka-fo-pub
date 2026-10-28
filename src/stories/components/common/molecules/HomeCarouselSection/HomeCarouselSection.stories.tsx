@@ -5,7 +5,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
+import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { products } from '@/mocks/products';

@@ -1,4 +1,4 @@
-import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 type Props = {
   length: number;

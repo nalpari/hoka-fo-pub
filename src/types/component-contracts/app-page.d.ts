@@ -1,8 +1,8 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type ReactNode } from 'react';
+import { type Platform } from '@/context/platform';
 
 import { type HomeShoeFinderCardVariant } from '@/components/home/homeContent';
-import { type Platform } from '@/lib/device';
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */
 declare function HomeLayout({
   platform,

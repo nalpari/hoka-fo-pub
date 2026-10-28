@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const meta = {
   title: 'Atoms/Typography/Product Listing Title',

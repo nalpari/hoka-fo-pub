@@ -4,10 +4,10 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import { css } from 'styled-system/css';
 
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { FormField } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Select } from '@/components/common/atoms/Select';
+import { TextInput } from '@/components/common/atoms/TextInput';
 
 import { faCircleQuestion, faUser } from '@/icons/fontAwesome';
 

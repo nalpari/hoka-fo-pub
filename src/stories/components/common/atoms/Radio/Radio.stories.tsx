@@ -4,7 +4,7 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import { Stack } from 'styled-system/jsx';
 
-import { Radio } from '@/components/common/atoms/Radio/Radio';
+import { Radio } from '@/components/common/atoms/Radio';
 
 const options = [
   { label: '베스트순', value: 'best' },

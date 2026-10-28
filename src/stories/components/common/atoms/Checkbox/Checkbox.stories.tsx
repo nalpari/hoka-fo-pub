@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Stack } from 'styled-system/jsx';
 
-import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox';
 
 function CheckboxStory(props: SingleCheckboxProps) {
   return <Checkbox {...props} />;

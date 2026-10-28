@@ -1,8 +1,8 @@
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import type { CareSection } from './care.data';
 

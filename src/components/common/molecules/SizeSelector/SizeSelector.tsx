@@ -8,9 +8,9 @@ import type { CSSProperties } from 'react';
 
 import { css, cva } from 'styled-system/css';
 
-import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { useFormFieldContext } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const grid = css({
   display: 'grid',

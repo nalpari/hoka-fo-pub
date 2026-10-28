@@ -3,10 +3,7 @@ import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import {
-  SearchField,
-  type SearchFieldProps,
-} from '@/components/common/molecules/SearchField/SearchField';
+import { SearchField, type SearchFieldProps } from '@/components/common/molecules/SearchField';
 
 function ControlledSearchField(args: SearchFieldProps) {
   const [value, setValue] = useState(args.value);

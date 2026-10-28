@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 const meta = {
   title: 'Layouts/CustomerCenterLayout/FooterAction',

@@ -3,8 +3,8 @@ import { type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { Typography } from '@/components/common/atoms/Typography';
 
 type DataRow = { label: ReactNode; value: ReactNode; meta?: ReactNode; id?: string };
 

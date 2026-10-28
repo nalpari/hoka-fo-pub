@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { ProductOptionList } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
+import { ProductOptionList } from '@/components/common/molecules/ProductOptionList';
 
 function OptionsPreview(args: ComponentProps<typeof ProductOptionList>) {
   const [selectedId, setSelectedId] = useState('black');

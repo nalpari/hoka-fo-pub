@@ -9,15 +9,15 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { type InquiryOrder, inquiryOrders } from '@/components/support/inquiryOrders.data';
 import {

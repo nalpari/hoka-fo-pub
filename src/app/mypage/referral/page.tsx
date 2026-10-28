@@ -6,10 +6,10 @@ import { useRoutePreview } from '@/context/RoutePreview';
 import { cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
 

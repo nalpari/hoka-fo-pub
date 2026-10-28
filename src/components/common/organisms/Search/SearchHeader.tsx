@@ -1,6 +1,6 @@
 import { HStack } from 'styled-system/jsx';
 
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 
 import { faXmark } from '@/icons/fontAwesome';

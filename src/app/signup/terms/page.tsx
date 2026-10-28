@@ -9,16 +9,16 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack, styled } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Divider } from '@/components/common/atoms/Divider';
+import { Radio } from '@/components/common/atoms/Radio';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },

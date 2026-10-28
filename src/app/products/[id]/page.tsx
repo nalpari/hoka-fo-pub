@@ -23,40 +23,40 @@ import {
   useRef,
   useState,
 } from 'react';
-import { usePlatform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
 import { useShop } from '@/context/ShopShell';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
-import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
-import { PromotionBadge } from '@/components/common/atoms/Badge/PromotionBadge';
+import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
+import { AmountRow } from '@/components/common/molecules/AmountRow';
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
 import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
@@ -71,7 +71,6 @@ import {
 import { productInquiries } from '@/components/product/productInquiries';
 import { productSizeOptions } from '@/components/product/productSizeOptions';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
-import { type Platform } from '@/lib/device';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 
@@ -149,8 +148,8 @@ function ProductDetailImage({ alt, src, onClick, eager = false }: ProductDetailI
   const content = (
     <Image
       alt={alt}
-      className={image}
       loading={eager ? 'eager' : 'lazy'}
+      className={image}
       src={src}
       width={1600}
       height={1600}
@@ -2007,7 +2006,7 @@ function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
   return (
     <>
       <VStack alignItems="start" gap="2">
-        {product.promotion && <PromotionBadge weight="medium" promotion={product.promotion} />}
+        {product.promotion && <Badge weight="medium" promotion={product.promotion} />}
         <HStack gap="2" color="var(--color-black-60)">
           <Typography variant="body4" weight="medium" tone="inherit">
             {product.gender}

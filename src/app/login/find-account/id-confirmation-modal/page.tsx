@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { usePlatform } from '@/context/platform';
 
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 

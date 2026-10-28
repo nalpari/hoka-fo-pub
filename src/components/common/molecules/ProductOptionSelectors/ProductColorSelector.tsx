@@ -1,12 +1,12 @@
 import { css } from 'styled-system/css';
 
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   ProductOptionList,
   type ProductOptionThumbnail,
-} from '@/components/common/molecules/ProductOptionList/ProductOptionList';
+} from '@/components/common/molecules/ProductOptionList';
 
 import { ProductOptionSection } from './ProductOptionSection';
 

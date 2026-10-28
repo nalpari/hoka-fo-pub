@@ -1,7 +1,7 @@
 import { css, cva } from 'styled-system/css';
 
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const root = cva({
   base: {

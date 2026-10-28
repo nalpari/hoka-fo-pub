@@ -9,13 +9,13 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
 
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Radio, type RadioProps } from '@/components/common/atoms/Radio/Radio';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Radio, type RadioProps } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { supportNavigation } from '@/components/support/support.navigation';
 

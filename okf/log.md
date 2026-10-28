@@ -4,6 +4,9 @@
 
 - 상품 썸네일·갤러리·상세 및 홈 배너에 next/image와 sizes를 적용하고 Deckers CDN 허용 경로를 설정했다. 첫 화면 로딩 우선순위와 갤러리 샘플 경로를 정리했다. 적용 범위·검증 한계는 [이미지 최적화](architecture/ui.md#상품-이미지와-홈-배너-최적화-2026-10-28)를 참고한다.
 
+- 폴더 깊이·반응형·Badge 표현 옵션의 판단 기준을 AGENTS.md와 component-reusability 스킬에 반영하고 folder-and-responsive 참조를 추가했다. 사용자 승인 범위와 기존 컴포넌트/Storybook 계약을 보존하도록 명시했다.
+
+- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](architecture/responsive-platform-2026-10-28.md)을 참고한다.
 
 - 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
 
@@ -25,11 +28,11 @@
 
 - FO v0.20의 251개 행과 프로젝트 추가 15개를 병합하고 내부 번호·원본 번호를 분리했다. IA 구조도에 환경별 실제 URL/WEB·Mobile 스토리와 작업 파일·경로 검색을 추가했다. [원본 병합](project.md#fo-v020-ia-병합-2026-10-28), [환경별 연결](architecture/routing.md#ia-환경별-연결-2026-10-28), [UI·검증](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.
 
+- FormFields 자동 play 실패 원인을 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락으로 확정했다. userEvent 입력 준비 누락과 React valueTracker의 조기 갱신을 추적했으며 포커스 조건만 바꿔 PC/MO 각각 실패·전체 play 통과를 대조했다. 앱·스토리 코드는 변경하지 않았다. [원인·재현·검증 환경 설정](development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 기록했다.
+
 - ConfirmDialog·SingleActionDialog를 ModalDialog.actions의 single/confirm 옵션으로 통합하고 두 구현 파일을 제거했다. 기본 크기·취소·버튼 배치·폼 제출 계약을 보존해 운영 소비처를 전환하고 기존 상호작용 스토리를 ModalDialog 폴더로 이동했다. 타입·변경 파일 ESLint·Panda·Next 기본 Turbopack/Storybook 빌드·기존 테스트 72개·모달 스토리 18개와 PC/MO 폼 제출을 확인했다. 기존 비동기 닫힘 단언은 waitFor로 보완했다. 격리 빌드 설정과 보조 webpack 검사 결과를 포함한 검증 범위는 [모달 액션 옵션 통합](architecture/ui.md#modaldialog-액션-옵션-통합-2026-10-28)에 기록한다.
 
 - 공통 molecules·organisms TSX 61개를 확인하고 기본값·props 전달만 하는 래퍼 11개를 제거했다. 운영 14파일과 폼 스토리 1파일을 ContentHeader·TextFormField 직접 사용으로 전환했다. 제목·필드 계약과 기존 라우팅 경계를 유지하며 단일 부모 통합·기타 미사용 구현은 후속 후보로 남겼다. [변경·검증과 기존 play 실패](architecture/ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)를 참고한다.
-
-- FormFields 자동 play 실패 원인을 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락으로 확정했다. userEvent 입력 준비 누락과 React valueTracker의 조기 갱신을 추적했으며 포커스 조건만 바꿔 PC/MO 각각 실패·전체 play 통과를 대조했다. 앱·스토리 코드는 변경하지 않았다. [원인·재현·검증 환경 설정](development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 기록했다.
 
 - 119개 소스의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 정렬했다. AST·주석 비교로 본문·대상·타입·부수 효과 경계 보존을 확인했고 반복 수정의 멱등성, 전체 ESLint·타입·테스트 72개를 통과했다. 화면 판별·UI·상태 동작은 유지한다.
 

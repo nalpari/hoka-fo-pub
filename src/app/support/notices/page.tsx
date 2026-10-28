@@ -8,9 +8,9 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { notices } from '@/components/notices/notices.data';
 import { supportNavigation } from '@/components/support/support.navigation';

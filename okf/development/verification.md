@@ -256,3 +256,10 @@ Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 
 ## 공용 훅·컨텍스트 import 우선순위 (2026-10-28)
 
 외부 패키지 다음에 공용 훅·컨텍스트(`@/context/*`, `@/hooks/*`, `@/lib/use[A-Z]*`)를 빈 줄 없이 두고 Panda 앞에서 그룹을 구분한다. `tests/import-order.test.mjs`에 이 순서와 일반 데이터·타입·유틸리티의 내부 그룹 유지, 두 번째 수정의 멱등성을 검사하는 회귀 사례를 추가했다. 존재하지 않는 훅 경로는 정렬기 입력 문자열로만 사용하며 모듈을 새로 만들지 않는다. Codex 검증: 규칙 테스트 10개·전체 테스트 72개, 전체 ESLint와 타입 검사를 통과했다. 재사용 스킬 validator도 통과했다. 기존 소스 적용의 본문 보존·멱등성은 적용 커밋에 별도로 기록한다.
+
+
+## 반응형·공통 폴더·Badge 회귀 검증 (2026-10-28)
+
+공통 폴더 이동에 따라 form-controls의 직접 import와 동적 fixture 경로, import-order의 샘플 경로를 갱신했다. 자동 플랫폼의 SSR web 및 명시 web/mobile, Badge 기본/출시 상태와 프로모션 순서·구분선·weight·빈 배열 검사를 추가했다. 전체 Node 테스트 77개와 타입·lint·Panda·Next/Storybook 빌드가 통과했다. 실제 경계 폭과 상태 수명 검증 범위는 [구현 기록](../architecture/responsive-platform-2026-10-28.md#검증-codex-2026-10-28)에 명시했다. 작업 트리 출처: tests/form-controls.test.mjs, tests/import-order.test.mjs.
+
+커밋 전 재검사에서 다른 작업의 next/image 적용으로 Node ESM 해석 오류가 확인되어 form-controls 테스트 로더의 Next 모듈 해석 목록에 next/image를 추가했다. 실제 컴포넌트를 유지한 채 전체 77개 테스트가 다시 통과했다.

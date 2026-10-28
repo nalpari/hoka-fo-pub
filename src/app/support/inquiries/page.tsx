@@ -9,20 +9,20 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, HStack, Square, Stack } from 'styled-system/jsx';
 
-import { Badge } from '@/components/common/atoms/Badge/Badge';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Badge } from '@/components/common/atoms/Badge';
+import { Divider } from '@/components/common/atoms/Divider';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 import { InquiryPreviewContext } from '@/components/support/InquiryPreviewContext';

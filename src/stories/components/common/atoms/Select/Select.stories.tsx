@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Select } from '@/components/common/atoms/Select/Select';
+import { Select } from '@/components/common/atoms/Select';
 
 const meta = {
   title: 'Atoms/Select',

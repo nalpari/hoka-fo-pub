@@ -7,7 +7,7 @@ import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

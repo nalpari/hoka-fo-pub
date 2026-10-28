@@ -7,13 +7,13 @@ import { useRoutePreview } from '@/context/RoutePreview';
 import { css } from 'styled-system/css';
 import { Box, Flex, HStack } from 'styled-system/jsx';
 
-import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Accordion } from '@/components/common/atoms/Accordion';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
+import { SearchField } from '@/components/common/molecules/SearchField';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { faqCategories, type FaqCategory, faqs } from '@/components/faq/faq.data';
 import { supportNavigation } from '@/components/support/support.navigation';

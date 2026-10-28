@@ -9,15 +9,15 @@ import { css, cx } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 const benefit = css({
   border: '1px solid var(--color-black-20)',

@@ -4,12 +4,9 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { TextInput } from '@/components/common/atoms/TextInput';
 
-import {
-  ModalDialog,
-  type ModalDialogActions,
-} from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog, type ModalDialogActions } from '@/components/common/molecules/ModalDialog';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

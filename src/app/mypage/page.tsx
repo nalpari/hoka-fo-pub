@@ -11,19 +11,19 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Divider } from '@/components/common/atoms/Divider';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   menuSections,

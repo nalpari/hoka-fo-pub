@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
-import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
+import { EmailSignupField } from '@/components/common/atoms/EmailSignupField';
+import { FormField } from '@/components/common/atoms/FormField';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
+import { Radio } from '@/components/common/atoms/Radio';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { Select } from '@/components/common/atoms/Select';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { TextInput } from '@/components/common/atoms/TextInput';
 
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
 

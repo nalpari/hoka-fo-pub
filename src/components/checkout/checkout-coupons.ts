@@ -1,4 +1,4 @@
-import type { DropdownOption } from '@/components/common/atoms/Dropdown/Dropdown';
+import type { DropdownOption } from '@/components/common/atoms/Dropdown';
 
 import type { CheckoutRow } from './checkout-summary';
 

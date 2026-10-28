@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 
 function StepperStory() {
   const [value, setValue] = useState(1);

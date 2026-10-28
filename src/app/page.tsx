@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { usePlatform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
@@ -19,12 +19,12 @@ import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
 import { contentFrame } from 'styled-system/patterns';
 
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
-import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
-import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
-import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
+import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
+import { MainContentCard } from '@/components/common/molecules/MainContentCard';
+import { MainSection } from '@/components/common/molecules/MainSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { createHomeCarouselPreviewItems } from '@/components/home/homeCarouselPreview';
@@ -35,7 +35,6 @@ import {
   type HomeShoeFinderCardVariant,
   shoeFinderItems,
 } from '@/components/home/homeContent';
-import { type Platform } from '@/lib/device';
 import { products } from '@/mocks/products';
 
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */

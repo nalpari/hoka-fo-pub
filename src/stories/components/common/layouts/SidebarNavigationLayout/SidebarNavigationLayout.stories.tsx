@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
 
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 const meta = {
   title: 'Layouts/SidebarNavigationLayout',

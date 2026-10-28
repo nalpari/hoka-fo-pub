@@ -1,11 +1,12 @@
-import { type Promotions } from '@/components/common/atoms/Badge/PromotionBadge';
+import { type Platform } from '@/context/platform';
+
+import { type Promotions } from '@/components/common/atoms/Badge';
 
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type ProductCardVariant } from '@/components/common/molecules/ProductCard/productCardTypography';
-import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
-import { type ProductThumbnailVariant } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList';
+import { type ProductThumbnailVariant } from '@/components/common/molecules/ProductThumbnail';
 
-import { type Platform } from '@/lib/device';
 import { type Product } from '@/mocks/products';
 type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
 type ProductGenderProps = {

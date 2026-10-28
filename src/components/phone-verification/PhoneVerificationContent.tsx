@@ -2,18 +2,18 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   type PhoneInformation,

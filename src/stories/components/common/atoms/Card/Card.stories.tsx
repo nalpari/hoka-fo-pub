@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Card } from '@/components/common/atoms/Card/Card';
+import { Card } from '@/components/common/atoms/Card';
 
 const meta = { title: 'Atoms/Card', component: Card, tags: ['autodocs'] } satisfies Meta<
   typeof Card

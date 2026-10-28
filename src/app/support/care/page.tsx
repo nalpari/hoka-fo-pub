@@ -2,9 +2,9 @@
 
 import { Stack } from 'styled-system/jsx';
 
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { apparelCareSections, shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';

@@ -16,25 +16,25 @@ import { css } from 'styled-system/css';
 import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Radio } from '@/components/common/atoms/Radio';
+import { TextInput } from '@/components/common/atoms/TextInput';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { AmountRow } from '@/components/common/molecules/AmountRow';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+import { OrderActionBar } from '@/components/common/molecules/OrderActionBar';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
+import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout';
 
 import {
   checkoutCouponOptions,

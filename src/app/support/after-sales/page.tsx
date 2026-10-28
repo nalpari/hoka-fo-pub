@@ -4,13 +4,13 @@ import { type ReactNode } from 'react';
 
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { supportNavigation } from '@/components/support/support.navigation';
 

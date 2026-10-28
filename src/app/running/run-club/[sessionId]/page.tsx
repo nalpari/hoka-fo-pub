@@ -4,20 +4,20 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 import { type ReactNode, useContext, useEffect, useState } from 'react';
-import { usePlatform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { NotFoundPage } from '@/components/not-found/NotFoundPage';
 import {
@@ -31,7 +31,6 @@ import {
 } from '@/components/run-club/runClub.data';
 import { RunClubBadge } from '@/components/run-club/RunClubBadge';
 import { RunClubSessionContext } from '@/components/run-club/RunClubSessionContext';
-import { type Platform } from '@/lib/device';
 import { type Product, products } from '@/mocks/products';
 
 const applyButton = css({

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { css } from 'styled-system/css';
 
-import { IconBrand, iconBrandVariants } from '@/components/common/atoms/IconBrand/IconBrand';
+import { IconBrand, iconBrandVariants } from '@/components/common/atoms/IconBrand';
 
 const grid = css({
   display: 'grid',

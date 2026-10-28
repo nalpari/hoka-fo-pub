@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
-import type { AccordionProps } from '@/components/common/atoms/Accordion/Accordion';
+import { Accordion } from '@/components/common/atoms/Accordion';
+import type { AccordionProps } from '@/components/common/atoms/Accordion';
 
 function ControlledAccordion(args: AccordionProps) {
   const [value, setValue] = useState(['shipping']);

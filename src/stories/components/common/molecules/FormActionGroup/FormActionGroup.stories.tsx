@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
-import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 
 const onSubmit = fn();
 

@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Flex } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { type LocaleRegion, localeRegions } from '@/components/locales/locales.data';
 

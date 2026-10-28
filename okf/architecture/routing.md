@@ -287,6 +287,10 @@ IA 목록의 원본 IA/출처 열을 화면에서 제거했다. 원본 데이터
 
 상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.
 
+## 화면 폭 기반 플랫폼으로 전환 (2026-10-28)
+
+루트 layout은 서버 문서와 Suspense/ShopShell만 구성하며 UA headers 판별과 src/lib/device.ts를 제거했다. 서버/최초 hydration은 web, 이후 1024px 이하 mobile·초과 web으로 전환한다. URL·metadata와 서버/클라이언트 경계는 유지한다. [현재 계약과 검증](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: src/app/layout.tsx, src/context/platform.tsx, src/context/ShopShell.tsx.
+
 ## Next 이미지 경로와 로딩 (2026-10-28)
 
 홈과 상품 상세 이미지가 next/image를 통해 /_next/image로 제공된다. next.config.ts의 remotePatterns는 HTTPS dms.deckers.com/hoka/image/upload/**로 제한한다. 외부 이미지 원본의 쿼리는 유지한다. 페이지 URL·라우팅·플랫폼 판별 정책은 변경하지 않았다. 홈 첫 슬라이드는 eager/high, 상품 상세 첫 이미지는 eager, 나머지 상세 이미지는 lazy로 요청한다. 출처는 src/app/page.tsx, src/app/products/[id]/page.tsx와 next.config.ts의 작업 트리다.

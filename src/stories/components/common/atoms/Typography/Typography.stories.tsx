@@ -3,7 +3,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Box, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 type TypographyStorySpec = {
   readonly name: string;

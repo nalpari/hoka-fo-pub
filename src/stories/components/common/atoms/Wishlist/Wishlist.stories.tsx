@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 function WishlistStory() {
   const [active, setActive] = useState(false);

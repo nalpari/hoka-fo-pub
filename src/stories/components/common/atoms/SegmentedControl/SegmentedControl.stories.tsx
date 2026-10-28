@@ -4,8 +4,8 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import { css } from 'styled-system/css';
 
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
+import { Typography } from '@/components/common/atoms/Typography';
 
 function SegmentedStory({
   unstyled = false,

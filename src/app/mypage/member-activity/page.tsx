@@ -2,8 +2,8 @@
 
 import { AccountDataList } from '@/components/common/organisms/Account/AccountDataList';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
 

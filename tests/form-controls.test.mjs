@@ -25,7 +25,7 @@ registerHooks({
       if (file) return nextResolve(pathToFileURL(file).href, context);
     }
     if (
-      ['next/link', 'next/navigation'].includes(specifier) &&
+      ['next/image', 'next/link', 'next/navigation'].includes(specifier) &&
       context.parentURL?.includes('/src/')
     )
       return nextResolve(
@@ -57,22 +57,18 @@ registerHooks({
 
 const h = React.createElement;
 
-const { FormField } = await import('../src/components/common/atoms/FormField/FormField.tsx');
+const { FormField } = await import('../src/components/common/atoms/FormField.tsx');
 
 const fixtures = [
-  ['TextInput', 'atoms/TextInput/TextInput', {}],
-  ['TextInput', 'atoms/TextInput/TextInput', { type: 'password' }],
-  ['TextInput', 'atoms/TextInput/TextInput', { multiline: true }],
-  ['Select', 'atoms/Select/Select', { children: h('option', null, '선택') }],
-  [
-    'Dropdown',
-    'atoms/Dropdown/Dropdown',
-    { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }] },
-  ],
-  ['Checkbox', 'atoms/Checkbox/Checkbox', { label: '동의', checked: false }],
+  ['TextInput', 'atoms/TextInput', {}],
+  ['TextInput', 'atoms/TextInput', { type: 'password' }],
+  ['TextInput', 'atoms/TextInput', { multiline: true }],
+  ['Select', 'atoms/Select', { children: h('option', null, '선택') }],
+  ['Dropdown', 'atoms/Dropdown', { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }] }],
+  ['Checkbox', 'atoms/Checkbox', { label: '동의', checked: false }],
   [
     'Checkbox',
-    'atoms/Checkbox/Checkbox',
+    'atoms/Checkbox',
     {
       ariaLabel: '동의 목록',
       options: [{ value: 'a', label: 'A' }],
@@ -82,23 +78,19 @@ const fixtures = [
   ],
   [
     'Radio',
-    'atoms/Radio/Radio',
+    'atoms/Radio',
     { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }], value: '', onValueChange() {} },
   ],
-  [
-    'RatingStars',
-    'atoms/RatingStars/RatingStars',
-    { ariaLabel: '별점', value: 0, onValueChange() {} },
-  ],
+  ['RatingStars', 'atoms/RatingStars', { ariaLabel: '별점', value: 0, onValueChange() {} }],
   [
     'RangeInput',
     '../catalog/ProductListingPage',
     { 'aria-label': '범위', value: 10, onValueChange() {} },
   ],
-  ['NumberStepper', 'atoms/NumberStepper/NumberStepper', { value: 1, onChange() {} }],
+  ['NumberStepper', 'atoms/NumberStepper', { value: 1, onChange() {} }],
   [
     'Checkbox',
-    'atoms/Checkbox/Checkbox',
+    'atoms/Checkbox',
     { variant: 'consent', checked: false, label: '동의', onCheckedChange() {} },
   ],
   [
@@ -141,7 +133,7 @@ for (const [index, [name, modulePath, props]] of fixtures.entries()) {
   });
 }
 
-const { RatingStars } = await import('../src/components/common/atoms/RatingStars/RatingStars.tsx');
+const { RatingStars } = await import('../src/components/common/atoms/RatingStars.tsx');
 
 test('RatingStars display retains half stars without interactive controls', () => {
   const html = renderToStaticMarkup(h(RatingStars, { value: 4.5 }));
@@ -162,8 +154,50 @@ test('RatingStars selection renders five icon radios with one selected value', (
   assert.doesNotMatch(html, /★/);
 });
 
-const { StatusMessage } =
-  await import('../src/components/common/atoms/StatusMessage/StatusMessage.tsx');
+const { StatusMessage } = await import('../src/components/common/atoms/StatusMessage.tsx');
+
+const { PlatformProvider, usePlatform } = await import('../src/context/platform.tsx');
+
+const { Badge } = await import('../src/components/common/atoms/Badge.tsx');
+
+test('Badge keeps ordinary labels and resolves both launch statuses', () => {
+  assert.match(renderToStaticMarkup(h(Badge, null, '배송완료')), /배송완료/);
+  assert.match(renderToStaticMarkup(h(Badge, { status: 'COMING' })), /COMING SOON/);
+  assert.match(renderToStaticMarkup(h(Badge, { status: 'IN_STOCK' })), /IN STOCK/);
+});
+
+test('Badge promotions retain ordered labels, separators, weight and empty rendering', () => {
+  const html = renderToStaticMarkup(
+    h(Badge, { promotion: ['Best', 'New', 'Exclusive'], weight: 'medium' }),
+  );
+  assert.match(html, /Best.*New.*Exclusive/);
+  assert.equal((html.match(/aria-hidden="true"/g) ?? []).length, 2);
+  assert.match(html, /fw_medium/);
+  const single = renderToStaticMarkup(h(Badge, { promotion: 'New' }));
+  assert.match(single, /New/);
+  assert.doesNotMatch(single, /aria-hidden/);
+  assert.equal(renderToStaticMarkup(h(Badge, { promotion: [] })), '');
+});
+
+function PlatformProbe() {
+  return h('output', null, usePlatform());
+}
+
+test('automatic platform renders web on the server without browser globals', () => {
+  assert.equal(
+    renderToStaticMarkup(h(PlatformProvider, null, h(PlatformProbe))),
+    '<output>web</output>',
+  );
+});
+
+for (const platform of ['web', 'mobile']) {
+  test(`explicit ${platform} platform remains available during server rendering`, () => {
+    assert.equal(
+      renderToStaticMarkup(h(PlatformProvider, { platform }, h(PlatformProbe))),
+      `<output>${platform}</output>`,
+    );
+  });
+}
 
 for (const tone of ['error', 'success', 'info']) {
   test(`StatusMessage ${tone} retains accessible tone`, () => {

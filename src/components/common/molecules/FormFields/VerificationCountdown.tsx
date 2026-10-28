@@ -1,4 +1,4 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 export function VerificationCountdown({ secondsLeft }: { secondsLeft: number }) {
   return (

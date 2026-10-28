@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { Flex, Grid } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 export type MemberHeroData = {
   name: string;

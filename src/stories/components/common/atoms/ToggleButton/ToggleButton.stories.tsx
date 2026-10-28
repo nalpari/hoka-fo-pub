@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import {
-  ToggleButton,
-  type ToggleButtonProps,
-} from '@/components/common/atoms/ToggleButton/ToggleButton';
+import { ToggleButton, type ToggleButtonProps } from '@/components/common/atoms/ToggleButton';
 
 function ToggleButtonStory(props: ToggleButtonProps) {
   const [expanded, setExpanded] = useState(Boolean(props.expanded));

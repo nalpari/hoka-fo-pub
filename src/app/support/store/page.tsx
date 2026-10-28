@@ -8,12 +8,12 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { storeCities, storesByCity } from '@/components/store-finder/store.data';
 import { supportNavigation } from '@/components/support/support.navigation';

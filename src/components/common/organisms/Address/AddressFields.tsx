@@ -6,14 +6,14 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { TextInput } from '@/components/common/atoms/TextInput';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   type SingleLineFormFieldProps,
   TextFormField,
 } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 

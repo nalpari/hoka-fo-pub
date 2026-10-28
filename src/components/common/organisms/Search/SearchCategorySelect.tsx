@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css';
 
-import { Select } from '@/components/common/atoms/Select/Select';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Select } from '@/components/common/atoms/Select';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const categoryStyle = css({
   borderRight: '1px solid var(--color-black-20)',

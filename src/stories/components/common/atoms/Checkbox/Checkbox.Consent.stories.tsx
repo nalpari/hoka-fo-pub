@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox';
 
 function ConsentCheckbox(props: SingleCheckboxProps) {
   return <Checkbox {...props} />;

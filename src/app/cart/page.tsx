@@ -10,27 +10,27 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
+import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
-import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
+import { AmountRow } from '@/components/common/molecules/AmountRow';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { OrderActionBar } from '@/components/common/molecules/OrderActionBar';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList';
 import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
 import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
 
-import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
+import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout';
 
 import { isCartItemSoldOut, itemKey } from '@/components/cart/cart-item';
 import { faXmark } from '@/icons/fontAwesome';

@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 
 import { css } from 'styled-system/css';
 
-import { Icon, type IconProps } from '@/components/common/atoms/Icon/Icon';
+import { Icon, type IconProps } from '@/components/common/atoms/Icon';
 
 import { useCarousel } from './CarouselContext';
 

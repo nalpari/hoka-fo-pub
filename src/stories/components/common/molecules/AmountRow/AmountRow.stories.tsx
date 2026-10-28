@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
+import { AmountRow } from '@/components/common/molecules/AmountRow';
 
 const meta = {
   title: 'Molecules/AmountRow',

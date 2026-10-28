@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
+import { DataTable } from '@/components/common/atoms/DataTable';
 
 const meta = { title: 'Atoms/DataTable', component: DataTable, tags: ['autodocs'] } satisfies Meta<
   typeof DataTable

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
 
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 
 const meta = {
   title: 'Atoms/StatusMessage',

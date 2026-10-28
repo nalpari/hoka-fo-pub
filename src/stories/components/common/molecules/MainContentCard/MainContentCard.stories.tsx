@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
+import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 
 const meta = {
   title: 'Molecules/MainContentCard',

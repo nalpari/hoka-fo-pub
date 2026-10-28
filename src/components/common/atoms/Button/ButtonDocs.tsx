@@ -11,8 +11,8 @@ import {
   type ButtonSizingProps,
   type ButtonVariant,
 } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },

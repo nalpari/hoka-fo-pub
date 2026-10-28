@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Navigation } from '@/components/common/atoms/Navigation/Navigation';
+import { Navigation } from '@/components/common/atoms/Navigation';
 
 const meta = {
   title: 'Atoms/Navigation',

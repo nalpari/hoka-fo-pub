@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { ActionButton } from '@/components/common/atoms/ActionButton/ActionButton';
+import { ActionButton } from '@/components/common/atoms/ActionButton';
 
 const meta = {
   title: 'Atoms/ActionButton',

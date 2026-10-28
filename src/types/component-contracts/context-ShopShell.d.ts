@@ -9,6 +9,7 @@ import {
   type Ref,
   type RefObject,
 } from 'react';
+import { type Platform } from '@/context/platform';
 
 import { type FooterGroup } from '@/components/common/organisms/Layout/SiteFooter/footerData';
 import { type HeaderPromotionItem } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
@@ -17,7 +18,6 @@ import {
   type MegaMenuPromo,
 } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
 
-import { type Platform } from '@/lib/device';
 import { type CartItem } from '@/types/cart';
 type MenuDrawerFrameProps = {
   children: ReactNode;

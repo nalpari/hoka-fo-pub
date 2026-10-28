@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test';
 
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 const meta = {
   title: 'Molecules/ContentHeader',

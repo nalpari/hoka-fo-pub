@@ -22,10 +22,10 @@ import { useMemo, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { TextInput } from '@/components/common/atoms/TextInput';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 import {
   getScreenConnection,

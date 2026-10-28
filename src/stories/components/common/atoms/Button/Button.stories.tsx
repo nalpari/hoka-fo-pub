@@ -4,8 +4,8 @@ import { HStack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
 import { ButtonDocs, ButtonDocsContainer } from '@/components/common/atoms/Button/ButtonDocs';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const meta = {
   title: 'Atoms/Button',

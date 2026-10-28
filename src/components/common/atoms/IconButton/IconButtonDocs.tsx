@@ -3,9 +3,9 @@ import { type ReactNode, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Icon } from '@/components/common/atoms/Icon';
 import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import * as fontAwesome from '@/icons/fontAwesome';
 
@@ -213,7 +213,7 @@ export function iconButtonSource(args: IconButtonStoryArgs) {
       : `src=${JSON.stringify(`/images/icon/${args.svgPath}`)}`;
   const imports = [
     "import { IconButton } from '@/components/common/atoms/IconButton/IconButton';",
-    "import { Icon } from '@/components/common/atoms/Icon/Icon';",
+    "import { Icon } from '@/components/common/atoms/Icon';",
     ...(args.iconSource === 'fontAwesome'
       ? [`import { ${args.fontAwesomeName} } from '@/icons/fontAwesome';`]
       : []),

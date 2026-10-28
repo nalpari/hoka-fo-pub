@@ -2,10 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { css } from 'styled-system/css';
 
-import {
-  RatingStars,
-  type RatingStarsValue,
-} from '@/components/common/atoms/RatingStars/RatingStars';
+import { RatingStars, type RatingStarsValue } from '@/components/common/atoms/RatingStars';
 
 const stack = css({
   display: 'flex',

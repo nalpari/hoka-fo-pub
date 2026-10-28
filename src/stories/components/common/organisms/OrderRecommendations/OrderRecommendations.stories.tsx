@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
 
-import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
+import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
 import { orderRecommendations } from '@/mocks/orderRecommendations';
 

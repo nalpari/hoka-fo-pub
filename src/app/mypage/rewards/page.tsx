@@ -5,9 +5,9 @@ import type { ReactNode } from 'react';
 import { cva } from 'styled-system/css';
 import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 

@@ -9,7 +9,7 @@ import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
 import { css, cva } from 'styled-system/css';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 const button = cva({
   base: {

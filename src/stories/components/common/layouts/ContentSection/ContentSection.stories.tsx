@@ -5,9 +5,9 @@ import { expect, userEvent, within } from 'storybook/test';
 import { Box, HStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 const meta = {
   title: 'Layouts/ContentSection',

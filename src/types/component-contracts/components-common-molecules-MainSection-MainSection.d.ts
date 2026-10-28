@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { type TypographyVariant } from '@/components/common/atoms/Typography/Typography';
+import { type TypographyVariant } from '@/components/common/atoms/Typography';
 
 export type MainSectionProps = {
   title: string;

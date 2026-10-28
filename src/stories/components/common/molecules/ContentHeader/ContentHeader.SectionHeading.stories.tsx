@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 const meta = {
   title: 'Molecules/ContentHeader/Section heading',

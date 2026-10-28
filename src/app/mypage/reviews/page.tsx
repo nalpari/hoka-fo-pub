@@ -7,18 +7,18 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Divider } from '@/components/common/atoms/Divider';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { FormField } from '@/components/common/atoms/FormField';
+import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
+import { Select } from '@/components/common/atoms/Select';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import {

@@ -25,9 +25,9 @@ const paths = (source) => imports(source).map((node) => node.moduleSpecifier.tex
 test('imports follow Next, packages, Panda, common layers, internal, and relative groups', async () => {
   const source = `import { Local } from './local';
 import { products } from '@/mocks/products';
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
-import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout';
+import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { Button } from '@/components/common/atoms/Button/Button';
 import { css } from 'styled-system/css';
 import { useState } from 'react';

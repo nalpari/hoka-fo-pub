@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
 type Props = { eyebrow: string; title: string; description: string; to: string; action: string };
 

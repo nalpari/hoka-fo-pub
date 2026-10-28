@@ -7,8 +7,8 @@ import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';

@@ -431,3 +431,8 @@ ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈�
 ## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
 
 `src/context`와 상태 소비처의 import 순서만 새 2번 그룹 기준으로 정렬했다. Provider 구성·상태 수명·로그인·장바구니·미리보기 계약과 콜백은 유지한다.
+
+
+## 반응형 플랫폼과 상태 수명 (2026-10-28)
+
+Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 Provider는 matchMedia를 구독하며 명시적 Storybook 값은 고정된다. ShopFrame의 클래스와 body/포털을 동기화하되 장바구니·로그인 상태 소유자는 유지한다. 로그인 입력과 장바구니 선택, 열린 모달·검색어의 리사이즈 유지 검증은 [현재 플랫폼 기록](responsive-platform-2026-10-28.md)에 명시했다. 이 절이 기존 UA 기반 플랫폼 설명을 대체한다. 작업 트리 출처: src/context/platform.tsx, src/context/ShopShell.tsx.

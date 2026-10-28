@@ -5,19 +5,19 @@ import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Badge } from '@/components/common/atoms/Badge/Badge';
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type Address } from '@/components/mypage/mypage-address.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';

@@ -1,7 +1,7 @@
 import type {
   MainContentCardAction,
   MainContentCardImageAspectRatio,
-} from '@/components/common/molecules/MainContentCard/MainContentCard';
+} from '@/components/common/molecules/MainContentCard';
 
 export type HomeCategory = {
   actions: readonly MainContentCardAction[];

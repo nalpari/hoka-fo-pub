@@ -3,28 +3,27 @@
 import Link from 'next/link';
 
 import { useState } from 'react';
-import { usePlatform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
-import { PromotionBadge, type Promotions } from '@/components/common/atoms/Badge/PromotionBadge';
-import { Card } from '@/components/common/atoms/Card/Card';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+import { Badge, type Promotions } from '@/components/common/atoms/Badge';
+import { Card } from '@/components/common/atoms/Card';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import { type ProductCardVariant } from '@/components/common/molecules/ProductCard/productCardTypography';
 import {
   ProductOptionList,
   type ProductOptionThumbnail,
-} from '@/components/common/molecules/ProductOptionList/ProductOptionList';
+} from '@/components/common/molecules/ProductOptionList';
 import {
   ProductThumbnail,
   type ProductThumbnailVariant,
-} from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+} from '@/components/common/molecules/ProductThumbnail';
 
-import { type Platform } from '@/lib/device';
 import { type Product } from '@/mocks/products';
 
 type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
@@ -150,7 +149,7 @@ function ProductDetailsIdentity({ promotion, gender, name, price, originalPrice,
       minW="0"
       w="100%"
     >
-      {promotion && <PromotionBadge promotion={promotion} />}
+      {promotion && <Badge promotion={promotion} />}
       {gender && <ProductGender gender={gender} variant={variant} />}
       <ProductName name={name} variant={variant} />
       <ProductPrice price={price} originalPrice={originalPrice} variant={variant} />
@@ -375,7 +374,7 @@ function ProductCardPreview({ product }: { product: Product }) {
           onSelect={setSelectedColorId}
         />
       )}
-      <Box minH="20px">{product.promotion && <PromotionBadge promotion={product.promotion} />}</Box>
+      <Box minH="20px">{product.promotion && <Badge promotion={product.promotion} />}</Box>
       <HStack alignItems="center" gap="2">
         <RatingStars value={product.rating} aria-label={`평점 ${product.rating}점`} />
         <Typography variant="body5" tone="subtle">

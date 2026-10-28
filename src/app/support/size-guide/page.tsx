@@ -1,8 +1,8 @@
 import { Stack } from 'styled-system/jsx';
 
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { SizeGuidePanel } from '@/app/support/size-guide/_components/SizeGuidePanel';
 import { guideCategories } from '@/components/size-guide/size-guide.data';

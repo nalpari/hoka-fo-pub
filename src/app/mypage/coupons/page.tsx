@@ -7,15 +7,15 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon';
+import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { faCircleCheck } from '@/icons/fontAwesome';

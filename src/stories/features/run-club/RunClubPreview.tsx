@@ -1,11 +1,11 @@
 import { PlatformProvider } from '@/context/platform';
+import { type Platform } from '@/context/platform';
 import { AppLayout } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 
 import { runClubSessions } from '@/components/run-club/runClub.data';
 import { RunClubPage } from '@/components/run-club/RunClubPage';
-import { type Platform } from '@/lib/device';
 import { RunClubDetailPage } from '@/stories/features/run-club/RunClubDetailPagePreview';
 
 type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'closed' | 'upcoming' };

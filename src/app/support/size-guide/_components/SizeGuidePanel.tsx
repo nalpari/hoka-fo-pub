@@ -7,14 +7,14 @@ import { useState } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
+import { DataTable } from '@/components/common/atoms/DataTable';
 import {
   SegmentedControl,
   type SegmentedControlOption,
-} from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+} from '@/components/common/atoms/SegmentedControl';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
   type Gender,

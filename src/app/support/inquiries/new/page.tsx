@@ -9,18 +9,18 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 import {
