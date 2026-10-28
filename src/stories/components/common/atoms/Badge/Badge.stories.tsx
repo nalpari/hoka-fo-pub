@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
 
 import { Badge } from '@/components/common/atoms/Badge';
 
@@ -31,3 +32,22 @@ export const MultiplePromotions: Story = {
 };
 
 export const EmptyPromotions: Story = { args: { promotion: [] } };
+
+export const RunClubRoad: Story = { args: { runClubCategory: 'Road' } };
+
+export const RunClubTrail: Story = { args: { runClubCategory: 'Trail' } };
+
+export const RunClubRoadMobile: Story = {
+  ...RunClubRoad,
+  decorators: [
+    (Story) => (
+      <PlatformProvider platform="mobile">
+        <div className="platform-mobile">
+          <Story />
+        </div>
+      </PlatformProvider>
+    ),
+  ],
+};
+
+export const RunClubTrailMobile: Story = { ...RunClubRoadMobile, args: RunClubTrail.args };

@@ -983,3 +983,5 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 
 검증: Next.js 프로덕션 빌드, Storybook 빌드, TypeScript 검사, Node 테스트 62건을 통과했다. 빌드 전 manifest를 사용한 최초 라우트 검사 실패는 새 빌드 후 재검증해 해소했다. src 및 .storybook에 기존 shared 참조가 없고 src/shared가 제거된 것을 확인했다.
 추가 검증: ShopShell·OKF 동기화 스크립트·Storybook 설정의 ESLint 검사를 통과했다. 전체 eslint 검사는 실행 시간이 길어 완료 결과를 아직 기록하지 않았다.
+
+- 2026-10-28: RunClubBadge를 Badge.runClubCategory로 통합하고 두 운영 사용처·공용 스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.

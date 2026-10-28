@@ -3178,3 +3178,13 @@ LoadMoreButton·SocialAuthButton 구현 2개를 제거했다. 쿠폰·리뷰·�
 컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 런클럽 분류 배지 통합 (2026-10-28)
+
+Badge에 runClubCategory: 'Road' | 'Trail' 옵션을 추가하고 RunClubBadge.tsx를 제거했다. RunClubPage와 app/running/run-club/[sessionId]/page.tsx의 두 운영 사용처는 Badge를 직접 사용한다. 분류 라벨·배경·글자색만 공통 배지가 소유하며 세션 데이터와 필터·신청 정책은 run-club에 유지한다. 공통 배지에서 RunClubSession을 import하지 않는다. 운영 구현 파일 수는 1개 감소한다.
+
+runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·shape·weight와 타입으로 배타적이다. 기존 기본 배지와 출시 상태·프로모션 옵션은 유지한다. 런클럽 분류는 span HStack과 내부 Typography를 유지하며 PC 높이 28px·패딩 8px·body4, 모바일 높이 20px·세로 패딩 0·가로 8px·body5와 bold, Road #dfff00/#000 및 Trail #5d6825/#fff를 보존한다. 새 모드의 className은 바깥 span에 적용되고 native span 속성도 전달한다.
+
+공용 Badge 스토리에 Road·Trail의 기본/명시적 모바일 4개 시나리오를 추가했다. src/types/type-tests/Badge.type-test.tsx에서 정상 카테고리와 native 속성, children·status·promotion·variant 혼용 및 미지원 카테고리를 검사한다. npm run typecheck와 npm run panda가 통과했다. 변경 파일 ESLint fix·Prettier를 적용했다. Ego 개발 Storybook에서 런클럽 목록·상세의 PC/모바일 4개와 일반 filled·COMING·복수 프로모션·빈 프로모션 4개를 전후 비교했고 라벨·태그·높이·패딩·색·모서리·글자 크기·두께·행간이 동일했다. 전체 프로덕션/Storybook 빌드는 이번 작업에서 실행하지 않았다.
+
+작업 트리 출처: src/components/common/atoms/Badge.tsx, src/components/run-club/RunClubPage.tsx, src/app/running/run-club/[sessionId]/page.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx. 기록 시점: 2026-10-28T11:14:23.062Z.

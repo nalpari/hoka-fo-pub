@@ -18,6 +18,7 @@ import {
   VStack,
 } from 'styled-system/jsx';
 
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
@@ -32,7 +33,6 @@ import {
   type RunClubSession,
   runClubSessions,
 } from '@/components/run-club/runClub.data';
-import { RunClubBadge } from '@/components/run-club/RunClubBadge';
 
 function RunClubHistoryLink({ compact = false }: { compact?: boolean }) {
   return (
@@ -229,7 +229,7 @@ function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
       header={
         <Stack gap="3.5" _mobile={{ gap: '2' }}>
           <Flex justifyContent="flex-start">
-            <RunClubBadge category={session.category} />
+            <Badge runClubCategory={session.category} />
           </Flex>
           <ContentHeader
             gap="2"

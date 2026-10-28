@@ -29,6 +29,16 @@ const badge = cva({
 
 const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14px!' });
 
+const runClubBadge = cva({
+  base: {
+    h: '28px',
+    _mobile: { w: 'fit-content', h: '20px', px: '2', py: '0' },
+  },
+  variants: {
+    category: { Road: { bg: '#dfff00', color: '#000' }, Trail: { bg: '#5d6825', color: '#fff' } },
+  },
+});
+
 export type LaunchStatus = 'COMING' | 'IN_STOCK';
 
 export type Promotion = 'Best' | 'New' | 'Exclusive';
@@ -47,17 +57,20 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         children?: ComponentPropsWithoutRef<'span'>['children'];
         status?: never;
         promotion?: never;
+        runClubCategory?: never;
         weight?: never;
       })
     | (Omit<LabelProps, 'variant'> & {
         status: LaunchStatus;
         children?: never;
         promotion?: never;
+        runClubCategory?: never;
         variant?: never;
         weight?: never;
       })
     | {
         promotion: Promotions;
+        runClubCategory?: never;
         weight?: TypographyProps['weight'];
         status?: never;
         children?: never;
@@ -65,9 +78,19 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         tone?: never;
         shape?: never;
       }
+    | {
+        runClubCategory: 'Road' | 'Trail';
+        status?: never;
+        promotion?: never;
+        children?: never;
+        variant?: never;
+        tone?: never;
+        shape?: never;
+        weight?: never;
+      }
   );
 
-/** 일반 라벨과 출시 상태 또는 프로모션을 표시합니다. (Displays a label, launch status, or promotional labels.) */
+/** 일반 라벨·출시 상태·프로모션 또는 런클럽 분류를 표시합니다. (Displays a label, launch status, promotions, or a run club category.) */
 export function Badge({
   variant,
   tone = 'primary',
@@ -76,9 +99,27 @@ export function Badge({
   children,
   status,
   promotion,
+  runClubCategory,
   weight,
   ...props
 }: BadgeProps) {
+  if (runClubCategory !== undefined) {
+    return (
+      <HStack
+        as="span"
+        {...props}
+        className={[runClubBadge({ category: runClubCategory }), className]
+          .filter(Boolean)
+          .join(' ')}
+        p="2"
+      >
+        <Typography variant="body4" mo="body5" weight="bold">
+          {runClubCategory}
+        </Typography>
+      </HStack>
+    );
+  }
+
   if (promotion !== undefined) {
     const promotions = typeof promotion === 'string' ? [promotion] : promotion;
 

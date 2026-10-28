@@ -346,3 +346,9 @@ RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기�
 장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 런클럽 상세 배지 직접 사용 (2026-10-28)
+
+app/running/run-club/[sessionId]/page.tsx는 RunClubBadge 대신 common/atoms/Badge에 runClubCategory={session.category}를 전달한다. 기존 URL·페이지 소유권·클라이언트 경계·신청 상태·처리 흐름은 유지한다. 작업 트리 출처: src/app/running/run-club/[sessionId]/page.tsx. 기록 시점: 2026-10-28T11:14:23.062Z. 상세 API와 검증은 [런클럽 분류 배지 통합](ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.
+
+IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도 Badge.tsx로 갱신했다.

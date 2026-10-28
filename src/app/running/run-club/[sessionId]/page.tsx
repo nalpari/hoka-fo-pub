@@ -10,6 +10,7 @@ import { RunClubSessionContext } from '@/context/RunClubSessionContext';
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
 
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -30,7 +31,6 @@ import {
   sessionNotices,
   sessionPrecautions,
 } from '@/components/run-club/runClub.data';
-import { RunClubBadge } from '@/components/run-club/RunClubBadge';
 import { type Product, products } from '@/mocks/products';
 
 const applyButton = css({
@@ -212,7 +212,7 @@ function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHeroProps)
       />
       <Box _mobile={{ px: '4', pt: '4', pb: '10' }}>
         <HStack>
-          <RunClubBadge category={session.category} />
+          <Badge runClubCategory={session.category} />
         </HStack>
         <ContentHeader
           mt="3"

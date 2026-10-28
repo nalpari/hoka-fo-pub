@@ -74,7 +74,7 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: [
       'src/app/running/run-club/page.tsx',
       'src/components/run-club/RunClubPage.tsx',
-      'src/components/run-club/RunClubBadge.tsx',
+      'src/components/common/atoms/Badge.tsx',
     ],
     stories: {
       web: {
@@ -734,7 +734,7 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: [
       'src/app/running/run-club/page.tsx',
       'src/components/run-club/RunClubPage.tsx',
-      'src/components/run-club/RunClubBadge.tsx',
+      'src/components/common/atoms/Badge.tsx',
     ],
     stories: {
       web: {
@@ -753,7 +753,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/running/run-club/[sessionId]/page.tsx',
       'src/components/run-club/RunClubPage.tsx',
       'src/components/not-found/NotFoundPage.tsx',
-      'src/components/run-club/RunClubBadge.tsx',
+      'src/components/common/atoms/Badge.tsx',
     ],
     stories: {
       web: {
