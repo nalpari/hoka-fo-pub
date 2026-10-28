@@ -4,7 +4,7 @@ import { expect, fn, userEvent, within } from 'storybook/test';
 
 import { Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';

@@ -6,7 +6,7 @@ import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';

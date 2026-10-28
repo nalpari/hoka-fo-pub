@@ -7,7 +7,7 @@ import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { ModalDialog, type ModalDialogActions } from '@/components/common/molecules/ModalDialog';
 

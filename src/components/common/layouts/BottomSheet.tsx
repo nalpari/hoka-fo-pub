@@ -5,9 +5,8 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { type ButtonProps } from '@/components/common/atoms/Button/Button';
+import { Button, type ButtonProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { Typography } from '@/components/common/atoms/Typography';
 
 type BottomSheetContentProps = {
@@ -72,9 +71,9 @@ function BottomSheetHeader({ action, onClose, title }: BottomSheetHeaderProps) {
       <BottomSheetTitle>{title}</BottomSheetTitle>
       {action && <HStack gap="2.5">{action}</HStack>}
       {onClose && (
-        <IconButton aria-label="닫기" onClick={onClose} size="15px">
+        <Button variant="icon" aria-label="닫기" onClick={onClose} size="15px">
           <Icon name="close" size="15px" />
-        </IconButton>
+        </Button>
       )}
     </HStack>
   );

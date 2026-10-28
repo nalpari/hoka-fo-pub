@@ -3,8 +3,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { TextInput } from '@/components/common/atoms/TextInput';
 
 const input = css({
@@ -58,9 +58,9 @@ export function SearchField({
       }}
     >
       {onSearch ? (
-        <IconButton type="submit" aria-label="검색 실행" size="16px">
+        <Button variant="icon" type="submit" aria-label="검색 실행" size="16px">
           <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
-        </IconButton>
+        </Button>
       ) : (
         <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
       )}

@@ -8,7 +8,7 @@ import { type ComponentProps, type CSSProperties, type ReactNode, useState } fro
 import { css, cx } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 

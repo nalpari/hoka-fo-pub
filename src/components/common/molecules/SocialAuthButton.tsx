@@ -1,8 +1,8 @@
-import type { ComponentProps, CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 import { cva } from 'styled-system/css';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button, type ButtonTextProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 
 const loginStyle = cva({
@@ -25,10 +25,7 @@ const loginStyle = cva({
   },
 });
 
-type Props = Omit<
-  ComponentProps<typeof Button>,
-  'icon' | 'variant' | 'style' | 'className' | 'size'
-> & {
+type Props = Omit<ButtonTextProps, 'icon' | 'variant' | 'style' | 'className' | 'size'> & {
   provider: 'kakao' | 'naver';
   size?: 'short' | 'tall';
   appearance?: 'login' | 'signup';

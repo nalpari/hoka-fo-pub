@@ -6,9 +6,10 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T08:57:37.238Z'
+  at: '2026-10-28T10:35:32.416Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/types/component-contracts/app-products-id-page.d.ts
   - .storybook/fonts.scss
   - .storybook/preview.ts
   - src/app/layout.tsx
@@ -304,3 +305,9 @@ IA 목록의 원본 IA/출처 열을 화면에서 제거했다. 원본 데이터
 ## 폰트·주문서 URL·갤러리 경계 (2026-10-28)
 
 RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기존 경로와 플랫폼 상태는 유지한다. 주문서의 빈 구독 및 window.location.search 스냅샷을 useSearchParams().get('selected')로 대체했다. 누락 값은 전체 장바구니, 빈 값은 빈 선택으로 구분하고 선택 상품·결제 상태·완료 시 제거 정책은 페이지에 둔다. 정적 빌드의 Suspense는 기존 RootLayout 경계를 사용한다. 브라우저에서 selected 변경 후 즉시 빈 주문서가 표시되고 뒤로 가기로 선택 상품이 복원되는 것을 확인했다. 상품 상세의 확대 갤러리는 route-private 동적 import 경계이며 URL·장바구니·선택 옵션은 부모가 유지한다. 페이지별 운영 메타데이터와 외부 스크립트 연동은 이번 작업에 포함하지 않았다. 작성: codex/gpt-6, 2026-10-28T09:57:37.856Z.
+
+## 버튼 모듈 평탄화의 라우트 영향 검토 (2026-10-28)
+
+운영 페이지의 Button import를 src/components/common/atoms/Button.tsx로 바꾸고 기존 IconButton 호출은 variant="icon"으로 전환했다. 라우트·URL·쿼리·페이지 상태·서버/클라이언트 경계는 변경하지 않았다. 상품 상세의 공유 버튼 타입은 ButtonIconProps에서 children·variant를 제외한 계약으로 유지한다. 변경 검증은 UI 문서의 Button 아이콘 모드 통합 기록을 참고한다.
+
+작성: codex/gpt-6, 2026-10-28T10:35:32.416Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.

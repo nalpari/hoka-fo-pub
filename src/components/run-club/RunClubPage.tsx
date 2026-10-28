@@ -18,7 +18,7 @@ import {
   VStack,
 } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';

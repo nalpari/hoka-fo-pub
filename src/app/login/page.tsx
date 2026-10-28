@@ -11,7 +11,7 @@ import { useShop } from '@/context/ShopShell';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Icon } from '@/components/common/atoms/Icon';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';

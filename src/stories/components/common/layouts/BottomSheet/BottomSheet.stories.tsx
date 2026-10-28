@@ -4,7 +4,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Box, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 

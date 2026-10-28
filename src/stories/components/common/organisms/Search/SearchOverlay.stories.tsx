@@ -6,7 +6,7 @@ import { HeaderSearch, SearchOverlay } from '@/context/ShopShell';
 
 import { Box, Flex } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 const meta = {
   title: 'Organisms/Search/SearchOverlay',

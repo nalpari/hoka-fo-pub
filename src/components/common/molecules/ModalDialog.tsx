@@ -8,7 +8,7 @@ import { css, cva } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 import { type SystemStyleObject } from 'styled-system/types';
 
-import { Button, type ButtonProps } from '@/components/common/atoms/Button/Button';
+import { Button, type ButtonTextProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -190,8 +190,8 @@ export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
 
 export type ModalOverlayTone = 'dark' | 'light';
 
-type ModalActionButtonProps = Pick<
-  ButtonProps,
+type ModalActionButtonTextProps = Pick<
+  ButtonTextProps,
   'className' | 'disabled' | 'fullWidth' | 'density' | 'type' | 'form'
 > & { size?: 'short' | 'tall' };
 
@@ -201,7 +201,7 @@ export type ModalDialogActions =
       label?: string;
       /** Submit buttons use their associated form's handler when this is omitted. */
       onConfirm?: () => void;
-      buttonProps?: ModalActionButtonProps;
+      buttonProps?: ModalActionButtonTextProps;
     }
   | {
       kind: 'confirm';

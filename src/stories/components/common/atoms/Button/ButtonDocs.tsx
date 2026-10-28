@@ -7,10 +7,10 @@ import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
 import {
   Button,
   ButtonLink,
-  type ButtonProps,
   type ButtonSizingProps,
+  type ButtonTextProps,
   type ButtonVariant,
-} from '@/components/common/atoms/Button/Button';
+} from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -98,7 +98,7 @@ function buttonCode({
   colorway,
   size,
   disabled,
-}: ButtonSizingProps & Pick<ButtonProps, 'colorway' | 'disabled'>) {
+}: ButtonSizingProps & Pick<ButtonTextProps, 'colorway' | 'disabled'>) {
   const attributes = [
     `variant="${variant}"`,
     `colorway="${colorway}"`,
@@ -291,6 +291,7 @@ function VariantSection({
   );
 }
 
+/** Storybook 버튼 문서의 전체 너비를 구성합니다. (Provides the full-width container for button documentation.) */
 export function ButtonDocsContainer({ children, ...props }: PropsWithChildren<DocsContainerProps>) {
   return (
     <Box
@@ -306,6 +307,7 @@ export function ButtonDocsContainer({ children, ...props }: PropsWithChildren<Do
   );
 }
 
+/** 버튼의 변형과 상태를 비교하고 사용 코드를 제공합니다. (Compares button variants and states with usage examples.) */
 export function ButtonDocs() {
   const [copyFeedback, setCopyFeedback] = useState('');
 

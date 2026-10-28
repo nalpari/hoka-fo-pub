@@ -10,7 +10,7 @@ import { useShop } from '@/context/ShopShell';
 import { css } from 'styled-system/css';
 import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';

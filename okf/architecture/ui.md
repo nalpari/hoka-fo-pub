@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:24:24.873Z'
+  at: '2026-10-28T10:35:32.412Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/type-tests/Button.type-test.tsx
+  - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
+  - src/stories/components/common/atoms/Button/ButtonDocs.tsx
+  - src/components/common/atoms/Button.tsx
   - src/components/common/layouts/CustomerCenterLayout.tsx
   - src/components/common/layouts/SidebarNavigationLayout.tsx
   - .storybook/fonts.scss
@@ -3144,3 +3148,13 @@ AGENTS의 Next.js integration policy와 component-reusability의 nextjs-integrat
 SideNavigation은 유일한 운영 부모 SidebarNavigationLayout 모듈로 이동했다. 탐색 함수는 모듈 최상위에 유지하고 기존 JSX·Panda 스타일·활성 및 비활성 처리·PC/모바일 동작을 그대로 보존했다. SidebarNavigationGroup 타입은 레이아웃이 소유하며 CustomerCenterLayout은 새 타입 경로를 사용한다. 기존 SideNavigation 스토리는 새 소유 모듈에서 가져오고 title·스토리 ID·시나리오는 유지한다. 단순 이동을 위한 클라이언트 지시문은 추가하지 않았으며 함수에 Hooks는 없다. 구현 17개 제거와 별도 모듈 1개 통합으로 운영 컴포넌트 TSX 파일은 18개 감소한다. ProductListingPage·SupportTabs·MainSection 등 실제 재사용 중인 구성은 유지한다.
 
 작업 트리 출처: 위 working_tree_sources와 삭제된 src/components/common/의 17개 구현·SideNavigation.tsx, src/stories/components/common/의 전용 스토리 11개 및 SideNavigation 스토리, PC.Validation.stories.tsx·MO.Validation.stories.tsx. 검증: npm run lint:fix·npm run lint·npm run typecheck·Panda 생성·Next production build·Storybook production build를 통과했다. 폼·이메일·import 순서 51개와 빌드 후 App Router 2개 테스트가 통과했다. 이동 전후 SideNavigation 함수 본문을 비교하여 동일함을 확인했다. 새 정적 Storybook을 별도 6018 포트에서 Ego로 실행해 레이아웃 7개 상태의 PC 180px/고객센터 190px 탐색 폭, 활성 링크, main 1개, 모바일 가로 탐색·숨김·여백 옵션과 본문 표시를 검사했다. 기존 PC/MO Inheritance play가 오류 표시·접근성 검사를 거쳐 오류 해제까지 도달함을 확인했다. 스크린샷 캡처는 CDP 시간 초과로 완료하지 못했으므로 시각 비교를 통과했다고 기록하지 않는다. 구현 TSX는 Docs·type-test를 제외한 src/components 기준 98개에서 80개로 감소했다. Storybook의 모듈 지시문·빌드 성능 경고는 빌드 실패가 아니며 전체 접근성 검수 완료를 뜻하지 않는다.
+
+## Button의 아이콘 모드와 문서 소유권 통합 (2026-10-28)
+
+Button은 variant="icon"에서 아이콘 버튼의 실제 치수 size(숫자 px 또는 CSS 길이), shape, tone, color와 직접 children을 지원한다. 기본 36px·square·currentColor, 버튼 type·form·ref·disabled·키보드 포커스·hover 표현을 보존한다. tone="disabled"는 색상 표현이며 실제 disabled와 별개다. loading은 일반 버튼과 같이 aria-busy와 비활성화를 적용한다. 일반 버튼의 size 상관관계는 ButtonSizingProps·ButtonTextProps로 유지하고 아이콘 전용 계약은 ButtonIconProps로 구분한다. ButtonLink·더보기·소셜 인증·모달 액션은 기존 텍스트 버튼 계약을 유지한다.
+
+운영 IconButton 구현을 제거하고 호출부 및 상품 상세 preview 타입은 Button variant="icon"을 사용한다. Button/Button.tsx는 src/components/common/atoms/Button.tsx로 평탄화하며 호환 전달 파일은 남기지 않는다. ButtonDocs와 IconButtonDocs는 src/stories/components/common/atoms/의 기존 Button·IconButton 스토리 디렉터리로 이동했다. 문서 비교·아이콘 선택·복사 기능과 기존 스토리 title·ID는 유지하고 생성 코드는 새 import와 variant를 사용한다. Button.type-test.tsx는 src/types/type-tests/로 옮겨 기존 tsconfig include로 계속 검사한다. 운영 UI 파일은 1개 줄고 문서 2개·타입 검증 1개가 운영 컴포넌트 트리 밖으로 이동했다.
+
+작성: codex/gpt-6, 2026-10-28T10:35:32.412Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.

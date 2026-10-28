@@ -8,7 +8,7 @@ import { useRoutePreview } from '@/context/RoutePreview';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack, styled } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Radio } from '@/components/common/atoms/Radio';

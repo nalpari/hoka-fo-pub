@@ -28,7 +28,7 @@ import { products } from '@/mocks/products';
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { css } from 'styled-system/css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -42,7 +42,7 @@ test('shared hooks and context follow external packages in group 2 before Panda 
   const output = await sort(`import { products } from '@/mocks/products';
 import { validate } from '@/lib/emailValidation';
 import type { Product } from '@/types/product';
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { css } from 'styled-system/css';
 import { useViewportMode } from '@/lib/useViewportMode';
 import { useExample } from '@/hooks/useExample';
@@ -59,7 +59,7 @@ import { useRouter } from 'next/navigation';
     '@/hooks/useExample',
     '@/lib/useViewportMode',
     'styled-system/css',
-    '@/components/common/atoms/Button/Button',
+    '@/components/common/atoms/Button',
     '@/lib/emailValidation',
     '@/mocks/products',
     '@/types/product',
@@ -76,14 +76,14 @@ import { Layout } from '@components/layouts/Layout';
 import { Organism } from '@components/organisms/Organism';
 import { Molecule } from '@components/molecules/Molecule';
 import { Atom } from '@components/atoms/Atom';
-import { Button } from '@atoms/Button/Button';
+import { Button } from '@atoms/Button';
 import { nextTheme } from 'next-themes';
 import Link from 'next/link';
 `);
   assert.deepEqual(paths(output), [
     'next/link',
     'next-themes',
-    '@atoms/Button/Button',
+    '@atoms/Button',
     '@components/atoms/Atom',
     '@components/molecules/Molecule',
     '@components/organisms/Organism',
@@ -141,7 +141,7 @@ test('directives, import comments, and export order are preserved', async () => 
   const output = await sort(`'use client';
 
 // Keep this description with the atom.
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { useState } from 'react';
 
 export const z = 1;

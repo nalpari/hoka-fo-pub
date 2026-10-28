@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 
 const list = cva({

@@ -3,8 +3,8 @@ import { type ReactNode, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Grid } from 'styled-system/jsx';
 
+import { Button, type ButtonIconProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import * as fontAwesome from '@/icons/fontAwesome';
@@ -90,7 +90,7 @@ export const svgPaths = [
   'tag-delete.svg',
 ] as const;
 
-export type IconButtonStoryArgs = Omit<IconButtonProps, 'children'> & {
+export type IconButtonStoryArgs = Omit<ButtonIconProps, 'children'> & {
   children?: never;
   iconSource: 'fontAwesome' | 'svg';
   fontAwesomeName: string;
@@ -141,6 +141,7 @@ const copyButton = css({
 const copyStatus = css({ minH: '20px', fontSize: '12px', lineHeight: '20px' });
 
 const catalogDefaults: IconButtonStoryArgs = {
+  variant: 'icon',
   iconSource: 'fontAwesome',
   fontAwesomeName: 'faXmark',
   svgPath: 'close.svg',
@@ -212,16 +213,17 @@ export function iconButtonSource(args: IconButtonStoryArgs) {
       ? `fontAwesomeIcon={${args.fontAwesomeName}}`
       : `src=${JSON.stringify(`/images/icon/${args.svgPath}`)}`;
   const imports = [
-    "import { IconButton } from '@/components/common/atoms/IconButton/IconButton';",
+    "import { Button } from '@/components/common/atoms/Button';",
     "import { Icon } from '@/components/common/atoms/Icon';",
     ...(args.iconSource === 'fontAwesome'
       ? [`import { ${args.fontAwesomeName} } from '@/icons/fontAwesome';`]
       : []),
   ];
 
-  return `${imports.join('\n')}\n\n<IconButton aria-label={${JSON.stringify(args['aria-label'] ?? '')}} size={${JSON.stringify(args.size ?? 36)}} shape=${JSON.stringify(args.shape ?? 'square')} tone=${JSON.stringify(args.tone ?? 'default')} color={${JSON.stringify(args.color ?? 'currentColor')}}${args.disabled ? ' disabled' : ''}>\n  <Icon ${icon} size={${args.iconSize}} />\n</IconButton>`;
+  return `${imports.join('\n')}\n\n<Button variant="icon" aria-label={${JSON.stringify(args['aria-label'] ?? '')}} size={${JSON.stringify(args.size ?? 36)}} shape=${JSON.stringify(args.shape ?? 'square')} tone=${JSON.stringify(args.tone ?? 'default')} color={${JSON.stringify(args.color ?? 'currentColor')}}${args.disabled ? ' disabled' : ''}>\n  <Icon ${icon} size={${args.iconSize}} />\n</Button>`;
 }
 
+/** 아이콘 모드 버튼의 선택한 예시를 표시합니다. (Displays the selected example of a button in icon mode.) */
 export function IconButtonPreview(args: IconButtonStoryArgs) {
   const { iconSource, fontAwesomeName, svgPath, iconSize, ...buttonProps } = args;
   const error = iconError(args);
@@ -234,13 +236,13 @@ export function IconButtonPreview(args: IconButtonStoryArgs) {
           {error}
         </Typography>
       ) : (
-        <IconButton {...buttonProps}>
+        <Button {...buttonProps} variant="icon">
           {iconSource === 'fontAwesome' && definition ? (
             <Icon fontAwesomeIcon={definition} size={iconSize} />
           ) : (
             <Icon src={`/images/icon/${svgPath}`} size={iconSize} />
           )}
-        </IconButton>
+        </Button>
       )}
     </div>
   );
@@ -326,6 +328,7 @@ const catalogItems = [
   })),
 ];
 
+/** 아이콘 모드 버튼의 아이콘 목록과 복사 예제를 표시합니다. (Displays the icon catalog and copyable examples for buttons in icon mode.) */
 export function IconCatalog() {
   const [message, setMessage] = useState('');
 
@@ -414,6 +417,7 @@ const examples: { label: string; props: Partial<IconButtonStoryArgs>; note: stri
   },
 ];
 
+/** 아이콘 모드 버튼의 속성별 표현을 비교합니다. (Compares the presentation options of buttons in icon mode.) */
 export function PropertyComparison({ defaults }: { defaults: IconButtonStoryArgs }) {
   return (
     <div className={surface}>

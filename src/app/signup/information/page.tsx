@@ -8,7 +8,7 @@ import { useRoutePreview } from '@/context/RoutePreview';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';

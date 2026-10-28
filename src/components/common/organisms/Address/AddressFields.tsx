@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 

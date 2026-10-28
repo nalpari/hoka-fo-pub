@@ -2,7 +2,7 @@ import { type ComponentProps, type ReactNode } from 'react';
 
 import { Box } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { LoadMoreButton, LoadMoreButtonContent } from '@/components/common/atoms/LoadMoreButton';
 
 import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';

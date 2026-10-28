@@ -10,7 +10,7 @@ import { useShop } from '@/context/ShopShell';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';

@@ -8,7 +8,7 @@ import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from 'r
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';

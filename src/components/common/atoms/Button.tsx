@@ -5,9 +5,10 @@ import type { LinkProps } from 'next/link';
 
 import { Button as BaseButton, type ButtonProps as BaseButtonProps } from '@base-ui/react/button';
 import { forwardRef } from 'react';
-import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ComponentPropsWithRef, CSSProperties, ReactNode } from 'react';
 
 import { css, cva } from 'styled-system/css';
+import { circle } from 'styled-system/patterns';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -152,6 +153,27 @@ const secondaryContentColor = css.raw({
   },
 });
 
+const iconButton = css.raw({
+  display: 'inline-grid',
+  placeItems: 'center',
+  w: 'var(--icon-button-size)',
+  h: 'var(--icon-button-size)',
+  minW: 'var(--icon-button-size)',
+  minH: 'var(--icon-button-size)',
+  border: '0',
+  bg: 'transparent',
+  p: '0',
+  color: 'var(--icon-button-color, currentColor)',
+  '& svg': { color: 'currentColor' },
+  '& svg [fill]:not([fill="none"])': { fill: 'currentColor!' },
+  '& svg [stroke]:not([stroke="none"])': { stroke: 'currentColor!' },
+  _focusVisible: {
+    outline: '4px solid var(--button-focus-ring)',
+    outlineOffset: '2px',
+  },
+  _hover: { bg: 'var(--icon-button-hover-bg, var(--color-black-10))' },
+});
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -161,7 +183,8 @@ export type ButtonVariant =
   | 'plain'
   | 'chip'
   | 'filterTrigger'
-  | 'headerSearch';
+  | 'headerSearch'
+  | 'icon';
 
 export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
@@ -172,12 +195,12 @@ export type ButtonSizingProps =
   | {
       variant?: Exclude<
         ButtonVariant,
-        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch'
+        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch' | 'icon'
       >;
       size?: 'tall' | 'short';
     };
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonTextProps = ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonSizingProps & {
     density?: 'auto' | 'wide' | 'compact';
     colorway?: 'black' | 'white';
@@ -190,9 +213,69 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     nativeButton?: boolean;
   };
 
+export type ButtonIconProps = Omit<ComponentPropsWithRef<'button'>, 'color'> & {
+  variant: 'icon';
+  size?: string | number;
+  shape?: 'square' | 'circle';
+  tone?: 'default' | 'inverse' | 'disabled';
+  color?: CSSProperties['color'];
+  loading?: boolean;
+  render?: BaseButtonProps['render'];
+  nativeButton?: boolean;
+};
+
+export type ButtonProps = ButtonTextProps | ButtonIconProps;
+
 /** 공통 크기·상태와 접근 가능한 동작을 제공하는 버튼입니다. (Provides a button with shared sizing, states, and accessible behavior.) */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
+  if (props.variant === 'icon') {
+    const {
+      variant: _variant,
+      size = 36,
+      shape = 'square',
+      tone = 'default',
+      color = 'currentColor',
+      loading = false,
+      className,
+      style,
+      disabled,
+      type = 'button',
+      ...iconProps
+    } = props;
+
+    // The discriminant selects this branch and must not reach the native button.
+    void _variant;
+
+    return (
+      <BaseButton
+        {...iconProps}
+        ref={ref}
+        type={type}
+        aria-busy={loading || undefined}
+        disabled={disabled || loading}
+        style={
+          {
+            '--icon-button-size': typeof size === 'number' ? `${size}px` : size,
+            '--icon-button-color':
+              tone === 'inverse'
+                ? 'var(--color-white-000)'
+                : tone === 'disabled'
+                  ? 'var(--color-black-40)'
+                  : color,
+            ...style,
+          } as CSSProperties
+        }
+        className={[
+          css(shape === 'circle' && circle.raw({ size: 'var(--icon-button-size)' }), iconButton),
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      />
+    );
+  }
+
+  const {
     variant = 'secondary',
     density,
     colorway = 'black',
@@ -211,10 +294,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     type = 'button',
     style,
     disabled,
-    ...props
-  },
-  ref,
-) {
+    ...buttonProps
+  } = props;
   const iconOnly = Boolean(icon && children == null);
   const primary = variant === 'primary';
   const white = colorway === 'white';
@@ -330,7 +411,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   if (invalid) variables['--button-border-color'] = 'var(--color-red-100)';
   return (
     <BaseButton
-      {...props}
+      {...buttonProps}
       ref={ref}
       aria-busy={loading || undefined}
       disabled={disabled || loading}
@@ -397,7 +478,7 @@ export type ButtonLinkProps = Pick<
   'href' | 'replace' | 'scroll' | 'prefetch' | 'onNavigate'
 > &
   Pick<
-    ButtonProps,
+    ButtonTextProps,
     | 'className'
     | 'style'
     | 'density'

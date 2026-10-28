@@ -6,7 +6,7 @@ import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';

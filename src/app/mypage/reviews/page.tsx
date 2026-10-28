@@ -6,7 +6,7 @@ import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';

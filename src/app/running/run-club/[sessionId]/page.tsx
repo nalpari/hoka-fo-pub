@@ -9,7 +9,7 @@ import { type Platform, usePlatform } from '@/context/platform';
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';

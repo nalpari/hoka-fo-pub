@@ -12,7 +12,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { DataTable } from '@/components/common/atoms/DataTable';
 import {
@@ -23,7 +23,6 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { FormField } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Select } from '@/components/common/atoms/Select';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
@@ -1302,9 +1301,9 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
                 <Typography as="h2" variant="body4">
                   배송조회
                 </Typography>
-                <IconButton aria-label="배송조회 닫기" onClick={onClose} size={24}>
+                <Button variant="icon" aria-label="배송조회 닫기" onClick={onClose} size={24}>
                   <Icon name="close" size={16} />
-                </IconButton>
+                </Button>
               </HStack>
               <Box minH="0" flex="1" overflowY="auto" overscrollBehaviorY="contain" px="6" py="8">
                 {content}

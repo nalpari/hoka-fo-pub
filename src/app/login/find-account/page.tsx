@@ -10,7 +10,7 @@ import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 

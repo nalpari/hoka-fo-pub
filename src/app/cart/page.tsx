@@ -9,10 +9,9 @@ import { useShop } from '@/context/ShopShell';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
@@ -376,9 +375,9 @@ function CartItemRow({
           onCheckedChange={onSelect}
           label={null}
         />
-        <IconButton size={18} aria-label={`${product.name} 삭제`} onClick={onRemove}>
+        <Button variant="icon" size={18} aria-label={`${product.name} 삭제`} onClick={onRemove}>
           <Icon fontAwesomeIcon={faXmark} size={14} />
-        </IconButton>
+        </Button>
       </HStack>
       <Stack
         flex="1"

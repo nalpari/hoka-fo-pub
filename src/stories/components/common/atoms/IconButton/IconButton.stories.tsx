@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
+import { Button } from '@/components/common/atoms/Button';
+
 import {
   fontAwesomeNames,
   IconButtonPreview,
@@ -10,9 +11,10 @@ import {
   IconCatalog,
   PropertyComparison,
   svgPaths,
-} from '@/components/common/atoms/IconButton/IconButtonDocs';
+} from '@/stories/components/common/atoms/IconButton/IconButtonDocs';
 
 const defaults = {
+  variant: 'icon',
   iconSource: 'fontAwesome',
   fontAwesomeName: 'faXmark',
   svgPath: 'close.svg',
@@ -22,12 +24,13 @@ const defaults = {
   tone: 'default',
   color: 'currentColor',
   disabled: false,
+  loading: false,
   'aria-label': '닫기',
-} satisfies IconButtonStoryArgs;
+} satisfies IconButtonStoryArgs & { variant: 'icon' };
 
 const meta = {
   title: 'Atoms/IconButton',
-  component: IconButton,
+  component: Button,
   tags: ['autodocs'],
   args: defaults,
   render: (args) => <IconButtonPreview {...args} />,
@@ -83,7 +86,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '아이콘을 children으로 전달하는 버튼입니다. Playground Controls에서 아이콘 종류와 이름을 선택하세요. Font Awesome 직접 입력은 공용 모듈의 export 이름(예: faHeartSolid)을 사용합니다. SVG는 public/images/icon 전체 파일을 제공합니다. 아래 Grid에서 전체 아이콘을 확인하고 속성별 표에서 예시를 비교하며, 미리보기를 클릭하여 사용 코드를 복사할 수 있습니다.\n\n문서 전용 인자는 실제 IconButton props가 아닙니다. 생성된 JSX처럼 Icon을 children에 넣어 사용하세요. SVG는 원본 색상을 유지하며, tone="disabled"와 실제 disabled 동작은 별개입니다.',
+          '아이콘을 children으로 전달하는 버튼입니다. Playground Controls에서 아이콘 종류와 이름을 선택하세요. Font Awesome 직접 입력은 공용 모듈의 export 이름(예: faHeartSolid)을 사용합니다. SVG는 public/images/icon 전체 파일을 제공합니다. 아래 Grid에서 전체 아이콘을 확인하고 속성별 표에서 예시를 비교하며, 미리보기를 클릭하여 사용 코드를 복사할 수 있습니다.\n\n문서 전용 인자는 실제 Button의 아이콘 모드 props가 아닙니다. 생성된 JSX처럼 Icon을 children에 넣어 사용하세요. SVG는 원본 색상을 유지하며, tone="disabled"와 실제 disabled 동작은 별개입니다.',
       },
       source: {
         type: 'dynamic',
@@ -106,6 +109,15 @@ export const Disabled: Story = {
   args: { disabled: true },
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).getByRole('button', { name: '닫기' })).toBeDisabled();
+  },
+};
+
+export const Loading: Story = {
+  args: { loading: true },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: '닫기' });
+    await expect(button).toBeDisabled();
+    await expect(button).toHaveAttribute('aria-busy', 'true');
   },
 };
 

@@ -2,7 +2,7 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { Collapsible } from '@/components/catalog/ProductListingPage';
 

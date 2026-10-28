@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';

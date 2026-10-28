@@ -2,7 +2,7 @@
 import { type ComponentPropsWithoutRef, type ReactNode, type Ref } from 'react';
 import { type Platform } from '@/context/platform';
 
-import { type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
+import { type ButtonIconProps } from '@/components/common/atoms/Button';
 
 import {
   type ProductDetailSpecification,
@@ -411,7 +411,7 @@ declare function ProductDetailContent({
   onAddToCart,
   onOrder,
 }: ProductDetailContentProps): import('react').JSX.Element;
-type ShareButtonProps = Omit<IconButtonProps, 'children'>;
+type ShareButtonProps = Omit<ButtonIconProps, 'children' | 'variant'>;
 /** Reusable share action with a platform-sized icon. */
 declare function ShareButton({
   'aria-label': ariaLabel,

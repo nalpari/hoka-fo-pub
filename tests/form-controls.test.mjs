@@ -208,3 +208,46 @@ for (const tone of ['error', 'success', 'info']) {
     assert.match(html, /class="[^"]+"/);
   });
 }
+
+const { Button: UnifiedButton } = await import('../src/components/common/atoms/Button.tsx');
+
+for (const [size, expected] of [
+  [undefined, '36px'],
+  [24, '24px'],
+  ['1.5rem', '1.5rem'],
+]) {
+  test(`icon button keeps direct children and explicit dimensions: ${expected}`, () => {
+    const html = renderToStaticMarkup(
+      h(
+        UnifiedButton,
+        {
+          variant: 'icon',
+          size,
+          'aria-label': '닫기',
+          type: 'submit',
+          form: 'editor',
+        },
+        h('svg', { 'aria-hidden': true }),
+      ),
+    );
+    assert.match(html, /aria-label="닫기"/);
+    assert.match(html, /type="submit"/);
+    assert.match(html, /form="editor"/);
+    assert.ok(html.includes(`--icon-button-size:${expected}`));
+    assert.match(html, /<button[^>]*><svg/);
+    assert.doesNotMatch(html, /variant="icon"|shape=|tone=|\[object Object\]/);
+  });
+}
+
+test('icon loading disables the control while disabled tone remains presentation only', () => {
+  const loading = renderToStaticMarkup(
+    h(UnifiedButton, { variant: 'icon', loading: true, 'aria-label': '저장' }),
+  );
+  assert.match(loading, /aria-busy="true"/);
+  assert.match(loading, /disabled=""/);
+  const toned = renderToStaticMarkup(
+    h(UnifiedButton, { variant: 'icon', tone: 'disabled', 'aria-label': '삭제' }),
+  );
+  assert.match(toned, /--icon-button-color:var\(--color-black-40\)/);
+  assert.doesNotMatch(toned, /disabled=""/);
+});

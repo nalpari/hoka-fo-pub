@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';

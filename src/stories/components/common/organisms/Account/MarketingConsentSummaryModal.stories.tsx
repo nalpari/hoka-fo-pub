@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { MarketingConsentSummaryModal } from '@/stories/route-previews/signup-informationPreview';
 

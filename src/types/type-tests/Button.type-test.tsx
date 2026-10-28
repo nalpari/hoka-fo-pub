@@ -1,4 +1,4 @@
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
 
 // Compile-only API checks, validated by `npm run typecheck`.
@@ -6,6 +6,9 @@ export function checkButtonSizingTypes() {
   const valid = (
     <>
       <Button />
+      <Button variant="icon" size={24} shape="circle" tone="inverse" aria-label="닫기" />
+      <Button variant="icon" size="1.5rem" disabled aria-label="삭제" />
+      <Button variant="icon" loading aria-label="처리 중" />
       <Button size="tall" />
       <Button variant="primary" size="short" />
       <Button variant="link" size="sm" />
@@ -106,7 +109,19 @@ export function checkButtonSizingTypes() {
   // @ts-expect-error LoadMoreButton preserves the fixed-size constraint.
   const fixedMore = <LoadMoreButton remaining={10} variant="headerSearch" size="tall" />;
 
+  // @ts-expect-error Icon-only shape options do not belong to text variants.
+  const textShape = <Button variant="primary" shape="circle" />;
+
+  // @ts-expect-error Icon mode uses its own geometry instead of fullWidth.
+  const iconFullWidth = <Button variant="icon" fullWidth aria-label="닫기" />;
+
+  // @ts-expect-error Text variants keep tall/short sizing rather than pixel sizes.
+  const textPixels = <Button variant="primary" size={24} />;
+
   return [
+    textShape,
+    iconFullWidth,
+    textPixels,
     valid,
     defaultSmall,
     chipShort,

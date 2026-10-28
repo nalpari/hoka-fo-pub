@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
 
-import { ButtonLink } from '@/components/common/atoms/Button/Button';
+import { ButtonLink } from '@/components/common/atoms/Button';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 

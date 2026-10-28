@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { ButtonLink } from '@/components/common/atoms/Button/Button';
+import { ButtonLink } from '@/components/common/atoms/Button';
 
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 

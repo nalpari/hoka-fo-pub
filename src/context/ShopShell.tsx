@@ -43,9 +43,8 @@ import {
 import { hstack } from 'styled-system/patterns';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -198,7 +197,8 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
           <HeaderAuthLink onNavigate={close} />
         </HStack>
       )}
-      <IconButton
+      <Button
+        variant="icon"
         ref={closeButtonRef}
         size={18}
         className={MenuDrawerHeaderStyles.close}
@@ -206,7 +206,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
         onClick={close}
       >
         <Icon fontAwesomeIcon={faXmark} size="18px" aria-hidden="true" />
-      </IconButton>
+      </Button>
     </HStack>
   );
 }
@@ -547,7 +547,8 @@ type MenuDrawerBackButtonProps = {
 
 function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButtonProps) {
   return (
-    <IconButton
+    <Button
+      variant="icon"
       ref={buttonRef}
       size="auto"
       className={MenuDrawerBackButtonStyles.button}
@@ -563,7 +564,7 @@ function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButton
         />
         <Typography variant="heading5">{label}</Typography>
       </Flex>
-    </IconButton>
+    </Button>
   );
 }
 
@@ -1288,9 +1289,9 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         borderColor={error ? 'red.100' : 'black.100'}
         display={mobile ? 'flex' : 'none'}
       >
-        <IconButton type="submit" aria-label="검색 실행" size="16px">
+        <Button variant="icon" type="submit" aria-label="검색 실행" size="16px">
           <Icon src="/images/header/search.svg" size="16px" mask />
-        </IconButton>
+        </Button>
         <TextInput
           autoFocus
           aria-label="검색어"
@@ -1356,14 +1357,15 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
         <Icon name="timer" size="18px" />
         <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
       </HStack>
-      <IconButton
+      <Button
+        variant="icon"
         aria-label={query + ' 삭제'}
         onClick={() => onRemove(query)}
         size="18px"
         shape="square"
       >
         <Icon fontAwesomeIcon={faXmark} size="14px" />
-      </IconButton>
+      </Button>
     </HStack>
   );
 }
@@ -2340,7 +2342,8 @@ function HeaderSearch({
             },
           })}
         />
-        <IconButton
+        <Button
+          variant="icon"
           size="20px"
           aria-label="검색 실행"
           type="submit"
@@ -2348,15 +2351,15 @@ function HeaderSearch({
           onClick={onSearch}
         >
           <Icon src="/images/header/search.svg" size="16px" mask />
-        </IconButton>
+        </Button>
       </HStack>
     );
   }
 
   return (
-    <IconButton size="32px" onClick={onSearch} aria-label="검색">
+    <Button variant="icon" size="32px" onClick={onSearch} aria-label="검색">
       <Icon src="/images/header/search.svg" size="19px" mask />
-    </IconButton>
+    </Button>
   );
 }
 
@@ -2603,9 +2606,15 @@ function HeaderMenuButton({ onClick }: HeaderMenuButtonProps) {
   if (platform !== 'mobile') return null;
 
   return (
-    <IconButton className={menuButtonStyles} size="32px" onClick={onClick} aria-label="전체 메뉴">
+    <Button
+      variant="icon"
+      className={menuButtonStyles}
+      size="32px"
+      onClick={onClick}
+      aria-label="전체 메뉴"
+    >
       <Icon src="/images/header/m-menu.svg" size="20px" alt="" />
-    </IconButton>
+    </Button>
   );
 }
 

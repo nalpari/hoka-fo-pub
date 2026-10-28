@@ -26,13 +26,12 @@ import { css, cva } from 'styled-system/css';
 import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { token } from 'styled-system/tokens';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -501,13 +500,14 @@ function Tag({ children, onDelete }: TagProps) {
       <Typography variant="body3" tone="primary">
         {children}
       </Typography>
-      <IconButton
+      <Button
+        variant="icon"
         aria-label={`${typeof children === 'string' ? children : '태그'} 삭제`}
         onClick={onDelete}
         size={platform === 'mobile' ? '14px' : '16px'}
       >
         <Icon name="tag-delete" size={platform === 'mobile' ? '14px' : '16px'} />
-      </IconButton>
+      </Button>
     </Flex>
   );
 }
@@ -1464,14 +1464,15 @@ function ProductActivityNavigation({
       >
         <ProductActivityTabs activity={activity} onChange={onActivityChange} />
         {pinned && (
-          <IconButton
+          <Button
+            variant="icon"
             aria-label="상품 필터 열기"
             aria-haspopup="dialog"
             size={36}
             onClick={onOpenFilters}
           >
             <Icon name="filter" />
-          </IconButton>
+          </Button>
         )}
       </HStack>
     </Box>

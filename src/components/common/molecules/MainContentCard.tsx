@@ -4,7 +4,7 @@ import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 
 import { cva } from 'styled-system/css';
 
-import { ButtonLink } from '@/components/common/atoms/Button/Button';
+import { ButtonLink } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';

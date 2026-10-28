@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { FormField } from '@/components/common/atoms/FormField';

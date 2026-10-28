@@ -5,7 +5,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 

@@ -1,7 +1,7 @@
 import { HStack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 
 import { faXmark } from '@/icons/fontAwesome';
 
@@ -17,9 +17,9 @@ export function SearchHeader({ onClose }: SearchHeaderProps) {
       borderBottom="1px solid"
       borderColor="black.20"
     >
-      <IconButton aria-label="검색 닫기" size="24px" onClick={onClose}>
+      <Button variant="icon" aria-label="검색 닫기" size="24px" onClick={onClose}>
         <Icon fontAwesomeIcon={faXmark} size="16px" />
-      </IconButton>
+      </Button>
     </HStack>
   );
 }

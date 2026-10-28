@@ -6,7 +6,7 @@ import type { ReactElement, ReactNode } from 'react';
 
 import { cva } from 'styled-system/css';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 const root = cva({

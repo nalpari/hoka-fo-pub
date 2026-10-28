@@ -34,11 +34,10 @@ import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/j
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Badge } from '@/components/common/atoms/Badge';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Button, type ButtonIconProps, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Icon } from '@/components/common/atoms/Icon';
-import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -639,7 +638,7 @@ function ProductSpecificationHelp({ label, description }: ProductSpecificationHe
         delay={0}
         closeOnClick={false}
         aria-label={`${label} 안내`}
-        render={<IconButton size="16px" color="var(--color-black-60)" />}
+        render={<Button variant="icon" size="16px" color="var(--color-black-60)" />}
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
@@ -1813,7 +1812,7 @@ function ProductDetailContent({
   );
 }
 
-type ShareButtonProps = Omit<IconButtonProps, 'children'>;
+type ShareButtonProps = Omit<ButtonIconProps, 'children' | 'variant'>;
 
 /** Reusable share action with a platform-sized icon. */
 function ShareButton({
@@ -1824,13 +1823,13 @@ function ShareButton({
   const platform = usePlatform();
 
   return (
-    <IconButton {...props} aria-label={ariaLabel} size={size}>
+    <Button variant="icon" {...props} aria-label={ariaLabel} size={size}>
       <Icon
         name="action/fa-arrow-up-from-bracket"
         color="currentColor"
         size={platform === 'mobile' ? '19px' : '24px'}
       />
-    </IconButton>
+    </Button>
   );
 }
 
@@ -2441,13 +2440,14 @@ function ProductSelectedOptions({
               <Stack gap="3" py="4" borderBottom="1px solid var(--color-black-20)">
                 <Flex gap="3" alignItems="center" justifyContent="space-between">
                   <Typography variant="body4">{label}</Typography>
-                  <IconButton
+                  <Button
+                    variant="icon"
                     aria-label={`${label} 삭제`}
                     size="24px"
                     onClick={() => onRemove(index)}
                   >
                     <Icon fontAwesomeIcon={faXmark} size={16} />
-                  </IconButton>
+                  </Button>
                 </Flex>
                 <Flex gap="3" alignItems="center" justifyContent="space-between">
                   <NumberStepper

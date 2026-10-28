@@ -18,7 +18,7 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
 import { contentFrame } from 'styled-system/patterns';
 
-import { ButtonLink } from '@/components/common/atoms/Button/Button';
+import { ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Typography } from '@/components/common/atoms/Typography';
 

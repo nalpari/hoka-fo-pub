@@ -4,9 +4,9 @@ import { HStack } from 'styled-system/jsx';
 
 import {
   Button,
-  type ButtonProps,
   type ButtonSizingProps,
-} from '@/components/common/atoms/Button/Button';
+  type ButtonTextProps,
+} from '@/components/common/atoms/Button';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 type CounterProps =
@@ -19,7 +19,7 @@ type ContentProps = CounterProps & {
   counterProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web'>;
 };
 
-export type LoadMoreButtonProps = Omit<ButtonProps, 'children' | 'variant' | 'size'> &
+export type LoadMoreButtonTextProps = Omit<ButtonTextProps, 'children' | 'variant' | 'size'> &
   ButtonSizingProps &
   ContentProps;
 
@@ -56,7 +56,7 @@ export function LoadMoreButton({
   labelProps,
   counterProps,
   ...props
-}: LoadMoreButtonProps) {
+}: LoadMoreButtonTextProps) {
   const contentProps: ContentProps =
     counter !== undefined
       ? { counter, label, labelProps, counterProps }
