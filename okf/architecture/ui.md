@@ -9,6 +9,9 @@ generated:
   at: '2026-10-28T08:57:37.238Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - next.config.ts
+  - src/components/common/molecules/ProductThumbnail/ProductThumbnail.tsx
+  - src/stories/components/common/organisms/Product/ProductGallery/ProductGallery.stories.tsx
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - src/components/screen-index/screenConnections.ts
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
@@ -3091,3 +3094,9 @@ ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배
 사용자가 대화에 붙여 넣은 퍼블리싱 WBS 표의 앞쪽 계획 시작·종료일과 작업자를 IA에 반영했다. 메인 10/2~5, 로그인 10/6~7, 회원가입 10/8~12, 마이페이지·고객센터 10/15~21, 카테고리·상품 목록·상세 10/7~14, 장바구니·검색 10/22~23, 주문서 10/26~27, 런칭 캘린더 10/28, 기획전 10/29, 이벤트 10/30, About HOKA 11/6~10을 사용한다. 전체메뉴 9/30과 레이아웃 9/21~23은 유지한다.
 
 상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.
+
+## 상품 이미지와 홈 배너 최적화 (2026-10-28)
+
+공통 ProductThumbnail과 ProductGallery, 상품 상세 이미지·확대 뷰어·특징 이미지, 홈 HeroSlide를 next/image로 전환했다. 이미지의 기존 CSS 비율·크롭·호버·확대 동작은 유지하고 sizes를 지정했다. ProductThumbnail의 lazy 옵션과 기본 eager 동작을 유지하며, 상품 상세 첫 이미지와 홈 첫 슬라이드는 eager로 요청한다. 홈 첫 슬라이드에만 fetchPriority=high를 지정한다. 갤러리 Storybook의 임시 문자열은 실제 로컬 이미지 경로로 바꿨다. SVG 아이콘과 업로드 미리보기는 이번 범위에 포함하지 않았다.
+
+외부 상품 이미지는 기존 Deckers CDN 원본 URL을 유지하며 next.config.ts에서 HTTPS dms.deckers.com/hoka/image/upload/**만 허용한다. CDN의 기존 변환 위에서 Next 이미지 최적화를 사용하므로 성능 개선 수치는 별도 측정이 필요하다. 작업 트리에서 lint·타입 검사와 프로덕션 빌드를 확인했고, 브라우저에서 홈 배너·로컬/외부 상품 썸네일·PC 상세 이미지의 최적화 URL 및 로딩을 확인했다. 스크린샷 캡처는 브라우저 도구 시간 초과로 완료하지 못했다.

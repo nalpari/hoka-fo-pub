@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import {
   type FocusEvent,
   type PointerEvent,
@@ -382,6 +384,7 @@ function HeroPagination({
 }
 
 type HeroSlideProps = {
+  first?: boolean;
   desktopImage: string;
   mobileImage: string;
   platform?: Platform;
@@ -389,13 +392,23 @@ type HeroSlideProps = {
 
 const image = css({ w: '100%', h: '100%', objectFit: 'cover' });
 
-/** One responsive, decorative background image in a Hero carousel track. */
-function HeroSlide({ desktopImage, mobileImage, platform = 'web' }: HeroSlideProps) {
+/** 홈 배너 이미지를 화면 크기와 첫 슬라이드의 로딩 우선순위에 맞춰 표시합니다. (Displays a responsive hero image with loading priority for the first slide.) */
+function HeroSlide({ desktopImage, mobileImage, platform = 'web', first = false }: HeroSlideProps) {
   const imageSource = platform === 'mobile' ? mobileImage : desktopImage;
 
   return (
-    <Box flex="0 0 100%" w="100%" h="100%">
-      <img className={image} src={imageSource} alt="" aria-hidden="true" draggable={false} />
+    <Box pos="relative" flex="0 0 100%" w="100%" h="100%">
+      <Image
+        className={image}
+        src={imageSource}
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        fill
+        sizes="100vw"
+        loading={first ? 'eager' : 'lazy'}
+        fetchPriority={first ? 'high' : 'auto'}
+      />
     </Box>
   );
 }
@@ -590,7 +603,12 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           {slides.map((slide, index) => (
-            <HeroSlide {...slide} key={`${slide.desktopImage}-${index}`} platform={platform} />
+            <HeroSlide
+              {...slide}
+              key={`${slide.desktopImage}-${index}`}
+              platform={platform}
+              first={index === 0}
+            />
           ))}
         </Flex>
       </Box>

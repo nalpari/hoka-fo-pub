@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { css, cva } from 'styled-system/css';
@@ -75,6 +76,7 @@ const galleryImage = css({
 
 const thumbnailImage = css({ display: 'block', w: '100%', h: '100%', objectFit: 'contain' });
 
+/** 상품 이미지와 컬러 썸네일 갤러리를 표시합니다. (Displays the product image and color thumbnail gallery.) */
 export function ProductGallery({ images, colorVariants, onOpen }: ProductGalleryProps) {
   return (
     <Box w="100%" minW="0">
@@ -93,7 +95,14 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               onClick={() => onOpen(image)}
               type="button"
             >
-              <img alt={`상품 이미지 ${index + 1}`} className={galleryImage} src={image} />
+              <Image
+                alt={`상품 이미지 ${index + 1}`}
+                className={galleryImage}
+                src={image}
+                fill
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
               <Typography
                 as="small"
                 variant="body5"
@@ -126,7 +135,15 @@ export function ProductGallery({ images, colorVariants, onOpen }: ProductGallery
               title={variant.name}
               href={`/products/${variant.id}`}
             >
-              <img alt="" aria-hidden="true" className={thumbnailImage} src={variant.image} />
+              <Image
+                alt=""
+                aria-hidden="true"
+                className={thumbnailImage}
+                src={variant.image}
+                width={72}
+                height={72}
+                sizes="72px"
+              />
             </Link>
           ))}
         </Flex>

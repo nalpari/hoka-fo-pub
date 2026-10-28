@@ -6,7 +6,7 @@ const meta = {
   title: 'Organisms/Product/ProductGallery',
   component: ProductGallery,
   args: {
-    images: ['PRODUCT IMAGE'],
+    images: ['/images/products/clifton-11-gtx/gallery-1.png'],
     colorVariants: [],
     onOpen: () => undefined,
   },

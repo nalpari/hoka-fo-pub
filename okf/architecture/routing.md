@@ -9,6 +9,9 @@ generated:
   at: '2026-10-28T08:57:37.238Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - next.config.ts
+  - src/app/page.tsx
+  - src/app/products/[id]/page.tsx
   - src/components/screen-index/screenConnections.ts
   - src/app/
   - eslint.config.js
@@ -283,3 +286,7 @@ IA 목록의 원본 IA/출처 열을 화면에서 제거했다. 원본 데이터
 사용자가 대화에 붙여 넣은 퍼블리싱 WBS 표의 앞쪽 계획 시작·종료일과 작업자를 IA에 반영했다. 메인 10/2~5, 로그인 10/6~7, 회원가입 10/8~12, 마이페이지·고객센터 10/15~21, 카테고리·상품 목록·상세 10/7~14, 장바구니·검색 10/22~23, 주문서 10/26~27, 런칭 캘린더 10/28, 기획전 10/29, 이벤트 10/30, About HOKA 11/6~10을 사용한다. 전체메뉴 9/30과 레이아웃 9/21~23은 유지한다.
 
 상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.
+
+## Next 이미지 경로와 로딩 (2026-10-28)
+
+홈과 상품 상세 이미지가 next/image를 통해 /_next/image로 제공된다. next.config.ts의 remotePatterns는 HTTPS dms.deckers.com/hoka/image/upload/**로 제한한다. 외부 이미지 원본의 쿼리는 유지한다. 페이지 URL·라우팅·플랫폼 판별 정책은 변경하지 않았다. 홈 첫 슬라이드는 eager/high, 상품 상세 첫 이미지는 eager, 나머지 상세 이미지는 lazy로 요청한다. 출처는 src/app/page.tsx, src/app/products/[id]/page.tsx와 next.config.ts의 작업 트리다.

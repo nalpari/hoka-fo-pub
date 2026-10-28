@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import type { ReactNode } from 'react';
 
 import { css, cva } from 'styled-system/css';
@@ -49,7 +51,7 @@ export type ProductThumbnailProps = {
 
 export type ProductThumbnailVariant = 'listing' | 'showcase';
 
-/** Product image with optional lazy loading, hover image, and overlay slot. */
+/** 상품 이미지의 반응형 로딩·호버 이미지와 오버레이를 제공합니다. (Provides responsive product image loading, hover images, and overlays.) */
 export function ProductThumbnail({
   alt,
   children,
@@ -60,13 +62,29 @@ export function ProductThumbnail({
   src,
   variant = 'listing',
 }: ProductThumbnailProps) {
+  const sizes =
+    variant === 'showcase'
+      ? '(max-width: 1023px) 160px, 20vw'
+      : '(max-width: 1023px) 50vw, (min-width: 2560px) 20vw, (min-width: 2240px) 25vw, 33vw';
+
   const loading = lazy ? 'lazy' : 'eager';
 
   return (
     <div className={['image', root({ variant }), className].filter(Boolean).join(' ')}>
-      <img alt={alt} className={image} loading={loading} src={src} />
+      <Image
+        alt={alt}
+        className={image}
+        loading={loading}
+        src={src}
+        width={800}
+        height={800}
+        sizes={sizes}
+      />
       {hover && hoverImageSource && (
-        <img
+        <Image
+          width={800}
+          height={800}
+          sizes={sizes}
           alt=""
           aria-hidden="true"
           className={[image, hoverImage].join(' ')}

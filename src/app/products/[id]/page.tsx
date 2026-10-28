@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
@@ -138,13 +139,24 @@ const trigger = css({
 });
 
 type ProductDetailImageProps = {
+  eager?: boolean;
   alt: string;
   src: string;
   onClick?: () => void;
 };
 
-function ProductDetailImage({ alt, src, onClick }: ProductDetailImageProps) {
-  const content = <img alt={alt} className={image} src={src} />;
+function ProductDetailImage({ alt, src, onClick, eager = false }: ProductDetailImageProps) {
+  const content = (
+    <Image
+      alt={alt}
+      className={image}
+      loading={eager ? 'eager' : 'lazy'}
+      src={src}
+      width={1600}
+      height={1600}
+      sizes="(max-width: 1023px) 100vw, 50vw"
+    />
+  );
 
   if (!onClick) return content;
 
@@ -177,7 +189,11 @@ function ProductDetailViewerGallery({ images, productName }: ProductDetailViewer
       >
         {images.map((image, index) => (
           <Box w="100%" key={image}>
-            <ProductDetailImage alt={`${productName} ${index + 1}`} src={image} />
+            <ProductDetailImage
+              eager={index === 0}
+              alt={`${productName} ${index + 1}`}
+              src={image}
+            />
           </Box>
         ))}
       </CarouselViewport>
@@ -282,7 +298,10 @@ function ProductDetailImageViewer({
                   },
                 })}
               >
-                <img
+                <Image
+                  width={88}
+                  height={88}
+                  sizes="88px"
                   alt=""
                   src={images[index]}
                   className={css({ display: 'block', w: '100%', h: 'auto' })}
@@ -308,6 +327,7 @@ function ProductImageGrid({ images, productName, onOpenImage }: ProductImageGrid
     <Grid aria-label="상품 이미지" gap="4" gridTemplateColumns="repeat(2, minmax(0, 1fr))">
       {images.map((image, index) => (
         <ProductDetailImage
+          eager={index === 0}
           alt={`${productName} ${index + 1}`}
           key={image}
           onClick={() => onOpenImage(index)}
@@ -342,7 +362,11 @@ function ProductImageCarousel({ images, productName }: ProductImageCarouselProps
         <CarouselViewport freeMode={false} mobileItemGutter={0} mode="mobile" showScrollbar={false}>
           {images.map((image, index) => (
             <Box w="100%" key={image}>
-              <ProductDetailImage alt={`${productName} ${index + 1}`} src={image} />
+              <ProductDetailImage
+                eager={index === 0}
+                alt={`${productName} ${index + 1}`}
+                src={image}
+              />
             </Box>
           ))}
         </CarouselViewport>
@@ -897,7 +921,8 @@ function ProductDetailEditorial({ features }: { features: readonly ProductEditor
       <Grid gridTemplateColumns="repeat(3, minmax(0, 1fr))" gap="4">
         {features.map((feature) => (
           <Stack as="article" key={feature.title} gap="4">
-            <img
+            <Image
+              sizes="(max-width: 1023px) 33vw, 328px"
               src={feature.image}
               alt={feature.title}
               width={328}

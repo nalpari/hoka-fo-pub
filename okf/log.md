@@ -2,6 +2,9 @@
 
 ## 2026-10-28
 
+- 상품 썸네일·갤러리·상세 및 홈 배너에 next/image와 sizes를 적용하고 Deckers CDN 허용 경로를 설정했다. 첫 화면 로딩 우선순위와 갤러리 샘플 경로를 정리했다. 적용 범위·검증 한계는 [이미지 최적화](architecture/ui.md#상품-이미지와-홈-배너-최적화-2026-10-28)를 참고한다.
+
+
 - 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
 
 - CustomerCenterLayout의 프레임·breadcrumb·탐색을 SidebarNavigationLayout의 support 옵션으로 통합하고 SidebarColumns를 Grid 구성으로 흡수했다. 기존 기본 모드·모바일 여백·고객센터 제목/푸터 API를 보존했다. [범위와 검증](architecture/ui.md#사이드바-탐색-레이아웃-통합-2026-10-28)을 기록한다.
