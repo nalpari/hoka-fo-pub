@@ -14,7 +14,6 @@ import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
@@ -220,18 +219,18 @@ type Props = {
 
 function CouponRegistrationDialog({ open, onOpenChange }: Props) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       closeLabel="쿠폰 등록 결과 닫기"
       open={open}
       onOpenChange={onOpenChange}
       size="sm"
       title="쿠폰등록"
-      onConfirm={() => onOpenChange(false)}
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Typography as="p" variant="body3">
         쿠폰이 등록되었습니다.
       </Typography>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

@@ -7,11 +7,7 @@ import { Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button/Button';
 
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
-import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 
 function FieldExamples({
@@ -34,48 +30,60 @@ function FieldExamples({
   return (
     <form noValidate onSubmit={submit}>
       <Stack gap="4" maxW="500px">
-        <NameField
+        <TextFormField
+          label="이름"
           id="example-name"
           variant="boxed"
           required
           error={submitted && !name ? '이름을 입력해 주세요.' : undefined}
           inputProps={{
+            placeholder: '이름을 입력해 주세요',
             name: 'name',
             value: name,
             onChange: (event) => setName(event.target.value),
           }}
         />
-        <PhoneNumberField
+        <TextFormField
+          label="휴대폰 번호"
           id="example-phone"
           variant="boxed"
           inputProps={{
+            placeholder: '휴대폰 번호를 입력해 주세요',
             name: 'phone',
             type: 'tel',
             value: phone,
             onChange: (event) => setPhone(event.target.value),
           }}
         />
-        <PasswordField
+        <TextFormField
+          label="비밀번호"
           id="example-password"
           variant="boxed"
           inputProps={{
+            placeholder: '비밀번호를 입력해 주세요',
+            type: 'password',
             name: 'password',
             value: password,
             autoComplete: 'new-password',
             onChange: (event) => setPassword(event.target.value),
           }}
         />
-        <VerificationCodeField
+        <TextFormField
+          label="인증번호"
           id="example-code"
           variant="boxed"
           inputProps={{
+            placeholder: '인증번호 6자리를 입력해 주세요',
+            inputMode: 'numeric',
+            autoComplete: 'one-time-code',
+            maxLength: 6,
             name: 'code',
             value: code,
             onChange: (event) => setCode(event.target.value),
           }}
         />
         <VerificationCountdown secondsLeft={180} />
-        <TextareaField
+        <TextFormField
           id="example-body"
           label="문의 내용"
           variant="boxed"

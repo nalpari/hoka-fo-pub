@@ -2,6 +2,16 @@
 
 ## 2026-10-28
 
+- MyPageFrame에 centered 레이아웃과 선택적 breadcrumbs를 추가해 /mypage 홈의 main·breadcrumb 중복을 제거했다. 기존 640px 중앙 정렬·여백·본문과 로그아웃 상태를 보존하고 하위 화면의 sidebar 기본값을 유지했다. [API와 검증](architecture/ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)에 기록한다.
+
+- PageActionButton·AccountFormLayout·Terms·PreferenceField를 부모 옵션으로 통합하고 네 구현 파일을 제거했다. 기존 화면·폼·상호작용을 보존하고 스토리·회귀 fixture·계정 프레임 검사 대상을 전환했다. [API](architecture/ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)와 [실제 검증](development/verification.md#부모-옵션-통합-검증-2026-10-28)을 기록했다.
+
+- 사용자 승인으로 운영 소비처가 없는 StatePanel·ContactCard·PageSection 구현 3개와 전용 스토리 2개를 삭제했다. PageSection은 스토리 사용처도 없었으며 운영 SupportContactCard와 기반 컴포넌트는 유지한다. 잔여 참조·Panda 생성과 격리 복사본의 타입·Storybook 빌드 및 스토리 인덱스를 확인했다. 전체 작업 트리의 동시 변경 오류와 구분한 [범위와 검증](architecture/ui.md#스토리-전용미사용-공통-컴포넌트-제거-2026-10-28)을 참고한다.
+
+- ConfirmDialog·SingleActionDialog를 ModalDialog.actions의 single/confirm 옵션으로 통합하고 두 구현 파일을 제거했다. 기본 크기·취소·버튼 배치·폼 제출 계약을 보존해 운영 소비처를 전환하고 기존 상호작용 스토리를 ModalDialog 폴더로 이동했다. 타입·변경 파일 ESLint·Panda·Next 기본 Turbopack/Storybook 빌드·기존 테스트 72개·모달 스토리 18개와 PC/MO 폼 제출을 확인했다. 기존 비동기 닫힘 단언은 waitFor로 보완했다. 격리 빌드 설정과 보조 webpack 검사 결과를 포함한 검증 범위는 [모달 액션 옵션 통합](architecture/ui.md#modaldialog-액션-옵션-통합-2026-10-28)에 기록한다.
+
+- 공통 molecules·organisms TSX 61개를 확인하고 기본값·props 전달만 하는 래퍼 11개를 제거했다. 운영 14파일과 폼 스토리 1파일을 ContentHeader·TextFormField 직접 사용으로 전환했다. 제목·필드 계약과 기존 라우팅 경계를 유지하며 단일 부모 통합·기타 미사용 구현은 후속 후보로 남겼다. [변경·검증과 기존 play 실패](architecture/ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)를 참고한다.
+
 - FormFields 자동 play 실패 원인을 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락으로 확정했다. userEvent 입력 준비 누락과 React valueTracker의 조기 갱신을 추적했으며 포커스 조건만 바꿔 PC/MO 각각 실패·전체 play 통과를 대조했다. 앱·스토리 코드는 변경하지 않았다. [원인·재현·검증 환경 설정](development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 기록했다.
 
 - 119개 소스의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 정렬했다. AST·주석 비교로 본문·대상·타입·부수 효과 경계 보존을 확인했고 반복 수정의 멱등성, 전체 ESLint·타입·테스트 72개를 통과했다. 화면 판별·UI·상태 동작은 유지한다.

@@ -21,7 +21,6 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 
@@ -429,19 +428,15 @@ export default function Page() {
         { label: '1:1 문의' },
       ]}
       groups={supportNavigation}
-      footer={
-        <Box pb={{ base: '0', _mobile: '16' }}>
-          <PageActionButton
-            href="/support/inquiries/new"
-            variant="primary"
-            size="tall"
-            width="compact"
-            containerProps={{ pt: '6' }}
-          >
-            1:1 문의하기
-          </PageActionButton>
-        </Box>
-      }
+      footerAction={{
+        kind: 'link',
+        label: '1:1 문의하기',
+        href: '/support/inquiries/new',
+        variant: 'primary',
+        size: 'tall',
+        width: 'compact',
+        containerProps: css.raw({ pt: '6', _mobile: { pb: '16' } }),
+      }}
     >
       <Stack gap="0" mt={{ base: '10', _mobile: '4' }}>
         <Divider variant="heading" mo="subtle" />

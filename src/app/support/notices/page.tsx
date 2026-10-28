@@ -10,8 +10,6 @@ import { HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
-
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 
 import { notices } from '@/components/notices/notices.data';
@@ -97,17 +95,17 @@ export default function Page() {
         { label: '공지사항' },
       ]}
       groups={supportNavigation}
-      footer={
-        shown < notices.length ? (
-          <PageActionButton
-            onClick={() => setShown((count) => count + 10)}
-            counter={{ current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) }}
-            width="narrow"
-            containerProps={{ _mobile: { pt: '6' } }}
-          >
-            더보기
-          </PageActionButton>
-        ) : null
+      footerAction={
+        shown < notices.length
+          ? {
+              kind: 'loadMore',
+              label: '더보기',
+              onClick: () => setShown((count) => count + 10),
+              counter: { current: Math.ceil(shown / 10), total: Math.ceil(notices.length / 10) },
+              width: 'narrow',
+              containerProps: css.raw({ _mobile: { pt: '6' } }),
+            }
+          : null
       }
     >
       <Stack gap="0" pt={{ base: '10', _mobile: '6' }}>

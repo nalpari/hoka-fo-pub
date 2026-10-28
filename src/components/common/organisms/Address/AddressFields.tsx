@@ -13,7 +13,7 @@ import {
   type SingleLineFormFieldProps,
   TextFormField,
 } from '@/components/common/molecules/FormFields/TextFormField';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 
@@ -144,7 +144,7 @@ function AddressSearchModal({
   const addressId = `${idPrefix}-address-dialog`;
 
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) setSubmitted(false);
@@ -152,11 +152,14 @@ function AddressSearchModal({
       }}
       title="우편번호 찾기"
       closeLabel="우편번호 찾기 닫기"
-      onConfirm={() => {
-        setSubmitted(true);
-        if (!postalCode.trim() || !address.trim()) return;
-        setSubmitted(false);
-        onOpenChange(false);
+      actions={{
+        kind: 'single',
+        onConfirm: () => {
+          setSubmitted(true);
+          if (!postalCode.trim() || !address.trim()) return;
+          setSubmitted(false);
+          onOpenChange(false);
+        },
       }}
     >
       <Stack>
@@ -192,7 +195,7 @@ function AddressSearchModal({
           }}
         />
       </Stack>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

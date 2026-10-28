@@ -13,7 +13,7 @@ export async function assertAccountFormLayout(
   const heading = canvas.getByRole('heading', { level: 1 });
   const header = heading.parentElement!;
   const content = header.nextElementSibling!;
-  const frame = header.parentElement!;
+  const frame = main.firstElementChild!;
   const mobile = Boolean(main.closest('.platform-mobile'));
   const view = canvasElement.ownerDocument.defaultView!;
 

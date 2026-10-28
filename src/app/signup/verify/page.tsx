@@ -11,7 +11,7 @@ import { Button } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
@@ -60,11 +60,12 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
       <ContentSection
         gap="8"
         header={
-          <AccountFormHeader
+          <ContentHeader
+            titleAs="h1"
+            titleProps={{ web: 'heading7', mo: 'heading5', id: 'verification-title' }}
+            descriptionProps={{ variant: 'body3', tone: 'subtle' }}
             title="본인인증"
-            titleId="verification-title"
             description="HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다"
-            descriptionTone="subtle"
           />
         }
       >

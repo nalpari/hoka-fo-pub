@@ -9,10 +9,9 @@ import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
@@ -38,7 +37,7 @@ type Props = {
 
 function PasswordResetField({ name, label, placeholder, value, error, onChange }: Props) {
   return (
-    <PasswordField
+    <TextFormField
       variant="boxed"
       error={error}
       id={`password-reset-${name}`}
@@ -97,11 +96,13 @@ function PasswordResetContent({
       <ContentSection
         gap={{ base: '10', _mobile: '8' }}
         header={
-          <AccountFormHeader
+          <ContentHeader
+            titleAs="h1"
+            titleProps={{ web: 'heading7', mo: 'heading5', id: 'password-reset-title' }}
+            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
             title="비밀번호 재설정"
-            titleId="password-reset-title"
             description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."
-            spacingCss={css.raw({ gap: '10px' })}
+            css={css.raw({ gap: '10px' })}
           />
         }
       >
@@ -148,13 +149,13 @@ type PasswordResetCompleteModalProps = {
 
 function PasswordResetCompleteModal({ onOpenChange, onConfirm }: PasswordResetCompleteModalProps) {
   return (
-    <SingleActionDialog
-      onConfirm={onConfirm}
+    <ModalDialog
       open
       onOpenChange={onOpenChange}
       title="비밀번호 재설정"
       closeLabel="비밀번호 변경 완료 안내 닫기"
       size="md"
+      actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader
         gap="4"
@@ -164,7 +165,7 @@ function PasswordResetCompleteModal({ onOpenChange, onConfirm }: PasswordResetCo
         description="비밀번호 변경이 완료되었습니다."
         descriptionProps={{ variant: 'body4' }}
       />
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

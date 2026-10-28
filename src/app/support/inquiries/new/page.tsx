@@ -13,13 +13,11 @@ import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
@@ -287,7 +285,7 @@ function InquiryMessageFields({
           placeholder: '제목을 입력해주세요. (50자 이하)',
         }}
       />
-      <TextareaField
+      <TextFormField
         variant="boxed"
         label="문의 내용"
         id="inquiry-body"
@@ -537,28 +535,29 @@ export default function Page() {
         </Stack>
       </form>
       {/* 취소 확인 다이얼로그 (Cancellation confirmation dialog). */}
-      <ConfirmDialog
+      <ModalDialog
         open={cancelOpen}
         onOpenChange={setCancelOpen}
         title="1:1 문의등록"
         closeLabel="문의 취소 안내 닫기"
-        onConfirm={() => router.push('/support/inquiries')}
+        size="sm"
+        actions={{ kind: 'confirm', onConfirm: () => router.push('/support/inquiries') }}
       >
         <Typography as="p" variant="body3">
           문의 작성을 취소하시겠습니까?
         </Typography>
-      </ConfirmDialog>
-      <SingleActionDialog
+      </ModalDialog>
+      <ModalDialog
         open={orderRequiredOpen}
         onOpenChange={setOrderRequiredOpen}
         title="1:1 문의등록"
         closeLabel="주문번호 안내 닫기"
-        onConfirm={() => setOrderRequiredOpen(false)}
+        actions={{ kind: 'single', onConfirm: () => setOrderRequiredOpen(false) }}
       >
         <Typography as="p" variant="body3">
           주문번호를 선택해주세요.
         </Typography>
-      </SingleActionDialog>
+      </ModalDialog>
     </CustomerCenterLayout>
   );
 }

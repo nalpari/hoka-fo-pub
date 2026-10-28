@@ -5,12 +5,12 @@ import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
 import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
-import { HStack } from 'styled-system/jsx';
+import { Box, HStack } from 'styled-system/jsx';
 
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-const group = css({
+const group = css.raw({
   display: 'grid',
   gap: '4',
   '& [role="radio"][aria-invalid="true"]': {
@@ -45,6 +45,8 @@ export type RadioOption<T extends string = string> = {
 };
 
 export type RadioProps<T extends string = string> = {
+  label?: ReactNode;
+  multilineLabel?: boolean;
   ariaLabel: string;
   className?: string;
   disabled?: boolean;
@@ -60,6 +62,8 @@ export type RadioProps<T extends string = string> = {
 
 /** 프로젝트 표준 아이콘으로 제어형 단일 선택 라디오 그룹을 표시합니다. (Displays a controlled single-choice radio group with project-standard icons.) */
 export function Radio<T extends string = string>({
+  label,
+  multilineLabel,
   ariaLabel,
   className,
   disabled = false,
@@ -72,11 +76,16 @@ export function Radio<T extends string = string>({
   selectedOptionClassName,
 }: RadioProps<T>) {
   const field = useFormFieldContext();
-  return (
+  const controls = (
     <BaseRadioGroup
       aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
-      className={[group, className].filter(Boolean).join(' ')}
+      className={[
+        css(group, label !== undefined && { display: 'flex!', gap: '6', flexShrink: '0' }),
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       disabled={disabled}
       name={name}
       onValueChange={(nextValue) => onValueChange(nextValue as T)}
@@ -127,5 +136,20 @@ export function Radio<T extends string = string>({
         );
       })}
     </BaseRadioGroup>
+  );
+  return label === undefined ? (
+    controls
+  ) : (
+    <HStack justify="space-between" gap="3" alignItems="start">
+      <Box flex="1" minW="0">
+        <Typography
+          variant="body4"
+          className={multilineLabel ? css({ whiteSpace: 'pre-line' }) : undefined}
+        >
+          {label}
+        </Typography>
+      </Box>
+      {controls}
+    </HStack>
   );
 }

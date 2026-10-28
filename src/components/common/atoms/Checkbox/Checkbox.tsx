@@ -40,6 +40,19 @@ const controlStyle = css.raw({
 
 const control = css(controlStyle);
 
+const consentRoot = css({ display: 'flex', flexDirection: 'column', gap: '16px', minW: '0' });
+
+const consentCheckbox = css({
+  '&&': { alignItems: 'center', gap: '8px', minW: '0' },
+  '& > span:first-child': { w: '16px', h: '16px', flexShrink: '0' },
+  '& > span:last-child > span *': { color: 'inherit' },
+  '& > span:last-child': {
+    minW: '0',
+    color: 'inherit',
+    '& a': { color: 'inherit', fontWeight: 'medium', textDecoration: 'underline' },
+  },
+});
+
 const iconStyle = css.raw({ display: 'block', w: '100%', h: '100%' });
 
 function getCheckboxIconSource(checked: boolean, disabled: boolean) {
@@ -57,7 +70,7 @@ function getCheckboxIconSource(checked: boolean, disabled: boolean) {
 function renderCheckboxControl(
   props: HTMLAttributes<HTMLSpanElement>,
   { checked, disabled, indeterminate }: BaseCheckbox.Root.State,
-  variant: 'default' | 'filter' = 'default',
+  variant: 'default' | 'filter' | 'consent' = 'default',
 ) {
   return (
     <span {...props}>
@@ -89,7 +102,10 @@ export type SingleCheckboxProps = Omit<
   className?: string;
   label: ReactNode;
   /** Compact filter with state-dependent label color. */
-  variant?: 'default' | 'filter';
+  variant?: 'default' | 'filter' | 'consent';
+  invalid?: boolean;
+  error?: ReactNode;
+  containerClassName?: string;
   /** Consent text may contain links or detail buttons. */
   interactiveLabel?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -107,6 +123,9 @@ export type CheckboxGroupProps<T extends string = string> = {
 
 function SingleCheckbox({
   className,
+  containerClassName,
+  invalid = false,
+  error,
   disabled,
   label: checkboxLabel,
   variant = 'default',
@@ -116,11 +135,15 @@ function SingleCheckbox({
 }: SingleCheckboxProps) {
   const field = useFormFieldContext();
   const labelId = useId();
+  const errorId = useId();
   const controlRef = useRef<HTMLSpanElement>(null);
+  const consent = variant === 'consent';
+  const hasError = invalid || Boolean(error) || (consent && Boolean(field?.invalid));
+  const hasInteractiveLabel = consent || interactiveLabel;
 
-  return (
+  const checkbox = (
     <Flex
-      as={interactiveLabel ? 'div' : 'label'}
+      as={hasInteractiveLabel ? 'div' : 'label'}
       alignItems="center"
       gap="2"
       className={[
@@ -132,6 +155,7 @@ function SingleCheckbox({
             '&[data-disabled]': { color: 'black.40', opacity: '1' },
           },
         ),
+        consent && consentCheckbox,
         className,
       ]
         .filter(Boolean)
@@ -141,11 +165,20 @@ function SingleCheckbox({
     >
       <BaseCheckbox.Root
         {...rootProps}
+        aria-invalid={hasError ? true : rootProps['aria-invalid']}
         aria-describedby={
-          [rootProps['aria-describedby'], field?.describedBy].filter(Boolean).join(' ') || undefined
+          [
+            rootProps['aria-describedby'],
+            field?.describedBy,
+            error ? `${errorId}-error` : undefined,
+          ]
+            .filter(Boolean)
+            .join(' ') || undefined
         }
         ref={controlRef}
-        aria-labelledby={rootProps['aria-labelledby'] ?? (interactiveLabel ? labelId : undefined)}
+        aria-labelledby={
+          rootProps['aria-labelledby'] ?? (hasInteractiveLabel ? labelId : undefined)
+        }
         className={css(
           controlStyle,
           variant === 'filter' && {
@@ -160,17 +193,45 @@ function SingleCheckbox({
       />
       <Typography
         variant="body4"
-        id={interactiveLabel ? labelId : undefined}
+        id={hasInteractiveLabel ? labelId : undefined}
         onClick={(event) => {
-          if (!interactiveLabel || disabled || (event.target as HTMLElement).closest('a, button'))
+          if (
+            !hasInteractiveLabel ||
+            disabled ||
+            (event.target as HTMLElement).closest('a, button')
+          )
             return;
           controlRef.current?.click();
           controlRef.current?.focus();
         }}
       >
-        {checkboxLabel}
+        {consent ? (
+          <Typography variant="body4" tone={hasError ? 'error' : 'inherit'}>
+            {checkboxLabel}
+          </Typography>
+        ) : (
+          checkboxLabel
+        )}
       </Typography>
     </Flex>
+  );
+  if (!consent && !error && !containerClassName) return checkbox;
+  return (
+    <div className={[consentRoot, containerClassName].filter(Boolean).join(' ')}>
+      {checkbox}
+      {error ? (
+        <Typography
+          as="p"
+          variant="body5"
+          tone="error"
+          id={`${errorId}-error`}
+          role="alert"
+          className={css({ m: '0' })}
+        >
+          {error}
+        </Typography>
+      ) : null}
+    </div>
   );
 }
 

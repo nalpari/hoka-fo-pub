@@ -14,8 +14,8 @@ import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
@@ -401,18 +401,18 @@ type RunClubApplicationNoticeProps = { open: boolean; onOpenChange: (open: boole
 
 function RunClubApplicationNotice({ open, onOpenChange }: RunClubApplicationNoticeProps) {
   return (
-    <SingleActionDialog
-      onConfirm={() => onOpenChange(false)}
+    <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       title="세션 신청 안내"
       closeLabel="세션 신청 안내 닫기"
       size="sm"
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Typography as="p" variant="body3" className={RunClubApplicationNoticeStyles.modalText}>
         신청 기능 준비 중입니다.
       </Typography>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

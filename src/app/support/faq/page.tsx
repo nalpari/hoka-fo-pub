@@ -11,7 +11,6 @@ import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
 import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
@@ -213,17 +212,15 @@ function RouteContent() {
         { label: '고객센터', href: '/support' },
         { label: 'FAQs' },
       ]}
-      footer={
-        shown < entries.length && (
-          <PageActionButton
-            onClick={() => setShown((count) => count + 10)}
-            counter={{ current: Math.ceil(shown / 10), total: Math.ceil(entries.length / 10) }}
-            width="narrow"
-            containerProps={{ _mobile: { pt: '6' } }}
-          >
-            더보기
-          </PageActionButton>
-        )
+      footerAction={
+        shown < entries.length && {
+          kind: 'loadMore',
+          label: '더보기',
+          onClick: () => setShown((count) => count + 10),
+          counter: { current: Math.ceil(shown / 10), total: Math.ceil(entries.length / 10) },
+          width: 'narrow',
+          containerProps: css.raw({ _mobile: { pt: '6' } }),
+        }
       }
     >
       <FaqControls

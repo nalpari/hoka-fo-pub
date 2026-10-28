@@ -8,19 +8,15 @@ import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Divider } from '@/components/common/atoms/Divider/Divider';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
-import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
@@ -118,13 +114,14 @@ function ProfilePhoneVerification({
 
   return (
     <Stack gap="6">
-      <PhoneNumberField
+      <TextFormField
         id="profile-phone"
         label="휴대폰 번호"
         required
         variant="boxed"
         error={phoneError || error}
         inputProps={{
+          placeholder: '휴대폰 번호를 입력해 주세요',
           name: 'tel',
           type: 'tel',
           inputMode: 'numeric',
@@ -152,12 +149,17 @@ function ProfilePhoneVerification({
       </Button>
       {requested ? (
         <Stack gap="3">
-          <VerificationCodeField
+          <TextFormField
+            label="인증번호"
             id="profile-verification-code"
             variant="boxed"
             required
             error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : codeError}
             inputProps={{
+              placeholder: '인증번호 6자리를 입력해 주세요',
+              inputMode: 'numeric',
+              autoComplete: 'one-time-code',
+              maxLength: 6,
               ref: codeInput,
               value: code,
               disabled: expired,
@@ -186,22 +188,22 @@ function ProfilePhoneVerification({
         <StatusMessage tone="success">휴대폰 인증이 완료되었습니다.</StatusMessage>
       ) : null}
       {notice ? (
-        <SingleActionDialog
+        <ModalDialog
           open
           size="sm"
           title={notice === 'mismatch' ? '인증번호 불일치' : '인증번호 입력시간 초과'}
           closeLabel="인증번호 안내 닫기"
-          onConfirm={dismissNotice}
           onOpenChange={(open) => {
             if (!open) dismissNotice();
           }}
+          actions={{ kind: 'single', onConfirm: dismissNotice }}
         >
           <Typography as="p" variant="body3">
             {notice === 'mismatch'
               ? '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
               : '인증번호 입력 시간이 초과하였습니다. 인증번호 재전송 후 이용해주세요.'}
           </Typography>
-        </SingleActionDialog>
+        </ModalDialog>
       ) : null}
     </Stack>
   );
@@ -292,7 +294,7 @@ function ProfileEditForm({
             title="마케팅 정보 수신 동의"
             headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading7' } }}
           >
-            <PreferenceField
+            <Radio
               ariaLabel="이메일 수신"
               name="email-preference"
               value={emailPreference}
@@ -303,7 +305,7 @@ function ProfileEditForm({
                 { value: '수신안함', label: '수신안함' },
               ]}
             />
-            <PreferenceField
+            <Radio
               ariaLabel="문자수신(LMS, SMS)"
               name="sms-preference"
               value={smsPreference}
@@ -314,7 +316,7 @@ function ProfileEditForm({
                 { value: '수신안함', label: '수신안함' },
               ]}
             />
-            <PreferenceField
+            <Radio
               ariaLabel="카카오톡 알림톡 수신"
               name="kakao-preference"
               value={kakaoPreference}
@@ -461,7 +463,7 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
   }
 
   return (
-    <SingleActionDialog
+    <ModalDialog
       open
       onOpenChange={(open) => {
         if (!open) onClose();
@@ -469,18 +471,21 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
       size="sm"
-      confirmLabel={step === 'input' ? '비밀번호 설정' : '확인'}
-      onConfirm={step === 'input' ? undefined : confirm}
-      confirmButtonProps={{
-        type: step === 'input' ? 'submit' : 'button',
-        form: step === 'input' ? 'profile-password-form' : undefined,
-        size: 'tall',
+      actions={{
+        kind: 'single',
+        label: step === 'input' ? '비밀번호 설정' : '확인',
+        onConfirm: step === 'input' ? undefined : confirm,
+        buttonProps: {
+          type: step === 'input' ? 'submit' : 'button',
+          form: step === 'input' ? 'profile-password-form' : undefined,
+          size: 'tall',
+        },
       }}
     >
       {step === 'input' ? (
         <form id="profile-password-form" noValidate onSubmit={submit}>
           <Stack gap="4">
-            <PasswordField
+            <TextFormField
               id="profile-new-password"
               label="비밀번호"
               required
@@ -489,18 +494,21 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
               hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
               hintProps={{ variant: 'body4', className: css({ pt: '2' }) }}
               inputProps={{
+                placeholder: '비밀번호를 입력해 주세요',
+                type: 'password',
                 autoComplete: 'new-password',
                 value: password,
                 onChange: (event) => changeField('password', event.target.value),
               }}
             />
-            <PasswordField
+            <TextFormField
               id="profile-password-confirmation"
               label="비밀번호 재입력"
               required
               variant="boxed"
               error={errors.confirmation}
               inputProps={{
+                type: 'password',
                 autoComplete: 'new-password',
                 placeholder: '비밀번호를 다시 입력해 주세요',
                 value: confirmation,
@@ -514,7 +522,7 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
           {step === 'confirm' ? '비밀번호를 변경하시겠습니까?' : '비밀번호가 변경되었습니다.'}
         </Typography>
       )}
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 
@@ -546,7 +554,6 @@ function ProfileEditDialogs({ notice, onDismiss, onConfirm }: ProfileEditDialogs
     onOpenChange: (open: boolean) => {
       if (!open) onDismiss();
     },
-    onConfirm,
     children: (
       <Typography as="p" variant="body3">
         {message}
@@ -554,10 +561,16 @@ function ProfileEditDialogs({ notice, onDismiss, onConfirm }: ProfileEditDialogs
     ),
   };
 
-  return notice === 'cancel' || notice === 'save' ? (
-    <ConfirmDialog {...props} />
-  ) : (
-    <SingleActionDialog {...props} size="sm" />
+  return (
+    <ModalDialog
+      {...props}
+      size="sm"
+      actions={
+        notice === 'cancel' || notice === 'save'
+          ? { kind: 'confirm', onConfirm }
+          : { kind: 'single', onConfirm }
+      }
+    />
   );
 }
 
@@ -593,14 +606,13 @@ type MyPageWithdrawalDialogProps = {
 
 function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: MyPageWithdrawalDialogProps) {
   return (
-    <ConfirmDialog
-      onConfirm={onConfirm}
-      fullWidthActions={false}
+    <ModalDialog
       closeLabel="회원탈퇴 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
       size="sm"
       title="회원탈퇴"
+      actions={{ kind: 'confirm', onConfirm: onConfirm, fullWidth: false }}
     >
       <ContentHeader
         gap="4"
@@ -610,7 +622,7 @@ function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: MyPageWithdra
         description="탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다."
         descriptionProps={{ variant: 'body3' }}
       />
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 

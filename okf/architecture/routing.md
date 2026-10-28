@@ -75,6 +75,18 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 마이페이지 홈 프레임 재사용 (2026-10-28)
+
+/mypage의 RouteContent는 MyPageFrame의 centered 레이아웃으로 main과 Home·마이페이지 breadcrumb를 구성한다. 페이지는 기존 본문과 로그아웃 상태·콜백, RoutePreview의 LogoutDialog 계약을 계속 소유한다. 하위 마이페이지는 기본 sidebar를 사용하고 URL·페이지 export·플랫폼 판별은 바꾸지 않았다. 작업 트리 출처: src/app/mypage/page.tsx, src/components/mypage/MyPageFrame.tsx. [프레임 API와 검증](ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)을 참고한다.
+
+## 부모 옵션을 통한 계정·고객센터 구성 (2026-10-28)
+
+고객센터 4개 페이지의 PageActionButton을 CustomerCenterLayout.footerAction으로, 가입 약관·회원 정보·공용 휴대폰 인증의 AccountFormLayout을 AccountPageLayout으로 전환했다. 가입·회원정보의 Terms/PreferenceField 사용은 Checkbox(consent)/Radio(label)로 바꿨다. 페이지 URL·Next export·서버/클라이언트 지시문·상태·검증·라우팅 소유권은 유지한다. 작업 트리 출처는 src/app/support·src/app/signup·src/app/mypage/profile의 해당 페이지와 PhoneVerificationContent다. [공통 API](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)를 따른다.
+
+## ModalDialog 직접 사용 (2026-10-28)
+
+로그인·계정 찾기·회원가입·마이페이지·장바구니·런클럽·문의 라우트의 ConfirmDialog/SingleActionDialog 사용을 ModalDialog.actions로 전환했다. 기존 확인창의 sm 크기를 명시하고 콜백·취소 이동·폼 id와 submit 연결은 그대로 전달한다. 페이지 URL·기본 export·RoutePreview 계약·서버/클라이언트 지시문·상태 소유권은 유지한다. 공통 API와 검증 범위는 [모달 액션 옵션 통합](ui.md#modaldialog-액션-옵션-통합-2026-10-28)을 따른다. 작업 트리 출처: src/app의 해당 모달 소비처와 src/components/common/molecules/ModalDialog/ModalDialog.tsx.
+
 ## 1:1 문의 주문상품 조회 경로 (2026-10-26)
 
 `/support/inquiries/new/order-products`는 문의 작성 중 별도 페이지로 이동해 주문 기간을 조회하고 주문 및 상품을 선택하는 경로다. 페이지 진입점은 `src/app/support/inquiries/new/order-products/page.tsx`이며 `InquiryOrderLookupPage`가 `CustomerCenterLayout`과 반응형 본문을 구성한다. 선택 중인 주문은 같은 탭의 `sessionStorage` 초안으로 전달하고, 취소 또는 선택 완료 후 문의 작성 경로로 돌아간다. App Router 경로 목록 테스트에 신규 URL을 포함한다. 주문 조회는 현재 화면 확인용 fixture다.
@@ -242,3 +254,7 @@ src/app의 import만 새 그룹 순서로 정렬했다. 라우트의 URL·기본
 ## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
 
 `src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계·User-Agent 기반 플랫폼 판별은 유지한다. 화면 너비 판별로 전환하지 않았다.
+
+## 얇은 헤더·필드 래퍼 직접 사용 (2026-10-28)
+
+계정 찾기·비밀번호 재설정·로그인·가입·가입 정보·본인인증·마이페이지·결제·문의 페이지의 제목 및 입력 컴포넌트를 ContentHeader·TextFormField 직접 사용으로 바꿨다. 이 라우트 소스와 로컬 RegistrationField의 동적 컴포넌트 선택 제거를 검토했으며 URL·Next 지원 export·metadata·서버/클라이언트 지시문·플랫폼 판별·상태와 라우팅 동작에는 변경이 없다. 작업 트리 출처는 `src/app/`의 해당 페이지이고 삭제 전 소스는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`이다. Next 빌드와 기존 라우트 테스트가 통과했으며 7개 화면의 PC/MO 제목·입력 속성 비교 및 계정 찾기·비밀번호 재설정 흐름은 [UI 검증](ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)에 기록했다.

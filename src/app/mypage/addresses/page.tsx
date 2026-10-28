@@ -11,11 +11,9 @@ import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
 import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 
@@ -62,7 +60,7 @@ function AddressEditor({
         }}
       >
         <Stack gap="2">
-          <NameField
+          <TextFormField
             id="address-recipient"
             label="이름"
             required
@@ -88,7 +86,7 @@ function AddressEditor({
               onChange: (event) => update('name', event.target.value),
             }}
           />
-          <PhoneNumberField
+          <TextFormField
             id="address-phone"
             label="휴대폰 번호"
             required
@@ -102,7 +100,7 @@ function AddressEditor({
               onChange: (event) => update('phone', event.target.value),
             }}
           />
-          <PhoneNumberField
+          <TextFormField
             id="address-alternate-phone"
             label="다른 전화번호"
             variant="boxed"
@@ -262,18 +260,18 @@ type Props = {
 
 function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm }: Props) {
   return (
-    <ConfirmDialog
-      onConfirm={onConfirm}
+    <ModalDialog
       closeLabel="배송지 삭제 확인창 닫기"
       open={open}
       onOpenChange={onOpenChange}
       size="sm"
       title="배송지 관리"
+      actions={{ kind: 'confirm', onConfirm: onConfirm }}
     >
       <Typography as="p" variant="body3">
         배송지를 삭제 하시겠습니까?
       </Typography>
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 

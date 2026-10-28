@@ -26,7 +26,6 @@ import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
@@ -536,7 +535,7 @@ function CheckoutDeliveryMessageField({
   onValueChange: (value: string) => void;
 }) {
   return (
-    <TextareaField
+    <TextFormField
       id="delivery-message"
       label="요청사항"
       variant="boxed"

@@ -9,6 +9,7 @@ generated:
   at: '2026-10-26T00:00:00Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/app/mypage/profile/page.tsx
   - src/components/mypage/mypage-profile.types.ts
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
@@ -52,6 +53,18 @@ working_tree_sources:
 ---
 
 # 폼 필드 공통화 전수 조사
+
+## 동의 체크박스·선호 라디오의 기본 옵션 통합 (2026-10-28)
+
+Terms는 Checkbox의 consent variant로, PreferenceField는 Radio의 선택적 label/multilineLabel로 통합하고 두 파일을 삭제했다. Checkbox는 invalid·error·containerClassName을 받아 기존 대화형 레이블·16px 컨트롤·오류 설명과 alert 연결을 보존한다. 외부 className과 label 내부 컨트롤 className의 책임을 구분한다. Radio는 label이 있을 때만 기존 가로 필드 구성을 제공하며 label이 없으면 기존 사용을 유지한다. 값·검증·동의 정책은 부모에 남는다. 기존 필드 컨텍스트와 원래 props의 aria-describedby·aria-invalid를 전달하고 그룹·기존 default/filter 모드는 유지한다. [API와 검증](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)을 따른다.
+
+## 의미별 기본값 래퍼 제거 (2026-10-28)
+
+현재 이름·휴대폰 번호·비밀번호·생년월일·인증번호·여러 줄 입력은 `TextFormField`를 직접 사용한다. `NameField`, `PhoneNumberField`, `PasswordField`, `BirthDateField`, `VerificationCodeField`, `TextareaField`의 소비처와 통합 스토리를 전환하고 6개 파일을 삭제했다. 사용처가 없는 `EmailField`도 사용자 승인에 따라 삭제했다. 기본 레이블·placeholder·password 타입·numeric/one-time-code/6자리 설정은 각 호출부로 옮기고 호출자가 명시한 값은 그대로 우선한다. RegistrationField와 휴대폰 인증의 동적 Field 선택은 호출부가 이미 모든 값을 지정하므로 제거했다.
+
+공통 계약은 기존 `TextFormField`의 id·FormField props·inputProps·renderControl이며 공개 API를 추가하지 않았다. single-line/multiline 타입은 기존 타입 계약을 유지한다. 오류·hint·required·ref·disabled·폼 제출과 부모의 검증·정규화·타이머는 그대로다. `VerificationCountdown`, `CharacterCount`, `PreferenceField`, 주소·이메일 복합 입력은 실제 표시·상호작용 책임이 있어 유지한다.
+
+아래 의미별 필드 도입·재사용 설명은 당시의 이관 이력이며 현재 정책은 이 절이 우선한다. 삭제 전 소스는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`의 `FormFields` 파일이며 기존 메타데이터는 당시 출처로 보존한다. 검증 결과와 기존 자동 play 실패의 재현은 [UI 기록](ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)을 따른다.
 
 ## 회원정보 주소·이메일 입력 재사용 (2026-10-26)
 

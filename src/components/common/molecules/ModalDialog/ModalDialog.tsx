@@ -5,9 +5,10 @@ import { type ComponentProps, type ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
 import { type SystemStyleObject } from 'styled-system/types';
 
-import { Button } from '@/components/common/atoms/Button/Button';
+import { Button, type ButtonProps } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
@@ -189,10 +190,35 @@ export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
 
 export type ModalOverlayTone = 'dark' | 'light';
 
-export type ModalDialogProps = {
+type ModalActionButtonProps = Pick<
+  ButtonProps,
+  'className' | 'disabled' | 'fullWidth' | 'density' | 'type' | 'form'
+> & { size?: 'short' | 'tall' };
+
+export type ModalDialogActions =
+  | {
+      kind: 'single';
+      label?: string;
+      /** Submit buttons use their associated form's handler when this is omitted. */
+      onConfirm?: () => void;
+      buttonProps?: ModalActionButtonProps;
+    }
+  | {
+      kind: 'confirm';
+      onConfirm: () => void;
+      confirmLabel?: string;
+      confirmDisabled?: boolean;
+      cancelLabel?: string;
+      /** Defaults to requesting that the dialog close. */
+      onCancel?: () => void;
+      direction?: 'horizontal' | 'vertical';
+      /** Vertical actions always fill the footer, even when this is false. */
+      fullWidth?: boolean;
+    };
+
+type ModalDialogBaseProps = {
   children: ReactNode;
   closeLabel: string;
-  footer?: ReactNode;
   onOpenChange: (open: boolean) => void;
   open: boolean;
   size?: ModalSize;
@@ -206,11 +232,72 @@ export type ModalDialogProps = {
   title: ReactNode;
 };
 
+export type ModalDialogProps = ModalDialogBaseProps &
+  ({ actions?: undefined; footer?: ReactNode } | { actions: ModalDialogActions; footer?: never });
+
+/** 모달 옵션에 맞는 기본 액션 버튼을 구성합니다. (Composes the modal's standard action buttons from its options.) */
+function ModalDialogActionButtons({
+  actions,
+  onOpenChange,
+}: {
+  actions: ModalDialogActions;
+  onOpenChange: (open: boolean) => void;
+}) {
+  if (actions.kind === 'single') {
+    return (
+      <Button
+        {...actions.buttonProps}
+        size={actions.buttonProps?.size ?? 'short'}
+        fullWidth={actions.buttonProps?.fullWidth ?? true}
+        variant="primary"
+        onClick={actions.onConfirm}
+      >
+        {actions.label ?? '확인'}
+      </Button>
+    );
+  }
+
+  const buttons = (
+    <>
+      <Button
+        fullWidth
+        size="short"
+        variant="secondary"
+        onClick={actions.onCancel ?? (() => onOpenChange(false))}
+      >
+        {actions.cancelLabel ?? '취소'}
+      </Button>
+      <Button
+        fullWidth
+        size="short"
+        variant="primary"
+        disabled={actions.confirmDisabled ?? false}
+        onClick={actions.onConfirm}
+      >
+        {actions.confirmLabel ?? '확인'}
+      </Button>
+    </>
+  );
+
+  return actions.direction === 'vertical' ? (
+    <Stack w="100%" gap="2">
+      {buttons}
+    </Stack>
+  ) : (actions.fullWidth ?? true) ? (
+    <HStack w="100%" gap="2">
+      {buttons}
+    </HStack>
+  ) : (
+    buttons
+  );
+}
+
 /** 포커스와 모바일 표시 방식을 관리하는 공통 모달입니다. (Provides a controlled modal with focus management and mobile presentations.) */
 export function ModalDialog({
   children,
   closeLabel,
   footer,
+  actions,
   onOpenChange,
   open,
   size = 'md',
@@ -223,6 +310,11 @@ export function ModalDialog({
   title,
 }: ModalDialogProps) {
   const platform = usePlatform();
+  const resolvedFooter = actions ? (
+    <ModalDialogActionButtons actions={actions} onOpenChange={onOpenChange} />
+  ) : (
+    footer
+  );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -232,19 +324,24 @@ export function ModalDialog({
           <Dialog.Viewport className={viewport({ mobilePresentation })}>
             <Dialog.Popup
               className={[
-                css(popup.raw({ size, mobilePresentation }), Boolean(footer) && popupWithFooter),
+                css(
+                  popup.raw({ size, mobilePresentation }),
+                  Boolean(resolvedFooter) && popupWithFooter,
+                ),
                 popupClassName,
               ]
                 .filter(Boolean)
                 .join(' ')}
             >
               <ModalDialogHeader {...headerProps} title={title} closeLabel={closeLabel} />
-              <div className={[content, footer && scrollableContent].filter(Boolean).join(' ')}>
+              <div
+                className={[content, resolvedFooter && scrollableContent].filter(Boolean).join(' ')}
+              >
                 {children}
               </div>
-              {footer ? (
+              {resolvedFooter ? (
                 <ModalDialogFooter {...footerProps} scrollFade={scrollFade}>
-                  {footer}
+                  {resolvedFooter}
                 </ModalDialogFooter>
               ) : null}
             </Dialog.Popup>

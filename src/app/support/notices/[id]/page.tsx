@@ -2,11 +2,10 @@
 
 import { useParams } from 'next/navigation';
 
+import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-
-import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 
@@ -30,16 +29,14 @@ export default function Page() {
         { label: '상세' },
       ]}
       groups={supportNavigation}
-      footer={
-        <PageActionButton
-          href="/support/notices"
-          size="tall"
-          width="compact"
-          containerProps={{ pt: '6' }}
-        >
-          목록보기
-        </PageActionButton>
-      }
+      footerAction={{
+        kind: 'link',
+        label: '목록보기',
+        href: '/support/notices',
+        size: 'tall',
+        width: 'compact',
+        containerProps: css.raw({ pt: '6' }),
+      }}
     >
       <Box
         mt="10"

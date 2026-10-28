@@ -14,7 +14,6 @@ import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMes
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
 
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
 
 import { RangeInput } from '@/components/catalog/ProductListingPage';
 import { type AuditStory as Story } from '@/stories/features/forms/form-state-audit/shared';
@@ -39,9 +38,13 @@ function InheritanceExample() {
     <RatingStars key="rating" ariaLabel="별점" value={0} onValueChange={() => {}} />,
     <RangeInput key="range" aria-label="범위" value={10} onValueChange={() => {}} />,
     <NumberStepper key="number" ariaLabel="수량" value={1} onChange={() => {}} />,
-    <Terms key="terms" checked={false} onCheckedChange={() => {}}>
-      동의
-    </Terms>,
+    <Checkbox
+      variant="consent"
+      key="terms"
+      checked={false}
+      onCheckedChange={() => {}}
+      label={<>동의</>}
+    />,
     <SizeSelector
       key="size"
       mode="single"

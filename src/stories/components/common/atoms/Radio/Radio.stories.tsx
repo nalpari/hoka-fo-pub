@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 
 import { Stack } from 'styled-system/jsx';
 
@@ -30,6 +31,36 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => <InteractiveRadio />,
+};
+
+function LabeledRadio() {
+  const [value, setValue] = useState('yes');
+  return (
+    <Radio
+      label={'마케팅 정보\n수신 동의'}
+      multilineLabel
+      ariaLabel="수신 동의"
+      name="preference"
+      value={value}
+      onValueChange={setValue}
+      options={[
+        { value: 'yes', label: '수신' },
+        { value: 'no', label: '수신안함' },
+      ]}
+    />
+  );
+}
+
+export const Labeled: Story = {
+  render: () => <LabeledRadio />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const decline = canvas.getByRole('radio', { name: '수신안함' });
+    await userEvent.click(decline);
+    await expect(decline).toBeChecked();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(canvas.getByRole('radio', { name: /^수신$/ })).toBeChecked();
+  },
 };
 
 export const FigmaStates: Story = {

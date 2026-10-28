@@ -16,9 +16,9 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/Seg
 import { Select } from '@/components/common/atoms/Select/Select';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import {
@@ -52,14 +52,13 @@ function MyPageReviewDialog({
   onSave,
 }: Props) {
   return (
-    <SingleActionDialog
-      confirmLabel="저장"
-      onConfirm={onSave}
+    <ModalDialog
       closeLabel="리뷰 작성창 닫기"
       onOpenChange={onOpenChange}
       open={open}
       size="sm"
       title={title}
+      actions={{ kind: 'single', label: '저장', onConfirm: onSave }}
     >
       <Stack gap="5">
         <Typography as="p" variant="body3">
@@ -71,7 +70,7 @@ function MyPageReviewDialog({
         >
           <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
         </FormField>
-        <TextareaField
+        <TextFormField
           id="review-body"
           error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
           inputProps={{
@@ -88,7 +87,7 @@ function MyPageReviewDialog({
           </Typography>
         ) : null}
       </Stack>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

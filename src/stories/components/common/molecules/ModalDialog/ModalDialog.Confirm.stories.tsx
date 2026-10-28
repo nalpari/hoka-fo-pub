@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import {
+  ModalDialog,
+  type ModalDialogActions,
+} from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -15,9 +18,11 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
   </PlatformProvider>
 );
 
+const confirmActions = { kind: 'confirm', onConfirm: () => {} } satisfies ModalDialogActions;
+
 const meta = {
   title: 'Molecules/ConfirmDialog',
-  component: ConfirmDialog,
+  component: ModalDialog,
   decorators: [withPlatform('web')],
   args: {
     open: true,
@@ -25,9 +30,10 @@ const meta = {
     closeLabel: '확인창 닫기',
     children: <p>선택한 항목을 삭제하시겠습니까?</p>,
     onOpenChange: () => {},
-    onConfirm: () => {},
+    size: 'sm',
+    actions: confirmActions,
   },
-} satisfies Meta<typeof ConfirmDialog>;
+} satisfies Meta<typeof ModalDialog>;
 
 export default meta;
 
@@ -35,9 +41,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Compact: Story = { args: { fullWidthActions: false } };
+export const Compact: Story = { args: { actions: { ...confirmActions, fullWidth: false } } };
 
-export const CustomLabels: Story = { args: { confirmLabel: '삭제', cancelLabel: '돌아가기' } };
+export const CustomLabels: Story = {
+  args: { actions: { ...confirmActions, confirmLabel: '삭제', cancelLabel: '돌아가기' } },
+};
 
 function InteractiveConfirm() {
   const [open, setOpen] = useState(false);
@@ -47,18 +55,22 @@ function InteractiveConfirm() {
     <>
       <Button onClick={() => setOpen(true)}>확인창 열기</Button>
       <output aria-label="실행 횟수">{count}</output>
-      <ConfirmDialog
+      <ModalDialog
+        size="sm"
         open={open}
         onOpenChange={setOpen}
-        onConfirm={() => {
-          setCount((value) => value + 1);
-          setOpen(false);
+        actions={{
+          kind: 'confirm',
+          onConfirm: () => {
+            setCount((value) => value + 1);
+            setOpen(false);
+          },
         }}
         title="삭제 확인"
         closeLabel="확인창 닫기"
       >
         <p>선택한 항목을 삭제하시겠습니까?</p>
-      </ConfirmDialog>
+      </ModalDialog>
     </>
   );
 }
@@ -74,9 +86,10 @@ export const Interactive: Story = {
       within(await body.findByRole('dialog')).getByRole('button', { name: '취소' }),
     );
     await expect(canvas.getByLabelText('실행 횟수')).toHaveTextContent('0');
-    await expect(trigger).toHaveFocus();
+    await waitFor(() => expect(trigger).toHaveFocus());
     await userEvent.click(trigger);
     await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(canvas.getByLabelText('실행 횟수')).toHaveTextContent('0');
     await userEvent.click(trigger);
     await userEvent.click(
@@ -94,7 +107,7 @@ export const Mobile: Story = {
 };
 
 export const DisabledConfirm: Story = {
-  args: { confirmLabel: '변경', confirmDisabled: true },
+  args: { actions: { ...confirmActions, confirmLabel: '변경', confirmDisabled: true } },
   play: async ({ canvasElement }) => {
     const body = within(canvasElement.ownerDocument.body);
     const dialog = within(await body.findByRole('dialog'));
@@ -105,21 +118,26 @@ export const DisabledConfirm: Story = {
 
 export const Vertical: Story = {
   args: {
-    actionDirection: 'vertical',
-    fullWidthActions: false,
-    cancelLabel: '비밀번호 재설정',
-    onCancel: fn(),
-    onConfirm: fn(),
+    actions: {
+      kind: 'confirm',
+      direction: 'vertical',
+      fullWidth: false,
+      cancelLabel: '비밀번호 재설정',
+      onCancel: fn(),
+      onConfirm: fn(),
+    },
     onOpenChange: fn(),
   },
   play: async ({ args, canvasElement }) => {
+    const actions = args.actions;
+    if (actions?.kind !== 'confirm') throw new Error('Expected confirmation actions');
     const body = within(canvasElement.ownerDocument.body);
     const dialog = within(await body.findByRole('dialog'));
     await userEvent.click(dialog.getByRole('button', { name: '비밀번호 재설정' }));
-    await expect(args.onCancel).toHaveBeenCalledTimes(1);
+    await expect(actions.onCancel).toHaveBeenCalledTimes(1);
     await expect(args.onOpenChange).not.toHaveBeenCalled();
     await userEvent.click(dialog.getByRole('button', { name: '확인' }));
-    await expect(args.onConfirm).toHaveBeenCalledTimes(1);
+    await expect(actions.onConfirm).toHaveBeenCalledTimes(1);
   },
 };
 

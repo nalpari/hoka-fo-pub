@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { usePlatform } from '@/context/platform';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 
@@ -14,20 +14,23 @@ export default function Page() {
   const platform = usePlatform();
 
   return (
-    <ConfirmDialog
-      fullWidthActions={false}
-      actionDirection={platform === 'mobile' ? 'vertical' : 'horizontal'}
-      cancelLabel="비밀번호 재설정"
-      onCancel={() => router.push('/login/find-account/password-reset')}
-      onConfirm={() => router.push('/login')}
+    <ModalDialog
       open
       size="md"
       onOpenChange={(open) => !open && router.push('/login/find-account')}
       title={platform === 'mobile' ? 'HOKA Korea 회원 안내' : '아이디 / 비밀번호 찾기'}
       closeLabel="안내 닫기"
       mobilePresentation="fullscreen"
+      actions={{
+        kind: 'confirm',
+        fullWidth: false,
+        direction: platform === 'mobile' ? 'vertical' : 'horizontal',
+        cancelLabel: '비밀번호 재설정',
+        onCancel: () => router.push('/login/find-account/password-reset'),
+        onConfirm: () => router.push('/login'),
+      }}
     >
       <IdConfirmationMessage />
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }

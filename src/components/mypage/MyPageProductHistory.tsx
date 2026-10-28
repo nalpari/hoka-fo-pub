@@ -9,7 +9,7 @@ import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
 
@@ -117,21 +117,20 @@ type MyPageRestockCancelDialogProps = { open: boolean; onClose: () => void; onCo
 
 function MyPageRestockCancelDialog({ open, onClose, onConfirm }: MyPageRestockCancelDialogProps) {
   return (
-    <ConfirmDialog
+    <ModalDialog
       closeLabel="재입고 알림 취소창 닫기"
-      onConfirm={onConfirm}
-      fullWidthActions={false}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) onClose();
       }}
       open={open}
       size="sm"
       title="재입고 알림 취소"
+      actions={{ kind: 'confirm', onConfirm: onConfirm, fullWidth: false }}
     >
       <Typography as="p" variant="body3">
         재입고 알림 신청을 취소하시겠습니까?
       </Typography>
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 

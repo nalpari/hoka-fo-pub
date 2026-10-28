@@ -12,8 +12,8 @@ import { Button } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
@@ -122,9 +122,11 @@ function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
       <ContentSection
         gap="6"
         header={
-          <AccountFormHeader
+          <ContentHeader
+            titleAs="h1"
+            titleProps={{ web: 'heading7', mo: 'heading5', id: 'signup-title' }}
+            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
             title="가입과 동시에 시작되는 혜택!"
-            titleId="signup-title"
             description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
           />
         }
@@ -304,20 +306,20 @@ export default function Page() {
       <SignupLayout step={0} method="local">
         <SignupMethodStep methods={signupMethods} onSelect={startSignup} />
       </SignupLayout>
-      <SingleActionDialog
+      <ModalDialog
         open={selectedMethod !== undefined}
         onOpenChange={(open) => {
           if (!open) setUnavailableMethod(null);
         }}
-        onConfirm={() => setUnavailableMethod(null)}
         title="회원가입 안내"
         closeLabel="회원가입 안내 닫기"
         size="sm"
+        actions={{ kind: 'single', onConfirm: () => setUnavailableMethod(null) }}
       >
         <Typography as="p" variant="body3">
           {selectedMethod?.label.replace('로 가입', '')} 회원가입 기능은 현재 연결되지 않았습니다.
         </Typography>
-      </SingleActionDialog>
+      </ModalDialog>
     </>
   );
 }

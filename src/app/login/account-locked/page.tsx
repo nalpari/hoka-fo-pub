@@ -7,7 +7,7 @@ import { css } from 'styled-system/css';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 const styles = {
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),
@@ -17,13 +17,13 @@ type Props = { onClose: () => void; onConfirm: () => void };
 
 function AccountLockedContent({ onClose, onConfirm }: Props) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open
       onOpenChange={(open) => !open && onClose()}
       title="아이디 / 비밀번호 찾기"
       closeLabel="안내 닫기"
       size="md"
-      onConfirm={onConfirm}
+      actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader
         gap="4"
@@ -40,7 +40,7 @@ function AccountLockedContent({ onClose, onConfirm }: Props) {
         }
         descriptionProps={{ variant: 'body4' }}
       />
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

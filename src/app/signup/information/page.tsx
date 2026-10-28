@@ -9,22 +9,18 @@ import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
 
-import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 import {
@@ -62,19 +58,9 @@ function RegistrationField({
   onChange,
 }: Props) {
   const error = fieldErrors[key] ?? '';
-  const Field =
-    key === 'name'
-      ? NameField
-      : key === 'phone'
-        ? PhoneNumberField
-        : key === 'birthDate'
-          ? BirthDateField
-          : key === 'password' || key === 'confirmation'
-            ? PasswordField
-            : TextFormField;
 
   return (
-    <Field
+    <TextFormField
       variant="boxed"
       id={fieldId}
       disabled={disabled}
@@ -251,7 +237,7 @@ function RegistrationPreferenceRow({
   onValueChange,
 }: RegistrationPreferenceRowProps) {
   return (
-    <PreferenceField
+    <Radio
       label={label}
       ariaLabel={label}
       value={value}
@@ -309,7 +295,7 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
 
 function RegistrationContent(props: RegistrationContentProps) {
   return (
-    <AccountFormLayout
+    <AccountPageLayout
       title={props.stage === 'information' ? '회원 정보' : '부가 정보'}
       actionsSpacing="compact"
       actions={
@@ -365,7 +351,7 @@ function RegistrationContent(props: RegistrationContentProps) {
           {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         </Stack>
       </form>
-    </AccountFormLayout>
+    </AccountPageLayout>
   );
 }
 
@@ -387,13 +373,13 @@ function MarketingConsentSummaryModal({
   onConfirm,
 }: MarketingConsentSummaryModalProps) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
       size="md"
-      onConfirm={onConfirm}
+      actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader
         gap="4"
@@ -403,7 +389,7 @@ function MarketingConsentSummaryModal({
         description={<>{items.map(({ label, value }) => `${label} : ${value}`).join('\n')}</>}
         descriptionProps={{ variant: 'body4', className: summaryStyle }}
       />
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

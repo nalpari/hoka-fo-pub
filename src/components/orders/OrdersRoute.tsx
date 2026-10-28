@@ -31,13 +31,12 @@ import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
 import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator/StepIndicator';
 
 import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
@@ -998,7 +997,7 @@ function ClaimReasonFields({
           ))}
         </Select>
       </FormField>
-      <TextareaField
+      <TextFormField
         id={`${id}-details`}
         label="상세내용 (선택)"
         variant="boxed"
@@ -1264,19 +1263,18 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
 
   if (platform !== 'mobile') {
     return (
-      <SingleActionDialog
+      <ModalDialog
         open
         onOpenChange={(open) => {
           if (!open) onClose();
         }}
         title="배송조회"
         closeLabel="배송조회 닫기"
-        confirmLabel="닫기"
-        onConfirm={onClose}
         size="sm"
+        actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
       >
         {content}
-      </SingleActionDialog>
+      </ModalDialog>
     );
   }
 
@@ -1465,33 +1463,39 @@ function OrdersPage({
           {trackingOrder ? (
             <OrderTrackingDialog order={trackingOrder} onClose={() => setTrackingId(null)} />
           ) : null}
-          <ConfirmDialog
+          <ModalDialog
             open={Boolean(confirm)}
             onOpenChange={(open) => {
               if (!open) setConfirm(null);
             }}
             title={confirm?.kind === 'delete' ? '주문 내역 삭제' : '구매 확정'}
             closeLabel="확인 닫기"
-            onConfirm={() => {
-              if (!confirm) return;
-              setOrders((previous) =>
-                confirm.kind === 'delete'
-                  ? previous.filter((order) => order.id !== confirm.id)
-                  : previous.map((order) =>
-                      order.id === confirm.id ? { ...order, status: 'purchased' } : order,
-                    ),
-              );
-              setConfirm(null);
-              setView('list');
-              setMessage(
-                confirm.kind === 'delete' ? '주문 내역을 삭제했습니다.' : '구매가 확정되었습니다.',
-              );
+            size="sm"
+            actions={{
+              kind: 'confirm',
+              onConfirm: () => {
+                if (!confirm) return;
+                setOrders((previous) =>
+                  confirm.kind === 'delete'
+                    ? previous.filter((order) => order.id !== confirm.id)
+                    : previous.map((order) =>
+                        order.id === confirm.id ? { ...order, status: 'purchased' } : order,
+                      ),
+                );
+                setConfirm(null);
+                setView('list');
+                setMessage(
+                  confirm.kind === 'delete'
+                    ? '주문 내역을 삭제했습니다.'
+                    : '구매가 확정되었습니다.',
+                );
+              },
             }}
           >
             {confirm?.kind === 'delete'
               ? '주문 내역을 삭제하시겠습니까?'
               : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'}
-          </ConfirmDialog>
+          </ModalDialog>
         </>
       }
     />

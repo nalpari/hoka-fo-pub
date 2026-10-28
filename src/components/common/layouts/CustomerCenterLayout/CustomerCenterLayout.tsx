@@ -1,6 +1,12 @@
-import { type ReactNode } from 'react';
+import { type ComponentProps, type ReactNode } from 'react';
 
 import { Box } from 'styled-system/jsx';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import {
+  LoadMoreButton,
+  LoadMoreButtonContent,
+} from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
 
 import {
   Breadcrumb,
@@ -50,11 +56,29 @@ type LayoutProps = {
   activePath: string;
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
-  footer?: ReactNode;
   groups: SideNavigationGroup[];
 };
 
+type FooterActionPresentation = {
+  label: ReactNode;
+  variant?: 'primary' | 'secondary';
+  size?: 'short' | 'tall';
+  width?: 'default' | 'compact' | 'narrow';
+  containerProps?: Pick<ComponentProps<typeof Box>, 'mt' | 'pt' | 'pb' | '_mobile'>;
+};
+
+export type CustomerCenterFooterAction = FooterActionPresentation &
+  (
+    | { kind: 'link'; href: string; counter?: { current: number; total: number } }
+    | { kind: 'loadMore'; onClick?: () => void; counter: { current: number; total: number } }
+    | { kind: 'button'; onClick?: () => void }
+  );
+
 type Props = LayoutProps &
+  (
+    | { footer?: ReactNode; footerAction?: never }
+    | { footer?: never; footerAction: CustomerCenterFooterAction | false | null | undefined }
+  ) &
   (
     | {
         title: string;
@@ -71,9 +95,54 @@ type Props = LayoutProps &
       }
   );
 
+/** 고객센터 하단의 이동·더보기·일반 버튼을 배치합니다. (Arranges a customer-center link, load-more action, or regular button.) */
+function CustomerCenterFooter({ action }: { action: CustomerCenterFooterAction }) {
+  const {
+    label,
+    variant = 'secondary',
+    size = 'short',
+    width = 'default',
+    containerProps,
+  } = action;
+  return (
+    <Box
+      pt="9"
+      w="100%"
+      maxW={width === 'compact' ? '180px' : width === 'narrow' ? '160px' : '500px'}
+      mx="auto"
+      {...containerProps}
+      _mobile={{ maxW: width === 'default' ? '500px' : 'none', ...containerProps?._mobile }}
+    >
+      {action.kind === 'link' ? (
+        <ButtonLink href={action.href} variant={variant} size={size} fullWidth>
+          {action.counter ? (
+            <LoadMoreButtonContent counter={action.counter} label={label} />
+          ) : (
+            label
+          )}
+        </ButtonLink>
+      ) : action.kind === 'loadMore' ? (
+        <LoadMoreButton
+          counter={action.counter}
+          label={label}
+          variant={variant}
+          size={size}
+          fullWidth
+          onClick={action.onClick}
+        />
+      ) : (
+        <Button variant={variant} size={size} fullWidth onClick={action.onClick}>
+          {label}
+        </Button>
+      )}
+    </Box>
+  );
+}
+
 /** 고객센터 탐색과 본문 프레임을 구성합니다 (Displays the customer center layout composition). */
 export function CustomerCenterLayout(props: Props) {
-  const { activePath, breadcrumbItems, children, footer, groups } = props;
+  const { activePath, breadcrumbItems, children, footer, footerAction, groups } = props;
+  const resolvedFooter = footerAction ? <CustomerCenterFooter action={footerAction} /> : footer;
   const header =
     props.header !== undefined ? (
       props.header
@@ -104,7 +173,7 @@ export function CustomerCenterLayout(props: Props) {
           />
         }
       >
-        <ContentSection minW="0" gap="0" footer={footer} header={header}>
+        <ContentSection minW="0" gap="0" footer={resolvedFooter} header={header}>
           {children}
         </ContentSection>
       </SidebarColumns>

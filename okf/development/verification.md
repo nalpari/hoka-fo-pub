@@ -68,6 +68,18 @@ sources:
 
 # 변경 검증
 
+## 부모 옵션 통합 검증 (2026-10-28)
+
+Codex가 CustomerCenterLayout.footerAction·AccountPageLayout 제목/액션·Checkbox.consent·Radio.label을 확인했다. 작업 트리 출처는 네 기반 컴포넌트·전환 소비처·스토리와 tests/form-controls.test.mjs다. 기존 생성·신뢰 메타데이터는 보존한다.
+
+- 타입 검사, 전체 ESLint, Panda 생성, Next·Storybook 빌드와 기존 Node 테스트 72개가 통과했다. 가상 TypeScript fixture로 footer/footerAction 배타성, link.href·loadMore.counter 필수, consent props·Radio 제네릭 계약을 확인했다. fixture는 저장소 파일로 남기지 않았다.
+- form-controls의 Terms fixture를 Checkbox.consent로 전환해 동일한 필드 오류·설명 상속 검사를 유지했다. 계정 레이아웃 도우미는 내부 ContentSection 대신 main의 실제 첫 콘텐츠 프레임을 검사하도록 수정했다. 기존 maxWidth·간격·버튼 폭·폼 연결 기대값은 유지한다.
+- 수정 전 production 응답과 새 production 서버의 7개 화면을 1440px·390px에서 비교해 기록한 제목·체크박스·액션 스타일 14상태가 일치했다. 두 폭의 캡처는 데스크톱 User-Agent였으므로 모바일 플랫폼 검증으로 과장하지 않는다. 별도로 실제 mobile 플랫폼 스토리에서 h1 22px, 계정 간격·액션을 검증하고 mobile User-Agent로 문의 footer의 64px 하단 여백·폭을 확인했다.
+- 동일 CDP 세션에서 포커스 에뮬레이션을 활성화해 15개 스토리를 확인했다. 휴대폰 인증·가입 약관·회원 정보의 WEB/Mobile 기본 스토리 6개, consent 오류·비활성·제어형, Radio 레이블, 고객센터 loadMore·footer 없음·custom footer·모바일·compact 모바일 스토리에서 오류가 없었다. 동의 오류 해제·링크 클릭 유지, 라디오 클릭·방향키, 더보기 콜백까지 play 검사를 수행했다.
+- 실제 공지 더보기를 눌러 목록 증가와 버튼 제거를 확인했고 consent의 aria-describedby→alert 연결·비활성 레이블의 미토글, 라디오 가로 배치·24px 간격·pre-line 줄바꿈을 별도로 확인했다. 폼·정책 로직을 공통 컴포넌트로 옮기지 않았다.
+
+Storybook은 의존성의 module-level directive·번들 경고를 출력했으나 빌드는 성공했다. 임시 검증 서버·브라우저는 종료하고 기존 사용자 서버는 유지한다.
+
 ## Storybook 자동 입력과 브라우저 포커스 (2026-10-28)
 
 Codex가 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play 실패 원인을 Ego 브라우저에서 확정했다. 대상은 래퍼 전환 검증에서 만든 `storybook-static`과 `src/stories/components/common/molecules/FormFields/FormFields.stories.tsx`이며 이번 분석에서 앱·스토리 소스는 수정하지 않았다. 기존 생성·출처·신뢰 메타데이터는 보존한다.

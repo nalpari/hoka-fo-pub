@@ -18,15 +18,14 @@ import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
 import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
 import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
 import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
 
@@ -157,7 +156,7 @@ function CartOptionsDialog({
   const valid = sizes.includes(draft.size) && !soldOut.includes(draft.size);
 
   return (
-    <ConfirmDialog
+    <ModalDialog
       open
       onOpenChange={(open) => {
         if (!open) onClose();
@@ -166,7 +165,6 @@ function CartOptionsDialog({
       closeLabel="옵션 변경 닫기"
       size="sm"
       mobilePresentation="fullscreen"
-      confirmLabel="확인"
       headerProps={{
         css: css.raw({
           _mobile: {
@@ -185,8 +183,12 @@ function CartOptionsDialog({
           },
         }),
       }}
-      confirmDisabled={!valid}
-      onConfirm={() => onSave(draft)}
+      actions={{
+        kind: 'confirm',
+        confirmLabel: '확인',
+        confirmDisabled: !valid,
+        onConfirm: () => onSave(draft),
+      }}
     >
       <CartOptionsContent
         draft={draft}
@@ -211,7 +213,7 @@ function CartOptionsDialog({
         onSizeChange={(size) => setDraft({ ...draft, size })}
         onQuantityChange={(quantity) => setDraft({ ...draft, quantity })}
       />
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 
@@ -223,18 +225,18 @@ type CartLimitDialogProps = {
 /** 구매 수량 제한 안내와 닫기 액션을 표시합니다. (Displays the cart purchase limit notice.) */
 function CartLimitDialog({ open, onOpenChange }: CartLimitDialogProps) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       title="장바구니"
       closeLabel="안내 닫기"
-      onConfirm={() => onOpenChange(false)}
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Stack gap="4">
         <Typography variant="body2">변경할 수 없습니다</Typography>
         <Typography variant="body4">구매 수량이 제한된 상품입니다</Typography>
       </Stack>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

@@ -8,7 +8,7 @@ import { useRoutePreview } from '@/context/RoutePreview';
 import { css } from 'styled-system/css';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';
@@ -26,13 +26,13 @@ type AlreadyRegisteredModalProps = {
 
 function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegisteredModalProps) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open
       onOpenChange={onOpenChange}
       title="회원가입"
       closeLabel="이미 가입한 회원 안내 닫기"
       size="md"
-      onConfirm={onConfirm}
+      actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader
         gap="4"
@@ -43,7 +43,7 @@ function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegisteredMo
         description="입력하신 정보로 이미 가입한 회원이 있습니다. 가입정보가 기억나지 않으시면 ID/비밀번호 찾기 메뉴를 사용하거나 고객센터로 문의해주세요."
         descriptionProps={{ variant: 'body4', className: styles.description }}
       />
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 

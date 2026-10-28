@@ -9,6 +9,11 @@ generated:
   at: '2026-10-23T07:10:36Z'
 source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/app/login/find-account/page.tsx
+  - src/app/login/find-account/password-reset/page.tsx
+  - src/app/signup/page.tsx
+  - src/app/signup/verify/page.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
@@ -102,6 +107,22 @@ working_tree_sources:
 ---
 
 # ContentHeader·ContentSection 적용 후보 전수 조사
+
+## 계정 기본 헤더의 프레임 통합 (2026-10-28)
+
+AccountFormLayout을 제거하고 AccountPageLayout의 선택적 title·description으로 계정 제목을 구성한다. title이 있으면 ContentSection.title/headerProps 기본 API를 사용하며 h1·기존 PC/MO 크기·설명 색상과 40/32px 본문 간격을 유지한다. title이 없는 기존 호출부에는 제목이나 ContentSection을 추가하지 않는다. dialogs 소비처는 기존 outsideContent로 옮겼고 actions/actionsSpacing은 같은 프레임의 액션 Grid에 반영한다. [부모 옵션 통합](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)이 현재 계약이며 아래 AccountFormLayout 관련 설명은 당시 이력이다.
+
+## 미사용 제목 조합 제거 (2026-10-28)
+
+사용자 승인으로 공통 ContactCard(전용 스토리만 사용)와 PageSection(전체 사용처 없음)을 삭제했다. 아래 두 컴포넌트의 전환·유지 후보 판단과 working_tree_sources는 최초 조사 당시 이력이며 현재 적용 대상이 아니다. 운영 고객센터의 SupportContactCard와 ContentSection·ContentHeader는 유지한다. StatePanel을 포함한 삭제 범위와 확인 결과는 [공통 컴포넌트 제거](ui.md#스토리-전용미사용-공통-컴포넌트-제거-2026-10-28)를 따른다.
+
+## 얇은 제목 래퍼 제거 (2026-10-28)
+
+현재 계정 제목은 `ContentHeader`를 직접 사용한다. `AccountFormHeader`의 운영 소비처 5개(계정 찾기·비밀번호 재설정·가입 방식·본인인증 페이지, `AccountFormLayout`)에 h1, PC heading7/MO heading5, 제목 ID, body3 설명과 기본 tertiary/본인인증 subtle 색상, 각 호출부의 간격을 옮겼다. `titleId`는 `titleProps.id`, `descriptionTone`은 `descriptionProps.tone`, `spacingCss`는 `css`로 전달한다. 폼의 `aria-labelledby`와 ContentSection의 기존 header 슬롯·본문 gap은 유지한다.
+
+`AccountFormHeader`를 삭제하고, 운영·스토리 사용처가 없는 `SectionHeading`, `PageHeader`, `AccountSectionHeader`도 사용자 승인에 따라 삭제했다. Typography의 동명 `SectionHeading` 스토리는 독립 예시이므로 유지한다. 새 헤더 API·preset·호환 래퍼는 추가하지 않았다.
+
+아래의 AccountFormHeader 유지 권고와 어댑터 표는 최초 조사 당시 기록이며 이번 직접 사용 결정으로 대체된다. 삭제 전 구현의 출처는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`의 해당 파일이며, 기존 생성·출처 메타데이터는 당시 기록으로 보존한다. 현재 구현과 검증은 [UI 기록](ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)을 따른다.
 
 ## 사이즈 가이드 적용 (2026-10-21)
 

@@ -2,21 +2,17 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
 
-import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 import {
@@ -48,14 +44,14 @@ type Props = { open: boolean; onOpenChange: (open: boolean) => void };
 
 function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
       closeLabel="안내 닫기"
       size="md"
       mobilePresentation="fullscreen"
-      onConfirm={() => onOpenChange(false)}
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Stack gap="4">
         {mvnoCarriers.map((carrier, index) => (
@@ -72,7 +68,7 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
           />
         ))}
       </Stack>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 
@@ -121,14 +117,18 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
   const { agreements, showAgreementErrors = false } = props;
   const agreementRows = verificationTerms.map((term, index) => (
     <HStack key={term} justify="space-between" gap="4" alignItems="center">
-      <Terms
+      <Checkbox
+        variant="consent"
         checked={agreements[index]}
         onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
         required
         invalid={showAgreementErrors && !agreements[index]}
-      >
-        <Typography variant="body4">(필수) {term}</Typography>
-      </Terms>
+        label={
+          <>
+            <Typography variant="body4">(필수) {term}</Typography>
+          </>
+        }
+      />
       <Button
         variant="link"
         size="md"
@@ -159,9 +159,16 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
         titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
         action: (
-          <Terms checked={agreements.every(Boolean)} onCheckedChange={props.onAllAgree}>
-            <Typography variant="body4">모두동의</Typography>
-          </Terms>
+          <Checkbox
+            variant="consent"
+            checked={agreements.every(Boolean)}
+            onCheckedChange={props.onAllAgree}
+            label={
+              <>
+                <Typography variant="body4">모두동의</Typography>
+              </>
+            }
+          />
         ),
       }}
     >
@@ -190,9 +197,8 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
     placeholder: string,
     maxLength?: number,
   ) => {
-    const Field = key === 'name' ? NameField : key === 'phone' ? PhoneNumberField : BirthDateField;
     return (
-      <Field
+      <TextFormField
         variant="boxed"
         id={`phone-${key}`}
         label={label}
@@ -265,7 +271,7 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
   return (
     <>
       <Box mt="2">
-        <VerificationCodeField
+        <TextFormField
           variant="boxed"
           id="phone-code"
           label="인증번호"
@@ -359,11 +365,11 @@ export type {
 /** 휴대폰 인증 입력과 약관·인증번호 영역을 구성합니다 (Displays the phone verification content composition). */
 export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
   return (
-    <AccountFormLayout
+    <AccountPageLayout
       title={props.title ?? '휴대폰 인증'}
       description={props.description}
       contentWidth="500px"
-      dialogs={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
+      outsideContent={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
     >
       <Stack gap="6">
         <PhoneVerificationAgreements
@@ -386,6 +392,6 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           * 인증문의 (주)KCB고객센터 02-708-1000
         </Typography>
       </Box>
-    </AccountFormLayout>
+    </AccountPageLayout>
   );
 }

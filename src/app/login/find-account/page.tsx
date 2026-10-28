@@ -14,12 +14,10 @@ import { Button } from '@/components/common/atoms/Button/Button';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
@@ -47,7 +45,7 @@ function FindAccountIdentityFields({
 }: Props) {
   return (
     <Stack gap="4">
-      <NameField
+      <TextFormField
         variant="boxed"
         id="find-account-name"
         label="이름"
@@ -61,7 +59,7 @@ function FindAccountIdentityFields({
           onChange: (event) => onNameChange(event.target.value),
         }}
       />
-      <PhoneNumberField
+      <TextFormField
         variant="boxed"
         id="find-account-phone"
         label="휴대폰 번호"
@@ -96,7 +94,7 @@ function FindAccountCodeFields({
 }: FindAccountCodeFieldsProps) {
   return (
     <Stack gap="2">
-      <VerificationCodeField
+      <TextFormField
         variant="boxed"
         id="find-account-code"
         label="인증번호"
@@ -177,11 +175,13 @@ function FindAccountContent({
       <ContentSection
         gap={{ base: '10', _mobile: '8' }}
         header={
-          <AccountFormHeader
+          <ContentHeader
+            titleAs="h1"
+            titleProps={{ web: 'heading7', mo: 'heading5', id: 'find-account-title' }}
+            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
             title="아이디 / 비밀번호 찾기"
-            titleId="find-account-title"
             description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
-            spacingCss={css.raw({
+            css={css.raw({
               gap: { base: '10px', _mobile: '3' },
             })}
           />
@@ -243,21 +243,24 @@ function IdConfirmationModal({
   const platform = usePlatform();
 
   return (
-    <ConfirmDialog
-      fullWidthActions={false}
-      actionDirection={platform === 'mobile' ? 'vertical' : 'horizontal'}
-      cancelLabel="비밀번호 재설정"
-      onCancel={onPasswordReset}
-      onConfirm={onConfirm}
+    <ModalDialog
       open
       size="md"
       onOpenChange={onOpenChange}
       title={platform === 'mobile' ? 'HOKA Korea 회원 안내' : '아이디 / 비밀번호 찾기'}
       closeLabel="안내 닫기"
       mobilePresentation="fullscreen"
+      actions={{
+        kind: 'confirm',
+        fullWidth: false,
+        direction: platform === 'mobile' ? 'vertical' : 'horizontal',
+        cancelLabel: '비밀번호 재설정',
+        onCancel: onPasswordReset,
+        onConfirm: onConfirm,
+      }}
     >
       <IdConfirmationMessage userName={userName} />
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 

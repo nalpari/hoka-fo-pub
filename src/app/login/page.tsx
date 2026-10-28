@@ -17,7 +17,6 @@ import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
 
@@ -187,7 +186,7 @@ function LoginForm({
             onChange: (event) => onIdChange(event.target.value),
           }}
         />
-        <PasswordField
+        <TextFormField
           variant="boxed"
           id="login-password"
           label="비밀번호"

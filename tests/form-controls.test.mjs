@@ -96,7 +96,11 @@ const fixtures = [
     { 'aria-label': '범위', value: 10, onValueChange() {} },
   ],
   ['NumberStepper', 'atoms/NumberStepper/NumberStepper', { value: 1, onChange() {} }],
-  ['Terms', 'molecules/Terms/Terms', { checked: false, children: '동의', onCheckedChange() {} }],
+  [
+    'Checkbox',
+    'atoms/Checkbox/Checkbox',
+    { variant: 'consent', checked: false, label: '동의', onCheckedChange() {} },
+  ],
   [
     'SizeSelector',
     'molecules/SizeSelector/SizeSelector',

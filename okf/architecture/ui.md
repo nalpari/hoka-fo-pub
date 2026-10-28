@@ -9,6 +9,8 @@ generated:
   at: '2026-10-28T07:06:58+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
   - src/components/
   - src/stories/
   - src/types/component-contracts/
@@ -708,6 +710,53 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## MyPageFrame 중앙 정렬 레이아웃 (2026-10-28)
+
+MyPageFrame에 layout='sidebar' | 'centered'를 추가하고 breadcrumbs를 선택 속성(기본 빈 배열)으로 바꿨다. 기본 sidebar는 기존 마이페이지 하위 화면의 내비게이션·본문·breadcrumb 배치를 유지한다. centered는 홈에서 사용하던 main의 border-box·100vw·maxW 640px·가운데 정렬·좌우 16px·하단 64px과 breadcrumb 영역의 높이 56px·상단 24px을 그대로 소유한다. 기본 Home·마이페이지 경로는 프레임이 한 번 생성하며 마지막 항목의 링크 생략·aria-current는 기존 Breadcrumb이 처리한다.
+
+src/app/mypage/page.tsx의 RouteContent는 MyPageFrame activePath='/mypage' layout='centered'를 사용한다. 기존 본문 Stack의 pt=6·gap=10, 프로필·주문 목록·메뉴·로그아웃 버튼과 모달 상태는 페이지에 유지하고 main과 breadcrumb 중복만 제거했다. 하위 페이지는 layout을 새로 지정하지 않아도 기존 sidebar 구성을 사용한다. 추가 DOM wrapper나 client 경계는 없다. 작업 트리 출처: src/components/mypage/MyPageFrame.tsx, src/app/mypage/page.tsx 및 기존 MyPage 메인·하위 화면 스토리.
+
+검증(Codex, 2026-10-28): 전체 작업 트리 타입 검사·변경 두 파일 ESLint·Panda 생성과 기존 스테이지+이번 소스 두 파일을 적용한 격리 복사본의 Next 기본 Turbopack·Storybook production build를 통과했다. 반복 ESLint/Prettier에서 소스 바이트 변경이 없었다. 다른 작업의 산출물은 덮어쓰지 않았으며 격리 Next 설정의 root는 외부 의존성 junction 해석만을 위해 지정했다.
+
+Ego 브라우저에서 변경 전후 홈 WEB 1600px·Mobile 375px, 회원등급·회원정보 Mobile 375px 총 4개 스토리의 main·직계 자식·breadcrumb 여백과 배치·링크·현재 항목·sidebar 표시가 일치했다. 홈은 breadcrumb가 한 번만 나오고 Home만 링크이며 마이페이지가 현재 항목이다. 실제 production 앱에서 홈 로그아웃 팝업의 열기·취소·Escape 닫기와 PC 회원등급의 grid/sidebar·Home/마이페이지 링크·현재 회원등급을 확인했다. 로그아웃 확인 후의 계정 상태 변경 로직은 수정하지 않았으며 별도 실행하지 않았다.
+
+## 공통 래퍼 4개를 부모 옵션으로 통합 (2026-10-28)
+
+PageActionButton·AccountFormLayout·Terms·PreferenceField의 운영·스토리 사용처를 기반 컴포넌트로 전환하고 네 구현 파일을 삭제했다. 별도 호환 래퍼나 새 운영 컴포넌트 파일은 만들지 않았다. 작업 트리 출처는 CustomerCenterLayout·AccountPageLayout·Checkbox·Radio와 해당 소비처·스토리이며, 기존 생성·신뢰 메타데이터와 과거 래퍼 도입 기록은 보존한다. 아래 과거의 네 래퍼 유지·사용 설명은 당시 이력이다.
+
+- CustomerCenterLayout.footerAction은 link/loadMore/button 판별 옵션으로 레이블·href/콜백·카운터·크기·폭·간격을 받는다. 기존 footer와 타입으로 동시 사용을 금지한다. 버튼 분기는 같은 파일의 로컬 함수가 담당하며 기본 secondary/short, 500/180/160px 폭·모바일 폭·상단 간격을 유지한다. 문의 화면의 기존 모바일 하단 64px 여백은 동일 버튼 컨테이너의 pb로 이전했다. 중첩 스타일은 호출부 css.raw로 추출한다.
+- AccountPageLayout은 선택적 title·description·actions·actionsSpacing을 받는다. title이 없으면 기존 본문을 직접 렌더링하고, 있으면 ContentSection 기본 헤더 API로 h1·PC28px/MO22px·설명·본문 gap을 보존한다. 액션 Grid의 24/32px 간격·폼 연결과 outsideContent 위치는 유지한다.
+- 단일 Checkbox의 consent variant가 Terms의 16px 컨트롤·대화형 레이블·링크/버튼 클릭 제외·오류 표시를 담당한다. invalid/error/containerClassName을 추가하고 caller/필드/오류의 접근성 연결을 유지한다. Terms.children은 label, 외부 className은 containerClassName으로 옮겼다. default/filter 및 그룹 사용은 유지한다.
+- Radio의 선택적 label/multilineLabel은 기존 좌측 레이블·우측 24px 간격 선택지와 줄바꿈을 제공한다. label이 없으면 기존 DOM을 유지한다. ariaLabel·name·제네릭 값·콜백·키보드 동작과 화면별 yes/no·한국어 값은 바꾸지 않았다.
+
+래퍼 전용 스토리는 Atoms/Checkbox/Consent와 Layouts/CustomerCenterLayout/FooterAction으로 옮기고 기존 상태와 동의 상호작용 검사를 유지했다. Radio의 레이블·키보드 스토리를 추가했다. [필드·폼 검증](../development/verification.md#부모-옵션-통합-검증-2026-10-28)에 실제 결과를 기록했다.
+
+## 스토리 전용·미사용 공통 컴포넌트 제거 (2026-10-28)
+
+사용자 승인에 따라 StatePanel·ContactCard·PageSection 구현 3개와 StatePanel·ContactCard 전용 스토리 2개를 삭제했다. src·테스트·스크립트·Storybook 설정의 이름·경로 참조를 확인했으며 StatePanel과 ContactCard는 각 전용 스토리 외 운영 소비처가 없었고 PageSection은 스토리 소비처도 없었다. 실제 고객센터의 SupportContactCard, 기반 EmptyState·StatusMessage·DescriptionList·ContentHeader·SectionHeader는 삭제 대상이 아니다. Storybook 자동 탐색 설정은 그대로 유지한다.
+
+작업 트리 출처는 삭제한 세 molecule 및 두 전용 스토리 경로다. 기존 working_tree_sources와 과거 조사표는 당시 출처로 보존하며, 위 세 컴포넌트의 유지·후보 판단은 이번 삭제 결정으로 대체한다. 초기 구현은 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`에서 확인할 수 있다.
+
+검증(Codex, 2026-10-28): 삭제 경로와 컴포넌트·타입 이름의 코드 잔여 참조가 없고 Panda 생성·문서 포맷·diff 공백 검사를 통과했다. 실행 당시 전체 작업 트리의 타입·린트·Storybook 검사는 동시 작업 중인 support/inquiries 페이지 구문 및 다른 파일의 import 정렬 오류로 실패했으며 해당 소스를 수정하지 않았다. 기존 스테이지의 소스에 이 삭제 5개만 적용한 저장소 외부 복사본에서 타입 검사·Storybook production build를 통과했다. 빌드 인덱스 774개에서 삭제한 스토리가 없고 기존 ModalDialog 스토리는 유지되는 것을 확인했다. 격리 빌드에 필요한 생성 Panda CSS를 복사한 후 최종 빌드를 수행했다. 운영 사용처가 없어 별도의 UI 동작 변경·브라우저 흐름 검증은 하지 않았다. 기존 스테이지는 수정하지 않았으며 이번 삭제·문서 갱신은 작업 트리에 남겼다. 빈 디렉터리 삭제 명령은 자동 승인 검토에서 정책상 차단돼 실행하지 않았다.
+
+## ModalDialog 액션 옵션 통합 (2026-10-28)
+
+`ConfirmDialog`·`SingleActionDialog`의 버튼 구성을 `ModalDialog.actions`로 통합하고 두 구현 파일을 제거했다. 운영 소비처는 `ModalDialog`를 직접 import한다. `actions.kind: 'single'`은 label·onConfirm·buttonProps를, `'confirm'`은 onConfirm·confirmLabel·confirmDisabled·cancelLabel·onCancel·direction·fullWidth를 받는다. `actions`를 생략하면 기존 제목·본문 모달 또는 커스텀 footer를 사용하며, actions와 footer는 타입으로 동시 사용을 금지한다. 확인 콜백은 single에서는 선택이며 confirm에서는 필수다.
+
+단일 버튼은 기존 short/fullWidth 기본값과 명시적 false, disabled·density·className·type·form·tall 설정을 보존한다. 취소·확인 구성은 기본 취소 시 onOpenChange(false), 사용자 onCancel 우선, 확인 비활성화와 horizontal/vertical·fullWidth 배치를 유지한다. vertical은 fullWidth=false여도 기존처럼 전체 폭 Stack을 사용한다. ConfirmDialog의 기본 sm은 각 소비처에서 명시하고 ModalDialog 자체 기본 md는 유지한다. 공통 헤더·포털·포커스·Escape·스크롤·고정 footer·fade·모바일 표시 방식은 바꾸지 않았다.
+
+기존 모달 스토리 두 파일을 ModalDialog 폴더로 옮겨 실제 ModalDialog API를 검증하도록 전환했다. 기존 Storybook 제목·export·중요 상태와 상호작용 검사는 유지했다. 이전 절의 두 래퍼 API 설명과 작업 트리 출처는 당시 이력이며 현재 계약은 이 절을 따른다. 이번 작업 트리 출처는 ModalDialog 구현, 해당 스토리와 직접 사용으로 전환한 src/app 및 도메인 UI이며, 삭제 전 구현은 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`의 두 래퍼다.
+
+검증(Codex, 2026-10-28): 타입 검사·변경 파일 ESLint·Panda 생성·저장소 외부 출력 경로의 Storybook production build와 기존 Node 테스트 72개를 통과했다. 임시 타입 fixture로 footer/actions 배타성, confirm 콜백 필수, single의 form 연결과 잘못된 취소 옵션 거부를 확인했다. 변경 파일의 ESLint/Prettier 두 번째 수정에서 바이트 변경이 없었고 삭제 경로의 src 참조도 남지 않았다.
+
+Ego 브라우저에서 PC 1440px·모바일 375px의 기본/compact/vertical/단일/content-width 조합 총 7상태를 이전 정적 빌드와 비교해 모달·footer·버튼의 크기·간격·배치 일치를 확인했다. 전환한 스토리 18개와 기존 play가 모두 통과했다. 취소와 Escape, 포커스 복귀, 확인 콜백·disabled, 사용자 onCancel 우선, 단일 확인의 자동 닫힘 없음, 연결된 form의 클릭·Enter 제출(PC/MO)을 검증했다. actions 없는 모달의 Escape 닫기와 커스텀 footer·본문 스크롤·fade도 직접 확인했다.
+
+처음에는 상호작용 스토리 4개가 비동기 닫힘 완료 전에 포커스·DOM을 검사해 실패했고 이전 빌드에서도 동일하게 재현됐다. 해당 두 스토리 파일에 waitFor를 추가해 기존 단언을 유지하면서 닫힘·포커스 복귀 완료를 기다리도록 수정했으며, 위의 18개 통과 기록은 이 보완 후 결과다. 기본 ModalDialog의 다른 스토리 전체를 전수 play 검사한 것으로 해석하지 않는다.
+
+Next 기본 Turbopack production build도 저장소 외부의 소스 복사본에서 통과했다. 다른 작업의 .next를 변경하지 않기 위해 의존성 junction을 사용했고, 임시 복사본의 turbopack.root를 복사본·의존성의 공통 상위 경로로 지정했다. 초기 격리 경로 설정에서는 junction 범위 오류가 났으며 이를 조정한 뒤 빌드·타입 검사·페이지 생성을 완료했다. 별도로 시도한 webpack 빌드는 이번에 수정하지 않은 products·running/run-club·mypage/event-entries 라우트의 추가 props 타입 검사에서 실패했으므로 webpack 통과를 주장하지 않는다. 문서 frontmatter 파싱·포맷과 diff 공백 검사, 이번 소스 범위의 OKF 매핑도 확인했다.
+
+현재 얇은 제목·필드 래퍼 제거와 검증은 [직접 사용 전환](#얇은-래퍼-직접-사용-전환-2026-10-28)에 기록한다. 과거의 해당 래퍼 도입·유지 설명은 당시 이력이다.
 
 ## 주문 목록 구성요소 주석 (2026-10-28)
 
@@ -2952,3 +3001,34 @@ Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 �
 ## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
 
 공통 UI·도메인 구성·Storybook·타입 선언에서 공용 훅·컨텍스트 import를 외부 패키지 바로 다음으로 옮겼다. JSX·Panda 스타일·스토리 시나리오와 export를 유지한다. 119개 파일의 TypeScript AST·주석 비교로 본문·import 대상·타입 표기·부수 효과 경계 보존을 확인했다. `npm run lint:fix` 두 번째 실행에서 파일 바이트 변경이 없었으며 전체 ESLint·타입 검사·테스트 72개를 통과했다. import 순서만 바꾼 이번 작업에서 브라우저·Next/Storybook 빌드는 다시 실행하지 않았다.
+
+## 얇은 래퍼 직접 사용 전환 (2026-10-28)
+
+Codex가 공통 molecules·organisms TSX 61개를 조사하고 사용자 승인 범위의 11파일을 제거했다. 이번 삭제만 반영하면 이 두 계층의 TSX는 50개다. 삭제 전 출처는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`이며 변경 후 출처는 아래 운영 파일·스토리의 작업 트리다. 문서의 기존 generated·source_revision·working_tree_sources는 과거 작성 이력으로 보존한다.
+
+- `AccountFormHeader` 사용처 5개를 `ContentHeader` 직접 사용으로 전환했다. h1·PC heading7/MO heading5·제목 ID·body3 설명·tertiary/subtle·간격을 그대로 옮겼다. ContentSection의 기존 header 슬롯·본문 gap과 폼 제목 연결도 유지한다.
+- `NameField`, `PhoneNumberField`, `PasswordField`, `BirthDateField`, `VerificationCodeField`, `TextareaField`의 소비처를 `TextFormField`로 전환했다. 기본 레이블·placeholder·password 타입·인증번호 numeric/one-time-code/maxLength=6을 호출부에 명시하고 기존 재정의를 보존했다. 가입 정보·휴대폰 인증의 동적 Field 선택은 이미 모든 값이 지정되어 있어 제거했다.
+- 운영·스토리 사용처가 없는 `SectionHeading`, `PageHeader`, `AccountSectionHeader`, `EmailField`도 승인에 따라 삭제했다. Typography의 동명 SectionHeading 스토리는 유지한다. 새 preset·공개 API·호환 래퍼는 없다.
+- 운영 14파일(계정·가입·마이페이지·결제·문의 페이지, AccountFormLayout, OrdersRoute, PhoneVerificationContent)과 `src/stories/components/common/molecules/FormFields/FormFields.stories.tsx`를 변경했다. 스토리 제목·play 검증 항목은 유지한다. [헤더 계약](content-sections.md#얇은-제목-래퍼-제거-2026-10-28)과 [필드 계약](form-fields.md#의미별-기본값-래퍼-제거-2026-10-28)에 상세를 기록했다.
+
+### 유지 대상과 후속 후보
+
+`SingleActionDialog`는 확인 버튼·폼 제출과 푸터 계약, `VerificationCountdown`은 시간 표시, `AccountDataList`는 행 변환·빈 상태 조합을 소유하므로 이번 작업에서는 유지 대상으로 판단했다. 같은 파일 안의 작은 함수는 제거해도 파일 수가 줄지 않으므로 이번 범위에 넣지 않았다.
+
+TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가고 운영 사용처를 재검토했다. 스토리·테스트·타입 전용 참조를 제외한 현재 50개 파일에는 단일 운영 부모 파일 후보가 남지 않았다. Carousel의 재수출 경유 소비처도 여러 부모로 계산하며, 재수출 파일 하나만 보고 단일 부모로 분류하지 않는다. common 범위의 동적 import도 검색했다. 전체 도메인·라우트의 재귀 통합은 이번 조사 범위가 아니다.
+
+| 후속 검토 대상                                                                                          | 관찰과 이번 처리                                                                                                    |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| CompareBar, PersonalizationCard, MemberHero, QuickLinkGrid, SearchCategorySelect, SearchCollectionLinks | 운영·스토리 사용처를 찾지 못한 6개 파일. 별도 정리 후보로 유지한다.                                                 |
+| ProductGallery                                                                                          | 운영 사용처 없이 Storybook에서 사용하는 구현으로 유지한다.                                                          |
+| ContactCard, StatePanel, PageSection                                                                    | 후속 사용자 승인으로 구현 3개와 전용 스토리 2개를 삭제했다. 위 스토리 전용·미사용 공통 컴포넌트 제거 기록을 따른다. |
+
+### 실제 검증
+
+검증 결과는 이번 제목·필드 래퍼 전환 기준이다. 검증 후 별도로 진행된 ModalDialog API 변경과 SingleActionDialog·ConfirmDialog 제거는 감지했으나 이 작업에서 편집·되돌리지 않았다. 그 동시 변경에 대한 검증 결과를 이 절의 통과 기록으로 해석하지 않는다.
+
+- 타입 검사, 전체 ESLint, Panda 생성, Next·Storybook 빌드, 기존 Node 테스트 72개가 통과했다. Storybook은 의존성의 module-level directive 및 번들 경고를 출력했으나 빌드는 성공했다. 삭제 경로의 src import·타입·재수출 잔여 참조는 없고 동명 Typography 스토리는 남아 있다.
+- Ego 브라우저에서 1440px·390px 각각 계정 찾기·비밀번호 재설정·가입 방식·본인인증·휴대폰 인증·가입 정보·로그인 총 14상태를 변경 전후 비교했다. 제목 태그·ID·텍스트·계산된 글꼴·설명 색상·gap·크기와 폼 aria-labelledby, 입력 type·placeholder·inputMode·autocomplete·maxLength·disabled·required가 모두 일치했다. Panda 재생성 후에도 동일한 계산 스타일이 적용되었다.
+- 계정 찾기의 빈 값 오류·이름/전화 입력·인증번호 요청과 코드 속성, 비밀번호 재설정의 마스킹·보기 전환·확인값 입력·Enter 제출·완료 모달을 확인했다.
+- 변경된 통합 폼 스토리를 1440px·390px에서 직접 조작해 필수 오류와 해제, 비밀번호 보기, 인증번호 7자리 타이핑 시 6자리 제한, textarea 카운터와 제출된 FormData 다섯 값을 확인했다. 만료 상태 스토리의 자동 play와 붉은 오류 안내도 통과했다. 일부 화면 캡처는 CDP 시간 초과로 확보하지 못했으며 픽셀 비교를 수행했다고 주장하지 않는다.
+- 최초 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play는 이름 입력 직후 `aria-invalid` 해제 검사에서 실패했다. 원래 HEAD의 스토리와 래퍼 5개를 복원한 별도 빌드에서도 동일하게 재현했다. 후속 분석에서 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락을 확인했다. 브라우저 포커스 에뮬레이션을 켜면 소스 변경 없이 전체 자동 play가 통과한다. [원인과 대조 실험](../development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 참고한다.

@@ -9,6 +9,7 @@ generated:
   at: '2026-10-20T04:11:05Z'
 source_revision: 2f6a7c12d24e2539f87f573211feecb58b104a97
 working_tree_sources:
+  - src/components/common/molecules/ModalDialog/ModalDialog.tsx
   - src/components/common/layouts/ContentSection/ContentSection.tsx
   - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
   - src/app/mypage/coupons/page.tsx
@@ -45,6 +46,14 @@ sources:
 ---
 
 # ContentSection footer 하단 액션 적용 조사
+
+## 고객센터·계정 프레임의 기본 액션 (2026-10-28)
+
+CustomerCenterLayout은 커스텀 footer와 배타적인 footerAction 옵션을 제공한다. link는 href, loadMore는 current/total 카운터, button은 일반 클릭 동작을 표현하며 레이블·폭·크기·간격을 보존한다. 기존 4개 PageActionButton 소비처를 전환하고 구현을 삭제했다. 문의 footer의 별도 모바일 64px 여백은 버튼 컨테이너로 옮겼고 css.raw로 추출한다. AccountFormLayout의 액션은 AccountPageLayout.actions/actionsSpacing으로 이동했으며 액션 순서·Grid·24/32px 간격·form 속성을 보존한다. 해당 레이아웃은 내부적으로 기존 ContentSection.footer와 계정 액션 Grid를 사용한다. [API와 검증](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)을 참고한다.
+
+## 모달 기본 액션 통합 (2026-10-28)
+
+기본 확인·취소/확인 모달은 현재 `ModalDialog.actions`의 single/confirm 구성을 사용한다. 별도 ConfirmDialog·SingleActionDialog 구현은 제거했으며 아래 표의 두 이름은 조사 당시 이력이다. 모달 액션은 계속 ModalDialog의 고정 footer·스크롤·포커스 계약 안에 두고 ContentSection.footer로 옮기지 않는다. 커스텀 액션은 기존 ModalDialog.footer를 사용하며 actions와 동시 지정하지 않는다. 현재 API·이관·검증은 [모달 액션 옵션 통합](ui.md#modaldialog-액션-옵션-통합-2026-10-28)을 따른다.
 
 2026-10-20 Codex가 src/shared 458개·src/app 54개, 총 512개 TSX를 조사했다. Button뿐 아니라 ButtonLink·PageActionButton·버튼 어댑터·native button·footer/actions/action 슬롯과 소비처를 확인했다. Storybook fixture는 운영 후보에 포함하지 않았다. 개발 화면·타입 fixture를 제외한 구현에는 Button 작성 위치 95곳/67파일, ButtonLink 23곳/19파일, PageActionButton 4곳/4파일, native button 17곳/15파일이 있다. 이는 래퍼 구현을 포함한 정적 JSX 작성 위치이며 화면 수·하단 버튼 수가 아니고, 파일 수도 서로 중복된다. 개발 화면·Docs·타입 fixture에는 Button 20곳·ButtonLink 10곳·native button 13곳이 별도로 있다.
 

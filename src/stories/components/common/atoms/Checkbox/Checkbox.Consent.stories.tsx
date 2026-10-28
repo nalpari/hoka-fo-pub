@@ -2,16 +2,21 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Terms } from '@/components/common/molecules/Terms/Terms';
+import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox/Checkbox';
+
+function ConsentCheckbox(props: SingleCheckboxProps) {
+  return <Checkbox {...props} />;
+}
 
 const meta = {
-  title: 'Molecules/Terms',
-  component: Terms,
+  title: 'Atoms/Checkbox/Consent',
+  component: ConsentCheckbox,
   tags: ['autodocs'],
   args: {
+    variant: 'consent',
     checked: false,
     onCheckedChange: () => {},
-    children: (
+    label: (
       <>
         이용 약관 및 <a href="#privacy">개인정보 보호정책</a>에 동의합니다.
       </>
@@ -24,7 +29,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Terms>;
+} satisfies Meta<SingleCheckboxProps>;
 
 export default meta;
 
@@ -46,14 +51,18 @@ function ControlledTerms() {
 
   return (
     <>
-      <Terms
+      <Checkbox
+        variant="consent"
         checked={checked}
         onCheckedChange={setChecked}
         required
         error={submitted && !checked ? '필수 약관에 동의해 주세요.' : undefined}
-      >
-        필수 약관 동의 <a href="#terms">이용 약관</a>
-      </Terms>
+        label={
+          <>
+            필수 약관 동의 <a href="#terms">이용 약관</a>
+          </>
+        }
+      />
       <button type="button" onClick={() => setSubmitted(true)}>
         확인
       </button>

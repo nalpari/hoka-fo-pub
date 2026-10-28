@@ -15,13 +15,12 @@ import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { Breadcrumb } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
@@ -31,6 +30,7 @@ import {
   type MyPageOrderItem,
   orderItems,
 } from '@/components/mypage/mypage-home-data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 type LogoutDialogProps = {
   open: boolean;
@@ -40,18 +40,18 @@ type LogoutDialogProps = {
 
 function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
   return (
-    <ConfirmDialog
-      onConfirm={onConfirm}
+    <ModalDialog
       closeLabel="로그아웃 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
       size="sm"
       title="로그아웃"
+      actions={{ kind: 'confirm', onConfirm: onConfirm }}
     >
       <Typography as="p" variant="body3">
         로그아웃 하시겠습니까??
       </Typography>
-    </ConfirmDialog>
+    </ModalDialog>
   );
 }
 
@@ -291,10 +291,7 @@ function RouteContent() {
 
   return (
     <>
-      <Box as="main" boxSizing="border-box" w="100vw" maxW="640px" mx="auto" px="4" pb="16">
-        <Box boxSizing="border-box" h="14" pt="6">
-          <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: '마이페이지' }]} />
-        </Box>
+      <MyPageFrame activePath="/mypage" layout="centered">
         <Stack pt="6" gap="10">
           <MyPageOverviewProfile />
           <MyPageRecentOrders />
@@ -311,7 +308,7 @@ function RouteContent() {
             로그아웃
           </Button>
         </Stack>
-      </Box>
+      </MyPageFrame>
       <LogoutDialog
         open={logoutOpen}
         onOpenChange={setLogoutOpen}

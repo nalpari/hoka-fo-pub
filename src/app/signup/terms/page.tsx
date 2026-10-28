@@ -9,16 +9,16 @@ import { css } from 'styled-system/css';
 import { Box, HStack, Stack, styled } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
 import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 
-import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
@@ -42,23 +42,34 @@ type SignupTermsAgreementListProps = {
 function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
   return (
     <Stack gap="4">
-      <Terms checked={props.agreements.every(Boolean)} onCheckedChange={props.onAllChange}>
-        <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
-      </Terms>
+      <Checkbox
+        variant="consent"
+        checked={props.agreements.every(Boolean)}
+        onCheckedChange={props.onAllChange}
+        label={
+          <>
+            <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
+          </>
+        }
+      />
       <Divider variant="strong" w="full" />
       <Stack gap="4" pb="6" borderBottom="1px solid var(--color-black-20)">
         {signupTerms.map((term, index) => (
           <HStack key={index} gap="2" justify="space-between" alignItems="center">
-            <Terms
+            <Checkbox
+              variant="consent"
               checked={props.agreements[index]}
               onCheckedChange={(checked) => props.onChange(index, checked)}
               required={term.required}
               invalid={Boolean(props.notice && term.required && !props.agreements[index])}
-            >
-              <Typography variant="body4">
-                ({term.required ? '필수' : '선택'}) {term.label}
-              </Typography>
-            </Terms>
+              label={
+                <>
+                  <Typography variant="body4">
+                    ({term.required ? '필수' : '선택'}) {term.label}
+                  </Typography>
+                </>
+              }
+            />
             <Button
               variant="link"
               size="md"
@@ -97,14 +108,14 @@ function TermsDialog({
   version,
 }: TermsDialogProps) {
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       title={title}
       closeLabel="약관 닫기"
       mobilePresentation="fullscreen"
       scrollFade
-      onConfirm={() => onOpenChange(false)}
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Stack gap="0" minH="0" flex="1" pb="20">
         <HStack justify="space-between" gap="2" mb="4">
@@ -134,7 +145,7 @@ function TermsDialog({
           </Box>
         ) : null}
       </Stack>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 
@@ -220,7 +231,7 @@ function PreviousTermsPicker({
   const [selectedDate, setSelectedDate] = useState<string>(previousTerms[0]);
 
   return (
-    <SingleActionDialog
+    <ModalDialog
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) onClose();
@@ -230,7 +241,7 @@ function PreviousTermsPicker({
       size="md"
       mobilePresentation="bottomSheet"
       popupClassName={popup}
-      onConfirm={onSelect}
+      actions={{ kind: 'single', onConfirm: onSelect }}
     >
       <Stack className={desktopOptions} gap="4">
         <Typography as="p" variant="body3">
@@ -283,7 +294,7 @@ function PreviousTermsPicker({
           ))}
         </Stack>
       </Box>
-    </SingleActionDialog>
+    </ModalDialog>
   );
 }
 
@@ -308,7 +319,7 @@ function SignupTermsContent(props: SignupTermsContentProps) {
   const selected = props.detail === null ? null : signupTerms[props.detail];
 
   return (
-    <AccountFormLayout
+    <AccountPageLayout
       title="약관동의"
       fillMobileViewport
       actions={
@@ -321,7 +332,7 @@ function SignupTermsContent(props: SignupTermsContentProps) {
           </Button>
         </>
       }
-      dialogs={
+      outsideContent={
         <>
           <SignupTermsDetail
             selected={props.previousPickerOpen ? null : (selected ?? null)}
@@ -349,7 +360,7 @@ function SignupTermsContent(props: SignupTermsContentProps) {
           {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         </Box>
       </Box>
-    </AccountFormLayout>
+    </AccountPageLayout>
   );
 }
 
