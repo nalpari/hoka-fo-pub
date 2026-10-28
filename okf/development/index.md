@@ -1,5 +1,7 @@
 # 개발
 
+[Storybook 브라우저 포커스](verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)는 visible·unfocused 문서에서의 자동 입력 실패 원인과 CDP 포커스 에뮬레이션 대조 결과를 설명한다.
+
 RatingStars 표시·선택 모드의 회귀 검사 범위는 [별점 통합 검사](verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)를 참고한다.
 
 - [Form 전수 점검](form-state-audit.md) - 63개 페이지의 오류·성공 색상·필드 검증 조사, 수정과 PC/MO·상태별 Storybook 분류·검증 결과를 기록한다.

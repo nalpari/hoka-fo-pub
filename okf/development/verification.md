@@ -68,6 +68,27 @@ sources:
 
 # 변경 검증
 
+## Storybook 자동 입력과 브라우저 포커스 (2026-10-28)
+
+Codex가 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play 실패 원인을 Ego 브라우저에서 확정했다. 대상은 래퍼 전환 검증에서 만든 `storybook-static`과 `src/stories/components/common/molecules/FormFields/FormFields.stories.tsx`이며 이번 분석에서 앱·스토리 소스는 수정하지 않았다. 기존 생성·출처·신뢰 메타데이터는 보존한다.
+
+문서는 `visibilityState === 'visible'`이지만 `document.hasFocus() === false`였다. 이 환경에서는 `userEvent.type`의 focus 호출이 activeElement를 바꿔도 focus 이벤트가 발생하지 않았다. Storybook에 포함된 userEvent는 `prepareDocument`의 focus 리스너에서 `prepareElement`를 호출해 입력값 interceptor를 설치한다. 이벤트가 빠지면서 이 준비도 누락됐다. userEvent가 DOM value를 설정할 때 React의 value setter를 그대로 호출해 `_valueTracker`까지 새 값으로 갱신했고, React는 뒤따르는 input 이벤트를 변경 없음으로 처리했다. onChange는 호출되지 않고 React name 상태는 빈 값, DOM 값은 홍길동, aria-invalid는 true로 남았다.
+
+이벤트·속성 추적에서 포커스가 없을 때에는 focus 이벤트와 interceptor가 없고 첫 input의 DOM과 tracker가 모두 홍이었다. 포커스가 있을 때에는 focus 이벤트와 interceptor가 존재했고 첫 input의 DOM은 홍, tracker는 이전 빈 값이어서 React 상태가 갱신됐다. userEvent의 `patchFocus`는 hidden 문서에 보완 이벤트를 보내므로 이번 visible·unfocused 조건에는 적용되지 않는다.
+
+| 폭     | 포커스 에뮬레이션 | document.hasFocus() | 자동 play 결과                           |
+| ------ | ----------------- | ------------------- | ---------------------------------------- |
+| 390px  | 비활성            | false               | 이름 오류 해제 검사 실패, 제출 0회       |
+| 390px  | 활성              | true                | 전체 play 통과, 예상 FormData로 제출 1회 |
+| 1440px | 비활성            | false               | 동일 실패, 제출 0회                      |
+| 1440px | 활성              | true                | 전체 play 통과, 예상 FormData로 제출 1회 |
+
+네 실험 모두 문서 visibility는 visible이었다. 같은 번들·시나리오에서 포커스 조건만 바꿔 실패와 성공이 전환됐으므로 이 실패는 브라우저 검증 환경의 포커스 조건에 기인한다. 래퍼 제거·검증 로직·렌더 대기 시간 문제로 분류하지 않는다. 성공한 전체 play에는 오류 표시·해제, 전화번호 입력, 비밀번호 보기, 인증번호 6자리 제한, 카운트다운·textarea 카운터와 최종 FormData 검사가 포함된다.
+
+Ego Page에서 검증할 때에는 탐색·자동 play 시작 전에 `await page.cdp('Emulation.setFocusEmulationEnabled', { enabled: true })`를 실행하고 동일한 CDP 세션 안에서 검증한다. 별도 ego-browser 호출에도 설정이 유지된다고 가정하지 않는다. 이 현상을 모든 Storybook 실행기·브라우저로 일반화하지 않는다.
+
+근거 구현은 설치된 `node_modules/storybook/dist/test/index.js`의 `prepareDocument`, `prepareElement`, `prepareValueInterceptor`, `patchFocus`와 React DOM의 `trackValueOnNode`, `updateValueIfChanged`다. 원시 이벤트·대조 실험 로그는 세션 임시 `hoka-play-analysis-20261028/results.json`에 기록했으며 영구 저장소 산출물로 의존하지 않는다.
+
 ## 문의 주문상품 페이지 라우트 회귀 (2026-10-26)
 
 주문상품 조회를 문의 폼 내부 모달에서 별도 App Router 페이지로 전환하면서 `tests/app-router.test.mjs`의 기대 경로에 `/support/inquiries/new/order-products`를 추가했다. manifest 경로 검사는 페이지 URL의 존재를 확인하며 주문 fixture 조회나 선택 상태 보존 동작을 검증하지 않는다. 선택 상호작용은 지원 페이지 Storybook의 Mobile·Web 사례에서 확인한다.
