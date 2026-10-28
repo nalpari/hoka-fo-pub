@@ -9,6 +9,9 @@ generated:
   at: '2026-10-28T08:51:40.855Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tsconfig.json
+  - .storybook/preview.ts
+  - .storybook/main.ts
   - src/components/common/molecules/ContentHeader/ContentHeader.tsx
   - src/components/common/layouts/ContentLayout/ContentLayout.tsx
   - src/components/common/molecules/MainSection/MainSection.tsx
@@ -102,3 +105,11 @@ IA 구조도의 실제 .xlsx 다운로드를 위해 ExcelJS 4.4.0을 런타임 �
 ## IA 엑셀 의존성 제거 (2026-10-28)
 
 사용자 요청으로 IA 엑셀 기능을 제거하고 npm uninstall exceljs --ignore-scripts로 ExcelJS와 전용 전이 의존성을 정리했다. 위 ExcelJS 추가 기록은 이전 구현 이력이며 현재 설치 의존성이 아니다. 별도 다운로드 라이브러리·서버 API를 추가하지 않는다. 작업 트리 출처: package.json, package-lock.json, src/app/screen-index/_components/IaStructurePage.tsx.
+
+## Storybook 설정 타입 검사 (2026-10-28)
+
+루트 tsconfig.json의 include에 .storybook/**/*.ts를 포함하므로 npm run typecheck는 preview.ts와 main.ts를 함께 검사한다. Preview 타입은 @storybook/nextjs-vite에서 가져오며, main.ts의 재귀 readdirSync는 encoding=utf8로 문자열 반환을 명시한다. 설정을 제외한 상태의 타입 검사 통과를 Storybook 설정 검증으로 간주하지 않는다. 작성: codex/gpt-6, 2026-10-28T10:03:47.372Z. 작업 트리 출처: tsconfig.json, .storybook/preview.ts, .storybook/main.ts.
+
+## baseUrl 사용 중단 대응 (2026-10-28)
+
+편집기가 보고한 TypeScript 6의 baseUrl 사용 중단 오류에 따라 불필요한 baseUrl="."을 제거했다. paths 대상이 모두 ./로 시작하므로 tsconfig.json 위치 기준 별칭 해석을 유지한다. ignoreDeprecations로 진단을 숨기지 않는다. 로컬 TypeScript 5.9.3의 npm run typecheck도 통과했다. Next 설치본의 dist/build/load-jsconfig.js에서도 baseUrl이 없는 paths의 기준 경로 처리를 확인했다. 외부 근거는 [TypeScript 6 공식 마이그레이션 안내](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html)이며, 편집기의 정확한 실행 파일 버전은 직접 조회하지 않았다. 작업 트리 출처: tsconfig.json.

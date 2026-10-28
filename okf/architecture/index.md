@@ -452,3 +452,5 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 [Next.js 기능 채택과 런타임 경계](ui.md#nextjs-기능-채택과-런타임-경계-2026-10-28)는 로컬 폰트·Storybook, 주문서 URL 상태와 확대 갤러리 동적 로딩의 구현과 검증을 설명한다.
 
 [Next.js 기능 채택 정책과 스킬](ui.md#nextjs-기능-채택-정책과-스킬-2026-10-28)은 프레임워크 기능의 선택 기준과 런타임 경계 예외를 설명한다.
+
+[Storybook 설정 타입 오류 수정](ui.md#storybook-설정-타입-오류-수정-2026-10-28)은 프레임워크 Preview 타입과 .storybook의 TypeScript 검사 범위를 설명한다.

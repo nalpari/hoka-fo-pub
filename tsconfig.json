@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
       "styled-system/*": ["./styled-system/*"],
       "@/*": ["./src/*"],
@@ -31,6 +30,7 @@
   },
   "include": [
     "next-env.d.ts",
+    ".storybook/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "styled-system/**/*.ts",

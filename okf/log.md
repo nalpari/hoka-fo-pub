@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- Storybook Preview 타입 import를 프레임워크 패키지로 수정하고 .storybook을 타입 검사에 포함했다. 재귀 스토리 탐색의 UTF-8 문자열 반환을 명시하고 TypeScript 6에서 사용 중단된 불필요한 baseUrl을 제거했다. [설정 타입 오류 수정](architecture/ui.md#storybook-설정-타입-오류-수정-2026-10-28)을 참고한다.
+
 - AGENTS·component-reusability에 Next.js 기능 선택 기준과 런타임 예외를 반영했다. [정책과 스킬](architecture/ui.md#nextjs-기능-채택-정책과-스킬-2026-10-28)을 참고한다.
 
 - 로컬 폰트를 next/font/local로 이관하고 Storybook 등록을 분리했다. 주문서 URL은 useSearchParams, 상품 확대 갤러리는 next/dynamic으로 연결했다. [구현과 검증](architecture/ui.md#nextjs-기능-채택과-런타임-경계-2026-10-28)을 참고한다.

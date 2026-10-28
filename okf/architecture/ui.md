@@ -14,6 +14,7 @@ working_tree_sources:
   - src/app/products/[id]/_components/ProductDetailViewerContent.tsx
   - src/components/product/ProductDetailImage.tsx
   - .codex/skills/component-reusability/references/nextjs-integration.md
+  - tsconfig.json
   - next.config.ts
   - src/components/common/molecules/ProductThumbnail.tsx
   - src/components/common/organisms/Product/ProductGallery.tsx
@@ -3129,3 +3130,7 @@ RootLayout에서 next/font/local로 HOKA 8개·Pretendard 9개 폰트를 등록�
 AGENTS의 Next.js integration policy와 component-reusability의 nextjs-integration 참조에서 이미지·폰트·URL 상태·동적 로딩·메타데이터·외부 스크립트의 선택 기준, native 예외, Storybook 및 단일 부모 예외를 연결했다. 정책은 무조건적인 next/ 치환이나 미요청 기능 확장을 요구하지 않는다.
 
 설치된 App Router 동적 로더의 loading 콜백이 오류 경계 역할을 하지 않는 점과 거절된 lazy 모듈의 재시도 한계를 명시한다. component-reusability 스킬 검증을 통과했다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md, .codex/skills/component-reusability/references/nextjs-integration.md.
+
+## Storybook 설정 타입 오류 수정 (2026-10-28)
+
+.storybook/preview.ts의 Preview 타입을 루트 storybook 패키지가 아닌 현재 프레임워크 @storybook/nextjs-vite에서 가져오도록 수정했다. tsconfig.json이 .storybook/**/*.ts도 검사하도록 하여 설정 파일을 편집기와 npm run typecheck가 같은 프로젝트 기준으로 확인한다. 이 과정에서 드러난 main.ts의 readdirSync 문자열/버퍼 추론은 encoding=utf8 명시로 정리했다. 폰트 SCSS import와 스토리 발견·Mockup 제외 동작은 유지한다. 작성: codex/gpt-6, 2026-10-28T10:03:47.372Z. 작업 트리 출처: .storybook/preview.ts, .storybook/main.ts, tsconfig.json.
