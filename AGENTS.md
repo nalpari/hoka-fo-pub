@@ -27,6 +27,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Component ownership and wrapper rules
 
+- Prefer typed presentation options on the existing label owner over named status/promotion wrappers. Preserve default callers, label order, separators, empty rendering, typography and className placement; make incompatible generated labels and custom children mutually exclusive. `Badge.status` and `Badge.promotion` are current examples.
+- Avoid redundant `Name/Name.tsx` folders containing only that implementation. Retain common layers and domain ownership, and folders with assets, data, types, documentation or other implementations. Update aliases, relative imports, dynamic fixture paths, stories and active file links together without compatibility forwarding files. Folder flattening and component deletion are separate operations.
+
 - Prefer direct use of the existing base component when a wrapper only renames props or supplies label, placeholder, typography, or spacing defaults. Transfer those defaults and their override order to consumers before removing the wrapper; multiple consumers alone do not justify a forwarding component.
 - When callers share optional presentation or interaction owned by an existing component, prefer a small typed option or variant on that owner over a new wrapper file. Preserve its default mode, keep domain data and policy with their current owners, and retain custom slots where needed. Model incompatible options and custom slots as mutually exclusive types.
 - Keep single-production-parent components in their parent module unless a necessary runtime boundary prevents it. Follow the [wrapper decision workflow](.codex/skills/component-reusability/references/wrapper-consolidation.md) and [single-parent workflow](.codex/skills/component-reusability/references/single-parent-consolidation.md); do not duplicate shared implementations merely to reduce files.
@@ -39,6 +42,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - When staging is requested, preserve the current index and add only the authorized change and directly related OKF updates. Use partial patches or equivalent index operations for mixed files, inspect the staged result, and avoid whole-file staging that captures unrelated unstaged work. Do not commit or push without that authorization.
 
 ## Styling rules
+
+- Runtime platform selection belongs to `src/context/platform.tsx`: automatic mode is mobile through 1024px, while explicit preview platforms remain fixed. Keep `usePlatform()`, app/body/portal classes and responsive styles consistent; preserve server/first-hydration compatibility and state owners without duplicating interactive trees.
+- Automatic PC mode uses a 1200px canvas below a 1200px viewport. At 1200px and above, vertical scrollbars must not introduce horizontal overflow. Verify 1024/1025px and 1199/1200px boundaries, resizing with open overlays and explicit Storybook modes separately. See the [folder and responsive workflow](.codex/skills/component-reusability/references/folder-and-responsive.md).
 
 - Do not create, modify, or retain `*.module.scss` files. CSS Modules are not used in this project.
 - Implement component styles in the corresponding TSX file using Panda CSS `css` or `cva`.

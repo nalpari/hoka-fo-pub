@@ -27,6 +27,12 @@ State the observed pattern, real consumers, proposed owner/API, net production-f
 
 The repository demonstrates both direct base use and parent options: ContentHeader/TextFormField replaced default-only wrappers; ModalDialog.actions, CustomerCenterLayout.footerAction, AccountPageLayout's optional heading/actions, Checkbox.consent, and Radio.label absorbed shared composition. MyPageFrame's layout modes illustrate domain-frame ownership. Verify the current sources and [UI record](../../../../okf/architecture/ui.md) before reusing these examples; an in-progress source change is not a completed verification result.
 
+## Related labels and status wrappers
+
+Check the existing label owner before introducing a separate component for a named status or presentation. `Badge.status` owns COMING/IN_STOCK text and filled/line selection; `Badge.promotion` owns one or more promotional labels, separators and optional weight. Ordinary callers still provide children and their existing appearance. Make generated status, promotion and custom children mutually exclusive; do not permit irrelevant appearance props on a mode that ignores them.
+
+Preserve label order and duplicates, empty-array rendering, native semantics, typography, responsive values and className placement. A multi-label group is a distinct markup mode; do not force it into the ordinary pill markup. Move type exports and production/story consumers together while keeping product data and business policy with their owners. A zero-production-use wrapper still requires deletion scope; an explicit request to consolidate that named wrapper supplies that scope without extending it to unrelated unused files.
+
 ## Migrate styles, consumers, and evidence together
 
 - Transfer defaults and spread precedence explicitly, including overrides nested in inputProps, titleProps, or style objects. Follow dynamic component selection and configuration helpers; remove their dispatch only when the surviving base preserves all selected contracts.

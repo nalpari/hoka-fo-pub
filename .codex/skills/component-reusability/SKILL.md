@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse through forwarding-wrapper removal, parent-owned options, single-production-parent consolidation, form/content composition, and route ownership. Also use for Panda CSS/JSX and Typography migrations or Base UI reuse while preserving semantics and existing behavior.
+description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for Panda CSS/JSX, Typography, Base UI reuse, or shared responsive-platform changes while preserving semantics and state.
 ---
 
 # Component Reusability
@@ -22,6 +22,10 @@ For page wrappers, screen moves, or component placement decisions, read [the pag
 ## Wrapper and parent-option consolidation
 
 For wrapper audits, component-file reduction, or consolidation into existing APIs, read [the wrapper decision workflow](references/wrapper-consolidation.md). Classify direct base use, parent-owned options, single-parent ownership, unused/story-only disposition, and necessary survivors separately. Shared defaults alone do not require a component file; absorb repeated presentation or interaction into its existing owner when a small typed option preserves the contract. Keep the owner's default mode and domain boundaries intact. Do not replace removed wrappers with preset files or a general configuration framework just to centralize their former names.
+
+## Folder depth and responsive ownership
+
+For folder-depth requests or changes to shared platform selection, read [the folder and responsive workflow](references/folder-and-responsive.md). Distinguish fewer navigation steps from fewer React boundaries. Prefer removing redundant single-implementation folders without changing component composition; preserve explicit preview platforms, shared state and portal styling when changing automatic responsive behavior. These modes do not authorize unrelated restructuring or wrapper deletion.
 
 ## Single-production-parent consolidation
 
