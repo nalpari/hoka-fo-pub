@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/signup/verify/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { IdentityVerificationContent as IdentityVerificationContentContract } from '@/types/component-contracts/app-signup-verify-page';

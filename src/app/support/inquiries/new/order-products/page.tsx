@@ -1,27 +1,33 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box, Flex, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/support/support.navigation';
-import { inquiryOrders, type InquiryOrder } from '@/components/support/inquiryOrders.data';
+
+import { type InquiryOrder, inquiryOrders } from '@/components/support/inquiryOrders.data';
 import {
-  readInquiryOrderDraft,
   clearInquiryOrderReturnMarker,
+  type InquiryOrderSelection,
+  readInquiryOrderDraft,
   saveInquiryOrderResult,
   shouldReturnToInquiry,
-  type InquiryOrderSelection,
 } from '@/components/support/inquiryOrderSelection.storage';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { supportNavigation } from '@/components/support/support.navigation';
 
 const periodOptions = [
   { value: '1y', label: '1년' },

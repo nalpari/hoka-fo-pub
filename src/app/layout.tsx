@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { headers } from 'next/headers';
+
+import { Suspense } from 'react';
+
+import { css } from 'styled-system/css';
+
 import { ShopShell } from '@/context/ShopShell';
 import { detectPlatform } from '@/lib/device';
-import { css } from 'styled-system/css';
 import 'simplebar-react/dist/simplebar.min.css';
 import '@/styles/global.scss';
 

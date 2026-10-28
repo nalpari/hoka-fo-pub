@@ -1,6 +1,8 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+
 import { Box, Grid, Stack } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 type EmptyStateProps = {
   title: string;

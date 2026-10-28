@@ -1,27 +1,33 @@
 'use client';
 
-import { Stack, Box, HStack, Square } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Badge } from '@/components/common/atoms/Badge/Badge';
-import { css } from 'styled-system/css';
 import Image from 'next/image';
+
 import { faFilePdf, faImage } from '@fortawesome/free-solid-svg-icons';
+import { useContext, useId, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, HStack, Square, Stack } from 'styled-system/jsx';
+
+import { Badge } from '@/components/common/atoms/Badge/Badge';
+import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { useState, useId, useContext } from 'react';
-import { InquiryPreviewContext } from '@/components/support/InquiryPreviewContext';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { usePlatform } from '@/context/platform';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
+
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/support/support.navigation';
+
 import { InquiryCautions } from '@/components/support/InquiryCautions';
+import { InquiryPreviewContext } from '@/components/support/InquiryPreviewContext';
+import { supportNavigation } from '@/components/support/support.navigation';
+import { usePlatform } from '@/context/platform';
 
 function InquiryEmptyState() {
   return (

@@ -1,24 +1,28 @@
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 import { css } from 'styled-system/css';
-import { Stack, HStack, Grid, Box } from 'styled-system/jsx';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import {
-  type PhoneVerificationContentProps,
-  type PhoneInformation,
-} from '@/components/phone-verification/phone-verification.types';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
 import { NameField } from '@/components/common/molecules/FormFields/NameField';
 import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
-import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { Terms } from '@/components/common/molecules/Terms/Terms';
+
 import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import {
+  type PhoneInformation,
+  type PhoneVerificationContentProps,
+} from '@/components/phone-verification/phone-verification.types';
 
 const styles = { carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }) };
 

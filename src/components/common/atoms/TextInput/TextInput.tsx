@@ -1,19 +1,22 @@
 'use client';
 
 import {
-  useRef,
-  useState,
   type CSSProperties,
   type InputHTMLAttributes,
-  type TextareaHTMLAttributes,
   type ReactNode,
   type Ref,
+  type TextareaHTMLAttributes,
+  useRef,
+  useState,
 } from 'react';
+
 import { css } from 'styled-system/css';
+import { HStack } from 'styled-system/jsx';
+
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+
 import { faEye, faEyeSlash, faXmark } from '@/icons/fontAwesome';
-import { HStack } from 'styled-system/jsx';
 
 const textInput = css.raw({
   minH: 'var(--field-height, 42px)',

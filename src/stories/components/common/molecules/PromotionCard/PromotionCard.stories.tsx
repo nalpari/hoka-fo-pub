@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { PromotionCard } from '@/components/catalog/ProductListingPage';
 
 const meta = {

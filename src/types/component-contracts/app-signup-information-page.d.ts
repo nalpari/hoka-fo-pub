@@ -1,7 +1,7 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import {
-  type RegistrationInformation,
   type RegistrationContentProps,
+  type RegistrationInformation,
 } from '@/components/signup-registration/registration.types';
 import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {

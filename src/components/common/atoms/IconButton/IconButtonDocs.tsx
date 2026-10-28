@@ -1,10 +1,13 @@
-import { useState, type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
+
 import { css } from 'styled-system/css';
+import { Box, Grid } from 'styled-system/jsx';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
-import * as fontAwesome from '@/icons/fontAwesome';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Box, Grid } from 'styled-system/jsx';
+
+import * as fontAwesome from '@/icons/fontAwesome';
 
 export const fontAwesomeNames = Object.keys(fontAwesome).sort() as (keyof typeof fontAwesome)[];
 

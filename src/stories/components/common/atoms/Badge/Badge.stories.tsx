@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Badge } from '@/components/common/atoms/Badge/Badge';
 
 const meta = {

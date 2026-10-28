@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Breadcrumb } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 
 const meta = {

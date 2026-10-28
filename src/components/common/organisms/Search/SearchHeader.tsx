@@ -1,7 +1,9 @@
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faXmark } from '@/icons/fontAwesome';
 import { HStack } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
+
+import { faXmark } from '@/icons/fontAwesome';
 
 type SearchHeaderProps = { onClose: () => void };
 

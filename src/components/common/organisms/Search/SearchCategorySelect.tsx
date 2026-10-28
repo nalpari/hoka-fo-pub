@@ -1,5 +1,6 @@
-import { Select } from '@/components/common/atoms/Select/Select';
 import { css } from 'styled-system/css';
+
+import { Select } from '@/components/common/atoms/Select/Select';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const categoryStyle = css({

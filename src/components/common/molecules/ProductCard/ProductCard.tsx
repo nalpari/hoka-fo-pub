@@ -1,26 +1,31 @@
 'use client';
 
-import { cva, css } from 'styled-system/css';
-import { type ProductCardVariant } from '@/components/common/molecules/ProductCard/productCardTypography';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { HStack, VStack, Box, Grid, Stack } from 'styled-system/jsx';
+import Link from 'next/link';
+
+import { useState } from 'react';
+
+import { css, cva } from 'styled-system/css';
+import { Box, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+
 import { PromotionBadge, type Promotions } from '@/components/common/atoms/Badge/PromotionBadge';
-import { type Platform } from '@/lib/device';
+import { Card } from '@/components/common/atoms/Card/Card';
+import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+
+import { type ProductCardVariant } from '@/components/common/molecules/ProductCard/productCardTypography';
 import {
   ProductOptionList,
   type ProductOptionThumbnail,
 } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
-import { Card } from '@/components/common/atoms/Card/Card';
-import { useState } from 'react';
-import Link from 'next/link';
-import { type Product } from '@/mocks/products';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
 import {
   ProductThumbnail,
   type ProductThumbnailVariant,
 } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+
 import { usePlatform } from '@/context/platform';
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+import { type Platform } from '@/lib/device';
+import { type Product } from '@/mocks/products';
 
 type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
 

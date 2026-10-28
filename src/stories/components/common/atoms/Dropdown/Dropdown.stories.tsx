@@ -1,8 +1,10 @@
-import { expect, userEvent, within } from 'storybook/test';
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
 import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+
 import { faUser } from '@/icons/fontAwesome';
 
 const options = [

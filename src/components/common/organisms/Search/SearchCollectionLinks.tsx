@@ -1,8 +1,10 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Button } from '@/components/common/atoms/Button/Button';
-import type { SearchCollection } from './searchOverlayData';
-import { Flex } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
+import { Flex } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import type { SearchCollection } from './searchOverlayData';
 
 type SearchCollectionLinksProps = {
   collections: readonly SearchCollection[];

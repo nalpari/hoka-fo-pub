@@ -1,13 +1,16 @@
-import type { CSSProperties } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import type { CSSProperties } from 'react';
+
 import { css } from 'styled-system/css';
 import { Grid, HStack, Stack } from 'styled-system/jsx';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+
 import {
   faCakeCandles,
   faCheck,
-  faCircleCheck,
   faChevronRight,
+  faCircleCheck,
   faComment,
   faEye,
   faEyeSlash,

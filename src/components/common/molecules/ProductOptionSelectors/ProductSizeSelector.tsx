@@ -1,12 +1,16 @@
 'use client';
 
-import { useId, type ReactNode } from 'react';
+import { type ReactNode, useId } from 'react';
+
 import { Stack } from 'styled-system/jsx';
+
 import { FormField } from '@/components/common/atoms/FormField/FormField';
+
 import {
   SizeSelector,
   type SizeSelectorOption,
 } from '@/components/common/molecules/SizeSelector/SizeSelector';
+
 import { ProductOptionSection } from './ProductOptionSection';
 
 export type ProductSizeSelectorProps = {

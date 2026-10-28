@@ -1,14 +1,17 @@
 'use client';
 
-import { type ReactNode, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
-import { Stack, Box } from 'styled-system/jsx';
+import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, Stack } from 'styled-system/jsx';
+
 import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import {
   Breadcrumb,
   type BreadcrumbItem,
 } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
-import { css } from 'styled-system/css';
 
 type ContentHeaderProps = {
   breadcrumbItems?: BreadcrumbItem[];

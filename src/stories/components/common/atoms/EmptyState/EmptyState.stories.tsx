@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
 

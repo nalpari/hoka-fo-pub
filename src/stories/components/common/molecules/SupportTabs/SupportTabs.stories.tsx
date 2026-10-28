@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
 
 const tabs = ['마일리지 적립/사용', '온라인 통합 마일리지', '마일리지 소멸', '기타 안내'].map(

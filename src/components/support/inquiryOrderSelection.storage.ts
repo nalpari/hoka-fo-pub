@@ -1,4 +1,4 @@
-import { inquiryOrders, type InquiryOrder, type InquiryOrderProduct } from './inquiryOrders.data';
+import { type InquiryOrder, type InquiryOrderProduct, inquiryOrders } from './inquiryOrders.data';
 
 export type InquiryOrderSelection = { order: InquiryOrder; products: InquiryOrderProduct[] } | null;
 

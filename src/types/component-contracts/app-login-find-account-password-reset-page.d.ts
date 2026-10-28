@@ -1,6 +1,7 @@
-// Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type FieldName, type Errors } from '@/components/find-account/passwordValidation';
 import { type FormEventHandler, type ReactNode } from 'react';
+
+// Type-only contracts for moved local components; never import these declarations as runtime values.
+import { type Errors, type FieldName } from '@/components/find-account/passwordValidation';
 type Props = {
   name: FieldName;
   label: string;

@@ -2,6 +2,7 @@
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
+
 import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 

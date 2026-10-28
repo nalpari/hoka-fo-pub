@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { Hero } from '@/stories/route-previews/Preview';
 
 const meta = {

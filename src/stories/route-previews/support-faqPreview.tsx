@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/support/faq/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { FaqList as FaqListContract } from '@/types/component-contracts/app-support-faq-page';

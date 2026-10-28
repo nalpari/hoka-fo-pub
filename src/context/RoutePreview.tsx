@@ -1,11 +1,11 @@
 'use client';
 
 import {
+  type ComponentType,
   createContext,
   createElement,
-  useContext,
-  type ComponentType,
   type ReactNode,
+  useContext,
 } from 'react';
 
 type RoutePreview = { target: string; props: object };

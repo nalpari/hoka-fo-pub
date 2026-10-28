@@ -1,14 +1,20 @@
 'use client';
 
 import Image from 'next/image';
+
+import { useState } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { useState } from 'react';
+
 import { Button } from '@/components/common/atoms/Button/Button';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
 import { storeCities, storesByCity } from '@/components/store-finder/store.data';
 import { supportNavigation } from '@/components/support/support.navigation';
 

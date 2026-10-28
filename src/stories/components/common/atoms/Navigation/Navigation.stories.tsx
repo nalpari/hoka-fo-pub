@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { HStack, Stack } from 'styled-system/jsx';
+
 import { Navigation } from '@/components/common/atoms/Navigation/Navigation';
 
 const meta = {

@@ -1,6 +1,7 @@
+import { type CSSProperties, type HTMLAttributes } from 'react';
+
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type RatingStarsSelectionProps as ImportedRatingStarsSelectionProps } from '@/components/common/atoms/RatingStars/RatingStars';
-import { type CSSProperties, type HTMLAttributes } from 'react';
 /** Internal interactive mode; display-only stars keep their existing rendering. */
 declare function RatingStarsControl({
   value,

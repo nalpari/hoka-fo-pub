@@ -1,4 +1,5 @@
 import type { StoryObj } from '@storybook/react';
+
 import base, * as scenarios from '@/stories/features/phone-verification/PhoneVerificationPage.scenarios';
 
 const meta = {

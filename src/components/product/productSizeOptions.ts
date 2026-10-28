@@ -1,6 +1,7 @@
-import type { ProductWidthOption } from '@/mocks/products';
-import type { SizeSelectorOption } from '@/components/common/molecules/SizeSelector/SizeSelector';
 import { koreanSizes } from '@/components/common/molecules/SizeSelector/koreanSizes';
+import type { SizeSelectorOption } from '@/components/common/molecules/SizeSelector/SizeSelector';
+
+import type { ProductWidthOption } from '@/mocks/products';
 
 /** Availability wins over low-stock hints for every Korean size. */
 export function productSizeOptions(width?: ProductWidthOption): SizeSelectorOption[] {

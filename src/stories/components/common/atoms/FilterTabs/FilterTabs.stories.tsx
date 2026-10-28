@@ -1,6 +1,8 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
 import { FilterTabs, type FilterTabsProps } from '@/components/common/atoms/FilterTabs/FilterTabs';
+
 import { PlatformProvider } from '@/context/platform';
 
 const options = [

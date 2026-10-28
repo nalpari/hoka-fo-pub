@@ -1,6 +1,6 @@
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { ToggleButton } from '@/components/common/atoms/ToggleButton/ToggleButton';
 import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
+import { ToggleButton } from '@/components/common/atoms/ToggleButton/ToggleButton';
 
 // Compile-only API checks, validated by `npm run typecheck`.
 export function checkButtonSizingTypes() {

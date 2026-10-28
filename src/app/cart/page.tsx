@@ -1,37 +1,44 @@
 'use client';
 
-import { Stack, HStack, Box } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import Link from 'next/link';
+
+import { type ComponentProps, type ReactNode, useState } from 'react';
+
 import { css } from 'styled-system/css';
-import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
-import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
-import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
-import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
-import { type CartItem } from '@/types/cart';
-import { useState, type ComponentProps, type ReactNode } from 'react';
-import { type Product, products } from '@/mocks/products';
-import { getCartImage } from '@/mocks/cartDisplay';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { itemKey, isCartItemSoldOut } from '@/components/cart/cart-item';
+import { Box, HStack, Stack } from 'styled-system/jsx';
+
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { usePlatform } from '@/context/platform';
-import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
-import { faXmark } from '@/icons/fontAwesome';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+
 import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import Link from 'next/link';
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
-import { orderRecommendations } from '@/mocks/orderRecommendations';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
+import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
+import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
+import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
+
+import { isCartItemSoldOut, itemKey } from '@/components/cart/cart-item';
+import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
+import { faXmark } from '@/icons/fontAwesome';
+import { getCartImage } from '@/mocks/cartDisplay';
+import { orderRecommendations } from '@/mocks/orderRecommendations';
+import { type Product, products } from '@/mocks/products';
+import { type CartItem } from '@/types/cart';
 
 type Props = {
   value: number;

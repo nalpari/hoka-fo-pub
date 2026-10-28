@@ -1,10 +1,12 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+
 import {
   SearchField,
   type SearchFieldProps,
 } from '@/components/common/molecules/SearchField/SearchField';
+
 import { PlatformProvider } from '@/context/platform';
 
 function ControlledSearchField(args: SearchFieldProps) {

@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/mypage/referral/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { MetricGrid as MetricGridContract } from '@/types/component-contracts/app-mypage-referral-page';

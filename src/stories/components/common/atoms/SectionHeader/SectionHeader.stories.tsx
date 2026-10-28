@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
 

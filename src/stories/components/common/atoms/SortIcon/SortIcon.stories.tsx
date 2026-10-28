@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { HStack } from 'styled-system/jsx';
+
 import { SortIcon } from '@/components/common/atoms/SortIcon/SortIcon';
 
 const meta = {

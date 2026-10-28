@@ -1,27 +1,32 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { useRouter } from 'next/navigation';
 
-import { Stack } from 'styled-system/jsx';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
-import { type ReactNode, useState, type FormEvent } from 'react';
+import { type FormEvent, type ReactNode, useState } from 'react';
+
 import { css } from 'styled-system/css';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
 import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { usePlatform } from '@/context/platform';
-import { useRouter } from 'next/navigation';
+import { NameField } from '@/components/common/molecules/FormFields/NameField';
+import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
+import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
+import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
-import { isValidName } from '@/lib/validation';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
+import { isValidName } from '@/lib/validation';
 
 type Props = {
   name: string;

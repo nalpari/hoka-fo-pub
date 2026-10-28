@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
-import { PlatformProvider } from '@/context/platform';
-import { Box } from 'styled-system/jsx';
+
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
+
+import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
+
+import { PlatformProvider } from '@/context/platform';
 
 const meta = {
   title: 'Atoms/DescriptionList',

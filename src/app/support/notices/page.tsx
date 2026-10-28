@@ -1,15 +1,21 @@
 'use client';
 
-import { HStack, Stack } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { css } from 'styled-system/css';
 import Link from 'next/link';
+
 import { useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
+
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
+import { notices } from '@/components/notices/notices.data';
 import { supportNavigation } from '@/components/support/support.navigation';
 import { usePlatform } from '@/context/platform';
-import { notices } from '@/components/notices/notices.data';
 
 type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobile' };
 

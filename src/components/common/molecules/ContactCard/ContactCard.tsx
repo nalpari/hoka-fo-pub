@@ -1,11 +1,14 @@
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import {
   DescriptionList,
   type DescriptionListItem,
 } from '@/components/common/atoms/DescriptionList/DescriptionList';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 
 export type ContactCardProps = {
   title: ReactNode;

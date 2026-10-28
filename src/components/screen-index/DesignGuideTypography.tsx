@@ -1,13 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Stack } from 'styled-system/jsx';
+
 import { css } from 'styled-system/css';
+import { Stack } from 'styled-system/jsx';
 import { token, type Token } from 'styled-system/tokens';
+
 import {
   figmaTypographyVariants,
   Typography,
 } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
 
 type GuideVariant = keyof typeof figmaTypographyVariants;

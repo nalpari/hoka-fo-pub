@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
 
 const meta = {

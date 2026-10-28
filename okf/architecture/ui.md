@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T04:50:57+00:00'
+  at: '2026-10-28T06:08:02+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/
+  - src/stories/
+  - src/types/component-contracts/
+  - eslint.config.js
   - src/components/product/ProductSelectedOptions.tsx
   - src/app/products/[id]/page.tsx
   - src/components/product/ProductDetailPanel.tsx
@@ -2938,3 +2942,7 @@ Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 �
 공통 UI를 포함한 단일 운영 부모 TSX 389개를 부모 모듈로 재귀 통합했다. 의미 있는 로컬 컴포넌트 함수와 Panda 스타일은 모듈 최상위에 둔다. 실제 다중 부모 파일 94개와 기존 운영 부모 없는 파일 30개를 유지하고 경계 예외 2개를 기록했다. 도메인 폴더는 이제 src/components/{도메인}에 있으며 common은 공유 UI다. Storybook은 기존 제목·시나리오와 src/stories/features 범주를 유지한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md)에 변경 전후 관계·이동 목록과 타입/미리보기 계약을 기록했다.
 
 검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+공통 UI·도메인 구성과 Storybook의 import 순서를 ESLint 정책으로 통일했다. Next·외부 패키지·Panda·atoms/molecules/organisms/layouts·기타 내부·상대 경로를 분리한다. 컴포넌트 구현·props·JSX·Panda 스타일·스토리 export와 시나리오는 변경하지 않으며 CSS/SCSS 부수 효과 import 순서를 보존한다.

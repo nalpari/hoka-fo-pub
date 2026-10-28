@@ -1,57 +1,9 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
-import {
-  type ReactNode,
-  useId,
-  useState,
-  useEffect,
-  useRef,
-  type CSSProperties,
-  Fragment,
-  type Ref,
-  type ComponentPropsWithoutRef,
-} from 'react';
-import { Flex, Grid, Stack, Box, HStack, VStack, Divider } from 'styled-system/jsx';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { css, cva } from 'styled-system/css';
-import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faChevronDown, faXmark } from '@/icons/fontAwesome';
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
-import {
-  CarouselPagination,
-  CarouselViewport,
-  Carousel,
-} from '@/components/common/molecules/Carousel/Carousel';
-import { usePlatform } from '@/context/platform';
-import { productInquiries } from '@/components/product/productInquiries';
-import { Tooltip } from '@base-ui/react/tooltip';
-import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
-import {
-  type ProductDetailSpecification,
-  type ProductTechnicalScaleData,
-  type ProductEditorialFeature,
-  getProductDetailPresentation,
-  productDetailAnchors,
-} from '@/components/product/productDetailPresentation';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import Link from 'next/link';
-import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
-import { CareInstructions } from '@/components/care-guide/CareInstructions';
-import { shoeCareSections } from '@/components/care-guide/care.data';
-import { type Product, type ProductWidthOption, products } from '@/mocks/products';
-import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
-import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
-import { productSizeOptions } from '@/components/product/productSizeOptions';
-import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
-import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
-import { PromotionBadge } from '@/components/common/atoms/Badge/PromotionBadge';
+import { useParams, useRouter } from 'next/navigation';
+
+import { Tooltip } from '@base-ui/react/tooltip';
 import {
   faBoxOpen,
   faClipboardList,
@@ -59,15 +11,68 @@ import {
   faScrewdriverWrench,
   faTruckFast,
 } from '@fortawesome/free-solid-svg-icons';
-import { type Platform } from '@/lib/device';
+import {
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  Fragment,
+  type ReactNode,
+  type Ref,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
+
+import { css, cva } from 'styled-system/css';
+import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+
+import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
+import { PromotionBadge } from '@/components/common/atoms/Badge/PromotionBadge';
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList/DescriptionList';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { IconButton, type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
+import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist/Wishlist';
+
+import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
+import {
+  Carousel,
+  CarouselPagination,
+  CarouselViewport,
+} from '@/components/common/molecules/Carousel/Carousel';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { type CartItem } from '@/types/cart';
-import { useShop } from '@/context/ShopShell';
-import { useParams, useRouter } from 'next/navigation';
+import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
+import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
+import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
+
+import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { shoeCareSections } from '@/components/care-guide/care.data';
+import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import {
+  getProductDetailPresentation,
+  productDetailAnchors,
+  type ProductDetailSpecification,
+  type ProductEditorialFeature,
+  type ProductTechnicalScaleData,
+} from '@/components/product/productDetailPresentation';
+import { productInquiries } from '@/components/product/productInquiries';
+import { productSizeOptions } from '@/components/product/productSizeOptions';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useShop } from '@/context/ShopShell';
+import { faChevronDown, faXmark } from '@/icons/fontAwesome';
+import { type Platform } from '@/lib/device';
+import { type Product, products, type ProductWidthOption } from '@/mocks/products';
+import { type CartItem } from '@/types/cart';
 
 function ProductDetailGrid({ children }: { children: ReactNode }) {
   return (

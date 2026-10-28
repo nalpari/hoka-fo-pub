@@ -1,17 +1,23 @@
 'use client';
 
-import { useState } from 'react';
-import { Popover } from '@base-ui/react/popover';
-import { css } from 'styled-system/css';
-import { usePlatform } from '@/context/platform';
-import { Radio, type RadioProps } from '@/components/common/atoms/Radio/Radio';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Grid, Stack } from 'styled-system/jsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
+import { Popover } from '@base-ui/react/popover';
+import { useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Grid, Stack } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Radio, type RadioProps } from '@/components/common/atoms/Radio/Radio';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
 import { supportNavigation } from '@/components/support/support.navigation';
+import { usePlatform } from '@/context/platform';
 
 type TermsDateSelectProps = Pick<RadioProps, 'name' | 'options' | 'value' | 'onValueChange'>;
 

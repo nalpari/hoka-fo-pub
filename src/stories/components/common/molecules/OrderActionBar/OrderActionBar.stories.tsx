@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+
 import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
+
 import { PlatformProvider } from '@/context/platform';
 
 const onSubmit = fn((event: React.FormEvent<HTMLFormElement>) => event.preventDefault());

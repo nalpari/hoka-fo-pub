@@ -1,9 +1,11 @@
 'use client';
 
-import type { ReactElement, ReactNode } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
+import type { ReactElement, ReactNode } from 'react';
+
 import { cva } from 'styled-system/css';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 

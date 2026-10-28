@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
-import { orderRecommendations } from '@/mocks/orderRecommendations';
+
 import { PlatformProvider } from '@/context/platform';
+import { orderRecommendations } from '@/mocks/orderRecommendations';
 
 const meta = {
   title: 'Organisms/OrderRecommendations',

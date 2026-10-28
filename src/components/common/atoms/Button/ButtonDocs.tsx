@@ -1,6 +1,9 @@
-import { useEffect, useState, type PropsWithChildren } from 'react';
-import { DocsContainer, Unstyled, type DocsContainerProps } from '@storybook/addon-docs/blocks';
+import { DocsContainer, type DocsContainerProps, Unstyled } from '@storybook/addon-docs/blocks';
+import { type PropsWithChildren, useEffect, useState } from 'react';
+
 import { css } from 'styled-system/css';
+import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
+
 import {
   Button,
   ButtonLink,
@@ -10,7 +13,6 @@ import {
 } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Stack, HStack, Box, Flex } from 'styled-system/jsx';
 
 const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },

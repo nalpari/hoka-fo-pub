@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {

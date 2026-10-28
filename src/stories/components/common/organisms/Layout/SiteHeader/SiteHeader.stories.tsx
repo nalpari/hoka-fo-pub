@@ -1,9 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { SiteHeader } from '@/context/ShopShell';
-import { PlatformProvider } from '@/context/platform';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
-import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
+
 import { headerPromotionItems } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
+import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
+
+import { PlatformProvider } from '@/context/platform';
+import { SiteHeader } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Layout/SiteHeader',

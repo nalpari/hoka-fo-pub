@@ -1,33 +1,57 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import {
-  type ComponentPropsWithoutRef,
-  type ReactNode,
-  useId,
-  useState,
-  type CSSProperties,
-  type ComponentProps,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-} from 'react';
-import { css, cva } from 'styled-system/css';
-import { AnimatePresence, motion } from 'motion/react';
-import { Box, Circle, Flex, VStack, Grid, HStack, Stack } from 'styled-system/jsx';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
-import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
 import { Slider as BaseSlider } from '@base-ui/react/slider';
+import { AnimatePresence, motion } from 'motion/react';
+import {
+  type ComponentProps,
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
+import { css, cva } from 'styled-system/css';
+import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+import { token } from 'styled-system/tokens';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
-import { usePlatform } from '@/context/platform';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { productSortOptions } from '@/components/catalog/product-listing/productSortOptions';
 import { Radio } from '@/components/common/atoms/Radio/Radio';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
+import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
+import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+
+import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
+
+import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
+import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+
+import { filterProducts, sortProducts } from '@/components/catalog/product-listing/filterProducts';
+import {
+  getBreadcrumbItems,
+  getProductListingTitle,
+} from '@/components/catalog/product-listing/productListingMetadata';
+import { productSortOptions } from '@/components/catalog/product-listing/productSortOptions';
 import {
   activityLabels,
   collectionValues,
@@ -43,28 +67,11 @@ import {
   valuesToLabels,
   widthLabels,
 } from '@/components/catalog/productListingFilterValues';
-import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
-import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
-import { token } from 'styled-system/tokens';
-import { type Product, products } from '@/mocks/products';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
-import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { usePlatform } from '@/context/platform';
 import { type Platform } from '@/lib/device';
-import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
-import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
-import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 import { useScrollPin } from '@/lib/useScrollPin';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { filterProducts, sortProducts } from '@/components/catalog/product-listing/filterProducts';
-import {
-  getBreadcrumbItems,
-  getProductListingTitle,
-} from '@/components/catalog/product-listing/productListingMetadata';
+import { type Product, products } from '@/mocks/products';
+import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
 
 const fieldset = css({ m: '0', border: '0', p: '0' });
 

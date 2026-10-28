@@ -2,6 +2,7 @@
 
 import { type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
+
 import { CarouselContext } from './CarouselContext';
 
 export type CarouselProps = {

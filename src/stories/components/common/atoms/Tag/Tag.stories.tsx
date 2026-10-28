@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { Tag } from '@/components/catalog/ProductListingPage';
 
 const meta = {

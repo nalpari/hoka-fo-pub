@@ -1,5 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { HStack } from 'styled-system/jsx';
+
 import { NotificationIcon } from '@/context/ShopShell';
 
 const meta = {

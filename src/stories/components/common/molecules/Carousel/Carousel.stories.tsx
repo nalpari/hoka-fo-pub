@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { css } from 'styled-system/css';
+
 import {
   Carousel,
   CarouselControls,

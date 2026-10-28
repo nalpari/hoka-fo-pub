@@ -1,7 +1,10 @@
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
+
 import { Box, Flex } from 'styled-system/jsx';
+
 import { StepIndicator } from '@/components/common/molecules/StepIndicator/StepIndicator';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 const stepItems = [{ label: '장바구니' }, { label: '주문/결제' }, { label: '주문완료' }];
 

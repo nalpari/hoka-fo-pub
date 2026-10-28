@@ -1,12 +1,17 @@
 'use client';
 
 import { type ReactNode } from 'react';
+
 import { Box, HStack, Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
 import { supportNavigation } from '@/components/support/support.navigation';
 
 function ShippingReturnsNumberedList({

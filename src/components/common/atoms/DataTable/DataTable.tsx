@@ -1,7 +1,9 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import type { ReactNode, TableHTMLAttributes } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const table = css.raw({
   w: '100%',

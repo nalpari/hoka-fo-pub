@@ -1,7 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { AppLayout } from '@/context/ShopShell';
-import { PlatformProvider } from '@/context/platform';
 import { expect, userEvent, within } from 'storybook/test';
+
+import { PlatformProvider } from '@/context/platform';
+import { AppLayout } from '@/context/ShopShell';
 
 const meta = {
   title: 'Layouts/App Layout',

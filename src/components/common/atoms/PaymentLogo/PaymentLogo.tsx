@@ -1,4 +1,5 @@
 import type { CSSProperties, ImgHTMLAttributes } from 'react';
+
 import { css } from 'styled-system/css';
 
 const paymentLogo = css({

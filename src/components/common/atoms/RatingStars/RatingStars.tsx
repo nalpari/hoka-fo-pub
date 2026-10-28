@@ -2,15 +2,18 @@
 
 import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
+import { type CSSProperties, type HTMLAttributes } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+
 import { faStarRegular, faStarSolid } from '@/icons/fontAwesome';
 import type {
   RatingStarsSelectionProps as ImportedRatingStarsSelectionProps,
   RatingValue as ImportedRatingValue,
 } from '@/types/component-contracts/components-common-atoms-RatingStars-RatingStars';
-import { type CSSProperties, type HTMLAttributes } from 'react';
 
 const group = css({
   display: 'inline-flex',

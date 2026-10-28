@@ -1,10 +1,13 @@
 'use client';
 
-import type { ReactNode } from 'react';
 import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
+import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { faChevronDown } from '@/icons/fontAwesome';
 
 const styles = {

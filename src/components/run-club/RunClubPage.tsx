@@ -1,32 +1,38 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { type ReactNode, useState } from 'react';
+
+import { css } from 'styled-system/css';
 import {
-  Flex,
-  HStack,
-  VStack,
-  Stack,
-  LinkOverlay,
-  Square,
   Box,
   Center,
+  Flex,
   Grid,
+  HStack,
+  LinkOverlay,
+  Square,
+  Stack,
+  VStack,
 } from 'styled-system/jsx';
-import { ButtonLink, Button } from '@/components/common/atoms/Button/Button';
-import { css } from 'styled-system/css';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import {
-  type RunClubSession,
   runClubImage,
+  type RunClubSession,
   runClubSessions,
 } from '@/components/run-club/runClub.data';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { type ReactNode, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { RunClubBadge } from '@/components/run-club/RunClubBadge';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
 
 function RunClubHistoryLink({ compact = false }: { compact?: boolean }) {
   return (

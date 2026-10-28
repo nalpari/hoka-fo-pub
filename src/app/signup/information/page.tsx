@@ -1,39 +1,45 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import {
-  type RegistrationInformation,
-  type RegistrationContentProps,
-} from '@/components/signup-registration/registration.types';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
+import { type FormEvent, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Stack, Box } from 'styled-system/jsx';
-import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
-import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { css } from 'styled-system/css';
+import { BirthDateField } from '@/components/common/molecules/FormFields/BirthDateField';
+import { NameField } from '@/components/common/molecules/FormFields/NameField';
+import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
+import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
+import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
-import { useState, type FormEvent } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { isValidName, isValidRegistrationId } from '@/lib/validation';
-import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
+
+import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
+import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
+
+import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import {
-  isValidEmailLocalPart,
-  isValidEmailDomain,
-  emailFormatErrorMessage,
+  type RegistrationContentProps,
+  type RegistrationInformation,
+} from '@/components/signup-registration/registration.types';
+import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
+import { useRoutePreview } from '@/context/RoutePreview';
+import {
   emailDomainErrorMessage,
+  emailFormatErrorMessage,
+  isValidEmailDomain,
+  isValidEmailLocalPart,
 } from '@/lib/emailValidation';
+import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
+import { isValidName, isValidRegistrationId } from '@/lib/validation';
 
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;

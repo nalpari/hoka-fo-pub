@@ -1,31 +1,36 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import Link from 'next/link';
+
+import { useState } from 'react';
+
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack, Grid } from 'styled-system/jsx';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { ButtonLink, Button } from '@/components/common/atoms/Button/Button';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
-import {
-  type MyPageOrderItem,
-  orderItems,
-  menuSections,
-} from '@/components/mypage/mypage-home-data';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { Breadcrumb } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 import {
   Carousel,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import {
+  menuSections,
+  type MyPageOrderItem,
+  orderItems,
+} from '@/components/mypage/mypage-home-data';
 import { usePlatform } from '@/context/platform';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
+import { useRoutePreview } from '@/context/RoutePreview';
 import { useShop } from '@/context/ShopShell';
-import { useState } from 'react';
-import { Breadcrumb } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 
 type LogoutDialogProps = {
   open: boolean;

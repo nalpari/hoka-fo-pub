@@ -1,5 +1,6 @@
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import type { ReactNode } from 'react';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 
 type SectionHeadingProps = {
   title: ReactNode;

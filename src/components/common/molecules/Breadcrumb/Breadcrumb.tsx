@@ -1,10 +1,12 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import Link from 'next/link';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
+
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const link = css({
   _hover: {

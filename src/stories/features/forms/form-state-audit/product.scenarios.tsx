@@ -1,7 +1,9 @@
-import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import ProductDetailPage from '@/app/products/[id]/page';
+import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
+
 import type { AuditStory as Story } from './shared';
 
 function ProductExample() {

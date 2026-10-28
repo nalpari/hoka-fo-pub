@@ -1,13 +1,16 @@
 'use client';
 
-import { useId, useState, type CSSProperties, type ReactNode } from 'react';
 import { Select as BaseSelect } from '@base-ui/react/select';
+import { type CSSProperties, type ReactNode, useId, useState } from 'react';
+
 import { css, cva } from 'styled-system/css';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faCircleInfo } from '@/icons/fontAwesome';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Stack, Flex } from 'styled-system/jsx';
+import { Flex, Stack } from 'styled-system/jsx';
+
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { faCircleInfo } from '@/icons/fontAwesome';
 
 const styles = {
   trigger: cva({

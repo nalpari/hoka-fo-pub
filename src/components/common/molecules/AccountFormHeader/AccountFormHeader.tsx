@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
+
 import type { SystemStyleObject } from 'styled-system/types';
+
 import type { TypographyTone } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 
 type Props = {

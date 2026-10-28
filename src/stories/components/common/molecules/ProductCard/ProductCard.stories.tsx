@@ -1,10 +1,12 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { products } from '@/mocks/products';
+
 import {
-  ProductCardPreview,
   ProductCard,
+  ProductCardPreview,
 } from '@/components/common/molecules/ProductCard/ProductCard';
+
 import { PlatformProvider } from '@/context/platform';
+import { products } from '@/mocks/products';
 
 const meta = {
   title: 'Molecules/Product Card',

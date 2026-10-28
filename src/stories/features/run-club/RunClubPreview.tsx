@@ -1,10 +1,11 @@
 import { css } from 'styled-system/css';
-import { AppLayout } from '@/context/ShopShell';
-import { PlatformProvider } from '@/context/platform';
-import { type Platform } from '@/lib/device';
-import { RunClubPage } from '@/components/run-club/RunClubPage';
-import { RunClubDetailPage } from '@/stories/features/run-club/RunClubDetailPagePreview';
+
 import { runClubSessions } from '@/components/run-club/runClub.data';
+import { RunClubPage } from '@/components/run-club/RunClubPage';
+import { PlatformProvider } from '@/context/platform';
+import { AppLayout } from '@/context/ShopShell';
+import { type Platform } from '@/lib/device';
+import { RunClubDetailPage } from '@/stories/features/run-club/RunClubDetailPagePreview';
 
 type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'closed' | 'upcoming' };
 

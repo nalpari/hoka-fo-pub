@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { SiteFooter } from '@/context/ShopShell';
+
 import { PlatformProvider } from '@/context/platform';
+import { SiteFooter } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Layout/SiteFooter',

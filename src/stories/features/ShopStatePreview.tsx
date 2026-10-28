@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { ShopStateProvider, type ShopState } from '@/context/ShopShell';
+
+import { type ShopState, ShopStateProvider } from '@/context/ShopShell';
 
 const noop = () => {};
 

@@ -1,18 +1,21 @@
 'use client';
 
+import { Field as BaseField } from '@base-ui/react/field';
 import {
-  createContext,
-  useContext,
   type ComponentProps,
   type ComponentPropsWithoutRef,
+  createContext,
   type ReactNode,
+  useContext,
 } from 'react';
+
 import { css, cva } from 'styled-system/css';
-import { Field as BaseField } from '@base-ui/react/field';
+import { HStack, Stack } from 'styled-system/jsx';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { faCircleInfo } from '@/icons/fontAwesome';
-import { HStack, Stack } from 'styled-system/jsx';
 
 const root = css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' });
 

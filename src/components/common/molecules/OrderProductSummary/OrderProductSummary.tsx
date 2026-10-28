@@ -1,9 +1,12 @@
-import { css } from 'styled-system/css';
-import { square } from 'styled-system/patterns';
-import type { OrderProductSummaryProps as ImportedOrderProductSummaryProps } from '@/types/component-contracts/components-common-molecules-OrderProductSummary-OrderProductSummary';
 import { type ReactNode } from 'react';
-import { Stack, HStack } from 'styled-system/jsx';
+
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
+import { square } from 'styled-system/patterns';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import type { OrderProductSummaryProps as ImportedOrderProductSummaryProps } from '@/types/component-contracts/components-common-molecules-OrderProductSummary-OrderProductSummary';
 
 /** 주문 상품 이미지의 용도별 크기와 배경을 표시합니다. (Displays an order product image with context-specific sizing and background.) */
 function OrderProductSummaryImage({

@@ -1,36 +1,42 @@
 'use client';
 
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { Stack, HStack } from 'styled-system/jsx';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
 import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
+import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
 import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
+import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields/EmailAddressFields';
-import { PreferenceField } from '@/components/common/molecules/FormFields/PreferenceField';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
 import {
-  type ProfileEditProps,
-  type ProfileValues,
   type Preference,
   type ProfileAddress,
+  type ProfileEditProps,
+  type ProfileValues,
 } from '@/components/mypage/mypage-profile.types';
-import { css } from 'styled-system/css';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { validatePasswordReset, type Errors, type FieldName } from '@/lib/passwordValidation';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { isValidEmailLocalPart, isValidEmailDomain } from '@/lib/emailValidation';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { isValidEmailDomain, isValidEmailLocalPart } from '@/lib/emailValidation';
+import { type Errors, type FieldName, validatePasswordReset } from '@/lib/passwordValidation';
+import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 type Props = {
   phone: string;

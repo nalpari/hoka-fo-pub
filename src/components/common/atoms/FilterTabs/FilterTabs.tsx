@@ -1,11 +1,14 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
-import { usePlatform } from '@/context/platform';
+import { type ReactNode, useLayoutEffect, useRef } from 'react';
+
 import { css, cva } from 'styled-system/css';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { usePlatform } from '@/context/platform';
 
 const viewport = css({
   minW: '0',

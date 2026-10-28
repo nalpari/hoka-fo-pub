@@ -1,8 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-import { ShopShell } from '@/context/ShopShell';
-import { OrdersPage } from '@/components/orders/OrdersRoute';
+
 import { previewOrders } from '@/components/orders/orders.data';
+import { OrdersPage } from '@/components/orders/OrdersRoute';
+import { ShopShell } from '@/context/ShopShell';
 
 const meta = {
   title: 'PAGES/장바구니/1. 주문하기/주문내역/Mobile',

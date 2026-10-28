@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+
 import Page from '@/app/checkout/page';
 import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
 import type { CartItem } from '@/types/cart';

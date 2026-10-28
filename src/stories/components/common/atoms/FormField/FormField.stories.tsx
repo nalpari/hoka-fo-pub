@@ -1,12 +1,15 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faUser, faCircleQuestion } from '@/icons/fontAwesome';
+
 import { css } from 'styled-system/css';
+
+import { FormField } from '@/components/common/atoms/FormField/FormField';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Select } from '@/components/common/atoms/Select/Select';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+
+import { faCircleQuestion, faUser } from '@/icons/fontAwesome';
 
 const meta = {
   title: 'Atoms/FormField',

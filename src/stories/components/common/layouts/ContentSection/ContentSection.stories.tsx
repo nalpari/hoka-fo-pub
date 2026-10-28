@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from 'storybook/test';
 import { useState } from 'react';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { expect, userEvent, within } from 'storybook/test';
+
 import { Box, HStack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 const meta = {
   title: 'Layouts/ContentSection',

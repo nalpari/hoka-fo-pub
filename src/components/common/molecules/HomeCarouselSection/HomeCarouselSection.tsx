@@ -1,15 +1,18 @@
 import { type CSSProperties, type ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
+
 import {
-  CarouselViewport,
   Carousel,
   CarouselControls,
+  CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
+import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
+
+import { type Platform } from '@/lib/device';
 import type { HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection';
 import type { MainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
-import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
-import { type Platform } from '@/lib/device';
 
 // Size cards against the central grid, independently of the extended rail.
 const desktopSlide = css({

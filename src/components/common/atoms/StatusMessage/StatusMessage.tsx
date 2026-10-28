@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const message = css({

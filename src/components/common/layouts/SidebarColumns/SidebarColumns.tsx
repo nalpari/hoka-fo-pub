@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
+
 import { Grid } from 'styled-system/jsx';
 
 type Props = Omit<ComponentProps<typeof Grid>, 'children' | 'gridTemplateColumns'> & {

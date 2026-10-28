@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+
 import { ProductSelectedOptions } from '@/stories/route-previews/products-idPreview';
 import { type CartItem } from '@/types/cart';
 

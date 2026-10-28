@@ -1,10 +1,12 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import Link from 'next/link';
 
 import { css, cva } from 'styled-system/css';
-import { Grid, Flex, Box, Stack } from 'styled-system/jsx';
-import Link from 'next/link';
+import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import {
   Carousel,
   CarouselPagination,

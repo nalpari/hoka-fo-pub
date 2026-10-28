@@ -1,7 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { SearchSuggestions } from '@/context/ShopShell';
+
 import { suggestedSearches } from '@/components/common/organisms/Search/searchOverlayData';
+
+import { SearchSuggestions } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Search/SearchSuggestions',

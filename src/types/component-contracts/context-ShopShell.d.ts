@@ -1,21 +1,23 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import {
-  type Ref,
-  type ReactNode,
-  type RefObject,
   type AnchorHTMLAttributes,
-  type CSSProperties,
-  type MouseEventHandler,
   type ComponentPropsWithoutRef,
+  type CSSProperties,
   type HTMLAttributes,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
+  type RefObject,
 } from 'react';
+
+import { type FooterGroup } from '@/components/common/organisms/Layout/SiteFooter/footerData';
+import { type HeaderPromotionItem } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
 import {
   type MegaMenu,
   type MegaMenuPromo,
 } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
-import { type FooterGroup } from '@/components/common/organisms/Layout/SiteFooter/footerData';
+
 import { type Platform } from '@/lib/device';
-import { type HeaderPromotionItem } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
 import { type CartItem } from '@/types/cart';
 type MenuDrawerFrameProps = {
   children: ReactNode;

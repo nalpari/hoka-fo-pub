@@ -1,31 +1,37 @@
 'use client';
 
-import { Box, HStack, Stack, Grid, Flex } from 'styled-system/jsx';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faXmark } from '@/icons/fontAwesome';
-import { useRef, useState, type ChangeEvent, useEffect, type FormEvent } from 'react';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { useRouter } from 'next/navigation';
+
+import { faXmark as ImportedFaXmark } from '@fortawesome/free-solid-svg-icons';
+import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from 'react';
+
 import { css } from 'styled-system/css';
+import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
 import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
-import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
+import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
+import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
+import { InquiryCautions } from '@/components/support/InquiryCautions';
 import {
   type InquiryOrderSelection,
   readInquiryOrderResult,
   saveInquiryOrderDraft,
 } from '@/components/support/inquiryOrderSelection.storage';
-import { faXmark as ImportedFaXmark } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { InquiryCautions } from '@/components/support/InquiryCautions';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { supportNavigation } from '@/components/support/support.navigation';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { faXmark } from '@/icons/fontAwesome';
 
 type InquiryAttachmentListProps = {
   files: File[];

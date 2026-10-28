@@ -2,7 +2,9 @@
 
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { isValidElement } from 'react';
+
 import { css, cva, cx } from 'styled-system/css';
+
 import { usePlatform } from '@/context/platform';
 
 // Compact EN H7 uses the approved guide (500); the Figma style currently says 700.

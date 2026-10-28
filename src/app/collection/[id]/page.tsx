@@ -1,7 +1,9 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
+
 import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
 
 const collectionNames: Record<string, string> = {

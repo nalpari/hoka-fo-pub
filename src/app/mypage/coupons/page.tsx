@@ -1,21 +1,25 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
-import { Box, Stack, HStack } from 'styled-system/jsx';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { css } from 'styled-system/css';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, HStack, Stack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton/LoadMoreButton';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faCircleCheck } from '@/icons/fontAwesome';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { faCircleCheck } from '@/icons/fontAwesome';
 
 type CouponRegistrationSectionProps = {
   code: string;

@@ -1,19 +1,23 @@
 import { type ReactNode } from 'react';
+
 import { Box } from 'styled-system/jsx';
+
 import {
   Breadcrumb,
   type BreadcrumbItem,
 } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import {
   ContentHeader,
   type ContentHeaderProps,
 } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { SidebarColumns } from '@/components/common/layouts/SidebarColumns/SidebarColumns';
+
 import {
   SideNavigation,
   type SideNavigationGroup,
 } from '@/components/common/organisms/Navigation/SideNavigation/SideNavigation';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { SidebarColumns } from '@/components/common/layouts/SidebarColumns/SidebarColumns';
 
 type PageFrameProps = {
   breadcrumbItems?: BreadcrumbItem[];

@@ -1,4 +1,4 @@
-import { TextFormField, type SingleLineFormFieldProps } from './TextFormField';
+import { type SingleLineFormFieldProps, TextFormField } from './TextFormField';
 
 export function PhoneNumberField({ inputProps, ...props }: SingleLineFormFieldProps) {
   return (

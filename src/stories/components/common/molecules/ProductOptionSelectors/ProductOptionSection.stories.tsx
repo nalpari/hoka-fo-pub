@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { ProductOptionSection } from '@/components/common/molecules/ProductOptionSelectors/ProductOptionSection';
+
 import { PlatformProvider } from '@/context/platform';
 
 const meta = {

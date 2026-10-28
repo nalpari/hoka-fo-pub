@@ -6,9 +6,11 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T04:21:49+00:00'
+  at: '2026-10-28T06:08:02+00:00'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/
+  - eslint.config.js
   - src/context/MyPageInitialState.ts
   - src/stories/features/mypage/MyPagePreview.tsx
   - src/stories/features/mypage/MyPageRoutePreview.tsx
@@ -421,3 +423,7 @@ ShopShell은 기존 상태와 액션을 계속 소유하고 `ShopStateProvider`�
 ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모 AppLayout·헤더·푸터·메뉴 구현을 같은 모듈의 로컬 함수로 옮겼다. 장바구니·주문서·계정의 UI 함수는 실제 페이지가 소유하며 Hooks를 렌더 함수 내부에 중첩하지 않았다. RoutePreview 컨텍스트는 기본값 null이고 기존 스토리 props·콜백을 페이지 내부 구성에 전달한다. 운영 상태의 데이터 흐름은 변경하지 않았다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
 
 검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈의 import 순서 및 named binding 순서만 정리한다. 컨텍스트 값·상태 수명·업데이트·주문 및 로그인 동작은 변경하지 않는다.

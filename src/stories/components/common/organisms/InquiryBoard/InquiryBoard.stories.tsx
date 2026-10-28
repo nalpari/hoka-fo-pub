@@ -1,7 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { InquiryBoard, ProductInquiryLink } from '@/stories/route-previews/products-idPreview';
+
 import { productInquiries } from '@/components/product/productInquiries';
 import { PlatformProvider } from '@/context/platform';
+import { InquiryBoard, ProductInquiryLink } from '@/stories/route-previews/products-idPreview';
 
 const meta = {
   title: 'Organisms/InquiryBoard',

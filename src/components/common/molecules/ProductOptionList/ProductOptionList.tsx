@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useRef, useState } from 'react';
+
 import { css, cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
 
 const list = cva({
   variants: {

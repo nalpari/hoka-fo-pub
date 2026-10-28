@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/mypage/coupons/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { CouponManager as CouponManagerContract } from '@/types/component-contracts/app-mypage-coupons-page';

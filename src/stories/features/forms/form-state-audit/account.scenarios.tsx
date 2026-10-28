@@ -1,12 +1,14 @@
 import { expect, userEvent, within } from 'storybook/test';
-import FindAccountPage from '@/app/login/find-account/page';
-import PhoneVerificationPage from '@/app/signup/verify/phone/page';
+
 import AccountUnlockVerificationPage from '@/app/login/account-locked/verification/page';
-import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
+import FindAccountPage from '@/app/login/find-account/page';
 import RegistrationPage from '@/app/signup/information/page';
 import SignupTermsPage from '@/app/signup/terms/page';
-import type { AuditStory as Story } from './shared';
+import PhoneVerificationPage from '@/app/signup/verify/phone/page';
+import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
+
 import { enterAddress } from './enterAddress';
+import type { AuditStory as Story } from './shared';
 
 export const FindAccount: Story = {
   render: () => <FindAccountPage />,

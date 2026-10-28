@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
 
 type Props = {

@@ -1,5 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
+
 import { css, cva } from 'styled-system/css';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const badge = cva({

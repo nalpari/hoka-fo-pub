@@ -1,7 +1,9 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import type { Product } from '@/mocks/products';
 import { HStack, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import type { Product } from '@/mocks/products';
 
 export function CompareBar({
   products,

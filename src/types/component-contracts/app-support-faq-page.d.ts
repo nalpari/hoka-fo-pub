@@ -1,6 +1,7 @@
+import { type ReactNode } from 'react';
+
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type FaqCategory } from '@/components/faq/faq.data';
-import { type ReactNode } from 'react';
 type Props = {
   category: FaqCategory;
   categories: FaqCategory[];

@@ -1,6 +1,9 @@
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { HStack, Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import type { CareSection } from './care.data';
 
 /** 제품 관리 안내를 섹션별로 표시합니다 (Displays the care instructions composition). */

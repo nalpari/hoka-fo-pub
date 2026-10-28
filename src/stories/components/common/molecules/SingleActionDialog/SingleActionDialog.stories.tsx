@@ -1,10 +1,13 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/context/platform';
+
 import { Button } from '@/components/common/atoms/Button/Button';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+
+import { PlatformProvider } from '@/context/platform';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

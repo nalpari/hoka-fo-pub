@@ -6,9 +6,12 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T08:23:58Z'
+  at: '2026-10-28T06:08:02+00:00'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/mocks/
+  - src/data/
+  - eslint.config.js
   - src/mocks/cartDisplay.ts
   - src/components/product/productInquiries.ts
   - src/app/products/[id]/page.tsx
@@ -113,3 +116,7 @@ src/mocks/products.ts의 Clifton 11 GTX detailDescription을 사용자가 첨부
 ## src 폴더 구조 승격 (2026-10-28)
 
 shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## Import 자동 정렬 (2026-10-28)
+
+목 데이터와 IA 데이터·상품 타입을 포함한 authored src TS/TSX의 import만 자동 정렬 대상에 포함했다. 데이터 값·형태·외부 공개 타입과 파일 구조는 유지한다. 개발 의존성과 CLI·저장 자동화의 정책은 개발 문서를 따른다.

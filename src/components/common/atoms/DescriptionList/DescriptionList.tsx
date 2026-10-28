@@ -1,8 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
-import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
 import { Box } from 'styled-system/jsx';
 import type { SystemStyleObject } from 'styled-system/types';
+
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
 
 const list = css.raw({
   display: 'grid',

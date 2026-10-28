@@ -1,5 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+
 import { Fieldset } from '@/components/catalog/ProductListingPage';
 
 const meta = { title: 'Atoms/Fieldset', component: Fieldset, tags: ['autodocs'] } satisfies Meta<

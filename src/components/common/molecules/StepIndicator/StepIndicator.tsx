@@ -1,9 +1,11 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import type { ReactNode } from 'react';
+
 import { css, cva } from 'styled-system/css';
 import { Circle, Stack } from 'styled-system/jsx';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 export type StepIndicatorItem = { label: ReactNode; id?: string };
 

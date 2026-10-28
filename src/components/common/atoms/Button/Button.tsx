@@ -1,11 +1,14 @@
 'use client';
 
+import Link from 'next/link';
+import type { LinkProps } from 'next/link';
+
 import { Button as BaseButton, type ButtonProps as BaseButtonProps } from '@base-ui/react/button';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
-import Link from 'next/link';
-import type { LinkProps } from 'next/link';
+
 import { css, cva } from 'styled-system/css';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const button = cva({

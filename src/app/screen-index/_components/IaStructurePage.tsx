@@ -18,21 +18,25 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useMemo, useState } from 'react';
+
 import { css } from 'styled-system/css';
-import { Grid, Box, Flex, Stack } from 'styled-system/jsx';
-import { screens, type ScreenDefinition } from '@/data/screenRegistry';
+import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
+
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
+
+import {
+  getProductListingIaKey,
+  getProductListingRoute,
+} from '@/components/catalog/productListingIaRoute';
 import {
   isStorybookPending,
   isStorybookReady,
   isStorybookWorking,
 } from '@/components/screen-index/storybookLinks';
-import {
-  getProductListingIaKey,
-  getProductListingRoute,
-} from '@/components/catalog/productListingIaRoute';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 config.autoAddCss = false;
 

@@ -1,24 +1,29 @@
 'use client';
 
-import { cva, css } from 'styled-system/css';
-import { Stack, Box, Grid } from 'styled-system/jsx';
+import Image from 'next/image';
+
+import { useState } from 'react';
+
+import { css, cva } from 'styled-system/css';
+import { Box, Grid, Stack } from 'styled-system/jsx';
+
+import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
 import {
   SegmentedControl,
   type SegmentedControlOption,
 } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import Image from 'next/image';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import {
   type Gender,
-  type GuideCategory,
   genderOptions,
+  type GuideCategory,
   shoeSizes,
-  widthOptions,
   type Unit,
+  widthOptions,
 } from '@/components/size-guide/size-guide.data';
-import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { useState } from 'react';
 
 const option = cva({
   base: {

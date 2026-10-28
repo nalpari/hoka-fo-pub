@@ -1,10 +1,12 @@
-import type { CSSProperties, ImgHTMLAttributes } from 'react';
-import { css } from 'styled-system/css';
 import { config, type IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { CSSProperties, ImgHTMLAttributes } from 'react';
+
+import { css } from 'styled-system/css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { iconAssets, type IconAssetName } from '@/icons/iconAssets';
 import { token } from 'styled-system/tokens';
+
+import { type IconAssetName, iconAssets } from '@/icons/iconAssets';
 
 config.autoAddCss = false;
 

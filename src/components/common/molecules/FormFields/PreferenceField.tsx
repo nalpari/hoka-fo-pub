@@ -1,7 +1,8 @@
+import { css } from 'styled-system/css';
+import { Box, HStack } from 'styled-system/jsx';
+
 import { Radio, type RadioProps } from '@/components/common/atoms/Radio/Radio';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Box, HStack } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
 
 type Props<T extends string> = RadioProps<T> & {
   label?: string;

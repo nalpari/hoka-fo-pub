@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
 import { ColorFilter } from '@/components/catalog/ProductListingPage';
 
 const colorOptions = [

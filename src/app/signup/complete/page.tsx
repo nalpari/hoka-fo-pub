@@ -1,12 +1,14 @@
 'use client';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
 import { Center, Stack } from 'styled-system/jsx';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 /** 회원가입 완료 안내와 후속 이동을 표시합니다. (Displays registration completion and follow-up navigation.) */
 export default function Page() {

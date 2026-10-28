@@ -1,7 +1,10 @@
 import Link from 'next/link';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { css } from 'styled-system/css';
-import { Stack, HStack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 type OrderRecommendation = {

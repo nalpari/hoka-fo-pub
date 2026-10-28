@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
 import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
 
 function InteractiveEmailSignupField() {

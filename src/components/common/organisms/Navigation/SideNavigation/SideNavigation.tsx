@@ -1,9 +1,11 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import Link from 'next/link';
+
 import { cva } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 export type SideNavigationGroup = {
   heading: string;

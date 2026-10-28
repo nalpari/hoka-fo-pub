@@ -1,12 +1,13 @@
 'use client';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { css } from 'styled-system/css';
 
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 /** 계정 잠금 해제 완료 안내를 표시합니다. (Displays the account unlock completion notice.) */
 export default function Page() {

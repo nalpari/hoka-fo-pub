@@ -1,87 +1,94 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { Dialog } from '@base-ui/react/dialog';
+import { Drawer } from '@base-ui/react/drawer';
 import {
-  type Ref,
+  type AnchorHTMLAttributes,
+  type ComponentPropsWithoutRef,
+  type ComponentType,
+  createContext,
+  type CSSProperties,
+  type HTMLAttributes,
+  type MouseEventHandler,
   type ReactNode,
+  type Ref,
   type RefObject,
+  useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
-  type AnchorHTMLAttributes,
-  type ComponentType,
-  type CSSProperties,
-  type MouseEventHandler,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes,
-  useEffect,
-  createContext,
-  useContext,
   useSyncExternalStore,
 } from 'react';
-import { css, cx, cva } from 'styled-system/css';
+
+import { css, cva, cx } from 'styled-system/css';
 import {
-  HStack,
-  VStack,
-  Divider,
-  Stack,
-  Square as ImportedSquare,
-  Flex,
   Box,
-  type SquareProps,
-  Grid,
-  Wrap,
   Circle,
+  Divider,
+  Flex,
+  Grid,
+  HStack,
+  Square as ImportedSquare,
+  type SquareProps,
+  Stack,
+  VStack,
+  Wrap,
 } from 'styled-system/jsx';
-import { ButtonLink, Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Drawer } from '@base-ui/react/drawer';
-import Link from 'next/link';
 import { hstack } from 'styled-system/patterns';
+
+import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import {
-  faUser,
-  faXmark,
-  faChevronRight,
-  faBox,
-  faComments,
-  faLocationDot,
-  faUserSolid,
-} from '@/icons/fontAwesome';
-import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion/Accordion';
-import {
-  type MegaMenu,
-  type MegaMenuPromo,
-  megaMenus,
-} from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
-import {
-  socials,
-  type FooterGroup,
-  footerGroups,
-} from '@/components/common/organisms/Layout/SiteFooter/footerData';
-import { usePlatform, PlatformProvider } from '@/context/platform';
-import { type Platform } from '@/lib/device';
-import { Dialog } from '@base-ui/react/dialog';
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import {
-  popularSearches,
-  autocompleteSearches,
-  suggestedSearches,
-} from '@/components/common/organisms/Search/searchOverlayData';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
-import { useRecentSearches } from '@/components/common/organisms/Search/useRecentSearches';
-import { useCarousel } from '@/components/common/molecules/Carousel/CarouselContext';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import {
   Carousel,
   CarouselControls,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
+import { useCarousel } from '@/components/common/molecules/Carousel/CarouselContext';
+
 import {
-  headerPromotionItems,
+  type FooterGroup,
+  footerGroups,
+  socials,
+} from '@/components/common/organisms/Layout/SiteFooter/footerData';
+import {
   type HeaderPromotionItem,
+  headerPromotionItems,
 } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
+import {
+  type MegaMenu,
+  type MegaMenuPromo,
+  megaMenus,
+} from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
+import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
+import {
+  autocompleteSearches,
+  popularSearches,
+  suggestedSearches,
+} from '@/components/common/organisms/Search/searchOverlayData';
+import { useRecentSearches } from '@/components/common/organisms/Search/useRecentSearches';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { PlatformProvider, usePlatform } from '@/context/platform';
+import {
+  faBox,
+  faChevronRight,
+  faComments,
+  faLocationDot,
+  faUser,
+  faUserSolid,
+  faXmark,
+} from '@/icons/fontAwesome';
+import { type Platform } from '@/lib/device';
 import { useScrollPin } from '@/lib/useScrollPin';
 import { type CartItem } from '@/types/cart';
 

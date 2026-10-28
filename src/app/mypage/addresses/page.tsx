@@ -1,22 +1,28 @@
 'use client';
 
+import { useContext, useState } from 'react';
+
+import { Box, HStack, Stack } from 'styled-system/jsx';
+
+import { Badge } from '@/components/common/atoms/Badge/Badge';
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup/FormActionGroup';
 import { NameField } from '@/components/common/molecules/FormFields/NameField';
 import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { Box, Stack, HStack } from 'styled-system/jsx';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { type Address } from '@/components/mypage/mypage-address.types';
-import { Badge } from '@/components/common/atoms/Badge/Badge';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { useContext, useState } from 'react';
-import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 
 function AddressEditor({
   editingId,

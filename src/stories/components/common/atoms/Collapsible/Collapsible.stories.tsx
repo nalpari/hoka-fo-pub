@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
-import { Collapsible } from '@/components/catalog/ProductListingPage';
-import { Button } from '@/components/common/atoms/Button/Button';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+
+import { Collapsible } from '@/components/catalog/ProductListingPage';
 
 function InteractiveCollapsible() {
   const [open, setOpen] = useState(false);

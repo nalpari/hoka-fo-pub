@@ -1,19 +1,22 @@
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
+
+import { Button } from '@/components/common/atoms/Button/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
+import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
+import { FormField } from '@/components/common/atoms/FormField/FormField';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { RangeInput } from '@/components/catalog/ProductListingPage';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
-import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+import { Select } from '@/components/common/atoms/Select/Select';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { Button } from '@/components/common/atoms/Button/Button';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+
+import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+import { Terms } from '@/components/common/molecules/Terms/Terms';
+
+import { RangeInput } from '@/components/catalog/ProductListingPage';
 import { type AuditStory as Story } from '@/stories/features/forms/form-state-audit/shared';
 
 function InheritanceExample() {

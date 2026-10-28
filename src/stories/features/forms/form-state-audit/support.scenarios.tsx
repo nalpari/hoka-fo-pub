@@ -1,5 +1,7 @@
 import { expect, userEvent, within } from 'storybook/test';
+
 import InquiryNewPage from '@/app/support/inquiries/new/page';
+
 import type { AuditStory as Story } from './shared';
 
 export const Inquiry: Story = {

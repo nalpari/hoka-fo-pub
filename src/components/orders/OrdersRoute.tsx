@@ -1,68 +1,74 @@
 'use client';
 
 import Link from 'next/link';
-import { css } from 'styled-system/css';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Grid, Stack, HStack, Box } from 'styled-system/jsx';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { type ReactNode, useId, useState } from 'react';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
-import { myPageNavigation } from '@/components/mypage/mypage.data';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
-import {
-  type OrderFilters,
-  type OrdersPeriod,
-  type OrderRecord,
-  type OrderLine,
-  type OrderClaim,
-  type OrdersView,
-  type ClaimKind,
-  type ClaimReason,
-} from '@/components/orders/orders.types';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+
+import { Drawer } from '@base-ui/react/drawer';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import {
-  getClaimKind,
-  getClaimLines,
-  getRemainingLines,
-  orderStatusLabels,
-  getOrderAmounts,
-  getLinesAmount,
-  claimReasonLabels,
-  getClaimAmount,
-  getOrderStatusItems,
-  filterOrders,
-  getPeriodStart,
-  submitOrderClaim,
-} from '@/components/orders/order-policy';
-import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { type ReactNode, useId, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+
+import { Badge } from '@/components/common/atoms/Badge/Badge';
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
 import {
   DescriptionList,
   type DescriptionListItem,
 } from '@/components/common/atoms/DescriptionList/DescriptionList';
-import { Badge } from '@/components/common/atoms/Badge/Badge';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
 import { FormField } from '@/components/common/atoms/FormField/FormField';
-import { Select } from '@/components/common/atoms/Select/Select';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
-import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
-import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
-import { DataTable } from '@/components/common/atoms/DataTable/DataTable';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { Drawer } from '@base-ui/react/drawer';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
-import { usePlatform } from '@/context/platform';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
+import { Select } from '@/components/common/atoms/Select/Select';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
+import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator/StepIndicator';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+
+import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
+
+import { myPageNavigation } from '@/components/mypage/mypage.data';
+import {
+  claimReasonLabels,
+  filterOrders,
+  getClaimAmount,
+  getClaimKind,
+  getClaimLines,
+  getLinesAmount,
+  getOrderAmounts,
+  getOrderStatusItems,
+  getPeriodStart,
+  getRemainingLines,
+  orderStatusLabels,
+  submitOrderClaim,
+} from '@/components/orders/order-policy';
 import { previewOrders } from '@/components/orders/orders.data';
+import {
+  type ClaimKind,
+  type ClaimReason,
+  type OrderClaim,
+  type OrderFilters,
+  type OrderLine,
+  type OrderRecord,
+  type OrdersPeriod,
+  type OrdersView,
+} from '@/components/orders/orders.types';
+import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
 
 /** 주문 화면의 데스크톱 탐색과 모바일 본문 여백을 배치합니다. (Lays out desktop navigation and mobile order content.) */

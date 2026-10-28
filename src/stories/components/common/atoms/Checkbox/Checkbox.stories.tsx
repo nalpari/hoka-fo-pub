@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+
 import { Stack } from 'styled-system/jsx';
+
 import { Checkbox, type SingleCheckboxProps } from '@/components/common/atoms/Checkbox/Checkbox';
 
 function CheckboxStory(props: SingleCheckboxProps) {

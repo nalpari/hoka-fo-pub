@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
+
 import { css } from 'styled-system/css';
+
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 function SegmentedStory({

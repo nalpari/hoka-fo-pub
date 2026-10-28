@@ -1,32 +1,38 @@
 'use client';
 
-import {
-  sessionNotices,
-  sessionPrecautions,
-  type RunClubSession,
-  runClubImage,
-  runClubSessions,
-  runClubVenue,
-  runClubAddress,
-} from '@/components/run-club/runClub.data';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Box, Grid, HStack, Center } from 'styled-system/jsx';
-import { css, cva } from 'styled-system/css';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { type ReactNode, useContext, useEffect, useState } from 'react';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import Image from 'next/image';
-import { RunClubBadge } from '@/components/run-club/RunClubBadge';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { useParams } from 'next/navigation';
+
+import { type ReactNode, useContext, useEffect, useState } from 'react';
+
+import { css, cva } from 'styled-system/css';
+import { Box, Center, Grid, HStack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { type Product, products } from '@/mocks/products';
-import { type Platform } from '@/lib/device';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { RunClubSessionContext } from '@/components/run-club/RunClubSessionContext';
-import { useParams } from 'next/navigation';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import {
+  runClubAddress,
+  runClubImage,
+  type RunClubSession,
+  runClubSessions,
+  runClubVenue,
+  sessionNotices,
+  sessionPrecautions,
+} from '@/components/run-club/runClub.data';
+import { RunClubBadge } from '@/components/run-club/RunClubBadge';
+import { RunClubSessionContext } from '@/components/run-club/RunClubSessionContext';
 import { usePlatform } from '@/context/platform';
+import { type Platform } from '@/lib/device';
+import { type Product, products } from '@/mocks/products';
 
 const applyButton = css({
   w: '260px',

@@ -1,15 +1,18 @@
-import { useState, type FormEvent } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { type FormEvent, useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+
 import { Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+
+import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { NameField } from '@/components/common/molecules/FormFields/NameField';
-import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
 import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
+import { PhoneNumberField } from '@/components/common/molecules/FormFields/PhoneNumberField';
+import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
 import { VerificationCodeField } from '@/components/common/molecules/FormFields/VerificationCodeField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
-import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 
 function FieldExamples({
   onSave,

@@ -1,10 +1,14 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+
 import { Box, Grid } from 'styled-system/jsx';
+
 import { ButtonLink } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 const messages = {
   'not-found': {

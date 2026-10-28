@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, type ReactNode, useContext } from 'react';
+
 import type { Platform } from '@/lib/device';
 
 const PlatformContext = createContext<Platform>('web');

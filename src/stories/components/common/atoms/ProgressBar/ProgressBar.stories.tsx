@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { ProgressBar } from '@/components/common/atoms/ProgressBar/ProgressBar';
 
 const meta = {

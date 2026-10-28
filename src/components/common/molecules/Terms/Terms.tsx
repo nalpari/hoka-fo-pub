@@ -1,10 +1,12 @@
 'use client';
 
-import { useId, type ReactNode } from 'react';
+import { type ReactNode, useId } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const root = css({
   display: 'flex',

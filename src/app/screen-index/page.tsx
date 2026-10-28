@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { IaStructurePage } from '@/app/screen-index/_components/IaStructurePage';
 
 export const metadata: Metadata = {

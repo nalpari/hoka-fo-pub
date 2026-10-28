@@ -1,17 +1,22 @@
 'use client';
 
-import { Box, HStack, Stack, Grid } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
-import { type Product, products } from '@/mocks/products';
-import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { useState } from 'react';
+
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState/EmptyState';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { type Product, products } from '@/mocks/products';
 
 function MyPageProductHistoryHeading({ title }: { title: string }) {
   return (

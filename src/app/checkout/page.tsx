@@ -1,48 +1,55 @@
 'use client';
 
-import { Circle, Stack, Flex, Box, HStack } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faCheck } from '@/icons/fontAwesome';
-import { orderRecommendations } from '@/mocks/orderRecommendations';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { css } from 'styled-system/css';
-import { ButtonLink, Button } from '@/components/common/atoms/Button/Button';
-import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
 import Link from 'next/link';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
-import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
-import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
 import {
-  useState,
+  type FormEvent,
   type FormEventHandler,
   type ReactNode,
+  useState,
   useSyncExternalStore,
-  type FormEvent,
 } from 'react';
-import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
-import { getCartImage } from '@/mocks/cartDisplay';
-import {
-  type CheckoutRow,
-  checkoutShippingFee,
-  getCheckoutSummary,
-} from '@/components/checkout/checkout-summary';
+
+import { css } from 'styled-system/css';
+import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { AmountRow } from '@/components/common/molecules/AmountRow/AmountRow';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
+import { TextareaField } from '@/components/common/molecules/FormFields/TextareaField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
+
+import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
+import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
+
 import {
   checkoutCouponOptions,
   getCheckoutCouponDiscount,
   getMaximumCheckoutCoupon,
 } from '@/components/checkout/checkout-coupons';
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar/OrderActionBar';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
+import {
+  type CheckoutRow,
+  checkoutShippingFee,
+  getCheckoutSummary,
+} from '@/components/checkout/checkout-summary';
 import { useShop } from '@/context/ShopShell';
+import { faCheck } from '@/icons/fontAwesome';
+import { getCartImage } from '@/mocks/cartDisplay';
+import { orderRecommendations } from '@/mocks/orderRecommendations';
 import { products } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 

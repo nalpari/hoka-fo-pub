@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, type ComponentProps, type FormEvent } from 'react';
+import { type ComponentProps, type FormEvent, useState } from 'react';
+
+import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
+import { isValidName } from '@/lib/validation';
+
 import {
-  type PhoneVerificationContent,
   type PhoneInformation,
+  type PhoneVerificationContent,
   type PhoneVerificationErrors,
 } from './PhoneVerificationContent';
-import { isValidName } from '@/lib/validation';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 const isValidBirthDate = (value: string) => {
   if (!/^\d{8}$/.test(value)) return false;

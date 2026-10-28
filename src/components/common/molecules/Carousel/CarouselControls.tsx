@@ -1,8 +1,11 @@
 'use client';
 
 import type { CSSProperties } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { Icon, type IconProps } from '@/components/common/atoms/Icon/Icon';
+
 import { useCarousel } from './CarouselContext';
 
 const controls = css({ display: 'flex', gap: '2.5' });

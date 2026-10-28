@@ -1,5 +1,5 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type ReactNode, type FormEvent, type ComponentProps } from 'react';
+import { type ComponentProps, type FormEvent, type ReactNode } from 'react';
 declare function LoginLayout({ children }: { children: ReactNode }): import('react').JSX.Element;
 declare function LoginActions({
   onUnavailable,

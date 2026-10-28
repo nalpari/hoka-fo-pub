@@ -1,10 +1,13 @@
 import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
+
 import {
   SideNavigation,
   type SideNavigationGroup,
 } from '@/components/common/organisms/Navigation/SideNavigation/SideNavigation';
-import { Box } from 'styled-system/jsx';
+
 import { SidebarColumns } from '@/components/common/layouts/SidebarColumns/SidebarColumns';
 
 export type SidebarNavigationGroup = SideNavigationGroup;

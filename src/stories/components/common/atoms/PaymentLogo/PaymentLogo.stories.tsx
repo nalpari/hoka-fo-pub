@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { HStack, Stack } from 'styled-system/jsx';
+
 import { PaymentLogo } from '@/components/common/atoms/PaymentLogo/PaymentLogo';
 
 const meta = {

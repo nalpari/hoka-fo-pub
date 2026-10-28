@@ -1,9 +1,11 @@
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
+
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
 
 const input = css({
   '&&': {

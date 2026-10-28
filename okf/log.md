@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- authored src TS/TSX 453개를 새 import 순서로 정렬했다. 본문·타입 표기·주석·부수 효과 경계 보존과 타입·테스트·빌드를 확인하고 관련 개념을 갱신했다.
+
 - ESLint의 import 그룹·named binding 정렬과 부수 효과 경계 보호를 도입했다. 고정 개발 의존성·CLI·VS Code 저장 자동화·코드 규칙 및 회귀 테스트를 추가했다. [검증 정책](development/verification.md#import-자동-정렬-2026-10-28)을 참고한다.
 
 - 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](../.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](../.codex/skills/component-reusability/references/single-parent-consolidation.md).

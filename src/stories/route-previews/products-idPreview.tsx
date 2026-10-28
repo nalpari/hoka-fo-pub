@@ -1,10 +1,11 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/products/[id]/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   InquiryBoard as InquiryBoardContract,
-  ProductInquiryLink as ProductInquiryLinkContract,
   ProductColorSelector as ProductColorSelectorContract,
+  ProductInquiryLink as ProductInquiryLinkContract,
   ProductSelectedOptions as ProductSelectedOptionsContract,
   ProductTechSpecs as ProductTechSpecsContract,
 } from '@/types/component-contracts/app-products-id-page';

@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/context/platform';
+
 import {
   ProductSizeSelector,
   type ProductSizeSelectorProps,
 } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
+
+import { PlatformProvider } from '@/context/platform';
 
 function Example(args: ProductSizeSelectorProps) {
   const [value, setValue] = useState(args.value);

@@ -1,10 +1,13 @@
-import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { HeaderSearch, SearchOverlay } from '@/context/ShopShell';
-import { PlatformProvider } from '@/context/platform';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import { Box, Flex } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
+
+import { PlatformProvider } from '@/context/platform';
+import { HeaderSearch, SearchOverlay } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Search/SearchOverlay',

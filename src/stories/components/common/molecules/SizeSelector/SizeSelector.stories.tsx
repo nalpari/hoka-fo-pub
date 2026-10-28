@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
+import { koreanSizes } from '@/components/common/molecules/SizeSelector/koreanSizes';
 import {
   SizeSelector,
   type SizeSelectorOption,
 } from '@/components/common/molecules/SizeSelector/SizeSelector';
-import { koreanSizes } from '@/components/common/molecules/SizeSelector/koreanSizes';
 
 const options: SizeSelectorOption[] = koreanSizes.map((value) => ({
   value,

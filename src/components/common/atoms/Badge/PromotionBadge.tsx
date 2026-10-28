@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
+
 import { Divider, HStack } from 'styled-system/jsx';
+
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
 
 export type Promotion = 'Best' | 'New' | 'Exclusive';

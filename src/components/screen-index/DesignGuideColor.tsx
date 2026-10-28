@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+
 import { css } from 'styled-system/css';
-import { token } from 'styled-system/tokens';
-import type { TypographyTone } from '@/components/common/atoms/Typography/Typography';
-import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Box, Grid } from 'styled-system/jsx';
+import { token } from 'styled-system/tokens';
+
+import type { TypographyTone } from '@/components/common/atoms/Typography/Typography';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
 
 const colorGroups = [
   {

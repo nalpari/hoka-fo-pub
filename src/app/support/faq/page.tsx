@@ -1,19 +1,23 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
-import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
-import { type FaqCategory, faqCategories, faqs } from '@/components/faq/faq.data';
-import { Box, Flex, HStack } from 'styled-system/jsx';
-import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { type ReactNode, useMemo, useState } from 'react';
-import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
+
 import { css } from 'styled-system/css';
+import { Box, Flex, HStack } from 'styled-system/jsx';
+
+import { Accordion } from '@/components/common/atoms/Accordion/Accordion';
+import { FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
+import { SearchField } from '@/components/common/molecules/SearchField/SearchField';
+
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
+import { faqCategories, type FaqCategory, faqs } from '@/components/faq/faq.data';
 import { supportNavigation } from '@/components/support/support.navigation';
 import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 type Props = {
   category: FaqCategory;

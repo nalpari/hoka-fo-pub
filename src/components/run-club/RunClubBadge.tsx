@@ -1,6 +1,8 @@
 import { cva } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import type { RunClubSession } from './runClub.data';
 
 const runClubBadge = cva({

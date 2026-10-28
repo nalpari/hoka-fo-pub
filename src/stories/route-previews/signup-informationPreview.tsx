@@ -1,10 +1,11 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/signup/information/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   MarketingConsentSummaryModal as MarketingConsentSummaryModalContract,
-  RegistrationMarketingConsentSummaryModal as RegistrationMarketingConsentSummaryModalContract,
   RegistrationContent as RegistrationContentContract,
+  RegistrationMarketingConsentSummaryModal as RegistrationMarketingConsentSummaryModalContract,
 } from '@/types/component-contracts/app-signup-information-page';
 
 /** 페이지 내부 구성을 기존 스토리 입력에 연결합니다. (Connects a page-local composition to existing story inputs.) */

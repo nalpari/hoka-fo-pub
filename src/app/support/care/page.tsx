@@ -1,8 +1,11 @@
 'use client';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
 import { Stack } from 'styled-system/jsx';
+
+import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
 import { apparelCareSections, shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { supportNavigation } from '@/components/support/support.navigation';

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { css } from 'styled-system/css';
+
 import { IconBrand, iconBrandVariants } from '@/components/common/atoms/IconBrand/IconBrand';
 
 const grid = css({

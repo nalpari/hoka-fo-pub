@@ -1,14 +1,17 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { useRouter } from 'next/navigation';
+
+import { useState } from 'react';
+
+import { css } from 'styled-system/css';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { css } from 'styled-system/css';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 const styles = {
   body: css({ gap: '4' }),

@@ -213,3 +213,5 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 import 그룹은 Next.js → 외부 패키지(React·Node 내장 포함) → Panda → common atoms → molecules → organisms → layouts → 나머지 내부 모듈 → 상대 경로 순이다. 모듈 경로와 named binding을 알파벳순으로 정렬하고 그룹 간 빈 줄은 하나다. 호환 별칭도 같은 계층으로 분류하며 타입 전용 import는 경로 그룹에 속하고 기존 타입 표기는 유지한다.
 
 Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 고정하고 일반 import가 이를 건너뛰는 것은 막지 않는다. eslint.config.js의 얇은 래퍼가 구간마다 기존 정렬 규칙을 호출해 CSS/SCSS·부수 효과 import 및 비-import 문장을 경계로 유지한다. export 정렬 규칙은 추가하지 않는다. tests/import-order.test.mjs에서 그룹·별칭·타입·named binding·주석·지시문·경계·멱등성을 검증한다. 전체 소스 적용 전후에는 import 대상과 코드 본문 보존도 별도 비교한다.
+
+검증 결과 (2026-10-28): 533개 TS/TSX 중 453개를 정렬했다. 수정 전후 TypeScript AST에서 import 순서와 named binding 순서를 제외한 본문·import 대상·타입 표기와 주석이 보존되었고 부수 효과 import 7개 및 비-import 경계를 넘는 이동이 없었다. 반복 자동 수정 두 번에서 소스 바이트 변경이 0개였으며, 생성물 제외를 포함한 규칙 회귀 9개와 전체 테스트 71개·타입 검사·Next/Storybook 빌드가 통과했다. 스킬 validator도 통과했다.

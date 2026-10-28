@@ -1,9 +1,11 @@
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import type { ReactNode } from 'react';
 
 import { Grid } from 'styled-system/jsx';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+
 import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 type Props = {
   title: ReactNode;

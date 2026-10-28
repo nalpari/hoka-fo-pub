@@ -1,9 +1,12 @@
 'use client';
 
-import { css } from 'styled-system/css';
-import { Flex, Box } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { type ReactNode } from 'react';
+
+import { css } from 'styled-system/css';
+import { Box, Flex } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { type LocaleRegion, localeRegions } from '@/components/locales/locales.data';
 
 const globe = css({ w: '7', h: '7', flexShrink: 0 });

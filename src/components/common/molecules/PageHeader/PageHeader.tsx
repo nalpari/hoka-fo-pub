@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
 
 type Props = { title: ReactNode; description?: ReactNode; action?: ReactNode; className?: string };

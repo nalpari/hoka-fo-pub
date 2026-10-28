@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import {
-  IconCatalog,
-  IconButtonPreview,
-  PropertyComparison,
   fontAwesomeNames,
+  IconButtonPreview,
   iconButtonSource,
-  svgPaths,
   type IconButtonStoryArgs,
+  IconCatalog,
+  PropertyComparison,
+  svgPaths,
 } from '@/components/common/atoms/IconButton/IconButtonDocs';
 
 const defaults = {

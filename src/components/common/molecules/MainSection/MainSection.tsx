@@ -1,11 +1,16 @@
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { css } from 'styled-system/css';
-import { contentFrame } from 'styled-system/patterns';
-import type { MainSectionProps as ImportedMainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { type ReactNode } from 'react';
+
+import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
+import { contentFrame } from 'styled-system/patterns';
+
 import { type TypographyVariant } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import type { MainSectionProps as ImportedMainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
 
 type Props = Pick<ImportedMainSectionProps, 'title' | 'titleVariant' | 'actionSlot'>;
 

@@ -1,8 +1,10 @@
 'use client';
 
-import type { ReactNode } from 'react';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
+import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 

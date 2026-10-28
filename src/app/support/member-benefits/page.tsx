@@ -1,10 +1,13 @@
 'use client';
 
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/support/support.navigation';
 import { Stack } from 'styled-system/jsx';
+
+import { Divider } from '@/components/common/atoms/Divider/Divider';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+
+import { supportNavigation } from '@/components/support/support.navigation';
 
 /** 온라인 회원등급 안내 화면을 구성합니다. (Composes the customer benefit information screen.) */
 export default function Page() {

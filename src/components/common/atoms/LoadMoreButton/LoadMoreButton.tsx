@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
+
 import { HStack } from 'styled-system/jsx';
-import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
+
 import {
   Button,
   type ButtonProps,
   type ButtonSizingProps,
 } from '@/components/common/atoms/Button/Button';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
 
 type CounterProps =
   | { remaining: number; counter?: never }

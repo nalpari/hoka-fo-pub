@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { DataRows } from '@/components/common/organisms/Account/AccountDataList';
 
 const meta = {

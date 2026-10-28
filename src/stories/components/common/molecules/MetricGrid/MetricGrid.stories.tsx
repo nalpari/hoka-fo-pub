@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { MetricGrid } from '@/stories/route-previews/mypage-referralPreview';
 
 const meta = {

@@ -1,7 +1,9 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
+
 import { css, cva } from 'styled-system/css';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Flex } from 'styled-system/jsx';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const root = cva({
   variants: {

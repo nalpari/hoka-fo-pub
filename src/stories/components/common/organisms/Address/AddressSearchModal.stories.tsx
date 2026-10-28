@@ -1,9 +1,12 @@
-import { AddressSearchModal } from '@/components/common/organisms/Address/AddressFields';
-import { useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/context/platform';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+
+import { AddressSearchModal } from '@/components/common/organisms/Address/AddressFields';
+
+import { PlatformProvider } from '@/context/platform';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

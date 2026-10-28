@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import { Box } from 'styled-system/jsx';
 
 /** Stays inside the form while its mobile presentation is fixed to the viewport. */

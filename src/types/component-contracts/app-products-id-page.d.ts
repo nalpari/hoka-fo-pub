@@ -1,13 +1,15 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type ReactNode, type Ref, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, type ReactNode, type Ref } from 'react';
+
 import { type IconButtonProps } from '@/components/common/atoms/IconButton/IconButton';
+
 import {
   type ProductDetailSpecification,
-  type ProductTechnicalScaleData,
   type ProductEditorialFeature,
+  type ProductTechnicalScaleData,
 } from '@/components/product/productDetailPresentation';
-import { type Product, type ProductWidthOption } from '@/mocks/products';
 import { type Platform } from '@/lib/device';
+import { type Product, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 declare function ProductDetailGrid({
   children,

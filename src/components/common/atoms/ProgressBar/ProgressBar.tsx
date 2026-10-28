@@ -1,4 +1,5 @@
 import { Progress as BaseProgress } from '@base-ui/react/progress';
+
 import { css } from 'styled-system/css';
 
 type Props = { value: number; max: number; label?: string };

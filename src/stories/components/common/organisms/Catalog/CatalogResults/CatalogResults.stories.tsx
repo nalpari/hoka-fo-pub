@@ -1,5 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { css } from 'styled-system/css';
+
 import { CatalogResults } from '@/components/catalog/ProductListingPage';
 
 const meta = {

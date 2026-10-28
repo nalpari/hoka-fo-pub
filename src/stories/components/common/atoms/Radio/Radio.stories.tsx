@@ -1,6 +1,8 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
 import { Stack } from 'styled-system/jsx';
+
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 
 const options = [
@@ -34,7 +36,13 @@ export const FigmaStates: Story = {
   render: () => (
     <Stack gap="6">
       <Radio ariaLabel="선택 가능 상태" onValueChange={() => {}} options={options} value="best" />
-      <Radio ariaLabel="비활성 상태" disabled onValueChange={() => {}} options={options} value="best" />
+      <Radio
+        ariaLabel="비활성 상태"
+        disabled
+        onValueChange={() => {}}
+        options={options}
+        value="best"
+      />
     </Stack>
   ),
 };

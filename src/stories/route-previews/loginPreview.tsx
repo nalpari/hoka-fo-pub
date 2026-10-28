@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/login/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { LoginContent as LoginContentContract } from '@/types/component-contracts/app-login-page';

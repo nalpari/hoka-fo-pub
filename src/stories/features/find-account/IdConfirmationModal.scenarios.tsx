@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { PlatformProvider } from '@/context/platform';
 import { IdConfirmationModal } from '@/stories/route-previews/login-find-accountPreview';
 

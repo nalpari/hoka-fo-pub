@@ -1,8 +1,10 @@
 'use client';
 
-import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { type CSSProperties, Fragment, type ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
+
 import { useCarousel } from './CarouselContext';
 
 const pagination = css({ display: 'flex', justifyContent: 'center', gap: '1', mt: '2' });

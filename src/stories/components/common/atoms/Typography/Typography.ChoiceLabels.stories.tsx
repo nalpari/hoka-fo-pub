@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
+
 import { Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { PlatformProvider } from '@/context/platform';
 
 const meta = {

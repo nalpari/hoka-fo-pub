@@ -1,4 +1,5 @@
 import type { DropdownOption } from '@/components/common/atoms/Dropdown/Dropdown';
+
 import type { CheckoutRow } from './checkout-summary';
 
 export const checkoutCouponOptions: readonly DropdownOption[] = [

@@ -1,20 +1,21 @@
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ShopShell } from '@/context/ShopShell';
-import SupportPage from '@/app/support/page';
-import SizeGuidePage from '@/app/support/size-guide/page';
-import FaqPage from '@/app/support/faq/page';
-import NoticesPage from '@/app/support/notices/page';
-import NoticeDetailPage from '@/app/support/notices/[id]/page';
-import { InquiryPage } from '@/stories/features/support/InquiryPagePreview';
-import InquiryNewPage from '@/app/support/inquiries/new/page';
-import InquiryOrderLookupPage from '@/app/support/inquiries/new/order-products/page';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import ShippingReturnsPage from '@/app/support/after-sales/page';
-import StoreFinderPage from '@/app/support/store/page';
 import CareGuidePage from '@/app/support/care/page';
-import TermsPage from '@/app/support/terms/page';
+import FaqPage from '@/app/support/faq/page';
+import InquiryOrderLookupPage from '@/app/support/inquiries/new/order-products/page';
+import InquiryNewPage from '@/app/support/inquiries/new/page';
 import MemberBenefitsPage from '@/app/support/member-benefits/page';
 import MileagePage from '@/app/support/mileage/page';
+import NoticeDetailPage from '@/app/support/notices/[id]/page';
+import NoticesPage from '@/app/support/notices/page';
+import SupportPage from '@/app/support/page';
+import SizeGuidePage from '@/app/support/size-guide/page';
+import StoreFinderPage from '@/app/support/store/page';
+import TermsPage from '@/app/support/terms/page';
+import { ShopShell } from '@/context/ShopShell';
+import { InquiryPage } from '@/stories/features/support/InquiryPagePreview';
 
 type Args = { platform: 'web' | 'mobile' };
 

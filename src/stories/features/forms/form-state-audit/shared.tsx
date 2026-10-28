@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { PlatformProvider } from '@/context/platform';
 
 export type AuditStory = StoryObj<Meta>;

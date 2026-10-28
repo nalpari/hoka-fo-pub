@@ -1,10 +1,12 @@
 'use client';
 
-import type { ReactNode } from 'react';
 import { Tabs } from '@base-ui/react/tabs';
+import type { ReactNode } from 'react';
+
 import { css } from 'styled-system/css';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const list = css.raw({
   display: 'flex',

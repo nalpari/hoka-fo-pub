@@ -1,4 +1,5 @@
 import { css, cva } from 'styled-system/css';
+
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
@@ -77,7 +78,11 @@ export function ProductWidthSelector({
         onValueChange={onValueChange}
         options={options.map((value) => ({
           value,
-          label: <Typography variant="body4" tone="inherit">{value}</Typography>,
+          label: (
+            <Typography variant="body4" tone="inherit">
+              {value}
+            </Typography>
+          ),
         }))}
         className={css({
           display: 'flex!',

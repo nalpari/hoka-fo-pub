@@ -1,5 +1,5 @@
-import type { Product } from '@/mocks/products';
 import type { ProductListingFilters } from '@/components/catalog/product-listing/filterProducts';
+import type { Product } from '@/mocks/products';
 
 const matchingActivities: Record<string, string[]> = {
   'road-running': ['러닝'],

@@ -1,4 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+
 import { ProductGender } from '@/components/common/molecules/ProductCard/ProductCard';
 
 const meta = {

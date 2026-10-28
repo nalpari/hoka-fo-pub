@@ -1,4 +1,5 @@
 import { Box, Stack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 /** 아이디 조회 결과의 사용자 안내와 재설정 설명을 표시합니다. (Displays the account lookup result and password reset guidance.) */

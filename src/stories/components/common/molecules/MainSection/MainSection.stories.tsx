@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
 
 const meta = {

@@ -1,6 +1,8 @@
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
+
 import { css } from 'styled-system/css';
+
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 type CardProps = ComponentPropsWithoutRef<'article'>;
 

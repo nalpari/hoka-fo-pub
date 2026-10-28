@@ -1,5 +1,5 @@
-import type { Product } from '@/mocks/products';
 import { matchesProductFilters } from '@/components/catalog/product-listing/productFilterPolicy';
+import type { Product } from '@/mocks/products';
 
 export type ProductListingFilters = {
   activity: string[];

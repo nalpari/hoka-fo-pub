@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+
 import Page from '@/app/signup/verify/phone/page';
 import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { AlreadyRegisteredModal as AlreadyRegisteredModalContract } from '@/types/component-contracts/app-signup-verify-phone-page';

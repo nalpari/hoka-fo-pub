@@ -1,4 +1,5 @@
 import type { CSSProperties, HTMLAttributes } from 'react';
+
 import { css } from 'styled-system/css';
 
 const sortIcon = css({

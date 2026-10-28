@@ -1,5 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
+
 import { Box } from 'styled-system/jsx';
+
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
 import {
   LoadMoreButton,

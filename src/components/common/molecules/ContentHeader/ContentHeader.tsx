@@ -1,5 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
+
 import { Stack } from 'styled-system/jsx';
+
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography/Typography';
 
 type TextProps = Omit<TypographyProps<'h2'>, 'as' | 'children'>;

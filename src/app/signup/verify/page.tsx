@@ -1,16 +1,20 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { useRouter } from 'next/navigation';
 
 import { css } from 'styled-system/css';
-import { Center, Stack, Box, Grid } from 'styled-system/jsx';
+import { Box, Center, Grid, Stack } from 'styled-system/jsx';
+
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { useRouter } from 'next/navigation';
+
+import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { useRoutePreview } from '@/context/RoutePreview';
 
 const styles = {
   illustration: css({

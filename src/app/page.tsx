@@ -1,37 +1,40 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
 import {
+  type FocusEvent,
+  type PointerEvent,
   type ReactNode,
-  useState,
   useCallback,
   useEffect,
   useRef,
-  type FocusEvent,
-  type PointerEvent,
+  useState,
 } from 'react';
-import { Box, VStack, Grid, HStack, Flex } from 'styled-system/jsx';
-import { type Platform } from '@/lib/device';
-import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
-import { products } from '@/mocks/products';
-import { FilterTabs, type FilterTabOption } from '@/components/common/atoms/FilterTabs/FilterTabs';
+import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
+import { contentFrame } from 'styled-system/patterns';
+
+import { ButtonLink } from '@/components/common/atoms/Button/Button';
+import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs/FilterTabs';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
+import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
+import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+
+import { createHomeCarouselPreviewItems } from '@/components/home/homeCarouselPreview';
 import {
   bestSellerTabs,
   homeCategories,
   homeExplores,
-  shoeFinderItems,
   type HomeShoeFinderCardVariant,
+  shoeFinderItems,
 } from '@/components/home/homeContent';
-import { createHomeCarouselPreviewItems } from '@/components/home/homeCarouselPreview';
-import { MainContentCard } from '@/components/common/molecules/MainContentCard/MainContentCard';
-import { MainSection } from '@/components/common/molecules/MainSection/MainSection';
-import { contentFrame } from 'styled-system/patterns';
-import { ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { type Platform } from '@/lib/device';
+import { products } from '@/mocks/products';
 
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */
 function HomeLayout({ platform, children }: { platform: Platform; children: ReactNode }) {

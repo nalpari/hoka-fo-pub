@@ -1,5 +1,5 @@
-import { products } from '@/mocks/products';
 import { recommendationImages } from '@/mocks/cartDisplay';
+import { products } from '@/mocks/products';
 import type { OrderRecommendation } from '@/types/component-contracts/components-common-organisms-OrderRecommendations-OrderRecommendations';
 
 export const orderRecommendations: readonly OrderRecommendation[] = products

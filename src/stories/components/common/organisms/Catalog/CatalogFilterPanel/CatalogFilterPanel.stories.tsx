@@ -1,5 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { CatalogFilterSection, CatalogFilterPanel } from '@/components/catalog/ProductListingPage';
+
+import { CatalogFilterPanel, CatalogFilterSection } from '@/components/catalog/ProductListingPage';
 
 const meta = {
   title: 'Organisms/Catalog/CatalogFilterPanel',

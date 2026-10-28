@@ -1,6 +1,7 @@
-import { useState, type ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { type ComponentProps, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import { ProductOptionList } from '@/components/common/molecules/ProductOptionList/ProductOptionList';
 
 function OptionsPreview(args: ComponentProps<typeof ProductOptionList>) {

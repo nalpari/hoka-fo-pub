@@ -1,25 +1,30 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
-
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import { type ReactNode, type FormEvent, type ComponentProps, useState } from 'react';
-import { css } from 'styled-system/css';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { Stack, HStack } from 'styled-system/jsx';
-import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
-import { Popover } from '@base-ui/react/popover';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { faCircleInfo } from '@/icons/fontAwesome';
-import { usePlatform } from '@/context/platform';
-import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
-import { useShop } from '@/context/ShopShell';
 import { useRouter } from 'next/navigation';
+
+import { Popover } from '@base-ui/react/popover';
+import { type ComponentProps, type FormEvent, type ReactNode, useState } from 'react';
+
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
+import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useShop } from '@/context/ShopShell';
+import { faCircleInfo } from '@/icons/fontAwesome';
 import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
 
 function LoginLayout({ children }: { children: ReactNode }) {

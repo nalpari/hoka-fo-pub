@@ -1,9 +1,11 @@
-import { MarketingConsentSummaryModal } from '@/stories/route-previews/signup-informationPreview';
-import { useState } from 'react';
 import { type Meta, type StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/context/platform';
+
 import { Button } from '@/components/common/atoms/Button/Button';
+
+import { PlatformProvider } from '@/context/platform';
+import { MarketingConsentSummaryModal } from '@/stories/route-previews/signup-informationPreview';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

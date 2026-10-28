@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import { TextInput, type TextInputProps } from '@/components/common/atoms/TextInput/TextInput';
 
 const meta = {

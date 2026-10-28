@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
+import { HStack } from 'styled-system/jsx';
+
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { ButtonDocs, ButtonDocsContainer } from '@/components/common/atoms/Button/ButtonDocs';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
-import { HStack } from 'styled-system/jsx';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const meta = {
   title: 'Atoms/Button',

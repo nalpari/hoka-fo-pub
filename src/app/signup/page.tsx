@@ -1,18 +1,23 @@
 'use client';
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { type ComponentProps, type CSSProperties, type ReactNode, useState } from 'react';
+
+import { css, cx } from 'styled-system/css';
+import { Box, Center, Grid, Stack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { css, cx } from 'styled-system/css';
-import { Grid, Box, Center, Stack } from 'styled-system/jsx';
-import { Button } from '@/components/common/atoms/Button/Button';
-import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
-import { type CSSProperties, type ComponentProps, type ReactNode, useState } from 'react';
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+
 import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
-import Link from 'next/link';
-import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
-import { useRouter } from 'next/navigation';
 import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton/SocialAuthButton';
+
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 const benefit = css({
   border: '1px solid var(--color-black-20)',

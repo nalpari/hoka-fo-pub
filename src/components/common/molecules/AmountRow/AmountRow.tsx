@@ -1,5 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
+
 import { HStack } from 'styled-system/jsx';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 type Props = Omit<ComponentProps<typeof HStack>, 'children'> & {

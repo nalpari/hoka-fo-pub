@@ -4,10 +4,12 @@ import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
 import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from 'react';
 import { useId, useRef } from 'react';
+
 import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 const group = cva({
   base: { display: 'flex', gap: '8px' },

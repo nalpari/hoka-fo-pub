@@ -1,5 +1,5 @@
-import type { CartItem } from '@/types/cart';
 import type { Product } from '@/mocks/products';
+import type { CartItem } from '@/types/cart';
 
 /** Quantity is deliberately excluded so selection survives quantity changes. */
 export function itemKey(item: CartItem) {

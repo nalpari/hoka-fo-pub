@@ -6,9 +6,11 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T04:50:57+00:00'
+  at: '2026-10-28T06:08:02+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/
+  - eslint.config.js
   - .codex/skills/component-reusability/SKILL.md
   - .codex/skills/component-reusability/references/page-ownership.md
   - okf/architecture/storefront-design.md
@@ -232,3 +234,7 @@ Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 R
 깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
 
 검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+src/app의 import만 새 그룹 순서로 정렬했다. 라우트의 URL·기본 export·서버/클라이언트 지시문과 metadata 계약은 유지한다. 부수 효과 스타일 import는 위치·상대 순서를 보존하며 그 앞뒤의 바인딩 import가 경계를 넘지 않는다.

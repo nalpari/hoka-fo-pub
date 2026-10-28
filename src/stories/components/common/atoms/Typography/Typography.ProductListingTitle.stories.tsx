@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Typography } from '@/components/common/atoms/Typography/Typography';
+
 import { PlatformProvider } from '@/context/platform';
 
 const meta = {

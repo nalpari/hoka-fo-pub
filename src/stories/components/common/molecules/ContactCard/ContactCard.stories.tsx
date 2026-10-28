@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { ContactCard } from '@/components/common/molecules/ContactCard/ContactCard';
 
 const meta = {

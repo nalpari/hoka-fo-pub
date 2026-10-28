@@ -1,20 +1,25 @@
 'use client';
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { useRouter } from 'next/navigation';
 
 import { type ReactNode, useState } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack, styled } from 'styled-system/jsx';
-import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+
 import { Button } from '@/components/common/atoms/Button/Button';
-import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { Divider } from '@/components/common/atoms/Divider/Divider';
-import { Terms } from '@/components/common/molecules/Terms/Terms';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { Terms } from '@/components/common/molecules/Terms/Terms';
+
 import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
-import { useRouter } from 'next/navigation';
+
+import { useRoutePreview } from '@/context/RoutePreview';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },

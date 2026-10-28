@@ -4,19 +4,21 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/effect-fade';
 import {
-  type CSSProperties,
-  type RefObject,
   Children,
+  type CSSProperties,
   type ReactNode,
+  type RefObject,
   useCallback,
   useRef,
   useState,
 } from 'react';
 import SimpleBar from 'simplebar-react';
-import { css } from 'styled-system/css';
 import { type Swiper as SwiperInstance } from 'swiper';
 import { EffectFade, FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { css } from 'styled-system/css';
+
 import { useCarousel } from '@/components/common/molecules/Carousel/CarouselContext';
 
 const draggableScrollbar = css({

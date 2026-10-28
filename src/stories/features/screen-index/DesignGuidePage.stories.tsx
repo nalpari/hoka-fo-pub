@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { DesignGuideColor } from '@/components/screen-index/DesignGuideColor';
 import { DesignGuideTypography } from '@/components/screen-index/DesignGuideTypography';
 
