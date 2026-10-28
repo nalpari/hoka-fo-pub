@@ -1,4 +1,4 @@
-import type { CartItem } from '@/shared/types/cart';
+import type { CartItem } from '@/types/cart';
 
 const previewColors = new Set(['브라운', '레드', '화이트', '옐로우골드']);
 

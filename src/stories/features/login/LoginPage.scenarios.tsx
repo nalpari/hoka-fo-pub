@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
-import { LoginContent } from '@/shared/features/login/LoginContent';
-import { LoginPage } from '@/shared/features/login/LoginPage';
-import { PlatformProvider } from '@/shared/context/platform';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
+
+import { LoginPage } from '@/stories/features/login/LoginPagePreview';
+import { LoginContent } from '@/stories/route-previews/loginPreview';
 
 const meta = {
   title: 'PAGES/로그인/0. 로그인',

@@ -9,13 +9,12 @@
     "esModuleInterop": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
       "styled-system/*": ["./styled-system/*"],
       "@/*": ["./src/*"],
-      "@components/*": ["./src/shared/components/*"],
-      "@atoms/*": ["./src/shared/components/atoms/*"],
-      "@features/*": ["./src/shared/features/*"],
+      "@components/*": ["./src/components/common/*"],
+      "@atoms/*": ["./src/components/common/atoms/*"],
+      "@features/*": ["./src/components/*"],
       "@data/*": ["./src/data/*"],
       "@mocks/*": ["./src/mocks/*"]
     },
@@ -31,6 +30,7 @@
   },
   "include": [
     "next-env.d.ts",
+    ".storybook/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "styled-system/**/*.ts",

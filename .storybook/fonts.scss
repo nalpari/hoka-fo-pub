@@ -1,0 +1,30 @@
+// Storybook uses Vite rather than the Next.js font loader. Keep these faces in sync with RootLayout.
+$font-faces: (
+  ('TheFutureHOKA-Regular.woff2', 'The Future HOKA', 400, normal),
+  ('TheFutureHOKA-Italic.woff2', 'The Future HOKA', 400, italic),
+  ('TheFutureHOKA-Medium.woff2', 'The Future HOKA', 500, normal),
+  ('TheFutureHOKA-MediumItalic.woff2', 'The Future HOKA', 500, italic),
+  ('TheFutureHOKA-Bold.woff2', 'The Future HOKA', 700, normal),
+  ('TheFutureHOKA-BoldItalic.woff2', 'The Future HOKA', 700, italic),
+  ('TheFutureHOKA-Black.woff2', 'The Future HOKA', 900, normal),
+  ('TheFutureHOKA-BlackItalic.woff2', 'The Future HOKA', 900, italic),
+  ('Pretendard-Thin.woff2', 'Pretendard', 100, normal),
+  ('Pretendard-ExtraLight.woff2', 'Pretendard', 200, normal),
+  ('Pretendard-Light.woff2', 'Pretendard', 300, normal),
+  ('Pretendard-Regular.woff2', 'Pretendard', 400, normal),
+  ('Pretendard-Medium.woff2', 'Pretendard', 500, normal),
+  ('Pretendard-SemiBold.woff2', 'Pretendard', 600, normal),
+  ('Pretendard-Bold.woff2', 'Pretendard', 700, normal),
+  ('Pretendard-ExtraBold.woff2', 'Pretendard', 800, normal),
+  ('Pretendard-Black.woff2', 'Pretendard', 900, normal)
+);
+
+@each $file, $family, $weight, $style in $font-faces {
+  @font-face {
+    font-family: $family;
+    src: url('/fonts/#{$file}') format('woff2');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}

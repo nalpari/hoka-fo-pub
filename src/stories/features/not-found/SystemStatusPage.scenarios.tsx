@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
-import { PlatformProvider } from '@/shared/context/platform';
-import { SystemStatusPage } from '@/shared/features/not-found/SystemStatusPage';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
+import { AppLayout } from '@/context/ShopShell';
+
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
 const meta = {
   component: SystemStatusPage,

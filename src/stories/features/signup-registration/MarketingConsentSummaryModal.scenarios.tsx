@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { PlatformProvider } from '@/shared/context/platform';
-import { MarketingConsentSummaryModal } from '@/shared/features/signup-registration/MarketingConsentSummaryModal';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
+
+import { RegistrationMarketingConsentSummaryModal as MarketingConsentSummaryModal } from '@/stories/route-previews/signup-informationPreview';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

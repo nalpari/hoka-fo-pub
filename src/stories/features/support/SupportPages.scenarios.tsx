@@ -1,19 +1,21 @@
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ShopShell } from '@/shared/ShopShell';
-import { SupportPage } from '@/shared/features/support/SupportPage';
-import { SizeGuidePage } from '@/shared/features/size-guide/SizeGuidePage';
-import { FaqPage } from '@/shared/features/faq/FaqPage';
-import { NoticesPage } from '@/shared/features/notices/NoticesPage';
-import { NoticeDetailPage } from '@/shared/features/notices/NoticeDetailPage';
-import { InquiryPage } from '@/shared/features/support/InquiryPage';
-import { InquiryNewPage } from '@/shared/features/support/InquiryNewPage';
-import { InquiryOrderLookupPage } from '@/shared/features/support/InquiryOrderLookupPage';
-import { ShippingReturnsPage } from '@/shared/features/support/ShippingReturnsPage';
-import { StoreFinderPage } from '@/shared/features/store-finder/StoreFinderPage';
-import { CareGuidePage } from '@/shared/features/care-guide/CareGuidePage';
-import { TermsPage } from '@/shared/features/terms/TermsPage';
-import { SupportExperiencePage } from '@/shared/features/support/SupportExperiencePage';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { ShopShell } from '@/context/ShopShell';
+
+import ShippingReturnsPage from '@/app/support/after-sales/page';
+import CareGuidePage from '@/app/support/care/page';
+import FaqPage from '@/app/support/faq/page';
+import InquiryOrderLookupPage from '@/app/support/inquiries/new/order-products/page';
+import InquiryNewPage from '@/app/support/inquiries/new/page';
+import MemberBenefitsPage from '@/app/support/member-benefits/page';
+import MileagePage from '@/app/support/mileage/page';
+import NoticeDetailPage from '@/app/support/notices/[id]/page';
+import NoticesPage from '@/app/support/notices/page';
+import SupportPage from '@/app/support/page';
+import SizeGuidePage from '@/app/support/size-guide/page';
+import StoreFinderPage from '@/app/support/store/page';
+import TermsPage from '@/app/support/terms/page';
+import { InquiryPage } from '@/stories/features/support/InquiryPagePreview';
 
 type Args = { platform: 'web' | 'mobile' };
 
@@ -718,7 +720,7 @@ export const MemberBenefitsDesktop: Story = {
   name: 'Member Benefits / Desktop',
   render: () => (
     <ShopShell platform="web">
-      <SupportExperiencePage kind="member-benefits" />
+      <MemberBenefitsPage />
     </ShopShell>
   ),
   parameters: { nextjs: { navigation: { pathname: '/support/member-benefits' } } },
@@ -730,7 +732,7 @@ export const MemberBenefitsMobile375: Story = {
   name: 'Member Benefits / Mobile / 375px',
   render: () => (
     <ShopShell platform="mobile">
-      <SupportExperiencePage kind="member-benefits" />
+      <MemberBenefitsPage />
     </ShopShell>
   ),
   globals: { viewport: 'hoka375' },
@@ -740,7 +742,7 @@ export const MileageDesktop: Story = {
   name: 'Mileage / Desktop',
   render: () => (
     <ShopShell platform="web">
-      <SupportExperiencePage kind="mileage" />
+      <MileagePage />
     </ShopShell>
   ),
   parameters: { nextjs: { navigation: { pathname: '/support/mileage' } } },
@@ -752,7 +754,7 @@ export const MileageMobile375: Story = {
   name: 'Mileage / Mobile / 375px',
   render: () => (
     <ShopShell platform="mobile">
-      <SupportExperiencePage kind="mileage" />
+      <MileagePage />
     </ShopShell>
   ),
   globals: { viewport: 'hoka375' },

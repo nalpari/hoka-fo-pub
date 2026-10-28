@@ -47,11 +47,11 @@ test('source areas select related concepts and unknown src still requires review
     'okf/architecture/routing.md',
     'okf/log.md',
   ]);
-  assert.deepEqual(requiredDocs(['src/shared/ShopShell.tsx']), [
+  assert.deepEqual(requiredDocs(['src/context/ShopShell.tsx']), [
     'okf/architecture/state.md',
     'okf/log.md',
   ]);
-  assert.deepEqual(requiredDocs(['src/shared/components/atoms/Button/Button.tsx']), [
+  assert.deepEqual(requiredDocs(['src/components/common/atoms/Button.tsx']), [
     'okf/architecture/ui.md',
     'okf/log.md',
   ]);
@@ -142,23 +142,35 @@ test('installer enables Git, preserves Claude hooks, and is idempotent', (t) => 
   assert.match(commit.stderr, /OKF/);
 });
 
-test('PowerShell entry point preserves check failures and works outside the repository', {
-  skip: process.platform !== 'win32',
-}, (t) => {
-  const repo = fixture(t);
-  const run = () => spawnSync(
-    'powershell.exe',
-    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', join(repo.cwd, 'scripts/okf.ps1'), 'check'],
-    { cwd: tmpdir(), env: repo.env, encoding: 'utf8' },
-  );
-  const clean = run();
-  assert.equal(clean.status, 0, clean.stderr);
-  stage(repo, 'src/app/page.tsx');
-  assert.equal(run().status, 1);
-  stage(repo, 'okf/architecture/routing.md');
-  stage(repo, 'okf/log.md');
-  assert.equal(run().status, 0);
-});
+test(
+  'PowerShell entry point preserves check failures and works outside the repository',
+  {
+    skip: process.platform !== 'win32',
+  },
+  (t) => {
+    const repo = fixture(t);
+    const run = () =>
+      spawnSync(
+        'powershell.exe',
+        [
+          '-NoProfile',
+          '-ExecutionPolicy',
+          'Bypass',
+          '-File',
+          join(repo.cwd, 'scripts/okf.ps1'),
+          'check',
+        ],
+        { cwd: tmpdir(), env: repo.env, encoding: 'utf8' },
+      );
+    const clean = run();
+    assert.equal(clean.status, 0, clean.stderr);
+    stage(repo, 'src/app/page.tsx');
+    assert.equal(run().status, 1);
+    stage(repo, 'okf/architecture/routing.md');
+    stage(repo, 'okf/log.md');
+    assert.equal(run().status, 0);
+  },
+);
 
 test('installer leaves an existing hooksPath or pre-commit intact', (t) => {
   const repo = fixture(t);

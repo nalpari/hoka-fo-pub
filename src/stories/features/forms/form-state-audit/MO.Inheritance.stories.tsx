@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { auditMeta } from './shared';
+
 import * as controls from './controls.scenarios';
+import { auditMeta } from './shared';
 
 const meta = {
   ...auditMeta,

@@ -1,7 +1,8 @@
 'use client';
 
-import { MyPageStatusPage } from '@/shared/features/mypage/MyPageStatusPage';
+import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
 
+/** 관심상품의 공용 목록과 관리 기능을 연결합니다. (Connects the shared wishlist listing and management behavior.) */
 export default function Page() {
-  return <MyPageStatusPage kind="wishlist" />;
+  return <MyPageProductHistory kind="wishlist" />;
 }

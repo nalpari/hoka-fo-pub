@@ -1,9 +1,10 @@
+import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
+
 import { products } from '@/mocks/products';
-import { PlatformProvider } from '@/shared/context/platform';
-import { ProductColorSelector } from '@/shared/features/product/ProductColorSelector';
+import { ProductColorSelector } from '@/stories/route-previews/products-idPreview';
 
 const colors = products.slice(0, 10).map((product) => product.name);
 

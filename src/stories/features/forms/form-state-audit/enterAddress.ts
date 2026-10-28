@@ -1,4 +1,4 @@
-import { expect, userEvent, within, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 export async function enterAddress(canvasElement: HTMLElement, buttonName = '우편번호 찾기') {
   const c = within(canvasElement);

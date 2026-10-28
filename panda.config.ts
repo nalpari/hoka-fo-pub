@@ -27,7 +27,7 @@ export default defineConfig({
   },
   conditions: {
     extend: {
-      // User-agent platform selection adds this class at the application root.
+      // The platform provider adds this class for viewport selection or explicit previews.
       mobile: '.platform-mobile &',
       wideDesktop: '@media (min-width: 2240px)',
       ultraWideDesktop: '@media (min-width: 2560px)',

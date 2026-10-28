@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-import { ShopShell } from '@/shared/ShopShell';
+import { ShopShell } from '@/context/ShopShell';
+
 import ProductPage from '@/app/products/[id]/page';
 
 const meta = {

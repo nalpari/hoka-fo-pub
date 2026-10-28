@@ -1,4 +1,5 @@
 import type { StoryObj } from '@storybook/react';
+
 import base, * as scenarios from './AccountLockedPage.scenarios';
 
 const meta = {
@@ -12,4 +13,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.Default, name: 'Default' };
-1

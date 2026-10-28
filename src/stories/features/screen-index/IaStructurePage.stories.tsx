@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { IaStructurePage } from '@/shared/features/screen-index/IaStructurePage';
+
+import { IaStructurePage } from '@/app/screen-index/_components/IaStructurePage';
 
 const meta = {
   title: 'DEVELOPMENT/IA 구조도',
   component: IaStructurePage,
+  args: { previewEnvironment: 'storybook' },
   parameters: {
-    nextjs: { navigation: { pathname: '/screen-index' } },
     layout: 'fullscreen',
-    controls: { disable: true },
+    nextjs: { navigation: { pathname: '/screen-index' } },
+    viewport: { disable: true },
   },
-  globals: { viewport: 'responsive' },
 } satisfies Meta<typeof IaStructurePage>;
 
 export default meta;

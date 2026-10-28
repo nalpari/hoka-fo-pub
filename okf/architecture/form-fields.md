@@ -9,66 +9,62 @@ generated:
   at: '2026-10-26T00:00:00Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
-  - src/shared/features/mypage/ProfileEditForm.tsx
-  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/app/mypage/profile/page.tsx
+  - src/components/mypage/mypage-profile.types.ts
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
-  - src/shared/features/mypage/ProfilePhoneVerification.tsx
-  - src/shared/components/atoms/FormField/FormField.tsx
-  - src/shared/features/mypage/ProfilePasswordDialog.tsx
-  - src/stories/components/atoms/FormField/FormField.stories.tsx
-  - src/shared/features/orders/OrdersDateRange.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
-  - src/shared/features/checkout/CheckoutDeliveryMessageField.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
+  - src/components/common/atoms/FormField/FormField.tsx
+  - src/stories/components/common/atoms/FormField/FormField.stories.tsx
+  - src/components/orders/OrdersRoute.tsx
+  - src/app/checkout/page.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
-  - src/shared/features/find-account/IdConfirmationModal.tsx
-  - src/shared/features/login/LoginPage.tsx
+  - src/app/login/find-account/page.tsx
+  - src/components/login/LoginPage.tsx
   - src/shared/Mockup/signup/SignupDetailsStep.tsx
-  - src/shared/features/find-account/PasswordResetField.tsx
-  - src/shared/features/find-account/FindAccountIdentityFields.tsx
-  - src/shared/features/find-account/FindAccountCodeFields.tsx
-  - src/shared/components/organisms/MyPage/CouponManager.tsx
-  - src/shared/features/login/LoginForm.tsx
-  - src/shared/features/support/InquiryMessageFields.tsx
-  - src/shared/features/mypage/MyPageAddresses.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/signup-registration/RegistrationField.tsx
-  - src/shared/features/mypage/MyPageReviewDialog.tsx
-  - src/shared/components/organisms/Address/AddressSearchModal.tsx
-  - src/shared/features/phone-verification/VerificationCodeFields.tsx
-  - src/shared/features/phone-verification/PhoneInformationFields.tsx
-  - src/shared/components/molecules/FormFields/BirthDateField.tsx
-  - src/shared/components/molecules/FormFields/CharacterCount.tsx
-  - src/shared/components/molecules/FormFields/EmailField.tsx
-  - src/shared/components/molecules/FormFields/NameField.tsx
-  - src/shared/components/molecules/FormFields/PasswordField.tsx
-  - src/shared/components/molecules/FormFields/PhoneNumberField.tsx
-  - src/shared/components/molecules/FormFields/PreferenceField.tsx
-  - src/shared/components/molecules/FormFields/TextareaField.tsx
-  - src/shared/components/molecules/FormFields/TextFormField.tsx
-  - src/shared/components/molecules/FormFields/VerificationCodeField.tsx
-  - src/shared/components/molecules/FormFields/VerificationCountdown.tsx
-  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
-  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
-  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
-  - src/stories/components/molecules/FormFields/FormFields.stories.tsx
-  - src/shared/components/organisms/Address/AddressFields.tsx
-  - src/shared/components/organisms/Address/AddressField.tsx
-  - src/shared/features/checkout/CheckoutAddressFields.tsx
-  - src/shared/features/checkout/CheckoutShipping.tsx
-  - src/shared/features/checkout/CheckoutShippingForm.tsx
-  - src/shared/features/signup-registration/RegistrationAddressFields.tsx
-  - src/shared/features/signup-registration/RegistrationContent.tsx
+  - src/app/login/find-account/password-reset/page.tsx
+  - src/app/mypage/coupons/page.tsx
+  - src/app/login/page.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/components/mypage/MyPageAddresses.tsx
+  - src/components/mypage/MyPageProfile.tsx
+  - src/app/signup/information/page.tsx
+  - src/app/mypage/reviews/page.tsx
+  - src/components/common/organisms/Address/AddressFields.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/components/common/molecules/FormFields/BirthDateField.tsx
+  - src/components/common/molecules/FormFields/CharacterCount.tsx
+  - src/components/common/molecules/FormFields/EmailField.tsx
+  - src/components/common/molecules/FormFields/NameField.tsx
+  - src/components/common/molecules/FormFields/PasswordField.tsx
+  - src/components/common/molecules/FormFields/PhoneNumberField.tsx
+  - src/components/common/molecules/FormFields/PreferenceField.tsx
+  - src/components/common/molecules/FormFields/TextareaField.tsx
+  - src/components/common/molecules/FormFields/TextFormField.tsx
+  - src/components/common/molecules/FormFields/VerificationCodeField.tsx
+  - src/components/common/molecules/FormFields/VerificationCountdown.tsx
+  - src/components/common/organisms/EmailAddressFields/EmailAddressFields.tsx
+  - src/stories/components/common/molecules/FormFields/FormFields.stories.tsx
 ---
 
 # 폼 필드 공통화 전수 조사
+
+## 동의 체크박스·선호 라디오의 기본 옵션 통합 (2026-10-28)
+
+Terms는 Checkbox의 consent variant로, PreferenceField는 Radio의 선택적 label/multilineLabel로 통합하고 두 파일을 삭제했다. Checkbox는 invalid·error·containerClassName을 받아 기존 대화형 레이블·16px 컨트롤·오류 설명과 alert 연결을 보존한다. 외부 className과 label 내부 컨트롤 className의 책임을 구분한다. Radio는 label이 있을 때만 기존 가로 필드 구성을 제공하며 label이 없으면 기존 사용을 유지한다. 값·검증·동의 정책은 부모에 남는다. 기존 필드 컨텍스트와 원래 props의 aria-describedby·aria-invalid를 전달하고 그룹·기존 default/filter 모드는 유지한다. [API와 검증](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)을 따른다.
+
+## 의미별 기본값 래퍼 제거 (2026-10-28)
+
+현재 이름·휴대폰 번호·비밀번호·생년월일·인증번호·여러 줄 입력은 `TextFormField`를 직접 사용한다. `NameField`, `PhoneNumberField`, `PasswordField`, `BirthDateField`, `VerificationCodeField`, `TextareaField`의 소비처와 통합 스토리를 전환하고 6개 파일을 삭제했다. 사용처가 없는 `EmailField`도 사용자 승인에 따라 삭제했다. 기본 레이블·placeholder·password 타입·numeric/one-time-code/6자리 설정은 각 호출부로 옮기고 호출자가 명시한 값은 그대로 우선한다. RegistrationField와 휴대폰 인증의 동적 Field 선택은 호출부가 이미 모든 값을 지정하므로 제거했다.
+
+공통 계약은 기존 `TextFormField`의 id·FormField props·inputProps·renderControl이며 공개 API를 추가하지 않았다. single-line/multiline 타입은 기존 타입 계약을 유지한다. 오류·hint·required·ref·disabled·폼 제출과 부모의 검증·정규화·타이머는 그대로다. `VerificationCountdown`, `CharacterCount`, `PreferenceField`, 주소·이메일 복합 입력은 실제 표시·상호작용 책임이 있어 유지한다.
+
+아래 의미별 필드 도입·재사용 설명은 당시의 이관 이력이며 현재 정책은 이 절이 우선한다. 삭제 전 소스는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`의 `FormFields` 파일이며 기존 메타데이터는 당시 출처로 보존한다. 검증 결과와 기존 자동 play 실패의 재현은 [UI 기록](ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)을 따른다.
 
 ## 회원정보 주소·이메일 입력 재사용 (2026-10-26)
 
@@ -121,15 +117,15 @@ TextFormField는 기존 atom을 대체하는 또 하나의 스타일 시스템�
 
 ## 이름 입력의 실제 사용처와 차이
 
-| 사용처                                                                                                     | 현재 표시/속성                                                                     | 검증·상태 소유자                                                                                                                          |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [SignupDetailsStep](../../src/shared/Mockup/signup/SignupDetailsStep.tsx)                                  | 이전 가입 화면 목업의 이름·이메일 입력 구성, boxed·required                        | Mockup 전용이며 운영 `/signup` 흐름에서 사용하지 않음                                                                                     |
-| [FindAccountIdentityFields](../../src/shared/features/find-account/FindAccountIdentityFields.tsx)          | 같은 문구, name=name, autocomplete=name, boxed·required                            | [FindAccountPage](../../src/shared/features/find-account/FindAccountPage.tsx)는 isValidName과 입력 시 오류 갱신, 이름 변경 시 인증 초기화 |
-| [MyPageAddresses](../../src/shared/features/mypage/MyPageAddresses.tsx)                                    | 수령인 recipient를 이름으로 표시, 같은 문구, boxed·required                        | 배송지 저장 시 recipient.trim() 존재 여부 확인                                                                                            |
-| [PhoneInformationFields](../../src/shared/features/phone-verification/PhoneInformationFields.tsx)          | textField('name', ...) 호출, 같은 문구, type=text/inputMode=text/autocomplete=name | [PhoneVerificationPage](../../src/shared/features/phone-verification/PhoneVerificationPage.tsx)는 isValidName, 값 변경 시 인증 초기화     |
-| [RegistrationPersonalFields](../../src/shared/features/signup-registration/RegistrationPersonalFields.tsx) | 이름을 입력해주세요. 문구, RegistrationField 경유                                  | [RegistrationPage](../../src/shared/features/signup-registration/RegistrationPage.tsx)의 isValidName과 필드 오류 초기화                   |
-| [CheckoutRecipientFields](../../src/shared/features/checkout/CheckoutRecipientFields.tsx)                  | 받는 분/받으실 분의 이름을 입력해주세요, compact native 입력                       | CheckoutContent의 FormData 빈 값 검사, uncontrolled                                                                                       |
-| [CheckoutSavedAddress](../../src/shared/features/checkout/CheckoutSavedAddress.tsx)                        | 저장된 이름을 native input defaultValue로 표시                                     | 기존 배송지 모드의 FormData 입력, 요약 행 모양 유지                                                                                       |
+| 사용처                                                                                                         | 현재 표시/속성                                                                     | 검증·상태 소유자                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [SignupDetailsStep](../../src/shared/Mockup/signup/SignupDetailsStep.tsx)                                      | 이전 가입 화면 목업의 이름·이메일 입력 구성, boxed·required                        | Mockup 전용이며 운영 `/signup` 흐름에서 사용하지 않음                                                                                         |
+| [FindAccountIdentityFields](../../src/components/features/find-account/FindAccountIdentityFields.tsx)          | 같은 문구, name=name, autocomplete=name, boxed·required                            | [FindAccountPage](../../src/components/features/find-account/FindAccountPage.tsx)는 isValidName과 입력 시 오류 갱신, 이름 변경 시 인증 초기화 |
+| [MyPageAddresses](../../src/components/features/mypage/MyPageAddresses.tsx)                                    | 수령인 recipient를 이름으로 표시, 같은 문구, boxed·required                        | 배송지 저장 시 recipient.trim() 존재 여부 확인                                                                                                |
+| [PhoneInformationFields](../../src/components/features/phone-verification/PhoneInformationFields.tsx)          | textField('name', ...) 호출, 같은 문구, type=text/inputMode=text/autocomplete=name | [PhoneVerificationPage](../../src/components/features/phone-verification/PhoneVerificationPage.tsx)는 isValidName, 값 변경 시 인증 초기화     |
+| [RegistrationPersonalFields](../../src/components/features/signup-registration/RegistrationPersonalFields.tsx) | 이름을 입력해주세요. 문구, RegistrationField 경유                                  | [RegistrationPage](../../src/components/features/signup-registration/RegistrationPage.tsx)의 isValidName과 필드 오류 초기화                   |
+| [CheckoutRecipientFields](../../src/components/features/checkout/CheckoutRecipientFields.tsx)                  | 받는 분/받으실 분의 이름을 입력해주세요, compact native 입력                       | CheckoutContent의 FormData 빈 값 검사, uncontrolled                                                                                           |
+| [CheckoutSavedAddress](../../src/components/features/checkout/CheckoutSavedAddress.tsx)                        | 저장된 이름을 native input defaultValue로 표시                                     | 기존 배송지 모드의 FormData 입력, 요약 행 모양 유지                                                                                           |
 
 처음 4곳은 NameField로 이관했다. RegistrationPersonalFields도 RegistrationField의 정보 객체 의존을 얇은 어댑터로 남기고 같은 NameField에 위임한다. 결제 두 곳은 compact/요약 표현과 native FormData 계약을 유지한다.
 
@@ -196,7 +192,7 @@ FormField/TextInput 직접 사용 20파일과 별도 래퍼·native 입력 경�
 
 위 문단은 주소 선행 작업의 검증 기록이다. 후속 공통 필드 이관의 실제 API와 추가 검증은 위의 이관 결과 절에 기록했다. 실제 주소 검색은 기존 미연결 안내와 직접 입력 미리보기 상태를 유지한다.
 
-검증 로직 출처: [이름 검사](../../src/shared/lib/validation.ts), [번호 처리](../../src/shared/features/find-account/phoneNumber.ts), [이메일](../../src/shared/lib/emailValidation.ts), [비밀번호](../../src/shared/lib/passwordValidation.ts), [카운트다운](../../src/shared/lib/useVerificationCountdown.ts). 공용 기반은 [FormField](../../src/shared/components/atoms/FormField/FormField.tsx)와 [TextInput](../../src/shared/components/atoms/TextInput/TextInput.tsx)이다.
+검증 로직 출처: [이름 검사](../../src/lib/validation.ts), [번호 처리](../../src/components/features/find-account/phoneNumber.ts), [이메일](../../src/lib/emailValidation.ts), [비밀번호](../../src/lib/passwordValidation.ts), [카운트다운](../../src/lib/useVerificationCountdown.ts). 공용 기반은 [FormField](../../src/components/common/atoms/FormField/FormField.tsx)와 [TextInput](../../src/components/common/atoms/TextInput/TextInput.tsx)이다.
 
 ## 로그인 아이디 필드 전환 (2026-10-20)
 

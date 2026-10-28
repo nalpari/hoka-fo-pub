@@ -9,55 +9,35 @@ generated:
   at: '2026-10-20T02:15:05Z'
 source_revision: e5e803ccd1ba98ac96c941fef33db5cfaa280ade
 working_tree_sources:
-  - src/shared/components/organisms/Account/LogoutDialog.tsx
-  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
-  - src/shared/components/organisms/Hero/Hero.tsx
-  - src/shared/components/organisms/Hero/HeroPagination.tsx
-  - src/shared/components/organisms/Hero/HeroSlide.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
-  - src/shared/components/organisms/Member/MemberHero.tsx
-  - src/shared/components/organisms/MyPage/CouponCard.tsx
-  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
-  - src/shared/components/organisms/MyPage/QuickLinkGrid.tsx
-  - src/shared/components/organisms/MyPage/ReviewManager.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductInformation.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ProductReviews.tsx
-  - src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
-  - src/shared/components/organisms/Product/ProductGallery/ProductGallery.tsx
-  - src/shared/components/organisms/Search/RecommendedSearches.tsx
-  - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
-  - src/shared/components/organisms/Search/SearchHeader.tsx
-  - src/shared/components/organisms/Search/SearchSuggestions.tsx
+  - src/app/mypage/page.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/app/page.tsx
+  - src/app/products/[id]/page.tsx
+  - src/context/ShopShell.tsx
+  - src/components/common/organisms/Layout/SiteHeader/DesktopNavigation.tsx
+  - src/components/common/organisms/Member/MemberHero.tsx
+  - src/app/mypage/coupons/page.tsx
+  - src/components/common/organisms/MyPage/QuickLinkGrid.tsx
+  - src/components/common/organisms/MyPage/ReviewManager.tsx
+  - src/components/common/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
+  - src/components/common/organisms/Product/ProductDetailSections/ProductInformation.tsx
+  - src/components/common/organisms/Product/ProductDetailSections/ProductInquiryNoticeSection.tsx
+  - src/components/common/organisms/Product/ProductDetailSections/ProductReviews.tsx
+  - src/components/common/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
+  - src/components/common/organisms/Product/ProductGallery/ProductGallery.tsx
+  - src/components/common/organisms/Search/SearchCollectionLinks.tsx
+  - src/components/common/organisms/Search/SearchHeader.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
   - src/shared/Mockup/signup/SignupTermsStep.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerHeader.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerNavigation.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerUtilityLinks.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuAD.tsx
-  - src/shared/components/organisms/Faq/FaqList.tsx
-  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
-  - src/shared/components/atoms/Accordion/Accordion.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/styles/global.scss
-  - src/stories/components/organisms/Faq/FaqList.stories.tsx
-  - src/stories/components/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
-  - src/stories/components/atoms/Accordion/Accordion.stories.tsx
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/support/store/page.tsx
+  - src/components/common/atoms/Accordion/Accordion.tsx
+  - src/components/common/atoms/Typography/Typography.tsx
+  - src/styles/global.scss
+  - src/stories/components/common/organisms/Faq/FaqList.stories.tsx
+  - src/stories/components/common/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
+  - src/stories/components/common/atoms/Accordion/Accordion.stories.tsx
+  - src/stories/components/common/atoms/Typography/Typography.stories.tsx
 sources:
   - id: skill
     resource: https://github.com/nalpari/hoka-fo-pub/blob/e5e803ccd1ba98ac96c941fef33db5cfaa280ade/.codex/skills/component-reusability/SKILL.md
@@ -69,7 +49,7 @@ sources:
 
 # Organisms 재사용 점검
 
-사용자가 지정한 `src/shared/components/organisms/`만 점검 대상으로 삼았다. 관련 공통 컴포넌트와 스토리·타입·스타일 토큰은 재사용 계약과 검증을 위해 확인·변경했다. 기존 미커밋 모바일 메뉴 작업과 제공된 멤버십 SVG는 보존했다. 전체 파일의 구조·타입·상호작용 패턴 검색과 영역별 구현 검토 결과이며 모든 페이지의 수동 검증 완료를 뜻하지 않는다.[^skill]
+사용자가 지정한 `src/components/common/organisms/`만 점검 대상으로 삼았다. 관련 공통 컴포넌트와 스토리·타입·스타일 토큰은 재사용 계약과 검증을 위해 확인·변경했다. 기존 미커밋 모바일 메뉴 작업과 제공된 멤버십 SVG는 보존했다. 전체 파일의 구조·타입·상호작용 패턴 검색과 영역별 구현 검토 결과이며 모든 페이지의 수동 검증 완료를 뜻하지 않는다.[^skill]
 
 ## 반영한 구조와 API
 

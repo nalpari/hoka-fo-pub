@@ -1,8 +1,9 @@
+import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
-import { PlatformProvider } from '@/shared/context/platform';
-import { PasswordResetPage } from '@/shared/features/find-account/PasswordResetPage';
+import { PlatformProvider } from '@/context/platform';
+
+import PasswordResetPage from '@/app/login/find-account/password-reset/page';
 
 const withPlatform =
   (platform: 'web' | 'mobile', width?: number) => (Story: React.ComponentType) => (

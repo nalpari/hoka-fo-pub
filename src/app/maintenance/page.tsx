@@ -1,5 +1,6 @@
-import { SystemStatusPage } from '@/shared/features/not-found/SystemStatusPage';
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
+/** 서비스 점검 안내 화면을 표시합니다 (Displays the maintenance page composition). */
 export default function MaintenancePage() {
   return (
     <SystemStatusPage

@@ -1,0 +1,2264 @@
+{
+  "file": "Eland_211_IA_20260928_v0.20 (2)/FO.html",
+  "screens": [
+    {
+      "iaNumber": 1,
+      "depths": ["Main", "", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hma_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 2,
+      "depths": ["Main", "Pop-up", "", "", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hma_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 3,
+      "depths": ["MEN", "Featured", "BEST", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 4,
+      "depths": ["MEN", "Featured", "BEST", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 5,
+      "depths": ["MEN", "Featured", "NEW", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 6,
+      "depths": ["MEN", "Featured", "NEW", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 7,
+      "depths": ["MEN", "Featured", "Coming Soon", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 8,
+      "depths": ["MEN", "Featured", "Coming Soon", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 9,
+      "depths": ["MEN", "Featured", "IMC 1", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 10,
+      "depths": ["MEN", "Featured", "IMC 1", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 11,
+      "depths": ["MEN", "Featured", "IMC 2", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 12,
+      "depths": ["MEN", "Featured", "IMC 2", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 13,
+      "depths": ["MEN", "신발", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 14,
+      "depths": ["MEN", "신발", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 15,
+      "depths": ["MEN", "신발", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 16,
+      "depths": ["MEN", "신발", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 17,
+      "depths": ["MEN", "신발", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 18,
+      "depths": ["MEN", "신발", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 19,
+      "depths": ["MEN", "신발", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 20,
+      "depths": ["MEN", "신발", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 21,
+      "depths": ["MEN", "신발", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 22,
+      "depths": ["MEN", "신발", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 23,
+      "depths": ["MEN", "신발", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 24,
+      "depths": ["MEN", "신발", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 25,
+      "depths": ["MEN", "신발", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 26,
+      "depths": ["MEN", "의류", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "(261001) 제가 전달드린 IA 기준으로 의류 / 용품 등은 3depth 더 늘어난 것으로 봐주시면 되겠습니다!"
+    },
+    {
+      "iaNumber": 27,
+      "depths": ["MEN", "의류", "러닝 웨어", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 28,
+      "depths": ["MEN", "의류", "러닝 웨어", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 29,
+      "depths": ["MEN", "의류", "아우터", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 30,
+      "depths": ["MEN", "의류", "아우터", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 31,
+      "depths": ["MEN", "의류", "탑&티셔츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 32,
+      "depths": ["MEN", "의류", "탑&티셔츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 33,
+      "depths": ["MEN", "의류", "후디&스웻셔츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 34,
+      "depths": ["MEN", "의류", "후디&스웻셔츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 35,
+      "depths": ["MEN", "의류", "쇼츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 36,
+      "depths": ["MEN", "의류", "쇼츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 37,
+      "depths": ["MEN", "의류", "타이즈", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 38,
+      "depths": ["MEN", "의류", "타이즈", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 39,
+      "depths": ["MEN", "용품", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 40,
+      "depths": ["MEN", "용품", "모자", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 41,
+      "depths": ["MEN", "용품", "모자", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 42,
+      "depths": ["MEN", "용품", "양말", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 43,
+      "depths": ["MEN", "용품", "양말", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 44,
+      "depths": ["MEN", "용품", "베스트&벨트", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 45,
+      "depths": ["MEN", "용품", "베스트&벨트", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 46,
+      "depths": ["MEN", "용품", "기타 용품", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 47,
+      "depths": ["MEN", "용품", "기타 용품", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 48,
+      "depths": ["MEN", "액티비티", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 49,
+      "depths": ["MEN", "액티비티", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 50,
+      "depths": ["MEN", "액티비티", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 51,
+      "depths": ["MEN", "액티비티", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 52,
+      "depths": ["MEN", "액티비티", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 53,
+      "depths": ["MEN", "액티비티", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 54,
+      "depths": ["MEN", "액티비티", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 55,
+      "depths": ["MEN", "액티비티", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 56,
+      "depths": ["MEN", "액티비티", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 57,
+      "depths": ["MEN", "액티비티", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 58,
+      "depths": ["MEN", "액티비티", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 59,
+      "depths": ["MEN", "액티비티", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 60,
+      "depths": ["WOMEN", "Featured", "BEST", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 61,
+      "depths": ["WOMEN", "Featured", "BEST", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 62,
+      "depths": ["WOMEN", "Featured", "NEW", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 63,
+      "depths": ["WOMEN", "Featured", "NEW", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 64,
+      "depths": ["WOMEN", "Featured", "Coming Soon", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 65,
+      "depths": ["WOMEN", "Featured", "Coming Soon", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 66,
+      "depths": ["WOMEN", "Featured", "IMC 1", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 67,
+      "depths": ["WOMEN", "Featured", "IMC 1", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 68,
+      "depths": ["WOMEN", "Featured", "IMC 2", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 69,
+      "depths": ["WOMEN", "Featured", "IMC 2", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 70,
+      "depths": ["WOMEN", "신발", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 71,
+      "depths": ["WOMEN", "신발", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 72,
+      "depths": ["WOMEN", "신발", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 73,
+      "depths": ["WOMEN", "신발", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 74,
+      "depths": ["WOMEN", "신발", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 75,
+      "depths": ["WOMEN", "신발", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 76,
+      "depths": ["WOMEN", "신발", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 77,
+      "depths": ["WOMEN", "신발", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 78,
+      "depths": ["WOMEN", "신발", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 79,
+      "depths": ["WOMEN", "신발", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 80,
+      "depths": ["WOMEN", "신발", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 81,
+      "depths": ["WOMEN", "신발", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 82,
+      "depths": ["WOMEN", "신발", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 83,
+      "depths": ["WOMEN", "의류", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 84,
+      "depths": ["WOMEN", "의류", "러닝 웨어", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 85,
+      "depths": ["WOMEN", "의류", "러닝 웨어", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 86,
+      "depths": ["WOMEN", "의류", "아우터", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 87,
+      "depths": ["WOMEN", "의류", "아우터", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 88,
+      "depths": ["WOMEN", "의류", "탑&티셔츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 89,
+      "depths": ["WOMEN", "의류", "탑&티셔츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 90,
+      "depths": ["WOMEN", "의류", "후디&스웻셔츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 91,
+      "depths": ["WOMEN", "의류", "후디&스웻셔츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 92,
+      "depths": ["WOMEN", "의류", "쇼츠", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 93,
+      "depths": ["WOMEN", "의류", "쇼츠", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 94,
+      "depths": ["WOMEN", "의류", "타이즈", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 95,
+      "depths": ["WOMEN", "의류", "타이즈", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": "10/6 추가"
+    },
+    {
+      "iaNumber": 96,
+      "depths": ["WOMEN", "용품", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 97,
+      "depths": ["WOMEN", "용품", "모자", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 98,
+      "depths": ["WOMEN", "용품", "모자", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 99,
+      "depths": ["WOMEN", "용품", "양말", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 100,
+      "depths": ["WOMEN", "용품", "양말", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 101,
+      "depths": ["WOMEN", "용품", "베스트&벨트", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 102,
+      "depths": ["WOMEN", "용품", "베스트&벨트", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 103,
+      "depths": ["WOMEN", "용품", "기타", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 104,
+      "depths": ["WOMEN", "용품", "기타", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 105,
+      "depths": ["WOMEN", "액티비티", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 106,
+      "depths": ["WOMEN", "액티비티", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 107,
+      "depths": ["WOMEN", "액티비티", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 108,
+      "depths": ["WOMEN", "액티비티", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 109,
+      "depths": ["WOMEN", "액티비티", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 110,
+      "depths": ["WOMEN", "액티비티", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 111,
+      "depths": ["WOMEN", "액티비티", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 112,
+      "depths": ["WOMEN", "액티비티", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 113,
+      "depths": ["WOMEN", "액티비티", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 114,
+      "depths": ["WOMEN", "액티비티", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 115,
+      "depths": ["WOMEN", "액티비티", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 116,
+      "depths": ["WOMEN", "액티비티", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 117,
+      "depths": ["SHOES", "ICONS", "본디", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 118,
+      "depths": ["SHOES", "ICONS", "본디", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 119,
+      "depths": ["SHOES", "ICONS", "클리프톤", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 120,
+      "depths": ["SHOES", "ICONS", "클리프톤", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 121,
+      "depths": ["SHOES", "ICONS", "스피드고트", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 122,
+      "depths": ["SHOES", "ICONS", "스피드고트", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 123,
+      "depths": ["SHOES", "ICONS", "마파테", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 124,
+      "depths": ["SHOES", "ICONS", "마파테", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 125,
+      "depths": ["SHOES", "ICONS", "호파라", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 126,
+      "depths": ["SHOES", "ICONS", "호파라", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 127,
+      "depths": ["SHOES", "남성", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 128,
+      "depths": ["SHOES", "남성", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 129,
+      "depths": ["SHOES", "남성", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 130,
+      "depths": ["SHOES", "남성", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 131,
+      "depths": ["SHOES", "남성", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 132,
+      "depths": ["SHOES", "남성", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 133,
+      "depths": ["SHOES", "남성", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 134,
+      "depths": ["SHOES", "남성", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 135,
+      "depths": ["SHOES", "남성", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 136,
+      "depths": ["SHOES", "남성", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 137,
+      "depths": ["SHOES", "남성", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 138,
+      "depths": ["SHOES", "남성", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 139,
+      "depths": ["SHOES", "남성", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 140,
+      "depths": ["SHOES", "여성", "전체보기", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 141,
+      "depths": ["SHOES", "여성", "로드 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 142,
+      "depths": ["SHOES", "여성", "로드 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 143,
+      "depths": ["SHOES", "여성", "트레일 러닝", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 144,
+      "depths": ["SHOES", "여성", "트레일 러닝", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 145,
+      "depths": ["SHOES", "여성", "하이킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 146,
+      "depths": ["SHOES", "여성", "하이킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 147,
+      "depths": ["SHOES", "여성", "워킹", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 148,
+      "depths": ["SHOES", "여성", "워킹", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 149,
+      "depths": ["SHOES", "여성", "라이프스타일", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 150,
+      "depths": ["SHOES", "여성", "라이프스타일", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 151,
+      "depths": ["SHOES", "여성", "리커버리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 152,
+      "depths": ["SHOES", "여성", "리커버리", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 153,
+      "depths": ["EXPLORE", "Featured", "로드 러닝 가이드", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hex_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 154,
+      "depths": ["EXPLORE", "Featured", "트레일 러닝 가이드", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hex_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 155,
+      "depths": ["EXPLORE", "Featured", "Running Session", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hex_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 156,
+      "depths": ["EXPLORE", "Technology", "고어텍스", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hex_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 157,
+      "depths": ["EXPLORE", "Technology", "비브람", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hex_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 158,
+      "depths": ["EXPLORE", "Partnerships", "UTMB", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hex_06",
+      "note": "9/28 신규 추가"
+    },
+    {
+      "iaNumber": 159,
+      "depths": ["런칭 캘린더", "", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 160,
+      "depths": ["런칭 캘린더", "Feed", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 161,
+      "depths": ["런칭 캘린더", "Coming", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 162,
+      "depths": ["런칭 캘린더", "In-stock", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 163,
+      "depths": ["런칭 캘린더", "키즈", "Feed", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_05",
+      "note": "(261001) 키즈 상품 없으므로 런칭캘린더는 성인/키즈 구분 필요 없습니다!10/6 삭제"
+    },
+    {
+      "iaNumber": 164,
+      "depths": ["런칭 캘린더", "키즈", "Coming", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_06",
+      "note": "10/6 삭제"
+    },
+    {
+      "iaNumber": 165,
+      "depths": ["런칭 캘린더", "키즈", "In-stock", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hla_07",
+      "note": "10/6 삭제"
+    },
+    {
+      "iaNumber": 166,
+      "depths": ["기획전", "목록", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hpl_01",
+      "note": "템플릿 5개(261001) 기획전 목록 페이지는 별도로 없습니다.10/6 삭제"
+    },
+    {
+      "iaNumber": 167,
+      "depths": ["기획전", "상세", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hpl_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 168,
+      "depths": ["이벤트", "목록", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hev_01",
+      "note": "래플 포함9/23 삭제"
+    },
+    {
+      "iaNumber": 169,
+      "depths": ["이벤트", "상세", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hev_02",
+      "note": "9/23 삭제"
+    },
+    {
+      "iaNumber": 170,
+      "depths": ["장바구니", "목록", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hsc_01",
+      "note": "옵션변경/관심상품 등록/상품삭제/주문하기"
+    },
+    {
+      "iaNumber": 171,
+      "depths": ["주문", "상세", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_01",
+      "note": "주문정보/배송정보/할인정보/결제수단 확인선택, 약관동의"
+    },
+    {
+      "iaNumber": 172,
+      "depths": ["주문", "상세", "배송지 변경", "", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 173,
+      "depths": ["주문", "상세", "배송지 변경", "주소 변경 팝업", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_03",
+      "note": "공통"
+    },
+    {
+      "iaNumber": 174,
+      "depths": ["주문", "상세", "쿠폰", "", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 175,
+      "depths": ["주문", "상세", "pg", "", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 176,
+      "depths": ["주문", "상세", "약관", "", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hor_06",
+      "note": ""
+    },
+    {
+      "iaNumber": 177,
+      "depths": ["마이페이지", "index", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 178,
+      "depths": ["마이페이지", "구매내역", "주문배송 조회", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 179,
+      "depths": ["마이페이지", "구매내역", "주문배송 조회", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 180,
+      "depths": ["마이페이지", "구매내역", "취소/반품 내역", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 181,
+      "depths": ["마이페이지", "구매내역", "취소/반품 내역", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 182,
+      "depths": ["마이페이지", "상품내역", "관심상품", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_06",
+      "note": ""
+    },
+    {
+      "iaNumber": 183,
+      "depths": ["마이페이지", "상품내역", "오늘 본 상품", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_07",
+      "note": ""
+    },
+    {
+      "iaNumber": 184,
+      "depths": ["마이페이지", "상품내역", "재입고 알림 상품", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_08",
+      "note": ""
+    },
+    {
+      "iaNumber": 185,
+      "depths": ["마이페이지", "Q&A", "FAQs", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hcu_02",
+      "note": "9/30 화면 아이디 수정(eland_hmy_08 → eland_hcu_02)"
+    },
+    {
+      "iaNumber": 186,
+      "depths": ["마이페이지", "Q&A", "FAQs", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_10",
+      "note": "9/15 상세 화면은 필요 없어서 삭제함"
+    },
+    {
+      "iaNumber": 187,
+      "depths": ["마이페이지", "Q&A", "1:1 문의", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hcu_04",
+      "note": "9/30 화면 아이디 수정(eland_hmy_11 → eland_hcu_04)"
+    },
+    {
+      "iaNumber": 188,
+      "depths": ["마이페이지", "Q&A", "1:1 문의", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_12",
+      "note": "9/15 목록 화면 내에 상세 문의를 같이 보여줌으로 삭제함"
+    },
+    {
+      "iaNumber": 189,
+      "depths": ["마이페이지", "Q&A", "1:1 문의", "등록", ""],
+      "category": "page",
+      "page": "",
+      "requiresLogin": true,
+      "screenCode": "eland_hcu_17",
+      "note": "9/30 화면 아이디 수정(eland_hmy_13 → eland_hcu_17)"
+    },
+    {
+      "iaNumber": 190,
+      "depths": ["마이페이지", "Q&A", "A/S 처리현황", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_14",
+      "note": "10/06 메뉴 삭제"
+    },
+    {
+      "iaNumber": 191,
+      "depths": ["마이페이지", "Q&A", "상품리뷰", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_15",
+      "note": ""
+    },
+    {
+      "iaNumber": 192,
+      "depths": ["마이페이지", "Q&A", "상품리뷰", "등록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_28",
+      "note": "9/16 상품 리뷰 등록 페이지 필요하여 추가"
+    },
+    {
+      "iaNumber": 193,
+      "depths": ["마이페이지", "Q&A", "상품리뷰", "수정", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_29",
+      "note": "9/16 상품 리뷰 수정 페이지 필요하여 추가"
+    },
+    {
+      "iaNumber": 194,
+      "depths": ["마이페이지", "MY HOKA", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_16",
+      "note": ""
+    },
+    {
+      "iaNumber": 195,
+      "depths": ["마이페이지", "MY HOKA", "회원등급", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_17",
+      "note": ""
+    },
+    {
+      "iaNumber": 196,
+      "depths": ["마이페이지", "MY HOKA", "쿠폰", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_18",
+      "note": ""
+    },
+    {
+      "iaNumber": 197,
+      "depths": ["마이페이지", "MY HOKA", "쿠폰", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_30",
+      "note": "9/17 쿠폰 상세 페이지 필요하여 추가"
+    },
+    {
+      "iaNumber": 198,
+      "depths": ["마이페이지", "MY HOKA", "이벤트 응모내역", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_19",
+      "note": "(261001) 제거해도 무방합니다.10/6 메뉴 삭제"
+    },
+    {
+      "iaNumber": 199,
+      "depths": ["마이페이지", "MY HOKA", "나의 발 아치 확인", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_20",
+      "note": "(261001) 제거해도 무방합니다.10/6 메뉴 삭제"
+    },
+    {
+      "iaNumber": 200,
+      "depths": ["마이페이지", "MY HOKA", "러닝세션 신청내역", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_31",
+      "note": "9/22 신규 추가(261001) 1차 오픈 때는 대회신청내역 대신, 러닝세션 신청내역으로 변경해서 개발하면 될 것 같습니다.10/6 명칭 수정"
+    },
+    {
+      "iaNumber": 201,
+      "depths": ["마이페이지", "계정관리", "회원정보확인 및 수정", "상세", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_21",
+      "note": ""
+    },
+    {
+      "iaNumber": 202,
+      "depths": ["마이페이지", "계정관리", "회원정보확인 및 수정", "수정", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_22",
+      "note": ""
+    },
+    {
+      "iaNumber": 203,
+      "depths": ["마이페이지", "계정관리", "배송지 관리", "목록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_23",
+      "note": ""
+    },
+    {
+      "iaNumber": 204,
+      "depths": ["마이페이지", "계정관리", "배송지 관리", "등록", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_24",
+      "note": ""
+    },
+    {
+      "iaNumber": 205,
+      "depths": ["마이페이지", "계정관리", "배송지 관리", "수정", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hmy_25",
+      "note": ""
+    },
+    {
+      "iaNumber": 206,
+      "depths": ["SUPPORT", "고객센터", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 207,
+      "depths": ["SUPPORT", "FAQs", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 208,
+      "depths": ["SUPPORT", "공지사항", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 209,
+      "depths": ["SUPPORT", "공지사항", "상세", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_16",
+      "note": "9/15 페이지 추가"
+    },
+    {
+      "iaNumber": 210,
+      "depths": ["SUPPORT", "1:1문의", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hcu_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 211,
+      "depths": ["SUPPORT", "1:1문의", "등록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hcu_17",
+      "note": ""
+    },
+    {
+      "iaNumber": 212,
+      "depths": ["SUPPORT", "매장 찾기", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 213,
+      "depths": ["SUPPORT", "온라인 회원등급 안내", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_06",
+      "note": ""
+    },
+    {
+      "iaNumber": 214,
+      "depths": ["SUPPORT", "통합 마일리지 안내", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_07",
+      "note": "10/1 메뉴 삭제"
+    },
+    {
+      "iaNumber": 215,
+      "depths": ["SUPPORT", "팀/단체복 주문 안내", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_08",
+      "note": "10/20 메뉴 삭제"
+    },
+    {
+      "iaNumber": 216,
+      "depths": ["SUPPORT", "배송 및 반품안내", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_09",
+      "note": ""
+    },
+    {
+      "iaNumber": 217,
+      "depths": ["SUPPORT", "세탁 및 손질 방법 안내", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_10",
+      "note": ""
+    },
+    {
+      "iaNumber": 218,
+      "depths": ["SUPPORT", "약관", "개인정보 처리방침", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_11",
+      "note": ""
+    },
+    {
+      "iaNumber": 219,
+      "depths": ["SUPPORT", "약관", "이용약관", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_12",
+      "note": ""
+    },
+    {
+      "iaNumber": 220,
+      "depths": ["SUPPORT", "사이즈가이드", "", "", ""],
+      "category": "page",
+      "page": "",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_18",
+      "note": "10/20 메뉴 추가"
+    },
+    {
+      "iaNumber": 221,
+      "depths": ["SUPPORT", "회원 전용 쿠폰 혜택", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_13",
+      "note": "(261001) 회원 등급 안내 페이지에서 혜택까지 포함해서 노출하는 것으로 하겠습니다.10/6 메뉴 삭제"
+    },
+    {
+      "iaNumber": 222,
+      "depths": ["SUPPORT", "회원 전용 서비스 제공", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_14",
+      "note": "(261001) 회원 등급 안내 페이지에서 혜택까지 포함해서 노출하는 것으로 하겠습니다.10/6 메뉴 삭제"
+    },
+    {
+      "iaNumber": 223,
+      "depths": ["SUPPORT", "회원 전용 이벤트 참여", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hcu_15",
+      "note": "(261001) 회원 등급 안내 페이지에서 혜택까지 포함해서 노출하는 것으로 하겠습니다.10/6 메뉴 삭제"
+    },
+    {
+      "iaNumber": 224,
+      "depths": ["로그인", "", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 225,
+      "depths": ["로그인", "아이디찾기", "휴대폰번호", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 226,
+      "depths": ["로그인", "아이디찾기", "개인정보", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 227,
+      "depths": ["로그인", "아이디찾기", "아이디확인", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 228,
+      "depths": ["로그인", "비밀번호찾기", "휴대폰번호", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 229,
+      "depths": ["로그인", "비밀번호찾기", "이메일", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_06",
+      "note": ""
+    },
+    {
+      "iaNumber": 230,
+      "depths": ["로그인", "비밀번호찾기", "비밀번호 재설정", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_07",
+      "note": ""
+    },
+    {
+      "iaNumber": 231,
+      "depths": ["로그인", "카카오 로그인", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_08",
+      "note": ""
+    },
+    {
+      "iaNumber": 232,
+      "depths": ["로그인", "네이버 로그인", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_09",
+      "note": ""
+    },
+    {
+      "iaNumber": 233,
+      "depths": ["로그인", "로그아웃", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": true,
+      "screenCode": "eland_hlo_10",
+      "note": "9/29 메뉴 삭제"
+    },
+    {
+      "iaNumber": 234,
+      "depths": ["회원가입", "자체 회원", "회원가입 안내", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 235,
+      "depths": ["회원가입", "자체 회원", "가입여부확인", "휴대폰 인증", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 236,
+      "depths": ["회원가입", "자체 회원", "가입여부확인", "아이핀 인증", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_03",
+      "note": ""
+    },
+    {
+      "iaNumber": 237,
+      "depths": ["회원가입", "자체 회원", "약관동의", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 238,
+      "depths": ["회원가입", "자체 회원", "회원 정보 입력", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 239,
+      "depths": ["회원가입", "자체 회원", "가입완료", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_06",
+      "note": ""
+    },
+    {
+      "iaNumber": 240,
+      "depths": ["회원가입", "소셜회원", "카카오톡", "API동의", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_07",
+      "note": ""
+    },
+    {
+      "iaNumber": 241,
+      "depths": ["회원가입", "소셜회원", "카카오톡", "가입완료", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_08",
+      "note": ""
+    },
+    {
+      "iaNumber": 242,
+      "depths": ["회원가입", "소셜회원", "네이버", "API동의", ""],
+      "category": "popup",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_09",
+      "note": ""
+    },
+    {
+      "iaNumber": 243,
+      "depths": ["회원가입", "소셜회원", "네이버", "가입완료", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hjo_10",
+      "note": ""
+    },
+    {
+      "iaNumber": 244,
+      "depths": ["Company", "Our Story", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hab_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 245,
+      "depths": ["Company", "Our Impact", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hab_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 246,
+      "depths": ["공통", "전체메뉴", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hut_01",
+      "note": ""
+    },
+    {
+      "iaNumber": 247,
+      "depths": ["공통", "검색", "", "", ""],
+      "category": "layer",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hut_02",
+      "note": ""
+    },
+    {
+      "iaNumber": 248,
+      "depths": ["공통", "검색결과", "목록", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hca_01",
+      "note": "9/29 화면코드명 변경(eland_hut_03 → eland_hca_01)"
+    },
+    {
+      "iaNumber": 249,
+      "depths": ["공통", "404에러페이지", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hut_04",
+      "note": ""
+    },
+    {
+      "iaNumber": 250,
+      "depths": ["공통", "시스템점검페이지", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hut_05",
+      "note": ""
+    },
+    {
+      "iaNumber": 251,
+      "depths": ["공통", "기타에러페이지", "", "", ""],
+      "category": "page",
+      "page": "1",
+      "requiresLogin": false,
+      "screenCode": "eland_hut_06",
+      "note": ""
+    }
+  ]
+}
