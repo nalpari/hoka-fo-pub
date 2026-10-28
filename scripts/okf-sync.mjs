@@ -4,19 +4,32 @@ import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 
 const rules = [
-  [['src/app/', 'src/shared/lib/device.ts'], 'okf/architecture/routing.md'],
+  [['src/app/', 'src/lib/device.ts'], 'okf/architecture/routing.md'],
   [
     [
-      'src/shared/ShopShell.tsx',
-      'src/shared/context/',
-      'src/shared/types/cart.ts',
-      'src/shared/features/cart/',
-      'src/shared/features/login/',
+      'src/context/ShopShell.tsx',
+      'src/context/',
+      'src/types/cart.ts',
+      'src/components/features/cart/',
+      'src/components/features/login/',
     ],
     'okf/architecture/state.md',
   ],
   [['src/mocks/', 'src/data/'], 'okf/project.md'],
-  [['src/shared/', 'src/stories/', 'panda.config.ts', '.storybook/'], 'okf/architecture/ui.md'],
+  [
+    [
+      'src/shared/',
+      'src/components/',
+      'src/icons/',
+      'src/lib/',
+      'src/styles/',
+      'src/types/',
+      'src/stories/',
+      'panda.config.ts',
+      '.storybook/',
+    ],
+    'okf/architecture/ui.md',
+  ],
   [
     ['package.json', 'package-lock.json', 'tsconfig.json', 'postcss.config.cjs'],
     'okf/development/setup.md',

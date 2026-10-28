@@ -1,4 +1,4 @@
-import type { Promotions } from '@/shared/components/atoms/Badge/PromotionBadge';
+import type { Promotions } from '@/components/common/atoms/Badge/PromotionBadge';
 
 export type ProductWidthOption = {
   label: 'Regular' | 'Wide' | 'X-Wide';

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ShopShell } from '@/shared/ShopShell';
+import { ShopShell } from '@/context/ShopShell';
 import HomePage from '@/app/page';
 
 const meta = {

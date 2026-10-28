@@ -1,5 +1,20 @@
 # 지식 번들 변경 이력
+
 - **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
+
+## 2026-10-28
+
+- **Cleanup**: 사용처가 없는 feature TSX 12개와 빈 state 폴더를 제거했다. 타입 검사·Panda 생성·Next/Storybook 빌드와 관련 테스트 5개, 잔여 참조·문서 메타데이터 검증을 통과했다. Storybook의 디자인 가이드 색상·타이포그래피와 실제 IA 페이지는 유지한다. 이전 문서 병합에서 누락된 UI 본문을 보관 사본에서 복구하고 최신 변경 기록·출처를 보존했다. [UI 정리](architecture/ui.md#미사용-feature-tsx-정리-2026-10-28)와 [상태 경계](architecture/state.md#미사용-ui-제거와-현재-상태-경계-2026-10-28)를 갱신했다.
+
+- **Update**: 3Depth 휴대폰 인증 두 경로와 독립 아이디 확인 페이지가 화면을 직접 구성하도록 변경했다. 인증 상태는 공용 훅, 팝업 본문은 공용 메시지로 유지하고 전체 PhoneVerificationPage import·재수출을 제거했다. 타입·린트·포맷·Next/Storybook 빌드와 관련 테스트 6개, 실제 인증·안내 페이지 및 WEB/Mobile 완료 스토리의 기대 상태를 확인했다. 실제 페이지를 사용하는 인증 완료 WEB/Mobile 스토리를 추가하고 [라우팅](architecture/routing.md#3depth-인증안내-화면의-페이지-직접-구성-2026-10-28)·[UI](architecture/ui.md#3depth-페이지와-공용-인증모달-구성-2026-10-28)·[상태](architecture/state.md#휴대폰-인증-상태와-경로별-완료-책임-2026-10-28)를 갱신했다.
+
+- **Update**: 원격 pub-psh-1015의 25d1c880을 현재 폴더 구조로 이식하고 단일 라우트 화면과 IA private client 구현을 이동했다. 마이페이지 2Depth 및 고객센터 고정 kind 분기를 페이지별 구현으로 해소했다. Storybook은 실제 페이지와 상태 주입 어댑터를 사용한다. component-reusability 스킬에 현재 src 구조·페이지 소유권·공유 및 서버 경계 예외를 명문화했다. 자동 테스트 62개·타입 검사·변경 파일 ESLint·Panda 생성·Next/Storybook 빌드와 주요 PC/Mobile 브라우저 흐름을 확인했다. [라우팅](architecture/routing.md#페이지-구현의-라우트-소유권-2026-10-28), [상태](architecture/state.md#페이지-상태-연결과-storybook-주입-2026-10-28), [UI 정책](architecture/ui.md#현재-폴더-구조와-페이지-재사용-정책-2026-10-28)에 기록했다.
+
+- **Docs**: 주문 목록 페이지의 `OrderStatusTracker`와 `OrdersFilters` 사용 위치에 각각 역할 주석을 추가했다. 컴포넌트 구현 동작은 변경하지 않았다. [UI 기록](architecture/ui.md#주문-목록-구성요소-주석-2026-10-28)에 기록했다.
+- **Update**: 회원정보의 마케팅 수신 동의 항목을 이메일·문자(LMS/SMS)·카카오톡 알림톡으로 분리했다. 기존 모바일 쿠폰북 수신 상태는 문자 수신으로, 기존 통합 메시지 수신 상태는 카카오톡 알림톡 수신으로 이어지며 편집·조회 및 저장/취소 흐름을 갱신했다. [UI 기록](architecture/ui.md#회원정보-마케팅-수신-항목-분리-2026-10-28)에 출처와 브라우저 검증 미실시를 기록했다.
+- **Fix**: 주문 목록의 빈 상태 문구를 Figma 기준 14px·subtle로 표시했다. 공통 EmptyState 기본 스타일은 유지하고 주문 목록에서만 오버라이드했다. [UI 기록](architecture/ui.md#주문-목록-빈-상태-문구-스타일-2026-10-28)에 범위와 시각 검증 미실시를 기록했다.
+- **Fix**: 체크아웃 필수 동의 두 행에서 체크박스 아이콘과 여러 줄 라벨을 위쪽으로 정렬했다. 공통 Checkbox 기본 정렬과 다른 사용처는 유지한다. [UI 기록](architecture/ui.md#결제-동의-체크박스와-여러-줄-라벨-정렬-2026-10-28)에 범위를 적었으며 브라우저 검증은 하지 않았다.
+- **Update**: Figma 주문/배송 조회의 5개 상태 요약, 상시 날짜 범위 필터, 주문 상세 내역 순서, 취소·반품 상태 배지와 모바일 배송조회 하단 시트를 반영했다. Storybook 주문 페이지를 `장바구니/주문하기/주문내역` WEB·Mobile로 분리했다. 앱의 `/mypage/orders`·`/mypage/returns` 라우트와 마이페이지 탐색은 유지한다. [UI 기록](architecture/ui.md#주문-배송-조회-figma-갱신과-분류-2026-10-28)에 Figma 출처와 범위를 적었으며 브라우저 시각 검증은 아직 하지 않았다.
 
 ## 2026-10-27
 
@@ -304,7 +319,7 @@
 
 - **Update**: 런클럽 첨부 시안을 대조해 PC 목록 최대 1280px·카드 제목/간격·소개 중앙 정렬·빈 화면 링크 생략·PC 상세 정원 표시를 반영했다. [UI 기록](architecture/ui.md#런클럽-첨부-시안-보완-2026-10-21)을 참고한다.
 
-- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/shared/components/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
+- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/components/common/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
 
 ## 2026-10-21
 
@@ -864,7 +879,7 @@
 
 - **Update**: README를 현재 HOKA 퍼블리싱·데모 구현에 맞춰 정리했다. `/checkout` 구현 여부, 63개 경로 패턴, 실행·검증 명령, Panda 스타일·컴포넌트 조합과 상태 수명 안내를 갱신하고 [프로젝트 개요](project.md)의 주문/결제 미구현 설명을 바로잡았다. 근거는 현재 작업 트리의 README, App Router 페이지, ShopShell, 주문/결제 코드와 package.json·테스트다.
 
-- **Update**: 모든 Storybook 스토리를 `src/stories/`에 작성하도록 `AGENTS.md` 기본 지침을 추가하고, `src/shared/features/mypage/MyPage.stories.tsx`를 `src/stories/features/mypage/`로 옮겼다. 기존 탐색 설정이 해당 경로만 포함함을 확인하고 [UI 아키텍처](architecture/ui.md)에 배치 규칙과 작업 트리 출처를 반영했다.
+- **Update**: 모든 Storybook 스토리를 `src/stories/`에 작성하도록 `AGENTS.md` 기본 지침을 추가하고, `src/components/features/mypage/MyPage.stories.tsx`를 `src/stories/features/mypage/`로 옮겼다. 기존 탐색 설정이 해당 경로만 포함함을 확인하고 [UI 아키텍처](architecture/ui.md)에 배치 규칙과 작업 트리 출처를 반영했다.
 
 - **Update**: 로그인 기능을 Layout·Form·Actions·Membership로 분리하고 기존 상태·검증·이동 처리를 유지했다. `loginTitle` Typography 토큰으로 PC 36px·모바일 22px 제목 스케일을 공통화하고 실제 LoginPage를 사용하는 controlled Storybook 흐름을 추가했다. [상태](architecture/state.md)와 [UI](architecture/ui.md)에 책임·보존 계약을 반영했다.
 
@@ -873,7 +888,7 @@
 - **Update**: features/components 재사용 점검에서 쿠폰·리뷰 필터를 `SegmentedControl`로 통합하고 표현 확장 API·빈 문자열 값 처리를 추가했다. 상품 상세 스크롤 메뉴의 의미와 Drawer의 Escape 처리 책임을 정리하고 관련 Storybook 시나리오를 추가했다. [UI 아키텍처](architecture/ui.md)에 반영 내용과 후속 후보를 기록했다.
 
 - **Review**: 코드 리뷰 잔여 지적(영국 국기 자산, Clifton 상품 색상·갤러리, FAQ 답변 검색, 캐러셀 마지막 슬라이드 판정, 모달 닫기·확인 이동)을 수정했다. [UI 아키텍처](architecture/ui.md), [프로젝트 개요](project.md), [라우팅과 플랫폼](architecture/routing.md)에 반영했다.
-- **Update**: 이름 검증과 3분 인증 타이머를 `src/shared/lib/`로 공통화했다. [UI 아키텍처](architecture/ui.md)의 코드 배치에 반영했다.
+- **Update**: 이름 검증과 3분 인증 타이머를 `src/lib/`로 공통화했다. [UI 아키텍처](architecture/ui.md)의 코드 배치에 반영했다.
 - **Update**: 최상위 선언 사이 빈 줄 규칙(`AGENTS.md`)을 `src` 전체 62개 파일에 일괄 적용했다. 동작 변경은 없고 [UI 아키텍처](architecture/ui.md)의 스타일 기준에 반영했다.
 - **Update**: `/checkout` 주문/결제 화면을 추가하고 [라우팅과 플랫폼](architecture/routing.md)의 경로 표와 라우트 회귀 테스트에 반영했다. 상품 목록 링크의 필터 값(`cushioning`, `support`, `activity`, `collection`)을 목 상품 데이터에 맞췄다.
 - **Review**: 코드 리뷰 지적에 따른 UI 수정(Run Club 링크 `href`, 목록 프로모션 카드 삽입·정렬·초기화, `platform-*` 클래스를 `<body>`에 추가, ButtonLink의 `role` 제거, Hero 일시정지 조건 등)을 검토했다. [UI 아키텍처](architecture/ui.md)의 기술 내용과 충돌하지 않아 문서 내용 변경은 없다.
@@ -890,7 +905,13 @@
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
 - **Update**: 제품·화면 전용 Typography variant에 이어 `formLabel`, `sizeOption`, `action`도 제거하고 사용처를 표준 body scale로 옮겼다. Checkbox의 중복 label variant API와 전용 CSS 변수를 정리했으며 [UI 아키텍처](architecture/ui.md)에 매핑과 범위를 기록했다.
 
-
 ## IA 바로가기 정정 (2026-10-28)
 
-- IA 바로가기를 Storybook에서 동일 서버의 실제 페이지로 변경했다. 상품 목록 IA 필터 쿼리를 유지하고 PC/MO 링크는 기기에 따라 표시되는 페이지 링크로 통합했다. 독립 경로가 없는 팝업은 N/A로 표시한다. 작업 트리 출처: `src/shared/features/screen-index/IaStructurePage.tsx`. 앞선 Storybook 호스트 설정 기록을 대체한다.
+- IA 바로가기를 Storybook에서 동일 서버의 실제 페이지로 변경했다. 상품 목록 IA 필터 쿼리를 유지하고 PC/MO 링크는 기기에 따라 표시되는 페이지 링크로 통합했다. 독립 경로가 없는 팝업은 N/A로 표시한다. 작업 트리 출처: `src/components/features/screen-index/IaStructurePage.tsx`. 앞선 Storybook 호스트 설정 기록을 대체한다.
+
+## 2026-10-28 — src 폴더 구조 승격
+
+shared 내부를 src로 승격하고 components/common·components/features로 구분했다. 기존 작업 트리 변경을 보존하며 import, 별칭, Storybook, Panda, 테스트 경로와 OKF 문서·동기화 규칙을 갱신했다. 관련 개념: [프로젝트](project.md), [UI](architecture/ui.md), [상태](architecture/state.md), [라우팅](architecture/routing.md), [설정](development/setup.md), [검증](development/verification.md), [유지보수](maintenance.md).
+
+검증: Next.js 프로덕션 빌드, Storybook 빌드, TypeScript 검사, Node 테스트 62건을 통과했다. 빌드 전 manifest를 사용한 최초 라우트 검사 실패는 새 빌드 후 재검증해 해소했다. src 및 .storybook에 기존 shared 참조가 없고 src/shared가 제거된 것을 확인했다.
+추가 검증: ShopShell·OKF 동기화 스크립트·Storybook 설정의 ESLint 검사를 통과했다. 전체 eslint 검사는 실행 시간이 길어 완료 결과를 아직 기록하지 않았다.

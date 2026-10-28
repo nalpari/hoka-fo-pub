@@ -60,18 +60,18 @@ npm run dev
 | 위치                                              | 책임                                             |
 | ------------------------------------------------- | ------------------------------------------------ |
 | `src/app/`                                        | URL별 진입점, 루트 레이아웃과 404                |
-| `src/shared/ShopShell.tsx`, `src/shared/context/` | 로그인·장바구니 공통 상태와 플랫폼 전달          |
-| `src/shared/features/`                            | 기능별 화면, 상태·탐색 처리, 표시 조합과 정책    |
-| `src/shared/components/`                          | 공통 atoms·molecules·organisms·layouts           |
-| `src/shared/lib/`                                 | 기기 판별·이름 검증·인증 타이머 등 공용 로직     |
-| `src/shared/styles/`, `panda.config.ts`           | 전역 스타일, 디자인 토큰과 플랫폼 조건           |
+| `src/context/ShopShell.tsx`, `src/context/` | 로그인·장바구니 공통 상태와 플랫폼 전달          |
+| `src/components/features/`                            | 기능별 화면, 상태·탐색 처리, 표시 조합과 정책    |
+| `src/components/common/`                          | 공통 atoms·molecules·organisms·layouts           |
+| `src/lib/`                                 | 기기 판별·이름 검증·인증 타이머 등 공용 로직     |
+| `src/styles/`, `panda.config.ts`           | 전역 스타일, 디자인 토큰과 플랫폼 조건           |
 | `src/mocks/`, `src/data/`                         | 목 상품과 IA 메타데이터                          |
 | `src/stories/`                                    | 컴포넌트·기능 화면 Storybook                     |
 | `tests/`                                          | 라우트·버전 고정, 주문 합계와 OKF 훅 회귀 테스트 |
 
 로그인·주문 화면과 헤더는 상태·동작을 소유하는 컴포넌트와 레이아웃·표시 영역을 분리해 조합한다. 기존 공통 UI와 `Typography`를 먼저 확인하고, 기능 전용 구성은 해당 기능 폴더에 둔다.
 
-컴포넌트 스타일은 해당 TSX에서 Panda `css`·`cva`로 작성한다. `*.module.scss`는 사용하지 않는다. `styled-system/`과 `src/shared/styles/panda.css`는 생성 결과이므로 직접 편집하지 않는다. 상세 규칙은 [AGENTS.md](AGENTS.md)와 [UI 아키텍처](okf/architecture/ui.md)를 따른다.
+컴포넌트 스타일은 해당 TSX에서 Panda `css`·`cva`로 작성한다. `*.module.scss`는 사용하지 않는다. `styled-system/`과 `src/styles/panda.css`는 생성 결과이므로 직접 편집하지 않는다. 상세 규칙은 [AGENTS.md](AGENTS.md)와 [UI 아키텍처](okf/architecture/ui.md)를 따른다.
 
 Next.js 코드를 수정하기 전에 설치된 `node_modules/next/dist/docs/`의 관련 가이드를 읽는다. 내부 링크는 `next/link`, 탐색은 `next/navigation`을 사용한다.
 

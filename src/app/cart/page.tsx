@@ -1,16 +1,100 @@
 'use client';
 
-import { useShop } from '@/shared/ShopShell';
-import { CartPage } from '@/shared/features/cart/CartPage';
+import { useShop } from '@/context/ShopShell';
 
+import { useState } from 'react';
+import { products } from '@/mocks/products';
+import { CartDialogs } from '@/components/features/cart/CartDialogs';
+import { CartContent } from '@/components/features/cart/CartContent';
+import { itemKey, isCartItemSoldOut } from '@/components/features/cart/cart-item';
+
+/** 장바구니 선택·관심상품과 옵션 편집 상태를 관리합니다. (Manages cart selection and option editing.) */
 export default function Page() {
-  const { cart, updateQuantity, updateOptions, remove } = useShop();
+  const {
+    cart,
+    updateQuantity: onQuantityChange,
+    remove: onRemove,
+    updateOptions: onOptionsChange,
+  } = useShop();
+  const [limited, setLimited] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string[] | null>(() =>
+    cart.length === 4 &&
+    cart.every((item) => ['브라운', '레드', '화이트', '옐로우골드'].includes(item.color))
+      ? cart.slice(0, 2).map(itemKey)
+      : null,
+  );
+  const rows = cart.flatMap((item) => {
+    const product = products.find((candidate) => candidate.id === item.id);
+    return product ? [{ item, product }] : [];
+  });
+  const allKeys = rows
+    .filter(({ item, product }) => !isCartItemSoldOut(item, product))
+    .map(({ item }) => itemKey(item));
+  const selectedKeys =
+    selected === null ? allKeys : selected.filter((key) => allKeys.includes(key));
+  const selectedRows = rows.filter(({ item }) => selectedKeys.includes(itemKey(item)));
+  const total = selectedRows.reduce(
+    (sum, { item, product }) => sum + product.price * item.quantity,
+    0,
+  );
+  const selectedCount = selectedRows.length;
+  const itemCount = rows.reduce((sum, { item }) => sum + item.quantity, 0);
+  const allSelected = allKeys.length > 0 && selectedKeys.length === allKeys.length;
+  const checkoutHref = selectedCount
+    ? `/checkout?selected=${encodeURIComponent(selectedKeys.join('|'))}`
+    : null;
+
   return (
-    <CartPage
-      cart={cart}
-      onQuantityChange={updateQuantity}
-      onRemove={remove}
-      onOptionsChange={updateOptions}
+    <CartContent
+      rows={rows}
+      allSelected={allSelected}
+      checkoutHref={checkoutHref}
+      selectedKeys={selectedKeys}
+      favorites={favorites}
+      itemCount={itemCount}
+      selectedCount={selectedCount}
+      total={total}
+      onSelectAll={(checked) => setSelected(checked ? allKeys : [])}
+      onToggleItem={(key, checked) =>
+        setSelected(
+          checked ? [...selectedKeys, key] : selectedKeys.filter((value) => value !== key),
+        )
+      }
+      onToggleFavorite={(key) =>
+        setFavorites((previous) =>
+          previous.includes(key) ? previous.filter((value) => value !== key) : [...previous, key],
+        )
+      }
+      onRemove={onRemove}
+      onEdit={(item, product) =>
+        isCartItemSoldOut(item, product) ? setLimited(true) : setEditingKey(itemKey(item))
+      }
+      onRemoveSelected={() => selectedRows.forEach(({ item }) => onRemove(item))}
+      onRemoveSoldOut={() =>
+        rows
+          .filter(({ item, product }) => isCartItemSoldOut(item, product))
+          .forEach(({ item }) => onRemove(item))
+      }
+      dialogs={
+        <CartDialogs
+          rows={rows}
+          editingKey={editingKey}
+          limited={limited}
+          onEditClose={() => setEditingKey(null)}
+          onLimitedChange={setLimited}
+          onSave={(item, next) => {
+            const nextKey = itemKey(next);
+            if (onOptionsChange) onOptionsChange(item, next);
+            else onQuantityChange(item, next.quantity);
+            setSelected([
+              ...new Set(selectedKeys.map((key) => (key === editingKey ? nextKey : key))),
+            ]);
+            setEditingKey(null);
+          }}
+        />
+      }
     />
   );
 }

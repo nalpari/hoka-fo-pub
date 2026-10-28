@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { statSync } from 'node:fs';
 import test from 'node:test';
 import { URL } from 'node:url';
-import { getProductDetailPresentation } from '../src/shared/features/product/productDetailPresentation.ts';
+import { getProductDetailPresentation } from '../src/components/features/product/productDetailPresentation.ts';
 
 const product = Object.freeze({
   name: 'Clifton 11 GTX',

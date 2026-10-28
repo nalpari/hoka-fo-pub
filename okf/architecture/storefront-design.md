@@ -9,25 +9,25 @@ generated:
   at: '2026-10-21T02:27:43.760Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
-  - src/shared/features/home/HomeLayout.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/atoms/Button/Button.tsx
-  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
-  - src/shared/components/atoms/ProductGender/ProductGender.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/components/organisms/Hero/HeroPagination.tsx
-  - src/shared/features/home/homeContent.ts
+  - src/components/features/home/HomeLayout.tsx
+  - src/components/common/atoms/Typography/Typography.tsx
+  - src/components/common/atoms/Button/Button.tsx
+  - src/components/common/atoms/FilterTabs/FilterTabs.tsx
+  - src/components/common/atoms/ProductGender/ProductGender.tsx
+  - src/components/common/molecules/MainContentCard/MainContentCard.tsx
+  - src/components/common/organisms/Hero/HeroCopy.tsx
+  - src/components/common/organisms/Hero/HeroPagination.tsx
+  - src/components/features/home/homeContent.ts
   - public/images/home/categories/
-  - src/shared/components/layouts/AppLayout/AppLayout.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
-  - src/shared/components/organisms/Search/SearchSuggestions.tsx
-  - src/shared/components/molecules/SearchField/SearchField.tsx
-  - src/shared/features/catalog/ProductListingPage.tsx
-  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/shared/features/product/ProductDetailHeaderTitle.tsx
-  - src/shared/features/not-found/SystemStatusPage.tsx
+  - src/components/common/layouts/AppLayout/AppLayout.tsx
+  - src/components/common/organisms/Layout/SiteHeader/SiteHeader.tsx
+  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
+  - src/components/common/organisms/Search/SearchSuggestions.tsx
+  - src/components/common/molecules/SearchField/SearchField.tsx
+  - src/components/features/catalog/ProductListingPage.tsx
+  - src/components/features/catalog/product-listing/SearchListingLayout.tsx
+  - src/components/features/product/ProductDetailHeaderTitle.tsx
+  - src/components/features/not-found/SystemStatusPage.tsx
   - src/stories/features/catalog/ProductListingPage.scenarios.tsx
   - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
 ---

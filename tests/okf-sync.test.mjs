@@ -47,11 +47,11 @@ test('source areas select related concepts and unknown src still requires review
     'okf/architecture/routing.md',
     'okf/log.md',
   ]);
-  assert.deepEqual(requiredDocs(['src/shared/ShopShell.tsx']), [
+  assert.deepEqual(requiredDocs(['src/context/ShopShell.tsx']), [
     'okf/architecture/state.md',
     'okf/log.md',
   ]);
-  assert.deepEqual(requiredDocs(['src/shared/components/atoms/Button/Button.tsx']), [
+  assert.deepEqual(requiredDocs(['src/components/common/atoms/Button/Button.tsx']), [
     'okf/architecture/ui.md',
     'okf/log.md',
   ]);

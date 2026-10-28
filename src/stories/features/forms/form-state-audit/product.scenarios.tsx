@@ -1,13 +1,16 @@
+import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { ProductDetailPage } from '@/shared/features/product/ProductDetailPage';
+import ProductDetailPage from '@/app/products/[id]/page';
 import type { AuditStory as Story } from './shared';
 
 function ProductExample() {
   const [added, setAdded] = useState(false);
   return (
     <>
-      <ProductDetailPage onAddToCart={() => setAdded(true)} />
+      <ShopStatePreview add={() => setAdded(true)}>
+        <ProductDetailPage />
+      </ShopStatePreview>
       <output aria-label="담기 결과">{added ? '완료' : '대기'}</output>
     </>
   );

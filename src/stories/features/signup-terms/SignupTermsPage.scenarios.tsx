@@ -1,9 +1,9 @@
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { SignupTermsContent } from '@/shared/features/signup-terms/SignupTermsContent';
-import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
+import { PlatformProvider } from '@/context/platform';
+import { SignupTermsContent } from '@/components/features/signup-terms/SignupTermsContent';
+import SignupTermsPage from '@/app/signup/terms/page';
 
 const meta = {
   title: 'PAGES/회원가입/3. 약관동의',

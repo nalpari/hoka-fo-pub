@@ -1,9 +1,72 @@
 'use client';
 
-import { useShop } from '@/shared/ShopShell';
-import { LoginPage } from '@/shared/features/login/LoginPage';
+import { useShop } from '@/context/ShopShell';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { LoginContent, type LoginNotice } from '@/components/features/login/LoginContent';
+import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
+
+/** 로그인 입력을 검증하고 상점 로그인 상태를 연결합니다. (Validates login inputs and connects shop authentication state.) */
 export default function Page() {
-  const { login } = useShop();
-  return <LoginPage onLogin={login} />;
+  const { login: onLogin } = useShop();
+  const router = useRouter();
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberId, setRememberId] = useState(false);
+  const [notice, setNotice] = useState<LoginNotice | null>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const validId = /^[a-zA-Z0-9]{4,}$/.test(id);
+  const idError = !id ? '아이디를 입력해 주세요' : '영문, 숫자 조합으로 4자 이상 입력해 주세요.';
+  const validPassword = isValidPassword(password);
+  const errors = {
+    id: hasSubmitted && !validId ? idError : undefined,
+    password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
+  };
+
+  const showUnavailable = (feature: string) => {
+    setNotice({
+      tone: 'error',
+      message: `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
+    });
+  };
+
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setHasSubmitted(true);
+    setNotice(null);
+
+    if (!validId || !validPassword) {
+      return;
+    }
+
+    onLogin?.();
+    setNotice({
+      tone: 'success',
+      message: `${id}${rememberId ? ' 아이디를 저장하고' : ''} 로그인했습니다. (데모)`,
+    });
+    router.push('/');
+  };
+
+  return (
+    <LoginContent
+      id={id}
+      password={password}
+      rememberId={rememberId}
+      notice={notice}
+      errors={errors}
+      onIdChange={(value) => {
+        setId(value);
+        setNotice(null);
+      }}
+      onPasswordChange={(value) => {
+        setPassword(value);
+        setNotice(null);
+      }}
+      onRememberChange={setRememberId}
+      onSubmit={handleLogin}
+      onFindAccount={() => router.push('/login/find-account')}
+      onUnavailable={showUnavailable}
+    />
+  );
 }

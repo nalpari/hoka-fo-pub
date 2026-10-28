@@ -1,7 +1,8 @@
 'use client';
 
-import { MyPageStatusPage } from '@/shared/features/mypage/MyPageStatusPage';
+import { MyPageProductHistory } from '@/components/features/mypage/MyPageProductHistory';
 
+/** 재입고 알림 상품의 공용 목록과 취소 기능을 연결합니다. (Connects the shared restock listing and cancellation behavior.) */
 export default function Page() {
-  return <MyPageStatusPage kind="restock-alerts" />;
+  return <MyPageProductHistory kind="restock-alerts" />;
 }

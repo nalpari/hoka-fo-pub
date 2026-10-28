@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { getCheckoutSummary } from '../src/shared/features/checkout/checkout-summary.ts';
+import { getCheckoutSummary } from '../src/components/features/checkout/checkout-summary.ts';
 
 const products = [{ id: 'shoe', name: 'Shoe', price: 150000 }];
 

@@ -4,7 +4,7 @@ import {
   isValidEmail,
   isValidEmailLocalPart,
   isValidEmailDomain,
-} from '../src/shared/lib/emailValidation.ts';
+} from '../src/lib/emailValidation.ts';
 
 test('email validation accepts the same address as the separate registration fields', () => {
   for (const address of [

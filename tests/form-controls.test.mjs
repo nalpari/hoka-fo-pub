@@ -56,7 +56,7 @@ registerHooks({
 
 const h = React.createElement;
 
-const { FormField } = await import('../src/shared/components/atoms/FormField/FormField.tsx');
+const { FormField } = await import('../src/components/common/atoms/FormField/FormField.tsx');
 
 const fixtures = [
   ['TextInput', 'atoms/TextInput/TextInput', {}],
@@ -121,7 +121,7 @@ const fixtures = [
 ];
 
 for (const [index, [name, modulePath, props]] of fixtures.entries()) {
-  const { [name]: Control } = await import(`../src/shared/components/${modulePath}.tsx`);
+  const { [name]: Control } = await import(`../src/components/common/${modulePath}.tsx`);
   test(`${index}: ${name} inherits field error and description`, () => {
     const html = renderToStaticMarkup(
       h(FormField, { htmlFor: 'audit', error: '필수 입력' }, h(Control, props)),
@@ -136,7 +136,7 @@ for (const [index, [name, modulePath, props]] of fixtures.entries()) {
   });
 }
 
-const { RatingStars } = await import('../src/shared/components/atoms/RatingStars/RatingStars.tsx');
+const { RatingStars } = await import('../src/components/common/atoms/RatingStars/RatingStars.tsx');
 
 test('RatingStars display retains half stars without interactive controls', () => {
   const html = renderToStaticMarkup(h(RatingStars, { value: 4.5 }));
@@ -158,7 +158,7 @@ test('RatingStars selection renders five icon radios with one selected value', (
 });
 
 const { StatusMessage } =
-  await import('../src/shared/components/atoms/StatusMessage/StatusMessage.tsx');
+  await import('../src/components/common/atoms/StatusMessage/StatusMessage.tsx');
 
 for (const tone of ['error', 'success', 'info']) {
   test(`StatusMessage ${tone} retains accessible tone`, () => {

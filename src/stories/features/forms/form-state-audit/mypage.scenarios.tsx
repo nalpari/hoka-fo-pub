@@ -1,8 +1,8 @@
 import { expect, userEvent, within, waitFor } from 'storybook/test';
-import { MyPageAddresses } from '@/shared/features/mypage/MyPageAddresses';
-import { MyPageProfile } from '@/shared/features/mypage/MyPageProfile';
-import { MyPageReviews } from '@/shared/features/mypage/MyPageReviews';
-import { CouponManager } from '@/shared/components/organisms/MyPage/CouponManager';
+import { MyPageAddresses } from '@/stories/features/mypage/MyPagePreview';
+import MyPageProfile from '@/app/mypage/profile/page';
+import { MyPageReviews } from '@/stories/features/mypage/MyPagePreview';
+import { CouponManager } from '@/components/common/organisms/MyPage/CouponManager';
 import type { AuditStory as Story } from './shared';
 import { enterAddress } from './enterAddress';
 

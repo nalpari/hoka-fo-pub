@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { PlatformProvider } from '@/shared/context/platform';
-import { AccountUnlockCompletePage } from '@/shared/features/account-locked/AccountUnlockCompletePage';
+import { PlatformProvider } from '@/context/platform';
+import AccountUnlockCompletePage from '@/app/login/account-locked/complete/page';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

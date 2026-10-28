@@ -10,23 +10,23 @@ generated:
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/mocks/cartDisplay.ts
-  - src/shared/features/product/productInquiries.ts
-  - src/shared/features/product/ProductDetailReviews.tsx
-  - src/shared/features/product/ProductDetailInquiryContent.tsx
+  - src/components/features/product/productInquiries.ts
+  - src/components/features/product/ProductDetailReviews.tsx
+  - src/components/features/product/ProductDetailInquiryContent.tsx
   - src/mocks/orderRecommendations.ts
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
+  - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/components/features/cart/CartContent.tsx
+  - src/components/features/checkout/CheckoutComplete.tsx
+  - src/components/common/organisms/Layout/SiteHeader/megaMenu.ts
   - src/mocks/cartDisplay.ts
   - src/mocks/products.ts
   - src/data/screenRegistry.ts
   - README.md
   - src/app/checkout/page.tsx
-  - src/shared/features/checkout/CheckoutPage.tsx
-  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/components/features/checkout/CheckoutPage.tsx
+  - src/components/features/size-guide/SizeGuidePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
-  - src/shared/features/support/support.navigation.ts
+  - src/components/features/support/support.navigation.ts
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -58,7 +58,7 @@ src/mocks/orderRecommendations.ts는 products의 첫 네 항목을 id/name/gende
 
 IA 158 / eland_hex_06은 Partnerships > UTMB에서 Explore > 러닝 세션 신청으로 변경했다. 로그인 필요 값은 기존 true를 유지하고 기존 /running/run-club 목록에 연결한다. Featured의 Running Session / eland_hex_03은 별도 소개 항목으로 유지한다. 다른 기존 IA 번호·화면코드 및 159번 이후 기존 화면 정의는 보존했다. 새 목록의 화면번호는 eland_hca_01이다.
 
-작업 트리 출처는 src/data/screenRegistry.ts와 src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts다. Node 대조에서 90개 3Depth 항목의 IA 순서·이름 일치와 기존 번호 보존을 확인했다. [공통 메뉴 렌더링과 미구현 본문 범위](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)를 참고한다.
+작업 트리 출처는 src/data/screenRegistry.ts와 src/components/common/organisms/Layout/SiteHeader/megaMenu.ts다. Node 대조에서 90개 3Depth 항목의 IA 순서·이름 일치와 기존 번호 보존을 확인했다. [공통 메뉴 렌더링과 미구현 본문 범위](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)를 참고한다.
 
 ## 고객센터 화면 범위 변경 (2026-10-20)
 
@@ -113,3 +113,8 @@ src/mocks/products.ts의 Clifton 11 GTX detailDescription을 사용자가 첨부
 ## 주문 시안 추천 이미지 순서 (2026-10-23)
 
 첨부 시안에 맞춰 cartDisplay의 공통 추천 이미지 순서를 브라운(recommend-2), 블랙(recommend-3), 화이트(recommend-1)로 조정했다. 장바구니와 주문 완료가 같은 배열을 재사용하며 실제 상품 카탈로그 이미지와 가격·옵션 데이터는 변경하지 않았다.
+
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.

@@ -1,0 +1,57 @@
+import { useRef, useState } from 'react';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
+import { Disclosure } from '@/components/common/molecules/Disclosure/Disclosure';
+import { css } from 'styled-system/css';
+import { Box } from 'styled-system/jsx';
+
+const sortOptions = css({ minW: '106px' });
+
+const options = ['베스트순', '신상품순', '높은가격순', '낮은가격순'] as const;
+
+type SortOption = (typeof options)[number];
+
+type DesktopProductSortProps = {
+  placeholder?: string;
+  value: string;
+  onChange: (sort: string) => void;
+};
+
+/** Desktop product-list sorting control. */
+export function DesktopProductSort({ placeholder, value, onChange }: DesktopProductSortProps) {
+  const [open, setOpen] = useState(false);
+
+  const selectingWithKeyboard = useRef(false);
+
+  return (
+    <Box
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
+    >
+      <Disclosure onOpenChange={setOpen} open={open} title={placeholder ?? value} variant="panel">
+        <Box
+          onKeyDownCapture={(event) => {
+            selectingWithKeyboard.current = event.key === ' ' || event.key.startsWith('Arrow');
+          }}
+          onPointerDownCapture={() => {
+            selectingWithKeyboard.current = false;
+          }}
+        >
+          <Radio
+            ariaLabel="상품 정렬"
+            className={sortOptions}
+            onValueChange={(nextValue) => {
+              onChange(nextValue);
+
+              if (!selectingWithKeyboard.current) setOpen(false);
+
+              selectingWithKeyboard.current = false;
+            }}
+            options={options.map((option) => ({ label: option, value: option }))}
+            value={value as SortOption}
+          />
+        </Box>
+      </Disclosure>
+    </Box>
+  );
+}

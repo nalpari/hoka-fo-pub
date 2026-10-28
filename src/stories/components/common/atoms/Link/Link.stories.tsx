@@ -1,0 +1,20 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { Link } from '@/components/common/atoms/Link/Link';
+
+const meta = {
+  title: 'Atoms/Link',
+  component: Link,
+  args: { children: '자세히 보기', href: '/' },
+} satisfies Meta<typeof Link>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const TextLink1: Story = { args: { size: 'lg' } };
+
+export const TextLink2: Story = { args: { size: 'md' } };
+
+export const TextLink3: Story = { args: { size: 'sm' } };

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { products } from '@/mocks/products';
-import { PlatformProvider } from '@/shared/context/platform';
-import { CartPage } from '@/shared/features/cart/CartPage';
-import type { CartItem } from '@/shared/types/cart';
+import { PlatformProvider } from '@/context/platform';
+import { CartPage } from '@/stories/features/cart/CartPagePreview';
+import type { CartItem } from '@/types/cart';
 
 const initialCart: CartItem[] = [
   { id: products[0].id, color: '브라운', width: 'Regular', size: '235', quantity: 1 },

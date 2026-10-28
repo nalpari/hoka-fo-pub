@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { PlatformProvider } from '@/shared/context/platform';
-import { PasswordResetCompleteModal } from '@/shared/features/find-account/PasswordResetCompleteModal';
+import { PlatformProvider } from '@/context/platform';
+import { PasswordResetCompleteModal } from '@/components/features/find-account/PasswordResetCompleteModal';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

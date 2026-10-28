@@ -21,3 +21,9 @@ export const RequiredAgreements: Story = {
 };
 
 export const CodeEntry: Story = { ...scenarios.MobileCodeEntry, name: '인증번호 입력' };
+
+export const Completion: Story = {
+  ...scenarios.SignupCompletion,
+  name: '인증 완료 흐름',
+  decorators: scenarios.Mobile.decorators,
+};

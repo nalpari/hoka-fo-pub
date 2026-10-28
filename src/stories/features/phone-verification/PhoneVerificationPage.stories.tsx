@@ -23,3 +23,5 @@ export const RequiredAgreements: Story = {
   ...scenarios.RequiredAgreements,
   name: '필수 약관동의',
 };
+
+export const Completion: Story = { ...scenarios.SignupCompletion, name: '인증 완료 흐름' };

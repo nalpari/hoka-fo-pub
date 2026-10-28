@@ -5,13 +5,13 @@ import {
   isValidPassword,
   passwordRequirementsMessage,
   validatePasswordReset,
-} from '../src/shared/lib/passwordValidation.ts';
+} from '../src/lib/passwordValidation.ts';
 import {
   formatPhoneNumber,
   getPhoneDigits,
   isValidPhone,
-} from '../src/shared/features/find-account/phoneNumber.ts';
-import { localeRegions } from '../src/shared/features/locales/locales.data.ts';
+} from '../src/components/features/find-account/phoneNumber.ts';
+import { localeRegions } from '../src/components/features/locales/locales.data.ts';
 
 test('password reset distinguishes required fields, strength, and confirmation', () => {
   assert.deepEqual(validatePasswordReset('', ''), {

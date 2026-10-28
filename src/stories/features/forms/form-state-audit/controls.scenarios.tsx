@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { Select } from '@/shared/components/atoms/Select/Select';
-import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
-import { Radio } from '@/shared/components/atoms/Radio/Radio';
-import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
-import { RangeInput } from '@/shared/components/atoms/RangeInput/RangeInput';
-import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
-import { EmailSignupField } from '@/shared/components/atoms/EmailSignupField/EmailSignupField';
-import { Terms } from '@/shared/components/molecules/Terms/Terms';
-import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
-import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { Button } from '@/shared/components/atoms/Button/Button';
+import { FormField } from '@/components/common/atoms/FormField/FormField';
+import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
+import { Select } from '@/components/common/atoms/Select/Select';
+import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
+import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
+import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
+import { RangeInput } from '@/components/common/atoms/RangeInput/RangeInput';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
+import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
+import { Terms } from '@/components/common/molecules/Terms/Terms';
+import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
+import { Button } from '@/components/common/atoms/Button/Button';
 import type { AuditStory as Story } from './shared';
 
 function InheritanceExample() {

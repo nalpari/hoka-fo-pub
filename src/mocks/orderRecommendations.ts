@@ -1,6 +1,6 @@
 import { products } from './products';
 import { recommendationImages } from './cartDisplay';
-import type { OrderRecommendation } from '@/shared/components/organisms/OrderRecommendations/OrderRecommendationItem';
+import type { OrderRecommendation } from '@/components/common/organisms/OrderRecommendations/OrderRecommendationItem';
 
 export const orderRecommendations: readonly OrderRecommendation[] = products
   .slice(0, 4)

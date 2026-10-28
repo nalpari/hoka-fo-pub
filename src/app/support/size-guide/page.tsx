@@ -1,1 +1,37 @@
-export { SizeGuidePage as default } from '@/shared/features/size-guide/SizeGuidePage';
+import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
+import { supportNavigation } from '@/components/features/support/support.navigation';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
+import { guideCategories } from '@/components/features/size-guide/size-guide.data';
+import { SizeGuidePanel } from '@/components/features/size-guide/SizeGuidePanel';
+import { Stack } from 'styled-system/jsx';
+
+const tabs = guideCategories.map((category) => ({
+  value: category.value,
+  label: category.label,
+  content: <SizeGuidePanel category={category} />,
+}));
+
+/** 상품 사이즈 선택을 위한 안내를 표시합니다. (Displays guidance for selecting product sizes.) */
+export default function Page() {
+  return (
+    <CustomerCenterLayout
+      title="사이즈 가이드"
+      activePath="/support/size-guide"
+      breadcrumbItems={[
+        { label: 'Home', href: '/' },
+        { label: '고객센터', href: '/support' },
+        { label: '사이즈 가이드' },
+      ]}
+      groups={supportNavigation}
+    >
+      <Stack mt="6">
+        <SupportTabs
+          ariaLabel="사이즈 가이드 품목"
+          defaultValue="shoes"
+          variant="guide"
+          tabs={tabs}
+        />
+      </Stack>
+    </CustomerCenterLayout>
+  );
+}

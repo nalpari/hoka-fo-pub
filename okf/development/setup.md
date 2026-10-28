@@ -65,3 +65,8 @@ npm run start
 `node_modules/`, `.next/`, `styled-system/`, 생성 `panda.css`, `storybook-static/`은 로컬 생성 결과다. 저장소의 `.gitignore`를 따라 관리한다. 비밀 값과 `.env` 파일 내용을 OKF 문서에 복사하지 않는다.
 
 [UI 구성](../architecture/ui.md), [변경 검증](verification.md)을 참고한다.
+
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.

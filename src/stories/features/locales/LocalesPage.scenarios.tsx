@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { LocalesPage } from '@/shared/features/locales/LocalesPage';
+import { PlatformProvider } from '@/context/platform';
+import LocalesPage from '@/app/locales/page';
 
 const meta = {
   title: 'Pages/Locales',

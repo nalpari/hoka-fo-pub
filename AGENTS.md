@@ -20,7 +20,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Storybook rules
 
 - Keep all `*.stories.ts` and `*.stories.tsx` files under `src/stories/`. Do not colocate stories in `src/shared/` or `src/app/`.
-- Mirror the source hierarchy under `src/stories/components/` and `src/stories/features/`, and import implementation code using the existing aliases.
+- Mirror the source hierarchy under `src/stories/components/common/` and `src/stories/features/`, and import implementation code using the existing aliases.
 - Keep `.storybook/main.ts` story discovery scoped to `src/stories/`.
 - Do not expose Mockup files in Storybook. Exclude any story whose directory path or filename contains `mockup` (case-insensitive), and do not register Mockup titles under other paths.
 - Once a feature's design and behavior are stable and its replacement is verified, remove its obsolete Mockup implementation and stories after checking references. Signup Mockup files have been removed; maintain the production signup features and their stories instead.

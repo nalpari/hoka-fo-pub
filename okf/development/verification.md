@@ -12,13 +12,13 @@ working_tree_sources:
   - tests/order-policy.test.mjs
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - tests/product-detail-presentation.test.mjs
-  - src/shared/features/product/productDetailPresentation.ts
+  - src/components/features/product/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
-  - src/shared/components/atoms/RatingStars/RatingStars.tsx
-  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
-  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
+  - src/components/common/atoms/RatingStars/RatingStars.tsx
+  - src/components/common/atoms/RatingStars/RatingStarsControl.tsx
+  - src/stories/components/common/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -34,9 +34,9 @@ working_tree_sources:
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
   - .storybook/preview.ts
   - tests/email-validation.test.mjs
-  - src/shared/lib/emailValidation.ts
+  - src/lib/emailValidation.ts
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
-  - src/shared/lib/passwordValidation.ts
+  - src/lib/passwordValidation.ts
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
@@ -50,9 +50,9 @@ working_tree_sources:
   - tests/app-router.test.mjs
   - src/stories/features/support/SupportPages.stories.tsx
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/shared/features/support/InquiryOrderLookupPage.tsx
-  - src/shared/features/support/InquiryNewPage.tsx
-  - src/shared/features/support/inquiryOrderSelection.storage.ts
+  - src/components/features/support/InquiryOrderLookupPage.tsx
+  - src/components/features/support/InquiryNewPage.tsx
+  - src/components/features/support/inquiryOrderSelection.storage.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
@@ -198,3 +198,8 @@ node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetai
 ## IA 구조도 경로 (2026-10-28)
 
 작업 트리 `tests/app-router.test.mjs`의 기대 라우트에 `/screen-index`를 추가했다. 이 검사는 Next 빌드 manifest가 필요하다.
+
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.

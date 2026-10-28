@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IaStructurePage } from '@/shared/features/screen-index/IaStructurePage';
+import { IaStructurePage } from '@/app/screen-index/_components/IaStructurePage';
 
 export const metadata: Metadata = {
   title: 'IA 구조도 | HOKA',

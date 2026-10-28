@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import { ProductSelectedOptions } from '@/shared/features/product/ProductSelectedOptions';
-import type { CartItem } from '@/shared/types/cart';
+import { ProductSelectedOptions } from '@/components/features/product/ProductSelectedOptions';
+import type { CartItem } from '@/types/cart';
 
 const initialItems: CartItem[] = [
   { id: 'example', color: '(19) Gray', size: '260', width: 'Regular', quantity: 1 },

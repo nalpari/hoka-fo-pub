@@ -1,9 +1,11 @@
+import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
+import AccountUnlockVerificationPage from '@/app/login/account-locked/verification/page';
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { PhoneVerificationContent } from '@/shared/features/phone-verification/PhoneVerificationContent';
-import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
+import { expect, fireEvent, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
+import { PhoneVerificationContent } from '@/components/features/phone-verification/PhoneVerificationContent';
+import PhoneVerificationPage from '@/app/signup/verify/phone/page';
 
 const meta = {
   title: 'PAGES/회원가입/2. 휴대폰 인증',
@@ -148,4 +150,45 @@ export const MobileCodeEntry: Story = {
   parameters: { layout: 'fullscreen' },
   ...Mobile,
   args: CodeEntry.args,
+};
+
+async function enterVerificationCode(canvasElement: HTMLElement) {
+  const canvas = within(canvasElement);
+  await fireEvent.change(canvas.getByLabelText(/이름/), { target: { value: '홍길동' } });
+  await expect(canvas.getByLabelText(/이름/)).toHaveValue('홍길동');
+  await fireEvent.change(canvas.getByLabelText(/생년월일/), { target: { value: '19900522' } });
+  await expect(canvas.getByLabelText(/생년월일/)).toHaveValue('19900522');
+  await fireEvent.change(canvas.getByLabelText(/휴대폰 번호/), {
+    target: { value: '01012345678' },
+  });
+  await expect(canvas.getByLabelText(/휴대폰 번호/)).toHaveValue('01012345678');
+  await userEvent.click(canvas.getByRole('checkbox', { name: '모두동의' }));
+  await userEvent.click(canvas.getByRole('button', { name: '인증번호 요청' }));
+  await expect(canvas.getByRole('status')).toHaveAttribute('data-tone', 'info');
+  await fireEvent.change(canvas.getByLabelText(/인증번호/), { target: { value: '123456' } });
+  await expect(canvas.getByLabelText(/인증번호/)).toHaveValue('123456');
+  await userEvent.click(canvas.getByRole('button', { name: '인증번호 확인' }));
+}
+
+export const SignupCompletion: Story = {
+  render: () => <PhoneVerificationPage />,
+  play: async ({ canvasElement }) => {
+    await enterVerificationCode(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    const dialog = await page.findByRole('dialog', { name: '회원가입' });
+    await expect(dialog).toHaveTextContent('이미 가입된 회원이 있습니다');
+    await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
+    await expect(getRouter().push).toHaveBeenCalledWith('/signup');
+  },
+};
+
+export const AccountUnlockCompletion: Story = {
+  render: () => <AccountUnlockVerificationPage />,
+  play: async ({ canvasElement }) => {
+    await enterVerificationCode(canvasElement);
+    await expect(getRouter().push).toHaveBeenCalledWith('/login/account-locked/complete');
+    await expect(
+      within(canvasElement.ownerDocument.body).queryByRole('dialog'),
+    ).not.toBeInTheDocument();
+  },
 };

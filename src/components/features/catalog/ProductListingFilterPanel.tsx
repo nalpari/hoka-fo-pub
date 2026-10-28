@@ -1,0 +1,201 @@
+import { CatalogFilterGroup } from '@/components/common/molecules/CatalogFilterGroup/CatalogFilterGroup';
+import { CatalogFilterSection } from '@/components/common/molecules/CatalogFilterSection/CatalogFilterSection';
+import { ColorFilter } from '@/components/common/molecules/ColorFilter/ColorFilter';
+import { FilterPillGroup } from '@/components/common/molecules/FilterPillGroup/FilterPillGroup';
+import { PriceRange } from '@/components/common/molecules/PriceRange/PriceRange';
+import { Radio } from '@/components/common/atoms/Radio/Radio';
+import {
+  activityLabels,
+  collectionValues,
+  colorLabels,
+  colorOptions,
+  cushioningLabels,
+  genderLabels,
+  labelsToValues,
+  productListingPriceRange,
+  runningTypeValues,
+  sizeValues,
+  stabilityLabels,
+  valuesToLabels,
+  widthLabels,
+} from '@/components/features/catalog/productListingFilterValues';
+import {
+  CatalogFilterPanel,
+  type CatalogSelectedFilter,
+} from '@/components/common/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanel';
+
+type ProductListingFilterPanelProps = {
+  gender: string[];
+  activity: string[];
+  width: string[];
+  cushioning: string[];
+  stability: string[];
+  size: string[];
+  collection: string[];
+  minPrice: number;
+  runningType: string[];
+  maxPrice: number;
+  selectedColors: string[];
+  onFilterChange: (key: string, values: string[]) => void;
+  onMinPriceChange: (value: number) => void;
+  onMaxPriceChange: (value: number) => void;
+  onSelectedColorsChange: (values: string[]) => void;
+  onReset: () => void;
+  mobileSort?: { value: string; onValueChange: (value: string) => void };
+};
+
+const selectedFilterItems = (
+  key: string,
+  values: string[],
+  labels: Record<string, string>,
+  onChange: (values: string[]) => void,
+) =>
+  values.map((value) => ({
+    id: `${key}-${value}`,
+    label: labels[value] ?? value,
+    onRemove: () => onChange(values.filter((selected) => selected !== value)),
+  }));
+
+/** 상품 필터와 모바일 정렬을 구성하고 선택 항목을 태그로 표시합니다. (Composes product facets and mobile sorting with removable selection tags.) */
+export function ProductListingFilterPanel({
+  gender,
+  activity,
+  width,
+  cushioning,
+  stability,
+  size,
+  collection,
+  minPrice,
+  runningType,
+  maxPrice,
+  selectedColors,
+  onFilterChange,
+  onMinPriceChange,
+  onMaxPriceChange,
+  onSelectedColorsChange,
+  onReset,
+  mobileSort,
+}: ProductListingFilterPanelProps) {
+  const selectedFilters: CatalogSelectedFilter[] = [
+    ...selectedFilterItems('gender', gender, genderLabels, (next) =>
+      onFilterChange('gender', next),
+    ),
+    ...selectedFilterItems('size', size, {}, (next) => onFilterChange('size', next)),
+    ...selectedFilterItems('width', width, widthLabels, (next) => onFilterChange('width', next)),
+    ...selectedFilterItems('color', selectedColors, colorLabels, onSelectedColorsChange),
+    ...selectedFilterItems('activity', activity, activityLabels, (next) =>
+      onFilterChange('activity', next),
+    ),
+    ...selectedFilterItems('collection', collection, {}, (next) =>
+      onFilterChange('collection', next),
+    ),
+    ...selectedFilterItems('running-type', runningType, {}, (next) =>
+      onFilterChange('runningType', next),
+    ),
+    ...selectedFilterItems('cushioning', cushioning, cushioningLabels, (next) =>
+      onFilterChange('cushioning', next),
+    ),
+    ...selectedFilterItems('stability', stability, stabilityLabels, (next) =>
+      onFilterChange('support', next),
+    ),
+    ...(minPrice !== productListingPriceRange.min ||
+    maxPrice !== productListingPriceRange.defaultMax
+      ? [
+          {
+            id: 'price',
+            label: `${minPrice.toLocaleString('ko-KR')}원 ~ ${maxPrice.toLocaleString('ko-KR')}원`,
+            onRemove: () => {
+              onMinPriceChange(productListingPriceRange.min);
+              onMaxPriceChange(productListingPriceRange.defaultMax);
+            },
+          },
+        ]
+      : []),
+  ];
+
+  return (
+    <CatalogFilterPanel onReset={onReset} selectedFilters={selectedFilters}>
+      {mobileSort && (
+        <CatalogFilterSection title="정렬">
+          <Radio
+            ariaLabel="상품 정렬"
+            value={mobileSort.value}
+            onValueChange={mobileSort.onValueChange}
+            options={['베스트순', '신상품순', '높은가격순', '낮은가격순'].map((value) => ({
+              label: value,
+              value,
+            }))}
+          />
+        </CatalogFilterSection>
+      )}
+      <CatalogFilterGroup
+        title="성별"
+        values={Object.values(genderLabels)}
+        selected={valuesToLabels(gender, genderLabels)}
+        onChange={(values) => onFilterChange('gender', labelsToValues(values, genderLabels))}
+      />
+      <FilterPillGroup
+        title="사이즈"
+        values={sizeValues}
+        selected={size}
+        onChange={(next) => onFilterChange('size', next)}
+      />
+      <CatalogFilterGroup
+        title="발볼"
+        values={Object.values(widthLabels)}
+        selected={valuesToLabels(width, widthLabels)}
+        onChange={(values) => onFilterChange('width', labelsToValues(values, widthLabels))}
+      />
+      <CatalogFilterSection title="색상">
+        <ColorFilter
+          options={colorOptions}
+          selected={selectedColors}
+          onChange={onSelectedColorsChange}
+        />
+      </CatalogFilterSection>
+      <CatalogFilterGroup
+        title="액티비티"
+        values={Object.values(activityLabels)}
+        selected={valuesToLabels(activity, activityLabels)}
+        onChange={(values) => onFilterChange('activity', labelsToValues(values, activityLabels))}
+      />
+      <CatalogFilterGroup
+        title="컬렉션"
+        values={collectionValues}
+        selected={collection}
+        onChange={(values) => onFilterChange('collection', values)}
+      />
+      <CatalogFilterGroup
+        title="러닝 타입"
+        values={runningTypeValues}
+        selected={runningType}
+        onChange={(values) => onFilterChange('runningType', values)}
+      />
+      <CatalogFilterGroup
+        title="주행감"
+        values={Object.values(cushioningLabels)}
+        selected={valuesToLabels(cushioning, cushioningLabels)}
+        onChange={(values) =>
+          onFilterChange('cushioning', labelsToValues(values, cushioningLabels))
+        }
+      />
+      <CatalogFilterGroup
+        title="안정성"
+        values={Object.values(stabilityLabels)}
+        selected={valuesToLabels(stability, stabilityLabels)}
+        onChange={(values) => onFilterChange('support', labelsToValues(values, stabilityLabels))}
+      />
+      <CatalogFilterSection title="가격">
+        <PriceRange
+          min={productListingPriceRange.min}
+          max={productListingPriceRange.max}
+          value={[minPrice, maxPrice]}
+          onChange={([nextMinPrice, nextMaxPrice]) => {
+            onMinPriceChange(nextMinPrice);
+            onMaxPriceChange(nextMaxPrice);
+          }}
+        />
+      </CatalogFilterSection>
+    </CatalogFilterPanel>
+  );
+}

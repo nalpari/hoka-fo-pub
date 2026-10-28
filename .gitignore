@@ -4,7 +4,7 @@ out/
 dist/
 storybook-static/
 styled-system/
-src/shared/styles/panda.css
+src/styles/panda.css
 coverage/
 *.tsbuildinfo
 next-env.d.ts
@@ -15,9 +15,9 @@ next-env.d.ts
 !.env.sample
 .DS_Store
 Thumbs.db
-src/shared/features/*/*.png
-src/shared/features/*/*.svg
-src/shared/styles/panda.css
+src/components/features/*/*.png
+src/components/features/*/*.svg
+src/styles/panda.css
 .tmp-storybook-ia-routes
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).

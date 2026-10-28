@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { PlatformProvider } from '@/shared/context/platform';
-import { AccountLockedPage } from '@/shared/features/account-locked/AccountLockedPage';
+import { PlatformProvider } from '@/context/platform';
+import AccountLockedPage from '@/app/login/account-locked/page';
 
 const withRouter = (Story: React.ComponentType) => (
   <>

@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ShopShell } from '@/shared/ShopShell';
-import { MyPageStatusPage, type MyPageStatusKind } from '@/shared/features/mypage/MyPageStatusPage';
-import { MyPageProductHistory } from '@/shared/features/mypage/MyPageProductHistory';
-import { MyPageReviews } from '@/shared/features/mypage/MyPageReviews';
+import { ShopShell } from '@/context/ShopShell';
+import {
+  MyPageStatusPage,
+  type MyPageStatusKind,
+} from '@/stories/features/mypage/MyPageRoutePreview';
+import { MyPageProductHistory } from '@/components/features/mypage/MyPageProductHistory';
+import { MyPageReviews } from '@/stories/features/mypage/MyPagePreview';
 
 type Args = { kind: MyPageStatusKind };
 

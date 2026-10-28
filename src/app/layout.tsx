@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { headers } from 'next/headers';
-import { ShopShell } from '@/shared/ShopShell';
-import { detectPlatform } from '@/shared/lib/device';
+import { ShopShell } from '@/context/ShopShell';
+import { detectPlatform } from '@/lib/device';
 import { css } from 'styled-system/css';
 import 'simplebar-react/dist/simplebar.min.css';
-import '@/shared/styles/global.scss';
+import '@/styles/global.scss';
 
 const webPlatform = css({ minW: 'var(--layout-web-min-width)' });
 
