@@ -5,8 +5,8 @@ Apply this workflow within the authorized scope. A policy-only request updates t
 ## Classify by actual consumers
 
 - Inventory route imports and default re-exports, and trace exact production, Storybook, and test consumers. Do not classify by filename or file length.
-- A single-route screen belongs in its `src/app/{route}/page.tsx`. Integrate wrapper hooks and callbacks into that default page; move the implementation rather than copying it. Preserve existing child components and pure modules unless their own responsibility requires a change.
-- Keep multi-route or multi-screen contracts in `src/components/features`: examples include RunClubPage, SystemStatusPage, and the listing shared by catalog and search. Reusable modals remain components. Never duplicate a shared screen into several routes or import another route's page from production UI.
+- A single-route screen belongs in its `src/app/{route}/page.tsx`. Integrate wrapper hooks and callbacks into that default page; move the implementation rather than copying it. Keep pure policy, state, hook and type modules independent. Apply the [single-parent workflow](single-parent-consolidation.md) recursively to child TSX modules; retain useful local components as module-level functions in their sole production parent.
+- Keep multi-route or multi-screen contracts in `src/components`: examples include RunClubPage, SystemStatusPage, and the listing shared by catalog and search. Reusable modals remain components. Never duplicate a shared screen into several routes or import another route's page from production UI.
 - Keep a Server Component entrypoint when it owns metadata or a server-only contract. Put necessary page-private client UI in the route's `_components` folder; do not move metadata into a client module or add a client boundary solely for stylistic consistency.
 - Page files expose only the default route component and framework-supported exports. Do not preserve arbitrary page props or named component/type exports to accommodate stories. Keep explicit types and providers in ordinary modules.
 
@@ -24,7 +24,7 @@ For 3Depth and deeper routes, keep mode-specific titles, descriptions, completio
 
 ## Integrate changes from old paths
 
-When explicitly requested, translate an incoming patch from `src/shared/components` to `src/components/common`, from `src/shared/features` to `src/components/features`, and from other `src/shared` directories to their current `src` equivalents. Rewrite matching aliases and compare base/current/incoming content so existing edits survive. Never overwrite current files with whole remote files or recreate the retired tree. Apply incoming behavior before moving a page so the final implementation includes both changes.
+When explicitly requested, translate an incoming patch from `src/shared/components` to `src/components/common`, from `src/shared/features` to `src/components`, and from other `src/shared` directories to their current `src` equivalents. Rewrite matching aliases and compare base/current/incoming content so existing edits survive. Never overwrite current files with whole remote files or recreate the retired tree. Apply incoming behavior before moving a page so the final implementation includes both changes.
 
 ## Verify
 
