@@ -33,13 +33,13 @@ import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 import { SearchField } from '@/components/common/molecules/SearchField';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
 import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';

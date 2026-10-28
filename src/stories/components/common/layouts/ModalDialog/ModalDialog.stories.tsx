@@ -7,7 +7,7 @@ import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button';
 
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -18,7 +18,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 );
 
 const meta = {
-  title: 'Molecules/ModalDialog',
+  title: 'Layouts/ModalDialog',
   component: ModalDialog,
   decorators: [withPlatform('web')],
   args: {

@@ -13,10 +13,10 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const benefit = css({
   border: '1px solid var(--color-black-20)',

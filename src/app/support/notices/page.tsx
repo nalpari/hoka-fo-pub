@@ -10,10 +10,9 @@ import { HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { notices } from '@/app/support/notices/notices.data';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobile' };
 

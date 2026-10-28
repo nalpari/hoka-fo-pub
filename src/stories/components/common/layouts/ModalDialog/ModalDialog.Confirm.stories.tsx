@@ -5,7 +5,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button';
 
-import { ModalDialog, type ModalDialogActions } from '@/components/common/molecules/ModalDialog';
+import { ModalDialog, type ModalDialogActions } from '@/components/common/layouts/ModalDialog';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>
@@ -18,7 +18,7 @@ const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType
 const confirmActions = { kind: 'confirm', onConfirm: () => {} } satisfies ModalDialogActions;
 
 const meta = {
-  title: 'Molecules/ConfirmDialog',
+  title: 'Layouts/ConfirmDialog',
   component: ModalDialog,
   decorators: [withPlatform('web')],
   args: {

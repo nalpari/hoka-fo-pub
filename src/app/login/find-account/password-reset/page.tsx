@@ -11,10 +11,10 @@ import { Button } from '@/components/common/atoms/Button';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
   type Errors,

@@ -13,10 +13,10 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { storeCities, storesByCity } from '@/app/support/store/store.data';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 /** Keeps the existing map sample undistorted within the PC/mobile preview frames. */
 function StoreMapPreview({ storeName }: { storeName: string }) {

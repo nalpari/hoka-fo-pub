@@ -52,9 +52,12 @@ import {
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductDetailImage } from '@/components/common/molecules/ProductDetailImage';
 import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
 import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
+
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -70,8 +73,6 @@ import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
-import { NotFoundPage } from '@/components/not-found/NotFoundPage';
-import { ProductDetailImage } from '@/components/product/ProductDetailImage';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
@@ -2506,7 +2507,7 @@ function RouteContent() {
         : [];
   const recommendations = products.filter((item) => item.id !== product?.id).slice(0, 6);
 
-  if (!product) return <NotFoundPage />;
+  if (!product) return <SystemStatusPage status="not-found" />;
 
   const submit = (order: boolean) => {
     if (!selectedItems.length) {

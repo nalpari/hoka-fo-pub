@@ -7,7 +7,8 @@ import { css } from 'styled-system/css';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const styles = {
   descriptionSecondLine: css({ display: 'inline', _mobile: { display: 'block' } }),

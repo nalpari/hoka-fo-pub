@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MainSection } from '@/components/common/molecules/MainSection';
+import { MainSection } from '@/components/common/layouts/MainSection';
 
 const meta = {
-  title: 'Molecules/MainSection',
+  title: 'Layouts/MainSection',
   component: MainSection,
   args: {
     title: 'Section title',

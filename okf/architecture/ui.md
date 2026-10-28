@@ -6,11 +6,19 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:52:23.370Z'
+  at: '2026-10-28T11:10:41.159Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/ProductDetailImage.tsx
+  - src/components/common/organisms/SystemStatusPage.tsx
+  - src/components/common/layouts/AccountPageLayout.tsx
+  - src/types/component-contracts/components-common-layouts-MainSection.d.ts
+  - src/components/common/layouts/ModalDialog.tsx
+  - src/components/common/layouts/OrderActionBar.tsx
+  - src/components/common/layouts/MainSection.tsx
   - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
   - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
+  - src/components/support/CustomerCenterLayout.tsx
   - src/types/type-tests/Button.type-test.tsx
   - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
   - src/stories/components/common/atoms/Button/ButtonDocs.tsx
@@ -3173,11 +3181,49 @@ LoadMoreButton·SocialAuthButton 구현 2개를 제거했다. 쿠폰·리뷰·�
 
 더보기·소셜 옵션 통합 후 검증: 타입 검사·전체 린트·Panda 생성·Next/Storybook production build가 통과했다. 폼·import 순서 56개와 App Router 2개 테스트가 통과했고 18개 PC/375px 표시 사례의 DOM·계산 스타일 비교가 일치했다. 자세한 검증은 [더보기·소셜 버튼 부모 옵션 검증](../development/verification.md#더보기소셜-버튼-부모-옵션-검증-2026-10-28)을 참고한다.
 
+## 도메인 레이아웃 소유권과 고객센터 제목 조합 (2026-10-28)
+
+AccountPageLayout은 src/components/account/AccountPageLayout.tsx로, CustomerCenterLayout은 src/components/support/CustomerCenterLayout.tsx로, OrderPageLayout은 src/components/orders/OrderPageLayout.tsx로 이동했다. 계정 프레임은 로그인·회원가입·휴대폰 인증의 공용 계약이며, 주문 프레임은 장바구니·결제의 진행 단계와 폭·여백을 소유한다. 범용 ContentLayout과 SidebarNavigationLayout은 common/layouts에 유지한다. 세 레이아웃의 공개 props와 서버/클라이언트 경계는 유지하고 소비처의 직접 import를 변경했다. 이전 경로의 forwarding 파일은 두지 않는다. 운영 구현 파일 수는 동일하다.
+
+CustomerCenterLayout은 기본 제목·설명·타이포그래피를 ContentSection의 title/headerProps로 전달한다. 직접 ContentHeader를 생성하는 중복 조합을 제거했으며, 사용자 지정 header(명시적 null 포함)와 footer/footerAction의 배타적 API는 유지한다. h1, PC heading6과 모바일 제목 선택, body3 설명 및 override 순서, gap=0, 고객센터 사이드 탐색과 하단 버튼을 보존한다. 하단 액션 스토리는 src/stories/features/support/CustomerCenterLayout.FooterAction.stories.tsx로 이동하고 기존 title과 스토리 ID를 유지한다.
+
+작업 트리 출처: src/components/account/AccountPageLayout.tsx, src/components/support/CustomerCenterLayout.tsx, src/components/orders/OrderPageLayout.tsx, src/components/common/layouts/ContentSection.tsx, src/stories/features/support/CustomerCenterLayout.FooterAction.stories.tsx 및 해당 레이아웃을 사용하는 src/app 라우트와 PhoneVerificationContent.tsx. 변경 시점: 2026-10-28T10:47:12.663Z.
+
+검증: 변경 파일 ESLint·Prettier 검사와 Panda CSS 생성을 통과했다. TypeScript AST 비교로 소비처의 import 외 본문이 이동 전과 동일함을 확인했으며, 기존 레이아웃 경로 참조가 src·.storybook·tests에 남지 않았다. Git index는 변경하지 않았다. Ego 개발 Storybook에서 FAQ·1:1 문의·장바구니·회원가입 안내의 PC/모바일 8개 시나리오를 확인했다. 각 시나리오의 main과 main 내부 h1은 하나이며 고객센터 탐색의 PC 표시/모바일 숨김과 제목 크기를 확인했다. 스크린샷 캡처는 CDP timeout으로 완료하지 못했다. 전체 typecheck는 동시 변경 중인 src/types/type-tests/Button.type-test.tsx의 social/loadMore 타입 검사 관련 6개 진단으로 실패했으며 이번 레이아웃 관련 진단은 없었다. 별도 임시 출력 경로의 Storybook 빌드는 정적 파일 images/icon/rating 복사 중 EEXIST로 실패했다. 해당 병행 작업과 정적 복사 오류는 이 범위에서 수정하지 않았다.
+
+## 공통 레이아웃 3개 계층 이동 (2026-10-28)
+
+MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/molecules에서 src/components/common/layouts로 이동했다. MainSection은 영역의 중앙 정렬·contained/fullBleed/extended 폭과 반응형 간격, OrderActionBar는 PC 일반 배치와 모바일 하단 고정, ModalDialog는 제목·스크롤 본문·푸터·오버레이 프레임을 소유한다. ModalDialog는 BottomSheet와 같은 layouts 계층에 둔다. 공개 props·함수 본문·클라이언트 경계는 유지하며 OrderActionBar의 컴포넌트 주석만 한영 형식으로 정리했다.
+
+실제 호출부 import와 MainSection 선언 계약 경로를 갱신했다. 전용 스토리 5개를 src/stories/components/common/layouts의 같은 이름 폴더로 이동하고 MainSection·OrderActionBar·ModalDialog·ConfirmDialog·SingleActionDialog의 Storybook title을 Layouts로 변경했다. 이에 따라 해당 스토리 ID의 접두사도 molecules에서 layouts로 변경된다. 기존 이력의 출처 경로는 당시 기록으로 유지한다. 검증 결과는 아래에 별도로 기록한다.
+
+작업 트리 출처: src/components/common/layouts/MainSection.tsx, src/components/common/layouts/OrderActionBar.tsx, src/components/common/layouts/ModalDialog.tsx, src/types/component-contracts/components-common-layouts-MainSection.d.ts 및 src/stories/components/common/layouts/{MainSection,OrderActionBar,ModalDialog}.
+
+검증: 변경 TS/TSX·선언 파일 34개의 ESLint --fix·Prettier 검사 통과, 두 번째 ESLint 수정 없음. TypeScript AST로 이동한 세 구현의 import·주석을 제외한 본문 동일성을 확인했고 인덱스도 변경하지 않았다. Panda CSS를 임시 경로로 추출하고 Storybook을 별도 임시 출력 폴더에 빌드해 통과했다. 생성된 Storybook index에서 Layouts/MainSection·OrderActionBar·ModalDialog·ConfirmDialog·SingleActionDialog 등록을 확인했다. 기존 경로 참조는 src·.storybook·scripts·tests에 남지 않았다. 전체 tsc --noEmit --incremental false는 이번 이동에서 수정하지 않은 src/types/type-tests/Button.type-test.tsx의 @ts-expect-error 위치와 social/loadMore 배타적 타입 관련 오류 6건으로 실패했다. Storybook 빌드에는 의존 패키지의 module-level directive 및 플러그인 시간 경고가 있다. Next 빌드와 브라우저 상호작용 검증은 이번 경로 이동에서 실행하지 않았다.
+
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
 컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## AccountPageLayout 공통 레이아웃 경로 복귀 (2026-10-28)
+
+AccountPageLayout을 src/components/account/AccountPageLayout.tsx에서 src/components/common/layouts/AccountPageLayout.tsx로 이동했다. 계정 데이터·인증 정책 없이 본문 폭·중앙 정렬·반응형 여백·선택적 제목과 액션을 배치하는 책임을 기준으로 공통 layouts에서 관리한다. 기존 API·구현·폼 연결·클라이언트 경계는 그대로 유지하고 로그인·회원가입·휴대폰 인증의 실제 import를 갱신했다. 이전 도메인 이동 기록의 경로는 당시 이력으로 유지하며 현재 경로는 이 절을 따른다. 작업 트리 출처는 src/components/common/layouts/AccountPageLayout.tsx와 해당 src/app 및 PhoneVerificationContent.tsx 소비처다.
+
+검증: 변경된 구현·소비처 11개 파일의 ESLint --fix와 Prettier 검사, 전체 tsc --noEmit --incremental false를 통과했다. 이동 전후 구현 파일 내용이 동일하고 기존 스테이징 인덱스가 유지됨을 확인했다. src·.storybook·scripts·tests에서 components/account/AccountPageLayout 참조가 남지 않았다. 경로 이동으로 렌더링 본문은 변경하지 않았으며 이번 이동에서는 브라우저·Next/Storybook 빌드를 실행하지 않았다.
+
+## SystemStatusPage 공통 organisms 이동과 래퍼 제거 (2026-10-28)
+
+SystemStatusPage를 src/components/not-found에서 src/components/common/organisms/SystemStatusPage.tsx로 이동했다. 404·점검·서비스 오류가 함께 쓰는 아이콘·제목·설명·점검 정보·홈 버튼 구성을 공통 organisms에서 소유한다. 기존 status·maintenance props와 렌더링 본문은 유지한다. 고정 status만 전달하던 NotFoundPage 래퍼는 제거하고 상품·런클럽의 데이터 없음 분기, 404 라우트 및 스토리에서 SystemStatusPage status="not-found"를 직접 사용한다. src/app/not-found.tsx의 클라이언트 경계는 유지한다. 기존 스토리 파일·title·ID는 유지하며 404 시나리오의 기본 args에 status를 지정한다. IA 화면 연결의 소스 파일 경로도 현재 구현으로 갱신했다. 과거 기록의 경로는 당시 이력으로 유지한다. 작업 트리 출처는 공통 SystemStatusPage·src/app/not-found.tsx·src/app/screen-index/screenConnections.ts와 변경 소비처·스토리다.
+
+검증: 변경 파일 11개의 ESLint --fix·Prettier 검사와 두 번째 수정 없음, 전체 tsc --noEmit --incremental false, 별도 임시 파일 Panda CSS 추출, 임시 출력 폴더 Storybook 빌드를 통과했다. SystemStatusPage 구현 내용은 이동 전과 동일하며 작업 전 스테이징 인덱스를 유지했다. src·.storybook·scripts·tests의 이전 구현 경로 참조를 제거했다. NotFoundPage 이름의 스토리·시나리오 파일은 기존 스토리 ID 유지를 위해 남으며 제거된 운영 래퍼를 import하지 않는다. 브라우저 상호작용과 Next 빌드는 이번 변경에서 실행하지 않았다.
+
+## ProductDetailImage 공통 molecule 이동 (2026-10-28)
+
+ProductDetailImage를 src/components/product/ProductDetailImage.tsx에서 src/components/common/molecules/ProductDetailImage.tsx로 이동했다. 상품 상세 본문과 확대 뷰어의 두 import를 갱신했다. next/image의 1600×1600 크기·기존 sizes·eager/lazy 선택·선택적 확대 버튼·대체 텍스트와 API를 그대로 유지했다. IdConfirmationMessage는 이번 이동 범위에 포함하지 않는다. 작업 트리 출처는 공통 ProductDetailImage와 src/app/products/[id]/page.tsx·_components/ProductDetailViewerContent.tsx다.
+
+검증: 변경 TSX 3개의 ESLint --fix·Prettier 검사, 전체 tsc --noEmit --incremental false, 임시 파일 Panda CSS 추출을 통과했다. 이동한 구현 내용이 원본과 동일하고 기존 스테이징 인덱스가 유지됨을 확인했다. src·.storybook·scripts·tests에 이전 구현 경로 참조가 남지 않았다. 이번 경로 이동에서 Next/Storybook 빌드와 브라우저 검증은 실행하지 않았다.
 
 ## 런클럽 분류 배지 통합 (2026-10-28)
 

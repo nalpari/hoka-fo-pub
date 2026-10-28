@@ -2,11 +2,12 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
 import { AppLayout } from '@/context/ShopShell';
 
-import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
 const meta = {
   title: 'PAGES/공통/1. 404에러페이지',
-  component: NotFoundPage,
+  component: SystemStatusPage,
+  args: { status: 'not-found' },
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story, context) => {
@@ -26,7 +27,7 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof NotFoundPage>;
+} satisfies Meta<typeof SystemStatusPage>;
 
 export default meta;
 

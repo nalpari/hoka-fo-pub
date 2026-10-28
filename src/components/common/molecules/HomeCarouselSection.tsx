@@ -9,10 +9,11 @@ import {
   CarouselControls,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { MainSection } from '@/components/common/molecules/MainSection';
 
+import { MainSection } from '@/components/common/layouts/MainSection';
+
+import type { MainSectionProps } from '@/types/component-contracts/components-common-layouts-MainSection';
 import type { HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection';
-import type { MainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
 
 // Size cards against the central grid, independently of the extended rail.
 const desktopSlide = css({

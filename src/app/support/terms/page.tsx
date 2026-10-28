@@ -15,9 +15,8 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 type TermsDateSelectProps = Pick<RadioProps, 'name' | 'options' | 'value' | 'onValueChange'>;
 

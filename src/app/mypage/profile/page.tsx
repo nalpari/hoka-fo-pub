@@ -16,12 +16,12 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
   type Preference,

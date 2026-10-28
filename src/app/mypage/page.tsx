@@ -20,10 +20,10 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { menuSections, type MyPageOrderItem, orderItems } from '@/app/mypage/mypage-home-data';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';

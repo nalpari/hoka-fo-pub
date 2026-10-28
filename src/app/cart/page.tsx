@@ -18,8 +18,6 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList';
 import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
@@ -29,9 +27,11 @@ import { ProductWidthSelector } from '@/components/common/molecules/ProductOptio
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 import { isCartItemSoldOut, itemKey } from '@/app/cart/cart-item';
+import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

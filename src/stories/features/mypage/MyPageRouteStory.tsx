@@ -1,7 +1,8 @@
 import { ShopShell } from '@/context/ShopShell';
 
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
+
 import MyPage from '@/app/mypage/page';
-import { NotFoundPage } from '@/components/not-found/NotFoundPage';
 import { RunClubPage } from '@/components/run-club/RunClubPage';
 import {
   type MyPageStatusKind,
@@ -37,7 +38,7 @@ export function createMyPageStory(path: string) {
         ) : kind ? (
           <MyPageStatusPage kind={kind} />
         ) : (
-          <NotFoundPage />
+          <SystemStatusPage status="not-found" />
         )}
       </ShopShell>
     );

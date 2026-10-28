@@ -2,11 +2,10 @@ import { Stack } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { SizeGuidePanel } from '@/app/support/size-guide/_components/SizeGuidePanel';
 import { guideCategories } from '@/app/support/size-guide/size-guide.data';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const tabs = guideCategories.map((category) => ({
   value: category.value,

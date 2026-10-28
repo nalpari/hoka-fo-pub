@@ -7,10 +7,9 @@ import { Box, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { notices } from '@/app/support/notices/notices.data';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 /** 경로에 해당하는 공지 상세 내용을 표시합니다. (Displays notice details for the current route.) */
 export default function Page() {

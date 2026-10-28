@@ -24,8 +24,9 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
-import { MainSection } from '@/components/common/molecules/MainSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+
+import { MainSection } from '@/components/common/layouts/MainSection';
 
 import { createHomeCarouselPreviewItems } from '@/app/homeCarouselPreview';
 import {

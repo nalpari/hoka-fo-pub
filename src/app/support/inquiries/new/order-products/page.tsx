@@ -17,8 +17,6 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import {
   clearInquiryOrderReturnMarker,
@@ -28,6 +26,7 @@ import {
   shouldReturnToInquiry,
 } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const periodOptions = [
   { value: '1y', label: '1년' },

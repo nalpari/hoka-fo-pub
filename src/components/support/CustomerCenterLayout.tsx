@@ -5,10 +5,7 @@ import { Box } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 
 import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
-import {
-  ContentHeader,
-  type ContentHeaderProps,
-} from '@/components/common/molecules/ContentHeader';
+import { type ContentHeaderProps } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import {
@@ -112,18 +109,18 @@ function CustomerCenterFooter({ action }: { action: CustomerCenterFooterAction }
 export function CustomerCenterLayout(props: Props) {
   const { activePath, breadcrumbItems, children, footer, footerAction, groups } = props;
   const resolvedFooter = footerAction ? <CustomerCenterFooter action={footerAction} /> : footer;
-  const header =
-    props.header !== undefined ? (
-      props.header
-    ) : (
-      <ContentHeader
-        title={props.title}
-        titleAs="h1"
-        titleProps={{ web: 'heading6', mo: props.mobileTitleVariant ?? 'heading6' }}
-        description={props.description}
-        descriptionProps={{ variant: 'body3', ...props.descriptionProps }}
-      />
-    );
+  const headingProps =
+    props.header !== undefined
+      ? { header: props.header }
+      : {
+          title: props.title,
+          headerProps: {
+            titleAs: 'h1' as const,
+            titleProps: { web: 'heading6' as const, mo: props.mobileTitleVariant ?? 'heading6' },
+            description: props.description,
+            descriptionProps: { variant: 'body3' as const, ...props.descriptionProps },
+          },
+        };
 
   return (
     <SidebarNavigationLayout
@@ -134,7 +131,7 @@ export function CustomerCenterLayout(props: Props) {
       title="SUPPORT"
       titleTo="/support"
     >
-      <ContentSection minW="0" gap="0" footer={resolvedFooter} header={header}>
+      <ContentSection minW="0" gap="0" footer={resolvedFooter} {...headingProps}>
         {children}
       </ContentSection>
     </SidebarNavigationLayout>

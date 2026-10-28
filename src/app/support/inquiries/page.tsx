@@ -21,11 +21,11 @@ import {
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 function InquiryEmptyState() {

@@ -13,10 +13,9 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { SearchField } from '@/components/common/molecules/SearchField';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.data';
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 type Props = {
   category: FaqCategory;

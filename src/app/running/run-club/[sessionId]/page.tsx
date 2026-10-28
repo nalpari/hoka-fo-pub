@@ -16,12 +16,13 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
-import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+
 import {
   runClubAddress,
   runClubImage,
@@ -483,7 +484,7 @@ export default function Page() {
     window.scrollTo(0, 0);
   }, [sessionId]);
 
-  if (!session) return <NotFoundPage />;
+  if (!session) return <SystemStatusPage status="not-found" />;
 
   const recommendedProducts = products.slice(0, 6);
   const heroRows: RunClubFact[] = [

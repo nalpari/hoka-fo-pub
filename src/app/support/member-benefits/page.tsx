@@ -5,9 +5,8 @@ import { Stack } from 'styled-system/jsx';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 /** 온라인 회원등급 안내 화면을 구성합니다. (Composes the customer benefit information screen.) */
 export default function Page() {

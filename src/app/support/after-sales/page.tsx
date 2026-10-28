@@ -10,9 +10,9 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { supportNavigation } from '@/app/support/support.navigation';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 function ShippingReturnsNumberedList({
   items,

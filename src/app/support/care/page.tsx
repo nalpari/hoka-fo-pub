@@ -4,11 +4,10 @@ import { Stack } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
-
 import { supportNavigation } from '@/app/support/support.navigation';
 import { apparelCareSections, shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
+import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const tabs = [
   { value: 'shoes', label: '신발', content: <CareInstructions sections={shoeCareSections} /> },

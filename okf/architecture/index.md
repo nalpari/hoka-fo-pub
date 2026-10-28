@@ -2,7 +2,17 @@
 
 [런클럽 분류 배지 통합](ui.md#런클럽-분류-배지-통합-2026-10-28)은 Badge.runClubCategory의 배타적 옵션과 PC/모바일 표시 보존을 설명한다.
 
+[상품 상세 이미지 공통 경로](ui.md#productdetailimage-공통-molecule-이동-2026-10-28)는 ProductDetailImage의 molecules 배치와 호출부 변경을 설명한다.
+
+[공통 시스템 상태 화면](ui.md#systemstatuspage-공통-organisms-이동과-래퍼-제거-2026-10-28)은 SystemStatusPage의 organisms 이동과 NotFoundPage 래퍼 제거를 설명한다.
+
+[AccountPageLayout 공통 경로](ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)는 계정 화면 프레임의 common/layouts 배치와 호출부 경로를 설명한다.
+
 [보조 TS 모듈의 사용처별 배치](ts-module-ownership-2026-10-28.md)는 라우트·데이터·훅·컨텍스트·타입 소유권에 따른 33개 이동과 참조·검증을 설명한다.
+
+[공통 레이아웃 3개 계층 이동](ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)은 MainSection·OrderActionBar·ModalDialog의 layouts 분류와 호출부·스토리 경로 변경을 설명한다.
+
+[도메인 레이아웃 소유권](ui.md#도메인-레이아웃-소유권과-고객센터-제목-조합-2026-10-28)은 계정·고객센터·주문 프레임 이동과 ContentSection 제목 위임을 설명한다.
 
 [더보기·소셜 버튼의 부모 표시 옵션 통합](ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)은 Button.loadMore·Button.social과 ButtonLink 수량 표시, 래퍼 2개 제거 및 호출부·스토리 전환을 설명한다.
 

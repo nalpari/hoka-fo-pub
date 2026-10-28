@@ -13,11 +13,11 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Address } from '@/types/mypage-address.types';

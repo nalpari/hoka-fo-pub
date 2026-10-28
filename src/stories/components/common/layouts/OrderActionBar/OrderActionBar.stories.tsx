@@ -4,12 +4,12 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button';
 
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar';
+import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 const onSubmit = fn((event: React.FormEvent<HTMLFormElement>) => event.preventDefault());
 
 const meta = {
-  title: 'Molecules/OrderActionBar',
+  title: 'Layouts/OrderActionBar',
   component: OrderActionBar,
   parameters: { layout: 'fullscreen' },
   args: {

@@ -13,7 +13,8 @@ import {
   type SingleLineFormFieldProps,
   TextFormField,
 } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
+
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 

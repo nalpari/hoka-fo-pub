@@ -2,7 +2,17 @@
 
 ## 2026-10-28
 
+- ProductDetailImage를 common/molecules로 이동하고 상품 상세·확대 뷰어 import를 갱신했다. [범위와 검증](architecture/ui.md#productdetailimage-공통-molecule-이동-2026-10-28)을 참고한다.
+
+- SystemStatusPage를 common/organisms로 이동하고 NotFoundPage 래퍼를 제거했다. 실제 호출부·404 기본 스토리 args·IA 소스 경로를 갱신했다. [범위와 검증](architecture/ui.md#systemstatuspage-공통-organisms-이동과-래퍼-제거-2026-10-28)을 참고한다.
+
+- AccountPageLayout을 common/layouts로 이동하고 로그인·가입·휴대폰 인증 소비처 import를 갱신했다. [현재 소유권](architecture/ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)을 참고한다.
+
 - 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
+
+- MainSection·OrderActionBar·ModalDialog를 common/layouts로 이동하고 호출부·선언 계약·전용 스토리 5개의 경로와 Layouts 분류를 갱신했다. [범위와 검증](architecture/ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 참고한다.
+
+- 계정·고객센터·주문 레이아웃을 각 도메인으로 옮기고 고객센터 기본 제목 조합을 ContentSection에 위임했다. 사용처와 하단 액션 스토리 경로를 함께 수정했다. [소유권과 보존 계약](architecture/ui.md#도메인-레이아웃-소유권과-고객센터-제목-조합-2026-10-28)을 참고한다.
 
 - LoadMoreButton·SocialAuthButton을 Button·ButtonLink의 배타적 표시 옵션으로 통합하고 실제 호출부·스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
 

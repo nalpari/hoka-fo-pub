@@ -10,8 +10,7 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-
-import { ProductDetailImage } from '@/components/product/ProductDetailImage';
+import { ProductDetailImage } from '@/components/common/molecules/ProductDetailImage';
 
 type ProductDetailViewerGalleryProps = { images: string[]; productName: string };
 

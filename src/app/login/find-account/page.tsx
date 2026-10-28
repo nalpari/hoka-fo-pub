@@ -17,10 +17,10 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';

@@ -6,9 +6,12 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:52:23.370Z'
+  at: '2026-10-28T11:10:41.166Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/ProductDetailImage.tsx
+  - src/components/common/organisms/SystemStatusPage.tsx
+  - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/cart/cart-item.ts
   - src/app/checkout/checkout-coupons.ts
   - src/app/checkout/checkout-summary.ts
@@ -341,11 +344,31 @@ RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기�
 
 작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.
 
+## 도메인 레이아웃 import 변경 (2026-10-28)
+
+로그인·회원가입 라우트는 components/account/AccountPageLayout, 고객센터 라우트는 components/support/CustomerCenterLayout, 장바구니·결제 라우트는 components/orders/OrderPageLayout을 직접 참조한다. 파일 위치와 제목 조합 책임을 정리했으며 경로 URL, 라우트 소유권, 페이지 상태와 서버/클라이언트 지시문은 유지한다. 작업 트리 출처: src/app/login/, src/app/signup/, src/app/support/, src/app/cart/page.tsx, src/app/checkout/page.tsx. 상세는 [도메인 레이아웃 소유권](ui.md#도메인-레이아웃-소유권과-고객센터-제목-조합-2026-10-28)을 참고한다.
+
+## 공통 레이아웃 import 경로 이동 (2026-10-28)
+
+MainSection·OrderActionBar·ModalDialog를 사용하는 라우트의 import를 common/layouts 경로로 변경했다. 경로 URL·페이지 export·상태·폼 연결·서버/클라이언트 경계는 변경하지 않았다. 작업 트리 출처는 해당 src/app 소비처와 src/components/common/layouts/{MainSection,OrderActionBar,ModalDialog}.tsx다. 분류와 스토리 변경은 [UI 기록](ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 따른다.
+
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
 장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## AccountPageLayout 공통 경로 사용 (2026-10-28)
+
+로그인·가입 라우트가 AccountPageLayout을 @/components/common/layouts/AccountPageLayout에서 가져오도록 변경했다. URL·페이지 export·폼·상태·서버/클라이언트 경계는 유지한다. 작업 트리 출처는 해당 src/app 소비처와 src/components/common/layouts/AccountPageLayout.tsx다. [UI 소유권 기록](ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)을 따른다.
+
+## 공통 시스템 상태 화면 연결 (2026-10-28)
+
+error·maintenance·service-unavailable 라우트가 common/organisms/SystemStatusPage를 사용한다. 404 라우트와 상품·런클럽의 데이터 없음 분기는 NotFoundPage 중계 없이 status="not-found"를 전달한다. URL·문구·상태·클라이언트 경계는 유지하며 IA의 소스 경로를 갱신했다. 작업 트리 출처는 src/app/not-found.tsx·src/app/error.tsx·관련 페이지·screenConnections.ts와 src/components/common/organisms/SystemStatusPage.tsx다. [UI 기록](ui.md#systemstatuspage-공통-organisms-이동과-래퍼-제거-2026-10-28)을 따른다.
+
+## 상품 상세 이미지 공통 경로 (2026-10-28)
+
+상품 상세 페이지와 확대 뷰어의 ProductDetailImage import를 common/molecules로 변경했다. 라우트·클라이언트 경계·이미지 렌더링과 뷰어 동작은 변경하지 않았다. 작업 트리 출처는 src/app/products/[id]/page.tsx·_components/ProductDetailViewerContent.tsx와 src/components/common/molecules/ProductDetailImage.tsx다. [UI 기록](ui.md#productdetailimage-공통-molecule-이동-2026-10-28)을 따른다.
 
 ## 런클럽 상세 배지 직접 사용 (2026-10-28)
 

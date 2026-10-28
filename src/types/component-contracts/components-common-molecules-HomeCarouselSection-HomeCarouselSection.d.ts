@@ -4,7 +4,7 @@ import { type Platform } from '@/context/platform';
 
 import { type HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/components/common/molecules/HomeCarouselSection';
 
-import { type MainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
+import { type MainSectionProps } from '@/types/component-contracts/components-common-layouts-MainSection';
 type Props = Pick<
   ImportedHomeCarouselSectionProps,
   | 'children'

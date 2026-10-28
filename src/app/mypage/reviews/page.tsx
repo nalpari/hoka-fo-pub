@@ -16,8 +16,9 @@ import { Select } from '@/components/common/atoms/Select';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
+
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
   type ReviewListEntry,

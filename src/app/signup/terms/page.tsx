@@ -16,9 +16,9 @@ import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },

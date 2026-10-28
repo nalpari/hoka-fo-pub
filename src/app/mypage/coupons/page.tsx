@@ -12,9 +12,9 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { faCircleCheck } from '@/icons/fontAwesome';

@@ -22,14 +22,13 @@ import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { OrderActionBar } from '@/components/common/molecules/OrderActionBar';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout';
+import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 import {
   checkoutCouponOptions,
@@ -41,6 +40,7 @@ import {
   checkoutShippingFee,
   getCheckoutSummary,
 } from '@/app/checkout/checkout-summary';
+import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 import { faCheck } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

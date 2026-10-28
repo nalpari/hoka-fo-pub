@@ -15,7 +15,7 @@ type Props = {
   children: ReactNode;
 };
 
-/** Shared cart/checkout frame and order progress, with feature-owned heading typography. */
+/** 장바구니·결제의 공통 프레임과 주문 진행 단계를 배치합니다. (Arranges the shared cart and checkout frame with order progress.) */
 export function OrderPageLayout({ title, step, headerSpacing = 'default', children }: Props) {
   return (
     <Box

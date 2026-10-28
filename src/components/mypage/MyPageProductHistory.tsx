@@ -9,11 +9,11 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Product, products } from '@/mocks/products';

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { Box } from 'styled-system/jsx';
 
-/** Stays inside the form while its mobile presentation is fixed to the viewport. */
+/** 폼 내부 액션 영역을 모바일에서 화면 하단에 고정합니다. (Keeps the form action region fixed to the bottom of the mobile viewport.) */
 export function OrderActionBar({ children }: { children: ReactNode }) {
   return (
     <Box

@@ -6,9 +6,10 @@ tags: [components, reuse, headings, layout, audit]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T07:10:36Z'
+  at: '2026-10-28T10:48:10.554Z'
 source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
+  - src/components/common/layouts/MainSection.tsx
   - src/components/common/molecules/MainSection/MainSection.tsx
   - src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
@@ -304,7 +305,7 @@ Codex가 2026-10-20에 타입 검사·변경 TSX ESLint/Prettier·Panda 생성·
 
 | 파일                                                                                       | 판정/API      | 보존할 계약                                                                                                                                                                      |
 | ------------------------------------------------------------------------------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [MainSection](../../src/components/common/molecules/MainSection/MainSection.tsx)           | 즉시 S 후보   | 내부 VStack을 S로 위임하고 MainSectionHeader를 header 슬롯에 전달. PC gap 40px/compact 32px·MO24px, alignItems=start, fullBleed/extended 폭과 바깥 section/container 계산은 유지 |
+| [MainSection](../../src/components/common/layouts/MainSection.tsx)           | 즉시 S 후보   | 내부 VStack을 S로 위임하고 MainSectionHeader를 header 슬롯에 전달. PC gap 40px/compact 32px·MO24px, alignItems=start, fullBleed/extended 폭과 바깥 section/container 계산은 유지 |
 | [OrderPageLayout](../../src/components/common/layouts/OrderPageLayout/OrderPageLayout.tsx) | 조건부 S 후보 | 제목+단계의 기존 Flex header를 슬롯에 전달. headerSpacing default PC40/MO24·none PC0/MO24를 gap으로 이전할 수 있으나 children의 flex 참여·margin 계약 확인. 새 H는 불필요        |
 | [MyPageProductHistory](../../src/components/features/mypage/MyPageProductHistory.tsx)      | 조건부 S 후보 | 현재 gap=6과 제목→상품/재입고 목록 경계. 빈 상태에서 제목도 생략하는 분기, 제목 padding·하단 안내·취소 모달의 독립성 유지                                                        |
 
@@ -361,3 +362,7 @@ Typography.stories.tsx의 9개 제목 작성 위치는 native/unstyled/scale 예
 - MainSectionHeader 로컬 함수를 제거하고 ContentSection의 title/headerProps로 표현한다. 제목의 web heading5/mobile heading4, 중앙 contentFrame, 8px 액션 간격과 기본/compact 본문 간격, contained/fullBleed/extended 배치는 유지한다. 중첩 스타일의 display와 mx는 css.raw로 추출한다.
 - SectionHeader의 기본/설명·액션·강한 구분선 스토리는 공용 헤더 분류로 옮겼다. 기존 Layouts/Content Header의 세 스토리 ID는 유지하고 실제 ContentLayout을 렌더링한다. 제거된 MainSectionHeader의 선언도 정리했다. 운영 파일은 1개 감소하며, 별도 로컬 함수 2개를 제거한다.
 - 실제 검증: 2026-10-28 타입 검사, 전체 ESLint, Panda 생성, Next.js 빌드와 Storybook 빌드를 통과했다. Ego 정적 Storybook에서 이전 소스와 수정 소스를 나란히 담은 임시 fixture로 1440px/web·390px/mobile의 intro/sticky/title-only/description-only/empty/main/extended/bleed 16개 조합을 비교했다. main/header/section/제목/설명/small/button의 위치·크기·폰트·line-height·weight·margin·gap·정렬 측정값이 모두 일치했다. 임시 소스는 검증 후 삭제했다. Git 스테이징·커밋은 수행하지 않았다.
+
+## MainSection 현재 소유 경로 (2026-10-28)
+
+MainSection의 현재 구현은 src/components/common/layouts/MainSection.tsx다. 제목 내부 조합은 molecules/ContentHeader, 제목·본문·푸터 간격은 layouts/ContentSection이 계속 소유한다. MainSection의 영역 폭·반응형 간격은 이번 계층 이동에서 변경하지 않았다. 과거 조사표의 경로는 당시 출처이며 현재 분류는 [UI 기록](ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 따른다.

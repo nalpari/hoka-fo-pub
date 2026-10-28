@@ -602,7 +602,7 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '248': {
-    sourceFiles: ['src/app/not-found.tsx', 'src/components/not-found/NotFoundPage.tsx'],
+    sourceFiles: ['src/app/not-found.tsx', 'src/components/common/organisms/SystemStatusPage.tsx'],
     stories: {
       web: {
         id: 'pages-공통-1-404에러페이지-web--default',
@@ -616,7 +616,10 @@ const connections: Record<number, ScreenConnection> = {
   },
   '249': {
     route: '/maintenance',
-    sourceFiles: ['src/app/maintenance/page.tsx', 'src/components/not-found/SystemStatusPage.tsx'],
+    sourceFiles: [
+      'src/app/maintenance/page.tsx',
+      'src/components/common/organisms/SystemStatusPage.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-공통-2-시스템점검페이지-web--maintenance',
@@ -632,7 +635,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/service-unavailable',
     sourceFiles: [
       'src/app/service-unavailable/page.tsx',
-      'src/components/not-found/SystemStatusPage.tsx',
+      'src/components/common/organisms/SystemStatusPage.tsx',
     ],
     stories: {
       web: {
@@ -752,7 +755,7 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: [
       'src/app/running/run-club/[sessionId]/page.tsx',
       'src/components/run-club/RunClubPage.tsx',
-      'src/components/not-found/NotFoundPage.tsx',
+      'src/components/common/organisms/SystemStatusPage.tsx',
       'src/components/common/atoms/Badge.tsx',
     ],
     stories: {
