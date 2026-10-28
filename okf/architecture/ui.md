@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T08:57:37.238Z'
+  at: '2026-10-28T10:24:24.873Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/layouts/CustomerCenterLayout.tsx
+  - src/components/common/layouts/SidebarNavigationLayout.tsx
   - .storybook/fonts.scss
   - src/app/layout.tsx
   - src/app/products/[id]/_components/ProductDetailViewerContent.tsx
@@ -3134,3 +3136,11 @@ AGENTS의 Next.js integration policy와 component-reusability의 nextjs-integrat
 ## Storybook 설정 타입 오류 수정 (2026-10-28)
 
 .storybook/preview.ts의 Preview 타입을 루트 storybook 패키지가 아닌 현재 프레임워크 @storybook/nextjs-vite에서 가져오도록 수정했다. tsconfig.json이 .storybook/**/*.ts도 검사하도록 하여 설정 파일을 편집기와 npm run typecheck가 같은 프로젝트 기준으로 확인한다. 이 과정에서 드러난 main.ts의 readdirSync 문자열/버퍼 추론은 encoding=utf8 명시로 정리했다. 폰트 SCSS import와 스토리 발견·Mockup 제외 동작은 유지한다. 작성: codex/gpt-6, 2026-10-28T10:03:47.372Z. 작업 트리 출처: .storybook/preview.ts, .storybook/main.ts, tsconfig.json.
+
+## 미사용 공통 UI 17개 제거와 사이드 탐색 소유권 통합 (2026-10-28)
+
+사용자가 승인한 미사용·Storybook 전용 공통 UI 정리 범위다. 정의 외 소스 참조가 없던 CompareBar·PersonalizationCard·MemberHero·QuickLinkGrid·SearchCategorySelect·SearchCollectionLinks 6개와 운영 사용처가 없던 ActionButton·EmailSignupField·IconBrand·Link·Navigation·Pagination·PaymentLogo·ProgressBar·SortIcon·ToggleButton·ProductGallery 11개를 제거했다. 후자의 전용 스토리 11개, EmailSignupField 전용 FooterEmail 시나리오와 PC/MO 재노출, ToggleButton 전용 컴파일 타입 사례도 제거하고 다른 폼·버튼 검증은 유지했다. 기존 기록의 삭제 경로는 당시 출처이며 현재 API가 아니다. 이미지 등 공용 정적 자산은 이번 삭제 범위에 포함하지 않았다.
+
+SideNavigation은 유일한 운영 부모 SidebarNavigationLayout 모듈로 이동했다. 탐색 함수는 모듈 최상위에 유지하고 기존 JSX·Panda 스타일·활성 및 비활성 처리·PC/모바일 동작을 그대로 보존했다. SidebarNavigationGroup 타입은 레이아웃이 소유하며 CustomerCenterLayout은 새 타입 경로를 사용한다. 기존 SideNavigation 스토리는 새 소유 모듈에서 가져오고 title·스토리 ID·시나리오는 유지한다. 단순 이동을 위한 클라이언트 지시문은 추가하지 않았으며 함수에 Hooks는 없다. 구현 17개 제거와 별도 모듈 1개 통합으로 운영 컴포넌트 TSX 파일은 18개 감소한다. ProductListingPage·SupportTabs·MainSection 등 실제 재사용 중인 구성은 유지한다.
+
+작업 트리 출처: 위 working_tree_sources와 삭제된 src/components/common/의 17개 구현·SideNavigation.tsx, src/stories/components/common/의 전용 스토리 11개 및 SideNavigation 스토리, PC.Validation.stories.tsx·MO.Validation.stories.tsx. 검증: npm run lint:fix·npm run lint·npm run typecheck·Panda 생성·Next production build·Storybook production build를 통과했다. 폼·이메일·import 순서 51개와 빌드 후 App Router 2개 테스트가 통과했다. 이동 전후 SideNavigation 함수 본문을 비교하여 동일함을 확인했다. 새 정적 Storybook을 별도 6018 포트에서 Ego로 실행해 레이아웃 7개 상태의 PC 180px/고객센터 190px 탐색 폭, 활성 링크, main 1개, 모바일 가로 탐색·숨김·여백 옵션과 본문 표시를 검사했다. 기존 PC/MO Inheritance play가 오류 표시·접근성 검사를 거쳐 오류 해제까지 도달함을 확인했다. 스크린샷 캡처는 CDP 시간 초과로 완료하지 못했으므로 시각 비교를 통과했다고 기록하지 않는다. 구현 TSX는 Docs·type-test를 제외한 src/components 기준 98개에서 80개로 감소했다. Storybook의 모듈 지시문·빌드 성능 경고는 빌드 실패가 아니며 전체 접근성 검수 완료를 뜻하지 않는다.

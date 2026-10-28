@@ -11,16 +11,17 @@ import {
   type ContentHeaderProps,
 } from '@/components/common/molecules/ContentHeader';
 
-import { type SideNavigationGroup } from '@/components/common/organisms/Navigation/SideNavigation';
-
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
+import {
+  type SidebarNavigationGroup,
+  SidebarNavigationLayout,
+} from '@/components/common/layouts/SidebarNavigationLayout';
 
 type LayoutProps = {
   activePath: string;
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
-  groups: SideNavigationGroup[];
+  groups: SidebarNavigationGroup[];
 };
 
 type FooterActionPresentation = {

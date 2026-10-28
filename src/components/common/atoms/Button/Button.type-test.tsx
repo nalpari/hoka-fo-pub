@@ -1,6 +1,5 @@
 import { Button, ButtonLink } from '@/components/common/atoms/Button/Button';
 import { LoadMoreButton } from '@/components/common/atoms/LoadMoreButton';
-import { ToggleButton } from '@/components/common/atoms/ToggleButton';
 
 // Compile-only API checks, validated by `npm run typecheck`.
 export function checkButtonSizingTypes() {
@@ -20,12 +19,7 @@ export function checkButtonSizingTypes() {
       <ButtonLink href="/" variant="link" size="sm">
         Link
       </ButtonLink>
-      <ToggleButton expanded={false} size="short">
-        Toggle
-      </ToggleButton>
-      <ToggleButton expanded={false} variant="link" size="md">
-        Toggle link
-      </ToggleButton>
+
       <LoadMoreButton remaining={10} size="short" />
       <LoadMoreButton remaining={10} variant="link" size="lg" />
       <Button variant="filterTrigger">Filter</Button>
@@ -42,12 +36,7 @@ export function checkButtonSizingTypes() {
       <ButtonLink href="/" variant="headerSearch">
         Search
       </ButtonLink>
-      <ToggleButton expanded={false} variant="filterTrigger">
-        Filter
-      </ToggleButton>
-      <ToggleButton expanded={false} variant="headerSearch">
-        Search
-      </ToggleButton>
+
       <LoadMoreButton remaining={10} variant="filterTrigger" />
       <LoadMoreButton remaining={10} variant="headerSearch" />
     </>
@@ -92,20 +81,6 @@ export function checkButtonSizingTypes() {
     </ButtonLink>
   );
 
-  const toggleSmall = (
-    // @ts-expect-error ToggleButton must preserve variant/size correlation.
-    <ToggleButton expanded={false} size="sm">
-      Toggle
-    </ToggleButton>
-  );
-
-  const toggleTall = (
-    // @ts-expect-error Link toggles reject tall.
-    <ToggleButton expanded={false} variant="link" size="tall">
-      Toggle
-    </ToggleButton>
-  );
-
   // @ts-expect-error LoadMoreButton must preserve variant/size correlation.
   const moreSmall = <LoadMoreButton remaining={10} size="sm" />;
 
@@ -128,13 +103,6 @@ export function checkButtonSizingTypes() {
     </ButtonLink>
   );
 
-  const fixedToggle = (
-    // @ts-expect-error ToggleButton preserves the fixed-size constraint.
-    <ToggleButton expanded={false} variant="filterTrigger" size="short">
-      Filter
-    </ToggleButton>
-  );
-
   // @ts-expect-error LoadMoreButton preserves the fixed-size constraint.
   const fixedMore = <LoadMoreButton remaining={10} variant="headerSearch" size="tall" />;
 
@@ -149,15 +117,12 @@ export function checkButtonSizingTypes() {
     navigationSmall,
     navigationShort,
     navigationHeight,
-    toggleSmall,
-    toggleTall,
     moreSmall,
     moreShort,
     fixedFilter,
     fixedSearch,
     fixedSmall,
     fixedNavigation,
-    fixedToggle,
     fixedMore,
   ];
 }

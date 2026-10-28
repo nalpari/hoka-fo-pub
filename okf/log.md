@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- 승인된 미사용·Storybook 전용 공통 UI 17개와 전용 스토리 11개를 제거하고 SideNavigation을 SidebarNavigationLayout 모듈로 통합했다. 관련 폼·타입 검사 참조와 OKF를 함께 정리했다. [범위와 검증](architecture/ui.md#미사용-공통-ui-17개-제거와-사이드-탐색-소유권-통합-2026-10-28)을 참고한다.
+
 - Storybook Preview 타입 import를 프레임워크 패키지로 수정하고 .storybook을 타입 검사에 포함했다. 재귀 스토리 탐색의 UTF-8 문자열 반환을 명시하고 TypeScript 6에서 사용 중단된 불필요한 baseUrl을 제거했다. [설정 타입 오류 수정](architecture/ui.md#storybook-설정-타입-오류-수정-2026-10-28)을 참고한다.
 
 - AGENTS·component-reusability에 Next.js 기능 선택 기준과 런타임 예외를 반영했다. [정책과 스킬](architecture/ui.md#nextjs-기능-채택-정책과-스킬-2026-10-28)을 참고한다.

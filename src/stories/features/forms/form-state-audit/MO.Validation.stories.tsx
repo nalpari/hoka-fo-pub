@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import * as account from './account.scenarios';
-import * as controls from './controls.scenarios';
 import * as mypage from './mypage.scenarios';
 import * as product from './product.scenarios';
 import { auditMeta } from './shared';
@@ -40,5 +39,3 @@ export const Coupon: Story = { ...mypage.Coupon };
 export const Product: Story = { ...product.Product };
 
 export const Inquiry: Story = { ...support.Inquiry };
-
-export const FooterEmail: Story = { ...controls.FooterEmail };

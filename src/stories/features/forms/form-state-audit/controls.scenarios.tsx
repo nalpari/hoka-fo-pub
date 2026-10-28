@@ -4,7 +4,6 @@ import { expect, userEvent, within } from 'storybook/test';
 import { Button } from '@/components/common/atoms/Button/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
-import { EmailSignupField } from '@/components/common/atoms/EmailSignupField';
 import { FormField } from '@/components/common/atoms/FormField';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Radio } from '@/components/common/atoms/Radio';
@@ -117,20 +116,5 @@ export const Inheritance: Story = {
         within(canvas.getByTestId(`control-${index}`)).getByRole(role),
       ).not.toHaveAttribute('aria-invalid', 'true');
     }
-  },
-};
-
-export const FooterEmail: Story = {
-  render: () => <EmailSignupField label="이메일 구독" />,
-  play: async ({ canvasElement }) => {
-    const c = within(canvasElement);
-    const input = c.getByRole('textbox', { name: '이메일 구독' });
-    await userEvent.type(input, 'invalid');
-    await userEvent.click(c.getByRole('button', { name: 'Submit email' }));
-    await expect(input).toHaveAttribute('aria-invalid', 'true');
-    await expect(c.getByRole('alert')).toHaveStyle({ color: 'rgb(166, 0, 0)' });
-    await userEvent.clear(input);
-    await userEvent.type(input, 'demo@example.com');
-    await expect(input).not.toHaveAttribute('aria-invalid');
   },
 };

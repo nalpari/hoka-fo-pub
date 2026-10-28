@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SideNavigation } from '@/components/common/organisms/Navigation/SideNavigation';
+import { SideNavigation } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { supportNavigation } from '@/components/support/support.navigation';
 
