@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:52:23.370Z'
+  at: '2026-10-28T10:54:54.282Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
@@ -274,6 +274,12 @@ Button.type-test.tsx는 src/types/type-tests/에서 npm run typecheck에 포함�
 
 검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.
 
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](../architecture/ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
 ## 더보기·소셜 버튼 부모 옵션 검증 (2026-10-28)
 
 Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례를 src/types/type-tests/Button.type-test.tsx에서 검사한다. Prettier로 여러 줄이 된 JSX의 @ts-expect-error 위치를 맞춰 실제 진단을 소비하도록 수정했으며 후속 타입 검사와 Next 빌드가 통과했다. tests/form-controls.test.mjs에 남은 수량 0·커스텀 라벨·type/form 유지, 수량 링크의 실제 anchor/href·role, loading 비활성화와 카카오/네이버 아이콘·DOM 옵션 누출 검사를 추가했다. 기존 일반·아이콘 버튼 검증을 유지했고 폼·import 순서 테스트 56개 및 빌드 후 App Router 테스트 2개가 통과했다.
@@ -283,9 +289,3 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 작성: codex/gpt-6, 2026-10-28T10:54:54.282Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 전체 작업 트리의 다른 작업 검증과 구분한다.
 
 브라우저 상호작용에서는 제어형 수량 1→2→3 이후 비활성화, 두 모드의 loading/aria-busy, 수량 링크의 href와 링크 의미, 로그인 소셜 미지원 안내, 가입의 두 제공자 안내 모달 열기·확인 닫기, 쿠폰 5→10개 확장, 리뷰 페이지 수 1/7→2/7과 고객센터 일반 링크를 확인했다.
-
-## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
-
-계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](../architecture/ts-module-ownership-2026-10-28.md).
-
-작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

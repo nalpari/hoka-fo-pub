@@ -133,7 +133,6 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 
 작업 트리 출처는 위 두 데이터 파일이다. Node 단언으로 원본 251개 행의 번호·코드·구분·페이지 수·로그인 여부·원본 계층·비고와 내부 번호 유일성, 추가 화면 15개를 확인했다. 환경별 연결 계약은 [IA 화면 연결](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.
 
-
 ## 프로모션 타입 소유자 변경 (2026-10-28)
 
 src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/common/atoms/Badge.tsx로 변경했다. 목 상품의 값·정렬·정책은 바뀌지 않는다. [Badge 통합과 검증](architecture/responsive-platform-2026-10-28.md)을 참고한다.
