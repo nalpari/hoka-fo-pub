@@ -1,11 +1,12 @@
-import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { expect, userEvent, within, waitFor } from 'storybook/test';
-import { PlatformProvider } from '@/shared/context/platform';
-import { RegistrationContent } from '@/shared/features/signup-registration/RegistrationContent';
-import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
-import { RegistrationCompleteContent } from '@/shared/features/signup-registration/RegistrationCompleteContent';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
+
+import RegistrationCompleteContent from '@/app/signup/complete/page';
+import RegistrationPage from '@/app/signup/information/page';
+import { RegistrationContent } from '@/stories/route-previews/signup-informationPreview';
+import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 
 const meta = {
   title: 'PAGES/회원가입/4. 회원 정보 입력',

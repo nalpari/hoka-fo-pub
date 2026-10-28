@@ -1,10 +1,10 @@
-import { expect, userEvent, within, waitFor } from 'storybook/test';
-import { MyPageAddresses } from '@/shared/features/mypage/MyPageAddresses';
-import { MyPageProfile } from '@/shared/features/mypage/MyPageProfile';
-import { MyPageReviews } from '@/shared/features/mypage/MyPageReviews';
-import { CouponManager } from '@/shared/components/organisms/MyPage/CouponManager';
-import type { AuditStory as Story } from './shared';
-import { enterAddress } from './enterAddress';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import MyPageProfile from '@/app/mypage/profile/page';
+import { enterAddress } from '@/stories/features/forms/form-state-audit/enterAddress';
+import { type AuditStory as Story } from '@/stories/features/forms/form-state-audit/shared';
+import { MyPageAddresses, MyPageReviews } from '@/stories/features/mypage/MyPagePreview';
+import { CouponManager } from '@/stories/route-previews/mypage-couponsPreview';
 
 export const Addresses: Story = {
   render: () => <MyPageAddresses initialItems={[]} />,

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { auditMeta } from './shared';
+
 import * as account from './account.scenarios';
 import * as mypage from './mypage.scenarios';
 import * as product from './product.scenarios';
+import { auditMeta } from './shared';
 import * as support from './support.scenarios';
-import * as controls from './controls.scenarios';
 
 const meta = {
   ...auditMeta,
@@ -38,5 +38,3 @@ export const Coupon: Story = { ...mypage.Coupon };
 export const Product: Story = { ...product.Product };
 
 export const Inquiry: Story = { ...support.Inquiry };
-
-export const FooterEmail: Story = { ...controls.FooterEmail };

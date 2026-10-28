@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DesignGuideColor } from '@/shared/features/screen-index/DesignGuideColor';
-import { DesignGuideTypography } from '@/shared/features/screen-index/DesignGuideTypography';
+
+import { DesignGuideColor } from '@/components/screen-index/DesignGuideColor';
+import { DesignGuideTypography } from '@/components/screen-index/DesignGuideTypography';
 
 const meta = {
   title: 'DEVELOPMENT/디자인 가이드',

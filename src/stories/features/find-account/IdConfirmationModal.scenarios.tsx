@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { PlatformProvider } from '@/shared/context/platform';
-import { IdConfirmationModal } from '@/shared/features/find-account/IdConfirmationModal';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
+
+import { IdConfirmationModal } from '@/stories/route-previews/login-find-accountPreview';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

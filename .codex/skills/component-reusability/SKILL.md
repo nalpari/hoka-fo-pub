@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse, form-field and content-header composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
+description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for Panda CSS/JSX, Typography, Base UI reuse, shared responsive-platform changes, or Next.js integration boundaries while preserving semantics and state.
 ---
 
 # Component Reusability
@@ -12,6 +12,30 @@ This is an evidence-based audit and implementation workflow. For a reuse audit, 
 ## Scope selection
 
 Use the user's named files, folders, or explicit repository-wide scope. An explicit “전수조사” in the current repository authorizes a full source survey; distinguish production UI from stories, generated files, and external packages. If no scope is supplied or established in the conversation, ask “어느 폴더를 점검할까요?” and wait before inspecting files. Do not ask again when the scope is already clear.
+
+## Repository structure and page ownership
+
+Use the current structure: `src/app` owns routes and route-specific screens; `src/components/common` owns reusable atoms, molecules, organisms, and layouts; `src/components/{domain}` owns domain-specific reusable UI and pure policy modules beside `common`; do not retain a `features` wrapper directory. Cross-route state belongs in `src/context`, utilities in `src/lib`, shared types in `src/types`, icons in `src/icons`, styles in `src/styles`, and data/fixtures in `src/data` or `src/mocks`. Do not recreate `src/shared` or old aliases.
+
+For page wrappers, screen moves, or component placement decisions, read [the page ownership workflow](references/page-ownership.md). Apply this at every route depth, including `app/mypage/{section}/page.tsx`; resolve fixed-kind dispatch wrappers into route-owned composition. A single-route screen belongs directly in `src/app/{route}/page.tsx`, including its composition, local state, handlers, and Panda styles. Do not extract an entire feature `*Page` only to import or re-export it from a thin route. Preserve genuinely shared screens and necessary server/client boundaries. Storybook use alone is not production reuse.
+
+## Wrapper and parent-option consolidation
+
+For wrapper audits, component-file reduction, or consolidation into existing APIs, read [the wrapper decision workflow](references/wrapper-consolidation.md). Classify direct base use, parent-owned options, single-parent ownership, unused/story-only disposition, and necessary survivors separately. Shared defaults alone do not require a component file; absorb repeated presentation or interaction into its existing owner when a small typed option preserves the contract. Keep the owner's default mode and domain boundaries intact. Do not replace removed wrappers with preset files or a general configuration framework just to centralize their former names.
+
+## Folder depth and responsive ownership
+
+For folder-depth requests or changes to shared platform selection, read [the folder and responsive workflow](references/folder-and-responsive.md). Distinguish fewer navigation steps from fewer React boundaries. Prefer removing redundant single-implementation folders without changing component composition; preserve explicit preview platforms, shared state and portal styling when changing automatic responsive behavior. These modes do not authorize unrelated restructuring or wrapper deletion.
+
+## Next.js integration boundaries
+
+For Next.js API adoption or consolidation that touches images, fonts, navigation, URL state, metadata or deferred UI, read [the Next.js integration workflow](references/nextjs-integration.md). Prefer framework-owned behavior while preserving native HTML exceptions, Storybook adapters and necessary server/client or dynamic import boundaries. This mode does not authorize unrelated feature migration or require every component to import from `next/`.
+
+## Single-production-parent consolidation
+
+For component cleanup, follow [the single-parent workflow](references/single-parent-consolidation.md). Count actual production consumers through TypeScript symbols, including aliases, re-exports and dynamic imports; exclude Storybook, tests and type-only consumers. A TSX module with exactly one production parent belongs in that parent, including common UI. Recompute after each consolidation until no eligible single-parent module remains. Keep components as module-level functions to preserve Hooks and state lifetime; file length and an independent responsibility alone do not justify a separate single-parent file. Preserve necessary server/client, metadata and dynamic-loading boundaries and record each technical exception. Existing zero-production-use and story-only implementations require a separate disposition; do not delete them as part of consolidation without authorization.
+
+These file-ownership rules take precedence over the decomposition suggestions below. A useful local component can have its own responsibility without occupying a separate file. Extract a separate module when actual multiple production parents share its contract or a necessary runtime boundary requires it. Storybook coverage alone does not establish production reuse.
 
 ## Form-field composition
 
@@ -137,19 +161,19 @@ After conversion, check both the chosen component and its props: no duplicate de
    - When no matching reusable scale exists, add a named semantic variant to the shared `Typography` component: update its `cva` definition, public variant type, and the backing desktop/mobile token variables. Migrate the audited caller to it and add a Storybook case covering its semantic `as` usage and mobile scale.
    - A missing type scale must become a shared Typography variant rather than remain duplicated in a caller, including when the first migration has a single caller. Give it a semantic name and token contract so later callers can reuse it.
 5. Use feature-local composition (also called vertical slice decomposition) before promoting a component to the shared library.
-   - Keep the page container focused on orchestration: URL/search params, local state, data retrieval, filter/sort application, view-model calculation, and event-handler assembly. It should not own feature presentation markup or page-local Panda styles.
-   - Put a feature's prepared data and explicit callback contracts into feature-local `Layout` and `Content` components. Let them compose page regions and web/mobile presentations without owning URL synchronization or business-state derivation.
-   - Extract independent page regions—such as desktop/mobile-only controls, titles, sort controls, filter wrappers, and result sections—into small components inside the feature folder. Co-locate each region's Panda styles with the component that renders the DOM.
+   - Keep route-specific orchestration and screen composition in `src/app/{route}/page.tsx`. It may own presentation markup and local Panda styles; do not force a separate feature page or Layout/Content pair.
+   - Retain meaningful Layout/Content functions locally; use a separate file when multiple production parents share the contract or a necessary runtime boundary requires it. Pass prepared data and explicit callbacks without moving route ownership out of the page merely for decomposition.
+   - Define local page regions at useful responsibility boundaries; a responsibility boundary alone does not require a separate file. Keep page-private parts beside the route when appropriate; put reusable domain parts in `src/components`. Co-locate Panda styles with the DOM owner.
    - Keep non-rendering feature rules, including filtering, sorting, metadata, and policy checks, in pure modules beside the feature. Do not mix them into a layout component.
    - Extract on a responsibility boundary, not a line-count threshold: state lifetime, URL synchronization, display region, platform presentation, or domain policy must be independently changeable or testable. Do not split JSX merely to create smaller files, increase prop drilling, or add meaningless one-line wrappers.
    - Keep a single-feature or product-contextual component feature-local. Consider promotion to atom, molecule, or organism only after at least two feature consumers demonstrate the same semantic markup or interaction contract, with a stable typed API and Storybook coverage.
-   - Use this reference pattern when it fits: `ProductListingPage` owns filters, URL updates, comparison state, and displayed-data calculation; `ProductListingLayout` assembles the page frame and platform header action; `ProductListingContent` places results, desktop sticky filters, and mobile bottom sheets; leaf components and pure modules own triggers, sort controls, titles, tabs, metadata, and filter policy.
-   - Apply the low-level composition criteria below when a region benefits from smaller structural parts, even when those parts have only one consumer.
+   - `ProductListingPage` is a valid shared screen when both catalog and search consume its filterable listing contract. A name ending in Page does not prove route ownership; inspect actual production callers before moving it.
+   - Apply the low-level composition criteria below when a region benefits from smaller structural parts; single-parent parts remain module-level functions in their parent file.
 6. Choose the lowest useful component layer:
    - **Atom:** a semantic HTML primitive or a single interaction, such as a field group, disclosure, badge, table, or stepper.
    - **Molecule:** a stable combination of atoms with reusable slots or typed data, such as a state panel, contact card, summary grid, or row list.
    - **Organism:** a domain-aware composition with reusable interaction and layout behavior, such as responsive navigation or a catalog control.
-   - **Feature/layout:** routing, page data, orchestration, and product-specific configuration only.
+   - **Route/feature:** route-specific composition belongs in `src/app`; reusable domain compositions and independent policies belong in `src/components`. Layout components own meaningful structural contracts.
 7. Prefer typed data contracts over positional tuples and expose the variation that callers genuinely need: `variant`/`tone`, `size`, responsive layout mode, optional action slots, empty/loading/error states, `className`, and accessible labels.
 8. Keep shared components independent of a feature's mock data and routes. If a link implementation is inherently application-specific, keep it in a molecule or organism rather than an atom.
 9. Preserve native semantics. Use suitable landmarks, buttons, fieldsets, labels, `dl`, tables, live regions, and controlled selection state instead of recreating those behaviors with generic elements.
@@ -213,11 +237,11 @@ Here, **low-level composition** is a descriptive working term for assembling a U
 - Inspect each region for useful boundaries: an outer frame, width-constrained content, navigation, an action group, or a search control. A possible header composition is `HeaderWrapper` containing `HeaderContent`, which composes `HeaderNav`, `HeaderAction`, and `HeaderSearch`. Follow the observed DOM hierarchy; these names are examples, not a required component list.
 - A small structural component is useful when it owns a meaningful contract, such as a landmark, sticky positioning, content width, responsive arrangement, or action spacing. A single DOM element or single consumer does not disqualify it. Keep the DOM and its Panda styles together; avoid empty wrappers that only rename a tag and own no such contract.
 - Keep structural parts presentational. Pass prepared content through `children`, named slots, or typed props, and pass interactions through explicit callbacks. Keep routing, data retrieval, and business-state derivation in the existing orchestration owner. Do not add context, polymorphism, or configurable variants solely to support decomposition.
-- Keep parts inside the owning feature or organism folder unless their reuse contract is demonstrated across features. Nesting within an organism does not make every part a public atom or molecule. Export only the parts needed by actual callers; introduce a compound-component API only when callers need to assemble the parts themselves.
+- Keep single-parent parts in their owning module. Put separately reusable parts inside the owning feature or organism folder unless their reuse contract is demonstrated across features. Nesting within an organism does not make every part a public atom or molecule. Export only the parts needed by actual callers; introduce a compound-component API only when callers need to assemble the parts themselves.
 - Preserve DOM order and nesting, landmarks, accessible names, focus and keyboard behavior, refs, event propagation, sticky/overflow behavior, and all responsive values during extraction. Do not add DOM wrappers merely to establish component boundaries.
 - Judge the result by whether each part has a clear responsibility and the parent makes the region's composition easier to read and change. Keep markup inline when extraction adds indirection or prop forwarding without establishing an independent contract. Do not use file size or component count as success criteria.
 
-For each composition finding, name the current responsibility, proposed part and owner folder, its props or slots, and the behavior to preserve. Classify existing small components as `keep` when their structural contract is already clear. Validate changed composition through the existing region or route story, including responsive branches; private structural parts do not each need a public story.
+For each composition finding, name the current responsibility, proposed part and owner folder, its props or slots, and the behavior to preserve. Keep meaningful local component functions when their structural contract is clear; classify their separate files using the single-parent workflow. Validate changed composition through the existing region or route story, including responsive branches; private structural parts do not each need a public story.
 
 ## Local conventions
 
@@ -226,9 +250,13 @@ For each composition finding, name the current responsibility, proposed part and
 - Do not create, modify, or retain `*.module.scss` files. Do not create replacement `styles.ts` files that merely centralize page-local class names.
 - Author component styles in the component's own `.tsx` file with Panda CSS: prefer JSX style props for straightforward single-use styles on Panda primitives, `css` for styles that benefit from a named declaration or targets without style props, `cva` for typed visual variants, and `sva` for multi-slot component styles. Keep declarations near the markup they style; extract a shared component only when its semantic markup or interaction contract is genuinely reusable.
 - Follow the HTML and JSX selection criteria, layout table, and Typography contract above; tag consistency alone is not a reason to migrate structural HTML.
-- Treat feature folders as the first home for feature-specific UI and policy. Promote to `shared/components` only after the reuse contract is proven across feature boundaries.
+- Use `src/app` for route-specific screens and `src/components` for reusable domain UI and policy. Promote to `src/components/common` only after the reuse contract is proven across feature boundaries.
 - Avoid generic global class names for shared components; scoped generated styles or namespaced classes prevent collisions.
 - Respect a dirty worktree: preserve changes that are not part of the requested extraction.
+
+## Import organization
+
+After adding or moving imports, follow the ESLint order: Next.js → external packages (React and Node builtins included), followed immediately by shared application hooks/context → Panda → common atoms → molecules → organisms → layouts → other internal modules → relative imports. Group 2 is external packages, shared hooks and context: put external dependencies first, then `@/context/*`, `@/hooks/*`, and `@/lib/use[A-Z]*` with no blank line between external dependencies and these internal modules; keep a blank line before Panda/UI. These are project modules, not external dependencies; ordinary data, types and utilities stay in the later internal group. Use one blank line between numbered groups, alphabetic module paths and named bindings, and classify compatibility aliases with their canonical layer. Keep type-only imports in the same path group without converting their syntax. Use `npm run lint:fix` for ESLint ordering and Prettier formatting; do not introduce a competing Prettier import sorter or Organize Imports action. Preserve directives, comments, export order, and each side-effect/non-import boundary; imports must not cross CSS/SCSS initialization. Apply changes only to authored sources, including stories and declaration files, and verify a second fix makes no further changes.
 
 ## Completion report
 

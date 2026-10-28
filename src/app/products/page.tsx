@@ -1,3 +1,3 @@
 'use client';
 
-export { ProductListingPage as default } from '@/shared/features/catalog/ProductListingPage';
+export { ProductListingPage as default } from '@/components/catalog/ProductListingPage';

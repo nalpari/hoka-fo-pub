@@ -6,19 +6,24 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-26T02:45:47Z'
+  at: '2026-10-28T10:54:54.282Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
+  - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
+  - src/types/type-tests/Button.type-test.tsx
+  - tests/import-order.test.mjs
+  - AGENTS.md
+  - .codex/skills/component-reusability/SKILL.md
   - tests/order-policy.test.mjs
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - tests/product-detail-presentation.test.mjs
-  - src/shared/features/product/productDetailPresentation.ts
+  - src/app/products/[id]/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
-  - src/shared/components/atoms/RatingStars/RatingStars.tsx
-  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
-  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
+  - src/components/common/atoms/RatingStars/RatingStars.tsx
+  - src/stories/components/common/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
   - src/stories/features/forms/form-state-audit/enterAddress.ts
@@ -34,25 +39,23 @@ working_tree_sources:
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
   - .storybook/preview.ts
   - tests/email-validation.test.mjs
-  - src/shared/lib/emailValidation.ts
+  - src/lib/emailValidation.ts
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
-  - src/shared/lib/passwordValidation.ts
+  - src/lib/passwordValidation.ts
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
-  - tests/form-controls.test.mjs
   - tests/account-recovery.test.mjs
   - tests/checkout-summary.test.mjs
   - eslint.config.js
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
   - scripts/okf.ps1
-  - tests/app-router.test.mjs
   - src/stories/features/support/SupportPages.stories.tsx
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/shared/features/support/InquiryOrderLookupPage.tsx
-  - src/shared/features/support/InquiryNewPage.tsx
-  - src/shared/features/support/inquiryOrderSelection.storage.ts
+  - src/components/support/InquiryOrderLookupPage.tsx
+  - src/components/support/InquiryNewPage.tsx
+  - src/app/support/inquiries/new/inquiryOrderSelection.storage.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
@@ -67,6 +70,39 @@ sources:
 ---
 
 # 변경 검증
+
+## 부모 옵션 통합 검증 (2026-10-28)
+
+Codex가 CustomerCenterLayout.footerAction·AccountPageLayout 제목/액션·Checkbox.consent·Radio.label을 확인했다. 작업 트리 출처는 네 기반 컴포넌트·전환 소비처·스토리와 tests/form-controls.test.mjs다. 기존 생성·신뢰 메타데이터는 보존한다.
+
+- 타입 검사, 전체 ESLint, Panda 생성, Next·Storybook 빌드와 기존 Node 테스트 72개가 통과했다. 가상 TypeScript fixture로 footer/footerAction 배타성, link.href·loadMore.counter 필수, consent props·Radio 제네릭 계약을 확인했다. fixture는 저장소 파일로 남기지 않았다.
+- form-controls의 Terms fixture를 Checkbox.consent로 전환해 동일한 필드 오류·설명 상속 검사를 유지했다. 계정 레이아웃 도우미는 내부 ContentSection 대신 main의 실제 첫 콘텐츠 프레임을 검사하도록 수정했다. 기존 maxWidth·간격·버튼 폭·폼 연결 기대값은 유지한다.
+- 수정 전 production 응답과 새 production 서버의 7개 화면을 1440px·390px에서 비교해 기록한 제목·체크박스·액션 스타일 14상태가 일치했다. 두 폭의 캡처는 데스크톱 User-Agent였으므로 모바일 플랫폼 검증으로 과장하지 않는다. 별도로 실제 mobile 플랫폼 스토리에서 h1 22px, 계정 간격·액션을 검증하고 mobile User-Agent로 문의 footer의 64px 하단 여백·폭을 확인했다.
+- 동일 CDP 세션에서 포커스 에뮬레이션을 활성화해 15개 스토리를 확인했다. 휴대폰 인증·가입 약관·회원 정보의 WEB/Mobile 기본 스토리 6개, consent 오류·비활성·제어형, Radio 레이블, 고객센터 loadMore·footer 없음·custom footer·모바일·compact 모바일 스토리에서 오류가 없었다. 동의 오류 해제·링크 클릭 유지, 라디오 클릭·방향키, 더보기 콜백까지 play 검사를 수행했다.
+- 실제 공지 더보기를 눌러 목록 증가와 버튼 제거를 확인했고 consent의 aria-describedby→alert 연결·비활성 레이블의 미토글, 라디오 가로 배치·24px 간격·pre-line 줄바꿈을 별도로 확인했다. 폼·정책 로직을 공통 컴포넌트로 옮기지 않았다.
+
+Storybook은 의존성의 module-level directive·번들 경고를 출력했으나 빌드는 성공했다. 임시 검증 서버·브라우저는 종료하고 기존 사용자 서버는 유지한다.
+
+## Storybook 자동 입력과 브라우저 포커스 (2026-10-28)
+
+Codex가 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play 실패 원인을 Ego 브라우저에서 확정했다. 대상은 래퍼 전환 검증에서 만든 `storybook-static`과 `src/stories/components/common/molecules/FormFields/FormFields.stories.tsx`이며 이번 분석에서 앱·스토리 소스는 수정하지 않았다. 기존 생성·출처·신뢰 메타데이터는 보존한다.
+
+문서는 `visibilityState === 'visible'`이지만 `document.hasFocus() === false`였다. 이 환경에서는 `userEvent.type`의 focus 호출이 activeElement를 바꿔도 focus 이벤트가 발생하지 않았다. Storybook에 포함된 userEvent는 `prepareDocument`의 focus 리스너에서 `prepareElement`를 호출해 입력값 interceptor를 설치한다. 이벤트가 빠지면서 이 준비도 누락됐다. userEvent가 DOM value를 설정할 때 React의 value setter를 그대로 호출해 `_valueTracker`까지 새 값으로 갱신했고, React는 뒤따르는 input 이벤트를 변경 없음으로 처리했다. onChange는 호출되지 않고 React name 상태는 빈 값, DOM 값은 홍길동, aria-invalid는 true로 남았다.
+
+이벤트·속성 추적에서 포커스가 없을 때에는 focus 이벤트와 interceptor가 없고 첫 input의 DOM과 tracker가 모두 홍이었다. 포커스가 있을 때에는 focus 이벤트와 interceptor가 존재했고 첫 input의 DOM은 홍, tracker는 이전 빈 값이어서 React 상태가 갱신됐다. userEvent의 `patchFocus`는 hidden 문서에 보완 이벤트를 보내므로 이번 visible·unfocused 조건에는 적용되지 않는다.
+
+| 폭     | 포커스 에뮬레이션 | document.hasFocus() | 자동 play 결과                           |
+| ------ | ----------------- | ------------------- | ---------------------------------------- |
+| 390px  | 비활성            | false               | 이름 오류 해제 검사 실패, 제출 0회       |
+| 390px  | 활성              | true                | 전체 play 통과, 예상 FormData로 제출 1회 |
+| 1440px | 비활성            | false               | 동일 실패, 제출 0회                      |
+| 1440px | 활성              | true                | 전체 play 통과, 예상 FormData로 제출 1회 |
+
+네 실험 모두 문서 visibility는 visible이었다. 같은 번들·시나리오에서 포커스 조건만 바꿔 실패와 성공이 전환됐으므로 이 실패는 브라우저 검증 환경의 포커스 조건에 기인한다. 래퍼 제거·검증 로직·렌더 대기 시간 문제로 분류하지 않는다. 성공한 전체 play에는 오류 표시·해제, 전화번호 입력, 비밀번호 보기, 인증번호 6자리 제한, 카운트다운·textarea 카운터와 최종 FormData 검사가 포함된다.
+
+Ego Page에서 검증할 때에는 탐색·자동 play 시작 전에 `await page.cdp('Emulation.setFocusEmulationEnabled', { enabled: true })`를 실행하고 동일한 CDP 세션 안에서 검증한다. 별도 ego-browser 호출에도 설정이 유지된다고 가정하지 않는다. 이 현상을 모든 Storybook 실행기·브라우저로 일반화하지 않는다.
+
+근거 구현은 설치된 `node_modules/storybook/dist/test/index.js`의 `prepareDocument`, `prepareElement`, `prepareValueInterceptor`, `patchFocus`와 React DOM의 `trackValueOnNode`, `updateValueIfChanged`다. 원시 이벤트·대조 실험 로그는 세션 임시 `hoka-play-analysis-20261028/results.json`에 기록했으며 영구 저장소 산출물로 의존하지 않는다.
 
 ## 문의 주문상품 페이지 라우트 회귀 (2026-10-26)
 
@@ -193,3 +229,63 @@ node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetai
 브라우저 정적 빌드에서 375px 주문 목록/직접 기간 입력·반품 신청 시트·반품 상세를 시각 확인했다. 부분 취소 play는 오류 표시 후 접수 상태와 취소상세 링크를 확인했고, 배송조회 play는 단계/송장/추적 표를 표시했다. 기존 주문 완료 play(감사 안내), 쿠폰 선택 play(432,000원 결제 금액), 장바구니 옵션 저장·취소 play를 실행했으며 콘솔 오류가 없었다. 최종 변경의 타입 검사·범위 ESLint·Next.js/Storybook 빌드도 통과했다.
 
 추가로 개발 서버에서 배송지 변경→주소 검색 모달 입력→이름/휴대폰 입력→동의→완료를 확인했다. boxed 주소의 disabled/name 누락을 주문서 어댑터에서 수정했으며 최신 타입 검사/해당 파일 ESLint가 통과했다. 반품 신청도 상품 선택·불량 사유로 접수 메시지까지 확인했고, PC 스토리는 단일 헤더와 MY HOKA 사이드바를 유지한다. 개발 Storybook은 재시작 후 정상화했다.
+
+## IA 구조도 경로 (2026-10-28)
+
+작업 트리 `tests/app-router.test.mjs`의 기대 라우트에 `/screen-index`를 추가했다. 이 검사는 Next 빌드 manifest가 필요하다.
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+단일 부모 통합 후 form-controls 회귀 테스트의 RangeInput 소비처를 src/components/catalog/ProductListingPage.tsx로 변경했다. 테스트 TS 로더가 transpileModule에 실제 fileName을 전달해 .ts의 제네릭 함수를 JSX로 오인하지 않도록 했다. 기존 62개 테스트의 검증 내용은 유지한다. 상세 검증 기록은 ../architecture/single-parent-consolidation-2026-10-28.md를 참고한다.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](../architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+import 그룹은 Next.js → 외부 패키지·공용 훅·컨텍스트(React·Node 내장 포함) → Panda → common atoms → molecules → organisms → layouts → 나머지 내부 모듈 → 상대 경로 순이다. 모듈 경로와 named binding을 알파벳순으로 정렬하고 그룹 간 빈 줄은 하나다. 호환 별칭도 같은 계층으로 분류하며 타입 전용 import는 경로 그룹에 속하고 기존 타입 표기는 유지한다.
+
+Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 고정하고 일반 import가 이를 건너뛰는 것은 막지 않는다. eslint.config.js의 얇은 래퍼가 구간마다 기존 정렬 규칙을 호출해 CSS/SCSS·부수 효과 import 및 비-import 문장을 경계로 유지한다. export 정렬 규칙은 추가하지 않는다. tests/import-order.test.mjs에서 그룹·별칭·타입·named binding·주석·지시문·경계·멱등성을 검증한다. 전체 소스 적용 전후에는 import 대상과 코드 본문 보존도 별도 비교한다.
+
+검증 결과 (2026-10-28): 533개 TS/TSX 중 453개를 정렬했다. 수정 전후 TypeScript AST에서 import 순서와 named binding 순서를 제외한 본문·import 대상·타입 표기와 주석이 보존되었고 부수 효과 import 7개 및 비-import 경계를 넘는 이동이 없었다. 반복 자동 수정 두 번에서 소스 바이트 변경이 0개였으며, 생성물 제외를 포함한 규칙 회귀 9개와 전체 테스트 71개·타입 검사·Next/Storybook 빌드가 통과했다. 스킬 validator도 통과했다.
+
+사용자 승인에 따라 기존 AccountLockedPage 스토리 끝의 의미 없는 숫자 표현식 `1`을 삭제했다. import 정리 외의 본문 변경은 이 무효 문장 제거 한 건이며, 컴포넌트·스토리 동작에는 영향이 없다. 전체 ESLint 및 정상 종료하는 lint:fix 반복 검증 결과는 아래에 기록한다.
+
+승인 후 재검증: 전체 `npm run lint`가 오류 없이 통과했고 전체 테스트 71개가 다시 통과했다. `npm run lint:fix`도 정상 종료한다.
+
+## 공용 훅·컨텍스트 import 우선순위 (2026-10-28)
+
+외부 패키지 다음에 공용 훅·컨텍스트(`@/context/*`, `@/hooks/*`, `@/lib/use[A-Z]*`)를 빈 줄 없이 두고 Panda 앞에서 그룹을 구분한다. `tests/import-order.test.mjs`에 이 순서와 일반 데이터·타입·유틸리티의 내부 그룹 유지, 두 번째 수정의 멱등성을 검사하는 회귀 사례를 추가했다. 존재하지 않는 훅 경로는 정렬기 입력 문자열로만 사용하며 모듈을 새로 만들지 않는다. Codex 검증: 규칙 테스트 10개·전체 테스트 72개, 전체 ESLint와 타입 검사를 통과했다. 재사용 스킬 validator도 통과했다. 기존 소스 적용의 본문 보존·멱등성은 적용 커밋에 별도로 기록한다.
+
+## 반응형·공통 폴더·Badge 회귀 검증 (2026-10-28)
+
+공통 폴더 이동에 따라 form-controls의 직접 import와 동적 fixture 경로, import-order의 샘플 경로를 갱신했다. 자동 플랫폼의 SSR web 및 명시 web/mobile, Badge 기본/출시 상태와 프로모션 순서·구분선·weight·빈 배열 검사를 추가했다. 전체 Node 테스트 77개와 타입·lint·Panda·Next/Storybook 빌드가 통과했다. 실제 경계 폭과 상태 수명 검증 범위는 [구현 기록](../architecture/responsive-platform-2026-10-28.md#검증-codex-2026-10-28)에 명시했다. 작업 트리 출처: tests/form-controls.test.mjs, tests/import-order.test.mjs.
+
+커밋 전 재검사에서 다른 작업의 next/image 적용으로 Node ESM 해석 오류가 확인되어 form-controls 테스트 로더의 Next 모듈 해석 목록에 next/image를 추가했다. 실제 컴포넌트를 유지한 채 전체 77개 테스트가 다시 통과했다.
+
+## 버튼 아이콘 모드·타입 검증 위치 (2026-10-28)
+
+Button.type-test.tsx는 src/types/type-tests/에서 npm run typecheck에 포함된다. 일반 버튼의 variant/size 오류 사례를 유지하고 아이콘 모드의 치수·shape·tone·loading 정상 사례와 텍스트/아이콘 옵션 혼용 오류를 추가했다. form-controls 테스트는 새 Button 경로를 사용하며 직접 자식 SVG, 기본·숫자·CSS 길이 치수, type/form 전달, 옵션의 DOM 누출 방지, loading의 aria-busy·비활성화와 disabled tone의 표현 전용 계약을 검사한다. import-order 및 OKF 매핑 테스트의 버튼 예시 경로도 평탄화했다.
+
+작성: codex/gpt-6, 2026-10-28T10:35:32.419Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](../architecture/ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 더보기·소셜 버튼 부모 옵션 검증 (2026-10-28)
+
+Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례를 src/types/type-tests/Button.type-test.tsx에서 검사한다. Prettier로 여러 줄이 된 JSX의 @ts-expect-error 위치를 맞춰 실제 진단을 소비하도록 수정했으며 후속 타입 검사와 Next 빌드가 통과했다. tests/form-controls.test.mjs에 남은 수량 0·커스텀 라벨·type/form 유지, 수량 링크의 실제 anchor/href·role, loading 비활성화와 카카오/네이버 아이콘·DOM 옵션 누출 검사를 추가했다. 기존 일반·아이콘 버튼 검증을 유지했고 폼·import 순서 테스트 56개 및 빌드 후 App Router 테스트 2개가 통과했다.
+
+이전 래퍼 스토리와 새 부모 옵션 스토리의 PC 1600px·375px 사례 18개에서 DOM 구조, 위치·치수, 색상·배경·글꼴·굵기·행간·간격·패딩·그림자와 아이콘 경로를 비교해 모두 일치했다. 래퍼 제거로 Typography의 한글 탐지 대상이 바뀌던 부분은 기존 바깥 스케일을 명시해 보존했다. Storybook은 다른 작업의 출력과 분리한 .tmp-button-options-storybook에 빌드했고 비교 전후 페이지는 별도 6018/6019 포트에서 확인했다. 스크린샷 픽셀 비교나 전체 접근성 인증을 수행했다는 의미는 아니다.
+
+작성: codex/gpt-6, 2026-10-28T10:54:54.282Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 전체 작업 트리의 다른 작업 검증과 구분한다.
+
+브라우저 상호작용에서는 제어형 수량 1→2→3 이후 비활성화, 두 모드의 loading/aria-busy, 수량 링크의 href와 링크 의미, 로그인 소셜 미지원 안내, 가입의 두 제공자 안내 모달 열기·확인 닫기, 쿠폰 5→10개 확장, 리뷰 페이지 수 1/7→2/7과 고객센터 일반 링크를 확인했다.

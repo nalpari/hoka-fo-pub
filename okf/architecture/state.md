@@ -6,173 +6,165 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T22:37:56Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/cart/CartOrderActions.tsx
+  - src/context/InquiryPreviewContext.ts
+  - src/context/RunClubSessionContext.ts
+  - src/hooks/useRecentSearches.ts
+  - src/components/common/atoms/Button.tsx
+  - src/context/
+  - eslint.config.js
+  - src/context/MyPageInitialState.ts
+  - src/stories/features/mypage/MyPagePreview.tsx
+  - src/stories/features/mypage/MyPageRoutePreview.tsx
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/page-ownership.md
+  - src/components/cart/CartContent.tsx
+  - src/components/cart/CartOrderActions.tsx
   - src/stories/features/cart/CartPage.mobile.stories.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
-  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
-  - src/shared/features/mypage/AddressEditor.tsx
-  - src/shared/features/mypage/AddressList.tsx
-  - src/shared/features/mypage/ProfileEditForm.tsx
-  - src/shared/features/mypage/ProfileField.tsx
-  - src/shared/features/mypage/ProfileReadView.tsx
-  - src/shared/features/mypage/mypage-address.types.ts
-  - src/shared/features/mypage/mypage-profile.types.ts
-  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
-  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
-  - src/shared/components/atoms/TextInput/TextInput.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/login/LoginActions.tsx
-  - src/shared/features/mypage/MyPageAddresses.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/MyPageRewards.tsx
-  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
-  - src/shared/features/cart/CartSelectionBar.tsx
-  - src/shared/features/cart/CartProductSection.tsx
-  - src/shared/features/cart/CartProductList.tsx
-  - src/shared/features/cart/CartOptionsContent.tsx
-  - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
-  - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
+  - src/components/common/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/components/mypage/AddressEditor.tsx
+  - src/components/mypage/AddressList.tsx
+  - src/components/mypage/ProfileEditForm.tsx
+  - src/components/mypage/ProfileField.tsx
+  - src/components/mypage/ProfileReadView.tsx
+  - src/types/mypage-address.types.ts
+  - src/app/mypage/profile/mypage-profile.types.ts
+  - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/common/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/components/common/atoms/TextInput/TextInput.tsx
+  - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/components/login/LoginActions.tsx
+  - src/app/mypage/addresses/page.tsx
+  - src/app/mypage/profile/page.tsx
+  - src/app/mypage/rewards/page.tsx
+  - src/stories/components/common/atoms/TextInput/TextInput.stories.tsx
+  - src/components/cart/CartSelectionBar.tsx
+  - src/components/cart/CartProductSection.tsx
+  - src/components/cart/CartProductList.tsx
+  - src/components/cart/CartOptionsContent.tsx
+  - src/components/common/molecules/ProductOptionList/ProductOptionList.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx
+  - src/components/common/molecules/SizeSelector/SizeSelector.tsx
 
-  - src/shared/features/checkout/CheckoutForm.tsx
-  - src/shared/features/checkout/CheckoutContent.tsx
-  - src/shared/features/checkout/CheckoutAgreement.tsx
-  - src/shared/features/checkout/CheckoutAddressFields.tsx
-  - src/shared/components/organisms/Address/AddressFields.tsx
-  - src/shared/components/organisms/Address/AddressField.tsx
-  - src/shared/features/checkout/checkout-coupons.ts
-  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
+  - src/components/checkout/CheckoutForm.tsx
+  - src/components/checkout/CheckoutContent.tsx
+  - src/components/checkout/CheckoutAgreement.tsx
+  - src/components/checkout/CheckoutAddressFields.tsx
+  - src/components/common/organisms/Address/AddressFields.tsx
+  - src/components/common/organisms/Address/AddressField.tsx
+  - src/app/checkout/checkout-coupons.ts
+  - src/components/checkout/CheckoutDiscountSummary.tsx
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
-  - src/shared/features/checkout/CheckoutPage.tsx
-  - src/shared/features/checkout/CheckoutPayment.tsx
-  - src/shared/components/atoms/Wishlist/Wishlist.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
-  - src/shared/components/molecules/AmountRow/AmountRow.tsx
-  - src/shared/features/cart/CartItemRow.tsx
-  - src/shared/features/cart/CartOptionsDialog.tsx
+  - src/app/checkout/page.tsx
+  - src/components/checkout/CheckoutPayment.tsx
+  - src/components/common/atoms/Wishlist/Wishlist.tsx
+  - src/components/common/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/components/common/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
+  - src/components/common/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
+  - src/components/common/molecules/AmountRow/AmountRow.tsx
+  - src/components/cart/CartItemRow.tsx
+  - src/components/cart/CartOptionsDialog.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
-  - src/shared/features/find-account/IdConfirmationModal.tsx
-  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
-  - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
-  - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
-  - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
-  - src/shared/components/layouts/ContentSection/ContentSection.tsx
-  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
-  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
-  - src/shared/features/notices/NoticesPage.tsx
-  - src/shared/features/faq/FaqPage.tsx
-  - src/shared/features/support/InquiryPage.tsx
-  - src/shared/features/notices/NoticeDetailPage.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
-  - .codex/skills/component-reusability/SKILL.md
+  - src/components/find-account/IdConfirmationModal.tsx
+  - src/components/common/molecules/ConfirmDialog/ConfirmDialog.tsx
+  - src/components/common/atoms/LoadMoreButton/LoadMoreButton.tsx
+  - src/components/common/molecules/PageActionButton/PageActionButton.tsx
+  - src/components/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/stories/components/common/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
+  - src/components/common/layouts/ContentSection/ContentSection.tsx
+  - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
+  - src/components/common/organisms/StoreFinder/StoreResults.tsx
+  - src/app/support/notices/page.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/support/inquiries/page.tsx
+  - src/app/support/notices/[id]/page.tsx
+  - src/components/checkout/CheckoutComplete.tsx
+  - src/stories/components/common/layouts/ContentSection/ContentSection.stories.tsx
   - .codex/skills/component-reusability/references/content-sections.md
-  - src/shared/features/support/SupportPage.tsx
-  - src/shared/features/signup/SignupLayout.tsx
-  - src/shared/features/support/SupportNotices.tsx
-  - src/shared/features/support/SupportFaq.tsx
-  - src/shared/features/support/SupportMileageContent.tsx
-  - src/shared/features/support/ShippingReturnsPage.tsx
-  - src/shared/features/run-club/RunClubSessionHero.tsx
-  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
-  - src/shared/features/run-club/RunClubSessionPoster.tsx
-  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
-  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
-  - src/shared/features/care-guide/CareGuidePage.tsx
-  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
-  - src/shared/features/mypage/MyPageProductHistory.tsx
-  - src/shared/features/not-found/NotFoundPage.tsx
-  - src/shared/features/identity-verification/IdentityVerificationContent.tsx
-  - src/shared/features/find-account/PasswordResetContent.tsx
-  - src/shared/features/find-account/FindAccountContent.tsx
-  - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
-  - src/shared/features/mypage/MyPage.tsx
-  - src/shared/features/support/SupportContactCard.tsx
-  - src/shared/features/support/SupportHours.tsx
-  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
-  - src/shared/features/product/ProductDetailDeliverySection.tsx
-  - src/shared/features/mypage/MyPageRewards.tsx
-  - src/shared/features/mypage/MyPageStatusPage.tsx
-  - src/shared/features/checkout/CheckoutSummary.tsx
-  - src/shared/features/checkout/CheckoutPayment.tsx
-  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
-  - src/shared/features/product/ProductSupportLink.tsx
-  - src/shared/features/product/ProductDetailAfterSalesContent.tsx
-  - src/shared/components/organisms/MyPage/CouponManager.tsx
-  - src/shared/features/product/ProductInformation.tsx
-  - src/shared/features/signup-terms/SignupTermsDetail.tsx
-  - src/shared/features/run-club/RunClubHeader.tsx
-  - src/shared/features/run-club/RunClubSessionCard.tsx
-  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
-  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
-  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
-  - src/shared/features/account-locked/AccountLockedContent.tsx
-  - src/shared/features/find-account/PasswordResetField.tsx
-  - src/shared/features/find-account/FindAccountIdentityFields.tsx
-  - src/shared/features/find-account/FindAccountCodeFields.tsx
-  - src/shared/features/mypage/MyPageAddresses.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/phone-verification/VerificationCodeFields.tsx
-  - src/shared/features/phone-verification/PhoneInformationFields.tsx
-  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
-  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
-  - src/shared/features/cart/CartPage.tsx
-  - src/shared/features/cart/CartDialogs.tsx
-  - src/shared/features/cart/CartLimitDialog.tsx
-  - src/shared/features/checkout/CheckoutShipping.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
+  - src/app/support/page.tsx
+  - src/components/signup/SignupLayout.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/components/run-club/RunClubSessionHero.tsx
+  - src/components/run-club/RunClubSessionGuideContent.tsx
+  - src/components/run-club/RunClubSessionPoster.tsx
+  - src/app/login/account-locked/complete/page.tsx
+  - src/components/phone-verification/PhoneVerificationAgreements.tsx
+  - src/app/support/care/page.tsx
+  - src/app/signup/complete/page.tsx
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/not-found/NotFoundPage.tsx
+  - src/components/identity-verification/IdentityVerificationContent.tsx
+  - src/components/find-account/PasswordResetContent.tsx
+  - src/components/find-account/FindAccountContent.tsx
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/app/mypage/page.tsx
+  - src/components/support/SupportContactCard.tsx
+  - src/components/signup-registration/RegistrationAdditionalFields.tsx
+  - src/components/product/ProductDetailDeliverySection.tsx
+  - src/stories/features/mypage/MyPageRoutePreview.tsx
+  - src/components/checkout/CheckoutSummary.tsx
+  - src/components/common/organisms/MyPage/EmployeeCoupons.tsx
+  - src/components/product/ProductSupportLink.tsx
+  - src/components/product/ProductDetailAfterSalesContent.tsx
+  - src/components/common/organisms/MyPage/CouponManager.tsx
+  - src/components/product/ProductInformation.tsx
+  - src/components/signup-terms/SignupTermsDetail.tsx
+  - src/components/run-club/RunClubHeader.tsx
+  - src/components/run-club/RunClubSessionCard.tsx
+  - src/components/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/components/mypage/MyPageWithdrawalDialog.tsx
+  - src/components/find-account/PasswordResetCompleteModal.tsx
+  - src/components/account-locked/AccountLockedContent.tsx
+  - src/components/find-account/PasswordResetField.tsx
+  - src/components/find-account/FindAccountIdentityFields.tsx
+  - src/components/find-account/FindAccountCodeFields.tsx
+  - src/components/phone-verification/VerificationCodeFields.tsx
+  - src/components/phone-verification/PhoneInformationFields.tsx
+  - src/components/signup-registration/RegistrationEmailFields.tsx
+  - src/components/signup-registration/RegistrationPreferenceRow.tsx
+  - src/app/cart/page.tsx
+  - src/components/cart/CartDialogs.tsx
+  - src/components/cart/CartLimitDialog.tsx
+  - src/components/checkout/CheckoutShipping.tsx
+  - src/components/checkout/CheckoutDeliveryRequest.tsx
   - src/stories/features/cart/CartPage.stories.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/cart/CartItemRow.tsx
-  - src/shared/features/cart/cart-item.ts
-  - src/shared/features/find-account/FindAccountPage.tsx
-  - src/shared/features/login/LoginForm.tsx
-  - src/shared/features/login/RememberIdHelp.tsx
-  - src/shared/features/cart/CartOptionsDialog.tsx
-  - src/shared/features/checkout/CouponDialog.tsx
-  - src/shared/features/checkout/CheckoutContent.tsx
-  - src/shared/ShopShell.tsx
+  - src/app/cart/cart-item.ts
+  - src/app/login/find-account/page.tsx
+  - src/components/login/LoginForm.tsx
+  - src/components/login/RememberIdHelp.tsx
+  - src/context/ShopShell.tsx
   - src/mocks/cartDisplay.ts
-  - src/shared/features/checkout/CheckoutPage.tsx
-  - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
-  - src/shared/features/checkout/CheckoutLayout.tsx
-  - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
-  - src/shared/lib/emailValidation.ts
-  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
-  - src/shared/lib/passwordValidation.ts
-  - src/shared/features/signup/SignupPage.tsx
-  - src/shared/features/signup-registration/RegistrationPage.tsx
-  - src/shared/features/find-account/passwordValidation.ts
-  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
-  - src/shared/features/login/LoginPage.tsx
+  - src/components/common/layouts/OrderPageLayout/OrderPageLayout.tsx
+  - src/components/checkout/CheckoutLayout.tsx
+  - src/components/common/layouts/AccountPageLayout/AccountPageLayout.tsx
+  - src/lib/emailValidation.ts
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/lib/passwordValidation.ts
+  - src/app/signup/page.tsx
+  - src/app/signup/information/page.tsx
+  - src/lib/passwordValidation.ts
+  - src/hooks/usePhoneVerification.ts
+  - src/app/login/page.tsx
   - src/stories/features/login/LoginPage.stories.tsx
-  - src/shared/features/cart/CartPage.tsx
-  - src/shared/features/login/LoginContent.tsx
-  - src/shared/features/login/LoginLayout.tsx
-  - src/shared/features/login/LoginActions.tsx
-  - src/shared/features/login/LoginMembership.tsx
+  - src/components/login/LoginContent.tsx
+  - src/components/login/LoginLayout.tsx
+  - src/components/login/LoginMembership.tsx
 sources:
   - id: src-shared-shopshell-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/ShopShell.tsx
-    title: 'src/shared/ShopShell.tsx'
+    title: 'src/context/ShopShell.tsx'
   - id: src-shared-context-platform-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/context/platform.tsx
-    title: 'src/shared/context/platform.tsx'
+    title: 'src/context/platform.tsx'
   - id: src-shared-features-login-loginpage-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/features/login/LoginPage.tsx
-    title: 'src/shared/features/login/LoginPage.tsx'
+    title: 'src/app/login/page.tsx'
   - id: src-mocks-products-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/mocks/products.ts
     title: 'src/mocks/products.ts'
@@ -209,7 +201,7 @@ CartContent의 금액 표시와 LoginActions의 소셜 버튼만 공용 UI로 �
 
 ## 더보기 버튼의 상태 소유권 검토 (2026-10-20)
 
-CouponManager·MyPageReviewLoadMore·FAQ·공지와 PageActionButton/LoadMoreButton을 검토했다. 공통 버튼은 표시와 클릭 전달만 담당한다. 쿠폰의 5개 증가·분류 변경 시 초기화, 리뷰·FAQ·공지의 10개 단위 계산과 기존 노출 조건은 각 화면에 유지하며 상태 모델 변경은 없다. 출처: working_tree_sources의 CouponManager·MyPageReviewLoadMore·LoadMoreButton·PageActionButton과 src/shared/features/faq/FaqPage.tsx, src/shared/features/notices/NoticesPage.tsx.
+CouponManager·MyPageReviewLoadMore·FAQ·공지와 PageActionButton/LoadMoreButton을 검토했다. 공통 버튼은 표시와 클릭 전달만 담당한다. 쿠폰의 5개 증가·분류 변경 시 초기화, 리뷰·FAQ·공지의 10개 단위 계산과 기존 노출 조건은 각 화면에 유지하며 상태 모델 변경은 없다. 출처: working_tree_sources의 CouponManager·MyPageReviewLoadMore·LoadMoreButton·PageActionButton과 src/components/features/faq/FaqPage.tsx, src/components/features/notices/NoticesPage.tsx.
 
 ## ContentSection footer 이관의 상태 경계 (2026-10-20)
 
@@ -245,15 +237,15 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 
 `FindAccountPage`는 이름·휴대폰·인증번호와 3분 카운트다운을 소유한다. 휴대폰은 시안처럼 숫자로 표시하며 정보 변경 시 요청과 코드 오류를 초기화한다. 요청 안내에 예시 인증번호 `900668`과 실제 문자 미발송·예시 아이디 표시를 명시한다. 만료·자리수 오류·예시 코드 불일치를 구분하고, 일치하면 입력한 이름과 `honggildong`을 보여주는 기존 IdConfirmationModal을 연다. 실제 인증이나 계정 조회는 수행하지 않는다. 확인은 로그인, 비밀번호 재설정은 기존 `/login/find-account/password-reset`으로 이동한다.
 
-`RememberIdHelp`는 로그인 내부의 Base UI Popover로 공용 장소에서 아이디 저장 시 주의사항을 보여준다. 로그인 상태·비밀번호 정책·아이디 저장 체크 처리·소셜 로그인 데모 계약은 유지한다. 작업 트리 출처는 `src/shared/features/login/LoginForm.tsx`, `src/shared/features/login/RememberIdHelp.tsx`, `src/shared/features/find-account/FindAccountPage.tsx`다.
+`RememberIdHelp`는 로그인 내부의 Base UI Popover로 공용 장소에서 아이디 저장 시 주의사항을 보여준다. 로그인 상태·비밀번호 정책·아이디 저장 체크 처리·소셜 로그인 데모 계약은 유지한다. 작업 트리 출처는 `src/components/features/login/LoginForm.tsx`, `src/components/features/login/RememberIdHelp.tsx`, `src/components/features/find-account/FindAccountPage.tsx`다.
 
 ## 장바구니 버튼 크기 명시 검토 (2026-10-19)
 
-작업 트리 출처 `src/shared/features/cart/CartPage.tsx`의 삭제·주문하기 버튼에 short 크기를 명시했다. 삭제 콜백과 주문 이동 경로, 상품 선택·수량·금액 계산 및 장바구니 Context 상태 처리는 변경하지 않았다. 이번 검토는 버튼 크기 지정 범위이며 결제 서버 연동 검증을 의미하지 않는다.
+작업 트리 출처 `src/components/features/cart/CartPage.tsx`의 삭제·주문하기 버튼에 short 크기를 명시했다. 삭제 콜백과 주문 이동 경로, 상품 선택·수량·금액 계산 및 장바구니 Context 상태 처리는 변경하지 않았다. 이번 검토는 버튼 크기 지정 범위이며 결제 서버 연동 검증을 의미하지 않는다.
 
 ## ShopShell
 
-`src/shared/ShopShell.tsx`는 공통 레이아웃과 `ShopContext`를 제공한다. 상품 상세·장바구니·로그인·마이페이지의 App Router 페이지는 `useShop()`으로 상태와 콜백을 가져온다. `useShop()`은 `ShopShell` 아래에서 사용한다. `/checkout` 페이지도 같은 방식으로 장바구니를 읽고, 주문을 완료하면 `remove`로 항목을 비운다.
+`src/context/ShopShell.tsx`는 공통 레이아웃과 `ShopContext`를 제공한다. 상품 상세·장바구니·로그인·마이페이지의 App Router 페이지는 `useShop()`으로 상태와 콜백을 가져온다. `useShop()`은 `ShopShell` 아래에서 사용한다. `/checkout` 페이지도 같은 방식으로 장바구니를 읽고, 주문을 완료하면 `remove`로 항목을 비운다.
 
 | 상태           | 보관 위치                                            | 수명                                                       |
 | -------------- | ---------------------------------------------------- | ---------------------------------------------------------- |
@@ -266,7 +258,7 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 
 로그인 UI의 구조를 분리해도 `LoginPage`가 아이디·비밀번호·아이디 저장 체크·안내 상태, 데모 검증, `onLogin` 호출과 홈 이동을 계속 소유한다. `LoginContent`는 기능 내부 `LoginLayout`·`LoginForm`·`LoginMembership`를 조합하며, 폼의 `LoginActions`는 제출 버튼과 소셜 로그인 안내 콜백을 표시한다. 신규 상태 저장이나 실제 인증 연동은 추가하지 않았다. 제목 `login-title`, 입력 id/name/autocomplete, 필수 입력 검증, 안내 live region과 가입·계정 찾기 이동 계약을 보존한다.
 
-로그인 액션과 회원가입 이동 버튼은 공통 `Button`·`ButtonLink`의 기본 `tall` 크기를 사용한다. 명시적 크기 속성만 정리했으며 `LoginPage`의 상태, 제출 및 이동 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `src/shared/features/login/LoginActions.tsx`, `src/shared/features/login/LoginMembership.tsx`다.
+로그인 액션과 회원가입 이동 버튼은 공통 `Button`·`ButtonLink`의 기본 `tall` 크기를 사용한다. 명시적 크기 속성만 정리했으며 `LoginPage`의 상태, 제출 및 이동 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/components/common/atoms/Button/Button.tsx`, `src/components/features/login/LoginActions.tsx`, `src/components/features/login/LoginMembership.tsx`다.
 
 ## 로그인 필드 오류
 
@@ -280,7 +272,7 @@ LoginForm은 `FormField.error`로 문구를 표시하고 TextInput은 Context를
 
 일반 가입은 아이디 placeholder의 영문·숫자 4자 이상 조건을 실제 제출 검사에 연결한다. 빈 아이디에는 기존 필수 입력 문구를 유지하고 4자 미만·공백·특수문자가 포함된 아이디에는 “영문, 숫자 조합으로 4자 이상 입력해 주세요.”를 필드 오류로 표시한다. 소셜 가입에는 이 로컬 계정 조건을 적용하지 않는다.
 
-이메일은 src/shared/lib/emailValidation.ts를 통해 일반 가입·회원정보 가입이 같은 형식과 오류 문구를 사용한다. 로그인은 2026-10-20부터 이메일 검사를 제거하고 일반 아이디를 검사한다. 회원정보의 분리된 이메일/도메인 입력도 동일한 부분 검사를 사용한다. 이메일 앞뒤 공백은 기존대로 제거하며 로컬 부분의 선행·후행·연속 점, 64자 초과 및 잘못된 도메인은 거부한다. 기존 일반 가입에서 통과하고 로그인에서 거부되던 점 없는 도메인 차이도 제거했다.
+이메일은 src/lib/emailValidation.ts를 통해 일반 가입·회원정보 가입이 같은 형식과 오류 문구를 사용한다. 로그인은 2026-10-20부터 이메일 검사를 제거하고 일반 아이디를 검사한다. 회원정보의 분리된 이메일/도메인 입력도 동일한 부분 검사를 사용한다. 이메일 앞뒤 공백은 기존대로 제거하며 로컬 부분의 선행·후행·연속 점, 64자 초과 및 잘못된 도메인은 거부한다. 기존 일반 가입에서 통과하고 로그인에서 거부되던 점 없는 도메인 차이도 제거했다.
 
 RegistrationPage의 checkedEmail은 이메일·도메인 변경이나 실패한 이메일 확인에서만 초기화한다. 다른 필드의 오류로 이를 취소하면서 기존 형식 확인 안내는 남아 있던 상태 불일치를 수정했다. 이메일을 바꾸면 안내와 확인 상태가 함께 해제된다. 중복확인은 여전히 형식 확인 데모이며 실제 사용 가능 판정을 추가하지 않는다.
 
@@ -288,7 +280,7 @@ RegistrationPage의 checkedEmail은 이메일·도메인 변경이나 실패한 
 
 ## 가입·로그인·재설정 비밀번호 정책 (2026-10-19)
 
-사용자가 제공한 로그인 오류 화면의 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”와 기존 회원정보 가입 규칙을 기준으로, 일반 가입·회원정보 가입·로그인·비밀번호 재설정이 `src/shared/lib/passwordValidation.ts`의 isValidPassword와 passwordRequirementsMessage를 공유한다. 공백 없는 10~12자에 영문·숫자·특수문자가 모두 있어야 한다. 기존 일반 가입의 8자 이상, 재설정의 12자 이상, 회원정보 가입의 공백 허용 차이를 제거해 생성·변경 가능한 비밀번호가 로그인에서 거부되는 충돌을 해소했다. 실제 인증이나 저장을 추가하지 않는다.
+사용자가 제공한 로그인 오류 화면의 “영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요”와 기존 회원정보 가입 규칙을 기준으로, 일반 가입·회원정보 가입·로그인·비밀번호 재설정이 `src/lib/passwordValidation.ts`의 isValidPassword와 passwordRequirementsMessage를 공유한다. 공백 없는 10~12자에 영문·숫자·특수문자가 모두 있어야 한다. 기존 일반 가입의 8자 이상, 재설정의 12자 이상, 회원정보 가입의 공백 허용 차이를 제거해 생성·변경 가능한 비밀번호가 로그인에서 거부되는 충돌을 해소했다. 실제 인증이나 저장을 추가하지 않는다.
 
 재설정의 validatePasswordReset도 공통 모듈에서 제공하며 기존 기능 경로는 재수출로 호환한다. 빈 비밀번호는 공통 규칙 문구, 빈 확인란은 “비밀번호를 다시 입력해 주세요.”, 불일치는 기존 “동일한 비밀번호가 입력되었는지 확인해주세요.”를 반환한다. required라는 내부 표식을 반환해 화면에서 설명을 숨기던 경로는 제거했다.
 
@@ -316,7 +308,7 @@ PC·모바일 로그인 폼의 아이디/비밀번호 찾기 진입 링크를 �
 
 ## Features 표현 정리 후 상태 계약 검토 (2026-10-19)
 
-작업 트리 `src/shared/features/cart/CartPage.tsx`의 텍스트·단일 사용 스타일을 Typography와 Panda JSX로 옮겼다. cart props, 수량 변경/제거 콜백, 상품 조회, rows와 total 계산은 유지했다. 체크박스·수량 입력·결제 경로와 상태 소유자도 변경하지 않았다. 전체 Features의 적용 범위와 검사 한계는 [UI 기록](ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 이번 검토는 실제 주문·결제나 장바구니 전체 브라우저 회귀를 검증한 기록이 아니다.
+작업 트리 `src/components/features/cart/CartPage.tsx`의 텍스트·단일 사용 스타일을 Typography와 Panda JSX로 옮겼다. cart props, 수량 변경/제거 콜백, 상품 조회, rows와 total 계산은 유지했다. 체크박스·수량 입력·결제 경로와 상태 소유자도 변경하지 않았다. 전체 Features의 적용 범위와 검사 한계는 [UI 기록](ui.md#features-재사용성과-jsx-표현-점검-2026-10-19)을 참고한다. 이번 검토는 실제 주문·결제나 장바구니 전체 브라우저 회귀를 검증한 기록이 아니다.
 
 ## 공통 계정 프레임 적용 이후 로그인 상태 계약 (2026-10-19)
 
@@ -330,7 +322,7 @@ LoginLayout의 main·500px 중앙 폭 제한은 AccountPageLayout에 위임한�
 
 ## 장바구니·결제 모바일 시안 (2026-10-19)
 
-`ShopShell`은 퍼블리싱 미리보기에 4개 장바구니 목 항목을 초기화한다. 장바구니의 선택 상태는 `CartPage`가 소유하며 선택 키를 `/checkout?selected=...`에 전달한다. `CheckoutPage`는 URL 키에 맞는 항목만 합산하고 완료 시 기존 `onComplete`로 장바구니를 비운다. 화면의 결제 수단과 완료 상태는 데모이며 실제 결제 승인·주소 변경·쿠폰 조회와 연동하지 않는다. 출처는 작업 트리의 `src/shared/ShopShell.tsx`, `src/shared/features/cart/CartPage.tsx`, `src/shared/features/checkout/CheckoutPage.tsx`다.
+`ShopShell`은 퍼블리싱 미리보기에 4개 장바구니 목 항목을 초기화한다. 장바구니의 선택 상태는 `CartPage`가 소유하며 선택 키를 `/checkout?selected=...`에 전달한다. `CheckoutPage`는 URL 키에 맞는 항목만 합산하고 완료 시 기존 `onComplete`로 장바구니를 비운다. 화면의 결제 수단과 완료 상태는 데모이며 실제 결제 승인·주소 변경·쿠폰 조회와 연동하지 않는다. 출처는 작업 트리의 `src/context/ShopShell.tsx`, `src/components/features/cart/CartPage.tsx`, `src/components/features/checkout/CheckoutPage.tsx`다.
 
 ## 장바구니 옵션과 결제 쿠폰 미리보기 (2026-10-19)
 
@@ -397,3 +389,65 @@ CartPage가 선택 가능한 키로 allSelected와 선택 상품 주문 checkout
 CartItemRow의 체크박스/X 레이아웃은 상태 및 선택·삭제 이벤트 계약에 영향이 없다. 모바일 화면 구조만 시각 확인했으며 선택·삭제 상호작용은 별도로 시험하지 않았다.
 
 AmountRow 강조 금액의 숫자/단위 타이포 분리는 표시 전용이며 amount와 discount 계산, 입력, 상태 수명에 영향이 없다. 관련 UI 설명은 [금액 표시](ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)를 참고한다.
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 페이지 상태 연결과 Storybook 주입 (2026-10-28)
+
+장바구니·주문서·로그인·마이페이지·상품 상세는 각 라우트의 기본 페이지가 useShop을 직접 사용한다. 장바구니 선택·옵션·품절 처리, 선택 상품 주문과 완료 후 항목 제거, 로그인/로그아웃 및 상품 담기 동작은 기존 상태 소유권을 유지한다. 기존 feature 페이지 props 경계는 제거했다.
+
+ShopShell은 기존 상태와 액션을 계속 소유하고 `ShopStateProvider`가 타입이 지정된 값을 제공한다. `src/stories/features`의 어댑터는 실제 라우트 페이지에 데이터·콜백을 연결한다. 주문 완료 어댑터는 동기적으로 제거되는 항목을 한 배치로 모아 기존 스토리 완료 콜백에 전달한다. 문의 예시와 런클럽 세션 예시는 각각 feature 컨텍스트로 주입하며 운영 기본값은 기존 빈 문의와 URL 기반 세션 조회다. 생산 코드에서 Storybook을 import하지 않는다.
+
+원격 25d1c880의 회원정보 수신 동의 변경을 현재 경로에 반영했다. 이메일·문자(LMS/SMS)·카카오톡 알림톡 상태와 타입, 조회·편집·저장·취소가 같은 필드를 사용한다. 기존 쿠폰북 상태는 문자, 통합 메시지 상태는 카카오톡 상태로 이어진다. 작업 트리 출처: `src/context/ShopShell.tsx`, `src/app/cart/page.tsx`, `src/app/checkout/page.tsx`, `src/components/features/mypage/`, `src/stories/features/`.
+
+마이페이지의 배송지·리뷰 페이지는 `MyPageInitialStateContext`로 스토리 초기 상태만 주입받고, 기본값과 상태 갱신은 실제 페이지가 소유한다. 회원정보 수신 항목 변경도 `src/app/mypage/profile/page.tsx`에 통합했다. 기존 MyPageStatusPage는 삭제하고 실제 페이지 선택은 Storybook 전용 어댑터로 옮겼다.
+
+검증 (2026-10-28): 이동한 37개 구현의 JSX가 공백 정규화 후 이전 구현과 일치함을 확인했다. 기존 자동 테스트 62개, 타입 검사, 변경 파일 ESLint, Panda 생성, Next production build와 Storybook build를 통과했다. 브라우저에서 장바구니 옵션·수량·선택·삭제와 선택 주문 완료/상품 제거, 로그인, 모바일 회원정보 수신 동의 저장·취소, PC 주문 날짜/검색 필터와 배송조회 모달, 모바일 배송조회 시트를 확인했다. Storybook의 WEB/Mobile 주문 완료·로그인, 모바일 옵션 저장과 회원정보 취소 시나리오는 실제 페이지 연결 후 기대 상태를 확인했다. 모든 라우트·모든 스토리의 전수 브라우저 검증은 하지 않았다.
+
+## 휴대폰 인증 상태와 경로별 완료 책임 (2026-10-28)
+
+휴대폰 인증은 usePhoneVerification(onVerified)에서 기존 입력·약관 검증, 재요청 초기화, 인증번호 숫자 제한, 시간 만료 처리와 예시 인증 상태를 유지한다. 인증 조건을 충족하면 페이지가 전달한 onVerified를 호출한다. 가입은 페이지가 기존 가입 안내 모달 상태를 소유하고 잠금 해제는 페이지가 완료 경로 이동을 소유한다. 실제 SMS 전송이나 서버 인증은 추가하지 않았다. 이전 PhoneVerificationPage의 상태 책임 설명은 이 경계로 대체한다.
+
+작업 트리 출처: `src/components/features/phone-verification/usePhoneVerification.ts`, `src/app/signup/verify/phone/page.tsx`, `src/app/login/account-locked/verification/page.tsx`.
+
+3Depth 변경 검증 (2026-10-28): 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next production build·Storybook build, 계정 복구 및 라우트 테스트 6개를 통과했다. 실제 페이지의 필수 약관 피드백·가입 인증 안내·모바일 잠금 해제 완료 이동, 아이디 확인의 PC 확인/닫기와 모바일 비밀번호 재설정 이동을 브라우저에서 확인했다. 추가한 WEB/Mobile 인증 완료 스토리는 가입 안내와 잠금 해제 코드 입력 후 기대 화면 상태를 확인했다. 스킬 validator·OKF 검사와 삭제된 화면 import 제거도 확인했다. 전체 기존 스토리 play 함수의 전수 실행은 하지 않았다.
+
+## 미사용 UI 제거와 현재 상태 경계 (2026-10-28)
+
+참조가 없던 구 CouponDialog와 전용 하위 UI, 구 고객센터 안내 및 상태 화면을 삭제했다. 과거 CouponDialog의 초안·적용·닫기 동작 설명은 삭제 이전 이력이다. 현재 결제 할인 상태와 UI는 CheckoutForm·CheckoutDiscountSummary 및 checkout-coupons.ts를 기준으로 한다. 현재 장바구니·주문·고객센터의 상태와 동작은 변경하지 않았다.
+
+작업 트리 출처: `src/components/features/checkout/CheckoutForm.tsx`, `src/components/features/checkout/CheckoutDiscountSummary.tsx`, `src/components/features/checkout/checkout-coupons.ts`.
+
+미사용 파일 정리 검증 (2026-10-28): 삭제 후 남은 모듈 참조가 없음을 확인했다. 타입 검사·Panda 생성·Next production build·Storybook build와 주문 합계/앱 라우트 테스트 5개를 통과했다. OKF·포맷·diff 공백 검사를 수행했으며, 복구된 UI 문서의 기존 제목 246개와 고정 출처 13개 및 유효한 YAML 메타데이터를 확인했다. 미사용 구현 삭제 작업이므로 브라우저 회귀는 추가 실행하지 않았다.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모 AppLayout·헤더·푸터·메뉴 구현을 같은 모듈의 로컬 함수로 옮겼다. 장바구니·주문서·계정의 UI 함수는 실제 페이지가 소유하며 Hooks를 렌더 함수 내부에 중첩하지 않았다. RoutePreview 컨텍스트는 기본값 null이고 기존 스토리 props·콜백을 페이지 내부 구성에 전달한다. 운영 상태의 데이터 흐름은 변경하지 않았다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈의 import 순서 및 named binding 순서만 정리한다. 컨텍스트 값·상태 수명·업데이트·주문 및 로그인 동작은 변경하지 않는다.
+
+## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
+
+`src/context`와 상태 소비처의 import 순서만 새 2번 그룹 기준으로 정렬했다. Provider 구성·상태 수명·로그인·장바구니·미리보기 계약과 콜백은 유지한다.
+
+## 반응형 플랫폼과 상태 수명 (2026-10-28)
+
+Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 Provider는 matchMedia를 구독하며 명시적 Storybook 값은 고정된다. ShopFrame의 클래스와 body/포털을 동기화하되 장바구니·로그인 상태 소유자는 유지한다. 로그인 입력과 장바구니 선택, 열린 모달·검색어의 리사이즈 유지 검증은 [현재 플랫폼 기록](responsive-platform-2026-10-28.md)에 명시했다. 이 절이 기존 UA 기반 플랫폼 설명을 대체한다. 작업 트리 출처: src/context/platform.tsx, src/context/ShopShell.tsx.
+
+## 버튼 통합의 공통 상태 영향 검토 (2026-10-28)
+
+ShopShell의 검색·메뉴·닫기 등 기존 IconButton 호출을 Button variant="icon"으로 바꾸고 import를 평탄화했다. 로그인·장바구니·검색 상태, 이벤트 핸들러와 상태 수명은 변경하지 않았다. type="submit"과 aria-label·크기·className·기존 자식 아이콘을 보존한다.
+
+작성: codex/gpt-6, 2026-10-28T10:35:32.418Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색 훅은 src/hooks로 옮겼다. 문의·런클럽의 상태 주입 컨텍스트는 src/context, 주소 초기값 계약은 src/types로 옮겼다. Provider와 훅의 구현·초기값·저장 키·상태 수명은 유지하며 모든 소비자는 동일한 새 모듈을 참조한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

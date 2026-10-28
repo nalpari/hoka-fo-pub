@@ -2,6 +2,92 @@
 
 ## 2026-10-28
 
+- ProductDetailImage를 common/molecules로 이동하고 상품 상세·확대 뷰어 import를 갱신했다. [범위와 검증](architecture/ui.md#productdetailimage-공통-molecule-이동-2026-10-28)을 참고한다.
+
+- SystemStatusPage를 common/organisms로 이동하고 NotFoundPage 래퍼를 제거했다. 실제 호출부·404 기본 스토리 args·IA 소스 경로를 갱신했다. [범위와 검증](architecture/ui.md#systemstatuspage-공통-organisms-이동과-래퍼-제거-2026-10-28)을 참고한다.
+
+- AccountPageLayout을 common/layouts로 이동하고 로그인·가입·휴대폰 인증 소비처 import를 갱신했다. [현재 소유권](architecture/ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)을 참고한다.
+
+- 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
+
+- MainSection·OrderActionBar·ModalDialog를 common/layouts로 이동하고 호출부·선언 계약·전용 스토리 5개의 경로와 Layouts 분류를 갱신했다. [범위와 검증](architecture/ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 참고한다.
+
+- 계정·고객센터·주문 레이아웃을 각 도메인으로 옮기고 고객센터 기본 제목 조합을 ContentSection에 위임했다. 사용처와 하단 액션 스토리 경로를 함께 수정했다. [소유권과 보존 계약](architecture/ui.md#도메인-레이아웃-소유권과-고객센터-제목-조합-2026-10-28)을 참고한다.
+
+- LoadMoreButton·SocialAuthButton을 Button·ButtonLink의 배타적 표시 옵션으로 통합하고 실제 호출부·스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
+
+- IconButton을 Button variant="icon"으로 통합하고 Button 구현 경로를 평탄화했다. 문서 구현은 Storybook, 타입 검증은 src/types/type-tests로 이동했다. 기존 호출부·preview 타입·테스트 경로를 함께 갱신했다. [API와 소유권](architecture/ui.md#button의-아이콘-모드와-문서-소유권-통합-2026-10-28)을 참고한다.
+
+- 승인된 미사용·Storybook 전용 공통 UI 17개와 전용 스토리 11개를 제거하고 SideNavigation을 SidebarNavigationLayout 모듈로 통합했다. 관련 폼·타입 검사 참조와 OKF를 함께 정리했다. [범위와 검증](architecture/ui.md#미사용-공통-ui-17개-제거와-사이드-탐색-소유권-통합-2026-10-28)을 참고한다.
+
+- Storybook Preview 타입 import를 프레임워크 패키지로 수정하고 .storybook을 타입 검사에 포함했다. 재귀 스토리 탐색의 UTF-8 문자열 반환을 명시하고 TypeScript 6에서 사용 중단된 불필요한 baseUrl을 제거했다. [설정 타입 오류 수정](architecture/ui.md#storybook-설정-타입-오류-수정-2026-10-28)을 참고한다.
+
+- AGENTS·component-reusability에 Next.js 기능 선택 기준과 런타임 예외를 반영했다. [정책과 스킬](architecture/ui.md#nextjs-기능-채택-정책과-스킬-2026-10-28)을 참고한다.
+
+- 로컬 폰트를 next/font/local로 이관하고 Storybook 등록을 분리했다. 주문서 URL은 useSearchParams, 상품 확대 갤러리는 next/dynamic으로 연결했다. [구현과 검증](architecture/ui.md#nextjs-기능-채택과-런타임-경계-2026-10-28)을 참고한다.
+
+- 상품 썸네일·갤러리·상세 및 홈 배너에 next/image와 sizes를 적용하고 Deckers CDN 허용 경로를 설정했다. 첫 화면 로딩 우선순위와 갤러리 샘플 경로를 정리했다. 적용 범위·검증 한계는 [이미지 최적화](architecture/ui.md#상품-이미지와-홈-배너-최적화-2026-10-28)를 참고한다.
+
+- 폴더 깊이·반응형·Badge 표현 옵션의 판단 기준을 AGENTS.md와 component-reusability 스킬에 반영하고 folder-and-responsive 참조를 추가했다. 사용자 승인 범위와 기존 컴포넌트/Storybook 계약을 보존하도록 명시했다.
+
+- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+
+- 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
+
+- CustomerCenterLayout의 프레임·breadcrumb·탐색을 SidebarNavigationLayout의 support 옵션으로 통합하고 SidebarColumns를 Grid 구성으로 흡수했다. 기존 기본 모드·모바일 여백·고객센터 제목/푸터 API를 보존했다. [범위와 검증](architecture/ui.md#사이드바-탐색-레이아웃-통합-2026-10-28)을 기록한다.
+
+- 사용자 요청으로 IA 엑셀 다운로드 UI·생성 코드·ExcelJS 의존성을 제거했다. 출처 열 제거와 경로 복사·새 창 열기는 유지한다. [현재 IA 기능](architecture/ui.md#ia-엑셀-기능-제거-2026-10-28), [의존성 정리](development/setup.md#ia-엑셀-의존성-제거-2026-10-28)를 참고한다.
+
+- IA 목록의 원본 IA/출처 열과 URL 본문을 제거하고 바로가기 클릭 시 경로 복사·새 창 열기를 적용했다. 현재 검색·필터 결과의 실제 .xlsx 다운로드를 상단에 추가했다. [UI 액션](architecture/ui.md#ia-목록-버튼과-엑셀-다운로드-2026-10-28), [라우팅·내보내기 계약](architecture/routing.md#ia-목록-액션-보완-2026-10-28), [ExcelJS 의존성](development/setup.md#ia-엑셀-다운로드-의존성-2026-10-28)을 참고한다.
+
+- SectionHeader와 ContentLayout 내부 중복 헤더를 공용 ContentHeader로 통합하고 MainSectionHeader를 ContentSection의 기존 title/headerProps로 대체했다. 제목·설명·액션·breadcrumb·반응형 배치와 스토리를 보존한 [변경과 검증](architecture/ui.md#공용-헤더와-섹션-조합-간소화-2026-10-28)을 기록한다.
+
+- 본 채팅과 공유 작업 트리의 래퍼 제거·부모 옵션·미사용 정리·도메인 프레임 확장을 분석해 AGENTS와 component-reusability 스킬의 판단 기준을 통합했다. 의미별 기본값 래퍼 재도입 권고를 교정하고 소유권·배타적 옵션·기본 동작·검증 환경·부분 스테이징 보존을 연결했다. 앱 코드는 변경하지 않았다. [정책과 근거](architecture/ui.md#컴포넌트-소유권래퍼-정책-정리-2026-10-28)를 기록했다.
+
+- MyPageFrame에 centered 레이아웃과 선택적 breadcrumbs를 추가해 /mypage 홈의 main·breadcrumb 중복을 제거했다. 기존 640px 중앙 정렬·여백·본문과 로그아웃 상태를 보존하고 하위 화면의 sidebar 기본값을 유지했다. [API와 검증](architecture/ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)에 기록한다.
+
+- PageActionButton·AccountFormLayout·Terms·PreferenceField를 부모 옵션으로 통합하고 네 구현 파일을 제거했다. 기존 화면·폼·상호작용을 보존하고 스토리·회귀 fixture·계정 프레임 검사 대상을 전환했다. [API](architecture/ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)와 [실제 검증](development/verification.md#부모-옵션-통합-검증-2026-10-28)을 기록했다.
+
+- 사용자 승인으로 운영 소비처가 없는 StatePanel·ContactCard·PageSection 구현 3개와 전용 스토리 2개를 삭제했다. PageSection은 스토리 사용처도 없었으며 운영 SupportContactCard와 기반 컴포넌트는 유지한다. 잔여 참조·Panda 생성과 격리 복사본의 타입·Storybook 빌드 및 스토리 인덱스를 확인했다. 전체 작업 트리의 동시 변경 오류와 구분한 [범위와 검증](architecture/ui.md#스토리-전용미사용-공통-컴포넌트-제거-2026-10-28)을 참고한다.
+
+- FO v0.20의 251개 행과 프로젝트 추가 15개를 병합하고 내부 번호·원본 번호를 분리했다. IA 구조도에 환경별 실제 URL/WEB·Mobile 스토리와 작업 파일·경로 검색을 추가했다. [원본 병합](project.md#fo-v020-ia-병합-2026-10-28), [환경별 연결](architecture/routing.md#ia-환경별-연결-2026-10-28), [UI·검증](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.
+
+- FormFields 자동 play 실패 원인을 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락으로 확정했다. userEvent 입력 준비 누락과 React valueTracker의 조기 갱신을 추적했으며 포커스 조건만 바꿔 PC/MO 각각 실패·전체 play 통과를 대조했다. 앱·스토리 코드는 변경하지 않았다. [원인·재현·검증 환경 설정](development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 기록했다.
+
+- ConfirmDialog·SingleActionDialog를 ModalDialog.actions의 single/confirm 옵션으로 통합하고 두 구현 파일을 제거했다. 기본 크기·취소·버튼 배치·폼 제출 계약을 보존해 운영 소비처를 전환하고 기존 상호작용 스토리를 ModalDialog 폴더로 이동했다. 타입·변경 파일 ESLint·Panda·Next 기본 Turbopack/Storybook 빌드·기존 테스트 72개·모달 스토리 18개와 PC/MO 폼 제출을 확인했다. 기존 비동기 닫힘 단언은 waitFor로 보완했다. 격리 빌드 설정과 보조 webpack 검사 결과를 포함한 검증 범위는 [모달 액션 옵션 통합](architecture/ui.md#modaldialog-액션-옵션-통합-2026-10-28)에 기록한다.
+
+- 공통 molecules·organisms TSX 61개를 확인하고 기본값·props 전달만 하는 래퍼 11개를 제거했다. 운영 14파일과 폼 스토리 1파일을 ContentHeader·TextFormField 직접 사용으로 전환했다. 제목·필드 계약과 기존 라우팅 경계를 유지하며 단일 부모 통합·기타 미사용 구현은 후속 후보로 남겼다. [변경·검증과 기존 play 실패](architecture/ui.md#얇은-래퍼-직접-사용-전환-2026-10-28)를 참고한다.
+
+- 119개 소스의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 정렬했다. AST·주석 비교로 본문·대상·타입·부수 효과 경계 보존을 확인했고 반복 수정의 멱등성, 전체 ESLint·타입·테스트 72개를 통과했다. 화면 판별·UI·상태 동작은 유지한다.
+
+- import 2번 그룹을 외부 패키지·공용 훅·컨텍스트로 확장하고 ESLint 설정·회귀 검사·AGENTS·재사용 스킬에 같은 순서를 반영했다. 화면 너비 판별 전환은 이번 범위에 포함하지 않는다.
+
+- 재사용 스킬에 import 그룹 순서·별칭·타입 표기·부수 효과 경계 보존과 자동 수정의 멱등성 확인 기준을 반영했다.
+
+- 사용자 승인에 따라 계정 잠금 안내 스토리의 의미 없는 숫자 표현식을 제거해 기존 ESLint 오류를 해소했다. 스토리 동작은 유지하며 전체 ESLint와 테스트 71개가 통과했다.
+
+- authored src TS/TSX 453개를 새 import 순서로 정렬했다. 본문·타입 표기·주석·부수 효과 경계 보존과 타입·테스트·빌드를 확인하고 관련 개념을 갱신했다.
+
+- ESLint의 import 그룹·named binding 정렬과 부수 효과 경계 보호를 도입했다. 고정 개발 의존성·CLI·VS Code 저장 자동화·코드 규칙 및 회귀 테스트를 추가했다. [검증 정책](development/verification.md#import-자동-정렬-2026-10-28)을 참고한다.
+
+- 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](../.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](../.codex/skills/component-reusability/references/single-parent-consolidation.md).
+
+- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](architecture/single-parent-consolidation-2026-10-28.md).
+
+- **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
+
+## 2026-10-28
+
+- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
+
+- **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](../.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](../.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
+
+- **Cleanup**: 사용처가 없는 feature TSX 12개와 빈 state 폴더를 제거했다. 타입 검사·Panda 생성·Next/Storybook 빌드와 관련 테스트 5개, 잔여 참조·문서 메타데이터 검증을 통과했다. Storybook의 디자인 가이드 색상·타이포그래피와 실제 IA 페이지는 유지한다. 이전 문서 병합에서 누락된 UI 본문을 보관 사본에서 복구하고 최신 변경 기록·출처를 보존했다. [UI 정리](architecture/ui.md#미사용-feature-tsx-정리-2026-10-28)와 [상태 경계](architecture/state.md#미사용-ui-제거와-현재-상태-경계-2026-10-28)를 갱신했다.
+
+- **Update**: 3Depth 휴대폰 인증 두 경로와 독립 아이디 확인 페이지가 화면을 직접 구성하도록 변경했다. 인증 상태는 공용 훅, 팝업 본문은 공용 메시지로 유지하고 전체 PhoneVerificationPage import·재수출을 제거했다. 타입·린트·포맷·Next/Storybook 빌드와 관련 테스트 6개, 실제 인증·안내 페이지 및 WEB/Mobile 완료 스토리의 기대 상태를 확인했다. 실제 페이지를 사용하는 인증 완료 WEB/Mobile 스토리를 추가하고 [라우팅](architecture/routing.md#3depth-인증안내-화면의-페이지-직접-구성-2026-10-28)·[UI](architecture/ui.md#3depth-페이지와-공용-인증모달-구성-2026-10-28)·[상태](architecture/state.md#휴대폰-인증-상태와-경로별-완료-책임-2026-10-28)를 갱신했다.
+
+- **Update**: 원격 pub-psh-1015의 25d1c880을 현재 폴더 구조로 이식하고 단일 라우트 화면과 IA private client 구현을 이동했다. 마이페이지 2Depth 및 고객센터 고정 kind 분기를 페이지별 구현으로 해소했다. Storybook은 실제 페이지와 상태 주입 어댑터를 사용한다. component-reusability 스킬에 현재 src 구조·페이지 소유권·공유 및 서버 경계 예외를 명문화했다. 자동 테스트 62개·타입 검사·변경 파일 ESLint·Panda 생성·Next/Storybook 빌드와 주요 PC/Mobile 브라우저 흐름을 확인했다. [라우팅](architecture/routing.md#페이지-구현의-라우트-소유권-2026-10-28), [상태](architecture/state.md#페이지-상태-연결과-storybook-주입-2026-10-28), [UI 정책](architecture/ui.md#현재-폴더-구조와-페이지-재사용-정책-2026-10-28)에 기록했다.
+
 - **Docs**: 주문 목록 페이지의 `OrderStatusTracker`와 `OrdersFilters` 사용 위치에 각각 역할 주석을 추가했다. 컴포넌트 구현 동작은 변경하지 않았다. [UI 기록](architecture/ui.md#주문-목록-구성요소-주석-2026-10-28)에 기록했다.
 - **Update**: 회원정보의 마케팅 수신 동의 항목을 이메일·문자(LMS/SMS)·카카오톡 알림톡으로 분리했다. 기존 모바일 쿠폰북 수신 상태는 문자 수신으로, 기존 통합 메시지 수신 상태는 카카오톡 알림톡 수신으로 이어지며 편집·조회 및 저장/취소 흐름을 갱신했다. [UI 기록](architecture/ui.md#회원정보-마케팅-수신-항목-분리-2026-10-28)에 출처와 브라우저 검증 미실시를 기록했다.
 - **Fix**: 주문 목록의 빈 상태 문구를 Figma 기준 14px·subtle로 표시했다. 공통 EmptyState 기본 스타일은 유지하고 주문 목록에서만 오버라이드했다. [UI 기록](architecture/ui.md#주문-목록-빈-상태-문구-스타일-2026-10-28)에 범위와 시각 검증 미실시를 기록했다.
@@ -9,6 +95,8 @@
 - **Update**: Figma 주문/배송 조회의 5개 상태 요약, 상시 날짜 범위 필터, 주문 상세 내역 순서, 취소·반품 상태 배지와 모바일 배송조회 하단 시트를 반영했다. Storybook 주문 페이지를 `장바구니/주문하기/주문내역` WEB·Mobile로 분리했다. 앱의 `/mypage/orders`·`/mypage/returns` 라우트와 마이페이지 탐색은 유지한다. [UI 기록](architecture/ui.md#주문-배송-조회-figma-갱신과-분류-2026-10-28)에 Figma 출처와 범위를 적었으며 브라우저 시각 검증은 아직 하지 않았다.
 
 ## 2026-10-27
+
+- **Merge**: 최신 `pub-jme` 기준으로 `origin/publishing` 포함 여부를 확인하고 `origin/main`의 선별 반영 이력을 병합했다. FilterTabs는 현재 `plain` API와 모바일 px 0을 유지하고, MobileProductFilter는 공통 BottomSheetContent의 px 6을 사용해 main 이식용 Box px 4가 중첩되지 않게 했다. 선별 반영 문서의 categoryNavigation·시트 패딩 설명은 당시 main 기준의 기록이며 현재 작업 브랜치 API를 대체하지 않는다. 병합 결과의 소스는 병합 전 pub-jme와 동일하다.
 
 - **Fix**: 주소 찾기로 우편번호와 주소가 모두 채워진 경우 상세주소 입력을 활성화하도록 조건을 연결했다. 비어 있거나 하나만 입력된 상태에서는 계속 비활성화한다. 상태 소유권은 [결제 동의와 주소 검색 비활성 상태](architecture/state.md#결제-동의와-주소-검색-비활성-상태-2026-10-27)에 기록했다. 2026-10-28 `npm run okf:check`, 변경 파일 ESLint와 `git diff --check`를 통과했으며 브라우저 확인은 하지 않았다.
 
@@ -37,6 +125,8 @@
 - **Refactor**: CartItemRow의 체크박스와 삭제 버튼을 absolute 위치에서 상단 flex/space-between 행으로 옮겼다. Chrome 375px 모바일에서 배치를 시각 확인했고 선택·삭제 동작은 시험하지 않았다. 레이아웃 변경은 [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에, 상태 영향 없음은 [상태 기록](architecture/state.md#장바구니-삭제-액션의-활성-조건-검토-2026-10-27)에 적었다.
 
 - **Update**: 강조 금액의 숫자에 heading7, 원 단위에 body3를 적용하고 기존 계산 및 일반 금액 표시를 유지했다. Chrome 모바일 375px 장바구니에서 표시를 확인했다. [UI 기록](architecture/ui.md#장바구니-체크와-상품-액션-간격-보정-2026-10-27)에 표시 규칙과 확인 범위를 기록했다.
+
+- **Update**: 상품 상세에서 사이즈 선택 시 컬러·발볼·사이즈 조합을 누적하고 동일 조합은 수량을 합산한다. 기존 NumberStepper·IconButton·AmountRow로 반복 행·삭제·합계를 구성하고, 선택 목록 전체를 기존 장바구니/구매 흐름에 전달한다. PC·모바일 상세 예시와 독립 목록·상호작용 스토리를 추가하고 [UI 구성](architecture/ui.md#상품-상세-옵션-누적-선택-2026-10-27)에 기록했다.
 
 ## 2026-10-26
 
@@ -80,6 +170,8 @@
 - **Update**: 회원 정보 첫 입력을 이메일에서 아이디로 바꾸고 아이디 형식/중복확인을 연결했다. 연락용 이메일 주소·도메인은 별도 입력으로 유지하고, PC·모바일 회원가입 Storybook에도 변경을 반영했다. Figma `957:36970` 기준을 [UI 구성](architecture/ui.md#회원-정보-아이디-입력과-이메일-분리-2026-10-26)에 기록했다.
 - **Update**: 회원가입 부가정보에서 결혼유무·모바일 쿠폰북 동의를 제거하고, 이메일·문자·카카오톡 수신 동의 3개로 갱신했다. 확인 모달과 Storybook 상태도 업데이트했다. Figma `957:37050`, `957:37212` 기준을 [UI 구성](architecture/ui.md#회원가입-부가정보-수신-동의-갱신-2026-10-26)에 기록했다.
 - **Style**: 회원가입 부가정보의 마케팅 동의 제목 아래 Figma의 검은색 1px 구분선을 추가했다. 항목 아래의 옅은 구분선은 유지했다.
+
+- **Fix**: 지정한 `72461a26`·`78e932d6`의 모바일 상품 탐색·검색 전체 화면·검색어 말줄임·정렬 Radio와 공통 필터 버튼 크기를 main에 선별 반영한다. 기존 categoryNavigation API와 시트 본문 패딩을 유지하며 다른 진행 중 기능을 포함하지 않는 [이식 경계](architecture/ui.md#완료된-모바일-검색필터-변경의-main-선별-반영-2026-10-27)를 기록했다.
 
 ## 2026-10-23
 
@@ -305,7 +397,7 @@
 
 - **Update**: 런클럽 첨부 시안을 대조해 PC 목록 최대 1280px·카드 제목/간격·소개 중앙 정렬·빈 화면 링크 생략·PC 상세 정원 표시를 반영했다. [UI 기록](architecture/ui.md#런클럽-첨부-시안-보완-2026-10-21)을 참고한다.
 
-- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/shared/components/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
+- **Update**: `PromotionBadge`의 모든 라벨과 세로 구분선 색상을 brand로 통일했다. 작업 트리의 `src/components/common/atoms/Badge/PromotionBadge.tsx`를 기준으로 [프로모션 뱃지 계약](architecture/ui.md#상품-복수-프로모션-뱃지-2026-10-20)을 갱신했다.
 
 ## 2026-10-21
 
@@ -865,7 +957,7 @@
 
 - **Update**: README를 현재 HOKA 퍼블리싱·데모 구현에 맞춰 정리했다. `/checkout` 구현 여부, 63개 경로 패턴, 실행·검증 명령, Panda 스타일·컴포넌트 조합과 상태 수명 안내를 갱신하고 [프로젝트 개요](project.md)의 주문/결제 미구현 설명을 바로잡았다. 근거는 현재 작업 트리의 README, App Router 페이지, ShopShell, 주문/결제 코드와 package.json·테스트다.
 
-- **Update**: 모든 Storybook 스토리를 `src/stories/`에 작성하도록 `AGENTS.md` 기본 지침을 추가하고, `src/shared/features/mypage/MyPage.stories.tsx`를 `src/stories/features/mypage/`로 옮겼다. 기존 탐색 설정이 해당 경로만 포함함을 확인하고 [UI 아키텍처](architecture/ui.md)에 배치 규칙과 작업 트리 출처를 반영했다.
+- **Update**: 모든 Storybook 스토리를 `src/stories/`에 작성하도록 `AGENTS.md` 기본 지침을 추가하고, `src/components/features/mypage/MyPage.stories.tsx`를 `src/stories/features/mypage/`로 옮겼다. 기존 탐색 설정이 해당 경로만 포함함을 확인하고 [UI 아키텍처](architecture/ui.md)에 배치 규칙과 작업 트리 출처를 반영했다.
 
 - **Update**: 로그인 기능을 Layout·Form·Actions·Membership로 분리하고 기존 상태·검증·이동 처리를 유지했다. `loginTitle` Typography 토큰으로 PC 36px·모바일 22px 제목 스케일을 공통화하고 실제 LoginPage를 사용하는 controlled Storybook 흐름을 추가했다. [상태](architecture/state.md)와 [UI](architecture/ui.md)에 책임·보존 계약을 반영했다.
 
@@ -874,7 +966,7 @@
 - **Update**: features/components 재사용 점검에서 쿠폰·리뷰 필터를 `SegmentedControl`로 통합하고 표현 확장 API·빈 문자열 값 처리를 추가했다. 상품 상세 스크롤 메뉴의 의미와 Drawer의 Escape 처리 책임을 정리하고 관련 Storybook 시나리오를 추가했다. [UI 아키텍처](architecture/ui.md)에 반영 내용과 후속 후보를 기록했다.
 
 - **Review**: 코드 리뷰 잔여 지적(영국 국기 자산, Clifton 상품 색상·갤러리, FAQ 답변 검색, 캐러셀 마지막 슬라이드 판정, 모달 닫기·확인 이동)을 수정했다. [UI 아키텍처](architecture/ui.md), [프로젝트 개요](project.md), [라우팅과 플랫폼](architecture/routing.md)에 반영했다.
-- **Update**: 이름 검증과 3분 인증 타이머를 `src/shared/lib/`로 공통화했다. [UI 아키텍처](architecture/ui.md)의 코드 배치에 반영했다.
+- **Update**: 이름 검증과 3분 인증 타이머를 `src/lib/`로 공통화했다. [UI 아키텍처](architecture/ui.md)의 코드 배치에 반영했다.
 - **Update**: 최상위 선언 사이 빈 줄 규칙(`AGENTS.md`)을 `src` 전체 62개 파일에 일괄 적용했다. 동작 변경은 없고 [UI 아키텍처](architecture/ui.md)의 스타일 기준에 반영했다.
 - **Update**: `/checkout` 주문/결제 화면을 추가하고 [라우팅과 플랫폼](architecture/routing.md)의 경로 표와 라우트 회귀 테스트에 반영했다. 상품 목록 링크의 필터 값(`cushioning`, `support`, `activity`, `collection`)을 목 상품 데이터에 맞췄다.
 - **Review**: 코드 리뷰 지적에 따른 UI 수정(Run Club 링크 `href`, 목록 프로모션 카드 삽입·정렬·초기화, `platform-*` 클래스를 `<body>`에 추가, ButtonLink의 `role` 제거, Hero 일시정지 조건 등)을 검토했다. [UI 아키텍처](architecture/ui.md)의 기술 내용과 충돌하지 않아 문서 내용 변경은 없다.
@@ -890,3 +982,16 @@
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
 - **Update**: 제품·화면 전용 Typography variant에 이어 `formLabel`, `sizeOption`, `action`도 제거하고 사용처를 표준 body scale로 옮겼다. Checkbox의 중복 label variant API와 전용 CSS 변수를 정리했으며 [UI 아키텍처](architecture/ui.md)에 매핑과 범위를 기록했다.
+
+## IA 바로가기 정정 (2026-10-28)
+
+- IA 바로가기를 Storybook에서 동일 서버의 실제 페이지로 변경했다. 상품 목록 IA 필터 쿼리를 유지하고 PC/MO 링크는 기기에 따라 표시되는 페이지 링크로 통합했다. 독립 경로가 없는 팝업은 N/A로 표시한다. 작업 트리 출처: `src/components/features/screen-index/IaStructurePage.tsx`. 앞선 Storybook 호스트 설정 기록을 대체한다.
+
+## 2026-10-28 — src 폴더 구조 승격
+
+shared 내부를 src로 승격하고 components/common·components/features로 구분했다. 기존 작업 트리 변경을 보존하며 import, 별칭, Storybook, Panda, 테스트 경로와 OKF 문서·동기화 규칙을 갱신했다. 관련 개념: [프로젝트](project.md), [UI](architecture/ui.md), [상태](architecture/state.md), [라우팅](architecture/routing.md), [설정](development/setup.md), [검증](development/verification.md), [유지보수](maintenance.md).
+
+검증: Next.js 프로덕션 빌드, Storybook 빌드, TypeScript 검사, Node 테스트 62건을 통과했다. 빌드 전 manifest를 사용한 최초 라우트 검사 실패는 새 빌드 후 재검증해 해소했다. src 및 .storybook에 기존 shared 참조가 없고 src/shared가 제거된 것을 확인했다.
+추가 검증: ShopShell·OKF 동기화 스크립트·Storybook 설정의 ESLint 검사를 통과했다. 전체 eslint 검사는 실행 시간이 길어 완료 결과를 아직 기록하지 않았다.
+
+- 2026-10-28: RunClubBadge를 Badge.runClubCategory로 통합하고 두 운영 사용처·공용 스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.

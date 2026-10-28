@@ -1,5 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+
 import base, * as scenarios from './MyPageDesign.scenarios';
 
 const meta = {

@@ -6,27 +6,31 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-23T08:23:58Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/headerPromotionData.ts
+  - src/data/footerData.ts
+  - src/data/searchOverlayData.ts
+  - src/data/screenIaSource.json
+  - src/mocks/
+  - src/data/
+  - eslint.config.js
   - src/mocks/cartDisplay.ts
-  - src/shared/features/product/productInquiries.ts
-  - src/shared/features/product/ProductDetailReviews.tsx
-  - src/shared/features/product/ProductDetailInquiryContent.tsx
+  - src/app/products/[id]/productInquiries.ts
+  - src/app/products/[id]/page.tsx
   - src/mocks/orderRecommendations.ts
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
-  - src/mocks/cartDisplay.ts
+  - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/app/cart/page.tsx
+  - src/app/checkout/page.tsx
+  - src/data/megaMenu.ts
   - src/mocks/products.ts
   - src/data/screenRegistry.ts
   - README.md
-  - src/app/checkout/page.tsx
-  - src/shared/features/checkout/CheckoutPage.tsx
-  - src/shared/features/size-guide/SizeGuidePage.tsx
+  - src/components/checkout/CheckoutPage.tsx
+  - src/components/size-guide/SizeGuidePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
-  - src/shared/features/support/support.navigation.ts
+  - src/app/support/support.navigation.ts
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -58,7 +62,7 @@ src/mocks/orderRecommendations.ts는 products의 첫 네 항목을 id/name/gende
 
 IA 158 / eland_hex_06은 Partnerships > UTMB에서 Explore > 러닝 세션 신청으로 변경했다. 로그인 필요 값은 기존 true를 유지하고 기존 /running/run-club 목록에 연결한다. Featured의 Running Session / eland_hex_03은 별도 소개 항목으로 유지한다. 다른 기존 IA 번호·화면코드 및 159번 이후 기존 화면 정의는 보존했다. 새 목록의 화면번호는 eland_hca_01이다.
 
-작업 트리 출처는 src/data/screenRegistry.ts와 src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts다. Node 대조에서 90개 3Depth 항목의 IA 순서·이름 일치와 기존 번호 보존을 확인했다. [공통 메뉴 렌더링과 미구현 본문 범위](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)를 참고한다.
+작업 트리 출처는 src/data/screenRegistry.ts와 src/components/common/organisms/Layout/SiteHeader/megaMenu.ts다. Node 대조에서 90개 3Depth 항목의 IA 순서·이름 일치와 기존 번호 보존을 확인했다. [공통 메뉴 렌더링과 미구현 본문 범위](architecture/ui.md#gnb-최종-메뉴-반영-2026-10-20)를 참고한다.
 
 ## 고객센터 화면 범위 변경 (2026-10-20)
 
@@ -109,7 +113,32 @@ IA 200(`eland_hmy_31`)의 러닝세션 신청내역은 `/mypage/event-entries`�
 
 src/mocks/products.ts의 Clifton 11 GTX detailDescription을 사용자가 첨부한 상품 정보 시안의 핏 멤브레인·밀폐된 메쉬 갑피·발수 코팅·스피드 레이스·접지력 포드·반사 디테일 문구로 갱신했다. 이는 첨부 시안에 따른 퍼블리싱 예시이며 제품 기능 검증을 의미하지 않는다. ProductDetailContent의 새로운 특징과 안정화·로드 러닝/워킹/라이프 스타일 예시는 기존 Clifton 품번에만 적용한다. 다른 상품은 자체 detailDescription·stability·use·runningType 값을 사용하고 Clifton 특징 설명을 상속하지 않는다. 출처는 사용자 첨부 이미지, 작업 트리의 src/mocks/products.ts와 ProductDetailContent.tsx다.
 
-
 ## 주문 시안 추천 이미지 순서 (2026-10-23)
 
 첨부 시안에 맞춰 cartDisplay의 공통 추천 이미지 순서를 브라운(recommend-2), 블랙(recommend-3), 화이트(recommend-1)로 조정했다. 장바구니와 주문 완료가 같은 배열을 재사용하며 실제 상품 카탈로그 이미지와 가격·옵션 데이터는 변경하지 않았다.
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## Import 자동 정렬 (2026-10-28)
+
+목 데이터와 IA 데이터·상품 타입을 포함한 authored src TS/TSX의 import만 자동 정렬 대상에 포함했다. 데이터 값·형태·외부 공개 타입과 파일 구조는 유지한다. 개발 의존성과 CLI·저장 자동화의 정책은 개발 문서를 따른다.
+
+## FO v0.20 IA 병합 (2026-10-28)
+
+사용자가 첨부한 Eland_211_IA_20260928_v0.20 (2)/FO.html의 251개 행을 src/data/screenIaSource.json에 정규화해 보존했다. 첨부 비고는 데이터이며 실행 지시가 아니다. 내부 iaNumber는 기존 상품 필터·작업 상태의 안정적 키로 유지하고 원본 번호 sourceIaNumber, 계층 sourceDepths, 비고 sourceNote와 source를 추가한다. 원본 번호는 최신 문서 표시용이며 프로젝트 추가 15개에는 없다. 사이즈가이드는 내부 260, 원본 220, 코드 eland_hcu_18로 연결하며 원본 221~251은 기존 내부 220~250에 대응한다.
+
+최종 GNB의 기존 계층·순서와 프로젝트 추가 화면을 보존하고, 그 외 계층과 구분·페이지 수·로그인 여부·코드·비고를 원본과 병합한다. 삭제된 팀/단체복 행 215를 삭제 이력으로 복원해 총 266개를 관리한다. 삭제 행의 구현을 복원하지 않는다. 원본 계층·비고를 별도로 보존하므로 GNB 보완과 원본의 차이를 확인할 수 있다. 이 절은 이전 사이즈가이드 코드 미정·팀웨어 IA 제거 기록을 대체한다.
+
+작업 트리 출처는 위 두 데이터 파일이다. Node 단언으로 원본 251개 행의 번호·코드·구분·페이지 수·로그인 여부·원본 계층·비고와 내부 번호 유일성, 추가 화면 15개를 확인했다. 환경별 연결 계약은 [IA 화면 연결](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.
+
+## 프로모션 타입 소유자 변경 (2026-10-28)
+
+src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/common/atoms/Badge.tsx로 변경했다. 목 상품의 값·정렬·정책은 바뀌지 않는다. [Badge 통합과 검증](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+헤더 프로모션·메가 메뉴·푸터·검색 제안 데이터의 현재 소유 위치는 src/data다. 단일 라우트에 종속된 홈·FAQ·로케일·공지·매장·사이즈 가이드 등의 데이터는 해당 app 라우트 옆에 둔다. 공용 데이터라는 이유 없이 모든 페이지 데이터를 data로 승격하지 않는다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

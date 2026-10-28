@@ -7,7 +7,7 @@ import {
   filterOrders,
   getPeriodStart,
   getClaimKind,
-} from '../src/shared/features/orders/order-policy.ts';
+} from '../src/components/orders/order-policy.ts';
 
 const order = {
   id: 'order-1',

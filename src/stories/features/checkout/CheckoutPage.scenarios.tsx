@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import { CheckoutPage } from '@/shared/features/checkout/CheckoutPage';
+import { PlatformProvider } from '@/context/platform';
+
 import { products } from '@/mocks/products';
-import { PlatformProvider } from '@/shared/context/platform';
-import type { CartItem } from '@/shared/types/cart';
+import { CheckoutPage } from '@/stories/features/checkout/CheckoutPagePreview';
+import type { CartItem } from '@/types/cart';
 
 const cart: CartItem[] = [
   {

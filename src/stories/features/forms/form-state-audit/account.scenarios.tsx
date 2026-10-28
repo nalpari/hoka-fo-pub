@@ -1,11 +1,14 @@
 import { expect, userEvent, within } from 'storybook/test';
-import { FindAccountPage } from '@/shared/features/find-account/FindAccountPage';
-import { PhoneVerificationPage } from '@/shared/features/phone-verification/PhoneVerificationPage';
-import { PhoneVerificationContent } from '@/shared/features/phone-verification/PhoneVerificationContent';
-import { RegistrationPage } from '@/shared/features/signup-registration/RegistrationPage';
-import { SignupTermsPage } from '@/shared/features/signup-terms/SignupTermsPage';
-import type { AuditStory as Story } from './shared';
+
+import AccountUnlockVerificationPage from '@/app/login/account-locked/verification/page';
+import FindAccountPage from '@/app/login/find-account/page';
+import RegistrationPage from '@/app/signup/information/page';
+import SignupTermsPage from '@/app/signup/terms/page';
+import PhoneVerificationPage from '@/app/signup/verify/phone/page';
+import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
+
 import { enterAddress } from './enterAddress';
+import type { AuditStory as Story } from './shared';
 
 export const FindAccount: Story = {
   render: () => <FindAccountPage />,
@@ -87,7 +90,7 @@ export const PhoneExpired: Story = {
 };
 
 export const PhoneUnlock: Story = {
-  render: () => <PhoneVerificationPage mode="account-unlock" />,
+  render: () => <AccountUnlockVerificationPage />,
   play: Phone.play,
 };
 

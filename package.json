@@ -4,13 +4,13 @@
   "type": "module",
   "version": "0.2.0",
   "scripts": {
-    "prepare": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css && npm run hooks:install",
+    "prepare": "panda codegen && panda cssgen --outfile src/styles/panda.css && npm run hooks:install",
     "hooks:install": "node scripts/install-okf-hooks.mjs",
     "okf:check": "node scripts/okf-sync.mjs check",
     "test:okf": "node --test tests/okf-sync.test.mjs",
-    "panda": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
-    "panda:watch": "panda cssgen --watch --outfile src/shared/styles/panda.css",
-    "prebuild": "panda codegen && panda cssgen --outfile src/shared/styles/panda.css",
+    "panda": "panda codegen && panda cssgen --outfile src/styles/panda.css",
+    "panda:watch": "panda cssgen --watch --outfile src/styles/panda.css",
+    "prebuild": "panda codegen && panda cssgen --outfile src/styles/panda.css",
     "dev": "npm run panda && concurrently \"next dev\" \"npm run panda:watch\"",
     "dev:all": "npm run panda && concurrently \"next dev\" \"npm run storybook\" \"npm run panda:watch\"",
     "build": "next build",
@@ -21,7 +21,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint:fix": "eslint src --fix && prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -47,6 +48,7 @@
     "@types/react-dom": "^19.3.0",
     "concurrently": "^10.0.5",
     "eslint": "latest",
+    "eslint-plugin-perfectionist": "5.13.0",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
     "postcss": "^8.5.28",

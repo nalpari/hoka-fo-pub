@@ -1,4 +1,5 @@
 import type { StoryObj } from '@storybook/react';
+
 import base, * as scenarios from './SupportPages.scenarios';
 
 const meta = {

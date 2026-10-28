@@ -3,7 +3,7 @@ import { readdirSync } from 'node:fs';
 
 const config: StorybookConfig = {
   stories: async () =>
-    readdirSync(new URL('../src/stories/', import.meta.url), { recursive: true })
+    readdirSync(new URL('../src/stories/', import.meta.url), { recursive: true, encoding: 'utf8' })
       .filter((file) => /\.stories\.tsx?$/.test(file) && !/mockup/i.test(file))
       .map((file) => `../src/stories/${file.replaceAll('\\', '/')}`),
   staticDirs: ['../public'],

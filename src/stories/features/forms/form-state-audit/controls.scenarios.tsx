@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { FormField } from '@/shared/components/atoms/FormField/FormField';
-import { TextInput } from '@/shared/components/atoms/TextInput/TextInput';
-import { Select } from '@/shared/components/atoms/Select/Select';
-import { Dropdown } from '@/shared/components/atoms/Dropdown/Dropdown';
-import { Checkbox } from '@/shared/components/atoms/Checkbox/Checkbox';
-import { Radio } from '@/shared/components/atoms/Radio/Radio';
-import { RatingStars } from '@/shared/components/atoms/RatingStars/RatingStars';
-import { RangeInput } from '@/shared/components/atoms/RangeInput/RangeInput';
-import { NumberStepper } from '@/shared/components/atoms/NumberStepper/NumberStepper';
-import { EmailSignupField } from '@/shared/components/atoms/EmailSignupField/EmailSignupField';
-import { Terms } from '@/shared/components/molecules/Terms/Terms';
-import { SizeSelector } from '@/shared/components/molecules/SizeSelector/SizeSelector';
-import { StatusMessage } from '@/shared/components/atoms/StatusMessage/StatusMessage';
-import { Button } from '@/shared/components/atoms/Button/Button';
-import type { AuditStory as Story } from './shared';
+
+import { Button } from '@/components/common/atoms/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
+import { FormField } from '@/components/common/atoms/FormField';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
+import { Radio } from '@/components/common/atoms/Radio';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { Select } from '@/components/common/atoms/Select';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
+import { TextInput } from '@/components/common/atoms/TextInput';
+
+import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
+
+import { RangeInput } from '@/components/catalog/ProductListingPage';
+import { type AuditStory as Story } from '@/stories/features/forms/form-state-audit/shared';
 
 function InheritanceExample() {
   const [invalid, setInvalid] = useState(true);
@@ -36,9 +37,13 @@ function InheritanceExample() {
     <RatingStars key="rating" ariaLabel="별점" value={0} onValueChange={() => {}} />,
     <RangeInput key="range" aria-label="범위" value={10} onValueChange={() => {}} />,
     <NumberStepper key="number" ariaLabel="수량" value={1} onChange={() => {}} />,
-    <Terms key="terms" checked={false} onCheckedChange={() => {}}>
-      동의
-    </Terms>,
+    <Checkbox
+      variant="consent"
+      key="terms"
+      checked={false}
+      onCheckedChange={() => {}}
+      label={<>동의</>}
+    />,
     <SizeSelector
       key="size"
       mode="single"
@@ -111,20 +116,5 @@ export const Inheritance: Story = {
         within(canvas.getByTestId(`control-${index}`)).getByRole(role),
       ).not.toHaveAttribute('aria-invalid', 'true');
     }
-  },
-};
-
-export const FooterEmail: Story = {
-  render: () => <EmailSignupField label="이메일 구독" />,
-  play: async ({ canvasElement }) => {
-    const c = within(canvasElement);
-    const input = c.getByRole('textbox', { name: '이메일 구독' });
-    await userEvent.type(input, 'invalid');
-    await userEvent.click(c.getByRole('button', { name: 'Submit email' }));
-    await expect(input).toHaveAttribute('aria-invalid', 'true');
-    await expect(c.getByRole('alert')).toHaveStyle({ color: 'rgb(166, 0, 0)' });
-    await userEvent.clear(input);
-    await userEvent.type(input, 'demo@example.com');
-    await expect(input).not.toHaveAttribute('aria-invalid');
   },
 };

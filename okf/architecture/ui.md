@@ -6,511 +6,382 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T00:27:49Z'
+  at: '2026-10-28T11:10:41.159Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/ProfileEditForm.tsx
-  - src/shared/features/mypage/ProfileReadView.tsx
-  - src/shared/features/mypage/mypage-profile.types.ts
-  - src/shared/features/catalog/ProductListingFilterPanel.tsx
-  - src/shared/features/catalog/ProductListingPage.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
-  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
-  - src/shared/components/layouts/AppLayout/AppLayout.tsx
-  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/shared/components/atoms/ProductGender/ProductGender.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
-  - src/shared/features/product/ProductDetailHeaderMeta.tsx
-  - src/shared/styles/global.scss
+  - src/components/common/molecules/ProductDetailImage.tsx
+  - src/components/common/organisms/SystemStatusPage.tsx
+  - src/components/common/layouts/AccountPageLayout.tsx
+  - src/types/component-contracts/components-common-layouts-MainSection.d.ts
+  - src/components/common/layouts/ModalDialog.tsx
+  - src/components/common/layouts/OrderActionBar.tsx
+  - src/components/common/layouts/MainSection.tsx
+  - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
+  - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
+  - src/components/support/CustomerCenterLayout.tsx
+  - src/types/type-tests/Button.type-test.tsx
+  - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
+  - src/stories/components/common/atoms/Button/ButtonDocs.tsx
+  - src/components/common/atoms/Button.tsx
+  - src/components/common/layouts/CustomerCenterLayout.tsx
+  - src/components/common/layouts/SidebarNavigationLayout.tsx
+  - .storybook/fonts.scss
+  - src/app/layout.tsx
+  - src/app/products/[id]/_components/ProductDetailViewerContent.tsx
+  - src/components/product/ProductDetailImage.tsx
+  - .codex/skills/component-reusability/references/nextjs-integration.md
+  - tsconfig.json
+  - next.config.ts
+  - src/components/common/molecules/ProductThumbnail.tsx
+  - src/components/common/organisms/Product/ProductGallery.tsx
+  - src/stories/components/common/organisms/Product/ProductGallery/ProductGallery.stories.tsx
+  - src/stories/features/screen-index/IaStructurePage.stories.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/components/
+  - src/stories/
+  - src/types/component-contracts/
+  - eslint.config.js
+  - src/components/product/ProductSelectedOptions.tsx
+  - src/app/products/[id]/page.tsx
+  - src/components/product/ProductDetailPanel.tsx
+  - src/components/product/ProductDetailContent.tsx
+  - src/stories/features/product/ProductSelectedOptions.stories.tsx
+  - src/stories/features/product/ProductDetailPage.scenarios.tsx
+  - src/stories/features/product/ProductDetailPage.stories.tsx
+  - src/stories/features/product/ProductDetailPage.mobile.stories.tsx
+  - src/app/mypage/profile/page.tsx
+  - src/components/mypage/ProfileEditForm.tsx
+  - src/components/mypage/ProfileReadView.tsx
+  - src/app/mypage/profile/mypage-profile.types.ts
+  - src/components/catalog/ProductListingFilterPanel.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/components/catalog/product-listing/ProductListingContent.tsx
+  - src/context/ShopShell.tsx
+  - src/components/catalog/product-listing/SearchListingLayout.tsx
+  - src/components/catalog/product-listing/ProductListingLayout.tsx
+  - src/components/common/atoms/Typography/Typography.tsx
+  - src/components/common/atoms/SectionHeader/SectionHeader.tsx
+  - src/components/common/molecules/MainContentCard/MainContentCard.tsx
+  - src/components/common/molecules/MainSection/MainSection.tsx
+  - src/app/page.tsx
+  - src/components/catalog/product-listing/ProductListTitle.tsx
+  - src/components/home/HomeLayout.tsx
+  - src/stories/components/common/atoms/Typography/Typography.CatalogTitle.stories.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
+  - src/components/product/ProductDetailHeaderMeta.tsx
+  - src/styles/global.scss
   - panda.config.ts
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
+  - src/stories/components/common/atoms/Typography/Typography.stories.tsx
   - src/stories/features/catalog/SearchResults.Mobile.stories.tsx
-  - src/shared/components/atoms/Button/Button.tsx
-  - src/shared/components/atoms/Button/Button.type-test.tsx
-  - src/shared/components/atoms/Button/ButtonDocs.tsx
-  - src/stories/components/atoms/Button/Button.stories.tsx
-  - src/shared/features/mypage/ProfileEditDialogs.tsx
-  - src/shared/features/mypage/ProfilePhoneVerification.tsx
-  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
-  - src/shared/components/atoms/FormField/FormField.tsx
-  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
-  - src/stories/components/atoms/FormField/FormField.stories.tsx
-  - src/shared/features/mypage/ProfilePasswordDialog.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/ProfileEditForm.tsx
-  - src/shared/features/mypage/ProfileReadView.tsx
-  - src/shared/features/mypage/mypage-profile.types.ts
+  - src/components/common/atoms/Button/Button.tsx
+  - src/components/common/atoms/Button/Button.type-test.tsx
+  - src/components/common/atoms/Button/ButtonDocs.tsx
+  - src/stories/components/common/atoms/Button/Button.stories.tsx
+  - src/components/mypage/ProfileEditDialogs.tsx
+  - src/components/mypage/ProfilePhoneVerification.tsx
+  - src/components/common/molecules/SingleActionDialog/SingleActionDialog.tsx
+  - src/components/common/atoms/FormField/FormField.tsx
+  - src/stories/components/common/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
+  - src/stories/components/common/atoms/FormField/FormField.stories.tsx
+  - src/components/mypage/ProfilePasswordDialog.tsx
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
-  - src/shared/features/orders/OrderTrackingHistory.tsx
-  - src/shared/features/orders/OrdersDateRange.tsx
-  - src/shared/features/orders/ClaimInstructions.tsx
-  - src/shared/features/orders/OrderClaimStatus.tsx
-  - src/shared/features/orders/OrderDeliveryStatus.tsx
-  - src/shared/features/orders/ClaimProductChoice.tsx
-  - src/shared/features/orders/ClaimProductQuantity.tsx
-  - src/shared/features/orders/ClaimAmountBreakdown.tsx
-  - src/shared/features/checkout/CheckoutPaymentMethods.tsx
-  - src/shared/features/checkout/CheckoutPaymentMethodNotice.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequestSelect.tsx
-  - src/shared/features/checkout/CheckoutDeliveryMessageField.tsx
-  - src/shared/features/checkout/CheckoutCompleteHeader.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
-  - src/shared/features/orders/OrderDetail.tsx
-  - src/shared/features/orders/OrderClaimDetail.tsx
-  - src/shared/features/orders/OrdersPage.tsx
-  - src/shared/features/orders/order-policy.ts
-  - src/shared/features/orders/OrderClaimSheet.tsx
-  - src/shared/components/molecules/StepIndicator/StepIndicator.tsx
+  - src/components/orders/OrderTrackingHistory.tsx
+  - src/components/orders/OrdersDateRange.tsx
+  - src/components/orders/ClaimInstructions.tsx
+  - src/components/orders/OrderClaimStatus.tsx
+  - src/components/orders/OrderDeliveryStatus.tsx
+  - src/components/orders/ClaimProductChoice.tsx
+  - src/components/orders/ClaimProductQuantity.tsx
+  - src/components/orders/ClaimAmountBreakdown.tsx
+  - src/components/checkout/CheckoutPaymentMethods.tsx
+  - src/components/checkout/CheckoutPaymentMethodNotice.tsx
+  - src/components/checkout/CheckoutDeliveryRequestSelect.tsx
+  - src/components/checkout/CheckoutDeliveryMessageField.tsx
+  - src/components/checkout/CheckoutCompleteHeader.tsx
+  - src/components/common/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/components/orders/OrderDetail.tsx
+  - src/components/orders/OrderClaimDetail.tsx
+  - src/components/orders/OrdersPage.tsx
+  - src/components/orders/order-policy.ts
+  - src/components/orders/OrderClaimSheet.tsx
+  - src/components/common/molecules/StepIndicator/StepIndicator.tsx
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
-  - src/shared/features/cart/CartOrderActions.tsx
-  - src/shared/features/cart/CartSupportContact.tsx
-  - src/shared/features/cart/CartSupportHours.tsx
-  - src/shared/features/cart/CartSupportInfo.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductColorSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
-  - src/shared/components/molecules/ProductOptionSelectors/ProductOptionSection.tsx
-  - src/stories/components/molecules/ProductOptionSelectors/ProductWidthSelector.stories.tsx
-  - src/stories/components/molecules/ProductOptionSelectors/ProductColorSelector.stories.tsx
-  - src/stories/components/molecules/ProductOptionSelectors/ProductSizeSelector.stories.tsx
-  - src/stories/components/molecules/ProductOptionSelectors/ProductOptionSection.stories.tsx
-  - src/shared/features/cart/CartOptionWidth.tsx
-  - src/shared/features/cart/CartOptionColor.tsx
-  - src/shared/features/cart/CartOptionSize.tsx
-  - src/shared/features/cart/CartOptionQuantity.tsx
-  - src/shared/features/cart/CartSupportContact.tsx
-  - src/shared/features/cart/CartSupportHours.tsx
-  - src/shared/features/cart/CartProductSection.tsx
-  - src/shared/features/cart/CartEmptyState.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
-  - src/stories/components/molecules/OrderProductSummary/OrderProductSummaryContent.stories.tsx
-  - src/shared/features/cart/CartOrderActions.tsx
+  - src/components/cart/CartOrderActions.tsx
+  - src/components/cart/CartSupportContact.tsx
+  - src/components/cart/CartSupportHours.tsx
+  - src/components/cart/CartSupportInfo.tsx
+  - src/components/cart/CartContent.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx
+  - src/stories/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.stories.tsx
+  - src/stories/components/common/molecules/ProductOptionSelectors/ProductColorSelector.stories.tsx
+  - src/stories/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.stories.tsx
+  - src/stories/components/common/molecules/ProductOptionSelectors/ProductOptionSection.stories.tsx
+  - src/components/cart/CartOptionWidth.tsx
+  - src/components/cart/CartOptionColor.tsx
+  - src/components/cart/CartOptionSize.tsx
+  - src/components/cart/CartOptionQuantity.tsx
+  - src/components/cart/CartProductSection.tsx
+  - src/components/cart/CartEmptyState.tsx
+  - src/stories/components/common/molecules/OrderProductSummary/OrderProductSummaryContent.stories.tsx
   - src/stories/features/cart/CartPage.mobile.stories.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
-  - src/stories/components/atoms/NumberStepper/NumberStepper.stories.tsx
+  - src/stories/components/common/atoms/NumberStepper/NumberStepper.stories.tsx
   - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
   - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.Notices.Web.stories.tsx
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetHeader.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetTitle.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
-  - src/stories/components/layouts/BottomSheet/BottomSheet.stories.tsx
-  - src/shared/lib/useScrollPin.ts
-  - src/shared/features/catalog/product-listing/MobileProductNavigation.tsx
-  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/shared/components/layouts/AppLayout/AppLayout.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
-  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
-  - src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx
-  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
+  - src/components/common/layouts/BottomSheet/BottomSheet.tsx
+  - src/stories/components/common/layouts/BottomSheet/BottomSheet.stories.tsx
+  - src/lib/useScrollPin.ts
+  - src/components/common/atoms/FilterTabs/FilterTabs.tsx
+  - src/stories/components/common/atoms/FilterTabs/FilterTabs.stories.tsx
   - public/images/icon/lock-keyhole.svg
-  - src/shared/features/product/ProductInformation.tsx
-  - src/shared/features/product/ProductDetailContent.tsx
-  - src/shared/features/product/ProductInquiryLink.tsx
-  - src/shared/components/atoms/Checkbox/Checkbox.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoardHeader.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoardContent.tsx
-  - src/shared/features/product/ProductDetailInquiryContent.tsx
-  - src/shared/features/product/productInquiries.ts
-  - src/stories/components/atoms/Checkbox/Checkbox.stories.tsx
-  - src/stories/components/organisms/InquiryBoard/InquiryBoard.stories.tsx
-  - src/stories/components/atoms/DescriptionList/DescriptionList.stories.tsx
-  - src/shared/features/product/ProductDetailNoticeTable.tsx
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
-  - src/shared/features/product/ProductSpecificationHelp.tsx
+  - src/components/product/ProductInformation.tsx
+  - src/components/product/ProductInquiryLink.tsx
+  - src/components/common/atoms/Checkbox/Checkbox.tsx
+  - src/components/product/ProductDetailInquiryContent.tsx
+  - src/app/products/[id]/productInquiries.ts
+  - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
+  - src/stories/components/common/organisms/InquiryBoard/InquiryBoard.stories.tsx
+  - src/stories/components/common/atoms/DescriptionList/DescriptionList.stories.tsx
+  - src/components/product/ProductDetailNoticeTable.tsx
+  - src/components/product/ProductSpecificationHelp.tsx
   - src/stories/features/product/ProductTechSpecs.stories.tsx
-  - src/shared/features/product/productDetailPresentation.ts
-  - src/shared/features/product/ProductTechnicalScale.tsx
-  - src/shared/features/product/ProductTechnicalScaleBar.tsx
-  - src/shared/features/product/ProductDetailSupportSections.tsx
-  - src/shared/features/product/ProductDetailSpecificationList.tsx
-  - src/shared/features/product/ProductDetailScrollSpy.tsx
-  - src/shared/features/product/ProductDetailReviews.tsx
-  - src/shared/features/product/ProductDetailRecommendations.tsx
-  - src/shared/features/product/ProductDetailPlaceholder.tsx
-  - src/shared/features/product/ProductDetailNavigation.tsx
-  - src/shared/features/product/ProductDetailFooter.tsx
+  - src/app/products/[id]/productDetailPresentation.ts
+  - src/components/product/ProductTechnicalScale.tsx
+  - src/components/product/ProductTechnicalScaleBar.tsx
+  - src/components/product/ProductDetailSupportSections.tsx
+  - src/components/product/ProductDetailSpecificationList.tsx
+  - src/components/product/ProductDetailScrollSpy.tsx
+  - src/components/product/ProductDetailReviews.tsx
+  - src/components/product/ProductDetailRecommendations.tsx
+  - src/components/product/ProductDetailPlaceholder.tsx
+  - src/components/product/ProductDetailNavigation.tsx
+  - src/components/product/ProductDetailFooter.tsx
   - public/images/products/clifton-11-gtx/feature-upper.png
   - public/images/products/clifton-11-gtx/feature-detail.png
   - public/images/products/clifton-11-gtx/feature-cushioning.png
-  - src/shared/features/product/ProductDetailDesktopGallery.tsx
-  - src/shared/features/product/ProductDetailGrid.tsx
-  - src/shared/features/product/ProductDetailHeaderActions.tsx
-  - src/shared/features/product/ProductDetailMedia.tsx
-  - src/shared/features/product/ProductDetailPage.tsx
-  - src/shared/features/product/ProductDetailPanel.tsx
-  - src/shared/features/product/ProductDetailRecommend.tsx
-  - src/shared/features/product/ProductTechSpecs.tsx
-  - src/shared/features/product/ProductDetailEditorial.tsx
-  - src/shared/features/product/ProductDetailSections.tsx
-  - src/shared/components/layouts/ContentLayout/ContentLayout.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
-  - src/shared/components/atoms/NotificationIcon/NotificationCount.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/features/home/HomeExploreSection.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/stories/components/atoms/NotificationIcon/NotificationIcon.stories.tsx
-  - src/stories/components/molecules/MainContentCard/MainContentCard.stories.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderCartLink.tsx
-  - src/shared/components/atoms/NotificationIcon/NotificationIcon.tsx
+  - src/components/product/ProductDetailGallery.tsx
+  - src/components/product/ProductDetailGrid.tsx
+  - src/components/product/ProductDetailHeaderActions.tsx
+  - src/components/product/ProductDetailMedia.tsx
+  - src/components/product/ProductDetailRecommend.tsx
+  - src/components/product/ProductTechSpecs.tsx
+  - src/components/product/ProductDetailEditorial.tsx
+  - src/components/product/ProductDetailSections.tsx
+  - src/components/common/layouts/ContentLayout/ContentLayout.tsx
+  - src/components/home/HomeExploreSection.tsx
+  - src/stories/components/common/atoms/NotificationIcon/NotificationIcon.stories.tsx
+  - src/stories/components/common/molecules/MainContentCard/MainContentCard.stories.tsx
   - AGENTS.md
   - .storybook/main.ts
-  - src/shared/features/screen-index/IaStructurePage.tsx
+  - src/app/screen-index/_components/IaStructurePage.tsx
   - src/stories/features/mypage/MyPage.Wishlist.Mobile.stories.tsx
   - src/stories/features/catalog/SearchResults.WEB.stories.tsx
   - .storybook/preview.ts
   - src/stories/features/support/SupportPages.scenarios.tsx
   - src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx
-  - src/shared/features/notices/NoticesPage.tsx
-  - src/shared/features/notices/NoticesList.tsx
-  - src/shared/features/notices/NoticeDetailPage.tsx
-  - src/shared/features/support/InquiryPage.tsx
-  - src/shared/features/support/InquiryCautions.tsx
-  - src/shared/features/support/InquiryEmptyState.tsx
-  - src/shared/features/support/InquiryQuestion.tsx
-  - src/shared/features/support/InquiryAnswer.tsx
-  - src/shared/features/support/InquiryListItem.tsx
-  - src/shared/features/support/InquiryReadAttachments.tsx
-  - src/shared/features/support/InquiryAttachmentPreview.tsx
-  - AGENTS.md
-  - src/stories/features/support/SupportPages.scenarios.tsx
-  - src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx
-  - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
+  - src/app/support/notices/page.tsx
+  - src/components/notices/NoticesList.tsx
+  - src/app/support/notices/[id]/page.tsx
+  - src/app/support/inquiries/page.tsx
+  - src/components/support/InquiryCautions.tsx
+  - src/components/support/InquiryEmptyState.tsx
+  - src/components/support/InquiryQuestion.tsx
+  - src/components/support/InquiryAnswer.tsx
+  - src/components/support/InquiryListItem.tsx
+  - src/components/support/InquiryReadAttachments.tsx
+  - src/components/support/InquiryAttachmentPreview.tsx
   - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
-  - src/shared/features/faq/FaqPage.tsx
-  - src/shared/components/organisms/Faq/FaqList.tsx
-  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
-  - src/shared/components/molecules/Faq/FaqCategoryNav.tsx
-  - src/shared/components/molecules/Faq/FaqControls.tsx
-  - src/shared/components/molecules/Faq/FaqSearch.tsx
-  - src/shared/components/organisms/Faq/FaqAnswer.tsx
-  - src/shared/components/organisms/Faq/FaqList.tsx
-  - src/shared/components/organisms/Faq/FaqQuestion.tsx
-  - src/shared/features/support/SupportPage.tsx
-  - src/shared/features/support/SupportContacts.tsx
-  - src/shared/features/support/SupportContactCard.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/support/page.tsx
+  - src/components/support/SupportContacts.tsx
+  - src/components/support/SupportContactCard.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
-  at: '2026-10-28T00:27:49Z'
-source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
-working_tree_sources:
-  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
-  - src/shared/components/molecules/AmountRow/AmountRow.tsx
-  - src/shared/components/molecules/FormActionGroup/FormActionGroup.tsx
-  - src/shared/components/molecules/SocialAuthButton/SocialAuthButton.tsx
-  - src/shared/features/mypage/AddressEditor.tsx
-  - src/shared/features/mypage/AddressList.tsx
-  - src/shared/features/mypage/ProfileEditForm.tsx
-  - src/shared/features/mypage/ProfileField.tsx
-  - src/shared/features/mypage/ProfileReadView.tsx
-  - src/shared/features/mypage/mypage-address.types.ts
-  - src/shared/features/mypage/mypage-profile.types.ts
-  - src/shared/features/product/ProductSupportTextLink.tsx
-  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/stories/components/molecules/AmountRow/AmountRow.stories.tsx
-  - src/stories/components/molecules/FormActionGroup/FormActionGroup.stories.tsx
-  - src/stories/components/molecules/SocialAuthButton/SocialAuthButton.stories.tsx
-  - src/stories/components/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
-  - src/shared/components/atoms/Card/Card.tsx
-  - src/shared/components/atoms/DataTable/DataTable.tsx
-  - src/shared/components/atoms/EmptyState/EmptyState.tsx
-  - src/shared/components/atoms/Fieldset/Fieldset.tsx
-  - src/shared/components/atoms/TextInput/TextInput.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
-  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
-  - src/shared/components/organisms/Address/AddressField.tsx
-  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
-  - src/shared/components/organisms/Faq/FaqQuestion.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/shared/components/organisms/Search/SearchDialog.tsx
-  - src/shared/components/organisms/Signup/SignupMethodButton.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/components/molecules/AmountRow/AmountRow.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
-  - src/shared/features/checkout/checkout-coupons.ts
+  - src/components/common/molecules/AmountRow/AmountRow.tsx
+  - src/components/common/molecules/FormActionGroup/FormActionGroup.tsx
+  - src/components/common/molecules/SocialAuthButton/SocialAuthButton.tsx
+  - src/components/mypage/AddressEditor.tsx
+  - src/components/mypage/AddressList.tsx
+  - src/components/mypage/ProfileField.tsx
+  - src/types/mypage-address.types.ts
+  - src/components/product/ProductSupportTextLink.tsx
+  - src/stories/components/common/molecules/AmountRow/AmountRow.stories.tsx
+  - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
+  - src/stories/components/common/molecules/SocialAuthButton/SocialAuthButton.stories.tsx
+  - src/stories/components/common/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
+  - src/components/common/atoms/Card/Card.tsx
+  - src/components/common/atoms/DataTable/DataTable.tsx
+  - src/components/common/atoms/EmptyState/EmptyState.tsx
+  - src/components/common/atoms/TextInput/TextInput.tsx
+  - src/components/common/molecules/HomeCarouselSection/HomeCarouselSection.tsx
+  - src/components/common/organisms/Address/AddressFields.tsx
+  - src/components/common/organisms/EmailAddressFields/EmailAddressFields.tsx
+  - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
+  - src/app/signup/page.tsx
+  - src/components/checkout/CheckoutComplete.tsx
+  - src/components/checkout/CheckoutDiscountSummary.tsx
+  - src/app/checkout/checkout-coupons.ts
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
-  - src/shared/features/checkout/CheckoutRecipientFields.tsx
-  - src/shared/features/checkout/CheckoutSavedAddress.tsx
-  - src/shared/features/checkout/CheckoutShippingInput.tsx
-  - src/shared/features/checkout/CouponAmountSummary.tsx
-  - src/shared/features/home/HomeCategorySection.tsx
-  - src/shared/features/home/HomeShoeFinderSection.tsx
-  - src/shared/features/login/LoginActions.tsx
-  - src/shared/features/mypage/MyPageAddresses.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/MyPageRewards.tsx
-  - src/shared/features/product/ProductAfterSalesContacts.tsx
-  - src/shared/features/product/ProductDetailRecommend.tsx
-  - src/shared/features/product/ProductDetailShippingGuide.tsx
-  - src/shared/features/product/ProductSupportContact.tsx
-  - src/shared/features/run-club/RunClubFilters.tsx
-  - src/shared/features/signup-registration/RegistrationField.tsx
-  - src/shared/features/support/InquiryFormActions.tsx
-  - src/shared/styles/global.scss
-  - src/stories/components/atoms/TextInput/TextInput.stories.tsx
-  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
-  - src/shared/features/size-guide/SizeGuideMeasurementMethod.tsx
-  - src/shared/features/size-guide/SizeGuideMeasurementImage.tsx
-  - src/shared/features/size-guide/SizeGuideMeasurementInstructions.tsx
-  - src/shared/features/size-guide/SizeGuideChart.tsx
-  - src/shared/features/size-guide/SizeGuideChoiceGroup.tsx
-  - src/shared/components/atoms/DataTable/DataTable.tsx
-  - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/shared/styles/global.scss
-  - src/shared/features/support/support.navigation.ts
-  - src/stories/components/atoms/DataTable/DataTable.stories.tsx
-  - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
-  - src/stories/components/atoms/Typography/Typography.ChoiceLabels.stories.tsx
-  - src/shared/features/size-guide/SizeGuidePage.tsx
-  - src/shared/features/size-guide/SizeGuidePanel.tsx
-  - src/shared/features/size-guide/SizeGuideMeasurements.tsx
-  - src/shared/features/size-guide/size-guide.data.ts
-  - src/shared/components/molecules/SupportTabs/SupportTabs.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
-  - src/shared/features/product/ProductDetailPage.tsx
-  - src/shared/features/product/ProductDetailPanel.tsx
-  - src/shared/features/product/ProductDetailContent.tsx
-  - src/shared/features/product/ProductVariantSelectors.tsx
-  - src/shared/features/product/ProductSizeSelector.tsx
-  - src/stories/features/support/SupportPages.scenarios.tsx
-  - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/features/catalog/product-listing/MobileCategoryTabs.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
-  - src/shared/features/catalog/ProductListingPage.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
-  - src/shared/components/molecules/ProductName/ProductName.tsx
-  - src/shared/components/atoms/ProductGender/ProductGender.tsx
-  - src/shared/components/molecules/PromotionCard/PromotionCard.tsx
-  - src/shared/components/molecules/OrderProductSummary/OrderProductSummary.tsx
-  - src/shared/components/atoms/Wishlist/Wishlist.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/cart/CartSelectionBar.tsx
-  - src/shared/features/cart/CartProductList.tsx
-  - src/shared/features/cart/CartSupportInfo.tsx
-  - src/shared/features/cart/CartOptionsContent.tsx
-  - src/shared/components/molecules/AmountRow/AmountRow.tsx
-  - src/shared/features/checkout/CheckoutForm.tsx
-  - src/shared/features/checkout/CheckoutContent.tsx
-  - src/shared/features/checkout/CheckoutPayment.tsx
-  - src/shared/features/checkout/CouponAmountSummary.tsx
-  - src/stories/components/molecules/OrderProductSummary/OrderProductSummary.stories.tsx
-  - src/stories/components/molecules/ProductOptionList/ProductOptionList.stories.tsx
-  - src/stories/components/atoms/Wishlist/Wishlist.stories.tsx
-  - src/shared/components/atoms/IconButton/IconButton.tsx
-  - src/shared/components/atoms/Icon/Icon.tsx
-  - src/shared/features/cart/CartItemRow.tsx
-  - src/shared/features/cart/CartOptionsDialog.tsx
-  - src/shared/features/checkout/CheckoutProductList.tsx
-  - src/shared/features/checkout/CheckoutDiscountSummary.tsx
-  - src/shared/features/checkout/CouponProductItem.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/shared/components/atoms/Button/Button.tsx
-  - src/shared/components/atoms/ProductGender/ProductGender.tsx
-  - src/shared/features/home/HomeBestSellerSection.tsx
+  - src/components/checkout/CheckoutRecipientFields.tsx
+  - src/components/checkout/CheckoutSavedAddress.tsx
+  - src/components/checkout/CheckoutShippingInput.tsx
+  - src/components/home/HomeCategorySection.tsx
+  - src/components/home/HomeShoeFinderSection.tsx
+  - src/components/login/LoginActions.tsx
+  - src/app/mypage/addresses/page.tsx
+  - src/app/mypage/rewards/page.tsx
+  - src/components/product/ProductAfterSalesContacts.tsx
+  - src/components/product/ProductDetailShippingGuide.tsx
+  - src/components/product/ProductSupportContact.tsx
+  - src/components/run-club/RunClubFilters.tsx
+  - src/components/signup-registration/RegistrationField.tsx
+  - src/components/support/InquiryFormActions.tsx
+  - src/stories/components/common/atoms/TextInput/TextInput.stories.tsx
+  - src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx
+  - src/components/size-guide/SizeGuideMeasurementMethod.tsx
+  - src/components/size-guide/SizeGuideMeasurementImage.tsx
+  - src/components/size-guide/SizeGuideMeasurementInstructions.tsx
+  - src/components/size-guide/SizeGuideChart.tsx
+  - src/components/size-guide/SizeGuideChoiceGroup.tsx
+  - src/components/common/atoms/SegmentedControl/SegmentedControl.tsx
+  - src/app/support/support.navigation.ts
+  - src/stories/components/common/atoms/DataTable/DataTable.stories.tsx
+  - src/stories/components/common/atoms/SegmentedControl/SegmentedControl.stories.tsx
+  - src/stories/components/common/atoms/Typography/Typography.ChoiceLabels.stories.tsx
+  - src/app/support/size-guide/page.tsx
+  - src/app/support/size-guide/_components/SizeGuidePanel.tsx
+  - src/components/size-guide/SizeGuideMeasurements.tsx
+  - src/app/support/size-guide/size-guide.data.ts
+  - src/components/common/molecules/SupportTabs/SupportTabs.tsx
+  - src/data/footerData.ts
+  - src/components/product/ProductVariantSelectors.tsx
+  - src/components/product/ProductSizeSelector.tsx
+  - src/components/common/atoms/Wishlist/Wishlist.tsx
+  - src/components/cart/CartSelectionBar.tsx
+  - src/components/cart/CartProductList.tsx
+  - src/components/cart/CartOptionsContent.tsx
+  - src/components/checkout/CheckoutForm.tsx
+  - src/components/checkout/CheckoutContent.tsx
+  - src/components/checkout/CheckoutPayment.tsx
+  - src/stories/components/common/molecules/OrderProductSummary/OrderProductSummary.stories.tsx
+  - src/stories/components/common/molecules/ProductOptionList/ProductOptionList.stories.tsx
+  - src/stories/components/common/atoms/Wishlist/Wishlist.stories.tsx
+  - src/components/common/atoms/IconButton/IconButton.tsx
+  - src/components/common/atoms/Icon/Icon.tsx
+  - src/components/cart/CartItemRow.tsx
+  - src/components/cart/CartOptionsDialog.tsx
+  - src/components/checkout/CheckoutProductList.tsx
+  - src/components/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
-  - src/shared/features/login/LoginPage.tsx
-  - src/shared/features/catalog/productListingIaRoute.ts
-  - src/shared/components/organisms/Layout/SiteHeader/megaMenu.ts
-  - src/stories/components/atoms/Divider/Divider.stories.tsx
-  - src/shared/features/terms/TermsDocument.tsx
-  - src/shared/features/terms/TermsDateSelect.tsx
-  - src/shared/components/atoms/Divider/Divider.tsx
-  - src/shared/features/notices/NoticeContent.tsx
+  - src/app/login/page.tsx
+  - src/app/screen-index/productListingIaRoute.ts
+  - src/data/megaMenu.ts
+  - src/stories/components/common/atoms/Divider/Divider.stories.tsx
+  - src/components/terms/TermsDocument.tsx
+  - src/components/terms/TermsDateSelect.tsx
+  - src/components/common/atoms/Divider/Divider.tsx
+  - src/components/notices/NoticeContent.tsx
   - okf/architecture/support-design.md
-  - src/shared/components/layouts/PageFrame/PageFrame.tsx
+  - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
   - okf/architecture/storefront-design.md
-  - src/shared/features/run-club/RunClubSessionCardContent.tsx
-  - src/shared/features/run-club/RunClubSessionCardImage.tsx
-  - src/shared/features/support/ProductReturnsPanel.tsx
-  - src/shared/features/support/ReturnCautionsPanel.tsx
-  - src/shared/features/support/ShippingGuidePanel.tsx
-  - src/shared/features/support/ShippingReturnsGuide.tsx
-  - src/shared/features/product/ProductAfterSalesQuestions.tsx
-  - src/shared/features/product/ProductAfterSalesProcess.tsx
-  - src/shared/features/product/ProductAfterSalesContacts.tsx
-  - src/shared/features/mypage/MyPageBenefitItem.tsx
-  - src/shared/features/support/SupportNoticeItem.tsx
-  - src/shared/features/support/InquiryAttachmentHelp.tsx
-  - src/shared/features/support/InquiryAttachmentList.tsx
-  - src/shared/components/molecules/OrderStatusTracker/OrderStatusLink.tsx
-  - src/shared/components/molecules/SectionHeading/SectionHeading.tsx
-  - src/shared/features/mypage/MyPageMenuItem.tsx
-  - src/shared/features/checkout/CheckoutAgreement.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoardContent.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoardHeader.tsx
-  - src/shared/components/organisms/MyPage/CouponHistorySection.tsx
-  - src/shared/components/organisms/MyPage/CouponRegistrationSection.tsx
-  - src/shared/features/mypage/mypage-home-data.ts
-  - src/shared/features/mypage/MyPageMenuSection.tsx
-  - src/shared/features/mypage/MyPageOrderTile.tsx
-  - src/shared/features/mypage/MyPageRecentOrders.tsx
-  - src/shared/features/mypage/MyPageBenefits.tsx
-  - src/shared/features/mypage/MyPageMembership.tsx
-  - src/shared/features/mypage/MyPageOverviewProfile.tsx
+  - src/components/run-club/RunClubSessionCardContent.tsx
+  - src/components/run-club/RunClubSessionCardImage.tsx
+  - src/components/support/ProductReturnsPanel.tsx
+  - src/components/support/ReturnCautionsPanel.tsx
+  - src/components/support/ShippingGuidePanel.tsx
+  - src/components/support/ShippingReturnsGuide.tsx
+  - src/components/product/ProductAfterSalesQuestions.tsx
+  - src/components/product/ProductAfterSalesProcess.tsx
+  - src/components/mypage/MyPageBenefitItem.tsx
+  - src/components/support/InquiryAttachmentHelp.tsx
+  - src/components/support/InquiryAttachmentList.tsx
+  - src/components/orders/OrdersRoute.tsx
+  - src/components/common/molecules/SectionHeading/SectionHeading.tsx
+  - src/components/mypage/MyPageMenuItem.tsx
+  - src/components/checkout/CheckoutAgreement.tsx
+  - src/app/mypage/coupons/page.tsx
+  - src/app/mypage/mypage-home-data.ts
+  - src/components/mypage/MyPageMenuSection.tsx
+  - src/components/mypage/MyPageOrderTile.tsx
+  - src/components/mypage/MyPageRecentOrders.tsx
+  - src/components/mypage/MyPageBenefits.tsx
+  - src/components/mypage/MyPageMembership.tsx
+  - src/components/mypage/MyPageOverviewProfile.tsx
   - src/shared/Mockup/signup/SignupTermsStep.tsx
   - src/shared/Mockup/signup/SignupTermsAgreements.tsx
-  - panda.config.ts
-  - src/shared/components/layouts/SidebarColumns/SidebarColumns.tsx
-  - src/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
-  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/components/atoms/LoadMoreButton/LoadMoreButton.tsx
-  - src/stories/components/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetContent.tsx
-  - src/shared/features/catalog/product-listing/filterProducts.ts
-  - src/shared/components/atoms/Badge/PromotionBadge.tsx
+  - src/components/common/layouts/SidebarColumns/SidebarColumns.tsx
+  - src/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
+  - src/components/common/atoms/LoadMoreButton/LoadMoreButton.tsx
+  - src/stories/components/common/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
+  - src/components/catalog/product-listing/filterProducts.ts
+  - src/components/common/atoms/Badge/PromotionBadge.tsx
   - .codex/skills/component-reusability/references/content-sections.md
-  - src/stories/components/molecules/ContentHeader/ContentHeader.stories.tsx
-  - src/stories/components/layouts/ContentSection/ContentSection.stories.tsx
-  - src/shared/features/support/SupportNotices.tsx
-  - src/shared/features/support/SupportFaq.tsx
-  - src/shared/features/support/SupportMileageContent.tsx
-  - src/shared/components/molecules/ContactCard/ContactCard.tsx
-  - src/shared/features/support/SupportHours.tsx
-  - src/shared/features/mypage/MyPageRewards.tsx
-  - src/shared/features/product/ProductSupportLink.tsx
+  - src/stories/components/common/molecules/ContentHeader/ContentHeader.stories.tsx
+  - src/stories/components/common/layouts/ContentSection/ContentSection.stories.tsx
+  - src/components/common/molecules/ContactCard/ContactCard.tsx
+  - src/components/product/ProductSupportLink.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - src/stories/features/login/LoginPage.mobile.stories.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
-  - src/stories/features/support/SupportPages.scenarios.tsx
-  - src/shared/features/screen-index/IaStructurePage.tsx
-  - src/shared/features/phone-verification/PhoneVerificationDialogs.tsx
-  - src/shared/components/organisms/MyPage/CouponDetailsDialog.tsx
-  - src/shared/components/organisms/MyPage/CouponRegistrationDialog.tsx
-  - src/shared/components/layouts/ContentSection/ContentSection.tsx
-  - src/shared/components/molecules/ContentHeader/ContentHeader.tsx
-  - src/shared/features/find-account/FindAccountIdentityFields.tsx
-  - src/shared/features/find-account/FindAccountCodeFields.tsx
-  - src/shared/features/support/InquiryMessageFields.tsx
-  - src/shared/components/molecules/FormFields/BirthDateField.tsx
-  - src/shared/components/molecules/FormFields/CharacterCount.tsx
-  - src/shared/components/molecules/FormFields/EmailField.tsx
-  - src/shared/components/molecules/FormFields/NameField.tsx
-  - src/shared/components/molecules/FormFields/PasswordField.tsx
-  - src/shared/components/molecules/FormFields/PhoneNumberField.tsx
-  - src/shared/components/molecules/FormFields/PreferenceField.tsx
-  - src/shared/components/molecules/FormFields/TextareaField.tsx
-  - src/shared/components/molecules/FormFields/TextFormField.tsx
-  - src/shared/components/molecules/FormFields/VerificationCodeField.tsx
-  - src/shared/components/molecules/FormFields/VerificationCountdown.tsx
-  - src/shared/components/organisms/EmailAddressFields/EmailAddressFields.tsx
-  - src/stories/components/molecules/FormFields/FormFields.stories.tsx
+  - src/components/phone-verification/PhoneVerificationDialogs.tsx
+  - src/components/common/layouts/ContentSection/ContentSection.tsx
+  - src/components/common/molecules/ContentHeader/ContentHeader.tsx
+  - src/components/find-account/FindAccountIdentityFields.tsx
+  - src/components/find-account/FindAccountCodeFields.tsx
+  - src/components/support/InquiryMessageFields.tsx
+  - src/components/common/molecules/FormFields/BirthDateField.tsx
+  - src/components/common/molecules/FormFields/CharacterCount.tsx
+  - src/components/common/molecules/FormFields/EmailField.tsx
+  - src/components/common/molecules/FormFields/NameField.tsx
+  - src/components/common/molecules/FormFields/PasswordField.tsx
+  - src/components/common/molecules/FormFields/PhoneNumberField.tsx
+  - src/components/common/molecules/FormFields/PreferenceField.tsx
+  - src/components/common/molecules/FormFields/TextareaField.tsx
+  - src/components/common/molecules/FormFields/TextFormField.tsx
+  - src/components/common/molecules/FormFields/VerificationCodeField.tsx
+  - src/components/common/molecules/FormFields/VerificationCountdown.tsx
+  - src/stories/components/common/molecules/FormFields/FormFields.stories.tsx
   - .codex/skills/component-reusability/references/form-fields.md
-  - src/shared/components/organisms/Address/AddressFields.tsx
-  - src/shared/components/organisms/Address/AddressField.tsx
-  - src/shared/features/signup-registration/RegistrationContent.tsx
-  - src/shared/components/atoms/Collapsible/Collapsible.tsx
-  - src/shared/components/molecules/SupportTabs/SupportTabs.tsx
-  - src/stories/components/atoms/Collapsible/Collapsible.stories.tsx
-  - src/shared/features/cart/CartContent.tsx
-  - src/shared/features/cart/CartItemRow.tsx
-  - src/shared/features/cart/cart-item.ts
-  - src/shared/components/molecules/OrderActionBar/OrderActionBar.tsx
-  - src/stories/components/molecules/OrderActionBar/OrderActionBar.stories.tsx
-  - src/stories/components/molecules/SupportTabs/SupportTabs.stories.tsx
-  - src/shared/features/find-account/PasswordResetField.tsx
-  - src/shared/features/find-account/PasswordResetContent.tsx
-  - src/shared/features/find-account/FindAccountPage.tsx
-  - src/shared/features/find-account/FindAccountContent.tsx
-  - src/shared/features/login/RememberIdHelp.tsx
-  - src/shared/components/layouts/AccountFormLayout/AccountFormLayout.tsx
-  - src/shared/features/identity-verification/IdentityVerificationContent.tsx
-  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
-  - src/shared/features/signup/SignupLayout.tsx
-  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
-  - src/shared/features/signup-registration/RegistrationAddressFields.tsx
-  - src/shared/features/signup-registration/RegistrationCompleteContent.tsx
-  - src/shared/features/signup-registration/RegistrationPersonalFields.tsx
-  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
-  - src/shared/features/support/InquiryAttachments.tsx
-  - src/shared/features/support/InquiryNewPage.tsx
-  - src/shared/features/support/InquiryCautions.tsx
-  - src/shared/features/support/SupportPage.tsx
-  - src/shared/features/support/SupportContactCard.tsx
-  - src/shared/features/support/ShippingReturnsPage.tsx
-  - src/shared/features/support/InquiryPage.tsx
-  - src/shared/features/faq/FaqPage.tsx
-  - src/shared/features/notices/NoticesPage.tsx
-  - src/shared/components/atoms/FilterTabs/FilterTabs.tsx
-  - src/shared/components/molecules/Faq/FaqControls.tsx
-  - src/shared/components/molecules/Faq/FaqSearch.tsx
-  - src/shared/components/molecules/Faq/FaqCategoryNav.tsx
-  - src/stories/components/atoms/FilterTabs/FilterTabs.stories.tsx
-  - src/stories/features/support/SupportPages.stories.tsx
+  - src/components/signup-registration/RegistrationContent.tsx
+  - src/stories/components/common/atoms/Collapsible/Collapsible.stories.tsx
+  - src/app/cart/cart-item.ts
+  - src/components/common/molecules/OrderActionBar/OrderActionBar.tsx
+  - src/stories/components/common/molecules/OrderActionBar/OrderActionBar.stories.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/components/find-account/PasswordResetField.tsx
+  - src/components/find-account/PasswordResetContent.tsx
+  - src/app/login/find-account/page.tsx
+  - src/components/find-account/FindAccountContent.tsx
+  - src/components/login/RememberIdHelp.tsx
+  - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
+  - src/components/identity-verification/IdentityVerificationContent.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/components/signup/SignupLayout.tsx
+  - src/components/signup-registration/RegistrationAdditionalFields.tsx
+  - src/components/signup-registration/RegistrationAddressFields.tsx
+  - src/app/signup/complete/page.tsx
+  - src/components/signup-registration/RegistrationPersonalFields.tsx
+  - src/components/signup-registration/RegistrationPreferenceRow.tsx
+  - src/components/support/InquiryAttachments.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/app/support/after-sales/page.tsx
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
-  - src/shared/features/cart/CartOptionsDialog.tsx
-  - src/shared/features/checkout/CouponDialog.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/shared/components/organisms/OrderRecommendations/OrderRecommendationItem.tsx
-  - src/shared/components/organisms/Signup/SignupBenefit.tsx
-  - src/shared/components/organisms/Signup/SignupMethodButton.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderTools.tsx
-  - src/shared/components/organisms/Search/RecentSearchItem.tsx
-  - src/shared/components/organisms/Search/SearchOverlay.tsx
-  - src/shared/components/organisms/Search/searchOverlayData.ts
-  - src/stories/components/organisms/Search/SearchOverlay.stories.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetFooter.tsx
-  - src/shared/components/organisms/Signup/SignupMethodStep.tsx
-  - src/shared/components/molecules/AccountFormHeader/AccountFormHeader.tsx
-  - src/shared/features/care-guide/CareGuidePage.tsx
-  - src/stories/components/molecules/PageActionButton/PageActionButton.stories.tsx
-  - src/shared/components/molecules/PageActionButton/PageActionButton.tsx
-  - src/shared/components/organisms/Faq/FaqQuestion.tsx
-  - src/shared/components/organisms/Faq/FaqAnswer.tsx
-  - src/shared/components/organisms/Faq/FaqEmptyState.tsx
+  - src/data/searchOverlayData.ts
+  - src/components/common/molecules/AccountFormHeader/AccountFormHeader.tsx
+  - src/app/support/care/page.tsx
+  - src/stories/components/common/molecules/PageActionButton/PageActionButton.stories.tsx
+  - src/components/common/molecules/PageActionButton/PageActionButton.tsx
   - src/shared/Mockup/explore/exploreContent.ts
   - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
-  - src/shared/features/store-finder/StoreFinderPage.tsx
-  - src/shared/components/organisms/StoreFinder/StoreResults.tsx
-  - src/shared/features/store-finder/store.data.ts
+  - src/app/support/store/page.tsx
+  - src/app/support/store/store.data.ts
   - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
   - src/shared/Mockup/explore/ExploreHubPage.tsx
   - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
@@ -519,58 +390,46 @@ working_tree_sources:
   - src/shared/Mockup/product-detail-sections/ProductInquiryCareNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryAfterSalesNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiry.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewsContent.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewTabs.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewToolbar.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewList.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewItem.tsx
-  - src/shared/features/mypage/reviews/MyPageReviewLoadMore.tsx
-  - src/shared/features/mypage/reviews/reviews.types.ts
-  - src/shared/components/organisms/MyPage/ReviewEditor.tsx
-  - src/shared/components/organisms/MyPage/ReviewList.tsx
-  - src/shared/components/organisms/MyPage/ReviewListToolbar.tsx
-  - src/shared/components/organisms/MyPage/ReviewStatusTabs.tsx
-  - src/shared/components/organisms/MyPage/ReviewManager.types.ts
+  - src/components/mypage/reviews/MyPageReviewsContent.tsx
+  - src/components/mypage/reviews/MyPageReviewTabs.tsx
+  - src/components/mypage/reviews/MyPageReviewToolbar.tsx
+  - src/components/mypage/reviews/MyPageReviewList.tsx
+  - src/components/mypage/reviews/MyPageReviewItem.tsx
+  - src/components/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/app/mypage/reviews/reviews.types.ts
+  - src/components/common/organisms/MyPage/ReviewEditor.tsx
+  - src/components/common/organisms/MyPage/ReviewList.tsx
+  - src/components/common/organisms/MyPage/ReviewListToolbar.tsx
+  - src/components/common/organisms/MyPage/ReviewStatusTabs.tsx
+  - src/components/common/organisms/MyPage/ReviewManager.types.ts
   - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
-  - src/shared/components/atoms/RatingStars/RatingStars.tsx
-  - src/shared/components/atoms/RatingStars/RatingStarsControl.tsx
-  - src/shared/components/organisms/MyPage/ReviewManager.tsx
-  - src/shared/features/mypage/MyPageReviewDialog.tsx
-  - src/shared/features/mypage/MyPageReviews.tsx
-  - src/stories/components/atoms/RatingStars/RatingStarsSelection.stories.tsx
+  - src/components/common/atoms/RatingStars/RatingStars.tsx
+  - src/components/common/organisms/MyPage/ReviewManager.tsx
+  - src/components/mypage/MyPageReviewDialog.tsx
+  - src/app/mypage/reviews/page.tsx
+  - src/stories/components/common/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/shared/Mockup/running-profile/RunningProfilePage.tsx
   - src/shared/Mockup/running-profile/RunningProfileContent.tsx
   - src/shared/Mockup/running-profile/ProfileQuestionGroup.tsx
   - src/shared/Mockup/running-profile/running-profile.data.ts
-  - src/shared/features/mypage/mypage.data.ts
-  - src/shared/features/mypage/stories/MyPageRouteStory.tsx
+  - src/components/mypage/mypage.data.ts
+  - src/stories/features/mypage/MyPageRouteStory.tsx
   - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
-  - src/stories/components/molecules/MyPage/ProfileQuestionGroup.stories.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx
+  - src/stories/components/common/molecules/MyPage/ProfileQuestionGroup.stories.tsx
+  - src/components/common/molecules/ProductCompareButton/ProductCompareButton.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryToolbar.tsx
-  - src/shared/components/organisms/Search/SearchKeywordButton.tsx
-  - src/shared/features/collection/CollectionDetailPage.tsx
-  - src/shared/features/not-found/NotFoundPage.tsx
+  - src/app/collection/[id]/page.tsx
+  - src/components/not-found/NotFoundPage.tsx
   - src/stories/features/not-found/NotFoundPage.stories.tsx
-  - src/shared/features/state/StatePage.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderSearch.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
-  - src/stories/components/atoms/Button/Button.stories.tsx
-  - src/shared/features/cart/CartPage.tsx
-  - src/shared/features/checkout/CheckoutShipping.tsx
-  - src/shared/features/checkout/CheckoutShippingForm.tsx
-  - src/shared/features/checkout/CheckoutRecipientFields.tsx
-  - src/shared/features/checkout/CheckoutAddressFields.tsx
-  - src/shared/features/checkout/CheckoutSavedAddress.tsx
-  - src/shared/features/checkout/CheckoutShippingInput.tsx
-  - src/shared/features/checkout/CheckoutDeliveryRequest.tsx
-  - src/shared/features/checkout/CheckoutPayment.tsx
-  - src/shared/features/checkout/CheckoutComplete.tsx
-  - src/shared/features/checkout/CheckoutPaymentNotice.tsx
-  - src/shared/features/cart/CartDialogs.tsx
-  - src/shared/features/cart/CartLimitDialog.tsx
-  - src/shared/features/checkout/CheckoutSummary.tsx
+  - src/app/cart/page.tsx
+  - src/components/checkout/CheckoutShipping.tsx
+  - src/components/checkout/CheckoutShippingForm.tsx
+  - src/components/checkout/CheckoutAddressFields.tsx
+  - src/components/checkout/CheckoutDeliveryRequest.tsx
+  - src/components/checkout/CheckoutPaymentNotice.tsx
+  - src/components/cart/CartDialogs.tsx
+  - src/components/cart/CartLimitDialog.tsx
+  - src/components/checkout/CheckoutSummary.tsx
   - src/stories/features/cart/CartPage.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
@@ -584,362 +443,208 @@ working_tree_sources:
   - src/stories/features/forms/form-state-audit/PC.Validation.stories.tsx
   - src/stories/features/forms/form-state-audit/product.scenarios.tsx
   - src/stories/features/forms/form-state-audit/shared.tsx
-  - src/shared/components/layouts/OrderPageLayout/OrderPageLayout.tsx
-  - src/shared/components/layouts/AccountPageLayout/AccountPageLayout.tsx
-  - src/shared/features/signup-terms/SignupTermsAgreementList.tsx
-  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
-  - src/shared/features/phone-verification/PhoneInformationFields.tsx
-  - src/shared/features/phone-verification/VerificationCodeFields.tsx
-  - src/shared/features/phone-verification/phone-verification.types.ts
-  - src/shared/features/signup-registration/RegistrationEmailFields.tsx
-  - src/shared/features/signup-registration/RegistrationField.tsx
-  - src/shared/features/signup-registration/registration.types.ts
+  - src/components/common/layouts/OrderPageLayout/OrderPageLayout.tsx
+  - src/components/common/layouts/AccountPageLayout/AccountPageLayout.tsx
+  - src/components/signup-terms/SignupTermsAgreementList.tsx
+  - src/components/phone-verification/PhoneVerificationAgreements.tsx
+  - src/components/phone-verification/PhoneInformationFields.tsx
+  - src/components/phone-verification/VerificationCodeFields.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/signup-registration/RegistrationEmailFields.tsx
+  - src/app/signup/information/registration.types.ts
   - src/stories/utils/assertAccountFormLayout.ts
-  - src/shared/components/organisms/Search/SearchForm.tsx
-  - src/shared/components/organisms/Search/SearchCategorySelect.tsx
-  - src/shared/components/organisms/Search/RecentSearches.tsx
+  - src/components/common/organisms/Search/SearchCategorySelect.tsx
   - .codex/skills/component-reusability/SKILL.md
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderLogo.tsx
-  - src/shared/components/atoms/Button/Button.tsx
-  - src/shared/components/atoms/Button/ButtonDocs.tsx
-  - src/shared/components/atoms/Button/Button.type-test.tsx
-  - src/shared/components/atoms/ToggleButton/ToggleButton.tsx
-  - src/shared/components/atoms/DataTable/DataTable.tsx
-  - src/shared/components/atoms/Fieldset/Fieldset.tsx
-  - src/shared/components/atoms/FormField/FormField.tsx
-  - src/shared/components/atoms/IconButton/IconButtonDocs.tsx
-  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
-  - src/shared/components/atoms/Tag/Tag.tsx
-  - src/shared/components/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
-  - src/shared/components/molecules/Breadcrumb/Breadcrumb.tsx
-  - src/shared/components/molecules/CatalogFilterSection/CatalogFilterSection.tsx
-  - src/shared/components/molecules/CompareBar/CompareBar.tsx
-  - src/shared/components/molecules/DataRows/DataRows.tsx
-  - src/shared/components/molecules/MetricGrid/MetricGrid.tsx
-  - src/shared/components/molecules/MyPage/PersonalizationCard.tsx
-  - src/shared/components/molecules/MyPage/ProfileQuestionGroup.tsx
-  - src/shared/components/molecules/ProductOptionList/ProductOptionList.tsx
-  - src/shared/components/molecules/Signup/SignupProgress.tsx
-  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
-  - src/shared/components/organisms/Hero/Hero.tsx
-  - src/shared/components/organisms/Hero/HeroPagination.tsx
-  - src/shared/components/organisms/Hero/HeroSlide.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/DesktopNavigation.tsx
-  - src/shared/components/organisms/Member/MemberHero.tsx
-  - src/shared/components/organisms/MyPage/QuickLinkGrid.tsx
+  - src/components/common/atoms/ToggleButton/ToggleButton.tsx
+  - src/components/common/atoms/IconButton/IconButtonDocs.tsx
+  - src/components/common/molecules/Breadcrumb/Breadcrumb.tsx
+  - src/components/common/molecules/CompareBar/CompareBar.tsx
+  - src/components/common/organisms/Account/AccountDataList.tsx
+  - src/app/mypage/referral/page.tsx
+  - src/components/common/molecules/MyPage/PersonalizationCard.tsx
+  - src/components/common/molecules/MyPage/ProfileQuestionGroup.tsx
+  - src/components/common/molecules/ProductOptionList/ProductOptionList.tsx
+  - src/components/common/organisms/Member/MemberHero.tsx
+  - src/components/common/organisms/MyPage/QuickLinkGrid.tsx
   - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection.tsx
   - src/shared/Mockup/product-detail-sections/ReviewGalleryModal.tsx
-  - src/shared/components/organisms/Product/ProductGallery/ProductGallery.tsx
-  - src/shared/components/organisms/Search/RecommendedSearches.tsx
-  - src/shared/components/organisms/Search/SearchCollectionLinks.tsx
-  - src/shared/components/organisms/Search/SearchHeader.tsx
-  - src/shared/components/organisms/Search/SearchSuggestions.tsx
-  - src/shared/components/organisms/Search/PopularSearches.tsx
-  - src/shared/components/organisms/Search/RecommendedSearches.tsx
+  - src/components/common/organisms/Product/ProductGallery/ProductGallery.tsx
+  - src/components/common/organisms/Search/SearchCollectionLinks.tsx
+  - src/components/common/organisms/Search/SearchHeader.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
-  - src/shared/Mockup/signup/SignupTermsStep.tsx
-  - src/shared/features/catalog/product-listing/ProductListingContent.tsx
   - src/shared/Mockup/explore/ExploreDetailPage.tsx
-  - src/shared/features/explore/ExploreHubPage.tsx
-  - src/shared/features/explore/ShoeFinderPage.tsx
-  - src/shared/features/launch-calendar/LaunchCalendarPage.tsx
+  - src/components/explore/ExploreHubPage.tsx
+  - src/components/explore/ShoeFinderPage.tsx
+  - src/components/launch-calendar/LaunchCalendarPage.tsx
   - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
-  - src/shared/features/screen-index/DesignGuideColor.tsx
-  - src/shared/features/screen-index/DesignGuidePage.tsx
-  - src/shared/features/screen-index/DesignGuideTypography.tsx
-  - src/shared/features/terms/TermsPage.tsx
-  - src/shared/lib/emailValidation.ts
-  - src/shared/lib/passwordValidation.ts
-  - src/shared/components/atoms/Checkbox/Checkbox.tsx
-  - src/shared/components/atoms/Dropdown/Dropdown.tsx
-  - src/shared/components/atoms/EmailSignupField/EmailSignupField.tsx
-  - src/shared/components/atoms/NumberStepper/NumberStepper.tsx
-  - src/shared/components/atoms/Radio/Radio.tsx
-  - src/shared/components/atoms/RangeInput/RangeInput.tsx
-  - src/shared/components/atoms/Select/Select.tsx
-  - src/shared/components/atoms/TextInput/TextInput.tsx
-  - src/shared/components/molecules/SizeSelector/SizeSelector.tsx
-  - src/shared/components/molecules/Terms/Terms.tsx
+  - src/components/screen-index/DesignGuideColor.tsx
+  - src/components/screen-index/DesignGuideTypography.tsx
+  - src/app/support/terms/page.tsx
+  - src/lib/emailValidation.ts
+  - src/lib/passwordValidation.ts
+  - src/components/common/atoms/Dropdown/Dropdown.tsx
+  - src/components/common/atoms/EmailSignupField/EmailSignupField.tsx
+  - src/components/common/atoms/NumberStepper/NumberStepper.tsx
+  - src/components/common/atoms/Radio/Radio.tsx
+  - src/components/common/atoms/Select/Select.tsx
+  - src/components/common/molecules/SizeSelector/SizeSelector.tsx
+  - src/components/common/molecules/Terms/Terms.tsx
   - src/shared/Mockup/signup/SignupDetailsStep.tsx
-  - src/shared/features/product/ProductSizeSelector.tsx
-  - src/shared/features/signup-registration/RegistrationPage.tsx
-  - src/shared/features/signup-terms/SignupTermsPage.tsx
+  - src/app/signup/information/page.tsx
+  - src/app/signup/terms/page.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
-  - src/shared/components/atoms/Typography/Typography.tsx
-  - src/shared/components/atoms/SectionHeader/SectionHeader.tsx
-  - src/shared/components/molecules/MainContentCard/MainContentCard.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/features/catalog/product-listing/ProductListTitle.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/stories/components/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/shared/components/atoms/StatusMessage/StatusMessage.tsx
-  - src/stories/components/atoms/StatusMessage/StatusMessage.stories.tsx
-  - src/stories/features/login/LoginPage.stories.tsx
-  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
-  - src/shared/features/product/ProductColorSelector.tsx
+  - src/components/common/atoms/StatusMessage/StatusMessage.tsx
+  - src/stories/components/common/atoms/StatusMessage/StatusMessage.stories.tsx
+  - src/components/product/ProductColorSelector.tsx
   - src/stories/features/product/ProductColorSelector.stories.tsx
-  - src/shared/components/molecules/ProductCard/ProductCard.tsx
-  - src/shared/components/molecules/ProductCard/ProductCardPreview.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetails.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetailsIdentity.tsx
-  - src/stories/components/molecules/ProductCard/ProductCard.stories.tsx
-  - src/shared/components/molecules/ProductPrice/ProductPrice.tsx
-  - src/stories/components/molecules/ProductPrice/ProductPrice.stories.tsx
-  - src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx
-  - src/stories/components/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
-  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
-  - src/shared/features/signup-registration/MarketingConsentSummaryModal.tsx
-  - src/shared/components/molecules/ConfirmDialog/ConfirmDialog.tsx
-  - src/shared/components/organisms/Account/AlreadyRegisteredModal.tsx
-  - src/shared/components/organisms/Account/LogoutDialog.tsx
-  - src/shared/components/organisms/Account/MarketingConsentSummaryModal.tsx
-  - src/shared/components/organisms/Address/AddressSearchModal.tsx
-  - src/shared/components/organisms/Terms/TermsDialog.tsx
-  - src/stories/components/molecules/ConfirmDialog/ConfirmDialog.stories.tsx
-  - src/stories/components/organisms/Account/AlreadyRegisteredModal.stories.tsx
-  - src/stories/components/organisms/Account/LogoutDialog.stories.tsx
-  - src/stories/components/organisms/Account/MarketingConsentSummaryModal.stories.tsx
-  - src/stories/components/organisms/Address/AddressSearchModal.stories.tsx
-  - src/stories/components/organisms/Terms/TermsDialog.stories.tsx
-  - src/shared/features/phone-verification/PhoneVerificationDetailDialog.tsx
-  - src/shared/features/mypage/MyPageWithdrawalCompleteDialog.tsx
-  - src/shared/features/mypage/MyPageWithdrawalDialog.tsx
-  - src/shared/features/mypage/MyPageAddressDeleteDialog.tsx
+  - src/stories/components/common/molecules/ProductCard/ProductCard.stories.tsx
+  - src/stories/components/common/molecules/ProductPrice/ProductPrice.stories.tsx
+  - src/hooks/usePhoneVerification.ts
+  - src/components/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/components/common/molecules/ConfirmDialog/ConfirmDialog.tsx
+  - src/app/signup/verify/phone/page.tsx
+  - src/app/mypage/page.tsx
+  - src/stories/components/common/molecules/ConfirmDialog/ConfirmDialog.stories.tsx
+  - src/stories/components/common/organisms/Account/AlreadyRegisteredModal.stories.tsx
+  - src/stories/components/common/organisms/Account/LogoutDialog.stories.tsx
+  - src/stories/components/common/organisms/Account/MarketingConsentSummaryModal.stories.tsx
+  - src/stories/components/common/organisms/Address/AddressSearchModal.stories.tsx
+  - src/stories/components/common/organisms/Terms/TermsDialog.stories.tsx
+  - src/components/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/components/mypage/MyPageWithdrawalCompleteDialog.tsx
+  - src/components/mypage/MyPageWithdrawalDialog.tsx
+  - src/components/mypage/MyPageAddressDeleteDialog.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
-  - src/shared/features/product/ProductDetailSupport.tsx
-  - src/shared/features/run-club/RunClubApplicationNotice.tsx
-  - src/shared/features/mypage/MyPageProfile.tsx
-  - src/shared/features/mypage/MyPageAddresses.tsx
-  - src/shared/features/find-account/PasswordResetCompleteModal.tsx
-  - src/shared/features/product/ProductDetailViewerGallery.tsx
-  - src/shared/features/run-club/RunClubEmptyState.tsx
-  - src/shared/features/product/ProductVariantAction.tsx
-  - src/shared/features/product/ProductDetailSupportRegion.tsx
-  - src/shared/features/product/ProductDetailShippingGuide.tsx
-  - src/shared/features/product/ProductDetailReturnPrecautions.tsx
-  - src/shared/features/product/ProductDetailReturnGuide.tsx
-  - src/shared/features/product/ProductDetailGrid.tsx
-  - src/shared/features/product/ProductDetailDeliverySupport.tsx
-  - src/shared/features/product/ProductDetailDeliverySection.tsx
-  - src/shared/features/mypage/MyPageRestockList.tsx
-  - src/shared/features/mypage/MyPageRestockCancelDialog.tsx
-  - src/shared/features/run-club/RunClubSessionPoster.tsx
-  - src/shared/features/run-club/RunClubSessionGuideContent.tsx
-  - src/shared/features/product/ProductVariantSection.tsx
-  - src/shared/features/product/ProductDetailRecommend.tsx
-  - src/shared/features/product/ProductDetailPanel.tsx
-  - src/shared/features/product/ProductDetailMobileGallery.tsx
-  - src/shared/features/product/ProductDetailImageViewer.tsx
-  - src/shared/features/product/ProductDetailDeliveryContent.tsx
-  - src/shared/features/mypage/MyPageProductHistoryNote.tsx
-  - src/shared/features/mypage/MyPageProductHistoryHeading.tsx
-  - src/shared/features/mypage/MyPageProductHistoryGrid.tsx
-  - src/shared/features/mypage/MyPageProductHistory.tsx
-  - src/shared/features/mypage/MyPageFrame.tsx
-  - src/shared/features/mypage/MyPageBreadcrumbs.tsx
-  - src/shared/features/locales/LocalesHeading.tsx
-  - src/shared/features/locales/LocaleRegionHeading.tsx
-  - src/shared/features/locales/LocaleCountryList.tsx
-  - src/shared/features/home/HomeShoeFinderSection.tsx
-  - src/shared/features/home/HomeCategorySection.tsx
-  - src/shared/features/home/HomeBestSellerSection.tsx
-  - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
-  - src/shared/features/catalog/product-listing/DesktopProductSort.tsx
-  - src/shared/features/product/ProductDetailBody.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderInner.tsx
-  - src/shared/components/molecules/ProductDetails/ProductDetailsOptions.tsx
-  - src/shared/components/molecules/MainSection/MainSectionHeader.tsx
-  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselRail.tsx
+  - src/components/product/ProductDetailSupport.tsx
+  - src/components/run-club/RunClubApplicationNotice.tsx
+  - src/components/find-account/PasswordResetCompleteModal.tsx
+  - src/components/product/ProductDetailViewerGallery.tsx
+  - src/components/run-club/RunClubEmptyState.tsx
+  - src/components/product/ProductVariantAction.tsx
+  - src/components/product/ProductDetailSupportRegion.tsx
+  - src/components/product/ProductDetailReturnPrecautions.tsx
+  - src/components/product/ProductDetailReturnGuide.tsx
+  - src/components/product/ProductDetailDeliverySupport.tsx
+  - src/components/product/ProductDetailDeliverySection.tsx
+  - src/components/mypage/MyPageRestockList.tsx
+  - src/components/mypage/MyPageRestockCancelDialog.tsx
+  - src/components/run-club/RunClubSessionPoster.tsx
+  - src/components/run-club/RunClubSessionGuideContent.tsx
+  - src/components/product/ProductVariantSection.tsx
+  - src/components/product/ProductDetailImageViewer.tsx
+  - src/components/product/ProductDetailDeliveryContent.tsx
+  - src/components/mypage/MyPageProductHistoryNote.tsx
+  - src/components/mypage/MyPageProductHistoryHeading.tsx
+  - src/components/mypage/MyPageProductHistoryGrid.tsx
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/mypage/MyPageFrame.tsx
+  - src/components/mypage/MyPageBreadcrumbs.tsx
+  - src/components/locales/LocalesHeading.tsx
+  - src/components/locales/LocaleRegionHeading.tsx
+  - src/components/locales/LocaleCountryList.tsx
+  - src/components/catalog/product-listing/ProductSortDropdown.tsx
+  - src/components/product/ProductDetailBody.tsx
   - src/stories/features/run-club/RunClubDetail.stories.tsx
   - src/stories/features/run-club/RunClubPreview.tsx
-  - src/stories/components/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
-  - .storybook/preview.ts
-  - src/shared/features/home/homeCarouselPreview.ts
-  - src/shared/components/molecules/HomeCarouselSection/HomeCarouselSection.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationMobile.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/SiteFooter.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/footerData.ts
-  - src/shared/components/molecules/Carousel/Carousel.tsx
-  - src/shared/components/molecules/Carousel/CarouselContext.ts
-  - src/shared/components/molecules/Carousel/CarouselViewport.tsx
-  - src/shared/components/molecules/Carousel/CarouselScrollbar.tsx
-  - src/shared/components/molecules/Carousel/CarouselPagination.tsx
-  - src/shared/components/molecules/Carousel/CarouselControls.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/headerPromotionData.ts
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderPromotionBanner.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeader.tsx
-  - src/shared/features/mypage/RunningProfileContent.tsx
-  - src/shared/components/organisms/MyPage/CouponCard.tsx
-  - src/shared/features/run-club/RunClubDetailLayout.tsx
-  - src/shared/features/run-club/RunClubFilters.tsx
-  - src/shared/features/run-club/RunClubSessionImage.tsx
-  - src/shared/features/run-club/RunClubRecommendations.tsx
-  - src/shared/features/run-club/RunClubPage.tsx
-  - src/shared/features/run-club/RunClubApplyButton.tsx
-  - src/shared/features/run-club/RunClubMobileActionBar.tsx
-  - src/shared/features/run-club/RunClubFacts.tsx
-  - src/shared/features/run-club/RunClubHeader.tsx
-  - src/shared/features/run-club/RunClubHistoryLink.tsx
-  - src/shared/features/run-club/RunClubSessionCard.tsx
-  - src/shared/features/run-club/RunClubDetailPage.tsx
-  - src/shared/features/run-club/RunClubSessionGuide.tsx
-  - src/shared/features/run-club/RunClubSessionNotes.tsx
-  - src/shared/features/mypage/MyPageStatusPage.tsx
-  - src/shared/features/screen-index/IaStructurePage.tsx
-  - src/shared/features/screen-index/storybookLinks.ts
+  - src/stories/components/common/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
+  - src/app/homeCarouselPreview.ts
+  - src/components/common/molecules/Carousel/Carousel.tsx
+  - src/components/common/molecules/Carousel/CarouselContext.ts
+  - src/components/common/molecules/Carousel/CarouselViewport.tsx
+  - src/components/common/molecules/Carousel/CarouselPagination.tsx
+  - src/components/common/molecules/Carousel/CarouselControls.tsx
+  - src/data/headerPromotionData.ts
+  - src/components/mypage/RunningProfileContent.tsx
+  - src/components/run-club/RunClubDetailLayout.tsx
+  - src/components/run-club/RunClubSessionImage.tsx
+  - src/components/run-club/RunClubRecommendations.tsx
+  - src/components/run-club/RunClubPage.tsx
+  - src/components/run-club/RunClubApplyButton.tsx
+  - src/app/running/run-club/[sessionId]/page.tsx
+  - src/components/run-club/RunClubFacts.tsx
+  - src/components/run-club/RunClubHeader.tsx
+  - src/components/run-club/RunClubHistoryLink.tsx
+  - src/components/run-club/RunClubSessionCard.tsx
+  - src/components/run-club/RunClubSessionGuide.tsx
+  - src/components/run-club/RunClubSessionNotes.tsx
+  - src/stories/features/mypage/MyPageRoutePreview.tsx
+  - src/app/screen-index/storybookLinks.ts
   - src/stories/features/run-club/RunClub.stories.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerBackButton.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuContent.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerBase.tsx
-  - src/shared/components/atoms/EmptyState/EmptyState.tsx
-  - src/shared/components/atoms/Pagination/Pagination.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheet.tsx
-  - src/shared/components/layouts/BottomSheet/BottomSheetHeader.tsx
-  - src/shared/components/molecules/ColorFilter/ColorFilter.tsx
-  - src/shared/components/molecules/MainSection/MainSection.tsx
-  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanel.tsx
-  - src/shared/components/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader.tsx
-  - src/shared/components/organisms/Hero/HeroCopy.tsx
-  - src/shared/components/organisms/InquiryBoard/InquiryBoard.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterBrand.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterBrandSocial.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterContent.tsx
-  - src/shared/components/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuList.tsx
-  - src/shared/components/organisms/Search/SearchDialog.tsx
-  - src/shared/features/account-locked/AccountUnlockCompletePage.tsx
-  - src/shared/features/phone-verification/PhoneVerificationAgreements.tsx
-  - src/shared/features/phone-verification/PhoneVerificationContent.tsx
-  - src/shared/features/phone-verification/PhoneVerificationPage.tsx
-  - src/shared/features/phone-verification/phone-verification.types.ts
-  - src/shared/features/catalog/product-listing/DesktopProductFilter.tsx
-  - src/shared/features/catalog/ProductListingResults.tsx
-  - src/shared/features/find-account/IdConfirmationModal.tsx
-  - src/shared/features/home/HomeExploreSection.tsx
-  - src/shared/features/product/ProductDetailAfterSalesContent.tsx
-  - src/shared/features/product/ProductDetailMedia.tsx
-  - src/shared/features/product/ProductInformation.tsx
-  - src/shared/features/run-club/RunClubLayout.tsx
-  - src/shared/features/run-club/RunClubResults.tsx
-  - src/shared/features/signup-registration/RegistrationContent.tsx
-  - src/shared/features/support/SupportExperiencePage.tsx
-  - src/shared/features/notices/NoticeDetailPage.tsx
-  - src/app/support/inquiries/page.tsx
-  - src/app/support/inquiries/new/page.tsx
-  - src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
-  - src/shared/features/faq/faq.data.ts
-  - src/shared/components/molecules/SearchField/SearchField.tsx
-  - src/shared/components/organisms/Faq/FaqList.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
-  - src/shared/components/atoms/IconButton/IconButton.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerHeader.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerNavigation.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawerUtilityLinks.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/MegaMenuAD.tsx
-  - src/stories/components/organisms/Faq/FaqList.stories.tsx
-  - src/stories/components/molecules/SearchField/SearchField.stories.tsx
-  - src/stories/components/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
-  - src/stories/components/atoms/Accordion/Accordion.stories.tsx
-  - src/shared/components/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
-  - src/shared/components/layouts/AppLayout/AppLayout.tsx
-  - src/shared/icons/fontAwesome.ts
-  - src/shared/icons/iconAssets.ts
-  - src/stories/components/atoms/Icon/Icon.stories.tsx
+  - src/components/common/atoms/Pagination/Pagination.tsx
+  - src/app/login/account-locked/complete/page.tsx
+  - src/components/catalog/ProductListingResults.tsx
+  - src/components/find-account/IdConfirmationModal.tsx
+  - src/components/product/ProductDetailAfterSalesContent.tsx
+  - src/components/run-club/RunClubLayout.tsx
+  - src/components/run-club/RunClubResults.tsx
+  - src/app/support/member-benefits/page.tsx
+  - src/app/support/faq/faq.data.ts
+  - src/components/common/molecules/SearchField/SearchField.tsx
+  - src/stories/components/common/organisms/Faq/FaqList.stories.tsx
+  - src/stories/components/common/molecules/SearchField/SearchField.stories.tsx
+  - src/stories/components/common/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
+  - src/stories/components/common/atoms/Accordion/Accordion.stories.tsx
+  - src/icons/fontAwesome.ts
+  - src/icons/iconAssets.ts
+  - src/stories/components/common/atoms/Icon/Icon.stories.tsx
   - public/images/icon/unlock-keyhole.svg
   - public/images/icon/navigation/membership.svg
-  - src/stories/components/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
-  - src/shared/features/run-club/RunClubBadge.tsx
-  - src/shared/features/locales/LocalesPage.tsx
-  - src/shared/features/locales/LocalesLayout.tsx
-  - src/shared/features/locales/LocaleRegionSection.tsx
-  - src/shared/features/locales/locales.data.ts
-  - src/shared/features/find-account/PasswordResetPage.tsx
-  - src/shared/features/find-account/passwordValidation.ts
-  - src/shared/features/find-account/phoneNumber.ts
-  - src/shared/features/account-locked/AccountLockedPage.tsx
-  - src/shared/features/account-locked/AccountLockedContent.tsx
+  - src/stories/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
+  - src/components/run-club/RunClubBadge.tsx
+  - src/app/locales/page.tsx
+  - src/components/locales/LocalesLayout.tsx
+  - src/components/locales/LocaleRegionSection.tsx
+  - src/app/locales/locales.data.ts
+  - src/app/login/find-account/password-reset/page.tsx
+  - src/lib/passwordValidation.ts
+  - src/lib/phoneNumber.ts
+  - src/app/login/account-locked/page.tsx
+  - src/components/account-locked/AccountLockedContent.tsx
   - src/stories/features/locales/LocalesPage.stories.tsx
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/account-locked/AccountLockedPage.stories.tsx
-  - src/shared/components/atoms/RatingInput/RatingInput.tsx
-  - src/shared/components/atoms/DescriptionList/DescriptionList.tsx
-  - src/shared/components/molecules/ModalDialog/ModalDialog.tsx
-  - src/shared/components/molecules/ModalDialog/ModalDialogHeader.tsx
-  - src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx
-  - src/stories/components/atoms/RatingInput/RatingInput.stories.tsx
-  - src/stories/components/organisms/MyPage/ReviewManager.stories.tsx
-  - src/stories/components/molecules/ModalDialog/ModalDialog.stories.tsx
-  - src/shared/features/home/HomeLayout.tsx
-  - src/shared/features/home/HomePage.tsx
-  - src/shared/features/signup/SignupPage.tsx
+  - src/components/common/atoms/RatingInput/RatingInput.tsx
+  - src/components/common/atoms/DescriptionList/DescriptionList.tsx
+  - src/components/common/molecules/ModalDialog/ModalDialog.tsx
+  - src/stories/components/common/atoms/RatingInput/RatingInput.stories.tsx
+  - src/stories/components/common/organisms/MyPage/ReviewManager.stories.tsx
+  - src/stories/components/common/molecules/ModalDialog/ModalDialog.stories.tsx
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
-  - src/shared/features/product/ProductDetailLayout.tsx
-  - src/shared/features/product/ProductDetailPage.tsx
-  - src/shared/features/product/ProductWidthSelector.tsx
-  - src/shared/features/product/ProductDetailHeaderMeta.tsx
-  - src/shared/features/signup-terms/SignupTermsDetail.tsx
-  - src/shared/features/signup-terms/SignupTermsContent.tsx
-  - src/shared/features/signup-terms/SignupTermsPage.tsx
-  - src/shared/features/signup-terms/PreviousTermsPicker.tsx
-  - src/shared/features/mypage/RunningProfilePage.tsx
-  - src/shared/features/run-club/RunClubSessionHero.tsx
+  - src/components/product/ProductDetailLayout.tsx
+  - src/components/product/ProductWidthSelector.tsx
+  - src/components/signup-terms/SignupTermsDetail.tsx
+  - src/components/signup-terms/SignupTermsContent.tsx
+  - src/components/signup-terms/PreviousTermsPicker.tsx
+  - src/components/mypage/RunningProfilePage.tsx
+  - src/components/run-club/RunClubSessionHero.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-terms/SignupTermsPage.stories.tsx
-  - src/stories/features/signup-registration/RegistrationPage.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.stories.tsx
   - src/stories/features/identity-verification/IdentityVerificationPage.stories.tsx
   - src/stories/features/find-account/FindAccountPage.stories.tsx
-  - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/find-account/IdConfirmationModal.stories.tsx
   - src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx
-  - src/stories/features/account-locked/AccountLockedPage.stories.tsx
   - src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.scenarios.tsx
-  - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
   - src/stories/features/phone-verification/PhoneVerificationPage.mobile.stories.tsx
   - src/stories/features/login/AccountUnlockVerification.stories.tsx
   - src/stories/features/login/AccountUnlockVerification.mobile.stories.tsx
   - src/stories/features/identity-verification/IdentityVerificationPage.scenarios.tsx
-  - AGENTS.md
   - src/stories/features/mypage/MyPage.stories.tsx
-  - src/shared/features/login/LoginContent.tsx
-  - src/shared/features/login/LoginLayout.tsx
-  - src/shared/features/login/LoginForm.tsx
-  - src/shared/features/login/LoginActions.tsx
-  - src/shared/features/login/LoginMembership.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderContainer.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
-  - src/shared/components/organisms/Layout/SiteHeader/SiteHeaderContent.tsx
-  - src/shared/features/checkout/CheckoutPage.tsx
-  - src/shared/features/checkout/CheckoutLayout.tsx
-  - src/shared/features/checkout/CheckoutContent.tsx
-  - src/shared/features/checkout/checkout-summary.ts
-  - src/shared/styles/global.scss
+  - src/components/login/LoginContent.tsx
+  - src/components/login/LoginLayout.tsx
+  - src/components/login/LoginForm.tsx
+  - src/components/login/LoginMembership.tsx
+  - src/app/checkout/page.tsx
+  - src/components/checkout/CheckoutLayout.tsx
+  - src/app/checkout/checkout-summary.ts
   - src/stories/features/checkout/CheckoutPage.stories.tsx
-  - src/stories/components/organisms/Layout/SiteHeader/SiteHeader.stories.tsx
-  - src/stories/components/atoms/Typography/Typography.stories.tsx
-  - src/shared/components/atoms/SegmentedControl/SegmentedControl.tsx
-  - src/shared/components/organisms/MyPage/CouponManager.tsx
-  - src/shared/components/organisms/MyPage/EmployeeCoupons.tsx
+  - src/stories/components/common/organisms/Layout/SiteHeader/SiteHeader.stories.tsx
   - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
   - src/shared/Mockup/product-detail-sections/ProductDetailSections.tsx
-  - src/stories/components/atoms/SegmentedControl/SegmentedControl.stories.tsx
-  - src/stories/components/layouts/AppLayout/AppLayout.stories.tsx
+  - src/stories/components/common/layouts/AppLayout/AppLayout.stories.tsx
   - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
-  - src/shared/features/mypage/MyPage.tsx
   - src\shared\features\checkout\CheckoutProductList.tsx
   - src\shared\features\checkout\CheckoutDiscountSummary.tsx
   - src\shared\features\checkout\CouponProductItem.tsx
@@ -970,50 +675,27 @@ working_tree_sources:
   - src\shared\features\support\SupportNotices.tsx
   - src\shared\features\support\SupportFaq.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
-  - src/shared/features/size-guide/SizeGuidePage.tsx
-  - src/shared/features/support/support.navigation.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
-  - src/shared/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/shared/lib/validation.ts
-  - src/shared/features/signup-registration/RegistrationIdFields.tsx
-  - src/shared/features/signup-registration/RegistrationAdditionalFields.tsx
-  - src/shared/features/signup-registration/RegistrationPreferenceRow.tsx
-  - src/shared/features/signup-registration/registration.types.ts
-  - src/shared/features/signup-registration/RegistrationPage.tsx
-  - src/shared/features/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/lib/validation.ts
+  - src/components/signup-registration/RegistrationIdFields.tsx
   - src/stories/features/signup-registration/RegistrationPage.scenarios.tsx
   - src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.scenarios.tsx
-  - src/shared/features/support/InquiryOrderProducts.tsx
-  - src/shared/features/support/inquiryOrders.data.ts
-  - src/shared/features/support/InquiryOrderLookupPage.tsx
-  - src/shared/features/support/inquiryOrderSelection.storage.ts
+  - src/components/support/InquiryOrderProducts.tsx
+  - src/app/support/inquiries/new/inquiryOrders.data.ts
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/stories/features/support/SupportPages.scenarios.tsx
-  - src/shared/components/molecules/CatalogFilterSection/CatalogFilterTrigger.tsx
-  - src/shared/components/molecules/ProductActivity/ProductActivity.tsx
-  - src/shared/components/molecules/ProductSpec/ProductSpec.tsx
-  - src/shared/features/product/ProductDetailHeaderTitle.tsx
-  - src/shared/components/molecules/OrderStatusTracker/OrderStatusLink.tsx
-  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
-  - src/shared/features/orders/OrderCardHeader.tsx
-  - src/shared/features/orders/OrderClaimDetail.tsx
-  - src/shared/features/orders/OrderClaimGroup.tsx
-  - src/shared/features/orders/OrderClaimStatus.tsx
-  - src/shared/features/orders/OrderDetail.tsx
-  - src/shared/features/orders/OrderHistoryProduct.tsx
-  - src/shared/features/orders/OrdersLayout.tsx
-  - src/shared/features/orders/OrdersListContent.tsx
-  - src/shared/features/checkout/CheckoutAgreement.tsx
-  - src/shared/features/orders/OrderTrackingDialog.tsx
-  - src/shared/features/orders/OrderTrackingHistory.tsx
-  - src/shared/features/orders/OrdersDateRange.tsx
-  - src/shared/features/orders/OrdersFilters.tsx
-  - src/shared/features/orders/OrdersPage.tsx
-  - src/shared/features/orders/order-policy.ts
-  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
+  - src/app/support/inquiries/new/inquiryOrderSelection.storage.ts
+  - src/components/product/ProductDetailHeaderTitle.tsx
+  - src/components/orders/OrderCardHeader.tsx
+  - src/components/orders/OrderClaimGroup.tsx
+  - src/components/orders/OrderHistoryProduct.tsx
+  - src/components/orders/OrdersLayout.tsx
+  - src/components/orders/OrdersListContent.tsx
+  - src/components/orders/OrderTrackingDialog.tsx
+  - src/components/orders/OrdersFilters.tsx
   - src/stories/features/orders/OrdersPage.stories.tsx
-
+  - .codex/skills/component-reusability/references/page-ownership.md
+  - src/app/support/mileage/page.tsx
 sources:
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
@@ -1044,7 +726,7 @@ sources:
     title: 'panda.config.ts'
   - id: src-shared-styles-global-scss
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/styles/global.scss
-    title: 'src/shared/styles/global.scss'
+    title: 'src/styles/global.scss'
   - id: -storybook-main-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.storybook/main.ts
     title: '.storybook/main.ts'
@@ -1057,6 +739,64 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 컴포넌트 소유권·래퍼 정책 정리 (2026-10-28)
+
+본 채팅의 ContentHeader/TextFormField 직접 사용과 부모 옵션 통합, 공유 작업 트리·OKF에 나타난 ModalDialog 액션 통합·미사용/스토리 전용 정리·MyPageFrame 레이아웃 확장을 분석해 AGENTS.md와 component-reusability 스킬을 갱신했다. 관찰한 구현과 각 작업의 기존 검증 기록을 근거로 삼았으며 진행 중인 사이드 작업의 모든 대화나 미실행 검사를 확인한 것으로 간주하지 않는다.
+
+- 기본값·props 전달만 하는 래퍼는 기반 컴포넌트 직접 사용, 실제로 공유하는 선택적 표현·상호작용은 적절한 기존 소유자의 작은 typed 옵션, 단일 운영 부모는 부모 파일 내부 통합으로 구분한다. 여러 소비처나 파일 길이만으로 별도 래퍼를 정당화하지 않는다.
+- 미사용·스토리 전용 구현은 별도 분류하고 승인된 범위에서 참조와 유효한 시나리오를 확인해 정리한다. 파일 수만 줄이려고 구현을 복제하거나 삭제한 래퍼를 preset·호환 파일로 재생성하지 않는다.
+- 기본 모드와 custom 슬롯·네이티브 폼·접근성·제네릭 값·상태 수명·PC/MO 값을 보존한다. 대체 옵션의 배타성, 소유자별 공통 breadcrumb·레이아웃, 중첩 Panda 추출과 객체 단계의 스타일 병합을 작업 판단 기준에 연결했다.
+- 공유 작업 트리에서 현재 인덱스와 다른 채팅 변경을 보존하고 요청된 변경만 부분 스테이징한다. 검증 시 실제 소스를 반영한 서버인지, 화면 폭과 실제 플랫폼이 같은지 확인하며 자동 입력 실패를 곧바로 컴포넌트 결함으로 분류하지 않는다.
+
+작업 트리 출처는 AGENTS.md, `.codex/skills/component-reusability/SKILL.md`와 wrapper-consolidation·single-parent-consolidation·page-ownership·content-sections·form-fields 참조 문서다. 기존 폼 지침의 기본값 전용 의미별 preset 권고와 페이지 지침의 삭제된 ConfirmDialog 예시를 현재 정책으로 교정했다. 앱·스토리 소스와 실행 설정은 이번 정책 작업에서 변경하지 않았다. quick_validate.py, 정책·스킬 문서의 내부 링크/해당 앵커 21개와 수정 문서 포맷 검사가 통과했다. 앱 빌드는 정책 변경의 검증으로 반복하지 않았다. 기존 생성·출처·신뢰 메타데이터는 보존한다.
+
+## MyPageFrame 중앙 정렬 레이아웃 (2026-10-28)
+
+MyPageFrame에 layout='sidebar' | 'centered'를 추가하고 breadcrumbs를 선택 속성(기본 빈 배열)으로 바꿨다. 기본 sidebar는 기존 마이페이지 하위 화면의 내비게이션·본문·breadcrumb 배치를 유지한다. centered는 홈에서 사용하던 main의 border-box·100vw·maxW 640px·가운데 정렬·좌우 16px·하단 64px과 breadcrumb 영역의 높이 56px·상단 24px을 그대로 소유한다. 기본 Home·마이페이지 경로는 프레임이 한 번 생성하며 마지막 항목의 링크 생략·aria-current는 기존 Breadcrumb이 처리한다.
+
+src/app/mypage/page.tsx의 RouteContent는 MyPageFrame activePath='/mypage' layout='centered'를 사용한다. 기존 본문 Stack의 pt=6·gap=10, 프로필·주문 목록·메뉴·로그아웃 버튼과 모달 상태는 페이지에 유지하고 main과 breadcrumb 중복만 제거했다. 하위 페이지는 layout을 새로 지정하지 않아도 기존 sidebar 구성을 사용한다. 추가 DOM wrapper나 client 경계는 없다. 작업 트리 출처: src/components/mypage/MyPageFrame.tsx, src/app/mypage/page.tsx 및 기존 MyPage 메인·하위 화면 스토리.
+
+검증(Codex, 2026-10-28): 전체 작업 트리 타입 검사·변경 두 파일 ESLint·Panda 생성과 기존 스테이지+이번 소스 두 파일을 적용한 격리 복사본의 Next 기본 Turbopack·Storybook production build를 통과했다. 반복 ESLint/Prettier에서 소스 바이트 변경이 없었다. 다른 작업의 산출물은 덮어쓰지 않았으며 격리 Next 설정의 root는 외부 의존성 junction 해석만을 위해 지정했다.
+
+Ego 브라우저에서 변경 전후 홈 WEB 1600px·Mobile 375px, 회원등급·회원정보 Mobile 375px 총 4개 스토리의 main·직계 자식·breadcrumb 여백과 배치·링크·현재 항목·sidebar 표시가 일치했다. 홈은 breadcrumb가 한 번만 나오고 Home만 링크이며 마이페이지가 현재 항목이다. 실제 production 앱에서 홈 로그아웃 팝업의 열기·취소·Escape 닫기와 PC 회원등급의 grid/sidebar·Home/마이페이지 링크·현재 회원등급을 확인했다. 로그아웃 확인 후의 계정 상태 변경 로직은 수정하지 않았으며 별도 실행하지 않았다.
+
+## 공통 래퍼 4개를 부모 옵션으로 통합 (2026-10-28)
+
+PageActionButton·AccountFormLayout·Terms·PreferenceField의 운영·스토리 사용처를 기반 컴포넌트로 전환하고 네 구현 파일을 삭제했다. 별도 호환 래퍼나 새 운영 컴포넌트 파일은 만들지 않았다. 작업 트리 출처는 CustomerCenterLayout·AccountPageLayout·Checkbox·Radio와 해당 소비처·스토리이며, 기존 생성·신뢰 메타데이터와 과거 래퍼 도입 기록은 보존한다. 아래 과거의 네 래퍼 유지·사용 설명은 당시 이력이다.
+
+- CustomerCenterLayout.footerAction은 link/loadMore/button 판별 옵션으로 레이블·href/콜백·카운터·크기·폭·간격을 받는다. 기존 footer와 타입으로 동시 사용을 금지한다. 버튼 분기는 같은 파일의 로컬 함수가 담당하며 기본 secondary/short, 500/180/160px 폭·모바일 폭·상단 간격을 유지한다. 문의 화면의 기존 모바일 하단 64px 여백은 동일 버튼 컨테이너의 pb로 이전했다. 중첩 스타일은 호출부 css.raw로 추출한다.
+- AccountPageLayout은 선택적 title·description·actions·actionsSpacing을 받는다. title이 없으면 기존 본문을 직접 렌더링하고, 있으면 ContentSection 기본 헤더 API로 h1·PC28px/MO22px·설명·본문 gap을 보존한다. 액션 Grid의 24/32px 간격·폼 연결과 outsideContent 위치는 유지한다.
+- 단일 Checkbox의 consent variant가 Terms의 16px 컨트롤·대화형 레이블·링크/버튼 클릭 제외·오류 표시를 담당한다. invalid/error/containerClassName을 추가하고 caller/필드/오류의 접근성 연결을 유지한다. Terms.children은 label, 외부 className은 containerClassName으로 옮겼다. default/filter 및 그룹 사용은 유지한다.
+- Radio의 선택적 label/multilineLabel은 기존 좌측 레이블·우측 24px 간격 선택지와 줄바꿈을 제공한다. label이 없으면 기존 DOM을 유지한다. ariaLabel·name·제네릭 값·콜백·키보드 동작과 화면별 yes/no·한국어 값은 바꾸지 않았다.
+
+래퍼 전용 스토리는 Atoms/Checkbox/Consent와 Layouts/CustomerCenterLayout/FooterAction으로 옮기고 기존 상태와 동의 상호작용 검사를 유지했다. Radio의 레이블·키보드 스토리를 추가했다. [필드·폼 검증](../development/verification.md#부모-옵션-통합-검증-2026-10-28)에 실제 결과를 기록했다.
+
+## 스토리 전용·미사용 공통 컴포넌트 제거 (2026-10-28)
+
+사용자 승인에 따라 StatePanel·ContactCard·PageSection 구현 3개와 StatePanel·ContactCard 전용 스토리 2개를 삭제했다. src·테스트·스크립트·Storybook 설정의 이름·경로 참조를 확인했으며 StatePanel과 ContactCard는 각 전용 스토리 외 운영 소비처가 없었고 PageSection은 스토리 소비처도 없었다. 실제 고객센터의 SupportContactCard, 기반 EmptyState·StatusMessage·DescriptionList·ContentHeader·SectionHeader는 삭제 대상이 아니다. Storybook 자동 탐색 설정은 그대로 유지한다.
+
+작업 트리 출처는 삭제한 세 molecule 및 두 전용 스토리 경로다. 기존 working_tree_sources와 과거 조사표는 당시 출처로 보존하며, 위 세 컴포넌트의 유지·후보 판단은 이번 삭제 결정으로 대체한다. 초기 구현은 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`에서 확인할 수 있다.
+
+검증(Codex, 2026-10-28): 삭제 경로와 컴포넌트·타입 이름의 코드 잔여 참조가 없고 Panda 생성·문서 포맷·diff 공백 검사를 통과했다. 실행 당시 전체 작업 트리의 타입·린트·Storybook 검사는 동시 작업 중인 support/inquiries 페이지 구문 및 다른 파일의 import 정렬 오류로 실패했으며 해당 소스를 수정하지 않았다. 기존 스테이지의 소스에 이 삭제 5개만 적용한 저장소 외부 복사본에서 타입 검사·Storybook production build를 통과했다. 빌드 인덱스 774개에서 삭제한 스토리가 없고 기존 ModalDialog 스토리는 유지되는 것을 확인했다. 격리 빌드에 필요한 생성 Panda CSS를 복사한 후 최종 빌드를 수행했다. 운영 사용처가 없어 별도의 UI 동작 변경·브라우저 흐름 검증은 하지 않았다. 기존 스테이지는 수정하지 않았으며 이번 삭제·문서 갱신은 작업 트리에 남겼다. 빈 디렉터리 삭제 명령은 자동 승인 검토에서 정책상 차단돼 실행하지 않았다.
+
+## ModalDialog 액션 옵션 통합 (2026-10-28)
+
+`ConfirmDialog`·`SingleActionDialog`의 버튼 구성을 `ModalDialog.actions`로 통합하고 두 구현 파일을 제거했다. 운영 소비처는 `ModalDialog`를 직접 import한다. `actions.kind: 'single'`은 label·onConfirm·buttonProps를, `'confirm'`은 onConfirm·confirmLabel·confirmDisabled·cancelLabel·onCancel·direction·fullWidth를 받는다. `actions`를 생략하면 기존 제목·본문 모달 또는 커스텀 footer를 사용하며, actions와 footer는 타입으로 동시 사용을 금지한다. 확인 콜백은 single에서는 선택이며 confirm에서는 필수다.
+
+단일 버튼은 기존 short/fullWidth 기본값과 명시적 false, disabled·density·className·type·form·tall 설정을 보존한다. 취소·확인 구성은 기본 취소 시 onOpenChange(false), 사용자 onCancel 우선, 확인 비활성화와 horizontal/vertical·fullWidth 배치를 유지한다. vertical은 fullWidth=false여도 기존처럼 전체 폭 Stack을 사용한다. ConfirmDialog의 기본 sm은 각 소비처에서 명시하고 ModalDialog 자체 기본 md는 유지한다. 공통 헤더·포털·포커스·Escape·스크롤·고정 footer·fade·모바일 표시 방식은 바꾸지 않았다.
+
+기존 모달 스토리 두 파일을 ModalDialog 폴더로 옮겨 실제 ModalDialog API를 검증하도록 전환했다. 기존 Storybook 제목·export·중요 상태와 상호작용 검사는 유지했다. 이전 절의 두 래퍼 API 설명과 작업 트리 출처는 당시 이력이며 현재 계약은 이 절을 따른다. 이번 작업 트리 출처는 ModalDialog 구현, 해당 스토리와 직접 사용으로 전환한 src/app 및 도메인 UI이며, 삭제 전 구현은 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`의 두 래퍼다.
+
+검증(Codex, 2026-10-28): 타입 검사·변경 파일 ESLint·Panda 생성·저장소 외부 출력 경로의 Storybook production build와 기존 Node 테스트 72개를 통과했다. 임시 타입 fixture로 footer/actions 배타성, confirm 콜백 필수, single의 form 연결과 잘못된 취소 옵션 거부를 확인했다. 변경 파일의 ESLint/Prettier 두 번째 수정에서 바이트 변경이 없었고 삭제 경로의 src 참조도 남지 않았다.
+
+Ego 브라우저에서 PC 1440px·모바일 375px의 기본/compact/vertical/단일/content-width 조합 총 7상태를 이전 정적 빌드와 비교해 모달·footer·버튼의 크기·간격·배치 일치를 확인했다. 전환한 스토리 18개와 기존 play가 모두 통과했다. 취소와 Escape, 포커스 복귀, 확인 콜백·disabled, 사용자 onCancel 우선, 단일 확인의 자동 닫힘 없음, 연결된 form의 클릭·Enter 제출(PC/MO)을 검증했다. actions 없는 모달의 Escape 닫기와 커스텀 footer·본문 스크롤·fade도 직접 확인했다.
+
+처음에는 상호작용 스토리 4개가 비동기 닫힘 완료 전에 포커스·DOM을 검사해 실패했고 이전 빌드에서도 동일하게 재현됐다. 해당 두 스토리 파일에 waitFor를 추가해 기존 단언을 유지하면서 닫힘·포커스 복귀 완료를 기다리도록 수정했으며, 위의 18개 통과 기록은 이 보완 후 결과다. 기본 ModalDialog의 다른 스토리 전체를 전수 play 검사한 것으로 해석하지 않는다.
+
+Next 기본 Turbopack production build도 저장소 외부의 소스 복사본에서 통과했다. 다른 작업의 .next를 변경하지 않기 위해 의존성 junction을 사용했고, 임시 복사본의 turbopack.root를 복사본·의존성의 공통 상위 경로로 지정했다. 초기 격리 경로 설정에서는 junction 범위 오류가 났으며 이를 조정한 뒤 빌드·타입 검사·페이지 생성을 완료했다. 별도로 시도한 webpack 빌드는 이번에 수정하지 않은 products·running/run-club·mypage/event-entries 라우트의 추가 props 타입 검사에서 실패했으므로 webpack 통과를 주장하지 않는다. 문서 frontmatter 파싱·포맷과 diff 공백 검사, 이번 소스 범위의 OKF 매핑도 확인했다.
+
+현재 얇은 제목·필드 래퍼 제거와 검증은 [직접 사용 전환](#얇은-래퍼-직접-사용-전환-2026-10-28)에 기록한다. 과거의 해당 래퍼 도입·유지 설명은 당시 이력이다.
 
 ## 주문 목록 구성요소 주석 (2026-10-28)
 
@@ -1093,6 +833,18 @@ Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취�
 ## 장바구니 옵션 선택 영역 간격과 크기 (2026-10-27)
 
 장바구니 옵션 콘텐츠의 바깥·섹션 간격을 조정하고 선택 영역 사이에 40px 간격을 둔다. 발볼 섹션 제목은 `body4` medium, 사이즈는 40px 높이·8px 간격·`body4` 크기로 표시한다. 선택 가능한 사이즈와 품절 상태 표현은 유지하며 브라우저 시각 검증은 하지 않았다.
+
+## 상품 상세 옵션 누적 선택 (2026-10-27)
+
+첨부된 기획 캡처의 누적 옵션 영역을 기준으로 `ProductDetailPage`가 선택 목록을 소유한다. 구매 가능한 사이즈를 선택할 때 현재 컬러·발볼·사이즈 조합을 추가하고 같은 조합을 다시 선택하면 수량을 합산한다. 사이즈 선택값은 추가 후 비워 같은 사이즈를 재선택할 수 있다. 컬러·발볼을 바꾸어도 이미 추가한 항목은 유지한다. 품절·미제공 사이즈는 기존 선택 UI와 이벤트 핸들러에서 거부한다.
+
+`ProductSelectedOptions`는 목록 데이터와 단가·수량/삭제 콜백을 받아 동일한 행을 반복하고, 기존 NumberStepper(최소 1)·IconButton·Typography·AmountRow를 조합한다. 행별 금액과 전체 합계는 수량에서 계산한다. 개별 수량과 삭제 버튼에는 옵션 조합을 포함한 접근성 이름을 붙이고 합계 변경은 polite live 영역으로 알린다. 목록이 비면 영역을 숨기고 구매 액션의 기존 사이즈 필수 오류를 사용한다. 전용 디자인은 제공되지 않아 기존 컴포넌트와 구분선을 조합했으며 픽셀 일치 구현을 의미하지 않는다.
+
+Panel/Content의 `selectedOptions` 슬롯으로 사이즈와 구매 버튼 사이에 배치하며 모바일 고정 구매 버튼도 동일한 선택 목록을 제출한다. 장바구니에는 모든 행의 실제 수량을 전달하고 구매하기는 기존 방식대로 장바구니 반영 후 checkout으로 이동한다. 실제 주문 API를 새로 연결한 것은 아니다.
+
+스토리는 `PAGES/상품/1. 상품상세/WEB`·`Mobile`의 `옵션 누적 선택`, `FEATURES/상품/선택 옵션 목록`의 두 옵션 초기 화면·모바일 화면·수량/전체 삭제 검증을 제공한다. 상세 play는 두 사이즈 누적·중복 합산·수량 증가를, 목록 play는 최소 1·금액 갱신·행 삭제·전체 삭제를 검사한다. 출처는 위 작업 트리의 product 구현과 스토리이며 사용자 첨부 기획 이미지의 175,000원 두 옵션은 독립 스토리 예시로만 사용한다.
+
+2026-10-27 Codex가 타입 검사·변경 TSX ESLint·Panda 생성·Next.js/Storybook 프로덕션 빌드·diff 공백 검사를 통과했다. 정적 Storybook 브라우저에서 PC·375px 모바일 상세 play의 두 옵션·수량 3/1·960,000원 합계, 목록 play의 수량 변경·삭제 후 빈 상태, 초기 두 행의 PC/모바일 표시와 모바일 가로 넘침 부재를 확인했다. 모바일 장바구니 버튼 클릭 후 헤더 수량이 12에서 16으로 증가해 선택한 4개 수량 전달도 확인했다. 개발 Storybook은 React useContext 오류가 있어 정적 빌드로 검증했다. 실제 결제·서버 재고 검증은 수행하지 않았다.
 
 ## 회원정보 설계서 알럿 6종 연결 (2026-10-26)
 
@@ -1166,13 +918,27 @@ SupportPages.scenarios의 render·play·viewport·라우팅 설정을 그대로 
 
 Codex가 개발 서버 index.json에서 영문 SUPPORT 항목 0개·문의 WEB/Mobile 각각 11개를 확인했다. 전체 항목 724→723은 모바일 문의 작성 중복 한 건을 합친 결과다. 브라우저에서 고객센터 사이드바·공지 상세와 이동한 모바일 첨부파일 형식 오류 스토리의 실제 오류 안내를 확인했다. 변경 스토리 ESLint/Prettier·타입 검사·별도 출력 경로 Storybook 빌드를 통과했다. 출처는 사용자 브라우저 주석과 working_tree_sources의 세 스토리 파일 및 기존 SupportPages.scenarios.tsx다.
 
+## 완료된 모바일 검색·필터 변경의 main 선별 반영 (2026-10-27)
+
+사용자가 지정한 작업 브랜치 커밋 `72461a26`·`78e932d6`의 상품 목록·검색 결과·필터 보정만 `main` 기준 `1400350f`에 이식한다. 원본 두 커밋과 이 작업 트리의 아래 명시 소스를 근거로 하며, 작업 브랜치 전체 병합이나 파일 전체의 최신 버전 대체를 사용하지 않는다. 회원정보·주문·장바구니·문의·회원가입 변경과 공통 FilterTabs plain/line 전환은 이 반영에 포함하지 않는다.
+
+- main의 `FilterTabs.categoryNavigation` API를 유지하고 모바일 버튼의 `px: 0`만 명시해 공통 좌우 16px 패딩이 남는 문제를 해결한다. 작업 브랜치의 plain 이름으로 바꾸지 않는다.
+- `Button.filterTrigger`는 compact(기본 높이 32.2px/좌우 14px)와 regular(40px/좌우 24px/아이콘 슬롯 20px)를 지원하며 기존 타입 검사·ButtonDocs·비교 스토리를 함께 반영한다. feature의 MobileProductFilterTrigger가 appearance에 따라 공통 크기와 Typography를 선택한다.
+- 모바일 `/search`는 AppLayout의 헤더·띠배너·푸터 없이 표시한다. SearchListingLayout은 fixed/inset 0 전체 화면과 고정 상단(닫기·검색 입력·결과/필터), 결과만 내부 스크롤로 구성한다. ContentHeader horizontal/action에 결과 문구 왼쪽·작은 필터 오른쪽을 배치하고 검색어 span만 말줄임한다. 결과 개수·필터 버튼·DOM 전체 검색어는 보존한다. PC의 페이지 프레임은 유지한다.
+- 모바일 정렬은 ProductListingFilterPanel에서 선택 태그 아래·성별 위의 CatalogFilterSection/기본 Radio로 표시한다. 페이지가 mobileSort 초안·적용·취소를 계속 소유하며 Layout/Content/시트의 중복 props 전달을 제거한다. PC에는 해당 정렬 섹션을 추가하지 않는다.
+- main의 BottomSheetContent는 작업 브랜치와 여백 계약이 다르므로 공통 BottomSheet 파일을 가져오지 않고 MobileProductFilter의 기존 `Box px="4"`를 유지한다. 필터 시트가 검색 cover 위에 열리는 z-index 계약은 기존 공통 컴포넌트로 충족한다.
+
+LongSearchQuery 모바일 스토리는 긴 검색어와 활성 성별 필터를 사용해 말줄임·필터 접근을 재현하며 결과 수는 실제 목업 검색 결과인 0개다. 원본 커밋의 검증은 이 main 이식에 대한 검증으로 간주하지 않고 별도로 확인한다.
+
+검증(Codex, 2026-10-27): main 기준 별도 작업 공간에서 `npm ci --ignore-scripts` 후 Panda 생성·Next.js 프로덕션 빌드(타입 검사 포함)·변경 소스 ESLint·Storybook 빌드를 통과했다. 이 빌드의 실제 Next 앱에서 모바일 검색 main의 fixed/812px 높이·띠배너 없음·본문 scrollTop 120에서도 header top 0을 확인했다. 높은가격순/남성 선택을 적용하면 URL의 sort/gender가 바뀌고 시트가 닫히며, 다시 열 때 적용 값이 유지되고 다른 정렬을 선택 후 취소하면 적용 값으로 복원됐다. 닫기 버튼은 `/products`로 이동한다. 상품 목록의 categoryNavigation 버튼은 좌우 패딩 0·rail gap 20px이다. 빌드한 Storybook의 긴 검색어는 320/375px에서 각각 표시 폭 40/95px(내용 폭 413px)으로 줄고 768px에서는 전체 표시되며 가로 넘침이 없다. 실제 PC 요청에서는 platform-web·static main·정상 검색 결과와 모바일 정렬 섹션 미노출을 확인했다. 이 검증 서버의 데이터는 기존 목업이며 실제 상품 API 호출을 검증한 것은 아니다.
+
 ## Typography rem 토큰과 비교표 (2026-10-23)
 
 사용자가 제공한 영문(The Future HOKA)·국문(Pretendard) Typography 가이드와 기존 구현을 대조했다. `panda.config.ts`의 공통 fontSizes 21개(12~96)는 기존 px 값을 16으로 나눈 rem 값으로 바꿨다. 예를 들어 84px는 5.25rem, 16px는 1rem, 14px는 0.875rem이다. 토큰 이름과 Typography 공개 props·variant·PC/MO 크기 관계는 유지한다. 루트 font-size는 고정하지 않으므로 사용자 기본 글자 크기를 따른다. 기본 루트 16px에서는 기존 표시 크기와 같다. 개별 의미 토큰의 px 크기·고정 행간·유동 clamp 값은 이번 전환 범위에 포함하지 않는다.
 
 영문 Heading은 100%·자간 0, 국문 Heading은 120%·-0.02em이며 Body와 Controls의 행간은 130%다. 영문 PC H9·모바일 H7은 500, 국문은 600을 유지한다. CTA는 영문 500·국문 600이며 Text Link는 두 언어 모두 500/밑줄이다. 두 가이드의 모바일 Heading은 H7까지만 정의되어 있으며 기존 H8/H9는 영문 16px/500·국문 16px/600으로 축소하는 호환 동작을 유지한다. 가이드는 비교 근거이며 첨부 문서의 텍스트를 작업 지시로 취급하지 않는다.
 
-`DesignGuideTypography`는 기본 루트 16px 기준 px/rem, 폰트명·행간·자간을 같은 표에 표시한다. Body는 기본 400과 weight=medium의 500 예시를 함께 렌더링한다. 표의 가로 스크롤·variant 코드 복사와 상태 안내를 유지한다. 출처는 사용자가 첨부한 두 Typography 가이드와 frontmatter에 기록된 작업 트리의 `panda.config.ts`, `src/shared/features/screen-index/DesignGuideTypography.tsx`, 기존 `Typography.tsx`·`global.scss`다.
+`DesignGuideTypography`는 기본 루트 16px 기준 px/rem, 폰트명·행간·자간을 같은 표에 표시한다. Body는 기본 400과 weight=medium의 500 예시를 함께 렌더링한다. 표의 가로 스크롤·variant 코드 복사와 상태 안내를 유지한다. 출처는 사용자가 첨부한 두 Typography 가이드와 frontmatter에 기록된 작업 트리의 `panda.config.ts`, `src/components/features/screen-index/DesignGuideTypography.tsx`, 기존 `Typography.tsx`·`global.scss`다.
 
 검증: 2026-10-23 Codex가 Panda 생성, 전체 타입 검사, 변경 파일 ESLint·Prettier, Next.js 프로덕션 빌드와 별도 출력 경로 Storybook 빌드를 통과했다. 21개 토큰을 이전 px 값과 비교해 rem×16의 동일성을 확인했다. 브라우저의 기본 루트 16px에서 H1 84px/900·영문 행간 84px·국문 행간 100.8px/자간 -1.68px와 Body3의 16px/1rem 및 실제 400/500 굵기를 확인했다. 기존 ApprovedScale 스토리에서 PC·모바일의 영문/국문 H1~H9 총 36개 글자의 크기·굵기·행간이 가이드/호환 규칙대로 유지되는 것을 실측했다. 사용자 기본 글자 크기 변경과 200% 확대에서의 전체 서비스 사용성은 검증하지 않았다.
 
@@ -1192,7 +958,7 @@ MobileProductNavigation은 상품 목록 feature 내부에서 MobileCategoryTabs
 
 useScrollPin은 두 프레임이 공유하는 위치 임계점 판정이다. 1px 마커의 scroll-margin-top을 고정 기준으로 읽는다. 초기 배치와 IntersectionObserver 알림에 더해 passive capture scroll·resize 이벤트에서도 requestAnimationFrame으로 현재 마커 위치를 측정한다. 임베디드 프리뷰의 외부 클리핑 때문에 교차 상태가 바뀌지 않아도 최상단 복귀를 감지한다. 프레임당 측정은 한 번으로 묶고 고정 여부가 바뀔 때만 React 상태를 갱신한다. 정리 시 observer·이벤트 리스너·예약 프레임을 해제한다.
 
-최상단 복귀 후 활동 탭이 사라지는 사용자 보고를 768px Storybook에서 확인했다. scrollY=0·마커 top=220.1875px인데 탐색이 fixed·top=52px로 남아 있었다. 위 보정 후 두 차례 하향/상향 스크롤에서 fixed(top=52px)→최상단 relative(top=220.1875px) 복귀와 고정 필터 아이콘 제거를 확인했다. 변경 훅 ESLint·Prettier·타입 검사를 통과했다. 이 후속 보정의 검증에는 전체 빌드를 포함하지 않는다. 출처는 사용자 브라우저 주석과 작업 트리 src/shared/lib/useScrollPin.ts다.
+최상단 복귀 후 활동 탭이 사라지는 사용자 보고를 768px Storybook에서 확인했다. scrollY=0·마커 top=220.1875px인데 탐색이 fixed·top=52px로 남아 있었다. 위 보정 후 두 차례 하향/상향 스크롤에서 fixed(top=52px)→최상단 relative(top=220.1875px) 복귀와 고정 필터 아이콘 제거를 확인했다. 변경 훅 ESLint·Prettier·타입 검사를 통과했다. 이 후속 보정의 검증에는 전체 빌드를 포함하지 않는다. 출처는 사용자 브라우저 주석과 작업 트리 src/lib/useScrollPin.ts다.
 
 사용자 제공 글자 규격에 따라 FilterTabs.plain은 PC에서 CTA2, 모바일에서 Typography.bodyKr4를 적용한다. 미선택 모바일 글자는 Pretendard·14px·400·1.3 줄높이(18.2px)·-0.02em(-0.28px)·subtle(#4D4D4D), 선택 항목은 검정·600이다. Typography scale은 variant별 설정으로 선택하고, 텍스트 색상·굵기는 label cva recipe가 variant와 선택 상태에 따라 처리한다. Storybook의 PlainMobile 사례에서 선택 상태를 확인했다.
 
@@ -1272,7 +1038,7 @@ Explore 가이드 2개, Running Session 소개, 기술 소개 2개는 현재 저
 
 ## 중앙 너비 패턴과 사이드바 골격 공통화 (2026-10-20)
 
-`src/shared/components`의 레이아웃 조사 후 중앙 콘텐츠 너비와 사이드바 2열 골격을 공통화했다. 기능 화면의 소스와 기존 공개 레이아웃 props는 변경하지 않았다.
+`src/components/common`의 레이아웃 조사 후 중앙 콘텐츠 너비와 사이드바 2열 골격을 공통화했다. 기능 화면의 소스와 기존 공개 레이아웃 props는 변경하지 않았다.
 
 - `panda.config.ts`의 `contentFrame` 패턴은 WEB 너비 `min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))`만 기본으로 제공한다. `mobileWidth`는 `_mobile.w`로 변환한다. MainSection의 contained 본문·MainSectionHeader·HeroCopy가 기존 요소에 생성 클래스를 적용하며 새 DOM 래퍼를 추가하지 않는다. 중앙 정렬 margin과 절대 위치는 소비자가 소유한다.
 - 모바일 너비는 MainSection 본문 100%, 제목은 양쪽 16px 제외, HeroCopy는 양쪽 16px 제외 및 343px 상한으로 유지한다. MainSection의 fullBleed/extended 모드와 `100cqw` 기반 확장 너비·offset, HomeCarouselRail 카드 계산은 기존 소유자에 남긴다. 부모가 이미 gutter를 소유하는 SiteHeaderInner/FooterContent에는 패턴을 중복 적용하지 않는다.
@@ -1407,7 +1173,7 @@ variant=compact는 기존 결제의 14px native input·우편번호 readOnly·�
 - FindAccountContent의 휴대폰 번호 라벨을 시안에 맞춰 띄어쓰고 인증번호를 필수 필드로 표시한다. 기존 500px 중앙 폭과 PC 600px 최소 높이·모바일 뷰포트 높이는 유지한다. 예시 코드 성공 후 기존 결과 팝업을 표시한다.
 - PasswordResetContent의 36px PC 제목을 공통 AccountFormHeader의 28px PC/22px 모바일 계정 제목으로 맞췄다. PC에 적용되던 뷰포트 최소 높이를 제거하고 하단 124px 여백을 적용해 본문 뒤에 푸터가 이어지도록 한다. 모바일 뷰포트 최소 높이는 유지한다. 입력은 ‘새로운 비밀번호’·‘비밀번호 확인’, placeholder는 ‘비밀번호를 입력해 주세요’·‘비밀번호를 한 번 더 입력해 주세요’로 맞추고 FormField.required를 사용한다. 버튼은 공통 primary/tall 기본값으로 불필요한 강제 변수 덮어쓰기를 제거한다.
 
-작업 트리 출처: `src/shared/features/login/RememberIdHelp.tsx`, `src/shared/features/login/LoginForm.tsx`, `src/shared/features/find-account/FindAccountContent.tsx`, `src/shared/features/find-account/FindAccountPage.tsx`, `src/shared/features/find-account/PasswordResetContent.tsx`, `src/shared/features/find-account/PasswordResetField.tsx`와 관련 login/find-account·FormStateAudit 계정 스토리. 실제 인증·SMS·계정 조회는 데모 범위다.
+작업 트리 출처: `src/components/features/login/RememberIdHelp.tsx`, `src/components/features/login/LoginForm.tsx`, `src/components/features/find-account/FindAccountContent.tsx`, `src/components/features/find-account/FindAccountPage.tsx`, `src/components/features/find-account/PasswordResetContent.tsx`, `src/components/features/find-account/PasswordResetField.tsx`와 관련 login/find-account·FormStateAudit 계정 스토리. 실제 인증·SMS·계정 조회는 데모 범위다.
 
 검증: 전체 타입 검사, 변경 파일 ESLint·Prettier, Panda 생성, Next production build, Storybook build 및 `okf:check`를 통과했다. 브라우저 Storybook에서 PC/MO 도움말 닫기·포커스 복원, 잘못된 코드와 예시 코드의 결과 팝업, 결과에서 재설정 이동, PC/MO 필수 오류와 완료 후 로그인 이동을 확인했다. 전체 `npm run lint`는 기존 `.tmp-storybook-ia-routes` 등 임시 빌드 산출물을 검사해 실패했으며 해당 폴더를 삭제하거나 설정을 바꾸지 않았다. Next build의 첫 실행은 다른 빌드의 실행 잠금으로 종료되었고, 잠금 해제 후 재실행은 통과했다.
 
@@ -1445,7 +1211,7 @@ HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보�
 
 본문 main은 Stack gap="8"로 세로 배치하며 아이콘·안내문·홈 버튼 사이를 각각 32px로 유지한다. 자식 Box의 중복 mt="8"은 제거했다. 이번 간격 정리는 변경 파일 ESLint·Prettier와 기존 PC/MO 스토리의 실제 32px 간격으로 확인했다.
 
-`src/shared/features/not-found/NotFoundPage.tsx`는 중앙 정렬한 Font Awesome `faTriangleExclamation`(48px), 한국어 제목·두 줄 설명과 홈 링크로 구성한다. 공통 Icon·Typography·ButtonLink를 재사용하고 PC 버튼 너비는 180px, 모바일은 좌우 16px 여백 안에서 전체 너비·48px 높이를 사용한다. 모바일 본문 최소 높이는 화면 높이에서 헤더 높이를 빼서 푸터가 첫 화면 아래에 오도록 한다. Storybook `PAGES/NotFound`의 Default/Mobile에서 앱 레이아웃과 함께 확인한다.
+`src/components/features/not-found/NotFoundPage.tsx`는 중앙 정렬한 Font Awesome `faTriangleExclamation`(48px), 한국어 제목·두 줄 설명과 홈 링크로 구성한다. 공통 Icon·Typography·ButtonLink를 재사용하고 PC 버튼 너비는 180px, 모바일은 좌우 16px 여백 안에서 전체 너비·48px 높이를 사용한다. 모바일 본문 최소 높이는 화면 높이에서 헤더 높이를 빼서 푸터가 첫 화면 아래에 오도록 한다. Storybook `PAGES/NotFound`의 Default/Mobile에서 앱 레이아웃과 함께 확인한다.
 
 첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 노드 `577:11405`는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
 
@@ -1457,7 +1223,7 @@ Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드�
 
 ## Checkbox 오류 테두리 간격 (2026-10-19)
 
-Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/shared/components/atoms/Checkbox/Checkbox.tsx, src/stories/components/atoms/Checkbox/Checkbox.stories.tsx.
+Checkbox의 aria-invalid 오류 outline은 offset -2px로 16px 아이콘 안쪽에 겹쳐 표시한다. 기존 +2px 외곽 간격을 없애며 일반 키보드 포커스의 offset +2px는 유지한다. Checkbox.stories.tsx의 Error·ErrorChecked에서 미선택·선택 오류 상태를 확인할 수 있다. 출처: src/components/common/atoms/Checkbox/Checkbox.tsx, src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx.
 
 ## 공통 Checkbox 라벨 간격 (2026-10-27)
 
@@ -1535,7 +1301,7 @@ PhoneVerificationDetailDialog는 open/onOpenChange만 받아 알뜰폰 사업자
 
 ## 매장 찾기 디자인 반영 후 정식 경로 복귀 (2026-10-19)
 
-디자인이 반영된 매장 찾기 페이지와 데이터는 src/shared/features/store-finder에 두고, StoreResults는 src/shared/components/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
+디자인이 반영된 매장 찾기 페이지와 데이터는 src/components/features/store-finder에 두고, StoreResults는 src/components/common/organisms/StoreFinder에 둔다. 페이지와 데이터는 정식 organism 경로의 StoreResults와 타입을 참조한다. 서울·인천·경기 탭, 매장 정보와 지도 펼침 UI를 사용하며 CustomerCenterLayout의 제목 영역·SupportTabs를 재사용한다. Mockup/store-finder 폴더는 제거했다.
 
 병합 후 남은 `src/shared/Mockup/store-finder/StoreFinderPage.tsx` 중복 파일을 제거하고 고객센터 Storybook도 실제 `/support/store`와 같은 feature 페이지를 사용하도록 맞췄다. `store.data.ts` 타입 참조는 정식 `StoreResults` 경로를 사용한다.
 
@@ -1617,11 +1383,11 @@ SingleActionDialog의 확인 버튼은 기본 short이며 명시적인 tall 지�
 
 ## 미사용 ProductCompareButton 제거 (2026-10-19)
 
-`src/shared/components/molecules/ProductCompareButton/ProductCompareButton.tsx`는 자체 컴포넌트·props 타입 선언 외 import·재수출·사용처·스토리가 없어 삭제했다. 앞선 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 함께 제거한다. frontmatter의 해당 경로는 삭제 전 검토 출처다.
+`src/components/common/molecules/ProductCompareButton/ProductCompareButton.tsx`는 자체 컴포넌트·props 타입 선언 외 import·재수출·사용처·스토리가 없어 삭제했다. 앞선 short 명시 작업에 포함됐던 미사용 버튼 한 곳도 함께 제거한다. frontmatter의 해당 경로는 삭제 전 검토 출처다.
 
 ## 미사용 ProductActionBar 제거 (2026-10-19)
 
-`src/shared/components/molecules/Product/ProductActionBar.tsx`는 저장소 검색에서 자체 선언 이외 import·export·스토리·사용처가 없어 삭제했다. 실제 상품 상세 구매 액션은 `src/shared/features/product/ProductPurchaseActions.tsx`가 담당한다. 앞선 short 명시 작업에 포함되었던 해당 파일의 버튼 두 개도 삭제 대상이며, 나머지 크기 명시 변경은 유지한다.
+`src/components/common/molecules/Product/ProductActionBar.tsx`는 저장소 검색에서 자체 선언 이외 import·export·스토리·사용처가 없어 삭제했다. 실제 상품 상세 구매 액션은 `src/components/features/product/ProductPurchaseActions.tsx`가 담당한다. 앞선 short 명시 작업에 포함되었던 해당 파일의 버튼 두 개도 삭제 대상이며, 나머지 크기 명시 변경은 유지한다.
 
 ## 영향 목록 버튼의 short 명시 (2026-10-19)
 
@@ -1641,19 +1407,19 @@ Button의 link 기본 size는 md이며, 생략해도 tall/CTA1 래핑을 받지 
 
 ## Button 내부 스타일 병합 (2026-10-19)
 
-작업 트리 출처는 `src/shared/components/atoms/Button/Button.tsx`다. 외곽은 `button.raw()`와 아이콘 전용/variant 스타일을 한 `css()` 호출에서 합친다. content·label·아이콘 전용 선언은 `css.raw()` 객체로 보관하며 content의 headerSearch 정렬과 label의 link 줄 높이도 각각 한 `css()`에서 병합한다. 같은 조건·속성의 값을 먼저 결정하므로 생성 CSS의 클래스 선언 순서에 의존하지 않는다. Panda는 여전히 속성별 클래스를 여러 개 생성한다.
+작업 트리 출처는 `src/components/common/atoms/Button/Button.tsx`다. 외곽은 `button.raw()`와 아이콘 전용/variant 스타일을 한 `css()` 호출에서 합친다. content·label·아이콘 전용 선언은 `css.raw()` 객체로 보관하며 content의 headerSearch 정렬과 label의 link 줄 높이도 각각 한 `css()`에서 병합한다. 같은 조건·속성의 값을 먼저 결정하므로 생성 CSS의 클래스 선언 순서에 의존하지 않는다. Panda는 여전히 속성별 클래스를 여러 개 생성한다.
 
 headerSearch 내용에는 `justifyContent: space-between`, link label에는 `lineHeight: 1.3`, 아이콘 전용 외곽에는 기본 높이 변수 24px·수평 여백 변수 0px가 남는다. density의 모바일 조건, fullWidth와 variant의 나머지 값, DOM·props·상태 처리·외부 className 후행 연결은 유지한다. 외부 className의 충돌 해결까지 보장하는 API는 아니다.
 
 ## 밑줄 없는 텍스트 링크 변형 (2026-10-21)
 
-Button의 `link` variant는 밑줄 텍스트 링크, `plain` variant는 밑줄 없는 텍스트 링크다. 두 변형 모두 높이는 콘텐츠에 맞고 패딩은 0이라 별도 여백 없이 사용한다. SearchKeywordButton은 `plain`을 사용한다. ButtonDocs와 Storybook에 두 스타일 예제를 두고 ToggleButton도 두 variant를 전달한다. 출처는 `src/shared/components/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `ToggleButton.tsx`, `src/stories/components/atoms/Button/Button.stories.tsx`, `src/shared/components/organisms/Search/SearchKeywordButton.tsx`다.
+Button의 `link` variant는 밑줄 텍스트 링크, `plain` variant는 밑줄 없는 텍스트 링크다. 두 변형 모두 높이는 콘텐츠에 맞고 패딩은 0이라 별도 여백 없이 사용한다. SearchKeywordButton은 `plain`을 사용한다. ButtonDocs와 Storybook에 두 스타일 예제를 두고 ToggleButton도 두 variant를 전달한다. 출처는 `src/components/common/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `ToggleButton.tsx`, `src/stories/components/common/atoms/Button/Button.stories.tsx`, `src/components/common/organisms/Search/SearchKeywordButton.tsx`다.
 
 ## Button chip 변형과 추천 검색어 (2026-10-21)
 
 Button에 단일 크기 `chip` variant를 추가했다. size 옵션은 없고 높이 36px, 패딩 9px 14px, body4 14px medium을 Button 자체에서 적용한다. 추천 검색어는 선택 상태를 토글하지 않고 검색 결과로 이동하는 버튼으로 이 변형을 사용한다. ButtonDocs·Button Storybook에 chip 예시를 제공한다.
 
-출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `Button.type-test.tsx`, `ToggleButton.tsx`, `src/stories/components/atoms/Button/Button.stories.tsx`, `src/shared/components/organisms/Search/RecommendedSearches.tsx`다.
+출처는 작업 트리의 `src/components/common/atoms/Button/Button.tsx`, `ButtonDocs.tsx`, `Button.type-test.tsx`, `ToggleButton.tsx`, `src/stories/components/common/atoms/Button/Button.stories.tsx`, `src/components/common/organisms/Search/RecommendedSearches.tsx`다.
 
 실제 Button TSX와 Panda 런타임을 사용한 임시 SSR 검사 180개 조합에서 variant·size·density·아이콘 전용·fullWidth를 바꾸며 동일 조건·속성 중복 제거, 정렬·줄 높이·아이콘 전용 기본 변수와 호출자 클래스 보존을 확인했다. 타입 검사·변경 파일 ESLint·Prettier·Panda 생성·Next 프로덕션 빌드도 통과했다. 전체 lint는 기존 `.tmp-storybook-ia-routes/assets/` 등의 생성 파일 오류가 포함되어 실패했다. 이는 브라우저의 계산 스타일이나 fo-web 통합 화면 검증을 대신하지 않는다.
 
@@ -1753,11 +1519,11 @@ AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModa
 - `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
 - `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
 
-회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/shared/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma `957:30452`이다.
+회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/components/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma `957:30452`이다.
 
 `AccountUnlockCompletePage`는 Figma desktop `957:30471`·mobile `957:29862` 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 노드 `957:30479`의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
 
-새 공용 팝업 6종은 `src/stories/components/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
+새 공용 팝업 6종은 `src/stories/components/common/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
 
 검증(Codex): Panda 생성, 타입 검사, 변경 TSX ESLint, Next.js production build, Storybook build와 기존 계정 복구/App Router 테스트 5개 통과. 이 세션에는 사용 가능한 브라우저가 없어 play 함수와 화면 상호작용은 실행하지 않았다. 빌드 성공을 브라우저 검증으로 기록하지 않는다.
 
@@ -1864,52 +1630,52 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 ### 고객센터 사이드 내비게이션 갱신 (2026-10-20)
 
-`SideNavigation`의 `support` 모드는 Figma `1241:78801`을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/shared/components/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 노드 `1241:78795`, `1241:78801`이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
+`SideNavigation`의 `support` 모드는 Figma `1241:78801`을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/components/common/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 노드 `1241:78795`, `1241:78801`이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
 
-고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 연락처와 운영시간 묶음 사이 간격은 웹 52px·모바일 32px이다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/shared/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 연락처와 운영시간 묶음 사이 간격은 웹 52px·모바일 32px이다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/components/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
 고객센터 메인의 최신 PC·모바일 구성은 설명 아래 연락처 카드 두 개만 표시한다. 공지사항/FAQ 미리보기와 운영시간·전화 아이콘은 이 메인 시안에 없으므로 넣지 않으며, 각 공지·FAQ 페이지는 독립 라우트로 유지한다. 카드 배경은 `black.10`이며 얇은 외곽선을 추가하지 않는다. PC·모바일 Customer Center route story는 카드 정보와 메인에서 공지/FAQ가 빠진 상태를 검사한다.
 
 ## FAQ (2026-10-16)
 
-FAQ 카테고리 선택은 현재 공통 `FilterTabs`의 `fill` variant를 사용한다. `FaqCategoryNav`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/FilterTabs/FilterTabs.tsx`, `src/shared/components/molecules/Faq/FaqCategoryNav.tsx`와 Figma 노드 `1056:42189`다.
+FAQ 카테고리 선택은 현재 공통 `FilterTabs`의 `fill` variant를 사용한다. `FaqCategoryNav`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/components/common/atoms/FilterTabs/FilterTabs.tsx`, `src/components/common/molecules/Faq/FaqCategoryNav.tsx`와 Figma 노드 `1056:42189`다.
 
-`SearchField` 안의 `TextInput`은 포커스 시 별도 outline을 표시하지 않고 검색창의 기존 테두리만 유지한다. 출처는 작업 트리의 `src/shared/components/molecules/SearchField/SearchField.tsx`다.
+`SearchField` 안의 `TextInput`은 포커스 시 별도 outline을 표시하지 않고 검색창의 기존 테두리만 유지한다. 출처는 작업 트리의 `src/components/common/molecules/SearchField/SearchField.tsx`다.
 
-FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과 검색 동작을 호출자가 전달하며, 검색창은 데스크톱에서 돋보기를 오른쪽에, 모바일에서 왼쪽에 배치한다. `FaqControls`는 검색창 최대 폭 590px과 주변 간격만 소유한다. 출처는 작업 트리의 `src/shared/components/molecules/SearchField/SearchField.tsx`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/stories/components/molecules/SearchField/SearchField.stories.tsx`다.
+FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과 검색 동작을 호출자가 전달하며, 검색창은 데스크톱에서 돋보기를 오른쪽에, 모바일에서 왼쪽에 배치한다. `FaqControls`는 검색창 최대 폭 590px과 주변 간격만 소유한다. 출처는 작업 트리의 `src/components/common/molecules/SearchField/SearchField.tsx`, `src/components/common/molecules/Faq/FaqControls.tsx`, `src/stories/components/common/molecules/SearchField/SearchField.stories.tsx`다.
 
-`FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/shared/components/organisms/Faq/FaqList.tsx`다.
+`FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/components/common/organisms/Faq/FaqList.tsx`다.
 
-`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인에는 FAQ teaser를 표시하지 않는다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/shared/features/faq/FaqPage.tsx`, `src/shared/features/faq/faq.data.ts`, `src/shared/components/molecules/Faq/FaqControls.tsx`, `src/shared/components/organisms/Faq/FaqList.tsx`, `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
+`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인에는 FAQ teaser를 표시하지 않는다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/components/features/faq/FaqPage.tsx`, `src/components/features/faq/faq.data.ts`, `src/components/common/molecules/Faq/FaqControls.tsx`, `src/components/common/organisms/Faq/FaqList.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
 
 ## 공지사항·1:1 문의 (2026-10-16)
 
 `InquiryPage` 제목 아래 구분선은 웹에서 `black.100`, 모바일에서 `black.20`으로 표시한다. 두 화면 모두 높이는 2px이다.
 
-1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/shared/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
+1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/components/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
 
-`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`의 제목 영역과 Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`, `src/shared/components/molecules/SupportTabs/SupportTabs.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`의 제목 영역과 Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/components/features/support/ShippingReturnsPage.tsx`, `src/components/common/molecules/SupportTabs/SupportTabs.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
 
-반품 주의사항의 불릿은 표시 기호와 본문을 별도 가로 요소로 배치한다. 본문의 `<br>` 뒤에 오는 `(ex. …)`와 배송비 하위 `-` 설명은 기호 아래로 되돌아가지 않고 같은 항목의 텍스트 시작선에 맞춰진다. 출처는 작업 트리의 `src/shared/features/support/ShippingReturnsPage.tsx`와 사용자 제공 비교 이미지다.
+반품 주의사항의 불릿은 표시 기호와 본문을 별도 가로 요소로 배치한다. 본문의 `<br>` 뒤에 오는 `(ex. …)`와 배송비 하위 `-` 설명은 기호 아래로 되돌아가지 않고 같은 항목의 텍스트 시작선에 맞춰진다. 출처는 작업 트리의 `src/components/features/support/ShippingReturnsPage.tsx`와 사용자 제공 비교 이미지다.
 
-`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. 구현과 데이터는 `src/shared/features/store-finder/`에 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/shared/features/store-finder/`, `src/shared/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
+`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. 구현과 데이터는 `src/components/features/store-finder/`에 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/components/features/store-finder/`, `src/components/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
 
-`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 페이지 제목 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/shared/features/care-guide/`, `src/shared/features/terms/TermsPage.tsx`, `src/shared/features/support/SupportExperiencePage.tsx`, `src/shared/features/support/support.navigation.ts`와 해당 Figma 노드다.
+`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 페이지 제목 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/components/features/care-guide/`, `src/components/features/terms/TermsPage.tsx`, `src/components/features/support/SupportExperiencePage.tsx`, `src/components/features/support/support.navigation.ts`와 해당 Figma 노드다.
 
-공통 푸터의 세탁 및 손질 방법 링크도 신규 `/support/care` 경로로 연결한다. 출처는 작업 트리의 `src/shared/components/organisms/Layout/SiteFooter/footerData.ts`다.
+공통 푸터의 세탁 및 손질 방법 링크도 신규 `/support/care` 경로로 연결한다. 출처는 작업 트리의 `src/components/common/organisms/Layout/SiteFooter/footerData.ts`다.
 
-공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`다.
+공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`다.
 
-공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`와 Figma 노드 `1056:42533`, `991:23590`이다.
+공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`와 Figma 노드 `1056:42533`, `991:23590`이다.
 
-문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/shared/features/support/InquiryNewPage.tsx`와 `src/shared/components/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
+문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/components/features/support/InquiryNewPage.tsx`와 `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 PC 2열(열 간격 8px)·모바일 1열(행 간격 16px)로 배치한다. 문의 유형 묶음과 제목·내용 입력 묶음 사이는 PC·모바일 모두 16px이다. 초기값은 비워 필수 선택 placeholder를 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryCategoryFields.tsx`, `InquiryNewPage.tsx`와 `src/shared/components/atoms/Dropdown/Dropdown.tsx`다.
+문의 등록의 문의 유형·상세 유형 선택창은 공통 `Dropdown`을 사용한다. 두 선택창은 필수 라벨을 내부에 표시하고 PC 2열(열 간격 8px)·모바일 1열(행 간격 16px)로 배치한다. 문의 유형 묶음과 제목·내용 입력 묶음 사이는 PC·모바일 모두 16px이다. 초기값은 비워 필수 선택 placeholder를 표시한다. 출처는 작업 트리의 `src/components/features/support/InquiryCategoryFields.tsx`, `InquiryNewPage.tsx`와 `src/components/common/atoms/Dropdown/Dropdown.tsx`다.
 
-답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`와 `src/shared/components/atoms/Accordion/Accordion.tsx`다.
+답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/components/features/support/InquiryPage.tsx`와 `src/components/common/atoms/Accordion/Accordion.tsx`다.
 
-`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·페이지 제목·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/shared/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/shared/components/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
+`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·페이지 제목·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/components/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/components/common/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
 
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 
@@ -1957,23 +1723,23 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 
 ## Components·Features JSX 스타일 점검 (2026-10-15)
 
-`FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`다.
+`FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/components/features/find-account/FindAccountContent.tsx`다.
 
-아이디·비밀번호 찾기 화면은 Figma 모바일 `957:29176`과 PC `957:29231` 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
+아이디·비밀번호 찾기 화면은 Figma 모바일 `957:29176`과 PC `957:29231` 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/components/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
 
-로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/shared/components/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
+로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/components/common/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
 
-휴대폰 인증의 알뜰폰 사업자 안내는 사업자 목록만 `ModalDialog` 본문에 두고 확인 버튼을 `footer`에 전달한다. 긴 목록은 본문에서 스크롤되며 공통 푸터가 확인 버튼을 데스크톱 160px·모바일 전체 너비로 배치한다. 출처는 작업 트리의 `src/shared/features/phone-verification/PhoneVerificationContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+휴대폰 인증의 알뜰폰 사업자 안내는 사업자 목록만 `ModalDialog` 본문에 두고 확인 버튼을 `footer`에 전달한다. 긴 목록은 본문에서 스크롤되며 공통 푸터가 확인 버튼을 데스크톱 160px·모바일 전체 너비로 배치한다. 출처는 작업 트리의 `src/components/features/phone-verification/PhoneVerificationContent.tsx`, `src/components/common/molecules/ModalDialog/ModalDialogFooter.tsx`다.
 
-공통 `ModalDialogFooter`는 직계 버튼 높이를 40px로 지정한다. 데스크톱 버튼 너비 160px과 모바일 전체 너비는 유지한다. 출처는 작업 트리의 `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+공통 `ModalDialogFooter`는 직계 버튼 높이를 40px로 지정한다. 데스크톱 버튼 너비 160px과 모바일 전체 너비는 유지한다. 출처는 작업 트리의 `src/components/common/molecules/ModalDialog/ModalDialogFooter.tsx`다.
 
-계정 잠금 안내 모달의 확인 동작은 공통 `ModalDialog`의 `footer` 슬롯으로 구성한다. 본문은 안내 문구만 담당하고 푸터가 버튼의 크기·정렬을 맡는다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`다.
+계정 잠금 안내 모달의 확인 동작은 공통 `ModalDialog`의 `footer` 슬롯으로 구성한다. 본문은 안내 문구만 담당하고 푸터가 버튼의 크기·정렬을 맡는다. 출처는 작업 트리의 `src/components/features/account-locked/AccountLockedContent.tsx`다.
 
-`IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
+`IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/components/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
 
-아이디 확인 모달은 모바일 Figma `957:29520`에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/shared/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
+아이디 확인 모달은 모바일 Figma `957:29520`에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/components/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
 
-지정 범위는 `src/shared/components/`와 `src/shared/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
+지정 범위는 `src/components/common/`와 `src/components/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
 
 | 분류 | 관찰과 반영                                                                                                                                            | 보존·유지 기준                                                                                                                                             |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2007,15 +1773,15 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 | 위치                               | 책임                                           |
 | ---------------------------------- | ---------------------------------------------- |
 | `src/app/`                         | URL별 페이지와 루트 레이아웃                   |
-| `src/shared/lib/`                  | 기기 판별, 이름 검증, 인증 타이머 등 공용 로직 |
-| `src/shared/features/`             | 기능별 화면, UI 조합과 정책·정적 콘텐츠        |
-| `src/shared/components/atoms/`     | 기본 UI 요소                                   |
-| `src/shared/components/molecules/` | 기본 요소를 조합한 UI                          |
-| `src/shared/components/organisms/` | 화면 영역 단위 UI                              |
-| `src/shared/components/layouts/`   | 공통 페이지 구조                               |
+| `src/lib/`                         | 기기 판별, 이름 검증, 인증 타이머 등 공용 로직 |
+| `src/components/features/`         | 기능별 화면, UI 조합과 정책·정적 콘텐츠        |
+| `src/components/common/atoms/`     | 기본 UI 요소                                   |
+| `src/components/common/molecules/` | 기본 요소를 조합한 UI                          |
+| `src/components/common/organisms/` | 화면 영역 단위 UI                              |
+| `src/components/common/layouts/`   | 공통 페이지 구조                               |
 | `src/stories/`                     | Storybook이 탐색하는 스토리                    |
 
-주문/결제 화면(`src/shared/features/checkout/`)은 `Checkbox`·`Button`·`Typography`·`StepIndicator` 등을 조합한 목 화면이며 실제 결제와 연동하지 않는다. 모바일 장바구니·주문/결제는 Figma `962:8877`, `1108:12627`의 375px 시안을 기준으로 16px 좌우 여백, 상품 카드, 배송지 정보, 3열 결제 수단, 하단 주문·결제 버튼을 구성한다. 상품 이미지는 Figma 미리보기 목 자산을 `public/images/cart/`에 저장하고, 카카오페이 로고는 `public/images/checkout/`에 저장했다. 다른 상품 항목은 카탈로그 이미지로 표시한다.
+주문/결제 화면(`src/components/features/checkout/`)은 `Checkbox`·`Button`·`Typography`·`StepIndicator` 등을 조합한 목 화면이며 실제 결제와 연동하지 않는다. 모바일 장바구니·주문/결제는 Figma `962:8877`, `1108:12627`의 375px 시안을 기준으로 16px 좌우 여백, 상품 카드, 배송지 정보, 3열 결제 수단, 하단 주문·결제 버튼을 구성한다. 상품 이미지는 Figma 미리보기 목 자산을 `public/images/cart/`에 저장하고, 카카오페이 로고는 `public/images/checkout/`에 저장했다. 다른 상품 항목은 카탈로그 이미지로 표시한다.
 
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
 
@@ -2027,7 +1793,7 @@ Carousel 분리 검증(Codex, 2026-10-16): 타입 검사·해당 폴더 ESLint·
 
 ## 재사용 점검 (2026-10-14)
 
-점검 범위는 `src/shared/features/`와 `src/shared/components/`다. 관련 스토리와 프레임워크·패키지 안내는 검증 근거로 확인했다. 아래는 패턴 검색과 대표 구현 검토 결과이며 모든 화면의 수동 검증 완료를 의미하지 않는다.
+점검 범위는 `src/components/features/`와 `src/components/common/`다. 관련 스토리와 프레임워크·패키지 안내는 검증 근거로 확인했다. 아래는 패턴 검색과 대표 구현 검토 결과이며 모든 화면의 수동 검증 완료를 의미하지 않는다.
 
 ### 반영한 개선
 
@@ -2082,7 +1848,7 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 ## 로그인 기능 점검 (2026-10-14)
 
-대상은 `src/shared/features/login/`이다. `LoginPage`는 상태·검증·라우팅을 이미 소유하므로 유지하고, `LoginContent`의 표시 책임을 같은 기능 폴더에서 분리했다. 공용 atom/molecule 승격이나 추가 context 없이 기존 DOM 순서와 중첩을 유지한다.
+대상은 `src/components/features/login/`이다. `LoginPage`는 상태·검증·라우팅을 이미 소유하므로 유지하고, `LoginContent`의 표시 책임을 같은 기능 폴더에서 분리했다. 공용 atom/molecule 승격이나 추가 context 없이 기존 DOM 순서와 중첩을 유지한다.
 
 | 책임                  | 컴포넌트·API                              | 보존 계약                                                                                                                                                 |
 | --------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2093,7 +1859,7 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 `Typography loginTitle`은 로그인 환영 제목의 의미를 표현한다. 기존 `headingKr6`의 PC 36px와 로컬 모바일 강제 22px를 합친 토큰이며 두 플랫폼에서 Pretendard, 굵기 900, 행간 1.2, 자간 -0.02em을 유지한다. `--type-login-title-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}`를 사용한다. 호출자는 `as="h1"`을 유지하고 로컬에서는 여백만 지정한다. 가입 안내 h2의 로컬 `fontWeight: medium`도 기존 `body3`에 `weight="medium"`을 전달하도록 옮겼다.
 
-2026-10-19 Figma 로그인 화면 `957:28877`(모바일)·`957:28953`(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/shared/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
+2026-10-19 Figma 로그인 화면 `957:28877`(모바일)·`957:28953`(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/components/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
 
 Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField의 Field, Checkbox, Button은 기존 공용 래퍼를 유지한다. Form·Input·Separator·Toast는 설치 버전에서 지원하지만 네이티브 form/input, 장식용 구분선, 인라인 상태 안내의 기존 계약만으로 교체할 근거가 없어 유지한다. Dialog·OTP Field·Combobox 등 별도 상호작용을 추가할 관찰 근거는 없으며 의존성 업그레이드는 필요하지 않다.
 
@@ -2153,7 +1919,7 @@ Typography는 기존 공통 variant와 호환되는 호출을 유지했다. 이�
 | 계정 복구의 비렌더링 규칙                           | `passwordValidation.ts`의 `validatePasswordReset`, `phoneNumber.ts`의 형식·유효성 함수                                                                                      | 영문/숫자/특수문자 포함 12자 이상·공백 금지, required sentinel, 비밀번호 일치, 전화번호 11자리 절단과 기존 하이픈 형식·허용 접두어 유지                                        |
 | AccountLockedPage의 라우팅과 모달 표현 혼합         | `AccountLockedContent({ onClose, onConfirm })`                                                                                                                              | 공통 ModalDialog의 md 568px·버튼 너비 160px·모바일 설명 줄바꿈 유지. Page가 닫기 `/login`, 확인 `/login/account-locked/verification` 이동 소유                                 |
 
-`AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`다.
+`AccountLockedContent`의 확인 버튼 너비 160px·중앙 정렬과 40px 높이는 공통 `ModalDialogFooter`가 담당한다. 모달은 공통 `ModalDialog`의 `size="md"`(최대 568px)와 기본 배경을 사용한다. 사용하지 않는 별도 오버레이 선언은 제거하고, 모바일에서만 설명 줄을 바꾸는 span 스타일은 로컬 `css`로 유지한다. 출처는 작업 트리의 `src/components/features/account-locked/AccountLockedContent.tsx`, `src/components/common/molecules/ModalDialog/ModalDialogFooter.tsx`다.
 
 | 관찰한 책임                                         | 반영한 소유자·API                                                                                                                                                           | 유지한 의미·반응형·상태 계약                                                                                                                                                                             |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2187,21 +1953,21 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.
 - 마이페이지 주문 카드 상품 사진은 공용 `ProductThumbnail`로 렌더하고 96px 정사각형 슬롯은 페이지 레이아웃에서 지정한다. Typography는 기본 `language="auto"`가 한글을 감지해 한국어 토큰을 선택하므로 호출부에서 `Kr` 접미사를 반복하지 않는다. 프로필 이동은 공용 `ButtonLink`, 구분선은 Panda `Divider`를 사용한다.
 - 마이페이지의 리뷰·등급·쿠폰·회원정보·배송지·관심상품·최근 본 상품·재입고 알림 화면은 `MyPageStatusPage`에서 기능별 화면으로 분기한다. 공통 `MyPageFrame`이 탐색 메뉴와 Breadcrumb을 소유하고 각 화면은 기존 Button, FormField, TextInput, SegmentedControl, ModalDialog, ProductCard, ProductThumbnail을 재사용한다. 현재 목록과 입력 결과는 화면 내부의 데모 상태이며 서버 저장소와 연결하지 않는다. 대응 모바일 시나리오는 `src/stories/features/mypage/MyPageDesign.stories.tsx`에 둔다.
-- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev), 제공된 편집 상태 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
-- 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/shared/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
-- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-25505&m=dev), 제공된 보기/수정 캡처 및 `src/shared/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
-- `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/shared/features/mypage/MyPageReviews.tsx`와 `src/shared/components/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev), 제공된 편집 상태 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
+- 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/components/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
+- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-25505&m=dev), 제공된 보기/수정 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
+- `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/components/features/mypage/MyPageReviews.tsx`와 `src/components/common/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
 - 이 여덟 화면의 타이포는 Figma의 12·14·16·20·22px 역할을 기존 Typography variant로 표현한다. 날짜·숫자는 영문 서체, 뒤따르는 한국어 단위·라벨은 한국어 서체를 각 Typography에 명시해 한 줄에서도 언어별 굵기와 자간을 유지한다. 여백과 정렬은 Box·Stack·HStack이 담당한다.
-- `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
-- `MyPageRewards`의 등급 카드에서 `--tier-color`는 카드 배경과 검은 원 안 이니셜 글자색에 함께 적용한다. ELITE·ADVANCED·RUNNER는 각각 Figma color foundation의 `blue.100`·`citrus.100`·`offWhite.100` 토큰을 변수에 연결한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `panda.config.ts` 및 생성 CSS 확인(2026-10-15).
-- 등급 혜택과 회원 공통 혜택의 순번은 `ol`의 CSS 마커 대신 `map`의 인덱스를 `Typography`로 출력한다. 주항목과 순번은 모바일 `body4`(14px), 보조 설명은 `body5`(12px)를 쓰며 설명 불릿도 텍스트로 표시한다. 목록의 의미 구조는 `ol`·`li`로 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
-- 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/shared/features/mypage/MyPageRewards.tsx`, `src/shared/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
-- 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/shared/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
-- 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/shared/components/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
-- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19062&m=dev), `src/shared/components/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
+- `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/components/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
+- `MyPageRewards`의 등급 카드에서 `--tier-color`는 카드 배경과 검은 원 안 이니셜 글자색에 함께 적용한다. ELITE·ADVANCED·RUNNER는 각각 Figma color foundation의 `blue.100`·`citrus.100`·`offWhite.100` 토큰을 변수에 연결한다. 근거: `src/components/features/mypage/MyPageRewards.tsx`, `panda.config.ts` 및 생성 CSS 확인(2026-10-15).
+- 등급 혜택과 회원 공통 혜택의 순번은 `ol`의 CSS 마커 대신 `map`의 인덱스를 `Typography`로 출력한다. 주항목과 순번은 모바일 `body4`(14px), 보조 설명은 `body5`(12px)를 쓰며 설명 불릿도 텍스트로 표시한다. 목록의 의미 구조는 `ol`·`li`로 유지한다. 근거: `src/components/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/components/features/mypage/MyPageRewards.tsx`, `src/components/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
+- 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/components/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/components/common/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
+- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19062&m=dev), `src/components/common/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
 - `SegmentedControl variant="underline"`는 리뷰·쿠폰의 동일한 전체 폭 밑줄 탭 표현을 소유한다. 옵션 수에 관계없이 버튼을 균등하게 배치하고 선택 항목에 검은 하단선을 표시한다. 기존 기본 버튼형과 `unstyled` 확장 API는 유지한다.
 
-`styled-system/`과 `src/shared/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
+`styled-system/`과 `src/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
 
 ## 마이페이지 지정 범위 재사용 점검 (2026-10-15)
 
@@ -2320,7 +2086,7 @@ component-reusability 점검: 설치된 Base UI 1.8.0의 전체 package exports�
 
 ## RunClub 재사용·조합 재점검 (2026-10-15)
 
-사용자가 지정한 `src/shared/features/run-club/`를 component-reusability 기준으로 점검했다. 앞선 staged 변경은 보존한다.
+사용자가 지정한 `src/components/features/run-club/`를 component-reusability 기준으로 점검했다. 앞선 staged 변경은 보존한다.
 
 | 대상                                                | 조치 | 책임·유지 계약                                                                                                                                                                                                                                                                                                                                              |
 | --------------------------------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2358,21 +2124,21 @@ PhoneVerificationDetailDialog는 상세 안내 프레임과 알뜰폰 사업자 
 
 ## Typography 스크린 리더 전용 옵션 (2026-10-19)
 
-추가 적용: `src/shared/components/organisms/Search/SearchCategorySelect.tsx`의 검색 범위 레이블도 `<Typography as="span" srOnly>`로 통일하고 중복 숨김 CSS를 제거했다. 기존 label/select 연결과 선택 이벤트는 유지한다. 타입 검사·해당 파일 ESLint·Prettier 통과. 브라우저·실제 스크린 리더 검증은 미실행이다.
+추가 적용: `src/components/common/organisms/Search/SearchCategorySelect.tsx`의 검색 범위 레이블도 `<Typography as="span" srOnly>`로 통일하고 중복 숨김 CSS를 제거했다. 기존 label/select 연결과 선택 이벤트는 유지한다. 타입 검사·해당 파일 ESLint·Prettier 통과. 브라우저·실제 스크린 리더 검증은 미실행이다.
 
 `Typography`는 선택적 boolean `srOnly`를 제공한다(기본값 false). `<Typography as="h1" srOnly>`는 Panda의 `css({ srOnly: true })`로 시각적으로 숨기면서 제목 의미와 스크린 리더 접근을 유지한다. 숨김 클래스는 typography recipe와 독립적이므로 unstyled·명시적 variant 모두에 적용된다. prop은 내부에서 소비하고 DOM에는 전달하지 않는다. 기존 className·네이티브 속성과 web/mo 선택 계약을 유지한다.
 
-작업 트리 출처는 `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/product/ProductDetailImageViewer.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`다. 상품 이미지 뷰어 제목에 적용하고 ScreenReaderOnly 스토리에서 Controls로 숨김을 전환할 수 있다. Panda 생성·전체 타입 검사·변경 TSX ESLint 통과. 브라우저·실제 스크린 리더 검증은 수행하지 않았다.
+작업 트리 출처는 `src/components/common/atoms/Typography/Typography.tsx`, `src/components/features/product/ProductDetailImageViewer.tsx`, `src/stories/components/common/atoms/Typography/Typography.stories.tsx`다. 상품 이미지 뷰어 제목에 적용하고 ScreenReaderOnly 스토리에서 Controls로 숨김을 전환할 수 있다. Panda 생성·전체 타입 검사·변경 TSX ESLint 통과. 브라우저·실제 스크린 리더 검증은 수행하지 않았다.
 
 ## Typography unstyled의 명시적 tone (2026-10-19)
 
 `variant="unstyled"`(기본값)에서도 명시한 `tone`은 색상만 적용한다. tone을 생략하면 상위/네이티브 색상을 보존한다. 글꼴·크기·굵기·행간은 그대로 유지하고 weight는 계속 생략한다. web/mo에서 unstyled가 선택될 때도 동일하다. 색상 매핑을 typographyTones로 공유하며 기존 명시적 variant의 색상 계약을 유지한다. NotFoundPage의 tertiary 색상 선언을 `tone="tertiary"`로 이전하고 m=0을 유지했다.
 
-작업 트리 출처: `src/shared/components/atoms/Typography/Typography.tsx`, `src/shared/features/not-found/NotFoundPage.tsx`, `src/stories/components/atoms/Typography/Typography.stories.tsx`. UnstyledTone 스토리는 상위 글꼴·크기·굵기를 상속하면서 tone 지정/생략 시 색상을 비교한다. 브라우저 시각 검증은 수행하지 않았다.
+작업 트리 출처: `src/components/common/atoms/Typography/Typography.tsx`, `src/components/features/not-found/NotFoundPage.tsx`, `src/stories/components/common/atoms/Typography/Typography.stories.tsx`. UnstyledTone 스토리는 상위 글꼴·크기·굵기를 상속하면서 tone 지정/생략 시 색상을 비교한다. 브라우저 시각 검증은 수행하지 않았다.
 
 ## Features 재사용성과 JSX 표현 점검 (2026-10-19)
 
-component-reusability 스킬로 `src/shared/features/`의 168개 TSX를 조사하고 사용자 요청에 따라 동작을 보존하는 표현 개선을 적용했다. 동일한 web/mo 59곳을 단일 variant로 통합하고, 텍스트 span/p/h1~h6 94곳을 의미 태그·속성·기존 className을 유지한 Typography로 이전했다. 기존 타입 선언을 유지하기 위해 이 이전은 unstyled를 사용하며 임의의 유사 variant를 대입하지 않는다.
+component-reusability 스킬로 `src/components/features/`의 168개 TSX를 조사하고 사용자 요청에 따라 동작을 보존하는 표현 개선을 적용했다. 동일한 web/mo 59곳을 단일 variant로 통합하고, 텍스트 span/p/h1~h6 94곳을 의미 태그·속성·기존 className을 유지한 Typography로 이전했다. 기존 타입 선언을 유지하기 위해 이 이전은 unstyled를 사용하며 임의의 유사 variant를 대입하지 않는다.
 
 단일 사용 css 67곳(네이티브 구조 요소 56곳·기존 Panda 요소 11곳)을 Box/Flex/Grid/Stack/HStack props로 옮기고 기존 선택자는 css prop으로 유지했다. 무스타일 구조 HTML과 상위/공유 스타일을 사용하는 요소, li/dt/dd·폼 컨트롤·표·SVG·장식 span은 유지했다. Grid/Stack의 추가 gap은 원래 값에 맞췄고 기존 Grid가 제공하던 8px gap도 보존했다. 기본 display 중복 5곳을 제거했다. styled.button·styled.label은 네이티브 button/label과 Panda css로 바꿔 타입·htmlFor·이벤트·스타일 계약을 유지했다. 기존 Panda 태그를 무스타일 HTML로 되돌리는 정리는 수행하지 않았다.
 
@@ -2384,7 +2150,7 @@ Base UI 1.8.0의 package exports 전체를 공식 [컴포넌트 카탈로그](ht
 
 ## Components 재사용성과 JSX 표현 점검 (2026-10-19)
 
-component-reusability 스킬로 `src/shared/components/`의 213개 TSX를 점검하고 동작을 보존하는 표현 개선을 적용했다. 텍스트 50곳의 span/p/h1~h6는 Typography unstyled와 원래 as로 이전했고 기존 스타일·이벤트·접근성 속성을 유지했다. 동일 web/mo 2곳을 variant로 통합했다. Typography 자체 API와 기존 타입 스케일은 변경하지 않았다.
+component-reusability 스킬로 `src/components/common/`의 213개 TSX를 점검하고 동작을 보존하는 표현 개선을 적용했다. 텍스트 50곳의 span/p/h1~h6는 Typography unstyled와 원래 as로 이전했고 기존 스타일·이벤트·접근성 속성을 유지했다. 동일 web/mo 2곳을 variant로 통합했다. Typography 자체 API와 기존 타입 스케일은 변경하지 않았다.
 
 단일 사용 css 86곳(네이티브 구조 요소 64곳·기존 Panda 요소 22곳)을 Box/Flex/Grid/Stack/HStack/VStack props로 이전했다. 선택자와 복합 상태는 css prop, 공유 클래스와 변형은 기존 recipe에 유지했다. SectionHeader의 고정 flex 배치와 FormField boxed의 column·7px gap은 JSX로 옮기고 divider·spacing·invalid·disabled 변형은 recipe에 남겼다. Fieldset legend는 Box as=legend로 padding·bold를 표현하되 기존 조건부 숨김 CSS는 유지한다.
 
@@ -2398,7 +2164,7 @@ component-reusability 스킬로 `src/shared/components/`의 213개 TSX를 점검
 
 ## 단일 자식 선택자의 스타일 소유권 (2026-10-19)
 
-RecommendedSearches의 유일한 ol에 적용하던 부모 `& ol`의 counterReset=item을 `<Box as="ol" counterReset="item">`로 이전했다. ol/li 의미·순서와 검색 클릭 콜백은 유지한다. mapped li의 justifyContent·gap과 li::before의 counterIncrement·content도 각 네이티브 li의 Panda css/_before로 이전했다. button 규칙은 기존 부모 선택자로 유지한다. 작업 트리 출처는 `src/shared/components/organisms/Search/RecommendedSearches.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
+RecommendedSearches의 유일한 ol에 적용하던 부모 `& ol`의 counterReset=item을 `<Box as="ol" counterReset="item">`로 이전했다. ol/li 의미·순서와 검색 클릭 콜백은 유지한다. mapped li의 justifyContent·gap과 li::before의 counterIncrement·content도 각 네이티브 li의 Panda css/_before로 이전했다. button 규칙은 기존 부모 선택자로 유지한다. 작업 트리 출처는 `src/components/common/organisms/Search/RecommendedSearches.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
 
 스킬은 단순 자식 선택자의 소유자가 하나의 로컬 JSX이고 해당 요소가 독립적으로 소유할 스타일이면 직접 적용하도록 정리했다. map으로 여러 DOM을 생성해도 동일한 JSX 소유자면 이전할 수 있고, 자체 before/after 스타일도 함께 옮길 수 있다. 조건부/반응형 분기·외부 children·경쟁 스타일을 확인하며 태그·counter 범위/순서·유효한 cascade를 보존해야 한다. 다른 소유자/외부 children을 포괄하는 공유 규칙, 부모 상태·형제/위치 관계와 실제 CSS 상속은 일괄 이전 대상이 아니다. 반복이나 가상 요소라는 이유만으로 부모에 남기지 않는다. 타입 검사·해당 TSX ESLint·Prettier·Panda 생성 통과. 브라우저 시각 검증은 수행하지 않았다.
 
@@ -2421,7 +2187,7 @@ ReviewGalleryModal의 aside 아래 `& header div/small/button`, `& section div/b
 
 component-reusability의 단일 소유자 기준은 한 단계 선택자에 제한하지 않는다. `& header div`와 `& > header > div`처럼 여러 단계라도 전체 JSX 경로의 대상이 하나의 로컬 작성 노드로 확정되면 직접 적용한다. 공백 선택자는 직계 자식만 의미하지 않으므로 모든 매칭 분기와 커스텀 컴포넌트 출력까지 확인한다. 이번 추가 점검은 해당 모달 범위이며 앞선 381개 파일의 다단계 선택자까지 전수 검증했다는 뜻은 아니다.
 
-검증: 전체 타입 검사, 해당 TSX ESLint, TSX·스킬 Prettier, Panda 생성을 통과했다. 변경 전후 TypeScript AST의 JSX 24개에서 의미 태그·네이티브 속성 차이가 없었고, 생성 CSS의 Button 자체 이중 클래스 우선순위를 확인했다. 브라우저 computed CSS·시각 비교는 수행하지 않았다. 작업 트리 출처는 `src/shared/components/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
+검증: 전체 타입 검사, 해당 TSX ESLint, TSX·스킬 Prettier, Panda 생성을 통과했다. 변경 전후 TypeScript AST의 JSX 24개에서 의미 태그·네이티브 속성 차이가 없었고, 생성 CSS의 Button 자체 이중 클래스 우선순위를 확인했다. 브라우저 computed CSS·시각 비교는 수행하지 않았다. 작업 트리 출처는 `src/components/common/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx`와 `.codex/skills/component-reusability/SKILL.md`다.
 
 ## 다단계 선택자 Features·Components 재점검 (2026-10-19)
 
@@ -2535,27 +2301,27 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## 공통 Breadcrumb (2026-10-20)
 
-`Breadcrumb`는 Figma `1241:78730`의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/shared/components/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma `1241:78730`이다.
+`Breadcrumb`는 Figma `1241:78730`의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/components/common/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/common/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma `1241:78730`이다.
 
 검증: 변경 TSX ESLint·Prettier, Panda 생성, Storybook 빌드 통과. 전체 TypeScript 검사는 기존 `.next/types/app/`의 다른 페이지 props 오류로 실패했으며 Breadcrumb 관련 오류는 보고되지 않았다.
 
 ## Icon 색상 토큰
 
-`Icon.color`는 `currentColor`, CSS 색상값과 Panda 색상 토큰 경로를 받는다. `FontAwesomeIcon`과 mask 방식 SVG는 토큰 경로를 생성된 CSS 변수로 바꿔 적용한다. 색을 보존해야 하는 등록 이미지 아이콘과 일반 `src` 이미지는 원본 색을 유지한다. 호출부는 기본 색상 별칭 대신 `black.100`·`white.0` 같은 디자인 토큰을 직접 전달한다. 출처는 `src/shared/components/atoms/Icon/Icon.tsx`, `src/shared/icons/iconAssets.ts`, `panda.config.ts`다.
+`Icon.color`는 `currentColor`, CSS 색상값과 Panda 색상 토큰 경로를 받는다. `FontAwesomeIcon`과 mask 방식 SVG는 토큰 경로를 생성된 CSS 변수로 바꿔 적용한다. 색을 보존해야 하는 등록 이미지 아이콘과 일반 `src` 이미지는 원본 색을 유지한다. 호출부는 기본 색상 별칭 대신 `black.100`·`white.0` 같은 디자인 토큰을 직접 전달한다. 출처는 `src/components/common/atoms/Icon/Icon.tsx`, `src/icons/iconAssets.ts`, `panda.config.ts`다.
 
 ## Font Awesome 아이콘 스토리 카탈로그
 
-Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/shared/icons/fontAwesome.ts`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/icons/fontAwesome.ts`, `src/stories/components/common/atoms/Icon/Icon.stories.tsx`다.
 
 ## 최근 검색 Timer 아이콘 (2026-10-20)
 
-최근 검색 기록은 Figma `901:31346`의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/shared/icons/iconAssets.ts`, `src/shared/components/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/atoms/Icon/Icon.stories.tsx`다.
+최근 검색 기록은 Figma `901:31346`의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/icons/iconAssets.ts`, `src/components/common/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/common/atoms/Icon/Icon.stories.tsx`다.
 
 `RecentSearchItem`은 `Flex as="li"`의 JSX props로 기존 수평 정렬과 8px 간격을 표현한다. IconButton은 Panda JSX 스타일 props를 받지 않으므로 모바일에서 삭제 버튼을 오른쪽으로 미는 `ml: auto`는 기존 Panda `css` class로 유지한다. 검색·삭제 콜백과 목록 항목의 HTML 의미는 그대로 둔다.
 
 ## Typography formLabel 스케일 (2026-10-20)
 
-`Typography`의 `formLabel` variant는 폼 라벨에 쓰는 body4 타이포그래피를 사용한다. 라디오·체크박스 전용 표현이 아니라 라벨 문구에 공통으로 적용하는 시각 스타일이며, 그룹 제목의 의미 구조는 소비처에서 별도로 제공한다. 출처는 `src/shared/components/atoms/Typography/Typography.tsx`다.
+`Typography`의 `formLabel` variant는 폼 라벨에 쓰는 body4 타이포그래피를 사용한다. 라디오·체크박스 전용 표현이 아니라 라벨 문구에 공통으로 적용하는 시각 스타일이며, 그룹 제목의 의미 구조는 소비처에서 별도로 제공한다. 출처는 `src/components/common/atoms/Typography/Typography.tsx`다.
 
 ## 최근 검색어 전체 삭제의 링크형 버튼 (2026-10-19)
 
@@ -2567,13 +2333,13 @@ RecentSearches의 전체 삭제는 경로 이동이 아닌 onClear 동작이므�
 
 최근 검색 기록이 없으면 안내 문구와 최근 검색어 섹션을 모두 렌더링하지 않는다. SearchSuggestions는 최근 검색 목록이 있을 때만 섹션을 배치하며, RecentSearches도 빈 목록에 대해 null을 반환한다. PC SearchDialog는 최근 검색어가 있을 때 1024px, 없을 때 544px 너비를 사용하고 기존 우측 정렬을 유지한다. 내부 Flex는 최근 검색어가 있을 때 두 영역을 같은 너비로 나누며, 없을 때 추천/인기 검색 영역이 480px 전체를 채운다. 모바일에서는 전체 화면과 기존 세로 배치·간격·패딩을 유지한다. SearchOverlay Storybook의 EmptyRecentSearches로 빈 상태 패널을 확인한다.
 
-출처는 작업 트리의 `src/shared/components/organisms/Search/RecentSearches.tsx`, `SearchSuggestions.tsx` 및 `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`다.
+출처는 작업 트리의 `src/components/common/organisms/Search/RecentSearches.tsx`, `SearchSuggestions.tsx` 및 `src/stories/components/common/organisms/Search/SearchSuggestions.stories.tsx`다.
 
 ## 검색 오류 문구 색상 지정 (2026-10-21)
 
 SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오류 색상 토큰을 직접 사용한다. 오류가 표시될 때 검색 입력의 빨간 테두리와 안내 문구 색상이 PC·모바일 모두 오류 상태를 나타낸다. SearchOverlay Storybook의 `Invalid`와 `MobileInvalid`가 각각 PC·모바일 예시를 제공한다.
 
-출처는 작업 트리의 `src/shared/components/organisms/Search/SearchForm.tsx`와 `src/stories/components/organisms/Search/SearchOverlay.stories.tsx`다.
+출처는 작업 트리의 `src/components/common/organisms/Search/SearchForm.tsx`와 `src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx`다.
 
 ## 검색 결과 없음 문구의 PC/MO 시안 반영 (2026-10-21)
 
@@ -2595,19 +2361,19 @@ SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오
 
 SearchListingLayout의 결과 없음 상태를 Figma `906:8115`(PC)와 `773:42681`(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
 
-출처는 Figma `906:8115`, `773:42681`과 작업 트리의 `src/shared/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
+출처는 Figma `906:8115`, `773:42681`과 작업 트리의 `src/components/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
 
 ## 인기 검색어 섹션 분리 (2026-10-21)
 
 SearchSuggestions에서 인기 검색어의 제목·순위 목록·키워드 링크를 `PopularSearches`로 분리했다. 데이터와 검색 이동 처리는 상위가 소유하고, 새 컴포넌트는 `queries`와 `onNavigateSearch`를 받아 섹션 UI만 렌더링한다. 목록 항목은 Panda `HStack as="li"`로 배치하고, 2열 목록의 행/열 간격 12px·24px와 번호 폭 20px, PC/MO 제목 스케일 및 링크 동작을 유지한다. 기존 SearchSuggestions Storybook이 Default/Empty와 모바일 통합 구성을 계속 보여준다.
 
-출처는 작업 트리의 `src/shared/components/organisms/Search/PopularSearches.tsx`, `SearchSuggestions.tsx`, `searchOverlayData.ts` 및 `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`다.
+출처는 작업 트리의 `src/components/common/organisms/Search/PopularSearches.tsx`, `SearchSuggestions.tsx`, `searchOverlayData.ts` 및 `src/stories/components/common/organisms/Search/SearchSuggestions.stories.tsx`다.
 
 ## 최근 검색어 키워드의 공통 버튼 재사용 (2026-10-20)
 
 SearchKeywordButton은 공통 ButtonLink의 `plain` variant로 `/search?q=…&scope=전체` 주소를 제공하고 Typography body4 문구로 표시한다. 여백 없는 plain 기본 레이아웃을 사용한다. Next Link의 onNavigate에서 검색어 저장과 오버레이 닫기를 처리해 실제 경로 이동은 링크에 맡긴다. 검색 폼·자동완성·추천 검색어 버튼은 기존 검색 콜백으로 이동한다. mouse down 기본 동작 방지로 오버레이 입력 포커스도 유지한다. ButtonLink는 Next Link의 onNavigate를 전달한다.
 
-작업 트리 출처: `src/shared/components/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
+작업 트리 출처: `src/components/common/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/common/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
 
 ## 장바구니·주문 결제 첨부 시안 보완 (2026-10-19)
 
@@ -2615,7 +2381,7 @@ SearchKeywordButton은 공통 ButtonLink의 `plain` variant로 `/search?q=…&sc
 
 CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, 배송 요청 선택/직접 입력과 결제 수단의 포커스 표시를 구성한다. CouponDialog는 상품 쿠폰 접기/펼치기, 비활성 쿠폰, 장바구니 쿠폰과 금액 요약 및 적용 footer를 제공한다. 결제 완료는 체크 아이콘·감사 문구·주문 내용 확인 링크와 OrderRecommendations를 표시한다. 추천 상품 영역은 장바구니와 완료 화면이 공통 사용한다. 상품 정보는 기존 카탈로그 데이터를 사용하며, 실제 주소 검색·쿠폰 발급·결제 서버를 연결하지 않는다.
 
-출처는 작업 트리의 src/shared/features/cart/, src/shared/features/checkout/, OrderRecommendations.tsx 및 장바구니·결제 스토리다. Panda 생성·TypeScript·변경 파일 ESLint·주문 합계 테스트 3개와 Next production build를 확인했다. 브라우저에서 옵션 저장·선택 주문 이동·상품/장바구니 쿠폰 선택 및 금액 반영을 확인했고, 375px 모바일 카드와 전체 화면 옵션 팝업을 시각 확인했다.
+출처는 작업 트리의 src/components/features/cart/, src/components/features/checkout/, OrderRecommendations.tsx 및 장바구니·결제 스토리다. Panda 생성·TypeScript·변경 파일 ESLint·주문 합계 테스트 3개와 Next production build를 확인했다. 브라우저에서 옵션 저장·선택 주문 이동·상품/장바구니 쿠폰 선택 및 금액 반영을 확인했고, 375px 모바일 카드와 전체 화면 옵션 팝업을 시각 확인했다.
 
 추가 브라우저 확인: 375px 배송지 직접 입력 전환·요청사항 직접 입력 11/250 표시와 동의 후 완료 안내·주문 내역 링크·추천 상품 렌더링을 확인했다.
 
@@ -2673,11 +2439,11 @@ IA 미리보기의 story ID도 같은 분류로 연결한다. `/signup`은 가�
 
 ## 계정 잠금 안내 모달의 직접 조합 (2026-10-20)
 
-`AccountLockedContent`는 공통 `ModalDialog`를 직접 사용하고 확인 버튼을 `footer` 슬롯에 둔다. 모달은 `size="md"`를 사용하며 확인 버튼은 공통 푸터 규격(PC 160px 너비·40px 높이, 모바일 전체 너비)을 따른다. 닫기·Escape는 `onClose`, 확인은 `onConfirm`을 호출하며 로그인 및 휴대폰 인증 이동 책임은 Page에 둔다. 제목·설명·모바일 줄바꿈과 접근성 동작을 유지한다. 출처는 작업 트리의 `src/shared/features/account-locked/AccountLockedContent.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialog.tsx`, `src/shared/components/molecules/ModalDialog/ModalDialogFooter.tsx`, `src/shared/components/atoms/Button/Button.tsx`다.
+`AccountLockedContent`는 공통 `ModalDialog`를 직접 사용하고 확인 버튼을 `footer` 슬롯에 둔다. 모달은 `size="md"`를 사용하며 확인 버튼은 공통 푸터 규격(PC 160px 너비·40px 높이, 모바일 전체 너비)을 따른다. 닫기·Escape는 `onClose`, 확인은 `onConfirm`을 호출하며 로그인 및 휴대폰 인증 이동 책임은 Page에 둔다. 제목·설명·모바일 줄바꿈과 접근성 동작을 유지한다. 출처는 작업 트리의 `src/components/features/account-locked/AccountLockedContent.tsx`, `src/components/common/molecules/ModalDialog/ModalDialog.tsx`, `src/components/common/molecules/ModalDialog/ModalDialogFooter.tsx`, `src/components/common/atoms/Button/Button.tsx`다.
 
 ## ModalDialog 본문 패딩 통일 (2026-10-20)
 
-본문에 `content` 한 가지 스타일만 사용한다. PC 패딩은 위·좌우 24px, 아래 16px이며 모바일은 `24px 16px 16px`이다. 기존 `actionCount` API와 단일 액션 전용 스타일을 제거해 footer 액션 수와 본문 간격을 분리했다. `SingleActionDialog`도 동일한 본문 패딩을 사용한다. 출처는 작업 트리의 `src/shared/components/molecules/ModalDialog/ModalDialog.tsx`, `src/shared/components/molecules/SingleActionDialog/SingleActionDialog.tsx`, `src/shared/features/account-locked/AccountLockedContent.tsx`다.
+본문에 `content` 한 가지 스타일만 사용한다. PC 패딩은 위·좌우 24px, 아래 16px이며 모바일은 `24px 16px 16px`이다. 기존 `actionCount` API와 단일 액션 전용 스타일을 제거해 footer 액션 수와 본문 간격을 분리했다. `SingleActionDialog`도 동일한 본문 패딩을 사용한다. 출처는 작업 트리의 `src/components/common/molecules/ModalDialog/ModalDialog.tsx`, `src/components/common/molecules/SingleActionDialog/SingleActionDialog.tsx`, `src/components/features/account-locked/AccountLockedContent.tsx`다.
 
 ## 충돌 병합 검토 (2026-10-20)
 
@@ -2793,7 +2559,7 @@ CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts
 
 PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이동하며, 두 화면 모두 Accordion을 사용하지 않는다. 행은 PC 74px·모바일 58px이고 아래에 `black.20` 1px 선을 둔다. 상세 제목과 날짜는 세로로 배치하고 상단선은 PC 2px·모바일 1px, 본문 구분선은 `black.20` 1px이다. 목록보기는 PC 180px·모바일 전체 너비, 48px 높이로 표시한다. 공지 상세 본문 예시는 유지하고, Accordion에서만 쓰던 `NoticeContent`는 제거했다. 화면 확인용 공지 목록 fixture의 두 번째 제목은 두 줄 표시를 점검하는 긴 예시 문구다.
 
-출처는 작업 트리의 `src/shared/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 노드 `1241:82607`, `1241:82530`, `1241:82660`, `1574:34894`다.
+출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 노드 `1241:82607`, `1241:82530`, `1241:82660`, `1574:34894`다.
 
 문의 읽기 파일 목록/선택은 InquiryReadAttachments, 공통 SingleActionDialog·Carousel 조합은 InquiryAttachmentPreview가 소유한다. CareInstructions는 ContentSection 기본 제목을 사용하고 TermsDocument는 선택된 시행일을, TermsDateSelect는 Popover 열림/닫힘과 Radio 선택 후 닫기를 소유한다. 문의 form/업로드 유효성 검사는 그대로 유지한다. 기능 내부 상태를 구분하는 추출이며 새 공용 atom이나 Base UI 의존성을 추가하지 않는다. 출처와 실제 검증 범위는 연결한 기록의 working_tree_sources와 검증 항목을 따른다.
 
@@ -2801,7 +2567,7 @@ PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이�
 
 TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털·Radio·열림 상태를 소유한다. TermsDocument는 날짜 목록·선택값과 약관 본문을 소유하며 name/options/value/onValueChange를 전달한다. 플랫폼 포털 클래스, 선택 후 닫기, 날짜 표시 형식과 접근성 이름은 유지한다.
 
-공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. `variant`가 웹·모바일 공통값이며, 값이 다를 때만 선택형 `mo` prop으로 모바일 variant를 덮어쓴다. `mo`를 생략하면 `variant` 값이 유지된다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시 여부는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
+공통 atoms/Divider는 장식용 가로 구분선의 subtle(black.20/1px), strong(black.100/1px), heading(black.100/2px) 세 variant를 제공한다. `variant`가 웹·모바일 공통값이며, 값이 다를 때만 선택형 `mo` prop으로 모바일 variant를 덮어쓴다. `mo`를 생략하면 `variant` 값이 유지된다. 기존 Panda Divider의 DOM·border 동작을 유지하며 간격·모바일 표시 여부는 소비자가 소유한다. 고객센터·공지·문의·마이페이지의 가로 구분선을 이전했고, 헤더 로그인·상품 메타·프로모션의 세로 구분선은 고유 규격으로 기존 Panda 컴포넌트를 유지한다. 세 variant와 모바일 변경 예시는 src/stories/components/common/atoms/Divider/Divider.stories.tsx에 있다. 출처는 frontmatter에 기록한 작업 트리 파일이다.
 
 검증(Codex, 2026-10-20): 변경 TSX ESLint·Prettier, 전체 타입 검사, Panda 생성, Next.js 및 Storybook 프로덕션 빌드를 통과했다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
 
@@ -2817,7 +2583,7 @@ TermsDateSelect는 terms 기능 내부에서 시행일 Popover 트리거·포털
 
 카드 제목은 PC heading7(28px)·모바일 body1을 사용하고 제목/설명 간격은 8px, 본문/CTA 간격은 24px이다. 이미지의 날짜와 코스 두 줄은 gap=0으로 조합한다. 상세의 정원 20명은 PC·모바일 모두 표시하고, RunClubSessionHero의 뱃지는 HStack으로 감싸 내용 너비에 맞게 배치한다. 실제 세션 데이터와 신청 준비 안내 동작은 유지하며, 시안 내 서로 다른 예시 날짜/코스를 고정 문구로 복제하지 않는다. 공통 헤더의 홍보 배너는 기존 전체 페이지 노출 정책을 유지한다.
 
-출처: 작업 트리의 `src/shared/features/run-club/RunClubLayout.tsx`, `RunClubHeader.tsx`, `RunClubSessionCardContent.tsx`, `RunClubSessionCardImage.tsx`, `RunClubDetailPage.tsx`, `RunClubSessionHero.tsx`. 이 기록은 이전 PC 정원의 mobileOnly 보존 설명을 대체한다.
+출처: 작업 트리의 `src/components/features/run-club/RunClubLayout.tsx`, `RunClubHeader.tsx`, `RunClubSessionCardContent.tsx`, `RunClubSessionCardImage.tsx`, `RunClubDetailPage.tsx`, `RunClubSessionHero.tsx`. 이 기록은 이전 PC 정원의 mobileOnly 보존 설명을 대체한다.
 
 검증(Codex, 2026-10-21): Panda 생성·전체 타입 검사·런클럽 폴더 ESLint가 통과했다. Edge headless의 Storybook PC 1600px 목록/빈 목록/마감 상세와 모바일 375px 목록/빈 목록/오픈 예정 상세 6개 화면에서 가로 넘침이 없음을 확인했다. PC 카드 제목 28px, 빈 목록 신청 내역 링크 생략, PC 상세 정원 표시와 PC/MO 로드 필터 결과(4개/1개)를 확인했다. 목록·빈 화면·모바일 상세 캡처를 시각 검토했다. 실제 신청 API 연동 검증은 수행하지 않았다.
 `npm run build`의 Next.js 프로덕션 빌드도 통과했다.
@@ -2866,7 +2632,7 @@ ProductDetails가 상품명·성별·가격의 의미 토큰을 로컬로 지정
 
 HeroCopy의 ButtonLink를 `variant="primary" colorway="white"`로 변경했다. 공통 Button의 기존 조합을 사용해 기본 상태의 흰 배경·검은 글자를 유지하면서 secondary가 만들던 검은색 1px inset box-shadow를 제거한다. 홈의 TECTON X 4·TRAIL READY·RUN THE CITY 및 HeroCopy를 사용하는 스토리에 동일하게 적용된다. 크기·링크·배치와 공통 버튼의 hover/active/focus 처리는 기존 API를 따른다.
 
-작업 트리 출처: `src/shared/components/organisms/Hero/HeroCopy.tsx`, `src/shared/components/atoms/Button/Button.tsx`. 브라우저 시각 검증은 수행하지 않았다.
+작업 트리 출처: `src/components/common/organisms/Hero/HeroCopy.tsx`, `src/components/common/atoms/Button/Button.tsx`. 브라우저 시각 검증은 수행하지 않았다.
 
 ## 주문 화면 시각 오차 보정 (2026-10-21)
 
@@ -2898,7 +2664,7 @@ CartOptionsDialog의 대표 이미지와 색상 썸네일은 고정 w/h 쌍이 �
 
 ## 주문 화면 구성 분리와 재사용 (2026-10-21)
 
-공통 molecule OrderProductSummary는 image/name/optionText/amount, 선택적 gender/children과 cart/checkout/coupon variant를 받는다. CartItemRow·CheckoutProductList·CouponProductItem이 사용한다. 목 상품 조회·합계 계산·선택·쿠폰 상태는 소비처가 유지한다. PC 이미지 96px(쿠폰 88px)·모바일 80px, cart의 두 줄 말줄임과 모바일 중앙 정렬, coupon의 기본색 옵션·보통 굵기 금액을 보존한다. 액션은 children으로 기존 정보 Stack에 직접 참여하며 추가 DOM 래퍼를 만들지 않는다. 새 공개 API는 이 컴포넌트 하나이며 src/stories/components/molecules/OrderProductSummary에서 세 context와 모바일 긴 이름을 제공한다.
+공통 molecule OrderProductSummary는 image/name/optionText/amount, 선택적 gender/children과 cart/checkout/coupon variant를 받는다. CartItemRow·CheckoutProductList·CouponProductItem이 사용한다. 목 상품 조회·합계 계산·선택·쿠폰 상태는 소비처가 유지한다. PC 이미지 96px(쿠폰 88px)·모바일 80px, cart의 두 줄 말줄임과 모바일 중앙 정렬, coupon의 기본색 옵션·보통 굵기 금액을 보존한다. 액션은 children으로 기존 정보 Stack에 직접 참여하며 추가 DOM 래퍼를 만들지 않는다. 새 공개 API는 이 컴포넌트 하나이며 src/stories/components/common/molecules/OrderProductSummary에서 세 context와 모바일 긴 이름을 제공한다.
 
 CartContent는 CartSelectionBar·CartProductList·CartSupportInfo를 조합한다. 각 부분은 기존 선택 바, ul/li 목록, 고객센터 section을 그대로 렌더링하며 신규 상태나 중간 래퍼를 추가하지 않는다. CartOptionsDialog가 draft·width/color별 sizes·soldOut·valid와 ConfirmDialog 저장/취소를 유지하고 CartOptionsContent에는 준비된 정보·색상 썸네일과 변경 콜백만 전달한다. 숫자·사이즈·발볼은 기존 NumberStepper·SizeSelector·Radio를 유지한다.
 
@@ -2920,7 +2686,7 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 
 결제 요약에서 쿠폰 조회 팝업 대신 기존 Dropdown을 사용해 쿠폰을 고른다. 기존 퍼블리싱 데모에 있던 상품 10%·등급 7%·장바구니 5,000원·4,000원 쿠폰을 선택지로 사용하며 “최대 혜택 적용” 체크 시 현재 주문 기준 할인액이 가장 큰 항목을 고른다. 주문금액은 상품 수량 합계를 괄호로 표시하고, 쿠폰 할인·배송비·총 결제 금액을 각각 행으로 보여준다. 상품·주문 합계와 쿠폰 할인 계산은 기능 모듈에 남으며 공통 Dropdown/Checkbox/AmountRow를 재사용한다. 배송비는 기존 데이터/요금 규칙이 없어 0원 데모값이다. Figma에 예시된 임직원 쿠폰 재고나 서버 쿠폰 연동은 추가하지 않았다.
 
-출처는 `src/shared/features/checkout/CheckoutDiscountSummary.tsx`, `CheckoutSummary.tsx`, `CheckoutForm.tsx`, `CheckoutContent.tsx`, `checkout-summary.ts`, `checkout-coupons.ts`와 주문 스토리다. Panda CSS 생성과 변경 파일 ESLint, diff 공백 검사는 통과했다. 전체 타입 검사는 결제 변경과 무관한 `.next/types`의 기존 route props 오류 5건으로 실패했다. 브라우저와 Storybook play 검증은 하지 않았다.
+출처는 `src/components/features/checkout/CheckoutDiscountSummary.tsx`, `CheckoutSummary.tsx`, `CheckoutForm.tsx`, `CheckoutContent.tsx`, `checkout-summary.ts`, `checkout-coupons.ts`와 주문 스토리다. Panda CSS 생성과 변경 파일 ESLint, diff 공백 검사는 통과했다. 전체 타입 검사는 결제 변경과 무관한 `.next/types`의 기존 route props 오류 5건으로 실패했다. 브라우저와 Storybook play 검증은 하지 않았다.
 
 ## 결제 동의 항목과 주소 찾기 비활성화 (2026-10-27)
 
@@ -2992,7 +2758,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 상품 카드·이미지/배너 전체 폭·글자·36개 로딩, PC 정렬 및 검색 화면의 Filter & Sort 버튼과 필터 시트 상태/적용 방식은 유지한다. 카테고리 영역은 기존 좌우 16px 패딩과 36px 높이로 표시한다.
 
-출처: 작업 트리의 `src/shared/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
+출처: 작업 트리의 `src/components/features/catalog/product-listing/ProductListingLayout.tsx`, `MobileProductFilterTrigger.tsx`. Codex 기록 시각: 2026-10-21T08:36:20Z. 기존 문서의 provenance와 과거 검증 기록은 보존한다.
 
 검증: 변경 TSX ESLint, Panda 생성, typecheck, 작업 트리 OKF 매핑과 diff 공백 검사 통과. 375px Storybook에서 제목 오른쪽 알약 버튼 표시와 클릭 시 상품 필터 시트 열림을 확인했다.
 
@@ -3028,7 +2794,7 @@ Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 
 
 ## 수량 배지 Circle 조합 (2026-10-22)
 
-NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. Circle은 span으로 렌더링하며 절대 위치(top -.3rem·right -4px)·size="12px"·좌우 패딩 2px·배경색·중앙 정렬·둥근 모서리를 담당한다. 내부 Typography는 notificationCount variant와 tone="inverse"로 숫자를 표시하며 전달받은 span 속성·aria-hidden·호출자 className을 유지한다. 흰색은 공통 text-inverse 토큰을 사용하고 notificationCount 클래스와 css import는 제거했다. 텍스트 정렬은 외부 Circle이 담당한다. 사용자 지정에 따라 Circle의 size="12px"로 너비와 높이를 함께 지정한다. 긴 수량에도 배지 외곽 크기는 12px로 유지한다. 출처는 작업 트리의 src/shared/components/atoms/NotificationIcon/NotificationCount.tsx와 생성된 styled-system/patterns/circle.mjs이다. 사용자 요청에 따라 단일 요소 조합을 중첩 구조로 수정했다. 이전 단일 요소 구조의 SSR·Storybook 결과는 이 중첩 구조의 검증 결과가 아니다. 브라우저 시각 검증은 수행하지 않았다.
+NotificationCount는 외부 Circle과 내부 Typography로 역할을 나눈다. Circle은 span으로 렌더링하며 절대 위치(top -.3rem·right -4px)·size="12px"·좌우 패딩 2px·배경색·중앙 정렬·둥근 모서리를 담당한다. 내부 Typography는 notificationCount variant와 tone="inverse"로 숫자를 표시하며 전달받은 span 속성·aria-hidden·호출자 className을 유지한다. 흰색은 공통 text-inverse 토큰을 사용하고 notificationCount 클래스와 css import는 제거했다. 텍스트 정렬은 외부 Circle이 담당한다. 사용자 지정에 따라 Circle의 size="12px"로 너비와 높이를 함께 지정한다. 긴 수량에도 배지 외곽 크기는 12px로 유지한다. 출처는 작업 트리의 src/components/common/atoms/NotificationIcon/NotificationCount.tsx와 생성된 styled-system/patterns/circle.mjs이다. 사용자 요청에 따라 단일 요소 조합을 중첩 구조로 수정했다. 이전 단일 요소 구조의 SSR·Storybook 결과는 이 중첩 구조의 검증 결과가 아니다. 브라우저 시각 검증은 수행하지 않았다.
 
 ## 수량 배지 Typography variant (2026-10-22)
 
@@ -3055,7 +2821,7 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
 `InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
-출처는 작업 트리의 `src/shared/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
+출처는 작업 트리의 `src/components/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
 
 ## 라운드 배지 디자인 시스템 반영 (2026-10-23)
 
@@ -3211,3 +2977,260 @@ Figma `962:8877`·`1338:40335`의 모바일 카드 기준으로 체크박스와 
 강조 금액(`emphasis`)은 숫자를 heading7, `원`을 body3로 나눠 표시한다. 일반 금액은 기존 body4 한 줄 표시를 유지하며, 할인 금액은 강조/일반 상태 모두 숫자와 단위에 오류 톤을 적용한다. 기존 AmountRow 사용처의 금액 계산과 합계 값은 변경하지 않는다.
 
 Chrome localhost 장바구니의 375px 화면에서 하단 결제예정금액 표기를 확인했다. 데스크톱 화면은 이번 시각 확인 범위가 아니다.
+
+## IA 구조도 독립 페이지 (2026-10-28)
+
+IA 구조도는 DEVELOPMENT 스토리에서 `/screen-index` 독립 페이지로 이동했다. 검색·상태 필터·계층 접기·현황을 유지한다. 바로가기는 같은 서버의 실제 App Router 페이지로 연결한다. 상품 목록은 IA별 필터 쿼리를 유지한다. PC/MO 링크를 하나의 페이지 링크로 통합하며 플랫폼은 기존 사용자 에이전트 판별을 따른다. 독립 경로가 없는 팝업은 N/A로 표시한다. Storybook URL 환경변수는 사용하지 않는다. 작업 트리 출처: `src/components/features/screen-index/IaStructurePage.tsx`, `src/components/common/layouts/AppLayout/AppLayout.tsx`, 제거한 `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
+
+## src 폴더 구조 승격 (2026-10-28)
+
+shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 현재 폴더 구조와 페이지 재사용 정책 (2026-10-28)
+
+`src/app`은 라우트 전용 화면과 상태·표시 조합·Panda 스타일을 소유한다. `src/components/common`은 공통 UI, `src/components/features`는 재사용하는 도메인 UI와 순수 정책, `src/context`는 공통 상태를 소유한다. lib·types·icons·styles·data·mocks는 src 바로 아래에 유지한다. 구 shared 경로는 새 구현이나 import에서 사용하지 않는다.
+
+페이지를 짧은 래퍼로 만들기 위해 전체 화면을 feature에 추출하지 않는다. 독립적인 책임 또는 실제 생산 소비처의 재사용 계약이 있을 때만 하위 구성요소를 분리한다. Storybook 사용만으로는 공용 화면으로 분류하지 않는다. 여러 라우트의 공유 화면과 서버 metadata/클라이언트 경계는 예외로 유지한다. 기존 스킬의 페이지 표시 마크업·로컬 스타일 금지 규칙은 이 정책으로 대체했다.
+
+원격 커밋 25d1c880의 주문 상태 요약·날짜 필터·주문 상세·취소/반품 표시·모바일 배송조회 시트·결제 동의 정렬·회원정보 수신 항목과 주문 WEB/Mobile 스토리를 현재 경로로 반영했다. 원격 배송조회 제목의 지원되지 않는 Typography textAlign prop은 기존 ContentHeader 계약으로 표현했다. 원격 작업 기록의 디자인 출처와 당시 미검증 표시는 보존한다.
+
+이동된 화면의 Storybook은 실제 라우트 또는 IA의 private client 구현을 사용한다. 상태가 필요한 경우 story-only 어댑터로 주입하며 이전 화면을 복사해 남기지 않는다. 모든 stories 파일은 `src/stories`에 두고 기존 Mockup 제외 규칙을 유지한다. 작업 트리 출처: `.codex/skills/component-reusability/`, `src/app/`, `src/stories/features/`, `src/components/features/orders/`.
+
+2Depth·이후 깊이에도 같은 소유권 규칙을 적용한다. 고정 kind로 화면을 선택하는 공용 switch 자체는 재사용 계약으로 보지 않는다. MyPageStatusPage·SupportExperiencePage를 제거하고 해당 라우트에 필요한 분기만 옮겼으며, 실제 공용 기능 UI와 하위 구성요소는 유지한다.
+
+검증 (2026-10-28): 이동한 37개 구현의 JSX가 공백 정규화 후 이전 구현과 일치함을 확인했다. 기존 자동 테스트 62개, 타입 검사, 변경 파일 ESLint, Panda 생성, Next production build와 Storybook build를 통과했다. 브라우저에서 장바구니 옵션·수량·선택·삭제와 선택 주문 완료/상품 제거, 로그인, 모바일 회원정보 수신 동의 저장·취소, PC 주문 날짜/검색 필터와 배송조회 모달, 모바일 배송조회 시트를 확인했다. Storybook의 WEB/Mobile 주문 완료·로그인, 모바일 옵션 저장과 회원정보 취소 시나리오는 실제 페이지 연결 후 기대 상태를 확인했다. 모든 라우트·모든 스토리의 전수 브라우저 검증은 하지 않았다.
+
+## 3Depth 페이지와 공용 인증·모달 구성 (2026-10-28)
+
+3Depth 이상에서도 화면별 제목·설명·완료 이동과 모달 구성은 page.tsx가 소유한다. 휴대폰 인증의 공용 검증·약관·코드·타이머 상태는 usePhoneVerification에 유지하고 화면 전체 import·재수출은 제거했다. 기존 가입 안내 모달과 폼 콘텐츠는 공용 UI로 재사용한다. 독립 아이디 확인 페이지는 공통 ConfirmDialog를 직접 구성하며, 계정 찾기 내부 팝업과 IdConfirmationMessage 본문을 공유한다. 경로별 완료 콜백을 훅에 전달하므로 훅이 라우트나 가입 모달을 소유하지 않는다.
+
+Storybook의 인증 입력·필수 약관 및 폼 감사 시나리오는 실제 가입·잠금 해제 페이지를 사용한다. WEB/Mobile 인증 완료 흐름에는 가입 안내와 잠금 해제 완료 경로를 각각 확인하는 시나리오를 추가했다. component-reusability의 page-ownership 참조에도 3Depth 페이지의 책임과 공유 훅 경계를 명시했다.
+
+작업 트리 출처: `src/components/features/phone-verification/usePhoneVerification.ts`, `src/components/features/find-account/IdConfirmationMessage.tsx`, `src/components/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/phone-verification/`, `src/stories/features/login/AccountUnlockVerification.stories.tsx`, `.codex/skills/component-reusability/references/page-ownership.md`.
+
+3Depth 변경 검증 (2026-10-28): 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next production build·Storybook build, 계정 복구 및 라우트 테스트 6개를 통과했다. 실제 페이지의 필수 약관 피드백·가입 인증 안내·모바일 잠금 해제 완료 이동, 아이디 확인의 PC 확인/닫기와 모바일 비밀번호 재설정 이동을 브라우저에서 확인했다. 추가한 WEB/Mobile 인증 완료 스토리는 가입 안내와 잠금 해제 코드 입력 후 기대 화면 상태를 확인했다. 스킬 validator·OKF 검사와 삭제된 화면 import 제거도 확인했다. 전체 기존 스토리 play 함수의 전수 실행은 하지 않았다.
+
+## 미사용 feature TSX 정리 (2026-10-28)
+
+운영 라우트·Storybook·테스트·스크립트의 모듈 참조를 확인하고 외부 사용처가 없는 TSX 12개를 삭제했다. checkout의 CouponDialog·CartCouponOptions·CouponAmountSummary·CouponProductItem, screen-index의 DesignGuidePage·ScreenIndexPage, state의 StatePage, support의 SupportFaq·SupportHours·SupportMileageContent·SupportNotices·SupportNoticeItem이 대상이다. 직접 참조가 없는 8개와 해당 미사용 컴포넌트 안에서만 쓰이던 4개를 함께 제거했다. 빈 state 폴더도 제거했다.
+
+현재 Storybook에서 사용하는 DesignGuideColor·DesignGuideTypography와 실제 /screen-index의 IA private client 구현은 유지한다. 기존 문서 병합에서 누락된 UI 본문을 보관된 병합 사본에서 복구했으며 최신 페이지 소유권·3Depth 기록과 고정된 출처를 보존했다. 위의 CouponDialog 등 과거 구현 설명은 삭제 이전 이력이며 현재 구현 계약이 아니다.
+
+현재 출처: `src/components/features/checkout/CheckoutDiscountSummary.tsx`, `src/components/features/checkout/checkout-coupons.ts`, `src/stories/features/screen-index/DesignGuidePage.stories.tsx`, `src/app/screen-index/page.tsx`. 삭제 경로는 이 제거 기록으로 보존하며 working_tree_sources의 현재 구현 목록에서는 제외했다.
+
+미사용 파일 정리 검증 (2026-10-28): 삭제 후 남은 모듈 참조가 없음을 확인했다. 타입 검사·Panda 생성·Next production build·Storybook build와 주문 합계/앱 라우트 테스트 5개를 통과했다. OKF·포맷·diff 공백 검사를 수행했으며, 복구된 UI 문서의 기존 제목 246개와 고정 출처 13개 및 유효한 YAML 메타데이터를 확인했다. 미사용 구현 삭제 작업이므로 브라우저 회귀는 추가 실행하지 않았다.
+
+## 상품 필터 통합과 플랫폼 파일 전수조사 (2026-10-28)
+
+Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 컨테이너 2개는 ProductListingContent에 직접 통합하고 DesktopProductSort는 ProductSortDropdown으로 변경했다. 네 정렬 선택지는 productSortOptions를 드롭다운과 모바일 Radio가 공유한다. 나머지 9개는 사용자가 선택한 단일 부모 범위에 따라 부모 모듈의 로컬 구성요소로 이동하고 자식 파일을 삭제했다. PC 즉시 반영·모바일 초안/적용, 키보드·포커스·스와이프·아코디언·안전 영역과 기존 DOM·스타일을 보존한다. [전수조사 보고서](platform-component-audit-2026-10-28.md)에 12개별 처리·호출 관계·45개 스토리 목록과 범위를 기록했다. 다른 단일 부모 컴포넌트로 범위를 확대하지 않았다.
+
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+공통 UI를 포함한 단일 운영 부모 TSX 389개를 부모 모듈로 재귀 통합했다. 의미 있는 로컬 컴포넌트 함수와 Panda 스타일은 모듈 최상위에 둔다. 실제 다중 부모 파일 94개와 기존 운영 부모 없는 파일 30개를 유지하고 경계 예외 2개를 기록했다. 도메인 폴더는 이제 src/components/{도메인}에 있으며 common은 공유 UI다. Storybook은 기존 제목·시나리오와 src/stories/features 범주를 유지한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md)에 변경 전후 관계·이동 목록과 타입/미리보기 계약을 기록했다.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+
+## Import 자동 정렬 (2026-10-28)
+
+공통 UI·도메인 구성과 Storybook의 import 순서를 ESLint 정책으로 통일했다. Next·외부 패키지·Panda·atoms/molecules/organisms/layouts·기타 내부·상대 경로를 분리한다. 컴포넌트 구현·props·JSX·Panda 스타일·스토리 export와 시나리오는 변경하지 않으며 CSS/SCSS 부수 효과 import 순서를 보존한다.
+
+사용자 승인으로 AccountLockedPage 스토리 끝의 단독 숫자 표현식 `1`을 제거했다. 렌더링·스토리 입력·시나리오는 유지하며 기존 no-unused-expressions 오류의 원인만 제거한다.
+
+## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
+
+공통 UI·도메인 구성·Storybook·타입 선언에서 공용 훅·컨텍스트 import를 외부 패키지 바로 다음으로 옮겼다. JSX·Panda 스타일·스토리 시나리오와 export를 유지한다. 119개 파일의 TypeScript AST·주석 비교로 본문·import 대상·타입 표기·부수 효과 경계 보존을 확인했다. `npm run lint:fix` 두 번째 실행에서 파일 바이트 변경이 없었으며 전체 ESLint·타입 검사·테스트 72개를 통과했다. import 순서만 바꾼 이번 작업에서 브라우저·Next/Storybook 빌드는 다시 실행하지 않았다.
+
+## 얇은 래퍼 직접 사용 전환 (2026-10-28)
+
+Codex가 공통 molecules·organisms TSX 61개를 조사하고 사용자 승인 범위의 11파일을 제거했다. 이번 삭제만 반영하면 이 두 계층의 TSX는 50개다. 삭제 전 출처는 `6f76f7334c7eb4ae0279d4340226998aeb4aebf6`이며 변경 후 출처는 아래 운영 파일·스토리의 작업 트리다. 문서의 기존 generated·source_revision·working_tree_sources는 과거 작성 이력으로 보존한다.
+
+- `AccountFormHeader` 사용처 5개를 `ContentHeader` 직접 사용으로 전환했다. h1·PC heading7/MO heading5·제목 ID·body3 설명·tertiary/subtle·간격을 그대로 옮겼다. ContentSection의 기존 header 슬롯·본문 gap과 폼 제목 연결도 유지한다.
+- `NameField`, `PhoneNumberField`, `PasswordField`, `BirthDateField`, `VerificationCodeField`, `TextareaField`의 소비처를 `TextFormField`로 전환했다. 기본 레이블·placeholder·password 타입·인증번호 numeric/one-time-code/maxLength=6을 호출부에 명시하고 기존 재정의를 보존했다. 가입 정보·휴대폰 인증의 동적 Field 선택은 이미 모든 값이 지정되어 있어 제거했다.
+- 운영·스토리 사용처가 없는 `SectionHeading`, `PageHeader`, `AccountSectionHeader`, `EmailField`도 승인에 따라 삭제했다. Typography의 동명 SectionHeading 스토리는 유지한다. 새 preset·공개 API·호환 래퍼는 없다.
+- 운영 14파일(계정·가입·마이페이지·결제·문의 페이지, AccountFormLayout, OrdersRoute, PhoneVerificationContent)과 `src/stories/components/common/molecules/FormFields/FormFields.stories.tsx`를 변경했다. 스토리 제목·play 검증 항목은 유지한다. [헤더 계약](content-sections.md#얇은-제목-래퍼-제거-2026-10-28)과 [필드 계약](form-fields.md#의미별-기본값-래퍼-제거-2026-10-28)에 상세를 기록했다.
+
+### 유지 대상과 후속 후보
+
+`SingleActionDialog`는 확인 버튼·폼 제출과 푸터 계약, `VerificationCountdown`은 시간 표시, `AccountDataList`는 행 변환·빈 상태 조합을 소유하므로 이번 작업에서는 유지 대상으로 판단했다. 같은 파일 안의 작은 함수는 제거해도 파일 수가 줄지 않으므로 이번 범위에 넣지 않았다.
+
+TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가고 운영 사용처를 재검토했다. 스토리·테스트·타입 전용 참조를 제외한 현재 50개 파일에는 단일 운영 부모 파일 후보가 남지 않았다. Carousel의 재수출 경유 소비처도 여러 부모로 계산하며, 재수출 파일 하나만 보고 단일 부모로 분류하지 않는다. common 범위의 동적 import도 검색했다. 전체 도메인·라우트의 재귀 통합은 이번 조사 범위가 아니다.
+
+| 후속 검토 대상                                                                                          | 관찰과 이번 처리                                                                                                    |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| CompareBar, PersonalizationCard, MemberHero, QuickLinkGrid, SearchCategorySelect, SearchCollectionLinks | 운영·스토리 사용처를 찾지 못한 6개 파일. 별도 정리 후보로 유지한다.                                                 |
+| ProductGallery                                                                                          | 운영 사용처 없이 Storybook에서 사용하는 구현으로 유지한다.                                                          |
+| ContactCard, StatePanel, PageSection                                                                    | 후속 사용자 승인으로 구현 3개와 전용 스토리 2개를 삭제했다. 위 스토리 전용·미사용 공통 컴포넌트 제거 기록을 따른다. |
+
+### 실제 검증
+
+검증 결과는 이번 제목·필드 래퍼 전환 기준이다. 검증 후 별도로 진행된 ModalDialog API 변경과 SingleActionDialog·ConfirmDialog 제거는 감지했으나 이 작업에서 편집·되돌리지 않았다. 그 동시 변경에 대한 검증 결과를 이 절의 통과 기록으로 해석하지 않는다.
+
+- 타입 검사, 전체 ESLint, Panda 생성, Next·Storybook 빌드, 기존 Node 테스트 72개가 통과했다. Storybook은 의존성의 module-level directive 및 번들 경고를 출력했으나 빌드는 성공했다. 삭제 경로의 src import·타입·재수출 잔여 참조는 없고 동명 Typography 스토리는 남아 있다.
+- Ego 브라우저에서 1440px·390px 각각 계정 찾기·비밀번호 재설정·가입 방식·본인인증·휴대폰 인증·가입 정보·로그인 총 14상태를 변경 전후 비교했다. 제목 태그·ID·텍스트·계산된 글꼴·설명 색상·gap·크기와 폼 aria-labelledby, 입력 type·placeholder·inputMode·autocomplete·maxLength·disabled·required가 모두 일치했다. Panda 재생성 후에도 동일한 계산 스타일이 적용되었다.
+- 계정 찾기의 빈 값 오류·이름/전화 입력·인증번호 요청과 코드 속성, 비밀번호 재설정의 마스킹·보기 전환·확인값 입력·Enter 제출·완료 모달을 확인했다.
+- 변경된 통합 폼 스토리를 1440px·390px에서 직접 조작해 필수 오류와 해제, 비밀번호 보기, 인증번호 7자리 타이핑 시 6자리 제한, textarea 카운터와 제출된 FormData 다섯 값을 확인했다. 만료 상태 스토리의 자동 play와 붉은 오류 안내도 통과했다. 일부 화면 캡처는 CDP 시간 초과로 확보하지 못했으며 픽셀 비교를 수행했다고 주장하지 않는다.
+- 최초 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play는 이름 입력 직후 `aria-invalid` 해제 검사에서 실패했다. 원래 HEAD의 스토리와 래퍼 5개를 복원한 별도 빌드에서도 동일하게 재현했다. 후속 분석에서 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락을 확인했다. 브라우저 포커스 에뮬레이션을 켜면 소스 변경 없이 전체 자동 play가 통과한다. [원인과 대조 실험](../development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 참고한다.
+
+## IA 환경별 연결과 작업 파일 (2026-10-28)
+
+DEVELOPMENT/IA 구조도 스토리를 src/stories/features/screen-index에 복원했다. IaStructurePage의 previewEnvironment는 app 또는 storybook이며 기본값은 app이다. 앱은 실제 URL과 페이지 링크를, Storybook은 등록된 WEB·Mobile story ID로 같은 Storybook의 manager를 이동시키는 링크를 표시한다. 상품 목록 스토리는 args의 listing으로 기존 ia-N 필터를 전달한다. 전체 메뉴는 모바일 스토리만, 검색 레이어는 해당 WEB·Mobile 스토리를 제공한다. 플랫폼별 스토리가 없으면 스토리 없음으로 표시한다.
+
+원본 IA/출처 열과 작업 파일 열을 추가했다. 실제 존재하는 라우트 진입 파일과 핵심 구현 파일을 중복 없이 표시하며 삭제 화면은 비활성화하고 파일 미등록을 추정 경로로 채우지 않는다. 원본과 다른 최종 GNB 계층에는 GNB 보완을 표시한다. 검색은 화면명·코드·원본 및 내부 번호·원본 계층·URL·작업 파일을 포함하며 기존 계층 접기·상태·WBS를 유지한다. 파일이나 링크 존재로 완료를 추론하지 않는다.
+
+작업 트리 출처: 위 세 파일. 연결 검사는 원본 251개 행과 내부 번호 유일성, 등록 파일·스토리 ID 존재, 삭제 링크 차단, 검색결과·인증·사이즈가이드 연결을 대조했다. 앱·Storybook 빌드와 타입 검사를 통과했다. 최종 전체 ESLint·타입·변경 파일 포맷 검사와 앱·Storybook 빌드를 통과했다. 빌드 인덱스의 실제 story ID·importPath와 408개 화면별 링크를 대조했고, 기존 265개 내부 번호·86개 상품 목록 쿼리 보존과 삭제 17개 링크 비활성화를 확인했다. 원본 데이터의 문자열 비고·계층은 별도 필드로 대조했다.
+
+브라우저에서는 앱의 로그인 원본 번호 224와 /login URL, src/app/search/page.tsx 경로 검색 및 /search 연결, 표 내부 가로 스크롤을 확인했다. Storybook IA에서 로그인 WEB·Mobile 링크를 각각 이동해 비밀번호 필드를 포함한 화면 렌더링을 확인했다. 가로 스크롤 밖의 링크는 자동 클릭 도구가 접근하지 못해 표를 스크롤하고 DOM 링크 활성화로 검증했다. 스크린샷 캡처가 시간 초과되어 픽셀 기반 시각 검증은 수행하지 않았다.
+
+## 공용 헤더와 섹션 조합 간소화 (2026-10-28)
+
+- 작업 트리 출처: `src/components/common/molecules/ContentHeader/ContentHeader.tsx`, `src/components/common/layouts/ContentLayout/ContentLayout.tsx`, `src/components/common/molecules/MainSection/MainSection.tsx`, `src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx`.
+- `SectionHeader`의 운영 소비처는 ContentLayout 한 곳이었다. 이 파일과 ContentLayout 내부의 별도 ContentHeader를 제거하고 공용 ContentHeader로 제목·설명·액션을 구성한다. Breadcrumb과 설명만/도입부 없음의 조건부 렌더링, sticky 측정은 ContentLayout이 계속 소유한다.
+- 공용 ContentHeader에 `eyebrowAs?: 'p' | 'small'`과 가로 배치의 `textGroupProps`를 추가했다. 기본 eyebrow 태그 p와 기존 가로/세로 동작은 유지하며, ContentLayout은 small·블록 텍스트 그룹·하단 정렬·gap 16px·설명 상단 8px·h1 heading7/body5를 명시한다. 제목의 0 margin과 caller className을 보존한다.
+- MainSectionHeader 로컬 함수를 제거하고 ContentSection의 title/headerProps로 표현한다. 제목의 web heading5/mobile heading4, 중앙 contentFrame, 8px 액션 간격과 기본/compact 본문 간격, contained/fullBleed/extended 배치는 유지한다. 중첩 스타일의 display와 mx는 css.raw로 추출한다.
+- SectionHeader의 기본/설명·액션·강한 구분선 스토리는 공용 헤더 분류로 옮겼다. 기존 Layouts/Content Header의 세 스토리 ID는 유지하고 실제 ContentLayout을 렌더링한다. 제거된 MainSectionHeader의 선언도 정리했다. 운영 파일은 1개 감소하며, 별도 로컬 함수 2개를 제거한다.
+- 실제 검증: 2026-10-28 타입 검사, 전체 ESLint, Panda 생성, Next.js 빌드와 Storybook 빌드를 통과했다. Ego 정적 Storybook에서 이전 소스와 수정 소스를 나란히 담은 임시 fixture로 1440px/web·390px/mobile의 intro/sticky/title-only/description-only/empty/main/extended/bleed 16개 조합을 비교했다. main/header/section/제목/설명/small/button의 위치·크기·폰트·line-height·weight·margin·gap·정렬 측정값이 모두 일치했다. 임시 소스는 검증 후 삭제했다. Git 스테이징·커밋은 수행하지 않았다.
+
+## IA 목록 버튼과 엑셀 다운로드 (2026-10-28)
+
+사용자 브라우저 코멘트에 따라 원본 IA/출처 열과 바로가기 아래 URL 텍스트를 제거했다. 실제 페이지 및 WEB/Mobile 미리보기 링크는 버튼만 표시하고 경로 복사와 새 창 열기를 함께 수행한다. 복사 성공·실패를 role=status로 알리며, 경로는 title로도 확인할 수 있다. 실제 URL·소스 경로 검색과 원본 데이터는 보존한다. 이 절은 위 IA 출처 열 표시·Storybook _top 이동 설명을 대체한다.
+
+ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배치했다. ExcelJS는 클릭 시 동적으로 불러온다. 현재 필터 결과를 하나의 IA 구조도 시트에 내보내고 헤더 고정·자동 필터·한글 글꼴·셀 줄바꿈과 열 너비를 적용한다. 생성 중 중복 클릭과 빈 결과 다운로드를 막고 생성 실패를 알린다. 실제 경로와 여러 작업 파일을 포함하며 문자열을 수식으로 해석하지 않는다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, package.json, package-lock.json.
+
+검증: 브라우저에서 헤더·그룹·화면 행이 모두 9열이고 원본 출처 열과 URL 본문이 없는 것을 확인했다. 로그인 버튼 클릭은 /login 복사와 새 창 렌더를 확인했으며 Clipboard API 성공·거부를 테스트 대역으로 각각 검증했다. 복사 거부 시에도 창이 열리고 실패 메시지가 표시됐다. 실제 다운로드한 .xlsx를 ExcelJS로 다시 읽어 필터 1개·전체 266개 데이터 행, 15개 열, 한글·경로·여러 줄 파일 113행·삭제 17행의 빈 링크, 헤더 고정·자동 필터를 확인했다. 빈 검색 결과에서 다운로드 비활성화도 확인했다. 타입·변경 소스 ESLint·포맷 검사 및 앱·Storybook 빌드를 통과했다.
+
+## IA 엑셀 기능 제거 (2026-10-28)
+
+사용자 요청으로 상단 엑셀 다운로드 버튼과 XLSX 생성 코드·다운로드 전용 상태·아이콘을 제거했다. ExcelJS 의존성도 package.json과 lockfile에서 제거했다. 위 엑셀 추가 및 다운로드 검증 기록은 당시 구현의 이력이며 현재 제공 기능이 아니다. 9열 IA 표, 경로 복사·새 창 열기와 복사 결과 안내는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, package.json, package-lock.json.
+
+## 사이드바 탐색 레이아웃 통합 (2026-10-28)
+
+- 작업 트리 출처: `src/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.stories.tsx`.
+- SidebarNavigationLayout의 `appearance`는 기존 default와 support를 구분한다. default는 180px/50px 열 배치와 기존 mobileNavigation·mobileSpacing을 유지한다. support는 190px/98px, 상단 56px/MO24px, SUPPORT 탐색과 모바일 숨김, 최대 1532px 바깥 프레임·1200px 안쪽 폭·34px 안쪽 여백 및 모바일 16px 좌우/40px 하단 여백을 함께 소유한다. 독립적인 폭/여백 조합을 늘리지 않고 실제 사용하는 두 구성을 타입으로 묶었다.
+- `breadcrumbItems`는 support에서만 허용하고, 기본 모드의 mobileNavigation/mobileSpacing과 동시에 설정할 수 없게 했다. 빈 breadcrumb는 영역 자체를 생략한다. Support의 main은 바깥 Box 한 개이며 안쪽 Grid는 div다. 기본 모드의 main·본문 minW 0 wrapper는 유지한다.
+- CustomerCenterLayout은 SideNavigation/열 배치/PageFrame 대신 `SidebarNavigationLayout appearance="support"`를 사용한다. 제목·설명·custom header·본문·footer/footerAction과 도메인 데이터는 그대로 소유한다. 관련된 모든 고객센터 라우트는 기존 공개 API를 유지한다. MyPageFrame·OrdersRoute와 마이페이지 네 라우트의 기본 호출도 변경하지 않았다.
+- SidebarColumns는 두 운영 부모에서 SidebarNavigationLayout 하나로 줄어 Grid 구성에 흡수했다. 별도 구현 파일 1개와 CustomerCenterLayout의 PageFrame 로컬 함수를 제거했다. 전용 스토리와 다른 사용처는 없었다. 재사용 레이아웃의 기본/모바일 scroll·hidden·여백 없음/support/breadcrumb 없음/support 모바일 7개 스토리를 추가했다.
+- 검증: 2026-10-28 전체 타입 검사·ESLint·Panda 생성·Next.js 빌드·최종 Storybook 빌드를 통과했다. 변경 전 소스를 임시 스토리에 담아 1440px/web와 390px/mobile에서 default·hidden·mobileSpacing none·support·빈 breadcrumb/푸터 없음·custom header/footer 12개 조합을 Ego로 비교했다. 실제 platform-mobile 클래스와 PlatformProvider를 함께 적용했다. 모든 main/프레임/열/탐색·본문/텍스트 배치·모바일 여백과 속성이 일치했다. 전체 DOM 측정의 11개 조합은 완전히 일치했고, PC mobileSpacing none의 inline 링크 한 개만 rect y/height가 2px/3px 달랐다. 링크 자식의 텍스트 크기·위치와 주변 배치는 동일하고 링크 구현은 변경하지 않았다. 이 차이의 런타임 원인은 확정하지 않았으며 픽셀 기반 일치를 주장하지 않는다. 임시 비교 소스는 삭제했다.
+
+## IA WBS 계획표 갱신 (2026-10-28)
+
+사용자가 대화에 붙여 넣은 퍼블리싱 WBS 표의 앞쪽 계획 시작·종료일과 작업자를 IA에 반영했다. 메인 10/2~5, 로그인 10/6~7, 회원가입 10/8~12, 마이페이지·고객센터 10/15~21, 카테고리·상품 목록·상세 10/7~14, 장바구니·검색 10/22~23, 주문서 10/26~27, 런칭 캘린더 10/28, 기획전 10/29, 이벤트 10/30, About HOKA 11/6~10을 사용한다. 전체메뉴 9/30과 레이아웃 9/21~23은 유지한다.
+
+상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.
+
+## 화면 폭 반응형·폴더 평탄화·Badge 통합 (2026-10-28)
+
+모바일 경계는 1024px 이하이며 1024px 초과~1200px 미만은 PC 1200px 캔버스를 사용한다. 기존 _mobile 조건과 usePlatform 호출부를 유지했다. 공통의 단일 구현 폴더 60개를 평탄화하고 BadgeLaunchStatus/PromotionBadge를 Badge의 배타적 status/promotion 옵션으로 통합했다. 기존 일반 배지·상품 프로모션 표현과 Storybook 분류를 유지한다. [현재 API·이동 목록·검증](responsive-platform-2026-10-28.md)을 참고한다. 이전 절들의 UA 판별·해당 컴포넌트 경로는 당시 기록이다. 작업 트리 출처: src/components/common/, src/styles/global.scss, src/stories/, src/context/platform.tsx.
+
+## 폴더·반응형·표현 옵션 정책과 스킬 (2026-10-28)
+
+사용자 요청으로 AGENTS.md와 component-reusability에 단일 구현 폴더 평탄화, Badge의 배타적 표현 옵션, 자동 화면 폭/명시적 플랫폼 구분과 상태·포털 검증 기준을 추가했다. 폴더 이동과 컴포넌트 삭제의 범위를 분리하고 기존 다중 파일 폴더·기본 호출부·도메인 정책을 보존한다. 상세 절차는 .codex/skills/component-reusability/references/folder-and-responsive.md 및 wrapper-consolidation.md를 따른다. [현재 구현 기록](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md와 위 참조 문서.
+
+## 상품 이미지와 홈 배너 최적화 (2026-10-28)
+
+공통 ProductThumbnail과 ProductGallery, 상품 상세 이미지·확대 뷰어·특징 이미지, 홈 HeroSlide를 next/image로 전환했다. 이미지의 기존 CSS 비율·크롭·호버·확대 동작은 유지하고 sizes를 지정했다. ProductThumbnail의 lazy 옵션과 기본 eager 동작을 유지하며, 상품 상세 첫 이미지와 홈 첫 슬라이드는 eager로 요청한다. 홈 첫 슬라이드에만 fetchPriority=high를 지정한다. 갤러리 Storybook의 임시 문자열은 실제 로컬 이미지 경로로 바꿨다. SVG 아이콘과 업로드 미리보기는 이번 범위에 포함하지 않았다.
+
+외부 상품 이미지는 기존 Deckers CDN 원본 URL을 유지하며 next.config.ts에서 HTTPS dms.deckers.com/hoka/image/upload/**만 허용한다. CDN의 기존 변환 위에서 Next 이미지 최적화를 사용하므로 성능 개선 수치는 별도 측정이 필요하다. 작업 트리에서 lint·타입 검사와 프로덕션 빌드를 확인했고, 브라우저에서 홈 배너·로컬/외부 상품 썸네일·PC 상세 이미지의 최적화 URL 및 로딩을 확인했다. 스크린샷 캡처는 브라우저 도구 시간 초과로 완료하지 못했다.
+
+## Next.js 기능 채택과 런타임 경계 (2026-10-28)
+
+RootLayout에서 next/font/local로 HOKA 8개·Pretendard 9개 폰트를 등록하고 CSS 변수로 기존 타이포그래피에 연결한다. 기존 굵기·기울임·swap·fallback 순서는 유지한다. 모든 정적 face가 preload되는 것을 피하기 위해 preload=false를 명시하고 adjustFontFallback=false로 기존 fallback을 보존한다. 프로덕션은 Next 생성 폰트 파일을 사용하고, Vite 기반 Storybook만 .storybook/fonts.scss에서 동일 원본 파일을 등록한다. 전역 SCSS의 프로덕션 @font-face 중복은 제거했다.
+
+상품 확대 뷰어는 route-local shell이 선택 상태·닫기·Escape·포커스·스크롤 복귀를 유지하고, _components/ProductDetailViewerContent.tsx의 갤러리를 next/dynamic으로 요청 시 로딩한다. 해당 파일의 단일 생산 부모는 상품 상세 page.tsx이며, 지연 청크 경계가 통합 예외 사유다. ProductDetailImage는 페이지와 지연 갤러리의 두 생산 부모가 공유하므로 src/components/product에 둔다. 로딩 상태 및 갤러리 오류 경계는 부모가 제공하고 닫기 버튼은 로딩 성공 여부와 무관하게 유지한다.
+
+검증: lint·타입 검사·Next 프로덕션 빌드·Storybook 빌드, 기존 테스트 77개를 확인했다. 프로덕션 브라우저에서 폰트 preload 0건과 실제 face 로딩, 갤러리 청크의 클릭 전 미요청/클릭 후 요청, Escape 후 원래 버튼으로의 포커스 복귀를 확인했다. Storybook 주문서에서 원래 HOKA·Pretendard face 로딩도 확인했다. 갤러리 청크 요청 차단 시 오류 안내·닫기·포커스 복귀와 375px 모바일 주문서 표시를 확인했다. 해당 갤러리 청크는 이 빌드에서 1,875바이트(gzip 1,042바이트)였으며 전체 페이지 속도 개선 수치는 측정하지 않았다. 작성: codex/gpt-6, 2026-10-28T09:57:37.856Z. 출처는 working_tree_sources의 이번 변경 파일이다.
+
+## Next.js 기능 채택 정책과 스킬 (2026-10-28)
+
+AGENTS의 Next.js integration policy와 component-reusability의 nextjs-integration 참조에서 이미지·폰트·URL 상태·동적 로딩·메타데이터·외부 스크립트의 선택 기준, native 예외, Storybook 및 단일 부모 예외를 연결했다. 정책은 무조건적인 next/ 치환이나 미요청 기능 확장을 요구하지 않는다.
+
+설치된 App Router 동적 로더의 loading 콜백이 오류 경계 역할을 하지 않는 점과 거절된 lazy 모듈의 재시도 한계를 명시한다. component-reusability 스킬 검증을 통과했다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md, .codex/skills/component-reusability/references/nextjs-integration.md.
+
+## Storybook 설정 타입 오류 수정 (2026-10-28)
+
+.storybook/preview.ts의 Preview 타입을 루트 storybook 패키지가 아닌 현재 프레임워크 @storybook/nextjs-vite에서 가져오도록 수정했다. tsconfig.json이 .storybook/**/*.ts도 검사하도록 하여 설정 파일을 편집기와 npm run typecheck가 같은 프로젝트 기준으로 확인한다. 이 과정에서 드러난 main.ts의 readdirSync 문자열/버퍼 추론은 encoding=utf8 명시로 정리했다. 폰트 SCSS import와 스토리 발견·Mockup 제외 동작은 유지한다. 작성: codex/gpt-6, 2026-10-28T10:03:47.372Z. 작업 트리 출처: .storybook/preview.ts, .storybook/main.ts, tsconfig.json.
+
+## 미사용 공통 UI 17개 제거와 사이드 탐색 소유권 통합 (2026-10-28)
+
+사용자가 승인한 미사용·Storybook 전용 공통 UI 정리 범위다. 정의 외 소스 참조가 없던 CompareBar·PersonalizationCard·MemberHero·QuickLinkGrid·SearchCategorySelect·SearchCollectionLinks 6개와 운영 사용처가 없던 ActionButton·EmailSignupField·IconBrand·Link·Navigation·Pagination·PaymentLogo·ProgressBar·SortIcon·ToggleButton·ProductGallery 11개를 제거했다. 후자의 전용 스토리 11개, EmailSignupField 전용 FooterEmail 시나리오와 PC/MO 재노출, ToggleButton 전용 컴파일 타입 사례도 제거하고 다른 폼·버튼 검증은 유지했다. 기존 기록의 삭제 경로는 당시 출처이며 현재 API가 아니다. 이미지 등 공용 정적 자산은 이번 삭제 범위에 포함하지 않았다.
+
+SideNavigation은 유일한 운영 부모 SidebarNavigationLayout 모듈로 이동했다. 탐색 함수는 모듈 최상위에 유지하고 기존 JSX·Panda 스타일·활성 및 비활성 처리·PC/모바일 동작을 그대로 보존했다. SidebarNavigationGroup 타입은 레이아웃이 소유하며 CustomerCenterLayout은 새 타입 경로를 사용한다. 기존 SideNavigation 스토리는 새 소유 모듈에서 가져오고 title·스토리 ID·시나리오는 유지한다. 단순 이동을 위한 클라이언트 지시문은 추가하지 않았으며 함수에 Hooks는 없다. 구현 17개 제거와 별도 모듈 1개 통합으로 운영 컴포넌트 TSX 파일은 18개 감소한다. ProductListingPage·SupportTabs·MainSection 등 실제 재사용 중인 구성은 유지한다.
+
+작업 트리 출처: 위 working_tree_sources와 삭제된 src/components/common/의 17개 구현·SideNavigation.tsx, src/stories/components/common/의 전용 스토리 11개 및 SideNavigation 스토리, PC.Validation.stories.tsx·MO.Validation.stories.tsx. 검증: npm run lint:fix·npm run lint·npm run typecheck·Panda 생성·Next production build·Storybook production build를 통과했다. 폼·이메일·import 순서 51개와 빌드 후 App Router 2개 테스트가 통과했다. 이동 전후 SideNavigation 함수 본문을 비교하여 동일함을 확인했다. 새 정적 Storybook을 별도 6018 포트에서 Ego로 실행해 레이아웃 7개 상태의 PC 180px/고객센터 190px 탐색 폭, 활성 링크, main 1개, 모바일 가로 탐색·숨김·여백 옵션과 본문 표시를 검사했다. 기존 PC/MO Inheritance play가 오류 표시·접근성 검사를 거쳐 오류 해제까지 도달함을 확인했다. 스크린샷 캡처는 CDP 시간 초과로 완료하지 못했으므로 시각 비교를 통과했다고 기록하지 않는다. 구현 TSX는 Docs·type-test를 제외한 src/components 기준 98개에서 80개로 감소했다. Storybook의 모듈 지시문·빌드 성능 경고는 빌드 실패가 아니며 전체 접근성 검수 완료를 뜻하지 않는다.
+
+## Button의 아이콘 모드와 문서 소유권 통합 (2026-10-28)
+
+Button은 variant="icon"에서 아이콘 버튼의 실제 치수 size(숫자 px 또는 CSS 길이), shape, tone, color와 직접 children을 지원한다. 기본 36px·square·currentColor, 버튼 type·form·ref·disabled·키보드 포커스·hover 표현을 보존한다. tone="disabled"는 색상 표현이며 실제 disabled와 별개다. loading은 일반 버튼과 같이 aria-busy와 비활성화를 적용한다. 일반 버튼의 size 상관관계는 ButtonSizingProps·ButtonTextProps로 유지하고 아이콘 전용 계약은 ButtonIconProps로 구분한다. ButtonLink·더보기·소셜 인증·모달 액션은 기존 텍스트 버튼 계약을 유지한다.
+
+운영 IconButton 구현을 제거하고 호출부 및 상품 상세 preview 타입은 Button variant="icon"을 사용한다. Button/Button.tsx는 src/components/common/atoms/Button.tsx로 평탄화하며 호환 전달 파일은 남기지 않는다. ButtonDocs와 IconButtonDocs는 src/stories/components/common/atoms/의 기존 Button·IconButton 스토리 디렉터리로 이동했다. 문서 비교·아이콘 선택·복사 기능과 기존 스토리 title·ID는 유지하고 생성 코드는 새 import와 variant를 사용한다. Button.type-test.tsx는 src/types/type-tests/로 옮겨 기존 tsconfig include로 계속 검사한다. 운영 UI 파일은 1개 줄고 문서 2개·타입 검증 1개가 운영 컴포넌트 트리 밖으로 이동했다.
+
+작성: codex/gpt-6, 2026-10-28T10:35:32.412Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+검증: npm run typecheck·npm run lint·Panda 생성·Next production build·Storybook production build가 통과했다. form-controls·import-order·OKF 회귀 테스트 60개와 빌드 후 App Router 테스트 2개가 통과했다. 변경 파일의 Prettier 검사도 통과했다. 새 정적 Storybook을 별도 6028 포트에서 Ego로 실행해 기본 36px·원형 24px 치수, 직접 SVG 자식, 실제 disabled·loading/aria-busy, 375px 키보드 포커스와 모바일 바텀시트 클릭·Enter 닫기/다시 열기를 확인했다. 기존 일반 ButtonLink의 /support/faq 링크를 확인했고 두 문서의 렌더링과 코드 복사 결과를 페이지 내 Clipboard API 테스트 대역으로 검사했다. 아이콘 예제 코드는 평탄화된 Button import와 variant="icon"을 포함한다. 전체 화면의 픽셀 비교나 전체 접근성 인증을 수행했다는 뜻은 아니다. 기존 Storybook 번들 지시문·성능 경고는 빌드 실패가 아니었다.
+
+## 더보기·소셜 버튼의 부모 표시 옵션 통합 (2026-10-28)
+
+Button·ButtonLink는 loadMore 옵션으로 남은 수량 또는 현재/전체 페이지 수와 라벨·라벨/카운터 타이포그래피를 표시한다. 두 수량 방식은 배타적이고 loadMore와 custom children도 함께 사용할 수 없다. 기존 LoadMoreButtonContent의 JSX를 부모 모듈 내부 렌더 helper로 옮겨 별도 공개 컴포넌트를 추가하지 않았다. 래퍼 제거 전 Typography가 내부 텍스트를 직접 탐지하지 않던 바깥 스케일은 명시적 language로 보존하고 라벨·카운터의 개별 타이포그래피는 유지한다. ButtonLink의 href·탐색 의미와 일반 children 방식, Button의 variant/size 상관관계는 유지한다.
+
+Button.social은 kakao/naver 제공자와 login(기본)/signup 외형을 받으며 기존 전체 너비·18px 아이콘·색상과 hover/focus/disabled 표현을 보존한다. 인증과 요청 상태는 호출부가 소유한다. 소셜 모드에서는 충돌하는 variant·icon·colorway·fullWidth·className·style·loadMore를 허용하지 않으며 크기는 tall/short다. icon 모드에도 loadMore/social을 허용하지 않는다. 기존 아이콘 모드와 폴더 평탄화의 동시 변경은 보존했다.
+
+LoadMoreButton·SocialAuthButton 구현 2개를 제거했다. 쿠폰·리뷰·고객센터 footer 및 로그인·가입 호출부를 새 옵션으로 전환하고, 전용 스토리를 Atoms/Button/LoadMore와 Atoms/Button/Social로 이전해 의미 있는 시나리오를 유지했다. 이전 전용 title·ID는 새 소유 경로로 바뀌며 소스·IA에서 그 ID를 참조하지 않음을 확인한다. 타입 검증에는 상호 배타적 옵션·소셜 크기 제약과 기존 일반/아이콘 모드를 함께 검사한다.
+
+작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.
+
+더보기·소셜 옵션 통합 후 검증: 타입 검사·전체 린트·Panda 생성·Next/Storybook production build가 통과했다. 폼·import 순서 56개와 App Router 2개 테스트가 통과했고 18개 PC/375px 표시 사례의 DOM·계산 스타일 비교가 일치했다. 자세한 검증은 [더보기·소셜 버튼 부모 옵션 검증](../development/verification.md#더보기소셜-버튼-부모-옵션-검증-2026-10-28)을 참고한다.
+
+## 도메인 레이아웃 소유권과 고객센터 제목 조합 (2026-10-28)
+
+AccountPageLayout은 src/components/account/AccountPageLayout.tsx로, CustomerCenterLayout은 src/components/support/CustomerCenterLayout.tsx로, OrderPageLayout은 src/components/orders/OrderPageLayout.tsx로 이동했다. 계정 프레임은 로그인·회원가입·휴대폰 인증의 공용 계약이며, 주문 프레임은 장바구니·결제의 진행 단계와 폭·여백을 소유한다. 범용 ContentLayout과 SidebarNavigationLayout은 common/layouts에 유지한다. 세 레이아웃의 공개 props와 서버/클라이언트 경계는 유지하고 소비처의 직접 import를 변경했다. 이전 경로의 forwarding 파일은 두지 않는다. 운영 구현 파일 수는 동일하다.
+
+CustomerCenterLayout은 기본 제목·설명·타이포그래피를 ContentSection의 title/headerProps로 전달한다. 직접 ContentHeader를 생성하는 중복 조합을 제거했으며, 사용자 지정 header(명시적 null 포함)와 footer/footerAction의 배타적 API는 유지한다. h1, PC heading6과 모바일 제목 선택, body3 설명 및 override 순서, gap=0, 고객센터 사이드 탐색과 하단 버튼을 보존한다. 하단 액션 스토리는 src/stories/features/support/CustomerCenterLayout.FooterAction.stories.tsx로 이동하고 기존 title과 스토리 ID를 유지한다.
+
+작업 트리 출처: src/components/account/AccountPageLayout.tsx, src/components/support/CustomerCenterLayout.tsx, src/components/orders/OrderPageLayout.tsx, src/components/common/layouts/ContentSection.tsx, src/stories/features/support/CustomerCenterLayout.FooterAction.stories.tsx 및 해당 레이아웃을 사용하는 src/app 라우트와 PhoneVerificationContent.tsx. 변경 시점: 2026-10-28T10:47:12.663Z.
+
+검증: 변경 파일 ESLint·Prettier 검사와 Panda CSS 생성을 통과했다. TypeScript AST 비교로 소비처의 import 외 본문이 이동 전과 동일함을 확인했으며, 기존 레이아웃 경로 참조가 src·.storybook·tests에 남지 않았다. Git index는 변경하지 않았다. Ego 개발 Storybook에서 FAQ·1:1 문의·장바구니·회원가입 안내의 PC/모바일 8개 시나리오를 확인했다. 각 시나리오의 main과 main 내부 h1은 하나이며 고객센터 탐색의 PC 표시/모바일 숨김과 제목 크기를 확인했다. 스크린샷 캡처는 CDP timeout으로 완료하지 못했다. 전체 typecheck는 동시 변경 중인 src/types/type-tests/Button.type-test.tsx의 social/loadMore 타입 검사 관련 6개 진단으로 실패했으며 이번 레이아웃 관련 진단은 없었다. 별도 임시 출력 경로의 Storybook 빌드는 정적 파일 images/icon/rating 복사 중 EEXIST로 실패했다. 해당 병행 작업과 정적 복사 오류는 이 범위에서 수정하지 않았다.
+
+## 공통 레이아웃 3개 계층 이동 (2026-10-28)
+
+MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/molecules에서 src/components/common/layouts로 이동했다. MainSection은 영역의 중앙 정렬·contained/fullBleed/extended 폭과 반응형 간격, OrderActionBar는 PC 일반 배치와 모바일 하단 고정, ModalDialog는 제목·스크롤 본문·푸터·오버레이 프레임을 소유한다. ModalDialog는 BottomSheet와 같은 layouts 계층에 둔다. 공개 props·함수 본문·클라이언트 경계는 유지하며 OrderActionBar의 컴포넌트 주석만 한영 형식으로 정리했다.
+
+실제 호출부 import와 MainSection 선언 계약 경로를 갱신했다. 전용 스토리 5개를 src/stories/components/common/layouts의 같은 이름 폴더로 이동하고 MainSection·OrderActionBar·ModalDialog·ConfirmDialog·SingleActionDialog의 Storybook title을 Layouts로 변경했다. 이에 따라 해당 스토리 ID의 접두사도 molecules에서 layouts로 변경된다. 기존 이력의 출처 경로는 당시 기록으로 유지한다. 검증 결과는 아래에 별도로 기록한다.
+
+작업 트리 출처: src/components/common/layouts/MainSection.tsx, src/components/common/layouts/OrderActionBar.tsx, src/components/common/layouts/ModalDialog.tsx, src/types/component-contracts/components-common-layouts-MainSection.d.ts 및 src/stories/components/common/layouts/{MainSection,OrderActionBar,ModalDialog}.
+
+검증: 변경 TS/TSX·선언 파일 34개의 ESLint --fix·Prettier 검사 통과, 두 번째 ESLint 수정 없음. TypeScript AST로 이동한 세 구현의 import·주석을 제외한 본문 동일성을 확인했고 인덱스도 변경하지 않았다. Panda CSS를 임시 경로로 추출하고 Storybook을 별도 임시 출력 폴더에 빌드해 통과했다. 생성된 Storybook index에서 Layouts/MainSection·OrderActionBar·ModalDialog·ConfirmDialog·SingleActionDialog 등록을 확인했다. 기존 경로 참조는 src·.storybook·scripts·tests에 남지 않았다. 전체 tsc --noEmit --incremental false는 이번 이동에서 수정하지 않은 src/types/type-tests/Button.type-test.tsx의 @ts-expect-error 위치와 social/loadMore 배타적 타입 관련 오류 6건으로 실패했다. Storybook 빌드에는 의존 패키지의 module-level directive 및 플러그인 시간 경고가 있다. Next 빌드와 브라우저 상호작용 검증은 이번 경로 이동에서 실행하지 않았다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## AccountPageLayout 공통 레이아웃 경로 복귀 (2026-10-28)
+
+AccountPageLayout을 src/components/account/AccountPageLayout.tsx에서 src/components/common/layouts/AccountPageLayout.tsx로 이동했다. 계정 데이터·인증 정책 없이 본문 폭·중앙 정렬·반응형 여백·선택적 제목과 액션을 배치하는 책임을 기준으로 공통 layouts에서 관리한다. 기존 API·구현·폼 연결·클라이언트 경계는 그대로 유지하고 로그인·회원가입·휴대폰 인증의 실제 import를 갱신했다. 이전 도메인 이동 기록의 경로는 당시 이력으로 유지하며 현재 경로는 이 절을 따른다. 작업 트리 출처는 src/components/common/layouts/AccountPageLayout.tsx와 해당 src/app 및 PhoneVerificationContent.tsx 소비처다.
+
+검증: 변경된 구현·소비처 11개 파일의 ESLint --fix와 Prettier 검사, 전체 tsc --noEmit --incremental false를 통과했다. 이동 전후 구현 파일 내용이 동일하고 기존 스테이징 인덱스가 유지됨을 확인했다. src·.storybook·scripts·tests에서 components/account/AccountPageLayout 참조가 남지 않았다. 경로 이동으로 렌더링 본문은 변경하지 않았으며 이번 이동에서는 브라우저·Next/Storybook 빌드를 실행하지 않았다.
+
+## SystemStatusPage 공통 organisms 이동과 래퍼 제거 (2026-10-28)
+
+SystemStatusPage를 src/components/not-found에서 src/components/common/organisms/SystemStatusPage.tsx로 이동했다. 404·점검·서비스 오류가 함께 쓰는 아이콘·제목·설명·점검 정보·홈 버튼 구성을 공통 organisms에서 소유한다. 기존 status·maintenance props와 렌더링 본문은 유지한다. 고정 status만 전달하던 NotFoundPage 래퍼는 제거하고 상품·런클럽의 데이터 없음 분기, 404 라우트 및 스토리에서 SystemStatusPage status="not-found"를 직접 사용한다. src/app/not-found.tsx의 클라이언트 경계는 유지한다. 기존 스토리 파일·title·ID는 유지하며 404 시나리오의 기본 args에 status를 지정한다. IA 화면 연결의 소스 파일 경로도 현재 구현으로 갱신했다. 과거 기록의 경로는 당시 이력으로 유지한다. 작업 트리 출처는 공통 SystemStatusPage·src/app/not-found.tsx·src/app/screen-index/screenConnections.ts와 변경 소비처·스토리다.
+
+검증: 변경 파일 11개의 ESLint --fix·Prettier 검사와 두 번째 수정 없음, 전체 tsc --noEmit --incremental false, 별도 임시 파일 Panda CSS 추출, 임시 출력 폴더 Storybook 빌드를 통과했다. SystemStatusPage 구현 내용은 이동 전과 동일하며 작업 전 스테이징 인덱스를 유지했다. src·.storybook·scripts·tests의 이전 구현 경로 참조를 제거했다. NotFoundPage 이름의 스토리·시나리오 파일은 기존 스토리 ID 유지를 위해 남으며 제거된 운영 래퍼를 import하지 않는다. 브라우저 상호작용과 Next 빌드는 이번 변경에서 실행하지 않았다.
+
+## ProductDetailImage 공통 molecule 이동 (2026-10-28)
+
+ProductDetailImage를 src/components/product/ProductDetailImage.tsx에서 src/components/common/molecules/ProductDetailImage.tsx로 이동했다. 상품 상세 본문과 확대 뷰어의 두 import를 갱신했다. next/image의 1600×1600 크기·기존 sizes·eager/lazy 선택·선택적 확대 버튼·대체 텍스트와 API를 그대로 유지했다. IdConfirmationMessage는 이번 이동 범위에 포함하지 않는다. 작업 트리 출처는 공통 ProductDetailImage와 src/app/products/[id]/page.tsx·_components/ProductDetailViewerContent.tsx다.
+
+검증: 변경 TSX 3개의 ESLint --fix·Prettier 검사, 전체 tsc --noEmit --incremental false, 임시 파일 Panda CSS 추출을 통과했다. 이동한 구현 내용이 원본과 동일하고 기존 스테이징 인덱스가 유지됨을 확인했다. src·.storybook·scripts·tests에 이전 구현 경로 참조가 남지 않았다. 이번 경로 이동에서 Next/Storybook 빌드와 브라우저 검증은 실행하지 않았다.
+
+## 런클럽 분류 배지 통합 (2026-10-28)
+
+Badge에 runClubCategory: 'Road' | 'Trail' 옵션을 추가하고 RunClubBadge.tsx를 제거했다. RunClubPage와 app/running/run-club/[sessionId]/page.tsx의 두 운영 사용처는 Badge를 직접 사용한다. 분류 라벨·배경·글자색만 공통 배지가 소유하며 세션 데이터와 필터·신청 정책은 run-club에 유지한다. 공통 배지에서 RunClubSession을 import하지 않는다. 운영 구현 파일 수는 1개 감소한다.
+
+runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·shape·weight와 타입으로 배타적이다. 기존 기본 배지와 출시 상태·프로모션 옵션은 유지한다. 런클럽 분류는 span HStack과 내부 Typography를 유지하며 PC 높이 28px·패딩 8px·body4, 모바일 높이 20px·세로 패딩 0·가로 8px·body5와 bold, Road #dfff00/#000 및 Trail #5d6825/#fff를 보존한다. 새 모드의 className은 바깥 span에 적용되고 native span 속성도 전달한다.
+
+공용 Badge 스토리에 Road·Trail의 기본/명시적 모바일 4개 시나리오를 추가했다. src/types/type-tests/Badge.type-test.tsx에서 정상 카테고리와 native 속성, children·status·promotion·variant 혼용 및 미지원 카테고리를 검사한다. npm run typecheck와 npm run panda가 통과했다. 변경 파일 ESLint fix·Prettier를 적용했다. Ego 개발 Storybook에서 런클럽 목록·상세의 PC/모바일 4개와 일반 filled·COMING·복수 프로모션·빈 프로모션 4개를 전후 비교했고 라벨·태그·높이·패딩·색·모서리·글자 크기·두께·행간이 동일했다. 전체 프로덕션/Storybook 빌드는 이번 작업에서 실행하지 않았다.
+
+작업 트리 출처: src/components/common/atoms/Badge.tsx, src/components/run-club/RunClubPage.tsx, src/app/running/run-club/[sessionId]/page.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx. 기록 시점: 2026-10-28T11:14:23.062Z.

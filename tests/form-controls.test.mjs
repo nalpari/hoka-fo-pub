@@ -25,7 +25,7 @@ registerHooks({
       if (file) return nextResolve(pathToFileURL(file).href, context);
     }
     if (
-      ['next/link', 'next/navigation'].includes(specifier) &&
+      ['next/image', 'next/link', 'next/navigation'].includes(specifier) &&
       context.parentURL?.includes('/src/')
     )
       return nextResolve(
@@ -42,6 +42,7 @@ registerHooks({
         format: 'module',
         shortCircuit: true,
         source: ts.transpileModule(readFileSync(fileURLToPath(url), 'utf8'), {
+          fileName: fileURLToPath(url),
           compilerOptions: {
             module: ts.ModuleKind.ESNext,
             jsx: ts.JsxEmit.ReactJSX,
@@ -56,22 +57,18 @@ registerHooks({
 
 const h = React.createElement;
 
-const { FormField } = await import('../src/shared/components/atoms/FormField/FormField.tsx');
+const { FormField } = await import('../src/components/common/atoms/FormField.tsx');
 
 const fixtures = [
-  ['TextInput', 'atoms/TextInput/TextInput', {}],
-  ['TextInput', 'atoms/TextInput/TextInput', { type: 'password' }],
-  ['TextInput', 'atoms/TextInput/TextInput', { multiline: true }],
-  ['Select', 'atoms/Select/Select', { children: h('option', null, '선택') }],
-  [
-    'Dropdown',
-    'atoms/Dropdown/Dropdown',
-    { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }] },
-  ],
-  ['Checkbox', 'atoms/Checkbox/Checkbox', { label: '동의', checked: false }],
+  ['TextInput', 'atoms/TextInput', {}],
+  ['TextInput', 'atoms/TextInput', { type: 'password' }],
+  ['TextInput', 'atoms/TextInput', { multiline: true }],
+  ['Select', 'atoms/Select', { children: h('option', null, '선택') }],
+  ['Dropdown', 'atoms/Dropdown', { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }] }],
+  ['Checkbox', 'atoms/Checkbox', { label: '동의', checked: false }],
   [
     'Checkbox',
-    'atoms/Checkbox/Checkbox',
+    'atoms/Checkbox',
     {
       ariaLabel: '동의 목록',
       options: [{ value: 'a', label: 'A' }],
@@ -81,21 +78,21 @@ const fixtures = [
   ],
   [
     'Radio',
-    'atoms/Radio/Radio',
+    'atoms/Radio',
     { ariaLabel: '선택', options: [{ value: 'a', label: 'A' }], value: '', onValueChange() {} },
   ],
-  [
-    'RatingStars',
-    'atoms/RatingStars/RatingStars',
-    { ariaLabel: '별점', value: 0, onValueChange() {} },
-  ],
+  ['RatingStars', 'atoms/RatingStars', { ariaLabel: '별점', value: 0, onValueChange() {} }],
   [
     'RangeInput',
-    'atoms/RangeInput/RangeInput',
+    '../catalog/ProductListingPage',
     { 'aria-label': '범위', value: 10, onValueChange() {} },
   ],
-  ['NumberStepper', 'atoms/NumberStepper/NumberStepper', { value: 1, onChange() {} }],
-  ['Terms', 'molecules/Terms/Terms', { checked: false, children: '동의', onCheckedChange() {} }],
+  ['NumberStepper', 'atoms/NumberStepper', { value: 1, onChange() {} }],
+  [
+    'Checkbox',
+    'atoms/Checkbox',
+    { variant: 'consent', checked: false, label: '동의', onCheckedChange() {} },
+  ],
   [
     'SizeSelector',
     'molecules/SizeSelector/SizeSelector',
@@ -121,7 +118,7 @@ const fixtures = [
 ];
 
 for (const [index, [name, modulePath, props]] of fixtures.entries()) {
-  const { [name]: Control } = await import(`../src/shared/components/${modulePath}.tsx`);
+  const { [name]: Control } = await import(`../src/components/common/${modulePath}.tsx`);
   test(`${index}: ${name} inherits field error and description`, () => {
     const html = renderToStaticMarkup(
       h(FormField, { htmlFor: 'audit', error: '필수 입력' }, h(Control, props)),
@@ -136,7 +133,7 @@ for (const [index, [name, modulePath, props]] of fixtures.entries()) {
   });
 }
 
-const { RatingStars } = await import('../src/shared/components/atoms/RatingStars/RatingStars.tsx');
+const { RatingStars } = await import('../src/components/common/atoms/RatingStars.tsx');
 
 test('RatingStars display retains half stars without interactive controls', () => {
   const html = renderToStaticMarkup(h(RatingStars, { value: 4.5 }));
@@ -157,8 +154,50 @@ test('RatingStars selection renders five icon radios with one selected value', (
   assert.doesNotMatch(html, /★/);
 });
 
-const { StatusMessage } =
-  await import('../src/shared/components/atoms/StatusMessage/StatusMessage.tsx');
+const { StatusMessage } = await import('../src/components/common/atoms/StatusMessage.tsx');
+
+const { PlatformProvider, usePlatform } = await import('../src/context/platform.tsx');
+
+const { Badge } = await import('../src/components/common/atoms/Badge.tsx');
+
+test('Badge keeps ordinary labels and resolves both launch statuses', () => {
+  assert.match(renderToStaticMarkup(h(Badge, null, '배송완료')), /배송완료/);
+  assert.match(renderToStaticMarkup(h(Badge, { status: 'COMING' })), /COMING SOON/);
+  assert.match(renderToStaticMarkup(h(Badge, { status: 'IN_STOCK' })), /IN STOCK/);
+});
+
+test('Badge promotions retain ordered labels, separators, weight and empty rendering', () => {
+  const html = renderToStaticMarkup(
+    h(Badge, { promotion: ['Best', 'New', 'Exclusive'], weight: 'medium' }),
+  );
+  assert.match(html, /Best.*New.*Exclusive/);
+  assert.equal((html.match(/aria-hidden="true"/g) ?? []).length, 2);
+  assert.match(html, /fw_medium/);
+  const single = renderToStaticMarkup(h(Badge, { promotion: 'New' }));
+  assert.match(single, /New/);
+  assert.doesNotMatch(single, /aria-hidden/);
+  assert.equal(renderToStaticMarkup(h(Badge, { promotion: [] })), '');
+});
+
+function PlatformProbe() {
+  return h('output', null, usePlatform());
+}
+
+test('automatic platform renders web on the server without browser globals', () => {
+  assert.equal(
+    renderToStaticMarkup(h(PlatformProvider, null, h(PlatformProbe))),
+    '<output>web</output>',
+  );
+});
+
+for (const platform of ['web', 'mobile']) {
+  test(`explicit ${platform} platform remains available during server rendering`, () => {
+    assert.equal(
+      renderToStaticMarkup(h(PlatformProvider, { platform }, h(PlatformProbe))),
+      `<output>${platform}</output>`,
+    );
+  });
+}
 
 for (const tone of ['error', 'success', 'info']) {
   test(`StatusMessage ${tone} retains accessible tone`, () => {
@@ -167,5 +206,91 @@ for (const tone of ['error', 'success', 'info']) {
     assert.match(html, new RegExp(`role="${tone === 'error' ? 'alert' : 'status'}"`));
     assert.match(html, new RegExp(`aria-live="${tone === 'error' ? 'assertive' : 'polite'}"`));
     assert.match(html, /class="[^"]+"/);
+  });
+}
+
+const { Button: UnifiedButton } = await import('../src/components/common/atoms/Button.tsx');
+
+for (const [size, expected] of [
+  [undefined, '36px'],
+  [24, '24px'],
+  ['1.5rem', '1.5rem'],
+]) {
+  test(`icon button keeps direct children and explicit dimensions: ${expected}`, () => {
+    const html = renderToStaticMarkup(
+      h(
+        UnifiedButton,
+        {
+          variant: 'icon',
+          size,
+          'aria-label': '닫기',
+          type: 'submit',
+          form: 'editor',
+        },
+        h('svg', { 'aria-hidden': true }),
+      ),
+    );
+    assert.match(html, /aria-label="닫기"/);
+    assert.match(html, /type="submit"/);
+    assert.match(html, /form="editor"/);
+    assert.ok(html.includes(`--icon-button-size:${expected}`));
+    assert.match(html, /<button[^>]*><svg/);
+    assert.doesNotMatch(html, /variant="icon"|shape=|tone=|\[object Object\]/);
+  });
+}
+
+test('icon loading disables the control while disabled tone remains presentation only', () => {
+  const loading = renderToStaticMarkup(
+    h(UnifiedButton, { variant: 'icon', loading: true, 'aria-label': '저장' }),
+  );
+  assert.match(loading, /aria-busy="true"/);
+  assert.match(loading, /disabled=""/);
+  const toned = renderToStaticMarkup(
+    h(UnifiedButton, { variant: 'icon', tone: 'disabled', 'aria-label': '삭제' }),
+  );
+  assert.match(toned, /--icon-button-color:var\(--color-black-40\)/);
+  assert.doesNotMatch(toned, /disabled=""/);
+});
+
+test('generated remaining counts retain zero, custom labels and native form ownership', () => {
+  const html = renderToStaticMarkup(
+    h(UnifiedButton, {
+      loadMore: { remaining: 0, label: '리뷰 더보기' },
+      type: 'submit',
+      form: 'reviews',
+    }),
+  );
+  assert.match(html.replace(/<[^>]*>/g, ''), /리뷰 더보기 \(0\) ⌄/);
+  assert.match(html, /type="submit"/);
+  assert.match(html, /form="reviews"/);
+  assert.doesNotMatch(html, /loadmore=|remaining=|\[object Object\]/i);
+});
+
+test('counter links retain navigation semantics and loading buttons remain disabled', async () => {
+  const { ButtonLink } = await import('../src/components/common/atoms/Button.tsx');
+  const loadMore = { counter: { current: 1, total: 3 }, label: '전체보기' };
+  const html = renderToStaticMarkup(h(ButtonLink, { href: '/support/faq', loadMore }));
+  assert.match(html, /<a[^>]*href="\/support\/faq"/);
+  assert.match(html.replace(/<[^>]*>/g, ''), /전체보기.*\(1\/3\)/);
+  assert.doesNotMatch(html, /<button|role="button"|loadmore=/i);
+  const loading = renderToStaticMarkup(h(UnifiedButton, { loadMore, loading: true }));
+  assert.match(loading, /disabled=""/);
+  assert.match(loading, /aria-busy="true"/);
+});
+
+for (const provider of ['kakao', 'naver']) {
+  test(`social ${provider} keeps its icon, label and submit association`, () => {
+    const html = renderToStaticMarkup(
+      h(
+        UnifiedButton,
+        { social: { provider, appearance: 'signup' }, type: 'submit', form: 'signup' },
+        '가입',
+      ),
+    );
+    assert.ok(html.includes(`/images/icon/social/${provider}.svg`));
+    assert.match(html, /type="submit"/);
+    assert.match(html, /form="signup"/);
+    assert.match(html, /가입/);
+    assert.doesNotMatch(html, /social=|provider=|appearance=|\[object Object\]/);
   });
 }

@@ -1,11 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { AppLayout } from '@/shared/components/layouts/AppLayout/AppLayout';
-import { PlatformProvider } from '@/shared/context/platform';
-import { NotFoundPage } from '@/shared/features/not-found/NotFoundPage';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
+import { AppLayout } from '@/context/ShopShell';
+
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
 const meta = {
   title: 'PAGES/공통/1. 404에러페이지',
-  component: NotFoundPage,
+  component: SystemStatusPage,
+  args: { status: 'not-found' },
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story, context) => {
@@ -25,7 +27,7 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof NotFoundPage>;
+} satisfies Meta<typeof SystemStatusPage>;
 
 export default meta;
 
