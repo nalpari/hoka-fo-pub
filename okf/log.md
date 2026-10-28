@@ -1,4 +1,5 @@
 # 지식 번들 변경 이력
+- **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
 
 ## 2026-10-27
 
@@ -888,3 +889,8 @@
 - **Initialization**: OKF v0.2 지식 번들을 구성하고 [프로젝트 개요](project.md), [아키텍처](architecture/index.md), [개발 절차](development/index.md), [유지보수](maintenance.md)를 작성했다.
 - **Integration**: 루트 README와 AGENTS.md에서 이 번들의 진입점을 연결하고, 커밋 스킬이 참조하는 [워크트리 절차](development/worktrees.md)를 추가했다.
 - **Update**: 제품·화면 전용 Typography variant에 이어 `formLabel`, `sizeOption`, `action`도 제거하고 사용처를 표준 body scale로 옮겼다. Checkbox의 중복 label variant API와 전용 CSS 변수를 정리했으며 [UI 아키텍처](architecture/ui.md)에 매핑과 범위를 기록했다.
+
+
+## IA 바로가기 정정 (2026-10-28)
+
+- IA 바로가기를 Storybook에서 동일 서버의 실제 페이지로 변경했다. 상품 목록 IA 필터 쿼리를 유지하고 PC/MO 링크는 기기에 따라 표시되는 페이지 링크로 통합했다. 독립 경로가 없는 팝업은 N/A로 표시한다. 작업 트리 출처: `src/shared/features/screen-index/IaStructurePage.tsx`. 앞선 Storybook 호스트 설정 기록을 대체한다.

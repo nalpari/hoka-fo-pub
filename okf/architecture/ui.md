@@ -3180,3 +3180,6 @@ Figma `962:8877`·`1338:40335`의 모바일 카드 기준으로 체크박스와 
 강조 금액(`emphasis`)은 숫자를 heading7, `원`을 body3로 나눠 표시한다. 일반 금액은 기존 body4 한 줄 표시를 유지하며, 할인 금액은 강조/일반 상태 모두 숫자와 단위에 오류 톤을 적용한다. 기존 AmountRow 사용처의 금액 계산과 합계 값은 변경하지 않는다.
 
 Chrome localhost 장바구니의 375px 화면에서 하단 결제예정금액 표기를 확인했다. 데스크톱 화면은 이번 시각 확인 범위가 아니다.
+## IA 구조도 독립 페이지 (2026-10-28)
+
+IA 구조도는 DEVELOPMENT 스토리에서 `/screen-index` 독립 페이지로 이동했다. 검색·상태 필터·계층 접기·현황을 유지한다. 바로가기는 같은 서버의 실제 App Router 페이지로 연결한다. 상품 목록은 IA별 필터 쿼리를 유지한다. PC/MO 링크를 하나의 페이지 링크로 통합하며 플랫폼은 기존 사용자 에이전트 판별을 따른다. 독립 경로가 없는 팝업은 N/A로 표시한다. Storybook URL 환경변수는 사용하지 않는다. 작업 트리 출처: `src/shared/features/screen-index/IaStructurePage.tsx`, `src/shared/components/layouts/AppLayout/AppLayout.tsx`, 제거한 `src/stories/features/screen-index/IaStructurePage.stories.tsx`.

@@ -193,3 +193,8 @@ node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetai
 브라우저 정적 빌드에서 375px 주문 목록/직접 기간 입력·반품 신청 시트·반품 상세를 시각 확인했다. 부분 취소 play는 오류 표시 후 접수 상태와 취소상세 링크를 확인했고, 배송조회 play는 단계/송장/추적 표를 표시했다. 기존 주문 완료 play(감사 안내), 쿠폰 선택 play(432,000원 결제 금액), 장바구니 옵션 저장·취소 play를 실행했으며 콘솔 오류가 없었다. 최종 변경의 타입 검사·범위 ESLint·Next.js/Storybook 빌드도 통과했다.
 
 추가로 개발 서버에서 배송지 변경→주소 검색 모달 입력→이름/휴대폰 입력→동의→완료를 확인했다. boxed 주소의 disabled/name 누락을 주문서 어댑터에서 수정했으며 최신 타입 검사/해당 파일 ESLint가 통과했다. 반품 신청도 상품 선택·불량 사유로 접수 메시지까지 확인했고, PC 스토리는 단일 헤더와 MY HOKA 사이드바를 유지한다. 개발 Storybook은 재시작 후 정상화했다.
+
+
+## IA 구조도 경로 (2026-10-28)
+
+작업 트리 `tests/app-router.test.mjs`의 기대 라우트에 `/screen-index`를 추가했다. 이 검사는 Next 빌드 manifest가 필요하다.

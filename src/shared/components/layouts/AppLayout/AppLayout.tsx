@@ -24,6 +24,8 @@ export function AppLayout({
   const pathname = usePathname();
   const searchPage = platform === 'mobile' && pathname === '/search';
 
+  if (pathname === '/screen-index') return <>{children}</>;
+
   return (
     <>
       {!searchPage && (

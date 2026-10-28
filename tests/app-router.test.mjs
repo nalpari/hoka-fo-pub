@@ -41,6 +41,7 @@ const expectedRoutes = [
   '/products/[id]',
   '/running/run-club',
   '/running/run-club/[sessionId]',
+  '/screen-index',
   '/search',
   '/service-unavailable',
   '/signup',

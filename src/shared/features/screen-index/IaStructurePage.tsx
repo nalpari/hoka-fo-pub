@@ -13,7 +13,6 @@ import {
   faFolder,
   faFolderOpen,
   faFolderTree,
-  faMobileScreenButton,
   faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +28,10 @@ import {
   isStorybookReady,
   isStorybookWorking,
 } from '@/shared/features/screen-index/storybookLinks';
-import { getProductListingIaKey } from '@/shared/features/catalog/productListingIaRoute';
+import {
+  getProductListingIaKey,
+  getProductListingRoute,
+} from '@/shared/features/catalog/productListingIaRoute';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 
 config.autoAddCss = false;
@@ -62,117 +64,27 @@ const deletedIaNumbers = new Set(
     .map((screen) => screen.iaNumber),
 );
 
-type PreviewStoryIds = {
-  pc: string;
-  mo: string;
-};
-
-const previewStoryIdsByIaNumber: Record<number, PreviewStoryIds> = {
-  158: {
-    pc: 'pages-탐색-0-러닝세션-목록-web--list',
-    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
-  },
-  260: {
-    pc: 'pages-고객센터-6-사이즈-가이드-web--default',
-    mo: 'pages-고객센터-6-사이즈-가이드-mobile--default',
-  },
-  200: {
-    pc: 'pages-탐색-0-러닝세션-목록-web--list',
-    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
-  },
-  258: {
-    pc: 'pages-탐색-0-러닝세션-목록-web--list',
-    mo: 'pages-탐색-0-러닝세션-목록-mobile--list',
-  },
-  259: {
-    pc: 'pages-탐색-1-러닝세션-상세-web--open',
-    mo: 'pages-탐색-1-러닝세션-상세-mobile--open',
-  },
-  229: {
-    pc: 'pages-로그인-3-비밀번호-재설정-web--default',
-    mo: 'pages-로그인-3-비밀번호-재설정-mobile--default',
-  },
-  252: {
-    pc: 'pages-로그인-4-비밀번호-재설정-완료-web--default',
-    mo: 'pages-로그인-4-비밀번호-재설정-완료-mobile--default',
-  },
-  226: {
-    pc: 'pages-로그인-2-아이디확인-web--default',
-    mo: 'pages-로그인-2-아이디확인-mobile--default',
-  },
-  1: {
-    pc: 'pages-메인-0-메인-web--width-1920',
-    mo: 'pages-메인-0-메인-mobile--width-375',
-  },
-  251: {
-    pc: 'pages-로그인-5-계정-잠금-안내-web--default',
-    mo: 'pages-로그인-5-계정-잠금-안내-mobile--default',
-  },
-  253: {
-    pc: 'pages-회원가입-2-휴대폰-인증-web--account-unlock',
-    mo: 'pages-회원가입-2-휴대폰-인증-mobile--account-unlock',
-  },
-  254: {
-    pc: 'pages-로그인-6-계정-잠금-해제-완료-web--default',
-    mo: 'pages-로그인-6-계정-잠금-해제-완료-mobile--default',
-  },
-  257: {
-    pc: 'organisms-account-alreadyregisteredmodal--default',
-    mo: 'organisms-account-alreadyregisteredmodal--mobile',
-  },
-  233: {
-    pc: 'pages-회원가입-0-회원가입-안내-web--default',
-    mo: 'pages-회원가입-0-회원가입-안내-mobile--default',
-  },
-  234: {
-    pc: 'pages-회원가입-2-휴대폰-인증-web--default',
-    mo: 'pages-회원가입-2-휴대폰-인증-mobile--default',
-  },
-  235: {
-    pc: 'pages-회원가입-1-가입여부확인-web--default',
-    mo: 'pages-회원가입-1-가입여부확인-mobile--default',
-  },
-  236: {
-    pc: 'pages-회원가입-3-약관동의-web--default',
-    mo: 'pages-회원가입-3-약관동의-mobile--default',
-  },
-  237: {
-    pc: 'pages-회원가입-4-회원-정보-입력-web--default',
-    mo: 'pages-회원가입-4-회원-정보-입력-mobile--default',
-  },
-  255: {
-    pc: 'pages-회원가입-4-회원-정보-입력-web--additional',
-    mo: 'pages-회원가입-4-회원-정보-입력-mobile--additional',
-  },
-  256: {
-    pc: 'pages-회원가입-5-마케팅-정보-수신동의-안내-web--default',
-    mo: 'pages-회원가입-5-마케팅-정보-수신동의-안내-mobile--default',
-  },
-  238: {
-    pc: 'pages-회원가입-4-회원-정보-입력-web--complete',
-    mo: 'pages-회원가입-4-회원-정보-입력-web--complete',
-  },
-};
-
-const previewStoryIdsByScreenCode: Record<string, PreviewStoryIds> = {
-  eland_hca_01: {
-    pc: 'pages-상품-0-상품목록-web--width-1920',
-    mo: 'pages-상품-0-상품목록-mobile--width-375',
-  },
-  eland_hca_02: {
-    pc: 'pages-상품-1-상품상세-web--width-1920',
-    mo: 'pages-상품-1-상품상세-mobile--width-375',
-  },
-};
-
-const loginPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-로그인-0-로그인-web--default',
-  mo: 'pages-로그인-0-로그인-mobile--default',
-};
-
-const findAccountPreviewStoryIds: PreviewStoryIds = {
-  pc: 'pages-로그인-1-아이디·비밀번호-찾기-web--default',
-  mo: 'pages-로그인-1-아이디·비밀번호-찾기-mobile--default',
+const previewRoutesByIaNumber: Record<number, string> = {
+  1: '/',
+  158: '/running/run-club',
+  200: '/running/run-club',
+  258: '/running/run-club',
+  259: '/running/run-club/yeouido-night',
+  260: '/support/size-guide',
+  226: '/login/find-account/id-confirmation-modal',
+  229: '/login/find-account/password-reset',
+  252: '/login/find-account/password-reset',
+  251: '/login/account-locked',
+  253: '/login/account-locked/verification',
+  254: '/login/account-locked/complete',
+  233: '/signup',
+  234: '/signup/verify/phone',
+  235: '/signup/verify',
+  236: '/signup/terms',
+  237: '/signup/information',
+  255: '/signup/information',
+  256: '/signup/information',
+  238: '/signup/complete',
 };
 
 const findAccountScreenCodes = new Set([
@@ -447,27 +359,21 @@ function getStatus(screen: ScreenDefinition): DeliveryStatus {
   return 'pending';
 }
 
-function getPreviewStoryIds(screen: ScreenDefinition): PreviewStoryIds | undefined {
-  const previewStoryIds = previewStoryIdsByIaNumber[screen.iaNumber];
+function getPreviewHref(screen: ScreenDefinition): string | undefined {
+  if (deletedIaNumbers.has(screen.iaNumber)) return undefined;
 
-  if (previewStoryIds) return previewStoryIds;
+  const route = previewRoutesByIaNumber[screen.iaNumber];
+  if (route) return route;
 
+  if (screen.screenCode === 'eland_hca_01') {
+    return getProductListingRoute(getProductListingIaKey(screen.iaNumber));
+  }
+  if (screen.screenCode === 'eland_hca_02') return '/products/bondi-9';
   if (screen.screenCode.startsWith('eland_hlo_')) {
-    return findAccountScreenCodes.has(screen.screenCode)
-      ? findAccountPreviewStoryIds
-      : loginPreviewStoryIds;
+    return findAccountScreenCodes.has(screen.screenCode) ? '/login/find-account' : '/login';
   }
 
-  return previewStoryIdsByScreenCode[screen.screenCode];
-}
-
-function getPreviewHref(storyId: string, screen?: ScreenDefinition) {
-  const listingArgs =
-    screen?.screenCode === 'eland_hca_01'
-      ? '&args=listing:' + getProductListingIaKey(screen.iaNumber)
-      : '';
-
-  return '/?path=/story/' + storyId + listingArgs;
+  return undefined;
 }
 
 function getStatusTagClass(status: DeliveryStatus) {
@@ -580,6 +486,7 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
   return rows;
 }
 
+/** IA 계층과 작업 현황을 탐색하고 화면 미리보기를 연결합니다. (Explores the IA hierarchy and delivery status with screen preview links.) */
 export function IaStructurePage() {
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [query, setQuery] = useState('');
@@ -953,7 +860,7 @@ export function IaStructurePage() {
                 <th>WBS</th>
                 <th>진행 상태</th>
                 <th>작업자</th>
-                <th>바로가기 (PC/MO)</th>
+                <th>바로가기</th>
                 <th>비고 / 이슈</th>
               </tr>
             </thead>
@@ -1055,7 +962,7 @@ function GroupRows({
 
           const status = row.screen ? getStatus(row.screen) : undefined;
           const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
-          const rowPreviewStoryIds = row.screen ? getPreviewStoryIds(row.screen) : undefined;
+          const previewHref = row.screen ? getPreviewHref(row.screen) : undefined;
           const rowClass =
             status === 'delayed'
               ? styles.delayedRow
@@ -1133,21 +1040,10 @@ function GroupRows({
                 )}
               </td>
               <td>
-                {rowPreviewStoryIds ? (
+                {previewHref ? (
                   <div className={styles.preview}>
-                    <a
-                      href={getPreviewHref(rowPreviewStoryIds.pc, row.screen)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> PC
-                    </a>
-                    <a
-                      href={getPreviewHref(rowPreviewStoryIds.mo, row.screen)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FontAwesomeIcon icon={faMobileScreenButton} aria-hidden="true" /> MO
+                    <a href={previewHref} target="_blank" rel="noreferrer">
+                      <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
                     </a>
                   </div>
                 ) : (
