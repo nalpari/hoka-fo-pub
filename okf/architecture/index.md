@@ -434,3 +434,7 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 [전체 단일 부모 통합](single-parent-consolidation-2026-10-28.md)에서 389개 구현의 부모 관계, 도메인 폴더 승격과 경계·타입·Storybook 계약을 안내한다.
 
 [공용 훅·컨텍스트 import 순서 적용](ui.md#공용-훅컨텍스트-import-순서-적용-2026-10-28)은 본문·상태·라우팅을 보존한 정렬과 검증 범위를 기록한다.
+
+[공용 헤더와 섹션 조합 간소화](ui.md#공용-헤더와-섹션-조합-간소화-2026-10-28)는 SectionHeader 제거, ContentLayout의 공용 헤더 사용과 MainSection의 기본 headerProps 조합을 설명한다.
+
+[사이드바 탐색 레이아웃 통합](ui.md#사이드바-탐색-레이아웃-통합-2026-10-28)은 default/support 배타적 옵션과 고객센터 breadcrumb·모바일 여백 및 기본 호출 보존을 설명한다.

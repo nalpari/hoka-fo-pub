@@ -6,36 +6,9 @@ import { contentFrame } from 'styled-system/patterns';
 
 import { type TypographyVariant } from '@/components/common/atoms/Typography/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
-
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
-import type { MainSectionProps as ImportedMainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
-
-type Props = Pick<ImportedMainSectionProps, 'title' | 'titleVariant' | 'actionSlot'>;
-
 const heading = css({ m: '0' });
-
-/** 섹션 제목과 액션을 콘텐츠 그리드에 맞춥니다. (Aligns the section title and actions to the content grid.) */
-function MainSectionHeader({ title, titleVariant, actionSlot }: Props) {
-  return (
-    <ContentHeader
-      title={title}
-      titleProps={{
-        className: heading,
-        web: titleVariant ?? 'heading5',
-        mo: titleVariant ?? 'heading4',
-      }}
-      orientation="horizontal"
-      gap="8px"
-      action={actionSlot}
-      className={contentFrame({
-        mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
-      })}
-      mx="auto"
-    />
-  );
-}
 
 export type MainSectionProps = {
   title: string;
@@ -94,9 +67,21 @@ export function MainSection({
             ? { base: '32px', _mobile: '24px' }
             : { base: '40px', _mobile: '24px' }
         }
-        header={
-          <MainSectionHeader title={title} titleVariant={titleVariant} actionSlot={actionSlot} />
-        }
+        title={title}
+        headerProps={{
+          titleProps: {
+            className: heading,
+            web: titleVariant ?? 'heading5',
+            mo: titleVariant ?? 'heading4',
+          },
+          orientation: 'horizontal',
+          gap: '8px',
+          action: actionSlot,
+          className: contentFrame({
+            mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
+          }),
+          css: css.raw({ mx: 'auto' }),
+        }}
       >
         <div
           className={

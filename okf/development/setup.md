@@ -9,6 +9,9 @@ generated:
   at: '2026-10-28T07:03:09+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/ContentHeader/ContentHeader.tsx
+  - src/components/common/layouts/ContentLayout/ContentLayout.tsx
+  - src/components/common/molecules/MainSection/MainSection.tsx
   - eslint.config.js
   - package-lock.json
   - .vscode/settings.json
@@ -87,3 +90,7 @@ ESLint에 eslint-plugin-perfectionist 5.13.0을 고정 개발 의존성으로 �
 ## 공용 훅·컨텍스트 import 우선순위 (2026-10-28)
 
 2번 그룹을 외부 패키지·공용 훅·컨텍스트로 확장했다. 외부 의존성을 먼저 정렬하고 `@/context/*`, `@/hooks/*`, `@/lib/use[A-Z]*`를 빈 줄 없이 이어 둔 뒤 Panda와 공통 UI를 배치한다. 일반 데이터·타입·유틸리티는 기존 내부 모듈 그룹에 유지한다. 설정은 `eslint.config.js`, 작성 규칙은 `AGENTS.md`와 `component-reusability` 스킬을 따른다. 기존 CLI·저장 자동 수정 방식과 부수 효과 import 경계는 유지한다.
+
+## 공용 헤더 통합의 실행 영향 (2026-10-28)
+
+ContentHeader·ContentLayout·MainSection 변경을 검토했다. 이 통합 작업은 의존성·환경 변수·실행 명령을 변경하지 않으며 기존 Panda 생성, 타입 검사와 앱·Storybook 빌드 명령을 사용한다. 공유 작업 트리의 별도 패키지 변경은 이번 헤더 통합 범위에 포함하지 않는다.

@@ -9,6 +9,8 @@ generated:
   at: '2026-10-23T07:10:36Z'
 source_revision: 288304522b2bd458c2fa2485ac665a9056525976
 working_tree_sources:
+  - src/components/common/molecules/MainSection/MainSection.tsx
+  - src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/app/login/find-account/page.tsx
   - src/app/login/find-account/password-reset/page.tsx
@@ -350,3 +352,12 @@ Typography.stories.tsx의 9개 제목 작성 위치는 native/unstyled/scale 예
 ## 상품 옵션 섹션 공통화 (2026-10-23)
 
 기존 ProductVariantSection/Action은 ProductOptionSection으로 통합했다. 상세의 section·기본 ContentHeader·action Flex·16px 간격과 장바구니 Stack·기존 텍스트 레이블·12px 간격을 유지한다. 위 조사 표의 전용 구성 유지 판정은 조사 당시 결과이며 이 후속 이관이 구현을 대체한다. [공통화와 검증](ui.md#상품-상세와-장바구니-옵션-선택-공통화-2026-10-23)을 참고한다.
+
+## 공용 헤더와 섹션 조합 간소화 (2026-10-28)
+
+- 작업 트리 출처: `src/components/common/molecules/ContentHeader/ContentHeader.tsx`, `src/components/common/layouts/ContentLayout/ContentLayout.tsx`, `src/components/common/molecules/MainSection/MainSection.tsx`, `src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx`.
+- `SectionHeader`의 운영 소비처는 ContentLayout 한 곳이었다. 이 파일과 ContentLayout 내부의 별도 ContentHeader를 제거하고 공용 ContentHeader로 제목·설명·액션을 구성한다. Breadcrumb과 설명만/도입부 없음의 조건부 렌더링, sticky 측정은 ContentLayout이 계속 소유한다.
+- 공용 ContentHeader에 `eyebrowAs?: 'p' | 'small'`과 가로 배치의 `textGroupProps`를 추가했다. 기본 eyebrow 태그 p와 기존 가로/세로 동작은 유지하며, ContentLayout은 small·블록 텍스트 그룹·하단 정렬·gap 16px·설명 상단 8px·h1 heading7/body5를 명시한다. 제목의 0 margin과 caller className을 보존한다.
+- MainSectionHeader 로컬 함수를 제거하고 ContentSection의 title/headerProps로 표현한다. 제목의 web heading5/mobile heading4, 중앙 contentFrame, 8px 액션 간격과 기본/compact 본문 간격, contained/fullBleed/extended 배치는 유지한다. 중첩 스타일의 display와 mx는 css.raw로 추출한다.
+- SectionHeader의 기본/설명·액션·강한 구분선 스토리는 공용 헤더 분류로 옮겼다. 기존 Layouts/Content Header의 세 스토리 ID는 유지하고 실제 ContentLayout을 렌더링한다. 제거된 MainSectionHeader의 선언도 정리했다. 운영 파일은 1개 감소하며, 별도 로컬 함수 2개를 제거한다.
+- 실제 검증: 2026-10-28 타입 검사, 전체 ESLint, Panda 생성, Next.js 빌드와 Storybook 빌드를 통과했다. Ego 정적 Storybook에서 이전 소스와 수정 소스를 나란히 담은 임시 fixture로 1440px/web·390px/mobile의 intro/sticky/title-only/description-only/empty/main/extended/bleed 16개 조합을 비교했다. main/header/section/제목/설명/small/button의 위치·크기·폰트·line-height·weight·margin·gap·정렬 측정값이 모두 일치했다. 임시 소스는 검증 후 삭제했다. Git 스테이징·커밋은 수행하지 않았다.

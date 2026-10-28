@@ -3043,3 +3043,21 @@ TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가�
 - 계정 찾기의 빈 값 오류·이름/전화 입력·인증번호 요청과 코드 속성, 비밀번호 재설정의 마스킹·보기 전환·확인값 입력·Enter 제출·완료 모달을 확인했다.
 - 변경된 통합 폼 스토리를 1440px·390px에서 직접 조작해 필수 오류와 해제, 비밀번호 보기, 인증번호 7자리 타이핑 시 6자리 제한, textarea 카운터와 제출된 FormData 다섯 값을 확인했다. 만료 상태 스토리의 자동 play와 붉은 오류 안내도 통과했다. 일부 화면 캡처는 CDP 시간 초과로 확보하지 못했으며 픽셀 비교를 수행했다고 주장하지 않는다.
 - 최초 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play는 이름 입력 직후 `aria-invalid` 해제 검사에서 실패했다. 원래 HEAD의 스토리와 래퍼 5개를 복원한 별도 빌드에서도 동일하게 재현했다. 후속 분석에서 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락을 확인했다. 브라우저 포커스 에뮬레이션을 켜면 소스 변경 없이 전체 자동 play가 통과한다. [원인과 대조 실험](../development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 참고한다.
+
+## 공용 헤더와 섹션 조합 간소화 (2026-10-28)
+
+- 작업 트리 출처: `src/components/common/molecules/ContentHeader/ContentHeader.tsx`, `src/components/common/layouts/ContentLayout/ContentLayout.tsx`, `src/components/common/molecules/MainSection/MainSection.tsx`, `src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx`.
+- `SectionHeader`의 운영 소비처는 ContentLayout 한 곳이었다. 이 파일과 ContentLayout 내부의 별도 ContentHeader를 제거하고 공용 ContentHeader로 제목·설명·액션을 구성한다. Breadcrumb과 설명만/도입부 없음의 조건부 렌더링, sticky 측정은 ContentLayout이 계속 소유한다.
+- 공용 ContentHeader에 `eyebrowAs?: 'p' | 'small'`과 가로 배치의 `textGroupProps`를 추가했다. 기본 eyebrow 태그 p와 기존 가로/세로 동작은 유지하며, ContentLayout은 small·블록 텍스트 그룹·하단 정렬·gap 16px·설명 상단 8px·h1 heading7/body5를 명시한다. 제목의 0 margin과 caller className을 보존한다.
+- MainSectionHeader 로컬 함수를 제거하고 ContentSection의 title/headerProps로 표현한다. 제목의 web heading5/mobile heading4, 중앙 contentFrame, 8px 액션 간격과 기본/compact 본문 간격, contained/fullBleed/extended 배치는 유지한다. 중첩 스타일의 display와 mx는 css.raw로 추출한다.
+- SectionHeader의 기본/설명·액션·강한 구분선 스토리는 공용 헤더 분류로 옮겼다. 기존 Layouts/Content Header의 세 스토리 ID는 유지하고 실제 ContentLayout을 렌더링한다. 제거된 MainSectionHeader의 선언도 정리했다. 운영 파일은 1개 감소하며, 별도 로컬 함수 2개를 제거한다.
+- 실제 검증: 2026-10-28 타입 검사, 전체 ESLint, Panda 생성, Next.js 빌드와 Storybook 빌드를 통과했다. Ego 정적 Storybook에서 이전 소스와 수정 소스를 나란히 담은 임시 fixture로 1440px/web·390px/mobile의 intro/sticky/title-only/description-only/empty/main/extended/bleed 16개 조합을 비교했다. main/header/section/제목/설명/small/button의 위치·크기·폰트·line-height·weight·margin·gap·정렬 측정값이 모두 일치했다. 임시 소스는 검증 후 삭제했다. Git 스테이징·커밋은 수행하지 않았다.
+
+## 사이드바 탐색 레이아웃 통합 (2026-10-28)
+
+- 작업 트리 출처: `src/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.stories.tsx`.
+- SidebarNavigationLayout의 `appearance`는 기존 default와 support를 구분한다. default는 180px/50px 열 배치와 기존 mobileNavigation·mobileSpacing을 유지한다. support는 190px/98px, 상단 56px/MO24px, SUPPORT 탐색과 모바일 숨김, 최대 1532px 바깥 프레임·1200px 안쪽 폭·34px 안쪽 여백 및 모바일 16px 좌우/40px 하단 여백을 함께 소유한다. 독립적인 폭/여백 조합을 늘리지 않고 실제 사용하는 두 구성을 타입으로 묶었다.
+- `breadcrumbItems`는 support에서만 허용하고, 기본 모드의 mobileNavigation/mobileSpacing과 동시에 설정할 수 없게 했다. 빈 breadcrumb는 영역 자체를 생략한다. Support의 main은 바깥 Box 한 개이며 안쪽 Grid는 div다. 기본 모드의 main·본문 minW 0 wrapper는 유지한다.
+- CustomerCenterLayout은 SideNavigation/열 배치/PageFrame 대신 `SidebarNavigationLayout appearance="support"`를 사용한다. 제목·설명·custom header·본문·footer/footerAction과 도메인 데이터는 그대로 소유한다. 관련된 모든 고객센터 라우트는 기존 공개 API를 유지한다. MyPageFrame·OrdersRoute와 마이페이지 네 라우트의 기본 호출도 변경하지 않았다.
+- SidebarColumns는 두 운영 부모에서 SidebarNavigationLayout 하나로 줄어 Grid 구성에 흡수했다. 별도 구현 파일 1개와 CustomerCenterLayout의 PageFrame 로컬 함수를 제거했다. 전용 스토리와 다른 사용처는 없었다. 재사용 레이아웃의 기본/모바일 scroll·hidden·여백 없음/support/breadcrumb 없음/support 모바일 7개 스토리를 추가했다.
+- 검증: 2026-10-28 전체 타입 검사·ESLint·Panda 생성·Next.js 빌드·최종 Storybook 빌드를 통과했다. 변경 전 소스를 임시 스토리에 담아 1440px/web와 390px/mobile에서 default·hidden·mobileSpacing none·support·빈 breadcrumb/푸터 없음·custom header/footer 12개 조합을 Ego로 비교했다. 실제 platform-mobile 클래스와 PlatformProvider를 함께 적용했다. 모든 main/프레임/열/탐색·본문/텍스트 배치·모바일 여백과 속성이 일치했다. 전체 DOM 측정의 11개 조합은 완전히 일치했고, PC mobileSpacing none의 inline 링크 한 개만 rect y/height가 2px/3px 달랐다. 링크 자식의 텍스트 크기·위치와 주변 배치는 동일하고 링크 구현은 변경하지 않았다. 이 차이의 런타임 원인은 확정하지 않았으며 픽셀 기반 일치를 주장하지 않는다. 임시 비교 소스는 삭제했다.

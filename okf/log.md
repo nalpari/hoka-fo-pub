@@ -2,6 +2,10 @@
 
 ## 2026-10-28
 
+- CustomerCenterLayout의 프레임·breadcrumb·탐색을 SidebarNavigationLayout의 support 옵션으로 통합하고 SidebarColumns를 Grid 구성으로 흡수했다. 기존 기본 모드·모바일 여백·고객센터 제목/푸터 API를 보존했다. [범위와 검증](architecture/ui.md#사이드바-탐색-레이아웃-통합-2026-10-28)을 기록한다.
+
+- SectionHeader와 ContentLayout 내부 중복 헤더를 공용 ContentHeader로 통합하고 MainSectionHeader를 ContentSection의 기존 title/headerProps로 대체했다. 제목·설명·액션·breadcrumb·반응형 배치와 스토리를 보존한 [변경과 검증](architecture/ui.md#공용-헤더와-섹션-조합-간소화-2026-10-28)을 기록한다.
+
 - 본 채팅과 공유 작업 트리의 래퍼 제거·부모 옵션·미사용 정리·도메인 프레임 확장을 분석해 AGENTS와 component-reusability 스킬의 판단 기준을 통합했다. 의미별 기본값 래퍼 재도입 권고를 교정하고 소유권·배타적 옵션·기본 동작·검증 환경·부분 스테이징 보존을 연결했다. 앱 코드는 변경하지 않았다. [정책과 근거](architecture/ui.md#컴포넌트-소유권래퍼-정책-정리-2026-10-28)를 기록했다.
 
 - MyPageFrame에 centered 레이아웃과 선택적 breadcrumbs를 추가해 /mypage 홈의 main·breadcrumb 중복을 제거했다. 기존 640px 중앙 정렬·여백·본문과 로그아웃 상태를 보존하고 하위 화면의 sidebar 기본값을 유지했다. [API와 검증](architecture/ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)에 기록한다.

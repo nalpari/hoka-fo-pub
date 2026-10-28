@@ -5,60 +5,13 @@ import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState }
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
-import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 import {
   Breadcrumb,
   type BreadcrumbItem,
 } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
-
-type ContentHeaderProps = {
-  breadcrumbItems?: BreadcrumbItem[];
-  title?: ReactNode;
-  description?: ReactNode;
-  eyebrow?: ReactNode;
-  headerAction?: ReactNode;
-  titleClassName?: string;
-};
-
-/** 경로 안내와 제목·보조 콘텐츠를 배치합니다 (Reusable page introductory header with optional breadcrumb and supporting content). */
-function ContentHeader({
-  breadcrumbItems,
-  title,
-  description,
-  eyebrow,
-  headerAction,
-  titleClassName,
-}: ContentHeaderProps) {
-  const hasIntro = breadcrumbItems?.length || title || description;
-
-  if (!hasIntro) {
-    return null;
-  }
-
-  return (
-    <Stack as="header" gap={{ base: '24px', _mobile: '10px' }}>
-      {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
-      {title ? (
-        <SectionHeader
-          action={headerAction}
-          description={description}
-          eyebrow={eyebrow}
-          title={title}
-          titleAs="h1"
-          titleClassName={titleClassName}
-          titleSize="lg"
-        />
-      ) : null}
-      {!title && description ? (
-        <Typography as="p" tone="subtle" variant="body">
-          {description}
-        </Typography>
-      ) : null}
-    </Stack>
-  );
-}
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 
 const stickyHeaderStyle = css({
   position: 'sticky',
@@ -104,6 +57,7 @@ export function ContentLayout({
   contentWidth = 'default',
   stickyHeader = false,
 }: ContentLayoutProps) {
+  const hasIntro = breadcrumbItems?.length || title || description;
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
@@ -129,14 +83,47 @@ export function ContentLayout({
   return (
     <Stack as="main" className={className} gap="0" style={layoutStyle}>
       <div className={stickyHeader ? stickyHeaderStyle : undefined} ref={headerRef}>
-        <ContentHeader
-          breadcrumbItems={breadcrumbItems}
-          description={description}
-          eyebrow={eyebrow}
-          headerAction={headerAction}
-          title={title}
-          titleClassName={titleClassName}
-        />
+        {hasIntro ? (
+          <Stack as="header" gap={{ base: '24px', _mobile: '10px' }}>
+            {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
+            {title ? (
+              <ContentHeader
+                as="header"
+                title={title}
+                titleAs="h1"
+                titleProps={{
+                  variant: 'heading7',
+                  className: [css({ m: '0' }), titleClassName].filter(Boolean).join(' '),
+                }}
+                orientation="horizontal"
+                alignItems="end"
+                gap="4"
+                textGroupProps={{ css: css.raw({ display: 'block' }) }}
+                eyebrow={eyebrow}
+                eyebrowAs="small"
+                eyebrowProps={{
+                  className: css({
+                    display: 'block',
+                    color: 'var(--hoka-brand)',
+                    letterSpacing: 'mono',
+                  }),
+                }}
+                description={description}
+                descriptionProps={{
+                  variant: 'body5',
+                  tone: 'subtle',
+                  className: css({ m: '8px 0 0' }),
+                }}
+                action={headerAction ? <div>{headerAction}</div> : undefined}
+              />
+            ) : null}
+            {!title && description ? (
+              <Typography as="p" tone="subtle" variant="body">
+                {description}
+              </Typography>
+            ) : null}
+          </Stack>
+        ) : null}
       </div>
       <Box
         maxW={contentWidth === 'narrow' ? '760px' : contentWidth === 'wide' ? 'none' : undefined}
@@ -147,5 +134,3 @@ export function ContentLayout({
     </Stack>
   );
 }
-
-export { ContentHeader };

@@ -2,15 +2,6 @@ import { type ReactNode } from 'react';
 
 import { type TypographyVariant } from '@/components/common/atoms/Typography/Typography';
 
-// Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type MainSectionProps as ImportedMainSectionProps } from '@/components/common/molecules/MainSection/MainSection';
-type Props = Pick<ImportedMainSectionProps, 'title' | 'titleVariant' | 'actionSlot'>;
-/** 섹션 제목과 액션을 콘텐츠 그리드에 맞춥니다. (Aligns the section title and actions to the content grid.) */
-declare function MainSectionHeader({
-  title,
-  titleVariant,
-  actionSlot,
-}: Props): import('react').JSX.Element;
 export type MainSectionProps = {
   title: string;
   titleVariant?: TypographyVariant;
@@ -31,4 +22,3 @@ export declare function MainSection({
   contentWidth,
   spacing,
 }: MainSectionProps): import('react').JSX.Element;
-export { MainSectionHeader };

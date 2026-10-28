@@ -1,14 +1,17 @@
 import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Box, Grid } from 'styled-system/jsx';
+
+import {
+  Breadcrumb,
+  type BreadcrumbItem,
+} from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 
 import {
   SideNavigation,
   type SideNavigationGroup,
 } from '@/components/common/organisms/Navigation/SideNavigation/SideNavigation';
-
-import { SidebarColumns } from '@/components/common/layouts/SidebarColumns/SidebarColumns';
 
 export type SidebarNavigationGroup = SideNavigationGroup;
 
@@ -18,10 +21,21 @@ type Props = {
   groups: SidebarNavigationGroup[];
   activePath: string;
   children: ReactNode;
-  mobileNavigation?: 'scroll' | 'hidden';
   className?: string;
-  mobileSpacing?: 'default' | 'none';
-};
+} & (
+  | {
+      appearance?: 'default';
+      mobileNavigation?: 'scroll' | 'hidden';
+      mobileSpacing?: 'default' | 'none';
+      breadcrumbItems?: never;
+    }
+  | {
+      appearance: 'support';
+      breadcrumbItems?: BreadcrumbItem[];
+      mobileNavigation?: never;
+      mobileSpacing?: never;
+    }
+);
 
 const page = css.raw({
   maxW: 'var(--layout-content-max-width)',
@@ -35,37 +49,69 @@ const page = css.raw({
   },
 });
 
+/** 기본·고객센터 탐색의 폭과 반응형 본문 프레임을 배치합니다. (Arranges default or support navigation with its responsive content frame.) */
 export function SidebarNavigationLayout({
   title: navigationTitle,
   titleTo,
   groups,
   activePath,
   children,
+  appearance = 'default',
   mobileNavigation = 'scroll',
   className,
   mobileSpacing = 'default',
+  breadcrumbItems,
 }: Props) {
-  return (
-    <SidebarColumns
-      as="main"
-      sidebarWidth="180px"
-      sidebar={
-        <SideNavigation
-          activePath={activePath}
-          groups={groups}
-          mobileNavigation={mobileNavigation}
-          title={navigationTitle}
-          titleTo={titleTo}
-        />
+  const support = appearance === 'support';
+  const columns = (
+    <Grid
+      as={support ? 'div' : 'main'}
+      gridTemplateColumns={support ? '190px minmax(0, 1fr)' : '180px minmax(0, 1fr)'}
+      gap={support ? '98px' : '50px'}
+      pt={support ? { base: '14', _mobile: '6' } : undefined}
+      _mobile={{ display: 'block' }}
+      className={
+        support
+          ? undefined
+          : [
+              css(page, mobileSpacing === 'none' && { _mobile: { px: '0', py: '0', pb: '0' } }),
+              className,
+            ]
+              .filter(Boolean)
+              .join(' ')
       }
-      className={[
-        css(page, mobileSpacing === 'none' && { _mobile: { px: '0', py: '0', pb: '0' } }),
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
     >
-      <Box minW="0">{children}</Box>
-    </SidebarColumns>
+      <SideNavigation
+        activePath={activePath}
+        appearance={appearance}
+        groups={groups}
+        mobileNavigation={support ? 'hidden' : mobileNavigation}
+        title={navigationTitle}
+        titleTo={titleTo}
+      />
+      {support ? children : <Box minW="0">{children}</Box>}
+    </Grid>
+  );
+
+  if (!support) return columns;
+
+  return (
+    <Box
+      as="main"
+      className={className}
+      w="min(calc(100% - var(--layout-web-content-inline-space)), 1532px)"
+      mx="auto"
+      pb="24"
+      _mobile={{ w: '100%', px: '4', pb: '10' }}
+    >
+      {breadcrumbItems?.length ? (
+        <Box h="14" pt="6" pb="2">
+          <Breadcrumb items={breadcrumbItems} />
+        </Box>
+      ) : null}
+      <Box w="1200px" maxW="100%" mx="auto" px="34px" _mobile={{ px: '0' }}>
+        {columns}
+      </Box>
+    </Box>
   );
 }
