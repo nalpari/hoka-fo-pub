@@ -48,12 +48,12 @@ export function MyPageProfile() {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
-  const [couponBookPreference, setCouponBookPreference] = useState<Preference>('수신안함');
-  const [messagePreference, setMessagePreference] = useState<Preference>('수신안함');
+  const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
+  const [kakaoPreference, setKakaoPreference] = useState<Preference>('수신안함');
   const [savedPreferences, setSavedPreferences] = useState({
     emailPreference,
-    couponBookPreference,
-    messagePreference,
+    smsPreference,
+    kakaoPreference,
   });
   const [notice, setNotice] = useState<ProfileEditNotice | null>(null);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
@@ -86,7 +86,7 @@ export function MyPageProfile() {
     setEmail(`${emailLocal.trim()}@${emailDomain.trim()}`);
     setSavedAddress(address);
     setSavedPhone(phone);
-    setSavedPreferences({ emailPreference, couponBookPreference, messagePreference });
+    setSavedPreferences({ emailPreference, smsPreference, kakaoPreference });
     setNotice('complete');
   }
 
@@ -98,8 +98,8 @@ export function MyPageProfile() {
     setAddress(savedAddress);
     setPhone(savedPhone);
     setEmailPreference(savedPreferences.emailPreference);
-    setCouponBookPreference(savedPreferences.couponBookPreference);
-    setMessagePreference(savedPreferences.messagePreference);
+    setSmsPreference(savedPreferences.smsPreference);
+    setKakaoPreference(savedPreferences.kakaoPreference);
     setAddressOpen(false);
     setFieldErrors({});
     setPhoneVerified(false);
@@ -150,8 +150,8 @@ export function MyPageProfile() {
             phoneVerified={phoneVerified}
             passwordChanged={passwordChanged}
             emailPreference={emailPreference}
-            couponBookPreference={couponBookPreference}
-            messagePreference={messagePreference}
+            smsPreference={smsPreference}
+            kakaoPreference={kakaoPreference}
             fieldErrors={fieldErrors}
             onEmailLocalChange={(value) => {
               setEmailLocal(value);
@@ -182,8 +182,8 @@ export function MyPageProfile() {
             }}
             onPasswordSettings={() => setPasswordOpen(true)}
             onEmailPreferenceChange={setEmailPreference}
-            onCouponBookPreferenceChange={setCouponBookPreference}
-            onMessagePreferenceChange={setMessagePreference}
+            onSmsPreferenceChange={setSmsPreference}
+            onKakaoPreferenceChange={setKakaoPreference}
             onSubmit={submitProfile}
             onCancel={() => setNotice('cancel')}
             onWithdraw={() => setWithdrawOpen(true)}
@@ -193,8 +193,8 @@ export function MyPageProfile() {
             email={email}
             phone={phone}
             emailPreference={emailPreference}
-            couponBookPreference={couponBookPreference}
-            messagePreference={messagePreference}
+            smsPreference={smsPreference}
+            kakaoPreference={kakaoPreference}
           />
         )}
       </ContentSection>

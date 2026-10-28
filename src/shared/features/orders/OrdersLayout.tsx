@@ -31,7 +31,7 @@ export function OrdersLayout({
       >
         <ContentSection
           title={title}
-          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
+          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading7' } }}
           gap="4"
         >
           {children}

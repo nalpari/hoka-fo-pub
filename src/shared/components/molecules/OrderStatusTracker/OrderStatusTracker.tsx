@@ -16,6 +16,8 @@ export function OrderStatusTracker({ items, to = '/mypage/orders', compact = fal
   const content = (
     <Grid
       gap="0"
+      minH={compact ? { base: '90px', _mobile: '98px' } : undefined}
+      alignItems={compact ? 'start' : undefined}
       style={
         compact ? { gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` } : undefined
       }

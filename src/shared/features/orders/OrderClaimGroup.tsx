@@ -20,7 +20,7 @@ export function OrderClaimGroup({
       gap="4"
       pt="6"
       borderTop="1px solid var(--colors-black-20)"
-      title={claim.kind === 'cancel' ? '구매취소' : '반품요청'}
+      title={claim.kind === 'cancel' ? '구매취소' : '반품접수'}
       headerProps={{
         orientation: 'horizontal',
         titleAs: 'h3',

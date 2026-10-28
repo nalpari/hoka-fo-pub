@@ -57,12 +57,23 @@ export function getOrderAmounts(order: OrderRecord) {
 export function getOrderStatusItems(orders: readonly OrderRecord[]) {
   return [
     { label: '전체', count: orders.length },
-    ...(['paid', 'preparing', 'shipping', 'delivered', 'purchased'] as const).map((status) => ({
-      label: orderStatusLabels[status],
-      count: orders.filter(
-        (order) => order.status === status && getRemainingLines(order).length > 0,
-      ).length,
-    })),
+    {
+      label: orderStatusLabels.paid,
+      count: orders.filter((order) => order.status === 'paid').length,
+    },
+    {
+      label: orderStatusLabels.preparing,
+      count: orders.filter((order) => order.status === 'preparing').length,
+    },
+    {
+      label: '배송준비\n/ 배송중',
+      count: orders.filter((order) => order.status === 'shipping').length,
+    },
+    {
+      label: '배송완료\n구매확정',
+      count: orders.filter((order) => order.status === 'delivered' || order.status === 'purchased')
+        .length,
+    },
   ];
 }
 

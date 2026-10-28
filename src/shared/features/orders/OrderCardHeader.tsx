@@ -15,20 +15,29 @@ export function OrderCardHeader({
 }) {
   return (
     <HStack
-      alignItems="flex-end"
+      alignItems={compact ? 'center' : 'flex-end'}
       justifyContent="space-between"
       gap="2"
       pb="3"
       borderBottom="1px solid var(--colors-black-100)"
     >
-      <Stack gap="1">
-        <Typography variant={compact ? 'body4' : 'body2'} weight="semibold">
-          {order.date.replaceAll('-', '.')}
-        </Typography>
+      {compact ? (
         <Typography variant="body5" tone="subtle">
-          주문번호 {order.id}
+          <Typography as="span" variant="body5" tone="primary" weight="semibold">
+            {order.date.replaceAll('-', '.')}
+          </Typography>{' '}
+          주문 · 주문번호 {order.id}
         </Typography>
-      </Stack>
+      ) : (
+        <Stack gap="1">
+          <Typography variant="body2" weight="semibold">
+            {order.date.replaceAll('-', '.')}
+          </Typography>
+          <Typography variant="body5" tone="subtle">
+            주문번호 {order.id}
+          </Typography>
+        </Stack>
+      )}
       {onDetail ? (
         <Button variant="link" size="sm" onClick={onDetail}>
           상세보기

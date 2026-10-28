@@ -10,8 +10,8 @@ export function ProfileReadView({
   email,
   phone,
   emailPreference,
-  couponBookPreference,
-  messagePreference,
+  smsPreference,
+  kakaoPreference,
 }: ProfileValues) {
   return (
     <>
@@ -35,20 +35,18 @@ export function ProfileReadView({
             </HStack>
             <HStack alignItems="flex-start" justifyContent="space-between">
               <Typography as="span" mo="body4">
-                모바일 쿠폰북 수신
+                문자수신(LMS, SMS)
               </Typography>
               <Typography as="span" mo="body4" tone="subtle">
-                {couponBookPreference}
+                {smsPreference}
               </Typography>
             </HStack>
             <HStack alignItems="flex-start" justifyContent="space-between">
               <Typography as="span" mo="body4">
-                문자수신(LMS,SMS),
-                <br />
-                카카오톡 등 전자적 전송매체
+                카카오톡 알림톡 수신
               </Typography>
               <Typography as="span" mo="body4" tone="subtle">
-                {messagePreference}
+                {kakaoPreference}
               </Typography>
             </HStack>
           </Stack>

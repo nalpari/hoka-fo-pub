@@ -1,5 +1,5 @@
 import { OrderClaimStatus } from './OrderClaimStatus';
-import { Stack } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/shared/components/atoms/Button/Button';
 import { Typography } from '@/shared/components/atoms/Typography/Typography';
 import { ContentSection } from '@/shared/components/layouts/ContentSection/ContentSection';
@@ -35,12 +35,16 @@ export function OrderClaimDetail({
         </Button>
       }
     >
-      <Stack gap="4">
-        {items.map((line) => (
-          <OrderHistoryProduct key={line.key} line={line} />
-        ))}
-        <OrderClaimStatus kind={claim.kind} state={claim.state} />
-      </Stack>
+      <HStack alignItems="flex-start" gap="3">
+        <Stack flex="1" minW="0" gap="4">
+          {items.map((line) => (
+            <OrderHistoryProduct key={line.key} line={line} />
+          ))}
+        </Stack>
+        <Box flexShrink="0">
+          <OrderClaimStatus kind={claim.kind} state={claim.state} />
+        </Box>
+      </HStack>
       <OrderInformationSection
         title="상세정보"
         items={[

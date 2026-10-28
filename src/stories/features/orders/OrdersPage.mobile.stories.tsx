@@ -5,7 +5,7 @@ import { OrdersPage } from '@/shared/features/orders/OrdersPage';
 import { previewOrders } from '@/shared/features/orders/orders.data';
 
 const meta = {
-  title: 'PAGES/마이페이지/주문 배송/Mobile',
+  title: 'PAGES/장바구니/1. 주문하기/주문내역/Mobile',
   component: OrdersPage,
   parameters: { layout: 'fullscreen', nextjs: { appDirectory: true } },
   globals: { viewport: 'hoka375' },
@@ -73,10 +73,4 @@ export const ClaimSubmission: Story = {
     await expect(body.getByRole('status')).toHaveTextContent('주문 취소 신청이 접수되었습니다.');
     await expect(body.getAllByRole('button', { name: '취소상세보기' }).length).toBeGreaterThan(0);
   },
-};
-
-export const Desktop: Story = {
-  name: 'PC 기존 골격 호환',
-  globals: { viewport: 'hoka1600' },
-  parameters: { platform: 'web' },
 };

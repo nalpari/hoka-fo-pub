@@ -28,8 +28,8 @@ export function ProfileEditForm({
   phoneVerified,
   passwordChanged,
   emailPreference,
-  couponBookPreference,
-  messagePreference,
+  smsPreference,
+  kakaoPreference,
   fieldErrors,
   onEmailLocalChange,
   onEmailDomainChange,
@@ -40,8 +40,8 @@ export function ProfileEditForm({
   onPhoneVerifiedChange,
   onPasswordSettings,
   onEmailPreferenceChange,
-  onCouponBookPreferenceChange,
-  onMessagePreferenceChange,
+  onSmsPreferenceChange,
+  onKakaoPreferenceChange,
   onSubmit,
   onCancel,
   onWithdraw,
@@ -107,23 +107,22 @@ export function ProfileEditForm({
               ]}
             />
             <PreferenceField
-              ariaLabel="모바일 쿠폰북 수신"
-              name="coupon-book-preference"
-              value={couponBookPreference}
-              onValueChange={onCouponBookPreferenceChange}
-              label="모바일 쿠폰북 수신"
+              ariaLabel="문자수신(LMS, SMS)"
+              name="sms-preference"
+              value={smsPreference}
+              onValueChange={onSmsPreferenceChange}
+              label="문자수신(LMS, SMS)"
               options={[
                 { value: '수신', label: '수신' },
                 { value: '수신안함', label: '수신안함' },
               ]}
             />
             <PreferenceField
-              ariaLabel="문자수신(LMS, SMS), 카카오톡 등 전자적 전송매체"
-              name="message-preference"
-              value={messagePreference}
-              onValueChange={onMessagePreferenceChange}
-              label={'문자수신(LMS, SMS),\n카카오톡 등 전자적 전송매체'}
-              multilineLabel
+              ariaLabel="카카오톡 알림톡 수신"
+              name="kakao-preference"
+              value={kakaoPreference}
+              onValueChange={onKakaoPreferenceChange}
+              label="카카오톡 알림톡 수신"
               options={[
                 { value: '수신', label: '수신' },
                 { value: '수신안함', label: '수신안함' },

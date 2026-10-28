@@ -4,8 +4,8 @@ export type ProfileValues = {
   email: string;
   phone: string;
   emailPreference: Preference;
-  couponBookPreference: Preference;
-  messagePreference: Preference;
+  smsPreference: Preference;
+  kakaoPreference: Preference;
 };
 
 export type ProfileAddress = { postalCode: string; address: string; addressDetail: string };
@@ -30,8 +30,8 @@ export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
   onPhoneVerifiedChange: (verified: boolean) => void;
   onPasswordSettings: () => void;
   onEmailPreferenceChange: (value: Preference) => void;
-  onCouponBookPreferenceChange: (value: Preference) => void;
-  onMessagePreferenceChange: (value: Preference) => void;
+  onSmsPreferenceChange: (value: Preference) => void;
+  onKakaoPreferenceChange: (value: Preference) => void;
   onSubmit: (event: import('react').FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
   onWithdraw: () => void;

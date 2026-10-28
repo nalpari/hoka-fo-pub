@@ -28,9 +28,11 @@ export function CheckoutAgreement({
 
   return (
     <Stack gap="2">
-      <Flex alignItems="flex-start" justifyContent="space-between" gap="3">
+      <Flex alignItems="flex-start" justifyContent="space-between" gap="6">
         <Checkbox
-          className={css({ flex: '1', minW: '0' })}
+          className={css({
+            alignItems: 'flex-start',
+          })}
           checked={orderAgreed}
           interactiveLabel
           onCheckedChange={onOrderAgreedChange}
@@ -42,15 +44,17 @@ export function CheckoutAgreement({
           전문보기
         </Link>
       </Flex>
-      <Flex alignItems="flex-start" justifyContent="space-between" gap="3">
+      <Flex alignItems="flex-start" justifyContent="space-between" gap="6">
         <Checkbox
-          className={css({ flex: '1', minW: '0' })}
+          className={css({
+            alignItems: 'flex-start',
+          })}
           checked={privacyAgreed}
           interactiveLabel
           onCheckedChange={onPrivacyAgreedChange}
           label={
             <Typography variant="body5">
-              개인정보 수집·이용내용을 확인하였으며 결제에 동의합니다.
+              개인정보 수집 · 이용내용을 확인하였으며 결제에 동의합니다.
             </Typography>
           }
         />

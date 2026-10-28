@@ -33,7 +33,7 @@ export function OrdersFilters({
         railClassName={css({ '&&': { px: '0', mb: '0', _mobile: { px: '0', mb: '0' } } })}
         value={filters.period}
         onValueChange={onPeriodChange}
-        itemClassName={() => css({ '&&': { px: '2', h: '34px', _mobile: { px: '2', h: '34px' } } })}
+        itemClassName={() => css({ '&&': { px: '2', h: { base: '34px', _mobile: '28px' } } })}
         options={[
           { value: '1', label: '1개월' },
           { value: '3', label: '3개월' },
@@ -42,14 +42,12 @@ export function OrdersFilters({
           { value: 'custom', label: '직접설정' },
         ]}
       />
-      {filters.period === 'custom' ? (
-        <OrdersDateRange
-          dates={dates}
-          error={error}
-          onDateChange={onDateChange}
-          onDateSearch={onDateSearch}
-        />
-      ) : null}
+      <OrdersDateRange
+        dates={dates}
+        error={error}
+        onDateChange={onDateChange}
+        onDateSearch={onDateSearch}
+      />
       <SearchField
         label="주문 상품 검색"
         placeholder="주문한 상품을 검색할 수 있습니다."

@@ -30,14 +30,30 @@ export function OrderStatusLink({ label, count, href, compact = false }: OrderSt
     <Link
       className={css(
         statusLink,
-        compact && { minH: '90px', py: '4', px: '1', borderRight: '0', gap: '1' },
+        compact && {
+          minH: { base: '90px', _mobile: '86px' },
+          py: '0',
+          px: '1',
+          mt: { _mobile: '4' },
+          alignSelf: 'start',
+          borderRight: '0',
+          gap: '1',
+          // alignContent: 'center',
+          '& > span:last-child': { whiteSpace: 'pre-line' },
+        },
       )}
       href={href}
     >
-      <Typography as="strong" variant={compact ? 'body1' : 'heading8'}>
+      <Typography
+        as="strong"
+        variant={compact ? 'body1' : 'heading8'}
+        tone={compact && count === 0 ? 'black40' : 'primary'}
+      >
         {count}
       </Typography>
-      <Typography variant="body5">{label}</Typography>
+      <Typography variant="body5" tone={compact ? 'tertiary' : 'primary'}>
+        {label}
+      </Typography>
     </Link>
   );
 }

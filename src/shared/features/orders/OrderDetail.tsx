@@ -39,14 +39,6 @@ export function OrderDetail({ order, onList, onDelete, ...actions }: Props) {
           <OrderHistoryProduct key={line.key} line={line} onAddToCart={actions.onAddToCart} />
         ))}
       </Stack>
-      {order.claims.map((claim) => (
-        <OrderClaimGroup
-          key={claim.id}
-          order={order}
-          claim={claim}
-          onDetail={() => actions.onClaimDetail(order, claim)}
-        />
-      ))}
       <OrderInformationSection
         title="받는사람 정보"
         items={[
@@ -71,6 +63,20 @@ export function OrderDetail({ order, onList, onDelete, ...actions }: Props) {
           },
         ]}
       />
+      {order.claims.length ? (
+        <ContentSection title="취소·반품·교환 내역" gap="4">
+          <Stack gap="4">
+            {order.claims.map((claim) => (
+              <OrderClaimGroup
+                key={claim.id}
+                order={order}
+                claim={claim}
+                onDetail={() => actions.onClaimDetail(order, claim)}
+              />
+            ))}
+          </Stack>
+        </ContentSection>
+      ) : null}
     </ContentSection>
   );
 }

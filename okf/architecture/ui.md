@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-27T22:37:56Z'
-source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
+  at: '2026-10-28T00:27:49Z'
+source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/shared/features/mypage/MyPageProfile.tsx
+  - src/shared/features/mypage/ProfileEditForm.tsx
+  - src/shared/features/mypage/ProfileReadView.tsx
+  - src/shared/features/mypage/mypage-profile.types.ts
   - src/shared/features/catalog/ProductListingFilterPanel.tsx
   - src/shared/features/catalog/ProductListingPage.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilter.tsx
@@ -207,8 +211,8 @@ working_tree_sources:
   - src/shared/features/support/SupportContactCard.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
-  at: '2026-10-21T08:15:46.840Z'
-source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
+  at: '2026-10-28T00:27:49Z'
+source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/shared/features/catalog/product-listing/ProductListingLayout.tsx
   - src/shared/features/catalog/product-listing/MobileProductFilterTrigger.tsx
@@ -990,8 +994,45 @@ working_tree_sources:
   - src/shared/components/molecules/ProductActivity/ProductActivity.tsx
   - src/shared/components/molecules/ProductSpec/ProductSpec.tsx
   - src/shared/features/product/ProductDetailHeaderTitle.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusLink.tsx
+  - src/shared/components/molecules/OrderStatusTracker/OrderStatusTracker.tsx
+  - src/shared/features/orders/OrderCardHeader.tsx
+  - src/shared/features/orders/OrderClaimDetail.tsx
+  - src/shared/features/orders/OrderClaimGroup.tsx
+  - src/shared/features/orders/OrderClaimStatus.tsx
+  - src/shared/features/orders/OrderDetail.tsx
+  - src/shared/features/orders/OrderHistoryProduct.tsx
+  - src/shared/features/orders/OrdersLayout.tsx
+  - src/shared/features/orders/OrdersListContent.tsx
+  - src/shared/features/checkout/CheckoutAgreement.tsx
+  - src/shared/features/orders/OrderTrackingDialog.tsx
+  - src/shared/features/orders/OrderTrackingHistory.tsx
+  - src/shared/features/orders/OrdersDateRange.tsx
+  - src/shared/features/orders/OrdersFilters.tsx
+  - src/shared/features/orders/OrdersPage.tsx
+  - src/shared/features/orders/order-policy.ts
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
+  - src/stories/features/orders/OrdersPage.stories.tsx
 
 sources:
+  - id: figma-orders-list-updates
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
+    title: 'Figma 주문/배송 조회 목록'
+  - id: figma-orders-empty
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-57168
+    title: 'Figma 주문/배송 조회 빈 상태'
+  - id: figma-order-detail
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-58823
+    title: 'Figma 주문 상세'
+  - id: figma-order-cancel-detail
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1510-36283
+    title: 'Figma 취소 상세'
+  - id: figma-order-return-detail
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1527-40225
+    title: 'Figma 반품 상세'
+  - id: figma-order-tracking
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1653-57244
+    title: 'Figma 배송조회 하단 시트'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -1016,6 +1057,30 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 주문 목록 구성요소 주석 (2026-10-28)
+
+`OrdersListContent`에서 `OrderStatusTracker`는 주문 상태별 건수를 요약하고, `OrdersFilters`는 기간·상태 필터를 제공한다. 두 역할을 각 JSX 사용 위치의 한글·영문 주석으로 설명했다. 출처는 `working_tree_sources`에 기록된 `OrdersListContent.tsx`이며 동작 변경이나 브라우저 검증은 없다.
+
+## 회원정보 마케팅 수신 항목 분리 (2026-10-28)
+
+회원정보의 마케팅 수신 동의를 이메일, 문자수신(LMS, SMS), 카카오톡 알림톡 수신 세 항목으로 표시한다. 조회 화면과 편집 화면의 라벨·선호 상태를 맞추고 MyPageProfile의 저장·취소 흐름에 새 상태 키를 연결했다. 기존 모바일 쿠폰북 수신 값은 문자 수신 값으로, 기존 통합 메시지 수신 값은 카카오톡 알림톡 값으로 이어지도록 이름을 정리했다. 출처는 사용자 제공 화면 캡처와 위 `working_tree_sources`의 마이페이지 프로필 파일이다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 주문 목록 빈 상태 문구 스타일 (2026-10-28)
+
+주문 목록의 빈 상태 제목은 Figma에 맞춰 14px body 크기와 subtle 색상으로 표시한다. 공통 `EmptyState`의 기본 제목 스타일은 유지하고 주문 목록 컨테이너에서만 `.empty-state__title`을 덮어쓴다. 출처는 `OrdersListContent.tsx`와 사용자 제공 주문 빈 상태 캡처다. 브라우저 시각 검증은 하지 않았다.
+
+## 결제 동의 체크박스와 여러 줄 라벨 정렬 (2026-10-28)
+
+CheckoutAgreement의 두 동의 항목에서 Checkbox의 control과 라벨이 위쪽 기준으로 정렬되도록 사용처 className에 `alignItems: flex-start`를 지정한다. 공통 Checkbox의 기본 가운데 정렬과 다른 소비처는 변경하지 않는다. 출처는 CheckoutAgreement와 사용자 제공 결제 동의 화면 캡처다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 주문·배송 조회 Figma 갱신과 분류 (2026-10-28)
+
+Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취소 상세·반품 상세·배송조회)를 반영했다. 페이지 제목은 모바일 heading7(16px)으로 조정한다. 주문 현황은 전체, 결제완료, 상품준비중, 배송준비/배송중, 배송완료/구매확정의 5개로 묶고, 모바일 대시보드는 98px 높이로 표시한다. 기간 탭은 1개월·3개월·6개월·1년·직접설정 순서이며 아래 날짜 범위와 조회 액션을 상시 표시한다. 날짜 범위를 직접 바꾸면 직접설정 탭으로 전환하고 조회를 눌렀을 때 필터를 적용한다. 기간 탭 높이는 모바일 28px이다. 상품 썸네일은 PC 기존 크기를 유지하고 모바일에서 96×96px로 맞춘다.
+
+주문 상세에서는 받는 사람·결제 정보 뒤에 취소/반품 내역을 배치한다. 취소·반품 상세는 주문 식별 정보를 한 줄로 표시하고 상태를 기존 Badge로 표현한다. 배송조회는 모바일에서 Figma에 맞춘 하단 시트, 연결형 StepIndicator, 기본 정보, 4열 상품 추적표와 하단 닫기 액션을 사용하며 PC는 기존 SingleActionDialog를 유지한다. Storybook은 `PAGES/장바구니/주문하기/주문내역` 아래 WEB과 Mobile로 분리했다.
+
+앱 라우트는 기존 `/mypage/orders`·`/mypage/returns` 그대로다. 이 변경은 Storybook 화면 분류를 옮긴 것이며 App Router와 마이페이지 실제 이동 메뉴는 변경하지 않았다. 신규 공통 컴포넌트는 만들지 않고 기존 OrderStatusTracker의 compact 표시, StepIndicator, Badge, OrderInformationSection, DataTable을 재사용했다. Figma 출처는 아래의 여섯 노드이며 작업 트리 출처는 `working_tree_sources`의 주문 feature·스토리 파일이다. 브라우저/Storybook 시각 검증은 아직 수행하지 않았다.
 
 ## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
 

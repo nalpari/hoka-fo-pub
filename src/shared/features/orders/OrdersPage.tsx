@@ -94,13 +94,18 @@ export function OrdersPage({
       message={message}
       onPeriodChange={(period) => {
         setError('');
-        setFilters((previous) => ({
-          ...previous,
-          period,
-          ...(period === 'custom' ? {} : { start: getPeriodStart(Number(period), previous.end) }),
-        }));
+        if (period !== 'custom') {
+          const start = getPeriodStart(Number(period), filters.end);
+          setDates((previous) => ({ ...previous, start, end: filters.end }));
+          setFilters((previous) => ({ ...previous, period, start, end: previous.end }));
+          return;
+        }
+        setFilters((previous) => ({ ...previous, period }));
       }}
-      onDateChange={(key, value) => setDates((previous) => ({ ...previous, [key]: value }))}
+      onDateChange={(key, value) => {
+        setDates((previous) => ({ ...previous, [key]: value }));
+        setFilters((previous) => ({ ...previous, period: 'custom' }));
+      }}
       onDateSearch={() => {
         if (!dates.start || !dates.end || dates.start > dates.end) {
           setError('조회 기간을 다시 확인해 주세요.');
