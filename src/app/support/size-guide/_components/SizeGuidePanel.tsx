@@ -23,7 +23,7 @@ import {
   shoeSizes,
   type Unit,
   widthOptions,
-} from '@/components/size-guide/size-guide.data';
+} from '@/app/support/size-guide/size-guide.data';
 
 const option = cva({
   base: {

@@ -2,7 +2,7 @@ import { ReadonlyURLSearchParams, useSearchParams } from '@storybook/nextjs-vite
 import type { Meta, StoryObj } from '@storybook/react';
 import { ShopShell } from '@/context/ShopShell';
 
-import { getProductListingRoute } from '@/components/catalog/productListingIaRoute';
+import { getProductListingRoute } from '@/app/screen-index/productListingIaRoute';
 import { ProductListingPage } from '@/components/catalog/ProductListingPage';
 
 type ProductListingStoryArgs = {

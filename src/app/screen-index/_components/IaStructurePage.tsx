@@ -31,12 +31,12 @@ import {
   getScreenConnection,
   getScreenStoryHref,
   isScreenDeleted,
-} from '@/components/screen-index/screenConnections';
+} from '@/app/screen-index/screenConnections';
 import {
   isStorybookPending,
   isStorybookReady,
   isStorybookWorking,
-} from '@/components/screen-index/storybookLinks';
+} from '@/app/screen-index/storybookLinks';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 config.autoAddCss = false;

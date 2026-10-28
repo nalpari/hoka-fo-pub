@@ -25,11 +25,7 @@ import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import {
-  menuSections,
-  type MyPageOrderItem,
-  orderItems,
-} from '@/components/mypage/mypage-home-data';
+import { menuSections, type MyPageOrderItem, orderItems } from '@/app/mypage/mypage-home-data';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 type LogoutDialogProps = {

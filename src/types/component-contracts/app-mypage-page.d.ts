@@ -1,5 +1,5 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type MyPageOrderItem } from '@/components/mypage/mypage-home-data';
+import { type MyPageOrderItem } from '@/app/mypage/mypage-home-data';
 type LogoutDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;

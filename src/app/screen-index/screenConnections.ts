@@ -1,7 +1,7 @@
 import {
   getProductListingIaKey,
   getProductListingRoute,
-} from '@/components/catalog/productListingIaRoute';
+} from '@/app/screen-index/productListingIaRoute';
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 export type ScreenConnection = {

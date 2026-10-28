@@ -6,9 +6,29 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:03:50.419Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/cart-item.ts
+  - src/app/checkout/checkout-coupons.ts
+  - src/app/checkout/checkout-summary.ts
+  - src/app/homeContent.ts
+  - src/app/homeCarouselPreview.ts
+  - src/app/support/faq/faq.data.ts
+  - src/app/locales/locales.data.ts
+  - src/app/support/notices/notices.data.ts
+  - src/app/support/size-guide/size-guide.data.ts
+  - src/app/support/store/store.data.ts
+  - src/app/signup/information/registration.types.ts
+  - src/app/mypage/reviews/reviews.types.ts
+  - src/app/mypage/profile/mypage-profile.types.ts
+  - src/app/mypage/mypage-home-data.ts
+  - src/app/products/[id]/productDetailPresentation.ts
+  - src/app/products/[id]/productInquiries.ts
+  - src/app/products/[id]/productSizeOptions.ts
+  - src/app/support/inquiries/new/inquiryOrders.data.ts
+  - src/app/screen-index/storybookLinks.ts
+  - src/app/screen-index/productListingIaRoute.ts
   - src/app/mypage/reviews/page.tsx
   - src/app/mypage/coupons/page.tsx
   - src/app/login/page.tsx
@@ -22,7 +42,7 @@ working_tree_sources:
   - next.config.ts
   - src/app/page.tsx
   - src/app/products/[id]/page.tsx
-  - src/components/screen-index/screenConnections.ts
+  - src/app/screen-index/screenConnections.ts
   - src/app/
   - eslint.config.js
   - .codex/skills/component-reusability/SKILL.md
@@ -59,8 +79,8 @@ working_tree_sources:
   - src/app/support/size-guide/page.tsx
   - src/app/support/inquiries/new/order-products/page.tsx
   - src/app/support/inquiries/new/page.tsx
-  - src/components/support/inquiryOrderSelection.storage.ts
-  - src/components/support/support.navigation.ts
+  - src/app/support/inquiries/new/inquiryOrderSelection.storage.ts
+  - src/app/support/support.navigation.ts
   - src/data/screenRegistry.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
@@ -320,3 +340,9 @@ RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기�
 로그인·가입의 SocialAuthButton은 Button.social로, 쿠폰·리뷰의 LoadMoreButton은 Button.loadMore로 전환했다. URL·라우트 소유권·서버/클라이언트 경계·화면 상태와 이벤트 처리 책임은 바뀌지 않는다. 카카오·네이버 미연결 안내, 가입 수단 선택과 쿠폰·리뷰 더보기의 기존 상태 갱신을 유지한다. 공통 표시 API는 [UI 계약](ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
 
 작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

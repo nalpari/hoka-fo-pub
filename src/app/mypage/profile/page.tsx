@@ -23,16 +23,16 @@ import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFi
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
 import {
   type Preference,
   type ProfileAddress,
   type ProfileEditProps,
   type ProfileValues,
-} from '@/components/mypage/mypage-profile.types';
+} from '@/app/mypage/profile/mypage-profile.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { isValidEmailDomain, isValidEmailLocalPart } from '@/lib/emailValidation';
 import { type Errors, type FieldName, validatePasswordReset } from '@/lib/passwordValidation';
+import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
 
 type Props = {
   phone: string;

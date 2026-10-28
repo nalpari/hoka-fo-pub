@@ -7,7 +7,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { supportNavigation } from '@/components/support/support.navigation';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 /** 온라인 회원등급 안내 화면을 구성합니다. (Composes the customer benefit information screen.) */
 export default function Page() {

@@ -3,13 +3,12 @@
 import { type ComponentProps, type FormEvent, useState } from 'react';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
-import { isValidName } from '@/lib/validation';
-
 import {
   type PhoneInformation,
   type PhoneVerificationContent,
   type PhoneVerificationErrors,
-} from './PhoneVerificationContent';
+} from '@/components/phone-verification/PhoneVerificationContent';
+import { isValidName } from '@/lib/validation';
 
 const isValidBirthDate = (value: string) => {
   if (!/^\d{8}$/.test(value)) return false;

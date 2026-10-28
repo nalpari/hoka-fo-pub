@@ -19,15 +19,15 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { type InquiryOrder, inquiryOrders } from '@/components/support/inquiryOrders.data';
+import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import {
   clearInquiryOrderReturnMarker,
   type InquiryOrderSelection,
   readInquiryOrderDraft,
   saveInquiryOrderResult,
   shouldReturnToInquiry,
-} from '@/components/support/inquiryOrderSelection.storage';
-import { supportNavigation } from '@/components/support/support.navigation';
+} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 const periodOptions = [
   { value: '1y', label: '1년' },

@@ -11,7 +11,7 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { supportNavigation } from '@/components/support/support.navigation';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 type Props = {
   headingId: string;

@@ -26,8 +26,8 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import {
   type RegistrationContentProps,
   type RegistrationInformation,
-} from '@/components/signup-registration/registration.types';
-import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
+} from '@/app/signup/information/registration.types';
+import { type MarketingPreferences } from '@/app/signup/information/registration.types';
 import {
   emailDomainErrorMessage,
   emailFormatErrorMessage,

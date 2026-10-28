@@ -3,7 +3,7 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Box } from 'styled-system/jsx';
 
-import { getProductDetailPresentation } from '@/components/product/productDetailPresentation';
+import { getProductDetailPresentation } from '@/app/products/[id]/productDetailPresentation';
 import { products } from '@/mocks/products';
 import { ProductTechSpecs } from '@/stories/route-previews/products-idPreview';
 

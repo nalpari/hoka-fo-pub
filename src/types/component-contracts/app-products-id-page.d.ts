@@ -8,7 +8,7 @@ import {
   type ProductDetailSpecification,
   type ProductEditorialFeature,
   type ProductTechnicalScaleData,
-} from '@/components/product/productDetailPresentation';
+} from '@/app/products/[id]/productDetailPresentation';
 import { type Product, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 declare function ProductDetailGrid({

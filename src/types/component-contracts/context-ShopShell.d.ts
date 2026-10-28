@@ -11,13 +11,9 @@ import {
 } from 'react';
 import { type Platform } from '@/context/platform';
 
-import { type FooterGroup } from '@/components/common/organisms/Layout/SiteFooter/footerData';
-import { type HeaderPromotionItem } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
-import {
-  type MegaMenu,
-  type MegaMenuPromo,
-} from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
-
+import { type FooterGroup } from '@/data/footerData';
+import { type HeaderPromotionItem } from '@/data/headerPromotionData';
+import { type MegaMenu, type MegaMenuPromo } from '@/data/megaMenu';
 import { type CartItem } from '@/types/cart';
 type MenuDrawerFrameProps = {
   children: ReactNode;

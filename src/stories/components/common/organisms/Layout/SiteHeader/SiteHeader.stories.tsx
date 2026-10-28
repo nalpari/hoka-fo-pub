@@ -3,8 +3,8 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 import { SiteHeader } from '@/context/ShopShell';
 
-import { headerPromotionItems } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
-import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
+import { headerPromotionItems } from '@/data/headerPromotionData';
+import { megaMenus } from '@/data/megaMenu';
 
 const meta = {
   title: 'Organisms/Layout/SiteHeader',

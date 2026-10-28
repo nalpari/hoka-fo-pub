@@ -35,12 +35,12 @@ import {
   checkoutCouponOptions,
   getCheckoutCouponDiscount,
   getMaximumCheckoutCoupon,
-} from '@/components/checkout/checkout-coupons';
+} from '@/app/checkout/checkout-coupons';
 import {
   type CheckoutRow,
   checkoutShippingFee,
   getCheckoutSummary,
-} from '@/components/checkout/checkout-summary';
+} from '@/app/checkout/checkout-summary';
 import { faCheck } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

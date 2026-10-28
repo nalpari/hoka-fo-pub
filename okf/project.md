@@ -6,28 +6,31 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T07:37:25.310Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/headerPromotionData.ts
+  - src/data/footerData.ts
+  - src/data/searchOverlayData.ts
   - src/data/screenIaSource.json
   - src/mocks/
   - src/data/
   - eslint.config.js
   - src/mocks/cartDisplay.ts
-  - src/components/product/productInquiries.ts
+  - src/app/products/[id]/productInquiries.ts
   - src/app/products/[id]/page.tsx
   - src/mocks/orderRecommendations.ts
   - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
   - src/app/cart/page.tsx
   - src/app/checkout/page.tsx
-  - src/components/common/organisms/Layout/SiteHeader/megaMenu.ts
+  - src/data/megaMenu.ts
   - src/mocks/products.ts
   - src/data/screenRegistry.ts
   - README.md
   - src/components/checkout/CheckoutPage.tsx
   - src/components/size-guide/SizeGuidePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
-  - src/components/support/support.navigation.ts
+  - src/app/support/support.navigation.ts
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
@@ -134,3 +137,9 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 ## 프로모션 타입 소유자 변경 (2026-10-28)
 
 src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/common/atoms/Badge.tsx로 변경했다. 목 상품의 값·정렬·정책은 바뀌지 않는다. [Badge 통합과 검증](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+헤더 프로모션·메가 메뉴·푸터·검색 제안 데이터의 현재 소유 위치는 src/data다. 단일 라우트에 종속된 홈·FAQ·로케일·공지·매장·사이즈 가이드 등의 데이터는 해당 app 라우트 옆에 둔다. 공용 데이터라는 이유 없이 모든 페이지 데이터를 data로 승격하지 않는다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

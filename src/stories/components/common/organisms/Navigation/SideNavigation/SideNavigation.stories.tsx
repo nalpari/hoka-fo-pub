@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { SideNavigation } from '@/components/common/layouts/SidebarNavigationLayout';
 
-import { supportNavigation } from '@/components/support/support.navigation';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 const meta = {
   title: 'Organisms/Navigation/SideNavigation',

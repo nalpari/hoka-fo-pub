@@ -19,8 +19,8 @@ import { AddressFields } from '@/components/common/organisms/Address/AddressFiel
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { type Address } from '@/components/mypage/mypage-address.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { type Address } from '@/types/mypage-address.types';
 
 function AddressEditor({
   editingId,

@@ -2,8 +2,8 @@
 import {
   type RegistrationContentProps,
   type RegistrationInformation,
-} from '@/components/signup-registration/registration.types';
-import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
+} from '@/app/signup/information/registration.types';
+import { type MarketingPreferences } from '@/app/signup/information/registration.types';
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
   label: string;
@@ -72,7 +72,7 @@ declare function RegistrationAdditionalFields(
 export type {
   RegistrationInformation,
   MarketingPreferences,
-} from '@/components/signup-registration/registration.types';
+} from '@/app/signup/information/registration.types';
 declare function RegistrationContent(props: RegistrationContentProps): import('react').JSX.Element;
 type MarketingConsentItem = {
   label: string;

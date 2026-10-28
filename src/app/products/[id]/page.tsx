@@ -59,19 +59,19 @@ import { ProductWidthSelector } from '@/components/common/molecules/ProductOptio
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { shoeCareSections } from '@/components/care-guide/care.data';
-import { CareInstructions } from '@/components/care-guide/CareInstructions';
-import { NotFoundPage } from '@/components/not-found/NotFoundPage';
-import { ProductDetailImage } from '@/components/product/ProductDetailImage';
 import {
   getProductDetailPresentation,
   productDetailAnchors,
   type ProductDetailSpecification,
   type ProductEditorialFeature,
   type ProductTechnicalScaleData,
-} from '@/components/product/productDetailPresentation';
-import { productInquiries } from '@/components/product/productInquiries';
-import { productSizeOptions } from '@/components/product/productSizeOptions';
+} from '@/app/products/[id]/productDetailPresentation';
+import { productInquiries } from '@/app/products/[id]/productInquiries';
+import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
+import { shoeCareSections } from '@/components/care-guide/care.data';
+import { CareInstructions } from '@/components/care-guide/CareInstructions';
+import { NotFoundPage } from '@/components/not-found/NotFoundPage';
+import { ProductDetailImage } from '@/components/product/ProductDetailImage';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';

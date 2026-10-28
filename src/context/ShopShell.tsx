@@ -24,6 +24,7 @@ import {
   useSyncExternalStore,
 } from 'react';
 import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
+import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva, cx } from 'styled-system/css';
@@ -55,30 +56,14 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { useCarousel } from '@/components/common/molecules/Carousel/CarouselContext';
 
-import {
-  type FooterGroup,
-  footerGroups,
-  socials,
-} from '@/components/common/organisms/Layout/SiteFooter/footerData';
-import {
-  type HeaderPromotionItem,
-  headerPromotionItems,
-} from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
-import {
-  type MegaMenu,
-  type MegaMenuPromo,
-  megaMenus,
-} from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
 import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
-import {
-  autocompleteSearches,
-  popularSearches,
-  suggestedSearches,
-} from '@/components/common/organisms/Search/searchOverlayData';
-import { useRecentSearches } from '@/components/common/organisms/Search/useRecentSearches';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
+import { type FooterGroup, footerGroups, socials } from '@/data/footerData';
+import { type HeaderPromotionItem, headerPromotionItems } from '@/data/headerPromotionData';
+import { type MegaMenu, type MegaMenuPromo, megaMenus } from '@/data/megaMenu';
+import { autocompleteSearches, popularSearches, suggestedSearches } from '@/data/searchOverlayData';
 import {
   faBox,
   faChevronRight,

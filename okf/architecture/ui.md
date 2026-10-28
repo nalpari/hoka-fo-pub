@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:03:50.371Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
@@ -28,7 +28,7 @@ working_tree_sources:
   - src/components/common/organisms/Product/ProductGallery.tsx
   - src/stories/components/common/organisms/Product/ProductGallery/ProductGallery.stories.tsx
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
-  - src/components/screen-index/screenConnections.ts
+  - src/app/screen-index/screenConnections.ts
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
@@ -47,7 +47,7 @@ working_tree_sources:
   - src/app/mypage/profile/page.tsx
   - src/components/mypage/ProfileEditForm.tsx
   - src/components/mypage/ProfileReadView.tsx
-  - src/components/mypage/mypage-profile.types.ts
+  - src/app/mypage/profile/mypage-profile.types.ts
   - src/components/catalog/ProductListingFilterPanel.tsx
   - src/components/catalog/ProductListingPage.tsx
   - src/components/catalog/product-listing/ProductListingContent.tsx
@@ -137,14 +137,14 @@ working_tree_sources:
   - src/components/product/ProductInquiryLink.tsx
   - src/components/common/atoms/Checkbox/Checkbox.tsx
   - src/components/product/ProductDetailInquiryContent.tsx
-  - src/components/product/productInquiries.ts
+  - src/app/products/[id]/productInquiries.ts
   - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
   - src/stories/components/common/organisms/InquiryBoard/InquiryBoard.stories.tsx
   - src/stories/components/common/atoms/DescriptionList/DescriptionList.stories.tsx
   - src/components/product/ProductDetailNoticeTable.tsx
   - src/components/product/ProductSpecificationHelp.tsx
   - src/stories/features/product/ProductTechSpecs.stories.tsx
-  - src/components/product/productDetailPresentation.ts
+  - src/app/products/[id]/productDetailPresentation.ts
   - src/components/product/ProductTechnicalScale.tsx
   - src/components/product/ProductTechnicalScaleBar.tsx
   - src/components/product/ProductDetailSupportSections.tsx
@@ -202,7 +202,7 @@ working_tree_sources:
   - src/components/mypage/AddressEditor.tsx
   - src/components/mypage/AddressList.tsx
   - src/components/mypage/ProfileField.tsx
-  - src/components/mypage/mypage-address.types.ts
+  - src/types/mypage-address.types.ts
   - src/components/product/ProductSupportTextLink.tsx
   - src/stories/components/common/molecules/AmountRow/AmountRow.stories.tsx
   - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
@@ -219,7 +219,7 @@ working_tree_sources:
   - src/app/signup/page.tsx
   - src/components/checkout/CheckoutComplete.tsx
   - src/components/checkout/CheckoutDiscountSummary.tsx
-  - src/components/checkout/checkout-coupons.ts
+  - src/app/checkout/checkout-coupons.ts
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
   - src/components/checkout/CheckoutRecipientFields.tsx
   - src/components/checkout/CheckoutSavedAddress.tsx
@@ -243,16 +243,16 @@ working_tree_sources:
   - src/components/size-guide/SizeGuideChart.tsx
   - src/components/size-guide/SizeGuideChoiceGroup.tsx
   - src/components/common/atoms/SegmentedControl/SegmentedControl.tsx
-  - src/components/support/support.navigation.ts
+  - src/app/support/support.navigation.ts
   - src/stories/components/common/atoms/DataTable/DataTable.stories.tsx
   - src/stories/components/common/atoms/SegmentedControl/SegmentedControl.stories.tsx
   - src/stories/components/common/atoms/Typography/Typography.ChoiceLabels.stories.tsx
   - src/app/support/size-guide/page.tsx
   - src/app/support/size-guide/_components/SizeGuidePanel.tsx
   - src/components/size-guide/SizeGuideMeasurements.tsx
-  - src/components/size-guide/size-guide.data.ts
+  - src/app/support/size-guide/size-guide.data.ts
   - src/components/common/molecules/SupportTabs/SupportTabs.tsx
-  - src/components/common/organisms/Layout/SiteFooter/footerData.ts
+  - src/data/footerData.ts
   - src/components/product/ProductVariantSelectors.tsx
   - src/components/product/ProductSizeSelector.tsx
   - src/components/common/atoms/Wishlist/Wishlist.tsx
@@ -273,8 +273,8 @@ working_tree_sources:
   - src/components/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/app/login/page.tsx
-  - src/components/catalog/productListingIaRoute.ts
-  - src/components/common/organisms/Layout/SiteHeader/megaMenu.ts
+  - src/app/screen-index/productListingIaRoute.ts
+  - src/data/megaMenu.ts
   - src/stories/components/common/atoms/Divider/Divider.stories.tsx
   - src/components/terms/TermsDocument.tsx
   - src/components/terms/TermsDateSelect.tsx
@@ -299,7 +299,7 @@ working_tree_sources:
   - src/components/mypage/MyPageMenuItem.tsx
   - src/components/checkout/CheckoutAgreement.tsx
   - src/app/mypage/coupons/page.tsx
-  - src/components/mypage/mypage-home-data.ts
+  - src/app/mypage/mypage-home-data.ts
   - src/components/mypage/MyPageMenuSection.tsx
   - src/components/mypage/MyPageOrderTile.tsx
   - src/components/mypage/MyPageRecentOrders.tsx
@@ -343,7 +343,7 @@ working_tree_sources:
   - .codex/skills/component-reusability/references/form-fields.md
   - src/components/signup-registration/RegistrationContent.tsx
   - src/stories/components/common/atoms/Collapsible/Collapsible.stories.tsx
-  - src/components/cart/cart-item.ts
+  - src/app/cart/cart-item.ts
   - src/components/common/molecules/OrderActionBar/OrderActionBar.tsx
   - src/stories/components/common/molecules/OrderActionBar/OrderActionBar.stories.tsx
   - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
@@ -365,7 +365,7 @@ working_tree_sources:
   - src/app/support/inquiries/new/page.tsx
   - src/app/support/after-sales/page.tsx
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
-  - src/components/common/organisms/Search/searchOverlayData.ts
+  - src/data/searchOverlayData.ts
   - src/components/common/molecules/AccountFormHeader/AccountFormHeader.tsx
   - src/app/support/care/page.tsx
   - src/stories/components/common/molecules/PageActionButton/PageActionButton.stories.tsx
@@ -373,7 +373,7 @@ working_tree_sources:
   - src/shared/Mockup/explore/exploreContent.ts
   - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
   - src/app/support/store/page.tsx
-  - src/components/store-finder/store.data.ts
+  - src/app/support/store/store.data.ts
   - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
   - src/shared/Mockup/explore/ExploreHubPage.tsx
   - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
@@ -388,7 +388,7 @@ working_tree_sources:
   - src/components/mypage/reviews/MyPageReviewList.tsx
   - src/components/mypage/reviews/MyPageReviewItem.tsx
   - src/components/mypage/reviews/MyPageReviewLoadMore.tsx
-  - src/components/mypage/reviews/reviews.types.ts
+  - src/app/mypage/reviews/reviews.types.ts
   - src/components/common/organisms/MyPage/ReviewEditor.tsx
   - src/components/common/organisms/MyPage/ReviewList.tsx
   - src/components/common/organisms/MyPage/ReviewListToolbar.tsx
@@ -443,7 +443,7 @@ working_tree_sources:
   - src/components/phone-verification/VerificationCodeFields.tsx
   - src/components/phone-verification/phone-verification.types.ts
   - src/components/signup-registration/RegistrationEmailFields.tsx
-  - src/components/signup-registration/registration.types.ts
+  - src/app/signup/information/registration.types.ts
   - src/stories/utils/assertAccountFormLayout.ts
   - src/components/common/organisms/Search/SearchCategorySelect.tsx
   - .codex/skills/component-reusability/SKILL.md
@@ -492,7 +492,7 @@ working_tree_sources:
   - src/stories/features/product/ProductColorSelector.stories.tsx
   - src/stories/components/common/molecules/ProductCard/ProductCard.stories.tsx
   - src/stories/components/common/molecules/ProductPrice/ProductPrice.stories.tsx
-  - src/components/phone-verification/usePhoneVerification.ts
+  - src/hooks/usePhoneVerification.ts
   - src/components/signup-registration/MarketingConsentSummaryModal.tsx
   - src/components/common/molecules/ConfirmDialog/ConfirmDialog.tsx
   - src/app/signup/verify/phone/page.tsx
@@ -540,13 +540,13 @@ working_tree_sources:
   - src/stories/features/run-club/RunClubDetail.stories.tsx
   - src/stories/features/run-club/RunClubPreview.tsx
   - src/stories/components/common/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
-  - src/components/home/homeCarouselPreview.ts
+  - src/app/homeCarouselPreview.ts
   - src/components/common/molecules/Carousel/Carousel.tsx
   - src/components/common/molecules/Carousel/CarouselContext.ts
   - src/components/common/molecules/Carousel/CarouselViewport.tsx
   - src/components/common/molecules/Carousel/CarouselPagination.tsx
   - src/components/common/molecules/Carousel/CarouselControls.tsx
-  - src/components/common/organisms/Layout/SiteHeader/headerPromotionData.ts
+  - src/data/headerPromotionData.ts
   - src/components/mypage/RunningProfileContent.tsx
   - src/components/run-club/RunClubDetailLayout.tsx
   - src/components/run-club/RunClubSessionImage.tsx
@@ -561,7 +561,7 @@ working_tree_sources:
   - src/components/run-club/RunClubSessionGuide.tsx
   - src/components/run-club/RunClubSessionNotes.tsx
   - src/stories/features/mypage/MyPageRoutePreview.tsx
-  - src/components/screen-index/storybookLinks.ts
+  - src/app/screen-index/storybookLinks.ts
   - src/stories/features/run-club/RunClub.stories.tsx
   - src/components/common/atoms/Pagination/Pagination.tsx
   - src/app/login/account-locked/complete/page.tsx
@@ -571,7 +571,7 @@ working_tree_sources:
   - src/components/run-club/RunClubLayout.tsx
   - src/components/run-club/RunClubResults.tsx
   - src/app/support/member-benefits/page.tsx
-  - src/components/faq/faq.data.ts
+  - src/app/support/faq/faq.data.ts
   - src/components/common/molecules/SearchField/SearchField.tsx
   - src/stories/components/common/organisms/Faq/FaqList.stories.tsx
   - src/stories/components/common/molecules/SearchField/SearchField.stories.tsx
@@ -587,10 +587,10 @@ working_tree_sources:
   - src/app/locales/page.tsx
   - src/components/locales/LocalesLayout.tsx
   - src/components/locales/LocaleRegionSection.tsx
-  - src/components/locales/locales.data.ts
+  - src/app/locales/locales.data.ts
   - src/app/login/find-account/password-reset/page.tsx
-  - src/components/find-account/passwordValidation.ts
-  - src/components/find-account/phoneNumber.ts
+  - src/lib/passwordValidation.ts
+  - src/lib/phoneNumber.ts
   - src/app/login/account-locked/page.tsx
   - src/components/account-locked/AccountLockedContent.tsx
   - src/stories/features/locales/LocalesPage.stories.tsx
@@ -630,7 +630,7 @@ working_tree_sources:
   - src/components/login/LoginMembership.tsx
   - src/app/checkout/page.tsx
   - src/components/checkout/CheckoutLayout.tsx
-  - src/components/checkout/checkout-summary.ts
+  - src/app/checkout/checkout-summary.ts
   - src/stories/features/checkout/CheckoutPage.stories.tsx
   - src/stories/components/common/organisms/Layout/SiteHeader/SiteHeader.stories.tsx
   - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
@@ -674,9 +674,9 @@ working_tree_sources:
   - src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.scenarios.tsx
   - src/components/support/InquiryOrderProducts.tsx
-  - src/components/support/inquiryOrders.data.ts
+  - src/app/support/inquiries/new/inquiryOrders.data.ts
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/components/support/inquiryOrderSelection.storage.ts
+  - src/app/support/inquiries/new/inquiryOrderSelection.storage.ts
   - src/components/product/ProductDetailHeaderTitle.tsx
   - src/components/orders/OrderCardHeader.tsx
   - src/components/orders/OrderClaimGroup.tsx
@@ -3172,3 +3172,9 @@ LoadMoreButton·SocialAuthButton 구현 2개를 제거했다. 쿠폰·리뷰·�
 작성: codex/gpt-6, 2026-10-28T10:45:56.487Z. 위 working_tree_sources의 이번 변경을 출처로 기록하며 검증 결과는 후속 기록에 남긴다.
 
 더보기·소셜 옵션 통합 후 검증: 타입 검사·전체 린트·Panda 생성·Next/Storybook production build가 통과했다. 폼·import 순서 56개와 App Router 2개 테스트가 통과했고 18개 PC/375px 표시 사례의 DOM·계산 스타일 비교가 일치했다. 자세한 검증은 [더보기·소셜 버튼 부모 옵션 검증](../development/verification.md#더보기소셜-버튼-부모-옵션-검증-2026-10-28)을 참고한다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

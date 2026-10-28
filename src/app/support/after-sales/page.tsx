@@ -12,7 +12,7 @@ import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { supportNavigation } from '@/components/support/support.navigation';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 function ShippingReturnsNumberedList({
   items,

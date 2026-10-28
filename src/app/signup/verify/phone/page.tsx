@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { usePhoneVerification } from '@/hooks/usePhoneVerification';
 
 import { css } from 'styled-system/css';
 
@@ -11,7 +12,6 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
-import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';
 
 const styles = {
   body: css({ gap: '4' }),

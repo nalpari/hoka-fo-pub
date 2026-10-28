@@ -6,12 +6,8 @@ import {
   passwordRequirementsMessage,
   validatePasswordReset,
 } from '../src/lib/passwordValidation.ts';
-import {
-  formatPhoneNumber,
-  getPhoneDigits,
-  isValidPhone,
-} from '../src/components/find-account/phoneNumber.ts';
-import { localeRegions } from '../src/components/locales/locales.data.ts';
+import { formatPhoneNumber, getPhoneDigits, isValidPhone } from '../src/lib/phoneNumber.ts';
+import { localeRegions } from '../src/app/locales/locales.data.ts';
 
 test('password reset distinguishes required fields, strength, and confirmation', () => {
   assert.deepEqual(validatePasswordReset('', ''), {

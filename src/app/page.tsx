@@ -27,14 +27,14 @@ import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { MainSection } from '@/components/common/molecules/MainSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
-import { createHomeCarouselPreviewItems } from '@/components/home/homeCarouselPreview';
+import { createHomeCarouselPreviewItems } from '@/app/homeCarouselPreview';
 import {
   bestSellerTabs,
   homeCategories,
   homeExplores,
   type HomeShoeFinderCardVariant,
   shoeFinderItems,
-} from '@/components/home/homeContent';
+} from '@/app/homeContent';
 import { products } from '@/mocks/products';
 
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */

@@ -19,12 +19,12 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import {
   type ReviewListEntry,
   type ReviewTab,
   type WrittenReview,
-} from '@/components/mypage/reviews/reviews.types';
+} from '@/app/mypage/reviews/reviews.types';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import type { RatingValue } from '@/types/component-contracts/components-common-atoms-RatingStars-RatingStars';
 
 type Props = {

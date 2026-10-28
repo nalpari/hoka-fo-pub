@@ -31,7 +31,7 @@ import { OrderRecommendations } from '@/components/common/organisms/OrderRecomme
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout';
 
-import { isCartItemSoldOut, itemKey } from '@/components/cart/cart-item';
+import { isCartItemSoldOut, itemKey } from '@/app/cart/cart-item';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

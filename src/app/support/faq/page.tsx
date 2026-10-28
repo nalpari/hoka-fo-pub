@@ -15,8 +15,8 @@ import { SearchField } from '@/components/common/molecules/SearchField';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { faqCategories, type FaqCategory, faqs } from '@/components/faq/faq.data';
-import { supportNavigation } from '@/components/support/support.navigation';
+import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.data';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 type Props = {
   category: FaqCategory;

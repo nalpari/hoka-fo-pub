@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:03:50.461Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
@@ -18,7 +18,7 @@ working_tree_sources:
   - tests/order-policy.test.mjs
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - tests/product-detail-presentation.test.mjs
-  - src/components/product/productDetailPresentation.ts
+  - src/app/products/[id]/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
@@ -55,7 +55,7 @@ working_tree_sources:
   - src/app/support/inquiries/new/order-products/page.tsx
   - src/components/support/InquiryOrderLookupPage.tsx
   - src/components/support/InquiryNewPage.tsx
-  - src/components/support/inquiryOrderSelection.storage.ts
+  - src/app/support/inquiries/new/inquiryOrderSelection.storage.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
@@ -283,3 +283,9 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 작성: codex/gpt-6, 2026-10-28T10:54:54.282Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 전체 작업 트리의 다른 작업 검증과 구분한다.
 
 브라우저 상호작용에서는 제어형 수량 1→2→3 이후 비활성화, 두 모드의 loading/aria-busy, 수량 링크의 href와 링크 의미, 로그인 소셜 미지원 안내, 가입의 두 제공자 안내 모달 열기·확인 닫기, 쿠폰 5→10개 확장, 리뷰 페이지 수 1/7→2/7과 고객센터 일반 링크를 확인했다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](../architecture/ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

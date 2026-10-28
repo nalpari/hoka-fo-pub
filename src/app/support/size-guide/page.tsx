@@ -5,8 +5,8 @@ import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
 import { SizeGuidePanel } from '@/app/support/size-guide/_components/SizeGuidePanel';
-import { guideCategories } from '@/components/size-guide/size-guide.data';
-import { supportNavigation } from '@/components/support/support.navigation';
+import { guideCategories } from '@/app/support/size-guide/size-guide.data';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 const tabs = guideCategories.map((category) => ({
   value: category.value,

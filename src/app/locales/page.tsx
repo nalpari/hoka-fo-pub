@@ -7,7 +7,7 @@ import { Box, Flex } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { type LocaleRegion, localeRegions } from '@/components/locales/locales.data';
+import { type LocaleRegion, localeRegions } from '@/app/locales/locales.data';
 
 const globe = css({ w: '7', h: '7', flexShrink: 0 });
 

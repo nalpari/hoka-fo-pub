@@ -6,9 +6,12 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:35:32.418Z'
+  at: '2026-10-28T10:52:23.370Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/InquiryPreviewContext.ts
+  - src/context/RunClubSessionContext.ts
+  - src/hooks/useRecentSearches.ts
   - src/components/common/atoms/Button.tsx
   - src/context/
   - eslint.config.js
@@ -27,8 +30,8 @@ working_tree_sources:
   - src/components/mypage/ProfileEditForm.tsx
   - src/components/mypage/ProfileField.tsx
   - src/components/mypage/ProfileReadView.tsx
-  - src/components/mypage/mypage-address.types.ts
-  - src/components/mypage/mypage-profile.types.ts
+  - src/types/mypage-address.types.ts
+  - src/app/mypage/profile/mypage-profile.types.ts
   - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
   - src/stories/components/common/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
   - src/components/common/atoms/TextInput/TextInput.tsx
@@ -53,7 +56,7 @@ working_tree_sources:
   - src/components/checkout/CheckoutAddressFields.tsx
   - src/components/common/organisms/Address/AddressFields.tsx
   - src/components/common/organisms/Address/AddressField.tsx
-  - src/components/checkout/checkout-coupons.ts
+  - src/app/checkout/checkout-coupons.ts
   - src/components/checkout/CheckoutDiscountSummary.tsx
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
   - src/app/checkout/page.tsx
@@ -131,7 +134,7 @@ working_tree_sources:
   - src/components/checkout/CheckoutShipping.tsx
   - src/components/checkout/CheckoutDeliveryRequest.tsx
   - src/stories/features/cart/CartPage.stories.tsx
-  - src/components/cart/cart-item.ts
+  - src/app/cart/cart-item.ts
   - src/app/login/find-account/page.tsx
   - src/components/login/LoginForm.tsx
   - src/components/login/RememberIdHelp.tsx
@@ -145,8 +148,8 @@ working_tree_sources:
   - src/lib/passwordValidation.ts
   - src/app/signup/page.tsx
   - src/app/signup/information/page.tsx
-  - src/components/find-account/passwordValidation.ts
-  - src/components/phone-verification/usePhoneVerification.ts
+  - src/lib/passwordValidation.ts
+  - src/hooks/usePhoneVerification.ts
   - src/app/login/page.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - src/components/login/LoginContent.tsx
@@ -442,3 +445,9 @@ Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 
 ShopShell의 검색·메뉴·닫기 등 기존 IconButton 호출을 Button variant="icon"으로 바꾸고 import를 평탄화했다. 로그인·장바구니·검색 상태, 이벤트 핸들러와 상태 수명은 변경하지 않았다. type="submit"과 aria-label·크기·className·기존 자식 아이콘을 보존한다.
 
 작성: codex/gpt-6, 2026-10-28T10:35:32.418Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
+
+## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
+
+ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색 훅은 src/hooks로 옮겼다. 문의·런클럽의 상태 주입 컨텍스트는 src/context, 주소 초기값 계약은 src/types로 옮겼다. Provider와 훅의 구현·초기값·저장 키·상태 수명은 유지하며 모든 소비자는 동일한 새 모듈을 참조한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+
+작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.

@@ -22,13 +22,13 @@ import { ModalDialog } from '@/components/common/molecules/ModalDialog';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { InquiryCautions } from '@/components/support/InquiryCautions';
 import {
   type InquiryOrderSelection,
   readInquiryOrderResult,
   saveInquiryOrderDraft,
-} from '@/components/support/inquiryOrderSelection.storage';
-import { supportNavigation } from '@/components/support/support.navigation';
+} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
+import { supportNavigation } from '@/app/support/support.navigation';
+import { InquiryCautions } from '@/components/support/InquiryCautions';
 import { faXmark } from '@/icons/fontAwesome';
 
 type InquiryAttachmentListProps = {

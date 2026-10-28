@@ -23,7 +23,7 @@ import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
-import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
+import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
 import { isValidName } from '@/lib/validation';
 
 type Props = {

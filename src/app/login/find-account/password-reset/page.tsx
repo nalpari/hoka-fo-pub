@@ -20,7 +20,7 @@ import {
   type Errors,
   type FieldName,
   validatePasswordReset as validate,
-} from '@/components/find-account/passwordValidation';
+} from '@/lib/passwordValidation';
 
 const styles = {
   input: css({ minW: '0' }),

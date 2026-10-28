@@ -7,7 +7,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout';
 
-import { supportNavigation } from '@/components/support/support.navigation';
+import { supportNavigation } from '@/app/support/support.navigation';
 
 /** 통합 마일리지 안내 화면을 구성합니다. (Composes the customer benefit information screen.) */
 export default function Page() {

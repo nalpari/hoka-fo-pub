@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 
 import { type ReactNode, useContext, useEffect, useState } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
+import { RunClubSessionContext } from '@/context/RunClubSessionContext';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
@@ -30,7 +31,6 @@ import {
   sessionPrecautions,
 } from '@/components/run-club/runClub.data';
 import { RunClubBadge } from '@/components/run-club/RunClubBadge';
-import { RunClubSessionContext } from '@/components/run-club/RunClubSessionContext';
 import { type Product, products } from '@/mocks/products';
 
 const applyButton = css({

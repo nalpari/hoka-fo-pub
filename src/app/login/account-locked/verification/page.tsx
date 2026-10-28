@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
+import { usePhoneVerification } from '@/hooks/usePhoneVerification';
+
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
-import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';
 
 /** 계정 잠금 해제 인증 화면과 인증 후 이동을 구성합니다. (Composes account unlock verification and post-verification navigation.) */
 export default function Page() {
