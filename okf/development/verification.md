@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:03:09+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/import-order.test.mjs
@@ -210,7 +210,7 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 
 ## Import 자동 정렬 (2026-10-28)
 
-import 그룹은 Next.js → 외부 패키지(React·Node 내장 포함) → Panda → common atoms → molecules → organisms → layouts → 나머지 내부 모듈 → 상대 경로 순이다. 모듈 경로와 named binding을 알파벳순으로 정렬하고 그룹 간 빈 줄은 하나다. 호환 별칭도 같은 계층으로 분류하며 타입 전용 import는 경로 그룹에 속하고 기존 타입 표기는 유지한다.
+import 그룹은 Next.js → 외부 패키지·공용 훅·컨텍스트(React·Node 내장 포함) → Panda → common atoms → molecules → organisms → layouts → 나머지 내부 모듈 → 상대 경로 순이다. 모듈 경로와 named binding을 알파벳순으로 정렬하고 그룹 간 빈 줄은 하나다. 호환 별칭도 같은 계층으로 분류하며 타입 전용 import는 경로 그룹에 속하고 기존 타입 표기는 유지한다.
 
 Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 고정하고 일반 import가 이를 건너뛰는 것은 막지 않는다. eslint.config.js의 얇은 래퍼가 구간마다 기존 정렬 규칙을 호출해 CSS/SCSS·부수 효과 import 및 비-import 문장을 경계로 유지한다. export 정렬 규칙은 추가하지 않는다. tests/import-order.test.mjs에서 그룹·별칭·타입·named binding·주석·지시문·경계·멱등성을 검증한다. 전체 소스 적용 전후에는 import 대상과 코드 본문 보존도 별도 비교한다.
 
@@ -219,3 +219,7 @@ Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 
 사용자 승인에 따라 기존 AccountLockedPage 스토리 끝의 의미 없는 숫자 표현식 `1`을 삭제했다. import 정리 외의 본문 변경은 이 무효 문장 제거 한 건이며, 컴포넌트·스토리 동작에는 영향이 없다. 전체 ESLint 및 정상 종료하는 lint:fix 반복 검증 결과는 아래에 기록한다.
 
 승인 후 재검증: 전체 `npm run lint`가 오류 없이 통과했고 전체 테스트 71개가 다시 통과했다. `npm run lint:fix`도 정상 종료한다.
+
+## 공용 훅·컨텍스트 import 우선순위 (2026-10-28)
+
+외부 패키지 다음에 공용 훅·컨텍스트(`@/context/*`, `@/hooks/*`, `@/lib/use[A-Z]*`)를 빈 줄 없이 두고 Panda 앞에서 그룹을 구분한다. `tests/import-order.test.mjs`에 이 순서와 일반 데이터·타입·유틸리티의 내부 그룹 유지, 두 번째 수정의 멱등성을 검사하는 회귀 사례를 추가했다. 존재하지 않는 훅 경로는 정렬기 입력 문자열로만 사용하며 모듈을 새로 만들지 않는다. Codex 검증: 규칙 테스트 10개·전체 테스트 72개, 전체 ESLint와 타입 검사를 통과했다. 재사용 스킬 validator도 통과했다. 기존 소스 적용의 본문 보존·멱등성은 적용 커밋에 별도로 기록한다.

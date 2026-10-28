@@ -24,7 +24,7 @@ const paths = (source) => imports(source).map((node) => node.moduleSpecifier.tex
 
 test('imports follow Next, packages, Panda, common layers, internal, and relative groups', async () => {
   const source = `import { Local } from './local';
-import { useShop } from '@/context/ShopShell';
+import { products } from '@/mocks/products';
 import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations/OrderRecommendations';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
@@ -36,6 +36,37 @@ import { useRouter } from 'next/navigation';
   const output = await sort(source);
   assert.deepEqual(paths(output), paths(source).reverse());
   assert.equal(output.match(/\n\n/g)?.length, 8);
+});
+
+test('shared hooks and context follow external packages in group 2 before Panda and UI', async () => {
+  const output = await sort(`import { products } from '@/mocks/products';
+import { validate } from '@/lib/emailValidation';
+import type { Product } from '@/types/product';
+import { Button } from '@/components/common/atoms/Button/Button';
+import { css } from 'styled-system/css';
+import { useViewportMode } from '@/lib/useViewportMode';
+import { useExample } from '@/hooks/useExample';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useState } from 'react';
+import { Motion } from 'motion';
+import { useRouter } from 'next/navigation';
+`);
+  assert.deepEqual(paths(output), [
+    'next/navigation',
+    'motion',
+    'react',
+    '@/context/RoutePreview',
+    '@/hooks/useExample',
+    '@/lib/useViewportMode',
+    'styled-system/css',
+    '@/components/common/atoms/Button/Button',
+    '@/lib/emailValidation',
+    '@/mocks/products',
+    '@/types/product',
+  ]);
+  assert.match(output, /from 'react';\nimport \{ useRoutePreview \}/);
+  assert.match(output, /from '@\/lib\/useViewportMode';\n\nimport \{ css \}/);
+  assert.equal(await sort(output), output);
 });
 
 test('compatibility aliases use their real common layer and domain groups', async () => {

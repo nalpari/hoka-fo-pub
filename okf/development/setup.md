@@ -6,7 +6,7 @@ tags: [development, npm, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:03:09+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - eslint.config.js
@@ -83,3 +83,7 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 ESLint에 eslint-plugin-perfectionist 5.13.0을 고정 개발 의존성으로 추가했다. 기존 lint 명령은 순서 위반을 오류로 검사하고 `npm run lint:fix`는 authored src TS/TSX를 ESLint로 수정한 뒤 Prettier로 포맷한다. 생성 코드와 의존성은 제외한다. VS Code에서는 dbaeumer.vscode-eslint 확장을 추천하고 명시적 저장의 source.fixAll.eslint를 활성화했다. 기존 Prettier 저장 포맷은 유지하며 source.organizeImports는 never로 설정해 경쟁 정렬을 방지한다. 로컬 확장 설치 여부에 관계없이 CLI 검사가 동일 규칙을 적용한다.
 
 전체 lint는 이전 검증 작업 사본의 중복 검사를 피하도록 Git에서도 제외하는 `.tmp`와 `.tmp-*` 작업 폴더를 생성물 제외 목록에 포함한다. 실제 authored src의 검사 범위는 유지한다.
+
+## 공용 훅·컨텍스트 import 우선순위 (2026-10-28)
+
+2번 그룹을 외부 패키지·공용 훅·컨텍스트로 확장했다. 외부 의존성을 먼저 정렬하고 `@/context/*`, `@/hooks/*`, `@/lib/use[A-Z]*`를 빈 줄 없이 이어 둔 뒤 Panda와 공통 UI를 배치한다. 일반 데이터·타입·유틸리티는 기존 내부 모듈 그룹에 유지한다. 설정은 `eslint.config.js`, 작성 규칙은 `AGENTS.md`와 `component-reusability` 스킬을 따른다. 기존 CLI·저장 자동 수정 방식과 부수 효과 import 경계는 유지한다.

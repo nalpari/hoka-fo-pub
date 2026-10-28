@@ -91,6 +91,8 @@ export default tseslint.config(
           groups: [
             'next',
             ['builtin', 'external'],
+            { newlinesBetween: 0 },
+            'application-hooks',
             'panda',
             'atoms',
             'molecules',
@@ -102,6 +104,10 @@ export default tseslint.config(
           ],
           customGroups: [
             { groupName: 'next', elementNamePattern: '^next(?:/|$)' },
+            {
+              groupName: 'application-hooks',
+              elementNamePattern: '^@/(?:context/|hooks/|lib/use[A-Z])',
+            },
             { groupName: 'panda', elementNamePattern: '^styled-system(?:/|$)' },
             {
               groupName: 'atoms',
