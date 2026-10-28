@@ -28,9 +28,10 @@ import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { ContentLayout } from '@/components/common/layouts/ContentLayout/ContentLayout';
 
 import {
-  getProductListingIaKey,
-  getProductListingRoute,
-} from '@/components/catalog/productListingIaRoute';
+  getScreenConnection,
+  getScreenStoryHref,
+  isScreenDeleted,
+} from '@/components/screen-index/screenConnections';
 import {
   isStorybookPending,
   isStorybookReady,
@@ -62,44 +63,6 @@ type WbsAssignment = {
   owners: string;
 };
 
-const deletedIaNumbers = new Set(
-  screens
-    .filter((screen) => screen.note.replace(/상품\s*삭제/g, '').includes('삭제'))
-    .map((screen) => screen.iaNumber),
-);
-
-const previewRoutesByIaNumber: Record<number, string> = {
-  1: '/',
-  158: '/running/run-club',
-  200: '/running/run-club',
-  258: '/running/run-club',
-  259: '/running/run-club/yeouido-night',
-  260: '/support/size-guide',
-  226: '/login/find-account/id-confirmation-modal',
-  229: '/login/find-account/password-reset',
-  252: '/login/find-account/password-reset',
-  251: '/login/account-locked',
-  253: '/login/account-locked/verification',
-  254: '/login/account-locked/complete',
-  233: '/signup',
-  234: '/signup/verify/phone',
-  235: '/signup/verify',
-  236: '/signup/terms',
-  237: '/signup/information',
-  255: '/signup/information',
-  256: '/signup/information',
-  238: '/signup/complete',
-};
-
-const findAccountScreenCodes = new Set([
-  'eland_hlo_02',
-  'eland_hlo_03',
-  'eland_hlo_04',
-  'eland_hlo_05',
-  'eland_hlo_06',
-  'eland_hlo_07',
-]);
-
 const statusLabels: Record<DeliveryStatus, string> = {
   ready: '완료',
   working: '작업 중',
@@ -109,21 +72,23 @@ const statusLabels: Record<DeliveryStatus, string> = {
 };
 
 const directWbsAssignments: Record<string, WbsAssignment> = {
-  Main: { period: '2026.09.21 ~ 2026.09.23', owners: '조맑은' },
-  '런칭 캘린더': { period: '2026.10.21 ~ 2026.10.28', owners: '조맑은' },
-  기획전: { period: '2026.10.22 ~ 2026.10.23', owners: '조맑은' },
-  이벤트: { period: '2026.10.27', owners: '조맑은' },
-  장바구니: { period: '2026.10.19 ~ 2026.10.21', owners: '조맑은, 박서현' },
-  주문: { period: '2026.10.15 ~ 2026.10.16', owners: '조맑은, 박서현' },
-  마이페이지: { period: '2026.10.21 ~ 2026.10.30', owners: '박서현' },
-  고객센터: { period: '2026.10.29 ~ 2026.10.31', owners: '조맑은, 박서현' },
-  로그인: { period: '2026.10.02 ~ 2026.10.05', owners: '박서현' },
-  회원가입: { period: '2026.10.06 ~ 2026.10.07', owners: '박서현' },
+  레이아웃: { period: '2026.09.21 ~ 2026.09.23', owners: '조맑은' },
+  Main: { period: '2026.10.02 ~ 2026.10.05', owners: '조맑은' },
+  '런칭 캘린더': { period: '2026.10.28', owners: '조맑은, 박서현' },
+  기획전: { period: '2026.10.29', owners: '조맑은, 박서현' },
+  이벤트: { period: '2026.10.30', owners: '조맑은, 박서현' },
+  장바구니: { period: '2026.10.22 ~ 2026.10.23', owners: '조맑은' },
+  주문: { period: '2026.10.26 ~ 2026.10.27', owners: '조맑은, 박서현' },
+  마이페이지: { period: '2026.10.15 ~ 2026.10.21', owners: '조맑은, 박서현' },
+  카테고리: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은' },
+  고객센터: { period: '2026.10.15 ~ 2026.10.21', owners: '조맑은, 박서현' },
+  로그인: { period: '2026.10.06 ~ 2026.10.07', owners: '박서현' },
+  회원가입: { period: '2026.10.08 ~ 2026.10.12', owners: '박서현' },
   Company: { period: '2026.11.06 ~ 2026.11.10', owners: '조맑은' },
 };
 
 const categoryWbsAssignments = {
-  목록: { period: '2026.10.01 ~ 2026.10.07', owners: '조맑은' },
+  목록: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은, 박서현' },
   상세: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은, 박서현' },
 } satisfies Record<string, WbsAssignment>;
 
@@ -338,6 +303,12 @@ const styles = {
     },
     '& span': { color: '#8d94a3' },
   }),
+  path: css({
+    fontFamily: 'mono',
+    fontSize: '12px',
+    overflowWrap: 'anywhere',
+    whiteSpace: 'normal',
+  }),
   note: css({ minW: '290px', lineHeight: '1.4', whiteSpace: 'normal!' }),
   statusTag: css({
     display: 'inline-flex',
@@ -356,28 +327,11 @@ const styles = {
 };
 
 function getStatus(screen: ScreenDefinition): DeliveryStatus {
-  if (deletedIaNumbers.has(screen.iaNumber)) return 'deleted';
+  if (isScreenDeleted(screen)) return 'deleted';
   if (isStorybookPending(screen.iaNumber)) return 'pending';
   if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
   if (isStorybookWorking(screen.screenCode)) return 'working';
   return 'pending';
-}
-
-function getPreviewHref(screen: ScreenDefinition): string | undefined {
-  if (deletedIaNumbers.has(screen.iaNumber)) return undefined;
-
-  const route = previewRoutesByIaNumber[screen.iaNumber];
-  if (route) return route;
-
-  if (screen.screenCode === 'eland_hca_01') {
-    return getProductListingRoute(getProductListingIaKey(screen.iaNumber));
-  }
-  if (screen.screenCode === 'eland_hca_02') return '/products/bondi-9';
-  if (screen.screenCode.startsWith('eland_hlo_')) {
-    return findAccountScreenCodes.has(screen.screenCode) ? '/login/find-account' : '/login';
-  }
-
-  return undefined;
 }
 
 function getStatusTagClass(status: DeliveryStatus) {
@@ -412,7 +366,7 @@ function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined 
     }
 
     if (descendants[0] === '검색' || descendants[0] === '검색결과') {
-      return { period: '2026.10.26', owners: '조맑은' };
+      return { period: '2026.10.22 ~ 2026.10.23', owners: '박서현' };
     }
   }
 
@@ -421,9 +375,12 @@ function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined 
     if (terminalDepth === '목록' || terminalDepth === '상세') {
       return categoryWbsAssignments[terminalDepth];
     }
+    return directWbsAssignments.카테고리;
   }
 
-  return directWbsAssignments[depth1];
+  const assignmentKey =
+    depth1 === 'SUPPORT' ? '고객센터' : depth1 === 'About HOKA' ? 'Company' : depth1;
+  return directWbsAssignments[assignmentKey];
 }
 
 function createTreeRows(group: ScreenGroup): TreeRow[] {
@@ -491,7 +448,12 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
 }
 
 /** IA 계층과 작업 현황을 탐색하고 화면 미리보기를 연결합니다. (Explores the IA hierarchy and delivery status with screen preview links.) */
-export function IaStructurePage() {
+export function IaStructurePage({
+  previewEnvironment = 'app',
+}: {
+  previewEnvironment?: 'app' | 'storybook';
+}) {
+  const [feedback, setFeedback] = useState('');
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | DeliveryStatus>('all');
@@ -528,6 +490,11 @@ export function IaStructurePage() {
       screens: group.screens.filter((screen) => {
         const searchable = [
           ...screen.depths,
+          ...(screen.sourceDepths ?? []),
+          String(screen.sourceIaNumber ?? ''),
+          String(screen.iaNumber),
+          getScreenConnection(screen).route ?? '',
+          ...getScreenConnection(screen).sourceFiles,
           screen.category,
           screen.screenCode,
           screen.note,
@@ -550,6 +517,18 @@ export function IaStructurePage() {
   const delayedPercent = (counts.delayed / screens.length) * 100;
   const deletedPercent = (counts.deleted / screens.length) * 100;
 
+  const copyPreviewPath = (path: string) => {
+    setFeedback('');
+    if (!navigator.clipboard) {
+      setFeedback('새 창을 열었습니다. 이 브라우저에서는 경로 복사를 사용할 수 없습니다.');
+      return;
+    }
+    void navigator.clipboard.writeText(path).then(
+      () => setFeedback('경로를 클립보드에 복사했습니다.'),
+      () => setFeedback('새 창을 열었지만 경로를 복사하지 못했습니다.'),
+    );
+  };
+
   const togglePath = (path: string) => {
     setCollapsedPaths((current) => {
       const next = new Set(current);
@@ -568,8 +547,17 @@ export function IaStructurePage() {
         { label: 'IA 구조도' },
       ]}
       title="IA 구조도"
-      description="확정 IA 기준 화면 체계와 구현 현황을 관리합니다."
+      description="FO.html v0.20 기준 IA와 최종 GNB·프로젝트 추가 화면을 함께 관리합니다. 바로가기와 파일 존재 여부는 작업 완료 상태와 별개입니다."
     >
+      {feedback && (
+        <Typography
+          as="p"
+          role="status"
+          className={css({ my: '2', color: '#3e4965', fontSize: '12px' })}
+        >
+          {feedback}
+        </Typography>
+      )}
       <Grid
         as="section"
         gridTemplateColumns="minmax(280px, 0.9fr) minmax(0, 2.1fr)"
@@ -802,7 +790,7 @@ export function IaStructurePage() {
               className={styles.search}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="화면명, 메뉴명, 화면 코드 검색"
+              placeholder="화면명, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
             <select
@@ -864,7 +852,8 @@ export function IaStructurePage() {
                 <th>WBS</th>
                 <th>진행 상태</th>
                 <th>작업자</th>
-                <th>바로가기</th>
+                <th>{previewEnvironment === 'storybook' ? 'Storybook 미리보기' : '실제 페이지'}</th>
+                <th>작업 파일</th>
                 <th>비고 / 이슈</th>
               </tr>
             </thead>
@@ -873,9 +862,11 @@ export function IaStructurePage() {
                 <GroupRows
                   key={group.depth1}
                   group={group}
+                  previewEnvironment={previewEnvironment}
                   isExpanded={isExpanded || query.trim().length > 0}
                   collapsedPaths={collapsedPaths}
                   onToggle={togglePath}
+                  onCopyPath={copyPreviewPath}
                 />
               ))}
             </tbody>
@@ -896,14 +887,18 @@ export function IaStructurePage() {
 
 function GroupRows({
   group,
+  previewEnvironment,
   isExpanded,
   collapsedPaths,
   onToggle,
+  onCopyPath,
 }: {
   group: ScreenGroup;
+  previewEnvironment: 'app' | 'storybook';
   isExpanded: boolean;
   collapsedPaths: ReadonlySet<string>;
   onToggle: (path: string) => void;
+  onCopyPath: (path: string) => void;
 }) {
   const treeRows = createTreeRows(group);
   const groupPath = group.depth1;
@@ -956,6 +951,7 @@ function GroupRows({
             -
           </Typography>
         </td>
+        <td>-</td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
       </tr>
       {isExpanded &&
@@ -966,7 +962,8 @@ function GroupRows({
 
           const status = row.screen ? getStatus(row.screen) : undefined;
           const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
-          const previewHref = row.screen ? getPreviewHref(row.screen) : undefined;
+          const connection = row.screen ? getScreenConnection(row.screen) : undefined;
+          const route = connection?.route;
           const rowClass =
             status === 'delayed'
               ? styles.delayedRow
@@ -1044,17 +1041,71 @@ function GroupRows({
                 )}
               </td>
               <td>
-                {previewHref ? (
-                  <div className={styles.preview}>
-                    <a href={previewHref} target="_blank" rel="noreferrer">
-                      <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
-                    </a>
-                  </div>
-                ) : (
-                  <div className={styles.preview}>
-                    <Typography as="span">N/A</Typography>
-                  </div>
-                )}
+                <Stack gap="1" minW="180px">
+                  {row.screen && !isScreenDeleted(row.screen) ? (
+                    previewEnvironment === 'storybook' ? (
+                      <>
+                        <div className={styles.preview}>
+                          {(['web', 'mobile'] as const).map((platform) => {
+                            const href = getScreenStoryHref(row.screen!, platform);
+                            return href ? (
+                              <a
+                                key={platform}
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="경로 복사 및 새 창 열기"
+                                onClick={() => onCopyPath(href)}
+                              >
+                                <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
+                                {platform === 'web' ? 'WEB' : 'Mobile'}
+                              </a>
+                            ) : (
+                              <Typography key={platform} as="span">
+                                {platform === 'web' ? 'WEB' : 'Mobile'} 스토리 없음
+                              </Typography>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : route ? (
+                      <>
+                        <div className={styles.preview}>
+                          <a
+                            href={route}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={route + ' (경로 복사 및 새 창 열기)'}
+                            onClick={() => onCopyPath(route)}
+                          >
+                            <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
+                          </a>
+                        </div>
+                      </>
+                    ) : (
+                      <Typography as="span">독립 경로 없음</Typography>
+                    )
+                  ) : row.screen ? (
+                    <Typography as="span">삭제 / 제외</Typography>
+                  ) : (
+                    '-'
+                  )}
+                </Stack>
+              </td>
+              <td>
+                <Stack gap="1" minW="300px">
+                  {connection?.sourceFiles.length
+                    ? connection.sourceFiles.map((file) => (
+                        <code key={file} className={styles.path}>
+                          {file}
+                        </code>
+                      ))
+                    : row.screen
+                      ? isScreenDeleted(row.screen)
+                        ? '삭제 / 제외'
+                        : '구현 파일 미등록'
+                      : '-'}
+                </Stack>
               </td>
               <td className={styles.note}>
                 {status === 'delayed' && (

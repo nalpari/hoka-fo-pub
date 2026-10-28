@@ -2,7 +2,13 @@
 
 ## 2026-10-28
 
+- 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
+
 - CustomerCenterLayout의 프레임·breadcrumb·탐색을 SidebarNavigationLayout의 support 옵션으로 통합하고 SidebarColumns를 Grid 구성으로 흡수했다. 기존 기본 모드·모바일 여백·고객센터 제목/푸터 API를 보존했다. [범위와 검증](architecture/ui.md#사이드바-탐색-레이아웃-통합-2026-10-28)을 기록한다.
+
+- 사용자 요청으로 IA 엑셀 다운로드 UI·생성 코드·ExcelJS 의존성을 제거했다. 출처 열 제거와 경로 복사·새 창 열기는 유지한다. [현재 IA 기능](architecture/ui.md#ia-엑셀-기능-제거-2026-10-28), [의존성 정리](development/setup.md#ia-엑셀-의존성-제거-2026-10-28)를 참고한다.
+
+- IA 목록의 원본 IA/출처 열과 URL 본문을 제거하고 바로가기 클릭 시 경로 복사·새 창 열기를 적용했다. 현재 검색·필터 결과의 실제 .xlsx 다운로드를 상단에 추가했다. [UI 액션](architecture/ui.md#ia-목록-버튼과-엑셀-다운로드-2026-10-28), [라우팅·내보내기 계약](architecture/routing.md#ia-목록-액션-보완-2026-10-28), [ExcelJS 의존성](development/setup.md#ia-엑셀-다운로드-의존성-2026-10-28)을 참고한다.
 
 - SectionHeader와 ContentLayout 내부 중복 헤더를 공용 ContentHeader로 통합하고 MainSectionHeader를 ContentSection의 기존 title/headerProps로 대체했다. 제목·설명·액션·breadcrumb·반응형 배치와 스토리를 보존한 [변경과 검증](architecture/ui.md#공용-헤더와-섹션-조합-간소화-2026-10-28)을 기록한다.
 
@@ -13,6 +19,8 @@
 - PageActionButton·AccountFormLayout·Terms·PreferenceField를 부모 옵션으로 통합하고 네 구현 파일을 제거했다. 기존 화면·폼·상호작용을 보존하고 스토리·회귀 fixture·계정 프레임 검사 대상을 전환했다. [API](architecture/ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)와 [실제 검증](development/verification.md#부모-옵션-통합-검증-2026-10-28)을 기록했다.
 
 - 사용자 승인으로 운영 소비처가 없는 StatePanel·ContactCard·PageSection 구현 3개와 전용 스토리 2개를 삭제했다. PageSection은 스토리 사용처도 없었으며 운영 SupportContactCard와 기반 컴포넌트는 유지한다. 잔여 참조·Panda 생성과 격리 복사본의 타입·Storybook 빌드 및 스토리 인덱스를 확인했다. 전체 작업 트리의 동시 변경 오류와 구분한 [범위와 검증](architecture/ui.md#스토리-전용미사용-공통-컴포넌트-제거-2026-10-28)을 참고한다.
+
+- FO v0.20의 251개 행과 프로젝트 추가 15개를 병합하고 내부 번호·원본 번호를 분리했다. IA 구조도에 환경별 실제 URL/WEB·Mobile 스토리와 작업 파일·경로 검색을 추가했다. [원본 병합](project.md#fo-v020-ia-병합-2026-10-28), [환경별 연결](architecture/routing.md#ia-환경별-연결-2026-10-28), [UI·검증](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.
 
 - ConfirmDialog·SingleActionDialog를 ModalDialog.actions의 single/confirm 옵션으로 통합하고 두 구현 파일을 제거했다. 기본 크기·취소·버튼 배치·폼 제출 계약을 보존해 운영 소비처를 전환하고 기존 상호작용 스토리를 ModalDialog 폴더로 이동했다. 타입·변경 파일 ESLint·Panda·Next 기본 Turbopack/Storybook 빌드·기존 테스트 72개·모달 스토리 18개와 PC/MO 폼 제출을 확인했다. 기존 비동기 닫힘 단언은 waitFor로 보완했다. 격리 빌드 설정과 보조 webpack 검사 결과를 포함한 검증 범위는 [모달 액션 옵션 통합](architecture/ui.md#modaldialog-액션-옵션-통합-2026-10-28)에 기록한다.
 

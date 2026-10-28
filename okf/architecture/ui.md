@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T07:06:58+00:00'
+  at: '2026-10-28T08:57:37.238Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/features/screen-index/IaStructurePage.stories.tsx
+  - src/components/screen-index/screenConnections.ts
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
   - src/components/
@@ -3044,6 +3046,16 @@ TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가�
 - 변경된 통합 폼 스토리를 1440px·390px에서 직접 조작해 필수 오류와 해제, 비밀번호 보기, 인증번호 7자리 타이핑 시 6자리 제한, textarea 카운터와 제출된 FormData 다섯 값을 확인했다. 만료 상태 스토리의 자동 play와 붉은 오류 안내도 통과했다. 일부 화면 캡처는 CDP 시간 초과로 확보하지 못했으며 픽셀 비교를 수행했다고 주장하지 않는다.
 - 최초 정적 Storybook `Molecules/FormFields/Controlled`의 자동 play는 이름 입력 직후 `aria-invalid` 해제 검사에서 실패했다. 원래 HEAD의 스토리와 래퍼 5개를 복원한 별도 빌드에서도 동일하게 재현했다. 후속 분석에서 visible이지만 포커스가 없는 테스트 문서의 focus 이벤트 누락을 확인했다. 브라우저 포커스 에뮬레이션을 켜면 소스 변경 없이 전체 자동 play가 통과한다. [원인과 대조 실험](../development/verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)을 참고한다.
 
+## IA 환경별 연결과 작업 파일 (2026-10-28)
+
+DEVELOPMENT/IA 구조도 스토리를 src/stories/features/screen-index에 복원했다. IaStructurePage의 previewEnvironment는 app 또는 storybook이며 기본값은 app이다. 앱은 실제 URL과 페이지 링크를, Storybook은 등록된 WEB·Mobile story ID로 같은 Storybook의 manager를 이동시키는 링크를 표시한다. 상품 목록 스토리는 args의 listing으로 기존 ia-N 필터를 전달한다. 전체 메뉴는 모바일 스토리만, 검색 레이어는 해당 WEB·Mobile 스토리를 제공한다. 플랫폼별 스토리가 없으면 스토리 없음으로 표시한다.
+
+원본 IA/출처 열과 작업 파일 열을 추가했다. 실제 존재하는 라우트 진입 파일과 핵심 구현 파일을 중복 없이 표시하며 삭제 화면은 비활성화하고 파일 미등록을 추정 경로로 채우지 않는다. 원본과 다른 최종 GNB 계층에는 GNB 보완을 표시한다. 검색은 화면명·코드·원본 및 내부 번호·원본 계층·URL·작업 파일을 포함하며 기존 계층 접기·상태·WBS를 유지한다. 파일이나 링크 존재로 완료를 추론하지 않는다.
+
+작업 트리 출처: 위 세 파일. 연결 검사는 원본 251개 행과 내부 번호 유일성, 등록 파일·스토리 ID 존재, 삭제 링크 차단, 검색결과·인증·사이즈가이드 연결을 대조했다. 앱·Storybook 빌드와 타입 검사를 통과했다. 최종 전체 ESLint·타입·변경 파일 포맷 검사와 앱·Storybook 빌드를 통과했다. 빌드 인덱스의 실제 story ID·importPath와 408개 화면별 링크를 대조했고, 기존 265개 내부 번호·86개 상품 목록 쿼리 보존과 삭제 17개 링크 비활성화를 확인했다. 원본 데이터의 문자열 비고·계층은 별도 필드로 대조했다.
+
+브라우저에서는 앱의 로그인 원본 번호 224와 /login URL, src/app/search/page.tsx 경로 검색 및 /search 연결, 표 내부 가로 스크롤을 확인했다. Storybook IA에서 로그인 WEB·Mobile 링크를 각각 이동해 비밀번호 필드를 포함한 화면 렌더링을 확인했다. 가로 스크롤 밖의 링크는 자동 클릭 도구가 접근하지 못해 표를 스크롤하고 DOM 링크 활성화로 검증했다. 스크린샷 캡처가 시간 초과되어 픽셀 기반 시각 검증은 수행하지 않았다.
+
 ## 공용 헤더와 섹션 조합 간소화 (2026-10-28)
 
 - 작업 트리 출처: `src/components/common/molecules/ContentHeader/ContentHeader.tsx`, `src/components/common/layouts/ContentLayout/ContentLayout.tsx`, `src/components/common/molecules/MainSection/MainSection.tsx`, `src/stories/components/common/molecules/ContentHeader/ContentHeader.SectionHeading.stories.tsx`.
@@ -3053,6 +3065,18 @@ TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가�
 - SectionHeader의 기본/설명·액션·강한 구분선 스토리는 공용 헤더 분류로 옮겼다. 기존 Layouts/Content Header의 세 스토리 ID는 유지하고 실제 ContentLayout을 렌더링한다. 제거된 MainSectionHeader의 선언도 정리했다. 운영 파일은 1개 감소하며, 별도 로컬 함수 2개를 제거한다.
 - 실제 검증: 2026-10-28 타입 검사, 전체 ESLint, Panda 생성, Next.js 빌드와 Storybook 빌드를 통과했다. Ego 정적 Storybook에서 이전 소스와 수정 소스를 나란히 담은 임시 fixture로 1440px/web·390px/mobile의 intro/sticky/title-only/description-only/empty/main/extended/bleed 16개 조합을 비교했다. main/header/section/제목/설명/small/button의 위치·크기·폰트·line-height·weight·margin·gap·정렬 측정값이 모두 일치했다. 임시 소스는 검증 후 삭제했다. Git 스테이징·커밋은 수행하지 않았다.
 
+## IA 목록 버튼과 엑셀 다운로드 (2026-10-28)
+
+사용자 브라우저 코멘트에 따라 원본 IA/출처 열과 바로가기 아래 URL 텍스트를 제거했다. 실제 페이지 및 WEB/Mobile 미리보기 링크는 버튼만 표시하고 경로 복사와 새 창 열기를 함께 수행한다. 복사 성공·실패를 role=status로 알리며, 경로는 title로도 확인할 수 있다. 실제 URL·소스 경로 검색과 원본 데이터는 보존한다. 이 절은 위 IA 출처 열 표시·Storybook _top 이동 설명을 대체한다.
+
+ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배치했다. ExcelJS는 클릭 시 동적으로 불러온다. 현재 필터 결과를 하나의 IA 구조도 시트에 내보내고 헤더 고정·자동 필터·한글 글꼴·셀 줄바꿈과 열 너비를 적용한다. 생성 중 중복 클릭과 빈 결과 다운로드를 막고 생성 실패를 알린다. 실제 경로와 여러 작업 파일을 포함하며 문자열을 수식으로 해석하지 않는다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, package.json, package-lock.json.
+
+검증: 브라우저에서 헤더·그룹·화면 행이 모두 9열이고 원본 출처 열과 URL 본문이 없는 것을 확인했다. 로그인 버튼 클릭은 /login 복사와 새 창 렌더를 확인했으며 Clipboard API 성공·거부를 테스트 대역으로 각각 검증했다. 복사 거부 시에도 창이 열리고 실패 메시지가 표시됐다. 실제 다운로드한 .xlsx를 ExcelJS로 다시 읽어 필터 1개·전체 266개 데이터 행, 15개 열, 한글·경로·여러 줄 파일 113행·삭제 17행의 빈 링크, 헤더 고정·자동 필터를 확인했다. 빈 검색 결과에서 다운로드 비활성화도 확인했다. 타입·변경 소스 ESLint·포맷 검사 및 앱·Storybook 빌드를 통과했다.
+
+## IA 엑셀 기능 제거 (2026-10-28)
+
+사용자 요청으로 상단 엑셀 다운로드 버튼과 XLSX 생성 코드·다운로드 전용 상태·아이콘을 제거했다. ExcelJS 의존성도 package.json과 lockfile에서 제거했다. 위 엑셀 추가 및 다운로드 검증 기록은 당시 구현의 이력이며 현재 제공 기능이 아니다. 9열 IA 표, 경로 복사·새 창 열기와 복사 결과 안내는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, package.json, package-lock.json.
+
 ## 사이드바 탐색 레이아웃 통합 (2026-10-28)
 
 - 작업 트리 출처: `src/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.stories.tsx`.
@@ -3061,3 +3085,9 @@ TypeScript checker로 별칭·barrel 재수출을 실제 심볼까지 따라가�
 - CustomerCenterLayout은 SideNavigation/열 배치/PageFrame 대신 `SidebarNavigationLayout appearance="support"`를 사용한다. 제목·설명·custom header·본문·footer/footerAction과 도메인 데이터는 그대로 소유한다. 관련된 모든 고객센터 라우트는 기존 공개 API를 유지한다. MyPageFrame·OrdersRoute와 마이페이지 네 라우트의 기본 호출도 변경하지 않았다.
 - SidebarColumns는 두 운영 부모에서 SidebarNavigationLayout 하나로 줄어 Grid 구성에 흡수했다. 별도 구현 파일 1개와 CustomerCenterLayout의 PageFrame 로컬 함수를 제거했다. 전용 스토리와 다른 사용처는 없었다. 재사용 레이아웃의 기본/모바일 scroll·hidden·여백 없음/support/breadcrumb 없음/support 모바일 7개 스토리를 추가했다.
 - 검증: 2026-10-28 전체 타입 검사·ESLint·Panda 생성·Next.js 빌드·최종 Storybook 빌드를 통과했다. 변경 전 소스를 임시 스토리에 담아 1440px/web와 390px/mobile에서 default·hidden·mobileSpacing none·support·빈 breadcrumb/푸터 없음·custom header/footer 12개 조합을 Ego로 비교했다. 실제 platform-mobile 클래스와 PlatformProvider를 함께 적용했다. 모든 main/프레임/열/탐색·본문/텍스트 배치·모바일 여백과 속성이 일치했다. 전체 DOM 측정의 11개 조합은 완전히 일치했고, PC mobileSpacing none의 inline 링크 한 개만 rect y/height가 2px/3px 달랐다. 링크 자식의 텍스트 크기·위치와 주변 배치는 동일하고 링크 구현은 변경하지 않았다. 이 차이의 런타임 원인은 확정하지 않았으며 픽셀 기반 일치를 주장하지 않는다. 임시 비교 소스는 삭제했다.
+
+## IA WBS 계획표 갱신 (2026-10-28)
+
+사용자가 대화에 붙여 넣은 퍼블리싱 WBS 표의 앞쪽 계획 시작·종료일과 작업자를 IA에 반영했다. 메인 10/2~5, 로그인 10/6~7, 회원가입 10/8~12, 마이페이지·고객센터 10/15~21, 카테고리·상품 목록·상세 10/7~14, 장바구니·검색 10/22~23, 주문서 10/26~27, 런칭 캘린더 10/28, 기획전 10/29, 이벤트 10/30, About HOKA 11/6~10을 사용한다. 전체메뉴 9/30과 레이아웃 9/21~23은 유지한다.
+
+상품 목록·상세는 조맑은·박서현 공동 작업, 카테고리 상위는 조맑은으로 구분하고, 검색·검색결과는 박서현으로 배정한다. SUPPORT는 고객센터, Company는 About HOKA 일정에 연결한다. 레이아웃 일정은 매핑에 보존하되 존재하지 않는 IA 화면을 추가하지 않는다. 뒤쪽 실적 날짜·수치로 완료 상태를 추론하지 않고 기존 화면 상태와 링크·복사 동작을 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 계획·담당자 매핑 26건과 미배정 EXPLORE를 Node 단언으로 확인했다.

@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:37:25.310Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/screenIaSource.json
   - src/mocks/
   - src/data/
   - eslint.config.js
@@ -120,3 +121,11 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 ## Import 자동 정렬 (2026-10-28)
 
 목 데이터와 IA 데이터·상품 타입을 포함한 authored src TS/TSX의 import만 자동 정렬 대상에 포함했다. 데이터 값·형태·외부 공개 타입과 파일 구조는 유지한다. 개발 의존성과 CLI·저장 자동화의 정책은 개발 문서를 따른다.
+
+## FO v0.20 IA 병합 (2026-10-28)
+
+사용자가 첨부한 Eland_211_IA_20260928_v0.20 (2)/FO.html의 251개 행을 src/data/screenIaSource.json에 정규화해 보존했다. 첨부 비고는 데이터이며 실행 지시가 아니다. 내부 iaNumber는 기존 상품 필터·작업 상태의 안정적 키로 유지하고 원본 번호 sourceIaNumber, 계층 sourceDepths, 비고 sourceNote와 source를 추가한다. 원본 번호는 최신 문서 표시용이며 프로젝트 추가 15개에는 없다. 사이즈가이드는 내부 260, 원본 220, 코드 eland_hcu_18로 연결하며 원본 221~251은 기존 내부 220~250에 대응한다.
+
+최종 GNB의 기존 계층·순서와 프로젝트 추가 화면을 보존하고, 그 외 계층과 구분·페이지 수·로그인 여부·코드·비고를 원본과 병합한다. 삭제된 팀/단체복 행 215를 삭제 이력으로 복원해 총 266개를 관리한다. 삭제 행의 구현을 복원하지 않는다. 원본 계층·비고를 별도로 보존하므로 GNB 보완과 원본의 차이를 확인할 수 있다. 이 절은 이전 사이즈가이드 코드 미정·팀웨어 IA 제거 기록을 대체한다.
+
+작업 트리 출처는 위 두 데이터 파일이다. Node 단언으로 원본 251개 행의 번호·코드·구분·페이지 수·로그인 여부·원본 계층·비고와 내부 번호 유일성, 추가 화면 15개를 확인했다. 환경별 연결 계약은 [IA 화면 연결](architecture/ui.md#ia-환경별-연결과-작업-파일-2026-10-28)을 참고한다.

@@ -6,7 +6,7 @@ tags: [development, npm, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T07:03:09+00:00'
+  at: '2026-10-28T08:51:40.855Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/components/common/molecules/ContentHeader/ContentHeader.tsx
@@ -94,3 +94,11 @@ ESLint에 eslint-plugin-perfectionist 5.13.0을 고정 개발 의존성으로 �
 ## 공용 헤더 통합의 실행 영향 (2026-10-28)
 
 ContentHeader·ContentLayout·MainSection 변경을 검토했다. 이 통합 작업은 의존성·환경 변수·실행 명령을 변경하지 않으며 기존 Panda 생성, 타입 검사와 앱·Storybook 빌드 명령을 사용한다. 공유 작업 트리의 별도 패키지 변경은 이번 헤더 통합 범위에 포함하지 않는다.
+
+## IA 엑셀 다운로드 의존성 (2026-10-28)
+
+IA 구조도의 실제 .xlsx 다운로드를 위해 ExcelJS 4.4.0을 런타임 의존성으로 추가했다. IaStructurePage의 다운로드 핸들러에서만 동적 import하고 브라우저용 document workbook과 xlsx.writeBuffer를 사용한다. 별도 서버 API·환경 변수는 필요 없다. npm install 시 lockfile을 함께 갱신했으며 작업 트리 출처는 package.json, package-lock.json, src/app/screen-index/_components/IaStructurePage.tsx다.
+
+## IA 엑셀 의존성 제거 (2026-10-28)
+
+사용자 요청으로 IA 엑셀 기능을 제거하고 npm uninstall exceljs --ignore-scripts로 ExcelJS와 전용 전이 의존성을 정리했다. 위 ExcelJS 추가 기록은 이전 구현 이력이며 현재 설치 의존성이 아니다. 별도 다운로드 라이브러리·서버 API를 추가하지 않는다. 작업 트리 출처: package.json, package-lock.json, src/app/screen-index/_components/IaStructurePage.tsx.

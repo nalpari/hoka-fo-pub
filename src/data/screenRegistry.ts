@@ -1,7 +1,13 @@
+import iaSource from '@/data/screenIaSource.json';
+
 export type ScreenCategory = 'page' | 'popup' | 'layer';
 
 export type ScreenDefinition = {
   iaNumber: number;
+  sourceIaNumber?: number;
+  sourceDepths?: ScreenDefinition['depths'];
+  sourceNote?: string;
+  source: 'FO.html' | 'project';
   depths: [string, string, string, string, string];
   category: ScreenCategory;
   page: string;
@@ -20,7 +26,7 @@ type RawScreenDefinition = [
   note: string,
 ];
 
-// FO.html의 1~250번을 유지하고, 프로젝트 추가 화면은 251번부터 배정합니다.
+// 기존 내부 번호는 상품 필터와 상태 연결을 위해 유지하며 원본 번호는 별도로 병합합니다.
 const rawScreens: RawScreenDefinition[] = [
   [
     258,
@@ -438,15 +444,7 @@ const rawScreens: RawScreenDefinition[] = [
   ],
   [216, ['', '배송 및 반품안내', '', '', ''], 'page', '1', false, 'eland_hcu_09', ''],
   [217, ['', '세타 및 손질 방법 안내', '', '', ''], 'page', '1', false, 'eland_hcu_10', ''],
-  [
-    260,
-    ['고객센터', '사이즈 가이드', '', '', ''],
-    'page',
-    '1',
-    false,
-    '',
-    '디자인 대기: 본문 미구현',
-  ],
+  [260, ['고객센터', '사이즈 가이드', '', '', ''], 'page', '1', false, '', '품목별 사이즈 가이드'],
   [218, ['', '약관', '개인정보 처리방침', '', ''], 'page', '1', false, 'eland_hcu_11', ''],
   [219, ['', '', '이용약관', '', ''], 'page', '1', false, 'eland_hcu_12', ''],
   [
@@ -598,6 +596,7 @@ function normalizeScreens(rawDefinitions: readonly RawScreenDefinition[]): Scree
 
       return {
         iaNumber,
+        source: 'project',
         depths: [...inheritedDepths] as ScreenDefinition['depths'],
         category,
         page,
@@ -609,4 +608,53 @@ function normalizeScreens(rawDefinitions: readonly RawScreenDefinition[]): Scree
   );
 }
 
-export const screens = normalizeScreens(rawScreens);
+function mergeSourceScreens(): ScreenDefinition[] {
+  const definitions = normalizeScreens(rawScreens);
+  return definitions.flatMap((screen) => {
+    // 원본 220번 사이즈가이드 추가 이전의 내부 번호와 원본 번호를 연결합니다.
+    const sourceNumber =
+      screen.iaNumber === 260
+        ? 220
+        : screen.iaNumber <= 219
+          ? screen.iaNumber
+          : screen.iaNumber <= 250
+            ? screen.iaNumber + 1
+            : undefined;
+    const source = iaSource.screens.find((candidate) => candidate.iaNumber === sourceNumber);
+    if (!source) return [screen];
+    if (screen.screenCode && screen.screenCode !== source.screenCode) {
+      throw new Error('IA source code mismatch: ' + screen.iaNumber);
+    }
+    const merged: ScreenDefinition = {
+      ...screen,
+      source: 'FO.html',
+      sourceIaNumber: source.iaNumber,
+      sourceDepths: source.depths as ScreenDefinition['depths'],
+      sourceNote: source.note,
+      // 최종 GNB 순서와 명칭은 보존하고 나머지 계층은 원본을 반영합니다.
+      depths:
+        screen.iaNumber <= 152 ? screen.depths : (source.depths as ScreenDefinition['depths']),
+      category: source.category as ScreenCategory,
+      page: source.page,
+      requiresLogin: source.requiresLogin,
+      screenCode: source.screenCode,
+      note: [...new Set([source.note, screen.note].filter(Boolean))].join(' / '),
+    };
+    if (screen.iaNumber !== 216) return [merged];
+    const deleted = iaSource.screens.find((candidate) => candidate.iaNumber === 215)!;
+    return [
+      {
+        ...deleted,
+        depths: deleted.depths as ScreenDefinition['depths'],
+        category: deleted.category as ScreenCategory,
+        source: 'FO.html' as const,
+        sourceIaNumber: 215,
+        sourceDepths: deleted.depths as ScreenDefinition['depths'],
+        sourceNote: deleted.note,
+      },
+      merged,
+    ];
+  });
+}
+
+export const screens = mergeSourceScreens();
