@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for Panda CSS/JSX, Typography, Base UI reuse, or shared responsive-platform changes while preserving semantics and state.
+description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for Panda CSS/JSX, Typography, Base UI reuse, shared responsive-platform changes, or Next.js integration boundaries while preserving semantics and state.
 ---
 
 # Component Reusability
@@ -26,6 +26,10 @@ For wrapper audits, component-file reduction, or consolidation into existing API
 ## Folder depth and responsive ownership
 
 For folder-depth requests or changes to shared platform selection, read [the folder and responsive workflow](references/folder-and-responsive.md). Distinguish fewer navigation steps from fewer React boundaries. Prefer removing redundant single-implementation folders without changing component composition; preserve explicit preview platforms, shared state and portal styling when changing automatic responsive behavior. These modes do not authorize unrelated restructuring or wrapper deletion.
+
+## Next.js integration boundaries
+
+For Next.js API adoption or consolidation that touches images, fonts, navigation, URL state, metadata or deferred UI, read [the Next.js integration workflow](references/nextjs-integration.md). Prefer framework-owned behavior while preserving native HTML exceptions, Storybook adapters and necessary server/client or dynamic import boundaries. This mode does not authorize unrelated feature migration or require every component to import from `next/`.
 
 ## Single-production-parent consolidation
 

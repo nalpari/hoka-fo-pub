@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- AGENTS·component-reusability에 Next.js 기능 선택 기준과 런타임 예외를 반영했다. [정책과 스킬](architecture/ui.md#nextjs-기능-채택-정책과-스킬-2026-10-28)을 참고한다.
+
 - 로컬 폰트를 next/font/local로 이관하고 Storybook 등록을 분리했다. 주문서 URL은 useSearchParams, 상품 확대 갤러리는 next/dynamic으로 연결했다. [구현과 검증](architecture/ui.md#nextjs-기능-채택과-런타임-경계-2026-10-28)을 참고한다.
 
 - 상품 썸네일·갤러리·상세 및 홈 배너에 next/image와 sizes를 적용하고 Deckers CDN 허용 경로를 설정했다. 첫 화면 로딩 우선순위와 갤러리 샘플 경로를 정리했다. 적용 범위·검증 한계는 [이미지 최적화](architecture/ui.md#상품-이미지와-홈-배너-최적화-2026-10-28)를 참고한다.

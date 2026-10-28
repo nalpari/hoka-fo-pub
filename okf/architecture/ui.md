@@ -13,6 +13,7 @@ working_tree_sources:
   - src/app/layout.tsx
   - src/app/products/[id]/_components/ProductDetailViewerContent.tsx
   - src/components/product/ProductDetailImage.tsx
+  - .codex/skills/component-reusability/references/nextjs-integration.md
   - next.config.ts
   - src/components/common/molecules/ProductThumbnail.tsx
   - src/components/common/organisms/Product/ProductGallery.tsx
@@ -3122,3 +3123,9 @@ RootLayout에서 next/font/local로 HOKA 8개·Pretendard 9개 폰트를 등록�
 상품 확대 뷰어는 route-local shell이 선택 상태·닫기·Escape·포커스·스크롤 복귀를 유지하고, _components/ProductDetailViewerContent.tsx의 갤러리를 next/dynamic으로 요청 시 로딩한다. 해당 파일의 단일 생산 부모는 상품 상세 page.tsx이며, 지연 청크 경계가 통합 예외 사유다. ProductDetailImage는 페이지와 지연 갤러리의 두 생산 부모가 공유하므로 src/components/product에 둔다. 로딩 상태 및 갤러리 오류 경계는 부모가 제공하고 닫기 버튼은 로딩 성공 여부와 무관하게 유지한다.
 
 검증: lint·타입 검사·Next 프로덕션 빌드·Storybook 빌드, 기존 테스트 77개를 확인했다. 프로덕션 브라우저에서 폰트 preload 0건과 실제 face 로딩, 갤러리 청크의 클릭 전 미요청/클릭 후 요청, Escape 후 원래 버튼으로의 포커스 복귀를 확인했다. Storybook 주문서에서 원래 HOKA·Pretendard face 로딩도 확인했다. 갤러리 청크 요청 차단 시 오류 안내·닫기·포커스 복귀와 375px 모바일 주문서 표시를 확인했다. 해당 갤러리 청크는 이 빌드에서 1,875바이트(gzip 1,042바이트)였으며 전체 페이지 속도 개선 수치는 측정하지 않았다. 작성: codex/gpt-6, 2026-10-28T09:57:37.856Z. 출처는 working_tree_sources의 이번 변경 파일이다.
+
+## Next.js 기능 채택 정책과 스킬 (2026-10-28)
+
+AGENTS의 Next.js integration policy와 component-reusability의 nextjs-integration 참조에서 이미지·폰트·URL 상태·동적 로딩·메타데이터·외부 스크립트의 선택 기준, native 예외, Storybook 및 단일 부모 예외를 연결했다. 정책은 무조건적인 next/ 치환이나 미요청 기능 확장을 요구하지 않는다.
+
+설치된 App Router 동적 로더의 loading 콜백이 오류 경계 역할을 하지 않는 점과 거절된 lazy 모듈의 재시도 한계를 명시한다. component-reusability 스킬 검증을 통과했다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md, .codex/skills/component-reusability/references/nextjs-integration.md.

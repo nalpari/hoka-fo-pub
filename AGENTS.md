@@ -8,6 +8,15 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Next.js integration policy
+
+- Prefer the installed Next.js APIs for framework-owned behavior: `next/link` for internal route navigation, `next/navigation` for App Router URL state, `next/image` for optimizable content images, and `next/font/local` for application webfonts. Keep native anchors for external URLs, downloads and in-page fragments; preserve justified SVG, upload-preview and other runtime exceptions.
+- Follow the installed `node_modules/next/dist/docs/` before applying version-sensitive options. Preserve semantic tags, image fit and dimensions, font faces and fallback order, router state, hydration and explicit Storybook platforms. Derive image `sizes` from actual layout and platform boundaries rather than a generic breakpoint.
+- Define fonts once at their layout owner and reuse CSS variables. Preserve existing weights/styles; make preload choices explicit and avoid preloading every static font face. Keep Vite/Storybook font registration separate from production `next/font` output without duplicating production downloads.
+- Use `useSearchParams` for reactive query state and keep a suitable `Suspense` boundary for prerendered routes. Preserve absent/empty query behavior, browser back/forward, preview router fixtures, and feature-owned state.
+- Use module-level `next/dynamic` with a literal import for optional UI only when it creates a useful deferred chunk. Preserve loading/error, keyboard, focus restoration and close behavior. A required dynamic import boundary is a documented exception to single-parent consolidation; do not retain a separate file merely because dynamic loading is possible. Verify the emitted chunk and its request timing before claiming a performance gain.
+- Add `next/script` when integrating actual third-party scripts and Metadata APIs when page-specific metadata is in scope. Do not introduce placeholders or migrate unrelated functionality solely to increase framework API use. See the [Next.js integration workflow](.codex/skills/component-reusability/references/nextjs-integration.md).
+
 ## Project knowledge (OKF)
 
 - Start with [okf/index.md](okf/index.md) and read the concepts relevant to the task.
