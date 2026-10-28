@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { AppLayout } from '@/components/common/layouts/AppLayout/AppLayout';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { AppLayout } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
-import { NotFoundPage } from '@/components/features/not-found/NotFoundPage';
+import { NotFoundPage } from '@/components/not-found/NotFoundPage';
 
 const meta = {
   title: 'PAGES/공통/1. 404에러페이지',

@@ -3,7 +3,7 @@
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { AccountDataList } from '@/components/common/organisms/Account/AccountDataList';
-import { myPageNavigation } from '@/components/features/mypage/mypage.data';
+import { myPageNavigation } from '@/components/mypage/mypage.data';
 
 /** 결제수단 등록 현황을 표시합니다. (Displays the payment method registration status.) */
 export default function Page() {

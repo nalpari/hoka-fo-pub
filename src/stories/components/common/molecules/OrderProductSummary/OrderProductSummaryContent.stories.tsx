@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
-import { OrderProductSummaryContent } from '@/components/common/molecules/OrderProductSummary/OrderProductSummaryContent';
+import { OrderProductSummaryContent } from '@/components/common/molecules/OrderProductSummary/OrderProductSummary';
 
 const meta = {
   title: 'Molecules/OrderProductSummaryContent',

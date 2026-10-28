@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Collapsible } from '@/components/common/atoms/Collapsible/Collapsible';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { Collapsible } from '@/components/catalog/ProductListingPage';
 import { Button } from '@/components/common/atoms/Button/Button';
 import { expect, userEvent, within } from 'storybook/test';
 

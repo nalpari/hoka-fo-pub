@@ -5,7 +5,7 @@ import { cva } from 'styled-system/css';
 import type { ReactNode } from 'react';
 import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-import { MyPageFrame } from '@/components/features/mypage/MyPageFrame';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 const tiers = [
   {

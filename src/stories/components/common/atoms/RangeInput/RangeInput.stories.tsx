@@ -1,17 +1,12 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { RangeInput } from '@/components/common/atoms/RangeInput/RangeInput';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { RangeInput } from '@/components/catalog/ProductListingPage';
 
 function RangeStory() {
   const [value, setValue] = useState(50);
   return (
     <div>
-      <RangeInput
-        aria-label="가격 범위"
-        max={100}
-        onValueChange={setValue}
-        value={value}
-      />
+      <RangeInput aria-label="가격 범위" max={100} onValueChange={setValue} value={value} />
       <output>{value}</output>
     </div>
   );

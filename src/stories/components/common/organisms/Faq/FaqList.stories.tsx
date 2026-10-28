@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import { FaqList, type FaqListProps } from '@/components/common/organisms/Faq/FaqList';
+import { FaqList } from '@/stories/route-previews/support-faqPreview';
+import type { FaqListProps } from '@/types/component-contracts/app-support-faq-page';
 import { PlatformProvider } from '@/context/platform';
 
 function ControlledFaq(args: FaqListProps) {

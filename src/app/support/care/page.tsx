@@ -3,9 +3,9 @@
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
 import { Stack } from 'styled-system/jsx';
-import { apparelCareSections, shoeCareSections } from '@/components/features/care-guide/care.data';
-import { CareInstructions } from '@/components/features/care-guide/CareInstructions';
-import { supportNavigation } from '@/components/features/support/support.navigation';
+import { apparelCareSections, shoeCareSections } from '@/components/care-guide/care.data';
+import { CareInstructions } from '@/components/care-guide/CareInstructions';
+import { supportNavigation } from '@/components/support/support.navigation';
 
 const tabs = [
   { value: 'shoes', label: '신발', content: <CareInstructions sections={shoeCareSections} /> },

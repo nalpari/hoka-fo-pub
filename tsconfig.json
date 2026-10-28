@@ -15,7 +15,7 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/common/*"],
       "@atoms/*": ["./src/components/common/atoms/*"],
-      "@features/*": ["./src/components/features/*"],
+      "@features/*": ["./src/components/*"],
       "@data/*": ["./src/data/*"],
       "@mocks/*": ["./src/mocks/*"]
     },

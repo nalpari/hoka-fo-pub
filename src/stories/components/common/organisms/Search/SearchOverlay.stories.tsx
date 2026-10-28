@@ -1,9 +1,8 @@
 import { expect, userEvent, within, waitFor } from 'storybook/test';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Button } from '@/components/common/atoms/Button/Button';
-import { HeaderSearch } from '@/components/common/organisms/Layout/SiteHeader/HeaderSearch';
-import { SearchOverlay } from '@/components/common/organisms/Search/SearchOverlay';
+import { HeaderSearch, SearchOverlay } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
 import { Box, Flex } from 'styled-system/jsx';
 

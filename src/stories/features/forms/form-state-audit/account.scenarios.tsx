@@ -2,7 +2,7 @@ import { expect, userEvent, within } from 'storybook/test';
 import FindAccountPage from '@/app/login/find-account/page';
 import PhoneVerificationPage from '@/app/signup/verify/phone/page';
 import AccountUnlockVerificationPage from '@/app/login/account-locked/verification/page';
-import { PhoneVerificationContent } from '@/components/features/phone-verification/PhoneVerificationContent';
+import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import RegistrationPage from '@/app/signup/information/page';
 import SignupTermsPage from '@/app/signup/terms/page';
 import type { AuditStory as Story } from './shared';

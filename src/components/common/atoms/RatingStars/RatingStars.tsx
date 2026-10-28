@@ -1,8 +1,89 @@
-import type { CSSProperties, HTMLAttributes } from 'react';
+'use client';
+
+import { Radio } from '@base-ui/react/radio';
+import { RadioGroup } from '@base-ui/react/radio-group';
 import { css } from 'styled-system/css';
+import { useFormFieldContext } from '@/components/common/atoms/FormField/FormField';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { faStarRegular, faStarSolid } from '@/icons/fontAwesome';
-import { RatingStarsControl } from './RatingStarsControl';
+import type {
+  RatingStarsSelectionProps as ImportedRatingStarsSelectionProps,
+  RatingValue as ImportedRatingValue,
+} from '@/types/component-contracts/components-common-atoms-RatingStars-RatingStars';
+import { type CSSProperties, type HTMLAttributes } from 'react';
+
+const group = css({
+  display: 'inline-flex',
+  gap: '0',
+  '&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
+});
+
+const star = css({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minW: '34px',
+  minH: '34px',
+  border: '0',
+  p: '0',
+  bg: 'transparent',
+  color: 'inherit',
+  cursor: 'pointer',
+  _focusVisible: { outline: '2px solid var(--color-black-100)', outlineOffset: '2px' },
+  _disabled: { cursor: 'not-allowed' },
+});
+
+const values = [1, 2, 3, 4, 5] as const;
+
+/** Internal interactive mode; display-only stars keep their existing rendering. */
+function RatingStarsControl({
+  value,
+  onValueChange,
+  ariaLabel,
+  size = '24px',
+  color,
+  disabled,
+  name,
+  className,
+  style,
+  'aria-describedby': describedBy,
+  'aria-label': label,
+  ...props
+}: ImportedRatingStarsSelectionProps) {
+  const field = useFormFieldContext();
+
+  return (
+    <RadioGroup<ImportedRatingValue>
+      {...props}
+      aria-describedby={[describedBy, field?.describedBy].filter(Boolean).join(' ') || undefined}
+      aria-invalid={field?.invalid || props['aria-invalid'] || undefined}
+      aria-label={label ?? ariaLabel}
+      value={value}
+      onValueChange={onValueChange}
+      disabled={disabled ?? field?.disabled}
+      name={name}
+      className={[group, className].filter(Boolean).join(' ')}
+      style={{ color, ...style }}
+    >
+      {values.map((rating) => (
+        <Radio.Root
+          key={rating}
+          value={rating}
+          nativeButton
+          aria-label={`${rating}점`}
+          className={star}
+          render={<button type="button" />}
+        >
+          <Icon
+            aria-hidden="true"
+            fontAwesomeIcon={rating <= value ? faStarSolid : faStarRegular}
+            size={size}
+          />
+        </Radio.Root>
+      ))}
+    </RadioGroup>
+  );
+}
 
 const ratingStars = css({
   display: 'inline-flex',
@@ -49,7 +130,7 @@ function HalfRatingStar({ size }: Pick<RatingStarsProps, 'size'>) {
   return <Icon aria-hidden="true" name="rating/rating-star-half" size={size} />;
 }
 
-/** Five-star rating display using Font Awesome stars and the Figma half-star SVG. */
+/** 별점 표시와 선택 모드를 제공합니다 (Five-star rating display using Font Awesome stars and the Figma half-star SVG). */
 export function RatingStars({
   value,
   size,

@@ -1,9 +1,9 @@
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
-import { RegistrationContent } from '@/components/features/signup-registration/RegistrationContent';
+import { RegistrationContent } from '@/stories/route-previews/signup-informationPreview';
 import RegistrationPage from '@/app/signup/information/page';
 import RegistrationCompleteContent from '@/app/signup/complete/page';
 

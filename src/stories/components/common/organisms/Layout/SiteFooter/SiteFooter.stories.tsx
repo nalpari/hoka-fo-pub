@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { SiteFooter } from '@/components/common/organisms/Layout/SiteFooter/SiteFooter';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { SiteFooter } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
 
 const meta = {

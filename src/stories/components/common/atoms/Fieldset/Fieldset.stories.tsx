@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { TextInput } from '@/components/common/atoms/TextInput/TextInput';
-import { Fieldset } from '@/components/common/atoms/Fieldset/Fieldset';
+import { Fieldset } from '@/components/catalog/ProductListingPage';
 
 const meta = { title: 'Atoms/Fieldset', component: Fieldset, tags: ['autodocs'] } satisfies Meta<
   typeof Fieldset

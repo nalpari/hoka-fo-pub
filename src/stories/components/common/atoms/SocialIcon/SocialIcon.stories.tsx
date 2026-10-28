@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { SocialIconLink } from '@/components/common/atoms/SocialIcon/SocialIcon';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { SocialIconLink } from '@/context/ShopShell';
 
 const meta = {
   title: 'Atoms/SocialIconLink',

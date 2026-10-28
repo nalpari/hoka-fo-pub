@@ -9,38 +9,36 @@ generated:
   at: '2026-10-28T04:50:57+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
-  - src/components/features/product/ProductSelectedOptions.tsx
+  - src/components/product/ProductSelectedOptions.tsx
   - src/app/products/[id]/page.tsx
-  - src/components/features/product/ProductDetailPanel.tsx
-  - src/components/features/product/ProductDetailContent.tsx
+  - src/components/product/ProductDetailPanel.tsx
+  - src/components/product/ProductDetailContent.tsx
   - src/stories/features/product/ProductSelectedOptions.stories.tsx
   - src/stories/features/product/ProductDetailPage.scenarios.tsx
   - src/stories/features/product/ProductDetailPage.stories.tsx
   - src/stories/features/product/ProductDetailPage.mobile.stories.tsx
   - src/app/mypage/profile/page.tsx
-  - src/components/features/mypage/ProfileEditForm.tsx
-  - src/components/features/mypage/ProfileReadView.tsx
-  - src/components/features/mypage/mypage-profile.types.ts
-  - src/components/features/catalog/ProductListingFilterPanel.tsx
-  - src/components/features/catalog/ProductListingPage.tsx
-  - src/components/features/catalog/product-listing/ProductListingContent.tsx
-  - src/components/common/layouts/AppLayout/AppLayout.tsx
-  - src/components/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
+  - src/components/mypage/ProfileEditForm.tsx
+  - src/components/mypage/ProfileReadView.tsx
+  - src/components/mypage/mypage-profile.types.ts
+  - src/components/catalog/ProductListingFilterPanel.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/components/catalog/product-listing/ProductListingContent.tsx
+  - src/context/ShopShell.tsx
+  - src/components/catalog/product-listing/SearchListingLayout.tsx
+  - src/components/catalog/product-listing/ProductListingLayout.tsx
   - src/components/common/atoms/Typography/Typography.tsx
   - src/components/common/atoms/SectionHeader/SectionHeader.tsx
   - src/components/common/molecules/MainContentCard/MainContentCard.tsx
   - src/components/common/molecules/MainSection/MainSection.tsx
-  - src/components/common/molecules/MainSection/MainSectionHeader.tsx
-  - src/components/common/organisms/Hero/HeroCopy.tsx
-  - src/components/features/catalog/product-listing/ProductListTitle.tsx
-  - src/components/features/home/HomeLayout.tsx
+  - src/app/page.tsx
+  - src/components/catalog/product-listing/ProductListTitle.tsx
+  - src/components/home/HomeLayout.tsx
   - src/stories/components/common/atoms/Typography/Typography.CatalogTitle.stories.tsx
-  - src/components/common/atoms/ProductGender/ProductGender.tsx
-  - src/components/common/molecules/ProductDetails/ProductDetails.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
-  - src/components/features/product/ProductDetailHeaderMeta.tsx
+  - src/components/product/ProductDetailHeaderMeta.tsx
   - src/styles/global.scss
   - panda.config.ts
   - src/stories/components/common/atoms/Typography/Typography.stories.tsx
@@ -49,53 +47,52 @@ working_tree_sources:
   - src/components/common/atoms/Button/Button.type-test.tsx
   - src/components/common/atoms/Button/ButtonDocs.tsx
   - src/stories/components/common/atoms/Button/Button.stories.tsx
-  - src/components/features/mypage/ProfileEditDialogs.tsx
-  - src/components/features/mypage/ProfilePhoneVerification.tsx
+  - src/components/mypage/ProfileEditDialogs.tsx
+  - src/components/mypage/ProfilePhoneVerification.tsx
   - src/components/common/molecules/SingleActionDialog/SingleActionDialog.tsx
   - src/components/common/atoms/FormField/FormField.tsx
   - src/stories/components/common/molecules/SingleActionDialog/SingleActionDialog.stories.tsx
   - src/stories/components/common/atoms/FormField/FormField.stories.tsx
-  - src/components/features/mypage/ProfilePasswordDialog.tsx
+  - src/components/mypage/ProfilePasswordDialog.tsx
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
-  - src/components/features/orders/OrderTrackingHistory.tsx
-  - src/components/features/orders/OrdersDateRange.tsx
-  - src/components/features/orders/ClaimInstructions.tsx
-  - src/components/features/orders/OrderClaimStatus.tsx
-  - src/components/features/orders/OrderDeliveryStatus.tsx
-  - src/components/features/orders/ClaimProductChoice.tsx
-  - src/components/features/orders/ClaimProductQuantity.tsx
-  - src/components/features/orders/ClaimAmountBreakdown.tsx
-  - src/components/features/checkout/CheckoutPaymentMethods.tsx
-  - src/components/features/checkout/CheckoutPaymentMethodNotice.tsx
-  - src/components/features/checkout/CheckoutDeliveryRequestSelect.tsx
-  - src/components/features/checkout/CheckoutDeliveryMessageField.tsx
-  - src/components/features/checkout/CheckoutCompleteHeader.tsx
-  - src/components/common/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
-  - src/components/features/orders/OrderDetail.tsx
-  - src/components/features/orders/OrderClaimDetail.tsx
-  - src/components/features/orders/OrdersPage.tsx
-  - src/components/features/orders/order-policy.ts
-  - src/components/features/orders/OrderClaimSheet.tsx
+  - src/components/orders/OrderTrackingHistory.tsx
+  - src/components/orders/OrdersDateRange.tsx
+  - src/components/orders/ClaimInstructions.tsx
+  - src/components/orders/OrderClaimStatus.tsx
+  - src/components/orders/OrderDeliveryStatus.tsx
+  - src/components/orders/ClaimProductChoice.tsx
+  - src/components/orders/ClaimProductQuantity.tsx
+  - src/components/orders/ClaimAmountBreakdown.tsx
+  - src/components/checkout/CheckoutPaymentMethods.tsx
+  - src/components/checkout/CheckoutPaymentMethodNotice.tsx
+  - src/components/checkout/CheckoutDeliveryRequestSelect.tsx
+  - src/components/checkout/CheckoutDeliveryMessageField.tsx
+  - src/components/checkout/CheckoutCompleteHeader.tsx
+  - src/components/common/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/components/orders/OrderDetail.tsx
+  - src/components/orders/OrderClaimDetail.tsx
+  - src/components/orders/OrdersPage.tsx
+  - src/components/orders/order-policy.ts
+  - src/components/orders/OrderClaimSheet.tsx
   - src/components/common/molecules/StepIndicator/StepIndicator.tsx
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
-  - src/components/features/cart/CartOrderActions.tsx
-  - src/components/features/cart/CartSupportContact.tsx
-  - src/components/features/cart/CartSupportHours.tsx
-  - src/components/features/cart/CartSupportInfo.tsx
-  - src/components/features/cart/CartContent.tsx
+  - src/components/cart/CartOrderActions.tsx
+  - src/components/cart/CartSupportContact.tsx
+  - src/components/cart/CartSupportHours.tsx
+  - src/components/cart/CartSupportInfo.tsx
+  - src/components/cart/CartContent.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx
   - src/stories/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.stories.tsx
   - src/stories/components/common/molecules/ProductOptionSelectors/ProductColorSelector.stories.tsx
   - src/stories/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.stories.tsx
   - src/stories/components/common/molecules/ProductOptionSelectors/ProductOptionSection.stories.tsx
-  - src/components/features/cart/CartOptionWidth.tsx
-  - src/components/features/cart/CartOptionColor.tsx
-  - src/components/features/cart/CartOptionSize.tsx
-  - src/components/features/cart/CartOptionQuantity.tsx
-  - src/components/features/cart/CartProductSection.tsx
-  - src/components/features/cart/CartEmptyState.tsx
-  - src/components/common/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
+  - src/components/cart/CartOptionWidth.tsx
+  - src/components/cart/CartOptionColor.tsx
+  - src/components/cart/CartOptionSize.tsx
+  - src/components/cart/CartOptionQuantity.tsx
+  - src/components/cart/CartProductSection.tsx
+  - src/components/cart/CartEmptyState.tsx
   - src/stories/components/common/molecules/OrderProductSummary/OrderProductSummaryContent.stories.tsx
   - src/stories/features/cart/CartPage.mobile.stories.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
@@ -104,62 +101,48 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.Notices.Web.stories.tsx
   - src/components/common/layouts/BottomSheet/BottomSheet.tsx
-  - src/components/common/layouts/BottomSheet/BottomSheetContent.tsx
-  - src/components/common/layouts/BottomSheet/BottomSheetHeader.tsx
-  - src/components/common/layouts/BottomSheet/BottomSheetTitle.tsx
   - src/stories/components/common/layouts/BottomSheet/BottomSheet.stories.tsx
   - src/lib/useScrollPin.ts
-  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeader.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
   - src/components/common/atoms/FilterTabs/FilterTabs.tsx
   - src/stories/components/common/atoms/FilterTabs/FilterTabs.stories.tsx
   - public/images/icon/lock-keyhole.svg
-  - src/components/features/product/ProductInformation.tsx
-  - src/components/features/product/ProductInquiryLink.tsx
+  - src/components/product/ProductInformation.tsx
+  - src/components/product/ProductInquiryLink.tsx
   - src/components/common/atoms/Checkbox/Checkbox.tsx
-  - src/components/common/organisms/InquiryBoard/InquiryBoard.tsx
-  - src/components/common/organisms/InquiryBoard/InquiryBoardHeader.tsx
-  - src/components/common/organisms/InquiryBoard/InquiryBoardContent.tsx
-  - src/components/features/product/ProductDetailInquiryContent.tsx
-  - src/components/features/product/productInquiries.ts
+  - src/components/product/ProductDetailInquiryContent.tsx
+  - src/components/product/productInquiries.ts
   - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
   - src/stories/components/common/organisms/InquiryBoard/InquiryBoard.stories.tsx
   - src/stories/components/common/atoms/DescriptionList/DescriptionList.stories.tsx
-  - src/components/features/product/ProductDetailNoticeTable.tsx
-  - src/components/features/product/ProductSpecificationHelp.tsx
+  - src/components/product/ProductDetailNoticeTable.tsx
+  - src/components/product/ProductSpecificationHelp.tsx
   - src/stories/features/product/ProductTechSpecs.stories.tsx
-  - src/components/features/product/productDetailPresentation.ts
-  - src/components/features/product/ProductTechnicalScale.tsx
-  - src/components/features/product/ProductTechnicalScaleBar.tsx
-  - src/components/features/product/ProductDetailSupportSections.tsx
-  - src/components/features/product/ProductDetailSpecificationList.tsx
-  - src/components/features/product/ProductDetailScrollSpy.tsx
-  - src/components/features/product/ProductDetailReviews.tsx
-  - src/components/features/product/ProductDetailRecommendations.tsx
-  - src/components/features/product/ProductDetailPlaceholder.tsx
-  - src/components/features/product/ProductDetailNavigation.tsx
-  - src/components/features/product/ProductDetailFooter.tsx
+  - src/components/product/productDetailPresentation.ts
+  - src/components/product/ProductTechnicalScale.tsx
+  - src/components/product/ProductTechnicalScaleBar.tsx
+  - src/components/product/ProductDetailSupportSections.tsx
+  - src/components/product/ProductDetailSpecificationList.tsx
+  - src/components/product/ProductDetailScrollSpy.tsx
+  - src/components/product/ProductDetailReviews.tsx
+  - src/components/product/ProductDetailRecommendations.tsx
+  - src/components/product/ProductDetailPlaceholder.tsx
+  - src/components/product/ProductDetailNavigation.tsx
+  - src/components/product/ProductDetailFooter.tsx
   - public/images/products/clifton-11-gtx/feature-upper.png
   - public/images/products/clifton-11-gtx/feature-detail.png
   - public/images/products/clifton-11-gtx/feature-cushioning.png
-  - src/components/features/product/ProductDetailGallery.tsx
-  - src/components/features/product/ProductDetailGrid.tsx
-  - src/components/features/product/ProductDetailHeaderActions.tsx
-  - src/components/features/product/ProductDetailMedia.tsx
-  - src/components/features/product/ProductDetailRecommend.tsx
-  - src/components/features/product/ProductTechSpecs.tsx
-  - src/components/features/product/ProductDetailEditorial.tsx
-  - src/components/features/product/ProductDetailSections.tsx
+  - src/components/product/ProductDetailGallery.tsx
+  - src/components/product/ProductDetailGrid.tsx
+  - src/components/product/ProductDetailHeaderActions.tsx
+  - src/components/product/ProductDetailMedia.tsx
+  - src/components/product/ProductDetailRecommend.tsx
+  - src/components/product/ProductTechSpecs.tsx
+  - src/components/product/ProductDetailEditorial.tsx
+  - src/components/product/ProductDetailSections.tsx
   - src/components/common/layouts/ContentLayout/ContentLayout.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
-  - src/components/common/atoms/NotificationIcon/NotificationCount.tsx
-  - src/components/features/home/HomeExploreSection.tsx
+  - src/components/home/HomeExploreSection.tsx
   - src/stories/components/common/atoms/NotificationIcon/NotificationIcon.stories.tsx
   - src/stories/components/common/molecules/MainContentCard/MainContentCard.stories.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderCartLink.tsx
-  - src/components/common/atoms/NotificationIcon/NotificationIcon.tsx
   - AGENTS.md
   - .storybook/main.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
@@ -169,38 +152,31 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.scenarios.tsx
   - src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx
   - src/app/support/notices/page.tsx
-  - src/components/features/notices/NoticesList.tsx
+  - src/components/notices/NoticesList.tsx
   - src/app/support/notices/[id]/page.tsx
   - src/app/support/inquiries/page.tsx
-  - src/components/features/support/InquiryCautions.tsx
-  - src/components/features/support/InquiryEmptyState.tsx
-  - src/components/features/support/InquiryQuestion.tsx
-  - src/components/features/support/InquiryAnswer.tsx
-  - src/components/features/support/InquiryListItem.tsx
-  - src/components/features/support/InquiryReadAttachments.tsx
-  - src/components/features/support/InquiryAttachmentPreview.tsx
+  - src/components/support/InquiryCautions.tsx
+  - src/components/support/InquiryEmptyState.tsx
+  - src/components/support/InquiryQuestion.tsx
+  - src/components/support/InquiryAnswer.tsx
+  - src/components/support/InquiryListItem.tsx
+  - src/components/support/InquiryReadAttachments.tsx
+  - src/components/support/InquiryAttachmentPreview.tsx
   - src/stories/features/support/SupportPages.NoticeDetail.Web.stories.tsx
   - src/app/support/faq/page.tsx
-  - src/components/common/organisms/Faq/FaqList.tsx
-  - src/components/common/molecules/Faq/FaqCategoryNav.tsx
-  - src/components/common/molecules/Faq/FaqControls.tsx
-  - src/components/common/molecules/Faq/FaqSearch.tsx
-  - src/components/common/organisms/Faq/FaqAnswer.tsx
-  - src/components/common/organisms/Faq/FaqQuestion.tsx
   - src/app/support/page.tsx
-  - src/components/features/support/SupportContacts.tsx
-  - src/components/features/support/SupportContactCard.tsx
+  - src/components/support/SupportContacts.tsx
+  - src/components/support/SupportContactCard.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
-  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
   - src/components/common/molecules/AmountRow/AmountRow.tsx
   - src/components/common/molecules/FormActionGroup/FormActionGroup.tsx
   - src/components/common/molecules/SocialAuthButton/SocialAuthButton.tsx
-  - src/components/features/mypage/AddressEditor.tsx
-  - src/components/features/mypage/AddressList.tsx
-  - src/components/features/mypage/ProfileField.tsx
-  - src/components/features/mypage/mypage-address.types.ts
-  - src/components/features/product/ProductSupportTextLink.tsx
+  - src/components/mypage/AddressEditor.tsx
+  - src/components/mypage/AddressList.tsx
+  - src/components/mypage/ProfileField.tsx
+  - src/components/mypage/mypage-address.types.ts
+  - src/components/product/ProductSupportTextLink.tsx
   - src/stories/components/common/molecules/AmountRow/AmountRow.stories.tsx
   - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
   - src/stories/components/common/molecules/SocialAuthButton/SocialAuthButton.stories.tsx
@@ -208,137 +184,123 @@ working_tree_sources:
   - src/components/common/atoms/Card/Card.tsx
   - src/components/common/atoms/DataTable/DataTable.tsx
   - src/components/common/atoms/EmptyState/EmptyState.tsx
-  - src/components/common/atoms/Fieldset/Fieldset.tsx
   - src/components/common/atoms/TextInput/TextInput.tsx
-  - src/components/common/molecules/HomeCarouselSection/HomeCarouselRail.tsx
   - src/components/common/molecules/HomeCarouselSection/HomeCarouselSection.tsx
-  - src/components/common/organisms/Address/AddressField.tsx
+  - src/components/common/organisms/Address/AddressFields.tsx
   - src/components/common/organisms/EmailAddressFields/EmailAddressFields.tsx
-  - src/components/common/organisms/OrderRecommendations/OrderRecommendationItem.tsx
   - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/components/common/organisms/Search/SearchDialog.tsx
-  - src/components/common/organisms/Signup/SignupMethodButton.tsx
-  - src/components/features/checkout/CheckoutComplete.tsx
-  - src/components/features/checkout/CheckoutDiscountSummary.tsx
-  - src/components/features/checkout/checkout-coupons.ts
+  - src/app/signup/page.tsx
+  - src/components/checkout/CheckoutComplete.tsx
+  - src/components/checkout/CheckoutDiscountSummary.tsx
+  - src/components/checkout/checkout-coupons.ts
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
-  - src/components/features/checkout/CheckoutRecipientFields.tsx
-  - src/components/features/checkout/CheckoutSavedAddress.tsx
-  - src/components/features/checkout/CheckoutShippingInput.tsx
-  - src/components/features/home/HomeCategorySection.tsx
-  - src/components/features/home/HomeShoeFinderSection.tsx
-  - src/components/features/login/LoginActions.tsx
+  - src/components/checkout/CheckoutRecipientFields.tsx
+  - src/components/checkout/CheckoutSavedAddress.tsx
+  - src/components/checkout/CheckoutShippingInput.tsx
+  - src/components/home/HomeCategorySection.tsx
+  - src/components/home/HomeShoeFinderSection.tsx
+  - src/components/login/LoginActions.tsx
   - src/app/mypage/addresses/page.tsx
   - src/app/mypage/rewards/page.tsx
-  - src/components/features/product/ProductAfterSalesContacts.tsx
-  - src/components/features/product/ProductDetailShippingGuide.tsx
-  - src/components/features/product/ProductSupportContact.tsx
-  - src/components/features/run-club/RunClubFilters.tsx
-  - src/components/features/signup-registration/RegistrationField.tsx
-  - src/components/features/support/InquiryFormActions.tsx
+  - src/components/product/ProductAfterSalesContacts.tsx
+  - src/components/product/ProductDetailShippingGuide.tsx
+  - src/components/product/ProductSupportContact.tsx
+  - src/components/run-club/RunClubFilters.tsx
+  - src/components/signup-registration/RegistrationField.tsx
+  - src/components/support/InquiryFormActions.tsx
   - src/stories/components/common/atoms/TextInput/TextInput.stories.tsx
   - src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx
-  - src/components/features/size-guide/SizeGuideMeasurementMethod.tsx
-  - src/components/features/size-guide/SizeGuideMeasurementImage.tsx
-  - src/components/features/size-guide/SizeGuideMeasurementInstructions.tsx
-  - src/components/features/size-guide/SizeGuideChart.tsx
-  - src/components/features/size-guide/SizeGuideChoiceGroup.tsx
+  - src/components/size-guide/SizeGuideMeasurementMethod.tsx
+  - src/components/size-guide/SizeGuideMeasurementImage.tsx
+  - src/components/size-guide/SizeGuideMeasurementInstructions.tsx
+  - src/components/size-guide/SizeGuideChart.tsx
+  - src/components/size-guide/SizeGuideChoiceGroup.tsx
   - src/components/common/atoms/SegmentedControl/SegmentedControl.tsx
-  - src/components/features/support/support.navigation.ts
+  - src/components/support/support.navigation.ts
   - src/stories/components/common/atoms/DataTable/DataTable.stories.tsx
   - src/stories/components/common/atoms/SegmentedControl/SegmentedControl.stories.tsx
   - src/stories/components/common/atoms/Typography/Typography.ChoiceLabels.stories.tsx
   - src/app/support/size-guide/page.tsx
-  - src/components/features/size-guide/SizeGuidePanel.tsx
-  - src/components/features/size-guide/SizeGuideMeasurements.tsx
-  - src/components/features/size-guide/size-guide.data.ts
+  - src/app/support/size-guide/_components/SizeGuidePanel.tsx
+  - src/components/size-guide/SizeGuideMeasurements.tsx
+  - src/components/size-guide/size-guide.data.ts
   - src/components/common/molecules/SupportTabs/SupportTabs.tsx
   - src/components/common/organisms/Layout/SiteFooter/footerData.ts
-  - src/components/features/product/ProductVariantSelectors.tsx
-  - src/components/features/product/ProductSizeSelector.tsx
-  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/components/common/molecules/ProductDetails/ProductDetailsIdentity.tsx
-  - src/components/common/molecules/ProductDetails/ProductDetailsOptions.tsx
-  - src/components/common/molecules/ProductName/ProductName.tsx
-  - src/components/common/molecules/PromotionCard/PromotionCard.tsx
-  - src/components/common/molecules/OrderProductSummary/OrderProductSummary.tsx
+  - src/components/product/ProductVariantSelectors.tsx
+  - src/components/product/ProductSizeSelector.tsx
   - src/components/common/atoms/Wishlist/Wishlist.tsx
-  - src/components/features/cart/CartSelectionBar.tsx
-  - src/components/features/cart/CartProductList.tsx
-  - src/components/features/cart/CartOptionsContent.tsx
-  - src/components/features/checkout/CheckoutForm.tsx
-  - src/components/features/checkout/CheckoutContent.tsx
-  - src/components/features/checkout/CheckoutPayment.tsx
+  - src/components/cart/CartSelectionBar.tsx
+  - src/components/cart/CartProductList.tsx
+  - src/components/cart/CartOptionsContent.tsx
+  - src/components/checkout/CheckoutForm.tsx
+  - src/components/checkout/CheckoutContent.tsx
+  - src/components/checkout/CheckoutPayment.tsx
   - src/stories/components/common/molecules/OrderProductSummary/OrderProductSummary.stories.tsx
   - src/stories/components/common/molecules/ProductOptionList/ProductOptionList.stories.tsx
   - src/stories/components/common/atoms/Wishlist/Wishlist.stories.tsx
   - src/components/common/atoms/IconButton/IconButton.tsx
   - src/components/common/atoms/Icon/Icon.tsx
-  - src/components/features/cart/CartItemRow.tsx
-  - src/components/features/cart/CartOptionsDialog.tsx
-  - src/components/features/checkout/CheckoutProductList.tsx
-  - src/components/features/home/HomeBestSellerSection.tsx
+  - src/components/cart/CartItemRow.tsx
+  - src/components/cart/CartOptionsDialog.tsx
+  - src/components/checkout/CheckoutProductList.tsx
+  - src/components/home/HomeBestSellerSection.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/app/login/page.tsx
-  - src/components/features/catalog/productListingIaRoute.ts
+  - src/components/catalog/productListingIaRoute.ts
   - src/components/common/organisms/Layout/SiteHeader/megaMenu.ts
   - src/stories/components/common/atoms/Divider/Divider.stories.tsx
-  - src/components/features/terms/TermsDocument.tsx
-  - src/components/features/terms/TermsDateSelect.tsx
+  - src/components/terms/TermsDocument.tsx
+  - src/components/terms/TermsDateSelect.tsx
   - src/components/common/atoms/Divider/Divider.tsx
-  - src/components/features/notices/NoticeContent.tsx
+  - src/components/notices/NoticeContent.tsx
   - okf/architecture/support-design.md
-  - src/components/common/layouts/PageFrame/PageFrame.tsx
+  - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
   - okf/architecture/storefront-design.md
-  - src/components/features/run-club/RunClubSessionCardContent.tsx
-  - src/components/features/run-club/RunClubSessionCardImage.tsx
-  - src/components/features/support/ProductReturnsPanel.tsx
-  - src/components/features/support/ReturnCautionsPanel.tsx
-  - src/components/features/support/ShippingGuidePanel.tsx
-  - src/components/features/support/ShippingReturnsGuide.tsx
-  - src/components/features/product/ProductAfterSalesQuestions.tsx
-  - src/components/features/product/ProductAfterSalesProcess.tsx
-  - src/components/features/mypage/MyPageBenefitItem.tsx
-  - src/components/features/support/InquiryAttachmentHelp.tsx
-  - src/components/features/support/InquiryAttachmentList.tsx
-  - src/components/common/molecules/OrderStatusTracker/OrderStatusLink.tsx
+  - src/components/run-club/RunClubSessionCardContent.tsx
+  - src/components/run-club/RunClubSessionCardImage.tsx
+  - src/components/support/ProductReturnsPanel.tsx
+  - src/components/support/ReturnCautionsPanel.tsx
+  - src/components/support/ShippingGuidePanel.tsx
+  - src/components/support/ShippingReturnsGuide.tsx
+  - src/components/product/ProductAfterSalesQuestions.tsx
+  - src/components/product/ProductAfterSalesProcess.tsx
+  - src/components/mypage/MyPageBenefitItem.tsx
+  - src/components/support/InquiryAttachmentHelp.tsx
+  - src/components/support/InquiryAttachmentList.tsx
+  - src/components/orders/OrdersRoute.tsx
   - src/components/common/molecules/SectionHeading/SectionHeading.tsx
-  - src/components/features/mypage/MyPageMenuItem.tsx
-  - src/components/features/checkout/CheckoutAgreement.tsx
-  - src/components/common/organisms/MyPage/CouponHistorySection.tsx
-  - src/components/common/organisms/MyPage/CouponRegistrationSection.tsx
-  - src/components/features/mypage/mypage-home-data.ts
-  - src/components/features/mypage/MyPageMenuSection.tsx
-  - src/components/features/mypage/MyPageOrderTile.tsx
-  - src/components/features/mypage/MyPageRecentOrders.tsx
-  - src/components/features/mypage/MyPageBenefits.tsx
-  - src/components/features/mypage/MyPageMembership.tsx
-  - src/components/features/mypage/MyPageOverviewProfile.tsx
+  - src/components/mypage/MyPageMenuItem.tsx
+  - src/components/checkout/CheckoutAgreement.tsx
+  - src/app/mypage/coupons/page.tsx
+  - src/components/mypage/mypage-home-data.ts
+  - src/components/mypage/MyPageMenuSection.tsx
+  - src/components/mypage/MyPageOrderTile.tsx
+  - src/components/mypage/MyPageRecentOrders.tsx
+  - src/components/mypage/MyPageBenefits.tsx
+  - src/components/mypage/MyPageMembership.tsx
+  - src/components/mypage/MyPageOverviewProfile.tsx
   - src/shared/Mockup/signup/SignupTermsStep.tsx
   - src/shared/Mockup/signup/SignupTermsAgreements.tsx
   - src/components/common/layouts/SidebarColumns/SidebarColumns.tsx
   - src/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout.tsx
-  - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
   - src/components/common/atoms/LoadMoreButton/LoadMoreButton.tsx
   - src/stories/components/common/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
-  - src/components/features/catalog/product-listing/filterProducts.ts
+  - src/components/catalog/product-listing/filterProducts.ts
   - src/components/common/atoms/Badge/PromotionBadge.tsx
   - .codex/skills/component-reusability/references/content-sections.md
   - src/stories/components/common/molecules/ContentHeader/ContentHeader.stories.tsx
   - src/stories/components/common/layouts/ContentSection/ContentSection.stories.tsx
   - src/components/common/molecules/ContactCard/ContactCard.tsx
-  - src/components/features/product/ProductSupportLink.tsx
+  - src/components/product/ProductSupportLink.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - src/stories/features/login/LoginPage.mobile.stories.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
-  - src/components/features/phone-verification/PhoneVerificationDialogs.tsx
-  - src/components/common/organisms/MyPage/CouponDetailsDialog.tsx
-  - src/components/common/organisms/MyPage/CouponRegistrationDialog.tsx
+  - src/components/phone-verification/PhoneVerificationDialogs.tsx
   - src/components/common/layouts/ContentSection/ContentSection.tsx
   - src/components/common/molecules/ContentHeader/ContentHeader.tsx
-  - src/components/features/find-account/FindAccountIdentityFields.tsx
-  - src/components/features/find-account/FindAccountCodeFields.tsx
-  - src/components/features/support/InquiryMessageFields.tsx
+  - src/components/find-account/FindAccountIdentityFields.tsx
+  - src/components/find-account/FindAccountCodeFields.tsx
+  - src/components/support/InquiryMessageFields.tsx
   - src/components/common/molecules/FormFields/BirthDateField.tsx
   - src/components/common/molecules/FormFields/CharacterCount.tsx
   - src/components/common/molecules/FormFields/EmailField.tsx
@@ -352,49 +314,39 @@ working_tree_sources:
   - src/components/common/molecules/FormFields/VerificationCountdown.tsx
   - src/stories/components/common/molecules/FormFields/FormFields.stories.tsx
   - .codex/skills/component-reusability/references/form-fields.md
-  - src/components/common/organisms/Address/AddressFields.tsx
-  - src/components/features/signup-registration/RegistrationContent.tsx
-  - src/components/common/atoms/Collapsible/Collapsible.tsx
+  - src/components/signup-registration/RegistrationContent.tsx
   - src/stories/components/common/atoms/Collapsible/Collapsible.stories.tsx
-  - src/components/features/cart/cart-item.ts
+  - src/components/cart/cart-item.ts
   - src/components/common/molecules/OrderActionBar/OrderActionBar.tsx
   - src/stories/components/common/molecules/OrderActionBar/OrderActionBar.stories.tsx
   - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
-  - src/components/features/find-account/PasswordResetField.tsx
-  - src/components/features/find-account/PasswordResetContent.tsx
+  - src/components/find-account/PasswordResetField.tsx
+  - src/components/find-account/PasswordResetContent.tsx
   - src/app/login/find-account/page.tsx
-  - src/components/features/find-account/FindAccountContent.tsx
-  - src/components/features/login/RememberIdHelp.tsx
+  - src/components/find-account/FindAccountContent.tsx
+  - src/components/login/RememberIdHelp.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
-  - src/components/features/identity-verification/IdentityVerificationContent.tsx
-  - src/components/features/phone-verification/PhoneVerificationContent.tsx
-  - src/components/features/signup/SignupLayout.tsx
-  - src/components/features/signup-registration/RegistrationAdditionalFields.tsx
-  - src/components/features/signup-registration/RegistrationAddressFields.tsx
+  - src/components/identity-verification/IdentityVerificationContent.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/components/signup/SignupLayout.tsx
+  - src/components/signup-registration/RegistrationAdditionalFields.tsx
+  - src/components/signup-registration/RegistrationAddressFields.tsx
   - src/app/signup/complete/page.tsx
-  - src/components/features/signup-registration/RegistrationPersonalFields.tsx
-  - src/components/features/signup-registration/RegistrationPreferenceRow.tsx
-  - src/components/features/support/InquiryAttachments.tsx
+  - src/components/signup-registration/RegistrationPersonalFields.tsx
+  - src/components/signup-registration/RegistrationPreferenceRow.tsx
+  - src/components/support/InquiryAttachments.tsx
   - src/app/support/inquiries/new/page.tsx
   - src/app/support/after-sales/page.tsx
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
-  - src/components/common/organisms/Signup/SignupBenefit.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderTools.tsx
-  - src/components/common/organisms/Search/RecentSearchItem.tsx
-  - src/components/common/organisms/Search/SearchOverlay.tsx
   - src/components/common/organisms/Search/searchOverlayData.ts
-  - src/components/common/layouts/BottomSheet/BottomSheetFooter.tsx
-  - src/components/common/organisms/Signup/SignupMethodStep.tsx
   - src/components/common/molecules/AccountFormHeader/AccountFormHeader.tsx
   - src/app/support/care/page.tsx
   - src/stories/components/common/molecules/PageActionButton/PageActionButton.stories.tsx
   - src/components/common/molecules/PageActionButton/PageActionButton.tsx
-  - src/components/common/organisms/Faq/FaqEmptyState.tsx
   - src/shared/Mockup/explore/exploreContent.ts
   - src/shared/Mockup/launch-calendar/LaunchCalendarPage.tsx
   - src/app/support/store/page.tsx
-  - src/components/common/organisms/StoreFinder/StoreResults.tsx
-  - src/components/features/store-finder/store.data.ts
+  - src/components/store-finder/store.data.ts
   - src/shared/Mockup/running-hub/stories/RunningExperienceRouteStory.tsx
   - src/shared/Mockup/explore/ExploreHubPage.tsx
   - src/shared/Mockup/product-detail-sections/SizeGuideTable.tsx
@@ -403,13 +355,13 @@ working_tree_sources:
   - src/shared/Mockup/product-detail-sections/ProductInquiryCareNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryAfterSalesNotice.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiry.tsx
-  - src/components/features/mypage/reviews/MyPageReviewsContent.tsx
-  - src/components/features/mypage/reviews/MyPageReviewTabs.tsx
-  - src/components/features/mypage/reviews/MyPageReviewToolbar.tsx
-  - src/components/features/mypage/reviews/MyPageReviewList.tsx
-  - src/components/features/mypage/reviews/MyPageReviewItem.tsx
-  - src/components/features/mypage/reviews/MyPageReviewLoadMore.tsx
-  - src/components/features/mypage/reviews/reviews.types.ts
+  - src/components/mypage/reviews/MyPageReviewsContent.tsx
+  - src/components/mypage/reviews/MyPageReviewTabs.tsx
+  - src/components/mypage/reviews/MyPageReviewToolbar.tsx
+  - src/components/mypage/reviews/MyPageReviewList.tsx
+  - src/components/mypage/reviews/MyPageReviewItem.tsx
+  - src/components/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/components/mypage/reviews/reviews.types.ts
   - src/components/common/organisms/MyPage/ReviewEditor.tsx
   - src/components/common/organisms/MyPage/ReviewList.tsx
   - src/components/common/organisms/MyPage/ReviewListToolbar.tsx
@@ -417,35 +369,32 @@ working_tree_sources:
   - src/components/common/organisms/MyPage/ReviewManager.types.ts
   - src/shared/Mockup/shoe-finder/ShoeFinderPage.tsx
   - src/components/common/atoms/RatingStars/RatingStars.tsx
-  - src/components/common/atoms/RatingStars/RatingStarsControl.tsx
   - src/components/common/organisms/MyPage/ReviewManager.tsx
-  - src/components/features/mypage/MyPageReviewDialog.tsx
+  - src/components/mypage/MyPageReviewDialog.tsx
   - src/app/mypage/reviews/page.tsx
   - src/stories/components/common/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/shared/Mockup/running-profile/RunningProfilePage.tsx
   - src/shared/Mockup/running-profile/RunningProfileContent.tsx
   - src/shared/Mockup/running-profile/ProfileQuestionGroup.tsx
   - src/shared/Mockup/running-profile/running-profile.data.ts
-  - src/components/features/mypage/mypage.data.ts
+  - src/components/mypage/mypage.data.ts
   - src/stories/features/mypage/MyPageRouteStory.tsx
   - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
   - src/stories/components/common/molecules/MyPage/ProfileQuestionGroup.stories.tsx
   - src/components/common/molecules/ProductCompareButton/ProductCompareButton.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryToolbar.tsx
-  - src/components/common/organisms/Search/SearchKeywordButton.tsx
   - src/app/collection/[id]/page.tsx
-  - src/components/features/not-found/NotFoundPage.tsx
+  - src/components/not-found/NotFoundPage.tsx
   - src/stories/features/not-found/NotFoundPage.stories.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderSearch.tsx
   - src/app/cart/page.tsx
-  - src/components/features/checkout/CheckoutShipping.tsx
-  - src/components/features/checkout/CheckoutShippingForm.tsx
-  - src/components/features/checkout/CheckoutAddressFields.tsx
-  - src/components/features/checkout/CheckoutDeliveryRequest.tsx
-  - src/components/features/checkout/CheckoutPaymentNotice.tsx
-  - src/components/features/cart/CartDialogs.tsx
-  - src/components/features/cart/CartLimitDialog.tsx
-  - src/components/features/checkout/CheckoutSummary.tsx
+  - src/components/checkout/CheckoutShipping.tsx
+  - src/components/checkout/CheckoutShippingForm.tsx
+  - src/components/checkout/CheckoutAddressFields.tsx
+  - src/components/checkout/CheckoutDeliveryRequest.tsx
+  - src/components/checkout/CheckoutPaymentNotice.tsx
+  - src/components/cart/CartDialogs.tsx
+  - src/components/cart/CartLimitDialog.tsx
+  - src/components/checkout/CheckoutSummary.tsx
   - src/stories/features/cart/CartPage.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
@@ -461,56 +410,41 @@ working_tree_sources:
   - src/stories/features/forms/form-state-audit/shared.tsx
   - src/components/common/layouts/OrderPageLayout/OrderPageLayout.tsx
   - src/components/common/layouts/AccountPageLayout/AccountPageLayout.tsx
-  - src/components/features/signup-terms/SignupTermsAgreementList.tsx
-  - src/components/features/phone-verification/PhoneVerificationAgreements.tsx
-  - src/components/features/phone-verification/PhoneInformationFields.tsx
-  - src/components/features/phone-verification/VerificationCodeFields.tsx
-  - src/components/features/phone-verification/phone-verification.types.ts
-  - src/components/features/signup-registration/RegistrationEmailFields.tsx
-  - src/components/features/signup-registration/registration.types.ts
+  - src/components/signup-terms/SignupTermsAgreementList.tsx
+  - src/components/phone-verification/PhoneVerificationAgreements.tsx
+  - src/components/phone-verification/PhoneInformationFields.tsx
+  - src/components/phone-verification/VerificationCodeFields.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/signup-registration/RegistrationEmailFields.tsx
+  - src/components/signup-registration/registration.types.ts
   - src/stories/utils/assertAccountFormLayout.ts
-  - src/components/common/organisms/Search/SearchForm.tsx
   - src/components/common/organisms/Search/SearchCategorySelect.tsx
-  - src/components/common/organisms/Search/RecentSearches.tsx
   - .codex/skills/component-reusability/SKILL.md
-  - src/components/common/organisms/Layout/SiteHeader/HeaderLogo.tsx
   - src/components/common/atoms/ToggleButton/ToggleButton.tsx
   - src/components/common/atoms/IconButton/IconButtonDocs.tsx
-  - src/components/common/atoms/Tag/Tag.tsx
   - src/components/common/molecules/Breadcrumb/Breadcrumb.tsx
-  - src/components/common/molecules/CatalogFilterSection/CatalogFilterSection.tsx
   - src/components/common/molecules/CompareBar/CompareBar.tsx
-  - src/components/common/molecules/DataRows/DataRows.tsx
-  - src/components/common/molecules/MetricGrid/MetricGrid.tsx
+  - src/components/common/organisms/Account/AccountDataList.tsx
+  - src/app/mypage/referral/page.tsx
   - src/components/common/molecules/MyPage/PersonalizationCard.tsx
   - src/components/common/molecules/MyPage/ProfileQuestionGroup.tsx
   - src/components/common/molecules/ProductOptionList/ProductOptionList.tsx
-  - src/components/common/molecules/Signup/SignupProgress.tsx
-  - src/components/common/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
-  - src/components/common/organisms/Hero/Hero.tsx
-  - src/components/common/organisms/Hero/HeroPagination.tsx
-  - src/components/common/organisms/Hero/HeroSlide.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderContainer.tsx
   - src/components/common/organisms/Member/MemberHero.tsx
   - src/components/common/organisms/MyPage/QuickLinkGrid.tsx
   - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
   - src/shared/Mockup/product-detail-sections/ProductInquiryNoticeSection.tsx
   - src/shared/Mockup/product-detail-sections/ReviewGalleryModal.tsx
   - src/components/common/organisms/Product/ProductGallery/ProductGallery.tsx
-  - src/components/common/organisms/Search/RecommendedSearches.tsx
   - src/components/common/organisms/Search/SearchCollectionLinks.tsx
   - src/components/common/organisms/Search/SearchHeader.tsx
-  - src/components/common/organisms/Search/SearchSuggestions.tsx
-  - src/components/common/organisms/Search/PopularSearches.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
   - src/shared/Mockup/explore/ExploreDetailPage.tsx
-  - src/components/features/explore/ExploreHubPage.tsx
-  - src/components/features/explore/ShoeFinderPage.tsx
-  - src/components/features/launch-calendar/LaunchCalendarPage.tsx
+  - src/components/explore/ExploreHubPage.tsx
+  - src/components/explore/ShoeFinderPage.tsx
+  - src/components/launch-calendar/LaunchCalendarPage.tsx
   - src/shared/Mockup/running-hub/RunningExperiencePage.tsx
-  - src/components/features/screen-index/DesignGuideColor.tsx
-  - src/components/features/screen-index/DesignGuideTypography.tsx
+  - src/components/screen-index/DesignGuideColor.tsx
+  - src/components/screen-index/DesignGuideTypography.tsx
   - src/app/support/terms/page.tsx
   - src/lib/emailValidation.ts
   - src/lib/passwordValidation.ts
@@ -518,7 +452,6 @@ working_tree_sources:
   - src/components/common/atoms/EmailSignupField/EmailSignupField.tsx
   - src/components/common/atoms/NumberStepper/NumberStepper.tsx
   - src/components/common/atoms/Radio/Radio.tsx
-  - src/components/common/atoms/RangeInput/RangeInput.tsx
   - src/components/common/atoms/Select/Select.tsx
   - src/components/common/molecules/SizeSelector/SizeSelector.tsx
   - src/components/common/molecules/Terms/Terms.tsx
@@ -528,171 +461,128 @@ working_tree_sources:
   - src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx
   - src/components/common/atoms/StatusMessage/StatusMessage.tsx
   - src/stories/components/common/atoms/StatusMessage/StatusMessage.stories.tsx
-  - src/components/common/molecules/OrderStatusTracker/OrderStatusTracker.tsx
-  - src/components/features/product/ProductColorSelector.tsx
+  - src/components/product/ProductColorSelector.tsx
   - src/stories/features/product/ProductColorSelector.stories.tsx
-  - src/components/common/molecules/ProductCard/ProductCard.tsx
-  - src/components/common/molecules/ProductCard/ProductCardPreview.tsx
   - src/stories/components/common/molecules/ProductCard/ProductCard.stories.tsx
-  - src/components/common/molecules/ProductPrice/ProductPrice.tsx
   - src/stories/components/common/molecules/ProductPrice/ProductPrice.stories.tsx
-  - src/components/features/phone-verification/usePhoneVerification.ts
-  - src/components/features/signup-registration/MarketingConsentSummaryModal.tsx
+  - src/components/phone-verification/usePhoneVerification.ts
+  - src/components/signup-registration/MarketingConsentSummaryModal.tsx
   - src/components/common/molecules/ConfirmDialog/ConfirmDialog.tsx
-  - src/components/common/organisms/Account/AlreadyRegisteredModal.tsx
-  - src/components/common/organisms/Account/LogoutDialog.tsx
-  - src/components/common/organisms/Account/MarketingConsentSummaryModal.tsx
-  - src/components/common/organisms/Address/AddressSearchModal.tsx
-  - src/components/common/organisms/Terms/TermsDialog.tsx
+  - src/app/signup/verify/phone/page.tsx
+  - src/app/mypage/page.tsx
   - src/stories/components/common/molecules/ConfirmDialog/ConfirmDialog.stories.tsx
   - src/stories/components/common/organisms/Account/AlreadyRegisteredModal.stories.tsx
   - src/stories/components/common/organisms/Account/LogoutDialog.stories.tsx
   - src/stories/components/common/organisms/Account/MarketingConsentSummaryModal.stories.tsx
   - src/stories/components/common/organisms/Address/AddressSearchModal.stories.tsx
   - src/stories/components/common/organisms/Terms/TermsDialog.stories.tsx
-  - src/components/features/phone-verification/PhoneVerificationDetailDialog.tsx
-  - src/components/features/mypage/MyPageWithdrawalCompleteDialog.tsx
-  - src/components/features/mypage/MyPageWithdrawalDialog.tsx
-  - src/components/features/mypage/MyPageAddressDeleteDialog.tsx
+  - src/components/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/components/mypage/MyPageWithdrawalCompleteDialog.tsx
+  - src/components/mypage/MyPageWithdrawalDialog.tsx
+  - src/components/mypage/MyPageAddressDeleteDialog.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
-  - src/components/features/product/ProductDetailSupport.tsx
-  - src/components/features/run-club/RunClubApplicationNotice.tsx
-  - src/components/features/find-account/PasswordResetCompleteModal.tsx
-  - src/components/features/product/ProductDetailViewerGallery.tsx
-  - src/components/features/run-club/RunClubEmptyState.tsx
-  - src/components/features/product/ProductVariantAction.tsx
-  - src/components/features/product/ProductDetailSupportRegion.tsx
-  - src/components/features/product/ProductDetailReturnPrecautions.tsx
-  - src/components/features/product/ProductDetailReturnGuide.tsx
-  - src/components/features/product/ProductDetailDeliverySupport.tsx
-  - src/components/features/product/ProductDetailDeliverySection.tsx
-  - src/components/features/mypage/MyPageRestockList.tsx
-  - src/components/features/mypage/MyPageRestockCancelDialog.tsx
-  - src/components/features/run-club/RunClubSessionPoster.tsx
-  - src/components/features/run-club/RunClubSessionGuideContent.tsx
-  - src/components/features/product/ProductVariantSection.tsx
-  - src/components/features/product/ProductDetailGallery.tsx
-  - src/components/features/product/ProductDetailImageViewer.tsx
-  - src/components/features/product/ProductDetailDeliveryContent.tsx
-  - src/components/features/mypage/MyPageProductHistoryNote.tsx
-  - src/components/features/mypage/MyPageProductHistoryHeading.tsx
-  - src/components/features/mypage/MyPageProductHistoryGrid.tsx
-  - src/components/features/mypage/MyPageProductHistory.tsx
-  - src/components/features/mypage/MyPageFrame.tsx
-  - src/components/features/mypage/MyPageBreadcrumbs.tsx
-  - src/components/features/locales/LocalesHeading.tsx
-  - src/components/features/locales/LocaleRegionHeading.tsx
-  - src/components/features/locales/LocaleCountryList.tsx
-  - src/components/features/catalog/product-listing/ProductSortDropdown.tsx
-  - src/components/features/product/ProductDetailBody.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderInner.tsx
+  - src/components/product/ProductDetailSupport.tsx
+  - src/components/run-club/RunClubApplicationNotice.tsx
+  - src/components/find-account/PasswordResetCompleteModal.tsx
+  - src/components/product/ProductDetailViewerGallery.tsx
+  - src/components/run-club/RunClubEmptyState.tsx
+  - src/components/product/ProductVariantAction.tsx
+  - src/components/product/ProductDetailSupportRegion.tsx
+  - src/components/product/ProductDetailReturnPrecautions.tsx
+  - src/components/product/ProductDetailReturnGuide.tsx
+  - src/components/product/ProductDetailDeliverySupport.tsx
+  - src/components/product/ProductDetailDeliverySection.tsx
+  - src/components/mypage/MyPageRestockList.tsx
+  - src/components/mypage/MyPageRestockCancelDialog.tsx
+  - src/components/run-club/RunClubSessionPoster.tsx
+  - src/components/run-club/RunClubSessionGuideContent.tsx
+  - src/components/product/ProductVariantSection.tsx
+  - src/components/product/ProductDetailImageViewer.tsx
+  - src/components/product/ProductDetailDeliveryContent.tsx
+  - src/components/mypage/MyPageProductHistoryNote.tsx
+  - src/components/mypage/MyPageProductHistoryHeading.tsx
+  - src/components/mypage/MyPageProductHistoryGrid.tsx
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/mypage/MyPageFrame.tsx
+  - src/components/mypage/MyPageBreadcrumbs.tsx
+  - src/components/locales/LocalesHeading.tsx
+  - src/components/locales/LocaleRegionHeading.tsx
+  - src/components/locales/LocaleCountryList.tsx
+  - src/components/catalog/product-listing/ProductSortDropdown.tsx
+  - src/components/product/ProductDetailBody.tsx
   - src/stories/features/run-club/RunClubDetail.stories.tsx
   - src/stories/features/run-club/RunClubPreview.tsx
   - src/stories/components/common/molecules/HomeCarouselSection/HomeCarouselSection.stories.tsx
-  - src/components/features/home/homeCarouselPreview.ts
-  - src/components/common/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/components/common/organisms/Layout/SiteFooter/SiteFooter.tsx
+  - src/components/home/homeCarouselPreview.ts
   - src/components/common/molecules/Carousel/Carousel.tsx
   - src/components/common/molecules/Carousel/CarouselContext.ts
   - src/components/common/molecules/Carousel/CarouselViewport.tsx
-  - src/components/common/molecules/Carousel/CarouselScrollbar.tsx
   - src/components/common/molecules/Carousel/CarouselPagination.tsx
   - src/components/common/molecules/Carousel/CarouselControls.tsx
   - src/components/common/organisms/Layout/SiteHeader/headerPromotionData.ts
-  - src/components/common/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderPromotionBanner.tsx
-  - src/components/features/mypage/RunningProfileContent.tsx
-  - src/components/common/organisms/MyPage/CouponCard.tsx
-  - src/components/features/run-club/RunClubDetailLayout.tsx
-  - src/components/features/run-club/RunClubSessionImage.tsx
-  - src/components/features/run-club/RunClubRecommendations.tsx
-  - src/components/features/run-club/RunClubPage.tsx
-  - src/components/features/run-club/RunClubApplyButton.tsx
+  - src/components/mypage/RunningProfileContent.tsx
+  - src/components/run-club/RunClubDetailLayout.tsx
+  - src/components/run-club/RunClubSessionImage.tsx
+  - src/components/run-club/RunClubRecommendations.tsx
+  - src/components/run-club/RunClubPage.tsx
+  - src/components/run-club/RunClubApplyButton.tsx
   - src/app/running/run-club/[sessionId]/page.tsx
-  - src/components/features/run-club/RunClubFacts.tsx
-  - src/components/features/run-club/RunClubHeader.tsx
-  - src/components/features/run-club/RunClubHistoryLink.tsx
-  - src/components/features/run-club/RunClubSessionCard.tsx
-  - src/app/running/run-club/[sessionId]/page.tsx
-  - src/components/features/run-club/RunClubSessionGuide.tsx
-  - src/components/features/run-club/RunClubSessionNotes.tsx
+  - src/components/run-club/RunClubFacts.tsx
+  - src/components/run-club/RunClubHeader.tsx
+  - src/components/run-club/RunClubHistoryLink.tsx
+  - src/components/run-club/RunClubSessionCard.tsx
+  - src/components/run-club/RunClubSessionGuide.tsx
+  - src/components/run-club/RunClubSessionNotes.tsx
   - src/stories/features/mypage/MyPageRoutePreview.tsx
-  - src/components/features/screen-index/storybookLinks.ts
+  - src/components/screen-index/storybookLinks.ts
   - src/stories/features/run-club/RunClub.stories.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerBackButton.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuContent.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerBase.tsx
   - src/components/common/atoms/Pagination/Pagination.tsx
-  - src/components/common/molecules/ColorFilter/ColorFilter.tsx
-  - src/components/common/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanel.tsx
-  - src/components/common/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelHeader.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterBrand.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterBrandSocial.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterContent.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuList.tsx
   - src/app/login/account-locked/complete/page.tsx
-  - src/components/features/catalog/ProductListingResults.tsx
-  - src/components/features/find-account/IdConfirmationModal.tsx
-  - src/components/features/product/ProductDetailAfterSalesContent.tsx
-  - src/components/features/run-club/RunClubLayout.tsx
-  - src/components/features/run-club/RunClubResults.tsx
+  - src/components/catalog/ProductListingResults.tsx
+  - src/components/find-account/IdConfirmationModal.tsx
+  - src/components/product/ProductDetailAfterSalesContent.tsx
+  - src/components/run-club/RunClubLayout.tsx
+  - src/components/run-club/RunClubResults.tsx
   - src/app/support/member-benefits/page.tsx
-  - src/components/features/faq/faq.data.ts
+  - src/components/faq/faq.data.ts
   - src/components/common/molecules/SearchField/SearchField.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerHeader.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerNavigation.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerUtilityLinks.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuAD.tsx
   - src/stories/components/common/organisms/Faq/FaqList.stories.tsx
   - src/stories/components/common/molecules/SearchField/SearchField.stories.tsx
   - src/stories/components/common/organisms/Layout/SiteHeader/MegaMenuAD.stories.tsx
   - src/stories/components/common/atoms/Accordion/Accordion.stories.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
   - src/icons/fontAwesome.ts
   - src/icons/iconAssets.ts
   - src/stories/components/common/atoms/Icon/Icon.stories.tsx
   - public/images/icon/unlock-keyhole.svg
   - public/images/icon/navigation/membership.svg
   - src/stories/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
-  - src/components/features/run-club/RunClubBadge.tsx
+  - src/components/run-club/RunClubBadge.tsx
   - src/app/locales/page.tsx
-  - src/components/features/locales/LocalesLayout.tsx
-  - src/components/features/locales/LocaleRegionSection.tsx
-  - src/components/features/locales/locales.data.ts
+  - src/components/locales/LocalesLayout.tsx
+  - src/components/locales/LocaleRegionSection.tsx
+  - src/components/locales/locales.data.ts
   - src/app/login/find-account/password-reset/page.tsx
-  - src/components/features/find-account/passwordValidation.ts
-  - src/components/features/find-account/phoneNumber.ts
+  - src/components/find-account/passwordValidation.ts
+  - src/components/find-account/phoneNumber.ts
   - src/app/login/account-locked/page.tsx
-  - src/components/features/account-locked/AccountLockedContent.tsx
+  - src/components/account-locked/AccountLockedContent.tsx
   - src/stories/features/locales/LocalesPage.stories.tsx
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/account-locked/AccountLockedPage.stories.tsx
   - src/components/common/atoms/RatingInput/RatingInput.tsx
   - src/components/common/atoms/DescriptionList/DescriptionList.tsx
   - src/components/common/molecules/ModalDialog/ModalDialog.tsx
-  - src/components/common/molecules/ModalDialog/ModalDialogHeader.tsx
-  - src/components/common/molecules/ModalDialog/ModalDialogFooter.tsx
   - src/stories/components/common/atoms/RatingInput/RatingInput.stories.tsx
   - src/stories/components/common/organisms/MyPage/ReviewManager.stories.tsx
   - src/stories/components/common/molecules/ModalDialog/ModalDialog.stories.tsx
-  - src/app/page.tsx
-  - src/app/signup/page.tsx
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
-  - src/components/features/product/ProductDetailLayout.tsx
-  - src/components/features/product/ProductWidthSelector.tsx
-  - src/components/features/signup-terms/SignupTermsDetail.tsx
-  - src/components/features/signup-terms/SignupTermsContent.tsx
-  - src/components/features/signup-terms/PreviousTermsPicker.tsx
-  - src/components/features/mypage/RunningProfilePage.tsx
-  - src/components/features/run-club/RunClubSessionHero.tsx
+  - src/components/product/ProductDetailLayout.tsx
+  - src/components/product/ProductWidthSelector.tsx
+  - src/components/signup-terms/SignupTermsDetail.tsx
+  - src/components/signup-terms/SignupTermsContent.tsx
+  - src/components/signup-terms/PreviousTermsPicker.tsx
+  - src/components/mypage/RunningProfilePage.tsx
+  - src/components/run-club/RunClubSessionHero.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-terms/SignupTermsPage.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.stories.tsx
@@ -707,24 +597,19 @@ working_tree_sources:
   - src/stories/features/login/AccountUnlockVerification.mobile.stories.tsx
   - src/stories/features/identity-verification/IdentityVerificationPage.scenarios.tsx
   - src/stories/features/mypage/MyPage.stories.tsx
-  - src/components/features/login/LoginContent.tsx
-  - src/components/features/login/LoginLayout.tsx
-  - src/components/features/login/LoginForm.tsx
-  - src/components/features/login/LoginMembership.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderContainer.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderContent.tsx
+  - src/components/login/LoginContent.tsx
+  - src/components/login/LoginLayout.tsx
+  - src/components/login/LoginForm.tsx
+  - src/components/login/LoginMembership.tsx
   - src/app/checkout/page.tsx
-  - src/components/features/checkout/CheckoutLayout.tsx
-  - src/components/features/checkout/checkout-summary.ts
+  - src/components/checkout/CheckoutLayout.tsx
+  - src/components/checkout/checkout-summary.ts
   - src/stories/features/checkout/CheckoutPage.stories.tsx
   - src/stories/components/common/organisms/Layout/SiteHeader/SiteHeader.stories.tsx
-  - src/components/common/organisms/MyPage/CouponManager.tsx
-  - src/components/common/organisms/MyPage/EmployeeCoupons.tsx
   - src/shared/Mockup/product-detail-sections/ProductReviews.tsx
   - src/shared/Mockup/product-detail-sections/ProductDetailSections.tsx
   - src/stories/components/common/layouts/AppLayout/AppLayout.stories.tsx
   - src/stories/features/Mockup/product-detail-sections/ProductDetailSections.stories.tsx
-  - src/app/mypage/page.tsx
   - src\shared\features\checkout\CheckoutProductList.tsx
   - src\shared\features\checkout\CheckoutDiscountSummary.tsx
   - src\shared\features\checkout\CouponProductItem.tsx
@@ -757,25 +642,22 @@ working_tree_sources:
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
   - src/lib/validation.ts
-  - src/components/features/signup-registration/RegistrationIdFields.tsx
+  - src/components/signup-registration/RegistrationIdFields.tsx
   - src/stories/features/signup-registration/RegistrationPage.scenarios.tsx
   - src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx
   - src/stories/features/signup-registration/MarketingConsentSummaryModal.scenarios.tsx
-  - src/components/features/support/InquiryOrderProducts.tsx
-  - src/components/features/support/inquiryOrders.data.ts
+  - src/components/support/InquiryOrderProducts.tsx
+  - src/components/support/inquiryOrders.data.ts
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/components/features/support/inquiryOrderSelection.storage.ts
-  - src/components/common/molecules/CatalogFilterSection/CatalogFilterTrigger.tsx
-  - src/components/common/molecules/ProductActivity/ProductActivity.tsx
-  - src/components/common/molecules/ProductSpec/ProductSpec.tsx
-  - src/components/features/product/ProductDetailHeaderTitle.tsx
-  - src/components/features/orders/OrderCardHeader.tsx
-  - src/components/features/orders/OrderClaimGroup.tsx
-  - src/components/features/orders/OrderHistoryProduct.tsx
-  - src/components/features/orders/OrdersLayout.tsx
-  - src/components/features/orders/OrdersListContent.tsx
-  - src/components/features/orders/OrderTrackingDialog.tsx
-  - src/components/features/orders/OrdersFilters.tsx
+  - src/components/support/inquiryOrderSelection.storage.ts
+  - src/components/product/ProductDetailHeaderTitle.tsx
+  - src/components/orders/OrderCardHeader.tsx
+  - src/components/orders/OrderClaimGroup.tsx
+  - src/components/orders/OrderHistoryProduct.tsx
+  - src/components/orders/OrdersLayout.tsx
+  - src/components/orders/OrdersListContent.tsx
+  - src/components/orders/OrderTrackingDialog.tsx
+  - src/components/orders/OrdersFilters.tsx
   - src/stories/features/orders/OrdersPage.stories.tsx
   - .codex/skills/component-reusability/references/page-ownership.md
   - src/app/support/mileage/page.tsx
@@ -3050,3 +2932,9 @@ Storybook의 인증 입력·필수 약관 및 폼 감사 시나리오는 실제 
 Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 컨테이너 2개는 ProductListingContent에 직접 통합하고 DesktopProductSort는 ProductSortDropdown으로 변경했다. 네 정렬 선택지는 productSortOptions를 드롭다운과 모바일 Radio가 공유한다. 나머지 9개는 사용자가 선택한 단일 부모 범위에 따라 부모 모듈의 로컬 구성요소로 이동하고 자식 파일을 삭제했다. PC 즉시 반영·모바일 초안/적용, 키보드·포커스·스와이프·아코디언·안전 영역과 기존 DOM·스타일을 보존한다. [전수조사 보고서](platform-component-audit-2026-10-28.md)에 12개별 처리·호출 관계·45개 스토리 목록과 범위를 기록했다. 다른 단일 부모 컴포넌트로 범위를 확대하지 않았다.
 
 플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+공통 UI를 포함한 단일 운영 부모 TSX 389개를 부모 모듈로 재귀 통합했다. 의미 있는 로컬 컴포넌트 함수와 Panda 스타일은 모듈 최상위에 둔다. 실제 다중 부모 파일 94개와 기존 운영 부모 없는 파일 30개를 유지하고 경계 예외 2개를 기록했다. 도메인 폴더는 이제 src/components/{도메인}에 있으며 common은 공유 UI다. Storybook은 기존 제목·시나리오와 src/stories/features 범주를 유지한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md)에 변경 전후 관계·이동 목록과 타입/미리보기 계약을 기록했다.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.

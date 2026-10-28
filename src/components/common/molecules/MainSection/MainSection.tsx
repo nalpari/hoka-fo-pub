@@ -1,10 +1,36 @@
-import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-import type { ReactNode } from 'react';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
 import { contentFrame } from 'styled-system/patterns';
-import type { TypographyVariant } from '@/components/common/atoms/Typography/Typography';
-import { MainSectionHeader } from './MainSectionHeader';
+import type { MainSectionProps as ImportedMainSectionProps } from '@/types/component-contracts/components-common-molecules-MainSection-MainSection';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { type ReactNode } from 'react';
+import { Box } from 'styled-system/jsx';
+import { type TypographyVariant } from '@/components/common/atoms/Typography/Typography';
+
+type Props = Pick<ImportedMainSectionProps, 'title' | 'titleVariant' | 'actionSlot'>;
+
+const heading = css({ m: '0' });
+
+/** 섹션 제목과 액션을 콘텐츠 그리드에 맞춥니다. (Aligns the section title and actions to the content grid.) */
+function MainSectionHeader({ title, titleVariant, actionSlot }: Props) {
+  return (
+    <ContentHeader
+      title={title}
+      titleProps={{
+        className: heading,
+        web: titleVariant ?? 'heading5',
+        mo: titleVariant ?? 'heading4',
+      }}
+      orientation="horizontal"
+      gap="8px"
+      action={actionSlot}
+      className={contentFrame({
+        mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
+      })}
+      mx="auto"
+    />
+  );
+}
 
 export type MainSectionProps = {
   title: string;

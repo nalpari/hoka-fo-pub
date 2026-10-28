@@ -13,8 +13,8 @@ working_tree_sources:
   - .codex/skills/component-reusability/references/page-ownership.md
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
-  - src/components/features/mypage/stories/MyPageRouteStory.tsx
-  - src/components/features/find-account/IdConfirmationModal.tsx
+  - src/components/mypage/stories/MyPageRouteStory.tsx
+  - src/components/find-account/IdConfirmationModal.tsx
   - src/app/login/find-account/page.tsx
   - src/app/cart/page.tsx
   - src/app/checkout/page.tsx
@@ -43,8 +43,8 @@ working_tree_sources:
   - src/app/support/size-guide/page.tsx
   - src/app/support/inquiries/new/order-products/page.tsx
   - src/app/support/inquiries/new/page.tsx
-  - src/components/features/support/inquiryOrderSelection.storage.ts
-  - src/components/features/support/support.navigation.ts
+  - src/components/support/inquiryOrderSelection.storage.ts
+  - src/components/support/support.navigation.ts
   - src/data/screenRegistry.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
@@ -226,3 +226,9 @@ IA 구조도는 서버 metadata와 색인 제외 설정을 유지하고 클라�
 Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](platform-component-audit-2026-10-28.md)를 참고한다.
 
 플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.

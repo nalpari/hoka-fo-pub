@@ -1,13 +1,14 @@
 import { css } from 'styled-system/css';
-import { AppLayout } from '@/components/common/layouts/AppLayout/AppLayout';
+import { AppLayout } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
-import type { Platform } from '@/lib/device';
-import { RunClubPage } from '@/components/features/run-club/RunClubPage';
+import { type Platform } from '@/lib/device';
+import { RunClubPage } from '@/components/run-club/RunClubPage';
 import { RunClubDetailPage } from '@/stories/features/run-club/RunClubDetailPagePreview';
-import { runClubSessions } from '@/components/features/run-club/runClub.data';
+import { runClubSessions } from '@/components/run-club/runClub.data';
 
 type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'closed' | 'upcoming' };
 
+/** 런클럽 스토리의 상태와 화면 프레임을 연결합니다 (Displays the run club preview composition). */
 export function RunClubPreview({ platform, view }: PreviewProps) {
   const session = runClubSessions.find(
     (item) =>

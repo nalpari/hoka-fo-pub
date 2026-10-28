@@ -23,17 +23,17 @@ working_tree_sources:
   - src/stories/features/forms/form-state-audit/shared.tsx
   - src/stories/features/forms/form-state-audit/support.scenarios.tsx
   - .storybook/preview.ts
-  - src/components/features/login/LoginPage.tsx
-  - src/components/features/login/LoginForm.tsx
+  - src/components/login/LoginPage.tsx
+  - src/app/login/page.tsx
   - src/stories/features/login/LoginPage.stories.tsx
   - tests/form-controls.test.mjs
   - src/components/common/atoms/Select/Select.tsx
   - src/components/common/atoms/Dropdown/Dropdown.tsx
-  - src/components/features/phone-verification/PhoneVerificationPage.tsx
-  - src/components/features/signup-registration/RegistrationPage.tsx
-  - src/components/features/checkout/CheckoutContent.tsx
+  - src/components/phone-verification/PhoneVerificationPage.tsx
+  - src/components/signup-registration/RegistrationPage.tsx
+  - src/app/checkout/page.tsx
   - src/app/support/size-guide/page.tsx
-  - src/components/features/size-guide/SizeGuidePage.tsx
+  - src/components/size-guide/SizeGuidePage.tsx
 sources:
   - id: route-tree
     resource: https://github.com/nalpari/hoka-fo-pub/tree/91725786fd78138c44e6e5c099261ae84c7a613e/src/app

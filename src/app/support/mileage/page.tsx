@@ -3,7 +3,7 @@
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { Divider } from '@/components/common/atoms/Divider/Divider';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/features/support/support.navigation';
+import { supportNavigation } from '@/components/support/support.navigation';
 import { Stack } from 'styled-system/jsx';
 
 /** 통합 마일리지 안내 화면을 구성합니다. (Composes the customer benefit information screen.) */

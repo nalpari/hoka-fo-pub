@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { usePlatform } from '@/context/platform';
 import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
-import { IdConfirmationMessage } from '@/components/features/find-account/IdConfirmationMessage';
+import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 
 /** 독립 아이디 확인 팝업과 로그인·비밀번호 재설정 이동을 구성합니다. (Composes the standalone account lookup dialog and its navigation.) */
 export default function Page() {

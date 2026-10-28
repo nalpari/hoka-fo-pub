@@ -9,24 +9,14 @@ generated:
   at: '2026-10-20T02:15:05Z'
 source_revision: e5e803ccd1ba98ac96c941fef33db5cfaa280ade
 working_tree_sources:
-  - src/components/common/organisms/Account/LogoutDialog.tsx
-  - src/components/common/organisms/Catalog/CatalogFilterPanel/CatalogFilterPanelBody.tsx
-  - src/components/common/organisms/Hero/Hero.tsx
-  - src/components/common/organisms/Hero/HeroPagination.tsx
-  - src/components/common/organisms/Hero/HeroSlide.tsx
-  - src/components/common/organisms/InquiryBoard/InquiryBoard.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterLegalLinks.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
+  - src/app/mypage/page.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/app/page.tsx
+  - src/app/products/[id]/page.tsx
+  - src/context/ShopShell.tsx
   - src/components/common/organisms/Layout/SiteHeader/DesktopNavigation.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderPromotionCarousel.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderPromotionContent.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuList.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuPanel.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
   - src/components/common/organisms/Member/MemberHero.tsx
-  - src/components/common/organisms/MyPage/CouponCard.tsx
-  - src/components/common/organisms/MyPage/EmployeeCoupons.tsx
+  - src/app/mypage/coupons/page.tsx
   - src/components/common/organisms/MyPage/QuickLinkGrid.tsx
   - src/components/common/organisms/MyPage/ReviewManager.tsx
   - src/components/common/organisms/Product/ProductDetailSections/ProductDetailSections.tsx
@@ -35,22 +25,12 @@ working_tree_sources:
   - src/components/common/organisms/Product/ProductDetailSections/ProductReviews.tsx
   - src/components/common/organisms/Product/ProductDetailSections/ReviewGalleryModal.tsx
   - src/components/common/organisms/Product/ProductGallery/ProductGallery.tsx
-  - src/components/common/organisms/Search/RecommendedSearches.tsx
   - src/components/common/organisms/Search/SearchCollectionLinks.tsx
   - src/components/common/organisms/Search/SearchHeader.tsx
-  - src/components/common/organisms/Search/SearchSuggestions.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
   - src/shared/Mockup/signup/SignupTermsStep.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerGroups.tsx
-  - src/components/common/organisms/Layout/SiteHeader/HeaderAuthLink.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerFrame.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerHeader.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerNavigation.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerUtilityLinks.tsx
-  - src/components/common/organisms/Layout/SiteHeader/MegaMenuAD.tsx
-  - src/components/common/organisms/Faq/FaqList.tsx
-  - src/components/common/organisms/StoreFinder/StoreResults.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/support/store/page.tsx
   - src/components/common/atoms/Accordion/Accordion.tsx
   - src/components/common/atoms/Typography/Typography.tsx
   - src/styles/global.scss

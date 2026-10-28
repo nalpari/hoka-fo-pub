@@ -3,7 +3,7 @@
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 import { AccountDataList } from '@/components/common/organisms/Account/AccountDataList';
-import { myPageNavigation } from '@/components/features/mypage/mypage.data';
+import { myPageNavigation } from '@/components/mypage/mypage.data';
 
 /** 환불계좌 등록 현황을 표시합니다. (Displays the refund account registration status.) */
 export default function Page() {

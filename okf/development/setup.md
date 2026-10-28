@@ -66,7 +66,10 @@ npm run start
 
 [UI 구성](../architecture/ui.md), [변경 검증](verification.md)을 참고한다.
 
-
 ## src 폴더 구조 승격 (2026-10-28)
 
 shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+도메인 폴더를 src/components/{도메인}으로 승격했다. @features/* 별칭은 ./src/components/*로 변경하고 @components/*의 common 별칭은 유지한다. Storybook의 기존 src/stories/features 검색과 제목은 유지하며 import 대상만 새 경로로 갱신한다.

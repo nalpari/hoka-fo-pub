@@ -1,8 +1,8 @@
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/features/support/support.navigation';
+import { supportNavigation } from '@/components/support/support.navigation';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTabs';
-import { guideCategories } from '@/components/features/size-guide/size-guide.data';
-import { SizeGuidePanel } from '@/components/features/size-guide/SizeGuidePanel';
+import { guideCategories } from '@/components/size-guide/size-guide.data';
+import { SizeGuidePanel } from '@/app/support/size-guide/_components/SizeGuidePanel';
 import { Stack } from 'styled-system/jsx';
 
 const tabs = guideCategories.map((category) => ({

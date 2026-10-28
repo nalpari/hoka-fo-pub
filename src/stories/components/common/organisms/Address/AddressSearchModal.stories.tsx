@@ -1,6 +1,6 @@
-import { AddressSearchModal } from '@/components/common/organisms/Address/AddressSearchModal';
+import { AddressSearchModal } from '@/components/common/organisms/Address/AddressFields';
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 import { Button } from '@/components/common/atoms/Button/Button';

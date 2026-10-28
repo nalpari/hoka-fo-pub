@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { HeroCopy } from '@/components/common/organisms/Hero/HeroCopy';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { HeroCopy } from '@/stories/route-previews/Preview';
 
 const meta = {
   title: 'Organisms/Hero/HeroCopy',

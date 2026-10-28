@@ -12,15 +12,15 @@ import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/features/support/support.navigation';
-import { inquiryOrders, type InquiryOrder } from '@/components/features/support/inquiryOrders.data';
+import { supportNavigation } from '@/components/support/support.navigation';
+import { inquiryOrders, type InquiryOrder } from '@/components/support/inquiryOrders.data';
 import {
   readInquiryOrderDraft,
   clearInquiryOrderReturnMarker,
   saveInquiryOrderResult,
   shouldReturnToInquiry,
   type InquiryOrderSelection,
-} from '@/components/features/support/inquiryOrderSelection.storage';
+} from '@/components/support/inquiryOrderSelection.storage';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const periodOptions = [

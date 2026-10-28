@@ -1,7 +1,7 @@
 import AddressesPage from '@/app/mypage/addresses/page';
 import ReviewsPage from '@/app/mypage/reviews/page';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
-import type { Address } from '@/components/features/mypage/mypage-address.types';
+import type { Address } from '@/components/mypage/mypage-address.types';
 
 /** 배송지 페이지에 예시 초기 목록을 제공합니다. (Provides initial example addresses to the address page.) */
 export function MyPageAddresses({ initialItems }: { initialItems?: Address[] }) {

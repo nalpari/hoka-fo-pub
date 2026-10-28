@@ -9,25 +9,19 @@ generated:
   at: '2026-10-21T02:27:43.760Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
-  - src/components/features/home/HomeLayout.tsx
+  - src/app/page.tsx
   - src/components/common/atoms/Typography/Typography.tsx
   - src/components/common/atoms/Button/Button.tsx
   - src/components/common/atoms/FilterTabs/FilterTabs.tsx
-  - src/components/common/atoms/ProductGender/ProductGender.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/MainContentCard/MainContentCard.tsx
-  - src/components/common/organisms/Hero/HeroCopy.tsx
-  - src/components/common/organisms/Hero/HeroPagination.tsx
-  - src/components/features/home/homeContent.ts
+  - src/components/home/homeContent.ts
   - public/images/home/categories/
-  - src/components/common/layouts/AppLayout/AppLayout.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeader.tsx
-  - src/components/common/organisms/Navigation/MenuDrawer/MenuDrawerShoppingLinks.tsx
-  - src/components/common/organisms/Search/SearchSuggestions.tsx
+  - src/context/ShopShell.tsx
   - src/components/common/molecules/SearchField/SearchField.tsx
-  - src/components/features/catalog/ProductListingPage.tsx
-  - src/components/features/catalog/product-listing/SearchListingLayout.tsx
-  - src/components/features/product/ProductDetailHeaderTitle.tsx
-  - src/components/features/not-found/SystemStatusPage.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/app/products/[id]/page.tsx
+  - src/components/not-found/SystemStatusPage.tsx
   - src/stories/features/catalog/ProductListingPage.scenarios.tsx
   - src/stories/features/not-found/SystemStatusPage.scenarios.tsx
 ---

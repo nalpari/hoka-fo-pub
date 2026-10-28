@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { SideNavigation } from '@/components/common/organisms/Navigation/SideNavigation/SideNavigation';
-import { supportNavigation } from '@/components/features/support/support.navigation';
+import { supportNavigation } from '@/components/support/support.navigation';
 
 const meta = {
   title: 'Organisms/Navigation/SideNavigation',

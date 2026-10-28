@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { PriceRange } from '@/components/common/molecules/PriceRange/PriceRange';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PriceRange } from '@/components/catalog/ProductListingPage';
 
 function InteractivePriceRange() {
   const [value, setValue] = useState<[number, number]>([129000, 159000]);

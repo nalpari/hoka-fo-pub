@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { PromotionCard } from '@/components/common/molecules/PromotionCard/PromotionCard';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { PromotionCard } from '@/components/catalog/ProductListingPage';
 
 const meta = {
   title: 'Molecules/Promotion Card',

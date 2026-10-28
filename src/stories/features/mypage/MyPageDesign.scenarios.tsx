@@ -4,7 +4,7 @@ import {
   MyPageStatusPage,
   type MyPageStatusKind,
 } from '@/stories/features/mypage/MyPageRoutePreview';
-import { MyPageProductHistory } from '@/components/features/mypage/MyPageProductHistory';
+import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
 import { MyPageReviews } from '@/stories/features/mypage/MyPagePreview';
 
 type Args = { kind: MyPageStatusKind };

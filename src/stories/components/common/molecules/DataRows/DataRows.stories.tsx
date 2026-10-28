@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { DataRows } from '@/components/common/molecules/DataRows/DataRows';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { DataRows } from '@/components/common/organisms/Account/AccountDataList';
 
 const meta = {
   title: 'Molecules/DataRows',

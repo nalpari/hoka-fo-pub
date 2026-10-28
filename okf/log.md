@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-28
+
+- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](architecture/single-parent-consolidation-2026-10-28.md).
+
 - **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
 
 ## 2026-10-28

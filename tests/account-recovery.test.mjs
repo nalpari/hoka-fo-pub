@@ -10,8 +10,8 @@ import {
   formatPhoneNumber,
   getPhoneDigits,
   isValidPhone,
-} from '../src/components/features/find-account/phoneNumber.ts';
-import { localeRegions } from '../src/components/features/locales/locales.data.ts';
+} from '../src/components/find-account/phoneNumber.ts';
+import { localeRegions } from '../src/components/locales/locales.data.ts';
 
 test('password reset distinguishes required fields, strength, and confirmation', () => {
   assert.deepEqual(validatePasswordReset('', ''), {

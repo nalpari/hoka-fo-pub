@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { Box } from 'styled-system/jsx';
 import { products } from '@/mocks/products';
 import { PlatformProvider } from '@/context/platform';
-import { ProductTechSpecs } from '@/components/features/product/ProductTechSpecs';
-import { getProductDetailPresentation } from '@/components/features/product/productDetailPresentation';
+import { ProductTechSpecs } from '@/stories/route-previews/products-idPreview';
+import { getProductDetailPresentation } from '@/components/product/productDetailPresentation';
 
 const presentation = getProductDetailPresentation(products[0]);
 

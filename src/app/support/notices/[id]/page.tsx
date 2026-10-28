@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation';
 import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
-import { supportNavigation } from '@/components/features/support/support.navigation';
-import { notices } from '@/components/features/notices/notices.data';
+import { supportNavigation } from '@/components/support/support.navigation';
+import { notices } from '@/components/notices/notices.data';
 
 /** 경로에 해당하는 공지 상세 내용을 표시합니다. (Displays notice details for the current route.) */
 export default function Page() {

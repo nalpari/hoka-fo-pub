@@ -14,63 +14,62 @@ working_tree_sources:
   - src/stories/features/mypage/MyPageRoutePreview.tsx
   - .codex/skills/component-reusability/SKILL.md
   - .codex/skills/component-reusability/references/page-ownership.md
-  - src/components/features/cart/CartContent.tsx
-  - src/components/features/cart/CartOrderActions.tsx
+  - src/components/cart/CartContent.tsx
+  - src/components/cart/CartOrderActions.tsx
   - src/stories/features/cart/CartPage.mobile.stories.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
   - src/components/common/molecules/FormActionGroup/FormActionGroup.tsx
-  - src/components/features/mypage/AddressEditor.tsx
-  - src/components/features/mypage/AddressList.tsx
-  - src/components/features/mypage/ProfileEditForm.tsx
-  - src/components/features/mypage/ProfileField.tsx
-  - src/components/features/mypage/ProfileReadView.tsx
-  - src/components/features/mypage/mypage-address.types.ts
-  - src/components/features/mypage/mypage-profile.types.ts
+  - src/components/mypage/AddressEditor.tsx
+  - src/components/mypage/AddressList.tsx
+  - src/components/mypage/ProfileEditForm.tsx
+  - src/components/mypage/ProfileField.tsx
+  - src/components/mypage/ProfileReadView.tsx
+  - src/components/mypage/mypage-address.types.ts
+  - src/components/mypage/mypage-profile.types.ts
   - src/stories/components/common/molecules/FormActionGroup/FormActionGroup.stories.tsx
   - src/stories/components/common/organisms/OrderRecommendations/OrderRecommendations.stories.tsx
   - src/components/common/atoms/TextInput/TextInput.tsx
-  - src/components/common/organisms/OrderRecommendations/OrderRecommendationItem.tsx
   - src/components/common/organisms/OrderRecommendations/OrderRecommendations.tsx
-  - src/components/features/login/LoginActions.tsx
+  - src/components/login/LoginActions.tsx
   - src/app/mypage/addresses/page.tsx
   - src/app/mypage/profile/page.tsx
   - src/app/mypage/rewards/page.tsx
   - src/stories/components/common/atoms/TextInput/TextInput.stories.tsx
-  - src/components/features/cart/CartSelectionBar.tsx
-  - src/components/features/cart/CartProductSection.tsx
-  - src/components/features/cart/CartProductList.tsx
-  - src/components/features/cart/CartOptionsContent.tsx
+  - src/components/cart/CartSelectionBar.tsx
+  - src/components/cart/CartProductSection.tsx
+  - src/components/cart/CartProductList.tsx
+  - src/components/cart/CartOptionsContent.tsx
   - src/components/common/molecules/ProductOptionList/ProductOptionList.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx
   - src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx
   - src/components/common/molecules/SizeSelector/SizeSelector.tsx
 
-  - src/components/features/checkout/CheckoutForm.tsx
-  - src/components/features/checkout/CheckoutContent.tsx
-  - src/components/features/checkout/CheckoutAgreement.tsx
-  - src/components/features/checkout/CheckoutAddressFields.tsx
+  - src/components/checkout/CheckoutForm.tsx
+  - src/components/checkout/CheckoutContent.tsx
+  - src/components/checkout/CheckoutAgreement.tsx
+  - src/components/checkout/CheckoutAddressFields.tsx
   - src/components/common/organisms/Address/AddressFields.tsx
   - src/components/common/organisms/Address/AddressField.tsx
-  - src/components/features/checkout/checkout-coupons.ts
-  - src/components/features/checkout/CheckoutDiscountSummary.tsx
+  - src/components/checkout/checkout-coupons.ts
+  - src/components/checkout/CheckoutDiscountSummary.tsx
   - src/stories/features/checkout/CheckoutPage.scenarios.tsx
   - src/app/checkout/page.tsx
-  - src/components/features/checkout/CheckoutPayment.tsx
+  - src/components/checkout/CheckoutPayment.tsx
   - src/components/common/atoms/Wishlist/Wishlist.tsx
   - src/components/common/molecules/OrderProductSummary/OrderProductSummary.tsx
   - src/components/common/molecules/OrderProductSummary/OrderProductSummaryContent.tsx
   - src/components/common/molecules/OrderProductSummary/OrderProductSummaryImage.tsx
   - src/components/common/molecules/AmountRow/AmountRow.tsx
-  - src/components/features/cart/CartItemRow.tsx
-  - src/components/features/cart/CartOptionsDialog.tsx
+  - src/components/cart/CartItemRow.tsx
+  - src/components/cart/CartOptionsDialog.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/find-account/FindAccountPage.scenarios.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
-  - src/components/features/find-account/IdConfirmationModal.tsx
+  - src/components/find-account/IdConfirmationModal.tsx
   - src/components/common/molecules/ConfirmDialog/ConfirmDialog.tsx
   - src/components/common/atoms/LoadMoreButton/LoadMoreButton.tsx
   - src/components/common/molecules/PageActionButton/PageActionButton.tsx
-  - src/components/features/mypage/reviews/MyPageReviewLoadMore.tsx
+  - src/components/mypage/reviews/MyPageReviewLoadMore.tsx
   - src/stories/components/common/atoms/LoadMoreButton/LoadMoreButton.stories.tsx
   - src/components/common/layouts/ContentSection/ContentSection.tsx
   - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
@@ -79,77 +78,77 @@ working_tree_sources:
   - src/app/support/faq/page.tsx
   - src/app/support/inquiries/page.tsx
   - src/app/support/notices/[id]/page.tsx
-  - src/components/features/checkout/CheckoutComplete.tsx
+  - src/components/checkout/CheckoutComplete.tsx
   - src/stories/components/common/layouts/ContentSection/ContentSection.stories.tsx
   - .codex/skills/component-reusability/references/content-sections.md
   - src/app/support/page.tsx
-  - src/components/features/signup/SignupLayout.tsx
+  - src/components/signup/SignupLayout.tsx
   - src/app/support/after-sales/page.tsx
-  - src/components/features/run-club/RunClubSessionHero.tsx
-  - src/components/features/run-club/RunClubSessionGuideContent.tsx
-  - src/components/features/run-club/RunClubSessionPoster.tsx
+  - src/components/run-club/RunClubSessionHero.tsx
+  - src/components/run-club/RunClubSessionGuideContent.tsx
+  - src/components/run-club/RunClubSessionPoster.tsx
   - src/app/login/account-locked/complete/page.tsx
-  - src/components/features/phone-verification/PhoneVerificationAgreements.tsx
+  - src/components/phone-verification/PhoneVerificationAgreements.tsx
   - src/app/support/care/page.tsx
   - src/app/signup/complete/page.tsx
-  - src/components/features/mypage/MyPageProductHistory.tsx
-  - src/components/features/not-found/NotFoundPage.tsx
-  - src/components/features/identity-verification/IdentityVerificationContent.tsx
-  - src/components/features/find-account/PasswordResetContent.tsx
-  - src/components/features/find-account/FindAccountContent.tsx
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/not-found/NotFoundPage.tsx
+  - src/components/identity-verification/IdentityVerificationContent.tsx
+  - src/components/find-account/PasswordResetContent.tsx
+  - src/components/find-account/FindAccountContent.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/app/mypage/page.tsx
-  - src/components/features/support/SupportContactCard.tsx
-  - src/components/features/signup-registration/RegistrationAdditionalFields.tsx
-  - src/components/features/product/ProductDetailDeliverySection.tsx
+  - src/components/support/SupportContactCard.tsx
+  - src/components/signup-registration/RegistrationAdditionalFields.tsx
+  - src/components/product/ProductDetailDeliverySection.tsx
   - src/stories/features/mypage/MyPageRoutePreview.tsx
-  - src/components/features/checkout/CheckoutSummary.tsx
+  - src/components/checkout/CheckoutSummary.tsx
   - src/components/common/organisms/MyPage/EmployeeCoupons.tsx
-  - src/components/features/product/ProductSupportLink.tsx
-  - src/components/features/product/ProductDetailAfterSalesContent.tsx
+  - src/components/product/ProductSupportLink.tsx
+  - src/components/product/ProductDetailAfterSalesContent.tsx
   - src/components/common/organisms/MyPage/CouponManager.tsx
-  - src/components/features/product/ProductInformation.tsx
-  - src/components/features/signup-terms/SignupTermsDetail.tsx
-  - src/components/features/run-club/RunClubHeader.tsx
-  - src/components/features/run-club/RunClubSessionCard.tsx
-  - src/components/features/phone-verification/PhoneVerificationDetailDialog.tsx
-  - src/components/features/mypage/MyPageWithdrawalDialog.tsx
-  - src/components/features/find-account/PasswordResetCompleteModal.tsx
-  - src/components/features/account-locked/AccountLockedContent.tsx
-  - src/components/features/find-account/PasswordResetField.tsx
-  - src/components/features/find-account/FindAccountIdentityFields.tsx
-  - src/components/features/find-account/FindAccountCodeFields.tsx
-  - src/components/features/phone-verification/VerificationCodeFields.tsx
-  - src/components/features/phone-verification/PhoneInformationFields.tsx
-  - src/components/features/signup-registration/RegistrationEmailFields.tsx
-  - src/components/features/signup-registration/RegistrationPreferenceRow.tsx
+  - src/components/product/ProductInformation.tsx
+  - src/components/signup-terms/SignupTermsDetail.tsx
+  - src/components/run-club/RunClubHeader.tsx
+  - src/components/run-club/RunClubSessionCard.tsx
+  - src/components/phone-verification/PhoneVerificationDetailDialog.tsx
+  - src/components/mypage/MyPageWithdrawalDialog.tsx
+  - src/components/find-account/PasswordResetCompleteModal.tsx
+  - src/components/account-locked/AccountLockedContent.tsx
+  - src/components/find-account/PasswordResetField.tsx
+  - src/components/find-account/FindAccountIdentityFields.tsx
+  - src/components/find-account/FindAccountCodeFields.tsx
+  - src/components/phone-verification/VerificationCodeFields.tsx
+  - src/components/phone-verification/PhoneInformationFields.tsx
+  - src/components/signup-registration/RegistrationEmailFields.tsx
+  - src/components/signup-registration/RegistrationPreferenceRow.tsx
   - src/app/cart/page.tsx
-  - src/components/features/cart/CartDialogs.tsx
-  - src/components/features/cart/CartLimitDialog.tsx
-  - src/components/features/checkout/CheckoutShipping.tsx
-  - src/components/features/checkout/CheckoutDeliveryRequest.tsx
+  - src/components/cart/CartDialogs.tsx
+  - src/components/cart/CartLimitDialog.tsx
+  - src/components/checkout/CheckoutShipping.tsx
+  - src/components/checkout/CheckoutDeliveryRequest.tsx
   - src/stories/features/cart/CartPage.stories.tsx
-  - src/components/features/cart/cart-item.ts
+  - src/components/cart/cart-item.ts
   - src/app/login/find-account/page.tsx
-  - src/components/features/login/LoginForm.tsx
-  - src/components/features/login/RememberIdHelp.tsx
+  - src/components/login/LoginForm.tsx
+  - src/components/login/RememberIdHelp.tsx
   - src/context/ShopShell.tsx
   - src/mocks/cartDisplay.ts
   - src/components/common/layouts/OrderPageLayout/OrderPageLayout.tsx
-  - src/components/features/checkout/CheckoutLayout.tsx
+  - src/components/checkout/CheckoutLayout.tsx
   - src/components/common/layouts/AccountPageLayout/AccountPageLayout.tsx
   - src/lib/emailValidation.ts
-  - src/components/features/phone-verification/PhoneVerificationContent.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
   - src/lib/passwordValidation.ts
   - src/app/signup/page.tsx
   - src/app/signup/information/page.tsx
-  - src/components/features/find-account/passwordValidation.ts
-  - src/components/features/phone-verification/usePhoneVerification.ts
+  - src/components/find-account/passwordValidation.ts
+  - src/components/phone-verification/usePhoneVerification.ts
   - src/app/login/page.tsx
   - src/stories/features/login/LoginPage.stories.tsx
-  - src/components/features/login/LoginContent.tsx
-  - src/components/features/login/LoginLayout.tsx
-  - src/components/features/login/LoginMembership.tsx
+  - src/components/login/LoginContent.tsx
+  - src/components/login/LoginLayout.tsx
+  - src/components/login/LoginMembership.tsx
 sources:
   - id: src-shared-shopshell-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/ShopShell.tsx
@@ -416,3 +415,9 @@ ShopShell은 기존 상태와 액션을 계속 소유하고 `ShopStateProvider`�
 작업 트리 출처: `src/components/features/checkout/CheckoutForm.tsx`, `src/components/features/checkout/CheckoutDiscountSummary.tsx`, `src/components/features/checkout/checkout-coupons.ts`.
 
 미사용 파일 정리 검증 (2026-10-28): 삭제 후 남은 모듈 참조가 없음을 확인했다. 타입 검사·Panda 생성·Next production build·Storybook build와 주문 합계/앱 라우트 테스트 5개를 통과했다. OKF·포맷·diff 공백 검사를 수행했으며, 복구된 UI 문서의 기존 제목 246개와 고정 출처 13개 및 유효한 YAML 메타데이터를 확인했다. 미사용 구현 삭제 작업이므로 브라우저 회귀는 추가 실행하지 않았다.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모 AppLayout·헤더·푸터·메뉴 구현을 같은 모듈의 로컬 함수로 옮겼다. 장바구니·주문서·계정의 UI 함수는 실제 페이지가 소유하며 Hooks를 렌더 함수 내부에 중첩하지 않았다. RoutePreview 컨텍스트는 기본값 null이고 기존 스토리 props·콜백을 페이지 내부 구성에 전달한다. 운영 상태의 데이터 흐름은 변경하지 않았다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.

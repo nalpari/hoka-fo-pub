@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ShopShell } from '@/context/ShopShell';
 import { ReadonlyURLSearchParams, useSearchParams } from '@storybook/nextjs-vite/navigation.mock';
-import { ProductListingPage } from '@/components/features/catalog/ProductListingPage';
-import { getProductListingRoute } from '@/components/features/catalog/productListingIaRoute';
+import { ProductListingPage } from '@/components/catalog/ProductListingPage';
+import { getProductListingRoute } from '@/components/catalog/productListingIaRoute';
 
 type ProductListingStoryArgs = {
   listing?: string;

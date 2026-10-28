@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Disclosure } from '@/components/common/molecules/Disclosure/Disclosure';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { Disclosure } from '@/components/catalog/ProductListingPage';
 
 function DisclosureStory() {
   const [open, setOpen] = useState(false);

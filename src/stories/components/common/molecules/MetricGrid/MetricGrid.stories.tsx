@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { MetricGrid } from '@/components/common/molecules/MetricGrid/MetricGrid';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { MetricGrid } from '@/stories/route-previews/mypage-referralPreview';
 
 const meta = {
   title: 'Molecules/MetricGrid',

@@ -1,17 +1,170 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import { PasswordResetContent } from '@/components/features/find-account/PasswordResetContent';
+import { useRoutePreview } from '@/context/RoutePreview';
+
+import { css } from 'styled-system/css';
 import {
-  validatePasswordReset as validate,
-  type Errors,
   type FieldName,
-} from '@/components/features/find-account/passwordValidation';
-import { PasswordResetCompleteModal } from '@/components/features/find-account/PasswordResetCompleteModal';
+  type Errors,
+  validatePasswordReset as validate,
+} from '@/components/find-account/passwordValidation';
+import { PasswordField } from '@/components/common/molecules/FormFields/PasswordField';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { type FormEventHandler, type ReactNode, useState, type FormEvent } from 'react';
+import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
+import { AccountFormHeader } from '@/components/common/molecules/AccountFormHeader/AccountFormHeader';
+import { Button } from '@/components/common/atoms/Button/Button';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader/ContentHeader';
+import { SingleActionDialog } from '@/components/common/molecules/SingleActionDialog/SingleActionDialog';
+import { useRouter } from 'next/navigation';
+
+const styles = {
+  input: css({ minW: '0' }),
+};
+
+type Props = {
+  name: FieldName;
+  label: string;
+  placeholder: string;
+  value: string;
+  error?: string;
+  onChange: (value: string) => void;
+};
+
+function PasswordResetField({ name, label, placeholder, value, error, onChange }: Props) {
+  return (
+    <PasswordField
+      variant="boxed"
+      error={error}
+      id={`password-reset-${name}`}
+      label={label}
+      required
+      inputProps={{
+        className: styles.input,
+        name: name,
+        type: 'password',
+        autoComplete: 'new-password',
+        placeholder: placeholder,
+        value: value,
+        onChange: (event) => onChange(event.target.value),
+        required: true,
+      }}
+    />
+  );
+}
+
+const PasswordResetContentStyles = {
+  form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
+  button: css({
+    mt: '2',
+  }),
+};
+
+type PasswordResetContentProps = {
+  password: string;
+  confirmation: string;
+  errors: Errors;
+  completion: ReactNode;
+  onFieldChange: (field: FieldName, value: string) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+};
+
+function PasswordResetContent({
+  password,
+  confirmation,
+  errors,
+  completion,
+  onFieldChange,
+  onSubmit,
+}: PasswordResetContentProps) {
+  return (
+    <AccountPageLayout
+      contentAs="section"
+      contentLabelledBy="password-reset-title"
+      pageCss={css.raw({
+        px: '4',
+        pb: '124px',
+        _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
+      })}
+      contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
+      outsideContent={completion}
+    >
+      <ContentSection
+        gap={{ base: '10', _mobile: '8' }}
+        header={
+          <AccountFormHeader
+            title="비밀번호 재설정"
+            titleId="password-reset-title"
+            description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."
+            spacingCss={css.raw({ gap: '10px' })}
+          />
+        }
+      >
+        <form
+          noValidate
+          className={PasswordResetContentStyles.form}
+          onSubmit={onSubmit}
+          aria-labelledby="password-reset-title"
+        >
+          <PasswordResetField
+            name="password"
+            label="새로운 비밀번호"
+            placeholder="비밀번호를 입력해 주세요"
+            value={password}
+            error={errors.password}
+            onChange={(value) => onFieldChange('password', value)}
+          />
+          <PasswordResetField
+            name="confirmation"
+            label="비밀번호 확인"
+            placeholder="비밀번호를 한 번 더 입력해 주세요"
+            value={confirmation}
+            error={errors.confirmation}
+            onChange={(value) => onFieldChange('confirmation', value)}
+          />
+          <Button
+            type="submit"
+            variant="primary"
+            fullWidth
+            className={PasswordResetContentStyles.button}
+          >
+            비밀번호 변경
+          </Button>
+        </form>
+      </ContentSection>
+    </AccountPageLayout>
+  );
+}
+
+type PasswordResetCompleteModalProps = {
+  onOpenChange: (open: boolean) => void;
+  onConfirm: () => void;
+};
+
+function PasswordResetCompleteModal({ onOpenChange, onConfirm }: PasswordResetCompleteModalProps) {
+  return (
+    <SingleActionDialog
+      onConfirm={onConfirm}
+      open
+      onOpenChange={onOpenChange}
+      title="비밀번호 재설정"
+      closeLabel="비밀번호 변경 완료 안내 닫기"
+      size="md"
+    >
+      <ContentHeader
+        gap="4"
+        titleAs="h2"
+        title="비밀번호 변경완료"
+        titleProps={{ variant: 'body2' }}
+        description="비밀번호 변경이 완료되었습니다."
+        descriptionProps={{ variant: 'body4' }}
+      />
+    </SingleActionDialog>
+  );
+}
 
 /** 새 비밀번호 입력 검증과 재설정 예시 흐름을 관리합니다. (Manages new-password validation and the example reset flow.) */
-export default function Page() {
+function RouteContent() {
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -66,4 +219,15 @@ export default function Page() {
       }
     />
   );
+}
+
+const routePreviewComponents = { PasswordResetCompleteModal } satisfies Pick<
+  typeof import('@/types/component-contracts/app-login-find-account-password-reset-page'),
+  'PasswordResetCompleteModal'
+>;
+
+/** 실제 화면 또는 컨텍스트로 선택한 로컬 구성을 표시합니다. (Displays the route or its context-selected local composition.) */
+export default function Page() {
+  const preview = useRoutePreview(routePreviewComponents);
+  return preview ?? <RouteContent />;
 }

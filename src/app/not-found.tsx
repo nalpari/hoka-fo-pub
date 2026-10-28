@@ -1,3 +1,3 @@
 'use client';
 
-export { NotFoundPage as default } from '@/components/features/not-found/NotFoundPage';
+export { NotFoundPage as default } from '@/components/not-found/NotFoundPage';

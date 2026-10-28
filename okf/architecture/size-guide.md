@@ -9,29 +9,20 @@ generated:
   at: '2026-10-21T15:55:08+09:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/components/features/size-guide/SizeGuideMeasurementMethod.tsx
-  - src/components/features/size-guide/SizeGuideMeasurementImage.tsx
-  - src/components/features/size-guide/SizeGuideMeasurementInstructions.tsx
-  - src/components/features/size-guide/SizeGuideChart.tsx
-  - src/components/features/size-guide/SizeGuideChoiceGroup.tsx
+  - src/app/support/size-guide/_components/SizeGuidePanel.tsx
   - src/components/common/atoms/DataTable/DataTable.tsx
   - src/components/common/atoms/SegmentedControl/SegmentedControl.tsx
   - src/components/common/atoms/Typography/Typography.tsx
   - src/styles/global.scss
-  - src/components/features/support/support.navigation.ts
+  - src/components/support/support.navigation.ts
   - src/stories/components/common/atoms/DataTable/DataTable.stories.tsx
   - src/stories/components/common/atoms/SegmentedControl/SegmentedControl.stories.tsx
   - src/stories/components/common/atoms/Typography/Typography.ChoiceLabels.stories.tsx
-  - src/components/features/size-guide/SizeGuidePage.tsx
-  - src/components/features/size-guide/SizeGuidePanel.tsx
-  - src/components/features/size-guide/SizeGuideMeasurements.tsx
-  - src/components/features/size-guide/size-guide.data.ts
+  - src/components/size-guide/SizeGuidePage.tsx
+  - src/components/size-guide/size-guide.data.ts
   - src/components/common/molecules/SupportTabs/SupportTabs.tsx
-  - src/components/features/product/ProductDetailPage.tsx
-  - src/components/features/product/ProductDetailPanel.tsx
-  - src/components/features/product/ProductDetailContent.tsx
-  - src/components/features/product/ProductVariantSelectors.tsx
-  - src/components/features/product/ProductSizeSelector.tsx
+  - src/components/product/ProductDetailPage.tsx
+  - src/app/products/[id]/page.tsx
   - src/components/common/organisms/Layout/SiteFooter/footerData.ts
   - src/stories/features/support/SupportPages.scenarios.tsx
   - public/images/size-guide/

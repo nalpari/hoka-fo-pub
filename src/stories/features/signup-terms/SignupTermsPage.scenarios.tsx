@@ -1,8 +1,8 @@
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
-import { SignupTermsContent } from '@/components/features/signup-terms/SignupTermsContent';
+import { SignupTermsContent } from '@/stories/route-previews/signup-termsPreview';
 import SignupTermsPage from '@/app/signup/terms/page';
 
 const meta = {

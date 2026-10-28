@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { PlatformProvider } from '@/context/platform';
-import { IdentityVerificationContent } from '@/components/features/identity-verification/IdentityVerificationContent';
+import { IdentityVerificationContent } from '@/stories/route-previews/signup-verifyPreview';
 
 const meta = {
   title: 'PAGES/회원가입/1. 가입여부확인',

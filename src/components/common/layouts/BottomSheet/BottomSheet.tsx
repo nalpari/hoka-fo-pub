@@ -1,12 +1,82 @@
-import type { ReactElement, ReactNode } from 'react';
-import type { ButtonProps } from '@/components/common/atoms/Button/Button';
+import { type ReactNode, cloneElement, type ReactElement } from 'react';
+import { Box, HStack, Stack } from 'styled-system/jsx';
+import { type ButtonProps } from '@/components/common/atoms/Button/Button';
+import { css } from 'styled-system/css';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { usePlatform } from '@/context/platform';
 import { Drawer } from '@base-ui/react/drawer';
-import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
-import { BottomSheetContent } from '@/components/common/layouts/BottomSheet/BottomSheetContent';
-import { BottomSheetFooter } from '@/components/common/layouts/BottomSheet/BottomSheetFooter';
-import { BottomSheetHeader } from '@/components/common/layouts/BottomSheet/BottomSheetHeader';
+
+type BottomSheetContentProps = {
+  children: ReactNode;
+};
+
+function BottomSheetContent({ children }: BottomSheetContentProps) {
+  return (
+    <Box minH="0" flex="0 1 auto" overflowY="auto" overscrollBehaviorY="contain" px="6" pb="8">
+      {children}
+    </Box>
+  );
+}
+
+const footer = css({
+  flexShrink: '0',
+  p: 'var(--layout-mobile-inline-gutter) var(--layout-mobile-inline-gutter) calc(var(--layout-mobile-inline-gutter) + env(safe-area-inset-bottom))',
+  borderTopWidth: '1px',
+  borderTopStyle: 'solid',
+  borderTopColor: 'var(--color-black-20)',
+});
+
+type BottomSheetFooterProps = {
+  children: ReactElement<ButtonProps>;
+};
+
+function BottomSheetFooter({ children }: BottomSheetFooterProps) {
+  return (
+    <footer className={footer}>{cloneElement(children, { size: 'tall', fullWidth: true })}</footer>
+  );
+}
+
+type BottomSheetTitleProps = {
+  children: ReactNode;
+};
+
+function BottomSheetTitle({ children }: BottomSheetTitleProps) {
+  return (
+    <Typography as="h2" variant="body3">
+      {children}
+    </Typography>
+  );
+}
+
+type BottomSheetHeaderProps = {
+  action?: ReactNode;
+  onClose?: () => void;
+  title: ReactNode;
+};
+
+function BottomSheetHeader({ action, onClose, title }: BottomSheetHeaderProps) {
+  return (
+    <HStack
+      as="header"
+      flexShrink="0"
+      justifyContent="space-between"
+      pt="6"
+      pb="6"
+      px="6"
+      gap="2.5"
+    >
+      <BottomSheetTitle>{title}</BottomSheetTitle>
+      {action && <HStack gap="2.5">{action}</HStack>}
+      {onClose && (
+        <IconButton aria-label="닫기" onClick={onClose} size="15px">
+          <Icon name="close" size="15px" />
+        </IconButton>
+      )}
+    </HStack>
+  );
+}
 
 const backdrop = css({
   position: 'fixed',
@@ -37,7 +107,7 @@ type BottomSheetProps = {
   ariaLabel?: string;
 };
 
-/** A modal sheet anchored to the viewport bottom for mobile workflows. */
+/** 모바일 작업을 위한 하단 모달을 구성합니다 (A modal sheet anchored to the viewport bottom for mobile workflows). */
 export function BottomSheet({
   title,
   children,

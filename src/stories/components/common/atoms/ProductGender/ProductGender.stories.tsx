@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ProductGender } from '@/components/common/atoms/ProductGender/ProductGender';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { ProductGender } from '@/components/common/molecules/ProductCard/ProductCard';
 
 const meta = {
   title: 'Atoms/ProductGender',

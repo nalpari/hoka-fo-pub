@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { FilterPillGroup } from '@/components/common/molecules/FilterPillGroup/FilterPillGroup';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { FilterPillGroup } from '@/components/catalog/ProductListingPage';
 
 function InteractiveFilterPills() {
   const [selected, setSelected] = useState(['240', '250']);
@@ -17,13 +17,13 @@ function InteractiveFilterPills() {
   );
 }
 
-const meta = { title: 'Molecules/Filter Pill Group', component: InteractiveFilterPills } satisfies Meta<
-  typeof InteractiveFilterPills
->;
+const meta = {
+  title: 'Molecules/Filter Pill Group',
+  component: InteractiveFilterPills,
+} satisfies Meta<typeof InteractiveFilterPills>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-};
+export const Default: Story = {};

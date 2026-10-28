@@ -9,13 +9,10 @@ generated:
   at: '2026-10-28T04:40:52+00:00'
 source_revision: 83493af67d9a9e285fd0e7ecbda618271ddbb1c1
 working_tree_sources:
-  - src/components/features/catalog/product-listing/ProductListingContent.tsx
-  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
-  - src/components/features/catalog/product-listing/ProductSortDropdown.tsx
-  - src/components/features/catalog/product-listing/productSortOptions.ts
-  - src/components/features/product/ProductDetailGallery.tsx
-  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderContainer.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/components/catalog/product-listing/productSortOptions.ts
+  - src/app/products/[id]/page.tsx
+  - src/context/ShopShell.tsx
   - src/app/running/run-club/[sessionId]/page.tsx
 sources:
   - id: catalog-before

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { MegaMenuAD } from '@/components/common/organisms/Layout/SiteHeader/MegaMenuAD';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { MegaMenuAD } from '@/context/ShopShell';
 import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
 
 const meta = {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { CatalogFilterGroup } from '@/components/common/molecules/CatalogFilterGroup/CatalogFilterGroup';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { CatalogFilterGroup } from '@/components/catalog/ProductListingPage';
 
 function InteractiveFilter() {
   const [selected, setSelected] = useState(['Balanced']);

@@ -1,4 +1,4 @@
-import type { HeaderPromotionButtonType } from './HeaderPromotionContent';
+import type { HeaderPromotionButtonType } from '@/types/component-contracts/context-ShopShell';
 
 export type HeaderPromotionItem = {
   id: string;

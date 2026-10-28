@@ -4,7 +4,7 @@ import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fireEvent, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
-import { PhoneVerificationContent } from '@/components/features/phone-verification/PhoneVerificationContent';
+import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import PhoneVerificationPage from '@/app/signup/verify/phone/page';
 
 const meta = {

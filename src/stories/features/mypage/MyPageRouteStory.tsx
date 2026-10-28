@@ -4,8 +4,8 @@ import {
   MyPageStatusPage,
   type MyPageStatusKind,
 } from '@/stories/features/mypage/MyPageRoutePreview';
-import { RunClubPage } from '@/components/features/run-club/RunClubPage';
-import { NotFoundPage } from '@/components/features/not-found/NotFoundPage';
+import { RunClubPage } from '@/components/run-club/RunClubPage';
+import { NotFoundPage } from '@/components/not-found/NotFoundPage';
 
 const kinds = [
   'orders',

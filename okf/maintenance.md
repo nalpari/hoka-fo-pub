@@ -118,7 +118,10 @@ PowerShell 전용 진입점도 제공한다. 기본 동작은 `check`이며 Node
 
 [^okf-spec]: Open Knowledge Format v0.2, 번들 구조·메타데이터·출처·버전 규칙.
 
-
 ## src 폴더 구조 승격 (2026-10-28)
 
 shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+OKF 소스 매핑의 상태 관련 도메인 경로를 src/components/cart/와 src/components/login/으로 갱신했다. 다른 도메인과 공통 UI는 기존 src/components/ 매핑으로 처리한다. 도메인 폴더 승격과 타입·스토리 변경도 관련 개념 및 이력을 함께 갱신한다.

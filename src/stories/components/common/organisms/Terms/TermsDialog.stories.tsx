@@ -1,6 +1,6 @@
-import { TermsDialog } from '@/components/common/organisms/Terms/TermsDialog';
+import { TermsDialog } from '@/stories/route-previews/signup-termsPreview';
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 import { Button } from '@/components/common/atoms/Button/Button';

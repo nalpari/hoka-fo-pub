@@ -9,25 +9,20 @@ generated:
   at: '2026-10-21T23:59:04Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
-  - src/components/features/terms/TermsDateSelect.tsx
+  - src/app/support/terms/page.tsx
   - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
-  - src/components/common/molecules/Faq/FaqCategoryNav.tsx
-  - src/components/common/organisms/Faq/FaqList.tsx
-  - src/components/common/organisms/StoreFinder/StoreMapPreview.tsx
-  - src/components/common/organisms/StoreFinder/StoreResults.tsx
-  - src/components/features/notices/NoticesList.tsx
-  - src/components/features/notices/NoticeDetailPage.tsx
-  - src/components/features/notices/notices.data.ts
-  - src/components/features/support/InquiryReadAttachments.tsx
-  - src/components/features/support/InquiryAttachmentPreview.tsx
-  - src/components/features/support/InquiryCustomerInfo.tsx
-  - src/components/features/support/SupportPage.tsx
-  - src/components/features/support/SupportContacts.tsx
-  - src/components/features/support/SupportContactCard.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/support/store/page.tsx
+  - src/app/support/notices/page.tsx
+  - src/components/notices/NoticeDetailPage.tsx
+  - src/components/notices/notices.data.ts
+  - src/app/support/inquiries/page.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/components/support/SupportPage.tsx
+  - src/app/support/page.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
-  - src/components/features/care-guide/CareInstructions.tsx
-  - src/components/features/terms/TermsDocument.tsx
+  - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
   - id: support-references

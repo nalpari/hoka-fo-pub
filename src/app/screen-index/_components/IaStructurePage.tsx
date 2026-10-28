@@ -27,11 +27,11 @@ import {
   isStorybookPending,
   isStorybookReady,
   isStorybookWorking,
-} from '@/components/features/screen-index/storybookLinks';
+} from '@/components/screen-index/storybookLinks';
 import {
   getProductListingIaKey,
   getProductListingRoute,
-} from '@/components/features/catalog/productListingIaRoute';
+} from '@/components/catalog/productListingIaRoute';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
 config.autoAddCss = false;

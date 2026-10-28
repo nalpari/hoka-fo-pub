@@ -1,21 +1,286 @@
 'use client';
 
-import { useShop } from '@/context/ShopShell';
+import { useRoutePreview } from '@/context/RoutePreview';
 
+import { ConfirmDialog } from '@/components/common/molecules/ConfirmDialog/ConfirmDialog';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import Link from 'next/link';
+import { css } from 'styled-system/css';
+import { Box, HStack, Stack, Grid } from 'styled-system/jsx';
+import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
+import { ButtonLink, Button } from '@/components/common/atoms/Button/Button';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
+import {
+  type MyPageOrderItem,
+  orderItems,
+  menuSections,
+} from '@/components/mypage/mypage-home-data';
+import {
+  Carousel,
+  CarouselPagination,
+  CarouselViewport,
+} from '@/components/common/molecules/Carousel/Carousel';
+import { usePlatform } from '@/context/platform';
 import { Divider } from '@/components/common/atoms/Divider/Divider';
-
+import { useShop } from '@/context/ShopShell';
 import { useState } from 'react';
-import { Box, Stack } from 'styled-system/jsx';
-import { Button } from '@/components/common/atoms/Button/Button';
 import { Breadcrumb } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
-import { LogoutDialog } from '@/components/common/organisms/Account/LogoutDialog';
-import { MyPageOverviewProfile } from '@/components/features/mypage/MyPageOverviewProfile';
-import { MyPageRecentOrders } from '@/components/features/mypage/MyPageRecentOrders';
-import { MyPageMenuSection } from '@/components/features/mypage/MyPageMenuSection';
-import { menuSections } from '@/components/features/mypage/mypage-home-data';
+
+type LogoutDialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: () => void;
+};
+
+function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
+  return (
+    <ConfirmDialog
+      onConfirm={onConfirm}
+      closeLabel="로그아웃 확인창 닫기"
+      onOpenChange={onOpenChange}
+      open={open}
+      size="sm"
+      title="로그아웃"
+    >
+      <Typography as="p" variant="body3">
+        로그아웃 하시겠습니까??
+      </Typography>
+    </ConfirmDialog>
+  );
+}
+
+const membershipLink = css({
+  color: 'inherit',
+  textDecoration: 'underline',
+  textUnderlineOffset: '2px',
+});
+
+function MyPageMembership() {
+  return (
+    <Box bg="black.10" px="4" py="5">
+      <Stack gap="1">
+        <HStack justifyContent="space-between">
+          <HStack gap="2">
+            <HStack
+              as="span"
+              justifyContent="center"
+              gap="0"
+              w="8"
+              h="8"
+              borderRadius="full"
+              bg="black.100"
+              color="offWhite.100"
+            >
+              <Typography variant="heading6" language="en" weight="black">
+                R
+              </Typography>
+            </HStack>
+            <Typography web="heading8" mo="heading5" language="en">
+              RUNNER
+            </Typography>
+          </HStack>
+          <Link className={membershipLink} href="/mypage/rewards">
+            <Typography variant="body5">등급안내</Typography>
+          </Link>
+        </HStack>
+        <Box w="full" pl="10" boxSizing="border-box">
+          <Typography variant="body5">다음 등급까지 300,000원 구매시 등급 업 혜택 제공</Typography>
+        </Box>
+      </Stack>
+    </Box>
+  );
+}
+
+type MyPageBenefitItemProps = {
+  href: string;
+  label: string;
+  count: number;
+  unit: string;
+};
+
+const benefitLink = css({
+  minW: '0',
+  bg: 'black.10',
+  p: '5',
+  color: 'inherit',
+  textDecoration: 'none',
+});
+
+function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps) {
+  return (
+    <Link className={benefitLink} href={href}>
+      <Stack h="14" justifyContent="space-between">
+        <Typography variant="body4">{label}</Typography>
+        <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
+          <Typography web="heading8" mo="heading5">
+            {count}
+          </Typography>
+          <Typography variant="body3">{unit}</Typography>
+        </HStack>
+      </Stack>
+    </Link>
+  );
+}
+
+function MyPageBenefits() {
+  return (
+    <Grid columns={2} gap="2">
+      <MyPageBenefitItem href="/mypage/coupons" label="내 쿠폰" count={3} unit="개" />
+      <MyPageBenefitItem href="/mypage/wishlist" label="관심상품" count={6} unit="건" />
+    </Grid>
+  );
+}
+
+const profileLink = css({ textDecoration: 'none!' });
+
+function MyPageOverviewProfile() {
+  return (
+    <ContentSection
+      gap="4"
+      title={
+        <>
+          <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
+            <HStack as="span" gap="1">
+              <HStack as="span" gap="0.5">
+                <Typography as="span" variant="heading4">
+                  박연진
+                </Typography>
+                <Typography as="span" variant="heading4">
+                  님
+                </Typography>
+              </HStack>
+              <Icon name="chevron-right" size="16px" />
+            </HStack>
+          </ButtonLink>
+        </>
+      }
+      headerProps={{ titleAs: 'h1', titleProps: { variant: 'heading4' } }}
+    >
+      <Stack gap="2">
+        <MyPageMembership />
+        <MyPageBenefits />
+      </Stack>
+    </ContentSection>
+  );
+}
+
+function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
+  return (
+    <HStack position="relative" alignItems="flex-start" gap="4">
+      <Box w="24" h="24" flexShrink="0">
+        <ProductThumbnail alt={item.name} src={item.image} />
+      </Box>
+      <Stack minW="0" flex="1" gap="1.5" pr="17">
+        <HStack minH="18px">
+          {item.isNew ? (
+            <Typography variant="body4" tone="red80">
+              New
+            </Typography>
+          ) : null}
+        </HStack>
+        <Stack gap="2.5">
+          <Stack gap="1">
+            <Stack gap="0.5">
+              <Typography variant="body4">{item.gender}</Typography>
+              <Typography variant="body4">{item.name}</Typography>
+            </Stack>
+            <Typography variant="body4" weight="semibold">
+              {item.price}
+            </Typography>
+          </Stack>
+          <Typography variant="body5">{item.description}</Typography>
+        </Stack>
+      </Stack>
+      <Box
+        position="absolute"
+        top="0"
+        right="0"
+        border="1px solid var(--color-border-tertiary)"
+        borderRadius="full"
+        px="2"
+        py="1.5"
+        bg="white.0"
+      >
+        <Typography variant="body5">{item.status}</Typography>
+      </Box>
+    </HStack>
+  );
+}
+
+function MyPageRecentOrders() {
+  const platform = usePlatform();
+
+  return (
+    <ContentSection
+      as="section"
+      gap="6"
+      aria-label="주문 배송 내역"
+      title="주문 배송 내역"
+      headerProps={{
+        orientation: 'horizontal',
+        gap: '2',
+        titleProps: { web: 'heading8', mo: 'heading5' },
+        action: (
+          <ButtonLink href="/mypage/orders" size="md" variant="link">
+            전체 보기
+          </ButtonLink>
+        ),
+      }}
+    >
+      <Carousel itemCount={orderItems.length}>
+        <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
+          {orderItems.map((item, index) => (
+            <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
+          ))}
+        </CarouselViewport>
+        <Box mt="6">
+          <CarouselPagination label="주문 상품 선택" />
+        </Box>
+      </Carousel>
+    </ContentSection>
+  );
+}
+
+type MyPageMenuItemProps = {
+  label: string;
+  to: string;
+};
+
+const menuLink = css({ display: 'block', borderBottom: '1px solid var(--color-border-subtle)' });
+
+function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
+  return (
+    <Link className={menuLink} href={to}>
+      <HStack minH="14" justifyContent="space-between">
+        <Typography variant="body3">{label}</Typography>
+        <Icon name="chevron-right" size="16px" />
+      </HStack>
+    </Link>
+  );
+}
+
+function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuItemProps[] }) {
+  return (
+    <ContentSection
+      as="section"
+      gap="4"
+      aria-label={title}
+      title={<>{title}</>}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
+    >
+      <Divider variant="strong" />
+      <Stack gap="0">
+        {items.map((item) => (
+          <MyPageMenuItem key={item.to} label={item.label} to={item.to} />
+        ))}
+      </Stack>
+    </ContentSection>
+  );
+}
 
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
-export default function Page() {
+function RouteContent() {
   const { logout: onLogout } = useShop();
   const [logoutOpen, setLogoutOpen] = useState(false);
 
@@ -52,4 +317,15 @@ export default function Page() {
       />
     </>
   );
+}
+
+const routePreviewComponents = { LogoutDialog } satisfies Pick<
+  typeof import('@/types/component-contracts/app-mypage-page'),
+  'LogoutDialog'
+>;
+
+/** 실제 화면 또는 컨텍스트로 선택한 로컬 구성을 표시합니다. (Displays the route or its context-selected local composition.) */
+export default function Page() {
+  const preview = useRoutePreview(routePreviewComponents);
+  return preview ?? <RouteContent />;
 }

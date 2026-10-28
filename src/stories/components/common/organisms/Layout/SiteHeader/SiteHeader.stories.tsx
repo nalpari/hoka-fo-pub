@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { SiteHeader } from '@/components/common/organisms/Layout/SiteHeader/SiteHeader';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { SiteHeader } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';

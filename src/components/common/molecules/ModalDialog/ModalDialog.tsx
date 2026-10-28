@@ -1,11 +1,98 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import { type ReactNode, type ComponentProps } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { css, cva } from 'styled-system/css';
-import { ModalDialogHeader } from '@/components/common/molecules/ModalDialog/ModalDialogHeader';
-import { ModalDialogFooter } from '@/components/common/molecules/ModalDialog/ModalDialogFooter';
+import { type SystemStyleObject } from 'styled-system/types';
+import { Button } from '@/components/common/atoms/Button/Button';
+import { Icon } from '@/components/common/atoms/Icon/Icon';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import { faXmark } from '@/icons/fontAwesome';
 import { usePlatform } from '@/context/platform';
+
+const header = css.raw({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  minH: '14',
+  px: '4',
+  bg: 'var(--color-surface-subtle)',
+  _mobile: {
+    px: '4',
+  },
+});
+
+const titleStyle = css({ height: '32px' });
+
+/** 공통 모달의 제목과 닫기 영역을 표시합니다. (Displays the shared modal title and dismissal action.) */
+function ModalDialogHeader({
+  title,
+  closeLabel,
+  css: styleOverrides,
+}: {
+  title: ReactNode;
+  closeLabel: string;
+  css?: SystemStyleObject;
+}) {
+  return (
+    <header className={css(header, styleOverrides)}>
+      <Dialog.Title className={titleStyle}>
+        <Typography variant="body3">{title}</Typography>
+      </Dialog.Title>
+      <Dialog.Close
+        render={
+          <Button
+            aria-label={closeLabel}
+            icon={<Icon fontAwesomeIcon={faXmark} size="16px" />}
+            variant="ghost"
+          />
+        }
+      />
+    </header>
+  );
+}
+
+const footerStyle = css.raw({
+  display: 'flex',
+  justifyContent: 'center',
+  flexShrink: '0',
+  gap: '2',
+  px: '4',
+  pb: '6',
+  '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },
+});
+
+const footerWithScrollFade = css.raw({
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    right: '0',
+    bottom: '100%',
+    left: '0',
+    h: '20',
+    background:
+      'linear-gradient(180deg, color-mix(in srgb, var(--color-white-000) 0%, transparent) 0%, var(--color-white-000) 80%, var(--color-white-000) 100%)',
+    pointerEvents: 'none',
+  },
+});
+
+/** 모달의 고정 액션과 선택적 스크롤 페이드를 표시합니다. (Displays fixed modal actions and an optional scroll fade.) */
+function ModalDialogFooter({
+  children,
+  scrollFade,
+  css: styleOverrides,
+}: {
+  children: ReactNode;
+  scrollFade: boolean;
+  css?: SystemStyleObject;
+}) {
+  return (
+    <footer className={css(footerStyle, scrollFade && footerWithScrollFade, styleOverrides)}>
+      {children}
+    </footer>
+  );
+}
 
 const viewport = cva({
   base: {

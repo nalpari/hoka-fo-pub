@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { InquiryBoard } from '@/components/common/organisms/InquiryBoard/InquiryBoard';
-import { productInquiries } from '@/components/features/product/productInquiries';
-import { ProductInquiryLink } from '@/components/features/product/ProductInquiryLink';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { InquiryBoard, ProductInquiryLink } from '@/stories/route-previews/products-idPreview';
+import { productInquiries } from '@/components/product/productInquiries';
 import { PlatformProvider } from '@/context/platform';
 
 const meta = {

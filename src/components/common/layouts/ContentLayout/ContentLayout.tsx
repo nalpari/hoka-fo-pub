@@ -1,10 +1,61 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { type ReactNode, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { Stack, Box } from 'styled-system/jsx';
+import { SectionHeader } from '@/components/common/atoms/SectionHeader/SectionHeader';
+import { Typography } from '@/components/common/atoms/Typography/Typography';
+import {
+  Breadcrumb,
+  type BreadcrumbItem,
+} from '@/components/common/molecules/Breadcrumb/Breadcrumb';
 import { css } from 'styled-system/css';
-import { Box, Stack } from 'styled-system/jsx';
-import { ContentHeader } from '@/components/common/layouts/ContentLayout/ContentHeader';
-import type { BreadcrumbItem } from '@/components/common/molecules/Breadcrumb/Breadcrumb';
+
+type ContentHeaderProps = {
+  breadcrumbItems?: BreadcrumbItem[];
+  title?: ReactNode;
+  description?: ReactNode;
+  eyebrow?: ReactNode;
+  headerAction?: ReactNode;
+  titleClassName?: string;
+};
+
+/** 경로 안내와 제목·보조 콘텐츠를 배치합니다 (Reusable page introductory header with optional breadcrumb and supporting content). */
+function ContentHeader({
+  breadcrumbItems,
+  title,
+  description,
+  eyebrow,
+  headerAction,
+  titleClassName,
+}: ContentHeaderProps) {
+  const hasIntro = breadcrumbItems?.length || title || description;
+
+  if (!hasIntro) {
+    return null;
+  }
+
+  return (
+    <Stack as="header" gap={{ base: '24px', _mobile: '10px' }}>
+      {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
+      {title ? (
+        <SectionHeader
+          action={headerAction}
+          description={description}
+          eyebrow={eyebrow}
+          title={title}
+          titleAs="h1"
+          titleClassName={titleClassName}
+          titleSize="lg"
+        />
+      ) : null}
+      {!title && description ? (
+        <Typography as="p" tone="subtle" variant="body">
+          {description}
+        </Typography>
+      ) : null}
+    </Stack>
+  );
+}
 
 const stickyHeaderStyle = css({
   position: 'sticky',
@@ -37,7 +88,7 @@ type ContentLayoutProps = {
   stickyHeader?: boolean;
 };
 
-/** A page content frame with optional location and introductory content. */
+/** 위치 안내와 도입부를 포함한 본문 프레임을 구성합니다 (A page content frame with optional location and introductory content). */
 export function ContentLayout({
   children,
   className,
@@ -93,3 +144,5 @@ export function ContentLayout({
     </Stack>
   );
 }
+
+export { ContentHeader };

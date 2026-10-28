@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { AppLayout } from '@/components/common/layouts/AppLayout/AppLayout';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { AppLayout } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
 import { expect, userEvent, within } from 'storybook/test';
 

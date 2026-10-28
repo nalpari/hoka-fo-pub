@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
-import {
-  MenuDrawer,
-  type MenuDrawerProps,
-} from '@/components/common/organisms/Navigation/MenuDrawer/MenuDrawer';
+import type { MenuDrawerProps } from '@/types/component-contracts/context-ShopShell';
+import { MenuDrawer } from '@/context/ShopShell';
 import { PlatformProvider } from '@/context/platform';
 
 function MenuPreview(args: MenuDrawerProps) {

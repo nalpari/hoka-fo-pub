@@ -7,14 +7,14 @@ import { Dropdown } from '@/components/common/atoms/Dropdown/Dropdown';
 import { Checkbox } from '@/components/common/atoms/Checkbox/Checkbox';
 import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { RatingStars } from '@/components/common/atoms/RatingStars/RatingStars';
-import { RangeInput } from '@/components/common/atoms/RangeInput/RangeInput';
+import { RangeInput } from '@/components/catalog/ProductListingPage';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper/NumberStepper';
 import { EmailSignupField } from '@/components/common/atoms/EmailSignupField/EmailSignupField';
 import { Terms } from '@/components/common/molecules/Terms/Terms';
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage/StatusMessage';
 import { Button } from '@/components/common/atoms/Button/Button';
-import type { AuditStory as Story } from './shared';
+import { type AuditStory as Story } from '@/stories/features/forms/form-state-audit/shared';
 
 function InheritanceExample() {
   const [invalid, setInvalid] = useState(true);

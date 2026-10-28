@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { ColorFilter } from '@/components/common/molecules/ColorFilter/ColorFilter';
+import { type Meta, type StoryObj } from '@storybook/react';
+import { ColorFilter } from '@/components/catalog/ProductListingPage';
 
 const colorOptions = [
   { value: 'black', label: '블랙', hex: '#111111' },

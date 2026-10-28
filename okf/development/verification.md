@@ -12,12 +12,11 @@ working_tree_sources:
   - tests/order-policy.test.mjs
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
   - tests/product-detail-presentation.test.mjs
-  - src/components/features/product/productDetailPresentation.ts
+  - src/components/product/productDetailPresentation.ts
   - okf/architecture/storefront-design.md
   - tests/app-router.test.mjs
   - tests/form-controls.test.mjs
   - src/components/common/atoms/RatingStars/RatingStars.tsx
-  - src/components/common/atoms/RatingStars/RatingStarsControl.tsx
   - src/stories/components/common/atoms/RatingStars/RatingStarsSelection.stories.tsx
   - src/stories/features/forms/form-state-audit/account.scenarios.tsx
   - src/stories/features/forms/form-state-audit/controls.scenarios.tsx
@@ -40,19 +39,17 @@ working_tree_sources:
   - src/stories/features/find-account/PasswordResetPage.stories.tsx
   - src/stories/features/signup/SignupPage.stories.tsx
   - src/stories/features/signup-registration/RegistrationPage.stories.tsx
-  - tests/form-controls.test.mjs
   - tests/account-recovery.test.mjs
   - tests/checkout-summary.test.mjs
   - eslint.config.js
   - tests/okf-sync.test.mjs
   - scripts/okf-sync.mjs
   - scripts/okf.ps1
-  - tests/app-router.test.mjs
   - src/stories/features/support/SupportPages.stories.tsx
   - src/app/support/inquiries/new/order-products/page.tsx
-  - src/components/features/support/InquiryOrderLookupPage.tsx
-  - src/components/features/support/InquiryNewPage.tsx
-  - src/components/features/support/inquiryOrderSelection.storage.ts
+  - src/components/support/InquiryOrderLookupPage.tsx
+  - src/components/support/InquiryNewPage.tsx
+  - src/components/support/inquiryOrderSelection.storage.ts
   - src/stories/features/Mockup/teamwear/TeamwearPage.stories.tsx
 sources:
   - id: package-json
@@ -194,12 +191,16 @@ node --test tests/product-detail-presentation.test.mjs는 실제 getProductDetai
 
 추가로 개발 서버에서 배송지 변경→주소 검색 모달 입력→이름/휴대폰 입력→동의→완료를 확인했다. boxed 주소의 disabled/name 누락을 주문서 어댑터에서 수정했으며 최신 타입 검사/해당 파일 ESLint가 통과했다. 반품 신청도 상품 선택·불량 사유로 접수 메시지까지 확인했고, PC 스토리는 단일 헤더와 MY HOKA 사이드바를 유지한다. 개발 Storybook은 재시작 후 정상화했다.
 
-
 ## IA 구조도 경로 (2026-10-28)
 
 작업 트리 `tests/app-router.test.mjs`의 기대 라우트에 `/screen-index`를 추가했다. 이 검사는 Next 빌드 manifest가 필요하다.
 
-
 ## src 폴더 구조 승격 (2026-10-28)
 
 shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능별 UI는 src/components/features, ShopShell과 플랫폼 상태는 src/context에 둔다. icons·lib·styles·types는 src 바로 아래에서 관리한다. app·data·mocks·stories의 역할과 라우트는 유지한다. 별칭과 Storybook 스타일 참조, Panda 생성 경로, OKF 동기화 규칙을 새 경로에 맞췄다. 작업 트리 출처: tsconfig.json, package.json, scripts/okf-sync.mjs, src/context/ShopShell.tsx, src/components/, .storybook/preview.ts.
+
+## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
+
+단일 부모 통합 후 form-controls 회귀 테스트의 RangeInput 소비처를 src/components/catalog/ProductListingPage.tsx로 변경했다. 테스트 TS 로더가 transpileModule에 실제 fileName을 전달해 .ts의 제네릭 함수를 JSX로 오인하지 않도록 했다. 기존 62개 테스트의 검증 내용은 유지한다. 상세 검증 기록은 ../architecture/single-parent-consolidation-2026-10-28.md를 참고한다.
+
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](../architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.

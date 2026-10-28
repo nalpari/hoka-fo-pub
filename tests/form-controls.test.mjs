@@ -42,6 +42,7 @@ registerHooks({
         format: 'module',
         shortCircuit: true,
         source: ts.transpileModule(readFileSync(fileURLToPath(url), 'utf8'), {
+          fileName: fileURLToPath(url),
           compilerOptions: {
             module: ts.ModuleKind.ESNext,
             jsx: ts.JsxEmit.ReactJSX,
@@ -91,7 +92,7 @@ const fixtures = [
   ],
   [
     'RangeInput',
-    'atoms/RangeInput/RangeInput',
+    '../catalog/ProductListingPage',
     { 'aria-label': '범위', value: 10, onValueChange() {} },
   ],
   ['NumberStepper', 'atoms/NumberStepper/NumberStepper', { value: 1, onChange() {} }],

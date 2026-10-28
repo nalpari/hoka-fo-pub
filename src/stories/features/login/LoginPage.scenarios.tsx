@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
-import { LoginContent } from '@/components/features/login/LoginContent';
+import { LoginContent } from '@/stories/route-previews/loginPreview';
 import { LoginPage } from '@/stories/features/login/LoginPagePreview';
 import { PlatformProvider } from '@/context/platform';
 
