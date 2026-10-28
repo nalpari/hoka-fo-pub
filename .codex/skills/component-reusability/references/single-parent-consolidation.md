@@ -7,7 +7,7 @@ Use this workflow for an explicitly requested component cleanup. Apply the autho
 - Survey `src/components` and route-private `_components` TSX. Keep contexts, hooks, pure data, policy and type modules independent.
 - Resolve imports with the installed TypeScript configuration and checker. Follow aliases, barrel re-exports, namespace access and dynamic imports to actual implementation symbols. Count distinct production parent modules, not import statements or JSX occurrences. Exclude stories, tests, type-test files and type-only references from the production count.
 - Exactly one production parent means the child implementation belongs in that parent, including common UI. Multiple renders within that same parent do not create reuse. Recompute relationships after merging because previously separate parents can converge on one module.
-- Retain actual multi-parent contracts. Do not copy a shared implementation into multiple parents. Separately report pre-existing zero-consumer and story-only files; consolidation alone does not authorize their removal.
+- Retain actual multi-parent contracts. Multiple consumers alone do not justify default-only forwarding wrappers; classify those with [the wrapper workflow](wrapper-consolidation.md) and use the base directly or its parent-owned options without copying implementation. Separately report pre-existing zero-consumer and story-only files; consolidation alone does not authorize their removal. An explicit unused/story-only cleanup authorizes removal within that scope after reference and dedicated-story checks.
 
 ## Move without changing behavior
 

@@ -25,6 +25,19 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Do not expose Mockup files in Storybook. Exclude any story whose directory path or filename contains `mockup` (case-insensitive), and do not register Mockup titles under other paths.
 - Once a feature's design and behavior are stable and its replacement is verified, remove its obsolete Mockup implementation and stories after checking references. Signup Mockup files have been removed; maintain the production signup features and their stories instead.
 
+## Component ownership and wrapper rules
+
+- Prefer direct use of the existing base component when a wrapper only renames props or supplies label, placeholder, typography, or spacing defaults. Transfer those defaults and their override order to consumers before removing the wrapper; multiple consumers alone do not justify a forwarding component.
+- When callers share optional presentation or interaction owned by an existing component, prefer a small typed option or variant on that owner over a new wrapper file. Preserve its default mode, keep domain data and policy with their current owners, and retain custom slots where needed. Model incompatible options and custom slots as mutually exclusive types.
+- Keep single-production-parent components in their parent module unless a necessary runtime boundary prevents it. Follow the [wrapper decision workflow](.codex/skills/component-reusability/references/wrapper-consolidation.md) and [single-parent workflow](.codex/skills/component-reusability/references/single-parent-consolidation.md); do not duplicate shared implementations merely to reduce files.
+- Treat zero-production-use and story-only components separately. Confirm all references and the authorized deletion scope before removing them; Storybook use alone proves neither production reuse nor permission to delete. Migrate useful scenarios to the surviving owner or remove obsolete dedicated stories within that scope.
+- Preserve HTML semantics, responsive values, accessibility, form ownership, focus and state lifetime. File-count reduction alone is not sufficient; verify both the new options and unchanged default callers, including relevant PC/mobile states.
+
+## Shared worktree rules
+
+- Record the index and relevant working-tree contents before changing files shared with other chats. Treat another chat's changes as concurrent work; do not reset, overwrite, or include them merely because they share a file.
+- When staging is requested, preserve the current index and add only the authorized change and directly related OKF updates. Use partial patches or equivalent index operations for mixed files, inspect the staged result, and avoid whole-file staging that captures unrelated unstaged work. Do not commit or push without that authorization.
+
 ## Styling rules
 
 - Do not create, modify, or retain `*.module.scss` files. CSS Modules are not used in this project.

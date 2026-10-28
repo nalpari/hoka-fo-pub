@@ -711,6 +711,17 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 컴포넌트 소유권·래퍼 정책 정리 (2026-10-28)
+
+본 채팅의 ContentHeader/TextFormField 직접 사용과 부모 옵션 통합, 공유 작업 트리·OKF에 나타난 ModalDialog 액션 통합·미사용/스토리 전용 정리·MyPageFrame 레이아웃 확장을 분석해 AGENTS.md와 component-reusability 스킬을 갱신했다. 관찰한 구현과 각 작업의 기존 검증 기록을 근거로 삼았으며 진행 중인 사이드 작업의 모든 대화나 미실행 검사를 확인한 것으로 간주하지 않는다.
+
+- 기본값·props 전달만 하는 래퍼는 기반 컴포넌트 직접 사용, 실제로 공유하는 선택적 표현·상호작용은 적절한 기존 소유자의 작은 typed 옵션, 단일 운영 부모는 부모 파일 내부 통합으로 구분한다. 여러 소비처나 파일 길이만으로 별도 래퍼를 정당화하지 않는다.
+- 미사용·스토리 전용 구현은 별도 분류하고 승인된 범위에서 참조와 유효한 시나리오를 확인해 정리한다. 파일 수만 줄이려고 구현을 복제하거나 삭제한 래퍼를 preset·호환 파일로 재생성하지 않는다.
+- 기본 모드와 custom 슬롯·네이티브 폼·접근성·제네릭 값·상태 수명·PC/MO 값을 보존한다. 대체 옵션의 배타성, 소유자별 공통 breadcrumb·레이아웃, 중첩 Panda 추출과 객체 단계의 스타일 병합을 작업 판단 기준에 연결했다.
+- 공유 작업 트리에서 현재 인덱스와 다른 채팅 변경을 보존하고 요청된 변경만 부분 스테이징한다. 검증 시 실제 소스를 반영한 서버인지, 화면 폭과 실제 플랫폼이 같은지 확인하며 자동 입력 실패를 곧바로 컴포넌트 결함으로 분류하지 않는다.
+
+작업 트리 출처는 AGENTS.md, `.codex/skills/component-reusability/SKILL.md`와 wrapper-consolidation·single-parent-consolidation·page-ownership·content-sections·form-fields 참조 문서다. 기존 폼 지침의 기본값 전용 의미별 preset 권고와 페이지 지침의 삭제된 ConfirmDialog 예시를 현재 정책으로 교정했다. 앱·스토리 소스와 실행 설정은 이번 정책 작업에서 변경하지 않았다. quick_validate.py, 정책·스킬 문서의 내부 링크/해당 앵커 21개와 수정 문서 포맷 검사가 통과했다. 앱 빌드는 정책 변경의 검증으로 반복하지 않았다. 기존 생성·출처·신뢰 메타데이터는 보존한다.
+
 ## MyPageFrame 중앙 정렬 레이아웃 (2026-10-28)
 
 MyPageFrame에 layout='sidebar' | 'centered'를 추가하고 breadcrumbs를 선택 속성(기본 빈 배열)으로 바꿨다. 기본 sidebar는 기존 마이페이지 하위 화면의 내비게이션·본문·breadcrumb 배치를 유지한다. centered는 홈에서 사용하던 main의 border-box·100vw·maxW 640px·가운데 정렬·좌우 16px·하단 64px과 breadcrumb 영역의 높이 56px·상단 24px을 그대로 소유한다. 기본 Home·마이페이지 경로는 프레임이 한 번 생성하며 마지막 항목의 링크 생략·aria-current는 기존 Breadcrumb이 처리한다.

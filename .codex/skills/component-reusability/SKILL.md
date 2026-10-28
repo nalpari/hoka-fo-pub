@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse, form-field and content-header composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, Typography variants, route-owned page composition, and recursive single-production-parent consolidation in the current src structure. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
+description: Audit and improve React component reuse through forwarding-wrapper removal, parent-owned options, single-production-parent consolidation, form/content composition, and route ownership. Also use for Panda CSS/JSX and Typography migrations or Base UI reuse while preserving semantics and existing behavior.
 ---
 
 # Component Reusability
@@ -18,6 +18,10 @@ Use the user's named files, folders, or explicit repository-wide scope. An expli
 Use the current structure: `src/app` owns routes and route-specific screens; `src/components/common` owns reusable atoms, molecules, organisms, and layouts; `src/components/{domain}` owns domain-specific reusable UI and pure policy modules beside `common`; do not retain a `features` wrapper directory. Cross-route state belongs in `src/context`, utilities in `src/lib`, shared types in `src/types`, icons in `src/icons`, styles in `src/styles`, and data/fixtures in `src/data` or `src/mocks`. Do not recreate `src/shared` or old aliases.
 
 For page wrappers, screen moves, or component placement decisions, read [the page ownership workflow](references/page-ownership.md). Apply this at every route depth, including `app/mypage/{section}/page.tsx`; resolve fixed-kind dispatch wrappers into route-owned composition. A single-route screen belongs directly in `src/app/{route}/page.tsx`, including its composition, local state, handlers, and Panda styles. Do not extract an entire feature `*Page` only to import or re-export it from a thin route. Preserve genuinely shared screens and necessary server/client boundaries. Storybook use alone is not production reuse.
+
+## Wrapper and parent-option consolidation
+
+For wrapper audits, component-file reduction, or consolidation into existing APIs, read [the wrapper decision workflow](references/wrapper-consolidation.md). Classify direct base use, parent-owned options, single-parent ownership, unused/story-only disposition, and necessary survivors separately. Shared defaults alone do not require a component file; absorb repeated presentation or interaction into its existing owner when a small typed option preserves the contract. Keep the owner's default mode and domain boundaries intact. Do not replace removed wrappers with preset files or a general configuration framework just to centralize their former names.
 
 ## Single-production-parent consolidation
 

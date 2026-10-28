@@ -2,6 +2,8 @@
 
 ## 2026-10-28
 
+- 본 채팅과 공유 작업 트리의 래퍼 제거·부모 옵션·미사용 정리·도메인 프레임 확장을 분석해 AGENTS와 component-reusability 스킬의 판단 기준을 통합했다. 의미별 기본값 래퍼 재도입 권고를 교정하고 소유권·배타적 옵션·기본 동작·검증 환경·부분 스테이징 보존을 연결했다. 앱 코드는 변경하지 않았다. [정책과 근거](architecture/ui.md#컴포넌트-소유권래퍼-정책-정리-2026-10-28)를 기록했다.
+
 - MyPageFrame에 centered 레이아웃과 선택적 breadcrumbs를 추가해 /mypage 홈의 main·breadcrumb 중복을 제거했다. 기존 640px 중앙 정렬·여백·본문과 로그아웃 상태를 보존하고 하위 화면의 sidebar 기본값을 유지했다. [API와 검증](architecture/ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)에 기록한다.
 
 - PageActionButton·AccountFormLayout·Terms·PreferenceField를 부모 옵션으로 통합하고 네 구현 파일을 제거했다. 기존 화면·폼·상호작용을 보존하고 스토리·회귀 fixture·계정 프레임 검사 대상을 전환했다. [API](architecture/ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)와 [실제 검증](development/verification.md#부모-옵션-통합-검증-2026-10-28)을 기록했다.
