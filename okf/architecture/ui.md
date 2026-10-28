@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T04:21:49+00:00'
+  at: '2026-10-28T04:50:57+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/components/features/product/ProductSelectedOptions.tsx
@@ -23,7 +23,6 @@ working_tree_sources:
   - src/components/features/mypage/mypage-profile.types.ts
   - src/components/features/catalog/ProductListingFilterPanel.tsx
   - src/components/features/catalog/ProductListingPage.tsx
-  - src/components/features/catalog/product-listing/MobileProductFilter.tsx
   - src/components/features/catalog/product-listing/ProductListingContent.tsx
   - src/components/common/layouts/AppLayout/AppLayout.tsx
   - src/components/features/catalog/product-listing/SearchListingLayout.tsx
@@ -110,7 +109,7 @@ working_tree_sources:
   - src/components/common/layouts/BottomSheet/BottomSheetTitle.tsx
   - src/stories/components/common/layouts/BottomSheet/BottomSheet.stories.tsx
   - src/lib/useScrollPin.ts
-  - src/components/features/catalog/product-listing/MobileProductNavigation.tsx
+  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
   - src/components/common/organisms/Layout/SiteHeader/SiteHeader.tsx
   - src/components/common/organisms/Layout/SiteHeader/SiteHeaderFrame.tsx
   - src/components/common/atoms/FilterTabs/FilterTabs.tsx
@@ -144,7 +143,7 @@ working_tree_sources:
   - public/images/products/clifton-11-gtx/feature-upper.png
   - public/images/products/clifton-11-gtx/feature-detail.png
   - public/images/products/clifton-11-gtx/feature-cushioning.png
-  - src/components/features/product/ProductDetailDesktopGallery.tsx
+  - src/components/features/product/ProductDetailGallery.tsx
   - src/components/features/product/ProductDetailGrid.tsx
   - src/components/features/product/ProductDetailHeaderActions.tsx
   - src/components/features/product/ProductDetailMedia.tsx
@@ -193,7 +192,7 @@ working_tree_sources:
   - src/components/features/support/SupportContactCard.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
-  - src/components/features/catalog/product-listing/MobileProductFilterTrigger.tsx
+  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
   - src/components/common/molecules/AmountRow/AmountRow.tsx
   - src/components/common/molecules/FormActionGroup/FormActionGroup.tsx
   - src/components/common/molecules/SocialAuthButton/SocialAuthButton.tsx
@@ -257,7 +256,7 @@ working_tree_sources:
   - src/components/common/organisms/Layout/SiteFooter/footerData.ts
   - src/components/features/product/ProductVariantSelectors.tsx
   - src/components/features/product/ProductSizeSelector.tsx
-  - src/components/features/catalog/product-listing/MobileCategoryTabs.tsx
+  - src/components/features/catalog/product-listing/ProductListingLayout.tsx
   - src/components/common/molecules/ProductDetails/ProductDetailsIdentity.tsx
   - src/components/common/molecules/ProductDetails/ProductDetailsOptions.tsx
   - src/components/common/molecules/ProductName/ProductName.tsx
@@ -492,7 +491,7 @@ working_tree_sources:
   - src/components/common/organisms/Hero/HeroPagination.tsx
   - src/components/common/organisms/Hero/HeroSlide.tsx
   - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
-  - src/components/common/organisms/Layout/SiteHeader/DesktopNavigation.tsx
+  - src/components/common/organisms/Layout/SiteHeader/SiteHeaderContainer.tsx
   - src/components/common/organisms/Member/MemberHero.tsx
   - src/components/common/organisms/MyPage/QuickLinkGrid.tsx
   - src/shared/Mockup/product-detail-sections/ProductInformation.tsx
@@ -572,7 +571,7 @@ working_tree_sources:
   - src/components/features/run-club/RunClubSessionPoster.tsx
   - src/components/features/run-club/RunClubSessionGuideContent.tsx
   - src/components/features/product/ProductVariantSection.tsx
-  - src/components/features/product/ProductDetailMobileGallery.tsx
+  - src/components/features/product/ProductDetailGallery.tsx
   - src/components/features/product/ProductDetailImageViewer.tsx
   - src/components/features/product/ProductDetailDeliveryContent.tsx
   - src/components/features/mypage/MyPageProductHistoryNote.tsx
@@ -584,7 +583,7 @@ working_tree_sources:
   - src/components/features/locales/LocalesHeading.tsx
   - src/components/features/locales/LocaleRegionHeading.tsx
   - src/components/features/locales/LocaleCountryList.tsx
-  - src/components/features/catalog/product-listing/DesktopProductSort.tsx
+  - src/components/features/catalog/product-listing/ProductSortDropdown.tsx
   - src/components/features/product/ProductDetailBody.tsx
   - src/components/common/organisms/Layout/SiteHeader/SiteHeaderInner.tsx
   - src/stories/features/run-club/RunClubDetail.stories.tsx
@@ -593,7 +592,7 @@ working_tree_sources:
   - src/components/features/home/homeCarouselPreview.ts
   - src/components/common/organisms/Layout/SiteFooter/FooterBrandLogo.tsx
   - src/components/common/organisms/Layout/SiteFooter/FooterNavigationLinks.tsx
-  - src/components/common/organisms/Layout/SiteFooter/FooterNavigationMobile.tsx
+  - src/components/common/organisms/Layout/SiteFooter/FooterNavigation.tsx
   - src/components/common/organisms/Layout/SiteFooter/SiteFooter.tsx
   - src/components/common/molecules/Carousel/Carousel.tsx
   - src/components/common/molecules/Carousel/CarouselContext.ts
@@ -612,7 +611,7 @@ working_tree_sources:
   - src/components/features/run-club/RunClubRecommendations.tsx
   - src/components/features/run-club/RunClubPage.tsx
   - src/components/features/run-club/RunClubApplyButton.tsx
-  - src/components/features/run-club/RunClubMobileActionBar.tsx
+  - src/app/running/run-club/[sessionId]/page.tsx
   - src/components/features/run-club/RunClubFacts.tsx
   - src/components/features/run-club/RunClubHeader.tsx
   - src/components/features/run-club/RunClubHistoryLink.tsx
@@ -638,7 +637,6 @@ working_tree_sources:
   - src/components/common/organisms/Layout/SiteFooter/FooterNavigationWeb.tsx
   - src/components/common/organisms/Layout/SiteHeader/MegaMenuList.tsx
   - src/app/login/account-locked/complete/page.tsx
-  - src/components/features/catalog/product-listing/DesktopProductFilter.tsx
   - src/components/features/catalog/ProductListingResults.tsx
   - src/components/features/find-account/IdConfirmationModal.tsx
   - src/components/features/product/ProductDetailAfterSalesContent.tsx
@@ -3046,3 +3044,9 @@ Storybook의 인증 입력·필수 약관 및 폼 감사 시나리오는 실제 
 현재 출처: `src/components/features/checkout/CheckoutDiscountSummary.tsx`, `src/components/features/checkout/checkout-coupons.ts`, `src/stories/features/screen-index/DesignGuidePage.stories.tsx`, `src/app/screen-index/page.tsx`. 삭제 경로는 이 제거 기록으로 보존하며 working_tree_sources의 현재 구현 목록에서는 제외했다.
 
 미사용 파일 정리 검증 (2026-10-28): 삭제 후 남은 모듈 참조가 없음을 확인했다. 타입 검사·Panda 생성·Next production build·Storybook build와 주문 합계/앱 라우트 테스트 5개를 통과했다. OKF·포맷·diff 공백 검사를 수행했으며, 복구된 UI 문서의 기존 제목 246개와 고정 출처 13개 및 유효한 YAML 메타데이터를 확인했다. 미사용 구현 삭제 작업이므로 브라우저 회귀는 추가 실행하지 않았다.
+
+## 상품 필터 통합과 플랫폼 파일 전수조사 (2026-10-28)
+
+Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 컨테이너 2개는 ProductListingContent에 직접 통합하고 DesktopProductSort는 ProductSortDropdown으로 변경했다. 네 정렬 선택지는 productSortOptions를 드롭다운과 모바일 Radio가 공유한다. 나머지 9개는 사용자가 선택한 단일 부모 범위에 따라 부모 모듈의 로컬 구성요소로 이동하고 자식 파일을 삭제했다. PC 즉시 반영·모바일 초안/적용, 키보드·포커스·스와이프·아코디언·안전 영역과 기존 DOM·스타일을 보존한다. [전수조사 보고서](platform-component-audit-2026-10-28.md)에 12개별 처리·호출 관계·45개 스토리 목록과 범위를 기록했다. 다른 단일 부모 컴포넌트로 범위를 확대하지 않았다.
+
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.

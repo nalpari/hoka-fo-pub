@@ -1,3 +1,4 @@
+import { productSortOptions } from '@/components/features/catalog/product-listing/productSortOptions';
 import { CatalogFilterGroup } from '@/components/common/molecules/CatalogFilterGroup/CatalogFilterGroup';
 import { CatalogFilterSection } from '@/components/common/molecules/CatalogFilterSection/CatalogFilterSection';
 import { ColorFilter } from '@/components/common/molecules/ColorFilter/ColorFilter';
@@ -121,10 +122,7 @@ export function ProductListingFilterPanel({
             ariaLabel="상품 정렬"
             value={mobileSort.value}
             onValueChange={mobileSort.onValueChange}
-            options={['베스트순', '신상품순', '높은가격순', '낮은가격순'].map((value) => ({
-              label: value,
-              value,
-            }))}
+            options={productSortOptions}
           />
         </CatalogFilterSection>
       )}

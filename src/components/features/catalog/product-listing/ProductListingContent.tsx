@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import type { Product } from '@/mocks/products';
 import { ProductListingResults } from '@/components/features/catalog/ProductListingResults';
 import type { Platform } from '@/lib/device';
-import { Grid } from 'styled-system/jsx';
-import { DesktopProductFilter } from './DesktopProductFilter';
-import { MobileProductFilter } from './MobileProductFilter';
+import { Box, Grid } from 'styled-system/jsx';
+import { Button } from '@/components/common/atoms/Button/Button';
+import { BottomSheet } from '@/components/common/layouts/BottomSheet/BottomSheet';
 
 type ProductListingContentProps = {
   filterDrawerOpen: boolean;
@@ -19,7 +19,7 @@ type ProductListingContentProps = {
   shown: Product[];
 };
 
-/** Product results with desktop and mobile filter presentations. */
+/** 상품 필터와 목록을 구성하고 고정 영역 또는 시트로 배치합니다. (Composes shared product filters in a sticky area or bottom sheet.) */
 export function ProductListingContent({
   filterDrawerOpen,
   filterPanel,
@@ -41,7 +41,19 @@ export function ProductListingContent({
           display: 'block',
         }}
       >
-        {platform === 'web' && <DesktopProductFilter>{filterPanel}</DesktopProductFilter>}
+        {platform === 'web' && (
+          <Box
+            position="sticky"
+            top="calc(var(--layout-site-header-height) + var(--content-layout-header-height))"
+            alignSelf="start"
+            maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))"
+            overflowX="hidden"
+            overflowY="auto"
+            scrollbar="hidden"
+          >
+            {filterPanel}
+          </Box>
+        )}
         <ProductListingResults
           hasMore={shown.length < result.length}
           onLoadMore={onLoadMore}
@@ -51,13 +63,18 @@ export function ProductListingContent({
         />
       </Grid>
       {platform === 'mobile' && filterDrawerOpen && (
-        <MobileProductFilter
+        <BottomSheet
+          ariaLabel="상품 필터"
+          footer={
+            <Button onClick={onMobileFilterApply} variant="primary">
+              필터 적용하기 ({mobileResultCount})
+            </Button>
+          }
           onClose={() => onFilterDrawerOpenChange(false)}
-          onApply={onMobileFilterApply}
-          resultCount={mobileResultCount}
+          title="필터"
         >
           {filterPanel}
-        </MobileProductFilter>
+        </BottomSheet>
       )}
     </>
   );

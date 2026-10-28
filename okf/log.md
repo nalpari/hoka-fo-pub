@@ -4,6 +4,8 @@
 
 ## 2026-10-28
 
+- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
+
 - **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](../.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](../.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
 
 - **Cleanup**: 사용처가 없는 feature TSX 12개와 빈 state 폴더를 제거했다. 타입 검사·Panda 생성·Next/Storybook 빌드와 관련 테스트 5개, 잔여 참조·문서 메타데이터 검증을 통과했다. Storybook의 디자인 가이드 색상·타이포그래피와 실제 IA 페이지는 유지한다. 이전 문서 병합에서 누락된 UI 본문을 보관 사본에서 복구하고 최신 변경 기록·출처를 보존했다. [UI 정리](architecture/ui.md#미사용-feature-tsx-정리-2026-10-28)와 [상태 경계](architecture/state.md#미사용-ui-제거와-현재-상태-경계-2026-10-28)를 갱신했다.

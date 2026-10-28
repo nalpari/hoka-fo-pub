@@ -3,21 +3,18 @@ import { Radio } from '@/components/common/atoms/Radio/Radio';
 import { Disclosure } from '@/components/common/molecules/Disclosure/Disclosure';
 import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
+import { productSortOptions } from './productSortOptions';
 
 const sortOptions = css({ minW: '106px' });
 
-const options = ['베스트순', '신상품순', '높은가격순', '낮은가격순'] as const;
-
-type SortOption = (typeof options)[number];
-
-type DesktopProductSortProps = {
+type ProductSortDropdownProps = {
   placeholder?: string;
   value: string;
   onChange: (sort: string) => void;
 };
 
-/** Desktop product-list sorting control. */
-export function DesktopProductSort({ placeholder, value, onChange }: DesktopProductSortProps) {
+/** 상품 정렬 드롭다운의 선택과 키보드 조작을 관리합니다. (Manages selection and keyboard interaction in the product sort dropdown.) */
+export function ProductSortDropdown({ placeholder, value, onChange }: ProductSortDropdownProps) {
   const [open, setOpen] = useState(false);
 
   const selectingWithKeyboard = useRef(false);
@@ -47,8 +44,8 @@ export function DesktopProductSort({ placeholder, value, onChange }: DesktopProd
 
               selectingWithKeyboard.current = false;
             }}
-            options={options.map((option) => ({ label: option, value: option }))}
-            value={value as SortOption}
+            options={productSortOptions}
+            value={value}
           />
         </Box>
       </Disclosure>

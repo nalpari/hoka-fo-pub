@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T04:12:51+00:00'
+  at: '2026-10-28T04:50:57+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - .codex/skills/component-reusability/SKILL.md
@@ -220,3 +220,9 @@ IA 구조도는 서버 metadata와 색인 제외 설정을 유지하고 클라�
 작업 트리 출처: `src/app/signup/verify/phone/page.tsx`, `src/app/login/account-locked/verification/page.tsx`, `src/app/login/find-account/id-confirmation-modal/page.tsx`, `src/components/features/phone-verification/usePhoneVerification.ts`, `src/components/features/find-account/IdConfirmationMessage.tsx`.
 
 3Depth 변경 검증 (2026-10-28): 타입 검사·변경 파일 ESLint/Prettier·Panda 생성·Next production build·Storybook build, 계정 복구 및 라우트 테스트 6개를 통과했다. 실제 페이지의 필수 약관 피드백·가입 인증 안내·모바일 잠금 해제 완료 이동, 아이디 확인의 PC 확인/닫기와 모바일 비밀번호 재설정 이동을 브라우저에서 확인했다. 추가한 WEB/Mobile 인증 완료 스토리는 가입 안내와 잠금 해제 코드 입력 후 기대 화면 상태를 확인했다. 스킬 validator·OKF 검사와 삭제된 화면 import 제거도 확인했다. 전체 기존 스토리 play 함수의 전수 실행은 하지 않았다.
+
+## 런클럽 단일 부모 하단 바 통합 (2026-10-28)
+
+Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](platform-component-audit-2026-10-28.md)를 참고한다.
+
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.

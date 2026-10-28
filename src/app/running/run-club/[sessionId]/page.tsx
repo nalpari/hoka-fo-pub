@@ -1,9 +1,7 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RunClubSessionContext } from '@/components/features/run-club/RunClubSessionContext';
-
-import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { NotFoundPage } from '@/components/features/not-found/NotFoundPage';
 import { usePlatform } from '@/context/platform';
@@ -12,6 +10,7 @@ import {
   runClubSessions,
   runClubVenue,
   runClubAddress,
+  type RunClubSession,
 } from '@/components/features/run-club/runClub.data';
 import { RunClubSessionHero } from '@/components/features/run-club/RunClubSessionHero';
 import {
@@ -21,9 +20,39 @@ import {
 import { RunClubSessionImage } from '@/components/features/run-club/RunClubSessionImage';
 import { RunClubRecommendations } from '@/components/features/run-club/RunClubRecommendations';
 import { RunClubApplicationNotice } from '@/components/features/run-club/RunClubApplicationNotice';
-import { RunClubMobileActionBar } from '@/components/features/run-club/RunClubMobileActionBar';
+import { Box } from 'styled-system/jsx';
+import { RunClubApplyButton } from '@/components/features/run-club/RunClubApplyButton';
 import { RunClubDetailLayout } from '@/components/features/run-club/RunClubDetailLayout';
-import type { RunClubFact } from '@/components/features/run-club/RunClubFacts';
+import { type RunClubFact } from '@/components/features/run-club/RunClubFacts';
+
+type RunClubFixedActionBarProps = {
+  status: RunClubSession['status'];
+  onApply: () => void;
+};
+
+function RunClubFixedActionBar({ status, onApply }: RunClubFixedActionBarProps) {
+  return (
+    <Box
+      as="section"
+      aria-label="세션 신청"
+      display="none"
+      _mobile={{
+        display: 'block',
+        position: 'fixed',
+        bottom: '0',
+        insetInline: '0',
+        zIndex: '20',
+        bg: 'white.0',
+        borderTop: '1px solid var(--color-border-default)',
+        px: '4',
+        pt: '4',
+        pb: 'max(32px, env(safe-area-inset-bottom))',
+      }}
+    >
+      <RunClubApplyButton status={status} onApply={onApply} />
+    </Box>
+  );
+}
 
 /** 해당 경로의 화면과 상호작용을 구성합니다. (Composes the route screen and its interactions.) */
 export default function Page() {
@@ -80,7 +109,7 @@ export default function Page() {
         </>
       }
       mobileAction={
-        <RunClubMobileActionBar
+        <RunClubFixedActionBar
           status={session.status}
           onApply={() => setShowApplicationNotice(true)}
         />
