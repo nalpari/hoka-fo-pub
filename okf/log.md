@@ -4,6 +4,8 @@
 
 ## 2026-10-28
 
+- **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](../.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](../.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
+
 - **Cleanup**: 사용처가 없는 feature TSX 12개와 빈 state 폴더를 제거했다. 타입 검사·Panda 생성·Next/Storybook 빌드와 관련 테스트 5개, 잔여 참조·문서 메타데이터 검증을 통과했다. Storybook의 디자인 가이드 색상·타이포그래피와 실제 IA 페이지는 유지한다. 이전 문서 병합에서 누락된 UI 본문을 보관 사본에서 복구하고 최신 변경 기록·출처를 보존했다. [UI 정리](architecture/ui.md#미사용-feature-tsx-정리-2026-10-28)와 [상태 경계](architecture/state.md#미사용-ui-제거와-현재-상태-경계-2026-10-28)를 갱신했다.
 
 - **Update**: 3Depth 휴대폰 인증 두 경로와 독립 아이디 확인 페이지가 화면을 직접 구성하도록 변경했다. 인증 상태는 공용 훅, 팝업 본문은 공용 메시지로 유지하고 전체 PhoneVerificationPage import·재수출을 제거했다. 타입·린트·포맷·Next/Storybook 빌드와 관련 테스트 6개, 실제 인증·안내 페이지 및 WEB/Mobile 완료 스토리의 기대 상태를 확인했다. 실제 페이지를 사용하는 인증 완료 WEB/Mobile 스토리를 추가하고 [라우팅](architecture/routing.md#3depth-인증안내-화면의-페이지-직접-구성-2026-10-28)·[UI](architecture/ui.md#3depth-페이지와-공용-인증모달-구성-2026-10-28)·[상태](architecture/state.md#휴대폰-인증-상태와-경로별-완료-책임-2026-10-28)를 갱신했다.

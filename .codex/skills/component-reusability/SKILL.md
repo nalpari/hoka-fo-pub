@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse, form-field and content-header composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, and Typography variants. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
+description: Audit and improve React component reuse, form-field and content-header composition, low-level composition, Base UI adoption, Panda CSS/JSX composition, Typography variants, and route-owned page composition in the current src structure. Also use to survey HTML tags and Panda CSS usage, then migrate to Panda JSX components while preserving HTML semantics and existing styles.
 ---
 
 # Component Reusability
@@ -12,6 +12,12 @@ This is an evidence-based audit and implementation workflow. For a reuse audit, 
 ## Scope selection
 
 Use the user's named files, folders, or explicit repository-wide scope. An explicit “전수조사” in the current repository authorizes a full source survey; distinguish production UI from stories, generated files, and external packages. If no scope is supplied or established in the conversation, ask “어느 폴더를 점검할까요?” and wait before inspecting files. Do not ask again when the scope is already clear.
+
+## Repository structure and page ownership
+
+Use the current structure: `src/app` owns routes and route-specific screens; `src/components/common` owns reusable atoms, molecules, organisms, and layouts; `src/components/features` owns domain-specific reusable UI and pure policy modules. Cross-route state belongs in `src/context`, utilities in `src/lib`, shared types in `src/types`, icons in `src/icons`, styles in `src/styles`, and data/fixtures in `src/data` or `src/mocks`. Do not recreate `src/shared` or old aliases.
+
+For page wrappers, screen moves, or component placement decisions, read [the page ownership workflow](references/page-ownership.md). Apply this at every route depth, including `app/mypage/{section}/page.tsx`; resolve fixed-kind dispatch wrappers into route-owned composition. A single-route screen belongs directly in `src/app/{route}/page.tsx`, including its composition, local state, handlers, and Panda styles. Do not extract an entire feature `*Page` only to import or re-export it from a thin route. Preserve genuinely shared screens and necessary server/client boundaries. Storybook use alone is not production reuse.
 
 ## Form-field composition
 
@@ -137,19 +143,19 @@ After conversion, check both the chosen component and its props: no duplicate de
    - When no matching reusable scale exists, add a named semantic variant to the shared `Typography` component: update its `cva` definition, public variant type, and the backing desktop/mobile token variables. Migrate the audited caller to it and add a Storybook case covering its semantic `as` usage and mobile scale.
    - A missing type scale must become a shared Typography variant rather than remain duplicated in a caller, including when the first migration has a single caller. Give it a semantic name and token contract so later callers can reuse it.
 5. Use feature-local composition (also called vertical slice decomposition) before promoting a component to the shared library.
-   - Keep the page container focused on orchestration: URL/search params, local state, data retrieval, filter/sort application, view-model calculation, and event-handler assembly. It should not own feature presentation markup or page-local Panda styles.
-   - Put a feature's prepared data and explicit callback contracts into feature-local `Layout` and `Content` components. Let them compose page regions and web/mobile presentations without owning URL synchronization or business-state derivation.
-   - Extract independent page regions—such as desktop/mobile-only controls, titles, sort controls, filter wrappers, and result sections—into small components inside the feature folder. Co-locate each region's Panda styles with the component that renders the DOM.
+   - Keep route-specific orchestration and screen composition in `src/app/{route}/page.tsx`. It may own presentation markup and local Panda styles; do not force a separate feature page or Layout/Content pair.
+   - Retain or extract Layout/Content components when they own an independent structural or presentation contract. Pass prepared data and explicit callbacks without moving route ownership out of the page merely for decomposition.
+   - Extract page regions only at useful responsibility boundaries. Keep page-private parts beside the route when appropriate; put reusable domain parts in `src/components/features`. Co-locate Panda styles with the DOM owner.
    - Keep non-rendering feature rules, including filtering, sorting, metadata, and policy checks, in pure modules beside the feature. Do not mix them into a layout component.
    - Extract on a responsibility boundary, not a line-count threshold: state lifetime, URL synchronization, display region, platform presentation, or domain policy must be independently changeable or testable. Do not split JSX merely to create smaller files, increase prop drilling, or add meaningless one-line wrappers.
    - Keep a single-feature or product-contextual component feature-local. Consider promotion to atom, molecule, or organism only after at least two feature consumers demonstrate the same semantic markup or interaction contract, with a stable typed API and Storybook coverage.
-   - Use this reference pattern when it fits: `ProductListingPage` owns filters, URL updates, comparison state, and displayed-data calculation; `ProductListingLayout` assembles the page frame and platform header action; `ProductListingContent` places results, desktop sticky filters, and mobile bottom sheets; leaf components and pure modules own triggers, sort controls, titles, tabs, metadata, and filter policy.
+   - `ProductListingPage` is a valid shared screen when both catalog and search consume its filterable listing contract. A name ending in Page does not prove route ownership; inspect actual production callers before moving it.
    - Apply the low-level composition criteria below when a region benefits from smaller structural parts, even when those parts have only one consumer.
 6. Choose the lowest useful component layer:
    - **Atom:** a semantic HTML primitive or a single interaction, such as a field group, disclosure, badge, table, or stepper.
    - **Molecule:** a stable combination of atoms with reusable slots or typed data, such as a state panel, contact card, summary grid, or row list.
    - **Organism:** a domain-aware composition with reusable interaction and layout behavior, such as responsive navigation or a catalog control.
-   - **Feature/layout:** routing, page data, orchestration, and product-specific configuration only.
+   - **Route/feature:** route-specific composition belongs in `src/app`; reusable domain compositions and independent policies belong in `src/components/features`. Layout components own meaningful structural contracts.
 7. Prefer typed data contracts over positional tuples and expose the variation that callers genuinely need: `variant`/`tone`, `size`, responsive layout mode, optional action slots, empty/loading/error states, `className`, and accessible labels.
 8. Keep shared components independent of a feature's mock data and routes. If a link implementation is inherently application-specific, keep it in a molecule or organism rather than an atom.
 9. Preserve native semantics. Use suitable landmarks, buttons, fieldsets, labels, `dl`, tables, live regions, and controlled selection state instead of recreating those behaviors with generic elements.
@@ -226,7 +232,7 @@ For each composition finding, name the current responsibility, proposed part and
 - Do not create, modify, or retain `*.module.scss` files. Do not create replacement `styles.ts` files that merely centralize page-local class names.
 - Author component styles in the component's own `.tsx` file with Panda CSS: prefer JSX style props for straightforward single-use styles on Panda primitives, `css` for styles that benefit from a named declaration or targets without style props, `cva` for typed visual variants, and `sva` for multi-slot component styles. Keep declarations near the markup they style; extract a shared component only when its semantic markup or interaction contract is genuinely reusable.
 - Follow the HTML and JSX selection criteria, layout table, and Typography contract above; tag consistency alone is not a reason to migrate structural HTML.
-- Treat feature folders as the first home for feature-specific UI and policy. Promote to `shared/components` only after the reuse contract is proven across feature boundaries.
+- Use `src/app` for route-specific screens and `src/components/features` for reusable domain UI and policy. Promote to `src/components/common` only after the reuse contract is proven across feature boundaries.
 - Avoid generic global class names for shared components; scoped generated styles or namespaced classes prevent collisions.
 - Respect a dirty worktree: preserve changes that are not part of the requested extraction.
 
