@@ -6,9 +6,13 @@ tags: [development, npm, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-14T06:18:38Z'
+  at: '2026-10-28T06:08:02+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - eslint.config.js
+  - package-lock.json
+  - .vscode/settings.json
+  - .vscode/extensions.json
   - package.json
   - scripts/install-okf-hooks.mjs
 sources:
@@ -73,3 +77,9 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 ## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
 
 도메인 폴더를 src/components/{도메인}으로 승격했다. @features/* 별칭은 ./src/components/*로 변경하고 @components/*의 common 별칭은 유지한다. Storybook의 기존 src/stories/features 검색과 제목은 유지하며 import 대상만 새 경로로 갱신한다.
+
+## Import 자동 정렬 (2026-10-28)
+
+ESLint에 eslint-plugin-perfectionist 5.13.0을 고정 개발 의존성으로 추가했다. 기존 lint 명령은 순서 위반을 오류로 검사하고 `npm run lint:fix`는 authored src TS/TSX를 ESLint로 수정한 뒤 Prettier로 포맷한다. 생성 코드와 의존성은 제외한다. VS Code에서는 dbaeumer.vscode-eslint 확장을 추천하고 명시적 저장의 source.fixAll.eslint를 활성화했다. 기존 Prettier 저장 포맷은 유지하며 source.organizeImports는 never로 설정해 경쟁 정렬을 방지한다. 로컬 확장 설치 여부에 관계없이 CLI 검사가 동일 규칙을 적용한다.
+
+전체 lint는 이전 검증 작업 사본의 중복 검사를 피하도록 Git에서도 제외하는 `.tmp`와 `.tmp-*` 작업 폴더를 생성물 제외 목록에 포함한다. 실제 authored src의 검사 범위는 유지한다.
