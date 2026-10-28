@@ -242,6 +242,10 @@ For each composition finding, name the current responsibility, proposed part and
 - Avoid generic global class names for shared components; scoped generated styles or namespaced classes prevent collisions.
 - Respect a dirty worktree: preserve changes that are not part of the requested extraction.
 
+## Import organization
+
+After adding or moving imports, follow the ESLint order: Next.js → external packages (React and Node builtins included) → Panda → common atoms → molecules → organisms → layouts → other internal modules → relative imports. Use one blank line between groups, alphabetic module paths and named bindings, and classify compatibility aliases with their canonical layer. Keep type-only imports in the same path group without converting their syntax. Use `npm run lint:fix` for ESLint ordering and Prettier formatting; do not introduce a competing Prettier import sorter or Organize Imports action. Preserve directives, comments, export order, and each side-effect/non-import boundary; imports must not cross CSS/SCSS initialization. Apply changes only to authored sources, including stories and declaration files, and verify a second fix makes no further changes.
+
 ## Completion report
 
 State which components were added, which callers were migrated, what extension points are available, and which verification commands passed. Mention only actionable remaining candidates for future extraction.
