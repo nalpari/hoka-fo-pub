@@ -1,5 +1,6 @@
 import { Drawer } from '@base-ui/react/drawer';
 import { cloneElement, type ReactElement, type ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -8,8 +9,6 @@ import { type ButtonProps } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { IconButton } from '@/components/common/atoms/IconButton/IconButton';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-
-import { usePlatform } from '@/context/platform';
 
 type BottomSheetContentProps = {
   children: ReactNode;

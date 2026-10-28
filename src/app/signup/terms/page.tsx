@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { type ReactNode, useState } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack, styled } from 'styled-system/jsx';
@@ -18,8 +19,6 @@ import { SingleActionDialog } from '@/components/common/molecules/SingleActionDi
 import { Terms } from '@/components/common/molecules/Terms/Terms';
 
 import { AccountFormLayout } from '@/components/common/layouts/AccountFormLayout/AccountFormLayout';
-
-import { useRoutePreview } from '@/context/RoutePreview';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },

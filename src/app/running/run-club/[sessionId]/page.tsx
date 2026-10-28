@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 import { type ReactNode, useContext, useEffect, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
@@ -30,7 +31,6 @@ import {
 } from '@/components/run-club/runClub.data';
 import { RunClubBadge } from '@/components/run-club/RunClubBadge';
 import { RunClubSessionContext } from '@/components/run-club/RunClubSessionContext';
-import { usePlatform } from '@/context/platform';
 import { type Platform } from '@/lib/device';
 import { type Product, products } from '@/mocks/products';
 

@@ -10,6 +10,7 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
+import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
@@ -46,7 +47,6 @@ import {
   checkoutShippingFee,
   getCheckoutSummary,
 } from '@/components/checkout/checkout-summary';
-import { useShop } from '@/context/ShopShell';
 import { faCheck } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

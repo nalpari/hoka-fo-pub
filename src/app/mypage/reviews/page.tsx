@@ -1,6 +1,7 @@
 'use client';
 
 import { useContext, useState } from 'react';
+import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -25,7 +26,6 @@ import {
   type ReviewTab,
   type WrittenReview,
 } from '@/components/mypage/reviews/reviews.types';
-import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 import type { RatingValue } from '@/types/component-contracts/components-common-atoms-RatingStars-RatingStars';
 
 type Props = {

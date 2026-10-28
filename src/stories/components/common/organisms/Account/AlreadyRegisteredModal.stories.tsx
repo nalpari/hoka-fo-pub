@@ -1,9 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { PlatformProvider } from '@/context/platform';
 import { AlreadyRegisteredModal } from '@/stories/route-previews/signup-verify-phonePreview';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (

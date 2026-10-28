@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { PlatformProvider } from '@/context/platform';
 
 import { FilterTabs, type FilterTabsProps } from '@/components/common/atoms/FilterTabs/FilterTabs';
-
-import { PlatformProvider } from '@/context/platform';
 
 const options = [
   { label: '전체', value: 'all' },

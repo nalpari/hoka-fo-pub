@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import {
   RatingStars,
   type RatingStarsSelectionProps,
   type RatingValue,
 } from '@/components/common/atoms/RatingStars/RatingStars';
-
-import { PlatformProvider } from '@/context/platform';
 
 function ControlledRating(args: RatingStarsSelectionProps) {
   const [value, setValue] = useState(args.value);

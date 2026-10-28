@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
+import { RoutePreviewProvider } from '@/context/RoutePreview';
 
 import Page from '@/app/signup/information/page';
-import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   MarketingConsentSummaryModal as MarketingConsentSummaryModalContract,
   RegistrationContent as RegistrationContentContract,

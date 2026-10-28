@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import type { Swiper as SwiperInstance } from 'swiper';
+import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
-import { PlatformProvider } from '@/context/platform';
 import { products } from '@/mocks/products';
 
 const meta = {

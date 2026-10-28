@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-
 import { PlatformProvider } from '@/context/platform';
+
 import { products } from '@/mocks/products';
 import { CartPage } from '@/stories/features/cart/CartPagePreview';
 import type { CartItem } from '@/types/cart';

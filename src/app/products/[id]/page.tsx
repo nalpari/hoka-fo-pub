@@ -22,6 +22,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useShop } from '@/context/ShopShell';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
@@ -66,9 +69,6 @@ import {
 } from '@/components/product/productDetailPresentation';
 import { productInquiries } from '@/components/product/productInquiries';
 import { productSizeOptions } from '@/components/product/productSizeOptions';
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
-import { useShop } from '@/context/ShopShell';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Platform } from '@/lib/device';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';

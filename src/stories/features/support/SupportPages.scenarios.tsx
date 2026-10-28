@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { ShopShell } from '@/context/ShopShell';
 
 import ShippingReturnsPage from '@/app/support/after-sales/page';
 import CareGuidePage from '@/app/support/care/page';
@@ -14,7 +15,6 @@ import SupportPage from '@/app/support/page';
 import SizeGuidePage from '@/app/support/size-guide/page';
 import StoreFinderPage from '@/app/support/store/page';
 import TermsPage from '@/app/support/terms/page';
-import { ShopShell } from '@/context/ShopShell';
 import { InquiryPage } from '@/stories/features/support/InquiryPagePreview';
 
 type Args = { platform: 'web' | 'mobile' };

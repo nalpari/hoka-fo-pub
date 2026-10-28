@@ -3,6 +3,8 @@
 import Link from 'next/link';
 
 import { type ComponentProps, type ReactNode, useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -32,8 +34,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection/Conte
 import { OrderPageLayout } from '@/components/common/layouts/OrderPageLayout/OrderPageLayout';
 
 import { isCartItemSoldOut, itemKey } from '@/components/cart/cart-item';
-import { usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';

@@ -1,11 +1,11 @@
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fireEvent, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import AccountUnlockVerificationPage from '@/app/login/account-locked/verification/page';
 import PhoneVerificationPage from '@/app/signup/verify/phone/page';
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
-import { PlatformProvider } from '@/context/platform';
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 
 const meta = {

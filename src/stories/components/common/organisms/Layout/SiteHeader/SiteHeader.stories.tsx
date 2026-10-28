@@ -1,11 +1,10 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
+import { SiteHeader } from '@/context/ShopShell';
 
 import { headerPromotionItems } from '@/components/common/organisms/Layout/SiteHeader/headerPromotionData';
 import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
-
-import { PlatformProvider } from '@/context/platform';
-import { SiteHeader } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Layout/SiteHeader',

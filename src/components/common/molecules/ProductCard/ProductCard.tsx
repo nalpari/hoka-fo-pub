@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
@@ -23,7 +24,6 @@ import {
   type ProductThumbnailVariant,
 } from '@/components/common/molecules/ProductThumbnail/ProductThumbnail';
 
-import { usePlatform } from '@/context/platform';
 import { type Platform } from '@/lib/device';
 import { type Product } from '@/mocks/products';
 

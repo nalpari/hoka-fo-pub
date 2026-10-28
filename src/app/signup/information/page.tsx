@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { type FormEvent, useState } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
@@ -31,7 +32,6 @@ import {
   type RegistrationInformation,
 } from '@/components/signup-registration/registration.types';
 import { type MarketingPreferences } from '@/components/signup-registration/registration.types';
-import { useRoutePreview } from '@/context/RoutePreview';
 import {
   emailDomainErrorMessage,
   emailFormatErrorMessage,

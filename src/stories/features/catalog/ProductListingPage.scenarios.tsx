@@ -1,9 +1,9 @@
 import { ReadonlyURLSearchParams, useSearchParams } from '@storybook/nextjs-vite/navigation.mock';
 import type { Meta, StoryObj } from '@storybook/react';
+import { ShopShell } from '@/context/ShopShell';
 
 import { getProductListingRoute } from '@/components/catalog/productListingIaRoute';
 import { ProductListingPage } from '@/components/catalog/ProductListingPage';
-import { ShopShell } from '@/context/ShopShell';
 
 type ProductListingStoryArgs = {
   listing?: string;

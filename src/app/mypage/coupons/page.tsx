@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -18,7 +19,6 @@ import { SingleActionDialog } from '@/components/common/molecules/SingleActionDi
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-import { useRoutePreview } from '@/context/RoutePreview';
 import { faCircleCheck } from '@/icons/fontAwesome';
 
 type CouponRegistrationSectionProps = {

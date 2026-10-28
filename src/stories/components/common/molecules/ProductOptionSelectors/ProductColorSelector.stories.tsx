@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import {
   ProductColorSelector,
   type ProductColorSelectorProps,
 } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
-
-import { PlatformProvider } from '@/context/platform';
 
 function Example(args: ProductColorSelectorProps) {
   const [value, setValue] = useState(args.value);

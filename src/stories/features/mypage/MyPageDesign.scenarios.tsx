@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ShopShell } from '@/context/ShopShell';
 
 import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
-import { ShopShell } from '@/context/ShopShell';
 import { MyPageReviews } from '@/stories/features/mypage/MyPagePreview';
 import {
   type MyPageStatusKind,

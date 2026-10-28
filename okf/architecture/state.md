@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:06:58+00:00'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/context/
@@ -427,3 +427,7 @@ ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모
 ## Import 자동 정렬 (2026-10-28)
 
 ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈의 import 순서 및 named binding 순서만 정리한다. 컨텍스트 값·상태 수명·업데이트·주문 및 로그인 동작은 변경하지 않는다.
+
+## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
+
+`src/context`와 상태 소비처의 import 순서만 새 2번 그룹 기준으로 정렬했다. Provider 구성·상태 수명·로그인·장바구니·미리보기 계약과 콜백은 유지한다.

@@ -1,5 +1,4 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-
 import { PlatformProvider } from '@/context/platform';
 import { SiteFooter } from '@/context/ShopShell';
 

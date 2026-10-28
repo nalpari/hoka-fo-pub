@@ -1,10 +1,10 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import RegistrationCompleteContent from '@/app/signup/complete/page';
 import RegistrationPage from '@/app/signup/information/page';
-import { PlatformProvider } from '@/context/platform';
 import { RegistrationContent } from '@/stories/route-previews/signup-informationPreview';
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 

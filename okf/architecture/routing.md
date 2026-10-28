@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:06:58+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/
@@ -238,3 +238,7 @@ Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 R
 ## Import 자동 정렬 (2026-10-28)
 
 src/app의 import만 새 그룹 순서로 정렬했다. 라우트의 URL·기본 export·서버/클라이언트 지시문과 metadata 계약은 유지한다. 부수 효과 스타일 import는 위치·상대 순서를 보존하며 그 앞뒤의 바인딩 import가 경계를 넘지 않는다.
+
+## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
+
+`src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계·User-Agent 기반 플랫폼 판별은 유지한다. 화면 너비 판별로 전환하지 않았다.

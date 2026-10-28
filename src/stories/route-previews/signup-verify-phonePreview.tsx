@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
+import { RoutePreviewProvider } from '@/context/RoutePreview';
 
 import Page from '@/app/signup/verify/phone/page';
-import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type { AlreadyRegisteredModal as AlreadyRegisteredModalContract } from '@/types/component-contracts/app-signup-verify-phone-page';
 
 /** 페이지 내부 구성을 기존 스토리 입력에 연결합니다. (Connects a page-local composition to existing story inputs.) */

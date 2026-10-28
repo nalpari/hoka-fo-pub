@@ -1,11 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
 
 import {
   ProductCard,
   ProductCardPreview,
 } from '@/components/common/molecules/ProductCard/ProductCard';
 
-import { PlatformProvider } from '@/context/platform';
 import { products } from '@/mocks/products';
 
 const meta = {

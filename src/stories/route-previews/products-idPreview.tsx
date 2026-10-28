@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
+import { RoutePreviewProvider } from '@/context/RoutePreview';
 
 import Page from '@/app/products/[id]/page';
-import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   InquiryBoard as InquiryBoardContract,
   ProductColorSelector as ProductColorSelectorContract,

@@ -1,8 +1,8 @@
 'use client';
 
 import { type ComponentProps, type FormEvent, useState } from 'react';
-
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
+
 import { isValidName } from '@/lib/validation';
 
 import {

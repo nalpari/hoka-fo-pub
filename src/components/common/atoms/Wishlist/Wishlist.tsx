@@ -1,12 +1,12 @@
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import type { CSSProperties } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { usePlatform } from '@/context/platform';
 import { faHeartRegular, faHeartSolid } from '@/icons/fontAwesome';
 
 const wishlist = css({

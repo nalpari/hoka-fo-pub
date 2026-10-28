@@ -9,6 +9,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
@@ -31,8 +33,6 @@ import {
   type HomeShoeFinderCardVariant,
   shoeFinderItems,
 } from '@/components/home/homeContent';
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
 import { type Platform } from '@/lib/device';
 import { products } from '@/mocks/products';
 

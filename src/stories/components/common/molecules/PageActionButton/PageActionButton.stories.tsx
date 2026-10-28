@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import { PageActionButton } from '@/components/common/molecules/PageActionButton/PageActionButton';
-
-import { PlatformProvider } from '@/context/platform';
 
 const meta = {
   title: 'Molecules/PageActionButton',

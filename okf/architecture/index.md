@@ -420,3 +420,5 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 2026-10-28: shared를 src로 승격한 구조와 별칭·생성 경로는 [프로젝트 개요](../project.md) 및 관련 개념 문서에 반영했다.
 
 [전체 단일 부모 통합](single-parent-consolidation-2026-10-28.md)에서 389개 구현의 부모 관계, 도메인 폴더 승격과 경계·타입·Storybook 계약을 안내한다.
+
+[공용 훅·컨텍스트 import 순서 적용](ui.md#공용-훅컨텍스트-import-순서-적용-2026-10-28)은 본문·상태·라우팅을 보존한 정렬과 검증 범위를 기록한다.

@@ -19,6 +19,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
@@ -67,9 +69,7 @@ import {
   valuesToLabels,
   widthLabels,
 } from '@/components/catalog/productListingFilterValues';
-import { usePlatform } from '@/context/platform';
 import { type Platform } from '@/lib/device';
-import { useScrollPin } from '@/lib/useScrollPin';
 import { type Product, products } from '@/mocks/products';
 import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
 

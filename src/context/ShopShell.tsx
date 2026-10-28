@@ -23,6 +23,8 @@ import {
   useState,
   useSyncExternalStore,
 } from 'react';
+import { PlatformProvider, usePlatform } from '@/context/platform';
+import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva, cx } from 'styled-system/css';
 import {
@@ -78,7 +80,6 @@ import { useRecentSearches } from '@/components/common/organisms/Search/useRecen
 
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
-import { PlatformProvider, usePlatform } from '@/context/platform';
 import {
   faBox,
   faChevronRight,
@@ -89,7 +90,6 @@ import {
   faXmark,
 } from '@/icons/fontAwesome';
 import { type Platform } from '@/lib/device';
-import { useScrollPin } from '@/lib/useScrollPin';
 import { type CartItem } from '@/types/cart';
 
 const styles = {

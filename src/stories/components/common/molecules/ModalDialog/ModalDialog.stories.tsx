@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
 import { ModalDialog } from '@/components/common/molecules/ModalDialog/ModalDialog';
-
-import { PlatformProvider } from '@/context/platform';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (
   <PlatformProvider platform={platform}>

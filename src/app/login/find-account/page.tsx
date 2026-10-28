@@ -3,6 +3,9 @@
 import { useRouter } from 'next/navigation';
 
 import { type FormEvent, type ReactNode, useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -23,9 +26,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection/Conte
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 import { getPhoneDigits, isValidPhone } from '@/components/find-account/phoneNumber';
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 import { isValidName } from '@/lib/validation';
 
 type Props = {

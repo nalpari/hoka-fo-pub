@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
+import { RoutePreviewProvider } from '@/context/RoutePreview';
 
 import Page from '@/app/signup/terms/page';
-import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   SignupTermsContent as SignupTermsContentContract,
   TermsDialog as TermsDialogContract,

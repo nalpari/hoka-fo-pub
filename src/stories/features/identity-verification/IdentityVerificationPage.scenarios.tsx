@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-
 import { PlatformProvider } from '@/context/platform';
+
 import { IdentityVerificationContent } from '@/stories/route-previews/signup-verifyPreview';
 
 const meta = {

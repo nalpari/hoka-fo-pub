@@ -3,6 +3,9 @@
 import Link from 'next/link';
 
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -28,9 +31,6 @@ import {
   type MyPageOrderItem,
   orderItems,
 } from '@/components/mypage/mypage-home-data';
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
-import { useShop } from '@/context/ShopShell';
 
 type LogoutDialogProps = {
   open: boolean;

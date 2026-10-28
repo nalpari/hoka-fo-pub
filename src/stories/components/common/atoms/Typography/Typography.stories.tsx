@@ -1,10 +1,9 @@
 import type { Meta as StorybookMeta, StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
 
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography/Typography';
-
-import { PlatformProvider } from '@/context/platform';
 
 type TypographyStorySpec = {
   readonly name: string;

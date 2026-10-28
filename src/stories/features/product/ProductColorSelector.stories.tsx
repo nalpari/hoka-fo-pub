@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-
 import { PlatformProvider } from '@/context/platform';
+
 import { products } from '@/mocks/products';
 import { ProductColorSelector } from '@/stories/route-previews/products-idPreview';
 

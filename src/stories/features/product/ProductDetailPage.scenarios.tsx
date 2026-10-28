@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { ShopShell } from '@/context/ShopShell';
 
 import ProductPage from '@/app/products/[id]/page';
-import { ShopShell } from '@/context/ShopShell';
 
 const meta = {
   title: 'PAGES/상품/1. 상품상세',

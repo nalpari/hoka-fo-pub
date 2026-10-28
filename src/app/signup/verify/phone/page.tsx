@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 
@@ -11,7 +12,6 @@ import { SingleActionDialog } from '@/components/common/molecules/SingleActionDi
 
 import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
 import { usePhoneVerification } from '@/components/phone-verification/usePhoneVerification';
-import { useRoutePreview } from '@/context/RoutePreview';
 
 const styles = {
   body: css({ gap: '4' }),

@@ -1,6 +1,7 @@
 'use client';
 
 import { useContext, useState } from 'react';
+import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
@@ -22,7 +23,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection/Conte
 
 import { type Address } from '@/components/mypage/mypage-address.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 
 function AddressEditor({
   editingId,

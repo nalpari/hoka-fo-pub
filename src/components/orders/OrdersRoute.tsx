@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Drawer } from '@base-ui/react/drawer';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { type ReactNode, useId, useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -68,8 +70,6 @@ import {
   type OrdersPeriod,
   type OrdersView,
 } from '@/components/orders/orders.types';
-import { usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
 
 /** 주문 화면의 데스크톱 탐색과 모바일 본문 여백을 배치합니다. (Lays out desktop navigation and mobile order content.) */
 function OrdersLayout({

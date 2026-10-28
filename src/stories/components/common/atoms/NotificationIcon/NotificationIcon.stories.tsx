@@ -1,8 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+import { NotificationIcon } from '@/context/ShopShell';
 
 import { HStack } from 'styled-system/jsx';
-
-import { NotificationIcon } from '@/context/ShopShell';
 
 const meta = {
   title: 'Atoms/NotificationIcon',

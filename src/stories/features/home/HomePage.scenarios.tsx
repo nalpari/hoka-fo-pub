@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ShopShell } from '@/context/ShopShell';
 
 import HomePage from '@/app/page';
-import { ShopShell } from '@/context/ShopShell';
 
 const meta = {
   title: 'PAGES/메인/0. 메인',

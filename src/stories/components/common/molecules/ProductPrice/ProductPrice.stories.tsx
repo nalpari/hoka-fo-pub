@@ -1,8 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
 
 import { ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
-
-import { PlatformProvider } from '@/context/platform';
 
 const meta = {
   title: 'Molecules/Product Price',

@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T06:08:02+00:00'
+  at: '2026-10-28T07:06:58+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/components/
@@ -2948,3 +2948,7 @@ Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 �
 공통 UI·도메인 구성과 Storybook의 import 순서를 ESLint 정책으로 통일했다. Next·외부 패키지·Panda·atoms/molecules/organisms/layouts·기타 내부·상대 경로를 분리한다. 컴포넌트 구현·props·JSX·Panda 스타일·스토리 export와 시나리오는 변경하지 않으며 CSS/SCSS 부수 효과 import 순서를 보존한다.
 
 사용자 승인으로 AccountLockedPage 스토리 끝의 단독 숫자 표현식 `1`을 제거했다. 렌더링·스토리 입력·시나리오는 유지하며 기존 no-unused-expressions 오류의 원인만 제거한다.
+
+## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
+
+공통 UI·도메인 구성·Storybook·타입 선언에서 공용 훅·컨텍스트 import를 외부 패키지 바로 다음으로 옮겼다. JSX·Panda 스타일·스토리 시나리오와 export를 유지한다. 119개 파일의 TypeScript AST·주석 비교로 본문·import 대상·타입 표기·부수 효과 경계 보존을 확인했다. `npm run lint:fix` 두 번째 실행에서 파일 바이트 변경이 없었으며 전체 ESLint·타입 검사·테스트 72개를 통과했다. import 순서만 바꾼 이번 작업에서 브라우저·Next/Storybook 빌드는 다시 실행하지 않았다.

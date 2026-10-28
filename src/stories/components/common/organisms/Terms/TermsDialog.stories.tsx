@@ -1,10 +1,10 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import { Button } from '@/components/common/atoms/Button/Button';
 
-import { PlatformProvider } from '@/context/platform';
 import { TermsDialog } from '@/stories/route-previews/signup-termsPreview';
 
 const withPlatform = (platform: 'web' | 'mobile') => (Story: React.ComponentType) => (

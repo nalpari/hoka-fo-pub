@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import {
   SearchField,
   type SearchFieldProps,
 } from '@/components/common/molecules/SearchField/SearchField';
-
-import { PlatformProvider } from '@/context/platform';
 
 function ControlledSearchField(args: SearchFieldProps) {
   const [value, setValue] = useState(args.value);

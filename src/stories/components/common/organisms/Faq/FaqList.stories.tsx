@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
-
 import { PlatformProvider } from '@/context/platform';
+
 import { FaqList } from '@/stories/route-previews/support-faqPreview';
 import type { FaqListProps } from '@/types/component-contracts/app-support-faq-page';
 

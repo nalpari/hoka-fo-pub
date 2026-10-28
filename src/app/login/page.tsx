@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 
 import { Popover } from '@base-ui/react/popover';
 import { type ComponentProps, type FormEvent, type ReactNode, useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
+import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -21,9 +24,6 @@ import { SocialAuthButton } from '@/components/common/molecules/SocialAuthButton
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
 
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
-import { useShop } from '@/context/ShopShell';
 import { faCircleInfo } from '@/icons/fontAwesome';
 import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
 

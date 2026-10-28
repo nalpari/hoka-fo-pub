@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Popover } from '@base-ui/react/popover';
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
@@ -17,7 +18,6 @@ import { SupportTabs } from '@/components/common/molecules/SupportTabs/SupportTa
 import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout';
 
 import { supportNavigation } from '@/components/support/support.navigation';
-import { usePlatform } from '@/context/platform';
 
 type TermsDateSelectProps = Pick<RadioProps, 'name' | 'options' | 'value' | 'onValueChange'>;
 

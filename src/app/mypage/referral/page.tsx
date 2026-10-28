@@ -1,6 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
@@ -11,7 +12,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection/Conte
 import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
-import { useRoutePreview } from '@/context/RoutePreview';
 
 type MetricGridItem = {
   label: ReactNode;

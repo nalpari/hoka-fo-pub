@@ -1,9 +1,9 @@
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import FindAccountPage from '@/app/login/find-account/page';
-import { PlatformProvider } from '@/context/platform';
 
 const withPlatform =
   (platform: 'web' | 'mobile', width?: number) => (Story: React.ComponentType) => (

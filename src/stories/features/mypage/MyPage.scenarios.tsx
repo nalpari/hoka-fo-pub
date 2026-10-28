@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ShopShell } from '@/context/ShopShell';
 
 import MyPage from '@/app/mypage/page';
-import { ShopShell } from '@/context/ShopShell';
 
 type MyPageStoryArgs = { platform?: 'web' | 'mobile' };
 

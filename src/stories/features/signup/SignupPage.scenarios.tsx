@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import SignupPage from '@/app/signup/page';
-import { PlatformProvider } from '@/context/platform';
 
 const meta = {
   title: 'PAGES/회원가입/0. 회원가입 안내',

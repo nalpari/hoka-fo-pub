@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { type FormEvent, type FormEventHandler, type ReactNode, useState } from 'react';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 
@@ -21,7 +22,6 @@ import {
   type FieldName,
   validatePasswordReset as validate,
 } from '@/components/find-account/passwordValidation';
-import { useRoutePreview } from '@/context/RoutePreview';
 
 const styles = {
   input: css({ minW: '0' }),

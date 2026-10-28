@@ -2,6 +2,7 @@
 
 import { Dialog } from '@base-ui/react/dialog';
 import { type ComponentProps, type ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { type SystemStyleObject } from 'styled-system/types';
@@ -10,7 +11,6 @@ import { Button } from '@/components/common/atoms/Button/Button';
 import { Icon } from '@/components/common/atoms/Icon/Icon';
 import { Typography } from '@/components/common/atoms/Typography/Typography';
 
-import { usePlatform } from '@/context/platform';
 import { faXmark } from '@/icons/fontAwesome';
 
 const header = css.raw({

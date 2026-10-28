@@ -1,7 +1,8 @@
+import { ShopShell } from '@/context/ShopShell';
+
 import MyPage from '@/app/mypage/page';
 import { NotFoundPage } from '@/components/not-found/NotFoundPage';
 import { RunClubPage } from '@/components/run-club/RunClubPage';
-import { ShopShell } from '@/context/ShopShell';
 import {
   type MyPageStatusKind,
   MyPageStatusPage,

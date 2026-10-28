@@ -1,9 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+import { PlatformProvider } from '@/context/platform';
 
 import { Box } from 'styled-system/jsx';
 
 import { getProductDetailPresentation } from '@/components/product/productDetailPresentation';
-import { PlatformProvider } from '@/context/platform';
 import { products } from '@/mocks/products';
 import { ProductTechSpecs } from '@/stories/route-previews/products-idPreview';
 

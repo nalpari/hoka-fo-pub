@@ -1,6 +1,7 @@
 'use client';
 
 import { type FormEvent, useEffect, useRef, useState } from 'react';
+import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -36,7 +37,6 @@ import {
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { isValidEmailDomain, isValidEmailLocalPart } from '@/lib/emailValidation';
 import { type Errors, type FieldName, validatePasswordReset } from '@/lib/passwordValidation';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 type Props = {
   phone: string;

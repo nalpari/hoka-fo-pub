@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { faFilePdf, faImage } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useId, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Square, Stack } from 'styled-system/jsx';
@@ -27,7 +28,6 @@ import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenter
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 import { InquiryPreviewContext } from '@/components/support/InquiryPreviewContext';
 import { supportNavigation } from '@/components/support/support.navigation';
-import { usePlatform } from '@/context/platform';
 
 function InquiryEmptyState() {
   return (

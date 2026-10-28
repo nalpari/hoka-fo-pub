@@ -1,8 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
+import { MegaMenuAD } from '@/context/ShopShell';
 
 import { megaMenus } from '@/components/common/organisms/Layout/SiteHeader/megaMenu';
-
-import { MegaMenuAD } from '@/context/ShopShell';
 
 const meta = {
   title: 'Organisms/Layout/SiteHeader/MegaMenuAD',

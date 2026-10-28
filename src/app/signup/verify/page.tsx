@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
+import { useRoutePreview } from '@/context/RoutePreview';
+
 import { css } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 
@@ -13,8 +15,6 @@ import { AccountFormHeader } from '@/components/common/molecules/AccountFormHead
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection/ContentSection';
-
-import { useRoutePreview } from '@/context/RoutePreview';
 
 const styles = {
   illustration: css({

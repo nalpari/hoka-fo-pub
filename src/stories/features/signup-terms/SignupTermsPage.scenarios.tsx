@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
+import { PlatformProvider } from '@/context/platform';
 
 import SignupTermsPage from '@/app/signup/terms/page';
-import { PlatformProvider } from '@/context/platform';
 import { SignupTermsContent } from '@/stories/route-previews/signup-termsPreview';
 import { assertAccountFormLayout } from '@/stories/utils/assertAccountFormLayout';
 

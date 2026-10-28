@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -15,7 +16,6 @@ import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenter
 
 import { notices } from '@/components/notices/notices.data';
 import { supportNavigation } from '@/components/support/support.navigation';
-import { usePlatform } from '@/context/platform';
 
 type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobile' };
 

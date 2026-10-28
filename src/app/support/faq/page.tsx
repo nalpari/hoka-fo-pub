@@ -1,6 +1,8 @@
 'use client';
 
 import { type ReactNode, useMemo, useState } from 'react';
+import { usePlatform } from '@/context/platform';
+import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, HStack } from 'styled-system/jsx';
@@ -16,8 +18,6 @@ import { CustomerCenterLayout } from '@/components/common/layouts/CustomerCenter
 
 import { faqCategories, type FaqCategory, faqs } from '@/components/faq/faq.data';
 import { supportNavigation } from '@/components/support/support.navigation';
-import { usePlatform } from '@/context/platform';
-import { useRoutePreview } from '@/context/RoutePreview';
 
 type Props = {
   category: FaqCategory;

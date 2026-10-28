@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
+import { RoutePreviewProvider } from '@/context/RoutePreview';
 
 import Page from '@/app/page';
-import { RoutePreviewProvider } from '@/context/RoutePreview';
 import type {
   Hero as HeroContract,
   HeroCopy as HeroCopyContract,
