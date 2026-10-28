@@ -2946,3 +2946,5 @@ Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 �
 ## Import 자동 정렬 (2026-10-28)
 
 공통 UI·도메인 구성과 Storybook의 import 순서를 ESLint 정책으로 통일했다. Next·외부 패키지·Panda·atoms/molecules/organisms/layouts·기타 내부·상대 경로를 분리한다. 컴포넌트 구현·props·JSX·Panda 스타일·스토리 export와 시나리오는 변경하지 않으며 CSS/SCSS 부수 효과 import 순서를 보존한다.
+
+사용자 승인으로 AccountLockedPage 스토리 끝의 단독 숫자 표현식 `1`을 제거했다. 렌더링·스토리 입력·시나리오는 유지하며 기존 no-unused-expressions 오류의 원인만 제거한다.

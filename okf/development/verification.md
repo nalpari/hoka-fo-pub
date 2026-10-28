@@ -215,3 +215,7 @@ import 그룹은 Next.js → 외부 패키지(React·Node 내장 포함) → Pan
 Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 고정하고 일반 import가 이를 건너뛰는 것은 막지 않는다. eslint.config.js의 얇은 래퍼가 구간마다 기존 정렬 규칙을 호출해 CSS/SCSS·부수 효과 import 및 비-import 문장을 경계로 유지한다. export 정렬 규칙은 추가하지 않는다. tests/import-order.test.mjs에서 그룹·별칭·타입·named binding·주석·지시문·경계·멱등성을 검증한다. 전체 소스 적용 전후에는 import 대상과 코드 본문 보존도 별도 비교한다.
 
 검증 결과 (2026-10-28): 533개 TS/TSX 중 453개를 정렬했다. 수정 전후 TypeScript AST에서 import 순서와 named binding 순서를 제외한 본문·import 대상·타입 표기와 주석이 보존되었고 부수 효과 import 7개 및 비-import 경계를 넘는 이동이 없었다. 반복 자동 수정 두 번에서 소스 바이트 변경이 0개였으며, 생성물 제외를 포함한 규칙 회귀 9개와 전체 테스트 71개·타입 검사·Next/Storybook 빌드가 통과했다. 스킬 validator도 통과했다.
+
+사용자 승인에 따라 기존 AccountLockedPage 스토리 끝의 의미 없는 숫자 표현식 `1`을 삭제했다. import 정리 외의 본문 변경은 이 무효 문장 제거 한 건이며, 컴포넌트·스토리 동작에는 영향이 없다. 전체 ESLint 및 정상 종료하는 lint:fix 반복 검증 결과는 아래에 기록한다.
+
+승인 후 재검증: 전체 `npm run lint`가 오류 없이 통과했고 전체 테스트 71개가 다시 통과했다. `npm run lint:fix`도 정상 종료한다.
