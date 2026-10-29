@@ -3263,8 +3263,8 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 
 하위 export에는 용도 접두사를 붙인다(예: SingleActionDefault, ConfirmDefault, LoadMoreDisabled). 이전 title·스토리 ID는 새 소유 경로로 변경되며 호환용 등록은 남기지 않는다. src·.storybook·scripts·tests에서 제거된 파일과 이전 ID의 활성 참조를 확인했다. 과거 절의 경로는 당시 작업의 출처로 보존한다.
 
-이전 meta의 args·render·play·decorators·parameters·argTypes는 해당 사례에 보존한다. ContentHeader의 기본 제목·설명과 Typography의 기본 variant가 다른 사례에 섞이지 않게 초기값을 명시적으로 해제한다. ModalDialog의 기존 web decorator와 모바일 덮어쓰기, 폼 제출·확인·취소·Escape·포커스 복귀, Checkbox 제어 상태와 약관 링크, Button의 커스텀 문서 및 아이콘 선택 Controls·코드 복사·비교 표를 유지한다. 프로덕션 컴포넌트 API·렌더링은 변경하지 않았다.
+이전 meta의 args·render·play·decorators·parameters·argTypes는 해당 사례에 보존한다. ContentHeader의 기본 제목·설명과 Typography의 기본 variant가 다른 사례에 섞이지 않게 초기값을 명시적으로 해제한다. ModalDialog의 기존 web decorator와 모바일 덮어쓰기, 폼 제출·확인·취소·Escape·포커스 복귀, Checkbox 제어 상태와 약관 링크, Button의 커스텀 문서 및 아이콘 선택 Controls·코드 복사·비교 표를 유지한다. 별점 방향키 검증은 비동기 선택 반영을, 기존 ModalDialog 검증은 닫힘 애니메이션 완료를 waitFor로 기다린다. 프로덕션 컴포넌트 API·렌더링은 변경하지 않았다.
 
 작성: codex/gpt-6, 2026-10-29T00:28:50Z. 작업 트리 출처: frontmatter의 공통 스토리 파일 7개. 검증 결과는 아래에 기록한다.
 
-검증: TypeScript 전체 검사와 변경 스토리의 ESLint·Prettier 검사, Storybook 정적 빌드를 통과했다. 생성 index에서 이전 파일 11개의 등록 제거와 새 스토리 63개의 고유 ID를 확인했다. 상호작용 검증의 비동기 대기 보완은 후속 커밋에 기록한다.
+검증: 변경 전후 TypeScript 전체 검사(`npm run typecheck -- --incremental false`), 변경 스토리 7개의 ESLint·Prettier 검사, Storybook 정적 빌드를 통과했다. 전체 공통 스토리 등록 조사에서 동일 component의 중복 기본 파일은 없고, 생성 index에서 이전 파일 11개의 등록 제거와 새 스토리 63개의 고유 ID를 확인했다. ego-browser에서 이전 사례 63개와 기존 대표 사례 9개, 총 72개를 렌더링하고 play 오류 없이 통과했다. 모바일 사례는 375px, PC는 1280px에서 확인했다. 브라우저 포커스가 없는 상태에서 발생하던 별점 키보드 검증 오류는 페이지에 실제 포커스를 준 뒤 재검증했다. Next 애플리케이션 빌드는 스토리 전용 변경이므로 실행하지 않았다.

@@ -149,10 +149,10 @@ export const HeaderDismissal: Story = {
     const dialog = await body.findByRole('dialog', { name: '인터랙티브 모달' });
     await expect(dialog).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: '안내 닫기' }));
-    await expect(dialog).not.toBeVisible();
+    await waitFor(() => expect(dialog).not.toBeVisible());
     await userEvent.click(canvas.getByRole('button', { name: '모달 열기' }));
     await userEvent.keyboard('{Escape}');
-    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
   },
 };
 
@@ -166,7 +166,7 @@ export const ScrollFooter: Story = {
     await expect(dialog).toBeVisible();
     await expect(within(dialog).getByRole('button', { name: '확인' })).toBeVisible();
     await userEvent.click(within(dialog).getByRole('button', { name: '확인' }));
-    await expect(dialog).not.toBeVisible();
+    await waitFor(() => expect(dialog).not.toBeVisible());
   },
 };
 

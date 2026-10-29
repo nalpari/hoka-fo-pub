@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -116,11 +116,11 @@ export const SelectionKeyboardSelection: SelectionStory = {
     await expect(canvas.getByRole('radio', { name: '3점' })).toBeChecked();
     await expect(args.onValueChange).toHaveBeenLastCalledWith(3);
     await userEvent.keyboard('{ArrowRight}');
-    await expect(canvas.getByRole('radio', { name: '4점' })).toBeChecked();
+    await waitFor(() => expect(canvas.getByRole('radio', { name: '4점' })).toBeChecked());
     await expect(canvas.getByRole('radio', { name: '4점' })).toHaveFocus();
     await expect(args.onValueChange).toHaveBeenLastCalledWith(4);
     await userEvent.keyboard('{ArrowLeft}');
-    await expect(canvas.getByRole('radio', { name: '3점' })).toBeChecked();
+    await waitFor(() => expect(canvas.getByRole('radio', { name: '3점' })).toBeChecked());
   },
   args: { ...selectionDefaults.args },
 };
