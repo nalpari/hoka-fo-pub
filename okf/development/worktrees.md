@@ -8,6 +8,8 @@ generated:
   by: codex/gpt-6
   at: '2026-10-14T06:02:14Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
+working_tree_sources:
+  - .agents/skills/hoka-chat-cnp/SKILL.md
 sources:
   - id: -agents-skills-hoka-cnp-skill-md
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.agents/skills/hoka-cnp/SKILL.md
@@ -44,6 +46,14 @@ git ls-remote --heads origin <현재-브랜치명>
 사용자가 요청한 경우 `.agents/skills/hoka-cnp/SKILL.md`를 적용한다. 의도별로 나누고 `type: 한글 subject` 형식으로 메시지를 작성한다. 대상 파일을 명시적으로 스테이징하고 계획을 먼저 보여준다.
 
 upstream이 없고 이름 충돌이 없으면 `git push -u origin HEAD`를 사용한다. upstream이 있으면 해당 원격 브랜치에 일반 푸시한다. 보호된 `main`·`master`의 푸시가 거절되면 임의로 우회 브랜치를 만들지 않고 사용자에게 결과를 알린다.
+
+## 현재 채팅의 변경만 커밋 (2026-10-29)
+
+[hoka-chat-cnp](../../.agents/skills/hoka-chat-cnp/SKILL.md)는 채팅의 요청·편집 기록과 기준 diff로 변경 범위를 확인하고, 선별한 스테이지에 [hoka-cnp](../../.agents/skills/hoka-cnp/SKILL.md)를 적용한다. Git에는 작성 채팅 정보가 없으므로 기록이 없거나 변경이 중첩되면 자동으로 소유권을 판단하지 않는다.
+
+다른 작업의 기존 스테이지는 보존하고 분리 확인 전 커밋을 중단한다. 혼합 파일은 현재 인덱스 기준 비대화형 패치로 해당 부분만 추가하며, OKF 공유 문서도 같은 방식으로 다룬다. 훅·동시 편집 후에는 범위를 재검토한다. 공유 인덱스에서 완전한 원자적 격리를 보장하지 않으며, 충돌이 반복되면 별도 워크트리를 제안한다. 푸시에는 기존 미푸시 커밋도 포함될 수 있으므로 원격과 대상 커밋 범위를 별도로 확인한다.
+
+작업 트리 출처는 `.agents/skills/hoka-chat-cnp/SKILL.md`다. 이번 작성은 스킬과 운영 문서 추가 범위이며 실제 스테이징·커밋·푸시는 수행하지 않는다.
 
 ## 작업 종료
 
