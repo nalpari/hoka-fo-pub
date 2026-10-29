@@ -162,6 +162,8 @@ sources:
 
 # 라우팅과 플랫폼
 
+스타일 비교에 `/examples/styles/jsx-props`를 추가했다. 기존 두 예시도 Flex·Grid를 유지하고 className으로 스타일을 연결하며, 세 페이지의 코드 영역은 기본 펼침 상태다. 작업 트리 출처: src/app/examples/styles/classnames/page.tsx, src/app/examples/styles/scss-module/page.tsx, src/app/examples/styles/scss-module/page.module.scss, src/app/examples/styles/jsx-props/page.tsx. [비교 방식](style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29).
+
 ## 스타일 방식 비교 페이지 (2026-10-29)
 
 `/examples/styles/classnames`와 `/examples/styles/scss-module`을 추가했다. 각 page.tsx가 정적 비교 화면을 직접 소유하며 공통 쇼핑 셸과 플랫폼 선택을 사용한다. 운영 경로를 변경하지 않고 두 예시 사이의 Next Link와 네이티브 details 코드 펼침을 제공한다. SCSS Module은 사용자가 요청한 예시 파일에 한정한 정책 예외다. 작업 트리 출처와 검증은 [스타일 비교 예시](style-examples.md)를 참고한다.

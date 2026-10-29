@@ -1,5 +1,7 @@
 # 아키텍처
 
+[Panda JSX 유지와 세 가지 스타일 예시](style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29)는 Flex·Grid 유지, JSX props 경로와 코드 기본 노출을 설명한다.
+
 [스타일 작성 방식 비교 예시](style-examples.md)는 TSX 상단 Panda 클래스와 페이지 전용 SCSS Module의 두 경로·비교용 예외·반응형 검증을 설명한다.
 
 [모바일 전체메뉴의 PC 전환 처리](state.md#pc-전환-시-모바일-전체메뉴-닫기-2026-10-29)는 PC 전환 시 닫기와 모바일 복귀 시 닫힘 유지 및 검증 결과를 설명한다.
