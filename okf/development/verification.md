@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:01:50Z'
+  at: '2026-10-29T05:37:21Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -365,3 +365,9 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook-20261029에서 통과했다. 이는 전체 Storybook play 실행과 구분한다.
 
 IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 colSpan=9 검증을 대체한다. 전체 tbody와 thead의 rowspan/colspan 그리드 누락·겹침 없음, 1535px 화면, 375px platform-mobile 내부 가로 스크롤, 전체 접기 뒤 파일 미잔존, Storybook fixture의 디자인 윗줄·퍼블리싱 아랫줄과 WEB/Mobile 링크를 확인했다. 타입·변경 파일 lint/포맷·Panda·diff 검사를 통과했으며 이 배치 변경의 프로덕션 빌드는 다시 실행하지 않았다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
+
+## 첨부 디자인·소스 대조 상태 검증 (2026-10-29)
+
+변경 TS/TSX·테스트의 ESLint/Prettier, 타입 검사, Panda 생성과 diff 공백 검사를 통과했다. 작업 트리 기준 OKF 매핑 누락은 없다. 마지막 IA 검색/필터 재검사에서는 localhost:3000 연결이 거절되어 검사를 마치지 못했으며, 앞서 확인한 IA 비고 노출과 구분한다.
+
+`node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](../architecture/design-source-comparison-2026-10-29.md)를 참고한다.

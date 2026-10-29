@@ -29,9 +29,11 @@ import {
   isScreenDeleted,
 } from '@/app/screen-index/screenConnections';
 import {
+  confirmedPublishingProgress,
   getScreenProgress,
   type ScreenProgress,
   type ScreenProgressOverrides,
+  screenReviewNotes,
 } from '@/app/screen-index/storybookLinks';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
@@ -301,6 +303,14 @@ const styles = {
     },
   }),
   note: css({ minW: '290px', lineHeight: '1.4', whiteSpace: 'normal!' }),
+  noteList: css({
+    m: '0',
+    pl: '16px',
+    listStyleType: 'disc',
+    display: 'grid',
+    gap: '4px',
+    overflowWrap: 'anywhere',
+  }),
   statusTag: css({
     display: 'inline-flex',
     whiteSpace: 'nowrap',
@@ -318,6 +328,22 @@ const styles = {
   deletedTag: css({ bg: '#d9dde6', color: '#68718a' }),
   empty: css({ p: '8', color: '#68718a', textAlign: 'center' }),
 };
+
+function splitNoteEntries(note: string) {
+  const entries = note
+    .split(/\s+\/\s+|(?=\s+\/[A-Za-z][\w-]*\/)/)
+    .flatMap((part) => part.split(/(?<![\d/A-Za-z])(?=\d{1,2}\/\d{1,2}(?!\d)|\(\d{6}\))/))
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  const seen = new Set<string>();
+  return entries.filter((entry) => {
+    // 원본 IA와 프로젝트 메모를 합칠 때 생긴 공백 차이의 중복도 표시에서 제거합니다.
+    const key = entry.replace(/\s+/g, '').replace(/[.!。]+$/, '');
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 function getProgressTagClass(value: ScreenProgress[keyof ScreenProgress]) {
   if (value === 'ready' || value === 'received') return styles.readyTag;
@@ -344,9 +370,10 @@ function renderProgressCells(
               as="span"
               className={styles.statusTag + ' ' + getProgressTagClass(value)}
               title={
-                key.endsWith('Publishing') &&
+                (key === 'pcPublishing' || key === 'moPublishing') &&
                 screen &&
-                progressOverrides[screen.iaNumber]?.[key] === undefined
+                progressOverrides[screen.iaNumber]?.[key] === undefined &&
+                confirmedPublishingProgress[screen.iaNumber]?.[key] === undefined
                   ? '기존 통합 상태를 이관한 초기값입니다. PC·MO별 확인값으로 갱신할 수 있습니다.'
                   : undefined
               }
@@ -505,6 +532,7 @@ export function IaStructurePage({
           screen.category,
           screen.screenCode,
           screen.note,
+          screenReviewNotes[screen.iaNumber] ?? '',
         ]
           .join(' ')
           .toLowerCase();
@@ -824,6 +852,13 @@ function GroupRows({
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
           const route = connection?.route;
           const rowClass = deleted ? styles.deletedRow : '';
+          const noteEntries = row.screen
+            ? splitNoteEntries(
+                [row.screen.note, screenReviewNotes[row.screen.iaNumber]]
+                  .filter(Boolean)
+                  .join(' / '),
+              )
+            : [];
 
           return (
             <Fragment key={row.id}>
@@ -926,7 +961,15 @@ function GroupRows({
                       삭제 / 제외
                     </Typography>
                   )}
-                  {row.screen ? row.screen.note || '-' : '-'}
+                  {noteEntries.length ? (
+                    <ul className={styles.noteList}>
+                      {noteEntries.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    '-'
+                  )}
                 </td>
               </tr>
               {row.screen && (

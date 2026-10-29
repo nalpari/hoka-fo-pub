@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:01:50Z'
+  at: '2026-10-29T05:37:21Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -767,6 +767,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## IA 비고의 날짜별 목록 표시 (2026-10-29)
+
+비고/이슈는 날짜별 `li`와 날짜 없는 경로 안내 항목으로 나누고 중복 메모를 제거해 표시한다. 로컬 Panda 스타일로 원형 목록 기호·16px 들여쓰기·부모 gap 4px과 긴 경로 줄바꿈을 적용한다. 데이터·검색·공통 컴포넌트 계약은 유지한다. [동작과 실제 확인 범위](routing.md#ia-비고의-날짜별-목록-표시-2026-10-29). 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
 
 ## IA 디자인 조사 상태와 퍼블리싱 수정 표시 (2026-10-29)
 
@@ -3345,3 +3349,7 @@ Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook
 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. Codex가 타입 검사·변경 파일 ESLint/Prettier·Panda 생성과 diff 검사를 통과했다. 앱 전체 tbody와 두 행 thead의 rowspan/colspan을 7열 그리드로 대조해 누락·겹침이 없음을 확인했다. 회원가입 화면의 두 행과 대분류 WBS, 1535px 헤더 시각 확인, 375px platform-mobile에서 두 행 헤더·내부 가로 스크롤, 전체 접기 뒤 남은 파일 없음도 확인했다. Storybook fixture에서 디자인 수급/미수급은 윗줄, 퍼블리싱 완료/대기는 아랫줄이고 WEB/Mobile 링크가 유지됨을 확인했다. 이 표 배치 변경에 대해 프로덕션 빌드와 전체 Storybook play는 다시 실행하지 않았다.
 
 사용자 요청으로 IA 구조도 제목 아래의 FO.html 기준·디자인 수급/퍼블리싱 안내 설명(description prop)을 제거했다. 제목·breadcrumb·현황·NAV·상태와 두 줄 표는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
+
+## 첨부 디자인 대비 IA 검토 비고 (2026-10-29)
+
+IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시하며 검색에도 포함한다. 날짜별 항목 분리·중복 제거와 기존 두 줄 표·작업 파일 배지는 유지한다. 이번 변경은 디자인 대비 미적용 UI와 서비스 연결 대기의 기록이며 실제 회원가입·로그인·고객센터·마이페이지·장바구니·주문 컴포넌트를 수정하지 않는다. [영역별 소스 대조](design-source-comparison-2026-10-29.md)를 참고한다. 작업 트리 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/storybookLinks.ts`다.

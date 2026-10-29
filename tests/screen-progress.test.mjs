@@ -15,7 +15,7 @@ const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 
-const { getScreenProgress } = await import(
+const { getScreenProgress, screenReviewNotes } = await import(
   'data:text/javascript;base64,' + Buffer.from(compiled).toString('base64')
 );
 
@@ -38,6 +38,71 @@ test('legacy publishing migration never infers design receipt', () => {
     getScreenProgress({ iaNumber: 225, screenCode: 'eland_hlo_03' }, {}).pcPublishing,
     'pending',
   );
+});
+
+test('attachment audit keeps missing screens pending and separates platform-specific revisions', () => {
+  for (const iaNumber of [234, 251, 253, 254]) {
+    const result = getScreenProgress({ iaNumber, screenCode: '' }, {});
+    assert.equal(result.pcDesign, 'received');
+    assert.equal(result.moDesign, 'received');
+    assert.equal(result.pcPublishing, 'revision');
+    assert.equal(result.moPublishing, 'revision');
+    assert.ok(screenReviewNotes[iaNumber]);
+  }
+  const ipin = getScreenProgress({ iaNumber: 235, screenCode: 'eland_hjo_03' }, {});
+  assert.equal(ipin.pcPublishing, 'pending');
+  assert.equal(ipin.moPublishing, 'pending');
+  assert.equal(ipin.pcDesign, 'missing');
+  const terms = getScreenProgress({ iaNumber: 236, screenCode: 'eland_hjo_04' }, {});
+  assert.equal(terms.pcPublishing, 'ready');
+  assert.equal(terms.moPublishing, 'revision');
+  assert.equal(
+    getScreenProgress({ iaNumber: 234, screenCode: '' }, { 234: { moPublishing: 'ready' } })
+      .moPublishing,
+    'ready',
+  );
+});
+
+test('password completion design is supplied on both platforms without inferring a new review', () => {
+  const result = getScreenProgress({ iaNumber: 252, screenCode: '' }, {});
+  assert.equal(result.pcDesign, 'received');
+  assert.equal(result.moDesign, 'received');
+  assert.equal(result.pcPublishing, 'ready');
+  assert.equal(result.moPublishing, 'ready');
+});
+
+test('cart comparison preserves user-confirmed mobile completion and PC design revision', () => {
+  const result = getScreenProgress({ iaNumber: 170, screenCode: '' }, {});
+  assert.equal(result.pcDesign, 'revision-planned');
+  assert.equal(result.moDesign, 'received');
+  assert.equal(result.pcPublishing, 'revision');
+  assert.equal(result.moPublishing, 'ready');
+  assert.ok(screenReviewNotes[170]);
+});
+
+test('order PC design revision does not infer missing MO popup designs or coupon completion', () => {
+  for (const iaNumber of [171, 172, 173, 174, 175, 176]) {
+    assert.equal(getScreenProgress({ iaNumber, screenCode: '' }, {}).pcDesign, 'revision-planned');
+  }
+  const coupon = getScreenProgress({ iaNumber: 174, screenCode: '' }, {});
+  assert.equal(coupon.moDesign, 'received');
+  assert.equal(coupon.moPublishing, 'revision');
+  assert.equal(coupon.pcPublishing, 'pending');
+  assert.equal(getScreenProgress({ iaNumber: 175, screenCode: '' }, {}).moDesign, 'missing');
+});
+
+test('support and mypage attachment receipts do not imply publishing completion', () => {
+  for (const iaNumber of [182, 183, 184, 196, 200, 201, 202, 203, 204, 205, 209, 210, 219]) {
+    const result = getScreenProgress({ iaNumber, screenCode: '' }, {});
+    assert.equal(result.pcDesign, 'received');
+    assert.equal(result.moDesign, 'received');
+  }
+  const notice = getScreenProgress({ iaNumber: 208, screenCode: '' }, {});
+  assert.equal(notice.pcPublishing, 'pending');
+  assert.equal(notice.moPublishing, 'revision');
+  const history = getScreenProgress({ iaNumber: 200, screenCode: '' }, {});
+  assert.equal(history.pcPublishing, 'revision');
+  assert.equal(history.moPublishing, 'revision');
 });
 
 test('confirmed category templates share design receipt without inferring publishing completion', () => {
@@ -93,6 +158,6 @@ test('confirmed Figma run club frames update design only and accept explicit cle
     assert.equal(revised.moDesign, null);
   }
   assert.equal(getScreenProgress({ iaNumber: 158, screenCode: '' }, {}).pcDesign, 'missing');
-  assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).pcDesign, 'missing');
+  assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).pcDesign, 'received');
   assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).moDesign, 'received');
 });
