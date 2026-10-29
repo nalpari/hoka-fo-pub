@@ -9,6 +9,9 @@ generated:
   at: '2026-10-29T02:50:24Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/examples/styles/classnames/page.tsx
+  - src/app/examples/styles/scss-module/page.tsx
+  - src/app/examples/styles/scss-module/page.module.scss
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -156,6 +159,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 스타일 방식 비교 페이지 (2026-10-29)
+
+`/examples/styles/classnames`와 `/examples/styles/scss-module`을 추가했다. 각 page.tsx가 정적 비교 화면을 직접 소유하며 공통 쇼핑 셸과 플랫폼 선택을 사용한다. 운영 경로를 변경하지 않고 두 예시 사이의 Next Link와 네이티브 details 코드 펼침을 제공한다. SCSS Module은 사용자가 요청한 예시 파일에 한정한 정책 예외다. 작업 트리 출처와 검증은 [스타일 비교 예시](style-examples.md)를 참고한다.
 
 ## 마이페이지 홈 프레임 재사용 (2026-10-28)
 

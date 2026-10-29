@@ -62,6 +62,8 @@
       "src/components/common/layouts/ContentLayout.tsx"
     ],
     "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
+    "src/app/examples/styles/classnames/page.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/app/examples/styles/scss-module/page.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
     "src/app/layout.tsx": ["src/context/AccountFlowContext.tsx", "src/context/ShopShell.tsx"],

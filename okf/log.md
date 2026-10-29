@@ -2,6 +2,8 @@
 
 ## 2026-10-29
 
+- TSX 상단 Panda css 클래스와 페이지 전용 SCSS Module을 비교하는 예시 페이지 2개를 추가했다. SCSS는 사용자 요청에 따른 예시 전용 예외다. 같은 카드 UI·상호 이동·코드 펼침과 PC/모바일 경계 배치를 확인했고 Panda·타입·변경 파일 lint/포맷 검사를 통과했다. [경로와 검증](architecture/style-examples.md).
+
 - IA 구조도 제목 아래 설명 문구를 제거했다. 제목·현황·표와 상태 데이터는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
 
 - IA 헤더·본문을 사용자 지정 두 줄 구조로 정렬했다. 메뉴/구분은 두 행 병합, 위는 코드/페이지/디자인/비고, 아래는 2칸 WBS/퍼블리싱/파일이다. 대분류 일정과 파일 배지를 유지하고 전체 행 병합·PC/모바일·Storybook fixture를 확인했다. [배치와 검증](architecture/ui.md#ia-헤더본문의-두-줄-정렬-2026-10-29).
