@@ -20,9 +20,9 @@ const { getScreenProgress } = await import(
 );
 
 test('legacy publishing migration never infers design receipt', () => {
-  assert.deepEqual(getScreenProgress({ iaNumber: 233, screenCode: 'eland_hjo_01' }, {}), {
-    pcDesign: null,
-    moDesign: null,
+  assert.deepEqual(getScreenProgress({ iaNumber: 230, screenCode: 'eland_hlo_08' }, {}), {
+    pcDesign: 'missing',
+    moDesign: 'missing',
     pcPublishing: 'ready',
     moPublishing: 'ready',
   });
@@ -40,6 +40,21 @@ test('legacy publishing migration never infers design receipt', () => {
   );
 });
 
+test('confirmed category templates share design receipt without inferring publishing completion', () => {
+  const screen = getScreenProgress({ iaNumber: 4, screenCode: 'eland_hca_02' }, {});
+  assert.equal(screen.pcDesign, 'received');
+  assert.equal(screen.moDesign, 'received');
+  assert.equal(screen.pcPublishing, 'working');
+});
+
+test('publishing comparison revision is independent from design revision and the other platform', () => {
+  const screen = { iaNumber: 258, screenCode: '' };
+  const result = getScreenProgress(screen, { 258: { pcPublishing: 'revision' } });
+  assert.equal(result.pcPublishing, 'revision');
+  assert.equal(result.moPublishing, 'ready');
+  assert.equal(result.pcDesign, 'received');
+});
+
 test('PC and MO values remain independent and replacement data takes effect', () => {
   const screen = { iaNumber: 80003, screenCode: 'unregistered' };
   const overrides = {
@@ -54,11 +69,30 @@ test('PC and MO values remain independent and replacement data takes effect', ()
   assert.deepEqual(
     getScreenProgress(screen, { 80003: { moDesign: 'received', moPublishing: 'ready' } }),
     {
-      pcDesign: null,
+      pcDesign: 'missing',
       moDesign: 'received',
       pcPublishing: 'pending',
       moPublishing: 'ready',
     },
   );
-  assert.equal(getScreenProgress(screen, {}).pcDesign, null);
+  assert.equal(getScreenProgress(screen, {}).pcDesign, 'missing');
+});
+
+test('confirmed Figma run club frames update design only and accept explicit clearing or revision', () => {
+  for (const iaNumber of [258, 259]) {
+    const screen = { iaNumber, screenCode: '' };
+    const current = getScreenProgress(screen, {});
+    assert.equal(current.pcDesign, 'received');
+    assert.equal(current.moDesign, 'received');
+    assert.equal(current.pcPublishing, 'ready');
+    assert.equal(current.moPublishing, 'ready');
+    const revised = getScreenProgress(screen, {
+      [iaNumber]: { pcDesign: 'revision-planned', moDesign: null },
+    });
+    assert.equal(revised.pcDesign, 'revision-planned');
+    assert.equal(revised.moDesign, null);
+  }
+  assert.equal(getScreenProgress({ iaNumber: 158, screenCode: '' }, {}).pcDesign, 'missing');
+  assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).pcDesign, 'missing');
+  assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).moDesign, 'received');
 });

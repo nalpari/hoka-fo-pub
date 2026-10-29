@@ -2,6 +2,8 @@
 
 ## 2026-10-29
 
+- Figma 데스크탑에서 발견한 PC/MO 최종 프레임을 IA 디자인 수급 상태에 반영했다. 발견 목록에 없으면 미수급이며 동일 상품 템플릿은 화면 코드로 공유한다. 디자인 수정예정과 별개로 퍼블리싱 수정 타입·배지·필터를 추가했다. 캡처 실패로 실제 디자인 대비 퍼블리싱 재판정은 수행하지 않았다. [출처·범위·검증](architecture/ia-design-audit.md).
+
 - 스타일 예시에서 Flex·Grid를 유지하고 중복 display를 제거했다. 기존 JSX props 방식의 세 번째 예시와 상호 이동 링크를 추가했으며 세 화면의 작성 코드를 기본 노출한다. [범위](architecture/style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29).
 
 - TSX 상단 Panda css 클래스와 페이지 전용 SCSS Module을 비교하는 예시 페이지 2개를 추가했다. SCSS는 사용자 요청에 따른 예시 전용 예외다. 같은 카드 UI·상호 이동·코드 펼침과 PC/모바일 경계 배치를 확인했고 Panda·타입·변경 파일 lint/포맷 검사를 통과했다. [경로와 검증](architecture/style-examples.md).

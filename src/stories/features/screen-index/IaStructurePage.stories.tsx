@@ -30,9 +30,9 @@ export const PlatformProgress: Story = {
         moPublishing: 'pending',
       },
       234: {
-        pcDesign: 'missing',
+        pcDesign: 'revision-planned',
         moDesign: 'received',
-        pcPublishing: 'working',
+        pcPublishing: 'revision',
         moPublishing: 'ready',
       },
     },

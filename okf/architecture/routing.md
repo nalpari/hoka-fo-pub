@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:50:24Z'
+  at: '2026-10-29T05:01:50Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/examples/styles/classnames/page.tsx
@@ -161,6 +161,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## Figma 수급 확인과 퍼블리싱 수정 상태 (2026-10-29)
+
+IA의 경로·클라이언트 경계는 유지한다. `storybookLinks.ts`의 실제 발견 프레임 목록과 화면 코드별 공통 템플릿이 디자인 수급 기본값을 제공하며 발견하지 못한 것은 미수급이다. 명시적 null override는 -를 유지한다. PC/MO별 퍼블리싱 `revision`(수정)을 추가했으며 기존 통합 초기값과 별개로 전달할 수 있다. 이번에는 Figma 캡처 실패 때문에 실제 퍼블리싱 상태를 재판정하지 않았다. [조사 출처·범위·한계](ia-design-audit.md).
+
+작업 트리 출처: src/app/screen-index/storybookLinks.ts, src/app/screen-index/_components/IaStructurePage.tsx. 기존 디자인 기본값 null 설명은 이번 조사 기본값에 한해 미수급으로 대체한다.
 
 스타일 비교에 `/examples/styles/jsx-props`를 추가했다. 기존 두 예시도 Flex·Grid를 유지하고 className으로 스타일을 연결하며, 세 페이지의 코드 영역은 기본 펼침 상태다. 작업 트리 출처: src/app/examples/styles/classnames/page.tsx, src/app/examples/styles/scss-module/page.tsx, src/app/examples/styles/scss-module/page.module.scss, src/app/examples/styles/jsx-props/page.tsx. [비교 방식](style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29).
 

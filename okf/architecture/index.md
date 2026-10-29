@@ -1,5 +1,7 @@
 # 아키텍처
 
+[IA 디자인 수급 조사](ia-design-audit.md)는 Figma 최종 PC/MO 프레임과 IA 연결, 미수급 기준, 퍼블리싱 수정 상태 및 시각 비교가 막힌 범위를 기록한다.
+
 [Panda JSX 유지와 세 가지 스타일 예시](style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29)는 Flex·Grid 유지, JSX props 경로와 코드 기본 노출을 설명한다.
 
 [스타일 작성 방식 비교 예시](style-examples.md)는 TSX 상단 Panda 클래스와 페이지 전용 SCSS Module의 두 경로·비교용 예외·반응형 검증을 설명한다.

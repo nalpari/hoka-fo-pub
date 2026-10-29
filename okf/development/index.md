@@ -1,5 +1,7 @@
 # 개발
 
+[IA 디자인 수급 조사 검증](../architecture/ia-design-audit.md#검증)은 상태 모델·필터 확인과 Figma 캡처 실패로 수행하지 못한 시각 비교를 구분한다.
+
 [보조 TS 모듈의 사용처별 배치](../architecture/ts-module-ownership-2026-10-28.md)는 라우트·데이터·훅·컨텍스트·타입 소유권에 따른 33개 이동과 참조·검증을 설명한다.
 
 [Storybook 브라우저 포커스](verification.md#storybook-자동-입력과-브라우저-포커스-2026-10-28)는 visible·unfocused 문서에서의 자동 입력 실패 원인과 CDP 포커스 에뮬레이션 대조 결과를 설명한다.

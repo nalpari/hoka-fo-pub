@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:50:24Z'
+  at: '2026-10-29T05:01:50Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -767,6 +767,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## IA 디자인 조사 상태와 퍼블리싱 수정 표시 (2026-10-29)
+
+IA 디자인은 수급·미수급·수정예정, 퍼블리싱은 기존 완료·진행중·대기에 수정 상태를 추가했다. 수정예정/수정 배지는 로컬 Panda 황색 계열이며 PC/MO 필터는 독립적이다. `PlatformProgress` 스토리는 실제 작업 현황과 구분되는 디자인 수정예정·퍼블리싱 수정 예시다. 두 행 표·파일 배지·공통 UI 계약은 유지한다. 수급은 현재 확인한 Figma 프레임 목록에서 결정하며 퍼블리싱 완료와 독립적이다. [디자인 출처와 시각 비교 제한](ia-design-audit.md).
+
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, src/app/screen-index/storybookLinks.ts, src/stories/features/screen-index/IaStructurePage.stories.tsx. 이번 변경에서 상태 owner를 복제하거나 신규 상태 저장 API를 만들지 않았다.
 
 ## 컴포넌트 소유권·래퍼 정책 정리 (2026-10-28)
 

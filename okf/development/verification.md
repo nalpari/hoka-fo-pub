@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:50:24Z'
+  at: '2026-10-29T05:01:50Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -90,6 +90,14 @@ sources:
 ---
 
 # 변경 검증
+
+## IA 디자인 조사와 수정 상태 검증 (2026-10-29)
+
+`tests/screen-progress.test.mjs` 5개는 레거시 퍼블리싱 초기값과 디자인 수급 독립성, PC/MO별 override와 교체 데이터, 명시적 null, 수정예정/수정 구분, 상품 공통 템플릿 수급을 검증한다. 타입 검사·변경 파일 ESLint/Prettier·Panda 생성과 앱 브라우저에서 수급 수치·가입완료 플랫폼 차이·수정 필터를 확인했다. 디자인 PC 200/49, MO 210/39의 수급/미수급은 삭제 제외 249개 IA 행 기준이며 고유 프레임 수와 다르다.
+
+Figma 프레임 목록은 데스크탑 UI로 읽었으나 캡처 실패와 연결 도구 재인증 요구로 구현 화면과의 시각 비교를 수행하지 못했다. 기존 퍼블리싱 값을 이번 검수 완료로 해석하지 않는다. 전체 프로덕션/Storybook 빌드·play는 이번 상태 추가 후 재실행하지 않았다. [조사 근거와 한계](../architecture/ia-design-audit.md).
+
+작업 트리 출처: tests/screen-progress.test.mjs, src/app/screen-index/storybookLinks.ts, src/app/screen-index/_components/IaStructurePage.tsx, src/stories/features/screen-index/IaStructurePage.stories.tsx.
 
 ## 부모 옵션 통합 검증 (2026-10-28)
 
