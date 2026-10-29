@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T07:40:34Z'
+  at: '2026-10-29T08:05:45Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/screen-index/DesignGuideTypography.tsx
   - src/components/common/atoms/Typography.tsx
   - src/styles/global.scss
   - src/stories/components/common/atoms/Typography/Typography.stories.tsx
@@ -778,6 +779,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 디자인 가이드 폰트명 타입 오류 수정 (2026-10-29)
+
+DesignGuideTypography의 getTypographyValues에서 figmaTypographyVariants에 존재하지 않는 fontFamily='mono' 비교를 제거했다. 현재 정의인 korean은 Pretendard, hoka는 The Future HOKA로 표시한다. 운영 Typography 정의·폰트·스타일은 변경하지 않는다. 작업 트리 출처: src/components/screen-index/DesignGuideTypography.tsx. 전체 npm run typecheck, 변경 파일 ESLint와 Prettier 검사를 통과했다.
 
 ## IA 보조 설명 정리 (2026-10-29)
 

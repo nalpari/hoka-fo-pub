@@ -57,11 +57,7 @@ function getTypographyValues(variant: GuideVariant) {
       : webWeight === mobileWeight
         ? webWeight
         : `${webWeight} / 모바일 ${mobileWeight}`,
-    definition.fontFamily === 'korean'
-      ? 'Pretendard'
-      : definition.fontFamily === 'mono'
-        ? 'The Future HOKA Mono'
-        : 'The Future HOKA',
+    definition.fontFamily === 'korean' ? 'Pretendard' : 'The Future HOKA',
     `${Number(token(`lineHeights.${definition.lineHeight}`)) * 100}%`,
     definition.letterSpacing === '0' ? '0' : token(`letterSpacings.${definition.letterSpacing}`),
   ];
