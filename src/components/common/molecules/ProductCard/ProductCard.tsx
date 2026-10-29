@@ -77,6 +77,7 @@ const productName = css({
   minW: '0',
   maxW: '100%',
   truncate: true,
+  fontSize: { base: 'var(--layout-web-product-font-size, 16px)', _mobile: '14px' },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
 });
 
@@ -88,7 +89,13 @@ type ProductNameProps = {
 /** Product name styled for its card presentation context. */
 function ProductName({ name, variant = 'listing' }: ProductNameProps) {
   return (
-    <Typography as="p" className={productName} data-product-card-variant={variant} variant="body">
+    <Typography
+      as="p"
+      className={productName}
+      data-product-card-variant={variant}
+      web="bodyKr3"
+      mo="bodyKr4"
+    >
       {name}
     </Typography>
   );
@@ -243,7 +250,6 @@ function ProductDetailsOptions({
 const ProductDetailsRoot = cva({
   base: {
     color: 'var(--color-text-primary)',
-    '--type-body-font-size': 'var(--layout-web-product-font-size, 16px)',
   },
   variants: {
     variant: {

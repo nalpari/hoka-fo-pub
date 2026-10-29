@@ -280,7 +280,7 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
         <Typography as="h1" className={title} tone="inverse" variant="heading1">
           {content.title}
         </Typography>
-        <Typography as="div" className={description} tone="inverse" variant="body">
+        <Typography as="div" className={description} tone="inverse" web="bodyKr3" mo="bodyKr4">
           {content.description}
         </Typography>
       </VStack>

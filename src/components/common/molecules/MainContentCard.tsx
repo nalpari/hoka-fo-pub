@@ -345,7 +345,8 @@ export function MainContentCard({
         descriptionProps={{
           className: descriptionStyle({ variant: variant === 'titleLinks' ? undefined : variant }),
           style: { color: foreground },
-          variant: 'body',
+          web: 'bodyKr3',
+          mo: 'bodyKr4',
         }}
       />
       <Card.Footer className={footer({ variant })}>

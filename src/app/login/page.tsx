@@ -45,7 +45,10 @@ function LoginLayout({ children }: { children: ReactNode }) {
             오신것을 환영합니다
           </>
         }
-        headerProps={{ titleAs: 'h1', titleProps: { variant: 'loginTitle', id: 'login-title' } }}
+        headerProps={{
+          titleAs: 'h1',
+          titleProps: { web: 'headingKr6', mo: 'headingKr5', id: 'login-title' },
+        }}
       >
         <div>{children}</div>
       </ContentSection>

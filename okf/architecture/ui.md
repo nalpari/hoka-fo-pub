@@ -9,6 +9,12 @@ generated:
   at: '2026-10-29T06:22:38Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/Typography.tsx
+  - src/styles/global.scss
+  - src/stories/components/common/atoms/Typography/Typography.stories.tsx
+  - src/app/publishing-guide/_components/TypographyGuide.tsx
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/components/common/layouts/ContentLayout.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -42,6 +48,7 @@ working_tree_sources:
   - src/components/common/layouts/AccountPageLayout.tsx
   - src/types/component-contracts/components-common-layouts-MainSection.d.ts
   - src/components/common/layouts/ModalDialog.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/layouts/OrderActionBar.tsx
   - src/components/common/layouts/MainSection.tsx
   - src/components/support/CustomerCenterLayout.tsx
@@ -49,7 +56,9 @@ working_tree_sources:
   - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
   - src/stories/components/common/atoms/Button/ButtonDocs.tsx
   - src/components/common/atoms/Button.tsx
-  - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/app/products/[id]/page.tsx
+  - src/context/ShopShell.tsx
   - src/components/common/layouts/CustomerCenterLayout.tsx
   - src/components/common/layouts/SidebarNavigationLayout.tsx
   - .storybook/fonts.scss
@@ -1883,6 +1892,18 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 `Typography`에 `pageTitle`을 추가해 주문 제목의 직접 선언을 옮겼다. 역할은 간결한 페이지 제목(`as="h1"`)이며 PC·모바일 모두 32px, 굵기 700, 행간·자간 normal, 기존 기본 글꼴을 유지한다. `--type-page-title-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}`가 토큰 계약이다. `heading7`의 모바일 16px나 `sectionHeading`의 40px/30px와 달라 기존 variant를 대신 적용하지 않았다. 공용 variant의 PC·모바일 스토리를 추가했다.
 
+## 미사용 전용 Typography variant 정리 (2026-10-29)
+
+운영 호출이 없던 `pageTitle`, `authTitle`, `authCaption`, `authBody`, `authSmall`과 실제 운영 호출 하나만 남아 있던 `loginTitle`을 표준 variant로 정리했다. 로그인 제목은 기존 크기를 보존하도록 `headingKr6` 웹·`headingKr5` 모바일 조합으로 바꿨다. 여섯 전용 variant 정의·토큰·가이드 예시·Storybook 예시를 제거하고, `loginTitle`을 포함한 전용 variant 의존 없이 표준 heading/body 체계만 남긴다. 출처는 위 `working_tree_sources`다.
+
+## body Typography alias 제거 (2026-10-29)
+
+별칭 `body`를 사용하는 홈 소개문, ContentLayout 설명, MainContentCard 본문, ProductCard 상품명을 표준 `bodyKr3` 웹·`bodyKr4` 모바일로 옮겼다. ProductCard는 상품명 전용 Panda 스타일에서 기존 웹 가변 글자 크기와 모바일 14px를 유지한다. Typography의 `body` variant와 `--type-body-*` 변수, Typography 가이드의 별칭 예시는 제거했다. 모노스페이스 variant는 운영 화면 호출은 없지만 Typography Storybook과 화면 인덱스 디자인 타입표에서 미리보기로 쓰이므로 유지한다. 출처는 위 `working_tree_sources`다.
+
+## 미사용 모노스페이스 Typography variant 제거 (2026-10-29)
+
+모노스페이스 variant는 운영 화면 호출 없이 퍼블리싱 가이드와 Typography Storybook 예시에만 있었다. 사용자가 요청해 `mono1`~`mono5`의 Typography 정의·타입과 해당 예시를 제거했다. 코드 표시 및 화면 인덱스 등에서 사용하는 Panda `mono` 글꼴과 자간 토큰은 별도로 유지한다. 출처는 위 `working_tree_sources`다.
+
 유지 판단: `HeaderLogo`는 링크 의미·로고 크기·모바일 크기를, `HeaderTools`는 액션 간격과 Shift+Tab 경계를, `DesktopNavigation`은 nav와 메뉴 진입을 이미 소유하므로 그대로 사용한다. 기존 `Grid as="nav"`와 목록·표·네이티브 폼 의미도 유지한다. Base UI 전체 exports는 계속 1.8.0이며 기존 점검의 가용성·업그레이드 판단은 변하지 않는다. 이번 구조 분리에 새로운 primitive나 의존성은 필요하지 않다.
 
 초기 점검 후보였던 주문/결제 기능 내부 분리는 이 후속 작업에서 반영했다. 메가 메뉴의 Navigation Menu 전환과 캐러셀의 Scroll Area 통합은 별도의 상호작용 이전 후보로 남는다.
@@ -2354,7 +2375,7 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## Font Awesome 아이콘 스토리 카탈로그
 
-Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`의 FontAwesome 스토리에 표시한다. 출처는 `src/icons/fontAwesome.ts`, `src/stories/components/common/atoms/Icon/Icon.stories.tsx`다.
+Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-check`(`faCircleCheck`)·`copy`(`faCopy`), `xmark`(`faXmark`)를 포함한다. 아이콘은 공유 barrel에서 export하고 `Atoms/Icon`을 통해 사용한다. 퍼블리싱 가이드의 코드 복사는 `faCopy`와 32px 아이콘 전용 버튼을 사용하며 접근성 이름과 툴팁을 제공한다. 출처는 `src/icons/fontAwesome.ts`, `src/app/publishing-guide/_components/ButtonGuide.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`다.
 
 ## 최근 검색 Timer 아이콘 (2026-10-20)
 
@@ -3290,7 +3311,6 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 
 체크박스·라디오·필터·Icon의 상호작용 상태와 임의 src/mask 렌더링은 콘텐츠 이미지와 계약이 달라 네이티브 `<img>`로 유지한다. 외부 이미지 허용 호스트·경로와 원본 URL은 변경하지 않았다. 작업 트리 출처는 frontmatter에 기록했다. 검증: 변경 TSX 포맷과 `npm run okf:check` 통과. 타입 검사와 Webpack 컴파일에서 이 변경 파일의 오류는 없었으나, 전체 타입 검사는 기존 `.next/types` App Router props 오류 6건으로 실패했다. 기본 Turbopack 빌드는 샌드박스의 프로세스 포트 바인딩 제한으로 중단됐고, ESLint는 `eslint-plugin-perfectionist` 미설치로 실행되지 않았다. 브라우저 시각 검증은 수행하지 않았다.
 
-
 ## 공통 스토리의 소유 컴포넌트 통합 (2026-10-29)
 
 병합된 컴포넌트의 옵션 사례는 소유 컴포넌트의 기본 스토리 파일과 하나의 Storybook title 아래에 둔다. ModalDialog의 SingleAction·Confirm, Button의 LoadMore·Social·IconButton, Checkbox의 Consent, Typography의 ProductListingTitle·ChoiceLabels, ContentHeader의 SectionHeading, RatingStars의 Selection, ContentLayout의 Header 사례 63개를 기본 파일 7개로 통합하고 분리 파일 11개를 제거했다. 독립 컴포넌트의 등록은 유지한다.
@@ -3366,6 +3386,6 @@ IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시�
 
 ## Ghost 버튼을 아이콘·텍스트 용도로 분리 (2026-10-29)
 
-공통 Button의 `ghost` variant를 제거했다. 아이콘 전용 호출은 기존 크기와 접근성 이름을 유지해 `variant="icon"`으로 옮겼고, ShopShell 메가 메뉴의 텍스트 항목은 무배경 텍스트 버튼인 `plain`으로 전환했다. 클릭 가능한 메가 메뉴 바깥 영역은 네이티브 버튼으로 바꿨다. 퍼블리싱 가이드와 Button Storybook 문서에서도 ghost 예시를 제거했다.
+공통 Button의 `ghost` variant를 제거했다. 아이콘 전용 호출은 기존 크기와 접근성 이름을 유지해 `variant="icon"`으로 옮겼고, ShopShell 메가 메뉴의 텍스트 항목은 무배경 텍스트 버튼인 `plain`으로 전환했다. 클릭 가능한 메가 메뉴 바깥 영역은 버튼 스타일 API가 필요 없는 네이티브 버튼으로 바꿨다. 퍼블리싱 가이드와 Button Storybook 문서에서도 ghost 예시를 제거했다.
 
-Panda 생성·Prettier·diff·OKF 검사는 통과했다. 전체 타입 검사는 기존 생성 라우트 및 DesignGuideTypography 오류로 실패했고, ESLint는 `eslint-plugin-perfectionist` 미설치로 시작하지 못했다. 브라우저 검증은 수행하지 않았다.
+작업 트리 출처는 frontmatter의 Button, ShopShell, ModalDialog, ProductOptionList, 문의·상품 라우트 및 Button 문서 파일이다. Panda 생성·Prettier·diff·OKF 검사를 통과했다. 전체 타입 검사는 생성된 App Router 타입의 기존 오류와 `DesignGuideTypography.tsx`의 기존 Typography 비교 오류로 실패했다. 변경 파일 ESLint는 설치되지 않은 `eslint-plugin-perfectionist` 때문에 실행할 수 없었다. 브라우저 시각·상호작용 검증은 수행하지 않았다.

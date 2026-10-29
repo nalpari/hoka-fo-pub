@@ -20,7 +20,7 @@
 
 [화면 데이터와 서비스 연결 계약](data-binding.md)은 셸·계정 흐름·고객센터·문의·홈·런클럽·마이페이지·반품 견적의 연결 위치와 전체 소스 인계 주석과 `[ 개발팀 바인딩 ]` 표준 정책, 비동기 성공/실패·조회 결과 소유권을 설명한다.
 
-[퍼블리싱 가이드 기본 버튼](routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)은 `/publishing-guide`의 버튼·폼·모달·뱃지 분류 탭과 버튼 상태·크기 예시, JSX 소스 복사 UI를 안내한다.
+[퍼블리싱 가이드 Typography·버튼](routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)은 `/publishing-guide`에서 직접 전환하는 Typography·버튼·폼·모달·뱃지 탭, 실제 Typography variant 미리보기, 공통 타임라인과 코드 복사 UI를 안내한다.
 
 [런클럽 분류 배지 통합](ui.md#런클럽-분류-배지-통합-2026-10-28)은 Badge.runClubCategory의 배타적 옵션과 PC/모바일 표시 보존을 설명한다.
 
@@ -101,6 +101,10 @@
 [장바구니 옵션과 고객센터 표시 분리](ui.md#장바구니-옵션과-고객센터-표시-분리-2026-10-23)는 네 옵션 선택과 연락처·운영시간의 표시 책임을 설명한다.
 
 [Typography 전용 variant 표준화](ui.md#typography-전용-variant-표준화-2026-10-27)는 전용 타이포그래피 제거와 표준 heading/body 및 반응형 선택 방식을 설명한다.
+
+[전용 Typography variant 정리](ui.md#미사용-전용-typography-variant-정리-2026-10-29)는 pageTitle·auth·loginTitle을 표준 heading/body로 전환하고 전용 정의·토큰·Storybook 예시를 제거한 범위를 설명한다.
+
+[body Typography alias 제거](ui.md#body-typography-alias-제거-2026-10-29)는 실제 body 호출부의 표준 variant 이전, 반응형 크기 보존과 전용 토큰 제거를 설명한다.
 
 [장바구니 상품 영역과 빈 상태 분리](ui.md#장바구니-상품-영역과-빈-상태-분리-2026-10-23)는 기능 내부 표시 컴포넌트와 상태 소유권 보존을 설명한다.
 

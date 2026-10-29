@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, cloneElement, isValidElement, useState } from 'react';
+import { type ReactNode, cloneElement, isValidElement, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -9,18 +9,14 @@ import { Button, type ButtonProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { SupportTabs, type SupportTab } from '@/components/common/molecules/SupportTabs';
+import { faCopy } from '@/icons/fontAwesome';
+
+import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { GuideTimeline } from './GuideTimeline';
 
 const variants = [
   { value: 'primary', title: 'Primary', description: '배경이 채워진 기본 액션 버튼' },
   { value: 'secondary', title: 'Secondary', description: '테두리로 구분하는 보조 액션 버튼' },
-] as const;
-
-const categories = [
-  { value: 'button', label: '버튼' },
-  { value: 'form', label: '폼' },
-  { value: 'modal', label: '모달' },
-  { value: 'badge', label: '뱃지' },
 ] as const;
 
 const states = [
@@ -43,6 +39,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: 'Tall',
+        note: '높이 48px · 글자 16px · 좌우 24px',
         code: '<Button variant="brand" size="tall">버튼명 텍스트</Button>',
         preview: (
           <Button variant="brand" size="tall">
@@ -52,6 +49,7 @@ const auxiliaryVariants = [
       },
       {
         label: 'Short',
+        note: '높이 40px · 글자 14px · 좌우 16px',
         code: '<Button variant="brand" size="short">버튼명 텍스트</Button>',
         preview: (
           <Button variant="brand" size="short">
@@ -68,6 +66,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: 'SM',
+        note: '높이 16px · 글자 12px · 좌우 0px',
         code: '<Button variant="link" size="sm">자세히 보기</Button>',
         preview: (
           <Button variant="link" size="sm">
@@ -77,6 +76,7 @@ const auxiliaryVariants = [
       },
       {
         label: 'MD',
+        note: '높이 auto · 글자 14px · 좌우 0px',
         code: '<Button variant="link" size="md">자세히 보기</Button>',
         preview: (
           <Button variant="link" size="md">
@@ -86,6 +86,7 @@ const auxiliaryVariants = [
       },
       {
         label: 'LG',
+        note: '높이 auto · 글자 16px · 좌우 0px',
         code: '<Button variant="link" size="lg">자세히 보기</Button>',
         preview: (
           <Button variant="link" size="lg">
@@ -102,6 +103,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: 'SM',
+        note: '높이 16px · 글자 12px · 좌우 0px',
         code: '<Button variant="plain" size="sm">취소</Button>',
         preview: (
           <Button variant="plain" size="sm">
@@ -111,6 +113,7 @@ const auxiliaryVariants = [
       },
       {
         label: 'MD',
+        note: '높이 auto · 글자 14px · 좌우 0px',
         code: '<Button variant="plain" size="md">취소</Button>',
         preview: (
           <Button variant="plain" size="md">
@@ -120,6 +123,7 @@ const auxiliaryVariants = [
       },
       {
         label: 'LG',
+        note: '높이 auto · 글자 16px · 좌우 0px',
         code: '<Button variant="plain" size="lg">취소</Button>',
         preview: (
           <Button variant="plain" size="lg">
@@ -136,6 +140,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: '고정 크기',
+        note: '높이 36px · 글자 14px · 좌우 14px',
         code: '<Button variant="chip">러닝</Button>',
         preview: <Button variant="chip">러닝</Button>,
       },
@@ -148,7 +153,8 @@ const auxiliaryVariants = [
     samples: [
       {
         label: 'Compact',
-        code: '<Button variant="filterTrigger" icon={<Icon name="filter" />}>필터</Button>',
+        note: '높이 32.2px · 글자 14px · 좌우 14px',
+        code: '<Button variant="filterTrigger" icon={<Icon name="filter" />}><Typography variant="body4">필터</Typography></Button>',
         preview: (
           <Button variant="filterTrigger" icon={<Icon name="filter" />}>
             <Typography variant="body4">필터</Typography>
@@ -157,7 +163,8 @@ const auxiliaryVariants = [
       },
       {
         label: 'Regular',
-        code: '<Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}>Filter & Sort</Button>',
+        note: '높이 40px · 글자 16px · 좌우 24px',
+        code: '<Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}><Typography variant="cta1">Filter & Sort</Typography></Button>',
         preview: (
           <Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}>
             <Typography variant="cta1">Filter &amp; Sort</Typography>
@@ -173,6 +180,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: '고정 크기',
+        note: '높이 36px · 글자 16px · 좌우 15px',
         code: '<Button variant="headerSearch" icon={<Icon src="/images/header/search.svg" size="16px" mask />}>검색어를 입력하세요</Button>',
         preview: (
           <Button
@@ -192,6 +200,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: '36px',
+        note: '높이 36px · 글자 없음 · 좌우 0px',
         code: '<Button variant="icon" size={36} aria-label="필터 열기"><Icon name="filter" /></Button>',
         preview: (
           <Button variant="icon" size={36} aria-label="필터 열기">
@@ -208,11 +217,13 @@ const auxiliaryVariants = [
     samples: [
       {
         label: 'Kakao',
+        note: '높이 48px · 글자 16px · 좌우 24px',
         code: '<Button social={{ provider: "kakao" }}>카카오로 로그인</Button>',
         preview: <Button social={{ provider: 'kakao' }}>카카오로 로그인</Button>,
       },
       {
         label: 'Naver',
+        note: '높이 48px · 글자 16px · 좌우 24px',
         code: '<Button social={{ provider: "naver" }}>네이버로 로그인</Button>',
         preview: <Button social={{ provider: 'naver' }}>네이버로 로그인</Button>,
       },
@@ -225,6 +236,7 @@ const auxiliaryVariants = [
     samples: [
       {
         label: '진행 수 표시',
+        note: '높이 48px · 글자 16px · 좌우 24px',
         code: '<Button loadMore={{ counter: { current: 1, total: 3 } }} />',
         preview: <Button loadMore={{ counter: { current: 1, total: 3 } }} />,
       },
@@ -276,68 +288,60 @@ const preview = css({
 
 const codeLine = css({
   minW: '0',
-  px: '3',
-  py: '2',
+  justifyContent: 'space-between',
+  p: '3',
+  overflowWrap: 'anywhere',
+  border: '1px solid token(colors.black.20)',
+  bg: 'surface.subtle',
+  fontSize: '12px',
+  lineHeight: '1.5',
+});
+
+const codeTag = css({ color: 'blue.100' });
+const codeAttribute = css({ color: 'mossGreen.100' });
+const codeString = css({ color: 'red.80' });
+const codePunctuation = css({ color: 'black.60' });
+
+const copyButton = css({
+  flexShrink: '0',
+  bg: 'black.10',
   border: '1px solid token(colors.black.20)',
   borderRadius: '1',
-  bg: 'white.0',
-  color: 'black.100',
-  '& code': {
-    display: 'block',
-    color: 'inherit',
-    fontFamily: 'mono',
-    fontSize: '10px',
-    lineHeight: '1.5',
-    overflowWrap: 'break-word',
-  },
+  _hover: { bg: 'black.20' },
 });
 
-const codeActions = css({
-  gridTemplateColumns: 'minmax(0, 1fr) max-content',
-  alignItems: 'start',
-});
+const codeTokenPattern =
+  /(<\/?)([A-Za-z][\w.]*)|([A-Za-z][\w-]*)(?==)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|([{}=/>])/g;
 
-const timeline = css({
-  alignSelf: 'start',
-  position: 'sticky',
-  top: 'calc(var(--layout-site-header-height) + 24px)',
-  p: '4',
-  border: '1px solid token(colors.black.20)',
-  borderRadius: '2',
-  bg: 'white.0',
-  _mobile: { position: 'static', top: 'auto' },
-});
+function renderHighlightedCode(code: string) {
+  const tokens = [];
+  let previousIndex = 0;
 
-const timelineItems = css({
-  ml: '2',
-  pl: '4',
-  borderLeft: '1px solid token(colors.black.40)',
-});
+  for (const match of code.matchAll(codeTokenPattern)) {
+    const index = match.index ?? 0;
+    if (index > previousIndex) tokens.push(code.slice(previousIndex, index));
 
-const timelineLink = css({
-  position: 'relative',
-  display: 'block',
-  py: '1',
-  color: 'text.primary',
-  textDecoration: 'none',
-  _before: {
-    content: '""',
-    position: 'absolute',
-    top: '50%',
-    left: '-21px',
-    w: '10px',
-    h: '10px',
-    transform: 'translateY(-50%)',
-    border: '2px solid token(colors.black.40)',
-    borderRadius: 'full',
-    bg: 'white.0',
-  },
-  _hover: { color: 'text.primary', textDecoration: 'underline' },
-  _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
-});
+    const className =
+      match[1] || match[2]
+        ? codeTag
+        : match[3]
+          ? codeAttribute
+          : match[4]
+            ? codeString
+            : codePunctuation;
+    tokens.push(
+      <span key={`${index}-${match[0]}`} className={className}>
+        {match[0]}
+      </span>,
+    );
+    previousIndex = index + match[0].length;
+  }
+
+  if (previousIndex < code.length) tokens.push(code.slice(previousIndex));
+  return tokens;
+}
 
 type ButtonVariant = (typeof variants)[number]['value'];
-type GuideCategory = (typeof categories)[number]['value'];
 type ButtonVariantPanelProps = {
   variant: ButtonVariant;
   onCopy: (code: string) => void;
@@ -405,43 +409,41 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                           role="group"
                           aria-label={state.label}
                         >
-                          <HStack justifyContent="space-between" alignItems="center" gap="3">
-                            <Typography
-                              as="span"
-                              className={stateLabel}
-                              variant="body5"
-                              weight="medium"
+                          <Typography
+                            as="span"
+                            className={stateLabel}
+                            variant="body5"
+                            weight="medium"
+                          >
+                            {state.label}
+                          </Typography>
+                          <Box className={preview} data-colorway={colorway} justifyContent="center">
+                            <Button
+                              variant={variant}
+                              colorway={colorway}
+                              size={size.value}
+                              disabled={disabled}
+                              aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 예시`}
                             >
-                              {state.label}
-                            </Typography>
-                            <Box className={preview} data-colorway={colorway}>
-                              <Button
-                                variant={variant}
-                                colorway={colorway}
-                                size={size.value}
-                                disabled={disabled}
-                                aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 예시`}
-                              >
-                                버튼명 텍스트
-                              </Button>
+                              버튼명 텍스트
+                            </Button>
+                          </Box>
+                          <HStack as="code" className={codeLine} gap="3">
+                            <Box as="span" flex="1" minW="0" overflowWrap="anywhere">
+                              {renderHighlightedCode(code)}
                             </Box>
+                            <Button
+                              className={copyButton}
+                              variant="icon"
+                              size={32}
+                              type="button"
+                              onClick={() => onCopy(code)}
+                              aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 코드 복사`}
+                              title="코드 복사"
+                            >
+                              <Icon fontAwesomeIcon={faCopy} size={16} />
+                            </Button>
                           </HStack>
-                          <Grid className={codeActions} w="100%" gap="2">
-                            <Box className={codeLine}>
-                              <code>{code}</code>
-                            </Box>
-                            <Box whiteSpace="nowrap">
-                              <Button
-                                variant="plain"
-                                size="md"
-                                type="button"
-                                onClick={() => onCopy(code)}
-                                aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 코드 복사`}
-                              >
-                                복사
-                              </Button>
-                            </Box>
-                          </Grid>
                         </Stack>
                       );
                     })}
@@ -486,25 +488,7 @@ function ButtonCategoryPanel({ onCopy }: { onCopy: (code: string) => void }) {
         ))}
         <AuxiliaryButtonsGuide onCopy={onCopy} />
       </Stack>
-      <Stack as="nav" className={timeline} gap="3" aria-label="버튼 유형 바로가기">
-        <Typography as="h2" variant="body3" weight="medium">
-          버튼 유형
-        </Typography>
-        <Stack className={timelineItems} gap="0">
-          {timelineEntries.map((item) => (
-            <a key={item.id} className={timelineLink} href={`#${item.id}`}>
-              <Typography as="span" variant="body5" weight="medium">
-                {item.title}
-              </Typography>
-              <Box as="span" display="block">
-                <Typography as="span" variant="body5" tone="subtle">
-                  {item.description}
-                </Typography>
-              </Box>
-            </a>
-          ))}
-        </Stack>
-      </Stack>
+      <GuideTimeline title="버튼 유형" entries={timelineEntries} />
     </Grid>
   );
 }
@@ -527,9 +511,9 @@ function ButtonSizingGuide() {
             크기 기준
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            Tall 48px / 16px / 좌우 24px
+            Tall: 높이 48px · 글자 16px · 좌우 24px
             <br />
-            Short 40px / 14px / 좌우 16px
+            Short: 높이 40px · 글자 14px · 좌우 16px
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
@@ -557,9 +541,13 @@ function ButtonSizingGuide() {
             높이 예외
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            FilterTrigger 32.2px / 14px · HeaderSearch 36px / 14px
+            FilterTrigger compact: 높이 32.2px · 글자 14px · 좌우 14px
             <br />
-            아이콘 전용 버튼은 24px입니다.
+            FilterTrigger regular: 높이 40px · 글자 16px · 좌우 24px
+            <br />
+            HeaderSearch: 높이 36px · 글자 16px · 좌우 15px
+            <br />
+            Icon: 샘플 높이 36px · 글자 없음 · 좌우 0px
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
@@ -607,9 +595,19 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
           <Stack gap={{ base: '3', _mobile: '2' }} mt="3">
             {item.samples.map((sample) => (
               <Stack key={sample.label} className={sizeCard} gap="3">
-                <Typography as="h3" variant="body4" weight="medium">
-                  {sample.label}
-                </Typography>
+                <HStack
+                  justifyContent="space-between"
+                  alignItems="baseline"
+                  flexWrap="wrap"
+                  gap="2"
+                >
+                  <Typography as="h3" variant="body4" weight="medium">
+                    {sample.label}
+                  </Typography>
+                  <Typography as="span" variant="body5" tone="subtle">
+                    {sample.note}
+                  </Typography>
+                </HStack>
                 <Grid columns={{ base: 2, _mobile: 1 }} gap="2">
                   {states.map((state) => {
                     const code =
@@ -623,33 +621,33 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                         role="group"
                         aria-label={state.label}
                       >
-                        <HStack justifyContent="space-between" alignItems="center" gap="3">
-                          <Typography
-                            as="span"
-                            className={stateLabel}
-                            variant="body5"
-                            weight="medium"
-                          >
-                            {state.label}
-                          </Typography>
+                        <Typography
+                          as="span"
+                          className={stateLabel}
+                          variant="body5"
+                          weight="medium"
+                        >
+                          {state.label}
+                        </Typography>
+                        <Box display="flex" justifyContent="center" minH="16" p="3">
                           {renderSamplePreview(sample.preview, state.value === 'disabled')}
+                        </Box>
+                        <HStack as="code" className={codeLine} gap="3">
+                          <Box as="span" flex="1" minW="0" overflowWrap="anywhere">
+                            {renderHighlightedCode(code)}
+                          </Box>
+                          <Button
+                            className={copyButton}
+                            variant="icon"
+                            size={32}
+                            type="button"
+                            onClick={() => onCopy(code)}
+                            aria-label={`${item.title} ${sample.label} ${state.label} 코드 복사`}
+                            title="코드 복사"
+                          >
+                            <Icon fontAwesomeIcon={faCopy} size={16} />
+                          </Button>
                         </HStack>
-                        <Grid className={codeActions} w="100%" gap="2">
-                          <Box className={codeLine}>
-                            <code>{code}</code>
-                          </Box>
-                          <Box whiteSpace="nowrap">
-                            <Button
-                              variant="plain"
-                              size="md"
-                              type="button"
-                              onClick={() => onCopy(code)}
-                              aria-label={`${item.title} ${sample.label} ${state.label} 코드 복사`}
-                            >
-                              복사
-                            </Button>
-                          </Box>
-                        </Grid>
                       </Stack>
                     );
                   })}
@@ -673,48 +671,33 @@ function renderSamplePreview(preview: ReactNode, disabled: boolean) {
   return cloneElement(preview, { disabled });
 }
 
-/** 컴포넌트 분류별 가이드 탭을 제공하고 버튼의 상태·크기별 예시와 코드를 보여줍니다. (Provides component category tabs and button examples with copyable code.) */
+/** 버튼 variant별 상태·크기 예시와 복사 가능한 코드를 보여줍니다. (Shows button variant examples by state and size with copyable code.) */
 export function ButtonGuide() {
-  const [activeCategory, setActiveCategory] = useState<GuideCategory>('button');
-  const [copyMessage, setCopyMessage] = useState('');
+  const [copyNotice, setCopyNotice] = useState<GuideCopyNotice | null>(null);
+  const nextCopyId = useRef(0);
+
+  function showCopyNotice(text: string) {
+    nextCopyId.current += 1;
+    setCopyNotice({ id: nextCopyId.current, text });
+  }
+
+  const dismissCopyNotice = useCallback((id: number) => {
+    setCopyNotice((current) => (current?.id === id ? null : current));
+  }, []);
 
   async function copySource(code: string) {
     try {
       await navigator.clipboard.writeText(code);
-      setCopyMessage('버튼 사용 코드를 복사했습니다.');
+      showCopyNotice('버튼 사용 코드를 복사했습니다.');
     } catch {
-      setCopyMessage('복사하지 못했습니다. 표시된 코드를 직접 선택해 복사해 주세요.');
+      showCopyNotice('복사하지 못했습니다. 표시된 코드를 직접 선택해 복사해 주세요.');
     }
   }
 
-  const tabs: readonly SupportTab[] = categories.map((category) => ({
-    value: category.value,
-    label: category.label,
-    content:
-      category.value === 'button' ? (
-        <ButtonCategoryPanel onCopy={copySource} />
-      ) : (
-        <Box py="8">
-          <Typography as="p" variant="body4" tone="subtle">
-            {category.label} 예시는 준비 중입니다.
-          </Typography>
-        </Box>
-      ),
-  }));
-
   return (
     <Stack gap="3">
-      <SupportTabs
-        ariaLabel="퍼블리싱 가이드 컴포넌트 분류"
-        tabs={tabs}
-        defaultValue="button"
-        value={activeCategory}
-        onValueChange={(value) => setActiveCategory(value as GuideCategory)}
-        variant="guide"
-      />
-      <Typography as="p" role="status" aria-live="polite" variant="body5" tone="subtle">
-        {copyMessage}
-      </Typography>
+      <ButtonCategoryPanel onCopy={copySource} />
+      <GuideCopyToast notice={copyNotice} onDismiss={dismissCopyNotice} />
     </Stack>
   );
 }

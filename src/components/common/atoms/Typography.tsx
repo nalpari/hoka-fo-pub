@@ -352,46 +352,6 @@ export const figmaTypographyVariants = {
     letterSpacing: 'korean',
     textDecoration: 'underline',
   },
-  mono1: {
-    fontFamily: 'mono',
-    fontSize: '24',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'mono',
-    textTransform: 'uppercase',
-  },
-  mono2: {
-    fontFamily: 'mono',
-    fontSize: '20',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'mono',
-    textTransform: 'uppercase',
-  },
-  mono3: {
-    fontFamily: 'mono',
-    fontSize: '16',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'mono',
-    textTransform: 'uppercase',
-  },
-  mono4: {
-    fontFamily: 'mono',
-    fontSize: '14',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'mono',
-    textTransform: 'uppercase',
-  },
-  mono5: {
-    fontFamily: 'mono',
-    fontSize: '12',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'mono',
-    textTransform: 'uppercase',
-  },
 } as const;
 
 const typographyTones = {
@@ -415,37 +375,6 @@ const typography = cva({
   base: { fontFamily: 'var(--font-family-base)' },
   variants: {
     variant: {
-      loginTitle: {
-        fontFamily: 'korean',
-        fontSize: 'var(--type-login-title-font-size)',
-        fontWeight: 'var(--type-login-title-font-weight)',
-        lineHeight: 'var(--type-login-title-line-height)',
-        letterSpacing: 'var(--type-login-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-login-title-mobile-font-size)' },
-      },
-      pageTitle: {
-        fontSize: 'var(--type-page-title-font-size)',
-        fontWeight: 'var(--type-page-title-font-weight)',
-        lineHeight: 'var(--type-page-title-line-height)',
-        letterSpacing: 'var(--type-page-title-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-page-title-mobile-font-size)' },
-      },
-      authTitle: {
-        fontSize: 'var(--type-authTitle-font-size)',
-        fontWeight: 'var(--type-authTitle-font-weight)',
-        lineHeight: 'var(--type-authTitle-line-height)',
-        letterSpacing: 'var(--type-authTitle-letter-spacing)',
-        _mobile: { fontSize: 'var(--type-authTitle-mobile-font-size)' },
-      },
-      authCaption: figmaTypographyVariants.bodyKr5,
-      authBody: figmaTypographyVariants.bodyKr3,
-      authSmall: figmaTypographyVariants.bodyKr4,
-
-      body: {
-        ...figmaTypographyVariants.bodyKr3,
-        fontSize: 'var(--type-body-font-size)',
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
-      },
       ...figmaTypographyVariants,
       cta2: {
         ...figmaTypographyVariants.cta2,
@@ -499,18 +428,10 @@ const typography = cva({
 });
 
 export type TypographyVariant =
-  | 'loginTitle'
-  | 'pageTitle'
-  | 'authTitle'
-  | 'authCaption'
-  | 'authBody'
-  | 'authSmall'
-  | 'body'
   | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | `body${1 | 2 | 3 | 4 | 5}`
   | `bodyKr${1 | 2 | 3 | 4 | 5}`
-  | `mono${1 | 2 | 3 | 4 | 5}`
   | 'ctaKr1'
   | 'ctaKr2'
   | 'textLinkKr1'

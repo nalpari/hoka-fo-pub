@@ -1,12 +1,41 @@
 import type { Metadata } from 'next';
 
 import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
+import { SupportTabs, type SupportTab } from '@/components/common/molecules/SupportTabs';
 
 import { ButtonGuide } from './_components/ButtonGuide';
+import { TypographyGuide } from './_components/TypographyGuide';
+
+const guideTabs: readonly SupportTab[] = [
+  { value: 'typography', label: '타이포그래피', content: <TypographyGuide /> },
+  { value: 'button', label: '버튼', content: <ButtonGuide /> },
+  {
+    value: 'form',
+    label: '폼',
+    content: (
+      <Box py="8">
+        <Typography as="p" variant="body4" tone="subtle">
+          폼 예시는 준비 중입니다.
+        </Typography>
+      </Box>
+    ),
+  },
+  {
+    value: 'modal',
+    label: '모달',
+    content: (
+      <Box py="8">
+        <Typography as="p" variant="body4" tone="subtle">
+          모달 예시는 준비 중입니다.
+        </Typography>
+      </Box>
+    ),
+  },
+];
 
 const pageStyle = css({ bg: 'white.0', color: 'black.100' });
 
@@ -40,7 +69,12 @@ export default function PublishingGuidePage() {
           기본 버튼의 스타일·상태·크기를 비교하고 사용 코드를 복사합니다.
         </Typography>
       </Stack>
-      <ButtonGuide />
+      <SupportTabs
+        ariaLabel="퍼블리싱 가이드 컴포넌트 분류"
+        tabs={guideTabs}
+        defaultValue="typography"
+        variant="guide"
+      />
       <HStack justifyContent="flex-end" pt="4">
         <ButtonLink href="#top" variant="secondary" size="short">
           맨 위로

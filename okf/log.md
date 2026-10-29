@@ -28,8 +28,37 @@
 
 - 스타일 예시에서 Flex·Grid를 유지하고 중복 display를 제거했다. 기존 JSX props 방식의 세 번째 예시와 상호 이동 링크를 추가했으며 세 화면의 작성 코드를 기본 노출한다. [범위](architecture/style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29).
 
+- 퍼블리싱 가이드의 코드 복사 텍스트를 공용 `faCopy` 아이콘 버튼으로 바꿨다. 버튼과 타이포그래피 가이드 모두 32px 아이콘 전용 버튼, 한국어 접근성 이름, 툴팁, 복사 알림을 제공한다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)과 [공용 UI 기록](architecture/ui.md)을 참고한다.
+
+- Button 가이드의 모든 샘플에 높이·글자 크기·좌우 패딩을 같은 형식으로 표시하고, FilterTrigger 코드와 미리보기의 Typography를 일치시켰다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- Button 가이드의 Chip·Filter Trigger 등 보조 variant 미리보기를 카드 중앙으로 정렬했다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
 - 공통 Button의 `ghost` variant를 삭제하고 아이콘 전용 사용처는 `variant="icon"`, 메가 메뉴 텍스트는 `plain`으로 옮겼다. 메뉴 바깥 닫기 영역은 네이티브 버튼을 사용한다. Button 가이드와 Storybook 문서에서도 ghost 예시를 제거했다. Panda 생성·Prettier·diff·OKF 검사는 통과했다. 타입 검사에는 기존 생성 라우트와 DesignGuideTypography 오류가 있고 ESLint는 플러그인 미설치로 실행하지 못했다. [UI 기록](architecture/ui.md#ghost-버튼을-아이콘텍스트-용도로-분리-2026-10-29), [상태 영향](architecture/state.md#메가-메뉴-버튼-표현-정리-2026-10-29)을 참고한다.
 
+- Button 가이드 카드의 상태 라벨·미리보기·코드 복사 배치를 Typography와 맞추고, 코드 행 안에 복사 버튼을 배치했다. 성공·실패 안내는 두 가이드가 같은 상단 Toast를 사용한다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- Typography 코드 복사 결과를 목록 아래 고정 안내에서 사이트 헤더 아래 2초 표시 Toast로 옮기고 live region을 적용했다.
+
+- 운영 호출이 없는 `mono1`~`mono5` Typography variant와 가이드·Storybook 예시를 제거했다. 코드 표시 등에 사용하는 `mono` 글꼴·자간 토큰은 유지한다. [UI 기록](architecture/ui.md#미사용-모노스페이스-typography-variant-제거-2026-10-29)을 참고한다.
+
+- Typography 정보는 `Font Size`, `Line Height`, `Weight`로 표시하고 동일한 PC·모바일 값은 한 번만 노출한다. 값이 달라지는 속성만 PC·Mobile을 구분한다.
+
+- Typography 예시의 PC·모바일 글자 속성 설명에서 영문 약어를 빼고 한글 전체 명칭으로 표시한다.
+
+- Typography 예시 variant 옆에 실제 정의를 기준으로 PC·모바일 글자 크기·행간·굵기를 표시했다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- Typography 미리보기의 가로 스크롤을 제거하고 큰 글자가 줄바꿈되도록 해 작은 화면에서도 잘리지 않게 했다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- 버튼 가이드의 코드 복사 버튼을 상태명 오른쪽으로 옮기고 Typography 가이드와 같은 상단 배치를 적용했다. 코드 영역에는 JSX 구문 색상을 추가했다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- `body` Typography alias 호출처를 `bodyKr3` 웹·`bodyKr4` 모바일로 옮기고 alias·전용 CSS 변수·퍼블리싱 가이드 예시를 제거했다. ProductCard 상품명은 가변 웹 글자 크기와 모바일 14px 동작을 유지한다. 모노스페이스 variant는 운영 화면에는 없지만 Storybook과 디자인 타입표에 사용 중이라 유지했다. [UI 기록](architecture/ui.md#body-typography-alias-제거-2026-10-29)을 참고한다.
+
+- 전용 Typography인 `pageTitle`, `authTitle`, `authCaption`, `authBody`, `authSmall`, `loginTitle`을 표준 variant로 통합했다. 로그인 제목은 `headingKr6` 웹·`headingKr5` 모바일을 사용해 기존 36px/22px 크기를 유지하고, 전용 정의·토큰·퍼블리싱 가이드·Storybook 예시를 제거했다. [UI 기록](architecture/ui.md#미사용-전용-typography-variant-정리-2026-10-29)을 참고한다.
+
+- 퍼블리싱 가이드 페이지의 `SupportTabs`에 `<TypographyGuide />`와 `<ButtonGuide />`를 각각 직접 연결하고 Typography를 버튼 왼쪽에 배치했다. 타이틀과 설명은 가로 정렬한다. 기존 `TypographyVariant`만 한글·영문 헤딩/본문, CTA, 텍스트 링크, 모노스페이스 및 화면 전용 그룹으로 미리보기와 variant별 JSX 복사를 제공하며 공용 타이포그래피 API는 변경하지 않았다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- Typography 가이드를 버튼 가이드와 같은 좌측 콘텐츠·우측 타임라인 레이아웃으로 구성하고, 양쪽에서 쓰는 타임라인 UI를 `GuideTimeline`으로 통합했다. 섹션별 앵커와 sticky·모바일 정적 배치 동작을 공유한다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
 
 - TSX 상단 Panda css 클래스와 페이지 전용 SCSS Module을 비교하는 예시 페이지 2개를 추가했다. SCSS는 사용자 요청에 따른 예시 전용 예외다. 같은 카드 UI·상호 이동·코드 펼침과 PC/모바일 경계 배치를 확인했고 Panda·타입·변경 파일 lint/포맷 검사를 통과했다. [경로와 검증](architecture/style-examples.md).
 - 비활성화 상태 라벨이 줄바꿈으로 깨지지 않도록 고정하고, 상태별 코드와 복사 버튼을 나뉜 반응형 열에 배치해 코드 영역이 찌그러지지 않게 했다.

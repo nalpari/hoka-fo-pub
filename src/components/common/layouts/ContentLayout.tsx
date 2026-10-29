@@ -115,7 +115,7 @@ export function ContentLayout({
               />
             ) : null}
             {!title && description ? (
-              <Typography as="p" tone="subtle" variant="body">
+              <Typography as="p" tone="subtle" web="bodyKr3" mo="bodyKr4">
                 {description}
               </Typography>
             ) : null}

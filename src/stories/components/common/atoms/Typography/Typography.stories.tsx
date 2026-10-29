@@ -105,12 +105,13 @@ export const NotificationCount: Story = {
   ),
 };
 
-export const PageTitle: Story = {
-  args: { as: 'h1', variant: 'pageTitle', children: '주문/결제' },
-};
-
-export const LoginTitle: Story = {
-  args: { as: 'h1', variant: 'loginTitle', children: 'HOKA Korea에 오신것을 환영합니다' },
+export const KoreanHeadingResponsive: Story = {
+  args: {
+    as: 'h1',
+    web: 'headingKr6',
+    mo: 'headingKr5',
+    children: 'HOKA Korea에 오신것을 환영합니다',
+  },
 };
 
 export const ProfileTitle: Story = {
@@ -214,24 +215,9 @@ export const MobileContextTitles: Story = {
   ),
 };
 
-export const MobileLoginTitle: Story = {
+export const MobileKoreanHeadingResponsive: Story = {
   parameters: { layout: 'fullscreen' },
-  ...LoginTitle,
-  globals: { viewport: 'hoka375' },
-  decorators: [
-    (Story) => (
-      <PlatformProvider platform="mobile">
-        <div className="platform-mobile">
-          <Story />
-        </div>
-      </PlatformProvider>
-    ),
-  ],
-};
-
-export const MobilePageTitle: Story = {
-  parameters: { layout: 'fullscreen' },
-  ...PageTitle,
+  ...KoreanHeadingResponsive,
   globals: { viewport: 'hoka375' },
   decorators: [
     (Story) => (
@@ -263,7 +249,11 @@ export const CardTitle: Story = {
 };
 
 export const Body: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
 };
 
 export const ErrorTone: Story = {
@@ -297,7 +287,12 @@ export const EmphasisWeights: Story = {
 };
 
 export const InverseBody: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'inverse', variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    tone: 'inverse',
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
   decorators: [
     (Story) => (
       <div style={{ background: '#000', padding: 24 }}>
@@ -308,19 +303,39 @@ export const InverseBody: Story = {
 };
 
 export const TertiaryBody: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'tertiary', variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    tone: 'tertiary',
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
 };
 
 export const Black40Body: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black40', variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    tone: 'black40',
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
 };
 
 export const Black20Body: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black20', variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    tone: 'black20',
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
 };
 
 export const Black10Body: Story = {
-  args: { children: typographyLabel(typographyStorySpecs.body), tone: 'black10', variant: 'body' },
+  args: {
+    children: typographyLabel(typographyStorySpecs.body),
+    tone: 'black10',
+    web: 'bodyKr3',
+    mo: 'bodyKr4',
+  },
 };
 
 export const Body4: Story = {
@@ -397,22 +412,6 @@ export const FilterLegend: Story = {
   },
 };
 
-export const AuthTitle: Story = {
-  args: { as: 'h1', variant: 'authTitle', children: 'HOKA Korea에 오신것을 환영합니다' },
-};
-
-export const AuthCaption: Story = {
-  args: { as: 'p', variant: 'authCaption', children: 'HOKA Korea에 오신것을 환영합니다' },
-};
-
-export const AuthBody: Story = {
-  args: { as: 'p', variant: 'authBody', children: 'HOKA Korea에 오신것을 환영합니다' },
-};
-
-export const AuthSmall: Story = {
-  args: { as: 'p', variant: 'authSmall', children: 'HOKA Korea에 오신것을 환영합니다' },
-};
-
 export const FigmaTypeScale: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 16 }}>
@@ -424,7 +423,6 @@ export const FigmaTypeScale: Story = {
       </Typography>
       <Typography variant="body3">The Future HOKA Body 3</Typography>
       <Typography variant="body3">프리텐다드 한글 본문 3</Typography>
-      <Typography variant="mono4">Mono label</Typography>
       <Typography as="a" href="#type-scale" variant="textLink2">
         Text Link 2
       </Typography>

@@ -366,15 +366,30 @@
     ],
     "src/app/products/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
     "src/app/publishing-guide/_components/ButtonGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/SupportTabs.tsx"
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/GuideCopyToast.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/GuideTimeline.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/TypographyGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
+      "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/SupportTabs.tsx"
     ],
     "src/app/running/run-club/[sessionId]/page.tsx": [
       "src/components/common/atoms/Badge.tsx",

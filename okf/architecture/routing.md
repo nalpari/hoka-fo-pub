@@ -14,6 +14,11 @@ working_tree_sources:
   - src/app/examples/styles/scss-module/page.module.scss
   - src/app/publishing-guide/page.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/app/publishing-guide/_components/TypographyGuide.tsx
+  - src/app/publishing-guide/_components/GuideCopyToast.tsx
+  - src/app/publishing-guide/_components/GuideTimeline.tsx
+  - src/app/support/inquiries/new/page.tsx
+  - src/app/products/[id]/page.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -502,7 +507,7 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 ## 퍼블리싱 가이드 기본 버튼 (2026-10-29)
 
-`/publishing-guide`는 기존 SupportTabs의 guide 변형으로 상단 컴포넌트 분류 탭(버튼·폼·모달·뱃지)을 전환한다. 버튼 탭은 크기 기준·속성 안내를 첫 섹션으로 두고, Primary 예시 옆에서 시작하는 오른쪽 세로 바로가기 목록과 예시 영역의 2열 레이아웃을 사용한다. 크기 안내에는 Tall/Short 치수, CTA1/CTA2 및 Link 폰트 크기, density·size·auto 우선순위와 auto 플랫폼 기본값, FilterTrigger·HeaderSearch·아이콘 전용 버튼 예외, 라벨 Typography 연동과 Black/White colorway를 정리한다. 바로가기는 압축된 간격으로 크기 기준·Primary·Secondary와 추가 유형 전부를 실제 variant명으로 표시하고 각 설명은 한국어로 작성한다. 데스크톱 타임라인은 고정 사이트 헤더 높이와 24px 간격 아래에서 sticky로 유지하고, 모바일에서는 예시 아래에 정적 배치한다. Primary·Secondary 및 Ghost 등 추가 버튼 유형의 각 샘플은 기본·비활성화 미리보기와 상태별 사용 코드·복사 버튼을 함께 제공한다. 상태 라벨은 한 줄로 유지하고 코드와 복사 액션은 축소 가능한 코드 칸 및 고정 너비 액션 칸으로 나눠 좁은 화면에서도 잘리지 않게 한다. Link 유형도 비활성화 상태를 포함하도록 Button의 link variant로 표시한다. 기본 화면은 흰색 배경과 기존 black/white 색상 체계를 사용하며 테마 선택 UI는 두지 않는다. 섹션 앵커는 사이트 헤더 높이와 여유 공간을 scroll margin으로 확보해 제목이 가려지지 않게 한다. 복사 버튼은 plain 중간 크기로 표시한다. 예시는 Ghost·Brand·Link·Plain·Chip·Filter Trigger·Header Search·Icon과 Social·Load More 옵션을 포함한다. 폼·모달·뱃지 탭은 예시 준비 중 안내를 표시한다. 페이지 하단 `#top` 링크는 메인 영역으로 이동한다. 모바일에서는 크기·색상·상태 카드가 한 열로 쌓인다. 라우트·metadata·정적 페이지 헤더와 하단은 `page.tsx` Server Component가 소유하고, 탭·복사 상태는 `ButtonGuide` Client Component가 소유한다. 공용 Button API와 다른 운영 화면은 수정하지 않았다. 출처는 위 `working_tree_sources`의 publishing-guide 파일이다. 전체 타입 검사에는 기존 `.next/types` 주문/상품 라우트 진단 6건이 있었다. 최근 크기 안내·타임라인·비활성화 예시 수정은 브라우저 시각 확인 전이다.
+`/publishing-guide`는 기존 SupportTabs의 guide 변형으로 상단 컴포넌트 분류 탭(버튼·폼·모달·뱃지)을 전환한다. 버튼 탭은 크기 기준·속성 안내를 첫 섹션으로 두고, Primary 예시 옆에서 시작하는 오른쪽 세로 바로가기 목록과 예시 영역의 2열 레이아웃을 사용한다. 크기 안내에는 Tall/Short 치수, CTA1/CTA2 및 Link 폰트 크기, density·size·auto 우선순위와 auto 플랫폼 기본값, FilterTrigger·HeaderSearch·아이콘 전용 버튼 예외, 라벨 Typography 연동과 Black/White colorway를 정리한다. 바로가기는 압축된 간격으로 크기 기준·Primary·Secondary와 추가 유형 전부를 실제 variant명으로 표시하고 각 설명은 한국어로 작성한다. 데스크톱 타임라인은 고정 사이트 헤더 높이와 24px 간격 아래에서 sticky로 유지하고, 모바일에서는 예시 아래에 정적 배치한다. Primary·Secondary 및 추가 버튼 유형의 각 샘플은 기본·비활성화 미리보기와 상태별 사용 코드·복사 버튼을 함께 제공한다. 상태 라벨은 한 줄로 유지하고 코드와 복사 액션은 코드 칸 안에서 나란히 배치해 좁은 화면에서도 코드가 잘리지 않게 한다. 코드 복사는 공용 `faCopy` 아이콘을 32px `variant="icon"` 버튼으로 표시하고 각 버튼에 한국어 접근성 이름과 툴팁을 제공한다. Link 유형도 비활성화 상태를 포함하도록 Button의 link variant로 표시한다. 기본 화면은 흰색 배경과 기존 black/white 색상 체계를 사용하며 테마 선택 UI는 두지 않는다. 섹션 앵커는 사이트 헤더 높이와 여유 공간을 scroll margin으로 확보해 제목이 가려지지 않게 한다. 예시는 Brand·Link·Plain·Chip·Filter Trigger·Header Search·Icon과 Social·Load More 옵션을 포함한다. 폼·모달·뱃지 탭은 예시 준비 중 안내를 표시한다. 페이지 하단 `#top` 링크는 메인 영역으로 이동한다. 모바일에서는 크기·색상·상태 카드가 한 열로 쌓인다. 라우트·metadata·정적 페이지 헤더와 하단은 `page.tsx` Server Component가 소유하고, 복사 상태는 `ButtonGuide` Client Component가 소유한다. 공용 Button API와 다른 운영 화면은 수정하지 않았다. 출처는 위 `working_tree_sources`의 publishing-guide 파일이다. 전체 타입 검사에는 기존 `.next/types` 주문/상품 라우트 진단 6건이 있었다. 최근 크기 안내·타임라인·비활성화 예시 수정은 브라우저 시각 확인 전이다.
 
 ## 첨부 디자인·소스 대조 (2026-10-29)
 
@@ -516,5 +521,12 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
 
+페이지의 `SupportTabs`에 Typography와 Button 가이드를 각 탭의 콘텐츠로 직접 연결하며 Typography 탭을 왼쪽에 둔다. Typography 탭은 `TypographyVariant`에 정의된 영문·한글 헤딩/본문, CTA, 텍스트 링크를 미리 보여주고 variant별 JSX 코드를 복사한다. 두 가이드는 카드에서 이름·속성 표기, 미리보기, 코드와 복사 버튼이 포함된 코드를 같은 순서로 표시한다. 복사 결과는 공통 `GuideCopyToast`로 사이트 헤더 아래에 2초간 표시하며 상태 메시지는 접근 가능한 live region으로 제공한다. 각 예시 variant 옆에 실제 정의에서 계산한 글자 크기·행간(Line Height)·굵기(Weight)를 표시하며, PC·모바일 값이 같은 속성은 중복하지 않는다. 미리보기 영역은 스크롤 컨테이너로 제한하지 않고 큰 글자도 줄바꿈되어 잘리지 않게 한다. 별칭 `body`를 호출하던 홈 소개문·ContentLayout·MainContentCard·ProductCard는 `bodyKr3` 웹·`bodyKr4` 모바일 조합으로 옮겼고, 상품명은 기존 웹 가변 크기를 보존하는 화면 전용 Panda 스타일을 사용한다. `body` variant와 전용 CSS 토큰은 제거했다. 미사용 전용 variant인 `pageTitle`·`loginTitle`·`authTitle`·`authCaption`·`authBody`·`authSmall`도 호출부를 표준 variant로 옮기고 정의·가이드·스토리에서 제거한다. 로그인 제목은 `headingKr6` 웹·`headingKr5` 모바일 조합을 사용해 기존 36px/22px 크기를 유지한다. Typography 타이틀과 설명은 가로로 정렬하며, variant 그룹·예시 카드는 버튼 가이드와 같은 surface·border 중심의 시각 체계를 사용하고 카드·코드 배경은 semantic `surface.default`·`surface.subtle` 토큰을 적용한다. 두 가이드는 오른쪽 sticky 타임라인으로 섹션을 탐색하며 공통 `GuideTimeline`을 사용한다. 화면 폭과 자동 플랫폼 선택에 따라 미리보기에 PC·모바일 반응형 차이가 반영된다. 새 Typography variant나 공용 타이포그래피 스타일은 만들지 않는다.
 
-후속 Button 정리에서 `ghost` variant와 텍스트 ghost 예시는 제거했다. 아이콘 전용 액션은 `variant="icon"`, ShopShell 메가 메뉴 텍스트는 `plain`을 사용한다. Panda 생성·Prettier·diff·OKF 검사는 통과했다. 전체 타입 검사는 기존 생성 라우트 및 DesignGuideTypography 오류로 실패했고, ESLint는 `eslint-plugin-perfectionist` 미설치로 시작하지 못했다. 브라우저 검증은 수행하지 않았다.
+버튼 예시는 상태 카드 상단에 상태명과 복사 버튼을 나란히 배치하고, 아래에 버튼 미리보기와 구문 색상이 적용된 코드를 표시한다. Typography와 Button 코드 복사 동작은 같은 공용 `faCopy` 아이콘 버튼과 상단 알림을 사용한다.
+
+후속 Button 정리에서 `ghost` variant와 텍스트 ghost 예시는 제거했다. 아이콘 전용 액션은 `variant="icon"`, ShopShell 메가 메뉴 텍스트는 `plain`을 사용한다.
+
+Panda 생성·Prettier·diff·OKF 검사를 통과했다. 전체 타입 검사는 기존 생성 라우트 및 DesignGuideTypography 오류로 실패했고, ESLint는 `eslint-plugin-perfectionist` 미설치로 시작하지 못했다. 브라우저 검증은 수행하지 않았다.
+
+Button 가이드의 각 variant 미리보기는 상태·크기에 관계없이 카드 중앙에 정렬한다. Primary·Secondary의 Tall/Short와 모든 보조 variant 샘플에도 높이·글자 크기·좌우 패딩을 `높이 ... · 글자 ... · 좌우 ...` 형식으로 표시한다. FilterTrigger 코드 예시는 미리보기와 동일한 Typography variant를 사용한다.

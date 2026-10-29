@@ -22,6 +22,7 @@ export {
 } from '@fortawesome/free-solid-svg-icons';
 
 export {
+  faCopy,
   faCircleCheck,
   faEye,
   faEyeSlash,
