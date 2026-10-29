@@ -63,6 +63,7 @@
     ],
     "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/examples/styles/classnames/page.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/app/examples/styles/jsx-props/page.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/app/examples/styles/scss-module/page.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
@@ -349,6 +350,17 @@
       "src/components/common/molecules/SizeSelector/koreanSizes.ts"
     ],
     "src/app/products/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
+    "src/app/publishing-guide/_components/ButtonGuide.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/SupportTabs.tsx"
+    ],
+    "src/app/publishing-guide/page.tsx": [
+      "src/app/publishing-guide/_components/ButtonGuide.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/app/running/run-club/[sessionId]/page.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",

@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:37:21Z'
+  at: '2026-10-29T05:41:52Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/examples/styles/classnames/page.tsx
@@ -161,6 +161,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## IA 생성 그래프 최신화 (2026-10-29)
+
+`npm run screen-files`로 생성 그래프에 기존 JSX props 예시와 퍼블리싱 가이드 페이지·ButtonGuide의 실제 import 관계를 반영했다. 경로 등록·화면 완료 상태·바인딩 계약은 변경하지 않는다. 작업 트리 출처는 src/app/screen-index/sourceGraph.generated.json이며, 재생성 후 tests/screen-files.test.mjs의 생성기 테스트 1개를 통과했다.
 
 ## IA 비고의 날짜별 목록 표시 (2026-10-29)
 
