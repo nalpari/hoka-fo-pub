@@ -2,6 +2,12 @@
 
 ## 2026-10-29
 
+- 페이지 전용 보조 UI의 위치를 라우트 `_components/`로 확정하고 AGENTS.md·관련 스킬 지침을 맞췄다. 28개 페이지의 선언과 cart·checkout의 보조 파일 13개를 이동했으며 단순 페이지·기존 적절한 구조는 유지했다. 278개 함수 본문 동일성, 타입·범위 린트 및 Next/Storybook 빌드를 확인했다. [적용 목록·출처·검증과 기존 테스트 제약](architecture/page-private-components-2026-10-29.md).
+
+- 주문서에도 page 진입점 원칙을 적용해 보조 컴포넌트를 같은 폴더의 8개 파일로 이동하고 Page만 남겼다. 24개 함수 본문 동일성, 소스 타입·합계 테스트와 PC/MO 결제 완료·실패 후 재시도를 확인했다. PC 쿠폰 스토리의 기존 selector 불일치와 전체 검증 환경 제약은 [UI 기록](architecture/ui.md#주문서-page-보조-컴포넌트-분리-2026-10-29), 경로 영향은 [라우팅 기록](architecture/routing.md#주문서-page-보조-컴포넌트-분리-2026-10-29)에 남겼다.
+
+- AGENTS.md에 page.tsx는 페이지 컴포넌트만 선언하고 보조 UI는 같은 폴더에 두는 원칙을 추가했다. 장바구니에 먼저 적용해 보조 컴포넌트 파일 5개와 IA import 그래프를 갱신했다. 상태·핸들러·화면 조합은 Page가 유지한다. [라우트 원칙](architecture/routing.md#pagetsx-보조-컴포넌트-분리-원칙-2026-10-29), [구성과 검증](architecture/ui.md#장바구니-page-보조-컴포넌트-분리-2026-10-29).
+
 - 기존 Panda JSX props 방식 유지 결정에 따라 스타일 비교 샘플 3종과 전용 SCSS Module을 삭제하고 생성 그래프를 갱신했다. 세 경로의 404 응답과 생성기 테스트를 확인했다. [결정과 삭제 기록](architecture/style-examples.md#최종-결정-기존-방식-유지-및-샘플-삭제-2026-10-29).
 
 - DesignGuideTypography의 폰트명 표시에서 현재 정의에 없는 mono 비교를 제거해 TS2367을 수정했다. hoka·korean 규격과 운영 Typography는 유지하며 전체 타입 검사를 통과했다. [수정 범위](architecture/ui.md#디자인-가이드-폰트명-타입-오류-수정-2026-10-29).

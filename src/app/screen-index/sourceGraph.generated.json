@@ -1,7 +1,42 @@
 {
   "imports": {
-    "src/app/cart/cart-item.ts": [],
-    "src/app/cart/page.tsx": [
+    "src/app/_components/HomeContent.tsx": [
+      "src/app/homeCarouselPreview.ts",
+      "src/app/homeContent.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/MainSection.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/HomeCarouselSection.tsx",
+      "src/components/common/molecules/MainContentCard.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/context/HomeContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/cart/_components/CartDialogs.tsx": [
+      "src/app/cart/cart-item.ts",
+      "src/components/common/atoms/NumberStepper.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
+      "src/mocks/cartDisplay.ts"
+    ],
+    "src/app/cart/_components/CartEmptyState.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/cart/_components/CartOrderActions.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/layouts/OrderActionBar.tsx",
+      "src/components/common/molecules/AmountRow.tsx"
+    ],
+    "src/app/cart/_components/CartProductSection.tsx": [
       "src/app/cart/cart-item.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
@@ -9,54 +44,112 @@
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/OrderActionBar.tsx",
       "src/components/common/molecules/AmountRow.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/cartDisplay.ts"
+    ],
+    "src/app/cart/_components/CartSupportInfo.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/app/cart/cart-item.ts": [],
+    "src/app/cart/page.tsx": [
+      "src/app/cart/_components/CartDialogs.tsx",
+      "src/app/cart/_components/CartEmptyState.tsx",
+      "src/app/cart/_components/CartOrderActions.tsx",
+      "src/app/cart/_components/CartProductSection.tsx",
+      "src/app/cart/_components/CartSupportInfo.tsx",
+      "src/app/cart/cart-item.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/organisms/OrderRecommendations.tsx",
       "src/components/orders/OrderPageLayout.tsx",
       "src/context/ShopShell.tsx",
-      "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts",
-      "src/mocks/cartDisplay.ts",
       "src/mocks/orderRecommendations.ts",
       "src/mocks/products.ts"
     ],
-    "src/app/checkout/checkout-coupons.ts": [],
-    "src/app/checkout/checkout-summary.ts": [],
-    "src/app/checkout/page.tsx": [
+    "src/app/checkout/_components/CheckoutAgreement.tsx": [
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/checkout/_components/CheckoutComplete.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/organisms/OrderRecommendations.tsx",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/orderRecommendations.ts"
+    ],
+    "src/app/checkout/_components/CheckoutDiscountSummary.tsx": [
       "src/app/checkout/checkout-coupons.ts",
       "src/app/checkout/checkout-summary.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/context/CheckoutContext.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/mocks/cartDisplay.ts"
+    ],
+    "src/app/checkout/_components/CheckoutForm.tsx": [
+      "src/app/checkout/_components/CheckoutAgreement.tsx",
+      "src/app/checkout/_components/CheckoutComplete.tsx",
+      "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
+      "src/app/checkout/_components/CheckoutPayment.tsx",
+      "src/app/checkout/_components/CheckoutShipping.tsx",
+      "src/app/checkout/_components/CheckoutSummary.tsx",
+      "src/app/checkout/checkout-coupons.ts",
+      "src/app/checkout/checkout-summary.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/OrderActionBar.tsx",
+      "src/context/CheckoutContext.ts"
+    ],
+    "src/app/checkout/_components/CheckoutLayout.tsx": [
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/orders/OrderPageLayout.tsx"
+    ],
+    "src/app/checkout/_components/CheckoutPayment.tsx": [
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/checkout/_components/CheckoutShipping.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/TextInput.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/OrderActionBar.tsx",
-      "src/components/common/molecules/AmountRow.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
-      "src/components/common/organisms/OrderRecommendations.tsx",
-      "src/components/orders/OrderPageLayout.tsx",
+      "src/context/CheckoutContext.ts"
+    ],
+    "src/app/checkout/_components/CheckoutSummary.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/mocks/cartDisplay.ts"
+    ],
+    "src/app/checkout/checkout-coupons.ts": [],
+    "src/app/checkout/checkout-summary.ts": [],
+    "src/app/checkout/page.tsx": [
+      "src/app/checkout/_components/CheckoutForm.tsx",
+      "src/app/checkout/_components/CheckoutLayout.tsx",
+      "src/app/checkout/checkout-summary.ts",
       "src/context/CheckoutContext.ts",
       "src/context/ShopShell.tsx",
       "src/hooks/useRequestAction.ts",
-      "src/icons/fontAwesome.ts",
-      "src/mocks/cartDisplay.ts",
-      "src/mocks/orderRecommendations.ts",
       "src/mocks/products.ts"
     ],
     "src/app/collection/[id]/page.tsx": [
@@ -67,10 +160,33 @@
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
     "src/app/layout.tsx": ["src/context/AccountFlowContext.tsx", "src/context/ShopShell.tsx"],
+    "src/app/locales/_components/LocalesContent.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/app/locales/locales.data.ts": [],
     "src/app/locales/page.tsx": [
-      "src/app/locales/locales.data.ts",
-      "src/components/common/atoms/Typography.tsx"
+      "src/app/locales/_components/LocalesContent.tsx",
+      "src/app/locales/locales.data.ts"
+    ],
+    "src/app/login/_components/LoginContent.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts",
+      "src/lib/passwordValidation.ts"
+    ],
+    "src/app/login/account-locked/_components/AccountLockedContent.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
     ],
     "src/app/login/account-locked/complete/page.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -80,22 +196,14 @@
       "src/components/common/layouts/ContentSection.tsx"
     ],
     "src/app/login/account-locked/page.tsx": [
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx"
+      "src/app/login/account-locked/_components/AccountLockedContent.tsx"
     ],
     "src/app/login/account-locked/verification/page.tsx": [
       "src/components/phone-verification/PhoneVerificationContent.tsx",
       "src/context/AccountFlowContext.tsx",
       "src/hooks/usePhoneVerification.ts"
     ],
-    "src/app/login/find-account/id-confirmation-modal/page.tsx": [
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/find-account/IdConfirmationMessage.tsx",
-      "src/context/AccountFlowContext.tsx",
-      "src/context/platform.tsx"
-    ],
-    "src/app/login/find-account/page.tsx": [
+    "src/app/login/find-account/_components/FindAccountContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/StatusMessage.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -107,14 +215,23 @@
       "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
       "src/components/find-account/IdConfirmationMessage.tsx",
       "src/context/AccountFlowContext.tsx",
-      "src/context/RoutePreview.tsx",
       "src/context/platform.tsx",
       "src/hooks/useRequestAction.ts",
       "src/lib/phoneNumber.ts",
       "src/lib/useVerificationCountdown.ts",
       "src/lib/validation.ts"
     ],
-    "src/app/login/find-account/password-reset/page.tsx": [
+    "src/app/login/find-account/id-confirmation-modal/page.tsx": [
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/find-account/IdConfirmationMessage.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/app/login/find-account/page.tsx": [
+      "src/app/login/find-account/_components/FindAccountContent.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
@@ -123,28 +240,35 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/context/AccountFlowContext.tsx",
-      "src/context/RoutePreview.tsx",
       "src/hooks/useRequestAction.ts",
       "src/lib/passwordValidation.ts"
+    ],
+    "src/app/login/find-account/password-reset/page.tsx": [
+      "src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx",
+      "src/context/RoutePreview.tsx"
     ],
     "src/app/login/page.tsx": [
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/StatusMessage.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/context/RoutePreview.tsx",
-      "src/context/ShopShell.tsx",
-      "src/context/platform.tsx",
-      "src/hooks/useRequestAction.ts",
-      "src/icons/fontAwesome.ts",
-      "src/lib/passwordValidation.ts"
+      "src/app/login/_components/LoginContent.tsx",
+      "src/context/RoutePreview.tsx"
     ],
     "src/app/maintenance/page.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
-    "src/app/mypage/addresses/page.tsx": [
+    "src/app/mypage/_components/MyPageContent.tsx": [
+      "src/app/mypage/mypage-home-data.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/app/mypage/addresses/_components/AddressManagement.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
@@ -154,13 +278,17 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormActionGroup.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/components/common/organisms/Address/AddressFields.tsx"
+    ],
+    "src/app/mypage/addresses/page.tsx": [
+      "src/app/mypage/addresses/_components/AddressManagement.tsx",
+      "src/components/common/atoms/Typography.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
       "src/context/MyPageInitialState.ts",
       "src/hooks/useRequestAction.ts"
     ],
-    "src/app/mypage/coupons/page.tsx": [
+    "src/app/mypage/coupons/_components/CouponManagement.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
@@ -171,10 +299,13 @@
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
-      "src/context/RoutePreview.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts",
       "src/icons/fontAwesome.ts"
+    ],
+    "src/app/mypage/coupons/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx",
+      "src/context/RoutePreview.tsx"
     ],
     "src/app/mypage/event-entries/page.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -201,21 +332,8 @@
     "src/app/mypage/mypage-home-data.ts": [],
     "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
     "src/app/mypage/page.tsx": [
-      "src/app/mypage/mypage-home-data.ts",
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Divider.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/Carousel/Carousel.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/context/MyPageDataContext.ts",
-      "src/context/RoutePreview.tsx",
-      "src/context/ShopShell.tsx",
-      "src/context/platform.tsx"
+      "src/app/mypage/_components/MyPageContent.tsx",
+      "src/context/RoutePreview.tsx"
     ],
     "src/app/mypage/payment-methods/page.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -229,8 +347,7 @@
       "src/context/MyPageDataContext.ts",
       "src/hooks/useRequestAction.ts"
     ],
-    "src/app/mypage/profile/mypage-profile.types.ts": [],
-    "src/app/mypage/profile/page.tsx": [
+    "src/app/mypage/profile/_components/ProfileContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Radio.tsx",
@@ -253,14 +370,25 @@
       "src/lib/phoneNumber.ts",
       "src/lib/useVerificationCountdown.ts"
     ],
+    "src/app/mypage/profile/mypage-profile.types.ts": [],
+    "src/app/mypage/profile/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileContent.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts"
+    ],
     "src/app/mypage/recent/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
-    "src/app/mypage/referral/page.tsx": [
+    "src/app/mypage/referral/_components/ReferralContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/mypage/mypage.data.ts",
-      "src/context/MyPageDataContext.ts",
+      "src/context/MyPageDataContext.ts"
+    ],
+    "src/app/mypage/referral/page.tsx": [
+      "src/app/mypage/referral/_components/ReferralContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
     "src/app/mypage/refund-account/page.tsx": [
@@ -271,8 +399,7 @@
     ],
     "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/returns/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
-    "src/app/mypage/reviews/page.tsx": [
-      "src/app/mypage/reviews/reviewFixtures.ts",
+    "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/EmptyState.tsx",
@@ -283,7 +410,12 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx"
+    ],
+    "src/app/mypage/reviews/page.tsx": [
+      "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
+      "src/app/mypage/reviews/reviewFixtures.ts",
+      "src/components/common/atoms/Typography.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
       "src/context/MyPageInitialState.ts",
@@ -291,7 +423,11 @@
     ],
     "src/app/mypage/reviews/reviewFixtures.ts": [],
     "src/app/mypage/reviews/reviews.types.ts": [],
+    "src/app/mypage/rewards/_components/RewardsContent.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/app/mypage/rewards/page.tsx": [
+      "src/app/mypage/rewards/_components/RewardsContent.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
@@ -300,28 +436,8 @@
     ],
     "src/app/mypage/wishlist/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/not-found.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
-    "src/app/page.tsx": [
-      "src/app/homeCarouselPreview.ts",
-      "src/app/homeContent.ts",
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/FilterTabs.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/MainSection.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/HomeCarouselSection.tsx",
-      "src/components/common/molecules/MainContentCard.tsx",
-      "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/context/HomeContentContext.ts",
-      "src/context/RoutePreview.tsx",
-      "src/context/platform.tsx",
-      "src/hooks/useBindingQuery.ts",
-      "src/mocks/products.ts"
-    ],
-    "src/app/products/[id]/_components/ProductDetailViewerContent.tsx": [
-      "src/components/common/molecules/Carousel/Carousel.tsx",
-      "src/components/common/molecules/ProductDetailImage.tsx"
-    ],
-    "src/app/products/[id]/page.tsx": [
+    "src/app/page.tsx": ["src/app/_components/HomeContent.tsx", "src/context/RoutePreview.tsx"],
+    "src/app/products/[id]/_components/ProductDetailContent.tsx": [
       "src/app/products/[id]/_components/ProductDetailViewerContent.tsx",
       "src/app/products/[id]/productDetailPresentation.ts",
       "src/app/products/[id]/productInquiries.ts",
@@ -350,11 +466,18 @@
       "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
       "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
       "src/components/common/organisms/SystemStatusPage.tsx",
-      "src/context/RoutePreview.tsx",
       "src/context/ShopShell.tsx",
       "src/context/platform.tsx",
       "src/icons/fontAwesome.ts",
       "src/mocks/products.ts"
+    ],
+    "src/app/products/[id]/_components/ProductDetailViewerContent.tsx": [
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ProductDetailImage.tsx"
+    ],
+    "src/app/products/[id]/page.tsx": [
+      "src/app/products/[id]/_components/ProductDetailContent.tsx",
+      "src/context/RoutePreview.tsx"
     ],
     "src/app/products/[id]/productDetailPresentation.ts": [],
     "src/app/products/[id]/productInquiries.ts": [],
@@ -394,16 +517,20 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/SupportTabs.tsx"
     ],
-    "src/app/running/run-club/[sessionId]/page.tsx": [
+    "src/app/running/run-club/[sessionId]/_components/RunClubSessionContent.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/HomeCarouselSection.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/run-club/runClub.data.ts"
+    ],
+    "src/app/running/run-club/[sessionId]/page.tsx": [
+      "src/app/running/run-club/[sessionId]/_components/RunClubSessionContent.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/organisms/SystemStatusPage.tsx",
       "src/components/run-club/runClub.data.ts",
       "src/context/RunClubDataContext.ts",
@@ -418,6 +545,14 @@
     "src/app/service-unavailable/page.tsx": [
       "src/components/common/organisms/SystemStatusPage.tsx"
     ],
+    "src/app/signup/_components/SignupContent.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
     "src/app/signup/complete/page.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
@@ -425,7 +560,7 @@
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx"
     ],
-    "src/app/signup/information/page.tsx": [
+    "src/app/signup/information/_components/RegistrationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/StatusMessage.tsx",
@@ -439,23 +574,22 @@
       "src/components/common/organisms/Address/AddressFields.tsx",
       "src/components/common/organisms/EmailAddressFields.tsx",
       "src/context/AccountFlowContext.tsx",
-      "src/context/RoutePreview.tsx",
       "src/hooks/useRequestAction.ts",
       "src/lib/emailValidation.ts",
       "src/lib/passwordValidation.ts",
       "src/lib/validation.ts"
     ],
+    "src/app/signup/information/page.tsx": [
+      "src/app/signup/information/_components/RegistrationContent.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
     "src/app/signup/information/registration.types.ts": [],
     "src/app/signup/page.tsx": [
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
+      "src/app/signup/_components/SignupContent.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx"
+      "src/components/common/layouts/ModalDialog.tsx"
     ],
-    "src/app/signup/terms/page.tsx": [
+    "src/app/signup/terms/_components/SignupTermsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Divider.tsx",
@@ -465,31 +599,46 @@
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/context/AccountFlowContext.tsx",
+      "src/context/AccountFlowContext.tsx"
+    ],
+    "src/app/signup/terms/page.tsx": [
+      "src/app/signup/terms/_components/SignupTermsContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
-    "src/app/signup/verify/page.tsx": [
+    "src/app/signup/verify/_components/IdentityVerificationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/app/signup/verify/page.tsx": [
+      "src/app/signup/verify/_components/IdentityVerificationContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
-    "src/app/signup/verify/phone/page.tsx": [
+    "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx": [
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/phone-verification/PhoneVerificationContent.tsx",
       "src/context/AccountFlowContext.tsx",
-      "src/context/RoutePreview.tsx",
       "src/hooks/usePhoneVerification.ts"
     ],
-    "src/app/support/after-sales/page.tsx": [
-      "src/app/support/support.navigation.ts",
+    "src/app/signup/verify/phone/page.tsx": [
+      "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/support/_components/SupportContacts.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/support/after-sales/_components/AfterSalesContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/app/support/after-sales/page.tsx": [
+      "src/app/support/after-sales/_components/AfterSalesContent.tsx",
+      "src/app/support/support.navigation.ts",
       "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
@@ -500,8 +649,7 @@
       "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
-    "src/app/support/faq/faq.data.ts": [],
-    "src/app/support/faq/page.tsx": [
+    "src/app/support/faq/_components/FaqContent.tsx": [
       "src/app/support/faq/faq.data.ts",
       "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Accordion.tsx",
@@ -510,11 +658,34 @@
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/SearchField.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/RoutePreview.tsx",
       "src/context/SupportContentContext.ts",
       "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/faq/faq.data.ts": [],
+    "src/app/support/faq/page.tsx": [
+      "src/app/support/faq/_components/FaqContent.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/support/inquiries/_components/InquiryListContent.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx"
+    ],
+    "src/app/support/inquiries/new/_components/InquiryFormContent.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/FormActionGroup.tsx",
+      "src/components/common/molecules/FormFields/CharacterCount.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/context/InquiryDataContext.ts",
+      "src/icons/fontAwesome.ts"
     ],
     "src/app/support/inquiries/new/inquiryOrders.data.ts": [],
     "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts": [
@@ -538,35 +709,24 @@
       "src/hooks/useRequestAction.ts"
     ],
     "src/app/support/inquiries/new/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
       "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts",
       "src/app/support/support.navigation.ts",
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Dropdown.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/common/molecules/FormActionGroup.tsx",
-      "src/components/common/molecules/FormFields/CharacterCount.tsx",
-      "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/components/support/InquiryCautions.tsx",
       "src/context/InquiryDataContext.ts",
-      "src/hooks/useRequestAction.ts",
-      "src/icons/fontAwesome.ts"
+      "src/hooks/useRequestAction.ts"
     ],
     "src/app/support/inquiries/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryListContent.tsx",
       "src/app/support/support.navigation.ts",
-      "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/Carousel/Carousel.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/components/support/InquiryCautions.tsx",
@@ -588,6 +748,9 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
+    "src/app/support/notices/_components/NoticesList.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/app/support/notices/[id]/page.tsx": [
       "src/app/support/notices/notices.data.ts",
       "src/app/support/support.navigation.ts",
@@ -600,9 +763,9 @@
     ],
     "src/app/support/notices/notices.data.ts": [],
     "src/app/support/notices/page.tsx": [
+      "src/app/support/notices/_components/NoticesList.tsx",
       "src/app/support/notices/notices.data.ts",
       "src/app/support/support.navigation.ts",
-      "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/context/SupportContentContext.ts",
@@ -611,6 +774,7 @@
       "src/hooks/useRequestAction.ts"
     ],
     "src/app/support/page.tsx": [
+      "src/app/support/_components/SupportContacts.tsx",
       "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
@@ -631,28 +795,34 @@
       "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/size-guide/size-guide.data.ts": [],
-    "src/app/support/store/page.tsx": [
+    "src/app/support/store/_components/StoreContent.tsx": [
       "src/app/support/store/store.data.ts",
-      "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/support/store/page.tsx": [
+      "src/app/support/store/_components/StoreContent.tsx",
+      "src/app/support/support.navigation.ts",
       "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/store/store.data.ts": [],
     "src/app/support/support.navigation.ts": [],
-    "src/app/support/terms/page.tsx": [
-      "src/app/support/support.navigation.ts",
+    "src/app/support/terms/_components/TermsDocument.tsx": [
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/SupportTabs.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
       "src/context/SupportContentContext.ts",
       "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts"
+    ],
+    "src/app/support/terms/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/app/support/terms/_components/TermsDocument.tsx",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/components/care-guide/care.data.ts": [],
     "src/components/care-guide/CareInstructions.tsx": [
@@ -1118,6 +1288,8 @@
   },
   "bindingFiles": [
     "src/app/cart/page.tsx",
+    "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
+    "src/app/checkout/_components/CheckoutPayment.tsx",
     "src/app/checkout/page.tsx",
     "src/app/collection/[id]/page.tsx",
     "src/app/homeContent.ts",
@@ -1150,6 +1322,7 @@
     "src/app/mypage/rewards/page.tsx",
     "src/app/mypage/wishlist/page.tsx",
     "src/app/page.tsx",
+    "src/app/products/[id]/_components/ProductDetailContent.tsx",
     "src/app/products/[id]/page.tsx",
     "src/app/products/[id]/productDetailPresentation.ts",
     "src/app/products/[id]/productInquiries.ts",
