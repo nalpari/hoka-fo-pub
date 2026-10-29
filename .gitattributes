@@ -1,0 +1,2 @@
+# Keep the IA generator output consistent with its LF formatting on Windows.
+src/app/screen-index/sourceGraph.generated.json text eol=lf

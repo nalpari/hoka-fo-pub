@@ -6,10 +6,11 @@ tags: [okf, documentation, maintenance]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:11:18Z'
+  at: '2026-10-29T06:31:05Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - scripts/screen-files.mjs
+  - .gitattributes
   - src/app/screen-index/screenConnections.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
@@ -134,5 +135,9 @@ OKF 소스 매핑의 상태 관련 도메인 경로를 src/components/cart/와 s
 ## IA 연결 그래프 유지보수 (2026-10-29)
 
 scripts/screen-files.mjs는 tsconfig 경로 해석과 현재 import를 기준으로 src/app/screen-index/sourceGraph.generated.json을 생성한다. dev·Storybook 감시와 각 빌드 전 생성으로 경로 추가·이동·삭제를 반영하고, 내용이 같은 결과는 재저장하지 않는다. 생성 결과는 저장소에 보관해 별도 생성 전 타입 검사도 가능하게 한다. 신규 IA의 화면 진입점은 screenConnections.ts에서 연결하며 바인딩 주석으로 개발 연결 지점을 안내한다. 공통 UI와 범용 훅은 수정 목록처럼 노출하지 않는다. 코드에서 사라진 import와 삭제 파일은 다음 생성에서 제외된다.
+
+2026-10-29: Windows `core.autocrlf=true` 환경에서 그래프 내용의 Git 해시는 HEAD와 같아도 LF로 재생성된 파일이 변경으로 표시되는 현상을 확인했다. `.gitattributes`에서 이 파일만 `text eol=lf`로 고정하고 생성기도 LF를 명시한다. 실제 import 변경에 따른 자동 갱신과 생성 결과 추적은 유지한다.
+
+검증: 생성 명령 연속 2회에서 수정 시각 불변, `tests/screen-files.test.mjs` 1개 통과. 내용 동일성을 확인한 생성 파일의 인덱스 작업 트리 캐시를 갱신한 뒤 Git 변경 표시가 사라졌으며 스테이징된 변경은 없다.
 
 출처는 위 스크립트, package.json, screenConnections.ts와 tests/screen-files.test.mjs의 작업 트리다. 이 자동화는 파일 그래프만 갱신하며 OKF를 자동 작성하거나 Git을 스테이징하지 않는다. 연결 정책 변경 시 [UI 문서](architecture/ui.md#ia-작업-파일-자동-갱신과-개발-연결-범위-2026-10-29)와 실행·검증 문서를 함께 갱신한다.

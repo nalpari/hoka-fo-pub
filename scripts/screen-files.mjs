@@ -118,6 +118,7 @@ async function generate() {
   const content = await format(JSON.stringify(buildSourceGraph(root)), {
     ...(await resolveConfig(target)),
     filepath: target,
+    endOfLine: 'lf',
   });
   if (existsSync(target) && readFileSync(target, 'utf8') === content) return;
   writeFileSync(target, content);
