@@ -2,24 +2,20 @@
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import {
-  faArrowRight,
   faBan,
-  faChartLine,
   faChevronDown,
   faChevronRight,
-  faCircle,
   faDesktop,
   faFileLines,
   faFolder,
   faFolderOpen,
   faFolderTree,
-  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
 import { TextInput } from '@/components/common/atoms/TextInput';
@@ -33,15 +29,13 @@ import {
   isScreenDeleted,
 } from '@/app/screen-index/screenConnections';
 import {
-  isStorybookPending,
-  isStorybookReady,
-  isStorybookWorking,
+  getScreenProgress,
+  type ScreenProgress,
+  type ScreenProgressOverrides,
 } from '@/app/screen-index/storybookLinks';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 config.autoAddCss = false;
-
-type DeliveryStatus = 'ready' | 'working' | 'pending' | 'delayed' | 'deleted';
 
 type ScreenGroup = {
   depth1: string;
@@ -60,36 +54,57 @@ type TreeRow = {
 
 type WbsAssignment = {
   period: string;
-  owners: string;
 };
 
-const statusLabels: Record<DeliveryStatus, string> = {
+const progressFields = [
+  { key: 'pcDesign', label: 'PC 디자인', kind: 'design' },
+  { key: 'moDesign', label: 'MO 디자인', kind: 'design' },
+  { key: 'pcPublishing', label: 'PC 퍼블리싱', kind: 'publishing' },
+  { key: 'moPublishing', label: 'MO 퍼블리싱', kind: 'publishing' },
+] as const;
+
+const progressLabels = {
+  received: '수급',
+  missing: '미수급',
   ready: '완료',
-  working: '작업 중',
-  pending: '대기중',
-  delayed: '지연 / 블락',
-  deleted: '삭제 / 제외',
+  working: '진행중',
+  pending: '대기',
 };
+
+const emptyProgressOverrides: ScreenProgressOverrides = {};
+
+function matchesProgressFilter(
+  screen: ScreenDefinition,
+  filter: string,
+  overrides: ScreenProgressOverrides,
+) {
+  if (filter === 'all') return true;
+  if (filter === 'deleted') return isScreenDeleted(screen);
+  if (isScreenDeleted(screen)) return false;
+  return progressFields.some(
+    ({ key }) => filter === key + ':' + (getScreenProgress(screen, overrides)[key] ?? 'unknown'),
+  );
+}
 
 const directWbsAssignments: Record<string, WbsAssignment> = {
-  레이아웃: { period: '2026.09.21 ~ 2026.09.23', owners: '조맑은' },
-  Main: { period: '2026.10.02 ~ 2026.10.05', owners: '조맑은' },
-  '런칭 캘린더': { period: '2026.10.28', owners: '조맑은, 박서현' },
-  기획전: { period: '2026.10.29', owners: '조맑은, 박서현' },
-  이벤트: { period: '2026.10.30', owners: '조맑은, 박서현' },
-  장바구니: { period: '2026.10.22 ~ 2026.10.23', owners: '조맑은' },
-  주문: { period: '2026.10.26 ~ 2026.10.27', owners: '조맑은, 박서현' },
-  마이페이지: { period: '2026.10.15 ~ 2026.10.21', owners: '조맑은, 박서현' },
-  카테고리: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은' },
-  고객센터: { period: '2026.10.15 ~ 2026.10.21', owners: '조맑은, 박서현' },
-  로그인: { period: '2026.10.06 ~ 2026.10.07', owners: '박서현' },
-  회원가입: { period: '2026.10.08 ~ 2026.10.12', owners: '박서현' },
-  Company: { period: '2026.11.06 ~ 2026.11.10', owners: '조맑은' },
+  레이아웃: { period: '2026.09.21 ~ 2026.09.23' },
+  Main: { period: '2026.10.02 ~ 2026.10.05' },
+  '런칭 캘린더': { period: '2026.10.28' },
+  기획전: { period: '2026.10.29' },
+  이벤트: { period: '2026.10.30' },
+  장바구니: { period: '2026.10.22 ~ 2026.10.23' },
+  주문: { period: '2026.10.26 ~ 2026.10.27' },
+  마이페이지: { period: '2026.10.15 ~ 2026.10.21' },
+  카테고리: { period: '2026.10.07 ~ 2026.10.14' },
+  고객센터: { period: '2026.10.15 ~ 2026.10.21' },
+  로그인: { period: '2026.10.06 ~ 2026.10.07' },
+  회원가입: { period: '2026.10.08 ~ 2026.10.12' },
+  Company: { period: '2026.11.06 ~ 2026.11.10' },
 };
 
 const categoryWbsAssignments = {
-  목록: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은, 박서현' },
-  상세: { period: '2026.10.07 ~ 2026.10.14', owners: '조맑은, 박서현' },
+  목록: { period: '2026.10.07 ~ 2026.10.14' },
+  상세: { period: '2026.10.07 ~ 2026.10.14' },
 } satisfies Record<string, WbsAssignment>;
 
 const styles = {
@@ -118,29 +133,6 @@ const styles = {
     '& span': { color: '#68718a', fontSize: '12' /* 기존: 10px */, fontWeight: '700' },
   }),
 
-  readyProgress: css({ h: 'full', bg: '#17643b' }),
-  workingProgress: css({ h: 'full', bg: '#5148d7' }),
-  pendingProgress: css({ h: 'full', bg: '#68718a' }),
-  delayedProgress: css({ h: 'full', bg: '#c51c1c' }),
-  deletedProgress: css({ h: 'full', bg: '#7a7f8c' }),
-
-  issueCard: css({
-    p: '3',
-    borderColor: '#f2b8b5',
-    bg: '#fff5f5',
-    '& h2': { color: '#c51c1c' },
-    '& p': { m: '1 0 0', color: '#b53c3c', fontSize: '12px' },
-  }),
-  issueButton: css({
-    mt: '2',
-    border: '0',
-    bg: 'transparent',
-    color: '#c51c1c',
-    fontSize: '12' /* 기존: 11px */,
-    fontWeight: '800',
-    cursor: 'pointer',
-    textDecoration: 'underline',
-  }),
   navCard: css({ p: '4' }),
 
   groupButton: css({
@@ -163,14 +155,6 @@ const styles = {
     '& span': { color: '#68718a', fontSize: '12' /* 기존: 10px */, fontWeight: '700' },
   }),
   selectedGroup: css({ borderColor: '#2a14b4', bg: '#e7e5ff' }),
-  miniProgress: css({
-    display: 'flex',
-    overflow: 'hidden',
-    h: '1',
-    borderRadius: 'full',
-    bg: '#dce4f5',
-  }),
-
   button: css({
     px: '3',
     py: '2',
@@ -194,21 +178,9 @@ const styles = {
     fontSize: '12px',
   }),
 
-  chip: css({ px: '2', py: '1', border: '1px solid', borderRadius: '3px', cursor: 'pointer' }),
-  readyChip: css({ borderColor: '#b9dfc8', bg: '#effbf3', color: '#17643b' }),
-  workingChip: css({ borderColor: '#cbc5ff', bg: '#f0eeff', color: '#5148d7' }),
-  pendingChip: css({ borderColor: '#d4dced', bg: '#f4f7ff', color: '#68718a' }),
-  delayedChip: css({ borderColor: '#f2b8b5', bg: '#fff0ef', color: '#c51c1c' }),
-  deletedChip: css({
-    borderColor: '#d4d6de',
-    bg: '#f0f2f6',
-    color: '#7a7f8c',
-    textDecoration: 'line-through',
-  }),
-
   table: css({
     w: '100%',
-    minW: '1500px',
+    minW: '1300px',
     borderCollapse: 'collapse',
     color: '#313a52',
     fontSize: '12px',
@@ -219,7 +191,14 @@ const styles = {
       textAlign: 'left',
       verticalAlign: 'middle',
     },
-    '& th': { bg: '#dce9ff', color: '#253653', fontSize: '12' /* 기존: 11px */, fontWeight: '800' },
+    '& th': {
+      whiteSpace: 'nowrap',
+      bg: '#dce9ff',
+      color: '#253653',
+      fontSize: '12' /* 기존: 11px */,
+      fontWeight: '800',
+    },
+    '& td[rowspan]': { verticalAlign: 'top' },
   }),
   groupRow: css({
     bg: '#eaf0ff',
@@ -227,14 +206,13 @@ const styles = {
 
     '& span': { color: '#68718a', fontSize: '12' /* 기존: 11px */, fontWeight: '600' },
   }),
-  delayedRow: css({ bg: '#fff0ef', color: '#bd2d2d', '& td': { borderBottomColor: '#f6d0cd' } }),
   deletedRow: css({
     bg: '#f0f2f6',
     color: '#858a97',
     textDecoration: 'line-through',
     opacity: '0.72',
   }),
-  treeCell: css({ minW: '410px' }),
+  treeCell: css({ minW: '320px' }),
   treeItem: css({ display: 'flex', alignItems: 'center', gap: '1.5' }),
   collapseButton: css({
     display: 'inline-flex',
@@ -271,16 +249,6 @@ const styles = {
     fontWeight: '700',
   }),
   wbs: css({ fontFamily: 'mono', fontSize: '12' /* 기존: 11px */, whiteSpace: 'nowrap' }),
-  owner: css({
-    display: 'inline-flex',
-    px: '1.5',
-    py: '0.5',
-    borderRadius: '3px',
-    bg: '#e8efff',
-    color: '#344a70',
-    fontSize: '12' /* 기존: 10px */,
-    fontWeight: '800',
-  }),
   preview: css({
     display: 'flex',
     justifyContent: 'center',
@@ -303,15 +271,37 @@ const styles = {
     },
     '& span': { color: '#8d94a3' },
   }),
-  path: css({
-    fontFamily: 'mono',
-    fontSize: '12px',
-    overflowWrap: 'anywhere',
-    whiteSpace: 'normal',
+  path: cva({
+    base: {
+      display: 'inline-block',
+      maxW: '100%',
+      px: '2',
+      py: '1',
+      border: '1px solid #dce1eb',
+      borderRadius: '4px',
+      bg: '#f4f6fa',
+      color: '#536078',
+      fontFamily: 'mono',
+      fontSize: '12px',
+      lineHeight: '1.4',
+      overflowWrap: 'anywhere',
+      whiteSpace: 'normal',
+    },
+    variants: {
+      page: {
+        true: {
+          borderColor: '#cbc5ff',
+          bg: '#e7e5ff',
+          color: '#2a14b4',
+          fontWeight: '700',
+        },
+      },
+    },
   }),
   note: css({ minW: '290px', lineHeight: '1.4', whiteSpace: 'normal!' }),
   statusTag: css({
     display: 'inline-flex',
+    whiteSpace: 'nowrap',
     px: '1.5',
     py: '0.5',
     borderRadius: '3px',
@@ -321,32 +311,50 @@ const styles = {
   readyTag: css({ bg: '#e5f7ed', color: '#17643b' }),
   workingTag: css({ bg: '#e7e5ff', color: '#5148d7' }),
   pendingTag: css({ bg: '#eff2f8', color: '#68718a' }),
-  delayedTag: css({ bg: '#c51c1c', color: '#fff' }),
+  missingTag: css({ bg: '#fff0ef', color: '#b42318' }),
   deletedTag: css({ bg: '#d9dde6', color: '#68718a' }),
   empty: css({ p: '8', color: '#68718a', textAlign: 'center' }),
 };
 
-function getStatus(screen: ScreenDefinition): DeliveryStatus {
-  if (isScreenDeleted(screen)) return 'deleted';
-  if (isStorybookPending(screen.iaNumber)) return 'pending';
-  if (isStorybookReady(screen.iaNumber, screen.screenCode)) return 'ready';
-  if (isStorybookWorking(screen.screenCode)) return 'working';
-  return 'pending';
+function getProgressTagClass(value: ScreenProgress[keyof ScreenProgress]) {
+  if (value === 'ready' || value === 'received') return styles.readyTag;
+  if (value === 'working') return styles.workingTag;
+  if (value === 'missing') return styles.missingTag;
+  return styles.pendingTag;
 }
 
-function getStatusTagClass(status: DeliveryStatus) {
-  switch (status) {
-    case 'ready':
-      return styles.readyTag;
-    case 'working':
-      return styles.workingTag;
-    case 'delayed':
-      return styles.delayedTag;
-    case 'deleted':
-      return styles.deletedTag;
-    default:
-      return styles.pendingTag;
-  }
+function renderProgressCells(
+  kind: 'design' | 'publishing',
+  progress: ScreenProgress | undefined,
+  screen: ScreenDefinition | undefined,
+  progressOverrides: ScreenProgressOverrides,
+) {
+  return progressFields
+    .filter((field) => field.kind === kind)
+    .map(({ key }) => {
+      const value = progress?.[key];
+      return (
+        <td key={key}>
+          {value ? (
+            <Typography
+              as="span"
+              className={styles.statusTag + ' ' + getProgressTagClass(value)}
+              title={
+                key.endsWith('Publishing') &&
+                screen &&
+                progressOverrides[screen.iaNumber]?.[key] === undefined
+                  ? '기존 통합 상태를 이관한 초기값입니다. PC·MO별 확인값으로 갱신할 수 있습니다.'
+                  : undefined
+              }
+            >
+              {progressLabels[value]}
+            </Typography>
+          ) : (
+            '-'
+          )}
+        </td>
+      );
+    });
 }
 
 function screenDepth(screen: ScreenDefinition) {
@@ -362,11 +370,11 @@ function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined 
 
   if (depth1 === '공통') {
     if (descendants[0] === '전체메뉴') {
-      return { period: '2026.09.30', owners: '조맑은' };
+      return { period: '2026.09.30' };
     }
 
     if (descendants[0] === '검색' || descendants[0] === '검색결과') {
-      return { period: '2026.10.22 ~ 2026.10.23', owners: '박서현' };
+      return { period: '2026.10.22 ~ 2026.10.23' };
     }
   }
 
@@ -447,16 +455,25 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
   return rows;
 }
 
-/** IA 계층과 작업 현황을 탐색하고 화면 미리보기를 연결합니다. (Explores the IA hierarchy and delivery status with screen preview links.) */
+/**
+ * IA 계층과 PC·MO별 작업 현황을 탐색합니다. (Explores the IA hierarchy and delivery progress by platform.)
+ *
+ * [ 개발팀 바인딩 ] IA 관리 소유자는 확인한 화면별 상태를 내부 IA 번호 기준 progressOverrides로
+ * 전달합니다. 디자인은 received/missing/null, 퍼블리싱은 ready/working/pending을 PC·MO별로
+ * 독립 전달하며 새 props는 즉시 반영합니다. 미확인 디자인은 null(-), 퍼블리싱 기본값은 기존
+ * 통합 상태를 이관한 값입니다. 조회·수정·저장 API와 상태 변경 UI는 구현하지 않습니다.
+ */
 export function IaStructurePage({
   previewEnvironment = 'app',
+  progressOverrides = emptyProgressOverrides,
 }: {
   previewEnvironment?: 'app' | 'storybook';
+  progressOverrides?: ScreenProgressOverrides;
 }) {
   const [feedback, setFeedback] = useState('');
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [query, setQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | DeliveryStatus>('all');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [isExpanded, setIsExpanded] = useState(true);
   const [collapsedPaths, setCollapsedPaths] = useState<Set<string>>(new Set());
 
@@ -466,20 +483,6 @@ export function IaStructurePage({
         depth1,
         screens: screens.filter((screen) => screen.depths[0] === depth1),
       })),
-    [],
-  );
-  const counts = useMemo(
-    () =>
-      screens.reduce(
-        (current, screen) => {
-          current[getStatus(screen)] += 1;
-          return current;
-        },
-        { ready: 0, working: 0, pending: 0, delayed: 0, deleted: 0 } as Record<
-          DeliveryStatus,
-          number
-        >,
-      ),
     [],
   );
   const activeGroups =
@@ -498,25 +501,18 @@ export function IaStructurePage({
           screen.category,
           screen.screenCode,
           screen.note,
-          getWbsAssignment(screen.depths)?.owners ?? '',
         ]
           .join(' ')
           .toLowerCase();
 
         return (
-          (statusFilter === 'all' || getStatus(screen) === statusFilter) &&
+          matchesProgressFilter(screen, statusFilter, progressOverrides) &&
           searchable.includes(query.trim().toLowerCase())
         );
       }),
     }))
     .filter((group) => group.screens.length > 0);
   const activeTotal = visibleGroups.reduce((total, group) => total + group.screens.length, 0);
-  const completePercent = (counts.ready / screens.length) * 100;
-  const workingPercent = (counts.working / screens.length) * 100;
-  const pendingPercent = (counts.pending / screens.length) * 100;
-  const delayedPercent = (counts.delayed / screens.length) * 100;
-  const deletedPercent = (counts.deleted / screens.length) * 100;
-
   const copyPreviewPath = (path: string) => {
     setFeedback('');
     if (!navigator.clipboard) {
@@ -547,7 +543,6 @@ export function IaStructurePage({
         { label: 'IA 구조도' },
       ]}
       title="IA 구조도"
-      description="FO.html v0.20 기준 IA와 최종 GNB·프로젝트 추가 화면을 함께 관리합니다. 바로가기와 파일 존재 여부는 작업 완료 상태와 별개입니다."
     >
       {feedback && (
         <Typography
@@ -560,124 +555,32 @@ export function IaStructurePage({
       )}
       <Grid
         as="section"
-        gridTemplateColumns="minmax(280px, 0.9fr) minmax(0, 2.1fr)"
+        gridTemplateColumns="220px minmax(0, 1fr)"
         gap="4"
         mb="4"
         _mobile={{ gridTemplateColumns: '1fr' }}
-        aria-label="IA 구현 현황"
+        aria-label="IA 화면 현황"
       >
-        <Grid gap="3">
-          <article className={styles.card + ' ' + styles.summaryCard}>
-            <div className={styles.cardHeading}>
-              <Typography as="h2">
-                <FontAwesomeIcon icon={faChartLine} aria-hidden="true" />
-                IA OVERALL SPRINT
-              </Typography>
-              <Typography as="span">Real-time</Typography>
-            </div>
-            <Stack gap="3" mt="4">
-              <Flex alignItems="baseline" justifyContent="space-between">
-                <strong
-                  className={css({
-                    color: '#2a14b4',
-                    fontSize: '28' /* 기존 27px */,
-                    letterSpacing: '-0.04em',
-                  })}
-                >
-                  {completePercent.toFixed(1)}%
-                </strong>
-                <Typography
-                  as="span"
-                  className={css({
-                    color: '#68718a',
-                    fontFamily: 'mono',
-                    fontSize: '12' /* 기존: 11px */,
-                  })}
-                >
-                  {counts.ready} / {screens.length}P
-                </Typography>
-              </Flex>
-              <Flex overflow="hidden" h="2.5" borderRadius="full" bg="#dce4f5">
-                <span
-                  className={styles.readyProgress}
-                  style={{ width: String(completePercent) + '%' }}
-                />
-                <span
-                  className={styles.workingProgress}
-                  style={{ width: String(workingPercent) + '%' }}
-                />
-                <span
-                  className={styles.pendingProgress}
-                  style={{ width: String(pendingPercent) + '%' }}
-                />
-                <span
-                  className={styles.delayedProgress}
-                  style={{ width: String(delayedPercent) + '%' }}
-                />
-                <span
-                  className={styles.deletedProgress}
-                  style={{ width: String(deletedPercent) + '%' }}
-                />
-              </Flex>
-              <Flex
-                justifyContent="space-between"
-                gap="2"
-
-                color="#68718a"
-                fontSize="12"
-                css={{ '& b': { color: '#17223d' } }}
-              >
-                <Typography as="span">총 {screens.length}개 화면</Typography>
-                <Typography as="span">
-                  완료 <b>{counts.ready}</b> · 작업 중 {counts.working} · 대기 {counts.pending} ·
-                  지연 <b>{counts.delayed}</b>
-                </Typography>
-              </Flex>
-            </Stack>
-          </article>
-          <article className={styles.card + ' ' + styles.issueCard}>
-            <div className={styles.cardHeading}>
-              <Typography as="h2">
-                <FontAwesomeIcon icon={faTriangleExclamation} aria-hidden="true" />
-                BLOCKED / 긴급 이슈
-              </Typography>
-              <Typography as="span">
-                {counts.delayed ? counts.delayed + '건 대응중' : '정상'}
-              </Typography>
-            </div>
-            {counts.delayed ? (
-              <>
-                <Typography as="p">
-                  지연 상태로 분류된 IA 화면의 일정과 의존성을 확인해야 합니다.
-                </Typography>
-                <button
-                  type="button"
-                  className={styles.issueButton}
-                  onClick={() => {
-                    setStatusFilter('delayed');
-                    setActiveDepth1('all');
-                  }}
-                >
-                  지연 이슈만 보기 <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
-                </button>
-              </>
-            ) : (
-              <Typography as="p">현재 등록된 지연 또는 블락 이슈가 없습니다.</Typography>
-            )}
-          </article>
-        </Grid>
-
+        <article className={styles.card + ' ' + styles.summaryCard}>
+          <div className={styles.cardHeading}>
+            <Typography as="h2">IA 화면 현황</Typography>
+          </div>
+          <Typography
+            as="p"
+            className={css({ my: '3', color: '#2a14b4', fontSize: '32px', fontWeight: '800' })}
+          >
+            {screens.length}
+            <Typography as="span">개 화면</Typography>
+          </Typography>
+          <Typography as="p" className={css({ color: '#68718a', fontSize: '12px' })}>
+            PC · MO 디자인 및 퍼블리싱 별도 관리
+          </Typography>
+        </article>
         <section className={styles.card + ' ' + styles.navCard} aria-label="화면 체계 NAV 탭 분류">
           <div className={styles.cardHeading}>
             <Typography as="h2">
               <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
               화면 체계 NAV 탭 분류 ({groups.length}개 영역)
-            </Typography>
-            <Typography as="span">
-              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 완료 ·{' '}
-              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 작업 중 ·{' '}
-              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 대기 ·{' '}
-              <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> 지연
             </Typography>
           </div>
           <Grid
@@ -686,65 +589,26 @@ export function IaStructurePage({
             mt="3"
             _mobile={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}
           >
-            {groups.map((group) => {
-              const groupCounts = group.screens.reduce(
-                (current, screen) => {
-                  current[getStatus(screen)] += 1;
-                  return current;
-                },
-                { ready: 0, working: 0, pending: 0, delayed: 0, deleted: 0 } as Record<
-                  DeliveryStatus,
-                  number
-                >,
-              );
-              const groupTotal = group.screens.length;
-
-              return (
-                <button
-                  key={group.depth1}
-                  type="button"
-                  className={
-                    styles.groupButton +
-                    (activeDepth1 === group.depth1 ? ' ' + styles.selectedGroup : '')
-                  }
-                  onClick={() => {
-                    setActiveDepth1(group.depth1);
-                    setStatusFilter('all');
-                  }}
-                >
-                  <Flex gap="2" alignItems="center">
-                    <strong>{group.depth1}</strong>
-                    <Typography as="span">{groupTotal}P</Typography>
-                  </Flex>
-                  <span className={styles.miniProgress}>
-                    <span
-                      className={styles.readyProgress}
-                      style={{ width: String((groupCounts.ready / groupTotal) * 100) + '%' }}
-                    />
-                    <span
-                      className={styles.workingProgress}
-                      style={{ width: String((groupCounts.working / groupTotal) * 100) + '%' }}
-                    />
-                    <span
-                      className={styles.pendingProgress}
-                      style={{ width: String((groupCounts.pending / groupTotal) * 100) + '%' }}
-                    />
-                    <span
-                      className={styles.delayedProgress}
-                      style={{ width: String((groupCounts.delayed / groupTotal) * 100) + '%' }}
-                    />
-                    <span
-                      className={styles.deletedProgress}
-                      style={{ width: String((groupCounts.deleted / groupTotal) * 100) + '%' }}
-                    />
-                  </span>
-                  <Typography as="span">
-                    완료 {groupCounts.ready} · 작업 중 {groupCounts.working} · 대기{' '}
-                    {groupCounts.pending} · 지연 {groupCounts.delayed}
-                  </Typography>
-                </button>
-              );
-            })}
+            {groups.map((group) => (
+              <button
+                key={group.depth1}
+                type="button"
+                aria-pressed={activeDepth1 === group.depth1}
+                className={
+                  styles.groupButton +
+                  (activeDepth1 === group.depth1 ? ' ' + styles.selectedGroup : '')
+                }
+                onClick={() => {
+                  setActiveDepth1(group.depth1);
+                  setStatusFilter('all');
+                }}
+              >
+                <Flex gap="2" alignItems="center">
+                  <strong>{group.depth1}</strong>
+                  <Typography as="span">{group.screens.length}P</Typography>
+                </Flex>
+              </button>
+            ))}
           </Grid>
         </section>
       </Grid>
@@ -797,48 +661,26 @@ export function IaStructurePage({
               className={styles.select}
               aria-label="상태 필터"
               value={statusFilter}
-              onChange={(event) => setStatusFilter(event.target.value as 'all' | DeliveryStatus)}
+              onChange={(event) => setStatusFilter(event.target.value)}
             >
               <option value="all">상태 전체</option>
-              <option value="ready">완료</option>
-              <option value="working">작업 중</option>
-              <option value="pending">대기중</option>
-              <option value="delayed">지연 / 블락</option>
+              {progressFields.map(({ key, label, kind }) => (
+                <optgroup key={key} label={label}>
+                  {(kind === 'design'
+                    ? (['received', 'missing'] as const)
+                    : (['ready', 'working', 'pending'] as const)
+                  ).map((value) => (
+                    <option key={value} value={key + ':' + value}>
+                      {label} · {progressLabels[value]}
+                    </option>
+                  ))}
+                  {kind === 'design' && (
+                    <option value={key + ':unknown'}>{label} · 확인 전 (-)</option>
+                  )}
+                </optgroup>
+              ))}
               <option value="deleted">삭제 / 제외</option>
             </select>
-          </Flex>
-          <Flex
-            flexWrap="wrap"
-            gap="1.5"
-            fontSize="12"
-            fontWeight="800"
-            aria-label="구현 상태 범례"
-          >
-            {(['ready', 'working', 'pending', 'delayed', 'deleted'] as DeliveryStatus[]).map(
-              (status) => (
-                <button
-                  key={status}
-                  type="button"
-                  className={
-                    styles.chip +
-                    ' ' +
-                    (status === 'ready'
-                      ? styles.readyChip
-                      : status === 'working'
-                        ? styles.workingChip
-                        : status === 'pending'
-                          ? styles.pendingChip
-                          : status === 'delayed'
-                            ? styles.delayedChip
-                            : styles.deletedChip)
-                  }
-                  onClick={() => setStatusFilter(status)}
-                >
-                  <FontAwesomeIcon icon={faCircle} aria-hidden="true" /> {statusLabels[status]}{' '}
-                  {counts[status]}
-                </button>
-              ),
-            )}
           </Flex>
         </Flex>
 
@@ -846,15 +688,27 @@ export function IaStructurePage({
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>메뉴 / 화면 계층 (IA Tree)</th>
-                <th>구분</th>
-                <th>화면 코드</th>
-                <th>WBS</th>
-                <th>진행 상태</th>
-                <th>작업자</th>
-                <th>{previewEnvironment === 'storybook' ? 'Storybook 미리보기' : '실제 페이지'}</th>
-                <th>작업 파일</th>
-                <th>비고 / 이슈</th>
+                <th rowSpan={2} scope="col">
+                  메뉴 / 화면 계층 (IA Tree)
+                </th>
+                <th rowSpan={2} scope="col">
+                  구분
+                </th>
+                <th scope="col">화면 코드</th>
+                <th scope="col">
+                  {previewEnvironment === 'storybook' ? 'Storybook 미리보기' : '실제 페이지'}
+                </th>
+                <th scope="col">PC 디자인</th>
+                <th scope="col">MO 디자인</th>
+                <th scope="col">비고 / 이슈</th>
+              </tr>
+              <tr>
+                <th colSpan={2} scope="col">
+                  WBS
+                </th>
+                <th scope="col">PC 퍼블리싱</th>
+                <th scope="col">MO 퍼블리싱</th>
+                <th scope="col">작업 파일</th>
               </tr>
             </thead>
             <tbody>
@@ -863,6 +717,7 @@ export function IaStructurePage({
                   key={group.depth1}
                   group={group}
                   previewEnvironment={previewEnvironment}
+                  progressOverrides={progressOverrides}
                   isExpanded={isExpanded || query.trim().length > 0}
                   collapsedPaths={collapsedPaths}
                   onToggle={togglePath}
@@ -888,6 +743,7 @@ export function IaStructurePage({
 function GroupRows({
   group,
   previewEnvironment,
+  progressOverrides,
   isExpanded,
   collapsedPaths,
   onToggle,
@@ -895,6 +751,7 @@ function GroupRows({
 }: {
   group: ScreenGroup;
   previewEnvironment: 'app' | 'storybook';
+  progressOverrides: ScreenProgressOverrides;
   isExpanded: boolean;
   collapsedPaths: ReadonlySet<string>;
   onToggle: (path: string) => void;
@@ -908,7 +765,7 @@ function GroupRows({
   return (
     <>
       <tr className={styles.groupRow}>
-        <td className={styles.treeCell}>
+        <td className={styles.treeCell} rowSpan={groupWbs ? 2 : undefined}>
           <div className={styles.treeItem}>
             <button
               type="button"
@@ -933,194 +790,173 @@ function GroupRows({
             <Typography as="span">({group.screens.length} screens)</Typography>
           </div>
         </td>
-        <td>대분류</td>
+        <td rowSpan={groupWbs ? 2 : undefined}>대분류</td>
         <td className={styles.code}>CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}</td>
-        <td className={styles.wbs}>{groupWbs?.period ?? '-'}</td>
         <td>-</td>
-        <td>
-          {groupWbs ? (
-            <Typography as="span" className={styles.owner}>
-              {groupWbs.owners}
-            </Typography>
-          ) : (
-            '-'
-          )}
-        </td>
-        <td>
-          <Typography as="span" className={styles.preview}>
-            -
-          </Typography>
-        </td>
+        <td>-</td>
         <td>-</td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
       </tr>
+      {groupWbs && (
+        <tr className={styles.groupRow}>
+          <td colSpan={2} className={styles.wbs}>
+            {groupWbs.period}
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      )}
       {isExpanded &&
         groupOpen &&
         treeRows.map((row) => {
           const hiddenByParent = row.ancestors.some((path) => collapsedPaths.has(path));
           if (hiddenByParent) return null;
 
-          const status = row.screen ? getStatus(row.screen) : undefined;
+          const deleted = row.screen ? isScreenDeleted(row.screen) : false;
+          const progress =
+            row.screen && !deleted ? getScreenProgress(row.screen, progressOverrides) : undefined;
           const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
           const route = connection?.route;
-          const rowClass =
-            status === 'delayed'
-              ? styles.delayedRow
-              : status === 'deleted'
-                ? styles.deletedRow
-                : '';
+          const rowClass = deleted ? styles.deletedRow : '';
 
           return (
-            <tr key={row.id} className={rowClass}>
-              <td className={styles.treeCell}>
-                <div
-                  className={styles.treeItem}
-                  style={{ paddingLeft: String((row.depth + 1) * 20) + 'px' }}
-                >
-                  {row.isBranch ? (
-                    <button
-                      type="button"
-                      className={styles.collapseButton}
-                      aria-label={row.label + (collapsedPaths.has(row.path) ? ' 펼치기' : ' 접기')}
-                      onClick={() => onToggle(row.path)}
-                    >
+            <Fragment key={row.id}>
+              <tr className={rowClass}>
+                <td className={styles.treeCell} rowSpan={row.screen ? 2 : undefined}>
+                  <div
+                    className={styles.treeItem}
+                    style={{ paddingLeft: String((row.depth + 1) * 20) + 'px' }}
+                  >
+                    {row.isBranch ? (
+                      <button
+                        type="button"
+                        className={styles.collapseButton}
+                        aria-label={
+                          row.label + (collapsedPaths.has(row.path) ? ' 펼치기' : ' 접기')
+                        }
+                        onClick={() => onToggle(row.path)}
+                      >
+                        <FontAwesomeIcon
+                          icon={collapsedPaths.has(row.path) ? faChevronRight : faChevronDown}
+                          aria-hidden="true"
+                        />
+                      </button>
+                    ) : (
+                      <span className={styles.spacer} />
+                    )}
+                    <Typography as="span" className={styles.depthMarker}>
+                      D{row.depth + 1}
+                    </Typography>
+                    <span className={styles.hierarchyIcon}>
                       <FontAwesomeIcon
-                        icon={collapsedPaths.has(row.path) ? faChevronRight : faChevronDown}
+                        icon={deleted ? faBan : row.isBranch ? faFolder : faFileLines}
                         aria-hidden="true"
                       />
-                    </button>
-                  ) : (
-                    <span className={styles.spacer} />
-                  )}
-                  <Typography as="span" className={styles.depthMarker}>
-                    D{row.depth + 1}
-                  </Typography>
-                  <span className={styles.hierarchyIcon}>
-                    <FontAwesomeIcon
-                      icon={
-                        status === 'delayed'
-                          ? faTriangleExclamation
-                          : status === 'deleted'
-                            ? faBan
-                            : row.isBranch
-                              ? faFolder
-                              : faFileLines
-                      }
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <Typography as="span">{row.label}</Typography>
-                </div>
-              </td>
-              <td>
-                {row.screen?.category ??
-                  (row.depth === 1 ? '중분류' : row.depth === 2 ? '소분류' : '상세')}
-              </td>
-              <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
-              <td className={styles.wbs}>{rowWbs?.period ?? '-'}</td>
-              <td>
-                {status ? (
-                  <Typography
-                    as="span"
-                    className={styles.statusTag + ' ' + getStatusTagClass(status)}
-                  >
-                    {statusLabels[status]}
-                  </Typography>
-                ) : (
-                  '-'
-                )}
-              </td>
-              <td>
-                {rowWbs ? (
-                  <Typography as="span" className={styles.owner}>
-                    {rowWbs.owners}
-                  </Typography>
-                ) : (
-                  '-'
-                )}
-              </td>
-              <td>
-                <Stack gap="1" minW="180px">
-                  {row.screen && !isScreenDeleted(row.screen) ? (
-                    previewEnvironment === 'storybook' ? (
-                      <>
-                        <div className={styles.preview}>
-                          {(['web', 'mobile'] as const).map((platform) => {
-                            const href = getScreenStoryHref(row.screen!, platform);
-                            return href ? (
-                              <a
-                                key={platform}
-                                href={href}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="경로 복사 및 새 창 열기"
-                                onClick={() => onCopyPath(href)}
-                              >
-                                <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
-                                {platform === 'web' ? 'WEB' : 'Mobile'}
-                              </a>
-                            ) : (
-                              <Typography key={platform} as="span">
-                                {platform === 'web' ? 'WEB' : 'Mobile'} 스토리 없음
-                              </Typography>
-                            );
-                          })}
-                        </div>
-                      </>
-                    ) : route ? (
-                      <>
-                        <div className={styles.preview}>
-                          <a
-                            href={route}
-                            target="_blank"
-                            rel="noreferrer"
-                            title={route + ' (경로 복사 및 새 창 열기)'}
-                            onClick={() => onCopyPath(route)}
-                          >
-                            <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
-                          </a>
-                        </div>
-                      </>
+                    </span>
+                    <Typography as="span">{row.label}</Typography>
+                  </div>
+                </td>
+                <td rowSpan={row.screen ? 2 : undefined}>
+                  {row.screen?.category ??
+                    (row.depth === 1 ? '중분류' : row.depth === 2 ? '소분류' : '상세')}
+                </td>
+                <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
+                <td>
+                  <Stack gap="1" minW="180px">
+                    {row.screen && !isScreenDeleted(row.screen) ? (
+                      previewEnvironment === 'storybook' ? (
+                        <>
+                          <div className={styles.preview}>
+                            {(['web', 'mobile'] as const).map((platform) => {
+                              const href = getScreenStoryHref(row.screen!, platform);
+                              return href ? (
+                                <a
+                                  key={platform}
+                                  href={href}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  title="경로 복사 및 새 창 열기"
+                                  onClick={() => onCopyPath(href)}
+                                >
+                                  <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
+                                  {platform === 'web' ? 'WEB' : 'Mobile'}
+                                </a>
+                              ) : (
+                                <Typography key={platform} as="span">
+                                  {platform === 'web' ? 'WEB' : 'Mobile'} 스토리 없음
+                                </Typography>
+                              );
+                            })}
+                          </div>
+                        </>
+                      ) : route ? (
+                        <>
+                          <div className={styles.preview}>
+                            <a
+                              href={route}
+                              target="_blank"
+                              rel="noreferrer"
+                              title={route + ' (경로 복사 및 새 창 열기)'}
+                              onClick={() => onCopyPath(route)}
+                            >
+                              <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
+                            </a>
+                          </div>
+                        </>
+                      ) : (
+                        <Typography as="span">독립 경로 없음</Typography>
+                      )
+                    ) : row.screen ? (
+                      <Typography as="span">삭제 / 제외</Typography>
                     ) : (
-                      <Typography as="span">독립 경로 없음</Typography>
-                    )
-                  ) : row.screen ? (
-                    <Typography as="span">삭제 / 제외</Typography>
-                  ) : (
-                    '-'
+                      '-'
+                    )}
+                  </Stack>
+                </td>
+                {renderProgressCells('design', progress, row.screen, progressOverrides)}
+                <td className={styles.note}>
+                  {deleted && (
+                    <Typography as="span" className={styles.deletedTag}>
+                      삭제 / 제외
+                    </Typography>
                   )}
-                </Stack>
-              </td>
-              <td>
-                <Stack gap="1" minW="300px">
-                  {connection?.sourceFiles.length
-                    ? connection.sourceFiles.map((file) => (
-                        <code key={file} className={styles.path}>
-                          {file}
-                        </code>
-                      ))
-                    : row.screen
-                      ? isScreenDeleted(row.screen)
-                        ? '삭제 / 제외'
-                        : '구현 파일 미등록'
-                      : '-'}
-                </Stack>
-              </td>
-              <td className={styles.note}>
-                {status === 'delayed' && (
-                  <Typography as="span" className={styles.delayedTag}>
-                    WBS 초과
-                  </Typography>
-                )}
-                {status === 'deleted' && (
-                  <Typography as="span" className={styles.deletedTag}>
-                    삭제 / 제외
-                  </Typography>
-                )}
-                {row.screen ? row.screen.note || '-' : '-'}
-              </td>
-            </tr>
+                  {row.screen ? row.screen.note || '-' : '-'}
+                </td>
+              </tr>
+              {row.screen && (
+                <tr className={rowClass}>
+                  <td colSpan={2} className={styles.wbs}>
+                    {rowWbs?.period ?? '-'}
+                  </td>
+                  {renderProgressCells('publishing', progress, row.screen, progressOverrides)}
+                  <td className={styles.note}>
+                    <Flex alignItems="flex-start" gap="3">
+                      <Stack gap="1" flex="1" minW="0">
+                        {connection?.sourceFiles.length ? (
+                          <Flex flexWrap="wrap" gap="2">
+                            {connection.sourceFiles.map((file) => (
+                              <code
+                                key={file}
+                                className={styles.path({ page: /\/page\.[jt]sx?$/.test(file) })}
+                                title={file}
+                              >
+                                {file.replace(/^src\//, '')}
+                              </code>
+                            ))}
+                          </Flex>
+                        ) : isScreenDeleted(row.screen) ? (
+                          '삭제 / 제외'
+                        ) : (
+                          '-'
+                        )}
+                      </Stack>
+                    </Flex>
+                  </td>
+                </tr>
+              )}
+            </Fragment>
           );
         })}
     </>

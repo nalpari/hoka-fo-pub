@@ -6,11 +6,15 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:11:18Z'
+  at: '2026-10-29T02:50:24Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/storybookLinks.ts
+  - src/stories/features/screen-index/IaStructurePage.stories.tsx
+  - tests/screen-progress.test.mjs
   - scripts/screen-files.mjs
   - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
   - src/components/orders/OrdersRoute.tsx
@@ -338,4 +342,18 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 
 ## IA 파일 자동 갱신 검증 (2026-10-29)
 
-tests/screen-files.test.mjs는 TypeScript 별칭·재수출·순환 참조·리터럴 동적 import, 타입 전용/스토리 제외, 파일 이동·삭제와 구형/현재 바인딩 주석을 확인한다. 공통 UI·범용 훅·Preview의 개발 연결 파일 제외도 검증한다. Node 테스트를 통과했고 실제 watch 실행 중 임시 바인딩 파일 추가·이동·삭제의 생성 결과 반영을 확인한 뒤 임시 파일을 제거했다. 전체 작업 트리의 타입·lint·빌드 검증과 커밋 선별 검사는 별개다. 작업 트리 출처: scripts/screen-files.mjs, tests/screen-files.test.mjs, src/app/screen-index/screenConnections.ts와 sourceGraph.generated.json.
+작업 트리 출처는 tests/screen-files.test.mjs, scripts/screen-files.mjs, src/app/screen-index/의 화면·연결 코드다. node --test tests/screen-files.test.mjs로 별칭, 재수출, 순환 import, 리터럴 동적 import, 타입 전용/스토리 제외와 파일 이동·삭제를 확인한다. 같은 테스트에서 구형/현재 바인딩 표기 인식과 공통 UI·범용 훅·Preview 제외를 검증했다. 실제 watch 실행 중 임시 바인딩 파일의 추가·이름 변경·삭제가 생성 결과에 반영되는 것을 확인하고 임시 파일을 제거했다.
+
+브라우저에서 작업자 열 없는 8열 전체 행 정렬, 관련 파일 펼치기, RunClubDataContext 경로 검색 결과, Button 파일 검색의 빈 결과와 공통 UI 경로 미노출을 확인했다. 375px에서는 표 내부 가로 스크롤과 펼침 상태 유지를 확인했다. 실제 외부 API 연결은 변경하거나 검증하지 않았다.
+
+정적 검증: 전체 lint, 타입 검사, 변경 코드/생성 JSON의 Prettier, 생성기 테스트와 npm run okf:check를 통과했다. Panda 생성과 Next.js 프로덕션 빌드를 통과했다. Storybook 기본 출력 폴더 빌드는 정적 파일 복사 EEXIST로 실패해 별도 .tmp-ia-storybook-20261029 출력 폴더에서 재실행했고 프로덕션 빌드를 통과했다. 이 검증은 Storybook play 실행을 포함하지 않는다.
+
+## IA 플랫폼별 상태 검증 (2026-10-29)
+
+작업 트리 출처: tests/screen-progress.test.mjs, src/app/screen-index/storybookLinks.ts, src/app/screen-index/_components/IaStructurePage.tsx, src/stories/features/screen-index/IaStructurePage.stories.tsx. 신규 Node 테스트 2개는 기존 완료/진행/대기 이관 우선순위, 디자인 미추정, 비fixture IA 번호의 PC/MO 독립값과 값 교체 후 기본값 복귀를 확인한다. 기존 screen-files 테스트와 함께 3개를 통과했다. 전체 lint·타입 검사·Panda 생성·Next 프로덕션 빌드를 통과했다.
+
+브라우저 앱에서 NAV 16개와 진행 막대·상태 집계 문구·긴급 이슈 제거, 266개 화면 모두 10열과 rowSpan=2/colSpan=9가 맞음을 확인했다. 수급 필터에 미확인 디자인이 노출되지 않고, 확인 전 필터에는 삭제 제외 249개가 나타난다. 회원가입 NAV는 13개로 필터링한다. Storybook의 검증용 PlatformProgress에서 회원가입 안내는 수급/미수급/완료/대기, 휴대폰 인증은 미수급/수급/진행중/완료로 표시되며 MO 미수급 필터와 WEB/Mobile 링크를 확인했다. 스토리 fixture는 실제 수급·퍼블리싱 진척 데이터가 아니다. 전체 Storybook play와 작은 모바일 레이아웃 재검증은 하지 않았다.
+
+Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook-20261029에서 통과했다. 이는 전체 Storybook play 실행과 구분한다.
+
+IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 colSpan=9 검증을 대체한다. 전체 tbody와 thead의 rowspan/colspan 그리드 누락·겹침 없음, 1535px 화면, 375px platform-mobile 내부 가로 스크롤, 전체 접기 뒤 파일 미잔존, Storybook fixture의 디자인 윗줄·퍼블리싱 아랫줄과 WEB/Mobile 링크를 확인했다. 타입·변경 파일 lint/포맷·Panda·diff 검사를 통과했으며 이 배치 변경의 프로덕션 빌드는 다시 실행하지 않았다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.

@@ -6,11 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:11:18Z'
+  at: '2026-10-29T02:50:24Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/storybookLinks.ts
+  - src/stories/features/screen-index/IaStructurePage.stories.tsx
+  - tests/screen-progress.test.mjs
   - scripts/screen-files.mjs
   - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
   - src/types/binding.ts
@@ -3296,6 +3300,42 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 
 ## IA 작업 파일 자동 갱신과 개발 연결 범위 (2026-10-29)
 
-screenConnections.ts에는 IA별 진입 파일만 등록한다. scripts/screen-files.mjs가 TypeScript 별칭·상대 경로·재수출·리터럴 dynamic import/require를 해석해 sourceGraph.generated.json을 생성한다. 순환 참조와 중복을 제거하고 삭제 파일·타입 전용 import·스토리·외부 패키지를 제외한다. 실제 연결된 진입점과 바인딩 주석이 있는 도메인·컨텍스트·표시 데이터만 안내하고 공통 UI·범용 훅·목 데이터·Preview는 수정 대상처럼 나열하지 않는다. ShopShell은 화면의 전역 연결 소유자까지만 탐색한다.
+IA 표의 작업자 열·담당자 데이터와 담당자 검색을 제거하고 WBS 일정은 유지한다. 표는 8열이며 페이지/Storybook 링크, 상태와 계층 접기 동작은 유지한다. 작업 파일은 모든 UI 의존성이 아니라 화면 진입점과 실제로 연결된 `[ 개발팀 바인딩 ]` 주석의 도메인·컨텍스트·표시 데이터 파일을 표시한다. 기존 공백 없는 표기도 인식한다. 공통 UI, 범용 훅, 목 데이터와 Preview는 제외하고, 전역 ShopShell은 연결 소유자까지만 안내해 각 화면에서 헤더·푸터 전체로 확장하지 않는다. 목록의 파일 전부를 수정해야 한다는 의미가 아니다.
 
-신규 IA와 진입점의 의미 연결은 소유자가 등록한다. 변수 import·암묵적 layout은 추론하지 않으며 이 목록은 Git 수정 이력이나 서비스 구현 증명이 아니다. dev/Storybook 감시와 빌드 전 생성으로 현재 연결 파일을 반영한다. 작업 트리 출처: scripts/screen-files.mjs, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, package.json, tests/screen-files.test.mjs.
+screenConnections.ts에는 IA별 진입 파일만 등록한다. scripts/screen-files.mjs가 TypeScript 경로 별칭·상대 경로·재수출·리터럴 dynamic import/require를 해석해 sourceGraph.generated.json을 생성한다. 순환 참조와 중복을 제거하고 삭제된 경로와 타입 전용 import는 표시하지 않는다. 파일 3개를 우선 표시하고 나머지는 details로 펼치며 전체 연결 파일을 검색한다. 신규 IA 화면과 진입점의 의미 연결은 소유자가 등록해야 하고, 변수로 계산한 import·암묵적 부모 layout·외부 패키지는 추론하지 않는다. Git 수정 이력이나 API 구현 여부를 뜻하지 않는다.
+
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, scripts/screen-files.mjs, package.json, tests/screen-files.test.mjs. Codex는 8열 정렬·펼치기·연결 파일 검색과 공통 Button 미노출, 375px 내부 가로 스크롤을 브라우저에서 확인했다. 생성기 테스트와 파일 추가·이동·삭제 watch 검증을 통과했다.
+
+작업 파일의 화면 표기에서는 공통 src/ 접두사만 생략한다. 접힌 추가 파일에도 동일하게 적용하고 title에는 전체 경로를 남긴다. 원본 sourceFiles·생성 그래프와 전체 경로 검색은 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
+
+## IA 두 행 구성과 작업 파일 전체 표시 (2026-10-29)
+
+각 화면은 두 tr로 표시한다. 화면명 셀은 rowSpan=2로 묶고 첫째 행은 구분·코드·WBS·상태·실제 페이지 또는 Storybook 링크·비고를 표시한다. 둘째 행은 colSpan=6으로 작업 파일 전체를 줄바꿈해 표시한다. 폴더/대분류는 7열 단일 행을 유지한다. 더보기와 파일 목록 내부 스크롤을 제거하고 미등록 파일은 -로 표시한다. 삭제/제외 상태 안내, src/ 생략·전체 경로 title·검색 및 자동 탐색은 유지한다. 이 절은 앞선 8열·파일 3개/더보기 표시 설명을 대체한다. 표 최소 너비는 1300px이며 모바일은 기존 표 내부 가로 스크롤을 사용한다.
+
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. Codex는 타입 검사·변경 파일 ESLint/Prettier·Panda 생성을 통과했다. 브라우저에서 266개 화면 모두 rowSpan=2와 뒤따르는 colSpan=6이 맞고, 더보기 및 구현 파일 미등록 문구가 없음을 확인했다. 회원가입 안내의 검색 결과와 두 행 화면을 확인했고 전체 접기 후 파일 행이 남지 않음, 375px 내부 가로 스크롤을 확인했다. 새 프로덕션 빌드와 Storybook play는 실행하지 않았다.
+
+작업 파일은 파일별 4px 모서리·테두리·패딩이 있는 배지로 구분한다. 일반 파일은 연회색 바탕, 파일명이 정확히 page.ts/tsx/js/jsx인 진입 파일은 보라색 바탕·테두리·강조 글자로 표시한다. 기존 code 의미·전체 경로 title·src/ 생략과 전체 파일 줄바꿈 표시를 유지한다. 공통 Badge의 계약이나 스타일은 변경하지 않고 이 개발용 경로 표시에 로컬 Panda cva를 사용한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 브라우저에서 상품 상세 진입 파일과 일반 파일의 배경·테두리·글자색 차이를 확인했다.
+
+## IA 플랫폼별 디자인·퍼블리싱 상태 (2026-10-29)
+
+NAV 카드에서 진행 막대·완료/작업 중/대기/지연 범례와 상태별 건수를 제거하고 영역명·화면 수·영역 필터만 유지한다. 긴급 이슈 카드를 제거했다. 기존 통합 완료율·진행 막대 대신 전체 화면 수를 표시한다. 도구막대의 통합 상태 집계 칩도 제거하고 네 항목별 필터를 제공한다.
+
+상태는 PC 디자인, MO 디자인, PC 퍼블리싱, MO 퍼블리싱 네 열이다. 디자인은 received(수급)/missing(미수급)/null(-), 퍼블리싱은 ready(완료)/working(진행중)/pending(대기)을 독립적으로 받는다. 사용자가 디자인 확인 전 - 표기를 선택했으므로 기본 디자인은 null이다. 퍼블리싱 기본값은 기존 통합 IA 상태를 PC·MO에 동일 이관하며, 플랫폼별 검증이 완료되었다는 의미가 아니다. 초기값 출처는 배지 title로 알린다. 파일·스토리 존재나 퍼블리싱 완료 여부로 디자인 수급을 추정하지 않는다.
+
+IA 관리 소유자는 IaStructurePage의 progressOverrides에 내부 IA 번호별 Partial<ScreenProgress>를 전달한다. 생략한 필드는 기본값을 유지하고 전달받은 값은 현재 props에서 읽어 교체 시 다시 반영한다. 상태 변경·저장 API나 사용자 편집 UI를 새로 구현하지 않았다. PlatformProgress 스토리의 IA 233/234는 실제 현황이 아닌 PC/MO 차이 검증용 fixture다. 삭제/제외는 네 진행 상태와 분리해 비고에 보존하고 상태 열에는 -를 표시한다.
+
+표는 네 상태 열을 포함한 10열이며 화면명 rowSpan=2, 작업 파일 colSpan=9로 이전 두 행 구성을 유지한다. 최소 너비는 1600px이다. 파일 배지·page 강조·전체 파일 표시·src/ 생략·검색·링크 복사·계층 접기를 유지한다. 이 절은 이전 통합 상태 집계, 7열/8열 및 colSpan=6 설명을 대체한다.
+
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, src/app/screen-index/storybookLinks.ts, src/stories/features/screen-index/IaStructurePage.stories.tsx, tests/screen-progress.test.mjs. Codex는 전체 lint·타입 검사·Panda 생성·Next 프로덕션 빌드, 신규 진행 상태 테스트 2개 및 기존 파일 그래프 테스트 1개를 통과했다. 앱에서 NAV 16개·진행 막대/상태 텍스트/긴급 카드 없음, 266개 화면의 10열·행 병합을 확인했다. 디자인 수급 필터는 확인 전 값을 수급으로 취급하지 않으며 확인 전 필터에 삭제 제외 249개가 나타난다. Storybook fixture에서 수급/미수급·완료/진행중/대기의 플랫폼별 차이와 필터, WEB/Mobile 링크를 확인했다. 이번 작은 모바일 레이아웃과 Storybook play 전체 재검증은 하지 않았다.
+
+Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook-20261029에서 통과했다. 이는 전체 Storybook play 실행과 구분한다.
+
+## IA 헤더·본문의 두 줄 정렬 (2026-10-29)
+
+사용자가 지정한 HTML 구조에 맞춰 헤더와 화면 데이터 모두 7개 물리 열의 두 행으로 정렬했다. 메뉴/화면계층과 구분은 rowSpan=2, 첫째 행은 화면코드·실제 페이지 또는 Storybook 미리보기·PC 디자인·MO 디자인·비고/이슈다. 둘째 행은 WBS(colSpan=2)·PC 퍼블리싱·MO 퍼블리싱·작업 파일이다. 파일 전용 한 행 전체 병합과 반복 작업 파일 라벨을 제거하고 마지막 열 안에 모든 파일 배지를 표시한다. 일정이 있는 대분류는 두 행으로 표시해 기존 WBS를 보존하고, 추가 정보 없는 폴더는 한 행으로 유지한다.
+
+표 최소 너비는 1300px, 화면계층 최소 너비는 320px이며 헤더는 줄바꿈하지 않는다. 이 절은 이전 10열/작업 파일 colSpan=9 배치를 대체한다. PC/MO 상태 데이터·필터·미확인 디자인 -·기존 퍼블리싱 이관 및 파일 검색·강조 배지·링크는 유지한다.
+
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. Codex가 타입 검사·변경 파일 ESLint/Prettier·Panda 생성과 diff 검사를 통과했다. 앱 전체 tbody와 두 행 thead의 rowspan/colspan을 7열 그리드로 대조해 누락·겹침이 없음을 확인했다. 회원가입 화면의 두 행과 대분류 WBS, 1535px 헤더 시각 확인, 375px platform-mobile에서 두 행 헤더·내부 가로 스크롤, 전체 접기 뒤 남은 파일 없음도 확인했다. Storybook fixture에서 디자인 수급/미수급은 윗줄, 퍼블리싱 완료/대기는 아랫줄이고 WEB/Mobile 링크가 유지됨을 확인했다. 이 표 배치 변경에 대해 프로덕션 빌드와 전체 Storybook play는 다시 실행하지 않았다.
+
+사용자 요청으로 IA 구조도 제목 아래의 FO.html 기준·디자인 수급/퍼블리싱 안내 설명(description prop)을 제거했다. 제목·breadcrumb·현황·NAV·상태와 두 줄 표는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.

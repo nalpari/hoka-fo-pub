@@ -6,11 +6,15 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T02:11:18Z'
+  at: '2026-10-29T02:50:24Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/storybookLinks.ts
+  - src/stories/features/screen-index/IaStructurePage.stories.tsx
+  - tests/screen-progress.test.mjs
   - scripts/screen-files.mjs
   - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
   - src/app/support/terms/page.tsx
@@ -437,6 +441,20 @@ IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도
 
 ## IA 개발 연결 파일 자동 탐색 (2026-10-29)
 
-/screen-index의 경로와 서버/클라이언트 경계를 유지하고 screenConnections.ts의 등록 진입 파일에서 실제 import를 추적한다. scripts/screen-files.mjs가 생성한 sourceGraph.generated.json으로 현재 존재하는 진입점과 바인딩 주석이 있는 도메인·컨텍스트 파일을 표시한다. 공통 UI·범용 훅·목 데이터·Preview를 제외하며 ShopShell은 전역 연결 소유자까지만 탐색한다. 신규 IA와 진입점의 의미 연결은 소유자가 등록한다. 경로·Storybook 링크와 기존 완료 상태는 유지한다.
+/screen-index의 경로와 서버/클라이언트 경계는 유지한다. 클라이언트 IA 화면은 파일 시스템을 직접 읽지 않고 scripts/screen-files.mjs가 생성한 sourceGraph.generated.json을 사용한다. IA별 등록된 진입 파일에서 import를 추적해 페이지와 바인딩 주석이 있는 도메인·컨텍스트 연결 파일을 표시하며 공통 UI와 범용 훅은 제외한다. ShopShell은 화면의 전역 연결 소유자로 표시하고 그 내부 전역 UI 데이터로 탐색을 확장하지 않는다. IA 매핑 없는 신규 라우트의 의미는 자동 추론하지 않는다. 앱 페이지·Storybook 미리보기 연결과 완료 상태는 유지한다.
 
-작업 트리 출처: src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, scripts/screen-files.mjs. [개발 연결 파일 범위](ui.md#ia-작업-파일-자동-갱신과-개발-연결-범위-2026-10-29)를 참고한다.
+작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, scripts/screen-files.mjs. 생성된 목록은 개발 연결 지점 안내이며 수정 이력이나 서비스 구현 증명이 아니다. 상세 범위는 [UI 문서](ui.md#ia-작업-파일-자동-갱신과-개발-연결-범위-2026-10-29)를 참고한다.
+
+작업 파일의 화면 표기에서는 공통 src/ 접두사만 생략한다. 접힌 추가 파일에도 동일하게 적용하고 title에는 전체 경로를 남긴다. 원본 sourceFiles·생성 그래프와 전체 경로 검색은 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
+
+IA 목록은 화면명 rowSpan=2와 작업 파일 colSpan=6의 두 행으로 표시한다. 작업 파일은 더보기 없이 전부 표시하고 미등록은 -로 표기한다. 경로·서버/클라이언트 경계·링크 및 자동 탐색 계약은 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. [두 행 구성](ui.md#ia-두-행-구성과-작업-파일-전체-표시-2026-10-29)을 참고한다.
+
+작업 파일은 파일별 4px 모서리·테두리·패딩이 있는 배지로 구분한다. 일반 파일은 연회색 바탕, 파일명이 정확히 page.ts/tsx/js/jsx인 진입 파일은 보라색 바탕·테두리·강조 글자로 표시한다. 기존 code 의미·전체 경로 title·src/ 생략과 전체 파일 줄바꿈 표시를 유지한다. 공통 Badge의 계약이나 스타일은 변경하지 않고 이 개발용 경로 표시에 로컬 Panda cva를 사용한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. 브라우저에서 상품 상세 진입 파일과 일반 파일의 배경·테두리·글자색 차이를 확인했다.
+
+## IA 상태 표시의 플랫폼 분리 (2026-10-29)
+
+/screen-index와 Storybook은 IaStructurePage의 progressOverrides를 통해 내부 IA 번호별 PC·MO 디자인 수급과 퍼블리싱 값을 독립적으로 표시한다. 디자인 기본값은 null(-), 퍼블리싱 기본값은 기존 통합 상태의 초기 이관값이다. 신규 저장 API·라우트·서비스 호출은 추가하지 않고 현재 props를 직접 읽는다. 표는 10열, 화면명 rowSpan=2와 파일 colSpan=9로 바뀌며 경로·클라이언트 경계·링크와 작업 파일 탐색은 유지한다. 출처는 src/app/screen-index/_components/IaStructurePage.tsx와 storybookLinks.ts의 작업 트리이며 상세 계약·표시 범위는 [플랫폼별 상태](ui.md#ia-플랫폼별-디자인퍼블리싱-상태-2026-10-29)를 참고한다.
+
+IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴/구분 rowSpan=2, 윗줄 화면코드/실제페이지/PC·MO 디자인/비고, 아랫줄 WBS colSpan=2/PC·MO 퍼블리싱/작업파일이다. 화면·대분류 일정을 보존하며 라우트·플랫폼 상태 소유권과 미리보기 링크는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. [두 줄 정렬](ui.md#ia-헤더본문의-두-줄-정렬-2026-10-29)을 참고한다.
+
+사용자 요청으로 IA 구조도 제목 아래의 FO.html 기준·디자인 수급/퍼블리싱 안내 설명(description prop)을 제거했다. 제목·breadcrumb·현황·NAV·상태와 두 줄 표는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
