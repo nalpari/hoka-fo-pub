@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:22:38Z'
+  at: '2026-10-29T07:40:34Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/examples/styles/classnames/page.tsx
@@ -15,6 +15,7 @@ working_tree_sources:
   - src/app/publishing-guide/page.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/app/publishing-guide/_components/TypographyGuide.tsx
+  - src/app/publishing-guide/_components/GuideCode.tsx
   - src/app/publishing-guide/_components/GuideCopyToast.tsx
   - src/app/publishing-guide/_components/GuideTimeline.tsx
   - src/app/support/inquiries/new/page.tsx
@@ -513,15 +514,13 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](design-source-comparison-2026-10-29.md)을 참고한다.
 
-
 ## 첨부 시안의 라우트 구현 반영 (2026-10-29)
 
 주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
 
-
 현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
 
-페이지의 `SupportTabs`에 Typography와 Button 가이드를 각 탭의 콘텐츠로 직접 연결하며 Typography 탭을 왼쪽에 둔다. Typography 탭은 `TypographyVariant`에 정의된 영문·한글 헤딩/본문, CTA, 텍스트 링크를 미리 보여주고 variant별 JSX 코드를 복사한다. 두 가이드는 카드에서 이름·속성 표기, 미리보기, 코드와 복사 버튼이 포함된 코드를 같은 순서로 표시한다. 복사 결과는 공통 `GuideCopyToast`로 사이트 헤더 아래에 2초간 표시하며 상태 메시지는 접근 가능한 live region으로 제공한다. 각 예시 variant 옆에 실제 정의에서 계산한 글자 크기·행간(Line Height)·굵기(Weight)를 표시하며, PC·모바일 값이 같은 속성은 중복하지 않는다. 미리보기 영역은 스크롤 컨테이너로 제한하지 않고 큰 글자도 줄바꿈되어 잘리지 않게 한다. 별칭 `body`를 호출하던 홈 소개문·ContentLayout·MainContentCard·ProductCard는 `bodyKr3` 웹·`bodyKr4` 모바일 조합으로 옮겼고, 상품명은 기존 웹 가변 크기를 보존하는 화면 전용 Panda 스타일을 사용한다. `body` variant와 전용 CSS 토큰은 제거했다. 미사용 전용 variant인 `pageTitle`·`loginTitle`·`authTitle`·`authCaption`·`authBody`·`authSmall`도 호출부를 표준 variant로 옮기고 정의·가이드·스토리에서 제거한다. 로그인 제목은 `headingKr6` 웹·`headingKr5` 모바일 조합을 사용해 기존 36px/22px 크기를 유지한다. Typography 타이틀과 설명은 가로로 정렬하며, variant 그룹·예시 카드는 버튼 가이드와 같은 surface·border 중심의 시각 체계를 사용하고 카드·코드 배경은 semantic `surface.default`·`surface.subtle` 토큰을 적용한다. 두 가이드는 오른쪽 sticky 타임라인으로 섹션을 탐색하며 공통 `GuideTimeline`을 사용한다. 화면 폭과 자동 플랫폼 선택에 따라 미리보기에 PC·모바일 반응형 차이가 반영된다. 새 Typography variant나 공용 타이포그래피 스타일은 만들지 않는다.
+페이지의 `SupportTabs`에 Typography와 Button 가이드를 각 탭의 콘텐츠로 직접 연결하며 Typography 탭을 왼쪽에 둔다. Typography 탭은 `TypographyVariant`에 정의된 영문·한글 헤딩/본문, CTA, 텍스트 링크를 미리 보여주고 variant별 JSX 코드를 복사한다. 두 가이드는 카드에서 이름·속성 표기, 미리보기, 구문 강조 코드와 복사 버튼을 같은 순서로 표시한다. 공통 `renderGuideCode`가 JSX 태그·속성·문자열·구두점에 각각 Button 가이드와 같은 색상을 적용한다. 복사 결과는 공통 `GuideCopyToast`로 사이트 헤더 아래에 2초간 표시하며 상태 메시지는 접근 가능한 live region으로 제공한다. 각 예시 variant 옆에 실제 정의에서 계산한 글자 크기·행간(Line Height)·굵기(Weight)를 표시하며, PC·모바일 값이 같은 속성은 중복하지 않는다. 미리보기 영역은 스크롤 컨테이너로 제한하지 않고 큰 글자도 줄바꿈되어 잘리지 않게 한다. 별칭 `body`를 호출하던 홈 소개문·ContentLayout·MainContentCard·ProductCard는 `bodyKr3` 웹·`bodyKr4` 모바일 조합으로 옮겼고, 상품명은 기존 웹 가변 크기를 보존하는 화면 전용 Panda 스타일을 사용한다. `body` variant와 전용 CSS 토큰은 제거했다. 미사용 전용 variant인 `pageTitle`·`loginTitle`·`authTitle`·`authCaption`·`authBody`·`authSmall`도 호출부를 표준 variant로 옮기고 정의·가이드·스토리에서 제거한다. 로그인 제목은 `headingKr6` 웹·`headingKr5` 모바일 조합을 사용해 기존 36px/22px 크기를 유지한다. Typography 타이틀과 설명은 가로로 정렬하며, variant 그룹·예시 카드는 버튼 가이드와 같은 surface·border 중심의 시각 체계를 사용하고 카드·코드 배경은 semantic `surface.default`·`surface.subtle` 토큰을 적용한다. 두 가이드는 오른쪽 sticky 타임라인으로 섹션을 탐색하며 공통 `GuideTimeline`을 사용한다. 화면 폭과 자동 플랫폼 선택에 따라 미리보기에 PC·모바일 반응형 차이가 반영된다. 새 Typography variant나 공용 타이포그래피 스타일은 만들지 않는다.
 
 버튼 예시는 상태 카드 상단에 상태명과 복사 버튼을 나란히 배치하고, 아래에 버튼 미리보기와 구문 색상이 적용된 코드를 표시한다. Typography와 Button 코드 복사 동작은 같은 공용 `faCopy` 아이콘 버튼과 상단 알림을 사용한다.
 

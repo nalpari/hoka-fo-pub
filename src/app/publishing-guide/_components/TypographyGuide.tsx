@@ -15,6 +15,7 @@ import {
 
 import { faCopy } from '@/icons/fontAwesome';
 
+import { renderGuideCode } from './GuideCode';
 import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
@@ -245,7 +246,9 @@ export function TypographyGuide() {
                     <Typography variant={variant}>{text}</Typography>
                   </Box>
                   <HStack as="code" className={codeStyle}>
-                    {`<Typography variant="${variant}">${text}</Typography>`}
+                    <Box as="span" flex="1" minW="0" overflowWrap="anywhere">
+                      {renderGuideCode(`<Typography variant="${variant}">${text}</Typography>`)}
+                    </Box>
                     <Button
                       className={copyButton}
                       type="button"

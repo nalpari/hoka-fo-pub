@@ -11,6 +11,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { faCopy } from '@/icons/fontAwesome';
 
+import { renderGuideCode } from './GuideCode';
 import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
@@ -297,11 +298,6 @@ const codeLine = css({
   lineHeight: '1.5',
 });
 
-const codeTag = css({ color: 'blue.100' });
-const codeAttribute = css({ color: 'mossGreen.100' });
-const codeString = css({ color: 'red.80' });
-const codePunctuation = css({ color: 'black.60' });
-
 const copyButton = css({
   flexShrink: '0',
   bg: 'black.10',
@@ -309,37 +305,6 @@ const copyButton = css({
   borderRadius: '4px',
   _hover: { bg: 'black.20!' },
 });
-
-const codeTokenPattern =
-  /(<\/?)([A-Za-z][\w.]*)|([A-Za-z][\w-]*)(?==)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|([{}=/>])/g;
-
-function renderHighlightedCode(code: string) {
-  const tokens = [];
-  let previousIndex = 0;
-
-  for (const match of code.matchAll(codeTokenPattern)) {
-    const index = match.index ?? 0;
-    if (index > previousIndex) tokens.push(code.slice(previousIndex, index));
-
-    const className =
-      match[1] || match[2]
-        ? codeTag
-        : match[3]
-          ? codeAttribute
-          : match[4]
-            ? codeString
-            : codePunctuation;
-    tokens.push(
-      <span key={`${index}-${match[0]}`} className={className}>
-        {match[0]}
-      </span>,
-    );
-    previousIndex = index + match[0].length;
-  }
-
-  if (previousIndex < code.length) tokens.push(code.slice(previousIndex));
-  return tokens;
-}
 
 type ButtonVariant = (typeof variants)[number]['value'];
 type ButtonVariantPanelProps = {
@@ -430,7 +395,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                           </Box>
                           <HStack as="code" className={codeLine} gap="3">
                             <Box as="span" flex="1" minW="0" overflowWrap="anywhere">
-                              {renderHighlightedCode(code)}
+                              {renderGuideCode(code)}
                             </Box>
                             <Button
                               className={copyButton}
@@ -634,7 +599,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                         </Box>
                         <HStack as="code" className={codeLine} gap="3">
                           <Box as="span" flex="1" minW="0" overflowWrap="anywhere">
-                            {renderHighlightedCode(code)}
+                            {renderGuideCode(code)}
                           </Box>
                           <Button
                             className={copyButton}

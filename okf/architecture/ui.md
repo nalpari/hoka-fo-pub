@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:22:38Z'
+  at: '2026-10-29T07:40:34Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/components/common/atoms/Typography.tsx
@@ -14,6 +14,7 @@ working_tree_sources:
   - src/stories/components/common/atoms/Typography/Typography.stories.tsx
   - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/app/publishing-guide/_components/GuideCode.tsx
   - src/components/common/layouts/ContentLayout.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
@@ -3379,7 +3380,6 @@ Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook
 
 IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시하며 검색에도 포함한다. 날짜별 항목 분리·중복 제거와 기존 두 줄 표·작업 파일 배지는 유지한다. 이번 변경은 디자인 대비 미적용 UI와 서비스 연결 대기의 기록이며 실제 회원가입·로그인·고객센터·마이페이지·장바구니·주문 컴포넌트를 수정하지 않는다. [영역별 소스 대조](design-source-comparison-2026-10-29.md)를 참고한다. 작업 트리 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/storybookLinks.ts`다.
 
-
 ## 첨부 시안의 PC·MO UI 반영 (2026-10-29)
 
 6개 영역의 PC 표·그리드·모달·연락처/바로가기와 기존 MO 흐름을 반영했다. 마이페이지 기본 프레임은 1200px 중앙 정렬이며 기존 centered 모드는 유지한다. Panda TSX 스타일과 기존 Typography/Button/ModalDialog/NumberStepper를 재사용한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
@@ -3399,3 +3399,9 @@ IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시�
 ## 아이콘 버튼 hover 배경 제거 (2026-10-29)
 
 `Button`의 `variant="icon"`은 기본 hover 상태에서도 배경을 투명하게 유지한다. ShopShell의 닫기·뒤로가기 버튼에만 있던 hover 배경 재정의도 제거했으며, 포커스 표시와 버튼 동작은 유지한다. 출처는 `src/components/common/atoms/Button.tsx`와 `src/context/ShopShell.tsx`다. 시각 검증은 아직 수행하지 않았다.
+
+Typography 가이드의 사용 코드는 Button 가이드와 같은 JSX 구문 색상을 사용한다. 두 화면이 `renderGuideCode`를 공유해 태그·속성·문자열·구두점 색상을 일관되게 표시한다. 출처는 `src/app/publishing-guide/_components/GuideCode.tsx`, `ButtonGuide.tsx`, `TypographyGuide.tsx`다. 브라우저 시각 검증은 아직 수행하지 않았다.
+
+## 퍼블리싱 가이드 코드 구문 색상 통일 (2026-10-29)
+
+Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문자열·구두점 색상을 적용한다. 공통 `renderGuideCode`를 두 가이드에서 사용하며 표시 문자열과 복사 코드는 그대로 둔다. 출처는 `src/app/publishing-guide/_components/GuideCode.tsx`, `ButtonGuide.tsx`, `TypographyGuide.tsx`다. 브라우저 시각 검증은 아직 수행하지 않았다.
