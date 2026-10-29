@@ -30,7 +30,14 @@ type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobil
 
 function NoticeHeading({ notice, platform }: Props) {
   return (
-    <HStack as="span" w="100%" justifyContent="space-between" gap="4" alignItems="center">
+    <HStack
+      as="span"
+      w="100%"
+      justifyContent="space-between"
+      gap={{ base: '4', _mobile: '2' }}
+      alignItems={{ base: 'center', _mobile: 'flex-start' }}
+      flexDirection={{ base: 'row', _mobile: 'column' }}
+    >
       <Typography web="body2" mo="body3" weight="medium">
         {notice.title}
       </Typography>

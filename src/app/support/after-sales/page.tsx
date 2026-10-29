@@ -6,6 +6,8 @@
  * 이 안내문은 반품비 계산/접수 권한의 근거가 아닙니다. 실제 반품은 OrdersContext.quoteClaim/submitClaim의 서버 결과를 사용합니다.
  */
 
+import Link from 'next/link';
+
 import { type ReactNode } from 'react';
 
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -140,6 +142,22 @@ function ReturnCautionsPanel() {
       <ShippingReturnsBulletList items={unavailableReturns} />
       <Typography variant="body4">4. 반품 배송비 정책</Typography>
       <ShippingReturnsBulletList items={returnCosts} />
+      <Stack bg="black.10" p="6" gap="3">
+        <Typography variant="heading7">고객센터</Typography>
+        <Typography variant="body3">TEL. 080-2225-6660</Typography>
+        <Typography variant="body4">평일 10:00~17:00 (점심시간 12:00~13:00)</Typography>
+      </Stack>
+      <HStack gap="4" flexWrap="wrap">
+        {[
+          { href: '/support/inquiries/new', label: '1:1 문의' },
+          { href: '/support/faq', label: 'FAQs' },
+          { href: '/mypage/orders', label: '주문/배송 조회' },
+        ].map((item) => (
+          <Link key={item.href} href={item.href}>
+            <Typography variant="textLink3">{item.label} →</Typography>
+          </Link>
+        ))}
+      </HStack>
     </ShippingReturnsGuidePanel>
   );
 }

@@ -1,3 +1,6 @@
+import { useContext, useState } from 'react';
+import { PhoneVerificationContext } from '@/context/PhoneVerificationContext';
+
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
@@ -75,6 +78,12 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
 type PhoneVerificationDialogsProps = Pick<PhoneVerificationContentProps, 'detail' | 'onDetail'>;
 
 function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogsProps) {
+  const service = useContext(PhoneVerificationContext);
+  const [previous, setPrevious] = useState(false);
+  const [version, setVersion] = useState('');
+  const term = service?.terms?.find((item) => item.title === detail);
+  const selected = term?.previousVersions?.find((item) => item.id === version);
+
   const onOpenChange = (open: boolean) => {
     if (!open) onDetail(null);
   };
@@ -91,8 +100,36 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
       closeLabel="안내 닫기"
       size="md"
       mobilePresentation="fullscreen"
+      actions={{ kind: 'single', onConfirm: () => onDetail(null) }}
     >
-      {null}
+      <Stack gap="6">
+        <Typography variant="heading7">{detail}</Typography>
+        <Box minH="240px" overflowY="auto" maxH="50vh" whiteSpace="pre-line" p="4" bg="black.10">
+          {selected?.body ?? term?.body ?? (
+            <Typography variant="body4">
+              본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
+              통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
+              미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
+            </Typography>
+          )}
+        </Box>
+        <Button variant="link" onClick={() => setPrevious(!previous)}>
+          이전 약관 보기
+        </Button>
+        {previous ? (
+          <Stack gap="2">
+            {term?.previousVersions?.length ? (
+              term.previousVersions.map((item) => (
+                <Button key={item.id} variant="secondary" onClick={() => setVersion(item.id)}>
+                  {item.label}
+                </Button>
+              ))
+            ) : (
+              <Typography variant="body5">이전 약관이 없습니다.</Typography>
+            )}
+          </Stack>
+        ) : null}
+      </Stack>
     </ModalDialog>
   );
 }
@@ -373,7 +410,25 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       title={props.title ?? '휴대폰 인증'}
       description={props.description}
       contentWidth="500px"
-      outsideContent={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
+      outsideContent={
+        <>
+          <PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />
+          <ModalDialog
+            open={props.expired ?? false}
+            onOpenChange={(open) => {
+              if (!open) props.onExpiredClose?.();
+            }}
+            title="인증시간 만료"
+            closeLabel="인증시간 만료 안내 닫기"
+            size="sm"
+            actions={{ kind: 'single', onConfirm: () => props.onExpiredClose?.() }}
+          >
+            <Typography variant="body3">
+              인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.
+            </Typography>
+          </ModalDialog>
+        </>
+      }
     >
       <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
         <Stack gap="6">

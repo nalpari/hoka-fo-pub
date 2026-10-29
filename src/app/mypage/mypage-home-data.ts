@@ -7,6 +7,7 @@ export type MyPageOrderItem = {
   name: string;
   gender: string;
   price: string;
+  quantity?: number;
   description: string;
   status: string;
   image: string;

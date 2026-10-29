@@ -58,7 +58,7 @@ export default function Page() {
           descriptionProps: { className: css({ m: '0' }) },
         }}
         footer={
-          <ButtonLink href="/login" variant="primary" fullWidth>
+          <ButtonLink href="/" variant="primary" fullWidth>
             홈으로
           </ButtonLink>
         }

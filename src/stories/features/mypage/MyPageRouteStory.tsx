@@ -2,8 +2,8 @@ import { ShopShell } from '@/context/ShopShell';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
+import EntryPage from '@/app/mypage/event-entries/page';
 import MyPage from '@/app/mypage/page';
-import { RunClubPage } from '@/components/run-club/RunClubPage';
 import {
   type MyPageStatusKind,
   MyPageStatusPage,
@@ -34,7 +34,7 @@ export function createMyPageStory(path: string) {
         {path === '/mypage' ? (
           <MyPage />
         ) : path === '/mypage/event-entries' ? (
-          <RunClubPage />
+          <EntryPage />
         ) : kind ? (
           <MyPageStatusPage kind={kind} />
         ) : (

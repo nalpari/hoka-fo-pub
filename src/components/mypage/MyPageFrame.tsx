@@ -64,15 +64,17 @@ export function MyPageFrame({
   }
 
   return (
-    <SidebarNavigationLayout
-      activePath={activePath}
-      groups={myPageNavigation}
-      mobileNavigation="hidden"
-      mobileSpacing="none"
-      title="MY HOKA"
-      titleTo="/mypage"
-    >
-      {content}
-    </SidebarNavigationLayout>
+    <Box maxW="1200px" mx="auto">
+      <SidebarNavigationLayout
+        activePath={activePath}
+        groups={myPageNavigation}
+        mobileNavigation="hidden"
+        mobileSpacing="none"
+        title="MY HOKA"
+        titleTo="/mypage"
+      >
+        {content}
+      </SidebarNavigationLayout>
+    </Box>
   );
 }

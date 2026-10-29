@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T01:20:16Z'
+  at: '2026-10-29T06:05:25Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/context/SupportContentContext.ts
@@ -489,3 +489,8 @@ AccountFlowProvider는 인증 proof/신규·기존 분기/약관 버전별 동�
 MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수단·활동을 추가했다. SupportContent/Inquiry/RunClub/Home 컨텍스트는 실제 결과와 요청 상태를 직접 공급한다. 조회/재조회/DTO 변환·응답 순서는 연결 소유자 책임이고 UI는 성공 후에만 완료 처리한다. 미리보기 컨텍스트에 운영 데이터가 전달된다고 가정하지 않는다. 각 타입의 [개발팀 바인딩] 주석과 [상세 계약](data-binding.md)을 참고한다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
+
+
+## 디자인에 필요한 선택·제출 상태 (2026-10-29)
+
+쿠폰 초안/확정 선택, 기본배송지 저장 의도, 신청 취소, 인증 약관 본문과 등급 진행률을 기존 컨텍스트 계약에 추가했다. 실제 서비스 성공을 기다린 뒤 모달을 닫고 실패 시 초안과 오류를 유지한다. 서버 목록 재필터와 실제 금액 재계산은 하지 않는다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).

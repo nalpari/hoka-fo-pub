@@ -15,7 +15,7 @@ import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
@@ -92,7 +92,7 @@ function CartOptionsContent({
   onQuantityChange,
 }: CartOptionsContentProps) {
   return (
-    <Stack gap="6">
+    <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6" alignItems="start">
       <Image
         src={image}
         alt={name}
@@ -100,14 +100,12 @@ function CartOptionsContent({
         height={600}
         sizes="(max-width: 1024px) calc(100vw - 32px), 500px"
         className={css({
-          w: 'calc(100% + 48px)',
+          w: '100%',
           maxW: 'none',
-          mx: '-6',
-          mt: '-6',
           aspectRatio: '1',
           objectFit: 'contain',
           bg: 'black.10',
-          _mobile: { w: 'calc(100% + 32px)', mx: '-4' },
+          _mobile: { w: 'calc(100% + 32px)', mx: '-4', mt: '-6' },
         })}
       />
       <ContentSection
@@ -138,10 +136,12 @@ function CartOptionsContent({
             }))}
             onValueChange={onSizeChange}
           />
-          <CartOptionQuantity value={draft.quantity} onChange={onQuantityChange} />
+          <Box display={{ base: 'none', _mobile: 'block' }}>
+            <CartOptionQuantity value={draft.quantity} onChange={onQuantityChange} />
+          </Box>
         </Stack>
       </ContentSection>
-    </Stack>
+    </Grid>
   );
 }
 
@@ -173,7 +173,7 @@ function CartOptionsDialog({
       }}
       title="옵션 변경하기"
       closeLabel="옵션 변경 닫기"
-      size="sm"
+      size="lg"
       mobilePresentation="fullscreen"
       headerProps={{
         css: css.raw({
@@ -361,6 +361,7 @@ type CartItemRowProps = {
   onRemove: () => void;
   onEdit: () => void;
   onFavorite: () => void;
+  onQuantityChange: (quantity: number) => void;
 };
 
 /** 선택·삭제·옵션 변경 액션과 품절 상태를 표시합니다. (Displays a cart item and its available actions.) */
@@ -373,8 +374,70 @@ function CartItemRow({
   onRemove,
   onEdit,
   onFavorite,
+  onQuantityChange,
 }: CartItemRowProps) {
   const soldOut = isCartItemSoldOut(item, product);
+  const platform = usePlatform();
+  if (platform !== 'mobile')
+    return (
+      <Grid
+        as="li"
+        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
+        alignItems="center"
+        gap="6"
+        py="6"
+        borderBottom="1px solid var(--colors-black-20)"
+        opacity={soldOut ? '0.4' : '1'}
+      >
+        <Checkbox
+          aria-label={`${product.name} 선택`}
+          checked={selected}
+          disabled={soldOut}
+          onCheckedChange={onSelect}
+          label={null}
+        />
+        <OrderProductSummary
+          variant="coupon"
+          hideAmount
+          image={getCartImage(item, product.primaryImage)}
+          name={product.name}
+          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size}`}
+          amount={product.price}
+        >
+          <Button variant="link" size="sm" onClick={onEdit} disabled={soldOut}>
+            옵션변경
+          </Button>
+        </OrderProductSummary>
+        <fieldset disabled={soldOut} className={css({ border: 0, p: 0, minW: 0 })}>
+          <NumberStepper
+            ariaLabel={`${product.name} 수량`}
+            min={1}
+            value={item.quantity}
+            onChange={onQuantityChange}
+          />
+        </fieldset>
+        <Typography variant="body3" weight="semibold">
+          {(product.price * item.quantity).toLocaleString()}원
+        </Typography>
+        <Stack gap="2">
+          {soldOut ? (
+            <Button size="short" disabled>
+              품절
+            </Button>
+          ) : (
+            <ButtonLink
+              size="short"
+              href={`/checkout?selected=${encodeURIComponent(itemKey(item))}`}
+            >
+              주문하기
+            </ButtonLink>
+          )}
+          <Button variant="secondary" size="short" onClick={onRemove}>
+            삭제하기
+          </Button>
+        </Stack>
+      </Grid>
+    );
 
   return (
     <Stack as="li" gap="0" bg="black.10" minH={{ base: '185px', _mobile: '164px' }}>
@@ -440,6 +503,7 @@ type CartProductListProps = {
   onRemove: (item: CartItem) => void;
   onEdit: (item: CartItem, product: Product) => void;
   onToggleFavorite: (key: string) => void;
+  onQuantityChange: (item: CartItem, quantity: number) => void;
 };
 
 function CartProductList({
@@ -450,6 +514,7 @@ function CartProductList({
   onRemove,
   onEdit,
   onToggleFavorite,
+  onQuantityChange,
 }: CartProductListProps) {
   return (
     <Stack as="ul" gap="4" listStyleType="none">
@@ -466,6 +531,7 @@ function CartProductList({
             onRemove={() => onRemove(item)}
             onEdit={() => onEdit(item, product)}
             onFavorite={() => onToggleFavorite(key)}
+            onQuantityChange={(quantity) => onQuantityChange(item, quantity)}
           />
         );
       })}
@@ -491,6 +557,7 @@ function CartProductSection({
   onToggleFavorite,
   onRemoveSelected,
   onRemoveSoldOut,
+  onQuantityChange,
 }: CartProductSectionProps) {
   return (
     <Stack gap="4">
@@ -503,7 +570,22 @@ function CartProductSection({
         onRemoveSelected={onRemoveSelected}
         onRemoveSoldOut={onRemoveSoldOut}
       />
+      <Grid
+        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
+        gap="6"
+        py="3"
+        borderTop="1px solid var(--colors-black-100)"
+        borderBottom="1px solid var(--colors-black-20)"
+        display={{ base: 'grid', _mobile: 'none' }}
+      >
+        <Box />
+        <Typography variant="body4">상품정보/옵션</Typography>
+        <Typography variant="body4">수량</Typography>
+        <Typography variant="body4">가격</Typography>
+        <Box />
+      </Grid>
       <CartProductList
+        onQuantityChange={onQuantityChange}
         rows={rows}
         selectedKeys={selectedKeys}
         favorites={favorites}
@@ -513,7 +595,15 @@ function CartProductSection({
         onToggleFavorite={onToggleFavorite}
       />
       <Box display={{ _mobile: 'none' }}>
-        <AmountRow label="결제예정금액" amount={total} emphasis px="4" py="5" bg="black.10" />
+        <Grid gridTemplateColumns="1fr 1fr" border="1px solid var(--colors-black-20)" p="6" gap="8">
+          <Stack gap="3">
+            <AmountRow label="상품금액" amount={total} />
+            <Typography variant="body5" tone="tertiary">
+              배송비는 주문 시 확인할 수 있습니다.
+            </Typography>
+          </Stack>
+          <AmountRow label="결제예정금액" amount={total} emphasis />
+        </Grid>
       </Box>
       <Typography variant="body5" tone="tertiary">
         * 장바구니에 담긴 상품은 30일 동안 보관됩니다. 더 오래 상품을 보관하시려면 관심 상품에
@@ -545,7 +635,7 @@ const textAction = css({
 function CartSupportContact() {
   return (
     <>
-      <Typography variant="heading7">HOKA/HOKA 고객센터 내용 미정</Typography>
+      <Typography variant="heading7">HOKA 고객센터</Typography>
       <Typography variant="body4">TEL. 080-665-5552</Typography>
       <Typography variant="body5" tone="tertiary">
         *아래 1:1문의를 이용하시면 조금 더 빠르게 답변 받으실수 있습니다.
@@ -579,10 +669,14 @@ function CartSupportInfo() {
       title="고객센터 안내"
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading6' } }}
     >
-      <Stack gap="6">
-        <CartSupportContact />
-        <CartSupportHours />
-      </Stack>
+      <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6">
+        <Stack gap="3" bg="black.10" p="4">
+          <CartSupportContact />
+        </Stack>
+        <Stack gap="3" bg="black.10" p="4">
+          <CartSupportHours />
+        </Stack>
+      </Grid>
     </ContentSection>
   );
 }
@@ -634,6 +728,7 @@ type CartContentProps = {
   onToggleFavorite: (key: string) => void;
   onRemoveSelected: () => void;
   onRemoveSoldOut: () => void;
+  onQuantityChange: (item: CartItem, quantity: number) => void;
 };
 
 /** 상품 목록과 추천·고객센터 및 주문 액션을 배치합니다. (Lays out cart contents and order actions.) */
@@ -654,6 +749,7 @@ function CartContent({
   onToggleFavorite,
   onRemoveSelected,
   onRemoveSoldOut,
+  onQuantityChange,
 }: CartContentProps) {
   return (
     <OrderPageLayout
@@ -679,6 +775,7 @@ function CartContent({
       {rows.length ? (
         <Stack gap="10" pb={{ _mobile: '12' }}>
           <CartProductSection
+            onQuantityChange={onQuantityChange}
             rows={rows}
             allSelected={allSelected}
             selectedCount={selectedCount}
@@ -693,9 +790,36 @@ function CartContent({
             onRemoveSelected={onRemoveSelected}
             onRemoveSoldOut={onRemoveSoldOut}
           />
-          <OrderRecommendations items={orderRecommendations} layout="portrait" />
+          <HStack display={{ _mobile: 'none' }} justifyContent="center" gap="3">
+            {checkoutHref ? (
+              <ButtonLink variant="secondary" href={checkoutHref}>
+                선택상품 주문하기
+              </ButtonLink>
+            ) : (
+              <Button variant="secondary" disabled>
+                선택상품 주문하기
+              </Button>
+            )}
+            {rows.some(({ item, product }) => !isCartItemSoldOut(item, product)) ? (
+              <ButtonLink
+                href={`/checkout?selected=${encodeURIComponent(
+                  rows
+                    .filter(({ item, product }) => !isCartItemSoldOut(item, product))
+                    .map(({ item }) => itemKey(item))
+                    .join('|'),
+                )}`}
+              >
+                전체상품 주문하기
+              </ButtonLink>
+            ) : (
+              <Button disabled>전체상품 주문하기</Button>
+            )}
+          </HStack>
+          <OrderRecommendations items={orderRecommendations} layout="portrait" title="추천 상품" />
           <CartSupportInfo />
-          <CartOrderActions total={total} checkoutHref={checkoutHref} />
+          <Box display={{ base: 'none', _mobile: 'block' }}>
+            <CartOrderActions total={total} checkoutHref={checkoutHref} />
+          </Box>
         </Stack>
       ) : (
         <CartEmptyState />
@@ -752,6 +876,7 @@ export default function Page() {
       itemCount={itemCount}
       selectedCount={selectedCount}
       total={total}
+      onQuantityChange={onQuantityChange}
       onSelectAll={(checked) => setSelected(checked ? allKeys : [])}
       onToggleItem={(key, checked) =>
         setSelected(

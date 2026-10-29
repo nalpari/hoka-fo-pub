@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext } from 'react';
+import { createContext, type ReactNode } from 'react';
 import type { VerifiedIdentity } from '@/context/AccountFlowContext';
 
 import type { PhoneInformation } from '@/components/phone-verification/PhoneVerificationContent';
@@ -13,6 +13,12 @@ import type { PhoneInformation } from '@/components/phone-verification/PhoneVeri
  * 인증 실패/만료는 Error로 reject합니다. 입력 정보 변경 후 도착한 이전 인증 응답은 훅이 무시합니다.
  */
 export type PhoneVerificationService = {
+  /** [ 개발팀 바인딩 ] 인증 제공자의 안전한 본문과 이전 버전 목록입니다. 미공급 시 미리보기 안내만 표시하며 동의용 법적 본문을 생성하지 않습니다. */
+  terms?: readonly {
+    title: string;
+    body: ReactNode;
+    previousVersions?: readonly { id: string; label: string; body: ReactNode }[];
+  }[];
   request: (
     information: PhoneInformation,
   ) => Promise<{ requestId: string; expiresInSeconds: number }>;

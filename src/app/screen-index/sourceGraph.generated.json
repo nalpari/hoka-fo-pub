@@ -40,8 +40,10 @@
       "src/components/common/atoms/TextInput.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/layouts/OrderActionBar.tsx",
       "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
@@ -177,7 +179,20 @@
       "src/hooks/useRequestAction.ts",
       "src/icons/fontAwesome.ts"
     ],
-    "src/app/mypage/event-entries/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
+    "src/app/mypage/event-entries/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/components/run-club/runClub.data.ts",
+      "src/context/RunClubDataContext.ts",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
     "src/app/mypage/member-activity/page.tsx": [
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/SidebarNavigationLayout.tsx",
@@ -889,6 +904,7 @@
       "src/components/common/molecules/FormFields/TextFormField.tsx"
     ],
     "src/components/common/organisms/OrderRecommendations.tsx": [
+      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx"
     ],
@@ -982,7 +998,8 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/FormFields/VerificationCountdown.tsx"
+      "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
+      "src/context/PhoneVerificationContext.ts"
     ],
     "src/components/run-club/runClub.data.ts": [],
     "src/components/run-club/RunClubPage.tsx": [

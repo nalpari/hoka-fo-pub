@@ -519,6 +519,7 @@ type OrderCardActions = {
 /** 주문 한 건의 상품·상태·후속 처리 액션을 구성합니다. (Composes products, status, and follow-up actions for an order.) */
 function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActions) {
   const items = getRemainingLines(order);
+  const platform = usePlatform();
   return (
     <Stack as="li" gap="6" listStyleType="none">
       <OrderCardHeader order={order} onDetail={() => actions.onDetail(order)} />
@@ -528,17 +529,60 @@ function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActi
             label={orderStatusLabels[order.status]}
             expectedDate={order.expectedDate}
           />
-          <Stack gap="4">
-            {items.map((line) => (
-              <OrderHistoryProduct key={line.key} line={line} onAddToCart={actions.onAddToCart} />
-            ))}
-          </Stack>
-          <OrderItemActions
-            order={order}
-            onClaim={() => actions.onClaim(order)}
-            onTracking={() => actions.onTracking(order)}
-            onConfirm={() => actions.onConfirm(order)}
-          />
+          {platform !== 'mobile' ? (
+            <Stack gap="0">
+              <Grid
+                gridTemplateColumns="minmax(0, 1fr) 80px 120px 120px"
+                borderY="1px solid var(--colors-black-100)"
+                py="3"
+              >
+                <Typography variant="body5">상품정보/옵션</Typography>
+                <Typography variant="body5">수량</Typography>
+                <Typography variant="body5">가격</Typography>
+                <Typography variant="body5">주문상태</Typography>
+              </Grid>
+              {items.map((line) => (
+                <Grid
+                  key={line.key}
+                  gridTemplateColumns="minmax(0, 1fr) 80px 120px 120px"
+                  gap="4"
+                  alignItems="center"
+                  py="4"
+                  borderBottom="1px solid var(--colors-black-20)"
+                >
+                  <OrderHistoryProduct
+                    line={line}
+                    onAddToCart={actions.onAddToCart}
+                    showAmount={false}
+                  />
+                  <Typography variant="body4">{line.quantity}개</Typography>
+                  <Typography variant="body4">
+                    {(line.price * line.quantity).toLocaleString()}원
+                  </Typography>
+                  <OrderItemActions
+                    order={order}
+                    onClaim={() => actions.onClaim(order)}
+                    onTracking={() => actions.onTracking(order)}
+                    onConfirm={() => actions.onConfirm(order)}
+                  />
+                </Grid>
+              ))}
+            </Stack>
+          ) : (
+            <Stack gap="4">
+              {items.map((line) => (
+                <OrderHistoryProduct key={line.key} line={line} onAddToCart={actions.onAddToCart} />
+              ))}
+            </Stack>
+          )}
+          {platform === 'mobile' ? (
+            <OrderItemActions
+              order={order}
+              onClaim={() => actions.onClaim(order)}
+              onTracking={() => actions.onTracking(order)}
+              onConfirm={() => actions.onConfirm(order)}
+            />
+          ) : null}
         </>
       ) : null}
       {order.claims.map((claim) => (

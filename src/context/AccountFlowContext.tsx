@@ -16,7 +16,12 @@ export type VerifiedIdentity = {
 
 export type Consent = { id: string; version: string; accepted: boolean };
 
-export type RecoveryResult = { maskedAccountId: string; resetProof: string; displayName?: string };
+export type RecoveryResult = {
+  maskedAccountId: string;
+  resetProof: string;
+  displayName?: string;
+  accountLocked?: boolean;
+};
 
 /** BO의 현재 약관 식별자·버전·본문과 선택 가능한 이전 본문을 표시합니다. */
 export type SignupTerm = {
@@ -30,7 +35,8 @@ export type SignupTerm = {
 };
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
+ * recovery.verify의 accountLocked는 서버 판정이며 true이면 잠금 안내로 이동합니다. resetProof는 저장소에 보관하지 않습니다.
  * 가입/계정 찾기/잠금해제 경로를 감싸는 Client Provider의 value에 실제 함수를 전달합니다.
  * 휴대폰 인증 어댑터는 PhoneVerificationContext.verify에서 proof, information, accountStatus를 반환해야 합니다.
  * 인증 proof는 서버가 발급한 참조값입니다. 화면의 유효성 검사나 고정 인증번호를 실제 인증으로 사용하지 않습니다.

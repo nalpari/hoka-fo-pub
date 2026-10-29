@@ -21,6 +21,8 @@ export type SessionFact = { label: string; value: string; detail?: string };
 export const RunClubDataContext = createContext<{
   sessions?: ListBinding<RunClubSession, { category: string }>;
   entries?: ListBinding<RunClubEntry, { category: string }>;
+  /** [ 개발팀 바인딩 ] 신청 ID로 취소를 요청하고 성공 후 entries 목록·건수를 갱신한 뒤 resolve합니다. 실패하면 reject하며 확인창을 유지합니다. */
+  cancelEntry?: (entryId: string) => Promise<void>;
   detail?: BindingState & {
     session: RunClubSession | null;
     recommendedProducts?: readonly Product[];

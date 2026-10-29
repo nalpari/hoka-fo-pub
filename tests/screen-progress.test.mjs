@@ -40,14 +40,14 @@ test('legacy publishing migration never infers design receipt', () => {
   );
 });
 
-test('attachment audit keeps missing screens pending and separates platform-specific revisions', () => {
+test('implemented designs keep absent screens pending and preserve explicit platform overrides', () => {
   for (const iaNumber of [234, 251, 253, 254]) {
     const result = getScreenProgress({ iaNumber, screenCode: '' }, {});
     assert.equal(result.pcDesign, 'received');
     assert.equal(result.moDesign, 'received');
-    assert.equal(result.pcPublishing, 'revision');
-    assert.equal(result.moPublishing, 'revision');
-    assert.ok(screenReviewNotes[iaNumber]);
+    assert.equal(result.pcPublishing, 'ready');
+    assert.equal(result.moPublishing, 'ready');
+    assert.equal(screenReviewNotes[iaNumber], undefined);
   }
   const ipin = getScreenProgress({ iaNumber: 235, screenCode: 'eland_hjo_03' }, {});
   assert.equal(ipin.pcPublishing, 'pending');
@@ -55,7 +55,7 @@ test('attachment audit keeps missing screens pending and separates platform-spec
   assert.equal(ipin.pcDesign, 'missing');
   const terms = getScreenProgress({ iaNumber: 236, screenCode: 'eland_hjo_04' }, {});
   assert.equal(terms.pcPublishing, 'ready');
-  assert.equal(terms.moPublishing, 'revision');
+  assert.equal(terms.moPublishing, 'ready');
   assert.equal(
     getScreenProgress({ iaNumber: 234, screenCode: '' }, { 234: { moPublishing: 'ready' } })
       .moPublishing,
@@ -75,23 +75,23 @@ test('cart comparison preserves user-confirmed mobile completion and PC design r
   const result = getScreenProgress({ iaNumber: 170, screenCode: '' }, {});
   assert.equal(result.pcDesign, 'revision-planned');
   assert.equal(result.moDesign, 'received');
-  assert.equal(result.pcPublishing, 'revision');
+  assert.equal(result.pcPublishing, 'ready');
   assert.equal(result.moPublishing, 'ready');
-  assert.ok(screenReviewNotes[170]);
+  assert.equal(screenReviewNotes[170], undefined);
 });
 
-test('order PC design revision does not infer missing MO popup designs or coupon completion', () => {
+test('order PC design revision preserves missing MO popups and pending PC coupons', () => {
   for (const iaNumber of [171, 172, 173, 174, 175, 176]) {
     assert.equal(getScreenProgress({ iaNumber, screenCode: '' }, {}).pcDesign, 'revision-planned');
   }
   const coupon = getScreenProgress({ iaNumber: 174, screenCode: '' }, {});
   assert.equal(coupon.moDesign, 'received');
-  assert.equal(coupon.moPublishing, 'revision');
+  assert.equal(coupon.moPublishing, 'ready');
   assert.equal(coupon.pcPublishing, 'pending');
   assert.equal(getScreenProgress({ iaNumber: 175, screenCode: '' }, {}).moDesign, 'missing');
 });
 
-test('support and mypage attachment receipts do not imply publishing completion', () => {
+test('support and mypage completion follows implemented checks independently of receipt', () => {
   for (const iaNumber of [182, 183, 184, 196, 200, 201, 202, 203, 204, 205, 209, 210, 219]) {
     const result = getScreenProgress({ iaNumber, screenCode: '' }, {});
     assert.equal(result.pcDesign, 'received');
@@ -99,10 +99,10 @@ test('support and mypage attachment receipts do not imply publishing completion'
   }
   const notice = getScreenProgress({ iaNumber: 208, screenCode: '' }, {});
   assert.equal(notice.pcPublishing, 'pending');
-  assert.equal(notice.moPublishing, 'revision');
+  assert.equal(notice.moPublishing, 'ready');
   const history = getScreenProgress({ iaNumber: 200, screenCode: '' }, {});
-  assert.equal(history.pcPublishing, 'revision');
-  assert.equal(history.moPublishing, 'revision');
+  assert.equal(history.pcPublishing, 'ready');
+  assert.equal(history.moPublishing, 'ready');
 });
 
 test('confirmed category templates share design receipt without inferring publishing completion', () => {

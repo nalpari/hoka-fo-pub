@@ -200,7 +200,20 @@ function MyPageReviewItem({
   onEdit,
 }: MyPageReviewItemProps) {
   return (
-    <HStack borderBottom="1px solid var(--colors-black-20)" alignItems="flex-start" gap="4" py="6">
+    <HStack
+      borderBottom="1px solid var(--colors-black-20)"
+      alignItems="flex-start"
+      gap="4"
+      py="6"
+      className={css({
+        display: 'grid',
+        gridTemplateColumns:
+          tab === 'written'
+            ? '64px minmax(0, 1fr) 100px minmax(0, 1fr) 80px'
+            : '64px minmax(0, 1fr) 100px',
+        _mobile: { gridTemplateColumns: '64px minmax(0, 1fr) 80px' },
+      })}
+    >
       <Box w="64px" h="64px" flexShrink="0">
         <ProductThumbnail alt={product.name} src={product.imageSrc} />
       </Box>
@@ -221,16 +234,27 @@ function MyPageReviewItem({
             옵션 : {product.optionLabel}
           </Typography>
         </Stack>
-        {tab === 'written' ? (
-          <Stack gap="2" mt="1">
-            <RatingStars value={review?.rating ?? 0} size="16px" />
-            <Typography variant="body5" tone="primary">
-              {review?.body ?? ''}
-            </Typography>
-          </Stack>
-        ) : null}
       </Stack>
-      <Button className={textAction} size="md" variant="link" onClick={() => onEdit(id)}>
+      {tab === 'written' ? (
+        <Stack gap="2" mt="1" className={css({ _mobile: { gridColumn: '2', gridRow: '2' } })}>
+          <RatingStars value={review?.rating ?? 0} size="16px" />
+        </Stack>
+      ) : null}
+      {tab === 'written' ? (
+        <Typography
+          variant="body5"
+          tone="primary"
+          className={css({ _mobile: { gridColumn: '2 / span 2', gridRow: '3' } })}
+        >
+          {review?.body ?? ''}
+        </Typography>
+      ) : null}
+      <Button
+        className={css({ gridColumn: '-2', gridRow: '1', alignSelf: 'start' }) + ' ' + textAction}
+        size="md"
+        variant="link"
+        onClick={() => onEdit(id)}
+      >
         {tab === 'ready' ? '리뷰 작성' : '수정하기'}
       </Button>
     </HStack>
@@ -246,6 +270,17 @@ type MyPageReviewListProps = {
 function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
   return (
     <Stack gap="0">
+      <HStack
+        display={{ _mobile: 'none' }}
+        justifyContent="space-between"
+        borderY="1px solid var(--colors-black-100)"
+        py="4"
+        px="6"
+      >
+        <Typography variant="body4">상품정보 / 구매일</Typography>
+        <Typography variant="body4">{tab === 'written' ? '평가 / 리뷰' : '상품평 작성'}</Typography>
+        <Typography variant="body4">{tab === 'written' ? '수정' : '작성'}</Typography>
+      </HStack>
       {entries.map((entry) => (
         <MyPageReviewItem key={entry.id} entry={entry} tab={tab} onEdit={onEdit} />
       ))}

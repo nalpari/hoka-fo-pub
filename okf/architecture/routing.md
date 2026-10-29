@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:41:52Z'
+  at: '2026-10-29T06:22:38Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/examples/styles/classnames/page.tsx
@@ -161,6 +161,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## IA 반영·연동 설명 제거 (2026-10-29)
+
+사용자 요청으로 `screenReviewNotes`의 시안 반영·현시안 반영·연동 대기 설명을 제거했다. 비고와 검색에서 함께 빠지며 IA 원본 비고, 날짜별 목록, 디자인/퍼블리싱 상태와 작업 파일은 유지한다. 작업 트리 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
 
 ## IA 생성 그래프 최신화 (2026-10-29)
 
@@ -503,3 +507,11 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 ## 첨부 디자인·소스 대조 (2026-10-29)
 
 회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](design-source-comparison-2026-10-29.md)을 참고한다.
+
+
+## 첨부 시안의 라우트 구현 반영 (2026-10-29)
+
+주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+
+현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.

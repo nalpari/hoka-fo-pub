@@ -4,12 +4,17 @@
  * 빈 응답/로딩/오류는 부모에서 처리하고 시안 추천 배열을 실제 응답에 자동으로 섞지 않습니다.
  */
 
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { useRef } from 'react';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -33,7 +38,7 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
     <Link
       href={item.href}
       className={css({
-        flex: '0 0 140px',
+        flex: layout === 'portrait' ? '0 0 calc((100% - 48px) / 4)' : '0 0 140px',
         color: 'black.100',
         _mobile: { flexBasis: layout === 'portrait' ? '151px' : '140px' },
       })}
@@ -44,10 +49,15 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
           alt=""
           width={layout === 'portrait' ? 151 : 140}
           height={layout === 'portrait' ? 225 : 140}
-          sizes={layout === 'portrait' ? '(max-width: 1024px) 151px, 140px' : '140px'}
+          sizes={
+            layout === 'portrait'
+              ? '(max-width: 1024px) 151px, (max-width: 1200px) 260px, 22vw'
+              : '140px'
+          }
           className={css({
-            w: '140px',
-            h: '140px',
+            w: layout === 'portrait' ? '100%' : '140px',
+            h: layout === 'portrait' ? 'auto' : '140px',
+            aspectRatio: layout === 'portrait' ? '151 / 225' : '1',
             objectFit: 'cover',
             bg: 'black.10',
             _mobile:
@@ -78,6 +88,7 @@ export function OrderRecommendations({
   title = '함께 구매하면 좋은 상품',
   layout = 'compact',
 }: OrderRecommendationsProps) {
+  const viewport = useRef<HTMLDivElement>(null);
   return (
     <ContentSection
       as="section"
@@ -86,11 +97,42 @@ export function OrderRecommendations({
       title={title}
       headerProps={{
         titleAs: 'h2',
+        orientation: 'horizontal',
+        action:
+          layout === 'portrait' ? (
+            <HStack display={{ _mobile: 'none' }} gap="2">
+              <Button
+                variant="icon"
+                aria-label="이전 추천 상품"
+                onClick={() =>
+                  viewport.current?.scrollBy({
+                    left: -viewport.current.clientWidth,
+                    behavior: 'smooth',
+                  })
+                }
+              >
+                ←
+              </Button>
+              <Button
+                variant="icon"
+                aria-label="다음 추천 상품"
+                onClick={() =>
+                  viewport.current?.scrollBy({
+                    left: viewport.current.clientWidth,
+                    behavior: 'smooth',
+                  })
+                }
+              >
+                →
+              </Button>
+            </HStack>
+          ) : undefined,
         titleProps: { web: 'heading8', mo: layout === 'portrait' ? 'heading6' : 'heading7' },
       }}
     >
       <HStack
-        gap={layout === 'portrait' ? { base: '1', _mobile: '2.5' } : '1'}
+        ref={viewport}
+        gap={layout === 'portrait' ? { base: '4', _mobile: '2.5' } : '1'}
         overflowX="auto"
         alignItems="flex-start"
         scrollbarWidth={layout === 'portrait' ? { _mobile: 'none' } : undefined}

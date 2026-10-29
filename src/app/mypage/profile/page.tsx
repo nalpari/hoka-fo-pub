@@ -852,80 +852,92 @@ function ProfileContent() {
           ) : null
         }
       >
-        {(current
-          ? [
-              ['회원 아이디', current.id],
-              ['이름', current.name],
-              ['생년월일', current.birthDate],
-            ]
-          : profileDetails.slice(0, 3)
-        ).map(([label, value]) => (
-          <ProfileField key={label} label={label} value={value} />
-        ))}
-        <ProfileField
-          label="주소"
-          value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
-        />
-        {editing ? (
-          <ProfileEditForm
-            emailLocal={emailLocal}
-            emailDomain={emailDomain}
-            domainChoice={domainChoice}
-            address={address}
-            addressOpen={addressOpen}
-            phone={phone}
-            phoneVerified={phoneVerified}
-            passwordChanged={passwordChanged}
-            emailPreference={emailPreference}
-            smsPreference={smsPreference}
-            kakaoPreference={kakaoPreference}
-            fieldErrors={fieldErrors}
-            onEmailLocalChange={(value) => {
-              setEmailLocal(value);
-              setFieldErrors((previous) => ({ ...previous, email: undefined }));
-            }}
-            onEmailDomainChange={(value) => {
-              setEmailDomain(value);
-              setFieldErrors((previous) => ({ ...previous, domain: undefined }));
-            }}
-            onDomainChoice={(value) => {
-              setDomainChoice(value);
-              setEmailDomain(value === 'direct' ? '' : value);
-              setFieldErrors((previous) => ({ ...previous, domain: undefined }));
-            }}
-            onAddressChange={(field, value) => {
-              setAddress((previous) => ({ ...previous, [field]: value }));
-              setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
-            }}
-            onAddressOpenChange={setAddressOpen}
-            onPhoneChange={(value) => {
-              setPhone(value);
-              setPhoneProof(null);
-              setPhoneVerified(false);
-              setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-            }}
-            onPhoneVerifiedChange={(verified, proof) => {
-              setPhoneProof(verified ? (proof ?? null) : null);
-              setPhoneVerified(verified);
-              setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-            }}
-            onPasswordSettings={() => setPasswordOpen(true)}
-            onEmailPreferenceChange={setEmailPreference}
-            onSmsPreferenceChange={setSmsPreference}
-            onKakaoPreferenceChange={setKakaoPreference}
-            onSubmit={submitProfile}
-            onCancel={() => setNotice('cancel')}
-            onWithdraw={() => setWithdrawOpen(true)}
-          />
-        ) : (
-          <ProfileReadView
-            email={current?.email ?? email}
-            phone={current?.phone ?? phone}
-            emailPreference={current?.emailPreference ?? emailPreference}
-            smsPreference={current?.smsPreference ?? smsPreference}
-            kakaoPreference={current?.kakaoPreference ?? kakaoPreference}
-          />
-        )}
+        <div
+          className={css({
+            display: 'grid',
+            gridTemplateColumns: editing ? 'minmax(0, 1fr) minmax(0, 1fr)' : '1fr',
+            gap: '10',
+            alignItems: 'start',
+            _mobile: { gridTemplateColumns: '1fr' },
+          })}
+        >
+          <Stack gap="6">
+            {(current
+              ? [
+                  ['회원 아이디', current.id],
+                  ['이름', current.name],
+                  ['생년월일', current.birthDate],
+                ]
+              : profileDetails.slice(0, 3)
+            ).map(([label, value]) => (
+              <ProfileField key={label} label={label} value={value} />
+            ))}
+            <ProfileField
+              label="주소"
+              value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
+            />
+          </Stack>
+          {editing ? (
+            <ProfileEditForm
+              emailLocal={emailLocal}
+              emailDomain={emailDomain}
+              domainChoice={domainChoice}
+              address={address}
+              addressOpen={addressOpen}
+              phone={phone}
+              phoneVerified={phoneVerified}
+              passwordChanged={passwordChanged}
+              emailPreference={emailPreference}
+              smsPreference={smsPreference}
+              kakaoPreference={kakaoPreference}
+              fieldErrors={fieldErrors}
+              onEmailLocalChange={(value) => {
+                setEmailLocal(value);
+                setFieldErrors((previous) => ({ ...previous, email: undefined }));
+              }}
+              onEmailDomainChange={(value) => {
+                setEmailDomain(value);
+                setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+              }}
+              onDomainChoice={(value) => {
+                setDomainChoice(value);
+                setEmailDomain(value === 'direct' ? '' : value);
+                setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+              }}
+              onAddressChange={(field, value) => {
+                setAddress((previous) => ({ ...previous, [field]: value }));
+                setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
+              }}
+              onAddressOpenChange={setAddressOpen}
+              onPhoneChange={(value) => {
+                setPhone(value);
+                setPhoneProof(null);
+                setPhoneVerified(false);
+                setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+              }}
+              onPhoneVerifiedChange={(verified, proof) => {
+                setPhoneProof(verified ? (proof ?? null) : null);
+                setPhoneVerified(verified);
+                setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+              }}
+              onPasswordSettings={() => setPasswordOpen(true)}
+              onEmailPreferenceChange={setEmailPreference}
+              onSmsPreferenceChange={setSmsPreference}
+              onKakaoPreferenceChange={setKakaoPreference}
+              onSubmit={submitProfile}
+              onCancel={() => setNotice('cancel')}
+              onWithdraw={() => setWithdrawOpen(true)}
+            />
+          ) : (
+            <ProfileReadView
+              email={current?.email ?? email}
+              phone={current?.phone ?? phone}
+              emailPreference={current?.emailPreference ?? emailPreference}
+              smsPreference={current?.smsPreference ?? smsPreference}
+              kakaoPreference={current?.kakaoPreference ?? kakaoPreference}
+            />
+          )}
+        </div>
       </ContentSection>
       {notice ? (
         <ProfileEditDialogs

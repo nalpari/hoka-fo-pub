@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:37:21Z'
+  at: '2026-10-29T06:22:38Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -90,6 +90,10 @@ sources:
 ---
 
 # 변경 검증
+
+## IA 설명 제거 확인 (2026-10-29)
+
+`screen-progress.test.mjs`의 기존 비고 단언을 제거된 데이터에 맞춰 갱신했다. 상태·플랫폼별 override 검증은 유지한다. 시안 반영·연동 대기 비고의 제거는 퍼블리싱 상태를 바꾸지 않는다.
 
 ## IA 디자인 조사와 수정 상태 검증 (2026-10-29)
 
@@ -371,3 +375,13 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 변경 TS/TSX·테스트의 ESLint/Prettier, 타입 검사, Panda 생성과 diff 공백 검사를 통과했다. 작업 트리 기준 OKF 매핑 누락은 없다. 마지막 IA 검색/필터 재검사에서는 localhost:3000 연결이 거절되어 검사를 마치지 못했으며, 앞서 확인한 IA 비고 노출과 구분한다.
 
 `node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](../architecture/design-source-comparison-2026-10-29.md)를 참고한다.
+
+
+## 첨부 디자인 반영 검증 (2026-10-29)
+
+최종 프로덕션 빌드에서 컴파일·타입 검사·58개 정적 페이지 생성이 성공했다. Panda 생성과 변경 소스 ESLint/Prettier·diff 검사·작업 트리 OKF 매핑 검사도 통과했다. UI/서비스 연결 범위는 아래 구현 기록을 따른다.
+
+기존 표시·주문 요약·IA 테스트 15개와 변경 소스 타입/ESLint/Prettier를 통과했다. 1440px PC/390px MO 6개 경로 렌더·알럿/문서 가로 넘침과 스크린샷을 확인했다. 외부 쿠폰 응답·실패/재시도 스토리는 추가했으며 실행 결과는 별도 기록한다. [구현 범위·출처·검증](../architecture/design-implementation-2026-10-29.md).
+
+
+후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](../architecture/design-implementation-2026-10-29.md).

@@ -12,6 +12,7 @@ import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext
 import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
+import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -49,39 +50,57 @@ type Props = {
 function MyPageRestockList({ items, thumbnail, onCancelRequest, entries }: Props) {
   return (
     <Stack gap="0">
-      {items.map((id) => (
-        <HStack
-          key={id}
-          borderBottom="1px solid var(--colors-black-20)"
-          alignItems="center"
-          gap="4"
-          px="4"
-          py="6"
-        >
-          <Box w="16" h="16" flexShrink="0">
-            <ProductThumbnail
-              alt={entries?.find((entry) => entry.id === id)?.product.name ?? '클리프톤 9'}
-              src={entries?.find((entry) => entry.id === id)?.product.primaryImage ?? thumbnail}
-            />
-          </Box>
-          <Stack flex="1" gap="1">
-            <Typography variant="body4" weight="medium">
-              {entries?.find((entry) => entry.id === id)?.product.name ?? '클리프톤 9'}
-            </Typography>
-            <HStack gap="1">
-              <Typography variant="body4" tone="tertiary">
-                신청일 :
-              </Typography>
-              <Typography variant="body4" language="en" tone="tertiary">
-                {entries?.find((entry) => entry.id === id)?.requestedAt ?? '2026.05.22'}
-              </Typography>
+      <Grid
+        gridTemplateColumns="1fr 160px 100px"
+        display={{ base: 'grid', _mobile: 'none' }}
+        borderY="1px solid var(--colors-black-100)"
+        py="4"
+        textAlign="center"
+      >
+        <Typography variant="body4">상품정보</Typography>
+        <Typography variant="body4">신청일</Typography>
+        <Typography variant="body4">상태</Typography>
+      </Grid>
+      {items.map((id) => {
+        const entry = entries?.find((item) => item.id === id);
+        return (
+          <Grid
+            key={id}
+            gridTemplateColumns={{ base: '1fr 160px 100px', _mobile: '1fr 80px' }}
+            alignItems="center"
+            borderBottom="1px solid var(--colors-black-20)"
+            gap="4"
+            py="6"
+          >
+            <HStack gap="4">
+              <Box w="20" h="20" flexShrink="0">
+                <ProductThumbnail
+                  alt={entry?.product.name ?? '클리프톤 9'}
+                  src={entry?.product.primaryImage ?? thumbnail}
+                />
+              </Box>
+              <Stack gap="2">
+                <Typography variant="body4">{entry?.product.name ?? '클리프톤 9'}</Typography>
+                <Typography
+                  variant="body5"
+                  className={css({ display: 'none', _mobile: { display: 'block' } })}
+                >
+                  신청일 : {entry?.requestedAt ?? '2026.05.22'}
+                </Typography>
+              </Stack>
             </HStack>
-          </Stack>
-          <Button variant="link" size="sm" onClick={() => onCancelRequest(id)}>
-            알림대기
-          </Button>
-        </HStack>
-      ))}
+            <Typography
+              variant="body4"
+              className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
+            >
+              {entry?.requestedAt ?? '2026.05.22'}
+            </Typography>
+            <Button variant="link" size="sm" onClick={() => onCancelRequest(id)}>
+              알림대기
+            </Button>
+          </Grid>
+        );
+      })}
     </Stack>
   );
 }
@@ -103,7 +122,10 @@ function MyPageProductHistoryGrid({
 }: MyPageProductHistoryGridProps) {
   return (
     <Grid
-      gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+      gridTemplateColumns={{
+        base: 'repeat(3, minmax(0, 1fr))',
+        _mobile: 'repeat(2, minmax(0, 1fr))',
+      }}
       columnGap="2"
       rowGap="6"
       _mobile={{ columnGap: '2', rowGap: '4' }}

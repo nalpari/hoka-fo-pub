@@ -10,7 +10,7 @@ import { useContext } from 'react';
 import type { ReactNode } from 'react';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 
-import { cva } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
@@ -56,7 +56,14 @@ const tiers = [
 ] as const;
 
 const tierCard = cva({
-  base: { bg: 'var(--tier-color)' },
+  base: {
+    bg: 'white',
+    borderBottom: '1px solid var(--colors-black-20)',
+    flexDirection: 'row',
+    gap: '12',
+    alignItems: 'flex-start',
+    _mobile: { bg: 'var(--tier-color)', flexDirection: 'column', gap: '4' },
+  },
   variants: {
     tier: {
       ELITE: { '--tier-color': 'var(--colors-blue-100)' },
@@ -122,6 +129,9 @@ function RewardBenefitItem({ number, children }: { number: number; children: Rea
 export default function Page() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
+  const progress = binding
+    ? summary?.tierProgress
+    : { percent: 36.5, label: '다음 등급까지의 구매금액' };
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
       <BindingFeedback {...binding} />
@@ -153,6 +163,27 @@ export default function Page() {
                 <Typography mo="body3">원</Typography>
               </HStack>
             </HStack>
+            <Box
+              display={{ base: progress ? 'block' : 'none', _mobile: 'none' }}
+              role="img"
+              aria-label="등급별 구매금액 안내"
+            >
+              <HStack justifyContent="space-between">
+                <Typography variant="body5">RUNNER</Typography>
+                <Typography variant="body5">ADVANCED</Typography>
+                <Typography variant="body5">ELITE</Typography>
+              </HStack>
+              <Box h="2" bg="black.20" mt="3">
+                <Box
+                  style={{ width: `${Math.max(0, Math.min(100, progress?.percent ?? 0))}%` }}
+                  h="100%"
+                  bg="black.100"
+                />
+              </Box>
+              <Typography variant="body5" className={css({ mt: '2' })}>
+                현재 구매금액 : {binding ? summary?.purchaseAmount : '182,500'}원
+              </Typography>
+            </Box>
             <Box mt="2">
               <Typography as="p" mo="body5" tone="tertiary">
                 * 매월 1일, 최근 1년간의 구매 금액을 기준으로 산정됩니다.
@@ -162,9 +193,19 @@ export default function Page() {
         </ContentSection>
         <Stack gap="4">
           {tiers.map((tier) => (
-            <Stack key={tier.name} className={tierCard({ tier: tier.name })} gap="4" px="4" py="6">
-              <HStack alignItems="center" gap="2">
-                <Circle size="12" flex="0 1 auto" bg="black.100" color="var(--tier-color)">
+            <Stack key={tier.name} className={tierCard({ tier: tier.name })} px="4" py="6">
+              <HStack alignItems="center" gap="2" minW="200px">
+                <Circle
+                  size="12"
+                  flex="0 1 auto"
+                  bg="black.100"
+                  color="var(--tier-color)"
+                  css={{
+                    borderRadius: 0,
+                    clipPath: 'polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)',
+                    _mobile: { borderRadius: 'full', clipPath: 'none' },
+                  }}
+                >
                   <Typography mo="heading5" weight="black">
                     {tier.initial}
                   </Typography>

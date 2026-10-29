@@ -50,6 +50,7 @@ export function usePhoneVerification(
   const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
   const [code, setCode] = useState('');
   const [notice, setNotice] = useState('');
+  const [expired, setExpired] = useState(false);
   const [noticeTone, setNoticeTone] = useState<'error' | 'info'>('info');
   const [codeError, setCodeError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<PhoneVerificationErrors>({});
@@ -127,6 +128,7 @@ export function usePhoneVerification(
       setCodeError('');
       setNoticeTone('error');
       setNotice('인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.');
+      setExpired(true);
       return;
     }
     if (!/^\d{6}$/.test(code)) {
@@ -146,6 +148,8 @@ export function usePhoneVerification(
   };
 
   return {
+    expired,
+    onExpiredClose: () => setExpired(false),
     information,
     agreements,
     showAgreementErrors,

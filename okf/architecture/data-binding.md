@@ -6,7 +6,7 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T00:06:17Z'
+  at: '2026-10-29T06:05:25Z'
 working_tree_sources:
   - tests/order-policy.test.mjs
   - tests/inquiry-binding.test.mjs
@@ -143,3 +143,8 @@ working_tree_sources:
 작성: codex/gpt-6, 2026-10-29. 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md, .codex/skills/component-reusability/references/data-binding.md의 이번 작업 트리 변경.
 
 이번 정책 검증: 스킬 frontmatter의 기존 name/description 유지·이름/설명 제한·미완성 placeholder 부재·표준 표기 일치·추가 로컬 링크·diff 공백과 index 보존을 확인했고 `npm run okf:check`를 통과했다. 기본 Python에 PyYAML이 없어 quick_validate.py는 실행되지 않았으며 현재 단순 scalar frontmatter에 대한 별도 검사를 사용했다. 애플리케이션 소스는 변경하지 않아 빌드를 반복하지 않았다.
+
+
+## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
+
+CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).

@@ -415,6 +415,10 @@ function RouteContent() {
             if (!flow || !requestId) throw new Error('인증번호를 다시 요청해 주세요.');
             const result = await services.recovery.verify({ requestId, name, phone, code });
             if (version !== generation.current) return;
+            if (result.accountLocked) {
+              router.push('/login/account-locked');
+              return;
+            }
             flow.setRecovery({ ...result, displayName: name });
             setResultOpen(true);
           });

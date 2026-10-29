@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T05:37:21Z'
+  at: '2026-10-29T06:22:38Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -767,6 +767,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## IA 보조 설명 정리 (2026-10-29)
+
+사용자가 요청한 시안 반영·현시안 반영·연동 대기 문구를 IA 보조 비고 데이터에서 제거했다. 원본 비고·작업 파일 배지·두 행 표와 상태 표현은 유지한다. [범위](routing.md#ia-반영연동-설명-제거-2026-10-29).
 
 ## IA 비고의 날짜별 목록 표시 (2026-10-29)
 
@@ -3353,3 +3357,8 @@ Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook
 ## 첨부 디자인 대비 IA 검토 비고 (2026-10-29)
 
 IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시하며 검색에도 포함한다. 날짜별 항목 분리·중복 제거와 기존 두 줄 표·작업 파일 배지는 유지한다. 이번 변경은 디자인 대비 미적용 UI와 서비스 연결 대기의 기록이며 실제 회원가입·로그인·고객센터·마이페이지·장바구니·주문 컴포넌트를 수정하지 않는다. [영역별 소스 대조](design-source-comparison-2026-10-29.md)를 참고한다. 작업 트리 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/storybookLinks.ts`다.
+
+
+## 첨부 시안의 PC·MO UI 반영 (2026-10-29)
+
+6개 영역의 PC 표·그리드·모달·연락처/바로가기와 기존 MO 흐름을 반영했다. 마이페이지 기본 프레임은 1200px 중앙 정렬이며 기존 centered 모드는 유지한다. Panda TSX 스타일과 기존 Typography/Button/ModalDialog/NumberStepper를 재사용한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).

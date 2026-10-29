@@ -12,12 +12,17 @@ import { useSearchParams } from 'next/navigation';
 
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import { type ReactNode, useContext, useState } from 'react';
-import { CheckoutContext, type CheckoutSubmission } from '@/context/CheckoutContext';
+import {
+  CheckoutContext,
+  type CheckoutCouponGroup,
+  type CheckoutCouponSelection,
+  type CheckoutSubmission,
+} from '@/context/CheckoutContext';
 import { useShop } from '@/context/ShopShell';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
+import { Box, Circle, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
@@ -28,6 +33,7 @@ import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow';
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
@@ -37,6 +43,7 @@ import { AddressFields } from '@/components/common/organisms/Address/AddressFiel
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 import {
@@ -449,7 +456,7 @@ function CheckoutShippingForm({
         searchOpen={searchOpen}
         onSearchOpenChange={onSearchOpenChange}
       />
-      <Checkbox label="기본배송지로 등록" />
+      <Checkbox name="saveAsDefaultAddress" label="기본배송지로 등록" />
       <Button variant="link" size="sm" onClick={onUseSavedAddress}>
         기존 배송지 사용
       </Button>
@@ -667,22 +674,217 @@ type CheckoutProductListProps = { rows: readonly CheckoutRow[] };
 function CheckoutProductList({ rows }: CheckoutProductListProps) {
   return (
     <Stack borderTop="1px solid var(--colors-black-100)">
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) 70px 100px"
+        display={{ base: 'grid', _mobile: 'none' }}
+        py="3"
+        borderBottom="1px solid var(--colors-black-20)"
+      >
+        <Typography variant="body5">상품/옵션정보</Typography>
+        <Typography variant="body5">수량</Typography>
+        <Typography variant="body5">가격</Typography>
+      </Grid>
       {rows.map(({ item, product }) => (
-        <OrderProductSummary
+        <Grid
           key={`${item.id}-${item.color}-${item.width}-${item.size}`}
-          image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
-          name={product.name}
-          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`}
-          amount={product.price * item.quantity}
-        />
+          gridTemplateColumns={{ base: 'minmax(0, 1fr) 70px 100px', _mobile: '1fr' }}
+          gap="4"
+          alignItems="center"
+        >
+          <OrderProductSummary
+            image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
+            name={product.name}
+            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`}
+            amount={product.price * item.quantity}
+          />
+          <Box display={{ _mobile: 'none' }}>
+            <Typography variant="body4">{item.quantity}개</Typography>
+          </Box>
+          <Box display={{ _mobile: 'none' }}>
+            <Typography variant="body4">
+              {(product.price * item.quantity).toLocaleString()}원
+            </Typography>
+          </Box>
+        </Grid>
       ))}
     </Stack>
+  );
+}
+
+/** 상품별 쿠폰 초안과 적용 결과를 표시합니다. (Displays per-product coupon drafts and application results.) */
+function CheckoutCouponPicker({
+  onCouponChange,
+  total,
+  rows,
+}: {
+  onCouponChange: (id: string, selection?: CheckoutCouponSelection) => void;
+  total: number;
+  rows: readonly CheckoutRow[];
+}) {
+  const binding = useContext(CheckoutContext);
+  const request = useRequestAction();
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState<CheckoutCouponSelection>({
+    products: {},
+    cart: 'none',
+  });
+  const [draft, setDraft] = useState<CheckoutCouponSelection>(selection);
+  const demoRows = rows;
+  const groups: readonly CheckoutCouponGroup[] = binding
+    ? (binding.couponGroups ?? [])
+    : demoRows.map(({ item, product }) => ({
+        id: `${item.id}-${item.color}-${item.width}-${item.size}`,
+        name: product.name,
+        image: getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png'),
+        option: `${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`,
+        coupons: checkoutCouponOptions
+          .filter((c) => c.value?.startsWith('product') || c.value?.startsWith('family-7'))
+          .map((c) => ({
+            id: c.value,
+            label: String(c.label),
+            discount: getCheckoutCouponDiscount(
+              c.value ?? 'none',
+              [{ item, product }],
+              product.price * item.quantity,
+            ),
+          })),
+      }));
+  const cartCoupons: CheckoutCouponGroup['coupons'] =
+    binding?.cartCoupons ??
+    (
+      binding?.couponOptions ??
+      checkoutCouponOptions.filter(
+        (option) => !option.value.startsWith('product') && !option.value.startsWith('family-7'),
+      )
+    ).map((option) => ({
+      id: option.value,
+      label: String(option.label),
+      discount: binding ? 0 : getCheckoutCouponDiscount(option.value, demoRows, total),
+    }));
+  const current = binding?.couponSelection ?? selection;
+  const selectedDiscount =
+    groups.reduce(
+      (sum, group) =>
+        sum + (group.coupons.find((c) => c.id === draft.products[group.id])?.discount ?? 0),
+      0,
+    ) + (cartCoupons.find((c) => c.id === draft.cart)?.discount ?? 0);
+  return (
+    <>
+      <input type="hidden" name="couponSelection" value={JSON.stringify(current)} />
+      <Button
+        variant="secondary"
+        fullWidth
+        className={css({ scrollMarginBottom: '160px' })}
+        onClick={() => {
+          setDraft(current);
+          setOpen(true);
+        }}
+      >
+        보유 쿠폰 조회
+      </Button>
+      <ModalDialog
+        open={open}
+        onOpenChange={(value) => {
+          if (!request.pending) setOpen(value);
+        }}
+        title="보유 쿠폰 조회"
+        closeLabel="보유 쿠폰 조회 닫기"
+        size="md"
+        mobilePresentation="fullscreen"
+        actions={{
+          kind: 'single',
+          label: '쿠폰 적용하기',
+          buttonProps: {
+            disabled: request.pending || Boolean(binding?.couponGroups && !binding.applyCoupons),
+          },
+          onConfirm: () => {
+            void request.run(async () => {
+              if (binding?.applyCoupons) await binding.applyCoupons(draft);
+              else {
+                onCouponChange(draft.cart, draft);
+                setSelection(draft);
+              }
+              setOpen(false);
+            });
+          },
+        }}
+      >
+        <BindingFeedback pending={request.pending} error={request.error} />
+        <Stack gap="6">
+          <Typography variant="heading7">상품 쿠폰</Typography>
+          {groups.map((group) => (
+            <details
+              key={group.id}
+              open
+              className={css({ borderBottom: '1px solid var(--colors-black-20)', pb: '4' })}
+            >
+              <summary className={css({ cursor: 'pointer', mb: '4' })}>
+                <HStack gap="4">
+                  {group.image ? <Image src={group.image} width={80} height={80} alt="" /> : null}
+                  <Stack gap="2">
+                    <Typography variant="body3">{group.name}</Typography>
+                    <Typography variant="body5">{group.option}</Typography>
+                    <Typography variant="body5">
+                      사용 가능 쿠폰 {group.coupons.filter((c) => !c.disabled).length}개
+                    </Typography>
+                  </Stack>
+                </HStack>
+              </summary>
+              <Radio
+                ariaLabel={`${group.name} 상품 쿠폰`}
+                value={draft.products[group.id] ?? 'none'}
+                onValueChange={(id) =>
+                  setDraft((previous) => ({
+                    ...previous,
+                    products: { ...previous.products, [group.id]: id },
+                  }))
+                }
+                options={[
+                  { value: 'none', label: '적용 쿠폰 없음' },
+                  ...group.coupons.map((c) => ({
+                    value: c.id,
+                    label: `${c.label}  -${c.discount.toLocaleString()}원`,
+                    disabled: c.disabled,
+                  })),
+                ]}
+              />
+            </details>
+          ))}
+          {!groups.length ? (
+            <Typography variant="body4" tone="tertiary">
+              상품별 적용 가능한 쿠폰이 없습니다.
+            </Typography>
+          ) : null}
+          <Typography variant="heading7">장바구니 쿠폰</Typography>
+          <Radio
+            ariaLabel="장바구니 쿠폰"
+            value={draft.cart}
+            onValueChange={(cart) => setDraft((previous) => ({ ...previous, cart }))}
+            options={cartCoupons.map((c) => ({
+              value: c.id,
+              label: c.label,
+              disabled: 'disabled' in c ? c.disabled : false,
+            }))}
+          />
+          <Stack gap="3" bg="black.10" p="4">
+            <AmountRow label="주문금액" amount={total} />
+            <AmountRow label="할인금액" amount={selectedDiscount} discount />
+            <AmountRow
+              label="총 결제금액"
+              amount={Math.max(0, total - selectedDiscount)}
+              emphasis
+            />
+          </Stack>
+        </Stack>
+      </ModalDialog>
+    </>
   );
 }
 
 /** 주문 금액과 쿠폰 선택 결과를 요약합니다. (Summarizes order amounts and coupon selection.) */
 function CheckoutDiscountSummary({
   total,
+  rows,
   discount,
   itemCount,
   coupon,
@@ -691,11 +893,12 @@ function CheckoutDiscountSummary({
   onMaxBenefitChange,
 }: {
   total: number;
+  rows: readonly CheckoutRow[];
   discount: number;
   itemCount: number;
   coupon: string;
   maxBenefit: boolean;
-  onCouponChange: (coupon: string) => void;
+  onCouponChange: (coupon: string, selection?: CheckoutCouponSelection) => void;
   onMaxBenefitChange: (checked: boolean) => void;
 }) {
   const binding = useContext(CheckoutContext);
@@ -713,15 +916,15 @@ function CheckoutDiscountSummary({
               onCheckedChange={onMaxBenefitChange}
             />
           </Flex>
-          <Dropdown
-            ariaLabel="쿠폰 선택"
-            label="쿠폰"
-            required
-            value={coupon}
-            onValueChange={(value) => onCouponChange(value)}
-            options={binding?.couponOptions ?? checkoutCouponOptions}
-          />
+          <CheckoutCouponPicker rows={rows} total={total} onCouponChange={onCouponChange} />
         </Stack>
+        <Typography variant="body5" className={css({ px: '4' })}>
+          {
+            (binding?.couponOptions ?? checkoutCouponOptions).find(
+              (option) => option.value === coupon,
+            )?.label
+          }
+        </Typography>
         <AmountRow label="쿠폰 할인금액" amount={discount} discount px="4" />
         <AmountRow label="배송비" amount={shippingFee} px="4" />
         <AmountRow
@@ -753,23 +956,7 @@ function CheckoutDiscountSummary({
 }
 
 /** 주문 상품과 할인 및 결제 금액을 표시합니다. (Displays ordered products, discounts, and payment totals.) */
-function CheckoutSummary({
-  rows,
-  total,
-  discount = 0,
-  coupon,
-  maxBenefit,
-  onCouponChange,
-  onMaxBenefitChange,
-}: {
-  rows: readonly CheckoutRow[];
-  total: number;
-  discount?: number;
-  coupon: string;
-  maxBenefit: boolean;
-  onCouponChange: (coupon: string) => void;
-  onMaxBenefitChange: (checked: boolean) => void;
-}) {
+function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
   return (
     <ContentSection
       as="section"
@@ -781,15 +968,6 @@ function CheckoutSummary({
       <Typography variant="body5" tone="subtle">
         * 상품수량 변경은 상품상세 또는 장바구니에서 하실 수 있습니다.
       </Typography>
-      <CheckoutDiscountSummary
-        total={total}
-        discount={discount}
-        itemCount={rows.reduce((count, { item }) => count + item.quantity, 0)}
-        coupon={coupon}
-        maxBenefit={maxBenefit}
-        onCouponChange={onCouponChange}
-        onMaxBenefitChange={onMaxBenefitChange}
-      />
     </ContentSection>
   );
 }
@@ -806,7 +984,7 @@ type CheckoutContentProps = {
   privacyAgreed: boolean;
   agreementError: boolean;
   onPaymentChange: (payment: PaymentMethod) => void;
-  onCouponChange: (coupon: string) => void;
+  onCouponChange: (coupon: string, selection?: CheckoutCouponSelection) => void;
   onMaxBenefitChange: (checked: boolean) => void;
   onOrderAgreedChange: (checked: boolean) => void;
   onPrivacyAgreedChange: (checked: boolean) => void;
@@ -833,32 +1011,59 @@ function CheckoutContent({
   const binding = useContext(CheckoutContext);
   const shippingFee = binding?.shippingFee ?? checkoutShippingFee;
   return (
-    <Stack gap={{ base: '10', _mobile: '6' }}>
-      <CheckoutShipping errors={errors} />
-      <CheckoutSummary
-        rows={rows}
-        total={total}
-        discount={discount}
-        coupon={coupon}
-        maxBenefit={maxBenefit}
-        onCouponChange={onCouponChange}
-        onMaxBenefitChange={onMaxBenefitChange}
-      />
-      <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
-      <CheckoutPaymentNotice />
-      <CheckoutAgreement
-        orderAgreed={orderAgreed}
-        privacyAgreed={privacyAgreed}
-        error={agreementError}
-        onOrderAgreedChange={onOrderAgreedChange}
-        onPrivacyAgreedChange={onPrivacyAgreedChange}
-      />
-      <OrderActionBar>
-        <Button type="submit" variant="primary" fullWidth>
-          {(total - discount + shippingFee).toLocaleString()}원 결제하기
-        </Button>
-      </OrderActionBar>
-    </Stack>
+    <Grid
+      gridTemplateColumns={{ base: 'minmax(0, 1fr) 300px', _mobile: '1fr' }}
+      gap={{ base: '10', _mobile: '6' }}
+      alignItems="start"
+    >
+      <Box gridColumn="1">
+        <CheckoutShipping errors={errors} />
+      </Box>
+      <Box gridColumn="1">
+        <CheckoutSummary rows={rows} />
+      </Box>
+      <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '4' }}>
+        <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
+        <CheckoutPaymentNotice />
+      </Box>
+      <Stack
+        gap="6"
+        display={{ base: 'flex', _mobile: 'contents' }}
+        gridColumn={{ base: '2', _mobile: '1' }}
+        gridRow={{ base: '1 / span 3', _mobile: 'auto' }}
+        pos={{ base: 'sticky', _mobile: 'static' }}
+        top="120px"
+        border={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
+        p={{ base: '4', _mobile: '0' }}
+      >
+        <Box gridColumn="1" gridRow="3">
+          <CheckoutDiscountSummary
+            rows={rows}
+            total={total}
+            discount={discount}
+            itemCount={rows.reduce((n, { item }) => n + item.quantity, 0)}
+            coupon={coupon}
+            maxBenefit={maxBenefit}
+            onCouponChange={onCouponChange}
+            onMaxBenefitChange={onMaxBenefitChange}
+          />
+        </Box>
+        <Stack gap="6" gridColumn="1" gridRow="5">
+          <CheckoutAgreement
+            orderAgreed={orderAgreed}
+            privacyAgreed={privacyAgreed}
+            error={agreementError}
+            onOrderAgreedChange={onOrderAgreedChange}
+            onPrivacyAgreedChange={onPrivacyAgreedChange}
+          />
+          <OrderActionBar>
+            <Button type="submit" variant="primary" fullWidth>
+              {(total - discount + shippingFee).toLocaleString()}원 결제하기
+            </Button>
+          </OrderActionBar>
+        </Stack>
+      </Stack>
+    </Grid>
   );
 }
 
@@ -888,9 +1093,28 @@ function CheckoutForm({
   const binding = useContext(CheckoutContext);
   const [demoCoupon, setCoupon] = useState('none');
   const [demoMaxBenefit, setMaxBenefit] = useState(false);
+  const [demoSelection, setDemoSelection] = useState<CheckoutCouponSelection | undefined>();
   const coupon = binding?.coupon ?? demoCoupon;
   const maxBenefit = binding?.maxBenefit ?? demoMaxBenefit;
-  const discount = binding?.discount ?? getCheckoutCouponDiscount(coupon, rows, total);
+  const discount =
+    binding?.discount ??
+    (demoSelection
+      ? Math.min(
+          total,
+          rows.reduce(
+            (sum, row) =>
+              sum +
+              getCheckoutCouponDiscount(
+                demoSelection.products[
+                  `${row.item.id}-${row.item.color}-${row.item.width}-${row.item.size}`
+                ] ?? 'none',
+                [row],
+                row.product.price * row.item.quantity,
+              ),
+            0,
+          ) + getCheckoutCouponDiscount(demoSelection.cart, rows, total),
+        )
+      : getCheckoutCouponDiscount(coupon, rows, total));
   const [agreementError, setAgreementError] = useState(false);
   const [orderAgreed, setOrderAgreed] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
@@ -943,6 +1167,10 @@ function CheckoutForm({
           payment,
           coupon,
           maxBenefit,
+          couponSelection: data.get('couponSelection')
+            ? (JSON.parse(String(data.get('couponSelection'))) as CheckoutCouponSelection)
+            : undefined,
+          saveAsDefaultAddress: data.get('saveAsDefaultAddress') === 'on',
           orderAgreed,
           privacyAgreed,
           shipping: {
@@ -975,11 +1203,12 @@ function CheckoutForm({
           privacyAgreed={privacyAgreed}
           agreementError={agreementError}
           onPaymentChange={onPaymentChange}
-          onCouponChange={(value) => {
+          onCouponChange={(value, selection) => {
             if (binding) {
               binding.onCouponChange(value);
               return;
             }
+            setDemoSelection(selection);
             setCoupon(value);
             setMaxBenefit(false);
           }}
@@ -988,6 +1217,7 @@ function CheckoutForm({
               binding.onMaxBenefitChange(checked);
               return;
             }
+            setDemoSelection(undefined);
             setMaxBenefit(checked);
             if (checked) setCoupon(getMaximumCheckoutCoupon(rows, total));
           }}

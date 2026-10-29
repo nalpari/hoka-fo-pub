@@ -16,7 +16,7 @@ import { useAccountFlow } from '@/context/AccountFlowContext';
 import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack, styled } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
@@ -296,40 +296,33 @@ function PreviousTermsPicker({
         />
       </Stack>
 
-      <Box className={mobilePicker}>
+      <Box
+        className={mobilePicker}
+        maxH="240px"
+        overflowY="auto"
+        css={{ scrollSnapType: 'y mandatory' }}
+      >
         <Stack as="ul" gap="0" m="0" p="0" listStyleType="none" textAlign="center">
-          {dates.map((date, index) => (
-            <Box
-              as="li"
-              key={date}
-              h={index === 3 ? '34px' : '31px'}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              opacity={index === 0 || index === dates.length - 1 ? '0.5' : undefined}
-            >
-              {versions || index === 3 ? (
-                <styled.button
-                  type="button"
-                  onClick={() => onSelect(date)}
-                  w="100%"
-                  h="34px"
-                  border="0"
-                  borderRadius="8px"
-                  bg="black.10"
-                  cursor="pointer"
-                  _focusVisible={{ outline: '2px solid var(--color-black-100)' }}
-                  aria-label={`${date} 이전 약관 선택`}
-                >
-                  <Typography as="span" variant="body2">
-                    {label(date)}
-                  </Typography>
-                </styled.button>
-              ) : (
-                <Typography as="span" variant="body3" tone="tertiary" aria-hidden="true">
-                  {date}
-                </Typography>
-              )}
+          {dates.map((date) => (
+            <Box as="li" key={date} style={{ scrollSnapAlign: 'center' }}>
+              <button
+                type="button"
+                aria-pressed={selectedDate === date}
+                aria-label={`${label(date)} 이전 약관 선택`}
+                onClick={() => setSelectedDate(date)}
+                className={css({
+                  w: '100%',
+                  h: '10',
+                  border: 0,
+                  bg: 'transparent',
+                  cursor: 'pointer',
+                  borderRadius: '8px',
+                  _pressed: { bg: 'black.10', fontWeight: 'bold' },
+                  _focusVisible: { outline: '2px solid var(--colors-black-100)' },
+                })}
+              >
+                <Typography variant="body3">{label(date)}</Typography>
+              </button>
             </Box>
           ))}
         </Stack>

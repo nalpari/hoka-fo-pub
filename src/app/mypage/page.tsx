@@ -240,6 +240,7 @@ function MyPageRecentOrders() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   const platform = usePlatform();
+  const items = binding ? (summary?.orders ?? []) : orderItems;
 
   return (
     <ContentSection
@@ -258,16 +259,59 @@ function MyPageRecentOrders() {
         ),
       }}
     >
-      <Carousel itemCount={binding ? (summary?.orders.length ?? 0) : orderItems.length}>
-        <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
-          {(binding ? (summary?.orders ?? []) : orderItems).map((item, index) => (
-            <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
+      {items.length === 0 ? (
+        <Typography variant="body3" className={css({ textAlign: 'center', py: '16' })}>
+          주문한 상품이 없습니다.
+        </Typography>
+      ) : platform !== 'mobile' ? (
+        <Stack gap="0">
+          <Grid
+            gridTemplateColumns="minmax(0, 1fr) 60px 100px 100px"
+            borderY="1px solid var(--colors-black-100)"
+            py="4"
+          >
+            <Typography variant="body4">상품정보</Typography>
+            <Typography variant="body4">수량</Typography>
+            <Typography variant="body4">가격</Typography>
+            <Typography variant="body4">주문상태</Typography>
+          </Grid>
+          {items.map((item, index) => (
+            <Grid
+              key={index}
+              gridTemplateColumns="minmax(0, 1fr) 60px 100px 100px"
+              alignItems="center"
+              gap="4"
+              py="6"
+              borderBottom="1px solid var(--colors-black-20)"
+            >
+              <HStack gap="4">
+                <Box w="24" h="24">
+                  <ProductThumbnail src={item.image} alt={item.name} />
+                </Box>
+                <Stack gap="2">
+                  <Typography variant="body4">{item.gender}</Typography>
+                  <Typography variant="body3">{item.name}</Typography>
+                  <Typography variant="body5">{item.description}</Typography>
+                </Stack>
+              </HStack>
+              <Typography variant="body4">{item.quantity ?? '-'}</Typography>
+              <Typography variant="body4">{item.price}</Typography>
+              <Typography variant="body4">{item.status}</Typography>
+            </Grid>
           ))}
-        </CarouselViewport>
-        <Box mt="6">
-          <CarouselPagination label="주문 상품 선택" />
-        </Box>
-      </Carousel>
+        </Stack>
+      ) : (
+        <Carousel itemCount={items.length}>
+          <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
+            {(binding ? (summary?.orders ?? []) : orderItems).map((item, index) => (
+              <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
+            ))}
+          </CarouselViewport>
+          <Box mt="6">
+            <CarouselPagination label="주문 상품 선택" />
+          </Box>
+        </Carousel>
+      )}
     </ContentSection>
   );
 }

@@ -149,7 +149,36 @@ export default function Page() {
       groups={supportNavigation}
       breadcrumbItems={[{ label: 'Home', href: '/' }, { label: '고객센터' }]}
     >
-      <SupportContacts />
+      <Stack gap="10">
+        <SupportContacts />
+        <HStack gap="4" alignItems="stretch" flexWrap="wrap">
+          {[
+            {
+              href: '/support/inquiries/new',
+              title: '1:1 문의',
+              text: '궁금하신 내용을 문의해 주세요.',
+            },
+            { href: '/support/faq', title: 'FAQs', text: '자주 묻는 질문을 확인해 보세요.' },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={css({
+                flex: '1',
+                minW: '200px',
+                border: '1px solid var(--colors-black-20)',
+                p: '6',
+                display: 'block',
+              })}
+            >
+              <Stack gap="3">
+                <Typography variant="heading7">{item.title}</Typography>
+                <Typography variant="body4">{item.text}</Typography>
+              </Stack>
+            </Link>
+          ))}
+        </HStack>
+      </Stack>
     </CustomerCenterLayout>
   );
 }

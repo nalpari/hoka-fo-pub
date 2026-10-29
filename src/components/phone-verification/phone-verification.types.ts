@@ -19,6 +19,8 @@ export type PhoneVerificationErrors = Partial<Record<keyof PhoneInformation, str
 
 export type PhoneVerificationContentProps = {
   pending?: boolean;
+  expired?: boolean;
+  onExpiredClose?: () => void;
   title?: string;
   description?: string;
   information: PhoneInformation;

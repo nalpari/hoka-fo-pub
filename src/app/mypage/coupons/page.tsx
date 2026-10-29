@@ -14,7 +14,7 @@ import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -116,6 +116,31 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
     <ContentSection
       as="article"
       border="1px solid var(--colors-black-20)"
+      pos="relative"
+      overflow="hidden"
+      css={{
+        borderRight: '12px solid var(--colors-black-100)',
+        _before: {
+          content: '""',
+          pos: 'absolute',
+          right: '-6px',
+          top: '-8px',
+          w: '16px',
+          h: '16px',
+          borderRadius: 'full',
+          bg: 'white',
+        },
+        _after: {
+          content: '""',
+          pos: 'absolute',
+          right: '-6px',
+          bottom: '-8px',
+          w: '16px',
+          h: '16px',
+          borderRadius: 'full',
+          bg: 'white',
+        },
+      }}
       gap="6"
       px="4"
       py="6"
@@ -227,11 +252,11 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
             </Typography>
           </HStack>
         </HStack>
-        <Stack gap="4">
+        <Grid gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }} gap="4">
           {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
             <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
           ))}
-        </Stack>
+        </Grid>
       </Stack>
     </ContentSection>
   );
