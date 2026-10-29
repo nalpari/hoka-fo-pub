@@ -126,10 +126,20 @@ working_tree_sources:
 
 ## 전체 소스의 주석 탐색
 
-`rg -n "\[개발팀 바인딩\]" src`로 인계 지점을 찾는다. 라우트는 적용할 Context/데이터 소유자를, Context/타입은 입력·출력·성공·실패·재조회 책임을, 공통 필드/카드는 부모 제어값·이벤트·실제 식별자 매핑을 설명한다. 홈/헤더/GNB/푸터/검색 추천/국가/고정 안내/상품 상세/리뷰 예시 등 데이터 소유 파일에도 현재 fixture와 운영 교체 위치를 적었다. Storybook 전용 Provider와 실제 서비스 Provider를 구분했다.
+`rg -n "\[\s*개발팀 바인딩\s*\]" src`로 표준 표기와 기존 공백 없는 표기의 인계 지점을 함께 찾는다. 라우트는 적용할 Context/데이터 소유자를, Context/타입은 입력·출력·성공·실패·재조회 책임을, 공통 필드/카드는 부모 제어값·이벤트·실제 식별자 매핑을 설명한다. 홈/헤더/GNB/푸터/검색 추천/국가/고정 안내/상품 상세/리뷰 예시 등 데이터 소유 파일에도 현재 fixture와 운영 교체 위치를 적었다. Storybook 전용 Provider와 실제 서비스 Provider를 구분했다.
 
 기존 구조에 없는 API를 주석만으로 연결 완료라고 설명하지 않는다. 소셜 가입·아이핀·주소 검색 제공자·상세 찜/문의/리뷰/추천·컬렉션·실시간 검색 추천·미완성 안내 본문 등은 현재 구현 상태와 확장할 소유자를 명시했다. 공통 컨트롤은 데이터 조회를 직접 하지 않으며 부모가 API 어댑터를 붙인다. 이 주석 추가가 미연동 기능의 실제 구현을 뜻하지 않는다. 매장 지도 소스는 주석 추가에서도 제외했다.
 
 실제 테스트 예제는 `src/stories/features/binding/RemainingBinding.stories.tsx`에 있다. 실패를 resolve하지 않고 reject하며, 삭제/등록 등 성공 후 새 목록으로 갱신하는 계약을 참고한다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
+
+## 개발팀 바인딩 주석 정책 (2026-10-29)
+
+신규 작성하거나 변경하는 바인딩 인계 주석의 표준 표기는 대괄호 안쪽 공백을 포함한 `[ 개발팀 바인딩 ]`이다. AGENTS.md의 UI data and service binding policy와 component-reusability의 바인딩 모드에 같은 규칙을 추가했다. [상세 규칙과 예시](../../.codex/skills/component-reusability/references/data-binding.md#developer-binding-comments)는 주석 위치, 연결 소유자·데이터/식별자·payload·요청 시점·성공/실패·상태 갱신 책임과 미연동 경계 설명을 정의한다.
+
+실제 계약 소유자 가까이에 필요한 설명을 작성하며 모든 JSX에 같은 주석을 반복하지 않는다. exported React 컴포넌트의 한글/영문 요약 JSDoc은 유지한다. 기존 `[개발팀 바인딩]` 표기는 관련 주석을 수정하는 범위에서 표준화하며, 이번 정책 변경만으로 앱 소스 전체를 다시 쓰거나 제외된 매장 지도 등을 수정하지 않는다. 이번 변경은 정책·스킬·문서만 대상으로 하며 기존 기능 검증 기록과 구분한다.
+
+작성: codex/gpt-6, 2026-10-29. 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md, .codex/skills/component-reusability/references/data-binding.md의 이번 작업 트리 변경.
+
+이번 정책 검증: 스킬 frontmatter의 기존 name/description 유지·이름/설명 제한·미완성 placeholder 부재·표준 표기 일치·추가 로컬 링크·diff 공백과 index 보존을 확인했고 `npm run okf:check`를 통과했다. 기본 Python에 PyYAML이 없어 quick_validate.py는 실행되지 않았으며 현재 단순 scalar frontmatter에 대한 별도 검사를 사용했다. 애플리케이션 소스는 변경하지 않아 빌드를 반복하지 않았다.

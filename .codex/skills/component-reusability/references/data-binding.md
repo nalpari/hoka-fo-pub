@@ -41,6 +41,38 @@ For each finding, name the concrete data/event boundary, a realistic failure suc
 - Show pending and failed states distinctly from a completed empty result. Keep usable previously loaded items where appropriate. Guard duplicate additional-fetch calls and document which owner handles stale request cancellation and response ordering.
 - Keep query notification callbacks stable when used by effects, or use a suitable event mechanism that avoids triggering a fetch on every provider render. Preserve the existing data-fetching strategy when it already owns those responsibilities.
 
+## Developer binding comments
+
+Use the exact source-comment marker **`[ 개발팀 바인딩 ]`**, including one space immediately inside each bracket, for developer handoff instructions. Add or update it when creating or changing a data/service contract or carrying out an authorized handoff-comment task. The marker identifies integration guidance, not ordinary styling or accessibility comments.
+
+- Put the comment beside the actual connection owner: a display/submission type, props/context declaration, query/mutation handler, or fixture-to-service boundary. A short route note may point to that owner. Do not annotate every JSX node or create a new wrapper/provider merely to hold a comment.
+- Describe the concrete props/context/callback to connect and the incoming display model, stable record/option IDs or complete submission payload. Explain DTO conversion where the server model differs from the UI model.
+- Document the relevant request trigger and outcome: when to resolve/reject or return a result union, what pending/error/retry state the UI consumes, and when navigation, closing, clearing or removal happens. State who refreshes lists/counts, preserves editing drafts and rejects stale results when those responsibilities exist.
+- Identify demo seeds, fixed examples and genuinely unconnected features. Explain the existing extension point or the contract that still needs implementation; do not invent an endpoint, token or success behavior. A comment does not make an unimplemented service available.
+- Keep the explanation specific to the owner. Do not paste every checklist item into read-only content or repeat a shared contract across all consumers. Update comments when fields, IDs, request behavior or ownership change.
+- Preserve an exported React component's concise Korean description followed by its English equivalent. Put `[ 개발팀 바인딩 ]` in a subsequent paragraph of that same JSDoc, or beside the relevant type/handler; do not displace the required summary with a marker-only comment.
+- For existing comments using `[개발팀 바인딩]`, use the canonical spaced marker when editing that comment within the authorized scope. A policy-only change does not trigger a repository-wide normalization, application refactor or changes to user-excluded files.
+
+Example at an existing data owner:
+
+```ts
+/**
+ * [ 개발팀 바인딩 ]
+ * 연결: Client 어댑터에서 MyPageDataContext.addresses에 현재 목록과 save/remove를 전달합니다.
+ * 데이터: 수정은 기존 배송지 id, 신규 등록은 id 없이 전달하며 DTO를 Address 표시 모델로 변환합니다.
+ * 결과: 서버 저장/삭제와 최신 목록 반영 후 resolve하고, 실패는 Error로 reject해 초안과 열린 화면을 유지합니다.
+ * 상태: 조회 pending/error는 Provider에 전달하고, 저장 후 목록 재조회는 연결 함수 소유자가 처리합니다.
+ */
+```
+
+Search both the canonical marker and older unspaced comments with:
+
+```sh
+rg -n '\[\s*개발팀 바인딩\s*\]' src
+```
+
+For policy-only updates, check agreement between AGENTS.md, this convention and the skill entrypoint, and validate local links/skill metadata. Do not run application builds merely for a comment-policy change.
+
 ## Verify the handoff contract
 
 For source changes, exercise relevant production UI with non-fixture IDs, a late response, replaced data after mount, an empty completed response, pending/failure/retry and successful completion. Check payload values, whether completion happens only after success, retained drafts, and unchanged default demos on PC/mobile. Test actual outcomes rather than mirroring implementation details.
