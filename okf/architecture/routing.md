@@ -515,3 +515,6 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 
 현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
+
+
+후속 Button 정리에서 `ghost` variant와 텍스트 ghost 예시는 제거했다. 아이콘 전용 액션은 `variant="icon"`, ShopShell 메가 메뉴 텍스트는 `plain`을 사용한다. Panda 생성·Prettier·diff·OKF 검사는 통과했다. 전체 타입 검사는 기존 생성 라우트 및 DesignGuideTypography 오류로 실패했고, ESLint는 `eslint-plugin-perfectionist` 미설치로 시작하지 못했다. 브라우저 검증은 수행하지 않았다.

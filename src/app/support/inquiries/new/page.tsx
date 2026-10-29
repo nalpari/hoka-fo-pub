@@ -384,10 +384,12 @@ function InquiryOrderProducts({
         </Typography>
         <Button
           aria-label="선택한 주문 삭제"
-          icon={<Icon fontAwesomeIcon={ImportedFaXmark} size="16px" />}
-          variant="ghost"
+          variant="icon"
+          size={24}
           onClick={() => onSelectionChange(null)}
-        />
+        >
+          <Icon fontAwesomeIcon={ImportedFaXmark} size="16px" />
+        </Button>
       </HStack>
       <Box p={{ base: '4', _mobile: '3' }} borderBottom="1px solid token(colors.black.20)">
         <Typography variant="body5" tone="tertiary">

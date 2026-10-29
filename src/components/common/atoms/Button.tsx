@@ -237,7 +237,6 @@ function renderLoadMoreContent({
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
-  | 'ghost'
   | 'brand'
   | 'link'
   | 'plain'
@@ -382,7 +381,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const iconOnly = Boolean(icon && resolvedChildren == null);
   const primary = variant === 'primary';
   const white = colorway === 'white';
-  const unframed = variant === 'link' || variant === 'plain' || variant === 'ghost';
+  const unframed = variant === 'link' || variant === 'plain';
   const labelTypographyVariant =
     variant === 'chip'
       ? 'body4'

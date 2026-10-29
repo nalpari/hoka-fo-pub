@@ -1944,13 +1944,16 @@ function MegaMenuContent({ menu, onClose }: MegaMenuContentProps) {
 
 const MegaMenuPanelStyles = {
   overlay: css({
+    appearance: 'none',
     position: 'fixed',
+    display: 'block',
     zIndex: -1,
     inset: 'var(--layout-site-header-height) 0 0',
     w: '100%',
     h: 'calc(100dvh - var(--layout-site-header-height))',
     border: 0,
     p: 0,
+    cursor: 'pointer',
     bg: 'color-mix(in srgb, var(--color-black-100) 52%, transparent)',
     _mobile: { display: 'none' },
   }),
@@ -1965,12 +1968,12 @@ type MegaMenuPanelProps = {
 function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
   return (
     <>
-      <Button
+      <button
+        type="button"
         aria-label="메뉴 닫기"
         className={MegaMenuPanelStyles.overlay}
         onClick={onClose}
         tabIndex={-1}
-        variant="ghost"
       />
       <Box
         as="section"
@@ -2565,7 +2568,7 @@ function HeaderMegaMenuNavigation({
       {megaMenus.map((menu, index) => (
         <Button
           key={menu.id}
-          variant="ghost"
+          variant="plain"
           className={megaNavigationStyles.item({ active: activeMenu === menu.id })}
           aria-expanded={activeMenu === menu.id}
           aria-controls={`mega-menu-${menu.id}`}

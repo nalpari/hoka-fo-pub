@@ -49,6 +49,7 @@ working_tree_sources:
   - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
   - src/stories/components/common/atoms/Button/ButtonDocs.tsx
   - src/components/common/atoms/Button.tsx
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/components/common/layouts/CustomerCenterLayout.tsx
   - src/components/common/layouts/SidebarNavigationLayout.tsx
   - .storybook/fonts.scss
@@ -3362,3 +3363,9 @@ IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시�
 ## 첨부 시안의 PC·MO UI 반영 (2026-10-29)
 
 6개 영역의 PC 표·그리드·모달·연락처/바로가기와 기존 MO 흐름을 반영했다. 마이페이지 기본 프레임은 1200px 중앙 정렬이며 기존 centered 모드는 유지한다. Panda TSX 스타일과 기존 Typography/Button/ModalDialog/NumberStepper를 재사용한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+## Ghost 버튼을 아이콘·텍스트 용도로 분리 (2026-10-29)
+
+공통 Button의 `ghost` variant를 제거했다. 아이콘 전용 호출은 기존 크기와 접근성 이름을 유지해 `variant="icon"`으로 옮겼고, ShopShell 메가 메뉴의 텍스트 항목은 무배경 텍스트 버튼인 `plain`으로 전환했다. 클릭 가능한 메가 메뉴 바깥 영역은 네이티브 버튼으로 바꿨다. 퍼블리싱 가이드와 Button Storybook 문서에서도 ghost 예시를 제거했다.
+
+Panda 생성·Prettier·diff·OKF 검사는 통과했다. 전체 타입 검사는 기존 생성 라우트 및 DesignGuideTypography 오류로 실패했고, ESLint는 `eslint-plugin-perfectionist` 미설치로 시작하지 못했다. 브라우저 검증은 수행하지 않았다.

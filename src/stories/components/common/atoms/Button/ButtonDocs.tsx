@@ -17,7 +17,6 @@ import { Typography } from '@/components/common/atoms/Typography';
 const variants = [
   { variant: 'primary', title: 'Primary', note: '배경이 채워진 기본 액션 버튼' },
   { variant: 'secondary', title: 'Secondary', note: '테두리로 구분하는 보조 액션 버튼' },
-  { variant: 'ghost', title: 'Ghost', note: '배경과 테두리가 없는 버튼' },
   {
     variant: 'chip',
     title: 'Chip',

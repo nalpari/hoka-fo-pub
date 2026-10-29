@@ -45,11 +45,9 @@ function ModalDialogHeader({
       </Dialog.Title>
       <Dialog.Close
         render={
-          <Button
-            aria-label={closeLabel}
-            icon={<Icon fontAwesomeIcon={faXmark} size="16px" />}
-            variant="ghost"
-          />
+          <Button aria-label={closeLabel} variant="icon" size={24}>
+            <Icon fontAwesomeIcon={faXmark} size="16px" />
+          </Button>
         }
       />
     </header>

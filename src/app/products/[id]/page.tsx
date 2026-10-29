@@ -206,9 +206,11 @@ function ProductDetailImageViewer({
         aria-label="이미지 뷰어 닫기"
         className={viewerClose}
         onClick={onClose}
-        variant="ghost"
-        icon={<Icon fontAwesomeIcon={faXmark} size="24px" />}
-      />
+        variant="icon"
+        size={24}
+      >
+        <Icon fontAwesomeIcon={faXmark} size="24px" />
+      </Button>
       <ViewerContentBoundary>
         <ProductDetailViewerContent
           images={images}

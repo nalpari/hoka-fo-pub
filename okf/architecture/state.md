@@ -482,6 +482,12 @@ AppLayout은 usePlatform()이 web인 렌더에서 열린 menuOpen을 false로 �
 
 작성: codex/gpt-6, 2026-10-29T01:20:16Z. 출처: working_tree_sources의 src/context/ShopShell.tsx. 이 절은 모바일 전체메뉴의 플랫폼 전환 동작만 보완한다.
 
+## 메가 메뉴 버튼 표현 정리 (2026-10-29)
+
+ShopShell의 메가 메뉴 텍스트 항목은 `ghost`에서 `plain`으로 바꿨고, 메뉴 바깥 클릭 영역은 네이티브 버튼으로 바꿨다. 메뉴 열기·닫기 상태, 포커스 이동, 마우스 이벤트 및 표시 수명은 변경하지 않았다. 상태/라우팅 동작 대신 버튼 표현만 바뀐 점을 확인했다.
+
+출처: working_tree_sources의 `src/context/ShopShell.tsx`. 상호작용 검증은 아직 수행하지 않았다.
+
 ## 계정 흐름과 현재 조회 상태 확장 (2026-10-29)
 
 AccountFlowProvider는 인증 proof/신규·기존 분기/약관 버전별 동의/복구 참조를 라우트 사이 메모리에 유지한다. 비밀번호/proof는 브라우저 저장소에 저장하지 않는다. 서비스는 AccountServicesContext와 PhoneVerificationContext로 제공한다. 프로필은 최신 읽기값과 활성 편집 초안을 분리한다.

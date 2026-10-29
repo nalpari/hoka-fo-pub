@@ -216,22 +216,26 @@ export function ProductOptionList({
   return (
     <Grid gap="normal" gridTemplateColumns="16px minmax(0, 1fr) 16px" alignItems="center" minW="0">
       <Button
-        variant="ghost"
+        variant="icon"
+        size={16}
         aria-label="이전 색상"
         className={arrow}
         disabled={edges.start}
         onClick={() => move(-1)}
-        icon={<Icon fontAwesomeIcon={faChevronLeft} size={12} />}
-      />
+      >
+        <Icon fontAwesomeIcon={faChevronLeft} size={12} />
+      </Button>
       {content}
       <Button
-        variant="ghost"
+        variant="icon"
+        size={16}
         aria-label="다음 색상"
         className={arrow}
         disabled={edges.end}
         onClick={() => move(1)}
-        icon={<Icon fontAwesomeIcon={faChevronRight} size={12} />}
-      />
+      >
+        <Icon fontAwesomeIcon={faChevronRight} size={12} />
+      </Button>
     </Grid>
   );
 }

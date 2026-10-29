@@ -37,31 +37,6 @@ const colorways = ['black', 'white'] as const;
 
 const auxiliaryVariants = [
   {
-    id: 'button-ghost',
-    title: 'Ghost',
-    description: '배경과 테두리 없이 가볍게 쓰는 버튼',
-    samples: [
-      {
-        label: 'Tall',
-        code: '<Button variant="ghost" size="tall">버튼명 텍스트</Button>',
-        preview: (
-          <Button variant="ghost" size="tall">
-            버튼명 텍스트
-          </Button>
-        ),
-      },
-      {
-        label: 'Short',
-        code: '<Button variant="ghost" size="short">버튼명 텍스트</Button>',
-        preview: (
-          <Button variant="ghost" size="short">
-            버튼명 텍스트
-          </Button>
-        ),
-      },
-    ],
-  },
-  {
     id: 'button-brand',
     title: 'Brand',
     description: '브랜드 블루를 강조하는 버튼',
