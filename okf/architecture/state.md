@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T23:59:46Z'
+  at: '2026-10-29T01:20:16Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/context/CheckoutContext.ts
@@ -467,3 +467,11 @@ ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색
 ShopShell.state와 도메인별 Context로 실제 데이터·서비스 함수를 연결한다. 로그인은 입력값을 전달하고 비동기 성공 이후 이동한다. 배송지·주문·리뷰의 서비스 모드는 현재 Provider 목록을 직접 표시하며 편집 초안을 유지한다. 데모 초기값 주입은 별도 유지한다. [연결 계약과 적용 범위](data-binding.md).
 
 작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.
+
+## PC 전환 시 모바일 전체메뉴 닫기 (2026-10-29)
+
+AppLayout은 usePlatform()이 web인 렌더에서 열린 menuOpen을 false로 초기화하고, 모바일이면서 열린 경우에만 MenuDrawer를 렌더링한다. PC 전환으로 Drawer가 제거되어 스크롤 잠금과 포커스 제한이 해제되며 모바일 복귀 시 자동으로 재개방하지 않는다. 별도 matchMedia 구독이나 플랫폼 key를 추가하지 않아 명시적 플랫폼과 기존 상태 소유권을 유지한다.
+
+검증: 실제 개발 페이지에서 1024→1025→1024px 전환, 하위 Men 메뉴에서 같은 전환, 모바일 재개방, 닫기 버튼과 Escape를 확인했다. PC 전환 후 body/html overflow가 visible이고 inert 요소가 0개임을 확인했으며 검색 입력·본문 휠 스크롤·홈 링크 클릭도 동작했다. Storybook의 고정 mobile AppLayout에서 1440px로 확대해도 메뉴 열림을 유지하고 Escape로 닫히며, 고정 web SiteHeader가 375px에서도 PC 헤더를 유지함을 확인했다. npm run typecheck와 ShopShell.tsx 대상 ESLint·Prettier 검사를 통과했다.
+
+작성: codex/gpt-6, 2026-10-29T01:20:16Z. 출처: working_tree_sources의 src/context/ShopShell.tsx. 이 절은 모바일 전체메뉴의 플랫폼 전환 동작만 보완한다.

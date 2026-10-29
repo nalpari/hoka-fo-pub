@@ -2941,6 +2941,10 @@ function AppLayout({
   const pathname = usePathname();
   const searchPage = platform === 'mobile' && pathname === '/search';
 
+  if (platform === 'web' && menuOpen) {
+    setMenuOpen(false);
+  }
+
   if (pathname === '/screen-index') return <>{children}</>;
 
   return (
@@ -2955,7 +2959,9 @@ function AppLayout({
           recentCount={recentCount}
         />
       )}
-      {menuOpen && <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />}
+      {platform === 'mobile' && menuOpen && (
+        <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
+      )}
       {children}
       {!searchPage && <SiteFooter />}
     </>
