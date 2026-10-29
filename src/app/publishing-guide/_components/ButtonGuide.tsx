@@ -147,13 +147,30 @@ const auxiliaryVariants = [
     ],
   },
   {
+    id: 'button-icon',
+    title: 'Icon',
+    description: '아이콘만 표시하는 버튼으로 접근성 이름이 필요',
+    samples: [
+      {
+        label: '36px',
+        note: '높이 36px · 글자 없음 · 좌우 0px',
+        code: '<Button variant="icon" size={36} aria-label="필터 열기"><Icon name="filter" /></Button>',
+        preview: (
+          <Button variant="icon" size={36} aria-label="필터 열기">
+            <Icon name="filter" />
+          </Button>
+        ),
+      },
+    ],
+  },
+  {
     id: 'button-filter-trigger',
     title: 'Filter Trigger',
     description: '필터 패널을 여는 트리거 버튼',
     samples: [
       {
         label: 'Compact',
-        note: '높이 32.2px · 글자 14px · 좌우 14px',
+        note: '높이 40px · 글자 14px · 좌우 14px',
         code: '<Button variant="filterTrigger" icon={<Icon name="filter" />}><Typography variant="body4">필터</Typography></Button>',
         preview: (
           <Button variant="filterTrigger" icon={<Icon name="filter" />}>
@@ -188,23 +205,6 @@ const auxiliaryVariants = [
             icon={<Icon src="/images/header/search.svg" size="16px" mask />}
           >
             검색어를 입력하세요
-          </Button>
-        ),
-      },
-    ],
-  },
-  {
-    id: 'button-icon',
-    title: 'Icon',
-    description: '아이콘만 표시하는 버튼으로 접근성 이름이 필요',
-    samples: [
-      {
-        label: '36px',
-        note: '높이 36px · 글자 없음 · 좌우 0px',
-        code: '<Button variant="icon" size={36} aria-label="필터 열기"><Icon name="filter" /></Button>',
-        preview: (
-          <Button variant="icon" size={36} aria-label="필터 열기">
-            <Icon name="filter" />
           </Button>
         ),
       },
@@ -305,9 +305,9 @@ const codePunctuation = css({ color: 'black.60' });
 const copyButton = css({
   flexShrink: '0',
   bg: 'black.10',
-  border: '1px solid token(colors.black.20)',
-  borderRadius: '1',
-  _hover: { bg: 'black.20' },
+  border: '1px solid token(colors.black.40)',
+  borderRadius: '4px',
+  _hover: { bg: 'black.20!' },
 });
 
 const codeTokenPattern =
@@ -541,7 +541,7 @@ function ButtonSizingGuide() {
             높이 예외
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            FilterTrigger compact: 높이 32.2px · 글자 14px · 좌우 14px
+            FilterTrigger compact: 높이 40px · 글자 14px · 좌우 14px
             <br />
             FilterTrigger regular: 높이 40px · 글자 16px · 좌우 24px
             <br />

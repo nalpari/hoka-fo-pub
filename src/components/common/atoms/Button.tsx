@@ -478,7 +478,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     });
   if (variant === 'filterTrigger')
     Object.assign(variables, {
-      '--button-height': size === 'regular' ? '40px' : '32.2px',
+      '--button-height': '40px',
       '--button-padding-x': size === 'regular' ? '24px' : '14px',
       '--button-radius': '46.8px',
       '--button-border-width': size === 'regular' ? '1px' : '0.9px',
@@ -486,7 +486,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     });
   if (variant === 'headerSearch')
     Object.assign(variables, {
-      '--button-height': '36px',
+      '--button-height': '40px',
       '--button-padding-x': '15px',
       '--button-radius': '999px',
     });

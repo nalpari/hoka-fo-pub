@@ -28,6 +28,10 @@
 
 - 스타일 예시에서 Flex·Grid를 유지하고 중복 display를 제거했다. 기존 JSX props 방식의 세 번째 예시와 상호 이동 링크를 추가했으며 세 화면의 작성 코드를 기본 노출한다. [범위](architecture/style-examples.md#panda-jsx-유지와-기존-방식-예시-추가-2026-10-29).
 
+- 퍼블리싱 가이드의 보조 버튼 유형에서 공통 Icon을 Filter Trigger 앞으로 옮겨 화면과 타임라인 순서를 맞췄다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.
+
+- `Button.filterTrigger` compact의 높이를 regular와 같은 40px로 맞췄다. compact의 글자 크기 14px과 좌우 패딩 14px은 유지하고 ButtonDocs·퍼블리싱 가이드 치수도 갱신했다. [UI 기록](architecture/ui.md#filtertrigger-compact-높이-40px-적용-2026-10-29)을 참고한다.
+
 - 퍼블리싱 가이드의 코드 복사 텍스트를 공용 `faCopy` 아이콘 버튼으로 바꿨다. 버튼과 타이포그래피 가이드 모두 32px 아이콘 전용 버튼, 한국어 접근성 이름, 툴팁, 복사 알림을 제공한다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)과 [공용 UI 기록](architecture/ui.md)을 참고한다.
 
 - Button 가이드의 모든 샘플에 높이·글자 크기·좌우 패딩을 같은 형식으로 표시하고, FilterTrigger 코드와 미리보기의 Typography를 일치시켰다. [라우팅 기록](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)을 참고한다.

@@ -3389,3 +3389,9 @@ IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시�
 공통 Button의 `ghost` variant를 제거했다. 아이콘 전용 호출은 기존 크기와 접근성 이름을 유지해 `variant="icon"`으로 옮겼고, ShopShell 메가 메뉴의 텍스트 항목은 무배경 텍스트 버튼인 `plain`으로 전환했다. 클릭 가능한 메가 메뉴 바깥 영역은 버튼 스타일 API가 필요 없는 네이티브 버튼으로 바꿨다. 퍼블리싱 가이드와 Button Storybook 문서에서도 ghost 예시를 제거했다.
 
 작업 트리 출처는 frontmatter의 Button, ShopShell, ModalDialog, ProductOptionList, 문의·상품 라우트 및 Button 문서 파일이다. Panda 생성·Prettier·diff·OKF 검사를 통과했다. 전체 타입 검사는 생성된 App Router 타입의 기존 오류와 `DesignGuideTypography.tsx`의 기존 Typography 비교 오류로 실패했다. 변경 파일 ESLint는 설치되지 않은 `eslint-plugin-perfectionist` 때문에 실행할 수 없었다. 브라우저 시각·상호작용 검증은 수행하지 않았다.
+
+## FilterTrigger compact 높이 40px 적용 (2026-10-29)
+
+`Button.filterTrigger`의 compact 높이를 32.2px에서 40px로 조정했다. regular와 높이를 통일하고, compact의 좌우 14px·14px 글자와 regular의 좌우 24px·16px 글자는 유지한다. ButtonDocs와 퍼블리싱 가이드의 치수 설명도 현재 값에 맞춘다. 출처는 위 `working_tree_sources`의 Button, ButtonDocs, ButtonGuide다.
+
+퍼블리싱 가이드의 보조 버튼 예시는 공통 Icon을 Filter Trigger보다 앞에 배치하고 타임라인도 같은 `auxiliaryVariants` 목록을 사용해 순서를 일치시킨다.

@@ -36,7 +36,7 @@ const variants = [
   {
     variant: 'filterTrigger',
     title: 'Filter Trigger',
-    note: 'compact(기본) 32.2px/14px · regular 40px/24px (높이/좌우 패딩)',
+    note: 'compact(기본) 40px/14px/14px · regular 40px/16px/24px (높이/글자/좌우 패딩)',
   },
   {
     variant: 'headerSearch',
@@ -125,8 +125,9 @@ function dimensions({ variant, size }: ButtonSizingProps) {
   let font = wide ? '16px' : '14px';
 
   if (variant === 'filterTrigger') {
-    height = '32.2px';
-    padding = '14px';
+    height = '40px';
+    padding = size === 'regular' ? '24px' : '14px';
+    font = size === 'regular' ? '16px' : '14px';
   }
   if (variant === 'headerSearch') {
     height = '36px';
@@ -411,9 +412,10 @@ export function ButtonDocs() {
             안에서는 compact입니다.
           </Typography>
           <Typography as="p">
-            <strong>예외</strong> FilterTrigger·HeaderSearch는 size를 받지 않고 각각 32.2px·36px
-            높이와 14px 글자를 사용합니다. 아이콘 전용 버튼은 24px입니다. 일반 버튼의 size는 라벨
-            Typography도 선택하므로 density와 함께 쓰면 높이와 글자 크기가 다를 수 있습니다.
+            <strong>예외</strong> FilterTrigger는 compact(기본)·regular 모두 40px 높이를 사용하며
+            글자·좌우 패딩은 크기별로 적용됩니다. HeaderSearch는 36px 높이에 14px 글자를 사용합니다.
+            아이콘 전용 버튼은 24px입니다. 일반 버튼의 size는 라벨 Typography도 선택하므로 density와
+            함께 쓰면 높이와 글자 크기가 다를 수 있습니다.
           </Typography>
           <Typography as="p">
             <strong>색상</strong> colorway는 Black / White 색상 조합입니다.
