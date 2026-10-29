@@ -3,7 +3,13 @@ import { Box, Stack } from 'styled-system/jsx';
 import { Typography } from '@/components/common/atoms/Typography';
 
 /** 아이디 조회 결과의 사용자 안내와 재설정 설명을 표시합니다. (Displays the account lookup result and password reset guidance.) */
-export function IdConfirmationMessage({ userName }: { userName?: string }) {
+export function IdConfirmationMessage({
+  userName,
+  accountId = 'honggildong',
+}: {
+  userName?: string;
+  accountId?: string;
+}) {
   const displayName = userName?.trim();
 
   return (
@@ -18,7 +24,7 @@ export function IdConfirmationMessage({ userName }: { userName?: string }) {
       </Typography>
       <Box mt={{ base: '5', _mobile: '6' }}>
         <Typography as="p" mo="heading5" web="heading7">
-          honggildong
+          {accountId}
         </Typography>
       </Box>
       <Box mt={{ base: '6', _mobile: '52px' }} mb="6">

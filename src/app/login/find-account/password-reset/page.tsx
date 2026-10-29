@@ -1,14 +1,24 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * AccountServicesContext.recovery.resetPassword에 이전 단계의 resetProof와 password가 전달됩니다.
+ * 서버 변경 완료 후 resolve해야 완료 팝업을 표시합니다. 만료/실패는 reject해 입력을 유지하며 proof가 없으면 재인증이 필요합니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
+import { useContext } from 'react';
 import { type FormEvent, type FormEventHandler, type ReactNode, useState } from 'react';
+import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 
 import { Button } from '@/components/common/atoms/Button';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
@@ -171,6 +181,9 @@ function PasswordResetCompleteModal({ onOpenChange, onConfirm }: PasswordResetCo
 
 /** 새 비밀번호 입력 검증과 재설정 예시 흐름을 관리합니다. (Manages new-password validation and the example reset flow.) */
 function RouteContent() {
+  const services = useContext(AccountServicesContext);
+  const flow = useAccountFlow();
+  const request = useRequestAction();
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -186,7 +199,15 @@ function RouteContent() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    setCompleteOpen(true);
+    void request.run(async () => {
+      if (services) {
+        if (!flow?.recovery?.resetProof)
+          throw new Error('본인인증이 만료되었습니다. 계정 찾기에서 다시 인증해 주세요.');
+        await services.recovery.resetPassword({ resetProof: flow.recovery.resetProof, password });
+        flow.setRecovery(null);
+      }
+      setCompleteOpen(true);
+    });
   };
 
   const updateField = (field: FieldName, value: string) => {
@@ -206,24 +227,29 @@ function RouteContent() {
   };
 
   return (
-    <PasswordResetContent
-      password={password}
-      confirmation={confirmation}
-      errors={errors}
-      onFieldChange={updateField}
-      onSubmit={submit}
-      completion={
-        completeOpen ? (
-          <PasswordResetCompleteModal
-            onOpenChange={(open) => {
-              setCompleteOpen(open);
-              if (!open) router.push('/login');
-            }}
-            onConfirm={() => router.push('/login')}
-          />
-        ) : null
-      }
-    />
+    <>
+      <BindingFeedback pending={request.pending} error={request.error} />
+      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <PasswordResetContent
+          password={password}
+          confirmation={confirmation}
+          errors={errors}
+          onFieldChange={updateField}
+          onSubmit={submit}
+          completion={
+            completeOpen ? (
+              <PasswordResetCompleteModal
+                onOpenChange={(open) => {
+                  setCompleteOpen(open);
+                  if (!open) router.push('/login');
+                }}
+                onConfirm={() => router.push('/login')}
+              />
+            ) : null
+          }
+        />
+      </fieldset>
+    </>
   );
 }
 

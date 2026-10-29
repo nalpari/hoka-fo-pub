@@ -1,10 +1,19 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * SupportContentContext.terms의 terms/privacy 각각에 versions/document/onQueryChange를 전달합니다.
+ * 시행일 선택은 versionId, 탭은 URL tab 값으로 조회합니다. 이전/다음 탐색에서도 같은 조건을 반영하고 BO 본문은 어댑터에서 안전하게 렌더링합니다.
+ */
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Popover } from '@base-ui/react/popover';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
+import { SupportContentContext } from '@/context/SupportContentContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
@@ -13,6 +22,7 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio, type RadioProps } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { supportNavigation } from '@/app/support/support.navigation';
@@ -89,16 +99,33 @@ const dates = [
 ] as const;
 
 function TermsDocument({ privacy }: { privacy: boolean }) {
-  const [date, setDate] = useState<string>(dates[0].value);
+  // 개발팀 적용: BO 문서를 body 슬롯으로 전달합니다. HTML의 안전한 변환은 어댑터에서 처리합니다.
+  const context = useContext(SupportContentContext);
+  const binding = context.terms?.[privacy ? 'privacy' : 'terms'];
+  const [selectedDate, setDate] = useState<string | null>(null);
+  const date = binding
+    ? binding.versions.some((version) => version.id === selectedDate)
+      ? selectedDate!
+      : (binding.versions[0]?.id ?? '')
+    : (selectedDate ?? dates[0].value);
+  useBindingQuery(binding?.onQueryChange, {
+    kind: privacy ? ('privacy' as const) : ('terms' as const),
+    versionId: date,
+  });
 
   return (
     <Stack gap="4" pt="4" px={{ base: '4', _mobile: '0' }}>
       <TermsDateSelect
         name={privacy ? 'privacy-date' : 'terms-date'}
-        options={dates}
+        options={
+          binding
+            ? binding.versions.map((version) => ({ value: version.id, label: version.label }))
+            : dates
+        }
         value={date}
         onValueChange={setDate}
       />
+      <BindingFeedback {...binding} />
       <Grid
         gap="normal"
         placeItems="center"
@@ -107,17 +134,21 @@ function TermsDocument({ privacy }: { privacy: boolean }) {
         bg="rgba(0, 0, 0, 0.5)"
         aria-label={privacy ? '개인정보 처리방침 내용' : '이용 약관 내용'}
       >
-        <Typography variant="body5" tone="inverse">
-          약관내용
-        </Typography>
+        {binding ? (
+          binding.document?.body
+        ) : (
+          <Typography variant="body5" tone="inverse">
+            약관내용
+          </Typography>
+        )}
       </Grid>
       {privacy && (
         <Stack gap="0">
           <Typography variant="body5" tone="tertiary">
-            - 개인정보 처리방침 버전번호 : v.1.79
+            - 개인정보 처리방침 버전번호 : {binding ? binding.document?.version : 'v.1.79'}
           </Typography>
           <Typography variant="body5" tone="tertiary">
-            - 개인정보 처리방침 시행일자 : 2026.09.02
+            - 개인정보 처리방침 시행일자 : {binding ? binding.document?.effectiveAt : '2026.09.02'}
           </Typography>
         </Stack>
       )}
@@ -130,7 +161,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [tab, setTab] = useState(searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms');
+  const tab = searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms';
 
   const tabs = [
     { value: 'terms', label: '이용 약관', content: <TermsDocument privacy={false} /> },
@@ -155,7 +186,6 @@ export default function Page() {
           defaultValue="terms"
           value={tab}
           onValueChange={(value) => {
-            setTab(value === 'privacy' ? 'privacy' : 'terms');
             const next = new URLSearchParams(searchParams.toString());
             if (value === 'privacy') next.set('tab', 'privacy');
             else next.delete('tab');

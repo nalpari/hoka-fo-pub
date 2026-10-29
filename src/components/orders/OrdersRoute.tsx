@@ -1,11 +1,18 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * OrdersContext.orders/onFiltersChange/submitClaim/confirmPurchase/deleteOrder를 연결합니다. 반품 견적은 quoteClaim에 연결합니다.
+ * 견적의 id/금액/반품비/환불액을 현재 상품·수량·사유와 묶어 사용합니다. 고객 귀책/회사 귀책/무료반품 판단과 최종 금액은 서버 책임입니다.
+ * 화면의 신청 성공은 접수입니다. 회수 이후 원 결제수단으로 환불하며 환불계좌 입력이나 무통장 입금 수단을 추가하지 않습니다.
+ */
+
 import Link from 'next/link';
 
 import { Drawer } from '@base-ui/react/drawer';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { type ReactNode, useContext, useEffect, useId, useState } from 'react';
-import { OrdersContext } from '@/context/OrdersContext';
+import { type ClaimQuote, OrdersContext } from '@/context/OrdersContext';
 import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
 import { useRequestAction } from '@/hooks/useRequestAction';
@@ -929,7 +936,6 @@ type ClaimProductSelectionProps = {
 /** 신청할 상품의 선택과 허용 수량 입력을 표시합니다. (Displays selectable claim products and bounded quantities.) */
 function ClaimProductSelection({
   items,
-  kind,
   quantities,
   onToggle,
   onQuantity,
@@ -958,14 +964,14 @@ function ClaimProductSelection({
               checked={Boolean(quantities[line.key])}
               onToggle={onToggle}
             />
-            {kind === 'cancel' ? (
+            {
               <ClaimProductQuantity
                 productKey={line.key}
                 max={line.quantity}
                 value={quantities[line.key] || 1}
                 onQuantity={onQuantity}
               />
-            ) : null}
+            }
           </Stack>
         ))}
       </Stack>
@@ -998,11 +1004,13 @@ function ClaimReasonFields({
           onChange={(event) => onReasonChange(event.target.value as ClaimReason)}
         >
           <option value="">사유를 선택해 주세요.</option>
-          {Object.entries(claimReasonLabels).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
+          {Object.entries(claimReasonLabels)
+            .filter(([value]) => value !== 'size')
+            .map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
         </Select>
       </FormField>
       <TextFormField
@@ -1039,12 +1047,24 @@ function ClaimReasonFields({
 }
 
 /** 신청 상품금액과 반품비 또는 사유 선택 안내를 표시합니다. (Displays claim product amount and fee or the reason selection hint.) */
-function ClaimAmountBreakdown({ amount, fee }: { amount: number; fee: number }) {
+function ClaimAmountBreakdown({
+  amount,
+  fee,
+  freeReturnApplied,
+}: {
+  amount: number;
+  fee: number | null;
+  freeReturnApplied?: boolean;
+}) {
   return (
     <Stack p="4" gap="3">
       <AmountRow label="상품금액" amount={amount} />
-      {amount ? (
-        <AmountRow label="반품비" amount={fee} discount />
+      {amount && fee !== null ? (
+        <AmountRow
+          label={freeReturnApplied ? '반품비 (무료반품 적용)' : '반품비'}
+          amount={fee}
+          discount
+        />
       ) : (
         <Typography variant="body5" tone="subtle">
           사유 선택 후 확인
@@ -1060,20 +1080,28 @@ function ClaimAmountSummary({
   fee,
   refund,
   kind,
+  freeReturnApplied,
 }: {
   amount: number;
-  fee: number;
-  refund: number;
+  fee: number | null;
+  refund: number | null;
+  freeReturnApplied?: boolean;
   kind: 'cancel' | 'return';
 }) {
   return (
     <Stack gap="0" border="1px solid var(--colors-black-20)">
-      <ClaimAmountBreakdown amount={amount} fee={fee} />
+      <ClaimAmountBreakdown amount={amount} fee={fee} freeReturnApplied={freeReturnApplied} />
       <AmountRow
         p="4"
         bg="black.10"
-        label={kind === 'cancel' ? '취소예정금액' : '환불예정금액'}
-        amount={refund}
+        label={
+          refund === null
+            ? '환불예정금액 (견적 확인 전)'
+            : kind === 'cancel'
+              ? '취소예정금액'
+              : '환불예정금액'
+        }
+        amount={refund ?? amount}
         emphasis
       />
     </Stack>
@@ -1084,6 +1112,8 @@ type ClaimDraft = {
   quantities: Record<string, number>;
   reason: ClaimReason;
   details: string;
+  quoteId?: string;
+  freeReturnCouponId?: string;
 };
 
 type OrderClaimSheetProps = {
@@ -1096,13 +1126,67 @@ type OrderClaimSheetProps = {
 /** 취소·환불 신청 초안을 관리하고 검증 결과를 표시합니다. (Manages a cancellation or refund draft and validation feedback.) */
 function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProps) {
   const request = useRequestAction();
+  const binding = useContext(OrdersContext);
   const id = useId();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [reason, setReason] = useState<ClaimReason>('');
   const [details, setDetails] = useState('');
   const [error, setError] = useState('');
   const items = getRemainingLines(order);
-  const amounts = getClaimAmount(items, quantities, reason);
+  const demoAmounts = getClaimAmount(items, quantities, reason, { kind, ...order.returnPolicy });
+  const quoteInput = JSON.stringify({
+    orderId: order.id,
+    kind,
+    quantities,
+    reason,
+    freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
+  });
+  const quoteService = kind === 'return' ? binding?.quoteClaim : undefined;
+  const [quoted, setQuoted] = useState<{ key: string; value?: ClaimQuote; error?: string } | null>(
+    null,
+  );
+  const [quoteAttempt, setQuoteAttempt] = useState(0);
+  const canQuote = !!reason && Object.values(quantities).some((quantity) => quantity > 0);
+  const needsQuote = !!binding && kind === 'return';
+  useEffect(() => {
+    if (!quoteService || !canQuote) return;
+    let active = true;
+    void Promise.resolve()
+      .then(() => quoteService(JSON.parse(quoteInput)))
+      .then((value) => {
+        if (
+          !value.id ||
+          ![value.amount, value.fee, value.refund].every(
+            (amount) => Number.isFinite(amount) && amount >= 0,
+          ) ||
+          value.fee > value.amount ||
+          value.refund !== value.amount - value.fee
+        )
+          throw new Error('환불 견적 금액을 확인해 주세요.');
+        if (active) setQuoted({ key: quoteInput, value });
+      })
+      .catch((cause: unknown) => {
+        if (active)
+          setQuoted({
+            key: quoteInput,
+            error: cause instanceof Error ? cause.message : '환불 견적을 조회하지 못했습니다.',
+          });
+      });
+    return () => {
+      active = false;
+    };
+  }, [quoteService, quoteInput, canQuote, quoteAttempt]);
+  const quote = quoted?.key === quoteInput ? quoted : null;
+  const quotePending = !!quoteService && canQuote && !quote;
+  const quoteError =
+    needsQuote && !quoteService ? '반품 견적 서비스가 연결되지 않았습니다.' : quote?.error;
+  const amounts =
+    quoteService || needsQuote
+      ? (quote?.value ?? { amount: demoAmounts.amount, fee: null, refund: null })
+      : demoAmounts;
+  const blocked =
+    quotePending || !!quoteError || (needsQuote && !quote?.value) || amounts.fee === null;
+  // 개발팀 적용: 견적 성공 시 받은 id와 동일 선택/사유를 submitClaim으로 전송합니다. 서버가 접수를 완료한 뒤에만 시트를 닫습니다.
   return (
     <BottomSheet
       title={kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청'}
@@ -1111,7 +1195,13 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
         if (!request.pending) onClose();
       }}
       footer={
-        <Button disabled={request.pending} type="submit" form={id} variant="primary" fullWidth>
+        <Button
+          disabled={request.pending || blocked || !canQuote}
+          type="submit"
+          form={id}
+          variant="primary"
+          fullWidth
+        >
           신청하기
         </Button>
       }
@@ -1121,8 +1211,17 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
+          if (blocked || !canQuote) return;
           void request.run(async () => {
-            setError((await onSubmit({ quantities, reason, details })) ?? '');
+            setError(
+              (await onSubmit({
+                quantities,
+                reason,
+                details,
+                quoteId: quote?.value?.id,
+                freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
+              })) ?? '',
+            );
           });
         }}
       >
@@ -1133,24 +1232,43 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
               items={items}
               kind={kind}
               quantities={quantities}
-              onToggle={(line, checked) =>
-                setQuantities((previous) => ({
-                  ...previous,
-                  [line.key]: checked ? (kind === 'return' ? line.quantity : 1) : 0,
-                }))
-              }
-              onQuantity={(key, value) =>
-                setQuantities((previous) => ({ ...previous, [key]: value }))
-              }
+              onToggle={(line, checked) => {
+                setQuoted(null);
+                setQuantities((previous) => ({ ...previous, [line.key]: checked ? 1 : 0 }));
+              }}
+              onQuantity={(key, value) => {
+                setQuoted(null);
+                setQuantities((previous) => ({ ...previous, [key]: value }));
+              }}
             />
             <ClaimReasonFields
               id={id}
               reason={reason}
               details={details}
-              onReasonChange={setReason}
+              onReasonChange={(next) => {
+                setQuoted(null);
+                setReason(next);
+              }}
               onDetailsChange={setDetails}
             />
             <ClaimAmountSummary {...amounts} kind={kind} />
+            {quotePending && <Typography role="status">환불 견적을 확인하고 있습니다.</Typography>}
+            {quoteError && (
+              <>
+                <StatusMessage tone="error">{quoteError}</StatusMessage>
+                {quoteService && (
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setQuoted(null);
+                      setQuoteAttempt((value) => value + 1);
+                    }}
+                  >
+                    다시 시도
+                  </Button>
+                )}
+              </>
+            )}
             {error || request.error ? (
               <StatusMessage tone="error">{error || request.error}</StatusMessage>
             ) : null}
@@ -1478,7 +1596,7 @@ function OrdersPage({
                   draft.quantities,
                   draft.reason,
                   draft.details,
-                  '2026-10-23',
+                  new Date().toISOString().slice(0, 10),
                 );
                 if (!result.ok) return result.error;
                 setOrders((previous) =>

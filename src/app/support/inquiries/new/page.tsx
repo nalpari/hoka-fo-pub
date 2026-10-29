@@ -1,9 +1,19 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * InquiryDataContext.form에 customer/categories/resolveSelection/submit을 연결합니다.
+ * submit은 File[]와 실제 orderId/productIds를 포함합니다. 업로드·등록이 성공한 뒤 resolve하며 오류는 reject해 입력을 보존합니다.
+ * 주문 선택 화면에서 돌아온 ID는 resolveSelection으로 복원합니다. 실제 주문이 목 데이터에 없다는 이유로 선택을 버리지 않습니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
 import { faXmark as ImportedFaXmark } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
 import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from 'react';
+import { InquiryDataContext } from '@/context/InquiryDataContext';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -13,6 +23,7 @@ import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
@@ -21,6 +32,10 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import {
+  consumeInquiryOrderSelection,
+  restoreInquiryOrderSelection,
+} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
 import {
   type InquiryOrderSelection,
   readInquiryOrderResult,
@@ -168,6 +183,7 @@ function InquiryAttachments({ files, onFilesChange }: Props) {
 
 /** 문의 등록자의 이름과 연락처 정보를 표시합니다. (Displays the inquirer's name and contact information.) */
 function InquiryCustomerInfo() {
+  const binding = useContext(InquiryDataContext).form;
   return (
     <Box px="8" py="6" bg="black.10" _mobile={{ px: '4', py: '5' }}>
       <Grid
@@ -181,19 +197,19 @@ function InquiryCustomerInfo() {
           이름
         </Typography>
         <Typography as="dd" variant="body3" mo="body4" weight="medium">
-          홍길동
+          {binding ? binding.customer.name : '홍길동'}
         </Typography>
         <Typography as="dt" variant="body3" tone="subtle">
           휴대폰 번호
         </Typography>
         <Typography as="dd" variant="body3" mo="body4" weight="medium">
-          010-1234-1234
+          {binding ? binding.customer.phone : '010-1234-1234'}
         </Typography>
         <Typography as="dt" variant="body3" tone="subtle">
           E-mail
         </Typography>
         <Typography as="dd" variant="body3" mo="body4" weight="medium">
-          hong123@naver.com
+          {binding ? binding.customer.email : 'hong123@naver.com'}
         </Typography>
       </Grid>
     </Box>
@@ -215,6 +231,7 @@ function InquiryCategoryFields({
   onCategoryChange,
   onDetailCategoryChange,
 }: InquiryCategoryFieldsProps) {
+  const binding = useContext(InquiryDataContext).form;
   return (
     <Stack gap="4">
       <Grid columns={2} gap="2" _mobile={{ gridTemplateColumns: '1fr', gap: '4' }}>
@@ -227,13 +244,17 @@ function InquiryCategoryFields({
           value={category}
           onValueChange={onCategoryChange}
           error={invalid && !category ? '문의 분류를 선택해주세요.' : undefined}
-          options={[
-            { value: '주문/결제', label: '주문/결제' },
-            { value: '반품', label: '반품' },
-            { value: '주문/배송', label: '주문/배송' },
-            { value: '상품', label: '상품' },
-            { value: '회원', label: '회원' },
-          ]}
+          options={
+            binding
+              ? binding.categories.map((item) => ({ value: item.value, label: item.value }))
+              : [
+                  { value: '주문/결제', label: '주문/결제' },
+                  { value: '반품', label: '반품' },
+                  { value: '주문/배송', label: '주문/배송' },
+                  { value: '상품', label: '상품' },
+                  { value: '회원', label: '회원' },
+                ]
+          }
         />
         <Dropdown
           ariaLabel="상세 유형"
@@ -244,11 +265,17 @@ function InquiryCategoryFields({
           value={detailCategory}
           onValueChange={onDetailCategoryChange}
           error={invalid && !detailCategory ? '상세 유형을 선택해주세요.' : undefined}
-          options={[
-            { value: '신청/취소 문의', label: '신청/취소 문의' },
-            { value: '진행 상황 문의', label: '진행 상황 문의' },
-            { value: '기타 문의', label: '기타 문의' },
-          ]}
+          options={
+            binding
+              ? (binding.categories.find((item) => item.value === category)?.details ?? []).map(
+                  (value) => ({ value, label: value }),
+                )
+              : [
+                  { value: '신청/취소 문의', label: '신청/취소 문의' },
+                  { value: '진행 상황 문의', label: '진행 상황 문의' },
+                  { value: '기타 문의', label: '기타 문의' },
+                ]
+          }
         />
       </Grid>
     </Stack>
@@ -411,6 +438,8 @@ function InquiryOrderProducts({
 
 /** 1:1 문의 작성·검증과 취소 흐름을 구성합니다. (Composes inquiry entry, validation, and cancellation.) */
 export default function Page() {
+  const binding = useContext(InquiryDataContext).form;
+  const request = useRequestAction();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -422,26 +451,54 @@ export default function Page() {
   const [orderSelection, setOrderSelection] = useState<InquiryOrderSelection>(null);
   const [orderRequiredOpen, setOrderRequiredOpen] = useState(false);
   const invalid = submitted;
-  const requiresOrder = ['주문/결제', '주문/배송', '반품'].includes(category);
+  const requiresOrder = binding
+    ? (binding.categories.find((item) => item.value === category)?.requiresOrder ?? false)
+    : ['주문/결제', '주문/배송', '반품'].includes(category);
 
   const handleCategoryChange = (nextCategory: string) => {
     setCategory(nextCategory);
-    if (!['주문/결제', '주문/배송', '반품'].includes(nextCategory)) {
+    setDetailCategory('');
+    if (
+      binding
+        ? !binding.categories.find((item) => item.value === nextCategory)?.requiresOrder
+        : !['주문/결제', '주문/배송', '반품'].includes(nextCategory)
+    ) {
       setOrderSelection(null);
     }
   };
 
+  const resolveSelection = binding?.resolveSelection;
+  const [restoreError, setRestoreError] = useState('');
   useEffect(() => {
+    let active = true;
     const restoreSelection = () => {
-      const result = readInquiryOrderResult();
-      if (result) setOrderSelection(result);
+      if (!resolveSelection) {
+        const result = readInquiryOrderResult();
+        if (result) setOrderSelection(result);
+        return;
+      }
+      void restoreInquiryOrderSelection('result', resolveSelection)
+        .then((result) => {
+          if (active && result !== undefined) {
+            setOrderSelection(result);
+            consumeInquiryOrderSelection('result');
+            setRestoreError('');
+          }
+        })
+        .catch((cause: unknown) => {
+          if (active)
+            setRestoreError(
+              cause instanceof Error ? cause.message : '선택 상품을 복원하지 못했습니다.',
+            );
+        });
     };
-
     restoreSelection();
     window.addEventListener('hoka-inquiry-order-selection-result', restoreSelection);
-    return () =>
+    return () => {
+      active = false;
       window.removeEventListener('hoka-inquiry-order-selection-result', restoreSelection);
-  }, []);
+    };
+  }, [resolveSelection]);
 
   const openOrderLookup = () => {
     saveInquiryOrderDraft(orderSelection);
@@ -450,13 +507,30 @@ export default function Page() {
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (request.pending || binding?.pending) return;
     setSubmitted(true);
     if (requiresOrder && !orderSelection) {
       setOrderRequiredOpen(true);
       return;
     }
     if (category && detailCategory && title.trim() && body.trim()) {
-      router.push('/support/inquiries');
+      void request.run(async () => {
+        if (binding)
+          await binding.submit({
+            title,
+            body,
+            category,
+            detailCategory,
+            files,
+            selection: orderSelection
+              ? {
+                  orderId: orderSelection.order.id,
+                  productIds: orderSelection.products.map((item) => item.id),
+                }
+              : null,
+          });
+        router.push('/support/inquiries');
+      });
     }
   };
 
@@ -486,14 +560,49 @@ export default function Page() {
       ]}
       groups={supportNavigation}
     >
+      <BindingFeedback
+        {...binding}
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error || restoreError}
+        onRetry={() => {
+          if (resolveSelection)
+            void request.run(async () => {
+              const result = await restoreInquiryOrderSelection('result', resolveSelection);
+              if (result !== undefined) {
+                setOrderSelection(result);
+                consumeInquiryOrderSelection('result');
+                setRestoreError('');
+              }
+            });
+        }}
+      />
       <form className={css({ mt: { base: '10', _mobile: '6' } })} noValidate onSubmit={submit}>
-        <Stack gap="6">
-          {/* 신청인 기본 정보 (Submitter's basic information). */}
-          <InquiryCustomerInfo />
-          <Stack gap="4">
-            {/* 문의 유형 선택 (Inquiry category selection). */}
-            {requiresOrder ? (
-              <Stack gap="6">
+        <fieldset
+          disabled={request.pending || binding?.pending}
+          className={css({ border: 0, p: 0, m: 0, minW: 0 })}
+        >
+          <Stack gap="6">
+            {/* 신청인 기본 정보 (Submitter's basic information). */}
+            <InquiryCustomerInfo />
+            <Stack gap="4">
+              {/* 문의 유형 선택 (Inquiry category selection). */}
+              {requiresOrder ? (
+                <Stack gap="6">
+                  <InquiryCategoryFields
+                    category={category}
+                    detailCategory={detailCategory}
+                    invalid={invalid}
+                    onCategoryChange={handleCategoryChange}
+                    onDetailCategoryChange={setDetailCategory}
+                  />
+                  <InquiryOrderProducts
+                    invalid={invalid}
+                    selection={orderSelection}
+                    onSelectionChange={setOrderSelection}
+                    onLookup={openOrderLookup}
+                  />
+                </Stack>
+              ) : (
                 <InquiryCategoryFields
                   category={category}
                   detailCategory={detailCategory}
@@ -501,38 +610,24 @@ export default function Page() {
                   onCategoryChange={handleCategoryChange}
                   onDetailCategoryChange={setDetailCategory}
                 />
-                <InquiryOrderProducts
-                  invalid={invalid}
-                  selection={orderSelection}
-                  onSelectionChange={setOrderSelection}
-                  onLookup={openOrderLookup}
-                />
-              </Stack>
-            ) : (
-              <InquiryCategoryFields
-                category={category}
-                detailCategory={detailCategory}
+              )}
+              {/* 문의 제목·내용 입력과 필수값 오류 표시 (Inquiry subject/body input and required-field errors). */}
+              <InquiryMessageFields
+                title={title}
+                body={body}
                 invalid={invalid}
-                onCategoryChange={handleCategoryChange}
-                onDetailCategoryChange={setDetailCategory}
+                onTitleChange={setTitle}
+                onBodyChange={setBody}
               />
-            )}
-            {/* 문의 제목·내용 입력과 필수값 오류 표시 (Inquiry subject/body input and required-field errors). */}
-            <InquiryMessageFields
-              title={title}
-              body={body}
-              invalid={invalid}
-              onTitleChange={setTitle}
-              onBodyChange={setBody}
-            />
+            </Stack>
+            {/* 문의에 첨부할 파일 관리 (Manage files attached to the inquiry). */}
+            <InquiryAttachments files={files} onFilesChange={setFiles} />
+            {/* 문의 전 확인할 유의사항 (Inquiry submission cautions). */}
+            <InquiryCautions />
+            {/* 취소 및 문의 등록 액션 (Cancel and submit actions). */}
+            <InquiryFormActions onCancel={() => setCancelOpen(true)} />
           </Stack>
-          {/* 문의에 첨부할 파일 관리 (Manage files attached to the inquiry). */}
-          <InquiryAttachments files={files} onFilesChange={setFiles} />
-          {/* 문의 전 확인할 유의사항 (Inquiry submission cautions). */}
-          <InquiryCautions />
-          {/* 취소 및 문의 등록 액션 (Cancel and submit actions). */}
-          <InquiryFormActions onCancel={() => setCancelOpen(true)} />
-        </Stack>
+        </fieldset>
       </form>
       {/* 취소 확인 다이얼로그 (Cancellation confirmation dialog). */}
       <ModalDialog

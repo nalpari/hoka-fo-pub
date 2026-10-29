@@ -1,10 +1,20 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * InquiryDataContext.orders에 기간별 서버 주문 결과를 전달하고 form.resolveSelection으로 저장된 주문/상품 ID를 복원합니다.
+ * 선택 결과는 주문 id와 productIds만 저장합니다. 화면용 이름/가격/이미지는 서버 조회 결과에서 복원하며 복원 실패 시 저장한 선택을 유지합니다.
+ */
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
+import { InquiryDataContext } from '@/context/InquiryDataContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Stack } from 'styled-system/jsx';
@@ -16,9 +26,14 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
+import {
+  consumeInquiryOrderSelection,
+  restoreInquiryOrderSelection,
+} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
 import {
   clearInquiryOrderReturnMarker,
   type InquiryOrderSelection,
@@ -55,6 +70,10 @@ const visuallyHidden = css({ srOnly: true });
 
 /** 문의 대상 주문을 조회하고 상품을 선택하는 전용 페이지입니다. (Provides the dedicated order and product selection page for inquiries.) */
 export default function Page() {
+  const context = useContext(InquiryDataContext);
+  const binding = context.orders;
+  const resolve = context.form?.resolveSelection;
+  const request = useRequestAction();
   const router = useRouter();
   const [selection, setSelection] = useState<InquiryOrderSelection>(null);
   const [initialSelection, setInitialSelection] = useState<InquiryOrderSelection>(null);
@@ -68,7 +87,32 @@ export default function Page() {
   const [customRange, setCustomRange] = useState({ from: '2026-01-01', to: '2026-08-30' });
   const [invalid, setInvalid] = useState(false);
 
+  const [restoreError, setRestoreError] = useState('');
+  const [restoreAttempt, setRestoreAttempt] = useState(0);
   useEffect(() => {
+    if (resolve) {
+      let active = true;
+      void restoreInquiryOrderSelection('draft', resolve)
+        .then((result) => {
+          if (!active) return;
+          setSelection(result ?? null);
+          setInitialSelection(result ?? null);
+          if (result !== undefined) consumeInquiryOrderSelection('draft');
+          setExpandedOrder(result?.order.id ?? null);
+          setHasInquiryOrigin(shouldReturnToInquiry());
+          setRestoreError('');
+          setLoaded(true);
+        })
+        .catch((cause: unknown) => {
+          if (active)
+            setRestoreError(
+              cause instanceof Error ? cause.message : '선택 상품을 복원하지 못했습니다.',
+            );
+        });
+      return () => {
+        active = false;
+      };
+    }
     const pending = readInquiryOrderDraft();
     const hasInquiryOrigin = shouldReturnToInquiry();
     // The route must hydrate the browser-only selection before enabling its actions.
@@ -78,14 +122,22 @@ export default function Page() {
     setExpandedOrder(pending?.order.id ?? inquiryOrders[0]?.id ?? null);
     setHasInquiryOrigin(hasInquiryOrigin);
     setLoaded(true);
-  }, []);
+  }, [resolve, restoreAttempt]);
 
   const periodMonths = { '1y': 12, '6m': 6, '3m': 3, '1m': 1 } as const;
-  const filteredOrders = inquiryOrders.filter((order) => {
-    if (period === 'custom') return order.date >= customRange.from && order.date <= customRange.to;
-    const startDate = new Date(Date.UTC(2026, 9 - periodMonths[period], 26));
-    return order.date >= startDate.toISOString().slice(0, 10) && order.date <= '2026-10-26';
+  useBindingQuery(binding?.onQueryChange, {
+    period,
+    from: period === 'custom' ? customRange.from : '',
+    to: period === 'custom' ? customRange.to : '',
   });
+  const filteredOrders = binding
+    ? [...binding.items]
+    : inquiryOrders.filter((order) => {
+        if (period === 'custom')
+          return order.date >= customRange.from && order.date <= customRange.to;
+        const startDate = new Date(Date.UTC(2026, 9 - periodMonths[period], 26));
+        return order.date >= startDate.toISOString().slice(0, 10) && order.date <= '2026-10-26';
+      });
 
   const selectOrder = (order: InquiryOrder) => {
     if (selection?.order.id === order.id) {
@@ -152,6 +204,11 @@ export default function Page() {
       groups={supportNavigation}
     >
       <Stack gap={{ base: '6', _mobile: '4' }} pt={{ base: '10', _mobile: '6' }}>
+        <BindingFeedback
+          pending={binding?.pending || request.pending}
+          error={binding?.error || request.error || restoreError}
+          onRetry={restoreError ? () => setRestoreAttempt((value) => value + 1) : binding?.onRetry}
+        />
         <Stack gap={{ base: '6', _mobile: '0' }}>
           <FilterTabs
             ariaLabel="주문 조회 기간"
@@ -188,11 +245,11 @@ export default function Page() {
           )}
           <Flex justifyContent="flex-end">
             <Typography variant="body5" tone="tertiary">
-              총 {filteredOrders.length}건
+              총 {binding?.totalCount ?? filteredOrders.length}건
             </Typography>
           </Flex>
           <Stack gap="0" borderTop="1px solid token(colors.black.100)">
-            {filteredOrders.slice(0, visibleCount).map((order) => {
+            {(binding ? filteredOrders : filteredOrders.slice(0, visibleCount)).map((order) => {
               const isExpanded = expandedOrder === order.id;
               const isSelected = selection?.order.id === order.id;
 
@@ -293,14 +350,23 @@ export default function Page() {
               </Typography>
             </Flex>
           )}
-          {visibleCount < filteredOrders.length && (
+          {(binding ? binding.hasMore : visibleCount < filteredOrders.length) && (
             <Flex justifyContent="center">
               <Button
                 variant="plain"
                 size="md"
-                onClick={() => setVisibleCount(filteredOrders.length)}
+                disabled={binding?.pending || request.pending}
+                onClick={() =>
+                  binding
+                    ? void request.run(binding.onLoadMore)
+                    : setVisibleCount(filteredOrders.length)
+                }
               >
-                더보기 ({filteredOrders.length - visibleCount})
+                더보기 (
+                {binding
+                  ? Math.max(0, binding.totalCount - binding.items.length)
+                  : filteredOrders.length - visibleCount}
+                )
               </Button>
             </Flex>
           )}

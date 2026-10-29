@@ -1,8 +1,18 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * SupportContentContext.faq에 서버 검색 결과/전체 건수/hasMore와 onQueryChange/onLoadMore/onRetry를 연결합니다.
+ * 같은 질문 제목이 여러 개 있어도 id로 구분합니다. 검색 조건이 바뀐 뒤 도착한 이전 응답은 조회 어댑터에서 버립니다.
+ */
+
+import { useContext } from 'react';
 import { type ReactNode, useMemo, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { SupportContentContext } from '@/context/SupportContentContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, HStack } from 'styled-system/jsx';
@@ -11,6 +21,7 @@ import { Accordion } from '@/components/common/atoms/Accordion';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { SearchField } from '@/components/common/molecules/SearchField';
 
 import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.data';
@@ -121,7 +132,7 @@ function FaqEmptyState() {
   );
 }
 
-type FaqListEntry = { question: string; answer: ReactNode };
+type FaqListEntry = { id?: string; question: string; answer: ReactNode };
 
 type FaqListProps = {
   entries: readonly FaqListEntry[];
@@ -164,7 +175,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
             if (question !== null) onToggle(question);
           }}
           items={entries.map((item) => ({
-            value: item.question,
+            value: item.id ?? item.question,
             title: <FaqQuestion question={item.question} />,
             content: <FaqAnswer answer={item.answer} />,
           }))}
@@ -178,6 +189,9 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
 
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
 function RouteContent() {
+  // 개발팀 적용: faq에 검색된 항목·전체 건수·hasMore와 조회 함수를 연결합니다.
+  const { faq: binding } = useContext(SupportContentContext);
+  const request = useRequestAction();
   const platform = usePlatform();
   const [category, setCategory] = useState<FaqCategory>('전체');
   const [query, setQuery] = useState('');
@@ -194,6 +208,10 @@ function RouteContent() {
       ),
     [category, query],
   );
+
+  useBindingQuery(binding?.onQueryChange, { category, query });
+  const displayed = binding ? [...binding.items] : entries.slice(0, shown);
+  const total = binding?.totalCount ?? entries.length;
 
   const changeCategory = (next: FaqCategory) => {
     setCategory(next);
@@ -212,16 +230,27 @@ function RouteContent() {
         { label: 'FAQs' },
       ]}
       footerAction={
-        shown < entries.length && {
+        (binding ? binding.hasMore : shown < entries.length) && {
           kind: 'loadMore',
           label: '더보기',
-          onClick: () => setShown((count) => count + 10),
-          counter: { current: Math.ceil(shown / 10), total: Math.ceil(entries.length / 10) },
+          onClick: () => {
+            if (binding) {
+              void request.run(binding.onLoadMore);
+            } else setShown((count) => count + 10);
+          },
+          counter: binding
+            ? (binding.pageInfo ?? { current: displayed.length, total })
+            : { current: Math.ceil(shown / 10), total: Math.ceil(total / 10) },
           width: 'narrow',
           containerProps: css.raw({ _mobile: { pt: '6' } }),
         }
       }
     >
+      <BindingFeedback
+        {...binding}
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error}
+      />
       <FaqControls
         category={category}
         query={query}
@@ -232,11 +261,13 @@ function RouteContent() {
           setShown(10);
         }}
       />
-      <FaqList
-        entries={entries.slice(0, shown)}
-        openQuestion={open}
-        onToggle={(question) => setOpen(open === question ? null : question)}
-      />
+      {displayed.length > 0 || !(binding?.pending || binding?.error) ? (
+        <FaqList
+          entries={displayed}
+          openQuestion={open}
+          onToggle={(question) => setOpen(open === question ? null : question)}
+        />
+      ) : null}
     </CustomerCenterLayout>
   );
 }

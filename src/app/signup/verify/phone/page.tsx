@@ -1,8 +1,16 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * PhoneVerificationContext.verify는 proof/information/accountStatus를 반환합니다. AccountServicesContext를 연결한 가입 흐름에서는 이 결과가 필수입니다.
+ * accountStatus가 new면 약관, existing이면 기존회원 안내로 분기합니다. 정보와 proof는 AccountFlowProvider를 통해 다음 단계에 전달합니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
+import { useContext } from 'react';
 import { useState } from 'react';
+import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
 import { useRoutePreview } from '@/context/RoutePreview';
 import { usePhoneVerification } from '@/hooks/usePhoneVerification';
 
@@ -52,7 +60,19 @@ function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegisteredMo
 function RouteContent() {
   const router = useRouter();
   const [alreadyRegisteredOpen, setAlreadyRegisteredOpen] = useState(false);
-  const verification = usePhoneVerification(() => setAlreadyRegisteredOpen(true));
+  const services = useContext(AccountServicesContext);
+  const flow = useAccountFlow();
+  const verification = usePhoneVerification((identity) => {
+    // 개발팀 적용: 서비스 검증 결과의 proof·가입 여부를 반환해야 신규 가입과 기존 회원을 구분합니다.
+    if (!services) {
+      setAlreadyRegisteredOpen(true);
+      return;
+    }
+    if (!identity || !flow) throw new Error('본인인증 결과가 없습니다. 다시 인증해 주세요.');
+    flow.setIdentity(identity);
+    if (identity.accountStatus === 'existing') setAlreadyRegisteredOpen(true);
+    else router.push('/signup/terms');
+  });
 
   return (
     <>

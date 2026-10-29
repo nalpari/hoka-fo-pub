@@ -1,7 +1,14 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * HomeContentContext에 bestSellers와 탭 변경 조회를 연결하고 hero/categories/explore/shoeFinder에는 기존 카드 조합을 넣습니다.
+ * 시안의 12개 반복 생성은 서비스 모드에 적용하지 않습니다. 운영 응답 수/빈 결과/조회 상태를 그대로 전달합니다.
+ */
+
 import Image from 'next/image';
 
+import { useContext } from 'react';
 import {
   type FocusEvent,
   type PointerEvent,
@@ -11,8 +18,10 @@ import {
   useRef,
   useState,
 } from 'react';
+import { HomeContentContext } from '@/context/HomeContentContext';
 import { type Platform, usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
@@ -22,6 +31,7 @@ import { ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
@@ -120,10 +130,19 @@ const getBestSellerProducts = (tab: BestSellerTab) => {
 };
 
 function HomeBestSellerSection() {
+  const binding = useContext(HomeContentContext);
   const platform = usePlatform();
   const isWeb = platform === 'web';
   const [selectedTab, setSelectedTab] = useState<BestSellerTab>('전체');
-  const bestSellerProducts = createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
+  const categoryChanged = binding?.onCategoryChange;
+  const notifyCategory = useCallback(
+    (query: { category: string }) => categoryChanged?.(query.category),
+    [categoryChanged],
+  );
+  useBindingQuery(categoryChanged ? notifyCategory : undefined, { category: selectedTab });
+  const bestSellerProducts = binding
+    ? binding.bestSellers
+    : createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
 
   return (
     <HomeCarouselSection
@@ -741,14 +760,16 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
 
 /** 홈의 주요 프로모션과 상품 영역을 구성합니다. (Composes the home promotions and product sections.) */
 function RouteContent() {
+  const binding = useContext(HomeContentContext);
   const platform = usePlatform();
   return (
     <HomeLayout platform={platform}>
-      <HomeHeroSection platform={platform} />
-      <HomeCategorySection platform={platform} />
+      <BindingFeedback {...binding} />
+      {binding ? binding.hero : <HomeHeroSection platform={platform} />}
+      {binding ? binding.categories : <HomeCategorySection platform={platform} />}
       <HomeBestSellerSection />
-      <HomeExploreSection />
-      <HomeShoeFinderSection platform={platform} />
+      {binding ? binding.explore : <HomeExploreSection />}
+      {binding ? binding.shoeFinder : <HomeShoeFinderSection platform={platform} />}
     </HomeLayout>
   );
 }

@@ -1,6 +1,16 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.profile.item에 현재 회원정보를 전달하고 save/changePassword/withdraw/requestPhone/verifyPhone을 연결합니다.
+ * 읽기 화면은 최신 item을 사용하고 편집 시작 시 초안을 만듭니다. 편집 중 재조회로 입력을 덮지 않으며 취소/다시 편집하면 최신 원본을 읽습니다.
+ * 전화번호 변경 인증의 proof는 save로 전달합니다. 모든 변경은 서버 성공 후에만 완료 처리하고 오류는 확인 모달 안에 표시합니다.
+ */
+
+import { useContext } from 'react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
+import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
@@ -12,6 +22,7 @@ import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
@@ -39,7 +50,7 @@ type Props = {
   error?: string;
   verified: boolean;
   onPhoneChange: (value: string) => void;
-  onVerifiedChange: (verified: boolean) => void;
+  onVerifiedChange: (verified: boolean, proof?: string) => void;
 };
 
 const demoCode = '900668';
@@ -52,6 +63,10 @@ function ProfilePhoneVerification({
   onPhoneChange,
   onVerifiedChange,
 }: Props) {
+  const binding = useContext(MyPageDataContext).profile;
+  const request = useRequestAction();
+  const [requestId, setRequestId] = useState('');
+  const phoneVersion = useRef(0);
   const [phoneError, setPhoneError] = useState('');
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
@@ -89,7 +104,15 @@ function ProfilePhoneVerification({
     setCodeError('');
     setNotice(null);
     onVerifiedChange(false);
-    start();
+    if (binding) {
+      const version = phoneVersion.current;
+      void request.run(async () => {
+        const response = await binding.requestPhone(phone);
+        if (version !== phoneVersion.current) return;
+        setRequestId(response.requestId);
+        start(response.expiresInSeconds);
+      });
+    } else start();
   }
 
   function confirmCode() {
@@ -100,6 +123,17 @@ function ProfilePhoneVerification({
     }
     if (!/^\d{6}$/.test(code)) {
       setCodeError('인증번호 6자리를 입력해 주세요.');
+      return;
+    }
+    if (binding) {
+      const version = phoneVersion.current;
+      void request.run(async () => {
+        const proof = await binding.verifyPhone({ requestId, phone, code });
+        if (version !== phoneVersion.current) return;
+        reset();
+        setCode('');
+        onVerifiedChange(true, proof);
+      });
       return;
     }
     if (code !== demoCode) {
@@ -114,6 +148,7 @@ function ProfilePhoneVerification({
 
   return (
     <Stack gap="6">
+      <BindingFeedback pending={request.pending} error={request.error} />
       <TextFormField
         id="profile-phone"
         label="휴대폰 번호"
@@ -128,6 +163,8 @@ function ProfilePhoneVerification({
           autoComplete: 'tel-national',
           value: phone,
           onChange: (event) => {
+            phoneVersion.current += 1;
+            setRequestId('');
             onPhoneChange(getPhoneDigits(event.target.value));
             onVerifiedChange(false);
             setPhoneError('');
@@ -142,7 +179,7 @@ function ProfilePhoneVerification({
         type="button"
         fullWidth
         variant="primary"
-        disabled={verified || (requested && !expired)}
+        disabled={request.pending || verified || (requested && !expired)}
         onClick={requestCode}
       >
         {requested ? '인증번호 재요청' : '인증번호 요청'}
@@ -171,13 +208,15 @@ function ProfilePhoneVerification({
           />
           <VerificationCountdown secondsLeft={secondsLeft} />
           <StatusMessage>
-            데모 인증번호는 {demoCode}입니다. 실제 문자는 발송되지 않습니다.
+            {binding
+              ? '전송된 인증번호를 입력해 주세요.'
+              : `데모 인증번호는 ${demoCode}입니다. 실제 문자는 발송되지 않습니다.`}
           </StatusMessage>
           <Button
             type="button"
             fullWidth
             variant="primary"
-            disabled={expired}
+            disabled={request.pending || expired}
             onClick={confirmCode}
           >
             인증번호 확인
@@ -420,6 +459,8 @@ const titles = {
 
 /** 비밀번호 입력·검증과 변경 확인·완료의 데모 흐름을 관리합니다. (Manages the demo flow for password validation, confirmation, and completion.) */
 function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogProps) {
+  const binding = useContext(MyPageDataContext).profile;
+  const request = useRequestAction();
   const [step, setStep] = useState<'input' | 'confirm' | 'complete'>('input');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -452,11 +493,13 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
 
   function confirm() {
     if (step === 'confirm') {
-      // This screen models the flow locally; no account API is connected yet.
-      setPassword('');
-      setConfirmation('');
-      onComplete();
-      setStep('complete');
+      void request.run(async () => {
+        if (binding) await binding.changePassword(password);
+        setPassword('');
+        setConfirmation('');
+        onComplete();
+        setStep('complete');
+      });
     } else {
       onClose();
     }
@@ -466,7 +509,7 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
     <ModalDialog
       open
       onOpenChange={(open) => {
-        if (!open) onClose();
+        if (!open && !request.pending) onClose();
       }}
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
@@ -479,9 +522,11 @@ function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogPro
           type: step === 'input' ? 'submit' : 'button',
           form: step === 'input' ? 'profile-password-form' : undefined,
           size: 'tall',
+          disabled: request.pending,
         },
       }}
     >
+      <BindingFeedback pending={request.pending} error={request.error} />
       {step === 'input' ? (
         <form id="profile-password-form" noValidate onSubmit={submit}>
           <Stack gap="4">
@@ -539,25 +584,36 @@ const notices = {
 };
 
 type ProfileEditDialogsProps = {
+  pending?: boolean;
+  error?: string;
   notice: ProfileEditNotice;
   onDismiss: () => void;
   onConfirm: () => void;
 };
 
 /** 회원정보 편집의 확인·완료·본인인증 안내를 공통 모달로 표시합니다. (Displays profile editing confirmations and notices using shared dialogs.) */
-function ProfileEditDialogs({ notice, onDismiss, onConfirm }: ProfileEditDialogsProps) {
+function ProfileEditDialogs({
+  notice,
+  onDismiss,
+  onConfirm,
+  pending,
+  error,
+}: ProfileEditDialogsProps) {
   const { title, message } = notices[notice];
   const props = {
     open: true,
     title,
     closeLabel: `${title} 닫기`,
     onOpenChange: (open: boolean) => {
-      if (!open) onDismiss();
+      if (!open && !pending) onDismiss();
     },
     children: (
-      <Typography as="p" variant="body3">
-        {message}
-      </Typography>
+      <>
+        <BindingFeedback pending={pending} error={error} />
+        <Typography as="p" variant="body3">
+          {message}
+        </Typography>
+      </>
     ),
   };
 
@@ -567,7 +623,7 @@ function ProfileEditDialogs({ notice, onDismiss, onConfirm }: ProfileEditDialogs
       size="sm"
       actions={
         notice === 'cancel' || notice === 'save'
-          ? { kind: 'confirm', onConfirm }
+          ? { kind: 'confirm', onConfirm, confirmDisabled: pending }
           : { kind: 'single', onConfirm }
       }
     />
@@ -599,12 +655,20 @@ function MyPageWithdrawalCompleteDialog({
 }
 
 type MyPageWithdrawalDialogProps = {
+  pending?: boolean;
+  error?: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
 
-function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: MyPageWithdrawalDialogProps) {
+function MyPageWithdrawalDialog({
+  open,
+  onOpenChange,
+  onConfirm,
+  pending,
+  error,
+}: MyPageWithdrawalDialogProps) {
   return (
     <ModalDialog
       closeLabel="회원탈퇴 확인창 닫기"
@@ -612,8 +676,14 @@ function MyPageWithdrawalDialog({ open, onOpenChange, onConfirm }: MyPageWithdra
       open={open}
       size="sm"
       title="회원탈퇴"
-      actions={{ kind: 'confirm', onConfirm: onConfirm, fullWidth: false }}
+      actions={{
+        kind: 'confirm',
+        onConfirm: onConfirm,
+        fullWidth: false,
+        confirmDisabled: pending,
+      }}
     >
+      <BindingFeedback pending={pending} error={error} />
       <ContentHeader
         gap="4"
         titleAs="h2"
@@ -642,24 +712,35 @@ const initialAddress: ProfileAddress = {
 };
 
 /** 회원정보 조회·편집과 비밀번호 설정 흐름을 연결합니다. (Coordinates profile viewing, editing, and password settings.) */
-export default function Page() {
+function ProfileContent() {
+  // 개발팀 적용: profile.item은 편집 가능한 원본 데이터이며 현재 조회값은 Provider에서 직접 읽습니다.
+  const binding = useContext(MyPageDataContext).profile;
+  const current = binding?.item;
+  const request = useRequestAction();
+  const [phoneProof, setPhoneProof] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
-  const [email, setEmail] = useState('dww******@gmail.com');
-  const [emailLocal, setEmailLocal] = useState('dww******');
-  const [emailDomain, setEmailDomain] = useState('gmail.com');
+  const [email, setEmail] = useState(current?.email ?? 'dww******@gmail.com');
+  const [emailLocal, setEmailLocal] = useState(current?.email.split('@')[0] ?? 'dww******');
+  const [emailDomain, setEmailDomain] = useState(current?.email.split('@')[1] ?? 'gmail.com');
   const [domainChoice, setDomainChoice] = useState('gmail.com');
-  const [address, setAddress] = useState(initialAddress);
-  const [savedAddress, setSavedAddress] = useState(initialAddress);
+  const [address, setAddress] = useState(current?.address ?? initialAddress);
+  const [savedAddress, setSavedAddress] = useState(current?.address ?? initialAddress);
   const [addressOpen, setAddressOpen] = useState(false);
-  const [phone, setPhone] = useState('010-****-0522');
+  const [phone, setPhone] = useState(current?.phone ?? '010-****-0522');
   const [savedPhone, setSavedPhone] = useState(phone);
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
-  const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
-  const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
-  const [kakaoPreference, setKakaoPreference] = useState<Preference>('수신안함');
+  const [emailPreference, setEmailPreference] = useState<Preference>(
+    current?.emailPreference ?? '수신안함',
+  );
+  const [smsPreference, setSmsPreference] = useState<Preference>(
+    current?.smsPreference ?? '수신안함',
+  );
+  const [kakaoPreference, setKakaoPreference] = useState<Preference>(
+    current?.kakaoPreference ?? '수신안함',
+  );
   const [savedPreferences, setSavedPreferences] = useState({
     emailPreference,
     smsPreference,
@@ -679,12 +760,12 @@ export default function Page() {
       addressDetail: address.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
       phone: !phone.trim()
         ? '휴대폰 번호를 입력해 주세요.'
-        : phone !== savedPhone && !phoneVerified
+        : phone !== (current?.phone ?? savedPhone) && !phoneVerified
           ? '휴대폰 인증 후 변경사항을 저장해주세요.'
           : '',
     };
     setFieldErrors(errors);
-    if (phone !== savedPhone && !phoneVerified) {
+    if (phone !== (current?.phone ?? savedPhone) && !phoneVerified) {
       setNotice('unverified');
       return;
     }
@@ -693,6 +774,21 @@ export default function Page() {
   }
 
   function saveProfile() {
+    if (binding) {
+      void request.run(async () => {
+        await binding.save({
+          email: `${emailLocal.trim()}@${emailDomain.trim()}`,
+          phone,
+          address,
+          emailPreference,
+          smsPreference,
+          kakaoPreference,
+          phoneProof,
+        });
+        setNotice('complete');
+      });
+      return;
+    }
     setEmail(`${emailLocal.trim()}@${emailDomain.trim()}`);
     setSavedAddress(address);
     setSavedPhone(phone);
@@ -701,15 +797,16 @@ export default function Page() {
   }
 
   function cancelProfile() {
-    const [local, domain] = email.split('@');
+    const [local, domain] = (current?.email ?? email).split('@');
     setEmailLocal(local);
     setEmailDomain(domain);
     setDomainChoice(['naver.com', 'gmail.com', 'daum.net'].includes(domain) ? domain : 'direct');
-    setAddress(savedAddress);
-    setPhone(savedPhone);
-    setEmailPreference(savedPreferences.emailPreference);
-    setSmsPreference(savedPreferences.smsPreference);
-    setKakaoPreference(savedPreferences.kakaoPreference);
+    setAddress(current?.address ?? savedAddress);
+    setPhone(current?.phone ?? savedPhone);
+    setPhoneProof(null);
+    setEmailPreference(current?.emailPreference ?? savedPreferences.emailPreference);
+    setSmsPreference(current?.smsPreference ?? savedPreferences.smsPreference);
+    setKakaoPreference(current?.kakaoPreference ?? savedPreferences.kakaoPreference);
     setAddressOpen(false);
     setFieldErrors({});
     setPhoneVerified(false);
@@ -727,6 +824,11 @@ export default function Page() {
       activePath="/mypage/profile"
       breadcrumbs={[{ label: editing ? '회원정보 수정' : '회원정보' }]}
     >
+      <BindingFeedback
+        {...binding}
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error}
+      />
       <ContentSection
         gap="6"
         px="4"
@@ -736,18 +838,33 @@ export default function Page() {
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
         footer={
           !editing ? (
-            <Button fullWidth size="tall" variant="primary" onClick={() => setEditing(true)}>
+            <Button
+              fullWidth
+              size="tall"
+              variant="primary"
+              onClick={() => {
+                cancelProfile();
+                setEditing(true);
+              }}
+            >
               회원정보 수정
             </Button>
           ) : null
         }
       >
-        {profileDetails.slice(0, 3).map(([label, value]) => (
+        {(current
+          ? [
+              ['회원 아이디', current.id],
+              ['이름', current.name],
+              ['생년월일', current.birthDate],
+            ]
+          : profileDetails.slice(0, 3)
+        ).map(([label, value]) => (
           <ProfileField key={label} label={label} value={value} />
         ))}
         <ProfileField
           label="주소"
-          value={`${savedAddress.address} ${savedAddress.addressDetail}`}
+          value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
         />
         {editing ? (
           <ProfileEditForm
@@ -783,10 +900,12 @@ export default function Page() {
             onAddressOpenChange={setAddressOpen}
             onPhoneChange={(value) => {
               setPhone(value);
+              setPhoneProof(null);
               setPhoneVerified(false);
               setFieldErrors((previous) => ({ ...previous, phone: undefined }));
             }}
-            onPhoneVerifiedChange={(verified) => {
+            onPhoneVerifiedChange={(verified, proof) => {
+              setPhoneProof(verified ? (proof ?? null) : null);
               setPhoneVerified(verified);
               setFieldErrors((previous) => ({ ...previous, phone: undefined }));
             }}
@@ -800,17 +919,19 @@ export default function Page() {
           />
         ) : (
           <ProfileReadView
-            email={email}
-            phone={phone}
-            emailPreference={emailPreference}
-            smsPreference={smsPreference}
-            kakaoPreference={kakaoPreference}
+            email={current?.email ?? email}
+            phone={current?.phone ?? phone}
+            emailPreference={current?.emailPreference ?? emailPreference}
+            smsPreference={current?.smsPreference ?? smsPreference}
+            kakaoPreference={current?.kakaoPreference ?? kakaoPreference}
           />
         )}
       </ContentSection>
       {notice ? (
         <ProfileEditDialogs
           notice={notice}
+          pending={request.pending}
+          error={request.error}
           onDismiss={dismissNotice}
           onConfirm={
             notice === 'cancel' ? cancelProfile : notice === 'save' ? saveProfile : dismissNotice
@@ -825,13 +946,35 @@ export default function Page() {
       ) : null}
       <MyPageWithdrawalDialog
         open={withdrawOpen}
-        onOpenChange={setWithdrawOpen}
+        pending={request.pending}
+        error={request.error}
+        onOpenChange={(next) => {
+          if (!request.pending) setWithdrawOpen(next);
+        }}
         onConfirm={() => {
-          setWithdrawOpen(false);
-          setWithdrawn(true);
+          void request.run(async () => {
+            if (binding) await binding.withdraw();
+            setWithdrawOpen(false);
+            setWithdrawn(true);
+          });
         }}
       />
       <MyPageWithdrawalCompleteDialog open={withdrawn} onOpenChange={setWithdrawn} />
     </MyPageFrame>
   );
+}
+
+/** 회원정보 조회를 기다린 뒤 편집 상태를 구성합니다. (Waits for profile data before initializing the editor.) */
+export default function Page() {
+  const binding = useContext(MyPageDataContext).profile;
+  if (binding && !binding.item)
+    return (
+      <MyPageFrame activePath="/mypage/profile">
+        <BindingFeedback {...binding} />
+        {!binding.pending && !binding.error && (
+          <Typography role="status">회원정보가 없습니다.</Typography>
+        )}
+      </MyPageFrame>
+    );
+  return <ProfileContent key={binding?.item?.id ?? 'demo'} />;
 }

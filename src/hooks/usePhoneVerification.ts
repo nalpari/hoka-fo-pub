@@ -1,6 +1,7 @@
 'use client';
 
 import { type ComponentProps, type FormEvent, useContext, useRef, useState } from 'react';
+import type { VerifiedIdentity } from '@/context/AccountFlowContext';
 import { PhoneVerificationContext } from '@/context/PhoneVerificationContext';
 import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
@@ -29,7 +30,9 @@ const isValidBirthDate = (value: string) => {
 };
 
 /** 휴대폰 인증의 입력 검증과 약관 및 타이머 상태를 관리합니다. (Manages phone verification validation, agreements, and timer state.) */
-export function usePhoneVerification(onVerified: () => void) {
+export function usePhoneVerification(
+  onVerified: (identity?: VerifiedIdentity) => void | Promise<void>,
+) {
   const service = useContext(PhoneVerificationContext);
   const request = useRequestAction();
   const version = useRef(0);
@@ -133,11 +136,12 @@ export function usePhoneVerification(onVerified: () => void) {
     }
     const currentVersion = version.current;
     void request.run(async () => {
+      let identity: VerifiedIdentity | void = undefined;
       if (service) {
         if (!requestId) throw new Error('인증번호를 다시 요청해 주세요.');
-        await service.verify({ requestId, code, information });
+        identity = await service.verify({ requestId, code, information });
       }
-      if (version.current === currentVersion) onVerified();
+      if (version.current === currentVersion) await onVerified(identity || undefined);
     });
   };
 

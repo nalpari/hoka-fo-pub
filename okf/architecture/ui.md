@@ -9,6 +9,12 @@ generated:
   at: '2026-10-29T00:28:50Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/binding.ts
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - src/components/common/molecules/BindingFeedback.tsx
+  - src/components/run-club/runClub.data.ts
+  - src/components/orders/orders.types.ts
+  - src/components/find-account/IdConfirmationMessage.tsx
   - src/stories/components/common/atoms/Button/Button.stories.tsx
   - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
   - src/stories/components/common/atoms/RatingStars/RatingStars.stories.tsx
@@ -3268,3 +3274,13 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 작성: codex/gpt-6, 2026-10-29T00:28:50Z. 작업 트리 출처: frontmatter의 공통 스토리 파일 7개. 검증 결과는 아래에 기록한다.
 
 검증: 변경 전후 TypeScript 전체 검사(`npm run typecheck -- --incremental false`), 변경 스토리 7개의 ESLint·Prettier 검사, Storybook 정적 빌드를 통과했다. 전체 공통 스토리 등록 조사에서 동일 component의 중복 기본 파일은 없고, 생성 index에서 이전 파일 11개의 등록 제거와 새 스토리 63개의 고유 ID를 확인했다. ego-browser에서 이전 사례 63개와 기존 대표 사례 9개, 총 72개를 렌더링하고 play 오류 없이 통과했다. 모바일 사례는 375px, PC는 1280px에서 확인했다. 브라우저 포커스가 없는 상태에서 발생하던 별점 키보드 검증 오류는 페이지에 실제 포커스를 준 뒤 재검증했다. Next 애플리케이션 빌드는 스토리 전용 변경이므로 실행하지 않았다.
+
+## 남은 화면 바인딩과 전체 인계 주석 (2026-10-29)
+
+기존 시각 구성과 Panda 스타일을 유지하며 도메인별 입력/현재 목록/비동기 변경 계약과 공통 BindingFeedback을 적용했다. 실패 시 초안과 현재 화면을 남기고 성공 시에만 이동/초기화한다. 서버 목록의 totalCount/hasMore를 항목 수와 분리했으며 실제 상품·공지·문의·신청 ID를 사용한다.
+
+환불은 기존 시트의 상품 수량/사유/상세내용과 서버 견적·접수 논리만 반영했다. 원 결제수단으로 환불하고 환불계좌·무통장 입금 기능을 추가하지 않았다. 결제수단 등록은 승인된 범위의 버튼/안내 모달/결제사 위임이며 카드 입력 폼은 없다. 매장 지도는 변경하지 않았다.
+
+[계약](data-binding.md)과 [검증](../development/verification.md)을 참고한다.
+
+작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.

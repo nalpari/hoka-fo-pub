@@ -1,7 +1,17 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.coupons의 items/totalCount/hasMore와 category별 서버 조회·register를 연결합니다.
+ * 등록 성공 후 목록/요약 수를 갱신하고 resolve합니다. 실패 시 코드가 남습니다. employeeCoupons는 실제 임직원 자격/발급 상태에 맞는 표시 목록입니다.
+ */
+
+import { useContext } from 'react';
 import { useState } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -11,6 +21,7 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -143,11 +154,14 @@ type CouponHistorySectionProps = {
 };
 
 function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
+  const binding = useContext(MyPageDataContext).coupons;
+  const request = useRequestAction();
   const [category, setCategory] = useState<Category>('전체');
   const [visibleCount, setVisibleCount] = useState(5);
-  const visibleCoupons = coupons.filter(
-    (coupon) => category === '전체' || coupon.category === category,
-  );
+  useBindingQuery(binding?.onQueryChange, { category });
+  const visibleCoupons = binding
+    ? [...binding.items]
+    : coupons.filter((coupon) => category === '전체' || coupon.category === category);
 
   return (
     <ContentSection
@@ -161,17 +175,22 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
         descriptionProps: { variant: 'body3', tone: 'subtle' },
       }}
       footer={
-        visibleCount < visibleCoupons.length ? (
+        (binding ? binding.hasMore : visibleCount < visibleCoupons.length) ? (
           <Button
             fullWidth
             size="short"
             variant="secondary"
-            onClick={() => setVisibleCount((count) => count + 5)}
+            onClick={() => {
+              if (binding) void request.run(binding.onLoadMore);
+              else setVisibleCount((count) => count + 5);
+            }}
             loadMore={{
-              counter: {
-                current: Math.ceil(visibleCount / 5),
-                total: Math.ceil(visibleCoupons.length / 5),
-              },
+              counter: binding
+                ? (binding.pageInfo ?? { current: binding.items.length, total: binding.totalCount })
+                : {
+                    current: Math.ceil(visibleCount / 5),
+                    total: Math.ceil(visibleCoupons.length / 5),
+                  },
               labelProps: { mo: 'ctaKr2' },
               counterProps: { mo: 'body5' },
             }}
@@ -179,6 +198,11 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
         ) : null
       }
     >
+      <BindingFeedback
+        {...binding}
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error}
+      />
       <SegmentedControl
         ariaLabel="쿠폰 종류"
         onValueChange={(value) => {
@@ -198,13 +222,13 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           <HStack gap="0.5">
             <Typography variant="body4">총</Typography>
             <Typography variant="body4" weight="medium">
-              {visibleCoupons.length}
+              {binding?.totalCount ?? visibleCoupons.length}
               <Typography variant="bodyKr4">건</Typography>
             </Typography>
           </HStack>
         </HStack>
         <Stack gap="4">
-          {visibleCoupons.slice(0, visibleCount).map((coupon) => (
+          {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
             <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
           ))}
         </Stack>
@@ -266,6 +290,9 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
 const employeeCouponTypes = ['50% 쿠폰 발급', '30% 쿠폰 발급'] as const;
 
 function EmployeeCoupons() {
+  const binding = useContext(MyPageDataContext).coupons;
+  const labels = binding ? (binding.employeeCoupons ?? []) : employeeCouponTypes;
+  if (!labels.length) return null;
   return (
     <ContentSection
       as="section"
@@ -275,7 +302,7 @@ function EmployeeCoupons() {
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
     >
       <HStack gap="2">
-        {employeeCouponTypes.map((label) => (
+        {labels.map((label) => (
           <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="black.10">
             <Typography variant="body3" weight="medium">
               {label}
@@ -291,6 +318,8 @@ function EmployeeCoupons() {
 type CouponManagerProps = { coupons: CouponItem[] };
 
 function CouponManager({ coupons }: CouponManagerProps) {
+  const binding = useContext(MyPageDataContext).coupons;
+  const request = useRequestAction();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [registered, setRegistered] = useState(false);
@@ -302,22 +331,28 @@ function CouponManager({ coupons }: CouponManagerProps) {
       return;
     }
     setError('');
-    setRegistered(true);
-    setCode('');
+    void request.run(async () => {
+      if (binding) await binding.register(code.trim());
+      setRegistered(true);
+      setCode('');
+    });
   }
 
   return (
     <Stack gap="10" px="4" pt="6" pb="16">
-      <CouponRegistrationSection
-        code={code}
-        error={error}
-        onCodeChange={(value) => {
-          setCode(value);
-          setError('');
-          setRegistered(false);
-        }}
-        onRegister={registerCoupon}
-      />
+      <BindingFeedback pending={request.pending} error={request.error} />
+      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <CouponRegistrationSection
+          code={code}
+          error={error}
+          onCodeChange={(value) => {
+            setCode(value);
+            setError('');
+            setRegistered(false);
+          }}
+          onRegister={registerCoupon}
+        />
+      </fieldset>
 
       <EmployeeCoupons />
 

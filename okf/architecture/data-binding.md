@@ -8,6 +8,18 @@ generated:
   by: codex/gpt-6
   at: '2026-10-29T00:06:17Z'
 working_tree_sources:
+  - tests/order-policy.test.mjs
+  - tests/inquiry-binding.test.mjs
+  - src/components/orders/order-policy.ts
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - src/components/common/molecules/BindingFeedback.tsx
+  - src/hooks/useBindingQuery.ts
+  - src/types/binding.ts
+  - src/context/HomeContentContext.ts
+  - src/context/RunClubDataContext.ts
+  - src/context/SupportContentContext.ts
+  - src/context/InquiryDataContext.ts
+  - src/context/AccountFlowContext.tsx
   - AGENTS.md
   - .codex/skills/component-reusability/SKILL.md
   - .codex/skills/component-reusability/references/data-binding.md
@@ -46,8 +58,13 @@ working_tree_sources:
 | 상품 목록·검색 | `ProductListingPage.data`, `ProductListingContext` | 조회된 상품, 전체 건수, 다음 페이지 여부, 조회 상태, 조건 변경·추가 조회·재시도 |
 | 결제 | `CheckoutContext` | 쿠폰과 최대 혜택 선택, 할인·배송비 견적, 저장 배송지, 주문 제출 |
 | 휴대폰 인증 | `PhoneVerificationContext` | 인증 발송 결과의 요청 ID·유효시간, 인증번호 검증 |
-| 배송지·리뷰 | `MyPageDataContext` | 현재 조회 목록과 저장·삭제 함수 |
-| 주문·취소·반품 | `OrdersContext` | 현재 주문 목록, 조회 조건 변경, 신청·구매 확정·내역 삭제 함수 |
+| 회원·마이페이지 | `MyPageDataContext` | 회원정보, 배송지, 리뷰, 관심/최근/재입고, 쿠폰, 요약/등급/추천/활동, 결제수단 등록 |
+| 주문·취소·반품 | `OrdersContext` | 현재 주문 목록, 조회 조건 변경, 서버 반품 견적·신청·구매 확정·내역 삭제 |
+| 가입·계정 복구 | `AccountServicesContext`, `AccountFlowProvider` | 인증 참조, 신규/기존 분기, 약관 버전별 동의, 가입/중복 확인, 계정 조회/비밀번호 변경/잠금해제 |
+| 고객센터 콘텐츠 | `SupportContentContext` | 서버 FAQ 검색/페이지, 안정적인 공지 ID/본문, BO 약관 버전/본문 |
+| 1:1 문의 | `InquiryDataContext` | 문의/주문 목록, 분류/고객 정보, 실제 ID 선택 복원, 파일 포함 등록 |
+| 런클럽 | `RunClubDataContext` | 세션/신청내역 목록, 상세 사실 정보/안내, 신청 요청 |
+| 홈 | `HomeContentContext` | 탭별 베스트 상품과 기존 콘텐츠 조합 슬롯 |
 
 이 Provider는 개발팀의 Client Component에서 실제 query 상태와 서비스 함수에 연결한다. Server Component에서 일반 함수를 props로 넘기지 않는다. 서버에서 받은 직렬화 가능한 초기 데이터는 Client Component로 전달하고, 그 컴포넌트가 서비스 함수를 조합한다. Server Action을 사용한다면 해당 framework 계약을 따른다.
 
@@ -75,7 +92,7 @@ working_tree_sources:
 
 `CheckoutSubmission`은 선택 상품, 결제 수단, 쿠폰, 최대 혜택, 두 동의 여부와 배송 필드 전체를 전달한다. 외부 견적의 할인·배송비를 화면과 결제 버튼에 함께 사용한다. 실제 금액의 검증·확정은 서버 책임이다. `savedAddress: null`이면 직접 입력을 표시한다. 외부 submit 성공 이후 완료 화면으로 이동하며, 실제 장바구니 갱신은 submit 소유자가 처리한다. 데모에서만 기존 장바구니 제거 콜백을 호출한다.
 
-휴대폰 발송 성공 후 타이머를 시작하고 서버의 `requestId`를 보관한다. 인증 확인은 이 ID·코드·입력 정보를 전달하며 서버 검증 성공 이후에만 다음 단계로 진행한다. 정보가 바뀐 뒤 도착한 이전 요청 결과는 다음 단계를 진행시키지 않는다. 기존 프로필 페이지의 별도 인증 데모·회원가입 중복확인 등은 이번 연결 계약의 적용 범위에 포함하지 않는다.
+휴대폰 발송 성공 후 타이머를 시작하고 서버의 `requestId`를 보관한다. 인증 확인은 이 ID·코드·입력 정보를 전달하며 서버 검증 성공 이후에만 다음 단계로 진행한다. 정보가 바뀐 뒤 도착한 이전 요청 결과는 다음 단계를 진행시키지 않는다. 회원가입의 신규/기존회원 분기·약관 동의·아이디 중복확인·최종 가입, 계정 찾기·비밀번호 재설정·잠금해제, 프로필의 전화번호 인증·저장·비밀번호 변경·탈퇴에도 같은 성공/실패 계약을 적용한다.
 
 ## 리뷰 표시 데이터
 
@@ -86,3 +103,27 @@ working_tree_sources:
 ## 정책과 스킬
 
 [AGENTS.md](../../AGENTS.md#ui-data-and-service-binding-policy)에 화면/서비스 경계와 검증 기준을 명시한다. [component-reusability 스킬](../../.codex/skills/component-reusability/SKILL.md#ui-data-and-service-binding)은 해당 작업을 [참조 워크플로](../../.codex/skills/component-reusability/references/data-binding.md)로 안내한다. 기존 페이지 소유권·폼 가이드에서도 이 계약을 연결하며, 데이터 주입을 이유로 단일 부모 화면을 별도 파일로 분리하지 않는다.
+
+## 나머지 화면의 연결과 상세 주석 (2026-10-29)
+
+모든 계약은 화면 모델을 받는 경계다. API DTO를 그대로 전역 저장소에 복사하거나 임의 URL을 만드는 구현은 포함하지 않는다. 각 영역의 Client 어댑터가 조회 상태·함수를 Provider에 넣고 성공 후 실제 목록을 갱신한다. Provider 자체를 생략하면 데모이므로 운영에서는 빈 결과라도 `items: []`/`item: null`과 상태를 명시한다.
+
+- 가입: 인증 서비스는 `VerifiedIdentity`의 서버 proof/개인정보/accountStatus를 반환한다. 신규 회원은 약관→입력, 기존 회원은 기존가입 안내로 분기한다. `signupTerms`는 BO id/version/required/label/body/이전 버전을 받는다. 현재 약관 동의와 인증 proof를 가입 입력·마케팅 선택과 함께 register로 전달한다. 약관 ID/버전/순서 변경 시 이전 인덱스 동의를 새 약관에 적용하지 않는다.
+- 계정 복구: 발송 응답의 요청 ID·만료시간을 사용하며 verify의 마스킹 ID와 resetProof를 메모리에 보관한다. 재설정은 proof를 제출한 서버 요청 성공 뒤 완료한다. 직접 URL 진입이나 화면 검증 통과는 인증 성공이 아니다.
+- 프로필: item의 늦은 응답을 기다려 초안을 구성하고 읽기 화면은 최신 응답을 직접 표시한다. 편집 시작/취소는 최신 원본을 사용하되 활성 초안을 재조회 effect로 덮지 않는다. 전화번호 인증 proof와 변경값을 save에 함께 보낸다. 저장·탈퇴·비밀번호 변경 오류는 열린 모달 안에서도 확인할 수 있다.
+- 문의: 목록 본문/답변/첨부는 실제 응답이다. 주문 ID/주문상품 ID를 저장하고 resolveSelection으로 복원한다. 실패/중단/Strict Mode 재실행에 저장 선택을 잃지 않게 성공 적용 후 소비한다. submit은 File[]와 분류·상세분류·제목·내용·선택 ID를 받는다.
+- 목록: FAQ·공지·문의·상품내역·쿠폰·런클럽은 실제 결과와 전체 건수/hasMore를 별도로 받는다. 서버 결과를 예시 개수로 다시 자르거나 필터링하지 않는다. 더보기 카운터는 pageInfo가 있으면 실제 페이지 번호를, 없으면 읽은 항목 수/전체 건수를 표시해 페이지 크기를 추정하지 않는다. FAQ 펼침은 제목 대신 실제 ID를 사용한다.
+- 런클럽: 운영 세션과 신청내역은 별도 모델이다. 신청내역은 신청 ID/신청 상태를 표시하며 상세 정원/예약금/신청기간은 facts로 받는다. apply는 신청·결제 결과가 확정된 후 resolve한다.
+- 결제수단: 등록 버튼/안내 모달에서 외부 결제사 register를 실행한다. 등록 완료와 사용자 취소를 구분하고 마스킹된 결과만 목록에 전달한다. 원문 카드 입력 폼은 추가하지 않는다.
+
+## 반품·환불의 논리 경계
+
+사용자 제공 설계 이미지는 동작만 참고했으며 스타일을 복제하지 않았다. 반품은 상품/수량·사유·선택 상세내용을 제출한다. 신규 선택 사유는 단순변심·상품불량/파손·오배송·구성품 누락·기타이고 기존 size 코드는 과거 내역 표시 호환을 위해 남겼다. 취소는 배송 반품비가 없고, 반품의 고객 귀책 예시 비용은 5,000원, 회사 귀책·무료반품 대상/쿠폰 적용은 0원이다. 기타의 비용을 임의로 확정하지 않는다.
+
+운영 반품은 `OrdersContext.quoteClaim`을 연결해야 제출할 수 있다. 입력은 주문 ID/선택 key별 수량/사유/무료반품 쿠폰 ID이며 응답은 견적 id/상품금액/반품비/환불예정액/무료반품 적용 여부다. 현재 선택에 해당하는 견적만 사용하고 수량/사유 변경 시 이전 견적을 무효화한다. 표시 환불액은 상품금액에서 반품비를 차감하며 숫자 예시의 산술 불일치를 복제하지 않는다. submitClaim은 견적 ID와 같은 선택을 받는다. 견적 금액/가능 수량/적용 정책의 최종 재검증과 회수 뒤 원 결제수단 환불은 서버 책임이다.
+
+환불계좌 UI·타입·등록 동작과 무통장 입금 결제수단은 추가하지 않았다. 기존 refund-account 경로와 매장 지도는 이번 작업에서 수정하지 않았다.
+
+실제 테스트 예제는 `src/stories/features/binding/RemainingBinding.stories.tsx`에 있다. 실패를 resolve하지 않고 reject하며, 삭제/등록 등 성공 후 새 목록으로 갱신하는 계약을 참고한다.
+
+작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.

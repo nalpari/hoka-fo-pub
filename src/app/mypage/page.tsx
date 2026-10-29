@@ -1,8 +1,16 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.overview의 회원명/등급/구매금액/쿠폰수/관심상품수/최근 주문을 연결합니다.
+ * 같은 overview를 등급/친구추천에서도 사용합니다. 주문·쿠폰·관심상품이 바뀌면 이 요약도 재조회해야 합니다.
+ */
+
 import Link from 'next/link';
 
+import { useContext } from 'react';
 import { useState } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
 import { useShop } from '@/context/ShopShell';
@@ -15,6 +23,7 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import {
   Carousel,
   CarouselPagination,
@@ -58,6 +67,8 @@ const membershipLink = css({
 });
 
 function MyPageMembership() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   return (
     <Box bg="black.10" px="4" py="5">
       <Stack gap="1">
@@ -74,11 +85,11 @@ function MyPageMembership() {
               color="offWhite.100"
             >
               <Typography variant="heading6" language="en" weight="black">
-                R
+                {binding ? summary?.tierInitial : 'R'}
               </Typography>
             </HStack>
             <Typography web="heading8" mo="heading5" language="en">
-              RUNNER
+              {binding ? summary?.tier : 'RUNNER'}
             </Typography>
           </HStack>
           <Link className={membershipLink} href="/mypage/rewards">
@@ -86,7 +97,9 @@ function MyPageMembership() {
           </Link>
         </HStack>
         <Box w="full" pl="10" boxSizing="border-box">
-          <Typography variant="body5">다음 등급까지 300,000원 구매시 등급 업 혜택 제공</Typography>
+          <Typography variant="body5">
+            {binding ? summary?.nextTierText : '다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
+          </Typography>
         </Box>
       </Stack>
     </Box>
@@ -125,10 +138,22 @@ function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)
 }
 
 function MyPageBenefits() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   return (
     <Grid columns={2} gap="2">
-      <MyPageBenefitItem href="/mypage/coupons" label="내 쿠폰" count={3} unit="개" />
-      <MyPageBenefitItem href="/mypage/wishlist" label="관심상품" count={6} unit="건" />
+      <MyPageBenefitItem
+        href="/mypage/coupons"
+        label="내 쿠폰"
+        count={binding ? (summary?.couponCount ?? 0) : 3}
+        unit="개"
+      />
+      <MyPageBenefitItem
+        href="/mypage/wishlist"
+        label="관심상품"
+        count={binding ? (summary?.wishlistCount ?? 0) : 6}
+        unit="건"
+      />
     </Grid>
   );
 }
@@ -136,6 +161,8 @@ function MyPageBenefits() {
 const profileLink = css({ textDecoration: 'none!' });
 
 function MyPageOverviewProfile() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   return (
     <ContentSection
       gap="4"
@@ -145,7 +172,7 @@ function MyPageOverviewProfile() {
             <HStack as="span" gap="1">
               <HStack as="span" gap="0.5">
                 <Typography as="span" variant="heading4">
-                  박연진
+                  {binding ? summary?.name : '박연진'}
                 </Typography>
                 <Typography as="span" variant="heading4">
                   님
@@ -210,6 +237,8 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
 }
 
 function MyPageRecentOrders() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   const platform = usePlatform();
 
   return (
@@ -229,9 +258,9 @@ function MyPageRecentOrders() {
         ),
       }}
     >
-      <Carousel itemCount={orderItems.length}>
+      <Carousel itemCount={binding ? (summary?.orders.length ?? 0) : orderItems.length}>
         <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
-          {orderItems.map((item, index) => (
+          {(binding ? (summary?.orders ?? []) : orderItems).map((item, index) => (
             <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
           ))}
         </CarouselViewport>
@@ -282,12 +311,14 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
 
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
 function RouteContent() {
+  const binding = useContext(MyPageDataContext).overview;
   const { logout: onLogout } = useShop();
   const [logoutOpen, setLogoutOpen] = useState(false);
 
   return (
     <>
       <MyPageFrame activePath="/mypage" layout="centered">
+        <BindingFeedback {...binding} />
         <Stack pt="6" gap="10">
           <MyPageOverviewProfile />
           <MyPageRecentOrders />

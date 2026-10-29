@@ -1,8 +1,18 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * AccountServicesContext.signupTerms에 BO의 id/version/label/required/body와 previousVersions를 전달합니다.
+ * 동의 제출은 현재 약관의 id/version/accepted입니다. 이전 본문을 열람해도 제출 동의 버전을 과거 버전으로 바꾸지 않습니다.
+ * 본문은 안전한 ReactNode로 전달하고 BO 버전 변경 시 기존 동의를 그대로 승인한 것으로 처리하지 않습니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
+import { useContext } from 'react';
 import { type ReactNode, useState } from 'react';
+import { AccountServicesContext } from '@/context/AccountFlowContext';
+import { useAccountFlow } from '@/context/AccountFlowContext';
 import { useRoutePreview } from '@/context/RoutePreview';
 
 import { css } from 'styled-system/css';
@@ -40,11 +50,12 @@ type SignupTermsAgreementListProps = {
 };
 
 function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
+  const terms = useContext(AccountServicesContext)?.signupTerms ?? signupTerms;
   return (
     <Stack gap="4">
       <Checkbox
         variant="consent"
-        checked={props.agreements.every(Boolean)}
+        checked={terms.length > 0 && terms.every((_, index) => !!props.agreements[index])}
         onCheckedChange={props.onAllChange}
         label={
           <>
@@ -54,11 +65,11 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
       />
       <Divider variant="strong" w="full" />
       <Stack gap="4" pb="6" borderBottom="1px solid var(--color-black-20)">
-        {signupTerms.map((term, index) => (
+        {terms.map((term, index) => (
           <HStack key={index} gap="2" justify="space-between" alignItems="center">
             <Checkbox
               variant="consent"
-              checked={props.agreements[index]}
+              checked={!!props.agreements[index]}
               onCheckedChange={(checked) => props.onChange(index, checked)}
               required={term.required}
               invalid={Boolean(props.notice && term.required && !props.agreements[index])}
@@ -150,13 +161,22 @@ function TermsDialog({
 }
 
 type Props = {
-  selected: { label: string; required: boolean } | null;
+  selected: {
+    label: string;
+    required: boolean;
+    body?: ReactNode;
+    dates?: string;
+    previousVersions?: readonly { id: string; label: string; body: ReactNode; dates?: string }[];
+  } | null;
+  previousVersionId?: string;
   previous: boolean;
   onClose: () => void;
   onPrevious: () => void;
 };
 
-function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
+function SignupTermsDetail({ selected, previous, previousVersionId, onClose, onPrevious }: Props) {
+  const services = useContext(AccountServicesContext);
+  const archived = selected?.previousVersions?.find((version) => version.id === previousVersionId);
   return (
     <TermsDialog
       open={selected !== null}
@@ -166,9 +186,21 @@ function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
       title="HOKA Korea 이용약관"
       label={`(${selected?.required ? '필수' : '선택'}) ${selected?.label ?? ''}`}
       version={{ previous, onChange: onPrevious }}
-      dates="공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일"
+      dates={
+        services
+          ? previous
+            ? archived?.dates
+            : selected?.dates
+          : '공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일'
+      }
     >
-      {previous ? (
+      {services ? (
+        previous ? (
+          (archived?.body ?? '이전 약관이 없습니다.')
+        ) : (
+          selected?.body
+        )
+      ) : previous ? (
         <Box mb="4">
           <Typography as="p" variant="body5">
             이전 약관은 등록 준비 중입니다.
@@ -223,12 +255,16 @@ function PreviousTermsPicker({
   open,
   onClose,
   onSelect,
+  versions,
 }: {
+  versions?: readonly { id: string; label: string }[];
   open: boolean;
   onClose: () => void;
-  onSelect: () => void;
+  onSelect: (id?: string) => void;
 }) {
-  const [selectedDate, setSelectedDate] = useState<string>(previousTerms[0]);
+  const dates = versions ? versions.map((version) => version.id) : previousTerms;
+  const label = (id: string) => versions?.find((version) => version.id === id)?.label ?? id;
+  const [selectedDate, setSelectedDate] = useState<string>(dates[0] ?? '');
 
   return (
     <ModalDialog
@@ -241,7 +277,11 @@ function PreviousTermsPicker({
       size="md"
       mobilePresentation="bottomSheet"
       popupClassName={popup}
-      actions={{ kind: 'single', onConfirm: onSelect }}
+      actions={{
+        kind: 'single',
+        onConfirm: () => onSelect(selectedDate),
+        buttonProps: { disabled: dates.length === 0 },
+      }}
     >
       <Stack className={desktopOptions} gap="4">
         <Typography as="p" variant="body3">
@@ -252,13 +292,13 @@ function PreviousTermsPicker({
           name="previous-terms-date"
           value={selectedDate}
           onValueChange={setSelectedDate}
-          options={previousTerms.map((date) => ({ value: date, label: date }))}
+          options={dates.map((date) => ({ value: date, label: label(date) }))}
         />
       </Stack>
 
       <Box className={mobilePicker}>
         <Stack as="ul" gap="0" m="0" p="0" listStyleType="none" textAlign="center">
-          {previousTerms.map((date, index) => (
+          {dates.map((date, index) => (
             <Box
               as="li"
               key={date}
@@ -266,12 +306,12 @@ function PreviousTermsPicker({
               display="flex"
               alignItems="center"
               justifyContent="center"
-              opacity={index === 0 || index === previousTerms.length - 1 ? '0.5' : undefined}
+              opacity={index === 0 || index === dates.length - 1 ? '0.5' : undefined}
             >
-              {index === 3 ? (
+              {versions || index === 3 ? (
                 <styled.button
                   type="button"
-                  onClick={onSelect}
+                  onClick={() => onSelect(date)}
                   w="100%"
                   h="34px"
                   border="0"
@@ -282,7 +322,7 @@ function PreviousTermsPicker({
                   aria-label={`${date} 이전 약관 선택`}
                 >
                   <Typography as="span" variant="body2">
-                    {date}
+                    {label(date)}
                   </Typography>
                 </styled.button>
               ) : (
@@ -309,14 +349,21 @@ type SignupTermsContentProps = {
   onDetail: (index: number | null) => void;
   onPrevious: () => void;
   onPreviousPickerClose: () => void;
-  onPreviousVersionSelect: () => void;
+  previousVersionId?: string;
+  onPreviousVersionSelect: (id?: string) => void;
   onCancel: () => void;
   onNext: () => void;
 };
 
 /** 회원가입 약관 목록과 상세 다이얼로그를 화면으로 구성합니다. (Composes the signup terms list and detail dialogs into the page content.) */
 function SignupTermsContent(props: SignupTermsContentProps) {
-  const selected = props.detail === null ? null : signupTerms[props.detail];
+  const services = useContext(AccountServicesContext);
+  const terms = services?.signupTerms ?? signupTerms;
+  const selected = props.detail === null ? null : terms[props.detail];
+  const versions =
+    services && props.detail !== null
+      ? (services.signupTerms[props.detail]?.previousVersions ?? [])
+      : undefined;
 
   return (
     <AccountPageLayout
@@ -337,10 +384,13 @@ function SignupTermsContent(props: SignupTermsContentProps) {
           <SignupTermsDetail
             selected={props.previousPickerOpen ? null : (selected ?? null)}
             previous={props.previous}
+            previousVersionId={props.previousVersionId}
             onClose={() => props.onDetail(null)}
             onPrevious={props.onPrevious}
           />
           <PreviousTermsPicker
+            key={props.detail}
+            versions={versions}
             open={props.previousPickerOpen}
             onClose={props.onPreviousPickerClose}
             onSelect={props.onPreviousVersionSelect}
@@ -367,17 +417,50 @@ function SignupTermsContent(props: SignupTermsContentProps) {
 /** 약관 동의 상태와 다음 회원가입 단계로의 이동을 관리합니다. (Manages agreement state and navigation to the next signup step.) */
 function RouteContent() {
   const router = useRouter();
-  const [agreements, setAgreements] = useState([false, false, false, false]);
+  const flow = useAccountFlow();
+  const services = useContext(AccountServicesContext);
+  const terms = services?.signupTerms ?? signupTerms;
+  const termsKey = JSON.stringify(
+    services
+      ? services.signupTerms.map(({ id, version, required }) => [id, version, required])
+      : 'demo',
+  );
+  const restoredAgreements = () =>
+    terms.map((_, index) => {
+      const term = services?.signupTerms[index];
+      return (
+        !!term &&
+        !!flow?.consents.some(
+          (consent) =>
+            consent.id === term.id && consent.version === term.version && consent.accepted,
+        )
+      );
+    });
+  const [agreementDraft, setAgreementDraft] = useState(() => ({
+    key: termsKey,
+    values: restoredAgreements(),
+  }));
+  // BO의 약관 순서/버전이 바뀌면 이전 인덱스의 동의를 새 약관에 적용하지 않습니다.
+  const agreements = agreementDraft.key === termsKey ? agreementDraft.values : restoredAgreements();
+  const setAgreements = (values: boolean[]) => setAgreementDraft({ key: termsKey, values });
+  const [previousVersionId, setPreviousVersionId] = useState<string>();
   const [detail, setDetail] = useState<number | null>(null);
   const [previous, setPrevious] = useState(false);
   const [previousPickerOpen, setPreviousPickerOpen] = useState(false);
   const [notice, setNotice] = useState('');
 
   const next = () => {
-    if (signupTerms.some((term, index) => term.required && !agreements[index])) {
+    if (!terms.length || terms.some((term, index) => term.required && !agreements[index])) {
       setNotice('필수 약관에 모두 동의해 주세요.');
       return;
     }
+    flow?.setConsents(
+      terms.map((_, index) => ({
+        id: services?.signupTerms[index].id ?? String(index),
+        version: services?.signupTerms[index].version ?? 'publishing-preview',
+        accepted: agreements[index],
+      })),
+    );
     router.push('/signup/information');
   };
 
@@ -386,16 +469,19 @@ function RouteContent() {
       agreements={agreements}
       detail={detail}
       previous={previous}
+      previousVersionId={previousVersionId}
       previousPickerOpen={previousPickerOpen}
       notice={notice}
       onAllChange={(checked) => {
-        setAgreements(agreements.map(() => checked));
+        setAgreements(terms.map(() => checked));
         setNotice('');
       }}
       onChange={(index, checked) => {
-        const next = agreements.map((value, position) => (position === index ? checked : value));
+        const next = terms.map((_, position) =>
+          position === index ? checked : !!agreements[position],
+        );
         setAgreements(next);
-        if (!signupTerms.some((term, position) => term.required && !next[position])) setNotice('');
+        if (!terms.some((term, position) => term.required && !next[position])) setNotice('');
       }}
       onDetail={(index) => {
         setDetail(index);
@@ -407,7 +493,8 @@ function RouteContent() {
         else setPreviousPickerOpen(true);
       }}
       onPreviousPickerClose={() => setPreviousPickerOpen(false)}
-      onPreviousVersionSelect={() => {
+      onPreviousVersionSelect={(id) => {
+        setPreviousVersionId(id);
         setPrevious(true);
         setPreviousPickerOpen(false);
       }}

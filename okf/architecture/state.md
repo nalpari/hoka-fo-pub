@@ -9,6 +9,11 @@ generated:
   at: '2026-10-29T01:20:16Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/SupportContentContext.ts
+  - src/context/RunClubDataContext.ts
+  - src/context/InquiryDataContext.ts
+  - src/context/HomeContentContext.ts
+  - src/context/AccountFlowContext.tsx
   - src/context/CheckoutContext.ts
   - src/context/PhoneVerificationContext.ts
   - src/context/ProductListingContext.ts
@@ -475,3 +480,11 @@ AppLayout은 usePlatform()이 web인 렌더에서 열린 menuOpen을 false로 �
 검증: 실제 개발 페이지에서 1024→1025→1024px 전환, 하위 Men 메뉴에서 같은 전환, 모바일 재개방, 닫기 버튼과 Escape를 확인했다. PC 전환 후 body/html overflow가 visible이고 inert 요소가 0개임을 확인했으며 검색 입력·본문 휠 스크롤·홈 링크 클릭도 동작했다. Storybook의 고정 mobile AppLayout에서 1440px로 확대해도 메뉴 열림을 유지하고 Escape로 닫히며, 고정 web SiteHeader가 375px에서도 PC 헤더를 유지함을 확인했다. npm run typecheck와 ShopShell.tsx 대상 ESLint·Prettier 검사를 통과했다.
 
 작성: codex/gpt-6, 2026-10-29T01:20:16Z. 출처: working_tree_sources의 src/context/ShopShell.tsx. 이 절은 모바일 전체메뉴의 플랫폼 전환 동작만 보완한다.
+
+## 계정 흐름과 현재 조회 상태 확장 (2026-10-29)
+
+AccountFlowProvider는 인증 proof/신규·기존 분기/약관 버전별 동의/복구 참조를 라우트 사이 메모리에 유지한다. 비밀번호/proof는 브라우저 저장소에 저장하지 않는다. 서비스는 AccountServicesContext와 PhoneVerificationContext로 제공한다. 프로필은 최신 읽기값과 활성 편집 초안을 분리한다.
+
+MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수단·활동을 추가했다. SupportContent/Inquiry/RunClub/Home 컨텍스트는 실제 결과와 요청 상태를 직접 공급한다. 조회/재조회/DTO 변환·응답 순서는 연결 소유자 책임이고 UI는 성공 후에만 완료 처리한다. 미리보기 컨텍스트에 운영 데이터가 전달된다고 가정하지 않는다. 각 타입의 [개발팀 바인딩] 주석과 [상세 계약](data-binding.md)을 참고한다.
+
+작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.

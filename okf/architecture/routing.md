@@ -9,6 +9,24 @@ generated:
   at: '2026-10-28T23:59:46Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/terms/page.tsx
+  - src/app/support/notices/page.tsx
+  - src/app/support/notices/[id]/page.tsx
+  - src/app/support/inquiries/page.tsx
+  - src/app/support/faq/page.tsx
+  - src/app/signup/verify/phone/page.tsx
+  - src/app/signup/terms/page.tsx
+  - src/app/signup/information/page.tsx
+  - src/app/running/run-club/[sessionId]/page.tsx
+  - src/app/mypage/rewards/page.tsx
+  - src/app/mypage/referral/page.tsx
+  - src/app/mypage/profile/page.tsx
+  - src/app/mypage/payment-methods/page.tsx
+  - src/app/mypage/page.tsx
+  - src/app/mypage/member-activity/page.tsx
+  - src/app/login/find-account/password-reset/page.tsx
+  - src/app/login/find-account/id-confirmation-modal/page.tsx
+  - src/app/login/account-locked/verification/page.tsx
   - src/app/mypage/addresses/page.tsx
   - src/components/common/molecules/ProductDetailImage.tsx
   - src/components/common/organisms/SystemStatusPage.tsx
@@ -387,3 +405,11 @@ IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도
 기존 URL과 페이지 default export는 유지했다. 서비스 데이터는 일반 Context 모듈과 공용 목록 props를 통해 연결한다. 결제·로그인·배송지·주문 변경은 비동기 성공 이후에만 완료 처리하며 실패 시 현재 화면을 유지한다. 상품 상세·장바구니·결제는 외부 셸의 상품 목록을 사용한다. [연결 계약과 적용 범위](data-binding.md).
 
 작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.
+
+## 남은 화면 데이터 연결과 인계 주석 (2026-10-29)
+
+기존 라우트/디자인을 유지하며 가입·계정복구·프로필·문의·콘텐츠·쿠폰·상품내역·홈·런클럽·마이페이지 요약·결제수단 등록의 연결 지점을 보완했다. page default export의 임의 props 대신 Client Provider를 사용하며 루트의 AccountFlowProvider가 가입/복구 단계 메모리를 유지한다. support/terms 탭은 URL을 직접 읽어 뒤로/앞으로 이동도 반영한다. 공지 상세는 실제 ID로 조회하고 없는 ID를 첫 공지로 대체하지 않는다.
+
+매장 지도/환불계좌 경로는 수정하지 않았고 새 API 경로도 만들지 않았다. 구체 계약은 [화면 바인딩](data-binding.md#나머지-화면의-연결과-상세-주석-2026-10-29)을 따른다.
+
+작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.

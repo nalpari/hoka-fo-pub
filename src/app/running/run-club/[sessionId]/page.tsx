@@ -1,11 +1,20 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * RunClubDataContext.detail에 경로 ID의 session/facts/guide/recommendedProducts와 apply를 연결합니다.
+ * 정원/예약금/신청기간은 facts로 받습니다. apply의 서버 신청 및 결제 완료 후 resolve해야 접수 안내를 표시합니다.
+ */
+
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 import { type ReactNode, useContext, useEffect, useState } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
+import { RunClubDataContext } from '@/context/RunClubDataContext';
 import { RunClubSessionContext } from '@/context/RunClubSessionContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack } from 'styled-system/jsx';
@@ -14,6 +23,7 @@ import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
@@ -49,14 +59,15 @@ const applyButton = css({
 type RunClubApplyButtonProps = {
   status: RunClubSession['status'];
   onApply: () => void;
+  pending?: boolean;
 };
 
-function RunClubApplyButton({ status, onApply }: RunClubApplyButtonProps) {
+function RunClubApplyButton({ status, onApply, pending }: RunClubApplyButtonProps) {
   return (
     <Button
       variant="primary"
       className={applyButton}
-      disabled={status !== 'open'}
+      disabled={pending || status !== 'open'}
       onClick={onApply}
     >
       {status === 'closed'
@@ -186,10 +197,11 @@ type RunClubSessionHeroProps = {
   session: RunClubSession;
   rows: RunClubFact[];
   onApply: () => void;
+  pending?: boolean;
 };
 
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
-function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHeroProps) {
+function RunClubSessionHero({ session, rows, onApply, pending }: RunClubSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
 
   return (
@@ -237,7 +249,7 @@ function RunClubSessionHero({ session, rows, onApply }: RunClubSessionHeroProps)
         <RunClubFacts variant="hero" rows={rows} />
         <RunClubSessionNotes />
         <Box _mobile={{ display: 'none' }}>
-          <RunClubApplyButton status={session.status} onApply={onApply} />
+          <RunClubApplyButton status={session.status} onApply={onApply} pending={pending} />
         </Box>
       </Box>
     </Grid>
@@ -397,9 +409,17 @@ const RunClubApplicationNoticeStyles = {
   modalText: css({ m: '0 0 24px' }),
 };
 
-type RunClubApplicationNoticeProps = { open: boolean; onOpenChange: (open: boolean) => void };
+type RunClubApplicationNoticeProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  registered?: boolean;
+};
 
-function RunClubApplicationNotice({ open, onOpenChange }: RunClubApplicationNoticeProps) {
+function RunClubApplicationNotice({
+  open,
+  onOpenChange,
+  registered,
+}: RunClubApplicationNoticeProps) {
   return (
     <ModalDialog
       open={open}
@@ -410,7 +430,7 @@ function RunClubApplicationNotice({ open, onOpenChange }: RunClubApplicationNoti
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Typography as="p" variant="body3" className={RunClubApplicationNoticeStyles.modalText}>
-        신청 기능 준비 중입니다.
+        {registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}
       </Typography>
     </ModalDialog>
   );
@@ -445,9 +465,10 @@ function RunClubDetailLayout({
 type RunClubFixedActionBarProps = {
   status: RunClubSession['status'];
   onApply: () => void;
+  pending?: boolean;
 };
 
-function RunClubFixedActionBar({ status, onApply }: RunClubFixedActionBarProps) {
+function RunClubFixedActionBar({ status, onApply, pending }: RunClubFixedActionBarProps) {
   return (
     <Box
       as="section"
@@ -466,7 +487,7 @@ function RunClubFixedActionBar({ status, onApply }: RunClubFixedActionBarProps) 
         pb: 'max(32px, env(safe-area-inset-bottom))',
       }}
     >
-      <RunClubApplyButton status={status} onApply={onApply} />
+      <RunClubApplyButton status={status} onApply={onApply} pending={pending} />
     </Box>
   );
 }
@@ -474,65 +495,85 @@ function RunClubFixedActionBar({ status, onApply }: RunClubFixedActionBarProps) 
 /** 해당 경로의 화면과 상호작용을 구성합니다. (Composes the route screen and its interactions.) */
 export default function Page() {
   const suppliedSession = useContext(RunClubSessionContext);
+  const binding = useContext(RunClubDataContext).detail;
+  const request = useRequestAction();
   const { sessionId } = useParams<{ sessionId: string }>();
+  useBindingQuery(binding?.onQueryChange, { id: sessionId });
   const platform = usePlatform();
   const [showApplicationNotice, setShowApplicationNotice] = useState(false);
-  const session =
-    suppliedSession ?? runClubSessions.find((candidate) => candidate.id === sessionId);
+  const session = binding
+    ? binding.session
+    : (suppliedSession ?? runClubSessions.find((candidate) => candidate.id === sessionId));
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [sessionId]);
 
-  if (!session) return <SystemStatusPage status="not-found" />;
+  if (!session)
+    return binding?.pending || binding?.error ? (
+      <BindingFeedback {...binding} />
+    ) : (
+      <SystemStatusPage status="not-found" />
+    );
+  const apply = () => {
+    void request.run(async () => {
+      if (binding) await binding.apply(session.id);
+      setShowApplicationNotice(true);
+    });
+  };
 
-  const recommendedProducts = products.slice(0, 6);
-  const heroRows: RunClubFact[] = [
-    { label: '일시', value: session.schedule },
-    { label: '장소', value: runClubVenue, detail: runClubAddress },
-    { label: '정원', value: '20명' },
-    {
-      label: '예약금',
-      value: '5,000원',
-      detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',
-    },
-    { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },
-  ];
-  const guideRows: RunClubGuideRow[] = [
-    { label: '장소', value: `${runClubVenue} · ${runClubAddress}` },
-    { label: '체크인', value: '세션 시작 20분 전부터' },
-    { label: '소요시간', value: '약 1시간 30분 소요' },
-    { label: '코스', value: session.location },
-    { label: '페이스', value: '6′30″ / 7′00″ (중급 레벨)' },
-    { label: '거리', value: session.distance },
-    { label: '준비물', value: '러닝화, 편안한 복장, 헤드 랜턴' },
-    { label: '혜택', value: '세션에서 제공되는 선물 & 트라이얼 서비스' },
-  ];
+  const recommendedProducts = binding
+    ? [...(binding.recommendedProducts ?? [])]
+    : products.slice(0, 6);
+  const heroRows: readonly RunClubFact[] = binding
+    ? binding.facts
+    : [
+        { label: '일시', value: session.schedule },
+        { label: '장소', value: runClubVenue, detail: runClubAddress },
+        { label: '정원', value: '20명' },
+        {
+          label: '예약금',
+          value: '5,000원',
+          detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',
+        },
+        { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },
+      ];
+  const guideRows: readonly RunClubGuideRow[] = binding
+    ? binding.guide
+    : [
+        { label: '장소', value: `${runClubVenue} · ${runClubAddress}` },
+        { label: '체크인', value: '세션 시작 20분 전부터' },
+        { label: '소요시간', value: '약 1시간 30분 소요' },
+        { label: '코스', value: session.location },
+        { label: '페이스', value: '6′30″ / 7′00″ (중급 레벨)' },
+        { label: '거리', value: session.distance },
+        { label: '준비물', value: '러닝화, 편안한 복장, 헤드 랜턴' },
+        { label: '혜택', value: '세션에서 제공되는 선물 & 트라이얼 서비스' },
+      ];
 
   return (
     <RunClubDetailLayout
       hero={
-        <RunClubSessionHero
-          session={session}
-          rows={heroRows}
-          onApply={() => setShowApplicationNotice(true)}
-        />
+        <>
+          <BindingFeedback
+            pending={binding?.pending || request.pending}
+            error={binding?.error || request.error}
+            onRetry={binding?.onRetry}
+          />
+          <RunClubSessionHero session={session} rows={[...heroRows]} onApply={apply} />
+        </>
       }
-      guide={<RunClubSessionGuide session={session} rows={guideRows} />}
+      guide={<RunClubSessionGuide session={session} rows={[...guideRows]} />}
       desktopContent={
         <>
           {session.id === 'bukchon-night' ? <RunClubSessionImage /> : null}
           <RunClubRecommendations products={recommendedProducts} platform={platform} />
         </>
       }
-      mobileAction={
-        <RunClubFixedActionBar
-          status={session.status}
-          onApply={() => setShowApplicationNotice(true)}
-        />
-      }
+      mobileAction={<RunClubFixedActionBar status={session.status} onApply={apply} />}
       applicationNotice={
         <RunClubApplicationNotice
+          registered={!!binding}
           open={showApplicationNotice}
           onOpenChange={setShowApplicationNotice}
         />

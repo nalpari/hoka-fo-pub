@@ -1,7 +1,15 @@
+/**
+ * [개발팀 바인딩]
+ * 운영 연결은 이 레이아웃 아래의 Client 어댑터에서 도메인 Provider를 조합합니다. 실제 API 함수는 Server Component의 일반 props로 넘기지 않습니다.
+ * AccountFlowProvider를 가입/찾기/잠금해제 경로 전환 중 유지합니다. 인증 proof/동의 상태가 화면마다 새로 초기화되면 다음 단계에서 제출할 수 없습니다.
+ * ShopShell.state와 각 Context의 타입/주석을 기준으로 DTO를 변환합니다. Provider가 없는 현재 기본 경로는 퍼블리싱 데모입니다.
+ */
+
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import { Suspense } from 'react';
+import { AccountFlowProvider } from '@/context/AccountFlowContext';
 import { ShopShell } from '@/context/ShopShell';
 
 import 'simplebar-react/dist/simplebar.min.css';
@@ -54,7 +62,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ko" className={`${hoka.variable} ${pretendard.variable}`}>
       <body className="platform-web">
         <Suspense fallback={<main className="loading">화면을 불러오는 중입니다.</main>}>
-          <ShopShell>{children}</ShopShell>
+          <ShopShell>
+            <AccountFlowProvider>{children}</AccountFlowProvider>
+          </ShopShell>
         </Suspense>
       </body>
     </html>

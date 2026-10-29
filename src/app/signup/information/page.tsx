@@ -1,9 +1,19 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 본인인증 정보는 AccountFlowProvider.identity에서 읽고 중복확인은 AccountServicesContext.checkId로 요청합니다. ID 변경 시 이전 확인 결과는 무효입니다.
+ * register에는 information/preferences/identity/consents가 함께 전달됩니다. 실제 중복/가입 가능 여부/필수 동의/인증 참조는 서버에서 최종 검증합니다.
+ * 서비스가 실패하면 입력과 확인 모달을 유지합니다. 성공 후에만 임시 proof/동의를 지우고 가입 완료로 이동합니다. 주소 검색의 실제 제공자 연동은 AddressFields 소유자에 연결합니다.
+ */
+
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { useContext, useRef } from 'react';
 import { type FormEvent, useState } from 'react';
+import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
@@ -13,6 +23,7 @@ import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
@@ -362,6 +373,8 @@ type MarketingConsentSummaryModalProps = {
   items: readonly MarketingConsentItem[];
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  pending?: boolean;
+  error?: string;
 };
 
 const summaryStyle = css({ m: '0', whiteSpace: 'pre-line' });
@@ -371,6 +384,8 @@ function MarketingConsentSummaryModal({
   items,
   onOpenChange,
   onConfirm,
+  pending,
+  error,
 }: MarketingConsentSummaryModalProps) {
   return (
     <ModalDialog
@@ -379,8 +394,9 @@ function MarketingConsentSummaryModal({
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
       size="md"
-      actions={{ kind: 'single', onConfirm: onConfirm }}
+      actions={{ kind: 'single', onConfirm: onConfirm, buttonProps: { disabled: pending } }}
     >
+      <BindingFeedback pending={pending} error={error} />
       <ContentHeader
         gap="4"
         titleAs="h2"
@@ -397,6 +413,8 @@ type RegistrationMarketingConsentSummaryModalProps = {
   preferences: MarketingPreferences;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  pending?: boolean;
+  error?: string;
 };
 
 const preferenceLabel = (value: string) => (value === 'yes' ? '수신' : '수신안함');
@@ -405,12 +423,16 @@ function RegistrationMarketingConsentSummaryModal({
   preferences,
   onOpenChange,
   onConfirm,
+  pending,
+  error,
 }: RegistrationMarketingConsentSummaryModalProps) {
   return (
     <MarketingConsentSummaryModal
       open
       onOpenChange={onOpenChange}
       onConfirm={onConfirm}
+      pending={pending}
+      error={error}
       items={[
         { label: '이메일 수신', value: preferenceLabel(preferences.email) },
         { label: '문자수신(LMS, SMS)', value: preferenceLabel(preferences.sms) },
@@ -430,6 +452,10 @@ const registrationIdErrorMessage =
 
 /** 해당 경로의 화면과 상호작용을 구성합니다. (Composes the route screen and its interactions.) */
 function RouteContent() {
+  const services = useContext(AccountServicesContext);
+  const flow = useAccountFlow();
+  const request = useRequestAction();
+  const currentId = useRef('');
   const router = useRouter();
   const searchParams = useSearchParams();
   const [stage, setStage] = useState<'information' | 'additional'>(
@@ -437,11 +463,13 @@ function RouteContent() {
   );
   const [information, setInformation] = useState<RegistrationInformation>({
     id: '',
-    name: '',
+    name: services ? (flow?.identity?.information.name ?? '') : '',
     password: '',
     confirmation: '',
-    birthDate: receivedVerificationInfo.birthDate,
-    phone: receivedVerificationInfo.phone,
+    birthDate: services
+      ? (flow?.identity?.information.birthDate ?? '')
+      : receivedVerificationInfo.birthDate,
+    phone: services ? (flow?.identity?.information.phone ?? '') : receivedVerificationInfo.phone,
     postalCode: '',
     address: '',
     addressDetail: '',
@@ -487,6 +515,7 @@ function RouteContent() {
       ...(key === 'password' ? { confirmation: '' } : {}),
     }));
     if (key === 'id') {
+      currentId.current = value;
       setCheckedId('');
       setDuplicateNotice('');
     }
@@ -498,6 +527,18 @@ function RouteContent() {
     if (idError) {
       setCheckedId('');
       setDuplicateNotice('');
+      return;
+    }
+    if (services) {
+      const id = information.id;
+      currentId.current = id;
+      void request.run(async () => {
+        const result = await services.checkId(id);
+        if (currentId.current !== id) return;
+        if (!result.available) throw new Error('이미 사용 중인 아이디입니다.');
+        setCheckedId(id);
+        setDuplicateNotice('사용 가능한 아이디입니다.');
+      });
       return;
     }
     setCheckedId(information.id);
@@ -558,38 +599,76 @@ function RouteContent() {
 
   return (
     <>
-      <RegistrationContent
-        stage={stage}
-        information={information}
-        preferences={preferences}
-        domainChoice={domainChoice}
-        notice={notice}
-        duplicateNotice={duplicateNotice}
-        addressOpen={addressOpen}
-        fieldErrors={fieldErrors}
-        onChange={change}
-        onPreferenceChange={(key, value) =>
-          setPreferences((previous) => ({ ...previous, [key]: value }))
-        }
-        onDomainChoice={(value) => {
-          setDomainChoice(value);
-          change('domain', value === 'direct' ? '' : value);
-        }}
-        onDuplicateCheck={checkId}
-        onAddressOpen={setAddressOpen}
-        onSubmit={submit}
-        onCancel={() => {
-          if (stage === 'additional') {
-            setStage('information');
-            setNotice('');
-          } else router.push('/signup/terms');
-        }}
-      />
+      <BindingFeedback pending={request.pending} error={request.error} />
+      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <RegistrationContent
+          stage={stage}
+          information={information}
+          preferences={preferences}
+          domainChoice={domainChoice}
+          notice={notice}
+          duplicateNotice={duplicateNotice}
+          addressOpen={addressOpen}
+          fieldErrors={fieldErrors}
+          onChange={change}
+          onPreferenceChange={(key, value) =>
+            setPreferences((previous) => ({ ...previous, [key]: value }))
+          }
+          onDomainChoice={(value) => {
+            setDomainChoice(value);
+            change('domain', value === 'direct' ? '' : value);
+          }}
+          onDuplicateCheck={checkId}
+          onAddressOpen={setAddressOpen}
+          onSubmit={submit}
+          onCancel={() => {
+            if (stage === 'additional') {
+              setStage('information');
+              setNotice('');
+            } else router.push('/signup/terms');
+          }}
+        />
+      </fieldset>
       {summaryOpen ? (
         <RegistrationMarketingConsentSummaryModal
           preferences={preferences}
-          onOpenChange={setSummaryOpen}
-          onConfirm={() => router.push('/signup/complete')}
+          pending={request.pending}
+          error={request.error}
+          onOpenChange={(next) => {
+            if (!request.pending) setSummaryOpen(next);
+          }}
+          onConfirm={() => {
+            void request.run(async () => {
+              if (services) {
+                if (!flow?.identity)
+                  throw new Error('본인인증이 만료되었습니다. 다시 인증해 주세요.');
+                if (
+                  !flow.consents.length ||
+                  services.signupTerms.some(
+                    (term) =>
+                      term.required &&
+                      !flow.consents.some(
+                        (consent) =>
+                          consent.id === term.id &&
+                          consent.version === term.version &&
+                          consent.accepted,
+                      ),
+                  )
+                )
+                  throw new Error('필수 약관 동의를 다시 확인해 주세요.');
+                await services.register({
+                  information,
+                  preferences,
+                  identity: flow.identity,
+                  consents: flow.consents,
+                });
+                flow.setIdentity(null);
+                flow.setConsents([]);
+              }
+              setSummaryOpen(false);
+              router.push('/signup/complete');
+            });
+          }}
         />
       ) : null}
     </>

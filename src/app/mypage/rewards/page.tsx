@@ -1,11 +1,21 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 현재 사용자명/등급/구매금액은 MyPageDataContext.overview.item을 사용합니다.
+ * tiers는 모든 회원에게 보여주는 등급 정책 설명입니다. BO 운영이 필요하면 이 표시 모델의 name/initial/benefits를 서버 정책으로 변환하고 현재 회원 등급과 구분합니다.
+ */
+
+import { useContext } from 'react';
 import type { ReactNode } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 
 import { cva } from 'styled-system/css';
 import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
+
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
@@ -110,19 +120,22 @@ function RewardBenefitItem({ number, children }: { number: number; children: Rea
 
 /** 회원 등급별 혜택과 리워드 안내를 표시합니다. (Displays membership tier benefits and reward information.) */
 export default function Page() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
+      <BindingFeedback {...binding} />
       <Stack gap="10" px="4" pt="6" pb="16">
         <ContentSection
           gap="4"
           header={
             <Box as="h1">
               <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading5">박*진</Typography>
+                <Typography mo="heading5">{binding ? summary?.name : '박*진'}</Typography>
                 <Typography mo="body2">님의 회원등급은</Typography>
               </HStack>
               <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading5">RUNNER</Typography>
+                <Typography mo="heading5">{binding ? summary?.tier : 'RUNNER'}</Typography>
                 <Typography mo="body2">입니다.</Typography>
               </HStack>
             </Box>
@@ -134,7 +147,9 @@ export default function Page() {
                 구매금액
               </Typography>
               <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading7">182,500</Typography>
+                <Typography mo="heading7">
+                  {binding ? summary?.purchaseAmount : '182,500'}
+                </Typography>
                 <Typography mo="body3">원</Typography>
               </HStack>
             </HStack>

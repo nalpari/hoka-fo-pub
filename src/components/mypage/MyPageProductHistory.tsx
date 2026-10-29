@@ -1,6 +1,16 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.histories[kind]에 실제 행 id와 상품 Product/liked/requestedAt을 전달합니다.
+ * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 성공 후 최신 items를 공급하고 실패 시 reject합니다.
+ */
+
+import { useContext } from 'react';
 import { useState } from 'react';
+import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
@@ -9,6 +19,7 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
@@ -28,9 +39,14 @@ function MyPageProductHistoryHeading({ title }: { title: string }) {
   );
 }
 
-type Props = { items: readonly number[]; thumbnail: string; onCancelRequest: (id: number) => void };
+type Props = {
+  entries?: readonly HistoryItem[];
+  items: readonly string[];
+  thumbnail: string;
+  onCancelRequest: (id: string) => void;
+};
 
-function MyPageRestockList({ items, thumbnail, onCancelRequest }: Props) {
+function MyPageRestockList({ items, thumbnail, onCancelRequest, entries }: Props) {
   return (
     <Stack gap="0">
       {items.map((id) => (
@@ -43,18 +59,21 @@ function MyPageRestockList({ items, thumbnail, onCancelRequest }: Props) {
           py="6"
         >
           <Box w="16" h="16" flexShrink="0">
-            <ProductThumbnail alt="클리프톤 9" src={thumbnail} />
+            <ProductThumbnail
+              alt={entries?.find((entry) => entry.id === id)?.product.name ?? '클리프톤 9'}
+              src={entries?.find((entry) => entry.id === id)?.product.primaryImage ?? thumbnail}
+            />
           </Box>
           <Stack flex="1" gap="1">
             <Typography variant="body4" weight="medium">
-              클리프톤 9
+              {entries?.find((entry) => entry.id === id)?.product.name ?? '클리프톤 9'}
             </Typography>
             <HStack gap="1">
               <Typography variant="body4" tone="tertiary">
                 신청일 :
               </Typography>
               <Typography variant="body4" language="en" tone="tertiary">
-                2026.05.22
+                {entries?.find((entry) => entry.id === id)?.requestedAt ?? '2026.05.22'}
               </Typography>
             </HStack>
           </Stack>
@@ -68,13 +87,15 @@ function MyPageRestockList({ items, thumbnail, onCancelRequest }: Props) {
 }
 
 type MyPageProductHistoryGridProps = {
-  items: readonly number[];
-  liked: readonly number[];
+  entries?: readonly HistoryItem[];
+  items: readonly string[];
+  liked: readonly string[];
   product: Product;
-  onLikedChange: (id: number, active: boolean) => void;
+  onLikedChange: (id: string, active: boolean) => void;
 };
 
 function MyPageProductHistoryGrid({
+  entries,
   items,
   liked,
   product,
@@ -93,7 +114,7 @@ function MyPageProductHistoryGrid({
           liked={liked.includes(id)}
           onLikedChange={(active) => onLikedChange(id, active)}
           options={['promotion', 'like', 'colors']}
-          product={product}
+          product={entries?.find((entry) => entry.id === id)?.product ?? product}
         />
       ))}
     </Grid>
@@ -113,20 +134,38 @@ function MyPageProductHistoryNote({ note }: { note: string }) {
   );
 }
 
-type MyPageRestockCancelDialogProps = { open: boolean; onClose: () => void; onConfirm: () => void };
+type MyPageRestockCancelDialogProps = {
+  pending?: boolean;
+  error?: string;
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+};
 
-function MyPageRestockCancelDialog({ open, onClose, onConfirm }: MyPageRestockCancelDialogProps) {
+function MyPageRestockCancelDialog({
+  open,
+  onClose,
+  onConfirm,
+  pending,
+  error,
+}: MyPageRestockCancelDialogProps) {
   return (
     <ModalDialog
       closeLabel="재입고 알림 취소창 닫기"
       onOpenChange={(nextOpen) => {
-        if (!nextOpen) onClose();
+        if (!nextOpen && !pending) onClose();
       }}
       open={open}
       size="sm"
       title="재입고 알림 취소"
-      actions={{ kind: 'confirm', onConfirm: onConfirm, fullWidth: false }}
+      actions={{
+        kind: 'confirm',
+        onConfirm: onConfirm,
+        fullWidth: false,
+        confirmDisabled: pending,
+      }}
     >
+      <BindingFeedback pending={pending} error={error} />
       <Typography as="p" variant="body3">
         재입고 알림 신청을 취소하시겠습니까?
       </Typography>
@@ -179,11 +218,18 @@ export function MyPageProductHistory({
   kind: ProductHistoryKind;
   initialCount?: number;
 }) {
-  const [items, setItems] = useState(() =>
-    Array.from({ length: initialCount }, (_, index) => index),
+  const binding = useContext(MyPageDataContext).histories?.[kind];
+  const request = useRequestAction();
+  useBindingQuery(binding?.onQueryChange, {});
+  const [demoItems, setItems] = useState(() =>
+    Array.from({ length: initialCount }, (_, index) => String(index)),
   );
-  const [liked, setLiked] = useState<number[]>(() => (kind === 'wishlist' ? items : []));
-  const [pendingCancel, setPendingCancel] = useState<number | null>(null);
+  const items = binding ? binding.items.map((item) => item.id) : demoItems;
+  const [demoLiked, setLiked] = useState<string[]>(() => (kind === 'wishlist' ? demoItems : []));
+  const liked = binding
+    ? binding.items.filter((entry) => entry.liked).map((entry) => entry.id)
+    : demoLiked;
+  const [pendingCancel, setPendingCancel] = useState<string | null>(null);
   const current = config[kind];
 
   return (
@@ -191,21 +237,32 @@ export function MyPageProductHistory({
       activePath={`/mypage/${kind}`}
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
+      <BindingFeedback
+        {...binding}
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error}
+      />
       <Stack gap="6">
         {items.length ? (
           <ContentSection gap="6" header={<MyPageProductHistoryHeading title={current.title} />}>
             {kind === 'restock-alerts' ? (
               <MyPageRestockList
+                entries={binding?.items}
                 items={items}
                 thumbnail={product.primaryImage}
                 onCancelRequest={setPendingCancel}
               />
             ) : (
               <MyPageProductHistoryGrid
+                entries={binding?.items}
                 items={items}
                 liked={liked}
                 product={product}
                 onLikedChange={(id, active) => {
+                  if (binding) {
+                    void request.run(() => binding.setLiked(id, active));
+                    return;
+                  }
                   setLiked((currentLiked) =>
                     active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
                   );
@@ -215,15 +272,34 @@ export function MyPageProductHistory({
               />
             )}
           </ContentSection>
-        ) : (
+        ) : binding?.pending || binding?.error ? null : (
           <EmptyState title={current.empty} variant="minimal" />
+        )}
+        {binding?.hasMore && (
+          <Button
+            disabled={binding.pending || request.pending}
+            onClick={() => {
+              void request.run(binding.onLoadMore);
+            }}
+          >
+            더보기
+          </Button>
         )}
         <MyPageProductHistoryNote note={current.note} />
       </Stack>
       <MyPageRestockCancelDialog
+        pending={request.pending}
+        error={request.error}
         open={pendingCancel !== null}
         onClose={() => setPendingCancel(null)}
         onConfirm={() => {
+          if (binding && pendingCancel !== null) {
+            void request.run(async () => {
+              await binding.cancelRestock(pendingCancel);
+              setPendingCancel(null);
+            });
+            return;
+          }
           setItems((currentItems) => currentItems.filter((item) => item !== pendingCancel));
           setPendingCancel(null);
         }}

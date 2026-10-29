@@ -1,9 +1,20 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * RunClubDataContext.sessions는 운영 목록, entries는 마이페이지 신청내역입니다. 같은 세션도 신청 id/status는 별도로 표시합니다.
+ * 서버 필터 결과를 로컬에서 다시 자르지 않습니다. onQueryChange({ category })와 onLoadMore를 실제 조회에 연결합니다.
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
+import { useContext } from 'react';
 import { type ReactNode, useState } from 'react';
+import { RunClubDataContext, type RunClubEntry } from '@/context/RunClubDataContext';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import {
@@ -24,6 +35,7 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -283,7 +295,13 @@ function RunClubEmptyState() {
   );
 }
 
-function RunClubResults({ sessions }: { sessions: RunClubSession[] }) {
+function RunClubResults({
+  sessions,
+  entries,
+}: {
+  sessions: readonly RunClubSession[];
+  entries?: readonly RunClubEntry[];
+}) {
   return sessions.length ? (
     <Grid
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -291,8 +309,15 @@ function RunClubResults({ sessions }: { sessions: RunClubSession[] }) {
       rowGap="24"
       _mobile={{ gridTemplateColumns: '1fr', rowGap: '10' }}
     >
-      {sessions.map((session) => (
-        <RunClubSessionCard key={session.id} session={session} />
+      {sessions.map((session, index) => (
+        <Stack key={entries?.[index]?.id ?? session.id} gap="3">
+          <RunClubSessionCard session={session} />
+          {entries?.[index] && (
+            <Typography variant="body4" role="status">
+              {entries[index].status}
+            </Typography>
+          )}
+        </Stack>
       ))}
     </Grid>
   ) : (
@@ -305,16 +330,39 @@ type RunClubPageProps = { sessions?: RunClubSession[] };
 /** 런클럽 세션 목록과 필터를 구성합니다 (Displays the run club page composition). */
 export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
   const [filter, setFilter] = useState<RunClubFilter>('all');
-  const visibleSessions = sessions.filter(
-    (session) => filter === 'all' || session.category === filter,
-  );
+  const context = useContext(RunClubDataContext);
+  const isHistory = usePathname() === '/mypage/event-entries';
+  const binding = isHistory ? context.entries : context.sessions;
+  const request = useRequestAction();
+  useBindingQuery(binding?.onQueryChange, { category: filter });
+  const entries = isHistory ? context.entries?.items : undefined;
+  const visibleSessions = binding
+    ? entries
+      ? entries.map((entry) => entry.session)
+      : (context.sessions?.items ?? [])
+    : sessions.filter((session) => filter === 'all' || session.category === filter);
 
   return (
     <RunClubLayout
       empty={visibleSessions.length === 0}
       header={<RunClubHeader filter={filter} onFilterChange={setFilter} />}
     >
-      <RunClubResults sessions={visibleSessions} />
+      <BindingFeedback
+        pending={binding?.pending || request.pending}
+        error={binding?.error || request.error}
+        onRetry={binding?.onRetry}
+      />
+      {!(binding?.pending || binding?.error) || visibleSessions.length > 0 ? (
+        <RunClubResults sessions={visibleSessions} entries={entries} />
+      ) : null}
+      {binding?.hasMore && (
+        <Button
+          disabled={binding.pending || request.pending}
+          onClick={() => void request.run(binding.onLoadMore)}
+        >
+          더보기
+        </Button>
+      )}
     </RunClubLayout>
   );
 }

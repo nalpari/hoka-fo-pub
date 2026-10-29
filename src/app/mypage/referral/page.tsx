@@ -1,12 +1,22 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.overview.item의 referralCode/referralCount/referralRewards를 사용합니다.
+ * 코드 발급·추천 인정·리워드 집계는 서버 책임입니다. 완료 인원과 적립값은 같은 기준 시점의 요약 응답으로 전달합니다.
+ */
+
+import { useContext } from 'react';
 import { type ReactNode } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { useRoutePreview } from '@/context/RoutePreview';
 
 import { cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
+
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
@@ -107,6 +117,8 @@ function AccountMetricPanel({ metrics, tone = 'neutral' }: Props) {
 
 /** 친구 추천 코드와 추천 실적을 표시합니다. (Displays the referral code and referral metrics.) */
 function RouteContent() {
+  const binding = useContext(MyPageDataContext).overview;
+  const summary = binding?.item;
   return (
     <SidebarNavigationLayout
       activePath="/mypage/referral"
@@ -119,12 +131,16 @@ function RouteContent() {
         title={<>친구 추천</>}
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
       >
+        <BindingFeedback {...binding} />
         <AccountMetricPanel
           tone="dark"
           metrics={[
-            { label: '나의 추천 코드', value: 'HOKA-2026' },
-            { label: '추천 완료', value: '0명' },
-            { label: '적립 리워드', value: '0P' },
+            {
+              label: '나의 추천 코드',
+              value: binding ? (summary?.referralCode ?? '') : 'HOKA-2026',
+            },
+            { label: '추천 완료', value: binding ? `${summary?.referralCount ?? 0}명` : '0명' },
+            { label: '적립 리워드', value: binding ? (summary?.referralRewards ?? '') : '0P' },
           ]}
         />
       </ContentSection>

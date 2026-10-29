@@ -1,10 +1,20 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * AccountServicesContext.recovery.request/verify를 실제 발송/검증/계정 조회에 연결합니다. 요청 ID와 서버 유효시간을 사용합니다.
+ * verify 결과의 maskedAccountId와 resetProof를 AccountFlowProvider에 보관해 결과 표시와 비밀번호 변경에 사용합니다. 재설정 참조를 URL/저장소에 넣지 않습니다.
+ * 900668/honggildong은 Provider가 없는 데모 값입니다. 이름/전화번호 변경 시 이전 인증 요청 결과를 폐기합니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
+import { useContext, useRef } from 'react';
 import { type FormEvent, type ReactNode, useState } from 'react';
+import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
 import { usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
+import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
@@ -227,6 +237,7 @@ function FindAccountContent({
 }
 
 type IdConfirmationModalProps = {
+  accountId?: string;
   userName?: string;
   onOpenChange: (open: boolean) => void;
   onPasswordReset: () => void;
@@ -235,6 +246,7 @@ type IdConfirmationModalProps = {
 
 /** 아이디 확인 안내를 재사용 가능한 반응형 모달로 표시합니다. (Displays account lookup guidance in a reusable responsive modal.) */
 function IdConfirmationModal({
+  accountId,
   userName,
   onOpenChange,
   onPasswordReset,
@@ -259,7 +271,7 @@ function IdConfirmationModal({
         onConfirm: onConfirm,
       }}
     >
-      <IdConfirmationMessage userName={userName} />
+      <IdConfirmationMessage userName={userName} accountId={accountId} />
     </ModalDialog>
   );
 }
@@ -268,6 +280,11 @@ const demoVerificationCode = '900668';
 
 /** 계정 찾기 입력과 인증 예시 흐름을 관리합니다. (Manages account recovery inputs and the example verification flow.) */
 function RouteContent() {
+  const services = useContext(AccountServicesContext);
+  const flow = useAccountFlow();
+  const request = useRequestAction();
+  const [requestId, setRequestId] = useState('');
+  const generation = useRef(0);
   const router = useRouter();
   const [resultOpen, setResultOpen] = useState(false);
   const [name, setName] = useState('');
@@ -296,6 +313,18 @@ function RouteContent() {
       return;
     }
 
+    if (services) {
+      const version = generation.current;
+      void request.run(async () => {
+        const result = await services.recovery.request({ name, phone });
+        if (version !== generation.current) return;
+        setRequestId(result.requestId);
+        start(result.expiresInSeconds);
+        setCode('');
+        setNotice({ tone: 'info', message: '인증번호를 발송했습니다.' });
+      });
+      return;
+    }
     setCode('');
     start();
     setNotice({
@@ -314,11 +343,18 @@ function RouteContent() {
       nameError={nameTouched ? nameError : ''}
       phoneError={phoneError}
       codeError={codeError}
-      notice={notice}
+      notice={
+        request.error
+          ? { tone: 'error', message: request.error }
+          : request.pending
+            ? { tone: 'info', message: '요청을 처리하고 있습니다.' }
+            : notice
+      }
       result={
         resultOpen ? (
           <IdConfirmationModal
             userName={name}
+            accountId={services ? (flow?.recovery?.maskedAccountId ?? '') : undefined}
             onOpenChange={setResultOpen}
             onConfirm={() => router.push('/login')}
             onPasswordReset={() => router.push('/login/find-account/password-reset')}
@@ -326,6 +362,9 @@ function RouteContent() {
         ) : null
       }
       onNameChange={(value) => {
+        generation.current += 1;
+        flow?.setRecovery(null);
+        setRequestId('');
         setName(value);
         setNameTouched(true);
         setNameError(!value.trim() || isValidName(value) ? '' : '이름을 올바르게 입력해주세요');
@@ -335,6 +374,9 @@ function RouteContent() {
         setNotice(null);
       }}
       onPhoneChange={(value) => {
+        generation.current += 1;
+        flow?.setRecovery(null);
+        setRequestId('');
         const formattedValue = getPhoneDigits(value);
         setPhone(formattedValue);
         setPhoneError(
@@ -365,6 +407,17 @@ function RouteContent() {
         if (!/^\d{6}$/.test(code)) {
           setCodeError('인증번호 6자리를 입력해 주세요.');
           setNotice(null);
+          return;
+        }
+        if (services) {
+          const version = generation.current;
+          void request.run(async () => {
+            if (!flow || !requestId) throw new Error('인증번호를 다시 요청해 주세요.');
+            const result = await services.recovery.verify({ requestId, name, phone, code });
+            if (version !== generation.current) return;
+            flow.setRecovery({ ...result, displayName: name });
+            setResultOpen(true);
+          });
           return;
         }
         if (code !== demoVerificationCode) {

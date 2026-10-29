@@ -1,20 +1,32 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * InquiryDataContext.list의 실제 id/title/body/answer/answered/attachments를 사용합니다. 첨부 previewUrl은 접근 권한이 있는 URL로 전달합니다.
+ * hasMore/onLoadMore는 서버 추가 조회이고 목록 재조회/등록 후 갱신은 어댑터가 담당합니다. InquiryPreviewContext는 Storybook 상태 예시입니다.
+ */
+
 import Image from 'next/image';
 
 import { faFilePdf, faImage } from '@fortawesome/free-solid-svg-icons';
+import type { ReactNode } from 'react';
 import { useContext, useId, useState } from 'react';
+import { InquiryDataContext, type InquiryView } from '@/context/InquiryDataContext';
 import { InquiryPreviewContext } from '@/context/InquiryPreviewContext';
 import { usePlatform } from '@/context/platform';
+import { useBindingQuery } from '@/hooks/useBindingQuery';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Square, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
+import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import {
   Carousel,
   CarouselPagination,
@@ -43,7 +55,7 @@ function InquiryEmptyState() {
   );
 }
 
-type Props = { item: { title: string; answered: boolean } };
+type Props = { item: { title: string; answered: boolean; body?: ReactNode } };
 
 const styles = {
   answeredQuestion: css({ color: 'black.100', _mobile: { color: 'black.50' } }),
@@ -88,7 +100,9 @@ function InquiryQuestion({ item }: Props) {
           </Typography>
         </Box>
         <Typography as="span" variant="body4" tone="primary">
-          문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역
+          {item.body === undefined
+            ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
+            : item.body}
         </Typography>
       </Stack>
     </HStack>
@@ -96,7 +110,7 @@ function InquiryQuestion({ item }: Props) {
 }
 
 /** 답변 내용을 배경 패널 안에 표시합니다. (Displays the response in a shaded panel.) */
-function InquiryAnswer() {
+function InquiryAnswer({ content }: { content?: ReactNode }) {
   return (
     <HStack
       w="100%"
@@ -118,7 +132,9 @@ function InquiryAnswer() {
         className={css({ display: 'flex', flexDirection: 'column', gap: '3' })}
       >
         <Typography as="p" variant="body4" tone="primary">
-          문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역
+          {content === undefined
+            ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
+            : content}
         </Typography>
       </Box>
     </HStack>
@@ -323,7 +339,8 @@ function InquiryReadAttachments({ attachments }: { attachments: readonly Inquiry
 }
 
 type InquiryListItemProps = {
-  item: { id: string; title: string; answered: boolean };
+  item: Pick<InquiryView, 'id' | 'title' | 'answered'> &
+    Partial<Pick<InquiryView, 'body' | 'answer' | 'attachments'>>;
   attachments?: readonly InquiryAttachment[];
 };
 
@@ -366,7 +383,7 @@ function InquiryListItem({ item, attachments = [] }: InquiryListItemProps) {
       {item.answered && (
         <div id={answerId} role="region" aria-label="문의 답변" hidden={!answerOpen}>
           {/* 문의 답변 내용 (Inquiry answer content). */}
-          <InquiryAnswer />
+          <InquiryAnswer content={item.answer} />
         </div>
       )}
     </>
@@ -393,10 +410,14 @@ const mobilePreviewAttachments: readonly InquiryAttachment[] = [
 
 /** 1:1 문의 목록과 빈 상태를 구성하고 문의 등록으로 연결합니다. (Composes the inquiry list and empty state, with a link to submit an inquiry.) */
 export default function Page() {
+  const binding = useContext(InquiryDataContext).list;
+  const request = useRequestAction();
+  useBindingQuery(binding?.onQueryChange, {});
   const preview = useContext(InquiryPreviewContext);
   const platform = usePlatform();
-  const inquiries =
-    preview === 'empty'
+  const inquiries: InquiryListItemProps['item'][] | readonly InquiryView[] = binding
+    ? binding.items
+    : preview === 'empty'
       ? []
       : [
           {
@@ -439,9 +460,14 @@ export default function Page() {
       }}
     >
       <Stack gap="0" mt={{ base: '10', _mobile: '4' }}>
+        <BindingFeedback
+          pending={binding?.pending || request.pending}
+          error={binding?.error || request.error}
+          onRetry={binding?.onRetry}
+        />
         <Divider variant="heading" mo="subtle" />
         <Stack gap="0" pt="6" pb={{ base: '48px', _mobile: '8' }}>
-          {inquiries.length === 0 ? (
+          {inquiries.length === 0 && !binding?.pending && !binding?.error ? (
             <InquiryEmptyState />
           ) : (
             inquiries.map((item) => (
@@ -449,17 +475,29 @@ export default function Page() {
                 key={item.id}
                 item={item}
                 attachments={
-                  preview === 'attachmentPreview'
-                    ? platform === 'mobile'
-                      ? mobilePreviewAttachments
-                      : desktopPreviewAttachments
-                    : []
+                  binding
+                    ? (item.attachments ?? [])
+                    : preview === 'attachmentPreview'
+                      ? platform === 'mobile'
+                        ? mobilePreviewAttachments
+                        : desktopPreviewAttachments
+                      : []
                 }
               />
             ))
           )}
         </Stack>
 
+        <>
+          {binding?.hasMore && (
+            <Button
+              disabled={binding.pending || request.pending}
+              onClick={() => void request.run(binding.onLoadMore)}
+            >
+              더보기
+            </Button>
+          )}
+        </>
         {/* 문의 유의사항 영역 (Inquiry cautions section). */}
         <InquiryCautions />
       </Stack>

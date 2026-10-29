@@ -9,6 +9,13 @@ generated:
   at: '2026-10-28T10:54:54.282Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/orders/OrdersRoute.tsx
+  - src/components/orders/order-policy.ts
+  - src/context/OrdersContext.ts
+  - src/context/AccountFlowContext.tsx
+  - src/types/binding.ts
+  - tests/inquiry-binding.test.mjs
+  - src/stories/features/binding/RemainingBinding.stories.tsx
   - tests/cart-display.test.mjs
   - src/stories/features/binding/Binding.stories.tsx
   - .codex/skills/component-reusability/references/data-binding.md
@@ -308,3 +315,18 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 - 실제 API/인증/결제 서버는 연결하지 않았다. 실제 DTO 변환, 조회 취소/응답 순서 보장, 저장 성공 이후 재조회는 개발팀의 서비스 연결 책임이다.
 
 출처: 위 working_tree_sources와 현재 작업 트리. 작성: codex/gpt-6, 2026-10-29T00:15:42Z. Git index는 변경하지 않았으며 커밋·푸시하지 않았다.
+
+## 남은 화면 바인딩·환불 논리·전체 소스 주석 검증 (2026-10-29)
+
+[연결 계약과 인계 주석](../architecture/data-binding.md#나머지-화면의-연결과-상세-주석-2026-10-29)을 적용했다. 매장 지도와 기존 refund-account 경로의 diff는 없으며 기존 스타일을 복제/교체하는 작업은 하지 않았다.
+
+- 전체 ESLint, TypeScript 검사, Panda 생성과 Next.js production build, 별도 임시 폴더 Storybook production build를 통과했다.
+- `node --test tests/*.test.mjs`의 90개 테스트를 통과했다. 새 문의 테스트는 비목 ID 복원, 실패/중단 시 저장 선택 유지, 최신 선택이 도착했을 때 오래된 복원 무시를 검사한다. 주문 정책은 취소 비용 없음, 고객 귀책 반품비 차감, 회사 귀책/무료반품/쿠폰, 기타 비용 미확정을 검사한다.
+- Integration/RemainingBinding의 16개 play 사례에서 예외가 없었다. 서버 FAQ 검색/동일 제목의 서로 다른 ID/지연 응답, 실제 공지 ID 링크와 BO 본문, 문의 질문/답변, Strict Mode의 실제 주문 선택 복원, File[] 포함 문의 payload와 등록 실패/재시도, 쿠폰 실패 후 코드 유지/성공 후 초기화, 결제수단 취소/실패/성공, 실제 찜 ID와 오류 후 행 유지, 런클럽 정원/예약금/접수 실패/재시도를 확인했다.
+- 같은 16개 사례에서 PC/모바일 반품 견적 전 제출 차단, 사유 변경 후 새 견적 대기, 견적 ID/선택 수량을 포함한 접수 payload, 실패 후 시트 유지와 재시도도 확인했다. 비밀번호 변경의 resetProof, 늦게 도착하고 교체된 프로필의 편집 원본, BO 가입 약관, 서버 인증 proof/약관 버전/회원정보를 포함한 실제 가입 요청 실패/재시도를 확인했다.
+- 기본 가입 입력/약관·프로필·쿠폰·FAQ·공지·런클럽·홈의 PC/모바일 대표 화면 14개와 기존 Integration/Binding 8개, 총 22개를 회귀 확인했다. 각 화면의 main은 하나였고 가로 overflow가 없으며 play/render 예외가 없었다. PC 1440px 가입 입력과 모바일 375px 프로필 스크린샷도 시각 검토했다. 이전 소스와 픽셀 비교를 수행한 것은 아니다.
+- 서버 페이지 크기를 임의로 추정하지 않도록 더보기 카운터는 실제 pageInfo 또는 읽은 항목 수/전체 건수를 사용한다. 이 최종 보완 뒤 FAQ PC/모바일·쿠폰 3개 play 사례와 타입/lint/Next/Storybook 빌드를 다시 통과했다.
+- Storybook의 finished 상태만 보지 않고 playFunctionThrewException/storyThrewException/storyErrored 이벤트도 확인했다. 임시 정적 서버의 모듈 로드 실패는 캐시/서버 로깅을 정리하고 별도 포트의 최종 빌드에서 검증했다. 실제 앱 예외와 구분한다.
+- `npm run okf:check`와 diff 공백 검사를 통과했다. index를 변경하지 않았고 커밋·푸시하지 않았다.
+
+작성: codex/gpt-6, 2026-10-29T01:27:30Z. 출처는 위 working_tree_sources와 이번 작업 트리이며 기존 검증 이력은 보존했다.

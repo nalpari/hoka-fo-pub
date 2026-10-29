@@ -75,3 +75,19 @@ test('month periods clamp the day across short months and year boundaries', () =
   assert.equal(getPeriodStart(1, '2024-03-31'), '2024-02-29');
   assert.equal(getPeriodStart(3, '2026-01-31'), '2025-10-31');
 });
+
+test('returns deduct customer fee, waive company/free returns and keep other fee unresolved', () => {
+  const returned = { ...order, status: 'delivered' };
+  assert.equal(submitOrderClaim(order, 'cancel', { a: 1 }, 'mind', '', '2026-10-29').claim.fee, 0);
+  for (const reason of ['damage', 'wrong', 'missing'])
+    assert.equal(getClaimAmount(order.items, { a: 1 }, reason).fee, 0);
+  assert.equal(getClaimAmount(order.items, { a: 1 }, 'mind', { freeReturn: true }).refund, 230000);
+  assert.equal(
+    getClaimAmount(order.items, { a: 1 }, 'mind', { freeReturnCouponId: 'coupon-api' }).fee,
+    0,
+  );
+  assert.equal(getClaimAmount(order.items, { a: 1 }, 'other').fee, null);
+  assert.equal(getClaimAmount(order.items, { a: 1 }, 'other').refund, null);
+  assert.equal(submitOrderClaim(returned, 'return', { a: 1 }, 'other', '', '2026-10-29').ok, false);
+  assert.equal(getClaimAmount(order.items, { a: 1 }, 'other', { otherFee: 5000 }).refund, 225000);
+});
