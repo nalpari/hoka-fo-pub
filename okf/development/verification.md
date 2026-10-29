@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:22:38Z'
+  at: '2026-10-29T06:51:36Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/screen-index/storybookLinks.ts
@@ -385,3 +385,11 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 
 
 후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](../architecture/design-implementation-2026-10-29.md).
+
+## 첨부 디자인 재검수 (2026-10-29)
+
+회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 확대본, 현재 소스와 PC 1440px/MO 390px 앱을 대조했다. 주요 경로의 본문 DOM·비어 있지 않은 알럿·문서 가로 넘침을 확인하고 홈·프로필·등급·쿠폰·배송지·신청내역·FAQ·공지·장바구니·주문 등을 스크린샷으로 읽었다. 경로 렌더만으로 모든 상태의 시각 일치를 추정하지 않는다. 명확한 차이와 이전 판정 정정은 [재검수 기록](../architecture/design-reaudit-2026-10-29.md)에 있다.
+
+`tests/screen-progress.test.mjs`의 기존 10개 테스트를 갱신해 통과했다. PC/MO 독립 상태, 디자인 수정예정 보존, 미수급과 대기, 범위 밖 기존 초기값과 명시적 override 우선순위를 확인한다. 실제 서비스 요청·모든 모달·경계 해상도 회귀와 프로덕션 빌드는 이번 데이터 변경에서 다시 실행하지 않았다.
+
+추가로 타입 검사, 변경 TS·테스트 ESLint/Prettier, `git diff --check`, 작업 트리 OKF 매핑 검사를 통과했다. IA 검색으로 쿠폰 174 양쪽 완료·아이핀 235 양쪽 대기·FAQ 공유 화면 185/207 양쪽 완료·회원등급 195 양쪽 수정 및 상세 비고를 확인했다. 회원등급 검색에서 MO 완료 필터는 빈 결과, MO 수정 필터는 해당 화면을 표시했다. 소스 그래프는 바뀌지 않았다.

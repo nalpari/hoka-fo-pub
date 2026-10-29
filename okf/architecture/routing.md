@@ -533,3 +533,7 @@ Button 가이드의 각 variant 미리보기는 상태·크기에 관계없이 �
 FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글자 14px·좌우 패딩 14px을, regular는 글자 16px·좌우 패딩 24px을 사용한다.
 
 보조 variant 순서는 Brand·Link·Plain·Chip·Icon·Filter Trigger·Header Search·Social·Load More다. 공통 Icon 예시를 전용 Filter Trigger보다 먼저 배치한다.
+
+## 첨부 디자인 재검수 (2026-10-29)
+
+위 구현 뒤의 재검수에서 남은 PC/MO 배치·컨트롤·공통 메뉴 차이를 확인해 `storybookLinks.ts`의 플랫폼별 확인값과 검토 비고를 정정했다. 본문과 공통 메뉴에 차이가 있으면 수정, 구현된 FAQ·문의·문서·배송지 변경·쿠폰 조회는 완료, 아이핀·온라인 회원등급 미구현은 대기다. 디자인 수급과 PC 디자인 수정예정, 외부 override 우선순위는 보존한다. 경로·화면 연결과 생성 그래프에는 변경이 없다. 최초 완료 판정의 범위와 한계는 [재검수 기록](design-reaudit-2026-10-29.md)이 대체한다.

@@ -150,36 +150,58 @@ const confirmedTemplateDesigns: Record<string, Pick<ScreenProgress, 'pcDesign' |
   eland_hca_02: { pcDesign: 'received', moDesign: 'received' },
 };
 
-// 사용자 직접 확인과 2026-10-29 현시안 반영 결과입니다. UI 퍼블리싱 완료와 실제 서비스 연결은 구분합니다.
+// 사용자 직접 확인과 2026-10-29 재검수 결과입니다. 시안 대비 남은 UI 차이는 revision입니다.
+// 근거: okf/architecture/design-reaudit-2026-10-29.md. 실제 서비스 연결 여부와 구분합니다.
 export const confirmedPublishingProgress: Readonly<
   Partial<Record<number, Partial<Pick<ScreenProgress, 'pcPublishing' | 'moPublishing'>>>>
 > = {
-  170: { pcPublishing: 'ready', moPublishing: 'ready' },
-  171: { pcPublishing: 'ready', moPublishing: 'ready' },
-  174: { moPublishing: 'ready' },
-  177: { pcPublishing: 'ready' },
-  178: { pcPublishing: 'ready' },
-  182: { pcPublishing: 'ready' },
-  183: { pcPublishing: 'ready' },
-  184: { pcPublishing: 'ready' },
-  191: { pcPublishing: 'ready' },
-  195: { pcPublishing: 'ready' },
-  196: { pcPublishing: 'ready' },
-  200: { pcPublishing: 'ready', moPublishing: 'ready' },
-  202: { pcPublishing: 'ready' },
+  170: { pcPublishing: 'revision', moPublishing: 'ready' },
+  171: { pcPublishing: 'revision', moPublishing: 'ready' },
+  172: { pcPublishing: 'ready', moPublishing: 'ready' },
+  174: { pcPublishing: 'ready', moPublishing: 'ready' },
+  177: { pcPublishing: 'revision', moPublishing: 'revision' },
+  // PC의 공통 마이페이지 메뉴도 첨부 시안과 달라 본문만으로 완료 처리하지 않습니다.
+  178: { pcPublishing: 'revision', moPublishing: 'ready' },
+  179: { moPublishing: 'ready' },
+  181: { moPublishing: 'ready' },
+  182: { pcPublishing: 'revision', moPublishing: 'ready' },
+  183: { pcPublishing: 'revision', moPublishing: 'ready' },
+  184: { pcPublishing: 'revision', moPublishing: 'ready' },
+  185: { pcPublishing: 'ready', moPublishing: 'ready' },
+  187: { pcPublishing: 'ready', moPublishing: 'ready' },
+  189: { pcPublishing: 'ready', moPublishing: 'ready' },
+  191: { pcPublishing: 'revision', moPublishing: 'revision' },
+  195: { pcPublishing: 'revision', moPublishing: 'revision' },
+  196: { pcPublishing: 'revision', moPublishing: 'revision' },
+  200: { pcPublishing: 'revision', moPublishing: 'revision' },
+  201: { pcPublishing: 'revision', moPublishing: 'ready' },
+  202: { pcPublishing: 'revision', moPublishing: 'ready' },
+  203: { pcPublishing: 'revision', moPublishing: 'revision' },
+  204: { pcPublishing: 'revision', moPublishing: 'ready' },
+  205: { pcPublishing: 'revision', moPublishing: 'ready' },
   206: { pcPublishing: 'ready', moPublishing: 'ready' },
-  208: { moPublishing: 'ready' },
+  207: { pcPublishing: 'ready', moPublishing: 'ready' },
+  208: { pcPublishing: 'ready', moPublishing: 'revision' },
+  209: { pcPublishing: 'ready', moPublishing: 'ready' },
+  210: { pcPublishing: 'ready', moPublishing: 'ready' },
+  211: { pcPublishing: 'ready', moPublishing: 'ready' },
+  212: { pcPublishing: 'revision', moPublishing: 'revision' },
+  213: { pcPublishing: 'pending', moPublishing: 'pending' },
   216: { pcPublishing: 'ready', moPublishing: 'ready' },
+  217: { pcPublishing: 'ready', moPublishing: 'ready' },
+  218: { pcPublishing: 'ready', moPublishing: 'ready' },
+  219: { pcPublishing: 'ready', moPublishing: 'ready' },
+  260: { pcPublishing: 'revision', moPublishing: 'revision' },
   // 아이핀 인증은 사용자 확인에 따라 PC/MO 퍼블리싱 대기.
   235: { pcPublishing: 'pending', moPublishing: 'pending' },
   // 2026-10-29 첨부 디자인과 소스 대조에서 확인한 후속 수정 항목.
   223: { pcPublishing: 'ready', moPublishing: 'ready' },
   224: { pcPublishing: 'ready', moPublishing: 'ready' },
   227: { pcPublishing: 'ready', moPublishing: 'ready' },
-  234: { pcPublishing: 'ready', moPublishing: 'ready' },
+  234: { pcPublishing: 'revision', moPublishing: 'revision' },
   236: { moPublishing: 'ready' },
   251: { pcPublishing: 'ready', moPublishing: 'ready' },
-  253: { pcPublishing: 'ready', moPublishing: 'ready' },
+  253: { pcPublishing: 'revision', moPublishing: 'revision' },
   254: { pcPublishing: 'ready', moPublishing: 'ready' },
   // 검색 레이어와 404/시스템 점검/기타 에러 화면의 PC/MO 퍼블리싱 완료.
   246: { pcPublishing: 'ready', moPublishing: 'ready' },
@@ -188,12 +210,38 @@ export const confirmedPublishingProgress: Readonly<
   250: { pcPublishing: 'ready', moPublishing: 'ready' },
 };
 
+const myPagePcNavigationNote =
+  'PC 공통 메뉴: 첨부의 구매내역·상품내역·MY HOKA·Q&A·계정관리 대신 쇼핑·HOKA MEMBERS·계정 관리 구성을 사용함.';
+
+const phoneTermsReviewNote =
+  'PC/MO 수정: 인증 약관의 이전 버전 선택이 첨부의 별도 선택창(PC 라디오·MO 휠)이 아닌 본문 안 버튼 목록임.';
+
 // 별도로 확인해야 하는 검토 비고만 IA와 검색에 노출합니다.
 export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
+  170: 'PC 수정: 상품 행의 성별·관심상품 표시 누락, 주문하기 버튼이 시안의 검정 채움 대신 테두리형임. MO 완료 유지.',
+  171: 'PC 수정: 결제 요약의 총 결제금액 라벨이 두 줄로 꺾임. PC 디자인 수정예정 유지.',
   176: '디자인 확인: 약관 전문보기는 공통 이용약관/개인정보 페이지 링크. 첨부에 주문 전용 약관 본문 시안 없음.',
+  177: 'PC 수정: 본문이 640px로 제한되고 등급·쿠폰·관심상품 요약이 한 줄 대신 두 단으로 배치됨. MO 수정: 주문 배송 내역에 시안에 없는 캐러셀·페이지 선택 점이 남아 있음.',
+  178: myPagePcNavigationNote,
+  182: myPagePcNavigationNote,
+  183: myPagePcNavigationNote,
+  184: myPagePcNavigationNote,
+  191: `PC/MO 수정: 상품리뷰 본문 제목이 없고 탭부터 시작함. ${myPagePcNavigationNote}`,
+  195: `PC/MO 수정: 등급·누적금액 상단 배치, 등급 아이콘의 배경/글자색, 공통 혜택 구성이 다름. MO에 시안에 없는 컬러 배경 카드가 있음. ${myPagePcNavigationNote}`,
+  196: `PC/MO 수정: 빈 입력 상태에서 쿠폰 등록 버튼이 숨겨짐. 쿠폰 우측의 검정 띠와 티켓 윤곽이 시안과 다름. ${myPagePcNavigationNote}`,
+  200: `PC/MO 수정: 최근순이 선택 컨트롤 대신 고정 텍스트이며 MO 신청 취소 버튼이 별도 왼쪽 행에 배치됨. ${myPagePcNavigationNote}`,
+  201: `PC 수정: 회원정보 라벨·값이 시안의 조밀한 좌우 행 대신 큰 제목과 값의 세로 묶음으로 표시됨. ${myPagePcNavigationNote}`,
+  202: `PC 수정: 좌측 회원정보 요약이 시안의 조밀한 행 배치와 다름. ${myPagePcNavigationNote}`,
+  203: `PC/MO 수정: 배송지 목록의 본문 제목 누락. PC 수정·삭제 액션이 주소 오른쪽 대신 아래에 있고 배송지 추가 버튼이 본문 전체 너비임. ${myPagePcNavigationNote}`,
+  204: `PC 수정: 배송지 등록 폼과 저장 버튼이 시안의 중앙 좁은 폭 대신 본문 전체 너비임. ${myPagePcNavigationNote}`,
+  205: `PC 수정: 배송지 수정 폼이 시안의 중앙 좁은 폭 대신 본문 전체 너비임. ${myPagePcNavigationNote}`,
+  208: 'MO 수정: 첨부 공지 목록은 제목 오른쪽에 날짜를 표시하나 현재는 제목 아래에 표시함.',
+  212: 'PC/MO 수정: 지도에 시안에 없는 어두운 API 지도 노출 영역 안내 오버레이가 남아 있음.',
   213: '미작업: 본문은 디자인 작업 중 안내만 있음. 첨부에는 별도 회원등급 안내 본문 시안 없음.',
-  260: '디자인 확인: 첨부에 진행중 표시와 이미지 추후 적용 안내 있음. 실제 이미지·확정 사이즈표 데이터 추가 확인 필요.',
+  260: 'PC 수정: 이미지 왼쪽·설명 오른쪽 배치가 시안의 큰 이미지 위·설명 아래 2열과 다름. PC/MO 성별·발볼 선택도 시안의 pill형 대신 사각 버튼임. 첨부는 진행중이며 확정 이미지·치수 추가 확인 필요.',
+  234: phoneTermsReviewNote,
   235: '미작업: 본인인증 선택 화면의 아이핀 버튼만 있으며 클릭 후 인증 화면·동작 없음. 첨부에 아이핀 내부 화면은 없음.',
+  253: phoneTermsReviewNote,
 };
 
 // 기존 통합 상태를 초기값으로 보존하며 플랫폼별 확인값은 별도로 전달한다.
