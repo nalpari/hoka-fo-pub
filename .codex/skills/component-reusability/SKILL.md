@@ -1,6 +1,6 @@
 ---
 name: component-reusability
-description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for Panda CSS/JSX, Typography, Base UI reuse, shared responsive-platform changes, or Next.js integration boundaries while preserving semantics and state.
+description: Audit and improve React component reuse through wrapper removal, typed parent options, single-parent consolidation, folder-depth reduction, form/content composition, and route ownership. Also use for UI data/service binding boundaries, Panda CSS/JSX, Typography, Base UI reuse, shared responsive-platform changes, or Next.js integration boundaries while preserving semantics and state.
 ---
 
 # Component Reusability
@@ -18,6 +18,12 @@ Use the user's named files, folders, or explicit repository-wide scope. An expli
 Use the current structure: `src/app` owns routes and route-specific screens; `src/components/common` owns reusable atoms, molecules, organisms, and layouts; `src/components/{domain}` owns domain-specific reusable UI and pure policy modules beside `common`; do not retain a `features` wrapper directory. Cross-route state belongs in `src/context`, utilities in `src/lib`, shared types in `src/types`, icons in `src/icons`, styles in `src/styles`, and data/fixtures in `src/data` or `src/mocks`. Do not recreate `src/shared` or old aliases.
 
 For page wrappers, screen moves, or component placement decisions, read [the page ownership workflow](references/page-ownership.md). Apply this at every route depth, including `app/mypage/{section}/page.tsx`; resolve fixed-kind dispatch wrappers into route-owned composition. A single-route screen belongs directly in `src/app/{route}/page.tsx`, including its composition, local state, handlers, and Panda styles. Do not extract an entire feature `*Page` only to import or re-export it from a thin route. Preserve genuinely shared screens and necessary server/client boundaries. Storybook use alone is not production reuse.
+
+## UI data and service binding
+
+For developer handoff, bindability audits, data/event contracts, or changes to demo-backed forms and lists, read [the data binding workflow](references/data-binding.md). Prepared display data and explicit callbacks belong at the existing UI owner; real requests and business decisions stay with the integration owner. Check the complete path from current data through submission and request outcome, rather than treating props alone as proof of bindability.
+
+Keep live external collections reactive and local editing drafts independent. Pass a complete typed submission payload, await success before finishing the UI flow, preserve inputs on failure, and expose pending/error/retry states. Separate server result items from total counts and next-page state, and keep preview-only overrides in fixtures. These contracts do not require an additional screen file or a provider per component; prefer the existing ownership and introduce only a necessary typed domain boundary. Preserve default demos and validate non-fixture IDs, delayed/replaced data, failure/retry and PC/mobile behavior.
 
 ## Wrapper and parent-option consolidation
 

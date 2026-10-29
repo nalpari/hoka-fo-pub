@@ -13,6 +13,7 @@ import {
   type CSSProperties,
   type ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useId,
   useMemo,
@@ -20,6 +21,8 @@ import {
   useState,
 } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
+import { type ProductListingBinding, ProductListingContext } from '@/context/ProductListingContext';
+import { useRequestAction } from '@/hooks/useRequestAction';
 import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva } from 'styled-system/css';
@@ -53,6 +56,7 @@ import {
   getProductListingTitle,
 } from '@/components/catalog/product-listing/productListingMetadata';
 import { productSortOptions } from '@/components/catalog/product-listing/productSortOptions';
+import type { FilterValues } from '@/components/catalog/productListing.types';
 import {
   activityLabels,
   collectionValues,
@@ -1084,6 +1088,8 @@ function CatalogResults({ children }: { children: ReactNode }) {
 const catalogProductCardOptions: readonly ProductCardOption[] = ['promotion', 'like', 'colors'];
 
 type ProductListingResultsProps = {
+  pending?: boolean;
+  error?: string;
   hasMore: boolean;
   onLoadMore: () => void;
   platform: Platform;
@@ -1092,6 +1098,8 @@ type ProductListingResultsProps = {
 };
 
 function ProductListingResults({
+  pending,
+  error,
   hasMore,
   onLoadMore,
   platform,
@@ -1102,7 +1110,7 @@ function ProductListingResults({
 
   useEffect(() => {
     const target = loadMoreRef.current;
-    if (!target || !hasMore) return;
+    if (!target || !hasMore || pending || error) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -1113,7 +1121,7 @@ function ProductListingResults({
 
     observer.observe(target);
     return () => observer.disconnect();
-  }, [hasMore, onLoadMore]);
+  }, [hasMore, onLoadMore, pending, error]);
 
   return (
     <CatalogResults>
@@ -1149,7 +1157,7 @@ function ProductListingResults({
           )}
           {hasMore && <Box ref={loadMoreRef} aria-hidden="true" h="1px" />}
         </>
-      ) : (
+      ) : pending || error ? null : (
         <EmptyState
           action={<Button onClick={onReset}>필터 초기화</Button>}
           description="선택한 필터를 초기화한 뒤 다시 찾아보세요."
@@ -1161,6 +1169,11 @@ function ProductListingResults({
 }
 
 type ProductListingContentProps = {
+  onRetry?: () => void;
+  pending?: boolean;
+  error?: string;
+  resultCount?: number;
+  hasMore?: boolean;
   filterDrawerOpen: boolean;
   filterPanel: ReactNode;
   mobileResultCount: number;
@@ -1175,6 +1188,10 @@ type ProductListingContentProps = {
 
 /** 상품 필터와 목록을 구성하고 고정 영역 또는 시트로 배치합니다. (Composes shared product filters in a sticky area or bottom sheet.) */
 function ProductListingContent({
+  onRetry,
+  hasMore,
+  pending,
+  error,
   filterDrawerOpen,
   filterPanel,
   mobileResultCount,
@@ -1188,6 +1205,13 @@ function ProductListingContent({
 }: ProductListingContentProps) {
   return (
     <>
+      {pending && <Typography role="status">상품을 불러오고 있습니다.</Typography>}
+      {error && (
+        <>
+          <Typography role="alert">{error}</Typography>
+          {onRetry && <Button onClick={onRetry}>다시 시도</Button>}
+        </>
+      )}
       <Grid
         gridTemplateColumns="clamp(252px, 22%, 337px) minmax(0, 1fr)"
         gap="clamp(20px, 3.2%, 48px)"
@@ -1209,7 +1233,9 @@ function ProductListingContent({
           </Box>
         )}
         <ProductListingResults
-          hasMore={shown.length < result.length}
+          hasMore={hasMore ?? shown.length < result.length}
+          pending={pending}
+          error={error}
           onLoadMore={onLoadMore}
           onReset={onReset}
           platform={platform}
@@ -1496,6 +1522,11 @@ const catalogLayout = css({
 });
 
 type ProductListingLayoutProps = {
+  onRetry?: () => void;
+  pending?: boolean;
+  error?: string;
+  resultCount?: number;
+  hasMore?: boolean;
   breadcrumbItems: BreadcrumbItem[];
   activity: string;
   filterDrawerOpen: boolean;
@@ -1522,6 +1553,11 @@ type ProductListingLayoutProps = {
 
 /** 목록과 검색 결과에 공통 상품·필터 영역을 배치합니다. (Arranges shared product results and filters for catalog and search pages.) */
 function ProductListingLayout({
+  onRetry,
+  resultCount,
+  hasMore,
+  pending,
+  error,
   breadcrumbItems,
   activity,
   filterDrawerOpen,
@@ -1549,6 +1585,10 @@ function ProductListingLayout({
 
   const content = (
     <ProductListingContent
+      onRetry={onRetry}
+      hasMore={hasMore}
+      pending={pending}
+      error={error}
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
       mobileResultCount={mobileResultCount}
@@ -1568,7 +1608,7 @@ function ProductListingLayout({
         key={normalizedSearchQuery}
         query={normalizedSearchQuery}
         platform={platform}
-        resultCount={result.length}
+        resultCount={resultCount ?? result.length}
         onSearch={onSearch}
         onClose={onCloseSearch}
         hasActiveFilters={hasActiveFilters}
@@ -1594,7 +1634,7 @@ function ProductListingLayout({
       title={
         <ProductListTitle
           platform={platform}
-          resultCount={result.length}
+          resultCount={resultCount ?? result.length}
           searchQuery={normalizedSearchQuery}
           title={productListingTitle}
         />
@@ -1613,22 +1653,8 @@ function ProductListingLayout({
 }
 
 type ProductListingPageProps = {
+  data?: ProductListingBinding;
   searchQuery?: string;
-};
-
-type FilterValues = {
-  activity: string[];
-  category: string;
-  collection: string[];
-  cushioning: string[];
-  gender: string[];
-  minPrice: number;
-  maxPrice: number;
-  selectedColors: string[];
-  runningType: string[];
-  size: string[];
-  stability: string[];
-  width: string[];
 };
 
 const facetKeys = [
@@ -1663,7 +1689,10 @@ const emptyFilters = (): FilterValues => ({
 });
 
 /** URL 필터와 상품 정렬·목록 화면을 연결합니다 (Coordinates catalog URL filters, local price controls, and listing layout). */
-export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps) {
+export function ProductListingPage({ searchQuery = '', data }: ProductListingPageProps) {
+  const context = useContext(ProductListingContext);
+  const binding = data ?? context;
+  const { pending: requestPending, error: requestError, run } = useRequestAction();
   const platform = usePlatform();
   const params = useSearchParams();
   const pathname = usePathname();
@@ -1715,8 +1744,11 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
     sort: selectedSort ?? '',
   });
   const result = useMemo(
-    () => sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort),
-    [activeFilters, searchQuery, sort],
+    () =>
+      binding
+        ? [...binding.items]
+        : sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort),
+    [binding, activeFilters, searchQuery, sort],
   );
   const listingKey = JSON.stringify([paramsKey, minPrice, maxPrice, searchQuery]);
   const [visibleProductState, setVisibleProductState] = useState({
@@ -1725,8 +1757,19 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   });
   const visibleProductCount =
     visibleProductState.key === listingKey ? visibleProductState.count : productsPerLoad;
-  const shown = result.slice(0, visibleProductCount);
-  const mobileResultCount = filterProducts(products, { ...mobileFilters, searchQuery }).length;
+  const shown = binding ? result : result.slice(0, visibleProductCount);
+  const mobileResultCount = binding
+    ? (binding.mobileResultCount ?? binding.totalCount)
+    : filterProducts(products, { ...mobileFilters, searchQuery }).length;
+  const onQueryChange = binding?.onQueryChange;
+  const onPreviewQueryChange = binding?.onPreviewQueryChange;
+  useEffect(() => {
+    onQueryChange?.({ filters: activeFilters, sort, searchQuery });
+  }, [onQueryChange, activeFilters, sort, searchQuery]);
+  useEffect(() => {
+    if (filterDrawerOpen)
+      onPreviewQueryChange?.({ filters: mobileFilters, sort: mobileSort, searchQuery });
+  }, [onPreviewQueryChange, filterDrawerOpen, mobileFilters, mobileSort, searchQuery]);
 
   const updateFacet = (key: string, values: string[]) => {
     const next = new URLSearchParams(params.toString());
@@ -1792,13 +1835,20 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
 
   const displayedFilters = platform === 'mobile' ? mobileFilters : activeFilters;
 
+  const onLoadMore = binding?.onLoadMore;
+  const retry = binding?.onRetry ?? (requestError ? onLoadMore : undefined);
+  const loading = binding?.pending || requestPending;
   const loadMore = useCallback(() => {
+    if (onLoadMore) {
+      if (!loading) void run(onLoadMore);
+      return;
+    }
     setVisibleProductState((previous) => {
       const count = previous.key === listingKey ? previous.count : productsPerLoad;
 
       return { key: listingKey, count: Math.min(count + productsPerLoad, result.length) };
     });
-  }, [listingKey, result.length]);
+  }, [listingKey, result.length, onLoadMore, loading, run]);
 
   const filterPanel = (
     <ProductListingFilterPanel
@@ -1837,6 +1887,17 @@ export function ProductListingPage({ searchQuery = '' }: ProductListingPageProps
   return (
     <ProductListingLayout
       activity={activeFilters.activity[0] ?? ''}
+      resultCount={binding?.totalCount}
+      hasMore={binding?.hasMore}
+      pending={loading}
+      error={binding?.error || requestError}
+      onRetry={
+        retry
+          ? () => {
+              void run(retry);
+            }
+          : undefined
+      }
       breadcrumbItems={breadcrumbItems}
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}

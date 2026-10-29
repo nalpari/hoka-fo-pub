@@ -7,6 +7,7 @@ import { type ComponentProps, type FormEvent, type ReactNode, useState } from 'r
 import { usePlatform } from '@/context/platform';
 import { useRoutePreview } from '@/context/RoutePreview';
 import { useShop } from '@/context/ShopShell';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -145,6 +146,7 @@ type LoginFormProps = {
   password: string;
   rememberId: boolean;
   notice: LoginNotice | null;
+  pending?: boolean;
   errors?: Partial<Record<'id' | 'password', string>>;
   onIdChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
@@ -160,6 +162,7 @@ function LoginForm({
   rememberId,
   notice,
   errors,
+  pending,
   onIdChange,
   onPasswordChange,
   onRememberChange,
@@ -169,60 +172,67 @@ function LoginForm({
 }: LoginFormProps) {
   return (
     <form onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
-      <Stack gap="4">
-        <TextFormField
-          variant="boxed"
-          id="login-id"
-          label="아이디"
-          required
-          error={errors?.id}
-          inputProps={{
-            name: 'username',
-            type: 'text',
-            autoComplete: 'username',
-            placeholder: '아이디를 입력해 주세요',
-            value: id,
-            onChange: (event) => onIdChange(event.target.value),
-          }}
-        />
-        <TextFormField
-          variant="boxed"
-          id="login-password"
-          label="비밀번호"
-          required
-          error={errors?.password}
-          inputProps={{
-            name: 'password',
-            autoComplete: 'current-password',
-            placeholder: '비밀번호를 입력해 주세요',
-            type: 'password',
-            value: password,
-            onChange: (event) => onPasswordChange(event.target.value),
-          }}
-        />
-        <HStack justifyContent="space-between" gap="2" minH="6">
-          <HStack gap="2">
-            <Checkbox
-              className={rememberIdCheckbox}
-              label="아이디 저장"
-              checked={rememberId}
-              onCheckedChange={onRememberChange}
-            />
-            <RememberIdHelp />
+      <fieldset
+        disabled={pending}
+        aria-busy={pending}
+        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
+      >
+        <Stack gap="4">
+          <TextFormField
+            variant="boxed"
+            id="login-id"
+            label="아이디"
+            required
+            error={errors?.id}
+            inputProps={{
+              name: 'username',
+              type: 'text',
+              autoComplete: 'username',
+              placeholder: '아이디를 입력해 주세요',
+              value: id,
+              onChange: (event) => onIdChange(event.target.value),
+            }}
+          />
+          <TextFormField
+            variant="boxed"
+            id="login-password"
+            label="비밀번호"
+            required
+            error={errors?.password}
+            inputProps={{
+              name: 'password',
+              autoComplete: 'current-password',
+              placeholder: '비밀번호를 입력해 주세요',
+              type: 'password',
+              value: password,
+              onChange: (event) => onPasswordChange(event.target.value),
+            }}
+          />
+          <HStack justifyContent="space-between" gap="2" minH="6">
+            <HStack gap="2">
+              <Checkbox
+                className={rememberIdCheckbox}
+                label="아이디 저장"
+                checked={rememberId}
+                onCheckedChange={onRememberChange}
+              />
+              <RememberIdHelp />
+            </HStack>
+            <Button variant="link" size="md" onClick={onFindAccount}>
+              <Typography as="span" variant="body4">
+                아이디/비밀번호 찾기
+              </Typography>
+            </Button>
           </HStack>
-          <Button variant="link" size="md" onClick={onFindAccount}>
-            <Typography as="span" variant="body4">
-              아이디/비밀번호 찾기
-            </Typography>
-          </Button>
-        </HStack>
-        {notice ? (
-          <StatusMessage id="login-notice" tone={notice.tone}>
-            {notice.message}
-          </StatusMessage>
-        ) : null}
-        <LoginActions onUnavailable={onUnavailable} />
-      </Stack>
+          {notice ? (
+            <StatusMessage id="login-notice" tone={notice.tone}>
+              {notice.message}
+            </StatusMessage>
+          ) : null}
+          <LoginActions onUnavailable={onUnavailable} />
+          {pending && <Typography role="status">로그인 중입니다.</Typography>}
+        </Stack>
+      </fieldset>
     </form>
   );
 }
@@ -265,7 +275,8 @@ function LoginContent(props: ComponentProps<typeof LoginForm>) {
 
 /** 로그인 입력을 검증하고 상점 로그인 상태를 연결합니다. (Validates login inputs and connects shop authentication state.) */
 function RouteContent() {
-  const { login: onLogin } = useShop();
+  const { login: onLogin, authenticationMode } = useShop();
+  const request = useRequestAction();
   const router = useRouter();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
@@ -296,12 +307,17 @@ function RouteContent() {
       return;
     }
 
-    onLogin?.();
-    setNotice({
-      tone: 'success',
-      message: `${id}${rememberId ? ' 아이디를 저장하고' : ''} 로그인했습니다. (데모)`,
+    void request.run(async () => {
+      await onLogin({ id, password, rememberId });
+      setNotice({
+        tone: 'success',
+        message:
+          authenticationMode === 'demo'
+            ? `${id}${rememberId ? ' 아이디를 저장하고' : ''} 로그인했습니다. (데모)`
+            : '로그인했습니다.',
+      });
+      router.push('/');
     });
-    router.push('/');
   };
 
   return (
@@ -309,7 +325,8 @@ function RouteContent() {
       id={id}
       password={password}
       rememberId={rememberId}
-      notice={notice}
+      notice={request.error ? { tone: 'error', message: request.error } : notice}
+      pending={request.pending}
       errors={errors}
       onIdChange={(value) => {
         setId(value);

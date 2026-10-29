@@ -9,6 +9,11 @@ generated:
   at: '2026-10-28T10:52:23.370Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/CheckoutContext.ts
+  - src/context/PhoneVerificationContext.ts
+  - src/context/ProductListingContext.ts
+  - src/context/MyPageDataContext.ts
+  - src/context/OrdersContext.ts
   - src/context/InquiryPreviewContext.ts
   - src/context/RunClubSessionContext.ts
   - src/hooks/useRecentSearches.ts
@@ -451,3 +456,9 @@ ShopShell의 검색·메뉴·닫기 등 기존 IconButton 호출을 Button varia
 ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색 훅은 src/hooks로 옮겼다. 문의·런클럽의 상태 주입 컨텍스트는 src/context, 주소 초기값 계약은 src/types로 옮겼다. Provider와 훅의 구현·초기값·저장 키·상태 수명은 유지하며 모든 소비자는 동일한 새 모듈을 참조한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 화면 바인딩 계약 보완 (2026-10-29)
+
+ShopShell.state와 도메인별 Context로 실제 데이터·서비스 함수를 연결한다. 로그인은 입력값을 전달하고 비동기 성공 이후 이동한다. 배송지·주문·리뷰의 서비스 모드는 현재 Provider 목록을 직접 표시하며 편집 초안을 유지한다. 데모 초기값 주입은 별도 유지한다. [연결 계약과 적용 범위](data-binding.md).
+
+작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.

@@ -9,6 +9,7 @@ generated:
   at: '2026-10-28T11:10:41.166Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/addresses/page.tsx
   - src/components/common/molecules/ProductDetailImage.tsx
   - src/components/common/organisms/SystemStatusPage.tsx
   - src/components/common/layouts/AccountPageLayout.tsx
@@ -375,3 +376,9 @@ error·maintenance·service-unavailable 라우트가 common/organisms/SystemStat
 app/running/run-club/[sessionId]/page.tsx는 RunClubBadge 대신 common/atoms/Badge에 runClubCategory={session.category}를 전달한다. 기존 URL·페이지 소유권·클라이언트 경계·신청 상태·처리 흐름은 유지한다. 작업 트리 출처: src/app/running/run-club/[sessionId]/page.tsx. 기록 시점: 2026-10-28T11:14:23.062Z. 상세 API와 검증은 [런클럽 분류 배지 통합](ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.
 
 IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도 Badge.tsx로 갱신했다.
+
+## 화면 바인딩 계약 보완 (2026-10-29)
+
+기존 URL과 페이지 default export는 유지했다. 서비스 데이터는 일반 Context 모듈과 공용 목록 props를 통해 연결한다. 결제·로그인·배송지·주문 변경은 비동기 성공 이후에만 완료 처리하며 실패 시 현재 화면을 유지한다. 상품 상세·장바구니·결제는 외부 셸의 상품 목록을 사용한다. [연결 계약과 적용 범위](data-binding.md).
+
+작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.

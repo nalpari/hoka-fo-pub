@@ -1,8 +1,11 @@
 'use client';
 
 import { useContext, useState } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
+import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
@@ -256,9 +259,11 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  pending?: boolean;
+  error?: string;
 };
 
-function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm }: Props) {
+function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm, pending, error }: Props) {
   return (
     <ModalDialog
       closeLabel="배송지 삭제 확인창 닫기"
@@ -266,11 +271,12 @@ function MyPageAddressDeleteDialog({ open, onOpenChange, onConfirm }: Props) {
       onOpenChange={onOpenChange}
       size="sm"
       title="배송지 관리"
-      actions={{ kind: 'confirm', onConfirm: onConfirm }}
+      actions={{ kind: 'confirm', onConfirm, confirmDisabled: pending }}
     >
       <Typography as="p" variant="body3">
         배송지를 삭제 하시겠습니까?
       </Typography>
+      {error && <Typography role="alert">{error}</Typography>}
     </ModalDialog>
   );
 }
@@ -315,7 +321,10 @@ const emptyAddress: Address = {
 /** 배송지 목록의 추가와 수정 및 삭제 상태를 관리합니다. (Manages adding, editing, and deleting shipping addresses.) */
 export default function Page() {
   const { addresses: initialItems = initialAddresses } = useContext(MyPageInitialStateContext);
-  const [addresses, setAddresses] = useState<Address[]>(initialItems);
+  const { addresses: binding } = useContext(MyPageDataContext);
+  const request = useRequestAction();
+  const [demoAddresses, setAddresses] = useState<Address[]>(initialItems);
+  const addresses = binding?.items ?? demoAddresses;
   const [editingId, setEditingId] = useState<number | 'new' | null>(null);
   const [draft, setDraft] = useState<Address>(emptyAddress);
   const [addressOpen, setAddressOpen] = useState(false);
@@ -353,6 +362,13 @@ export default function Page() {
       !draft.detail.trim()
     )
       return;
+    if (binding) {
+      void request.run(async () => {
+        await binding.save({ ...draft, id: editingId === 'new' ? undefined : draft.id });
+        setEditingId(null);
+      });
+      return;
+    }
     const saved = { ...draft, id: editingId === 'new' ? Date.now() : draft.id };
     setAddresses((current) => {
       const next =
@@ -381,31 +397,53 @@ export default function Page() {
         },
       ]}
     >
-      {editingId === null ? (
-        <AddressList
-          addresses={addresses}
-          onEdit={startEdit}
-          onDelete={setDeleteId}
-          onAdd={startNew}
-        />
-      ) : (
-        <AddressEditor
-          editingId={editingId}
-          draft={draft}
-          fieldError={fieldError}
-          update={update}
-          save={save}
-          onCancel={() => setEditingId(null)}
-          addressOpen={addressOpen}
-          onAddressOpenChange={setAddressOpen}
-        />
+      {(request.error || binding?.error) && (
+        <Typography role="alert">{request.error || binding?.error}</Typography>
       )}
+      {(request.pending || binding?.pending) && (
+        <Typography role="status">배송지를 처리하고 있습니다.</Typography>
+      )}
+      <fieldset
+        disabled={request.pending || binding?.pending}
+        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
+      >
+        {editingId === null &&
+        addresses.length === 0 &&
+        (binding?.pending || binding?.error) ? null : editingId === null ? (
+          <AddressList
+            addresses={addresses}
+            onEdit={startEdit}
+            onDelete={setDeleteId}
+            onAdd={startNew}
+          />
+        ) : (
+          <AddressEditor
+            editingId={editingId}
+            draft={draft}
+            fieldError={fieldError}
+            update={update}
+            save={save}
+            onCancel={() => setEditingId(null)}
+            addressOpen={addressOpen}
+            onAddressOpenChange={setAddressOpen}
+          />
+        )}
+      </fieldset>
       <MyPageAddressDeleteDialog
+        pending={request.pending || binding?.pending}
+        error={request.error || binding?.error}
         open={deleteId !== null}
         onOpenChange={(open) => {
-          if (!open) setDeleteId(null);
+          if (!open && !request.pending) setDeleteId(null);
         }}
         onConfirm={() => {
+          if (binding && deleteId !== null) {
+            void request.run(async () => {
+              await binding.remove(deleteId);
+              setDeleteId(null);
+            });
+            return;
+          }
           setAddresses((current) => current.filter((address) => address.id !== deleteId));
           setDeleteId(null);
         }}

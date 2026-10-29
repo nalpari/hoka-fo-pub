@@ -1,6 +1,8 @@
 'use client';
 
-import { type ComponentProps, type FormEvent, useState } from 'react';
+import { type ComponentProps, type FormEvent, useContext, useRef, useState } from 'react';
+import { PhoneVerificationContext } from '@/context/PhoneVerificationContext';
+import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import {
@@ -28,6 +30,10 @@ const isValidBirthDate = (value: string) => {
 
 /** 휴대폰 인증의 입력 검증과 약관 및 타이머 상태를 관리합니다. (Manages phone verification validation, agreements, and timer state.) */
 export function usePhoneVerification(onVerified: () => void) {
+  const service = useContext(PhoneVerificationContext);
+  const request = useRequestAction();
+  const version = useRef(0);
+  const [requestId, setRequestId] = useState<string | null>(null);
   const [information, setInformation] = useState<PhoneInformation>({
     name: '',
     birthDate: '',
@@ -47,6 +53,8 @@ export function usePhoneVerification(onVerified: () => void) {
   const [detail, setDetail] = useState<string | null>(null);
 
   const changeInformation = (key: keyof PhoneInformation, value: string) => {
+    version.current += 1;
+    setRequestId(null);
     setInformation((previous) => ({ ...previous, [key]: value }));
     setFieldErrors((previous) => {
       const next = { ...previous, [key]: undefined };
@@ -87,11 +95,19 @@ export function usePhoneVerification(onVerified: () => void) {
     }
     if (missingAgreements) return;
 
-    start();
-    setCode('');
-    setNotice(
-      '화면 미리보기입니다. 실제 문자는 발송되지 않으며 인증번호 검증은 서비스 연결 후 가능합니다.',
-    );
+    const currentVersion = version.current;
+    void request.run(async () => {
+      const result = service ? await service.request(information) : null;
+      if (version.current !== currentVersion) return;
+      setRequestId(result?.requestId ?? null);
+      start(result?.expiresInSeconds);
+      setCode('');
+      setNotice(
+        service
+          ? '인증번호를 발송했습니다.'
+          : '화면 미리보기입니다. 실제 문자는 발송되지 않으며 인증번호 검증은 서비스 연결 후 가능합니다.',
+      );
+    });
   };
 
   const confirmCode = (event: FormEvent<HTMLFormElement>) => {
@@ -115,7 +131,14 @@ export function usePhoneVerification(onVerified: () => void) {
       setCodeError('인증번호 6자리를 입력해 주세요.');
       return;
     }
-    onVerified();
+    const currentVersion = version.current;
+    void request.run(async () => {
+      if (service) {
+        if (!requestId) throw new Error('인증번호를 다시 요청해 주세요.');
+        await service.verify({ requestId, code, information });
+      }
+      if (version.current === currentVersion) onVerified();
+    });
   };
 
   return {
@@ -126,8 +149,9 @@ export function usePhoneVerification(onVerified: () => void) {
     code,
     secondsLeft,
     resendWait: secondsLeft,
-    notice,
-    noticeTone,
+    pending: request.pending,
+    notice: request.error || notice,
+    noticeTone: request.error ? 'error' : noticeTone,
     codeError,
     fieldErrors,
     detail,

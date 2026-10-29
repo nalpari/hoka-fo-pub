@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { type FormEvent, type FormEventHandler, type ReactNode, useState } from 'react';
+import { type ReactNode, useContext, useState } from 'react';
+import { CheckoutContext, type CheckoutSubmission } from '@/context/CheckoutContext';
 import { useShop } from '@/context/ShopShell';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Circle, Flex, HStack, Stack } from 'styled-system/jsx';
@@ -450,13 +452,29 @@ type CheckoutSavedAddressProps = {
   onEdit: () => void;
 };
 
+const demoSavedAddress = {
+  id: 'demo',
+  label: '홍길동집',
+  name: '홍길동',
+  phone: '010-1234-5678',
+  address: '서울시 강남구 역삼동 234-1',
+  postalCode: '',
+  addressDetail: '',
+};
+
 function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
+  const binding = useContext(CheckoutContext);
+  const saved = binding ? binding.savedAddress : demoSavedAddress;
+  if (!saved) return null;
   return (
-    <Box border="1px solid var(--colors-black-20)">
+    <Box key={JSON.stringify(saved)} border="1px solid var(--colors-black-20)">
+      <input type="hidden" name="savedAddressId" value={saved.id} />
+      <input type="hidden" name="postalCode" value={saved.postalCode} />
+      <input type="hidden" name="addressDetail" value={saved.addressDetail} />
       <HStack justifyContent="space-between" alignItems="center" bg="black.10" px="4" h="56px">
         <HStack gap="2">
           <Typography variant="body3" weight="medium">
-            홍길동집
+            {saved.label}
           </Typography>
           <Box border="1px solid var(--colors-black-20)" px="1" py="0.5" borderRadius="2px">
             <Typography variant="body5">기본 배송지</Typography>
@@ -479,7 +497,7 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
               aria-label="주소"
               name="address"
               autoComplete="street-address"
-              defaultValue="서울시 강남구 역삼동 234-1"
+              defaultValue={saved.address}
             />
             {errors?.address ? (
               <Typography variant="body5" tone="subtle">
@@ -499,7 +517,7 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
             aria-label="받는 분"
             name="name"
             autoComplete="name"
-            defaultValue="홍길동"
+            defaultValue={saved.name}
           />
         </HStack>
         <HStack gap="4">
@@ -513,7 +531,7 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
             aria-label="연락처"
             name="phone"
             autoComplete="tel"
-            defaultValue="010-1234-5678"
+            defaultValue={saved.phone}
           />
         </HStack>
       </Stack>
@@ -602,6 +620,8 @@ function CheckoutDeliveryRequest() {
 type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
 function CheckoutShipping({ errors }: { errors?: ShippingErrors }) {
+  const binding = useContext(CheckoutContext);
+  const hasSavedAddress = !binding || binding.savedAddress !== null;
   const [editing, setEditing] = useState(false);
   const [postalCode, setPostalCode] = useState('');
   const [address, setAddress] = useState('');
@@ -613,7 +633,7 @@ function CheckoutShipping({ errors }: { errors?: ShippingErrors }) {
       title="주문자 및 배송지 정보"
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
     >
-      {editing ? (
+      {editing || !hasSavedAddress ? (
         <CheckoutShippingForm
           errors={errors}
           postalCode={postalCode}
@@ -668,6 +688,8 @@ function CheckoutDiscountSummary({
   onCouponChange: (coupon: string) => void;
   onMaxBenefitChange: (checked: boolean) => void;
 }) {
+  const binding = useContext(CheckoutContext);
+  const shippingFee = binding?.shippingFee ?? checkoutShippingFee;
   return (
     <Stack gap="4">
       <Stack gap="3" border="1px solid var(--colors-black-20)">
@@ -687,14 +709,14 @@ function CheckoutDiscountSummary({
             required
             value={coupon}
             onValueChange={(value) => onCouponChange(value)}
-            options={checkoutCouponOptions}
+            options={binding?.couponOptions ?? checkoutCouponOptions}
           />
         </Stack>
         <AmountRow label="쿠폰 할인금액" amount={discount} discount px="4" />
-        <AmountRow label="배송비" amount={checkoutShippingFee} px="4" />
+        <AmountRow label="배송비" amount={shippingFee} px="4" />
         <AmountRow
           label="총 결제 금액"
-          amount={total - discount + checkoutShippingFee}
+          amount={total - discount + shippingFee}
           emphasis
           emphasizeLabel
           p="4"
@@ -798,6 +820,8 @@ function CheckoutContent({
   onOrderAgreedChange,
   onPrivacyAgreedChange,
 }: CheckoutContentProps) {
+  const binding = useContext(CheckoutContext);
+  const shippingFee = binding?.shippingFee ?? checkoutShippingFee;
   return (
     <Stack gap={{ base: '10', _mobile: '6' }}>
       <CheckoutShipping errors={errors} />
@@ -821,7 +845,7 @@ function CheckoutContent({
       />
       <OrderActionBar>
         <Button type="submit" variant="primary" fullWidth>
-          {(total - discount + checkoutShippingFee).toLocaleString()}원 결제하기
+          {(total - discount + shippingFee).toLocaleString()}원 결제하기
         </Button>
       </OrderActionBar>
     </Stack>
@@ -834,7 +858,9 @@ type CheckoutFormProps = {
   total: number;
   payment: PaymentMethod;
   onPaymentChange: (payment: PaymentMethod) => void;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  pending?: boolean;
+  error?: string;
+  onSubmit: (input: CheckoutSubmission) => void;
 };
 
 /** 결제 입력과 제출 검증 상태를 관리합니다. (Manages checkout inputs and submission validation state.) */
@@ -845,16 +871,26 @@ function CheckoutForm({
   payment,
   onPaymentChange,
   onSubmit,
+  pending,
+  error,
 }: CheckoutFormProps) {
   const [errors, setErrors] = useState<Partial<Record<'name' | 'phone' | 'address', string>>>({});
-  const [coupon, setCoupon] = useState('none');
-  const [maxBenefit, setMaxBenefit] = useState(false);
-  const discount = getCheckoutCouponDiscount(coupon, rows, total);
+  const binding = useContext(CheckoutContext);
+  const [demoCoupon, setCoupon] = useState('none');
+  const [demoMaxBenefit, setMaxBenefit] = useState(false);
+  const coupon = binding?.coupon ?? demoCoupon;
+  const maxBenefit = binding?.maxBenefit ?? demoMaxBenefit;
+  const discount = binding?.discount ?? getCheckoutCouponDiscount(coupon, rows, total);
   const [agreementError, setAgreementError] = useState(false);
   const [orderAgreed, setOrderAgreed] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
 
   if (completed) return <CheckoutComplete />;
+
+  if (rows.length === 0 && binding?.pending)
+    return <Typography role="status">주문 정보를 불러오고 있습니다.</Typography>;
+  if (rows.length === 0 && binding?.error)
+    return <Typography role="alert">{binding.error}</Typography>;
 
   if (rows.length === 0)
     return (
@@ -873,7 +909,10 @@ function CheckoutForm({
         const input = event.target as HTMLInputElement;
         if (input.value.trim()) setErrors((previous) => ({ ...previous, [input.name]: undefined }));
       }}
+      aria-busy={pending || binding?.pending}
       onSubmit={(event) => {
+        event.preventDefault();
+        if (pending || binding?.pending) return;
         const data = new FormData(event.currentTarget);
         const nextErrors = {
           name: String(data.get('name') ?? '').trim() ? '' : '받는 분을 입력해 주세요.',
@@ -887,38 +926,75 @@ function CheckoutForm({
           event.preventDefault();
           return;
         }
-        onSubmit(event);
+        const field = (key: string) => String(data.get(key) ?? '');
+        onSubmit({
+          items: rows.map(({ item }) => item),
+          savedAddressId: field('savedAddressId') || null,
+          payment,
+          coupon,
+          maxBenefit,
+          orderAgreed,
+          privacyAgreed,
+          shipping: {
+            name: field('name'),
+            phone: field('phone'),
+            email: field('email'),
+            otherPhone: field('otherPhone'),
+            postalCode: field('postalCode'),
+            address: field('address'),
+            addressDetail: field('addressDetail'),
+            deliveryRequest: field('deliveryRequest'),
+            deliveryMessage: field('deliveryMessage'),
+          },
+        });
       }}
     >
-      <CheckoutContent
-        rows={rows}
-        total={total}
-        discount={discount}
-        payment={payment}
-        errors={errors}
-        coupon={coupon}
-        maxBenefit={maxBenefit}
-        orderAgreed={orderAgreed}
-        privacyAgreed={privacyAgreed}
-        agreementError={agreementError}
-        onPaymentChange={onPaymentChange}
-        onCouponChange={(value) => {
-          setCoupon(value);
-          setMaxBenefit(false);
-        }}
-        onMaxBenefitChange={(checked) => {
-          setMaxBenefit(checked);
-          if (checked) setCoupon(getMaximumCheckoutCoupon(rows, total));
-        }}
-        onOrderAgreedChange={(checked) => {
-          setOrderAgreed(checked);
-          if (checked && privacyAgreed) setAgreementError(false);
-        }}
-        onPrivacyAgreedChange={(checked) => {
-          setPrivacyAgreed(checked);
-          if (checked && orderAgreed) setAgreementError(false);
-        }}
-      />
+      <fieldset
+        disabled={pending || binding?.pending}
+        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
+      >
+        <CheckoutContent
+          rows={rows}
+          total={total}
+          discount={discount}
+          payment={payment}
+          errors={errors}
+          coupon={coupon}
+          maxBenefit={maxBenefit}
+          orderAgreed={orderAgreed}
+          privacyAgreed={privacyAgreed}
+          agreementError={agreementError}
+          onPaymentChange={onPaymentChange}
+          onCouponChange={(value) => {
+            if (binding) {
+              binding.onCouponChange(value);
+              return;
+            }
+            setCoupon(value);
+            setMaxBenefit(false);
+          }}
+          onMaxBenefitChange={(checked) => {
+            if (binding) {
+              binding.onMaxBenefitChange(checked);
+              return;
+            }
+            setMaxBenefit(checked);
+            if (checked) setCoupon(getMaximumCheckoutCoupon(rows, total));
+          }}
+          onOrderAgreedChange={(checked) => {
+            setOrderAgreed(checked);
+            if (checked && privacyAgreed) setAgreementError(false);
+          }}
+          onPrivacyAgreedChange={(checked) => {
+            setPrivacyAgreed(checked);
+            if (checked && orderAgreed) setAgreementError(false);
+          }}
+        />
+      </fieldset>
+      {(pending || binding?.pending) && (
+        <Typography role="status">주문 정보를 처리하고 있습니다.</Typography>
+      )}
+      {(error || binding?.error) && <Typography role="alert">{error || binding?.error}</Typography>}
     </form>
   );
 }
@@ -944,7 +1020,9 @@ function CheckoutLayout({ completed, children }: { completed: boolean; children:
 
 /** 선택 상품의 주문 상태와 결제 완료 후 장바구니 정리를 관리합니다. (Manages selected-item checkout and removes completed items from the cart.) */
 export default function Page() {
-  const { cart, remove } = useShop();
+  const { cart, remove, products: catalogue = products } = useShop();
+  const binding = useContext(CheckoutContext);
+  const request = useRequestAction();
   const onComplete = (items: readonly CartItem[]) => items.forEach(remove);
   const [payment, setPayment] = useState<PaymentMethod>('kakao');
   const [completed, setCompleted] = useState(false);
@@ -956,12 +1034,14 @@ export default function Page() {
         selectedKeys.includes(`${item.id}-${item.color}-${item.width}-${item.size}`),
       )
     : cart;
-  const { rows, total } = getCheckoutSummary(selectedCart, products);
+  const { rows, total } = getCheckoutSummary(selectedCart, catalogue);
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setCompleted(true);
-    onComplete(selectedCart);
+  const submit = (input: CheckoutSubmission) => {
+    void request.run(async () => {
+      if (binding) await binding.submit(input);
+      else onComplete(input.items);
+      setCompleted(true);
+    });
   };
 
   return (
@@ -973,6 +1053,8 @@ export default function Page() {
         payment={payment}
         onPaymentChange={setPayment}
         onSubmit={submit}
+        pending={request.pending}
+        error={request.error}
       />
     </CheckoutLayout>
   );

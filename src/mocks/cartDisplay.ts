@@ -1,10 +1,8 @@
 import type { CartItem } from '@/types/cart';
 
-const previewColors = new Set(['브라운', '레드', '화이트', '옐로우골드']);
-
-/** Figma cart fixture imagery; real catalogue entries retain their own product images. */
+/** Uses an explicit cart image override, otherwise preserving the catalogue image. */
 export function getCartImage(item: CartItem, fallback: string) {
-  return previewColors.has(item.color) ? '/images/cart/clifton-preview.png' : fallback;
+  return item.imageSrc ?? fallback;
 }
 
 export const recommendationImages = [

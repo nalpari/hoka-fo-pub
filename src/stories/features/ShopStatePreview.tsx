@@ -11,6 +11,7 @@ export function ShopStatePreview({
   return (
     <ShopStateProvider
       value={{
+        authenticationMode: 'demo',
         cart: [],
         add: noop,
         remove: noop,

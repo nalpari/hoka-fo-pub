@@ -4,9 +4,11 @@ import Link from 'next/link';
 
 import { Drawer } from '@base-ui/react/drawer';
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import { type ReactNode, useId, useState } from 'react';
+import { type ReactNode, useContext, useEffect, useId, useState } from 'react';
+import { OrdersContext } from '@/context/OrdersContext';
 import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -545,7 +547,11 @@ function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActi
 }
 
 type OrdersListContentProps = OrdersFiltersProps &
-  OrderCardActions & { orders: readonly OrderRecord[]; statusItems: OrderStatusItem[] };
+  OrderCardActions & {
+    orders: readonly OrderRecord[];
+    statusItems: OrderStatusItem[];
+    pending?: boolean;
+  };
 
 const emptyOrderState = css({
   '& .empty-state__title': {
@@ -557,7 +563,7 @@ const emptyOrderState = css({
 });
 
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
-function OrdersListContent({ orders, statusItems, ...props }: OrdersListContentProps) {
+function OrdersListContent({ orders, statusItems, pending, ...props }: OrdersListContentProps) {
   return (
     <Stack gap="6">
       {/* 주문별 상태 건수를 요약합니다. (Summarizes order counts by status.) */}
@@ -570,7 +576,7 @@ function OrdersListContent({ orders, statusItems, ...props }: OrdersListContentP
             <OrderCard key={order.id} order={order} {...props} />
           ))}
         </Stack>
-      ) : (
+      ) : pending || props.error ? null : (
         <Box minH="300px" className={emptyOrderState}>
           <EmptyState variant="standard" title="주문한 상품이 없습니다." />
         </Box>
@@ -792,6 +798,7 @@ type OrdersContentProps = OrdersFiltersProps &
   OrderCardActions & {
     orders: readonly OrderRecord[];
     statusItems: OrderStatusItem[];
+    pending?: boolean;
     view: OrdersView;
     selectedOrder?: OrderRecord;
     selectedClaim?: OrderClaim;
@@ -804,6 +811,7 @@ type OrdersContentProps = OrdersFiltersProps &
 
 /** 주문 목록·주문 상세·신청 상세 화면을 공통 골격 안에 구성합니다. (Composes order list, order detail, and claim detail views.) */
 function OrdersContent({
+  pending,
   view,
   selectedOrder,
   selectedClaim,
@@ -826,13 +834,14 @@ function OrdersContent({
           : '주문/배송 조회';
   return (
     <OrdersLayout title={title} returns={returns}>
+      {pending && <Typography role="status">주문 정보를 처리하고 있습니다.</Typography>}
       {message ? <StatusMessage tone="success">{message}</StatusMessage> : null}
       {view === 'claim' && selectedOrder && selectedClaim ? (
         <OrderClaimDetail order={selectedOrder} claim={selectedClaim} onList={onList} />
       ) : view === 'detail' && selectedOrder ? (
         <OrderDetail {...props} order={selectedOrder} onList={onList} onDelete={onDelete} />
       ) : (
-        <OrdersListContent {...props} />
+        <OrdersListContent {...props} pending={pending} />
       )}
       {dialogs}
     </OrdersLayout>
@@ -1081,11 +1090,12 @@ type OrderClaimSheetProps = {
   order: OrderRecord;
   kind: ClaimKind;
   onClose: () => void;
-  onSubmit: (draft: ClaimDraft) => string | null;
+  onSubmit: (draft: ClaimDraft) => string | null | Promise<string | null>;
 };
 
 /** 취소·환불 신청 초안을 관리하고 검증 결과를 표시합니다. (Manages a cancellation or refund draft and validation feedback.) */
 function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProps) {
+  const request = useRequestAction();
   const id = useId();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [reason, setReason] = useState<ClaimReason>('');
@@ -1097,9 +1107,11 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
     <BottomSheet
       title={kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청'}
       ariaLabel={kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청'}
-      onClose={onClose}
+      onClose={() => {
+        if (!request.pending) onClose();
+      }}
       footer={
-        <Button type="submit" form={id} variant="primary" fullWidth>
+        <Button disabled={request.pending} type="submit" form={id} variant="primary" fullWidth>
           신청하기
         </Button>
       }
@@ -1109,35 +1121,42 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
-          setError(onSubmit({ quantities, reason, details }) ?? '');
+          void request.run(async () => {
+            setError((await onSubmit({ quantities, reason, details })) ?? '');
+          });
         }}
       >
-        <Stack gap="6">
-          <ClaimInstructions kind={kind} />
-          <ClaimProductSelection
-            items={items}
-            kind={kind}
-            quantities={quantities}
-            onToggle={(line, checked) =>
-              setQuantities((previous) => ({
-                ...previous,
-                [line.key]: checked ? (kind === 'return' ? line.quantity : 1) : 0,
-              }))
-            }
-            onQuantity={(key, value) =>
-              setQuantities((previous) => ({ ...previous, [key]: value }))
-            }
-          />
-          <ClaimReasonFields
-            id={id}
-            reason={reason}
-            details={details}
-            onReasonChange={setReason}
-            onDetailsChange={setDetails}
-          />
-          <ClaimAmountSummary {...amounts} kind={kind} />
-          {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}
-        </Stack>
+        <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+          <Stack gap="6">
+            <ClaimInstructions kind={kind} />
+            <ClaimProductSelection
+              items={items}
+              kind={kind}
+              quantities={quantities}
+              onToggle={(line, checked) =>
+                setQuantities((previous) => ({
+                  ...previous,
+                  [line.key]: checked ? (kind === 'return' ? line.quantity : 1) : 0,
+                }))
+              }
+              onQuantity={(key, value) =>
+                setQuantities((previous) => ({ ...previous, [key]: value }))
+              }
+            />
+            <ClaimReasonFields
+              id={id}
+              reason={reason}
+              details={details}
+              onReasonChange={setReason}
+              onDetailsChange={setDetails}
+            />
+            <ClaimAmountSummary {...amounts} kind={kind} />
+            {error || request.error ? (
+              <StatusMessage tone="error">{error || request.error}</StatusMessage>
+            ) : null}
+            {request.pending && <Typography role="status">신청을 처리하고 있습니다.</Typography>}
+          </Stack>
+        </fieldset>
       </form>
     </BottomSheet>
   );
@@ -1337,7 +1356,10 @@ function OrdersPage({
   returns = false,
   onAddToCart,
 }: OrdersPageProps) {
-  const [orders, setOrders] = useState(() => [...initialOrders]);
+  const binding = useContext(OrdersContext);
+  const request = useRequestAction();
+  const [demoOrders, setOrders] = useState(() => [...initialOrders]);
+  const orders = binding?.orders ?? demoOrders;
   const [view, setView] = useState<OrdersView>(initialView);
   const [selectedId, setSelectedId] = useState(initialOrders[0]?.id);
   const [claimId, setClaimId] = useState(initialOrders[0]?.claims[0]?.id);
@@ -1358,8 +1380,12 @@ function OrdersPage({
   const [dates, setDates] = useState({ start: '2026-09-23', end: '2026-10-23' });
   const [error, setError] = useState('');
   const baseOrders = returns ? orders.filter((order) => order.claims.length > 0) : orders;
-  const visibleOrders = filterOrders(baseOrders, filters);
-  const selectedOrder = orders.find((order) => order.id === selectedId);
+  const onFiltersChange = binding?.onFiltersChange;
+  useEffect(() => {
+    onFiltersChange?.(filters);
+  }, [onFiltersChange, filters]);
+  const visibleOrders = binding ? baseOrders : filterOrders(baseOrders, filters);
+  const selectedOrder = orders.find((order) => order.id === (selectedId ?? orders[0]?.id));
   const selectedClaim = selectedOrder?.claims.find((claim) => claim.id === claimId);
   const sheetOrder = orders.find((order) => order.id === sheet?.id);
   const trackingOrder = orders.find((order) => order.id === trackingId);
@@ -1381,6 +1407,7 @@ function OrdersPage({
 
   return (
     <OrdersContent
+      pending={binding?.pending || request.pending}
       orders={visibleOrders}
       statusItems={getOrderStatusItems(baseOrders)}
       view={view}
@@ -1389,7 +1416,7 @@ function OrdersPage({
       returns={returns}
       filters={filters}
       dates={dates}
-      error={error}
+      error={error || request.error || binding?.error}
       message={message}
       onPeriodChange={(period) => {
         setError('');
@@ -1438,7 +1465,13 @@ function OrdersPage({
               order={sheetOrder}
               kind={sheet.kind}
               onClose={() => setSheet(null)}
-              onSubmit={(draft) => {
+              onSubmit={async (draft) => {
+                if (binding) {
+                  await binding.submitClaim({ orderId: sheetOrder.id, kind: sheet.kind, ...draft });
+                  setSheet(null);
+                  setMessage('신청이 접수되었습니다.');
+                  return null;
+                }
                 const result = submitOrderClaim(
                   sheetOrder,
                   sheet.kind,
@@ -1472,8 +1505,23 @@ function OrdersPage({
             size="sm"
             actions={{
               kind: 'confirm',
+              confirmDisabled: request.pending || binding?.pending,
               onConfirm: () => {
                 if (!confirm) return;
+                if (binding) {
+                  void request.run(async () => {
+                    if (confirm.kind === 'delete') await binding.deleteOrder(confirm.id);
+                    else await binding.confirmPurchase(confirm.id);
+                    setConfirm(null);
+                    setView('list');
+                    setMessage(
+                      confirm.kind === 'delete'
+                        ? '주문 내역을 삭제했습니다.'
+                        : '구매가 확정되었습니다.',
+                    );
+                  });
+                  return;
+                }
                 setOrders((previous) =>
                   confirm.kind === 'delete'
                     ? previous.filter((order) => order.id !== confirm.id)
@@ -1494,6 +1542,8 @@ function OrdersPage({
             {confirm?.kind === 'delete'
               ? '주문 내역을 삭제하시겠습니까?'
               : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'}
+            {request.pending && <Typography role="status">요청을 처리하고 있습니다.</Typography>}
+            {request.error && <Typography role="alert">{request.error}</Typography>}
           </ModalDialog>
         </>
       }

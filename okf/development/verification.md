@@ -9,6 +9,11 @@ generated:
   at: '2026-10-28T10:54:54.282Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/cart-display.test.mjs
+  - src/stories/features/binding/Binding.stories.tsx
+  - .codex/skills/component-reusability/references/data-binding.md
+  - .codex/skills/component-reusability/references/page-ownership.md
+  - .codex/skills/component-reusability/references/form-fields.md
   - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
   - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
   - src/types/type-tests/Button.type-test.tsx
@@ -289,3 +294,17 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 작성: codex/gpt-6, 2026-10-28T10:54:54.282Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 전체 작업 트리의 다른 작업 검증과 구분한다.
 
 브라우저 상호작용에서는 제어형 수량 1→2→3 이후 비활성화, 두 모드의 loading/aria-busy, 수량 링크의 href와 링크 의미, 로그인 소셜 미지원 안내, 가입의 두 제공자 안내 모달 열기·확인 닫기, 쿠폰 5→10개 확장, 리뷰 페이지 수 1/7→2/7과 고객센터 일반 링크를 확인했다.
+
+## 화면 바인딩 계약 보완 (2026-10-29)
+
+도메인별 현재 데이터·비동기 요청 계약, 실제 상품 ID의 장바구니/결제 표시, 리뷰 데이터와 데모 이미지 경계를 보완했다. AGENTS.md와 component-reusability 스킬에 같은 기준과 상세 워크플로를 추가하고 페이지 소유권·폼 가이드에 연결했다. [계약과 적용 범위](../architecture/data-binding.md).
+
+- 변경 파일 ESLint --fix·Prettier를 적용했고 최종 전체 lint와 typecheck를 통과했다.
+- `node --test tests/*.test.mjs`의 87개 테스트가 통과했다. cart-display 회귀 테스트 2개는 실제 색상명을 가진 상품 이미지 보존과 명시적 fixture override를 검사한다.
+- Panda 생성, Next production build, 별도 임시 폴더 Storybook production build가 통과했다. Storybook 의존 패키지의 module directive·번들 시간 경고는 빌드 실패가 아니다.
+- Ego 브라우저에서 Integration/Binding 8개 스토리의 play 검증을 통과했다. 비목 상품 ID·서버 견적·완전한 주문 payload(저장 배송지 ID 포함), 결제/로그인/인증/배송지 삭제/구매 확정/리뷰 저장 실패와 재시도, 늦게 도착한 목록, 리뷰의 문자열 ID와 상품 정보를 확인했다. 결제 pending 시 제출 버튼 비활성화와 성공 전 장바구니 유지도 확인했다.
+- 기존 장바구니 기본·선택, 결제 기본·완료·쿠폰의 PC/모바일 10개 스토리를 확인했다. 위 18개 사례 모두 play/render 예외가 없고 main은 하나이며 가로 overflow가 없었다. 단순한 Storybook finished 상태 대신 playFunctionThrewException·storyThrewException·storyErrored 이벤트도 확인했다. 1440px PC와 375px 모바일 결제 스크린샷을 시각 검토했다. 이전 버전과의 픽셀 비교는 수행하지 않았다.
+- 정책·스킬 참조 문서의 로컬 링크와 SKILL.md의 단순 scalar frontmatter, 이름/설명 제한, 미완성 placeholder 부재를 검사했다. 기본 Python에 PyYAML이 없어 skill-creator quick_validate.py는 실행되지 않았으며, 현재 두 필드 형식에 맞는 별도 검사로 검증했다.
+- 실제 API/인증/결제 서버는 연결하지 않았다. 실제 DTO 변환, 조회 취소/응답 순서 보장, 저장 성공 이후 재조회는 개발팀의 서비스 연결 책임이다.
+
+출처: 위 working_tree_sources와 현재 작업 트리. 작성: codex/gpt-6, 2026-10-29T00:15:42Z. Git index는 변경하지 않았으며 커밋·푸시하지 않았다.

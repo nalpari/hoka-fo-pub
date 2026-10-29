@@ -8,10 +8,38 @@ import { CartPage } from '@/stories/features/cart/CartPagePreview';
 import type { CartItem } from '@/types/cart';
 
 const initialCart: CartItem[] = [
-  { id: products[0].id, color: '브라운', width: 'Regular', size: '235', quantity: 1 },
-  { id: products[1].id, color: '레드', width: 'X-Wide', size: '225', quantity: 2 },
-  { id: products[2].id, color: '화이트', width: 'Wide', size: '270', quantity: 5 },
-  { id: products[3].id, color: '옐로우골드', width: 'X-Wide', size: '250', quantity: 4 },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: products[0].id,
+    color: '브라운',
+    width: 'Regular',
+    size: '235',
+    quantity: 1,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: products[1].id,
+    color: '레드',
+    width: 'X-Wide',
+    size: '225',
+    quantity: 2,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: products[2].id,
+    color: '화이트',
+    width: 'Wide',
+    size: '270',
+    quantity: 5,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: products[3].id,
+    color: '옐로우골드',
+    width: 'X-Wide',
+    size: '250',
+    quantity: 4,
+  },
 ];
 
 function CartPreview({ empty = false, soldOut = false }: { empty?: boolean; soldOut?: boolean }) {

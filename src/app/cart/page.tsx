@@ -705,13 +705,13 @@ export default function Page() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [selected, setSelected] = useState<string[] | null>(() =>
-    cart.length === 4 &&
-    cart.every((item) => ['브라운', '레드', '화이트', '옐로우골드'].includes(item.color))
+    cart.length === 4 && cart.every((item) => item.imageSrc === '/images/cart/clifton-preview.png')
       ? cart.slice(0, 2).map(itemKey)
       : null,
   );
+  const { products: catalogue = products } = useShop();
   const rows = cart.flatMap((item) => {
-    const product = products.find((candidate) => candidate.id === item.id);
+    const product = catalogue.find((candidate) => candidate.id === item.id);
     return product ? [{ item, product }] : [];
   });
   const allKeys = rows

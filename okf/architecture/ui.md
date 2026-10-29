@@ -9,6 +9,8 @@ generated:
   at: '2026-10-28T11:10:41.159Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/hooks/useRequestAction.ts
+  - src/stories/features/binding/Binding.stories.tsx
   - src/components/common/molecules/ProductDetailImage.tsx
   - src/components/common/organisms/SystemStatusPage.tsx
   - src/components/common/layouts/AccountPageLayout.tsx
@@ -3234,3 +3236,9 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 공용 Badge 스토리에 Road·Trail의 기본/명시적 모바일 4개 시나리오를 추가했다. src/types/type-tests/Badge.type-test.tsx에서 정상 카테고리와 native 속성, children·status·promotion·variant 혼용 및 미지원 카테고리를 검사한다. npm run typecheck와 npm run panda가 통과했다. 변경 파일 ESLint fix·Prettier를 적용했다. Ego 개발 Storybook에서 런클럽 목록·상세의 PC/모바일 4개와 일반 filled·COMING·복수 프로모션·빈 프로모션 4개를 전후 비교했고 라벨·태그·높이·패딩·색·모서리·글자 크기·두께·행간이 동일했다. 전체 프로덕션/Storybook 빌드는 이번 작업에서 실행하지 않았다.
 
 작업 트리 출처: src/components/common/atoms/Badge.tsx, src/components/run-club/RunClubPage.tsx, src/app/running/run-club/[sessionId]/page.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx. 기록 시점: 2026-10-28T11:14:23.062Z.
+
+## 화면 바인딩 계약 보완 (2026-10-29)
+
+상품 목록의 서버 결과·전체 건수·hasMore·조회 상태를 받을 수 있게 했다. 리뷰의 상품명·이미지·옵션·구매일을 항목 데이터로 표시하고, 인증·결제·저장 액션의 요청 중·실패 상태를 추가했다. 기존 PC/모바일 스타일과 단일 라우트 소유권은 유지한다. [연결 계약과 적용 범위](data-binding.md).
+
+작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.

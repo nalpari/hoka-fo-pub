@@ -1,5 +1,11 @@
 # 지식 번들 변경 이력
 
+## 2026-10-29
+
+- AGENTS.md와 component-reusability 스킬에 화면 데이터·서비스 연결 정책을 추가했다. 상세 참조 워크플로와 페이지 소유권·폼 가이드의 교차 링크를 추가했다.
+
+- 화면 바인딩 점검에서 확인한 7개 경계를 보완했다. 도메인별 데이터·요청 계약, 비동기 성공 이후 완료 처리, 최신 조회 목록 반영, 리뷰 항목 데이터와 명시적 데모 이미지를 적용했다. 실제 서비스 API는 연결하지 않았다. [연결 계약](architecture/data-binding.md).
+
 ## 2026-10-28
 
 - ProductDetailImage를 common/molecules로 이동하고 상품 상세·확대 뷰어 import를 갱신했다. [범위와 검증](architecture/ui.md#productdetailimage-공통-molecule-이동-2026-10-28)을 참고한다.

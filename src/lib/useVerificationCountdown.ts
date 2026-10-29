@@ -19,9 +19,9 @@ export function useVerificationCountdown() {
     return () => window.clearInterval(timer);
   }, [deadline]);
 
-  const start = () => {
-    setDeadline(Date.now() + durationSeconds * 1000);
-    setSecondsLeft(durationSeconds);
+  const start = (seconds = durationSeconds) => {
+    setDeadline(Date.now() + seconds * 1000);
+    setSecondsLeft(seconds);
   };
 
   const reset = () => {

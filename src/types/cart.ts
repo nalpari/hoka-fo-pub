@@ -4,4 +4,5 @@ export type CartItem = {
   width: string;
   size: string;
   quantity: number;
+  imageSrc?: string;
 };

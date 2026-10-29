@@ -1,7 +1,10 @@
-import type { RatingValue } from '@/components/common/atoms/RatingStars';
-
 export type ReviewTab = 'ready' | 'written';
 
-export type WrittenReview = { rating: RatingValue; body: string };
+export type WrittenReview = { rating: number; body: string };
 
-export type ReviewListEntry = { id: number; review?: WrittenReview };
+export type ReviewListEntry = {
+  id: number | string;
+  product: { name: string; imageSrc: string; optionLabel: string };
+  purchasedAt: string;
+  review?: WrittenReview;
+};

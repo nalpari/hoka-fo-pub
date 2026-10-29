@@ -23,6 +23,8 @@ Do not infer a need for a global form builder, context, form library, or Base UI
 
 ## Preserve attributes and ownership
 
+When changing submission or verification contracts, also follow [the data binding workflow](data-binding.md). Keep local input validation and drafts separate from service outcomes. Forward all required values, selection IDs and consent state through a typed payload; await the connected operation before clearing, closing or displaying completion, and preserve input on failure. Adding a callback or an initial-value prop alone does not establish a live service contract.
+
 Before editing, compare these contracts across consumers:
 
 | Contract             | Preservation checks                                                                                                              |

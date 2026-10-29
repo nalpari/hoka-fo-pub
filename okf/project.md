@@ -9,6 +9,8 @@ generated:
   at: '2026-10-28T10:52:23.370Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/types/cart.ts
+  - src/app/mypage/reviews/reviewFixtures.ts
   - src/data/headerPromotionData.ts
   - src/data/footerData.ts
   - src/data/searchOverlayData.ts
@@ -142,3 +144,9 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 헤더 프로모션·메가 메뉴·푸터·검색 제안 데이터의 현재 소유 위치는 src/data다. 단일 라우트에 종속된 홈·FAQ·로케일·공지·매장·사이즈 가이드 등의 데이터는 해당 app 라우트 옆에 둔다. 공용 데이터라는 이유 없이 모든 페이지 데이터를 data로 승격하지 않는다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 퍼블리싱과 서비스 연결 경계 (2026-10-29)
+
+화면 데이터·서비스 함수 연결 계약을 추가했으며 실제 API·인증·결제 서비스를 구현한 것은 아니다. 기존 목 데이터 데모를 유지한다. 장바구니 시안 이미지는 CartItem.imageSrc로 명시하고 실제 색상명에 따른 이미지 교체 규칙을 제거했다. [연결 계약과 적용 범위](architecture/data-binding.md).
+
+작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.

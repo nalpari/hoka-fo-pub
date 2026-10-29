@@ -12,6 +12,7 @@ export type PhoneInformation = {
 export type PhoneVerificationErrors = Partial<Record<keyof PhoneInformation, string>>;
 
 export type PhoneVerificationContentProps = {
+  pending?: boolean;
   title?: string;
   description?: string;
   information: PhoneInformation;

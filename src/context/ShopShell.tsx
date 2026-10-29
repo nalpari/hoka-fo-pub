@@ -73,6 +73,7 @@ import {
   faUserSolid,
   faXmark,
 } from '@/icons/fontAwesome';
+import type { Product } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 
 const styles = {
@@ -2937,13 +2938,20 @@ function AppLayout({
   );
 }
 
+export type LoginCredentials = { id: string; password: string; rememberId: boolean };
+
 export type ShopState = {
+  readonly authenticationMode?: 'demo' | 'service';
+  readonly products?: readonly Product[];
+  readonly isLoggedIn?: boolean;
+  readonly wishlistCount?: number;
+  readonly recentCount?: number;
   readonly cart: CartItem[];
   readonly add: (item: CartItem) => void;
   readonly updateQuantity: (item: CartItem, quantity: number) => void;
   readonly updateOptions: (item: CartItem, next: CartItem) => void;
   readonly remove: (item: CartItem) => void;
-  readonly login: () => void;
+  readonly login: (credentials: LoginCredentials) => void | Promise<void>;
   readonly logout: () => void;
 };
 
@@ -2961,10 +2969,38 @@ const clientSnapshot = () => true;
 const serverSnapshot = () => false;
 
 const initialCart: CartItem[] = [
-  { id: 'shoe-1', color: '브라운', width: 'Regular', size: '235', quantity: 1 },
-  { id: 'shoe-2', color: '레드', width: 'X-Wide', size: '225', quantity: 2 },
-  { id: 'shoe-3', color: '화이트', width: 'Wide', size: '270', quantity: 5 },
-  { id: 'shoe-4', color: '옐로우골드', width: 'X-Wide', size: '250', quantity: 4 },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: 'shoe-1',
+    color: '브라운',
+    width: 'Regular',
+    size: '235',
+    quantity: 1,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: 'shoe-2',
+    color: '레드',
+    width: 'X-Wide',
+    size: '225',
+    quantity: 2,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: 'shoe-3',
+    color: '화이트',
+    width: 'Wide',
+    size: '270',
+    quantity: 5,
+  },
+  {
+    imageSrc: '/images/cart/clifton-preview.png',
+    id: 'shoe-4',
+    color: '옐로우골드',
+    width: 'X-Wide',
+    size: '250',
+    quantity: 4,
+  },
 ];
 
 export function useShop() {
@@ -2977,7 +3013,9 @@ export function useShop() {
 export function ShopShell({
   platform,
   children,
+  state,
 }: {
+  readonly state?: ShopState & { products: readonly Product[]; isLoggedIn: boolean };
   readonly platform?: Platform;
   readonly children: ReactNode;
 }) {
@@ -3057,23 +3095,26 @@ export function ShopShell({
 
   return (
     <ShopStateProvider
-      value={{
-        cart,
-        add,
-        updateQuantity,
-        updateOptions,
-        remove,
-        login: handleLogin,
-        logout: handleLogout,
-      }}
+      value={
+        state ?? {
+          authenticationMode: 'demo',
+          cart,
+          add,
+          updateQuantity,
+          updateOptions,
+          remove,
+          login: handleLogin,
+          logout: handleLogout,
+        }
+      }
     >
       <PlatformProvider platform={platform}>
         <ShopFrame>
           <AppLayout
-            cart={count}
-            isLoggedIn={hydrated && isLoggedIn}
-            wishlistCount={wishlistCount}
-            recentCount={recentCount}
+            cart={state ? state.cart.reduce((total, item) => total + item.quantity, 0) : count}
+            isLoggedIn={state ? state.isLoggedIn : hydrated && isLoggedIn}
+            wishlistCount={state ? (state.wishlistCount ?? 0) : wishlistCount}
+            recentCount={state ? (state.recentCount ?? 0) : recentCount}
           >
             {children}
           </AppLayout>

@@ -2481,10 +2481,10 @@ function ProductSelectedOptions({
 
 /** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
 function RouteContent() {
-  const { add: onAddToCart } = useShop();
+  const { add: onAddToCart, products: catalogue = products } = useShop();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const product = products.find((item) => item.id === id);
+  const product = catalogue.find((item) => item.id === id);
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
   const [width, setWidth] = useState(
@@ -2505,7 +2505,7 @@ function RouteContent() {
       : product
         ? [product.primaryImage, product.hoverImage]
         : [];
-  const recommendations = products.filter((item) => item.id !== product?.id).slice(0, 6);
+  const recommendations = catalogue.filter((item) => item.id !== product?.id).slice(0, 6);
 
   if (!product) return <SystemStatusPage status="not-found" />;
 

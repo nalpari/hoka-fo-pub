@@ -1,7 +1,9 @@
 'use client';
 
 import { useContext, useState } from 'react';
+import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
+import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -20,6 +22,7 @@ import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { createReviewFixture, demoWrittenReview } from '@/app/mypage/reviews/reviewFixtures';
 import {
   type ReviewListEntry,
   type ReviewTab,
@@ -30,6 +33,9 @@ import type { RatingValue } from '@/types/component-contracts/components-common-
 
 type Props = {
   open: boolean;
+  productName: string;
+  pending?: boolean;
+  error?: string;
   title: string;
   rating: RatingValue;
   body: string;
@@ -41,6 +47,9 @@ type Props = {
 };
 
 function MyPageReviewDialog({
+  productName,
+  pending,
+  error,
   open,
   title,
   rating,
@@ -58,35 +67,44 @@ function MyPageReviewDialog({
       open={open}
       size="sm"
       title={title}
-      actions={{ kind: 'single', label: '저장', onConfirm: onSave }}
+      actions={{
+        kind: 'single',
+        label: '저장',
+        onConfirm: onSave,
+        buttonProps: { disabled: pending },
+      }}
     >
-      <Stack gap="5">
-        <Typography as="p" variant="body3">
-          클리프톤 9은(는) 어떠셨나요?
-        </Typography>
-        <FormField
-          htmlFor="review-rating"
-          error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
-        >
-          <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
-        </FormField>
-        <TextFormField
-          id="review-body"
-          error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
-          inputProps={{
-            'aria-label': '리뷰 내용',
-            multiline: true,
-            placeholder: '상품 사용 경험을 입력해 주세요',
-            value: body,
-            onChange: (event) => onBodyChange(event.target.value),
-          }}
-        />
-        {invalid ? (
-          <Typography variant="body5" tone="error">
-            별점과 리뷰 내용을 입력해 주세요.
+      <fieldset disabled={pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <Stack gap="5">
+          {error && <Typography role="alert">{error}</Typography>}
+          {pending && <Typography role="status">리뷰를 저장하고 있습니다.</Typography>}
+          <Typography as="p" variant="body3">
+            {productName}은(는) 어떠셨나요?
           </Typography>
-        ) : null}
-      </Stack>
+          <FormField
+            htmlFor="review-rating"
+            error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
+          >
+            <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
+          </FormField>
+          <TextFormField
+            id="review-body"
+            error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
+            inputProps={{
+              'aria-label': '리뷰 내용',
+              multiline: true,
+              placeholder: '상품 사용 경험을 입력해 주세요',
+              value: body,
+              onChange: (event) => onBodyChange(event.target.value),
+            }}
+          />
+          {invalid ? (
+            <Typography variant="body5" tone="error">
+              별점과 리뷰 내용을 입력해 주세요.
+            </Typography>
+          ) : null}
+        </Stack>
+      </fieldset>
     </ModalDialog>
   );
 }
@@ -164,24 +182,26 @@ function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarP
 
 const textAction = css({ textDecoration: 'underline' });
 
-const reviewImage = '/images/mypage/speedgoat-7-gtx.png';
-
 type MyPageReviewItemProps = {
   entry: ReviewListEntry;
   tab: ReviewTab;
-  onEdit: (id: number) => void;
+  onEdit: (id: ReviewListEntry['id']) => void;
 };
 
-function MyPageReviewItem({ entry: { id, review }, tab, onEdit }: MyPageReviewItemProps) {
+function MyPageReviewItem({
+  entry: { id, product, purchasedAt, review },
+  tab,
+  onEdit,
+}: MyPageReviewItemProps) {
   return (
     <HStack borderBottom="1px solid var(--colors-black-20)" alignItems="flex-start" gap="4" py="6">
       <Box w="64px" h="64px" flexShrink="0">
-        <ProductThumbnail alt="클리프톤 9" src={reviewImage} />
+        <ProductThumbnail alt={product.name} src={product.imageSrc} />
       </Box>
       <Stack flex="1" minW="0" gap="1.5">
         <HStack gap="0.5">
           <Typography variant="body4" language="en" weight="medium">
-            2026.08.18
+            {purchasedAt}
           </Typography>
           <Typography variant="body4" weight="medium">
             구매
@@ -189,17 +209,17 @@ function MyPageReviewItem({ entry: { id, review }, tab, onEdit }: MyPageReviewIt
         </HStack>
         <Stack gap="1">
           <Typography variant="body4" weight="medium">
-            클리프톤 9
+            {product.name}
           </Typography>
           <Typography variant="body4" weight="medium">
-            옵션 : 화이트 / 270
+            옵션 : {product.optionLabel}
           </Typography>
         </Stack>
         {tab === 'written' ? (
           <Stack gap="2" mt="1">
-            <RatingStars value={review?.rating ?? 4.5} size="16px" />
+            <RatingStars value={review?.rating ?? 0} size="16px" />
             <Typography variant="body5" tone="primary">
-              {review?.body ?? '쿠션감이 좋아서 잘 달리고 있어요.'}
+              {review?.body ?? ''}
             </Typography>
           </Stack>
         ) : null}
@@ -214,7 +234,7 @@ function MyPageReviewItem({ entry: { id, review }, tab, onEdit }: MyPageReviewIt
 type MyPageReviewListProps = {
   entries: readonly ReviewListEntry[];
   tab: ReviewTab;
-  onEdit: (id: number) => void;
+  onEdit: (id: ReviewListEntry['id']) => void;
 };
 
 function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
@@ -260,7 +280,7 @@ type MyPageReviewsContentProps = {
   hasMore: boolean;
   onTabChange: (value: ReviewTab) => void;
   onSortChange: (value: string) => void;
-  onEdit: (id: number) => void;
+  onEdit: (id: ReviewListEntry['id']) => void;
   onLoadMore: () => void;
 };
 
@@ -302,29 +322,49 @@ function MyPageReviewsContent({
 /** 리뷰 목록의 탐색과 작성 및 수정 상태를 관리합니다. (Manages review browsing, writing, and editing state.) */
 export default function Page() {
   const { readyReviewCount: initialReadyCount = 62 } = useContext(MyPageInitialStateContext);
+  const { reviews: binding } = useContext(MyPageDataContext);
+  const request = useRequestAction();
   const [tab, setTab] = useState<ReviewTab>('ready');
   const [sort, setSort] = useState('recent');
   const [visibleCount, setVisibleCount] = useState(10);
-  const [editing, setEditing] = useState<number | null>(null);
+  const [editing, setEditing] = useState<ReviewListEntry['id'] | null>(null);
   const [rating, setRating] = useState<RatingValue>(0);
   const [body, setBody] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [writtenIds, setWrittenIds] = useState<number[]>([0, 1]);
-  const [writtenReviews, setWrittenReviews] = useState<Record<number, WrittenReview>>({});
+  const [writtenIds, setWrittenIds] = useState<ReviewListEntry['id'][]>([0, 1]);
+  const [writtenReviews, setWrittenReviews] = useState<Record<string, WrittenReview>>({});
   const readyIds = Array.from({ length: initialReadyCount }, (_, index) => index);
   const ids = tab === 'ready' ? readyIds : writtenIds;
-  const sortedIds = sort === 'oldest' ? [...ids].reverse() : ids;
-  const displayedIds = sortedIds.slice(0, visibleCount);
+  const entries = binding
+    ? [...(tab === 'ready' ? binding.ready : binding.written)]
+    : ids.map((id) =>
+        createReviewFixture(
+          id,
+          writtenReviews[id] ?? (tab === 'written' ? demoWrittenReview : undefined),
+        ),
+      );
+  const sortedEntries = binding
+    ? [...entries].sort((a, b) =>
+        sort === 'oldest'
+          ? a.purchasedAt.localeCompare(b.purchasedAt)
+          : b.purchasedAt.localeCompare(a.purchasedAt),
+      )
+    : sort === 'oldest'
+      ? [...entries].reverse()
+      : entries;
+  const displayedEntries = sortedEntries.slice(0, visibleCount);
+  const selectedEntry = entries.find((entry) => entry.id === editing);
 
   function changeTab(value: ReviewTab) {
     setTab(value);
     setVisibleCount(10);
   }
 
-  function openEditor(id: number) {
+  function openEditor(id: ReviewListEntry['id']) {
     setEditing(id);
-    setRating(writtenReviews[id]?.rating ?? 0);
-    setBody(writtenReviews[id]?.body ?? '');
+    const review = entries.find((entry) => entry.id === id)?.review;
+    setRating(([0, 1, 2, 3, 4, 5] as const).find((value) => value === review?.rating) ?? 0);
+    setBody(review?.body ?? '');
   }
 
   function closeEditor() {
@@ -339,32 +379,46 @@ export default function Page() {
       activePath="/mypage/reviews"
       breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: '상품리뷰' }]}
     >
-      <MyPageReviewsContent
-        tab={tab}
-        sort={sort}
-        totalCount={ids.length}
-        visibleCount={visibleCount}
-        entries={displayedIds.map((id) => ({ id, review: writtenReviews[id] }))}
-        hasMore={displayedIds.length < ids.length}
-        onTabChange={changeTab}
-        onSortChange={setSort}
-        onEdit={openEditor}
-        onLoadMore={() => setVisibleCount((count) => count + 10)}
-      />
+      {binding?.pending && <Typography role="status">리뷰를 불러오고 있습니다.</Typography>}
+      {binding?.error && <Typography role="alert">{binding.error}</Typography>}
+      {entries.length === 0 && (binding?.pending || binding?.error) ? null : (
+        <MyPageReviewsContent
+          tab={tab}
+          sort={sort}
+          totalCount={entries.length}
+          visibleCount={visibleCount}
+          entries={displayedEntries}
+          hasMore={displayedEntries.length < entries.length}
+          onTabChange={changeTab}
+          onSortChange={setSort}
+          onEdit={openEditor}
+          onLoadMore={() => setVisibleCount((count) => count + 10)}
+        />
+      )}
       <MyPageReviewDialog
+        productName={selectedEntry?.product.name ?? ''}
+        pending={request.pending}
+        error={request.error}
         open={editing !== null}
         title={tab === 'ready' ? '상품리뷰 작성' : '상품리뷰 수정'}
         rating={rating}
         body={body}
         invalid={submitted && (!rating || !body.trim())}
         onOpenChange={(open) => {
-          if (!open) closeEditor();
+          if (!open && !request.pending) closeEditor();
         }}
         onRatingChange={setRating}
         onBodyChange={setBody}
         onSave={() => {
           setSubmitted(true);
           if (rating && body.trim()) {
+            if (binding && editing !== null) {
+              void request.run(async () => {
+                await binding.save(editing, { rating, body: body.trim() });
+                closeEditor();
+              });
+              return;
+            }
             if (editing !== null && !writtenIds.includes(editing))
               setWrittenIds((current) => [...current, editing]);
             if (editing !== null)

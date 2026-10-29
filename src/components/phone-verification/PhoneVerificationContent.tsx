@@ -305,6 +305,7 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
 
 type PhoneVerificationFormProps = Pick<
   PhoneVerificationContentProps,
+  | 'pending'
   | 'information'
   | 'fieldErrors'
   | 'onInformationChange'
@@ -323,36 +324,39 @@ type PhoneVerificationFormProps = Pick<
 
 function PhoneVerificationForm(props: PhoneVerificationFormProps) {
   return (
-    <form noValidate onSubmit={props.onConfirm}>
-      <Stack gap="4">
-        <PhoneInformationFields
-          information={props.information}
-          fieldErrors={props.fieldErrors}
-          onInformationChange={props.onInformationChange}
-          onDetail={props.onDetail}
-        />
-        <Box pt="2">
-          <Button
-            variant="primary"
-            fullWidth
-            disabled={props.requested && props.resendWait > 0}
-            onClick={props.onRequest}
-          >
-            {props.requested ? '인증번호 재요청' : '인증번호 요청'}
-          </Button>
-        </Box>
-        {props.requested ? (
-          <VerificationCodeFields
-            code={props.code}
-            codeError={props.codeError}
-            secondsLeft={props.secondsLeft}
-            onCodeChange={props.onCodeChange}
+    <form noValidate onSubmit={props.onConfirm} aria-busy={props.pending}>
+      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <Stack gap="4">
+          <PhoneInformationFields
+            information={props.information}
+            fieldErrors={props.fieldErrors}
+            onInformationChange={props.onInformationChange}
+            onDetail={props.onDetail}
           />
-        ) : null}
-        {props.notice ? (
-          <StatusMessage tone={props.noticeTone ?? 'info'}>{props.notice}</StatusMessage>
-        ) : null}
-      </Stack>
+          <Box pt="2">
+            <Button
+              variant="primary"
+              fullWidth
+              disabled={props.requested && props.resendWait > 0}
+              onClick={props.onRequest}
+            >
+              {props.requested ? '인증번호 재요청' : '인증번호 요청'}
+            </Button>
+          </Box>
+          {props.requested ? (
+            <VerificationCodeFields
+              code={props.code}
+              codeError={props.codeError}
+              secondsLeft={props.secondsLeft}
+              onCodeChange={props.onCodeChange}
+            />
+          ) : null}
+          {props.notice ? (
+            <StatusMessage tone={props.noticeTone ?? 'info'}>{props.notice}</StatusMessage>
+          ) : null}
+          {props.pending && <Typography role="status">인증 요청을 처리하고 있습니다.</Typography>}
+        </Stack>
+      </fieldset>
     </form>
   );
 }
@@ -371,22 +375,24 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       contentWidth="500px"
       outsideContent={<PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />}
     >
-      <Stack gap="6">
-        <PhoneVerificationAgreements
-          agreements={props.agreements}
-          showAgreementErrors={props.showAgreementErrors}
-          onAllAgree={props.onAllAgree}
-          onAgreementChange={props.onAgreementChange}
-          onDetail={props.onDetail}
-        />
-        <ContentSection
-          gap="6"
-          title="인증 정보"
-          headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
-        >
-          <PhoneVerificationForm {...props} />
-        </ContentSection>
-      </Stack>
+      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <Stack gap="6">
+          <PhoneVerificationAgreements
+            agreements={props.agreements}
+            showAgreementErrors={props.showAgreementErrors}
+            onAllAgree={props.onAllAgree}
+            onAgreementChange={props.onAgreementChange}
+            onDetail={props.onDetail}
+          />
+          <ContentSection
+            gap="6"
+            title="인증 정보"
+            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
+          >
+            <PhoneVerificationForm {...props} />
+          </ContentSection>
+        </Stack>
+      </fieldset>
       <Box mt="4">
         <Typography as="p" variant="body4" tone="tertiary">
           * 인증문의 (주)KCB고객센터 02-708-1000

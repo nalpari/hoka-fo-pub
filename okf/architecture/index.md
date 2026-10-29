@@ -1,5 +1,7 @@
 # 아키텍처
 
+[화면 데이터와 서비스 연결 계약](data-binding.md)은 셸·목록·결제·인증·배송지·주문·리뷰의 연결 위치와 비동기 성공/실패·조회 결과 소유권을 설명한다.
+
 [런클럽 분류 배지 통합](ui.md#런클럽-분류-배지-통합-2026-10-28)은 Badge.runClubCategory의 배타적 옵션과 PC/모바일 표시 보존을 설명한다.
 
 [상품 상세 이미지 공통 경로](ui.md#productdetailimage-공통-molecule-이동-2026-10-28)는 ProductDetailImage의 molecules 배치와 호출부 변경을 설명한다.
