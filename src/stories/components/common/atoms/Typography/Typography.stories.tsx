@@ -1,4 +1,5 @@
 import type { Meta as StorybookMeta, StoryObj } from '@storybook/react';
+import { expect, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
 import { Box, Stack } from 'styled-system/jsx';
@@ -610,4 +611,76 @@ export const NavigationHeading: Story = {
       </PlatformProvider>
     </Stack>
   ),
+};
+
+const productListingTitleArgs = {
+  variant: undefined,
+  as: 'h1',
+  web: 'heading7',
+  mo: 'body1',
+  weight: 'black',
+  children: '남성 러닝화',
+} satisfies NonNullable<Story['args']>;
+
+export const ProductListingTitleDesktop: Story = {
+  render: (args) => (
+    <div className="platform-web">
+      <PlatformProvider platform="web">
+        <Typography {...args} />
+      </PlatformProvider>
+    </div>
+  ),
+  args: { ...productListingTitleArgs },
+};
+
+export const ProductListingTitleMobile: Story = {
+  render: (args) => (
+    <div className="platform-mobile">
+      <PlatformProvider platform="mobile">
+        <Typography {...args} />
+      </PlatformProvider>
+    </div>
+  ),
+  args: { ...productListingTitleArgs },
+};
+
+function ChoiceLabelsExample({ platform }: { platform: 'web' | 'mobile' }) {
+  return (
+    <PlatformProvider platform={platform}>
+      <Stack
+        className={platform === 'mobile' ? 'platform-mobile' : undefined}
+        gap="4"
+        alignItems="start"
+      >
+        <Typography as="button" type="button" variant="body4">
+          레귤러
+        </Typography>
+        <Typography as="button" type="button" variant="body5">
+          CM
+        </Typography>
+      </Stack>
+    </PlatformProvider>
+  );
+}
+
+export const ChoiceLabelsDesktop: Story = {
+  render: () => <ChoiceLabelsExample platform="web" />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const [label, size] of [
+      ['레귤러', '14px'],
+      ['CM', '12px'],
+    ]) {
+      const button = canvas.getByRole('button', { name: label });
+      const style = canvasElement.ownerDocument.defaultView!.getComputedStyle(button);
+      await expect(style.fontSize).toBe(size);
+      await expect(style.fontWeight).toBe('400');
+      await expect(style.lineHeight).not.toBe('normal');
+    }
+  },
+};
+
+export const ChoiceLabelsMobile: Story = {
+  ...ChoiceLabelsDesktop,
+  render: () => <ChoiceLabelsExample platform="mobile" />,
 };

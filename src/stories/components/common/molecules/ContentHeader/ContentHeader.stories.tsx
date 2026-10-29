@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from 'storybook/test';
 
-import { ButtonLink } from '@/components/common/atoms/Button';
+import { css } from 'styled-system/css';
+
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
@@ -85,4 +87,46 @@ export const HorizontalWithDescription: Story = {
 
 export const HorizontalWithoutAction: Story = {
   args: { ...Horizontal.args, action: undefined },
+};
+
+const sectionHeadingArgs = {
+  titleAs: undefined,
+  description: undefined,
+  descriptionProps: undefined,
+  as: 'header',
+  title: '회원 혜택',
+  titleProps: { variant: 'body3', className: css({ m: '0' }) },
+  orientation: 'horizontal',
+  alignItems: 'end',
+  gap: '4',
+  textGroupProps: { css: css.raw({ display: 'block' }) },
+} satisfies NonNullable<Story['args']>;
+
+export const SectionHeadingDefault: Story = {
+  args: { ...sectionHeadingArgs },
+};
+
+export const SectionHeadingWithContent: Story = {
+  args: {
+    ...sectionHeadingArgs,
+    eyebrow: 'MEMBERSHIP',
+    eyebrowAs: 'small',
+    eyebrowProps: {
+      className: css({ display: 'block', color: 'var(--hoka-brand)', letterSpacing: 'mono' }),
+    },
+    description: '이번 달 이용 가능한 혜택입니다.',
+    descriptionProps: {
+      variant: 'body5',
+      tone: 'subtle',
+      className: css({ m: '8px 0 0' }),
+    },
+    action: (
+      <div>
+        <Button size="short">전체 보기</Button>
+      </div>
+    ),
+    pb: '4',
+    borderBottom: '2px solid var(--color-black-100)',
+    titleProps: { variant: 'heading7', className: css({ m: '0' }) },
+  },
 };

@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T23:59:46Z'
+  at: '2026-10-29T00:28:50Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/components/common/atoms/Button/Button.stories.tsx
+  - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
+  - src/stories/components/common/atoms/RatingStars/RatingStars.stories.tsx
+  - src/stories/components/common/atoms/Typography/Typography.stories.tsx
+  - src/stories/components/common/layouts/ContentLayout/ContentLayout.stories.tsx
+  - src/stories/components/common/layouts/ModalDialog/ModalDialog.stories.tsx
+  - src/stories/components/common/molecules/ContentHeader/ContentHeader.stories.tsx
   - src/hooks/useRequestAction.ts
   - src/stories/features/binding/Binding.stories.tsx
   - src/components/common/molecules/ProductDetailImage.tsx
@@ -18,8 +25,6 @@ working_tree_sources:
   - src/components/common/layouts/ModalDialog.tsx
   - src/components/common/layouts/OrderActionBar.tsx
   - src/components/common/layouts/MainSection.tsx
-  - src/stories/components/common/atoms/Button/Button.Social.stories.tsx
-  - src/stories/components/common/atoms/Button/Button.LoadMore.stories.tsx
   - src/components/support/CustomerCenterLayout.tsx
   - src/types/type-tests/Button.type-test.tsx
   - src/stories/components/common/atoms/IconButton/IconButtonDocs.tsx
@@ -39,8 +44,6 @@ working_tree_sources:
   - src/stories/components/common/organisms/Product/ProductGallery/ProductGallery.stories.tsx
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - src/app/screen-index/screenConnections.ts
-  - src/stories/components/common/molecules/ModalDialog/ModalDialog.Confirm.stories.tsx
-  - src/stories/components/common/molecules/ModalDialog/ModalDialog.SingleAction.stories.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/components/
   - src/stories/
@@ -3252,3 +3255,16 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 홈·상품 목록 프로모션, 상품 옵션·카드·주문 요약, 문의 주문 선택, 장바구니 옵션, 결제 브랜드, 로케일 국기 및 ShopShell의 브랜드/메뉴 이미지를 `next/image`로 전환했다. 기존 크기·aspect ratio·object-fit·alt 의미를 유지하고 실제 레이아웃에 맞춘 `sizes`를 지정했다. MainContentCard의 배경 이미지는 fill 이미지로 바꾸고 overlay 그라디언트를 별도 장식 레이어로 유지한다. 밝기 분석용 Canvas `new Image()`는 픽셀 샘플링이 필요해 그대로 둔다.
 
 체크박스·라디오·필터·Icon의 상호작용 상태와 임의 src/mask 렌더링은 콘텐츠 이미지와 계약이 달라 네이티브 `<img>`로 유지한다. 외부 이미지 허용 호스트·경로와 원본 URL은 변경하지 않았다. 작업 트리 출처는 frontmatter에 기록했다. 검증: 변경 TSX 포맷과 `npm run okf:check` 통과. 타입 검사와 Webpack 컴파일에서 이 변경 파일의 오류는 없었으나, 전체 타입 검사는 기존 `.next/types` App Router props 오류 6건으로 실패했다. 기본 Turbopack 빌드는 샌드박스의 프로세스 포트 바인딩 제한으로 중단됐고, ESLint는 `eslint-plugin-perfectionist` 미설치로 실행되지 않았다. 브라우저 시각 검증은 수행하지 않았다.
+
+
+## 공통 스토리의 소유 컴포넌트 통합 (2026-10-29)
+
+병합된 컴포넌트의 옵션 사례는 소유 컴포넌트의 기본 스토리 파일과 하나의 Storybook title 아래에 둔다. ModalDialog의 SingleAction·Confirm, Button의 LoadMore·Social·IconButton, Checkbox의 Consent, Typography의 ProductListingTitle·ChoiceLabels, ContentHeader의 SectionHeading, RatingStars의 Selection, ContentLayout의 Header 사례 63개를 기본 파일 7개로 통합하고 분리 파일 11개를 제거했다. 독립 컴포넌트의 등록은 유지한다.
+
+하위 export에는 용도 접두사를 붙인다(예: SingleActionDefault, ConfirmDefault, LoadMoreDisabled). 이전 title·스토리 ID는 새 소유 경로로 변경되며 호환용 등록은 남기지 않는다. src·.storybook·scripts·tests에서 제거된 파일과 이전 ID의 활성 참조를 확인했다. 과거 절의 경로는 당시 작업의 출처로 보존한다.
+
+이전 meta의 args·render·play·decorators·parameters·argTypes는 해당 사례에 보존한다. ContentHeader의 기본 제목·설명과 Typography의 기본 variant가 다른 사례에 섞이지 않게 초기값을 명시적으로 해제한다. ModalDialog의 기존 web decorator와 모바일 덮어쓰기, 폼 제출·확인·취소·Escape·포커스 복귀, Checkbox 제어 상태와 약관 링크, Button의 커스텀 문서 및 아이콘 선택 Controls·코드 복사·비교 표를 유지한다. 프로덕션 컴포넌트 API·렌더링은 변경하지 않았다.
+
+작성: codex/gpt-6, 2026-10-29T00:28:50Z. 작업 트리 출처: frontmatter의 공통 스토리 파일 7개. 검증 결과는 아래에 기록한다.
+
+검증: TypeScript 전체 검사와 변경 스토리의 ESLint·Prettier 검사, Storybook 정적 빌드를 통과했다. 생성 index에서 이전 파일 11개의 등록 제거와 새 스토리 63개의 고유 ID를 확인했다. 상호작용 검증의 비동기 대기 보완은 후속 커밋에 기록한다.
