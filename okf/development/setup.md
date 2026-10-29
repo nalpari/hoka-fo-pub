@@ -6,9 +6,14 @@ tags: [development, npm, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T08:51:40.855Z'
+  at: '2026-10-29T02:11:18Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - scripts/screen-files.mjs
+  - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/_components/IaStructurePage.tsx
+  - src/app/screen-index/sourceGraph.generated.json
+  - tests/screen-files.test.mjs
   - tsconfig.json
   - .storybook/preview.ts
   - .storybook/main.ts
@@ -113,3 +118,9 @@ IA 구조도의 실제 .xlsx 다운로드를 위해 ExcelJS 4.4.0을 런타임 �
 ## baseUrl 사용 중단 대응 (2026-10-28)
 
 편집기가 보고한 TypeScript 6의 baseUrl 사용 중단 오류에 따라 불필요한 baseUrl="."을 제거했다. paths 대상이 모두 ./로 시작하므로 tsconfig.json 위치 기준 별칭 해석을 유지한다. ignoreDeprecations로 진단을 숨기지 않는다. 로컬 TypeScript 5.9.3의 npm run typecheck도 통과했다. Next 설치본의 dist/build/load-jsconfig.js에서도 baseUrl이 없는 paths의 기준 경로 처리를 확인했다. 외부 근거는 [TypeScript 6 공식 마이그레이션 안내](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-6-0.html)이며, 편집기의 정확한 실행 파일 버전은 직접 조회하지 않았다. 작업 트리 출처: tsconfig.json.
+
+## IA 연결 파일 생성과 감시 (2026-10-29)
+
+npm run screen-files는 현재 src의 import 그래프와 바인딩 주석 소유자를 생성한다. npm run screen-files:watch는 변경을 감시해 sourceGraph.generated.json이 달라졌을 때만 저장한다. npm run dev와 dev:all, storybook 실행에서 감시하고 Next.js/Storybook 프로덕션 빌드 전에도 생성한다. 기존 실행 중인 서버는 새 npm 스크립트를 적용하려면 재시작하거나 감시 명령을 별도로 실행한다. 생성 결과를 직접 편집하지 않고 화면 진입점·실제 import·바인딩 주석을 수정한다. TypeScript와 Prettier는 기존 개발 의존성을 사용하며 패키지를 추가하지 않았다.
+
+작업 트리 출처: package.json, scripts/screen-files.mjs, src/app/screen-index/sourceGraph.generated.json. 화면별 표시 범위와 제한은 [IA 작업 파일](../architecture/ui.md#ia-작업-파일-자동-갱신과-개발-연결-범위-2026-10-29)을 참고한다.

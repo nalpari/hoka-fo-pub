@@ -4,6 +4,8 @@ import {
 } from '@/app/screen-index/productListingIaRoute';
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
+import sourceGraph from './sourceGraph.generated.json';
+
 export type ScreenConnection = {
   route?: string;
   sourceFiles: string[];
@@ -25,7 +27,7 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '179': {
-    sourceFiles: ['src/app/mypage/orders/page.tsx', 'src/components/orders/OrdersRoute.tsx'],
+    sourceFiles: ['src/app/mypage/orders/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-장바구니-1-주문하기-주문내역-mobile--detail',
@@ -71,11 +73,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '158': {
     route: '/running/run-club',
-    sourceFiles: [
-      'src/app/running/run-club/page.tsx',
-      'src/components/run-club/RunClubPage.tsx',
-      'src/components/common/atoms/Badge.tsx',
-    ],
+    sourceFiles: ['src/app/running/run-club/page.tsx'],
     stories: {
       web: {
         id: 'pages-탐색-0-러닝세션-목록-web--list',
@@ -131,7 +129,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '178': {
     route: '/mypage/orders',
-    sourceFiles: ['src/app/mypage/orders/page.tsx', 'src/components/orders/OrdersRoute.tsx'],
+    sourceFiles: ['src/app/mypage/orders/page.tsx'],
     stories: {
       web: {
         id: 'pages-장바구니-1-주문하기-주문내역-web--default',
@@ -145,15 +143,12 @@ const connections: Record<number, ScreenConnection> = {
   },
   '180': {
     route: '/mypage/returns',
-    sourceFiles: ['src/app/mypage/returns/page.tsx', 'src/components/orders/OrdersRoute.tsx'],
+    sourceFiles: ['src/app/mypage/returns/page.tsx'],
     stories: {},
   },
   '182': {
     route: '/mypage/wishlist',
-    sourceFiles: [
-      'src/app/mypage/wishlist/page.tsx',
-      'src/components/mypage/MyPageProductHistory.tsx',
-    ],
+    sourceFiles: ['src/app/mypage/wishlist/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-1-관심상품-mobile--wishlist',
@@ -163,10 +158,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '183': {
     route: '/mypage/recent',
-    sourceFiles: [
-      'src/app/mypage/recent/page.tsx',
-      'src/components/mypage/MyPageProductHistory.tsx',
-    ],
+    sourceFiles: ['src/app/mypage/recent/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-2-오늘-본-상품-mobile--recent',
@@ -176,10 +168,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '184': {
     route: '/mypage/restock-alerts',
-    sourceFiles: [
-      'src/app/mypage/restock-alerts/page.tsx',
-      'src/components/mypage/MyPageProductHistory.tsx',
-    ],
+    sourceFiles: ['src/app/mypage/restock-alerts/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-3-재입고-알림-상품-mobile--restock-alerts',
@@ -203,10 +192,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '187': {
     route: '/support/inquiries',
-    sourceFiles: [
-      'src/app/support/inquiries/page.tsx',
-      'src/components/support/InquiryCautions.tsx',
-    ],
+    sourceFiles: ['src/app/support/inquiries/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-3-1-1문의-web--default',
@@ -220,10 +206,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '189': {
     route: '/support/inquiries/new',
-    sourceFiles: [
-      'src/app/support/inquiries/new/page.tsx',
-      'src/components/support/InquiryCautions.tsx',
-    ],
+    sourceFiles: ['src/app/support/inquiries/new/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-3-1-1문의-web--new',
@@ -237,7 +220,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '191': {
     route: '/mypage/reviews',
-    sourceFiles: ['src/app/mypage/reviews/page.tsx', 'src/components/mypage/MyPageFrame.tsx'],
+    sourceFiles: ['src/app/mypage/reviews/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-4-상품리뷰-mobile--reviews',
@@ -247,7 +230,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '195': {
     route: '/mypage/rewards',
-    sourceFiles: ['src/app/mypage/rewards/page.tsx', 'src/components/mypage/MyPageFrame.tsx'],
+    sourceFiles: ['src/app/mypage/rewards/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-5-회원등급-mobile--rewards',
@@ -257,7 +240,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '196': {
     route: '/mypage/coupons',
-    sourceFiles: ['src/app/mypage/coupons/page.tsx', 'src/components/mypage/MyPageFrame.tsx'],
+    sourceFiles: ['src/app/mypage/coupons/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-6-쿠폰-mobile--coupons',
@@ -267,15 +250,12 @@ const connections: Record<number, ScreenConnection> = {
   },
   '198': {
     route: '/mypage/event-entries',
-    sourceFiles: [
-      'src/app/mypage/event-entries/page.tsx',
-      'src/components/run-club/RunClubPage.tsx',
-    ],
+    sourceFiles: ['src/app/mypage/event-entries/page.tsx'],
     stories: {},
   },
   '201': {
     route: '/mypage/profile',
-    sourceFiles: ['src/app/mypage/profile/page.tsx', 'src/components/mypage/MyPageFrame.tsx'],
+    sourceFiles: ['src/app/mypage/profile/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-7-회원정보확인-및-수정-mobile--profile',
@@ -285,7 +265,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '203': {
     route: '/mypage/addresses',
-    sourceFiles: ['src/app/mypage/addresses/page.tsx', 'src/components/mypage/MyPageFrame.tsx'],
+    sourceFiles: ['src/app/mypage/addresses/page.tsx'],
     stories: {
       mobile: {
         id: 'pages-마이페이지-8-배송지-관리-mobile--addresses',
@@ -351,10 +331,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '210': {
     route: '/support/inquiries',
-    sourceFiles: [
-      'src/app/support/inquiries/page.tsx',
-      'src/components/support/InquiryCautions.tsx',
-    ],
+    sourceFiles: ['src/app/support/inquiries/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-3-1-1문의-web--default',
@@ -368,10 +345,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '211': {
     route: '/support/inquiries/new',
-    sourceFiles: [
-      'src/app/support/inquiries/new/page.tsx',
-      'src/components/support/InquiryCautions.tsx',
-    ],
+    sourceFiles: ['src/app/support/inquiries/new/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-3-1-1문의-web--new',
@@ -427,10 +401,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '217': {
     route: '/support/care',
-    sourceFiles: [
-      'src/app/support/care/page.tsx',
-      'src/components/care-guide/CareInstructions.tsx',
-    ],
+    sourceFiles: ['src/app/support/care/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-8-세탁-및-손질-방법-안내-web--default',
@@ -477,10 +448,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '224': {
     route: '/login/find-account',
-    sourceFiles: [
-      'src/app/login/find-account/page.tsx',
-      'src/components/find-account/IdConfirmationMessage.tsx',
-    ],
+    sourceFiles: ['src/app/login/find-account/page.tsx'],
     stories: {
       web: {
         id: 'pages-로그인-1-아이디·비밀번호-찾기-web--default',
@@ -494,10 +462,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '226': {
     route: '/login/find-account/id-confirmation-modal',
-    sourceFiles: [
-      'src/app/login/find-account/id-confirmation-modal/page.tsx',
-      'src/components/find-account/IdConfirmationMessage.tsx',
-    ],
+    sourceFiles: ['src/app/login/find-account/id-confirmation-modal/page.tsx'],
     stories: {
       web: {
         id: 'pages-로그인-2-아이디확인-web--default',
@@ -539,10 +504,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '234': {
     route: '/signup/verify/phone',
-    sourceFiles: [
-      'src/app/signup/verify/phone/page.tsx',
-      'src/components/phone-verification/PhoneVerificationContent.tsx',
-    ],
+    sourceFiles: ['src/app/signup/verify/phone/page.tsx'],
     stories: {
       web: {
         id: 'pages-회원가입-2-휴대폰-인증-web--default',
@@ -589,7 +551,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '247': {
     route: '/search',
-    sourceFiles: ['src/app/search/page.tsx', 'src/components/catalog/ProductListingPage.tsx'],
+    sourceFiles: ['src/app/search/page.tsx'],
     stories: {
       web: {
         id: 'pages-공통-0-검색결과-web--search-results',
@@ -602,7 +564,7 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '248': {
-    sourceFiles: ['src/app/not-found.tsx', 'src/components/common/organisms/SystemStatusPage.tsx'],
+    sourceFiles: ['src/app/not-found.tsx'],
     stories: {
       web: {
         id: 'pages-공통-1-404에러페이지-web--default',
@@ -616,10 +578,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '249': {
     route: '/maintenance',
-    sourceFiles: [
-      'src/app/maintenance/page.tsx',
-      'src/components/common/organisms/SystemStatusPage.tsx',
-    ],
+    sourceFiles: ['src/app/maintenance/page.tsx'],
     stories: {
       web: {
         id: 'pages-공통-2-시스템점검페이지-web--maintenance',
@@ -633,10 +592,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '250': {
     route: '/service-unavailable',
-    sourceFiles: [
-      'src/app/service-unavailable/page.tsx',
-      'src/components/common/organisms/SystemStatusPage.tsx',
-    ],
+    sourceFiles: ['src/app/service-unavailable/page.tsx'],
     stories: {
       web: {
         id: 'pages-공통-3-기타에러페이지-web--unavailable',
@@ -677,10 +633,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '253': {
     route: '/login/account-locked/verification',
-    sourceFiles: [
-      'src/app/login/account-locked/verification/page.tsx',
-      'src/components/phone-verification/PhoneVerificationContent.tsx',
-    ],
+    sourceFiles: ['src/app/login/account-locked/verification/page.tsx'],
     stories: {
       web: {
         id: 'pages-로그인-6-계정-잠금-해제-인증-web--default',
@@ -734,11 +687,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '258': {
     route: '/running/run-club',
-    sourceFiles: [
-      'src/app/running/run-club/page.tsx',
-      'src/components/run-club/RunClubPage.tsx',
-      'src/components/common/atoms/Badge.tsx',
-    ],
+    sourceFiles: ['src/app/running/run-club/page.tsx'],
     stories: {
       web: {
         id: 'pages-탐색-0-러닝세션-목록-web--list',
@@ -752,12 +701,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '259': {
     route: '/running/run-club/yeouido-night',
-    sourceFiles: [
-      'src/app/running/run-club/[sessionId]/page.tsx',
-      'src/components/run-club/RunClubPage.tsx',
-      'src/components/common/organisms/SystemStatusPage.tsx',
-      'src/components/common/atoms/Badge.tsx',
-    ],
+    sourceFiles: ['src/app/running/run-club/[sessionId]/page.tsx'],
     stories: {
       web: {
         id: 'pages-탐색-1-러닝세션-상세-web--open',
@@ -771,10 +715,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '260': {
     route: '/support/size-guide',
-    sourceFiles: [
-      'src/app/support/size-guide/page.tsx',
-      'src/app/support/size-guide/_components/SizeGuidePanel.tsx',
-    ],
+    sourceFiles: ['src/app/support/size-guide/page.tsx'],
     stories: {
       web: {
         id: 'pages-고객센터-6-사이즈-가이드-web--default',
@@ -790,7 +731,7 @@ const connections: Record<number, ScreenConnection> = {
 
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   listing: {
-    sourceFiles: ['src/app/products/page.tsx', 'src/components/catalog/ProductListingPage.tsx'],
+    sourceFiles: ['src/app/products/page.tsx'],
     stories: {
       web: {
         id: 'pages-상품-0-상품목록-web--width-1600',
@@ -821,7 +762,7 @@ export function isScreenDeleted(screen: ScreenDefinition) {
   return screen.note.replace(/상품\s*삭제/g, '').includes('삭제');
 }
 
-export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
+function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
   if (isScreenDeleted(screen)) return { sourceFiles: [], stories: {} };
   const connection = connections[screen.iaNumber];
   if (connection) return connection;
@@ -833,6 +774,36 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   if (screen.screenCode === 'eland_hca_02')
     return { ...productConnections.detail, route: '/products/shoe-1' };
   return { sourceFiles: [], stories: {} };
+}
+
+// [ 개발팀 바인딩 ] IA 소유자는 화면의 진입 파일만 연결한다. 생성기가 실제 import를
+// 추적해 진입점과 바인딩 주석이 있는 도메인/컨텍스트를 표시한다. 서비스 구현·수정 이력이
+// 아니며 공통 UI·범용 요청 훅·프리뷰·목 데이터는 수정 대상처럼 나열하지 않는다.
+const resolvedSourceFiles = new Map<string, string[]>();
+
+const bindingFiles = new Set(sourceGraph.bindingFiles);
+
+export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
+  const connection = getRegisteredConnection(screen);
+  const key = connection.sourceFiles.join('\n');
+  const cached = resolvedSourceFiles.get(key);
+  if (cached) return { ...connection, sourceFiles: cached };
+  const graph: Record<string, string[]> = sourceGraph.imports;
+  const visited = new Set<string>();
+  const sourceFiles: string[] = [];
+  const pending = [...connection.sourceFiles];
+  for (let index = 0; index < pending.length; index++) {
+    const file = pending[index];
+    if (visited.has(file)) continue;
+    visited.add(file);
+    if (!Object.hasOwn(graph, file)) continue;
+    if (connection.sourceFiles.includes(file) || bindingFiles.has(file)) sourceFiles.push(file);
+    // 화면이 소비하는 전역 서비스 소유자까지만 안내하고 헤더·푸터 전체로 확장하지 않는다.
+    if (file === 'src/context/ShopShell.tsx' && !connection.sourceFiles.includes(file)) continue;
+    pending.push(...graph[file]);
+  }
+  resolvedSourceFiles.set(key, sourceFiles);
+  return { ...connection, sourceFiles };
 }
 
 export function getScreenStoryHref(screen: ScreenDefinition, platform: 'web' | 'mobile') {

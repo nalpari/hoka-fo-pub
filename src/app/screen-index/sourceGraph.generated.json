@@ -1,0 +1,1166 @@
+{
+  "imports": {
+    "src/app/cart/cart-item.ts": [],
+    "src/app/cart/page.tsx": [
+      "src/app/cart/cart-item.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/NumberStepper.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/atoms/Wishlist.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/layouts/OrderActionBar.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
+      "src/components/common/organisms/OrderRecommendations.tsx",
+      "src/components/orders/OrderPageLayout.tsx",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/cartDisplay.ts",
+      "src/mocks/orderRecommendations.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/checkout/checkout-coupons.ts": [],
+    "src/app/checkout/checkout-summary.ts": [],
+    "src/app/checkout/page.tsx": [
+      "src/app/checkout/checkout-coupons.ts",
+      "src/app/checkout/checkout-summary.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/TextInput.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/OrderActionBar.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/CharacterCount.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/components/common/organisms/OrderRecommendations.tsx",
+      "src/components/orders/OrderPageLayout.tsx",
+      "src/context/CheckoutContext.ts",
+      "src/context/ShopShell.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/cartDisplay.ts",
+      "src/mocks/orderRecommendations.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/collection/[id]/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/layouts/ContentLayout.tsx"
+    ],
+    "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
+    "src/app/homeCarouselPreview.ts": [],
+    "src/app/homeContent.ts": [],
+    "src/app/layout.tsx": ["src/context/AccountFlowContext.tsx", "src/context/ShopShell.tsx"],
+    "src/app/locales/locales.data.ts": [],
+    "src/app/locales/page.tsx": [
+      "src/app/locales/locales.data.ts",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/login/account-locked/complete/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/login/account-locked/page.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/app/login/account-locked/verification/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationContent.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/hooks/usePhoneVerification.ts"
+    ],
+    "src/app/login/find-account/id-confirmation-modal/page.tsx": [
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/find-account/IdConfirmationMessage.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/app/login/find-account/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
+      "src/components/find-account/IdConfirmationMessage.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/context/platform.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/phoneNumber.ts",
+      "src/lib/useVerificationCountdown.ts",
+      "src/lib/validation.ts"
+    ],
+    "src/app/login/find-account/password-reset/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/passwordValidation.ts"
+    ],
+    "src/app/login/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts",
+      "src/lib/passwordValidation.ts"
+    ],
+    "src/app/maintenance/page.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
+    "src/app/mypage/addresses/page.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/FormActionGroup.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/context/MyPageInitialState.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/mypage/coupons/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/context/RoutePreview.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/app/mypage/event-entries/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
+    "src/app/mypage/member-activity/page.tsx": [
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/organisms/Account/AccountDataList.tsx",
+      "src/components/mypage/mypage.data.ts",
+      "src/context/MyPageDataContext.ts"
+    ],
+    "src/app/mypage/mypage-home-data.ts": [],
+    "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/page.tsx": [
+      "src/app/mypage/mypage-home-data.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/context/RoutePreview.tsx",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/app/mypage/payment-methods/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/organisms/Account/AccountDataList.tsx",
+      "src/components/mypage/mypage.data.ts",
+      "src/context/MyPageDataContext.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/mypage/profile/mypage-profile.types.ts": [],
+    "src/app/mypage/profile/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormActionGroup.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
+      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/components/common/organisms/EmailAddressFields.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/emailValidation.ts",
+      "src/lib/passwordValidation.ts",
+      "src/lib/phoneNumber.ts",
+      "src/lib/useVerificationCountdown.ts"
+    ],
+    "src/app/mypage/recent/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/mypage/referral/page.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/mypage/mypage.data.ts",
+      "src/context/MyPageDataContext.ts",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/mypage/refund-account/page.tsx": [
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/organisms/Account/AccountDataList.tsx",
+      "src/components/mypage/mypage.data.ts"
+    ],
+    "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/mypage/returns/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/reviews/page.tsx": [
+      "src/app/mypage/reviews/reviewFixtures.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/RatingStars.tsx",
+      "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Select.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/context/MyPageInitialState.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/mypage/reviews/reviewFixtures.ts": [],
+    "src/app/mypage/reviews/reviews.types.ts": [],
+    "src/app/mypage/rewards/page.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts"
+    ],
+    "src/app/mypage/wishlist/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/not-found.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
+    "src/app/page.tsx": [
+      "src/app/homeCarouselPreview.ts",
+      "src/app/homeContent.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/MainSection.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/HomeCarouselSection.tsx",
+      "src/components/common/molecules/MainContentCard.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/context/HomeContentContext.ts",
+      "src/context/RoutePreview.tsx",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/products/[id]/_components/ProductDetailViewerContent.tsx": [
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ProductDetailImage.tsx"
+    ],
+    "src/app/products/[id]/page.tsx": [
+      "src/app/products/[id]/_components/ProductDetailViewerContent.tsx",
+      "src/app/products/[id]/productDetailPresentation.ts",
+      "src/app/products/[id]/productInquiries.ts",
+      "src/app/products/[id]/productSizeOptions.ts",
+      "src/components/care-guide/CareInstructions.tsx",
+      "src/components/care-guide/care.data.ts",
+      "src/components/common/atoms/Accordion.tsx",
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/DescriptionList.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/NumberStepper.tsx",
+      "src/components/common/atoms/RatingStars.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/atoms/Wishlist.tsx",
+      "src/components/common/layouts/ContentLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/HomeCarouselSection.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/common/molecules/ProductDetailImage.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
+      "src/components/common/organisms/SystemStatusPage.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/products/[id]/productDetailPresentation.ts": [],
+    "src/app/products/[id]/productInquiries.ts": [],
+    "src/app/products/[id]/productSizeOptions.ts": [
+      "src/components/common/molecules/SizeSelector/koreanSizes.ts"
+    ],
+    "src/app/products/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
+    "src/app/running/run-club/[sessionId]/page.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/HomeCarouselSection.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/common/organisms/SystemStatusPage.tsx",
+      "src/components/run-club/runClub.data.ts",
+      "src/context/RunClubDataContext.ts",
+      "src/context/RunClubSessionContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/running/run-club/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
+    "src/app/search/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
+    "src/app/service-unavailable/page.tsx": [
+      "src/components/common/organisms/SystemStatusPage.tsx"
+    ],
+    "src/app/signup/complete/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/signup/information/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/components/common/organisms/EmailAddressFields.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/emailValidation.ts",
+      "src/lib/passwordValidation.ts",
+      "src/lib/validation.ts"
+    ],
+    "src/app/signup/information/registration.types.ts": [],
+    "src/app/signup/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/app/signup/terms/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/signup/verify/page.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/context/RoutePreview.tsx"
+    ],
+    "src/app/signup/verify/phone/page.tsx": [
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/phone-verification/PhoneVerificationContent.tsx",
+      "src/context/AccountFlowContext.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/hooks/usePhoneVerification.ts"
+    ],
+    "src/app/support/after-sales/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/care/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/care-guide/CareInstructions.tsx",
+      "src/components/care-guide/care.data.ts",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/faq/faq.data.ts": [],
+    "src/app/support/faq/page.tsx": [
+      "src/app/support/faq/faq.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Accordion.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/SearchField.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/RoutePreview.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/inquiries/new/inquiryOrders.data.ts": [],
+    "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts": [
+      "src/app/support/inquiries/new/inquiryOrders.data.ts"
+    ],
+    "src/app/support/inquiries/new/order-products/page.tsx": [
+      "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts",
+      "src/app/support/inquiries/new/inquiryOrders.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/InquiryDataContext.ts",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/inquiries/new/page.tsx": [
+      "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormActionGroup.tsx",
+      "src/components/common/molecules/FormFields/CharacterCount.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/components/support/InquiryCautions.tsx",
+      "src/context/InquiryDataContext.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/app/support/inquiries/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/components/support/InquiryCautions.tsx",
+      "src/context/InquiryDataContext.ts",
+      "src/context/InquiryPreviewContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/member-benefits/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/mileage/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/notices/[id]/page.tsx": [
+      "src/app/support/notices/notices.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/organisms/SystemStatusPage.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/hooks/useBindingQuery.ts"
+    ],
+    "src/app/support/notices/notices.data.ts": [],
+    "src/app/support/notices/page.tsx": [
+      "src/app/support/notices/notices.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/size-guide/_components/SizeGuidePanel.tsx": [
+      "src/app/support/size-guide/size-guide.data.ts",
+      "src/components/common/atoms/DataTable.tsx",
+      "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/support/size-guide/page.tsx": [
+      "src/app/support/size-guide/_components/SizeGuidePanel.tsx",
+      "src/app/support/size-guide/size-guide.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/size-guide/size-guide.data.ts": [],
+    "src/app/support/store/page.tsx": [
+      "src/app/support/store/store.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/store/store.data.ts": [],
+    "src/app/support/support.navigation.ts": [],
+    "src/app/support/terms/page.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/SupportTabs.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts"
+    ],
+    "src/components/care-guide/care.data.ts": [],
+    "src/components/care-guide/CareInstructions.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/components/catalog/product-listing/filterProducts.ts": [
+      "src/components/catalog/product-listing/productFilterPolicy.ts"
+    ],
+    "src/components/catalog/product-listing/productFilterPolicy.ts": [],
+    "src/components/catalog/product-listing/productListingMetadata.ts": [],
+    "src/components/catalog/product-listing/productSortOptions.ts": [],
+    "src/components/catalog/productListing.types.ts": [],
+    "src/components/catalog/productListingFilterValues.ts": [
+      "src/components/common/molecules/SizeSelector/koreanSizes.ts"
+    ],
+    "src/components/catalog/ProductListingPage.tsx": [
+      "src/components/catalog/product-listing/filterProducts.ts",
+      "src/components/catalog/product-listing/productListingMetadata.ts",
+      "src/components/catalog/product-listing/productSortOptions.ts",
+      "src/components/catalog/productListingFilterValues.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/BottomSheet.tsx",
+      "src/components/common/layouts/ContentLayout.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/MainContentCard.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/common/molecules/SearchField.tsx",
+      "src/components/common/molecules/SizeSelector/SizeSelector.tsx",
+      "src/components/common/organisms/Search/SearchHeader.tsx",
+      "src/context/ProductListingContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/useScrollPin.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/components/common/atoms/Accordion.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/atoms/Badge.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/Button.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/atoms/Card.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/Checkbox.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/atoms/DataTable.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/DescriptionList.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/atoms/Divider.tsx": [],
+    "src/components/common/atoms/Dropdown.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/atoms/EmptyState.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/FilterTabs.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/components/common/atoms/FormField.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/atoms/Icon.tsx": ["src/icons/iconAssets.ts"],
+    "src/components/common/atoms/NumberStepper.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx"
+    ],
+    "src/components/common/atoms/Radio.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/atoms/RatingStars.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/atoms/SegmentedControl.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/atoms/Select.tsx": ["src/components/common/atoms/FormField.tsx"],
+    "src/components/common/atoms/StatusMessage.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/TextInput.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/atoms/Typography.tsx": ["src/context/platform.tsx"],
+    "src/components/common/atoms/Wishlist.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/layouts/AccountPageLayout.tsx": [
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/components/common/layouts/BottomSheet.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/components/common/layouts/ContentLayout.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/Breadcrumb.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/components/common/layouts/ContentSection.tsx": [
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/components/common/layouts/MainSection.tsx": [
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/components/common/layouts/ModalDialog.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/layouts/OrderActionBar.tsx": [],
+    "src/components/common/layouts/SidebarNavigationLayout.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/Breadcrumb.tsx"
+    ],
+    "src/components/common/molecules/AmountRow.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/molecules/BindingFeedback.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/Breadcrumb.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/Carousel/Carousel.tsx": [
+      "src/components/common/molecules/Carousel/CarouselContext.ts",
+      "src/components/common/molecules/Carousel/CarouselControls.tsx",
+      "src/components/common/molecules/Carousel/CarouselPagination.tsx",
+      "src/components/common/molecules/Carousel/CarouselViewport.tsx"
+    ],
+    "src/components/common/molecules/Carousel/CarouselContext.ts": [],
+    "src/components/common/molecules/Carousel/CarouselControls.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/molecules/Carousel/CarouselContext.ts"
+    ],
+    "src/components/common/molecules/Carousel/CarouselPagination.tsx": [
+      "src/components/common/molecules/Carousel/CarouselContext.ts"
+    ],
+    "src/components/common/molecules/Carousel/CarouselViewport.tsx": [
+      "src/components/common/molecules/Carousel/CarouselContext.ts"
+    ],
+    "src/components/common/molecules/ContentHeader.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/FormActionGroup.tsx": [
+      "src/components/common/atoms/Button.tsx"
+    ],
+    "src/components/common/molecules/FormFields/CharacterCount.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/FormFields/TextFormField.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/TextInput.tsx"
+    ],
+    "src/components/common/molecules/FormFields/VerificationCountdown.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/HomeCarouselSection.tsx": [
+      "src/components/common/layouts/MainSection.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx"
+    ],
+    "src/components/common/molecules/MainContentCard.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Card.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/components/common/molecules/OrderProductSummary.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/ProductCard/ProductCard.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Card.tsx",
+      "src/components/common/atoms/RatingStars.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/atoms/Wishlist.tsx",
+      "src/components/common/molecules/ProductOptionList.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/components/common/molecules/ProductCard/productCardTypography.ts": [],
+    "src/components/common/molecules/ProductDetailImage.tsx": [],
+    "src/components/common/molecules/ProductOptionList.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx"
+    ],
+    "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx": [
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/ProductOptionList.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx"
+    ],
+    "src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/molecules/ProductOptionSelectors/ProductOptionSection.tsx",
+      "src/components/common/molecules/SizeSelector/SizeSelector.tsx"
+    ],
+    "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx": [
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/ProductThumbnail.tsx": [],
+    "src/components/common/molecules/SearchField.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/TextInput.tsx"
+    ],
+    "src/components/common/molecules/SizeSelector/koreanSizes.ts": [],
+    "src/components/common/molecules/SizeSelector/SizeSelector.tsx": [
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/StepIndicator.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/molecules/SupportTabs.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/organisms/Account/AccountDataList.tsx": [
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/common/organisms/Address/AddressFields.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/TextInput.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx"
+    ],
+    "src/components/common/organisms/EmailAddressFields.tsx": [
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx"
+    ],
+    "src/components/common/organisms/OrderRecommendations.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/components/common/organisms/Search/SearchHeader.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/components/common/organisms/SystemStatusPage.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
+    "src/components/find-account/IdConfirmationMessage.tsx": [
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/components/mypage/mypage.data.ts": [],
+    "src/components/mypage/MyPageFrame.tsx": [
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/molecules/Breadcrumb.tsx",
+      "src/components/mypage/mypage.data.ts"
+    ],
+    "src/components/mypage/MyPageProductHistory.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/MyPageDataContext.ts",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/components/orders/order-policy.ts": [],
+    "src/components/orders/OrderPageLayout.tsx": [
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/StepIndicator.tsx"
+    ],
+    "src/components/orders/orders.data.ts": [],
+    "src/components/orders/orders.types.ts": [],
+    "src/components/orders/OrdersRoute.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/DataTable.tsx",
+      "src/components/common/atoms/DescriptionList.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/NumberStepper.tsx",
+      "src/components/common/atoms/Select.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/TextInput.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/BottomSheet.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/CharacterCount.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/common/molecules/SearchField.tsx",
+      "src/components/common/molecules/StepIndicator.tsx",
+      "src/components/mypage/mypage.data.ts",
+      "src/components/orders/order-policy.ts",
+      "src/components/orders/orders.data.ts",
+      "src/context/OrdersContext.ts",
+      "src/context/ShopShell.tsx",
+      "src/context/platform.tsx",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/components/phone-verification/phone-verification.types.ts": [],
+    "src/components/phone-verification/PhoneVerificationContent.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/StatusMessage.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/common/molecules/FormFields/VerificationCountdown.tsx"
+    ],
+    "src/components/run-club/runClub.data.ts": [],
+    "src/components/run-club/RunClubPage.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/run-club/runClub.data.ts",
+      "src/context/RunClubDataContext.ts",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
+    "src/components/screen-index/DesignGuideColor.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentLayout.tsx"
+    ],
+    "src/components/screen-index/DesignGuideTypography.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentLayout.tsx"
+    ],
+    "src/components/support/CustomerCenterLayout.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/SidebarNavigationLayout.tsx"
+    ],
+    "src/components/support/InquiryCautions.tsx": [
+      "src/components/common/atoms/Accordion.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/context/AccountFlowContext.tsx": [],
+    "src/context/CheckoutContext.ts": [],
+    "src/context/HomeContentContext.ts": [],
+    "src/context/InquiryDataContext.ts": [],
+    "src/context/InquiryPreviewContext.ts": [],
+    "src/context/MyPageDataContext.ts": [],
+    "src/context/MyPageInitialState.ts": [],
+    "src/context/OrdersContext.ts": [],
+    "src/context/PhoneVerificationContext.ts": [],
+    "src/context/platform.tsx": [],
+    "src/context/ProductListingContext.ts": [],
+    "src/context/RoutePreview.tsx": [],
+    "src/context/RunClubDataContext.ts": [],
+    "src/context/RunClubSessionContext.ts": [],
+    "src/context/ShopShell.tsx": [
+      "src/components/common/atoms/Accordion.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/TextInput.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
+      "src/components/common/molecules/Carousel/CarouselContext.ts",
+      "src/components/common/organisms/Search/SearchHeader.tsx",
+      "src/context/platform.tsx",
+      "src/data/footerData.ts",
+      "src/data/headerPromotionData.ts",
+      "src/data/megaMenu.ts",
+      "src/data/searchOverlayData.ts",
+      "src/hooks/useRecentSearches.ts",
+      "src/icons/fontAwesome.ts",
+      "src/lib/useScrollPin.ts"
+    ],
+    "src/context/SupportContentContext.ts": [],
+    "src/data/footerData.ts": [],
+    "src/data/headerPromotionData.ts": [],
+    "src/data/megaMenu.ts": [],
+    "src/data/screenRegistry.ts": [],
+    "src/data/searchOverlayData.ts": [],
+    "src/hooks/useBindingQuery.ts": [],
+    "src/hooks/usePhoneVerification.ts": [
+      "src/context/PhoneVerificationContext.ts",
+      "src/hooks/useRequestAction.ts",
+      "src/lib/useVerificationCountdown.ts",
+      "src/lib/validation.ts"
+    ],
+    "src/hooks/useRecentSearches.ts": [],
+    "src/hooks/useRequestAction.ts": [],
+    "src/icons/fontAwesome.ts": [],
+    "src/icons/iconAssets.ts": [],
+    "src/lib/emailValidation.ts": [],
+    "src/lib/passwordValidation.ts": [],
+    "src/lib/phoneNumber.ts": [],
+    "src/lib/useScrollPin.ts": [],
+    "src/lib/useVerificationCountdown.ts": [],
+    "src/lib/validation.ts": [],
+    "src/mocks/cartDisplay.ts": [],
+    "src/mocks/orderRecommendations.ts": ["src/mocks/cartDisplay.ts", "src/mocks/products.ts"],
+    "src/mocks/products.ts": [],
+    "src/types/binding.ts": [],
+    "src/types/cart.ts": [],
+    "src/types/mypage-address.types.ts": [],
+    "src/types/type-tests/Badge.type-test.tsx": ["src/components/common/atoms/Badge.tsx"],
+    "src/types/type-tests/Button.type-test.tsx": ["src/components/common/atoms/Button.tsx"]
+  },
+  "bindingFiles": [
+    "src/app/cart/page.tsx",
+    "src/app/checkout/page.tsx",
+    "src/app/collection/[id]/page.tsx",
+    "src/app/homeContent.ts",
+    "src/app/layout.tsx",
+    "src/app/locales/locales.data.ts",
+    "src/app/locales/page.tsx",
+    "src/app/login/account-locked/complete/page.tsx",
+    "src/app/login/account-locked/page.tsx",
+    "src/app/login/account-locked/verification/page.tsx",
+    "src/app/login/find-account/id-confirmation-modal/page.tsx",
+    "src/app/login/find-account/page.tsx",
+    "src/app/login/find-account/password-reset/page.tsx",
+    "src/app/login/page.tsx",
+    "src/app/mypage/addresses/page.tsx",
+    "src/app/mypage/coupons/page.tsx",
+    "src/app/mypage/event-entries/page.tsx",
+    "src/app/mypage/member-activity/page.tsx",
+    "src/app/mypage/mypage-home-data.ts",
+    "src/app/mypage/orders/page.tsx",
+    "src/app/mypage/page.tsx",
+    "src/app/mypage/payment-methods/page.tsx",
+    "src/app/mypage/profile/page.tsx",
+    "src/app/mypage/recent/page.tsx",
+    "src/app/mypage/referral/page.tsx",
+    "src/app/mypage/restock-alerts/page.tsx",
+    "src/app/mypage/returns/page.tsx",
+    "src/app/mypage/reviews/page.tsx",
+    "src/app/mypage/reviews/reviewFixtures.ts",
+    "src/app/mypage/reviews/reviews.types.ts",
+    "src/app/mypage/rewards/page.tsx",
+    "src/app/mypage/wishlist/page.tsx",
+    "src/app/page.tsx",
+    "src/app/products/[id]/page.tsx",
+    "src/app/products/[id]/productDetailPresentation.ts",
+    "src/app/products/[id]/productInquiries.ts",
+    "src/app/products/page.tsx",
+    "src/app/running/run-club/[sessionId]/page.tsx",
+    "src/app/running/run-club/page.tsx",
+    "src/app/search/page.tsx",
+    "src/app/signup/complete/page.tsx",
+    "src/app/signup/information/page.tsx",
+    "src/app/signup/information/registration.types.ts",
+    "src/app/signup/page.tsx",
+    "src/app/signup/terms/page.tsx",
+    "src/app/signup/verify/page.tsx",
+    "src/app/signup/verify/phone/page.tsx",
+    "src/app/support/after-sales/page.tsx",
+    "src/app/support/care/page.tsx",
+    "src/app/support/faq/faq.data.ts",
+    "src/app/support/faq/page.tsx",
+    "src/app/support/inquiries/new/inquiryOrders.data.ts",
+    "src/app/support/inquiries/new/order-products/page.tsx",
+    "src/app/support/inquiries/new/page.tsx",
+    "src/app/support/inquiries/page.tsx",
+    "src/app/support/member-benefits/page.tsx",
+    "src/app/support/mileage/page.tsx",
+    "src/app/support/notices/[id]/page.tsx",
+    "src/app/support/notices/notices.data.ts",
+    "src/app/support/notices/page.tsx",
+    "src/app/support/page.tsx",
+    "src/app/support/size-guide/page.tsx",
+    "src/app/support/size-guide/size-guide.data.ts",
+    "src/app/support/terms/page.tsx",
+    "src/components/care-guide/care.data.ts",
+    "src/components/catalog/product-listing/productListingMetadata.ts",
+    "src/components/catalog/ProductListingPage.tsx",
+    "src/components/mypage/MyPageProductHistory.tsx",
+    "src/components/orders/order-policy.ts",
+    "src/components/orders/orders.data.ts",
+    "src/components/orders/orders.types.ts",
+    "src/components/orders/OrdersRoute.tsx",
+    "src/components/phone-verification/phone-verification.types.ts",
+    "src/components/run-club/runClub.data.ts",
+    "src/components/run-club/RunClubPage.tsx",
+    "src/context/AccountFlowContext.tsx",
+    "src/context/CheckoutContext.ts",
+    "src/context/HomeContentContext.ts",
+    "src/context/InquiryDataContext.ts",
+    "src/context/MyPageDataContext.ts",
+    "src/context/MyPageInitialState.ts",
+    "src/context/OrdersContext.ts",
+    "src/context/PhoneVerificationContext.ts",
+    "src/context/ProductListingContext.ts",
+    "src/context/RunClubDataContext.ts",
+    "src/context/RunClubSessionContext.ts",
+    "src/context/ShopShell.tsx",
+    "src/context/SupportContentContext.ts",
+    "src/data/footerData.ts",
+    "src/data/headerPromotionData.ts",
+    "src/data/megaMenu.ts",
+    "src/data/searchOverlayData.ts",
+    "src/types/binding.ts",
+    "src/types/mypage-address.types.ts"
+  ]
+}

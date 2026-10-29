@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T00:28:50Z'
+  at: '2026-10-29T02:11:18Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - scripts/screen-files.mjs
+  - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/sourceGraph.generated.json
+  - tests/screen-files.test.mjs
   - src/types/binding.ts
   - src/stories/features/binding/RemainingBinding.stories.tsx
   - src/components/common/molecules/BindingFeedback.tsx
@@ -3289,3 +3293,9 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 라우트/도메인 Context/표시 타입/공통 필드·카드/콘텐츠 fixture에 [개발팀 바인딩] 주석으로 실제 연결 위치와 남은 미연동 지점을 표시했다. 새 외부 서비스나 디자인 변경을 포함하지 않는다. [계약](data-binding.md#전체-소스의-주석-탐색)과 [검증](../development/verification.md)을 참고한다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
+
+## IA 작업 파일 자동 갱신과 개발 연결 범위 (2026-10-29)
+
+screenConnections.ts에는 IA별 진입 파일만 등록한다. scripts/screen-files.mjs가 TypeScript 별칭·상대 경로·재수출·리터럴 dynamic import/require를 해석해 sourceGraph.generated.json을 생성한다. 순환 참조와 중복을 제거하고 삭제 파일·타입 전용 import·스토리·외부 패키지를 제외한다. 실제 연결된 진입점과 바인딩 주석이 있는 도메인·컨텍스트·표시 데이터만 안내하고 공통 UI·범용 훅·목 데이터·Preview는 수정 대상처럼 나열하지 않는다. ShopShell은 화면의 전역 연결 소유자까지만 탐색한다.
+
+신규 IA와 진입점의 의미 연결은 소유자가 등록한다. 변수 import·암묵적 layout은 추론하지 않으며 이 목록은 Git 수정 이력이나 서비스 구현 증명이 아니다. dev/Storybook 감시와 빌드 전 생성으로 현재 연결 파일을 반영한다. 작업 트리 출처: scripts/screen-files.mjs, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, package.json, tests/screen-files.test.mjs.

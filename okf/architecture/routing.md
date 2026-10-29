@@ -6,9 +6,13 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T23:59:46Z'
+  at: '2026-10-29T02:11:18Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - scripts/screen-files.mjs
+  - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/sourceGraph.generated.json
+  - tests/screen-files.test.mjs
   - src/app/support/terms/page.tsx
   - src/app/support/page.tsx
   - src/app/support/notices/page.tsx
@@ -430,3 +434,9 @@ IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도
 전체 소스 인계 주석은 라우트 진입점에 적용 Context·요청 결과 처리와 미연동 이벤트를 설명한다. 매장 지도/환불계좌 경로는 수정하지 않았고 새 API 경로도 만들지 않았다. 구체 계약은 [화면 바인딩](data-binding.md#나머지-화면의-연결과-상세-주석-2026-10-29)을 따른다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
+
+## IA 개발 연결 파일 자동 탐색 (2026-10-29)
+
+/screen-index의 경로와 서버/클라이언트 경계를 유지하고 screenConnections.ts의 등록 진입 파일에서 실제 import를 추적한다. scripts/screen-files.mjs가 생성한 sourceGraph.generated.json으로 현재 존재하는 진입점과 바인딩 주석이 있는 도메인·컨텍스트 파일을 표시한다. 공통 UI·범용 훅·목 데이터·Preview를 제외하며 ShopShell은 전역 연결 소유자까지만 탐색한다. 신규 IA와 진입점의 의미 연결은 소유자가 등록한다. 경로·Storybook 링크와 기존 완료 상태는 유지한다.
+
+작업 트리 출처: src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, scripts/screen-files.mjs. [개발 연결 파일 범위](ui.md#ia-작업-파일-자동-갱신과-개발-연결-범위-2026-10-29)를 참고한다.

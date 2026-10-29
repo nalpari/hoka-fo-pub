@@ -6,9 +6,13 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:54:54.282Z'
+  at: '2026-10-29T02:11:18Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - scripts/screen-files.mjs
+  - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/sourceGraph.generated.json
+  - tests/screen-files.test.mjs
   - src/components/orders/OrdersRoute.tsx
   - src/components/orders/order-policy.ts
   - src/context/OrdersContext.ts
@@ -331,3 +335,7 @@ Button.loadMore·Button.social·ButtonLink.loadMore의 배타적 타입 사례�
 - `npm run okf:check`와 diff 공백 검사를 통과했다. index를 변경하지 않았고 커밋·푸시하지 않았다.
 
 작성: codex/gpt-6, 2026-10-29T01:27:30Z. 출처는 위 working_tree_sources와 이번 작업 트리이며 기존 검증 이력은 보존했다.
+
+## IA 파일 자동 갱신 검증 (2026-10-29)
+
+tests/screen-files.test.mjs는 TypeScript 별칭·재수출·순환 참조·리터럴 동적 import, 타입 전용/스토리 제외, 파일 이동·삭제와 구형/현재 바인딩 주석을 확인한다. 공통 UI·범용 훅·Preview의 개발 연결 파일 제외도 검증한다. Node 테스트를 통과했고 실제 watch 실행 중 임시 바인딩 파일 추가·이동·삭제의 생성 결과 반영을 확인한 뒤 임시 파일을 제거했다. 전체 작업 트리의 타입·lint·빌드 검증과 커밋 선별 검사는 별개다. 작업 트리 출처: scripts/screen-files.mjs, tests/screen-files.test.mjs, src/app/screen-index/screenConnections.ts와 sourceGraph.generated.json.
