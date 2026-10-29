@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { type ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
@@ -101,7 +103,14 @@ function LocaleCountryList({ countries }: LocaleCountryListProps) {
     <Box columnCount={4} columnGap="12" _mobile={{ columnCount: 2, columnGap: '6' }}>
       {countries.map((country) => (
         <a className={styles.country} href={country.href} key={`${country.label}-${country.href}`}>
-          <img className={styles.flag} src={`/images/flag/${country.code}.svg`} alt="" />
+          <Image
+            className={styles.flag}
+            src={`/images/flag/${country.code}.svg`}
+            alt=""
+            width={23}
+            height={18}
+            sizes="23px"
+          />
           <Typography variant="body3" tone="primary">
             {country.label}
           </Typography>

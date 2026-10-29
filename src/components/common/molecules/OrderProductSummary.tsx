@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { type ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
@@ -15,9 +17,18 @@ function OrderProductSummaryImage({
   variant = 'checkout',
 }: Pick<ImportedOrderProductSummaryProps, 'image' | 'name' | 'variant'>) {
   return (
-    <img
+    <Image
       src={image}
       alt={name}
+      width={96}
+      height={96}
+      sizes={
+        variant === 'cart'
+          ? '96px'
+          : variant === 'coupon'
+            ? '(max-width: 1024px) 80px, 88px'
+            : '(max-width: 1024px) 80px, 96px'
+      }
       className={
         variant === 'cart'
           ? css({

@@ -1,8 +1,9 @@
 'use client';
 
+import NextImage from 'next/image';
 import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 
-import { cva } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
@@ -30,6 +31,7 @@ export type MainContentCardProps = {
   description?: ReactNode;
   image: string;
   imageAspectRatio?: MainContentCardImageAspectRatio;
+  imageSizes?: string;
   title: string;
   variant?: MainContentCardVariant;
 };
@@ -57,9 +59,8 @@ const root = cva({
 const categoryImage = cva({
   base: {
     w: '100%',
+    position: 'relative',
     aspectRatio: 'var(--main-content-card-image-ratio-desktop, 371 / 494)',
-    bgPosition: 'center',
-    bgSize: 'cover',
     _mobile: { aspectRatio: 'var(--main-content-card-image-ratio-mobile, 371 / 494)' },
   },
   variants: {
@@ -68,7 +69,7 @@ const categoryImage = cva({
       descriptionLink: {
         _mobile: { aspectRatio: 'var(--main-content-card-image-ratio-mobile, 1 / 1)' },
       },
-      imagePill: { aspectRatio: '1 / 1', bgRepeat: 'no-repeat', bgSize: 'contain' },
+      imagePill: { aspectRatio: '1 / 1' },
       overlay: {
         aspectRatio: 'auto',
         position: 'absolute',
@@ -80,6 +81,27 @@ const categoryImage = cva({
       },
     },
   },
+});
+
+const cardImage = cva({
+  base: { zIndex: '0', objectFit: 'cover' },
+  variants: {
+    variant: {
+      titleLinks: {},
+      descriptionLink: {},
+      imagePill: { objectFit: 'contain' },
+      overlay: {},
+    },
+  },
+});
+
+const overlayGradient = css({
+  position: 'absolute',
+  inset: '0',
+  zIndex: '0',
+  pointerEvents: 'none',
+  background:
+    'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 60.3%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 94.22%)',
 });
 
 const header = cva({
@@ -223,13 +245,14 @@ function MainCardAction({
   );
 }
 
-/** Home category content card with linked actions. */
+/** 홈 카테고리와 프로모션 이미지를 링크 카드로 표시합니다. (Displays home category and promotion images in linked cards.) */
 export function MainContentCard({
   actions: cardActions,
   className,
   description,
   image,
   imageAspectRatio,
+  imageSizes,
   title: cardTitle,
   variant = 'titleLinks',
 }: MainContentCardProps) {
@@ -270,10 +293,6 @@ export function MainContentCard({
   const foreground =
     contentTone === 'light' ? 'var(--color-text-inverse)' : 'var(--color-text-primary)';
   const imageStyle = {
-    backgroundImage:
-      variant === 'overlay'
-        ? `linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 60.3%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 94.22%), url("${image}")`
-        : `url("${image}")`,
     ...(imageAspectRatio
       ? {
           '--main-content-card-image-ratio-desktop': imageAspectRatio.desktop,
@@ -284,7 +303,23 @@ export function MainContentCard({
   } as CSSProperties;
   return (
     <Card className={[root({ variant }), className].filter(Boolean).join(' ')}>
-      <Card.Content className={categoryImage({ variant })} style={imageStyle} />
+      <Card.Content className={categoryImage({ variant })} style={imageStyle}>
+        <NextImage
+          src={image}
+          alt=""
+          fill
+          sizes={
+            imageSizes ??
+            (variant === 'titleLinks'
+              ? '(max-width: 1024px) calc(83.2vw + 16px), 24vw'
+              : variant === 'imagePill'
+                ? '(max-width: 1024px) 253px, 24vw'
+                : '(max-width: 1024px) calc(100vw - 32px), 33vw')
+          }
+          className={cardImage({ variant })}
+        />
+        {variant === 'overlay' ? <div aria-hidden="true" className={overlayGradient} /> : null}
+      </Card.Content>
       <ContentHeader
         as="header"
         gap="0"

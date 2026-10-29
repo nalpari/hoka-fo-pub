@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T10:52:23.370Z'
+  at: '2026-10-28T23:59:46Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/context/InquiryPreviewContext.ts
@@ -155,6 +155,7 @@ working_tree_sources:
   - src/components/login/LoginContent.tsx
   - src/components/login/LoginLayout.tsx
   - src/components/login/LoginMembership.tsx
+
 sources:
   - id: src-shared-shopshell-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/ShopShell.tsx
@@ -439,6 +440,10 @@ ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈�
 ## 반응형 플랫폼과 상태 수명 (2026-10-28)
 
 Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 Provider는 matchMedia를 구독하며 명시적 Storybook 값은 고정된다. ShopFrame의 클래스와 body/포털을 동기화하되 장바구니·로그인 상태 소유자는 유지한다. 로그인 입력과 장바구니 선택, 열린 모달·검색어의 리사이즈 유지 검증은 [현재 플랫폼 기록](responsive-platform-2026-10-28.md)에 명시했다. 이 절이 기존 UA 기반 플랫폼 설명을 대체한다. 작업 트리 출처: src/context/platform.tsx, src/context/ShopShell.tsx.
+
+## 콘텐츠 이미지 렌더러 전환의 상태 영향 (2026-10-29)
+
+ShopShell의 로고·푸터 브랜드·소셜/국가 아이콘과 메가메뉴 이미지를 `next/image`로 렌더링한다. 기존 메뉴·검색·장바구니 상태, 콜백, 링크와 수명은 변경하지 않았다. 이미지 렌더링 외의 Context 동작 변경은 없다.
 
 ## 버튼 통합의 공통 상태 영향 검토 (2026-10-28)
 

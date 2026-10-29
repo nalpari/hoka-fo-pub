@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { useState } from 'react';
@@ -359,10 +360,13 @@ function ProductCardPreview({ product }: { product: Product }) {
         href={`/products/${product.id}`}
         aria-label={`${product.name} 상세 보기`}
       >
-        <img
+        <Image
           className={styles.image}
           src={selectedColor?.image ?? product.hoverImage}
           alt={selectedColor ? `${product.name} - ${selectedColor.label}` : product.name}
+          width={600}
+          height={600}
+          sizes="(max-width: 1024px) 50vw, 25vw"
         />
       </Link>
       {colorOptions.length > 0 && (

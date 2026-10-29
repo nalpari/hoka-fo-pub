@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:10:41.159Z'
+  at: '2026-10-28T23:59:46Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/components/common/molecules/ProductDetailImage.tsx
@@ -696,6 +696,10 @@ working_tree_sources:
   - src/stories/features/orders/OrdersPage.stories.tsx
   - .codex/skills/component-reusability/references/page-ownership.md
   - src/app/support/mileage/page.tsx
+  - src/components/common/molecules/MainContentCard.tsx
+  - src/components/common/molecules/OrderProductSummary.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/components/common/organisms/OrderRecommendations.tsx
 sources:
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
@@ -3234,3 +3238,9 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 공용 Badge 스토리에 Road·Trail의 기본/명시적 모바일 4개 시나리오를 추가했다. src/types/type-tests/Badge.type-test.tsx에서 정상 카테고리와 native 속성, children·status·promotion·variant 혼용 및 미지원 카테고리를 검사한다. npm run typecheck와 npm run panda가 통과했다. 변경 파일 ESLint fix·Prettier를 적용했다. Ego 개발 Storybook에서 런클럽 목록·상세의 PC/모바일 4개와 일반 filled·COMING·복수 프로모션·빈 프로모션 4개를 전후 비교했고 라벨·태그·높이·패딩·색·모서리·글자 크기·두께·행간이 동일했다. 전체 프로덕션/Storybook 빌드는 이번 작업에서 실행하지 않았다.
 
 작업 트리 출처: src/components/common/atoms/Badge.tsx, src/components/run-club/RunClubPage.tsx, src/app/running/run-club/[sessionId]/page.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx. 기록 시점: 2026-10-28T11:14:23.062Z.
+
+## 콘텐츠 이미지의 Next Image 전환 (2026-10-29)
+
+홈·상품 목록 프로모션, 상품 옵션·카드·주문 요약, 문의 주문 선택, 장바구니 옵션, 결제 브랜드, 로케일 국기 및 ShopShell의 브랜드/메뉴 이미지를 `next/image`로 전환했다. 기존 크기·aspect ratio·object-fit·alt 의미를 유지하고 실제 레이아웃에 맞춘 `sizes`를 지정했다. MainContentCard의 배경 이미지는 fill 이미지로 바꾸고 overlay 그라디언트를 별도 장식 레이어로 유지한다. 밝기 분석용 Canvas `new Image()`는 픽셀 샘플링이 필요해 그대로 둔다.
+
+체크박스·라디오·필터·Icon의 상호작용 상태와 임의 src/mask 렌더링은 콘텐츠 이미지와 계약이 달라 네이티브 `<img>`로 유지한다. 외부 이미지 허용 호스트·경로와 원본 URL은 변경하지 않았다. 작업 트리 출처는 frontmatter에 기록했다. 검증: 변경 TSX 포맷과 `npm run okf:check` 통과. 타입 검사와 Webpack 컴파일에서 이 변경 파일의 오류는 없었으나, 전체 타입 검사는 기존 `.next/types` App Router props 오류 6건으로 실패했다. 기본 Turbopack 빌드는 샌드박스의 프로세스 포트 바인딩 제한으로 중단됐고, ESLint는 `eslint-plugin-perfectionist` 미설치로 실행되지 않았다. 브라우저 시각 검증은 수행하지 않았다.

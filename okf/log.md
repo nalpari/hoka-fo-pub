@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-29
+
+- 콘텐츠 이미지와 ShopShell 브랜드 이미지를 `next/image`로 전환하고 표시 크기에 맞춘 `sizes`를 추가했다. 상태·라우트는 유지했으며 UI 예외와 검증 여부를 기록했다. [UI](architecture/ui.md#콘텐츠-이미지의-next-image-전환-2026-10-29), [상태](architecture/state.md#콘텐츠-이미지-렌더러-전환의-상태-영향-2026-10-29), [라우팅](architecture/routing.md#콘텐츠-이미지-렌더러-전환의-라우트-영향-2026-10-29)를 참고한다.
+
 ## 2026-10-28
 
 - ProductDetailImage를 common/molecules로 이동하고 상품 상세·확대 뷰어 import를 갱신했다. [범위와 검증](architecture/ui.md#productdetailimage-공통-molecule-이동-2026-10-28)을 참고한다.

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -257,9 +258,12 @@ export default function Page() {
                             h={{ base: '76px', _mobile: '64px' }}
                             border="1px solid token(colors.black.40)"
                           >
-                            <img
+                            <Image
                               alt=""
                               src={item.image}
+                              width={76}
+                              height={76}
+                              sizes="(max-width: 1024px) 64px, 76px"
                               className={css({ w: '100%', h: '100%', objectFit: 'cover' })}
                             />
                           </Box>

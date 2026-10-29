@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:10:41.166Z'
+  at: '2026-10-28T23:59:46Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/components/common/molecules/ProductDetailImage.tsx
@@ -92,6 +92,7 @@ working_tree_sources:
   - src/shared/Mockup/signup/SignupDetailsStep.tsx
   - src/shared/Mockup/signup/SignupCompleteStep.tsx
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
+  - src/app/locales/page.tsx
 sources:
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
@@ -163,6 +164,10 @@ src/app/support/store/page.tsx와 고객센터 Storybook은 src/components/featu
 src/app/explore/page.tsx는 src/shared/Mockup/explore/ExploreHubPage.tsx를 기본 export로 연결한다. /explore 주소와 use client 경계, 헤더·홈 등 진입 링크, 페이지 내부 SHOE FINDER·가이드·스토리·모델 링크를 유지한다. 이전 features/explore 경로의 중간 재수출 파일은 남기지 않는다. 작업 트리 출처는 frontmatter에 기록한다.
 
 검증: 이동 전후 페이지 내용이 줄바꿈을 제외하고 일치하며 이전 경로 import가 남지 않았음을 확인했다. 변경 파일 ESLint/Prettier·전체 타입 검사·Panda 생성·Next production build와 앱 라우트 검사 2개를 통과했다. 브라우저 화면 비교는 재실행하지 않았다.
+
+## 콘텐츠 이미지 렌더러 전환의 라우트 영향 (2026-10-29)
+
+장바구니, 결제, 국가 선택, 문의 주문상품 조회 라우트의 이미지를 `next/image`로 전환했다. URL·페이지 export·서버/클라이언트 경계·페이지 상태와 이동 흐름은 변경하지 않았다. 이미지 출처와 표시 영역은 기존 값과 레이아웃을 따른다.
 
 ## SHOE FINDER 목업 진입점 (2026-10-19)
 

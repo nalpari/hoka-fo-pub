@@ -1067,6 +1067,11 @@ function PromotionCard({ variant = 'inline' }: PromotionCardProps) {
       {...promotion}
       className={PromotionCardRoot({ variant })}
       imageAspectRatio={imageAspectRatios[variant]}
+      imageSizes={
+        variant === 'fullWidth'
+          ? '(max-width: 1024px) 100vw, 1200px'
+          : '(max-width: 1024px) 50vw, 25vw'
+      }
       variant="descriptionLink"
     />
   );

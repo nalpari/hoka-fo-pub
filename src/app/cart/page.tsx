@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { type ComponentProps, type ReactNode, useState } from 'react';
@@ -85,9 +86,12 @@ function CartOptionsContent({
 }: CartOptionsContentProps) {
   return (
     <Stack gap="6">
-      <img
+      <Image
         src={image}
         alt={name}
+        width={600}
+        height={600}
+        sizes="(max-width: 1024px) calc(100vw - 32px), 500px"
         className={css({
           w: 'calc(100% + 48px)',
           maxW: 'none',
