@@ -173,7 +173,6 @@ const iconButton = css.raw({
     outline: '4px solid var(--button-focus-ring)',
     outlineOffset: '2px',
   },
-  _hover: { bg: 'var(--icon-button-hover-bg, var(--color-black-10))' },
 });
 
 const socialLogin = cva({

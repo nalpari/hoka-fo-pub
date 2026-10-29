@@ -152,7 +152,6 @@ const MenuDrawerHeaderStyles = {
     justifyContent: 'center',
     p: 0,
     cursor: 'pointer',
-    '--icon-button-hover-bg': 'transparent',
     _focusVisible: { outline: '2px solid currentColor!', outlineOffset: '3px!' },
   }),
 };
@@ -522,7 +521,6 @@ const MenuDrawerBackButtonStyles = {
     textDecoration: 'none',
     textAlign: 'left',
     cursor: 'pointer',
-    '--icon-button-hover-bg': 'transparent',
     _focusVisible: { outline: '2px solid currentColor!', outlineOffset: '3px!' },
   }),
   backIcon: css({ transform: 'rotate(180deg)' }),

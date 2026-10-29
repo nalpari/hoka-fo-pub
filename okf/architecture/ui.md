@@ -3225,7 +3225,7 @@ SideNavigation은 유일한 운영 부모 SidebarNavigationLayout 모듈로 이�
 
 ## Button의 아이콘 모드와 문서 소유권 통합 (2026-10-28)
 
-Button은 variant="icon"에서 아이콘 버튼의 실제 치수 size(숫자 px 또는 CSS 길이), shape, tone, color와 직접 children을 지원한다. 기본 36px·square·currentColor, 버튼 type·form·ref·disabled·키보드 포커스·hover 표현을 보존한다. tone="disabled"는 색상 표현이며 실제 disabled와 별개다. loading은 일반 버튼과 같이 aria-busy와 비활성화를 적용한다. 일반 버튼의 size 상관관계는 ButtonSizingProps·ButtonTextProps로 유지하고 아이콘 전용 계약은 ButtonIconProps로 구분한다. ButtonLink·더보기·소셜 인증·모달 액션은 기존 텍스트 버튼 계약을 유지한다.
+Button은 variant="icon"에서 아이콘 버튼의 실제 치수 size(숫자 px 또는 CSS 길이), shape, tone, color와 직접 children을 지원한다. 기본 36px·square·currentColor이며 hover 배경은 투명하게 유지하고 키보드 포커스 outline은 표시한다. 버튼 type·form·ref·disabled도 보존한다. tone="disabled"는 색상 표현이며 실제 disabled와 별개다. loading은 일반 버튼과 같이 aria-busy와 비활성화를 적용한다. 일반 버튼의 size 상관관계는 ButtonSizingProps·ButtonTextProps로 유지하고 아이콘 전용 계약은 ButtonIconProps로 구분한다. ButtonLink·더보기·소셜 인증·모달 액션은 기존 텍스트 버튼 계약을 유지한다.
 
 운영 IconButton 구현을 제거하고 호출부 및 상품 상세 preview 타입은 Button variant="icon"을 사용한다. Button/Button.tsx는 src/components/common/atoms/Button.tsx로 평탄화하며 호환 전달 파일은 남기지 않는다. ButtonDocs와 IconButtonDocs는 src/stories/components/common/atoms/의 기존 Button·IconButton 스토리 디렉터리로 이동했다. 문서 비교·아이콘 선택·복사 기능과 기존 스토리 title·ID는 유지하고 생성 코드는 새 import와 variant를 사용한다. Button.type-test.tsx는 src/types/type-tests/로 옮겨 기존 tsconfig include로 계속 검사한다. 운영 UI 파일은 1개 줄고 문서 2개·타입 검증 1개가 운영 컴포넌트 트리 밖으로 이동했다.
 
@@ -3395,3 +3395,7 @@ IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시�
 `Button.filterTrigger`의 compact 높이를 32.2px에서 40px로 조정했다. regular와 높이를 통일하고, compact의 좌우 14px·14px 글자와 regular의 좌우 24px·16px 글자는 유지한다. ButtonDocs와 퍼블리싱 가이드의 치수 설명도 현재 값에 맞춘다. 출처는 위 `working_tree_sources`의 Button, ButtonDocs, ButtonGuide다.
 
 퍼블리싱 가이드의 보조 버튼 예시는 공통 Icon을 Filter Trigger보다 앞에 배치하고 타임라인도 같은 `auxiliaryVariants` 목록을 사용해 순서를 일치시킨다.
+
+## 아이콘 버튼 hover 배경 제거 (2026-10-29)
+
+`Button`의 `variant="icon"`은 기본 hover 상태에서도 배경을 투명하게 유지한다. ShopShell의 닫기·뒤로가기 버튼에만 있던 hover 배경 재정의도 제거했으며, 포커스 표시와 버튼 동작은 유지한다. 출처는 `src/components/common/atoms/Button.tsx`와 `src/context/ShopShell.tsx`다. 시각 검증은 아직 수행하지 않았다.

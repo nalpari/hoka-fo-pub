@@ -488,6 +488,10 @@ ShopShell의 메가 메뉴 텍스트 항목은 `ghost`에서 `plain`으로 바�
 
 출처: working_tree_sources의 `src/context/ShopShell.tsx`. 상호작용 검증은 아직 수행하지 않았다.
 
+## 아이콘 버튼 hover 배경 제거 (2026-10-29)
+
+ShopShell의 닫기·뒤로가기 버튼에서 hover 배경을 별도로 설정하던 CSS 변수를 제거했다. 공통 `Button`의 `variant="icon"`이 hover 배경 없이 동작하도록 바뀌며, 메뉴 상태·클릭 처리·키보드 포커스 표시는 유지한다. 출처는 `src/context/ShopShell.tsx`와 `src/components/common/atoms/Button.tsx`다. 동작 검증은 수행하지 않았다.
+
 ## 계정 흐름과 현재 조회 상태 확장 (2026-10-29)
 
 AccountFlowProvider는 인증 proof/신규·기존 분기/약관 버전별 동의/복구 참조를 라우트 사이 메모리에 유지한다. 비밀번호/proof는 브라우저 저장소에 저장하지 않는다. 서비스는 AccountServicesContext와 PhoneVerificationContext로 제공한다. 프로필은 최신 읽기값과 활성 편집 초안을 분리한다.
