@@ -12,6 +12,8 @@ working_tree_sources:
   - src/app/examples/styles/classnames/page.tsx
   - src/app/examples/styles/scss-module/page.tsx
   - src/app/examples/styles/scss-module/page.module.scss
+  - src/app/publishing-guide/page.tsx
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -465,3 +467,7 @@ IA 목록은 화면명 rowSpan=2와 작업 파일 colSpan=6의 두 행으로 표
 IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴/구분 rowSpan=2, 윗줄 화면코드/실제페이지/PC·MO 디자인/비고, 아랫줄 WBS colSpan=2/PC·MO 퍼블리싱/작업파일이다. 화면·대분류 일정을 보존하며 라우트·플랫폼 상태 소유권과 미리보기 링크는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx. [두 줄 정렬](ui.md#ia-헤더본문의-두-줄-정렬-2026-10-29)을 참고한다.
 
 사용자 요청으로 IA 구조도 제목 아래의 FO.html 기준·디자인 수급/퍼블리싱 안내 설명(description prop)을 제거했다. 제목·breadcrumb·현황·NAV·상태와 두 줄 표는 유지한다. 작업 트리 출처: src/app/screen-index/_components/IaStructurePage.tsx.
+
+## 퍼블리싱 가이드 기본 버튼 (2026-10-29)
+
+`/publishing-guide`는 기존 SupportTabs의 guide 변형으로 상단 컴포넌트 분류 탭(버튼·폼·모달·뱃지)을 전환한다. 버튼 탭은 크기 기준·속성 안내를 첫 섹션으로 두고, Primary 예시 옆에서 시작하는 오른쪽 세로 바로가기 목록과 예시 영역의 2열 레이아웃을 사용한다. 크기 안내에는 Tall/Short 치수, CTA1/CTA2 및 Link 폰트 크기, density·size·auto 우선순위와 auto 플랫폼 기본값, FilterTrigger·HeaderSearch·아이콘 전용 버튼 예외, 라벨 Typography 연동과 Black/White colorway를 정리한다. 바로가기는 압축된 간격으로 크기 기준·Primary·Secondary와 추가 유형 전부를 실제 variant명으로 표시하고 각 설명은 한국어로 작성한다. 데스크톱 타임라인은 고정 사이트 헤더 높이와 24px 간격 아래에서 sticky로 유지하고, 모바일에서는 예시 아래에 정적 배치한다. Primary·Secondary 및 Ghost 등 추가 버튼 유형의 각 샘플은 기본·비활성화 미리보기와 상태별 사용 코드·복사 버튼을 함께 제공한다. 상태 라벨은 한 줄로 유지하고 코드와 복사 액션은 축소 가능한 코드 칸 및 고정 너비 액션 칸으로 나눠 좁은 화면에서도 잘리지 않게 한다. Link 유형도 비활성화 상태를 포함하도록 Button의 link variant로 표시한다. 기본 화면은 흰색 배경과 기존 black/white 색상 체계를 사용하며 테마 선택 UI는 두지 않는다. 섹션 앵커는 사이트 헤더 높이와 여유 공간을 scroll margin으로 확보해 제목이 가려지지 않게 한다. 복사 버튼은 plain 중간 크기로 표시한다. 예시는 Ghost·Brand·Link·Plain·Chip·Filter Trigger·Header Search·Icon과 Social·Load More 옵션을 포함한다. 폼·모달·뱃지 탭은 예시 준비 중 안내를 표시한다. 페이지 하단 `#top` 링크는 메인 영역으로 이동한다. 모바일에서는 크기·색상·상태 카드가 한 열로 쌓인다. 라우트·metadata·정적 페이지 헤더와 하단은 `page.tsx` Server Component가 소유하고, 탭·복사 상태는 `ButtonGuide` Client Component가 소유한다. 공용 Button API와 다른 운영 화면은 수정하지 않았다. 출처는 위 `working_tree_sources`의 publishing-guide 파일이다. 전체 타입 검사에는 기존 `.next/types` 주문/상품 라우트 진단 6건이 있었다. 최근 크기 안내·타임라인·비활성화 예시 수정은 브라우저 시각 확인 전이다.
