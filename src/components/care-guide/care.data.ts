@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * CareSection의 title/items에 BO 손질 안내를 문자열 배열로 변환해 전달합니다. HTML 문자열을 그대로 items에 넣어 실행하지 않습니다.
+ * 안내문 변경은 제품 소재/분류 정책과 맞추며 사용자별 데이터나 상품 재고를 이 정적 배열에 넣지 않습니다.
+ */
+
 export type CareSection = { title: string; items: readonly string[] };
 
 export const shoeCareSections: readonly CareSection[] = [

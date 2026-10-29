@@ -14,6 +14,7 @@ working_tree_sources:
   - src/context/InquiryDataContext.ts
   - src/context/HomeContentContext.ts
   - src/context/AccountFlowContext.tsx
+  - src/context/RoutePreview.tsx
   - src/context/CheckoutContext.ts
   - src/context/PhoneVerificationContext.ts
   - src/context/ProductListingContext.ts

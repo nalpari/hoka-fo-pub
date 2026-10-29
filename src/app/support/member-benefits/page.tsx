@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 현재 본문은 디자인 작업 중인 안내입니다. 아직 회원등급 정책 조회/본문 계약이 구현되지 않았습니다.
+ * BO 정책을 붙일 때 이 라우트 본문 소유자에 안전한 문서/표 데이터와 로딩/실패 상태를 연결합니다. 실제 개인 등급은 MyPageDataContext.overview의 별도 데이터입니다.
+ */
+
 import { Stack } from 'styled-system/jsx';
 
 import { Divider } from '@/components/common/atoms/Divider';

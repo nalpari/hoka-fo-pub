@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * CheckoutContext에 배송지·쿠폰·견적과 submit을 연결합니다. ShopShell.state.products/cart도 동일한 실제 ID/옵션으로 공급합니다.
+ * submit 성공은 결제 승인/주문 저장 완료입니다. 실패는 reject해 입력을 유지합니다. UI 검증/표시 금액은 서버 검증을 대신하지 않습니다.
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';

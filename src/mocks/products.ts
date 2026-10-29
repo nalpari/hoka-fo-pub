@@ -12,6 +12,13 @@ export type ProductColorOption = {
   widths: ProductWidthOption[];
 };
 
+/**
+ * [개발팀 바인딩]
+ * Product는 현재 화면 표시 모델이며 서버 DTO 자체가 아닙니다. 어댑터에서 상품 id/이름/가격/이미지/분류/옵션/재고를 변환합니다.
+ * colorOptions는 색상별 widths/sizes/soldOut을 연결합니다. colorThumbnails의 id와 label/이미지를 일관되게 매핑하고 다른 상품의 재고를 재사용하지 않습니다.
+ * primaryImage/hoverImage/galleryImages에는 승인된 CDN 또는 로컬 경로를 전달합니다. next/image 원격 호스트 설정도 실제 CDN에 맞춰야 합니다.
+ * 아래 products 배열과 생성 로직은 시안 fixture입니다. 운영 응답은 ShopShell.state.products 및 각 목록 Provider로 전달합니다.
+ */
 export type Product = {
   id: string;
   name: string;

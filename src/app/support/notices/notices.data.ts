@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * 이 파일은 미연동 공지 예시입니다. 운영 목록/본문/조회 상태는 SupportContentContext.notices/notice로 전달합니다.
+ * 배열 순번을 공지 ID로 저장하지 않고 실제 id를 목록·상세 조회에서 일치시킵니다.
+ */
+
 export const notices = [
   { title: '[공통] 네이버페이 9월 프로모션 안내 ', date: '2026-08-13' },
   {

@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * GuideCategory는 value/label/image/measurements/steps/sizes 표시 모델입니다. 실제 측정표와 단위별 셀은 같은 품목/성별 기준으로 전달합니다.
+ * 00 / 00~00은 미확정 시안 값입니다. 운영 사이즈표로 사용하기 전에 승인된 데이터로 바꾸고 cm/inch 변환 기준을 확인합니다.
+ */
+
 export type Gender = 'men' | 'women' | 'unisex';
 
 export type Unit = 'cm' | 'inch';

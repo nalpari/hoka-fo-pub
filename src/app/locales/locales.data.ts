@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * LocaleRegion의 id/name/countries에 승인된 국가/사이트 데이터를 전달합니다. 국가 label/code/href와 국기 자산을 일치시킵니다.
+ * 아래 목록은 현재 구성 데이터이며 주소 입력 폼의 국가나 결제 통화를 자동 확정하는 API가 아닙니다.
+ */
+
 export type LocaleCountry = { code: string; label: string; href: string };
 
 export type LocaleRegion = { id: string; name: string; countries: readonly LocaleCountry[] };

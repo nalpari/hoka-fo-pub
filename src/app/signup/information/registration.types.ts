@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * RegistrationInformation은 입력 초안이며 서버 가입 DTO가 아닙니다. confirmation은 화면 검증용이고 email/domain은 어댑터에서 조합합니다.
+ * 실제 제출은 AccountServicesContext.register에서 identity.proof와 약관 id/version/accepted를 함께 검증합니다. 사용자 ID/휴대폰 중복 판단은 서버에서 확정합니다.
+ */
+
 import type { FormEvent } from 'react';
 
 export type RegistrationInformation = {

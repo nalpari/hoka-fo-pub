@@ -1,3 +1,8 @@
+/**
+ * [개발팀 바인딩]
+ * previewOrders는 Storybook/미연동 화면 fixture입니다. 실제 데이터는 OrdersContext.orders로 전달하고 이 배열의 ID/날짜/상태를 서버 응답으로 사용하지 않습니다.
+ */
+
 import type { OrderLine, OrderRecord } from './orders.types';
 
 const line = (key: string, quantity = 1): OrderLine => ({

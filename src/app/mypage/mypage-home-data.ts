@@ -1,3 +1,8 @@
+/**
+ * [개발팀 바인딩]
+ * orderItems는 미연동 마이페이지의 최근 주문 예시입니다. 운영은 MyPageDataContext.overview.item.orders로 실제 주문 상품/상태/이미지를 전달합니다.
+ */
+
 export type MyPageOrderItem = {
   name: string;
   gender: string;

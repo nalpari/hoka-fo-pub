@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * active는 서버에서 준비한 찜 상태이고 onActiveChange는 변경 의도입니다. 부모에서 실제 상품/행 ID로 요청합니다.
+ * 서버 거절 시 기존 active를 유지하거나 낙관적 변경을 복원해야 합니다. 이 버튼 자체는 찜 저장 성공을 판단하지 않습니다.
+ */
+
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import type { CSSProperties } from 'react';
 import { usePlatform } from '@/context/platform';

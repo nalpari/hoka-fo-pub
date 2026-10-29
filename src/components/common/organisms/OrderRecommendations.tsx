@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * items는 추천 서비스가 정렬한 표시 목록입니다. id/name/gender/price/href/imageSrc를 변환해 전달하며 원격 조회는 부모가 소유합니다.
+ * 빈 응답/로딩/오류는 부모에서 처리하고 시안 추천 배열을 실제 응답에 자동으로 섞지 않습니다.
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
 

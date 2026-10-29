@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * 홈의 고정 카테고리/에디토리얼 카드 데이터입니다. BO 응답을 기존 image/title/actions 모델로 변환한 뒤 HomeContentContext의 콘텐츠 슬롯으로 조합합니다.
+ * 링크는 내부 경로/외부 URL 의미를 유지하고 배너 표시 순서/이미지/대체 텍스트를 같은 콘텐츠 응답에서 갱신합니다.
+ */
+
 import type {
   MainContentCardAction,
   MainContentCardImageAspectRatio,

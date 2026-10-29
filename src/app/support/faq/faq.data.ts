@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * 이 파일의 faqs는 미연동 시안 목록입니다. 실제 서버 검색은 SupportContentContext.faq의 items/totalCount/hasMore로 연결합니다.
+ * 운영 항목에는 안정적인 id를 추가하고 category를 FaqCategory 값으로 변환합니다. 질문 제목을 중복 없는 식별자로 사용하지 않습니다.
+ */
+
 export type FaqCategory =
   | '전체'
   | '상품정보'

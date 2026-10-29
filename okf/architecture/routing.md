@@ -10,23 +10,40 @@ generated:
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/support/terms/page.tsx
+  - src/app/support/page.tsx
   - src/app/support/notices/page.tsx
   - src/app/support/notices/[id]/page.tsx
+  - src/app/support/mileage/page.tsx
+  - src/app/support/member-benefits/page.tsx
   - src/app/support/inquiries/page.tsx
   - src/app/support/faq/page.tsx
   - src/app/signup/verify/phone/page.tsx
+  - src/app/signup/verify/page.tsx
   - src/app/signup/terms/page.tsx
   - src/app/signup/information/page.tsx
+  - src/app/signup/complete/page.tsx
+  - src/app/search/page.tsx
+  - src/app/running/run-club/page.tsx
   - src/app/running/run-club/[sessionId]/page.tsx
+  - src/app/products/page.tsx
+  - src/app/mypage/wishlist/page.tsx
   - src/app/mypage/rewards/page.tsx
+  - src/app/mypage/reviews/reviewFixtures.ts
+  - src/app/mypage/returns/page.tsx
+  - src/app/mypage/restock-alerts/page.tsx
   - src/app/mypage/referral/page.tsx
+  - src/app/mypage/recent/page.tsx
   - src/app/mypage/profile/page.tsx
   - src/app/mypage/payment-methods/page.tsx
   - src/app/mypage/page.tsx
+  - src/app/mypage/orders/page.tsx
   - src/app/mypage/member-activity/page.tsx
   - src/app/login/find-account/password-reset/page.tsx
   - src/app/login/find-account/id-confirmation-modal/page.tsx
   - src/app/login/account-locked/verification/page.tsx
+  - src/app/login/account-locked/page.tsx
+  - src/app/login/account-locked/complete/page.tsx
+  - src/app/collection/[id]/page.tsx
   - src/app/mypage/addresses/page.tsx
   - src/components/common/molecules/ProductDetailImage.tsx
   - src/components/common/organisms/SystemStatusPage.tsx
@@ -410,6 +427,6 @@ IA 구조도의 screenConnections.ts에서 삭제된 RunClubBadge 경로 3곳도
 
 기존 라우트/디자인을 유지하며 가입·계정복구·프로필·문의·콘텐츠·쿠폰·상품내역·홈·런클럽·마이페이지 요약·결제수단 등록의 연결 지점을 보완했다. page default export의 임의 props 대신 Client Provider를 사용하며 루트의 AccountFlowProvider가 가입/복구 단계 메모리를 유지한다. support/terms 탭은 URL을 직접 읽어 뒤로/앞으로 이동도 반영한다. 공지 상세는 실제 ID로 조회하고 없는 ID를 첫 공지로 대체하지 않는다.
 
-매장 지도/환불계좌 경로는 수정하지 않았고 새 API 경로도 만들지 않았다. 구체 계약은 [화면 바인딩](data-binding.md#나머지-화면의-연결과-상세-주석-2026-10-29)을 따른다.
+전체 소스 인계 주석은 라우트 진입점에 적용 Context·요청 결과 처리와 미연동 이벤트를 설명한다. 매장 지도/환불계좌 경로는 수정하지 않았고 새 API 경로도 만들지 않았다. 구체 계약은 [화면 바인딩](data-binding.md#나머지-화면의-연결과-상세-주석-2026-10-29)을 따른다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.

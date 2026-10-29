@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * product에는 준비된 Product 모델, liked에는 외부 찜 상태를 전달합니다. onLikedChange는 새 여부만 알리므로 부모에서 해당 행/상품 ID를 함께 보관합니다.
+ * 카드는 요청을 직접 하지 않습니다. 부모가 요청 성공 후 liked를 갱신하거나 낙관적 갱신 실패를 복원합니다. liked 생략 시 로컬 미리보기 토글입니다.
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
 

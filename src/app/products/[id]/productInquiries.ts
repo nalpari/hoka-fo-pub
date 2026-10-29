@@ -1,3 +1,10 @@
+/**
+ * [개발팀 바인딩]
+ * productInquiries는 상품 문의 예시입니다. 실제 상품 ID별 응답을 page.tsx의 ProductDetailInquiryContent/InquiryBoard.items 연결 소유자에 전달합니다.
+ * 비공개 글은 권한 없는 응답에 본문/답변을 포함하지 않습니다. visibility: restricted는 표시 상태이며 서버 접근 통제를 대신하지 않습니다.
+ * 현재 더보기는 전달된 배열의 표시 수 증가입니다. 서버 페이지를 붙일 때 전체 건수/추가 조회/상태 계약은 별도로 확장해야 합니다.
+ */
+
 import type { InquiryBoardEntry } from '@/types/component-contracts/app-products-id-page';
 
 /** Sample entries for the product detail wireframe. */

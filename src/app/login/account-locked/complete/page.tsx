@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 잠금해제 성공 안내 전용입니다. 실제 변경은 이전 verification 경로의 AccountServicesContext.unlock에서 완료되어야 합니다.
+ * 실제 서비스에서는 직접 URL 접근을 성공 증거로 삼지 말고 서버 세션/완료 참조로 진입 상태를 확인합니다.
+ */
+
 import { css } from 'styled-system/css';
 
 import { ButtonLink } from '@/components/common/atoms/Button';

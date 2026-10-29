@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * PhoneInformation은 인증 화면의 입력 모델입니다. 제공자별 통신사/내외국인/성별 코드를 어댑터에서 변환하고 인증 proof는 서버에서 발급받습니다.
+ * PhoneVerificationContent의 이벤트는 usePhoneVerification이 소유합니다. 실제 발송/검증은 PhoneVerificationContext 서비스로 연결합니다.
+ */
+
 import type { FormEvent } from 'react';
 
 export type PhoneInformation = {

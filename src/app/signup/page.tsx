@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * local은 본인인증 경로로 이동하고 kakao/naver는 현재 미연동 안내입니다. startSignup의 제공자 선택 이벤트가 OAuth 연결 지점입니다.
+ * 소셜 가입을 연결할 때도 가입 여부/인증 proof/동의·추가정보 정책은 서버 결과를 사용하고 임의로 가입 완료 경로로 이동시키지 않습니다.
+ */
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 

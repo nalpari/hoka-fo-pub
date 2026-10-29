@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * options에 해당 상품/색상/발볼의 사이즈별 상태를, value에 현재 선택을 전달합니다. onValueChange가 서버 요청 전 선택 상태 연결점입니다.
+ * 품절/소량 표시 데이터는 서버 재고로 변환하며 상품/색상 변경 시 무효가 된 이전 사이즈는 부모에서 해제합니다.
+ */
+
 import { type ReactNode, useId } from 'react';
 
 import { Stack } from 'styled-system/jsx';

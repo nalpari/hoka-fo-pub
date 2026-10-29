@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * local/domain/domainChoice와 각 변경 콜백은 부모의 이메일 초안입니다. 제출 시 부모가 local@domain으로 조합하고 서버에서 최종 검증합니다.
+ * 직접 입력과 도메인 선택을 전환할 때 domainChoice뿐 아니라 실제 domain 값도 함께 갱신합니다. 이 필드는 저장 요청을 하지 않습니다.
+ */
+
 import type { DropdownProps } from '@/components/common/atoms/Dropdown';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -16,6 +22,7 @@ type Props = {
   onDomainChoice: (value: string) => void;
 };
 
+/** 이메일 아이디와 도메인의 제어형 입력을 표시합니다. (Displays controlled email local-part and domain inputs.) */
 export function EmailAddressFields({
   idPrefix,
   local,

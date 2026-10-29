@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * HeaderPromotionItem의 id/message/href/buttonType이 헤더 배너 표시 모델입니다. BO 운영 배너는 이 형태로 변환해 헤더의 items 소유자에 전달합니다.
+ * 배너 ID는 순서가 바뀌어도 유지하며 목적지 링크와 버튼 표시를 함께 갱신합니다. 아래 배열은 현재 시안 콘텐츠입니다.
+ */
+
 import type { HeaderPromotionButtonType } from '@/types/component-contracts/context-ShopShell';
 
 export type HeaderPromotionItem = {

@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.reviews에 ready/written과 save를 연결합니다. 행별 실제 상품/구매일/옵션/리뷰 모델을 전달합니다.
+ * save는 선택 구매/리뷰 id와 본문·평점을 받습니다. 저장 후 목록을 갱신하고 resolve합니다. 현재 계약에는 파일 업로드가 없습니다. 현재 더보기는 전달받은 누적 배열의 표시 개수를 늘립니다.
+ */
+
 import { useContext, useState } from 'react';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';

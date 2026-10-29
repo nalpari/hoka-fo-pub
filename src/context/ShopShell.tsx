@@ -2970,6 +2970,15 @@ function AppLayout({
 
 export type LoginCredentials = { id: string; password: string; rememberId: boolean };
 
+/**
+ * [개발팀 바인딩]
+ * 앱 Client 연결 소유자에서 <ShopShell state={...}> 또는 <ShopStateProvider value={...}>로 실제 상태를 공급합니다.
+ * 운영 모드에서는 authenticationMode: service, products, isLoggedIn을 지정합니다. products에는 장바구니/상세에 필요한 실제 ID의 상품도 포함합니다.
+ * cart 행은 상품 id + color/width/size 조합과 수량을 가집니다. add/updateQuantity/updateOptions/remove 이후 새 cart 상태를 공급합니다.
+ * 현재 장바구니 변경 콜백은 동기 알림 계약입니다. 비동기 저장/낙관적 갱신을 쓸 경우 실패 복원과 오류 표시는 연결 소유자가 맡습니다.
+ * login은 자격증명/기억하기 선택을 받고 인증 완료 후 resolve, 실패는 reject합니다. 실제 세션 보관/로그아웃/인증 만료도 이 소유자에서 처리합니다.
+ * wishlistCount/recentCount는 실제 요약 수치를 전달합니다. 본 파일의 localStorage/initialCart는 Provider가 없는 시안 데모용입니다.
+ */
 export type ShopState = {
   readonly authenticationMode?: 'demo' | 'service';
   readonly products?: readonly Product[];

@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * URL 필터 코드의 breadcrumb/제목 표시 매핑입니다. 서버 분류 코드는 현재 URL 값으로 변환하고 GNB/목록 조회와 같은 코드를 사용합니다.
+ * 이 모듈은 표시 메타데이터이며 실제 상품 검색이나 조회 건수를 결정하지 않습니다.
+ */
+
 import type { BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
 const genderBreadcrumbs: Record<string, { label: string }> = {

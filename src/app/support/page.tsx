@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * SupportContactCard의 title/description/phone/phoneHref/operatingHours/lunchBreak가 운영 안내 데이터입니다.
+ * 운영정보를 BO에서 받을 때 이 페이지에서 표시 props로 변환합니다. 전화 표시와 tel 링크를 함께 갱신하며 현재 고정 문구를 API 응답으로 오인하지 않습니다.
+ */
+
 import Link from 'next/link';
 
 import { css } from 'styled-system/css';

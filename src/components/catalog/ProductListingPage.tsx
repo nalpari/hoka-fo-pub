@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * data prop 또는 ProductListingContext에 실제 Product 결과와 검색/필터/페이지 계약을 전달합니다. data prop이 우선합니다.
+ * onQueryChange는 적용 조건, onPreviewQueryChange는 모바일 초안 조건입니다. 서버 페이지의 전체 건수를 items.length로 추정하지 않습니다.
+ */
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';

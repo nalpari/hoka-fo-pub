@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * InquiryOrder.id는 주문 ID, products[].id는 선택 가능한 주문 상품 행 ID입니다. 같은 상품의 다른 옵션/주문 행을 구분해야 합니다.
+ * 운영 조회는 InquiryDataContext.orders, 저장된 선택 복원은 form.resolveSelection을 사용합니다. 아래 생성 배열은 시안 전용입니다.
+ */
+
 export type InquiryOrderProduct = {
   id: string;
   name: string;

@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 이 Provider는 Storybook이 라우트 내부 구성을 선택하는 용도입니다. 운영 데이터/서비스 주입은 각 도메인 Context의 타입을 사용합니다.
+ */
+
 import {
   type ComponentType,
   createContext,

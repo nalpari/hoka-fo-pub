@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * guideCategories는 품목별 사이즈 표 표시 데이터입니다. BO 값을 category/value/label과 SizeGuidePanel이 받는 표 모델로 변환합니다.
+ * 선택 사이즈의 실제 재고는 이 안내표가 아니라 Product.colorOptions의 옵션 데이터에 연결합니다.
+ */
+
 import { Stack } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';

@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * useShop의 products/cart/add/updateQuantity/updateOptions/remove를 실제 상품·장바구니 상태에 연결합니다.
+ * 동일 상품도 color/width/size가 다르면 별도 행입니다. CartItem.imageSrc는 명시적인 이미지 override이며 색상명으로 시안 이미지를 추측하지 않습니다.
+ * 동기 변경 콜백의 비동기 저장/실패 복원은 ShopShell.state 어댑터에서 처리합니다. 결제 이동 전 서버 재고와 현재 장바구니를 확인합니다.
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
 

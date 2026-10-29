@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * MegaMenu의 id/label/columns/promo가 GNB 표시 모델입니다. 서버 카테고리 코드를 현재 products URL 필터 값으로 변환합니다.
+ * 현재 고정 메뉴에는 미리 만든 내부 링크가 있습니다. 운영 메뉴 연결 시 label만 바꾸지 말고 목적지·프로모션 이미지도 같은 응답으로 갱신합니다.
+ */
+
 export type MegaMenuItem = {
   label: string;
   to: string;

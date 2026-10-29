@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * value와 onValueChange(field, value)가 부모 폼의 주소 상태 연결점입니다. postalCode/address/addressDetail을 같은 선택 주소로 갱신합니다.
+ * 현재 AddressSearchModal은 우편번호/주소를 직접 입력하는 미연동 UI입니다. 실제 주소 검색 API/SDK는 이 검색 모달 소유자에서 연동해야 합니다.
+ * 검색 결과를 onPostalCodeChange/onAddressChange로 전달하고 선택 완료 후 onSearchOpenChange(false)를 호출합니다. 주소 선택은 서버 배송지 저장 성공과 별개입니다.
+ */
+
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';

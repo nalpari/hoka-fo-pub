@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * MyPageDataContext.addresses에 현재 목록과 save/remove를 연결합니다. 신규 save는 id 없이, 수정 save는 원래 id로 전달됩니다.
+ * 저장/삭제 후 목록 갱신까지 어댑터가 처리하며 실패는 reject합니다. 주소 검색 UI는 AddressFields에 있고 실제 우편번호 제공자는 별도 연동 영역입니다.
+ */
+
 import { useContext, useState } from 'react';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';

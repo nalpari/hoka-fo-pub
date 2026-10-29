@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * footerGroups는 제목/라벨/목적지 표시 데이터입니다. 운영 CMS 링크를 받을 때 label과 to를 함께 변환합니다.
+ * 회사/고객센터 정보는 실제 승인된 운영 문구를 사용합니다. 링크 데이터는 사용자별 회원/결제 데이터와 별개입니다.
+ */
+
 export type FooterGroup = {
   title: string;
   links: { label: string; to: string }[];

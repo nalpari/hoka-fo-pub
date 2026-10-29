@@ -1,6 +1,13 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 홈/BO 카드의 제목·설명·이미지·actions 목적지를 기존 props에 전달합니다. 데이터 조회와 게시 기간/노출 권한 판단은 부모 콘텐츠 어댑터가 담당합니다.
+ * 액션의 to는 표시 라벨과 함께 갱신하고 이미지/링크가 없는 실제 결과를 다른 시안 카드로 대체하지 않습니다.
+ */
+
 import NextImage from 'next/image';
+
 import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 
 import { css, cva } from 'styled-system/css';

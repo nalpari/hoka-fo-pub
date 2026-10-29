@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * ShopShell.state.login에 { id, password, rememberId }를 받아 실제 인증하는 함수를 연결합니다. 인증/세션 갱신 후 resolve, 실패는 reject합니다.
+ * 소셜 로그인 버튼의 onUnavailable은 현재 안내용입니다. OAuth 연동 시 이 이벤트 소유자에서 제공자 인증을 처리하고 비밀번호를 URL/저장소로 넘기지 않습니다.
+ */
+
 import { useRouter } from 'next/navigation';
 
 import { Popover } from '@base-ui/react/popover';

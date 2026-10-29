@@ -1,3 +1,9 @@
+/**
+ * [개발팀 바인딩]
+ * 상품의 규격/기술 지표/에디토리얼 표시 모델입니다. 현재 특정 시안의 검증된 내용만 해당 상품에 적용하고 다른 상품으로 복제하지 않습니다.
+ * BO 상품 상세를 연결할 때 specification/scales/features를 실제 상품 코드 기준으로 변환합니다. 아직 측정하지 않은 도움말/수치를 사실로 생성하지 않습니다.
+ */
+
 import type { Product } from '@/mocks/products';
 
 export type ProductDetailSpecification = {

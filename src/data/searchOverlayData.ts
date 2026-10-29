@@ -1,3 +1,10 @@
+/**
+ * [개발팀 바인딩]
+ * suggestedSearches/popularSearches/autocompleteSearches/collectionLinks는 검색 오버레이의 현재 고정 예시입니다.
+ * 실시간 추천·인기 검색어는 ShopShell의 검색 오버레이 소유자에서 서버 응답 배열로 교체해야 합니다. 자동완성은 현재 입력값에 대한 이전 응답을 폐기합니다.
+ * collectionLinks.id는 컬렉션 경로 식별자입니다. 표시 라벨로 ID를 추정하거나 실제 검색 결과 상품을 이 예시 배열에 넣지 않습니다.
+ */
+
 export type SearchCollection = { label: string; id: string };
 
 export const suggestedSearches = ['스피드고트', '여성러닝화', '본디8', '트레일러닝화', '마하5'];

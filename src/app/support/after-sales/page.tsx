@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * shippingItems 등은 현재 고정 정책 안내입니다. BO 문구를 연결할 경우 기존 번호/불릿 패널에 같은 ReactNode 항목 구조로 변환합니다.
+ * 이 안내문은 반품비 계산/접수 권한의 근거가 아닙니다. 실제 반품은 OrdersContext.quoteClaim/submitClaim의 서버 결과를 사용합니다.
+ */
+
 import { type ReactNode } from 'react';
 
 import { Box, HStack, Stack } from 'styled-system/jsx';

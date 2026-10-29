@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 상품 본문/옵션/가격/갤러리는 useShop().products에서 경로 ID로 찾습니다. 상품 DTO를 Product로 변환해 ShopShell.state.products에 포함합니다.
+ * 주문 선택은 id/color/width/size/quantity를 장바구니 add로 전달합니다. 재고·구매 가능 여부·가격 확정은 서비스에서 검증합니다.
+ * 현재 상세의 wish는 로컬 토글입니다. 영구 찜을 연결할 때 onWishChange 소유자에서 실제 상품 ID로 요청하고 성공 상태/실패 복원을 관리해야 합니다.
+ */
+
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -614,6 +621,7 @@ function ProductInquiryLink() {
 const board = css({ pt: '24px' });
 
 function ProductDetailInquiryContent() {
+  // [개발팀 바인딩] 실제 상품별 문의 응답은 아래 InquiryBoard.items에 전달합니다. 비공개 본문 권한은 서버에서 검증하며 현재 productInquiries는 예시입니다.
   return (
     <InquiryBoard
       title="상품문의"
@@ -1405,6 +1413,7 @@ const destination = css({
 });
 
 function ProductDetailSections({ product }: { product: Product }) {
+  // [개발팀 바인딩] 상세 리뷰의 count는 상품 요약입니다. 실제 리뷰 본문/분포를 연결할 때 count만으로 목 후기를 만들지 말고 리뷰 영역의 소유자에 별도 조회 결과를 전달합니다.
   const presentation = getProductDetailPresentation(product);
 
   return (

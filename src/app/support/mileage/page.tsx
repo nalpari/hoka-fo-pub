@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * [개발팀 바인딩]
+ * 현재 본문은 디자인 작업 중인 안내이며 실제 마일리지 조회 계약은 없습니다.
+ * BO 안내 본문을 연결할 때 기존 레이아웃 안에서 안전한 문서 데이터를 렌더링합니다. 개인 잔액/적립내역 데이터와 공통 정책 안내를 혼합하지 않습니다.
+ */
+
 import { Stack } from 'styled-system/jsx';
 
 import { Divider } from '@/components/common/atoms/Divider';

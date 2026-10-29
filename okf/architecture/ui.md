@@ -14,7 +14,12 @@ working_tree_sources:
   - src/components/common/molecules/BindingFeedback.tsx
   - src/components/run-club/runClub.data.ts
   - src/components/orders/orders.types.ts
+  - src/components/orders/orders.data.ts
   - src/components/find-account/IdConfirmationMessage.tsx
+  - src/components/common/organisms/EmailAddressFields.tsx
+  - src/components/common/atoms/Wishlist.tsx
+  - src/components/catalog/product-listing/productListingMetadata.ts
+  - src/components/care-guide/care.data.ts
   - src/stories/components/common/atoms/Button/Button.stories.tsx
   - src/stories/components/common/atoms/Checkbox/Checkbox.stories.tsx
   - src/stories/components/common/atoms/RatingStars/RatingStars.stories.tsx
@@ -3281,6 +3286,6 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 
 환불은 기존 시트의 상품 수량/사유/상세내용과 서버 견적·접수 논리만 반영했다. 원 결제수단으로 환불하고 환불계좌·무통장 입금 기능을 추가하지 않았다. 결제수단 등록은 승인된 범위의 버튼/안내 모달/결제사 위임이며 카드 입력 폼은 없다. 매장 지도는 변경하지 않았다.
 
-[계약](data-binding.md)과 [검증](../development/verification.md)을 참고한다.
+라우트/도메인 Context/표시 타입/공통 필드·카드/콘텐츠 fixture에 [개발팀 바인딩] 주석으로 실제 연결 위치와 남은 미연동 지점을 표시했다. 새 외부 서비스나 디자인 변경을 포함하지 않는다. [계약](data-binding.md#전체-소스의-주석-탐색)과 [검증](../development/verification.md)을 참고한다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
