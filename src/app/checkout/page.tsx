@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -200,9 +201,12 @@ function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
   return (
     <Box h="4" display="flex" alignItems="center" justifyContent="center" aria-hidden="true">
       {method === 'kakao' ? (
-        <img
+        <Image
           src="/images/checkout/kakaopay.png"
           alt=""
+          width={28}
+          height={16}
+          sizes="28px"
           className={css({ w: '28px', h: '16px', objectFit: 'contain' })}
         />
       ) : method === 'card' ? (

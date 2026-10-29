@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -443,10 +444,12 @@ function MegaMenuAD({
         data-mega-menu-ad-card
         size={isMobile ? '100%' : '358px'}
       >
-        <img
+        <Image
           className={css({ display: 'block', w: '100%', h: '100%', objectFit: 'cover' })}
           src={imageSrc}
           alt=""
+          fill
+          sizes={isMobile ? '100vw' : '358px'}
         />
         <VStack
           alignItems="flex-start"
@@ -710,10 +713,13 @@ const FooterBrandLogoStyles = {
 
 function FooterBrandLogo() {
   return (
-    <img
+    <Image
       className={FooterBrandLogoStyles.logo}
       src="/images/footer/hoka-footer-brand-fly.svg"
       alt="HOKA — Fly Human Fly"
+      width={124}
+      height={24}
+      sizes="(max-width: 1024px) 115px, 104px"
     />
   );
 }
@@ -765,7 +771,13 @@ function SocialIconLink({ label, file, href = '#', className, ...props }: Social
       aria-label={label}
       title={label}
     >
-      <img src={`/images/icon/social/${file}`} alt={label} className={socialIcon} />
+      <Image
+        src={`/images/icon/social/${file}`}
+        alt={label}
+        className={socialIcon}
+        width={24}
+        height={24}
+      />
     </Square>
   );
 }
@@ -812,6 +824,7 @@ const FooterLocaleSelectorsStyles = {
     flexShrink: 0,
   }),
   arrow: css({
+    w: '12px',
     h: '12px',
     pos: 'relative',
     top: '1px',
@@ -821,15 +834,23 @@ const FooterLocaleSelectorsStyles = {
 function FooterLocaleSelectors() {
   return (
     <Link href="/locales" className={FooterLocaleSelectorsStyles.link}>
-      <img className={FooterLocaleSelectorsStyles.flag} src="/images/flag/kr.svg" alt="대한민국" />
+      <Image
+        className={FooterLocaleSelectorsStyles.flag}
+        src="/images/flag/kr.svg"
+        alt="대한민국"
+        width={16}
+        height={12}
+      />
       <HStack gap="0">
         <Typography variant="body5" tone="inverse">
           Visit our international sites
         </Typography>
-        <img
+        <Image
           className={FooterLocaleSelectorsStyles.arrow}
           src="/images/icon/chevron-right.svg"
           alt=""
+          width={16}
+          height={16}
         />
       </HStack>
     </Link>
@@ -2001,10 +2022,13 @@ type HeaderLogoProps = {
 function HeaderLogo({ onClick }: HeaderLogoProps) {
   return (
     <Link className={logo} href="/" onClick={onClick} aria-label="HOKA 홈으로">
-      <img
+      <Image
         src="/images/header/logo-primary.svg"
         alt="HOKA"
         className={css({ display: 'block', w: '100%', h: '100%', objectFit: 'contain' })}
+        width={88}
+        height={24}
+        sizes="(max-width: 1024px) 74px, 85px"
       />
     </Link>
   );

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { css } from 'styled-system/css';
 
 import { Radio } from '@/components/common/atoms/Radio';
@@ -104,10 +106,13 @@ export function ProductColorSelector({
           options={options.map((option) => ({
             value: option.id,
             label: (
-              <img
+              <Image
                 className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
                 alt={option.label}
                 src={option.image}
+                width={80}
+                height={53}
+                sizes="80px"
               />
             ),
           }))}

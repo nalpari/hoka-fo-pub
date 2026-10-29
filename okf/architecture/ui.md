@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-28T11:10:41.159Z'
+  at: '2026-10-28T23:59:46Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/hooks/useRequestAction.ts
@@ -698,6 +698,10 @@ working_tree_sources:
   - src/stories/features/orders/OrdersPage.stories.tsx
   - .codex/skills/component-reusability/references/page-ownership.md
   - src/app/support/mileage/page.tsx
+  - src/components/common/molecules/MainContentCard.tsx
+  - src/components/common/molecules/OrderProductSummary.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/components/common/organisms/OrderRecommendations.tsx
 sources:
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
@@ -3242,3 +3246,9 @@ runClubCategory는 일반 children, status, promotion 및 별도 variant·tone·
 상품 목록의 서버 결과·전체 건수·hasMore·조회 상태를 받을 수 있게 했다. 리뷰의 상품명·이미지·옵션·구매일을 항목 데이터로 표시하고, 인증·결제·저장 액션의 요청 중·실패 상태를 추가했다. 기존 PC/모바일 스타일과 단일 라우트 소유권은 유지한다. [연결 계약과 적용 범위](data-binding.md).
 
 작성: codex/gpt-6, 2026-10-29T00:06:17Z. 출처는 위 working_tree_sources의 현재 작업 트리이며 API 연동 완료를 의미하지 않는다.
+
+## 콘텐츠 이미지의 Next Image 전환 (2026-10-29)
+
+홈·상품 목록 프로모션, 상품 옵션·카드·주문 요약, 문의 주문 선택, 장바구니 옵션, 결제 브랜드, 로케일 국기 및 ShopShell의 브랜드/메뉴 이미지를 `next/image`로 전환했다. 기존 크기·aspect ratio·object-fit·alt 의미를 유지하고 실제 레이아웃에 맞춘 `sizes`를 지정했다. MainContentCard의 배경 이미지는 fill 이미지로 바꾸고 overlay 그라디언트를 별도 장식 레이어로 유지한다. 밝기 분석용 Canvas `new Image()`는 픽셀 샘플링이 필요해 그대로 둔다.
+
+체크박스·라디오·필터·Icon의 상호작용 상태와 임의 src/mask 렌더링은 콘텐츠 이미지와 계약이 달라 네이티브 `<img>`로 유지한다. 외부 이미지 허용 호스트·경로와 원본 URL은 변경하지 않았다. 작업 트리 출처는 frontmatter에 기록했다. 검증: 변경 TSX 포맷과 `npm run okf:check` 통과. 타입 검사와 Webpack 컴파일에서 이 변경 파일의 오류는 없었으나, 전체 타입 검사는 기존 `.next/types` App Router props 오류 6건으로 실패했다. 기본 Turbopack 빌드는 샌드박스의 프로세스 포트 바인딩 제한으로 중단됐고, ESLint는 `eslint-plugin-perfectionist` 미설치로 실행되지 않았다. 브라우저 시각 검증은 수행하지 않았다.

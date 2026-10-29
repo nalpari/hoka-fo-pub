@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 
@@ -69,6 +71,13 @@ const image = css({ w: '100%', h: '100%', objectFit: 'contain' });
 const previewImage = css({ display: 'block', w: '100%', h: '53px', objectFit: 'contain' });
 
 const cartImage = css({ w: '100%', aspectRatio: '1', objectFit: 'contain', bg: 'black.10' });
+
+const thumbnailSize = {
+  scroll: { width: 34, height: 34, sizes: '34px' },
+  preview: { width: 80, height: 53, sizes: '80px' },
+  grid: { width: 76, height: 60, sizes: '76px' },
+  cart: { width: 72, height: 72, sizes: '72px' },
+} as const;
 
 export type ProductOptionThumbnail = {
   id: string;
@@ -168,13 +177,16 @@ export function ProductOptionList({
               onClick={() => onSelect(optionItem.id)}
               type="button"
             >
-              <img
+              <Image
                 alt=""
                 aria-hidden="true"
                 className={
                   layout === 'preview' ? previewImage : layout === 'cart' ? cartImage : image
                 }
                 src={optionItem.image}
+                width={thumbnailSize[layout].width}
+                height={thumbnailSize[layout].height}
+                sizes={thumbnailSize[layout].sizes}
               />
             </button>
           );
@@ -182,13 +194,16 @@ export function ProductOptionList({
 
         return (
           <span aria-label={optionItem.label} className={className} key={optionItem.id} role="img">
-            <img
+            <Image
               alt=""
               aria-hidden="true"
               className={
                 layout === 'preview' ? previewImage : layout === 'cart' ? cartImage : image
               }
               src={optionItem.image}
+              width={thumbnailSize[layout].width}
+              height={thumbnailSize[layout].height}
+              sizes={thumbnailSize[layout].sizes}
             />
           </span>
         );

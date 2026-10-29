@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { css } from 'styled-system/css';
@@ -32,9 +33,12 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
       })}
     >
       <Stack gap="1">
-        <img
+        <Image
           src={item.imageSrc}
           alt=""
+          width={layout === 'portrait' ? 151 : 140}
+          height={layout === 'portrait' ? 225 : 140}
+          sizes={layout === 'portrait' ? '(max-width: 1024px) 151px, 140px' : '140px'}
           className={css({
             w: '140px',
             h: '140px',
