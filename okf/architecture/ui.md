@@ -6,22 +6,9 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T09:26:34Z'
+  at: '2026-10-29T08:05:45Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
-  - src/app/checkout/_components/CheckoutComplete.tsx
-  - src/app/checkout/_components/CheckoutAgreement.tsx
-  - src/app/checkout/_components/CheckoutPayment.tsx
-  - src/app/checkout/_components/CheckoutShipping.tsx
-  - src/app/checkout/_components/CheckoutSummary.tsx
-  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
-  - src/app/checkout/_components/CheckoutForm.tsx
-  - src/app/checkout/_components/CheckoutLayout.tsx
-  - src/app/cart/_components/CartDialogs.tsx
-  - src/app/cart/_components/CartEmptyState.tsx
-  - src/app/cart/_components/CartOrderActions.tsx
-  - src/app/cart/_components/CartProductSection.tsx
-  - src/app/cart/_components/CartSupportInfo.tsx
   - src/components/screen-index/DesignGuideTypography.tsx
   - src/components/common/atoms/Typography.tsx
   - src/styles/global.scss
@@ -792,22 +779,6 @@ sources:
 ---
 
 # 컴포넌트와 스타일
-
-## 페이지 전용 UI의 _components 배치 (2026-10-29)
-
-최종 원칙은 page.tsx의 보조 UI를 해당 라우트의 `_components/`에 두는 것이다. 28개 페이지의 보조 선언과 cart·checkout의 기존 형제 컴포넌트를 이동했으며, 기존 공용 화면·단순 페이지·적절한 분리는 유지했다. 이 기준은 앞선 "page와 같은 폴더" 및 단일 부모 컴포넌트 통합 기록 중 페이지 보조 UI 배치를 대체한다. URL·상태·서버/클라이언트·RoutePreview 계약은 유지한다. [적용 목록·출처·검증](page-private-components-2026-10-29.md).
-
-## 주문서 page 보조 컴포넌트 분리 (2026-10-29)
-
-`checkout/page.tsx`의 1,301줄 구현에서 보조 컴포넌트를 같은 폴더로 이동해 64줄의 `Page`만 남겼다. `CheckoutForm`은 폼 검증·쿠폰·동의 상태와 내부 섹션 조합, `CheckoutShipping`은 배송지와 배송 요청, `CheckoutPayment`는 결제수단, `CheckoutDiscountSummary`는 쿠폰 모달·할인 요약, `CheckoutSummary`는 주문상품 요약, `CheckoutAgreement`는 동의, `CheckoutComplete`는 완료 화면, `CheckoutLayout`은 단계·제목을 소유한다. `PaymentMethod`와 `ShippingErrors` 타입은 각 소유 컴포넌트 모듈에서 제공한다. 순수 쿠폰·주문 합계 모듈은 유지했다.
-
-24개 함수의 AST 본문이 이동 전과 동일하며 page 모듈에 `Page`만 선언되는 것을 확인했다. 합계 테스트 3개와 오래된 `.next/dev/types`를 제외한 소스 타입 검사, checkout 미사용 선언 검사를 통과했다. PC/MO 결제 완료와 연결된 결제 실패·재시도 스토리 4개를 통과했고 MO 쿠폰 스토리도 오류 없이 완료했다. PC 쿠폰 스토리는 기존 `쿠폰 선택` 버튼 탐색이 실제 `보유 쿠폰 조회` 모달 UI와 달라 실패한다. 실제 PC 모달에서 10% 상품 쿠폰 적용 후 결제 금액 648,000원과 닫힘을 직접 확인했다. 전체 빌드는 컴파일 후 기존 삭제 경로를 참조하는 `.next/dev/types/validator.ts` 오류로 중단했고 ESLint는 설치되지 않은 `eslint-plugin-perfectionist`로 실행되지 않았다. 실제 결제 서비스와 전체 시각 비교는 검증하지 않았다.
-
-## 장바구니 page 보조 컴포넌트 분리 (2026-10-29)
-
-AGENTS.md에 page 진입점 예외를 추가했다. 장바구니 `page.tsx`는 상태와 화면 조합을 유지하며 `Page` 하나만 선언한다. 같은 폴더의 `CartDialogs.tsx`는 옵션 초안·수량 제한 모달, `CartProductSection.tsx`는 선택 도구·PC/MO 상품 행·금액 안내, `CartEmptyState.tsx`는 빈 목록, `CartSupportInfo.tsx`는 고객센터, `CartOrderActions.tsx`는 주문 액션을 소유한다. 각 보조 파일 안의 단일 부모 컴포넌트는 해당 파일에 유지한다. `cart-item.ts`의 키·품절 정책과 페이지의 상태·콜백은 유지한다.
-
-IA 작업 파일 추적을 위해 생성 그래프의 장바구니 import 관계만 갱신했다. 실제 서비스 연결·비동기 저장 계약과 디자인은 이번 변경 범위가 아니다. [라우트 정책](routing.md#pagetsx-보조-컴포넌트-분리-원칙-2026-10-29)을 따른다.
 
 ## 디자인 가이드 폰트명 타입 오류 수정 (2026-10-29)
 

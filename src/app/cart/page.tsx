@@ -1,72 +1,756 @@
 'use client';
 
 /**
- * [ 개발팀 바인딩 ]
+ * [개발팀 바인딩]
  * useShop의 products/cart/add/updateQuantity/updateOptions/remove를 실제 상품·장바구니 상태에 연결합니다.
  * 동일 상품도 color/width/size가 다르면 별도 행입니다. CartItem.imageSrc는 명시적인 이미지 override이며 색상명으로 시안 이미지를 추측하지 않습니다.
  * 동기 변경 콜백의 비동기 저장/실패 복원은 ShopShell.state 어댑터에서 처리합니다. 결제 이동 전 서버 재고와 현재 장바구니를 확인합니다.
  */
 
-import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { type ComponentProps, type ReactNode, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
 
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Icon } from '@/components/common/atoms/Icon';
+import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
+import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+import { type ProductOptionThumbnail } from '@/components/common/molecules/ProductOptionList';
+import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
+import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
+import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
 
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
+
 import { isCartItemSoldOut, itemKey } from '@/app/cart/cart-item';
 import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
+import { faXmark } from '@/icons/fontAwesome';
+import { getCartImage } from '@/mocks/cartDisplay';
 import { orderRecommendations } from '@/mocks/orderRecommendations';
-import { products } from '@/mocks/products';
+import { type Product, products } from '@/mocks/products';
+import { type CartItem } from '@/types/cart';
 
-import { CartDialogs } from './_components/CartDialogs';
-import { CartEmptyState } from './_components/CartEmptyState';
-import { CartOrderActions } from './_components/CartOrderActions';
-import { CartProductSection } from './_components/CartProductSection';
-import { CartSupportInfo } from './_components/CartSupportInfo';
+type Props = {
+  value: number;
+  onChange: (value: number) => void;
+};
 
-/** 장바구니 선택·관심상품과 옵션 편집 상태를 관리합니다. (Manages cart selection and option editing.) */
-export default function Page() {
-  const {
-    cart,
-    products: catalogue = products,
-    updateQuantity: onQuantityChange,
-    remove: onRemove,
-    updateOptions: onOptionsChange,
-  } = useShop();
-  const [limited, setLimited] = useState(false);
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [editingKey, setEditingKey] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string[] | null>(() =>
-    cart.length === 4 && cart.every((item) => item.imageSrc === '/images/cart/clifton-preview.png')
-      ? cart.slice(0, 2).map(itemKey)
-      : null,
+/** 최소 수량이 1인 수량 선택을 표시합니다. (Displays cart quantity selection with a minimum of one.) */
+function CartOptionQuantity({ value, onChange }: Props) {
+  return (
+    <Stack gap="3" alignItems="flex-start">
+      <Typography variant="body4" weight="semibold">
+        수량
+      </Typography>
+      <NumberStepper min={1} value={value} onChange={onChange} />
+    </Stack>
   );
-  const rows = cart.flatMap((item) => {
-    const product = catalogue.find((candidate) => candidate.id === item.id);
-    return product ? [{ item, product }] : [];
-  });
-  const availableRows = rows.filter(({ item, product }) => !isCartItemSoldOut(item, product));
-  const allKeys = availableRows.map(({ item }) => itemKey(item));
-  const selectedKeys =
-    selected === null ? allKeys : selected.filter((key) => allKeys.includes(key));
-  const selectedRows = rows.filter(({ item }) => selectedKeys.includes(itemKey(item)));
-  const total = selectedRows.reduce(
-    (sum, { item, product }) => sum + product.price * item.quantity,
-    0,
-  );
-  const selectedCount = selectedRows.length;
-  const itemCount = rows.reduce((sum, { item }) => sum + item.quantity, 0);
-  const allSelected = allKeys.length > 0 && selectedKeys.length === allKeys.length;
-  const checkoutHref = selectedCount
-    ? `/checkout?selected=${encodeURIComponent(selectedKeys.join('|'))}`
-    : null;
+}
 
+type CartOptionsContentProps = {
+  draft: CartItem;
+  name: string;
+  image: string;
+  widths: readonly string[];
+  sizes: readonly string[];
+  soldOut: readonly string[];
+  colorOptions: readonly ProductOptionThumbnail[];
+  onWidthChange: (value: string) => void;
+  onColorChange: (value: string) => void;
+  onSizeChange: (value: string) => void;
+  onQuantityChange: (value: number) => void;
+};
+
+/** 옵션 이미지와 발볼·색상·사이즈·수량 선택을 표시합니다. (Displays cart product option controls.) */
+function CartOptionsContent({
+  draft,
+  name,
+  image,
+  widths,
+  sizes,
+  soldOut,
+  colorOptions,
+  onWidthChange,
+  onColorChange,
+  onSizeChange,
+  onQuantityChange,
+}: CartOptionsContentProps) {
+  return (
+    <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6" alignItems="start">
+      <Image
+        src={image}
+        alt={name}
+        width={600}
+        height={600}
+        sizes="(max-width: 1024px) calc(100vw - 32px), 500px"
+        className={css({
+          w: '100%',
+          maxW: 'none',
+          aspectRatio: '1',
+          objectFit: 'contain',
+          bg: 'black.10',
+          _mobile: { w: 'calc(100% + 32px)', mx: '-4', mt: '-6' },
+        })}
+      />
+      <ContentSection
+        gap="6"
+        title={<>{name}</>}
+        headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading5' } }}
+      >
+        <Stack gap="10">
+          <ProductWidthSelector
+            appearance="cart"
+            value={draft.width}
+            options={widths}
+            onValueChange={onWidthChange}
+          />
+
+          <ProductColorSelector
+            appearance="cart"
+            value={draft.color}
+            options={colorOptions}
+            onValueChange={onColorChange}
+          />
+          <ProductSizeSelector
+            appearance="cart"
+            value={draft.size}
+            options={sizes.map((value) => ({
+              value,
+              state: soldOut.includes(value) ? 'soldOut' : 'available',
+            }))}
+            onValueChange={onSizeChange}
+          />
+          <Box display={{ base: 'none', _mobile: 'block' }}>
+            <CartOptionQuantity value={draft.quantity} onChange={onQuantityChange} />
+          </Box>
+        </Stack>
+      </ContentSection>
+    </Grid>
+  );
+}
+
+/** 상품 옵션 초안을 확인한 뒤 변경 사항을 저장합니다. (Edits and confirms a draft of cart product options.) */
+function CartOptionsDialog({
+  item,
+  product,
+  onClose,
+  onSave,
+}: {
+  item: CartItem;
+  product: Product;
+  onClose: () => void;
+  onSave: (next: CartItem) => void;
+}) {
+  const [draft, setDraft] = useState(item);
+  const color = product.colorOptions?.find((option) => option.color === draft.color);
+  const widths = color?.widths;
+  const width = widths?.find((option) => option.label === draft.width);
+  const sizes = width?.sizes ?? product.sizes;
+  const soldOut = width?.soldOut ?? product.soldOut;
+  const valid = sizes.includes(draft.size) && !soldOut.includes(draft.size);
+
+  return (
+    <ModalDialog
+      open
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+      title="옵션 변경하기"
+      closeLabel="옵션 변경 닫기"
+      size="lg"
+      mobilePresentation="fullscreen"
+      headerProps={{
+        css: css.raw({
+          _mobile: {
+            bg: 'white',
+            flexShrink: '0',
+            borderBottom: '1px solid var(--colors-black-20)',
+          },
+        }),
+      }}
+      footerProps={{
+        css: css.raw({
+          _mobile: {
+            borderTop: '1px solid var(--colors-black-20)',
+            pt: '4',
+            pb: 'max(32px, env(safe-area-inset-bottom))',
+          },
+        }),
+      }}
+      actions={{
+        kind: 'confirm',
+        confirmLabel: '확인',
+        confirmDisabled: !valid,
+        onConfirm: () => onSave(draft),
+      }}
+    >
+      <CartOptionsContent
+        draft={draft}
+        name={product.name}
+        image={getCartImage(
+          draft,
+          product.colorThumbnails?.find((option) => option.label === draft.color)?.image ??
+            product.primaryImage,
+        )}
+        widths={widths?.map((option) => option.label) ?? ['Regular', 'Wide', 'X-Wide']}
+        sizes={sizes}
+        soldOut={soldOut}
+        colorOptions={product.colors.map((value) => ({
+          id: value,
+          label: value,
+          image:
+            product.colorThumbnails?.find((option) => option.label === value)?.image ??
+            product.primaryImage,
+        }))}
+        onWidthChange={(width) => setDraft({ ...draft, width })}
+        onColorChange={(color) => setDraft({ ...draft, color })}
+        onSizeChange={(size) => setDraft({ ...draft, size })}
+        onQuantityChange={(quantity) => setDraft({ ...draft, quantity })}
+      />
+    </ModalDialog>
+  );
+}
+
+type CartLimitDialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+/** 구매 수량 제한 안내와 닫기 액션을 표시합니다. (Displays the cart purchase limit notice.) */
+function CartLimitDialog({ open, onOpenChange }: CartLimitDialogProps) {
+  return (
+    <ModalDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="장바구니"
+      closeLabel="안내 닫기"
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
+    >
+      <Stack gap="4">
+        <Typography variant="body2">변경할 수 없습니다</Typography>
+        <Typography variant="body4">구매 수량이 제한된 상품입니다</Typography>
+      </Stack>
+    </ModalDialog>
+  );
+}
+
+type CartDialogsProps = {
+  rows: { item: CartItem; product: Product }[];
+  editingKey: string | null;
+  limited: boolean;
+  onEditClose: () => void;
+  onLimitedChange: (open: boolean) => void;
+  onSave: (item: CartItem, next: CartItem) => void;
+};
+
+function CartDialogs({
+  rows,
+  editingKey,
+  limited,
+  onEditClose,
+  onLimitedChange,
+  onSave,
+}: CartDialogsProps) {
+  return (
+    <>
+      {editingKey
+        ? rows
+            .filter(({ item }) => itemKey(item) === editingKey)
+            .map(({ item, product }) => (
+              <CartOptionsDialog
+                key={editingKey}
+                item={item}
+                product={product}
+                onClose={onEditClose}
+                onSave={(next) => onSave(item, next)}
+              />
+            ))
+        : null}
+      <CartLimitDialog open={limited} onOpenChange={onLimitedChange} />
+    </>
+  );
+}
+
+type CartSelectionBarProps = {
+  allSelected: boolean;
+  selectedCount: number;
+  totalCount: number;
+  soldOutCount: number;
+  onSelectAll: (checked: boolean) => void;
+  onRemoveSelected: () => void;
+  onRemoveSoldOut: () => void;
+};
+
+/** 전체 선택과 선택·품절 상품 삭제를 제공합니다. (Provides cart selection and removal actions.) */
+function CartSelectionBar({
+  allSelected,
+  selectedCount,
+  totalCount,
+  soldOutCount,
+  onSelectAll,
+  onRemoveSelected,
+  onRemoveSoldOut,
+}: CartSelectionBarProps) {
+  const mobile = usePlatform() === 'mobile';
+
+  return (
+    <HStack justifyContent="space-between" alignItems="center">
+      <Checkbox
+        aria-label="전체 상품 선택"
+        checked={allSelected}
+        onCheckedChange={onSelectAll}
+        label={
+          <Typography variant="body4">
+            {mobile ? (
+              <>
+                전체{' '}
+                <Typography as="span" variant="body4" weight="medium">
+                  ({selectedCount}/{totalCount})
+                </Typography>
+              </>
+            ) : (
+              `선택상품 ${selectedCount}개`
+            )}
+          </Typography>
+        }
+      />
+      <HStack gap={{ base: '3', _mobile: '2' }}>
+        <Button
+          variant="link"
+          size={mobile ? 'md' : 'sm'}
+          disabled={selectedCount === 0}
+          onClick={onRemoveSelected}
+        >
+          선택상품 삭제
+        </Button>
+        <Button
+          variant="link"
+          size={mobile ? 'md' : 'sm'}
+          disabled={soldOutCount === 0}
+          onClick={onRemoveSoldOut}
+        >
+          품절상품 삭제
+        </Button>
+      </HStack>
+    </HStack>
+  );
+}
+
+type CartItemRowProps = {
+  item: CartItem;
+  product: Product;
+  selected: boolean;
+  favorite: boolean;
+  onSelect: (checked: boolean) => void;
+  onRemove: () => void;
+  onEdit: () => void;
+  onFavorite: () => void;
+  onQuantityChange: (quantity: number) => void;
+};
+
+/** 선택·삭제·옵션 변경 액션과 품절 상태를 표시합니다. (Displays a cart item and its available actions.) */
+function CartItemRow({
+  item,
+  product,
+  selected,
+  favorite,
+  onSelect,
+  onRemove,
+  onEdit,
+  onFavorite,
+  onQuantityChange,
+}: CartItemRowProps) {
+  const soldOut = isCartItemSoldOut(item, product);
+  const platform = usePlatform();
+  if (platform !== 'mobile')
+    return (
+      <Grid
+        as="li"
+        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
+        alignItems="center"
+        gap="6"
+        py="6"
+        borderBottom="1px solid var(--colors-black-20)"
+        opacity={soldOut ? '0.4' : '1'}
+      >
+        <Checkbox
+          aria-label={`${product.name} 선택`}
+          checked={selected}
+          disabled={soldOut}
+          onCheckedChange={onSelect}
+          label={null}
+        />
+        <OrderProductSummary
+          variant="coupon"
+          hideAmount
+          image={getCartImage(item, product.primaryImage)}
+          name={product.name}
+          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size}`}
+          amount={product.price}
+        >
+          <Button variant="link" size="sm" onClick={onEdit} disabled={soldOut}>
+            옵션변경
+          </Button>
+        </OrderProductSummary>
+        <fieldset disabled={soldOut} className={css({ border: 0, p: 0, minW: 0 })}>
+          <NumberStepper
+            ariaLabel={`${product.name} 수량`}
+            min={1}
+            value={item.quantity}
+            onChange={onQuantityChange}
+          />
+        </fieldset>
+        <Typography variant="body3" weight="semibold">
+          {(product.price * item.quantity).toLocaleString()}원
+        </Typography>
+        <Stack gap="2">
+          {soldOut ? (
+            <Button size="short" disabled>
+              품절
+            </Button>
+          ) : (
+            <ButtonLink
+              size="short"
+              href={`/checkout?selected=${encodeURIComponent(itemKey(item))}`}
+            >
+              주문하기
+            </ButtonLink>
+          )}
+          <Button variant="secondary" size="short" onClick={onRemove}>
+            삭제하기
+          </Button>
+        </Stack>
+      </Grid>
+    );
+
+  return (
+    <Stack as="li" gap="0" bg="black.10" minH={{ base: '185px', _mobile: '164px' }}>
+      <HStack justifyContent="space-between" alignItems="center" w="100%" px="4" pt="4">
+        <Checkbox
+          aria-label={`${product.name} 선택`}
+          checked={selected}
+          disabled={soldOut}
+          onCheckedChange={onSelect}
+          label={null}
+        />
+        <Button variant="icon" size={18} aria-label={`${product.name} 삭제`} onClick={onRemove}>
+          <Icon fontAwesomeIcon={faXmark} size={14} />
+        </Button>
+      </HStack>
+      <Stack
+        flex="1"
+        minW="0"
+        pl="4"
+        pr="4"
+        pt={{ base: '8', _mobile: '0' }}
+        pb={{ base: '8', _mobile: '4' }}
+        gap="3"
+      >
+        <Box opacity={soldOut ? '0.4' : '1'}>
+          <OrderProductSummary
+            variant="cart"
+            image={getCartImage(item, product.primaryImage)}
+            name={product.name}
+            gender={product.gender ?? 'All Gender'}
+            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
+            amount={product.price * item.quantity}
+          >
+            <HStack
+              justifyContent="space-between"
+              pt={{ base: '1', _mobile: '0.5' }}
+              pb={{ base: '0', _mobile: '2' }}
+              gap="1"
+            >
+              <Button variant="link" size="sm" onClick={onEdit}>
+                옵션변경
+              </Button>
+              <Wishlist
+                active={favorite}
+                ariaLabel="관심상품"
+                label="관심상품"
+                iconSize="12px"
+                onActiveChange={onFavorite}
+              />
+            </HStack>
+          </OrderProductSummary>
+        </Box>
+      </Stack>
+    </Stack>
+  );
+}
+
+type CartProductListProps = {
+  rows: { item: CartItem; product: Product }[];
+  selectedKeys: string[];
+  favorites: string[];
+  onToggleItem: (key: string, checked: boolean) => void;
+  onRemove: (item: CartItem) => void;
+  onEdit: (item: CartItem, product: Product) => void;
+  onToggleFavorite: (key: string) => void;
+  onQuantityChange: (item: CartItem, quantity: number) => void;
+};
+
+function CartProductList({
+  rows,
+  selectedKeys,
+  favorites,
+  onToggleItem,
+  onRemove,
+  onEdit,
+  onToggleFavorite,
+  onQuantityChange,
+}: CartProductListProps) {
+  return (
+    <Stack as="ul" gap="4" listStyleType="none">
+      {rows.map(({ item, product }) => {
+        const key = itemKey(item);
+        return (
+          <CartItemRow
+            key={key}
+            item={item}
+            product={product}
+            selected={selectedKeys.includes(key)}
+            favorite={favorites.includes(key)}
+            onSelect={(checked) => onToggleItem(key, checked)}
+            onRemove={() => onRemove(item)}
+            onEdit={() => onEdit(item, product)}
+            onFavorite={() => onToggleFavorite(key)}
+            onQuantityChange={(quantity) => onQuantityChange(item, quantity)}
+          />
+        );
+      })}
+    </Stack>
+  );
+}
+
+type CartProductSectionProps = ComponentProps<typeof CartProductList> &
+  Omit<ComponentProps<typeof CartSelectionBar>, 'soldOutCount' | 'totalCount'> & { total: number };
+
+/** 장바구니 선택 도구·상품 목록·금액과 보관 안내를 표시합니다. (Displays cart selection tools, products, total, and storage guidance.) */
+function CartProductSection({
+  rows,
+  allSelected,
+  selectedCount,
+  selectedKeys,
+  favorites,
+  total,
+  onSelectAll,
+  onToggleItem,
+  onRemove,
+  onEdit,
+  onToggleFavorite,
+  onRemoveSelected,
+  onRemoveSoldOut,
+  onQuantityChange,
+}: CartProductSectionProps) {
+  return (
+    <Stack gap="4">
+      <CartSelectionBar
+        allSelected={allSelected}
+        selectedCount={selectedCount}
+        totalCount={rows.length}
+        soldOutCount={rows.filter(({ item, product }) => isCartItemSoldOut(item, product)).length}
+        onSelectAll={onSelectAll}
+        onRemoveSelected={onRemoveSelected}
+        onRemoveSoldOut={onRemoveSoldOut}
+      />
+      <Grid
+        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
+        gap="6"
+        py="3"
+        borderTop="1px solid var(--colors-black-100)"
+        borderBottom="1px solid var(--colors-black-20)"
+        display={{ base: 'grid', _mobile: 'none' }}
+      >
+        <Box />
+        <Typography variant="body4">상품정보/옵션</Typography>
+        <Typography variant="body4">수량</Typography>
+        <Typography variant="body4">가격</Typography>
+        <Box />
+      </Grid>
+      <CartProductList
+        onQuantityChange={onQuantityChange}
+        rows={rows}
+        selectedKeys={selectedKeys}
+        favorites={favorites}
+        onToggleItem={onToggleItem}
+        onRemove={onRemove}
+        onEdit={onEdit}
+        onToggleFavorite={onToggleFavorite}
+      />
+      <Box display={{ _mobile: 'none' }}>
+        <Grid gridTemplateColumns="1fr 1fr" border="1px solid var(--colors-black-20)" p="6" gap="8">
+          <Stack gap="3">
+            <AmountRow label="상품금액" amount={total} />
+            <Typography variant="body5" tone="tertiary">
+              배송비는 주문 시 확인할 수 있습니다.
+            </Typography>
+          </Stack>
+          <AmountRow label="결제예정금액" amount={total} emphasis />
+        </Grid>
+      </Box>
+      <Typography variant="body5" tone="tertiary">
+        * 장바구니에 담긴 상품은 30일 동안 보관됩니다. 더 오래 상품을 보관하시려면 관심 상품에
+        담아주시기 바랍니다.
+      </Typography>
+    </Stack>
+  );
+}
+
+/** 빈 장바구니 안내와 쇼핑 링크를 표시합니다. (Displays an empty cart message and shopping link.) */
+function CartEmptyState() {
+  return (
+    <Stack alignItems="center" gap="4" py="20" borderTop="1px solid var(--colors-black-20)">
+      <Typography variant="body3">장바구니에 담은 상품이 없습니다.</Typography>
+      <ButtonLink href="/products" variant="secondary">
+        쇼핑 계속하기
+      </ButtonLink>
+    </Stack>
+  );
+}
+
+const textAction = css({
+  p: '0',
+  border: '0',
+  borderRadius: '0',
+});
+
+/** 고객센터 연락처와 문의 링크를 표시합니다. (Displays cart support contact details and the inquiry link.) */
+function CartSupportContact() {
+  return (
+    <>
+      <Typography variant="heading7">HOKA 고객센터</Typography>
+      <Typography variant="body4">TEL. 080-665-5552</Typography>
+      <Typography variant="body5" tone="tertiary">
+        *아래 1:1문의를 이용하시면 조금 더 빠르게 답변 받으실수 있습니다.
+      </Typography>
+      <Link href="/support/inquiries/new" className={textAction}>
+        <Typography variant="textLink3">1:1 문의하기</Typography>
+      </Link>
+    </>
+  );
+}
+
+/** 고객센터 운영시간과 휴무 안내를 표시합니다. (Displays support opening hours and closure information.) */
+function CartSupportHours() {
+  return (
+    <>
+      <ContentHeader titleAs="h3" title={<>운영시간</>} titleProps={{ variant: 'heading7' }} />
+      <Typography variant="body5">평일 09:00 ~ 18:00</Typography>
+      <Typography variant="body5" tone="tertiary">
+        *점심시간은 12:00~13:00이며 토,일, 공휴일은 휴무입니다.
+      </Typography>
+    </>
+  );
+}
+
+/** 장바구니 고객센터 연락처와 운영시간을 안내합니다. (Displays cart customer support information.) */
+function CartSupportInfo() {
+  return (
+    <ContentSection
+      as="section"
+      gap={{ base: '4' }}
+      title="고객센터 안내"
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading6' } }}
+    >
+      <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6">
+        <Stack gap="3" bg="black.10" p="4">
+          <CartSupportContact />
+        </Stack>
+        <Stack gap="3" bg="black.10" p="4">
+          <CartSupportHours />
+        </Stack>
+      </Grid>
+    </ContentSection>
+  );
+}
+
+type CartOrderActionsProps = {
+  total: number;
+  checkoutHref: string | null;
+};
+
+/** 결제예정금액과 주문 가능 상태에 따른 액션을 표시합니다. (Displays the cart total and available order action.) */
+function CartOrderActions({ total, checkoutHref }: CartOrderActionsProps) {
+  return (
+    <OrderActionBar>
+      <Stack gap="5">
+        <AmountRow
+          label="결제예정금액"
+          amount={total}
+          emphasis
+          display={{ base: 'none', _mobile: 'flex' }}
+        />
+        {checkoutHref ? (
+          <ButtonLink href={checkoutHref} variant="primary" fullWidth>
+            주문하기
+          </ButtonLink>
+        ) : (
+          <Button variant="primary" fullWidth disabled>
+            주문하기
+          </Button>
+        )}
+      </Stack>
+    </OrderActionBar>
+  );
+}
+
+type CartContentProps = {
+  rows: { item: CartItem; product: Product }[];
+  allSelected: boolean;
+  checkoutHref: string | null;
+  selectedKeys: string[];
+  favorites: string[];
+  itemCount: number;
+  selectedCount: number;
+  total: number;
+  dialogs: ReactNode;
+  onSelectAll: (checked: boolean) => void;
+  onToggleItem: (key: string, checked: boolean) => void;
+  onRemove: (item: CartItem) => void;
+  onEdit: (item: CartItem, product: Product) => void;
+  onToggleFavorite: (key: string) => void;
+  onRemoveSelected: () => void;
+  onRemoveSoldOut: () => void;
+  onQuantityChange: (item: CartItem, quantity: number) => void;
+};
+
+/** 상품 목록과 추천·고객센터 및 주문 액션을 배치합니다. (Lays out cart contents and order actions.) */
+function CartContent({
+  rows,
+  allSelected,
+  checkoutHref,
+  selectedKeys,
+  favorites,
+  itemCount,
+  selectedCount,
+  total,
+  dialogs,
+  onSelectAll,
+  onToggleItem,
+  onRemove,
+  onEdit,
+  onToggleFavorite,
+  onRemoveSelected,
+  onRemoveSoldOut,
+  onQuantityChange,
+}: CartContentProps) {
   return (
     <OrderPageLayout
       step={1}
@@ -87,22 +771,7 @@ export default function Page() {
         />
       }
     >
-      <CartDialogs
-        rows={rows}
-        editingKey={editingKey}
-        limited={limited}
-        onEditClose={() => setEditingKey(null)}
-        onLimitedChange={setLimited}
-        onSave={(item, next) => {
-          const nextKey = itemKey(next);
-          if (onOptionsChange) onOptionsChange(item, next);
-          else onQuantityChange(item, next.quantity);
-          setSelected([
-            ...new Set(selectedKeys.map((key) => (key === editingKey ? nextKey : key))),
-          ]);
-          setEditingKey(null);
-        }}
-      />
+      {dialogs}
       {rows.length ? (
         <Stack gap="10" pb={{ _mobile: '12' }}>
           <CartProductSection
@@ -110,33 +779,16 @@ export default function Page() {
             rows={rows}
             allSelected={allSelected}
             selectedCount={selectedCount}
-            soldOutCount={rows.length - availableRows.length}
             selectedKeys={selectedKeys}
             favorites={favorites}
             total={total}
-            onSelectAll={(checked) => setSelected(checked ? allKeys : [])}
-            onToggleItem={(key, checked) =>
-              setSelected(
-                checked ? [...selectedKeys, key] : selectedKeys.filter((value) => value !== key),
-              )
-            }
+            onSelectAll={onSelectAll}
+            onToggleItem={onToggleItem}
             onRemove={onRemove}
-            onEdit={(item, product) =>
-              isCartItemSoldOut(item, product) ? setLimited(true) : setEditingKey(itemKey(item))
-            }
-            onToggleFavorite={(key) =>
-              setFavorites((previous) =>
-                previous.includes(key)
-                  ? previous.filter((value) => value !== key)
-                  : [...previous, key],
-              )
-            }
-            onRemoveSelected={() => selectedRows.forEach(({ item }) => onRemove(item))}
-            onRemoveSoldOut={() =>
-              rows
-                .filter(({ item, product }) => isCartItemSoldOut(item, product))
-                .forEach(({ item }) => onRemove(item))
-            }
+            onEdit={onEdit}
+            onToggleFavorite={onToggleFavorite}
+            onRemoveSelected={onRemoveSelected}
+            onRemoveSoldOut={onRemoveSoldOut}
           />
           <HStack display={{ _mobile: 'none' }} justifyContent="center" gap="3">
             {checkoutHref ? (
@@ -148,8 +800,15 @@ export default function Page() {
                 선택상품 주문하기
               </Button>
             )}
-            {allKeys.length ? (
-              <ButtonLink href={`/checkout?selected=${encodeURIComponent(allKeys.join('|'))}`}>
+            {rows.some(({ item, product }) => !isCartItemSoldOut(item, product)) ? (
+              <ButtonLink
+                href={`/checkout?selected=${encodeURIComponent(
+                  rows
+                    .filter(({ item, product }) => !isCartItemSoldOut(item, product))
+                    .map(({ item }) => itemKey(item))
+                    .join('|'),
+                )}`}
+              >
                 전체상품 주문하기
               </ButtonLink>
             ) : (
@@ -166,5 +825,97 @@ export default function Page() {
         <CartEmptyState />
       )}
     </OrderPageLayout>
+  );
+}
+
+/** 장바구니 선택·관심상품과 옵션 편집 상태를 관리합니다. (Manages cart selection and option editing.) */
+export default function Page() {
+  const {
+    cart,
+    updateQuantity: onQuantityChange,
+    remove: onRemove,
+    updateOptions: onOptionsChange,
+  } = useShop();
+  const [limited, setLimited] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string[] | null>(() =>
+    cart.length === 4 && cart.every((item) => item.imageSrc === '/images/cart/clifton-preview.png')
+      ? cart.slice(0, 2).map(itemKey)
+      : null,
+  );
+  const { products: catalogue = products } = useShop();
+  const rows = cart.flatMap((item) => {
+    const product = catalogue.find((candidate) => candidate.id === item.id);
+    return product ? [{ item, product }] : [];
+  });
+  const allKeys = rows
+    .filter(({ item, product }) => !isCartItemSoldOut(item, product))
+    .map(({ item }) => itemKey(item));
+  const selectedKeys =
+    selected === null ? allKeys : selected.filter((key) => allKeys.includes(key));
+  const selectedRows = rows.filter(({ item }) => selectedKeys.includes(itemKey(item)));
+  const total = selectedRows.reduce(
+    (sum, { item, product }) => sum + product.price * item.quantity,
+    0,
+  );
+  const selectedCount = selectedRows.length;
+  const itemCount = rows.reduce((sum, { item }) => sum + item.quantity, 0);
+  const allSelected = allKeys.length > 0 && selectedKeys.length === allKeys.length;
+  const checkoutHref = selectedCount
+    ? `/checkout?selected=${encodeURIComponent(selectedKeys.join('|'))}`
+    : null;
+
+  return (
+    <CartContent
+      rows={rows}
+      allSelected={allSelected}
+      checkoutHref={checkoutHref}
+      selectedKeys={selectedKeys}
+      favorites={favorites}
+      itemCount={itemCount}
+      selectedCount={selectedCount}
+      total={total}
+      onQuantityChange={onQuantityChange}
+      onSelectAll={(checked) => setSelected(checked ? allKeys : [])}
+      onToggleItem={(key, checked) =>
+        setSelected(
+          checked ? [...selectedKeys, key] : selectedKeys.filter((value) => value !== key),
+        )
+      }
+      onToggleFavorite={(key) =>
+        setFavorites((previous) =>
+          previous.includes(key) ? previous.filter((value) => value !== key) : [...previous, key],
+        )
+      }
+      onRemove={onRemove}
+      onEdit={(item, product) =>
+        isCartItemSoldOut(item, product) ? setLimited(true) : setEditingKey(itemKey(item))
+      }
+      onRemoveSelected={() => selectedRows.forEach(({ item }) => onRemove(item))}
+      onRemoveSoldOut={() =>
+        rows
+          .filter(({ item, product }) => isCartItemSoldOut(item, product))
+          .forEach(({ item }) => onRemove(item))
+      }
+      dialogs={
+        <CartDialogs
+          rows={rows}
+          editingKey={editingKey}
+          limited={limited}
+          onEditClose={() => setEditingKey(null)}
+          onLimitedChange={setLimited}
+          onSave={(item, next) => {
+            const nextKey = itemKey(next);
+            if (onOptionsChange) onOptionsChange(item, next);
+            else onQuantityChange(item, next.quantity);
+            setSelected([
+              ...new Set(selectedKeys.map((key) => (key === editingKey ? nextKey : key))),
+            ]);
+            setEditingKey(null);
+          }}
+        />
+      }
+    />
   );
 }

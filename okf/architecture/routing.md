@@ -6,23 +6,9 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T09:26:34Z'
+  at: '2026-10-29T07:40:34Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/app/checkout/_components/CheckoutComplete.tsx
-  - src/app/checkout/_components/CheckoutAgreement.tsx
-  - src/app/checkout/_components/CheckoutPayment.tsx
-  - src/app/checkout/_components/CheckoutShipping.tsx
-  - src/app/checkout/_components/CheckoutSummary.tsx
-  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
-  - src/app/checkout/_components/CheckoutForm.tsx
-  - src/app/checkout/_components/CheckoutLayout.tsx
-  - AGENTS.md
-  - src/app/cart/_components/CartDialogs.tsx
-  - src/app/cart/_components/CartEmptyState.tsx
-  - src/app/cart/_components/CartOrderActions.tsx
-  - src/app/cart/_components/CartProductSection.tsx
-  - src/app/cart/_components/CartSupportInfo.tsx
   - src/app/examples/styles/classnames/page.tsx
   - src/app/examples/styles/scss-module/page.tsx
   - src/app/examples/styles/scss-module/page.module.scss
@@ -181,20 +167,6 @@ sources:
 ---
 
 # 라우팅과 플랫폼
-
-## 페이지 전용 UI의 _components 배치 (2026-10-29)
-
-최종 원칙은 page.tsx의 보조 UI를 해당 라우트의 `_components/`에 두는 것이다. 28개 페이지의 보조 선언과 cart·checkout의 기존 형제 컴포넌트를 이동했으며, 기존 공용 화면·단순 페이지·적절한 분리는 유지했다. 이 기준은 앞선 "page와 같은 폴더" 및 단일 부모 컴포넌트 통합 기록 중 페이지 보조 UI 배치를 대체한다. URL·상태·서버/클라이언트·RoutePreview 계약은 유지한다. [적용 목록·출처·검증](page-private-components-2026-10-29.md).
-
-## 주문서 page 보조 컴포넌트 분리 (2026-10-29)
-
-장바구니에 적용한 [page 진입점 원칙](#pagetsx-보조-컴포넌트-분리-원칙-2026-10-29)을 `src/app/checkout`에도 적용했다. `page.tsx`에는 `Page` 하나만 선언하며, 선택 상품의 URL 해석·결제 수단·완료 상태·비동기 제출은 그대로 소유한다. 보조 UI는 같은 폴더의 컴포넌트 파일 8개로 이동했다. `/checkout` URL, 기본 export, Client Component 경계와 기존 Storybook import는 유지한다. IA 그래프는 checkout의 새 import 관계만 갱신했다. [UI 책임과 검증](ui.md#주문서-page-보조-컴포넌트-분리-2026-10-29).
-
-## page.tsx 보조 컴포넌트 분리 원칙 (2026-10-29)
-
-`src/app` 아래 `page.tsx`에는 해당 페이지를 렌더링하는 컴포넌트만 선언한다. 페이지 상태·핸들러·화면 조합은 페이지가 소유하고, 보조 컴포넌트와 그 타입·스타일은 같은 폴더의 컴포넌트 파일에 둔다. framework-supported export와 서버/클라이언트 경계는 유지한다. AGENTS.md의 이 원칙은 기존 단일 부모 통합 지침보다 우선하며, 전체 화면을 전달하는 래퍼를 새로 만들지는 않는다.
-
-첫 적용 범위는 `src/app/cart`다. `page.tsx`에는 `Page`만 남기고 보조 UI를 형제 파일 5개로 이동했다. `/cart` URL과 기본 export, ShopShell 상태 연결, Storybook의 페이지 import는 유지한다. 이전 라우트 소유권 기록 중 보조 컴포넌트를 page 모듈에 합치는 기준은 이 원칙으로 대체한다. [UI 구성과 확인 범위](ui.md#장바구니-page-보조-컴포넌트-분리-2026-10-29).
 
 ## 스타일 비교 샘플 삭제 (2026-10-29)
 
