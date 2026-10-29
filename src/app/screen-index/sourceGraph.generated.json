@@ -64,9 +64,6 @@
       "src/components/common/layouts/ContentLayout.tsx"
     ],
     "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
-    "src/app/examples/styles/classnames/page.tsx": ["src/components/common/atoms/Typography.tsx"],
-    "src/app/examples/styles/jsx-props/page.tsx": ["src/components/common/atoms/Typography.tsx"],
-    "src/app/examples/styles/scss-module/page.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
     "src/app/layout.tsx": ["src/context/AccountFlowContext.tsx", "src/context/ShopShell.tsx"],
@@ -366,12 +363,15 @@
     ],
     "src/app/products/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
     "src/app/publishing-guide/_components/ButtonGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
     ],
+    "src/app/publishing-guide/_components/GuideCode.tsx": [],
     "src/app/publishing-guide/_components/GuideCopyToast.tsx": [
       "src/components/common/atoms/Typography.tsx"
     ],
@@ -379,10 +379,13 @@
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
     ],
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",

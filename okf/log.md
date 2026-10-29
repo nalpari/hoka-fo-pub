@@ -2,6 +2,8 @@
 
 ## 2026-10-29
 
+- 기존 Panda JSX props 방식 유지 결정에 따라 스타일 비교 샘플 3종과 전용 SCSS Module을 삭제하고 생성 그래프를 갱신했다. 세 경로의 404 응답과 생성기 테스트를 확인했다. [결정과 삭제 기록](architecture/style-examples.md#최종-결정-기존-방식-유지-및-샘플-삭제-2026-10-29).
+
 - Typography 가이드의 코드도 Button 가이드처럼 태그·속성·문자열·구두점에 색을 적용했다. 공통 코드 하이라이터를 사용하고 표시·복사 문자열은 유지했다. [UI 기록](architecture/ui.md#퍼블리싱-가이드-코드-구문-색상-통일-2026-10-29)을 참고한다.
 
 - 공통 `Button variant="icon"`의 hover 배경을 제거하고 ShopShell에서 중복 지정하던 hover 변수를 삭제했다. 키보드 포커스 outline은 유지한다. 코드 변경과 UI·상태 문서를 대조했으며 브라우저 시각 검증은 하지 않았다. [UI 기록](architecture/ui.md#아이콘-버튼-hover-배경-제거-2026-10-29), [상태 영향](architecture/state.md#아이콘-버튼-hover-배경-제거-2026-10-29)을 참고한다.

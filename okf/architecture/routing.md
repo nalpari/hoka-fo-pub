@@ -168,6 +168,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 스타일 비교 샘플 삭제 (2026-10-29)
+
+③ 기존 Panda JSX props 방식 유지 결정에 따라 `/examples/styles/classnames`, `/examples/styles/scss-module`, `/examples/styles/jsx-props`의 page.tsx와 비교 전용 page.module.scss를 삭제했다. 생성 그래프에서도 삭제 경로를 제거한다. 아래 예시 추가·생성 기록은 과거 이력이며 현재 라우트가 아니다. 기존 운영 화면과 `/publishing-guide`는 유지한다. [결정과 역사 기록](style-examples.md#최종-결정-기존-방식-유지-및-샘플-삭제-2026-10-29).
+
 ## IA 반영·연동 설명 제거 (2026-10-29)
 
 사용자 요청으로 `screenReviewNotes`의 시안 반영·현시안 반영·연동 대기 설명을 제거했다. 비고와 검색에서 함께 빠지며 IA 원본 비고, 날짜별 목록, 디자인/퍼블리싱 상태와 작업 파일은 유지한다. 작업 트리 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.

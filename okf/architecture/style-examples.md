@@ -1,12 +1,12 @@
 ---
 type: Architecture
 title: '스타일 작성 방식 비교 예시'
-description: 'TSX 상단 Panda 클래스 선언과 페이지 전용 SCSS Module의 비교 경로 및 예외 범위를 설명한다.'
+description: '기존 Panda JSX props 방식 유지 결정과 비교 예시 삭제 이력을 기록한다.'
 tags: [styles, examples, panda-css, scss]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T04:00:00Z'
+  at: '2026-10-29T08:02:20Z'
 source_revision: 9ec24dcd1f07f5bd9541b89e6333caa18f5c5947
 working_tree_sources:
   - src/app/examples/styles/jsx-props/page.tsx
@@ -23,6 +23,12 @@ sources:
 ---
 
 # 스타일 작성 방식 비교 예시
+
+## 최종 결정: 기존 방식 유지 및 샘플 삭제 (2026-10-29)
+
+사용자가 ③ 기존 Panda JSX props 방식을 선택했다. 기존 운영 화면의 Flex·Grid와 JSX 스타일 props를 유지하고, 필요에 따라 기존 css·cva·sva를 사용하는 작성 기준을 따른다. 비교 전용 classnames·scss-module·jsx-props 페이지와 page.module.scss는 삭제했다. 퍼블리싱 가이드는 유지한다. 아래 경로·구현·검증 내용은 삭제 전 비교 과정의 역사 기록이며 현재 접근 가능한 페이지 안내가 아니다. SCSS Module 비교 예외도 종료했다.
+
+삭제한 세 경로의 로컬 HTTP 응답이 모두 404임을 확인했다. src 내 예시 경로 참조 제거, IA 생성 그래프 재생성, Panda 생성과 Next 라우트 타입 생성을 확인했으며 생성기 테스트 1개와 git diff --check를 통과했다. 전체 타입 검사는 샘플 외 파일 src/components/screen-index/DesignGuideTypography.tsx:62의 TS2367(hoka/mono 비교)로 실패했다.
 
 사용자의 명시적 요청으로 같은 정적 러닝 가이드 UI를 세 스타일 방식으로 작성했다. 세 경로는 기존 쇼핑 셸 안에서 페이지 자체가 본문을 소유하며 실제 서비스·상품 API에 연결하지 않는다. Flex·Grid를 유지하고 display는 각 Panda JSX 컴포넌트에 맡긴다. Grid의 기본 gap 충돌을 피하도록 세 화면의 목록 간격은 JSX gap="5"로 명시한다.
 
