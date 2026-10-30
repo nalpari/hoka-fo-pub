@@ -4,7 +4,8 @@
  * [ 개발팀 바인딩 ]
  * product에는 준비된 Product 모델, liked에는 외부 찜 상태를 전달합니다. onLikedChange는 새 여부만 알리므로 부모에서 해당 행/상품 ID를 함께 보관합니다.
  * activityLabels는 연결 소유자가 준비한 용도 표시 문자열이며 생략 시 product.use의 기존 라벨을 사용합니다. history는 표시 옵션입니다.
- * discountLabel은 준비된 할인율 표시이며 생략 시 기존 금액 계산을 사용합니다. 관심상품의 미연결 모바일 fixture에 시안의 20%를 적용합니다.
+ * promotionTone은 배지의 표현 선택이며 기본 brand를 유지합니다. error는 화면 시안의 #E10F00을 적용합니다.
+ * discountLabel은 준비된 할인율 표시이며 생략 시 기존 금액 계산을 사용합니다. 최근 본 상품·관심상품의 미연결 모바일 fixture가 시안의 20%를 공급하며 실제 연결 상품에는 적용하지 않습니다.
  * 카드는 요청을 직접 하지 않습니다. 부모가 요청 성공 후 liked를 갱신하거나 낙관적 갱신 실패를 복원합니다. liked 생략 시 로컬 미리보기 토글입니다.
  */
 
@@ -98,11 +99,13 @@ type ProductNameProps = {
 
 /** Product name styled for its card presentation context. */
 function ProductName({ name, variant = 'listing' }: ProductNameProps) {
+  const platform = usePlatform();
   return (
     <Typography
       as="p"
       className={productName}
       data-product-card-variant={variant}
+      language={variant === 'history' && platform === 'web' ? 'ko' : 'auto'}
       variant={variant === 'history' ? 'body4' : 'bodyKr3'}
       mo={variant === 'history' ? 'body4' : 'bodyKr4'}
     >
@@ -173,11 +176,19 @@ function ProductPrice({
 
 type Props = Pick<
   ProductDetailsProps,
-  'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'discountLabel' | 'variant'
+  | 'promotion'
+  | 'promotionTone'
+  | 'gender'
+  | 'name'
+  | 'price'
+  | 'originalPrice'
+  | 'discountLabel'
+  | 'variant'
 >;
 
 function ProductDetailsIdentity({
   promotion,
+  promotionTone,
   gender,
   name,
   price,
@@ -185,6 +196,20 @@ function ProductDetailsIdentity({
   discountLabel,
   variant,
 }: Props) {
+  const identity = (
+    <>
+      {gender && <ProductGender gender={gender} variant={variant} />}
+      <ProductName name={name} variant={variant} />
+    </>
+  );
+  const priceContent = (
+    <ProductPrice
+      price={price}
+      originalPrice={originalPrice}
+      discountLabel={discountLabel}
+      variant={variant}
+    />
+  );
   return (
     <VStack
       gap={variant === 'history' ? '1.5' : '1'}
@@ -193,15 +218,25 @@ function ProductDetailsIdentity({
       minW="0"
       w="100%"
     >
-      {promotion && <Badge promotion={promotion} />}
-      {gender && <ProductGender gender={gender} variant={variant} />}
-      <ProductName name={name} variant={variant} />
-      <ProductPrice
-        price={price}
-        originalPrice={originalPrice}
-        discountLabel={discountLabel}
-        variant={variant}
-      />
+      {promotion && (
+        <Badge
+          promotion={promotion}
+          className={promotionTone === 'error' ? css({ color: '#E10F00!' }) : undefined}
+        />
+      )}
+      {variant === 'history' ? (
+        <VStack gap="1" alignItems="flex-start">
+          <VStack gap="0.5" alignItems="flex-start">
+            {identity}
+          </VStack>
+          {priceContent}
+        </VStack>
+      ) : (
+        <>
+          {identity}
+          {priceContent}
+        </>
+      )}
     </VStack>
   );
 }
@@ -307,6 +342,7 @@ const ProductDetailsRoot = cva({
 });
 
 type ProductDetailsProps = {
+  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   activities?: readonly string[];
   colorCount: number;
@@ -324,6 +360,7 @@ type ProductDetailsProps = {
 
 /** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 function ProductDetails({
+  promotionTone,
   discountLabel,
   activities,
   colorCount,
@@ -348,8 +385,9 @@ function ProductDetails({
         w="100%"
       >
         <ProductDetailsIdentity
-          promotion={promotion}
+          promotionTone={promotionTone}
           discountLabel={discountLabel}
+          promotion={promotion}
           gender={gender}
           name={name}
           price={price}
@@ -626,6 +664,7 @@ const activityLabel = (use: Product['use']) => {
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
 
 export type ProductCardProps = {
+  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   activityLabels?: readonly string[];
   soldOut?: boolean;
@@ -638,6 +677,7 @@ export type ProductCardProps = {
 
 /** 상품 이미지와 요약 정보를 카드로 표시합니다 (Displays the product card composition). */
 export function ProductCard({
+  promotionTone,
   discountLabel,
   activityLabels,
   soldOut = false,
@@ -690,6 +730,7 @@ export function ProductCard({
           }
         >
           <Wishlist
+            className={variant === 'history' ? css({ p: '0' }) : undefined}
             size={variant === 'history' ? '18px' : undefined}
             iconSize={variant === 'history' ? '18px' : undefined}
             active={isLiked}
@@ -703,6 +744,7 @@ export function ProductCard({
       )}
 
       <ProductDetails
+        promotionTone={promotionTone}
         discountLabel={discountLabel}
         activities={activityLabels ?? [activityLabel(product.use)]}
         colorCount={product.colors.length}

@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 최근 본 상품 PC/MO Figma 적용
+
+`/mypage/recent`와 `/mypage/recent/preview-empty`의 제목·3/2열·빈 상태 여백·안내문을 제공된 네 프레임에 맞췄다. 공통 history 카드를 재사용하고 PC/MO 배지·가격·찜 상태를 명시적 fixture로 구분했다. 사용자 확정에 따라 MO 미연결 화면은 `20%`를 고정 표시하며 연결 데이터에는 적용하지 않는다. [UI 규격·출처·검증](architecture/ui.md#최근-본-상품-figma-적용-2026-10-30)에 기존 서비스 계약과 다른 채팅 변경의 보존 범위를 기록했다.
+
 ## 2026-10-30 — 관심상품 PC/MO Figma 적용
 
 `/mypage/wishlist`와 `/mypage/wishlist/preview-empty`의 제목·3/2열 배치·빈 문구·안내문을 지정 섹션에 맞췄다. 공통 카드 history 옵션과 색상 목록을 추가하고 모바일 Best·정상가 280,000원 취소선·20%·판매가 240,000원을 명시적 fixture로 적용했다. 필수 공용 discountLabel 옵션만 사용자 승인으로 함께 포함하며 최근 본 상품·재입고 변경은 제외했다. [UI 규격과 검증](architecture/ui.md#관심상품-figma-적용-2026-10-30)에 실측값과 실제 검증을 기록했다.

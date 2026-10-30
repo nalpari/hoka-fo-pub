@@ -794,6 +794,9 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: recent-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807
+    title: '최근 본 상품 PC/MO 목록·빈 목록'
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
     title: 'Figma 주문/배송 조회 목록'
@@ -836,6 +839,22 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 최근 본 상품 Figma 적용 (2026-10-30)
+
+`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 `2025:149807` 아래 PC 목록 `2025:149837`·빈 목록 `2025:150007`, MO 목록 `2025:151429`·빈 목록 `2025:151448`을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
+
+- 최근 목록 제목은 PC Pretendard Black 36px/1.2·하단 40px·2px 선, MO 22px/1.2다. PC는 최대 260px 카드 3열·가로 16px/세로 48px, MO는 전체 폭 2열·가로 8px/세로 40px다. 좁은 PC 캔버스에서는 열이 가용 폭에 맞게 줄어든다.
+- 공통 카드의 기존 `history` 옵션을 재사용한다. PC 색상 썸네일 76px·MO 34px, 사진과 정보 사이 10px, 18px 찜 버튼을 사용한다. `Wishlist`의 history 호출에는 padding 0을 지정해 네이티브 버튼 padding 때문에 아이콘이 줄어들지 않게 한다.
+- 빈 목록은 PC 제목을 유지하고 본문 위아래 240px, MO 제목을 숨기고 위아래 96px를 준다. 안내문은 12px/1.3·#777777이며 PC와 MO 빈 목록에서 상단 선과 16px 간격을 둔다. MO 정상 목록에는 선을 표시하지 않는다.
+- `recentPreview`에 PC New/빨간색/전체 찜, MO Best/파란색/정상가 280,000원·판매가 240,000원/일부 찜을 명시한다. 사용자가 시안의 할인율을 유지하도록 확정했으므로 MO 미연결 fixture만 `discountLabel="20%"`를 전달한다. 금액에서 계산한 할인율과의 차이는 승인된 표시값이며 실제 상품 데이터에 추론 적용하지 않는다.
+- `ProductCard.promotionTone`은 배지 표현, `discountLabel`은 준비된 할인율 문자열이다. 생략하면 기존 배지색·할인율 계산을 유지한다. 연결된 `histories.recent.items/liked`가 도착·교체되면 최신 항목을 그대로 표시하며 미연결 fixture의 배지·할인율·찜 상태를 덮어씌우지 않는다. 기존 조회/찜 요청·pending/error/재시도·추가 조회 소유권은 유지한다.
+
+검증 기록: PC 36px 제목의 실제 `Pretendard-Black`, 상품명의 `Pretendard-Regular` 웹폰트를 확인했다. PC 1920px에서 카드 260×464.34px·18px 찜 아이콘·New #E10F00을 확인했다. 목록과 빈 목록의 직접 URL·PC/MO 화면·찜 토글, MO fixture의 20% 표시와 선택 배열을 확인했다. 모바일 Storybook은 22px 제목·상품 6개·20%를 표시한다. 1024/1025px에서 플랫폼이 전환되며 1025/1199px의 가로 스크롤은 기존 1200px PC 캔버스 정책이다. 1200px·1920px에서는 세로 scrollbar가 있어도 문서 가로 넘침이 없다. 관심상품 6개와 재입고 표도 정상 표시했다. 앱 공통 홍보 배너와 세로 스크롤바는 Figma 프레임과 별도이며 시안의 iPhone 상태바는 제품 UI에 추가하지 않는다.
+
+변경 TSX ESLint·Prettier, 전체 typecheck와 Panda 생성은 통과했다. 전체 lint는 비대상 `src/app/login/find-account/_components/FindAccountContent.tsx`의 미사용 css와 `src/app/signup/complete/page.tsx`의 미사용 Stack 두 건으로 실패했다. Next/Storybook production build와 실제 서버를 통한 조회·찜 실패/재시도는 이번 디자인 검증 범위에 포함하지 않는다. 서비스 연결을 새로 구현하지 않았다. 작성·검증: Codex, 2026-10-30T08:36:29Z. 조사 시작 HEAD는 `44faf1e5aa491c2506db28d0741e3f27f782ad58`이며 위 소스의 동시 작업 변경을 보존했다.
+
+[^recent-figma-20261030]: 제공된 최근 본 상품 섹션과 그 아래 PC/MO 기본·빈 목록 프레임, 2026-10-30 확인.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 

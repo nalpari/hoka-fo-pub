@@ -7,6 +7,7 @@
  * 재입고 목록은 product.name/gender/primaryImage, requestedAt, status(waiting/sent)를 표시합니다. 미연결 PC/MO 시안 차이는 restockPreview에만 둡니다.
  * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 연결 소유자가 성공 후 최신 items/totalCount/hasMore를 공급하고 오래된 응답을 폐기합니다.
  * 취소 요청 중 중복 확인·닫기를 막고 실패 시 행과 창을 유지해 재시도합니다. 성공한 경우에만 창을 닫습니다. API는 여기서 구현하지 않습니다.
+ * recentPreview의 PC/MO 배지·할인율·찜 선택은 미연결 시안 fixture입니다. 연결된 recent items/liked가 도착하거나 교체되면 최신 props를 그대로 표시하며 fixture 할인율을 덮어씌우지 않습니다.
  */
 
 import Image from 'next/image';
@@ -38,10 +39,27 @@ import { type Product, products } from '@/mocks/products';
 function MyPageProductHistoryHeading({
   title,
   wishlist = false,
+  recent = false,
+  empty = false,
 }: {
   title: string;
   wishlist?: boolean;
+  recent?: boolean;
+  empty?: boolean;
 }) {
+  if (recent) {
+    return (
+      <Box
+        pb="10"
+        borderBottom="2px solid var(--colors-black-100)"
+        _mobile={{ px: '4', pb: '0', borderBottom: '0', display: empty ? 'none' : 'block' }}
+      >
+        <Typography as="h1" web="heading6" mo="heading5">
+          {title}
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box
       px={wishlist ? '0' : '4'}
@@ -202,6 +220,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
 }
 
 type MyPageProductHistoryGridProps = {
+  recent?: boolean;
   wishlist?: boolean;
   entries?: readonly HistoryItem[];
   items: readonly string[];
@@ -211,6 +230,7 @@ type MyPageProductHistoryGridProps = {
 };
 
 function MyPageProductHistoryGrid({
+  recent = false,
   wishlist = false,
   entries,
   items,
@@ -222,30 +242,38 @@ function MyPageProductHistoryGrid({
   return (
     <Grid
       gridTemplateColumns={{
-        base: 'repeat(3, minmax(0, 1fr))',
+        base: recent ? 'repeat(3, minmax(0, 260px))' : 'repeat(3, minmax(0, 1fr))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
       px={wishlist ? '4' : '0'}
-      columnGap={wishlist ? '4' : '2'}
-      rowGap={wishlist ? '12' : '6'}
-      _mobile={{ px: '0', columnGap: '2', rowGap: wishlist ? '10' : '4' }}
+      justifyContent={recent ? 'center' : undefined}
+      columnGap={wishlist || recent ? '4' : '2'}
+      rowGap={wishlist || recent ? '12' : '6'}
+      _mobile={{ px: '0', columnGap: '2', rowGap: wishlist || recent ? '10' : '4' }}
     >
       {items.map((id) => (
         <ProductCard
           key={id}
-          variant={wishlist ? 'history' : 'listing'}
+          variant={wishlist || recent ? 'history' : 'listing'}
+          promotionTone={recent && !entries ? recentPreview[platform].promotionTone : undefined}
           discountLabel={
-            wishlist && !entries && platform === 'mobile'
-              ? wishlistMobilePreview.discountLabel
+            (recent || wishlist) && !entries && platform === 'mobile'
+              ? recent
+                ? recentPreview.mobile.discountLabel
+                : wishlistMobilePreview.discountLabel
               : undefined
           }
-          activityLabels={wishlist && !entries ? ['데일리 러닝', '워킹'] : undefined}
+          activityLabels={(wishlist || recent) && !entries ? ['데일리 러닝', '워킹'] : undefined}
           liked={liked.includes(id)}
           onLikedChange={(active) => onLikedChange(id, active)}
           options={['promotion', 'like', 'colors']}
           product={
             entries?.find((entry) => entry.id === id)?.product ??
-            (wishlist && platform === 'mobile' ? wishlistMobilePreview.product : product)
+            (recent
+              ? recentPreview[platform].product
+              : wishlist && platform === 'mobile'
+                ? wishlistMobilePreview.product
+                : product)
           }
         />
       ))}
@@ -256,12 +284,33 @@ function MyPageProductHistoryGrid({
 function MyPageProductHistoryNote({
   note,
   wishlist = false,
+  recent = false,
   empty = false,
 }: {
   note: string;
   wishlist?: boolean;
+  recent?: boolean;
   empty?: boolean;
 }) {
+  if (recent) {
+    return (
+      <Box
+        borderTop="1px solid var(--colors-black-10)"
+        mt={empty ? '-16px' : undefined}
+        pt="4"
+        _mobile={{
+          mt: '0',
+          mx: '4',
+          pt: empty ? '4' : '0',
+          borderTop: empty ? '1px solid var(--colors-black-10)' : '0',
+        }}
+      >
+        <Typography as="p" variant="body5" tone="tertiary">
+          {note}
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box
       px={wishlist ? '0' : '4'}
@@ -345,6 +394,17 @@ const wishlistMobilePreview = {
   discountLabel: '20%',
 } as const;
 
+// 화면 시안의 플랫폼별 표시 fixture이며 연결된 상품·찜 데이터에는 적용하지 않습니다.
+const recentPreview = {
+  web: { product, promotionTone: 'error', likedIds: ['0', '1', '2', '3', '4', '5'] },
+  mobile: {
+    promotionTone: 'brand',
+    discountLabel: '20%',
+    product: { ...product, promotion: 'Best', originalPrice: 280000 } as Product,
+    likedIds: ['3', '4'],
+  },
+} as const;
+
 const config = {
   wishlist: {
     title: '관심상품',
@@ -372,6 +432,7 @@ export function MyPageProductHistory({
   initialCount?: number;
 }) {
   const binding = useContext(MyPageDataContext).histories?.[kind];
+  const platform = usePlatform();
   const request = useRequestAction();
   useBindingQuery(binding?.onQueryChange, {});
   const [demoItems, setItems] = useState(() =>
@@ -379,9 +440,15 @@ export function MyPageProductHistory({
   );
   const items = binding ? binding.items.map((item) => item.id) : demoItems;
   const [demoLiked, setLiked] = useState<string[]>(() => (kind === 'wishlist' ? demoItems : []));
+  const [recentLiked, setRecentLiked] = useState<Record<string, boolean>>({});
   const liked = binding
     ? binding.items.filter((entry) => entry.liked).map((entry) => entry.id)
-    : demoLiked;
+    : kind === 'recent'
+      ? items.filter(
+          (id) =>
+            recentLiked[id] ?? recentPreview[platform].likedIds.some((likedId) => likedId === id),
+        )
+      : demoLiked;
   const [pendingCancel, setPendingCancel] = useState<string | null>(null);
   const current = config[kind];
   const restock = kind === 'restock-alerts';
@@ -399,10 +466,23 @@ export function MyPageProductHistory({
         error={binding?.error || request.error}
       />
       <Stack
-        gap={restock ? '0' : kind === 'wishlist' ? '8' : '6'}
-        mx={kind === 'wishlist' ? { _mobile: '-16px' } : undefined}
-        _mobile={kind === 'wishlist' ? { gap: '6', pb: '2' } : undefined}
+        gap={restock ? '0' : '8'}
+        mx={kind === 'wishlist' || kind === 'recent' ? { _mobile: '-16px' } : undefined}
+        _mobile={
+          kind === 'recent'
+            ? {
+                gap: items.length ? '6' : '0',
+                pb: items.length ? '2' : '0',
+                mt: items.length ? '0' : '-24px',
+              }
+            : kind === 'wishlist'
+              ? { gap: '6', pb: '2' }
+              : undefined
+        }
       >
+        {kind === 'recent' && (
+          <MyPageProductHistoryHeading title={current.title} recent empty={!items.length} />
+        )}
         {kind === 'wishlist' && <MyPageProductHistoryHeading title={current.title} wishlist />}
         {restock && (items.length > 0 || !(binding?.pending || binding?.error)) && (
           <ContentHeader
@@ -447,10 +527,13 @@ export function MyPageProductHistory({
               ) : undefined
             }
             header={
-              kind === 'wishlist' ? null : <MyPageProductHistoryHeading title={current.title} />
+              kind === 'wishlist' || kind === 'recent' ? null : (
+                <MyPageProductHistoryHeading title={current.title} />
+              )
             }
           >
             <MyPageProductHistoryGrid
+              recent={kind === 'recent'}
               wishlist={kind === 'wishlist'}
               entries={binding?.items}
               items={items}
@@ -461,6 +544,10 @@ export function MyPageProductHistory({
                   void request.run(() => binding.setLiked(id, active));
                   return;
                 }
+                if (kind === 'recent') {
+                  setRecentLiked((currentLiked) => ({ ...currentLiked, [id]: active }));
+                  return;
+                }
                 setLiked((currentLiked) =>
                   active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
                 );
@@ -469,7 +556,13 @@ export function MyPageProductHistory({
               }}
             />
           </ContentSection>
-        ) : binding?.pending || binding?.error ? null : kind === 'wishlist' ? (
+        ) : binding?.pending || binding?.error ? null : kind === 'recent' ? (
+          <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
+            <Typography as="p" variant="body4" className={css({ color: '#4D4D4D' })}>
+              {current.empty}
+            </Typography>
+          </Box>
+        ) : kind === 'wishlist' ? (
           <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
             <Typography as="p" variant="body4" className={css({ color: '#4D4D4D' })}>
               {current.empty}.
@@ -523,6 +616,7 @@ export function MyPageProductHistory({
           </Box>
         ) : kind === 'wishlist' && items.length > 0 ? null : (
           <MyPageProductHistoryNote
+            recent={kind === 'recent'}
             note={current.note}
             wishlist={kind === 'wishlist'}
             empty={!items.length}
