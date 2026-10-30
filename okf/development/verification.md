@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:40:14+00:00'
+  at: '2026-10-30T06:41:04+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -464,5 +464,11 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 ## 매장 찾기 정보 목록 정리 (2026-10-30)
 
 매장 목록 변경 후 TypeScript 검사를 통과했다. 탭·지도·길 찾기를 제거하고 네 매장 예시와 누락된 영업시간의 조건부 표시를 유지한다. 브라우저 PC/MO 확인 결과는 후속 검증으로 별도 기록한다. 출처: src/app/support/store와 관련 표시 타입.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상품 목록 품절 표시 예시 (2026-10-30)
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

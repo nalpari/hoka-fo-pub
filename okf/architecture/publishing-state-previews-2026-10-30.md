@@ -6,7 +6,7 @@ tags: [publishing, preview, routing, ia, handoff]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:40:14+00:00'
+  at: '2026-10-30T06:41:04+00:00'
 source_revision: 27b7e2f5b2c5e21681af53df27a535f3f13aa170
 working_tree_sources:
   - src/app/products/preview-empty-inquiries/page.tsx
@@ -148,5 +148,11 @@ screen-index의 상품 상세 공통 ‘상품문의 없음’ 링크는 기존 
 ## 매장 찾기 정보 목록 정리 (2026-10-30)
 
 `/support/store`는 지역 탭·길 찾기·지도와 열림 상태를 제거하고 서울·경기 순서의 단일 예시 목록을 표시한다. 매장명·주소·전화번호·제공된 영업시간만 유지하며 데이터는 최종 미확정 fixture다. 인천 탭으로 Empty를 확인한다는 종전 안내는 폐기하고 별도 Empty URL은 만들지 않는다. 기존 매장 IA와 경로를 유지한다. 출처: src/app/support/store/page.tsx, _components/StoreContent.tsx, store.data.ts 및 관련 표시 타입. 최종 디자인 승인은 별도다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상품 목록 품절 표시 예시 (2026-10-30)
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

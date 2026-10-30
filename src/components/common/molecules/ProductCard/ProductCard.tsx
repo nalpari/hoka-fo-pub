@@ -482,13 +482,14 @@ const ProductCardHeaderRoot = css({
 
 type ProductCardHeaderProps = {
   product: Product;
+  soldOut?: boolean;
   variant: ProductThumbnailVariant;
 };
 
-function ProductCardHeader({ product, variant }: ProductCardHeaderProps) {
+function ProductCardHeader({ product, soldOut = false, variant }: ProductCardHeaderProps) {
   return (
     <Card.Header className={ProductCardHeaderRoot}>
-      <Link href={`/products/${product.id}`}>
+      <Link href={`/products/${product.id}`} className={css({ pos: 'relative' })}>
         <ProductThumbnail
           alt={product.name}
           hover
@@ -497,6 +498,20 @@ function ProductCardHeader({ product, variant }: ProductCardHeaderProps) {
           src={product.primaryImage}
           variant={variant}
         />
+        {soldOut && (
+          <Grid
+            as="span"
+            pos="absolute"
+            inset="0"
+            placeItems="center"
+            bg="rgba(0, 0, 0, 0.5)"
+            pointerEvents="none"
+          >
+            <Typography as="span" variant="heading6" tone="inverse">
+              Sold Out
+            </Typography>
+          </Grid>
+        )}
       </Link>
     </Card.Header>
   );
@@ -564,6 +579,7 @@ const activityLabel = (use: Product['use']) => {
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
 
 export type ProductCardProps = {
+  soldOut?: boolean;
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   options?: readonly ProductCardOption[];
@@ -573,6 +589,7 @@ export type ProductCardProps = {
 
 /** 상품 이미지와 요약 정보를 카드로 표시합니다 (Displays the product card composition). */
 export function ProductCard({
+  soldOut = false,
   liked,
   onLikedChange,
   options = [],
@@ -607,7 +624,7 @@ export function ProductCard({
         }
       }}
     >
-      <ProductCardHeader product={product} variant={variant} />
+      <ProductCardHeader product={product} soldOut={soldOut} variant={variant} />
 
       {hasOption('like') && (
         <Card.Action className={action}>

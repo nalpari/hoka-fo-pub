@@ -84,6 +84,7 @@ const expectedRoutes = [
   '/products/[id]',
   '/products/preview-empty-inquiries',
   '/products/preview-no-results',
+  '/products/preview-sold-out',
   '/publishing-guide',
   '/running/running-session',
   '/running/running-session/[sessionId]',

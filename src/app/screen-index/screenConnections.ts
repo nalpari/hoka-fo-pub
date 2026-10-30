@@ -1049,8 +1049,15 @@ const connections: Record<number, ScreenConnection> = {
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   listing: {
     defaultStateLabel: '조건 결과 있음',
-    previewRoutes: [{ label: '조건 결과 없음', href: '/products/preview-no-results' }],
-    sourceFiles: ['src/app/products/page.tsx', 'src/app/products/preview-no-results/page.tsx'],
+    previewRoutes: [
+      { label: '조건 결과 없음', href: '/products/preview-no-results' },
+      { label: '품절 표시 예시', href: '/products/preview-sold-out' },
+    ],
+    sourceFiles: [
+      'src/app/products/page.tsx',
+      'src/app/products/preview-no-results/page.tsx',
+      'src/app/products/preview-sold-out/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-상품-0-상품목록-web--width-1600',

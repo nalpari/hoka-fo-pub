@@ -1160,6 +1160,7 @@ function ProductListingResults({
                 key={product.id}
                 options={catalogProductCardOptions}
                 product={product}
+                soldOut={product.listingSoldOut}
               />,
             ])}
           </Grid>

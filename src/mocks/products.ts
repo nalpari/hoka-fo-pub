@@ -32,6 +32,8 @@ export type Product = {
   soldOut: string[];
   lowStockSizes?: string[];
   rating: number;
+  /** 목록 카드의 품절 표시이며 실제 재고 판정은 연결 소유자가 전달합니다. */
+  listingSoldOut?: boolean;
   reviewCount: number;
   colorOptions?: ProductColorOption[];
   promotion?: Promotions;

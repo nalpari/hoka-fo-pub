@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:37:47+00:00'
+  at: '2026-10-30T06:41:04+00:00'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/hooks/useBindingQuery.ts
@@ -187,5 +187,11 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## Featured 하위 러닝 세션 계층 정정 (2026-10-30)
 
 사용자 후속 확인에 따라 독립 D2 Running Session 묶음을 제거했다. IA 155·258·259는 모두 EXPLORE > Featured > Running Session에 속하며 기존 목록·상세 번호와 상태 링크는 유지한다. 목록·상세 상태 행은 D4에 배치하고 페이지 연결은 D3 Running Session에서 제공한다. tests/preview-links.test.mjs는 세 IA의 D1~D3 일치와 독립 D2 부재를 검사한다. 출처: src/data/screenRegistry.ts, tests/preview-links.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상품 목록 품절 표시 예시 (2026-10-30)
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
