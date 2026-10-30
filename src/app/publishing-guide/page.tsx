@@ -8,22 +8,13 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { SupportTabs, type SupportTab } from '@/components/common/molecules/SupportTabs';
 
 import { ButtonGuide } from './_components/ButtonGuide';
+import { FormGuide } from './_components/FormGuide';
 import { TypographyGuide } from './_components/TypographyGuide';
 
 const guideTabs: readonly SupportTab[] = [
   { value: 'typography', label: '타이포그래피', content: <TypographyGuide /> },
   { value: 'button', label: '버튼', content: <ButtonGuide /> },
-  {
-    value: 'form',
-    label: '폼',
-    content: (
-      <Box py="8">
-        <Typography as="p" variant="body4" tone="subtle">
-          폼 예시는 준비 중입니다.
-        </Typography>
-      </Box>
-    ),
-  },
+  { value: 'form', label: '폼', content: <FormGuide /> },
   {
     value: 'modal',
     label: '모달',
@@ -41,10 +32,11 @@ const pageStyle = css({ bg: 'white.0', color: 'black.100' });
 
 export const metadata: Metadata = {
   title: '퍼블리싱 가이드 | HOKA',
+  description: 'HOKA 공통 컴포넌트의 스타일·상태·사용 코드를 확인합니다.',
   robots: { index: false, follow: false },
 };
 
-/** 기본 버튼 예시와 복사 가능한 사용 코드를 보여줍니다. (Shows basic button examples and copyable usage code.) */
+/** 컴포넌트별 퍼블리싱 가이드와 사용 코드를 보여줍니다. (Shows publishing guides and usage snippets for shared components.) */
 export default function PublishingGuidePage() {
   return (
     <Stack
@@ -66,7 +58,7 @@ export default function PublishingGuidePage() {
           퍼블리싱 가이드
         </Typography>
         <Typography as="p" variant="body5" tone="subtle">
-          기본 버튼의 스타일·상태·크기를 비교하고 사용 코드를 복사합니다.
+          공통 컴포넌트의 스타일·상태를 확인하고 사용 코드를 복사합니다.
         </Typography>
       </Stack>
       <SupportTabs
