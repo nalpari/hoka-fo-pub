@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:42:45Z'
+  at: '2026-10-30T01:18:10Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/screenConnections.ts
+  - src/data/screenRegistry.ts
   - src/app/login/preview-error/page.tsx
   - src/app/login/_components/LoginContent.tsx
   - src/app/cart/preview-empty/page.tsx
@@ -3433,3 +3435,7 @@ Typography 가이드의 사용 코드는 Button 가이드와 같은 JSX 구문 �
 ## 퍼블리싱 가이드 코드 구문 색상 통일 (2026-10-29)
 
 Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문자열·구두점 색상을 적용한다. 공통 `renderGuideCode`를 두 가이드에서 사용하며 표시 문자열과 복사 코드는 그대로 둔다. 출처는 `src/app/publishing-guide/_components/GuideCode.tsx`, `ButtonGuide.tsx`, `TypographyGuide.tsx`다. 브라우저 시각 검증은 아직 수행하지 않았다.
+
+## 퍼블리싱 고정 상태 표현 재사용 (2026-10-30)
+
+기존 Empty·검색 결과 없음·오류·완료·상세·편집 표시 UI를 고정 preview에서 재사용한다. 주문/신청내역/상품목록/문의/계정/가입의 경계와 남은 디자인 결정은 [상태 preview 인계](publishing-state-previews-2026-10-30.md)를 참고한다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 입력·체크·모달 닫기 등 로컬 확인 조작만 제공한다.

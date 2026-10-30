@@ -613,7 +613,8 @@ function ProductInquiryLink() {
 
 const board = css({ pt: '24px' });
 
-function ProductDetailInquiryContent() {
+/** 상품 문의 목록 또는 빈 영역을 표시합니다. (Displays the product inquiry list or empty region.) */
+export function ProductDetailInquiryContent({ empty = false }: { empty?: boolean }) {
   // [개발팀 바인딩] 실제 상품별 문의 응답은 아래 InquiryBoard.items에 전달합니다. 비공개 본문 권한은 서버에서 검증하며 현재 productInquiries는 예시입니다.
   return (
     <InquiryBoard
@@ -622,7 +623,7 @@ function ProductDetailInquiryContent() {
       pageSize={5}
       loadMoreSize={16}
       className={board}
-      items={productInquiries}
+      items={empty ? [] : productInquiries}
       action={<ProductInquiryLink />}
     />
   );

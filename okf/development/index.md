@@ -1,5 +1,7 @@
 # 개발
 
+[고정 상태 preview 검증](verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)은 직접 URL·IA 링크와 PC/MO 122건의 확인 범위 및 남은 전체 린트 오류를 기록한다.
+
 [퍼블리싱 인계 스킬 통합](markup-handoff-skill.md)은 개인 `hoka-markup-handoff` 사용, 이전 저장소 스킬 제거와 역사적 출처 보존을 설명한다.
 
 [IA 디자인 수급 조사 검증](../architecture/ia-design-audit.md#검증)은 상태 모델·필터 확인과 Figma 캡처 실패로 수행하지 못한 시각 비교를 구분한다.

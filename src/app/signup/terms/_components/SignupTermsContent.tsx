@@ -34,6 +34,7 @@ const styles = {
 };
 
 type SignupTermsAgreementListProps = {
+  fixedErrors?: boolean;
   agreements: boolean[];
   notice: string;
   onAllChange: (checked: boolean) => void;
@@ -64,7 +65,9 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
               checked={!!props.agreements[index]}
               onCheckedChange={(checked) => props.onChange(index, checked)}
               required={term.required}
-              invalid={Boolean(props.notice && term.required && !props.agreements[index])}
+              invalid={Boolean(
+                props.notice && term.required && (props.fixedErrors || !props.agreements[index]),
+              )}
               label={
                 <>
                   <Typography variant="body4">
@@ -324,6 +327,7 @@ function PreviousTermsPicker({
 }
 
 type SignupTermsContentProps = {
+  fixedErrors?: boolean;
   agreements: boolean[];
   detail: number | null;
   previous: boolean;
@@ -341,7 +345,7 @@ type SignupTermsContentProps = {
 };
 
 /** 회원가입 약관 목록과 상세 다이얼로그를 화면으로 구성합니다. (Composes the signup terms list and detail dialogs into the page content.) */
-function SignupTermsContent(props: SignupTermsContentProps) {
+export function SignupTermsContent(props: SignupTermsContentProps) {
   const services = useContext(AccountServicesContext);
   const terms = services?.signupTerms ?? signupTerms;
   const selected = props.detail === null ? null : terms[props.detail];
@@ -385,6 +389,7 @@ function SignupTermsContent(props: SignupTermsContentProps) {
     >
       <Box>
         <SignupTermsAgreementList
+          fixedErrors={props.fixedErrors}
           agreements={props.agreements}
           notice={props.notice}
           onAllChange={props.onAllChange}

@@ -59,6 +59,45 @@ const h = React.createElement;
 
 const { FormField } = await import('../src/components/common/atoms/FormField.tsx');
 
+test('fixed phone consent errors remain visible with checked values without changing ordinary forms', async () => {
+  const { PhoneVerificationContent } =
+    await import('../src/components/phone-verification/PhoneVerificationContent.tsx');
+  const props = {
+    information: {
+      name: '',
+      birthDate: '',
+      nationality: '내국인',
+      gender: '남자',
+      carrier: 'SKT',
+      phone: '',
+    },
+    agreements: [true, true, true, true],
+    showAgreementErrors: true,
+    requested: false,
+    code: '',
+    secondsLeft: 125,
+    resendWait: 125,
+    notice: '',
+    detail: null,
+    onInformationChange() {},
+    onAgreementChange() {},
+    onAllAgree() {},
+    onCodeChange() {},
+    onRequest() {},
+    onConfirm(event) {
+      event.preventDefault();
+    },
+    onDetail() {},
+  };
+  const ordinary = renderToStaticMarkup(h(PhoneVerificationContent, props));
+  const fixed = renderToStaticMarkup(
+    h(PhoneVerificationContent, { ...props, fixedAgreementErrors: true }),
+  );
+  assert.equal((ordinary.match(/aria-invalid="true"/g) ?? []).length, 0);
+  assert.equal((fixed.match(/aria-invalid="true"/g) ?? []).length, 4);
+  assert.ok(fixed.includes('필수 약관에 모두 동의해 주세요.'));
+});
+
 const fixtures = [
   ['TextInput', 'atoms/TextInput', {}],
   ['TextInput', 'atoms/TextInput', { type: 'password' }],

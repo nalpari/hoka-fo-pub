@@ -4,6 +4,8 @@
 
 - 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
 
+- 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
+
 - 장바구니·로그인을 고정 마크업 확인용으로 단순화하고 빈 목록·로그인 오류 직접 URL 및 IA 링크를 추가했다. 인증·검증·계산·삭제·옵션 저장·결제 이동을 제거하고 최소 UI 조작을 유지했다. 관련 Storybook을 고정 상태 검증으로 전환했다. 프로덕션 빌드·타입·변경 파일 린트·관련 Node 테스트 61개와 Storybook 14개를 통과했다. 전체 린트의 기존 import 오류 9건과 화면 캡처 한계는 [검증 기록](development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)에 남겼다. [현재 인계 기준](architecture/data-binding.md#장바구니로그인-퍼블리싱-인계-전환-2026-10-30).
 
 - 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.

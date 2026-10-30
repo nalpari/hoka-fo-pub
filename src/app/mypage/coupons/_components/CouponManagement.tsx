@@ -333,17 +333,21 @@ function EmployeeCoupons() {
   );
 }
 
-type CouponManagerProps = { coupons: CouponItem[] };
+/** [ 개발팀 바인딩 ] preview는 등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
+type CouponManagerProps = { coupons: CouponItem[]; preview?: 'error' | 'complete' | 'detail' };
 
-function CouponManager({ coupons }: CouponManagerProps) {
+function CouponManager({ coupons, preview }: CouponManagerProps) {
   const binding = useContext(MyPageDataContext).coupons;
   const request = useRequestAction();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
-  const [registered, setRegistered] = useState(false);
-  const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(null);
+  const [registered, setRegistered] = useState(preview === 'complete');
+  const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(
+    preview === 'detail' ? coupons[0] : null,
+  );
 
   function registerCoupon() {
+    if (preview) return;
     if (code.trim().length < 6) {
       setError('쿠폰 일련번호를 확인해 주세요.');
       return;
@@ -362,7 +366,7 @@ function CouponManager({ coupons }: CouponManagerProps) {
       <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
         <CouponRegistrationSection
           code={code}
-          error={error}
+          error={preview === 'error' ? '쿠폰 일련번호를 확인해 주세요.' : error}
           onCodeChange={(value) => {
             setCode(value);
             setError('');
@@ -417,13 +421,13 @@ const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
 }));
 
 /** 보유 쿠폰과 쿠폰 등록 예시 상태를 관리합니다. (Manages owned coupons and the example coupon registration state.) */
-export function RouteContent() {
+export function RouteContent({ preview }: { preview?: 'error' | 'complete' | 'detail' }) {
   return (
     <MyPageFrame
       activePath="/mypage/coupons"
       breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '쿠폰' }]}
     >
-      <CouponManager coupons={coupons} />
+      <CouponManager coupons={coupons} preview={preview} />
     </MyPageFrame>
   );
 }

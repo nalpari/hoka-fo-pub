@@ -6,8 +6,10 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:42:45Z'
+  at: '2026-10-30T01:18:10Z'
 working_tree_sources:
+  - src/app/screen-index/screenConnections.ts
+  - src/data/screenRegistry.ts
   - src/stories/features/login/LoginPage.scenarios.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
   - src/app/screen-index/_components/IaStructurePage.tsx
@@ -167,3 +169,7 @@ working_tree_sources:
 ## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
 
 CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+## 고정 상태 preview의 연결 경계 (2026-10-30)
+
+상태 preview는 실제 서비스 요청·인증·시간 경과·저장 결과 없이 표시하며 원본 기본 화면의 기존 domain context 계약과 구분한다. 고정 오류를 정상 입력으로 자동 해제하지 않고 완료 상태로 이동시키지 않는다. 로컬 입력·도움말·모달 닫기를 유지한다. [전체 URL과 상태별 소유자](publishing-state-previews-2026-10-30.md)를 참고한다.

@@ -1503,6 +1503,7 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
 }
 
 type OrdersPageProps = {
+  publishingPreview?: boolean;
   initialOrders?: readonly OrderRecord[];
   initialView?: OrdersView;
   initialClaimKind?: ClaimKind;
@@ -1512,13 +1513,15 @@ type OrdersPageProps = {
 
 /** 주문 조회와 상세 진입·신청·구매확정의 상태를 관리합니다. (Manages order history navigation, claims, and purchase confirmation.) */
 function OrdersPage({
+  publishingPreview = false,
   initialOrders = previewOrders,
   initialView = 'list',
   initialClaimKind,
   returns = false,
   onAddToCart,
 }: OrdersPageProps) {
-  const binding = useContext(OrdersContext);
+  const connected = useContext(OrdersContext);
+  const binding = publishingPreview ? null : connected;
   const request = useRequestAction();
   const [demoOrders, setOrders] = useState(() => [...initialOrders]);
   const orders = binding?.orders ?? demoOrders;
@@ -1616,6 +1619,7 @@ function OrdersPage({
         if (selectedOrder) setConfirm({ id: selectedOrder.id, kind: 'delete' });
       }}
       onAddToCart={(line) => {
+        if (publishingPreview) return;
         onAddToCart?.(line);
         setMessage('장바구니에 상품을 담았습니다.');
       }}
@@ -1628,6 +1632,7 @@ function OrdersPage({
               kind={sheet.kind}
               onClose={() => setSheet(null)}
               onSubmit={async (draft) => {
+                if (publishingPreview) return null;
                 if (binding) {
                   await binding.submitClaim({ orderId: sheetOrder.id, kind: sheet.kind, ...draft });
                   setSheet(null);
@@ -1669,7 +1674,7 @@ function OrdersPage({
               kind: 'confirm',
               confirmDisabled: request.pending || binding?.pending,
               onConfirm: () => {
-                if (!confirm) return;
+                if (!confirm || publishingPreview) return;
                 if (binding) {
                   void request.run(async () => {
                     if (confirm.kind === 'delete') await binding.deleteOrder(confirm.id);

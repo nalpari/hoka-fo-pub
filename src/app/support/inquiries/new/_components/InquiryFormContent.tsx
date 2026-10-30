@@ -71,6 +71,7 @@ function InquiryAttachmentHelp() {
 type Props = {
   files: File[];
   onFilesChange: (files: File[]) => void;
+  previewError?: AttachmentError;
 };
 
 type AttachmentError = 'size' | 'type' | 'count';
@@ -82,9 +83,10 @@ const attachmentErrorMessage: Record<AttachmentError, string> = {
 };
 
 /** 문의 첨부파일 입력과 상태를 관리합니다. (Manages inquiry attachment inputs and status.) */
-export function InquiryAttachments({ files, onFilesChange }: Props) {
+export function InquiryAttachments({ files, onFilesChange, previewError }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [error, setError] = useState<AttachmentError | null>(null);
+  const [localError, setError] = useState<AttachmentError | null>(null);
+  const error = previewError ?? localError;
 
   const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const next = Array.from(event.target.files ?? []);
@@ -197,6 +199,7 @@ type InquiryCategoryFieldsProps = {
   category: string;
   detailCategory: string;
   invalid: boolean;
+  fixedErrors?: boolean;
   onCategoryChange: (value: string) => void;
   onDetailCategoryChange: (value: string) => void;
 };
@@ -206,6 +209,7 @@ export function InquiryCategoryFields({
   category,
   detailCategory,
   invalid,
+  fixedErrors = false,
   onCategoryChange,
   onDetailCategoryChange,
 }: InquiryCategoryFieldsProps) {
@@ -221,7 +225,7 @@ export function InquiryCategoryFields({
           placeholder="문의 분류를 선택해주세요"
           value={category}
           onValueChange={onCategoryChange}
-          error={invalid && !category ? '문의 분류를 선택해주세요.' : undefined}
+          error={invalid && (fixedErrors || !category) ? '문의 분류를 선택해주세요.' : undefined}
           options={
             binding
               ? binding.categories.map((item) => ({ value: item.value, label: item.value }))
@@ -242,7 +246,9 @@ export function InquiryCategoryFields({
           placeholder="상세 유형을 선택해주세요"
           value={detailCategory}
           onValueChange={onDetailCategoryChange}
-          error={invalid && !detailCategory ? '상세 유형을 선택해주세요.' : undefined}
+          error={
+            invalid && (fixedErrors || !detailCategory) ? '상세 유형을 선택해주세요.' : undefined
+          }
           options={
             binding
               ? (binding.categories.find((item) => item.value === category)?.details ?? []).map(
@@ -264,6 +270,7 @@ type InquiryMessageFieldsProps = {
   title: string;
   body: string;
   invalid: boolean;
+  fixedErrors?: boolean;
   onTitleChange: (value: string) => void;
   onBodyChange: (value: string) => void;
 };
@@ -273,6 +280,7 @@ export function InquiryMessageFields({
   title,
   body,
   invalid,
+  fixedErrors = false,
   onTitleChange,
   onBodyChange,
 }: InquiryMessageFieldsProps) {
@@ -283,7 +291,7 @@ export function InquiryMessageFields({
         label="제목"
         id="inquiry-title"
         required
-        error={invalid && !title.trim() ? '제목을 입력해 주세요.' : undefined}
+        error={invalid && (fixedErrors || !title.trim()) ? '제목을 입력해 주세요.' : undefined}
         inputProps={{
           value: title,
           maxLength: 50,
@@ -296,7 +304,7 @@ export function InquiryMessageFields({
         label="문의 내용"
         id="inquiry-body"
         required
-        error={invalid && !body.trim() ? '내용을 입력해 주세요.' : undefined}
+        error={invalid && (fixedErrors || !body.trim()) ? '내용을 입력해 주세요.' : undefined}
         inputProps={{
           multiline: true,
           value: body,
@@ -339,6 +347,7 @@ export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
 
 type InquiryOrderProductsProps = {
   invalid: boolean;
+  fixedErrors?: boolean;
   onLookup: () => void;
   onSelectionChange: (selection: InquiryOrderSelection) => void;
   selection: InquiryOrderSelection;

@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:42:45Z'
+  at: '2026-10-30T01:18:10Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -564,3 +564,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 첨부 디자인 재검수 (2026-10-29)
 
 위 구현 뒤의 재검수에서 남은 PC/MO 배치·컨트롤·공통 메뉴 차이를 확인해 `storybookLinks.ts`의 플랫폼별 확인값과 검토 비고를 정정했다. 본문과 공통 메뉴에 차이가 있으면 수정, 구현된 FAQ·문의·문서·배송지 변경·쿠폰 조회는 완료, 아이핀·온라인 회원등급 미구현은 대기다. 디자인 수급과 PC 디자인 수정예정, 외부 override 우선순위는 보존한다. 경로·화면 연결과 생성 그래프에는 변경이 없다. 최초 완료 판정의 범위와 한계는 [재검수 기록](design-reaudit-2026-10-29.md)이 대체한다.
+
+## 퍼블리싱 고정 상태 URL (2026-10-30)
+
+고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.

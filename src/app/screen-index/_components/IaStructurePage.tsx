@@ -936,18 +936,20 @@ function GroupRows({
                             })}
                           </div>
                         </>
-                      ) : route ? (
+                      ) : route || connection?.previewRoutes?.length ? (
                         <>
                           <div className={styles.preview}>
-                            <a
-                              href={route}
-                              target="_blank"
-                              rel="noreferrer"
-                              title={route + ' (경로 복사 및 새 창 열기)'}
-                              onClick={() => onCopyPath(route)}
-                            >
-                              <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
-                            </a>
+                            {route && (
+                              <a
+                                href={route}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={route + ' (경로 복사 및 새 창 열기)'}
+                                onClick={() => onCopyPath(route)}
+                              >
+                                <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
+                              </a>
+                            )}
                             {connection?.previewRoutes?.map(({ label, href }) => (
                               <Link
                                 key={href}
