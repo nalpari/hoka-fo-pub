@@ -187,13 +187,11 @@
     "src/app/login/_components/LoginContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/HelpTips.tsx"
     ],
     "src/app/login/account-locked/_components/AccountLockedContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
@@ -204,7 +202,6 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx"
     ],
     "src/app/login/account-locked/page.tsx": [
@@ -234,7 +231,6 @@
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
       "src/components/find-account/IdConfirmationMessage.tsx",
@@ -633,21 +629,10 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Dropdown.tsx",
-      "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Radio.tsx",
-      "src/components/common/atoms/SegmentedControl.tsx",
-      "src/components/common/atoms/Select.tsx",
-      "src/components/common/atoms/TextInput.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/FormActionGroup.tsx",
-      "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
-      "src/components/common/molecules/SearchField.tsx",
-      "src/components/common/organisms/Address/AddressFields.tsx",
-      "src/components/common/organisms/EmailAddressFields.tsx",
       "src/icons/fontAwesome.ts"
     ],
     "src/app/publishing-guide/_components/GuideCode.tsx": [],
@@ -656,6 +641,16 @@
     ],
     "src/app/publishing-guide/_components/GuideTimeline.tsx": [
       "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/HelpTipsGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/HelpTips.tsx",
+      "src/icons/fontAwesome.ts"
     ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -669,6 +664,7 @@
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
       "src/app/publishing-guide/_components/FormGuide.tsx",
+      "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
       "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -722,8 +718,7 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
-      "src/components/common/layouts/ContentSection.tsx"
+      "src/components/common/layouts/AccountPageLayout.tsx"
     ],
     "src/app/signup/information/_components/RegistrationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1259,6 +1254,11 @@
     "src/components/common/molecules/FormFields/VerificationCountdown.tsx": [
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/components/common/molecules/HelpTips.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/components/common/molecules/HomeCarouselSection.tsx": [
       "src/components/common/layouts/MainSection.tsx",
       "src/components/common/molecules/Carousel/Carousel.tsx"
@@ -1553,8 +1553,8 @@
     "src/app/login/account-locked/complete/page.tsx",
     "src/app/login/account-locked/page.tsx",
     "src/app/login/account-locked/verification/page.tsx",
+    "src/app/login/find-account/_components/FindAccountContent.tsx",
     "src/app/login/find-account/id-confirmation-modal/page.tsx",
-    "src/app/login/find-account/page.tsx",
     "src/app/login/find-account/password-reset/page.tsx",
     "src/app/mypage/addresses/page.tsx",
     "src/app/mypage/coupons/_components/CouponManagement.tsx",

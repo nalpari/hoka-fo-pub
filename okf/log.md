@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 화면 연결 그래프 최신화
+
+기존 로그인·계정 화면 및 퍼블리싱 가이드 변경에 맞춰 `src/app/screen-index/sourceGraph.generated.json`을 정식 명령으로 재생성했다. [라우팅 기록](architecture/routing.md#화면-연결-그래프-최신화-2026-10-30)에 범위와 그래프 테스트 1개 통과를 기록했다.
+
 ## 2026-10-30 — 마이페이지 메인 PC/MO 디자인 적용
 
 `/mypage`·`/mypage/preview-no-orders`의 가로 요약 카드·주문 표·3열 메뉴, 모바일 간격/제목과 빈 주문 문구를 Figma 메인 섹션에 맞췄다. 기존 데이터·바인딩·로그아웃 콜백을 유지하고 centered 모바일 breadcrumb만 8px로 조정했다. [표현과 검증](architecture/ui.md#마이페이지-메인-디자인-반영-2026-10-30), [라우트 영향](architecture/routing.md#마이페이지-메인-디자인-적용-2026-10-30)을 갱신했다. 변경 파일 ESLint·Prettier/타입/Panda/Next 빌드와 두 URL PC/MO·캐러셀·모달·화면 폭 경계를 확인했다. 전체 lint의 비대상 기존 오류와 Storybook 미실행은 관련 문서에 구분했다.

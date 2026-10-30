@@ -196,6 +196,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 화면 연결 그래프 최신화 (2026-10-30)
+
+`npm run screen-files`로 `src/app/screen-index/sourceGraph.generated.json`을 현재 소스에 맞춰 재생성했다. 로그인·계정 잠금·아이디 찾기·비밀번호 재설정의 실제 import와 퍼블리싱 가이드의 HelpTips 연결을 반영하고 제거된 의존성을 정리했다. 라우트 구현과 URL은 변경하지 않았다. 작업 트리 출처는 위 생성 파일이며, `tests/screen-files.test.mjs` 1개를 통과했다.
+
 ## 마이페이지 메인 디자인 적용 (2026-10-30)
 
 기존 `/mypage`·`/mypage/preview-no-orders`는 같은 `_components/MyPageContent.tsx`를 계속 사용한다. [Figma 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC/MO 기본·주문 없음 표현을 반영했고 route 진입점·IA 연결·표시 데이터 및 외부 context 계약은 유지한다. `MyPageFrame`의 `centered` 레이아웃만 모바일 breadcrumb 하단을 8px로 지정하며 기존 `sidebar`의 32px은 유지한다. 메인의 불필요한 PC 상단 24px을 제거하고 모바일 상단 24px은 유지한다.
