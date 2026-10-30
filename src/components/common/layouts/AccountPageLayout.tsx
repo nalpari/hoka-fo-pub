@@ -15,19 +15,9 @@ type Props = {
   contentWidth?: '420px' | '500px' | '568px';
   contentAs?: 'div' | 'section';
   contentLabelledBy?: string;
-  fillMobileViewport?: boolean;
   outsideContent?: ReactNode;
-  /** Compose layout differences with css.raw so Panda can extract each caller's styles. */
-  pageCss?: SystemStyleObject;
   contentCss?: SystemStyleObject;
 };
-
-const page = css.raw({
-  pt: '24',
-  px: '5',
-  pb: '124px',
-  _mobile: { pt: '10', px: '4', pb: '8' },
-});
 
 /** 계정 화면의 프레임과 선택적 제목·폼 액션을 배치합니다. (Arranges the account-page frame with an optional heading and form actions.) */
 export function AccountPageLayout({
@@ -39,22 +29,11 @@ export function AccountPageLayout({
   contentWidth = '500px',
   contentAs = 'div',
   contentLabelledBy,
-  fillMobileViewport = false,
   outsideContent,
-  pageCss,
   contentCss,
 }: Props) {
   return (
-    <Box
-      as="main"
-      className={css(
-        page,
-        fillMobileViewport && {
-          _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
-        },
-        pageCss,
-      )}
-    >
+    <Box as="main" pt="24" px="5" pb="24" _mobile={{ pt: '10', px: '4', pb: '64px' }}>
       <Box
         as={contentAs}
         aria-labelledby={contentLabelledBy}

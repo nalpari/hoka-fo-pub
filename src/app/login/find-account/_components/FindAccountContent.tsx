@@ -16,7 +16,6 @@ import { Button } from '@/components/common/atoms/Button';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 
@@ -27,102 +26,6 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
 import { isValidName } from '@/lib/validation';
-
-type Props = {
-  name: string;
-  phone: string;
-  nameError: string;
-  phoneError: string;
-  onNameChange: (value: string) => void;
-  onPhoneChange: (value: string) => void;
-};
-
-function FindAccountIdentityFields({
-  name,
-  phone,
-  nameError,
-  phoneError,
-  onNameChange,
-  onPhoneChange,
-}: Props) {
-  return (
-    <Stack gap="4">
-      <TextFormField
-        variant="boxed"
-        id="find-account-name"
-        label="이름"
-        error={nameError}
-        required
-        inputProps={{
-          name: 'name',
-          autoComplete: 'name',
-          placeholder: '이름을 입력해 주세요',
-          value: name,
-          onChange: (event) => onNameChange(event.target.value),
-        }}
-      />
-      <TextFormField
-        variant="boxed"
-        id="find-account-phone"
-        label="휴대폰 번호"
-        error={phoneError}
-        required
-        inputProps={{
-          name: 'tel',
-          type: 'tel',
-          inputMode: 'numeric',
-          autoComplete: 'tel-national',
-          placeholder: '휴대폰번호를 입력해 주세요',
-          value: phone,
-          onChange: (event) => onPhoneChange(event.target.value),
-        }}
-      />
-    </Stack>
-  );
-}
-
-type FindAccountCodeFieldsProps = {
-  code: string;
-  codeError?: string;
-  secondsLeft: number;
-  onCodeChange: (value: string) => void;
-};
-
-function FindAccountCodeFields({
-  code,
-  codeError,
-  secondsLeft,
-  onCodeChange,
-}: FindAccountCodeFieldsProps) {
-  return (
-    <Stack gap="2">
-      <TextFormField
-        variant="boxed"
-        id="find-account-code"
-        label="인증번호"
-        required
-        error={codeError}
-        inputProps={{
-          name: 'code',
-          inputMode: 'numeric',
-          autoComplete: 'one-time-code',
-          maxLength: 6,
-          placeholder: '인증번호 6자리를 입력해 주세요',
-          value: code,
-          onChange: (event) => onCodeChange(event.target.value),
-        }}
-      />
-      <Stack gap="2">
-        <VerificationCountdown secondsLeft={secondsLeft} />
-        <Typography as="p" variant="body5" tone="tertiary">
-          입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
-          <br />
-          인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
-        </Typography>
-      </Stack>
-    </Stack>
-  );
-}
 
 type FindAccountNotice = { tone: 'error' | 'info'; message: string };
 
@@ -166,39 +69,54 @@ export function FindAccountContent({
     <AccountPageLayout
       contentAs="section"
       contentLabelledBy="find-account-title"
-      pageCss={css.raw({
-        px: '4',
-        minH: '600px',
-        _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
-      })}
-      contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
       outsideContent={result}
     >
       <ContentSection
         gap={{ base: '10', _mobile: '8' }}
-        header={
-          <ContentHeader
-            titleAs="h1"
-            titleProps={{ web: 'heading7', mo: 'heading5', id: 'find-account-title' }}
-            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
-            title="아이디 / 비밀번호 찾기"
-            description="회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다."
-            css={css.raw({
-              gap: { base: '10px', _mobile: '3' },
-            })}
-          />
-        }
+        title="아이디 / 비밀번호 찾기"
+        headerProps={{
+          titleAs: 'h1',
+          titleProps: { web: 'heading7', mo: 'heading5', id: 'find-account-title' },
+          description:
+            '회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.',
+          descriptionProps: { variant: 'body3', tone: 'tertiary' },
+          gap: { base: '10px', _mobile: '3' },
+        }}
       >
         <form noValidate onSubmit={onSubmit} aria-labelledby="find-account-title">
           <Stack gap="6">
-            <FindAccountIdentityFields
-              name={name}
-              phone={phone}
-              nameError={nameError}
-              phoneError={phoneError}
-              onNameChange={onNameChange}
-              onPhoneChange={onPhoneChange}
-            />
+            <Stack gap="4">
+              <TextFormField
+                variant="boxed"
+                id="find-account-name"
+                label="이름"
+                error={nameError}
+                required
+                inputProps={{
+                  name: 'name',
+                  autoComplete: 'name',
+                  placeholder: '이름을 입력해 주세요',
+                  value: name,
+                  onChange: (event) => onNameChange(event.target.value),
+                }}
+              />
+              <TextFormField
+                variant="boxed"
+                id="find-account-phone"
+                label="휴대폰 번호"
+                error={phoneError}
+                required
+                inputProps={{
+                  name: 'tel',
+                  type: 'tel',
+                  inputMode: 'numeric',
+                  autoComplete: 'tel-national',
+                  placeholder: '휴대폰번호를 입력해 주세요',
+                  value: phone,
+                  onChange: (event) => onPhoneChange(event.target.value),
+                }}
+              />
+            </Stack>
             <Button
               type="submit"
               variant="primary"
@@ -209,12 +127,32 @@ export function FindAccountContent({
             </Button>
             {requested ? (
               <>
-                <FindAccountCodeFields
-                  code={code}
-                  codeError={codeError}
-                  secondsLeft={secondsLeft}
-                  onCodeChange={onCodeChange}
-                />
+                <Stack gap="2">
+                  <TextFormField
+                    variant="boxed"
+                    id="find-account-code"
+                    label="인증번호"
+                    required
+                    error={codeError}
+                    inputProps={{
+                      name: 'code',
+                      inputMode: 'numeric',
+                      autoComplete: 'one-time-code',
+                      maxLength: 6,
+                      placeholder: '인증번호 6자리를 입력해 주세요',
+                      value: code,
+                      onChange: (event) => onCodeChange(event.target.value),
+                    }}
+                  />
+                  <Stack gap="2">
+                    <VerificationCountdown secondsLeft={secondsLeft} />
+                    <Typography as="p" variant="body5" tone="tertiary">
+                      입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
+                      <br />
+                      인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요
+                    </Typography>
+                  </Stack>
+                </Stack>
                 <Button type="button" variant="primary" fullWidth onClick={onConfirmCode}>
                   인증번호 확인
                 </Button>
@@ -270,8 +208,15 @@ function IdConfirmationModal({
 
 const demoVerificationCode = '900668';
 
-/** 계정 찾기 입력과 인증 예시 흐름을 관리합니다. (Manages account recovery inputs and the example verification flow.) */
-export function RouteContent() {
+/**
+ * 계정 찾기 화면의 입력과 인증 흐름을 관리합니다. (Manages account recovery inputs and verification flow.)
+ *
+ * [ 개발팀 바인딩 ]
+ * AccountServicesContext.recovery.request/verify를 실제 발송/검증/계정 조회에 연결합니다. 요청 ID와 서버 유효시간을 사용합니다.
+ * verify 결과의 maskedAccountId와 resetProof를 AccountFlowProvider에 보관해 결과 표시와 비밀번호 변경에 사용합니다. 재설정 참조를 URL/저장소에 넣지 않습니다.
+ * 900668/honggildong은 Provider가 없는 데모 값입니다. 이름/전화번호 변경 시 이전 인증 요청 결과를 폐기합니다.
+ */
+export function FindAccountRouteContent() {
   const services = useContext(AccountServicesContext);
   const flow = useAccountFlow();
   const request = useRequestAction();

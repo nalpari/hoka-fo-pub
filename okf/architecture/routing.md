@@ -6,9 +6,11 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-10-30T06:48:26Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/login/find-account/page.tsx
+  - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/app/support/store/_components/StoreContent.tsx
   - src/app/publishing-guide/page.tsx
   - src/app/mypage/event-entries/preview-cancel/page.tsx
@@ -225,6 +227,22 @@ IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/r
 검증: 기본 PC/MO와 Empty 직접 진입, 정렬 선택·탭 필터·취소 모달·Escape/포커스 복귀를 브라우저로 확인했다. 1024px 이하 mobile, 1025~1199px의 1200px canvas, 1200px 이상 document 가로 넘침 없음을 확인했다. 임시 Provider로 비fixture ID·late data·서버 결과 보존·취소 실패/재시도/pending/성공·추가 목록·조회 실패/재시도를 확인한 뒤 임시 소스를 제거했다. 최종 모바일 breadcrumb의 줄바꿈 방지와 날짜 body5 조정은 이 스크린샷 확인 이후 반영했다. 실제 서비스 API·전체 Storybook/production build는 검증하지 않았다.
 
 출처: `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `eventEntries.data.ts`, `src/context/RunClubDataContext.ts` 작업 트리와 사용자 첨부 디자인·기획서. 작성: Codex, 2026-10-30 (Asia/Seoul).
+
+## 계정 프레임 본문 배치 정리의 라우팅 영향 (2026-10-30)
+
+비밀번호 재설정·본인인증의 중복 `contentCss` flex 선언을 정리했다. 계정 잠금 해제 완료·회원가입 완료는 제거된 `pageCss` 대신 각 page에서 기존 외곽 간격과 500px 중앙 본문을 직접 배치한다. URL·페이지 export·입력 및 이동 흐름은 변경하지 않았다. [UI 기준](ui.md#계정-프레임의-중복-본문-flex-제거-2026-10-30)을 따른다.
+
+## 계정 프레임 모바일 최소 높이 옵션 제거 (2026-10-30)
+
+`fillMobileViewport` 옵션과 로그인/가입/계정 찾기 화면의 호출을 제거했다. 계정 프레임의 모바일 하단 여백은 공통 64px로 둔다. 경로와 페이지 export는 바꾸지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
+
+## 회원가입 완료 화면 버튼 배치 (2026-10-30)
+
+`/signup/complete`의 안내와 후속 버튼을 기존 경로 안에서 Panda JSX 레이아웃 props로 배치한다. `ButtonLink` 주변의 불필요한 `HStack`을 제거하고 버튼 위 간격은 `Box`가 소유한다. 경로와 내비게이션은 변경하지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
+
+## 계정 찾기 페이지 진입점 정리 (2026-10-30)
+
+`/login/find-account/page.tsx`는 고정 상태 미리보기 선택과 기본 화면 렌더링을 유지한다. 기본 화면 상태 소유자의 이름을 `RouteContent`에서 `FindAccountRouteContent`로 구체화하고 서비스 바인딩 설명을 해당 소유자 위로 옮겼다. 경로, 클라이언트 경계, 미리보기 계약, 입력·인증 상태와 이동은 변경하지 않았다. 작업 트리 출처: `src/app/login/find-account/page.tsx`, `_components/FindAccountContent.tsx`, `_components/FindAccountStatePreview.tsx`. [UI 구성](ui.md#계정-찾기-화면-구성-정리-2026-10-30)을 따른다.
 
 ## 로그인 버튼 간격의 라우팅 영향 (2026-10-30)
 

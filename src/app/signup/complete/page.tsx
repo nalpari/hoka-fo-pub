@@ -7,42 +7,26 @@
  */
 
 import { css } from 'styled-system/css';
-import { Center, Stack } from 'styled-system/jsx';
+import { Box, Center, Stack, VStack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
-import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 /** 회원가입 완료 안내와 후속 이동을 표시합니다. (Displays registration completion and follow-up navigation.) */
 export default function Page() {
   return (
-    <AccountPageLayout
-      contentWidth="500px"
-      pageCss={css.raw({ px: '4', _mobile: { pt: '24', pb: '124px' } })}
-      contentCss={css.raw({
-        display: 'flex',
-        flexDirection: 'column',
-        textAlign: 'center',
-        gap: '8',
-      })}
-    >
-      <ContentSection
-        gap="8"
-        title="회원가입 완료"
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading4' } }}
-        footer={
-          <ButtonLink href="/" variant="primary" fullWidth>
-            쇼핑하러 가기
-          </ButtonLink>
-        }
-      >
-        <Center>
+    <AccountPageLayout contentWidth="500px">
+      <VStack gap="0" alignItems="stretch" textAlign="center">
+        <Typography as="h1" web="heading6" mo="heading4">
+          회원가입 완료
+        </Typography>
+        <Center py="9">
           <Icon src="/images/icon/join-check.svg" size="48px" />
         </Center>
-        <Stack gap="4">
+        <VStack gap="4">
           <Typography as="p" variant="body2">
             가입이 성공적으로 이루어졌습니다!
           </Typography>
@@ -51,8 +35,13 @@ export default function Page() {
             <br className={css({ display: 'none', _mobile: { display: 'inline' } })} />
             최선을 다하겠습니다
           </Typography>
-        </Stack>
-      </ContentSection>
+        </VStack>
+        <Box pt="8">
+          <ButtonLink href="/" variant="primary" fullWidth>
+            쇼핑하러 가기
+          </ButtonLink>
+        </Box>
+      </VStack>
     </AccountPageLayout>
   );
 }

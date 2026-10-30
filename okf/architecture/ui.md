@@ -6,9 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T05:40:15Z'
+  at: '2026-10-30T06:48:26Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
+  - src/app/login/account-locked/complete/page.tsx
+  - src/app/signup/verify/_components/IdentityVerificationContent.tsx
+  - src/types/component-contracts/app-login-find-account-page.d.ts
+  - src/app/login/find-account/_components/FindAccountContent.tsx
+  - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/styles/global.scss
   - src/app/**/page.tsx
   - src/app/**/_components/*.tsx
@@ -3372,6 +3378,20 @@ MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/mole
 컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 계정 프레임의 중복 본문 flex 제거 (2026-10-30)
+
+비밀번호 재설정·본인인증 화면에서 `AccountPageLayout.contentCss`로 반복하던 `display:flex`·세로 방향·불필요한 gap을 제거했다. 각 화면의 `ContentSection`이 자체 간격을 소유하며, 본인인증의 두 번째 안내는 기존 `mt=4`를 유지한다. `AccountPageLayout.pageCss`는 제거했다. 별도 외곽 여백이 필요한 계정 잠금 해제 완료와 회원가입 완료는 각 페이지의 Panda `Box`에서 main·500px 중앙 본문과 기존 간격을 직접 지정한다. 공통 `fillMobileViewport`는 모바일 최소 높이만 적용한다. 작업 트리 출처: 해당 `src/app/login`, `src/app/signup` 화면과 `AccountPageLayout.tsx`.
+
+## 계정 프레임 모바일 여백과 직접 JSX 스타일 (2026-10-30)
+
+`AccountPageLayout`의 모바일 최소 화면 높이 옵션 `fillMobileViewport`를 제거했다. 모바일 하단 여백은 공통 64px로 두고, 프레임 스타일은 별도 CSS 상수 없이 `<Box as="main">`의 Panda props에 선언한다. 작업 트리 출처: `AccountPageLayout.tsx`와 해당 옵션 사용처.
+
+회원가입 완료 화면은 바깥 `VStack`에 `alignItems="stretch"`와 `textAlign="center"`를 지정해 자식 폭은 채우고 제목·안내 문구는 가운데 정렬한다. 버튼 간격은 `Box pt="8"`으로 두고, ButtonLink에 지원되지 않는 레이아웃 props를 전달하지 않는다. 불필요한 `HStack` 래퍼는 제거한다. 작업 트리 출처: `src/app/signup/complete/page.tsx`.
+
+## 계정 찾기 화면 구성 정리 (2026-10-30)
+
+계정 찾기 제목·설명의 기존 PC/MO 글자 스타일과 10px/3 토큰 간격을 `ContentSection.headerProps`로 전달한다. 제목-본문 gap 10/8 토큰, AccountPageLayout의 500px 중앙 본문 폭·최소 높이 600px과 결과 모달은 유지한다. 본문 위치에 영향이 없는 데스크톱 좌우 여백 재정의는 제거하고 모바일 좌우 4 토큰은 공통 기본값을 사용한다. 모바일 뷰포트 높이는 공통 `fillMobileViewport` prop을 사용한다. 단일 자식만 감싸던 본문 flex 스타일은 제거했다. 이름·휴대폰·인증번호 필드는 `FindAccountContent`의 form 안에 직접 배치해 마크업 순서를 읽을 수 있게 하고, 한 화면에서만 쓰던 두 필드 컴포넌트와 사용되지 않는 타입 계약 선언을 제거했다. 각 필드 속성·간격·콜백은 유지한다. 기본 화면은 `FindAccountRouteContent`가 상태를 소유하고 `FindAccountContent` 표시 UI를 사용하며, 고정 오류·인증번호·만료 미리보기도 같은 표시 UI를 사용한다. 작업 트리 출처: `src/app/login/find-account/_components/FindAccountContent.tsx`, `FindAccountStatePreview.tsx`, `src/types/component-contracts/app-login-find-account-page.d.ts`.
 
 ## 로그인 버튼 묶음 간격 (2026-10-30)
 

@@ -1,33 +1,5 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
 import { type ReactNode } from 'react';
-type Props = {
-  name: string;
-  phone: string;
-  nameError: string;
-  phoneError: string;
-  onNameChange: (value: string) => void;
-  onPhoneChange: (value: string) => void;
-};
-declare function FindAccountIdentityFields({
-  name,
-  phone,
-  nameError,
-  phoneError,
-  onNameChange,
-  onPhoneChange,
-}: Props): import('react').JSX.Element;
-type FindAccountCodeFieldsProps = {
-  code: string;
-  codeError?: string;
-  secondsLeft: number;
-  onCodeChange: (value: string) => void;
-};
-declare function FindAccountCodeFields({
-  code,
-  codeError,
-  secondsLeft,
-  onCodeChange,
-}: FindAccountCodeFieldsProps): import('react').JSX.Element;
 type FindAccountNotice = {
   tone: 'error' | 'info';
   message: string;
@@ -81,10 +53,4 @@ declare function IdConfirmationModal({
 }: IdConfirmationModalProps): import('react').JSX.Element;
 /** 계정 찾기 입력과 인증 예시 흐름을 관리합니다. (Manages account recovery inputs and the example verification flow.) */
 export default function Page(): import('react').JSX.Element;
-export {
-  FindAccountIdentityFields,
-  FindAccountCodeFields,
-  FindAccountContent,
-  type FindAccountNotice,
-  IdConfirmationModal,
-};
+export { FindAccountContent, type FindAccountNotice, IdConfirmationModal };

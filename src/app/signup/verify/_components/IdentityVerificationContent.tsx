@@ -52,8 +52,6 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
       contentWidth="500px"
       contentAs="section"
       contentLabelledBy="verification-title"
-      fillMobileViewport
-      contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
     >
       <ContentSection
         gap="8"
