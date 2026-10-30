@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T04:58:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/event-entries/preview-cancel/page.tsx
   - src/app/mypage/reviews/preview-ready/page.tsx
   - src/app/mypage/reviews/preview-written/page.tsx
   - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
@@ -184,6 +185,14 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 러닝세션 신청 취소 모달 직접 URL (2026-10-30)
+
+`/mypage/event-entries/preview-cancel`은 기존 `RunClubEntriesContent`의 `preview="cancel"` 옵션으로 고정 목록과 열린 신청 취소 모달을 표시한다. 연결된 Provider와 무관하게 fixture를 사용하고 실제 조회·취소 요청은 실행하지 않는다. 확인·취소·닫기·Escape로 창을 닫을 수 있으며 새로고침하면 다시 열린다. 기본 목록과 기존 Empty URL은 유지한다.
+
+검증: 브라우저에서 PC/MO 직접 진입과 열린 모달, Escape 닫기·새로고침 재노출·확인 후 기존 3건 상태 유지·취소 버튼 닫기를 확인했다. screen-index의 ‘신청 취소 모달’ STATE 행, URL/상태명 검색과 보기 링크 새 창 진입을 확인했다. 변경 파일 ESLint/Prettier·타입 검사·그래프 생성을 통과했다. 실제 취소 API·전체 production/Storybook build는 실행하지 않았다.
+
+screen-index IA 200의 previewRoutes에 ‘신청 취소 모달’을 추가하고 sourceFiles에 진입점을 연결했다. 상태가 두 개가 되어 기본 목록은 원본 행의 페이지 링크, Empty와 취소 모달은 STATE 행으로 표시되는 기존 규칙을 사용한다. sourceGraph는 `npm run screen-files`로 생성한다. 출처: 위 preview 진입점과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `src/app/screen-index/screenConnections.ts` 작업 트리. 작성: 2026-10-30 (Asia/Seoul).
 
 ## 상품리뷰 디자인의 직접 상태 URL (2026-10-30)
 

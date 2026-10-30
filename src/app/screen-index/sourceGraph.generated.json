@@ -406,6 +406,9 @@
     "src/app/mypage/event-entries/page.tsx": [
       "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
     ],
+    "src/app/mypage/event-entries/preview-cancel/page.tsx": [
+      "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
+    ],
     "src/app/mypage/event-entries/preview-empty/page.tsx": [
       "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
     ],

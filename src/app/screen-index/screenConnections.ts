@@ -429,10 +429,14 @@ const connections: Record<number, ScreenConnection> = {
   '200': {
     route: '/mypage/event-entries',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/event-entries/preview-empty' }],
+    previewRoutes: [
+      { label: '빈 목록', href: '/mypage/event-entries/preview-empty' },
+      { label: '신청 취소 모달', href: '/mypage/event-entries/preview-cancel' },
+    ],
     sourceFiles: [
       'src/app/mypage/event-entries/page.tsx',
       'src/app/mypage/event-entries/preview-empty/page.tsx',
+      'src/app/mypage/event-entries/preview-cancel/page.tsx',
     ],
     stories: {},
   },

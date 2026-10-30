@@ -33,13 +33,21 @@ import { faChevronDown } from '@/icons/fontAwesome';
  * appliedAt은 신청일 표시값, session.schedule은 진행일시, canCancel은 운영 취소 가능 여부입니다. 미제공 시 기존 신청완료 상태를 기준으로 취소 버튼을 표시합니다.
  * cancelEntry에는 세션 ID가 아닌 신청 ID를 전달합니다. 소유자가 성공 후 목록·건수를 갱신한 뒤 resolve해야 하며 pending 중 중복 실행/닫기를 막고 실패 시 확인창과 재시도를 유지합니다.
  * 미연결 기본 화면의 3건·총 62건·1/10은 디자인 fixture입니다. 더보기는 연결 전 비활성이고 취소 확인은 창만 닫으며 운영 상태를 변경하지 않습니다.
+ * preview="cancel"은 연결된 Provider를 사용하지 않고 고정 fixture의 신청 취소 모달을 처음부터 표시합니다. 확인·취소·닫기는 창만 닫으며 새로고침 시 다시 열립니다.
  */
-export function RunClubEntriesContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
+export function RunClubEntriesContent({
+  previewEmpty = false,
+  preview,
+}: { previewEmpty?: boolean; preview?: never } | { previewEmpty?: never; preview: 'cancel' }) {
   const { entries: connected, cancelEntry } = useContext(RunClubDataContext);
-  const binding = previewEmpty ? undefined : connected;
+  const binding = previewEmpty || preview === 'cancel' ? undefined : connected;
   const [category, setCategory] = useState('전체');
   const [sort, setSort] = useState<'latest' | 'oldest'>('latest');
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(() =>
+    preview === 'cancel'
+      ? (eventEntryPreview.items.find((entry) => entry.canCancel)?.id ?? null)
+      : null,
+  );
   const request = useRequestAction();
   const loadMore = useRequestAction();
   useBindingQuery(binding?.onQueryChange, { category, sort });
