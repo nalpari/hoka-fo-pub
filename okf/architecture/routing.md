@@ -6,13 +6,14 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:48:26Z'
+  at: '2026-10-30T07:38:20Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/login/find-account/page.tsx
   - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/login/find-account/_components/FindAccountContent.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
   - src/app/login/account-locked/complete/page.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -197,6 +198,10 @@ sources:
 ## 회원가입 완료 화면 버튼 배치 (2026-10-30)
 
 `/signup/complete`의 안내와 후속 버튼을 기존 경로 안에서 Panda JSX 레이아웃 props로 배치한다. `ButtonLink` 주변의 불필요한 `HStack`을 제거하고 버튼 위 간격은 `Box`가 소유한다. 경로와 내비게이션은 변경하지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
+
+## 회원가입 약관 필수·선택 표기 (2026-10-30)
+
+약관 목록과 상세 제목은 필수 `[필수]`, 선택 `(선택)`으로 구분하고, 자세히 보기 버튼의 접근성 이름도 같은 표기로 맞췄다. URL·약관 선택과 이동 동작은 변경하지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
 
 ## 계정 찾기 페이지 진입점 정리 (2026-10-30)
 

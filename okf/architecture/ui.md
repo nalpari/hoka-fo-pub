@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:48:26Z'
+  at: '2026-10-30T07:38:20Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
@@ -25,6 +25,7 @@ working_tree_sources:
   - src/app/login/_components/LoginContent.tsx
   - src/app/signup/_components/SignupContent.tsx
   - src/app/signup/complete/page.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
   - src/components/common/molecules/HelpTips.tsx
   - src/app/publishing-guide/_components/HelpTipsGuide.tsx
   - src/app/publishing-guide/page.tsx
@@ -3332,6 +3333,8 @@ MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/mole
 `AccountPageLayout`의 모바일 최소 화면 높이 옵션 `fillMobileViewport`를 제거했다. 모바일 하단 여백은 공통 64px로 두고, 프레임 스타일은 별도 CSS 상수 없이 `<Box as="main">`의 Panda props에 선언한다. 작업 트리 출처: `AccountPageLayout.tsx`와 해당 옵션 사용처.
 
 회원가입 완료 화면은 바깥 `VStack`에 `alignItems="stretch"`와 `textAlign="center"`를 지정해 자식 폭은 채우고 제목·안내 문구는 가운데 정렬한다. 버튼 간격은 `Box pt="8"`으로 두고, ButtonLink에 지원되지 않는 레이아웃 props를 전달하지 않는다. 불필요한 `HStack` 래퍼는 제거한다. 작업 트리 출처: `src/app/signup/complete/page.tsx`.
+
+회원가입 약관 목록과 약관 상세 제목은 필수 표기를 `[필수]`, 선택 표기를 `(선택)`으로 구분한다. 보기 버튼의 접근성 이름도 같은 표기를 사용한다. 작업 트리 출처: `src/app/signup/terms/_components/SignupTermsContent.tsx`.
 
 ## 계정 찾기 화면 구성 정리 (2026-10-30)
 

@@ -24,9 +24,9 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
-  { label: '개인정보 수집 동의', required: true },
-  { label: '개인정보 수집 동의', required: false },
-  { label: '개인정보 제3자 (제휴사) 제공 동의', required: true },
+  { label: '개인정보 수집 및 이용 동의', required: true },
+  { label: '개인정보 제3자 제공동의', required: true },
+  { label: '마케팅 목적의 개인정보 수집, 이용동의', required: false },
 ] as const;
 
 const styles = {
@@ -71,7 +71,7 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
               label={
                 <>
                   <Typography variant="body4">
-                    ({term.required ? '필수' : '선택'}) {term.label}
+                    {term.required ? '[필수]' : '(선택)'} {term.label}
                   </Typography>
                 </>
               }
@@ -81,7 +81,7 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
               size="md"
               className={styles.detail}
               onClick={() => props.onDetail(index)}
-              aria-label={`${term.required ? '필수' : '선택'} ${term.label} 자세히 보기`}
+              aria-label={`${term.required ? '[필수]' : '(선택)'} ${term.label} 자세히 보기`}
             >
               자세히 보기
             </Button>
@@ -179,7 +179,7 @@ function SignupTermsDetail({ selected, previous, previousVersionId, onClose, onP
         if (!open) onClose();
       }}
       title="HOKA Korea 이용약관"
-      label={`(${selected?.required ? '필수' : '선택'}) ${selected?.label ?? ''}`}
+      label={`${selected?.required ? '[필수]' : '(선택)'} ${selected?.label ?? ''}`}
       version={{ previous, onChange: onPrevious }}
       dates={
         services
