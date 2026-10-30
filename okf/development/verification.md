@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:58:24+00:00'
+  at: '2026-10-30T07:01:44+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -500,5 +500,17 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 ## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
 
 경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상태 preview 후속 정리 최종 검증 (2026-10-30)
+
+전체 Node 테스트 108개와 TypeScript 검사, 변경 TS/TSX·테스트의 ESLint/Prettier 검사를 통과했다. 최종 Next production build는 컴파일·타입·122개 정적 페이지 생성을 통과했고 Storybook production build도 별도 .tmp-preview-followup-storybook-final-20261030에서 통과했다. Storybook의 기존 번들·플러그인 타이밍 경고는 남아 있으며 전체 play 실행은 하지 않았다. 후속 정적 이미지 폴더 이동은 내용 변경 없는 10개 파일 이동으로 별도 파일 존재·PNG 검사 2개와 production 서버 이미지 로드로 확인했다.
+
+브라우저에서 1280px PC·375px MO의 매장 목록, 정상·품절 혼합 목록, 러닝 세션 목록·Empty·모집 마감·신청 예정 상세를 직접 열었다. 플랫폼 hydration 뒤 문서 가로 넘침이 없었고 매장 탭·지도·길 찾기가 없었다. 품절 overlay 2개의 검정 50% 배경·흰색 문구·상세 링크와 기본 목록의 품절 overlay 미표시를 확인했다. 모바일 상세와 품절 preview의 새로고침을 확인했다. 이미지 경로 누락 보완 후 PC/MO 카드·상세 이미지 naturalWidth가 0보다 큼을 확인했고 모바일 목록 8개 모두 로드됐다. PC 목록의 화면 밖 이미지는 기존 lazy loading을 유지한다.
+
+production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /running/running-session 이동을 확인했다. /running/run-club, /collection/8386, /mypage/refund-account는 404다. screen-index는 1782/1280/768/375px의 가변 NAV 열·스크롤 후 sticky top=0·문서 가로 넘침 없음을 확인했다. 최종 375px NAV는 2열이고 내부 스크롤로 검색 필드에 접근할 수 있다. 14개 대분류 행의 코드 colSpan=2와 링크 없음, Featured > Running Session 아래 목록·상세 순서, 상위 페이지 링크 제거, 검수 설명 비노출과 UTMB 비고 문장 제거를 확인했다. UTMB 자체의 연결 없음은 Node 검사로도 검증한다.
+
+이번 결과는 전체 픽셀 비교·최종 디자인 승인·실제 API·외부 인증·결제 검증이 아니다. 최종 시각 승인은 사용자 결정대로 후속으로 남긴다. 출처: tests/*.test.mjs, 최종 build 출력과 이 채팅의 Ego 브라우저 검사. 기준 명령·실행 로그는 저장소 밖 작업 스냅샷에 보관했다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
