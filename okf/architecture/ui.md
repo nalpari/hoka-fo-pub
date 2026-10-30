@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T08:57:53.137523+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
   - src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx
@@ -3779,3 +3780,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 후속 전체 타입 재검사는 비대상 src/stories/features/binding/RemainingBinding.stories.tsx:311의 getByRole 옵션 exact 타입 오류로 실패했다. 이번 회원정보 관련 파일의 타입 오류는 보고되지 않았으며, 다른 채팅의 해당 변경은 유지했다.
 
 커밋 선별 검증: 다른 채팅의 미커밋 변경을 제외하고 현재 HEAD에 이 채팅의 첫 커밋 대상만 반영한 저장소 밖 임시 사본에서 전체 TypeScript와 관련 소스 5개의 ESLint를 통과했다. 앞서 수행한 PC/MO 브라우저·Next/Storybook 빌드는 공유 작업 트리 기준이다.
+
+저장 연결 story의 실제 브라우저 play도 통과했다. member-api-827의 늦은 원본 데이터 반영, 대기 중 저장 비활성화, 실패 후 runner 이메일 초안 보존, 재시도 성공, changePassword 1회와 전체 프로필 payload를 검증했다. 모달이 배경 폼을 숨기는 동안의 비활성화 검사는 hidden 역할 조회를 명시한다.
+
+저장 연결 스토리의 선별 검증: 첫 커밋 대상과 이번 스토리만 반영한 동일 임시 사본에서 전체 TypeScript 및 추가 스토리의 ESLint를 통과했다. 다른 채팅의 미커밋 소스는 포함하지 않았다.

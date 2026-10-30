@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T08:34:43.457833+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
   - src/components/common/organisms/Address/AddressFields.tsx
