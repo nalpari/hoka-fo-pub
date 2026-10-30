@@ -1,136 +1,51 @@
-'use client';
+import { HStack, Stack } from 'styled-system/jsx';
 
-import Image from 'next/image';
-
-import { useState } from 'react';
-
-import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
-
-import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { storeCities, storesByCity } from '@/app/support/store/store.data';
+import type { StoreResult } from '@/types/component-contracts/app-support-store-page';
 
-/** Keeps the existing map sample undistorted within the PC/mobile preview frames. */
-function StoreMapPreview({ storeName }: { storeName: string }) {
-  return (
-    <Box
-      pos="relative"
-      w="100%"
-      h={{ base: '422px', _mobile: '240px' }}
-      overflow="hidden"
-      aria-label={`${storeName} 지도 미리보기`}
-    >
-      <Image
-        src="/images/store-finder/map-preview.png"
-        alt=""
-        width={1170}
-        height={2532}
-        className={css({
-          pos: 'absolute',
-          w: '105.36%',
-          h: 'auto',
-          top: '50%',
-          left: '-0.09%',
-          transform: 'translateY(-50%)',
-          maxW: 'none',
-        })}
-        unoptimized
-      />
-      <Grid pos="absolute" inset="0" gap="0" placeItems="center" bg="rgba(0, 0, 0, 0.5)">
-        <Typography variant="body4" tone="inverse">
-          API 지도 노출 영역
-        </Typography>
-      </Grid>
-    </Box>
-  );
-}
-
-type StoreResult = {
-  name: string;
-  address: string;
-  phone: string;
-  hours?: string;
-};
-
-function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
-  const [openedMap, setOpenedMap] = useState<string | null>('영등포 타임스퀘어점');
-
-  if (stores.length === 0) {
-    return (
-      <Box py="16" textAlign="center">
-        <Typography variant="body4" tone="tertiary">
-          등록된 매장이 없습니다.
-        </Typography>
-      </Box>
-    );
-  }
-
+/** 매장명과 주소·연락처·영업시간을 목록으로 표시합니다. (Displays store names, addresses, contact details, and hours.) */
+export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
   return (
     <Stack as="ul" m="0" p="0" listStyleType="none">
-      {stores.map((store) => {
-        const isOpen = openedMap === store.name;
-
-        return (
-          <ContentSection
-            as="li"
-            key={store.name}
-            gap="3"
-            px={{ base: '4', _mobile: '0' }}
-            py="6"
-            borderBottom="1px solid"
-            borderColor="black.20"
-            title={store.name}
-            headerProps={{
-              titleAs: 'h3',
-              titleProps: { variant: 'heading10', weight: 'semibold' },
-            }}
-            footer={
-              <Box>
-                <Button
-                  type="button"
-                  size="short"
-                  variant={isOpen ? 'secondary' : 'primary'}
-                  onClick={() => setOpenedMap(isOpen ? null : store.name)}
-                  aria-expanded={isOpen}
-                >
-                  길 찾기
-                </Button>
-              </Box>
-            }
-          >
-            <Stack gap="1">
+      {stores.map((store) => (
+        <ContentSection
+          as="li"
+          key={store.name}
+          gap="3"
+          px={{ base: '4', _mobile: '0' }}
+          py="6"
+          borderBottom="1px solid"
+          borderColor="black.20"
+          title={store.name}
+          headerProps={{
+            titleAs: 'h3',
+            titleProps: { variant: 'heading9', weight: 'semibold' },
+          }}
+        >
+          <Stack gap="1">
+            <Typography variant="body5" tone="tertiary">
+              {store.address}
+            </Typography>
+            <HStack gap="1">
               <Typography variant="body5" tone="tertiary">
-                {store.address}
+                전화번호:
               </Typography>
+              <Typography variant="body5">{store.phone}</Typography>
+            </HStack>
+            {store.hours && (
               <HStack gap="1">
                 <Typography variant="body5" tone="tertiary">
-                  전화번호:
+                  운영시간:
                 </Typography>
-                <Typography variant="body5">{store.phone}</Typography>
+                <Typography variant="body5">{store.hours}</Typography>
               </HStack>
-              {store.hours && (
-                <HStack gap="1">
-                  <Typography variant="body5" tone="tertiary">
-                    운영시간:
-                  </Typography>
-                  <Typography variant="body5">{store.hours}</Typography>
-                </HStack>
-              )}
-            </Stack>
-            {isOpen && <StoreMapPreview storeName={store.name} />}
-          </ContentSection>
-        );
-      })}
+            )}
+          </Stack>
+        </ContentSection>
+      ))}
     </Stack>
   );
 }
-
-export const tabs = storeCities.map((city) => ({
-  value: city,
-  label: city,
-  content: <StoreResults stores={storesByCity[city]} />,
-}));
