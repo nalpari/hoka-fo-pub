@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { config } from '@fortawesome/fontawesome-svg-core';
 import {
   faBan,
@@ -528,6 +530,10 @@ export function IaStructurePage({
           String(screen.sourceIaNumber ?? ''),
           String(screen.iaNumber),
           getScreenConnection(screen).route ?? '',
+          ...(getScreenConnection(screen).previewRoutes ?? []).flatMap(({ label, href }) => [
+            label,
+            href,
+          ]),
           ...getScreenConnection(screen).sourceFiles,
           screen.category,
           screen.screenCode,
@@ -930,18 +936,32 @@ function GroupRows({
                             })}
                           </div>
                         </>
-                      ) : route ? (
+                      ) : route || connection?.previewRoutes?.length ? (
                         <>
                           <div className={styles.preview}>
-                            <a
-                              href={route}
-                              target="_blank"
-                              rel="noreferrer"
-                              title={route + ' (경로 복사 및 새 창 열기)'}
-                              onClick={() => onCopyPath(route)}
-                            >
-                              <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
-                            </a>
+                            {route && (
+                              <a
+                                href={route}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={route + ' (경로 복사 및 새 창 열기)'}
+                                onClick={() => onCopyPath(route)}
+                              >
+                                <FontAwesomeIcon icon={faDesktop} aria-hidden="true" /> 페이지
+                              </a>
+                            )}
+                            {connection?.previewRoutes?.map(({ label, href }) => (
+                              <Link
+                                key={href}
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={href + ' (경로 복사 및 새 창 열기)'}
+                                onClick={() => onCopyPath(href)}
+                              >
+                                {label}
+                              </Link>
+                            ))}
                           </div>
                         </>
                       ) : (

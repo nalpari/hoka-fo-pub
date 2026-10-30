@@ -137,12 +137,9 @@ export const MobileCheckoutRetry: Story = { ...CheckoutRetry, parameters: { plat
 
 const login = fn();
 
-export const LoginRetry: Story = {
+export const LoginMarkup: Story = {
   beforeEach: () => {
-    login
-      .mockReset()
-      .mockRejectedValueOnce(new Error('로그인에 실패했습니다.'))
-      .mockResolvedValue(undefined);
+    login.mockReset();
   },
   render: () => (
     <ShopStatePreview login={login}>
@@ -159,15 +156,9 @@ export const LoginRetry: Story = {
       target: { value: 'Hoka1234!@' },
     });
     await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
-    await expect(await canvas.findByText('로그인에 실패했습니다.')).toBeInTheDocument();
+    await expect(login).not.toHaveBeenCalled();
     await expect(getRouter().push).not.toHaveBeenCalled();
-    await expect(login).toHaveBeenCalledWith({
-      id: 'tester',
-      password: 'Hoka1234!@',
-      rememberId: false,
-    });
-    await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
-    await waitFor(() => expect(getRouter().push).toHaveBeenCalledWith('/'));
+    await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
   },
 };
 

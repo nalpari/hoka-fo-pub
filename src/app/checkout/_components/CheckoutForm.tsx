@@ -48,6 +48,7 @@ function CheckoutPaymentNotice() {
 }
 
 type CheckoutContentProps = {
+  editShipping?: boolean;
   rows: readonly CheckoutRow[];
   total: number;
   discount: number;
@@ -66,7 +67,9 @@ type CheckoutContentProps = {
 };
 
 /** Prepared checkout sections; the form owns validation, consent and coupon state. */
-function CheckoutContent({
+/** 주문 표시 데이터와 입력 상태를 배치합니다. (Arranges prepared checkout data and input state.) */
+export function CheckoutContent({
+  editShipping = false,
   rows,
   total,
   discount,
@@ -92,7 +95,7 @@ function CheckoutContent({
       alignItems="start"
     >
       <Box gridColumn="1">
-        <CheckoutShipping errors={errors} />
+        <CheckoutShipping errors={errors} initialEditing={editShipping} />
       </Box>
       <Box gridColumn="1">
         <CheckoutSummary rows={rows} />
@@ -201,15 +204,7 @@ export function CheckoutForm({
   if (rows.length === 0 && binding?.error)
     return <Typography role="alert">{binding.error}</Typography>;
 
-  if (rows.length === 0)
-    return (
-      <Stack as="section" alignItems="center" gap="4" py="20">
-        <Typography as="p" variant="body3">
-          주문할 상품이 없습니다.
-        </Typography>
-        <Link href="/cart">장바구니로 돌아가기</Link>
-      </Stack>
-    );
+  if (rows.length === 0) return <CheckoutEmptyState />;
 
   return (
     <form
@@ -311,5 +306,17 @@ export function CheckoutForm({
       )}
       {(error || binding?.error) && <Typography role="alert">{error || binding?.error}</Typography>}
     </form>
+  );
+}
+
+/** 주문할 상품이 없는 상태를 표시합니다. (Displays checkout without orderable items.) */
+export function CheckoutEmptyState() {
+  return (
+    <Stack as="section" alignItems="center" gap="4" py="20">
+      <Typography as="p" variant="body3">
+        주문할 상품이 없습니다.
+      </Typography>
+      <Link href="/cart">장바구니로 돌아가기</Link>
+    </Stack>
   );
 }

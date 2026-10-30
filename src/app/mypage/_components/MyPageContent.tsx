@@ -229,11 +229,11 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   );
 }
 
-function MyPageRecentOrders() {
+function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   const platform = usePlatform();
-  const items = binding ? (summary?.orders ?? []) : orderItems;
+  const items = empty ? [] : binding ? (summary?.orders ?? []) : orderItems;
 
   return (
     <ContentSection
@@ -347,7 +347,7 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
 }
 
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
-export function RouteContent() {
+export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: boolean }) {
   const binding = useContext(MyPageDataContext).overview;
   const { logout: onLogout } = useShop();
   const [logoutOpen, setLogoutOpen] = useState(false);
@@ -358,7 +358,7 @@ export function RouteContent() {
         <BindingFeedback {...binding} />
         <Stack pt="6" gap="10">
           <MyPageOverviewProfile />
-          <MyPageRecentOrders />
+          <MyPageRecentOrders empty={previewNoOrders} />
 
           <Divider />
 
@@ -378,7 +378,7 @@ export function RouteContent() {
         onOpenChange={setLogoutOpen}
         onConfirm={() => {
           setLogoutOpen(false);
-          onLogout();
+          if (!previewNoOrders) onLogout();
         }}
       />
     </>

@@ -296,7 +296,8 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
   );
 }
 
-function RegistrationContent(props: RegistrationContentProps) {
+/** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
+export function RegistrationContent(props: RegistrationContentProps) {
   return (
     <AccountPageLayout
       title={props.stage === 'information' ? '회원 정보' : '부가 정보'}
@@ -411,7 +412,8 @@ type RegistrationMarketingConsentSummaryModalProps = {
 
 const preferenceLabel = (value: string) => (value === 'yes' ? '수신' : '수신안함');
 
-function RegistrationMarketingConsentSummaryModal({
+/** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
+export function RegistrationMarketingConsentSummaryModal({
   preferences,
   onOpenChange,
   onConfirm,

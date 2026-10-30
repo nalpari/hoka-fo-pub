@@ -17,22 +17,19 @@ import { ProductWidthSelector } from '@/components/common/molecules/ProductOptio
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { itemKey } from '@/app/cart/cart-item';
 import { getCartImage } from '@/mocks/cartDisplay';
 import { type Product } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 
-/** 상품 옵션 초안을 확인한 뒤 변경 사항을 저장합니다. (Edits and confirms a draft of cart product options.) */
+/** 상품 옵션의 선택과 닫기를 확인합니다. (Previews product option selection and dismissal.) */
 function CartOptionsDialog({
   item,
   product,
   onClose,
-  onSave,
 }: {
   item: CartItem;
   product: Product;
   onClose: () => void;
-  onSave: (next: CartItem) => void;
 }) {
   const [draft, setDraft] = useState(item);
   const color = product.colorOptions?.find((option) => option.color === draft.color);
@@ -40,7 +37,6 @@ function CartOptionsDialog({
   const width = widths?.find((option) => option.label === draft.width);
   const sizes = width?.sizes ?? product.sizes;
   const soldOut = width?.soldOut ?? product.soldOut;
-  const valid = sizes.includes(draft.size) && !soldOut.includes(draft.size);
 
   return (
     <ModalDialog
@@ -73,8 +69,7 @@ function CartOptionsDialog({
       actions={{
         kind: 'confirm',
         confirmLabel: '확인',
-        confirmDisabled: !valid,
-        onConfirm: () => onSave(draft),
+        onConfirm: onClose,
       }}
     >
       <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6" alignItems="start">
@@ -174,34 +169,26 @@ function CartLimitDialog({ open, onOpenChange }: CartLimitDialogProps) {
 }
 
 type CartDialogsProps = {
-  rows: { item: CartItem; product: Product }[];
-  editingKey: string | null;
+  editingRow: { item: CartItem; product: Product } | null;
   limited: boolean;
   onEditClose: () => void;
   onLimitedChange: (open: boolean) => void;
-  onSave: (item: CartItem, next: CartItem) => void;
 };
 
 /** 장바구니 옵션 편집과 수량 제한 안내를 표시합니다. (Displays cart option editing and purchase limit dialogs.) */
 export function CartDialogs({
-  rows,
-  editingKey,
+  editingRow,
   limited,
   onEditClose,
   onLimitedChange,
-  onSave,
 }: CartDialogsProps) {
-  const editingRow = rows.find(({ item }) => itemKey(item) === editingKey);
-
   return (
     <>
       {editingRow ? (
         <CartOptionsDialog
-          key={editingKey}
           item={editingRow.item}
           product={editingRow.product}
           onClose={onEditClose}
-          onSave={(next) => onSave(editingRow.item, next)}
         />
       ) : null}
       <CartLimitDialog open={limited} onOpenChange={onLimitedChange} />

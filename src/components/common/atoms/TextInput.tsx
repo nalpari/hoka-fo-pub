@@ -29,7 +29,7 @@ const textInput = css.raw({
   width: '100%',
   _focusVisible: {
     outline: '2px solid var(--color-focus-ring, var(--focus-ring))',
-    outlineOffset: '2px',
+    outlineOffset: '-2px',
   },
   _disabled: { opacity: '0.6', cursor: 'not-allowed' },
 });

@@ -29,6 +29,7 @@ type Props = {
   rating: RatingValue;
   body: string;
   invalid: boolean;
+  fixedErrors?: boolean;
   onOpenChange: (open: boolean) => void;
   onRatingChange: (value: RatingValue) => void;
   onBodyChange: (value: string) => void;
@@ -45,6 +46,7 @@ export function MyPageReviewDialog({
   rating,
   body,
   invalid,
+  fixedErrors = false,
   onOpenChange,
   onRatingChange,
   onBodyChange,
@@ -73,13 +75,15 @@ export function MyPageReviewDialog({
           </Typography>
           <FormField
             htmlFor="review-rating"
-            error={invalid && !rating ? '별점을 선택해 주세요.' : undefined}
+            error={invalid && (fixedErrors || !rating) ? '별점을 선택해 주세요.' : undefined}
           >
             <RatingStars ariaLabel="상품 만족도" value={rating} onValueChange={onRatingChange} />
           </FormField>
           <TextFormField
             id="review-body"
-            error={invalid && !body.trim() ? '리뷰 내용을 입력해 주세요.' : undefined}
+            error={
+              invalid && (fixedErrors || !body.trim()) ? '리뷰 내용을 입력해 주세요.' : undefined
+            }
             inputProps={{
               'aria-label': '리뷰 내용',
               multiline: true,

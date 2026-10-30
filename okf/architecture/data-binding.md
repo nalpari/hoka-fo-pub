@@ -6,8 +6,20 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:05:25Z'
+  at: '2026-10-30T01:18:10Z'
 working_tree_sources:
+  - src/app/screen-index/screenConnections.ts
+  - src/data/screenRegistry.ts
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/screen-index/_components/IaStructurePage.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - tests/order-policy.test.mjs
   - tests/inquiry-binding.test.mjs
   - src/components/orders/order-policy.ts
@@ -47,6 +59,15 @@ working_tree_sources:
 ---
 
 # 화면 데이터와 서비스 연결 계약
+
+## 장바구니·로그인 퍼블리싱 인계 전환 (2026-10-30)
+
+사용자 승인으로 장바구니와 로그인은 연결 가능한 서비스 흐름 시연 대신 단순한 마크업 확인 화면으로 바뀌었다. 이 절은 아래 과거 기록 중 두 라우트의 연결·계산·인증·저장 동작 설명을 대체한다. 다른 서비스 화면의 계약은 유지한다.
+
+- 장바구니: `cart-preview.ts`의 상품, 표시 금액, 품절 여부와 고정 합계만 사용한다. UI 조작은 로컬 상태이며 요청·삭제·저장·결제 URL 생성이 없다.
+- 로그인: `LoginContent.showErrors`가 고정 오류 표시를 선택한다. 인증/형식 검사/아이디 저장/소셜 인증/성공 이동/pending/retry는 미연결이다.
+- 개발팀 연결 소유자가 실제 데이터·요청·성공/실패·상태 갱신을 구현해야 한다. 소스의 `[ 개발팀 바인딩 ]` 주석은 이 미연결 경계를 설명하며 API 존재를 뜻하지 않는다.
+
 
 현재 서비스 API는 연결하지 않는다. 아래 계약은 기존 화면을 유지하며 개발팀이 조회 결과와 요청 함수를 연결할 수 있게 만든 경계다. Provider가 없으면 기존 퍼블리싱 데모가 동작한다. 라우트의 default export에 임의 props를 추가하거나 Storybook 전용 RoutePreview를 운영 데이터 주입에 사용하지 않는다.
 
@@ -102,7 +123,7 @@ working_tree_sources:
 
 ## 정책과 스킬
 
-[AGENTS.md](../../AGENTS.md#ui-data-and-service-binding-policy)에 화면/서비스 경계와 검증 기준을 명시한다. [component-reusability 스킬](../../.codex/skills/component-reusability/SKILL.md#ui-data-and-service-binding)은 해당 작업을 [참조 워크플로](../../.codex/skills/component-reusability/references/data-binding.md)로 안내한다. 기존 페이지 소유권·폼 가이드에서도 이 계약을 연결하며, 데이터 주입을 이유로 단일 부모 화면을 별도 파일로 분리하지 않는다.
+[AGENTS.md](../../AGENTS.md#ui-data-and-service-binding-policy)에 화면/서비스 경계와 검증 기준을 명시한다. [component-reusability 스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md#ui-data-and-service-binding)은 해당 작업을 [참조 워크플로](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/data-binding.md)로 안내한다. 기존 페이지 소유권·폼 가이드에서도 이 계약을 연결하며, 데이터 주입을 이유로 단일 부모 화면을 별도 파일로 분리하지 않는다.
 
 ## 나머지 화면의 연결과 상세 주석 (2026-10-29)
 
@@ -136,7 +157,7 @@ working_tree_sources:
 
 ## 개발팀 바인딩 주석 정책 (2026-10-29)
 
-신규 작성하거나 변경하는 바인딩 인계 주석의 표준 표기는 대괄호 안쪽 공백을 포함한 `[ 개발팀 바인딩 ]`이다. AGENTS.md의 UI data and service binding policy와 component-reusability의 바인딩 모드에 같은 규칙을 추가했다. [상세 규칙과 예시](../../.codex/skills/component-reusability/references/data-binding.md#developer-binding-comments)는 주석 위치, 연결 소유자·데이터/식별자·payload·요청 시점·성공/실패·상태 갱신 책임과 미연동 경계 설명을 정의한다.
+신규 작성하거나 변경하는 바인딩 인계 주석의 표준 표기는 대괄호 안쪽 공백을 포함한 `[ 개발팀 바인딩 ]`이다. AGENTS.md의 UI data and service binding policy와 component-reusability의 바인딩 모드에 같은 규칙을 추가했다. [상세 규칙과 예시](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/data-binding.md#developer-binding-comments)는 주석 위치, 연결 소유자·데이터/식별자·payload·요청 시점·성공/실패·상태 갱신 책임과 미연동 경계 설명을 정의한다.
 
 실제 계약 소유자 가까이에 필요한 설명을 작성하며 모든 JSX에 같은 주석을 반복하지 않는다. exported React 컴포넌트의 한글/영문 요약 JSDoc은 유지한다. 기존 `[개발팀 바인딩]` 표기는 관련 주석을 수정하는 범위에서 표준화하며, 이번 정책 변경만으로 앱 소스 전체를 다시 쓰거나 제외된 매장 지도 등을 수정하지 않는다. 이번 변경은 정책·스킬·문서만 대상으로 하며 기존 기능 검증 기록과 구분한다.
 
@@ -148,3 +169,7 @@ working_tree_sources:
 ## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
 
 CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+## 고정 상태 preview의 연결 경계 (2026-10-30)
+
+상태 preview는 실제 서비스 요청·인증·시간 경과·저장 결과 없이 표시하며 원본 기본 화면의 기존 domain context 계약과 구분한다. 고정 오류를 정상 입력으로 자동 해제하지 않고 완료 상태로 이동시키지 않는다. 로컬 입력·도움말·모달 닫기를 유지한다. [전체 URL과 상태별 소유자](publishing-state-previews-2026-10-30.md)를 참고한다.

@@ -144,7 +144,8 @@ type FindAccountContentProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
-function FindAccountContent({
+/** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
+export function FindAccountContent({
   name,
   phone,
   code,

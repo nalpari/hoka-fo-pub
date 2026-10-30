@@ -42,6 +42,7 @@ type Props = {
   phone: string;
   error?: string;
   verified: boolean;
+  previewState?: 'idle' | 'code-entry' | 'expired';
   onPhoneChange: (value: string) => void;
   onVerifiedChange: (verified: boolean, proof?: string) => void;
 };
@@ -53,6 +54,7 @@ function ProfilePhoneVerification({
   phone,
   error,
   verified,
+  previewState,
   onPhoneChange,
   onVerifiedChange,
 }: Props) {
@@ -63,11 +65,13 @@ function ProfilePhoneVerification({
   const [phoneError, setPhoneError] = useState('');
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
-  const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(null);
+  const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(
+    previewState === 'expired' ? 'expired' : null,
+  );
   const codeInput = useRef<HTMLInputElement>(null);
   const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
-  const requested = deadline !== null;
-  const expired = requested && secondsLeft === 0;
+  const requested = previewState ? previewState !== 'idle' : deadline !== null;
+  const expired = previewState ? previewState === 'expired' : requested && secondsLeft === 0;
 
   useEffect(() => {
     if (deadline === null) return;
@@ -88,6 +92,7 @@ function ProfilePhoneVerification({
   }
 
   function requestCode() {
+    if (previewState) return;
     if (!isValidPhone(phone)) {
       setPhoneError('휴대폰 번호를 올바르게 입력해주세요.');
       return;
@@ -109,6 +114,7 @@ function ProfilePhoneVerification({
   }
 
   function confirmCode() {
+    if (previewState) return;
     if (deadline === null) return;
     if (Date.now() >= deadline) {
       setNotice('expired');
@@ -199,7 +205,7 @@ function ProfilePhoneVerification({
               },
             }}
           />
-          <VerificationCountdown secondsLeft={secondsLeft} />
+          <VerificationCountdown secondsLeft={previewState ? (expired ? 0 : 125) : secondsLeft} />
           <StatusMessage>
             {binding
               ? '전송된 인증번호를 입력해 주세요.'
@@ -249,7 +255,9 @@ const domainOptions = [
 ];
 
 /** 회원정보 편집과 독립된 비밀번호 설정 진입을 제공합니다. (Provides profile editing and entry to independent password settings.) */
-function ProfileEditForm({
+/** 회원정보 수정 마크업을 표시합니다. (Displays profile editing markup.) */
+export function ProfileEditForm({
+  previewPhone,
   emailLocal,
   emailDomain,
   domainChoice,
@@ -291,6 +299,7 @@ function ProfileEditForm({
           ) : null}
         </Stack>
         <ProfilePhoneVerification
+          previewState={previewPhone}
           phone={phone}
           verified={phoneVerified}
           error={fieldErrors.phone}
@@ -440,6 +449,7 @@ function ProfileReadView({
 }
 
 type ProfilePasswordDialogProps = {
+  previewComplete?: boolean;
   onClose: () => void;
   onComplete: () => void;
 };
@@ -451,10 +461,17 @@ const titles = {
 };
 
 /** 비밀번호 입력·검증과 변경 확인·완료의 데모 흐름을 관리합니다. (Manages the demo flow for password validation, confirmation, and completion.) */
-function ProfilePasswordDialog({ onClose, onComplete }: ProfilePasswordDialogProps) {
+/** 비밀번호 변경 입력과 완료 상태를 표시합니다. (Displays password editing and completion states.) */
+export function ProfilePasswordDialog({
+  previewComplete = false,
+  onClose,
+  onComplete,
+}: ProfilePasswordDialogProps) {
   const binding = useContext(MyPageDataContext).profile;
   const request = useRequestAction();
-  const [step, setStep] = useState<'input' | 'confirm' | 'complete'>('input');
+  const [step, setStep] = useState<'input' | 'confirm' | 'complete'>(
+    previewComplete ? 'complete' : 'input',
+  );
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [errors, setErrors] = useState<Errors>({});

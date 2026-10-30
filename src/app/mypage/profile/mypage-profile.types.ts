@@ -11,6 +11,7 @@ export type ProfileValues = {
 export type ProfileAddress = { postalCode: string; address: string; addressDetail: string };
 
 export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
+  previewPhone?: 'idle' | 'code-entry' | 'expired';
   emailLocal: string;
   emailDomain: string;
   domainChoice: string;

@@ -6,9 +6,16 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:51:36Z'
+  at: '2026-10-30T01:24:21Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/form-controls.test.mjs
+  - tests/preview-links.test.mjs
+  - tests/app-router.test.mjs
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/login/preview-error/page.tsx
+  - src/app/cart/preview-empty/page.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -90,6 +97,17 @@ sources:
 ---
 
 # 변경 검증
+
+## 장바구니·로그인 마크업 단순화 검증 (2026-10-30)
+
+- `npm run typecheck`와 변경한 TS/TSX의 ESLint를 통과했다. `npm run lint:fix` 실행 중 생긴 범위 밖 import 정렬 수정은 되돌렸다. 전체 `npm run lint`는 기존 publishing-guide 4개 파일의 import 순서/그룹 오류 9건으로 실패한다.
+- `node --test tests/cart-display.test.mjs tests/form-controls.test.mjs tests/screen-files.test.mjs tests/screen-progress.test.mjs` 59개를 통과했다.
+- 실제 브라우저에서 PC/MO Storybook 14개 시나리오의 `storyFinished`와 play 예외를 함께 확인했다. 기본 입력/Enter/버튼, 고정 오류 유지, 도움말 Escape/포커스, 수량 변경과 금액 고정, 선택/삭제 무동작, 품절, 옵션 선택 후 미저장 닫기와 재열기, 제한 안내, 빈 목록, 로그인 서비스 미호출을 확인했다. 전역 a11y `todo` 설정의 경고는 남아 있으며 접근성 전체 통과를 뜻하지 않는다.
+- 실제 `/login`에서 입력·체크 후 제출/Enter/소셜 버튼을 눌러 URL·입력 유지, alert 없음, fetch/XHR 추가 0건과 local/session storage 변경 없음을 확인했다. `/login/preview-error`는 입력/제출 후 두 오류와 aria-invalid를 유지했다.
+- `/cart`에서 수량 증가 후 행 금액 유지, 주문·삭제 후 이동/행 제거 없음, checkout 링크 없음, `/cart/preview-empty`의 직접 빈 상태와 `/screen-index`의 상태별 링크를 확인했다.
+- 모달을 연 상태로 1024/1025px, 1199/1200px를 전환해 플랫폼 변경과 모달 유지, 1200px 이상 가로 넘침 없음을 확인했다. 1025~1199px의 1200px 캔버스는 기존 정책대로 유지한다. 브라우저 스크린샷 캡처가 시간 초과되어 픽셀 대조는 수행하지 못했으며 DOM·계산된 크기와 상호작용으로 검증했다.
+- 라우트 manifest 테스트에 새 확인 URL과 기존 누락 `/publishing-guide`를 반영했다. `npm run build`를 통과했고 새 URL 2개를 포함한 정적 페이지 생성과 TypeScript 검사를 완료했다. 이후 `node --test tests/app-router.test.mjs` 2개도 통과했다(관련 Node 테스트 합계 61개).
+
 
 ## IA 설명 제거 확인 (2026-10-29)
 
@@ -393,3 +411,20 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 `tests/screen-progress.test.mjs`의 기존 10개 테스트를 갱신해 통과했다. PC/MO 독립 상태, 디자인 수정예정 보존, 미수급과 대기, 범위 밖 기존 초기값과 명시적 override 우선순위를 확인한다. 실제 서비스 요청·모든 모달·경계 해상도 회귀와 프로덕션 빌드는 이번 데이터 변경에서 다시 실행하지 않았다.
 
 추가로 타입 검사, 변경 TS·테스트 ESLint/Prettier, `git diff --check`, 작업 트리 OKF 매핑 검사를 통과했다. IA 검색으로 쿠폰 174 양쪽 완료·아이핀 235 양쪽 대기·FAQ 공유 화면 185/207 양쪽 완료·회원등급 195 양쪽 수정 및 상세 비고를 확인했다. 회원등급 검색에서 MO 완료 필터는 빈 결과, MO 수정 필터는 해당 화면을 표시했다. 소스 그래프는 바뀌지 않았다.
+
+## 퍼블리싱 고정 상태 preview 검증 (2026-10-30)
+
+[상태 URL·소유권·미확정 목록](../architecture/publishing-state-previews-2026-10-30.md)의 새 preview 61개를 검증했다. 기존 2개를 포함해 모든 preview가 활성 IA에서 도달 가능하고 진입 파일이 생성 그래프에 포함되는지 검사한다. preview 링크의 행별 중복·미구현 URL과 삭제된 198/활성 200 매핑 회귀도 검사한다.
+
+- 전체 TypeScript 검사, 변경 TS/TSX·테스트의 ESLint 및 Prettier, Panda 생성, 최종 Next production build와 Storybook production build 통과.
+- `node --test`에 tests의 모든 `*.test.mjs`를 전달해 105개 통과. 명시적인 App Router 기대 목록도 새 라우트로 갱신했다.
+- Ego 브라우저에서 production 서버의 새 preview 61개를 1280px PC와 375px 모바일로 각각 직접 열었다. 122건에서 예상 플랫폼 클래스가 적용되고 수집한 window error·서비스 오류 fallback이 없었다. 모바일 61건은 문서의 수평 overflow가 없었다. 이것은 전체 픽셀 비교나 실제 API 검증을 뜻하지 않는다.
+- 기본 화면 13개(장바구니·로그인·주문서·마이페이지·쿠폰·회원정보·신청내역·문의 목록/등록/주문선택·가입정보/약관·런클럽)의 PC/MO 26건 직접 진입에서 런타임 오류가 없었다. 기존 전체 서비스 상호작용을 재검사한 것은 아니다.
+- screen-index의 상태명/URL 검색, 신청내역 200번의 기본·빈 목록 링크, 새 창으로 주문서 오류 preview 열기와 모바일 첨부 오류 링크 노출을 확인했다. 중복된 문의 IA 189·211에는 같은 preview가 각각 표시되는 것이 의도다.
+- 주문서에 입력해도 필드 오류가 유지되고 제출/완료 이동이 발생하지 않으며, 리뷰의 입력·별점·저장 이후 고정 오류와 입력값이 유지됨을 확인했다. 리뷰 모달은 Escape로 닫히고 다시 연 뒤 닫으면 '리뷰 작성' 버튼으로 포커스가 돌아왔다. 약관 전체동의 후에도 고정 오류를 유지하며 가입정보 오류 페이지 새로고침에서도 9개 필드 오류가 바로 표시됐다. 모바일 리뷰 오류 화면 캡처를 확인했다.
+- 리뷰 모달을 연 상태로 1024/1025·1199/1200px를 순서대로 바꿔 단일 모달과 platform 전환을 확인했다. 1025px에서는 1200px PC canvas에 따른 175px, 1199px에서는 1px 차이가 있었고 1200px에서는 추가 수평 overflow가 없었다. 플랫폼 구현 자체는 변경하지 않았다.
+- 전체 `npm run lint`는 이번에 수정하지 않은 publishing-guide의 ButtonGuide/FormGuide/TypographyGuide/page import 정렬 오류 9건으로 실패했다. 해당 파일은 작업 범위와 커밋에서 제외한다. Storybook은 기존 번들/플러그인 타이밍 경고와 함께 빌드됐다.
+
+마지막 보완에서는 FAQ의 조건 변경 후에도 빈 결과/페이지 수가 유지되도록 하고, 휴대폰 약관의 체크값과 고정 오류 표시를 분리했다. 실제 PhoneVerificationContent를 서버 렌더링해 모든 약관이 체크된 경우에도 preview에서만 4개 invalid가 유지되고 일반 폼에는 invalid가 생기지 않는 회귀 검사를 추가했다. 최종 소스의 타입·Next/Storybook 빌드와 관련 검사도 다시 수행했다.
+
+preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실제 요청 실패·재시도, 인증·결제·외부 PG는 이번 검증 대상이 아니다. 미확정 디자인을 구현 완료로 바꾸거나 IA 진행 상태를 변경하지 않았다.

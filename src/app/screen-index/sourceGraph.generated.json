@@ -17,7 +17,6 @@
       "src/mocks/products.ts"
     ],
     "src/app/cart/_components/CartDialogs.tsx": [
-      "src/app/cart/cart-item.ts",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
@@ -31,12 +30,17 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/app/cart/_components/CartHeading.tsx": [
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/ContentHeader.tsx"
+    ],
     "src/app/cart/_components/CartOrderActions.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/layouts/OrderActionBar.tsx",
       "src/components/common/molecules/AmountRow.tsx"
     ],
     "src/app/cart/_components/CartProductSection.tsx": [
+      "src/app/cart/_components/CartDialogs.tsx",
       "src/app/cart/cart-item.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
@@ -56,21 +60,22 @@
       "src/components/common/molecules/ContentHeader.tsx"
     ],
     "src/app/cart/cart-item.ts": [],
+    "src/app/cart/cart-preview.ts": ["src/mocks/products.ts"],
     "src/app/cart/page.tsx": [
-      "src/app/cart/_components/CartDialogs.tsx",
-      "src/app/cart/_components/CartEmptyState.tsx",
+      "src/app/cart/_components/CartHeading.tsx",
       "src/app/cart/_components/CartOrderActions.tsx",
       "src/app/cart/_components/CartProductSection.tsx",
       "src/app/cart/_components/CartSupportInfo.tsx",
-      "src/app/cart/cart-item.ts",
+      "src/app/cart/cart-preview.ts",
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/organisms/OrderRecommendations.tsx",
       "src/components/orders/OrderPageLayout.tsx",
-      "src/context/ShopShell.tsx",
-      "src/mocks/orderRecommendations.ts",
-      "src/mocks/products.ts"
+      "src/mocks/orderRecommendations.ts"
+    ],
+    "src/app/cart/preview-empty/page.tsx": [
+      "src/app/cart/_components/CartEmptyState.tsx",
+      "src/app/cart/_components/CartHeading.tsx",
+      "src/components/orders/OrderPageLayout.tsx"
     ],
     "src/app/checkout/_components/CheckoutAgreement.tsx": [
       "src/components/common/atoms/Checkbox.tsx",
@@ -135,6 +140,12 @@
       "src/components/common/organisms/Address/AddressFields.tsx",
       "src/context/CheckoutContext.ts"
     ],
+    "src/app/checkout/_components/CheckoutStatePreview.tsx": [
+      "src/app/cart/cart-preview.ts",
+      "src/app/checkout/_components/CheckoutComplete.tsx",
+      "src/app/checkout/_components/CheckoutForm.tsx",
+      "src/app/checkout/_components/CheckoutLayout.tsx"
+    ],
     "src/app/checkout/_components/CheckoutSummary.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
@@ -151,6 +162,15 @@
       "src/context/ShopShell.tsx",
       "src/hooks/useRequestAction.ts",
       "src/mocks/products.ts"
+    ],
+    "src/app/checkout/preview-complete/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
+    ],
+    "src/app/checkout/preview-empty/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
+    ],
+    "src/app/checkout/preview-error/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
     "src/app/collection/[id]/page.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -172,16 +192,12 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/StatusMessage.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/context/ShopShell.tsx",
       "src/context/platform.tsx",
-      "src/hooks/useRequestAction.ts",
-      "src/icons/fontAwesome.ts",
-      "src/lib/passwordValidation.ts"
+      "src/icons/fontAwesome.ts"
     ],
     "src/app/login/account-locked/_components/AccountLockedContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
@@ -203,6 +219,18 @@
       "src/context/AccountFlowContext.tsx",
       "src/hooks/usePhoneVerification.ts"
     ],
+    "src/app/login/account-locked/verification/preview-agreement-error/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/login/account-locked/verification/preview-code-entry/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/login/account-locked/verification/preview-error/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/login/account-locked/verification/preview-expired/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
     "src/app/login/find-account/_components/FindAccountContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/StatusMessage.tsx",
@@ -220,6 +248,9 @@
       "src/lib/phoneNumber.ts",
       "src/lib/useVerificationCountdown.ts",
       "src/lib/validation.ts"
+    ],
+    "src/app/login/find-account/_components/FindAccountStatePreview.tsx": [
+      "src/app/login/find-account/_components/FindAccountContent.tsx"
     ],
     "src/app/login/find-account/id-confirmation-modal/page.tsx": [
       "src/components/common/layouts/ModalDialog.tsx",
@@ -243,14 +274,30 @@
       "src/hooks/useRequestAction.ts",
       "src/lib/passwordValidation.ts"
     ],
+    "src/app/login/find-account/password-reset/_components/PasswordResetStatePreview.tsx": [
+      "src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx"
+    ],
     "src/app/login/find-account/password-reset/page.tsx": [
       "src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
-    "src/app/login/page.tsx": [
-      "src/app/login/_components/LoginContent.tsx",
-      "src/context/RoutePreview.tsx"
+    "src/app/login/find-account/password-reset/preview-complete/page.tsx": [
+      "src/app/login/find-account/password-reset/_components/PasswordResetStatePreview.tsx"
     ],
+    "src/app/login/find-account/password-reset/preview-error/page.tsx": [
+      "src/app/login/find-account/password-reset/_components/PasswordResetStatePreview.tsx"
+    ],
+    "src/app/login/find-account/preview-code-entry/page.tsx": [
+      "src/app/login/find-account/_components/FindAccountStatePreview.tsx"
+    ],
+    "src/app/login/find-account/preview-error/page.tsx": [
+      "src/app/login/find-account/_components/FindAccountStatePreview.tsx"
+    ],
+    "src/app/login/find-account/preview-expired/page.tsx": [
+      "src/app/login/find-account/_components/FindAccountStatePreview.tsx"
+    ],
+    "src/app/login/page.tsx": ["src/app/login/_components/LoginContent.tsx"],
+    "src/app/login/preview-error/page.tsx": ["src/app/login/_components/LoginContent.tsx"],
     "src/app/maintenance/page.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/mypage/_components/MyPageContent.tsx": [
       "src/app/mypage/mypage-home-data.ts",
@@ -280,6 +327,10 @@
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx"
     ],
+    "src/app/mypage/addresses/_components/AddressStatePreview.tsx": [
+      "src/app/mypage/addresses/_components/AddressManagement.tsx",
+      "src/components/mypage/MyPageFrame.tsx"
+    ],
     "src/app/mypage/addresses/page.tsx": [
       "src/app/mypage/addresses/_components/AddressManagement.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -287,6 +338,18 @@
       "src/context/MyPageDataContext.ts",
       "src/context/MyPageInitialState.ts",
       "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/mypage/addresses/preview-edit/page.tsx": [
+      "src/app/mypage/addresses/_components/AddressStatePreview.tsx"
+    ],
+    "src/app/mypage/addresses/preview-empty/page.tsx": [
+      "src/app/mypage/addresses/_components/AddressStatePreview.tsx"
+    ],
+    "src/app/mypage/addresses/preview-error/page.tsx": [
+      "src/app/mypage/addresses/_components/AddressStatePreview.tsx"
+    ],
+    "src/app/mypage/addresses/preview-new/page.tsx": [
+      "src/app/mypage/addresses/_components/AddressStatePreview.tsx"
     ],
     "src/app/mypage/coupons/_components/CouponManagement.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -307,7 +370,16 @@
       "src/app/mypage/coupons/_components/CouponManagement.tsx",
       "src/context/RoutePreview.tsx"
     ],
-    "src/app/mypage/event-entries/page.tsx": [
+    "src/app/mypage/coupons/preview-complete/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx"
+    ],
+    "src/app/mypage/coupons/preview-detail/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx"
+    ],
+    "src/app/mypage/coupons/preview-error/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx"
+    ],
+    "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
@@ -321,6 +393,12 @@
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
+    "src/app/mypage/event-entries/page.tsx": [
+      "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
+    ],
+    "src/app/mypage/event-entries/preview-empty/page.tsx": [
+      "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
+    ],
     "src/app/mypage/member-activity/page.tsx": [
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/SidebarNavigationLayout.tsx",
@@ -331,6 +409,19 @@
     ],
     "src/app/mypage/mypage-home-data.ts": [],
     "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/orders/preview-cancel-detail/page.tsx": [
+      "src/components/orders/OrdersRoute.tsx",
+      "src/components/orders/orders.data.ts"
+    ],
+    "src/app/mypage/orders/preview-detail/page.tsx": [
+      "src/components/orders/OrdersRoute.tsx",
+      "src/components/orders/orders.data.ts"
+    ],
+    "src/app/mypage/orders/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/orders/preview-return-detail/page.tsx": [
+      "src/components/orders/OrdersRoute.tsx",
+      "src/components/orders/orders.data.ts"
+    ],
     "src/app/mypage/page.tsx": [
       "src/app/mypage/_components/MyPageContent.tsx",
       "src/context/RoutePreview.tsx"
@@ -347,6 +438,7 @@
       "src/context/MyPageDataContext.ts",
       "src/hooks/useRequestAction.ts"
     ],
+    "src/app/mypage/preview-no-orders/page.tsx": ["src/app/mypage/_components/MyPageContent.tsx"],
     "src/app/mypage/profile/_components/ProfileContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
@@ -370,6 +462,10 @@
       "src/lib/phoneNumber.ts",
       "src/lib/useVerificationCountdown.ts"
     ],
+    "src/app/mypage/profile/_components/ProfileStatePreview.tsx": [
+      "src/app/mypage/profile/_components/ProfileContent.tsx",
+      "src/components/mypage/MyPageFrame.tsx"
+    ],
     "src/app/mypage/profile/mypage-profile.types.ts": [],
     "src/app/mypage/profile/page.tsx": [
       "src/app/mypage/profile/_components/ProfileContent.tsx",
@@ -378,7 +474,25 @@
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts"
     ],
+    "src/app/mypage/profile/preview-code-entry/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileStatePreview.tsx"
+    ],
+    "src/app/mypage/profile/preview-edit/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileStatePreview.tsx"
+    ],
+    "src/app/mypage/profile/preview-error/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileStatePreview.tsx"
+    ],
+    "src/app/mypage/profile/preview-expired/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileStatePreview.tsx"
+    ],
+    "src/app/mypage/profile/preview-password-complete/page.tsx": [
+      "src/app/mypage/profile/_components/ProfileStatePreview.tsx"
+    ],
     "src/app/mypage/recent/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/mypage/recent/preview-empty/page.tsx": [
+      "src/components/mypage/MyPageProductHistory.tsx"
+    ],
     "src/app/mypage/referral/_components/ReferralContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
@@ -398,7 +512,11 @@
       "src/components/mypage/mypage.data.ts"
     ],
     "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/mypage/restock-alerts/preview-empty/page.tsx": [
+      "src/components/mypage/MyPageProductHistory.tsx"
+    ],
     "src/app/mypage/returns/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/returns/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
     "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
@@ -412,6 +530,11 @@
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/molecules/ProductThumbnail.tsx"
     ],
+    "src/app/mypage/reviews/_components/ReviewStatePreview.tsx": [
+      "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
+      "src/app/mypage/reviews/reviewFixtures.ts",
+      "src/components/mypage/MyPageFrame.tsx"
+    ],
     "src/app/mypage/reviews/page.tsx": [
       "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
       "src/app/mypage/reviews/reviewFixtures.ts",
@@ -420,6 +543,21 @@
       "src/context/MyPageDataContext.ts",
       "src/context/MyPageInitialState.ts",
       "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/mypage/reviews/preview-edit/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-empty/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-error/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-new/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-written-empty/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
     ],
     "src/app/mypage/reviews/reviewFixtures.ts": [],
     "src/app/mypage/reviews/reviews.types.ts": [],
@@ -435,8 +573,12 @@
       "src/context/MyPageDataContext.ts"
     ],
     "src/app/mypage/wishlist/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
+    "src/app/mypage/wishlist/preview-empty/page.tsx": [
+      "src/components/mypage/MyPageProductHistory.tsx"
+    ],
     "src/app/not-found.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/page.tsx": ["src/app/_components/HomeContent.tsx", "src/context/RoutePreview.tsx"],
+    "src/app/preview-not-found/page.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/products/[id]/_components/ProductDetailContent.tsx": [
       "src/app/products/[id]/_components/ProductDetailViewerContent.tsx",
       "src/app/products/[id]/productDetailPresentation.ts",
@@ -485,6 +627,12 @@
       "src/components/common/molecules/SizeSelector/koreanSizes.ts"
     ],
     "src/app/products/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
+    "src/app/products/preview-empty-inquiries/page.tsx": [
+      "src/app/products/[id]/_components/ProductDetailContent.tsx"
+    ],
+    "src/app/products/preview-no-results/page.tsx": [
+      "src/components/catalog/ProductListingStatePreview.tsx"
+    ],
     "src/app/publishing-guide/_components/ButtonGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -566,7 +714,11 @@
       "src/mocks/products.ts"
     ],
     "src/app/running/run-club/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
+    "src/app/running/run-club/preview-empty/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
     "src/app/search/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
+    "src/app/search/preview-no-results/page.tsx": [
+      "src/components/catalog/ProductListingStatePreview.tsx"
+    ],
     "src/app/service-unavailable/page.tsx": [
       "src/components/common/organisms/SystemStatusPage.tsx"
     ],
@@ -604,9 +756,18 @@
       "src/lib/passwordValidation.ts",
       "src/lib/validation.ts"
     ],
+    "src/app/signup/information/_components/RegistrationStatePreview.tsx": [
+      "src/app/signup/information/_components/RegistrationContent.tsx"
+    ],
     "src/app/signup/information/page.tsx": [
       "src/app/signup/information/_components/RegistrationContent.tsx",
       "src/context/RoutePreview.tsx"
+    ],
+    "src/app/signup/information/preview-error/page.tsx": [
+      "src/app/signup/information/_components/RegistrationStatePreview.tsx"
+    ],
+    "src/app/signup/information/preview-marketing-consent/page.tsx": [
+      "src/app/signup/information/_components/RegistrationStatePreview.tsx"
     ],
     "src/app/signup/information/registration.types.ts": [],
     "src/app/signup/page.tsx": [
@@ -626,9 +787,15 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/context/AccountFlowContext.tsx"
     ],
+    "src/app/signup/terms/_components/SignupTermsStatePreview.tsx": [
+      "src/app/signup/terms/_components/SignupTermsContent.tsx"
+    ],
     "src/app/signup/terms/page.tsx": [
       "src/app/signup/terms/_components/SignupTermsContent.tsx",
       "src/context/RoutePreview.tsx"
+    ],
+    "src/app/signup/terms/preview-error/page.tsx": [
+      "src/app/signup/terms/_components/SignupTermsStatePreview.tsx"
     ],
     "src/app/signup/verify/_components/IdentityVerificationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -642,6 +809,10 @@
       "src/app/signup/verify/_components/IdentityVerificationContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
+    "src/app/signup/verify/phone/_components/ExistingAccountPreview.tsx": [
+      "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx",
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
     "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx": [
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
@@ -652,6 +823,21 @@
     "src/app/signup/verify/phone/page.tsx": [
       "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx",
       "src/context/RoutePreview.tsx"
+    ],
+    "src/app/signup/verify/phone/preview-agreement-error/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/signup/verify/phone/preview-already-registered/page.tsx": [
+      "src/app/signup/verify/phone/_components/ExistingAccountPreview.tsx"
+    ],
+    "src/app/signup/verify/phone/preview-code-entry/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/signup/verify/phone/preview-error/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
+    ],
+    "src/app/signup/verify/phone/preview-expired/page.tsx": [
+      "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
     ],
     "src/app/support/_components/SupportContacts.tsx": [
       "src/components/common/atoms/Typography.tsx"
@@ -693,12 +879,26 @@
       "src/app/support/faq/_components/FaqContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
+    "src/app/support/faq/preview-no-results/page.tsx": [
+      "src/app/support/faq/_components/FaqContent.tsx"
+    ],
     "src/app/support/inquiries/_components/InquiryListContent.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/Carousel/Carousel.tsx"
+    ],
+    "src/app/support/inquiries/_components/InquiryListLayout.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/inquiries/_components/InquiryStatePreview.tsx": [
+      "src/app/support/inquiries/_components/InquiryListContent.tsx",
+      "src/app/support/inquiries/_components/InquiryListLayout.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/support/InquiryCautions.tsx"
     ],
     "src/app/support/inquiries/new/_components/InquiryFormContent.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -712,11 +912,23 @@
       "src/context/InquiryDataContext.ts",
       "src/icons/fontAwesome.ts"
     ],
+    "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx": [
+      "src/app/support/support.navigation.ts",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/support/CustomerCenterLayout.tsx"
+    ],
+    "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
+      "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/support/InquiryCautions.tsx"
+    ],
     "src/app/support/inquiries/new/inquiryOrders.data.ts": [],
     "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts": [
       "src/app/support/inquiries/new/inquiryOrders.data.ts"
     ],
-    "src/app/support/inquiries/new/order-products/page.tsx": [
+    "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx": [
       "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts",
       "src/app/support/inquiries/new/inquiryOrders.data.ts",
       "src/app/support/support.navigation.ts",
@@ -733,33 +945,56 @@
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
+    "src/app/support/inquiries/new/order-products/page.tsx": [
+      "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx"
+    ],
+    "src/app/support/inquiries/new/order-products/preview-empty/page.tsx": [
+      "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx"
+    ],
     "src/app/support/inquiries/new/page.tsx": [
       "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
+      "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
       "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts",
-      "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
       "src/components/support/InquiryCautions.tsx",
       "src/context/InquiryDataContext.ts",
       "src/hooks/useRequestAction.ts"
     ],
+    "src/app/support/inquiries/new/preview-attachment-count/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
+    ],
+    "src/app/support/inquiries/new/preview-attachment-size/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
+    ],
+    "src/app/support/inquiries/new/preview-attachment-type/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
+    ],
+    "src/app/support/inquiries/new/preview-error/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
+    ],
+    "src/app/support/inquiries/new/preview-order-required/page.tsx": [
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
+    ],
     "src/app/support/inquiries/page.tsx": [
       "src/app/support/inquiries/_components/InquiryListContent.tsx",
-      "src/app/support/support.navigation.ts",
+      "src/app/support/inquiries/_components/InquiryListLayout.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
       "src/components/support/InquiryCautions.tsx",
       "src/context/InquiryDataContext.ts",
       "src/context/InquiryPreviewContext.ts",
       "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
+    ],
+    "src/app/support/inquiries/preview-answered/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
+    ],
+    "src/app/support/inquiries/preview-unanswered/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
     ],
     "src/app/support/member-benefits/page.tsx": [
       "src/app/support/support.navigation.ts",
@@ -890,6 +1125,9 @@
       "src/hooks/useRequestAction.ts",
       "src/lib/useScrollPin.ts",
       "src/mocks/products.ts"
+    ],
+    "src/components/catalog/ProductListingStatePreview.tsx": [
+      "src/components/catalog/ProductListingPage.tsx"
     ],
     "src/components/common/atoms/Accordion.tsx": [
       "src/components/common/atoms/Icon.tsx",
@@ -1214,6 +1452,9 @@
       "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
       "src/context/PhoneVerificationContext.ts"
     ],
+    "src/components/phone-verification/PhoneVerificationStatePreview.tsx": [
+      "src/components/phone-verification/PhoneVerificationContent.tsx"
+    ],
     "src/components/run-club/runClub.data.ts": [],
     "src/components/run-club/RunClubPage.tsx": [
       "src/components/common/atoms/Badge.tsx",
@@ -1312,7 +1553,8 @@
     "src/types/type-tests/Button.type-test.tsx": ["src/components/common/atoms/Button.tsx"]
   },
   "bindingFiles": [
-    "src/app/cart/page.tsx",
+    "src/app/cart/_components/CartProductSection.tsx",
+    "src/app/cart/cart-preview.ts",
     "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
     "src/app/checkout/_components/CheckoutPayment.tsx",
     "src/app/checkout/page.tsx",
@@ -1321,16 +1563,17 @@
     "src/app/layout.tsx",
     "src/app/locales/locales.data.ts",
     "src/app/locales/page.tsx",
+    "src/app/login/_components/LoginContent.tsx",
     "src/app/login/account-locked/complete/page.tsx",
     "src/app/login/account-locked/page.tsx",
     "src/app/login/account-locked/verification/page.tsx",
     "src/app/login/find-account/id-confirmation-modal/page.tsx",
     "src/app/login/find-account/page.tsx",
     "src/app/login/find-account/password-reset/page.tsx",
-    "src/app/login/page.tsx",
     "src/app/mypage/addresses/page.tsx",
+    "src/app/mypage/coupons/_components/CouponManagement.tsx",
     "src/app/mypage/coupons/page.tsx",
-    "src/app/mypage/event-entries/page.tsx",
+    "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx",
     "src/app/mypage/member-activity/page.tsx",
     "src/app/mypage/mypage-home-data.ts",
     "src/app/mypage/orders/page.tsx",
@@ -1367,7 +1610,7 @@
     "src/app/support/faq/faq.data.ts",
     "src/app/support/faq/page.tsx",
     "src/app/support/inquiries/new/inquiryOrders.data.ts",
-    "src/app/support/inquiries/new/order-products/page.tsx",
+    "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx",
     "src/app/support/inquiries/new/page.tsx",
     "src/app/support/inquiries/page.tsx",
     "src/app/support/member-benefits/page.tsx",

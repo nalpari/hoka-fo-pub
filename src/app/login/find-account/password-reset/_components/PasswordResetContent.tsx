@@ -76,7 +76,8 @@ type PasswordResetContentProps = {
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-function PasswordResetContent({
+/** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
+export function PasswordResetContent({
   password,
   confirmation,
   errors,
@@ -150,7 +151,11 @@ type PasswordResetCompleteModalProps = {
   onConfirm: () => void;
 };
 
-function PasswordResetCompleteModal({ onOpenChange, onConfirm }: PasswordResetCompleteModalProps) {
+/** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
+export function PasswordResetCompleteModal({
+  onOpenChange,
+  onConfirm,
+}: PasswordResetCompleteModalProps) {
   return (
     <ModalDialog
       open

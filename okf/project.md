@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:05:25Z'
+  at: '2026-10-30T01:18:10Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/hooks/useBindingQuery.ts
@@ -167,3 +167,7 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 첨부 디자인의 표시 모델 확장 (2026-10-29)
 
 주문 쿠폰의 상품 행 식별자·선택 쿠폰과 기본배송지 저장 의도, 마이페이지 주문 수량/등급 진행률을 표시·제출 모델로 연결했다. 실제 결제/회원/취소 서비스가 구현된 것으로 간주하지 않는다. [구현 범위·출처·검증](architecture/design-implementation-2026-10-29.md).
+
+## 상태 preview와 IA 연결 범위 (2026-10-30)
+
+기존 59개 페이지에 고정 확인용 preview 61개를 추가했다. screenRegistry의 IA 번호와 진행 상태는 유지하고 러닝세션 신청내역의 오래된 동일 화면 설명만 실제 소유자로 정정했다. [연결 범위와 미확정 항목](architecture/publishing-state-previews-2026-10-30.md)을 참고한다.

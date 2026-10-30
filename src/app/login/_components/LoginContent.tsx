@@ -1,12 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { Popover } from '@base-ui/react/popover';
-import { type ComponentProps, type FormEvent, type ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -14,7 +10,6 @@ import { HStack, Stack } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Icon } from '@/components/common/atoms/Icon';
-import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
@@ -23,7 +18,6 @@ import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { faCircleInfo } from '@/icons/fontAwesome';
-import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
 
 function LoginLayout({ children }: { children: ReactNode }) {
   return (
@@ -48,16 +42,16 @@ function LoginLayout({ children }: { children: ReactNode }) {
   );
 }
 
-function LoginActions({ onUnavailable }: { onUnavailable: (feature: string) => void }) {
+function LoginActions() {
   return (
     <Stack gap="2" mt="2">
       <Button fullWidth variant="primary" type="submit">
         로그인
       </Button>
-      <Button social={{ provider: 'kakao' }} onClick={() => onUnavailable('카카오 로그인')}>
+      <Button social={{ provider: 'kakao' }} type="button">
         카카오 로그인
       </Button>
-      <Button social={{ provider: 'naver' }} onClick={() => onUnavailable('네이버 로그인')}>
+      <Button social={{ provider: 'naver' }} type="button">
         네이버 로그인
       </Button>
     </Stack>
@@ -138,61 +132,32 @@ function RememberIdHelp() {
 
 const rememberIdCheckbox = css({ flexShrink: '0' });
 
-type LoginNotice = {
-  tone: 'error' | 'success';
-  message: string;
-};
-
 type LoginFormProps = {
-  id: string;
-  password: string;
-  rememberId: boolean;
-  notice: LoginNotice | null;
-  pending?: boolean;
-  errors?: Partial<Record<'id' | 'password', string>>;
-  onIdChange: (value: string) => void;
-  onPasswordChange: (value: string) => void;
-  onRememberChange: (value: boolean) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onFindAccount: () => void;
-  onUnavailable: (feature: string) => void;
+  showErrors?: boolean;
 };
 
-function LoginForm({
-  id,
-  password,
-  rememberId,
-  notice,
-  errors,
-  pending,
-  onIdChange,
-  onPasswordChange,
-  onRememberChange,
-  onSubmit,
-  onFindAccount,
-  onUnavailable,
-}: LoginFormProps) {
+function LoginForm({ showErrors = false }: LoginFormProps) {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberId, setRememberId] = useState(false);
+
   return (
-    <form onSubmit={onSubmit} aria-labelledby="login-title" noValidate>
-      <fieldset
-        disabled={pending}
-        aria-busy={pending}
-        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
-      >
+    <form onSubmit={(event) => event.preventDefault()} aria-labelledby="login-title" noValidate>
+      <fieldset className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
         <Stack gap="4">
           <TextFormField
             variant="boxed"
             id="login-id"
             label="아이디"
             required
-            error={errors?.id}
+            error={showErrors ? '아이디를 입력해 주세요' : undefined}
             inputProps={{
               name: 'username',
               type: 'text',
               autoComplete: 'username',
               placeholder: '아이디를 입력해 주세요',
               value: id,
-              onChange: (event) => onIdChange(event.target.value),
+              onChange: (event) => setId(event.target.value),
             }}
           />
           <TextFormField
@@ -200,14 +165,18 @@ function LoginForm({
             id="login-password"
             label="비밀번호"
             required
-            error={errors?.password}
+            error={
+              showErrors
+                ? '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'
+                : undefined
+            }
             inputProps={{
               name: 'password',
               autoComplete: 'current-password',
               placeholder: '비밀번호를 입력해 주세요',
               type: 'password',
               value: password,
-              onChange: (event) => onPasswordChange(event.target.value),
+              onChange: (event) => setPassword(event.target.value),
             }}
           />
           <HStack justifyContent="space-between" gap="2" minH="6">
@@ -216,23 +185,17 @@ function LoginForm({
                 className={rememberIdCheckbox}
                 label="아이디 저장"
                 checked={rememberId}
-                onCheckedChange={onRememberChange}
+                onCheckedChange={setRememberId}
               />
               <RememberIdHelp />
             </HStack>
-            <Button variant="link" size="md" onClick={onFindAccount}>
+            <ButtonLink variant="link" size="md" href="/login/find-account">
               <Typography as="span" variant="body4">
                 아이디/비밀번호 찾기
               </Typography>
-            </Button>
+            </ButtonLink>
           </HStack>
-          {notice ? (
-            <StatusMessage id="login-notice" tone={notice.tone}>
-              {notice.message}
-            </StatusMessage>
-          ) : null}
-          <LoginActions onUnavailable={onUnavailable} />
-          {pending && <Typography role="status">로그인 중입니다.</Typography>}
+          <LoginActions />
         </Stack>
       </fieldset>
     </form>
@@ -266,102 +229,19 @@ function LoginMembership() {
   );
 }
 
-function LoginContent(props: ComponentProps<typeof LoginForm>) {
+/**
+ * 로그인 기본 또는 고정 오류 마크업을 표시합니다. (Displays the default login markup or fixed field errors.)
+ *
+ * [ 개발팀 바인딩 ]
+ * 이 화면은 퍼블리싱 확인용이며 showErrors는 고정 오류 표시만 선택합니다. 입력과 체크는 로컬 UI 상태입니다.
+ * 인증·형식 검증·소셜 로그인·아이디 저장소 연결·요청 상태·완료 이동은 구현하지 않습니다.
+ * 개발팀은 실제 로그인 소유자에서 입력값과 동의 상태를 수집하고 요청·오류·저장·이동을 연결해야 합니다.
+ */
+export function LoginContent({ showErrors = false }: LoginFormProps) {
   return (
     <LoginLayout>
-      <LoginForm {...props} />
+      <LoginForm showErrors={showErrors} />
       <LoginMembership />
     </LoginLayout>
   );
 }
-
-/** 로그인 입력을 검증하고 상점 로그인 상태를 연결합니다. (Validates login inputs and connects shop authentication state.) */
-export function RouteContent() {
-  const { login: onLogin, authenticationMode } = useShop();
-  const request = useRequestAction();
-  const router = useRouter();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberId, setRememberId] = useState(false);
-  const [notice, setNotice] = useState<LoginNotice | null>(null);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const validId = /^[a-zA-Z0-9_]{4,20}$/.test(id);
-  const idError = !id
-    ? '아이디를 입력해 주세요'
-    : '영문, 숫자, 밑줄(_) 조합으로 4~20자 입력해 주세요.';
-  const validPassword = isValidPassword(password);
-  const errors = {
-    id: hasSubmitted && !validId ? idError : undefined,
-    password: hasSubmitted && !validPassword ? passwordRequirementsMessage : undefined,
-  };
-
-  const showUnavailable = (feature: string) => {
-    setNotice({
-      tone: 'error',
-      message: `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
-    });
-  };
-
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setHasSubmitted(true);
-    setNotice(null);
-
-    if (!validId || !validPassword) {
-      return;
-    }
-
-    void request.run(async () => {
-      try {
-        await onLogin({ id, password, rememberId });
-      } catch (error) {
-        if (
-          error &&
-          typeof error === 'object' &&
-          'code' in error &&
-          error.code === 'ACCOUNT_LOCKED'
-        ) {
-          router.push('/login/account-locked');
-          return;
-        }
-        throw error;
-      }
-      setNotice({
-        tone: 'success',
-        message:
-          authenticationMode === 'demo'
-            ? `${id}${rememberId ? ' 아이디를 저장하고' : ''} 로그인했습니다. (데모)`
-            : '로그인했습니다.',
-      });
-      router.push('/');
-    });
-  };
-
-  return (
-    <LoginContent
-      id={id}
-      password={password}
-      rememberId={rememberId}
-      notice={request.error ? { tone: 'error', message: request.error } : notice}
-      pending={request.pending}
-      errors={errors}
-      onIdChange={(value) => {
-        setId(value);
-        setNotice(null);
-      }}
-      onPasswordChange={(value) => {
-        setPassword(value);
-        setNotice(null);
-      }}
-      onRememberChange={setRememberId}
-      onSubmit={handleLogin}
-      onFindAccount={() => router.push('/login/find-account')}
-      onUnavailable={showUnavailable}
-    />
-  );
-}
-
-export const routePreviewComponents = { LoginContent } satisfies Pick<
-  typeof import('@/types/component-contracts/app-login-page'),
-  'LoginContent'
->;

@@ -147,7 +147,12 @@ const verificationTerms = [
 
 type PhoneVerificationAgreementsProps = Pick<
   PhoneVerificationContentProps,
-  'agreements' | 'showAgreementErrors' | 'onAllAgree' | 'onAgreementChange' | 'onDetail'
+  | 'agreements'
+  | 'fixedAgreementErrors'
+  | 'showAgreementErrors'
+  | 'onAllAgree'
+  | 'onAgreementChange'
+  | 'onDetail'
 >;
 
 function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
@@ -159,7 +164,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         checked={agreements[index]}
         onCheckedChange={(checked) => props.onAgreementChange(index, checked)}
         required
-        invalid={showAgreementErrors && !agreements[index]}
+        invalid={showAgreementErrors && (props.fixedAgreementErrors || !agreements[index])}
         label={
           <>
             <Typography variant="body4">(필수) {term}</Typography>
@@ -434,6 +439,7 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
         <Stack gap="6">
           <PhoneVerificationAgreements
             agreements={props.agreements}
+            fixedAgreementErrors={props.fixedAgreementErrors}
             showAgreementErrors={props.showAgreementErrors}
             onAllAgree={props.onAllAgree}
             onAgreementChange={props.onAgreementChange}

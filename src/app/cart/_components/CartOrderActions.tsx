@@ -2,7 +2,7 @@
 
 import { Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Button } from '@/components/common/atoms/Button';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow';
 
@@ -10,11 +10,10 @@ import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 type CartOrderActionsProps = {
   total: number;
-  checkoutHref: string | null;
 };
 
-/** 결제예정금액과 주문 가능 상태에 따른 액션을 표시합니다. (Displays the cart total and available order action.) */
-export function CartOrderActions({ total, checkoutHref }: CartOrderActionsProps) {
+/** 고정 결제예정금액과 주문 버튼을 표시합니다. (Displays the fixed preview total and order button.) */
+export function CartOrderActions({ total }: CartOrderActionsProps) {
   return (
     <OrderActionBar>
       <Stack gap="5">
@@ -24,15 +23,9 @@ export function CartOrderActions({ total, checkoutHref }: CartOrderActionsProps)
           emphasis
           display={{ base: 'none', _mobile: 'flex' }}
         />
-        {checkoutHref ? (
-          <ButtonLink href={checkoutHref} variant="primary" fullWidth>
-            주문하기
-          </ButtonLink>
-        ) : (
-          <Button variant="primary" fullWidth disabled>
-            주문하기
-          </Button>
-        )}
+        <Button variant="primary" fullWidth>
+          주문하기
+        </Button>
       </Stack>
     </OrderActionBar>
   );

@@ -26,6 +26,7 @@ export type PhoneVerificationContentProps = {
   information: PhoneInformation;
   agreements: boolean[];
   showAgreementErrors?: boolean;
+  fixedAgreementErrors?: boolean;
   requested: boolean;
   code: string;
   secondsLeft: number;

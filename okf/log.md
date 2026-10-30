@@ -2,6 +2,13 @@
 
 ## 2026-10-30
 
+- 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
+
+- 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
+
+- 장바구니·로그인을 고정 마크업 확인용으로 단순화하고 빈 목록·로그인 오류 직접 URL 및 IA 링크를 추가했다. 인증·검증·계산·삭제·옵션 저장·결제 이동을 제거하고 최소 UI 조작을 유지했다. 관련 Storybook을 고정 상태 검증으로 전환했다. 프로덕션 빌드·타입·변경 파일 린트·관련 Node 테스트 61개와 Storybook 14개를 통과했다. 전체 린트의 기존 import 오류 9건과 화면 캡처 한계는 [검증 기록](development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)에 남겼다. [현재 인계 기준](architecture/data-binding.md#장바구니로그인-퍼블리싱-인계-전환-2026-10-30).
+
+- 기본 TextInput 포커스 링을 바깥 outline에서 기존 보더 위에 겹치는 안쪽 outline으로 조정했다. boxed FormField와 SearchField의 별도 포커스 방식은 유지한다. [UI 규칙](architecture/ui.md#textinput-포커스-테두리-겹침-2026-10-30). 브라우저 시각 검증은 하지 않았다.
 - 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.
 
 - 퍼블리싱 가이드 폼 탭에 현재 공통 폼 컴포넌트 미리보기와 복사 가능한 사용 코드를 추가했다. 실제 주소 검색·폼 제출 API는 연결하지 않고 제어형 예시는 페이지 내부 상태로 동작한다. [라우팅과 범위](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)를 참고한다.
@@ -223,7 +230,7 @@
 
 - ESLint의 import 그룹·named binding 정렬과 부수 효과 경계 보호를 도입했다. 고정 개발 의존성·CLI·VS Code 저장 자동화·코드 규칙 및 회귀 테스트를 추가했다. [검증 정책](development/verification.md#import-자동-정렬-2026-10-28)을 참고한다.
 
-- 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](../.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](../.codex/skills/component-reusability/references/single-parent-consolidation.md).
+- 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/single-parent-consolidation.md).
 
 - 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](architecture/single-parent-consolidation-2026-10-28.md).
 
@@ -233,7 +240,7 @@
 
 - **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
 
-- **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](../.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](../.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
+- **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
 
 - **Cleanup**: 사용처가 없는 feature TSX 12개와 빈 state 폴더를 제거했다. 타입 검사·Panda 생성·Next/Storybook 빌드와 관련 테스트 5개, 잔여 참조·문서 메타데이터 검증을 통과했다. Storybook의 디자인 가이드 색상·타이포그래피와 실제 IA 페이지는 유지한다. 이전 문서 병합에서 누락된 UI 본문을 보관 사본에서 복구하고 최신 변경 기록·출처를 보존했다. [UI 정리](architecture/ui.md#미사용-feature-tsx-정리-2026-10-28)와 [상태 경계](architecture/state.md#미사용-ui-제거와-현재-상태-경계-2026-10-28)를 갱신했다.
 

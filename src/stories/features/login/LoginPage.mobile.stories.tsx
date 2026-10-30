@@ -21,6 +21,9 @@ export const RememberIdHelp: Story = {
 
 export const Error: Story = { ...scenarios.MobileError, name: '오류' };
 
-export const LoginFlow: Story = { ...scenarios.MobileLoginFlow, name: '로그인 흐름' };
+export const LoginFlow: Story = { ...scenarios.MobileLoginFlow, name: '입력과 기본 버튼' };
 
-export const InvalidFormats: Story = { ...scenarios.MobileInvalidFormats, name: '입력 형식 오류' };
+export const FixedErrors: Story = {
+  ...scenarios.MobileFixedErrors,
+  name: '입력 후에도 고정 오류 유지',
+};

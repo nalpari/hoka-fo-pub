@@ -338,10 +338,16 @@ function CheckoutDeliveryRequest() {
 export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
-export function CheckoutShipping({ errors }: { errors?: ShippingErrors }) {
+export function CheckoutShipping({
+  errors,
+  initialEditing = false,
+}: {
+  errors?: ShippingErrors;
+  initialEditing?: boolean;
+}) {
   const binding = useContext(CheckoutContext);
   const hasSavedAddress = !binding || binding.savedAddress !== null;
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(initialEditing);
   const [postalCode, setPostalCode] = useState('');
   const [address, setAddress] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);

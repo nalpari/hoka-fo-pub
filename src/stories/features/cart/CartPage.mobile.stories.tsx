@@ -20,7 +20,7 @@ export const SoldOut: Story = { ...scenarios.MobileSoldOut, name: '품절 상품
 
 export const Options: Story = { ...scenarios.MobileOptions, name: '옵션 변경' };
 
-export const OptionSave: Story = { ...scenarios.MobileOptionSave, name: '옵션 저장과 취소' };
+export const OptionSave: Story = { ...scenarios.MobileOptionSave, name: '옵션 선택과 닫기' };
 
 export const Limit: Story = { ...scenarios.MobileLimit, name: '수량 제한 안내' };
 

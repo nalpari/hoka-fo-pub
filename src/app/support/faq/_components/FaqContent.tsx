@@ -181,25 +181,28 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
 }
 
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
-export function RouteContent() {
+export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
   // 개발팀 적용: faq에 검색된 항목·전체 건수·hasMore와 조회 함수를 연결합니다.
-  const { faq: binding } = useContext(SupportContentContext);
+  const { faq: connected } = useContext(SupportContentContext);
+  const binding = previewEmpty ? undefined : connected;
   const request = useRequestAction();
   const platform = usePlatform();
   const [category, setCategory] = useState<FaqCategory>('전체');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(previewEmpty ? '검색 결과 없음' : '');
   const [shown, setShown] = useState(10);
   const [open, setOpen] = useState<string | null>(() =>
     platform === 'web' ? faqs[0].question : null,
   );
   const entries = useMemo(
     () =>
-      faqs.filter(
-        (item) =>
-          (category === '전체' || item.category === category) &&
-          `${item.question} ${item.answer}`.toLowerCase().includes(query.toLowerCase()),
-      ),
-    [category, query],
+      previewEmpty
+        ? []
+        : faqs.filter(
+            (item) =>
+              (category === '전체' || item.category === category) &&
+              `${item.question} ${item.answer}`.toLowerCase().includes(query.toLowerCase()),
+          ),
+    [category, query, previewEmpty],
   );
 
   useBindingQuery(binding?.onQueryChange, { category, query });
@@ -256,7 +259,7 @@ export function RouteContent() {
       />
       {displayed.length > 0 || !(binding?.pending || binding?.error) ? (
         <FaqList
-          entries={displayed}
+          entries={previewEmpty ? [] : displayed}
           openQuestion={open}
           onToggle={(question) => setOpen(open === question ? null : question)}
         />

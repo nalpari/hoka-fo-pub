@@ -6,9 +6,17 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:19:33Z'
+  at: '2026-10-30T01:18:10Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/screenConnections.ts
+  - src/data/screenRegistry.ts
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - src/app/**/_components/*.tsx
   - src/app/**/page.tsx
   - AGENTS.md
@@ -786,6 +794,13 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
+
+사용자 요청에 따라 두 화면은 기본 마크업과 고정 상태를 확인하는 인계 방식으로 전환했다. 주문·삭제·옵션 확인·로그인·소셜 로그인은 서비스 동작 없이 표시하며, 주문 액션의 동적 checkout href를 제거했다. 일반 탐색 링크는 유지한다. 장바구니 체크·수량·관심상품과 모달 선택/닫기, 로그인 입력·비밀번호 표시·체크·도움말은 로컬 UI로 유지한다. 고정 단품/행 금액과 합계는 조작으로 재계산하지 않는다.
+
+Storybook은 실제 기본·상태별 라우트를 사용한다. 기존 인증 성공·형식 검증·옵션 저장 시나리오는 입력 유지·고정 오류·금액 고정·저장 없는 모달 닫기 검증으로 대체했다. 품절 표시는 명시적인 fixture의 `soldOut`으로 확인한다. 다른 화면이 사용하는 공통 폼·버튼·상점 계약은 변경하지 않았다. 검증 결과와 시각 대조 한계는 [검증 기록](../development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)을 참고한다.
+
+
 ## 페이지 전용 UI 배치 (2026-10-30)
 
 페이지 전용 보조 컴포넌트는 해당 라우트의 `_components/`에 배치한다. 이 규칙은 단일 부모 컴포넌트의 부모 모듈 통합 규칙의 예외다. 관련 내부 부품은 한 모듈에 함께 두고 새 전달용 래퍼는 만들지 않는다. 이번에는 30개 페이지의 41개 모듈을 분리했으며 JSX·Panda 스타일·콜백·바인딩 주석을 보존했다. 공통 컴포넌트와 이미 적합한 가이드 페이지는 변경하지 않았다. [범위·검증·한계](page-private-components-2026-10-30.md)를 참고한다.
@@ -1135,7 +1150,7 @@ ContentHeader의 titleAs는 실제 상품 A/S 소비처를 위해 h1~h6으로 �
 
 CustomerCenterLayout은 title/description에 ContentHeader를 사용하고 선택 Divider는 기존 헤더 그룹이 소유한다. headingProps의 mb/모바일 덮어쓰기는 기존 그룹에 유지하고 바깥 ContentSection gap=0으로 연결한다. runtime headingProps를 다른 속성으로 재해석해 기존 cascade를 바꾸지 않는다. SupportPage의 headingProps는 css.raw로 추출해 기존 mb=10 스타일이 다른 소비처의 잔여 클래스에 의존하지 않도록 했다. RunClubHeader의 headerProps.css도 css.raw로 모바일 좌측 정렬을 추출한다. MainContentCard는 card__header와 header 태그를 유지하고 header.raw(variant)를 css prop에서 기본 스타일과 병합한다. Grid·overlay·runtime foreground·Card.Footer는 유지한다.
 
-적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](../../.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
+적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
 
 ## 쿠폰과 휴대폰 인증의 팝업 구성 분리 (2026-10-20)
 
@@ -1163,7 +1178,7 @@ TextFormField와 이름·전화·이메일·비밀번호·생년월일·인증�
 
 실제 API·소비처·유지 대상·검증은 [폼 필드 이관 결과](form-fields.md#공통-필드-이관-결과-2026-10-20)에 기록했다. 변경 타입·린트/포맷·Next/Storybook 빌드와 40개 테스트, PC/MO 18쌍 좌표/속성 비교, Storybook play 22개와 별도 동작 9개를 확인했다. 외부 주소 검색·인증·메일·결제 API 연결은 추가하지 않았다.
 
-component-reusability의 [진입 문서](../../.codex/skills/component-reusability/SKILL.md)와 [폼 필드 참조](../../.codex/skills/component-reusability/references/form-fields.md)에 이번 조사에서 확인한 공통화 경계와 속성 보존 기준을 반영했다. 조사 요청·이관 요청·스킬만 수정하는 요청의 범위를 구분하며, 동일 placeholder를 동일 검증 정책으로 해석하지 않는다. 정적인 조사 개수나 특정 화면 목록을 향후 모든 작업의 의무 범위로 고정하지 않는다.
+component-reusability의 [진입 문서](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md)와 [폼 필드 참조](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/form-fields.md)에 이번 조사에서 확인한 공통화 경계와 속성 보존 기준을 반영했다. 조사 요청·이관 요청·스킬만 수정하는 요청의 범위를 구분하며, 동일 placeholder를 동일 검증 정책으로 해석하지 않는다. 정적인 조사 개수나 특정 화면 목록을 향후 모든 작업의 의무 범위로 고정하지 않는다.
 
 ## 주소 필드 공통화와 폼 전수 조사 (2026-10-20)
 
@@ -3420,3 +3435,11 @@ Typography 가이드의 사용 코드는 Button 가이드와 같은 JSX 구문 �
 ## 퍼블리싱 가이드 코드 구문 색상 통일 (2026-10-29)
 
 Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문자열·구두점 색상을 적용한다. 공통 `renderGuideCode`를 두 가이드에서 사용하며 표시 문자열과 복사 코드는 그대로 둔다. 출처는 `src/app/publishing-guide/_components/GuideCode.tsx`, `ButtonGuide.tsx`, `TypographyGuide.tsx`다. 브라우저 시각 검증은 아직 수행하지 않았다.
+
+## 퍼블리싱 고정 상태 표현 재사용 (2026-10-30)
+
+기존 Empty·검색 결과 없음·오류·완료·상세·편집 표시 UI를 고정 preview에서 재사용한다. 주문/신청내역/상품목록/문의/계정/가입의 경계와 남은 디자인 결정은 [상태 preview 인계](publishing-state-previews-2026-10-30.md)를 참고한다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 입력·체크·모달 닫기 등 로컬 확인 조작만 제공한다.
+
+## TextInput 포커스 테두리 겹침 (2026-10-30)
+
+기본 `TextInput`의 `:focus-visible` outline은 2px 굵기를 유지하고 offset을 -2px로 두어 기존 입력 테두리 위에 겹쳐 표시한다. 바깥 여백에 별도 테두리가 추가되지 않는다. boxed `FormField`의 inset box-shadow와 `SearchField` 내부 입력의 outline 제거 동작은 그대로 유지한다. 출처는 `src/components/common/atoms/TextInput.tsx`다. 브라우저 시각 검증은 수행하지 않았다.

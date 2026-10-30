@@ -20,7 +20,6 @@ import { Stack } from 'styled-system/jsx';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
@@ -33,8 +32,6 @@ import {
   readInquiryOrderResult,
   saveInquiryOrderDraft,
 } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
-import { supportNavigation } from '@/app/support/support.navigation';
-import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
@@ -45,6 +42,7 @@ import {
   InquiryMessageFields,
   InquiryOrderProducts,
 } from './_components/InquiryFormContent';
+import { InquiryFormLayout } from './_components/InquiryFormLayout';
 
 /** 1:1 문의 작성·검증과 취소 흐름을 구성합니다. (Composes inquiry entry, validation, and cancellation.) */
 export default function Page() {
@@ -146,30 +144,7 @@ export default function Page() {
 
   return (
     /* 고객센터 제목·경로와 메뉴를 제공하는 페이지 레이아웃 (Customer center page layout with heading, paths, and navigation). */
-    <CustomerCenterLayout
-      header={
-        /* 문의 등록 제목과 안내 문구 (Inquiry submission heading and guidance). */
-        <ContentHeader
-          gap={{ base: '3', _mobile: '4' }}
-          title="1:1 문의등록"
-          titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading5' }}
-          description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
-          descriptionProps={{
-            variant: 'body3',
-            className: css({ color: 'black.100', _mobile: { color: 'black.60' } }),
-          }}
-        />
-      }
-      activePath="/support/inquiries"
-      breadcrumbItems={[
-        { label: 'Home', href: '/' },
-        { label: '고객센터', href: '/support' },
-        { label: '1:1 문의하기', href: '/support/inquiries' },
-        { label: '1:1 문의등록' },
-      ]}
-      groups={supportNavigation}
-    >
+    <InquiryFormLayout>
       <BindingFeedback
         {...binding}
         pending={binding?.pending || request.pending}
@@ -263,6 +238,6 @@ export default function Page() {
           주문번호를 선택해주세요.
         </Typography>
       </ModalDialog>
-    </CustomerCenterLayout>
+    </InquiryFormLayout>
   );
 }
