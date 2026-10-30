@@ -580,3 +580,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 상품문의 Empty 전체 상세 preview (2026-10-30)
 
 `/products/preview-empty-inquiries`는 문의 부품 단독 표시 대신 기존 상품 상세의 `RouteContent`와 shoe-1 fixture를 재사용한다. screen-index의 ‘상품문의 없음’은 `#product-inquiries`로 PC 본문·모바일 열린 아코디언에 이동한다. fragment 이동은 고정 preview에 한정하며 기본 상품 ID 조회와 `/products/shoe-1` 연결은 유지한다. 상태 수·라우트 수는 바뀌지 않는다. [책임과 출처](publishing-state-previews-2026-10-30.md#상품문의-empty의-전체-상세-맥락-복원-2026-10-30).
+
+## 문의 본문·답변 글자 크기 (2026-10-30)
+
+사용자가 기존 작업 트리 변경의 커밋을 요청하여 `src/app/support/inquiries/_components/InquiryListContent.tsx`의 질문 본문과 답변 Typography variant를 `body4`에서 `body3`으로 조정한 변경을 반영했다. route·데이터·대기/완료 상태·접기/펼치기는 그대로이며 기본 문의 목록과 혼합 목록 preview가 같은 표현을 사용한다. 변경 파일 ESLint와 Prettier 검사를 통과했다. 브라우저 시각 검증은 이번 커밋 작업에서 수행하지 않았다. 출처는 사용자 커밋 요청과 해당 파일의 두 Typography 변경이다.
