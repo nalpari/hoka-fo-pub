@@ -17,6 +17,10 @@ working_tree_sources:
   - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
+  - src/components/common/layouts/AccountPageLayout.tsx
+  - src/app/login/find-account/_components/FindAccountContent.tsx
+  - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
+  - src/app/login/account-locked/complete/page.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
   - src/app/login/preview-error/page.tsx
@@ -221,6 +225,18 @@ IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/r
 검증: 기본 PC/MO와 Empty 직접 진입, 정렬 선택·탭 필터·취소 모달·Escape/포커스 복귀를 브라우저로 확인했다. 1024px 이하 mobile, 1025~1199px의 1200px canvas, 1200px 이상 document 가로 넘침 없음을 확인했다. 임시 Provider로 비fixture ID·late data·서버 결과 보존·취소 실패/재시도/pending/성공·추가 목록·조회 실패/재시도를 확인한 뒤 임시 소스를 제거했다. 최종 모바일 breadcrumb의 줄바꿈 방지와 날짜 body5 조정은 이 스크린샷 확인 이후 반영했다. 실제 서비스 API·전체 Storybook/production build는 검증하지 않았다.
 
 출처: `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `eventEntries.data.ts`, `src/context/RunClubDataContext.ts` 작업 트리와 사용자 첨부 디자인·기획서. 작성: Codex, 2026-10-30 (Asia/Seoul).
+
+## 로그인 버튼 간격의 라우팅 영향 (2026-10-30)
+
+`/login`과 `/login/preview-error`가 공유하는 `LoginContent`의 버튼 묶음 배치만 변경했다. URL·페이지 export·제출 동작은 그대로다. [UI 기준](ui.md#로그인-버튼-묶음-간격-2026-10-30)을 따른다.
+
+## Fieldset 초기화의 라우팅 영향 (2026-10-30)
+
+로그인·가입·계정 찾기·장바구니·결제·문의·마이페이지 라우트의 fieldset 지역 초기화만 공통 스타일로 옮겼다. 경로·페이지 export·폼 제출 및 disabled 상태에는 변경이 없다. [UI 기준](ui.md#fieldset-공통-초기화-2026-10-30)을 따른다.
+
+## 계정 화면 공통 하단 여백 (2026-10-30)
+
+로그인·계정 찾기·비밀번호 재설정·계정 잠금 해제 완료·회원가입 단계와 완료 화면의 데스크톱 하단 여백을 `AccountPageLayout` 기본값 124px로 통일했다. 라우트와 화면 전환은 변경하지 않았다. 모바일 값과 화면별 별도 배치는 유지한다. [공통 레이아웃 기준](ui.md#계정-화면-공통-하단-여백-2026-10-30)을 따른다.
 
 ## 장바구니·로그인 확인 URL 분리 (2026-10-30)
 
@@ -576,7 +592,7 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 ## 퍼블리싱 가이드 기본 버튼 (2026-10-29)
 
-`/publishing-guide`는 기존 SupportTabs의 guide 변형으로 상단 컴포넌트 분류 탭(버튼·폼·모달·뱃지)을 전환한다. 버튼 탭은 크기 기준·속성 안내를 첫 섹션으로 두고, Primary 예시 옆에서 시작하는 오른쪽 세로 바로가기 목록과 예시 영역의 2열 레이아웃을 사용한다. 크기 안내에는 Tall/Short 치수, CTA1/CTA2 및 Link 폰트 크기, density·size·auto 우선순위와 auto 플랫폼 기본값, FilterTrigger·HeaderSearch·아이콘 전용 버튼 예외, 라벨 Typography 연동과 Black/White colorway를 정리한다. 바로가기는 압축된 간격으로 크기 기준·Primary·Secondary와 추가 유형 전부를 실제 variant명으로 표시하고 각 설명은 한국어로 작성한다. 데스크톱 타임라인은 고정 사이트 헤더 높이와 24px 간격 아래에서 sticky로 유지하고, 모바일에서는 예시 아래에 정적 배치한다. Primary·Secondary 및 추가 버튼 유형의 각 샘플은 기본·비활성화 미리보기와 상태별 사용 코드·복사 버튼을 함께 제공한다. 상태 라벨은 한 줄로 유지하고 코드와 복사 액션은 코드 칸 안에서 나란히 배치해 좁은 화면에서도 코드가 잘리지 않게 한다. 코드 복사는 공용 `faCopy` 아이콘을 32px `variant="icon"` 버튼으로 표시하고 각 버튼에 한국어 접근성 이름과 툴팁을 제공한다. Link 유형도 비활성화 상태를 포함하도록 Button의 link variant로 표시한다. 기본 화면은 흰색 배경과 기존 black/white 색상 체계를 사용하며 테마 선택 UI는 두지 않는다. 섹션 앵커는 사이트 헤더 높이와 여유 공간을 scroll margin으로 확보해 제목이 가려지지 않게 한다. 예시는 Brand·Link·Plain·Chip·Icon·Filter Trigger·Header Search와 Social·Load More 옵션을 포함한다. Form 탭은 실제 공통 FormField·TextInput·TextFormField·Select·Dropdown·Checkbox·Radio·SegmentedControl·SearchField·AddressFields·EmailAddressFields·FormActionGroup·NumberStepper·CharacterCount·VerificationCountdown의 미리보기와 사용 코드를 제공한다. 제어형 검색·선택·주소·이메일 예시는 페이지 내부 상태로 동작하며 서버 제출이나 주소 검색 API를 호출하지 않는다. 각 예제는 Button·Typography 가이드와 동일한 JSX 구문 색상 렌더러·복사 아이콘·상단 알림을 사용하며, PC에서는 오른쪽 sticky 타임라인을, 모바일에서는 한 열 카드와 바로가기를 사용한다. 모달·뱃지 탭은 예시 준비 중 안내를 표시한다. 페이지 하단 `#top` 링크는 메인 영역으로 이동한다. 라우트·metadata·정적 페이지 헤더와 하단은 `page.tsx` Server Component가 소유하고, 상태와 상호작용은 `FormGuide`·`ButtonGuide`·`TypographyGuide` Client Component가 소유한다. 공통 운영 폼 API는 수정하지 않았다. 출처는 위 `working_tree_sources`의 publishing-guide 파일이다.
+`/publishing-guide`는 기존 SupportTabs의 guide 변형으로 상단 컴포넌트 분류 탭(버튼·폼·모달·뱃지)을 전환한다. 버튼 탭은 크기 기준·속성 안내를 첫 섹션으로 두고, Primary 예시 옆에서 시작하는 오른쪽 세로 바로가기 목록과 예시 영역의 2열 레이아웃을 사용한다. 크기 안내에는 Tall/Short 치수, CTA1/CTA2 및 Link 폰트 크기, density·size·auto 우선순위와 auto 플랫폼 기본값, FilterTrigger·HeaderSearch·아이콘 전용 버튼 예외, 라벨 Typography 연동과 Black/White colorway를 정리한다. 바로가기는 압축된 간격으로 크기 기준·Primary·Secondary와 추가 유형 전부를 실제 variant명으로 표시하고 각 설명은 한국어로 작성한다. 데스크톱 타임라인은 고정 사이트 헤더 높이와 24px 간격 아래에서 sticky로 유지하고, 모바일에서는 예시 아래에 정적 배치한다. Primary·Secondary 및 추가 버튼 유형의 각 샘플은 기본·비활성화 미리보기와 상태별 사용 코드·복사 버튼을 함께 제공한다. 상태 라벨은 한 줄로 유지하고 코드와 복사 액션은 코드 칸 안에서 나란히 배치해 좁은 화면에서도 코드가 잘리지 않게 한다. 코드 복사는 공용 `faCopy` 아이콘을 32px `variant="icon"` 버튼으로 표시하고 각 버튼에 한국어 접근성 이름과 툴팁을 제공한다. Link 유형도 비활성화 상태를 포함하도록 Button의 link variant로 표시한다. 기본 화면은 흰색 배경과 기존 black/white 색상 체계를 사용하며 테마 선택 UI는 두지 않는다. 섹션 앵커는 사이트 헤더 높이와 여유 공간을 scroll margin으로 확보해 제목이 가려지지 않게 한다. 예시는 Brand·Link·Plain·Chip·Icon·Filter Trigger·Header Search와 Social·Load More 옵션을 포함한다. Form 탭은 제공된 Forms·Dropdown Menu Figma 범위에 따라 Input Fields·Dropdown Selection·Checkbox·Radio·Dropdown Menu만 표시한다. Input Fields는 Default·Focus·Typing·Error 상태와 기본·Password·Phone Number·Number·Open Text Area 타입을 비교하며, Dropdown Selection은 기본·선택·오류·비활성화, Checkbox·Radio는 기본·선택·비활성화 상태를 나눠 보여준다. Dropdown Menu는 텍스트·아이콘·이미지 목록 타입을 제공한다. 각 케이스의 예제 코드는 복사 가능하고, 메뉴와 입력 값은 화면 내에서 미리보기 조작이 가능하다. 기존 주소·이메일·검색·세그먼트·액션·수량 보조·글자 수·인증 카운트다운 샘플은 Form 가이드에서 제외한다. 예제는 JSX 구문 색상 렌더러·복사 아이콘·상단 알림을 사용하며, PC에서는 오른쪽 sticky 타임라인을, 모바일에서는 한 열 카드와 바로가기를 사용한다. 모달·뱃지 탭은 예시 준비 중 안내를 표시한다. 페이지 하단 `#top` 링크는 메인 영역으로 이동한다. 라우트·metadata·정적 페이지 헤더와 하단은 `page.tsx` Server Component가 소유하고, 상태와 상호작용은 `FormGuide`·`ButtonGuide`·`TypographyGuide` Client Component가 소유한다. 공통 운영 폼 API는 수정하지 않았다. 출처는 위 `working_tree_sources`의 publishing-guide 파일이다.
 
 ## 첨부 디자인·소스 대조 (2026-10-29)
 
@@ -609,121 +625,3 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 퍼블리싱 고정 상태 URL (2026-10-30)
 
 고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.
-
-## 문의 혼합 목록 preview (2026-10-30)
-
-대기와 완료를 분리하던 두 상태 route를 제거하고 `/support/inquiries/preview-list`로 통합했다. IA 187·210 모두 단일 목록 링크와 새 진입 소스를 연결한다. 기본 문의 Empty 경로는 유지한다. 배열 표시 계약과 현재 URL 수는 [상태 preview 인계](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30)에 기록했다.
-
-## Empty와 화면 목록 링크 정리 (2026-10-30)
-
-쿠폰 `/mypage/coupons/preview-empty`와 공지 `/support/notices/preview-empty`를 IA 196·208에 연결했다. 공지의 기본/preview 진입점은 route-private `NoticesContent`를 공유하며 기본 context 계약을 유지한다. IA 234·237·255의 중복 보조 링크와 직접 소스 연결은 전용 IA 257·255·256으로 정리했다. 기획전 상세 IA 167은 사용자 판단상 목업·디자인 미수급으로 `/collection/8386` 연결을 제외했고 실제 route는 보존했다. `npm run screen-files`로 그래프를 갱신했다. [확정 내용과 출처](publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30)를 참조한다.
-
-## 상품문의 Empty 전체 상세 preview (2026-10-30)
-
-`/products/preview-empty-inquiries`는 문의 부품 단독 표시 대신 기존 상품 상세의 `RouteContent`와 shoe-1 fixture를 재사용한다. screen-index의 ‘상품문의 없음’은 `#product-inquiries`로 PC 본문·모바일 열린 아코디언에 이동한다. fragment 이동은 고정 preview에 한정하며 기본 상품 ID 조회와 `/products/shoe-1` 연결은 유지한다. 상태 수·라우트 수는 바뀌지 않는다. [책임과 출처](publishing-state-previews-2026-10-30.md#상품문의-empty의-전체-상세-맥락-복원-2026-10-30).
-
-## 문의 본문·답변 글자 크기 (2026-10-30)
-
-사용자가 기존 작업 트리 변경의 커밋을 요청하여 `src/app/support/inquiries/_components/InquiryListContent.tsx`의 질문 본문과 답변 Typography variant를 `body4`에서 `body3`으로 조정한 변경을 반영했다. route·데이터·대기/완료 상태·접기/펼치기는 그대로이며 기본 문의 목록과 혼합 목록 preview가 같은 표현을 사용한다. 변경 파일 ESLint와 Prettier 검사를 통과했다. 브라우저 시각 검증은 이번 커밋 작업에서 수행하지 않았다. 출처는 사용자 커밋 요청과 해당 파일의 두 Typography 변경이다.
-
-## IA 상품 공통 화면 요약 (2026-10-30)
-
-`/screen-index`는 `eland_hca_01` 86개와 `eland_hca_02` 71개를 상품 목록·상세 두 항목으로 요약한다. 원본 266개 IA와 번호·연결 함수는 유지한다. 상단 NAV의 MEN/WOMEN/SHOES를 상품 공통 화면 157P로 합치고 공통 분류의 검색결과 1개도 이 영역으로 이동한다. 나머지 NAV는 이동한 화면을 제외한 수를 표시하며 14개 영역이다. 상품 탭의 분류 선택으로 MEN 60개, WOMEN 60개, SHOES 36개, 공통 1개를 좁힌다. 일반 화면의 위치·경로는 유지한다.
-
-원본 화면에 검색·상태·분류 조건을 먼저 적용한 뒤 요약하고 결과의 첫 화면을 대표 링크로 사용한다. 상품 목록 URL과 Storybook listing:ia-N 인수는 기존 연결 함수를 사용한다. 최종 UI에서는 두 공통 항목의 대표 화면 링크만 노출하고, 두 항목 뒤의 버튼 하나로 중복 제거한 분류 트리를 확인한다. 중간 분류마다 한 행을 사용하고 세부 메뉴는 셀 하나에 쉼표로 나열한다. 연결 메뉴는 초기 접힘, 검색 시 펼침, 전체 접기·펼치기와 연동한다. IA 번호는 검색·식별에 유지하되 사용자 피드백에 따라 대표 링크와 연결 표에 노출하지 않는다. 표의 공통 상태·파일과 상세 병합 규칙은 [UI 기록](ui.md#ia-상품-공통-화면과-연결-표-2026-10-30)을 참고한다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`, `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
-
-## IA 주문·취소반품 링크 정리 (2026-10-30)
-
-사용자 화면 주석에 따라 주문배송 조회 목록(IA 178)과 취소/반품 내역 목록(IA 180)의 취소 상세·반품 상세 preview 링크를 제거했다. 두 목록의 페이지·빈 목록은 유지한다. IA 178의 주문 상세 링크도 후속 요청으로 제거했다. 취소/반품 상세(IA 181)는 기존 취소 상세 route를 유지하고 `ScreenConnection.routeLabel`을 취소 상세로 지정해 일반 페이지 문구를 대신 표시한다. 반품 상세 링크는 유지한다. 생략한 routeLabel은 페이지로 표시하며 Storybook WEB/Mobile 링크 계약과 작업 파일 등록은 변경하지 않는다. 출처는 `src/app/screen-index/screenConnections.ts`와 `src/app/screen-index/_components/IaStructurePage.tsx`다. 이번 수정은 타입 검사·변경 파일 ESLint/Prettier와 기존 preview 링크 검증으로 확인하며 브라우저 재검증은 수행하지 않았다.
-
-배송지 목록(IA 203)의 등록·수정·입력 오류 preview 링크도 사용자 주석에 따라 제거했다. 페이지·빈 목록은 유지하고 등록(IA 204)·수정(IA 205) 행의 페이지와 입력 오류 연결은 유지한다. 작업 파일 등록과 실제 preview 라우트는 삭제하지 않는다.
-
-회원정보 확인 및 수정 상세(IA 201)에서도 수정·입력 오류 preview 링크를 제거했다. 아래 수정 행(IA 202)의 페이지(`/mypage/profile/preview-edit`)·입력 오류 링크를 유지하며 상세 행의 인증번호 입력·인증 만료·비밀번호 변경 완료는 그대로 둔다. sourceFiles·실제 라우트·Storybook 연결은 변경하지 않는다. 변경 파일 ESLint/Prettier와 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
-
-추가 요청으로 주문배송 조회 목록(IA 178)의 주문 상세 preview 링크도 제거했다. 목록은 페이지·빈 목록만 표시하고 아래 상세 행(IA 179)의 기존 상세 연결을 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
-
-쿠폰 목록(IA 196)의 쿠폰 상세 preview 링크도 사용자 요청으로 제거했다. 아래 상세 행(IA 197)의 `/mypage/coupons/preview-detail` 연결과 목록의 페이지·빈 목록·등록 오류·등록 완료 링크는 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
-
-## IA 상태 미리보기 하위 행 (2026-10-30)
-
-실제 페이지 환경의 모든 previewRoutes는 개수와 종류에 관계없이 STATE 하위 행으로 표시한다. 부모 화면에는 기본 페이지 링크만 남긴다. 상품 공통 목록·상세도 같은 규칙을 사용한다. 이전의 3개 이상 기준과 isEmpty 플래그는 제거했다. 상태 행은 IA 원본 화면으로 추가하지 않아 전체 화면 수와 상태 데이터·검색 소유권은 유지한다. Storybook 환경은 기존 WEB/Mobile 연결을 유지하며 실제 페이지 경로를 Storybook 호스트에 노출하지 않는다.
-
-1:1 문의 목록 IA 187/210은 대기·완료 항목이 있는 `/support/inquiries/preview-list`를 기본 route로 바꾸고 `/support/inquiries`를 없음 상태로 연결했다. 두 화면의 없음 연결도 공통 규칙에 따라 STATE 하위 행에 표시한다. 실제 문의 페이지·context·fixture·서버 연결과 작업 파일 등록은 변경하지 않았다. 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다.
-
-STATE 행의 링크 텍스트는 사용자 요청으로 보기로 통일했다. 상태명은 첫 열과 aria-label의 상태명 보기로 유지하고 경로·새 창 열기·복사·rowSpan은 변경하지 않는다. 변경 파일 ESLint/Prettier로 확인했으며 이번 문구 변경은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
-
-STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면의 상태 행 수만큼 각각 rowSpan으로 병합했다. 기존 비고 병합과 7열 정렬을 유지하며 첫 열의 상태명·보기 링크는 행별로 표시한다. 단일 상태는 rowSpan=1이고 병합은 다른 화면·부모의 두 행을 포함하지 않는다. 변경 파일 ESLint/Prettier로 확인하며 이번 병합은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
-
-런클럽 상세 IA 259의 기본 페이지 링크 `/running/run-club/yeouido-night`를 첫 STATE 신청 가능으로 이동했다. 모집 마감·신청 예정과 함께 세 상태를 하위 행에 표시하며 부모 상세의 상태 나열 비고는 screenRegistry에서 제거했다. 기본 route 없이 상태 링크만 있는 부모는 실제 페이지 셀에 -를 표시하고 독립 경로 없음으로 오해시키지 않는다. 보기 링크·비고 및 상태 셀 rowSpan·접기와 Storybook WEB/Mobile 연결, 실제 런클럽 페이지·데이터는 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/data/screenRegistry.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`. 변경 파일 lint/format과 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
-
-런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
-
-런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
-
-## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
-
-사용자 정정에 따라 런클럽 목록의 빈 목록 레이블을 복원했다. 요청의 의미는 빈 상태명 변경이 아니라, 빈 STATE만 한 행 있는 화면의 기본 페이지도 대응하는 STATE로 내려 두 상태를 구분하는 것이다. 기존 단일 빈 미리보기 연결 17곳에 `ScreenConnection.defaultStateLabel`을 명시했다. 목록 있음·검색 결과 있음·주문 내역 있음·조건 결과 있음·상품문의 있음처럼 표시 맥락에 맞게 직접 지정하며 런타임에 URL·레이블 문자열로 빈 상태를 추론하지 않는다.
-
-실제 페이지 환경에서 defaultStateLabel과 기본 route가 있고 previewRoutes가 정확히 하나면 그 route를 첫 STATE로 표시하고 부모의 기본 페이지 링크를 숨긴다. canonical route 자체와 기존 빈 상태명·href·검색·Storybook 연결은 유지한다. 여러 상태가 이미 있거나 단일 상태가 오류 등 비어 있지 않은 경우는 기존 구성을 유지한다. 상품 공통 항목에도 같은 표시 규칙을 적용한다. 런클럽은 이미 명시한 목록 있음/빈 목록 상태 두 행을 유지한다. 상태명·보기 링크는 행별, 구분·코드·진행 상태·비고는 같은 화면 내 rowSpan을 유지한다.
-
-검증: 앱에서 주문배송 조회의 부모 링크 0개와 목록 있음/빈 목록 두 STATE, 상품 목록 부모 링크 0개와 필터 URL을 유지한 조건 결과 있음/없음 두 STATE를 확인했다. 첫 상태 행의 병합은 [1,2,2,1,2,2,2]이고 두 번째 행은 상태명·보기 두 셀만 남는다. 비밀번호 재설정은 기본 링크 1개와 입력 오류/변경 완료 두 상태가 유지됨을 확인했다. 런클럽 목록 있음·빈 목록과 상세 신청 가능·모집 마감·신청 예정도 확인했다. 타입·변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트 3개를 통과했다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`.
-
-## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
-
-러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## Featured 하위 러닝 세션 계층 정정 (2026-10-30)
-
-사용자 후속 확인에 따라 독립 D2 Running Session 묶음을 제거했다. IA 155·258·259는 모두 EXPLORE > Featured > Running Session에 속하며 기존 목록·상세 번호와 상태 링크는 유지한다. 목록·상세 상태 행은 D4에 배치하고 페이지 연결은 D3 Running Session에서 제공한다. tests/preview-links.test.mjs는 세 IA의 D1~D3 일치와 독립 D2 부재를 검사한다. 출처: src/data/screenRegistry.ts, tests/preview-links.test.mjs.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 매장 찾기 정보 목록 정리 (2026-10-30)
-
-`/support/store`는 지역 탭·길 찾기·지도와 열림 상태를 제거하고 서울·경기 순서의 단일 예시 목록을 표시한다. 매장명·주소·전화번호·제공된 영업시간만 유지하며 데이터는 최종 미확정 fixture다. 인천 탭으로 Empty를 확인한다는 종전 안내는 폐기하고 별도 Empty URL은 만들지 않는다. 기존 매장 IA와 경로를 유지한다. 출처: src/app/support/store/page.tsx, _components/StoreContent.tsx, store.data.ts 및 관련 표시 타입. 최종 디자인 승인은 별도다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 상품 목록 품절 표시 예시 (2026-10-30)
-
-`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 러닝 세션 하위 행 표시 순서 보완 (2026-10-30)
-
-사용자 브라우저 확인에 따라 목록(258)·상세(259)의 원본 배열 순서도 D3 Featured > Running Session(155) 바로 뒤로 이동했다. 계층 값뿐 아니라 실제 렌더 순서를 맞추며 독립 D2와 D3 앞쪽의 하위 행을 남기지 않는다. UTMB 비고의 러닝 세션 연결 설명 문장은 삭제했다. preview 링크 테스트는 155 바로 다음 행이 258·259인지 함께 검사한다. 출처: src/data/screenRegistry.ts와 tests/preview-links.test.mjs.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 환불계좌와 기획전 목업 제거 (2026-10-30)
-
-환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## IA 탐색 도구 반응형과 고정 배치 (2026-10-30)
-
-사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
-
-경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 공통 D2 국가선택 인계 연결 (2026-10-30)
-
-사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
-
-## 비대상 마이페이지 세 화면 삭제 (2026-10-30)
-
-사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
-
-출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

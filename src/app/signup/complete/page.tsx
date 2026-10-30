@@ -21,7 +21,7 @@ export default function Page() {
   return (
     <AccountPageLayout
       contentWidth="500px"
-      pageCss={css.raw({ px: '4', pb: '124px', _mobile: { pt: '24', pb: '124px' } })}
+      pageCss={css.raw({ px: '4', _mobile: { pt: '24', pb: '124px' } })}
       contentCss={css.raw({
         display: 'flex',
         flexDirection: 'column',

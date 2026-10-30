@@ -10,12 +10,14 @@ import { type SupportTab, SupportTabs } from '@/components/common/molecules/Supp
 
 import { ButtonGuide } from './_components/ButtonGuide';
 import { FormGuide } from './_components/FormGuide';
+import { HelpTipsGuide } from './_components/HelpTipsGuide';
 import { TypographyGuide } from './_components/TypographyGuide';
 
 const guideTabs: readonly SupportTab[] = [
   { value: 'typography', label: '타이포그래피', content: <TypographyGuide /> },
   { value: 'button', label: '버튼', content: <ButtonGuide /> },
   { value: 'form', label: '폼', content: <FormGuide /> },
+  { value: 'help-tips', label: '툴팁·토글팁', content: <HelpTipsGuide /> },
   {
     value: 'modal',
     label: '모달',

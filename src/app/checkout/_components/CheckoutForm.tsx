@@ -9,7 +9,6 @@ import {
   type CheckoutSubmission,
 } from '@/context/CheckoutContext';
 
-import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -257,10 +256,7 @@ export function CheckoutForm({
         });
       }}
     >
-      <fieldset
-        disabled={pending || binding?.pending}
-        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
-      >
+      <fieldset disabled={pending || binding?.pending}>
         <CheckoutContent
           rows={rows}
           total={total}

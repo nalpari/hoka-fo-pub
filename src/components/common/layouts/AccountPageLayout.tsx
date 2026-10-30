@@ -25,7 +25,7 @@ type Props = {
 const page = css.raw({
   pt: '24',
   px: '5',
-  pb: '20',
+  pb: '124px',
   _mobile: { pt: '10', px: '4', pb: '8' },
 });
 

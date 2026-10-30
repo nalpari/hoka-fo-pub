@@ -248,7 +248,6 @@ export function SignupLayout({ step, method, children }: SignupLayoutProps) {
       contentAs="section"
       contentLabelledBy="signup-title"
       fillMobileViewport
-      pageCss={css.raw({ pt: '24', pb: '24' })}
       contentCss={css.raw({ w: '100%', minW: 0 })}
     >
       {step !== 0 ? (

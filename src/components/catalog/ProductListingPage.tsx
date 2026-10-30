@@ -81,8 +81,6 @@ import {
 import { type Product, products } from '@/mocks/products';
 import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
 
-const fieldset = css({ m: '0', border: '0', p: '0' });
-
 type FieldsetProps = Omit<ComponentPropsWithoutRef<'fieldset'>, 'children'> & {
   legend?: ReactNode;
   children: ReactNode;
@@ -98,7 +96,7 @@ function Fieldset({
   ...props
 }: FieldsetProps) {
   return (
-    <fieldset {...props} className={[fieldset, className].filter(Boolean).join(' ')}>
+    <fieldset {...props} className={className}>
       {label ? (
         <Typography
           as="legend"

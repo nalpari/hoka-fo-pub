@@ -6,9 +6,25 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-10-30T05:40:15Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/styles/global.scss
+  - src/app/**/page.tsx
+  - src/app/**/_components/*.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/components/orders/OrdersRoute.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/components/common/layouts/AccountPageLayout.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/signup/_components/SignupContent.tsx
+  - src/app/signup/complete/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/publishing-guide/_components/HelpTipsGuide.tsx
+  - src/app/publishing-guide/page.tsx
+  - public/images/icon/tooltip/arrow.svg
+  - public/images/icon/tooltip/info.svg
+  - public/images/icon/tooltip/question.svg
   - src/app/support/store/_components/StoreContent.tsx
   - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
@@ -3357,6 +3373,18 @@ MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/mole
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
+## 로그인 버튼 묶음 간격 (2026-10-30)
+
+`LoginContent`의 `LoginForm`에서 아이디·비밀번호·아이디 저장 영역 뒤의 로그인/소셜 버튼 묶음을 별도 `Stack`으로 배치하고 위 여백을 6 토큰으로 설정했다. 폼 경계와 제출·링크 동작은 유지한다. 작업 트리 출처: `src/app/login/_components/LoginContent.tsx`.
+
+## Fieldset 공통 초기화 (2026-10-30)
+
+Panda preflight가 꺼진 프로젝트에서 `src/styles/global.scss`의 base 레이어가 `fieldset`의 기본 margin·padding·border를 0으로, min-width를 0으로 초기화한다. 로그인·가입·계정 찾기·장바구니·주문·상품 필터·문의·인증·마이페이지 화면의 동일한 지역 `css` 초기화를 제거했다. 각 fieldset의 disabled 상태와 자식 구성은 유지한다. 작업 트리 출처: `src/styles/global.scss`와 해당 `src/app`, `src/components` 소비처.
+
+## 계정 화면 공통 하단 여백 (2026-10-30)
+
+사용자 확인에 따라 `AccountPageLayout`의 데스크톱 하단 여백은 로그인·회원가입 화면 모두 124px을 기본으로 사용한다. 로그인과 가입 단계의 중복 `pageCss` 하단 여백을 제거했다. 모바일 기본 하단 여백 8 토큰과 가입 완료 화면의 모바일 124px 예외는 유지한다. 작업 트리 출처: `src/components/common/layouts/AccountPageLayout.tsx`, `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`, `src/app/signup/complete/page.tsx`.
+
 ## AccountPageLayout 공통 레이아웃 경로 복귀 (2026-10-28)
 
 AccountPageLayout을 src/components/account/AccountPageLayout.tsx에서 src/components/common/layouts/AccountPageLayout.tsx로 이동했다. 계정 데이터·인증 정책 없이 본문 폭·중앙 정렬·반응형 여백·선택적 제목과 액션을 배치하는 책임을 기준으로 공통 layouts에서 관리한다. 기존 API·구현·폼 연결·클라이언트 경계는 그대로 유지하고 로그인·회원가입·휴대폰 인증의 실제 import를 갱신했다. 이전 도메인 이동 기록의 경로는 당시 이력으로 유지하며 현재 경로는 이 절을 따른다. 작업 트리 출처는 src/components/common/layouts/AccountPageLayout.tsx와 해당 src/app 및 PhoneVerificationContent.tsx 소비처다.
@@ -3494,6 +3522,18 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## 퍼블리싱 고정 상태 표현 재사용 (2026-10-30)
 
 기존 Empty·검색 결과 없음·오류·완료·상세·편집 표시 UI를 고정 preview에서 재사용한다. 주문/신청내역/상품목록/문의/계정/가입의 경계와 남은 디자인 결정은 [상태 preview 인계](publishing-state-previews-2026-10-30.md)를 참고한다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 입력·체크·모달 닫기 등 로컬 확인 조작만 제공한다.
+
+## TextInput 포커스 테두리 겹침 (2026-10-30)
+
+기본 `TextInput`의 `:focus-visible` outline은 2px 굵기를 유지하고 offset을 -2px로 두어 기존 입력 테두리 위에 겹쳐 표시한다. 바깥 여백에 별도 테두리가 추가되지 않는다. boxed `FormField`의 inset box-shadow와 `SearchField` 내부 입력의 outline 제거 동작은 그대로 유지한다. 출처는 `src/components/common/atoms/TextInput.tsx`다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 툴팁·토글팁 공통 사용 기준 (2026-10-30)
+
+Figma의 [사용 기준](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=274-7275&m=dev)과 [네 방향 컴포넌트](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=342-38101&m=dev)를 기준으로 `HelpTooltip`은 짧은 보조 설명에, `HelpToggletip`은 제목·설명과 선택적 확인 액션을 담는 도움말에 사용한다. 둘 다 상·하·좌·우 방향과 i/? 안내 아이콘을 지원하며 포털에서 렌더링한다. Figma의 흰 `color/bg/secondary` 배경은 프로젝트의 `surface.default`를 사용한다. 로그인 아이디 저장 안내는 현재 `HelpToggletip`으로 제목과 설명을 표시한다. 서비스 API 연결에는 변화가 없다.
+
+말풍선의 그림자를 한 번 적용하고 화살표를 본체에 1px 겹친다. 토글팁 본체 너비는 상·하단 192px, 좌·우측 164px이다. 좌·우측 화살표 이미지는 회전 후 영역의 가운데에 둔다. 현재 소스에서 좌·우측 화살표의 렌더링 영역은 8×17px이다. 퍼블리싱 가이드의 별도 탭에는 사용 기준, 두 유형의 네 방향 예시, 코드 복사와 타임라인을 제공한다. 타임라인 앵커는 사이트 헤더 높이 + 16px의 스크롤 여백을 사용한다. 출처는 `HelpTips.tsx`, `HelpTipsGuide.tsx`, 로그인 `LoginContent.tsx`, 가이드 `page.tsx`와 위 Figma 노드 및 SVG 세 개다.
+
+2026-10-30 로컬 브라우저에서 가이드의 우측 툴팁 열기·닫기, 상단 토글팁 확인 닫기, 네 방향 화살표 위치, 좌우 164px·상단 192px 본체 너비, Tooltip·Toggletip 타임라인 링크의 고정 헤더 아래 위치를 확인했다. 좌우 화살표 크기와 로그인 도움말은 이후 작업 트리에서 사용자가 조정했으며 조정 후 모바일 시각 검증은 수행하지 않았다. Panda 생성과 OKF 검사는 통과했다. 전체 타입 검사에는 변경 범위 밖의 `.next/types/app/products/page.ts` 및 `.next/types/app/running/run-club/page.ts` 오류가 남아 있다.
 
 ## 문의 대기·완료의 단일 목록 (2026-10-30)
 

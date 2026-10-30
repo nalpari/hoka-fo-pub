@@ -1259,7 +1259,7 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
           });
         }}
       >
-        <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+        <fieldset disabled={request.pending}>
           <Stack gap="6">
             <ClaimInstructions kind={kind} />
             <ClaimProductSelection
