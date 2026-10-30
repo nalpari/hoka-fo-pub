@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T08:38:28.646Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx
   - src/components/common/molecules/ProductCard/productCardTypography.ts
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
@@ -3724,3 +3725,20 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 모바일 배지·가격 후속 검증: 375px 브라우저에서 6개 카드 모두 Best·280,000원(line-through)·20%·240,000원을 표시하고 가로 넘침이 없음을 확인했다. 1920px 전환 후 New·240,000원/취소선 없음과 preview-empty의 카드 0개를 확인했다. 변경 파일 ESLint/Prettier와 TypeScript가 통과했다. 이 후속은 기존 표시 props에 fixture를 연결한 변경으로 Next/Storybook 빌드는 다시 실행하지 않았다.
 
 커밋 선별 검증: 다른 채팅의 최근 본 상품·재입고 후속을 제외한 HEAD+선별 소스 임시 사본에서 TypeScript와 4개 소스 ESLint를 통과했다. 할인율은 별도 렌더 검사 3건으로 명시적 20%·기존 계산 fallback·정상가 없는 상품의 할인 미표시를 확인했다. 선별 스테이지의 diff --check·okf:check를 통과했다. 위 Next/Storybook·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋의 빌드를 새로 실행했다는 뜻이 아니다.
+
+## 재입고 알림 Figma 화면 적용 (2026-10-30)
+
+출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
+
+- 기존 `MyPageFrame`의 844px 본문을 유지하고 재입고 분기에서 제목 PC 36px/MO 22px, 표 열 544/150/150px, 헤더 상단 2px·하단 1px, 행 padding PC 32px/MO 24px, 이미지 PC 96px/MO 64px를 적용했다.
+- PC 미연결 목록은 Men's / Speedgoat 7 GTX, 2026.10.31, 알림대기·발송완료다. MO는 클리프톤 9, 2026.05.22, 두 행 모두 알림대기로 시안 차이를 `restockPreview`에 명시한다. 실제 연결 항목에는 fixture 이름·날짜·상태를 섞지 않는다.
+- 빈 상태는 마침표 포함 문구, PC 16px·상하 240px, MO 14px·상하 96px이다. MO 빈 상태에서는 제목을 숨긴다. 안내는 12px이며 PC 목록에는 시안 원문의 최근 본 상품 안내를 보존하고, MO 목록/PC·MO 빈 상태에는 재입고 안내를 표시한다.
+- WEB Storybook에 기본·빈 목록·데이터 교체/취소 응답 확인을 추가하고 IA 184의 WEB 연결을 등록했다. 기존 Mobile stories와 두 route는 유지한다. 공통 헤더·배너·footer와 관심상품/최근 본 상품의 별도 변경은 이번 재입고 수정의 대상이 아니다.
+
+검증 (2026-10-30, Codex): 두 route의 PC/MO 목록·빈 상태를 브라우저에서 확인했다. 본문 844px, PC 제목 36px/썸네일 96px, MO 제목 22px/썸네일 64px, MO 빈 영역 210.19px(상하 96px + 본문 18.2px)을 측정했다. PC 제목의 실제 glyph font는 Pretendard-Black이었다. 375px 검증 환경은 세로 scrollbar로 clientWidth=360px이므로 MO 본문은 328px이며 가로 넘침은 없었다. 공통 홍보 배너·header 차이는 유지했다. WEB 연결 story에서 초기 pending이 완료된 Empty로 보이지 않음, 늦은 데이터 공급·신청 ID 교체, 취소 pending 중 확인 disabled, 실패 후 행/모달 유지, 재시도 성공 후 해당 행 제거·모달 닫기·빈 상태를 확인했다. API 호출 검증은 아니며 story의 수동 응답이다.
+
+변경 파일 lint, TypeScript, Panda 생성, Next 프로덕션 빌드, Storybook 빌드는 통과했다. Next 빌드는 첫 실행 시 다른 build 잠금으로 중단됐고 종료 후 재실행은 성공했다. 전체 lint는 검사 시점 범위 밖 `src/app/login/find-account/_components/FindAccountContent.tsx`의 css 및 `src/app/signup/complete/page.tsx`의 Stack 미사용 import 2건으로 실패했다. 이번 변경에서 해당 파일을 수정하지 않았다.
+
+기존 개발 Storybook의 명시적 Mobile 모드에서도 썸네일 64px 두 행과 제목 22px/900을 확인했다. 별도 정적 Storybook 확인 서버에서는 기존 Mobile scenario 묶음의 동적 import 로딩이 실패해 개발 Storybook으로 해당 모드를 검증했다. WEB 연결 story는 정적 빌드에서 검증했다.
+
+커밋 선별 검증: 현재 HEAD에 이 채팅의 재입고 변경만 적용한 저장소 밖 임시 사본에서 TypeScript와 관련 4개 소스 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋 자체의 빌드를 재실행한 기록과 구분한다.

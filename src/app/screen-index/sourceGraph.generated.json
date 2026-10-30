@@ -1382,10 +1382,11 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
+      "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts",
       "src/mocks/products.ts"

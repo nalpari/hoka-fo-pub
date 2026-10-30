@@ -674,3 +674,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 회원등급 시안 적용 (2026-10-30)
 
 `/mypage/rewards` 경로와 client page 경계를 유지하고 `_components/RewardsContent.tsx`가 배지·진행바·혜택 UI, `rewards-data.ts`가 고정 표시 데이터를 소유한다. PC Storybook을 추가해 IA 195의 WEB 연결을 등록했다. 공통 MyPageFrame·플랫폼 판별·탐색 계약은 변경하지 않았다. [시안 값과 검증](ui.md#회원등급-시안-적용-2026-10-30)을 참고한다.
+
+## 재입고 PC·모바일 디자인 연결 (2026-10-30)
+
+`/mypage/restock-alerts`와 `/mypage/restock-alerts/preview-empty`는 기존 공용 `MyPageProductHistory`를 유지한다. Figma `2025:152235`의 PC/MO 목록·빈 상태를 재입고 분기에 반영했고 IA 184에 WEB Storybook `pages-마이페이지-3-재입고-알림-상품-web--restock-alerts`를 추가했다. 직접 URL·previewRoutes·Mobile story 연결은 유지한다. 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json`의 작업 트리다.

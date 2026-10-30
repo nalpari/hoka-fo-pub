@@ -8,6 +8,7 @@ generated:
   by: codex/gpt-6
   at: '2026-10-30T08:08:16.838Z'
 working_tree_sources:
+  - src/components/mypage/MyPageProductHistory.tsx
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
@@ -181,3 +182,7 @@ CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 p
 ## 회원등급 시안의 진행금액 표시 (2026-10-30)
 
 `/mypage/rewards`는 `MyPageDataContext.overview.item`의 현재 이름·등급·이니셜·구매금액을 사용한다. `tierProgress`의 기존 percent/label에 optional currentAmount/targetAmount 표시 문자열을 추가했고 기존 소비자 호환은 유지한다. 미공급 금액과 진행률을 추정하지 않는다. 어댑터가 준비한 label을 툴팁과 접근성 이름에 사용한다. Provider 없는 PC/MO 값은 별도 fixture이며 실제 조회 구현이 아니다. pending/error/onRetry는 기존 BindingFeedback으로 표시하며 API 연결·응답 취소·갱신은 외부 소유다.
+
+## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
+
+작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.

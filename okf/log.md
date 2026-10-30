@@ -1367,3 +1367,9 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 추가 검증: ShopShell·OKF 동기화 스크립트·Storybook 설정의 ESLint 검사를 통과했다. 전체 eslint 검사는 실행 시간이 길어 완료 결과를 아직 기록하지 않았다.
 
 - 2026-10-28: RunClubBadge를 Badge.runClubCategory로 통합하고 두 운영 사용처·공용 스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.
+
+## 2026-10-30 — 재입고 알림 목록·빈 상태 디자인 적용
+
+- Figma 2025:152235의 PC/MO 목록·빈 상태를 기존 두 URL에 반영했다. 표/이미지/타이포/안내와 명시적 플랫폼별 preview 데이터를 수정하고 HistoryItem.status 및 WEB Storybook·IA 연결을 추가했다. 소스 및 연결 책임은 architecture/ui.md·state.md·routing.md에 기록했다.
+
+- 검증: PC/MO route와 WEB 연결 story 확인, 변경 파일 lint·타입·Panda·Next/Storybook 빌드 통과. 전체 lint는 범위 밖 미사용 import 2건으로 실패했다. 상세 측정과 한계는 UI 문서의 재입고 섹션에 기록했다.

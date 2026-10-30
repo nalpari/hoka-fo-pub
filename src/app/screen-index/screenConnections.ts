@@ -297,6 +297,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/restock-alerts/preview-empty/page.tsx',
     ],
     stories: {
+      web: {
+        id: 'pages-마이페이지-3-재입고-알림-상품-web--restock-alerts',
+        file: 'src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx',
+      },
       mobile: {
         id: 'pages-마이페이지-3-재입고-알림-상품-mobile--restock-alerts',
         file: 'src/stories/features/mypage/MyPage.RestockAlerts.Mobile.stories.tsx',

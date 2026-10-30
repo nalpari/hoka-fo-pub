@@ -4,8 +4,12 @@
  * [ 개발팀 바인딩 ]
  * wishlistMobilePreview의 Best·280,000원·20%·240,000원은 모바일 미연결 시안 fixture이며 실제 연결 상품에는 적용하지 않습니다.
  * MyPageDataContext.histories[kind]에 실제 행 id와 상품 Product/liked/requestedAt을 전달합니다.
- * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 성공 후 최신 items를 공급하고 실패 시 reject합니다.
+ * 재입고 목록은 product.name/gender/primaryImage, requestedAt, status(waiting/sent)를 표시합니다. 미연결 PC/MO 시안 차이는 restockPreview에만 둡니다.
+ * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 연결 소유자가 성공 후 최신 items/totalCount/hasMore를 공급하고 오래된 응답을 폐기합니다.
+ * 취소 요청 중 중복 확인·닫기를 막고 실패 시 행과 창을 유지해 재시도합니다. 성공한 경우에만 창을 닫습니다. API는 여기서 구현하지 않습니다.
  */
+
+import Image from 'next/image';
 
 import { useContext, useState } from 'react';
 import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext';
@@ -22,8 +26,8 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -56,61 +60,140 @@ function MyPageProductHistoryHeading({
 type Props = {
   entries?: readonly HistoryItem[];
   items: readonly string[];
-  thumbnail: string;
   onCancelRequest: (id: string) => void;
 };
 
-function MyPageRestockList({ items, thumbnail, onCancelRequest, entries }: Props) {
+const restockPreview = {
+  web: {
+    name: 'Speedgoat 7 GTX',
+    gender: "Men's",
+    requestedAt: '2026.10.31',
+    statuses: ['waiting', 'sent'],
+  },
+  mobile: {
+    name: '클리프톤 9',
+    gender: '',
+    requestedAt: '2026.05.22',
+    statuses: ['waiting', 'waiting'],
+  },
+} as const;
+
+function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
+  const platform = usePlatform();
+  const preview = restockPreview[platform];
+
   return (
     <Stack gap="0">
       <Grid
-        gridTemplateColumns="1fr 160px 100px"
+        gridTemplateColumns="minmax(0, 1fr) 150px 150px"
+        gap="0"
         display={{ base: 'grid', _mobile: 'none' }}
-        borderY="1px solid var(--colors-black-100)"
-        py="4"
+        borderTop="2px solid black"
+        borderBottom="1px solid black"
+        py="5"
         textAlign="center"
       >
-        <Typography variant="body4">상품정보</Typography>
-        <Typography variant="body4">신청일</Typography>
-        <Typography variant="body4">상태</Typography>
+        {['상품정보', '신청일', '상태'].map((label) => (
+          <Typography key={label} variant="heading9" language="ko">
+            {label}
+          </Typography>
+        ))}
       </Grid>
-      {items.map((id) => {
+      {items.map((id, index) => {
         const entry = entries?.find((item) => item.id === id);
+        const name = entries ? entry?.product.name : preview.name;
+        const gender = entries ? entry?.product.gender : preview.gender;
+        const requestedAt = entries ? entry?.requestedAt : preview.requestedAt;
+        // PC/MO 시안의 서로 다른 상태는 미연결 fixture에서만 적용합니다.
+        const sent = entries ? entry?.status === 'sent' : preview.statuses[index] === 'sent';
         return (
           <Grid
             key={id}
-            gridTemplateColumns={{ base: '1fr 160px 100px', _mobile: '1fr 80px' }}
+            gridTemplateColumns={{
+              base: 'minmax(0, 1fr) 150px 150px',
+              _mobile: 'minmax(0, 1fr) auto',
+            }}
             alignItems="center"
-            borderBottom="1px solid var(--colors-black-20)"
-            gap="4"
-            py="6"
+            borderBottom="1px solid #E9EAEB"
+            gap="0"
+            py="8"
+            _mobile={{ py: '6', columnGap: '2' }}
           >
-            <HStack gap="4">
-              <Box w="20" h="20" flexShrink="0">
-                <ProductThumbnail
-                  alt={entry?.product.name ?? '클리프톤 9'}
-                  src={entry?.product.primaryImage ?? thumbnail}
+            <HStack gap="4" px="6" alignItems="flex-start" _mobile={{ px: '0' }}>
+              <Box w="96px" h="96px" flexShrink="0" _mobile={{ w: '64px', h: '64px' }}>
+                <Image
+                  alt={name ?? ''}
+                  src={entry?.product.primaryImage ?? product.primaryImage}
+                  width={96}
+                  height={96}
+                  sizes={platform === 'mobile' ? '64px' : '96px'}
+                  className={css({
+                    w: '100%',
+                    h: '100%',
+                    objectFit: 'cover',
+                    bg: '#F7F7F9',
+                  })}
                 />
               </Box>
-              <Stack gap="2">
-                <Typography variant="body4">{entry?.product.name ?? '클리프톤 9'}</Typography>
+              <Stack gap="0" minW="0">
+                {gender && <Typography variant="body4">{gender}</Typography>}
+                <Typography web="body4" mo="body4" className={css({ fontWeight: 'medium' })}>
+                  {name}
+                </Typography>
                 <Typography
-                  variant="body5"
-                  className={css({ display: 'none', _mobile: { display: 'block' } })}
+                  variant="body4"
+                  tone="tertiary"
+                  className={css({
+                    display: 'none',
+                    _mobile: { display: 'block', mt: '6px' },
+                  })}
                 >
-                  신청일 : {entry?.requestedAt ?? '2026.05.22'}
+                  신청일 : {requestedAt}
                 </Typography>
               </Stack>
             </HStack>
             <Typography
-              variant="body4"
-              className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
+              variant="body3"
+              tone="subtle"
+              className={css({
+                textAlign: 'center',
+                _mobile: { display: 'none' },
+              })}
             >
-              {entry?.requestedAt ?? '2026.05.22'}
+              {requestedAt}
             </Typography>
-            <Button variant="link" size="sm" onClick={() => onCancelRequest(id)}>
-              알림대기
-            </Button>
+            <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
+              {sent ? (
+                <Typography variant="body3" tone="subtle">
+                  발송완료
+                </Typography>
+              ) : (
+                <button
+                  type="button"
+                  aria-label={`${name} 재입고 알림 취소`}
+                  onClick={() => onCancelRequest(id)}
+                  className={css({
+                    border: '0',
+                    bg: 'transparent',
+                    p: '0',
+                    cursor: 'pointer',
+                    _focusVisible: {
+                      outline: '2px solid',
+                      outlineOffset: '4px',
+                    },
+                  })}
+                >
+                  <Typography
+                    web="body3"
+                    mo="body4"
+                    language="ko"
+                    className={css({ _mobile: { color: '#777777' } })}
+                  >
+                    알림대기
+                  </Typography>
+                </button>
+              )}
+            </Box>
           </Grid>
         );
       })}
@@ -301,6 +384,9 @@ export function MyPageProductHistory({
     : demoLiked;
   const [pendingCancel, setPendingCancel] = useState<string | null>(null);
   const current = config[kind];
+  const restock = kind === 'restock-alerts';
+  const restockNote =
+    '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있으며, 알림 대기 중인 신청은 여기서 취소할 수 있습니다.';
 
   return (
     <MyPageFrame
@@ -313,12 +399,46 @@ export function MyPageProductHistory({
         error={binding?.error || request.error}
       />
       <Stack
-        gap={kind === 'wishlist' ? '8' : '6'}
+        gap={restock ? '0' : kind === 'wishlist' ? '8' : '6'}
         mx={kind === 'wishlist' ? { _mobile: '-16px' } : undefined}
         _mobile={kind === 'wishlist' ? { gap: '6', pb: '2' } : undefined}
       >
         {kind === 'wishlist' && <MyPageProductHistoryHeading title={current.title} wishlist />}
-        {items.length ? (
+        {restock && (items.length > 0 || !(binding?.pending || binding?.error)) && (
+          <ContentHeader
+            title={current.title}
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+            pb="10"
+            borderBottom={items.length ? undefined : '2px solid black'}
+            _mobile={{
+              pb: '0',
+              mb: items.length ? '6' : '0',
+              display: items.length ? 'flex' : 'none',
+            }}
+          />
+        )}
+        {restock ? (
+          items.length ? (
+            <MyPageRestockList
+              entries={binding?.items}
+              items={items}
+              onCancelRequest={setPendingCancel}
+            />
+          ) : binding?.pending || binding?.error ? null : (
+            <Box
+              role="status"
+              textAlign="center"
+              py="240px"
+              mt="8"
+              _mobile={{ py: '96px', mt: '0' }}
+            >
+              <Typography as="p" web="body3" mo="body4" tone="subtle">
+                {current.empty}.
+              </Typography>
+            </Box>
+          )
+        ) : items.length ? (
           <ContentSection
             gap={kind === 'wishlist' ? '8' : '6'}
             footer={
@@ -330,33 +450,24 @@ export function MyPageProductHistory({
               kind === 'wishlist' ? null : <MyPageProductHistoryHeading title={current.title} />
             }
           >
-            {kind === 'restock-alerts' ? (
-              <MyPageRestockList
-                entries={binding?.items}
-                items={items}
-                thumbnail={product.primaryImage}
-                onCancelRequest={setPendingCancel}
-              />
-            ) : (
-              <MyPageProductHistoryGrid
-                wishlist={kind === 'wishlist'}
-                entries={binding?.items}
-                items={items}
-                liked={liked}
-                product={product}
-                onLikedChange={(id, active) => {
-                  if (binding) {
-                    void request.run(() => binding.setLiked(id, active));
-                    return;
-                  }
-                  setLiked((currentLiked) =>
-                    active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
-                  );
-                  if (!active && kind === 'wishlist')
-                    setItems((currentItems) => currentItems.filter((item) => item !== id));
-                }}
-              />
-            )}
+            <MyPageProductHistoryGrid
+              wishlist={kind === 'wishlist'}
+              entries={binding?.items}
+              items={items}
+              liked={liked}
+              product={product}
+              onLikedChange={(id, active) => {
+                if (binding) {
+                  void request.run(() => binding.setLiked(id, active));
+                  return;
+                }
+                setLiked((currentLiked) =>
+                  active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
+                );
+                if (!active && kind === 'wishlist')
+                  setItems((currentItems) => currentItems.filter((item) => item !== id));
+              }}
+            />
           </ContentSection>
         ) : binding?.pending || binding?.error ? null : kind === 'wishlist' ? (
           <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
@@ -377,7 +488,40 @@ export function MyPageProductHistory({
             더보기
           </Button>
         )}
-        {!(kind === 'wishlist' && items.length > 0) && (
+        {restock ? (
+          <Box
+            mt="4"
+            pt={items.length ? '0' : '4'}
+            borderTop={items.length ? undefined : '1px solid #E9EAEB'}
+            whiteSpace="pre-line"
+            _mobile={{
+              pt: items.length ? '0' : '4',
+              pb: items.length ? '2' : '4',
+            }}
+          >
+            {items.length > 0 && (
+              <Typography
+                as="p"
+                variant="body5"
+                tone="tertiary"
+                className={css({ _mobile: { display: 'none' } })}
+              >
+                {config.recent.note}
+              </Typography>
+            )}
+            <Typography
+              as="p"
+              variant="body5"
+              tone="tertiary"
+              className={css({
+                display: items.length ? 'none' : 'block',
+                _mobile: { display: 'block' },
+              })}
+            >
+              {restockNote}
+            </Typography>
+          </Box>
+        ) : kind === 'wishlist' && items.length > 0 ? null : (
           <MyPageProductHistoryNote
             note={current.note}
             wishlist={kind === 'wishlist'}

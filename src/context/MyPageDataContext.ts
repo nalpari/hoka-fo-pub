@@ -27,7 +27,13 @@ export type ProfileBinding = BindingState & {
   verifyPhone: (input: { requestId: string; phone: string; code: string }) => Promise<string>;
 };
 
-export type HistoryItem = { id: string; product: Product; liked: boolean; requestedAt?: string };
+export type HistoryItem = {
+  id: string;
+  product: Product;
+  liked: boolean;
+  requestedAt?: string;
+  status?: 'waiting' | 'sent';
+};
 
 export type HistoryBinding = ListBinding<HistoryItem, Record<string, never>> & {
   setLiked: (id: string, active: boolean) => Promise<void>;
