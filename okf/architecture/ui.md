@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T04:58:11Z'
+  at: '2026-10-30T06:11:50Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/app/publishing-guide/_components/FormGuide.tsx
   - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
   - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
   - src/app/mypage/reviews/reviewFixtures.ts
@@ -801,6 +803,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 퍼블리싱 가이드 import 정렬 (2026-10-30)
+
+`ButtonGuide.tsx`, `FormGuide.tsx`, 퍼블리싱 가이드 `page.tsx`의 named import 순서와 atoms/molecules/organisms 그룹 사이 빈 줄을 ESLint 설정에 맞췄다. type-only import·클라이언트 지시문·컴포넌트 동작과 스타일을 유지했다. 전체 `npm run lint`가 오류 없이 통과하여 아래 폰트·필터 작업 당시 남았던 import 정렬 오류 8개를 해소했다. 작업 트리 출처: `src/app/publishing-guide/_components/ButtonGuide.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`, `src/app/publishing-guide/page.tsx`.
 
 ## 상품리뷰 디자인 목록과 STATE (2026-10-30)
 

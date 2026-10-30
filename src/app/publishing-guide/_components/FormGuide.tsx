@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState, type ReactNode } from 'react';
+import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -16,18 +16,20 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Select } from '@/components/common/atoms/Select';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
+
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 import { SearchField } from '@/components/common/molecules/SearchField';
+
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
 import { faCopy } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
-import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sections = [
@@ -68,7 +70,6 @@ const copyButton = css({
   borderRadius: '4px',
   _hover: { bg: 'black.20!' },
 });
-
 
 const selectOptions = [
   { value: '', label: '항목을 선택해 주세요' },

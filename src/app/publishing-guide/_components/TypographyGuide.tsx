@@ -16,7 +16,7 @@ import {
 import { faCopy } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
-import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const groups: readonly {

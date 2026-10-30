@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 퍼블리싱 가이드 import 정렬 오류 해소
+
+- ButtonGuide·FormGuide·퍼블리싱 가이드 page의 named import 순서와 그룹 간격을 정리해 남아 있던 8개 오류를 해소했다. 실행 코드·타입 import·스타일·라우트 계약을 유지한다.
+- 전체 `npm run lint`가 통과했다. [UI 변경](architecture/ui.md#퍼블리싱-가이드-import-정렬-2026-10-30), [라우트 영향 검토](architecture/routing.md#퍼블리싱-가이드-import-정렬-검토-2026-10-30).
+
 ## 2026-10-30 — 러닝세션 신청 취소 모달 STATE 추가
 
 - `/mypage/event-entries/preview-cancel`에서 기존 취소 모달을 처음부터 열어 표시한다. 고정 fixture만 사용하고 확인·닫기는 모달만 닫는다.

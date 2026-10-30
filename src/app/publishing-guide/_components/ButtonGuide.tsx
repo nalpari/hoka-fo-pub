@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, cloneElement, isValidElement, useCallback, useRef, useState } from 'react';
+import { cloneElement, isValidElement, type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -12,7 +12,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { faCopy } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
-import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const variants = [

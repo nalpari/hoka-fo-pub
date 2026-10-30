@@ -6,9 +6,10 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T04:58:11Z'
+  at: '2026-10-30T06:11:50Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/publishing-guide/page.tsx
   - src/app/mypage/event-entries/preview-cancel/page.tsx
   - src/app/mypage/reviews/preview-ready/page.tsx
   - src/app/mypage/reviews/preview-written/page.tsx
@@ -185,6 +186,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 퍼블리싱 가이드 import 정렬 검토 (2026-10-30)
+
+`src/app/publishing-guide/page.tsx`의 atoms/molecules import 그룹과 type binding 순서만 정리했다. 경로·metadata·page export·탭 내용·서버/클라이언트 경계에는 영향이 없다. 전체 `npm run lint`가 통과했다. [UI 기록](ui.md#퍼블리싱-가이드-import-정렬-2026-10-30)을 참고한다.
 
 ## 러닝세션 신청 취소 모달 직접 URL (2026-10-30)
 
