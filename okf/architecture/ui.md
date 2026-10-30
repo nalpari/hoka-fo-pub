@@ -6,9 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T08:05:45Z'
+  at: '2026-10-30T00:19:33Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/**/_components/*.tsx
+  - src/app/**/page.tsx
+  - AGENTS.md
+  - .codex/skills/component-reusability/SKILL.md
+  - .codex/skills/component-reusability/references/page-ownership.md
+  - .codex/skills/component-reusability/references/single-parent-consolidation.md
   - src/components/screen-index/DesignGuideTypography.tsx
   - src/components/common/atoms/Typography.tsx
   - src/styles/global.scss
@@ -779,6 +785,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 페이지 전용 UI 배치 (2026-10-30)
+
+페이지 전용 보조 컴포넌트는 해당 라우트의 `_components/`에 배치한다. 이 규칙은 단일 부모 컴포넌트의 부모 모듈 통합 규칙의 예외다. 관련 내부 부품은 한 모듈에 함께 두고 새 전달용 래퍼는 만들지 않는다. 이번에는 30개 페이지의 41개 모듈을 분리했으며 JSX·Panda 스타일·콜백·바인딩 주석을 보존했다. 공통 컴포넌트와 이미 적합한 가이드 페이지는 변경하지 않았다. [범위·검증·한계](page-private-components-2026-10-30.md)를 참고한다.
 
 ## 디자인 가이드 폰트명 타입 오류 수정 (2026-10-29)
 

@@ -6,9 +6,12 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T23:13:13Z'
+  at: '2026-10-30T00:19:33Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/**/_components/*.tsx
+  - AGENTS.md
+  - .codex/skills/component-reusability/references/single-parent-consolidation.md
   - src/app/examples/styles/classnames/page.tsx
   - src/app/examples/styles/scss-module/page.tsx
   - src/app/examples/styles/scss-module/page.module.scss
@@ -168,6 +171,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
+
+사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](page-private-components-2026-10-30.md)을 참고한다.
 
 ## 스타일 비교 샘플 삭제 (2026-10-29)
 
