@@ -9,6 +9,10 @@ generated:
   at: '2026-10-30T08:21:19.889Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/context/MyPageDataContext.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/_components/MyPageContent.tsx
   - src/components/mypage/MyPageFrame.tsx
@@ -666,3 +670,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 퍼블리싱 고정 상태 URL (2026-10-30)
 
 고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.
+
+## 회원등급 시안 적용 (2026-10-30)
+
+`/mypage/rewards` 경로와 client page 경계를 유지하고 `_components/RewardsContent.tsx`가 배지·진행바·혜택 UI, `rewards-data.ts`가 고정 표시 데이터를 소유한다. PC Storybook을 추가해 IA 195의 WEB 연결을 등록했다. 공통 MyPageFrame·플랫폼 판별·탐색 계약은 변경하지 않았다. [시안 값과 검증](ui.md#회원등급-시안-적용-2026-10-30)을 참고한다.

@@ -412,6 +412,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/rewards',
     sourceFiles: ['src/app/mypage/rewards/page.tsx'],
     stories: {
+      web: {
+        id: 'pages-마이페이지-5-회원등급-web--rewards',
+        file: 'src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx',
+      },
       mobile: {
         id: 'pages-마이페이지-5-회원등급-mobile--rewards',
         file: 'src/stories/features/mypage/MyPage.Rewards.Mobile.stories.tsx',

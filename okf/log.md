@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 회원등급 PC/MO Figma 적용
+
+`/mypage/rewards`를 첨부 섹션의 PC 1563:33480·MO 1643:17449에 맞춰 진행바·구매금액 카드·세 도형 배지·등급별 목록·공통 쿠폰 혜택으로 갱신했다. 기존 overview 연결에 선택적 누적/목표 표시 문자열을 추가하고 PC Storybook과 IA 195 연결을 등록했다. 시안 간 RUNNER 한도·반품쿠폰 차이는 명시적 fixture로 보존했다. [UI 값·검증](architecture/ui.md#회원등급-시안-적용-2026-10-30), [라우팅](architecture/routing.md#회원등급-시안-적용-2026-10-30), [상태](architecture/state.md#회원등급-표시-데이터-2026-10-30), [바인딩](architecture/data-binding.md#회원등급-시안의-진행금액-표시-2026-10-30)을 갱신했다. Next·Storybook 빌드, 타입·Panda·변경 파일 lint/서식, 관련 기존 테스트 11개 통과. 전체 lint의 비대상 미사용 import 2건은 구분 기록했다. 실제 API 연결과 PC 공통 메뉴 검수 항목은 남아 있다.
+
 ## 2026-10-30 — 러닝세션 신청내역 Figma 실측 보정
 
 /mypage/event-entries의 PC/MO 탭·간격·목록 타이포·배지·취소 위치·모달과 사진 3종을 지정 섹션에 맞췄다. 기존 URL·공통 프레임·서비스 계약을 유지했다. [표현과 실제 검증](architecture/ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [라우팅](architecture/routing.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [상태 경계](architecture/state.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)에 출처와 비대상 타입 오류·manifest 부재를 기록했다.

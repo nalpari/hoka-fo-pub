@@ -9,6 +9,9 @@ generated:
   at: '2026-10-30T08:21:19.889Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
@@ -552,3 +555,7 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 회원등급 표시 데이터 (2026-10-30)
+
+`OverviewView.tierProgress`에 선택적 표시 문자열 `currentAmount`·`targetAmount`를 추가했다. 기존 `percent`·`label`과 overview.item 계약은 유지한다. rewards page는 현재 Context를 직접 읽으며 Provider가 있을 때 null/미공급 값을 기본 fixture로 채우지 않는다. Provider가 없을 때만 명시적 PC/MO fixture를 쓴다. 진행률을 금액에서 계산하지 않으며 조회·실패·재시도·갱신·오래된 응답 배제는 기존 연결 어댑터 책임이다. [UI 기록](ui.md#회원등급-시안-적용-2026-10-30)을 참고한다.

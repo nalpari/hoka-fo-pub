@@ -6,8 +6,12 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T08:08:16.838Z'
 working_tree_sources:
+  - src/app/mypage/rewards/page.tsx
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -173,3 +177,7 @@ CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 p
 ## 고정 상태 preview의 연결 경계 (2026-10-30)
 
 상태 preview는 실제 서비스 요청·인증·시간 경과·저장 결과 없이 표시하며 원본 기본 화면의 기존 domain context 계약과 구분한다. 고정 오류를 정상 입력으로 자동 해제하지 않고 완료 상태로 이동시키지 않는다. 로컬 입력·도움말·모달 닫기를 유지한다. [전체 URL과 상태별 소유자](publishing-state-previews-2026-10-30.md)를 참고한다.
+
+## 회원등급 시안의 진행금액 표시 (2026-10-30)
+
+`/mypage/rewards`는 `MyPageDataContext.overview.item`의 현재 이름·등급·이니셜·구매금액을 사용한다. `tierProgress`의 기존 percent/label에 optional currentAmount/targetAmount 표시 문자열을 추가했고 기존 소비자 호환은 유지한다. 미공급 금액과 진행률을 추정하지 않는다. 어댑터가 준비한 label을 툴팁과 접근성 이름에 사용한다. Provider 없는 PC/MO 값은 별도 fixture이며 실제 조회 구현이 아니다. pending/error/onRetry는 기존 BindingFeedback으로 표시하며 API 연결·응답 취소·갱신은 외부 소유다.

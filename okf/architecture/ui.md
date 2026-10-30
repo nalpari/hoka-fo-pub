@@ -9,6 +9,10 @@ generated:
   at: '2026-10-30T08:21:19.889Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/context/MyPageDataContext.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/mypage/_components/MyPageContent.tsx
@@ -3687,3 +3691,17 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 회원등급 시안 적용 (2026-10-30)
+
+디자인 출처: [회원등급 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1563-33124), PC `1563:33480`, MO `1643:17449`의 구조·스타일을 확인했다. 디자인 시스템 파일 `0dCBZJvU7aacxImQTV843M` 접근도 확인했으며 화면별 override를 우선했다.
+
+- 공통 프레임의 PC 844px 본문을 유지한다. 상단 RUNNER 36px/900, PC 배지 63×72px, 등급 안내 28px/900, PC 등급 행의 56px gap·40px 세로 패딩을 적용했다.
+- 배지는 ELITE 원형 `#009DFF`, ADVANCED 오각형 `#E1FF04`, RUNNER 육각형 `#E8EDF3` 바탕에 검정 이니셜이다. PC ELITE/ADVANCED 너비 72px, MO 48px, MO RUNNER 42×48px이다. MO 등급명은 22px/900이다.
+- PC는 별도 진행률·구매금액 카드(240×133px)와 가로 등급 행, 2열 공통 혜택을 표시한다. MO는 한 줄 구매금액, 흰 바탕 테두리의 세로 등급 목록, `#F7F7F9` 공통 혜택을 사용한다. 본문에 중복되던 모바일 16px 패딩과 시안에 없는 정책 안내·컬러 배경을 제거했다.
+- 시안의 PC 구매금액 258,000원/진행금액 524,000·880,000원, MO 구매금액 182,500원은 독립 fixture다. RUNNER의 PC 최대금액 700,000원·반품쿠폰 3장과 MO 300,000원·1장도 각 프레임대로 분리했다. 확정 서비스 정책으로 해석하지 않으며 운영 정책 통일은 연결 소유자의 확인이 필요하다.
+- 공통 혜택은 신규 가입 10%, 첫 구매 1만원, 생일 1만원, 카카오 친구 5,000원과 지급/유효기간 설명으로 교체했다. 기존 overview Context와 실패/재시도 UI를 유지하며 optional 진행금액 문자열을 추가했다. 상세 계약은 [상태 기록](state.md#회원등급-표시-데이터-2026-10-30)을 참고한다.
+
+검증: PC 1920px 본문 844px, MO 375px·390px의 표시와 가로 넘침 없음, 실제 RUNNER 36px/900·MO 등급명 22px/900·공통 제목 20px/600을 확인했다. CDP의 실제 글리프는 HOKA custom font와 Pretendard Regular/Bold이며, HOKA 내부 이름 `.`은 로드된 TheFutureHOKA Black WOFF2 face와 연결해 확인했다. 런타임 배너(50px)와 Figma의 모바일 status bar(24px), 브라우저 scrollbar 유무를 구분했다. 연결 Storybook에서 외부 이름/금액, null+pending, 오류·재시도 버튼, 늦은 item 교체 후 ELITE/987,654원/81% 갱신과 이전 금액·오류 제거를 확인했다. 재시도 버튼은 Storybook spy이며 실제 API 성공 검증이 아니다. Next·Storybook production build, typecheck, Panda, 변경 파일 ESLint/Prettier와 screen-files/screen-progress 기존 검사 11개가 통과했다. 전체 lint는 비대상 FindAccountContent.css·signup/complete.Stack 미사용 import 2건으로 실패했다. Storybook에는 기존 의존성 use client directive·chunk 크기 경고가 남는다. PC 공통 메뉴의 별도 검수 사유는 유지하고 본문 차이만 해결한 것으로 IA 비고를 갱신했다.
+
+추가 확인: 빌드된 Storybook의 MO 375px에서 등급 목록 x=16px·너비=343px, document scrollWidth=375px를 확인했다. MO 고정 스토리를 1600px로 늘려도 본문 sidebar 숨김·등급 세로 배치가 유지됐고 WEB 고정 스토리를 375px로 줄여도 sidebar 표시·가로 배치가 유지됐다.

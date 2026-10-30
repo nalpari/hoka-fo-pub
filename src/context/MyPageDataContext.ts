@@ -54,7 +54,7 @@ export type OverviewView = {
   wishlistCount: number;
   purchaseAmount: string;
   /** [ 개발팀 바인딩 ] 다음 등급까지의 진행률·설명은 서버 정책으로 준비합니다. 미공급 시 진행률을 추정하지 않습니다. */
-  tierProgress?: { percent: number; label: string };
+  tierProgress?: { percent: number; label: string; currentAmount?: string; targetAmount?: string };
   orders: readonly {
     name: string;
     gender: string;

@@ -1,175 +1,80 @@
 'use client';
 
-/**
- * [개발팀 바인딩]
- * 현재 사용자명/등급/구매금액은 MyPageDataContext.overview.item을 사용합니다.
- * tiers는 모든 회원에게 보여주는 등급 정책 설명입니다. BO 운영이 필요하면 이 표시 모델의 name/initial/benefits를 서버 정책으로 변환하고 현재 회원 등급과 구분합니다.
- */
-
 import { useContext } from 'react';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
+import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
-import { Box, Circle, HStack, Stack } from 'styled-system/jsx';
+import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection';
-
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
-import { commonBenefits, RewardBenefitItem, tierCard, tiers } from './_components/RewardsContent';
+import { RewardBenefits, RewardProgress, TierBadge } from './_components/RewardsContent';
+import { rewardPreview } from './rewards-data';
 
 /** 회원 등급별 혜택과 리워드 안내를 표시합니다. (Displays membership tier benefits and reward information.) */
 export default function Page() {
+  // [ 개발팀 바인딩 ] 연결 어댑터가 overview.item의 이름·등급·이니셜·구매금액과
+  // tierProgress의 진행률·툴팁·누적/목표 표시 금액을 준비합니다. 미공급 값을 계산하거나 fixture로 대체하지 않습니다.
+  // Provider가 없을 때만 플랫폼별 시안 fixture를 사용합니다. 현재 Context를 직접 읽어 지연 응답/교체를 반영하며,
+  // pending/error/onRetry는 BindingFeedback에 전달합니다. 조회·재시도·성공 후 갱신과 오래된 응답 배제는 어댑터 책임입니다.
   const binding = useContext(MyPageDataContext).overview;
-  const summary = binding?.item;
-  const progress = binding
-    ? summary?.tierProgress
-    : { percent: 36.5, label: '다음 등급까지의 구매금액' };
+  const platform = usePlatform();
+  const summary = binding ? binding.item : rewardPreview[platform];
+
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
       <BindingFeedback {...binding} />
-      <Stack gap="10" px="4" pt="6" pb="16">
-        <ContentSection
-          gap="4"
-          header={
-            <Box as="h1">
-              <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading5">{binding ? summary?.name : '박*진'}</Typography>
-                <Typography mo="body2">님의 회원등급은</Typography>
-              </HStack>
-              <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading5">{binding ? summary?.tier : 'RUNNER'}</Typography>
-                <Typography mo="body2">입니다.</Typography>
-              </HStack>
+      <Stack gap="14" _mobile={{ gap: '10', pt: '6' }}>
+        <Stack gap="6">
+          <HStack gap="4" alignItems="flex-start">
+            <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
+              <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
             </Box>
-          }
-        >
-          <Stack bg="black.10" px="4" py="5" gap="3">
-            <HStack justifyContent="space-between" alignItems="center">
-              <Typography mo="body4" weight="medium">
+            <Stack gap="3" pt="3" _mobile={{ gap: '2', pt: '0' }}>
+              <Typography as="h1" web="heading6" mo="heading3">
+                {summary?.tier}
+              </Typography>
+              <Typography as="p" web="body3" mo="body4">
+                {summary?.name}
+                {summary ? '님의 이번달 멤버십 등급' : null}
+              </Typography>
+            </Stack>
+          </HStack>
+          <HStack gap="2" alignItems="stretch">
+            {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
+            <Stack
+              bg="black.10"
+              p="8"
+              gap="3"
+              w={summary?.tierProgress ? '240px' : 'full'}
+              minH="133px"
+              justifyContent="space-between"
+              _mobile={{
+                w: 'full',
+                minH: '0',
+                px: '4',
+                py: '5',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Typography web="body3" mo="body4">
                 구매금액
               </Typography>
-              <HStack gap="0.5" alignItems="baseline">
-                <Typography mo="heading7">
-                  {binding ? summary?.purchaseAmount : '182,500'}
+              <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
+                <Typography web="heading8" mo="heading7" weight="black">
+                  {summary?.purchaseAmount}
                 </Typography>
-                <Typography mo="body3">원</Typography>
+                <Typography variant="body3">원</Typography>
               </HStack>
-            </HStack>
-            <Box
-              display={{ base: progress ? 'block' : 'none', _mobile: 'none' }}
-              role="img"
-              aria-label="등급별 구매금액 안내"
-            >
-              <HStack justifyContent="space-between">
-                <Typography variant="body5">RUNNER</Typography>
-                <Typography variant="body5">ADVANCED</Typography>
-                <Typography variant="body5">ELITE</Typography>
-              </HStack>
-              <Box h="2" bg="black.20" mt="3">
-                <Box
-                  style={{ width: `${Math.max(0, Math.min(100, progress?.percent ?? 0))}%` }}
-                  h="100%"
-                  bg="black.100"
-                />
-              </Box>
-              <Typography variant="body5" className={css({ mt: '2' })}>
-                현재 구매금액 : {binding ? summary?.purchaseAmount : '182,500'}원
-              </Typography>
-            </Box>
-            <Box mt="2">
-              <Typography as="p" mo="body5" tone="tertiary">
-                * 매월 1일, 최근 1년간의 구매 금액을 기준으로 산정됩니다.
-              </Typography>
-            </Box>
-          </Stack>
-        </ContentSection>
-        <Stack gap="4">
-          {tiers.map((tier) => (
-            <Stack key={tier.name} className={tierCard({ tier: tier.name })} px="4" py="6">
-              <HStack alignItems="center" gap="2" minW="200px">
-                <Circle
-                  size="12"
-                  flex="0 1 auto"
-                  bg="black.100"
-                  color="var(--tier-color)"
-                  css={{
-                    borderRadius: 0,
-                    clipPath: 'polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)',
-                    _mobile: { borderRadius: 'full', clipPath: 'none' },
-                  }}
-                >
-                  <Typography mo="heading5" weight="black">
-                    {tier.initial}
-                  </Typography>
-                </Circle>
-                <Typography mo="heading5">{tier.name}</Typography>
-              </HStack>
-              <Stack as="ol" gap="2" listStyleType="none">
-                {tier.benefits.map((benefit, index) => (
-                  <RewardBenefitItem key={benefit.title} number={index + 1}>
-                    <Typography as="p" mo="body4">
-                      {benefit.title}
-                    </Typography>
-                    {benefit.details.length > 0 ? (
-                      <Stack as="ul" gap="1" pl="2" listStyleType="none">
-                        {benefit.details.map((detail) => (
-                          <HStack as="li" key={detail} alignItems="flex-start" gap="1">
-                            <Typography as="span" mo="body5" aria-hidden="true">
-                              ・
-                            </Typography>
-                            <Typography mo="body5">{detail}</Typography>
-                          </HStack>
-                        ))}
-                      </Stack>
-                    ) : null}
-                  </RewardBenefitItem>
-                ))}
-              </Stack>
             </Stack>
-          ))}
-          <ContentSection
-            gap="5"
-            px="4"
-            py="6"
-            border="1px solid var(--colors-black-20)"
-            title="HOKA 회원 공통 혜택"
-            headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading6' } }}
-          >
-            {commonBenefits.map((benefit) => (
-              <ContentSection
-                as="section"
-                key={benefit.title}
-                gap="3"
-                title={<>{benefit.title}</>}
-                headerProps={{ titleAs: 'h3', titleProps: { mo: 'heading7' } }}
-              >
-                <Stack as="ol" gap="2" listStyleType="none">
-                  {benefit.items.map((item, index) => (
-                    <RewardBenefitItem key={item.text} number={index + 1}>
-                      <Typography as="span" mo="body4">
-                        {item.text}
-                      </Typography>
-                      {item.details.length > 0 ? (
-                        <Stack as="ul" gap="1" listStyleType="none">
-                          {item.details.map((detail) => (
-                            <Typography as="li" key={detail} mo="body5">
-                              • &nbsp;{detail}
-                            </Typography>
-                          ))}
-                        </Stack>
-                      ) : null}
-                    </RewardBenefitItem>
-                  ))}
-                </Stack>
-              </ContentSection>
-            ))}
-          </ContentSection>
+          </HStack>
         </Stack>
+        <RewardBenefits />
       </Stack>
     </MyPageFrame>
   );
