@@ -78,11 +78,6 @@ const connections: Record<number, ScreenConnection> = {
     ],
     stories: {},
   },
-  '167': {
-    route: '/collection/8386',
-    sourceFiles: [],
-    stories: {},
-  },
   '174': {
     sourceFiles: ['src/app/checkout/page.tsx'],
     stories: {
@@ -399,12 +394,14 @@ const connections: Record<number, ScreenConnection> = {
   '196': {
     route: '/mypage/coupons',
     previewRoutes: [
+      { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       { label: '등록 오류', href: '/mypage/coupons/preview-error' },
       { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
       { label: '쿠폰 상세', href: '/mypage/coupons/preview-detail' },
     ],
     sourceFiles: [
       'src/app/mypage/coupons/page.tsx',
+      'src/app/mypage/coupons/preview-empty/page.tsx',
       'src/app/mypage/coupons/preview-error/page.tsx',
       'src/app/mypage/coupons/preview-complete/page.tsx',
       'src/app/mypage/coupons/preview-detail/page.tsx',
@@ -505,7 +502,11 @@ const connections: Record<number, ScreenConnection> = {
   },
   '208': {
     route: '/support/notices',
-    sourceFiles: ['src/app/support/notices/page.tsx'],
+    previewRoutes: [{ label: '빈 목록', href: '/support/notices/preview-empty' }],
+    sourceFiles: [
+      'src/app/support/notices/page.tsx',
+      'src/app/support/notices/preview-empty/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-고객센터-2-공지사항-web--default',
@@ -753,14 +754,12 @@ const connections: Record<number, ScreenConnection> = {
       { label: '입력 오류', href: '/signup/verify/phone/preview-error' },
       { label: '인증번호 입력', href: '/signup/verify/phone/preview-code-entry' },
       { label: '인증 만료', href: '/signup/verify/phone/preview-expired' },
-      { label: '기존 회원 안내', href: '/signup/verify/phone/preview-already-registered' },
     ],
     sourceFiles: [
       'src/app/signup/verify/phone/page.tsx',
       'src/app/signup/verify/phone/preview-error/page.tsx',
       'src/app/signup/verify/phone/preview-code-entry/page.tsx',
       'src/app/signup/verify/phone/preview-expired/page.tsx',
-      'src/app/signup/verify/phone/preview-already-registered/page.tsx',
       'src/app/signup/verify/phone/preview-agreement-error/page.tsx',
     ],
     stories: {
@@ -791,15 +790,10 @@ const connections: Record<number, ScreenConnection> = {
   },
   '237': {
     route: '/signup/information',
-    previewRoutes: [
-      { label: '입력 오류', href: '/signup/information/preview-error' },
-      { label: '부가정보', href: '/signup/information?step=additional' },
-      { label: '수신내역', href: '/signup/information/preview-marketing-consent' },
-    ],
+    previewRoutes: [{ label: '입력 오류', href: '/signup/information/preview-error' }],
     sourceFiles: [
       'src/app/signup/information/page.tsx',
       'src/app/signup/information/preview-error/page.tsx',
-      'src/app/signup/information/preview-marketing-consent/page.tsx',
     ],
     stories: {
       web: {
@@ -950,11 +944,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '255': {
     route: '/signup/information?step=additional',
-    previewRoutes: [{ label: '수신내역', href: '/signup/information/preview-marketing-consent' }],
-    sourceFiles: [
-      'src/app/signup/information/page.tsx',
-      'src/app/signup/information/preview-marketing-consent/page.tsx',
-    ],
+    sourceFiles: ['src/app/signup/information/page.tsx'],
     stories: {
       web: {
         id: 'pages-회원가입-4-회원-정보-입력-web--additional',

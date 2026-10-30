@@ -248,7 +248,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     true,
     'eland_hex_06',
-    '최종 GNB 기준: Partnerships > UTMB에서 러닝 세션 신청으로 변경. /running/run-club',
+    '최종 GNB 기준: 러닝 세션 신청으로 변경 적용 완료. /running/run-club',
   ],
   [159, ['런칭 캘린더', '', '', '', ''], 'page', '1', false, 'eland_hla_01', ''],
   [160, ['', 'Feed', '목록', '', ''], 'page', '1', false, 'eland_hla_02', ''],
@@ -274,7 +274,15 @@ const rawScreens: RawScreenDefinition[] = [
     'eland_hpl_01',
     '템플릿 5개 (261001) 기획전 목록 페이지는 별도로 없습니다. 10/6 삭제',
   ],
-  [167, ['', '상세', '', '', ''], 'page', '1', false, 'eland_hpl_02', ''],
+  [
+    167,
+    ['', '상세', '', '', ''],
+    'page',
+    '1',
+    false,
+    'eland_hpl_02',
+    'PC/MO 디자인 미수급. 현재 화면은 목업으로 판단하여 실제 페이지 연결 제외.',
+  ],
   [168, ['이벤트', '목록', '', '', ''], 'page', '1', true, 'eland_hev_01', '래플 포함 9/23 삭제'],
   [169, ['', '상세', '', '', ''], 'page', '1', true, 'eland_hev_02', '9/23 삭제'],
   [
@@ -633,7 +641,16 @@ function mergeSourceScreens(): ScreenDefinition[] {
       sourceNote: source.note,
       // 최종 GNB 순서와 명칭은 보존하고 나머지 계층은 원본을 반영합니다.
       depths:
-        screen.iaNumber <= 152 ? screen.depths : (source.depths as ScreenDefinition['depths']),
+        screen.iaNumber <= 152
+          ? screen.depths
+          : screen.iaNumber === 158
+            ? ([
+                ...source.depths.slice(0, 2),
+                '러닝 세션 신청',
+                '',
+                '',
+              ] as ScreenDefinition['depths'])
+            : (source.depths as ScreenDefinition['depths']),
       category: source.category as ScreenCategory,
       page: source.page,
       requiresLogin: source.requiresLogin,

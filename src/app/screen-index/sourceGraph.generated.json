@@ -353,6 +353,7 @@
     ],
     "src/app/mypage/coupons/_components/CouponManagement.tsx": [
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -374,6 +375,9 @@
       "src/app/mypage/coupons/_components/CouponManagement.tsx"
     ],
     "src/app/mypage/coupons/preview-detail/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx"
+    ],
+    "src/app/mypage/coupons/preview-empty/page.tsx": [
       "src/app/mypage/coupons/_components/CouponManagement.tsx"
     ],
     "src/app/mypage/coupons/preview-error/page.tsx": [
@@ -1005,7 +1009,19 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
+    "src/app/support/notices/_components/NoticesContent.tsx": [
+      "src/app/support/notices/_components/NoticesList.tsx",
+      "src/app/support/notices/notices.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
     "src/app/support/notices/_components/NoticesList.tsx": [
+      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/support/notices/[id]/page.tsx": [
@@ -1019,16 +1035,9 @@
       "src/hooks/useBindingQuery.ts"
     ],
     "src/app/support/notices/notices.data.ts": [],
-    "src/app/support/notices/page.tsx": [
-      "src/app/support/notices/_components/NoticesList.tsx",
-      "src/app/support/notices/notices.data.ts",
-      "src/app/support/support.navigation.ts",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/SupportContentContext.ts",
-      "src/context/platform.tsx",
-      "src/hooks/useBindingQuery.ts",
-      "src/hooks/useRequestAction.ts"
+    "src/app/support/notices/page.tsx": ["src/app/support/notices/_components/NoticesContent.tsx"],
+    "src/app/support/notices/preview-empty/page.tsx": [
+      "src/app/support/notices/_components/NoticesContent.tsx"
     ],
     "src/app/support/page.tsx": [
       "src/app/support/_components/SupportContacts.tsx",
@@ -1612,9 +1621,9 @@
     "src/app/support/inquiries/page.tsx",
     "src/app/support/member-benefits/page.tsx",
     "src/app/support/mileage/page.tsx",
+    "src/app/support/notices/_components/NoticesContent.tsx",
     "src/app/support/notices/[id]/page.tsx",
     "src/app/support/notices/notices.data.ts",
-    "src/app/support/notices/page.tsx",
     "src/app/support/page.tsx",
     "src/app/support/size-guide/page.tsx",
     "src/app/support/size-guide/size-guide.data.ts",

@@ -139,6 +139,10 @@ const confirmedDesignReceipts: Partial<
   248: { pcDesign: 'received', moDesign: 'received' },
   249: { pcDesign: 'received', moDesign: 'received' },
   250: { pcDesign: 'received', moDesign: 'received' },
+  // 2026-10-30 사용자 직접 확인: 러닝 세션 신청(기존 UTMB) PC/MO 디자인 수급.
+  158: { pcDesign: 'received', moDesign: 'received' },
+  // 2026-10-30 사용자 확인: 기획전 상세는 현재 목업이며 디자인 미수급.
+  167: { pcDesign: 'missing', moDesign: 'missing' },
   258: { pcDesign: 'received', moDesign: 'received' },
   259: { pcDesign: 'received', moDesign: 'received' },
 };

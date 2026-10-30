@@ -10,6 +10,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -168,11 +169,13 @@ type Category = '전체' | CouponItem['category'];
 
 type CouponHistorySectionProps = {
   coupons: CouponItem[];
+  previewEmpty?: boolean;
   onDetails: (coupon: CouponItem) => void;
 };
 
-function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
-  const binding = useContext(MyPageDataContext).coupons;
+function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistorySectionProps) {
+  const contextBinding = useContext(MyPageDataContext).coupons;
+  const binding = previewEmpty ? undefined : contextBinding;
   const request = useRequestAction();
   const [category, setCategory] = useState<Category>('전체');
   const [visibleCount, setVisibleCount] = useState(5);
@@ -245,6 +248,13 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
             </Typography>
           </HStack>
         </HStack>
+        {!visibleCoupons.length &&
+        !binding?.pending &&
+        !request.pending &&
+        !binding?.error &&
+        !request.error ? (
+          <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
+        ) : null}
         <Grid gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }} gap="4">
           {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
             <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
@@ -333,8 +343,11 @@ function EmployeeCoupons() {
   );
 }
 
-/** [ 개발팀 바인딩 ] preview는 등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
-type CouponManagerProps = { coupons: CouponItem[]; preview?: 'error' | 'complete' | 'detail' };
+/** [ 개발팀 바인딩 ] preview는 빈 목록/등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 빈 목록 preview는 운영 목록 조회와 분리합니다. 운영 Empty는 조회 중·실패가 아닌 빈 결과에만 표시하며 현재 items/totalCount를 전달하는 소유자가 응답 갱신과 오래된 응답 폐기를 담당합니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
+type CouponManagerProps = {
+  coupons: CouponItem[];
+  preview?: 'error' | 'complete' | 'detail' | 'empty';
+};
 
 function CouponManager({ coupons, preview }: CouponManagerProps) {
   const binding = useContext(MyPageDataContext).coupons;
@@ -378,7 +391,11 @@ function CouponManager({ coupons, preview }: CouponManagerProps) {
 
       <EmployeeCoupons />
 
-      <CouponHistorySection coupons={coupons} onDetails={setSelectedCoupon} />
+      <CouponHistorySection
+        coupons={coupons}
+        onDetails={setSelectedCoupon}
+        previewEmpty={preview === 'empty'}
+      />
 
       <CouponRegistrationDialog open={registered} onOpenChange={setRegistered} />
       <CouponDetailsDialog
@@ -421,13 +438,13 @@ const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
 }));
 
 /** 보유 쿠폰과 쿠폰 등록 예시 상태를 관리합니다. (Manages owned coupons and the example coupon registration state.) */
-export function RouteContent({ preview }: { preview?: 'error' | 'complete' | 'detail' }) {
+export function RouteContent({ preview }: { preview?: 'error' | 'complete' | 'detail' | 'empty' }) {
   return (
     <MyPageFrame
       activePath="/mypage/coupons"
       breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '쿠폰' }]}
     >
-      <CouponManager coupons={coupons} preview={preview} />
+      <CouponManager coupons={preview === 'empty' ? [] : coupons} preview={preview} />
     </MyPageFrame>
   );
 }

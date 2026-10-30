@@ -171,3 +171,7 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 상태 preview와 IA 연결 범위 (2026-10-30)
 
 기존 59개 페이지에 고정 확인용 preview 61개를 추가했다. screenRegistry의 IA 번호와 진행 상태는 유지하고 러닝세션 신청내역의 오래된 동일 화면 설명만 실제 소유자로 정정했다. [연결 범위와 미확정 항목](architecture/publishing-state-previews-2026-10-30.md)을 참고한다.
+
+## 화면 목록의 사용자 확정 반영 (2026-10-30)
+
+`src/data/screenRegistry.ts`의 IA 158은 병합 후 표시명을 ‘러닝 세션 신청’으로 유지하며 변경 적용 완료 비고를 표시한다. 원본 `sourceDepths`의 UTMB와 IA 번호는 보존한다. IA 167은 디자인 미수급·목업 판정과 실제 페이지 연결 제외를 비고에 기록하며 화면 자체를 삭제 상태로 처리하지 않는다. 마일리지 안내는 사용자 요청대로 삭제 유지한다. 디자인 수급은 `storybookLinks.ts`에서 사용자 확인 근거로 관리하고, 라우트 존재만으로 수급을 추정하지 않는다. 상세 출처는 [상태 preview 문서](architecture/publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30)에 기록했다.

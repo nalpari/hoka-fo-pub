@@ -9,6 +9,13 @@ generated:
   at: '2026-10-30T01:52:56Z'
 source_revision: 27b7e2f5b2c5e21681af53df27a535f3f13aa170
 working_tree_sources:
+  - src/app/screen-index/storybookLinks.ts
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/app/support/notices/preview-empty/page.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/mypage/coupons/preview-empty/page.tsx
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/app/screen-index/screenConnections.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
@@ -28,7 +35,7 @@ working_tree_sources:
 
 # 퍼블리싱 고정 상태 preview와 IA 연결
 
-59개 기존 페이지와 266개 IA를 조사한 뒤, 기존 표시 UI가 있는 상태에 직접 확인용 URL 61개를 추가했다. 후속 요청으로 문의 대기/완료의 두 URL을 하나로 통합하여 추가 preview는 현재 60개이며, 기존 장바구니 Empty·로그인 오류 2개를 포함한 고정 preview는 62개다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 화면 확인을 위해 고정 표시 데이터와 로컬 입력·열기/닫기를 사용한다. preview 자체를 실제 조회·저장·인증·결제의 성공 증거로 취급하지 않는다.
+59개 기존 페이지와 266개 IA를 조사한 뒤, 기존 표시 UI가 있는 상태에 직접 확인용 URL 61개를 추가했다. 후속 요청으로 문의 대기/완료의 두 URL을 하나로 통합하여 추가 preview는 60개가 되었다. 후속 쿠폰·공지 Empty 2개를 더해 현재 추가 preview는 62개, 기존 장바구니 Empty·로그인 오류를 포함한 고정 preview는 64개다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 화면 확인을 위해 고정 표시 데이터와 로컬 입력·열기/닫기를 사용한다. preview 자체를 실제 조회·저장·인증·결제의 성공 증거로 취급하지 않는다.
 
 ## 새 상태 URL
 
@@ -52,7 +59,7 @@ working_tree_sources:
 | `/products`                             | `/preview-no-results`, `/preview-empty-inquiries`                                                                                | 상품 목록·상세 공통 연결 |
 | `/search`                               | `/preview-no-results`                                                                                                            | 247                      |
 | `/support/faq`                          | `/preview-no-results`                                                                                                            | 185·207                  |
-| `/support/inquiries`                    | `/preview-list`                                                                                       | 187·210                  |
+| `/support/inquiries`                    | `/preview-list`                                                                                                                  | 187·210                  |
 | `/support/inquiries/new`                | `/preview-error`, `/preview-order-required`, `/preview-attachment-type`, `/preview-attachment-size`, `/preview-attachment-count` | 189·211                  |
 | `/support/inquiries/new/order-products` | `/preview-empty`                                                                                                                 | 189·211의 보조 링크      |
 | `/login/find-account`                   | `/preview-error`, `/preview-code-entry`, `/preview-expired`                                                                      | 224                      |
@@ -89,15 +96,12 @@ preview에서는 API 요청·인증 발송·시간 경과·결제·저장·목�
 
 ## 미확정 또는 별도 합의가 필요한 항목
 
-| 항목                                             | 현재 근거와 남은 결정                                                                                                                                                                       |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UTMB 표시명과 런클럽 연결 / IA 158               | 원본 IA 병합명은 UTMB지만 rawScreens에는 최종 GNB에서 러닝 세션으로 변경했다는 명시적 주석이 있다. 오연결로 단정하지 않고 기존 연결을 유지했다. 표시명/중복 IA 관계의 최종 결정을 기다린다. |
-| 결제수단·환불계좌·멤버십 활동·친구추천·국가선택  | 기존 라우트는 있으나 대응 IA가 명확하지 않다. 새 번호를 만들거나 무관한 행에 연결하지 않았다. 미등록 결제수단·환불계좌는 기본 화면에서 확인한다.                                            |
-| 쿠폰·공지 목록 Empty                             | 0건 전달은 가능하지만 별도 Empty 안내/CTA 디자인이 확정돼 있지 않다. 빈 배열만을 완성된 Empty 디자인으로 등록하지 않는다.                                                                   |
-| 상품 리뷰 없음·전체 품절·접근 권한·회원정보 없음 | 기존 개별 배지/문구와 별도 화면 디자인을 구별해야 한다. 전체 화면 표현과 사용 조건이 확인된 후 분리한다.                                                                                    |
-| 조회 중·처리 중·실패·더보기 실패·부분 실패       | 범용 BindingFeedback 및 일부 inline 안내는 유지한다. 이를 모든 화면의 확정된 skeleton·실패 레이아웃으로 확대하지 않았다. 화면별 검수 대상과 디자인 차이를 정한 후 대표 preview를 추가한다.  |
-| 마일리지 안내                                    | 대응 원본 IA가 삭제 상태다. 현재 준비 안내를 이유로 다시 노출하지 않는다.                                                                                                                   |
-| 외부 PG·소셜·아이핀                              | 외부 서비스나 아직 구현되지 않은 결과를 임의로 성공 화면처럼 만들지 않는다.                                                                                                                 |
+| 항목                                                  | 현재 근거와 남은 결정                                                                                                                                                                      |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 결제수단·환불계좌·멤버십 활동·친구추천·국가선택       | 기존 라우트는 있으나 대응 IA가 명확하지 않다. 새 번호를 만들거나 무관한 행에 연결하지 않았다. 미등록 결제수단·환불계좌는 기본 화면에서 확인한다.                                           |
+| 상품 상세 리뷰 없음·전체 품절·접근 권한·회원정보 없음 | 현재 상품 상세에서 확인된 것은 일부 사이즈 품절 표시이며 전체 품절 전용 화면·preview는 없다. 전체 품절은 필요 여부·디자인 미확정 후보다. 상품 상세 리뷰 없음·접근 권한·회원정보 없음도 별도 화면 디자인과 사용 조건을 확인한 후 분리한다.                                                                                   |
+| 조회 중·처리 중·실패·더보기 실패·부분 실패            | 범용 BindingFeedback 및 일부 inline 안내는 유지한다. 이를 모든 화면의 확정된 skeleton·실패 레이아웃으로 확대하지 않았다. 화면별 검수 대상과 디자인 차이를 정한 후 대표 preview를 추가한다. |
+| 외부 PG·소셜·아이핀                                   | 외부 서비스나 아직 구현되지 않은 결과를 임의로 성공 화면처럼 만들지 않는다.                                                                                                                |
 
 ## 검증
 
@@ -106,3 +110,21 @@ preview에서는 API 요청·인증 발송·시간 경과·결제·저장·목�
 ## 문의 목록 통합 (2026-10-30)
 
 사용자 요청으로 대기/완료 URL을 분리하지 않고 `/support/inquiries/preview-list`에서 함께 표시한다. `InquiryListPreview.items`는 ID별 질문·답변 상태·본문·답변·첨부를 받는 현재 배열이며 개수를 고정하지 않는다. 기본 fixture는 대기 1건과 완료 1건이다. 완료 항목만 기존 답변 접기/펼치기를 제공한다. PC/MO Storybook의 개별 Pending·Answered도 통합 List 사례로 교체했다. 실제 등록·답변 상태 전환은 구현하지 않는다. 기존 두 상태 route·컴포넌트와 IA 187·210의 중복 링크를 제거했다. 기본 `/support/inquiries`의 Empty는 유지한다.
+
+## Empty 문구와 IA 연결 정리 (2026-10-30)
+
+사용자 확정 문구를 기존 minimal EmptyState로 표시하며 새 이미지·CTA를 추가하지 않는다.
+
+| 화면             | 문구                              | 직접 URL                         | IA  |
+| ---------------- | --------------------------------- | -------------------------------- | --- |
+| 쿠폰             | 보유 중인 쿠폰이 없습니다.        | `/mypage/coupons/preview-empty`  | 196 |
+| 공지사항         | 등록된 공지사항이 없습니다.       | `/support/notices/preview-empty` | 208 |
+| 작성 가능한 리뷰 | 작성 가능한 상품 리뷰가 없습니다. | `/mypage/reviews/preview-empty`  | 191 |
+
+쿠폰·공지는 pending/error의 빈 응답과 완료된 Empty를 구분한다. 쿠폰 preview는 운영 목록 context를 조회하지 않는 빈 fixture이며 등록 요청도 실행하지 않는다. 공지는 기본/preview 두 진입점이 `NoticesContent`를 공유한다. 마이페이지 ‘작성한 리뷰’ 탭의 기존 문구와 상품 상세 리뷰 영역은 변경하지 않는다.
+
+IA 158은 사용자 확인에 따라 표시명을 ‘러닝 세션 신청’, PC/MO 디자인을 수급으로 수정했다. 번호와 `/running/run-club` 연결, 원본 sourceDepths의 UTMB 계보는 보존하며 비고에 변경 적용 완료를 명시한다. IA 167 기획전 상세는 사용자 판단상 목업·PC/MO 디자인 미수급이므로 `/collection/8386` 연결을 제외했다. 실제 collection 라우트와 IA 행은 유지한다. 마일리지 안내는 사용자 확인으로 삭제 유지를 확정했으며 링크나 IA를 복구하지 않는다.
+
+중복 보조 링크는 전용 IA 기준으로 정리했다. IA 234의 기존 회원 안내는 IA 257에, IA 237의 부가정보는 IA 255에, IA 237·255의 수신내역은 IA 256에만 남긴다. 상위 행에 직접 지정한 중복 preview 소스도 제외하며 실제 import 그래프는 정식 `npm run screen-files`로 생성한다.
+
+출처: 사용자 문구 표·screen-index 브라우저 코멘트 및 현재 `CouponManagement.tsx`, `NoticesContent.tsx`, `NoticesList.tsx`, `MyPageReviewsContent.tsx`, `screenConnections.ts`, `storybookLinks.ts`, `screenRegistry.ts` 작업 트리. 디자인 파일을 새로 조사한 결과가 아니라 사용자 직접 확인을 반영했다.

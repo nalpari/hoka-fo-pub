@@ -1,5 +1,11 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — Empty 문구와 screen-index 정리
+
+- 쿠폰·공지 Empty URL과 IA 연결, 작성 가능한 리뷰 문구를 확정하고 조회 중·실패와 빈 결과를 구분했다.
+- IA 158 이름·수급·변경 완료 비고, 회원가입 중복 보조 링크, 목업 판정된 기획전 IA 167의 페이지 연결 제외를 반영했다. 마일리지 삭제 유지도 확정했다.
+- 관련 출처·범위는 [상태 preview 문서](architecture/publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30), 실제 확인은 [검증 문서](development/verification.md#empty-문구와-화면-목록-정리-검증-2026-10-30)에 기록했다.
+
 ## 2026-10-30
 
 - 디자인 가이드 Typography의 빈 Mono 섹션과 전용 목록·스타일을 제거했다. Storybook 브라우저에서 Mono 제목 제거와 한영 비교표·복사 버튼 표시를 확인했다. [변경 범위](architecture/ui.md#디자인-가이드-mono-섹션-제거-2026-10-30).

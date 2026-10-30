@@ -343,7 +343,10 @@ export function MyPageReviewsContent({
           ) : null}
         </Box>
       ) : (
-        <EmptyState title="작성한 리뷰가 없습니다." variant="minimal" />
+        <EmptyState
+          title={tab === 'ready' ? '작성 가능한 상품 리뷰가 없습니다.' : '작성한 리뷰가 없습니다.'}
+          variant="minimal"
+        />
       )}
     </Stack>
   );

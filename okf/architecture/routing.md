@@ -572,3 +572,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 문의 혼합 목록 preview (2026-10-30)
 
 대기와 완료를 분리하던 두 상태 route를 제거하고 `/support/inquiries/preview-list`로 통합했다. IA 187·210 모두 단일 목록 링크와 새 진입 소스를 연결한다. 기본 문의 Empty 경로는 유지한다. 배열 표시 계약과 현재 URL 수는 [상태 preview 인계](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30)에 기록했다.
+
+## Empty와 화면 목록 링크 정리 (2026-10-30)
+
+쿠폰 `/mypage/coupons/preview-empty`와 공지 `/support/notices/preview-empty`를 IA 196·208에 연결했다. 공지의 기본/preview 진입점은 route-private `NoticesContent`를 공유하며 기본 context 계약을 유지한다. IA 234·237·255의 중복 보조 링크와 직접 소스 연결은 전용 IA 257·255·256으로 정리했다. 기획전 상세 IA 167은 사용자 판단상 목업·디자인 미수급으로 `/collection/8386` 연결을 제외했고 실제 route는 보존했다. `npm run screen-files`로 그래프를 갱신했다. [확정 내용과 출처](publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30)를 참조한다.

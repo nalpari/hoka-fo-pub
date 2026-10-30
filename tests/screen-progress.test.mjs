@@ -157,7 +157,8 @@ test('confirmed Figma run club frames update design only and accept explicit cle
     assert.equal(revised.pcDesign, 'revision-planned');
     assert.equal(revised.moDesign, null);
   }
-  assert.equal(getScreenProgress({ iaNumber: 158, screenCode: '' }, {}).pcDesign, 'missing');
+  assert.equal(getScreenProgress({ iaNumber: 158, screenCode: '' }, {}).pcDesign, 'received');
+  assert.equal(getScreenProgress({ iaNumber: 158, screenCode: '' }, {}).moDesign, 'received');
   assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).pcDesign, 'received');
   assert.equal(getScreenProgress({ iaNumber: 200, screenCode: '' }, {}).moDesign, 'received');
 });
