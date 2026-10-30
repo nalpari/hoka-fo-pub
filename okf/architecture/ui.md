@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T02:04:40Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/screen-index/screenConnections.ts
@@ -3443,3 +3443,7 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## 문의 대기·완료의 단일 목록 (2026-10-30)
 
 대기/완료를 별도 화면으로 만들지 않고 `InquiryListPreview.items` 배열의 항목별 상태로 표시한다. 기본 fixture는 서로 다른 ID의 대기·완료 각 1건이며 기존 InquiryListItem과 답변 토글을 재사용한다. PC/MO 문의 Storybook도 Pending·Answered 대신 통합 List를 표시한다. 첨부 관련 기존 시나리오는 유지한다. [URL과 인계 계약](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
+
+## 디자인 가이드 Mono 섹션 제거 (2026-10-30)
+
+사용자 요청으로 `DesignGuideTypography`의 빈 `Typography · Mono` 섹션과 전용 목록·표 스타일을 제거했다. 한영 비교표와 variant 코드 복사 기능은 유지한다. 작업 트리 출처는 `src/components/screen-index/DesignGuideTypography.tsx`다. Storybook Typography 직접 URL에서 한영 비교 제목과 복사 버튼이 표시되고 Mono 제목이 없는 것을 브라우저 DOM으로 확인했다. 변경 파일 ESLint와 Prettier 검사를 통과했다.

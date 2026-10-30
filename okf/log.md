@@ -2,6 +2,8 @@
 
 ## 2026-10-30
 
+- 디자인 가이드 Typography의 빈 Mono 섹션과 전용 목록·스타일을 제거했다. Storybook 브라우저에서 Mono 제목 제거와 한영 비교표·복사 버튼 표시를 확인했다. [변경 범위](architecture/ui.md#디자인-가이드-mono-섹션-제거-2026-10-30).
+
 - 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
 
 - 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
