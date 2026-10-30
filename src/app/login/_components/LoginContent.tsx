@@ -76,17 +76,18 @@ function LoginForm({ showErrors = false }: LoginFormProps) {
               </Typography>
             </ButtonLink>
           </HStack>
-          <Stack gap="2" mt="2">
-            <Button fullWidth variant="primary" type="submit">
-              로그인
-            </Button>
-            <Button social={{ provider: 'kakao' }} type="button">
-              카카오 로그인
-            </Button>
-            <Button social={{ provider: 'naver' }} type="button">
-              네이버 로그인
-            </Button>
-          </Stack>
+        </Stack>
+
+        <Stack gap="2" mt="6">
+          <Button fullWidth variant="primary" type="submit">
+            로그인
+          </Button>
+          <Button social={{ provider: 'kakao' }} type="button">
+            카카오 로그인
+          </Button>
+          <Button social={{ provider: 'naver' }} type="button">
+            네이버 로그인
+          </Button>
         </Stack>
       </fieldset>
     </form>

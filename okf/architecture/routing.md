@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T05:29:03Z'
+  at: '2026-10-30T05:40:15Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/components/common/layouts/AccountPageLayout.tsx
@@ -183,6 +183,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 로그인 버튼 간격의 라우팅 영향 (2026-10-30)
+
+`/login`과 `/login/preview-error`가 공유하는 `LoginContent`의 버튼 묶음 배치만 변경했다. URL·페이지 export·제출 동작은 그대로다. [UI 기준](ui.md#로그인-버튼-묶음-간격-2026-10-30)을 따른다.
 
 ## Fieldset 초기화의 라우팅 영향 (2026-10-30)
 
