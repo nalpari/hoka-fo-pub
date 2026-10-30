@@ -1148,7 +1148,7 @@ ContentHeader의 titleAs는 실제 상품 A/S 소비처를 위해 h1~h6으로 �
 
 CustomerCenterLayout은 title/description에 ContentHeader를 사용하고 선택 Divider는 기존 헤더 그룹이 소유한다. headingProps의 mb/모바일 덮어쓰기는 기존 그룹에 유지하고 바깥 ContentSection gap=0으로 연결한다. runtime headingProps를 다른 속성으로 재해석해 기존 cascade를 바꾸지 않는다. SupportPage의 headingProps는 css.raw로 추출해 기존 mb=10 스타일이 다른 소비처의 잔여 클래스에 의존하지 않도록 했다. RunClubHeader의 headerProps.css도 css.raw로 모바일 좌측 정렬을 추출한다. MainContentCard는 card__header와 header 태그를 유지하고 header.raw(variant)를 css prop에서 기본 스타일과 병합한다. Grid·overlay·runtime foreground·Card.Footer는 유지한다.
 
-적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](../../.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
+적용 후보와 이전 조사 기록, 최종 검증 범위는 [전체 조사와 이관 기록](content-sections.md)을 참고한다. component-reusability의 [제목/본문 지침](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/content-sections.md)에 기본 title API·예외 header 슬롯·간격 소유권 기준을 추가했다.
 
 ## 쿠폰과 휴대폰 인증의 팝업 구성 분리 (2026-10-20)
 
@@ -1176,7 +1176,7 @@ TextFormField와 이름·전화·이메일·비밀번호·생년월일·인증�
 
 실제 API·소비처·유지 대상·검증은 [폼 필드 이관 결과](form-fields.md#공통-필드-이관-결과-2026-10-20)에 기록했다. 변경 타입·린트/포맷·Next/Storybook 빌드와 40개 테스트, PC/MO 18쌍 좌표/속성 비교, Storybook play 22개와 별도 동작 9개를 확인했다. 외부 주소 검색·인증·메일·결제 API 연결은 추가하지 않았다.
 
-component-reusability의 [진입 문서](../../.codex/skills/component-reusability/SKILL.md)와 [폼 필드 참조](../../.codex/skills/component-reusability/references/form-fields.md)에 이번 조사에서 확인한 공통화 경계와 속성 보존 기준을 반영했다. 조사 요청·이관 요청·스킬만 수정하는 요청의 범위를 구분하며, 동일 placeholder를 동일 검증 정책으로 해석하지 않는다. 정적인 조사 개수나 특정 화면 목록을 향후 모든 작업의 의무 범위로 고정하지 않는다.
+component-reusability의 [진입 문서](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md)와 [폼 필드 참조](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/form-fields.md)에 이번 조사에서 확인한 공통화 경계와 속성 보존 기준을 반영했다. 조사 요청·이관 요청·스킬만 수정하는 요청의 범위를 구분하며, 동일 placeholder를 동일 검증 정책으로 해석하지 않는다. 정적인 조사 개수나 특정 화면 목록을 향후 모든 작업의 의무 범위로 고정하지 않는다.
 
 ## 주소 필드 공통화와 폼 전수 조사 (2026-10-20)
 

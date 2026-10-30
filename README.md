@@ -108,8 +108,6 @@ npm run build
 
 ## 팀 Codex 스킬
 
-컴포넌트 재사용·구조 조합 점검 스킬 원본은 [`.codex/skills/component-reusability/SKILL.md`](.codex/skills/component-reusability/SKILL.md)에 있다. 저장소를 최신화한 뒤 아래 PowerShell 명령으로 개인 Codex 스킬 폴더에 설치하거나 업데이트한다.
+퍼블리싱 인계와 컴포넌트 구조·스타일 정리는 개인 Codex 스킬 `hoka-markup-handoff`를 사용한다. 이 스킬은 서비스·시연 흐름 제거와 고정 상태 URL 인계, 래퍼·단일 부모 통합, 폼·Panda·반응형·Next.js 지침을 포함한다.
 
-```powershell
-Copy-Item -Recurse -Force .\.codex\skills\component-reusability "$env:USERPROFILE\.codex\skills\component-reusability"
-```
+스킬은 개인 Codex skills 폴더(기본 `~/.codex/skills/hoka-markup-handoff/`)에 설치되어 있어야 한다. 저장소의 이전 `component-reusability` 스킬과 복사 설치 명령은 제거했다. 개인 스킬은 이 저장소에 포함되지 않는다. [전환 범위와 출처](okf/development/markup-handoff-skill.md)를 참고한다.

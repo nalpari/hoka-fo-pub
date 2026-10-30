@@ -1,5 +1,7 @@
 # 개발
 
+[퍼블리싱 인계 스킬 통합](markup-handoff-skill.md)은 개인 `hoka-markup-handoff` 사용, 이전 저장소 스킬 제거와 역사적 출처 보존을 설명한다.
+
 [IA 디자인 수급 조사 검증](../architecture/ia-design-audit.md#검증)은 상태 모델·필터 확인과 Figma 캡처 실패로 수행하지 못한 시각 비교를 구분한다.
 
 [보조 TS 모듈의 사용처별 배치](../architecture/ts-module-ownership-2026-10-28.md)는 라우트·데이터·훅·컨텍스트·타입 소유권에 따른 33개 이동과 참조·검증을 설명한다.
