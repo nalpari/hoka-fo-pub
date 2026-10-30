@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:06:32Z'
+  at: '2026-10-30T07:12:53+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/support/store/_components/StoreContent.tsx
@@ -713,5 +713,11 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
 
 경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 공통 D2 국가선택 인계 연결 (2026-10-30)
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

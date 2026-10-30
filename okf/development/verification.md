@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:01:44+00:00'
+  at: '2026-10-30T07:12:53+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -512,5 +512,11 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /running/running-session 이동을 확인했다. /running/run-club, /collection/8386, /mypage/refund-account는 404다. screen-index는 1782/1280/768/375px의 가변 NAV 열·스크롤 후 sticky top=0·문서 가로 넘침 없음을 확인했다. 최종 375px NAV는 2열이고 내부 스크롤로 검색 필드에 접근할 수 있다. 14개 대분류 행의 코드 colSpan=2와 링크 없음, Featured > Running Session 아래 목록·상세 순서, 상위 페이지 링크 제거, 검수 설명 비노출과 UTMB 비고 문장 제거를 확인했다. UTMB 자체의 연결 없음은 Node 검사로도 검증한다.
 
 이번 결과는 전체 픽셀 비교·최종 디자인 승인·실제 API·외부 인증·결제 검증이 아니다. 최종 시각 승인은 사용자 결정대로 후속으로 남긴다. 출처: tests/*.test.mjs, 최종 build 출력과 이 채팅의 Ego 브라우저 검사. 기준 명령·실행 로그는 저장소 밖 작업 스냅샷에 보관했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 공통 D2 국가선택 인계 연결 (2026-10-30)
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

@@ -45,6 +45,29 @@ const { screens } = load('src/data/screenRegistry.ts');
 
 const { getScreenConnection, isScreenDeleted } = load('src/app/screen-index/screenConnections.ts');
 
+test('locale handoff is registered at Common D2 without inventing an original IA code', () => {
+  const locale = screens.find(
+    (screen) => screen.depths[0] === '공통' && screen.depths[1] === '국가선택',
+  );
+  assert.ok(locale);
+  assert.deepEqual(locale.depths, ['공통', '국가선택', '', '', '']);
+  assert.equal(locale.source, 'project');
+  assert.equal(locale.sourceIaNumber, undefined);
+  assert.equal(locale.screenCode, '');
+  const connection = getScreenConnection(locale);
+  assert.equal(connection.route, '/locales');
+  assert.ok(connection.sourceFiles.includes('src/app/locales/page.tsx'));
+  assert.ok(connection.stories.web.file.endsWith('LocalesPage.stories.tsx'));
+  assert.ok(connection.stories.mobile.file.endsWith('LocalesPage.mobile.stories.tsx'));
+  const { getScreenProgress } = load('src/app/screen-index/storybookLinks.ts');
+  assert.deepEqual(getScreenProgress(locale, {}), {
+    pcDesign: 'not-applicable',
+    moDesign: 'not-applicable',
+    pcPublishing: 'ready',
+    moPublishing: 'ready',
+  });
+});
+
 test('Featured owns Running Session while UTMB remains a menu-only source IA', () => {
   const featured = screens.find((screen) => screen.iaNumber === 155);
   const utmb = screens.find((screen) => screen.iaNumber === 158);

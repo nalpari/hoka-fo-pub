@@ -29,8 +29,8 @@ export function isStorybookWorking(screenCode: string) {
 }
 
 export type ScreenProgress = {
-  pcDesign: 'received' | 'missing' | 'revision-planned' | null;
-  moDesign: 'received' | 'missing' | 'revision-planned' | null;
+  pcDesign: 'received' | 'missing' | 'revision-planned' | 'not-applicable' | null;
+  moDesign: 'received' | 'missing' | 'revision-planned' | 'not-applicable' | null;
   pcPublishing: 'ready' | 'revision' | 'working' | 'pending';
   moPublishing: 'ready' | 'revision' | 'working' | 'pending';
 };
@@ -44,6 +44,8 @@ export type ScreenProgressOverrides = Readonly<Partial<Record<number, Partial<Sc
 const confirmedDesignReceipts: Partial<
   Record<number, Pick<ScreenProgress, 'pcDesign' | 'moDesign'>>
 > = {
+  // 2026-10-30 사용자 확인: 국가선택은 디자인 미해당입니다.
+  267: { pcDesign: 'not-applicable', moDesign: 'not-applicable' },
   // [HOKA]Design > 로그인/ID찾기/비밀번호 찾기: Desktop/Mobile Login 및 계정 흐름.
   // https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1-18
   223: { pcDesign: 'received', moDesign: 'received' },
@@ -160,6 +162,8 @@ const confirmedTemplateDesigns: Record<string, Pick<ScreenProgress, 'pcDesign' |
 export const confirmedPublishingProgress: Readonly<
   Partial<Record<number, Partial<Pick<ScreenProgress, 'pcPublishing' | 'moPublishing'>>>>
 > = {
+  // 2026-10-30 사용자 확인: 국가선택 PC/MO 퍼블리싱 완료.
+  267: { pcPublishing: 'ready', moPublishing: 'ready' },
   170: { pcPublishing: 'revision', moPublishing: 'ready' },
   171: { pcPublishing: 'revision', moPublishing: 'ready' },
   172: { pcPublishing: 'ready', moPublishing: 'ready' },

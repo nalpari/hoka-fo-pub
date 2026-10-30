@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 공통 D2 국가선택 인계 연결
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
+
+
 ## 2026-10-30 — 러닝 세션 배지 명칭 누락 보완
 
 이 채팅의 경로·심볼 이전에서 발생한 Badge·Storybook·타입 검사의 명칭 변경을 기준 스냅샷과 편집 기록으로 확인하여 함께 반영했다. Badge.runningSessionCategory와 runningSessionBadge로 통일하고 기존 runClubCategory 명칭을 대체한다. Road/Trail 라벨·스타일과 다른 Badge 모드의 배타적 타입 계약은 유지한다. 앞선 작업 보고에서 다른 작업으로 분류했던 배지 3개 파일은 이 채팅의 수정이었으며 누락분을 별도 커밋으로 보완한다. 출처: src/components/common/atoms/Badge.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx와 작업 전 스냅샷.

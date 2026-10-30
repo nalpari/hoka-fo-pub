@@ -71,6 +71,7 @@ const progressLabels = {
   received: '수급',
   missing: '미수급',
   'revision-planned': '수정예정',
+  'not-applicable': '미해당',
   ready: '완료',
   revision: '수정',
   working: '진행중',
@@ -504,7 +505,7 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
  * IA 계층과 PC·MO별 작업 현황을 탐색합니다. (Explores the IA hierarchy and delivery progress by platform.)
  *
  * [ 개발팀 바인딩 ] IA 관리 소유자는 확인한 화면별 상태를 내부 IA 번호 기준 progressOverrides로
- * 전달합니다. 디자인은 received/missing/revision-planned/null, 퍼블리싱은 ready/revision/working/pending을 PC·MO별로
+ * 전달합니다. 디자인은 received/missing/revision-planned/not-applicable/null, 퍼블리싱은 ready/revision/working/pending을 PC·MO별로
  * 독립 전달하며 새 props는 즉시 반영합니다. 조사 목록에 없는 디자인은 미수급, 명시적 null은 -이며 퍼블리싱 기본값은 기존
  * 통합 상태를 이관한 값입니다. 상품 요약은 현재 필터 결과와 props에서 계산하며 상태 차이는 혼합으로 표시합니다. 조회·수정·저장 API와 상태 변경 UI는 구현하지 않습니다.
  */
@@ -790,7 +791,7 @@ export function IaStructurePage({
               {progressFields.map(({ key, label, kind }) => (
                 <optgroup key={key} label={label}>
                   {(kind === 'design'
-                    ? (['received', 'missing', 'revision-planned'] as const)
+                    ? (['received', 'missing', 'revision-planned', 'not-applicable'] as const)
                     : (['ready', 'revision', 'working', 'pending'] as const)
                   ).map((value) => (
                     <option key={value} value={key + ':' + value}>

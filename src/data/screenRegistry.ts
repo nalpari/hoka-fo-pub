@@ -573,6 +573,7 @@ const rawScreens: RawScreenDefinition[] = [
   [248, ['', '404에러페이지', '', '', ''], 'page', '1', false, 'eland_hut_04', ''],
   [249, ['', '시스템점검페이지', '', '', ''], 'page', '1', false, 'eland_hut_05', ''],
   [250, ['', '기타에러페이지', '', '', ''], 'page', '1', false, 'eland_hut_06', ''],
+  [267, ['공통', '국가선택', '', '', ''], 'page', '1', false, '', ''],
 ];
 
 function normalizeScreens(rawDefinitions: readonly RawScreenDefinition[]): ScreenDefinition[] {

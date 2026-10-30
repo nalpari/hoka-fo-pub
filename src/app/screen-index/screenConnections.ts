@@ -16,6 +16,20 @@ export type ScreenConnection = {
 };
 
 const connections: Record<number, ScreenConnection> = {
+  '267': {
+    route: '/locales',
+    sourceFiles: ['src/app/locales/page.tsx'],
+    stories: {
+      web: {
+        id: 'pages-공통-4-국가-및-지역-선택-web--default',
+        file: 'src/stories/features/locales/LocalesPage.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-공통-4-국가-및-지역-선택-mobile--default',
+        file: 'src/stories/features/locales/LocalesPage.mobile.stories.tsx',
+      },
+    },
+  },
   '202': {
     route: '/mypage/profile/preview-edit',
     previewRoutes: [{ label: '입력 오류', href: '/mypage/profile/preview-error' }],

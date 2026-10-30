@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:43:01+00:00'
+  at: '2026-10-30T07:12:53+00:00'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/hooks/useBindingQuery.ts
@@ -205,5 +205,11 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 환불계좌와 기획전 목업 제거 (2026-10-30)
 
 환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 공통 D2 국가선택 인계 연결 (2026-10-30)
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
