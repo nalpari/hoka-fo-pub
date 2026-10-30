@@ -20,7 +20,7 @@ export const Reviews: Story = { ...scenarios.Reviews, name: 'Default' };
 export const ReviewsEmpty: Story = { ...scenarios.ReviewsEmpty, name: '빈 목록' };
 
 export const WrittenList: Story = {
-  name: '작성한 리뷰 목록',
+  name: '내가 작성한 리뷰',
   args: { kind: 'reviews' },
   render: () => (
     <ShopShell platform="mobile">

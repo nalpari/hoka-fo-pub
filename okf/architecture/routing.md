@@ -230,7 +230,9 @@ screen-index IA 200의 previewRoutes에 ‘신청 취소 모달’을 추가하�
 
 ## 상품리뷰 디자인의 직접 상태 URL (2026-10-30)
 
-IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/reviews/preview-ready`는 작성 가능한 리뷰 목록, 기존 `/mypage/reviews/preview-empty`는 작성 가능 없음, `/mypage/reviews/preview-written`은 작성한 리뷰 목록이다. 새 route는 기존 `ReviewStatePreview`의 준비된 상태를 사용하고 클릭 순서·로그인·저장소에 의존하지 않는다. 기존 기본 route와 작성/수정/오류/작성 목록 없음 URL은 보존한다. `screenConnections.ts`의 previewRoutes/sourceFiles를 갱신하고 생성 그래프는 `npm run screen-files`로 반영한다. [표시 구조와 fixture 계약](ui.md#상품리뷰-디자인-목록과-state-2026-10-30)을 참고한다.
+IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/reviews/preview-ready`는 작성 가능한 리뷰 목록, 기존 `/mypage/reviews/preview-empty`는 작성 가능한 리뷰 목록 없음, `/mypage/reviews/preview-written`은 내가 작성한 리뷰다. `/mypage/reviews/preview-written-empty`의 상태명은 내가 작성한 리뷰 목록 없음이다. 사용자 브라우저 코멘트의 세 상태명을 적용했으며 URL 자체는 유지한다. 새 route는 기존 `ReviewStatePreview`의 준비된 상태를 사용하고 클릭 순서·로그인·저장소에 의존하지 않는다. 기존 기본 route와 작성/수정/오류/작성 목록 없음 URL은 보존한다. `screenConnections.ts`의 previewRoutes/sourceFiles를 갱신하고 생성 그래프는 `npm run screen-files`로 반영한다. [표시 구조와 fixture 계약](ui.md#상품리뷰-디자인-목록과-state-2026-10-30)을 참고한다.
+
+2026-10-30 후속: `/mypage/reviews`·`/preview-written`·`/preview-empty`의 PC/MO Figma 표현을 기존 소유자에서 갱신했다. page 진입점·공통 프레임·플랫폼 판별·실제 조회/저장 계약은 변경하지 않는다. 브라우저에서 세 URL과 IA 상태명 검색·정확한 보기 URL, 명시적 WEB/Mobile 스토리 및 모달 닫기/포커스 복귀를 확인했다. 작업 트리 출처는 리뷰 `_components`·fixture, `screenConnections.ts`, 리뷰 stories이며 기록 시점은 2026-10-30T17:12:00+09:00이다.
 
 ## 러닝세션 신청내역 시안 반영 (2026-10-30)
 

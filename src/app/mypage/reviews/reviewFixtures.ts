@@ -32,7 +32,9 @@ export const demoWrittenReview: WrittenReview = {
 /** 디자인의 목록 길이·건수·더보기 표시는 서로 독립적인 고정 fixture입니다. */
 export const reviewListPreview = {
   totalCount: 62,
+  hasMore: true,
   pageInfo: { current: 1, total: 10 },
+  writtenMobile: { totalCount: 2, hasMore: false },
   ready: Array.from({ length: 10 }, (_, index) => createReviewFixture(`preview-purchase-${index}`)),
   written: Array.from({ length: 2 }, (_, index) => ({
     ...createReviewFixture(`preview-written-${index}`, demoWrittenReview),

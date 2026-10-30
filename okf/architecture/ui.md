@@ -863,11 +863,17 @@ Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, s
 
 ## 상품리뷰 디자인 목록과 STATE (2026-10-30)
 
-사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. 작성 가능 목록에는 표 헤더 없이 구매일/옵션과 PC pill 작성 버튼·MO 텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이며 Empty는 작은 회색 안내를 본문 중앙에 표시한다.
+사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. h1은 모바일에서 접근성 트리에 유지하며 시각적으로 숨긴다. 작성 가능 목록에는 표 헤더 없이 상품명/옵션과 PC pill 작성 버튼·MO 구매일/텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이다.
 
-`ReviewStatePreview`의 ready-list/written-list는 서비스 요청 없는 고정 fixture다. 작성 가능 10건, 작성한 목록 PC 1건/MO 2건, 총 62건과 1/10 표시는 독립적인 디자인 값이다. 미연결 더보기는 외형을 유지한 비활성 버튼이다. 기존 작성·수정·고정 오류 preview는 보존한다. `ReviewListEntry.product`의 선택 표시값 gender/price를 추가했으며 실제 응답에 없으면 만들어 표시하지 않는다. 운영 ready/written/save 연결·요청 상태의 책임은 기존 페이지와 MyPageDataContext에 유지한다.
+`ReviewStatePreview`의 ready-list/written-list는 서비스 요청 없는 고정 fixture다. 작성 가능 10건, 작성한 목록 PC 1건·총 62건·1/10, MO 2건·총 2건·더보기 없음은 독립적인 디자인 값이다. `reviewListPreview.writtenMobile`이 모바일 작성 목록의 총 건수와 더보기 표시를 명시한다. 미연결 더보기는 외형을 유지한 비활성 버튼이다. 기존 작성·수정·고정 오류 preview는 보존한다. `ReviewListEntry.product`의 선택 표시값 gender/price는 실제 응답에 없으면 만들어 표시하지 않는다. 운영 ready/written/save 연결·요청 상태의 책임은 기존 페이지와 MyPageDataContext에 유지한다.
 
 IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 표 렌더러는 바꾸지 않았다. 신규 `/mypage/reviews/preview-ready`, `/mypage/reviews/preview-written`과 기존 `/preview-empty`를 디자인의 세 상태로 연결한다. 기존 빈 작성목록·작성·수정·입력 오류 링크도 유지한다. WEB에 세 디자인 상태 story를 추가하고 기존 MO에 작성한 목록을 추가했다. 각 story는 ShopShell의 명시적 web/mobile 플랫폼을 사용한다.
+
+2026-10-30 후속 실측 적용: [Figma 리뷰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38311)의 PC 기본 `1487:39447`·작성 `1563:32191`·Empty `1563:31449`, 모바일 기본 `1487:38312`·작성 `1487:38397`·Empty `1487:38387`을 읽어 적용했다. PC 본문 844px·탭 42px, 모바일 전체 폭 탭 32px, 탭/도구 간격 PC 40px·MO 32px, 도구 하단 16px이다. 작성한 표는 844px 기준 340/120/300/84px 열 비율, 20px 헤더/32px 행 세로 패딩·96px 이미지이며 좁은 PC 본문에서는 열 비율을 축소한다. 모바일 이미지는 64px, 별은 16px·간격 4px, 본문은 PC 14px/MO 12px 한 줄 말줄임이다. 정렬은 기존 native Select에 14px `chevron-down-small` 에셋을 배치해 키보드 동작을 유지한다. Empty 문구는 ‘작성 가능한 상품이 없습니다.’ 16px·#4D4D4D, PC 세로 203px/모바일 탭 아래 96px 간격이다. 기존 상품명·옵션·리뷰 내용·평점·구매일 fixture와 기본 화면 건수/저장 계약은 유지한다.
+
+검증(2026-10-30, Codex): 세 URL의 PC 1920px/MO viewport 390px(clientWidth 375px) 직접 진입과 폰트 로딩 후 크기·이미지·간격을 확인했다. 실제 글리프는 한글 Pretendard Regular, 영문은 기존 HOKA face(내부명 `.`)를 사용했다. 명시적 WEB/Mobile 작성 목록 스토리도 1/2건·탭 42/32px을 표시했다. 탭 전환·정렬·수정 모달 열기/Esc 닫기·행 버튼 포커스 복귀와 screen-index 상태명/URL을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, 최초 Next 빌드와 최종 Storybook 빌드, 기존 라우트/preview 연결 검사 7개를 통과했다. 정렬 아이콘 경로 보완 뒤 마지막 Next 빌드는 동시 수정된 비대상 ProfileContent.tsx:301의 secondary 버튼/size="sm" 타입 오류와 RunningSessionEntriesContent.tsx:192·196의 Typography tone="secondary" 타입 오류로 실패했다. 최초 통과를 최종 전체 작업 트리 통과로 간주하지 않는다. 전체 lint는 비대상 FindAccountContent·signup complete의 미사용 import 및 HelpTipsGuide 정렬 오류 5개로 실패했다. 공통 배너·로그인 fixture·Windows 세로 scrollbar 차이는 시안 본문과 구분했다. 실제 리뷰 저장 API 검증은 이번 변경 범위가 아니다.
+
+작업 트리 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, `ReviewStatePreview.tsx`, `reviewFixtures.ts`, `src/app/screen-index/screenConnections.ts`, 리뷰 WEB/Mobile stories. 실측 기록: 2026-10-30T17:12:00+09:00. 사람의 최종 디자인 승인을 뜻하지 않는다.
 
 검증: PC/MO에서 작성 가능 10건/Empty/작성 목록 PC 1건·MO 2건과 제목·PC 열 구분·MO 별점/본문을 확인했다. mobile body 판별 이후 document scrollWidth/clientWidth=360/360으로 가로 넘침 없음을 확인했다. screen-index의 STATE 행과 상태명/URL 검색, 작성한 목록 보기 링크의 새 창 직접 진입을 확인했다. 타입·변경 파일 ESLint/Prettier·Panda·그래프 생성을 통과했다. 새 Storybook story는 타입으로 확인했으며 전체 Storybook·production build는 실행하지 않았다. 검증 중 종료된 로컬 개발 서버를 재시작했다.
 

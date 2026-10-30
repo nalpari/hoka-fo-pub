@@ -380,9 +380,9 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/reviews',
     previewRoutes: [
       { label: '작성 가능한 리뷰 목록', href: '/mypage/reviews/preview-ready' },
-      { label: '작성 가능 없음', href: '/mypage/reviews/preview-empty' },
-      { label: '작성한 리뷰 목록', href: '/mypage/reviews/preview-written' },
-      { label: '작성 리뷰 없음', href: '/mypage/reviews/preview-written-empty' },
+      { label: '작성 가능한 리뷰 목록 없음', href: '/mypage/reviews/preview-empty' },
+      { label: '내가 작성한 리뷰', href: '/mypage/reviews/preview-written' },
+      { label: '내가 작성한 리뷰 목록 없음', href: '/mypage/reviews/preview-written-empty' },
       { label: '작성', href: '/mypage/reviews/preview-new' },
       { label: '수정', href: '/mypage/reviews/preview-edit' },
       { label: '입력 오류', href: '/mypage/reviews/preview-error' },

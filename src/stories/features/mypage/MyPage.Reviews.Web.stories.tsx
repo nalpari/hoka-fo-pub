@@ -21,6 +21,6 @@ type Story = StoryObj<typeof meta>;
 
 export const ReadyList: Story = { name: '작성 가능한 리뷰 목록', args: { state: 'ready-list' } };
 
-export const ReadyEmpty: Story = { name: '작성 가능 없음', args: { state: 'empty' } };
+export const ReadyEmpty: Story = { name: '작성 가능한 리뷰 목록 없음', args: { state: 'empty' } };
 
-export const WrittenList: Story = { name: '작성한 리뷰 목록', args: { state: 'written-list' } };
+export const WrittenList: Story = { name: '내가 작성한 리뷰', args: { state: 'written-list' } };

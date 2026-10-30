@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 상품리뷰 PC/MO Figma 실측과 상태명 반영
+
+`/mypage/reviews`·`/preview-written`·`/preview-empty`의 탭 42/32px·도구 간격·작성한 리뷰 표/모바일 카드·별점·빈 상태를 지정된 Figma 섹션에 맞췄다. 작성 목록 preview의 MO 총 2건/더보기 없음은 명시적 fixture로 구분하며 기본 데이터·조회/저장 계약은 유지한다. IA 191의 상태명 세 개와 리뷰 story 명칭을 정정했다. [표현/검증](architecture/ui.md#상품리뷰-디자인-목록과-state-2026-10-30), [URL 연결](architecture/routing.md#상품리뷰-디자인의-직접-상태-url-2026-10-30)에 출처·실제 검사와 전체 lint의 비대상 오류를 기록했다.
+
 ## 2026-10-30 — 화면 연결 그래프 최신화
 
 기존 로그인·계정 화면 및 퍼블리싱 가이드 변경에 맞춰 `src/app/screen-index/sourceGraph.generated.json`을 정식 명령으로 재생성했다. [라우팅 기록](architecture/routing.md#화면-연결-그래프-최신화-2026-10-30)에 범위와 그래프 테스트 1개 통과를 기록했다.
