@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 러닝 세션 배지 명칭 누락 보완
+
+이 채팅의 경로·심볼 이전에서 발생한 Badge·Storybook·타입 검사의 명칭 변경을 기준 스냅샷과 편집 기록으로 확인하여 함께 반영했다. Badge.runningSessionCategory와 runningSessionBadge로 통일하고 기존 runClubCategory 명칭을 대체한다. Road/Trail 라벨·스타일과 다른 Badge 모드의 배타적 타입 계약은 유지한다. 앞선 작업 보고에서 다른 작업으로 분류했던 배지 3개 파일은 이 채팅의 수정이었으며 누락분을 별도 커밋으로 보완한다. 출처: src/components/common/atoms/Badge.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx와 작업 전 스냅샷.
+
+
 ## 2026-10-30 — 매장 목록 제목의 기존 16px 크기 유지
 
 - `StoreResults` 매장명을 H10·600으로 지정해 기존 16px 크기를 유지했다. 정보 목록·데이터·라우트 계약은 변경하지 않았다.

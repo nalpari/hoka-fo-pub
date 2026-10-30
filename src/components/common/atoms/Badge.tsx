@@ -29,7 +29,7 @@ const badge = cva({
 
 const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14px!' });
 
-const runClubBadge = cva({
+const runningSessionBadge = cva({
   base: {
     h: '28px',
     _mobile: { w: 'fit-content', h: '20px', px: '2', py: '0' },
@@ -57,20 +57,20 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         children?: ComponentPropsWithoutRef<'span'>['children'];
         status?: never;
         promotion?: never;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         weight?: never;
       })
     | (Omit<LabelProps, 'variant'> & {
         status: LaunchStatus;
         children?: never;
         promotion?: never;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         variant?: never;
         weight?: never;
       })
     | {
         promotion: Promotions;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         weight?: TypographyProps['weight'];
         status?: never;
         children?: never;
@@ -79,7 +79,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         shape?: never;
       }
     | {
-        runClubCategory: 'Road' | 'Trail';
+        runningSessionCategory: 'Road' | 'Trail';
         status?: never;
         promotion?: never;
         children?: never;
@@ -99,22 +99,22 @@ export function Badge({
   children,
   status,
   promotion,
-  runClubCategory,
+  runningSessionCategory,
   weight,
   ...props
 }: BadgeProps) {
-  if (runClubCategory !== undefined) {
+  if (runningSessionCategory !== undefined) {
     return (
       <HStack
         as="span"
         {...props}
-        className={[runClubBadge({ category: runClubCategory }), className]
+        className={[runningSessionBadge({ category: runningSessionCategory }), className]
           .filter(Boolean)
           .join(' ')}
         p="2"
       >
         <Typography variant="body4" mo="body5" weight="bold">
-          {runClubCategory}
+          {runningSessionCategory}
         </Typography>
       </HStack>
     );

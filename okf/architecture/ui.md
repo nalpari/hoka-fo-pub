@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:06:32Z'
+  at: '2026-10-30T07:12:53+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/support/store/_components/StoreContent.tsx
@@ -3576,5 +3576,11 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
 
 경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 배지 명칭 누락 보완 (2026-10-30)
+
+이 채팅의 경로·심볼 이전에서 발생한 Badge·Storybook·타입 검사의 명칭 변경을 기준 스냅샷과 편집 기록으로 확인하여 함께 반영했다. Badge.runningSessionCategory와 runningSessionBadge로 통일하고 기존 runClubCategory 명칭을 대체한다. Road/Trail 라벨·스타일과 다른 Badge 모드의 배타적 타입 계약은 유지한다. 앞선 작업 보고에서 다른 작업으로 분류했던 배지 3개 파일은 이 채팅의 수정이었으며 누락분을 별도 커밋으로 보완한다. 출처: src/components/common/atoms/Badge.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx와 작업 전 스냅샷.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
