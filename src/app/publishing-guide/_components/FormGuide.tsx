@@ -8,38 +8,28 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown, type DropdownOption } from '@/components/common/atoms/Dropdown';
-import { FormField } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
-import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Radio } from '@/components/common/atoms/Radio';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
-import { Select } from '@/components/common/atoms/Select';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
-import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
-import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
-import { SearchField } from '@/components/common/molecules/SearchField';
-import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
-import { faCopy } from '@/icons/fontAwesome';
+import { faCopy, faUser } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sections = [
-  { id: 'form-fields', title: '필드 조합', description: 'FormField · TextFormField' },
-  { id: 'form-text', title: '텍스트 입력', description: 'TextInput · Select · Dropdown' },
   {
-    id: 'form-selection',
-    title: '선택 컨트롤',
-    description: 'Checkbox · Radio · SegmentedControl',
+    id: 'form-input-fields',
+    title: 'Input Fields',
+    description: '입력 상태 · 타입별 비교',
   },
-  { id: 'form-compositions', title: '폼 조합', description: '검색 · 주소 · 이메일 · 액션' },
-  { id: 'form-support', title: '입력 보조', description: '수량 · 글자 수 · 인증 시간' },
+  { id: 'form-dropdown-selection', title: 'Dropdown Selection', description: '선택 필드 상태' },
+  { id: 'form-checkbox', title: 'Checkbox', description: '선택 · 비활성화 상태' },
+  { id: 'form-radio', title: 'Radio', description: '선택 · 비활성화 상태' },
+  { id: 'form-dropdown-menu', title: 'Dropdown Menu', description: '목록 · 아이콘 · 이미지' },
 ] as const;
 
 const formCode = css({
@@ -61,6 +51,10 @@ const exampleCard = css({
   bg: 'surface.default',
 });
 
+const focusPreview = css({
+  '& > div': { outline: '2px solid token(colors.black.100)', outlineOffset: '-2px' },
+});
+
 const copyButton = css({
   flexShrink: '0',
   bg: 'black.10',
@@ -69,52 +63,65 @@ const copyButton = css({
   _hover: { bg: 'black.20!' },
 });
 
-
-const selectOptions = [
-  { value: '', label: '항목을 선택해 주세요' },
-  { value: 'question', label: '상품 문의' },
-  { value: 'delivery', label: '배송 문의' },
+const menuOptions = [
+  { value: 'one', label: '드롭다운 메뉴 1' },
+  { value: 'two', label: '드롭다운 메뉴 2' },
+  { value: 'three', label: '드롭다운 메뉴 3' },
 ];
 
-const dropdownOptions: readonly DropdownOption[] = [
-  { value: 'direct', label: '직접 입력' },
-  { value: 'gmail.com', label: 'gmail.com' },
-  { value: 'naver.com', label: 'naver.com' },
+const iconMenuOptions: readonly DropdownOption[] = menuOptions.map((option) => ({
+  ...option,
+  prefix: <Icon fontAwesomeIcon={faUser} size={16} />,
+}));
+
+const imageMenuOptions: readonly DropdownOption[] = [
+  {
+    value: 'us',
+    label: 'United States',
+    prefix: <Icon src="/images/flag/us.svg" size={16} />,
+  },
+  {
+    value: 'jp',
+    label: 'Japan',
+    prefix: <Icon src="/images/flag/jp.svg" size={16} />,
+  },
 ];
 
 const codeExamples = {
-  formField:
-    '<FormField htmlFor="name" label="이름" required hint="실명을 입력해 주세요."><TextInput id="name" name="name" placeholder="이름을 입력해 주세요" /></FormField>',
-  textFormField:
-    '<TextFormField id="email" label="이메일" required error={error} inputProps={{ type: "email", value, onChange: (event) => setValue(event.target.value) }} />',
-  textInput: '<TextInput aria-label="이름" placeholder="이름을 입력해 주세요" />',
+  inputDefault:
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+  inputFocus:
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+  inputTyping:
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ value, onChange: (event) => setValue(event.target.value) }} />',
+  inputError:
+    '<TextFormField variant="boxed" id="field" label="필드명" required error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다." inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
   password:
-    '<TextInput aria-label="비밀번호" type="password" placeholder="비밀번호를 입력해 주세요" />',
-  textarea:
-    '<TextInput aria-label="문의 내용" multiline placeholder="문의 내용을 입력해 주세요" />',
-  select:
-    '<FormField htmlFor="category" label="문의 유형"><Select id="category" value={value} onChange={(event) => setValue(event.target.value)}><option value="">선택해 주세요</option><option value="product">상품 문의</option></Select></FormField>',
-  dropdown:
-    '<Dropdown ariaLabel="문의 유형" label="문의 유형" placeholder="선택해 주세요" options={options} value={value} onValueChange={setValue} />',
-  checkbox:
-    '<Checkbox label="개인정보 수집에 동의합니다" checked={checked} onCheckedChange={setChecked} />',
-  checkboxGroup:
-    '<Checkbox ariaLabel="관심 카테고리" options={options} value={values} onValueChange={setValues} />',
-  radio:
-    '<Radio ariaLabel="수신 여부" label="마케팅 정보 수신" options={options} value={value} onValueChange={setValue} />',
-  segmented:
-    '<SegmentedControl ariaLabel="정렬 기준" options={options} value={value} onValueChange={setValue} />',
-  search:
-    '<SearchField label="검색어" placeholder="검색어를 입력해 주세요" value={query} onValueChange={setQuery} onSearch={handleSearch} />',
-  address:
-    '<AddressFields variant="boxed" idPrefix="shipping" value={address} onValueChange={updateAddress} searchOpen={searchOpen} onSearchOpenChange={setSearchOpen} />',
-  email:
-    '<EmailAddressFields idPrefix="signup" local={local} domain={domain} domainChoice={domainChoice} errors={errors} options={domainOptions} onLocalChange={setLocal} onDomainChange={setDomain} onDomainChoice={setDomainChoice} />',
-  actions:
-    '<form onSubmit={handleSubmit}><FormActionGroup onCancel={handleCancel} submitLabel="저장" /></form>',
-  stepper: '<NumberStepper value={quantity} min={1} max={10} onChange={setQuantity} />',
-  count: '<CharacterCount length={message.length} limit={1000} spaced />',
-  countdown: '<VerificationCountdown secondsLeft={89} />',
+    '<TextFormField variant="boxed" id="password" label="비밀번호" required inputProps={{ type: "password", placeholder: "비밀번호를 입력해 주세요" }} />',
+  phone:
+    '<TextFormField variant="boxed" id="phone" label="휴대폰 번호" required info="휴대폰 번호 안내" hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요." inputProps={{ placeholder: "Example: 3333333333" }} />',
+  number:
+    '<TextFormField variant="boxed" id="number" label="Number" required inputProps={{ type: "number", placeholder: "숫자를 입력해 주세요" }} />',
+  multiline:
+    '<TextFormField variant="boxed" id="message" label="문의 내용" required inputProps={{ multiline: true, placeholder: "내용을 입력해 주세요" }} />',
+  selection:
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
+  selectionError:
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required error="메뉴를 선택해 주세요." options={options} value={value} onValueChange={setValue} />',
+  selectionDisabled:
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" disabled options={options} value={value} onValueChange={setValue} />',
+  checkbox: '<Checkbox label="동의 항목" checked={checked} onCheckedChange={setChecked} />',
+  checkboxDisabled:
+    '<Checkbox label="동의 항목" checked={checked} disabled onCheckedChange={setChecked} />',
+  radio: '<Radio ariaLabel="수신 여부" options={options} value={value} onValueChange={setValue} />',
+  radioDisabled:
+    '<Radio ariaLabel="수신 여부" disabled options={options} value={value} onValueChange={setValue} />',
+  dropdownList:
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
+  dropdownIconList:
+    '<Dropdown ariaLabel="사용자 선택" label="타이틀명" options={options.map((option) => ({ ...option, prefix: <Icon fontAwesomeIcon={faUser} size={16} /> }))} />',
+  dropdownImageList:
+    '<Dropdown ariaLabel="국가 선택" label="타이틀명" options={[{ value: "us", label: "United States", prefix: <Icon src="/images/flag/us.svg" size={16} /> }]} />',
 } as const;
 
 type FormExampleProps = {
@@ -123,11 +130,12 @@ type FormExampleProps = {
   code: string;
   onCopy: (code: string) => void;
   children: ReactNode;
+  className?: string;
 };
 
-function FormExample({ title, description, code, onCopy, children }: FormExampleProps) {
+function FormExample({ title, description, code, onCopy, children, className }: FormExampleProps) {
   return (
-    <Stack className={exampleCard} gap="3">
+    <Stack className={[exampleCard, className].filter(Boolean).join(' ')} gap="3">
       <HStack alignItems="baseline" justifyContent="space-between" gap="2" flexWrap="wrap">
         <Typography variant="body4" weight="semibold">
           {title}
@@ -165,30 +173,22 @@ function ButtonCopy({ code, onCopy }: { code: string; onCopy: (code: string) => 
   );
 }
 
-/** 프로젝트 공통 폼 컴포넌트의 상태와 사용 코드를 모아 보여줍니다. (Shows shared form components with their states and usage snippets.) */
+/** 요청된 다섯 폼 컴포넌트의 상태와 타입별 예시를 보여줍니다. (Shows state and type examples for the five requested form component categories.) */
 export function FormGuide() {
   const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
   const nextNoticeId = useRef(0);
-  const [name, setName] = useState('서현');
-  const [password, setPassword] = useState('hoka2026');
-  const [message, setMessage] = useState('문의 내용을 입력해 주세요.');
-  const [category, setCategory] = useState('');
-  const [dropdownValue, setDropdownValue] = useState('');
-  const [agreed, setAgreed] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState<string[]>(['running']);
-  const [deliveryMethod, setDeliveryMethod] = useState('home');
-  const [sort, setSort] = useState('popular');
-  const [query, setQuery] = useState('HOKA');
-  const [quantity, setQuantity] = useState(2);
-  const [address, setAddress] = useState({
-    postalCode: '06100',
-    address: '서울특별시 강남구 테헤란로',
-    addressDetail: '',
-  });
-  const [addressSearchOpen, setAddressSearchOpen] = useState(false);
-  const [emailLocal, setEmailLocal] = useState('hoka.member');
-  const [emailDomain, setEmailDomain] = useState('gmail.com');
-  const [emailDomainChoice, setEmailDomainChoice] = useState('gmail.com');
+  const [typingValue, setTypingValue] = useState('텍스트를 입력해주세요');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [phoneValue, setPhoneValue] = useState('');
+  const [numberValue, setNumberValue] = useState('');
+  const [messageValue, setMessageValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
+  const [errorValue, setErrorValue] = useState('');
+  const [selectedMenuValue, setSelectedMenuValue] = useState('');
+  const [iconMenuValue, setIconMenuValue] = useState('');
+  const [imageMenuValue, setImageMenuValue] = useState('us');
+  const [checkboxStates, setCheckboxStates] = useState([false, true, false, true]);
+  const [radioStates, setRadioStates] = useState(['', 'yes', '', 'yes']);
 
   const dismissNotice = useCallback((id: number) => {
     setNotice((current) => (current?.id === id ? null : current));
@@ -208,6 +208,18 @@ export function FormGuide() {
     }
   }
 
+  const updateCheckbox = (index: number, checked: boolean) => {
+    setCheckboxStates((current) =>
+      current.map((value, itemIndex) => (itemIndex === index ? checked : value)),
+    );
+  };
+
+  const updateRadio = (index: number, value: string) => {
+    setRadioStates((current) =>
+      current.map((currentValue, itemIndex) => (itemIndex === index ? value : currentValue)),
+    );
+  };
+
   return (
     <Grid
       className={css({
@@ -223,201 +235,175 @@ export function FormGuide() {
             Form
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            프로젝트 공통 폼 컴포넌트의 실제 상태와 사용 코드를 확인하고 복사합니다.
+            Figma 기준의 폼 상태와 타입별 예시를 확인하고 사용 코드를 복사합니다.
           </Typography>
         </HStack>
 
-        <Stack as="section" id="form-fields" gap="3" aria-labelledby="form-fields-title">
-          <SectionTitle id="form-fields-title" title="필드 조합" />
-          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+        <Stack
+          as="section"
+          id="form-input-fields"
+          gap="3"
+          aria-labelledby="form-input-fields-title"
+        >
+          <SectionTitle id="form-input-fields-title" title="Input Fields" />
+          <Typography variant="body5" tone="subtle">
+            기본 입력은 Default, Focus, Typing, Error 상태를, 입력 타입은
+            기본·비밀번호·전화번호·숫자·여러 줄을 보여줍니다.
+          </Typography>
+          <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
             <FormExample
-              title="FormField + TextInput"
-              description="label · required · hint"
-              code={codeExamples.formField}
-              onCopy={copyCode}
-            >
-              <FormField
-                htmlFor="guide-name"
-                label="이름"
-                required
-                hint="가입 정보와 동일한 이름을 입력해 주세요."
-              >
-                <TextInput
-                  id="guide-name"
-                  name="name"
-                  placeholder="이름을 입력해 주세요"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </FormField>
-            </FormExample>
-            <FormExample
-              title="TextFormField"
-              description="label과 control 연결 · 오류 표시"
-              code={codeExamples.textFormField}
+              title="Default"
+              description="기본 상태"
+              code={codeExamples.inputDefault}
               onCopy={copyCode}
             >
               <TextFormField
-                id="guide-email"
-                label="이메일"
+                variant="boxed"
+                id="guide-state-default"
+                label="필드명"
                 required
-                error="이메일 형식을 확인해 주세요."
+                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+              />
+            </FormExample>
+            <FormExample
+              title="Focus"
+              description="포커스 상태"
+              code={codeExamples.inputFocus}
+              onCopy={copyCode}
+            >
+              <TextFormField
+                className={focusPreview}
+                variant="boxed"
+                id="guide-state-focus"
+                label="필드명"
+                required
+                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+              />
+            </FormExample>
+            <FormExample
+              title="Typing"
+              description="입력 중"
+              code={codeExamples.inputTyping}
+              onCopy={copyCode}
+            >
+              <TextFormField
+                variant="boxed"
+                id="guide-state-typing"
+                label="필드명"
+                required
                 inputProps={{
-                  type: 'email',
-                  defaultValue: 'member@',
-                  placeholder: 'name@example.com',
+                  value: typingValue,
+                  onChange: (event) => setTypingValue(event.target.value),
                 }}
               />
             </FormExample>
-          </Grid>
-        </Stack>
-
-        <Stack as="section" id="form-text" gap="3" aria-labelledby="form-text-title">
-          <SectionTitle id="form-text-title" title="텍스트 입력" />
-          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
             <FormExample
-              title="TextInput"
-              description="기본 입력"
-              code={codeExamples.textInput}
+              title="Error"
+              description="오류 상태"
+              code={codeExamples.inputError}
               onCopy={copyCode}
             >
-              <TextInput
-                aria-label="이름 입력"
-                placeholder="이름을 입력해 주세요"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+              <TextFormField
+                variant="boxed"
+                id="guide-state-error"
+                label="필드명"
+                required
+                error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다."
+                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+              />
+            </FormExample>
+          </Grid>
+
+          <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
+            <FormExample
+              title="Default"
+              description="기본 입력"
+              code={codeExamples.inputDefault}
+              onCopy={copyCode}
+            >
+              <TextFormField
+                variant="boxed"
+                id="guide-type-default"
+                label="필드명"
+                required
+                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
               />
             </FormExample>
             <FormExample
               title="Password"
-              description="비밀번호 표시 전환"
+              description="표시 전환"
               code={codeExamples.password}
               onCopy={copyCode}
             >
-              <TextInput
-                aria-label="비밀번호"
-                type="password"
-                placeholder="비밀번호를 입력해 주세요"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+              <TextFormField
+                variant="boxed"
+                id="guide-type-password"
+                label="비밀번호"
+                required
+                inputProps={{
+                  type: 'password',
+                  placeholder: '비밀번호를 입력해 주세요',
+                  value: passwordValue,
+                  onChange: (event) => setPasswordValue(event.target.value),
+                }}
               />
             </FormExample>
             <FormExample
-              title="Textarea"
+              title="Phone Number"
+              description="안내 아이콘 · 도움말"
+              code={codeExamples.phone}
+              onCopy={copyCode}
+            >
+              <TextFormField
+                variant="boxed"
+                id="guide-type-phone"
+                label="휴대폰 번호"
+                required
+                info="휴대폰 번호 안내"
+                hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요."
+                inputProps={{
+                  placeholder: 'Example: 3333333333',
+                  value: phoneValue,
+                  onChange: (event) => setPhoneValue(event.target.value),
+                }}
+              />
+            </FormExample>
+            <FormExample
+              title="Number"
+              description="숫자 입력"
+              code={codeExamples.number}
+              onCopy={copyCode}
+            >
+              <TextFormField
+                variant="boxed"
+                id="guide-type-number"
+                label="Number"
+                required
+                inputProps={{
+                  type: 'number',
+                  placeholder: '숫자를 입력해 주세요',
+                  value: numberValue,
+                  onChange: (event) => setNumberValue(event.target.value),
+                }}
+              />
+            </FormExample>
+            <FormExample
+              title="Open Text Area"
               description="여러 줄 입력"
-              code={codeExamples.textarea}
+              code={codeExamples.multiline}
               onCopy={copyCode}
             >
-              <TextInput
-                aria-label="문의 내용"
-                multiline
-                placeholder="문의 내용을 입력해 주세요"
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-              />
-            </FormExample>
-            <FormExample
-              title="Select"
-              description="Native select"
-              code={codeExamples.select}
-              onCopy={copyCode}
-            >
-              <FormField htmlFor="guide-category" label="문의 유형" required>
-                <Select
-                  id="guide-category"
-                  value={category}
-                  onChange={(event) => setCategory(event.target.value)}
-                >
-                  {selectOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Select>
-              </FormField>
-            </FormExample>
-            <FormExample
-              title="Dropdown"
-              description="커스텀 선택 메뉴"
-              code={codeExamples.dropdown}
-              onCopy={copyCode}
-            >
-              <Dropdown
-                ariaLabel="문의 유형"
-                label="문의 유형"
-                placeholder="문의 유형을 선택해 주세요"
-                options={selectOptions.filter((option) => option.value)}
-                value={dropdownValue}
-                onValueChange={setDropdownValue}
-              />
-            </FormExample>
-          </Grid>
-        </Stack>
-
-        <Stack as="section" id="form-selection" gap="3" aria-labelledby="form-selection-title">
-          <SectionTitle id="form-selection-title" title="선택 컨트롤" />
-          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
-            <FormExample
-              title="Checkbox"
-              description="단일 동의"
-              code={codeExamples.checkbox}
-              onCopy={copyCode}
-            >
-              <Checkbox
-                label="개인정보 수집에 동의합니다."
-                checked={agreed}
-                onCheckedChange={setAgreed}
-              />
-            </FormExample>
-            <FormExample
-              title="Checkbox group"
-              description="복수 선택"
-              code={codeExamples.checkboxGroup}
-              onCopy={copyCode}
-            >
-              <Checkbox
-                ariaLabel="관심 카테고리"
-                options={[
-                  { value: 'running', label: '러닝' },
-                  { value: 'hiking', label: '하이킹' },
-                  { value: 'walking', label: '워킹' },
-                ]}
-                value={selectedTopics}
-                onValueChange={setSelectedTopics}
-              />
-            </FormExample>
-            <FormExample
-              title="Radio"
-              description="단일 선택"
-              code={codeExamples.radio}
-              onCopy={copyCode}
-            >
-              <Radio
-                ariaLabel="수령 방법"
-                label="수령 방법"
-                options={[
-                  { value: 'home', label: '택배 수령' },
-                  { value: 'store', label: '매장 수령' },
-                ]}
-                value={deliveryMethod}
-                onValueChange={setDeliveryMethod}
-              />
-            </FormExample>
-            <FormExample
-              title="SegmentedControl"
-              description="탭 패널 없는 단일 필터"
-              code={codeExamples.segmented}
-              onCopy={copyCode}
-            >
-              <SegmentedControl
-                ariaLabel="정렬 기준"
-                options={[
-                  { value: 'popular', label: '인기순' },
-                  { value: 'recent', label: '최신순' },
-                  { value: 'price', label: '가격순' },
-                ]}
-                value={sort}
-                onValueChange={setSort}
+              <TextFormField
+                variant="boxed"
+                id="guide-type-open-text"
+                label="문의 내용"
+                required
+                inputProps={{
+                  multiline: true,
+                  placeholder: '내용을 입력해 주세요',
+                  value: messageValue,
+                  onChange: (event) => setMessageValue(event.target.value),
+                }}
               />
             </FormExample>
           </Grid>
@@ -425,124 +411,200 @@ export function FormGuide() {
 
         <Stack
           as="section"
-          id="form-compositions"
+          id="form-dropdown-selection"
           gap="3"
-          aria-labelledby="form-compositions-title"
+          aria-labelledby="form-dropdown-selection-title"
         >
-          <SectionTitle id="form-compositions-title" title="폼 조합" />
-          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+          <SectionTitle id="form-dropdown-selection-title" title="Dropdown Selection" />
+          <Typography variant="body5" tone="subtle">
+            기본·선택·오류·비활성화 상태를 비교하고, 선택 필드를 눌러 메뉴를 확인합니다.
+          </Typography>
+          <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
             <FormExample
-              title="SearchField"
-              description="검색 입력과 submit 액션"
-              code={codeExamples.search}
+              title="Default"
+              description="선택 전"
+              code={codeExamples.selection}
               onCopy={copyCode}
             >
-              <SearchField
-                label="검색어"
-                placeholder="검색어를 입력해 주세요"
-                value={query}
-                onValueChange={setQuery}
-                onSearch={() => {
-                  nextNoticeId.current += 1;
-                  setNotice({ id: nextNoticeId.current, text: `“${query}” 검색 예시입니다.` });
-                }}
+              <Dropdown
+                ariaLabel="기본 메뉴 선택"
+                label="타이틀명"
+                required
+                placeholder="메뉴를 선택해 주세요"
+                options={menuOptions}
+                value={selectedValue}
+                onValueChange={setSelectedValue}
               />
             </FormExample>
             <FormExample
-              title="EmailAddressFields"
-              description="이메일 아이디 · 도메인 선택"
-              code={codeExamples.email}
+              title="Selected"
+              description="선택 완료"
+              code={codeExamples.selection}
               onCopy={copyCode}
             >
-              <Stack gap="3">
-                <EmailAddressFields
-                  idPrefix="guide-email-address"
-                  local={emailLocal}
-                  domain={emailDomain}
-                  domainChoice={emailDomainChoice}
-                  errors={{}}
-                  options={dropdownOptions}
-                  onLocalChange={setEmailLocal}
-                  onDomainChange={setEmailDomain}
-                  onDomainChoice={(next) => {
-                    setEmailDomainChoice(next);
-                    if (next !== 'direct') setEmailDomain(next);
-                  }}
-                />
-              </Stack>
+              <Dropdown
+                ariaLabel="선택된 메뉴"
+                label="타이틀명"
+                required
+                options={menuOptions}
+                value="one"
+                onValueChange={() => undefined}
+              />
             </FormExample>
             <FormExample
-              title="AddressFields"
-              description="주소 입력과 검색 팝업"
-              code={codeExamples.address}
+              title="Error"
+              description="오류 상태"
+              code={codeExamples.selectionError}
               onCopy={copyCode}
             >
-              <Stack gap="3">
-                <AddressFields
-                  variant="boxed"
-                  idPrefix="guide-address"
-                  value={address}
-                  onValueChange={(field, value) =>
-                    setAddress((current) => ({ ...current, [field]: value }))
-                  }
-                  searchOpen={addressSearchOpen}
-                  onSearchOpenChange={setAddressSearchOpen}
-                />
-              </Stack>
+              <Dropdown
+                ariaLabel="오류 메뉴 선택"
+                label="타이틀명"
+                required
+                placeholder="메뉴를 선택해 주세요"
+                error="메뉴를 선택해 주세요."
+                options={menuOptions}
+                value={errorValue}
+                onValueChange={setErrorValue}
+              />
             </FormExample>
             <FormExample
-              title="FormActionGroup"
-              description="취소 · 제출 액션"
-              code={codeExamples.actions}
+              title="Disabled"
+              description="비활성화"
+              code={codeExamples.selectionDisabled}
               onCopy={copyCode}
             >
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  nextNoticeId.current += 1;
-                  setNotice({ id: nextNoticeId.current, text: '제출 버튼 예시입니다.' });
-                }}
-              >
-                <FormActionGroup
-                  onCancel={() => {
-                    nextNoticeId.current += 1;
-                    setNotice({ id: nextNoticeId.current, text: '취소 버튼 예시입니다.' });
-                  }}
-                  submitLabel="저장"
-                />
-              </form>
+              <Dropdown
+                ariaLabel="비활성화 메뉴 선택"
+                label="타이틀명"
+                disabled
+                options={menuOptions}
+                value="one"
+                onValueChange={() => undefined}
+              />
             </FormExample>
           </Grid>
         </Stack>
 
-        <Stack as="section" id="form-support" gap="3" aria-labelledby="form-support-title">
-          <SectionTitle id="form-support-title" title="입력 보조" />
-          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+        <Stack as="section" id="form-checkbox" gap="3" aria-labelledby="form-checkbox-title">
+          <SectionTitle id="form-checkbox-title" title="Checkbox" />
+          <Typography variant="body5" tone="subtle">
+            기본·선택·비활성화·비활성화 선택 상태입니다.
+          </Typography>
+          <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
+            {[
+              { title: 'Default', checked: checkboxStates[0], disabled: false },
+              { title: 'Selected', checked: checkboxStates[1], disabled: false },
+              { title: 'Disabled', checked: checkboxStates[2], disabled: true },
+              { title: 'Disabled Selected', checked: checkboxStates[3], disabled: true },
+            ].map((item, index) => (
+              <FormExample
+                key={item.title}
+                title={item.title}
+                description="체크박스 상태"
+                code={item.disabled ? codeExamples.checkboxDisabled : codeExamples.checkbox}
+                onCopy={copyCode}
+              >
+                <Checkbox
+                  label="동의 항목"
+                  checked={item.checked}
+                  disabled={item.disabled}
+                  onCheckedChange={(checked) => updateCheckbox(index, checked)}
+                />
+              </FormExample>
+            ))}
+          </Grid>
+        </Stack>
+
+        <Stack as="section" id="form-radio" gap="3" aria-labelledby="form-radio-title">
+          <SectionTitle id="form-radio-title" title="Radio" />
+          <Typography variant="body5" tone="subtle">
+            기본·선택·비활성화·비활성화 선택 상태입니다.
+          </Typography>
+          <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
+            {[
+              { title: 'Default', value: radioStates[0], disabled: false },
+              { title: 'Selected', value: radioStates[1], disabled: false },
+              { title: 'Disabled', value: radioStates[2], disabled: true },
+              { title: 'Disabled Selected', value: radioStates[3], disabled: true },
+            ].map((item, index) => (
+              <FormExample
+                key={item.title}
+                title={item.title}
+                description="라디오 상태"
+                code={item.disabled ? codeExamples.radioDisabled : codeExamples.radio}
+                onCopy={copyCode}
+              >
+                <Radio
+                  ariaLabel={`${item.title} 예시`}
+                  disabled={item.disabled}
+                  options={[
+                    { value: 'yes', label: '수신' },
+                    { value: 'no', label: '수신 안함' },
+                  ]}
+                  value={item.value}
+                  onValueChange={(value) => updateRadio(index, value)}
+                />
+              </FormExample>
+            ))}
+          </Grid>
+        </Stack>
+
+        <Stack
+          as="section"
+          id="form-dropdown-menu"
+          gap="3"
+          aria-labelledby="form-dropdown-menu-title"
+        >
+          <SectionTitle id="form-dropdown-menu-title" title="Dropdown Menu" />
+          <Typography variant="body5" tone="subtle">
+            각 선택 필드를 눌러 기본 목록, 아이콘 목록, 이미지 목록을 확인합니다.
+          </Typography>
+          <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
             <FormExample
-              title="NumberStepper"
-              description="최소·최대 수량 제어"
-              code={codeExamples.stepper}
+              title="List"
+              description="텍스트 목록"
+              code={codeExamples.dropdownList}
               onCopy={copyCode}
             >
-              <NumberStepper value={quantity} min={1} max={10} onChange={setQuantity} />
+              <Dropdown
+                ariaLabel="일반 메뉴"
+                label="타이틀명"
+                placeholder="메뉴를 선택해 주세요"
+                options={menuOptions}
+                value={selectedMenuValue}
+                onValueChange={setSelectedMenuValue}
+              />
             </FormExample>
             <FormExample
-              title="CharacterCount"
-              description="입력 길이와 제한 표시"
-              code={codeExamples.count}
+              title="Icon + List"
+              description="아이콘이 있는 목록"
+              code={codeExamples.dropdownIconList}
               onCopy={copyCode}
             >
-              <HStack justifyContent="flex-end">
-                <CharacterCount length={message.length} limit={1000} spaced />
-              </HStack>
+              <Dropdown
+                ariaLabel="사용자 메뉴"
+                label="타이틀명"
+                placeholder="사용자를 선택해 주세요"
+                options={iconMenuOptions}
+                value={iconMenuValue}
+                onValueChange={setIconMenuValue}
+              />
             </FormExample>
             <FormExample
-              title="VerificationCountdown"
-              description="남은 인증 시간 표시"
-              code={codeExamples.countdown}
+              title="Image + List"
+              description="이미지가 있는 목록"
+              code={codeExamples.dropdownImageList}
               onCopy={copyCode}
             >
-              <VerificationCountdown secondsLeft={89} />
+              <Dropdown
+                ariaLabel="국가 메뉴"
+                label="타이틀명"
+                placeholder="국가를 선택해 주세요"
+                options={imageMenuOptions}
+                value={imageMenuValue}
+                onValueChange={setImageMenuValue}
+              />
             </FormExample>
           </Grid>
         </Stack>
