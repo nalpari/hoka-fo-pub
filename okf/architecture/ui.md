@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:56:50+00:00'
+  at: '2026-10-30T06:58:24+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/publishing-guide/_components/TypographyGuide.tsx
@@ -3565,5 +3565,11 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## IA 탐색 도구 반응형과 고정 배치 (2026-10-30)
 
 사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

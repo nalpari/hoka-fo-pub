@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:56:50+00:00'
+  at: '2026-10-30T06:58:24+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -494,5 +494,11 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 ## 기존 상태 preview 라우트 검사 동기화 (2026-10-30)
 
 전체 route manifest 검사에서 기존 신청 취소·작성 가능/작성 리뷰 목록 세 URL이 기대 목록에서 빠져 있음을 확인하여 tests/app-router.test.mjs의 기대 목록만 보완했다. 기존 화면은 재생성하거나 변경하지 않았다. 전체 Node 테스트 106개를 통과했다. 출처: 기존 /mypage/event-entries/preview-cancel, /mypage/reviews/preview-ready, /mypage/reviews/preview-written과 tests/app-router.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

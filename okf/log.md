@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 러닝 세션 정적 이미지 경로 수정
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+
 ## 2026-10-30 — 기존 상태 preview 라우트 검사 동기화
 
 전체 route manifest 검사에서 기존 신청 취소·작성 가능/작성 리뷰 목록 세 URL이 기대 목록에서 빠져 있음을 확인하여 tests/app-router.test.mjs의 기대 목록만 보완했다. 기존 화면은 재생성하거나 변경하지 않았다. 전체 Node 테스트 106개를 통과했다. 출처: 기존 /mypage/event-entries/preview-cancel, /mypage/reviews/preview-ready, /mypage/reviews/preview-written과 tests/app-router.test.mjs.
