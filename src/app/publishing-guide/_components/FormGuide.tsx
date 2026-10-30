@@ -10,7 +10,6 @@ import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown, type DropdownOption } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
-import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
