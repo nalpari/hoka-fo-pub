@@ -11,9 +11,9 @@ import { myPageNavigation } from '@/components/mypage/mypage.data';
 
 type MyPageFrameLayout = 'sidebar' | 'centered';
 
-type Props = { breadcrumbs: BreadcrumbItem[] };
+type Props = { breadcrumbs: BreadcrumbItem[]; layout: MyPageFrameLayout };
 
-function MyPageBreadcrumbs({ breadcrumbs }: Props) {
+function MyPageBreadcrumbs({ breadcrumbs, layout }: Props) {
   const content = (
     <Breadcrumb
       items={[
@@ -30,7 +30,7 @@ function MyPageBreadcrumbs({ breadcrumbs }: Props) {
       h="14"
       _mobile={{
         h: 'auto',
-        pb: '8',
+        pb: layout === 'centered' ? '2' : '8',
         overflowX: 'auto',
         '& nav': { whiteSpace: 'nowrap', gap: '2px' },
         '& nav > span': { gap: '2px', flexShrink: '0' },
@@ -64,7 +64,7 @@ export function MyPageFrame({
       pb="24"
       _mobile={{ w: '100%', px: '4', pb: '16' }}
     >
-      <MyPageBreadcrumbs breadcrumbs={breadcrumbs} />
+      <MyPageBreadcrumbs breadcrumbs={breadcrumbs} layout={layout} />
       <Grid
         w="1200px"
         maxW="100%"

@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T06:48:26Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/_components/MyPageContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
   - src/app/login/account-locked/complete/page.tsx
   - src/app/signup/verify/_components/IdentityVerificationContent.tsx
@@ -827,6 +828,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 마이페이지 메인 디자인 반영 (2026-10-30)
+
+Figma [마이페이지 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 기본 PC `1533:43644`·모바일 `1413:131326`, 주문 없음 PC `1480:36896`·모바일 `1480:36472`를 반영했다. 기존 1200px 프레임/좌우 34px 안에 PC 등급 카드와 240px 혜택 카드 두 개를 가로 배치한다. 카드 배경 #F7F7F9, PC 패딩 32px·모바일 20px 16px, 카드 간격 8px이다. 이름은 PC 36px·모바일 28px, ‘님’은 24px 본문, 섹션 제목은 PC 28px·모바일 22px이다.
+
+PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 170px, 헤더 세로 패딩 20px·행 32px·썸네일 96px을 사용한다. 메뉴는 PC 3열(가로 56px/세로 48px 간격)·모바일 1열(32px 간격), 제목 밑줄은 PC 2px·모바일 1px이다. 모바일 캐러셀 표시점 간격은 5px이다. 주문 없음은 ‘주문 배송 내역이 없습니다.’를 PC 16px·모바일 14px·#4D4D4D로 표시하고 세로 패딩 120px/64px, ‘전체 보기’ 숨김을 적용한다. 로그아웃 버튼은 시안대로 모바일에 표시하며 기존 모달·콜백은 유지한다.
+
+기존 회원/주문 fixture와 `MyPageDataContext.overview` 계약은 유지한다. 예시 관심상품 6건·주문 5건 및 공통 홍보 배너는 시안 수치로 덮어쓰지 않았다. 신규 API나 상태 URL을 만들지 않았다. 회원명 글리프에서 Pretendard Black 웹폰트를 확인했고 영문은 기존 layout의 HOKA 폰트 변수를 재사용한다.
+
+검증: 2026-10-30 Codex가 두 URL을 375/1920px viewport에서 열어 hydration·폰트 로딩 후 위치/크기/테두리·이미지를 확인했다. Windows scrollbar 15px로 모바일 clientWidth 360px과 Figma 프레임 375px 차이를 구분했다. 캐러셀 2번째 선택, 로그아웃 모달 열기·Esc 닫기·버튼 포커스 복귀를 확인했다. 1024/1025·1199/1200 경계, 1200px 이상 가로 넘침 없음, 쿠폰 화면 breadcrumb 하단 32px 보존을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, Next 빌드(119개 정적 페이지)를 통과했다. 전체 lint는 비대상 FormGuide의 미사용 TextInput 및 HelpTipsGuide import 정렬 오류로 실패했다. Storybook 빌드/명시적 플랫폼 스토리는 미실행이다.
+
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00. 사람의 디자인 승인 완료를 의미하지 않는다.
 
 ## 매장 목록 제목 16px 유지 (2026-10-30)
 

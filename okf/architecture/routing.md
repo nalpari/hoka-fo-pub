@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T06:48:26Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/components/mypage/MyPageFrame.tsx
   - src/app/login/find-account/page.tsx
   - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/app/support/store/_components/StoreContent.tsx
@@ -193,6 +195,14 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 마이페이지 메인 디자인 적용 (2026-10-30)
+
+기존 `/mypage`·`/mypage/preview-no-orders`는 같은 `_components/MyPageContent.tsx`를 계속 사용한다. [Figma 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC/MO 기본·주문 없음 표현을 반영했고 route 진입점·IA 연결·표시 데이터 및 외부 context 계약은 유지한다. `MyPageFrame`의 `centered` 레이아웃만 모바일 breadcrumb 하단을 8px로 지정하며 기존 `sidebar`의 32px은 유지한다. 메인의 불필요한 PC 상단 24px을 제거하고 모바일 상단 24px은 유지한다.
+
+두 URL PC/MO 직접 진입·hydration 후 표현, 모바일 캐러셀·로그아웃 모달 닫기/포커스 복귀와 쿠폰 화면의 breadcrumb 간격을 확인했다. 1024px까지 모바일, 1025~1199px의 1200px 캔버스, 1200px 이상 가로 overflow 없음도 확인했다. 공통 플랫폼 판별은 수정하지 않았다. Next 빌드·타입 검사를 통과했다. 상세와 미실행 검사는 [디자인 반영](ui.md#마이페이지-메인-디자인-반영-2026-10-30)에 기록했다.
+
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00.
 
 ## 매장 목록 제목 매핑 검토 (2026-10-30)
 
