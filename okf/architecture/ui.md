@@ -3439,3 +3439,7 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## 퍼블리싱 고정 상태 표현 재사용 (2026-10-30)
 
 기존 Empty·검색 결과 없음·오류·완료·상세·편집 표시 UI를 고정 preview에서 재사용한다. 주문/신청내역/상품목록/문의/계정/가입의 경계와 남은 디자인 결정은 [상태 preview 인계](publishing-state-previews-2026-10-30.md)를 참고한다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 입력·체크·모달 닫기 등 로컬 확인 조작만 제공한다.
+
+## TextInput 포커스 테두리 겹침 (2026-10-30)
+
+기본 `TextInput`의 `:focus-visible` outline은 2px 굵기를 유지하고 offset을 -2px로 두어 기존 입력 테두리 위에 겹쳐 표시한다. 바깥 여백에 별도 테두리가 추가되지 않는다. boxed `FormField`의 inset box-shadow와 `SearchField` 내부 입력의 outline 제거 동작은 그대로 유지한다. 출처는 `src/components/common/atoms/TextInput.tsx`다. 브라우저 시각 검증은 수행하지 않았다.
