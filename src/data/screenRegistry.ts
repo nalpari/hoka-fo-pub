@@ -28,16 +28,6 @@ type RawScreenDefinition = [
 
 // 기존 내부 번호는 상품 필터와 상태 연결을 위해 유지하며 원본 번호는 별도로 병합합니다.
 const rawScreens: RawScreenDefinition[] = [
-  [
-    258,
-    ['EXPLORE', 'Featured', 'Running Session', '목록', ''],
-    'page',
-    '1',
-    false,
-    '',
-    '신규 러닝세션 모집 목록',
-  ],
-  [259, ['EXPLORE', 'Featured', 'Running Session', '상세', ''], 'page', '1', false, '', ''],
   [1, ['Main', '', '', '', ''], 'page', '1', false, 'eland_hma_01', ''],
   [2, ['', 'Pop-up', '', '', ''], 'popup', '1', false, 'eland_hma_02', ''],
   [3, ['MEN', 'Featured', 'Best', '목록', ''], 'page', '1', false, 'eland_hca_01', ''],
@@ -231,6 +221,16 @@ const rawScreens: RawScreenDefinition[] = [
   ],
   [154, ['', '', '트레일 러닝 가이드', '', ''], 'page', '1', false, 'eland_hex_02', ''],
   [155, ['', '', 'Running Session', '', ''], 'page', '1', false, 'eland_hex_03', ''],
+  [
+    258,
+    ['EXPLORE', 'Featured', 'Running Session', '목록', ''],
+    'page',
+    '1',
+    false,
+    '',
+    '신규 러닝세션 모집 목록',
+  ],
+  [259, ['EXPLORE', 'Featured', 'Running Session', '상세', ''], 'page', '1', false, '', ''],
   [156, ['', 'Technology', '고어텍스', '', ''], 'page', '1', false, 'eland_hex_04', ''],
   [157, ['', '', '비브람', '', ''], 'page', '1', false, 'eland_hex_05', ''],
   [
@@ -240,7 +240,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     true,
     'eland_hex_06',
-    '메뉴만 유지. 페이지·디자인 미수급. 러닝 세션은 Featured > Running Session(155)에서 연결.',
+    '메뉴만 유지. 페이지·디자인 미수급.',
   ],
   [159, ['런칭 캘린더', '', '', '', ''], 'page', '1', false, 'eland_hla_01', ''],
   [160, ['', 'Feed', '목록', '', ''], 'page', '1', false, 'eland_hla_02', ''],

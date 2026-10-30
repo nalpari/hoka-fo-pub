@@ -61,6 +61,9 @@ test('Featured owns Running Session while UTMB remains a menu-only source IA', (
     ]);
   }
   assert.ok(!screens.some((screen) => screen.depths[1] === 'Running Session'));
+  const featuredIndex = screens.findIndex((screen) => screen.iaNumber === 155);
+  assert.equal(screens[featuredIndex + 1].iaNumber, 258);
+  assert.equal(screens[featuredIndex + 2].iaNumber, 259);
 });
 
 function files(directory) {

@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:41:04+00:00'
+  at: '2026-10-30T06:43:01+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -470,5 +470,11 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 ## 상품 목록 품절 표시 예시 (2026-10-30)
 
 `/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 하위 행 표시 순서 보완 (2026-10-30)
+
+사용자 브라우저 확인에 따라 목록(258)·상세(259)의 원본 배열 순서도 D3 Featured > Running Session(155) 바로 뒤로 이동했다. 계층 값뿐 아니라 실제 렌더 순서를 맞추며 독립 D2와 D3 앞쪽의 하위 행을 남기지 않는다. UTMB 비고의 러닝 세션 연결 설명 문장은 삭제했다. preview 링크 테스트는 155 바로 다음 행이 258·259인지 함께 검사한다. 출처: src/data/screenRegistry.ts와 tests/preview-links.test.mjs.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
