@@ -226,6 +226,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 - `fillMobileViewport`와 호출부를 제거하고 계정 공통 레이아웃의 모바일 하단 여백을 64px로 통일했다. main의 여백은 Panda JSX props로 지정한다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30), [라우팅 영향](architecture/routing.md#계정-프레임-모바일-최소-높이-옵션-제거-2026-10-30).
 - 회원가입 완료에서 바깥 `VStack`을 stretch 정렬하고 버튼 간격을 작은 `Box`에 두어 불필요한 `HStack`을 제거했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
 - 회원가입 완료의 제목과 안내 문구 중앙 정렬을 `VStack textAlign="center"`로 유지했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+- 회원가입 약관 표기를 필수 `[필수]`, 선택 `(선택)`으로 구분하고 보기 버튼의 접근성 이름과 상세 제목에도 반영했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
 
 - 계정 찾기 기본 화면의 상태 소유자를 `FindAccountRouteContent`로 명확히 이름 붙이고, 제목·설명 스타일 전달을 `ContentSection.headerProps`로 정리했다. 한 화면에서만 쓰던 필드 묶음은 표시 UI의 form에 직접 배치하고 오래된 타입 선언을 제거했다. 모바일 최소 높이는 공통 `fillMobileViewport` prop으로 전환했다. 고정 상태 미리보기와 인증·이동 경계는 유지한다. [라우팅](architecture/routing.md#계정-찾기-페이지-진입점-정리-2026-10-30), [UI 구성](architecture/ui.md#계정-찾기-화면-구성-정리-2026-10-30).
 
