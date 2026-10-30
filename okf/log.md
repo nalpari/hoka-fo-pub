@@ -2,6 +2,13 @@
 
 ## 2026-10-30
 
+- 계정 화면의 반복된 본문 flex 선언을 제거하고, `pageCss`를 제거한 공통 레이아웃과 완료 화면 2곳의 개별 Panda 외곽 배치를 맞췄다. 모바일 화면 채우기 옵션은 공통 레이아웃에서 유지한다. [UI 기준](architecture/ui.md#계정-프레임의-중복-본문-flex-제거-2026-10-30).
+- `fillMobileViewport`와 호출부를 제거하고 계정 공통 레이아웃의 모바일 하단 여백을 64px로 통일했다. main의 여백은 Panda JSX props로 지정한다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30), [라우팅 영향](architecture/routing.md#계정-프레임-모바일-최소-높이-옵션-제거-2026-10-30).
+- 회원가입 완료에서 바깥 `VStack`을 stretch 정렬하고 버튼 간격을 작은 `Box`에 두어 불필요한 `HStack`을 제거했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+- 회원가입 완료의 제목과 안내 문구 중앙 정렬을 `VStack textAlign="center"`로 유지했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+
+- 계정 찾기 기본 화면의 상태 소유자를 `FindAccountRouteContent`로 명확히 이름 붙이고, 제목·설명 스타일 전달을 `ContentSection.headerProps`로 정리했다. 한 화면에서만 쓰던 필드 묶음은 표시 UI의 form에 직접 배치하고 오래된 타입 선언을 제거했다. 모바일 최소 높이는 공통 `fillMobileViewport` prop으로 전환했다. 고정 상태 미리보기와 인증·이동 경계는 유지한다. [라우팅](architecture/routing.md#계정-찾기-페이지-진입점-정리-2026-10-30), [UI 구성](architecture/ui.md#계정-찾기-화면-구성-정리-2026-10-30).
+
 - 로그인 입력·아이디 저장 영역과 로그인/소셜 버튼 묶음의 간격을 6 토큰으로 조정했다. 기본 로그인과 고정 오류 미리보기는 같은 마크업을 사용한다. [UI 기준](architecture/ui.md#로그인-버튼-묶음-간격-2026-10-30).
 
 - 여러 폼에서 반복한 fieldset 기본 스타일 초기화를 전역 base 스타일로 통합하고 중복 Panda 클래스를 제거했다. 폼·disabled 동작과 라우팅은 유지했다. [UI 기준](architecture/ui.md#fieldset-공통-초기화-2026-10-30), [라우팅 검토](architecture/routing.md#fieldset-초기화의-라우팅-영향-2026-10-30).

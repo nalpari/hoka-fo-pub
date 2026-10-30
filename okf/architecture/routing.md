@@ -6,9 +6,11 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T05:40:15Z'
+  at: '2026-10-30T06:48:26Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/login/find-account/page.tsx
+  - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/login/find-account/_components/FindAccountContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
@@ -183,6 +185,22 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 계정 프레임 본문 배치 정리의 라우팅 영향 (2026-10-30)
+
+비밀번호 재설정·본인인증의 중복 `contentCss` flex 선언을 정리했다. 계정 잠금 해제 완료·회원가입 완료는 제거된 `pageCss` 대신 각 page에서 기존 외곽 간격과 500px 중앙 본문을 직접 배치한다. URL·페이지 export·입력 및 이동 흐름은 변경하지 않았다. [UI 기준](ui.md#계정-프레임의-중복-본문-flex-제거-2026-10-30)을 따른다.
+
+## 계정 프레임 모바일 최소 높이 옵션 제거 (2026-10-30)
+
+`fillMobileViewport` 옵션과 로그인/가입/계정 찾기 화면의 호출을 제거했다. 계정 프레임의 모바일 하단 여백은 공통 64px로 둔다. 경로와 페이지 export는 바꾸지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
+
+## 회원가입 완료 화면 버튼 배치 (2026-10-30)
+
+`/signup/complete`의 안내와 후속 버튼을 기존 경로 안에서 Panda JSX 레이아웃 props로 배치한다. `ButtonLink` 주변의 불필요한 `HStack`을 제거하고 버튼 위 간격은 `Box`가 소유한다. 경로와 내비게이션은 변경하지 않았다. [UI 기준](ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30)을 따른다.
+
+## 계정 찾기 페이지 진입점 정리 (2026-10-30)
+
+`/login/find-account/page.tsx`는 고정 상태 미리보기 선택과 기본 화면 렌더링을 유지한다. 기본 화면 상태 소유자의 이름을 `RouteContent`에서 `FindAccountRouteContent`로 구체화하고 서비스 바인딩 설명을 해당 소유자 위로 옮겼다. 경로, 클라이언트 경계, 미리보기 계약, 입력·인증 상태와 이동은 변경하지 않았다. 작업 트리 출처: `src/app/login/find-account/page.tsx`, `_components/FindAccountContent.tsx`, `_components/FindAccountStatePreview.tsx`. [UI 구성](ui.md#계정-찾기-화면-구성-정리-2026-10-30)을 따른다.
 
 ## 로그인 버튼 간격의 라우팅 영향 (2026-10-30)
 

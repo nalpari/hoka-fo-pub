@@ -357,7 +357,6 @@ export function SignupTermsContent(props: SignupTermsContentProps) {
   return (
     <AccountPageLayout
       title="약관동의"
-      fillMobileViewport
       actions={
         <>
           <Button variant="secondary" fullWidth onClick={props.onCancel}>

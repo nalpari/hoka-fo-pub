@@ -89,11 +89,6 @@ export function PasswordResetContent({
     <AccountPageLayout
       contentAs="section"
       contentLabelledBy="password-reset-title"
-      pageCss={css.raw({
-        px: '4',
-        _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
-      })}
-      contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
       outsideContent={completion}
     >
       <ContentSection
