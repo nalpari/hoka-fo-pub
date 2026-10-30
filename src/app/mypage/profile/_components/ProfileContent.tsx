@@ -7,10 +7,9 @@ import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Divider } from '@/components/common/atoms/Divider';
 import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -146,7 +145,7 @@ function ProfilePhoneVerification({
   }
 
   return (
-    <Stack gap="6">
+    <Stack gap="6" alignItems="stretch">
       <BindingFeedback pending={request.pending} error={request.error} />
       <TextFormField
         id="profile-phone"
@@ -178,6 +177,8 @@ function ProfilePhoneVerification({
         type="button"
         fullWidth
         variant="primary"
+        size="tall"
+        className={css({ alignSelf: 'flex-end', w: 'auto', _mobile: { w: '100%' } })}
         disabled={request.pending || verified || (requested && !expired)}
         onClick={requestCode}
       >
@@ -254,7 +255,6 @@ const domainOptions = [
   { value: 'daum.net', label: 'daum.net' },
 ];
 
-/** 회원정보 편집과 독립된 비밀번호 설정 진입을 제공합니다. (Provides profile editing and entry to independent password settings.) */
 /** 회원정보 수정 마크업을 표시합니다. (Displays profile editing markup.) */
 export function ProfileEditForm({
   previewPhone,
@@ -277,115 +277,232 @@ export function ProfileEditForm({
   onAddressOpenChange,
   onPhoneChange,
   onPhoneVerifiedChange,
-  onPasswordSettings,
   onEmailPreferenceChange,
   onSmsPreferenceChange,
   onKakaoPreferenceChange,
   onSubmit,
   onCancel,
   onWithdraw,
+  details,
+  pending,
 }: ProfileEditProps) {
+  const [password, setPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const [passwordErrors, setPasswordErrors] = useState<Errors>({});
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    const errors = password || confirmation ? validatePasswordReset(password, confirmation) : {};
+    setPasswordErrors(errors);
+    if (Object.values(errors).some(Boolean)) {
+      event.preventDefault();
+      return;
+    }
+    onSubmit(event, password || undefined);
+  }
+
   return (
-    <form noValidate onSubmit={onSubmit}>
-      <Stack gap="3">
-        <Stack gap="2">
-          <Button type="button" fullWidth variant="primary" onClick={onPasswordSettings}>
-            비밀번호 설정
-          </Button>
-          {passwordChanged ? (
-            <Typography variant="body4" role="status">
-              비밀번호 변경을 완료하였습니다.
-            </Typography>
-          ) : null}
-        </Stack>
-        <ProfilePhoneVerification
-          previewState={previewPhone}
-          phone={phone}
-          verified={phoneVerified}
-          error={fieldErrors.phone}
-          onPhoneChange={onPhoneChange}
-          onVerifiedChange={onPhoneVerifiedChange}
-        />
-        <AddressFields
-          variant="boxed"
-          idPrefix="profile"
-          searchLabel="우편번호 찾기"
-          value={address}
-          errors={fieldErrors}
-          fieldOptions={{ addressDetail: { required: true } }}
-          onValueChange={onAddressChange}
-          searchOpen={addressOpen}
-          onSearchOpenChange={onAddressOpenChange}
-        />
-        <EmailAddressFields
-          idPrefix="profile"
-          local={emailLocal}
-          domain={emailDomain}
-          domainChoice={domainChoice}
-          options={domainOptions}
-          errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
-          onLocalChange={onEmailLocalChange}
-          onDomainChange={onEmailDomainChange}
-          onDomainChoice={onDomainChoice}
-        />
-        <Stack gap="4">
-          <Divider />
-          <ContentSection
-            gap="5"
-            title="마케팅 정보 수신 동의"
-            headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading7' } }}
-          >
-            <Radio
-              ariaLabel="이메일 수신"
-              name="email-preference"
-              value={emailPreference}
-              onValueChange={onEmailPreferenceChange}
-              label="이메일 수신"
-              options={[
-                { value: '수신', label: '수신' },
-                { value: '수신안함', label: '수신안함' },
-              ]}
+    <form noValidate onSubmit={submit}>
+      <ContentSection
+        gap={{ base: '10', _mobile: '6' }}
+        title={
+          <>
+            <span className={css({ _mobile: { display: 'none' } })}>회원정보</span>
+            <span className={css({ display: 'none', _mobile: { display: 'inline' } })}>
+              회원정보 수정
+            </span>
+          </>
+        }
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
+      >
+        <Grid
+          gridTemplateColumns="minmax(0, 286px) minmax(0, 500px)"
+          gap="58px"
+          borderTop="2px solid"
+          borderColor="black.100"
+          pt="8"
+          _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)', gap: '6', borderTop: '0', pt: '0' }}
+        >
+          <Stack gap="0" _mobile={{ gap: '6' }}>
+            {(details ?? profileDetails.slice(0, 4)).map(([label, value]) => (
+              <ProfileField key={label} label={label} value={value} editing />
+            ))}
+            <Stack gap="6" py="8" pr="4" className={css({ _mobile: { display: 'none' } })}>
+              <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
+              <Button
+                size="short"
+                variant="secondary"
+                type="button"
+                onClick={onWithdraw}
+                className={css({ alignSelf: 'flex-start' })}
+              >
+                회원탈퇴
+              </Button>
+            </Stack>
+          </Stack>
+          <Stack gap="4">
+            <TextFormField
+              id="profile-inline-password"
+              label="비밀번호"
+              required
+              variant="boxed"
+              error={passwordErrors.password}
+              hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
+              hintProps={{ variant: 'body5' }}
+              inputProps={{
+                type: 'password',
+                autoComplete: 'new-password',
+                placeholder: '비밀번호를 입력해 주세요',
+                value: password,
+                onChange: (event) => setPassword(event.target.value),
+              }}
             />
-            <Radio
-              ariaLabel="문자수신(LMS, SMS)"
-              name="sms-preference"
-              value={smsPreference}
-              onValueChange={onSmsPreferenceChange}
-              label="문자수신(LMS, SMS)"
-              options={[
-                { value: '수신', label: '수신' },
-                { value: '수신안함', label: '수신안함' },
-              ]}
+            <TextFormField
+              id="profile-inline-confirmation"
+              label="비밀번호 재입력"
+              required
+              variant="boxed"
+              error={passwordErrors.confirmation}
+              inputProps={{
+                type: 'password',
+                autoComplete: 'new-password',
+                placeholder: '비밀번호를 재입력해 주세요',
+                value: confirmation,
+                onChange: (event) => setConfirmation(event.target.value),
+              }}
             />
-            <Radio
-              ariaLabel="카카오톡 알림톡 수신"
-              name="kakao-preference"
-              value={kakaoPreference}
-              onValueChange={onKakaoPreferenceChange}
-              label="카카오톡 알림톡 수신"
-              options={[
-                { value: '수신', label: '수신' },
-                { value: '수신안함', label: '수신안함' },
-              ]}
+            {passwordChanged ? (
+              <Typography variant="body4" role="status">
+                비밀번호 변경을 완료하였습니다.
+              </Typography>
+            ) : null}
+            <ProfilePhoneVerification
+              previewState={previewPhone}
+              phone={phone}
+              verified={phoneVerified}
+              error={fieldErrors.phone}
+              onPhoneChange={onPhoneChange}
+              onVerifiedChange={onPhoneVerifiedChange}
             />
-          </ContentSection>
-        </Stack>
-        <FormActionGroup pt="3" onCancel={onCancel} submitLabel="변경사항 저장" />
-        <Stack gap="4" pt="7">
-          <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
-          <Button size="sm" variant="link" type="button" onClick={onWithdraw}>
-            회원탈퇴
-          </Button>
-        </Stack>
-      </Stack>
+            <AddressFields
+              variant="boxed"
+              idPrefix="profile"
+              searchLabel="주소 찾기"
+              detailLayout="columns"
+              value={address}
+              errors={fieldErrors}
+              fieldOptions={{ addressDetail: { required: true } }}
+              onValueChange={onAddressChange}
+              searchOpen={addressOpen}
+              onSearchOpenChange={onAddressOpenChange}
+            />
+            <EmailAddressFields
+              idPrefix="profile"
+              local={emailLocal}
+              domain={emailDomain}
+              domainChoice={domainChoice}
+              options={domainOptions}
+              errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
+              onLocalChange={onEmailLocalChange}
+              onDomainChange={onEmailDomainChange}
+              onDomainChoice={onDomainChoice}
+            />
+            <Stack gap="8" pt="4" pb="8" borderBottom="1px solid" borderColor="black.10">
+              <ContentSection
+                gap={{ base: '8', _mobile: '6' }}
+                title="마케팅 정보 수신 동의"
+                headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+              >
+                <Stack gap={{ base: '6', _mobile: '4' }}>
+                  <Radio
+                    ariaLabel="이메일 수신"
+                    name="email-preference"
+                    value={emailPreference}
+                    onValueChange={onEmailPreferenceChange}
+                    label="이메일 수신"
+                    options={[
+                      { value: '수신', label: '수신' },
+                      { value: '수신안함', label: '수신안함' },
+                    ]}
+                  />
+                  <Radio
+                    ariaLabel="문자수신(LMS, SMS)"
+                    name="sms-preference"
+                    value={smsPreference}
+                    onValueChange={onSmsPreferenceChange}
+                    label="문자수신(LMS, SMS)"
+                    options={[
+                      { value: '수신', label: '수신' },
+                      { value: '수신안함', label: '수신안함' },
+                    ]}
+                  />
+                  <Radio
+                    ariaLabel="카카오톡 알림톡 수신"
+                    name="kakao-preference"
+                    value={kakaoPreference}
+                    onValueChange={onKakaoPreferenceChange}
+                    label="카카오톡 알림톡 수신"
+                    options={[
+                      { value: '수신', label: '수신' },
+                      { value: '수신안함', label: '수신안함' },
+                    ]}
+                  />
+                </Stack>
+              </ContentSection>
+            </Stack>
+            <FormActionGroup
+              size="tall"
+              disabled={pending}
+              pt="6"
+              onCancel={onCancel}
+              submitLabel="변경사항 저장"
+              w="368px"
+              maxW="100%"
+              alignSelf="center"
+              _mobile={{ w: '100%', pt: '0' }}
+            />
+            <Stack
+              gap="4"
+              pt="4"
+              className={css({ display: 'none', _mobile: { display: 'flex' } })}
+            >
+              <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
+              <Button size="sm" variant="link" type="button" onClick={onWithdraw}>
+                회원탈퇴
+              </Button>
+            </Stack>
+          </Stack>
+        </Grid>
+      </ContentSection>
     </form>
   );
 }
 
-function ProfileField({ label, value }: { label: string; value: string }) {
+function ProfileField({
+  label,
+  value,
+  editing = false,
+}: {
+  label: string;
+  value: string;
+  editing?: boolean;
+}) {
   return (
-    <Stack gap="2">
-      <Typography variant="heading7">{label}</Typography>
+    <Stack
+      gap={editing ? '4' : '0'}
+      direction={editing ? 'column' : 'row'}
+      py={editing ? '6' : '0'}
+      pr={editing ? '4' : '0'}
+      borderBottom={editing ? '1px solid var(--colors-black-20)' : undefined}
+      css={{ '&:first-child': { pt: '0' } }}
+      _mobile={{ flexDirection: 'column', gap: '3', p: '0', borderBottom: '0' }}
+    >
+      <Typography
+        variant="body3"
+        weight="semibold"
+        className={css({ w: editing ? 'auto' : '178px', flexShrink: '0', _mobile: { w: 'auto' } })}
+      >
+        {label}
+      </Typography>
       <Typography variant="body3" tone="subtle">
         {value}
       </Typography>
@@ -394,57 +511,48 @@ function ProfileField({ label, value }: { label: string; value: string }) {
 }
 
 /** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
-function ProfileReadView({
-  email,
-  phone,
-  emailPreference,
-  smsPreference,
-  kakaoPreference,
-}: ProfileValues) {
+function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: ProfileValues) {
   return (
-    <>
-      <ProfileField label="이메일" value={email} />
-      <ProfileField label="휴대폰 번호" value={phone} />
-      <Stack gap="6">
-        <Divider />
-        <ContentSection
-          gap="6"
-          title="마케팅 정보 수신 동의"
-          headerProps={{ titleAs: 'h2', titleProps: { mo: 'heading7' } }}
-        >
-          <Stack gap="4">
-            <HStack alignItems="flex-start" justifyContent="space-between">
-              <Typography as="span" mo="body4">
-                이메일 수신
+    <Stack gap="4">
+      <ContentSection
+        gap={{ base: '8', _mobile: '6' }}
+        title="마케팅 정보 수신 동의"
+        borderBottom="1px solid var(--colors-black-20)"
+        pb="8"
+        _mobile={{ pb: '6' }}
+        headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+      >
+        <Stack gap={{ base: '6', _mobile: '4' }}>
+          {(
+            [
+              ['이메일 수신', emailPreference],
+              ['문자수신(LMS, SMS)', smsPreference],
+              ['카카오톡 알림톡 수신', kakaoPreference],
+            ] as const
+          ).map(([label, value]) => (
+            <HStack
+              key={label}
+              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
+              gap="0"
+            >
+              <Typography
+                variant="body3"
+                mo="body4"
+                className={css({ w: '178px', _mobile: { w: 'auto' } })}
+              >
+                {label}
               </Typography>
-              <Typography as="span" mo="body4" tone="subtle">
-                {emailPreference}
-              </Typography>
-            </HStack>
-            <HStack alignItems="flex-start" justifyContent="space-between">
-              <Typography as="span" mo="body4">
-                문자수신(LMS, SMS)
-              </Typography>
-              <Typography as="span" mo="body4" tone="subtle">
-                {smsPreference}
-              </Typography>
-            </HStack>
-            <HStack alignItems="flex-start" justifyContent="space-between">
-              <Typography as="span" mo="body4">
-                카카오톡 알림톡 수신
-              </Typography>
-              <Typography as="span" mo="body4" tone="subtle">
-                {kakaoPreference}
+              <Typography variant="body3" mo="body4" tone="subtle">
+                {value}
               </Typography>
             </HStack>
-          </Stack>
-        </ContentSection>
-      </Stack>
-      <Divider />
+          ))}
+        </Stack>
+      </ContentSection>
       <Typography as="p" variant="body5" tone="tertiary">
         *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서 가능합니다.
       </Typography>
-    </>
+    </Stack>
   );
 }
 
@@ -460,7 +568,6 @@ const titles = {
   complete: '비밀번호 변경 완료',
 };
 
-/** 비밀번호 입력·검증과 변경 확인·완료의 데모 흐름을 관리합니다. (Manages the demo flow for password validation, confirmation, and completion.) */
 /** 비밀번호 변경 입력과 완료 상태를 표시합니다. (Displays password editing and completion states.) */
 export function ProfilePasswordDialog({
   previewComplete = false,
@@ -723,7 +830,9 @@ const initialAddress: ProfileAddress = {
 
 /** 회원정보 조회·편집과 비밀번호 설정 흐름을 연결합니다. (Coordinates profile viewing, editing, and password settings.) */
 export function ProfileContent() {
-  // 개발팀 적용: profile.item은 편집 가능한 원본 데이터이며 현재 조회값은 Provider에서 직접 읽습니다.
+  // [ 개발팀 바인딩 ] 조회는 MyPageDataContext.profile.item의 현재 값을 읽고 편집 초안은 이 소유자가 관리합니다.
+  // 저장 payload는 이메일·주소·휴대폰·인증 proof·세 수신 동의이며 비밀번호는 기존 changePassword 요청으로 분리합니다.
+  // 요청 중 중복 제출을 막고 실패 시 초안·오류를 유지합니다. 성공 후 최신 item 갱신은 Provider 소유자 책임입니다.
   const binding = useContext(MyPageDataContext).profile;
   const current = binding?.item;
   const request = useRequestAction();
@@ -739,8 +848,8 @@ export function ProfileContent() {
   const [phone, setPhone] = useState(current?.phone ?? '010-****-0522');
   const [savedPhone, setSavedPhone] = useState(phone);
   const [phoneVerified, setPhoneVerified] = useState(false);
-  const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [passwordDraft, setPasswordDraft] = useState<string>();
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
   const [emailPreference, setEmailPreference] = useState<Preference>(
     current?.emailPreference ?? '수신안함',
@@ -760,7 +869,7 @@ export function ProfileContent() {
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [withdrawn, setWithdrawn] = useState(false);
 
-  function submitProfile(event: import('react').FormEvent<HTMLFormElement>) {
+  function submitProfile(event: import('react').FormEvent<HTMLFormElement>, password?: string) {
     event.preventDefault();
     const errors = {
       email: isValidEmailLocalPart(emailLocal.trim()) ? '' : '올바른 이메일 주소를 입력해주세요.',
@@ -780,12 +889,20 @@ export function ProfileContent() {
       return;
     }
     if (Object.values(errors).some(Boolean)) return;
+    setPasswordDraft(password);
     setNotice('save');
   }
 
   function saveProfile() {
     if (binding) {
       void request.run(async () => {
+        // [ 개발팀 바인딩 ] 인라인 비밀번호는 검증 후 저장 확인 시 기존 profile.changePassword에 전달합니다.
+        // 비밀번호 변경과 프로필 저장은 별도 요청입니다. 실패 시 초안과 확인창을 유지하며 재시도합니다.
+        if (passwordDraft) {
+          await binding.changePassword(passwordDraft);
+          setPasswordDraft(undefined);
+          setPasswordChanged(true);
+        }
         await binding.save({
           email: `${emailLocal.trim()}@${emailDomain.trim()}`,
           phone,
@@ -814,6 +931,7 @@ export function ProfileContent() {
     setAddress(current?.address ?? savedAddress);
     setPhone(current?.phone ?? savedPhone);
     setPhoneProof(null);
+    setPasswordDraft(undefined);
     setEmailPreference(current?.emailPreference ?? savedPreferences.emailPreference);
     setSmsPreference(current?.smsPreference ?? savedPreferences.smsPreference);
     setKakaoPreference(current?.kakaoPreference ?? savedPreferences.kakaoPreference);
@@ -839,106 +957,101 @@ export function ProfileContent() {
         pending={binding?.pending || request.pending}
         error={binding?.error || request.error}
       />
-      <ContentSection
-        gap="6"
-        px="4"
-        pt="6"
-        pb="16"
-        title={<>{editing ? '회원정보 수정' : '회원정보'}</>}
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading5' } }}
-        footer={
-          !editing ? (
-            <Button
-              fullWidth
-              size="tall"
-              variant="primary"
-              onClick={() => {
-                cancelProfile();
-                setEditing(true);
-              }}
-            >
-              회원정보 수정
-            </Button>
-          ) : null
-        }
-      >
-        <div
-          className={css({
-            display: 'grid',
-            gridTemplateColumns: editing ? 'minmax(0, 1fr) minmax(0, 1fr)' : '1fr',
-            gap: '10',
-            alignItems: 'start',
-            _mobile: { gridTemplateColumns: '1fr' },
-          })}
-        >
-          <Stack gap="6">
-            {(current
+      {editing ? (
+        <ProfileEditForm
+          details={
+            current
               ? [
                   ['회원 아이디', current.id],
                   ['이름', current.name],
                   ['생년월일', current.birthDate],
+                  ['주소', `${current.address.address} ${current.address.addressDetail}`],
                 ]
-              : profileDetails.slice(0, 3)
-            ).map(([label, value]) => (
-              <ProfileField key={label} label={label} value={value} />
-            ))}
-            <ProfileField
-              label="주소"
-              value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
-            />
-          </Stack>
-          {editing ? (
-            <ProfileEditForm
-              emailLocal={emailLocal}
-              emailDomain={emailDomain}
-              domainChoice={domainChoice}
-              address={address}
-              addressOpen={addressOpen}
-              phone={phone}
-              phoneVerified={phoneVerified}
-              passwordChanged={passwordChanged}
-              emailPreference={emailPreference}
-              smsPreference={smsPreference}
-              kakaoPreference={kakaoPreference}
-              fieldErrors={fieldErrors}
-              onEmailLocalChange={(value) => {
-                setEmailLocal(value);
-                setFieldErrors((previous) => ({ ...previous, email: undefined }));
-              }}
-              onEmailDomainChange={(value) => {
-                setEmailDomain(value);
-                setFieldErrors((previous) => ({ ...previous, domain: undefined }));
-              }}
-              onDomainChoice={(value) => {
-                setDomainChoice(value);
-                setEmailDomain(value === 'direct' ? '' : value);
-                setFieldErrors((previous) => ({ ...previous, domain: undefined }));
-              }}
-              onAddressChange={(field, value) => {
-                setAddress((previous) => ({ ...previous, [field]: value }));
-                setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
-              }}
-              onAddressOpenChange={setAddressOpen}
-              onPhoneChange={(value) => {
-                setPhone(value);
-                setPhoneProof(null);
-                setPhoneVerified(false);
-                setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-              }}
-              onPhoneVerifiedChange={(verified, proof) => {
-                setPhoneProof(verified ? (proof ?? null) : null);
-                setPhoneVerified(verified);
-                setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-              }}
-              onPasswordSettings={() => setPasswordOpen(true)}
-              onEmailPreferenceChange={setEmailPreference}
-              onSmsPreferenceChange={setSmsPreference}
-              onKakaoPreferenceChange={setKakaoPreference}
-              onSubmit={submitProfile}
-              onCancel={() => setNotice('cancel')}
-              onWithdraw={() => setWithdrawOpen(true)}
-            />
-          ) : (
+              : undefined
+          }
+          emailLocal={emailLocal}
+          emailDomain={emailDomain}
+          domainChoice={domainChoice}
+          address={address}
+          addressOpen={addressOpen}
+          phone={phone}
+          phoneVerified={phoneVerified}
+          passwordChanged={passwordChanged}
+          emailPreference={emailPreference}
+          smsPreference={smsPreference}
+          kakaoPreference={kakaoPreference}
+          fieldErrors={fieldErrors}
+          onEmailLocalChange={(value) => {
+            setEmailLocal(value);
+            setFieldErrors((previous) => ({ ...previous, email: undefined }));
+          }}
+          onEmailDomainChange={(value) => {
+            setEmailDomain(value);
+            setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+          }}
+          onDomainChoice={(value) => {
+            setDomainChoice(value);
+            setEmailDomain(value === 'direct' ? '' : value);
+            setFieldErrors((previous) => ({ ...previous, domain: undefined }));
+          }}
+          onAddressChange={(field, value) => {
+            setAddress((previous) => ({ ...previous, [field]: value }));
+            setFieldErrors((previous) => ({ ...previous, [field]: undefined }));
+          }}
+          onAddressOpenChange={setAddressOpen}
+          onPhoneChange={(value) => {
+            setPhone(value);
+            setPhoneProof(null);
+            setPhoneVerified(false);
+            setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+          }}
+          onPhoneVerifiedChange={(verified, proof) => {
+            setPhoneProof(verified ? (proof ?? null) : null);
+            setPhoneVerified(verified);
+            setFieldErrors((previous) => ({ ...previous, phone: undefined }));
+          }}
+          onEmailPreferenceChange={setEmailPreference}
+          onSmsPreferenceChange={setSmsPreference}
+          onKakaoPreferenceChange={setKakaoPreference}
+          pending={request.pending}
+          onSubmit={submitProfile}
+          onCancel={() => setNotice('cancel')}
+          onWithdraw={() => setWithdrawOpen(true)}
+        />
+      ) : (
+        <ContentSection
+          gap={{ base: '8', _mobile: '6' }}
+          title="회원정보"
+          headerProps={{
+            titleAs: 'h1',
+            pb: { base: '10', _mobile: '0' },
+            borderBottom: { base: '2px solid var(--colors-black-100)', _mobile: '0' },
+            titleProps: { web: 'heading6', mo: 'heading5' },
+          }}
+        >
+          <Stack gap={{ base: '10', _mobile: '6' }}>
+            <Stack
+              gap={{ base: '12', _mobile: '6' }}
+              pb={{ base: '8', _mobile: '6' }}
+              borderBottom="1px solid var(--colors-black-20)"
+            >
+              {(current
+                ? [
+                    ['회원 아이디', current.id],
+                    ['이름', current.name],
+                    ['생년월일', current.birthDate],
+                  ]
+                : profileDetails.slice(0, 3)
+              ).map(([label, value]) => (
+                <ProfileField key={label} label={label} value={value} />
+              ))}
+              <ProfileField
+                label="주소"
+                value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
+              />
+              <ProfileField label="이메일" value={current?.email ?? email} />
+              <ProfileField label="휴대폰 번호" value={current?.phone ?? phone} />
+            </Stack>
             <ProfileReadView
               email={current?.email ?? email}
               phone={current?.phone ?? phone}
@@ -946,9 +1059,25 @@ export function ProfileContent() {
               smsPreference={current?.smsPreference ?? smsPreference}
               kakaoPreference={current?.kakaoPreference ?? kakaoPreference}
             />
-          )}
-        </div>
-      </ContentSection>
+          </Stack>
+          <Button
+            size="tall"
+            variant="primary"
+            className={css({
+              w: '180px',
+              alignSelf: 'center',
+              mt: '16px',
+              _mobile: { w: '100%', mt: '0' },
+            })}
+            onClick={() => {
+              cancelProfile();
+              setEditing(true);
+            }}
+          >
+            회원정보 수정
+          </Button>
+        </ContentSection>
+      )}
       {notice ? (
         <ProfileEditDialogs
           notice={notice}
@@ -958,12 +1087,6 @@ export function ProfileContent() {
           onConfirm={
             notice === 'cancel' ? cancelProfile : notice === 'save' ? saveProfile : dismissNotice
           }
-        />
-      ) : null}
-      {passwordOpen ? (
-        <ProfilePasswordDialog
-          onClose={() => setPasswordOpen(false)}
-          onComplete={() => setPasswordChanged(true)}
         />
       ) : null}
       <MyPageWithdrawalDialog

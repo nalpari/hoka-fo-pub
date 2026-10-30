@@ -6,8 +6,13 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:08:16.838Z'
+  at: '2026-10-30T08:34:43.457833+00:00'
 working_tree_sources:
+  - src/app/mypage/profile/_components/ProfileContent.tsx
+  - src/app/mypage/profile/_components/ProfileStatePreview.tsx
+  - src/app/mypage/profile/mypage-profile.types.ts
+  - src/components/common/organisms/Address/AddressFields.tsx
+  - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
   - src/components/mypage/MyPageProductHistory.tsx
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
@@ -186,3 +191,11 @@ CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 p
 ## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
 
 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
+
+## 회원정보 인라인 비밀번호와 표시 계약 (2026-10-30)
+
+ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. 기존 onPasswordSettings 팝업 진입을 인라인 비밀번호/재입력으로 바꾸고 검증된 선택 비밀번호를 onSubmit(event, password?) 두 번째 인자로 전달한다. 실제 저장 소유자는 ProfileContent와 기존 MyPageDataContext.profile이며 새 API를 만들지 않았다. 비밀번호를 입력하지 않으면 기존 프로필 저장만 실행한다.
+
+저장 확인 시 선택 비밀번호는 기존 changePassword, 이메일·주소·휴대폰·phoneProof·세 동의 값은 기존 save에 전달한다. 각 요청을 await하고 대기 중 제출을 비활성화한다. 비밀번호 변경 성공 뒤 프로필 저장이 실패하면 비밀번호 초안 참조를 지워 재시도에서 같은 변경 요청을 반복하지 않는다. 두 요청은 원자적 트랜잭션이 아니며 실제 계정 어댑터의 처리·조회 item 갱신은 개발팀 책임이다. 실패 시 편집 초안과 확인창·오류를 유지한다.
+
+ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인증 요청을 실행하지 않는다. 도메인 선택은 domainChoice와 domain을 함께 변경한다. 주소 검색 모달은 기존 미연결 수동 입력 UI다. 출처는 관련 작업 트리 TSX/types 및 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 실제 API 연결 검증은 하지 않았다.

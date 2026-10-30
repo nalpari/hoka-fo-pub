@@ -41,7 +41,7 @@ export const AddressAndEmail: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: '회원정보 수정' }));
-    await expect(canvas.getByRole('button', { name: '우편번호 찾기' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: '주소 찾기' })).toBeVisible();
     await expect(canvas.getByLabelText('* 이메일 주소')).toBeVisible();
     await expect(canvas.getByLabelText('* 도메인')).toBeDisabled();
     await expect(canvas.queryByText('결혼유무')).not.toBeInTheDocument();
@@ -62,14 +62,19 @@ export const PhoneVerification: Story = {
 
 export const PasswordSettingsFlow: Story = {
   ...scenarios.Profile,
-  name: '비밀번호 설정 흐름',
+  name: '인라인 비밀번호 입력',
   play: async ({ canvasElement }) => {
     const user = userEvent.setup({ document: canvasElement.ownerDocument, delay: 10 });
     const canvas = within(canvasElement);
-    const page = within(canvasElement.ownerDocument.body);
     await user.click(canvas.getByRole('button', { name: '회원정보 수정' }));
-    await user.click(canvas.getByRole('button', { name: '비밀번호 설정' }));
-
-    await expect(page.getByRole('dialog', { name: '비밀번호 설정' })).toBeVisible();
+    const password = canvas.getByLabelText('* 비밀번호', { selector: 'input' });
+    await user.type(password, 'Runner!2026');
+    await user.type(
+      canvas.getByLabelText('* 비밀번호 재입력', { selector: 'input' }),
+      'Runner!2026',
+    );
+    await expect(password).toHaveAttribute('type', 'password');
+    await user.click(canvas.getAllByRole('button', { name: '비밀번호 보기' })[0]);
+    await expect(password).toHaveAttribute('type', 'text');
   },
 };

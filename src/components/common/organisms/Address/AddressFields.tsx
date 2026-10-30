@@ -10,7 +10,7 @@
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { TextInput } from '@/components/common/atoms/TextInput';
@@ -215,6 +215,7 @@ type AddressValue = {
 
 type Props = {
   variant: AddressFieldsVariant;
+  detailLayout?: 'stack' | 'columns';
   fieldOptions?: Partial<Record<AddressFieldName, AddressFieldOptions>>;
   searchLabel?: string;
   idPrefix: string;
@@ -228,6 +229,7 @@ type Props = {
 /** 주소 입력과 주소 검색을 조합합니다. (Combines address fields with address lookup.) */
 export function AddressFields({
   variant,
+  detailLayout = 'stack',
   fieldOptions,
   searchLabel = '주소 찾기',
   idPrefix,
@@ -258,6 +260,19 @@ export function AddressFields({
     </Button>
   );
 
+  const detailFields = (['address', 'addressDetail'] as const).map((field) => (
+    <AddressField
+      key={field}
+      field={field}
+      options={fieldOptions?.[field]}
+      variant={variant}
+      idPrefix={idPrefix}
+      value={value[field]}
+      error={errors?.[field]}
+      onValueChange={value[field] === undefined ? undefined : (next) => onValueChange(field, next)}
+    />
+  ));
+
   return (
     <>
       {variant === 'compact' ? (
@@ -278,20 +293,17 @@ export function AddressFields({
           <Box flexShrink="0">{searchButton}</Box>
         </HStack>
       )}
-      {(['address', 'addressDetail'] as const).map((field) => (
-        <AddressField
-          key={field}
-          field={field}
-          options={fieldOptions?.[field]}
-          variant={variant}
-          idPrefix={idPrefix}
-          value={value[field]}
-          error={errors?.[field]}
-          onValueChange={
-            value[field] === undefined ? undefined : (next) => onValueChange(field, next)
-          }
-        />
-      ))}
+      {detailLayout === 'columns' ? (
+        <Grid
+          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+          gap="4"
+          _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
+        >
+          {detailFields}
+        </Grid>
+      ) : (
+        detailFields
+      )}
       <AddressSearchModal
         open={searchOpen}
         onOpenChange={onSearchOpenChange}

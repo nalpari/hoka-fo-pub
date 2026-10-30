@@ -7,7 +7,7 @@ import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 import { ProfileEditForm, ProfilePasswordDialog } from './ProfileContent';
 
-/** [ 개발팀 바인딩 ] 편집 오류의 고정 fixture이며 저장·탈퇴·비밀번호 변경은 실행하지 않습니다. 실제 원본 데이터·전화 proof·제출과 갱신은 MyPageDataContext.profile 소유자가 연결합니다. */
+/** [ 개발팀 바인딩 ] 회원정보 수정과 편집 오류의 고정 fixture이며 저장·탈퇴·비밀번호 변경은 실행하지 않습니다. 기본정보는 표시 fixture이며 비밀번호 입력도 저장하지 않습니다. 실제 원본 데이터·전화 proof·제출과 갱신은 MyPageDataContext.profile 소유자가 연결합니다. */
 /** 회원정보 수정과 고정 필드 오류를 표시합니다. (Displays profile editing with optional fixed errors.) */
 export function ProfileStatePreview({
   errors = false,
@@ -32,6 +32,12 @@ export function ProfileStatePreview({
   return (
     <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 수정' }]}>
       <ProfileEditForm
+        details={[
+          ['회원 아이디', 'hon******@gmail.com'],
+          ['이름', '손정민'],
+          ['생년월일', '1993.05.22'],
+          ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],
+        ]}
         previewPhone={phoneState}
         emailLocal={emailLocal}
         emailDomain={emailDomain}
@@ -58,12 +64,14 @@ export function ProfileStatePreview({
         }
         onEmailLocalChange={setEmailLocal}
         onEmailDomainChange={setEmailDomain}
-        onDomainChoice={setDomainChoice}
+        onDomainChoice={(value) => {
+          setDomainChoice(value);
+          setEmailDomain(value === 'direct' ? '' : value);
+        }}
         onAddressChange={(key, value) => setAddress((previous) => ({ ...previous, [key]: value }))}
         onAddressOpenChange={setAddressOpen}
         onPhoneChange={setPhone}
         onPhoneVerifiedChange={setPhoneVerified}
-        onPasswordSettings={() => {}}
         onEmailPreferenceChange={setEmailPreference}
         onSmsPreferenceChange={setSmsPreference}
         onKakaoPreferenceChange={setKakaoPreference}

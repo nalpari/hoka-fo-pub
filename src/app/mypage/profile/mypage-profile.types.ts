@@ -11,6 +11,8 @@ export type ProfileValues = {
 export type ProfileAddress = { postalCode: string; address: string; addressDetail: string };
 
 export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
+  pending?: boolean;
+  details?: readonly (readonly [string, string])[];
   previewPhone?: 'idle' | 'code-entry' | 'expired';
   emailLocal: string;
   emailDomain: string;
@@ -29,11 +31,10 @@ export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
   onAddressOpenChange: (open: boolean) => void;
   onPhoneChange: (value: string) => void;
   onPhoneVerifiedChange: (verified: boolean, proof?: string) => void;
-  onPasswordSettings: () => void;
   onEmailPreferenceChange: (value: Preference) => void;
   onSmsPreferenceChange: (value: Preference) => void;
   onKakaoPreferenceChange: (value: Preference) => void;
-  onSubmit: (event: import('react').FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: import('react').FormEvent<HTMLFormElement>, password?: string) => void;
   onCancel: () => void;
   onWithdraw: () => void;
 };
