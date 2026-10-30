@@ -6,9 +6,10 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:58:24+00:00'
+  at: '2026-10-30T07:06:32Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/store/_components/StoreContent.tsx
   - src/app/publishing-guide/page.tsx
   - src/app/mypage/event-entries/preview-cancel/page.tsx
   - src/app/mypage/reviews/preview-ready/page.tsx
@@ -186,6 +187,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 매장 목록 제목 매핑 검토 (2026-10-30)
+
+`src/app/support/store/_components/StoreContent.tsx`의 매장명 타이포를 16px H10으로 지정했다. `/support/store` 경로·page export·서버/클라이언트 경계와 정보 목록 계약은 유지한다. [표현 규격](ui.md#매장-목록-제목-16px-유지-2026-10-30)을 참고한다.
 
 ## 퍼블리싱 가이드 import 정렬 검토 (2026-10-30)
 

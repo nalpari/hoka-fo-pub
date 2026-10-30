@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 매장 목록 제목의 기존 16px 크기 유지
+
+- `StoreResults` 매장명을 H10·600으로 지정해 기존 16px 크기를 유지했다. 정보 목록·데이터·라우트 계약은 변경하지 않았다.
+- 변경 파일 ESLint·Prettier를 통과했다. [표현 규격](architecture/ui.md#매장-목록-제목-16px-유지-2026-10-30), [라우트 영향 검토](architecture/routing.md#매장-목록-제목-매핑-검토-2026-10-30).
+
 ## 2026-10-30 — 상태 preview 후속 정리 최종 검증
 
 전체 Node 테스트 108개와 TypeScript 검사, 변경 TS/TSX·테스트의 ESLint/Prettier 검사를 통과했다. 최종 Next production build는 컴파일·타입·122개 정적 페이지 생성을 통과했고 Storybook production build도 별도 .tmp-preview-followup-storybook-final-20261030에서 통과했다. Storybook의 기존 번들·플러그인 타이밍 경고는 남아 있으며 전체 play 실행은 하지 않았다. 후속 정적 이미지 폴더 이동은 내용 변경 없는 10개 파일 이동으로 별도 파일 존재·PNG 검사 2개와 production 서버 이미지 로드로 확인했다.

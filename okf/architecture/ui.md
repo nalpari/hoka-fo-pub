@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:58:24+00:00'
+  at: '2026-10-30T07:06:32Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/store/_components/StoreContent.tsx
   - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
@@ -804,6 +805,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 매장 목록 제목 16px 유지 (2026-10-30)
+
+`StoreResults`의 매장명은 `heading10`과 기존 `weight="semibold"`로 16px·600을 표시한다. 20px H9와 16px H10을 구분한 공통 타이포 계약에 맞추고 정보 목록의 콘텐츠·배치·링크·데이터 계약은 유지한다. 작업 트리 출처: `src/app/support/store/_components/StoreContent.tsx`. 변경 파일 ESLint·Prettier를 통과했다.
 
 ## 퍼블리싱 가이드 import 정렬 (2026-10-30)
 
