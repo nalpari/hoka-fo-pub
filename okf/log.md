@@ -2,6 +2,8 @@
 
 ## 2026-10-30
 
+- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
+
 - 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
 
 - 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
