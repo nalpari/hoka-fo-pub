@@ -3828,3 +3828,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 최종 검사: Next 빌드·Storybook 빌드·TypeScript·Panda·변경 파일 ESLint/Prettier·기존 App Router/IA 그래프 테스트 3개·okf:check 통과. 전체 ESLint는 비대상 FindAccountContent.tsx의 css와 signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 다른 채팅의 소스·OKF·screenConnections/그래프 변경은 유지했으며 커밋/스테이징은 수행하지 않았다.
 
 선별 커밋 검증: 현재 HEAD와 쿠폰 관련 스테이지만 반영한 저장소 밖 임시 사본에서 전체 TypeScript 및 관련 소스 5개 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 공유 작업 트리에서 수행한 기록이며 선별 사본의 검사와 구분한다.
+
+## 공통 카드와 가이드 서식 정리 (2026-10-30)
+
+ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.

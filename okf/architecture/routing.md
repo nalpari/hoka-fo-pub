@@ -711,3 +711,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 [쿠폰 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)을 /mypage/coupons와 기존 preview-empty·preview-error·preview-complete·preview-detail에 공유 적용했다. 새 라우트는 추가하지 않았다. IA 196의 기본·빈 목록·등록 오류·등록 완료 링크와 IA 197의 상세 URL을 유지하며, IA 196에 PC Storybook pages-마이페이지-6-쿠폰-web--coupons 연결을 추가했다. 기존 Mobile ID를 유지하고 두 플랫폼에 임직원 스토리를 추가했다. sourceGraph.generated.json은 정식 screen-files로 재생성했다.
 
 현재 구현은 src/app/mypage/coupons/_components/CouponManagement.tsx, 기존 상태 page.tsx, src/stories/features/mypage/MyPage.Coupons.{Web,Mobile}.stories.tsx 및 screenConnections.ts 작업 트리다. 화면 진입점과 외부 데이터 연결 소유권은 유지한다. [화면 규격·검증](ui.md#쿠폰-figma-적용-2026-10-30)을 함께 참조한다.
+
+## 퍼블리싱 가이드 import 정리 (2026-10-30)
+
+src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named binding 순서만 정리했다. /publishing-guide의 경로와 page 진입점·컴포넌트 동작은 유지한다. 관련 소스 ESLint·Prettier 검사를 통과했다.

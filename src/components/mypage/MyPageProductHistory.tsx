@@ -2,11 +2,11 @@
 
 /**
  * [ 개발팀 바인딩 ]
- * wishlistMobilePreview의 Best·280,000원·20%·240,000원은 모바일 미연결 시안 fixture이며 실제 연결 상품에는 적용하지 않습니다.
  * MyPageDataContext.histories[kind]에 실제 행 id와 상품 Product/liked/requestedAt을 전달합니다.
  * 재입고 목록은 product.name/gender/primaryImage, requestedAt, status(waiting/sent)를 표시합니다. 미연결 PC/MO 시안 차이는 restockPreview에만 둡니다.
  * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 연결 소유자가 성공 후 최신 items/totalCount/hasMore를 공급하고 오래된 응답을 폐기합니다.
  * 취소 요청 중 중복 확인·닫기를 막고 실패 시 행과 창을 유지해 재시도합니다. 성공한 경우에만 창을 닫습니다. API는 여기서 구현하지 않습니다.
+ * wishlistMobilePreview의 Best·280,000원·20%·240,000원은 모바일 미연결 시안 fixture이며 실제 연결 상품에는 적용하지 않습니다.
  * recentPreview의 PC/MO 배지·할인율·찜 선택은 미연결 시안 fixture입니다. 연결된 recent items/liked가 도착하거나 교체되면 최신 props를 그대로 표시하며 fixture 할인율을 덮어씌우지 않습니다.
  */
 
@@ -145,12 +145,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                   width={96}
                   height={96}
                   sizes={platform === 'mobile' ? '64px' : '96px'}
-                  className={css({
-                    w: '100%',
-                    h: '100%',
-                    objectFit: 'cover',
-                    bg: '#F7F7F9',
-                  })}
+                  className={css({ w: '100%', h: '100%', objectFit: 'cover', bg: '#F7F7F9' })}
                 />
               </Box>
               <Stack gap="0" minW="0">
@@ -161,10 +156,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                 <Typography
                   variant="body4"
                   tone="tertiary"
-                  className={css({
-                    display: 'none',
-                    _mobile: { display: 'block', mt: '6px' },
-                  })}
+                  className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
                 >
                   신청일 : {requestedAt}
                 </Typography>
@@ -173,10 +165,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
             <Typography
               variant="body3"
               tone="subtle"
-              className={css({
-                textAlign: 'center',
-                _mobile: { display: 'none' },
-              })}
+              className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
             >
               {requestedAt}
             </Typography>
@@ -195,10 +184,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                     bg: 'transparent',
                     p: '0',
                     cursor: 'pointer',
-                    _focusVisible: {
-                      outline: '2px solid',
-                      outlineOffset: '4px',
-                    },
+                    _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
                   })}
                 >
                   <Typography
@@ -386,11 +372,7 @@ const product: Product = {
 };
 
 const wishlistMobilePreview = {
-  product: {
-    ...product,
-    promotion: 'Best',
-    originalPrice: 280000,
-  } satisfies Product,
+  product: { ...product, promotion: 'Best', originalPrice: 280000 } satisfies Product,
   discountLabel: '20%',
 } as const;
 
@@ -587,10 +569,7 @@ export function MyPageProductHistory({
             pt={items.length ? '0' : '4'}
             borderTop={items.length ? undefined : '1px solid #E9EAEB'}
             whiteSpace="pre-line"
-            _mobile={{
-              pt: items.length ? '0' : '4',
-              pb: items.length ? '2' : '4',
-            }}
+            _mobile={{ pt: items.length ? '0' : '4', pb: items.length ? '2' : '4' }}
           >
             {items.length > 0 && (
               <Typography

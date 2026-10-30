@@ -81,14 +81,8 @@ const productName = css({
   minW: '0',
   maxW: '100%',
   truncate: true,
-  fontSize: {
-    base: 'var(--layout-web-product-font-size, 16px)',
-    _mobile: '14px',
-  },
-  '&[data-product-card-variant="history"]': {
-    fontSize: '14px',
-    fontWeight: 'normal',
-  },
+  fontSize: { base: 'var(--layout-web-product-font-size, 16px)', _mobile: '14px' },
+  '&[data-product-card-variant="history"]': { fontSize: '14px', fontWeight: 'normal' },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
 });
 
@@ -332,11 +326,7 @@ const ProductDetailsRoot = cva({
         },
       },
       showcase: {},
-      history: {
-        w: '163.5px',
-        maxW: '100%',
-        _mobile: { w: '100%', px: '10px' },
-      },
+      history: { w: '163.5px', maxW: '100%', _mobile: { w: '100%', px: '10px' } },
     },
   },
 });
@@ -666,8 +656,8 @@ export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specification
 export type ProductCardProps = {
   promotionTone?: 'brand' | 'error';
   discountLabel?: string;
-  activityLabels?: readonly string[];
   soldOut?: boolean;
+  activityLabels?: readonly string[];
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   options?: readonly ProductCardOption[];
