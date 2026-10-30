@@ -384,18 +384,24 @@
       "src/app/mypage/coupons/_components/CouponManagement.tsx"
     ],
     "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx": [
+      "src/app/mypage/event-entries/eventEntries.data.ts",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/components/run-club/runClub.data.ts",
       "src/context/RunClubDataContext.ts",
       "src/hooks/useBindingQuery.ts",
-      "src/hooks/useRequestAction.ts"
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/app/mypage/event-entries/eventEntries.data.ts": [
+      "src/components/run-club/runClub.data.ts"
     ],
     "src/app/mypage/event-entries/page.tsx": [
       "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
@@ -405,10 +411,9 @@
     ],
     "src/app/mypage/member-activity/page.tsx": [
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts",
+      "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts"
     ],
     "src/app/mypage/mypage-home-data.ts": [],
@@ -435,10 +440,9 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts",
+      "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
       "src/hooks/useRequestAction.ts"
     ],
@@ -500,9 +504,8 @@
     "src/app/mypage/referral/_components/ReferralContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/mypage/mypage.data.ts",
+      "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts"
     ],
     "src/app/mypage/referral/page.tsx": [
@@ -511,9 +514,8 @@
     ],
     "src/app/mypage/refund-account/page.tsx": [
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts"
+      "src/components/mypage/MyPageFrame.tsx"
     ],
     "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/restock-alerts/preview-empty/page.tsx": [
@@ -1427,7 +1429,6 @@
       "src/components/common/layouts/BottomSheet.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/AmountRow.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
@@ -1435,7 +1436,7 @@
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/common/molecules/SearchField.tsx",
       "src/components/common/molecules/StepIndicator.tsx",
-      "src/components/mypage/mypage.data.ts",
+      "src/components/mypage/MyPageFrame.tsx",
       "src/components/orders/order-policy.ts",
       "src/components/orders/orders.data.ts",
       "src/context/OrdersContext.ts",

@@ -9,6 +9,9 @@ generated:
   at: '2026-10-30T04:58:11Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/mypage/MyPageFrame.tsx
+  - src/components/mypage/mypage.data.ts
+  - src/components/orders/OrdersRoute.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
   - src/app/login/preview-error/page.tsx
@@ -793,6 +796,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 마이페이지 최종 공통 프레임 (2026-10-30)
+
+사용자가 러닝세션 신청내역의 레이아웃을 마이페이지 대메뉴의 최종 디자인으로 확정했다. breadcrumb·외곽 폭·PC 본문 그리드와 모바일 여백은 `MyPageFrame`이 소유하며, 신청내역의 별도 프레임을 제거하고 공통 프레임으로 복귀했다. PC 외곽은 `min(calc(100% - 64px), 1532px)`, 내부는 1200px/좌우 34px, 사이드바 190px/간격 98px이다. 모바일은 16px 여백과 숨긴 사이드바를 사용한다. 활성 링크는 검정 밑줄이며 메뉴는 구매내역·상품내역·MY HOKA·Q&A·계정관리로 구성한다.
+
+`/mypage` 메인만 기존 `layout="centered"` 옵션으로 사이드바를 생략한다. breadcrumb는 메인과 모든 하위 화면에서 동일한 외곽 프레임에 한 번 렌더링하며, 메인에서도 좁은 본문 안으로 들어가지 않는다. 기존 640px 중앙 프레임을 없애고 공통 내부 폭으로 표시한다. 화면별 상세 콘텐츠·요청 상태는 각 소유자에 유지한다.
+
+주문·취소반품의 `OrdersLayout`과 결제수단·환불계좌·멤버십 활동·친구추천도 `MyPageFrame`으로 연결했다. 공통 `SidebarNavigationLayout`의 다른 도메인 사용처는 수정하지 않았다. 하위 화면 자체의 제목·폼·카드 패딩은 이번 공통 프레임 변경에서 일괄 수정하지 않는다.
+
+검증: 메인 main 1개/aside 0개, 주문·멤버십 활동·결제수단·환불계좌 main 1개/aside 1개를 확인했다. 같은 PC viewport에서 메인과 주문 breadcrumb x=32/y=162, MO에서 메인과 상품리뷰 breadcrumb x=16/y=126이 일치했다. 신청내역·쿠폰에서도 공통 메뉴와 검정 밑줄을 확인했다. 공통 플랫폼 판별과 centered 사용처 1곳을 보존했다.
+
+출처: 위 프레임·메뉴·주문 파일과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `member-activity/page.tsx`, `payment-methods/page.tsx`, `refund-account/page.tsx`, `referral/_components/ReferralContent.tsx` 작업 트리. 사용자 확정 및 작성: 2026-10-30 (Asia/Seoul).
 
 ## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
 

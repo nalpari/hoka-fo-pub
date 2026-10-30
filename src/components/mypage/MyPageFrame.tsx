@@ -1,18 +1,19 @@
 import { type ReactNode } from 'react';
 
-import { Box } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Grid } from 'styled-system/jsx';
 
 import { Breadcrumb, type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
+import { SideNavigation } from '@/components/common/layouts/SidebarNavigationLayout';
 
 import { myPageNavigation } from '@/components/mypage/mypage.data';
 
 type MyPageFrameLayout = 'sidebar' | 'centered';
 
-type Props = { breadcrumbs: BreadcrumbItem[]; layout: MyPageFrameLayout };
+type Props = { breadcrumbs: BreadcrumbItem[] };
 
-function MyPageBreadcrumbs({ breadcrumbs, layout }: Props) {
+function MyPageBreadcrumbs({ breadcrumbs }: Props) {
   const content = (
     <Breadcrumb
       items={[
@@ -23,12 +24,19 @@ function MyPageBreadcrumbs({ breadcrumbs, layout }: Props) {
     />
   );
 
-  return layout === 'centered' ? (
-    <Box boxSizing="border-box" h="14" pt="6">
-      {content}
-    </Box>
-  ) : (
-    <Box px="4" pt="6" pb="2">
+  return (
+    <Box
+      pt="6"
+      h="14"
+      _mobile={{
+        h: 'auto',
+        pb: '8',
+        overflowX: 'auto',
+        '& nav': { whiteSpace: 'nowrap', gap: '2px' },
+        '& nav > span': { gap: '2px', flexShrink: '0' },
+        '& nav > span > span, & nav a > span': { fontSize: 'var(--font-sizes-12)' },
+      }}
+    >
       {content}
     </Box>
   );
@@ -41,40 +49,50 @@ type MyPageFrameProps = {
   children: ReactNode;
 };
 
-/** 사이드바 또는 중앙 정렬로 마이페이지 경로와 본문을 배치합니다. (Arranges my page breadcrumbs and content with a sidebar or centered layout.) */
+/** 공통 위치의 경로와 메인 전용 사이드바 없는 본문을 배치합니다. (Positions shared breadcrumbs and omits the sidebar for the my page overview.) */
 export function MyPageFrame({
   activePath,
   breadcrumbs = [],
   layout = 'sidebar',
   children,
 }: MyPageFrameProps) {
-  const content = (
-    <>
-      <MyPageBreadcrumbs breadcrumbs={breadcrumbs} layout={layout} />
-      {children}
-    </>
-  );
-
-  if (layout === 'centered') {
-    return (
-      <Box as="main" boxSizing="border-box" w="100vw" maxW="640px" mx="auto" px="4" pb="16">
-        {content}
-      </Box>
-    );
-  }
-
   return (
-    <Box maxW="1200px" mx="auto">
-      <SidebarNavigationLayout
-        activePath={activePath}
-        groups={myPageNavigation}
-        mobileNavigation="hidden"
-        mobileSpacing="none"
-        title="MY HOKA"
-        titleTo="/mypage"
+    <Box
+      as="main"
+      w="min(calc(100% - 64px), 1532px)"
+      mx="auto"
+      pb="24"
+      _mobile={{ w: '100%', px: '4', pb: '16' }}
+    >
+      <MyPageBreadcrumbs breadcrumbs={breadcrumbs} />
+      <Grid
+        w="1200px"
+        maxW="100%"
+        mx="auto"
+        px="34px"
+        pt="14"
+        gridTemplateColumns={layout === 'centered' ? 'minmax(0, 1fr)' : '190px minmax(0, 1fr)'}
+        gap="98px"
+        _mobile={{ display: 'block', px: '0', pt: '0' }}
       >
-        {content}
-      </SidebarNavigationLayout>
+        {layout === 'sidebar' ? (
+          <SideNavigation
+            activePath={activePath}
+            groups={myPageNavigation}
+            mobileNavigation="hidden"
+            title="마이페이지"
+            titleTo="/mypage"
+            className={css({
+              '& a[aria-current="page"]': {
+                color: 'black.100',
+                textDecoration: 'underline',
+                textUnderlineOffset: '6px',
+              },
+            })}
+          />
+        ) : null}
+        <Box minW="0">{children}</Box>
+      </Grid>
     </Box>
   );
 }

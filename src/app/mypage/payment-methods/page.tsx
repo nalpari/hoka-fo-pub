@@ -19,9 +19,8 @@ import { AccountDataList } from '@/components/common/organisms/Account/AccountDa
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
-import { myPageNavigation } from '@/components/mypage/mypage.data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 /** 결제수단 등록 현황을 표시합니다. (Displays the payment method registration status.) */
 export default function Page() {
@@ -30,12 +29,7 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const [complete, setComplete] = useState(false);
   return (
-    <SidebarNavigationLayout
-      activePath="/mypage/payment-methods"
-      groups={myPageNavigation}
-      title="MY HOKA"
-      titleTo="/mypage"
-    >
+    <MyPageFrame activePath="/mypage/payment-methods" breadcrumbs={[{ label: '결제수단 관리' }]}>
       <ContentSection
         gap="6"
         title={<>결제수단 관리</>}
@@ -82,6 +76,6 @@ export default function Page() {
           <BindingFeedback pending={request.pending} error={request.error} />
         </ModalDialog>
       </ContentSection>
-    </SidebarNavigationLayout>
+    </MyPageFrame>
   );
 }

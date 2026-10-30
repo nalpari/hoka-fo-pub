@@ -6,7 +6,14 @@ import type { RunClubSession } from '@/components/run-club/runClub.data';
 import type { Product } from '@/mocks/products';
 import type { BindingState, ListBinding } from '@/types/binding';
 
-export type RunClubEntry = { id: string; session: RunClubSession; status: string };
+export type RunClubEntry = {
+  id: string;
+  session: RunClubSession;
+  status: string;
+  /** 신청일 표시값입니다. 서버 정렬은 entries.onQueryChange의 sort로 요청합니다. */
+  appliedAt?: string;
+  canCancel?: boolean;
+};
 
 export type SessionFact = { label: string; value: string; detail?: string };
 
@@ -20,7 +27,7 @@ export type SessionFact = { label: string; value: string; detail?: string };
  */
 export const RunClubDataContext = createContext<{
   sessions?: ListBinding<RunClubSession, { category: string }>;
-  entries?: ListBinding<RunClubEntry, { category: string }>;
+  entries?: ListBinding<RunClubEntry, { category: string; sort?: 'latest' | 'oldest' }>;
   /** [ 개발팀 바인딩 ] 신청 ID로 취소를 요청하고 성공 후 entries 목록·건수를 갱신한 뒤 resolve합니다. 실패하면 reject하며 확인창을 유지합니다. */
   cancelEntry?: (entryId: string) => Promise<void>;
   detail?: BindingState & {

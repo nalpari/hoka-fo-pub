@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T00:42:45Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/screenConnections.ts
   - src/app/login/preview-error/page.tsx
@@ -198,6 +200,16 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 러닝세션 신청내역의 표시와 정렬 계약 (2026-10-30)
+
+`RunClubEntry`에 선택 필드 `appliedAt`(신청일 표시값)·`canCancel`(서버가 결정한 취소 가능 여부)을 추가했다. 미제공한 기존 호출자는 날짜를 생략하고 `status === '신청완료'`일 때 취소 링크를 표시한다. `entries.onQueryChange`는 기존 category와 선택적인 `sort: 'latest' | 'oldest'`를 받는다. 세션 목록과 상세·신청 계약은 변경하지 않았다.
+
+신청내역 UI는 현재 `items/totalCount/hasMore/pageInfo/pending/error/onRetry`를 직접 읽는다. 연결 소유자가 신청일 기준 정렬·상태 필터·조건 변경 시 페이지 초기화·10건씩 누적·늦은 응답 폐기를 처리한다. 서버 결과를 UI에서 다시 필터하지 않는다. `cancelEntry(entryId)`는 신청 ID를 받아 목록·건수 갱신 후 resolve하며 UI는 그 뒤 모달을 닫는다. 실패는 모달에 유지하고 같은 확인 버튼으로 재시도한다. 더보기와 취소는 서로 다른 요청 상태를 사용한다.
+
+미연결 fixture는 초깃값용 복제 상태가 아닌 명시적 표시 데이터다. 취소 확인은 모달만 닫고 상태를 변경하지 않으며 더보기는 비활성이다. 초기/실패 조회가 빈 목록으로 오인되지 않는 것, 교체된 props 반영과 nonfixture 신청 ID 전달, 취소 pending 중 중복/닫기 방지·실패/재시도/성공과 추가 목록/조회 재시도를 임시 Provider에서 브라우저로 검증했다. 임시 검증 route는 제거했으며 실제 API를 구현하거나 호출하지 않았다.
+
+출처: `src/context/RunClubDataContext.ts`, `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `src/app/mypage/event-entries/eventEntries.data.ts` 작업 트리. 작성: Codex, 2026-10-30 (Asia/Seoul).
 
 ## 장바구니·로그인 서비스 상태 제거 (2026-10-30)
 

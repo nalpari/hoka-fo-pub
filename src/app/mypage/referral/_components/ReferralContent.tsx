@@ -12,9 +12,8 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
-import { myPageNavigation } from '@/components/mypage/mypage.data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 type MetricGridItem = {
   label: ReactNode;
@@ -113,12 +112,7 @@ export function RouteContent() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   return (
-    <SidebarNavigationLayout
-      activePath="/mypage/referral"
-      groups={myPageNavigation}
-      title="MY HOKA"
-      titleTo="/mypage"
-    >
+    <MyPageFrame activePath="/mypage/referral" breadcrumbs={[{ label: '친구 추천' }]}>
       <ContentSection
         gap="6"
         title={<>친구 추천</>}
@@ -137,7 +131,7 @@ export function RouteContent() {
           ]}
         />
       </ContentSection>
-    </SidebarNavigationLayout>
+    </MyPageFrame>
   );
 }
 

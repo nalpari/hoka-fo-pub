@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T04:58:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/stories/features/login/LoginPage.scenarios.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
   - src/app/login/preview-error/page.tsx
@@ -179,6 +181,16 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 러닝세션 신청내역 시안 반영 (2026-10-30)
+
+`/mypage/event-entries`와 기존 `/preview-empty`는 route-private `RunClubEntriesContent`를 공유한다. PC는 상단 breadcrumb와 190px 사이드바·98px 간격·844px 본문, 모바일은 사이드바를 숨긴 단일 본문이다. 사용자 확정에 따라 이 외곽 배치를 `MyPageFrame`으로 통합했고 마이페이지 메뉴도 최종 디자인으로 정리했다. `/mypage` 메인만 사이드바를 생략하며 breadcrumb 위치는 동일하다. GNB·footer는 유지한다. [최종 공통 프레임](ui.md#마이페이지-최종-공통-프레임-2026-10-30)을 참고한다. 목록은 제목/배지와 96px 정사각 이미지/장소/거리/신청일/진행일시를 분리하며 신청 가능한 항목에만 오른쪽 취소 링크를 표시한다. 정렬은 최신순/과거순, 건수는 오른쪽, 더보기는 PC 160px·모바일 전체 폭이다.
+
+`eventEntries.data.ts`의 3개 항목·총 62건·1/10은 시안용 표시 fixture이며 실제 페이지 수를 계산한 값이 아니다. 이미지는 저장소의 런클럽 에셋을 재사용하므로 첨부 시안의 일부 사진과 다르다. 미연결 더보기는 비활성이며 취소 확인은 창만 닫는다. 실제 API는 추가하지 않았고 운영 목록·정렬·더보기·취소는 [기존 컨텍스트의 연결 계약](state.md#러닝세션-신청내역의-표시와-정렬-계약-2026-10-30)을 사용한다. 기존 미리보기의 취소 상태 변경 시뮬레이션을 제거했다.
+
+검증: 기본 PC/MO와 Empty 직접 진입, 정렬 선택·탭 필터·취소 모달·Escape/포커스 복귀를 브라우저로 확인했다. 1024px 이하 mobile, 1025~1199px의 1200px canvas, 1200px 이상 document 가로 넘침 없음을 확인했다. 임시 Provider로 비fixture ID·late data·서버 결과 보존·취소 실패/재시도/pending/성공·추가 목록·조회 실패/재시도를 확인한 뒤 임시 소스를 제거했다. 최종 모바일 breadcrumb의 줄바꿈 방지와 날짜 body5 조정은 이 스크린샷 확인 이후 반영했다. 실제 서비스 API·전체 Storybook/production build는 검증하지 않았다.
+
+출처: `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `eventEntries.data.ts`, `src/context/RunClubDataContext.ts` 작업 트리와 사용자 첨부 디자인·기획서. 작성: Codex, 2026-10-30 (Asia/Seoul).
 
 ## 장바구니·로그인 확인 URL 분리 (2026-10-30)
 
