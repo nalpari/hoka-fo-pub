@@ -6,16 +6,16 @@ declare const signupTerms: readonly [
     readonly required: true;
   },
   {
-    readonly label: '개인정보 수집 동의';
+    readonly label: '개인정보 수집 및 이용 동의';
     readonly required: true;
   },
   {
-    readonly label: '개인정보 수집 동의';
+    readonly label: '개인정보 제3자 제공동의';
+    readonly required: true;
+  },
+  {
+    readonly label: '마케팅 목적의 개인정보 수집, 이용동의';
     readonly required: false;
-  },
-  {
-    readonly label: '개인정보 제3자 (제휴사) 제공 동의';
-    readonly required: true;
   },
 ];
 type SignupTermsAgreementListProps = {
