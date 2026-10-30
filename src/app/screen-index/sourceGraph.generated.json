@@ -525,8 +525,6 @@
     "src/app/mypage/returns/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
     "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Divider.tsx",
-      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
@@ -534,12 +532,14 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx"
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/reviews/_components/ReviewStatePreview.tsx": [
       "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
       "src/app/mypage/reviews/reviewFixtures.ts",
-      "src/components/mypage/MyPageFrame.tsx"
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/reviews/page.tsx": [
       "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
@@ -560,6 +560,12 @@
       "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
     ],
     "src/app/mypage/reviews/preview-new/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-ready/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-written/page.tsx": [
       "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
     ],
     "src/app/mypage/reviews/preview-written-empty/page.tsx": [

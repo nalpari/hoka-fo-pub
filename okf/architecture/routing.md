@@ -9,6 +9,9 @@ generated:
   at: '2026-10-30T04:58:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/reviews/preview-ready/page.tsx
+  - src/app/mypage/reviews/preview-written/page.tsx
+  - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -181,6 +184,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 상품리뷰 디자인의 직접 상태 URL (2026-10-30)
+
+IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/reviews/preview-ready`는 작성 가능한 리뷰 목록, 기존 `/mypage/reviews/preview-empty`는 작성 가능 없음, `/mypage/reviews/preview-written`은 작성한 리뷰 목록이다. 새 route는 기존 `ReviewStatePreview`의 준비된 상태를 사용하고 클릭 순서·로그인·저장소에 의존하지 않는다. 기존 기본 route와 작성/수정/오류/작성 목록 없음 URL은 보존한다. `screenConnections.ts`의 previewRoutes/sourceFiles를 갱신하고 생성 그래프는 `npm run screen-files`로 반영한다. [표시 구조와 fixture 계약](ui.md#상품리뷰-디자인-목록과-state-2026-10-30)을 참고한다.
 
 ## 러닝세션 신청내역 시안 반영 (2026-10-30)
 

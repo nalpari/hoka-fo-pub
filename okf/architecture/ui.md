@@ -9,6 +9,11 @@ generated:
   at: '2026-10-30T04:58:11Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
+  - src/app/mypage/reviews/reviewFixtures.ts
+  - src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx
   - src/components/mypage/MyPageFrame.tsx
   - src/components/mypage/mypage.data.ts
   - src/components/orders/OrdersRoute.tsx
@@ -796,6 +801,18 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품리뷰 디자인 목록과 STATE (2026-10-30)
+
+사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. 작성 가능 목록에는 표 헤더 없이 구매일/옵션과 PC pill 작성 버튼·MO 텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이며 Empty는 작은 회색 안내를 본문 중앙에 표시한다.
+
+`ReviewStatePreview`의 ready-list/written-list는 서비스 요청 없는 고정 fixture다. 작성 가능 10건, 작성한 목록 PC 1건/MO 2건, 총 62건과 1/10 표시는 독립적인 디자인 값이다. 미연결 더보기는 외형을 유지한 비활성 버튼이다. 기존 작성·수정·고정 오류 preview는 보존한다. `ReviewListEntry.product`의 선택 표시값 gender/price를 추가했으며 실제 응답에 없으면 만들어 표시하지 않는다. 운영 ready/written/save 연결·요청 상태의 책임은 기존 페이지와 MyPageDataContext에 유지한다.
+
+IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 표 렌더러는 바꾸지 않았다. 신규 `/mypage/reviews/preview-ready`, `/mypage/reviews/preview-written`과 기존 `/preview-empty`를 디자인의 세 상태로 연결한다. 기존 빈 작성목록·작성·수정·입력 오류 링크도 유지한다. WEB에 세 디자인 상태 story를 추가하고 기존 MO에 작성한 목록을 추가했다. 각 story는 ShopShell의 명시적 web/mobile 플랫폼을 사용한다.
+
+검증: PC/MO에서 작성 가능 10건/Empty/작성 목록 PC 1건·MO 2건과 제목·PC 열 구분·MO 별점/본문을 확인했다. mobile body 판별 이후 document scrollWidth/clientWidth=360/360으로 가로 넘침 없음을 확인했다. screen-index의 STATE 행과 상태명/URL 검색, 작성한 목록 보기 링크의 새 창 직접 진입을 확인했다. 타입·변경 파일 ESLint/Prettier·Panda·그래프 생성을 통과했다. 새 Storybook story는 타입으로 확인했으며 전체 Storybook·production build는 실행하지 않았다. 검증 중 종료된 로컬 개발 서버를 재시작했다.
+
+출처: 위 review 컴포넌트·fixture·stories와 `src/app/mypage/reviews/reviews.types.ts`, `preview-ready/page.tsx`, `preview-written/page.tsx`, `src/app/screen-index/screenConnections.ts` 작업 트리, 사용자 첨부 디자인. 작성: 2026-10-30 (Asia/Seoul).
 
 ## 마이페이지 최종 공통 프레임 (2026-10-30)
 

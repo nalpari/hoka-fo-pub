@@ -1,11 +1,11 @@
 'use client';
 
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Divider } from '@/components/common/atoms/Divider';
-import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
@@ -167,14 +167,17 @@ type MyPageReviewToolbarProps = {
 
 function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarProps) {
   return (
-    <HStack justifyContent="space-between" alignItems="center" pb="4">
+    <HStack
+      justifyContent="space-between"
+      alignItems="center"
+      minH="64px"
+      borderBottom="1px solid var(--color-black-100)"
+    >
       <MyPageReviewSort sort={sort} onSortChange={onSortChange} />
       <MyPageReviewCount count={count} />
     </HStack>
   );
 }
-
-const textAction = css({ textDecoration: 'underline' });
 
 type MyPageReviewItemProps = {
   entry: ReviewListEntry;
@@ -187,65 +190,83 @@ function MyPageReviewItem({
   tab,
   onEdit,
 }: MyPageReviewItemProps) {
+  const platform = usePlatform();
+  const actionProps =
+    platform === 'mobile'
+      ? ({ variant: 'link', size: 'sm' } as const)
+      : ({ variant: 'secondary', size: 'short' } as const);
   return (
-    <HStack
-      borderBottom="1px solid var(--colors-black-20)"
-      alignItems="flex-start"
+    <Grid
+      as="li"
+      position="relative"
+      borderBottom="1px solid var(--color-black-20)"
+      alignItems="center"
       gap="4"
-      py="6"
-      className={css({
-        display: 'grid',
-        gridTemplateColumns:
-          tab === 'written'
-            ? '64px minmax(0, 1fr) 100px minmax(0, 1fr) 80px'
-            : '64px minmax(0, 1fr) 100px',
-        _mobile: { gridTemplateColumns: '64px minmax(0, 1fr) 80px' },
-      })}
+      py="4"
+      gridTemplateColumns={
+        tab === 'written' ? 'minmax(0, 1.3fr) 120px minmax(0, 1fr) 80px' : 'minmax(0, 1fr) 80px'
+      }
+      _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)', gap: '2' }}
     >
-      <Box w="64px" h="64px" flexShrink="0">
-        <ProductThumbnail alt={product.name} src={product.imageSrc} />
-      </Box>
-      <Stack flex="1" minW="0" gap="1.5">
-        <HStack gap="0.5">
-          <Typography variant="body4" language="en" weight="medium">
-            {purchasedAt}
-          </Typography>
-          <Typography variant="body4" weight="medium">
-            구매
-          </Typography>
-        </HStack>
-        <Stack gap="1">
-          <Typography variant="body4" weight="medium">
-            {product.name}
-          </Typography>
-          <Typography variant="body4" weight="medium">
-            옵션 : {product.optionLabel}
-          </Typography>
+      <HStack gap="4" minW="0">
+        <Box w="64px" h="64px" flexShrink="0">
+          <ProductThumbnail alt={product.name} src={product.imageSrc} />
+        </Box>
+        <Stack minW="0" gap="1" _mobile={{ pr: '18' }}>
+          <HStack
+            gap="0.5"
+            display={tab === 'written' ? { base: 'none', _mobile: 'flex' } : 'flex'}
+          >
+            <Typography variant="body4" language="en" weight="medium">
+              {purchasedAt}
+            </Typography>
+            <Typography variant="body4" weight="medium">
+              구매
+            </Typography>
+          </HStack>
+          {tab === 'written' ? (
+            <Stack gap="0" display={{ base: 'flex', _mobile: 'none' }}>
+              {product.gender ? <Typography variant="body4">{product.gender}</Typography> : null}
+              <Typography variant="body4" weight="medium">
+                {product.name}
+              </Typography>
+              {product.price ? <Typography variant="body4">{product.price}</Typography> : null}
+            </Stack>
+          ) : null}
+          <Box display={tab === 'written' ? { base: 'none', _mobile: 'block' } : 'block'}>
+            <Typography variant="body4" weight="medium">
+              옵션 : {product.optionLabel}
+            </Typography>
+          </Box>
         </Stack>
-      </Stack>
+      </HStack>
       {tab === 'written' ? (
-        <Stack gap="2" mt="1" className={css({ _mobile: { gridColumn: '2', gridRow: '2' } })}>
+        <Box _mobile={{ pl: '80px' }}>
           <RatingStars value={review?.rating ?? 0} size="16px" />
-        </Stack>
+        </Box>
       ) : null}
       {tab === 'written' ? (
         <Typography
           variant="body5"
           tone="primary"
-          className={css({ _mobile: { gridColumn: '2 / span 2', gridRow: '3' } })}
+          className={css({ lineClamp: 1, _mobile: { pl: '80px', lineClamp: 2 } })}
         >
           {review?.body ?? ''}
         </Typography>
       ) : null}
       <Button
-        className={css({ gridColumn: '-2', gridRow: '1', alignSelf: 'start' }) + ' ' + textAction}
-        size="md"
-        variant="link"
+        {...actionProps}
+        className={css({
+          '--button-height': '32px',
+          '--button-label-size': '12px',
+          '--button-padding-x': '12px',
+          _mobile: { position: 'absolute', top: '4', right: '0' },
+        })}
         onClick={() => onEdit(id)}
       >
         {tab === 'ready' ? '리뷰 작성' : '수정하기'}
       </Button>
-    </HStack>
+    </Grid>
   );
 }
 
@@ -258,20 +279,29 @@ type MyPageReviewListProps = {
 function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
   return (
     <Stack gap="0">
-      <HStack
-        display={{ _mobile: 'none' }}
-        justifyContent="space-between"
-        borderY="1px solid var(--colors-black-100)"
-        py="4"
-        px="6"
+      {tab === 'written' ? (
+        <Grid
+          display={{ base: 'grid', _mobile: 'none' }}
+          gridTemplateColumns="minmax(0, 1.3fr) 120px minmax(0, 1fr) 80px"
+          gap="4"
+          textAlign="center"
+          borderBottom="1px solid var(--color-black-100)"
+          py="4"
+        >
+          <Typography variant="body4">상품정보</Typography>
+          <Typography variant="body4">평점</Typography>
+          <Typography variant="body4">리뷰</Typography>
+        </Grid>
+      ) : null}
+      <Stack
+        as="ul"
+        gap="0"
+        aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '작성한 리뷰 목록'}
       >
-        <Typography variant="body4">상품정보 / 구매일</Typography>
-        <Typography variant="body4">{tab === 'written' ? '평가 / 리뷰' : '상품평 작성'}</Typography>
-        <Typography variant="body4">{tab === 'written' ? '수정' : '작성'}</Typography>
-      </HStack>
-      {entries.map((entry) => (
-        <MyPageReviewItem key={entry.id} entry={entry} tab={tab} onEdit={onEdit} />
-      ))}
+        {entries.map((entry) => (
+          <MyPageReviewItem key={entry.id} entry={entry} tab={tab} onEdit={onEdit} />
+        ))}
+      </Stack>
     </Stack>
   );
 }
@@ -279,19 +309,40 @@ function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
 type MyPageReviewLoadMoreProps = {
   visibleCount: number;
   totalCount: number;
-  onLoadMore: () => void;
+  pageInfo?: { current: number; total: number };
+  onLoadMore?: () => void;
 };
 
-function MyPageReviewLoadMore({ visibleCount, totalCount, onLoadMore }: MyPageReviewLoadMoreProps) {
+function MyPageReviewLoadMore({
+  visibleCount,
+  totalCount,
+  pageInfo,
+  onLoadMore,
+}: MyPageReviewLoadMoreProps) {
   return (
-    <Box mt="6">
+    <Box mt="6" w="160px" mx="auto" _mobile={{ w: '100%' }}>
       <Button
         fullWidth
         variant="secondary"
         size="short"
         onClick={onLoadMore}
+        disabled={!onLoadMore}
+        className={
+          !onLoadMore
+            ? css({
+                '&&:disabled > span': {
+                  bg: 'white!',
+                  color: 'black.100!',
+                  boxShadow: 'inset 0 0 0 1px var(--color-black-100)!',
+                },
+              })
+            : undefined
+        }
         loadMore={{
-          counter: { current: Math.ceil(visibleCount / 10), total: Math.ceil(totalCount / 10) },
+          counter: pageInfo ?? {
+            current: Math.ceil(visibleCount / 10),
+            total: Math.ceil(totalCount / 10),
+          },
           labelProps: { mo: 'ctaKr2' },
           counterProps: { mo: 'body5' },
         }}
@@ -307,10 +358,11 @@ type MyPageReviewsContentProps = {
   visibleCount: number;
   entries: readonly ReviewListEntry[];
   hasMore: boolean;
+  pageInfo?: { current: number; total: number };
   onTabChange: (value: ReviewTab) => void;
   onSortChange: (value: string) => void;
   onEdit: (id: ReviewListEntry['id']) => void;
-  onLoadMore: () => void;
+  onLoadMore?: () => void;
 };
 
 /** 리뷰 목록과 조회 도구를 구성합니다. (Composes review lists and query controls.) */
@@ -321,6 +373,7 @@ export function MyPageReviewsContent({
   visibleCount,
   entries,
   hasMore,
+  pageInfo,
   onTabChange,
   onSortChange,
   onEdit,
@@ -328,25 +381,37 @@ export function MyPageReviewsContent({
 }: MyPageReviewsContentProps) {
   return (
     <Stack gap="0" pb="16">
+      <Box mb="10" _mobile={{ mb: '6' }}>
+        <Typography as="h1" web="headingKr6" mo="headingKr5">
+          상품리뷰
+        </Typography>
+      </Box>
       <MyPageReviewTabs value={tab} onChange={onTabChange} />
       {totalCount ? (
-        <Box px="4" pt="8">
+        <Box>
           <MyPageReviewToolbar count={totalCount} sort={sort} onSortChange={onSortChange} />
-          <Divider variant="strong" />
           <MyPageReviewList entries={entries} tab={tab} onEdit={onEdit} />
           {hasMore ? (
             <MyPageReviewLoadMore
               visibleCount={visibleCount}
               totalCount={totalCount}
+              pageInfo={pageInfo}
               onLoadMore={onLoadMore}
             />
           ) : null}
         </Box>
       ) : (
-        <EmptyState
-          title={tab === 'ready' ? '작성 가능한 상품 리뷰가 없습니다.' : '작성한 리뷰가 없습니다.'}
-          variant="minimal"
-        />
+        <Stack
+          as="section"
+          minH="480px"
+          justifyContent="center"
+          alignItems="center"
+          _mobile={{ minH: '180px' }}
+        >
+          <Typography variant="body4" tone="tertiary">
+            {tab === 'ready' ? '작성 가능한 상품 리뷰가 없습니다.' : '작성한 리뷰가 없습니다.'}
+          </Typography>
+        </Stack>
       )}
     </Stack>
   );

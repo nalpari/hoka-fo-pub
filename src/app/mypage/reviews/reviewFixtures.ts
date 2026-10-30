@@ -15,14 +15,30 @@ export function createReviewFixture(
     product: {
       name: '클리프톤 9',
       imageSrc: '/images/mypage/speedgoat-7-gtx.png',
-      optionLabel: '화이트 / 270',
+      optionLabel: '블루 코랄 / 270',
+      gender: "Men's",
+      price: '240,000원',
     },
-    purchasedAt: '2026.08.18',
+    purchasedAt: '2025.09.30',
     review,
   };
 }
 
 export const demoWrittenReview: WrittenReview = {
-  rating: 4.5,
+  rating: 5,
   body: '쿠션감이 좋아서 잘 달리고 있어요.',
+};
+
+/** 디자인의 목록 길이·건수·더보기 표시는 서로 독립적인 고정 fixture입니다. */
+export const reviewListPreview = {
+  totalCount: 62,
+  pageInfo: { current: 1, total: 10 },
+  ready: Array.from({ length: 10 }, (_, index) => createReviewFixture(`preview-purchase-${index}`)),
+  written: Array.from({ length: 2 }, (_, index) => ({
+    ...createReviewFixture(`preview-written-${index}`, demoWrittenReview),
+    product: {
+      ...createReviewFixture(`preview-written-${index}`).product,
+      name: 'Speedgoat 7 GTX',
+    },
+  })),
 };

@@ -366,7 +366,9 @@ const connections: Record<number, ScreenConnection> = {
   '191': {
     route: '/mypage/reviews',
     previewRoutes: [
+      { label: '작성 가능한 리뷰 목록', href: '/mypage/reviews/preview-ready' },
       { label: '작성 가능 없음', href: '/mypage/reviews/preview-empty' },
+      { label: '작성한 리뷰 목록', href: '/mypage/reviews/preview-written' },
       { label: '작성 리뷰 없음', href: '/mypage/reviews/preview-written-empty' },
       { label: '작성', href: '/mypage/reviews/preview-new' },
       { label: '수정', href: '/mypage/reviews/preview-edit' },
@@ -374,6 +376,8 @@ const connections: Record<number, ScreenConnection> = {
     ],
     sourceFiles: [
       'src/app/mypage/reviews/page.tsx',
+      'src/app/mypage/reviews/preview-ready/page.tsx',
+      'src/app/mypage/reviews/preview-written/page.tsx',
       'src/app/mypage/reviews/preview-empty/page.tsx',
       'src/app/mypage/reviews/preview-written-empty/page.tsx',
       'src/app/mypage/reviews/preview-new/page.tsx',
@@ -381,6 +385,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/reviews/preview-error/page.tsx',
     ],
     stories: {
+      web: {
+        id: 'pages-마이페이지-4-상품리뷰-web--ready-list',
+        file: 'src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx',
+      },
       mobile: {
         id: 'pages-마이페이지-4-상품리뷰-mobile--reviews',
         file: 'src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx',

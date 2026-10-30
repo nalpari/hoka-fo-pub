@@ -1,5 +1,12 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 상품리뷰 디자인과 세 목록 STATE
+
+- 상품리뷰 제목·목록·PC 작성/수정 버튼·작성한 리뷰 표·MO 별점/본문·중앙 Empty·더보기 폭을 디자인에 맞췄다.
+- IA 191에 작성 가능한 목록·작성 가능 없음·작성한 목록을 STATE로 연결했다. 신규 preview-ready/preview-written과 기존 preview-empty를 사용하며 기존 작성/수정/오류/작성목록 없음 URL을 보존했다. WEB 세 상태와 MO 작성한 목록 story를 연결했다.
+- [직접 URL](architecture/routing.md#상품리뷰-디자인의-직접-상태-url-2026-10-30), [표시 계약과 출처](architecture/ui.md#상품리뷰-디자인-목록과-state-2026-10-30).
+- PC/MO 세 상태·모바일 가로 넘침 없음·STATE 검색/새 창 링크와 메인/하위 breadcrumb 위치 일치를 확인했다. 타입·변경 파일 lint/format·Panda·그래프 생성을 통과했다. 전체 Storybook/production build는 실행하지 않았다.
+
 ## 2026-10-30 — 마이페이지 최종 레이아웃을 MyPageFrame으로 통합
 
 - 사용자 확정에 따라 신청내역의 별도 외곽 레이아웃을 `MyPageFrame`으로 옮기고 공통 메뉴·활성 밑줄을 최종 디자인에 맞췄다. 주문·취소반품과 공통 프레임을 우회하던 4개 화면도 연결했다.
