@@ -715,3 +715,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 퍼블리싱 가이드 import 정리 (2026-10-30)
 
 src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named binding 순서만 정리했다. /publishing-guide의 경로와 page 진입점·컴포넌트 동작은 유지한다. 관련 소스 ESLint·Prettier 검사를 통과했다.
+
+## 화면 연결 그래프 재생성 (2026-10-30)
+
+npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.
