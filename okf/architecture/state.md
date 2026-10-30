@@ -6,9 +6,17 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:05:25Z'
+  at: '2026-10-30T00:42:45Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/screen-index/_components/IaStructurePage.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - src/context/SupportContentContext.ts
   - src/context/RunClubDataContext.ts
   - src/context/InquiryDataContext.ts
@@ -190,6 +198,13 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 장바구니·로그인 서비스 상태 제거 (2026-10-30)
+
+이번 사용자 요청은 아래 과거 기록의 장바구니 계산/저장 및 로그인 인증 흐름을 대체한다. `/cart`는 `useShop`을 구독하지 않고 고정 `cartPreviewRows`와 합계를 사용한다. 체크/수량/관심/옵션 초안은 화면 로컬 상태만 변경하며 삭제·주문·옵션 저장으로 ShopShell을 변경하지 않는다. 옵션 확인은 닫기만 수행한다.
+
+`/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
+
 
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 

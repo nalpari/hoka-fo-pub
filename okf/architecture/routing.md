@@ -6,9 +6,17 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:19:33Z'
+  at: '2026-10-30T00:42:45Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - src/app/**/_components/*.tsx
   - AGENTS.md
   - .codex/skills/component-reusability/references/single-parent-consolidation.md
@@ -171,6 +179,13 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 장바구니·로그인 확인 URL 분리 (2026-10-30)
+
+기존 `/cart`와 `/login`은 서비스 흐름을 제거한 퍼블리싱 기본 화면이다. `/cart/preview-empty`는 빈 장바구니, `/login/preview-error`는 두 필드의 고정 오류를 직접 표시한다. 오류 화면은 기본 로그인과 `LoginContent` 마크업을 공유하고 입력 후에도 오류가 유지된다. 빈 장바구니는 기존 `CartEmptyState`와 공용 제목을 사용한다. IA 170·223의 `previewRoutes`를 화면 목록의 실제 페이지 링크 옆에 노출하며 검색에도 반영한다. 원본 IA 번호와 진행 상태는 변경하지 않는다.
+
+장바구니 page는 고정 데이터와 레이아웃을 조합하고 선택·수량·모달 UI 상태는 기존 `_components`에 둔다. 로그인 전용 RoutePreview 주입과 사용되지 않는 타입 선언·스토리 어댑터는 제거했다. 서비스 API를 추가하지 않았다.
+
 
 ## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
 

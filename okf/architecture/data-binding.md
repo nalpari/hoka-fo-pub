@@ -6,8 +6,18 @@ tags: [frontend, binding, state, forms]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:05:25Z'
+  at: '2026-10-30T00:42:45Z'
 working_tree_sources:
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/screen-index/_components/IaStructurePage.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - tests/order-policy.test.mjs
   - tests/inquiry-binding.test.mjs
   - src/components/orders/order-policy.ts
@@ -47,6 +57,15 @@ working_tree_sources:
 ---
 
 # 화면 데이터와 서비스 연결 계약
+
+## 장바구니·로그인 퍼블리싱 인계 전환 (2026-10-30)
+
+사용자 승인으로 장바구니와 로그인은 연결 가능한 서비스 흐름 시연 대신 단순한 마크업 확인 화면으로 바뀌었다. 이 절은 아래 과거 기록 중 두 라우트의 연결·계산·인증·저장 동작 설명을 대체한다. 다른 서비스 화면의 계약은 유지한다.
+
+- 장바구니: `cart-preview.ts`의 상품, 표시 금액, 품절 여부와 고정 합계만 사용한다. UI 조작은 로컬 상태이며 요청·삭제·저장·결제 URL 생성이 없다.
+- 로그인: `LoginContent.showErrors`가 고정 오류 표시를 선택한다. 인증/형식 검사/아이디 저장/소셜 인증/성공 이동/pending/retry는 미연결이다.
+- 개발팀 연결 소유자가 실제 데이터·요청·성공/실패·상태 갱신을 구현해야 한다. 소스의 `[ 개발팀 바인딩 ]` 주석은 이 미연결 경계를 설명하며 API 존재를 뜻하지 않는다.
+
 
 현재 서비스 API는 연결하지 않는다. 아래 계약은 기존 화면을 유지하며 개발팀이 조회 결과와 요청 함수를 연결할 수 있게 만든 경계다. Provider가 없으면 기존 퍼블리싱 데모가 동작한다. 라우트의 default export에 임의 props를 추가하거나 Storybook 전용 RoutePreview를 운영 데이터 주입에 사용하지 않는다.
 

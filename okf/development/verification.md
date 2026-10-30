@@ -6,9 +6,13 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-29T06:51:36Z'
+  at: '2026-10-30T00:50:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/stories/features/login/LoginPage.scenarios.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/login/preview-error/page.tsx
+  - src/app/cart/preview-empty/page.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/stories/features/screen-index/IaStructurePage.stories.tsx
   - tests/screen-progress.test.mjs
@@ -90,6 +94,17 @@ sources:
 ---
 
 # 변경 검증
+
+## 장바구니·로그인 마크업 단순화 검증 (2026-10-30)
+
+- `npm run typecheck`와 변경한 TS/TSX의 ESLint를 통과했다. `npm run lint:fix` 실행 중 생긴 범위 밖 import 정렬 수정은 되돌렸다. 전체 `npm run lint`는 기존 publishing-guide 4개 파일의 import 순서/그룹 오류 9건으로 실패한다.
+- `node --test tests/cart-display.test.mjs tests/form-controls.test.mjs tests/screen-files.test.mjs tests/screen-progress.test.mjs` 59개를 통과했다.
+- 실제 브라우저에서 PC/MO Storybook 14개 시나리오의 `storyFinished`와 play 예외를 함께 확인했다. 기본 입력/Enter/버튼, 고정 오류 유지, 도움말 Escape/포커스, 수량 변경과 금액 고정, 선택/삭제 무동작, 품절, 옵션 선택 후 미저장 닫기와 재열기, 제한 안내, 빈 목록, 로그인 서비스 미호출을 확인했다. 전역 a11y `todo` 설정의 경고는 남아 있으며 접근성 전체 통과를 뜻하지 않는다.
+- 실제 `/login`에서 입력·체크 후 제출/Enter/소셜 버튼을 눌러 URL·입력 유지, alert 없음, fetch/XHR 추가 0건과 local/session storage 변경 없음을 확인했다. `/login/preview-error`는 입력/제출 후 두 오류와 aria-invalid를 유지했다.
+- `/cart`에서 수량 증가 후 행 금액 유지, 주문·삭제 후 이동/행 제거 없음, checkout 링크 없음, `/cart/preview-empty`의 직접 빈 상태와 `/screen-index`의 상태별 링크를 확인했다.
+- 모달을 연 상태로 1024/1025px, 1199/1200px를 전환해 플랫폼 변경과 모달 유지, 1200px 이상 가로 넘침 없음을 확인했다. 1025~1199px의 1200px 캔버스는 기존 정책대로 유지한다. 브라우저 스크린샷 캡처가 시간 초과되어 픽셀 대조는 수행하지 못했으며 DOM·계산된 크기와 상호작용으로 검증했다.
+- 라우트 manifest 테스트에 새 확인 URL과 기존 누락 `/publishing-guide`를 반영했다. `npm run build`를 통과했고 새 URL 2개를 포함한 정적 페이지 생성과 TypeScript 검사를 완료했다. 이후 `node --test tests/app-router.test.mjs` 2개도 통과했다(관련 Node 테스트 합계 61개).
+
 
 ## IA 설명 제거 확인 (2026-10-29)
 

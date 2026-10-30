@@ -8,6 +8,7 @@ import sourceGraph from './sourceGraph.generated.json';
 
 export type ScreenConnection = {
   route?: string;
+  previewRoutes?: { label: string; href: string }[];
   sourceFiles: string[];
   stories: Partial<Record<'web' | 'mobile', { id: string; file: string }>>;
 };
@@ -87,7 +88,8 @@ const connections: Record<number, ScreenConnection> = {
   },
   '170': {
     route: '/cart',
-    sourceFiles: ['src/app/cart/page.tsx'],
+    previewRoutes: [{ label: '빈 목록', href: '/cart/preview-empty' }],
+    sourceFiles: ['src/app/cart/page.tsx', 'src/app/cart/preview-empty/page.tsx'],
     stories: {
       web: {
         id: 'pages-장바구니-0-장바구니-목록-web--default',
@@ -434,7 +436,8 @@ const connections: Record<number, ScreenConnection> = {
   },
   '223': {
     route: '/login',
-    sourceFiles: ['src/app/login/page.tsx'],
+    previewRoutes: [{ label: '에러 메시지', href: '/login/preview-error' }],
+    sourceFiles: ['src/app/login/page.tsx', 'src/app/login/preview-error/page.tsx'],
     stories: {
       web: {
         id: 'pages-로그인-0-로그인-web--default',

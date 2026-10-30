@@ -6,9 +6,15 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:19:33Z'
+  at: '2026-10-30T00:42:45Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/login/preview-error/page.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/cart/cart-preview.ts
   - src/app/**/_components/*.tsx
   - src/app/**/page.tsx
   - AGENTS.md
@@ -785,6 +791,13 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
+
+사용자 요청에 따라 두 화면은 기본 마크업과 고정 상태를 확인하는 인계 방식으로 전환했다. 주문·삭제·옵션 확인·로그인·소셜 로그인은 서비스 동작 없이 표시하며, 주문 액션의 동적 checkout href를 제거했다. 일반 탐색 링크는 유지한다. 장바구니 체크·수량·관심상품과 모달 선택/닫기, 로그인 입력·비밀번호 표시·체크·도움말은 로컬 UI로 유지한다. 고정 단품/행 금액과 합계는 조작으로 재계산하지 않는다.
+
+Storybook은 실제 기본·상태별 라우트를 사용한다. 기존 인증 성공·형식 검증·옵션 저장 시나리오는 입력 유지·고정 오류·금액 고정·저장 없는 모달 닫기 검증으로 대체했다. 품절 표시는 명시적인 fixture의 `soldOut`으로 확인한다. 다른 화면이 사용하는 공통 폼·버튼·상점 계약은 변경하지 않았다. 검증 결과와 시각 대조 한계는 [검증 기록](../development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)을 참고한다.
+
 
 ## 페이지 전용 UI 배치 (2026-10-30)
 

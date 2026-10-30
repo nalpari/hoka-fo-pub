@@ -10,6 +10,7 @@ const manifest = JSON.parse(
 const expectedRoutes = [
   '/',
   '/cart',
+  '/cart/preview-empty',
   '/checkout',
   '/collection/[id]',
   '/locales',
@@ -20,6 +21,7 @@ const expectedRoutes = [
   '/login/find-account',
   '/login/find-account/id-confirmation-modal',
   '/login/find-account/password-reset',
+  '/login/preview-error',
   '/maintenance',
   '/mypage',
   '/mypage/addresses',
@@ -39,6 +41,7 @@ const expectedRoutes = [
   '/mypage/wishlist',
   '/products',
   '/products/[id]',
+  '/publishing-guide',
   '/running/run-club',
   '/running/run-club/[sessionId]',
   '/screen-index',

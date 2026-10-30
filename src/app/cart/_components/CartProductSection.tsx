@@ -1,11 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
-import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
@@ -15,11 +16,12 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
-import { isCartItemSoldOut, itemKey } from '@/app/cart/cart-item';
+import { itemKey } from '@/app/cart/cart-item';
+import type { CartPreviewRow } from '@/app/cart/cart-preview';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
-import { type Product } from '@/mocks/products';
-import { type CartItem } from '@/types/cart';
+
+import { CartDialogs } from './CartDialogs';
 
 type CartSelectionBarProps = {
   allSelected: boolean;
@@ -27,19 +29,15 @@ type CartSelectionBarProps = {
   totalCount: number;
   soldOutCount: number;
   onSelectAll: (checked: boolean) => void;
-  onRemoveSelected: () => void;
-  onRemoveSoldOut: () => void;
 };
 
-/** 전체 선택과 선택·품절 상품 삭제를 제공합니다. (Provides cart selection and removal actions.) */
+/** 전체 선택과 삭제 버튼의 확인용 표시를 제공합니다. (Displays cart selection and preview removal buttons.) */
 function CartSelectionBar({
   allSelected,
   selectedCount,
   totalCount,
   soldOutCount,
   onSelectAll,
-  onRemoveSelected,
-  onRemoveSoldOut,
 }: CartSelectionBarProps) {
   const mobile = usePlatform() === 'mobile';
 
@@ -65,20 +63,10 @@ function CartSelectionBar({
         }
       />
       <HStack gap={{ base: '3', _mobile: '2' }}>
-        <Button
-          variant="link"
-          size={mobile ? 'md' : 'sm'}
-          disabled={selectedCount === 0}
-          onClick={onRemoveSelected}
-        >
+        <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={selectedCount === 0}>
           선택상품 삭제
         </Button>
-        <Button
-          variant="link"
-          size={mobile ? 'md' : 'sm'}
-          disabled={soldOutCount === 0}
-          onClick={onRemoveSoldOut}
-        >
+        <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={soldOutCount === 0}>
           품절상품 삭제
         </Button>
       </HStack>
@@ -87,30 +75,18 @@ function CartSelectionBar({
 }
 
 type CartItemRowProps = {
-  item: CartItem;
-  product: Product;
+  row: CartPreviewRow;
   selected: boolean;
   favorite: boolean;
   onSelect: (checked: boolean) => void;
-  onRemove: () => void;
   onEdit: () => void;
   onFavorite: () => void;
-  onQuantityChange: (quantity: number) => void;
 };
 
-/** 선택·삭제·옵션 변경 액션과 품절 상태를 표시합니다. (Displays a cart item and its available actions.) */
-function CartItemRow({
-  item,
-  product,
-  selected,
-  favorite,
-  onSelect,
-  onRemove,
-  onEdit,
-  onFavorite,
-  onQuantityChange,
-}: CartItemRowProps) {
-  const soldOut = isCartItemSoldOut(item, product);
+/** 상품 선택과 수량의 로컬 표시를 제공합니다. (Displays local cart selection and quantity controls.) */
+function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: CartItemRowProps) {
+  const { item, product, amount, soldOut } = row;
+  const [quantity, setQuantity] = useState(item.quantity);
   const platform = usePlatform();
   if (platform !== 'mobile')
     return (
@@ -146,12 +122,12 @@ function CartItemRow({
           <NumberStepper
             ariaLabel={`${product.name} 수량`}
             min={1}
-            value={item.quantity}
-            onChange={onQuantityChange}
+            value={quantity}
+            onChange={setQuantity}
           />
         </fieldset>
         <Typography variant="body3" weight="semibold">
-          {(product.price * item.quantity).toLocaleString()}원
+          {amount.toLocaleString()}원
         </Typography>
         <Stack gap="2">
           {soldOut ? (
@@ -159,14 +135,9 @@ function CartItemRow({
               품절
             </Button>
           ) : (
-            <ButtonLink
-              size="short"
-              href={`/checkout?selected=${encodeURIComponent(itemKey(item))}`}
-            >
-              주문하기
-            </ButtonLink>
+            <Button size="short">주문하기</Button>
           )}
-          <Button variant="secondary" size="short" onClick={onRemove}>
+          <Button variant="secondary" size="short">
             삭제하기
           </Button>
         </Stack>
@@ -183,7 +154,7 @@ function CartItemRow({
           onCheckedChange={onSelect}
           label={null}
         />
-        <Button variant="icon" size={18} aria-label={`${product.name} 삭제`} onClick={onRemove}>
+        <Button variant="icon" size={18} aria-label={`${product.name} 삭제`}>
           <Icon fontAwesomeIcon={faXmark} size={14} />
         </Button>
       </HStack>
@@ -202,8 +173,8 @@ function CartItemRow({
             image={getCartImage(item, product.primaryImage)}
             name={product.name}
             gender={product.gender ?? 'All Gender'}
-            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
-            amount={product.price * item.quantity}
+            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${quantity}개`}
+            amount={amount}
           >
             <HStack
               justifyContent="space-between"
@@ -230,51 +201,40 @@ function CartItemRow({
 }
 
 type CartProductSectionProps = {
-  rows: { item: CartItem; product: Product }[];
-  selectedKeys: string[];
-  favorites: string[];
-  onToggleItem: (key: string, checked: boolean) => void;
-  onRemove: (item: CartItem) => void;
-  onEdit: (item: CartItem, product: Product) => void;
-  onToggleFavorite: (key: string) => void;
-  allSelected: boolean;
-  selectedCount: number;
-  soldOutCount: number;
+  rows: CartPreviewRow[];
   total: number;
-  onSelectAll: (checked: boolean) => void;
-  onRemoveSelected: () => void;
-  onRemoveSoldOut: () => void;
-  onQuantityChange: (item: CartItem, quantity: number) => void;
 };
 
-/** 장바구니 선택 도구·상품 목록·금액과 보관 안내를 표시합니다. (Displays cart selection tools, products, total, and storage guidance.) */
-export function CartProductSection({
-  rows,
-  allSelected,
-  selectedCount,
-  soldOutCount,
-  selectedKeys,
-  favorites,
-  total,
-  onSelectAll,
-  onToggleItem,
-  onRemove,
-  onEdit,
-  onToggleFavorite,
-  onRemoveSelected,
-  onRemoveSoldOut,
-  onQuantityChange,
-}: CartProductSectionProps) {
+/**
+ * 장바구니 고정 표시와 최소 UI 조작을 제공합니다. (Displays fixed cart data with local UI controls.)
+ *
+ * [ 개발팀 바인딩 ] rows의 amount/soldOut과 total은 준비된 표시 예시이며 재계산하지 않습니다.
+ * 체크·수량·관심·옵션 선택은 로컬 확인용입니다. 삭제·주문·옵션 저장 요청과 목록 갱신은 미연결입니다.
+ * 실제 요청과 성공/실패/pending 처리는 개발팀 장바구니 소유자에서 연결합니다.
+ */
+export function CartProductSection({ rows, total }: CartProductSectionProps) {
+  const availableKeys = rows.filter((row) => !row.soldOut).map(({ item }) => itemKey(item));
+  const [selectedKeys, setSelectedKeys] = useState(() =>
+    rows.filter((row) => row.initialSelected && !row.soldOut).map(({ item }) => itemKey(item)),
+  );
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [editingRow, setEditingRow] = useState<CartPreviewRow | null>(null);
+  const [limited, setLimited] = useState(false);
+
   return (
     <Stack gap="4">
+      <CartDialogs
+        editingRow={editingRow}
+        limited={limited}
+        onEditClose={() => setEditingRow(null)}
+        onLimitedChange={setLimited}
+      />
       <CartSelectionBar
-        allSelected={allSelected}
-        selectedCount={selectedCount}
+        allSelected={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
+        selectedCount={selectedKeys.length}
         totalCount={rows.length}
-        soldOutCount={soldOutCount}
-        onSelectAll={onSelectAll}
-        onRemoveSelected={onRemoveSelected}
-        onRemoveSoldOut={onRemoveSoldOut}
+        soldOutCount={rows.filter((row) => row.soldOut).length}
+        onSelectAll={(checked) => setSelectedKeys(checked ? availableKeys : [])}
       />
       <Grid
         gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
@@ -291,20 +251,26 @@ export function CartProductSection({
         <Box />
       </Grid>
       <Stack as="ul" gap="4" listStyleType="none">
-        {rows.map(({ item, product }) => {
+        {rows.map((row) => {
+          const { item } = row;
           const key = itemKey(item);
           return (
             <CartItemRow
               key={key}
-              item={item}
-              product={product}
+              row={row}
               selected={selectedKeys.includes(key)}
               favorite={favorites.includes(key)}
-              onSelect={(checked) => onToggleItem(key, checked)}
-              onRemove={() => onRemove(item)}
-              onEdit={() => onEdit(item, product)}
-              onFavorite={() => onToggleFavorite(key)}
-              onQuantityChange={(quantity) => onQuantityChange(item, quantity)}
+              onSelect={(checked) =>
+                setSelectedKeys((keys) =>
+                  checked ? [...keys, key] : keys.filter((value) => value !== key),
+                )
+              }
+              onEdit={() => (row.soldOut ? setLimited(true) : setEditingRow(row))}
+              onFavorite={() =>
+                setFavorites((keys) =>
+                  keys.includes(key) ? keys.filter((value) => value !== key) : [...keys, key],
+                )
+              }
             />
           );
         })}

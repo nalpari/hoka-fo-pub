@@ -1,16 +1,15 @@
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import { type Meta, type StoryObj } from '@storybook/react';
-import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import { LoginPage } from '@/stories/features/login/LoginPagePreview';
-import { LoginContent } from '@/stories/route-previews/loginPreview';
+import LoginPage from '@/app/login/page';
+import LoginErrorPage from '@/app/login/preview-error/page';
 
 const meta = {
   title: 'PAGES/로그인/0. 로그인',
-  tags: ['form-audit', 'login-validation'],
+  tags: ['form-audit', 'publishing-preview'],
   component: LoginPage,
-  args: { onLogin: fn() },
   decorators: [
     (Story, { parameters }) => {
       const platform = parameters.platform === 'mobile' ? 'mobile' : 'web';
@@ -55,24 +54,7 @@ export const MobileRememberIdHelp: Story = {
 };
 
 export const Error: Story = {
-  render: () => (
-    <LoginContent
-      id=""
-      password=""
-      rememberId={false}
-      notice={null}
-      errors={{
-        id: '아이디를 입력해 주세요',
-        password: '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
-      }}
-      onIdChange={fn()}
-      onPasswordChange={fn()}
-      onRememberChange={fn()}
-      onSubmit={(event) => event.preventDefault()}
-      onFindAccount={fn()}
-      onUnavailable={fn()}
-    />
-  ),
+  render: () => <LoginErrorPage />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const notice = canvas.getByText('아이디를 입력해 주세요');
@@ -112,14 +94,62 @@ export const MobileError: Story = {
 };
 
 export const LoginFlow: Story = {
-  play: async ({ canvasElement, args }) => {
+  name: '입력과 기본 버튼',
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    getRouter().push.mockClear();
+    const id = canvas.getByLabelText(/아이디$/, { selector: 'input' });
+    const password = canvas.getByLabelText(/비밀번호/, { selector: 'input' });
     await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
-    await expect(args.onLogin).not.toHaveBeenCalled();
+    await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+    await fireEvent.change(id, { target: { value: 'preview-user' } });
+    await expect(id).toHaveValue('preview-user');
+    await fireEvent.change(password, { target: { value: 'preview-password' } });
+    await expect(password).toHaveValue('preview-password');
+    await userEvent.click(canvas.getByRole('button', { name: '비밀번호 보기' }));
+    await expect(password).toHaveAttribute('type', 'text');
+    await userEvent.click(canvas.getByRole('button', { name: '비밀번호 숨기기' }));
+    await expect(password).toHaveAttribute('type', 'password');
+    await userEvent.click(canvas.getByRole('checkbox', { name: '아이디 저장' }));
+    await expect(canvas.getByRole('checkbox', { name: '아이디 저장' })).toBeChecked();
+    await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
+    await userEvent.click(password);
+    await userEvent.keyboard('{Enter}');
+    await expect(id).toHaveValue('preview-user');
+    await expect(password).toHaveValue('preview-password');
+    await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+    await expect(getRouter().push).not.toHaveBeenCalled();
+    await expect(canvas.getByRole('link', { name: '회원가입' })).toHaveAttribute('href', '/signup');
+    await expect(canvas.getByRole('link', { name: '아이디/비밀번호 찾기' })).toHaveAttribute(
+      'href',
+      '/login/find-account',
+    );
+    for (const name of ['카카오 로그인', '네이버 로그인']) {
+      await userEvent.click(canvas.getByRole('button', { name }));
+      await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+    }
+  },
+};
+
+export const MobileLoginFlow: Story = { ...Mobile, play: LoginFlow.play };
+
+export const FixedErrors: Story = {
+  ...Error,
+  play: async (context) => {
+    await Error.play?.(context);
+    const canvas = within(context.canvasElement);
+    await fireEvent.change(canvas.getByLabelText(/아이디$/, { selector: 'input' }), {
+      target: { value: 'tester' },
+    });
+    await fireEvent.change(canvas.getByLabelText(/비밀번호/, { selector: 'input' }), {
+      target: { value: 'Hoka12345!' },
+    });
+    await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).toHaveValue('tester');
+    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveValue(
+      'Hoka12345!',
+    );
+    await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
     await expect(canvas.getAllByRole('alert')).toHaveLength(2);
-    await expect(
-      canvas.getByLabelText(/아이디$/, { selector: 'input' }),
-    ).toHaveAccessibleDescription('아이디를 입력해 주세요');
     await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).toHaveAttribute(
       'aria-invalid',
       'true',
@@ -128,129 +158,7 @@ export const LoginFlow: Story = {
       'aria-invalid',
       'true',
     );
-    await userEvent.type(canvas.getByLabelText(/아이디$/, { selector: 'input' }), 'demo1234');
-    await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).not.toHaveAttribute(
-      'aria-invalid',
-    );
-    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
-    await userEvent.type(canvas.getByLabelText(/비밀번호/, { selector: 'input' }), 'Hoka12345!');
-    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).not.toHaveAttribute(
-      'aria-invalid',
-    );
-    await userEvent.click(canvas.getByRole('button', { name: '비밀번호 보기' }));
-    await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).toHaveAttribute(
-      'type',
-      'text',
-    );
-    await userEvent.click(canvas.getByRole('button', { name: '비밀번호 숨기기' }));
-    await userEvent.click(canvas.getByRole('checkbox', { name: '아이디 저장' }));
-    await expect(canvas.getByRole('checkbox', { name: '아이디 저장' })).toBeChecked();
-    await userEvent.click(canvas.getByRole('button', { name: '로그인' }));
-    await expect(args.onLogin).toHaveBeenCalledTimes(1);
-    await expect(getRouter().push).toHaveBeenCalledWith('/');
-    await expect(canvas.getByRole('status')).toHaveTextContent(
-      'demo1234 아이디를 저장하고 로그인했습니다. (데모)',
-    );
-    await expect(canvas.getByRole('link', { name: '회원가입' })).toHaveAttribute('href', '/signup');
   },
 };
 
-export const MobileLoginFlow: Story = {
-  parameters: { layout: 'fullscreen' },
-  ...Mobile,
-  play: LoginFlow.play,
-};
-
-export const InvalidFormats: Story = {
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const id = canvas.getByLabelText(/아이디$/, { selector: 'input' });
-    const password = canvas.getByLabelText(/비밀번호/, { selector: 'input' });
-    const login = canvas.getByRole('button', { name: '로그인' });
-    await userEvent.type(id, 'first..last@example.com');
-    await userEvent.type(password, 'demo-password');
-    await userEvent.click(login);
-    await expect(args.onLogin).not.toHaveBeenCalled();
-    await expect(canvas.getAllByRole('alert')).toHaveLength(2);
-    await expect(password).toHaveAccessibleDescription(
-      '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
-    );
-    for (const value of [
-      'abc',
-      '    ',
-      '한글아이디',
-      'demo!',
-      'demo@example.com',
-      ' demo',
-      'demo ',
-    ]) {
-      await userEvent.clear(id);
-      await userEvent.type(id, value);
-      await userEvent.click(login);
-      await expect(id).toHaveAttribute('aria-invalid', 'true');
-      await expect(id).toHaveAccessibleDescription('영문, 숫자 조합으로 4자 이상 입력해 주세요.');
-      await expect(args.onLogin).not.toHaveBeenCalled();
-    }
-    for (const value of ['abcd', '1234', 'Ab12']) {
-      await userEvent.clear(id);
-      await userEvent.type(id, value);
-      await expect(id).not.toHaveAttribute('aria-invalid');
-    }
-    await userEvent.clear(id);
-    await expect(id).toHaveAccessibleDescription('아이디를 입력해 주세요');
-    await userEvent.type(id, 'demo1234');
-    await expect(id).not.toHaveAttribute('aria-invalid');
-    for (const value of [
-      'Hoka1234!',
-      'Hoka123456789!',
-      'Hoka123456',
-      '123456789!',
-      'HokaHoka!!',
-      'Hoka1234 !',
-    ]) {
-      await userEvent.clear(password);
-      await userEvent.type(password, value);
-      await userEvent.click(login);
-      await expect(password).toHaveAttribute('aria-invalid', 'true');
-      await expect(args.onLogin).not.toHaveBeenCalled();
-    }
-    for (const value of ['Hoka12345!', 'Hoka1234567!']) {
-      await userEvent.clear(password);
-      await userEvent.type(password, value);
-      await expect(password).not.toHaveAttribute('aria-invalid');
-      await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
-    }
-    await userEvent.click(login);
-    await expect(args.onLogin).toHaveBeenCalledTimes(1);
-    await expect(canvas.getByRole('status')).toHaveAttribute('data-tone', 'success');
-  },
-};
-
-export const MobileInvalidFormats: Story = {
-  parameters: { layout: 'fullscreen' },
-  ...Mobile,
-  play: InvalidFormats.play,
-};
-
-export const UnavailableActions: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    for (const feature of ['카카오 로그인', '네이버 로그인']) {
-      await userEvent.click(canvas.getByRole('button', { name: feature }));
-      await expect(canvas.getByRole('alert')).toHaveTextContent(
-        `${feature} 기능은 데모 환경에서 아직 연결되지 않았습니다.`,
-      );
-      await expect(canvas.getByLabelText(/아이디$/, { selector: 'input' })).not.toHaveAttribute(
-        'aria-invalid',
-      );
-      await expect(canvas.getByLabelText(/비밀번호/, { selector: 'input' })).not.toHaveAttribute(
-        'aria-invalid',
-      );
-    }
-    await userEvent.click(canvas.getByRole('button', { name: '아이디/비밀번호 찾기' }));
-    await expect(getRouter().push).toHaveBeenCalledWith('/login/find-account');
-  },
-};
+export const MobileFixedErrors: Story = { ...Mobile, ...FixedErrors };

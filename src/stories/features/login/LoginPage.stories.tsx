@@ -18,11 +18,6 @@ export const RememberIdHelp: Story = { ...scenarios.RememberIdHelp, name: '아�
 
 export const Error: Story = { ...scenarios.Error, name: '오류' };
 
-export const LoginFlow: Story = { ...scenarios.LoginFlow, name: '로그인 흐름' };
+export const LoginFlow: Story = { ...scenarios.LoginFlow, name: '입력과 기본 버튼' };
 
-export const InvalidFormats: Story = { ...scenarios.InvalidFormats, name: '입력 형식 오류' };
-
-export const UnavailableActions: Story = {
-  ...scenarios.UnavailableActions,
-  name: '미지원 기능 안내',
-};
+export const FixedErrors: Story = { ...scenarios.FixedErrors, name: '입력 후에도 고정 오류 유지' };
