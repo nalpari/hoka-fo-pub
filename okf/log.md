@@ -1,5 +1,10 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 기존 상태 preview 라우트 검사 동기화
+
+전체 route manifest 검사에서 기존 신청 취소·작성 가능/작성 리뷰 목록 세 URL이 기대 목록에서 빠져 있음을 확인하여 tests/app-router.test.mjs의 기대 목록만 보완했다. 기존 화면은 재생성하거나 변경하지 않았다. 전체 Node 테스트 106개를 통과했다. 출처: 기존 /mypage/event-entries/preview-cancel, /mypage/reviews/preview-ready, /mypage/reviews/preview-written과 tests/app-router.test.mjs.
+
+
 ## 2026-10-30 — IA 탐색 도구 반응형과 고정 배치
 
 사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
