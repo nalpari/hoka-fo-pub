@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -118,7 +117,7 @@ function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: 
             옵션변경
           </Button>
         </OrderProductSummary>
-        <fieldset disabled={soldOut} className={css({ border: 0, p: 0, minW: 0 })}>
+        <fieldset disabled={soldOut}>
           <NumberStepper
             ariaLabel={`${product.name} 수량`}
             min={1}

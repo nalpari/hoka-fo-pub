@@ -367,7 +367,7 @@ type PhoneVerificationFormProps = Pick<
 function PhoneVerificationForm(props: PhoneVerificationFormProps) {
   return (
     <form noValidate onSubmit={props.onConfirm} aria-busy={props.pending}>
-      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={props.pending}>
         <Stack gap="4">
           <PhoneInformationFields
             information={props.information}
@@ -435,7 +435,7 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
         </>
       }
     >
-      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={props.pending}>
         <Stack gap="6">
           <PhoneVerificationAgreements
             agreements={props.agreements}

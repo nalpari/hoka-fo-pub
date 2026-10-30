@@ -594,7 +594,7 @@ export function RouteContent() {
   return (
     <>
       <BindingFeedback pending={request.pending} error={request.error} />
-      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={request.pending}>
         <RegistrationContent
           stage={stage}
           information={information}

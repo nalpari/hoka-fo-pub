@@ -11,8 +11,6 @@ import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { MyPageInitialStateContext } from '@/context/MyPageInitialState';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
-import { css } from 'styled-system/css';
-
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
@@ -111,10 +109,7 @@ export default function Page() {
       {(request.pending || binding?.pending) && (
         <Typography role="status">배송지를 처리하고 있습니다.</Typography>
       )}
-      <fieldset
-        disabled={request.pending || binding?.pending}
-        className={css({ border: 0, p: 0, m: 0, minW: 0 })}
-      >
+      <fieldset disabled={request.pending || binding?.pending}>
         {editingId === null &&
         addresses.length === 0 &&
         (binding?.pending || binding?.error) ? null : editingId === null ? (

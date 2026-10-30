@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T05:19:06Z'
+  at: '2026-10-30T05:29:03Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/components/common/layouts/AccountPageLayout.tsx
@@ -183,6 +183,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## Fieldset 초기화의 라우팅 영향 (2026-10-30)
+
+로그인·가입·계정 찾기·장바구니·결제·문의·마이페이지 라우트의 fieldset 지역 초기화만 공통 스타일로 옮겼다. 경로·페이지 export·폼 제출 및 disabled 상태에는 변경이 없다. [UI 기준](ui.md#fieldset-공통-초기화-2026-10-30)을 따른다.
 
 ## 계정 화면 공통 하단 여백 (2026-10-30)
 

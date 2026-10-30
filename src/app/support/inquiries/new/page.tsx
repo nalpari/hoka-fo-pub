@@ -162,10 +162,7 @@ export default function Page() {
         }}
       />
       <form className={css({ mt: { base: '10', _mobile: '6' } })} noValidate onSubmit={submit}>
-        <fieldset
-          disabled={request.pending || binding?.pending}
-          className={css({ border: 0, p: 0, m: 0, minW: 0 })}
-        >
+        <fieldset disabled={request.pending || binding?.pending}>
           <Stack gap="6">
             {/* 신청인 기본 정보 (Submitter's basic information). */}
             <InquiryCustomerInfo />

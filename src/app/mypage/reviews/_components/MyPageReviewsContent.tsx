@@ -66,7 +66,7 @@ export function MyPageReviewDialog({
         buttonProps: { disabled: pending },
       }}
     >
-      <fieldset disabled={pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={pending}>
         <Stack gap="5">
           {error && <Typography role="alert">{error}</Typography>}
           {pending && <Typography role="status">리뷰를 저장하고 있습니다.</Typography>}

@@ -363,7 +363,7 @@ function CouponManager({ coupons, preview }: CouponManagerProps) {
   return (
     <Stack gap="10" px="4" pt="6" pb="16">
       <BindingFeedback pending={request.pending} error={request.error} />
-      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={request.pending}>
         <CouponRegistrationSection
           code={code}
           error={preview === 'error' ? '쿠폰 일련번호를 확인해 주세요.' : error}

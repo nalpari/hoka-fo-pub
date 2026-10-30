@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
@@ -26,7 +25,7 @@ function LoginForm({ showErrors = false }: LoginFormProps) {
 
   return (
     <form onSubmit={(event) => event.preventDefault()} aria-labelledby="login-title" noValidate>
-      <fieldset className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset>
         <Stack gap="4">
           <TextFormField
             variant="boxed"
