@@ -8,6 +8,8 @@ import sourceGraph from './sourceGraph.generated.json';
 
 export type ScreenConnection = {
   route?: string;
+  routeLabel?: string;
+  defaultStateLabel?: string;
   previewRoutes?: { label: string; href: string }[];
   sourceFiles: string[];
   stories: Partial<Record<'web' | 'mobile', { id: string; file: string }>>;
@@ -71,6 +73,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '181': {
     route: '/mypage/orders/preview-cancel-detail',
+    routeLabel: '취소 상세',
     previewRoutes: [{ label: '반품 상세', href: '/mypage/orders/preview-return-detail' }],
     sourceFiles: [
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
@@ -157,6 +160,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '170': {
     route: '/cart',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/cart/preview-empty' }],
     sourceFiles: ['src/app/cart/page.tsx', 'src/app/cart/preview-empty/page.tsx'],
     stories: {
@@ -196,6 +200,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '177': {
     route: '/mypage',
+    defaultStateLabel: '주문 내역 있음',
     previewRoutes: [{ label: '주문 내역 없음', href: '/mypage/preview-no-orders' }],
     sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-no-orders/page.tsx'],
     stories: {
@@ -211,12 +216,8 @@ const connections: Record<number, ScreenConnection> = {
   },
   '178': {
     route: '/mypage/orders',
-    previewRoutes: [
-      { label: '빈 목록', href: '/mypage/orders/preview-empty' },
-      { label: '주문 상세', href: '/mypage/orders/preview-detail' },
-      { label: '취소 상세', href: '/mypage/orders/preview-cancel-detail' },
-      { label: '반품 상세', href: '/mypage/orders/preview-return-detail' },
-    ],
+    defaultStateLabel: '목록 있음',
+    previewRoutes: [{ label: '빈 목록', href: '/mypage/orders/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/orders/page.tsx',
       'src/app/mypage/orders/preview-empty/page.tsx',
@@ -237,11 +238,8 @@ const connections: Record<number, ScreenConnection> = {
   },
   '180': {
     route: '/mypage/returns',
-    previewRoutes: [
-      { label: '빈 목록', href: '/mypage/returns/preview-empty' },
-      { label: '취소 상세', href: '/mypage/orders/preview-cancel-detail' },
-      { label: '반품 상세', href: '/mypage/orders/preview-return-detail' },
-    ],
+    defaultStateLabel: '목록 있음',
+    previewRoutes: [{ label: '빈 목록', href: '/mypage/returns/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/returns/page.tsx',
       'src/app/mypage/returns/preview-empty/page.tsx',
@@ -252,6 +250,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '182': {
     route: '/mypage/wishlist',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/mypage/wishlist/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/wishlist/page.tsx',
@@ -266,6 +265,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '183': {
     route: '/mypage/recent',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/mypage/recent/preview-empty' }],
     sourceFiles: ['src/app/mypage/recent/page.tsx', 'src/app/mypage/recent/preview-empty/page.tsx'],
     stories: {
@@ -277,6 +277,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '184': {
     route: '/mypage/restock-alerts',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/mypage/restock-alerts/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/restock-alerts/page.tsx',
@@ -291,6 +292,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '185': {
     route: '/support/faq',
+    defaultStateLabel: '검색 결과 있음',
     previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
@@ -308,8 +310,9 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '187': {
-    route: '/support/inquiries',
-    previewRoutes: [{ label: '문의 목록 (대기·완료)', href: '/support/inquiries/preview-list' }],
+    route: '/support/inquiries/preview-list',
+    defaultStateLabel: '목록 있음',
+    previewRoutes: [{ label: '없음', href: '/support/inquiries' }],
     sourceFiles: [
       'src/app/support/inquiries/page.tsx',
       'src/app/support/inquiries/preview-list/page.tsx',
@@ -334,7 +337,10 @@ const connections: Record<number, ScreenConnection> = {
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
       { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
-      { label: '조회 내역 없음', href: '/support/inquiries/new/order-products/preview-empty' },
+      {
+        label: '조회 내역 없음',
+        href: '/support/inquiries/new/order-products/preview-empty',
+      },
     ],
     sourceFiles: [
       'src/app/support/inquiries/new/page.tsx',
@@ -397,7 +403,6 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       { label: '등록 오류', href: '/mypage/coupons/preview-error' },
       { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
-      { label: '쿠폰 상세', href: '/mypage/coupons/preview-detail' },
     ],
     sourceFiles: [
       'src/app/mypage/coupons/page.tsx',
@@ -415,6 +420,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '200': {
     route: '/mypage/event-entries',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/mypage/event-entries/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/event-entries/page.tsx',
@@ -425,8 +431,6 @@ const connections: Record<number, ScreenConnection> = {
   '201': {
     route: '/mypage/profile',
     previewRoutes: [
-      { label: '수정', href: '/mypage/profile/preview-edit' },
-      { label: '입력 오류', href: '/mypage/profile/preview-error' },
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
       { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
@@ -448,12 +452,8 @@ const connections: Record<number, ScreenConnection> = {
   },
   '203': {
     route: '/mypage/addresses',
-    previewRoutes: [
-      { label: '빈 목록', href: '/mypage/addresses/preview-empty' },
-      { label: '등록', href: '/mypage/addresses/preview-new' },
-      { label: '수정', href: '/mypage/addresses/preview-edit' },
-      { label: '입력 오류', href: '/mypage/addresses/preview-error' },
-    ],
+    defaultStateLabel: '목록 있음',
+    previewRoutes: [{ label: '빈 목록', href: '/mypage/addresses/preview-empty' }],
     sourceFiles: [
       'src/app/mypage/addresses/page.tsx',
       'src/app/mypage/addresses/preview-empty/page.tsx',
@@ -484,6 +484,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '207': {
     route: '/support/faq',
+    defaultStateLabel: '검색 결과 있음',
     previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
@@ -502,6 +503,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '208': {
     route: '/support/notices',
+    defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/support/notices/preview-empty' }],
     sourceFiles: [
       'src/app/support/notices/page.tsx',
@@ -533,8 +535,9 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '210': {
-    route: '/support/inquiries',
-    previewRoutes: [{ label: '문의 목록 (대기·완료)', href: '/support/inquiries/preview-list' }],
+    route: '/support/inquiries/preview-list',
+    defaultStateLabel: '목록 있음',
+    previewRoutes: [{ label: '없음', href: '/support/inquiries' }],
     sourceFiles: [
       'src/app/support/inquiries/page.tsx',
       'src/app/support/inquiries/preview-list/page.tsx',
@@ -559,7 +562,10 @@ const connections: Record<number, ScreenConnection> = {
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
       { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
-      { label: '조회 내역 없음', href: '/support/inquiries/new/order-products/preview-empty' },
+      {
+        label: '조회 내역 없음',
+        href: '/support/inquiries/new/order-products/preview-empty',
+      },
     ],
     sourceFiles: [
       'src/app/support/inquiries/new/page.tsx',
@@ -813,6 +819,7 @@ const connections: Record<number, ScreenConnection> = {
   },
   '247': {
     route: '/search',
+    defaultStateLabel: '검색 결과 있음',
     previewRoutes: [{ label: '검색 결과 없음', href: '/search/preview-no-results' }],
     sourceFiles: ['src/app/search/page.tsx', 'src/app/search/preview-no-results/page.tsx'],
     stories: {
@@ -974,8 +981,10 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '258': {
-    route: '/running/run-club',
-    previewRoutes: [{ label: '빈 목록', href: '/running/run-club/preview-empty' }],
+    previewRoutes: [
+      { label: '목록 있음', href: '/running/run-club' },
+      { label: '빈 목록', href: '/running/run-club/preview-empty' },
+    ],
     sourceFiles: [
       'src/app/running/run-club/page.tsx',
       'src/app/running/run-club/preview-empty/page.tsx',
@@ -992,8 +1001,8 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '259': {
-    route: '/running/run-club/yeouido-night',
     previewRoutes: [
+      { label: '신청 가능', href: '/running/run-club/yeouido-night' },
       { label: '모집 마감', href: '/running/run-club/bukhansan-trail' },
       { label: '신청 예정', href: '/running/run-club/inwangsan-trail' },
     ],
@@ -1027,6 +1036,7 @@ const connections: Record<number, ScreenConnection> = {
 
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   listing: {
+    defaultStateLabel: '조건 결과 있음',
     previewRoutes: [{ label: '조건 결과 없음', href: '/products/preview-no-results' }],
     sourceFiles: ['src/app/products/page.tsx', 'src/app/products/preview-no-results/page.tsx'],
     stories: {
@@ -1041,8 +1051,12 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
     },
   },
   detail: {
+    defaultStateLabel: '상품문의 있음',
     previewRoutes: [
-      { label: '상품문의 없음', href: '/products/preview-empty-inquiries#product-inquiries' },
+      {
+        label: '상품문의 없음',
+        href: '/products/preview-empty-inquiries#product-inquiries',
+      },
     ],
     sourceFiles: [
       'src/app/products/[id]/page.tsx',

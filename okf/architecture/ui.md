@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T02:04:40Z'
+  at: '2026-10-30T04:58:11Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/screen-index/screenConnections.ts
@@ -3447,3 +3447,45 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## 디자인 가이드 Mono 섹션 제거 (2026-10-30)
 
 사용자 요청으로 `DesignGuideTypography`의 빈 `Typography · Mono` 섹션과 전용 목록·표 스타일을 제거했다. 한영 비교표와 variant 코드 복사 기능은 유지한다. 작업 트리 출처는 `src/components/screen-index/DesignGuideTypography.tsx`다. Storybook Typography 직접 URL에서 한영 비교 제목과 복사 버튼이 표시되고 Mono 제목이 없는 것을 브라우저 DOM으로 확인했다. 변경 파일 ESLint와 Prettier 검사를 통과했다.
+
+## IA 상품 공통 화면과 연결 표 (2026-10-30)
+
+상품 목록·상세는 각각 기존 디자인/퍼블리싱 두 행을 유지하고 중복 WBS·작업 파일을 합쳐 표시한다. 네 상태는 현재 필터 결과의 모든 화면 값이 같으면 공통값, 다르면 혼합이다. null과 값의 차이도 혼합이며 삭제/제외의 진행값은 null로 취급한다. `progressOverrides`는 매 렌더에서 읽어 교체를 즉시 반영한다. 비고는 중복 제거 후 접어서 표시하고 연결 분류 경로를 펼쳐 확인한다. 원본 IA 수와 두 공통 항목으로 묶인 수를 하단에 함께 표시한다.
+
+대분류 행은 기존 그룹과 같은 D1·폴더·분류명·원본 screens 수·대분류 구성을 사용한다. 오른쪽 다섯 칸은 colSpan=5로 합쳐 CAT_MEN, CAT_WOMEN, CAT_SHOES, CAT_COMMON을 나열하며 현재 결과의 분류만 표시한다. 두 공통 항목 뒤, 다음 대분류 전에 연결 메뉴 버튼을 하나만 둔다. 기본 접힘이며 전체 접기·펼치기·검색에 연동한다.
+
+사용자 후속 피드백으로 연결 표는 Depth1·중간 분류·서브 메뉴 경로의 3열 트리로 정리했다. 상품 목록·상세의 동일 메뉴 경로를 합친 86개 메뉴를 Depth1·중간 분류별로 묶고, 각 중간 분류는 한 행에 표시한다. 세부 메뉴는 Best, New, Coming Soon처럼 쉼표로 연결해 td 하나에 모으며 더 깊은 경로의 화살표와 원본 순서를 유지한다. 개별 IA 번호·네 상태·화면 링크·비고는 트리에 반복하지 않는다. 개별 URL·번호·상태는 원본 데이터와 검색·필터 계약에 유지하고, 화면 링크·상태·비고·파일은 공통 항목에서 확인한다. 연속된 동일 Depth1만 중간 분류 행 수에 맞춰 rowSpan으로 병합하고 tbody의 분류 th는 배경색 없이 세로 중앙에 배치하며 경계선을 남긴다. 바깥 표의 7열과 두 행 헤더는 유지한다. 전역 공통 컴포넌트나 상품 서비스·등록 데이터는 변경하지 않는다.
+
+검증: Codex가 앱에서 연결 86/71개, MEN/WOMEN/SHOES/공통 60/60/36/1개, 메뉴명·URL 검색, 검색 자동 펼침·결과 없음·상태 필터·전체 접기·Enter 접기를 확인했다. 최종 3열 트리·86개 중복 제거 메뉴·MEN 33개 메뉴·검색 일치 메뉴 1개, 버튼이 두 요약 항목 뒤에 하나만 배치됨, 기본 접힘·전체 접기·펼치기·Enter 접기 및 분류 th 투명 배경을 DOM으로 확인했다. 이후 대분류 오른쪽 colSpan=5와 CAT 코드 나열 변경은 정적 검사로 확인했다. 앱 375px에서 body 폭 375px와 표 내부 가로 스크롤을 확인했다. Storybook ProductProgress fixture에서 혼합 상태와 props 교체 후 필터 결과·공통 상태 갱신, WEB/Mobile 링크와 개별 listing 인수를 확인했다. Storybook 대표 링크 새 창 열기·경로 복사 피드백과 기존 7열/수정 전 5열 표의 병합도 확인했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성과 기존 상태 테스트 10개를 통과했다. 모바일 스크린샷 캡처는 CDP 타임아웃으로 시각 검증을 완료하지 못했다. 프로덕션 빌드·전체 Storybook play는 실행하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`, `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
+
+후속 요청으로 세부 메뉴별 행을 중간 분류별 한 행·쉼표 나열 셀로 압축했다. 이번 수정은 타입 검사와 변경 파일 ESLint/Prettier로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+
+## IA STATE 하위 행 표시 (2026-10-30)
+
+다수 미리보기 링크를 가로로 나열하던 실제 페이지 셀에서 기본 링크만 남기고 각 미리보기를 화면 바로 아래 STATE 행으로 옮겼다. 원래 화면의 디자인·퍼블리싱 두 행과 WBS·작업 파일은 유지하며 그 다음에 상태 행을 나열한다. STATE는 부모 화면보다 한 단계 들여 쓰고 구분=상태, 화면 코드·진행 상태=-, 비고=화면 상태 미리보기로 표시한다. 자체 IA 번호·확인하지 않은 상태·일정을 생성하지 않는다. 부모 화면의 토글로 상태 행을 숨기고 펼치며 기존 상위 트리 접기와 검색 자동 확장을 따른다. 검색 중 전체 접기는 기존 규칙상 검색 일치 화면을 확장 유지한다. 상태 링크는 기존 경로와 새 창 열기·경로 복사를 유지한다. 미리보기는 개수와 빈 상태 여부에 관계없이 모두 하위 행으로 표시한다. 같은 화면의 STATE 행들은 비고 셀을 행 수만큼 rowSpan으로 합쳐 화면 상태 미리보기를 한 번만 표시한다. 병합은 다른 화면이나 부모의 작업 파일 행까지 확장하지 않는다.
+
+검증: 앱 SUPPORT 필터에서 문의 등록 7개 STATE와 7열 정렬, 부모의 기본 링크만 노출됨, 부모 접기 시 0개·Enter 재확장 시 7개, 첨부 형식 오류 검색을 확인했다. 문의 목록 기본 링크가 preview-list이고 STATE 없음 링크가 /support/inquiries인지, 부모 접기 시 없음 행이 숨겨지는지 DOM으로 확인했다. 타입 검사·변경 파일 ESLint/Prettier와 기존 preview 링크 테스트 3개를 통과했다. 첫 타입 검사 중 다른 채팅의 임시 entry-verification-temp 파일이 제거되어 실패했고 재실행은 통과했다. 이번 변경에 대해 프로덕션 빌드와 Storybook 재검증은 수행하지 않았다. 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/screenConnections.ts`다.
+
+후속 공통 규칙 적용으로 기존 빈 목록·검색 결과 없음 등 고정 빈 상태 연결을 isEmpty=true로 표시하고, 단일 빈 상태도 STATE로 분리했다. STATE 묶음의 비고 rowSpan 변경은 타입·lint/format 및 기존 preview 링크 테스트로 확인하며 해당 병합의 브라우저 재검증은 수행하지 않았다.
+
+STATE 행의 링크 텍스트는 사용자 요청으로 보기로 통일했다. 상태명은 첫 열과 aria-label의 상태명 보기로 유지하고 경로·새 창 열기·복사·rowSpan은 변경하지 않는다. 변경 파일 ESLint/Prettier로 확인했으며 이번 문구 변경은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+추가 요청으로 1~2개 미리보기도 모두 STATE 하위 행으로 표시하도록 통일했다. 이전 개수·isEmpty 분기와 기본 링크 셀의 미리보기 나열 코드는 제거했다. 보기 문구·접기·검색·부모 두 행과 상태 비고 rowSpan은 유지한다. 변경 파일 lint/format·타입 검사와 기존 preview 링크 테스트로 확인하며 이번 변경의 브라우저 재검증은 수행하지 않았다.
+
+STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면의 상태 행 수만큼 각각 rowSpan으로 병합했다. 기존 비고 병합과 7열 정렬을 유지하며 첫 열의 상태명·보기 링크는 행별로 표시한다. 단일 상태는 rowSpan=1이고 병합은 다른 화면·부모의 두 행을 포함하지 않는다. 변경 파일 ESLint/Prettier로 확인하며 이번 병합은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+런클럽 상세 IA 259의 기본 페이지 링크 `/running/run-club/yeouido-night`를 첫 STATE 신청 가능으로 이동했다. 모집 마감·신청 예정과 함께 세 상태를 하위 행에 표시하며 부모 상세의 상태 나열 비고는 screenRegistry에서 제거했다. 기본 route 없이 상태 링크만 있는 부모는 실제 페이지 셀에 -를 표시하고 독립 경로 없음으로 오해시키지 않는다. 보기 링크·비고 및 상태 셀 rowSpan·접기와 Storybook WEB/Mobile 연결, 실제 런클럽 페이지·데이터는 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/data/screenRegistry.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`. 변경 파일 lint/format과 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
+
+런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
+
+
+## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
+
+사용자 정정에 따라 런클럽 목록의 빈 목록 레이블을 복원했다. 요청의 의미는 빈 상태명 변경이 아니라, 빈 STATE만 한 행 있는 화면의 기본 페이지도 대응하는 STATE로 내려 두 상태를 구분하는 것이다. 기존 단일 빈 미리보기 연결 17곳에 `ScreenConnection.defaultStateLabel`을 명시했다. 목록 있음·검색 결과 있음·주문 내역 있음·조건 결과 있음·상품문의 있음처럼 표시 맥락에 맞게 직접 지정하며 런타임에 URL·레이블 문자열로 빈 상태를 추론하지 않는다.
+
+실제 페이지 환경에서 defaultStateLabel과 기본 route가 있고 previewRoutes가 정확히 하나면 그 route를 첫 STATE로 표시하고 부모의 기본 페이지 링크를 숨긴다. canonical route 자체와 기존 빈 상태명·href·검색·Storybook 연결은 유지한다. 여러 상태가 이미 있거나 단일 상태가 오류 등 비어 있지 않은 경우는 기존 구성을 유지한다. 상품 공통 항목에도 같은 표시 규칙을 적용한다. 런클럽은 이미 명시한 목록 있음/빈 목록 상태 두 행을 유지한다. 상태명·보기 링크는 행별, 구분·코드·진행 상태·비고는 같은 화면 내 rowSpan을 유지한다.
+
+검증: 앱에서 주문배송 조회의 부모 링크 0개와 목록 있음/빈 목록 두 STATE, 상품 목록 부모 링크 0개와 필터 URL을 유지한 조건 결과 있음/없음 두 STATE를 확인했다. 첫 상태 행의 병합은 [1,2,2,1,2,2,2]이고 두 번째 행은 상태명·보기 두 셀만 남는다. 비밀번호 재설정은 기본 링크 1개와 입력 오류/변경 완료 두 상태가 유지됨을 확인했다. 런클럽 목록 있음·빈 목록과 상세 신청 가능·모집 마감·신청 예정도 확인했다. 타입·변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트 3개를 통과했다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`.

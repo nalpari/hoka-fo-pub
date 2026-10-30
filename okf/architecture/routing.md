@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:52:56Z'
+  at: '2026-10-30T04:58:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -584,3 +584,48 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 문의 본문·답변 글자 크기 (2026-10-30)
 
 사용자가 기존 작업 트리 변경의 커밋을 요청하여 `src/app/support/inquiries/_components/InquiryListContent.tsx`의 질문 본문과 답변 Typography variant를 `body4`에서 `body3`으로 조정한 변경을 반영했다. route·데이터·대기/완료 상태·접기/펼치기는 그대로이며 기본 문의 목록과 혼합 목록 preview가 같은 표현을 사용한다. 변경 파일 ESLint와 Prettier 검사를 통과했다. 브라우저 시각 검증은 이번 커밋 작업에서 수행하지 않았다. 출처는 사용자 커밋 요청과 해당 파일의 두 Typography 변경이다.
+
+## IA 상품 공통 화면 요약 (2026-10-30)
+
+`/screen-index`는 `eland_hca_01` 86개와 `eland_hca_02` 71개를 상품 목록·상세 두 항목으로 요약한다. 원본 266개 IA와 번호·연결 함수는 유지한다. 상단 NAV의 MEN/WOMEN/SHOES를 상품 공통 화면 157P로 합치고 공통 분류의 검색결과 1개도 이 영역으로 이동한다. 나머지 NAV는 이동한 화면을 제외한 수를 표시하며 14개 영역이다. 상품 탭의 분류 선택으로 MEN 60개, WOMEN 60개, SHOES 36개, 공통 1개를 좁힌다. 일반 화면의 위치·경로는 유지한다.
+
+원본 화면에 검색·상태·분류 조건을 먼저 적용한 뒤 요약하고 결과의 첫 화면을 대표 링크로 사용한다. 상품 목록 URL과 Storybook listing:ia-N 인수는 기존 연결 함수를 사용한다. 최종 UI에서는 두 공통 항목의 대표 화면 링크만 노출하고, 두 항목 뒤의 버튼 하나로 중복 제거한 분류 트리를 확인한다. 중간 분류마다 한 행을 사용하고 세부 메뉴는 셀 하나에 쉼표로 나열한다. 연결 메뉴는 초기 접힘, 검색 시 펼침, 전체 접기·펼치기와 연동한다. IA 번호는 검색·식별에 유지하되 사용자 피드백에 따라 대표 링크와 연결 표에 노출하지 않는다. 표의 공통 상태·파일과 상세 병합 규칙은 [UI 기록](ui.md#ia-상품-공통-화면과-연결-표-2026-10-30)을 참고한다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`, `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
+
+
+## IA 주문·취소반품 링크 정리 (2026-10-30)
+
+사용자 화면 주석에 따라 주문배송 조회 목록(IA 178)과 취소/반품 내역 목록(IA 180)의 취소 상세·반품 상세 preview 링크를 제거했다. 두 목록의 페이지·빈 목록은 유지한다. IA 178의 주문 상세 링크도 후속 요청으로 제거했다. 취소/반품 상세(IA 181)는 기존 취소 상세 route를 유지하고 `ScreenConnection.routeLabel`을 취소 상세로 지정해 일반 페이지 문구를 대신 표시한다. 반품 상세 링크는 유지한다. 생략한 routeLabel은 페이지로 표시하며 Storybook WEB/Mobile 링크 계약과 작업 파일 등록은 변경하지 않는다. 출처는 `src/app/screen-index/screenConnections.ts`와 `src/app/screen-index/_components/IaStructurePage.tsx`다. 이번 수정은 타입 검사·변경 파일 ESLint/Prettier와 기존 preview 링크 검증으로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+배송지 목록(IA 203)의 등록·수정·입력 오류 preview 링크도 사용자 주석에 따라 제거했다. 페이지·빈 목록은 유지하고 등록(IA 204)·수정(IA 205) 행의 페이지와 입력 오류 연결은 유지한다. 작업 파일 등록과 실제 preview 라우트는 삭제하지 않는다.
+
+회원정보 확인 및 수정 상세(IA 201)에서도 수정·입력 오류 preview 링크를 제거했다. 아래 수정 행(IA 202)의 페이지(`/mypage/profile/preview-edit`)·입력 오류 링크를 유지하며 상세 행의 인증번호 입력·인증 만료·비밀번호 변경 완료는 그대로 둔다. sourceFiles·실제 라우트·Storybook 연결은 변경하지 않는다. 변경 파일 ESLint/Prettier와 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+추가 요청으로 주문배송 조회 목록(IA 178)의 주문 상세 preview 링크도 제거했다. 목록은 페이지·빈 목록만 표시하고 아래 상세 행(IA 179)의 기존 상세 연결을 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+쿠폰 목록(IA 196)의 쿠폰 상세 preview 링크도 사용자 요청으로 제거했다. 아래 상세 행(IA 197)의 `/mypage/coupons/preview-detail` 연결과 목록의 페이지·빈 목록·등록 오류·등록 완료 링크는 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+
+## IA 상태 미리보기 하위 행 (2026-10-30)
+
+실제 페이지 환경의 모든 previewRoutes는 개수와 종류에 관계없이 STATE 하위 행으로 표시한다. 부모 화면에는 기본 페이지 링크만 남긴다. 상품 공통 목록·상세도 같은 규칙을 사용한다. 이전의 3개 이상 기준과 isEmpty 플래그는 제거했다. 상태 행은 IA 원본 화면으로 추가하지 않아 전체 화면 수와 상태 데이터·검색 소유권은 유지한다. Storybook 환경은 기존 WEB/Mobile 연결을 유지하며 실제 페이지 경로를 Storybook 호스트에 노출하지 않는다.
+
+1:1 문의 목록 IA 187/210은 대기·완료 항목이 있는 `/support/inquiries/preview-list`를 기본 route로 바꾸고 `/support/inquiries`를 없음 상태로 연결했다. 두 화면의 없음 연결도 공통 규칙에 따라 STATE 하위 행에 표시한다. 실제 문의 페이지·context·fixture·서버 연결과 작업 파일 등록은 변경하지 않았다. 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다.
+
+STATE 행의 링크 텍스트는 사용자 요청으로 보기로 통일했다. 상태명은 첫 열과 aria-label의 상태명 보기로 유지하고 경로·새 창 열기·복사·rowSpan은 변경하지 않는다. 변경 파일 ESLint/Prettier로 확인했으며 이번 문구 변경은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면의 상태 행 수만큼 각각 rowSpan으로 병합했다. 기존 비고 병합과 7열 정렬을 유지하며 첫 열의 상태명·보기 링크는 행별로 표시한다. 단일 상태는 rowSpan=1이고 병합은 다른 화면·부모의 두 행을 포함하지 않는다. 변경 파일 ESLint/Prettier로 확인하며 이번 병합은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+런클럽 상세 IA 259의 기본 페이지 링크 `/running/run-club/yeouido-night`를 첫 STATE 신청 가능으로 이동했다. 모집 마감·신청 예정과 함께 세 상태를 하위 행에 표시하며 부모 상세의 상태 나열 비고는 screenRegistry에서 제거했다. 기본 route 없이 상태 링크만 있는 부모는 실제 페이지 셀에 -를 표시하고 독립 경로 없음으로 오해시키지 않는다. 보기 링크·비고 및 상태 셀 rowSpan·접기와 Storybook WEB/Mobile 연결, 실제 런클럽 페이지·데이터는 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/data/screenRegistry.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`. 변경 파일 lint/format과 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
+
+런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
+
+
+## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
+
+사용자 정정에 따라 런클럽 목록의 빈 목록 레이블을 복원했다. 요청의 의미는 빈 상태명 변경이 아니라, 빈 STATE만 한 행 있는 화면의 기본 페이지도 대응하는 STATE로 내려 두 상태를 구분하는 것이다. 기존 단일 빈 미리보기 연결 17곳에 `ScreenConnection.defaultStateLabel`을 명시했다. 목록 있음·검색 결과 있음·주문 내역 있음·조건 결과 있음·상품문의 있음처럼 표시 맥락에 맞게 직접 지정하며 런타임에 URL·레이블 문자열로 빈 상태를 추론하지 않는다.
+
+실제 페이지 환경에서 defaultStateLabel과 기본 route가 있고 previewRoutes가 정확히 하나면 그 route를 첫 STATE로 표시하고 부모의 기본 페이지 링크를 숨긴다. canonical route 자체와 기존 빈 상태명·href·검색·Storybook 연결은 유지한다. 여러 상태가 이미 있거나 단일 상태가 오류 등 비어 있지 않은 경우는 기존 구성을 유지한다. 상품 공통 항목에도 같은 표시 규칙을 적용한다. 런클럽은 이미 명시한 목록 있음/빈 목록 상태 두 행을 유지한다. 상태명·보기 링크는 행별, 구분·코드·진행 상태·비고는 같은 화면 내 rowSpan을 유지한다.
+
+검증: 앱에서 주문배송 조회의 부모 링크 0개와 목록 있음/빈 목록 두 STATE, 상품 목록 부모 링크 0개와 필터 URL을 유지한 조건 결과 있음/없음 두 STATE를 확인했다. 첫 상태 행의 병합은 [1,2,2,1,2,2,2]이고 두 번째 행은 상태명·보기 두 셀만 남는다. 비밀번호 재설정은 기본 링크 1개와 입력 오류/변경 완료 두 상태가 유지됨을 확인했다. 런클럽 목록 있음·빈 목록과 상세 신청 가능·모집 마감·신청 예정도 확인했다. 타입·변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트 3개를 통과했다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`.
