@@ -7,7 +7,7 @@ import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
@@ -40,23 +40,36 @@ function CouponRegistrationSection({
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="6"
       aria-label="쿠폰 등록"
       title="쿠폰 등록"
       headerProps={{
-        gap: '4',
+        gap: { base: '3', _mobile: '4' },
         titleAs: 'h1',
-        titleProps: { web: 'heading8', mo: 'heading5' },
+        titleProps: { web: 'headingKr6', mo: 'headingKr5' },
         description: (
           <>
-            이벤트를 통해 발급 받은 쿠폰의 일련번호를 입력하십시오. 발급 받으신 쿠폰 일련번호를
-            등록기간 내에 등록 하셔야 사용 가능합니다.
+            이벤트를 통해 발급 받은 쿠폰의 일련번호를 입력하십시오.
+            <br className={css({ _mobile: { display: 'none' } })} />
+            발급 받으신 쿠폰 일련번호를 등록기간 내에 등록 하셔야 사용 가능합니다.
           </>
         ),
-        descriptionProps: { variant: 'body3', tone: 'subtle' },
+        descriptionProps: {
+          variant: 'body3',
+          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+        },
       }}
     >
       <form
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6',
+          alignItems: 'center',
+          py: '8',
+          bg: '#F7F7F9',
+          _mobile: { p: '0', bg: 'transparent' },
+        })}
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
@@ -64,6 +77,7 @@ function CouponRegistrationSection({
         }}
       >
         <TextFormField
+          className={css({ w: '590px', maxW: '100%' })}
           id="coupon-code"
           label="일련번호"
           required
@@ -79,13 +93,16 @@ function CouponRegistrationSection({
             },
           }}
         />
-        {code ? (
-          <Box mt="3">
-            <Button fullWidth type="submit" size="short" variant="primary">
-              쿠폰 등록
-            </Button>
-          </Box>
-        ) : null}
+        <Button
+          fullWidth
+          type="submit"
+          size="tall"
+          density="wide"
+          variant="primary"
+          className={css({ w: '180px', _mobile: { w: '100%' } })}
+        >
+          등록
+        </Button>
       </form>
     </ContentSection>
   );
@@ -107,61 +124,57 @@ type CouponCardProps = {
 
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <ContentSection
+    <Stack
       as="article"
-      border="1px solid var(--colors-black-20)"
       pos="relative"
-      overflow="hidden"
-      css={{
-        borderRight: '12px solid var(--colors-black-100)',
-        _before: {
-          content: '""',
-          pos: 'absolute',
-          right: '-6px',
-          top: '-8px',
-          w: '16px',
-          h: '16px',
-          borderRadius: 'full',
-          bg: 'white',
-        },
-        _after: {
-          content: '""',
-          pos: 'absolute',
-          right: '-6px',
-          bottom: '-8px',
-          w: '16px',
-          h: '16px',
-          borderRadius: 'full',
-          bg: 'white',
-        },
-      }}
-      gap="6"
-      px="4"
-      py="6"
-      title={coupon.name}
-      headerProps={{
-        orientation: 'horizontal',
-        gap: '8px',
-        css: css.raw({ alignItems: 'flex-start' }),
-        titleAs: 'h3',
-        titleProps: { variant: 'heading6' },
-        action: (
-          <Button size="sm" variant="link" onClick={() => onDetails(coupon)}>
-            상세보기
-          </Button>
-        ),
-      }}
+      minW="0"
+      minH="195px"
+      py="8"
+      pl="33px"
+      pr="25px"
+      gap="8"
+      style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
+      backgroundSize="100% 100%"
+      backgroundRepeat="no-repeat"
+      _mobile={{ minH: '170px', py: '25px', gap: '6' }}
     >
+      <HStack gap="2" justifyContent="space-between" alignItems="flex-start">
+        <Typography as="h3" web="headingKr8" mo="headingKr6">
+          {coupon.name}
+        </Typography>
+        <Button
+          size="sm"
+          variant="link"
+          onClick={() => onDetails(coupon)}
+          className={css({ flexShrink: '0', '& span': { fontSize: '12px', fontWeight: '400' } })}
+        >
+          상세보기
+        </Button>
+      </HStack>
       <Stack gap="3">
-        <Typography variant="heading7">{coupon.benefit}</Typography>
-        <Stack gap="1">
+        <HStack gap="0" alignItems="center">
+          <Typography
+            variant="heading7"
+            language="en"
+            weight="medium"
+            className={css({ fontSize: '16px', lineHeight: '1' })}
+          >
+            {coupon.benefit.endsWith('원') ? coupon.benefit.slice(0, -1) : coupon.benefit}
+          </Typography>
+          {coupon.benefit.endsWith('원') ? (
+            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2' })}>
+              원
+            </Typography>
+          ) : null}
+        </HStack>
+        <Stack gap="6px" _mobile={{ gap: '1' }}>
           <Typography variant="body4">{coupon.condition}</Typography>
           <Typography variant="body4" language="en" tone="tertiary">
             {coupon.expiresAt}
           </Typography>
         </Stack>
       </Stack>
-    </ContentSection>
+    </Stack>
   );
 }
 
@@ -187,18 +200,24 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
   return (
     <ContentSection
       as="section"
-      gap="6"
+      gap={{ base: '8', _mobile: '6' }}
       aria-label="쿠폰 내역"
       title="쿠폰 내역"
       headerProps={{
-        titleProps: { web: 'heading8', mo: 'heading5' },
+        gap: { base: '3', _mobile: '4' },
+        titleAs: 'h2',
+        titleProps: { web: 'headingKr7', mo: 'headingKr5' },
         description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
-        descriptionProps: { variant: 'body3', tone: 'subtle' },
+        descriptionProps: {
+          variant: 'body3',
+          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+        },
       }}
       footer={
         (binding ? binding.hasMore : visibleCount < visibleCoupons.length) ? (
           <Button
             fullWidth
+            className={css({ alignSelf: 'center', w: '160px', _mobile: { w: '100%' } })}
             size="short"
             variant="secondary"
             onClick={() => {
@@ -219,47 +238,54 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
         ) : null
       }
     >
-      <BindingFeedback
-        {...binding}
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-      />
-      <SegmentedControl
-        ariaLabel="쿠폰 종류"
-        onValueChange={(value) => {
-          setCategory(value);
-          setVisibleCount(5);
-        }}
-        options={[
-          { value: '전체', label: '전체' },
-          { value: '상품 할인', label: '상품할인' },
-          { value: '배송 할인', label: '배송할인' },
-        ]}
-        variant="underline"
-        value={category}
-      />
-      <Stack gap="2">
-        <HStack justifyContent="flex-end">
-          <HStack gap="0.5">
-            <Typography variant="body4">총</Typography>
-            <Typography variant="body4" weight="medium">
-              {binding?.totalCount ?? visibleCoupons.length}
-              <Typography variant="bodyKr4">건</Typography>
-            </Typography>
+      <Stack gap={{ base: '3', _mobile: '6' }}>
+        <BindingFeedback
+          {...binding}
+          pending={binding?.pending || request.pending}
+          error={binding?.error || request.error}
+        />
+        <SegmentedControl
+          ariaLabel="쿠폰 종류"
+          itemClassName={() => css({ h: '42px', fontWeight: '400', _mobile: { h: '32px' } })}
+          onValueChange={(value) => {
+            setCategory(value);
+            setVisibleCount(5);
+          }}
+          options={[
+            { value: '전체', label: '전체' },
+            { value: '상품 할인', label: '상품할인' },
+            { value: '배송 할인', label: '배송할인' },
+          ]}
+          variant="underline"
+          value={category}
+        />
+        <Stack gap="2">
+          <HStack justifyContent="flex-end">
+            <HStack gap="0.5">
+              <Typography variant="body4">총</Typography>
+              <Typography variant="body4" weight="medium">
+                {binding?.totalCount ?? visibleCoupons.length}
+                <Typography variant="bodyKr4">건</Typography>
+              </Typography>
+            </HStack>
           </HStack>
-        </HStack>
-        {!visibleCoupons.length &&
-        !binding?.pending &&
-        !request.pending &&
-        !binding?.error &&
-        !request.error ? (
-          <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
-        ) : null}
-        <Grid gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }} gap="4">
-          {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
-            <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
-          ))}
-        </Grid>
+          {!visibleCoupons.length &&
+          !binding?.pending &&
+          !request.pending &&
+          !binding?.error &&
+          !request.error ? (
+            <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
+          ) : null}
+          <Grid
+            gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }}
+            gap="4"
+            w="100%"
+          >
+            {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
+              <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
+            ))}
+          </Grid>
+        </Stack>
       </Stack>
     </ContentSection>
   );
@@ -278,6 +304,7 @@ function CouponRegistrationDialog({ open, onOpenChange }: Props) {
       onOpenChange={onOpenChange}
       size="sm"
       title="쿠폰등록"
+      headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--colors-black-20)' } }}
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
       <Typography as="p" variant="body3">
@@ -327,11 +354,11 @@ function EmployeeCoupons() {
       gap="4"
       aria-label="임직원 쿠폰"
       title="임직원 쿠폰"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'headingKr7', mo: 'headingKr5' } }}
     >
       <HStack gap="2">
         {labels.map((label) => (
-          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="black.10">
+          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="#F7F7F9">
             <Typography variant="body3" weight="medium">
               {label}
             </Typography>
@@ -343,13 +370,14 @@ function EmployeeCoupons() {
   );
 }
 
-/** [ 개발팀 바인딩 ] preview는 빈 목록/등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 빈 목록 preview는 운영 목록 조회와 분리합니다. 운영 Empty는 조회 중·실패가 아닌 빈 결과에만 표시하며 현재 items/totalCount를 전달하는 소유자가 응답 갱신과 오래된 응답 폐기를 담당합니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
+/** [ 개발팀 바인딩 ] preview는 빈 목록/등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 빈 목록 preview는 운영 목록 조회와 분리합니다. 운영 Empty는 조회 중·실패가 아닌 빈 결과에만 표시하며 현재 items/totalCount를 전달하는 소유자가 응답 갱신과 오래된 응답 폐기를 담당합니다. 미연결 등록은 성공 모달을 표시하지 않습니다. 일반 회원 fixture에는 임직원 영역이 없으며 employee preview 또는 연결된 employeeCoupons가 있을 때만 표시합니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
 type CouponManagerProps = {
   coupons: CouponItem[];
   preview?: 'error' | 'complete' | 'detail' | 'empty';
+  employee?: boolean;
 };
 
-function CouponManager({ coupons, preview }: CouponManagerProps) {
+function CouponManager({ coupons, preview, employee = false }: CouponManagerProps) {
   const binding = useContext(MyPageDataContext).coupons;
   const request = useRequestAction();
   const [code, setCode] = useState('');
@@ -367,14 +395,15 @@ function CouponManager({ coupons, preview }: CouponManagerProps) {
     }
     setError('');
     void request.run(async () => {
-      if (binding) await binding.register(code.trim());
+      if (!binding) return;
+      await binding.register(code.trim());
       setRegistered(true);
       setCode('');
     });
   }
 
   return (
-    <Stack gap="10" px="4" pt="6" pb="16">
+    <Stack gap="14" _mobile={{ gap: '10' }}>
       <BindingFeedback pending={request.pending} error={request.error} />
       <fieldset disabled={request.pending}>
         <CouponRegistrationSection
@@ -389,7 +418,7 @@ function CouponManager({ coupons, preview }: CouponManagerProps) {
         />
       </fieldset>
 
-      <EmployeeCoupons />
+      {employee || Boolean(binding?.employeeCoupons?.length) ? <EmployeeCoupons /> : null}
 
       <CouponHistorySection
         coupons={coupons}
@@ -410,41 +439,60 @@ function CouponManager({ coupons, preview }: CouponManagerProps) {
 
 const couponSamples: Omit<CouponItem, 'id'>[] = [
   {
+    name: '50% 할인 쿠폰',
+    benefit: '10,000원',
+    condition: '50,000원 이상 구매 시',
+    expiresAt: '2026.09.15 19:49 ~ 2026.10.15 23:59',
+    category: '상품 할인',
+  },
+  {
     name: '신규 회원가입 쿠폰',
     benefit: '10,000원',
     condition: '50,000원 이상 구매 시',
-    expiresAt: '2026.05.19 - 2026.10.15',
+    expiresAt: '2026.09.15 19:49 ~ 2026.10.15 23:59',
     category: '상품 할인',
   },
   {
-    name: '15% 감사 쿠폰',
-    benefit: '5,000원',
-    condition: '온라인, 성인 의류/신발/용품',
-    expiresAt: '2026.05.19 - 2026.10.15',
-    category: '상품 할인',
-  },
-  {
-    name: '생일 쿠폰',
+    name: '30% 할인 쿠폰',
     benefit: '10,000원',
     condition: '50,000원 이상 구매 시',
-    expiresAt: '2026.05.19 - 2026.10.15',
+    expiresAt: '2026.09.15 19:49 ~ 2026.10.15 23:59',
     category: '배송 할인',
   },
 ];
 
+const couponNames = [
+  '50% 할인 쿠폰',
+  '신규 회원가입 쿠폰',
+  '30% 할인 쿠폰',
+  '생일기념 쿠폰',
+  '50% 할인 쿠폰',
+];
+
 const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
   ...couponSamples[index % couponSamples.length],
+  name: couponNames[index % couponNames.length],
   id: `coupon-${index + 1}`,
 }));
 
 /** 보유 쿠폰과 쿠폰 등록 예시 상태를 관리합니다. (Manages owned coupons and the example coupon registration state.) */
-export function RouteContent({ preview }: { preview?: 'error' | 'complete' | 'detail' | 'empty' }) {
+export function RouteContent({
+  preview,
+  employee,
+}: {
+  preview?: 'error' | 'complete' | 'detail' | 'empty';
+  employee?: boolean;
+}) {
   return (
     <MyPageFrame
       activePath="/mypage/coupons"
       breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '쿠폰' }]}
     >
-      <CouponManager coupons={preview === 'empty' ? [] : coupons} preview={preview} />
+      <CouponManager
+        coupons={preview === 'empty' ? [] : coupons}
+        preview={preview}
+        employee={employee}
+      />
     </MyPageFrame>
   );
 }

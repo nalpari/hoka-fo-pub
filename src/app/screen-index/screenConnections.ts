@@ -441,6 +441,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/coupons/preview-detail/page.tsx',
     ],
     stories: {
+      web: {
+        id: 'pages-마이페이지-6-쿠폰-web--coupons',
+        file: 'src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx',
+      },
       mobile: {
         id: 'pages-마이페이지-6-쿠폰-mobile--coupons',
         file: 'src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx',

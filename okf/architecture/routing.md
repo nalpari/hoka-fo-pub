@@ -9,6 +9,11 @@ generated:
   at: '2026-10-30T08:34:43.457833+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - public/images/mypage/coupon.svg
   - src/app/mypage/addresses/_components/AddressStatePreview.tsx
   - src/app/mypage/addresses/_components/AddressManagement.tsx
   - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
@@ -189,6 +194,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: coupons-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
+    title: 쿠폰 일반·임직원 PC/MO 시안
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
     title: 'src/app/layout.tsx'
@@ -697,3 +705,9 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 
 `/mypage/profile`과 `/mypage/profile/preview-edit`는 기존 진입점을 유지한다. 공통 ProfileEditForm이 수정 화면 제목·기본정보·폼을 소유하므로 직접 preview에서도 전체 맥락이 보인다. 새 URL·page export·플랫폼 판단·MyPageFrame은 추가/변경하지 않았다. 기존 인증번호·만료·비밀번호 완료 preview는 기존 컴포넌트를 계속 사용한다. 디자인 [1813:89280](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)과 관련 작업 트리 TSX가 출처이며 PC/모바일 실제 두 경로와 Next.js build를 확인했다.
+
+## 쿠폰 시안과 기존 상태 URL (2026-10-30)
+
+[쿠폰 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)을 /mypage/coupons와 기존 preview-empty·preview-error·preview-complete·preview-detail에 공유 적용했다. 새 라우트는 추가하지 않았다. IA 196의 기본·빈 목록·등록 오류·등록 완료 링크와 IA 197의 상세 URL을 유지하며, IA 196에 PC Storybook pages-마이페이지-6-쿠폰-web--coupons 연결을 추가했다. 기존 Mobile ID를 유지하고 두 플랫폼에 임직원 스토리를 추가했다. sourceGraph.generated.json은 정식 screen-files로 재생성했다.
+
+현재 구현은 src/app/mypage/coupons/_components/CouponManagement.tsx, 기존 상태 page.tsx, src/stories/features/mypage/MyPage.Coupons.{Web,Mobile}.stories.tsx 및 screenConnections.ts 작업 트리다. 화면 진입점과 외부 데이터 연결 소유권은 유지한다. [화면 규격·검증](ui.md#쿠폰-figma-적용-2026-10-30)을 함께 참조한다.

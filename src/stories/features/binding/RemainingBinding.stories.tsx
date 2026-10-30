@@ -308,7 +308,7 @@ export const CouponRetry: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'API-COUPON-1' } });
-    const button = canvas.getByRole('button', { name: '쿠폰 등록' });
+    const button = canvas.getByRole('button', { name: '등록' });
     await userEvent.click(button);
     await expect(button).toBeDisabled();
     await expect(await canvas.findByRole('alert')).toHaveTextContent('쿠폰 등록 실패');

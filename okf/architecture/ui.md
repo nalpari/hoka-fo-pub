@@ -9,6 +9,11 @@ generated:
   at: '2026-10-30T08:57:53.137523+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - public/images/mypage/coupon.svg
   - src/app/mypage/addresses/_components/AddressStatePreview.tsx
   - src/app/mypage/addresses/_components/AddressManagement.tsx
   - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
@@ -799,6 +804,9 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: coupons-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
+    title: 쿠폰 일반·임직원 PC/MO 시안
   - id: recent-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807
     title: '최근 본 상품 PC/MO 목록·빈 목록'
@@ -3802,3 +3810,21 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 저장 연결 story의 실제 브라우저 play도 통과했다. member-api-827의 늦은 원본 데이터 반영, 대기 중 저장 비활성화, 실패 후 runner 이메일 초안 보존, 재시도 성공, changePassword 1회와 전체 프로필 payload를 검증했다. 모달이 배경 폼을 숨기는 동안의 비활성화 검사는 hidden 역할 조회를 명시한다.
 
 저장 연결 스토리의 선별 검증: 첫 커밋 대상과 이번 스토리만 반영한 동일 임시 사본에서 전체 TypeScript 및 추가 스토리의 ESLint를 통과했다. 다른 채팅의 미커밋 소스는 포함하지 않았다.
+
+## 쿠폰 Figma 적용 (2026-10-30)
+
+디자인 출처는 [쿠폰 섹션 1716:80655](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)의 MO 일반 1716:80656·임직원 1716:80770, PC 일반 1716:81489·임직원 1813:88657 및 등록 완료 모달 1716:80896이다. 본문과 카드 하위 노드를 읽고 MO 프레임 이미지도 확인했다. 구현 출처는 위 working_tree_sources의 쿠폰 구현·스토리와 사용자 제공 SVG다.
+
+- 기존 MyPageFrame의 PC 844px 본문·MO 좌우 16px를 재사용하고 중복 패딩을 제거했다. 등록 제목은 PC 36px/900·MO 22px/900, 내역 제목은 PC 28px/900·MO 22px/900이다. 등록/내역 간격은 PC 56px·MO 40px다.
+- 등록 영역은 PC #F7F7F9·상하 32px·입력 필드 590px·버튼 180×48px, MO 투명 배경·가용 폭 입력/48px 버튼이다. 등록 버튼은 빈 입력에서도 표시한다. 설명은 PC에서 두 줄로 나누고 MO에서는 자연스럽게 줄바꿈한다.
+- 쿠폰은 public/images/mypage/coupon.svg를 장식 배경으로 사용한다. PC 2열·가로 414px·최소 높이 195px, MO 1열·375px 프레임 기준 가로 343px·최소 높이 170px, 카드 간격 16px이다. 긴 외부 표시 데이터는 높이가 늘 수 있다. 카드 제목은 PC 22px/900·MO 20px/600, 상세보기 12px, 금액 숫자는 기존 공통 타이포 결정대로 HOKA 16px/500, 원 단위는 Pretendard 16px/600이다. Figma의 숫자 700과 기존 승인 공통 500의 차이는 공통 규칙을 유지했다.
+- 일반 회원 fixture에는 임직원 영역을 노출하지 않는다. 명시적 employee 스토리 또는 MyPageDataContext.coupons.employeeCoupons가 있을 때만 표시한다. 실제 자격·발급 상태 판정은 연결 소유자의 책임이다. 기존 외부 목록·totalCount/hasMore/query/loadMore/register 계약을 유지하며 미연결 등록은 성공으로 전환하지 않는다.
+- 62건·최초 5건 표시와 기존 더보기 계산을 유지해 기본 counter는 1/13이다. 시안에 함께 표기된 62건·1/10을 새 페이지 크기 정책으로 해석하지 않았다. 카드명·일시·금액은 시안 fixture로 갱신했으며 운영 데이터에는 적용하지 않는다.
+
+검증: PC 1920px에서 본문 844px·카드 414px·등록 영역 844×196px, MO 375px에서 등록 버튼 높이 48px·카드 높이 170px를 실측했다. Windows 일반 스크롤바 15px 때문에 실제 clientWidth 360px·카드 328px이며 가용 폭에서 좌우 16px를 유지한다. 앱 공통 배너·헤더와 스크롤바는 디자인 프레임과 구분했다. 실제 글리프는 등록 제목 Pretendard Black·카드 제목 Pretendard SemiBold·금액 숫자 custom font를 확인했다. PC/MO 빈 목록·오류·완료·상세 직접 URL, 종류 선택·더보기 5→10건과 상세 모달 열기/닫기, 기존 CouponRetry 스토리의 실패 후 입력 보존·재시도 성공을 확인했다. 실제 API는 이번 작업에서 연결하지 않았다.
+
+추가 검증: 금액 숫자의 내부 폰트 이름은 `.`로 보고되지만 실제 로드 face `hoka` 500과 Next가 생성한 `TheFutureHOKA_Medium.*.woff2` 및 layout의 TheFutureHOKA-Medium.woff2를 연결해 확인했다. 상세 모달 닫힘 후 상세보기 버튼으로 포커스가 돌아왔다. PC 임직원은 정적 Storybook 빌드에서, MO 임직원은 실행 중 Storybook에서 표시를 확인했다. 현재 Storybook dev의 시작 시 파일 목록에는 새 PC 파일이 없으므로 새 PC 항목은 dev 재시작 후 노출된다. 정적 빌드 index에는 PC/MO 네 스토리가 모두 포함되어 있다.
+
+최종 검사: Next 빌드·Storybook 빌드·TypeScript·Panda·변경 파일 ESLint/Prettier·기존 App Router/IA 그래프 테스트 3개·okf:check 통과. 전체 ESLint는 비대상 FindAccountContent.tsx의 css와 signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 다른 채팅의 소스·OKF·screenConnections/그래프 변경은 유지했으며 커밋/스테이징은 수행하지 않았다.
+
+선별 커밋 검증: 현재 HEAD와 쿠폰 관련 스테이지만 반영한 저장소 밖 임시 사본에서 전체 TypeScript 및 관련 소스 5개 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 공유 작업 트리에서 수행한 기록이며 선별 사본의 검사와 구분한다.
