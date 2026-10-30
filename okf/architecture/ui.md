@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:15:32+00:00'
+  at: '2026-10-30T07:16:35+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/support/store/_components/StoreContent.tsx
@@ -3588,5 +3588,11 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## 공통 D2 국가선택 인계 연결 (2026-10-30)
 
 국가선택(내부 IA 267)은 공통 > D2에 기존 /locales와 PC/MO 스토리를 연결한다. 사용자 직접 확인에 따라 디자인 미해당(not-applicable)·퍼블리싱 완료(ready)를 PC/MO 각각 지정한다. ScreenProgress의 디자인 union과 상태 라벨·필터에 미해당을 추가한다. 기존 미수급·확인 전·퍼블리싱 상태는 유지한다. 출처: src/app/screen-index/storybookLinks.ts, _components/IaStructurePage.tsx와 tests/preview-links.test.mjs. 타입 검사·관련 Node 테스트 16개를 통과했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 비대상 마이페이지 세 화면 삭제 (2026-10-30)
+
+사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

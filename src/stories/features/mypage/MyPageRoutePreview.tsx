@@ -1,11 +1,8 @@
 import AddressesPage from '@/app/mypage/addresses/page';
 import CouponsPage from '@/app/mypage/coupons/page';
-import MemberActivityPage from '@/app/mypage/member-activity/page';
 import OrdersPage from '@/app/mypage/orders/page';
-import PaymentMethodsPage from '@/app/mypage/payment-methods/page';
 import ProfilePage from '@/app/mypage/profile/page';
 import RecentPage from '@/app/mypage/recent/page';
-import ReferralPage from '@/app/mypage/referral/page';
 import RestockAlertsPage from '@/app/mypage/restock-alerts/page';
 import ReturnsPage from '@/app/mypage/returns/page';
 import ReviewsPage from '@/app/mypage/reviews/page';
@@ -19,13 +16,10 @@ const routes = {
   recent: RecentPage,
   rewards: RewardsPage,
   coupons: CouponsPage,
-  referral: ReferralPage,
   profile: ProfilePage,
   reviews: ReviewsPage,
   addresses: AddressesPage,
-  'payment-methods': PaymentMethodsPage,
   'restock-alerts': RestockAlertsPage,
-  'member-activity': MemberActivityPage,
 };
 
 export type MyPageStatusKind = keyof typeof routes;

@@ -19,7 +19,6 @@ import { Button } from '@/components/common/atoms/Button';
 
 import PasswordResetPage from '@/app/login/find-account/password-reset/page';
 import CouponPage from '@/app/mypage/coupons/page';
-import PaymentPage from '@/app/mypage/payment-methods/page';
 import ProfilePage from '@/app/mypage/profile/page';
 import RunningSessionDetailPage from '@/app/running/running-session/[sessionId]/page';
 import SignupInformationPage from '@/app/signup/information/page';
@@ -317,44 +316,6 @@ export const CouponRetry: Story = {
     await userEvent.click(button);
     await waitFor(() => expect(input).toHaveValue(''));
     await expect(registerCoupon).toHaveBeenLastCalledWith('API-COUPON-1');
-  },
-};
-
-const registerPayment = fn<() => Promise<'registered' | 'cancelled'>>();
-
-export const PaymentCancellationAndRetry: Story = {
-  beforeEach: () => {
-    registerPayment
-      .mockReset()
-      .mockResolvedValueOnce('cancelled')
-      .mockRejectedValueOnce(new Error('등록 실패'))
-      .mockResolvedValue('registered');
-  },
-  render: () => (
-    <MyPageDataContext.Provider
-      value={{
-        paymentMethods: {
-          items: [{ id: 'payment-api-1', label: '카드', maskedNumber: '****-1234' }],
-          register: registerPayment,
-        },
-      }}
-    >
-      <PaymentPage />
-    </MyPageDataContext.Provider>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-    const open = () => userEvent.click(canvas.getByRole('button', { name: '결제수단 등록' }));
-    await open();
-    await userEvent.click(within(body.getByRole('dialog')).getByRole('button', { name: '확인' }));
-    await expect(canvas.queryByText('결제수단이 등록되었습니다.')).not.toBeInTheDocument();
-    await open();
-    const dialog = within(body.getByRole('dialog'));
-    await userEvent.click(dialog.getByRole('button', { name: '확인' }));
-    await expect(await dialog.findByRole('alert')).toHaveTextContent('등록 실패');
-    await userEvent.click(dialog.getByRole('button', { name: '확인' }));
-    await expect(await canvas.findByText('결제수단이 등록되었습니다.')).toBeInTheDocument();
   },
 };
 

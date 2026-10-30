@@ -93,7 +93,7 @@ export type ReviewsBinding = {
  * profile.item은 실제 편집 원본입니다. 읽기 전용 마스킹 값과 원본 DTO의 구분/권한 검증은 어댑터에서 처리합니다.
  * histories의 id는 찜/열람/재입고 신청 식별자이며 product.id와 다를 수 있습니다. 변경 콜백에는 행 id가 전달됩니다.
  * coupons는 서버 필터 결과/전체 건수/추가 조회를 받습니다. register 후 보유 목록과 요약 쿠폰 수를 갱신합니다.
- * overview는 대시보드·등급·친구추천에서 공유됩니다. activities는 활동 내역, paymentMethods는 마스킹된 결제수단 목록입니다.
+ * overview는 대시보드·등급에서 공유됩니다. activities/paymentMethods 및 overview의 추천 필드는 기존 외부 연결 타입 호환을 위해 유지하며 해당 전용 화면은 삭제됐습니다.
  * save/remove/setLiked/cancelRestock/register 성공 후 목록 반영 또는 query invalidation까지 연결 함수가 담당합니다. 실패는 reject해 기존 행/초안을 유지합니다.
  */
 export const MyPageDataContext = createContext<{

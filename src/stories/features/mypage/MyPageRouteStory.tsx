@@ -17,12 +17,9 @@ const kinds = [
   'reviews',
   'rewards',
   'coupons',
-  'referral',
   'profile',
   'addresses',
-  'payment-methods',
   'restock-alerts',
-  'member-activity',
 ] satisfies MyPageStatusKind[];
 
 export function createMyPageStory(path: string) {

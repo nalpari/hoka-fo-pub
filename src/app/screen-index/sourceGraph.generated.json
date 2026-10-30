@@ -408,13 +408,6 @@
     "src/app/mypage/event-entries/preview-empty/page.tsx": [
       "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
     ],
-    "src/app/mypage/member-activity/page.tsx": [
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/context/MyPageDataContext.ts"
-    ],
     "src/app/mypage/mypage-home-data.ts": [],
     "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
     "src/app/mypage/orders/preview-cancel-detail/page.tsx": [
@@ -433,17 +426,6 @@
     "src/app/mypage/page.tsx": [
       "src/app/mypage/_components/MyPageContent.tsx",
       "src/context/RoutePreview.tsx"
-    ],
-    "src/app/mypage/payment-methods/page.tsx": [
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/context/MyPageDataContext.ts",
-      "src/hooks/useRequestAction.ts"
     ],
     "src/app/mypage/preview-no-orders/page.tsx": ["src/app/mypage/_components/MyPageContent.tsx"],
     "src/app/mypage/profile/_components/ProfileContent.tsx": [
@@ -499,17 +481,6 @@
     "src/app/mypage/recent/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/recent/preview-empty/page.tsx": [
       "src/components/mypage/MyPageProductHistory.tsx"
-    ],
-    "src/app/mypage/referral/_components/ReferralContent.tsx": [
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/context/MyPageDataContext.ts"
-    ],
-    "src/app/mypage/referral/page.tsx": [
-      "src/app/mypage/referral/_components/ReferralContent.tsx",
-      "src/context/RoutePreview.tsx"
     ],
     "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/restock-alerts/preview-empty/page.tsx": [
@@ -1589,14 +1560,11 @@
     "src/app/mypage/coupons/_components/CouponManagement.tsx",
     "src/app/mypage/coupons/page.tsx",
     "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
-    "src/app/mypage/member-activity/page.tsx",
     "src/app/mypage/mypage-home-data.ts",
     "src/app/mypage/orders/page.tsx",
     "src/app/mypage/page.tsx",
-    "src/app/mypage/payment-methods/page.tsx",
     "src/app/mypage/profile/page.tsx",
     "src/app/mypage/recent/page.tsx",
-    "src/app/mypage/referral/page.tsx",
     "src/app/mypage/restock-alerts/page.tsx",
     "src/app/mypage/returns/page.tsx",
     "src/app/mypage/reviews/page.tsx",
