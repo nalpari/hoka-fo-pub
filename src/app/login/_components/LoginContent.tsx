@@ -104,7 +104,7 @@ function LoginForm({ showErrors = false }: LoginFormProps) {
  */
 export function LoginContent({ showErrors = false }: LoginFormProps) {
   return (
-    <AccountPageLayout pageCss={css.raw({ pb: '124px' })}>
+    <AccountPageLayout>
       <ContentSection
         gap="10"
         title={

@@ -168,7 +168,6 @@ export function FindAccountContent({
       contentLabelledBy="find-account-title"
       pageCss={css.raw({
         px: '4',
-        pb: '124px',
         minH: '600px',
         _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
       })}

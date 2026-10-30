@@ -6,9 +6,13 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T05:19:06Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/layouts/AccountPageLayout.tsx
+  - src/app/login/find-account/_components/FindAccountContent.tsx
+  - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
+  - src/app/login/account-locked/complete/page.tsx
   - src/stories/features/login/LoginPage.scenarios.tsx
   - src/stories/features/cart/CartPage.scenarios.tsx
   - src/app/login/preview-error/page.tsx
@@ -179,6 +183,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 계정 화면 공통 하단 여백 (2026-10-30)
+
+로그인·계정 찾기·비밀번호 재설정·계정 잠금 해제 완료·회원가입 단계와 완료 화면의 데스크톱 하단 여백을 `AccountPageLayout` 기본값 124px로 통일했다. 라우트와 화면 전환은 변경하지 않았다. 모바일 값과 화면별 별도 배치는 유지한다. [공통 레이아웃 기준](ui.md#계정-화면-공통-하단-여백-2026-10-30)을 따른다.
 
 ## 장바구니·로그인 확인 URL 분리 (2026-10-30)
 

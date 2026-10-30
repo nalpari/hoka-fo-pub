@@ -6,11 +6,14 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T04:23:49Z'
+  at: '2026-10-30T05:19:06Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
-  - src/components/common/molecules/HelpTips.tsx
+  - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/login/_components/LoginContent.tsx
+  - src/app/signup/_components/SignupContent.tsx
+  - src/app/signup/complete/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
   - src/app/publishing-guide/_components/HelpTipsGuide.tsx
   - src/app/publishing-guide/page.tsx
   - public/images/icon/tooltip/arrow.svg
@@ -3307,6 +3310,10 @@ MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/mole
 컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
+
+## 계정 화면 공통 하단 여백 (2026-10-30)
+
+사용자 확인에 따라 `AccountPageLayout`의 데스크톱 하단 여백은 로그인·회원가입 화면 모두 124px을 기본으로 사용한다. 로그인과 가입 단계의 중복 `pageCss` 하단 여백을 제거했다. 모바일 기본 하단 여백 8 토큰과 가입 완료 화면의 모바일 124px 예외는 유지한다. 작업 트리 출처: `src/components/common/layouts/AccountPageLayout.tsx`, `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`, `src/app/signup/complete/page.tsx`.
 
 ## AccountPageLayout 공통 레이아웃 경로 복귀 (2026-10-28)
 

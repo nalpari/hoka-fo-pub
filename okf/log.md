@@ -2,6 +2,8 @@
 
 ## 2026-10-30
 
+- 로그인·회원가입 계정 화면의 데스크톱 하단 여백을 공통 `AccountPageLayout`에서 124px로 적용하고 페이지별 중복 값을 정리했다. 모바일 기본 여백과 가입 완료 예외는 유지했다. [UI 기준](architecture/ui.md#계정-화면-공통-하단-여백-2026-10-30), [적용 경로](architecture/routing.md#계정-화면-공통-하단-여백-2026-10-30).
+
 - Figma 기준의 공통 툴팁·토글팁을 추가하고 로그인 아이디 저장 안내를 연결했다. 퍼블리싱 가이드에는 두 유형의 사용 기준과 네 방향 예시·코드 복사를 추가했다. [UI 기준](architecture/ui.md#툴팁토글팁-공통-사용-기준-2026-10-30), [가이드 탭](architecture/routing.md#퍼블리싱-가이드-툴팁토글팁-탭-2026-10-30).
 
 - Form 가이드를 Figma처럼 케이스별 비교로 구성했다. Input Fields 상태·타입, Dropdown Selection 상태, Checkbox·Radio 선택 상태, Dropdown Menu 목록 타입을 나눠 보여주며 기존 다섯 카테고리 범위와 공통 구현 유지 원칙은 그대로다. [범위와 구분](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).

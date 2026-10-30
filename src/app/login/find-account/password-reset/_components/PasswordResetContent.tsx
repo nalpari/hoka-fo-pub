@@ -91,7 +91,6 @@ export function PasswordResetContent({
       contentLabelledBy="password-reset-title"
       pageCss={css.raw({
         px: '4',
-        pb: '124px',
         _mobile: { minH: 'calc(100svh - var(--layout-site-header-height))' },
       })}
       contentCss={css.raw({ display: 'flex', flexDirection: 'column', gap: '0' })}
