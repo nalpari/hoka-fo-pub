@@ -5,6 +5,15 @@
 - ButtonGuide·FormGuide·퍼블리싱 가이드 page의 named import 순서와 그룹 간격을 정리해 남아 있던 8개 오류를 해소했다. 실행 코드·타입 import·스타일·라우트 계약을 유지한다.
 - 전체 `npm run lint`가 통과했다. [UI 변경](architecture/ui.md#퍼블리싱-가이드-import-정렬-2026-10-30), [라우트 영향 검토](architecture/routing.md#퍼블리싱-가이드-import-정렬-검토-2026-10-30).
 
+## 2026-10-30 — 영문 폰트 연결과 타이포·PLP 필터 규격
+
+- 영문 폰트 토큰을 RootLayout의 기존 CSS 변수에 연결하고 Storybook fallback을 유지했다.
+- H9 20px과 H10 16px을 구분하고 기존 16px 사용처·가이드·story를 갱신했다. 두 자리 번호 자동 한글 전환과 모바일 한글 H6 600을 반영했다.
+- PLP 사이즈 기본 32px·상품 옵션 기존 40px을 구분하고 선택 색상 스와치를 외곽 38px·선 1px·내부 32px로 맞췄다. 컨테이너는 기존 1532px을 유지했다.
+- [표현 계약과 검증](architecture/ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30), [라우트 영향 검토](architecture/routing.md#타이포-사용처-이름-변경-검토-2026-10-30), [공통 상태 영향 검토](architecture/state.md#shopshell-타이포-이름-변경-검토-2026-10-30).
+- 변경 파일 lint/format·전체 타입·Panda·최종 Next/Storybook 빌드가 통과했다. 앱/production의 영문 실제 커스텀 폰트와 원본 파일 해시 일치, 명시적 PC/MO 타이포 scale, PC/MO PLP 32px·스와치 38/1/32px·컨테이너 1532px과 상품 옵션 40px 유지를 브라우저에서 확인했다.
+- 최초 전체 lint는 당시 변경 밖 파일의 import 정렬 오류 8개로 실패했다. 이후 위의 import 정렬 작업에서 해소했고 전체 lint가 통과했다.
+
 ## 2026-10-30 — 러닝세션 신청 취소 모달 STATE 추가
 
 - `/mypage/event-entries/preview-cancel`에서 기존 취소 모달을 처음부터 열어 표시한다. 고정 fixture만 사용하고 확인·닫기는 모달만 닫는다.

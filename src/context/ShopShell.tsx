@@ -643,7 +643,7 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
                   <Icon name="navigation/membership" size="16px" alt="" />
                 )}
               </Flex>
-              <Typography variant="heading9">{item.label}</Typography>
+              <Typography variant="heading10">{item.label}</Typography>
             </Link>
           </li>
         ))}
@@ -1029,7 +1029,7 @@ function FooterNavigationWeb() {
         >
           <Typography
             as="h3"
-            variant="heading9"
+            variant="heading10"
             tone="inverse"
             className={FooterNavigationWebStyles.title}
           >
@@ -1056,7 +1056,7 @@ function FooterAccordionNavigation() {
     value: group.title,
     title: (
       <HStack py="5">
-        <Typography variant="heading9" tone="inverse" className={footerAccordionStyles.title}>
+        <Typography variant="heading10" tone="inverse" className={footerAccordionStyles.title}>
           {group.title}
         </Typography>
       </HStack>

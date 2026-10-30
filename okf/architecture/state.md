@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:42:45Z'
+  at: '2026-10-30T05:55:40Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
@@ -201,6 +201,10 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+## ShopShell 타이포 이름 변경 검토 (2026-10-30)
+
+`src/context/ShopShell.tsx`의 기존 16px `heading9` 세 사용처를 `heading10`으로 옮겼다. 표시 크기·기존 타이포 옵션을 보존하고 상태·컨텍스트·요청·탐색·fixture 계약은 변경하지 않았다. 폰트 변수 연결과 크기 매핑은 [공통 UI 기록](ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30)에 설명한다. 작업 트리 출처: `src/context/ShopShell.tsx`.
+
 ## 러닝세션 신청내역의 표시와 정렬 계약 (2026-10-30)
 
 `RunClubEntry`에 선택 필드 `appliedAt`(신청일 표시값)·`canCancel`(서버가 결정한 취소 가능 여부)을 추가했다. 미제공한 기존 호출자는 날짜를 생략하고 `status === '신청완료'`일 때 취소 링크를 표시한다. `entries.onQueryChange`는 기존 category와 선택적인 `sort: 'latest' | 'oldest'`를 받는다. 세션 목록과 상세·신청 계약은 변경하지 않았다.
@@ -216,7 +220,6 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 이번 사용자 요청은 아래 과거 기록의 장바구니 계산/저장 및 로그인 인증 흐름을 대체한다. `/cart`는 `useShop`을 구독하지 않고 고정 `cartPreviewRows`와 합계를 사용한다. 체크/수량/관심/옵션 초안은 화면 로컬 상태만 변경하며 삭제·주문·옵션 저장으로 ShopShell을 변경하지 않는다. 옵션 확인은 닫기만 수행한다.
 
 `/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
-
 
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 
@@ -526,7 +529,6 @@ AccountFlowProvider는 인증 proof/신규·기존 분기/약관 버전별 동�
 MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수단·활동을 추가했다. SupportContent/Inquiry/RunClub/Home 컨텍스트는 실제 결과와 요청 상태를 직접 공급한다. 조회/재조회/DTO 변환·응답 순서는 연결 소유자 책임이고 UI는 성공 후에만 완료 처리한다. 미리보기 컨텍스트에 운영 데이터가 전달된다고 가정하지 않는다. 각 타입의 [개발팀 바인딩] 주석과 [상세 계약](data-binding.md)을 참고한다.
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
-
 
 ## 디자인에 필요한 선택·제출 상태 (2026-10-29)
 

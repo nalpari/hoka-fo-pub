@@ -698,7 +698,7 @@ function MyPageWithdrawalDialog({
         gap="4"
         titleAs="h2"
         title="회원탈퇴를 진행 하시겠습니까?"
-        titleProps={{ variant: 'heading9' }}
+        titleProps={{ variant: 'heading10' }}
         description="탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다."
         descriptionProps={{ variant: 'body3' }}
       />

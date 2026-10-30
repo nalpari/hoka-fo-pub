@@ -191,6 +191,10 @@ sources:
 
 `src/app/publishing-guide/page.tsx`의 atoms/molecules import 그룹과 type binding 순서만 정리했다. 경로·metadata·page export·탭 내용·서버/클라이언트 경계에는 영향이 없다. 전체 `npm run lint`가 통과했다. [UI 기록](ui.md#퍼블리싱-가이드-import-정렬-2026-10-30)을 참고한다.
 
+## 타이포 사용처 이름 변경 검토 (2026-10-30)
+
+상품 상세·결제·회원정보·고객센터의 기존 16px H9 사용처를 H10으로 옮기고 퍼블리싱 가이드의 제목 예시를 H10까지 확장했다. 변경한 라우트의 경로·page exports·서버/클라이언트 경계·preview URL과 상태 소유권은 유지한다. 작업 트리 출처는 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/checkout/_components/CheckoutPayment.tsx`, `CheckoutShipping.tsx`, `CheckoutSummary.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/support/after-sales/_components/AfterSalesContent.tsx`, `src/app/support/inquiries/_components/InquiryListContent.tsx`, `src/app/support/store/_components/StoreContent.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`다. [표현 계약](ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30)을 참고한다.
+
 ## 러닝세션 신청 취소 모달 직접 URL (2026-10-30)
 
 `/mypage/event-entries/preview-cancel`은 기존 `RunClubEntriesContent`의 `preview="cancel"` 옵션으로 고정 목록과 열린 신청 취소 모달을 표시한다. 연결된 Provider와 무관하게 fixture를 사용하고 실제 조회·취소 요청은 실행하지 않는다. 확인·취소·닫기·Escape로 창을 닫을 수 있으며 새로고침하면 다시 열린다. 기본 목록과 기존 Empty URL은 유지한다.
@@ -218,7 +222,6 @@ IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/r
 기존 `/cart`와 `/login`은 서비스 흐름을 제거한 퍼블리싱 기본 화면이다. `/cart/preview-empty`는 빈 장바구니, `/login/preview-error`는 두 필드의 고정 오류를 직접 표시한다. 오류 화면은 기본 로그인과 `LoginContent` 마크업을 공유하고 입력 후에도 오류가 유지된다. 빈 장바구니는 기존 `CartEmptyState`와 공용 제목을 사용한다. IA 170·223의 `previewRoutes`를 화면 목록의 실제 페이지 링크 옆에 노출하며 검색에도 반영한다. 원본 IA 번호와 진행 상태는 변경하지 않는다.
 
 장바구니 page는 고정 데이터와 레이아웃을 조합하고 선택·수량·모달 UI 상태는 기존 `_components`에 둔다. 로그인 전용 RoutePreview 주입과 사용되지 않는 타입 선언·스토리 어댑터는 제거했다. 서비스 API를 추가하지 않았다.
-
 
 ## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
 
@@ -624,7 +627,6 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 
 원본 화면에 검색·상태·분류 조건을 먼저 적용한 뒤 요약하고 결과의 첫 화면을 대표 링크로 사용한다. 상품 목록 URL과 Storybook listing:ia-N 인수는 기존 연결 함수를 사용한다. 최종 UI에서는 두 공통 항목의 대표 화면 링크만 노출하고, 두 항목 뒤의 버튼 하나로 중복 제거한 분류 트리를 확인한다. 중간 분류마다 한 행을 사용하고 세부 메뉴는 셀 하나에 쉼표로 나열한다. 연결 메뉴는 초기 접힘, 검색 시 펼침, 전체 접기·펼치기와 연동한다. IA 번호는 검색·식별에 유지하되 사용자 피드백에 따라 대표 링크와 연결 표에 노출하지 않는다. 표의 공통 상태·파일과 상세 병합 규칙은 [UI 기록](ui.md#ia-상품-공통-화면과-연결-표-2026-10-30)을 참고한다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`, `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
 
-
 ## IA 주문·취소반품 링크 정리 (2026-10-30)
 
 사용자 화면 주석에 따라 주문배송 조회 목록(IA 178)과 취소/반품 내역 목록(IA 180)의 취소 상세·반품 상세 preview 링크를 제거했다. 두 목록의 페이지·빈 목록은 유지한다. IA 178의 주문 상세 링크도 후속 요청으로 제거했다. 취소/반품 상세(IA 181)는 기존 취소 상세 route를 유지하고 `ScreenConnection.routeLabel`을 취소 상세로 지정해 일반 페이지 문구를 대신 표시한다. 반품 상세 링크는 유지한다. 생략한 routeLabel은 페이지로 표시하며 Storybook WEB/Mobile 링크 계약과 작업 파일 등록은 변경하지 않는다. 출처는 `src/app/screen-index/screenConnections.ts`와 `src/app/screen-index/_components/IaStructurePage.tsx`다. 이번 수정은 타입 검사·변경 파일 ESLint/Prettier와 기존 preview 링크 검증으로 확인하며 브라우저 재검증은 수행하지 않았다.
@@ -636,7 +638,6 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 추가 요청으로 주문배송 조회 목록(IA 178)의 주문 상세 preview 링크도 제거했다. 목록은 페이지·빈 목록만 표시하고 아래 상세 행(IA 179)의 기존 상세 연결을 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
 
 쿠폰 목록(IA 196)의 쿠폰 상세 preview 링크도 사용자 요청으로 제거했다. 아래 상세 행(IA 197)의 `/mypage/coupons/preview-detail` 연결과 목록의 페이지·빈 목록·등록 오류·등록 완료 링크는 유지한다. 작업 파일 등록과 실제 상세 라우트는 유지한다. 변경 파일 lint/format 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
-
 
 ## IA 상태 미리보기 하위 행 (2026-10-30)
 
@@ -653,7 +654,6 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
 
 런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
-
 
 ## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
 

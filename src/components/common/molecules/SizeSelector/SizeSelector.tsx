@@ -27,7 +27,7 @@ const pill = cva({
     justifyContent: 'center',
     gap: '1',
     minW: '0',
-    minH: '10',
+    minH: '8',
     px: '0.5',
     border: '1px solid var(--color-black-40)',
     borderRadius: 'full',
@@ -41,6 +41,10 @@ const pill = cva({
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
   },
   variants: {
+    size: {
+      compact: {},
+      regular: { minH: '10' },
+    },
     selected: {
       true: {
         bg: 'var(--color-black-100)',
@@ -81,6 +85,7 @@ export type SizeSelectorProps = {
   ariaLabel: string;
   columns?: number;
   soldOutAppearance?: 'gray' | 'diagonal';
+  size?: 'compact' | 'regular';
 } & (
   | { mode: 'single'; value: string; onValueChange: (value: string) => void }
   | { mode: 'multiple'; value: string[]; onValueChange: (value: string[]) => void }
@@ -96,12 +101,13 @@ const stateLabels: Record<SizeOptionState, string> = {
 /** 네이티브 단일·다중 선택 의미를 유지하는 공통 사이즈 옵션입니다. (Provides shared size options with native single- or multiple-choice semantics.) */
 export function SizeSelector(props: SizeSelectorProps) {
   const field = useFormFieldContext();
-  const { options, ariaLabel, columns = 5, soldOutAppearance = 'gray' } = props;
+  const { options, ariaLabel, columns = 5, soldOutAppearance = 'gray', size = 'compact' } = props;
   const children = options.map(({ value, state = 'available' }) => {
     const disabled = state === 'soldOut' || state === 'unavailable';
     const selected =
       !disabled && (props.mode === 'single' ? props.value === value : props.value.includes(value));
     const className = pill({
+      size,
       selected,
       disabled,
       unavailableAppearance: disabled ? soldOutAppearance : undefined,

@@ -205,7 +205,7 @@ function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: P
       headerProps={{
         orientation: 'horizontal',
         gap: 'normal',
-        titleProps: { variant: 'heading9', className: css({ m: '0' }) },
+        titleProps: { variant: 'heading10', className: css({ m: '0' }) },
         action: (
           <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
             <Typography variant="body5" tone="tertiary">
@@ -640,7 +640,7 @@ function OrderInformationSection({
       gap="0"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading9', mo: 'heading7' },
+        titleProps: { web: 'heading10', mo: 'heading7' },
         css: css.raw({ pb: '3', borderBottom: '1px solid var(--colors-black-100)' }),
       }}
     >

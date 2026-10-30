@@ -356,7 +356,7 @@ export function CheckoutShipping({
       as="section"
       gap="4"
       title="주문자 및 배송지 정보"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading10', mo: 'heading7' } }}
     >
       {editing || !hasSavedAddress ? (
         <CheckoutShippingForm

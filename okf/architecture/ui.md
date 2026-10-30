@@ -9,6 +9,7 @@ generated:
   at: '2026-10-30T06:11:50Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
   - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
@@ -808,6 +809,18 @@ sources:
 
 `ButtonGuide.tsx`, `FormGuide.tsx`, 퍼블리싱 가이드 `page.tsx`의 named import 순서와 atoms/molecules/organisms 그룹 사이 빈 줄을 ESLint 설정에 맞췄다. type-only import·클라이언트 지시문·컴포넌트 동작과 스타일을 유지했다. 전체 `npm run lint`가 오류 없이 통과하여 아래 폰트·필터 작업 당시 남았던 import 정렬 오류 8개를 해소했다. 작업 트리 출처: `src/app/publishing-guide/_components/ButtonGuide.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`, `src/app/publishing-guide/page.tsx`.
 
+## 영문 폰트 연결과 타이포·PLP 필터 규격 (2026-10-30)
+
+Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, sans-serif`를 사용한다. 앱에서는 RootLayout의 기존 `next/font/local` 변수를 읽고, 해당 변수가 없는 Storybook에서는 기존 전용 stylesheet의 `The Future HOKA` face를 사용한다. 폰트 파일·굵기·이탤릭·preload 설정과 fallback 순서는 유지한다.
+
+`heading9`/`headingKr9`는 PC 20px·600, 모바일 16px(영문 500·한글 600)이다. `heading10`/`headingKr10`은 기존 H9의 16px·행간·굵기를 그대로 보존한다. 기존 상품 상세·주문·휴대폰 인증·회원정보·고객센터·ShopShell과 ContentHeader story의 명시적 H9 사용처를 H10으로 옮겼다. 자동 한글 전환은 두 자리 번호도 처리하며 두 가이드와 Typography scale story에 H10을 노출한다. 모바일 한글 H6는 20px·행간 24px을 유지하고 굵기를 600으로 변경했다.
+
+`SizeSelector`의 기본 `size="compact"`는 최소 높이 32px이다. 상품 상세·장바구니는 `ProductSizeSelector`를 통한 간접 사용처가 있으므로 `size="regular"`로 기존 40px을 명시한다. PLP의 선택된 색상 스와치는 외곽 38px·테두리 1px·안쪽 32px이며 미선택 36px과 선택·키보드 동작은 유지한다. 공통 컨테이너는 기존 1532px이다.
+
+작업 트리 출처: `panda.config.ts`, `src/components/common/atoms/Typography.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`, `src/components/common/molecules/SizeSelector/SizeSelector.tsx`, `src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx`, `src/components/catalog/ProductListingPage.tsx`와 H10으로 변경한 기존 사용처.
+
+검증 (2026-10-30, Codex): 변경 TSX/Panda 설정 ESLint·Prettier, 전체 타입 검사, Panda 생성과 최종 Next/Storybook production build를 통과했다. 앱과 production 서버에서 영문 제목의 계산 family가 `hoka`이며 CDP에서 커스텀 폰트의 실제 글리프 사용을 확인했다. 폰트 내부 family/PostScript 이름은 `.`으로 표시되어, 생성된 Regular·Medium·Bold·Black 파일을 제공된 HOKA 원본과 SHA-256으로 대조해 모두 일치함을 확인했다. Storybook의 명시적 PC/MO scale은 기존 `The Future HOKA` 등록으로 렌더링되며 H9 20/16px, H10 16/16px과 한글 H6 36px·900/20px·600·24px 행간을 확인했다. 실제 PLP와 production PLP에서 PC/MO 사이즈 32px·선택 스와치 외곽 38px·선 1px·내부 32px·PC 컨테이너 1532px을 측정했다. 상품 옵션 Detail·Cart story는 모두 기존 40px을 유지했다. 당시 남았던 전체 lint의 import 정렬 오류 8개는 후속 퍼블리싱 가이드 import 정렬 작업에서 해소했다. 라우트·상태·요청 계약 변경은 없다.
+
 ## 상품리뷰 디자인 목록과 STATE (2026-10-30)
 
 사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. 작성 가능 목록에는 표 헤더 없이 구매일/옵션과 PC pill 작성 버튼·MO 텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이며 Empty는 작은 회색 안내를 본문 중앙에 표시한다.
@@ -837,7 +850,6 @@ IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 �
 사용자 요청에 따라 두 화면은 기본 마크업과 고정 상태를 확인하는 인계 방식으로 전환했다. 주문·삭제·옵션 확인·로그인·소셜 로그인은 서비스 동작 없이 표시하며, 주문 액션의 동적 checkout href를 제거했다. 일반 탐색 링크는 유지한다. 장바구니 체크·수량·관심상품과 모달 선택/닫기, 로그인 입력·비밀번호 표시·체크·도움말은 로컬 UI로 유지한다. 고정 단품/행 금액과 합계는 조작으로 재계산하지 않는다.
 
 Storybook은 실제 기본·상태별 라우트를 사용한다. 기존 인증 성공·형식 검증·옵션 저장 시나리오는 입력 유지·고정 오류·금액 고정·저장 없는 모달 닫기 검증으로 대체했다. 품절 표시는 명시적인 fixture의 `soldOut`으로 확인한다. 다른 화면이 사용하는 공통 폼·버튼·상점 계약은 변경하지 않았다. 검증 결과와 시각 대조 한계는 [검증 기록](../development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)을 참고한다.
-
 
 ## 페이지 전용 UI 배치 (2026-10-30)
 
@@ -3498,7 +3510,6 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 
 후속 요청으로 세부 메뉴별 행을 중간 분류별 한 행·쉼표 나열 셀로 압축했다. 이번 수정은 타입 검사와 변경 파일 ESLint/Prettier로 확인하며 브라우저 재검증은 수행하지 않았다.
 
-
 ## IA STATE 하위 행 표시 (2026-10-30)
 
 다수 미리보기 링크를 가로로 나열하던 실제 페이지 셀에서 기본 링크만 남기고 각 미리보기를 화면 바로 아래 STATE 행으로 옮겼다. 원래 화면의 디자인·퍼블리싱 두 행과 WBS·작업 파일은 유지하며 그 다음에 상태 행을 나열한다. STATE는 부모 화면보다 한 단계 들여 쓰고 구분=상태, 화면 코드·진행 상태=-, 비고=화면 상태 미리보기로 표시한다. 자체 IA 번호·확인하지 않은 상태·일정을 생성하지 않는다. 부모 화면의 토글로 상태 행을 숨기고 펼치며 기존 상위 트리 접기와 검색 자동 확장을 따른다. 검색 중 전체 접기는 기존 규칙상 검색 일치 화면을 확장 유지한다. 상태 링크는 기존 경로와 새 창 열기·경로 복사를 유지한다. 미리보기는 개수와 빈 상태 여부에 관계없이 모두 하위 행으로 표시한다. 같은 화면의 STATE 행들은 비고 셀을 행 수만큼 rowSpan으로 합쳐 화면 상태 미리보기를 한 번만 표시한다. 병합은 다른 화면이나 부모의 작업 파일 행까지 확장하지 않는다.
@@ -3518,7 +3529,6 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
 
 런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
-
 
 ## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
 

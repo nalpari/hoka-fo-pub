@@ -86,7 +86,7 @@ function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
             title={store.name}
             headerProps={{
               titleAs: 'h3',
-              titleProps: { variant: 'heading9', weight: 'semibold' },
+              titleProps: { variant: 'heading10', weight: 'semibold' },
             }}
             footer={
               <Box>

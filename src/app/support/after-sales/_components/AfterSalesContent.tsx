@@ -54,7 +54,7 @@ function ShippingReturnsGuidePanel({ title, children }: { title: ReactNode; chil
   return (
     <ContentSection
       title={title}
-      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading9', weight: 'semibold' } }}
+      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading10', weight: 'semibold' } }}
       gap="4"
       px={{ base: '4', _mobile: '2' }}
       pt={{ base: '3', _mobile: '4' }}
@@ -173,7 +173,7 @@ function ProductReturnsPanel() {
       <ContentHeader
         titleAs="h3"
         title={<>상품 반품 절차</>}
-        titleProps={{ variant: 'heading9', weight: 'semibold' }}
+        titleProps={{ variant: 'heading10', weight: 'semibold' }}
       />
       <ShippingReturnsNumberedList items={returnSteps} compact />
     </ShippingReturnsGuidePanel>

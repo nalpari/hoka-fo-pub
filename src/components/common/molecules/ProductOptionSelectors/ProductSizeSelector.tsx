@@ -48,6 +48,7 @@ export function ProductSizeSelector({
   const selector = (
     <SizeSelector
       mode="single"
+      size="regular"
       ariaLabel={appearance === 'cart' ? '사이즈' : '사이즈 선택'}
       columns={appearance === 'cart' ? 4 : 5}
       soldOutAppearance={appearance === 'cart' ? undefined : 'gray'}

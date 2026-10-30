@@ -832,7 +832,7 @@ function ProductDetailEditorial({ features }: { features: readonly ProductEditor
             <ContentHeader
               title={feature.title}
               titleAs="h3"
-              titleProps={{ variant: 'heading9' }}
+              titleProps={{ variant: 'heading10' }}
               description={feature.description}
               descriptionProps={{ variant: 'body4' }}
               gap="2"
@@ -2137,7 +2137,7 @@ function ProductAfterSalesProcess() {
       headerProps={{
         gap: '6',
         titleAs: 'h4',
-        titleProps: { variant: 'heading9' },
+        titleProps: { variant: 'heading10' },
         description: (
           <>
             온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리 일정은
@@ -2254,17 +2254,17 @@ const wrapper = css({
 const items: AccordionEntry[] = [
   {
     value: 'inquiry',
-    title: <Typography variant="heading9">상품 문의</Typography>,
+    title: <Typography variant="heading10">상품 문의</Typography>,
     content: <ProductDetailInquiryContent />,
   },
   {
     value: 'delivery',
-    title: <Typography variant="heading9">배송 및 반품</Typography>,
+    title: <Typography variant="heading10">배송 및 반품</Typography>,
     content: <ProductDetailDeliveryContent />,
   },
   {
     value: 'after-sales',
-    title: <Typography variant="heading9">A/S 안내</Typography>,
+    title: <Typography variant="heading10">A/S 안내</Typography>,
     content: <ProductDetailAfterSalesContent />,
   },
 ];

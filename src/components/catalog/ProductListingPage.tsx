@@ -268,7 +268,9 @@ const outer = css({
   h: '9',
   bg: 'var(--color-white-000)',
   '&:has([role="checkbox"][data-checked])': {
-    outline: '2px solid var(--color-black-100)',
+    w: '38px',
+    h: '38px',
+    border: '1px solid var(--color-black-100)',
     '& [data-swatch]': { w: '8', h: '8' },
   },
 });

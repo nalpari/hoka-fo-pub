@@ -468,7 +468,7 @@ export const ApprovedScale: Story = {
         <PlatformProvider key={String(mobile)} platform={mobile ? 'mobile' : 'web'}>
           <div className={mobile ? 'platform-mobile' : undefined}>
             <h2>{mobile ? 'Compact' : 'Wide'}</h2>
-            {Array.from({ length: 9 }, (_, i) => (
+            {Array.from({ length: 10 }, (_, i) => (
               <div key={i} style={{ marginBottom: 16 }}>
                 <Typography variant={`heading${i + 1}` as 'heading1'}>H{i + 1} HOKA</Typography>
                 <br />

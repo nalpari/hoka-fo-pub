@@ -29,7 +29,7 @@ const groups: readonly {
     id: 'typography-heading-en',
     title: '영문 헤딩',
     description: '영문 제목 계층',
-    examples: Array.from({ length: 9 }, (_, index) => ({
+    examples: Array.from({ length: 10 }, (_, index) => ({
       variant: `heading${index + 1}` as TypographyVariant,
       text: `Heading ${index + 1}`,
     })),
@@ -38,7 +38,7 @@ const groups: readonly {
     id: 'typography-heading-ko',
     title: '한글 헤딩',
     description: '한글 제목 계층',
-    examples: Array.from({ length: 9 }, (_, index) => ({
+    examples: Array.from({ length: 10 }, (_, index) => ({
       variant: `headingKr${index + 1}` as TypographyVariant,
       text: `한글 헤딩 ${index + 1}`,
     })),

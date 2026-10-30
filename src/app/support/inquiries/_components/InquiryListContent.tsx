@@ -78,7 +78,7 @@ function InquiryQuestion({ item }: Props) {
           >
             {item.answered ? '답변완료' : '접수완료'}
           </Badge>
-          <Typography variant="headingKr9" tone="primary">
+          <Typography variant="headingKr10" tone="primary">
             {item.title}
           </Typography>
         </Box>
