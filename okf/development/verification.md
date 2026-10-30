@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:34:17+00:00'
+  at: '2026-10-30T06:37:47+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -452,5 +452,11 @@ preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실
 ## 러닝 세션 경로 이전 정적 검사 (2026-10-30)
 
 preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통과했다. 기존 Next 생성 타입이 이전 run-club 경로를 참조하여 첫 타입 검사는 실패했으며 라우트 타입 재생성 후 재검사한다. 브라우저·빌드 결과는 후속 검증에서 별도 기록한다. 출처: tests/preview-links.test.mjs, tests/screen-progress.test.mjs, tests/screen-files.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## Featured 하위 러닝 세션 계층 정정 (2026-10-30)
+
+사용자 후속 확인에 따라 독립 D2 Running Session 묶음을 제거했다. IA 155·258·259는 모두 EXPLORE > Featured > Running Session에 속하며 기존 목록·상세 번호와 상태 링크는 유지한다. 목록·상세 상태 행은 D4에 배치하고 페이지 연결은 D3 Running Session에서 제공한다. tests/preview-links.test.mjs는 세 IA의 D1~D3 일치와 독립 D2 부재를 검사한다. 출처: src/data/screenRegistry.ts, tests/preview-links.test.mjs.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

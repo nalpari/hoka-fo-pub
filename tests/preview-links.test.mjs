@@ -53,6 +53,14 @@ test('Featured owns Running Session while UTMB remains a menu-only source IA', (
   assert.equal(getScreenConnection(utmb).route, undefined);
   assert.deepEqual(getScreenConnection(utmb).sourceFiles, []);
   assert.deepEqual(getScreenConnection(utmb).stories, {});
+  for (const number of [155, 258, 259]) {
+    assert.deepEqual(screens.find((screen) => screen.iaNumber === number).depths.slice(0, 3), [
+      'EXPLORE',
+      'Featured',
+      'Running Session',
+    ]);
+  }
+  assert.ok(!screens.some((screen) => screen.depths[1] === 'Running Session'));
 });
 
 function files(directory) {

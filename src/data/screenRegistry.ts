@@ -30,14 +30,14 @@ type RawScreenDefinition = [
 const rawScreens: RawScreenDefinition[] = [
   [
     258,
-    ['EXPLORE', 'Running Session', '목록', '', ''],
+    ['EXPLORE', 'Featured', 'Running Session', '목록', ''],
     'page',
     '1',
     false,
     '',
     '신규 러닝세션 모집 목록',
   ],
-  [259, ['EXPLORE', 'Running Session', '상세', '', ''], 'page', '1', false, '', ''],
+  [259, ['EXPLORE', 'Featured', 'Running Session', '상세', ''], 'page', '1', false, '', ''],
   [1, ['Main', '', '', '', ''], 'page', '1', false, 'eland_hma_01', ''],
   [2, ['', 'Pop-up', '', '', ''], 'popup', '1', false, 'eland_hma_02', ''],
   [3, ['MEN', 'Featured', 'Best', '목록', ''], 'page', '1', false, 'eland_hca_01', ''],
@@ -633,9 +633,7 @@ function mergeSourceScreens(): ScreenDefinition[] {
       sourceNote: source.note,
       // 최종 GNB 순서와 명칭은 보존하고 나머지 계층은 원본을 반영합니다.
       depths:
-        screen.iaNumber <= 152
-          ? screen.depths
-          : (source.depths as ScreenDefinition['depths']),
+        screen.iaNumber <= 152 ? screen.depths : (source.depths as ScreenDefinition['depths']),
       category: source.category as ScreenCategory,
       page: source.page,
       requiresLogin: source.requiresLogin,
