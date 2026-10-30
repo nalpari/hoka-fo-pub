@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 러닝세션 신청내역 Figma 실측 보정
+
+/mypage/event-entries의 PC/MO 탭·간격·목록 타이포·배지·취소 위치·모달과 사진 3종을 지정 섹션에 맞췄다. 기존 URL·공통 프레임·서비스 계약을 유지했다. [표현과 실제 검증](architecture/ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [라우팅](architecture/routing.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [상태 경계](architecture/state.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)에 출처와 비대상 타입 오류·manifest 부재를 기록했다.
+
 ## 2026-10-30 — 상품리뷰 PC/MO Figma 실측과 상태명 반영
 
 `/mypage/reviews`·`/preview-written`·`/preview-empty`의 탭 42/32px·도구 간격·작성한 리뷰 표/모바일 카드·별점·빈 상태를 지정된 Figma 섹션에 맞췄다. 작성 목록 preview의 MO 총 2건/더보기 없음은 명시적 fixture로 구분하며 기본 데이터·조회/저장 계약은 유지한다. IA 191의 상태명 세 개와 리뷰 story 명칭을 정정했다. [표현/검증](architecture/ui.md#상품리뷰-디자인-목록과-state-2026-10-30), [URL 연결](architecture/routing.md#상품리뷰-디자인의-직접-상태-url-2026-10-30)에 출처·실제 검사와 전체 lint의 비대상 오류를 기록했다.

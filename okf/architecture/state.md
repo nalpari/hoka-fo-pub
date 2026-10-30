@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-10-30T08:21:19.889Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
@@ -200,6 +201,12 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture 사진 3종을 지정 시안의 마스크 크롭으로 교체하고 세 번째 제목의 문장부호를 시안에 맞췄다. 3건·총 62건·1/10은 준비된 표시 데이터이며 운영 응답·조회 조건·취소 ID·pending/실패/재시도·갱신 책임은 기존 RunningSessionDataContext 계약을 유지한다. Context·서비스 구현은 변경하지 않았다. 비연결 취소 확인은 창만 닫고 목록 3건을 유지한다. 이번 변경은 바인딩 경계를 바꾸지 않으므로 비동기 서비스 시나리오를 다시 검증한 것으로 기록하지 않는다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
 
 ## ShopShell 타이포 이름 변경 검토 (2026-10-30)
 

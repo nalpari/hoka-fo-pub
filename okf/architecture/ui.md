@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:48:26Z'
+  at: '2026-10-30T08:21:19.889Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/mypage/_components/MyPageContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
   - src/app/login/account-locked/complete/page.tsx
@@ -828,6 +830,16 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+지정 섹션의 PC/MO 실측을 기존 소유자에 적용했다. 제목은 기존 36px/900·22px/900, 목록 제목은 PC headingKr8 22px/900·MO headingKr6 20px/600, 상세/날짜는 body3/body4 16px/14px와 4px 날짜 간격, 날짜색은 subtle(#4D4D4D)이다. 제목 뒤 간격 40/32px, 탭 높이 40/32px, 탭 아래 간격 40/24px, 행 padding 32/24px, 제목 행 28px·상세 간격 16px, 배지 padding 6px 8px를 적용했다. PC 취소 링크를 정보 우측 하단으로 옮기고 MO 다음 행 우측을 유지하며 link md(14px)를 사용한다. 96px 정사각 마스크 3종을 2배 PNG로 내보내 fixture에서만 사용하며 next/image sizes=96px를 유지한다. 모달은 기존 공통 Dialog를 사용하고 해당 화면에서 헤더 제목 높이·본문 padding·확인 문구를 보정했다.
+
+브라우저에서 PC clientWidth 1920px의 844px 본문·96px 이미지, MO clientWidth 375px 및 360px의 표시와 document 가로 넘침 없음을 확인했다. MO 360px에서는 날짜가 자연 줄바꿈한다. PC 실제 글리프는 Pretendard Black/Regular이며 앱 layout의 로컬 face를 사용한다. 탭 신청완료 1건/전체 복귀, 정렬 과거순, 모달 Escape 닫기·취소 버튼 포커스 복귀, Empty 직접 URL의 0건, 취소 preview 직접 URL과 확인 후 목록 3건 유지도 확인했다. 런타임 홍보 배너 50px·Figma iPhone status bar·브라우저 세로 scrollbar 차이는 본문 구현과 구분한다. 공통 플랫폼·Storybook·실제 API는 변경하지 않았으며 별도 서비스 검증은 하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성은 통과했다. 전체 typecheck는 비대상 AddressManagement.tsx의 Button union, ProductCard.tsx의 history variant, MyPageProductHistory.tsx의 secondary tone 오류로 실패했다. app-router 기존 검사는 production .next/server/app-paths-manifest.json 부재로 실행 실패했다. production/Storybook build는 이번에 수행하지 않았다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
 
 ## 마이페이지 메인 디자인 반영 (2026-10-30)
 

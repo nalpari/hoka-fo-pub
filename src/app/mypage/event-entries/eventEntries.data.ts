@@ -10,6 +10,7 @@ export const eventEntryPreview = {
       id: 'preview-entry-bukhansan',
       session: {
         ...runningSessionSessions[2],
+        image: '/images/mypage/event-entries/entry-trail.png',
         title: '북악산 트레일 세션',
         location: '북한산 국립공원',
         distance: '10KM',
@@ -23,6 +24,7 @@ export const eventEntryPreview = {
       id: 'preview-entry-marathon',
       session: {
         ...runningSessionSessions[1],
+        image: '/images/mypage/event-entries/entry-marathon.png',
         title: '호카와 함께한 2025 서울마라톤',
         location: '북한산 국립공원',
         distance: '40KM',
@@ -36,8 +38,8 @@ export const eventEntryPreview = {
       id: 'preview-entry-jeju',
       session: {
         ...runningSessionSessions[0],
-        image: 'session-card-08.png',
-        title: '파리에서 제주까지, 함께 달리는 발걸음',
+        image: '/images/mypage/event-entries/entry-jeju.png',
+        title: '파리에서 제주까지. 함께 달리는 발걸음',
         location: '북한산 국립공원',
         distance: '20KM',
         schedule: '2026.11.10(금) 19:30~21:30',

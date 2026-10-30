@@ -6,9 +6,10 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:48:26Z'
+  at: '2026-10-30T08:21:19.889Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/_components/MyPageContent.tsx
   - src/components/mypage/MyPageFrame.tsx
   - src/app/login/find-account/page.tsx
@@ -195,6 +196,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+기본 /mypage/event-entries와 preview-empty·preview-cancel은 기존 RunningSessionEntriesContent를 공유한다. URL·App Router 경계·IA 200·공통 MyPageFrame·GNB·footer는 유지하며 route-private 목록과 모달 스타일 및 표시 fixture만 보정했다. PC 본문 844px, 이미지 96px, 취소 링크는 상세 정보 우측 하단이며 MO에서는 다음 행 우측이다. [디자인 값과 검증](ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)을 참고한다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
 
 ## 화면 연결 그래프 최신화 (2026-10-30)
 

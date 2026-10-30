@@ -4,12 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useContext, useState } from 'react';
-import { RunningSessionDataContext, type RunningSessionEntry } from '@/context/RunningSessionDataContext';
+import {
+  RunningSessionDataContext,
+  type RunningSessionEntry,
+} from '@/context/RunningSessionDataContext';
 import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
@@ -69,7 +72,7 @@ export function RunningSessionEntriesContent({
       breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '러닝세션 신청내역' }]}
     >
       <Stack gap="0" minW="0">
-        <Box mb="10" _mobile={{ mb: '6' }}>
+        <Box mb="10" _mobile={{ mb: '8' }}>
           <Typography as="h1" web="headingKr6" mo="headingKr5">
             러닝세션 신청내역
           </Typography>
@@ -79,14 +82,17 @@ export function RunningSessionEntriesContent({
           variant="underline"
           value={category}
           onValueChange={setCategory}
-          className={css({ '& > button': { minH: '48px', _mobile: { minH: '40px' } } })}
+          className={css({
+            mb: '10',
+            _mobile: { mb: '6' },
+            '& > button': { minH: '40px', _mobile: { minH: '32px', fontSize: '14px' } },
+          })}
           options={['전체', '신청완료', '취소'].map((value) => ({ value, label: value }))}
         />
         <HStack
           justifyContent="space-between"
-          minH="72px"
+          pb="4"
           borderBottom="1px solid var(--color-black-100)"
-          _mobile={{ minH: '60px' }}
         >
           <Dropdown
             ariaLabel="신청일 정렬"
@@ -96,9 +102,18 @@ export function RunningSessionEntriesContent({
               { value: 'latest', label: '최신순' },
               { value: 'oldest', label: '과거순' },
             ]}
-            indicator={<Icon fontAwesomeIcon={faChevronDown} size="12px" />}
+            indicator={<Icon fontAwesomeIcon={faChevronDown} size="14px" />}
             className={css({
-              '&&': { w: '88px', px: '0', boxShadow: 'none', whiteSpace: 'nowrap' },
+              '&&': {
+                w: 'auto',
+                minH: '20px',
+                h: '20px',
+                py: '0',
+                gap: '2',
+                px: '0',
+                boxShadow: 'none',
+                whiteSpace: 'nowrap',
+              },
               '&&[data-popup-open]': { boxShadow: 'none' },
             })}
           />
@@ -118,9 +133,9 @@ export function RunningSessionEntriesContent({
               gap="4"
               py="8"
               borderBottom="1px solid var(--color-black-20)"
-              _mobile={{ gap: '3', py: '6' }}
+              _mobile={{ py: '6' }}
             >
-              <HStack justifyContent="space-between" alignItems="flex-start" gap="3">
+              <HStack justifyContent="space-between" h="7" gap="3">
                 <Link
                   href={`/running/running-session/${entry.session.id}`}
                   className={css({ minW: '0', flex: '1' })}
@@ -128,7 +143,7 @@ export function RunningSessionEntriesContent({
                   <Typography
                     as="h2"
                     web="headingKr8"
-                    mo="headingKr8"
+                    mo="headingKr6"
                     className={css({
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -138,56 +153,67 @@ export function RunningSessionEntriesContent({
                     {entry.session.title}
                   </Typography>
                 </Link>
-                <Box bg="black.20" borderRadius="full" px="2" py="1" flexShrink="0">
-                  <Typography variant="body5" tone="tertiary">
+                <Box bg="black.20" borderRadius="full" px="2" py="6px" flexShrink="0">
+                  <Typography
+                    as="p"
+                    variant="body5"
+                    tone={entry.status === '신청완료' ? 'primary' : 'tertiary'}
+                  >
                     {entry.status === '취소' ? '신청취소' : entry.status}
                   </Typography>
                 </Box>
               </HStack>
-              <HStack alignItems="stretch" gap="4">
-                <Box position="relative" w="96px" h="96px" flexShrink="0">
-                  <Image
-                    src={runningSessionImage(entry.session.image)}
-                    alt=""
-                    fill
-                    sizes="96px"
-                    className={css({ objectFit: 'cover' })}
-                  />
-                </Box>
-                <Stack gap="2" minW="0" flex="1">
-                  <HStack gap="2" flexWrap="wrap">
-                    <Typography variant="body4" weight="medium">
-                      {entry.session.location}
-                    </Typography>
-                    <Box w="1px" h="12px" bg="black.40" aria-hidden="true" />
-                    <Typography variant="body4" weight="medium">
-                      {entry.session.distance}
-                    </Typography>
-                  </HStack>
-                  <Stack gap="0">
-                    {entry.appliedAt ? (
-                      <Typography web="body4" mo="body5" tone="tertiary">
-                        신청일 : {entry.appliedAt}
+              <Grid
+                gridTemplateColumns="minmax(0, 1fr) auto"
+                gap="3"
+                alignItems="end"
+                _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
+              >
+                <HStack alignItems="stretch" gap="4" minW="0">
+                  <Box position="relative" w="96px" h="96px" flexShrink="0">
+                    <Image
+                      src={runningSessionImage(entry.session.image)}
+                      alt=""
+                      fill
+                      sizes="96px"
+                      className={css({ objectFit: 'cover' })}
+                    />
+                  </Box>
+                  <Stack gap="3" minW="0" flex="1" _mobile={{ gap: '2' }}>
+                    <HStack gap="6px" flexWrap="wrap">
+                      <Typography web="body3" mo="body4">
+                        {entry.session.location}
                       </Typography>
-                    ) : null}
-                    <Typography web="body4" mo="body5" tone="tertiary">
-                      진행일시 : {entry.session.schedule}
-                    </Typography>
+                      <Box w="1px" h="10px" bg="black.40" aria-hidden="true" />
+                      <Typography web="body3" mo="body4">
+                        {entry.session.distance}
+                      </Typography>
+                    </HStack>
+                    <Stack gap="1">
+                      {entry.appliedAt ? (
+                        <Typography web="body3" mo="body4" tone="subtle">
+                          신청일 : {entry.appliedAt}
+                        </Typography>
+                      ) : null}
+                      <Typography web="body3" mo="body4" tone="subtle">
+                        진행일시 : {entry.session.schedule}
+                      </Typography>
+                    </Stack>
                   </Stack>
-                </Stack>
-              </HStack>
-              {(entry.canCancel ?? entry.status === '신청완료') ? (
-                <Box alignSelf="flex-end">
-                  <Button
-                    variant="link"
-                    size="sm"
-                    onClick={() => setSelected(entry.id)}
-                    disabled={Boolean(binding && !cancelEntry)}
-                  >
-                    신청 취소
-                  </Button>
-                </Box>
-              ) : null}
+                </HStack>
+                {(entry.canCancel ?? entry.status === '신청완료') ? (
+                  <Box justifySelf="end">
+                    <Button
+                      variant="link"
+                      size="md"
+                      onClick={() => setSelected(entry.id)}
+                      disabled={Boolean(binding && !cancelEntry)}
+                    >
+                      신청 취소
+                    </Button>
+                  </Box>
+                ) : null}
+              </Grid>
             </Stack>
           ))}
         </Stack>
@@ -240,6 +266,10 @@ export function RunningSessionEntriesContent({
         closeLabel="신청 취소 닫기"
         size="sm"
         headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--color-black-20)' } }}
+        popupClassName={css({
+          '& > header h2': { h: 'auto' },
+          '& > div': { p: '6', _mobile: { px: '4' } },
+        })}
         actions={{
           kind: 'confirm',
           confirmDisabled: request.pending,
@@ -259,7 +289,7 @@ export function RunningSessionEntriesContent({
         }}
       >
         <Stack gap="4">
-          <Typography variant="body3">신청을 취소하시겠습니까?</Typography>
+          <Typography variant="body3">신청을 취소 하시겠습니까?</Typography>
           <BindingFeedback pending={request.pending} error={request.error} />
         </Stack>
       </ModalDialog>
