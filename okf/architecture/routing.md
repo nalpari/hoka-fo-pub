@@ -692,3 +692,9 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 사용자 브라우저 확인에 따라 목록(258)·상세(259)의 원본 배열 순서도 D3 Featured > Running Session(155) 바로 뒤로 이동했다. 계층 값뿐 아니라 실제 렌더 순서를 맞추며 독립 D2와 D3 앞쪽의 하위 행을 남기지 않는다. UTMB 비고의 러닝 세션 연결 설명 문장은 삭제했다. preview 링크 테스트는 155 바로 다음 행이 258·259인지 함께 검사한다. 출처: src/data/screenRegistry.ts와 tests/preview-links.test.mjs.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 환불계좌와 기획전 목업 제거 (2026-10-30)
+
+환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

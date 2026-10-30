@@ -23,7 +23,6 @@ const kinds = [
   'payment-methods',
   'restock-alerts',
   'member-activity',
-  'refund-account',
 ] satisfies MyPageStatusKind[];
 
 export function createMyPageStory(path: string) {

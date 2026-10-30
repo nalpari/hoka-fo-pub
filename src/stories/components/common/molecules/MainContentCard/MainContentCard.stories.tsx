@@ -45,7 +45,6 @@ export const Overlay: Story = {
     description: '도시와 트레일을 위한 새로운 러닝 컬렉션입니다.',
     actions: [
       { label: '상품 바로가기', to: '/products' },
-      { label: '컬렉션 보기', to: '/collection', variant: 'secondary' },
     ],
   },
 };
