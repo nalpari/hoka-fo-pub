@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T01:52:56Z'
 source_revision: 27b7e2f5b2c5e21681af53df27a535f3f13aa170
 working_tree_sources:
+  - src/app/products/preview-empty-inquiries/page.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/screen-index/storybookLinks.ts
   - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
   - src/app/support/notices/preview-empty/page.tsx
@@ -70,7 +72,7 @@ working_tree_sources:
 | `/signup/information`                   | `/preview-error`, `/preview-marketing-consent`                                                                                   | 237·256                  |
 | 공통                                    | `/preview-not-found`                                                                                                             | 248                      |
 
-상품문의 preview는 전체 상품을 가공해 만든 화면이 아니라 기존 상품문의 영역의 빈 상태를 직접 표시한다. 별도 상품 ID나 서비스 계약을 만들어내지 않는다. 리뷰 Empty 두 URL은 초기 선택 탭을 구분하고 양쪽 목록을 모두 빈 데이터로 유지한다. 취소·반품 Empty는 기존 주문 목록의 빈 상태 표현을 재사용하며 새 안내 문구를 만들지 않았다.
+상품문의 preview는 기존 shoe-1 fixture의 전체 상품 상세를 재사용하고 문의 영역만 빈 상태로 표시한다. PC는 본문, 모바일은 열린 상품문의 아코디언에서 확인한다. `/products/preview-empty-inquiries#product-inquiries`로 해당 영역에 이동하며 기본 상품 상세의 문의 목록은 유지한다. 별도 상품 ID나 서비스 계약을 만들어내지 않는다. 리뷰 Empty 두 URL은 초기 선택 탭을 구분하고 양쪽 목록을 모두 빈 데이터로 유지한다. 취소·반품 Empty는 기존 주문 목록의 빈 상태 표현을 재사용하며 새 안내 문구를 만들지 않았다.
 
 ## 기존 URL 재사용
 
@@ -128,3 +130,11 @@ IA 158은 사용자 확인에 따라 표시명을 ‘러닝 세션 신청’, PC
 중복 보조 링크는 전용 IA 기준으로 정리했다. IA 234의 기존 회원 안내는 IA 257에, IA 237의 부가정보는 IA 255에, IA 237·255의 수신내역은 IA 256에만 남긴다. 상위 행에 직접 지정한 중복 preview 소스도 제외하며 실제 import 그래프는 정식 `npm run screen-files`로 생성한다.
 
 출처: 사용자 문구 표·screen-index 브라우저 코멘트 및 현재 `CouponManagement.tsx`, `NoticesContent.tsx`, `NoticesList.tsx`, `MyPageReviewsContent.tsx`, `screenConnections.ts`, `storybookLinks.ts`, `screenRegistry.ts` 작업 트리. 디자인 파일을 새로 조사한 결과가 아니라 사용자 직접 확인을 반영했다.
+
+## 상품문의 Empty의 전체 상세 맥락 복원 (2026-10-30)
+
+사용자 브라우저 코멘트에 따라 문의 부품만 렌더링하던 preview를 전체 상품 상세로 수정했다. `RouteContent.preview='empty-inquiries'`는 기존 shoe-1 fixture를 명시적으로 선택하고 갤러리·가격·옵션·상품 정보·리뷰·추천 영역을 유지한다. PC 본문의 문의 목록과 모바일 상품문의 아코디언 내용에 같은 Empty 옵션을 전달하며 모바일은 처음부터 펼친다. 기본 `/products/shoe-1`의 문의 목록과 구매 동작은 바꾸지 않는다. preview의 구매/장바구니 실행은 차단하고 최소 로컬 옵션·접기/펼치기만 유지한다.
+
+screen-index의 상품 상세 공통 ‘상품문의 없음’ 링크는 기존 preview URL에 `#product-inquiries`를 붙인다. PC/MO 문의 DOM 소유자가 달라 hydration 후 preview fragment 대상에 맞춰 이동하며 모바일의 sticky header 아래 여백도 확보한다. 기본 링크 `/products/shoe-1`과 IA 번호는 보존한다. 링크 검사에서는 fragment를 제거한 pathname으로 실제 route 존재 여부를 확인한다. import 관계는 동일하며 `npm run screen-files` 결과 그래프 변경이 없었다.
+
+출처: 사용자 첨부의 preview 부품 단독 표시·정상 상품 상세 문의 영역 비교, 현재 `ProductDetailContent.tsx`, `preview-empty-inquiries/page.tsx`, `screenConnections.ts`, `tests/preview-links.test.mjs` 작업 트리. 이 수정은 상품 문의 서비스 구현이나 새로운 상품 디자인 승인을 뜻하지 않는다.

@@ -1041,7 +1041,9 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
     },
   },
   detail: {
-    previewRoutes: [{ label: '상품문의 없음', href: '/products/preview-empty-inquiries' }],
+    previewRoutes: [
+      { label: '상품문의 없음', href: '/products/preview-empty-inquiries#product-inquiries' },
+    ],
     sourceFiles: [
       'src/app/products/[id]/page.tsx',
       'src/app/products/preview-empty-inquiries/page.tsx',

@@ -442,3 +442,9 @@ preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실
 ## Empty 문구와 화면 목록 정리 검증 (2026-10-30)
 
 사용자 확정 문구·IA 정리 범위를 검증했다. 타입 검사, Next production build와 preview 링크·그래프·화면 진행 상태 테스트 14개가 통과했다. 새 URL 2개를 기존 라우트 manifest 검사에 추가한 뒤 관련 테스트 16개가 통과했다. 변경 파일 ESLint도 통과했다. 실제 컴포넌트의 서버 렌더링으로 쿠폰·공지 각각 완료 Empty 표시, pending·실패 시 Empty 미표시 6건을 확인했다. 브라우저에서는 1280/375px에서 세 Empty와 세 기본 목록의 문구를 확인했으며 리뷰 Empty의 탭 전환 후 기존 ‘작성한 리뷰가 없습니다.’를 유지했다. 최종 모바일 재확인에서 리뷰 기본 목록의 가로 넘침이 없었다. 변경된 IA 158의 이름·PC/MO 수급·비고, 회원가입 전용 IA 링크 유지와 상위 중복 제거를 DOM에서 확인했다. 기획전 IA 167의 미수급·대기·링크 없음과 새 Empty URL 검색 결과도 확인했다. 스크린샷 캡처는 CDP timeout으로 완료하지 못했으며 시각 검수 완료로 기록하지 않는다. 외부 API 요청·실제 쿠폰 등록·운영 디자인 승인 검증은 수행하지 않았다.
+
+## 상품문의 Empty 전체 상세 검증 (2026-10-30)
+
+타입 검사와 변경 소스 ESLint, Next production build를 통과했다. preview 링크·IA 진행 상태·파일 그래프·route manifest 테스트 16개가 통과했다. 생성 명령 실행 후 import 그래프의 추가 변경은 없었다.
+
+브라우저 DOM으로 1280px PC·375px 모바일에서 기존 Clifton 11 GTX 상품명·갤러리·사이즈 선택과 문의 0건·빈 안내가 전체 상세에 함께 표시되는 것을 확인했다. 기본 `/products/shoe-1`은 문의 목록을 유지한다. 모바일 Empty 아코디언은 초기 열림이며 접기/펼치기 소유자는 유지했다. 최종 모바일에서 fragment 대상의 상단 76px 여백과 가로 넘침 없음, PC에서 문의 영역으로 이동을 확인했다. screen-index의 ‘상품문의 없음’ 링크를 실제 클릭해 새 창의 전체 상품 상세·Empty·fragment URL을 확인했다. 픽셀 대조나 실제 상품 조회/장바구니 요청은 검증하지 않았다. 출처는 `ProductDetailContent.tsx`, `screenConnections.ts`, `preview-empty-inquiries/page.tsx`, `tests/preview-links.test.mjs` 및 이 채팅의 브라우저 확인이다.

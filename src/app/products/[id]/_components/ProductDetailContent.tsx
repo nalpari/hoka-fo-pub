@@ -1403,10 +1403,16 @@ function ProductDetailSupportSections({
 
 const destination = css({
   scrollMarginTop:
-    'calc(var(--layout-site-header-height) + var(--product-detail-nav-height) + 24px)',
+    'calc(var(--layout-site-header-height) + var(--product-detail-nav-height, 0px) + 24px)',
 });
 
-function ProductDetailSections({ product }: { product: Product }) {
+function ProductDetailSections({
+  product,
+  inquiriesEmpty = false,
+}: {
+  product: Product;
+  inquiriesEmpty?: boolean;
+}) {
   // [개발팀 바인딩] 상세 리뷰의 count는 상품 요약입니다. 실제 리뷰 본문/분포를 연결할 때 count만으로 목 후기를 만들지 말고 리뷰 영역의 소유자에 별도 조회 결과를 전달합니다.
   const presentation = getProductDetailPresentation(product);
 
@@ -1430,7 +1436,7 @@ function ProductDetailSections({ product }: { product: Product }) {
           count={product.reviewCount}
         />
         <Box id="product-inquiries" className={destination}>
-          <ProductDetailInquiryContent />
+          <ProductDetailInquiryContent empty={inquiriesEmpty} />
         </Box>
         <ProductDetailSupportSections specifications={presentation.notice} />
       </Stack>
@@ -1439,6 +1445,7 @@ function ProductDetailSections({ product }: { product: Product }) {
 }
 
 type ProductDetailMediaProps = {
+  inquiriesEmpty?: boolean;
   images: string[];
   productName: string;
   onOpenImage: (index: number) => void;
@@ -1450,13 +1457,16 @@ function ProductDetailMedia({
   productName,
   onOpenImage,
   product,
+  inquiriesEmpty,
 }: ProductDetailMediaProps) {
   const platform = usePlatform();
 
   return (
     <Flex minW="0" direction="column" gap="96px">
       <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
-      {platform === 'web' && <ProductDetailSections product={product} />}
+      {platform === 'web' && (
+        <ProductDetailSections product={product} inquiriesEmpty={inquiriesEmpty} />
+      )}
     </Flex>
   );
 }
@@ -2259,26 +2269,50 @@ const items: AccordionEntry[] = [
   },
 ];
 
-function ProductDetailSupport() {
+function ProductDetailSupport({ inquiriesEmpty = false }: { inquiriesEmpty?: boolean }) {
   return (
     <Box as="section" aria-label="상품 안내" borderTop="1px solid var(--color-black-20)">
-      <Accordion indicatorSize="13px" items={items} multiple={false} itemClassName={wrapper} />
+      <Accordion
+        indicatorSize="13px"
+        items={
+          inquiriesEmpty
+            ? items.map((item) =>
+                item.value === 'inquiry'
+                  ? { ...item, content: <ProductDetailInquiryContent empty /> }
+                  : item,
+              )
+            : items
+        }
+        defaultValue={inquiriesEmpty ? ['inquiry'] : undefined}
+        multiple={false}
+        itemClassName={wrapper}
+      />
     </Box>
   );
 }
 
-function ProductDetailSupportRegion({ platform }: { platform: Platform }) {
+function ProductDetailSupportRegion({
+  platform,
+  inquiriesEmpty,
+}: {
+  platform: Platform;
+  inquiriesEmpty?: boolean;
+}) {
+  const currentPlatform = usePlatform();
   return (
     <Box
+      id={currentPlatform === 'mobile' ? 'product-inquiries' : undefined}
+      className={destination}
       display={platform === 'mobile' ? 'none' : undefined}
       _mobile={{ display: platform === 'mobile' ? 'block' : 'none' }}
     >
-      <ProductDetailSupport />
+      <ProductDetailSupport inquiriesEmpty={inquiriesEmpty} />
     </Box>
   );
 }
 
 type ProductDetailPanelProps = {
+  inquiriesEmpty?: boolean;
   product: Product;
   gallery: string[];
   color: string;
@@ -2311,6 +2345,7 @@ function ProductDetailPanel({
   onAddToCart,
   onOrder,
   onWishChange,
+  inquiriesEmpty,
 }: ProductDetailPanelProps) {
   return (
     <Box
@@ -2341,7 +2376,7 @@ function ProductDetailPanel({
           size={size}
           width={width}
         />
-        <ProductDetailSupportRegion platform="mobile" />
+        <ProductDetailSupportRegion platform="mobile" inquiriesEmpty={inquiriesEmpty} />
       </Stack>
     </Box>
   );
@@ -2483,11 +2518,15 @@ function ProductSelectedOptions({
 }
 
 /** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
-export function RouteContent() {
+export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
+  const platform = usePlatform();
   const { add: onAddToCart, products: catalogue = products } = useShop();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const product = catalogue.find((item) => item.id === id);
+  // [ 개발팀 바인딩 ] empty-inquiries는 기존 shoe-1 fixture의 전체 상세에 문의 0건만 표시합니다. 운영 상품은 기존 useShop().products와 경로 ID를 사용하며 실제 문의 조회·권한·pending/error·재시도 및 응답 갱신은 상품 문의 연결 소유자가 담당합니다. preview는 운영 상품 조회·주문 요청을 실행하지 않습니다.
+  const product = (preview ? products : catalogue).find(
+    (item) => item.id === (preview ? 'shoe-1' : id),
+  );
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
   const [width, setWidth] = useState(
@@ -2510,9 +2549,17 @@ export function RouteContent() {
         : [];
   const recommendations = catalogue.filter((item) => item.id !== product?.id).slice(0, 6);
 
+  // PC/MO는 문의 영역의 DOM 소유자가 달라 hydration 후 현재 fragment 대상을 찾습니다.
+  useEffect(() => {
+    if (preview && window.location.hash === '#product-inquiries') {
+      document.getElementById('product-inquiries')?.scrollIntoView({ block: 'start' });
+    }
+  }, [preview, platform]);
+
   if (!product) return <SystemStatusPage status="not-found" />;
 
   const submit = (order: boolean) => {
+    if (preview) return;
     if (!selectedItems.length) {
       setError('사이즈를 선택해 주세요.');
       document
@@ -2553,6 +2600,7 @@ export function RouteContent() {
       }
     >
       <ProductDetailMedia
+        inquiriesEmpty={preview === 'empty-inquiries'}
         key={`${product.id}-${color}`}
         images={gallery}
         product={product}
@@ -2567,6 +2615,7 @@ export function RouteContent() {
         }}
       />
       <ProductDetailPanel
+        inquiriesEmpty={preview === 'empty-inquiries'}
         selectedOptions={
           <ProductSelectedOptions
             items={selectedItems}

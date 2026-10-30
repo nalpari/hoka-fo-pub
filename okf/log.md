@@ -1,5 +1,11 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 상품문의 Empty 전체 상세 맥락 복원
+
+- 문의 부품만 표시하던 preview를 전체 상품 상세에 문의 0건을 적용하는 방식으로 수정했다.
+- 상품 상세 공통 상태 링크에 문의 영역 fragment를 연결하고 PC/MO 직접 이동·기본 목록 보존을 확인했다.
+- [책임과 출처](architecture/publishing-state-previews-2026-10-30.md#상품문의-empty의-전체-상세-맥락-복원-2026-10-30), [실제 검증](development/verification.md#상품문의-empty-전체-상세-검증-2026-10-30).
+
 ## 2026-10-30 — Empty 문구와 screen-index 정리
 
 - 쿠폰·공지 Empty URL과 IA 연결, 작성 가능한 리뷰 문구를 확정하고 조회 중·실패와 빈 결과를 구분했다.

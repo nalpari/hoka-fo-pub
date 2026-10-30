@@ -64,7 +64,8 @@ test('every fixed preview page is reachable from an active IA row and its source
       if (isScreenDeleted(screen)) return false;
       const connection = getScreenConnection(screen);
       return (
-        connection.route === href || connection.previewRoutes?.some((item) => item.href === href)
+        connection.route === href ||
+        connection.previewRoutes?.some((item) => item.href.split('#')[0] === href)
       );
     });
     assert.ok(owners.length, `No active screen-index link for ${href}`);
@@ -91,7 +92,7 @@ test('preview links are unique per IA row and resolve to implemented static or d
     assert.equal(new Set(previews.map((item) => item.href)).size, previews.length);
     for (const { href, label } of previews) {
       assert.ok(label.trim());
-      const pathname = href.split('?')[0];
+      const pathname = href.split(/[?#]/)[0];
       assert.ok(
         pages.some((route) =>
           new RegExp('^' + route.replace(/\[[^\]]+\]/g, '[^/]+') + '$').test(pathname),
