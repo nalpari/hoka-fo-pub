@@ -32,3 +32,4 @@ src/styles/panda.css
 /.ignore
 /.tmp
 /.tmp-*
+src/app/screen-index/sourceGraph.generated.json
