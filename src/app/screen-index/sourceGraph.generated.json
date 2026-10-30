@@ -894,7 +894,7 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
-    "src/app/support/inquiries/_components/InquiryStatePreview.tsx": [
+    "src/app/support/inquiries/_components/InquiryListPreview.tsx": [
       "src/app/support/inquiries/_components/InquiryListContent.tsx",
       "src/app/support/inquiries/_components/InquiryListLayout.tsx",
       "src/components/common/atoms/Divider.tsx",
@@ -990,11 +990,8 @@
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
-    "src/app/support/inquiries/preview-answered/page.tsx": [
-      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
-    ],
-    "src/app/support/inquiries/preview-unanswered/page.tsx": [
-      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
+    "src/app/support/inquiries/preview-list/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryListPreview.tsx"
     ],
     "src/app/support/member-benefits/page.tsx": [
       "src/app/support/support.navigation.ts",

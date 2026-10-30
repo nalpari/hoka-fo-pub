@@ -6,7 +6,7 @@ tags: [publishing, preview, routing, ia, handoff]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T01:52:56Z'
 source_revision: 27b7e2f5b2c5e21681af53df27a535f3f13aa170
 working_tree_sources:
   - src/app/screen-index/screenConnections.ts
@@ -20,13 +20,15 @@ working_tree_sources:
   - src/components/phone-verification/phone-verification.types.ts
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/preview-list/page.tsx
   - tests/preview-links.test.mjs
   - tests/app-router.test.mjs
 ---
 
 # 퍼블리싱 고정 상태 preview와 IA 연결
 
-59개 기존 페이지와 266개 IA를 조사한 뒤, 기존 표시 UI가 있는 상태에 직접 확인용 URL 61개를 추가했다. 기존 장바구니 Empty·로그인 오류 2개를 포함하면 고정 preview는 63개다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 화면 확인을 위해 고정 표시 데이터와 로컬 입력·열기/닫기를 사용한다. preview 자체를 실제 조회·저장·인증·결제의 성공 증거로 취급하지 않는다.
+59개 기존 페이지와 266개 IA를 조사한 뒤, 기존 표시 UI가 있는 상태에 직접 확인용 URL 61개를 추가했다. 후속 요청으로 문의 대기/완료의 두 URL을 하나로 통합하여 추가 preview는 현재 60개이며, 기존 장바구니 Empty·로그인 오류 2개를 포함한 고정 preview는 62개다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 화면 확인을 위해 고정 표시 데이터와 로컬 입력·열기/닫기를 사용한다. preview 자체를 실제 조회·저장·인증·결제의 성공 증거로 취급하지 않는다.
 
 ## 새 상태 URL
 
@@ -50,7 +52,7 @@ working_tree_sources:
 | `/products`                             | `/preview-no-results`, `/preview-empty-inquiries`                                                                                | 상품 목록·상세 공통 연결 |
 | `/search`                               | `/preview-no-results`                                                                                                            | 247                      |
 | `/support/faq`                          | `/preview-no-results`                                                                                                            | 185·207                  |
-| `/support/inquiries`                    | `/preview-unanswered`, `/preview-answered`                                                                                       | 187·210                  |
+| `/support/inquiries`                    | `/preview-list`                                                                                       | 187·210                  |
 | `/support/inquiries/new`                | `/preview-error`, `/preview-order-required`, `/preview-attachment-type`, `/preview-attachment-size`, `/preview-attachment-count` | 189·211                  |
 | `/support/inquiries/new/order-products` | `/preview-empty`                                                                                                                 | 189·211의 보조 링크      |
 | `/login/find-account`                   | `/preview-error`, `/preview-code-entry`, `/preview-expired`                                                                      | 224                      |
@@ -100,3 +102,7 @@ preview에서는 API 요청·인증 발송·시간 경과·결제·저장·목�
 ## 검증
 
 최종 검증 결과는 [검증 문서](../development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)에 기록한다. 이 문서는 디자인 승인 또는 실제 서비스 검증 기록이 아니다.
+
+## 문의 목록 통합 (2026-10-30)
+
+사용자 요청으로 대기/완료 URL을 분리하지 않고 `/support/inquiries/preview-list`에서 함께 표시한다. `InquiryListPreview.items`는 ID별 질문·답변 상태·본문·답변·첨부를 받는 현재 배열이며 개수를 고정하지 않는다. 기본 fixture는 대기 1건과 완료 1건이다. 완료 항목만 기존 답변 접기/펼치기를 제공한다. PC/MO Storybook의 개별 Pending·Answered도 통합 List 사례로 교체했다. 실제 등록·답변 상태 전환은 구현하지 않는다. 기존 두 상태 route·컴포넌트와 IA 187·210의 중복 링크를 제거했다. 기본 `/support/inquiries`의 Empty는 유지한다.

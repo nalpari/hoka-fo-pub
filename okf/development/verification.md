@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:24:21Z'
+  at: '2026-10-30T01:56:11Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -428,3 +428,13 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 마지막 보완에서는 FAQ의 조건 변경 후에도 빈 결과/페이지 수가 유지되도록 하고, 휴대폰 약관의 체크값과 고정 오류 표시를 분리했다. 실제 PhoneVerificationContent를 서버 렌더링해 모든 약관이 체크된 경우에도 preview에서만 4개 invalid가 유지되고 일반 폼에는 invalid가 생기지 않는 회귀 검사를 추가했다. 최종 소스의 타입·Next/Storybook 빌드와 관련 검사도 다시 수행했다.
 
 preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실제 요청 실패·재시도, 인증·결제·외부 PG는 이번 검증 대상이 아니다. 미확정 디자인을 구현 완료로 바꾸거나 IA 진행 상태를 변경하지 않았다.
+
+
+## 문의 대기·완료 목록 통합 검증 (2026-10-30)
+
+`/support/inquiries/preview-list`에서 대기·완료 각 1건을 함께 표시한다. 기존 두 상태 route를 제거하고 IA 187·210과 PC/MO Storybook의 List 사례를 같은 목록으로 연결했다.
+
+- 타입 검사, 변경 파일 ESLint/Prettier, Next production build와 Storybook production build 통과.
+- App Router·preview 링크·소스 그래프 관련 Node 테스트 6개 통과. 현재 route manifest에 통합 경로가 있고 제거한 두 route가 없으며 모든 preview가 활성 IA에 연결됨을 확인했다.
+- localhost:3000의 개발 화면을 브라우저로 열어 1280px PC와 375px MO 모두 두 질문·접수완료/답변완료 상태가 함께 보이고 수평 overflow가 없음을 확인했다. 완료 답변을 접어도 두 질문은 유지되고 다시 펼칠 수 있다.
+- screen-index에서 새 URL로 검색하면 두 원본 IA의 통합 목록 링크가 표시되고 옛 두 상태 링크는 없었다. 서비스 등록·답변 변경은 구현하거나 검증하지 않았다.

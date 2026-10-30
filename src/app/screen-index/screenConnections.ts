@@ -314,14 +314,10 @@ const connections: Record<number, ScreenConnection> = {
   },
   '187': {
     route: '/support/inquiries',
-    previewRoutes: [
-      { label: '답변 대기', href: '/support/inquiries/preview-unanswered' },
-      { label: '답변 완료', href: '/support/inquiries/preview-answered' },
-    ],
+    previewRoutes: [{ label: '문의 목록 (대기·완료)', href: '/support/inquiries/preview-list' }],
     sourceFiles: [
       'src/app/support/inquiries/page.tsx',
-      'src/app/support/inquiries/preview-unanswered/page.tsx',
-      'src/app/support/inquiries/preview-answered/page.tsx',
+      'src/app/support/inquiries/preview-list/page.tsx',
     ],
     stories: {
       web: {
@@ -537,14 +533,10 @@ const connections: Record<number, ScreenConnection> = {
   },
   '210': {
     route: '/support/inquiries',
-    previewRoutes: [
-      { label: '답변 대기', href: '/support/inquiries/preview-unanswered' },
-      { label: '답변 완료', href: '/support/inquiries/preview-answered' },
-    ],
+    previewRoutes: [{ label: '문의 목록 (대기·완료)', href: '/support/inquiries/preview-list' }],
     sourceFiles: [
       'src/app/support/inquiries/page.tsx',
-      'src/app/support/inquiries/preview-unanswered/page.tsx',
-      'src/app/support/inquiries/preview-answered/page.tsx',
+      'src/app/support/inquiries/preview-list/page.tsx',
     ],
     stories: {
       web: {

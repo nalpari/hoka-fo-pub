@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T01:52:56Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/stories/features/login/LoginPage.scenarios.tsx
@@ -568,3 +568,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 퍼블리싱 고정 상태 URL (2026-10-30)
 
 고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.
+
+## 문의 혼합 목록 preview (2026-10-30)
+
+대기와 완료를 분리하던 두 상태 route를 제거하고 `/support/inquiries/preview-list`로 통합했다. IA 187·210 모두 단일 목록 링크와 새 진입 소스를 연결한다. 기본 문의 Empty 경로는 유지한다. 배열 표시 계약과 현재 URL 수는 [상태 preview 인계](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30)에 기록했다.

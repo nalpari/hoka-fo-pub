@@ -3439,3 +3439,7 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## 퍼블리싱 고정 상태 표현 재사용 (2026-10-30)
 
 기존 Empty·검색 결과 없음·오류·완료·상세·편집 표시 UI를 고정 preview에서 재사용한다. 주문/신청내역/상품목록/문의/계정/가입의 경계와 남은 디자인 결정은 [상태 preview 인계](publishing-state-previews-2026-10-30.md)를 참고한다. 기본 화면의 서비스 연결 계약은 유지하며 preview는 입력·체크·모달 닫기 등 로컬 확인 조작만 제공한다.
+
+## 문의 대기·완료의 단일 목록 (2026-10-30)
+
+대기/완료를 별도 화면으로 만들지 않고 `InquiryListPreview.items` 배열의 항목별 상태로 표시한다. 기본 fixture는 서로 다른 ID의 대기·완료 각 1건이며 기존 InquiryListItem과 답변 토글을 재사용한다. PC/MO 문의 Storybook도 Pending·Answered 대신 통합 List를 표시한다. 첨부 관련 기존 시나리오는 유지한다. [URL과 인계 계약](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).

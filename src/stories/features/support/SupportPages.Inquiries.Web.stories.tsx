@@ -14,9 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { ...scenarios.InquiriesDesktop, name: 'Default' };
 
-export const Pending: Story = { ...scenarios.InquiryPendingDesktop, name: '답변 대기' };
-
-export const Answered: Story = { ...scenarios.InquiryAnsweredDesktop, name: '답변 완료' };
+export const List: Story = { ...scenarios.InquiryListDesktop, name: '문의 목록 (대기·완료)' };
 
 export const Attachments: Story = {
   ...scenarios.InquiryAttachmentsDesktop,

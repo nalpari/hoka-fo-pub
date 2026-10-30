@@ -2,6 +2,8 @@
 
 ## 2026-10-30
 
+- 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
+
 - 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
 
 - 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
