@@ -9,10 +9,10 @@ generated:
   at: '2026-10-30T08:21:19.889Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
-  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/screen-index/_components/IaStructurePage.tsx

@@ -14,19 +14,22 @@ working_tree_sources:
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
   - public/images/mypage/coupon.svg
-  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
-  - src/app/mypage/addresses/_components/AddressManagement.tsx
-  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
+  - src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
-  - src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductCard/productCardTypography.ts
+  - src/components/common/molecules/ProductOptionList.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
-  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
-  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/mypage/_components/MyPageContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
   - src/app/login/account-locked/complete/page.tsx
@@ -3754,10 +3757,6 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 최종 Next production build는 컴파일·TypeScript·119개 정적 페이지 생성을 통과했으며 두 위시리스트 URL이 포함됐다. 마지막 변경 파일 ESLint/Prettier와 git diff --check를 통과했다. Storybook 빌드 후 변경한 안내문 footer의 단일 표시·간격은 브라우저에서 재확인했고 최종 Next 빌드에도 포함됐다. 브라우저 작업 중 reload 한 번은 15초 제한을 넘었으나 현재 화면을 재관찰한 뒤 정상 화면/폰트와 기본 카드 확인을 완료했다.
 
-모바일 배지·가격 후속 검증: 375px 브라우저에서 6개 카드 모두 Best·280,000원(line-through)·20%·240,000원을 표시하고 가로 넘침이 없음을 확인했다. 1920px 전환 후 New·240,000원/취소선 없음과 preview-empty의 카드 0개를 확인했다. 변경 파일 ESLint/Prettier와 TypeScript가 통과했다. 이 후속은 기존 표시 props에 fixture를 연결한 변경으로 Next/Storybook 빌드는 다시 실행하지 않았다.
-
-커밋 선별 검증: 다른 채팅의 최근 본 상품·재입고 후속을 제외한 HEAD+선별 소스 임시 사본에서 TypeScript와 4개 소스 ESLint를 통과했다. 할인율은 별도 렌더 검사 3건으로 명시적 20%·기존 계산 fallback·정상가 없는 상품의 할인 미표시를 확인했다. 선별 스테이지의 diff --check·okf:check를 통과했다. 위 Next/Storybook·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋의 빌드를 새로 실행했다는 뜻이 아니다.
-
 ## 재입고 알림 Figma 화면 적용 (2026-10-30)
 
 출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
@@ -3766,14 +3765,6 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 - PC 미연결 목록은 Men's / Speedgoat 7 GTX, 2026.10.31, 알림대기·발송완료다. MO는 클리프톤 9, 2026.05.22, 두 행 모두 알림대기로 시안 차이를 `restockPreview`에 명시한다. 실제 연결 항목에는 fixture 이름·날짜·상태를 섞지 않는다.
 - 빈 상태는 마침표 포함 문구, PC 16px·상하 240px, MO 14px·상하 96px이다. MO 빈 상태에서는 제목을 숨긴다. 안내는 12px이며 PC 목록에는 시안 원문의 최근 본 상품 안내를 보존하고, MO 목록/PC·MO 빈 상태에는 재입고 안내를 표시한다.
 - WEB Storybook에 기본·빈 목록·데이터 교체/취소 응답 확인을 추가하고 IA 184의 WEB 연결을 등록했다. 기존 Mobile stories와 두 route는 유지한다. 공통 헤더·배너·footer와 관심상품/최근 본 상품의 별도 변경은 이번 재입고 수정의 대상이 아니다.
-
-검증 (2026-10-30, Codex): 두 route의 PC/MO 목록·빈 상태를 브라우저에서 확인했다. 본문 844px, PC 제목 36px/썸네일 96px, MO 제목 22px/썸네일 64px, MO 빈 영역 210.19px(상하 96px + 본문 18.2px)을 측정했다. PC 제목의 실제 glyph font는 Pretendard-Black이었다. 375px 검증 환경은 세로 scrollbar로 clientWidth=360px이므로 MO 본문은 328px이며 가로 넘침은 없었다. 공통 홍보 배너·header 차이는 유지했다. WEB 연결 story에서 초기 pending이 완료된 Empty로 보이지 않음, 늦은 데이터 공급·신청 ID 교체, 취소 pending 중 확인 disabled, 실패 후 행/모달 유지, 재시도 성공 후 해당 행 제거·모달 닫기·빈 상태를 확인했다. API 호출 검증은 아니며 story의 수동 응답이다.
-
-변경 파일 lint, TypeScript, Panda 생성, Next 프로덕션 빌드, Storybook 빌드는 통과했다. Next 빌드는 첫 실행 시 다른 build 잠금으로 중단됐고 종료 후 재실행은 성공했다. 전체 lint는 검사 시점 범위 밖 `src/app/login/find-account/_components/FindAccountContent.tsx`의 css 및 `src/app/signup/complete/page.tsx`의 Stack 미사용 import 2건으로 실패했다. 이번 변경에서 해당 파일을 수정하지 않았다.
-
-기존 개발 Storybook의 명시적 Mobile 모드에서도 썸네일 64px 두 행과 제목 22px/900을 확인했다. 별도 정적 Storybook 확인 서버에서는 기존 Mobile scenario 묶음의 동적 import 로딩이 실패해 개발 Storybook으로 해당 모드를 검증했다. WEB 연결 story는 정적 빌드에서 검증했다.
-
-커밋 선별 검증: 현재 HEAD에 이 채팅의 재입고 변경만 적용한 저장소 밖 임시 사본에서 TypeScript와 관련 4개 소스 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋 자체의 빌드를 재실행한 기록과 구분한다.
 
 ## 배송지 관리 Figma 적용 (2026-10-30)
 
@@ -3791,6 +3782,8 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 주소 팝업을 연 상태로 375→1920px 전환 후에도 새 수신인·우편번호 98765·주소·상세주소가 보존됐다. 체크박스 변경, Escape 닫기와 검색 버튼 포커스 복귀를 확인했다. 명시적 MO Storybook은 1600px에서도 세로 목록을 유지했다. 기존 AddressResponse play의 비fixture ID 973 조회 도착·삭제 실패/재시도 시나리오가 실행된 뒤 빈 목록·닫힌 모달·표시 오류 없음 상태를 확인했다. 전체 lint는 비대상 FindAccountContent의 css, signup/complete의 Stack 미사용 import 두 건으로 실패했다. Storybook 재검사 중 임시 출력 폴더 복사의 EEXIST는 새 출력 위치 재실행으로 해소했고, 최초 Next 빌드의 동시 실행 잠금도 후속 빌드에서 해소됐다. 실제 서버 주소 조회·검색 제공자·저장/삭제 API는 검증하지 않았다. 공통 헤더·사이드바의 기존 표현과 현재 폼의 native 필수/disabled 계약은 유지했다.
 
+모바일 배지·가격 후속 검증: 375px 브라우저에서 6개 카드 모두 Best·280,000원(line-through)·20%·240,000원을 표시하고 가로 넘침이 없음을 확인했다. 1920px 전환 후 New·240,000원/취소선 없음과 preview-empty의 카드 0개를 확인했다. 변경 파일 ESLint/Prettier와 TypeScript가 통과했다. 이 후속은 기존 표시 props에 fixture를 연결한 변경으로 Next/Storybook 빌드는 다시 실행하지 않았다.
+
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 
 디자인 출처는 [회원정보 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 PC 조회 1813:90122·수정 1837:93659, 모바일 조회 1813:89281·수정 1813:89337을 읽었다. 기본 URL `/mypage/profile`과 고정 수정 `/mypage/profile/preview-edit`에 적용했다.
@@ -3799,15 +3792,23 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 - 수정은 286px 기본정보·58px 간격·500px 폼의 PC 2열, 모바일 1열이다. 공통 AddressFields에 detailLayout='columns'를 추가해 PC 주소/상세주소를 2열로 표시하며 기본 stack의 기존 DOM·배치는 유지한다. 취소/저장은 PC 각 180px·48px 높이·8px 간격, 모바일은 가용 폭을 사용한다.
 - 수정 preview에도 제목과 기본정보 fixture를 함께 표시한다. 인라인 비밀번호·재입력과 기존 보기 버튼을 사용하며 인증·주소 검색·수신 라디오의 기존 책임을 유지한다. PC 탈퇴 안내는 기본정보 아래, 모바일은 저장 버튼 아래다. 기존 기본 조회 fixture와 공통 배너·헤더·footer는 보존하므로 원본 화면의 로그인/마스킹 예시와 차이가 있다.
 
-검증: 변경 범위 ESLint, 전체 타입 검사, Panda 생성, Next.js production build와 Storybook build를 통과했다. 실제 라우트를 PC와 375px iframe의 독립 모바일 viewport에서 열어 제목 36/22px, PC 본문 844px·폼 500px, 모바일 1열과 가로 넘침 없음을 확인했다(375px 프레임의 scrollbar를 제외한 clientWidth 360px). 모바일에서 이메일 입력·naver.com 선택 후 도메인 자동 입력/disabled, 수신 선택, 주소 모달 열기·03000/서울시 종로구 적용을 확인했다. PC 제목의 실제 글리프 폰트는 CSS 프로토콜에서 Pretendard Black(커스텀 폰트)으로 확인했다. 구분선은 시안 #E9EAEB에 대응하는 black.20을 사용한다. 실제 계정 API는 검증하지 않았다. 기존 모바일 주소·비밀번호 stories를 새 표현에 맞췄다.
+검증: 변경 범위 ESLint, 전체 타입 검사, Panda 생성, Next.js production build와 Storybook build를 통과했다. 실제 라우트를 PC와 375px iframe의 독립 모바일 viewport에서 열어 제목 36/22px, PC 본문 844px·폼 500px, 모바일 1열과 가로 넘침 없음을 확인했다(375px 프레임의 scrollbar를 제외한 clientWidth 360px). 모바일에서 이메일 입력·naver.com 선택 후 도메인 자동 입력/disabled, 수신 선택, 주소 모달 열기·03000/서울시 종로구 적용을 확인했다. PC 제목의 실제 글리프 폰트는 CSS 프로토콜에서 Pretendard Black(커스텀 폰트)으로 확인했다. 구분선은 시안 #E9EAEB에 대응하는 black.20을 사용한다. 실제 계정 API는 검증하지 않았다. 기존 모바일 주소·비밀번호 stories를 새 표현에 맞췄고 별도 저장 연결 검증 story를 추가했다.
+
+검증 (2026-10-30, Codex): 두 route의 PC/MO 목록·빈 상태를 브라우저에서 확인했다. 본문 844px, PC 제목 36px/썸네일 96px, MO 제목 22px/썸네일 64px, MO 빈 영역 210.19px(상하 96px + 본문 18.2px)을 측정했다. PC 제목의 실제 glyph font는 Pretendard-Black이었다. 375px 검증 환경은 세로 scrollbar로 clientWidth=360px이므로 MO 본문은 328px이며 가로 넘침은 없었다. 공통 홍보 배너·header 차이는 유지했다. WEB 연결 story에서 초기 pending이 완료된 Empty로 보이지 않음, 늦은 데이터 공급·신청 ID 교체, 취소 pending 중 확인 disabled, 실패 후 행/모달 유지, 재시도 성공 후 해당 행 제거·모달 닫기·빈 상태를 확인했다. API 호출 검증은 아니며 story의 수동 응답이다.
+
+변경 파일 lint, TypeScript, Panda 생성, Next 프로덕션 빌드, Storybook 빌드는 통과했다. Next 빌드는 첫 실행 시 다른 build 잠금으로 중단됐고 종료 후 재실행은 성공했다. 전체 lint는 검사 시점 범위 밖 `src/app/login/find-account/_components/FindAccountContent.tsx`의 css 및 `src/app/signup/complete/page.tsx`의 Stack 미사용 import 2건으로 실패했다. 이번 변경에서 해당 파일을 수정하지 않았다.
+
+기존 개발 Storybook의 명시적 Mobile 모드에서도 썸네일 64px 두 행과 제목 22px/900을 확인했다. 별도 정적 Storybook 확인 서버에서는 기존 Mobile scenario 묶음의 동적 import 로딩이 실패해 개발 Storybook으로 해당 모드를 검증했다. WEB 연결 story는 정적 빌드에서 검증했다.
 
 회원정보 변경의 최종 재검사에서는 관련 ESLint·Prettier·Panda·작업 트리 OKF 검사를 통과했다. 전체 타입 검사는 앞선 실행에서 통과했으나, 마지막 재실행 시 동시에 수정 중인 비대상 `src/app/mypage/coupons/_components/CouponManagement.tsx:70`의 Stack as=form/noValidate 타입 오류 한 건으로 실패했다. 해당 파일은 이번 변경에서 수정하지 않았다.
 
+저장 연결 story의 실제 브라우저 play도 통과했다. member-api-827의 늦은 원본 데이터 반영, 대기 중 저장 비활성화, 실패 후 runner 이메일 초안 보존, 재시도 성공, changePassword 1회와 전체 프로필 payload를 검증했다. 모달이 배경 폼을 숨기는 동안의 비활성화 검사는 hidden 역할 조회를 명시한다.
+
 후속 전체 타입 재검사는 비대상 src/stories/features/binding/RemainingBinding.stories.tsx:311의 getByRole 옵션 exact 타입 오류로 실패했다. 이번 회원정보 관련 파일의 타입 오류는 보고되지 않았으며, 다른 채팅의 해당 변경은 유지했다.
 
-커밋 선별 검증: 다른 채팅의 미커밋 변경을 제외하고 현재 HEAD에 이 채팅의 첫 커밋 대상만 반영한 저장소 밖 임시 사본에서 전체 TypeScript와 관련 소스 5개의 ESLint를 통과했다. 앞서 수행한 PC/MO 브라우저·Next/Storybook 빌드는 공유 작업 트리 기준이다.
+커밋 선별 검증: 현재 HEAD에 이 채팅의 재입고 변경만 적용한 저장소 밖 임시 사본에서 TypeScript와 관련 4개 소스 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋 자체의 빌드를 재실행한 기록과 구분한다.
 
-저장 연결 story의 실제 브라우저 play도 통과했다. member-api-827의 늦은 원본 데이터 반영, 대기 중 저장 비활성화, 실패 후 runner 이메일 초안 보존, 재시도 성공, changePassword 1회와 전체 프로필 payload를 검증했다. 모달이 배경 폼을 숨기는 동안의 비활성화 검사는 hidden 역할 조회를 명시한다.
+커밋 선별 검증: 다른 채팅의 미커밋 변경을 제외하고 현재 HEAD에 이 채팅의 첫 커밋 대상만 반영한 저장소 밖 임시 사본에서 전체 TypeScript와 관련 소스 5개의 ESLint를 통과했다. 앞서 수행한 PC/MO 브라우저·Next/Storybook 빌드는 공유 작업 트리 기준이다.
 
 저장 연결 스토리의 선별 검증: 첫 커밋 대상과 이번 스토리만 반영한 동일 임시 사본에서 전체 TypeScript 및 추가 스토리의 ESLint를 통과했다. 다른 채팅의 미커밋 소스는 포함하지 않았다.
 

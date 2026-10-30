@@ -8,13 +8,12 @@ generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
 working_tree_sources:
-  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
   - src/app/mypage/profile/mypage-profile.types.ts
   - src/components/common/organisms/Address/AddressFields.tsx
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
@@ -79,24 +78,23 @@ working_tree_sources:
 - 로그인: `LoginContent.showErrors`가 고정 오류 표시를 선택한다. 인증/형식 검사/아이디 저장/소셜 인증/성공 이동/pending/retry는 미연결이다.
 - 개발팀 연결 소유자가 실제 데이터·요청·성공/실패·상태 갱신을 구현해야 한다. 소스의 `[ 개발팀 바인딩 ]` 주석은 이 미연결 경계를 설명하며 API 존재를 뜻하지 않는다.
 
-
 현재 서비스 API는 연결하지 않는다. 아래 계약은 기존 화면을 유지하며 개발팀이 조회 결과와 요청 함수를 연결할 수 있게 만든 경계다. Provider가 없으면 기존 퍼블리싱 데모가 동작한다. 라우트의 default export에 임의 props를 추가하거나 Storybook 전용 RoutePreview를 운영 데이터 주입에 사용하지 않는다.
 
 ## 연결 위치
 
-| 영역 | 연결 지점 | 데이터·이벤트 소유권 |
-| --- | --- | --- |
-| 공통 셸·상품·장바구니 | `ShopShell.state`, `ShopStateProvider` | 실제 상품 목록, 장바구니, 로그인 상태와 개수, 상품 추가·변경·삭제·로그인 함수 |
-| 상품 목록·검색 | `ProductListingPage.data`, `ProductListingContext` | 조회된 상품, 전체 건수, 다음 페이지 여부, 조회 상태, 조건 변경·추가 조회·재시도 |
-| 결제 | `CheckoutContext` | 쿠폰과 최대 혜택 선택, 할인·배송비 견적, 저장 배송지, 주문 제출 |
-| 휴대폰 인증 | `PhoneVerificationContext` | 인증 발송 결과의 요청 ID·유효시간, 인증번호 검증 |
-| 회원·마이페이지 | `MyPageDataContext` | 회원정보, 배송지, 리뷰, 관심/최근/재입고, 쿠폰, 요약/등급/추천/활동, 결제수단 등록 |
-| 주문·취소·반품 | `OrdersContext` | 현재 주문 목록, 조회 조건 변경, 서버 반품 견적·신청·구매 확정·내역 삭제 |
-| 가입·계정 복구 | `AccountServicesContext`, `AccountFlowProvider` | 인증 참조, 신규/기존 분기, 약관 버전별 동의, 가입/중복 확인, 계정 조회/비밀번호 변경/잠금해제 |
-| 고객센터 콘텐츠 | `SupportContentContext` | 서버 FAQ 검색/페이지, 안정적인 공지 ID/본문, BO 약관 버전/본문 |
-| 1:1 문의 | `InquiryDataContext` | 문의/주문 목록, 분류/고객 정보, 실제 ID 선택 복원, 파일 포함 등록 |
-| 런클럽 | `RunClubDataContext` | 세션/신청내역 목록, 상세 사실 정보/안내, 신청 요청 |
-| 홈 | `HomeContentContext` | 탭별 베스트 상품과 기존 콘텐츠 조합 슬롯 |
+| 영역                  | 연결 지점                                          | 데이터·이벤트 소유권                                                                          |
+| --------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| 공통 셸·상품·장바구니 | `ShopShell.state`, `ShopStateProvider`             | 실제 상품 목록, 장바구니, 로그인 상태와 개수, 상품 추가·변경·삭제·로그인 함수                 |
+| 상품 목록·검색        | `ProductListingPage.data`, `ProductListingContext` | 조회된 상품, 전체 건수, 다음 페이지 여부, 조회 상태, 조건 변경·추가 조회·재시도               |
+| 결제                  | `CheckoutContext`                                  | 쿠폰과 최대 혜택 선택, 할인·배송비 견적, 저장 배송지, 주문 제출                               |
+| 휴대폰 인증           | `PhoneVerificationContext`                         | 인증 발송 결과의 요청 ID·유효시간, 인증번호 검증                                              |
+| 회원·마이페이지       | `MyPageDataContext`                                | 회원정보, 배송지, 리뷰, 관심/최근/재입고, 쿠폰, 요약/등급/추천/활동, 결제수단 등록            |
+| 주문·취소·반품        | `OrdersContext`                                    | 현재 주문 목록, 조회 조건 변경, 서버 반품 견적·신청·구매 확정·내역 삭제                       |
+| 가입·계정 복구        | `AccountServicesContext`, `AccountFlowProvider`    | 인증 참조, 신규/기존 분기, 약관 버전별 동의, 가입/중복 확인, 계정 조회/비밀번호 변경/잠금해제 |
+| 고객센터 콘텐츠       | `SupportContentContext`                            | 서버 FAQ 검색/페이지, 안정적인 공지 ID/본문, BO 약관 버전/본문                                |
+| 1:1 문의              | `InquiryDataContext`                               | 문의/주문 목록, 분류/고객 정보, 실제 ID 선택 복원, 파일 포함 등록                             |
+| 런클럽                | `RunClubDataContext`                               | 세션/신청내역 목록, 상세 사실 정보/안내, 신청 요청                                            |
+| 홈                    | `HomeContentContext`                               | 탭별 베스트 상품과 기존 콘텐츠 조합 슬롯                                                      |
 
 이 Provider는 개발팀의 Client Component에서 실제 query 상태와 서비스 함수에 연결한다. Server Component에서 일반 함수를 props로 넘기지 않는다. 서버에서 받은 직렬화 가능한 초기 데이터는 Client Component로 전달하고, 그 컴포넌트가 서비스 함수를 조합한다. Server Action을 사용한다면 해당 framework 계약을 따른다.
 
@@ -176,7 +174,6 @@ working_tree_sources:
 
 이번 정책 검증: 스킬 frontmatter의 기존 name/description 유지·이름/설명 제한·미완성 placeholder 부재·표준 표기 일치·추가 로컬 링크·diff 공백과 index 보존을 확인했고 `npm run okf:check`를 통과했다. 기본 Python에 PyYAML이 없어 quick_validate.py는 실행되지 않았으며 현재 단순 scalar frontmatter에 대한 별도 검사를 사용했다. 애플리케이션 소스는 변경하지 않아 빌드를 반복하지 않았다.
 
-
 ## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
 
 CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
@@ -189,10 +186,6 @@ CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 p
 
 `/mypage/rewards`는 `MyPageDataContext.overview.item`의 현재 이름·등급·이니셜·구매금액을 사용한다. `tierProgress`의 기존 percent/label에 optional currentAmount/targetAmount 표시 문자열을 추가했고 기존 소비자 호환은 유지한다. 미공급 금액과 진행률을 추정하지 않는다. 어댑터가 준비한 label을 툴팁과 접근성 이름에 사용한다. Provider 없는 PC/MO 값은 별도 fixture이며 실제 조회 구현이 아니다. pending/error/onRetry는 기존 BindingFeedback으로 표시하며 API 연결·응답 취소·갱신은 외부 소유다.
 
-## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
-
-작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
-
 ## 회원정보 인라인 비밀번호와 표시 계약 (2026-10-30)
 
 ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. 기존 onPasswordSettings 팝업 진입을 인라인 비밀번호/재입력으로 바꾸고 검증된 선택 비밀번호를 onSubmit(event, password?) 두 번째 인자로 전달한다. 실제 저장 소유자는 ProfileContent와 기존 MyPageDataContext.profile이며 새 API를 만들지 않았다. 비밀번호를 입력하지 않으면 기존 프로필 저장만 실행한다.
@@ -200,5 +193,9 @@ ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. �
 저장 확인 시 선택 비밀번호는 기존 changePassword, 이메일·주소·휴대폰·phoneProof·세 동의 값은 기존 save에 전달한다. 각 요청을 await하고 대기 중 제출을 비활성화한다. 비밀번호 변경 성공 뒤 프로필 저장이 실패하면 비밀번호 초안 참조를 지워 재시도에서 같은 변경 요청을 반복하지 않는다. 두 요청은 원자적 트랜잭션이 아니며 실제 계정 어댑터의 처리·조회 item 갱신은 개발팀 책임이다. 실패 시 편집 초안과 확인창·오류를 유지한다.
 
 ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인증 요청을 실행하지 않는다. 도메인 선택은 domainChoice와 domain을 함께 변경한다. 주소 검색 모달은 기존 미연결 수동 입력 UI다. 출처는 관련 작업 트리 TSX/types 및 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 실제 API 연결 검증은 하지 않았다.
+
+## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
+
+작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
 
 연결 검증: MyPage.Profile.Binding.stories.tsx의 실제 play에서 비데모 회원 ID의 late data, 저장 pending/실패·입력 보존·재시도·완료, 전체 제출값과 중복 비밀번호 요청 방지를 확인했다. 테스트 콜백이며 실제 API 검증을 의미하지 않는다.

@@ -14,18 +14,18 @@ working_tree_sources:
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
   - public/images/mypage/coupon.svg
-  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
-  - src/app/mypage/addresses/_components/AddressManagement.tsx
-  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
   - src/components/common/organisms/Address/AddressFields.tsx
   - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
-  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/_components/MyPageContent.tsx
   - src/components/mypage/MyPageFrame.tsx
   - src/app/login/find-account/page.tsx

@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 마이페이지 시안 기록과 출처 정리
+
+회원정보·배송지·재입고·관심상품의 기존 시안/연결/검증 기록과 working_tree_sources 순서를 정리하고 인덱스·관련 이력의 표현을 맞췄다. 이번 정리는 남아 있던 문서 변경을 통합한 것이며 과거 브라우저·API 검증을 새로 수행했다는 뜻이 아니다. 소스 서식 정리와 그래프 갱신은 별도 커밋에 포함했다.
+
 ## 2026-10-30 — 화면 연결 그래프 재생성
 
 주소 관리·회원정보의 현재 import와 진입 파일을 생성 그래프에 반영했다. 정식 screen-files 명령과 기존 그래프 테스트 1개를 통과했다. [기록](architecture/routing.md#화면-연결-그래프-재생성-2026-10-30)을 갱신했다.
@@ -8,37 +12,37 @@
 
 상품 카드·마이페이지 상품 내역의 객체/주석 배치와 퍼블리싱 가이드 import를 정리했다. 동작 변경 없이 관련 소스 ESLint·Prettier를 통과했다. [범위와 검증](architecture/ui.md#공통-카드와-가이드-서식-정리-2026-10-30)을 기록했다.
 
-## 2026-10-30 — 쿠폰 PC/MO Figma 적용
-
-쿠폰 등록의 회색 영역·고정 노출 48px 버튼, SVG 카드·2/1열·타이포와 일반/임직원 표시 조건을 시안에 맞췄다. 기존 데이터 연결과 네 상태 URL을 유지하며 PC Storybook·임직원 스토리를 추가했다. [UI 값·검증](architecture/ui.md#쿠폰-figma-적용-2026-10-30), [라우트·IA 연결](architecture/routing.md#쿠폰-시안과-기존-상태-url-2026-10-30)에 출처와 시안/기존 counter 차이를 기록했다.
-
-## 2026-10-30 — 배송지 관리 PC/MO Figma 적용
-
-기존 목록·빈 목록·추가·수정 경로에 지정 섹션의 제목·배지·가로/세로 정보 배치·빈 안내 전문·500px 폼·48px 액션을 적용했다. 수정 preview는 명시적 시안 fixture를 사용한다. 기존 데이터·저장/삭제·주소 팝업 경계와 기본/상태 IA 연결을 유지했다. [UI 값과 검증](architecture/ui.md#배송지-관리-figma-적용-2026-10-30), [경로 영향](architecture/routing.md#배송지-관리-시안과-고정-경로-2026-10-30)을 기록했다.
-
 ## 2026-10-30 — 회원정보 저장 연결 검증 추가
 
 회원정보의 늦은 원본 응답, 저장 대기·실패 후 초안 보존·재시도 성공, 전체 제출값과 비밀번호 중복 요청 방지를 확인하는 스토리를 추가했다. 정적 Storybook의 실제 play가 통과했다. [검증 기록](architecture/ui.md#회원정보-조회수정-figma-적용-2026-10-30)과 [연결 경계](architecture/data-binding.md#회원정보-인라인-비밀번호와-표시-계약-2026-10-30)를 갱신했다.
+
+## 2026-10-30 — 쿠폰 PC/MO Figma 적용
+
+쿠폰 등록의 회색 영역·고정 노출 48px 버튼, SVG 카드·2/1열·타이포와 일반/임직원 표시 조건을 시안에 맞췄다. 기존 데이터 연결과 네 상태 URL을 유지하며 PC Storybook·임직원 스토리를 추가했다. [UI 값·검증](architecture/ui.md#쿠폰-figma-적용-2026-10-30), [라우트·IA 연결](architecture/routing.md#쿠폰-시안과-기존-상태-url-2026-10-30)에 출처와 시안/기존 counter 차이를 기록했다.
 
 ## 2026-10-30 — 회원정보 조회·수정 Figma 적용
 
 회원정보 조회·수정 preview의 PC 844px 본문·2열 폼, 모바일 1열·간격·인라인 비밀번호·주소 배치와 버튼을 반영했다. [UI와 검증](architecture/ui.md#회원정보-조회수정-figma-적용-2026-10-30), [라우트](architecture/routing.md#회원정보-조회수정-figma-적용-2026-10-30), [연결 계약](architecture/data-binding.md#회원정보-인라인-비밀번호와-표시-계약-2026-10-30)에 출처·실제 검사와 미연결 API 경계를 기록했다.
 
+## 2026-10-30 — 배송지 관리 PC/MO Figma 적용
+
+기존 목록·빈 목록·추가·수정 경로에 지정 섹션의 제목·배지·가로/세로 정보 배치·빈 안내 전문·500px 폼·48px 액션을 적용했다. 수정 preview는 명시적 시안 fixture를 사용한다. 기존 데이터·저장/삭제·주소 팝업 경계와 기본/상태 IA 연결을 유지했다. [UI 값과 검증](architecture/ui.md#배송지-관리-figma-적용-2026-10-30), [경로 영향](architecture/routing.md#배송지-관리-시안과-고정-경로-2026-10-30)을 기록했다.
+
 ## 2026-10-30 — 최근 본 상품 PC/MO Figma 적용
 
 `/mypage/recent`와 `/mypage/recent/preview-empty`의 제목·3/2열·빈 상태 여백·안내문을 제공된 네 프레임에 맞췄다. 공통 history 카드를 재사용하고 PC/MO 배지·가격·찜 상태를 명시적 fixture로 구분했다. 사용자 확정에 따라 MO 미연결 화면은 `20%`를 고정 표시하며 연결 데이터에는 적용하지 않는다. [UI 규격·출처·검증](architecture/ui.md#최근-본-상품-figma-적용-2026-10-30)에 기존 서비스 계약과 다른 채팅 변경의 보존 범위를 기록했다.
 
+## 2026-10-30 — 러닝세션 신청내역 Figma 실측 보정
+
+/mypage/event-entries의 PC/MO 탭·간격·목록 타이포·배지·취소 위치·모달과 사진 3종을 지정 섹션에 맞췄다. 기존 URL·공통 프레임·서비스 계약을 유지했다. [표현과 실제 검증](architecture/ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [라우팅](architecture/routing.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [상태 경계](architecture/state.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)에 출처와 비대상 타입 오류·manifest 부재를 기록했다.
+
 ## 2026-10-30 — 관심상품 PC/MO Figma 적용
 
-`/mypage/wishlist`와 `/mypage/wishlist/preview-empty`의 제목·3/2열 배치·빈 문구·안내문을 지정 섹션에 맞췄다. 공통 카드 history 옵션과 색상 목록을 추가하고 모바일 Best·정상가 280,000원 취소선·20%·판매가 240,000원을 명시적 fixture로 적용했다. 필수 공용 discountLabel 옵션만 사용자 승인으로 함께 포함하며 최근 본 상품·재입고 변경은 제외했다. [UI 규격과 검증](architecture/ui.md#관심상품-figma-적용-2026-10-30)에 실측값과 실제 검증을 기록했다.
+`/mypage/wishlist`와 `/mypage/wishlist/preview-empty`의 제목·3/2열 배치·빈 문구·안내문을 지정 섹션에 맞췄다. 공통 상품 카드와 색상 목록에 history 표시 옵션을 추가하고 기존 listing/showcase·최근 본 상품/재입고 및 데이터 연결은 보존했다. [UI 규격과 검증](architecture/ui.md#관심상품-figma-적용-2026-10-30)에 실측값, 유지한 fixture 차이와 검증 범위를 기록했다. Next/Storybook 빌드·TypeScript·Panda·변경 파일 lint/서식·관련 검사 7개와 PC/MO 직접 화면 확인을 완료했다. 전체 lint의 비대상 미사용 import 2건은 별도 기록했다.
 
 ## 2026-10-30 — 회원등급 PC/MO Figma 적용
 
 `/mypage/rewards`를 첨부 섹션의 PC 1563:33480·MO 1643:17449에 맞춰 진행바·구매금액 카드·세 도형 배지·등급별 목록·공통 쿠폰 혜택으로 갱신했다. 기존 overview 연결에 선택적 누적/목표 표시 문자열을 추가하고 PC Storybook과 IA 195 연결을 등록했다. 시안 간 RUNNER 한도·반품쿠폰 차이는 명시적 fixture로 보존했다. [UI 값·검증](architecture/ui.md#회원등급-시안-적용-2026-10-30), [라우팅](architecture/routing.md#회원등급-시안-적용-2026-10-30), [상태](architecture/state.md#회원등급-표시-데이터-2026-10-30), [바인딩](architecture/data-binding.md#회원등급-시안의-진행금액-표시-2026-10-30)을 갱신했다. Next·Storybook 빌드, 타입·Panda·변경 파일 lint/서식, 관련 기존 테스트 11개 통과. 전체 lint의 비대상 미사용 import 2건은 구분 기록했다. 실제 API 연결과 PC 공통 메뉴 검수 항목은 남아 있다.
-
-## 2026-10-30 — 러닝세션 신청내역 Figma 실측 보정
-
-/mypage/event-entries의 PC/MO 탭·간격·목록 타이포·배지·취소 위치·모달과 사진 3종을 지정 섹션에 맞췄다. 기존 URL·공통 프레임·서비스 계약을 유지했다. [표현과 실제 검증](architecture/ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [라우팅](architecture/routing.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [상태 경계](architecture/state.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)에 출처와 비대상 타입 오류·manifest 부재를 기록했다.
 
 ## 2026-10-30 — 상품리뷰 PC/MO Figma 실측과 상태명 반영
 
