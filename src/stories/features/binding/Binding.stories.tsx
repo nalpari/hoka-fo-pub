@@ -246,7 +246,7 @@ export const AddressResponse: Story = {
     const body = within(canvasElement.ownerDocument.body);
     await userEvent.click(canvas.getByRole('button', { name: '배송지 조회 결과 도착' }));
     await expect(await canvas.findByText('서버 배송지')).toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', { name: '삭제' }));
+    await userEvent.click(canvas.getByRole('button', { name: /^삭제(하기)?$/ }));
     const dialog = within(body.getByRole('dialog'));
     await userEvent.click(dialog.getByRole('button', { name: '확인' }));
     await expect(await dialog.findByRole('alert')).toHaveTextContent(

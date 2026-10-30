@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T08:34:43.457833+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
   - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
@@ -683,6 +685,14 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 재입고 PC·모바일 디자인 연결 (2026-10-30)
 
 `/mypage/restock-alerts`와 `/mypage/restock-alerts/preview-empty`는 기존 공용 `MyPageProductHistory`를 유지한다. Figma `2025:152235`의 PC/MO 목록·빈 상태를 재입고 분기에 반영했고 IA 184에 WEB Storybook `pages-마이페이지-3-재입고-알림-상품-web--restock-alerts`를 추가했다. 직접 URL·previewRoutes·Mobile story 연결은 유지한다. 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json`의 작업 트리다.
+
+## 배송지 관리 시안과 고정 경로 (2026-10-30)
+
+`/mypage/addresses`·`/mypage/addresses/preview-empty`·`/mypage/addresses/preview-new`·`/mypage/addresses/preview-edit`는 기존 page 진입점·App Router 경계를 유지하며 공유 AddressList/AddressEditor의 PC/MO 표현을 갱신했다. 기존 preview-error도 동일 편집기를 계속 사용한다. 추가 라우트와 IA 번호는 만들지 않았고 기존 screenConnections의 기본/상태 연결을 보존했다. 수정 preview는 독립 editPreviewAddress fixture를 사용하며 breadcrumb을 실제 추가/수정 상태에 맞췄다. 서비스 저장이나 완료 탐색을 새로 추가하지 않았다.
+
+[실측 디자인과 검증](ui.md#배송지-관리-figma-적용-2026-10-30)을 참고한다. 작성: codex/gpt-6, 2026-10-30T08:31:03Z. 출처: 위 작업 트리 컴포넌트와 기존 네 경로의 page.tsx.
+
+배송지 네 경로의 PC/MO 직접 진입, Next production build와 app-router/preview-links 검사 7개를 확인했다. IA 203의 목록/빈 목록과 IA 204·205의 추가/수정 연결은 기존대로 유지한다.
 
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 

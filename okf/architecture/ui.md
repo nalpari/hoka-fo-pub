@@ -9,6 +9,8 @@ generated:
   at: '2026-10-30T08:57:53.137523+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
   - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
@@ -3764,6 +3766,22 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 기존 개발 Storybook의 명시적 Mobile 모드에서도 썸네일 64px 두 행과 제목 22px/900을 확인했다. 별도 정적 Storybook 확인 서버에서는 기존 Mobile scenario 묶음의 동적 import 로딩이 실패해 개발 Storybook으로 해당 모드를 검증했다. WEB 연결 story는 정적 빌드에서 검증했다.
 
 커밋 선별 검증: 현재 HEAD에 이 채팅의 재입고 변경만 적용한 저장소 밖 임시 사본에서 TypeScript와 관련 4개 소스 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋 자체의 빌드를 재실행한 기록과 구분한다.
+
+## 배송지 관리 Figma 적용 (2026-10-30)
+
+디자인 출처: [배송지 관리 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60309). MO 목록 `1978:60310`·빈 목록 `1978:60415`·추가 `1978:60351`·수정 `1978:60374`, PC 목록 `1978:61923`·빈 목록 `1978:62651`·추가 `1978:63058`·수정 `1978:73542`를 구조·스타일로 확인했다. 디자인 시스템 파일의 접근도 별도로 확인했다. PC 수정 프레임은 원본 프레임명에 '추가'가 있지만 실제 본문 '배송지 수정'과 채워진 입력 상태를 기준으로 연결했다.
+
+- 기존 MyPageFrame의 PC 844px 본문과 MO 좌우 16px을 재사용하며 배송지 내부의 중복 패딩을 제거했다. PC 제목은 목록/빈 목록 '회원정보', 편집 '배송지 추가/수정', 36px/900과 아래 40px 여백·2px 검정 선이다. MO는 목록 제목을 감추고 폼 제목 22px/900을 표시한다.
+- PC 목록은 배송지명 22px/900·이름/내용 32px 간격, 전화번호와 한 줄 우편번호/주소는 16px이다. 오른쪽 40px 높이의 수정/삭제 버튼과 가운데 180×48px 추가 버튼을 사용한다. MO 배송지명은 20px/600, 정보는 14px, 우편번호/주소와 관리 링크를 세로로 배치한다. 기본 배송지 배지는 사각 테두리와 2px 반경, PC 14px/MO 12px이다.
+- PC 편집 필드는 500px 중앙 정렬, 필드 간격 16px, 체크박스까지 24px, 액션까지 48px이다. MO 필드는 가용 전체 폭이고 액션까지 24px이다. 우편번호/검색은 기존 AddressFields.boxed의 가운데 정렬·24px 간격을 사용한다. 저장/수정 버튼은 48px 높이이며 PC 수정은 180px 두 개, MO는 같은 너비로 나눈다. 새 화면 PC 버튼은 시안의 '배송지 추가', MO는 '저장'을 사용한다.
+- 빈 목록은 안내 전문을 PC 16px·상하 120px, MO 14px·상하 96px로 표시한다. 수정 preview의 직장·전화번호·우편번호·기본 배송지 체크는 별도 표시 fixture이며 운영 주소를 판정하는 조건으로 쓰지 않는다.
+- 변경은 AddressManagement와 AddressStatePreview에 제한했다. 실제 목록·save/remove의 MyPageDataContext 계약, pending/error와 입력 소유권, 주소 검색의 수동 미연결 UI는 유지했다. 기존 AddressResponse 스토리의 삭제 버튼 탐색을 PC '삭제하기'/MO '삭제' 모두에 맞췄다. 공통 Button·AddressFields·MyPageFrame·플랫폼 및 폰트 정의는 수정하지 않았다.
+
+작성: codex/gpt-6, 2026-10-30T08:31:03Z. 출처는 위 Figma 프레임과 working_tree_sources의 배송지 컴포넌트, src/stories/features/binding/Binding.stories.tsx의 작업 트리다. 기존 source_revision과 신뢰 메타데이터를 보존한다.
+
+배송지 검증(2026-10-30, codex/gpt-6): Next production build·Storybook production build·`tsc --noEmit`·Panda 생성·변경 TSX ESLint/Prettier·기존 app-router/preview-links 테스트 7개를 통과했다. 1920px/375px에서 네 경로를 직접 열어 PC 가로/MO 세로 목록, 빈 안내, 새 폼·채워진 수정 폼과 가로 넘침 없음을 확인했다. PC 500px 폼, 180×48px 저장 액션과 180px 두 개 수정 액션, MO 48px 전체 폭 액션을 실측했다. 375px 환경의 세로 스크롤바가 15px을 차지해 본문은 clientWidth 360px에서 좌우 16px을 제외한 328px이었다. 공통 홍보 배너 50px과 Figma의 iPhone 상태바 24px은 본문 위치 비교에서 구분했다. 제목/입력 글리프에 실제 사용된 웹폰트를 CDP로 확인해 Pretendard Black/Regular와 연결했다.
+
+주소 팝업을 연 상태로 375→1920px 전환 후에도 새 수신인·우편번호 98765·주소·상세주소가 보존됐다. 체크박스 변경, Escape 닫기와 검색 버튼 포커스 복귀를 확인했다. 명시적 MO Storybook은 1600px에서도 세로 목록을 유지했다. 기존 AddressResponse play의 비fixture ID 973 조회 도착·삭제 실패/재시도 시나리오가 실행된 뒤 빈 목록·닫힌 모달·표시 오류 없음 상태를 확인했다. 전체 lint는 비대상 FindAccountContent의 css, signup/complete의 Stack 미사용 import 두 건으로 실패했다. Storybook 재검사 중 임시 출력 폴더 복사의 EEXIST는 새 출력 위치 재실행으로 해소했고, 최초 Next 빌드의 동시 실행 잠금도 후속 빌드에서 해소됐다. 실제 서버 주소 조회·검색 제공자·저장/삭제 API는 검증하지 않았다. 공통 헤더·사이드바의 기존 표현과 현재 폼의 native 필수/disabled 계약은 유지했다.
 
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 
