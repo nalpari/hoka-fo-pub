@@ -186,7 +186,6 @@ sources:
 
 장바구니 page는 고정 데이터와 레이아웃을 조합하고 선택·수량·모달 UI 상태는 기존 `_components`에 둔다. 로그인 전용 RoutePreview 주입과 사용되지 않는 타입 선언·스토리 어댑터는 제거했다. 서비스 API를 추가하지 않았다.
 
-
 ## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
 
 사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](page-private-components-2026-10-30.md)을 참고한다.
@@ -569,6 +568,10 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 
 고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.
 
+## 로그인 도움말 주석 언어 (2026-10-30)
+
+`LoginContent`의 아이디 저장 도움말 주석을 한국어 설명 뒤에 영문 설명을 두는 형식으로 바꿨다. 설명 문구만 수정했으며 라우팅·Base UI 동작에는 변화가 없다. 출처는 `src/app/login/_components/LoginContent.tsx`다.
+
 ## 폼 가이드의 로그인 필드 조합 (2026-10-30)
 
 이력: Form 가이드에 로그인과 같은 아이디·비밀번호 `TextFormField` boxed 조합을 추가했다. 2026-10-30 Figma 기준 범위를 다섯 카테고리로 제한하면서 로그인 전용 조합 카드는 제거했다. 실제 로그인 화면은 변경하지 않았다.
@@ -576,3 +579,7 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 폼 가이드의 Figma 기준 항목 정리 (2026-10-30)
 
 Form 가이드는 Figma의 [Forms](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=273-5306&m=dev)와 [Dropdown Menu](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=332-33649&m=dev)를 기준으로 `Input Fields`, `Dropdown Selection`, `Checkbox`, `Radio`, `Dropdown Menu` 다섯 섹션만 노출한다. Input Fields는 Default·Focus·Typing·Error 상태 행과 기본·Password·Phone Number·Number·Open Text Area 타입 예시를 보여준다. Dropdown Selection은 기본·선택·오류·비활성화 상태, Checkbox·Radio는 기본·선택·비활성화 케이스, Dropdown Menu는 텍스트·아이콘·이미지 목록을 비교한다. 각 예제 코드는 복사 가능하고 입력값과 메뉴 선택은 가이드 안에서 조작한다. 기존 가이드의 주소·이메일·검색·세그먼트·액션·수량 보조·글자 수·인증 카운트다운 사례는 제거했다. 공통 컴포넌트 구현과 운영 페이지 사용처는 수정하지 않았다. 상단 복사 알림과 우측 타임라인은 유지한다. 출처는 `src/app/publishing-guide/_components/FormGuide.tsx` 및 위 두 Figma 노드다.
+
+## 퍼블리싱 가이드 툴팁·토글팁 탭 (2026-10-30)
+
+`/publishing-guide`의 기존 분류 탭에 툴팁·토글팁을 추가했다. `HelpTipsGuide`는 사용 기준, 두 유형의 상·하·좌·우 위치별 조작 가능한 미리보기, 코드 복사와 우측 타임라인을 제공한다. 기존 탭과 페이지 라우트는 유지한다. 출처는 `src/app/publishing-guide/page.tsx`와 `_components/HelpTipsGuide.tsx`다.

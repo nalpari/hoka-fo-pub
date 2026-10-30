@@ -2,9 +2,11 @@
 
 ## 2026-10-30
 
+- Figma 기준의 공통 툴팁·토글팁을 추가하고 로그인 아이디 저장 안내를 연결했다. 퍼블리싱 가이드에는 두 유형의 사용 기준과 네 방향 예시·코드 복사를 추가했다. [UI 기준](architecture/ui.md#툴팁토글팁-공통-사용-기준-2026-10-30), [가이드 탭](architecture/routing.md#퍼블리싱-가이드-툴팁토글팁-탭-2026-10-30).
+
 - Form 가이드를 Figma처럼 케이스별 비교로 구성했다. Input Fields 상태·타입, Dropdown Selection 상태, Checkbox·Radio 선택 상태, Dropdown Menu 목록 타입을 나눠 보여주며 기존 다섯 카테고리 범위와 공통 구현 유지 원칙은 그대로다. [범위와 구분](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
 - Form 가이드에 로그인 입력 조합을 임시로 추가했다가 Figma 기준 다섯 항목으로 범위를 좁히면서 로그인 전용 카드를 제거했다. 실제 로그인 화면은 그대로 유지한다. [현재 범위](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
-
+- 로그인 화면 아이디 저장 도움말 주석을 한글 설명 뒤 영문 설명 형식으로 변경했다. 동작과 경로는 바꾸지 않았다. [라우팅 문서](architecture/routing.md#로그인-도움말-주석-언어-2026-10-30).
 - 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
 
 - 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.

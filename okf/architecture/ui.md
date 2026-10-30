@@ -6,9 +6,16 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:18:10Z'
+  at: '2026-10-30T04:23:49Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/publishing-guide/_components/HelpTipsGuide.tsx
+  - src/app/publishing-guide/page.tsx
+  - public/images/icon/tooltip/arrow.svg
+  - public/images/icon/tooltip/info.svg
+  - public/images/icon/tooltip/question.svg
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
   - src/app/login/preview-error/page.tsx
@@ -799,7 +806,6 @@ sources:
 사용자 요청에 따라 두 화면은 기본 마크업과 고정 상태를 확인하는 인계 방식으로 전환했다. 주문·삭제·옵션 확인·로그인·소셜 로그인은 서비스 동작 없이 표시하며, 주문 액션의 동적 checkout href를 제거했다. 일반 탐색 링크는 유지한다. 장바구니 체크·수량·관심상품과 모달 선택/닫기, 로그인 입력·비밀번호 표시·체크·도움말은 로컬 UI로 유지한다. 고정 단품/행 금액과 합계는 조작으로 재계산하지 않는다.
 
 Storybook은 실제 기본·상태별 라우트를 사용한다. 기존 인증 성공·형식 검증·옵션 저장 시나리오는 입력 유지·고정 오류·금액 고정·저장 없는 모달 닫기 검증으로 대체했다. 품절 표시는 명시적인 fixture의 `soldOut`으로 확인한다. 다른 화면이 사용하는 공통 폼·버튼·상점 계약은 변경하지 않았다. 검증 결과와 시각 대조 한계는 [검증 기록](../development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)을 참고한다.
-
 
 ## 페이지 전용 UI 배치 (2026-10-30)
 
@@ -3443,3 +3449,11 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 ## TextInput 포커스 테두리 겹침 (2026-10-30)
 
 기본 `TextInput`의 `:focus-visible` outline은 2px 굵기를 유지하고 offset을 -2px로 두어 기존 입력 테두리 위에 겹쳐 표시한다. 바깥 여백에 별도 테두리가 추가되지 않는다. boxed `FormField`의 inset box-shadow와 `SearchField` 내부 입력의 outline 제거 동작은 그대로 유지한다. 출처는 `src/components/common/atoms/TextInput.tsx`다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 툴팁·토글팁 공통 사용 기준 (2026-10-30)
+
+Figma의 [사용 기준](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=274-7275&m=dev)과 [네 방향 컴포넌트](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=342-38101&m=dev)를 기준으로 `HelpTooltip`은 짧은 보조 설명에, `HelpToggletip`은 제목·설명과 선택적 확인 액션을 담는 도움말에 사용한다. 둘 다 상·하·좌·우 방향과 i/? 안내 아이콘을 지원하며 포털에서 렌더링한다. Figma의 흰 `color/bg/secondary` 배경은 프로젝트의 `surface.default`를 사용한다. 로그인 아이디 저장 안내는 현재 `HelpToggletip`으로 제목과 설명을 표시한다. 서비스 API 연결에는 변화가 없다.
+
+말풍선의 그림자를 한 번 적용하고 화살표를 본체에 1px 겹친다. 토글팁 본체 너비는 상·하단 192px, 좌·우측 164px이다. 좌·우측 화살표 이미지는 회전 후 영역의 가운데에 둔다. 현재 소스에서 좌·우측 화살표의 렌더링 영역은 8×17px이다. 퍼블리싱 가이드의 별도 탭에는 사용 기준, 두 유형의 네 방향 예시, 코드 복사와 타임라인을 제공한다. 타임라인 앵커는 사이트 헤더 높이 + 16px의 스크롤 여백을 사용한다. 출처는 `HelpTips.tsx`, `HelpTipsGuide.tsx`, 로그인 `LoginContent.tsx`, 가이드 `page.tsx`와 위 Figma 노드 및 SVG 세 개다.
+
+2026-10-30 로컬 브라우저에서 가이드의 우측 툴팁 열기·닫기, 상단 토글팁 확인 닫기, 네 방향 화살표 위치, 좌우 164px·상단 192px 본체 너비, Tooltip·Toggletip 타임라인 링크의 고정 헤더 아래 위치를 확인했다. 좌우 화살표 크기와 로그인 도움말은 이후 작업 트리에서 사용자가 조정했으며 조정 후 모바일 시각 검증은 수행하지 않았다. Panda 생성과 OKF 검사는 통과했다. 전체 타입 검사에는 변경 범위 밖의 `.next/types/app/products/page.ts` 및 `.next/types/app/running/run-club/page.ts` 오류가 남아 있다.
