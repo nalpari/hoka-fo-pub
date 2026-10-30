@@ -2,13 +2,13 @@
 
 import { createContext } from 'react';
 
-import type { RunClubSession } from '@/components/run-club/runClub.data';
+import type { RunningSessionSession } from '@/components/running-session/runningSession.data';
 import type { Product } from '@/mocks/products';
 import type { BindingState, ListBinding } from '@/types/binding';
 
-export type RunClubEntry = {
+export type RunningSessionEntry = {
   id: string;
-  session: RunClubSession;
+  session: RunningSessionSession;
   status: string;
   /** 신청일 표시값입니다. 서버 정렬은 entries.onQueryChange의 sort로 요청합니다. */
   appliedAt?: string;
@@ -25,13 +25,13 @@ export type SessionFact = { label: string; value: string; detail?: string };
  * 실제 신청·예약금 결제·필수 동의 수집은 apply의 연결 소유자가 처리합니다. 완료 후 resolve하고 거절/결제 취소/실패는 reject합니다.
  * 신청 완료 뒤 해당 세션 상태와 신청내역을 재조회합니다. session: null의 조회 중/오류/없음은 pending/error로 구분합니다.
  */
-export const RunClubDataContext = createContext<{
-  sessions?: ListBinding<RunClubSession, { category: string }>;
-  entries?: ListBinding<RunClubEntry, { category: string; sort?: 'latest' | 'oldest' }>;
+export const RunningSessionDataContext = createContext<{
+  sessions?: ListBinding<RunningSessionSession, { category: string }>;
+  entries?: ListBinding<RunningSessionEntry, { category: string; sort?: 'latest' | 'oldest' }>;
   /** [ 개발팀 바인딩 ] 신청 ID로 취소를 요청하고 성공 후 entries 목록·건수를 갱신한 뒤 resolve합니다. 실패하면 reject하며 확인창을 유지합니다. */
   cancelEntry?: (entryId: string) => Promise<void>;
   detail?: BindingState & {
-    session: RunClubSession | null;
+    session: RunningSessionSession | null;
     recommendedProducts?: readonly Product[];
     facts: readonly SessionFact[];
     guide: readonly { label: string; value: string }[];

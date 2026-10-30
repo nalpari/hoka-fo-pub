@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { RunClubPreview } from '@/stories/features/run-club/RunClubPreview';
+import { RunningSessionPreview } from '@/stories/features/running-session/RunningSessionPreview';
 
 const meta = {
   title: 'PAGES/탐색/0. 러닝세션 목록',
-  component: RunClubPreview,
+  component: RunningSessionPreview,
   parameters: { layout: 'fullscreen' },
   args: { platform: 'web', view: 'list' },
-} satisfies Meta<typeof RunClubPreview>;
+} satisfies Meta<typeof RunningSessionPreview>;
 
 export default meta;
 

@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:56:11Z'
+  at: '2026-10-30T06:34:17+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -448,3 +448,9 @@ preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실
 타입 검사와 변경 소스 ESLint, Next production build를 통과했다. preview 링크·IA 진행 상태·파일 그래프·route manifest 테스트 16개가 통과했다. 생성 명령 실행 후 import 그래프의 추가 변경은 없었다.
 
 브라우저 DOM으로 1280px PC·375px 모바일에서 기존 Clifton 11 GTX 상품명·갤러리·사이즈 선택과 문의 0건·빈 안내가 전체 상세에 함께 표시되는 것을 확인했다. 기본 `/products/shoe-1`은 문의 목록을 유지한다. 모바일 Empty 아코디언은 초기 열림이며 접기/펼치기 소유자는 유지했다. 최종 모바일에서 fragment 대상의 상단 76px 여백과 가로 넘침 없음, PC에서 문의 영역으로 이동을 확인했다. screen-index의 ‘상품문의 없음’ 링크를 실제 클릭해 새 창의 전체 상품 상세·Empty·fragment URL을 확인했다. 픽셀 대조나 실제 상품 조회/장바구니 요청은 검증하지 않았다. 출처는 `ProductDetailContent.tsx`, `screenConnections.ts`, `preview-empty-inquiries/page.tsx`, `tests/preview-links.test.mjs` 및 이 채팅의 브라우저 확인이다.
+
+## 러닝 세션 경로 이전 정적 검사 (2026-10-30)
+
+preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통과했다. 기존 Next 생성 타입이 이전 run-club 경로를 참조하여 첫 타입 검사는 실패했으며 라우트 타입 재생성 후 재검사한다. 브라우저·빌드 결과는 후속 검증에서 별도 기록한다. 출처: tests/preview-links.test.mjs, tests/screen-progress.test.mjs, tests/screen-files.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

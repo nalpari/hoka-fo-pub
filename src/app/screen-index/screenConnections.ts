@@ -144,17 +144,17 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
 
-  '158': {
-    route: '/running/run-club',
-    sourceFiles: ['src/app/running/run-club/page.tsx'],
+  '155': {
+    route: '/running/running-session',
+    sourceFiles: ['src/app/running/running-session/page.tsx'],
     stories: {
       web: {
         id: 'pages-탐색-0-러닝세션-목록-web--list',
-        file: 'src/stories/features/run-club/RunClub.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSession.stories.tsx',
       },
       mobile: {
         id: 'pages-탐색-0-러닝세션-목록-mobile--list',
-        file: 'src/stories/features/run-club/RunClub.mobile.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSession.mobile.stories.tsx',
       },
     },
   },
@@ -994,39 +994,39 @@ const connections: Record<number, ScreenConnection> = {
   },
   '258': {
     previewRoutes: [
-      { label: '목록 있음', href: '/running/run-club' },
-      { label: '빈 목록', href: '/running/run-club/preview-empty' },
+      { label: '목록 있음', href: '/running/running-session' },
+      { label: '빈 목록', href: '/running/running-session/preview-empty' },
     ],
     sourceFiles: [
-      'src/app/running/run-club/page.tsx',
-      'src/app/running/run-club/preview-empty/page.tsx',
+      'src/app/running/running-session/page.tsx',
+      'src/app/running/running-session/preview-empty/page.tsx',
     ],
     stories: {
       web: {
         id: 'pages-탐색-0-러닝세션-목록-web--list',
-        file: 'src/stories/features/run-club/RunClub.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSession.stories.tsx',
       },
       mobile: {
         id: 'pages-탐색-0-러닝세션-목록-mobile--list',
-        file: 'src/stories/features/run-club/RunClub.mobile.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSession.mobile.stories.tsx',
       },
     },
   },
   '259': {
     previewRoutes: [
-      { label: '신청 가능', href: '/running/run-club/yeouido-night' },
-      { label: '모집 마감', href: '/running/run-club/bukhansan-trail' },
-      { label: '신청 예정', href: '/running/run-club/inwangsan-trail' },
+      { label: '신청 가능', href: '/running/running-session/yeouido-night' },
+      { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
+      { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
     ],
-    sourceFiles: ['src/app/running/run-club/[sessionId]/page.tsx'],
+    sourceFiles: ['src/app/running/running-session/[sessionId]/page.tsx'],
     stories: {
       web: {
         id: 'pages-탐색-1-러닝세션-상세-web--open',
-        file: 'src/stories/features/run-club/RunClubDetail.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSessionDetail.stories.tsx',
       },
       mobile: {
         id: 'pages-탐색-1-러닝세션-상세-mobile--open',
-        file: 'src/stories/features/run-club/RunClubDetail.mobile.stories.tsx',
+        file: 'src/stories/features/running-session/RunningSessionDetail.mobile.stories.tsx',
       },
     },
   },

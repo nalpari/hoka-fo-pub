@@ -6,7 +6,7 @@ tags: [publishing, preview, routing, ia, handoff]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:52:56Z'
+  at: '2026-10-30T06:32:40+00:00'
 source_revision: 27b7e2f5b2c5e21681af53df27a535f3f13aa170
 working_tree_sources:
   - src/app/products/preview-empty-inquiries/page.tsx
@@ -138,3 +138,9 @@ IA 158은 사용자 확인에 따라 표시명을 ‘러닝 세션 신청’, PC
 screen-index의 상품 상세 공통 ‘상품문의 없음’ 링크는 기존 preview URL에 `#product-inquiries`를 붙인다. PC/MO 문의 DOM 소유자가 달라 hydration 후 preview fragment 대상에 맞춰 이동하며 모바일의 sticky header 아래 여백도 확보한다. 기본 링크 `/products/shoe-1`과 IA 번호는 보존한다. 링크 검사에서는 fragment를 제거한 pathname으로 실제 route 존재 여부를 확인한다. import 관계는 동일하며 `npm run screen-files` 결과 그래프 변경이 없었다.
 
 출처: 사용자 첨부의 preview 부품 단독 표시·정상 상품 상세 문의 영역 비교, 현재 `ProductDetailContent.tsx`, `preview-empty-inquiries/page.tsx`, `screenConnections.ts`, `tests/preview-links.test.mjs` 작업 트리. 이 수정은 상품 문의 서비스 구현이나 새로운 상품 디자인 승인을 뜻하지 않는다.
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

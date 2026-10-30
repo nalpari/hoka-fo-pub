@@ -6,7 +6,7 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T04:53:00Z'
+  at: '2026-10-30T06:32:40+00:00'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
   - src/hooks/useBindingQuery.ts
@@ -177,3 +177,9 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 `src/data/screenRegistry.ts`의 IA 158은 병합 후 표시명을 ‘러닝 세션 신청’으로 유지하며 변경 적용 완료 비고를 표시한다. 원본 `sourceDepths`의 UTMB와 IA 번호는 보존한다. IA 167은 디자인 미수급·목업 판정과 실제 페이지 연결 제외를 비고에 기록하며 화면 자체를 삭제 상태로 처리하지 않는다. 마일리지 안내는 사용자 요청대로 삭제 유지한다. 디자인 수급은 `storybookLinks.ts`에서 사용자 확인 근거로 관리하고, 라우트 존재만으로 수급을 추정하지 않는다. 상세 출처는 [상태 preview 문서](architecture/publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30)에 기록했다.
 
 런클럽 상세 IA 259의 기본 페이지 링크 `/running/run-club/yeouido-night`를 첫 STATE 신청 가능으로 이동했다. 모집 마감·신청 예정과 함께 세 상태를 하위 행에 표시하며 부모 상세의 상태 나열 비고는 screenRegistry에서 제거했다. 기본 route 없이 상태 링크만 있는 부모는 실제 페이지 셀에 -를 표시하고 독립 경로 없음으로 오해시키지 않는다. 보기 링크·비고 및 상태 셀 rowSpan·접기와 Storybook WEB/Mobile 연결, 실제 런클럽 페이지·데이터는 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/data/screenRegistry.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`. 변경 파일 lint/format과 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

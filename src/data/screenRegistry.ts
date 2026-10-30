@@ -30,14 +30,14 @@ type RawScreenDefinition = [
 const rawScreens: RawScreenDefinition[] = [
   [
     258,
-    ['EXPLORE', 'HOKA Run Club', '목록', '', ''],
+    ['EXPLORE', 'Running Session', '목록', '', ''],
     'page',
     '1',
     false,
     '',
     '신규 러닝세션 모집 목록',
   ],
-  [259, ['EXPLORE', 'HOKA Run Club', '상세', '', ''], 'page', '1', false, '', ''],
+  [259, ['EXPLORE', 'Running Session', '상세', '', ''], 'page', '1', false, '', ''],
   [1, ['Main', '', '', '', ''], 'page', '1', false, 'eland_hma_01', ''],
   [2, ['', 'Pop-up', '', '', ''], 'popup', '1', false, 'eland_hma_02', ''],
   [3, ['MEN', 'Featured', 'Best', '목록', ''], 'page', '1', false, 'eland_hca_01', ''],
@@ -235,12 +235,12 @@ const rawScreens: RawScreenDefinition[] = [
   [157, ['', '', '비브람', '', ''], 'page', '1', false, 'eland_hex_05', ''],
   [
     158,
-    ['', '러닝 세션 신청', '', '', ''],
+    ['', 'Partnerships', 'UTMB', '', ''],
     'page',
     '1',
     true,
     'eland_hex_06',
-    '최종 GNB 기준: 러닝 세션 신청으로 변경 적용 완료. /running/run-club',
+    '메뉴만 유지. 페이지·디자인 미수급. 러닝 세션은 Featured > Running Session(155)에서 연결.',
   ],
   [159, ['런칭 캘린더', '', '', '', ''], 'page', '1', false, 'eland_hla_01', ''],
   [160, ['', 'Feed', '목록', '', ''], 'page', '1', false, 'eland_hla_02', ''],
@@ -410,7 +410,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     true,
     'eland_hmy_31',
-    '9/22 신규 추가 (261001) 1차 오픈 때는 대회신청내역 대신, 러닝세션 신청내역으로 변경해서 개발하면 될 것 같습니다. 10/6 명칭 수정. /mypage/event-entries → RunClubEntriesContent.tsx (러닝세션 신청내역 전용 화면)',
+    '9/22 신규 추가 (261001) 1차 오픈 때는 대회신청내역 대신, 러닝세션 신청내역으로 변경해서 개발하면 될 것 같습니다. 10/6 명칭 수정. /mypage/event-entries → RunningSessionEntriesContent.tsx (러닝세션 신청내역 전용 화면)',
   ],
   [
     201,
@@ -635,14 +635,7 @@ function mergeSourceScreens(): ScreenDefinition[] {
       depths:
         screen.iaNumber <= 152
           ? screen.depths
-          : screen.iaNumber === 158
-            ? ([
-                ...source.depths.slice(0, 2),
-                '러닝 세션 신청',
-                '',
-                '',
-              ] as ScreenDefinition['depths'])
-            : (source.depths as ScreenDefinition['depths']),
+          : (source.depths as ScreenDefinition['depths']),
       category: source.category as ScreenCategory,
       page: source.page,
       requiresLogin: source.requiresLogin,

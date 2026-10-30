@@ -7,13 +7,13 @@ import {
   type CheckoutSubmission,
 } from '@/context/CheckoutContext';
 import { PlatformProvider } from '@/context/platform';
-import { RunClubDataContext, type RunClubEntry } from '@/context/RunClubDataContext';
+import { RunningSessionDataContext, type RunningSessionEntry } from '@/context/RunningSessionDataContext';
 
 import { Button } from '@/components/common/atoms/Button';
 
 import CheckoutPage from '@/app/checkout/page';
 import EntryPage from '@/app/mypage/event-entries/page';
-import { runClubSessions } from '@/components/run-club/runClub.data';
+import { runningSessionSessions } from '@/components/running-session/runningSession.data';
 import { products } from '@/mocks/products';
 import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
 
@@ -163,14 +163,14 @@ const cancel = fn<(id: string) => void>();
 /** 신청 응답과 취소 실패 후 재시도를 재현합니다. (Exercises entry response and cancellation failure/retry.) */
 function EntryFixture() {
   const [loaded, setLoaded] = useState(false);
-  const [items, setItems] = useState<readonly RunClubEntry[]>([
-    { id: 'server-entry-781', session: runClubSessions[0], status: '신청완료' },
+  const [items, setItems] = useState<readonly RunningSessionEntry[]>([
+    { id: 'server-entry-781', session: runningSessionSessions[0], status: '신청완료' },
   ]);
   const [attempt, setAttempt] = useState(0);
   return (
     <>
       <Button onClick={() => setLoaded(true)}>신청내역 응답 도착</Button>
-      <RunClubDataContext.Provider
+      <RunningSessionDataContext.Provider
         value={{
           entries: {
             items: loaded ? items : [],
@@ -192,7 +192,7 @@ function EntryFixture() {
         }}
       >
         <EntryPage />
-      </RunClubDataContext.Provider>
+      </RunningSessionDataContext.Provider>
     </>
   );
 }

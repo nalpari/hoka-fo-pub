@@ -2,7 +2,7 @@
 
 /**
  * [개발팀 바인딩]
- * RunClubDataContext.sessions는 운영 목록, entries는 마이페이지 신청내역입니다. 같은 세션도 신청 id/status는 별도로 표시합니다.
+ * RunningSessionDataContext.sessions는 운영 목록, entries는 마이페이지 신청내역입니다. 같은 세션도 신청 id/status는 별도로 표시합니다.
  * 서버 필터 결과를 로컬에서 다시 자르지 않습니다. onQueryChange({ category })와 onLoadMore를 실제 조회에 연결합니다.
  */
 
@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 
 import { useContext } from 'react';
 import { type ReactNode, useState } from 'react';
-import { RunClubDataContext, type RunClubEntry } from '@/context/RunClubDataContext';
+import { RunningSessionDataContext, type RunningSessionEntry } from '@/context/RunningSessionDataContext';
 import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
@@ -41,12 +41,12 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import {
-  runClubImage,
-  type RunClubSession,
-  runClubSessions,
-} from '@/components/run-club/runClub.data';
+  runningSessionImage,
+  type RunningSessionSession,
+  runningSessionSessions,
+} from '@/components/running-session/runningSession.data';
 
-function RunClubHistoryLink({ compact = false }: { compact?: boolean }) {
+function RunningSessionHistoryLink({ compact = false }: { compact?: boolean }) {
   return (
     <Flex justifyContent="flex-end">
       <ButtonLink href="/mypage/event-entries" variant="link" size={compact ? 'sm' : 'lg'}>
@@ -56,11 +56,11 @@ function RunClubHistoryLink({ compact = false }: { compact?: boolean }) {
   );
 }
 
-type RunClubFilter = 'all' | RunClubSession['category'];
+type RunningSessionFilter = 'all' | RunningSessionSession['category'];
 
-type RunClubFiltersProps = {
-  filter: RunClubFilter;
-  onFilterChange: (filter: RunClubFilter) => void;
+type RunningSessionFiltersProps = {
+  filter: RunningSessionFilter;
+  onFilterChange: (filter: RunningSessionFilter) => void;
 };
 
 const filters = [
@@ -94,7 +94,7 @@ const options = filters.map(({ value, label, mobileLabel }) => ({
   ),
 }));
 
-function RunClubFilters({ filter, onFilterChange }: RunClubFiltersProps) {
+function RunningSessionFilters({ filter, onFilterChange }: RunningSessionFiltersProps) {
   return (
     <SegmentedControl
       unstyled
@@ -111,12 +111,12 @@ function RunClubFilters({ filter, onFilterChange }: RunClubFiltersProps) {
   );
 }
 
-type RunClubHeaderProps = {
-  filter: RunClubFilter;
-  onFilterChange: (filter: RunClubFilter) => void;
+type RunningSessionHeaderProps = {
+  filter: RunningSessionFilter;
+  onFilterChange: (filter: RunningSessionFilter) => void;
 };
 
-function RunClubHeader({ filter, onFilterChange }: RunClubHeaderProps) {
+function RunningSessionHeader({ filter, onFilterChange }: RunningSessionHeaderProps) {
   return (
     <ContentSection
       as="header"
@@ -149,18 +149,18 @@ function RunClubHeader({ filter, onFilterChange }: RunClubHeaderProps) {
       }}
     >
       <HStack gap="4" _mobile={{ gap: '2', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-        <RunClubFilters filter={filter} onFilterChange={onFilterChange} />
+        <RunningSessionFilters filter={filter} onFilterChange={onFilterChange} />
         <HStack display="none" _mobile={{ display: 'flex' }}>
-          <RunClubHistoryLink compact />
+          <RunningSessionHistoryLink compact />
         </HStack>
       </HStack>
     </ContentSection>
   );
 }
 
-type RunClubLayoutProps = { header: ReactNode; children: ReactNode; empty?: boolean };
+type RunningSessionLayoutProps = { header: ReactNode; children: ReactNode; empty?: boolean };
 
-function RunClubLayout({ header, children, empty = false }: RunClubLayoutProps) {
+function RunningSessionLayout({ header, children, empty = false }: RunningSessionLayoutProps) {
   return (
     <VStack
       as="main"
@@ -175,7 +175,7 @@ function RunClubLayout({ header, children, empty = false }: RunClubLayoutProps) 
       <Stack w="100%" maxW="1280px" gap="6" _mobile={{ gap: '0', maxW: 'none' }}>
         {!empty ? (
           <Stack _mobile={{ display: 'none' }}>
-            <RunClubHistoryLink />
+            <RunningSessionHistoryLink />
           </Stack>
         ) : null}
         {children}
@@ -198,17 +198,17 @@ const styles = {
 };
 
 /** 세션 이미지 위에 날짜·장소·거리를 겹쳐 표시합니다. (Overlays the session date, location, and distance on its image.) */
-function RunClubSessionCardImage({ session }: { session: RunClubSession }) {
+function RunningSessionSessionCardImage({ session }: { session: RunningSessionSession }) {
   return (
     <LinkOverlay
       as={Link}
-      href={`/running/run-club/${session.id}`}
+      href={`/running/running-session/${session.id}`}
       className={styles.image}
       aria-label={`${session.title} 상세 보기`}
     >
       <Image
         className={css({ w: '100%', h: '100%', objectFit: 'cover' })}
-        src={runClubImage(session.image)}
+        src={runningSessionImage(session.image)}
         alt=""
         width={371}
         height={494}
@@ -233,7 +233,7 @@ function RunClubSessionCardImage({ session }: { session: RunClubSession }) {
   );
 }
 
-function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
+function RunningSessionSessionCardContent({ session }: { session: RunningSessionSession }) {
   return (
     <ContentSection
       gap="6"
@@ -241,7 +241,7 @@ function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
       header={
         <Stack gap="3.5" _mobile={{ gap: '2' }}>
           <Flex justifyContent="flex-start">
-            <Badge runClubCategory={session.category} />
+            <Badge runningSessionCategory={session.category} />
           </Flex>
           <ContentHeader
             gap="2"
@@ -260,7 +260,7 @@ function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
       }
       footer={
         <ButtonLink
-          href={`/running/run-club/${session.id}`}
+          href={`/running/running-session/${session.id}`}
           variant="primary"
           className={css({ _mobile: { display: 'none' } })}
         >
@@ -271,16 +271,16 @@ function RunClubSessionCardContent({ session }: { session: RunClubSession }) {
   );
 }
 
-function RunClubSessionCard({ session }: { session: RunClubSession }) {
+function RunningSessionSessionCard({ session }: { session: RunningSessionSession }) {
   return (
     <Stack as="article" gap="5" _mobile={{ gap: '3' }}>
-      <RunClubSessionCardImage session={session} />
-      <RunClubSessionCardContent session={session} />
+      <RunningSessionSessionCardImage session={session} />
+      <RunningSessionSessionCardContent session={session} />
     </Stack>
   );
 }
 
-function RunClubEmptyState() {
+function RunningSessionEmptyState() {
   return (
     <Box role="status">
       <Box _mobile={{ display: 'none' }}>
@@ -295,12 +295,12 @@ function RunClubEmptyState() {
   );
 }
 
-function RunClubResults({
+function RunningSessionResults({
   sessions,
   entries,
 }: {
-  sessions: readonly RunClubSession[];
-  entries?: readonly RunClubEntry[];
+  sessions: readonly RunningSessionSession[];
+  entries?: readonly RunningSessionEntry[];
 }) {
   return sessions.length ? (
     <Grid
@@ -311,7 +311,7 @@ function RunClubResults({
     >
       {sessions.map((session, index) => (
         <Stack key={entries?.[index]?.id ?? session.id} gap="3">
-          <RunClubSessionCard session={session} />
+          <RunningSessionSessionCard session={session} />
           {entries?.[index] && (
             <Typography variant="body4" role="status">
               {entries[index].status}
@@ -321,16 +321,16 @@ function RunClubResults({
       ))}
     </Grid>
   ) : (
-    <RunClubEmptyState />
+    <RunningSessionEmptyState />
   );
 }
 
-type RunClubPageProps = { sessions?: RunClubSession[] };
+type RunningSessionPageProps = { sessions?: RunningSessionSession[] };
 
 /** 런클럽 세션 목록과 필터를 구성합니다 (Displays the run club page composition). */
-export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
-  const [filter, setFilter] = useState<RunClubFilter>('all');
-  const context = useContext(RunClubDataContext);
+export function RunningSessionPage({ sessions = runningSessionSessions }: RunningSessionPageProps) {
+  const [filter, setFilter] = useState<RunningSessionFilter>('all');
+  const context = useContext(RunningSessionDataContext);
   const isHistory = usePathname() === '/mypage/event-entries';
   const binding = isHistory ? context.entries : context.sessions;
   const request = useRequestAction();
@@ -343,9 +343,9 @@ export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
     : sessions.filter((session) => filter === 'all' || session.category === filter);
 
   return (
-    <RunClubLayout
+    <RunningSessionLayout
       empty={visibleSessions.length === 0}
-      header={<RunClubHeader filter={filter} onFilterChange={setFilter} />}
+      header={<RunningSessionHeader filter={filter} onFilterChange={setFilter} />}
     >
       <BindingFeedback
         pending={binding?.pending || request.pending}
@@ -353,7 +353,7 @@ export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
         onRetry={binding?.onRetry}
       />
       {!(binding?.pending || binding?.error) || visibleSessions.length > 0 ? (
-        <RunClubResults sessions={visibleSessions} entries={entries} />
+        <RunningSessionResults sessions={visibleSessions} entries={entries} />
       ) : null}
       {binding?.hasMore && (
         <Button
@@ -363,6 +363,6 @@ export function RunClubPage({ sessions = runClubSessions }: RunClubPageProps) {
           더보기
         </Button>
       )}
-    </RunClubLayout>
+    </RunningSessionLayout>
   );
 }

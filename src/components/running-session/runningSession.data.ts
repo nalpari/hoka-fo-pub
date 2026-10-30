@@ -1,10 +1,10 @@
 /**
  * [개발팀 바인딩]
- * RunClubSession은 세션 id/표시 텍스트/이미지/모집상태 모델입니다. 이미지에 절대 경로/URL을 주면 그대로 사용합니다.
- * 아래 세션/장소/안내 예시는 미연동 기본값입니다. 운영 목록/신청내역/상세 사실 정보는 RunClubDataContext의 별도 계약에 전달합니다.
+ * RunningSessionSession은 세션 id/표시 텍스트/이미지/모집상태 모델입니다. 이미지에 절대 경로/URL을 주면 그대로 사용합니다.
+ * 아래 세션/장소/안내 예시는 미연동 기본값입니다. 운영 목록/신청내역/상세 사실 정보는 RunningSessionDataContext의 별도 계약에 전달합니다.
  */
 
-export type RunClubSession = {
+export type RunningSessionSession = {
   id: string;
   title: string;
   category: 'Road' | 'Trail';
@@ -17,7 +17,7 @@ export type RunClubSession = {
   status: 'open' | 'closed' | 'upcoming';
 };
 
-export const runClubSessions: RunClubSession[] = [
+export const runningSessionSessions: RunningSessionSession[] = [
   {
     id: 'yeouido-night',
     title: '여의도 나이트 시티런',
@@ -117,8 +117,8 @@ export const runClubSessions: RunClubSession[] = [
 ];
 
 // 운영 응답의 절대 경로/URL은 그대로 사용하고 시안 파일명에만 기본 디렉터리를 붙입니다.
-export const runClubImage = (file: string) =>
-  file.startsWith('/') || /^https?:\/\//.test(file) ? file : `/images/run-club/${file}`;
+export const runningSessionImage = (file: string) =>
+  file.startsWith('/') || /^https?:\/\//.test(file) ? file : `/images/running-session/${file}`;
 
 export const sessionNotices = [
   '신청은 선착순으로 진행되며, 정원이 도달하면 신청이 마감됩니다. 취소 발생 시 다시 신청 가능합니다.',
@@ -135,6 +135,6 @@ export const sessionPrecautions = [
   '참가자를 대상으로 사진, 영상 촬영 및 활용을 위한 동의서 작성이 진행됩니다. 동의 거부 시 프로그램 참여가 제한될 수 있습니다.',
 ];
 
-export const runClubVenue = '호카 더현대 서울 매장';
+export const runningSessionVenue = '호카 더현대 서울 매장';
 
-export const runClubAddress = '서울 영등포구 여의대로 108 더현대서울, 3F';
+export const runningSessionAddress = '서울 영등포구 여의대로 108 더현대서울, 3F';

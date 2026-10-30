@@ -1,7 +1,7 @@
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 const storybookReadyIaNumbers = new Set([
-  1, 158, 200, 223, 224, 226, 227, 229, 230, 231, 233, 234, 235, 236, 237, 238, 251, 252, 253, 254,
+  1, 155, 200, 223, 224, 226, 227, 229, 230, 231, 233, 234, 235, 236, 237, 238, 251, 252, 253, 254,
   255, 256, 257, 258, 259,
 ]);
 
@@ -139,8 +139,9 @@ const confirmedDesignReceipts: Partial<
   248: { pcDesign: 'received', moDesign: 'received' },
   249: { pcDesign: 'received', moDesign: 'received' },
   250: { pcDesign: 'received', moDesign: 'received' },
-  // 2026-10-30 사용자 직접 확인: 러닝 세션 신청(기존 UTMB) PC/MO 디자인 수급.
-  158: { pcDesign: 'received', moDesign: 'received' },
+  // 2026-10-30 사용자 직접 확인: Featured Running Session PC/MO 디자인 수급. UTMB는 메뉴만 유지.
+  155: { pcDesign: 'received', moDesign: 'received' },
+  158: { pcDesign: 'missing', moDesign: 'missing' },
   // 2026-10-30 사용자 확인: 기획전 상세는 현재 목업이며 디자인 미수급.
   167: { pcDesign: 'missing', moDesign: 'missing' },
   258: { pcDesign: 'received', moDesign: 'received' },

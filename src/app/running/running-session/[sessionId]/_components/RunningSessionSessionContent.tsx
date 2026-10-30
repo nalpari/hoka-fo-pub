@@ -20,11 +20,11 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
-  runClubImage,
-  type RunClubSession,
+  runningSessionImage,
+  type RunningSessionSession,
   sessionNotices,
   sessionPrecautions,
-} from '@/components/run-club/runClub.data';
+} from '@/components/running-session/runningSession.data';
 import { type Product } from '@/mocks/products';
 
 const applyButton = css({
@@ -39,13 +39,13 @@ const applyButton = css({
   },
 });
 
-type RunClubApplyButtonProps = {
-  status: RunClubSession['status'];
+type RunningSessionApplyButtonProps = {
+  status: RunningSessionSession['status'];
   onApply: () => void;
   pending?: boolean;
 };
 
-function RunClubApplyButton({ status, onApply, pending }: RunClubApplyButtonProps) {
+function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionApplyButtonProps) {
   return (
     <Button
       variant="primary"
@@ -63,7 +63,7 @@ function RunClubApplyButton({ status, onApply, pending }: RunClubApplyButtonProp
 }
 
 /** 세션 안내 또는 주의 사항 목록을 표시합니다. (Displays a session notice or precaution list.) */
-function RunClubSessionNotes({ precautions = false }: { precautions?: boolean }) {
+function RunningSessionSessionNotes({ precautions = false }: { precautions?: boolean }) {
   return (
     <Box
       as="aside"
@@ -93,7 +93,7 @@ function RunClubSessionNotes({ precautions = false }: { precautions?: boolean })
   );
 }
 
-export type RunClubFact = {
+export type RunningSessionFact = {
   label: string;
   value: ReactNode;
   detail?: ReactNode;
@@ -119,7 +119,7 @@ const facts = cva({
 });
 
 /** 런클럽 세션 정보를 요약 행으로 표시합니다. (Displays run club session facts as summary rows.) */
-function RunClubFacts({ rows, variant }: { rows: RunClubFact[]; variant: 'hero' | 'guide' }) {
+function RunningSessionFacts({ rows, variant }: { rows: RunningSessionFact[]; variant: 'hero' | 'guide' }) {
   return (
     <Box as="dl" className={facts({ variant })}>
       {rows.map(({ label, value, detail, mobileOnly }) => (
@@ -176,15 +176,15 @@ const styles = {
   opening: css({ color: 'var(--color-blue-100)', mb: '24px' }),
 };
 
-type RunClubSessionHeroProps = {
-  session: RunClubSession;
-  rows: RunClubFact[];
+type RunningSessionSessionHeroProps = {
+  session: RunningSessionSession;
+  rows: RunningSessionFact[];
   onApply: () => void;
   pending?: boolean;
 };
 
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
-export function RunClubSessionHero({ session, rows, onApply, pending }: RunClubSessionHeroProps) {
+export function RunningSessionSessionHero({ session, rows, onApply, pending }: RunningSessionSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
 
   return (
@@ -200,7 +200,7 @@ export function RunClubSessionHero({ session, rows, onApply, pending }: RunClubS
     >
       <Image
         className={styles.image}
-        src={runClubImage(session.detailImage)}
+        src={runningSessionImage(session.detailImage)}
         alt={`${session.title} 러닝 현장`}
         width={544}
         height={544}
@@ -208,7 +208,7 @@ export function RunClubSessionHero({ session, rows, onApply, pending }: RunClubS
       />
       <Box _mobile={{ px: '4', pt: '4', pb: '10' }}>
         <HStack>
-          <Badge runClubCategory={session.category} />
+          <Badge runningSessionCategory={session.category} />
         </HStack>
         <ContentHeader
           mt="3"
@@ -229,20 +229,20 @@ export function RunClubSessionHero({ session, rows, onApply, pending }: RunClubS
             ⓘ 1월 23일 (토) 10:00 신청 시작
           </Typography>
         ) : null}
-        <RunClubFacts variant="hero" rows={rows} />
-        <RunClubSessionNotes />
+        <RunningSessionFacts variant="hero" rows={rows} />
+        <RunningSessionSessionNotes />
         <Box _mobile={{ display: 'none' }}>
-          <RunClubApplyButton status={session.status} onApply={onApply} pending={pending} />
+          <RunningSessionApplyButton status={session.status} onApply={onApply} pending={pending} />
         </Box>
       </Box>
     </Grid>
   );
 }
 
-type Props = { session: Pick<RunClubSession, 'category' | 'overlayDate'> };
+type Props = { session: Pick<RunningSessionSession, 'category' | 'overlayDate'> };
 
 /** 세션 카테고리에 맞는 홍보 제목과 날짜를 표시합니다. (Displays a promotional title and date for the session category.) */
-function RunClubSessionPoster({ session }: Props) {
+function RunningSessionSessionPoster({ session }: Props) {
   return (
     <ContentSection
       color="var(--color-blue-100)"
@@ -276,10 +276,10 @@ function RunClubSessionPoster({ session }: Props) {
   );
 }
 
-type RunClubSessionGuideContentProps = { title: string; rows: RunClubGuideRow[] };
+type RunningSessionSessionGuideContentProps = { title: string; rows: RunningSessionGuideRow[] };
 
 /** 런클럽 세션 안내와 정보 행을 구성합니다. (Composes run club session guidance and fact rows.) */
-function RunClubSessionGuideContent({ title, rows }: RunClubSessionGuideContentProps) {
+function RunningSessionSessionGuideContent({ title, rows }: RunningSessionSessionGuideContentProps) {
   return (
     <Box maxW="640px" _mobile={{ maxW: 'none' }}>
       <ContentSection
@@ -298,19 +298,19 @@ function RunClubSessionGuideContent({ title, rows }: RunClubSessionGuideContentP
           descriptionProps: { variant: 'body4' },
         }}
       >
-        <RunClubFacts variant="guide" rows={rows} />
+        <RunningSessionFacts variant="guide" rows={rows} />
       </ContentSection>
-      <RunClubSessionNotes precautions />
+      <RunningSessionSessionNotes precautions />
     </Box>
   );
 }
 
-export type RunClubGuideRow = { label: string; value: string };
+export type RunningSessionGuideRow = { label: string; value: string };
 
-type RunClubSessionGuideProps = { session: RunClubSession; rows: RunClubGuideRow[] };
+type RunningSessionSessionGuideProps = { session: RunningSessionSession; rows: RunningSessionGuideRow[] };
 
 /** 런클럽 세션 안내를 구성합니다. (Composes the run club session guide.) */
-export function RunClubSessionGuide({ session, rows }: RunClubSessionGuideProps) {
+export function RunningSessionSessionGuide({ session, rows }: RunningSessionSessionGuideProps) {
   return (
     <Box
       as="section"
@@ -331,15 +331,15 @@ export function RunClubSessionGuide({ session, rows }: RunClubSessionGuideProps)
           gap: '8',
         }}
       >
-        <RunClubSessionPoster session={session} />
-        <RunClubSessionGuideContent title={session.title} rows={rows} />
+        <RunningSessionSessionPoster session={session} />
+        <RunningSessionSessionGuideContent title={session.title} rows={rows} />
       </Grid>
     </Box>
   );
 }
 
 /** 런클럽 세션 대표 이미지 영역을 표시합니다. (Displays the run club session hero image area.) */
-export function RunClubSessionImage() {
+export function RunningSessionSessionImage() {
   return (
     <Center
       w="min(calc(100% - 110px), 1776px)"
@@ -366,10 +366,10 @@ const mobileSlide = css({
   '& > *': { w: '100%' },
 });
 
-type RunClubRecommendationsProps = { products: Product[]; platform: Platform };
+type RunningSessionRecommendationsProps = { products: Product[]; platform: Platform };
 
 /** 추천 런클럽 세션을 표시합니다. (Displays recommended run club sessions.) */
-export function RunClubRecommendations({ products, platform }: RunClubRecommendationsProps) {
+export function RunningSessionRecommendations({ products, platform }: RunningSessionRecommendationsProps) {
   return (
     <Box as="section" py="72px" overflow="hidden" _mobile={{ py: '10' }}>
       <HomeCarouselSection
@@ -390,22 +390,22 @@ export function RunClubRecommendations({ products, platform }: RunClubRecommenda
   );
 }
 
-const RunClubApplicationNoticeStyles = {
+const RunningSessionApplicationNoticeStyles = {
   modalText: css({ m: '0 0 24px' }),
 };
 
-type RunClubApplicationNoticeProps = {
+type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   registered?: boolean;
 };
 
 /** 런클럽 신청 안내를 표시합니다. (Displays the run club application notice.) */
-export function RunClubApplicationNotice({
+export function RunningSessionApplicationNotice({
   open,
   onOpenChange,
   registered,
-}: RunClubApplicationNoticeProps) {
+}: RunningSessionApplicationNoticeProps) {
   return (
     <ModalDialog
       open={open}
@@ -415,14 +415,14 @@ export function RunClubApplicationNotice({
       size="sm"
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
-      <Typography as="p" variant="body3" className={RunClubApplicationNoticeStyles.modalText}>
+      <Typography as="p" variant="body3" className={RunningSessionApplicationNoticeStyles.modalText}>
         {registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}
       </Typography>
     </ModalDialog>
   );
 }
 
-type RunClubDetailLayoutProps = {
+type RunningSessionDetailLayoutProps = {
   hero: ReactNode;
   guide: ReactNode;
   desktopContent: ReactNode;
@@ -431,13 +431,13 @@ type RunClubDetailLayoutProps = {
 };
 
 /** 런클럽 상세 화면의 골격을 구성합니다. (Composes the run club detail layout.) */
-export function RunClubDetailLayout({
+export function RunningSessionDetailLayout({
   hero,
   guide,
   desktopContent,
   mobileAction,
   applicationNotice,
-}: RunClubDetailLayoutProps) {
+}: RunningSessionDetailLayoutProps) {
   return (
     <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(92px + env(safe-area-inset-bottom))' } }}>
       {hero}
@@ -449,14 +449,14 @@ export function RunClubDetailLayout({
   );
 }
 
-type RunClubFixedActionBarProps = {
-  status: RunClubSession['status'];
+type RunningSessionFixedActionBarProps = {
+  status: RunningSessionSession['status'];
   onApply: () => void;
   pending?: boolean;
 };
 
 /** 런클럽 상세의 고정 액션 영역을 표시합니다. (Displays the fixed run club detail action area.) */
-export function RunClubFixedActionBar({ status, onApply, pending }: RunClubFixedActionBarProps) {
+export function RunningSessionFixedActionBar({ status, onApply, pending }: RunningSessionFixedActionBarProps) {
   return (
     <Box
       as="section"
@@ -475,7 +475,7 @@ export function RunClubFixedActionBar({ status, onApply, pending }: RunClubFixed
         pb: 'max(32px, env(safe-area-inset-bottom))',
       }}
     >
-      <RunClubApplyButton status={status} onApply={onApply} pending={pending} />
+      <RunningSessionApplyButton status={status} onApply={onApply} pending={pending} />
     </Box>
   );
 }

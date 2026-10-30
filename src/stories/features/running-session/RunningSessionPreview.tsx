@@ -4,15 +4,15 @@ import { AppLayout } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 
-import { runClubSessions } from '@/components/run-club/runClub.data';
-import { RunClubPage } from '@/components/run-club/RunClubPage';
-import { RunClubDetailPage } from '@/stories/features/run-club/RunClubDetailPagePreview';
+import { runningSessionSessions } from '@/components/running-session/runningSession.data';
+import { RunningSessionPage } from '@/components/running-session/RunningSessionPage';
+import { RunningSessionDetailPage } from '@/stories/features/running-session/RunningSessionDetailPagePreview';
 
 type PreviewProps = { platform: Platform; view: 'list' | 'empty' | 'open' | 'closed' | 'upcoming' };
 
 /** 런클럽 스토리의 상태와 화면 프레임을 연결합니다 (Displays the run club preview composition). */
-export function RunClubPreview({ platform, view }: PreviewProps) {
-  const session = runClubSessions.find(
+export function RunningSessionPreview({ platform, view }: PreviewProps) {
+  const session = runningSessionSessions.find(
     (item) =>
       item.id === (view === 'open' && platform === 'web' ? 'bukchon-night' : 'bukhansan-trail'),
   )!;
@@ -25,17 +25,17 @@ export function RunClubPreview({ platform, view }: PreviewProps) {
         >
           <AppLayout cart={0} isLoggedIn={false} wishlistCount={0} recentCount={0}>
             {view === 'list' || view === 'empty' ? (
-              <RunClubPage
+              <RunningSessionPage
                 sessions={
                   view === 'empty'
                     ? []
                     : platform === 'mobile'
-                      ? runClubSessions.slice(0, 3)
-                      : runClubSessions
+                      ? runningSessionSessions.slice(0, 3)
+                      : runningSessionSessions
                 }
               />
             ) : (
-              <RunClubDetailPage key={view} session={{ ...session, status: view }} />
+              <RunningSessionDetailPage key={view} session={{ ...session, status: view }} />
             )}
           </AppLayout>
         </div>

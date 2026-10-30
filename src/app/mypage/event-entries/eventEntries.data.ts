@@ -1,6 +1,6 @@
-import type { RunClubEntry } from '@/context/RunClubDataContext';
+import type { RunningSessionEntry } from '@/context/RunningSessionDataContext';
 
-import { runClubSessions } from '@/components/run-club/runClub.data';
+import { runningSessionSessions } from '@/components/running-session/runningSession.data';
 
 export const eventEntryPreview = {
   totalCount: 62,
@@ -9,7 +9,7 @@ export const eventEntryPreview = {
     {
       id: 'preview-entry-bukhansan',
       session: {
-        ...runClubSessions[2],
+        ...runningSessionSessions[2],
         title: '북악산 트레일 세션',
         location: '북한산 국립공원',
         distance: '10KM',
@@ -22,7 +22,7 @@ export const eventEntryPreview = {
     {
       id: 'preview-entry-marathon',
       session: {
-        ...runClubSessions[1],
+        ...runningSessionSessions[1],
         title: '호카와 함께한 2025 서울마라톤',
         location: '북한산 국립공원',
         distance: '40KM',
@@ -35,7 +35,7 @@ export const eventEntryPreview = {
     {
       id: 'preview-entry-jeju',
       session: {
-        ...runClubSessions[0],
+        ...runningSessionSessions[0],
         image: 'session-card-08.png',
         title: '파리에서 제주까지, 함께 달리는 발걸음',
         location: '북한산 국립공원',
@@ -46,5 +46,5 @@ export const eventEntryPreview = {
       appliedAt: '2025.09.30',
       canCancel: false,
     },
-  ] satisfies RunClubEntry[],
+  ] satisfies RunningSessionEntry[],
 };

@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:11:50Z'
+  at: '2026-10-30T06:32:40+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/publishing-guide/page.tsx
@@ -662,3 +662,9 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 실제 페이지 환경에서 defaultStateLabel과 기본 route가 있고 previewRoutes가 정확히 하나면 그 route를 첫 STATE로 표시하고 부모의 기본 페이지 링크를 숨긴다. canonical route 자체와 기존 빈 상태명·href·검색·Storybook 연결은 유지한다. 여러 상태가 이미 있거나 단일 상태가 오류 등 비어 있지 않은 경우는 기존 구성을 유지한다. 상품 공통 항목에도 같은 표시 규칙을 적용한다. 런클럽은 이미 명시한 목록 있음/빈 목록 상태 두 행을 유지한다. 상태명·보기 링크는 행별, 구분·코드·진행 상태·비고는 같은 화면 내 rowSpan을 유지한다.
 
 검증: 앱에서 주문배송 조회의 부모 링크 0개와 목록 있음/빈 목록 두 STATE, 상품 목록 부모 링크 0개와 필터 URL을 유지한 조건 결과 있음/없음 두 STATE를 확인했다. 첫 상태 행의 병합은 [1,2,2,1,2,2,2]이고 두 번째 행은 상태명·보기 두 셀만 남는다. 비밀번호 재설정은 기본 링크 1개와 입력 오류/변경 완료 두 상태가 유지됨을 확인했다. 런클럽 목록 있음·빈 목록과 상세 신청 가능·모집 마감·신청 예정도 확인했다. 타입·변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트 3개를 통과했다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

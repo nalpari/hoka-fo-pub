@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T05:55:40Z'
+  at: '2026-10-30T06:32:40+00:00'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
@@ -533,3 +533,9 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 ## 디자인에 필요한 선택·제출 상태 (2026-10-29)
 
 쿠폰 초안/확정 선택, 기본배송지 저장 의도, 신청 취소, 인증 약관 본문과 등급 진행률을 기존 컨텍스트 계약에 추가했다. 실제 서비스 성공을 기다린 뒤 모달을 닫고 실패 시 초안과 오류를 유지한다. 서버 목록 재필터와 실제 금액 재계산은 하지 않는다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

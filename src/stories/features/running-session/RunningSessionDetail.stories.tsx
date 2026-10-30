@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 
-import base, * as scenarios from './RunClubDetail.scenarios';
+import base, * as scenarios from './RunningSessionDetail.scenarios';
 
 const meta = {
   ...base,

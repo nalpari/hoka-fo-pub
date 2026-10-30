@@ -12,7 +12,7 @@ import { InquiryDataContext } from '@/context/InquiryDataContext';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { type ClaimQuoteInput, OrdersContext } from '@/context/OrdersContext';
 import { PlatformProvider } from '@/context/platform';
-import { RunClubDataContext } from '@/context/RunClubDataContext';
+import { RunningSessionDataContext } from '@/context/RunningSessionDataContext';
 import { SupportContentContext } from '@/context/SupportContentContext';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -21,7 +21,7 @@ import PasswordResetPage from '@/app/login/find-account/password-reset/page';
 import CouponPage from '@/app/mypage/coupons/page';
 import PaymentPage from '@/app/mypage/payment-methods/page';
 import ProfilePage from '@/app/mypage/profile/page';
-import RunClubDetailPage from '@/app/running/run-club/[sessionId]/page';
+import RunningSessionDetailPage from '@/app/running/running-session/[sessionId]/page';
 import SignupInformationPage from '@/app/signup/information/page';
 import SignupTermsPage from '@/app/signup/terms/page';
 import FaqPage from '@/app/support/faq/page';
@@ -34,7 +34,7 @@ import TermsPage from '@/app/support/terms/page';
 import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
 import { previewOrders } from '@/components/orders/orders.data';
 import { OrdersPage } from '@/components/orders/OrdersRoute';
-import { runClubSessions } from '@/components/run-club/runClub.data';
+import { runningSessionSessions } from '@/components/running-session/runningSession.data';
 import { products } from '@/mocks/products';
 import { ShopStatePreview } from '@/stories/features/ShopStatePreview';
 
@@ -394,7 +394,7 @@ export const HistoryActualIds: Story = {
 
 const apply = fn<(id: string) => Promise<void>>(async () => {});
 
-export const RunClubApplication: Story = {
+export const RunningSessionApplication: Story = {
   parameters: { nextjs: { navigation: { segments: [['sessionId', 'api-session-99']] } } },
   beforeEach: () => {
     apply
@@ -403,10 +403,10 @@ export const RunClubApplication: Story = {
       .mockResolvedValue(undefined);
   },
   render: () => (
-    <RunClubDataContext.Provider
+    <RunningSessionDataContext.Provider
       value={{
         detail: {
-          session: { ...runClubSessions[0], id: 'api-session-99', title: '운영 세션' },
+          session: { ...runningSessionSessions[0], id: 'api-session-99', title: '운영 세션' },
           facts: [
             { label: '정원', value: '45명' },
             { label: '예약금', value: '8,000원' },
@@ -417,8 +417,8 @@ export const RunClubApplication: Story = {
         },
       }}
     >
-      <RunClubDetailPage />
-    </RunClubDataContext.Provider>
+      <RunningSessionDetailPage />
+    </RunningSessionDataContext.Provider>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

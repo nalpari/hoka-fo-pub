@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useContext, useState } from 'react';
-import { RunClubDataContext, type RunClubEntry } from '@/context/RunClubDataContext';
+import { RunningSessionDataContext, type RunningSessionEntry } from '@/context/RunningSessionDataContext';
 import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
@@ -24,22 +24,22 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { eventEntryPreview } from '@/app/mypage/event-entries/eventEntries.data';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-import { runClubImage } from '@/components/run-club/runClub.data';
+import { runningSessionImage } from '@/components/running-session/runningSession.data';
 import { faChevronDown } from '@/icons/fontAwesome';
 
 /** 신청내역과 상태별 조회·취소 확인을 표시합니다. (Displays session entry history, status filters and cancellation confirmation.)
- * [ 개발팀 바인딩 ] RunClubDataContext.entries의 현재 items/totalCount/hasMore/pageInfo와 조회 상태를 직접 표시하며 서버 결과를 재필터하지 않습니다.
+ * [ 개발팀 바인딩 ] RunningSessionDataContext.entries의 현재 items/totalCount/hasMore/pageInfo와 조회 상태를 직접 표시하며 서버 결과를 재필터하지 않습니다.
  * category와 신청일 정렬 sort(latest/oldest)를 onQueryChange로 전달합니다. 연결 소유자가 조건 변경 시 페이지를 초기화하고 늦은 응답을 버리며 10건씩 누적합니다.
  * appliedAt은 신청일 표시값, session.schedule은 진행일시, canCancel은 운영 취소 가능 여부입니다. 미제공 시 기존 신청완료 상태를 기준으로 취소 버튼을 표시합니다.
  * cancelEntry에는 세션 ID가 아닌 신청 ID를 전달합니다. 소유자가 성공 후 목록·건수를 갱신한 뒤 resolve해야 하며 pending 중 중복 실행/닫기를 막고 실패 시 확인창과 재시도를 유지합니다.
  * 미연결 기본 화면의 3건·총 62건·1/10은 디자인 fixture입니다. 더보기는 연결 전 비활성이고 취소 확인은 창만 닫으며 운영 상태를 변경하지 않습니다.
  * preview="cancel"은 연결된 Provider를 사용하지 않고 고정 fixture의 신청 취소 모달을 처음부터 표시합니다. 확인·취소·닫기는 창만 닫으며 새로고침 시 다시 열립니다.
  */
-export function RunClubEntriesContent({
+export function RunningSessionEntriesContent({
   previewEmpty = false,
   preview,
 }: { previewEmpty?: boolean; preview?: never } | { previewEmpty?: never; preview: 'cancel' }) {
-  const { entries: connected, cancelEntry } = useContext(RunClubDataContext);
+  const { entries: connected, cancelEntry } = useContext(RunningSessionDataContext);
   const binding = previewEmpty || preview === 'cancel' ? undefined : connected;
   const [category, setCategory] = useState('전체');
   const [sort, setSort] = useState<'latest' | 'oldest'>('latest');
@@ -51,7 +51,7 @@ export function RunClubEntriesContent({
   const request = useRequestAction();
   const loadMore = useRequestAction();
   useBindingQuery(binding?.onQueryChange, { category, sort });
-  const items: readonly RunClubEntry[] = previewEmpty
+  const items: readonly RunningSessionEntry[] = previewEmpty
     ? []
     : binding
       ? binding.items
@@ -122,7 +122,7 @@ export function RunClubEntriesContent({
             >
               <HStack justifyContent="space-between" alignItems="flex-start" gap="3">
                 <Link
-                  href={`/running/run-club/${entry.session.id}`}
+                  href={`/running/running-session/${entry.session.id}`}
                   className={css({ minW: '0', flex: '1' })}
                 >
                   <Typography
@@ -147,7 +147,7 @@ export function RunClubEntriesContent({
               <HStack alignItems="stretch" gap="4">
                 <Box position="relative" w="96px" h="96px" flexShrink="0">
                   <Image
-                    src={runClubImage(entry.session.image)}
+                    src={runningSessionImage(entry.session.image)}
                     alt=""
                     fill
                     sizes="96px"
