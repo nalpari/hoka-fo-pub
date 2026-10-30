@@ -6,7 +6,7 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T06:43:01+00:00'
+  at: '2026-10-30T06:56:50+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - tests/form-controls.test.mjs
@@ -482,5 +482,11 @@ preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통�
 ## 환불계좌와 기획전 목업 제거 (2026-10-30)
 
 환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## IA 탐색 도구 반응형과 고정 배치 (2026-10-30)
+
+사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.

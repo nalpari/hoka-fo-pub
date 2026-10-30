@@ -48,7 +48,12 @@ const { getScreenConnection, isScreenDeleted } = load('src/app/screen-index/scre
 test('Featured owns Running Session while UTMB remains a menu-only source IA', () => {
   const featured = screens.find((screen) => screen.iaNumber === 155);
   const utmb = screens.find((screen) => screen.iaNumber === 158);
-  assert.equal(getScreenConnection(featured).route, '/running/running-session');
+  assert.equal(getScreenConnection(featured).route, undefined);
+  assert.ok(
+    getScreenConnection(screens.find((screen) => screen.iaNumber === 258)).previewRoutes.some(
+      ({ href }) => href === '/running/running-session',
+    ),
+  );
   assert.deepEqual(utmb.depths.slice(0, 3), ['EXPLORE', 'Partnerships', 'UTMB']);
   assert.equal(getScreenConnection(utmb).route, undefined);
   assert.deepEqual(getScreenConnection(utmb).sourceFiles, []);

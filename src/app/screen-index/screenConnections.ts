@@ -145,7 +145,6 @@ const connections: Record<number, ScreenConnection> = {
   },
 
   '155': {
-    route: '/running/running-session',
     sourceFiles: ['src/app/running/running-session/page.tsx'],
     stories: {
       web: {

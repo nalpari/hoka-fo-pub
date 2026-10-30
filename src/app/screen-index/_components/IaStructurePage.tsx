@@ -36,7 +36,6 @@ import {
   getScreenProgress,
   type ScreenProgress,
   type ScreenProgressOverrides,
-  screenReviewNotes,
 } from '@/app/screen-index/storybookLinks';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
@@ -572,7 +571,6 @@ export function IaStructurePage({
           screen.category,
           screen.screenCode,
           screen.note,
-          screenReviewNotes[screen.iaNumber] ?? '',
         ]
           .join(' ')
           .toLowerCase();
@@ -647,68 +645,80 @@ export function IaStructurePage({
           {feedback}
         </Typography>
       )}
-      <Grid
-        as="section"
-        gridTemplateColumns="220px minmax(0, 1fr)"
-        gap="4"
-        mb="4"
-        _mobile={{ gridTemplateColumns: '1fr' }}
-        aria-label="IA 화면 현황"
+      <Box
+        pos="sticky"
+        top="0"
+        zIndex="20"
+        bg="#f6f8ff"
+        maxH="60dvh"
+        overflowY="auto"
+        pb="3"
+        aria-label="IA 탐색 도구"
       >
-        <article className={styles.card + ' ' + styles.summaryCard}>
-          <div className={styles.cardHeading}>
-            <Typography as="h2">IA 화면 현황</Typography>
-          </div>
-          <Typography
-            as="p"
-            className={css({ my: '3', color: '#2a14b4', fontSize: '32px', fontWeight: '800' })}
-          >
-            {screens.length}
-            <Typography as="span">개 화면</Typography>
-          </Typography>
-          <Typography as="p" className={css({ color: '#68718a', fontSize: '12px' })}>
-            PC · MO 디자인 및 퍼블리싱 별도 관리
-          </Typography>
-        </article>
-        <section className={styles.card + ' ' + styles.navCard} aria-label="화면 체계 NAV 탭 분류">
-          <div className={styles.cardHeading}>
-            <Typography as="h2">
-              <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
-              화면 체계 NAV 탭 분류 ({navGroups.length}개 영역)
+        <Grid
+          as="section"
+          gridTemplateColumns="220px minmax(0, 1fr)"
+          gap="4"
+          mb="4"
+          _mobile={{ gridTemplateColumns: '1fr' }}
+          aria-label="IA 화면 현황"
+        >
+          <article className={styles.card + ' ' + styles.summaryCard}>
+            <div className={styles.cardHeading}>
+              <Typography as="h2">IA 화면 현황</Typography>
+            </div>
+            <Typography
+              as="p"
+              className={css({ my: '3', color: '#2a14b4', fontSize: '32px', fontWeight: '800' })}
+            >
+              {screens.length}
+              <Typography as="span">개 화면</Typography>
             </Typography>
-          </div>
-          <Grid
-            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-            gap="2"
-            mt="3"
-            _mobile={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}
+            <Typography as="p" className={css({ color: '#68718a', fontSize: '12px' })}>
+              PC · MO 디자인 및 퍼블리싱 별도 관리
+            </Typography>
+          </article>
+          <section
+            className={styles.card + ' ' + styles.navCard}
+            aria-label="화면 체계 NAV 탭 분류"
           >
-            {navGroups.map((group) => (
-              <button
-                key={group.depth1}
-                type="button"
-                aria-pressed={activeDepth1 === group.depth1}
-                className={
-                  styles.groupButton +
-                  (activeDepth1 === group.depth1 ? ' ' + styles.selectedGroup : '')
-                }
-                onClick={() => {
-                  setActiveDepth1(group.depth1);
-                  setProductDepth1('all');
-                  setStatusFilter('all');
-                }}
-              >
-                <Flex gap="2" alignItems="center">
-                  <strong>{group.depth1}</strong>
-                  <Typography as="span">{group.screens.length}P</Typography>
-                </Flex>
-              </button>
-            ))}
-          </Grid>
-        </section>
-      </Grid>
+            <div className={styles.cardHeading}>
+              <Typography as="h2">
+                <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
+                화면 체계 NAV 탭 분류 ({navGroups.length}개 영역)
+              </Typography>
+            </div>
+            <Grid
+              gridTemplateColumns="repeat(auto-fit, minmax(min(100%, 160px), 1fr))"
+              gap="2"
+              mt="3"
+              _mobile={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))' }}
+            >
+              {navGroups.map((group) => (
+                <button
+                  key={group.depth1}
+                  type="button"
+                  aria-pressed={activeDepth1 === group.depth1}
+                  className={
+                    styles.groupButton +
+                    (activeDepth1 === group.depth1 ? ' ' + styles.selectedGroup : '')
+                  }
+                  onClick={() => {
+                    setActiveDepth1(group.depth1);
+                    setProductDepth1('all');
+                    setStatusFilter('all');
+                  }}
+                >
+                  <Flex gap="2" alignItems="center">
+                    <strong>{group.depth1}</strong>
+                    <Typography as="span">{group.screens.length}P</Typography>
+                  </Flex>
+                </button>
+              ))}
+            </Grid>
+          </section>
+        </Grid>
 
-      <section aria-label="IA 화면 목록">
         <Flex
           flexWrap="wrap"
           alignItems="center"
@@ -796,7 +806,9 @@ export function IaStructurePage({
             </select>
           </Flex>
         </Flex>
+      </Box>
 
+      <section aria-label="IA 화면 목록">
         <Box overflowX="auto" border="1px solid #dbe5ff" borderRadius="7px" bg="#fff">
           <table className={styles.table}>
             <thead>
@@ -853,11 +865,14 @@ export function IaStructurePage({
                       </div>
                     </td>
                     <td>대분류</td>
-                    <td colSpan={5} className={styles.code}>
+                    <td colSpan={2} className={styles.code}>
                       {productDepths
                         .map((depth) => 'CAT_' + (depth === '공통' ? 'COMMON' : depth))
                         .join(', ')}
                     </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td className={styles.note}>확정 IA 기준 화면 영역</td>
                   </tr>
                   {productSectionOpen && (
                     <>
@@ -974,8 +989,9 @@ function GroupRows({
           </div>
         </td>
         <td rowSpan={groupWbs ? 2 : undefined}>대분류</td>
-        <td className={styles.code}>CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}</td>
-        <td>-</td>
+        <td colSpan={2} className={styles.code}>
+          CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}
+        </td>
         <td>-</td>
         <td>-</td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
@@ -1004,13 +1020,7 @@ function GroupRows({
           const statePreviews = deleted ? [] : getStatePreviews(connection, previewEnvironment);
           const hasStateRows = statePreviews.length > 0;
           const rowClass = deleted ? styles.deletedRow : '';
-          const noteEntries = row.screen
-            ? splitNoteEntries(
-                [row.screen.note, screenReviewNotes[row.screen.iaNumber]]
-                  .filter(Boolean)
-                  .join(' / '),
-              )
-            : [];
+          const noteEntries = row.screen ? splitNoteEntries(row.screen.note) : [];
 
           return (
             <Fragment key={row.id}>
@@ -1272,9 +1282,7 @@ function ScreenPreview({
 }
 
 function productNotes(screen: ScreenDefinition) {
-  return splitNoteEntries(
-    [screen.note, screenReviewNotes[screen.iaNumber]].filter(Boolean).join(' / '),
-  );
+  return splitNoteEntries(screen.note);
 }
 
 function ProductRows({

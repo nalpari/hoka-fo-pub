@@ -221,7 +221,7 @@ const myPagePcNavigationNote =
 const phoneTermsReviewNote =
   'PC/MO 수정: 인증 약관의 이전 버전 선택이 첨부의 별도 선택창(PC 라디오·MO 휠)이 아닌 본문 안 버튼 목록임.';
 
-// 별도로 확인해야 하는 검토 비고만 IA와 검색에 노출합니다.
+// 과거 검수 기록입니다. screen-index의 비고 표시와 검색에는 결합하지 않습니다.
 export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
   170: 'PC 수정: 상품 행의 성별·관심상품 표시 누락, 주문하기 버튼이 시안의 검정 채움 대신 테두리형임. MO 완료 유지.',
   171: 'PC 수정: 결제 요약의 총 결제금액 라벨이 두 줄로 꺾임. PC 디자인 수정예정 유지.',
