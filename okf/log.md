@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-10-30 — 관심상품 PC/MO Figma 적용
+
+`/mypage/wishlist`와 `/mypage/wishlist/preview-empty`의 제목·3/2열 배치·빈 문구·안내문을 지정 섹션에 맞췄다. 공통 카드 history 옵션과 색상 목록을 추가하고 모바일 Best·정상가 280,000원 취소선·20%·판매가 240,000원을 명시적 fixture로 적용했다. 필수 공용 discountLabel 옵션만 사용자 승인으로 함께 포함하며 최근 본 상품·재입고 변경은 제외했다. [UI 규격과 검증](architecture/ui.md#관심상품-figma-적용-2026-10-30)에 실측값과 실제 검증을 기록했다.
+
 ## 2026-10-30 — 회원등급 PC/MO Figma 적용
 
 `/mypage/rewards`를 첨부 섹션의 PC 1563:33480·MO 1643:17449에 맞춰 진행바·구매금액 카드·세 도형 배지·등급별 목록·공통 쿠폰 혜택으로 갱신했다. 기존 overview 연결에 선택적 누적/목표 표시 문자열을 추가하고 PC Storybook과 IA 195 연결을 등록했다. 시안 간 RUNNER 한도·반품쿠폰 차이는 명시적 fixture로 보존했다. [UI 값·검증](architecture/ui.md#회원등급-시안-적용-2026-10-30), [라우팅](architecture/routing.md#회원등급-시안-적용-2026-10-30), [상태](architecture/state.md#회원등급-표시-데이터-2026-10-30), [바인딩](architecture/data-binding.md#회원등급-시안의-진행금액-표시-2026-10-30)을 갱신했다. Next·Storybook 빌드, 타입·Panda·변경 파일 lint/서식, 관련 기존 테스트 11개 통과. 전체 lint의 비대상 미사용 import 2건은 구분 기록했다. 실제 API 연결과 PC 공통 메뉴 검수 항목은 남아 있다.

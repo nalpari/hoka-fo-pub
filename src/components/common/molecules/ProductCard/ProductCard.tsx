@@ -1,8 +1,10 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * product에는 준비된 Product 모델, liked에는 외부 찜 상태를 전달합니다. onLikedChange는 새 여부만 알리므로 부모에서 해당 행/상품 ID를 함께 보관합니다.
+ * activityLabels는 연결 소유자가 준비한 용도 표시 문자열이며 생략 시 product.use의 기존 라벨을 사용합니다. history는 표시 옵션입니다.
+ * discountLabel은 준비된 할인율 표시이며 생략 시 기존 금액 계산을 사용합니다. 관심상품의 미연결 모바일 fixture에 시안의 20%를 적용합니다.
  * 카드는 요청을 직접 하지 않습니다. 부모가 요청 성공 후 liked를 갱신하거나 낙관적 갱신 실패를 복원합니다. liked 생략 시 로컬 미리보기 토글입니다.
  */
 
@@ -49,6 +51,7 @@ const genderLabel = cva({
           lineHeight: 'body',
         },
       },
+      history: { '&&': { fontSize: '14px' } },
       showcase: {
         _mobile: {
           '&&': { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
@@ -77,7 +80,14 @@ const productName = css({
   minW: '0',
   maxW: '100%',
   truncate: true,
-  fontSize: { base: 'var(--layout-web-product-font-size, 16px)', _mobile: '14px' },
+  fontSize: {
+    base: 'var(--layout-web-product-font-size, 16px)',
+    _mobile: '14px',
+  },
+  '&[data-product-card-variant="history"]': {
+    fontSize: '14px',
+    fontWeight: 'normal',
+  },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
 });
 
@@ -93,8 +103,8 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       as="p"
       className={productName}
       data-product-card-variant={variant}
-      web="bodyKr3"
-      mo="bodyKr4"
+      variant={variant === 'history' ? 'body4' : 'bodyKr3'}
+      mo={variant === 'history' ? 'body4' : 'bodyKr4'}
     >
       {name}
     </Typography>
@@ -104,6 +114,8 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
 const won = (value: number) => value.toLocaleString('ko-KR');
 
 type ProductPriceProps = {
+  /** Prepared display label; preview fixtures can preserve an approved design value. */
+  discountLabel?: string;
   /** Current selling price, including any discount. */
   price: number;
   /** Original price; discount details appear only when this exceeds price. */
@@ -112,7 +124,12 @@ type ProductPriceProps = {
 };
 
 /** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
-function ProductPrice({ price, originalPrice, variant = 'listing' }: ProductPriceProps) {
+function ProductPrice({
+  price,
+  originalPrice,
+  discountLabel,
+  variant = 'listing',
+}: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && price >= 0 && originalPrice > price;
   const discountRate = hasDiscount
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
@@ -134,13 +151,18 @@ function ProductPrice({ price, originalPrice, variant = 'listing' }: ProductPric
       ) : null}
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
-          <Typography variant="body3" mo="body4" tone="error" aria-label={`${discountRate}% 할인`}>
-            {discountRate}%
+          <Typography
+            variant="body3"
+            mo="body4"
+            tone="error"
+            aria-label={`${discountLabel ?? `${discountRate}%`} 할인`}
+          >
+            {discountLabel ?? `${discountRate}%`}
           </Typography>
         ) : null}
-        <Typography variant="body3" mo="body4">
+        <Typography variant={variant === 'history' ? 'body4' : 'body3'} mo="body4">
           {won(price)}
-          <Typography variant="body3" weight="bold">
+          <Typography variant={variant === 'history' ? 'body4' : 'body3'} weight="bold">
             원
           </Typography>
         </Typography>
@@ -151,13 +173,21 @@ function ProductPrice({ price, originalPrice, variant = 'listing' }: ProductPric
 
 type Props = Pick<
   ProductDetailsProps,
-  'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'variant'
+  'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'discountLabel' | 'variant'
 >;
 
-function ProductDetailsIdentity({ promotion, gender, name, price, originalPrice, variant }: Props) {
+function ProductDetailsIdentity({
+  promotion,
+  gender,
+  name,
+  price,
+  originalPrice,
+  discountLabel,
+  variant,
+}: Props) {
   return (
     <VStack
-      gap="1"
+      gap={variant === 'history' ? '1.5' : '1'}
       _mobile={variant === 'listing' ? { gap: '0' } : undefined}
       alignItems="flex-start"
       minW="0"
@@ -166,7 +196,12 @@ function ProductDetailsIdentity({ promotion, gender, name, price, originalPrice,
       {promotion && <Badge promotion={promotion} />}
       {gender && <ProductGender gender={gender} variant={variant} />}
       <ProductName name={name} variant={variant} />
-      <ProductPrice price={price} originalPrice={originalPrice} variant={variant} />
+      <ProductPrice
+        price={price}
+        originalPrice={originalPrice}
+        discountLabel={discountLabel}
+        variant={variant}
+      />
     </VStack>
   );
 }
@@ -187,6 +222,7 @@ type ProductVariantSummaryProps = {
   display?: ProductVariantSummaryDisplay;
   options: readonly ProductOptionThumbnail[];
   platform: Platform;
+  history?: boolean;
   widthCount: number;
 };
 
@@ -194,6 +230,7 @@ type ProductVariantSummaryProps = {
 function ProductVariantSummary({
   colorCount,
   display = 'colors-widths',
+  history = false,
   options,
   platform,
   widthCount,
@@ -204,7 +241,7 @@ function ProductVariantSummary({
     'colors-widths': `${colorCount} colors, ${widthCount} widths`,
   }[display];
 
-  if (platform === 'web') {
+  if (platform === 'web' && !history) {
     return (
       <Typography variant="body4" tone="subtle">
         {summaryText}
@@ -212,7 +249,7 @@ function ProductVariantSummary({
     );
   }
 
-  return <ProductOptionList layout="scroll" options={options} />;
+  return <ProductOptionList layout={history ? 'history' : 'scroll'} options={options} />;
 }
 
 type ProductDetailsOptionsProps = Pick<
@@ -230,7 +267,7 @@ function ProductDetailsOptions({
 }: ProductDetailsOptionsProps) {
   return (
     <VStack
-      gap="0"
+      gap={variant === 'history' ? '2' : '0'}
       _mobile={variant === 'listing' ? { gap: '1.5' } : undefined}
       alignItems="flex-start"
       minW="0"
@@ -239,6 +276,7 @@ function ProductDetailsOptions({
       {activities && activities.length > 0 && <ProductActivity activities={activities} />}
       <ProductVariantSummary
         colorCount={colorCount}
+        history={variant === 'history'}
         options={optionThumbnails}
         platform={platform}
         widthCount={widthCount}
@@ -259,11 +297,17 @@ const ProductDetailsRoot = cva({
         },
       },
       showcase: {},
+      history: {
+        w: '163.5px',
+        maxW: '100%',
+        _mobile: { w: '100%', px: '10px' },
+      },
     },
   },
 });
 
 type ProductDetailsProps = {
+  discountLabel?: string;
   activities?: readonly string[];
   colorCount: number;
   gender?: ProductGenderOption;
@@ -280,6 +324,7 @@ type ProductDetailsProps = {
 
 /** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 function ProductDetails({
+  discountLabel,
   activities,
   colorCount,
   gender,
@@ -296,7 +341,7 @@ function ProductDetails({
   return (
     <Card.Content className={ProductDetailsRoot({ variant })}>
       <VStack
-        gap="4"
+        gap={variant === 'history' ? '2.5' : '4'}
         _mobile={variant === 'listing' ? { gap: '2' } : undefined}
         alignItems="flex-start"
         minW="0"
@@ -304,6 +349,7 @@ function ProductDetails({
       >
         <ProductDetailsIdentity
           promotion={promotion}
+          discountLabel={discountLabel}
           gender={gender}
           name={name}
           price={price}
@@ -534,6 +580,7 @@ const root = cva({
   variants: {
     variant: {
       listing: {},
+      history: { gap: '2.5', _mobile: { gap: '2.5' } },
       showcase: {
         w: '100%',
         flex: '0 0 auto',
@@ -579,6 +626,8 @@ const activityLabel = (use: Product['use']) => {
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
 
 export type ProductCardProps = {
+  discountLabel?: string;
+  activityLabels?: readonly string[];
   soldOut?: boolean;
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
@@ -589,6 +638,8 @@ export type ProductCardProps = {
 
 /** 상품 이미지와 요약 정보를 카드로 표시합니다 (Displays the product card composition). */
 export function ProductCard({
+  discountLabel,
+  activityLabels,
   soldOut = false,
   liked,
   onLikedChange,
@@ -624,11 +675,23 @@ export function ProductCard({
         }
       }}
     >
-      <ProductCardHeader product={product} soldOut={soldOut} variant={variant} />
+      <ProductCardHeader
+        product={product}
+        soldOut={soldOut}
+        variant={variant === 'history' ? 'listing' : variant}
+      />
 
       {hasOption('like') && (
-        <Card.Action className={action}>
+        <Card.Action
+          className={
+            variant === 'history'
+              ? css({ pos: 'absolute', right: '2.5', top: '2.5', zIndex: '4' })
+              : action
+          }
+        >
           <Wishlist
+            size={variant === 'history' ? '18px' : undefined}
+            iconSize={variant === 'history' ? '18px' : undefined}
             active={isLiked}
             ariaLabel={`${product.name} 관심상품`}
             onActiveChange={(active) => {
@@ -640,7 +703,8 @@ export function ProductCard({
       )}
 
       <ProductDetails
-        activities={[activityLabel(product.use)]}
+        discountLabel={discountLabel}
+        activities={activityLabels ?? [activityLabel(product.use)]}
         colorCount={product.colors.length}
         gender={product.gender}
         name={product.name}

@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:21:19.889Z'
+  at: '2026-10-30T08:38:28.646Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/ProductCard/productCardTypography.ts
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
@@ -3705,3 +3706,21 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 검증: PC 1920px 본문 844px, MO 375px·390px의 표시와 가로 넘침 없음, 실제 RUNNER 36px/900·MO 등급명 22px/900·공통 제목 20px/600을 확인했다. CDP의 실제 글리프는 HOKA custom font와 Pretendard Regular/Bold이며, HOKA 내부 이름 `.`은 로드된 TheFutureHOKA Black WOFF2 face와 연결해 확인했다. 런타임 배너(50px)와 Figma의 모바일 status bar(24px), 브라우저 scrollbar 유무를 구분했다. 연결 Storybook에서 외부 이름/금액, null+pending, 오류·재시도 버튼, 늦은 item 교체 후 ELITE/987,654원/81% 갱신과 이전 금액·오류 제거를 확인했다. 재시도 버튼은 Storybook spy이며 실제 API 성공 검증이 아니다. Next·Storybook production build, typecheck, Panda, 변경 파일 ESLint/Prettier와 screen-files/screen-progress 기존 검사 11개가 통과했다. 전체 lint는 비대상 FindAccountContent.css·signup/complete.Stack 미사용 import 2건으로 실패했다. Storybook에는 기존 의존성 use client directive·chunk 크기 경고가 남는다. PC 공통 메뉴의 별도 검수 사유는 유지하고 본문 차이만 해결한 것으로 IA 비고를 갱신했다.
 
 추가 확인: 빌드된 Storybook의 MO 375px에서 등급 목록 x=16px·너비=343px, document scrollWidth=375px를 확인했다. MO 고정 스토리를 1600px로 늘려도 본문 sidebar 숨김·등급 세로 배치가 유지됐고 WEB 고정 스토리를 375px로 줄여도 sidebar 표시·가로 배치가 유지됐다.
+
+## 관심상품 Figma 적용 (2026-10-30)
+
+출처: [관심상품 섹션 1978:74225](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-74225)의 PC 목록 1978:75855·빈 목록 1978:78699, MO 목록 1978:74226·빈 목록 1978:74245. `MyPageProductHistory`의 wishlist 분기에만 제목·그리드·빈 상태·안내문을 적용한다. `/mypage/wishlist`와 `/mypage/wishlist/preview-empty`, IA 182 연결과 기존 histories 바인딩·최근 본 상품/재입고 기본값은 유지한다.
+
+- PC: 본문 844px, H6 36px/900·하단 40px/2px 선, 제목 다음 32px, 이미지 260px 3열·좌우 16px·가로 16px/세로 48px.
+- MO: H5 22px/900·좌우 16px, 카드 영역 전체 폭 2열·가로 8px/세로 40px. 375px viewport에서 이미지 183.5px. 안내문은 12px·상단 16px/1px 선이며 목록에서는 32px 뒤에 표시하고 MO 빈 목록에서는 숨긴다.
+- 빈 문구는 마침표를 포함한 14px 본문이며 PC 세로 240px, MO 96px padding을 둔다.
+- 공통 `ProductCard.variant=history`와 `ProductOptionList.layout=history`는 PC/MO의 색상 이미지(76px/34px), 카드 간격 10px, 18px 관심 아이콘과 PC 163.5px 상세 영역을 소유한다. listing/showcase 및 기존 옵션 목록 모드는 유지한다. `activityLabels`는 준비된 표시 라벨이며 요청/재고/가격 결정을 수행하지 않는다.
+- 후속 사용자 요청으로 `wishlistMobilePreview`에 모바일 Best(브랜드 파랑)·정상가 280,000원 취소선·20%·판매가 240,000원을 명시했다. 시안의 20%는 금액에서 재계산하지 않고 기존 ProductCard.discountLabel로 전달하는 미연결 fixture 표시값이다. PC New·240,000원과 빈 목록은 유지한다. binding.items가 있으면 실제 상품을 표시하고 fixture 할인율을 전달하지 않는다. 실제 조회/찜 변경은 기존 MyPageDataContext.histories.wishlist 소유권이며 새 API를 구현하지 않았다.
+
+브라우저에서 두 URL의 PC 1920px·MO 375px 직접 진입과 reload, 이미지 로딩 후 화면 및 계산 스타일을 확인했다. 목록의 PC 844px/260px·MO 183.5px, 열 간격·빈 문구와 MO 안내문 숨김을 확인했다. 공통 홍보 배너(50px)는 시안에 없지만 기존 정책에 따라 유지한다. Panda 생성·TypeScript·Storybook production build와 기존 라우트/preview 검사 7개를 통과했다. 전체 lint는 비대상 FindAccountContent의 css·signup/complete의 Stack 미사용 import가 남아 실패했으며, 동시 편집 중 발생한 공용 파일 문법/정렬 오류는 최신 파일의 타입 검사·변경 파일 ESLint/Prettier로 재검사해 통과했다. 관심상품 토글로 6→5개가 되는 기존 동작, reload 후 6개, 안내문 1회 렌더링과 일반 /products 카드의 listing 모드를 확인했다. 제목의 실제 렌더 폰트는 Pretendard-Black(custom font, 4글리프)이다. Storybook의 기존 module-level directive·번들/플러그인 타이밍 경고는 남아 있다.
+
+최종 Next production build는 컴파일·TypeScript·119개 정적 페이지 생성을 통과했으며 두 위시리스트 URL이 포함됐다. 마지막 변경 파일 ESLint/Prettier와 git diff --check를 통과했다. Storybook 빌드 후 변경한 안내문 footer의 단일 표시·간격은 브라우저에서 재확인했고 최종 Next 빌드에도 포함됐다. 브라우저 작업 중 reload 한 번은 15초 제한을 넘었으나 현재 화면을 재관찰한 뒤 정상 화면/폰트와 기본 카드 확인을 완료했다.
+
+모바일 배지·가격 후속 검증: 375px 브라우저에서 6개 카드 모두 Best·280,000원(line-through)·20%·240,000원을 표시하고 가로 넘침이 없음을 확인했다. 1920px 전환 후 New·240,000원/취소선 없음과 preview-empty의 카드 0개를 확인했다. 변경 파일 ESLint/Prettier와 TypeScript가 통과했다. 이 후속은 기존 표시 props에 fixture를 연결한 변경으로 Next/Storybook 빌드는 다시 실행하지 않았다.
+
+커밋 선별 검증: 다른 채팅의 최근 본 상품·재입고 후속을 제외한 HEAD+선별 소스 임시 사본에서 TypeScript와 4개 소스 ESLint를 통과했다. 할인율은 별도 렌더 검사 3건으로 명시적 20%·기존 계산 fallback·정상가 없는 상품의 할인 미표시를 확인했다. 선별 스테이지의 diff --check·okf:check를 통과했다. 위 Next/Storybook·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋의 빌드를 새로 실행했다는 뜻이 아니다.

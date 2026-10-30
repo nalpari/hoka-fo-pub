@@ -1,14 +1,15 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
+ * wishlistMobilePreview의 Best·280,000원·20%·240,000원은 모바일 미연결 시안 fixture이며 실제 연결 상품에는 적용하지 않습니다.
  * MyPageDataContext.histories[kind]에 실제 행 id와 상품 Product/liked/requestedAt을 전달합니다.
  * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 성공 후 최신 items를 공급하고 실패 시 reject합니다.
  */
 
-import { useContext } from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext';
+import { usePlatform } from '@/context/platform';
 import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
@@ -30,10 +31,22 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
 
-function MyPageProductHistoryHeading({ title }: { title: string }) {
+function MyPageProductHistoryHeading({
+  title,
+  wishlist = false,
+}: {
+  title: string;
+  wishlist?: boolean;
+}) {
   return (
-    <Box px="4" pt="6">
-      <Typography as="h1" web="heading8" mo="heading5">
+    <Box
+      px={wishlist ? '0' : '4'}
+      pt={wishlist ? '0' : '6'}
+      pb={wishlist ? '10' : '0'}
+      borderBottom={wishlist ? '2px solid var(--colors-black-100)' : undefined}
+      _mobile={wishlist ? { px: '4', pt: '0', pb: '0', borderBottom: '0' } : undefined}
+    >
+      <Typography as="h1" web={wishlist ? 'heading6' : 'heading8'} mo="heading5">
         {title}
       </Typography>
     </Box>
@@ -106,6 +119,7 @@ function MyPageRestockList({ items, thumbnail, onCancelRequest, entries }: Props
 }
 
 type MyPageProductHistoryGridProps = {
+  wishlist?: boolean;
   entries?: readonly HistoryItem[];
   items: readonly string[];
   liked: readonly string[];
@@ -114,41 +128,66 @@ type MyPageProductHistoryGridProps = {
 };
 
 function MyPageProductHistoryGrid({
+  wishlist = false,
   entries,
   items,
   liked,
   product,
   onLikedChange,
 }: MyPageProductHistoryGridProps) {
+  const platform = usePlatform();
   return (
     <Grid
       gridTemplateColumns={{
         base: 'repeat(3, minmax(0, 1fr))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
-      columnGap="2"
-      rowGap="6"
-      _mobile={{ columnGap: '2', rowGap: '4' }}
+      px={wishlist ? '4' : '0'}
+      columnGap={wishlist ? '4' : '2'}
+      rowGap={wishlist ? '12' : '6'}
+      _mobile={{ px: '0', columnGap: '2', rowGap: wishlist ? '10' : '4' }}
     >
       {items.map((id) => (
         <ProductCard
           key={id}
+          variant={wishlist ? 'history' : 'listing'}
+          discountLabel={
+            wishlist && !entries && platform === 'mobile'
+              ? wishlistMobilePreview.discountLabel
+              : undefined
+          }
+          activityLabels={wishlist && !entries ? ['데일리 러닝', '워킹'] : undefined}
           liked={liked.includes(id)}
           onLikedChange={(active) => onLikedChange(id, active)}
           options={['promotion', 'like', 'colors']}
-          product={entries?.find((entry) => entry.id === id)?.product ?? product}
+          product={
+            entries?.find((entry) => entry.id === id)?.product ??
+            (wishlist && platform === 'mobile' ? wishlistMobilePreview.product : product)
+          }
         />
       ))}
     </Grid>
   );
 }
 
-function MyPageProductHistoryNote({ note }: { note: string }) {
+function MyPageProductHistoryNote({
+  note,
+  wishlist = false,
+  empty = false,
+}: {
+  note: string;
+  wishlist?: boolean;
+  empty?: boolean;
+}) {
   return (
-    <Box px="4" pb="16">
+    <Box
+      px={wishlist ? '0' : '4'}
+      pb={wishlist ? '0' : '16'}
+      _mobile={wishlist ? { px: '4', display: empty ? 'none' : 'block' } : undefined}
+    >
       <Divider />
       <Box pt="4" whiteSpace="pre-line">
-        <Typography as="p" variant="body4" tone="tertiary">
+        <Typography as="p" variant={wishlist ? 'body5' : 'body4'} tone="tertiary">
           {note}
         </Typography>
       </Box>
@@ -214,6 +253,15 @@ const product: Product = {
   })),
 };
 
+const wishlistMobilePreview = {
+  product: {
+    ...product,
+    promotion: 'Best',
+    originalPrice: 280000,
+  } satisfies Product,
+  discountLabel: '20%',
+} as const;
+
 const config = {
   wishlist: {
     title: '관심상품',
@@ -264,9 +312,24 @@ export function MyPageProductHistory({
         pending={binding?.pending || request.pending}
         error={binding?.error || request.error}
       />
-      <Stack gap="6">
+      <Stack
+        gap={kind === 'wishlist' ? '8' : '6'}
+        mx={kind === 'wishlist' ? { _mobile: '-16px' } : undefined}
+        _mobile={kind === 'wishlist' ? { gap: '6', pb: '2' } : undefined}
+      >
+        {kind === 'wishlist' && <MyPageProductHistoryHeading title={current.title} wishlist />}
         {items.length ? (
-          <ContentSection gap="6" header={<MyPageProductHistoryHeading title={current.title} />}>
+          <ContentSection
+            gap={kind === 'wishlist' ? '8' : '6'}
+            footer={
+              kind === 'wishlist' ? (
+                <MyPageProductHistoryNote note={current.note} wishlist />
+              ) : undefined
+            }
+            header={
+              kind === 'wishlist' ? null : <MyPageProductHistoryHeading title={current.title} />
+            }
+          >
             {kind === 'restock-alerts' ? (
               <MyPageRestockList
                 entries={binding?.items}
@@ -276,6 +339,7 @@ export function MyPageProductHistory({
               />
             ) : (
               <MyPageProductHistoryGrid
+                wishlist={kind === 'wishlist'}
                 entries={binding?.items}
                 items={items}
                 liked={liked}
@@ -294,7 +358,13 @@ export function MyPageProductHistory({
               />
             )}
           </ContentSection>
-        ) : binding?.pending || binding?.error ? null : (
+        ) : binding?.pending || binding?.error ? null : kind === 'wishlist' ? (
+          <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
+            <Typography as="p" variant="body4" className={css({ color: '#4D4D4D' })}>
+              {current.empty}.
+            </Typography>
+          </Box>
+        ) : (
           <EmptyState title={current.empty} variant="minimal" />
         )}
         {binding?.hasMore && (
@@ -307,7 +377,13 @@ export function MyPageProductHistory({
             더보기
           </Button>
         )}
-        <MyPageProductHistoryNote note={current.note} />
+        {!(kind === 'wishlist' && items.length > 0) && (
+          <MyPageProductHistoryNote
+            note={current.note}
+            wishlist={kind === 'wishlist'}
+            empty={!items.length}
+          />
+        )}
       </Stack>
       <MyPageRestockCancelDialog
         pending={request.pending}
