@@ -78,11 +78,11 @@ function InquiryQuestion({ item }: Props) {
           >
             {item.answered ? '답변완료' : '접수완료'}
           </Badge>
-          <Typography variant="headingKr9" tone="primary">
+          <Typography variant="headingKr10" tone="primary">
             {item.title}
           </Typography>
         </Box>
-        <Typography as="span" variant="body4" tone="primary">
+        <Typography as="span" variant="body3" tone="primary">
           {item.body === undefined
             ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
             : item.body}
@@ -114,7 +114,7 @@ function InquiryAnswer({ content }: { content?: ReactNode }) {
         _mobile={{ pt: '0' }}
         className={css({ display: 'flex', flexDirection: 'column', gap: '3' })}
       >
-        <Typography as="p" variant="body4" tone="primary">
+        <Typography as="p" variant="body3" tone="primary">
           {content === undefined
             ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
             : content}

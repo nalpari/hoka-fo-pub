@@ -199,7 +199,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         orientation: 'horizontal',
         gap: '8px',
         css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
-        titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
+        titleProps: { id: 'phone-terms-title', web: 'heading10', mo: 'heading7' },
         action: (
           <Checkbox
             variant="consent"
@@ -448,7 +448,7 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           <ContentSection
             gap="6"
             title="인증 정보"
-            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
+            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr10' } }}
           >
             <PhoneVerificationForm {...props} />
           </ContentSection>

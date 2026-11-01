@@ -5,7 +5,8 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
-import { SupportTabs, type SupportTab } from '@/components/common/molecules/SupportTabs';
+
+import { type SupportTab, SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { ButtonGuide } from './_components/ButtonGuide';
 import { FormGuide } from './_components/FormGuide';

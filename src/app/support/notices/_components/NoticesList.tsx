@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
 type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobile' };
@@ -39,6 +40,8 @@ type NoticesListProps = {
   notices: readonly { id?: string; title: string; date: string }[];
   shown: number;
   platform: 'web' | 'mobile';
+  pending?: boolean;
+  error?: boolean;
 };
 
 const noticeLink = css({
@@ -56,7 +59,7 @@ const noticeLink = css({
 });
 
 /** 공지사항 목록을 표시합니다. (Displays the notice list.) */
-export function NoticesList({ notices, shown, platform }: NoticesListProps) {
+export function NoticesList({ notices, shown, platform, pending, error }: NoticesListProps) {
   return (
     <Stack
       as="section"
@@ -67,6 +70,9 @@ export function NoticesList({ notices, shown, platform }: NoticesListProps) {
       borderTopWidth={{ base: '2px', _mobile: '0' }}
       pt="8px"
     >
+      {!notices.length && !pending && !error ? (
+        <EmptyState title="등록된 공지사항이 없습니다." variant="minimal" />
+      ) : null}
       <Stack as="ul" gap="0" m="0" p="0" listStyleType="none">
         {notices.slice(0, shown).map((notice, index) => (
           <li key={notice.id ?? `${notice.title}-${index}`}>

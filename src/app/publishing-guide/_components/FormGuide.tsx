@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState, type ReactNode } from 'react';
+import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -11,12 +11,13 @@ import { Dropdown, type DropdownOption } from '@/components/common/atoms/Dropdow
 import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
+
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { faCopy, faUser } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
-import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sections = [

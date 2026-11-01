@@ -8,16 +8,17 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
+
 import {
+  type HelpTipSide,
   HelpToggletip,
   HelpTooltip,
-  type HelpTipSide,
 } from '@/components/common/molecules/HelpTips';
 
 import { faCopy } from '@/icons/fontAwesome';
 
 import { renderGuideCode } from './GuideCode';
-import { GuideCopyToast, type GuideCopyNotice } from './GuideCopyToast';
+import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sides: readonly { side: HelpTipSide; label: string }[] = [

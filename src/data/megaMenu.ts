@@ -148,7 +148,7 @@ export const megaMenus: MegaMenu[] = [
         items: [
           { label: '로드 러닝 가이드', to: '/explore/guides/road-running' },
           { label: '트레일 러닝 가이드', to: '/explore/guides/trail-running' },
-          { label: 'Running Session', to: '/explore/running-session' },
+          { label: 'Running Session', to: '/running/running-session' },
         ],
       },
       {
@@ -158,10 +158,10 @@ export const megaMenus: MegaMenu[] = [
           { label: '비브람', to: '/explore/technology/vibram' },
         ],
       },
-      { title: '러닝 세션 신청', to: '/running/run-club', items: [] },
+      { title: 'UTMB', items: [] },
     ],
     promo: {
-      to: '/running/run-club',
+      to: '/running/running-session',
       imageSrc: '/images/temp/MegaMenuAD.png',
       title: 'Clifton UTL',
     },

@@ -21,6 +21,15 @@ const list = cva({
         scrollbarWidth: 'none',
         '&::-webkit-scrollbar': { display: 'none' },
       },
+      history: {
+        display: 'flex',
+        minW: '0',
+        maxW: '100%',
+        gap: '1',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+        '&::-webkit-scrollbar': { display: 'none' },
+      },
       preview: {
         display: 'flex',
         gap: '4px',
@@ -46,6 +55,12 @@ const option = cva({
   variants: {
     layout: {
       scroll: { flex: '0 0 34px', w: '34px', h: '34px' },
+      history: {
+        flex: '0 0 76px',
+        w: '76px',
+        h: '76px',
+        _mobile: { flexBasis: '34px', w: '34px', h: '34px' },
+      },
       preview: { flex: '0 0 80px', w: '80px', h: '53px' },
       grid: { w: '76px', h: '60px' },
       cart: { flex: '0 0 72px', w: '18' },
@@ -74,6 +89,7 @@ const cartImage = css({ w: '100%', aspectRatio: '1', objectFit: 'contain', bg: '
 
 const thumbnailSize = {
   scroll: { width: 34, height: 34, sizes: '34px' },
+  history: { width: 76, height: 76, sizes: '(max-width: 1024px) 34px, 76px' },
   preview: { width: 80, height: 53, sizes: '80px' },
   grid: { width: 76, height: 60, sizes: '76px' },
   cart: { width: 72, height: 72, sizes: '72px' },
@@ -87,7 +103,7 @@ export type ProductOptionThumbnail = {
 
 export type ProductOptionListProps = {
   ariaLabel?: string;
-  layout: 'scroll' | 'grid' | 'preview' | 'cart';
+  layout: 'scroll' | 'grid' | 'preview' | 'cart' | 'history';
   onSelect?: (id: string) => void;
   options: readonly ProductOptionThumbnail[];
   selectedId?: string;

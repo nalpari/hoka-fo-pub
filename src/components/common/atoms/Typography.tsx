@@ -98,6 +98,17 @@ export const figmaTypographyVariants = {
   },
   heading9: {
     fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-20)',
+    fontWeight: 'semibold',
+    lineHeight: 'hoka',
+    letterSpacing: '0',
+    _mobile: {
+      fontSize: 'var(--font-sizes-16)',
+      fontWeight: 'medium',
+    },
+  },
+  heading10: {
+    fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-16)',
     fontWeight: 'medium',
     lineHeight: 'hoka',
@@ -243,7 +254,7 @@ export const figmaTypographyVariants = {
     letterSpacing: 'korean',
     _mobile: {
       fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'black',
+      fontWeight: 'semibold',
     },
   },
   headingKr7: {
@@ -269,6 +280,17 @@ export const figmaTypographyVariants = {
     },
   },
   headingKr9: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-20)',
+    fontWeight: 'semibold',
+    lineHeight: 'koreanHeading',
+    letterSpacing: 'korean',
+    _mobile: {
+      fontSize: 'var(--font-sizes-16)',
+      fontWeight: 'semibold',
+    },
+  },
+  headingKr10: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-16)',
     fontWeight: 'semibold',
@@ -428,8 +450,8 @@ const typography = cva({
 });
 
 export type TypographyVariant =
-  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
-  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
+  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
   | `body${1 | 2 | 3 | 4 | 5}`
   | `bodyKr${1 | 2 | 3 | 4 | 5}`
   | 'ctaKr1'
@@ -481,7 +503,7 @@ function resolveLanguageVariant(
 ): TypographyVariant | undefined {
   if (!variant || !language) return variant;
 
-  const pair = /^(heading|body|cta|textLink)(?:Kr)?(\d)$/.exec(variant);
+  const pair = /^(heading|body|cta|textLink)(?:Kr)?(\d+)$/.exec(variant);
   if (!pair) return variant;
 
   const korean = language === 'ko' || (language === 'auto' && containsHangul(children));

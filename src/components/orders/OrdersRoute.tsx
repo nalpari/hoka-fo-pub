@@ -49,9 +49,8 @@ import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
-import { SidebarNavigationLayout } from '@/components/common/layouts/SidebarNavigationLayout';
 
-import { myPageNavigation } from '@/components/mypage/mypage.data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import {
   claimReasonLabels,
   filterOrders,
@@ -89,20 +88,11 @@ function OrdersLayout({
   returns?: boolean;
 }) {
   return (
-    <SidebarNavigationLayout
-      title="MY HOKA"
-      titleTo="/mypage"
-      groups={myPageNavigation}
+    <MyPageFrame
       activePath={returns ? '/mypage/returns' : '/mypage/orders'}
-      mobileNavigation="hidden"
-      mobileSpacing="none"
+      breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
     >
-      <Stack
-        px={{ base: '0', _mobile: '4' }}
-        pt={{ base: '0', _mobile: '6' }}
-        pb={{ base: '0', _mobile: '18' }}
-        gap="0"
-      >
+      <Stack pb={{ base: '0', _mobile: '18' }} gap="0">
         <ContentSection
           title={title}
           headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading7' } }}
@@ -111,7 +101,7 @@ function OrdersLayout({
           {children}
         </ContentSection>
       </Stack>
-    </SidebarNavigationLayout>
+    </MyPageFrame>
   );
 }
 
@@ -215,7 +205,7 @@ function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: P
       headerProps={{
         orientation: 'horizontal',
         gap: 'normal',
-        titleProps: { variant: 'heading9', className: css({ m: '0' }) },
+        titleProps: { variant: 'heading10', className: css({ m: '0' }) },
         action: (
           <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
             <Typography variant="body5" tone="tertiary">
@@ -650,7 +640,7 @@ function OrderInformationSection({
       gap="0"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading9', mo: 'heading7' },
+        titleProps: { web: 'heading10', mo: 'heading7' },
         css: css.raw({ pb: '3', borderBottom: '1px solid var(--colors-black-100)' }),
       }}
     >

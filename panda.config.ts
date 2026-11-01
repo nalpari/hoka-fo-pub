@@ -128,7 +128,7 @@ export default defineConfig({
           },
         },
         fonts: {
-          hoka: { value: "'The Future HOKA', Pretendard, Arial, sans-serif" },
+          hoka: { value: "var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, sans-serif" },
           korean: { value: 'Pretendard, Arial, sans-serif' },
           mono: { value: "'The Future HOKA Mono', monospace" },
           story: { value: "'New Spirit', 'The Future HOKA', sans-serif" },

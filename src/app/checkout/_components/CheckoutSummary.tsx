@@ -60,7 +60,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
       as="section"
       gap="4"
       title="주문상품 정보 및 할인 적용"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading10', mo: 'heading7' } }}
     >
       <CheckoutProductList rows={rows} />
       <Typography variant="body5" tone="subtle">

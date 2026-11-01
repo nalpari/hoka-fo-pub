@@ -45,6 +45,55 @@ const { screens } = load('src/data/screenRegistry.ts');
 
 const { getScreenConnection, isScreenDeleted } = load('src/app/screen-index/screenConnections.ts');
 
+test('locale handoff is registered at Common D2 without inventing an original IA code', () => {
+  const locale = screens.find(
+    (screen) => screen.depths[0] === '공통' && screen.depths[1] === '국가선택',
+  );
+  assert.ok(locale);
+  assert.deepEqual(locale.depths, ['공통', '국가선택', '', '', '']);
+  assert.equal(locale.source, 'project');
+  assert.equal(locale.sourceIaNumber, undefined);
+  assert.equal(locale.screenCode, '');
+  const connection = getScreenConnection(locale);
+  assert.equal(connection.route, '/locales');
+  assert.ok(connection.sourceFiles.includes('src/app/locales/page.tsx'));
+  assert.ok(connection.stories.web.file.endsWith('LocalesPage.stories.tsx'));
+  assert.ok(connection.stories.mobile.file.endsWith('LocalesPage.mobile.stories.tsx'));
+  const { getScreenProgress } = load('src/app/screen-index/storybookLinks.ts');
+  assert.deepEqual(getScreenProgress(locale, {}), {
+    pcDesign: 'not-applicable',
+    moDesign: 'not-applicable',
+    pcPublishing: 'ready',
+    moPublishing: 'ready',
+  });
+});
+
+test('Featured owns Running Session while UTMB remains a menu-only source IA', () => {
+  const featured = screens.find((screen) => screen.iaNumber === 155);
+  const utmb = screens.find((screen) => screen.iaNumber === 158);
+  assert.equal(getScreenConnection(featured).route, undefined);
+  assert.ok(
+    getScreenConnection(screens.find((screen) => screen.iaNumber === 258)).previewRoutes.some(
+      ({ href }) => href === '/running/running-session',
+    ),
+  );
+  assert.deepEqual(utmb.depths.slice(0, 3), ['EXPLORE', 'Partnerships', 'UTMB']);
+  assert.equal(getScreenConnection(utmb).route, undefined);
+  assert.deepEqual(getScreenConnection(utmb).sourceFiles, []);
+  assert.deepEqual(getScreenConnection(utmb).stories, {});
+  for (const number of [155, 258, 259]) {
+    assert.deepEqual(screens.find((screen) => screen.iaNumber === number).depths.slice(0, 3), [
+      'EXPLORE',
+      'Featured',
+      'Running Session',
+    ]);
+  }
+  assert.ok(!screens.some((screen) => screen.depths[1] === 'Running Session'));
+  const featuredIndex = screens.findIndex((screen) => screen.iaNumber === 155);
+  assert.equal(screens[featuredIndex + 1].iaNumber, 258);
+  assert.equal(screens[featuredIndex + 2].iaNumber, 259);
+});
+
 function files(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const file = path.join(directory, entry.name);
@@ -64,7 +113,8 @@ test('every fixed preview page is reachable from an active IA row and its source
       if (isScreenDeleted(screen)) return false;
       const connection = getScreenConnection(screen);
       return (
-        connection.route === href || connection.previewRoutes?.some((item) => item.href === href)
+        connection.route === href ||
+        connection.previewRoutes?.some((item) => item.href.split('#')[0] === href)
       );
     });
     assert.ok(owners.length, `No active screen-index link for ${href}`);
@@ -91,7 +141,7 @@ test('preview links are unique per IA row and resolve to implemented static or d
     assert.equal(new Set(previews.map((item) => item.href)).size, previews.length);
     for (const { href, label } of previews) {
       assert.ok(label.trim());
-      const pathname = href.split('?')[0];
+      const pathname = href.split(/[?#]/)[0];
       assert.ok(
         pages.some((route) =>
           new RegExp('^' + route.replace(/\[[^\]]+\]/g, '[^/]+') + '$').test(pathname),

@@ -6,9 +6,31 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:38:20Z'
+  at: '2026-10-30T08:57:53.137523+00:00'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - public/images/mypage/coupon.svg
+  - src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx
+  - src/app/mypage/profile/_components/ProfileContent.tsx
+  - src/app/mypage/profile/_components/ProfileStatePreview.tsx
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductCard/productCardTypography.ts
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/context/MyPageDataContext.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
   - src/app/login/find-account/password-reset/_components/PasswordResetContent.tsx
   - src/app/login/account-locked/complete/page.tsx
   - src/app/signup/verify/_components/IdentityVerificationContent.tsx
@@ -32,6 +54,18 @@ working_tree_sources:
   - public/images/icon/tooltip/arrow.svg
   - public/images/icon/tooltip/info.svg
   - public/images/icon/tooltip/question.svg
+  - src/app/support/store/_components/StoreContent.tsx
+  - src/app/publishing-guide/_components/TypographyGuide.tsx
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
+  - src/app/publishing-guide/_components/FormGuide.tsx
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
+  - src/app/mypage/reviews/reviewFixtures.ts
+  - src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx
+  - src/components/mypage/MyPageFrame.tsx
+  - src/components/mypage/mypage.data.ts
+  - src/components/orders/OrdersRoute.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
   - src/app/login/preview-error/page.tsx
@@ -774,6 +808,12 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: coupons-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
+    title: 쿠폰 일반·임직원 PC/MO 시안
+  - id: recent-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807
+    title: '최근 본 상품 PC/MO 목록·빈 목록'
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
     title: 'Figma 주문/배송 조회 목록'
@@ -816,6 +856,94 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 최근 본 상품 Figma 적용 (2026-10-30)
+
+`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 `2025:149807` 아래 PC 목록 `2025:149837`·빈 목록 `2025:150007`, MO 목록 `2025:151429`·빈 목록 `2025:151448`을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
+
+- 최근 목록 제목은 PC Pretendard Black 36px/1.2·하단 40px·2px 선, MO 22px/1.2다. PC는 최대 260px 카드 3열·가로 16px/세로 48px, MO는 전체 폭 2열·가로 8px/세로 40px다. 좁은 PC 캔버스에서는 열이 가용 폭에 맞게 줄어든다.
+- 공통 카드의 기존 `history` 옵션을 재사용한다. PC 색상 썸네일 76px·MO 34px, 사진과 정보 사이 10px, 18px 찜 버튼을 사용한다. `Wishlist`의 history 호출에는 padding 0을 지정해 네이티브 버튼 padding 때문에 아이콘이 줄어들지 않게 한다.
+- 빈 목록은 PC 제목을 유지하고 본문 위아래 240px, MO 제목을 숨기고 위아래 96px를 준다. 안내문은 12px/1.3·#777777이며 PC와 MO 빈 목록에서 상단 선과 16px 간격을 둔다. MO 정상 목록에는 선을 표시하지 않는다.
+- `recentPreview`에 PC New/빨간색/전체 찜, MO Best/파란색/정상가 280,000원·판매가 240,000원/일부 찜을 명시한다. 사용자가 시안의 할인율을 유지하도록 확정했으므로 MO 미연결 fixture만 `discountLabel="20%"`를 전달한다. 금액에서 계산한 할인율과의 차이는 승인된 표시값이며 실제 상품 데이터에 추론 적용하지 않는다.
+- `ProductCard.promotionTone`은 배지 표현, `discountLabel`은 준비된 할인율 문자열이다. 생략하면 기존 배지색·할인율 계산을 유지한다. 연결된 `histories.recent.items/liked`가 도착·교체되면 최신 항목을 그대로 표시하며 미연결 fixture의 배지·할인율·찜 상태를 덮어씌우지 않는다. 기존 조회/찜 요청·pending/error/재시도·추가 조회 소유권은 유지한다.
+
+검증 기록: PC 36px 제목의 실제 `Pretendard-Black`, 상품명의 `Pretendard-Regular` 웹폰트를 확인했다. PC 1920px에서 카드 260×464.34px·18px 찜 아이콘·New #E10F00을 확인했다. 목록과 빈 목록의 직접 URL·PC/MO 화면·찜 토글, MO fixture의 20% 표시와 선택 배열을 확인했다. 모바일 Storybook은 22px 제목·상품 6개·20%를 표시한다. 1024/1025px에서 플랫폼이 전환되며 1025/1199px의 가로 스크롤은 기존 1200px PC 캔버스 정책이다. 1200px·1920px에서는 세로 scrollbar가 있어도 문서 가로 넘침이 없다. 관심상품 6개와 재입고 표도 정상 표시했다. 앱 공통 홍보 배너와 세로 스크롤바는 Figma 프레임과 별도이며 시안의 iPhone 상태바는 제품 UI에 추가하지 않는다.
+
+변경 TSX ESLint·Prettier, 전체 typecheck와 Panda 생성은 통과했다. 전체 lint는 비대상 `src/app/login/find-account/_components/FindAccountContent.tsx`의 미사용 css와 `src/app/signup/complete/page.tsx`의 미사용 Stack 두 건으로 실패했다. Next/Storybook production build와 실제 서버를 통한 조회·찜 실패/재시도는 이번 디자인 검증 범위에 포함하지 않는다. 서비스 연결을 새로 구현하지 않았다. 작성·검증: Codex, 2026-10-30T08:36:29Z. 조사 시작 HEAD는 `44faf1e5aa491c2506db28d0741e3f27f782ad58`이며 위 소스의 동시 작업 변경을 보존했다.
+
+[^recent-figma-20261030]: 제공된 최근 본 상품 섹션과 그 아래 PC/MO 기본·빈 목록 프레임, 2026-10-30 확인.
+
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+지정 섹션의 PC/MO 실측을 기존 소유자에 적용했다. 제목은 기존 36px/900·22px/900, 목록 제목은 PC headingKr8 22px/900·MO headingKr6 20px/600, 상세/날짜는 body3/body4 16px/14px와 4px 날짜 간격, 날짜색은 subtle(#4D4D4D)이다. 제목 뒤 간격 40/32px, 탭 높이 40/32px, 탭 아래 간격 40/24px, 행 padding 32/24px, 제목 행 28px·상세 간격 16px, 배지 padding 6px 8px를 적용했다. PC 취소 링크를 정보 우측 하단으로 옮기고 MO 다음 행 우측을 유지하며 link md(14px)를 사용한다. 96px 정사각 마스크 3종을 2배 PNG로 내보내 fixture에서만 사용하며 next/image sizes=96px를 유지한다. 모달은 기존 공통 Dialog를 사용하고 해당 화면에서 헤더 제목 높이·본문 padding·확인 문구를 보정했다.
+
+브라우저에서 PC clientWidth 1920px의 844px 본문·96px 이미지, MO clientWidth 375px 및 360px의 표시와 document 가로 넘침 없음을 확인했다. MO 360px에서는 날짜가 자연 줄바꿈한다. PC 실제 글리프는 Pretendard Black/Regular이며 앱 layout의 로컬 face를 사용한다. 탭 신청완료 1건/전체 복귀, 정렬 과거순, 모달 Escape 닫기·취소 버튼 포커스 복귀, Empty 직접 URL의 0건, 취소 preview 직접 URL과 확인 후 목록 3건 유지도 확인했다. 런타임 홍보 배너 50px·Figma iPhone status bar·브라우저 세로 scrollbar 차이는 본문 구현과 구분한다. 공통 플랫폼·Storybook·실제 API는 변경하지 않았으며 별도 서비스 검증은 하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성은 통과했다. 전체 typecheck는 비대상 AddressManagement.tsx의 Button union, ProductCard.tsx의 history variant, MyPageProductHistory.tsx의 secondary tone 오류로 실패했다. app-router 기존 검사는 production .next/server/app-paths-manifest.json 부재로 실행 실패했다. production/Storybook build는 이번에 수행하지 않았다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
+
+## 마이페이지 메인 디자인 반영 (2026-10-30)
+
+Figma [마이페이지 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 기본 PC `1533:43644`·모바일 `1413:131326`, 주문 없음 PC `1480:36896`·모바일 `1480:36472`를 반영했다. 기존 1200px 프레임/좌우 34px 안에 PC 등급 카드와 240px 혜택 카드 두 개를 가로 배치한다. 카드 배경 #F7F7F9, PC 패딩 32px·모바일 20px 16px, 카드 간격 8px이다. 이름은 PC 36px·모바일 28px, ‘님’은 24px 본문, 섹션 제목은 PC 28px·모바일 22px이다.
+
+PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 170px, 헤더 세로 패딩 20px·행 32px·썸네일 96px을 사용한다. 메뉴는 PC 3열(가로 56px/세로 48px 간격)·모바일 1열(32px 간격), 제목 밑줄은 PC 2px·모바일 1px이다. 모바일 캐러셀 표시점 간격은 5px이다. 주문 없음은 ‘주문 배송 내역이 없습니다.’를 PC 16px·모바일 14px·#4D4D4D로 표시하고 세로 패딩 120px/64px, ‘전체 보기’ 숨김을 적용한다. 로그아웃 버튼은 시안대로 모바일에 표시하며 기존 모달·콜백은 유지한다.
+
+기존 회원/주문 fixture와 `MyPageDataContext.overview` 계약은 유지한다. 예시 관심상품 6건·주문 5건 및 공통 홍보 배너는 시안 수치로 덮어쓰지 않았다. 신규 API나 상태 URL을 만들지 않았다. 회원명 글리프에서 Pretendard Black 웹폰트를 확인했고 영문은 기존 layout의 HOKA 폰트 변수를 재사용한다.
+
+검증: 2026-10-30 Codex가 두 URL을 375/1920px viewport에서 열어 hydration·폰트 로딩 후 위치/크기/테두리·이미지를 확인했다. Windows scrollbar 15px로 모바일 clientWidth 360px과 Figma 프레임 375px 차이를 구분했다. 캐러셀 2번째 선택, 로그아웃 모달 열기·Esc 닫기·버튼 포커스 복귀를 확인했다. 1024/1025·1199/1200 경계, 1200px 이상 가로 넘침 없음, 쿠폰 화면 breadcrumb 하단 32px 보존을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, Next 빌드(119개 정적 페이지)를 통과했다. 전체 lint는 비대상 FormGuide의 미사용 TextInput 및 HelpTipsGuide import 정렬 오류로 실패했다. Storybook 빌드/명시적 플랫폼 스토리는 미실행이다.
+
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00. 사람의 디자인 승인 완료를 의미하지 않는다.
+
+## 매장 목록 제목 16px 유지 (2026-10-30)
+
+`StoreResults`의 매장명은 `heading10`과 기존 `weight="semibold"`로 16px·600을 표시한다. 20px H9와 16px H10을 구분한 공통 타이포 계약에 맞추고 정보 목록의 콘텐츠·배치·링크·데이터 계약은 유지한다. 작업 트리 출처: `src/app/support/store/_components/StoreContent.tsx`. 변경 파일 ESLint·Prettier를 통과했다.
+
+## 퍼블리싱 가이드 import 정렬 (2026-10-30)
+
+`ButtonGuide.tsx`, `FormGuide.tsx`, 퍼블리싱 가이드 `page.tsx`의 named import 순서와 atoms/molecules/organisms 그룹 사이 빈 줄을 ESLint 설정에 맞췄다. type-only import·클라이언트 지시문·컴포넌트 동작과 스타일을 유지했다. 전체 `npm run lint`가 오류 없이 통과하여 아래 폰트·필터 작업 당시 남았던 import 정렬 오류 8개를 해소했다. 작업 트리 출처: `src/app/publishing-guide/_components/ButtonGuide.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`, `src/app/publishing-guide/page.tsx`.
+
+## 영문 폰트 연결과 타이포·PLP 필터 규격 (2026-10-30)
+
+Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, sans-serif`를 사용한다. 앱에서는 RootLayout의 기존 `next/font/local` 변수를 읽고, 해당 변수가 없는 Storybook에서는 기존 전용 stylesheet의 `The Future HOKA` face를 사용한다. 폰트 파일·굵기·이탤릭·preload 설정과 fallback 순서는 유지한다.
+
+`heading9`/`headingKr9`는 PC 20px·600, 모바일 16px(영문 500·한글 600)이다. `heading10`/`headingKr10`은 기존 H9의 16px·행간·굵기를 그대로 보존한다. 기존 상품 상세·주문·휴대폰 인증·회원정보·고객센터·ShopShell과 ContentHeader story의 명시적 H9 사용처를 H10으로 옮겼다. 자동 한글 전환은 두 자리 번호도 처리하며 두 가이드와 Typography scale story에 H10을 노출한다. 모바일 한글 H6는 20px·행간 24px을 유지하고 굵기를 600으로 변경했다.
+
+`SizeSelector`의 기본 `size="compact"`는 최소 높이 32px이다. 상품 상세·장바구니는 `ProductSizeSelector`를 통한 간접 사용처가 있으므로 `size="regular"`로 기존 40px을 명시한다. PLP의 선택된 색상 스와치는 외곽 38px·테두리 1px·안쪽 32px이며 미선택 36px과 선택·키보드 동작은 유지한다. 공통 컨테이너는 기존 1532px이다.
+
+작업 트리 출처: `panda.config.ts`, `src/components/common/atoms/Typography.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`, `src/components/common/molecules/SizeSelector/SizeSelector.tsx`, `src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx`, `src/components/catalog/ProductListingPage.tsx`와 H10으로 변경한 기존 사용처.
+
+검증 (2026-10-30, Codex): 변경 TSX/Panda 설정 ESLint·Prettier, 전체 타입 검사, Panda 생성과 최종 Next/Storybook production build를 통과했다. 앱과 production 서버에서 영문 제목의 계산 family가 `hoka`이며 CDP에서 커스텀 폰트의 실제 글리프 사용을 확인했다. 폰트 내부 family/PostScript 이름은 `.`으로 표시되어, 생성된 Regular·Medium·Bold·Black 파일을 제공된 HOKA 원본과 SHA-256으로 대조해 모두 일치함을 확인했다. Storybook의 명시적 PC/MO scale은 기존 `The Future HOKA` 등록으로 렌더링되며 H9 20/16px, H10 16/16px과 한글 H6 36px·900/20px·600·24px 행간을 확인했다. 실제 PLP와 production PLP에서 PC/MO 사이즈 32px·선택 스와치 외곽 38px·선 1px·내부 32px·PC 컨테이너 1532px을 측정했다. 상품 옵션 Detail·Cart story는 모두 기존 40px을 유지했다. 당시 남았던 전체 lint의 import 정렬 오류 8개는 후속 퍼블리싱 가이드 import 정렬 작업에서 해소했다. 라우트·상태·요청 계약 변경은 없다.
+
+## 상품리뷰 디자인 목록과 STATE (2026-10-30)
+
+사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. h1은 모바일에서 접근성 트리에 유지하며 시각적으로 숨긴다. 작성 가능 목록에는 표 헤더 없이 상품명/옵션과 PC pill 작성 버튼·MO 구매일/텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이다.
+
+`ReviewStatePreview`의 ready-list/written-list는 서비스 요청 없는 고정 fixture다. 작성 가능 10건, 작성한 목록 PC 1건·총 62건·1/10, MO 2건·총 2건·더보기 없음은 독립적인 디자인 값이다. `reviewListPreview.writtenMobile`이 모바일 작성 목록의 총 건수와 더보기 표시를 명시한다. 미연결 더보기는 외형을 유지한 비활성 버튼이다. 기존 작성·수정·고정 오류 preview는 보존한다. `ReviewListEntry.product`의 선택 표시값 gender/price는 실제 응답에 없으면 만들어 표시하지 않는다. 운영 ready/written/save 연결·요청 상태의 책임은 기존 페이지와 MyPageDataContext에 유지한다.
+
+IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 표 렌더러는 바꾸지 않았다. 신규 `/mypage/reviews/preview-ready`, `/mypage/reviews/preview-written`과 기존 `/preview-empty`를 디자인의 세 상태로 연결한다. 기존 빈 작성목록·작성·수정·입력 오류 링크도 유지한다. WEB에 세 디자인 상태 story를 추가하고 기존 MO에 작성한 목록을 추가했다. 각 story는 ShopShell의 명시적 web/mobile 플랫폼을 사용한다.
+
+2026-10-30 후속 실측 적용: [Figma 리뷰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38311)의 PC 기본 `1487:39447`·작성 `1563:32191`·Empty `1563:31449`, 모바일 기본 `1487:38312`·작성 `1487:38397`·Empty `1487:38387`을 읽어 적용했다. PC 본문 844px·탭 42px, 모바일 전체 폭 탭 32px, 탭/도구 간격 PC 40px·MO 32px, 도구 하단 16px이다. 작성한 표는 844px 기준 340/120/300/84px 열 비율, 20px 헤더/32px 행 세로 패딩·96px 이미지이며 좁은 PC 본문에서는 열 비율을 축소한다. 모바일 이미지는 64px, 별은 16px·간격 4px, 본문은 PC 14px/MO 12px 한 줄 말줄임이다. 정렬은 기존 native Select에 14px `chevron-down-small` 에셋을 배치해 키보드 동작을 유지한다. Empty 문구는 ‘작성 가능한 상품이 없습니다.’ 16px·#4D4D4D, PC 세로 203px/모바일 탭 아래 96px 간격이다. 기존 상품명·옵션·리뷰 내용·평점·구매일 fixture와 기본 화면 건수/저장 계약은 유지한다.
+
+검증(2026-10-30, Codex): 세 URL의 PC 1920px/MO viewport 390px(clientWidth 375px) 직접 진입과 폰트 로딩 후 크기·이미지·간격을 확인했다. 실제 글리프는 한글 Pretendard Regular, 영문은 기존 HOKA face(내부명 `.`)를 사용했다. 명시적 WEB/Mobile 작성 목록 스토리도 1/2건·탭 42/32px을 표시했다. 탭 전환·정렬·수정 모달 열기/Esc 닫기·행 버튼 포커스 복귀와 screen-index 상태명/URL을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, 최초 Next 빌드와 최종 Storybook 빌드, 기존 라우트/preview 연결 검사 7개를 통과했다. 정렬 아이콘 경로 보완 뒤 마지막 Next 빌드는 동시 수정된 비대상 ProfileContent.tsx:301의 secondary 버튼/size="sm" 타입 오류와 RunningSessionEntriesContent.tsx:192·196의 Typography tone="secondary" 타입 오류로 실패했다. 최초 통과를 최종 전체 작업 트리 통과로 간주하지 않는다. 전체 lint는 비대상 FindAccountContent·signup complete의 미사용 import 및 HelpTipsGuide 정렬 오류 5개로 실패했다. 공통 배너·로그인 fixture·Windows 세로 scrollbar 차이는 시안 본문과 구분했다. 실제 리뷰 저장 API 검증은 이번 변경 범위가 아니다.
+
+작업 트리 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, `ReviewStatePreview.tsx`, `reviewFixtures.ts`, `src/app/screen-index/screenConnections.ts`, 리뷰 WEB/Mobile stories. 실측 기록: 2026-10-30T17:12:00+09:00. 사람의 최종 디자인 승인을 뜻하지 않는다.
+
+검증: PC/MO에서 작성 가능 10건/Empty/작성 목록 PC 1건·MO 2건과 제목·PC 열 구분·MO 별점/본문을 확인했다. mobile body 판별 이후 document scrollWidth/clientWidth=360/360으로 가로 넘침 없음을 확인했다. screen-index의 STATE 행과 상태명/URL 검색, 작성한 목록 보기 링크의 새 창 직접 진입을 확인했다. 타입·변경 파일 ESLint/Prettier·Panda·그래프 생성을 통과했다. 새 Storybook story는 타입으로 확인했으며 전체 Storybook·production build는 실행하지 않았다. 검증 중 종료된 로컬 개발 서버를 재시작했다.
+
+출처: 위 review 컴포넌트·fixture·stories와 `src/app/mypage/reviews/reviews.types.ts`, `preview-ready/page.tsx`, `preview-written/page.tsx`, `src/app/screen-index/screenConnections.ts` 작업 트리, 사용자 첨부 디자인. 작성: 2026-10-30 (Asia/Seoul).
+
+## 마이페이지 최종 공통 프레임 (2026-10-30)
+
+사용자가 러닝세션 신청내역의 레이아웃을 마이페이지 대메뉴의 최종 디자인으로 확정했다. breadcrumb·외곽 폭·PC 본문 그리드와 모바일 여백은 `MyPageFrame`이 소유하며, 신청내역의 별도 프레임을 제거하고 공통 프레임으로 복귀했다. PC 외곽은 `min(calc(100% - 64px), 1532px)`, 내부는 1200px/좌우 34px, 사이드바 190px/간격 98px이다. 모바일은 16px 여백과 숨긴 사이드바를 사용한다. 활성 링크는 검정 밑줄이며 메뉴는 구매내역·상품내역·MY HOKA·Q&A·계정관리로 구성한다.
+
+`/mypage` 메인만 기존 `layout="centered"` 옵션으로 사이드바를 생략한다. breadcrumb는 메인과 모든 하위 화면에서 동일한 외곽 프레임에 한 번 렌더링하며, 메인에서도 좁은 본문 안으로 들어가지 않는다. 기존 640px 중앙 프레임을 없애고 공통 내부 폭으로 표시한다. 화면별 상세 콘텐츠·요청 상태는 각 소유자에 유지한다.
+
+주문·취소반품의 `OrdersLayout`과 결제수단·환불계좌·멤버십 활동·친구추천도 `MyPageFrame`으로 연결했다. 공통 `SidebarNavigationLayout`의 다른 도메인 사용처는 수정하지 않았다. 하위 화면 자체의 제목·폼·카드 패딩은 이번 공통 프레임 변경에서 일괄 수정하지 않는다.
+
+검증: 메인 main 1개/aside 0개, 주문·멤버십 활동·결제수단·환불계좌 main 1개/aside 1개를 확인했다. 같은 PC viewport에서 메인과 주문 breadcrumb x=32/y=162, MO에서 메인과 상품리뷰 breadcrumb x=16/y=126이 일치했다. 신청내역·쿠폰에서도 공통 메뉴와 검정 밑줄을 확인했다. 공통 플랫폼 판별과 centered 사용처 1곳을 보존했다.
+
+출처: 위 프레임·메뉴·주문 파일과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `member-activity/page.tsx`, `payment-methods/page.tsx`, `refund-account/page.tsx`, `referral/_components/ReferralContent.tsx` 작업 트리. 사용자 확정 및 작성: 2026-10-30 (Asia/Seoul).
 
 ## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
 
@@ -3501,3 +3629,210 @@ Figma의 [사용 기준](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOK
 말풍선의 그림자를 한 번 적용하고 화살표를 본체에 1px 겹친다. 토글팁 본체 너비는 상·하단 192px, 좌·우측 164px이다. 좌·우측 화살표 이미지는 회전 후 영역의 가운데에 둔다. 현재 소스에서 좌·우측 화살표의 렌더링 영역은 8×17px이다. 퍼블리싱 가이드의 별도 탭에는 사용 기준, 두 유형의 네 방향 예시, 코드 복사와 타임라인을 제공한다. 타임라인 앵커는 사이트 헤더 높이 + 16px의 스크롤 여백을 사용한다. 출처는 `HelpTips.tsx`, `HelpTipsGuide.tsx`, 로그인 `LoginContent.tsx`, 가이드 `page.tsx`와 위 Figma 노드 및 SVG 세 개다.
 
 2026-10-30 로컬 브라우저에서 가이드의 우측 툴팁 열기·닫기, 상단 토글팁 확인 닫기, 네 방향 화살표 위치, 좌우 164px·상단 192px 본체 너비, Tooltip·Toggletip 타임라인 링크의 고정 헤더 아래 위치를 확인했다. 좌우 화살표 크기와 로그인 도움말은 이후 작업 트리에서 사용자가 조정했으며 조정 후 모바일 시각 검증은 수행하지 않았다. Panda 생성과 OKF 검사는 통과했다. 전체 타입 검사에는 변경 범위 밖의 `.next/types/app/products/page.ts` 및 `.next/types/app/running/run-club/page.ts` 오류가 남아 있다.
+
+## 문의 대기·완료의 단일 목록 (2026-10-30)
+
+대기/완료를 별도 화면으로 만들지 않고 `InquiryListPreview.items` 배열의 항목별 상태로 표시한다. 기본 fixture는 서로 다른 ID의 대기·완료 각 1건이며 기존 InquiryListItem과 답변 토글을 재사용한다. PC/MO 문의 Storybook도 Pending·Answered 대신 통합 List를 표시한다. 첨부 관련 기존 시나리오는 유지한다. [URL과 인계 계약](publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
+
+## 디자인 가이드 Mono 섹션 제거 (2026-10-30)
+
+사용자 요청으로 `DesignGuideTypography`의 빈 `Typography · Mono` 섹션과 전용 목록·표 스타일을 제거했다. 한영 비교표와 variant 코드 복사 기능은 유지한다. 작업 트리 출처는 `src/components/screen-index/DesignGuideTypography.tsx`다. Storybook Typography 직접 URL에서 한영 비교 제목과 복사 버튼이 표시되고 Mono 제목이 없는 것을 브라우저 DOM으로 확인했다. 변경 파일 ESLint와 Prettier 검사를 통과했다.
+
+## IA 상품 공통 화면과 연결 표 (2026-10-30)
+
+상품 목록·상세는 각각 기존 디자인/퍼블리싱 두 행을 유지하고 중복 WBS·작업 파일을 합쳐 표시한다. 네 상태는 현재 필터 결과의 모든 화면 값이 같으면 공통값, 다르면 혼합이다. null과 값의 차이도 혼합이며 삭제/제외의 진행값은 null로 취급한다. `progressOverrides`는 매 렌더에서 읽어 교체를 즉시 반영한다. 비고는 중복 제거 후 접어서 표시하고 연결 분류 경로를 펼쳐 확인한다. 원본 IA 수와 두 공통 항목으로 묶인 수를 하단에 함께 표시한다.
+
+대분류 행은 기존 그룹과 같은 D1·폴더·분류명·원본 screens 수·대분류 구성을 사용한다. 오른쪽 다섯 칸은 colSpan=5로 합쳐 CAT_MEN, CAT_WOMEN, CAT_SHOES, CAT_COMMON을 나열하며 현재 결과의 분류만 표시한다. 두 공통 항목 뒤, 다음 대분류 전에 연결 메뉴 버튼을 하나만 둔다. 기본 접힘이며 전체 접기·펼치기·검색에 연동한다.
+
+사용자 후속 피드백으로 연결 표는 Depth1·중간 분류·서브 메뉴 경로의 3열 트리로 정리했다. 상품 목록·상세의 동일 메뉴 경로를 합친 86개 메뉴를 Depth1·중간 분류별로 묶고, 각 중간 분류는 한 행에 표시한다. 세부 메뉴는 Best, New, Coming Soon처럼 쉼표로 연결해 td 하나에 모으며 더 깊은 경로의 화살표와 원본 순서를 유지한다. 개별 IA 번호·네 상태·화면 링크·비고는 트리에 반복하지 않는다. 개별 URL·번호·상태는 원본 데이터와 검색·필터 계약에 유지하고, 화면 링크·상태·비고·파일은 공통 항목에서 확인한다. 연속된 동일 Depth1만 중간 분류 행 수에 맞춰 rowSpan으로 병합하고 tbody의 분류 th는 배경색 없이 세로 중앙에 배치하며 경계선을 남긴다. 바깥 표의 7열과 두 행 헤더는 유지한다. 전역 공통 컴포넌트나 상품 서비스·등록 데이터는 변경하지 않는다.
+
+검증: Codex가 앱에서 연결 86/71개, MEN/WOMEN/SHOES/공통 60/60/36/1개, 메뉴명·URL 검색, 검색 자동 펼침·결과 없음·상태 필터·전체 접기·Enter 접기를 확인했다. 최종 3열 트리·86개 중복 제거 메뉴·MEN 33개 메뉴·검색 일치 메뉴 1개, 버튼이 두 요약 항목 뒤에 하나만 배치됨, 기본 접힘·전체 접기·펼치기·Enter 접기 및 분류 th 투명 배경을 DOM으로 확인했다. 이후 대분류 오른쪽 colSpan=5와 CAT 코드 나열 변경은 정적 검사로 확인했다. 앱 375px에서 body 폭 375px와 표 내부 가로 스크롤을 확인했다. Storybook ProductProgress fixture에서 혼합 상태와 props 교체 후 필터 결과·공통 상태 갱신, WEB/Mobile 링크와 개별 listing 인수를 확인했다. Storybook 대표 링크 새 창 열기·경로 복사 피드백과 기존 7열/수정 전 5열 표의 병합도 확인했다. 타입 검사·변경 TSX ESLint/Prettier·Panda 생성과 기존 상태 테스트 10개를 통과했다. 모바일 스크린샷 캡처는 CDP 타임아웃으로 시각 검증을 완료하지 못했다. 프로덕션 빌드·전체 Storybook play는 실행하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`, `src/stories/features/screen-index/IaStructurePage.stories.tsx`.
+
+후속 요청으로 세부 메뉴별 행을 중간 분류별 한 행·쉼표 나열 셀로 압축했다. 이번 수정은 타입 검사와 변경 파일 ESLint/Prettier로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+## IA STATE 하위 행 표시 (2026-10-30)
+
+다수 미리보기 링크를 가로로 나열하던 실제 페이지 셀에서 기본 링크만 남기고 각 미리보기를 화면 바로 아래 STATE 행으로 옮겼다. 원래 화면의 디자인·퍼블리싱 두 행과 WBS·작업 파일은 유지하며 그 다음에 상태 행을 나열한다. STATE는 부모 화면보다 한 단계 들여 쓰고 구분=상태, 화면 코드·진행 상태=-, 비고=화면 상태 미리보기로 표시한다. 자체 IA 번호·확인하지 않은 상태·일정을 생성하지 않는다. 부모 화면의 토글로 상태 행을 숨기고 펼치며 기존 상위 트리 접기와 검색 자동 확장을 따른다. 검색 중 전체 접기는 기존 규칙상 검색 일치 화면을 확장 유지한다. 상태 링크는 기존 경로와 새 창 열기·경로 복사를 유지한다. 미리보기는 개수와 빈 상태 여부에 관계없이 모두 하위 행으로 표시한다. 같은 화면의 STATE 행들은 비고 셀을 행 수만큼 rowSpan으로 합쳐 화면 상태 미리보기를 한 번만 표시한다. 병합은 다른 화면이나 부모의 작업 파일 행까지 확장하지 않는다.
+
+검증: 앱 SUPPORT 필터에서 문의 등록 7개 STATE와 7열 정렬, 부모의 기본 링크만 노출됨, 부모 접기 시 0개·Enter 재확장 시 7개, 첨부 형식 오류 검색을 확인했다. 문의 목록 기본 링크가 preview-list이고 STATE 없음 링크가 /support/inquiries인지, 부모 접기 시 없음 행이 숨겨지는지 DOM으로 확인했다. 타입 검사·변경 파일 ESLint/Prettier와 기존 preview 링크 테스트 3개를 통과했다. 첫 타입 검사 중 다른 채팅의 임시 entry-verification-temp 파일이 제거되어 실패했고 재실행은 통과했다. 이번 변경에 대해 프로덕션 빌드와 Storybook 재검증은 수행하지 않았다. 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/screenConnections.ts`다.
+
+후속 공통 규칙 적용으로 기존 빈 목록·검색 결과 없음 등 고정 빈 상태 연결을 isEmpty=true로 표시하고, 단일 빈 상태도 STATE로 분리했다. STATE 묶음의 비고 rowSpan 변경은 타입·lint/format 및 기존 preview 링크 테스트로 확인하며 해당 병합의 브라우저 재검증은 수행하지 않았다.
+
+STATE 행의 링크 텍스트는 사용자 요청으로 보기로 통일했다. 상태명은 첫 열과 aria-label의 상태명 보기로 유지하고 경로·새 창 열기·복사·rowSpan은 변경하지 않는다. 변경 파일 ESLint/Prettier로 확인했으며 이번 문구 변경은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+추가 요청으로 1~2개 미리보기도 모두 STATE 하위 행으로 표시하도록 통일했다. 이전 개수·isEmpty 분기와 기본 링크 셀의 미리보기 나열 코드는 제거했다. 보기 문구·접기·검색·부모 두 행과 상태 비고 rowSpan은 유지한다. 변경 파일 lint/format·타입 검사와 기존 preview 링크 테스트로 확인하며 이번 변경의 브라우저 재검증은 수행하지 않았다.
+
+STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면의 상태 행 수만큼 각각 rowSpan으로 병합했다. 기존 비고 병합과 7열 정렬을 유지하며 첫 열의 상태명·보기 링크는 행별로 표시한다. 단일 상태는 rowSpan=1이고 병합은 다른 화면·부모의 두 행을 포함하지 않는다. 변경 파일 ESLint/Prettier로 확인하며 이번 병합은 브라우저에서 재검증하지 않았다. 출처: `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+런클럽 상세 IA 259의 기본 페이지 링크 `/running/run-club/yeouido-night`를 첫 STATE 신청 가능으로 이동했다. 모집 마감·신청 예정과 함께 세 상태를 하위 행에 표시하며 부모 상세의 상태 나열 비고는 screenRegistry에서 제거했다. 기본 route 없이 상태 링크만 있는 부모는 실제 페이지 셀에 -를 표시하고 독립 경로 없음으로 오해시키지 않는다. 보기 링크·비고 및 상태 셀 rowSpan·접기와 Storybook WEB/Mobile 연결, 실제 런클럽 페이지·데이터는 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/data/screenRegistry.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`. 변경 파일 lint/format과 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다.
+
+런클럽 목록 IA 258의 기존 페이지 링크 `/running/run-club`도 STATE 목록 있음으로 이동했다. 데이터가 있는 목록은 목록 있음, 빈 화면은 빈 목록으로 짝지어 두 하위 행에서 보기 링크를 제공한다. 부모 목록의 실제 페이지 셀은 -이며 상태·비고 rowSpan·접기·경로·작업 파일·Storybook 연결과 실제 목록 구현은 유지한다. 변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트로 확인하며 브라우저 재검증은 수행하지 않았다. 출처: `src/app/screen-index/screenConnections.ts`.
+
+런클럽 목록 IA 258의 빈 상태 레이블은 후속 요청에 따라 빈 목록에서 없음으로 변경했다. STATE 목록 있음·STATE 없음의 두 하위 행과 기존 보기 링크·URL·rowSpan은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`. 문구 변경은 변경 파일 lint/format으로 확인했다.
+
+## 단일 빈 STATE와 기본 화면 짝 표시 (2026-10-30)
+
+사용자 정정에 따라 런클럽 목록의 빈 목록 레이블을 복원했다. 요청의 의미는 빈 상태명 변경이 아니라, 빈 STATE만 한 행 있는 화면의 기본 페이지도 대응하는 STATE로 내려 두 상태를 구분하는 것이다. 기존 단일 빈 미리보기 연결 17곳에 `ScreenConnection.defaultStateLabel`을 명시했다. 목록 있음·검색 결과 있음·주문 내역 있음·조건 결과 있음·상품문의 있음처럼 표시 맥락에 맞게 직접 지정하며 런타임에 URL·레이블 문자열로 빈 상태를 추론하지 않는다.
+
+실제 페이지 환경에서 defaultStateLabel과 기본 route가 있고 previewRoutes가 정확히 하나면 그 route를 첫 STATE로 표시하고 부모의 기본 페이지 링크를 숨긴다. canonical route 자체와 기존 빈 상태명·href·검색·Storybook 연결은 유지한다. 여러 상태가 이미 있거나 단일 상태가 오류 등 비어 있지 않은 경우는 기존 구성을 유지한다. 상품 공통 항목에도 같은 표시 규칙을 적용한다. 런클럽은 이미 명시한 목록 있음/빈 목록 상태 두 행을 유지한다. 상태명·보기 링크는 행별, 구분·코드·진행 상태·비고는 같은 화면 내 rowSpan을 유지한다.
+
+검증: 앱에서 주문배송 조회의 부모 링크 0개와 목록 있음/빈 목록 두 STATE, 상품 목록 부모 링크 0개와 필터 URL을 유지한 조건 결과 있음/없음 두 STATE를 확인했다. 첫 상태 행의 병합은 [1,2,2,1,2,2,2]이고 두 번째 행은 상태명·보기 두 셀만 남는다. 비밀번호 재설정은 기본 링크 1개와 입력 오류/변경 완료 두 상태가 유지됨을 확인했다. 런클럽 목록 있음·빈 목록과 상세 신청 가능·모집 마감·신청 예정도 확인했다. 타입·변경 파일 ESLint/Prettier 및 기존 preview 링크 테스트 3개를 통과했다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`.
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 매장 찾기 정보 목록 정리 (2026-10-30)
+
+`/support/store`는 지역 탭·길 찾기·지도와 열림 상태를 제거하고 서울·경기 순서의 단일 예시 목록을 표시한다. 매장명·주소·전화번호·제공된 영업시간만 유지하며 데이터는 최종 미확정 fixture다. 인천 탭으로 Empty를 확인한다는 종전 안내는 폐기하고 별도 Empty URL은 만들지 않는다. 기존 매장 IA와 경로를 유지한다. 출처: src/app/support/store/page.tsx, _components/StoreContent.tsx, store.data.ts 및 관련 표시 타입. 최종 디자인 승인은 별도다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상품 목록 품절 표시 예시 (2026-10-30)
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 환불계좌와 기획전 목업 제거 (2026-10-30)
+
+환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## IA 탐색 도구 반응형과 고정 배치 (2026-10-30)
+
+사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 배지 명칭 누락 보완 (2026-10-30)
+
+이 채팅의 경로·심볼 이전에서 발생한 Badge·Storybook·타입 검사의 명칭 변경을 기준 스냅샷과 편집 기록으로 확인하여 함께 반영했다. Badge.runningSessionCategory와 runningSessionBadge로 통일하고 기존 runClubCategory 명칭을 대체한다. Road/Trail 라벨·스타일과 다른 Badge 모드의 배타적 타입 계약은 유지한다. 앞선 작업 보고에서 다른 작업으로 분류했던 배지 3개 파일은 이 채팅의 수정이었으며 누락분을 별도 커밋으로 보완한다. 출처: src/components/common/atoms/Badge.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx와 작업 전 스냅샷.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 공통 D2 국가선택 인계 연결 (2026-10-30)
+
+국가선택(내부 IA 267)은 공통 > D2에 기존 /locales와 PC/MO 스토리를 연결한다. 사용자 직접 확인에 따라 디자인 미해당(not-applicable)·퍼블리싱 완료(ready)를 PC/MO 각각 지정한다. ScreenProgress의 디자인 union과 상태 라벨·필터에 미해당을 추가한다. 기존 미수급·확인 전·퍼블리싱 상태는 유지한다. 출처: src/app/screen-index/storybookLinks.ts, _components/IaStructurePage.tsx와 tests/preview-links.test.mjs. 타입 검사·관련 Node 테스트 16개를 통과했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 비대상 마이페이지 세 화면 삭제 (2026-10-30)
+
+사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 회원등급 시안 적용 (2026-10-30)
+
+디자인 출처: [회원등급 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1563-33124), PC `1563:33480`, MO `1643:17449`의 구조·스타일을 확인했다. 디자인 시스템 파일 `0dCBZJvU7aacxImQTV843M` 접근도 확인했으며 화면별 override를 우선했다.
+
+- 공통 프레임의 PC 844px 본문을 유지한다. 상단 RUNNER 36px/900, PC 배지 63×72px, 등급 안내 28px/900, PC 등급 행의 56px gap·40px 세로 패딩을 적용했다.
+- 배지는 ELITE 원형 `#009DFF`, ADVANCED 오각형 `#E1FF04`, RUNNER 육각형 `#E8EDF3` 바탕에 검정 이니셜이다. PC ELITE/ADVANCED 너비 72px, MO 48px, MO RUNNER 42×48px이다. MO 등급명은 22px/900이다.
+- PC는 별도 진행률·구매금액 카드(240×133px)와 가로 등급 행, 2열 공통 혜택을 표시한다. MO는 한 줄 구매금액, 흰 바탕 테두리의 세로 등급 목록, `#F7F7F9` 공통 혜택을 사용한다. 본문에 중복되던 모바일 16px 패딩과 시안에 없는 정책 안내·컬러 배경을 제거했다.
+- 시안의 PC 구매금액 258,000원/진행금액 524,000·880,000원, MO 구매금액 182,500원은 독립 fixture다. RUNNER의 PC 최대금액 700,000원·반품쿠폰 3장과 MO 300,000원·1장도 각 프레임대로 분리했다. 확정 서비스 정책으로 해석하지 않으며 운영 정책 통일은 연결 소유자의 확인이 필요하다.
+- 공통 혜택은 신규 가입 10%, 첫 구매 1만원, 생일 1만원, 카카오 친구 5,000원과 지급/유효기간 설명으로 교체했다. 기존 overview Context와 실패/재시도 UI를 유지하며 optional 진행금액 문자열을 추가했다. 상세 계약은 [상태 기록](state.md#회원등급-표시-데이터-2026-10-30)을 참고한다.
+
+검증: PC 1920px 본문 844px, MO 375px·390px의 표시와 가로 넘침 없음, 실제 RUNNER 36px/900·MO 등급명 22px/900·공통 제목 20px/600을 확인했다. CDP의 실제 글리프는 HOKA custom font와 Pretendard Regular/Bold이며, HOKA 내부 이름 `.`은 로드된 TheFutureHOKA Black WOFF2 face와 연결해 확인했다. 런타임 배너(50px)와 Figma의 모바일 status bar(24px), 브라우저 scrollbar 유무를 구분했다. 연결 Storybook에서 외부 이름/금액, null+pending, 오류·재시도 버튼, 늦은 item 교체 후 ELITE/987,654원/81% 갱신과 이전 금액·오류 제거를 확인했다. 재시도 버튼은 Storybook spy이며 실제 API 성공 검증이 아니다. Next·Storybook production build, typecheck, Panda, 변경 파일 ESLint/Prettier와 screen-files/screen-progress 기존 검사 11개가 통과했다. 전체 lint는 비대상 FindAccountContent.css·signup/complete.Stack 미사용 import 2건으로 실패했다. Storybook에는 기존 의존성 use client directive·chunk 크기 경고가 남는다. PC 공통 메뉴의 별도 검수 사유는 유지하고 본문 차이만 해결한 것으로 IA 비고를 갱신했다.
+
+추가 확인: 빌드된 Storybook의 MO 375px에서 등급 목록 x=16px·너비=343px, document scrollWidth=375px를 확인했다. MO 고정 스토리를 1600px로 늘려도 본문 sidebar 숨김·등급 세로 배치가 유지됐고 WEB 고정 스토리를 375px로 줄여도 sidebar 표시·가로 배치가 유지됐다.
+
+## 관심상품 Figma 적용 (2026-10-30)
+
+출처: [관심상품 섹션 1978:74225](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-74225)의 PC 목록 1978:75855·빈 목록 1978:78699, MO 목록 1978:74226·빈 목록 1978:74245. `MyPageProductHistory`의 wishlist 분기에만 제목·그리드·빈 상태·안내문을 적용한다. `/mypage/wishlist`와 `/mypage/wishlist/preview-empty`, IA 182 연결과 기존 histories 바인딩·최근 본 상품/재입고 기본값은 유지한다.
+
+- PC: 본문 844px, H6 36px/900·하단 40px/2px 선, 제목 다음 32px, 이미지 260px 3열·좌우 16px·가로 16px/세로 48px.
+- MO: H5 22px/900·좌우 16px, 카드 영역 전체 폭 2열·가로 8px/세로 40px. 375px viewport에서 이미지 183.5px. 안내문은 12px·상단 16px/1px 선이며 목록에서는 32px 뒤에 표시하고 MO 빈 목록에서는 숨긴다.
+- 빈 문구는 마침표를 포함한 14px 본문이며 PC 세로 240px, MO 96px padding을 둔다.
+- 공통 `ProductCard.variant=history`와 `ProductOptionList.layout=history`는 PC/MO의 색상 이미지(76px/34px), 카드 간격 10px, 18px 관심 아이콘과 PC 163.5px 상세 영역을 소유한다. listing/showcase 및 기존 옵션 목록 모드는 유지한다. `activityLabels`는 준비된 표시 라벨이며 요청/재고/가격 결정을 수행하지 않는다.
+- 후속 사용자 요청으로 `wishlistMobilePreview`에 모바일 Best(브랜드 파랑)·정상가 280,000원 취소선·20%·판매가 240,000원을 명시했다. 시안의 20%는 금액에서 재계산하지 않고 기존 ProductCard.discountLabel로 전달하는 미연결 fixture 표시값이다. PC New·240,000원과 빈 목록은 유지한다. binding.items가 있으면 실제 상품을 표시하고 fixture 할인율을 전달하지 않는다. 실제 조회/찜 변경은 기존 MyPageDataContext.histories.wishlist 소유권이며 새 API를 구현하지 않았다.
+
+브라우저에서 두 URL의 PC 1920px·MO 375px 직접 진입과 reload, 이미지 로딩 후 화면 및 계산 스타일을 확인했다. 목록의 PC 844px/260px·MO 183.5px, 열 간격·빈 문구와 MO 안내문 숨김을 확인했다. 공통 홍보 배너(50px)는 시안에 없지만 기존 정책에 따라 유지한다. Panda 생성·TypeScript·Storybook production build와 기존 라우트/preview 검사 7개를 통과했다. 전체 lint는 비대상 FindAccountContent의 css·signup/complete의 Stack 미사용 import가 남아 실패했으며, 동시 편집 중 발생한 공용 파일 문법/정렬 오류는 최신 파일의 타입 검사·변경 파일 ESLint/Prettier로 재검사해 통과했다. 관심상품 토글로 6→5개가 되는 기존 동작, reload 후 6개, 안내문 1회 렌더링과 일반 /products 카드의 listing 모드를 확인했다. 제목의 실제 렌더 폰트는 Pretendard-Black(custom font, 4글리프)이다. Storybook의 기존 module-level directive·번들/플러그인 타이밍 경고는 남아 있다.
+
+최종 Next production build는 컴파일·TypeScript·119개 정적 페이지 생성을 통과했으며 두 위시리스트 URL이 포함됐다. 마지막 변경 파일 ESLint/Prettier와 git diff --check를 통과했다. Storybook 빌드 후 변경한 안내문 footer의 단일 표시·간격은 브라우저에서 재확인했고 최종 Next 빌드에도 포함됐다. 브라우저 작업 중 reload 한 번은 15초 제한을 넘었으나 현재 화면을 재관찰한 뒤 정상 화면/폰트와 기본 카드 확인을 완료했다.
+
+## 재입고 알림 Figma 화면 적용 (2026-10-30)
+
+출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
+
+- 기존 `MyPageFrame`의 844px 본문을 유지하고 재입고 분기에서 제목 PC 36px/MO 22px, 표 열 544/150/150px, 헤더 상단 2px·하단 1px, 행 padding PC 32px/MO 24px, 이미지 PC 96px/MO 64px를 적용했다.
+- PC 미연결 목록은 Men's / Speedgoat 7 GTX, 2026.10.31, 알림대기·발송완료다. MO는 클리프톤 9, 2026.05.22, 두 행 모두 알림대기로 시안 차이를 `restockPreview`에 명시한다. 실제 연결 항목에는 fixture 이름·날짜·상태를 섞지 않는다.
+- 빈 상태는 마침표 포함 문구, PC 16px·상하 240px, MO 14px·상하 96px이다. MO 빈 상태에서는 제목을 숨긴다. 안내는 12px이며 PC 목록에는 시안 원문의 최근 본 상품 안내를 보존하고, MO 목록/PC·MO 빈 상태에는 재입고 안내를 표시한다.
+- WEB Storybook에 기본·빈 목록·데이터 교체/취소 응답 확인을 추가하고 IA 184의 WEB 연결을 등록했다. 기존 Mobile stories와 두 route는 유지한다. 공통 헤더·배너·footer와 관심상품/최근 본 상품의 별도 변경은 이번 재입고 수정의 대상이 아니다.
+
+## 배송지 관리 Figma 적용 (2026-10-30)
+
+디자인 출처: [배송지 관리 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60309). MO 목록 `1978:60310`·빈 목록 `1978:60415`·추가 `1978:60351`·수정 `1978:60374`, PC 목록 `1978:61923`·빈 목록 `1978:62651`·추가 `1978:63058`·수정 `1978:73542`를 구조·스타일로 확인했다. 디자인 시스템 파일의 접근도 별도로 확인했다. PC 수정 프레임은 원본 프레임명에 '추가'가 있지만 실제 본문 '배송지 수정'과 채워진 입력 상태를 기준으로 연결했다.
+
+- 기존 MyPageFrame의 PC 844px 본문과 MO 좌우 16px을 재사용하며 배송지 내부의 중복 패딩을 제거했다. PC 제목은 목록/빈 목록 '회원정보', 편집 '배송지 추가/수정', 36px/900과 아래 40px 여백·2px 검정 선이다. MO는 목록 제목을 감추고 폼 제목 22px/900을 표시한다.
+- PC 목록은 배송지명 22px/900·이름/내용 32px 간격, 전화번호와 한 줄 우편번호/주소는 16px이다. 오른쪽 40px 높이의 수정/삭제 버튼과 가운데 180×48px 추가 버튼을 사용한다. MO 배송지명은 20px/600, 정보는 14px, 우편번호/주소와 관리 링크를 세로로 배치한다. 기본 배송지 배지는 사각 테두리와 2px 반경, PC 14px/MO 12px이다.
+- PC 편집 필드는 500px 중앙 정렬, 필드 간격 16px, 체크박스까지 24px, 액션까지 48px이다. MO 필드는 가용 전체 폭이고 액션까지 24px이다. 우편번호/검색은 기존 AddressFields.boxed의 가운데 정렬·24px 간격을 사용한다. 저장/수정 버튼은 48px 높이이며 PC 수정은 180px 두 개, MO는 같은 너비로 나눈다. 새 화면 PC 버튼은 시안의 '배송지 추가', MO는 '저장'을 사용한다.
+- 빈 목록은 안내 전문을 PC 16px·상하 120px, MO 14px·상하 96px로 표시한다. 수정 preview의 직장·전화번호·우편번호·기본 배송지 체크는 별도 표시 fixture이며 운영 주소를 판정하는 조건으로 쓰지 않는다.
+- 변경은 AddressManagement와 AddressStatePreview에 제한했다. 실제 목록·save/remove의 MyPageDataContext 계약, pending/error와 입력 소유권, 주소 검색의 수동 미연결 UI는 유지했다. 기존 AddressResponse 스토리의 삭제 버튼 탐색을 PC '삭제하기'/MO '삭제' 모두에 맞췄다. 공통 Button·AddressFields·MyPageFrame·플랫폼 및 폰트 정의는 수정하지 않았다.
+
+작성: codex/gpt-6, 2026-10-30T08:31:03Z. 출처는 위 Figma 프레임과 working_tree_sources의 배송지 컴포넌트, src/stories/features/binding/Binding.stories.tsx의 작업 트리다. 기존 source_revision과 신뢰 메타데이터를 보존한다.
+
+배송지 검증(2026-10-30, codex/gpt-6): Next production build·Storybook production build·`tsc --noEmit`·Panda 생성·변경 TSX ESLint/Prettier·기존 app-router/preview-links 테스트 7개를 통과했다. 1920px/375px에서 네 경로를 직접 열어 PC 가로/MO 세로 목록, 빈 안내, 새 폼·채워진 수정 폼과 가로 넘침 없음을 확인했다. PC 500px 폼, 180×48px 저장 액션과 180px 두 개 수정 액션, MO 48px 전체 폭 액션을 실측했다. 375px 환경의 세로 스크롤바가 15px을 차지해 본문은 clientWidth 360px에서 좌우 16px을 제외한 328px이었다. 공통 홍보 배너 50px과 Figma의 iPhone 상태바 24px은 본문 위치 비교에서 구분했다. 제목/입력 글리프에 실제 사용된 웹폰트를 CDP로 확인해 Pretendard Black/Regular와 연결했다.
+
+주소 팝업을 연 상태로 375→1920px 전환 후에도 새 수신인·우편번호 98765·주소·상세주소가 보존됐다. 체크박스 변경, Escape 닫기와 검색 버튼 포커스 복귀를 확인했다. 명시적 MO Storybook은 1600px에서도 세로 목록을 유지했다. 기존 AddressResponse play의 비fixture ID 973 조회 도착·삭제 실패/재시도 시나리오가 실행된 뒤 빈 목록·닫힌 모달·표시 오류 없음 상태를 확인했다. 전체 lint는 비대상 FindAccountContent의 css, signup/complete의 Stack 미사용 import 두 건으로 실패했다. Storybook 재검사 중 임시 출력 폴더 복사의 EEXIST는 새 출력 위치 재실행으로 해소했고, 최초 Next 빌드의 동시 실행 잠금도 후속 빌드에서 해소됐다. 실제 서버 주소 조회·검색 제공자·저장/삭제 API는 검증하지 않았다. 공통 헤더·사이드바의 기존 표현과 현재 폼의 native 필수/disabled 계약은 유지했다.
+
+모바일 배지·가격 후속 검증: 375px 브라우저에서 6개 카드 모두 Best·280,000원(line-through)·20%·240,000원을 표시하고 가로 넘침이 없음을 확인했다. 1920px 전환 후 New·240,000원/취소선 없음과 preview-empty의 카드 0개를 확인했다. 변경 파일 ESLint/Prettier와 TypeScript가 통과했다. 이 후속은 기존 표시 props에 fixture를 연결한 변경으로 Next/Storybook 빌드는 다시 실행하지 않았다.
+
+## 회원정보 조회·수정 Figma 적용 (2026-10-30)
+
+디자인 출처는 [회원정보 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 PC 조회 1813:90122·수정 1837:93659, 모바일 조회 1813:89281·수정 1813:89337을 읽었다. 기본 URL `/mypage/profile`과 고정 수정 `/mypage/profile/preview-edit`에 적용했다.
+
+- 기존 MyPageFrame의 PC 844px 본문을 재사용한다. 조회는 178px 라벨 열과 48px 행 간격, 모바일은 라벨/값 12px·항목 24px 간격이다. 제목은 Pretendard PC 36px/900·모바일 22px/900이고 수신 동의 제목은 PC 22px/900·모바일 16px/600이다.
+- 수정은 286px 기본정보·58px 간격·500px 폼의 PC 2열, 모바일 1열이다. 공통 AddressFields에 detailLayout='columns'를 추가해 PC 주소/상세주소를 2열로 표시하며 기본 stack의 기존 DOM·배치는 유지한다. 취소/저장은 PC 각 180px·48px 높이·8px 간격, 모바일은 가용 폭을 사용한다.
+- 수정 preview에도 제목과 기본정보 fixture를 함께 표시한다. 인라인 비밀번호·재입력과 기존 보기 버튼을 사용하며 인증·주소 검색·수신 라디오의 기존 책임을 유지한다. PC 탈퇴 안내는 기본정보 아래, 모바일은 저장 버튼 아래다. 기존 기본 조회 fixture와 공통 배너·헤더·footer는 보존하므로 원본 화면의 로그인/마스킹 예시와 차이가 있다.
+
+검증: 변경 범위 ESLint, 전체 타입 검사, Panda 생성, Next.js production build와 Storybook build를 통과했다. 실제 라우트를 PC와 375px iframe의 독립 모바일 viewport에서 열어 제목 36/22px, PC 본문 844px·폼 500px, 모바일 1열과 가로 넘침 없음을 확인했다(375px 프레임의 scrollbar를 제외한 clientWidth 360px). 모바일에서 이메일 입력·naver.com 선택 후 도메인 자동 입력/disabled, 수신 선택, 주소 모달 열기·03000/서울시 종로구 적용을 확인했다. PC 제목의 실제 글리프 폰트는 CSS 프로토콜에서 Pretendard Black(커스텀 폰트)으로 확인했다. 구분선은 시안 #E9EAEB에 대응하는 black.20을 사용한다. 실제 계정 API는 검증하지 않았다. 기존 모바일 주소·비밀번호 stories를 새 표현에 맞췄고 별도 저장 연결 검증 story를 추가했다.
+
+검증 (2026-10-30, Codex): 두 route의 PC/MO 목록·빈 상태를 브라우저에서 확인했다. 본문 844px, PC 제목 36px/썸네일 96px, MO 제목 22px/썸네일 64px, MO 빈 영역 210.19px(상하 96px + 본문 18.2px)을 측정했다. PC 제목의 실제 glyph font는 Pretendard-Black이었다. 375px 검증 환경은 세로 scrollbar로 clientWidth=360px이므로 MO 본문은 328px이며 가로 넘침은 없었다. 공통 홍보 배너·header 차이는 유지했다. WEB 연결 story에서 초기 pending이 완료된 Empty로 보이지 않음, 늦은 데이터 공급·신청 ID 교체, 취소 pending 중 확인 disabled, 실패 후 행/모달 유지, 재시도 성공 후 해당 행 제거·모달 닫기·빈 상태를 확인했다. API 호출 검증은 아니며 story의 수동 응답이다.
+
+변경 파일 lint, TypeScript, Panda 생성, Next 프로덕션 빌드, Storybook 빌드는 통과했다. Next 빌드는 첫 실행 시 다른 build 잠금으로 중단됐고 종료 후 재실행은 성공했다. 전체 lint는 검사 시점 범위 밖 `src/app/login/find-account/_components/FindAccountContent.tsx`의 css 및 `src/app/signup/complete/page.tsx`의 Stack 미사용 import 2건으로 실패했다. 이번 변경에서 해당 파일을 수정하지 않았다.
+
+기존 개발 Storybook의 명시적 Mobile 모드에서도 썸네일 64px 두 행과 제목 22px/900을 확인했다. 별도 정적 Storybook 확인 서버에서는 기존 Mobile scenario 묶음의 동적 import 로딩이 실패해 개발 Storybook으로 해당 모드를 검증했다. WEB 연결 story는 정적 빌드에서 검증했다.
+
+회원정보 변경의 최종 재검사에서는 관련 ESLint·Prettier·Panda·작업 트리 OKF 검사를 통과했다. 전체 타입 검사는 앞선 실행에서 통과했으나, 마지막 재실행 시 동시에 수정 중인 비대상 `src/app/mypage/coupons/_components/CouponManagement.tsx:70`의 Stack as=form/noValidate 타입 오류 한 건으로 실패했다. 해당 파일은 이번 변경에서 수정하지 않았다.
+
+저장 연결 story의 실제 브라우저 play도 통과했다. member-api-827의 늦은 원본 데이터 반영, 대기 중 저장 비활성화, 실패 후 runner 이메일 초안 보존, 재시도 성공, changePassword 1회와 전체 프로필 payload를 검증했다. 모달이 배경 폼을 숨기는 동안의 비활성화 검사는 hidden 역할 조회를 명시한다.
+
+후속 전체 타입 재검사는 비대상 src/stories/features/binding/RemainingBinding.stories.tsx:311의 getByRole 옵션 exact 타입 오류로 실패했다. 이번 회원정보 관련 파일의 타입 오류는 보고되지 않았으며, 다른 채팅의 해당 변경은 유지했다.
+
+커밋 선별 검증: 현재 HEAD에 이 채팅의 재입고 변경만 적용한 저장소 밖 임시 사본에서 TypeScript와 관련 4개 소스 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 당시 공유 작업 트리 기준이며 선별 커밋 자체의 빌드를 재실행한 기록과 구분한다.
+
+커밋 선별 검증: 다른 채팅의 미커밋 변경을 제외하고 현재 HEAD에 이 채팅의 첫 커밋 대상만 반영한 저장소 밖 임시 사본에서 전체 TypeScript와 관련 소스 5개의 ESLint를 통과했다. 앞서 수행한 PC/MO 브라우저·Next/Storybook 빌드는 공유 작업 트리 기준이다.
+
+저장 연결 스토리의 선별 검증: 첫 커밋 대상과 이번 스토리만 반영한 동일 임시 사본에서 전체 TypeScript 및 추가 스토리의 ESLint를 통과했다. 다른 채팅의 미커밋 소스는 포함하지 않았다.
+
+## 쿠폰 Figma 적용 (2026-10-30)
+
+디자인 출처는 [쿠폰 섹션 1716:80655](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)의 MO 일반 1716:80656·임직원 1716:80770, PC 일반 1716:81489·임직원 1813:88657 및 등록 완료 모달 1716:80896이다. 본문과 카드 하위 노드를 읽고 MO 프레임 이미지도 확인했다. 구현 출처는 위 working_tree_sources의 쿠폰 구현·스토리와 사용자 제공 SVG다.
+
+- 기존 MyPageFrame의 PC 844px 본문·MO 좌우 16px를 재사용하고 중복 패딩을 제거했다. 등록 제목은 PC 36px/900·MO 22px/900, 내역 제목은 PC 28px/900·MO 22px/900이다. 등록/내역 간격은 PC 56px·MO 40px다.
+- 등록 영역은 PC #F7F7F9·상하 32px·입력 필드 590px·버튼 180×48px, MO 투명 배경·가용 폭 입력/48px 버튼이다. 등록 버튼은 빈 입력에서도 표시한다. 설명은 PC에서 두 줄로 나누고 MO에서는 자연스럽게 줄바꿈한다.
+- 쿠폰은 public/images/mypage/coupon.svg를 장식 배경으로 사용한다. PC 2열·가로 414px·최소 높이 195px, MO 1열·375px 프레임 기준 가로 343px·최소 높이 170px, 카드 간격 16px이다. 긴 외부 표시 데이터는 높이가 늘 수 있다. 카드 제목은 PC 22px/900·MO 20px/600, 상세보기 12px, 금액 숫자는 기존 공통 타이포 결정대로 HOKA 16px/500, 원 단위는 Pretendard 16px/600이다. Figma의 숫자 700과 기존 승인 공통 500의 차이는 공통 규칙을 유지했다.
+- 일반 회원 fixture에는 임직원 영역을 노출하지 않는다. 명시적 employee 스토리 또는 MyPageDataContext.coupons.employeeCoupons가 있을 때만 표시한다. 실제 자격·발급 상태 판정은 연결 소유자의 책임이다. 기존 외부 목록·totalCount/hasMore/query/loadMore/register 계약을 유지하며 미연결 등록은 성공으로 전환하지 않는다.
+- 62건·최초 5건 표시와 기존 더보기 계산을 유지해 기본 counter는 1/13이다. 시안에 함께 표기된 62건·1/10을 새 페이지 크기 정책으로 해석하지 않았다. 카드명·일시·금액은 시안 fixture로 갱신했으며 운영 데이터에는 적용하지 않는다.
+
+검증: PC 1920px에서 본문 844px·카드 414px·등록 영역 844×196px, MO 375px에서 등록 버튼 높이 48px·카드 높이 170px를 실측했다. Windows 일반 스크롤바 15px 때문에 실제 clientWidth 360px·카드 328px이며 가용 폭에서 좌우 16px를 유지한다. 앱 공통 배너·헤더와 스크롤바는 디자인 프레임과 구분했다. 실제 글리프는 등록 제목 Pretendard Black·카드 제목 Pretendard SemiBold·금액 숫자 custom font를 확인했다. PC/MO 빈 목록·오류·완료·상세 직접 URL, 종류 선택·더보기 5→10건과 상세 모달 열기/닫기, 기존 CouponRetry 스토리의 실패 후 입력 보존·재시도 성공을 확인했다. 실제 API는 이번 작업에서 연결하지 않았다.
+
+추가 검증: 금액 숫자의 내부 폰트 이름은 `.`로 보고되지만 실제 로드 face `hoka` 500과 Next가 생성한 `TheFutureHOKA_Medium.*.woff2` 및 layout의 TheFutureHOKA-Medium.woff2를 연결해 확인했다. 상세 모달 닫힘 후 상세보기 버튼으로 포커스가 돌아왔다. PC 임직원은 정적 Storybook 빌드에서, MO 임직원은 실행 중 Storybook에서 표시를 확인했다. 현재 Storybook dev의 시작 시 파일 목록에는 새 PC 파일이 없으므로 새 PC 항목은 dev 재시작 후 노출된다. 정적 빌드 index에는 PC/MO 네 스토리가 모두 포함되어 있다.
+
+최종 검사: Next 빌드·Storybook 빌드·TypeScript·Panda·변경 파일 ESLint/Prettier·기존 App Router/IA 그래프 테스트 3개·okf:check 통과. 전체 ESLint는 비대상 FindAccountContent.tsx의 css와 signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 다른 채팅의 소스·OKF·screenConnections/그래프 변경은 유지했으며 커밋/스테이징은 수행하지 않았다.
+
+선별 커밋 검증: 현재 HEAD와 쿠폰 관련 스테이지만 반영한 저장소 밖 임시 사본에서 전체 TypeScript 및 관련 소스 5개 ESLint를 통과했다. 위 Next/Storybook 빌드·브라우저 검증은 공유 작업 트리에서 수행한 기록이며 선별 사본의 검사와 구분한다.
+
+## 공통 카드와 가이드 서식 정리 (2026-10-30)
+
+ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.

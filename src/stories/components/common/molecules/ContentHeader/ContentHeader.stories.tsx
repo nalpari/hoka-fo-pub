@@ -53,7 +53,7 @@ export const NestedHeading: Story = {
   args: {
     title: 'A/S 처리 절차',
     titleAs: 'h4',
-    titleProps: { variant: 'heading9' },
+    titleProps: { variant: 'heading10' },
     description: '온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요.',
   },
   play: async ({ canvasElement }) => {

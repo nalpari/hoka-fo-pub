@@ -6,9 +6,15 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T00:42:45Z'
+  at: '2026-10-30T08:21:19.889Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
+  - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/screenConnections.ts
   - src/app/login/preview-error/page.tsx
@@ -199,12 +205,31 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture 사진 3종을 지정 시안의 마스크 크롭으로 교체하고 세 번째 제목의 문장부호를 시안에 맞췄다. 3건·총 62건·1/10은 준비된 표시 데이터이며 운영 응답·조회 조건·취소 ID·pending/실패/재시도·갱신 책임은 기존 RunningSessionDataContext 계약을 유지한다. Context·서비스 구현은 변경하지 않았다. 비연결 취소 확인은 창만 닫고 목록 3건을 유지한다. 이번 변경은 바인딩 경계를 바꾸지 않으므로 비동기 서비스 시나리오를 다시 검증한 것으로 기록하지 않는다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
+
+## ShopShell 타이포 이름 변경 검토 (2026-10-30)
+
+`src/context/ShopShell.tsx`의 기존 16px `heading9` 세 사용처를 `heading10`으로 옮겼다. 표시 크기·기존 타이포 옵션을 보존하고 상태·컨텍스트·요청·탐색·fixture 계약은 변경하지 않았다. 폰트 변수 연결과 크기 매핑은 [공통 UI 기록](ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30)에 설명한다. 작업 트리 출처: `src/context/ShopShell.tsx`.
+
+## 러닝세션 신청내역의 표시와 정렬 계약 (2026-10-30)
+
+`RunClubEntry`에 선택 필드 `appliedAt`(신청일 표시값)·`canCancel`(서버가 결정한 취소 가능 여부)을 추가했다. 미제공한 기존 호출자는 날짜를 생략하고 `status === '신청완료'`일 때 취소 링크를 표시한다. `entries.onQueryChange`는 기존 category와 선택적인 `sort: 'latest' | 'oldest'`를 받는다. 세션 목록과 상세·신청 계약은 변경하지 않았다.
+
+신청내역 UI는 현재 `items/totalCount/hasMore/pageInfo/pending/error/onRetry`를 직접 읽는다. 연결 소유자가 신청일 기준 정렬·상태 필터·조건 변경 시 페이지 초기화·10건씩 누적·늦은 응답 폐기를 처리한다. 서버 결과를 UI에서 다시 필터하지 않는다. `cancelEntry(entryId)`는 신청 ID를 받아 목록·건수 갱신 후 resolve하며 UI는 그 뒤 모달을 닫는다. 실패는 모달에 유지하고 같은 확인 버튼으로 재시도한다. 더보기와 취소는 서로 다른 요청 상태를 사용한다.
+
+미연결 fixture는 초깃값용 복제 상태가 아닌 명시적 표시 데이터다. 취소 확인은 모달만 닫고 상태를 변경하지 않으며 더보기는 비활성이다. 초기/실패 조회가 빈 목록으로 오인되지 않는 것, 교체된 props 반영과 nonfixture 신청 ID 전달, 취소 pending 중 중복/닫기 방지·실패/재시도/성공과 추가 목록/조회 재시도를 임시 Provider에서 브라우저로 검증했다. 임시 검증 route는 제거했으며 실제 API를 구현하거나 호출하지 않았다.
+
+출처: `src/context/RunClubDataContext.ts`, `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `src/app/mypage/event-entries/eventEntries.data.ts` 작업 트리. 작성: Codex, 2026-10-30 (Asia/Seoul).
+
 ## 장바구니·로그인 서비스 상태 제거 (2026-10-30)
 
 이번 사용자 요청은 아래 과거 기록의 장바구니 계산/저장 및 로그인 인증 흐름을 대체한다. `/cart`는 `useShop`을 구독하지 않고 고정 `cartPreviewRows`와 합계를 사용한다. 체크/수량/관심/옵션 초안은 화면 로컬 상태만 변경하며 삭제·주문·옵션 저장으로 ShopShell을 변경하지 않는다. 옵션 확인은 닫기만 수행한다.
 
 `/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
-
 
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 
@@ -515,7 +540,26 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
 
-
 ## 디자인에 필요한 선택·제출 상태 (2026-10-29)
 
 쿠폰 초안/확정 선택, 기본배송지 저장 의도, 신청 취소, 인증 약관 본문과 등급 진행률을 기존 컨텍스트 계약에 추가했다. 실제 서비스 성공을 기다린 뒤 모달을 닫고 실패 시 초안과 오류를 유지한다. 서버 목록 재필터와 실제 금액 재계산은 하지 않는다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+
+## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 비대상 마이페이지 세 화면 삭제 (2026-10-30)
+
+사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 회원등급 표시 데이터 (2026-10-30)
+
+`OverviewView.tierProgress`에 선택적 표시 문자열 `currentAmount`·`targetAmount`를 추가했다. 기존 `percent`·`label`과 overview.item 계약은 유지한다. rewards page는 현재 Context를 직접 읽으며 Provider가 있을 때 null/미공급 값을 기본 fixture로 채우지 않는다. Provider가 없을 때만 명시적 PC/MO fixture를 쓴다. 진행률을 금액에서 계산하지 않으며 조회·실패·재시도·갱신·오래된 응답 배제는 기존 연결 어댑터 책임이다. [UI 기록](ui.md#회원등급-시안-적용-2026-10-30)을 참고한다.
+
+## 재입고 표시 상태 (2026-10-30)
+
+`HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.

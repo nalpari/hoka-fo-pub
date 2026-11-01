@@ -172,10 +172,6 @@
     "src/app/checkout/preview-error/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
-    "src/app/collection/[id]/page.tsx": [
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/layouts/ContentLayout.tsx"
-    ],
     "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
@@ -191,13 +187,11 @@
     "src/app/login/_components/LoginContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/HelpTips.tsx"
     ],
     "src/app/login/account-locked/_components/AccountLockedContent.tsx": [
       "src/components/common/atoms/Typography.tsx",
@@ -208,7 +202,6 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx"
     ],
     "src/app/login/account-locked/page.tsx": [
@@ -238,7 +231,6 @@
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
       "src/components/find-account/IdConfirmationMessage.tsx",
@@ -319,13 +311,13 @@
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormActionGroup.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/organisms/Address/AddressFields.tsx"
+      "src/components/common/organisms/Address/AddressFields.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/addresses/_components/AddressStatePreview.tsx": [
       "src/app/mypage/addresses/_components/AddressManagement.tsx",
@@ -353,6 +345,7 @@
     ],
     "src/app/mypage/coupons/_components/CouponManagement.tsx": [
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -376,36 +369,40 @@
     "src/app/mypage/coupons/preview-detail/page.tsx": [
       "src/app/mypage/coupons/_components/CouponManagement.tsx"
     ],
+    "src/app/mypage/coupons/preview-empty/page.tsx": [
+      "src/app/mypage/coupons/_components/CouponManagement.tsx"
+    ],
     "src/app/mypage/coupons/preview-error/page.tsx": [
       "src/app/mypage/coupons/_components/CouponManagement.tsx"
     ],
-    "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx": [
+    "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx": [
+      "src/app/mypage/event-entries/eventEntries.data.ts",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/mypage/MyPageFrame.tsx",
-      "src/components/run-club/runClub.data.ts",
-      "src/context/RunClubDataContext.ts",
+      "src/components/running-session/runningSession.data.ts",
+      "src/context/RunningSessionDataContext.ts",
       "src/hooks/useBindingQuery.ts",
-      "src/hooks/useRequestAction.ts"
+      "src/hooks/useRequestAction.ts",
+      "src/icons/fontAwesome.ts"
+    ],
+    "src/app/mypage/event-entries/eventEntries.data.ts": [
+      "src/components/running-session/runningSession.data.ts"
     ],
     "src/app/mypage/event-entries/page.tsx": [
-      "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
+      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
+    ],
+    "src/app/mypage/event-entries/preview-cancel/page.tsx": [
+      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
     ],
     "src/app/mypage/event-entries/preview-empty/page.tsx": [
-      "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx"
-    ],
-    "src/app/mypage/member-activity/page.tsx": [
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts",
-      "src/context/MyPageDataContext.ts"
+      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
     ],
     "src/app/mypage/mypage-home-data.ts": [],
     "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
@@ -426,22 +423,9 @@
       "src/app/mypage/_components/MyPageContent.tsx",
       "src/context/RoutePreview.tsx"
     ],
-    "src/app/mypage/payment-methods/page.tsx": [
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts",
-      "src/context/MyPageDataContext.ts",
-      "src/hooks/useRequestAction.ts"
-    ],
     "src/app/mypage/preview-no-orders/page.tsx": ["src/app/mypage/_components/MyPageContent.tsx"],
     "src/app/mypage/profile/_components/ProfileContent.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/StatusMessage.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -493,24 +477,6 @@
     "src/app/mypage/recent/preview-empty/page.tsx": [
       "src/components/mypage/MyPageProductHistory.tsx"
     ],
-    "src/app/mypage/referral/_components/ReferralContent.tsx": [
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/mypage/mypage.data.ts",
-      "src/context/MyPageDataContext.ts"
-    ],
-    "src/app/mypage/referral/page.tsx": [
-      "src/app/mypage/referral/_components/ReferralContent.tsx",
-      "src/context/RoutePreview.tsx"
-    ],
-    "src/app/mypage/refund-account/page.tsx": [
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
-      "src/components/common/organisms/Account/AccountDataList.tsx",
-      "src/components/mypage/mypage.data.ts"
-    ],
     "src/app/mypage/restock-alerts/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/restock-alerts/preview-empty/page.tsx": [
       "src/components/mypage/MyPageProductHistory.tsx"
@@ -519,21 +485,23 @@
     "src/app/mypage/returns/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
     "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Divider.tsx",
-      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Select.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx"
+      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/reviews/_components/ReviewStatePreview.tsx": [
       "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
       "src/app/mypage/reviews/reviewFixtures.ts",
-      "src/components/mypage/MyPageFrame.tsx"
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/reviews/page.tsx": [
       "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
@@ -556,22 +524,32 @@
     "src/app/mypage/reviews/preview-new/page.tsx": [
       "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
     ],
+    "src/app/mypage/reviews/preview-ready/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
+    "src/app/mypage/reviews/preview-written/page.tsx": [
+      "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
+    ],
     "src/app/mypage/reviews/preview-written-empty/page.tsx": [
       "src/app/mypage/reviews/_components/ReviewStatePreview.tsx"
     ],
     "src/app/mypage/reviews/reviewFixtures.ts": [],
     "src/app/mypage/reviews/reviews.types.ts": [],
     "src/app/mypage/rewards/_components/RewardsContent.tsx": [
-      "src/components/common/atoms/Typography.tsx"
+      "src/app/mypage/rewards/rewards-data.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/rewards/page.tsx": [
       "src/app/mypage/rewards/_components/RewardsContent.tsx",
+      "src/app/mypage/rewards/rewards-data.ts",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/mypage/MyPageFrame.tsx",
-      "src/context/MyPageDataContext.ts"
+      "src/context/MyPageDataContext.ts",
+      "src/context/platform.tsx"
     ],
+    "src/app/mypage/rewards/rewards-data.ts": [],
     "src/app/mypage/wishlist/page.tsx": ["src/components/mypage/MyPageProductHistory.tsx"],
     "src/app/mypage/wishlist/preview-empty/page.tsx": [
       "src/components/mypage/MyPageProductHistory.tsx"
@@ -633,6 +611,13 @@
     "src/app/products/preview-no-results/page.tsx": [
       "src/components/catalog/ProductListingStatePreview.tsx"
     ],
+    "src/app/products/preview-sold-out/_components/ProductSoldOutPreview.tsx": [
+      "src/components/catalog/ProductListingPage.tsx",
+      "src/mocks/products.ts"
+    ],
+    "src/app/products/preview-sold-out/page.tsx": [
+      "src/app/products/preview-sold-out/_components/ProductSoldOutPreview.tsx"
+    ],
     "src/app/publishing-guide/_components/ButtonGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -649,21 +634,10 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Dropdown.tsx",
-      "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Radio.tsx",
-      "src/components/common/atoms/SegmentedControl.tsx",
-      "src/components/common/atoms/Select.tsx",
-      "src/components/common/atoms/TextInput.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/FormActionGroup.tsx",
-      "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
-      "src/components/common/molecules/SearchField.tsx",
-      "src/components/common/organisms/Address/AddressFields.tsx",
-      "src/components/common/organisms/EmailAddressFields.tsx",
       "src/icons/fontAwesome.ts"
     ],
     "src/app/publishing-guide/_components/GuideCode.tsx": [],
@@ -672,6 +646,16 @@
     ],
     "src/app/publishing-guide/_components/GuideTimeline.tsx": [
       "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/HelpTipsGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/HelpTips.tsx",
+      "src/icons/fontAwesome.ts"
     ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -685,12 +669,13 @@
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
       "src/app/publishing-guide/_components/FormGuide.tsx",
+      "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
       "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/SupportTabs.tsx"
     ],
-    "src/app/running/run-club/[sessionId]/_components/RunClubSessionContent.tsx": [
+    "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -699,22 +684,26 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/HomeCarouselSection.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/run-club/runClub.data.ts"
+      "src/components/running-session/runningSession.data.ts"
     ],
-    "src/app/running/run-club/[sessionId]/page.tsx": [
-      "src/app/running/run-club/[sessionId]/_components/RunClubSessionContent.tsx",
+    "src/app/running/running-session/[sessionId]/page.tsx": [
+      "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/organisms/SystemStatusPage.tsx",
-      "src/components/run-club/runClub.data.ts",
-      "src/context/RunClubDataContext.ts",
-      "src/context/RunClubSessionContext.ts",
+      "src/components/running-session/runningSession.data.ts",
+      "src/context/RunningSessionDataContext.ts",
+      "src/context/RunningSessionSessionContext.ts",
       "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts",
       "src/mocks/products.ts"
     ],
-    "src/app/running/run-club/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
-    "src/app/running/run-club/preview-empty/page.tsx": ["src/components/run-club/RunClubPage.tsx"],
+    "src/app/running/running-session/page.tsx": [
+      "src/components/running-session/RunningSessionPage.tsx"
+    ],
+    "src/app/running/running-session/preview-empty/page.tsx": [
+      "src/components/running-session/RunningSessionPage.tsx"
+    ],
     "src/app/search/page.tsx": ["src/components/catalog/ProductListingPage.tsx"],
     "src/app/search/preview-no-results/page.tsx": [
       "src/components/catalog/ProductListingStatePreview.tsx"
@@ -734,8 +723,7 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/AccountPageLayout.tsx",
-      "src/components/common/layouts/ContentSection.tsx"
+      "src/components/common/layouts/AccountPageLayout.tsx"
     ],
     "src/app/signup/information/_components/RegistrationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -894,7 +882,7 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
-    "src/app/support/inquiries/_components/InquiryStatePreview.tsx": [
+    "src/app/support/inquiries/_components/InquiryListPreview.tsx": [
       "src/app/support/inquiries/_components/InquiryListContent.tsx",
       "src/app/support/inquiries/_components/InquiryListLayout.tsx",
       "src/components/common/atoms/Divider.tsx",
@@ -990,11 +978,8 @@
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
-    "src/app/support/inquiries/preview-answered/page.tsx": [
-      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
-    ],
-    "src/app/support/inquiries/preview-unanswered/page.tsx": [
-      "src/app/support/inquiries/_components/InquiryStatePreview.tsx"
+    "src/app/support/inquiries/preview-list/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryListPreview.tsx"
     ],
     "src/app/support/member-benefits/page.tsx": [
       "src/app/support/support.navigation.ts",
@@ -1008,7 +993,19 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
+    "src/app/support/notices/_components/NoticesContent.tsx": [
+      "src/app/support/notices/_components/NoticesList.tsx",
+      "src/app/support/notices/notices.data.ts",
+      "src/app/support/support.navigation.ts",
+      "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/SupportContentContext.ts",
+      "src/context/platform.tsx",
+      "src/hooks/useBindingQuery.ts",
+      "src/hooks/useRequestAction.ts"
+    ],
     "src/app/support/notices/_components/NoticesList.tsx": [
+      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/support/notices/[id]/page.tsx": [
@@ -1022,16 +1019,9 @@
       "src/hooks/useBindingQuery.ts"
     ],
     "src/app/support/notices/notices.data.ts": [],
-    "src/app/support/notices/page.tsx": [
-      "src/app/support/notices/_components/NoticesList.tsx",
-      "src/app/support/notices/notices.data.ts",
-      "src/app/support/support.navigation.ts",
-      "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/SupportContentContext.ts",
-      "src/context/platform.tsx",
-      "src/hooks/useBindingQuery.ts",
-      "src/hooks/useRequestAction.ts"
+    "src/app/support/notices/page.tsx": ["src/app/support/notices/_components/NoticesContent.tsx"],
+    "src/app/support/notices/preview-empty/page.tsx": [
+      "src/app/support/notices/_components/NoticesContent.tsx"
     ],
     "src/app/support/page.tsx": [
       "src/app/support/_components/SupportContacts.tsx",
@@ -1056,15 +1046,13 @@
     ],
     "src/app/support/size-guide/size-guide.data.ts": [],
     "src/app/support/store/_components/StoreContent.tsx": [
-      "src/app/support/store/store.data.ts",
-      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx"
     ],
     "src/app/support/store/page.tsx": [
       "src/app/support/store/_components/StoreContent.tsx",
+      "src/app/support/store/store.data.ts",
       "src/app/support/support.navigation.ts",
-      "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/store/store.data.ts": [],
@@ -1271,6 +1259,11 @@
     "src/components/common/molecules/FormFields/VerificationCountdown.tsx": [
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/components/common/molecules/HelpTips.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/components/common/molecules/HomeCarouselSection.tsx": [
       "src/components/common/layouts/MainSection.tsx",
       "src/components/common/molecules/Carousel/Carousel.tsx"
@@ -1388,10 +1381,11 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/MyPageDataContext.ts",
+      "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts",
       "src/mocks/products.ts"
@@ -1421,7 +1415,6 @@
       "src/components/common/layouts/BottomSheet.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/layouts/SidebarNavigationLayout.tsx",
       "src/components/common/molecules/AmountRow.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
@@ -1429,7 +1422,7 @@
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/common/molecules/SearchField.tsx",
       "src/components/common/molecules/StepIndicator.tsx",
-      "src/components/mypage/mypage.data.ts",
+      "src/components/mypage/MyPageFrame.tsx",
       "src/components/orders/order-policy.ts",
       "src/components/orders/orders.data.ts",
       "src/context/OrdersContext.ts",
@@ -1455,8 +1448,8 @@
     "src/components/phone-verification/PhoneVerificationStatePreview.tsx": [
       "src/components/phone-verification/PhoneVerificationContent.tsx"
     ],
-    "src/components/run-club/runClub.data.ts": [],
-    "src/components/run-club/RunClubPage.tsx": [
+    "src/components/running-session/runningSession.data.ts": [],
+    "src/components/running-session/RunningSessionPage.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/EmptyState.tsx",
@@ -1465,8 +1458,8 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/run-club/runClub.data.ts",
-      "src/context/RunClubDataContext.ts",
+      "src/components/running-session/runningSession.data.ts",
+      "src/context/RunningSessionDataContext.ts",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
@@ -1499,8 +1492,8 @@
     "src/context/platform.tsx": [],
     "src/context/ProductListingContext.ts": [],
     "src/context/RoutePreview.tsx": [],
-    "src/context/RunClubDataContext.ts": [],
-    "src/context/RunClubSessionContext.ts": [],
+    "src/context/RunningSessionDataContext.ts": [],
+    "src/context/RunningSessionSessionContext.ts": [],
     "src/context/ShopShell.tsx": [
       "src/components/common/atoms/Accordion.tsx",
       "src/components/common/atoms/Button.tsx",
@@ -1558,7 +1551,6 @@
     "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
     "src/app/checkout/_components/CheckoutPayment.tsx",
     "src/app/checkout/page.tsx",
-    "src/app/collection/[id]/page.tsx",
     "src/app/homeContent.ts",
     "src/app/layout.tsx",
     "src/app/locales/locales.data.ts",
@@ -1567,21 +1559,19 @@
     "src/app/login/account-locked/complete/page.tsx",
     "src/app/login/account-locked/page.tsx",
     "src/app/login/account-locked/verification/page.tsx",
+    "src/app/login/find-account/_components/FindAccountContent.tsx",
     "src/app/login/find-account/id-confirmation-modal/page.tsx",
-    "src/app/login/find-account/page.tsx",
     "src/app/login/find-account/password-reset/page.tsx",
     "src/app/mypage/addresses/page.tsx",
     "src/app/mypage/coupons/_components/CouponManagement.tsx",
     "src/app/mypage/coupons/page.tsx",
-    "src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx",
-    "src/app/mypage/member-activity/page.tsx",
+    "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
     "src/app/mypage/mypage-home-data.ts",
     "src/app/mypage/orders/page.tsx",
     "src/app/mypage/page.tsx",
-    "src/app/mypage/payment-methods/page.tsx",
+    "src/app/mypage/profile/_components/ProfileContent.tsx",
     "src/app/mypage/profile/page.tsx",
     "src/app/mypage/recent/page.tsx",
-    "src/app/mypage/referral/page.tsx",
     "src/app/mypage/restock-alerts/page.tsx",
     "src/app/mypage/returns/page.tsx",
     "src/app/mypage/reviews/page.tsx",
@@ -1595,8 +1585,8 @@
     "src/app/products/[id]/productDetailPresentation.ts",
     "src/app/products/[id]/productInquiries.ts",
     "src/app/products/page.tsx",
-    "src/app/running/run-club/[sessionId]/page.tsx",
-    "src/app/running/run-club/page.tsx",
+    "src/app/running/running-session/[sessionId]/page.tsx",
+    "src/app/running/running-session/page.tsx",
     "src/app/search/page.tsx",
     "src/app/signup/complete/page.tsx",
     "src/app/signup/information/page.tsx",
@@ -1615,12 +1605,13 @@
     "src/app/support/inquiries/page.tsx",
     "src/app/support/member-benefits/page.tsx",
     "src/app/support/mileage/page.tsx",
+    "src/app/support/notices/_components/NoticesContent.tsx",
     "src/app/support/notices/[id]/page.tsx",
     "src/app/support/notices/notices.data.ts",
-    "src/app/support/notices/page.tsx",
     "src/app/support/page.tsx",
     "src/app/support/size-guide/page.tsx",
     "src/app/support/size-guide/size-guide.data.ts",
+    "src/app/support/store/store.data.ts",
     "src/app/support/terms/page.tsx",
     "src/components/care-guide/care.data.ts",
     "src/components/catalog/product-listing/productListingMetadata.ts",
@@ -1631,8 +1622,8 @@
     "src/components/orders/orders.types.ts",
     "src/components/orders/OrdersRoute.tsx",
     "src/components/phone-verification/phone-verification.types.ts",
-    "src/components/run-club/runClub.data.ts",
-    "src/components/run-club/RunClubPage.tsx",
+    "src/components/running-session/runningSession.data.ts",
+    "src/components/running-session/RunningSessionPage.tsx",
     "src/context/AccountFlowContext.tsx",
     "src/context/CheckoutContext.ts",
     "src/context/HomeContentContext.ts",
@@ -1642,8 +1633,8 @@
     "src/context/OrdersContext.ts",
     "src/context/PhoneVerificationContext.ts",
     "src/context/ProductListingContext.ts",
-    "src/context/RunClubDataContext.ts",
-    "src/context/RunClubSessionContext.ts",
+    "src/context/RunningSessionDataContext.ts",
+    "src/context/RunningSessionSessionContext.ts",
     "src/context/ShopShell.tsx",
     "src/context/SupportContentContext.ts",
     "src/data/footerData.ts",

@@ -7,6 +7,7 @@ import CareGuidePage from '@/app/support/care/page';
 import FaqPage from '@/app/support/faq/page';
 import InquiryOrderLookupPage from '@/app/support/inquiries/new/order-products/page';
 import InquiryNewPage from '@/app/support/inquiries/new/page';
+import InquiryListPage from '@/app/support/inquiries/preview-list/page';
 import MemberBenefitsPage from '@/app/support/member-benefits/page';
 import MileagePage from '@/app/support/mileage/page';
 import NoticeDetailPage from '@/app/support/notices/[id]/page';
@@ -755,6 +756,28 @@ export const MileageMobile375: Story = {
   render: () => (
     <ShopShell platform="mobile">
       <MileagePage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka375' },
+};
+
+export const InquiryListDesktop: Story = {
+  name: 'Inquiries / Mixed list / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryListPage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/inquiries/preview-list' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryListMobile375: Story = {
+  ...InquiryListDesktop,
+  name: 'Inquiries / Mixed list / Mobile',
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryListPage />
     </ShopShell>
   ),
   globals: { viewport: 'hoka375' },

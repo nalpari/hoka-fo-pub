@@ -1,7 +1,7 @@
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 const storybookReadyIaNumbers = new Set([
-  1, 158, 200, 223, 224, 226, 227, 229, 230, 231, 233, 234, 235, 236, 237, 238, 251, 252, 253, 254,
+  1, 155, 200, 223, 224, 226, 227, 229, 230, 231, 233, 234, 235, 236, 237, 238, 251, 252, 253, 254,
   255, 256, 257, 258, 259,
 ]);
 
@@ -29,8 +29,8 @@ export function isStorybookWorking(screenCode: string) {
 }
 
 export type ScreenProgress = {
-  pcDesign: 'received' | 'missing' | 'revision-planned' | null;
-  moDesign: 'received' | 'missing' | 'revision-planned' | null;
+  pcDesign: 'received' | 'missing' | 'revision-planned' | 'not-applicable' | null;
+  moDesign: 'received' | 'missing' | 'revision-planned' | 'not-applicable' | null;
   pcPublishing: 'ready' | 'revision' | 'working' | 'pending';
   moPublishing: 'ready' | 'revision' | 'working' | 'pending';
 };
@@ -44,6 +44,8 @@ export type ScreenProgressOverrides = Readonly<Partial<Record<number, Partial<Sc
 const confirmedDesignReceipts: Partial<
   Record<number, Pick<ScreenProgress, 'pcDesign' | 'moDesign'>>
 > = {
+  // 2026-10-30 사용자 확인: 국가선택은 디자인 미해당입니다.
+  267: { pcDesign: 'not-applicable', moDesign: 'not-applicable' },
   // [HOKA]Design > 로그인/ID찾기/비밀번호 찾기: Desktop/Mobile Login 및 계정 흐름.
   // https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1-18
   223: { pcDesign: 'received', moDesign: 'received' },
@@ -139,6 +141,11 @@ const confirmedDesignReceipts: Partial<
   248: { pcDesign: 'received', moDesign: 'received' },
   249: { pcDesign: 'received', moDesign: 'received' },
   250: { pcDesign: 'received', moDesign: 'received' },
+  // 2026-10-30 사용자 직접 확인: Featured Running Session PC/MO 디자인 수급. UTMB는 메뉴만 유지.
+  155: { pcDesign: 'received', moDesign: 'received' },
+  158: { pcDesign: 'missing', moDesign: 'missing' },
+  // 2026-10-30 사용자 확인: 기획전 상세는 현재 목업이며 디자인 미수급.
+  167: { pcDesign: 'missing', moDesign: 'missing' },
   258: { pcDesign: 'received', moDesign: 'received' },
   259: { pcDesign: 'received', moDesign: 'received' },
 };
@@ -155,6 +162,8 @@ const confirmedTemplateDesigns: Record<string, Pick<ScreenProgress, 'pcDesign' |
 export const confirmedPublishingProgress: Readonly<
   Partial<Record<number, Partial<Pick<ScreenProgress, 'pcPublishing' | 'moPublishing'>>>>
 > = {
+  // 2026-10-30 사용자 확인: 국가선택 PC/MO 퍼블리싱 완료.
+  267: { pcPublishing: 'ready', moPublishing: 'ready' },
   170: { pcPublishing: 'revision', moPublishing: 'ready' },
   171: { pcPublishing: 'revision', moPublishing: 'ready' },
   172: { pcPublishing: 'ready', moPublishing: 'ready' },
@@ -171,7 +180,7 @@ export const confirmedPublishingProgress: Readonly<
   187: { pcPublishing: 'ready', moPublishing: 'ready' },
   189: { pcPublishing: 'ready', moPublishing: 'ready' },
   191: { pcPublishing: 'revision', moPublishing: 'revision' },
-  195: { pcPublishing: 'revision', moPublishing: 'revision' },
+  195: { pcPublishing: 'revision', moPublishing: 'ready' },
   196: { pcPublishing: 'revision', moPublishing: 'revision' },
   200: { pcPublishing: 'revision', moPublishing: 'revision' },
   201: { pcPublishing: 'revision', moPublishing: 'ready' },
@@ -216,7 +225,7 @@ const myPagePcNavigationNote =
 const phoneTermsReviewNote =
   'PC/MO 수정: 인증 약관의 이전 버전 선택이 첨부의 별도 선택창(PC 라디오·MO 휠)이 아닌 본문 안 버튼 목록임.';
 
-// 별도로 확인해야 하는 검토 비고만 IA와 검색에 노출합니다.
+// 과거 검수 기록입니다. screen-index의 비고 표시와 검색에는 결합하지 않습니다.
 export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
   170: 'PC 수정: 상품 행의 성별·관심상품 표시 누락, 주문하기 버튼이 시안의 검정 채움 대신 테두리형임. MO 완료 유지.',
   171: 'PC 수정: 결제 요약의 총 결제금액 라벨이 두 줄로 꺾임. PC 디자인 수정예정 유지.',
@@ -227,7 +236,7 @@ export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
   183: myPagePcNavigationNote,
   184: myPagePcNavigationNote,
   191: `PC/MO 수정: 상품리뷰 본문 제목이 없고 탭부터 시작함. ${myPagePcNavigationNote}`,
-  195: `PC/MO 수정: 등급·누적금액 상단 배치, 등급 아이콘의 배경/글자색, 공통 혜택 구성이 다름. MO에 시안에 없는 컬러 배경 카드가 있음. ${myPagePcNavigationNote}`,
+  195: `2026-10-30 Figma 적용: 상단 등급·누적금액 진행바, 원형/오각형/육각형 배지, 가로 등급 안내와 공통 혜택을 반영. MO 흰 바탕 세로 등급 목록 확인. PC/MO RUNNER 한도·쿠폰 수량 차이는 각 시안의 fixture로 보존. ${myPagePcNavigationNote}`,
   196: `PC/MO 수정: 빈 입력 상태에서 쿠폰 등록 버튼이 숨겨짐. 쿠폰 우측의 검정 띠와 티켓 윤곽이 시안과 다름. ${myPagePcNavigationNote}`,
   200: `PC/MO 수정: 최근순이 선택 컨트롤 대신 고정 텍스트이며 MO 신청 취소 버튼이 별도 왼쪽 행에 배치됨. ${myPagePcNavigationNote}`,
   201: `PC 수정: 회원정보 라벨·값이 시안의 조밀한 좌우 행 대신 큰 제목과 값의 세로 묶음으로 표시됨. ${myPagePcNavigationNote}`,

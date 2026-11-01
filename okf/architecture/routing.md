@@ -6,11 +6,38 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:38:20Z'
+  at: '2026-10-30T08:34:43.457833+00:00'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
+  - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
+  - src/stories/features/binding/RemainingBinding.stories.tsx
+  - public/images/mypage/coupon.svg
+  - src/app/mypage/profile/_components/ProfileContent.tsx
+  - src/app/mypage/profile/_components/ProfileStatePreview.tsx
+  - src/components/common/organisms/Address/AddressFields.tsx
+  - src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx
+  - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/context/MyPageDataContext.ts
+  - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/components/mypage/MyPageFrame.tsx
   - src/app/login/find-account/page.tsx
   - src/app/login/find-account/_components/FindAccountStatePreview.tsx
+  - src/app/support/store/_components/StoreContent.tsx
+  - src/app/publishing-guide/page.tsx
+  - src/app/mypage/event-entries/preview-cancel/page.tsx
+  - src/app/mypage/reviews/preview-ready/page.tsx
+  - src/app/mypage/reviews/preview-written/page.tsx
+  - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
+  - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
+  - src/app/mypage/event-entries/eventEntries.data.ts
   - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/login/find-account/_components/FindAccountContent.tsx
   - src/app/signup/terms/_components/SignupTermsContent.tsx
@@ -168,6 +195,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: coupons-figma-20261030
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
+    title: 쿠폰 일반·임직원 PC/MO 시안
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
     title: 'src/app/layout.tsx'
@@ -186,6 +216,60 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+기본 /mypage/event-entries와 preview-empty·preview-cancel은 기존 RunningSessionEntriesContent를 공유한다. URL·App Router 경계·IA 200·공통 MyPageFrame·GNB·footer는 유지하며 route-private 목록과 모달 스타일 및 표시 fixture만 보정했다. PC 본문 844px, 이미지 96px, 취소 링크는 상세 정보 우측 하단이며 MO에서는 다음 행 우측이다. [디자인 값과 검증](ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)을 참고한다.
+
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
+
+## 화면 연결 그래프 최신화 (2026-10-30)
+
+`npm run screen-files`로 `src/app/screen-index/sourceGraph.generated.json`을 현재 소스에 맞춰 재생성했다. 로그인·계정 잠금·아이디 찾기·비밀번호 재설정의 실제 import와 퍼블리싱 가이드의 HelpTips 연결을 반영하고 제거된 의존성을 정리했다. 라우트 구현과 URL은 변경하지 않았다. 작업 트리 출처는 위 생성 파일이며, `tests/screen-files.test.mjs` 1개를 통과했다.
+
+## 마이페이지 메인 디자인 적용 (2026-10-30)
+
+기존 `/mypage`·`/mypage/preview-no-orders`는 같은 `_components/MyPageContent.tsx`를 계속 사용한다. [Figma 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC/MO 기본·주문 없음 표현을 반영했고 route 진입점·IA 연결·표시 데이터 및 외부 context 계약은 유지한다. `MyPageFrame`의 `centered` 레이아웃만 모바일 breadcrumb 하단을 8px로 지정하며 기존 `sidebar`의 32px은 유지한다. 메인의 불필요한 PC 상단 24px을 제거하고 모바일 상단 24px은 유지한다.
+
+두 URL PC/MO 직접 진입·hydration 후 표현, 모바일 캐러셀·로그아웃 모달 닫기/포커스 복귀와 쿠폰 화면의 breadcrumb 간격을 확인했다. 1024px까지 모바일, 1025~1199px의 1200px 캔버스, 1200px 이상 가로 overflow 없음도 확인했다. 공통 플랫폼 판별은 수정하지 않았다. Next 빌드·타입 검사를 통과했다. 상세와 미실행 검사는 [디자인 반영](ui.md#마이페이지-메인-디자인-반영-2026-10-30)에 기록했다.
+
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00.
+
+## 매장 목록 제목 매핑 검토 (2026-10-30)
+
+`src/app/support/store/_components/StoreContent.tsx`의 매장명 타이포를 16px H10으로 지정했다. `/support/store` 경로·page export·서버/클라이언트 경계와 정보 목록 계약은 유지한다. [표현 규격](ui.md#매장-목록-제목-16px-유지-2026-10-30)을 참고한다.
+
+## 퍼블리싱 가이드 import 정렬 검토 (2026-10-30)
+
+`src/app/publishing-guide/page.tsx`의 atoms/molecules import 그룹과 type binding 순서만 정리했다. 경로·metadata·page export·탭 내용·서버/클라이언트 경계에는 영향이 없다. 전체 `npm run lint`가 통과했다. [UI 기록](ui.md#퍼블리싱-가이드-import-정렬-2026-10-30)을 참고한다.
+
+## 타이포 사용처 이름 변경 검토 (2026-10-30)
+
+상품 상세·결제·회원정보·고객센터의 기존 16px H9 사용처를 H10으로 옮기고 퍼블리싱 가이드의 제목 예시를 H10까지 확장했다. 변경한 라우트의 경로·page exports·서버/클라이언트 경계·preview URL과 상태 소유권은 유지한다. 작업 트리 출처는 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/checkout/_components/CheckoutPayment.tsx`, `CheckoutShipping.tsx`, `CheckoutSummary.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/support/after-sales/_components/AfterSalesContent.tsx`, `src/app/support/inquiries/_components/InquiryListContent.tsx`, `src/app/support/store/_components/StoreContent.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`다. [표현 계약](ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30)을 참고한다.
+
+## 러닝세션 신청 취소 모달 직접 URL (2026-10-30)
+
+`/mypage/event-entries/preview-cancel`은 기존 `RunClubEntriesContent`의 `preview="cancel"` 옵션으로 고정 목록과 열린 신청 취소 모달을 표시한다. 연결된 Provider와 무관하게 fixture를 사용하고 실제 조회·취소 요청은 실행하지 않는다. 확인·취소·닫기·Escape로 창을 닫을 수 있으며 새로고침하면 다시 열린다. 기본 목록과 기존 Empty URL은 유지한다.
+
+검증: 브라우저에서 PC/MO 직접 진입과 열린 모달, Escape 닫기·새로고침 재노출·확인 후 기존 3건 상태 유지·취소 버튼 닫기를 확인했다. screen-index의 ‘신청 취소 모달’ STATE 행, URL/상태명 검색과 보기 링크 새 창 진입을 확인했다. 변경 파일 ESLint/Prettier·타입 검사·그래프 생성을 통과했다. 실제 취소 API·전체 production/Storybook build는 실행하지 않았다.
+
+screen-index IA 200의 previewRoutes에 ‘신청 취소 모달’을 추가하고 sourceFiles에 진입점을 연결했다. 상태가 두 개가 되어 기본 목록은 원본 행의 페이지 링크, Empty와 취소 모달은 STATE 행으로 표시되는 기존 규칙을 사용한다. sourceGraph는 `npm run screen-files`로 생성한다. 출처: 위 preview 진입점과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `src/app/screen-index/screenConnections.ts` 작업 트리. 작성: 2026-10-30 (Asia/Seoul).
+
+## 상품리뷰 디자인의 직접 상태 URL (2026-10-30)
+
+IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/reviews/preview-ready`는 작성 가능한 리뷰 목록, 기존 `/mypage/reviews/preview-empty`는 작성 가능한 리뷰 목록 없음, `/mypage/reviews/preview-written`은 내가 작성한 리뷰다. `/mypage/reviews/preview-written-empty`의 상태명은 내가 작성한 리뷰 목록 없음이다. 사용자 브라우저 코멘트의 세 상태명을 적용했으며 URL 자체는 유지한다. 새 route는 기존 `ReviewStatePreview`의 준비된 상태를 사용하고 클릭 순서·로그인·저장소에 의존하지 않는다. 기존 기본 route와 작성/수정/오류/작성 목록 없음 URL은 보존한다. `screenConnections.ts`의 previewRoutes/sourceFiles를 갱신하고 생성 그래프는 `npm run screen-files`로 반영한다. [표시 구조와 fixture 계약](ui.md#상품리뷰-디자인-목록과-state-2026-10-30)을 참고한다.
+
+2026-10-30 후속: `/mypage/reviews`·`/preview-written`·`/preview-empty`의 PC/MO Figma 표현을 기존 소유자에서 갱신했다. page 진입점·공통 프레임·플랫폼 판별·실제 조회/저장 계약은 변경하지 않는다. 브라우저에서 세 URL과 IA 상태명 검색·정확한 보기 URL, 명시적 WEB/Mobile 스토리 및 모달 닫기/포커스 복귀를 확인했다. 작업 트리 출처는 리뷰 `_components`·fixture, `screenConnections.ts`, 리뷰 stories이며 기록 시점은 2026-10-30T17:12:00+09:00이다.
+
+## 러닝세션 신청내역 시안 반영 (2026-10-30)
+
+`/mypage/event-entries`와 기존 `/preview-empty`는 route-private `RunClubEntriesContent`를 공유한다. PC는 상단 breadcrumb와 190px 사이드바·98px 간격·844px 본문, 모바일은 사이드바를 숨긴 단일 본문이다. 사용자 확정에 따라 이 외곽 배치를 `MyPageFrame`으로 통합했고 마이페이지 메뉴도 최종 디자인으로 정리했다. `/mypage` 메인만 사이드바를 생략하며 breadcrumb 위치는 동일하다. GNB·footer는 유지한다. [최종 공통 프레임](ui.md#마이페이지-최종-공통-프레임-2026-10-30)을 참고한다. 목록은 제목/배지와 96px 정사각 이미지/장소/거리/신청일/진행일시를 분리하며 신청 가능한 항목에만 오른쪽 취소 링크를 표시한다. 정렬은 최신순/과거순, 건수는 오른쪽, 더보기는 PC 160px·모바일 전체 폭이다.
+
+`eventEntries.data.ts`의 3개 항목·총 62건·1/10은 시안용 표시 fixture이며 실제 페이지 수를 계산한 값이 아니다. 이미지는 저장소의 런클럽 에셋을 재사용하므로 첨부 시안의 일부 사진과 다르다. 미연결 더보기는 비활성이며 취소 확인은 창만 닫는다. 실제 API는 추가하지 않았고 운영 목록·정렬·더보기·취소는 [기존 컨텍스트의 연결 계약](state.md#러닝세션-신청내역의-표시와-정렬-계약-2026-10-30)을 사용한다. 기존 미리보기의 취소 상태 변경 시뮬레이션을 제거했다.
+
+검증: 기본 PC/MO와 Empty 직접 진입, 정렬 선택·탭 필터·취소 모달·Escape/포커스 복귀를 브라우저로 확인했다. 1024px 이하 mobile, 1025~1199px의 1200px canvas, 1200px 이상 document 가로 넘침 없음을 확인했다. 임시 Provider로 비fixture ID·late data·서버 결과 보존·취소 실패/재시도/pending/성공·추가 목록·조회 실패/재시도를 확인한 뒤 임시 소스를 제거했다. 최종 모바일 breadcrumb의 줄바꿈 방지와 날짜 body5 조정은 이 스크린샷 확인 이후 반영했다. 실제 서비스 API·전체 Storybook/production build는 검증하지 않았다.
+
+출처: `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `eventEntries.data.ts`, `src/context/RunClubDataContext.ts` 작업 트리와 사용자 첨부 디자인·기획서. 작성: Codex, 2026-10-30 (Asia/Seoul).
 
 ## 계정 프레임 본문 배치 정리의 라우팅 영향 (2026-10-30)
 
@@ -607,18 +691,36 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 
 고정 상태 preview URL 61개와 기존 상태 URL의 직접 연결을 추가했다. 전체 목록·재사용 기준·미확정 IA는 [상태 preview 인계](publishing-state-previews-2026-10-30.md)에 기록했다. 내부 IA 200에 신청내역을 연결하고 198의 삭제 상태는 유지한다. 158은 최종 GNB 전환 주석을 확인해 기존 연결을 보존했다. 화면 목록은 기본 route가 없어도 previewRoutes 링크를 표시한다.
 
-## 로그인 도움말 주석 언어 (2026-10-30)
+## 회원등급 시안 적용 (2026-10-30)
 
-`LoginContent`의 아이디 저장 도움말 주석을 한국어 설명 뒤에 영문 설명을 두는 형식으로 바꿨다. 설명 문구만 수정했으며 라우팅·Base UI 동작에는 변화가 없다. 출처는 `src/app/login/_components/LoginContent.tsx`다.
+`/mypage/rewards` 경로와 client page 경계를 유지하고 `_components/RewardsContent.tsx`가 배지·진행바·혜택 UI, `rewards-data.ts`가 고정 표시 데이터를 소유한다. PC Storybook을 추가해 IA 195의 WEB 연결을 등록했다. 공통 MyPageFrame·플랫폼 판별·탐색 계약은 변경하지 않았다. [시안 값과 검증](ui.md#회원등급-시안-적용-2026-10-30)을 참고한다.
 
-## 폼 가이드의 로그인 필드 조합 (2026-10-30)
+## 재입고 PC·모바일 디자인 연결 (2026-10-30)
 
-이력: Form 가이드에 로그인과 같은 아이디·비밀번호 `TextFormField` boxed 조합을 추가했다. 2026-10-30 Figma 기준 범위를 다섯 카테고리로 제한하면서 로그인 전용 조합 카드는 제거했다. 실제 로그인 화면은 변경하지 않았다.
+`/mypage/restock-alerts`와 `/mypage/restock-alerts/preview-empty`는 기존 공용 `MyPageProductHistory`를 유지한다. Figma `2025:152235`의 PC/MO 목록·빈 상태를 재입고 분기에 반영했고 IA 184에 WEB Storybook `pages-마이페이지-3-재입고-알림-상품-web--restock-alerts`를 추가했다. 직접 URL·previewRoutes·Mobile story 연결은 유지한다. 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json`의 작업 트리다.
 
-## 폼 가이드의 Figma 기준 항목 정리 (2026-10-30)
+## 배송지 관리 시안과 고정 경로 (2026-10-30)
 
-Form 가이드는 Figma의 [Forms](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=273-5306&m=dev)와 [Dropdown Menu](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=332-33649&m=dev)를 기준으로 `Input Fields`, `Dropdown Selection`, `Checkbox`, `Radio`, `Dropdown Menu` 다섯 섹션만 노출한다. Input Fields는 Default·Focus·Typing·Error 상태 행과 기본·Password·Phone Number·Number·Open Text Area 타입 예시를 보여준다. Dropdown Selection은 기본·선택·오류·비활성화 상태, Checkbox·Radio는 기본·선택·비활성화 케이스, Dropdown Menu는 텍스트·아이콘·이미지 목록을 비교한다. 각 예제 코드는 복사 가능하고 입력값과 메뉴 선택은 가이드 안에서 조작한다. 기존 가이드의 주소·이메일·검색·세그먼트·액션·수량 보조·글자 수·인증 카운트다운 사례는 제거했다. 공통 컴포넌트 구현과 운영 페이지 사용처는 수정하지 않았다. 상단 복사 알림과 우측 타임라인은 유지한다. 출처는 `src/app/publishing-guide/_components/FormGuide.tsx` 및 위 두 Figma 노드다.
+`/mypage/addresses`·`/mypage/addresses/preview-empty`·`/mypage/addresses/preview-new`·`/mypage/addresses/preview-edit`는 기존 page 진입점·App Router 경계를 유지하며 공유 AddressList/AddressEditor의 PC/MO 표현을 갱신했다. 기존 preview-error도 동일 편집기를 계속 사용한다. 추가 라우트와 IA 번호는 만들지 않았고 기존 screenConnections의 기본/상태 연결을 보존했다. 수정 preview는 독립 editPreviewAddress fixture를 사용하며 breadcrumb을 실제 추가/수정 상태에 맞췄다. 서비스 저장이나 완료 탐색을 새로 추가하지 않았다.
 
-## 퍼블리싱 가이드 툴팁·토글팁 탭 (2026-10-30)
+[실측 디자인과 검증](ui.md#배송지-관리-figma-적용-2026-10-30)을 참고한다. 작성: codex/gpt-6, 2026-10-30T08:31:03Z. 출처: 위 작업 트리 컴포넌트와 기존 네 경로의 page.tsx.
 
-`/publishing-guide`의 기존 분류 탭에 툴팁·토글팁을 추가했다. `HelpTipsGuide`는 사용 기준, 두 유형의 상·하·좌·우 위치별 조작 가능한 미리보기, 코드 복사와 우측 타임라인을 제공한다. 기존 탭과 페이지 라우트는 유지한다. 출처는 `src/app/publishing-guide/page.tsx`와 `_components/HelpTipsGuide.tsx`다.
+배송지 네 경로의 PC/MO 직접 진입, Next production build와 app-router/preview-links 검사 7개를 확인했다. IA 203의 목록/빈 목록과 IA 204·205의 추가/수정 연결은 기존대로 유지한다.
+
+## 회원정보 조회·수정 Figma 적용 (2026-10-30)
+
+`/mypage/profile`과 `/mypage/profile/preview-edit`는 기존 진입점을 유지한다. 공통 ProfileEditForm이 수정 화면 제목·기본정보·폼을 소유하므로 직접 preview에서도 전체 맥락이 보인다. 새 URL·page export·플랫폼 판단·MyPageFrame은 추가/변경하지 않았다. 기존 인증번호·만료·비밀번호 완료 preview는 기존 컴포넌트를 계속 사용한다. 디자인 [1813:89280](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)과 관련 작업 트리 TSX가 출처이며 PC/모바일 실제 두 경로와 Next.js build를 확인했다.
+
+## 쿠폰 시안과 기존 상태 URL (2026-10-30)
+
+[쿠폰 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)을 /mypage/coupons와 기존 preview-empty·preview-error·preview-complete·preview-detail에 공유 적용했다. 새 라우트는 추가하지 않았다. IA 196의 기본·빈 목록·등록 오류·등록 완료 링크와 IA 197의 상세 URL을 유지하며, IA 196에 PC Storybook pages-마이페이지-6-쿠폰-web--coupons 연결을 추가했다. 기존 Mobile ID를 유지하고 두 플랫폼에 임직원 스토리를 추가했다. sourceGraph.generated.json은 정식 screen-files로 재생성했다.
+
+현재 구현은 src/app/mypage/coupons/_components/CouponManagement.tsx, 기존 상태 page.tsx, src/stories/features/mypage/MyPage.Coupons.{Web,Mobile}.stories.tsx 및 screenConnections.ts 작업 트리다. 화면 진입점과 외부 데이터 연결 소유권은 유지한다. [화면 규격·검증](ui.md#쿠폰-figma-적용-2026-10-30)을 함께 참조한다.
+
+## 퍼블리싱 가이드 import 정리 (2026-10-30)
+
+src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named binding 순서만 정리했다. /publishing-guide의 경로와 page 진입점·컴포넌트 동작은 유지한다. 관련 소스 ESLint·Prettier 검사를 통과했다.
+
+## 화면 연결 그래프 재생성 (2026-10-30)
+
+npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.

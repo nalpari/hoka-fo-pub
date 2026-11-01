@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 
-import { useContext } from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
@@ -63,25 +62,26 @@ function MyPageMembership() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   return (
-    <Box bg="black.10" px="4" py="5">
-      <Stack gap="1">
+    <Box bg="black.10" p="8" minW="0" _mobile={{ px: '4', py: '5' }}>
+      <Stack gap="3">
         <HStack justifyContent="space-between">
-          <HStack gap="2">
+          <HStack gap="3" _mobile={{ gap: '2' }}>
             <HStack
               as="span"
               justifyContent="center"
               gap="0"
-              w="8"
-              h="8"
+              w="12"
+              h="12"
+              _mobile={{ w: '8', h: '8' }}
               borderRadius="full"
               bg="black.100"
               color="offWhite.100"
             >
-              <Typography variant="heading6" language="en" weight="black">
+              <Typography web="heading8" mo="heading6" language="en" weight="black">
                 {binding ? summary?.tierInitial : 'R'}
               </Typography>
             </HStack>
-            <Typography web="heading8" mo="heading5" language="en">
+            <Typography web="heading7" mo="heading5" language="en">
               {binding ? summary?.tier : 'RUNNER'}
             </Typography>
           </HStack>
@@ -89,8 +89,8 @@ function MyPageMembership() {
             <Typography variant="body5">등급안내</Typography>
           </Link>
         </HStack>
-        <Box w="full" pl="10" boxSizing="border-box">
-          <Typography variant="body5">
+        <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '10' }}>
+          <Typography as="p" web="body3" mo="body5">
             {binding ? summary?.nextTierText : '다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
           </Typography>
         </Box>
@@ -109,21 +109,26 @@ type MyPageBenefitItemProps = {
 const benefitLink = css({
   minW: '0',
   bg: 'black.10',
-  p: '5',
+  p: '8',
   color: 'inherit',
   textDecoration: 'none',
+  _mobile: { px: '4', py: '5' },
 });
 
 function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps) {
   return (
     <Link className={benefitLink} href={href}>
-      <Stack h="14" justifyContent="space-between">
-        <Typography variant="body4">{label}</Typography>
+      <Stack h="full" minH="81px" justifyContent="space-between" _mobile={{ minH: '57px' }}>
+        <Typography web="body2" mo="body4">
+          {label}
+        </Typography>
         <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
-          <Typography web="heading8" mo="heading5">
+          <Typography web="heading7" mo="heading5" language="en">
             {count}
           </Typography>
-          <Typography variant="body3">{unit}</Typography>
+          <Typography web="body2" mo="body3">
+            {unit}
+          </Typography>
         </HStack>
       </Stack>
     </Link>
@@ -134,7 +139,7 @@ function MyPageBenefits() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   return (
-    <Grid columns={2} gap="2">
+    <Grid columns={2} gap="2" h="full">
       <MyPageBenefitItem
         href="/mypage/coupons"
         label="내 쿠폰"
@@ -151,37 +156,59 @@ function MyPageBenefits() {
   );
 }
 
-const profileLink = css({ textDecoration: 'none!' });
+const profileLink = css({
+  display: 'inline-flex',
+  alignSelf: 'flex-start',
+  color: 'inherit',
+  textDecoration: 'none',
+});
 
 function MyPageOverviewProfile() {
   const binding = useContext(MyPageDataContext).overview;
   const summary = binding?.item;
   return (
     <ContentSection
-      gap="4"
+      gap="8"
+      _mobile={{ gap: '4' }}
       title={
         <>
-          <ButtonLink className={profileLink} href="/mypage/profile" size="lg" variant="link">
+          <Link className={profileLink} href="/mypage/profile">
             <HStack as="span" gap="1">
-              <HStack as="span" gap="0.5">
-                <Typography as="span" variant="heading4">
+              <HStack as="span" gap="0.5" alignItems="flex-end">
+                <Typography
+                  as="span"
+                  web="heading6"
+                  mo="heading4"
+                  className={css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } })}
+                >
                   {binding ? summary?.name : '박연진'}
                 </Typography>
-                <Typography as="span" variant="heading4">
+                <Typography as="span" variant="body1">
                   님
                 </Typography>
               </HStack>
-              <Icon name="chevron-right" size="16px" />
+              <Icon name="chevron-right" size="16px" className={css({ m: '1' })} />
             </HStack>
-          </ButtonLink>
+          </Link>
         </>
       }
-      headerProps={{ titleAs: 'h1', titleProps: { variant: 'heading4' } }}
+      headerProps={{
+        titleAs: 'h1',
+        titleProps: {
+          web: 'heading6',
+          mo: 'heading4',
+          className: css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } }),
+        },
+      }}
     >
-      <Stack gap="2">
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) 488px"
+        gap="2"
+        _mobile={{ gridTemplateColumns: '1fr' }}
+      >
         <MyPageMembership />
         <MyPageBenefits />
-      </Stack>
+      </Grid>
     </ContentSection>
   );
 }
@@ -192,7 +219,7 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
       <Box w="24" h="24" flexShrink="0">
         <ProductThumbnail alt={item.name} src={item.image} />
       </Box>
-      <Stack minW="0" flex="1" gap="1.5" pr="17">
+      <Stack minW="0" flex="1" gap="1.5" pr="0" maxW="163.5px">
         <HStack minH="18px">
           {item.isNew ? (
             <Typography variant="body4" tone="red80">
@@ -244,67 +271,93 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
       headerProps={{
         orientation: 'horizontal',
         gap: '2',
-        titleProps: { web: 'heading8', mo: 'heading5' },
-        action: (
-          <ButtonLink href="/mypage/orders" size="md" variant="link">
-            전체 보기
-          </ButtonLink>
-        ),
+        titleProps: { web: 'heading7', mo: 'heading5' },
+        action:
+          items.length > 0 ? (
+            <ButtonLink href="/mypage/orders" size="md" variant="link">
+              전체 보기
+            </ButtonLink>
+          ) : undefined,
       }}
     >
       {items.length === 0 ? (
-        <Typography variant="body3" className={css({ textAlign: 'center', py: '16' })}>
-          주문한 상품이 없습니다.
+        <Typography
+          web="body3"
+          mo="body4"
+          className={css({
+            textAlign: 'center',
+            py: '120px',
+            color: '#4D4D4D',
+            borderBottom: '1px solid var(--colors-black-20)',
+            _mobile: { py: '16' },
+          })}
+        >
+          주문 배송 내역이 없습니다.
         </Typography>
       ) : platform !== 'mobile' ? (
         <Stack gap="0">
           <Grid
-            gridTemplateColumns="minmax(0, 1fr) 60px 100px 100px"
-            borderY="1px solid var(--colors-black-100)"
-            py="4"
+            gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
+            borderTop="2px solid var(--colors-black-100)"
+            borderBottom="1px solid var(--colors-black-100)"
+            py="5"
+            textAlign="center"
+            gap="0"
           >
-            <Typography variant="body4">상품정보</Typography>
-            <Typography variant="body4">수량</Typography>
-            <Typography variant="body4">가격</Typography>
-            <Typography variant="body4">주문상태</Typography>
+            <Typography variant="heading9">상품정보</Typography>
+            <Typography variant="heading9">수량</Typography>
+            <Typography variant="heading9">가격</Typography>
+            <Typography variant="heading9">주문상태</Typography>
           </Grid>
           {items.map((item, index) => (
             <Grid
               key={index}
-              gridTemplateColumns="minmax(0, 1fr) 60px 100px 100px"
+              gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
               alignItems="center"
-              gap="4"
-              py="6"
+              gap="0"
+              py="8"
               borderBottom="1px solid var(--colors-black-20)"
             >
-              <HStack gap="4">
-                <Box w="24" h="24">
+              <HStack gap="4" px="6">
+                <Box w="24" h="24" flexShrink="0">
                   <ProductThumbnail src={item.image} alt={item.name} />
                 </Box>
-                <Stack gap="2">
+                <Stack gap="0.5">
                   <Typography variant="body4">{item.gender}</Typography>
-                  <Typography variant="body3">{item.name}</Typography>
-                  <Typography variant="body5">{item.description}</Typography>
+                  <Typography variant="body4">{item.name}</Typography>
+                  <Typography variant="body4" weight="semibold">
+                    {item.price}
+                  </Typography>
                 </Stack>
               </HStack>
-              <Typography variant="body4">{item.quantity ?? '-'}</Typography>
-              <Typography variant="body4">{item.price}</Typography>
-              <Typography variant="body4">{item.status}</Typography>
+              <Typography variant="body3" className={css({ textAlign: 'center' })}>
+                {item.quantity ?? '-'}
+              </Typography>
+              <Typography variant="body3" className={css({ textAlign: 'right', px: '6' })}>
+                {item.price}
+              </Typography>
+              <Typography variant="body3" className={css({ textAlign: 'center' })}>
+                {item.status}
+              </Typography>
             </Grid>
           ))}
         </Stack>
       ) : (
         <Carousel itemCount={items.length}>
           <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
-            {(binding ? (summary?.orders ?? []) : orderItems).map((item, index) => (
+            {items.map((item, index) => (
               <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
             ))}
           </CarouselViewport>
           <Box mt="6">
-            <CarouselPagination label="주문 상품 선택" />
+            <CarouselPagination
+              label="주문 상품 선택"
+              className={css({ display: 'flex', justifyContent: 'center', gap: '5px' })}
+            />
           </Box>
         </Carousel>
       )}
+      {items.length > 0 ? <Divider display="none" _mobile={{ display: 'block' }} /> : null}
     </ContentSection>
   );
 }
@@ -321,7 +374,7 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
     <Link className={menuLink} href={to}>
       <HStack minH="14" justifyContent="space-between">
         <Typography variant="body3">{label}</Typography>
-        <Icon name="chevron-right" size="16px" />
+        <Icon name="chevron-right" size="16px" className={css({ m: '1' })} />
       </HStack>
     </Link>
   );
@@ -334,9 +387,16 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
       gap="4"
       aria-label={title}
       title={<>{title}</>}
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading5' } }}
+      headerProps={{
+        titleAs: 'h2',
+        className: css({
+          pb: '6',
+          borderBottom: '2px solid var(--colors-black-100)',
+          _mobile: { pb: '4', borderBottomWidth: '1px' },
+        }),
+        titleProps: { web: 'heading7', mo: 'heading5' },
+      }}
     >
-      <Divider variant="strong" />
       <Stack gap="0">
         {items.map((item) => (
           <MyPageMenuItem key={item.to} label={item.label} to={item.to} />
@@ -356,19 +416,28 @@ export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: bo
     <>
       <MyPageFrame activePath="/mypage" layout="centered">
         <BindingFeedback {...binding} />
-        <Stack pt="6" gap="10">
+        <Stack gap="14" _mobile={{ pt: '6', gap: '8' }}>
           <MyPageOverviewProfile />
           <MyPageRecentOrders empty={previewNoOrders} />
 
-          <Divider />
-
-          <Stack gap="10">
+          <Grid
+            columns={3}
+            columnGap="14"
+            rowGap="12"
+            _mobile={{ gridTemplateColumns: '1fr', gap: '8' }}
+          >
             {menuSections.map((section) => (
               <MyPageMenuSection items={section.items} key={section.title} title={section.title} />
             ))}
-          </Stack>
+          </Grid>
 
-          <Button fullWidth size="tall" variant="secondary" onClick={() => setLogoutOpen(true)}>
+          <Button
+            className={css({ display: 'none', _mobile: { display: 'inline-flex', mt: '2' } })}
+            fullWidth
+            size="tall"
+            variant="secondary"
+            onClick={() => setLogoutOpen(true)}
+          >
             로그아웃
           </Button>
         </Stack>
