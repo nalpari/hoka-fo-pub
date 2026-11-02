@@ -51,7 +51,10 @@ export default function Page() {
         ];
 
   return (
-    <InquiryListLayout empty={inquiries.length === 0 && !binding?.pending && !binding?.error}>
+    <InquiryListLayout
+      empty={inquiries.length === 0 && !binding?.pending && !binding?.error}
+      mobileTitleSize={preview === 'attachmentPreview' ? '22px' : '24px'}
+    >
       <BindingFeedback
         pending={binding?.pending || request.pending}
         error={binding?.error || request.error}
@@ -63,7 +66,7 @@ export default function Page() {
           <EmptyState
             variant="plain"
             title="등록된 문의사항이 없습니다."
-            titleProps={{ as: 'span', web: 'body3', mo: 'body4', tone: 'subtle' }}
+            titleProps={{ as: 'span', web: 'body3', mo: 'body4', tone: 'tertiary' }}
             layoutProps={{
               display: 'flex',
               flexDirection: 'column',

@@ -24,6 +24,14 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
 import { faXmark } from '@/icons/fontAwesome';
 
+export const inquiryAlertPresentation = {
+  size: 'md' as const,
+  headerProps: {
+    css: css.raw({ bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' }),
+  },
+  popupClassName: css({ '& > div:nth-child(2)': { py: '6' } }),
+};
+
 type InquiryAttachmentListProps = {
   files: File[];
   onRemove: (index: number) => void;
@@ -44,8 +52,18 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
     >
       {files.map((file, index) => (
         <HStack as="li" key={`${file.name}-${index}`} justifyContent="space-between" gap="2">
-          <Box minW="0" overflowWrap="anywhere">
-            <Typography variant="body4">{file.name}</Typography>
+          <Box
+            w="10"
+            h="10"
+            flexShrink="0"
+            bg="black.10"
+            border="1px solid token(colors.black.40)"
+            aria-hidden="true"
+          />
+          <Box minW="0" flex="1" overflowWrap="anywhere">
+            <Typography variant="body5" tone="tertiary">
+              {file.name}
+            </Typography>
           </Box>
           <Button
             variant="link"
@@ -176,7 +194,7 @@ export function InquiryCustomerInfo() {
           { term: '휴대폰 번호', description: binding ? binding.customer.phone : '010-1234-1234' },
           { term: 'E-mail', description: binding ? binding.customer.email : 'hong123@naver.com' },
         ]}
-        termProps={{ variant: 'body3', tone: 'subtle' }}
+        termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
         descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
         slotStyles={{
           root: css.raw({
@@ -357,58 +375,81 @@ export function InquiryOrderProducts({
   selection,
 }: InquiryOrderProductsProps) {
   return selection ? (
-    <Box border="1px solid token(colors.black.20)">
-      <HStack
-        justifyContent="space-between"
-        p={{ base: '4', _mobile: '3' }}
-        borderBottom="1px solid token(colors.black.20)"
-        _mobile={{ alignItems: 'flex-start' }}
-      >
-        <Typography variant="body5" weight="medium">
-          {selection.order.date}
-        </Typography>
+    <Stack gap="3">
+      <Typography variant="headingKr10">상품 정보</Typography>
+      <Box border="1px solid token(colors.black.20)" p="4" pb="5">
+        <HStack justifyContent="space-between" mb="4" _mobile={{ alignItems: 'flex-start' }}>
+          <Typography variant="body3" language="en" weight="bold">
+            {selection.order.date}
+          </Typography>
+          <Button
+            aria-label="선택한 주문 삭제"
+            variant="icon"
+            size={24}
+            onClick={() => onSelectionChange(null)}
+          >
+            <Icon fontAwesomeIcon={ImportedFaXmark} size="16px" />
+          </Button>
+        </HStack>
+        <Stack gap="4">
+          <Stack gap="2">
+            <Typography variant="body4">주문번호</Typography>
+            <HStack gap="2" flexWrap="wrap">
+              <Typography variant="body4" language="en" tone="subtle">
+                {selection.order.id}
+              </Typography>
+              <Typography variant="body4" language="en" tone="subtle">
+                {selection.order.date}
+              </Typography>
+            </HStack>
+          </Stack>
+          <Stack gap="2">
+            <Typography variant="body4">상품코드</Typography>
+            <Stack gap="1">
+              {selection.products.map((item) => (
+                <Typography key={item.id} variant="body4" language="en" tone="subtle">
+                  {item.code}
+                </Typography>
+              ))}
+            </Stack>
+          </Stack>
+        </Stack>
+      </Box>
+      <Flex justifyContent="flex-start" gap="2">
         <Button
-          aria-label="선택한 주문 삭제"
-          variant="icon"
-          size={24}
-          onClick={() => onSelectionChange(null)}
+          size="short"
+          variant="primary"
+          onClick={onLookup}
+          className={css({
+            '& > span': {
+              '--button-height': '36px',
+              '--button-label-size': '12px',
+              '--button-padding-x': '24px',
+            },
+          })}
         >
-          <Icon fontAwesomeIcon={ImportedFaXmark} size="16px" />
-        </Button>
-      </HStack>
-      <Box p={{ base: '4', _mobile: '3' }} borderBottom="1px solid token(colors.black.20)">
-        <Typography variant="body5" tone="tertiary">
-          주문번호 : {selection.order.id}
-        </Typography>
-      </Box>
-      <Box
-        p={{ base: '4', _mobile: '3' }}
-        borderBottom="1px solid token(colors.black.20)"
-        whiteSpace="pre-line"
-      >
-        <Typography variant="body5" tone="tertiary">
-          상품코드 : {selection.products.map((item) => item.code).join('\n')}
-        </Typography>
-      </Box>
-      <Flex justifyContent="center" gap="2" p={{ base: '4', _mobile: '3' }}>
-        <Button size="short" variant="primary" onClick={onLookup}>
           상품변경
         </Button>
-        <Button size="short" variant="secondary" onClick={() => onSelectionChange(null)}>
-          선택 초기화
-        </Button>
       </Flex>
-    </Box>
+    </Stack>
   ) : (
     <Flex
       direction="column"
-      alignItems={{ base: 'flex-end', _mobile: 'stretch' }}
+      alignItems={{ base: 'flex-end', _mobile: 'flex-start' }}
       gap="3"
       flex="1"
       pb="3"
     >
-      <Box w={{ base: '180px', _mobile: '100%' }}>
-        <Button size="tall" variant="primary" fullWidth onClick={onLookup}>
+      <Box w={{ base: '160px', _mobile: 'auto' }}>
+        <Button
+          size="tall"
+          variant="secondary"
+          fullWidth
+          onClick={onLookup}
+          className={css({
+            _mobile: { '& > span': { '--button-height': '36px', '--button-label-size': '14px' } },
+          })}
+        >
           주문 상품 조회
         </Button>
       </Box>

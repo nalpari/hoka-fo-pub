@@ -916,6 +916,7 @@
     ],
     "src/app/support/inquiries/_components/InquiryListLayout.tsx": [
       "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/Button.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
@@ -923,8 +924,15 @@
       "src/app/support/inquiries/_components/InquiryListContent.tsx",
       "src/app/support/inquiries/_components/InquiryListLayout.tsx",
       "src/components/common/atoms/Divider.tsx",
-      "src/components/support/InquiryCautions.tsx"
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/support/InquiryCautions.tsx",
+      "src/context/platform.tsx"
     ],
+    "src/app/support/inquiries/[preview]/page.tsx": [
+      "src/app/support/inquiries/_components/InquiryListPreview.tsx",
+      "src/app/support/inquiries/inquiryPreviews.ts"
+    ],
+    "src/app/support/inquiries/inquiryPreviews.ts": [],
     "src/app/support/inquiries/new/_components/InquiryFormContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/DescriptionList.tsx",
@@ -942,14 +950,20 @@
     "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx": [
       "src/app/support/support.navigation.ts",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/support/CustomerCenterLayout.tsx"
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx": [
       "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
       "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
+      "src/app/support/inquiries/new/inquiryOrders.data.ts",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/support/InquiryCautions.tsx"
+    ],
+    "src/app/support/inquiries/new/[preview]/page.tsx": [
+      "src/app/support/inquiries/inquiryPreviews.ts",
+      "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx"
     ],
     "src/app/support/inquiries/new/inquiryOrders.data.ts": [],
     "src/app/support/inquiries/new/inquiryOrderSelection.storage.ts": [
@@ -965,14 +979,19 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/context/InquiryDataContext.ts",
+      "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],
     "src/app/support/inquiries/new/order-products/page.tsx": [
+      "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx"
+    ],
+    "src/app/support/inquiries/new/order-products/preview-custom/page.tsx": [
       "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx"
     ],
     "src/app/support/inquiries/new/order-products/preview-empty/page.tsx": [

@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';
@@ -9,10 +11,12 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import type { InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
+  inquiryAlertPresentation,
   InquiryAttachments,
   InquiryCategoryFields,
   InquiryCustomerInfo,
@@ -23,33 +27,64 @@ import {
 import { InquiryFormLayout } from './InquiryFormLayout';
 
 /**
- * [ 개발팀 바인딩 ] 고정 필수값/주문선택/첨부 오류이며 제출·복원·저장·이동은 실행하지 않습니다.
+ * [ 개발팀 바인딩 ] 고정 필수값/주문선택/첨부 오류이며 제출·복원·저장은 실행하지 않습니다.
+ * 주문 선택 전·후와 취소/주문 미선택 알럿을 초기 상태로 제공합니다. File 객체는 이름·썸네일 자리 확인용 빈 파일이며 업로드하지 않습니다.
+ * 주문 조회 버튼은 기존 주문상품 조회 경로로 이동하며 확인 알럿은 닫기만 수행합니다.
  * 운영 category/detailCategory/제목/본문/파일/선택 주문·상품 ID와 요청 상태·목록 갱신은 InquiryDataContext.form 소유자가 연결합니다.
  */
 /** 문의 폼과 첨부·주문 선택 오류를 직접 표시합니다. (Displays fixed inquiry form, attachment and order-selection errors.) */
 export function InquiryFormStatePreview({
   state,
 }: {
-  state: 'error' | 'order-required' | 'attachment-type' | 'attachment-size' | 'attachment-count';
+  state:
+    | 'form'
+    | 'cancel'
+    | 'order-lookup'
+    | 'order-selected'
+    | 'error'
+    | 'order-required'
+    | 'attachment-type'
+    | 'attachment-size'
+    | 'attachment-count';
 }) {
-  const [category, setCategory] = useState(state === 'order-required' ? '주문/배송' : '');
-  const [detailCategory, setDetailCategory] = useState('');
+  const router = useRouter();
+  const orderState =
+    state === 'order-required' || state === 'order-lookup' || state === 'order-selected';
+  const [category, setCategory] = useState(
+    state === 'order-required' ? '주문/배송' : orderState ? '반품' : '',
+  );
+  const [detailCategory, setDetailCategory] = useState(
+    orderState && state !== 'order-required' ? '신청/취소 문의' : '',
+  );
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
-  const [selection, setSelection] = useState<InquiryOrderSelection>(null);
-  const [open, setOpen] = useState(state === 'order-required');
+  const [files, setFiles] = useState<File[]>(() =>
+    orderState && state !== 'order-required'
+      ? ['IMG_7899.JPG', 'IMG_55559KKKKK.JPG', 'IMG_ekkefei003.JPG', 'IMG_55559KKKKK.JPG'].map(
+          (name) => new File([], name, { type: 'image/jpeg' }),
+        )
+      : [],
+  );
+  const [selection, setSelection] = useState<InquiryOrderSelection>(
+    state === 'order-selected'
+      ? { order: inquiryOrders[0], products: inquiryOrders[0].products.slice(0, 4) }
+      : null,
+  );
+  const [open, setOpen] = useState(state === 'order-required' || state === 'cancel');
+  const [cancelDialog, setCancelDialog] = useState(state === 'cancel');
   const invalid = state === 'error' || state === 'order-required';
   const attachmentError =
-    state === 'attachment-type'
-      ? 'type'
-      : state === 'attachment-size'
-        ? 'size'
-        : state === 'attachment-count'
-          ? 'count'
-          : undefined;
+    state === 'error'
+      ? 'size'
+      : state === 'attachment-type'
+        ? 'type'
+        : state === 'attachment-size'
+          ? 'size'
+          : state === 'attachment-count'
+            ? 'count'
+            : undefined;
   return (
-    <InquiryFormLayout>
+    <InquiryFormLayout orderSelected={Boolean(selection)}>
       <form
         className={css({ mt: { base: '10', _mobile: '6' } })}
         noValidate
@@ -66,12 +101,12 @@ export function InquiryFormStatePreview({
               onCategoryChange={setCategory}
               onDetailCategoryChange={setDetailCategory}
             />
-            {state === 'order-required' && (
+            {orderState && (
               <InquiryOrderProducts
-                invalid
+                invalid={state === 'order-required'}
                 selection={selection}
                 onSelectionChange={setSelection}
-                onLookup={() => setOpen(true)}
+                onLookup={() => router.push('/support/inquiries/new/order-products')}
               />
             )}
             <InquiryMessageFields
@@ -89,18 +124,28 @@ export function InquiryFormStatePreview({
             previewError={attachmentError}
           />
           <InquiryCautions />
-          <InquiryFormActions onCancel={() => {}} />
+          <InquiryFormActions
+            onCancel={() => {
+              setCancelDialog(true);
+              setOpen(true);
+            }}
+          />
         </Stack>
       </form>
       <ModalDialog
+        {...inquiryAlertPresentation}
         open={open}
         onOpenChange={setOpen}
         title="1:1 문의등록"
         closeLabel="주문번호 안내 닫기"
-        actions={{ kind: 'single', onConfirm: () => setOpen(false) }}
+        actions={
+          cancelDialog
+            ? { kind: 'confirm', fullWidth: false, onConfirm: () => setOpen(false) }
+            : { kind: 'single', onConfirm: () => setOpen(false) }
+        }
       >
-        <Typography as="p" variant="body3">
-          주문번호를 선택해주세요.
+        <Typography as="p" variant="body2">
+          {cancelDialog ? '문의 작성을 취소하시겠습니까?' : '주문번호를 선택해주세요.'}
         </Typography>
       </ModalDialog>
     </InquiryFormLayout>

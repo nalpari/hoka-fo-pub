@@ -2,6 +2,7 @@ import {
   getProductListingIaKey,
   getProductListingRoute,
 } from '@/app/screen-index/productListingIaRoute';
+import { inquiryFormPreviews, inquiryListPreviews } from '@/app/support/inquiries/inquiryPreviews';
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 import sourceGraph from './sourceGraph.generated.json';
@@ -1126,7 +1127,41 @@ export function isScreenDeleted(screen: ScreenDefinition) {
 function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
   if (isScreenDeleted(screen)) return { sourceFiles: [], stories: {} };
   const connection = connections[screen.iaNumber];
-  if (connection) return connection;
+  if (connection) {
+    const group =
+      connection.route === '/support/inquiries/new'
+        ? 'form'
+        : connection.route === '/support/inquiries/preview-list'
+          ? 'list'
+          : undefined;
+    if (!group) return connection;
+    return {
+      ...connection,
+      previewRoutes: [
+        ...(connection.previewRoutes ?? []),
+        ...(group === 'list' ? inquiryListPreviews : inquiryFormPreviews).map(
+          ({ label, href }) => ({ label, href }),
+        ),
+        ...(group === 'form'
+          ? [
+              {
+                label: '조회 기간 직접설정',
+                href: '/support/inquiries/new/order-products/preview-custom',
+              },
+            ]
+          : []),
+      ],
+      sourceFiles: [
+        ...connection.sourceFiles,
+        ...(group === 'list'
+          ? ['src/app/support/inquiries/[preview]/page.tsx']
+          : [
+              'src/app/support/inquiries/new/[preview]/page.tsx',
+              'src/app/support/inquiries/new/order-products/preview-custom/page.tsx',
+            ]),
+      ],
+    };
+  }
   if (screen.screenCode === 'eland_hca_01')
     return {
       ...productConnections.listing,

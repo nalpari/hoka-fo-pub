@@ -9,6 +9,10 @@ generated:
   at: '2026-11-02T08:15:31Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/inquiries/inquiryPreviews.ts
+  - src/app/support/inquiries/[preview]/page.tsx
+  - src/app/support/inquiries/new/[preview]/page.tsx
+  - src/app/support/inquiries/new/order-products/preview-custom/page.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/_components/HomeContent.tsx
   - src/app/support/size-guide/_components/SizeGuidePanel.tsx
@@ -234,6 +238,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 문의 시안 상태의 반응형 직접 링크 (2026-11-02)
+
+문의 섹션의 PC/MO 시안 24개를 [14개 반응형 상태](inquiry-design-2026-11-02.md#상태직접-urlia-연결)로 대응했다. IA 210/211(기존 187/189 연결 포함)은 기존 route·Storybook·오류 URL을 보존하고 접수/답변/첨부·취소·주문 선택 전후·직접설정 상태 링크를 추가한다. 플랫폼별 URL과 고정 iframe은 제거했으며 동일 URL을 viewport에 따라 표시한다. OS 파일선택 참고 1973:17114는 별도 앱 상태로 만들지 않는다. 정식 screen-files 명령으로 새 동적 preview 진입점과 의존성을 재생성했다. 실제 검증과 서비스 경계는 위 문서를 참고한다.
 
 ## 공지 상세 구분선 보정 (2026-11-02)
 

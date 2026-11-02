@@ -8,7 +8,7 @@ import { useId, useState } from 'react';
 import { type InquiryView } from '@/context/InquiryDataContext';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Square, Stack } from 'styled-system/jsx';
+import { Box, Flex, HStack, Square, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -24,21 +24,7 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 type Props = { item: { title: string; answered: boolean; body?: ReactNode } };
 
-const styles = {
-  answeredQuestion: css({ color: 'black.100', _mobile: { color: 'black.50' } }),
-  pendingHeader: css({
-    display: 'flex',
-    flexDirection: { base: 'row', _mobile: 'column' },
-    gap: '2',
-    alignItems: { base: 'center', _mobile: 'flex-start' },
-  }),
-  answeredHeader: css({
-    display: 'flex',
-    flexDirection: { base: 'row', _mobile: 'column' },
-    gap: '2',
-    alignItems: { base: 'center', _mobile: 'flex-start' },
-  }),
-};
+const answeredQuestion = css({ color: 'black.100', _mobile: { color: 'black.50' } });
 
 /** 문의 상태와 질문 내용을 함께 표시합니다. (Displays an inquiry's status and question.) */
 function InquiryQuestion({ item }: Props) {
@@ -48,13 +34,18 @@ function InquiryQuestion({ item }: Props) {
       w="100%"
       gap="3"
       alignItems="flex-start"
-      className={item.answered ? styles.answeredQuestion : undefined}
+      className={item.answered ? answeredQuestion : undefined}
     >
       <Typography variant="body2" language="en" tone="primary">
         Q
       </Typography>
       <Stack as="span" gap={{ base: '4', _mobile: '3' }} flex="1" minW="0">
-        <Box as="span" className={item.answered ? styles.answeredHeader : styles.pendingHeader}>
+        <Flex
+          as="span"
+          direction={{ base: 'row', _mobile: 'column' }}
+          gap="2"
+          alignItems={{ base: 'center', _mobile: 'flex-start' }}
+        >
           <Badge
             shape="round"
             variant={item.answered ? 'filled' : 'line'}
@@ -65,7 +56,7 @@ function InquiryQuestion({ item }: Props) {
           <Typography variant="headingKr10" tone="primary">
             {item.title}
           </Typography>
-        </Box>
+        </Flex>
         <Typography as="span" variant="body4" tone="primary">
           {item.body === undefined
             ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
@@ -211,8 +202,14 @@ function InquiryAttachmentPreview({
 }
 
 /** 문의 첨부파일 목록과 파일 미리보기를 관리합니다. (Lists inquiry attachments and manages their preview.) */
-function InquiryReadAttachments({ attachments }: { attachments: readonly InquiryAttachment[] }) {
-  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+function InquiryReadAttachments({
+  attachments,
+  initialIndex,
+}: {
+  attachments: readonly InquiryAttachment[];
+  initialIndex?: number;
+}) {
+  const [previewIndex, setPreviewIndex] = useState<number | null>(initialIndex ?? null);
 
   if (!attachments.length) return null;
 
@@ -309,10 +306,15 @@ export type InquiryListItemProps = {
   item: Pick<InquiryView, 'id' | 'title' | 'answered'> &
     Partial<Pick<InquiryView, 'body' | 'answer' | 'attachments'>>;
   attachments?: readonly InquiryAttachment[];
+  initialAttachmentIndex?: number;
 };
 
 /** 문의 한 건의 질문과 답변 및 첨부파일을 표시합니다. (Displays one inquiry with its answer and attachments.) */
-export function InquiryListItem({ item, attachments = [] }: InquiryListItemProps) {
+export function InquiryListItem({
+  item,
+  attachments = [],
+  initialAttachmentIndex,
+}: InquiryListItemProps) {
   const [answerOpen, setAnswerOpen] = useState(item.answered);
   const answerId = useId();
   const question = <InquiryQuestion item={item} />;
@@ -353,7 +355,7 @@ export function InquiryListItem({ item, attachments = [] }: InquiryListItemProps
         question
       )}
       {/* 문의 첨부파일 목록은 답변을 접어도 계속 표시합니다. (Keep attachments visible when the answer is collapsed.) */}
-      <InquiryReadAttachments attachments={attachments} />
+      <InquiryReadAttachments attachments={attachments} initialIndex={initialAttachmentIndex} />
       {item.answered && (
         <div id={answerId} role="region" aria-label="문의 답변" hidden={!answerOpen}>
           {/* 문의 답변 내용 (Inquiry answer content). */}

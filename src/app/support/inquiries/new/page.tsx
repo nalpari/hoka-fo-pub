@@ -35,6 +35,7 @@ import {
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
+  inquiryAlertPresentation,
   InquiryAttachments,
   InquiryCategoryFields,
   InquiryCustomerInfo,
@@ -144,7 +145,7 @@ export default function Page() {
 
   return (
     /* 고객센터 제목·경로와 메뉴를 제공하는 페이지 레이아웃 (Customer center page layout with heading, paths, and navigation). */
-    <InquiryFormLayout>
+    <InquiryFormLayout orderSelected={Boolean(orderSelection)}>
       <BindingFeedback
         {...binding}
         pending={binding?.pending || request.pending}
@@ -213,25 +214,30 @@ export default function Page() {
       </form>
       {/* 취소 확인 다이얼로그 (Cancellation confirmation dialog). */}
       <ModalDialog
+        {...inquiryAlertPresentation}
         open={cancelOpen}
         onOpenChange={setCancelOpen}
         title="1:1 문의등록"
         closeLabel="문의 취소 안내 닫기"
-        size="sm"
-        actions={{ kind: 'confirm', onConfirm: () => router.push('/support/inquiries') }}
+        actions={{
+          kind: 'confirm',
+          fullWidth: false,
+          onConfirm: () => router.push('/support/inquiries'),
+        }}
       >
-        <Typography as="p" variant="body3">
+        <Typography as="p" variant="body2">
           문의 작성을 취소하시겠습니까?
         </Typography>
       </ModalDialog>
       <ModalDialog
+        {...inquiryAlertPresentation}
         open={orderRequiredOpen}
         onOpenChange={setOrderRequiredOpen}
         title="1:1 문의등록"
         closeLabel="주문번호 안내 닫기"
         actions={{ kind: 'single', onConfirm: () => setOrderRequiredOpen(false) }}
       >
-        <Typography as="p" variant="body3">
+        <Typography as="p" variant="body2">
           주문번호를 선택해주세요.
         </Typography>
       </ModalDialog>

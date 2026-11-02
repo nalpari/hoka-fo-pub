@@ -9,8 +9,12 @@ generated:
   at: '2026-11-02T08:15:31Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/inquiries/inquiryPreviews.ts
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
+  - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/data/supportContacts.ts
   - src/context/ShopShell.tsx
   - src/app/support/support.navigation.ts
@@ -84,6 +88,10 @@ sources:
 ---
 
 # 고객센터 첨부 시안 반영
+
+## 문의 전체 시안 재대조와 반응형 상태 (2026-11-02)
+
+지정 섹션 1973:16422 전체를 재확인해 PC 문의하기 버튼을 제목 오른쪽 36px·12px로 옮기고 모바일 하단 48px 버튼은 유지했다. MO 목록 제목 24px, 첨부 답변/등록 제목 22px, 등록자 라벨 14px, 확인 popup 568px·본문 20px과 주문 조회/선택 표현을 보정했다. 아래 이전 문의 적용 기록 중 PC 하단 문의하기 배치는 이 변경으로 대체한다. [프레임별 출처·14개 상태 URL·검증·OS 선택기 경계](inquiry-design-2026-11-02.md)를 참고한다. PC/MO 같은 상태는 하나의 반응형 URL을 사용하며 별도 iframe이나 플랫폼 링크는 남기지 않는다.
 
 ## 공지 상세 하단 구분선 색상 (2026-11-02)
 
