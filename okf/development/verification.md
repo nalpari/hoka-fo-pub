@@ -6,9 +6,10 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-11-02T09:31:43Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
   - tests/form-controls.test.mjs
   - tests/preview-links.test.mjs
   - tests/app-router.test.mjs
@@ -528,3 +529,13 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 전체 Node 테스트 109개·전체 lint·타입 검사와 최종 Next production build(119개 정적 페이지), Storybook production build를 통과했다. 첫 Next 빌드는 병행 타입 생성과 .next/types 정리의 ENOTEMPTY 경합으로 실패했고 타입 검사 종료 뒤 순차 재실행하여 통과했다. 브라우저에서 공통 D2 국가선택의 페이지 링크·PC/MO 디자인 미해당·퍼블리싱 완료 표시를 확인했다. 1280px PC와 375px MO에서 /locales의 제목·Australia 외부 링크·문서 가로 넘침 없음을 확인했다. 삭제한 세 URL은 각각 404였다. 실제 외부 국가 사이트 이동이나 서비스 API는 실행하지 않았다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`tests/preview-links.test.mjs`의 기존 IA/경로 검사와 `.agents/skills/hoka-markup-handoff/references/state-matrix.md`의 직접 상태 확인 기준을 검토했다. 이번 작업은 저장소 외부 지침의 형식·참조 경로·한국어 표시 정보 검사와 PC/MO 병합·기존 URL 재사용·오류/팝업 직접 표시·가이드 제외·IA 모호성 처리 지침 검토를 수행했다. 앱 소스를 변경하지 않아 앱 테스트·타입·빌드·브라우저 검증은 실행하지 않았다. 기존 앱 검증 절차에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태 링크 누락 조사 검증 (2026-11-02)
+
+`node --test tests/preview-links.test.mjs` 5개가 통과했다. 실제 `/screen-index` DOM에서 조사 대상 IA의 등록 URL들이 표시되는지 소스의 연결 결과와 대조했다. PC 1440px·MO 375px에서 `/support/after-sales`, `/support/care`, `/login/account-locked/verification/preview-expired`, `/signup/terms`, `/mypage/coupons` 5개 URL을 각각 직접 열어 기본 탭·팝업 닫힘·일반 쿠폰 표시와 인라인 만료 안내를 확인했다. 그 외 로그인·주문서·주소·마이페이지의 대표 기본 진입도 확인했다. 새 URL·화면은 구현하지 않았고 전체 상태의 PC/MO 시각 일치·팝업 조작·타입·빌드를 검증한 것은 아니다. 기존 경로 검사는 디자인에만 존재하는 URL 누락을 검출하지 않으므로 [디자인 대응표](../architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 함께 확인한다. 출처: 사용자 지정 디자인, 현재 IA/화면 소스와 `tests/preview-links.test.mjs`, 실행 중인 로컬 앱. 검증·기록: codex/gpt-6, 2026-11-02T09:31:43Z.

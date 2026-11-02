@@ -4,12 +4,14 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-02T14:27:00+09:00'
+updated: '2026-11-02T09:31:43Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:31:00Z'
+  at: '2026-11-02T09:31:43Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
   - src/data/megaMenu.ts
   - src/components/common/organisms/Search/SearchHeader.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
@@ -621,3 +623,13 @@ SiteHeaderInner의 최대 너비를 `max(1776px, var(--layout-web-content-max-wi
 ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)를 사용한다. 검색 value·submit·오류·portal·메뉴 이동과 복귀는 ShopShell 소유이며 중첩 form을 만들지 않는다. Button.unstyled는 메뉴/숨김 제출/백드롭의 원래 자식 구조와 이벤트를 유지한다. 조회·재입고 취소·쿠폰·리뷰 저장의 prop/context와 pending/error/retry 소유자를 이동하지 않았고, BindingFeedback.errorFirst는 리뷰의 기존 오류 우선 순서를 표시한다. [변경 소스·옵션·검증](common-reuse-audit.md)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/common/molecules/SearchField.tsx, src/components/common/molecules/BindingFeedback.tsx, src/app/mypage/reviews/_components/MyPageReviewsContent.tsx.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`src/context/platform.tsx`의 자동/고정 플랫폼 책임과 `src/app/support/inquiries/inquiryPreviews.ts`의 상태 fixture 대응을 검토했다. 이번 작업에서 context·fixture·상태 수명·서비스 연결을 변경하지 않았으며 기존 상태 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 고정 상태 초기값 조사 (2026-11-02)
+
+배송/세탁 탭의 기본 선택, checkout 배송지/요청사항, 쿠폰 employee 옵션, 마이페이지 로그아웃, 주소 삭제, 가입 약관과 잠금 해제 detail 초기값을 검토했다. 만료 preview는 secondsLeft=0과 인라인 notice를 설정하지만 모달을 여는 expired prop은 전달하지 않는다. 이전 약관은 시행일 선택 팝업을 제공하지 않는다. 이 구성을 [직접 링크 누락 조사](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)와 구별해 기록하며 상태 owner·fixture·서비스 연결은 수정하지 않았다. 출처: 대응 route/preview, `src/components/phone-verification/PhoneVerificationStatePreview.tsx`, `PhoneVerificationContent.tsx`, `src/app/signup/terms/_components/SignupTermsStatePreview.tsx`. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.

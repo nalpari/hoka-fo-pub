@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T07:22:47Z'
+  at: '2026-11-02T09:31:43Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/app/screen-index/screenConnections.ts
   - src/data/supportContacts.ts
   - public/images/navigation/clifton-utl.webp
   - src/hooks/useBindingQuery.ts
@@ -233,3 +234,13 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 러닝세션 표시 fixture 갱신 (2026-11-02)
 
 세션 ID·제목·사진은 유지하고 applicationOpeningLabel과 showSupplementalImagePlaceholder를 명시적 표시 필드로 추가했다. 의존성·API·인증·결제 범위는 바꾸지 않았다. [디자인 수치·출처·연결 책임·실제 검증](architecture/running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+이번 상태 링크 작업 지침 작성은 저장소 외부 범위다. `src/app/screen-index/screenConnections.ts`의 기존 IA 연결 계약을 검토했으며 저장소의 제품 소스·IA 데이터·의존성·프로젝트 설정을 변경하지 않았다. 이 채팅 시작 전부터 존재한 다른 작업의 변경은 이번 산출물에 포함하지 않는다. 기존 프로젝트 범위 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태 링크 조사 범위 (2026-11-02)
+
+사용자 지정 디자인 10개 영역의 상태와 IA를 읽기 전용으로 대조하고 [직접 링크 누락 14개·초기 표시 불일치 1개](architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 기록했다. PC/MO 동일 상태는 한 URL 기준으로 병합했다. 앱 코드·IA 데이터·라우트·의존성은 변경하지 않았으며 다른 채팅의 미커밋 소스는 조사 당시 관측으로만 취급한다. 출처: 사용자 지정 디자인과 현재 IA 연결·표시 소스. 기록: codex/gpt-6, 2026-11-02T09:31:43Z.

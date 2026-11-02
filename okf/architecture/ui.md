@@ -4,10 +4,10 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-02T15:07:00+09:00'
+updated: '2026-11-02T09:31:43Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:06:00Z'
+  at: '2026-11-02T09:31:43Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - public/images/icon/catalog-filter-close.svg
@@ -3979,3 +3979,13 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 장바구니 상단 삭제 버튼 크기 (2026-11-02)
 
 선택상품 삭제와 품절상품 삭제 링크 버튼은 PC·모바일 모두 `size="md"`를 사용한다. 작업 트리 출처: `src/app/cart/_components/CartProductSection.tsx`.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`src/app/screen-index/_components/IaStructurePage.tsx`의 기존 상태 링크 표시와 `.agents/skills/hoka-markup-handoff/SKILL.md`의 상태 인계 범위를 검토했다. 이번 작업에서 제품 화면·IA 표시 UI·Storybook·스타일을 수정하지 않았으며 기존 UI 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태별 IA 직접 진입 조사 (2026-11-02)
+
+[누락 대응표](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)에 디자인 상태 14개의 직접 링크 누락과 만료 팝업 초기 표시 불일치 1개를 기록했다. 기존 탭·도움말·모달 컴포넌트가 있다는 사실과 URL로 해당 상태를 바로 여는 계약은 구분한다. 제품 UI·스타일·Storybook은 수정하지 않았다. 출처: 사용자 지정 디자인, 기존 IA 링크 표시와 대응 화면 소스. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
