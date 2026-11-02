@@ -6,16 +6,25 @@ import { inquiryFormPreviews, inquiryListPreviews } from '@/app/support/inquirie
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 import sourceGraph from './sourceGraph.generated.json';
-
 export type ScreenConnection = {
   route?: string;
   routeLabel?: string;
   defaultStateLabel?: string;
-  previewRoutes?: { label: string; href: string }[];
+  previewRoutes?: {
+    label: string;
+    href: string;
+  }[];
   sourceFiles: string[];
-  stories: Partial<Record<'web' | 'mobile', { id: string; file: string }>>;
+  stories: Partial<
+    Record<
+      'web' | 'mobile',
+      {
+        id: string;
+        file: string;
+      }
+    >
+  >;
 };
-
 const connections: Record<number, ScreenConnection> = {
   '267': {
     route: '/locales',
@@ -158,7 +167,6 @@ const connections: Record<number, ScreenConnection> = {
       },
     },
   },
-
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
     stories: {
@@ -204,10 +212,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '배송지 수동입력', href: '/checkout/preview-shipping' },
-      {
-        label: '배송 요청사항 직접입력',
-        href: '/checkout/preview-delivery-request',
-      },
+      { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
@@ -254,13 +259,21 @@ const connections: Record<number, ScreenConnection> = {
   '178': {
     route: '/mypage/orders',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/orders/preview-empty' }],
+    previewRoutes: [
+      { label: '빈 목록', href: '/mypage/orders/preview-empty' },
+      { label: '주문 취소 신청', href: '/mypage/orders/preview-cancel-request' },
+      { label: '반품 신청', href: '/mypage/orders/preview-return-request' },
+      { label: '배송 조회', href: '/mypage/orders/preview-tracking' },
+      { label: '구매 확정 확인', href: '/mypage/orders/preview-purchase-confirm' },
+      { label: '주문 삭제 확인', href: '/mypage/orders/preview-delete-confirm' },
+    ],
     sourceFiles: [
       'src/app/mypage/orders/page.tsx',
       'src/app/mypage/orders/preview-empty/page.tsx',
       'src/app/mypage/orders/preview-detail/page.tsx',
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
       'src/app/mypage/orders/preview-return-detail/page.tsx',
+      'src/app/mypage/orders/[preview]/page.tsx',
     ],
     stories: {
       web: {
@@ -382,26 +395,11 @@ const connections: Record<number, ScreenConnection> = {
     route: '/support/inquiries/new',
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
-      {
-        label: '주문 선택 안내',
-        href: '/support/inquiries/new/preview-order-required',
-      },
-      {
-        label: '첨부 형식 오류',
-        href: '/support/inquiries/new/preview-attachment-type',
-      },
-      {
-        label: '첨부 크기 오류',
-        href: '/support/inquiries/new/preview-attachment-size',
-      },
-      {
-        label: '첨부 개수 오류',
-        href: '/support/inquiries/new/preview-attachment-count',
-      },
-      {
-        label: '주문 상품 조회',
-        href: '/support/inquiries/new/order-products',
-      },
+      { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
+      { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
+      { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
+      { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
       {
         label: '조회 내역 없음',
         href: '/support/inquiries/new/order-products/preview-empty',
@@ -432,15 +430,9 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/reviews',
     previewRoutes: [
       { label: '작성 가능한 리뷰 목록', href: '/mypage/reviews/preview-ready' },
-      {
-        label: '작성 가능한 리뷰 목록 없음',
-        href: '/mypage/reviews/preview-empty',
-      },
+      { label: '작성 가능한 리뷰 목록 없음', href: '/mypage/reviews/preview-empty' },
       { label: '내가 작성한 리뷰', href: '/mypage/reviews/preview-written' },
-      {
-        label: '내가 작성한 리뷰 목록 없음',
-        href: '/mypage/reviews/preview-written-empty',
-      },
+      { label: '내가 작성한 리뷰 목록 없음', href: '/mypage/reviews/preview-written-empty' },
       { label: '작성', href: '/mypage/reviews/preview-new' },
       { label: '수정', href: '/mypage/reviews/preview-edit' },
       { label: '입력 오류', href: '/mypage/reviews/preview-error' },
@@ -467,8 +459,16 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '195': {
+    previewRoutes: [
+      { label: '조회 중', href: '/mypage/rewards/preview-loading' },
+      { label: '조회 실패', href: '/mypage/rewards/preview-load-error' },
+    ],
     route: '/mypage/rewards',
-    sourceFiles: ['src/app/mypage/rewards/page.tsx'],
+    sourceFiles: [
+      'src/app/mypage/rewards/page.tsx',
+      'src/app/mypage/rewards/preview-loading/page.tsx',
+      'src/app/mypage/rewards/preview-load-error/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-마이페이지-5-회원등급-web--rewards',
@@ -526,10 +526,15 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
-      {
-        label: '비밀번호 변경 완료',
-        href: '/mypage/profile/preview-password-complete',
-      },
+      { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
+      { label: '저장 확인', href: '/mypage/profile/preview-save' },
+      { label: '수정 완료', href: '/mypage/profile/preview-save-complete' },
+      { label: '본인인증 안내', href: '/mypage/profile/preview-phone-required' },
+      { label: '탈퇴 확인', href: '/mypage/profile/preview-withdraw' },
+      { label: '탈퇴 완료', href: '/mypage/profile/preview-withdraw-complete' },
+      { label: '수정 취소 확인', href: '/mypage/profile/preview-cancel' },
+      { label: '비밀번호 입력', href: '/mypage/profile/preview-password' },
+      { label: '비밀번호 변경 확인', href: '/mypage/profile/preview-password-confirm' },
     ],
     sourceFiles: [
       'src/app/mypage/profile/page.tsx',
@@ -538,6 +543,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/profile/preview-code-entry/page.tsx',
       'src/app/mypage/profile/preview-expired/page.tsx',
       'src/app/mypage/profile/preview-password-complete/page.tsx',
+      'src/app/mypage/profile/[preview]/page.tsx',
     ],
     stories: {
       mobile: {
@@ -657,26 +663,11 @@ const connections: Record<number, ScreenConnection> = {
     route: '/support/inquiries/new',
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
-      {
-        label: '주문 선택 안내',
-        href: '/support/inquiries/new/preview-order-required',
-      },
-      {
-        label: '첨부 형식 오류',
-        href: '/support/inquiries/new/preview-attachment-type',
-      },
-      {
-        label: '첨부 크기 오류',
-        href: '/support/inquiries/new/preview-attachment-size',
-      },
-      {
-        label: '첨부 개수 오류',
-        href: '/support/inquiries/new/preview-attachment-count',
-      },
-      {
-        label: '주문 상품 조회',
-        href: '/support/inquiries/new/order-products',
-      },
+      { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
+      { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
+      { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
+      { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
       {
         label: '조회 내역 없음',
         href: '/support/inquiries/new/order-products/preview-empty',
@@ -734,10 +725,7 @@ const connections: Record<number, ScreenConnection> = {
   '216': {
     previewRoutes: [
       { label: '반품 안내', href: '/support/after-sales?tab=product-returns' },
-      {
-        label: '상품 반품안내',
-        href: '/support/after-sales?tab=return-cautions',
-      },
+      { label: '상품 반품안내', href: '/support/after-sales?tab=return-cautions' },
     ],
     route: '/support/after-sales',
     sourceFiles: ['src/app/support/after-sales/page.tsx'],
@@ -812,10 +800,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/login/find-account',
     previewRoutes: [
       { label: '입력 오류', href: '/login/find-account/preview-error' },
-      {
-        label: '인증번호 입력',
-        href: '/login/find-account/preview-code-entry',
-      },
+      { label: '인증번호 입력', href: '/login/find-account/preview-code-entry' },
       { label: '인증 만료', href: '/login/find-account/preview-expired' },
     ],
     sourceFiles: [
@@ -852,14 +837,8 @@ const connections: Record<number, ScreenConnection> = {
   '229': {
     route: '/login/find-account/password-reset',
     previewRoutes: [
-      {
-        label: '입력 오류',
-        href: '/login/find-account/password-reset/preview-error',
-      },
-      {
-        label: '변경 완료',
-        href: '/login/find-account/password-reset/preview-complete',
-      },
+      { label: '입력 오류', href: '/login/find-account/password-reset/preview-error' },
+      { label: '변경 완료', href: '/login/find-account/password-reset/preview-complete' },
     ],
     sourceFiles: [
       'src/app/login/find-account/password-reset/page.tsx',
@@ -895,15 +874,9 @@ const connections: Record<number, ScreenConnection> = {
   '234': {
     route: '/signup/verify/phone',
     previewRoutes: [
-      {
-        label: '필수 동의 오류',
-        href: '/signup/verify/phone/preview-agreement-error',
-      },
+      { label: '필수 동의 오류', href: '/signup/verify/phone/preview-agreement-error' },
       { label: '입력 오류', href: '/signup/verify/phone/preview-error' },
-      {
-        label: '인증번호 입력',
-        href: '/signup/verify/phone/preview-code-entry',
-      },
+      { label: '인증번호 입력', href: '/signup/verify/phone/preview-code-entry' },
       { label: '인증 만료', href: '/signup/verify/phone/preview-expired' },
     ],
     sourceFiles: [
@@ -1065,30 +1038,12 @@ const connections: Record<number, ScreenConnection> = {
         label: '필수 동의 오류',
         href: '/login/account-locked/verification/preview-agreement-error',
       },
-      {
-        label: '입력 오류',
-        href: '/login/account-locked/verification/preview-error',
-      },
-      {
-        label: '인증번호 입력',
-        href: '/login/account-locked/verification/preview-code-entry',
-      },
-      {
-        label: '인증 만료',
-        href: '/login/account-locked/verification/preview-expired',
-      },
-      {
-        label: '알뜰폰 사업자',
-        href: '/login/account-locked/verification/preview-carriers',
-      },
-      {
-        label: '필수 약관',
-        href: '/login/account-locked/verification/preview-required-terms',
-      },
-      {
-        label: '선택 약관',
-        href: '/login/account-locked/verification/preview-optional-terms',
-      },
+      { label: '입력 오류', href: '/login/account-locked/verification/preview-error' },
+      { label: '인증번호 입력', href: '/login/account-locked/verification/preview-code-entry' },
+      { label: '인증 만료', href: '/login/account-locked/verification/preview-expired' },
+      { label: '알뜰폰 사업자', href: '/login/account-locked/verification/preview-carriers' },
+      { label: '필수 약관', href: '/login/account-locked/verification/preview-required-terms' },
+      { label: '선택 약관', href: '/login/account-locked/verification/preview-optional-terms' },
       {
         label: '이전 약관 선택',
         href: '/login/account-locked/verification/preview-previous-terms',
@@ -1186,8 +1141,14 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
+      { label: '신청 안내', href: '/running/running-session/preview-application' },
+      { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
     ],
-    sourceFiles: ['src/app/running/running-session/[sessionId]/page.tsx'],
+    sourceFiles: [
+      'src/app/running/running-session/[sessionId]/page.tsx',
+      'src/app/running/running-session/preview-application/page.tsx',
+      'src/app/running/running-session/preview-application-complete/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-탐색-1-러닝세션-상세-web--open',
@@ -1214,7 +1175,6 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
 };
-
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   listing: {
     defaultStateLabel: '조건 결과 있음',
@@ -1245,10 +1205,12 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
         label: '상품문의 없음',
         href: '/products/preview-empty-inquiries#product-inquiries',
       },
+      { label: '옵션 미선택 안내', href: '/products/preview-options-required' },
     ],
     sourceFiles: [
       'src/app/products/[id]/page.tsx',
       'src/app/products/preview-empty-inquiries/page.tsx',
+      'src/app/products/preview-options-required/page.tsx',
     ],
     stories: {
       web: {
@@ -1262,11 +1224,9 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
     },
   },
 };
-
 export function isScreenDeleted(screen: ScreenDefinition) {
   return screen.note.replace(/상품\s*삭제/g, '').includes('삭제');
 }
-
 function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
   if (isScreenDeleted(screen)) return { sourceFiles: [], stories: {} };
   const connection = connections[screen.iaNumber];
@@ -1314,14 +1274,9 @@ function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
     return { ...productConnections.detail, route: '/products/shoe-1' };
   return { sourceFiles: [], stories: {} };
 }
-
-// [ 개발팀 바인딩 ] IA 소유자는 화면의 진입 파일만 연결한다. 생성기가 실제 import를
-// 추적해 진입점과 바인딩 주석이 있는 도메인/컨텍스트를 표시한다. 서비스 구현·수정 이력이
-// 아니며 공통 UI·범용 요청 훅·프리뷰·목 데이터는 수정 대상처럼 나열하지 않는다.
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 const resolvedSourceFiles = new Map<string, string[]>();
-
 const bindingFiles = new Set(sourceGraph.bindingFiles);
-
 export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
   const connection = getRegisteredConnection(screen);
   const key = connection.sourceFiles.join('\n');
@@ -1344,7 +1299,6 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   resolvedSourceFiles.set(key, sourceFiles);
   return { ...connection, sourceFiles };
 }
-
 export function getScreenStoryHref(screen: ScreenDefinition, platform: 'web' | 'mobile') {
   const story = getScreenConnection(screen).stories[platform];
   if (!story) return undefined;

@@ -848,6 +848,12 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
 
+### 인계 상태 18개 직접 연결 완료
+
+회원정보 확인창 8개, 주문 신청·확인창 5개, 리워드 loading/error 2개, 상품 옵션 필수 안내 1개, 러닝 신청 안내 2개를 원본 IA의 `previewRoutes`와 `sourceFiles`에 등록했다. 프로필·주문의 동적 preview는 명시된 slug만 허용하며 기본·기존 전용 경로를 보존한다. PC/MO 링크를 나누지 않는다. [인계표](../development/markup-handoff.md)에 각 확인 URL·IA·근거와 PC/MO 검증을 기록했다. 전체 222개 URL·444개 직접 진입 확인에 포함된다.
+
+출처: `src/app/mypage/profile/profilePreviews.ts`, `src/app/mypage/orders/orderPreviews.ts`, 해당 preview 진입점과 `screenConnections.ts`. 표현 소유자는 `d0f4581f`에서 정리했고 소스 그래프는 정식 생성 명령으로 다시 생성했다. 기록: codex/gpt-6, 2026-11-02.
+
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 
 앞선 조사에서 확인한 14개 직접 링크 누락과 잠금 해제 만료 팝업의 초기 표시 불일치를 해소했다. PC/MO 동일 상태는 아래 하나의 반응형 URL을 공유한다. IA 원본 행·번호·기본 route·Storybook 연결은 유지한다.
