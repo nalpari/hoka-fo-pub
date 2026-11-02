@@ -9,6 +9,7 @@ generated:
   at: '2026-11-02T06:52:24Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - public/images/icon/catalog-filter-close.svg
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
   - src/components/common/molecules/HomeCarouselSection.tsx
   - src/components/common/atoms/EmptyState.tsx
@@ -3974,6 +3975,16 @@ DataTable.striped와 regular/compact density는 기존 사이즈 표의 48px 셀
 스타일·데이터·서비스 소유권과 동작이 다른 툴팁·선택 팝업·히어로 타이머 등은 공통을 강제로 적용하지 않았다. 공통 API별 보존 근거와 새 옵션/기존 모드 스토리도 조사표에 기록했다. 출처는 조사표의 working_tree_sources이며 현재 작업 트리를 직접 확인했다.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+## 상품 목록 모바일 필터 재대조 (2026-11-02)
+
+[Viewport 1242:75125](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1242-75125)와 [Full 1294:4393](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1294-4393)의 구조와 내보낸 이미지를 다시 확인했다. 기존 15px 닫기 도형을 24px로 확대하던 catalog 표현을 원본 24px SVG(내부 도형 약 15px)로 교체했다. 기본/검색 BottomSheet의 15px 아이콘은 유지한다. catalog 내부 스크롤바만 숨기고 스크롤·키보드·고정 footer는 유지한다. 제목 20px/600, header 26px 16px 24px, 상단 104px와 반경 24px는 기존 값이다.
+
+상품 목록 시트에서 시안에 없는 정렬 섹션을 제외하고 성별부터 표시한다. 검색 시트의 정렬과 PC 정렬, URL의 정렬 조건은 유지한다. 선택 필터는 모바일 body5(12px), PC body3(16px)를 사용하고 선택 필터 아래 24px 간격을 복원했다. 선택 항목·결과 건수는 현재 데이터에 따르며 시안의 여섯 태그·34개로 덮어쓰지 않는다. 데이터/요청 바인딩과 모바일 초안·적용 책임은 바꾸지 않았다.
+
+Codex가 375×815px 실행에서 header 74px·닫기 24×24px·top 104px, 성별부터의 순서, 내부 끝까지 스크롤과 footer 고정, Esc/닫기 포커스 복원 및 미적용 초안 취소를 확인했다. Windows classic scrollbar 환경에서는 문서 가용 폭이 360px이므로 Figma 375px 프레임과 그 차이가 있다. 1920px PC의 필터·정렬과 문서 가로 넘침 없음, 모바일 검색 시트의 15px 닫기·정렬, 기본 BottomSheet의 15px 닫기·기본 스크롤바도 확인했다. 변경 파일 ESLint/Prettier·전체 lint·타입 검사·Panda 생성·Next.js 프로덕션 빌드를 통과했다. 전체 Storybook play·실제 API 요청·전체 플랫폼 경계 재검증은 수행하지 않았다. hoka-markup-handoff 기준으로 기존 소유자·Panda·접근성·서비스 경계 보존을 검토했다.
+
+작업 트리 출처: `src/components/catalog/ProductListingPage.tsx`, `src/components/common/layouts/BottomSheet.tsx`, `public/images/icon/catalog-filter-close.svg`. 확인: codex/gpt-6, 2026-11-02T06:17:36Z.
 
 ## 재사용 전환의 잔여 코드 정리 (2026-11-02)
 

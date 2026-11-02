@@ -505,7 +505,7 @@ function Tag({ children, onDelete }: TagProps) {
 
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
-      <Typography variant="body3" tone="primary">
+      <Typography web="body3" mo="body5" tone="primary">
         {children}
       </Typography>
       <Button
@@ -536,15 +536,7 @@ function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan
 
   return (
     <>
-      <Flex
-        alignItems="center"
-        aria-label="선택된 필터"
-        pb="6"
-        _mobile={{ pb: '0' }}
-        flexWrap="wrap"
-        gap="2"
-        w="100%"
-      >
+      <Flex alignItems="center" aria-label="선택된 필터" pb="6" flexWrap="wrap" gap="2" w="100%">
         {selectedFilters.length > 0 && (
           <>
             {selectedFilters.map(({ id, label, onRemove }) => (
@@ -1886,7 +1878,9 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   const filterPanel = (
     <ProductListingFilterPanel
       mobileSort={
-        platform === 'mobile' ? { value: mobileSort, onValueChange: setMobileSort } : undefined
+        platform === 'mobile' && (pathname === '/search' || Boolean(searchQuery.trim()))
+          ? { value: mobileSort, onValueChange: setMobileSort }
+          : undefined
       }
       activity={displayedFilters.activity}
       collection={displayedFilters.collection}

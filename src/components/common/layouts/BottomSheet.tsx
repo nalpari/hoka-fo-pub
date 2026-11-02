@@ -23,6 +23,11 @@ function BottomSheetContent({ appearance, children }: BottomSheetContentProps) {
       overscrollBehaviorY="contain"
       px={appearance === 'catalog' ? '4' : '6'}
       pb="8"
+      css={
+        appearance === 'catalog'
+          ? { scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }
+          : undefined
+      }
     >
       {children}
     </Box>
@@ -95,7 +100,14 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           onClick={onClose}
           size={appearance === 'catalog' ? '24px' : '15px'}
         >
-          <Icon name="close" size={appearance === 'catalog' ? '24px' : '15px'} />
+          <Icon
+            src={
+              appearance === 'catalog'
+                ? '/images/icon/catalog-filter-close.svg'
+                : '/images/icon/close.svg'
+            }
+            size={appearance === 'catalog' ? '24px' : '15px'}
+          />
         </Button>
       )}
     </HStack>
