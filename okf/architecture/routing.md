@@ -802,3 +802,8 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 기준 커밋 이후 65개 소스를 확인하고 메인·상품 상세·마이페이지·고객센터·러닝세션의 페이지 전용 조각을 기존 공통 소유자로 조합했다. page/_components 경계, route exports·URL·Suspense·client·dynamic viewer 경계와 상태 수명은 유지한다. InquiryEmptyState·FaqEmptyState·MyPageProductHistoryHeading·ProfileField의 단순 중복 함수를 제거했고 신규 라우트/전달 전용 파일은 없다. screen-files의 연결 그래프는 현재 직접 import를 반영한다. [전체 파일 출처와 실제 검증](common-reuse-audit.md)을 참고한다.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+
+## 계정 화면 미사용 import 정리 (2026-11-02)
+
+FindAccountContent의 css import와 signup/complete의 Stack import를 제거했다. 표시 JSX·라우팅·클라이언트 경계·서비스 연결에는 변경이 없다. 전체 `npm run lint`를 통과했다. 작업 트리 출처: `src/app/login/find-account/_components/FindAccountContent.tsx`, `src/app/signup/complete/page.tsx`. 검토: codex/gpt-6, 2026-11-02T06:05:16Z.

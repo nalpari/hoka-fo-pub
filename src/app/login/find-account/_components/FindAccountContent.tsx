@@ -9,7 +9,6 @@ import { usePlatform } from '@/context/platform';
 import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
-import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
