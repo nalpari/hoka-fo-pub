@@ -1,1 +1,1 @@
-export type ProductCardVariant = 'listing' | 'showcase';
+export type ProductCardVariant = 'listing' | 'showcase' | 'history';

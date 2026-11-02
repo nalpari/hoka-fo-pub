@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
 type Props = { notice: { title: string; date: string }; platform: 'web' | 'mobile' };
@@ -16,18 +17,17 @@ function NoticeHeading({ notice, platform }: Props) {
       w="100%"
       justifyContent="space-between"
       gap={{ base: '4', _mobile: '2' }}
-      alignItems={{ base: 'center', _mobile: 'flex-start' }}
-      flexDirection={{ base: 'row', _mobile: 'column' }}
+      alignItems="center"
     >
-      <Typography web="body2" mo="body3" weight="medium">
+      <Typography variant="heading10" className={css({ minW: '0', overflowWrap: 'anywhere' })}>
         {notice.title}
       </Typography>
       <Typography
         as="time"
         variant="body4"
         dateTime={notice.date}
-        className={css({ flexShrink: '0' })}
-        tone={platform === 'web' ? 'subtle' : 'tertiary'}
+        className={css({ flexShrink: '0', _mobile: { color: 'black.50' } })}
+        tone={platform === 'web' ? 'subtle' : undefined}
       >
         {notice.date}
       </Typography>
@@ -39,6 +39,8 @@ type NoticesListProps = {
   notices: readonly { id?: string; title: string; date: string }[];
   shown: number;
   platform: 'web' | 'mobile';
+  pending?: boolean;
+  error?: boolean;
 };
 
 const noticeLink = css({
@@ -56,7 +58,7 @@ const noticeLink = css({
 });
 
 /** 공지사항 목록을 표시합니다. (Displays the notice list.) */
-export function NoticesList({ notices, shown, platform }: NoticesListProps) {
+export function NoticesList({ notices, shown, platform, pending, error }: NoticesListProps) {
   return (
     <Stack
       as="section"
@@ -65,8 +67,26 @@ export function NoticesList({ notices, shown, platform }: NoticesListProps) {
       borderTopColor="black.100"
       borderTopStyle="solid"
       borderTopWidth={{ base: '2px', _mobile: '0' }}
-      pt="8px"
     >
+      <HStack
+        aria-hidden="true"
+        justifyContent="space-between"
+        gap="0"
+        py="4"
+        mb="2"
+        borderBottom="1px solid black"
+        _mobile={{ display: 'none' }}
+      >
+        <Typography variant="heading10" className={css({ px: '4' })}>
+          제목
+        </Typography>
+        <Typography variant="heading10" className={css({ px: '8' })}>
+          등록일
+        </Typography>
+      </HStack>
+      {!notices.length && !pending && !error ? (
+        <EmptyState title="등록된 공지사항이 없습니다." variant="minimal" />
+      ) : null}
       <Stack as="ul" gap="0" m="0" p="0" listStyleType="none">
         {notices.slice(0, shown).map((notice, index) => (
           <li key={notice.id ?? `${notice.title}-${index}`}>

@@ -5,35 +5,41 @@ export type MyPageNavGroup = {
 
 export const myPageNavigation: MyPageNavGroup[] = [
   {
-    heading: '쇼핑',
+    heading: '구매내역',
     items: [
-      { label: '주문 / 배송', to: '/mypage/orders' },
-      { label: '취소 / 반품', to: '/mypage/returns' },
-      { label: '관심상품', to: '/mypage/wishlist' },
-      { label: '최근 본 상품', to: '/mypage/recent' },
-      { label: '리뷰', to: '/mypage/reviews' },
-      { label: '재입고 알림', to: '/mypage/restock-alerts' },
+      { label: '주문/배송조회', to: '/mypage/orders' },
+      { label: '취소/반품내역', to: '/mypage/returns' },
+      { label: '상품리뷰', to: '/mypage/reviews' },
     ],
   },
   {
-    heading: 'HOKA MEMBERS',
+    heading: '상품내역',
     items: [
-      { label: '멤버십 혜택', to: '/mypage' },
+      { label: '관심상품', to: '/mypage/wishlist' },
+      { label: '최근 본 상품', to: '/mypage/recent' },
+      { label: '재입고 알림 상품', to: '/mypage/restock-alerts' },
+    ],
+  },
+  {
+    heading: 'MY HOKA',
+    items: [
+      { label: '회원등급', to: '/mypage/rewards' },
       { label: '쿠폰', to: '/mypage/coupons' },
-      { label: 'HOKA 리워드', to: '/mypage/rewards' },
-      { label: '친구 추천', to: '/mypage/referral' },
-      { label: '멤버십 활동 내역', to: '/mypage/member-activity' },
-      { label: '러닝 프로필', to: '/mypage/running-profile' },
       { label: '러닝세션 신청내역', to: '/mypage/event-entries' },
     ],
   },
   {
-    heading: '계정 관리',
+    heading: 'Q&A',
     items: [
-      { label: '회원정보', to: '/mypage/profile' },
+      { label: 'FAQs', to: '/support/faq' },
+      { label: '1:1 문의', to: '/support/inquiries' },
+    ],
+  },
+  {
+    heading: '계정관리',
+    items: [
+      { label: '회원정보 확인 및 수정', to: '/mypage/profile' },
       { label: '배송지 관리', to: '/mypage/addresses' },
-      { label: '결제수단 관리', to: '/mypage/payment-methods' },
-      { label: '환불계좌 관리', to: '/mypage/refund-account' },
     ],
   },
 ];

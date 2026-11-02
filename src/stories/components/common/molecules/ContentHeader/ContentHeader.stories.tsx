@@ -53,7 +53,7 @@ export const NestedHeading: Story = {
   args: {
     title: 'A/S 처리 절차',
     titleAs: 'h4',
-    titleProps: { variant: 'heading9' },
+    titleProps: { variant: 'heading10' },
     description: '온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요.',
   },
   play: async ({ canvasElement }) => {
@@ -128,5 +128,17 @@ export const SectionHeadingWithContent: Story = {
     pb: '4',
     borderBottom: '2px solid var(--color-black-100)',
     titleProps: { variant: 'heading7', className: css({ m: '0' }) },
+  },
+};
+
+export const Timestamp: Story = {
+  args: {
+    title: '공지 제목',
+    titleAs: 'h2',
+    titleProps: { variant: 'heading9' },
+    gap: '2',
+    description: '2026-11-02',
+    descriptionAs: 'time',
+    descriptionProps: { variant: 'body4', language: 'en', dateTime: '2026-11-02' },
   },
 };

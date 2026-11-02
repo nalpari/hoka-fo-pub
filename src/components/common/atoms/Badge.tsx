@@ -27,15 +27,17 @@ const badge = cva({
   defaultVariants: { variant: 'filled', shape: 'round' },
 });
 
-const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14px!' });
+const badgeText = css.raw({ display: 'block', whiteSpace: 'nowrap' });
 
-const runClubBadge = cva({
+const runningSessionBadge = cva({
   base: {
-    h: '28px',
-    _mobile: { w: 'fit-content', h: '20px', px: '2', py: '0' },
+    p: '8px',
   },
   variants: {
-    category: { Road: { bg: '#dfff00', color: '#000' }, Trail: { bg: '#5d6825', color: '#fff' } },
+    category: {
+      Road: { bg: 'citrus.100', color: 'black.100' },
+      Trail: { bg: 'mossGreen.100', color: 'white.0' },
+    },
   },
 });
 
@@ -49,6 +51,7 @@ type LabelProps = {
   variant?: 'filled' | 'line';
   tone?: 'primary' | 'tertiary';
   shape?: 'round';
+  textProps?: Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'>;
 };
 
 export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
@@ -57,21 +60,22 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         children?: ComponentPropsWithoutRef<'span'>['children'];
         status?: never;
         promotion?: never;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         weight?: never;
       })
     | (Omit<LabelProps, 'variant'> & {
         status: LaunchStatus;
         children?: never;
         promotion?: never;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         variant?: never;
         weight?: never;
       })
     | {
         promotion: Promotions;
-        runClubCategory?: never;
+        runningSessionCategory?: never;
         weight?: TypographyProps['weight'];
+        textProps?: never;
         status?: never;
         children?: never;
         variant?: never;
@@ -79,7 +83,8 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         shape?: never;
       }
     | {
-        runClubCategory: 'Road' | 'Trail';
+        runningSessionCategory: 'Road' | 'Trail';
+        textProps?: never;
         status?: never;
         promotion?: never;
         children?: never;
@@ -99,22 +104,22 @@ export function Badge({
   children,
   status,
   promotion,
-  runClubCategory,
+  runningSessionCategory,
   weight,
+  textProps,
   ...props
 }: BadgeProps) {
-  if (runClubCategory !== undefined) {
+  if (runningSessionCategory !== undefined) {
     return (
       <HStack
         as="span"
         {...props}
-        className={[runClubBadge({ category: runClubCategory }), className]
+        className={[runningSessionBadge({ category: runningSessionCategory }), className]
           .filter(Boolean)
           .join(' ')}
-        p="2"
       >
-        <Typography variant="body4" mo="body5" weight="bold">
-          {runClubCategory}
+        <Typography variant="body4" weight="regular">
+          {runningSessionCategory}
         </Typography>
       </HStack>
     );
@@ -155,7 +160,13 @@ export function Badge({
       {...props}
       className={[badge({ variant: resolvedVariant, shape }), className].filter(Boolean).join(' ')}
     >
-      <Typography as="span" variant="bodyKr5" tone={tone} className={badgeText}>
+      <Typography
+        as="span"
+        variant="bodyKr5"
+        tone={tone}
+        {...textProps}
+        className={css(badgeText, !textProps && { lineHeight: '14px!' })}
+      >
         {label}
       </Typography>
     </span>

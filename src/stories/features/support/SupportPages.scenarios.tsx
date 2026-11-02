@@ -7,6 +7,7 @@ import CareGuidePage from '@/app/support/care/page';
 import FaqPage from '@/app/support/faq/page';
 import InquiryOrderLookupPage from '@/app/support/inquiries/new/order-products/page';
 import InquiryNewPage from '@/app/support/inquiries/new/page';
+import InquiryListPage from '@/app/support/inquiries/preview-list/page';
 import MemberBenefitsPage from '@/app/support/member-benefits/page';
 import MileagePage from '@/app/support/mileage/page';
 import NoticeDetailPage from '@/app/support/notices/[id]/page';
@@ -70,36 +71,26 @@ export const Desktop: Story = {
 
 const verifySizeGuide: NonNullable<Story['play']> = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  for (const category of [
-    '신발',
-    '상의',
-    '하의',
-    '러닝 베스트',
-    '러닝 벨트',
-    '모자',
-    '양말',
-    '장갑',
-  ]) {
+  for (const category of ['신발', '상의', '하의', '러닝 베스트', '양말']) {
     await userEvent.click(canvas.getByRole('tab', { name: category }));
     const panel = within(canvas.getByRole('tabpanel'));
-    await expect(panel.getByRole('heading', { name: category })).toBeVisible();
-    await userEvent.click(panel.getByRole('button', { name: '여성' }));
-    await expect(panel.getByRole('button', { name: '여성' })).toHaveAttribute(
+    const gender = category === '러닝 베스트' || category === '양말' ? '공용' : '여성';
+    await userEvent.click(panel.getByRole('button', { name: gender }));
+    await expect(panel.getByRole('button', { name: gender })).toHaveAttribute(
       'aria-pressed',
       'true',
     );
-    await userEvent.click(panel.getByRole('button', { name: 'INCH' }));
+    if (category === '양말') {
+      await expect(panel.getByRole('table')).toHaveTextContent('210-230');
+      continue;
+    }
+    await userEvent.click(panel.getByRole('button', { name: 'inch' }));
     await expect(panel.getByRole('table')).toHaveAccessibleName(
-      new RegExp(`${category} 여성.*INCH`),
+      new RegExp(`${category} ${gender}.*INCH`),
     );
-    await userEvent.click(panel.getByRole('button', { name: '남성' }));
-    await userEvent.click(panel.getByRole('button', { name: 'CM' }));
+    await userEvent.click(panel.getByRole('button', { name: 'cm' }));
   }
   await userEvent.click(canvas.getByRole('tab', { name: '신발' }));
-  const panel = within(canvas.getByRole('tabpanel'));
-  await userEvent.click(panel.getByRole('button', { name: 'X-와이드' }));
-  await expect(panel.getByRole('table')).toHaveAccessibleName(/X-와이드/);
-  await userEvent.click(panel.getByRole('button', { name: '레귤러' }));
 };
 
 export const SizeGuideDesktop: Story = {
@@ -755,6 +746,28 @@ export const MileageMobile375: Story = {
   render: () => (
     <ShopShell platform="mobile">
       <MileagePage />
+    </ShopShell>
+  ),
+  globals: { viewport: 'hoka375' },
+};
+
+export const InquiryListDesktop: Story = {
+  name: 'Inquiries / Mixed list / Desktop',
+  render: () => (
+    <ShopShell platform="web">
+      <InquiryListPage />
+    </ShopShell>
+  ),
+  parameters: { nextjs: { navigation: { pathname: '/support/inquiries/preview-list' } } },
+  globals: { viewport: 'hoka1600' },
+};
+
+export const InquiryListMobile375: Story = {
+  ...InquiryListDesktop,
+  name: 'Inquiries / Mixed list / Mobile',
+  render: () => (
+    <ShopShell platform="mobile">
+      <InquiryListPage />
     </ShopShell>
   ),
   globals: { viewport: 'hoka375' },

@@ -37,3 +37,13 @@ export const Spaced: Story = {
   ...Default,
   args: { variant: 'spaced' },
 };
+
+export const Striped: Story = {
+  ...Default,
+  args: { variant: 'striped' },
+};
+
+export const StripedCompact: Story = {
+  ...Default,
+  args: { variant: 'striped', density: 'compact' },
+};

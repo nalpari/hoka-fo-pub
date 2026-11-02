@@ -27,6 +27,14 @@ export const Default: Story = {
     await expect(onlineStore).toHaveTextContent('10:00~17:00');
     await expect(onlineStore).toHaveTextContent('080-2225-6660');
     await expect(canvas.queryByRole('heading', { name: '공지사항' })).not.toBeInTheDocument();
-    await expect(canvas.queryByRole('heading', { name: 'FAQs' })).not.toBeInTheDocument();
+    await expect(canvas.getByRole('heading', { name: 'FAQs' })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: '1:1 문의하기' })).toHaveAttribute(
+      'href',
+      '/support/inquiries/new',
+    );
+    await expect(canvas.getByRole('link', { name: 'FAQs 바로가기' })).toHaveAttribute(
+      'href',
+      '/support/faq',
+    );
   },
 };

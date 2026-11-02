@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
+import { css } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
@@ -123,6 +124,37 @@ export const LoadMoreDefault: Story = {
 export const LoadMoreCustomLabel: Story = {
   parameters: { layout: 'centered' },
   args: { ...loadMoreArgs, loadMore: { label: '리뷰 더보기', remaining: 3 } },
+};
+
+export const LoadMoreTextInline: Story = {
+  parameters: { layout: 'centered' },
+  args: {
+    variant: 'plain',
+    loadMore: {
+      appearance: 'text',
+      count: 12,
+      label: '더 보기',
+      countPlacement: 'inline',
+      labelProps: { variant: 'body4' },
+      indicator: <Icon src="/images/icon/chevron-down-small.svg" size="13px" />,
+    },
+  },
+};
+
+export const LoadMoreTextSeparate: Story = {
+  parameters: { layout: 'centered' },
+  args: {
+    variant: 'plain',
+    size: 'md',
+    loadMore: {
+      appearance: 'text',
+      count: 12,
+      label: '더 보기',
+      labelProps: { web: 'bodyKr3', mo: 'bodyKr4' },
+      counterProps: { web: 'body3', mo: 'body4' },
+      indicator: <Icon src="/images/icon/chevron-down-small.svg" size="16px" />,
+    },
+  },
 };
 
 export const LoadMorePageCounter: Story = {
@@ -472,4 +504,33 @@ export const IconButtonKeyboardFocus: IconButtonStory = {
     await expect(button).toHaveFocus();
   },
   args: { ...iconButtonDefaults.args },
+};
+
+export const Unstyled: Story = {
+  args: {
+    variant: 'unstyled',
+    children: '직접 배치한 버튼',
+    className: css({
+      display: 'flex',
+      gap: '2',
+      px: '3',
+      py: '2',
+      border: '1px solid black',
+      bg: 'transparent',
+    }),
+  },
+};
+
+export const UnstyledDisabled: Story = { ...Unstyled, args: { ...Unstyled.args, disabled: true } };
+
+export const LoadMoreInlineFlow: Story = {
+  args: {
+    variant: 'plain',
+    loadMore: {
+      appearance: 'inline',
+      count: 16,
+      label: '더 보기',
+      indicator: <Icon src="/images/icon/chevron-down-small.svg" size="16px" />,
+    },
+  },
 };

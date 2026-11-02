@@ -18,7 +18,8 @@ export type ContentHeaderProps = Omit<ComponentProps<typeof Stack>, 'title' | 'c
   /** Horizontal headers can keep the text together even without supporting text. */
   textGroupProps?: Omit<ComponentProps<typeof Stack>, 'children'>;
   description?: ReactNode;
-  descriptionProps?: TextProps;
+  descriptionAs?: 'p' | 'time' | 'div';
+  descriptionProps?: TextProps & { dateTime?: string };
 };
 
 /** 제목·보조 문구·액션을 선택한 의미와 배치로 표시합니다. (Displays a heading, supporting text, and actions with caller-owned semantics and layout.) */
@@ -33,6 +34,7 @@ export function ContentHeader({
   eyebrowProps,
   textGroupProps,
   description,
+  descriptionAs = 'p',
   descriptionProps,
   gap = '3',
   ...props
@@ -48,7 +50,7 @@ export function ContentHeader({
         {title}
       </Typography>
       {description ? (
-        <Typography {...descriptionProps} as="p">
+        <Typography {...descriptionProps} as={descriptionAs}>
           {description}
         </Typography>
       ) : null}

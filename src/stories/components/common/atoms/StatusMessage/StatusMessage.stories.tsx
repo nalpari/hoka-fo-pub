@@ -30,3 +30,11 @@ export const Info: Story = {};
 export const Success: Story = { args: { tone: 'success' } };
 
 export const Error: Story = { args: { children: '입력한 값을 확인해 주세요.', tone: 'error' } };
+
+export const CustomTypography: Story = {
+  args: {
+    tone: 'error',
+    children: '입력한 값을 확인해 주세요.',
+    textProps: { variant: 'body4', tone: 'error' },
+  },
+};

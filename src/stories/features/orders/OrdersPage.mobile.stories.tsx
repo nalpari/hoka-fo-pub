@@ -6,7 +6,7 @@ import { previewOrders } from '@/components/orders/orders.data';
 import { OrdersPage } from '@/components/orders/OrdersRoute';
 
 const meta = {
-  title: 'PAGES/장바구니/1. 주문하기/주문내역/Mobile',
+  title: 'PAGES/주문/1. 주문 배송 조회/Mobile',
   component: OrdersPage,
   parameters: { layout: 'fullscreen', nextjs: { appDirectory: true } },
   globals: { viewport: 'hoka375' },
@@ -23,7 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { name: '주문 배송 조회' };
+export const Default: Story = { name: 'Default' };
 
 export const Empty: Story = { name: '빈 목록', args: { initialOrders: [] } };
 

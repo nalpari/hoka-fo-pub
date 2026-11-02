@@ -13,8 +13,6 @@ import { css } from 'styled-system/css';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faHeartRegular, faHeartSolid } from '@/icons/fontAwesome';
-
 const wishlist = css({
   display: 'block',
   flexShrink: '0',
@@ -76,7 +74,8 @@ export function Wishlist({
       <Icon
         alt=""
         className={wishlist}
-        fontAwesomeIcon={active ? faHeartSolid : faHeartRegular}
+        src={active ? '/images/icon/wishlist-solid.svg' : '/images/icon/wishlist-regular.svg'}
+        mask
         size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
       />
       {label ? (

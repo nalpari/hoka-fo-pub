@@ -1,12 +1,4 @@
 'use client';
-
-import { useRouter, useSearchParams } from 'next/navigation';
-
-import { useContext, useRef } from 'react';
-import { type FormEvent, useState } from 'react';
-import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
-import { useRequestAction } from '@/hooks/useRequestAction';
-
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
@@ -31,15 +23,6 @@ import {
   type RegistrationInformation,
 } from '@/app/signup/information/registration.types';
 import { type MarketingPreferences } from '@/app/signup/information/registration.types';
-import {
-  emailDomainErrorMessage,
-  emailFormatErrorMessage,
-  isValidEmailDomain,
-  isValidEmailLocalPart,
-} from '@/lib/emailValidation';
-import { isValidPassword, passwordRequirementsMessage } from '@/lib/passwordValidation';
-import { isValidName, isValidRegistrationId } from '@/lib/validation';
-
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
   label: string;
@@ -48,7 +31,6 @@ type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onC
   fieldId?: string;
   disabled?: boolean;
 };
-
 function RegistrationField({
   fieldKey: key,
   label,
@@ -61,14 +43,13 @@ function RegistrationField({
   onChange,
 }: Props) {
   const error = fieldErrors[key] ?? '';
-
   return (
     <TextFormField
       variant="boxed"
       id={fieldId}
       disabled={disabled}
       invalid={Boolean(error)}
-      error={error || undefined}
+      error={error}
       label={<Typography variant="body5">* {label}</Typography>}
       inputProps={{
         type: type,
@@ -91,12 +72,10 @@ function RegistrationField({
     />
   );
 }
-
 type RegistrationIdFieldsProps = Pick<
   RegistrationContentProps,
   'information' | 'fieldErrors' | 'onChange' | 'onDuplicateCheck' | 'duplicateNotice'
 >;
-
 /** 회원 아이디를 입력하고 중복확인 동작을 제공합니다. (Collects the member ID and exposes its duplicate-check action.) */
 function RegistrationIdFields(props: RegistrationIdFieldsProps) {
   return (
@@ -116,19 +95,16 @@ function RegistrationIdFields(props: RegistrationIdFieldsProps) {
     </Stack>
   );
 }
-
 type RegistrationEmailFieldsProps = Pick<
   RegistrationContentProps,
   'information' | 'fieldErrors' | 'onChange' | 'domainChoice' | 'onDomainChoice'
 >;
-
 const options = [
   { value: 'direct', label: '직접입력' },
   { value: 'naver.com', label: 'naver.com' },
   { value: 'gmail.com', label: 'gmail.com' },
   { value: 'daum.net', label: 'daum.net' },
 ];
-
 function RegistrationEmailFields(props: RegistrationEmailFieldsProps) {
   return (
     <EmailAddressFields
@@ -144,12 +120,10 @@ function RegistrationEmailFields(props: RegistrationEmailFieldsProps) {
     />
   );
 }
-
 type RegistrationPersonalFieldsProps = Pick<
   RegistrationContentProps,
   'information' | 'fieldErrors' | 'onChange'
 >;
-
 function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
   return (
     <>
@@ -208,12 +182,10 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
     </>
   );
 }
-
 type RegistrationAddressFieldsProps = Pick<
   RegistrationContentProps,
   'information' | 'fieldErrors' | 'onChange' | 'addressOpen' | 'onAddressOpen'
 >;
-
 function RegistrationAddressFields(props: RegistrationAddressFieldsProps) {
   return (
     <AddressFields
@@ -227,13 +199,11 @@ function RegistrationAddressFields(props: RegistrationAddressFieldsProps) {
     />
   );
 }
-
 type RegistrationPreferenceRowProps = {
   label: string;
   value: string;
   onValueChange: (value: string) => void;
 };
-
 function RegistrationPreferenceRow({
   label,
   value,
@@ -252,12 +222,10 @@ function RegistrationPreferenceRow({
     />
   );
 }
-
 type RegistrationAdditionalFieldsProps = Pick<
   RegistrationContentProps,
   'preferences' | 'onPreferenceChange'
 >;
-
 function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) {
   return (
     <Stack gap="6">
@@ -295,7 +263,6 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
     </Stack>
   );
 }
-
 /** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
 export function RegistrationContent(props: RegistrationContentProps) {
   return (
@@ -358,9 +325,10 @@ export function RegistrationContent(props: RegistrationContentProps) {
     </AccountPageLayout>
   );
 }
-
-type MarketingConsentItem = { label: string; value: string };
-
+type MarketingConsentItem = {
+  label: string;
+  value: string;
+};
 type MarketingConsentSummaryModalProps = {
   open: boolean;
   items: readonly MarketingConsentItem[];
@@ -369,9 +337,7 @@ type MarketingConsentSummaryModalProps = {
   pending?: boolean;
   error?: string;
 };
-
 const summaryStyle = css({ m: '0', whiteSpace: 'pre-line' });
-
 function MarketingConsentSummaryModal({
   open,
   items,
@@ -401,7 +367,6 @@ function MarketingConsentSummaryModal({
     </ModalDialog>
   );
 }
-
 type RegistrationMarketingConsentSummaryModalProps = {
   preferences: MarketingPreferences;
   onOpenChange: (open: boolean) => void;
@@ -409,9 +374,7 @@ type RegistrationMarketingConsentSummaryModalProps = {
   pending?: boolean;
   error?: string;
 };
-
 const preferenceLabel = (value: string) => (value === 'yes' ? '수신' : '수신안함');
-
 /** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
 export function RegistrationMarketingConsentSummaryModal({
   preferences,
@@ -435,240 +398,6 @@ export function RegistrationMarketingConsentSummaryModal({
     />
   );
 }
-
-const receivedVerificationInfo = {
-  birthDate: '19830522',
-  phone: '010-6698-5552',
-};
-
-const registrationIdErrorMessage =
-  '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.';
-
-/** 해당 경로의 화면과 상호작용을 구성합니다. (Composes the route screen and its interactions.) */
-export function RouteContent() {
-  const services = useContext(AccountServicesContext);
-  const flow = useAccountFlow();
-  const request = useRequestAction();
-  const currentId = useRef('');
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [stage, setStage] = useState<'information' | 'additional'>(
-    searchParams.get('step') === 'additional' ? 'additional' : 'information',
-  );
-  const [information, setInformation] = useState<RegistrationInformation>({
-    id: '',
-    name: services ? (flow?.identity?.information.name ?? '') : '',
-    password: '',
-    confirmation: '',
-    birthDate: services
-      ? (flow?.identity?.information.birthDate ?? '')
-      : receivedVerificationInfo.birthDate,
-    phone: services ? (flow?.identity?.information.phone ?? '') : receivedVerificationInfo.phone,
-    postalCode: '',
-    address: '',
-    addressDetail: '',
-    email: '',
-    domain: '',
-    anniversary: '',
-  });
-  const [preferences, setPreferences] = useState<MarketingPreferences>({
-    email: 'no',
-    sms: 'no',
-    kakao: 'no',
-  });
-  const [domainChoice, setDomainChoice] = useState('direct');
-  const [notice, setNotice] = useState('');
-  const [duplicateNotice, setDuplicateNotice] = useState('');
-  const [fieldErrors, setFieldErrors] = useState<
-    Partial<Record<keyof RegistrationInformation, string>> & {
-      id: string;
-      email: string;
-      domain: string;
-      name: string;
-      password: string;
-      confirmation: string;
-    }
-  >({
-    id: '',
-    email: '',
-    domain: '',
-    name: '',
-    password: '',
-    confirmation: '',
-  });
-  const [checkedId, setCheckedId] = useState('');
-  const [summaryOpen, setSummaryOpen] = useState(false);
-  const [addressOpen, setAddressOpen] = useState(false);
-
-  const change = (key: keyof RegistrationInformation, value: string) => {
-    setInformation((previous) => ({ ...previous, [key]: value }));
-    setNotice('');
-    setFieldErrors((previous) => ({
-      ...previous,
-      [key]: '',
-      ...(key === 'password' ? { confirmation: '' } : {}),
-    }));
-    if (key === 'id') {
-      currentId.current = value;
-      setCheckedId('');
-      setDuplicateNotice('');
-    }
-  };
-
-  const checkId = () => {
-    const idError = isValidRegistrationId(information.id) ? '' : registrationIdErrorMessage;
-    setFieldErrors((previous) => ({ ...previous, id: idError }));
-    if (idError) {
-      setCheckedId('');
-      setDuplicateNotice('');
-      return;
-    }
-    if (services) {
-      const id = information.id;
-      currentId.current = id;
-      void request.run(async () => {
-        const result = await services.checkId(id);
-        if (currentId.current !== id) return;
-        if (!result.available) throw new Error('이미 사용 중인 아이디입니다.');
-        setCheckedId(id);
-        setDuplicateNotice('사용 가능한 아이디입니다.');
-      });
-      return;
-    }
-    setCheckedId(information.id);
-    setDuplicateNotice('아이디 형식을 확인했습니다. 실제 중복 여부는 서비스 연결 후 확인됩니다.');
-  };
-
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (stage === 'additional') {
-      setSummaryOpen(true);
-      return;
-    }
-    const idError = isValidRegistrationId(information.id) ? '' : registrationIdErrorMessage;
-    const emailError = isValidEmailLocalPart(information.email.trim())
-      ? ''
-      : emailFormatErrorMessage;
-    const domainError = isValidEmailDomain(information.domain.trim())
-      ? ''
-      : emailDomainErrorMessage;
-    const errors = {
-      id: idError,
-      email: emailError,
-      postalCode: information.postalCode.trim() ? '' : '우편번호 찾기로 우편번호를 입력해주세요.',
-      address: information.address.trim() ? '' : '우편번호 찾기로 주소를 입력해주세요.',
-      addressDetail: information.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
-      domain: domainError,
-      name: isValidName(information.name) ? '' : '올바른 이름을 입력해주세요',
-      password: isValidPassword(information.password) ? '' : passwordRequirementsMessage,
-      confirmation:
-        information.confirmation && information.password === information.confirmation
-          ? ''
-          : '비밀번호가 일치하지 않습니다',
-    };
-    setFieldErrors(errors);
-    if (Object.values(errors).some(Boolean)) {
-      setNotice('');
-      return;
-    }
-    if (checkedId !== information.id || !checkedId) {
-      setNotice('아이디 중복확인을 해주세요.');
-      return;
-    }
-    if (
-      !information.postalCode.trim() ||
-      !information.address.trim() ||
-      !information.addressDetail.trim() ||
-      !isValidRegistrationId(information.id) ||
-      !isValidEmailLocalPart(information.email.trim()) ||
-      !isValidEmailDomain(information.domain.trim())
-    ) {
-      setNotice('필수 회원정보와 올바른 아이디, 이메일 주소를 입력해주세요.');
-      return;
-    }
-    setNotice('');
-    setStage('additional');
-    window.scrollTo(0, 0);
-  };
-
-  return (
-    <>
-      <BindingFeedback pending={request.pending} error={request.error} />
-      <fieldset disabled={request.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
-        <RegistrationContent
-          stage={stage}
-          information={information}
-          preferences={preferences}
-          domainChoice={domainChoice}
-          notice={notice}
-          duplicateNotice={duplicateNotice}
-          addressOpen={addressOpen}
-          fieldErrors={fieldErrors}
-          onChange={change}
-          onPreferenceChange={(key, value) =>
-            setPreferences((previous) => ({ ...previous, [key]: value }))
-          }
-          onDomainChoice={(value) => {
-            setDomainChoice(value);
-            change('domain', value === 'direct' ? '' : value);
-          }}
-          onDuplicateCheck={checkId}
-          onAddressOpen={setAddressOpen}
-          onSubmit={submit}
-          onCancel={() => {
-            if (stage === 'additional') {
-              setStage('information');
-              setNotice('');
-            } else router.push('/signup/terms');
-          }}
-        />
-      </fieldset>
-      {summaryOpen ? (
-        <RegistrationMarketingConsentSummaryModal
-          preferences={preferences}
-          pending={request.pending}
-          error={request.error}
-          onOpenChange={(next) => {
-            if (!request.pending) setSummaryOpen(next);
-          }}
-          onConfirm={() => {
-            void request.run(async () => {
-              if (services) {
-                if (!flow?.identity)
-                  throw new Error('본인인증이 만료되었습니다. 다시 인증해 주세요.');
-                if (
-                  !flow.consents.length ||
-                  services.signupTerms.some(
-                    (term) =>
-                      term.required &&
-                      !flow.consents.some(
-                        (consent) =>
-                          consent.id === term.id &&
-                          consent.version === term.version &&
-                          consent.accepted,
-                      ),
-                  )
-                )
-                  throw new Error('필수 약관 동의를 다시 확인해 주세요.');
-                await services.register({
-                  information,
-                  preferences,
-                  identity: flow.identity,
-                  consents: flow.consents,
-                });
-                flow.setIdentity(null);
-                flow.setConsents([]);
-              }
-              setSummaryOpen(false);
-              router.push('/signup/complete');
-            });
-          }}
-        />
-      ) : null}
-    </>
-  );
-}
-
 export const routePreviewComponents = {
   MarketingConsentSummaryModal,
   RegistrationMarketingConsentSummaryModal,

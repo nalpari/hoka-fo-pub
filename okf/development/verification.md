@@ -6,9 +6,40 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T01:24:21Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/support/care/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/stories/features/binding/DesignBinding.stories.tsx
+  - src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx
+  - src/stories/components/common/molecules/ProductPrice/ProductPrice.stories.tsx
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
   - tests/form-controls.test.mjs
   - tests/preview-links.test.mjs
   - tests/app-router.test.mjs
@@ -107,7 +138,6 @@ sources:
 - `/cart`에서 수량 증가 후 행 금액 유지, 주문·삭제 후 이동/행 제거 없음, checkout 링크 없음, `/cart/preview-empty`의 직접 빈 상태와 `/screen-index`의 상태별 링크를 확인했다.
 - 모달을 연 상태로 1024/1025px, 1199/1200px를 전환해 플랫폼 변경과 모달 유지, 1200px 이상 가로 넘침 없음을 확인했다. 1025~1199px의 1200px 캔버스는 기존 정책대로 유지한다. 브라우저 스크린샷 캡처가 시간 초과되어 픽셀 대조는 수행하지 못했으며 DOM·계산된 크기와 상호작용으로 검증했다.
 - 라우트 manifest 테스트에 새 확인 URL과 기존 누락 `/publishing-guide`를 반영했다. `npm run build`를 통과했고 새 URL 2개를 포함한 정적 페이지 생성과 TypeScript 검사를 완료했다. 이후 `node --test tests/app-router.test.mjs` 2개도 통과했다(관련 Node 테스트 합계 61개).
-
 
 ## IA 설명 제거 확인 (2026-10-29)
 
@@ -394,13 +424,11 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 
 `node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](../architecture/design-source-comparison-2026-10-29.md)를 참고한다.
 
-
 ## 첨부 디자인 반영 검증 (2026-10-29)
 
 최종 프로덕션 빌드에서 컴파일·타입 검사·58개 정적 페이지 생성이 성공했다. Panda 생성과 변경 소스 ESLint/Prettier·diff 검사·작업 트리 OKF 매핑 검사도 통과했다. UI/서비스 연결 범위는 아래 구현 기록을 따른다.
 
 기존 표시·주문 요약·IA 테스트 15개와 변경 소스 타입/ESLint/Prettier를 통과했다. 1440px PC/390px MO 6개 경로 렌더·알럿/문서 가로 넘침과 스크린샷을 확인했다. 외부 쿠폰 응답·실패/재시도 스토리는 추가했으며 실행 결과는 별도 기록한다. [구현 범위·출처·검증](../architecture/design-implementation-2026-10-29.md).
-
 
 후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](../architecture/design-implementation-2026-10-29.md).
 
@@ -428,3 +456,131 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 마지막 보완에서는 FAQ의 조건 변경 후에도 빈 결과/페이지 수가 유지되도록 하고, 휴대폰 약관의 체크값과 고정 오류 표시를 분리했다. 실제 PhoneVerificationContent를 서버 렌더링해 모든 약관이 체크된 경우에도 preview에서만 4개 invalid가 유지되고 일반 폼에는 invalid가 생기지 않는 회귀 검사를 추가했다. 최종 소스의 타입·Next/Storybook 빌드와 관련 검사도 다시 수행했다.
 
 preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실제 요청 실패·재시도, 인증·결제·외부 PG는 이번 검증 대상이 아니다. 미확정 디자인을 구현 완료로 바꾸거나 IA 진행 상태를 변경하지 않았다.
+
+## 문의 대기·완료 목록 통합 검증 (2026-10-30)
+
+`/support/inquiries/preview-list`에서 대기·완료 각 1건을 함께 표시한다. 기존 두 상태 route를 제거하고 IA 187·210과 PC/MO Storybook의 List 사례를 같은 목록으로 연결했다.
+
+- 타입 검사, 변경 파일 ESLint/Prettier, Next production build와 Storybook production build 통과.
+- App Router·preview 링크·소스 그래프 관련 Node 테스트 6개 통과. 현재 route manifest에 통합 경로가 있고 제거한 두 route가 없으며 모든 preview가 활성 IA에 연결됨을 확인했다.
+- localhost:3000의 개발 화면을 브라우저로 열어 1280px PC와 375px MO 모두 두 질문·접수완료/답변완료 상태가 함께 보이고 수평 overflow가 없음을 확인했다. 완료 답변을 접어도 두 질문은 유지되고 다시 펼칠 수 있다.
+- screen-index에서 새 URL로 검색하면 두 원본 IA의 통합 목록 링크가 표시되고 옛 두 상태 링크는 없었다. 서비스 등록·답변 변경은 구현하거나 검증하지 않았다.
+
+## Empty 문구와 화면 목록 정리 검증 (2026-10-30)
+
+사용자 확정 문구·IA 정리 범위를 검증했다. 타입 검사, Next production build와 preview 링크·그래프·화면 진행 상태 테스트 14개가 통과했다. 새 URL 2개를 기존 라우트 manifest 검사에 추가한 뒤 관련 테스트 16개가 통과했다. 변경 파일 ESLint도 통과했다. 실제 컴포넌트의 서버 렌더링으로 쿠폰·공지 각각 완료 Empty 표시, pending·실패 시 Empty 미표시 6건을 확인했다. 브라우저에서는 1280/375px에서 세 Empty와 세 기본 목록의 문구를 확인했으며 리뷰 Empty의 탭 전환 후 기존 ‘작성한 리뷰가 없습니다.’를 유지했다. 최종 모바일 재확인에서 리뷰 기본 목록의 가로 넘침이 없었다. 변경된 IA 158의 이름·PC/MO 수급·비고, 회원가입 전용 IA 링크 유지와 상위 중복 제거를 DOM에서 확인했다. 기획전 IA 167의 미수급·대기·링크 없음과 새 Empty URL 검색 결과도 확인했다. 스크린샷 캡처는 CDP timeout으로 완료하지 못했으며 시각 검수 완료로 기록하지 않는다. 외부 API 요청·실제 쿠폰 등록·운영 디자인 승인 검증은 수행하지 않았다.
+
+## 상품문의 Empty 전체 상세 검증 (2026-10-30)
+
+타입 검사와 변경 소스 ESLint, Next production build를 통과했다. preview 링크·IA 진행 상태·파일 그래프·route manifest 테스트 16개가 통과했다. 생성 명령 실행 후 import 그래프의 추가 변경은 없었다.
+
+브라우저 DOM으로 1280px PC·375px 모바일에서 기존 Clifton 11 GTX 상품명·갤러리·사이즈 선택과 문의 0건·빈 안내가 전체 상세에 함께 표시되는 것을 확인했다. 기본 `/products/shoe-1`은 문의 목록을 유지한다. 모바일 Empty 아코디언은 초기 열림이며 접기/펼치기 소유자는 유지했다. 최종 모바일에서 fragment 대상의 상단 76px 여백과 가로 넘침 없음, PC에서 문의 영역으로 이동을 확인했다. screen-index의 ‘상품문의 없음’ 링크를 실제 클릭해 새 창의 전체 상품 상세·Empty·fragment URL을 확인했다. 픽셀 대조나 실제 상품 조회/장바구니 요청은 검증하지 않았다. 출처는 `ProductDetailContent.tsx`, `screenConnections.ts`, `preview-empty-inquiries/page.tsx`, `tests/preview-links.test.mjs` 및 이 채팅의 브라우저 확인이다.
+
+## 러닝 세션 경로 이전 정적 검사 (2026-10-30)
+
+preview 링크·IA 진행 상태·소스 그래프 Node 테스트 14개를 통과했다. 기존 Next 생성 타입이 이전 run-club 경로를 참조하여 첫 타입 검사는 실패했으며 라우트 타입 재생성 후 재검사한다. 브라우저·빌드 결과는 후속 검증에서 별도 기록한다. 출처: tests/preview-links.test.mjs, tests/screen-progress.test.mjs, tests/screen-files.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## Featured 하위 러닝 세션 계층 정정 (2026-10-30)
+
+사용자 후속 확인에 따라 독립 D2 Running Session 묶음을 제거했다. IA 155·258·259는 모두 EXPLORE > Featured > Running Session에 속하며 기존 목록·상세 번호와 상태 링크는 유지한다. 목록·상세 상태 행은 D4에 배치하고 페이지 연결은 D3 Running Session에서 제공한다. tests/preview-links.test.mjs는 세 IA의 D1~D3 일치와 독립 D2 부재를 검사한다. 출처: src/data/screenRegistry.ts, tests/preview-links.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 매장 찾기 정보 목록 정리 (2026-10-30)
+
+매장 목록 변경 후 TypeScript 검사를 통과했다. 탭·지도·길 찾기를 제거하고 네 매장 예시와 누락된 영업시간의 조건부 표시를 유지한다. 브라우저 PC/MO 확인 결과는 후속 검증으로 별도 기록한다. 출처: src/app/support/store와 관련 표시 타입.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상품 목록 품절 표시 예시 (2026-10-30)
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 하위 행 표시 순서 보완 (2026-10-30)
+
+사용자 브라우저 확인에 따라 목록(258)·상세(259)의 원본 배열 순서도 D3 Featured > Running Session(155) 바로 뒤로 이동했다. 계층 값뿐 아니라 실제 렌더 순서를 맞추며 독립 D2와 D3 앞쪽의 하위 행을 남기지 않는다. UTMB 비고의 러닝 세션 연결 설명 문장은 삭제했다. preview 링크 테스트는 155 바로 다음 행이 258·259인지 함께 검사한다. 출처: src/data/screenRegistry.ts와 tests/preview-links.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 환불계좌와 기획전 목업 제거 (2026-10-30)
+
+환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## IA 탐색 도구 반응형과 고정 배치 (2026-10-30)
+
+사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 기존 상태 preview 라우트 검사 동기화 (2026-10-30)
+
+전체 route manifest 검사에서 기존 신청 취소·작성 가능/작성 리뷰 목록 세 URL이 기대 목록에서 빠져 있음을 확인하여 tests/app-router.test.mjs의 기대 목록만 보완했다. 기존 화면은 재생성하거나 변경하지 않았다. 전체 Node 테스트 106개를 통과했다. 출처: 기존 /mypage/event-entries/preview-cancel, /mypage/reviews/preview-ready, /mypage/reviews/preview-written과 tests/app-router.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 러닝 세션 정적 이미지 경로 수정 (2026-10-30)
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 상태 preview 후속 정리 최종 검증 (2026-10-30)
+
+전체 Node 테스트 108개와 TypeScript 검사, 변경 TS/TSX·테스트의 ESLint/Prettier 검사를 통과했다. 최종 Next production build는 컴파일·타입·122개 정적 페이지 생성을 통과했고 Storybook production build도 별도 .tmp-preview-followup-storybook-final-20261030에서 통과했다. Storybook의 기존 번들·플러그인 타이밍 경고는 남아 있으며 전체 play 실행은 하지 않았다. 후속 정적 이미지 폴더 이동은 내용 변경 없는 10개 파일 이동으로 별도 파일 존재·PNG 검사 2개와 production 서버 이미지 로드로 확인했다.
+
+브라우저에서 1280px PC·375px MO의 매장 목록, 정상·품절 혼합 목록, 러닝 세션 목록·Empty·모집 마감·신청 예정 상세를 직접 열었다. 플랫폼 hydration 뒤 문서 가로 넘침이 없었고 매장 탭·지도·길 찾기가 없었다. 품절 overlay 2개의 검정 50% 배경·흰색 문구·상세 링크와 기본 목록의 품절 overlay 미표시를 확인했다. 모바일 상세와 품절 preview의 새로고침을 확인했다. 이미지 경로 누락 보완 후 PC/MO 카드·상세 이미지 naturalWidth가 0보다 큼을 확인했고 모바일 목록 8개 모두 로드됐다. PC 목록의 화면 밖 이미지는 기존 lazy loading을 유지한다.
+
+production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /running/running-session 이동을 확인했다. /running/run-club, /collection/8386, /mypage/refund-account는 404다. screen-index는 1782/1280/768/375px의 가변 NAV 열·스크롤 후 sticky top=0·문서 가로 넘침 없음을 확인했다. 최종 375px NAV는 2열이고 내부 스크롤로 검색 필드에 접근할 수 있다. 14개 대분류 행의 코드 colSpan=2와 링크 없음, Featured > Running Session 아래 목록·상세 순서, 상위 페이지 링크 제거, 검수 설명 비노출과 UTMB 비고 문장 제거를 확인했다. UTMB 자체의 연결 없음은 Node 검사로도 검증한다.
+
+이번 결과는 전체 픽셀 비교·최종 디자인 승인·실제 API·외부 인증·결제 검증이 아니다. 최종 시각 승인은 사용자 결정대로 후속으로 남긴다. 출처: tests/*.test.mjs, 최종 build 출력과 이 채팅의 Ego 브라우저 검사. 기준 명령·실행 로그는 저장소 밖 작업 스냅샷에 보관했다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 공통 D2 국가선택 인계 연결 (2026-10-30)
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 비대상 마이페이지 세 화면 삭제 (2026-10-30)
+
+사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성했다.
+
+전체 Node 테스트 109개·전체 lint·타입 검사와 최종 Next production build(119개 정적 페이지), Storybook production build를 통과했다. 첫 Next 빌드는 병행 타입 생성과 .next/types 정리의 ENOTEMPTY 경합으로 실패했고 타입 검사 종료 뒤 순차 재실행하여 통과했다. 브라우저에서 공통 D2 국가선택의 페이지 링크·PC/MO 디자인 미해당·퍼블리싱 완료 표시를 확인했다. 1280px PC와 375px MO에서 /locales의 제목·Australia 외부 링크·문서 가로 넘침 없음을 확인했다. 삭제한 세 URL은 각각 404였다. 실제 외부 국가 사이트 이동이나 서비스 API는 실행하지 않았다.
+
+출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`tests/preview-links.test.mjs`의 기존 IA/경로 검사와 `.agents/skills/hoka-markup-handoff/references/state-matrix.md`의 직접 상태 확인 기준을 검토했다. 이번 작업은 저장소 외부 지침의 형식·참조 경로·한국어 표시 정보 검사와 PC/MO 병합·기존 URL 재사용·오류/팝업 직접 표시·가이드 제외·IA 모호성 처리 지침 검토를 수행했다. 앱 소스를 변경하지 않아 앱 테스트·타입·빌드·브라우저 검증은 실행하지 않았다. 기존 앱 검증 절차에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태 링크 누락 조사 검증 (2026-11-02)
+
+`node --test tests/preview-links.test.mjs` 5개가 통과했다. 실제 `/screen-index` DOM에서 조사 대상 IA의 등록 URL들이 표시되는지 소스의 연결 결과와 대조했다. PC 1440px·MO 375px에서 `/support/after-sales`, `/support/care`, `/login/account-locked/verification/preview-expired`, `/signup/terms`, `/mypage/coupons` 5개 URL을 각각 직접 열어 기본 탭·팝업 닫힘·일반 쿠폰 표시와 인라인 만료 안내를 확인했다. 그 외 로그인·주문서·주소·마이페이지의 대표 기본 진입도 확인했다. 새 URL·화면은 구현하지 않았고 전체 상태의 PC/MO 시각 일치·팝업 조작·타입·빌드를 검증한 것은 아니다. 기존 경로 검사는 디자인에만 존재하는 URL 누락을 검출하지 않으므로 [디자인 대응표](../architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 함께 확인한다. 출처: 사용자 지정 디자인, 현재 IA/화면 소스와 `tests/preview-links.test.mjs`, 실행 중인 로컬 앱. 검증·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+요청 성공/실패를 모의하는 Storybook 사례를 고정 표시와 편집 후 오류 유지 확인으로 전환했다. 기존 story export 이름은 유지한다. 주문 계산 테스트는 준비된 금액/불변 display lookup 검증으로, 문의 바인딩 테스트는 직접 상태 연결과 제거한 서비스 API/storage AST 검사로 변경했다. App Router 검사는 소스 page 목록과 production manifest를 비교하여 새 상태 URL의 빌드 누락을 검출한다. 실행 결과와 범위는 인계표의 검증 절을 따른다.
+
+[전체 화면 인계표](markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+- `tests/preview-links.test.mjs` 6개 통과: 기존 경로·IA 연결 검사와 디자인 14개 링크의 owner/label/href 대응을 확인했다.
+- PC 1440px·MO 375px에서 신규 상태 14개와 기존 만료 URL을 각각 직접 열어 30개 사례의 초기 표시·새로고침·가로 overflow 없음을 확인했다. 팝업은 Escape 닫기와 다시 진입 시 초기 열림을 확인했으며 modal의 Tab 포커스를 검사했다. 도움말 popover에는 modal focus trap을 요구하지 않았다.
+- 기본 로그인·마이페이지·주문서·쿠폰·주소·가입 약관·잠금 해제와 기존 가입 만료 preview의 PC/MO 16개 사례에서 신규 팝업이 기본 진입에 섞이지 않음을 확인했다. 탭 history.back·빈 tab·다른 query 보존, 입력 draft resize 유지, 열린 만료 팝업 resize(568→343px)와 확인 닫기를 검사했다.
+- 실제 `/screen-index` DOM에 새 링크 14개가 표시됨을 대조하고, 검색으로 만료 링크를 찾아 클릭해 새 창에서 팝업이 바로 열리는 것을 확인했다. 모든 링크의 클릭을 반복한 것은 아니다.
+- 변경 파일 ESLint/Prettier, Panda 생성, 타입 검사와 Next/Storybook production build를 확인했다. 타입/빌드는 HEAD와 이 채팅 변경만 포함한 별도 검증 사본에서 수행했다. 공유 의존성 symlink가 Turbopack root 밖이라는 첫 빌드 실패는 설치 문서에 따라 검증 사본의 root만 조정해 재실행했고, 저장소 설정은 변경하지 않았다. Storybook에는 의존성 use-client directive와 build timing 경고가 있었지만 빌드는 통과했다. 전체 Storybook play 실행을 의미하지 않는다.
+- 브라우저 viewport 캡처는 도구의 Page.captureScreenshot timeout으로 확보하지 못했다. 실제 DOM·계산 크기·표시/포커스/상호작용을 확인했으며 전체 픽셀 일치·운영 서비스·실제 약관 원문 조회는 검증하지 않았다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

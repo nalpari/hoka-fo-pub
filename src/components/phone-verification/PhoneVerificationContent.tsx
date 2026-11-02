@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { PhoneVerificationContext } from '@/context/PhoneVerificationContext';
+import { useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -13,6 +12,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
+import { PreviousTermsPicker } from '@/components/common/molecules/PreviousTermsPicker';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -22,9 +22,7 @@ import {
   type PhoneInformation,
   type PhoneVerificationContentProps,
 } from '@/components/phone-verification/phone-verification.types';
-
 const styles = { carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }) };
-
 const mvnoCarriers = [
   {
     title: 'SKT 알뜰폰',
@@ -42,9 +40,10 @@ const mvnoCarriers = [
       '미디어로그, 인스코비, 머천드코리아, 엠티텔레콤, 홈플러스, 이마트, 리더스텔레콤, 씨엔엠브이엔오, 비엔에스솔루션, 인티파크, 에프아이텔, 자티전자, 서경방송, JCN울산, 푸른방송, 남인천방송, 금강방송, 제주방송, 와이엘랜드',
   },
 ] as const;
-
-type Props = { open: boolean; onOpenChange: (open: boolean) => void };
-
+type Props = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
 function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
@@ -74,24 +73,14 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
     </ModalDialog>
   );
 }
-
 type PhoneVerificationDialogsProps = Pick<PhoneVerificationContentProps, 'detail' | 'onDetail'>;
-
 function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogsProps) {
-  const service = useContext(PhoneVerificationContext);
   const [previous, setPrevious] = useState(false);
-  const [version, setVersion] = useState('');
-  const term = service?.terms?.find((item) => item.title === detail);
-  const selected = term?.previousVersions?.find((item) => item.id === version);
-
   const onOpenChange = (open: boolean) => {
     if (!open) onDetail(null);
   };
-
-  if (detail === '알뜰폰 사업자') {
+  if (detail === '알뜰폰 사업자')
     return <PhoneVerificationDetailDialog open onOpenChange={onOpenChange} />;
-  }
-
   return (
     <ModalDialog
       open={detail !== null}
@@ -105,46 +94,108 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
       <Stack gap="6">
         <Typography variant="heading7">{detail}</Typography>
         <Box minH="240px" overflowY="auto" maxH="50vh" whiteSpace="pre-line" p="4" bg="black.10">
-          {selected?.body ?? term?.body ?? (
-            <Typography variant="body4">
-              본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
-              통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
-              미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
-            </Typography>
-          )}
+          <Typography variant="body4">
+            본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
+            통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
+            미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
+          </Typography>
         </Box>
         <Button variant="link" onClick={() => setPrevious(!previous)}>
           이전 약관 보기
         </Button>
-        {previous ? (
-          <Stack gap="2">
-            {term?.previousVersions?.length ? (
-              term.previousVersions.map((item) => (
-                <Button key={item.id} variant="secondary" onClick={() => setVersion(item.id)}>
-                  {item.label}
-                </Button>
-              ))
-            ) : (
-              <Typography variant="body5">이전 약관이 없습니다.</Typography>
-            )}
-          </Stack>
-        ) : null}
+        {previous ? <Typography variant="body5">이전 약관이 없습니다.</Typography> : null}
       </Stack>
     </ModalDialog>
   );
 }
-
+type PhoneVerificationDesignDialogsProps = Pick<
+  PhoneVerificationContentProps,
+  'detail' | 'onDetail' | 'initialPreviousPickerOpen' | 'designTermKind'
+>;
+/** [ 개발팀 바인딩 ] 약관 본문·시행일은 디자인 표시 fixture입니다. 운영 약관 전문·선택 동의 정책·버전별 본문은 인증 연결 소유자가 제공하며 이 팝업은 조회·동의 제출을 수행하지 않습니다. */
+function PhoneVerificationDesignDialogs({
+  detail,
+  onDetail,
+  initialPreviousPickerOpen = false,
+  designTermKind = 'required',
+}: PhoneVerificationDesignDialogsProps) {
+  const [pickerOpen, setPickerOpen] = useState(initialPreviousPickerOpen);
+  const [version, setVersion] = useState<string>();
+  const close = () => onDetail(null);
+  const optional = designTermKind === 'optional';
+  if (detail === '알뜰폰 사업자')
+    return (
+      <PhoneVerificationDetailDialog
+        open
+        onOpenChange={(open) => {
+          if (!open) close();
+        }}
+      />
+    );
+  return (
+    <>
+      <ModalDialog
+        open={detail !== null && !pickerOpen}
+        onOpenChange={(open) => {
+          if (!open) close();
+        }}
+        title="HOKA Korea 이용약관"
+        closeLabel="안내 닫기"
+        size="md"
+        mobilePresentation="fullscreen"
+        actions={{ kind: 'single', onConfirm: close }}
+      >
+        <Stack gap="6">
+          <Box display="flex" justifyContent="space-between" alignItems="center" gap="4">
+            <Typography variant="body3" weight="semibold">
+              {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
+            </Typography>
+            {!optional && (
+              <Button variant="link" size="sm" onClick={() => setPickerOpen(true)}>
+                이전 약관 보기
+              </Button>
+            )}
+          </Box>
+          {version ? (
+            <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
+          ) : (
+            [1, 2].map((number) => (
+              <ContentHeader
+                key={number}
+                titleAs="h2"
+                title={`약관 타이틀${number}`}
+                titleProps={{ variant: 'body4' }}
+                description={'약관내용'.repeat(155)}
+                descriptionProps={{ variant: 'body4' }}
+                gap="4"
+              />
+            ))
+          )}
+          <Typography variant="body5">
+            공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+          </Typography>
+        </Stack>
+      </ModalDialog>
+      <PreviousTermsPicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onSelect={(id) => {
+          setVersion(id);
+          setPickerOpen(false);
+        }}
+      />
+    </>
+  );
+}
 const PhoneVerificationAgreementsStyles = {
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
 };
-
 const verificationTerms = [
   '개인정보 이용약관 동의',
   '고유식별 정보 처리동의',
   '통신사 이용약관 동의',
   '휴대폰 본인확인 이용약관 동의',
 ] as const;
-
 type PhoneVerificationAgreementsProps = Pick<
   PhoneVerificationContentProps,
   | 'agreements'
@@ -154,7 +205,6 @@ type PhoneVerificationAgreementsProps = Pick<
   | 'onAgreementChange'
   | 'onDetail'
 >;
-
 function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
   const { agreements, showAgreementErrors = false } = props;
   const agreementRows = verificationTerms.map((term, index) => (
@@ -199,7 +249,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         orientation: 'horizontal',
         gap: '8px',
         css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
-        titleProps: { id: 'phone-terms-title', web: 'heading9', mo: 'heading7' },
+        titleProps: { id: 'phone-terms-title', web: 'heading10', mo: 'heading7' },
         action: (
           <Checkbox
             variant="consent"
@@ -221,16 +271,13 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
     </ContentSection>
   );
 }
-
 const PhoneInformationFieldsStyles = {
   detail: css({ '--button-padding-x': '0px', flexShrink: '0' }),
 };
-
 type PhoneInformationFieldsProps = Pick<
   PhoneVerificationContentProps,
   'information' | 'fieldErrors' | 'onInformationChange' | 'onDetail'
 >;
-
 function PhoneInformationFields(props: PhoneInformationFieldsProps) {
   const { information } = props;
   const textField = (
@@ -258,7 +305,6 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
       />
     );
   };
-
   const selectField = (key: keyof PhoneInformation, label: string, options: string[]) => (
     <Dropdown
       ariaLabel={label}
@@ -271,7 +317,6 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
       onValueChange={(value) => props.onInformationChange(key, value)}
     />
   );
-
   return (
     <>
       {textField('name', '이름', '이름을 입력해 주세요')}
@@ -302,12 +347,10 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
     </>
   );
 }
-
 type VerificationCodeFieldsProps = Pick<
   PhoneVerificationContentProps,
   'code' | 'codeError' | 'secondsLeft' | 'onCodeChange'
 >;
-
 function VerificationCodeFields(props: VerificationCodeFieldsProps) {
   const { code, secondsLeft } = props;
   return (
@@ -344,7 +387,6 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
     </>
   );
 }
-
 type PhoneVerificationFormProps = Pick<
   PhoneVerificationContentProps,
   | 'pending'
@@ -363,11 +405,10 @@ type PhoneVerificationFormProps = Pick<
   | 'notice'
   | 'noticeTone'
 >;
-
 function PhoneVerificationForm(props: PhoneVerificationFormProps) {
   return (
     <form noValidate onSubmit={props.onConfirm} aria-busy={props.pending}>
-      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={props.pending}>
         <Stack gap="4">
           <PhoneInformationFields
             information={props.information}
@@ -402,12 +443,10 @@ function PhoneVerificationForm(props: PhoneVerificationFormProps) {
     </form>
   );
 }
-
 export type {
   PhoneInformation,
   PhoneVerificationErrors,
 } from '@/components/phone-verification/phone-verification.types';
-
 /** 휴대폰 인증 입력과 약관·인증번호 영역을 구성합니다 (Displays the phone verification content composition). */
 export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
   return (
@@ -417,25 +456,45 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
       contentWidth="500px"
       outsideContent={
         <>
-          <PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />
+          {props.designTerms ? (
+            <PhoneVerificationDesignDialogs
+              detail={props.detail}
+              onDetail={props.onDetail}
+              initialPreviousPickerOpen={props.initialPreviousPickerOpen}
+              designTermKind={props.designTermKind}
+            />
+          ) : (
+            <PhoneVerificationDialogs detail={props.detail} onDetail={props.onDetail} />
+          )}
+
           <ModalDialog
             open={props.expired ?? false}
             onOpenChange={(open) => {
               if (!open) props.onExpiredClose?.();
             }}
-            title="인증시간 만료"
+            title={props.title === '계정 잠금 해제' ? '계정잠금해제' : '인증시간 만료'}
             closeLabel="인증시간 만료 안내 닫기"
-            size="sm"
+            size={props.title === '계정 잠금 해제' ? 'md' : 'sm'}
             actions={{ kind: 'single', onConfirm: () => props.onExpiredClose?.() }}
           >
-            <Typography variant="body3">
-              인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.
-            </Typography>
+            {props.title === '계정 잠금 해제' ? (
+              <Stack gap="4" textAlign="center">
+                <Typography variant="body2">입력시간이 만료되었습니다</Typography>
+                <Typography variant="body4">
+                  인증번호 입력 시간이 만료되었습니다. 인증번호 재요청 버튼을 눌러 인증을 다시
+                  시도해주세요.
+                </Typography>
+              </Stack>
+            ) : (
+              <Typography variant="body3">
+                인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.
+              </Typography>
+            )}
           </ModalDialog>
         </>
       }
     >
-      <fieldset disabled={props.pending} className={css({ border: 0, p: 0, m: 0, minW: 0 })}>
+      <fieldset disabled={props.pending}>
         <Stack gap="6">
           <PhoneVerificationAgreements
             agreements={props.agreements}
@@ -448,7 +507,7 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           <ContentSection
             gap="6"
             title="인증 정보"
-            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr9' } }}
+            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr10' } }}
           >
             <PhoneVerificationForm {...props} />
           </ContentSection>

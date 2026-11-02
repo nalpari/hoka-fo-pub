@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 
-import { cva } from 'styled-system/css';
-import { Divider as PandaDivider } from 'styled-system/jsx';
+import { css, cva } from 'styled-system/css';
+import { Box, Divider as PandaDivider } from 'styled-system/jsx';
 
 const dividerStyle = cva({
   variants: {
@@ -22,15 +22,53 @@ const dividerStyle = cva({
 type DividerProps = Omit<ComponentProps<typeof PandaDivider>, 'orientation' | 'h' | 'bg'> & {
   variant?: 'subtle' | 'strong' | 'heading';
   mo?: 'subtle' | 'strong' | 'heading';
-};
+} & (
+    | { orientation?: 'horizontal'; length?: never }
+    | { orientation: 'vertical'; length: ComponentProps<typeof Box>['h'] }
+  );
 
-/** 장식용 가로 구분선을 기본 및 모바일 variant로 표시합니다. (Renders a decorative horizontal divider with base and mobile variants.) */
-export function Divider({ variant = 'subtle', mo, className, ...props }: DividerProps) {
+/** 장식용 가로 또는 세로 구분선을 표시합니다. (Renders a decorative horizontal or vertical divider.) */
+export function Divider({
+  variant = 'subtle',
+  mo,
+  className,
+  orientation = 'horizontal',
+  length,
+  color,
+  ...props
+}: DividerProps) {
+  if (orientation === 'vertical') {
+    return (
+      <Box
+        as="span"
+        aria-hidden="true"
+        {...props}
+        h={length}
+        className={[
+          css({
+            w: variant === 'heading' ? '2px' : '1px',
+            bg: color ?? (variant === 'subtle' ? 'black.20' : 'black.100'),
+            _mobile: mo
+              ? {
+                  w: mo === 'heading' ? '2px' : '1px',
+                  bg: color ?? (mo === 'subtle' ? 'black.20' : 'black.100'),
+                }
+              : undefined,
+          }),
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      />
+    );
+  }
+
   return (
     <PandaDivider
       aria-hidden="true"
       {...props}
       orientation="horizontal"
+      color={color}
       className={[dividerStyle({ variant, mo }), className].filter(Boolean).join(' ')}
     />
   );

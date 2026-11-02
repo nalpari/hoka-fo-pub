@@ -1,9 +1,4 @@
-/**
- * [개발팀 바인딩]
- * InquiryOrder.id는 주문 ID, products[].id는 선택 가능한 주문 상품 행 ID입니다. 같은 상품의 다른 옵션/주문 행을 구분해야 합니다.
- * 운영 조회는 InquiryDataContext.orders, 저장된 선택 복원은 form.resolveSelection을 사용합니다. 아래 생성 배열은 시안 전용입니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 export type InquiryOrderProduct = {
   id: string;
   name: string;
@@ -13,13 +8,11 @@ export type InquiryOrderProduct = {
   quantity: number;
   image: string;
 };
-
 export type InquiryOrder = {
   id: string;
   date: string;
   products: InquiryOrderProduct[];
 };
-
 const product = (id: string, code: string, color: string, size: string): InquiryOrderProduct => ({
   id,
   name: '클리프톤 6',
@@ -29,7 +22,6 @@ const product = (id: string, code: string, color: string, size: string): Inquiry
   quantity: 1,
   image: '/images/products/clifton-11-gtx/gallery-1.png',
 });
-
 export const inquiryOrders: InquiryOrder[] = Array.from({ length: 13 }, (_, index) => {
   const number = String(2026091635153701 - index * 125431).padStart(16, '0');
   const orderDate = new Date(Date.UTC(2026, 7, 15 - index * 25)).toISOString().slice(0, 10);
@@ -49,3 +41,7 @@ export const inquiryOrders: InquiryOrder[] = Array.from({ length: 13 }, (_, inde
         : [product(`H0KA${20 + index}`, `HRKRGF${740 + index}G`, 'Gray', '270')],
   };
 });
+export type InquiryOrderSelection = {
+  order: InquiryOrder;
+  products: InquiryOrder['products'];
+} | null;

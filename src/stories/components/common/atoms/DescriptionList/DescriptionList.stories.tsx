@@ -62,3 +62,24 @@ export const MobileStyledRows: Story = {
     </PlatformProvider>
   ),
 };
+
+export const ConditionalRows: Story = {
+  ...StyledRows,
+  args: {
+    ...StyledRows.args,
+    items: [
+      { term: '표시 행', description: '항상 표시합니다.' },
+      {
+        term: '모바일 행',
+        description: '모바일에서 표시합니다.',
+        rowClassName: css({ display: 'none!', _mobile: { display: 'grid!' } }),
+      },
+    ],
+  },
+};
+
+export const MobileConditionalRows: Story = {
+  ...ConditionalRows,
+  render: MobileStyledRows.render,
+  globals: { viewport: 'hoka375' },
+};

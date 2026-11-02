@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
@@ -13,136 +15,27 @@ import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { itemKey } from '@/app/cart/cart-item';
-import type { CartPreviewRow } from '@/app/cart/cart-preview';
+import { cartPreviewAmounts, type CartPreviewRow } from '@/app/cart/cart-preview';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 
-import { CartDialogs } from './CartDialogs';
-
-type CartSelectionBarProps = {
-  allSelected: boolean;
-  selectedCount: number;
-  totalCount: number;
-  soldOutCount: number;
-  onSelectAll: (checked: boolean) => void;
+type CartProductSectionProps = {
+  rows: readonly CartPreviewRow[];
 };
 
-/** 전체 선택과 삭제 버튼의 확인용 표시를 제공합니다. (Displays cart selection and preview removal buttons.) */
-function CartSelectionBar({
-  allSelected,
-  selectedCount,
-  totalCount,
-  soldOutCount,
-  onSelectAll,
-}: CartSelectionBarProps) {
-  const mobile = usePlatform() === 'mobile';
-
-  return (
-    <HStack justifyContent="space-between" alignItems="center">
-      <Checkbox
-        aria-label="전체 상품 선택"
-        checked={allSelected}
-        onCheckedChange={onSelectAll}
-        label={
-          <Typography variant="body4">
-            {mobile ? (
-              <>
-                전체{' '}
-                <Typography as="span" variant="body4" weight="medium">
-                  ({selectedCount}/{totalCount})
-                </Typography>
-              </>
-            ) : (
-              `선택상품 ${selectedCount}개`
-            )}
-          </Typography>
-        }
-      />
-      <HStack gap={{ base: '3', _mobile: '2' }}>
-        <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={selectedCount === 0}>
-          선택상품 삭제
-        </Button>
-        <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={soldOutCount === 0}>
-          품절상품 삭제
-        </Button>
-      </HStack>
-    </HStack>
-  );
-}
-
-type CartItemRowProps = {
+type CartItemProps = {
   row: CartPreviewRow;
   selected: boolean;
-  favorite: boolean;
   onSelect: (checked: boolean) => void;
-  onEdit: () => void;
-  onFavorite: () => void;
 };
 
-/** 상품 선택과 수량의 로컬 표시를 제공합니다. (Displays local cart selection and quantity controls.) */
-function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: CartItemRowProps) {
+/** 모바일 장바구니 상품 카드를 표시합니다. (Displays a mobile cart product card.) */
+function CartMobileItem({ row, selected, onSelect }: CartItemProps) {
   const { item, product, amount, soldOut } = row;
-  const [quantity, setQuantity] = useState(item.quantity);
-  const platform = usePlatform();
-  if (platform !== 'mobile')
-    return (
-      <Grid
-        as="li"
-        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
-        alignItems="center"
-        gap="6"
-        py="6"
-        borderBottom="1px solid var(--colors-black-20)"
-        opacity={soldOut ? '0.4' : '1'}
-      >
-        <Checkbox
-          aria-label={`${product.name} 선택`}
-          checked={selected}
-          disabled={soldOut}
-          onCheckedChange={onSelect}
-          label={null}
-        />
-        <OrderProductSummary
-          variant="coupon"
-          hideAmount
-          image={getCartImage(item, product.primaryImage)}
-          name={product.name}
-          optionText={`옵션 : ${item.width} / ${item.color} / ${item.size}`}
-          amount={product.price}
-        >
-          <Button variant="link" size="sm" onClick={onEdit} disabled={soldOut}>
-            옵션변경
-          </Button>
-        </OrderProductSummary>
-        <fieldset disabled={soldOut} className={css({ border: 0, p: 0, minW: 0 })}>
-          <NumberStepper
-            ariaLabel={`${product.name} 수량`}
-            min={1}
-            value={quantity}
-            onChange={setQuantity}
-          />
-        </fieldset>
-        <Typography variant="body3" weight="semibold">
-          {amount.toLocaleString()}원
-        </Typography>
-        <Stack gap="2">
-          {soldOut ? (
-            <Button size="short" disabled>
-              품절
-            </Button>
-          ) : (
-            <Button size="short">주문하기</Button>
-          )}
-          <Button variant="secondary" size="short">
-            삭제하기
-          </Button>
-        </Stack>
-      </Grid>
-    );
+  const [favorite, setFavorite] = useState(false);
 
   return (
     <Stack as="li" gap="0" bg="black.10" minH={{ base: '185px', _mobile: '164px' }}>
@@ -173,7 +66,7 @@ function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: 
             image={getCartImage(item, product.primaryImage)}
             name={product.name}
             gender={product.gender ?? 'All Gender'}
-            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${quantity}개`}
+            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} ${item.quantity}개`}
             amount={amount}
           >
             <HStack
@@ -182,15 +75,15 @@ function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: 
               pb={{ base: '0', _mobile: '2' }}
               gap="1"
             >
-              <Button variant="link" size="sm" onClick={onEdit}>
+              <Button variant="link" size="sm">
                 옵션변경
               </Button>
               <Wishlist
                 active={favorite}
                 ariaLabel="관심상품"
                 label="관심상품"
-                iconSize="12px"
-                onActiveChange={onFavorite}
+                iconSize="14px"
+                onActiveChange={setFavorite}
               />
             </HStack>
           </OrderProductSummary>
@@ -200,96 +93,251 @@ function CartItemRow({ row, selected, favorite, onSelect, onEdit, onFavorite }: 
   );
 }
 
-type CartProductSectionProps = {
-  rows: CartPreviewRow[];
-  total: number;
-};
+/** PC 장바구니 상품 행을 표시합니다. (Displays a desktop cart product row.) */
+function CartDesktopItem({ row, selected, onSelect }: CartItemProps) {
+  const { item, product, amount, soldOut } = row;
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [favorite, setFavorite] = useState(false);
+
+  return (
+    <Grid
+      as="li"
+      gridTemplateColumns="minmax(0, 604fr) minmax(0, 158fr) minmax(0, 200fr) minmax(0, 170fr)"
+      alignItems="center"
+      gap="0"
+      py="8"
+      borderBottom="1px solid var(--colors-black-20)"
+    >
+      <HStack minW="0" gap="4" px="6" alignItems="flex-start">
+        <Checkbox
+          aria-label={`${product.name} 선택`}
+          checked={selected}
+          disabled={soldOut}
+          onCheckedChange={onSelect}
+          label={null}
+        />
+        <Box flexShrink="0" opacity={soldOut ? '0.4' : '1'}>
+          <Image
+            src={getCartImage(item, product.primaryImage)}
+            alt={product.name}
+            width={96}
+            height={96}
+            sizes="96px"
+            loading="eager"
+            className={css({
+              w: '96px',
+              h: '96px',
+              flexShrink: '0',
+              objectFit: 'contain',
+              bg: 'black.10',
+            })}
+          />
+        </Box>
+        <Stack minW="0" flex="1" justifyContent="space-between" alignSelf="stretch" gap="3">
+          <Stack gap="0.5" opacity={soldOut ? '0.4' : '1'}>
+            <Typography variant="body3" weight="medium">
+              {product.gender ?? 'All Gender'}
+            </Typography>
+            <Typography variant="body3" weight="medium">
+              {product.name}
+            </Typography>
+            <HStack gap="2" alignItems="baseline" flexWrap="wrap">
+              <Typography variant="body3" tone="subtle" weight="medium">
+                옵션 : {item.width} / {item.color} / {item.size}
+              </Typography>
+              <Button variant="link" size="md" disabled={soldOut}>
+                옵션변경
+              </Button>
+            </HStack>
+          </Stack>
+          <Box opacity={soldOut ? '0.4' : '1'}>
+            <Wishlist
+              active={favorite}
+              ariaLabel={`${product.name} 관심상품`}
+              label="관심상품"
+              iconSize="14px"
+              onActiveChange={setFavorite}
+            />
+          </Box>
+        </Stack>
+      </HStack>
+      <HStack justifyContent="center" px="6" opacity={soldOut ? '0.4' : '1'}>
+        <fieldset disabled={soldOut}>
+          <NumberStepper
+            ariaLabel={`${product.name} 수량`}
+            min={1}
+            value={quantity}
+            onChange={setQuantity}
+          />
+        </fieldset>
+      </HStack>
+      <HStack justifyContent="flex-end" opacity={soldOut ? '0.4' : '1'}>
+        <Typography variant="body3" weight="medium">
+          {amount.toLocaleString()}원
+        </Typography>
+      </HStack>
+      <Stack gap="2" w="80px" justifySelf="center" opacity={soldOut ? '0.4' : '1'}>
+        {soldOut ? (
+          <Button variant="primary" colorway="black" size="short" fullWidth disabled>
+            품절
+          </Button>
+        ) : (
+          <Button variant="primary" colorway="black" size="short" fullWidth>
+            주문하기
+          </Button>
+        )}
+        <Button variant="secondary" size="short" fullWidth>
+          삭제하기
+        </Button>
+      </Stack>
+    </Grid>
+  );
+}
 
 /**
- * 장바구니 고정 표시와 최소 UI 조작을 제공합니다. (Displays fixed cart data with local UI controls.)
+ * 장바구니의 상품 목록과 금액 표시를 구성합니다. (Composes the cart product list and amount display.)
  *
- * [ 개발팀 바인딩 ] rows의 amount/soldOut과 total은 준비된 표시 예시이며 재계산하지 않습니다.
- * 체크·수량·관심·옵션 선택은 로컬 확인용입니다. 삭제·주문·옵션 저장 요청과 목록 갱신은 미연결입니다.
- * 실제 요청과 성공/실패/pending 처리는 개발팀 장바구니 소유자에서 연결합니다.
+ * [ 개발팀 바인딩 ] 상품 행의 amount/soldOut과 요약 금액은 고정 표시 예시이며 서로 재계산하지 않습니다.
+ * 체크 선택은 화면 확인용 로컬 상태이며 삭제·주문·옵션 저장 요청과 목록 갱신은 연결하지 않습니다.
+ * 실제 선택과 요청 처리는 개발팀 장바구니 소유자에서 연결합니다. 옵션 편집 디자인은 preview-options 경로에서 확인합니다.
  */
-export function CartProductSection({ rows, total }: CartProductSectionProps) {
+export function CartProductSection({ rows }: CartProductSectionProps) {
+  const mobile = usePlatform() === 'mobile';
+  const CartItem = mobile ? CartMobileItem : CartDesktopItem;
   const availableKeys = rows.filter((row) => !row.soldOut).map(({ item }) => itemKey(item));
   const [selectedKeys, setSelectedKeys] = useState(() =>
     rows.filter((row) => row.initialSelected && !row.soldOut).map(({ item }) => itemKey(item)),
   );
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [editingRow, setEditingRow] = useState<CartPreviewRow | null>(null);
-  const [limited, setLimited] = useState(false);
+  const selectedCount = selectedKeys.length;
+  const allSelected = availableKeys.length > 0 && selectedCount === availableKeys.length;
+
+  const handleSelect = (key: string, checked: boolean) => {
+    setSelectedKeys((keys) =>
+      checked
+        ? keys.includes(key)
+          ? keys
+          : [...keys, key]
+        : keys.filter((value) => value !== key),
+    );
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    setSelectedKeys(checked ? availableKeys : []);
+  };
 
   return (
-    <Stack gap="4">
-      <CartDialogs
-        editingRow={editingRow}
-        limited={limited}
-        onEditClose={() => setEditingRow(null)}
-        onLimitedChange={setLimited}
-      />
-      <CartSelectionBar
-        allSelected={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
-        selectedCount={selectedKeys.length}
-        totalCount={rows.length}
-        soldOutCount={rows.filter((row) => row.soldOut).length}
-        onSelectAll={(checked) => setSelectedKeys(checked ? availableKeys : [])}
-      />
+    <Stack gap={{ base: '0', _mobile: '4' }}>
+      <Box mb={{ base: '6', _mobile: '0' }}>
+        <HStack justifyContent="space-between" alignItems={{ base: 'flex-end', _mobile: 'center' }}>
+          <Checkbox
+            aria-label="전체 상품 선택"
+            checked={allSelected}
+            onCheckedChange={handleSelectAll}
+            label={
+              <Typography web="body2" mo="body4">
+                전체{' '}
+                <Typography as="span" web="body2" mo="body4" weight="medium">
+                  ({selectedCount}/{rows.length})
+                </Typography>
+              </Typography>
+            }
+          />
+          <HStack gap={{ base: '3', _mobile: '2' }}>
+            <Button variant="link" size="md" disabled={selectedCount === 0}>
+              선택상품 삭제
+            </Button>
+            <Button variant="link" size="md" disabled={rows.every((row) => !row.soldOut)}>
+              품절상품 삭제
+            </Button>
+          </HStack>
+        </HStack>
+      </Box>
       <Grid
-        gridTemplateColumns="32px minmax(0, 1fr) 120px 140px 100px"
-        gap="6"
-        py="3"
-        borderTop="1px solid var(--colors-black-100)"
-        borderBottom="1px solid var(--colors-black-20)"
+        gridTemplateColumns="minmax(0, 604fr) minmax(0, 158fr) minmax(0, 200fr) minmax(0, 170fr)"
+        gap="0"
+        py="5"
+        borderTop="2px solid var(--colors-black-100)"
+        borderBottom="1px solid var(--colors-black-100)"
         display={{ base: 'grid', _mobile: 'none' }}
       >
-        <Box />
-        <Typography variant="body4">상품정보/옵션</Typography>
-        <Typography variant="body4">수량</Typography>
-        <Typography variant="body4">가격</Typography>
+        <HStack px="6" gap="4">
+          <Checkbox
+            aria-label="전체 상품 선택"
+            checked={allSelected}
+            onCheckedChange={handleSelectAll}
+            label={null}
+          />
+          <Box flex="1" textAlign="center">
+            <Typography variant="headingKr9">상품/옵션정보</Typography>
+          </Box>
+        </HStack>
+        <Box textAlign="center">
+          <Typography variant="headingKr9">수량</Typography>
+        </Box>
+        <Box textAlign="center">
+          <Typography variant="headingKr9">가격</Typography>
+        </Box>
         <Box />
       </Grid>
-      <Stack as="ul" gap="4" listStyleType="none">
+      <Stack as="ul" gap={{ base: '0', _mobile: '4' }} listStyleType="none">
         {rows.map((row) => {
-          const { item } = row;
-          const key = itemKey(item);
+          const key = itemKey(row.item);
+
           return (
-            <CartItemRow
+            <CartItem
               key={key}
               row={row}
               selected={selectedKeys.includes(key)}
-              favorite={favorites.includes(key)}
-              onSelect={(checked) =>
-                setSelectedKeys((keys) =>
-                  checked ? [...keys, key] : keys.filter((value) => value !== key),
-                )
-              }
-              onEdit={() => (row.soldOut ? setLimited(true) : setEditingRow(row))}
-              onFavorite={() =>
-                setFavorites((keys) =>
-                  keys.includes(key) ? keys.filter((value) => value !== key) : [...keys, key],
-                )
-              }
+              onSelect={(checked) => handleSelect(key, checked)}
             />
           );
         })}
       </Stack>
-      <Box display={{ _mobile: 'none' }}>
-        <Grid gridTemplateColumns="1fr 1fr" border="1px solid var(--colors-black-20)" p="6" gap="8">
-          <Stack gap="3">
-            <AmountRow label="상품금액" amount={total} />
-            <Typography variant="body5" tone="tertiary">
-              배송비는 주문 시 확인할 수 있습니다.
-            </Typography>
+      <Box mt={{ base: '4', _mobile: '0' }}>
+        <Typography variant="body5" tone="tertiary">
+          * 장바구니에 담긴 상품은 30일 동안 보관됩니다. 더 오래 상품을 보관하시려면 관심 상품에
+          담아주시기 바랍니다.
+        </Typography>
+      </Box>
+      <Box display={{ _mobile: 'none' }} mt="6">
+        <Grid gridTemplateColumns="minmax(0, 1fr) 375px" border="1px solid var(--colors-black-100)">
+          <Stack gap="5" p="8" justifyContent="center">
+            <HStack justifyContent="space-between">
+              <Typography variant="body3" weight="medium">
+                상품금액
+              </Typography>
+              <Typography variant="body3" weight="medium">
+                {cartPreviewAmounts.product.toLocaleString()}원
+              </Typography>
+            </HStack>
+            <Box borderTop="1px solid var(--colors-black-20)" />
+            <HStack justifyContent="space-between">
+              <Typography variant="body3" weight="medium">
+                배송비
+              </Typography>
+              <Typography variant="body3" weight="medium">
+                {cartPreviewAmounts.shipping.toLocaleString()}원
+              </Typography>
+            </HStack>
           </Stack>
-          <AmountRow label="결제예정금액" amount={total} emphasis />
+          <Stack alignItems="flex-end" gap="6" p="8" borderLeft="1px solid var(--colors-black-100)">
+            <Stack alignItems="flex-end" gap="0.5">
+              <Typography variant="body3" weight="medium">
+                결제예정금액
+              </Typography>
+              <Typography variant="body5" tone="tertiary">
+                (상품가격 + 배송비)
+              </Typography>
+            </Stack>
+            <HStack gap="0.5" alignItems="baseline">
+              <Typography variant="heading7">
+                {cartPreviewAmounts.total.toLocaleString()}
+              </Typography>
+              <Typography variant="headingKr9">원</Typography>
+            </HStack>
+          </Stack>
         </Grid>
       </Box>
-      <Typography variant="body5" tone="tertiary">
-        * 장바구니에 담긴 상품은 30일 동안 보관됩니다. 더 오래 상품을 보관하시려면 관심 상품에
-        담아주시기 바랍니다.
-      </Typography>
     </Stack>
   );
 }

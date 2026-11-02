@@ -9,7 +9,6 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
-import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
@@ -118,8 +117,6 @@ function CheckoutAddressFields({
         searchOpen={searchOpen}
         onSearchOpenChange={onSearchOpenChange}
       />
-      <input type="hidden" name="postalCode" value={postalCode} />
-      <input type="hidden" name="address" value={address} />
     </>
   );
 }
@@ -157,7 +154,7 @@ function CheckoutShippingForm({
         searchOpen={searchOpen}
         onSearchOpenChange={onSearchOpenChange}
       />
-      <Checkbox name="saveAsDefaultAddress" label="기본배송지로 등록" />
+      <Checkbox label="기본배송지로 등록" />
       <Button variant="link" size="sm" onClick={onUseSavedAddress}>
         기존 배송지 사용
       </Button>
@@ -175,6 +172,7 @@ const demoSavedAddress = {
   label: '홍길동집',
   name: '홍길동',
   phone: '010-1234-5678',
+  otherPhone: '010-1234-5678',
   address: '서울시 강남구 역삼동 234-1',
   postalCode: '',
   addressDetail: '',
@@ -184,11 +182,16 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
   const binding = useContext(CheckoutContext);
   const saved = binding ? binding.savedAddress : demoSavedAddress;
   if (!saved) return null;
+
+  const infoItems = [
+    { label: '받는분', value: saved.name },
+    { label: '연락처', value: saved.phone },
+    ...(saved.otherPhone ? [{ label: '다른연락처', value: saved.otherPhone }] : []),
+    { label: '주소', value: saved.address },
+  ];
+
   return (
     <Box key={JSON.stringify(saved)} border="1px solid var(--colors-black-20)">
-      <input type="hidden" name="savedAddressId" value={saved.id} />
-      <input type="hidden" name="postalCode" value={saved.postalCode} />
-      <input type="hidden" name="addressDetail" value={saved.addressDetail} />
       <HStack justifyContent="space-between" alignItems="center" bg="black.10" px="4" h="56px">
         <HStack gap="2">
           <Typography variant="body3" weight="medium">
@@ -203,55 +206,27 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
         </Button>
       </HStack>
       <Stack gap="3" px="4" py="5" borderTop="1px solid var(--colors-black-20)">
-        <HStack gap="4" alignItems="flex-start">
-          <Box minW="48px">
-            <Typography variant="body4" tone="subtle">
-              주소
-            </Typography>
-          </Box>
-          <Stack flex="1" gap="1">
-            <TextInput
-              appearance="compact"
-              aria-label="주소"
-              name="address"
-              autoComplete="street-address"
-              defaultValue={saved.address}
-            />
-            {errors?.address ? (
-              <Typography variant="body5" tone="subtle">
-                {errors.address}
-              </Typography>
-            ) : null}
-          </Stack>
-        </HStack>
-        <HStack gap="4">
-          <Box minW="48px">
-            <Typography variant="body4" tone="subtle">
-              받는 분
-            </Typography>
-          </Box>
-          <TextInput
-            appearance="compact"
-            aria-label="받는 분"
-            name="name"
-            autoComplete="name"
-            defaultValue={saved.name}
-          />
-        </HStack>
-        <HStack gap="4">
-          <Box minW="48px">
-            <Typography variant="body4" tone="subtle">
-              연락처
-            </Typography>
-          </Box>
-          <TextInput
-            appearance="compact"
-            aria-label="연락처"
-            name="phone"
-            autoComplete="tel"
-            defaultValue={saved.phone}
-          />
-        </HStack>
+        <Stack gap="3">
+          {infoItems.map(({ label, value }) => (
+            <HStack key={label} gap="2" alignItems="center">
+              <Box w="82px" flexShrink="0">
+                <Typography variant="body3" tone="subtle">
+                  {label}
+                </Typography>
+              </Box>
+              <Stack flex="1" gap="1" minW="0">
+                <Typography variant="body4" weight="medium">
+                  {value}
+                </Typography>
+                {label === '주소' && errors?.address ? (
+                  <Typography variant="body5" tone="subtle">
+                    {errors.address}
+                  </Typography>
+                ) : null}
+              </Stack>
+            </HStack>
+          ))}
+        </Stack>
       </Stack>
     </Box>
   );
@@ -322,8 +297,8 @@ function CheckoutDeliveryRequestSelect({
 }
 
 /** 배송 요청 선택과 직접 입력을 관리합니다. (Manages delivery instructions and custom text.) */
-function CheckoutDeliveryRequest() {
-  const [request, setRequest] = useState('');
+function CheckoutDeliveryRequest({ initialRequest = '' }: { initialRequest?: string }) {
+  const [request, setRequest] = useState(initialRequest);
   const [message, setMessage] = useState('');
   return (
     <Stack gap="3">
@@ -337,13 +312,16 @@ function CheckoutDeliveryRequest() {
 
 export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
+/** [ 개발팀 바인딩 ] initialEditing과 initialDeliveryRequest는 고정 preview의 최초 표시 seed입니다. 입력·주소 검색·요청사항 선택만 로컬이며 배송지 저장·배송 요청 전송은 연결 소유자가 별도로 구현합니다. */
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
 export function CheckoutShipping({
   errors,
   initialEditing = false,
+  initialDeliveryRequest,
 }: {
   errors?: ShippingErrors;
   initialEditing?: boolean;
+  initialDeliveryRequest?: string;
 }) {
   const binding = useContext(CheckoutContext);
   const hasSavedAddress = !binding || binding.savedAddress !== null;
@@ -356,7 +334,7 @@ export function CheckoutShipping({
       as="section"
       gap="4"
       title="주문자 및 배송지 정보"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading7' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
       {editing || !hasSavedAddress ? (
         <CheckoutShippingForm
@@ -372,7 +350,7 @@ export function CheckoutShipping({
       ) : (
         <CheckoutSavedAddress errors={errors} onEdit={() => setEditing(true)} />
       )}
-      <CheckoutDeliveryRequest />
+      <CheckoutDeliveryRequest initialRequest={initialDeliveryRequest} />
     </ContentSection>
   );
 }

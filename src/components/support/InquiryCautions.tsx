@@ -25,7 +25,7 @@ const panel = css({ pt: '3' });
 /** 문의 화면에서 확인할 유의사항을 펼쳐 보여줍니다. (Shows expandable cautions for the inquiry page.) */
 export function InquiryCautions() {
   return (
-    <Box borderTop="1px solid token(colors.black.20)" py="5">
+    <Box borderTop="1px solid token(colors.black.20)" pt="5">
       <Accordion
         defaultValue={['cautions']}
         indicatorColor="var(--color-text-primary)"
@@ -36,7 +36,7 @@ export function InquiryCautions() {
           {
             value: 'cautions',
             title: (
-              <Typography variant="body4" weight="medium" tone="primary">
+              <Typography variant="body4" tone="primary">
                 유의사항
               </Typography>
             ),
@@ -45,7 +45,7 @@ export function InquiryCautions() {
                 {cautions.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
                     <Typography as="span" variant="body5" tone="tertiary" aria-hidden="true">
-                      ・
+                      -
                     </Typography>
                     <Typography variant="body5" tone="tertiary">
                       {item}

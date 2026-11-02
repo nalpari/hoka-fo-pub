@@ -1,13 +1,14 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * SupportContentContext.terms의 terms/privacy 각각에 versions/document/onQueryChange를 전달합니다.
  * 시행일 선택은 versionId, 탭은 URL tab 값으로 조회합니다. 이전/다음 탐색에서도 같은 조건을 반영하고 BO 본문은 어댑터에서 안전하게 렌더링합니다.
  */
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
@@ -31,6 +32,7 @@ export default function Page() {
 
   return (
     <CustomerCenterLayout
+      className={css({ '&&': { _mobile: { pb: '16' } } })}
       title="약관"
       mobileTitleVariant="heading5"
       activePath="/support/terms"
@@ -41,9 +43,10 @@ export default function Page() {
       ]}
       groups={supportNavigation}
     >
-      <Stack mt="6">
+      <Stack mt={{ base: '10', _mobile: '6' }}>
         <SupportTabs
           ariaLabel="약관 종류"
+          variant="terms"
           defaultValue="terms"
           value={tab}
           onValueChange={(value) => {

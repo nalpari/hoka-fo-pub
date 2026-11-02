@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { IaStructurePage } from '@/app/screen-index/_components/IaStructurePage';
 
@@ -37,4 +38,43 @@ export const PlatformProgress: Story = {
       },
     },
   },
+};
+
+function ProductProgressExample() {
+  const [replaced, setReplaced] = useState(false);
+  return (
+    <>
+      <button type="button" onClick={() => setReplaced((current) => !current)}>
+        상품 상태 props 교체
+      </button>
+      <IaStructurePage
+        previewEnvironment="storybook"
+        progressOverrides={
+          replaced
+            ? {
+                3: {
+                  pcDesign: 'received',
+                  moDesign: 'received',
+                  pcPublishing: 'ready',
+                  moPublishing: 'ready',
+                },
+              }
+            : {
+                3: {
+                  pcDesign: 'missing',
+                  moDesign: null,
+                  pcPublishing: 'pending',
+                  moPublishing: 'revision',
+                },
+                4: { pcDesign: 'revision-planned', pcPublishing: 'revision' },
+              }
+        }
+      />
+    </>
+  );
+}
+
+// 실제 현황이 아닌 상품 요약·혼합 상태와 늦게 교체되는 props 검증용 fixture입니다.
+export const ProductProgress: Story = {
+  render: () => <ProductProgressExample />,
 };

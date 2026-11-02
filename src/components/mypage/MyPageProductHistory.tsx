@@ -1,16 +1,7 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * MyPageDataContext.histories[kind]에 실제 행 id와 상품 Product/liked/requestedAt을 전달합니다.
- * 찜 변경은 setLiked(행 id, 여부), 재입고 취소는 cancelRestock(신청 id)로 요청합니다. 성공 후 최신 items를 공급하고 실패 시 reject합니다.
- */
-
-import { useContext } from 'react';
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useState } from 'react';
-import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -20,7 +11,7 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
@@ -29,133 +20,238 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
-
-function MyPageProductHistoryHeading({ title }: { title: string }) {
-  return (
-    <Box px="4" pt="6">
-      <Typography as="h1" web="heading8" mo="heading5">
-        {title}
-      </Typography>
-    </Box>
-  );
-}
-
+import { type HistoryItem } from '@/types/mypage-display';
 type Props = {
   entries?: readonly HistoryItem[];
   items: readonly string[];
-  thumbnail: string;
   onCancelRequest: (id: string) => void;
 };
-
-function MyPageRestockList({ items, thumbnail, onCancelRequest, entries }: Props) {
+const restockPreview = {
+  web: {
+    name: 'Speedgoat 7 GTX',
+    gender: "Men's",
+    requestedAt: '2026.10.31',
+    statuses: ['waiting', 'sent'],
+  },
+  mobile: {
+    name: '클리프톤 9',
+    gender: '',
+    requestedAt: '2026.05.22',
+    statuses: ['waiting', 'waiting'],
+  },
+} as const;
+function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
+  const platform = usePlatform();
+  const preview = restockPreview[platform];
   return (
     <Stack gap="0">
       <Grid
-        gridTemplateColumns="1fr 160px 100px"
+        gridTemplateColumns="minmax(0, 1fr) 150px 150px"
+        gap="0"
         display={{ base: 'grid', _mobile: 'none' }}
-        borderY="1px solid var(--colors-black-100)"
-        py="4"
+        borderTop="2px solid black"
+        borderBottom="1px solid black"
+        py="5"
         textAlign="center"
       >
-        <Typography variant="body4">상품정보</Typography>
-        <Typography variant="body4">신청일</Typography>
-        <Typography variant="body4">상태</Typography>
+        {['상품정보', '신청일', '상태'].map((label) => (
+          <Typography key={label} variant="heading9" language="ko">
+            {label}
+          </Typography>
+        ))}
       </Grid>
-      {items.map((id) => {
+      {items.map((id, index) => {
         const entry = entries?.find((item) => item.id === id);
+        const name = entries ? entry?.product.name : preview.name;
+        const gender = entries ? entry?.product.gender : preview.gender;
+        const requestedAt = entries ? entry?.requestedAt : preview.requestedAt;
+        // PC/MO 시안의 서로 다른 상태는 미연결 fixture에서만 적용합니다.
+        const sent = entries ? entry?.status === 'sent' : preview.statuses[index] === 'sent';
         return (
           <Grid
             key={id}
-            gridTemplateColumns={{ base: '1fr 160px 100px', _mobile: '1fr 80px' }}
+            gridTemplateColumns={{
+              base: 'minmax(0, 1fr) 150px 150px',
+              _mobile: 'minmax(0, 1fr) auto',
+            }}
             alignItems="center"
-            borderBottom="1px solid var(--colors-black-20)"
-            gap="4"
-            py="6"
+            borderBottom="1px solid token(colors.black.20)"
+            gap="0"
+            py="8"
+            _mobile={{ py: '6', columnGap: '2' }}
           >
-            <HStack gap="4">
-              <Box w="20" h="20" flexShrink="0">
+            <HStack gap="4" px="6" alignItems="flex-start" _mobile={{ px: '0' }}>
+              <Box w="96px" h="96px" flexShrink="0" _mobile={{ w: '64px', h: '64px' }}>
                 <ProductThumbnail
-                  alt={entry?.product.name ?? '클리프톤 9'}
-                  src={entry?.product.primaryImage ?? thumbnail}
+                  alt={name ?? ''}
+                  src={entry?.product.primaryImage ?? product.primaryImage}
+                  variant="summary"
+                  sizes={platform === 'mobile' ? '64px' : '96px'}
+                  imageProps={{ width: 96, height: 96, loading: 'lazy' }}
                 />
               </Box>
-              <Stack gap="2">
-                <Typography variant="body4">{entry?.product.name ?? '클리프톤 9'}</Typography>
+              <Stack gap="0" minW="0">
+                {gender && <Typography variant="body4">{gender}</Typography>}
+                <Typography variant="body4" className={css({ fontWeight: 'medium' })}>
+                  {name}
+                </Typography>
                 <Typography
-                  variant="body5"
-                  className={css({ display: 'none', _mobile: { display: 'block' } })}
+                  variant="body4"
+                  tone="tertiary"
+                  className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
                 >
-                  신청일 : {entry?.requestedAt ?? '2026.05.22'}
+                  신청일 : {requestedAt}
                 </Typography>
               </Stack>
             </HStack>
             <Typography
-              variant="body4"
+              variant="body3"
+              tone="subtle"
               className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
             >
-              {entry?.requestedAt ?? '2026.05.22'}
+              {requestedAt}
             </Typography>
-            <Button variant="link" size="sm" onClick={() => onCancelRequest(id)}>
-              알림대기
-            </Button>
+            <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
+              {sent ? (
+                <Typography variant="body3" tone="subtle">
+                  발송완료
+                </Typography>
+              ) : (
+                <Button
+                  variant="unstyled"
+                  type="button"
+                  aria-label={`${name} 재입고 알림 취소`}
+                  onClick={() => onCancelRequest(id)}
+                  className={css({
+                    border: '0',
+                    bg: 'transparent',
+                    p: '0',
+                    cursor: 'pointer',
+                    _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
+                  })}
+                >
+                  <Typography
+                    web="body3"
+                    mo="body4"
+                    language="ko"
+                    className={css({ _mobile: { color: 'black.50' } })}
+                  >
+                    알림대기
+                  </Typography>
+                </Button>
+              )}
+            </Box>
           </Grid>
         );
       })}
     </Stack>
   );
 }
-
 type MyPageProductHistoryGridProps = {
+  recent?: boolean;
+  wishlist?: boolean;
   entries?: readonly HistoryItem[];
   items: readonly string[];
   liked: readonly string[];
   product: Product;
   onLikedChange: (id: string, active: boolean) => void;
 };
-
 function MyPageProductHistoryGrid({
+  recent = false,
+  wishlist = false,
   entries,
   items,
   liked,
   product,
   onLikedChange,
 }: MyPageProductHistoryGridProps) {
+  const platform = usePlatform();
   return (
     <Grid
       gridTemplateColumns={{
-        base: 'repeat(3, minmax(0, 1fr))',
+        base: recent ? 'repeat(3, minmax(0, 260px))' : 'repeat(3, minmax(0, 1fr))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
-      columnGap="2"
-      rowGap="6"
-      _mobile={{ columnGap: '2', rowGap: '4' }}
+      px={wishlist ? '4' : '0'}
+      justifyContent={recent ? 'center' : undefined}
+      columnGap={wishlist || recent ? '4' : '2'}
+      rowGap={wishlist || recent ? '12' : '6'}
+      _mobile={{ px: '0', columnGap: '2', rowGap: wishlist || recent ? '10' : '4' }}
     >
       {items.map((id) => (
         <ProductCard
           key={id}
+          variant={wishlist || recent ? 'history' : 'listing'}
+          promotionTone={recent && !entries ? recentPreview[platform].promotionTone : undefined}
+          discountLabel={
+            (recent || wishlist) && !entries && platform === 'mobile'
+              ? recent
+                ? recentPreview.mobile.discountLabel
+                : wishlistMobilePreview.discountLabel
+              : undefined
+          }
+          activityLabels={(wishlist || recent) && !entries ? ['데일리 러닝', '워킹'] : undefined}
           liked={liked.includes(id)}
           onLikedChange={(active) => onLikedChange(id, active)}
           options={['promotion', 'like', 'colors']}
-          product={entries?.find((entry) => entry.id === id)?.product ?? product}
+          product={
+            entries?.find((entry) => entry.id === id)?.product ??
+            (recent
+              ? recentPreview[platform].product
+              : wishlist && platform === 'mobile'
+                ? wishlistMobilePreview.product
+                : product)
+          }
         />
       ))}
     </Grid>
   );
 }
-
-function MyPageProductHistoryNote({ note }: { note: string }) {
+function MyPageProductHistoryNote({
+  note,
+  wishlist = false,
+  recent = false,
+  empty = false,
+}: {
+  note: string;
+  wishlist?: boolean;
+  recent?: boolean;
+  empty?: boolean;
+}) {
+  if (recent) {
+    return (
+      <Box
+        borderTop="1px solid var(--colors-black-10)"
+        mt={empty ? '-16px' : undefined}
+        pt="4"
+        _mobile={{
+          mt: '0',
+          mx: '4',
+          pt: empty ? '4' : '0',
+          borderTop: empty ? '1px solid var(--colors-black-10)' : '0',
+        }}
+      >
+        <Typography as="p" variant="body5" tone="tertiary">
+          {note}
+        </Typography>
+      </Box>
+    );
+  }
   return (
-    <Box px="4" pb="16">
+    <Box
+      px={wishlist ? '0' : '4'}
+      pb={wishlist ? '0' : '16'}
+      _mobile={wishlist ? { px: '4', display: empty ? 'none' : 'block' } : undefined}
+    >
       <Divider />
       <Box pt="4" whiteSpace="pre-line">
-        <Typography as="p" variant="body4" tone="tertiary">
+        <Typography as="p" variant={wishlist ? 'body5' : 'body4'} tone="tertiary">
           {note}
         </Typography>
       </Box>
     </Box>
   );
 }
-
 type MyPageRestockCancelDialogProps = {
   pending?: boolean;
   error?: string;
@@ -163,13 +259,11 @@ type MyPageRestockCancelDialogProps = {
   onClose: () => void;
   onConfirm: () => void;
 };
-
 function MyPageRestockCancelDialog({
   open,
   onClose,
   onConfirm,
   pending,
-  error,
 }: MyPageRestockCancelDialogProps) {
   return (
     <ModalDialog
@@ -187,16 +281,13 @@ function MyPageRestockCancelDialog({
         confirmDisabled: pending,
       }}
     >
-      <BindingFeedback pending={pending} error={error} />
       <Typography as="p" variant="body3">
         재입고 알림 신청을 취소하시겠습니까?
       </Typography>
     </ModalDialog>
   );
 }
-
 type ProductHistoryKind = 'wishlist' | 'recent' | 'restock-alerts';
-
 const product: Product = {
   ...products[0],
   name: 'Speedgoat 7 GTX',
@@ -213,7 +304,20 @@ const product: Product = {
     image: `/images/mypage/figma-swatch-${index}.png`,
   })),
 };
-
+const wishlistMobilePreview = {
+  product: { ...product, promotion: 'Best', originalPrice: 280000 } satisfies Product,
+  discountLabel: '20%',
+} as const;
+// 화면 시안의 플랫폼별 표시 fixture이며 연결된 상품·찜 데이터에는 적용하지 않습니다.
+const recentPreview = {
+  web: { product, promotionTone: 'error', likedIds: ['0', '1', '2', '3', '4', '5'] },
+  mobile: {
+    promotionTone: 'brand',
+    discountLabel: '20%',
+    product: { ...product, promotion: 'Best', originalPrice: 280000 } as Product,
+    likedIds: ['3', '4'],
+  },
+} as const;
 const config = {
   wishlist: {
     title: '관심상품',
@@ -231,98 +335,183 @@ const config = {
     note: '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메시지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있으며, 알림 대기 중인 신청은 여기서 취소할 수 있습니다.',
   },
 } as const;
-
 /** 계정의 상품 내역과 목록 상태를 구성합니다 (Displays the my page product history composition). */
 export function MyPageProductHistory({
   kind,
   initialCount = kind === 'restock-alerts' ? 2 : 6,
+  entries,
+  previewCancel = false,
 }: {
   kind: ProductHistoryKind;
   initialCount?: number;
+  entries?: readonly HistoryItem[];
+  previewCancel?: boolean;
 }) {
-  const binding = useContext(MyPageDataContext).histories?.[kind];
-  const request = useRequestAction();
-  useBindingQuery(binding?.onQueryChange, {});
-  const [demoItems, setItems] = useState(() =>
+  const platform = usePlatform();
+  const [demoItems] = useState(() =>
     Array.from({ length: initialCount }, (_, index) => String(index)),
   );
-  const items = binding ? binding.items.map((item) => item.id) : demoItems;
+  const items = entries ? entries.map((item) => item.id) : demoItems;
   const [demoLiked, setLiked] = useState<string[]>(() => (kind === 'wishlist' ? demoItems : []));
-  const liked = binding
-    ? binding.items.filter((entry) => entry.liked).map((entry) => entry.id)
-    : demoLiked;
-  const [pendingCancel, setPendingCancel] = useState<string | null>(null);
+  const [recentLiked, setRecentLiked] = useState<Record<string, boolean>>({});
+  const liked =
+    kind === 'recent'
+      ? items.filter(
+          (id) =>
+            recentLiked[id] ?? recentPreview[platform].likedIds.some((likedId) => likedId === id),
+        )
+      : demoLiked;
+  const [pendingCancel, setPendingCancel] = useState<string | null>(
+    previewCancel ? (items[0] ?? null) : null,
+  );
   const current = config[kind];
-
+  const restock = kind === 'restock-alerts';
+  const restockNote =
+    '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있으며, 알림 대기 중인 신청은 여기서 취소할 수 있습니다.';
   return (
     <MyPageFrame
       activePath={`/mypage/${kind}`}
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
-      <BindingFeedback
-        {...binding}
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-      />
-      <Stack gap="6">
-        {items.length ? (
-          <ContentSection gap="6" header={<MyPageProductHistoryHeading title={current.title} />}>
-            {kind === 'restock-alerts' ? (
-              <MyPageRestockList
-                entries={binding?.items}
-                items={items}
-                thumbnail={product.primaryImage}
-                onCancelRequest={setPendingCancel}
-              />
-            ) : (
-              <MyPageProductHistoryGrid
-                entries={binding?.items}
-                items={items}
-                liked={liked}
-                product={product}
-                onLikedChange={(id, active) => {
-                  if (binding) {
-                    void request.run(() => binding.setLiked(id, active));
-                    return;
-                  }
-                  setLiked((currentLiked) =>
-                    active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
-                  );
-                  if (!active && kind === 'wishlist')
-                    setItems((currentItems) => currentItems.filter((item) => item !== id));
-                }}
-              />
-            )}
-          </ContentSection>
-        ) : binding?.pending || binding?.error ? null : (
-          <EmptyState title={current.empty} variant="minimal" />
-        )}
-        {binding?.hasMore && (
-          <Button
-            disabled={binding.pending || request.pending}
-            onClick={() => {
-              void request.run(binding.onLoadMore);
+      <Stack
+        gap={restock ? '0' : '8'}
+        mx={kind === 'wishlist' || kind === 'recent' ? { _mobile: '-16px' } : undefined}
+        _mobile={
+          kind === 'recent'
+            ? {
+                gap: items.length ? '6' : '0',
+                pb: items.length ? '2' : '0',
+                mt: items.length ? '0' : '-24px',
+              }
+            : kind === 'wishlist'
+              ? { gap: '6', pb: '2' }
+              : undefined
+        }
+      >
+        {!restock && (
+          <ContentHeader
+            title={current.title}
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+            gap="0"
+            pb="10"
+            borderBottom="2px solid var(--colors-black-100)"
+            _mobile={{
+              px: '4',
+              pt: '0',
+              pb: '0',
+              borderBottom: '0',
+              display: kind === 'recent' && !items.length ? 'none' : undefined,
             }}
-          >
-            더보기
-          </Button>
+          />
         )}
-        <MyPageProductHistoryNote note={current.note} />
+        {restock && (
+          <ContentHeader
+            title={current.title}
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+            pb="10"
+            borderBottom={items.length ? undefined : '2px solid black'}
+            _mobile={{
+              pb: '0',
+              mb: items.length ? '6' : '0',
+              display: items.length ? 'flex' : 'none',
+            }}
+          />
+        )}
+        {restock ? (
+          items.length ? (
+            <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />
+          ) : (
+            <EmptyState
+              variant="plain"
+              role="status"
+              title={`${current.empty}.`}
+              titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'subtle' }}
+              layoutProps={{ py: '240px', mt: '8', _mobile: { py: '96px', mt: '0' } }}
+            />
+          )
+        ) : items.length ? (
+          <ContentSection
+            gap={kind === 'wishlist' ? '8' : '6'}
+            footer={
+              kind === 'wishlist' ? (
+                <MyPageProductHistoryNote note={current.note} wishlist />
+              ) : undefined
+            }
+            header={null}
+          >
+            <MyPageProductHistoryGrid
+              entries={entries}
+              recent={kind === 'recent'}
+              wishlist={kind === 'wishlist'}
+              items={items}
+              liked={liked}
+              product={product}
+              onLikedChange={(id, active) => {
+                if (kind === 'recent') {
+                  setRecentLiked((currentLiked) => ({ ...currentLiked, [id]: active }));
+                  return;
+                }
+                setLiked((currentLiked) =>
+                  active ? [...currentLiked, id] : currentLiked.filter((item) => item !== id),
+                );
+              }}
+            />
+          </ContentSection>
+        ) : (
+          <EmptyState
+            variant="plain"
+            title={`${current.empty}${kind === 'wishlist' ? '.' : ''}`}
+            titleProps={{ as: 'p', variant: 'body4', className: css({ color: 'black.60' }) }}
+            layoutProps={{ py: '240px', _mobile: { py: '24', px: '4' } }}
+          />
+        )}
+
+        {restock ? (
+          <Box
+            mt="4"
+            pt={items.length ? '0' : '4'}
+            borderTop={items.length ? undefined : '1px solid token(colors.black.20)'}
+            whiteSpace="pre-line"
+            _mobile={{ pt: items.length ? '0' : '4', pb: items.length ? '2' : '4' }}
+          >
+            {items.length > 0 && (
+              <Typography
+                as="p"
+                variant="body5"
+                tone="tertiary"
+                className={css({ _mobile: { display: 'none' } })}
+              >
+                {config.recent.note}
+              </Typography>
+            )}
+            <Typography
+              as="p"
+              variant="body5"
+              tone="tertiary"
+              className={css({
+                display: items.length ? 'none' : 'block',
+                _mobile: { display: 'block' },
+              })}
+            >
+              {restockNote}
+            </Typography>
+          </Box>
+        ) : kind === 'wishlist' && items.length > 0 ? null : (
+          <MyPageProductHistoryNote
+            recent={kind === 'recent'}
+            note={current.note}
+            wishlist={kind === 'wishlist'}
+            empty={!items.length}
+          />
+        )}
       </Stack>
       <MyPageRestockCancelDialog
-        pending={request.pending}
-        error={request.error}
+        pending={false}
         open={pendingCancel !== null}
         onClose={() => setPendingCancel(null)}
         onConfirm={() => {
-          if (binding && pendingCancel !== null) {
-            void request.run(async () => {
-              await binding.cancelRestock(pendingCancel);
-              setPendingCancel(null);
-            });
-            return;
-          }
-          setItems((currentItems) => currentItems.filter((item) => item !== pendingCancel));
           setPendingCancel(null);
         }}
       />

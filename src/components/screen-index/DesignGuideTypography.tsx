@@ -21,8 +21,6 @@ const pairedVariants = guideVariants
     korean: english.replace(/(\d+)$/, 'Kr$1') as GuideVariant,
   }));
 
-const monoVariants = guideVariants.filter((name) => name.startsWith('mono'));
-
 const columnLabels = [
   'Variant',
   'Web Font Size',
@@ -107,10 +105,6 @@ const styles = {
     '& tbody:nth-of-type(even)': { bg: '#fafbff' },
     '& [rowspan]': { verticalAlign: 'middle' },
     '& tbody:last-child [rowspan]': { borderBottom: '0' },
-  }),
-  monoTable: css({
-    minW: '560px',
-    '& tbody tr:nth-child(even)': { bg: '#fafbff' },
   }),
   variantCell: css({
     cursor: 'pointer',
@@ -272,63 +266,6 @@ export function DesignGuideTypography() {
                   </tbody>
                 );
               })}
-            </table>
-          </div>
-        </section>
-        <section className={styles.typographySection} aria-labelledby="typography-mono-title">
-          <Typography as="h2" id="typography-mono-title">
-            Typography · Mono
-          </Typography>
-          <Typography as="p">
-            한글 대응 variant가 없는 Mono 스타일입니다. 웹과 모바일에서 같은 크기와 굵기를
-            사용합니다.
-          </Typography>
-          <div
-            className={styles.tableScroll}
-            role="region"
-            aria-label="Mono 타이포그래피 표"
-            tabIndex={0}
-          >
-            <table
-              className={`${styles.table} ${styles.monoTable}`}
-              aria-labelledby="typography-mono-title"
-            >
-              <thead>
-                <tr>
-                  {[...columnLabels, 'Example'].map((label) => (
-                    <th key={label} scope="col">
-                      {label}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {monoVariants.map((variant) => (
-                  <tr key={variant}>
-                    <th
-                      scope="row"
-                      className={styles.variantCell}
-                      onClick={() => void copyVariant(variant)}
-                    >
-                      <button
-                        type="button"
-                        className={styles.copyButton}
-                        aria-label={`${variant} Typography 코드 복사`}
-                      >
-                        {variant}
-                      </button>
-                    </th>
-                    {getTypographyValues(variant).map((value, index) => (
-                      <td key={columnLabels[index + 1]}>{value}</td>
-                    ))}
-                    <td>
-                      <Typography variant={variant} lang="en">
-                        abcdefghijklmn
-                      </Typography>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
             </table>
           </div>
         </section>

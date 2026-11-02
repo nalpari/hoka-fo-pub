@@ -1,24 +1,15 @@
 import type { Promotions } from '@/components/common/atoms/Badge';
-
 export type ProductWidthOption = {
   label: 'Regular' | 'Wide' | 'X-Wide';
   sizes: string[];
   soldOut: string[];
   lowStockSizes?: string[];
 };
-
 export type ProductColorOption = {
   color: string;
   widths: ProductWidthOption[];
 };
-
-/**
- * [개발팀 바인딩]
- * Product는 현재 화면 표시 모델이며 서버 DTO 자체가 아닙니다. 어댑터에서 상품 id/이름/가격/이미지/분류/옵션/재고를 변환합니다.
- * colorOptions는 색상별 widths/sizes/soldOut을 연결합니다. colorThumbnails의 id와 label/이미지를 일관되게 매핑하고 다른 상품의 재고를 재사용하지 않습니다.
- * primaryImage/hoverImage/galleryImages에는 승인된 CDN 또는 로컬 경로를 전달합니다. next/image 원격 호스트 설정도 실제 CDN에 맞춰야 합니다.
- * 아래 products 배열과 생성 로직은 시안 fixture입니다. 운영 응답은 ShopShell.state.products 및 각 목록 Provider로 전달합니다.
- */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 export type Product = {
   id: string;
   name: string;
@@ -26,12 +17,15 @@ export type Product = {
   gender?: "Men's" | "Women's" | 'All Gender';
   price: number;
   originalPrice?: number;
+  discountLabel?: string;
   colors: string[];
   sizes: string[];
   hasSizeGuide?: boolean;
   soldOut: string[];
   lowStockSizes?: string[];
   rating: number;
+  /** 목록 카드의 품절 표시이며 실제 재고 판정은 연결 소유자가 전달합니다. */
+  listingSoldOut?: boolean;
   reviewCount: number;
   colorOptions?: ProductColorOption[];
   promotion?: Promotions;
@@ -45,11 +39,15 @@ export type Product = {
   primaryImage: string;
   hoverImage: string;
   galleryImages?: string[];
-  colorThumbnails?: { id: string; label: string; image: string; galleryImages?: string[] }[];
+  colorThumbnails?: {
+    id: string;
+    label: string;
+    image: string;
+    galleryImages?: string[];
+  }[];
   detailDescription?: string;
   styleCode?: string;
 };
-
 // Bondi 9 color samples for the publishing preview.
 // Source: https://www.hoka.com/en/us/womens-everyday-running-shoes/bondi-9/1162012.html
 const bondiColorThumbnails = [
@@ -72,7 +70,6 @@ const bondiColorThumbnails = [
     ),
   ],
 }));
-
 const hokaProductImages = [
   {
     primaryImage:
@@ -111,7 +108,6 @@ const hokaProductImages = [
       'https://dms.deckers.com/hoka/image/upload/f_auto/q_auto/dpr_auto/b_rgb:F7F7F9/w_800/v1782323049/1164930-VTLV_2.png?bgcolor=F3F3F3',
   },
 ] as const;
-
 const names = [
   'Aero Flow Runner',
   'Cloud Ridge Trail',
@@ -122,7 +118,6 @@ const names = [
   'Tempo Street',
   'Light Arc',
 ];
-
 const catalogColors = [
   'red',
   'blue',
@@ -137,7 +132,6 @@ const catalogColors = [
   'purple',
   'cream',
 ] as const;
-
 export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   id: `shoe-${i + 1}`,
   name: `${names[i % names.length]} ${i + 1}`,
@@ -147,6 +141,7 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   // Publishing example: Daily Motion 3 is 20% off.
   price: i === 2 ? 232000 : 129000 + (i % 5) * 15000,
   originalPrice: i === 2 ? 290000 : undefined,
+  discountLabel: i === 2 ? '20%' : undefined,
   colors: [catalogColors[i % catalogColors.length], catalogColors[(i + 5) % catalogColors.length]],
   sizes: ['230', '240', '250', '260', '270', '280'],
   soldOut: i % 4 === 0 ? ['260', '280'] : [],
@@ -184,12 +179,10 @@ export const products: Product[] = Array.from({ length: 24 }, (_, i) => ({
   use: (['Everyday Run', 'Trail Running', 'Walking'] as const)[i % 3],
   ...hokaProductImages[i % hokaProductImages.length],
 }));
-
 const cliftonGalleryImages = Array.from(
   { length: 8 },
   (_, index) => `/images/products/clifton-11-gtx/gallery-${index + 1}.png`,
 );
-
 products[0] = {
   ...products[0],
   name: 'Clifton 11 GTX',
@@ -285,7 +278,6 @@ products[0] = {
     '어떤 날씨에도 견딜 수 있도록 설계된 실루엣인 클리프턴 11 GTX는 보이지 않는 핏 멤브레인, 밀폐된 메쉬 갑피, 발수 코팅으로 외부 환경을 완벽히 차단합니다. 조절 가능한 스피드 레이스로 쉽게 착용할 수 있고, 날씨에 강한 접지력 포드와 반사 디테일까지 갖춘 클리프턴 11 GTX는 날씨와 상관없이 빛나도록 설계되었습니다.',
   styleCode: 'HOKADFG34S',
 };
-
 // Preview single-line name truncation and the full catalog color selection.
 products.splice(1, 0, {
   ...products[1],

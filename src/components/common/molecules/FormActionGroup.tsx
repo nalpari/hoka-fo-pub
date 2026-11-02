@@ -5,7 +5,7 @@ import { HStack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 
 type Props = Omit<ComponentProps<typeof HStack>, 'children'> & {
-  onCancel: () => void;
+  onCancel?: () => void;
   cancelLabel?: string;
   submitLabel: string;
   size?: 'short' | 'tall';
@@ -13,7 +13,7 @@ type Props = Omit<ComponentProps<typeof HStack>, 'children'> & {
   form?: string;
 };
 
-/** Equal-width cancel and submit actions, kept inside or explicitly associated with a form. */
+/** 같은 너비의 취소·제출 버튼을 폼에 연결해 표시합니다. (Displays equal-width cancel and submit actions associated with a form.) */
 export function FormActionGroup({
   onCancel,
   cancelLabel = '취소',

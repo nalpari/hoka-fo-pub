@@ -1,29 +1,29 @@
 import { Badge } from '@/components/common/atoms/Badge';
 
-const runClubRoad = <Badge runClubCategory="Road" />;
+const runningSessionRoad = <Badge runningSessionCategory="Road" />;
 
-const runClubTrail = (
-  <Badge runClubCategory="Trail" className="category-badge" aria-label="Trail" />
+const runningSessionTrail = (
+  <Badge runningSessionCategory="Trail" className="category-badge" aria-label="Trail" />
 );
 
 // @ts-expect-error Run club labels are generated from the category.
-const customCategoryLabel = <Badge runClubCategory="Road">Custom</Badge>;
+const customCategoryLabel = <Badge runningSessionCategory="Road">Custom</Badge>;
 
 // @ts-expect-error A category cannot also select a launch status.
-const categoryAndStatus = <Badge runClubCategory="Road" status="COMING" />;
+const categoryAndStatus = <Badge runningSessionCategory="Road" status="COMING" />;
 
 // @ts-expect-error A category cannot also select promotional labels.
-const categoryAndPromotion = <Badge runClubCategory="Road" promotion="Best" />;
+const categoryAndPromotion = <Badge runningSessionCategory="Road" promotion="Best" />;
 
 // @ts-expect-error The category owns its appearance.
-const categoryAndVariant = <Badge runClubCategory="Road" variant="line" />;
+const categoryAndVariant = <Badge runningSessionCategory="Road" variant="line" />;
 
 // @ts-expect-error Categories are limited to supported run club labels.
-const invalidCategory = <Badge runClubCategory="Track" />;
+const invalidCategory = <Badge runningSessionCategory="Track" />;
 
 void [
-  runClubRoad,
-  runClubTrail,
+  runningSessionRoad,
+  runningSessionTrail,
   customCategoryLabel,
   categoryAndStatus,
   categoryAndPromotion,

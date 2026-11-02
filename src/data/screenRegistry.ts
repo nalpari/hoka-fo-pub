@@ -28,24 +28,6 @@ type RawScreenDefinition = [
 
 // 기존 내부 번호는 상품 필터와 상태 연결을 위해 유지하며 원본 번호는 별도로 병합합니다.
 const rawScreens: RawScreenDefinition[] = [
-  [
-    258,
-    ['EXPLORE', 'HOKA Run Club', '목록', '', ''],
-    'page',
-    '1',
-    false,
-    '',
-    '신규 러닝세션 모집 목록',
-  ],
-  [
-    259,
-    ['EXPLORE', 'HOKA Run Club', '상세', '', ''],
-    'page',
-    '1',
-    false,
-    '',
-    '신청 가능 / 모집 마감 / 신청 예정',
-  ],
   [1, ['Main', '', '', '', ''], 'page', '1', false, 'eland_hma_01', ''],
   [2, ['', 'Pop-up', '', '', ''], 'popup', '1', false, 'eland_hma_02', ''],
   [3, ['MEN', 'Featured', 'Best', '목록', ''], 'page', '1', false, 'eland_hca_01', ''],
@@ -239,16 +221,26 @@ const rawScreens: RawScreenDefinition[] = [
   ],
   [154, ['', '', '트레일 러닝 가이드', '', ''], 'page', '1', false, 'eland_hex_02', ''],
   [155, ['', '', 'Running Session', '', ''], 'page', '1', false, 'eland_hex_03', ''],
+  [
+    258,
+    ['EXPLORE', 'Featured', 'Running Session', '목록', ''],
+    'page',
+    '1',
+    false,
+    '',
+    '신규 러닝세션 모집 목록',
+  ],
+  [259, ['EXPLORE', 'Featured', 'Running Session', '상세', ''], 'page', '1', false, '', ''],
   [156, ['', 'Technology', '고어텍스', '', ''], 'page', '1', false, 'eland_hex_04', ''],
   [157, ['', '', '비브람', '', ''], 'page', '1', false, 'eland_hex_05', ''],
   [
     158,
-    ['', '러닝 세션 신청', '', '', ''],
+    ['', 'Partnerships', 'UTMB', '', ''],
     'page',
     '1',
     true,
     'eland_hex_06',
-    '최종 GNB 기준: Partnerships > UTMB에서 러닝 세션 신청으로 변경. /running/run-club',
+    '메뉴만 유지. 페이지·디자인 미수급.',
   ],
   [159, ['런칭 캘린더', '', '', '', ''], 'page', '1', false, 'eland_hla_01', ''],
   [160, ['', 'Feed', '목록', '', ''], 'page', '1', false, 'eland_hla_02', ''],
@@ -274,7 +266,15 @@ const rawScreens: RawScreenDefinition[] = [
     'eland_hpl_01',
     '템플릿 5개 (261001) 기획전 목록 페이지는 별도로 없습니다. 10/6 삭제',
   ],
-  [167, ['', '상세', '', '', ''], 'page', '1', false, 'eland_hpl_02', ''],
+  [
+    167,
+    ['', '상세', '', '', ''],
+    'page',
+    '1',
+    false,
+    'eland_hpl_02',
+    'PC/MO 기획·디자인 미수급. 목업 삭제, 실제 페이지 연결 없음.',
+  ],
   [168, ['이벤트', '목록', '', '', ''], 'page', '1', true, 'eland_hev_01', '래플 포함 9/23 삭제'],
   [169, ['', '상세', '', '', ''], 'page', '1', true, 'eland_hev_02', '9/23 삭제'],
   [
@@ -410,7 +410,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     true,
     'eland_hmy_31',
-    '9/22 신규 추가 (261001) 1차 오픈 때는 대회신청내역 대신, 러닝세션 신청내역으로 변경해서 개발하면 될 것 같습니다. 10/6 명칭 수정. /mypage/event-entries → RunClubEntriesContent.tsx (러닝세션 신청내역 전용 화면)',
+    '9/22 신규 추가 (261001) 1차 오픈 때는 대회신청내역 대신, 러닝세션 신청내역으로 변경해서 개발하면 될 것 같습니다. 10/6 명칭 수정. /mypage/event-entries → RunningSessionEntriesContent.tsx (러닝세션 신청내역 전용 화면)',
   ],
   [
     201,
@@ -573,6 +573,7 @@ const rawScreens: RawScreenDefinition[] = [
   [248, ['', '404에러페이지', '', '', ''], 'page', '1', false, 'eland_hut_04', ''],
   [249, ['', '시스템점검페이지', '', '', ''], 'page', '1', false, 'eland_hut_05', ''],
   [250, ['', '기타에러페이지', '', '', ''], 'page', '1', false, 'eland_hut_06', ''],
+  [267, ['공통', '국가선택', '', '', ''], 'page', '1', false, '', ''],
 ];
 
 function normalizeScreens(rawDefinitions: readonly RawScreenDefinition[]): ScreenDefinition[] {

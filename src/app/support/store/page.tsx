@@ -2,14 +2,13 @@
 
 import { Stack } from 'styled-system/jsx';
 
-import { SupportTabs } from '@/components/common/molecules/SupportTabs';
-
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
-import { tabs } from './_components/StoreContent';
+import { StoreResults } from './_components/StoreContent';
+import { stores } from './store.data';
 
-/** 매장 검색 조건과 검색 결과를 관리합니다. (Manages store search filters and results.) */
+/** 매장의 주소와 연락처 목록을 표시합니다. (Displays store addresses and contact details.) */
 export default function Page() {
   return (
     <CustomerCenterLayout
@@ -24,7 +23,7 @@ export default function Page() {
       groups={supportNavigation}
     >
       <Stack gap="6" mt="6">
-        <SupportTabs ariaLabel="매장 지역" defaultValue="서울" tabs={tabs} />
+        <StoreResults stores={stores} />
       </Stack>
     </CustomerCenterLayout>
   );

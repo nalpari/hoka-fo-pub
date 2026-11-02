@@ -33,12 +33,12 @@ export const MultiplePromotions: Story = {
 
 export const EmptyPromotions: Story = { args: { promotion: [] } };
 
-export const RunClubRoad: Story = { args: { runClubCategory: 'Road' } };
+export const RunningSessionRoad: Story = { args: { runningSessionCategory: 'Road' } };
 
-export const RunClubTrail: Story = { args: { runClubCategory: 'Trail' } };
+export const RunningSessionTrail: Story = { args: { runningSessionCategory: 'Trail' } };
 
-export const RunClubRoadMobile: Story = {
-  ...RunClubRoad,
+export const RunningSessionRoadMobile: Story = {
+  ...RunningSessionRoad,
   decorators: [
     (Story) => (
       <PlatformProvider platform="mobile">
@@ -50,4 +50,11 @@ export const RunClubRoadMobile: Story = {
   ],
 };
 
-export const RunClubTrailMobile: Story = { ...RunClubRoadMobile, args: RunClubTrail.args };
+export const RunningSessionTrailMobile: Story = {
+  ...RunningSessionRoadMobile,
+  args: RunningSessionTrail.args,
+};
+
+export const CustomTypography: Story = {
+  args: { children: '신청완료', textProps: { variant: 'body5', tone: 'primary' } },
+};

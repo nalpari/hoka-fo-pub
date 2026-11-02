@@ -1,49 +1,37 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * SupportContentContext.notice.onQueryChange({ id })에 경로의 실제 공지 ID가 전달됩니다.
- * item.body는 BO 본문 렌더링 결과입니다. pending/error와 실제 item: null을 구분하며 없는 ID를 첫 공지로 대체하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useParams } from 'next/navigation';
-
-import { useContext } from 'react';
-import { SupportContentContext } from '@/context/SupportContentContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
 import { notices } from '@/app/support/notices/notices.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-
 /** 경로에 해당하는 공지 상세 내용을 표시합니다. (Displays notice details for the current route.) */
 export default function Page() {
-  const { id } = useParams<{ id?: string }>();
-  const { notice: binding } = useContext(SupportContentContext);
-  useBindingQuery(binding?.onQueryChange, { id: id ?? '' });
+  const { id } = useParams<{
+    id?: string;
+  }>();
   const noticeIndex = Number(id ?? 1) - 1;
-  const notice = binding ? binding.item : notices[noticeIndex];
-  if (binding?.pending || binding?.error) return <BindingFeedback {...binding} />;
+  const notice = notices[noticeIndex];
   if (!notice) return <SystemStatusPage status="not-found" />;
-
   return (
     <CustomerCenterLayout
+      className={css({ _mobile: { pb: '72px!' } })}
       title="공지사항"
+      mobileTitleVariant="heading5"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
         { label: '고객센터', href: '/support' },
         { label: '공지사항', href: '/support/notices' },
-        { label: '상세' },
       ]}
       groups={supportNavigation}
       footerAction={{
@@ -56,27 +44,40 @@ export default function Page() {
       }}
     >
       <Box
-        mt="10"
+        mt={{ base: '10', _mobile: '8' }}
         borderTop="2px solid"
-        borderBottom="1px solid"
-        borderColor="black.20"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="black.20"
         borderTopColor="black.100"
         py="6"
         _mobile={{ py: '4', borderTopWidth: '1px' }}
       >
-        <Stack gap="2">
-          <Typography as="h2" web="body1" mo="body3" weight="medium">
-            {notice.title}
-          </Typography>
-          <Typography as="time" variant="body4" dateTime={notice.date} tone="tertiary">
-            {notice.date}
-          </Typography>
-        </Stack>
+        <ContentHeader
+          title={notice.title}
+          titleAs="h2"
+          titleProps={{ variant: 'heading9' }}
+          gap="2"
+          description={notice.date}
+          descriptionAs="time"
+          descriptionProps={{
+            variant: 'body4',
+            language: 'en',
+            dateTime: notice.date,
+            className: css({ color: 'black.50' }),
+          }}
+        />
       </Box>
-      <Stack gap="4" px="2" py="6" borderBottom="1px solid" borderColor="black.20">
-        {binding ? (
-          binding.item?.body
-        ) : notice === notices[0] ? (
+      <Stack
+        gap="4"
+        px="2"
+        py="6"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="black.20"
+        _mobile={{ minH: '354px' }}
+      >
+        {notice === notices[0] ? (
           <>
             <Typography as="p" variant="body4">
               안녕하세요, HOKA 코리아입니다.

@@ -1,7 +1,351 @@
+## 2026-11-02 — 인계 상태 직접 링크 18개 등록
+
+전체 화면 인계의 프로필 8개·주문 5개·리워드 2개·상품 1개·러닝 2개 상태 URL을 기존 IA와 연결하고 소스 그래프를 재생성했다. 기본 경로와 PC/MO 공통 URL은 유지한다. [상태 연결](architecture/routing.md#인계-상태-18개-직접-연결-완료), [전체 인계표와 실제 검사 결과](development/markup-handoff.md)를 함께 기록했다.
+
+## 2026-11-02 — 디자인 상태 직접 링크 14개와 만료 팝업 구현
+
+[상태별 URL](architecture/routing.md#디자인-상태-직접-링크-구현-2026-11-02)을 기존 IA에 추가했다. 11개 새 preview와 안내 탭 query 3개를 사용하고 기존 잠금 해제 만료 URL은 팝업을 처음부터 연다. 공용 이전 약관 picker를 재사용하며 기본 호출자·범위 밖 연결 계약을 보존했다. 경로 테스트 6개, PC/MO 상태 30개와 기본 16개 사례·history·resize·닫기, 변경 lint·타입·Next/Storybook build를 검증했다. 캡처 도구 timeout과 서비스 미연결 등 한계는 [검증 기록](development/verification.md#디자인-상태-직접-링크-구현-2026-11-02)을 따른다. 기록: 2026-11-02T09:59:35Z.
+
+## 2026-11-02 — 디자인 상태별 IA 직접 링크 누락 조사
+
+사용자 지정 디자인 10개 영역과 현재 IA를 대조해 [직접 링크 누락 14개와 만료 팝업 초기 표시 불일치 1개](architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 기록했다. 앱 소스·IA·URL은 수정하지 않았다. 기존 경로 검사 5개 통과, 실제 IA 링크 표시 대조와 대표 URL 5개의 PC 1440px·MO 375px 초기 상태 확인을 수행했다. 상세 범위와 한계는 [검증 기록](development/verification.md#디자인-상태-링크-누락-조사-검증-2026-11-02)을 따른다. 기록 시점: 2026-11-02T09:31:43Z.
+
+## 2026-11-02 — 전체 화면 퍼블리싱 인계
+
+전체 라우트와 stories의 서비스·시뮬레이션 의존성을 고정 표시로 전환하고 직접 상태 URL 18개를 기존 IA에 연결했다. 구조·타입 소유권, fixture 금액/할인 표시, 오류 유지 검사와 source graph를 함께 정리했다. [인계표](development/markup-handoff.md)와 routing/state/ui/project/verification 개념을 갱신했다. 기록 시각: 2026-11-02T09:44:32.550Z.
+
+## 2026-11-02 — 디자인 상태 링크 지침의 저장소 영향 검토
+
+상태 링크 작업 지침 작성 범위를 확인하고 [라우팅](architecture/routing.md#디자인-상태-링크-지침-검토-2026-11-02)·[UI](architecture/ui.md#디자인-상태-링크-지침-검토-2026-11-02)·[상태](architecture/state.md#디자인-상태-링크-지침-검토-2026-11-02)·[프로젝트](project.md#디자인-상태-링크-지침-검토-2026-11-02)·[검증](development/verification.md#디자인-상태-링크-지침-검토-2026-11-02)에 검토 대상과 영향 없음을 기록했다. 제품 소스·상태 URL·IA 데이터는 변경하지 않았다. 저장소 외부 지침의 형식·참조·표시 정보 검사와 사례별 지침 검토만 수행했으며 앱 실행 검증은 수행하지 않았다. 기록 시점: 2026-11-02T09:21:14Z.
+
+## 2026-11-02 — 주문서 퍼블리싱 제출 로직 제거
+
+- `CheckoutForm`의 입력 오류 초기화, `noValidate`, pending/error, FormData 검증·payload 작성·요청 콜백을 제거했다. `/checkout`도 완료 전환과 장바구니 제거를 수행하지 않고 준비된 장바구니 데이터를 화면에 배치한다. 결제수단, 쿠폰 선택, 동의 체크는 로컬 UI 상호작용으로 남겼다.
+- 쿠폰 선택은 화면에서만 바뀌고 견적 금액을 갱신하지 않는다. 제출용 hidden input과 주문 완료/쿠폰 재시도 binding 스토리를 정리하고 로컬 선택 상태 스토리로 바꿨다. 고정 오류/완료 preview는 직접 URL 표시를 유지한다. 프론트 연결 경계는 [데이터 연결](architecture/data-binding.md#주문서-표시와-프론트-연결-경계), [UI](architecture/ui.md#주문서-퍼블리싱-마크업-경량화-2026-11-02), [라우팅](architecture/routing.md#주문서-기본-경로의-표시-전용-동작-2026-11-02)에 기록했다.
+- `npm run screen-files`, Prettier, `npm run okf:check`, `git diff --check`는 통과했다. `npm run typecheck`에는 변경 Checkout 파일 오류가 없고, 기존 `.next/types`의 제거된 경로 참조 및 상품 목록 PageProps 오류가 남는다. 변경 파일 ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. Storybook 브라우저 검증과 실제 결제 동작 검증은 수행하지 않았다.
+
 # 지식 번들 변경 이력
+
+## 2026-11-02 — 주문완료 PC·모바일 Figma 반영
+
+- PC·모바일 시안에 맞춰 완료 제목/체크 아이콘 제거, 감사 문구·CTA의 너비와 간격, 추천상품 제목·카드 크기/간격을 조정했다. 주문완료에서만 추천상품의 checkout 표현을 사용하고 장바구니 표현과 표시 데이터는 유지했다.
+- [UI 기록](architecture/ui.md#주문완료-pc모바일-시안-반영-2026-11-02)에 Figma 노드, 규격과 변경 범위를 추가했다. Panda·Prettier·OKF·diff 검사는 통과했다. TypeScript에는 이번 변경 파일 외 기존 `.next/types` 라우트/PageProps 오류가 있고, ESLint는 `eslint-plugin-perfectionist` 누락으로 시작되지 않았다. 브라우저 자동화/로컬 서버가 응답하지 않아 시각 캡처는 확인하지 못했다.
+
+## 2026-11-02 — 주문완료 모바일 CTA 전체 너비
+
+주문 확인 ButtonLink에 공통 `fullWidth`를 지정해 모바일에서 외부 링크와 내부 배경 프레임이 모두 부모 너비를 채우도록 했다. 기존 반응형 너비로 PC CTA 180px은 유지한다. 시각 검증은 아직 수행하지 않았다. [UI 기록](architecture/ui.md#주문완료-pc모바일-시안-반영-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니·주문 단계 표시 제거
+
+장바구니·주문/결제·주문완료의 공통 진행 단계를 제거하고 `OrderPageLayout`의 `step`·`showSteps` API와 기존 호출부를 정리했다. 제목 프레임과 간격은 유지하며 취소/반품 신청 내부의 별도 단계 표시는 유지한다. 코드 참조 검색, Prettier, OKF, diff 검사를 기록한다. 브라우저 시각 확인은 수행하지 않았다. [UI 기록](architecture/ui.md#주문-프레임의-주문-단계-표시-제거-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 체크아웃 주요 제목 주석
+
+`CheckoutContent`와 완료/미리보기 구성에서 배송지·주문상품·결제·할인/금액·동의·결제 액션 및 화면 제목·쿠폰 조회·주문 완료/추천 영역을 찾기 쉽도록 JSX 주석을 추가했다. 기존 `ContentSection` 제목 소유와 화면 구조는 유지했다. Prettier, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 모듈 오류로 실패했으며 변경 파일 오류는 보고되지 않았다. 브라우저 시각 확인은 하지 않았다. [UI 기록](architecture/ui.md#체크아웃-섹션-제목-주석-위치-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문 페이지 공통 본문 조립 간소화
+
+`OrdersContent` 안으로 단일 사용처 `OrdersLayout`을 합쳤다. 공유 소유자에서 `MyPageFrame`·`Stack`·`ContentSection`과 목록/상세 상태 분기를 한 흐름으로 읽을 수 있다. `/mypage/orders`, `/mypage/returns`, 기존 미리보기와 스토리는 같은 공유 화면을 사용하며 데이터 연결은 유지했다. 포맷·OKF·diff 검사를 기록한다. 브라우저 확인은 수행하지 않았다. [UI 기록](architecture/ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문서 기본 배송지 정보 Figma 반영
+
+모바일 주문/결제의 저장 배송지 표시를 `받는분·연락처·다른연락처·주소` 행으로 맞췄다. 라벨 Body3 16px, 값 Body4 14px medium으로 적용했다. `otherPhone`은 선택 표시 데이터이며 값이 있을 때 표시한다. 읽기 전용 전환 뒤에도 저장 배송지 제출 필드를 hidden input으로 유지했고, API·결제 처리는 변경하지 않았다. Prettier, Storybook production build, `npm run okf:check`, `git diff --check`는 통과했다. `npm run typecheck`는 변경 파일과 무관한 `.next` 생성 라우트 모듈 참조 오류들로 실패했다. ESLint는 환경에서 `eslint-plugin-perfectionist`를 찾지 못해 실행되지 않았다. 브라우저 시각 확인은 하지 않았다. [UI 기록](architecture/ui.md#주문서-기본-배송지-정보-라벨과-타이포-2026-11-02)과 [상태 계약](architecture/state.md#주문서-저장-배송지-연락처-표시값-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문 조회·취소/환불 신청·내역 Figma 반영
+
+주문/배송조회, 취소/환불 신청, 취소/반품내역 세 화면을 최신 Figma와 대조했다. 취소/반품내역의 PC 표·모바일 목록·빈 상태, 기간 탭 순서/크기, PC 신청 모달과 모바일 시트, 신청 상품 크기와 취소만 수량 조절하는 표현을 반영했다. 기존 주문 상태·필터·견적/제출 Context 연결과 두 페이지 URL은 유지했다. Storybook을 `PAGES/주문`으로 분리하고 WEB·Mobile 주문 조회 및 취소/반품내역 스토리를 추가해 화면 인덱스에 연결했다. Panda 생성·OKF는 통과했고, 전체 타입 검사에는 기존 `.next` 경로 오류, ESLint에는 빠진 플러그인 오류가 있었다. 서버 기동 권한/감시 한도 문제로 브라우저 확인은 하지 못했다. [UI](architecture/ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)와 [라우팅](architecture/routing.md#주문-관련-3개-화면의-url-유지-2026-11-02)에 상세 범위를 기록했다.
+
+## 2026-11-02 — 모바일 장바구니 컬러 목록 오른쪽 여백
+
+옵션 변경 모달의 모바일 컬러 목록 폭을 원래대로 복구하고 스크롤 끝에 16px 빈 칸을 둬 마지막 썸네일 뒤 여백을 만들었다. 브라우저 375px `/cart`에서 가로 목록을 끝까지 스크롤해 확인했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 검증을 기록했다.
+
+## 2026-11-02 — PC 장바구니 옵션 모달 열 수
+
+Figma PC 옵션 모달에 맞춰 컬러 이미지 6열과 사이즈 5열을 적용했다. 모바일 컬러 가로 스크롤·사이즈 4열은 유지하고 브라우저에서 계산된 열 수를 확인했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 출처와 범위를 기록했다.
+
+## 2026-11-02 — 모바일 장바구니 옵션 모달 폭
+
+모바일 옵션 변경 모달의 그리드 열을 `minmax(0, 1fr)`로 제한해 내부 콘텐츠에 따라 PC 너비로 확장되는 문제를 수정했다. Panda CSS 재생성과 375px 브라우저 계산 폭을 [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 기록했다.
+
+## 2026-11-02 — 장바구니 Wishlist SVG
+
+Figma 장바구니의 하트 벡터를 SVG 두 상태로 가져와 공통 Wishlist에 적용하고, 장바구니 PC/MO 호출 크기를 14×14px로 통일했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 출처를 기록했다.
+
+## 2026-11-02 — 장바구니 본문 마크업 펼치기
+
+장바구니 선택 바는 `CartProductSection` JSX에 펼치고, 서로 다른 PC/MO 상품 행은 같은 파일의 `CartDesktopItem`과 `CartMobileItem`으로 각각 묶었다. 선택·옵션 열기만 부모에서 관리하고, 스토리에 필요한 수량·관심 토글은 각 카드의 로컬 상태로 둔다. 추천 목록·모달 preview 계약은 유지한다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 구조와 확인 범위를 기록했다.
+
+## 2026-11-02 — 장바구니 PC 상품 액션 너비
+
+PC 상품 행의 품절 버튼을 삭제하기와 같은 80px 폭으로 맞추고 주문하기도 같은 너비로 정렬했다. 이전 전체 폭 품절 버튼 기록을 [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)의 현재 동작으로 갱신했다.
+
+## 2026-11-02 — 장바구니 PC 시안 상세 대조
+
+PC 장바구니의 제목·표 선과 열 정렬, 옵션변경·관심상품 위치, 금액 요약·주문 버튼·고객센터 카드를 Figma `1797:47269`에 맞춰 조정했다. 기존 4개 상품 표시 fixture와 모바일 행은 유지했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 실제 확인 범위와 남은 차이를 기록했다.
+
+## 2026-11-02 — 장바구니 PC 상품 버튼
+
+PC 상품 행의 주문 버튼을 검정 primary로 지정하고 품절 버튼을 액션 열 전체 폭으로 맞췄다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니 모바일 주문 액션 렌더링
+
+모바일 전용 `CartOrderActions`의 표시 조건을 컴포넌트에 두고 페이지·스토리의 숨김 `Box`를 제거했다. PC `Stack`의 빈 자식으로 생기는 간격을 없애고 모바일 표시는 유지한다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니 옵션·구매 제한 모달 시안
+
+Figma PC/MO 옵션 변경과 구매 수량 제한 안내 4개 노드를 장바구니에 반영했다. 색상 썸네일과 로컬 옵션 선택을 재사용하고 두 모달의 직접 미리보기 URL·Storybook 상태·IA 연결을 추가했다. 제한 발생 조건이나 저장 서비스는 만들지 않았다. [화면](architecture/routing.md#장바구니-기본-화면의-고정-상태-2026-11-02), [스타일](architecture/ui.md#장바구니-선택품절-표시-2026-11-02), [바인딩](architecture/data-binding.md#장바구니-고정-표시-예시-갱신-2026-11-02)에 기록했다.
+
+## 2026-11-02 — 장바구니 퍼블리싱 기본 상태 정리
+
+Figma MO 기본·선택 및 PC 시안과 장바구니 고정 화면을 대조해 기본 선택 0/4, 품절 1개, 제목 4개와 PC 표시 합계를 맞췄다. MO 3개 선택 시안의 금액을 별도 고정 fixture와 Storybook 상태로 표시한다. 선택 숫자 표기를 PC/MO 동일하게 하고 열 수 없는 수량 제한 안내 팝업·스토리를 제거했다. 로컬 UI 외 서비스 흐름은 추가하지 않았다. [라우트 범위](architecture/routing.md#장바구니-기본-화면의-고정-상태-2026-11-02), [표현과 스토리](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)를 갱신했다.
+
+## 2026-10-30 — 마이페이지 시안 기록과 출처 정리
+
+회원정보·배송지·재입고·관심상품의 기존 시안/연결/검증 기록과 working_tree_sources 순서를 정리하고 인덱스·관련 이력의 표현을 맞췄다. 이번 정리는 남아 있던 문서 변경을 통합한 것이며 과거 브라우저·API 검증을 새로 수행했다는 뜻이 아니다. 소스 서식 정리와 그래프 갱신은 별도 커밋에 포함했다.
+
+## 2026-10-30 — 화면 연결 그래프 재생성
+
+주소 관리·회원정보의 현재 import와 진입 파일을 생성 그래프에 반영했다. 정식 screen-files 명령과 기존 그래프 테스트 1개를 통과했다. [기록](architecture/routing.md#화면-연결-그래프-재생성-2026-10-30)을 갱신했다.
+
+## 2026-10-30 — 공통 카드와 가이드 서식 정리
+
+상품 카드·마이페이지 상품 내역의 객체/주석 배치와 퍼블리싱 가이드 import를 정리했다. 동작 변경 없이 관련 소스 ESLint·Prettier를 통과했다. [범위와 검증](architecture/ui.md#공통-카드와-가이드-서식-정리-2026-10-30)을 기록했다.
+
+## 2026-10-30 — 회원정보 저장 연결 검증 추가
+
+회원정보의 늦은 원본 응답, 저장 대기·실패 후 초안 보존·재시도 성공, 전체 제출값과 비밀번호 중복 요청 방지를 확인하는 스토리를 추가했다. 정적 Storybook의 실제 play가 통과했다. [검증 기록](architecture/ui.md#회원정보-조회수정-figma-적용-2026-10-30)과 [연결 경계](architecture/data-binding.md#회원정보-인라인-비밀번호와-표시-계약-2026-10-30)를 갱신했다.
+
+## 2026-10-30 — 쿠폰 PC/MO Figma 적용
+
+쿠폰 등록의 회색 영역·고정 노출 48px 버튼, SVG 카드·2/1열·타이포와 일반/임직원 표시 조건을 시안에 맞췄다. 기존 데이터 연결과 네 상태 URL을 유지하며 PC Storybook·임직원 스토리를 추가했다. [UI 값·검증](architecture/ui.md#쿠폰-figma-적용-2026-10-30), [라우트·IA 연결](architecture/routing.md#쿠폰-시안과-기존-상태-url-2026-10-30)에 출처와 시안/기존 counter 차이를 기록했다.
+
+## 2026-10-30 — 회원정보 조회·수정 Figma 적용
+
+회원정보 조회·수정 preview의 PC 844px 본문·2열 폼, 모바일 1열·간격·인라인 비밀번호·주소 배치와 버튼을 반영했다. [UI와 검증](architecture/ui.md#회원정보-조회수정-figma-적용-2026-10-30), [라우트](architecture/routing.md#회원정보-조회수정-figma-적용-2026-10-30), [연결 계약](architecture/data-binding.md#회원정보-인라인-비밀번호와-표시-계약-2026-10-30)에 출처·실제 검사와 미연결 API 경계를 기록했다.
+
+## 2026-10-30 — 배송지 관리 PC/MO Figma 적용
+
+기존 목록·빈 목록·추가·수정 경로에 지정 섹션의 제목·배지·가로/세로 정보 배치·빈 안내 전문·500px 폼·48px 액션을 적용했다. 수정 preview는 명시적 시안 fixture를 사용한다. 기존 데이터·저장/삭제·주소 팝업 경계와 기본/상태 IA 연결을 유지했다. [UI 값과 검증](architecture/ui.md#배송지-관리-figma-적용-2026-10-30), [경로 영향](architecture/routing.md#배송지-관리-시안과-고정-경로-2026-10-30)을 기록했다.
+
+## 2026-10-30 — 최근 본 상품 PC/MO Figma 적용
+
+`/mypage/recent`와 `/mypage/recent/preview-empty`의 제목·3/2열·빈 상태 여백·안내문을 제공된 네 프레임에 맞췄다. 공통 history 카드를 재사용하고 PC/MO 배지·가격·찜 상태를 명시적 fixture로 구분했다. 사용자 확정에 따라 MO 미연결 화면은 `20%`를 고정 표시하며 연결 데이터에는 적용하지 않는다. [UI 규격·출처·검증](architecture/ui.md#최근-본-상품-figma-적용-2026-10-30)에 기존 서비스 계약과 다른 채팅 변경의 보존 범위를 기록했다.
+
+## 2026-10-30 — 러닝세션 신청내역 Figma 실측 보정
+
+/mypage/event-entries의 PC/MO 탭·간격·목록 타이포·배지·취소 위치·모달과 사진 3종을 지정 섹션에 맞췄다. 기존 URL·공통 프레임·서비스 계약을 유지했다. [표현과 실제 검증](architecture/ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [라우팅](architecture/routing.md#러닝세션-신청내역-figma-실측-보정-2026-10-30), [상태 경계](architecture/state.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)에 출처와 비대상 타입 오류·manifest 부재를 기록했다.
+
+## 2026-10-30 — 관심상품 PC/MO Figma 적용
+
+`/mypage/wishlist`와 `/mypage/wishlist/preview-empty`의 제목·3/2열 배치·빈 문구·안내문을 지정 섹션에 맞췄다. 공통 상품 카드와 색상 목록에 history 표시 옵션을 추가하고 기존 listing/showcase·최근 본 상품/재입고 및 데이터 연결은 보존했다. [UI 규격과 검증](architecture/ui.md#관심상품-figma-적용-2026-10-30)에 실측값, 유지한 fixture 차이와 검증 범위를 기록했다. Next/Storybook 빌드·TypeScript·Panda·변경 파일 lint/서식·관련 검사 7개와 PC/MO 직접 화면 확인을 완료했다. 전체 lint의 비대상 미사용 import 2건은 별도 기록했다.
+
+## 2026-10-30 — 회원등급 PC/MO Figma 적용
+
+`/mypage/rewards`를 첨부 섹션의 PC 1563:33480·MO 1643:17449에 맞춰 진행바·구매금액 카드·세 도형 배지·등급별 목록·공통 쿠폰 혜택으로 갱신했다. 기존 overview 연결에 선택적 누적/목표 표시 문자열을 추가하고 PC Storybook과 IA 195 연결을 등록했다. 시안 간 RUNNER 한도·반품쿠폰 차이는 명시적 fixture로 보존했다. [UI 값·검증](architecture/ui.md#회원등급-시안-적용-2026-10-30), [라우팅](architecture/routing.md#회원등급-시안-적용-2026-10-30), [상태](architecture/state.md#회원등급-표시-데이터-2026-10-30), [바인딩](architecture/data-binding.md#회원등급-시안의-진행금액-표시-2026-10-30)을 갱신했다. Next·Storybook 빌드, 타입·Panda·변경 파일 lint/서식, 관련 기존 테스트 11개 통과. 전체 lint의 비대상 미사용 import 2건은 구분 기록했다. 실제 API 연결과 PC 공통 메뉴 검수 항목은 남아 있다.
+
+## 2026-10-30 — 상품리뷰 PC/MO Figma 실측과 상태명 반영
+
+`/mypage/reviews`·`/preview-written`·`/preview-empty`의 탭 42/32px·도구 간격·작성한 리뷰 표/모바일 카드·별점·빈 상태를 지정된 Figma 섹션에 맞췄다. 작성 목록 preview의 MO 총 2건/더보기 없음은 명시적 fixture로 구분하며 기본 데이터·조회/저장 계약은 유지한다. IA 191의 상태명 세 개와 리뷰 story 명칭을 정정했다. [표현/검증](architecture/ui.md#상품리뷰-디자인-목록과-state-2026-10-30), [URL 연결](architecture/routing.md#상품리뷰-디자인의-직접-상태-url-2026-10-30)에 출처·실제 검사와 전체 lint의 비대상 오류를 기록했다.
+
+## 2026-10-30 — 화면 연결 그래프 최신화
+
+기존 로그인·계정 화면 및 퍼블리싱 가이드 변경에 맞춰 `src/app/screen-index/sourceGraph.generated.json`을 정식 명령으로 재생성했다. [라우팅 기록](architecture/routing.md#화면-연결-그래프-최신화-2026-10-30)에 범위와 그래프 테스트 1개 통과를 기록했다.
+
+## 2026-10-30 — 마이페이지 메인 PC/MO 디자인 적용
+
+`/mypage`·`/mypage/preview-no-orders`의 가로 요약 카드·주문 표·3열 메뉴, 모바일 간격/제목과 빈 주문 문구를 Figma 메인 섹션에 맞췄다. 기존 데이터·바인딩·로그아웃 콜백을 유지하고 centered 모바일 breadcrumb만 8px로 조정했다. [표현과 검증](architecture/ui.md#마이페이지-메인-디자인-반영-2026-10-30), [라우트 영향](architecture/routing.md#마이페이지-메인-디자인-적용-2026-10-30)을 갱신했다. 변경 파일 ESLint·Prettier/타입/Panda/Next 빌드와 두 URL PC/MO·캐러셀·모달·화면 폭 경계를 확인했다. 전체 lint의 비대상 기존 오류와 Storybook 미실행은 관련 문서에 구분했다.
+
+## 2026-10-30 — 비대상 마이페이지 세 화면 삭제
+
+사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
+
+## 2026-10-30 — 공통 D2 국가선택 인계 연결
+
+사용자가 국가선택을 인계에 포함하고 IA 구조도의 공통 아래 D2에 추가하도록 확정했다. 기존 /locales 화면과 외부 국가 사이트 링크를 재사용한다. 원본 IA 항목이 없어 다음 가용 프로젝트 내부 식별자 267로 등록하며 source=project, 원본 sourceIaNumber와 화면 코드는 비워 둔다. 기존 PC/MO LocalesPage Storybook을 연결하고 새 화면·preview·서비스 API·배송 국가 저장은 만들지 않는다. 사용자 직접 확인으로 국가선택의 PC/MO 디자인은 미해당(not-applicable), 퍼블리싱은 완료(ready)로 지정했다. 디자인 상태 타입·표시 라벨·필터에 미해당을 추가하며 미수급/확인 전과 구별한다. 대응 IA·범위 판단은 이제 확정이며 남은 미정 범위는 결제수단·멤버십 활동·친구추천이다. sourceGraph는 정식 screen-files 명령으로 재생성한다. 출처: 사용자 인계 포함 및 공통 D2 지시, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts, src/app/locales/page.tsx, 기존 locales 스토리와 tests/preview-links.test.mjs. 회귀 검사는 국가선택의 D2·project 출처·코드 없음과 화면/PC/MO 스토리 연결을 확인한다.
+
+## 2026-10-30 — 러닝 세션 배지 명칭 누락 보완
+
+이 채팅의 경로·심볼 이전에서 발생한 Badge·Storybook·타입 검사의 명칭 변경을 기준 스냅샷과 편집 기록으로 확인하여 함께 반영했다. Badge.runningSessionCategory와 runningSessionBadge로 통일하고 기존 runClubCategory 명칭을 대체한다. Road/Trail 라벨·스타일과 다른 Badge 모드의 배타적 타입 계약은 유지한다. 앞선 작업 보고에서 다른 작업으로 분류했던 배지 3개 파일은 이 채팅의 수정이었으며 누락분을 별도 커밋으로 보완한다. 출처: src/components/common/atoms/Badge.tsx, src/stories/components/common/atoms/Badge/Badge.stories.tsx, src/types/type-tests/Badge.type-test.tsx와 작업 전 스냅샷.
+
+## 2026-10-30 — 매장 목록 제목의 기존 16px 크기 유지
+
+- `StoreResults` 매장명을 H10·600으로 지정해 기존 16px 크기를 유지했다. 정보 목록·데이터·라우트 계약은 변경하지 않았다.
+- 변경 파일 ESLint·Prettier를 통과했다. [표현 규격](architecture/ui.md#매장-목록-제목-16px-유지-2026-10-30), [라우트 영향 검토](architecture/routing.md#매장-목록-제목-매핑-검토-2026-10-30).
+
+## 2026-10-30 — 상태 preview 후속 정리 최종 검증
+
+전체 Node 테스트 108개와 TypeScript 검사, 변경 TS/TSX·테스트의 ESLint/Prettier 검사를 통과했다. 최종 Next production build는 컴파일·타입·122개 정적 페이지 생성을 통과했고 Storybook production build도 별도 .tmp-preview-followup-storybook-final-20261030에서 통과했다. Storybook의 기존 번들·플러그인 타이밍 경고는 남아 있으며 전체 play 실행은 하지 않았다. 후속 정적 이미지 폴더 이동은 내용 변경 없는 10개 파일 이동으로 별도 파일 존재·PNG 검사 2개와 production 서버 이미지 로드로 확인했다.
+
+브라우저에서 1280px PC·375px MO의 매장 목록, 정상·품절 혼합 목록, 러닝 세션 목록·Empty·모집 마감·신청 예정 상세를 직접 열었다. 플랫폼 hydration 뒤 문서 가로 넘침이 없었고 매장 탭·지도·길 찾기가 없었다. 품절 overlay 2개의 검정 50% 배경·흰색 문구·상세 링크와 기본 목록의 품절 overlay 미표시를 확인했다. 모바일 상세와 품절 preview의 새로고침을 확인했다. 이미지 경로 누락 보완 후 PC/MO 카드·상세 이미지 naturalWidth가 0보다 큼을 확인했고 모바일 목록 8개 모두 로드됐다. PC 목록의 화면 밖 이미지는 기존 lazy loading을 유지한다.
+
+production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /running/running-session 이동을 확인했다. /running/run-club, /collection/8386, /mypage/refund-account는 404다. screen-index는 1782/1280/768/375px의 가변 NAV 열·스크롤 후 sticky top=0·문서 가로 넘침 없음을 확인했다. 최종 375px NAV는 2열이고 내부 스크롤로 검색 필드에 접근할 수 있다. 14개 대분류 행의 코드 colSpan=2와 링크 없음, Featured > Running Session 아래 목록·상세 순서, 상위 페이지 링크 제거, 검수 설명 비노출과 UTMB 비고 문장 제거를 확인했다. UTMB 자체의 연결 없음은 Node 검사로도 검증한다.
+
+이번 결과는 전체 픽셀 비교·최종 디자인 승인·실제 API·외부 인증·결제 검증이 아니다. 최종 시각 승인은 사용자 결정대로 후속으로 남긴다. 출처: tests/*.test.mjs, 최종 build 출력과 이 채팅의 Ego 브라우저 검사. 기준 명령·실행 로그는 저장소 밖 작업 스냅샷에 보관했다.
+
+## 2026-10-30 — 러닝 세션 정적 이미지 경로 수정
+
+경로·심볼 이전 시 코드의 /images/running-session 주소와 실제 public/images/run-club 폴더가 어긋나 이미지가 로드되지 않는 누락을 사용자 브라우저 지적으로 확인했다. 카드 8개·상세 2개 원본 이미지를 public/images/running-session으로 이동하여 주소와 일치시켰다. 이미지 내용은 수정하지 않았다. 표시 텍스트·런타임 오류 검사만으로 이미지 로딩 성공을 판단하지 않으며 이미지 파일 존재와 브라우저 naturalWidth를 별도로 검증한다. 출처: public/images/running-session, src/components/running-session/runningSession.data.ts, tests/running-session-assets.test.mjs.
+
+## 2026-10-30 — 기존 상태 preview 라우트 검사 동기화
+
+전체 route manifest 검사에서 기존 신청 취소·작성 가능/작성 리뷰 목록 세 URL이 기대 목록에서 빠져 있음을 확인하여 tests/app-router.test.mjs의 기대 목록만 보완했다. 기존 화면은 재생성하거나 변경하지 않았다. 전체 Node 테스트 106개를 통과했다. 출처: 기존 /mypage/event-entries/preview-cancel, /mypage/reviews/preview-ready, /mypage/reviews/preview-written과 tests/app-router.test.mjs.
+
+## 2026-10-30 — IA 탐색 도구 반응형과 고정 배치
+
+사용자 후속 브라우저 지시에 따라 screen-index의 현황 카드·NAV·검색/필터를 단일 sticky 영역(top 0)으로 묶었다. NAV는 auto-fit으로 가용 폭에 따라 열 수가 변한다. 도구 영역은 최대 60dvh와 내부 세로 스크롤로 작은 화면에서 검색/필터 접근을 보존한다. 대분류의 화면 코드 셀은 실제 페이지 열까지 colSpan=2로 합치며 대분류에는 페이지 링크를 표시하지 않는다. 상품 공통 대분류에도 같은 규칙을 적용한다. D3 Running Session(155)의 페이지 버튼은 사용자 요청으로 제거하고 하위 목록·상세 상태 링크와 GNB는 유지한다. screenReviewNotes는 화면 비고와 검색에서 제외하고 원본 IA note는 보존한다. 기존 검수 데이터와 진행 상태 자체는 변경하지 않는다. 출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, storybookLinks.ts, tests/preview-links.test.mjs. 브라우저 1782/1280/768/375px에서 sticky top=0·문서 가로 넘침 없음과 가변 열을 확인했고 최종 모바일 최소 열 폭은 120px로 보완했다. 최종 디자인 대조·승인은 수행하지 않는다.
+
+## 2026-10-30 — 환불계좌와 기획전 목업 제거
+
+환불계좌 기능이 없다는 사용자 확인에 따라 /mypage/refund-account와 Storybook 경로 등록·import 및 문의의 환불계좌 등록 안내를 삭제했다. 원 결제수단 환불 계약은 유지한다. 기획·디자인 미수급인 /collection/[id] 목업과 제목 매핑을 삭제하고 전용 진입 예시·라우트 검사 기대값을 정리했다. IA 167은 삭제하지 않고 디자인 미수급·대기·연결 없음으로 유지한다. 상품 목록 collection 필터는 보존한다. 상품 상세 리뷰 영역은 외부 리뷰 API 연결 대기이며 별도 Empty를 만들지 않는다. 신규 접근·요청 오류 화면은 범위 제외다. 최종 PC/MO 시각 승인은 후속 작업이다. 출처: 삭제한 두 page.tsx, MyPageRoutePreview.tsx, MyPageRouteStory.tsx, InquiryCautions.tsx, tests/app-router.test.mjs와 screenRegistry.ts. UTMB 비고에서 러닝 세션 연결 설명 문장도 사용자 요청대로 제거했다.
+
+## 2026-10-30 — 러닝 세션 하위 행 표시 순서 보완
+
+사용자 브라우저 확인에 따라 목록(258)·상세(259)의 원본 배열 순서도 D3 Featured > Running Session(155) 바로 뒤로 이동했다. 계층 값뿐 아니라 실제 렌더 순서를 맞추며 독립 D2와 D3 앞쪽의 하위 행을 남기지 않는다. UTMB 비고의 러닝 세션 연결 설명 문장은 삭제했다. preview 링크 테스트는 155 바로 다음 행이 258·259인지 함께 검사한다. 출처: src/data/screenRegistry.ts와 tests/preview-links.test.mjs.
+
+## 2026-10-30 — 상품 목록 품절 표시 예시
+
+`/products/preview-sold-out`은 정상·품절이 섞인 고정 목록을 표시한다. ProductCard.soldOut은 기본 false인 표시 옵션이며 Product.listingSoldOut을 목록 소유자가 전달한다. 사이즈 재고나 ID에서 판정하지 않는다. 검정 50% dim과 중앙 흰색 Sold Out은 변경 가능한 예시 디자인이다. 상품명·가격·상세 링크와 기본 카드 사용처는 유지한다. 상품 목록 원본 IA의 공통 preview 링크와 진입 파일을 등록한다. 상세 전체 품절·리뷰 Empty·요청 오류 preview는 추가하지 않는다. 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/catalog/ProductListingPage.tsx, src/mocks/products.ts, src/app/products/preview-sold-out 및 screenConnections.ts. 최종 디자인 승인은 추후 별도다.
+
+## 2026-10-30 — 매장 찾기 정보 목록 정리
+
+`/support/store`는 지역 탭·길 찾기·지도와 열림 상태를 제거하고 서울·경기 순서의 단일 예시 목록을 표시한다. 매장명·주소·전화번호·제공된 영업시간만 유지하며 데이터는 최종 미확정 fixture다. 인천 탭으로 Empty를 확인한다는 종전 안내는 폐기하고 별도 Empty URL은 만들지 않는다. 기존 매장 IA와 경로를 유지한다. 출처: src/app/support/store/page.tsx, _components/StoreContent.tsx, store.data.ts 및 관련 표시 타입. 최종 디자인 승인은 별도다.
+
+## 2026-10-30 — Featured 하위 러닝 세션 계층 정정
+
+사용자 후속 확인에 따라 독립 D2 Running Session 묶음을 제거했다. IA 155·258·259는 모두 EXPLORE > Featured > Running Session에 속하며 기존 목록·상세 번호와 상태 링크는 유지한다. 목록·상세 상태 행은 D4에 배치하고 페이지 연결은 D3 Running Session에서 제공한다. tests/preview-links.test.mjs는 세 IA의 D1~D3 일치와 독립 D2 부재를 검사한다. 출처: src/data/screenRegistry.ts, tests/preview-links.test.mjs.
+
+## 2026-10-30 — 러닝 세션 명칭과 IA 연결 정정
+
+러닝 세션 목록·상세·Empty의 현재 URL은 `/running/running-session` 아래이며 관련 RunClub 심볼·폴더를 RunningSession으로 변경했다. `/mypage/event-entries`는 유지한다. GNB Featured > Running Session과 IA 155가 목록을 연결한다. IA 158은 원본 Partnerships > UTMB의 메뉴만 유지하며 페이지·스토리·파일 연결 없이 디자인 미수급·퍼블리싱 대기다. IA 258·259는 기존 상태 확인 행으로 유지한다. 이전 run-club URL의 redirect는 추가하지 않는다. 앞선 IA 158 러닝 세션 연결 설명은 이 결정으로 대체하며 원본 계보·과거 검증 기록은 보존한다. 현재 출처는 src/data/megaMenu.ts, src/data/screenRegistry.ts, src/app/screen-index/screenConnections.ts 및 running-session 구현·Context다.
+
+## 2026-10-30 — 퍼블리싱 가이드 import 정렬 오류 해소
+
+- ButtonGuide·FormGuide·퍼블리싱 가이드 page의 named import 순서와 그룹 간격을 정리해 남아 있던 8개 오류를 해소했다. 실행 코드·타입 import·스타일·라우트 계약을 유지한다.
+- 전체 `npm run lint`가 통과했다. [UI 변경](architecture/ui.md#퍼블리싱-가이드-import-정렬-2026-10-30), [라우트 영향 검토](architecture/routing.md#퍼블리싱-가이드-import-정렬-검토-2026-10-30).
+
+## 2026-10-30 — 영문 폰트 연결과 타이포·PLP 필터 규격
+
+- 영문 폰트 토큰을 RootLayout의 기존 CSS 변수에 연결하고 Storybook fallback을 유지했다.
+- H9 20px과 H10 16px을 구분하고 기존 16px 사용처·가이드·story를 갱신했다. 두 자리 번호 자동 한글 전환과 모바일 한글 H6 600을 반영했다.
+- PLP 사이즈 기본 32px·상품 옵션 기존 40px을 구분하고 선택 색상 스와치를 외곽 38px·선 1px·내부 32px로 맞췄다. 컨테이너는 기존 1532px을 유지했다.
+- [표현 계약과 검증](architecture/ui.md#영문-폰트-연결과-타이포plp-필터-규격-2026-10-30), [라우트 영향 검토](architecture/routing.md#타이포-사용처-이름-변경-검토-2026-10-30), [공통 상태 영향 검토](architecture/state.md#shopshell-타이포-이름-변경-검토-2026-10-30).
+- 변경 파일 lint/format·전체 타입·Panda·최종 Next/Storybook 빌드가 통과했다. 앱/production의 영문 실제 커스텀 폰트와 원본 파일 해시 일치, 명시적 PC/MO 타이포 scale, PC/MO PLP 32px·스와치 38/1/32px·컨테이너 1532px과 상품 옵션 40px 유지를 브라우저에서 확인했다.
+- 최초 전체 lint는 당시 변경 밖 파일의 import 정렬 오류 8개로 실패했다. 이후 위의 import 정렬 작업에서 해소했고 전체 lint가 통과했다.
+
+## 2026-10-30 — 러닝세션 신청 취소 모달 STATE 추가
+
+- `/mypage/event-entries/preview-cancel`에서 기존 취소 모달을 처음부터 열어 표시한다. 고정 fixture만 사용하고 확인·닫기는 모달만 닫는다.
+- IA 200의 STATE 행과 작업 파일에 연결하고 기본 목록·Empty URL을 보존했다. [URL과 책임](architecture/routing.md#러닝세션-신청-취소-모달-직접-url-2026-10-30).
+- PC/MO 직접 진입·새로고침·닫기·확인 후 목록 유지, STATE 검색과 새 창 링크를 브라우저로 확인했다. 변경 파일 lint/format·타입 검사·그래프 생성을 통과했다.
+
+## 2026-10-30 — 상품리뷰 디자인과 세 목록 STATE
+
+- 상품리뷰 제목·목록·PC 작성/수정 버튼·작성한 리뷰 표·MO 별점/본문·중앙 Empty·더보기 폭을 디자인에 맞췄다.
+- IA 191에 작성 가능한 목록·작성 가능 없음·작성한 목록을 STATE로 연결했다. 신규 preview-ready/preview-written과 기존 preview-empty를 사용하며 기존 작성/수정/오류/작성목록 없음 URL을 보존했다. WEB 세 상태와 MO 작성한 목록 story를 연결했다.
+- [직접 URL](architecture/routing.md#상품리뷰-디자인의-직접-상태-url-2026-10-30), [표시 계약과 출처](architecture/ui.md#상품리뷰-디자인-목록과-state-2026-10-30).
+- PC/MO 세 상태·모바일 가로 넘침 없음·STATE 검색/새 창 링크와 메인/하위 breadcrumb 위치 일치를 확인했다. 타입·변경 파일 lint/format·Panda·그래프 생성을 통과했다. 전체 Storybook/production build는 실행하지 않았다.
+
+## 2026-10-30 — 마이페이지 최종 레이아웃을 MyPageFrame으로 통합
+
+- 사용자 확정에 따라 신청내역의 별도 외곽 레이아웃을 `MyPageFrame`으로 옮기고 공통 메뉴·활성 밑줄을 최종 디자인에 맞췄다. 주문·취소반품과 공통 프레임을 우회하던 4개 화면도 연결했다.
+- `/mypage` 메인만 사이드바를 생략한다. 메인과 하위 화면 모두 breadcrumb는 동일한 외곽 위치에서 렌더링한다. 라우트·본문 서비스 계약·상태 소유권을 보존했다.
+- [구조와 출처](architecture/ui.md#마이페이지-최종-공통-프레임-2026-10-30).
+
+## 2026-10-30 — IA STATE 하위 행
+
+- 사용자 정정으로 런클럽의 빈 목록 표기를 복원했다. 단일 빈 STATE 연결 17곳에 defaultStateLabel을 명시해 기본 페이지도 목록 있음 등 대응하는 STATE로 내렸다. route·빈 상태명·복수 상태 및 오류 상태 화면의 기본 링크는 유지했다. 앱에서 상태 짝·7열 rowSpan·일반 오류 화면 보존과 타입/lint/format·링크 테스트 3개를 확인했다.
+
+- 런클럽 목록의 빈 상태명을 빈 목록에서 없음으로 정리했다. 경로·보기 링크·하위 행 구성은 유지했다.
+
+- 런클럽 목록의 기본 페이지 링크를 STATE 목록 있음으로 옮겨 빈 목록과 나란히 하위 행으로 표시했다. 링크 경로·병합·실제 목록 구현은 유지했다.
+
+- 런클럽 상세의 페이지 링크를 첫 STATE 신청 가능으로 옮기고 부모의 상태 나열 비고를 제거했다. 모집 마감·신청 예정과 기존 링크 경로·병합은 유지했다.
+
+- STATE의 반복 구분 상태와 화면 코드·PC/MO 상태의 - 셀도 같은 화면 안에서 각각 rowSpan으로 병합했다. 상태명·보기 링크는 행별로 유지했다. 변경 파일 lint/format으로 확인했다.
+
+- 최종 요청으로 개수와 관계없이 모든 previewRoutes를 STATE 하위 행으로 통일했다. 이전 개수·빈 상태 플래그 분기와 부모의 미리보기 나열을 제거하고 보기·비고 rowSpan·기본 페이지 링크는 유지했다.
+
+- STATE 링크의 보이는 텍스트를 보기로 통일하고 aria-label에는 상태명을 유지했다. 변경 파일 lint/format으로 확인했다.
+
+- 상태 미리보기가 3개 이상인 화면의 링크를 STATE 하위 행으로 분리하고 부모 기본 링크·두 행 구성·IA 원본 수는 유지했다. Storybook은 기존 WEB/Mobile 연결을 유지한다.
+- 빈 상태 연결은 isEmpty=true로 명시해 개수에 관계없이 하위 행으로 분리한다. 문의 목록 기본 링크는 대기·완료 목록으로, 없음 상태는 기존 빈 화면으로 연결했다. 상품 공통 항목에도 동일한 빈 상태 분리 규칙을 사용한다.
+- 같은 화면 STATE 묶음의 화면 상태 미리보기 비고는 rowSpan으로 한 번 표시한다. 앱에서 7개 상태·부모 접기·키보드 재확장·검색과 문의 목록/없음 연결을 확인했다. 공통 빈 상태 분리와 비고 병합의 후속 변경은 정적 검사로 확인한다.
+- [라우팅](architecture/routing.md#ia-상태-미리보기-하위-행-2026-10-30), [UI](architecture/ui.md#ia-state-하위-행-표시-2026-10-30).
+
+## 2026-10-30 — 러닝세션 신청내역 시안 반영
+
+- `/mypage/event-entries`에 제목·상태 배지, 정사각 이미지·장소/거리·신청일/진행일시, 왼쪽 정렬/오른쪽 건수, 더보기와 취소 모달을 반영했다. 공통 GNB·마이페이지 메뉴 데이터는 유지했다.
+- 표시 fixture를 분리하고 신청일·취소 가능 여부와 정렬 조건을 기존 컨텍스트에 선택 필드로 추가했다. 미연결 fixture의 취소 상태 변경 시뮬레이션은 제거했으며 실제 목록/취소 콜백 계약은 보존했다.
+- 브라우저에서 PC/MO·빈 목록, 탭·정렬, 취소 모달 Escape/포커스 복귀와 1024/1025·1199/1200 경계를 확인했다. 임시 Provider 검증에서 비fixture 신청 ID, 늦은 응답, 서버 결과 재필터 방지, 취소 실패/재시도/pending/성공과 목록 실패/재시도·추가 목록을 확인하고 검증용 소스는 제거했다.
+- [라우팅·표시 범위](architecture/routing.md#러닝세션-신청내역-시안-반영-2026-10-30), [연결 계약](architecture/state.md#러닝세션-신청내역의-표시와-정렬-계약-2026-10-30).
+
+## 2026-10-30 — IA 주문·취소반품 링크 정리
+
+- 쿠폰 목록의 쿠폰 상세 링크도 제거하고 아래 상세 행과 나머지 목록 상태 링크는 유지했다.
+
+- 주문배송 조회 목록의 주문 상세 링크도 제거하고 아래 상세 행의 연결은 유지했다.
+
+- 회원정보 확인 및 수정 상세의 수정·입력 오류 링크를 제거하고 아래 수정 행의 연결은 유지했다.
+
+- 배송지 목록의 등록·수정·입력 오류 버튼도 제거하고 페이지·빈 목록과 별도 등록·수정 행은 유지했다.
+
+- 주문배송 조회·취소/반품 목록에서 취소 상세·반품 상세 버튼을 제거했다. 취소/반품 상세의 대표 링크 이름을 취소 상세로 바꾸고 기존 반품 상세 링크는 유지했다.
+- 선택적 routeLabel로 대표 링크 문구를 지정하며 나머지 화면의 페이지 기본값과 경로·작업 파일·Storybook 계약은 유지한다. 타입·변경 파일 lint/format과 기존 preview 링크 검증을 수행한다.
+- [라우팅 기록](architecture/routing.md#ia-주문취소반품-링크-정리-2026-10-30).
+
+## 2026-10-30 — IA 상품 공통 화면 압축
+
+- 추가 피드백으로 중간 분류마다 한 행을 사용하고 세부 메뉴를 쉼표로 연결해 td 하나에 표시했다. Depth1 rowSpan은 중간 분류 행 수를 기준으로 유지한다.
+
+- 상품 목록·상세 157개 IA를 두 공통 항목으로 묶고 상단 NAV도 상품 공통 화면으로 통합했다. 분류 선택과 개별 URL·Storybook 연결, 원본 화면 수·검색·상태 필터는 유지했다.
+- 사용자 후속 피드백으로 대분류 행 오른쪽을 colSpan=5의 CAT 코드 목록으로 합쳤다. 두 공통 항목 아래 버튼 하나로 중복 제거한 3열 메뉴 트리만 표시하고 개별 IA 번호·진행 상태·링크·비고와 분류 th 배경색을 제거했다. 비고·중복 제거한 WBS·파일·혼합 상태와 props 교체 검증 fixture를 정리했다.
+- 앱·Storybook DOM과 상호작용, 타입·변경 파일 lint/format·Panda 및 상태 테스트 10개를 확인했다. 모바일 스크린샷은 CDP 타임아웃으로 시각 확인을 완료하지 못했고 프로덕션 빌드·전체 Storybook play는 실행하지 않았다.
+- 관련 문서: [라우팅](architecture/routing.md#ia-상품-공통-화면-요약-2026-10-30), [UI](architecture/ui.md#ia-상품-공통-화면과-연결-표-2026-10-30).
+
+## 2026-10-30 — 문의 본문과 답변 글자 크기 조정
+
+- 사용자 요청으로 기존 작업 트리의 문의 질문 본문·답변 `body4 → body3` 변경을 커밋했다. route와 데이터·상태 로직은 바꾸지 않았다.
+- 변경 파일 ESLint·Prettier 검사를 통과했다. [변경 범위와 출처](architecture/routing.md#문의-본문답변-글자-크기-2026-10-30).
+
+## 2026-10-30 — 상품문의 Empty 전체 상세 맥락 복원
+
+- 문의 부품만 표시하던 preview를 전체 상품 상세에 문의 0건을 적용하는 방식으로 수정했다.
+- 상품 상세 공통 상태 링크에 문의 영역 fragment를 연결하고 PC/MO 직접 이동·기본 목록 보존을 확인했다.
+- [책임과 출처](architecture/publishing-state-previews-2026-10-30.md#상품문의-empty의-전체-상세-맥락-복원-2026-10-30), [실제 검증](development/verification.md#상품문의-empty-전체-상세-검증-2026-10-30).
+
+## 2026-10-30 — Empty 문구와 screen-index 정리
+
+- 쿠폰·공지 Empty URL과 IA 연결, 작성 가능한 리뷰 문구를 확정하고 조회 중·실패와 빈 결과를 구분했다.
+- IA 158 이름·수급·변경 완료 비고, 회원가입 중복 보조 링크, 목업 판정된 기획전 IA 167의 페이지 연결 제외를 반영했다. 마일리지 삭제 유지도 확정했다.
+- 관련 출처·범위는 [상태 preview 문서](architecture/publishing-state-previews-2026-10-30.md#empty-문구와-ia-연결-정리-2026-10-30), 실제 확인은 [검증 문서](development/verification.md#empty-문구와-화면-목록-정리-검증-2026-10-30)에 기록했다.
 
 ## 2026-10-30
 
+- 계정 화면의 반복된 본문 flex 선언을 제거하고, `pageCss`를 제거한 공통 레이아웃과 완료 화면 2곳의 개별 Panda 외곽 배치를 맞췄다. 모바일 화면 채우기 옵션은 공통 레이아웃에서 유지한다. [UI 기준](architecture/ui.md#계정-프레임의-중복-본문-flex-제거-2026-10-30).
+- `fillMobileViewport`와 호출부를 제거하고 계정 공통 레이아웃의 모바일 하단 여백을 64px로 통일했다. main의 여백은 Panda JSX props로 지정한다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30), [라우팅 영향](architecture/routing.md#계정-프레임-모바일-최소-높이-옵션-제거-2026-10-30).
+- 회원가입 완료에서 바깥 `VStack`을 stretch 정렬하고 버튼 간격을 작은 `Box`에 두어 불필요한 `HStack`을 제거했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+- 회원가입 완료의 제목과 안내 문구 중앙 정렬을 `VStack textAlign="center"`로 유지했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+- 회원가입 약관 표기를 필수 `[필수]`, 선택 `(선택)`으로 구분하고 보기 버튼의 접근성 이름과 상세 제목에도 반영했다. [UI 기준](architecture/ui.md#계정-프레임-모바일-여백과-직접-jsx-스타일-2026-10-30).
+
+- 계정 찾기 기본 화면의 상태 소유자를 `FindAccountRouteContent`로 명확히 이름 붙이고, 제목·설명 스타일 전달을 `ContentSection.headerProps`로 정리했다. 한 화면에서만 쓰던 필드 묶음은 표시 UI의 form에 직접 배치하고 오래된 타입 선언을 제거했다. 모바일 최소 높이는 공통 `fillMobileViewport` prop으로 전환했다. 고정 상태 미리보기와 인증·이동 경계는 유지한다. [라우팅](architecture/routing.md#계정-찾기-페이지-진입점-정리-2026-10-30), [UI 구성](architecture/ui.md#계정-찾기-화면-구성-정리-2026-10-30).
+
+- 디자인 가이드 Typography의 빈 Mono 섹션과 전용 목록·스타일을 제거했다. Storybook 브라우저에서 Mono 제목 제거와 한영 비교표·복사 버튼 표시를 확인했다. [변경 범위](architecture/ui.md#디자인-가이드-mono-섹션-제거-2026-10-30).
+
+- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
+
+- 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
+
+- 로그인 입력·아이디 저장 영역과 로그인/소셜 버튼 묶음의 간격을 6 토큰으로 조정했다. 기본 로그인과 고정 오류 미리보기는 같은 마크업을 사용한다. [UI 기준](architecture/ui.md#로그인-버튼-묶음-간격-2026-10-30).
+
+- 여러 폼에서 반복한 fieldset 기본 스타일 초기화를 전역 base 스타일로 통합하고 중복 Panda 클래스를 제거했다. 폼·disabled 동작과 라우팅은 유지했다. [UI 기준](architecture/ui.md#fieldset-공통-초기화-2026-10-30), [라우팅 검토](architecture/routing.md#fieldset-초기화의-라우팅-영향-2026-10-30).
+
+- 로그인·회원가입 계정 화면의 데스크톱 하단 여백을 공통 `AccountPageLayout`에서 124px로 적용하고 페이지별 중복 값을 정리했다. 모바일 기본 여백과 가입 완료 예외는 유지했다. [UI 기준](architecture/ui.md#계정-화면-공통-하단-여백-2026-10-30), [적용 경로](architecture/routing.md#계정-화면-공통-하단-여백-2026-10-30).
+
+- Figma 기준의 공통 툴팁·토글팁을 추가하고 로그인 아이디 저장 안내를 연결했다. 퍼블리싱 가이드에는 두 유형의 사용 기준과 네 방향 예시·코드 복사를 추가했다. [UI 기준](architecture/ui.md#툴팁토글팁-공통-사용-기준-2026-10-30), [가이드 탭](architecture/routing.md#퍼블리싱-가이드-툴팁토글팁-탭-2026-10-30).
+
+- Form 가이드를 Figma처럼 케이스별 비교로 구성했다. Input Fields 상태·타입, Dropdown Selection 상태, Checkbox·Radio 선택 상태, Dropdown Menu 목록 타입을 나눠 보여주며 기존 다섯 카테고리 범위와 공통 구현 유지 원칙은 그대로다. [범위와 구분](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
+- Form 가이드에 로그인 입력 조합을 임시로 추가했다가 Figma 기준 다섯 항목으로 범위를 좁히면서 로그인 전용 카드를 제거했다. 실제 로그인 화면은 그대로 유지한다. [현재 범위](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
+- 로그인 화면 아이디 저장 도움말 주석을 한글 설명 뒤 영문 설명 형식으로 변경했다. 동작과 경로는 바꾸지 않았다. [라우팅 문서](architecture/routing.md#로그인-도움말-주석-언어-2026-10-30).
 - 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
 
 - 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
@@ -1155,3 +1499,42 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 추가 검증: ShopShell·OKF 동기화 스크립트·Storybook 설정의 ESLint 검사를 통과했다. 전체 eslint 검사는 실행 시간이 길어 완료 결과를 아직 기록하지 않았다.
 
 - 2026-10-28: RunClubBadge를 Badge.runClubCategory로 통합하고 두 운영 사용처·공용 스토리·타입 검증을 전환했다. [API와 검증](architecture/ui.md#런클럽-분류-배지-통합-2026-10-28)을 참고한다.
+
+## 2026-10-30 — 재입고 알림 목록·빈 상태 디자인 적용
+
+- Figma 2025:152235의 PC/MO 목록·빈 상태를 기존 두 URL에 반영했다. 표/이미지/타이포/안내와 명시적 플랫폼별 preview 데이터를 수정하고 HistoryItem.status 및 WEB Storybook·IA 연결을 추가했다. 소스 및 연결 책임은 architecture/ui.md·state.md·routing.md에 기록했다.
+
+- 검증: PC/MO route와 WEB 연결 story 확인, 변경 파일 lint·타입·Panda·Next/Storybook 빌드 통과. 전체 lint는 범위 밖 미사용 import 2건으로 실패했다. 상세 측정과 한계는 UI 문서의 재입고 섹션에 기록했다.
+
+## 2026-11-02 — 주문서 금액 요약·쿠폰 선택 디자인 갱신
+
+- PC `1985:79978`·모바일 `1985:77535` Figma에 맞춰 CheckoutDiscountSummary를 상품가격, 쿠폰할인, 인라인 쿠폰 Dropdown, 배송비, 총 결제금액 순서로 정리했다. 기존 쿠폰 적용 콜백과 제출 데이터 계약은 유지하고, Figma에 없는 최대 혜택 체크 컨트롤은 화면에서 제거했다.
+- 관련 기본/바인딩 Storybook 상호작용을 새 쿠폰 Dropdown에 맞춰 갱신하고 CheckoutContext의 오류 안내 주석을 수정했다. [UI](architecture/ui.md#주문서-금액-요약과-쿠폰-선택-figma-반영-2026-11-02)·[상태](architecture/state.md#주문서-쿠폰-요약의-figma-갱신-2026-11-02)에 구현 범위와 바인딩 경계를 기록했다.
+- Panda CSS 생성·OKF 검사·Prettier·`git diff --check`를 통과했다. Panda의 자동 업데이트 설정 권한 알림은 출력됐지만 생성은 완료됐다. 브라우저·Storybook 실행은 하지 않았고 전체 타입 검사에는 기존 `.next` 생성 라우트 경로 오류가 남는다.
+
+## 2026-11-02 — 주문서 그리드 간격과 모바일 순서
+
+- **Update**: CheckoutContent의 행·열 간격을 분리하고 모바일에서 주문 금액/할인 요약을 결제 정보 앞에 배치하도록 Grid row를 명시했다. 첨부 시안에 맞춰 모바일 행 간격을 16px로 조정해 요약 안내문과 결제 정보가 가깝게 이어지도록 했다. 주문상품 하단 구분선은 상품 정보·수량·가격을 가로지르도록 전체 Grid 행으로 옮겼다. PC 2열 및 sticky 요약 배치는 유지했다. [UI 아키텍처](architecture/ui.md#주문서-그리드-간격과-모바일-순서-2026-11-02)에 기록했다.
+- **검증**: Prettier, OKF 검사, `git diff --check` 통과. 브라우저 시각 확인과 전체 타입 검사는 하지 않았다.
+
+## 2026-11-02 — 주문서 쿠폰 계산과 동의 상태 경량화
+
+- CheckoutForm에서 쿠폰 선택별 할인 산식/데모 계산과 동의 체크 상태 및 필수 동의 검증 상태를 제거했다. 더 이상 사용하지 않는 쿠폰 할인 helper도 삭제했다.
+- 쿠폰 선택 UI는 로컬 선택만 하며 견적 할인 표시값은 바인딩 값 또는 0이다. 동의 체크는 폼의 기본 상호작용을 유지하고 제출 시 체크값을 전달한다. 할인/동의 업무 검증은 주문 연결 소유자 경계로 기록했다. [UI](architecture/ui.md#주문서-쿠폰-계산과-동의-로컬-상태-제거-2026-11-02)·[바인딩](architecture/data-binding.md#주문-제출과-인증)을 갱신했다.
+- Prettier·OKF·`git diff --check`를 통과했다. TypeScript에는 이번 변경과 무관한 `.next/types` 누락 라우트 참조와 상품 목록 PageProps 오류가 남으며 변경한 Checkout 파일 오류는 없었다. 브라우저 시각 검증은 하지 않았다.
+
+## 2026-11-02 — 주문서 금액 요약을 화면 fixture로 정리
+
+- CheckoutContent의 total·discount·shippingFee props와 상품 합계 산출을 제거했다. 금액 요약은 컴포넌트 안의 고정 화면 fixture로 표시하고 결제 CTA는 금액 산출 없이 버튼 문구만 표시한다. CheckoutContext는 저장 배송지 표시 데이터만 담당하며, 쿠폰 목록은 정적 화면 fixture이고 쿠폰 선택은 로컬 상태다.
+- OKF의 주문서 바인딩·상태·UI 범위 설명을 새 경계에 맞춰 갱신했다.
+
+## 2026-11-02 — 장바구니 페이지 마크업 경량화
+
+- `CartProductSection`의 total prop과 `CartOrderActions`의 금액 prop을 제거하고, 고정 요약 금액은 `cartPreviewAmounts`에 모았다. 선택·수량 기반 합계 계산은 없다. 목록 체크박스는 fixture 초기 선택값으로 시작하는 로컬 상태로 동작하며 옵션 변경 버튼은 dialog를 열지 않는다. 옵션 편집은 고정 preview URL에서만 확인한다.
+- 기본/모바일 Storybook에 체크박스 로컬 선택과 전체 선택 사례를 유지하고 옵션 변경 trigger에 의존하던 목록 story를 제거했다. 라우트 및 preview URL은 변경하지 않았다.
+- 범위·바인딩 경계를 `architecture/ui.md`, `architecture/data-binding.md`, `architecture/state.md`, `architecture/routing.md`에 기록했다.
+- Prettier, `npm run okf:check`, `git diff --check`를 통과했고 이전 합계 prop·상수 참조가 남지 않은 것을 확인했다. TypeScript 전체 검사는 Cart 오류 없이 오래된 `.next` 라우트 참조와 ProductListingPage PageProps 오류로 실패했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 2026-11-02 — 장바구니 삭제 버튼 크기 통일
+
+- 선택상품 삭제와 품절상품 삭제 링크 버튼 크기를 PC·모바일 모두 `md`로 통일했다. 세부 범위는 `architecture/ui.md`에 기록했다.

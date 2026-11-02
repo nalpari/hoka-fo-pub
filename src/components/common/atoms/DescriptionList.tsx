@@ -13,7 +13,13 @@ const list = css.raw({
   m: '0',
 });
 
-export type DescriptionListItem = { id?: string; term: ReactNode; description: ReactNode };
+export type DescriptionListItem = {
+  id?: string;
+  term: ReactNode;
+  description: ReactNode;
+  rowClassName?: string;
+  descriptionProps?: TextProps;
+};
 
 type TextProps = Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'>;
 
@@ -49,7 +55,12 @@ export function DescriptionList({
       style={{ '--description-list-label-width': labelWidth } as CSSProperties}
     >
       {items.map((item, index) => (
-        <Box key={item.id ?? index} className={css({ display: 'contents' }, slotStyles?.row)}>
+        <Box
+          key={item.id ?? index}
+          className={[css({ display: 'contents' }, slotStyles?.row), item.rowClassName]
+            .filter(Boolean)
+            .join(' ')}
+        >
           <Typography as="dt" variant="body4" {...termProps} className={css(slotStyles?.term)}>
             {item.term}
           </Typography>
@@ -58,6 +69,7 @@ export function DescriptionList({
             variant="body4"
             tone="tertiary"
             {...descriptionProps}
+            {...item.descriptionProps}
             className={css(slotStyles?.description)}
           >
             {item.description}
