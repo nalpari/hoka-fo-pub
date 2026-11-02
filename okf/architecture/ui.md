@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:36:53Z'
+  at: '2026-11-02T05:18:16Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
+  - src/components/common/molecules/HomeCarouselSection.tsx
   - src/components/common/layouts/BottomSheet.tsx
   - public/images/navigation/clifton-utl.webp
   - src/components/common/molecules/SupportTabs.tsx
@@ -3942,3 +3944,9 @@ PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프
 검증: 1920px PC와 375/768px MO를 브라우저로 확인했다. 1024px까지 mobile, 1025/1199px의 1200px 캔버스, 1200/1920px에서 세로 scrollbar로 인한 추가 가로 넘침이 없음을 측정했다. 필터 접기/펼치기·정렬 펼치기, 모바일 초안 선택 후 닫기 취소·다시 열기·Esc, 닫기 후 필터 버튼 포커스 복원을 확인했다. Storybook의 고정 web을 768px에서, 고정 mobile을 1920px에서 확인했으며 기본 BottomSheet와 검색 시트의 기본 표현도 확인했다. 변경 파일 ESLint·Prettier, 타입 검사, Panda 생성, Next.js 프로덕션 빌드와 Storybook 빌드를 통과했다. 전체 lint는 범위 밖 FindAccountContent의 css 및 signup/complete의 Stack 미사용 import 두 건으로 실패했다. 모든 Storybook play·전체 상품 카드 시각 회귀·실제 서비스 요청은 검증한 것으로 기록하지 않는다.
 
 작업 트리 출처: `src/components/catalog/ProductListingPage.tsx`, `src/components/common/layouts/BottomSheet.tsx`.
+
+## 메인 Figma 적용 (2026-11-02)
+
+Main 1181:41552의 PC/MO를 읽어 배너 높이 720px·제목 Pretendard 84/42px·설명 24/16px·48px 버튼, 섹션 제목 50/28px와 간격 96/72px, 카테고리/Explore/Find my HOKA 카드 규격을 반영했다. MainSection.tight는 24px이며 기존 default/compact와 공통 소비자의 기본값을 유지한다. 관련 선언 타입도 갱신했다. HomeContentContext의 현재 결과·슬롯·선택과 기존 배너/캐러셀 동작은 유지한다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1181-41552 및 이번 메인/공통 소유자 작업 트리.
+
+PC/MO·1024/1025·1199/1200px, 배너/카테고리/베스트셀러 선택과 고정 WEB/MO 스토리, 실제 폰트와 기본 compact 32px를 확인했다. 대상 ESLint/Prettier·타입·Panda·Next/Storybook 빌드를 통과했다. 전체 lint의 범위 밖 오류 5건과 기존 목 상품 조합 차이는 남아 있다. 서비스 요청과 모든 play를 검증한 것으로 기록하지 않는다.

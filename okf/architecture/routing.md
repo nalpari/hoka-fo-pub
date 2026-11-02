@@ -9,6 +9,7 @@ generated:
   at: "2026-11-02T00:43:51.174Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/_components/HomeContent.tsx
   - src/app/support/care/_components/CareContent.tsx
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
@@ -779,3 +780,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 러닝세션 지정 경로 디자인 반영 (2026-11-02)
 
 /running/running-session·/running/running-session/yeouido-night와 기존 /preview-empty, 동적 sessionId 조회·Storybook 경로 계약을 유지했다. 상세 지원 UI는 기존 [sessionId]/_components에 둔다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 메인 디자인 반영 (2026-11-02)
+
+`/`의 HomeContent.tsx와 homeContent.ts에서 메인 시안을 반영했다. page exports·클라이언트/RoutePreview 경계·기존 HomeContentContext와 라우트를 유지한다. [표현·출처와 실제 검증](ui.md#메인-figma-적용-2026-11-02)을 참고한다.

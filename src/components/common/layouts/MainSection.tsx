@@ -18,7 +18,7 @@ export type MainSectionProps = {
   className?: string;
   /** Extended content starts on the central grid and reaches the frame's right edge. */
   contentWidth?: 'contained' | 'fullBleed' | 'extended';
-  spacing?: 'default' | 'compact';
+  spacing?: 'default' | 'compact' | 'tight';
 };
 
 const content = contentFrame({
@@ -63,9 +63,11 @@ export function MainSection({
       <ContentSection
         alignItems="flex-start"
         gap={
-          spacing === 'compact'
-            ? { base: '32px', _mobile: '24px' }
-            : { base: '40px', _mobile: '24px' }
+          spacing === 'tight'
+            ? '24px'
+            : spacing === 'compact'
+              ? { base: '32px', _mobile: '24px' }
+              : { base: '40px', _mobile: '24px' }
         }
         title={title}
         headerProps={{

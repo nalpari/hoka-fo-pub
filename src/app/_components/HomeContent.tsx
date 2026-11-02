@@ -51,7 +51,7 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
       color="var(--color-text-primary)"
       bg="var(--color-surface-default)"
       fontFamily="var(--font-family-base)"
-      pb="24"
+      pb="28"
       _mobile={{ pb: '72px' }}
       css={{
         _mobile: {
@@ -72,7 +72,7 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
         },
       }}
     >
-      <VStack alignItems="flex-start" gap={{ base: '112px', _mobile: '72px' }}>
+      <VStack alignItems="flex-start" gap={{ base: '96px', _mobile: '72px' }}>
         {children}
       </VStack>
     </Box>
@@ -89,13 +89,13 @@ const mobileRail = css(thumbnailRatio, {
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
-  '& .swiper-wrapper': { px: '8px' },
+  '& .swiper-wrapper': { px: '11px' },
 });
 
 const mobileSlide = css({
-  // Scale the 375px design's 160px card and 5px side gutters together.
-  w: 'calc(42.66666666666667vw + 1.3333333333333333vw + 1.3333333333333333vw)!',
-  px: '1.3333333333333333vw!',
+  // The 375px frame has 150px cards and 10px gaps.
+  w: 'calc(40vw + 10px)!',
+  px: '5px!',
   '& > *': { w: '100%!' },
 });
 
@@ -157,8 +157,9 @@ function HomeBestSellerSection() {
       platform={platform}
       railClassName={isWeb ? desktopRail : mobileRail}
       slideClassName={isWeb ? undefined : mobileSlide}
-      spacing="compact"
+      spacing="tight"
       title="Best sellers"
+      titleVariant="heading4"
       viewportKey={selectedTab}
     >
       {bestSellerProducts.map((product, index) => (
@@ -177,33 +178,56 @@ const HomeCategorySectionMobileSlide = css({
 
 type HomeCategorySectionProps = { platform: Platform };
 
+const categoryCard = css({
+  '&&': { gap: '20px' },
+  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& .card__header': { gap: '0' },
+  '& .card__action': { mt: '4px' },
+  _mobile: {
+    '&&': { gap: '16px' },
+    '& h3': { fontSize: '22px' },
+  },
+});
+
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
 
   return (
     <HomeCarouselSection
       desktopCenteredItemCount={4}
-      desktopItemGutter={5}
+      desktopItemGutter={8}
       itemCount={homeCategories.length}
       mobileItemGutter={8}
       platform={platform}
       mobileRail="bleed"
       slideClassName={isWeb ? undefined : HomeCategorySectionMobileSlide}
       title="Shop by category"
+      titleVariant="heading4"
     >
       {homeCategories.map((category) => (
-        <MainContentCard key={category.title} {...category} />
+        <MainContentCard className={categoryCard} key={category.title} {...category} />
       ))}
     </HomeCarouselSection>
   );
 }
+
+const exploreCard = css({
+  '&&': { gap: '20px' },
+  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& .card__header': { gap: '24px' },
+  '& .card__header p': { minH: '0', fontFamily: 'var(--font-family-base)' },
+  _mobile: {
+    '&&': { aspectRatio: '375 / 500', p: '16px 16px 50px', gap: '20px' },
+    '& .card__header': { gap: '20px' },
+  },
+});
 
 function HomeExploreSection() {
   const platform = usePlatform();
   const isMobile = platform === 'mobile';
 
   return (
-    <MainSection title="Explore">
+    <MainSection title="Explore" titleVariant="heading4">
       <Grid
         gridTemplateColumns="repeat(3, 1fr)"
         gap="4"
@@ -211,6 +235,7 @@ function HomeExploreSection() {
       >
         {homeExplores.map((explore) => (
           <MainContentCard
+            className={exploreCard}
             key={explore.title}
             {...explore}
             actions={explore.actions.map((action) => ({
@@ -240,16 +265,23 @@ type HeroCopyProps = {
   actions: readonly HeroCopyAction[];
 };
 
-const title = css({ m: '0' });
+const title = css({
+  m: '0',
+  '&&': { fontFamily: 'korean', lineHeight: '1.2', letterSpacing: '-0.02em' },
+});
+
+const mobileHeroTitle = css({ '&&': { fontSize: '42px' } });
 
 const description = css({
   m: '0',
-  w: '377px',
+  w: 'auto',
   _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
 });
 
 /** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
 function HeroCopy({ content, actions }: HeroCopyProps) {
+  const platform = usePlatform();
+
   return (
     <VStack
       alignItems="flex-start"
@@ -263,24 +295,31 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
       transform="translate(-50%, -50%)"
       _mobile={{
         top: 'auto',
-        bottom: '32.33px',
+        bottom: '50px',
         left: 'var(--layout-mobile-inline-gutter)',
         transform: 'none',
       }}
       gap={{ base: '36px', _mobile: '24px' }}
     >
-      <VStack alignItems="flex-start" maxW="100%" gap={{ base: '36px', _mobile: '24px' }}>
-        <Typography as="h1" className={title} tone="inverse" variant="heading1">
+      <VStack alignItems="flex-start" maxW="100%" gap="24px">
+        <Typography
+          as="h1"
+          className={[title, platform === 'mobile' ? mobileHeroTitle : undefined]
+            .filter(Boolean)
+            .join(' ')}
+          tone="inverse"
+          variant="heading1"
+        >
           {content.title}
         </Typography>
-        <Typography as="div" className={description} tone="inverse" web="bodyKr3" mo="bodyKr4">
+        <Typography as="div" className={description} tone="inverse" web="bodyKr1" mo="bodyKr3">
           {content.description}
         </Typography>
       </VStack>
       <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
         {actions.map((action) => (
           <ButtonLink
-            size="short"
+            size="tall"
             key={`${action.to}-${action.label}`}
             variant="primary"
             colorway="white"
@@ -589,7 +628,7 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
       m="0!"
       p="0!"
       minH="500px"
-      h="min(42.5vw, 816px)"
+      h="min(37.5vw, 720px)"
       overflow="hidden"
       color="var(--color-text-inverse)"
       _mobile={{ minH: '0', h: 'auto', aspectRatio: '375 / 500' }}
@@ -672,8 +711,8 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
           desktopImage: '/images/temp/MainBannerWeb.png',
           mobileImage: '/images/temp/MainBannerMobile.png',
           actions: [
-            { label: '남성 바로가기', to: '/products' },
-            { label: '여성 바로가기', to: '/products' },
+            { label: '남성 보러가기', to: '/products' },
+            { label: '여성 보러가기', to: '/products' },
           ],
         },
         {
@@ -720,6 +759,17 @@ const HomeShoeFinderSectionMobileSlide = css({
   '& > *': { w: '100%' },
 });
 
+const shoeFinderCard = css({
+  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& .card__header': { mt: '0', pt: '8px', gap: '24px' },
+  '& .card__header p': { minH: '0' },
+  '& .card__action': { pt: '24px', pb: '40px' },
+  _mobile: {
+    '& .card__header': { gap: '20px', pr: '32px' },
+    '& .card__action': { pt: '20px', pb: '32px', pr: '32px' },
+  },
+});
+
 type HomeShoeFinderSectionProps = {
   platform: Platform;
   variant?: HomeShoeFinderCardVariant;
@@ -731,16 +781,18 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
   return (
     <HomeCarouselSection
       desktopCenteredItemCount={4}
-      desktopItemGutter={5}
+      desktopItemGutter={8}
       itemCount={previewItems.length}
       mobileItemGutter={8}
       platform={platform}
       mobileRail="bleed"
       slideClassName={isWeb ? undefined : HomeShoeFinderSectionMobileSlide}
       title="Find my HOKA"
+      titleVariant="heading4"
     >
       {previewItems.map(({ images, ...item }, index) => (
         <MainContentCard
+          className={variant === 'imagePill' ? shoeFinderCard : undefined}
           key={`${item.title}-${index}`}
           {...item}
           image={images[variant]}

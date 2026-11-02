@@ -45,7 +45,7 @@ export type HomeCarouselSectionProps = {
   mobileItemGutter: number;
   railClassName?: string;
   mobileRail?: 'default' | 'bleed';
-  spacing?: 'default' | 'compact';
+  spacing?: MainSectionProps['spacing'];
   /** Remounts the viewport (and resets its position) when this changes. */
   viewportKey?: string;
 };
