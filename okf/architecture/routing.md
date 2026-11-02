@@ -6,9 +6,11 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:34:43.457833+00:00'
+  at: "2026-11-02T00:19:32.362Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/faq/_components/FaqContent.tsx
+  - src/app/support/faq/faq.data.ts
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -216,6 +218,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## FAQ Figma 적용 (2026-11-02)
+
+`/support/faq`의 기존 route-private FaqContent에서 PC/MO 타이포그래피·간격·검색 아이콘 배치·더 보기 표시를 조정하고 faq.data.ts의 답변 문단 서식을 시안에 맞췄다. 기존 `/support/faq/preview-no-results` 및 FAQ 상태 소유권·검색/카테고리·SupportContentContext 연결을 유지하며 새 URL은 만들지 않는다. 빈 결과는 검색 입력과 PC/MO 직접 preview URL 진입으로 확인했다. 작업 트리 출처는 `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`이며 [수치·출처·검증](support-design.md#faq-figma-적용-2026-11-02)을 참고한다.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 

@@ -6,9 +6,11 @@ tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T23:59:04Z'
+  at: "2026-11-02T00:19:32.362Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/faq/_components/FaqContent.tsx
+  - src/app/support/faq/faq.data.ts
   - src/app/support/terms/page.tsx
   - src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx
   - src/app/support/faq/page.tsx
@@ -25,6 +27,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: faq-section-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15997'
+    title: 'FAQ PC·모바일 기본·답변 펼침 시안'
   - id: support-references
     resource: 'user-attachment:2026-10-20/customer-support-designs'
     title: '사용자가 첨부한 FAQ·공지·문의·매장·배송·세탁·약관 시안 7종'
@@ -37,6 +42,22 @@ sources:
 ---
 
 # 고객센터 첨부 시안 반영
+
+## FAQ Figma 적용 (2026-11-02)
+
+지정 섹션 `1973:15997` 안의 PC `1973:16150`, 모바일 기본 `1973:15998`와 답변 펼침 `1973:16070`을 구조·수치로 확인했다.[^faq-section-figma] 변경 소유자는 `src/app/support/faq/_components/FaqContent.tsx`이며 기존 동시 작업의 답변 문단·초기 펼침·카테고리 간격 변경을 보존했다.
+
+PC 제목 아래 간격 32px와 검색 영역 상단 24px, 검색창 590×56px, 카테고리 아래 32px, 질문 20px/600/24px를 적용한다. 모바일 제목은 HOKA 22px/900, 검색 앞 32px, 질문은 Pretendard 16px/600/19.2px이며 Q는 17px 고정 폭의 HOKA 20px이다. 답변은 기존 #F7F7F9·24px 16px 패딩·14px 본문을 유지한다. 검색 아이콘은 기존 SearchField 기본 모드로 PC 오른쪽·모바일 왼쪽에 배치하고 모바일 placeholder는 #777777이다. 질문 화살표는 24px 영역 안의 16px 아이콘으로 보정했다. 하단은 로컬 footer의 plain Button으로 `더 보기 (전체 건수)`와 chevron을 표시하고 PC 40px·모바일 24px 앞 간격을 둔다. 공통 컴포넌트 기본값은 변경하지 않는다.
+
+시안의 반복 질문·건수 16을 운영 데이터로 복사하지 않고 기존 FAQ fixture와 실제 totalCount를 표시한다. SupportContentContext.faq의 검색 결과·추가 조회 책임을 보존하며 추가 조회 중 버튼은 중복 실행을 막는다. 서버 검색·실패·재시도·응답 교체 자체는 이번 디자인 변경의 검증 대상이 아니다.
+
+2026-11-02 Codex 실행 확인: PC 1920px/clientWidth 1905px의 본문 844px·질문 20px/600/24px, 모바일 375px/clientWidth 360px의 제목 22px·검색 높이 56px·질문 16px/600·답변 14px 및 양쪽 가로 넘침 없음을 DOM으로 확인했다. 실제 질문 글리프는 Pretendard SemiBold였다. 영문 제목의 실제 글리프 내부 이름은 `.`이지만 --font-hoka의 hoka 900 normal face가 참조한 TheFutureHOKA_Black.2cswp60rr-lan.woff2와 public/fonts/TheFutureHOKA-Black.woff2의 SHA256이 같아 제공 파일과 연결했다. 모바일 답변 펼침·검색 결과 없음·상품정보 탭, 더 보기로 10→12건 표시와 버튼 제거를 확인했다.
+
+[^faq-section-figma]: [사용자가 지정한 FAQ 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15997), 2026-11-02 확인. 별도 디자인 시스템 파일의 지정 노드는 존재하지 않아 그 라이브러리를 이번 수치의 근거로 사용하지 않았다.
+
+답변 문단 서식의 출처는 `src/app/support/faq/faq.data.ts`다. 최종 Storybook production build도 통과했으며 의존 패키지의 모듈 지시문·청크 크기 관련 경고는 남아 있다. PC/MO의 `/support/faq/preview-no-results` 직접 진입에서 검색 결과 없음 표시를 확인했다. 사용자가 FAQ 두 파일의 기존 관련 변경을 함께 커밋하도록 승인했으며 다른 고객지원 화면과 공통 컴포넌트 변경은 커밋 대상에서 제외한다.
+
+최종 확인(2026-11-02): 앞선 타입 오류·빌드 잠금은 재검사에서 해소됐다. 전체 타입 검사, 최종 화살표/placeholder 수정 이후의 Next production build(119개 정적 경로), 변경 파일 ESLint·Prettier 및 Panda 생성을 통과했다. PC 1920px와 모바일 375px의 기본·답변 펼침 실행 이미지를 로컬에 저장하고 해당 Figma PNG와 시각 대조를 완료했다. 캡처에서 발견한 화살표 크기를 16px로 보정했으며 모바일 placeholder도 원본의 #777777에 맞췄다. 공통 홍보 배너와 시안의 iPhone status bar, Windows scrollbar 15px, 기존 fixture의 서로 다른 질문·12건과 시안의 반복 문구·16건 때문에 절대 y좌표·줄바꿈·전체 화면 높이는 다르다. 이 차이를 픽셀 일치로 주장하지 않으며 공통 헤더/푸터·사이드 메뉴·데이터 내용 변경으로 확대하지 않았다. 검증은 공유 작업 트리에서 실행했으며 다른 화면의 미커밋 변경도 함께 존재했다.
 
 사용자 첨부 이미지를 시각적 비교 자료로 사용했다. 이미지 안의 문구는 작업 지시로 취급하지 않았다. 기존 시연 데이터와 법률·운영 안내 문구는 유지하며 표현과 화면 구성을 조정했다.[^support-references]
 
