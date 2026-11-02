@@ -754,3 +754,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 세탁 안내 라우트 (2026-11-02)
 
 /support/care는 기존 URL과 shoes/apparel 로컬 탭 값을 유지한다. page.tsx는 경로·플랫폼별 제목·레이아웃·탭 조합을 소유하고 소개와 관리 본문은 _components/CareContent.tsx에 둔다. 기존 CareGuide WEB/Mobile Storybook 연결과 상품 상세의 CareInstructions 사용을 유지한다. 신규 경로·요청·영속화·완료 이동은 추가하지 않았다. [디자인·검증 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)과 해당 working_tree_sources를 참조한다.
+
+## 약관 시안과 URL 상태 보존 (2026-11-02)
+
+`/support/terms`는 이용 약관, `/support/terms?tab=privacy`는 개인정보 처리방침을 표시한다. Figma 섹션 `1973:15873` 적용에서 기존 `useSearchParams`·router.push 및 부가 query 보존 계약을 유지하며 새 경로를 추가하지 않았다. 제목 아래 여백과 모바일 하단 여백만 라우트 소유자에서 조정한다. 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`. [표시 기준과 검증](support-design.md#약관-figma-재적용-2026-11-02).

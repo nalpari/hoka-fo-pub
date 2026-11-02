@@ -48,7 +48,7 @@ function TermsDateSelect({ name, options, value, onValueChange }: TermsDateSelec
           _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
         })}
       >
-        <Typography variant="body3" weight="medium">
+        <Typography variant="body3" language="ko" weight="regular">
           {value.replaceAll('.', '. ')}
         </Typography>
         <Icon src="/images/icon/chevron-down-small.svg" size="14px" aria-hidden="true" />
@@ -103,7 +103,7 @@ export function TermsDocument({ privacy }: { privacy: boolean }) {
   });
 
   return (
-    <Stack gap="4" pt="4" px={{ base: '4', _mobile: '0' }}>
+    <Stack gap="4" pt={{ base: '10', _mobile: '6' }}>
       <TermsDateSelect
         name={privacy ? 'privacy-date' : 'terms-date'}
         options={
@@ -132,7 +132,7 @@ export function TermsDocument({ privacy }: { privacy: boolean }) {
         )}
       </Grid>
       {privacy && (
-        <Stack gap="0">
+        <Stack gap="0" mt={{ base: '0', _mobile: '-1' }}>
           <Typography variant="body5" tone="tertiary">
             - 개인정보 처리방침 버전번호 : {binding ? binding.document?.version : 'v.1.79'}
           </Typography>

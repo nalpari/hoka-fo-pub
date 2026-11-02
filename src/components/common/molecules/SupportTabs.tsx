@@ -50,7 +50,7 @@ export function SupportTabs({
   defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
-  variant?: 'default' | 'scrollable' | 'guide' | 'care' | 'shipping-returns';
+  variant?: 'default' | 'scrollable' | 'guide' | 'care' | 'shipping-returns' | 'terms';
 }) {
   return (
     <Tabs.Root defaultValue={defaultValue} value={value} onValueChange={onValueChange}>
@@ -105,6 +105,7 @@ export function SupportTabs({
                         h: '42px',
                         _mobile: { h: '32px' },
                       },
+                      variant === 'terms' && { h: '40px', _mobile: { h: '32px' } },
                       variant === 'care' && {
                         borderBottom: '1px solid token(colors.black.40)',
                         '&[data-active]': { borderBottom: '2px solid token(colors.black.100)' },
@@ -119,7 +120,11 @@ export function SupportTabs({
             ) : (
               <Typography
                 variant="body3"
-                weight={variant === 'care' || variant === 'shipping-returns' ? 'regular' : 'medium'}
+                weight={
+                  variant === 'care' || variant === 'shipping-returns' || variant === 'terms'
+                    ? 'regular'
+                    : 'medium'
+                }
               >
                 {label}
               </Typography>

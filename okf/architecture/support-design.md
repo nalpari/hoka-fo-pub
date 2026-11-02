@@ -9,6 +9,7 @@ generated:
   at: "2026-11-02T00:43:51.022Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/terms/_components/TermsDocument.tsx
   - src/components/care-guide/care.data.ts
   - src/app/support/care/_components/CareContent.tsx
   - src/app/support/care/page.tsx
@@ -41,6 +42,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: terms-figma-20261102
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15873'
+    title: '약관 PC 개인정보 및 모바일 이용약관·개인정보 시안'
   - id: care-section-figma
     resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15638'
     title: '세탁 및 손질 방법 PC·모바일 신발·의류용품 4개 프레임'
@@ -183,3 +187,19 @@ Codex 브라우저 검증(2026-11-02): 1920px 및 375px에서 두 탭의 선택�
 [^care-section-figma]: 사용자 제공 Figma 세탁 및 손질 안내 섹션 https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15638 (2026-11-02 확인).
 
 검사 기록: 변경 파일 ESLint, Panda 생성, Storybook production build, git diff --check 및 OKF pendingDocs(false)의 누락 없음 확인을 수행했다. 기존 WEB/Mobile Storybook에서 탭 높이 42px/32px과 의류 공통 주의사항 표시를 확인했다. 전체 lint:fix는 범위 밖 FindAccountContent의 css, signup/complete의 Stack, AfterSalesContent의 ButtonLink 미사용 import로 실패했다. 전체 타입 검사는 범위 밖 TermsDocument.tsx:51의 weight="normal" 타입 오류 1건으로 실패했다. Next production build는 다른 next build 프로세스가 실행 중이라는 잠금 오류로 완료하지 못했다. 다른 채팅의 변경과 index는 보존했으며 이 기록은 전체 저장소의 검증 통과를 의미하지 않는다.
+
+## 약관 Figma 재적용 (2026-11-02)
+
+사용자 지정 [약관 섹션 1973:15873](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15873)의 PC 개인정보 `1973:15874`, 모바일 이용약관 `1973:15956`·개인정보 `1973:15976`을 기준으로 `/support/terms`와 `?tab=privacy`의 표시를 보정했다. 이 섹션에는 별도 PC 이용약관 프레임이 없어 PC 개인정보의 공통 구조를 재사용한다.
+
+제목과 탭 사이 PC 40px·MO 24px, 탭 높이 PC 40px·MO 32px, 탭과 시행일 사이 PC 40px·MO 24px, 시행일과 본문 사이 16px을 적용한다. PC 탭 인스턴스 외곽 40px·내부 그룹 42px의 차이는 외곽 크기를 기준으로 구현한다. 탭·날짜는 Pretendard 16px/400, 제목은 기존 PC 36px·MO 22px/900을 유지한다. PC 본문 좌우 16px 들여쓰기를 제거해 탭과 같은 844px 폭으로 표시하고, 회색 본문 높이 PC 407px·MO 404px은 유지한다. 개인정보 하단 안내는 12px/#777777, 본문과의 간격은 PC 16px·MO 12px이다. 모바일 하단 여백은 이 라우트에서만 64px로 적용한다.
+
+`SupportTabs`의 명시적인 `terms` variant로 높이·글자 굵기를 지정한다. 기본/guide/scrollable 및 다른 고객지원 variant의 계약은 유지한다. `TermsDocument`의 기존 버전 선택과 `SupportContentContext.terms` 연결, URL tab 전환·뒤로/앞으로 탐색은 변경하지 않는다. 본문의 회색 약관내용은 시안과 기존 미연결 표시 자료이며 실제 법률 문서나 API 구현을 뜻하지 않는다.
+
+작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`, `src/components/common/molecules/SupportTabs.tsx`.
+
+2026-11-02 Codex 검증: 변경 파일 ESLint·Prettier, Panda 생성, 타입 검사, Next production build(119개 정적 경로), `git diff --check`를 통과했다. 작업 트리 전체의 `pendingDocs(false)`는 누락 없음이었다. 전체 `lint:fix`는 기존 로그인 FindAccountContent의 css·가입 완료의 Stack 미사용 import 2건으로 중단되었으며 이 소스는 수정하지 않았다.
+
+브라우저에서 두 URL의 탭 전환·뒤로/앞으로 탐색, 시행일 변경, Escape 닫기와 트리거 포커스 복원을 확인했다. 1920px PC 본문 844×407px·탭 40px, 375px MO 제목 22px·탭 32px·본문 높이 404px과 하단 안내 12px/#777777·12px 간격, 하단 여백 64px을 DOM 계산값으로 확인했다. 양쪽 가로 넘침은 없다. Windows 세로 스크롤바 15px 때문에 PC clientWidth는 1905px, MO는 360px이며, 공통 홍보 배너와 모바일 status bar 차이를 시안 절대 좌표와 구분한다. 실제 글리프는 제목 Pretendard Black·탭 Pretendard Regular였고, 시행일에 `language="ko"`를 지정한 뒤 숫자도 Pretendard Regular임을 확인했다. Storybook의 명시적 WEB/Mobile 기본 약관에서 각각 탭 40/32px·본문 높이 407/404px을 확인했다. 기존 회색 표시 자료와 BO 본문 연결은 유지하며 새 서비스 계약 검증 대상은 없다.
+
+Figma 모바일 프레임 PNG는 확인했으나 실행 화면의 스크린샷 캡처는 시간 초과로 실패했다. 따라서 DOM·실제 폰트 검증과 별개로 최종 스크린샷 시각 대조는 완료하지 못했다. 별도 PC 이용약관 시안, 실제 운영 약관 본문과 서버 조회는 이번 작업에서 제공·검증되지 않았다.

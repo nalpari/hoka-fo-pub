@@ -3861,3 +3861,7 @@ InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 
 ## 세탁 안내의 표현 옵션 (2026-11-02)
 
 세탁 안내는 route-private CareContent에서 소개·요약과 기존 CareInstructions를 조합한다. SupportTabs variant=care는 PC 42px/MO 32px 높이·40px/24px 패널 여백·일반 굵기를 지정하며 기존 default/guide/scrollable과 동시 작업의 다른 옵션을 보존한다. CareInstructions variant=care는 10px 섹션 간격과 하이픈 목록을 지정하고 상품 상세의 기본 모드는 변경하지 않는다. 데이터는 care.data의 고정 문자열 표시 모델이며 서비스 요청은 없다. 코드 출처는 frontmatter의 care 관련 working_tree_sources, 세부 수치·실제 확인은 [디자인 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)을 따른다.
+
+## 약관 탭과 본문 Figma 적용 (2026-11-02)
+
+약관 전용 `SupportTabs.variant="terms"`는 PC 40px·MO 32px 높이와 16px 일반 굵기를 사용한다. 기본 탭과 다른 고객지원 variant는 기존 계약을 유지한다. 본문 간격·폭·하단 안내 및 시안 프레임 차이는 [약관 디자인 기록](support-design.md#약관-figma-재적용-2026-11-02)을 참조한다. 작업 트리 출처: `src/components/common/molecules/SupportTabs.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`.
