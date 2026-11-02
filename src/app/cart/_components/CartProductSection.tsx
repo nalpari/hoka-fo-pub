@@ -243,14 +243,10 @@ export function CartProductSection({ rows }: CartProductSectionProps) {
             }
           />
           <HStack gap={{ base: '3', _mobile: '2' }}>
-            <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={selectedCount === 0}>
+            <Button variant="link" size="md" disabled={selectedCount === 0}>
               선택상품 삭제
             </Button>
-            <Button
-              variant="link"
-              size={mobile ? 'md' : 'sm'}
-              disabled={rows.every((row) => !row.soldOut)}
-            >
+            <Button variant="link" size="md" disabled={rows.every((row) => !row.soldOut)}>
               품절상품 삭제
             </Button>
           </HStack>

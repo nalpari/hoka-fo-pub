@@ -1514,3 +1514,7 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 - 기본/모바일 Storybook에 체크박스 로컬 선택과 전체 선택 사례를 유지하고 옵션 변경 trigger에 의존하던 목록 story를 제거했다. 라우트 및 preview URL은 변경하지 않았다.
 - 범위·바인딩 경계를 `architecture/ui.md`, `architecture/data-binding.md`, `architecture/state.md`, `architecture/routing.md`에 기록했다.
 - Prettier, `npm run okf:check`, `git diff --check`를 통과했고 이전 합계 prop·상수 참조가 남지 않은 것을 확인했다. TypeScript 전체 검사는 Cart 오류 없이 오래된 `.next` 라우트 참조와 ProductListingPage PageProps 오류로 실패했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 2026-11-02 — 장바구니 삭제 버튼 크기 통일
+
+- 선택상품 삭제와 품절상품 삭제 링크 버튼 크기를 PC·모바일 모두 `md`로 통일했다. 세부 범위는 `architecture/ui.md`에 기록했다.
