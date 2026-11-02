@@ -142,7 +142,8 @@ function CatalogFilterTrigger({
   title,
 }: CatalogFilterTriggerProps) {
   return (
-    <button
+    <Button
+      variant="unstyled"
       aria-controls={controlsId}
       aria-expanded={expanded}
       className={trigger}
@@ -152,15 +153,13 @@ function CatalogFilterTrigger({
       <Typography variant="body3" weight="semibold">
         {title}
       </Typography>
-      <img
+      <Icon
         alt=""
-        aria-hidden="true"
         className={icon}
-        height={16}
+        size={16}
         src={expanded ? '/images/icon/filter-expanded.svg' : '/images/icon/filter-collapsed.svg'}
-        width={16}
       />
-    </button>
+    </Button>
   );
 }
 
@@ -1334,18 +1333,22 @@ function SearchListingLayout({
   const results = hasResultsOrFilters ? (
     children
   ) : (
-    <ContentHeader
+    <EmptyState
+      variant="plain"
       as="section"
       title="검색된 결과가 없습니다."
       titleProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
       description="검색어를 정확하게 다시 한번 입력해 주세요."
       descriptionProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      minH="470px"
-      gap="0"
-      _mobile={{ minH: 'auto', py: '96px' }}
+      layoutProps={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minH: '470px',
+        gap: '0',
+        _mobile: { minH: 'auto', py: '96px' },
+      }}
     />
   );
 

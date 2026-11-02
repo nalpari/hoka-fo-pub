@@ -6,9 +6,10 @@ tags: [support, size-guide, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:12:15.102Z'
+  at: '2026-11-02T04:46:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/atoms/DataTable.tsx
   - src/app/support/size-guide/page.tsx
   - src/app/support/size-guide/size-guide.data.ts
   - src/components/common/molecules/SupportTabs.tsx
@@ -137,3 +138,15 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 PC 품목 탭은 본문 폭에 고르게 배분하고 제목 아래 여백을 40px로 맞췄다. 모바일 가로 스크롤 탭은 유지한다. 표는 신발 PC 헤더 14px·본문 14px·좌우 16px, 모바일 헤더 13px·본문 14px·좌우 16px를 반영했고, 다른 품목의 작은 표 본문은 기존 12px 모바일 크기를 유지한다.
 
 검증: 실제 포인터 클릭으로 PC 1920px 21개·모바일 콘텐츠 폭 375px 21개, 총 42개 조합에서 선택·caption·행 수·48px 셀·가로 넘침 부재를 확인했다. 모바일은 데스크톱 브라우저의 15px 스크롤바를 구분해 창 390px/콘텐츠 375px로도 대조했으며, 창 375px에서도 각 품목을 확인했다. PC 캡슐은 4px/버튼 44px, 모바일은 2px/버튼 40px, 단위 탭은 PC 270px로 5품목에 같은 값을 확인했다. ArrowRight로 여성→공용 포커스 이동, Space로 공용 선택, 모바일에서 PC로 리사이즈 후 여성/INCH 상태 유지를 확인했다. 타입·변경 파일 ESLint/Prettier·Panda 생성은 통과했다. Next/Storybook 빌드도 통과했다. Storybook play 전체 실행이나 실제 API 연동 검증을 의미하지 않는다.
+
+## 공통 DataTable 복원 (2026-11-02)
+
+위 기록의 라우트 전용 table을 공통 DataTable의 variant=striped로 교체했다. 신발은 density=regular, 나머지 네 품목은 compact로 지정한다. 스타일은 공통 atom이 소유하며, category.charts[gender][unit]·caption·열/행 scope·선택 UI는 기존 SizeGuideChart/Panel이 소유한다. 기존 PC/MO 셀 높이·테두리·줄무늬·폰트·스크롤 DOM을 유지하며 공통 default/spaced는 변경하지 않는다. [수치와 실제 검증](ui.md#빈-상태더보기표-공통-컴포넌트-복원-2026-11-02)을 참고한다.
+
+작업 트리 출처: `src/components/common/atoms/DataTable.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/stories/components/common/atoms/DataTable/DataTable.stories.tsx`. 검토: codex/gpt-6, 2026-11-02T04:46:17Z.
+
+## 측정 제목 공통 재사용 (2026-11-02)
+
+SizeGuidePanel의 측정 방법 제목은 ContentHeader로 조합하며 기존 DataTable.striped·탭·성별·단위·측정 데이터와 PC/MO 타이포/간격은 유지한다. [전체 대조의 출처·화면 비교](common-reuse-audit.md)를 참고한다.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

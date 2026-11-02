@@ -72,3 +72,9 @@ applicationOpeningLabel은 연결 소유자가 전달하는 신청 시작 표시
 Panda 생성·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드와 기존 이미지 경로 검사 2건을 통과했다. 전체 lint는 작업 범위 밖 FindAccountContent.tsx의 css와 signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 실서비스 호출·결제는 검증하지 않았으며 연결 소유자의 작업으로 남는다. 픽셀 일치율은 산출하지 않았다. 최종 문서 갱신: codex/gpt-6, 2026-11-02T04:28:10.019Z.
 
 공통 EmptyState의 기본/Minimal 스토리를 빌드 결과에서 재확인했다. 두 제목은 기존 28px/900을 유지하고 standard 위 96px·아래 160px, minimal 위 42px·최소 높이 180px을 확인했다. 러닝세션 호출의 PC 516px·16px·링크 1개, 모바일 504px·14px·링크 없음도 확인했다.
+
+## 카드·정보·하단 바 공통 재사용 (2026-11-02)
+
+목록 카드는 Card, 상세 세션/코스 정보는 DescriptionList, 모바일 고정 신청 바는 OrderActionBar.mobileOnly를 재사용한다. 카드 article·정보 dt/dd·모바일 전용 행·58/60px 라벨 열·안전 영역·기존 신청 버튼/콜백을 유지한다. 신청 내역은 Badge.textProps와 Divider의 vertical 옵션으로 기존 글꼴과 선을 보존한다. [전체 공통 판단과 실제 비교](common-reuse-audit.md)를 참고한다.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

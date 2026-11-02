@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * SupportContentContext.notice.onQueryChange({ id })에 경로의 실제 공지 ID가 전달됩니다.
  * item.body는 BO 본문 렌더링 결과입니다. pending/error와 실제 item: null을 구분하며 없는 ID를 첫 공지로 대체하지 않습니다.
  */
@@ -18,6 +18,7 @@ import { Box, Stack } from 'styled-system/jsx';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
@@ -37,13 +38,14 @@ export default function Page() {
 
   return (
     <CustomerCenterLayout
+      className={css({ _mobile: { pb: '72px!' } })}
       title="공지사항"
+      mobileTitleVariant="heading5"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
         { label: '고객센터', href: '/support' },
         { label: '공지사항', href: '/support/notices' },
-        { label: '상세' },
       ]}
       groups={supportNavigation}
       footerAction={{
@@ -59,32 +61,32 @@ export default function Page() {
         mt={{ base: '10', _mobile: '8' }}
         borderTop="2px solid"
         borderBottom="1px solid"
-        borderColor="black.20"
+        borderColor="#E9EAEB"
         borderTopColor="black.100"
         py="6"
         _mobile={{ py: '4', borderTopWidth: '1px' }}
       >
-        <Stack gap="2">
-          <Typography as="h2" variant="heading9">
-            {notice.title}
-          </Typography>
-          <Typography
-            as="time"
-            variant="body4"
-            language="en"
-            dateTime={notice.date}
-            tone="tertiary"
-          >
-            {notice.date}
-          </Typography>
-        </Stack>
+        <ContentHeader
+          title={notice.title}
+          titleAs="h2"
+          titleProps={{ variant: 'heading9' }}
+          gap="2"
+          description={notice.date}
+          descriptionAs="time"
+          descriptionProps={{
+            variant: 'body4',
+            language: 'en',
+            dateTime: notice.date,
+            className: css({ color: '#777777' }),
+          }}
+        />
       </Box>
       <Stack
         gap="4"
         px="2"
         py="6"
         borderBottom="1px solid"
-        borderColor="black.20"
+        borderColor="#E9EAEB"
         _mobile={{ minH: '354px' }}
       >
         {binding ? (

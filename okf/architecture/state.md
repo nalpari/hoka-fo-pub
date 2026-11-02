@@ -566,6 +566,7 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 
 `HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
 
+
 ## 전체 검색 표시 상태 검토 (2026-11-02)
 
 검색 공통 Figma 섹션 655:19884에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
@@ -579,3 +580,9 @@ Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 �
 ## 러닝세션 신청 pending 표시 보정 (2026-11-02)
 
 기존 Context·요청 훅을 유지하고 pending을 두 신청 버튼에 전달했다. 운영 apply 완료 전 성공 안내를 표시하지 않으며 실패 시 상세를 유지한다. 신청 시작 문구와 보조 이미지 placeholder는 명시적 표시 데이터다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 표시 공통 재사용과 상태 소유권 유지 (2026-11-02)
+
+ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)를 사용한다. 검색 value·submit·오류·portal·메뉴 이동과 복귀는 ShopShell 소유이며 중첩 form을 만들지 않는다. Button.unstyled는 메뉴/숨김 제출/백드롭의 원래 자식 구조와 이벤트를 유지한다. 조회·재입고 취소·쿠폰·리뷰 저장의 prop/context와 pending/error/retry 소유자를 이동하지 않았고, BindingFeedback.errorFirst는 리뷰의 기존 오류 우선 순서를 표시한다. [변경 소스·옵션·검증](common-reuse-audit.md)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/common/molecules/SearchField.tsx, src/components/common/molecules/BindingFeedback.tsx, src/app/mypage/reviews/_components/MyPageReviewsContent.tsx.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

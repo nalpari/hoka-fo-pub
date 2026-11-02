@@ -10,12 +10,14 @@ import { css } from 'styled-system/css';
 import { Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -124,33 +126,39 @@ type CouponCardProps = {
 
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <Stack
-      as="article"
-      pos="relative"
-      minW="0"
-      minH="195px"
-      py="8"
-      pl="33px"
-      pr="25px"
-      gap="8"
+    <Card
+      className={css({
+        pos: 'relative',
+        minW: '0',
+        minH: '195px',
+        py: '8',
+        pl: '33px',
+        pr: '25px',
+        gap: '8',
+        backgroundSize: '100% 100%',
+        backgroundRepeat: 'no-repeat',
+        _mobile: { minH: '170px', py: '25px', gap: '6' },
+      })}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
-      backgroundSize="100% 100%"
-      backgroundRepeat="no-repeat"
-      _mobile={{ minH: '170px', py: '25px', gap: '6' }}
     >
-      <HStack gap="2" justifyContent="space-between" alignItems="flex-start">
-        <Typography as="h3" web="headingKr8" mo="headingKr6">
-          {coupon.name}
-        </Typography>
-        <Button
-          size="sm"
-          variant="link"
-          onClick={() => onDetails(coupon)}
-          className={css({ flexShrink: '0', '& span': { fontSize: '12px', fontWeight: '400' } })}
-        >
-          상세보기
-        </Button>
-      </HStack>
+      <ContentHeader
+        title={coupon.name}
+        titleAs="h3"
+        titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
+        orientation="horizontal"
+        gap="2"
+        alignItems="flex-start"
+        action={
+          <Button
+            size="sm"
+            variant="link"
+            onClick={() => onDetails(coupon)}
+            className={css({ flexShrink: '0', '& span': { fontSize: '12px', fontWeight: '400' } })}
+          >
+            상세보기
+          </Button>
+        }
+      />
       <Stack gap="3">
         <HStack gap="0" alignItems="center">
           <Typography
@@ -174,7 +182,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           </Typography>
         </Stack>
       </Stack>
-    </Stack>
+    </Card>
   );
 }
 

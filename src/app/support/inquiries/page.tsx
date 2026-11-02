@@ -17,6 +17,7 @@ import { Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
@@ -24,7 +25,6 @@ import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
   desktopPreviewAttachments,
-  InquiryEmptyState,
   InquiryListItem,
   type InquiryListItemProps,
   mobilePreviewAttachments,
@@ -60,7 +60,19 @@ export default function Page() {
       <Divider variant="heading" mo="subtle" />
       <Stack gap="0" pt="6" pb={{ base: '6', _mobile: '8' }}>
         {inquiries.length === 0 && !binding?.pending && !binding?.error ? (
-          <InquiryEmptyState />
+          <EmptyState
+            variant="plain"
+            title="등록된 문의사항이 없습니다."
+            titleProps={{ as: 'span', web: 'body3', mo: 'body4', tone: 'subtle' }}
+            layoutProps={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minH: { base: '427px', _mobile: '190px' },
+            }}
+          />
         ) : (
           inquiries.map((item) => (
             <InquiryListItem

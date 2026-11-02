@@ -79,3 +79,9 @@ HomeContentContext의 현재 상품·탭 조회·콘텐츠 슬롯, 기존 캐러
 [^main-design]: Main 섹션 1181:41552 및 PC/MO 하위 프레임.
 
 [^product-design]: PDP 섹션 1294:32410 및 기본/할인/고정 CTA/후속 PC 프레임.
+
+## 공통 전체 대조 후 조합 (2026-11-02)
+
+HomeContent의 HeroCopy는 ContentHeader(descriptionAs=div), 히어로 이동 버튼은 Button.unstyled를 직접 사용한다. 상품 상세의 지원 제목은 ContentHeader, 상품 정보는 DescriptionList의 항목별 descriptionProps, 구분선은 Divider.vertical, 문의 빈 결과는 EmptyState, 더보기는 Button.loadMore.appearance=inline을 사용한다. 기존 히어로 시간/포인터 상태·상품 선택/툴팁·h1/h4·dd 혼합 타이포·본문/버튼의 inline 흐름을 유지한다. [범위와 실제 화면 대조](common-reuse-audit.md)를 참고한다.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

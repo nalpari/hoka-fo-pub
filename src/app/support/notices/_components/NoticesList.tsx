@@ -17,16 +17,17 @@ function NoticeHeading({ notice, platform }: Props) {
       w="100%"
       justifyContent="space-between"
       gap={{ base: '4', _mobile: '2' }}
-      alignItems={{ base: 'center', _mobile: 'flex-start' }}
-      flexDirection={{ base: 'row', _mobile: 'column' }}
+      alignItems="center"
     >
-      <Typography variant="heading10">{notice.title}</Typography>
+      <Typography variant="heading10" className={css({ minW: '0', overflowWrap: 'anywhere' })}>
+        {notice.title}
+      </Typography>
       <Typography
         as="time"
         variant="body4"
         dateTime={notice.date}
-        className={css({ flexShrink: '0' })}
-        tone={platform === 'web' ? 'subtle' : 'tertiary'}
+        className={css({ flexShrink: '0', _mobile: { color: '#777777' } })}
+        tone={platform === 'web' ? 'subtle' : undefined}
       >
         {notice.date}
       </Typography>
@@ -48,7 +49,7 @@ const noticeLink = css({
   minH: '74px',
   px: '16px',
   py: '24px',
-  borderBottom: '1px solid token(colors.black.20)',
+  borderBottom: '1px solid #E9EAEB',
   _mobile: { minH: '58px', px: '0', py: '16px' },
   _focusVisible: {
     outline: '2px solid var(--color-focus-ring)',

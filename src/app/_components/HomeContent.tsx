@@ -20,11 +20,11 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
 import { contentFrame } from 'styled-system/patterns';
 
-import { ButtonLink } from '@/components/common/atoms/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
-import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
@@ -301,21 +301,28 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
       }}
       gap={{ base: '36px', _mobile: '24px' }}
     >
-      <VStack alignItems="flex-start" maxW="100%" gap="24px">
-        <Typography
-          as="h1"
-          className={[title, platform === 'mobile' ? mobileHeroTitle : undefined]
+      <ContentHeader
+        title={content.title}
+        titleAs="h1"
+        alignItems="flex-start"
+        maxW="100%"
+        gap="24px"
+        titleProps={{
+          className: [title, platform === 'mobile' ? mobileHeroTitle : undefined]
             .filter(Boolean)
-            .join(' ')}
-          tone="inverse"
-          variant="heading1"
-        >
-          {content.title}
-        </Typography>
-        <Typography as="div" className={description} tone="inverse" web="bodyKr1" mo="bodyKr3">
-          {content.description}
-        </Typography>
-      </VStack>
+            .join(' '),
+          tone: 'inverse',
+          variant: 'heading1',
+        }}
+        description={content.description}
+        descriptionAs="div"
+        descriptionProps={{
+          className: description,
+          tone: 'inverse',
+          web: 'bodyKr1',
+          mo: 'bodyKr3',
+        }}
+      />
       <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
         {actions.map((action) => (
           <ButtonLink
@@ -409,7 +416,8 @@ function HeroPagination({
       role="group"
     >
       {slides.map((slide, index) => (
-        <button
+        <Button
+          variant="unstyled"
           aria-label={`${slide.title} 슬라이드`}
           aria-pressed={activeSlide === index}
           className={paginationButton}
@@ -428,7 +436,7 @@ function HeroPagination({
               }}
             />
           ) : null}
-        </button>
+        </Button>
       ))}
     </Flex>
   );

@@ -5,6 +5,7 @@
  * SupportContentContext.notices에 안정적인 id/title/date/body와 서버 목록 상태를 전달합니다.
  * Empty는 조회 중·실패와 구분합니다. previewEmpty는 조회하지 않는 고정 fixture이며 운영 응답 갱신·오래된 응답 폐기는 context 소유자 책임입니다.
  * 상세 링크는 배열 순번이 아닌 id입니다. 더보기는 다음 응답을 누적한 뒤 resolve하고 실패하면 reject합니다.
+ * Button.loadMore에는 현재 표시한 목록을 제외한 건수만 전달하며, 중복 실행 방지와 실패 표시는 기존 request 상태를 따릅니다.
  */
 
 import { useContext } from 'react';
@@ -15,11 +16,10 @@ import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, Center, HStack, Stack } from 'styled-system/jsx';
+import { Box, Center, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
@@ -42,7 +42,9 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
 
   return (
     <CustomerCenterLayout
+      className={css({ _mobile: { pb: '72px!' } })}
       title="공지사항"
+      mobileTitleVariant="heading5"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -57,20 +59,23 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
               variant="plain"
               className={css({ p: '0', minH: '0' })}
               disabled={binding?.pending || request.pending}
+              loadMore={{
+                appearance: 'text',
+                label: '더 보기',
+                count: Math.max(0, total - (binding ? items.length : shown)),
+                countPlacement: 'inline',
+                labelProps: { variant: 'body4' },
+                indicator: (
+                  <Center w="5" h="5">
+                    <Icon src="/images/icon/chevron-down-small.svg" size="13px" />
+                  </Center>
+                ),
+              }}
               onClick={() => {
                 if (binding) void request.run(binding.onLoadMore);
                 else setShown((count) => count + 10);
               }}
-            >
-              <HStack gap="1">
-                <Typography variant="body4">
-                  더 보기 ({Math.max(0, total - (binding ? items.length : shown))})
-                </Typography>
-                <Center w="5" h="5">
-                  <Icon src="/images/icon/chevron-down-small.svg" size="13px" />
-                </Center>
-              </HStack>
-            </Button>
+            />
           </Box>
         ) : null
       }

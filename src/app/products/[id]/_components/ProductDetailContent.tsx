@@ -29,13 +29,15 @@ import { type Platform, usePlatform } from '@/context/platform';
 import { useShop } from '@/context/ShopShell';
 
 import { css, cva } from 'styled-system/css';
-import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button, type ButtonIconProps, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
+import { Divider } from '@/components/common/atoms/Divider';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
@@ -572,23 +574,37 @@ function InquiryBoard({
           }))}
         />
       ) : (
-        <Typography
-          as="p"
-          variant={variant === 'product' ? 'body3' : 'body4'}
-          tone={variant === 'product' ? 'primary' : 'tertiary'}
-          className={variant === 'product' ? styles.productEmpty : styles.empty}
+        <EmptyState
+          variant="plain"
           role="status"
-        >
-          {excludePrivate && variant !== 'product'
-            ? '공개로 등록된 문의글이 없습니다.'
-            : '등록된 문의글이 없습니다.'}
-        </Typography>
+          title={
+            excludePrivate && variant !== 'product'
+              ? '공개로 등록된 문의글이 없습니다.'
+              : '등록된 문의글이 없습니다.'
+          }
+          titleProps={{
+            as: 'p',
+            variant: variant === 'product' ? 'body3' : 'body4',
+            tone: variant === 'product' ? 'primary' : 'tertiary',
+            className:
+              variant === 'product'
+                ? [styles.productEmpty, css({ textAlign: 'start' })].join(' ')
+                : styles.empty,
+          }}
+        />
       )}
       {nextCount > 0 && (
         <Flex justifyContent="center" py="5">
-          <Button variant="plain" onClick={() => setShownCount((count) => count + nextCount)}>
-            더 보기 ({nextCount}) <Icon fontAwesomeIcon={faChevronDown} size="16px" />
-          </Button>
+          <Button
+            variant="plain"
+            onClick={() => setShownCount((count) => count + nextCount)}
+            loadMore={{
+              appearance: 'inline',
+              count: nextCount,
+              label: '더 보기',
+              indicator: <Icon fontAwesomeIcon={faChevronDown} size="16px" />,
+            }}
+          />
         </Flex>
       )}
     </Box>
@@ -699,27 +715,26 @@ type ProductDetailSpecificationListProps = {
 
 function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificationListProps) {
   return (
-    <Stack as="dl" gap={gap}>
-      {items.map((item) => (
-        <Stack key={item.label} gap="2">
-          <Typography as="dt" variant="body3" weight="bold">
-            <HStack as="span" gap="2" alignItems="center">
-              {item.label}
-              {item.help ? (
-                <ProductSpecificationHelp label={item.label} description={item.help} />
-              ) : null}
-            </HStack>
-          </Typography>
-          {typeof item.value === 'string' ? (
-            <Typography as="dd" variant="body3">
-              {item.value}
-            </Typography>
+    <DescriptionList
+      items={items.map((item) => ({
+        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },
+        term: (
+          <HStack as="span" gap="2" alignItems="center">
+            {item.label}
+            {item.help ? (
+              <ProductSpecificationHelp label={item.label} description={item.help} />
+            ) : null}
+          </HStack>
+        ),
+        description:
+          typeof item.value === 'string' ? (
+            item.value
           ) : (
-            <HStack as="dd" gap="3" flexWrap="wrap">
+            <HStack as="span" gap="3" flexWrap="wrap">
               {item.value.map((value, index) => (
                 <Fragment key={value}>
                   {index > 0 ? (
-                    <Box as="span" aria-hidden="true" h="4" borderLeft="1px solid black" />
+                    <Divider orientation="vertical" length="4" variant="strong" />
                   ) : null}
                   <Typography as="span" variant="body3">
                     {value}
@@ -727,10 +742,21 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
                 </Fragment>
               ))}
             </HStack>
-          )}
-        </Stack>
-      ))}
-    </Stack>
+          ),
+      }))}
+      termProps={{ variant: 'body3', weight: 'bold' }}
+      descriptionProps={{ variant: 'body3', tone: undefined }}
+      slotStyles={{
+        root: css.raw({
+          display: 'flex',
+          flexDirection: 'column',
+          gridTemplateColumns: 'none',
+          gap,
+        }),
+        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),
+        description: css.raw({ m: '0' }),
+      }}
+    />
   );
 }
 
@@ -1113,9 +1139,12 @@ function ProductSupportContact() {
       borderBottom="1px solid token(colors.border.default)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
     >
-      <Typography as="h4" variant="body5" weight="bold">
-        호카 온라인 스토어 고객센터
-      </Typography>
+      <ContentHeader
+        title="호카 온라인 스토어 고객센터"
+        titleAs="h4"
+        titleProps={{ variant: 'body5', weight: 'bold' }}
+        gap="0"
+      />
       <Stack gap="2">
         <Typography as="p" variant="body5">
           TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
@@ -1253,11 +1282,18 @@ function ProductDetailReturnGuide() {
         py="10"
         _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
       >
-        <Typography as="h4" variant="body2" tone="tertiary" className={processTitle}>
-          상품 반품
-          <br />
-          STEP
-        </Typography>
+        <ContentHeader
+          title={
+            <>
+              상품 반품
+              <br />
+              STEP
+            </>
+          }
+          titleAs="h4"
+          titleProps={{ variant: 'body2', tone: 'tertiary', className: processTitle }}
+          gap="0"
+        />
         <Stack as="ol" gap="6">
           {returnSteps.map((step, index) => (
             <li key={step} className={stepRow}>
@@ -1943,7 +1979,7 @@ function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
           </Typography>
           {uses && (
             <>
-              <Divider orientation="vertical" h="3" w="1px" bg="var(--color-black-60)" />
+              <Divider orientation="vertical" length="3" color="var(--color-black-60)" />
               <Typography variant="body4" weight="regular" tone="inherit">
                 {uses}
               </Typography>
@@ -2026,9 +2062,12 @@ function AfterSalesContact({
       borderBottom="1px solid var(--color-black-20)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3', pb: '6' }}
     >
-      <Typography as="h4" variant="body5" weight="bold">
-        {title}
-      </Typography>
+      <ContentHeader
+        title={title}
+        titleAs="h4"
+        titleProps={{ variant: 'body5', weight: 'bold' }}
+        gap="0"
+      />
       <Stack gap="3">
         {descriptions.map((description) => (
           <Typography as="p" variant="body5" key={description}>
@@ -2227,9 +2266,12 @@ function ProductAfterSalesQuestions() {
       gap="8"
       _mobile={{ gridTemplateColumns: '1fr', gap: '6' }}
     >
-      <Typography as="h4" variant="heading8">
-        궁금하신 점이 있으세요?
-      </Typography>
+      <ContentHeader
+        title="궁금하신 점이 있으세요?"
+        titleAs="h4"
+        titleProps={{ variant: 'heading8' }}
+        gap="0"
+      />
       <Stack gap="8">
         {questions.map(({ question, answer }) => (
           <Box key={question} pb="8" borderBottom="1px solid var(--color-black-20)">

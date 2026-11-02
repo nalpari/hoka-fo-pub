@@ -8,6 +8,10 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+
 import { commonBenefits, tiers } from '@/app/mypage/rewards/rewards-data';
 
 const badge = cva({
@@ -145,18 +149,23 @@ export function RewardBenefits() {
   const platform = usePlatform();
   return (
     <Stack gap="14" _mobile={{ gap: '4' }}>
-      <Stack as="section" gap="0" aria-label="등급 안내">
-        <Typography
-          as="h2"
-          variant="heading7"
-          className={css({
-            pb: '4',
-            borderBottom: '1px solid black',
-            _mobile: { display: 'none' },
-          })}
-        >
-          등급 안내
-        </Typography>
+      <ContentSection
+        as="section"
+        gap="0"
+        aria-label="등급 안내"
+        title="등급 안내"
+        headerProps={{
+          titleAs: 'h2',
+          titleProps: {
+            variant: 'heading7',
+            className: css({
+              pb: '4',
+              borderBottom: '1px solid black',
+              _mobile: { display: 'none' },
+            }),
+          },
+        }}
+      >
         <Stack gap="0" _mobile={{ border: '1px solid var(--colors-black-20)', py: '8' }}>
           {tiers.map((tier) => (
             <HStack
@@ -183,9 +192,12 @@ export function RewardBenefits() {
                 _mobile={{ flexDirection: 'row', w: 'auto', gap: '2' }}
               >
                 <TierBadge tier={tier.name} initial={tier.initial} />
-                <Typography as="h3" web="heading8" mo="heading5">
-                  {tier.name}
-                </Typography>
+                <ContentHeader
+                  title={tier.name}
+                  titleAs="h3"
+                  titleProps={{ web: 'heading8', mo: 'heading5' }}
+                  gap="0"
+                />
               </Stack>
               <Stack as="ol" gap="3" listStyleType="none" flex="1" _mobile={{ gap: '2' }}>
                 {tier.benefits.map((benefit, index) => (
@@ -214,11 +226,17 @@ export function RewardBenefits() {
             </HStack>
           ))}
         </Stack>
-      </Stack>
-      <Stack as="section" gap="0" _mobile={{ bg: 'black.10', px: '4', py: '6', gap: '5' }}>
-        <Typography as="h2" web="heading7" mo="heading6" className={sectionHeading}>
-          HOKA 회원 공통 혜택
-        </Typography>
+      </ContentSection>
+      <ContentSection
+        as="section"
+        gap="0"
+        _mobile={{ bg: 'black.10', px: '4', py: '6', gap: '5' }}
+        title="HOKA 회원 공통 혜택"
+        headerProps={{
+          titleAs: 'h2',
+          titleProps: { web: 'heading7', mo: 'heading6', className: sectionHeading },
+        }}
+      >
         <Grid
           gridTemplateColumns="repeat(2,minmax(0,1fr))"
           columnGap="10"
@@ -228,25 +246,23 @@ export function RewardBenefits() {
           _mobile={{ gridTemplateColumns: 'minmax(0,1fr)', gap: '5', py: '0', borderBottom: '0' }}
         >
           {commonBenefits.map((benefit) => (
-            <Stack
+            <ContentHeader
               as="section"
               key={benefit.title}
               gap="4"
+              title={benefit.title}
+              titleAs="h3"
+              titleProps={{ web: 'body2', mo: 'heading7' }}
+              description={benefit.description}
+              descriptionProps={{ variant: 'body4' }}
               css={{
                 '&:nth-child(odd)': { borderRight: '1px solid var(--colors-black-20)', pr: '10' },
               }}
               _mobile={{ gap: '3', '&:nth-child(odd)': { borderRight: '0', pr: '0' } }}
-            >
-              <Typography as="h3" web="body2" mo="heading7">
-                {benefit.title}
-              </Typography>
-              <Typography as="p" variant="body4">
-                {benefit.description}
-              </Typography>
-            </Stack>
+            />
           ))}
         </Grid>
-      </Stack>
+      </ContentSection>
     </Stack>
   );
 }

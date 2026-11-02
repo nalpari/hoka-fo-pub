@@ -14,7 +14,9 @@ import { useRequestAction } from '@/hooks/useRequestAction';
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
+import { Divider } from '@/components/common/atoms/Divider';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -22,6 +24,7 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
@@ -72,11 +75,14 @@ export function RunningSessionEntriesContent({
       breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '러닝세션 신청내역' }]}
     >
       <Stack gap="0" minW="0">
-        <Box mb="10" _mobile={{ mb: '8' }}>
-          <Typography as="h1" web="headingKr6" mo="headingKr5">
-            러닝세션 신청내역
-          </Typography>
-        </Box>
+        <ContentHeader
+          title="러닝세션 신청내역"
+          titleAs="h1"
+          titleProps={{ web: 'headingKr6', mo: 'headingKr5' }}
+          mb="10"
+          _mobile={{ mb: '8' }}
+          gap="0"
+        />
         <SegmentedControl
           ariaLabel="신청 상태"
           variant="underline"
@@ -140,28 +146,30 @@ export function RunningSessionEntriesContent({
                   href={`/running/running-session/${entry.session.id}`}
                   className={css({ minW: '0', flex: '1' })}
                 >
-                  <Typography
-                    as="h2"
-                    web="headingKr8"
-                    mo="headingKr6"
-                    className={css({
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    })}
-                  >
-                    {entry.session.title}
-                  </Typography>
+                  <ContentHeader
+                    title={entry.session.title}
+                    titleAs="h2"
+                    titleProps={{
+                      web: 'headingKr8',
+                      mo: 'headingKr6',
+                      className: css({
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }),
+                    }}
+                    gap="0"
+                  />
                 </Link>
-                <Box bg="black.20" borderRadius="full" px="2" py="6px" flexShrink="0">
-                  <Typography
-                    as="p"
-                    variant="body5"
-                    tone={entry.status === '신청완료' ? 'primary' : 'tertiary'}
-                  >
-                    {entry.status === '취소' ? '신청취소' : entry.status}
-                  </Typography>
-                </Box>
+                <Badge
+                  className={css({ flexShrink: '0' })}
+                  textProps={{
+                    variant: 'body5',
+                    tone: entry.status === '신청완료' ? 'primary' : 'tertiary',
+                  }}
+                >
+                  {entry.status === '취소' ? '신청취소' : entry.status}
+                </Badge>
               </HStack>
               <Grid
                 gridTemplateColumns="minmax(0, 1fr) auto"
@@ -184,7 +192,7 @@ export function RunningSessionEntriesContent({
                       <Typography web="body3" mo="body4">
                         {entry.session.location}
                       </Typography>
-                      <Box w="1px" h="10px" bg="black.40" aria-hidden="true" />
+                      <Divider orientation="vertical" length="10px" color="black.40" />
                       <Typography web="body3" mo="body4">
                         {entry.session.distance}
                       </Typography>

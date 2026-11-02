@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { ImageProps } from 'next/image';
 
 import type { ReactNode } from 'react';
 
@@ -18,6 +19,7 @@ const root = cva({
   variants: {
     variant: {
       listing: {},
+      summary: { h: '100%', bg: '#F7F7F9', _mobile: { fontSize: 'inherit' } },
       showcase: {
         _mobile: { h: '160px', aspectRatio: 'auto' },
       },
@@ -26,7 +28,7 @@ const root = cva({
   defaultVariants: { variant: 'listing' },
 });
 
-const image = css({
+const image = css.raw({
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -47,9 +49,11 @@ export type ProductThumbnailProps = {
   lazy?: boolean;
   src: string;
   variant?: ProductThumbnailVariant;
+  sizes?: string;
+  imageProps?: Pick<ImageProps, 'width' | 'height' | 'loading'>;
 };
 
-export type ProductThumbnailVariant = 'listing' | 'showcase';
+export type ProductThumbnailVariant = 'listing' | 'showcase' | 'summary';
 
 /** 상품 이미지의 반응형 로딩·호버 이미지와 오버레이를 제공합니다. (Provides responsive product image loading, hover images, and overlays.) */
 export function ProductThumbnail({
@@ -61,33 +65,48 @@ export function ProductThumbnail({
   lazy = false,
   src,
   variant = 'listing',
+  sizes: explicitSizes,
+  imageProps,
 }: ProductThumbnailProps) {
   const sizes =
-    variant === 'showcase'
+    explicitSizes ??
+    (variant === 'showcase'
       ? '(max-width: 1023px) 160px, 20vw'
-      : '(max-width: 1023px) 50vw, (min-width: 2560px) 20vw, (min-width: 2240px) 25vw, 33vw';
+      : '(max-width: 1023px) 50vw, (min-width: 2560px) 20vw, (min-width: 2240px) 25vw, 33vw');
 
-  const loading = lazy ? 'lazy' : 'eager';
+  const loading = imageProps?.loading ?? (lazy ? 'lazy' : 'eager');
+  const imageClassName = css(
+    image,
+    variant === 'summary' && {
+      position: 'static',
+      top: 'auto',
+      left: 'auto',
+      h: '100%',
+      transform: 'none',
+      objectFit: 'cover',
+      bg: '#F7F7F9',
+    },
+  );
 
   return (
     <div className={['image', root({ variant }), className].filter(Boolean).join(' ')}>
       <Image
         alt={alt}
-        className={image}
+        className={imageClassName}
         loading={loading}
         src={src}
-        width={800}
-        height={800}
+        width={imageProps?.width ?? 800}
+        height={imageProps?.height ?? 800}
         sizes={sizes}
       />
       {hover && hoverImageSource && (
         <Image
-          width={800}
-          height={800}
+          width={imageProps?.width ?? 800}
+          height={imageProps?.height ?? 800}
           sizes={sizes}
           alt=""
           aria-hidden="true"
-          className={[image, hoverImage].join(' ')}
+          className={[imageClassName, hoverImage].join(' ')}
           data-product-thumbnail-hover-image
           loading={loading}
           src={hoverImageSource}

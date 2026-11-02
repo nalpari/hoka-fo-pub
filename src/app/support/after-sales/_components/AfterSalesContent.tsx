@@ -140,17 +140,19 @@ const returnContact = {
 
 function ReturnContact() {
   return (
-    <Stack
+    <ContentSection
       as="section"
       aria-label="호카 반품처"
+      title="호카 반품처"
+      headerProps={{
+        titleAs: 'h3',
+        titleProps: { web: 'heading9', mo: 'heading6', weight: 'semibold' },
+      }}
       bg="#F7F7F9"
       p="9"
       gap="4"
       _mobile={{ px: '4', pt: '6', pb: '8' }}
     >
-      <Typography as="h3" web="heading9" mo="heading6" weight="semibold">
-        호카 반품처
-      </Typography>
       <Stack direction={{ base: 'row', _mobile: 'column' }} gap={{ base: '14', _mobile: '8' }}>
         <Stack gap="2" flex="1" minW="0">
           <Typography variant="body3" language="en">
@@ -192,7 +194,7 @@ function ReturnContact() {
           </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </ContentSection>
   );
 }
 
@@ -229,8 +231,25 @@ function ReturnQuickLinks() {
       _mobile={{ px: '0' }}
     >
       {returnQuickLinks.map((item) => (
-        <Stack
+        <ContentSection
           key={item.href}
+          title={item.title}
+          headerProps={{
+            gap: '2',
+            titleAs: 'h3',
+            titleProps: { variant: 'body2', language: 'ko' },
+            description: item.description,
+            descriptionProps: {
+              variant: 'body4',
+              tone: 'subtle',
+              className: css({ minH: '36px' }),
+            },
+          }}
+          footer={
+            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+              {item.label}
+            </ButtonLink>
+          }
           as="section"
           aria-label={item.title}
           flex="1"
@@ -253,19 +272,7 @@ function ReturnQuickLinks() {
               },
             },
           }}
-        >
-          <Stack gap="2">
-            <Typography as="h3" variant="body2" language="ko">
-              {item.title}
-            </Typography>
-            <Typography as="p" variant="body4" tone="subtle" className={css({ minH: '36px' })}>
-              {item.description}
-            </Typography>
-          </Stack>
-          <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
-            {item.label}
-          </ButtonLink>
-        </Stack>
+        ></ContentSection>
       ))}
     </Stack>
   );

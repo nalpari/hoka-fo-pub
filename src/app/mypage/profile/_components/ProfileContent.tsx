@@ -7,9 +7,10 @@ import { useRequestAction } from '@/hooks/useRequestAction';
 import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -323,9 +324,28 @@ export function ProfileEditForm({
           _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)', gap: '6', borderTop: '0', pt: '0' }}
         >
           <Stack gap="0" _mobile={{ gap: '6' }}>
-            {(details ?? profileDetails.slice(0, 4)).map(([label, value]) => (
-              <ProfileField key={label} label={label} value={value} editing />
-            ))}
+            <DescriptionList
+              items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
+                term,
+                description,
+              }))}
+              termProps={{ variant: 'body3', weight: 'semibold' }}
+              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+              slotStyles={{
+                root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),
+                row: css.raw({
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4',
+                  py: '6',
+                  pr: '4',
+                  borderBottom: '1px solid var(--colors-black-20)',
+                  _first: { pt: '0' },
+                  _mobile: { gap: '3', p: '0', borderBottom: '0' },
+                }),
+                description: css.raw({ m: '0' }),
+              }}
+            />
             <Stack gap="6" py="8" pr="4" className={css({ _mobile: { display: 'none' } })}>
               <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
               <Button
@@ -371,9 +391,12 @@ export function ProfileEditForm({
               }}
             />
             {passwordChanged ? (
-              <Typography variant="body4" role="status">
+              <StatusMessage
+                tone="success"
+                textProps={{ as: 'span', variant: 'body4', tone: 'inherit' }}
+              >
                 비밀번호 변경을 완료하였습니다.
-              </Typography>
+              </StatusMessage>
             ) : null}
             <ProfilePhoneVerification
               previewState={previewPhone}
@@ -477,39 +500,6 @@ export function ProfileEditForm({
   );
 }
 
-function ProfileField({
-  label,
-  value,
-  editing = false,
-}: {
-  label: string;
-  value: string;
-  editing?: boolean;
-}) {
-  return (
-    <Stack
-      gap={editing ? '4' : '0'}
-      direction={editing ? 'column' : 'row'}
-      py={editing ? '6' : '0'}
-      pr={editing ? '4' : '0'}
-      borderBottom={editing ? '1px solid var(--colors-black-20)' : undefined}
-      css={{ '&:first-child': { pt: '0' } }}
-      _mobile={{ flexDirection: 'column', gap: '3', p: '0', borderBottom: '0' }}
-    >
-      <Typography
-        variant="body3"
-        weight="semibold"
-        className={css({ w: editing ? 'auto' : '178px', flexShrink: '0', _mobile: { w: 'auto' } })}
-      >
-        {label}
-      </Typography>
-      <Typography variant="body3" tone="subtle">
-        {value}
-      </Typography>
-    </Stack>
-  );
-}
-
 /** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
 function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: ProfileValues) {
   return (
@@ -522,32 +512,27 @@ function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: Pr
         _mobile={{ pb: '6' }}
         headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
       >
-        <Stack gap={{ base: '6', _mobile: '4' }}>
-          {(
-            [
-              ['이메일 수신', emailPreference],
-              ['문자수신(LMS, SMS)', smsPreference],
-              ['카카오톡 알림톡 수신', kakaoPreference],
-            ] as const
-          ).map(([label, value]) => (
-            <HStack
-              key={label}
-              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-              gap="0"
-            >
-              <Typography
-                variant="body3"
-                mo="body4"
-                className={css({ w: '178px', _mobile: { w: 'auto' } })}
-              >
-                {label}
-              </Typography>
-              <Typography variant="body3" mo="body4" tone="subtle">
-                {value}
-              </Typography>
-            </HStack>
-          ))}
-        </Stack>
+        <DescriptionList
+          items={[
+            { term: '이메일 수신', description: emailPreference },
+            { term: '문자수신(LMS, SMS)', description: smsPreference },
+            { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+          ]}
+          termProps={{ variant: 'body3', mo: 'body4' }}
+          descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
+          slotStyles={{
+            root: css.raw({ gridTemplateColumns: 'none', gap: '6', _mobile: { gap: '4' } }),
+            row: css.raw({
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: '0',
+              _mobile: { justifyContent: 'space-between' },
+            }),
+            term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),
+            description: css.raw({ m: '0' }),
+          }}
+        />
       </ContentSection>
       <Typography as="p" variant="body5" tone="tertiary">
         *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서 가능합니다.
@@ -1030,28 +1015,42 @@ export function ProfileContent() {
           }}
         >
           <Stack gap={{ base: '10', _mobile: '6' }}>
-            <Stack
-              gap={{ base: '12', _mobile: '6' }}
-              pb={{ base: '8', _mobile: '6' }}
-              borderBottom="1px solid var(--colors-black-20)"
-            >
-              {(current
-                ? [
-                    ['회원 아이디', current.id],
-                    ['이름', current.name],
-                    ['생년월일', current.birthDate],
-                  ]
-                : profileDetails.slice(0, 3)
-              ).map(([label, value]) => (
-                <ProfileField key={label} label={label} value={value} />
-              ))}
-              <ProfileField
-                label="주소"
-                value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
-              />
-              <ProfileField label="이메일" value={current?.email ?? email} />
-              <ProfileField label="휴대폰 번호" value={current?.phone ?? phone} />
-            </Stack>
+            <DescriptionList
+              items={[
+                ...(current
+                  ? [
+                      ['회원 아이디', current.id],
+                      ['이름', current.name],
+                      ['생년월일', current.birthDate],
+                    ]
+                  : profileDetails.slice(0, 3)
+                ).map(([term, description]) => ({ term, description })),
+                {
+                  term: '주소',
+                  description: `${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`,
+                },
+                { term: '이메일', description: current?.email ?? email },
+                { term: '휴대폰 번호', description: current?.phone ?? phone },
+              ]}
+              termProps={{ variant: 'body3', weight: 'semibold' }}
+              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+              slotStyles={{
+                root: css.raw({
+                  gridTemplateColumns: 'none',
+                  gap: '12',
+                  pb: '8',
+                  borderBottom: '1px solid var(--colors-black-20)',
+                  _mobile: { gap: '6', pb: '6' },
+                }),
+                row: css.raw({
+                  display: 'flex',
+                  gap: '0',
+                  _mobile: { flexDirection: 'column', gap: '3' },
+                }),
+                term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
+                description: css.raw({ m: '0' }),
+              }}
+            />
             <ProfileReadView
               email={current?.email ?? email}
               phone={current?.phone ?? phone}

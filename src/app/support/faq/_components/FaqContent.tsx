@@ -11,6 +11,7 @@ import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
 
 import { Accordion } from '@/components/common/atoms/Accordion';
 import { Button } from '@/components/common/atoms/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -141,16 +142,6 @@ function FaqAnswer({ answer }: FaqAnswerProps) {
   );
 }
 
-function FaqEmptyState() {
-  return (
-    <Box py="15" textAlign="center">
-      <Typography as="p" web="body4" mo="body5" tone="tertiary">
-        검색 결과가 없습니다.
-      </Typography>
-    </Box>
-  );
-}
-
 type FaqListEntry = { id?: string; question: string; answer: ReactNode };
 
 type FaqListProps = {
@@ -202,7 +193,12 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }))}
         />
       ) : (
-        <FaqEmptyState />
+        <EmptyState
+          variant="plain"
+          title="검색 결과가 없습니다."
+          titleProps={{ as: 'p', web: 'body4', mo: 'body5', tone: 'tertiary' }}
+          layoutProps={{ py: '15' }}
+        />
       )}
     </Box>
   );
@@ -266,22 +262,25 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
               size="md"
               loading={request.pending || binding?.pending}
               className={css({ p: '0', minH: '0', gap: '4px', color: 'text.tertiary' })}
+              loadMore={{
+                appearance: 'text',
+                label: '더 보기',
+                count: total,
+                labelProps: { web: 'bodyKr3', mo: 'bodyKr4' },
+                counterProps: { web: 'body3', mo: 'body4' },
+                indicator: (
+                  <Icon
+                    fontAwesomeIcon={faChevronDown}
+                    size={platform === 'web' ? '20px' : '16px'}
+                  />
+                ),
+              }}
               onClick={() => {
                 if (binding) {
                   void request.run(binding.onLoadMore);
                 } else setShown((count) => count + 10);
               }}
-            >
-              <HStack gap="1">
-                <Typography web="bodyKr3" mo="bodyKr4">
-                  더 보기
-                </Typography>
-                <Typography web="body3" mo="body4">
-                  ({total})
-                </Typography>
-                <Icon fontAwesomeIcon={faChevronDown} size={platform === 'web' ? '20px' : '16px'} />
-              </HStack>
-            </Button>
+            />
           </Flex>
         ) : null
       }

@@ -6,6 +6,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
@@ -13,6 +14,7 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Select } from '@/components/common/atoms/Select';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
@@ -70,8 +72,12 @@ export function MyPageReviewDialog({
     >
       <fieldset disabled={pending}>
         <Stack gap="5">
-          {error && <Typography role="alert">{error}</Typography>}
-          {pending && <Typography role="status">리뷰를 저장하고 있습니다.</Typography>}
+          <BindingFeedback
+            error={error}
+            pending={pending}
+            pendingMessage="리뷰를 저장하고 있습니다."
+            errorFirst
+          />
           <Typography as="p" variant="body3">
             {productName}은(는) 어떠셨나요?
           </Typography>
@@ -470,18 +476,26 @@ export function MyPageReviewsContent({
             ) : null}
           </Box>
         ) : (
-          <Stack
+          <EmptyState
+            variant="plain"
             as="section"
-            mt="10"
-            py="203px"
-            justifyContent="center"
-            alignItems="center"
-            _mobile={{ mt: '0', pt: '24', pb: '8' }}
-          >
-            <Typography variant="body3" className={css({ color: '#4D4D4D' })}>
-              {tab === 'ready' ? '작성 가능한 상품이 없습니다.' : '작성한 리뷰가 없습니다.'}
-            </Typography>
-          </Stack>
+            title={tab === 'ready' ? '작성 가능한 상품이 없습니다.' : '작성한 리뷰가 없습니다.'}
+            titleProps={{
+              as: 'span',
+              variant: 'body3',
+              className: css({ color: '#4D4D4D', textAlign: 'start' }),
+            }}
+            layoutProps={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              mt: '10',
+              py: '203px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              _mobile: { mt: '0', pt: '24', pb: '8' },
+            }}
+          />
         )}
       </Stack>
     </ContentSection>

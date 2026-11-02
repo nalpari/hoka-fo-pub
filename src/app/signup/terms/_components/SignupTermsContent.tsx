@@ -300,7 +300,8 @@ function PreviousTermsPicker({
         <Stack as="ul" gap="0" m="0" p="0" listStyleType="none" textAlign="center">
           {dates.map((date) => (
             <Box as="li" key={date} style={{ scrollSnapAlign: 'center' }}>
-              <button
+              <Button
+                variant="unstyled"
                 type="button"
                 aria-pressed={selectedDate === date}
                 aria-label={`${label(date)} 이전 약관 선택`}
@@ -317,7 +318,7 @@ function PreviousTermsPicker({
                 })}
               >
                 <Typography variant="body3">{label(date)}</Typography>
-              </button>
+              </Button>
             </Box>
           ))}
         </Stack>

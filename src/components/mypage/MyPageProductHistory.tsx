@@ -8,9 +8,8 @@
  * 취소 요청 중 중복 확인·닫기를 막고 실패 시 행과 창을 유지해 재시도합니다. 성공한 경우에만 창을 닫습니다. API는 여기서 구현하지 않습니다.
  * wishlistMobilePreview의 Best·280,000원·20%·240,000원은 모바일 미연결 시안 fixture이며 실제 연결 상품에는 적용하지 않습니다.
  * recentPreview의 PC/MO 배지·할인율·찜 선택은 미연결 시안 fixture입니다. 연결된 recent items/liked가 도착하거나 교체되면 최신 props를 그대로 표시하며 fixture 할인율을 덮어씌우지 않습니다.
+ * 빈 결과는 조회 중·실패와 구분해 공통 EmptyState로 표시하며, 표시 옵션은 조회·취소 요청이나 목록 갱신을 수행하지 않습니다.
  */
-
-import Image from 'next/image';
 
 import { useContext, useState } from 'react';
 import { type HistoryItem, MyPageDataContext } from '@/context/MyPageDataContext';
@@ -29,51 +28,13 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
-
-function MyPageProductHistoryHeading({
-  title,
-  wishlist = false,
-  recent = false,
-  empty = false,
-}: {
-  title: string;
-  wishlist?: boolean;
-  recent?: boolean;
-  empty?: boolean;
-}) {
-  if (recent) {
-    return (
-      <Box
-        pb="10"
-        borderBottom="2px solid var(--colors-black-100)"
-        _mobile={{ px: '4', pb: '0', borderBottom: '0', display: empty ? 'none' : 'block' }}
-      >
-        <Typography as="h1" web="heading6" mo="heading5">
-          {title}
-        </Typography>
-      </Box>
-    );
-  }
-  return (
-    <Box
-      px={wishlist ? '0' : '4'}
-      pt={wishlist ? '0' : '6'}
-      pb={wishlist ? '10' : '0'}
-      borderBottom={wishlist ? '2px solid var(--colors-black-100)' : undefined}
-      _mobile={wishlist ? { px: '4', pt: '0', pb: '0', borderBottom: '0' } : undefined}
-    >
-      <Typography as="h1" web={wishlist ? 'heading6' : 'heading8'} mo="heading5">
-        {title}
-      </Typography>
-    </Box>
-  );
-}
 
 type Props = {
   entries?: readonly HistoryItem[];
@@ -139,13 +100,12 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
           >
             <HStack gap="4" px="6" alignItems="flex-start" _mobile={{ px: '0' }}>
               <Box w="96px" h="96px" flexShrink="0" _mobile={{ w: '64px', h: '64px' }}>
-                <Image
+                <ProductThumbnail
                   alt={name ?? ''}
                   src={entry?.product.primaryImage ?? product.primaryImage}
-                  width={96}
-                  height={96}
+                  variant="summary"
                   sizes={platform === 'mobile' ? '64px' : '96px'}
-                  className={css({ w: '100%', h: '100%', objectFit: 'cover', bg: '#F7F7F9' })}
+                  imageProps={{ width: 96, height: 96, loading: 'lazy' }}
                 />
               </Box>
               <Stack gap="0" minW="0">
@@ -175,7 +135,8 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                   발송완료
                 </Typography>
               ) : (
-                <button
+                <Button
+                  variant="unstyled"
                   type="button"
                   aria-label={`${name} 재입고 알림 취소`}
                   onClick={() => onCancelRequest(id)}
@@ -195,7 +156,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                   >
                     알림대기
                   </Typography>
-                </button>
+                </Button>
               )}
             </Box>
           </Grid>
@@ -462,10 +423,23 @@ export function MyPageProductHistory({
               : undefined
         }
       >
-        {kind === 'recent' && (
-          <MyPageProductHistoryHeading title={current.title} recent empty={!items.length} />
+        {!restock && (
+          <ContentHeader
+            title={current.title}
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+            gap="0"
+            pb="10"
+            borderBottom="2px solid var(--colors-black-100)"
+            _mobile={{
+              px: '4',
+              pt: '0',
+              pb: '0',
+              borderBottom: '0',
+              display: kind === 'recent' && !items.length ? 'none' : undefined,
+            }}
+          />
         )}
-        {kind === 'wishlist' && <MyPageProductHistoryHeading title={current.title} wishlist />}
         {restock && (items.length > 0 || !(binding?.pending || binding?.error)) && (
           <ContentHeader
             title={current.title}
@@ -488,17 +462,13 @@ export function MyPageProductHistory({
               onCancelRequest={setPendingCancel}
             />
           ) : binding?.pending || binding?.error ? null : (
-            <Box
+            <EmptyState
+              variant="plain"
               role="status"
-              textAlign="center"
-              py="240px"
-              mt="8"
-              _mobile={{ py: '96px', mt: '0' }}
-            >
-              <Typography as="p" web="body3" mo="body4" tone="subtle">
-                {current.empty}.
-              </Typography>
-            </Box>
+              title={`${current.empty}.`}
+              titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'subtle' }}
+              layoutProps={{ py: '240px', mt: '8', _mobile: { py: '96px', mt: '0' } }}
+            />
           )
         ) : items.length ? (
           <ContentSection
@@ -508,11 +478,7 @@ export function MyPageProductHistory({
                 <MyPageProductHistoryNote note={current.note} wishlist />
               ) : undefined
             }
-            header={
-              kind === 'wishlist' || kind === 'recent' ? null : (
-                <MyPageProductHistoryHeading title={current.title} />
-              )
-            }
+            header={null}
           >
             <MyPageProductHistoryGrid
               recent={kind === 'recent'}
@@ -538,20 +504,13 @@ export function MyPageProductHistory({
               }}
             />
           </ContentSection>
-        ) : binding?.pending || binding?.error ? null : kind === 'recent' ? (
-          <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
-            <Typography as="p" variant="body4" className={css({ color: '#4D4D4D' })}>
-              {current.empty}
-            </Typography>
-          </Box>
-        ) : kind === 'wishlist' ? (
-          <Box py="240px" textAlign="center" _mobile={{ py: '24', px: '4' }}>
-            <Typography as="p" variant="body4" className={css({ color: '#4D4D4D' })}>
-              {current.empty}.
-            </Typography>
-          </Box>
-        ) : (
-          <EmptyState title={current.empty} variant="minimal" />
+        ) : binding?.pending || binding?.error ? null : (
+          <EmptyState
+            variant="plain"
+            title={`${current.empty}${kind === 'wishlist' ? '.' : ''}`}
+            titleProps={{ as: 'p', variant: 'body4', className: css({ color: '#4D4D4D' }) }}
+            layoutProps={{ py: '240px', _mobile: { py: '24', px: '4' } }}
+          />
         )}
         {binding?.hasMore && (
           <Button

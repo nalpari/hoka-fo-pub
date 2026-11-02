@@ -196,13 +196,18 @@ const socialLogin = cva({
 });
 
 export type ButtonLoadMore = (
-  | { remaining: number; counter?: never }
-  | { remaining?: never; counter: { current: number; total: number } }
+  | { remaining: number; counter?: never; count?: never }
+  | { remaining?: never; counter: { current: number; total: number }; count?: never }
+  | { remaining?: never; counter?: never; count: number; appearance: 'text' | 'inline' }
 ) & {
   label?: ReactNode;
   labelProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web' | 'weight'>;
   counterProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web'>;
-};
+} & (
+    | { appearance?: never; countPlacement?: never; indicator?: never }
+    | { appearance: 'text'; countPlacement?: 'inline' | 'separate'; indicator?: ReactNode }
+    | { appearance: 'inline'; countPlacement?: never; indicator?: ReactNode }
+  );
 
 export type ButtonSocial = {
   provider: 'kakao' | 'naver';
@@ -215,7 +220,42 @@ function renderLoadMoreContent({
   label = '더보기',
   labelProps,
   counterProps,
+  count,
+  appearance,
+  countPlacement = 'separate',
+  indicator,
 }: ButtonLoadMore) {
+  if (appearance === 'inline') {
+    const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
+
+    return (
+      <>
+        {typeof label === 'string' ? `${label} (` : <>{label} (</>}
+        {countLabel}) {indicator}
+      </>
+    );
+  }
+
+  if (appearance === 'text') {
+    const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
+
+    return (
+      <HStack gap="1">
+        {countPlacement === 'inline' ? (
+          <Typography {...labelProps}>
+            {label} ({countLabel})
+          </Typography>
+        ) : (
+          <>
+            <Typography {...labelProps}>{label}</Typography>
+            <Typography {...counterProps}>({countLabel})</Typography>
+          </>
+        )}
+        {indicator}
+      </HStack>
+    );
+  }
+
   if (counter === undefined)
     return (
       <>
@@ -242,6 +282,7 @@ export type ButtonVariant =
   | 'chip'
   | 'filterTrigger'
   | 'headerSearch'
+  | 'unstyled'
   | 'icon';
 
 export type ButtonSizingProps =
@@ -253,7 +294,7 @@ export type ButtonSizingProps =
   | {
       variant?: Exclude<
         ButtonVariant,
-        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch' | 'icon'
+        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch' | 'unstyled' | 'icon'
       >;
       size?: 'tall' | 'short';
     };
@@ -301,10 +342,33 @@ export type ButtonIconProps = Omit<ComponentPropsWithRef<'button'>, 'color'> & {
   loadMore?: never;
 };
 
-export type ButtonProps = ButtonTextProps | ButtonIconProps;
+export type ButtonUnstyledProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant: 'unstyled';
+  loading?: boolean;
+  size?: never;
+  social?: never;
+  loadMore?: never;
+};
+
+export type ButtonProps = ButtonTextProps | ButtonIconProps | ButtonUnstyledProps;
 
 /** 공통 크기·상태와 접근 가능한 동작을 제공하는 버튼입니다. (Provides a button with shared sizing, states, and accessible behavior.) */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
+  if (props.variant === 'unstyled') {
+    const { variant: _variant, loading, disabled, type = 'button', ...nativeProps } = props;
+    void _variant;
+
+    return (
+      <BaseButton
+        {...nativeProps}
+        ref={ref}
+        type={type}
+        disabled={disabled || loading}
+        aria-busy={loading || nativeProps['aria-busy']}
+      />
+    );
+  }
+
   if (props.variant === 'icon') {
     const {
       variant: _variant,

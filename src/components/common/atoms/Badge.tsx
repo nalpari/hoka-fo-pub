@@ -27,7 +27,7 @@ const badge = cva({
   defaultVariants: { variant: 'filled', shape: 'round' },
 });
 
-const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14px!' });
+const badgeText = css.raw({ display: 'block', whiteSpace: 'nowrap' });
 
 const runningSessionBadge = cva({
   base: {
@@ -48,6 +48,7 @@ type LabelProps = {
   variant?: 'filled' | 'line';
   tone?: 'primary' | 'tertiary';
   shape?: 'round';
+  textProps?: Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'>;
 };
 
 export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
@@ -71,6 +72,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         promotion: Promotions;
         runningSessionCategory?: never;
         weight?: TypographyProps['weight'];
+        textProps?: never;
         status?: never;
         children?: never;
         variant?: never;
@@ -79,6 +81,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
       }
     | {
         runningSessionCategory: 'Road' | 'Trail';
+        textProps?: never;
         status?: never;
         promotion?: never;
         children?: never;
@@ -100,6 +103,7 @@ export function Badge({
   promotion,
   runningSessionCategory,
   weight,
+  textProps,
   ...props
 }: BadgeProps) {
   if (runningSessionCategory !== undefined) {
@@ -153,7 +157,13 @@ export function Badge({
       {...props}
       className={[badge({ variant: resolvedVariant, shape }), className].filter(Boolean).join(' ')}
     >
-      <Typography as="span" variant="bodyKr5" tone={tone} className={badgeText}>
+      <Typography
+        as="span"
+        variant="bodyKr5"
+        tone={tone}
+        {...textProps}
+        className={css(badgeText, !textProps && { lineHeight: '14px!' })}
+      >
         {label}
       </Typography>
     </span>

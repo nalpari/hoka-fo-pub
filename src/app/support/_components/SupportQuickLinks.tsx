@@ -2,7 +2,8 @@ import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
-import { Typography } from '@/components/common/atoms/Typography';
+
+import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 const links = [
   {
@@ -31,9 +32,27 @@ export function SupportQuickLinks() {
       _mobile={{ px: '0' }}
     >
       {links.map((item, index) => (
-        <Stack
+        <ContentSection
           as="section"
           aria-label={item.title}
+          title={item.title}
+          headerProps={{
+            gap: '2',
+            titleAs: 'h2',
+            titleProps: {
+              web: 'heading9',
+              mo: 'heading6',
+              language: 'ko',
+              className: css({ _mobile: { fontWeight: 'bold' } }),
+            },
+            description: item.text,
+            descriptionProps: { variant: 'body4', tone: 'subtle' },
+          }}
+          footer={
+            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+              {item.label}
+            </ButtonLink>
+          }
           key={item.href}
           flex="1"
           minW="0"
@@ -64,25 +83,7 @@ export function SupportQuickLinks() {
                 }
               : undefined
           }
-        >
-          <Stack gap="2">
-            <Typography
-              as="h2"
-              web="heading9"
-              mo="heading6"
-              language="ko"
-              className={css({ _mobile: { fontWeight: 'bold' } })}
-            >
-              {item.title}
-            </Typography>
-            <Typography as="p" variant="body4" tone="subtle">
-              {item.text}
-            </Typography>
-          </Stack>
-          <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
-            {item.label}
-          </ButtonLink>
-        </Stack>
+        ></ContentSection>
       ))}
     </Stack>
   );

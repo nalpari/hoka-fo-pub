@@ -5,6 +5,8 @@ import { HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+
 type Props = {
   headingId: string;
   title: string;
@@ -45,14 +47,16 @@ function SupportContactCard({
       _mobile={{ px: '4', pt: '6', pb: '8' }}
       css={{ '&:first-child': { _mobile: { minH: '322px', gap: '0' } } }}
     >
-      <Stack gap="3" w={{ base: '280px', _mobile: 'full' }} flexShrink="0">
-        <Typography as="h2" id={headingId} web="heading8" mo="heading5">
-          {title}
-        </Typography>
-        <Typography as="p" web="body4" mo="body4" tone="subtle">
-          {description}
-        </Typography>
-      </Stack>
+      <ContentHeader
+        title={title}
+        titleAs="h2"
+        titleProps={{ id: headingId, web: 'heading8', mo: 'heading5' }}
+        description={description}
+        descriptionProps={{ web: 'body4', mo: 'body4', tone: 'subtle' }}
+        gap="3"
+        w={{ base: '280px', _mobile: 'full' }}
+        flexShrink="0"
+      />
 
       <Stack
         gap={{ base: '52px', _mobile: '32px' }}

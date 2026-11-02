@@ -10,6 +10,7 @@ import { Box, Center, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -18,6 +19,7 @@ import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCa
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
 import {
   runningSessionImage,
@@ -130,49 +132,54 @@ function RunningSessionFacts({
   variant: 'hero' | 'guide';
 }) {
   return (
-    <Box as="dl" className={facts({ variant })}>
-      {rows.map(({ label, value, detail, mobileOnly }) => (
-        <Grid
-          key={label}
-          display={mobileOnly ? 'none!' : 'grid'}
-          gridTemplateColumns={variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)'}
-          gap="16px"
-          py={variant === 'hero' ? '0' : '24px'}
-          borderTop={variant === 'guide' ? '1px solid var(--color-border-default)' : undefined}
-          _last={
-            variant === 'guide'
-              ? { borderBottom: '1px solid var(--color-border-default)' }
-              : undefined
-          }
-          _mobile={{
-            display: mobileOnly ? 'grid!' : undefined,
-            py: variant === 'hero' ? '0' : '24px',
-          }}
-        >
-          <Typography
-            as="dt"
-            variant={variant === 'hero' ? 'body3' : 'body4'}
-            mo={variant === 'hero' ? 'body3' : 'body4'}
-            weight={variant === 'hero' ? 'semibold' : 'regular'}
-          >
-            {label}
-          </Typography>
-          <Typography
-            as="dd"
-            variant={variant === 'hero' ? 'body3' : 'body4'}
-            mo={variant === 'hero' ? 'body3' : 'body4'}
-            className={css({ m: '0' })}
-          >
+    <DescriptionList
+      items={rows.map(({ label, value, detail, mobileOnly }) => ({
+        term: label,
+        description: (
+          <>
             {value}
             {detail ? (
               <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
                 {detail}
               </Typography>
             ) : null}
-          </Typography>
-        </Grid>
-      ))}
-    </Box>
+          </>
+        ),
+        rowClassName: mobileOnly
+          ? css({ display: 'none!', _mobile: { display: 'grid!' } })
+          : undefined,
+      }))}
+      termProps={{
+        variant: variant === 'hero' ? 'body3' : 'body4',
+        mo: variant === 'hero' ? 'body3' : 'body4',
+        weight: variant === 'hero' ? 'semibold' : 'regular',
+      }}
+      descriptionProps={{
+        variant: variant === 'hero' ? 'body3' : 'body4',
+        mo: variant === 'hero' ? 'body3' : 'body4',
+        tone: undefined,
+      }}
+      slotStyles={{
+        root: css.raw(facts.raw({ variant }), {
+          display: variant === 'hero' ? 'grid' : 'block',
+          gridTemplateColumns: 'none',
+          gap: variant === 'hero' ? '24px normal' : 'normal',
+        }),
+        row: css.raw({
+          display: 'grid',
+          gridTemplateColumns: variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)',
+          gap: '16px',
+          py: variant === 'hero' ? '0' : '24px',
+          borderTop: variant === 'guide' ? '1px solid var(--color-border-default)' : undefined,
+          _last:
+            variant === 'guide'
+              ? { borderBottom: '1px solid var(--color-border-default)' }
+              : undefined,
+          _mobile: { py: variant === 'hero' ? '0' : '24px' },
+        }),
+        description: css.raw({ m: '0' }),
+      }}
+    />
   );
 }
 
@@ -510,24 +517,8 @@ export function RunningSessionFixedActionBar({
   pending,
 }: RunningSessionFixedActionBarProps) {
   return (
-    <Box
-      as="section"
-      aria-label="세션 신청"
-      display="none"
-      _mobile={{
-        display: 'block',
-        position: 'fixed',
-        bottom: '0',
-        insetInline: '0',
-        zIndex: '20',
-        bg: 'white.0',
-        borderTop: '1px solid var(--color-border-default)',
-        px: '4',
-        pt: '4',
-        pb: 'max(32px, env(safe-area-inset-bottom))',
-      }}
-    >
+    <OrderActionBar variant="mobileOnly" as="section" ariaLabel="세션 신청">
       <RunningSessionApplyButton status={status} onApply={onApply} pending={pending} />
-    </Box>
+    </OrderActionBar>
   );
 }

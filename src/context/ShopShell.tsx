@@ -32,7 +32,6 @@ import { css, cva, cx } from 'styled-system/css';
 import {
   Box,
   Circle,
-  Divider,
   Flex,
   Grid,
   HStack,
@@ -46,7 +45,9 @@ import { hstack } from 'styled-system/patterns';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Divider } from '@/components/common/atoms/Divider';
 import { Icon } from '@/components/common/atoms/Icon';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -56,6 +57,7 @@ import {
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
 import { useCarousel } from '@/components/common/molecules/Carousel/CarouselContext';
+import { SearchField } from '@/components/common/molecules/SearchField';
 
 import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
 
@@ -136,7 +138,7 @@ function HeaderAuthLink({ onNavigate }: HeaderAuthLinkProps) {
       <Link href="/login" className={authLink} onClick={onNavigate}>
         <Typography variant="body3">로그인</Typography>
       </Link>
-      <Divider aria-hidden="true" orientation="vertical" h="4" w="1px" bg="var(--hoka-black)" />
+      <Divider orientation="vertical" length="4" color="var(--hoka-black)" />
       <Link href="/signup" className={authLink} onClick={onNavigate}>
         <Typography variant="body3">회원가입</Typography>
       </Link>
@@ -387,14 +389,15 @@ function MenuDrawerShoppingLinks({
                   {content}
                 </Link>
               ) : (
-                <button
+                <Button
+                  variant="unstyled"
                   type="button"
                   data-mobile-menu={item.id}
                   className={row({ button: true })}
                   onClick={() => onSelectMenu(item.menu)}
                 >
                   {content}
-                </button>
+                </Button>
               )}
             </li>
           );
@@ -1283,6 +1286,9 @@ type SearchFormProps = {
 };
 
 function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormProps) {
+  // [ 개발팀 바인딩 ] SearchOverlay가 검색 초안·빈 입력 오류·최근 검색과 결과 이동을 소유합니다.
+  // 공통 SearchField는 입력/검색 이벤트만 전달합니다. PC 외부 입력의 site-search-form 연결과 모바일 단일 form을 유지합니다.
+  // 빈 입력이면 초안과 오류를 유지하며, 유효한 검색어일 때만 기존 소유자가 이동·닫기를 처리합니다. 별도 검색 API는 추가하지 않습니다.
   const mobile = usePlatform() === 'mobile';
 
   return (
@@ -1296,47 +1302,36 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         onSearch();
       }}
     >
-      <HStack
-        h="56px"
-        px="12px"
-        gap="10px"
-        border="1px solid"
-        borderColor={error ? 'red.100' : 'black.100'}
-        display={mobile ? 'flex' : 'none'}
-      >
-        <Button variant="icon" type="submit" aria-label="검색 실행" size="16px">
-          <Icon src="/images/header/search.svg" size="16px" mask />
-        </Button>
-        <TextInput
-          autoFocus
-          aria-label="검색어"
-          aria-invalid={Boolean(error) || undefined}
-          aria-describedby={error ? 'site-search-error' : undefined}
-          type="search"
-          autoComplete="off"
-          value={query}
-          onChange={(event) => onQueryChange(event.target.value)}
-          placeholder="검색어를 입력해주세요"
-          className={css({
-            '&&': {
-              minH: '0',
-              h: '100%',
-              border: '0',
-              p: '0',
-              outline: 'none!',
-              fontSize: '16',
-              bg: 'transparent',
-              '&::-webkit-search-cancel-button': { display: 'none' },
-            },
-          })}
-        />
-      </HStack>
-      <button type="submit" hidden aria-label="검색 실행" />
+      <SearchField
+        as="div"
+        label="검색어"
+        placeholder="검색어를 입력해주세요"
+        value={query}
+        onValueChange={onQueryChange}
+        onSearch={onSearch}
+        iconPlacement="start"
+        icon={<Icon src="/images/header/search.svg" size="16px" mask />}
+        rootStyles={css.raw({
+          borderColor: error ? 'red.100' : 'black.100',
+          display: mobile ? 'flex' : 'none',
+        })}
+        inputProps={{
+          autoFocus: true,
+          'aria-invalid': Boolean(error) || undefined,
+          'aria-describedby': error ? 'site-search-error' : undefined,
+          type: 'search',
+          autoComplete: 'off',
+        }}
+        inputStyles={css.raw({
+          '&&': { outline: 'none!', '&::-webkit-search-cancel-button': { display: 'none' } },
+        })}
+      />
+      <Button variant="unstyled" type="submit" hidden aria-label="검색 실행" />
       {error ? (
         <Box p={{ base: '32px', _mobile: '8px 0 0' }}>
-          <Typography as="p" variant="body5" tone="error" id="site-search-error" role="alert">
+          <StatusMessage tone="error" textProps={{ tone: 'error' }} id="site-search-error">
             {error}
-          </Typography>
+          </StatusMessage>
         </Box>
       ) : null}
     </Box>
@@ -2009,7 +2004,8 @@ type MegaMenuPanelProps = {
 function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
   return (
     <>
-      <button
+      <Button
+        variant="unstyled"
         type="button"
         aria-label="메뉴 닫기"
         className={MegaMenuPanelStyles.overlay}

@@ -9,8 +9,10 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
+import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
@@ -144,9 +146,9 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
       />
       <Stack gap="2">
         {error ? (
-          <Typography as="p" variant="body5" tone="error" role="alert" className={css({ m: '0' })}>
+          <StatusMessage tone="error" textProps={{ tone: 'error' }} className={css({ m: '0' })}>
             {attachmentErrorMessage[error]}
-          </Typography>
+          </StatusMessage>
         ) : null}
         <InquiryAttachmentHelp />
       </Stack>
@@ -163,35 +165,27 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
 
 /** 문의 등록자의 이름과 연락처 정보를 표시합니다. (Displays the inquirer's name and contact information.) */
 export function InquiryCustomerInfo() {
+  // [ 개발팀 바인딩 ] InquiryDataContext.form 소유자가 현재 customer 이름·전화·이메일과 조회 상태를 공급합니다.
+  // DescriptionList는 도착하거나 교체된 customer를 그대로 표시하며 조회·재시도·오래된 응답 폐기는 context 소유자가 맡습니다.
   const binding = useContext(InquiryDataContext).form;
   return (
     <Box px="8" py="6" bg="black.10" _mobile={{ px: '4', py: '5' }}>
-      <Grid
-        as="dl"
-        gridTemplateColumns="max-content minmax(0, 1fr)"
-        columnGap="22"
-        rowGap="3"
-        _mobile={{ gridTemplateColumns: '82px minmax(0, 1fr)', columnGap: '2' }}
-      >
-        <Typography as="dt" variant="body3" tone="subtle">
-          이름
-        </Typography>
-        <Typography as="dd" variant="body3" mo="body4">
-          {binding ? binding.customer.name : '홍길동'}
-        </Typography>
-        <Typography as="dt" variant="body3" tone="subtle">
-          휴대폰 번호
-        </Typography>
-        <Typography as="dd" variant="body3" mo="body4">
-          {binding ? binding.customer.phone : '010-1234-1234'}
-        </Typography>
-        <Typography as="dt" variant="body3" tone="subtle">
-          E-mail
-        </Typography>
-        <Typography as="dd" variant="body3" mo="body4">
-          {binding ? binding.customer.email : 'hong123@naver.com'}
-        </Typography>
-      </Grid>
+      <DescriptionList
+        items={[
+          { term: '이름', description: binding ? binding.customer.name : '홍길동' },
+          { term: '휴대폰 번호', description: binding ? binding.customer.phone : '010-1234-1234' },
+          { term: 'E-mail', description: binding ? binding.customer.email : 'hong123@naver.com' },
+        ]}
+        termProps={{ variant: 'body3', tone: 'subtle' }}
+        descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
+        slotStyles={{
+          root: css.raw({
+            gridTemplateColumns: 'max-content minmax(0, 1fr)',
+            gap: '12px 22px',
+            _mobile: { gridTemplateColumns: '82px minmax(0, 1fr)', columnGap: '2' },
+          }),
+        }}
+      />
     </Box>
   );
 }

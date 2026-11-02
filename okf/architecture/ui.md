@@ -11,20 +11,22 @@ source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
   - src/components/common/molecules/HomeCarouselSection.tsx
-  - src/app/products/[id]/_components/ProductDetailContent.tsx
-  - src/app/homeContent.ts
-  - src/app/_components/HomeContent.tsx
+  - src/components/common/atoms/EmptyState.tsx
+  - src/components/common/atoms/DataTable.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/faq/_components/FaqContent.tsx
+  - src/stories/components/common/atoms/EmptyState/EmptyState.stories.tsx
   - src/components/common/layouts/BottomSheet.tsx
   - public/images/navigation/clifton-utl.webp
-  - src/components/common/molecules/SupportTabs.tsx
-  - src/components/care-guide/CareInstructions.tsx
-  - src/app/support/care/_components/CareContent.tsx
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/support/inquiries/_components/InquiryListPreview.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
-  - src/app/support/notices/_components/NoticesContent.tsx
-  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/care/_components/CareContent.tsx
+  - src/components/care-guide/CareInstructions.tsx
+  - src/components/care-guide/care.data.ts
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/_components/SupportContacts.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -3857,30 +3859,29 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.
 
-## 문의 목록·등록 시안 반영 (2026-11-02)
+## 고객센터 메인 Figma 재적용 (2026-11-02)
 
-InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 영역·항목 경계·배지·Q/A 타이포·모바일 패널, InquiryFormContent의 일반 굵기 정보·내용 필드·첨부 제목·48px 액션을 갱신했다. InquiryCautions는 세 문의 화면과 기존 오류 preview에서 네 줄 안내·상단 패딩을 공유한다. 데이터와 서비스 상태 소유자는 유지하며 공통 FormField/TextInput/Button/CustomerCenterLayout의 기본값은 바꾸지 않았다. [Figma 프레임과 수치](support-design.md#문의-목록등록-figma-적용-2026-11-02)에 근거를 기록한다.
-
-## 배송 및 반품안내 Figma 적용 (2026-11-02)
-
-배송 및 반품안내의 PC/MO 세 탭을 갱신했다. [디자인값·차이·검증 기록](support-design.md#배송-및-반품안내-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx, src/components/common/molecules/SupportTabs.tsx.
-
-## 세탁 안내의 표현 옵션 (2026-11-02)
-
-세탁 안내는 route-private CareContent에서 소개·요약과 기존 CareInstructions를 조합한다. SupportTabs variant=care는 PC 42px/MO 32px 높이·40px/24px 패널 여백·일반 굵기를 지정하며 기존 default/guide/scrollable과 동시 작업의 다른 옵션을 보존한다. CareInstructions variant=care는 10px 섹션 간격과 하이픈 목록을 지정하고 상품 상세의 기본 모드는 변경하지 않는다. 데이터는 care.data의 고정 문자열 표시 모델이며 서비스 요청은 없다. 코드 출처는 frontmatter의 care 관련 working_tree_sources, 세부 수치·실제 확인은 [디자인 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)을 따른다.
+`/support`는 지정 Figma 섹션의 PC/MO에 맞춰 연락처 카드의 #F7F7F9 배경·일반 굵기·숫자 타입을 적용하고, 하단 안내를 통합 테두리·구분선·40px ButtonLink로 표시한다. 기존 공통 Button·Typography·CustomerCenterLayout을 재사용하며 공통 기본값은 변경하지 않는다. WEB/Mobile 스토리의 오래된 FAQ 제목 부재 검증을 제목 표시 및 두 링크 경로 검증으로 변경한다. [수치·운영번호 보존·실제 검증과 한계](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)에 기록했다. 출처는 고객센터 메인 페이지·route-private SupportContacts 및 두 메인 스토리의 작업 트리다.
 
 ## 약관 탭과 본문 Figma 적용 (2026-11-02)
 
 약관 전용 `SupportTabs.variant="terms"`는 PC 40px·MO 32px 높이와 16px 일반 굵기를 사용한다. 기본 탭과 다른 고객지원 variant는 기존 계약을 유지한다. 본문 간격·폭·하단 안내 및 시안 프레임 차이는 [약관 디자인 기록](support-design.md#약관-figma-재적용-2026-11-02)을 참조한다. 작업 트리 출처: `src/components/common/molecules/SupportTabs.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`.
 
-## 고객센터 메인 Figma 재적용 (2026-11-02)
+## 문의 목록·등록 시안 반영 (2026-11-02)
 
-`/support`는 지정 Figma 섹션의 PC/MO에 맞춰 연락처 카드의 #F7F7F9 배경·일반 굵기·숫자 타입을 적용하고, 하단 안내를 통합 테두리·구분선·40px ButtonLink로 표시한다. 기존 공통 Button·Typography·CustomerCenterLayout을 재사용하며 공통 기본값은 변경하지 않는다. WEB/Mobile 스토리의 오래된 FAQ 제목 부재 검증을 제목 표시 및 두 링크 경로 검증으로 변경한다. [수치·운영번호 보존·실제 검증과 한계](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)에 기록했다. 출처는 고객센터 메인 페이지·route-private SupportContacts 및 두 메인 스토리의 작업 트리다.
+InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 영역·항목 경계·배지·Q/A 타이포·모바일 패널, InquiryFormContent의 일반 굵기 정보·내용 필드·첨부 제목·48px 액션을 갱신했다. InquiryCautions는 세 문의 화면과 기존 오류 preview에서 네 줄 안내·상단 패딩을 공유한다. 데이터와 서비스 상태 소유자는 유지하며 공통 FormField/TextInput/Button/CustomerCenterLayout의 기본값은 바꾸지 않았다. [Figma 프레임과 수치](support-design.md#문의-목록등록-figma-적용-2026-11-02)에 근거를 기록한다.
+
+## 세탁 안내의 표현 옵션 (2026-11-02)
+
+세탁 안내는 route-private CareContent에서 소개·요약과 기존 CareInstructions를 조합한다. SupportTabs variant=care는 PC 42px/MO 32px 높이·40px/24px 패널 여백·일반 굵기를 지정하며 기존 default/guide/scrollable과 동시 작업의 다른 옵션을 보존한다. CareInstructions variant=care는 10px 섹션 간격과 하이픈 목록을 지정하고 상품 상세의 기본 모드는 변경하지 않는다. 데이터는 care.data의 고정 문자열 표시 모델이며 서비스 요청은 없다. 코드 출처는 frontmatter의 care 관련 working_tree_sources, 세부 수치·실제 확인은 [디자인 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)을 따른다.
+
+## 배송 및 반품안내 Figma 적용 (2026-11-02)
+
+배송 및 반품안내의 PC/MO 세 탭을 갱신했다. [디자인값·차이·검증 기록](support-design.md#배송-및-반품안내-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx, src/components/common/molecules/SupportTabs.tsx.
 
 ## 사이즈 가이드 Figma 반영 (2026-11-02)
 
 SupportTabs.guide에만 40px 높이·20px 좌우 여백·14px 일반 굵기를 적용했다. 다른 탭 변형과 동시 작업 변경은 유지했다. 사이즈 가이드 측정 카드·표·선택 표현과 기존 스토리 시나리오를 5품목·공용/단위 조건에 맞췄다. [실측·검증 한계](size-guide.md#figma-디자인설계서-반영-2026-11-02)를 참고한다.
-
 
 ## 사이즈 가이드 캡처 재검증 (2026-11-02)
 
@@ -3948,6 +3949,28 @@ PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프
 
 작업 트리 출처: `src/components/catalog/ProductListingPage.tsx`, `src/components/common/layouts/BottomSheet.tsx`.
 
+## 빈 상태·더보기·표 공통 컴포넌트 복원 (2026-11-02)
+
+72098f5 이후 디자인 반영에서 개별 JSX로 바뀐 관심상품·최근 본 상품·재입고 알림·배송지의 빈 상태를 EmptyState로 통합했다. plain은 별도 기본 여백을 만들지 않는 div이며, layoutProps로 기존 PC/MO 패딩·간격·하단선을, titleProps의 as/web/mo/variant/tone/className으로 기존 p 의미와 글자 스타일을 전달한다. 배송지의 줄바꿈은 ReactNode title로 유지한다. standard/minimal·기본 heading7과 선행 작업의 className/titleProps 계약은 보존한다. 재입고 role=status, 조회 중·실패에서 빈 결과를 감추는 조건도 유지한다.
+
+Button.loadMore의 appearance=text는 표시용 count, inline/separate 숫자 배치, labelProps/counterProps, indicator 슬롯으로 공지사항·FAQ의 기존 더보기 내용을 조합한다. 숫자의 의미와 조회는 소비자 소유다. 공지는 남은 건수, FAQ는 전체 건수를 그대로 전달한다. 기존 remaining·current/total 기본 표현, children과 loadMore의 상호 배타 타입, pending/disabled·콜백은 유지한다. 일반 모드에서 텍스트 모드 전용 옵션을 전달하는 조합은 타입으로 막는다.
+
+DataTable.striped와 regular/compact density는 기존 사이즈 표의 48px 셀, 1px 경계, #E9EAEB 헤더, #F7F7F9 짝수 행을 소유한다. 신발은 좌우 16px·모바일 본문 14px/헤더 13px, 다른 품목은 좌우 12px·모바일 12px을 유지한다. 기존 default/spaced 스타일과 caption·scope·스크롤 wrapper는 보존하며 density는 striped에서만 지정할 수 있다. 새 파일이나 forwarding wrapper는 만들지 않았다.
+
+실제 앱의 변경 전/후 1440px·375px에서 네 빈 상태, 공지·FAQ, 신발 표의 문구·위치·크기·타이포·부모 여백을 대조했다. 공지 버튼 폭의 0.02px 반올림 차이 외 측정값이 같았고 375px 가로 넘침이 없었다. 기존 쿠폰·러닝세션 standard/minimal 빈 상태는 PC 변경 전/후 일치를 확인했고 모바일 현재 표시도 확인했다. 표 5품목을 PC/MO에서 선택해 48px 셀·regular/compact 수치를 확인했다. 공지 더보기는 키보드 Enter로 10→11건, FAQ는 클릭으로 10→12건과 버튼 제거를 PC/MO에서 확인했다. 최근 본 상품의 1024/1025·1199/1200px 전환은 기존 모바일 96px/PC 240px 패딩과 1200px PC 캔버스를 유지했다.
+
+타입 검사·대상 ESLint/Prettier·Panda·Next 프로덕션 빌드·Storybook 빌드를 통과했다. 정적 Storybook의 새 옵션·기존 기본 모드·더보기 disabled/loading·사이즈 가이드 명시적 WEB/Mobile을 포함한 16개 스토리가 오류 없이 렌더되는 것을 확인했다. Storybook 의존성 use client·번들 경고는 남아 있다. 실제 서버 요청과 모든 스토리 play를 실행한 결과는 아니며 기존 서비스 계약·fixture·URL은 변경하지 않았다.
+
+작업 트리 출처: `src/components/common/atoms/EmptyState.tsx`, `src/components/common/atoms/Button.tsx`, `src/components/common/atoms/DataTable.tsx`, `src/components/mypage/MyPageProductHistory.tsx`, `src/app/mypage/addresses/_components/AddressManagement.tsx`, `src/app/support/notices/_components/NoticesContent.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/stories/components/common/atoms/EmptyState/EmptyState.stories.tsx`, `src/stories/components/common/atoms/Button/Button.stories.tsx`, `src/stories/components/common/atoms/DataTable/DataTable.stories.tsx`. 검토: codex/gpt-6, 2026-11-02T04:46:17Z.
+
 ## 메인·상품 상세 Figma 적용 (2026-11-02)
 
 메인은 배너·섹션·카드의 PC/MO 타이포·비율·간격을, 상품 상세는 패널 폭·가격·상품 정보·컬러 선택·추천 영역과 CTA를 보정했다. MainSection.tight와 HomeCarouselSection.className은 선택적 표현 계약이며 기존 default/compact·cart 컬러 모드를 유지한다. [출처·실측·선택 데이터 경계·PC/MO 및 인계 검증](home-product-design.md)을 참고한다. 작업 트리 출처는 위 공통 소유자와 해당 선언 타입이다.
+
+## 공통 전체 전수 대조와 재사용 확장 (2026-11-02)
+
+기준 72098f5 이후 변경을 common 전체 67모듈(64 TSX·지원 TS 3개)과 대조했다. 새 개별 구현을 포함해 EmptyState, ContentHeader/ContentSection, DescriptionList, Card, Badge, Divider, ProductThumbnail, Button, SearchField, StatusMessage, BindingFeedback, OrderActionBar를 직접 재사용한다. 기본 사용처는 유지하고 소비자의 기존 표현에 필요한 선택적 옵션만 공통 소유자에 추가했다. 상품 사양의 mixed description typography, 홈 Hero의 h1/풍부한 설명, 날짜 time, 숨김 행, 원래 inline 버튼 흐름도 유지한다. [67개 판단표·65개 변경 소스·수정 내용·검증](common-reuse-audit.md)을 참고한다.
+
+스타일·데이터·서비스 소유권과 동작이 다른 툴팁·선택 팝업·히어로 타이머 등은 공통을 강제로 적용하지 않았다. 공통 API별 보존 근거와 새 옵션/기존 모드 스토리도 조사표에 기록했다. 출처는 조사표의 working_tree_sources이며 현재 작업 트리를 직접 확인했다.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

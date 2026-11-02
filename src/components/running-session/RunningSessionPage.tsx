@@ -25,6 +25,7 @@ import { Box, Flex, Grid, HStack, LinkOverlay, Square, Stack, VStack } from 'sty
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -329,10 +330,10 @@ function RunningSessionSessionCardContent({ session }: { session: RunningSession
 
 function RunningSessionSessionCard({ session }: { session: RunningSessionSession }) {
   return (
-    <Stack as="article" gap="20px" _mobile={{ gap: '0' }}>
+    <Card className={css({ gap: '20px', _mobile: { gap: '0' } })}>
       <RunningSessionSessionCardImage session={session} />
       <RunningSessionSessionCardContent session={session} />
-    </Stack>
+    </Card>
   );
 }
 

@@ -6,26 +6,27 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: "2026-11-02T00:43:51.174Z"
+  at: '2026-11-02T05:18:16Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
-  - src/components/common/molecules/HomeCarouselSection.tsx
-  - src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
-  - src/types/component-contracts/components-common-layouts-MainSection.d.ts
-  - src/components/common/layouts/MainSection.tsx
   - src/app/_components/HomeContent.tsx
-  - src/app/support/care/_components/CareContent.tsx
+  - src/app/support/size-guide/_components/SizeGuidePanel.tsx
+  - src/app/support/faq/faq.data.ts
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/support/inquiries/_components/InquiryListPreview.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/components/support/InquiryCautions.tsx
+  - src/app/support/care/page.tsx
+  - src/app/support/care/_components/CareContent.tsx
   - src/app/support/notices/_components/NoticesContent.tsx
   - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/notices/[id]/page.tsx
   - src/app/support/faq/_components/FaqContent.tsx
-  - src/app/support/faq/faq.data.ts
+  - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
+  - src/stories/features/support/SupportPages.stories.tsx
+  - src/app/support/_components/SupportContacts.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -750,22 +751,6 @@ src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named b
 
 npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.
 
-## 문의 시안과 기존 경로 (2026-11-02)
-
-/support/inquiries(빈 목록), /support/inquiries/preview-list(접수/답변), /support/inquiries/new(등록)의 기존 경로와 IA 187·210/189·211 연결을 유지한다. 새 URL·인증·요청·이동 흐름을 추가하지 않고 기존 페이지/전용 _components의 시각 표현만 갱신했다. 오류 preview는 기존 공유 부품의 타이포/버튼을 함께 사용한다. [디자인 출처와 규격](support-design.md#문의-목록등록-figma-적용-2026-11-02)을 참고한다.
-
-## 배송 및 반품안내 시안과 경로 유지 (2026-11-02)
-
-/support/after-sales와 IA 216의 기존 연결, Storybook 기본 진입을 유지한다. 탭 선택은 기존 Base UI 로컬 상태를 사용하며 새로운 URL·요청·완료 이동을 만들지 않았다. page는 라우트 조합, _components/AfterSalesContent는 안내 패널·반품처·바로가기 표시를 맡는다. [디자인과 검증](support-design.md#배송-및-반품안내-figma-적용-2026-11-02). 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx.
-
-## 세탁 안내 라우트 (2026-11-02)
-
-/support/care는 기존 URL과 shoes/apparel 로컬 탭 값을 유지한다. page.tsx는 경로·플랫폼별 제목·레이아웃·탭 조합을 소유하고 소개와 관리 본문은 _components/CareContent.tsx에 둔다. 기존 CareGuide WEB/Mobile Storybook 연결과 상품 상세의 CareInstructions 사용을 유지한다. 신규 경로·요청·영속화·완료 이동은 추가하지 않았다. [디자인·검증 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)과 해당 working_tree_sources를 참조한다.
-
-## 약관 시안과 URL 상태 보존 (2026-11-02)
-
-`/support/terms`는 이용 약관, `/support/terms?tab=privacy`는 개인정보 처리방침을 표시한다. Figma 섹션 `1973:15873` 적용에서 기존 `useSearchParams`·router.push 및 부가 query 보존 계약을 유지하며 새 경로를 추가하지 않았다. 제목 아래 여백과 모바일 하단 여백만 라우트 소유자에서 조정한다. 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`. [표시 기준과 검증](support-design.md#약관-figma-재적용-2026-11-02).
-
 ## 고객센터 메인 시안 재적용 (2026-11-02)
 
 `src/app/support/page.tsx`와 `_components/SupportContacts.tsx`의 표시만 변경한다. /support의 하단 문의·FAQ 안내는 기존 /support/inquiries/new와 /support/faq 경로를 사용하며 새 상태 URL이나 URL 상태를 추가하지 않는다. 공용 플랫폼 선택·서버/클라이언트 경계는 유지한다. 시안과 검증 한계는 [고객센터 시안 기록](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)을 참고한다. 작업 트리 출처는 두 소스와 고객센터 메인 WEB/Mobile 스토리다.
@@ -774,10 +759,25 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 /support의 page는 헤더와 화면 조합을 유지하며, 하단 문의/FAQ UI는 _components/SupportQuickLinks.tsx가 소유한다. 기존 /support/inquiries/new·/support/faq 링크와 클라이언트 경계를 유지한다. 새 경로는 없으며 sourceGraph는 정식 screen-files로 재생성했다. 실측과 검증 한계는 [고객센터 기록](support-design.md#지정-고객센터-섹션-간격타이포-보정-2026-11-02)을 참고한다.
 
+## 약관 시안과 URL 상태 보존 (2026-11-02)
+
+`/support/terms`는 이용 약관, `/support/terms?tab=privacy`는 개인정보 처리방침을 표시한다. Figma 섹션 `1973:15873` 적용에서 기존 `useSearchParams`·router.push 및 부가 query 보존 계약을 유지하며 새 경로를 추가하지 않았다. 제목 아래 여백과 모바일 하단 여백만 라우트 소유자에서 조정한다. 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`. [표시 기준과 검증](support-design.md#약관-figma-재적용-2026-11-02).
+
+## 문의 시안과 기존 경로 (2026-11-02)
+
+/support/inquiries(빈 목록), /support/inquiries/preview-list(접수/답변), /support/inquiries/new(등록)의 기존 경로와 IA 187·210/189·211 연결을 유지한다. 새 URL·인증·요청·이동 흐름을 추가하지 않고 기존 페이지/전용 _components의 시각 표현만 갱신했다. 오류 preview는 기존 공유 부품의 타이포/버튼을 함께 사용한다. [디자인 출처와 규격](support-design.md#문의-목록등록-figma-적용-2026-11-02)을 참고한다.
+
+## 세탁 안내 라우트 (2026-11-02)
+
+/support/care는 기존 URL과 shoes/apparel 로컬 탭 값을 유지한다. page.tsx는 경로·플랫폼별 제목·레이아웃·탭 조합을 소유하고 소개와 관리 본문은 _components/CareContent.tsx에 둔다. 기존 CareGuide WEB/Mobile Storybook 연결과 상품 상세의 CareInstructions 사용을 유지한다. 신규 경로·요청·영속화·완료 이동은 추가하지 않았다. [디자인·검증 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)과 해당 working_tree_sources를 참조한다.
+
+## 배송 및 반품안내 시안과 경로 유지 (2026-11-02)
+
+/support/after-sales와 IA 216의 기존 연결, Storybook 기본 진입을 유지한다. 탭 선택은 기존 Base UI 로컬 상태를 사용하며 새로운 URL·요청·완료 이동을 만들지 않았다. page는 라우트 조합, _components/AfterSalesContent는 안내 패널·반품처·바로가기 표시를 맡는다. [디자인과 검증](support-design.md#배송-및-반품안내-figma-적용-2026-11-02). 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx.
+
 ## 사이즈 가이드 Figma 반영 (2026-11-02)
 
 `/support/size-guide`는 기존 라우트·서버 진입과 client 패널 경계를 유지하며 설계서의 5품목으로 표시 데이터를 갱신했다. 새 preview URL·서비스 요청을 추가하지 않았다. [디자인·데이터·검증](size-guide.md#figma-디자인설계서-반영-2026-11-02)을 참고한다.
-
 
 ## 사이즈 가이드 캡처 재검증 (2026-11-02)
 
@@ -787,6 +787,18 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 /running/running-session·/running/running-session/yeouido-night와 기존 /preview-empty, 동적 sessionId 조회·Storybook 경로 계약을 유지했다. 상세 지원 UI는 기존 [sessionId]/_components에 둔다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
 
+## 공통 표시 컴포넌트 복원 (2026-11-02)
+
+마이페이지 배송지·상품 이력의 빈 상태는 EmptyState, 공지/FAQ 더보기는 Button.loadMore, 사이즈 가이드 표는 DataTable.striped를 재사용한다. 기존 route·preview URL·page/_components 책임·client 경계·탭 상태·조회 콜백을 유지한다. 신규 라우트나 완료 이동은 없으며 screen-files로 현재 import 그래프를 재생성했다. [옵션과 실제 검증](ui.md#빈-상태더보기표-공통-컴포넌트-복원-2026-11-02)을 참고한다.
+
+작업 트리 출처: `src/app/mypage/addresses/_components/AddressManagement.tsx`, `src/app/support/notices/_components/NoticesContent.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`. 검토: codex/gpt-6, 2026-11-02T04:46:17Z.
+
 ## 메인과 상품 상세의 디자인 반영 (2026-11-02)
 
 `/`와 `/products/shoe-1`의 기존 route-private 소유자에서 디자인을 반영했다. page exports·클라이언트 경계·직접 상태 URL·화면 인덱스 연결과 Context/선택/갤러리 지연 경계는 유지한다. 상품 정보의 컬러·스타일코드·발볼은 현재 상품/선택값을 표시한다. 실제 API·재고·가격 확정은 기존 연결 소유자의 책임이다. [메인·상세의 수치와 실제 검증](home-product-design.md)을 참고한다. 작업 트리 출처는 HomeContent.tsx, homeContent.ts와 ProductDetailContent.tsx다.
+
+## 공통 전체 재사용 대조 (2026-11-02)
+
+기준 커밋 이후 65개 소스를 확인하고 메인·상품 상세·마이페이지·고객센터·러닝세션의 페이지 전용 조각을 기존 공통 소유자로 조합했다. page/_components 경계, route exports·URL·Suspense·client·dynamic viewer 경계와 상태 수명은 유지한다. InquiryEmptyState·FaqEmptyState·MyPageProductHistoryHeading·ProfileField의 단순 중복 함수를 제거했고 신규 라우트/전달 전용 파일은 없다. screen-files의 연결 그래프는 현재 직접 import를 반영한다. [전체 파일 출처와 실제 검증](common-reuse-audit.md)을 참고한다.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.

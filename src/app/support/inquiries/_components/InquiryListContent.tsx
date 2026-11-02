@@ -22,22 +22,6 @@ import {
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-/** 등록된 문의가 없는 상태를 표시합니다. (Displays the empty inquiry state.) */
-export function InquiryEmptyState() {
-  return (
-    <Stack
-      align="center"
-      justify="center"
-      textAlign="center"
-      minH={{ base: '427px', _mobile: '190px' }}
-    >
-      <Typography web="body3" mo="body4" tone="subtle">
-        등록된 문의사항이 없습니다.
-      </Typography>
-    </Stack>
-  );
-}
-
 type Props = { item: { title: string; answered: boolean; body?: ReactNode } };
 
 const styles = {

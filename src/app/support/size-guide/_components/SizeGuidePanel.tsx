@@ -8,6 +8,7 @@ import { usePlatform } from '@/context/platform';
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
+import { DataTable } from '@/components/common/atoms/DataTable';
 import {
   SegmentedControl,
   type SegmentedControlOption,
@@ -171,22 +172,24 @@ function SizeGuideMeasurementMethod({
 }: SizeGuideMeasurementMethodProps) {
   const platform = usePlatform();
   return (
-    <Stack
+    <ContentSection
+      as="div"
+      title={title}
+      headerProps={{
+        titleAs: 'h3',
+        titleProps: {
+          web: 'heading8',
+          mo: 'heading6',
+          weight: platform === 'mobile' ? 'bold' : 'black',
+          className: css({ pl: { base: '2', _mobile: '0' } }),
+        },
+      }}
       gap="2"
       bg="#F7F7F9"
       px={{ base: '5', _mobile: '3' }}
       py={{ base: '8', _mobile: '6' }}
       flex="1"
     >
-      <Typography
-        as="h3"
-        web="heading8"
-        mo="heading6"
-        weight={platform === 'mobile' ? 'bold' : 'black'}
-        className={css({ pl: { base: '2', _mobile: '0' } })}
-      >
-        {title}
-      </Typography>
       <Stack as="ol" gap="0" listStyleType="none" m="0" p="0">
         {steps.map((step, index) => (
           <Stack
@@ -211,7 +214,7 @@ function SizeGuideMeasurementMethod({
           * {description}
         </Typography>
       )}
-    </Stack>
+    </ContentSection>
   );
 }
 
@@ -296,60 +299,32 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
       }}
     >
       {chart ? (
-        <Box overflowX="auto">
-          <table
-            className={css({
-              w: '100%',
-              tableLayout: 'fixed',
-              borderCollapse: 'collapse',
-              fontFamily: 'hoka',
-              fontSize: '14px',
-              textAlign: 'left',
-              '& th, & td': {
-                h: '48px',
-                px: shoes ? '4' : '3',
-                border: '1px solid #E9EAEB',
-                fontWeight: 'normal',
-                overflowWrap: 'anywhere',
-              },
-              '& thead th': { bg: '#E9EAEB', fontFamily: 'korean', fontSize: '14px' },
-              '& tbody tr:nth-child(even)': { bg: '#F7F7F9' },
-              _mobile: {
-                fontSize: shoes ? '14px' : '12px',
-                '& th, & td': { px: shoes ? '4' : '3' },
-                '& thead th': { fontSize: shoes ? '13px' : '12px' },
-              },
-            })}
-          >
-            <Typography as="caption" srOnly>
-              {caption}
-            </Typography>
-            <thead>
-              <tr>
-                {chart.headers.map((label, index) => (
-                  <th key={index} scope="col">
-                    {label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {chart.rows.map((row, index) => (
-                <tr key={index}>
-                  {row.map((cell, column) =>
-                    column === 0 ? (
-                      <th key={column} scope="row">
-                        {cell}
-                      </th>
-                    ) : (
-                      <td key={column}>{cell}</td>
-                    ),
-                  )}
-                </tr>
+        <DataTable caption={caption} variant="striped" density={shoes ? 'regular' : 'compact'}>
+          <thead>
+            <tr>
+              {chart.headers.map((label, index) => (
+                <th key={index} scope="col">
+                  {label}
+                </th>
               ))}
-            </tbody>
-          </table>
-        </Box>
+            </tr>
+          </thead>
+          <tbody>
+            {chart.rows.map((row, index) => (
+              <tr key={index}>
+                {row.map((cell, column) =>
+                  column === 0 ? (
+                    <th key={column} scope="row">
+                      {cell}
+                    </th>
+                  ) : (
+                    <td key={column}>{cell}</td>
+                  ),
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </DataTable>
       ) : (
         <Typography variant="body4" tone="subtle">
           해당 단위의 사이즈표는 준비 중입니다.

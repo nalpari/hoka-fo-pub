@@ -9,6 +9,7 @@ import { Box, HStack, Stack } from 'styled-system/jsx';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
@@ -34,15 +35,21 @@ export default function Page() {
             <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
               <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
             </Box>
-            <Stack gap="3" pt="3" _mobile={{ gap: '2', pt: '0' }}>
-              <Typography as="h1" web="heading6" mo="heading3">
-                {summary?.tier}
-              </Typography>
-              <Typography as="p" web="body3" mo="body4">
-                {summary?.name}
-                {summary ? '님의 이번달 멤버십 등급' : null}
-              </Typography>
-            </Stack>
+            <ContentHeader
+              title={summary?.tier}
+              titleAs="h1"
+              titleProps={{ web: 'heading6', mo: 'heading3' }}
+              description={
+                <>
+                  {summary?.name}
+                  {summary ? '님의 이번달 멤버십 등급' : null}
+                </>
+              }
+              descriptionProps={{ web: 'body3', mo: 'body4' }}
+              gap="3"
+              pt="3"
+              _mobile={{ gap: '2', pt: '0' }}
+            />
           </HStack>
           <HStack gap="2" alignItems="stretch">
             {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
