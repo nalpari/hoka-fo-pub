@@ -2,19 +2,29 @@ import {
   getProductListingIaKey,
   getProductListingRoute,
 } from '@/app/screen-index/productListingIaRoute';
+import { inquiryFormPreviews, inquiryListPreviews } from '@/app/support/inquiries/inquiryPreviews';
 import type { ScreenDefinition } from '@/data/screenRegistry';
 
 import sourceGraph from './sourceGraph.generated.json';
-
 export type ScreenConnection = {
   route?: string;
   routeLabel?: string;
   defaultStateLabel?: string;
-  previewRoutes?: { label: string; href: string }[];
+  previewRoutes?: {
+    label: string;
+    href: string;
+  }[];
   sourceFiles: string[];
-  stories: Partial<Record<'web' | 'mobile', { id: string; file: string }>>;
+  stories: Partial<
+    Record<
+      'web' | 'mobile',
+      {
+        id: string;
+        file: string;
+      }
+    >
+  >;
 };
-
 const connections: Record<number, ScreenConnection> = {
   '267': {
     route: '/locales',
@@ -157,7 +167,6 @@ const connections: Record<number, ScreenConnection> = {
       },
     },
   },
-
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
     stories: {
@@ -202,12 +211,16 @@ const connections: Record<number, ScreenConnection> = {
       { label: '상품 없음', href: '/checkout/preview-empty' },
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
+      { label: '배송지 수동입력', href: '/checkout/preview-shipping' },
+      { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
       'src/app/checkout/preview-empty/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
+      'src/app/checkout/preview-shipping/page.tsx',
+      'src/app/checkout/preview-delivery-request/page.tsx',
     ],
     stories: {
       web: {
@@ -223,8 +236,15 @@ const connections: Record<number, ScreenConnection> = {
   '177': {
     route: '/mypage',
     defaultStateLabel: '주문 내역 있음',
-    previewRoutes: [{ label: '주문 내역 없음', href: '/mypage/preview-no-orders' }],
-    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-no-orders/page.tsx'],
+    previewRoutes: [
+      { label: '주문 내역 없음', href: '/mypage/preview-no-orders' },
+      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
+    ],
+    sourceFiles: [
+      'src/app/mypage/page.tsx',
+      'src/app/mypage/preview-no-orders/page.tsx',
+      'src/app/mypage/preview-logout/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-마이페이지-0-마이페이지-메인-web--width-1600',
@@ -239,13 +259,21 @@ const connections: Record<number, ScreenConnection> = {
   '178': {
     route: '/mypage/orders',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/orders/preview-empty' }],
+    previewRoutes: [
+      { label: '빈 목록', href: '/mypage/orders/preview-empty' },
+      { label: '주문 취소 신청', href: '/mypage/orders/preview-cancel-request' },
+      { label: '반품 신청', href: '/mypage/orders/preview-return-request' },
+      { label: '배송 조회', href: '/mypage/orders/preview-tracking' },
+      { label: '구매 확정 확인', href: '/mypage/orders/preview-purchase-confirm' },
+      { label: '주문 삭제 확인', href: '/mypage/orders/preview-delete-confirm' },
+    ],
     sourceFiles: [
       'src/app/mypage/orders/page.tsx',
       'src/app/mypage/orders/preview-empty/page.tsx',
       'src/app/mypage/orders/preview-detail/page.tsx',
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
       'src/app/mypage/orders/preview-return-detail/page.tsx',
+      'src/app/mypage/orders/[preview]/page.tsx',
     ],
     stories: {
       web: {
@@ -431,8 +459,16 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '195': {
+    previewRoutes: [
+      { label: '조회 중', href: '/mypage/rewards/preview-loading' },
+      { label: '조회 실패', href: '/mypage/rewards/preview-load-error' },
+    ],
     route: '/mypage/rewards',
-    sourceFiles: ['src/app/mypage/rewards/page.tsx'],
+    sourceFiles: [
+      'src/app/mypage/rewards/page.tsx',
+      'src/app/mypage/rewards/preview-loading/page.tsx',
+      'src/app/mypage/rewards/preview-load-error/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-마이페이지-5-회원등급-web--rewards',
@@ -450,6 +486,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       { label: '등록 오류', href: '/mypage/coupons/preview-error' },
       { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [
       'src/app/mypage/coupons/page.tsx',
@@ -457,6 +494,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/coupons/preview-error/page.tsx',
       'src/app/mypage/coupons/preview-complete/page.tsx',
       'src/app/mypage/coupons/preview-detail/page.tsx',
+      'src/app/mypage/coupons/preview-employee/page.tsx',
     ],
     stories: {
       web: {
@@ -489,6 +527,14 @@ const connections: Record<number, ScreenConnection> = {
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
       { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
+      { label: '저장 확인', href: '/mypage/profile/preview-save' },
+      { label: '수정 완료', href: '/mypage/profile/preview-save-complete' },
+      { label: '본인인증 안내', href: '/mypage/profile/preview-phone-required' },
+      { label: '탈퇴 확인', href: '/mypage/profile/preview-withdraw' },
+      { label: '탈퇴 완료', href: '/mypage/profile/preview-withdraw-complete' },
+      { label: '수정 취소 확인', href: '/mypage/profile/preview-cancel' },
+      { label: '비밀번호 입력', href: '/mypage/profile/preview-password' },
+      { label: '비밀번호 변경 확인', href: '/mypage/profile/preview-password-confirm' },
     ],
     sourceFiles: [
       'src/app/mypage/profile/page.tsx',
@@ -497,6 +543,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/profile/preview-code-entry/page.tsx',
       'src/app/mypage/profile/preview-expired/page.tsx',
       'src/app/mypage/profile/preview-password-complete/page.tsx',
+      'src/app/mypage/profile/[preview]/page.tsx',
     ],
     stories: {
       mobile: {
@@ -508,13 +555,17 @@ const connections: Record<number, ScreenConnection> = {
   '203': {
     route: '/mypage/addresses',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/addresses/preview-empty' }],
+    previewRoutes: [
+      { label: '빈 목록', href: '/mypage/addresses/preview-empty' },
+      { label: '배송지 삭제 확인', href: '/mypage/addresses/preview-delete' },
+    ],
     sourceFiles: [
       'src/app/mypage/addresses/page.tsx',
       'src/app/mypage/addresses/preview-empty/page.tsx',
       'src/app/mypage/addresses/preview-new/page.tsx',
       'src/app/mypage/addresses/preview-edit/page.tsx',
       'src/app/mypage/addresses/preview-error/page.tsx',
+      'src/app/mypage/addresses/preview-delete/page.tsx',
     ],
     stories: {
       mobile: {
@@ -672,6 +723,10 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '216': {
+    previewRoutes: [
+      { label: '반품 안내', href: '/support/after-sales?tab=product-returns' },
+      { label: '상품 반품안내', href: '/support/after-sales?tab=return-cautions' },
+    ],
     route: '/support/after-sales',
     sourceFiles: ['src/app/support/after-sales/page.tsx'],
     stories: {
@@ -686,6 +741,7 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '217': {
+    previewRoutes: [{ label: '의류/용품', href: '/support/care?tab=apparel' }],
     route: '/support/care',
     sourceFiles: ['src/app/support/care/page.tsx'],
     stories: {
@@ -720,8 +776,15 @@ const connections: Record<number, ScreenConnection> = {
   },
   '223': {
     route: '/login',
-    previewRoutes: [{ label: '에러 메시지', href: '/login/preview-error' }],
-    sourceFiles: ['src/app/login/page.tsx', 'src/app/login/preview-error/page.tsx'],
+    previewRoutes: [
+      { label: '에러 메시지', href: '/login/preview-error' },
+      { label: '아이디 저장 도움말', href: '/login/preview-help' },
+    ],
+    sourceFiles: [
+      'src/app/login/page.tsx',
+      'src/app/login/preview-error/page.tsx',
+      'src/app/login/preview-help/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-로그인-0-로그인-web--default',
@@ -836,8 +899,15 @@ const connections: Record<number, ScreenConnection> = {
   },
   '236': {
     route: '/signup/terms',
-    previewRoutes: [{ label: '필수 동의 오류', href: '/signup/terms/preview-error' }],
-    sourceFiles: ['src/app/signup/terms/page.tsx', 'src/app/signup/terms/preview-error/page.tsx'],
+    previewRoutes: [
+      { label: '필수 동의 오류', href: '/signup/terms/preview-error' },
+      { label: '필수 약관 상세', href: '/signup/terms/preview-detail' },
+    ],
+    sourceFiles: [
+      'src/app/signup/terms/page.tsx',
+      'src/app/signup/terms/preview-error/page.tsx',
+      'src/app/signup/terms/preview-detail/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-회원가입-3-약관동의-web--default',
@@ -971,6 +1041,13 @@ const connections: Record<number, ScreenConnection> = {
       { label: '입력 오류', href: '/login/account-locked/verification/preview-error' },
       { label: '인증번호 입력', href: '/login/account-locked/verification/preview-code-entry' },
       { label: '인증 만료', href: '/login/account-locked/verification/preview-expired' },
+      { label: '알뜰폰 사업자', href: '/login/account-locked/verification/preview-carriers' },
+      { label: '필수 약관', href: '/login/account-locked/verification/preview-required-terms' },
+      { label: '선택 약관', href: '/login/account-locked/verification/preview-optional-terms' },
+      {
+        label: '이전 약관 선택',
+        href: '/login/account-locked/verification/preview-previous-terms',
+      },
     ],
     sourceFiles: [
       'src/app/login/account-locked/verification/page.tsx',
@@ -978,6 +1055,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/account-locked/verification/preview-code-entry/page.tsx',
       'src/app/login/account-locked/verification/preview-expired/page.tsx',
       'src/app/login/account-locked/verification/preview-agreement-error/page.tsx',
+      'src/app/login/account-locked/verification/preview-carriers/page.tsx',
+      'src/app/login/account-locked/verification/preview-required-terms/page.tsx',
+      'src/app/login/account-locked/verification/preview-optional-terms/page.tsx',
+      'src/app/login/account-locked/verification/preview-previous-terms/page.tsx',
     ],
     stories: {
       web: {
@@ -1060,8 +1141,14 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
+      { label: '신청 안내', href: '/running/running-session/preview-application' },
+      { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
     ],
-    sourceFiles: ['src/app/running/running-session/[sessionId]/page.tsx'],
+    sourceFiles: [
+      'src/app/running/running-session/[sessionId]/page.tsx',
+      'src/app/running/running-session/preview-application/page.tsx',
+      'src/app/running/running-session/preview-application-complete/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-탐색-1-러닝세션-상세-web--open',
@@ -1088,7 +1175,6 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
 };
-
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   listing: {
     defaultStateLabel: '조건 결과 있음',
@@ -1119,10 +1205,12 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
         label: '상품문의 없음',
         href: '/products/preview-empty-inquiries#product-inquiries',
       },
+      { label: '옵션 미선택 안내', href: '/products/preview-options-required' },
     ],
     sourceFiles: [
       'src/app/products/[id]/page.tsx',
       'src/app/products/preview-empty-inquiries/page.tsx',
+      'src/app/products/preview-options-required/page.tsx',
     ],
     stories: {
       web: {
@@ -1136,15 +1224,47 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
     },
   },
 };
-
 export function isScreenDeleted(screen: ScreenDefinition) {
   return screen.note.replace(/상품\s*삭제/g, '').includes('삭제');
 }
-
 function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
   if (isScreenDeleted(screen)) return { sourceFiles: [], stories: {} };
   const connection = connections[screen.iaNumber];
-  if (connection) return connection;
+  if (connection) {
+    const group =
+      connection.route === '/support/inquiries/new'
+        ? 'form'
+        : connection.route === '/support/inquiries/preview-list'
+          ? 'list'
+          : undefined;
+    if (!group) return connection;
+    return {
+      ...connection,
+      previewRoutes: [
+        ...(connection.previewRoutes ?? []),
+        ...(group === 'list' ? inquiryListPreviews : inquiryFormPreviews).map(
+          ({ label, href }) => ({ label, href }),
+        ),
+        ...(group === 'form'
+          ? [
+              {
+                label: '조회 기간 직접설정',
+                href: '/support/inquiries/new/order-products/preview-custom',
+              },
+            ]
+          : []),
+      ],
+      sourceFiles: [
+        ...connection.sourceFiles,
+        ...(group === 'list'
+          ? ['src/app/support/inquiries/[preview]/page.tsx']
+          : [
+              'src/app/support/inquiries/new/[preview]/page.tsx',
+              'src/app/support/inquiries/new/order-products/preview-custom/page.tsx',
+            ]),
+      ],
+    };
+  }
   if (screen.screenCode === 'eland_hca_01')
     return {
       ...productConnections.listing,
@@ -1154,14 +1274,9 @@ function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
     return { ...productConnections.detail, route: '/products/shoe-1' };
   return { sourceFiles: [], stories: {} };
 }
-
-// [ 개발팀 바인딩 ] IA 소유자는 화면의 진입 파일만 연결한다. 생성기가 실제 import를
-// 추적해 진입점과 바인딩 주석이 있는 도메인/컨텍스트를 표시한다. 서비스 구현·수정 이력이
-// 아니며 공통 UI·범용 요청 훅·프리뷰·목 데이터는 수정 대상처럼 나열하지 않는다.
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 const resolvedSourceFiles = new Map<string, string[]>();
-
 const bindingFiles = new Set(sourceGraph.bindingFiles);
-
 export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
   const connection = getRegisteredConnection(screen);
   const key = connection.sourceFiles.join('\n');
@@ -1184,7 +1299,6 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   resolvedSourceFiles.set(key, sourceFiles);
   return { ...connection, sourceFiles };
 }
-
 export function getScreenStoryHref(screen: ScreenDefinition, platform: 'web' | 'mobile') {
   const story = getScreenConnection(screen).stories[platform];
   if (!story) return undefined;

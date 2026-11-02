@@ -30,11 +30,10 @@ export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
   onAddressChange: (field: keyof ProfileAddress, value: string) => void;
   onAddressOpenChange: (open: boolean) => void;
   onPhoneChange: (value: string) => void;
-  onPhoneVerifiedChange: (verified: boolean, proof?: string) => void;
   onEmailPreferenceChange: (value: Preference) => void;
   onSmsPreferenceChange: (value: Preference) => void;
   onKakaoPreferenceChange: (value: Preference) => void;
   onSubmit: (event: import('react').FormEvent<HTMLFormElement>, password?: string) => void;
-  onCancel: () => void;
-  onWithdraw: () => void;
+  onCancel?: () => void;
+  onWithdraw?: () => void;
 };

@@ -38,25 +38,66 @@ const spaced = css.raw({
   _mobile: { fontSize: '12px', borderSpacing: '0 8px', '& th, & td': { px: '2' } },
 });
 
+const striped = css.raw({
+  w: '100%',
+  tableLayout: 'fixed',
+  borderCollapse: 'collapse',
+  fontFamily: 'hoka',
+  fontSize: '14px',
+  textAlign: 'left',
+  '& th, & td': {
+    h: '48px',
+    px: '4',
+    border: '1px solid token(colors.black.20)',
+    fontWeight: 'normal',
+    overflowWrap: 'anywhere',
+  },
+  '& thead th': { bg: 'black.20', fontFamily: 'korean', fontSize: '14px' },
+  '& tbody tr:nth-child(even)': { bg: 'black.10' },
+  _mobile: {
+    fontSize: '14px',
+    '& th, & td': { px: '4' },
+    '& thead th': { fontSize: '13px' },
+  },
+});
+
+const compactStriped = css.raw({
+  '& th, & td': { px: '3' },
+  _mobile: {
+    fontSize: '12px',
+    '& th, & td': { px: '3' },
+    '& thead th': { fontSize: '12px' },
+  },
+});
+
 export type DataTableProps = TableHTMLAttributes<HTMLTableElement> & {
   caption?: ReactNode;
-  variant?: 'default' | 'spaced';
-};
+} & (
+    | { variant?: 'default' | 'spaced'; density?: never }
+    | { variant: 'striped'; density?: 'regular' | 'compact' }
+  );
 
-/** Responsive-ready semantic table base for guides, specifications, and data summaries. */
-
+/** 안내와 데이터 요약을 반응형 표로 표시합니다. (Displays guides and data summaries in a responsive table.) */
 export function DataTable({
   className,
   caption,
   children,
   variant = 'default',
+  density = 'regular',
   ...props
 }: DataTableProps) {
   return (
     <Box overflowX="auto">
       <table
         {...props}
-        className={[css(table, variant === 'spaced' && spaced), className]
+        className={[
+          css(
+            variant === 'striped' ? striped : table,
+            variant === 'spaced' && spaced,
+            variant === 'striped' && density === 'compact' && compactStriped,
+          ),
+          className,
+        ]
           .filter(Boolean)
           .join(' ')}
       >

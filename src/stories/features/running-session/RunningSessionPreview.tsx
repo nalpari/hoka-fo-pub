@@ -35,7 +35,15 @@ export function RunningSessionPreview({ platform, view }: PreviewProps) {
                 }
               />
             ) : (
-              <RunningSessionDetailPage key={view} session={{ ...session, status: view }} />
+              <RunningSessionDetailPage
+                key={view}
+                session={{
+                  ...session,
+                  status: view,
+                  applicationOpeningLabel:
+                    view === 'upcoming' ? '1월 23일 (토) 10:00 신청 시작' : undefined,
+                }}
+              />
             )}
           </AppLayout>
         </div>

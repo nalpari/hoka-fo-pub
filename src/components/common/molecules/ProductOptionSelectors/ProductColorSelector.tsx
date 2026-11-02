@@ -22,7 +22,7 @@ const styles = {
   colors: css({
     '&[role="radiogroup"]': {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, 80px)',
+      gridTemplateColumns: 'repeat(auto-fill, 74px)',
       gap: '8px',
       _mobile: { display: 'flex' },
     },
@@ -38,9 +38,10 @@ const styles = {
     },
     '& [role="radio"]': {
       position: 'relative',
-      flex: '0 0 80px',
-      w: '80px',
-      h: '53px',
+      flex: '0 0 74px',
+      w: '74px',
+      h: '74px',
+      _mobile: { flexBasis: '76px', w: '76px', h: '76px' },
       overflow: 'hidden',
       bg: 'var(--color-black-10)',
       cursor: 'pointer',
@@ -121,9 +122,9 @@ export function ProductColorSelector({
                 className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
                 alt={option.label}
                 src={option.image}
-                width={80}
-                height={53}
-                sizes="80px"
+                width={74}
+                height={74}
+                sizes="76px"
               />
             ),
           }))}

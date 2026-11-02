@@ -27,7 +27,15 @@ export const Mobile: Story = { ...Scrollable, globals: { viewport: 'hoka375' } }
 export const Controlled: Story = {
   render: function ControlledTabs(args) {
     const [value, setValue] = useState(args.defaultValue);
-    return <SupportTabs {...args} variant="scrollable" value={value} onValueChange={setValue} />;
+    return (
+      <SupportTabs
+        {...args}
+        syncQuery={false}
+        variant="scrollable"
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

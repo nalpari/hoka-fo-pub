@@ -1,4 +1,5 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
 
 import { useState } from 'react';
 
@@ -11,7 +12,6 @@ import {
   RegistrationContent,
   RegistrationMarketingConsentSummaryModal,
 } from './RegistrationContent';
-
 const emptyInformation: RegistrationInformation = {
   id: '',
   name: '',
@@ -26,7 +26,7 @@ const emptyInformation: RegistrationInformation = {
   domain: '',
   anniversary: '',
 };
-const errors = {
+const fixedErrors = {
   id: '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.',
   email: '올바른 이메일 형식으로 입력해 주세요',
   domain: '올바른 도메인 형식으로 입력해 주세요',
@@ -37,11 +37,22 @@ const errors = {
   address: '주소를 입력해 주세요.',
   addressDetail: '상세주소를 입력해 주세요.',
 };
-
-/** [ 개발팀 바인딩 ] 가입 오류/수신내역의 고정 fixture입니다. 중복확인·가입 제출·완료 이동은 없으며 실제 proof·동의·입력 payload와 요청 결과는 AccountServicesContext 소유자가 연결합니다. */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** 가입 입력 오류 또는 수신내역 모달을 표시합니다. (Displays fixed registration errors or the marketing summary.) */
-export function RegistrationStatePreview({ marketing = false }: { marketing?: boolean }) {
-  const [information, setInformation] = useState(emptyInformation);
+export function RegistrationStatePreview({
+  marketing = false,
+  errors = true,
+}: {
+  marketing?: boolean;
+  errors?: boolean;
+}) {
+  const searchParams = useSearchParams();
+  const additional = marketing || searchParams.get('step') === 'additional';
+  const [information, setInformation] = useState(
+    errors
+      ? emptyInformation
+      : { ...emptyInformation, birthDate: '19830522', phone: '010-6698-5552' },
+  );
   const [preferences, setPreferences] = useState<MarketingPreferences>({
     email: 'no',
     sms: 'no',
@@ -53,16 +64,16 @@ export function RegistrationStatePreview({ marketing = false }: { marketing?: bo
   return (
     <>
       <RegistrationContent
-        stage={marketing ? 'additional' : 'information'}
+        stage={additional ? 'additional' : 'information'}
         information={information}
         preferences={preferences}
         domainChoice={domainChoice}
         notice=""
         duplicateNotice=""
         fieldErrors={
-          marketing
+          !errors || marketing
             ? { id: '', email: '', domain: '', name: '', password: '', confirmation: '' }
-            : errors
+            : fixedErrors
         }
         addressOpen={addressOpen}
         onAddressOpen={setAddressOpen}
@@ -71,9 +82,7 @@ export function RegistrationStatePreview({ marketing = false }: { marketing?: bo
           setPreferences((previous) => ({ ...previous, [key]: value }))
         }
         onDomainChoice={setDomainChoice}
-        onDuplicateCheck={() => {}}
         onSubmit={(event) => event.preventDefault()}
-        onCancel={() => {}}
       />
       {open && (
         <RegistrationMarketingConsentSummaryModal

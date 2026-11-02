@@ -1,7 +1,5 @@
-import type { RunningSessionEntry } from '@/context/RunningSessionDataContext';
-
+import type { RunningSessionEntry } from '@/components/running-session/runningSession.data';
 import { runningSessionSessions } from '@/components/running-session/runningSession.data';
-
 export const eventEntryPreview = {
   totalCount: 62,
   pageInfo: { current: 1, total: 10 },

@@ -1,7 +1,8 @@
 /**
- * [개발팀 바인딩]
- * guideCategories는 품목별 사이즈 표 표시 데이터입니다. BO 값을 category/value/label과 SizeGuidePanel이 받는 표 모델로 변환합니다.
- * 선택 사이즈의 실제 재고는 이 안내표가 아니라 Product.colorOptions의 옵션 데이터에 연결합니다.
+ * [ 개발팀 바인딩 ]
+ * 이 라우트는 설계서에서 준비한 guideCategories 표시 데이터를 SizeGuidePanel에 전달합니다.
+ * 연동 담당자는 value/label/image/steps/genders/units/charts를 승인된 안내 데이터로 갱신합니다.
+ * 요청·저장·재고 판정은 없는 정적 안내이며, 실제 상품 재고는 상품 옵션 데이터 소유자가 연결합니다.
  */
 
 import { Stack } from 'styled-system/jsx';
@@ -24,6 +25,7 @@ export default function Page() {
   return (
     <CustomerCenterLayout
       title="사이즈 가이드"
+      mobileTitleVariant="heading5"
       activePath="/support/size-guide"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -32,7 +34,7 @@ export default function Page() {
       ]}
       groups={supportNavigation}
     >
-      <Stack mt="6">
+      <Stack mt={{ base: '10', _mobile: '4' }}>
         <SupportTabs
           ariaLabel="사이즈 가이드 품목"
           defaultValue="shoes"

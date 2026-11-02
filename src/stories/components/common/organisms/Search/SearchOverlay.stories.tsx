@@ -7,7 +7,6 @@ import { HeaderSearch, SearchOverlay } from '@/context/ShopShell';
 import { Box, Flex } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-
 const meta = {
   title: 'Organisms/Search/SearchOverlay',
   component: SearchOverlay,
@@ -23,7 +22,6 @@ const meta = {
       setQuery(value);
       setError('');
     };
-
     return (
       <div className={mobile ? 'platform-mobile' : 'platform-web'}>
         <PlatformProvider platform={mobile ? 'mobile' : 'web'}>
@@ -64,30 +62,12 @@ const meta = {
     );
   },
 } satisfies Meta<typeof SearchOverlay>;
-
 export default meta;
-
 type Story = StoryObj<typeof meta>;
-
 export const Default: Story = {};
-
-export const EmptyRecentSearches: Story = {
-  beforeEach: () => {
-    const key = 'hoka-recent-searches';
-    const stored = window.localStorage.getItem(key);
-    window.localStorage.setItem(key, '[]');
-
-    return () => {
-      if (stored === null) window.localStorage.removeItem(key);
-      else window.localStorage.setItem(key, stored);
-    };
-  },
-};
-
+export const EmptyRecentSearches: Story = {};
 export const Autocomplete: Story = { args: { query: '러닝' } };
-
 export const Invalid: Story = { args: { error: '검색할 수 없는 단어가 포함되어 있습니다.' } };
-
 export const Mobile: Story = {
   beforeEach: () => {
     const wasMobile = document.body.classList.contains('platform-mobile');
@@ -98,14 +78,11 @@ export const Mobile: Story = {
   },
   globals: { searchPlatform: 'mobile', viewport: { value: 'hoka375', isRotated: false } },
 };
-
 export const MobileAutocomplete: Story = { ...Mobile, args: { query: '러닝' } };
-
 export const MobileInvalid: Story = {
   ...Mobile,
   args: { error: '검색할 수 없는 단어가 포함되어 있습니다.' },
 };
-
 export const DesktopDismissal: Story = {
   args: { query: '러닝' },
   play: async ({ canvasElement }) => {

@@ -382,7 +382,7 @@ export const MultiplePromotions: Story = {
 export const HoverPreview: Story = {
   args: { product: products[0] },
   render: ({ product }) => (
-    <div style={{ position: 'relative', minHeight: 850, margin: 16 }}>
+    <div style={{ position: 'relative', aspectRatio: '1', paddingBottom: 100, margin: 16 }}>
       <ProductCardPreview product={product} />
     </div>
   ),

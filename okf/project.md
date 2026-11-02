@@ -6,9 +6,45 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/support/care/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/screen-index/sourceGraph.generated.json
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
+  - src/app/_components/HomeContent.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/data/supportContacts.ts
+  - public/images/navigation/clifton-utl.webp
   - src/hooks/useBindingQuery.ts
   - src/hooks/useRequestAction.ts
   - src/hooks/useRecentSearches.ts
@@ -53,6 +89,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 고객센터 공용 운영정보 (2026-11-02)
+
+`src/data/supportContacts.ts`의 supportContacts와 supportContactHours를 고객센터 메인과 ShopShell 푸터가 공유한다. 제품·매장 080-960-0456, 온라인 1551-0458, 평일 09:00~18:00·점심 12:00~13:00·토/일/공휴일 휴무는 사용자 지정 화면설계서 기준 고정 안내다. [출처와 실제 검증](architecture/support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)을 참고한다.
 
 ## 상품 리뷰·문의 표현 검토 (2026-10-23)
 
@@ -163,7 +203,6 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
 
-
 ## 첨부 디자인의 표시 모델 확장 (2026-10-29)
 
 주문 쿠폰의 상품 행 식별자·선택 쿠폰과 기본배송지 저장 의도, 마이페이지 주문 수량/등급 진행률을 표시·제출 모델로 연결했다. 실제 결제/회원/취소 서비스가 구현된 것으로 간주하지 않는다. [구현 범위·출처·검증](architecture/design-implementation-2026-10-29.md).
@@ -219,3 +258,35 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## GNB 디자인 표시 데이터 (2026-11-02)
+
+[Navigation 1215:50882](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1215-50882)에 맞춰 src/data/megaMenu.ts의 프로모션 imageSrc를 public/images/navigation/clifton-utl.webp로 교체했다. 기존 메뉴 ID·목적지·title은 유지하고 신발 레이블 띄어쓰기와 columns.activeItemEmphasis: heading 표시 옵션을 반영했다. 이 옵션은 PC 현재 URL 항목의 제목형 강조만 지정하며 서버 조회·응답이나 카테고리 API는 추가하지 않는다. 기존 [ 개발팀 바인딩 ] 주석에 표시 fixture와 운영 목적지/이미지 갱신 책임을 명시했다. 기능 범위·의존성·패키지는 변경하지 않았다. 이미지 출처·UI 수치·검증은 [GNB Figma 기록](architecture/ui.md#gnb-figma-적용-2026-11-02)을 따른다. 위 두 파일은 작업 트리 출처다. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+
+## 러닝세션 표시 fixture 갱신 (2026-11-02)
+
+세션 ID·제목·사진은 유지하고 applicationOpeningLabel과 showSupplementalImagePlaceholder를 명시적 표시 필드로 추가했다. 의존성·API·인증·결제 범위는 바꾸지 않았다. [디자인 수치·출처·연결 책임·실제 검증](architecture/running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+이번 상태 링크 작업 지침 작성은 저장소 외부 범위다. `src/app/screen-index/screenConnections.ts`의 기존 IA 연결 계약을 검토했으며 저장소의 제품 소스·IA 데이터·의존성·프로젝트 설정을 변경하지 않았다. 이 채팅 시작 전부터 존재한 다른 작업의 변경은 이번 산출물에 포함하지 않는다. 기존 프로젝트 범위 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태 링크 조사 범위 (2026-11-02)
+
+사용자 지정 디자인 10개 영역의 상태와 IA를 읽기 전용으로 대조하고 [직접 링크 누락 14개·초기 표시 불일치 1개](architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 기록했다. PC/MO 동일 상태는 한 URL 기준으로 병합했다. 앱 코드·IA 데이터·라우트·의존성은 변경하지 않았으며 다른 채팅의 미커밋 소스는 조사 당시 관측으로만 취급한다. 출처: 사용자 지정 디자인과 현재 IA 연결·표시 소스. 기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+사용자가 전체 화면에 publishing handoff를 승인했다. 기존 실제 서비스 바인딩과 mock 성공 시뮬레이션은 제거하고 준비된 표시 데이터·상태 URL·최소 로컬 UI로 전환했다. 이는 API 구현이나 주문/인증 기능 완성을 의미하지 않는다. 홈·상품·장바구니·주문서·계정/가입·고객센터·마이페이지·러닝 및 기존 stories를 조사했다. 상세 URL/IA/근거/검증은 아래 인계표에 기록한다.
+
+[전체 화면 인계표](development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+디자인 조사로 확정한 14개 상태를 기존 IA 행의 직접 링크로 추가하고 기존 만료 URL의 팝업 초기 표시를 수정했다. 신규 경로는 11개이며 나머지 3개는 기존 안내 페이지의 tab query다. PC/MO URL을 분리하지 않았으며 IA 번호·원본 범위·운영 의존성·백엔드 기능은 변경하지 않았다. [완료한 상태와 URL](architecture/routing.md#디자인-상태-직접-링크-구현-2026-11-02), [실제 검증과 한계](development/verification.md#디자인-상태-직접-링크-구현-2026-11-02)를 참고한다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

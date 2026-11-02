@@ -4,12 +4,62 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-02T11:25:00+09:00'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:25:00Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
+  - id: design-state-link-audit
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748
+    title: '사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크'
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/mypage/profile/profilePreviews.ts
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/app/support/inquiries/inquiryPreviews.ts
+  - src/app/support/inquiries/[preview]/page.tsx
+  - src/app/support/inquiries/new/[preview]/page.tsx
+  - src/app/support/inquiries/new/order-products/preview-custom/page.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/_components/HomeContent.tsx
+  - src/app/support/size-guide/_components/SizeGuidePanel.tsx
+  - src/app/support/faq/faq.data.ts
+  - src/app/support/inquiries/_components/InquiryListContent.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/components/support/InquiryCautions.tsx
+  - src/app/support/care/page.tsx
+  - src/app/support/care/_components/CareContent.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/notices/[id]/page.tsx
+  - src/app/support/faq/_components/FaqContent.tsx
+  - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
+  - src/stories/features/support/SupportPages.stories.tsx
+  - src/app/support/_components/SupportContacts.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -759,3 +809,74 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 `/cart`와 기존 empty·limit·options preview URL은 유지한다. 기본 페이지는 상품 행 fixture를 전달하고 요약 금액은 `cart-preview.ts`의 고정 표시값으로 렌더링한다. 합계 props와 계산 흐름은 두지 않는다. 선택·수량·관심상품·옵션 dialog는 화면 확인용 로컬 상태이며 주문·삭제·저장 요청은 연결하지 않는다. 출처: `src/app/cart/page.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `cart-preview.ts`.
 
 상단 삭제 버튼의 반응형 크기를 조정했으며 URL·page 진입점·preview 연결에는 영향이 없다. 검토 범위: `src/app/cart/_components/CartProductSection.tsx`.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`src/app/screen-index/screenConnections.ts`와 `src/app/screen-index/page.tsx`의 기존 route·previewRoutes·진입점 구조를 검토했다. 이번 작업은 저장소 외부의 상태 링크 작업 지침 작성이며 앱 라우트·상태 URL·IA 연결을 추가하거나 수정하지 않았다. 기존 라우팅 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태별 IA 링크 조사 (2026-11-02)
+
+사용자가 지정한 10개 디자인 영역의 제품 상태와 현재 작업 트리의 IA 연결·초기 표시를 대조했다. 같은 상태의 PC/MO는 하나로 세고 가이드·SNS 로고·비어 있는 프레임·스크롤/viewport 중복은 별도 상태에서 제외했다. **확인된 직접 링크 누락은 14개이며, 기존 URL의 초기 표시 불일치는 별도로 1개다.** 이는 제품 상태에 진입하는 링크 기준이며 전체 화면의 시각적 일치 판정은 아니다.
+
+| IA  | 누락된 직접 상태                                                  | 디자인 근거(PC / MO)                                                                                                                                                                                                                                                                                                                                                                                                                               | 현재 확인 방식·부족한 점                                                                                                                                                        |
+| --- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 216 | 반품 안내 · 상품 반품안내 (2개)                                   | [1973:15433 / 1973:15598](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15433); [1973:15513 / 1973:15391](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15513)                                                                                                                                                                                                                     | `/support/after-sales`는 배송 안내로만 시작한다. 다른 두 탭은 클릭해야 하며 초기 선택 URL을 읽지 않는다.                                                                        |
+| 217 | 의류/용품 (1개)                                                   | [1973:15740 / 2089:59120](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15740)                                                                                                                                                                                                                                                                                                                                     | `/support/care`는 신발로 시작한다. 의류/용품은 탭 클릭만 가능하다.                                                                                                              |
+| 171 | 배송지 수동입력 · 배송 요청사항 직접입력 (2개)                    | [2268:71186 / 1992:84531](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2268-71186); [2268:71887 / 1985:77723](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2268-71887)                                                                                                                                                                                                                     | `/checkout`는 저장 배송지와 요청사항 미선택으로 시작한다. `/checkout/preview-error`는 오류를 동반하므로 정상 수동입력 상태를 대신하지 못한다.                                   |
+| 177 | 로그아웃 확인 팝업 (1개)                                          | [1487:38008 / 1413:131451](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38008)                                                                                                                                                                                                                                                                                                                                    | 기존 LogoutDialog는 있으나 기본 URL에서 닫혀 있고 IA에는 열린 상태 URL이 없다.                                                                                                  |
+| 196 | 임직원 쿠폰 (1개)                                                 | [1813:88657 / 1716:80770](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-88657)                                                                                                                                                                                                                                                                                                                                     | 표현 컴포넌트와 employee 옵션은 있지만 `/mypage/coupons` 기본 진입은 일반 회원이며 임직원 URL이 없다.                                                                           |
+| 203 | 배송지 삭제 확인 팝업 (1개)                                       | [1978:60399](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60399)                                                                                                                                                                                                                                                                                                                                                  | 삭제 확인 컴포넌트는 있으나 IA에는 목록·빈 목록·추가·수정·오류만 연결되어 있다.                                                                                                 |
+| 223 | 아이디 저장 도움말 열림 (1개)                                     | [957:29137 / 957:28912](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29137)                                                                                                                                                                                                                                                                                                                                        | `/login`의 HelpToggletip을 눌러야 열리며 초기 열림 URL이 없다.                                                                                                                  |
+| 253 | 알뜰폰 사업자 · 필수 약관 · 선택 약관 · 이전 약관 선택 팝업 (4개) | [957:30325 / 957:29872](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30325); [957:30407 / 957:30114](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30407); [957:30430 / 957:30138](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30430); [957:30452 / 957:30161](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30452) | 인증 초기 fixture의 detail은 null이다. 현재 이전 약관 조작은 “이전 약관이 없습니다.” 안내이며 디자인의 시행일 선택 팝업과 다르다. 선택 약관의 구분도 별도 구현 대조가 필요하다. |
+| 236 | 필수 약관 상세 팝업 (1개)                                         | [957:36946 / 957:36893](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-36946)                                                                                                                                                                                                                                                                                                                                        | `/signup/terms`의 detail은 null로 시작한다. 약관 상세는 클릭 가능하지만 열린 상태 URL이 없다.                                                                                   |
+
+초기 표시 불일치 1개: IA 253의 `/login/account-locked/verification/preview-expired`는 만료 안내를 인라인으로만 표시하고 dialog는 열지 않는다. [입력시간 초과 팝업 957:30397](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30397)은 열린 모달이므로 같은 상태를 재현하지 못한다. `PhoneVerificationContent`의 expired prop과 별도로 `PhoneVerificationStatePreview`가 만료 상태에서 이 prop을 전달하지 않는 현재 구성을 확인했다.
+
+대조한 디자인 범위: [배송·반품](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15355), [세탁·손질](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15638), [장바구니·주문](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=962-5160), [마이페이지](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=389-9339), [회원가입](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=127-1333), [로그인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-28876), [아이디·비밀번호 찾기](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29175), [아이디 확인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29425), [비밀번호 재설정](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29538), [계정 잠금 해제](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748).
+
+장바구니 옵션/수량 제한, 주문·배송·취소/반품 목록/상세·신청, 리뷰·관심상품·최근 본 상품·재입고 알림, 회원정보, 러닝세션 취소, 아이디 확인·잠금 안내, 비밀번호 변경 완료, 가입 본인인증·부가정보·마케팅 수신내역·가입 완료는 기존 연결을 확인해 위 누락 수에서 제외했다. 기존 preview 페이지의 IA 연결·경로 검사 5개는 통과했다. 이 검사는 디자인에만 있고 아직 URL이 없는 상태를 자동으로 찾아내지는 않는다.
+
+앱 코드·IA·상태 URL은 수정하지 않았다. 조사 결과는 현재 미커밋 작업 트리를 포함한 관측이며 후속 변경 시 재확인이 필요하다. 출처: 사용자 지정 디자인 노드, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`, 표에 대응하는 route/preview와 표시 컴포넌트, `tests/preview-links.test.mjs`. 검토 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 조사·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+기본 URL과 preview URL은 기존 라우트 표현을 공유한다. PC/MO는 같은 URL의 자동 플랫폼으로 확인하며 로그인·저장값·이전 방문을 요구하지 않는다. 회원정보 8개, 주문 5개, 리워드 2개, 상품 옵션 안내 1개, 러닝 신청 안내 2개를 직접 열 수 있도록 기존 IA에 추가했다. 동적 preview slug는 명시 목록만 허용하고 나머지는 notFound로 처리한다. 원본 route·IA 번호·stories는 유지했다. 내부 도구 /screen-index·/publishing-guide와 기존 alias /support/mileage는 고객용 IA 신규 행으로 만들지 않는다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
+### 인계 상태 18개 직접 연결 완료
+
+회원정보 확인창 8개, 주문 신청·확인창 5개, 리워드 loading/error 2개, 상품 옵션 필수 안내 1개, 러닝 신청 안내 2개를 원본 IA의 `previewRoutes`와 `sourceFiles`에 등록했다. 프로필·주문의 동적 preview는 명시된 slug만 허용하며 기본·기존 전용 경로를 보존한다. PC/MO 링크를 나누지 않는다. [인계표](../development/markup-handoff.md)에 각 확인 URL·IA·근거와 PC/MO 검증을 기록했다. 전체 222개 URL·444개 직접 진입 확인에 포함된다.
+
+출처: `src/app/mypage/profile/profilePreviews.ts`, `src/app/mypage/orders/orderPreviews.ts`, 해당 preview 진입점과 `screenConnections.ts`. 표현 소유자는 `d0f4581f`에서 정리했고 소스 그래프는 정식 생성 명령으로 다시 생성했다. 기록: codex/gpt-6, 2026-11-02.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+앞선 조사에서 확인한 14개 직접 링크 누락과 잠금 해제 만료 팝업의 초기 표시 불일치를 해소했다. PC/MO 동일 상태는 아래 하나의 반응형 URL을 공유한다. IA 원본 행·번호·기본 route·Storybook 연결은 유지한다.
+
+| IA  | 상태                   | 직접 URL                                                    |
+| --- | ---------------------- | ----------------------------------------------------------- |
+| 171 | 배송지 수동입력        | `/checkout/preview-shipping`                                |
+| 171 | 배송 요청사항 직접입력 | `/checkout/preview-delivery-request`                        |
+| 177 | 로그아웃 확인          | `/mypage/preview-logout`                                    |
+| 196 | 임직원 쿠폰            | `/mypage/coupons/preview-employee`                          |
+| 203 | 배송지 삭제 확인       | `/mypage/addresses/preview-delete`                          |
+| 216 | 반품 안내              | `/support/after-sales?tab=product-returns`                  |
+| 216 | 상품 반품안내          | `/support/after-sales?tab=return-cautions`                  |
+| 217 | 의류/용품              | `/support/care?tab=apparel`                                 |
+| 223 | 아이디 저장 도움말     | `/login/preview-help`                                       |
+| 236 | 필수 약관 상세         | `/signup/terms/preview-detail`                              |
+| 253 | 알뜰폰 사업자          | `/login/account-locked/verification/preview-carriers`       |
+| 253 | 필수 약관              | `/login/account-locked/verification/preview-required-terms` |
+| 253 | 선택 약관              | `/login/account-locked/verification/preview-optional-terms` |
+| 253 | 이전 약관 선택         | `/login/account-locked/verification/preview-previous-terms` |
+
+기존 `/login/account-locked/verification/preview-expired`는 처음부터 열린 만료 팝업을 표시한다. 제목은 “계정잠금해제”, 본문은 “입력시간이 만료되었습니다”와 인증번호 재요청 안내다. PC 568px·MO 343px(375px viewport)로 표시하며 확인·Escape·닫기는 팝업만 닫는다. 가입 휴대폰 인증의 기존 만료 preview는 변경하지 않는다.
+
+배송/세탁 안내는 기존 `SupportTabs`의 `syncQuery` 모드가 `useSearchParams`와 `useRouter`로 `tab`을 읽고 갱신한다. 빈 값·없는 값·알 수 없는 값은 기존 기본 탭을 표시하며 URL을 임의 정규화하지 않는다. 다른 query를 보존하고 탭 변경을 history에 기록한다. Suspense는 해당 모드 내부에 둬 기존 Storybook/controlled 소비자는 router에 의존하지 않는다. `sourceFiles`에 11개 새 route 진입점을 추가했고 그래프는 정식 생성 명령으로 갱신했다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

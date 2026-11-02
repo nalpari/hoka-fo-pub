@@ -297,8 +297,8 @@ function CheckoutDeliveryRequestSelect({
 }
 
 /** 배송 요청 선택과 직접 입력을 관리합니다. (Manages delivery instructions and custom text.) */
-function CheckoutDeliveryRequest() {
-  const [request, setRequest] = useState('');
+function CheckoutDeliveryRequest({ initialRequest = '' }: { initialRequest?: string }) {
+  const [request, setRequest] = useState(initialRequest);
   const [message, setMessage] = useState('');
   return (
     <Stack gap="3">
@@ -312,13 +312,16 @@ function CheckoutDeliveryRequest() {
 
 export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
+/** [ 개발팀 바인딩 ] initialEditing과 initialDeliveryRequest는 고정 preview의 최초 표시 seed입니다. 입력·주소 검색·요청사항 선택만 로컬이며 배송지 저장·배송 요청 전송은 연결 소유자가 별도로 구현합니다. */
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
 export function CheckoutShipping({
   errors,
   initialEditing = false,
+  initialDeliveryRequest,
 }: {
   errors?: ShippingErrors;
   initialEditing?: boolean;
+  initialDeliveryRequest?: string;
 }) {
   const binding = useContext(CheckoutContext);
   const hasSavedAddress = !binding || binding.savedAddress !== null;
@@ -347,7 +350,7 @@ export function CheckoutShipping({
       ) : (
         <CheckoutSavedAddress errors={errors} onEdit={() => setEditing(true)} />
       )}
-      <CheckoutDeliveryRequest />
+      <CheckoutDeliveryRequest initialRequest={initialDeliveryRequest} />
     </ContentSection>
   );
 }

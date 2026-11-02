@@ -4,12 +4,48 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-02T15:07:00+09:00'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:06:00Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
+  - src/app/_components/HomeContent.tsx
+  - public/images/icon/catalog-filter-close.svg
+  - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
+  - src/components/common/molecules/HomeCarouselSection.tsx
+  - src/components/common/atoms/EmptyState.tsx
+  - src/components/common/atoms/DataTable.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/faq/_components/FaqContent.tsx
+  - src/stories/components/common/atoms/EmptyState/EmptyState.stories.tsx
+  - src/components/common/layouts/BottomSheet.tsx
+  - public/images/navigation/clifton-utl.webp
+  - src/app/support/inquiries/_components/InquiryListContent.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/app/support/care/_components/CareContent.tsx
+  - src/components/care-guide/CareInstructions.tsx
+  - src/components/care-guide/care.data.ts
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/_components/SupportContacts.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -3960,3 +3996,31 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 장바구니 상단 삭제 버튼 크기 (2026-11-02)
 
 선택상품 삭제와 품절상품 삭제 링크 버튼은 PC·모바일 모두 `size="md"`를 사용한다. 작업 트리 출처: `src/app/cart/_components/CartProductSection.tsx`.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`src/app/screen-index/_components/IaStructurePage.tsx`의 기존 상태 링크 표시와 `.agents/skills/hoka-markup-handoff/SKILL.md`의 상태 인계 범위를 검토했다. 이번 작업에서 제품 화면·IA 표시 UI·Storybook·스타일을 수정하지 않았으며 기존 UI 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 디자인 상태별 IA 직접 진입 조사 (2026-11-02)
+
+[누락 대응표](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)에 디자인 상태 14개의 직접 링크 누락과 만료 팝업 초기 표시 불일치 1개를 기록했다. 기존 탭·도움말·모달 컴포넌트가 있다는 사실과 URL로 해당 상태를 바로 여는 계약은 구분한다. 제품 UI·스타일·Storybook은 수정하지 않았다. 출처: 사용자 지정 디자인, 기존 IA 링크 표시와 대응 화면 소스. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+정상/빈 목록/오류/완료 표현은 기존 StatePreview와 표현 컴포넌트를 공유한다. CartHeading은 ContentHeader 직접 사용으로 통합했다. 장바구니와 러닝 상세의 여러 라우트가 공유하는 조합은 기존 _components 소유자에 두어 page 간 import를 없앴다. 주문 금액·할인 라벨·주문서 row.amount는 명시된 fixture 표시값을 사용하고 수량/쿠폰 선택으로 다시 계산하지 않는다. 프로필·주소·리뷰·문의의 저장/삭제/제출 버튼은 완료 화면으로 이동하거나 목록을 변경하지 않는다. 파일 선택/삭제는 로컬 첨부 미리보기만 바꾸며 size/type/count 오류는 별도 고정 URL로 표시한다. 최소 조작과 모달/포커스/의미 구조는 유지한다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+[상태별 URL](routing.md#디자인-상태-직접-링크-구현-2026-11-02)은 기존 화면·모달의 표시 옵션을 재사용한다. 새 전체 화면 복제나 서비스 시뮬레이션은 만들지 않는다. 로그인 도움말은 `HelpToggletip.defaultOpen`, 주문서는 기존 배송지/요청사항 owner의 초기 seed, 로그아웃과 주소 삭제는 기존 확인창, 임직원 쿠폰은 기존 employee 옵션을 사용한다.
+
+`PreviousTermsPicker`는 가입 약관 모듈에서 공통 molecule로 옮겨 가입과 잠금 해제의 실제 두 소비자가 공유한다. 기존 versions/선택 콜백·PC radio 목록·모바일 bottomSheet를 보존한다. `SupportTabs.syncQuery`는 기존 value/onValueChange controlled 계약과 타입에서 서로 배타적이며, Controlled story는 기본 모드를 명시한다. Panda 스타일·라우트 page 역할·로컬 표시 상태의 기존 소유권을 유지한다.
+
+잠금 해제의 신규 약관 preview는 명시적 designTerms/designTermKind 표시 옵션을 사용한다. 선택 여부를 실제 동의 정책이나 표시 문자열에서 추론하지 않는다. 기존 약관/통신사 UI와 공용 ModalDialog를 재사용하고, 약관 본문·시행일은 서비스 원문을 대신하는 디자인 fixture임을 구분한다. 완전한 시각 일치 판정은 수행하지 않았다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

@@ -1,18 +1,11 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * AccountServicesContext.signupTerms에 BO의 id/version/label/required/body와 previousVersions를 전달합니다.
- * 동의 제출은 현재 약관의 id/version/accepted입니다. 이전 본문을 열람해도 제출 동의 버전을 과거 버전으로 바꾸지 않습니다.
- * 본문은 안전한 ReactNode로 전달하고 BO 버전 변경 시 기존 동의를 그대로 승인한 것으로 처리하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useRoutePreview } from '@/context/RoutePreview';
 
-import { RouteContent, routePreviewComponents } from './_components/SignupTermsContent';
-
+import { routePreviewComponents } from './_components/SignupTermsContent';
+import { SignupTermsStatePreview } from './_components/SignupTermsStatePreview';
 /** 실제 화면 또는 컨텍스트로 선택한 로컬 구성을 표시합니다. (Displays the route or its context-selected local composition.) */
 export default function Page() {
   const preview = useRoutePreview(routePreviewComponents);
-  return preview ?? <RouteContent />;
+  return preview ?? <SignupTermsStatePreview errors={false} />;
 }

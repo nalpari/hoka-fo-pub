@@ -1,20 +1,11 @@
-/**
- * [개발팀 바인딩]
- * 운영 연결은 이 레이아웃 아래의 Client 어댑터에서 도메인 Provider를 조합합니다. 실제 API 함수는 Server Component의 일반 props로 넘기지 않습니다.
- * AccountFlowProvider를 가입/찾기/잠금해제 경로 전환 중 유지합니다. 인증 proof/동의 상태가 화면마다 새로 초기화되면 다음 단계에서 제출할 수 없습니다.
- * ShopShell.state와 각 Context의 타입/주석을 기준으로 DTO를 변환합니다. Provider가 없는 현재 기본 경로는 퍼블리싱 데모입니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import { Suspense } from 'react';
-import { AccountFlowProvider } from '@/context/AccountFlowContext';
 import { ShopShell } from '@/context/ShopShell';
-
-import 'simplebar-react/dist/simplebar.min.css';
 import '@/styles/global.scss';
-
+import 'simplebar-react/dist/simplebar.min.css';
 // Keep all existing faces available without preloading every weight and italic variant.
 const hoka = localFont({
   src: [
@@ -32,7 +23,6 @@ const hoka = localFont({
   preload: false,
   adjustFontFallback: false,
 });
-
 const pretendard = localFont({
   src: [
     { path: '../../public/fonts/Pretendard-Thin.woff2', weight: '100', style: 'normal' },
@@ -50,21 +40,21 @@ const pretendard = localFont({
   preload: false,
   adjustFontFallback: false,
 });
-
 export const metadata: Metadata = {
   title: 'HOKA Wireframe',
   description: 'Adaptive publishing wireframe',
 };
-
 /** 공통 쇼핑 프레임을 서버 문서에 배치합니다. (Places the shared shopping frame in the server document.) */
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="ko" className={`${hoka.variable} ${pretendard.variable}`}>
       <body className="platform-web">
         <Suspense fallback={<main className="loading">화면을 불러오는 중입니다.</main>}>
-          <ShopShell>
-            <AccountFlowProvider>{children}</AccountFlowProvider>
-          </ShopShell>
+          <ShopShell>{children}</ShopShell>
         </Suspense>
       </body>
     </html>

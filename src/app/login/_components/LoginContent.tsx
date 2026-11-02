@@ -16,9 +16,10 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 type LoginFormProps = {
   showErrors?: boolean;
+  showHelp?: boolean;
 };
 
-function LoginForm({ showErrors = false }: LoginFormProps) {
+function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [rememberId, setRememberId] = useState(false);
@@ -65,6 +66,7 @@ function LoginForm({ showErrors = false }: LoginFormProps) {
             <HStack gap="1">
               <Checkbox label="아이디 저장" checked={rememberId} onCheckedChange={setRememberId} />
               <HelpToggletip
+                defaultOpen={showHelp}
                 label="아이디 저장 주의사항"
                 title="주의해주세요"
                 description="공용으로 사용하는 장소에서는 아이디 저장하기 사용에 유의해주세요."
@@ -102,7 +104,7 @@ function LoginForm({ showErrors = false }: LoginFormProps) {
  * 인증·형식 검증·소셜 로그인·아이디 저장소 연결·요청 상태·완료 이동은 구현하지 않습니다.
  * 개발팀은 실제 로그인 소유자에서 입력값과 동의 상태를 수집하고 요청·오류·저장·이동을 연결해야 합니다.
  */
-export function LoginContent({ showErrors = false }: LoginFormProps) {
+export function LoginContent({ showErrors = false, showHelp = false }: LoginFormProps) {
   return (
     <AccountPageLayout>
       <ContentSection
@@ -120,7 +122,7 @@ export function LoginContent({ showErrors = false }: LoginFormProps) {
         }}
       >
         <Box>
-          <LoginForm showErrors={showErrors} />
+          <LoginForm showErrors={showErrors} showHelp={showHelp} />
           <Stack
             as="section"
             mt="6"

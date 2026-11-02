@@ -1,22 +1,11 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * OrdersContext.orders/onFiltersChange/submitClaim/confirmPurchase/deleteOrder를 연결합니다. 반품 견적은 quoteClaim에 연결합니다.
- * 견적의 id/금액/반품비/환불액을 현재 상품·수량·사유와 묶어 사용합니다. 고객 귀책/회사 귀책/무료반품 판단과 최종 금액은 서버 책임입니다.
- * 화면의 신청 성공은 접수입니다. 회수 이후 원 결제수단으로 환불하며 환불계좌 입력이나 무통장 입금 수단을 추가하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 주문 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Drawer } from '@base-ui/react/drawer';
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import { type ReactNode, useContext, useEffect, useId, useState } from 'react';
-import { type ClaimQuote, OrdersContext } from '@/context/OrdersContext';
+import { type ReactNode, useId, useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -53,17 +42,8 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import {
   claimReasonLabels,
-  filterOrders,
-  getClaimAmount,
-  getClaimKind,
   getClaimLines,
-  getLinesAmount,
-  getOrderAmounts,
-  getOrderStatusItems,
-  getPeriodStart,
-  getRemainingLines,
   orderStatusLabels,
-  submitOrderClaim,
 } from '@/components/orders/order-policy';
 import { previewOrders } from '@/components/orders/orders.data';
 import {
@@ -76,14 +56,12 @@ import {
   type OrdersPeriod,
   type OrdersView,
 } from '@/components/orders/orders.types';
-
 type OrderStatusLinkProps = {
   label: string;
   count: number;
   href: string;
   compact?: boolean;
 };
-
 const statusLink = css.raw({
   display: 'grid',
   justifyItems: 'center',
@@ -98,7 +76,6 @@ const statusLink = css.raw({
     borderRight: '0',
   },
 });
-
 /** 주문 단계의 수량과 조회 링크를 표시합니다. (Displays an order stage count and its history link.) */
 function OrderStatusLink({ label, count, href, compact = false }: OrderStatusLinkProps) {
   return (
@@ -132,11 +109,16 @@ function OrderStatusLink({ label, count, href, compact = false }: OrderStatusLin
     </Link>
   );
 }
-
-type OrderStatusItem = { label: string; count: number; to?: string };
-
-type Props = { items: OrderStatusItem[]; to?: string; compact?: boolean };
-
+type OrderStatusItem = {
+  label: string;
+  count: number;
+  to?: string;
+};
+type Props = {
+  items: OrderStatusItem[];
+  to?: string;
+  compact?: boolean;
+};
 /** 주문 단계별 수량을 기본형 또는 압축형으로 표시합니다. (Displays an order stage snapshot in standard or compact form.) */
 function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: Props) {
   const content = (
@@ -166,7 +148,6 @@ function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: P
       ))}
     </Grid>
   );
-
   if (compact) return <section aria-label="주문 배송 현황">{content}</section>;
   return (
     <ContentSection
@@ -191,7 +172,6 @@ function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: P
     </ContentSection>
   );
 }
-
 const dateInput = css({
   '&&': {
     minH: '36px',
@@ -212,7 +192,6 @@ const dateInput = css({
     },
   },
 });
-
 /** 직접 조회 기간 입력과 오류·조회 액션을 표시합니다. (Displays custom date inputs, errors, and the search action.) */
 function OrdersDateRange({
   dates,
@@ -257,17 +236,18 @@ function OrdersDateRange({
     </Stack>
   );
 }
-
 type OrdersFiltersProps = {
   filters: OrderFilters;
-  dates: { start: string; end: string };
+  dates: {
+    start: string;
+    end: string;
+  };
   error?: string;
   onPeriodChange: (period: OrdersPeriod) => void;
   onDateChange: (key: 'start' | 'end', value: string) => void;
-  onDateSearch: () => void;
+  onDateSearch?: () => void;
   returns?: boolean;
 };
-
 /** 주문 조회 기간과 직접 날짜를 표시합니다. (Displays order period and custom date controls.) */
 function OrdersFilters({
   filters,
@@ -286,7 +266,6 @@ function OrdersFilters({
     { value: '12', label: '1년' },
     { value: 'custom', label: '직접설정' },
   ] as const;
-
   return (
     <HStack
       alignItems="center"
@@ -319,7 +298,6 @@ function OrdersFilters({
     </HStack>
   );
 }
-
 /** 주문 상태와 도착 예정일을 함께 표시합니다. (Displays order status with the expected arrival date.) */
 function OrderDeliveryStatus({ label, expectedDate }: { label: string; expectedDate: string }) {
   return (
@@ -331,7 +309,6 @@ function OrderDeliveryStatus({ label, expectedDate }: { label: string; expectedD
     </Typography>
   );
 }
-
 /** 주문 일자·번호와 상세 진입을 표시합니다. (Displays order identification and its detail action.) */
 function OrderCardHeader({
   order,
@@ -375,18 +352,15 @@ function OrderCardHeader({
     </HStack>
   );
 }
-
 type OrderHistoryProductProps = {
   line: OrderLine;
   onAddToCart?: (line: OrderLine) => void;
   showAmount?: boolean;
   imageSize?: 'standard' | 'claim';
 };
-
 /** 주문 내역 상품의 요약과 다시 담기 액션을 표시합니다. (Displays an order history product and its reorder action.) */
 function OrderHistoryProduct({
   line,
-  onAddToCart,
   showAmount = true,
   imageSize = 'standard',
 }: OrderHistoryProductProps) {
@@ -405,34 +379,25 @@ function OrderHistoryProduct({
         image={line.image}
         name={line.name}
         optionText={`옵션 : ${line.width} / ${line.color} / ${line.size} / ${line.quantity}개`}
-        amount={line.price * line.quantity}
+        amount={line.displayAmount ?? line.price}
         hideAmount={!showAmount}
       >
-        {onAddToCart ? (
-          <Button
-            variant="plain"
-            size="sm"
-            onClick={() => onAddToCart(line)}
-            icon={<Icon fontAwesomeIcon={faBagShopping} size={12} />}
-          >
-            장바구니 담기
-          </Button>
-        ) : null}
+        <Button variant="link" size="sm">
+          장바구니 담기
+        </Button>
       </OrderProductSummary>
     </Box>
   );
 }
-
 type OrderItemActionsProps = {
   order: OrderRecord;
   onClaim: () => void;
   onTracking: () => void;
   onConfirm: () => void;
 };
-
 /** 주문 상태에 맞는 취소·배송·반품·리뷰 액션을 표시합니다. (Displays actions available for the order status.) */
 function OrderItemActions({ order, onClaim, onTracking, onConfirm }: OrderItemActionsProps) {
-  const kind = getClaimKind(order.status);
+  const kind = order.claimKind;
   return (
     <Stack gap="2">
       {order.status !== 'paid' ? (
@@ -463,7 +428,6 @@ function OrderItemActions({ order, onClaim, onTracking, onConfirm }: OrderItemAc
     </Stack>
   );
 }
-
 /** 취소 또는 반품으로 분리된 주문 상품을 표시합니다. (Displays products belonging to an order claim.) */
 function OrderClaimGroup({
   order,
@@ -499,7 +463,6 @@ function OrderClaimGroup({
     </ContentSection>
   );
 }
-
 type OrderCardActions = {
   onDetail: (order: OrderRecord) => void;
   onClaim: (order: OrderRecord) => void;
@@ -508,10 +471,14 @@ type OrderCardActions = {
   onClaimDetail: (order: OrderRecord, claim: OrderClaim) => void;
   onAddToCart?: (line: OrderLine) => void;
 };
-
 /** 주문 한 건의 상품·상태·후속 처리 액션을 구성합니다. (Composes products, status, and follow-up actions for an order.) */
-function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActions) {
-  const items = getRemainingLines(order);
+function OrderCard({
+  order,
+  ...actions
+}: {
+  order: OrderRecord;
+} & OrderCardActions) {
+  const items = order.items;
   const platform = usePlatform();
   return (
     <Stack as="li" gap="6" listStyleType="none">
@@ -543,14 +510,10 @@ function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActi
                   py="4"
                   borderBottom="1px solid var(--colors-black-20)"
                 >
-                  <OrderHistoryProduct
-                    line={line}
-                    onAddToCart={actions.onAddToCart}
-                    showAmount={false}
-                  />
+                  <OrderHistoryProduct line={line} showAmount={false} />
                   <Typography variant="body4">{line.quantity}개</Typography>
                   <Typography variant="body4">
-                    {(line.price * line.quantity).toLocaleString()}원
+                    {(line.displayAmount ?? line.price).toLocaleString()}원
                   </Typography>
                   <OrderItemActions
                     order={order}
@@ -564,7 +527,7 @@ function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActi
           ) : (
             <Stack gap="4">
               {items.map((line) => (
-                <OrderHistoryProduct key={line.key} line={line} onAddToCart={actions.onAddToCart} />
+                <OrderHistoryProduct key={line.key} line={line} />
               ))}
             </Stack>
           )}
@@ -589,7 +552,6 @@ function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActi
     </Stack>
   );
 }
-
 type OrdersListContentProps = OrdersFiltersProps &
   OrderCardActions & {
     orders: readonly OrderRecord[];
@@ -597,7 +559,6 @@ type OrdersListContentProps = OrdersFiltersProps &
     pending?: boolean;
     returns?: boolean;
   };
-
 /** 취소·반품 내역의 상품 행을 표시합니다. (Displays one product row in the cancellation and return history.) */
 function ClaimHistoryProduct({
   line,
@@ -613,7 +574,6 @@ function ClaimHistoryProduct({
   showState?: boolean;
 }) {
   const stateLabel = claim.kind === 'cancel' ? '취소' : '반품';
-
   return (
     <button
       type="button"
@@ -647,7 +607,9 @@ function ClaimHistoryProduct({
           옵션 : {line.width} / {line.color} / {line.size}
         </Typography>
         {showAmount ? (
-          <Typography variant="body5">{(line.price * line.quantity).toLocaleString()}원</Typography>
+          <Typography variant="body5">
+            {(line.displayAmount ?? line.price).toLocaleString()}원
+          </Typography>
         ) : null}
       </Stack>
       {showState ? (
@@ -659,7 +621,6 @@ function ClaimHistoryProduct({
     </button>
   );
 }
-
 /** 취소·반품 내역을 PC 표와 모바일 목록으로 표시합니다. (Displays claim history as a desktop table and mobile list.) */
 function ClaimHistoryList({
   orders,
@@ -676,7 +637,6 @@ function ClaimHistoryList({
   const hasItems = orders.some((order) =>
     order.claims.some((claim) => getClaimLines(order, claim).length > 0),
   );
-
   if (!hasItems) {
     if (pending || error) return null;
     return (
@@ -687,7 +647,6 @@ function ClaimHistoryList({
       </Box>
     );
   }
-
   if (platform === 'mobile') {
     return (
       <Stack as="ul" gap="0" listStyleType="none">
@@ -719,10 +678,8 @@ function ClaimHistoryList({
       </Stack>
     );
   }
-
   const columns =
     'minmax(0, 344fr) minmax(0, 120fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
-
   return (
     <Stack gap="0">
       <Grid
@@ -767,7 +724,7 @@ function ClaimHistoryList({
                 {line.quantity}개
               </Typography>
               <Typography variant="body5" className={css({ textAlign: 'center' })}>
-                {(line.price * line.quantity).toLocaleString()}원
+                {(line.displayAmount ?? line.price).toLocaleString()}원
               </Typography>
               <Typography variant="body5" className={css({ textAlign: 'center' })}>
                 {claim.kind === 'cancel' ? '취소' : '반품'}
@@ -780,7 +737,6 @@ function ClaimHistoryList({
     </Stack>
   );
 }
-
 const emptyOrderState = css({
   '& .empty-state__title': {
     fontSize: 'var(--font-sizes-14)',
@@ -789,7 +745,6 @@ const emptyOrderState = css({
     color: 'var(--color-text-subtle)',
   },
 });
-
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
 function OrdersListContent({
   orders,
@@ -811,7 +766,6 @@ function OrdersListContent({
       </Stack>
     );
   }
-
   return (
     <Stack gap="6">
       {/* 주문별 상태 건수를 요약합니다. (Summarizes order counts by status.) */}
@@ -832,7 +786,6 @@ function OrdersListContent({
     </Stack>
   );
 }
-
 /** 주문 상세의 구분선이 있는 항목별 정보를 표시합니다. (Displays ruled key-value information for an order.) */
 function OrderInformationSection({
   title,
@@ -869,17 +822,14 @@ function OrderInformationSection({
     </ContentSection>
   );
 }
-
 type OrderDetailProps = OrderCardActions & {
   order: OrderRecord;
   onList: () => void;
   onDelete: () => void;
 };
-
 /** 주문 상품·받는 사람·결제 정보와 취소 내역을 표시합니다. (Displays order products, recipient, payment, and claim history.) */
 function OrderDetail({ order, onList, onDelete, ...actions }: OrderDetailProps) {
-  const amounts = getOrderAmounts(order);
-
+  const amounts = order.displayAmounts ?? { total: 0, claimed: 0, remaining: 0 };
   return (
     <ContentSection
       gap="8"
@@ -899,8 +849,8 @@ function OrderDetail({ order, onList, onDelete, ...actions }: OrderDetailProps) 
         {orderStatusLabels[order.status]} · {order.expectedDate} 도착 예정
       </Typography>
       <Stack gap="4">
-        {getRemainingLines(order).map((line) => (
-          <OrderHistoryProduct key={line.key} line={line} onAddToCart={actions.onAddToCart} />
+        {order.items.map((line) => (
+          <OrderHistoryProduct key={line.key} line={line} />
         ))}
       </Stack>
       <OrderInformationSection
@@ -944,7 +894,6 @@ function OrderDetail({ order, onList, onDelete, ...actions }: OrderDetailProps) 
     </ContentSection>
   );
 }
-
 /** 취소·반품의 접수 또는 완료 상태를 표시합니다. (Displays a claim’s requested or completed status.) */
 function OrderClaimStatus({ kind, state }: Pick<OrderClaim, 'kind' | 'state'>) {
   return (
@@ -954,7 +903,6 @@ function OrderClaimStatus({ kind, state }: Pick<OrderClaim, 'kind' | 'state'>) {
     </Badge>
   );
 }
-
 /** 취소·반품 상세와 처리 정보 및 환불 내역을 표시합니다. (Displays claim processing details and refund information.) */
 function OrderClaimDetail({
   order,
@@ -966,11 +914,8 @@ function OrderClaimDetail({
   onList: () => void;
 }) {
   const items = getClaimLines(order, claim);
-
   const cancel = claim.kind === 'cancel';
-
   const name = cancel ? '취소' : '반품';
-
   return (
     <ContentSection
       gap="8"
@@ -1023,13 +968,13 @@ function OrderClaimDetail({
         title="환불안내"
         items={[
           { term: '환불수단', description: '네이버페이' },
-          { term: '상품금액', description: `${getLinesAmount(items).toLocaleString()}원` },
+          { term: '상품금액', description: `${(claim.displayAmount ?? 0).toLocaleString()}원` },
           { term: '반품비', description: `${claim.fee.toLocaleString()}원` },
           {
             term: '총 환불금액',
             description: (
               <Typography variant="body3" weight="semibold" tone="error">
-                {Math.max(0, getLinesAmount(items) - claim.fee).toLocaleString()}원
+                {(claim.displayRefund ?? 0).toLocaleString()}원
               </Typography>
             ),
           },
@@ -1041,7 +986,6 @@ function OrderClaimDetail({
     </ContentSection>
   );
 }
-
 type OrdersContentProps = OrdersFiltersProps &
   OrderCardActions & {
     orders: readonly OrderRecord[];
@@ -1056,7 +1000,6 @@ type OrdersContentProps = OrdersFiltersProps &
     onList: () => void;
     onDelete: () => void;
   };
-
 /** 주문 목록·주문 상세·신청 상세 화면을 공통 골격 안에 구성합니다. (Composes order list, order detail, and claim detail views.) */
 function OrdersContent({
   pending,
@@ -1106,7 +1049,6 @@ function OrdersContent({
     </MyPageFrame>
   );
 }
-
 /** 취소와 반품의 상품 선택·환불 절차를 안내합니다. (Explains product selection and refund steps for claims.) */
 function ClaimInstructions({ kind }: { kind: ClaimKind }) {
   return (
@@ -1128,7 +1070,6 @@ function ClaimInstructions({ kind }: { kind: ClaimKind }) {
     </Typography>
   );
 }
-
 /** 취소 신청 수량의 입력 범위와 들여쓰기를 구성합니다. (Composes the bounded cancellation quantity input and its indentation.) */
 function ClaimProductQuantity({
   productKey,
@@ -1153,7 +1094,6 @@ function ClaimProductQuantity({
     </Stack>
   );
 }
-
 /** 신청 상품의 체크박스와 상품 정보를 표시합니다. (Displays a claim product checkbox and product information.) */
 function ClaimProductChoice({
   line,
@@ -1176,7 +1116,6 @@ function ClaimProductChoice({
     </HStack>
   );
 }
-
 type ClaimProductSelectionProps = {
   items: readonly OrderLine[];
   kind: ClaimKind;
@@ -1184,7 +1123,6 @@ type ClaimProductSelectionProps = {
   onToggle: (line: OrderLine, checked: boolean) => void;
   onQuantity: (key: string, quantity: number) => void;
 };
-
 /** 신청할 상품의 선택과 허용 수량 입력을 표시합니다. (Displays selectable claim products and bounded quantities.) */
 function ClaimProductSelection({
   kind,
@@ -1231,7 +1169,6 @@ function ClaimProductSelection({
     </ContentSection>
   );
 }
-
 type ClaimReasonFieldsProps = {
   id: string;
   reason: ClaimReason;
@@ -1239,7 +1176,6 @@ type ClaimReasonFieldsProps = {
   onReasonChange: (reason: ClaimReason) => void;
   onDetailsChange: (details: string) => void;
 };
-
 /** 신청 사유·상세 내용과 반품비 안내를 표시합니다. (Displays claim reason, details, and return fee guidance.) */
 function ClaimReasonFields({
   id,
@@ -1298,7 +1234,6 @@ function ClaimReasonFields({
     </Stack>
   );
 }
-
 /** 신청 상품금액과 반품비 또는 사유 선택 안내를 표시합니다. (Displays claim product amount and fee or the reason selection hint.) */
 function ClaimAmountBreakdown({
   amount,
@@ -1329,7 +1264,6 @@ function ClaimAmountBreakdown({
     </Stack>
   );
 }
-
 /** 신청 상품 금액과 수수료·예상 환불액을 표시합니다. (Displays claim product amounts, fees, and estimated refund.) */
 function ClaimAmountSummary({
   amount,
@@ -1364,90 +1298,29 @@ function ClaimAmountSummary({
   );
 }
 
-type ClaimDraft = {
-  quantities: Record<string, number>;
-  reason: ClaimReason;
-  details: string;
-  quoteId?: string;
-  freeReturnCouponId?: string;
-};
-
 type OrderClaimSheetProps = {
   order: OrderRecord;
   kind: ClaimKind;
   onClose: () => void;
-  onSubmit: (draft: ClaimDraft) => string | null | Promise<string | null>;
 };
-
 /** 취소·환불 신청 초안을 관리하고 검증 결과를 표시합니다. (Manages a cancellation or refund draft and validation feedback.) */
-function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProps) {
+function OrderClaimSheet({ order, kind, onClose }: OrderClaimSheetProps) {
   const platform = usePlatform();
-  const request = useRequestAction();
-  const binding = useContext(OrdersContext);
   const id = useId();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [reason, setReason] = useState<ClaimReason>('');
   const [details, setDetails] = useState('');
-  const [error, setError] = useState('');
-  const items = getRemainingLines(order);
-  const demoAmounts = getClaimAmount(items, quantities, reason, { kind, ...order.returnPolicy });
-  const quoteInput = JSON.stringify({
-    orderId: order.id,
-    kind,
-    quantities,
-    reason,
-    freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
-  });
-  const quoteService = kind === 'return' ? binding?.quoteClaim : undefined;
-  const [quoted, setQuoted] = useState<{ key: string; value?: ClaimQuote; error?: string } | null>(
-    null,
-  );
-  const [quoteAttempt, setQuoteAttempt] = useState(0);
-  const canQuote = !!reason && Object.values(quantities).some((quantity) => quantity > 0);
-  const needsQuote = !!binding && kind === 'return';
-  useEffect(() => {
-    if (!quoteService || !canQuote) return;
-    let active = true;
-    void Promise.resolve()
-      .then(() => quoteService(JSON.parse(quoteInput)))
-      .then((value) => {
-        if (
-          !value.id ||
-          ![value.amount, value.fee, value.refund].every(
-            (amount) => Number.isFinite(amount) && amount >= 0,
-          ) ||
-          value.fee > value.amount ||
-          value.refund !== value.amount - value.fee
-        )
-          throw new Error('환불 견적 금액을 확인해 주세요.');
-        if (active) setQuoted({ key: quoteInput, value });
-      })
-      .catch((cause: unknown) => {
-        if (active)
-          setQuoted({
-            key: quoteInput,
-            error: cause instanceof Error ? cause.message : '환불 견적을 조회하지 못했습니다.',
-          });
-      });
-    return () => {
-      active = false;
-    };
-  }, [quoteService, quoteInput, canQuote, quoteAttempt]);
-  const quote = quoted?.key === quoteInput ? quoted : null;
-  const quotePending = !!quoteService && canQuote && !quote;
-  const quoteError =
-    needsQuote && !quoteService ? '반품 견적 서비스가 연결되지 않았습니다.' : quote?.error;
-  const amounts =
-    quoteService || needsQuote
-      ? (quote?.value ?? { amount: demoAmounts.amount, fee: null, refund: null })
-      : demoAmounts;
-  const blocked =
-    quotePending || !!quoteError || (needsQuote && !quote?.value) || amounts.fee === null;
-  // 개발팀 적용: 견적 성공 시 받은 id와 동일 선택/사유를 submitClaim으로 전송합니다. 서버가 접수를 완료한 뒤에만 현재 표시를 닫습니다.
+  const [error] = useState('');
+  const items = order.items;
+  const amounts = { amount: 0, fee: 0, refund: 0 };
+  const blocked = false;
+  const canQuote = true;
+  const quotePending = false;
+  const quoteError = '';
   const title = kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청';
   const submitButton = (
     <Button
-      disabled={request.pending || blocked || !canQuote}
+      disabled={blocked || !canQuote}
       type="submit"
       form={id}
       variant="primary"
@@ -1458,26 +1331,8 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
     </Button>
   );
   const content = (
-    <form
-      id={id}
-      noValidate
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (blocked || !canQuote) return;
-        void request.run(async () => {
-          setError(
-            (await onSubmit({
-              quantities,
-              reason,
-              details,
-              quoteId: quote?.value?.id,
-              freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
-            })) ?? '',
-          );
-        });
-      }}
-    >
-      <fieldset disabled={request.pending}>
+    <form id={id} noValidate onSubmit={(event) => event.preventDefault()}>
+      <fieldset disabled={false}>
         <Stack gap="6">
           <ClaimInstructions kind={kind} />
           <ClaimProductSelection
@@ -1485,14 +1340,12 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
             kind={kind}
             quantities={quantities}
             onToggle={(line, checked) => {
-              setQuoted(null);
               setQuantities((previous) => ({
                 ...previous,
                 [line.key]: checked ? (kind === 'cancel' ? 1 : line.quantity) : 0,
               }));
             }}
             onQuantity={(key, value) => {
-              setQuoted(null);
               setQuantities((previous) => ({ ...previous, [key]: value }));
             }}
           />
@@ -1501,7 +1354,6 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
             reason={reason}
             details={details}
             onReasonChange={(next) => {
-              setQuoted(null);
               setReason(next);
             }}
             onDetailsChange={setDetails}
@@ -1511,35 +1363,20 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
           {quoteError && (
             <>
               <StatusMessage tone="error">{quoteError}</StatusMessage>
-              {quoteService && (
-                <Button
-                  type="button"
-                  onClick={() => {
-                    setQuoted(null);
-                    setQuoteAttempt((value) => value + 1);
-                  }}
-                >
-                  다시 시도
-                </Button>
-              )}
             </>
           )}
-          {error || request.error ? (
-            <StatusMessage tone="error">{error || request.error}</StatusMessage>
-          ) : null}
-          {request.pending && <Typography role="status">신청을 처리하고 있습니다.</Typography>}
+          {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}
         </Stack>
       </fieldset>
     </form>
   );
-
   if (platform === 'mobile') {
     return (
       <BottomSheet
         title={title}
         ariaLabel={title}
         onClose={() => {
-          if (!request.pending) onClose();
+          onClose();
         }}
         footer={submitButton}
       >
@@ -1547,12 +1384,11 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
       </BottomSheet>
     );
   }
-
   return (
     <ModalDialog
       open
       onOpenChange={(open) => {
-        if (!open && !request.pending) onClose();
+        if (!open) onClose();
       }}
       title={title}
       closeLabel={`${title} 닫기`}
@@ -1576,7 +1412,6 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
     </ModalDialog>
   );
 }
-
 const trackingTable = css({
   '&&': {
     tableLayout: 'fixed',
@@ -1592,7 +1427,6 @@ const trackingTable = css({
     '& tbody td + td': { borderLeft: '0' },
   },
 });
-
 /** 상품 배송 추적 표를 표시합니다. (Displays the shipment tracking history table.) */
 function OrderTrackingHistory({ date }: { date: string }) {
   return (
@@ -1632,14 +1466,12 @@ function OrderTrackingHistory({ date }: { date: string }) {
     </ContentSection>
   );
 }
-
 const backdrop = css({
   pos: 'fixed',
   inset: '0',
   zIndex: '110',
   bg: 'color-mix(in srgb, var(--color-black-100) 50%, transparent)',
 });
-
 const viewport = css({
   pos: 'fixed',
   inset: '0',
@@ -1647,9 +1479,7 @@ const viewport = css({
   display: 'flex',
   alignItems: 'flex-end',
 });
-
 const popup = css({ w: '100%', minW: '0' });
-
 /** 배송 단계·송장 정보와 상품 추적 이력을 표시합니다. (Displays delivery progress, shipment details, and tracking events.) */
 function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: () => void }) {
   const platform = usePlatform();
@@ -1693,7 +1523,6 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
       <OrderTrackingHistory date={order.date} />
     </Stack>
   );
-
   if (platform !== 'mobile') {
     return (
       <ModalDialog
@@ -1710,7 +1539,6 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
       </ModalDialog>
     );
   }
-
   return (
     <Drawer.Root open onOpenChange={(open) => !open && onClose()} swipeDirection="down">
       <Drawer.Portal className={`platform-${platform}`}>
@@ -1754,40 +1582,46 @@ function OrderTrackingDialog({ order, onClose }: { order: OrderRecord; onClose: 
     </Drawer.Root>
   );
 }
-
 type OrdersPageProps = {
-  publishingPreview?: boolean;
   initialOrders?: readonly OrderRecord[];
   initialView?: OrdersView;
   initialClaimKind?: ClaimKind;
+  initialOverlay?: 'tracking' | 'purchase' | 'delete';
   returns?: boolean;
   onAddToCart?: (line: OrderLine) => void;
 };
-
 /** 주문 조회와 상세 진입·신청·구매확정의 상태를 관리합니다. (Manages order history navigation, claims, and purchase confirmation.) */
 function OrdersPage({
-  publishingPreview = false,
   initialOrders = previewOrders,
   initialView = 'list',
   initialClaimKind,
+  initialOverlay,
   returns = false,
-  onAddToCart,
 }: OrdersPageProps) {
-  const connected = useContext(OrdersContext);
-  const binding = publishingPreview ? null : connected;
-  const request = useRequestAction();
-  const [demoOrders, setOrders] = useState(() => [...initialOrders]);
-  const orders = binding?.orders ?? demoOrders;
+  const [demoOrders] = useState(() => [...initialOrders]);
+  const orders = demoOrders;
   const [view, setView] = useState<OrdersView>(initialView);
   const [selectedId, setSelectedId] = useState(initialOrders[0]?.id);
   const [claimId, setClaimId] = useState(initialOrders[0]?.claims[0]?.id);
-  const [sheet, setSheet] = useState<{ id: string; kind: ClaimKind } | null>(() =>
+  const [sheet, setSheet] = useState<{
+    id: string;
+    kind: ClaimKind;
+  } | null>(() =>
     initialClaimKind && initialOrders[0]
       ? { id: initialOrders[0].id, kind: initialClaimKind }
       : null,
   );
-  const [trackingId, setTrackingId] = useState<string | null>(null);
-  const [confirm, setConfirm] = useState<{ id: string; kind: 'delete' | 'purchase' } | null>(null);
+  const [trackingId, setTrackingId] = useState<string | null>(
+    initialOverlay === 'tracking' ? (initialOrders[0]?.id ?? null) : null,
+  );
+  const [confirm, setConfirm] = useState<{
+    id: string;
+    kind: 'delete' | 'purchase';
+  } | null>(
+    initialOverlay === 'purchase' || initialOverlay === 'delete'
+      ? { id: initialOrders[0]?.id ?? '', kind: initialOverlay }
+      : null,
+  );
   const [message, setMessage] = useState('');
   const [filters, setFilters] = useState<OrderFilters>({
     period: '1',
@@ -1796,13 +1630,9 @@ function OrdersPage({
     query: '',
   });
   const [dates, setDates] = useState({ start: '2026-09-23', end: '2026-10-23' });
-  const [error, setError] = useState('');
+  const [error] = useState('');
   const baseOrders = returns ? orders.filter((order) => order.claims.length > 0) : orders;
-  const onFiltersChange = binding?.onFiltersChange;
-  useEffect(() => {
-    onFiltersChange?.(filters);
-  }, [onFiltersChange, filters]);
-  const visibleOrders = binding ? baseOrders : filterOrders(baseOrders, filters);
+  const visibleOrders = baseOrders;
   const selectedOrder = orders.find((order) => order.id === (selectedId ?? orders[0]?.id));
   const selectedClaim = selectedOrder?.claims.find((claim) => claim.id === claimId);
   const sheetOrder = orders.find((order) => order.id === sheet?.id);
@@ -1822,58 +1652,45 @@ function OrdersPage({
     setView('claim');
     setMessage('');
   };
-
   return (
     <OrdersContent
-      pending={binding?.pending || request.pending}
+      pending={false}
       orders={visibleOrders}
-      statusItems={getOrderStatusItems(baseOrders)}
+      statusItems={
+        initialOrders.length
+          ? [
+              { label: '전체', count: 4 },
+              { label: '결제완료', count: 1 },
+              { label: '상품준비중', count: 1 },
+              { label: '배송준비\n/ 배송중', count: 0 },
+              { label: '배송완료\n구매확정', count: 2 },
+            ]
+          : []
+      }
       view={view}
       selectedOrder={selectedOrder}
       selectedClaim={selectedClaim}
       returns={returns}
       filters={filters}
       dates={dates}
-      error={error || request.error || binding?.error}
+      error={error}
       message={message}
-      onPeriodChange={(period) => {
-        setError('');
-        if (period !== 'custom') {
-          const start = getPeriodStart(Number(period), filters.end);
-          setDates((previous) => ({ ...previous, start, end: filters.end }));
-          setFilters((previous) => ({ ...previous, period, start, end: previous.end }));
-          return;
-        }
-        setFilters((previous) => ({ ...previous, period }));
-      }}
+      onPeriodChange={(period) => setFilters((previous) => ({ ...previous, period }))}
       onDateChange={(key, value) => {
         setDates((previous) => ({ ...previous, [key]: value }));
         setFilters((previous) => ({ ...previous, period: 'custom' }));
-      }}
-      onDateSearch={() => {
-        if (!dates.start || !dates.end || dates.start > dates.end) {
-          setError('조회 기간을 다시 확인해 주세요.');
-          return;
-        }
-        setError('');
-        setFilters((previous) => ({ ...previous, ...dates }));
       }}
       onDetail={showDetail}
       onClaimDetail={showClaim}
       onList={showList}
       onClaim={(order) => {
-        const kind = getClaimKind(order.status);
+        const kind = order.claimKind;
         if (kind) setSheet({ id: order.id, kind });
       }}
       onTracking={(order) => setTrackingId(order.id)}
       onConfirm={(order) => setConfirm({ id: order.id, kind: 'purchase' })}
       onDelete={() => {
         if (selectedOrder) setConfirm({ id: selectedOrder.id, kind: 'delete' });
-      }}
-      onAddToCart={(line) => {
-        if (publishingPreview) return;
-        onAddToCart?.(line);
-        setMessage('장바구니에 상품을 담았습니다.');
       }}
       dialogs={
         <>
@@ -1883,32 +1700,6 @@ function OrdersPage({
               order={sheetOrder}
               kind={sheet.kind}
               onClose={() => setSheet(null)}
-              onSubmit={async (draft) => {
-                if (publishingPreview) return null;
-                if (binding) {
-                  await binding.submitClaim({ orderId: sheetOrder.id, kind: sheet.kind, ...draft });
-                  setSheet(null);
-                  setMessage('신청이 접수되었습니다.');
-                  return null;
-                }
-                const result = submitOrderClaim(
-                  sheetOrder,
-                  sheet.kind,
-                  draft.quantities,
-                  draft.reason,
-                  draft.details,
-                  new Date().toISOString().slice(0, 10),
-                );
-                if (!result.ok) return result.error;
-                setOrders((previous) =>
-                  previous.map((order) => (order.id === result.order.id ? result.order : order)),
-                );
-                setSheet(null);
-                setMessage(
-                  `${sheet.kind === 'cancel' ? '주문 취소' : '환불(반품)'} 신청이 접수되었습니다.`,
-                );
-                return null;
-              }}
             />
           ) : null}
           {trackingOrder ? (
@@ -1924,69 +1715,21 @@ function OrdersPage({
             size="sm"
             actions={{
               kind: 'confirm',
-              confirmDisabled: request.pending || binding?.pending,
-              onConfirm: () => {
-                if (!confirm || publishingPreview) return;
-                if (binding) {
-                  void request.run(async () => {
-                    if (confirm.kind === 'delete') await binding.deleteOrder(confirm.id);
-                    else await binding.confirmPurchase(confirm.id);
-                    setConfirm(null);
-                    setView('list');
-                    setMessage(
-                      confirm.kind === 'delete'
-                        ? '주문 내역을 삭제했습니다.'
-                        : '구매가 확정되었습니다.',
-                    );
-                  });
-                  return;
-                }
-                setOrders((previous) =>
-                  confirm.kind === 'delete'
-                    ? previous.filter((order) => order.id !== confirm.id)
-                    : previous.map((order) =>
-                        order.id === confirm.id ? { ...order, status: 'purchased' } : order,
-                      ),
-                );
-                setConfirm(null);
-                setView('list');
-                setMessage(
-                  confirm.kind === 'delete'
-                    ? '주문 내역을 삭제했습니다.'
-                    : '구매가 확정되었습니다.',
-                );
-              },
+              confirmDisabled: undefined,
+              onConfirm: () => setConfirm(null),
             }}
           >
             {confirm?.kind === 'delete'
               ? '주문 내역을 삭제하시겠습니까?'
               : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'}
-            {request.pending && <Typography role="status">요청을 처리하고 있습니다.</Typography>}
-            {request.error && <Typography role="alert">{request.error}</Typography>}
           </ModalDialog>
         </>
       }
     />
   );
 }
-
-/** 주문 내역의 다시 담기를 상점 장바구니 상태에 연결합니다. (Connects order history reorder actions to shop cart state.) */
+/** 준비된 주문 내역과 최소 로컬 UI를 표시합니다. (Displays prepared order history and minimal local controls.) */
 export function OrdersRoute({ returns = false }: { returns?: boolean }) {
-  const shop = useShop();
-  return (
-    <OrdersPage
-      returns={returns}
-      onAddToCart={(line) =>
-        shop.add({
-          id: line.productId,
-          width: line.width,
-          color: line.color,
-          size: line.size,
-          quantity: line.quantity,
-        })
-      }
-    />
-  );
+  return <OrdersPage returns={returns} />;
 }
-
 export { OrdersPage };

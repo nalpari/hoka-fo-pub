@@ -83,8 +83,8 @@ export type HomeExplore = {
 };
 
 const homeExploreImageAspectRatio: MainContentCardImageAspectRatio = {
-  desktop: '1 / 1.32',
-  mobile: '1 / 1',
+  desktop: '500 / 667',
+  mobile: '375 / 500',
 };
 
 export const homeExplores: readonly HomeExplore[] = [

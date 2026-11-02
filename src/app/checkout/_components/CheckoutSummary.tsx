@@ -1,5 +1,4 @@
 'use client';
-
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
@@ -10,9 +9,9 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type CheckoutRow } from '@/app/checkout/checkout-summary';
 import { getCartImage } from '@/mocks/cartDisplay';
-
-type CheckoutProductListProps = { rows: readonly CheckoutRow[] };
-
+type CheckoutProductListProps = {
+  rows: readonly CheckoutRow[];
+};
 function CheckoutProductList({ rows }: CheckoutProductListProps) {
   return (
     <Stack borderTop="1px solid var(--colors-black-100)">
@@ -26,7 +25,7 @@ function CheckoutProductList({ rows }: CheckoutProductListProps) {
         <Typography variant="heading9">수량</Typography>
         <Typography variant="heading9">가격</Typography>
       </Grid>
-      {rows.map(({ item, product }) => (
+      {rows.map(({ item, product, amount }) => (
         <Grid
           key={`${item.id}-${item.color}-${item.width}-${item.size}`}
           gridTemplateColumns={{ base: 'minmax(0, 1fr) 158px 200px', _mobile: '1fr' }}
@@ -38,7 +37,7 @@ function CheckoutProductList({ rows }: CheckoutProductListProps) {
             image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
             name={product.name}
             optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`}
-            amount={product.price * item.quantity}
+            amount={amount}
           />
           <Box display={{ _mobile: 'none' }}>
             <Typography variant="body4">{item.quantity}개</Typography>
@@ -53,7 +52,6 @@ function CheckoutProductList({ rows }: CheckoutProductListProps) {
     </Stack>
   );
 }
-
 /** 주문 상품과 할인 및 결제 금액을 표시합니다. (Displays ordered products, discounts, and payment totals.) */
 export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
   return (

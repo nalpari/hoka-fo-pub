@@ -36,11 +36,14 @@ export type PhoneVerificationContentProps = {
   codeError?: string;
   fieldErrors?: PhoneVerificationErrors;
   detail: string | null;
+  initialPreviousPickerOpen?: boolean;
+  designTerms?: boolean;
+  designTermKind?: 'required' | 'optional';
   onInformationChange: (key: keyof PhoneInformation, value: string) => void;
   onAgreementChange: (index: number, checked: boolean) => void;
   onAllAgree: (checked: boolean) => void;
   onCodeChange: (value: string) => void;
-  onRequest: () => void;
+  onRequest?: () => void;
   onConfirm: (event: FormEvent<HTMLFormElement>) => void;
   onDetail: (title: string | null) => void;
 };

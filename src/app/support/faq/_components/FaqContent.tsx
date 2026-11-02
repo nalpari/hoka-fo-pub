@@ -1,55 +1,59 @@
 'use client';
-
-import { useContext } from 'react';
 import { type ReactNode, useMemo, useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { SupportContentContext } from '@/context/SupportContentContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Box, Flex, HStack } from 'styled-system/jsx';
+import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
 
 import { Accordion } from '@/components/common/atoms/Accordion';
+import { Button } from '@/components/common/atoms/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { SearchField } from '@/components/common/molecules/SearchField';
 
 import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-
+import { faChevronDown } from '@/icons/fontAwesome';
 type Props = {
   category: FaqCategory;
   categories: FaqCategory[];
   onCategoryChange: (category: FaqCategory) => void;
 };
-
 function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
   return (
-    <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="48px" _mobile={{ pt: '6', pb: '8' }}>
+    <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="32px" _mobile={{ pt: '6', pb: '8' }}>
       <FilterTabs
         ariaLabel="FAQ 카테고리"
         onValueChange={onCategoryChange}
-        options={categories.map((item) => ({ label: item, value: item }))}
+        options={categories.map((item) => ({
+          label: item === 'AS/품질' ? 'AS/불량' : item,
+          value: item,
+        }))}
         value={category}
         variant="fill"
+        railClassName={css({ gap: '8px', _mobile: { gap: '6px' } })}
       />
     </Box>
   );
 }
-
 type FaqSearchProps = {
   query: string;
   onQueryChange: (query: string) => void;
 };
-
 function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
   return (
     <Flex justifyContent="center" pt="6" _mobile={{ pt: '0' }}>
-      <Box w="590px" maxW="100%" _mobile={{ w: '100%' }}>
+      <Box
+        w="590px"
+        maxW="100%"
+        _mobile={{ w: '100%' }}
+        css={{ _mobile: { '& input::placeholder': { color: 'black.50' } } }}
+      >
         <SearchField
           label="질문 또는 답변 검색"
           placeholder="검색어를 입력해주세요"
@@ -60,7 +64,6 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
     </Flex>
   );
 }
-
 type FaqControlsProps = {
   category: FaqCategory;
   query: string;
@@ -68,7 +71,6 @@ type FaqControlsProps = {
   onCategoryChange: (category: FaqCategory) => void;
   onQueryChange: (query: string) => void;
 };
-
 function FaqControls({
   category,
   query,
@@ -77,7 +79,7 @@ function FaqControls({
   onQueryChange,
 }: FaqControlsProps) {
   return (
-    <Box pt={{ base: '10', _mobile: '6' }}>
+    <Box pt="8">
       <FaqSearch query={query} onQueryChange={onQueryChange} />
       <FaqCategoryNav
         category={category}
@@ -87,65 +89,68 @@ function FaqControls({
     </Box>
   );
 }
-
-type FaqQuestionProps = { question: string };
-
+type FaqQuestionProps = {
+  question: string;
+};
 function FaqQuestion({ question }: FaqQuestionProps) {
   return (
     <HStack gap="2" minW="0">
-      <Typography as="b" variant="body2">
+      <Typography as="span" variant="body2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" variant="body3" weight="medium">
+      <Typography as="span" variant="headingKr9">
         {question}
       </Typography>
     </HStack>
   );
 }
-
-type FaqAnswerProps = { answer: ReactNode };
-
+type FaqAnswerProps = {
+  answer: ReactNode;
+};
 function FaqAnswer({ answer }: FaqAnswerProps) {
   return (
     <Box bg="black.10" px="4" py="6" whiteSpace="pre-line">
-      <Typography as="p" web="body4" mo="body4">
-        {answer}
-      </Typography>
+      {typeof answer === 'string' ? (
+        <Stack gap="4">
+          {answer.split('\n\n').map((paragraph, index) => (
+            <Stack gap="2.5" key={index}>
+              {paragraph.split('\n').map((line, lineIndex) => (
+                <Typography as="p" variant="bodyKr4" key={lineIndex}>
+                  {line}
+                </Typography>
+              ))}
+            </Stack>
+          ))}
+        </Stack>
+      ) : (
+        <Typography as="div" variant="bodyKr4">
+          {answer}
+        </Typography>
+      )}
     </Box>
   );
 }
-
-function FaqEmptyState() {
-  return (
-    <Box py="15" textAlign="center">
-      <Typography as="p" web="body4" mo="body5" tone="tertiary">
-        검색 결과가 없습니다.
-      </Typography>
-    </Box>
-  );
-}
-
-type FaqListEntry = { id?: string; question: string; answer: ReactNode };
-
+type FaqListEntry = {
+  id?: string;
+  question: string;
+  answer: ReactNode;
+};
 type FaqListProps = {
   entries: readonly FaqListEntry[];
   openQuestion: string | null;
   onToggle: (question: string) => void;
 };
-
 const styles = {
-  root: css({ '& svg': { w: '24px', h: '24px', _mobile: { w: '16px', h: '16px' } } }),
-  item: css({ borderBottom: '1px solid var(--color-black-20)' }),
   question: css({
     minH: '74px',
     gap: '16px',
     py: '24px',
     textAlign: 'left',
-    '&[aria-expanded="true"]': { fontWeight: 'semibold' },
+    boxShadow: 'inset 0 -1px 0 var(--color-black-20)',
+    '&[aria-expanded="true"]': { boxShadow: 'none' },
     _mobile: { minH: '58px', py: '16px' },
   }),
 };
-
 function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
   return (
     <Box
@@ -158,8 +163,11 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
     >
       {entries.length ? (
         <Accordion
-          className={styles.root}
-          itemClassName={styles.item}
+          indicator={
+            <Flex as="span" w="24px" h="24px" alignItems="center" justifyContent="center">
+              <Icon fontAwesomeIcon={faChevronDown} size="16px" />
+            </Flex>
+          }
           triggerClassName={styles.question}
           multiple={false}
           value={openQuestion ? [openQuestion] : []}
@@ -174,25 +182,24 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }))}
         />
       ) : (
-        <FaqEmptyState />
+        <EmptyState
+          variant="plain"
+          title="검색 결과가 없습니다."
+          titleProps={{ as: 'p', web: 'body4', mo: 'body5', tone: 'tertiary' }}
+          layoutProps={{ py: '15' }}
+        />
       )}
     </Box>
   );
 }
-
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
 export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
-  // 개발팀 적용: faq에 검색된 항목·전체 건수·hasMore와 조회 함수를 연결합니다.
-  const { faq: connected } = useContext(SupportContentContext);
-  const binding = previewEmpty ? undefined : connected;
-  const request = useRequestAction();
   const platform = usePlatform();
   const [category, setCategory] = useState<FaqCategory>('전체');
   const [query, setQuery] = useState(previewEmpty ? '검색 결과 없음' : '');
   const [shown, setShown] = useState(10);
-  const [open, setOpen] = useState<string | null>(() =>
-    platform === 'web' ? faqs[0].question : null,
-  );
+  const [open, setOpen] = useState<string | null | undefined>();
+  const openQuestion = open === undefined ? (platform === 'web' ? faqs[0].question : null) : open;
   const entries = useMemo(
     () =>
       previewEmpty
@@ -204,20 +211,19 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
           ),
     [category, query, previewEmpty],
   );
-
-  useBindingQuery(binding?.onQueryChange, { category, query });
-  const displayed = binding ? [...binding.items] : entries.slice(0, shown);
-  const total = binding?.totalCount ?? entries.length;
-
+  const displayed = entries.slice(0, shown);
+  const total = entries.length;
   const changeCategory = (next: FaqCategory) => {
     setCategory(next);
     setShown(10);
     setOpen(null);
   };
-
   return (
     <CustomerCenterLayout
-      title="FAQs"
+      className={css({ _mobile: { pb: '72px' } })}
+      header={
+        <ContentHeader title="FAQs" titleAs="h1" titleProps={{ web: 'heading6', mo: 'heading5' }} />
+      }
       activePath="/support/faq"
       groups={supportNavigation}
       breadcrumbItems={[
@@ -225,28 +231,25 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
         { label: '고객센터', href: '/support' },
         { label: 'FAQs' },
       ]}
-      footerAction={
-        (binding ? binding.hasMore : shown < entries.length) && {
-          kind: 'loadMore',
-          label: '더보기',
-          onClick: () => {
-            if (binding) {
-              void request.run(binding.onLoadMore);
-            } else setShown((count) => count + 10);
-          },
-          counter: binding
-            ? (binding.pageInfo ?? { current: displayed.length, total })
-            : { current: Math.ceil(shown / 10), total: Math.ceil(total / 10) },
-          width: 'narrow',
-          containerProps: css.raw({ _mobile: { pt: '6' } }),
-        }
+      footer={
+        shown < entries.length ? (
+          <Flex justifyContent="center" pt="10" _mobile={{ pt: '6' }}>
+            <Button
+              variant="secondary"
+              size="short"
+              density="compact"
+              className={css({ w: '180px', '& > span': { w: '100%' }, _mobile: { w: 'auto' } })}
+              loadMore={{
+                counter: { current: displayed.length, total },
+              }}
+              onClick={() => {
+                setShown((count) => count + 10);
+              }}
+            />
+          </Flex>
+        ) : null
       }
     >
-      <BindingFeedback
-        {...binding}
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-      />
       <FaqControls
         category={category}
         query={query}
@@ -257,17 +260,16 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
           setShown(10);
         }}
       />
-      {displayed.length > 0 || !(binding?.pending || binding?.error) ? (
+      {
         <FaqList
           entries={previewEmpty ? [] : displayed}
-          openQuestion={open}
-          onToggle={(question) => setOpen(open === question ? null : question)}
+          openQuestion={openQuestion}
+          onToggle={(question) => setOpen(openQuestion === question ? null : question)}
         />
-      ) : null}
+      }
     </CustomerCenterLayout>
   );
 }
-
 export const routePreviewComponents = { FaqList } satisfies Pick<
   typeof import('@/types/component-contracts/app-support-faq-page'),
   'FaqList'

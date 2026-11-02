@@ -70,3 +70,21 @@ export const Mobile: Story = {
     ),
   ],
 };
+
+export const EmbeddedForm: Story = {
+  args: {
+    as: 'div',
+    iconPlacement: 'start',
+    inputProps: { type: 'search', autoComplete: 'off', 'aria-invalid': true },
+  },
+  render: (args) => (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        args.onSearch?.();
+      }}
+    >
+      <ControlledSearchField {...args} />
+    </form>
+  ),
+};

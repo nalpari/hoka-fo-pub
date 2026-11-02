@@ -1,19 +1,49 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 type EmptyStateProps = {
-  title: string;
+  title: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
-  variant?: 'standard' | 'minimal';
+  variant?: 'standard' | 'minimal' | 'plain';
+  className?: string;
+  as?: 'div' | 'section';
+  role?: ComponentPropsWithoutRef<'div'>['role'];
+  layoutProps?: Pick<
+    ComponentProps<typeof Box>,
+    | 'py'
+    | 'pt'
+    | 'pb'
+    | 'px'
+    | 'mt'
+    | 'borderBottom'
+    | '_mobile'
+    | 'display'
+    | 'flexDirection'
+    | 'alignItems'
+    | 'justifyContent'
+    | 'minH'
+    | 'gap'
+  >;
+  titleProps?: Pick<
+    EmptyStateTitleProps,
+    'as' | 'variant' | 'web' | 'mo' | 'weight' | 'tone' | 'className'
+  >;
+  descriptionProps?: Pick<
+    TypographyProps,
+    'variant' | 'web' | 'mo' | 'weight' | 'tone' | 'className'
+  >;
 };
 
 type EmptyStateIconProps = ComponentPropsWithoutRef<'div'>;
 
-type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'>;
+type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'> &
+  Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'weight' | 'tone'> & {
+    as?: 'h2' | 'p' | 'span';
+  };
 
 type EmptyStateDescriptionProps = ComponentPropsWithoutRef<'p'>;
 
@@ -23,19 +53,57 @@ function withClassName(baseClassName: string, className?: string) {
   return [baseClassName, className].filter(Boolean).join(' ');
 }
 
-function EmptyStateRoot({ title, description, action, variant = 'standard' }: EmptyStateProps) {
+function EmptyStateRoot({
+  title,
+  description,
+  action,
+  variant = 'standard',
+  className,
+  titleProps,
+  layoutProps,
+  role,
+  as,
+  descriptionProps,
+}: EmptyStateProps) {
+  const label = typeof title === 'string' ? title : undefined;
+  const titleContent = <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>;
+  const descriptionContent = description ? (
+    <Typography as="p" variant="body3" {...descriptionProps}>
+      {description}
+    </Typography>
+  ) : null;
+  const actionContent = action ? <Box>{action}</Box> : null;
+
+  if (variant === 'plain') {
+    return (
+      <Box as={as ?? 'div'} className={className} role={role} textAlign="center" {...layoutProps}>
+        {titleContent}
+        {descriptionContent}
+        {actionContent}
+      </Box>
+    );
+  }
+
   if (variant === 'minimal') {
     return (
-      <Stack as="section" gap="2" aria-label={title} minH="180px" pt="42px" textAlign="center">
-        <EmptyStateTitle>{title}</EmptyStateTitle>
+      <Stack
+        as={as ?? 'section'}
+        className={className}
+        gap="2"
+        aria-label={label}
+        role={role}
+        minH="180px"
+        pt="42px"
+        textAlign="center"
+        {...layoutProps}
+      >
+        {titleContent}
         {description ? (
           <Box mx="0" mb="0">
-            <Typography as="p" variant="body3">
-              {description}
-            </Typography>
+            {descriptionContent}
           </Box>
         ) : null}
-        {action ? <Box>{action}</Box> : null}
+        {actionContent}
       </Stack>
     );
   }
@@ -43,8 +111,10 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
   return (
     <Stack
       gap="2"
-      as="section"
-      aria-label={title}
+      as={as ?? 'section'}
+      className={className}
+      aria-label={label}
+      role={role}
       w="100%"
       pt="24"
       pb="40"
@@ -52,20 +122,16 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
       bg="white.0"
       color="black.100"
       textAlign="center"
+      {...layoutProps}
     >
-      <EmptyStateTitle>{title}</EmptyStateTitle>
-      {description ? (
-        <Box>
-          <Typography as="p" variant="body3">
-            {description}
-          </Typography>
-        </Box>
-      ) : null}
-      {action ? <Box>{action}</Box> : null}
+      {titleContent}
+      {description ? <Box>{descriptionContent}</Box> : null}
+      {actionContent}
     </Stack>
   );
 }
 
+/** 빈 목록을 나타내는 장식을 표시합니다. (Displays decoration for an empty list.) */
 export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
   return (
     <Grid
@@ -82,12 +148,19 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
   );
 }
 
-export function EmptyStateTitle({ className, children, ...props }: EmptyStateTitleProps) {
+/** 빈 목록 안내의 제목을 표시합니다. (Displays the title of an empty state.) */
+export function EmptyStateTitle({
+  className,
+  children,
+  variant = 'heading7',
+  as = 'h2',
+  ...props
+}: EmptyStateTitleProps) {
   return (
     <Typography
       {...props}
-      as="h2"
-      variant="heading7"
+      as={as}
+      variant={variant}
       className={withClassName('empty-state__title', className)}
     >
       {children}
@@ -95,6 +168,7 @@ export function EmptyStateTitle({ className, children, ...props }: EmptyStateTit
   );
 }
 
+/** 빈 목록의 설명을 표시합니다. (Displays an empty list description.) */
 export function EmptyStateDescription({
   className,
   children,
@@ -107,10 +181,12 @@ export function EmptyStateDescription({
   );
 }
 
+/** 빈 목록의 후속 액션을 배치합니다. (Arranges an empty list action.) */
 export function EmptyStateAction({ className, ...props }: EmptyStateActionProps) {
   return <Box {...props} className={withClassName('empty-state__action', className)} mt="2" />;
 }
 
+/** 빈 목록의 제목·설명·액션을 구성합니다. (Composes an empty state's title, description, and action.) */
 export const EmptyState = Object.assign(EmptyStateRoot, {
   Icon: EmptyStateIcon,
   Title: EmptyStateTitle,

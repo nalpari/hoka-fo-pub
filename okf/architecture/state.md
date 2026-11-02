@@ -4,12 +4,37 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-02T14:27:00+09:00'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:31:00Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/screen-index/sourceGraph.generated.json
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/data/megaMenu.ts
+  - src/components/common/organisms/Search/SearchHeader.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
@@ -593,3 +618,57 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 ## 재입고 표시 상태 (2026-10-30)
 
 `HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
+
+## 전체 검색 표시 상태 검토 (2026-11-02)
+
+검색 공통 Figma 섹션 655:19884에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
+
+PC 오류일 때 추천 영역을 숨기고 544px 패널에 오류만 표시하며 모바일은 기존 섹션을 유지한다. recentTopPadding은 기본 24px 또는 자동완성/오류 32px인 표시 옵션이다. 열린 상태에서 PC/MO 전환 시 입력값이 유지되는 것을 확인했다. 전체 수치와 검증 한계는 [전체 검색 Figma 적용](ui.md#전체-검색-figma-적용-2026-11-02)을 따른다. 기존 상태·서비스 계약은 이 표시 변경의 영향을 받지 않는다. 검토: codex/gpt-6, 2026-11-02T02:35:01.795Z; 위 두 파일은 미커밋 작업 트리 출처다.
+
+## GNB 표시와 상태 경계 검토 (2026-11-02)
+
+Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 표시를 검토했다. SiteHeader의 activeMenu/search 배타적 열림과 URL 활성 항목, MenuDrawer의 activeMenu·기본 Featured 열림·다른 그룹 전환·뒤로가기/닫기 포커스 소유권은 유지했다. 현재 앱의 로그인 상태도 바꾸지 않았다. 새 요청·인증·저장·서비스 콜백을 추가하지 않았다. MegaMenu.columns.activeItemEmphasis는 제목형 활성 강조를 고르는 표시 옵션이며 서버 카테고리 선택 정책이 아니다. [수치와 실제 확인](ui.md#gnb-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+
+## 러닝세션 신청 pending 표시 보정 (2026-11-02)
+
+기존 Context·요청 훅을 유지하고 pending을 두 신청 버튼에 전달했다. 운영 apply 완료 전 성공 안내를 표시하지 않으며 실패 시 상세를 유지한다. 신청 시작 문구와 보조 이미지 placeholder는 명시적 표시 데이터다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 대형 PC 헤더 너비 정렬 (2026-11-02)
+
+SiteHeaderInner의 최대 너비를 `max(1776px, var(--layout-web-content-max-width))`로 변경했다. 1920px 이하의 기존 헤더 여백·모바일 배치는 유지하며 본문이 더 넓어지는 대형 PC에서는 같은 콘텐츠 토큰까지 확장한다. ShopShell의 로그인·검색·메뉴·장바구니 상태와 이벤트 소유권은 변경하지 않았다. 작업 트리 출처: `src/context/ShopShell.tsx`; 너비 토큰 출처: `src/styles/global.scss`.
+
+검증: codex/gpt-6, 2026-11-02T06:56:38Z. `/products` 브라우저에서 2560px/clientWidth 2545px의 헤더 내부와 본문이 모두 left 252.5px·right 2292.5px·width 2040px로 일치했다. 1920px의 헤더 1761px, 1200px의 가로 넘침 없음, 1199/1025px의 기존 1200px 캔버스, 1024/375px의 모바일 전환과 가로 넘침 없음을 확인했다. ESLint 대상 파일·Prettier·Panda 생성·typecheck가 통과했다. 명시적 Storybook 플랫폼과 메뉴를 연 상태의 resize는 이번 변경에서 확인하지 않았다.
+
+## 표시 공통 재사용과 상태 소유권 유지 (2026-11-02)
+
+ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)를 사용한다. 검색 value·submit·오류·portal·메뉴 이동과 복귀는 ShopShell 소유이며 중첩 form을 만들지 않는다. Button.unstyled는 메뉴/숨김 제출/백드롭의 원래 자식 구조와 이벤트를 유지한다. 조회·재입고 취소·쿠폰·리뷰 저장의 prop/context와 pending/error/retry 소유자를 이동하지 않았고, BindingFeedback.errorFirst는 리뷰의 기존 오류 우선 순서를 표시한다. [변경 소스·옵션·검증](common-reuse-audit.md)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/common/molecules/SearchField.tsx, src/components/common/molecules/BindingFeedback.tsx, src/app/mypage/reviews/_components/MyPageReviewsContent.tsx.
+
+전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+## 디자인 상태 링크 지침 검토 (2026-11-02)
+
+`src/context/platform.tsx`의 자동/고정 플랫폼 책임과 `src/app/support/inquiries/inquiryPreviews.ts`의 상태 fixture 대응을 검토했다. 이번 작업에서 context·fixture·상태 수명·서비스 연결을 변경하지 않았으며 기존 상태 설명에 영향은 없다.
+
+출처: 사용자 확정 작업 범위와 위에 명시한 현재 저장소 파일. 검토 기준 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 검토·기록 시점: 2026-11-02T09:21:14Z. 기존 출처·신뢰 상태는 유지하며 전체 작업 트리 재검증을 의미하지 않는다.
+
+## 고정 상태 초기값 조사 (2026-11-02)
+
+배송/세탁 탭의 기본 선택, checkout 배송지/요청사항, 쿠폰 employee 옵션, 마이페이지 로그아웃, 주소 삭제, 가입 약관과 잠금 해제 detail 초기값을 검토했다. 만료 preview는 secondsLeft=0과 인라인 notice를 설정하지만 모달을 여는 expired prop은 전달하지 않는다. 이전 약관은 시행일 선택 팝업을 제공하지 않는다. 이 구성을 [직접 링크 누락 조사](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)와 구별해 기록하며 상태 owner·fixture·서비스 연결은 수정하지 않았다. 출처: 대응 route/preview, `src/components/phone-verification/PhoneVerificationStatePreview.tsx`, `PhoneVerificationContent.tsx`, `src/app/signup/terms/_components/SignupTermsStatePreview.tsx`. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+전체 퍼블리싱 범위의 인증·조회·저장·삭제·견적·가격 합계·성공 이동과 이를 흉내 내는 요청/타이머/브라우저 저장소를 제거했다. AccountFlow/PhoneVerification/Orders/MyPage/Inquiry/ProductListing/Home/SupportContent/RunningSession 서비스 context와 요청 hooks를 제거하고 사용 타입은 소유 도메인으로 옮겼다. ShopShell.state는 로그인 여부와 헤더 카운트의 읽기 전용 표시값만 받는다. PlatformProvider·RoutePreview·준비된 Storybook 표시 context와 로컬 입력·탭·체크·아코디언·갤러리·모달 조작은 유지한다. 고정 오류는 편집해도 사라지지 않고 loading/error는 자동 완료로 바뀌지 않는다. 서버 연결은 향후 통합 소유자가 표시 DTO/실제 ID·입력 payload·pending/실패/재시도·성공 후 갱신을 별도로 구현해야 한다. 이전 절의 서비스 계약 설명은 역사적 기록이며 이 인계 범위에서는 더 이상 현재 구현을 설명하지 않는다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+추가된 상태는 최초 표시 fixture다. `initialDeliveryRequest`, `initialEditing`, `previewLogout`, `initialDetail`, `initialPreviousPickerOpen`은 각 기존 owner에서 로컬 draft/open 상태를 초기화하며 API 응답처럼 동기화하지 않는다. 실제 인증·저장·삭제·쿠폰 발급·결제·완료 이동을 새로 연결하지 않는다. 로그아웃 preview의 확인은 인증 상태를 바꾸지 않고 확인창만 닫는다.
+
+잠금 해제의 expired preview는 로컬 expiredOpen을 true로 시작해 기존 ModalDialog에 전달하고 확인/닫기 시 false로 바꾼다. inline 만료 안내는 유지하며 타이머나 요청으로 완료시키지 않는다. 가입 인증의 기존 만료 표현과 기본 소비자의 서비스 계약은 유지한다. 신규 약관 preview의 designTerms 분기와 기존 연결 약관 분기를 구분해 범위 밖 body/이전 버전 데이터 소유권을 이동하지 않는다. 이전 약관 선택은 fixture 날짜만 선택하며 버전 전문은 등록 준비 중으로 표시한다.
+
+[URL과 IA 대응](routing.md#디자인-상태-직접-링크-구현-2026-11-02)을 참고한다. 실제 연결 소유자와 fixture 경계는 변경한 owner의 `[ 개발팀 바인딩 ]` 주석에 기록했다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

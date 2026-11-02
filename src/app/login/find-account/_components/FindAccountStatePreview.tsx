@@ -1,15 +1,14 @@
 'use client';
-
 import { useState } from 'react';
 
 import { FindAccountContent } from './FindAccountContent';
-
-/**
- * [ 개발팀 바인딩 ] preview 입력만 로컬로 편집하며 발송/인증/타이머/이동을 실행하지 않습니다. 오류와 남은 시간은 고정입니다.
- * 운영 requestId·인증 결과·pending/실패/재시도는 AccountServicesContext.recovery 및 FindAccountRouteContent에서 관리합니다.
- */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** 계정 찾기의 오류·인증번호·만료 상태를 표시합니다. (Displays fixed recovery error, code and expiry states.) */
-export function FindAccountStatePreview({ state }: { state: 'error' | 'code-entry' | 'expired' }) {
+export function FindAccountStatePreview({
+  state,
+}: {
+  state: 'initial' | 'error' | 'code-entry' | 'expired';
+}) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
@@ -18,7 +17,7 @@ export function FindAccountStatePreview({ state }: { state: 'error' | 'code-entr
       name={name}
       phone={phone}
       code={code}
-      requested={state !== 'error'}
+      requested={state === 'code-entry' || state === 'expired'}
       secondsLeft={state === 'expired' ? 0 : 125}
       nameError={state === 'error' ? '이름을 올바르게 입력해주세요' : ''}
       phoneError={state === 'error' ? '휴대폰 번호를 올바르게 입력해주세요' : ''}
@@ -30,7 +29,6 @@ export function FindAccountStatePreview({ state }: { state: 'error' | 'code-entr
       onNameChange={setName}
       onPhoneChange={setPhone}
       onCodeChange={setCode}
-      onConfirmCode={() => {}}
       onSubmit={(event) => event.preventDefault()}
     />
   );

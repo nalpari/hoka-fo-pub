@@ -10,6 +10,7 @@ const cautions = [
   '특정 상품에 대한 문의는 상품 정보 상세 페이지를 이용해 주시기 바랍니다.',
   '등록된 문의는 수정 및 삭제가 불가능합니다.',
   '1:1 문의에 주소, 연락처 등 개인정보 및 계좌정보를 남기실 경우, 질문이 삭제될 수 있습니다.',
+  '계좌정보는 MY > 계정관리 > 환불계좌관리에 등록해 주시기 바랍니다.',
 ];
 
 const trigger = css({
@@ -24,7 +25,7 @@ const panel = css({ pt: '3' });
 /** 문의 화면에서 확인할 유의사항을 펼쳐 보여줍니다. (Shows expandable cautions for the inquiry page.) */
 export function InquiryCautions() {
   return (
-    <Box borderTop="1px solid token(colors.black.20)" py="5">
+    <Box borderTop="1px solid token(colors.black.20)" pt="5">
       <Accordion
         defaultValue={['cautions']}
         indicatorColor="var(--color-text-primary)"
@@ -35,7 +36,7 @@ export function InquiryCautions() {
           {
             value: 'cautions',
             title: (
-              <Typography variant="body4" weight="medium" tone="primary">
+              <Typography variant="body4" tone="primary">
                 유의사항
               </Typography>
             ),
@@ -44,7 +45,7 @@ export function InquiryCautions() {
                 {cautions.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
                     <Typography as="span" variant="body5" tone="tertiary" aria-hidden="true">
-                      ・
+                      -
                     </Typography>
                     <Typography variant="body5" tone="tertiary">
                       {item}

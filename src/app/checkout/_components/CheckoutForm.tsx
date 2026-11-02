@@ -19,6 +19,7 @@ import { CheckoutSummary } from './CheckoutSummary';
 
 type CheckoutContentProps = {
   editShipping?: boolean;
+  initialDeliveryRequest?: string;
   rows: readonly CheckoutRow[];
   payment: PaymentMethod;
   errors?: ShippingErrors;
@@ -29,6 +30,7 @@ type CheckoutContentProps = {
 /** 주문서 섹션과 입력·선택 UI를 배치합니다. (Arranges checkout sections and input controls.) */
 export function CheckoutContent({
   editShipping = false,
+  initialDeliveryRequest,
   rows,
   payment,
   errors,
@@ -44,7 +46,11 @@ export function CheckoutContent({
     >
       <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '1' }}>
         {/* 주문자 및 배송지 정보 */}
-        <CheckoutShipping errors={errors} initialEditing={editShipping} />
+        <CheckoutShipping
+          errors={errors}
+          initialEditing={editShipping}
+          initialDeliveryRequest={initialDeliveryRequest}
+        />
       </Box>
       <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '2' }}>
         {/* 주문상품 정보 및 할인 적용 */}

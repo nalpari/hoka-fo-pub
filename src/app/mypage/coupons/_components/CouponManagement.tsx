@@ -1,21 +1,17 @@
 'use client';
-
-import { useContext } from 'react';
 import { useState } from 'react';
-import { MyPageDataContext } from '@/context/MyPageDataContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -23,14 +19,13 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { faCircleCheck } from '@/icons/fontAwesome';
-
+const couponDescription = css({ color: 'black.100', _mobile: { color: 'black.60' } });
 type CouponRegistrationSectionProps = {
   code: string;
   error: string;
   onCodeChange: (code: string) => void;
-  onRegister: () => void;
+  onRegister?: () => void;
 };
-
 function CouponRegistrationSection({
   code,
   error,
@@ -56,7 +51,7 @@ function CouponRegistrationSection({
         ),
         descriptionProps: {
           variant: 'body3',
-          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+          className: couponDescription,
         },
       }}
     >
@@ -67,13 +62,13 @@ function CouponRegistrationSection({
           gap: '6',
           alignItems: 'center',
           py: '8',
-          bg: '#F7F7F9',
+          bg: 'black.10',
           _mobile: { p: '0', bg: 'transparent' },
         })}
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
-          onRegister();
+          onRegister?.();
         }}
       >
         <TextFormField
@@ -83,7 +78,7 @@ function CouponRegistrationSection({
           required
           variant="boxed"
           invalid={Boolean(error)}
-          error={error || undefined}
+          error={error}
           inputProps={{
             'aria-label': '쿠폰 일련번호',
             placeholder: '일련 번호를 입력해 주세요',
@@ -107,7 +102,6 @@ function CouponRegistrationSection({
     </ContentSection>
   );
 }
-
 type CouponItem = {
   id: string;
   name: string;
@@ -116,41 +110,45 @@ type CouponItem = {
   expiresAt: string;
   category: '상품 할인' | '배송 할인';
 };
-
 type CouponCardProps = {
   coupon: CouponItem;
   onDetails: (coupon: CouponItem) => void;
 };
-
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <Stack
-      as="article"
-      pos="relative"
-      minW="0"
-      minH="195px"
-      py="8"
-      pl="33px"
-      pr="25px"
-      gap="8"
+    <Card
+      className={css({
+        pos: 'relative',
+        minW: '0',
+        minH: '195px',
+        py: '8',
+        pl: '33px',
+        pr: '25px',
+        gap: '8',
+        backgroundSize: '100% 100%',
+        backgroundRepeat: 'no-repeat',
+        _mobile: { minH: '170px', py: '25px', gap: '6' },
+      })}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
-      backgroundSize="100% 100%"
-      backgroundRepeat="no-repeat"
-      _mobile={{ minH: '170px', py: '25px', gap: '6' }}
     >
-      <HStack gap="2" justifyContent="space-between" alignItems="flex-start">
-        <Typography as="h3" web="headingKr8" mo="headingKr6">
-          {coupon.name}
-        </Typography>
-        <Button
-          size="sm"
-          variant="link"
-          onClick={() => onDetails(coupon)}
-          className={css({ flexShrink: '0', '& span': { fontSize: '12px', fontWeight: '400' } })}
-        >
-          상세보기
-        </Button>
-      </HStack>
+      <ContentHeader
+        title={coupon.name}
+        titleAs="h3"
+        titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
+        orientation="horizontal"
+        gap="2"
+        alignItems="flex-start"
+        action={
+          <Button
+            size="sm"
+            variant="link"
+            onClick={() => onDetails(coupon)}
+            className={css({ flexShrink: '0', '& span': { fontSize: '12px', fontWeight: '400' } })}
+          >
+            상세보기
+          </Button>
+        }
+      />
       <Stack gap="3">
         <HStack gap="0" alignItems="center">
           <Typography
@@ -174,29 +172,21 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           </Typography>
         </Stack>
       </Stack>
-    </Stack>
+    </Card>
   );
 }
-
 type Category = '전체' | CouponItem['category'];
-
 type CouponHistorySectionProps = {
   coupons: CouponItem[];
   previewEmpty?: boolean;
   onDetails: (coupon: CouponItem) => void;
 };
-
-function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistorySectionProps) {
-  const contextBinding = useContext(MyPageDataContext).coupons;
-  const binding = previewEmpty ? undefined : contextBinding;
-  const request = useRequestAction();
+function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
   const [category, setCategory] = useState<Category>('전체');
   const [visibleCount, setVisibleCount] = useState(5);
-  useBindingQuery(binding?.onQueryChange, { category });
-  const visibleCoupons = binding
-    ? [...binding.items]
-    : coupons.filter((coupon) => category === '전체' || coupon.category === category);
-
+  const visibleCoupons = coupons.filter(
+    (coupon) => category === '전체' || coupon.category === category,
+  );
   return (
     <ContentSection
       as="section"
@@ -210,27 +200,24 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
         description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
         descriptionProps: {
           variant: 'body3',
-          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+          className: couponDescription,
         },
       }}
       footer={
-        (binding ? binding.hasMore : visibleCount < visibleCoupons.length) ? (
+        visibleCount < visibleCoupons.length ? (
           <Button
             fullWidth
             className={css({ alignSelf: 'center', w: '160px', _mobile: { w: '100%' } })}
             size="short"
             variant="secondary"
             onClick={() => {
-              if (binding) void request.run(binding.onLoadMore);
-              else setVisibleCount((count) => count + 5);
+              setVisibleCount((count) => count + 5);
             }}
             loadMore={{
-              counter: binding
-                ? (binding.pageInfo ?? { current: binding.items.length, total: binding.totalCount })
-                : {
-                    current: Math.ceil(visibleCount / 5),
-                    total: Math.ceil(visibleCoupons.length / 5),
-                  },
+              counter: {
+                current: Math.ceil(visibleCount / 5),
+                total: Math.ceil(visibleCoupons.length / 5),
+              },
               labelProps: { mo: 'ctaKr2' },
               counterProps: { mo: 'body5' },
             }}
@@ -239,11 +226,6 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
       }
     >
       <Stack gap={{ base: '3', _mobile: '6' }}>
-        <BindingFeedback
-          {...binding}
-          pending={binding?.pending || request.pending}
-          error={binding?.error || request.error}
-        />
         <SegmentedControl
           ariaLabel="쿠폰 종류"
           itemClassName={() => css({ h: '42px', fontWeight: '400', _mobile: { h: '32px' } })}
@@ -264,16 +246,12 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
             <HStack gap="0.5">
               <Typography variant="body4">총</Typography>
               <Typography variant="body4" weight="medium">
-                {binding?.totalCount ?? visibleCoupons.length}
+                {visibleCoupons.length}
                 <Typography variant="bodyKr4">건</Typography>
               </Typography>
             </HStack>
           </HStack>
-          {!visibleCoupons.length &&
-          !binding?.pending &&
-          !request.pending &&
-          !binding?.error &&
-          !request.error ? (
+          {!visibleCoupons.length ? (
             <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
           ) : null}
           <Grid
@@ -281,7 +259,7 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
             gap="4"
             w="100%"
           >
-            {(binding ? visibleCoupons : visibleCoupons.slice(0, visibleCount)).map((coupon) => (
+            {visibleCoupons.slice(0, visibleCount).map((coupon) => (
               <CouponCard key={coupon.id} coupon={coupon} onDetails={onDetails} />
             ))}
           </Grid>
@@ -290,12 +268,10 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
     </ContentSection>
   );
 }
-
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
-
 function CouponRegistrationDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
@@ -313,12 +289,10 @@ function CouponRegistrationDialog({ open, onOpenChange }: Props) {
     </ModalDialog>
   );
 }
-
 type CouponDetailsDialogProps = {
   coupon: CouponItem | null;
   onOpenChange: (open: boolean) => void;
 };
-
 function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps) {
   return (
     <ModalDialog
@@ -341,12 +315,9 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
     </ModalDialog>
   );
 }
-
 const employeeCouponTypes = ['50% 쿠폰 발급', '30% 쿠폰 발급'] as const;
-
 function EmployeeCoupons() {
-  const binding = useContext(MyPageDataContext).coupons;
-  const labels = binding ? (binding.employeeCoupons ?? []) : employeeCouponTypes;
+  const labels = employeeCouponTypes;
   if (!labels.length) return null;
   return (
     <ContentSection
@@ -358,7 +329,7 @@ function EmployeeCoupons() {
     >
       <HStack gap="2">
         {labels.map((label) => (
-          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="#F7F7F9">
+          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="black.10">
             <Typography variant="body3" weight="medium">
               {label}
             </Typography>
@@ -369,56 +340,34 @@ function EmployeeCoupons() {
     </ContentSection>
   );
 }
-
-/** [ 개발팀 바인딩 ] preview는 빈 목록/등록 오류/완료/상세의 고정 확인용이며 등록 요청을 실행하지 않습니다. 빈 목록 preview는 운영 목록 조회와 분리합니다. 운영 Empty는 조회 중·실패가 아닌 빈 결과에만 표시하며 현재 items/totalCount를 전달하는 소유자가 응답 갱신과 오래된 응답 폐기를 담당합니다. 미연결 등록은 성공 모달을 표시하지 않습니다. 일반 회원 fixture에는 임직원 영역이 없으며 employee preview 또는 연결된 employeeCoupons가 있을 때만 표시합니다. 운영 쿠폰 ID·등록과 pending/실패/재시도·목록 갱신은 MyPageDataContext.coupons 소유자가 연결합니다. */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 type CouponManagerProps = {
   coupons: CouponItem[];
   preview?: 'error' | 'complete' | 'detail' | 'empty';
   employee?: boolean;
 };
-
 function CouponManager({ coupons, preview, employee = false }: CouponManagerProps) {
-  const binding = useContext(MyPageDataContext).coupons;
-  const request = useRequestAction();
   const [code, setCode] = useState('');
-  const [error, setError] = useState('');
+  const error = '';
   const [registered, setRegistered] = useState(preview === 'complete');
   const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(
     preview === 'detail' ? coupons[0] : null,
   );
-
-  function registerCoupon() {
-    if (preview) return;
-    if (code.trim().length < 6) {
-      setError('쿠폰 일련번호를 확인해 주세요.');
-      return;
-    }
-    setError('');
-    void request.run(async () => {
-      if (!binding) return;
-      await binding.register(code.trim());
-      setRegistered(true);
-      setCode('');
-    });
-  }
-
   return (
     <Stack gap="14" _mobile={{ gap: '10' }}>
-      <BindingFeedback pending={request.pending} error={request.error} />
-      <fieldset disabled={request.pending}>
+      <fieldset disabled={false}>
         <CouponRegistrationSection
           code={code}
           error={preview === 'error' ? '쿠폰 일련번호를 확인해 주세요.' : error}
           onCodeChange={(value) => {
             setCode(value);
-            setError('');
+
             setRegistered(false);
           }}
-          onRegister={registerCoupon}
         />
       </fieldset>
 
-      {employee || Boolean(binding?.employeeCoupons?.length) ? <EmployeeCoupons /> : null}
+      {employee || Boolean(undefined) ? <EmployeeCoupons /> : null}
 
       <CouponHistorySection
         coupons={coupons}
@@ -436,7 +385,6 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     </Stack>
   );
 }
-
 const couponSamples: Omit<CouponItem, 'id'>[] = [
   {
     name: '50% 할인 쿠폰',
@@ -460,7 +408,6 @@ const couponSamples: Omit<CouponItem, 'id'>[] = [
     category: '배송 할인',
   },
 ];
-
 const couponNames = [
   '50% 할인 쿠폰',
   '신규 회원가입 쿠폰',
@@ -468,13 +415,11 @@ const couponNames = [
   '생일기념 쿠폰',
   '50% 할인 쿠폰',
 ];
-
 const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
   ...couponSamples[index % couponSamples.length],
   name: couponNames[index % couponNames.length],
   id: `coupon-${index + 1}`,
 }));
-
 /** 보유 쿠폰과 쿠폰 등록 예시 상태를 관리합니다. (Manages owned coupons and the example coupon registration state.) */
 export function RouteContent({
   preview,
@@ -496,7 +441,6 @@ export function RouteContent({
     </MyPageFrame>
   );
 }
-
 export const routePreviewComponents = { CouponManager } satisfies Pick<
   typeof import('@/types/component-contracts/app-mypage-coupons-page'),
   'CouponManager'

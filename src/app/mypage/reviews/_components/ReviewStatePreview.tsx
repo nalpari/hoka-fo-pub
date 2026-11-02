@@ -85,7 +85,6 @@ export function ReviewStatePreview({
         onOpenChange={setOpen}
         onRatingChange={setRating}
         onBodyChange={setBody}
-        onSave={() => {}}
       />
     </MyPageFrame>
   );

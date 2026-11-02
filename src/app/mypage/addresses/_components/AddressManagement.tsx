@@ -3,13 +3,15 @@
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { Box, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
@@ -37,7 +39,7 @@ export function AddressEditor({
     key: 'recipient' | 'name' | 'phone' | 'zip' | 'address' | 'detail',
   ) => string | undefined;
   update: <K extends keyof Address>(key: K, value: Address[K]) => void;
-  save: () => void;
+  save?: () => void;
   onCancel: () => void;
   addressOpen: boolean;
   onAddressOpenChange: (open: boolean) => void;
@@ -61,7 +63,7 @@ export function AddressEditor({
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
-          save();
+          save?.();
         }}
       >
         <Stack gap="12" _mobile={{ gap: '6' }}>
@@ -255,29 +257,35 @@ export function AddressList({
                 _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
               >
                 <Stack gap="8" minW="0" _mobile={{ gap: '3' }}>
-                  <HStack gap="3" _mobile={{ gap: '2' }}>
-                    <Typography as="h2" web="headingKr8" mo="headingKr6">
-                      {address.name}
-                    </Typography>
-                    {address.isDefault ? (
-                      <Badge
-                        variant="line"
-                        tone="primary"
-                        className={css({
-                          borderRadius: '2px',
-                          px: '1',
-                          py: '3px',
-                          '& > span': {
-                            fontSize: '14px',
-                            lineHeight: '1.3!',
-                            _mobile: { fontSize: '12px' },
-                          },
-                        })}
-                      >
-                        기본 배송지
-                      </Badge>
-                    ) : null}
-                  </HStack>
+                  <ContentHeader
+                    title={address.name}
+                    titleAs="h2"
+                    titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
+                    orientation="horizontal"
+                    justifyContent="flex-start"
+                    gap="3"
+                    _mobile={{ gap: '2' }}
+                    action={
+                      address.isDefault ? (
+                        <Badge
+                          variant="line"
+                          tone="primary"
+                          className={css({
+                            borderRadius: '2px',
+                            px: '1',
+                            py: '3px',
+                            '& > span': {
+                              fontSize: '14px',
+                              lineHeight: '1.3!',
+                              _mobile: { fontSize: '12px' },
+                            },
+                          })}
+                        >
+                          기본 배송지
+                        </Badge>
+                      ) : null
+                    }
+                  />
                   <Stack gap="3" _mobile={{ gap: '4' }}>
                     <Typography web="body3" mo="body4" language="en" tone="tertiary">
                       {address.phone}
@@ -321,19 +329,23 @@ export function AddressList({
             ))}
           </Stack>
         ) : (
-          <Box
-            py="120px"
-            textAlign="center"
-            borderBottom="1px solid var(--colors-black-20)"
-            _mobile={{ py: '24', borderBottom: '0' }}
-          >
-            <Typography as="p" web="body3" mo="body4" tone="tertiary">
-              자주 쓰는 배송지 주소를 설정해주세요.
-              <br />
-              자주 쓰는 배송지 주소를 저장하시면 보다 편리하게{mobile ? <br /> : ' '}이용이
-              가능합니다.
-            </Typography>
-          </Box>
+          <EmptyState
+            variant="plain"
+            layoutProps={{
+              py: '120px',
+              borderBottom: '1px solid var(--colors-black-20)',
+              _mobile: { py: '24', borderBottom: '0' },
+            }}
+            titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'tertiary' }}
+            title={
+              <>
+                자주 쓰는 배송지 주소를 설정해주세요.
+                <br />
+                자주 쓰는 배송지 주소를 저장하시면 보다 편리하게{mobile ? <br /> : ' '}이용이
+                가능합니다.
+              </>
+            }
+          />
         )}
       </ContentSection>
       <Box w="180px" mx="auto" _mobile={{ w: '100%' }}>
