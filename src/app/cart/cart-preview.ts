@@ -7,7 +7,52 @@ export type CartPreviewRow = {
   amount: number;
   soldOut: boolean;
   initialSelected: boolean;
+  optionPreview?: { item: CartItem; product: Product };
 };
+
+const optionColors = [
+  '스타더스트 / 멜로우 라일락',
+  '베이지',
+  '화이트',
+  '블랙 / 퍼플',
+  '블루',
+  '그레이',
+  '민트',
+  '블랙',
+  '핑크',
+  '네이비',
+];
+
+/** 옵션 모달 시안용 표시 데이터입니다. (Display data for the option dialog preview.) */
+export const cartOptionPreview: { item: CartItem; product: Product } = {
+  item: {
+    ...cartPreviewItem(),
+    color: optionColors[0],
+    size: '250',
+  },
+  product: {
+    ...products[0],
+    name: '클리프톤 11 GTX',
+    colors: optionColors,
+    colorThumbnails: optionColors.map((label, index) => ({
+      id: `preview-${index + 1}`,
+      label,
+      image: `/images/cart/options/color-${index === 7 ? 1 : index > 7 ? index : index + 1}.png`,
+    })),
+    colorOptions: undefined,
+  },
+};
+
+function cartPreviewItem(): CartItem {
+  return {
+    id: products[0].id,
+    imageSrc: '/images/cart/clifton-preview.png',
+    color: '브라운',
+    width: 'Regular',
+    size: '235',
+    quantity: 1,
+  };
+}
 
 /**
  * [ 개발팀 바인딩 ]
@@ -17,18 +62,12 @@ export type CartPreviewRow = {
  */
 export const cartPreviewRows: CartPreviewRow[] = [
   {
-    item: {
-      id: products[0].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '브라운',
-      width: 'Regular',
-      size: '235',
-      quantity: 1,
-    },
+    item: cartPreviewItem(),
     product: products[0],
     amount: 240000,
     soldOut: false,
-    initialSelected: true,
+    initialSelected: false,
+    optionPreview: cartOptionPreview,
   },
   {
     item: {
@@ -42,7 +81,7 @@ export const cartPreviewRows: CartPreviewRow[] = [
     product: products[1],
     amount: 288000,
     soldOut: false,
-    initialSelected: true,
+    initialSelected: false,
   },
   {
     item: {
@@ -69,9 +108,14 @@ export const cartPreviewRows: CartPreviewRow[] = [
     },
     product: products[3],
     amount: 928000,
-    soldOut: false,
+    soldOut: true,
     initialSelected: false,
   },
 ];
 
-export const cartPreviewTotal = 528000;
+export const cartPreviewAmounts = {
+  product: 3350000,
+  shipping: 0,
+  total: 3350000,
+  selectedTotal: 1236500,
+};

@@ -1,4 +1,83 @@
+## 2026-11-02 — 주문서 퍼블리싱 제출 로직 제거
+
+- `CheckoutForm`의 입력 오류 초기화, `noValidate`, pending/error, FormData 검증·payload 작성·요청 콜백을 제거했다. `/checkout`도 완료 전환과 장바구니 제거를 수행하지 않고 준비된 장바구니 데이터를 화면에 배치한다. 결제수단, 쿠폰 선택, 동의 체크는 로컬 UI 상호작용으로 남겼다.
+- 쿠폰 선택은 화면에서만 바뀌고 견적 금액을 갱신하지 않는다. 제출용 hidden input과 주문 완료/쿠폰 재시도 binding 스토리를 정리하고 로컬 선택 상태 스토리로 바꿨다. 고정 오류/완료 preview는 직접 URL 표시를 유지한다. 프론트 연결 경계는 [데이터 연결](architecture/data-binding.md#주문서-표시와-프론트-연결-경계), [UI](architecture/ui.md#주문서-퍼블리싱-마크업-경량화-2026-11-02), [라우팅](architecture/routing.md#주문서-기본-경로의-표시-전용-동작-2026-11-02)에 기록했다.
+- `npm run screen-files`, Prettier, `npm run okf:check`, `git diff --check`는 통과했다. `npm run typecheck`에는 변경 Checkout 파일 오류가 없고, 기존 `.next/types`의 제거된 경로 참조 및 상품 목록 PageProps 오류가 남는다. 변경 파일 ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. Storybook 브라우저 검증과 실제 결제 동작 검증은 수행하지 않았다.
+
 # 지식 번들 변경 이력
+
+## 2026-11-02 — 주문완료 PC·모바일 Figma 반영
+
+- PC·모바일 시안에 맞춰 완료 제목/체크 아이콘 제거, 감사 문구·CTA의 너비와 간격, 추천상품 제목·카드 크기/간격을 조정했다. 주문완료에서만 추천상품의 checkout 표현을 사용하고 장바구니 표현과 표시 데이터는 유지했다.
+- [UI 기록](architecture/ui.md#주문완료-pc모바일-시안-반영-2026-11-02)에 Figma 노드, 규격과 변경 범위를 추가했다. Panda·Prettier·OKF·diff 검사는 통과했다. TypeScript에는 이번 변경 파일 외 기존 `.next/types` 라우트/PageProps 오류가 있고, ESLint는 `eslint-plugin-perfectionist` 누락으로 시작되지 않았다. 브라우저 자동화/로컬 서버가 응답하지 않아 시각 캡처는 확인하지 못했다.
+
+## 2026-11-02 — 주문완료 모바일 CTA 전체 너비
+
+주문 확인 ButtonLink에 공통 `fullWidth`를 지정해 모바일에서 외부 링크와 내부 배경 프레임이 모두 부모 너비를 채우도록 했다. 기존 반응형 너비로 PC CTA 180px은 유지한다. 시각 검증은 아직 수행하지 않았다. [UI 기록](architecture/ui.md#주문완료-pc모바일-시안-반영-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니·주문 단계 표시 제거
+
+장바구니·주문/결제·주문완료의 공통 진행 단계를 제거하고 `OrderPageLayout`의 `step`·`showSteps` API와 기존 호출부를 정리했다. 제목 프레임과 간격은 유지하며 취소/반품 신청 내부의 별도 단계 표시는 유지한다. 코드 참조 검색, Prettier, OKF, diff 검사를 기록한다. 브라우저 시각 확인은 수행하지 않았다. [UI 기록](architecture/ui.md#주문-프레임의-주문-단계-표시-제거-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 체크아웃 주요 제목 주석
+
+`CheckoutContent`와 완료/미리보기 구성에서 배송지·주문상품·결제·할인/금액·동의·결제 액션 및 화면 제목·쿠폰 조회·주문 완료/추천 영역을 찾기 쉽도록 JSX 주석을 추가했다. 기존 `ContentSection` 제목 소유와 화면 구조는 유지했다. Prettier, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 모듈 오류로 실패했으며 변경 파일 오류는 보고되지 않았다. 브라우저 시각 확인은 하지 않았다. [UI 기록](architecture/ui.md#체크아웃-섹션-제목-주석-위치-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문 페이지 공통 본문 조립 간소화
+
+`OrdersContent` 안으로 단일 사용처 `OrdersLayout`을 합쳤다. 공유 소유자에서 `MyPageFrame`·`Stack`·`ContentSection`과 목록/상세 상태 분기를 한 흐름으로 읽을 수 있다. `/mypage/orders`, `/mypage/returns`, 기존 미리보기와 스토리는 같은 공유 화면을 사용하며 데이터 연결은 유지했다. 포맷·OKF·diff 검사를 기록한다. 브라우저 확인은 수행하지 않았다. [UI 기록](architecture/ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문서 기본 배송지 정보 Figma 반영
+
+모바일 주문/결제의 저장 배송지 표시를 `받는분·연락처·다른연락처·주소` 행으로 맞췄다. 라벨 Body3 16px, 값 Body4 14px medium으로 적용했다. `otherPhone`은 선택 표시 데이터이며 값이 있을 때 표시한다. 읽기 전용 전환 뒤에도 저장 배송지 제출 필드를 hidden input으로 유지했고, API·결제 처리는 변경하지 않았다. Prettier, Storybook production build, `npm run okf:check`, `git diff --check`는 통과했다. `npm run typecheck`는 변경 파일과 무관한 `.next` 생성 라우트 모듈 참조 오류들로 실패했다. ESLint는 환경에서 `eslint-plugin-perfectionist`를 찾지 못해 실행되지 않았다. 브라우저 시각 확인은 하지 않았다. [UI 기록](architecture/ui.md#주문서-기본-배송지-정보-라벨과-타이포-2026-11-02)과 [상태 계약](architecture/state.md#주문서-저장-배송지-연락처-표시값-2026-11-02)을 참고한다.
+
+## 2026-11-02 — 주문 조회·취소/환불 신청·내역 Figma 반영
+
+주문/배송조회, 취소/환불 신청, 취소/반품내역 세 화면을 최신 Figma와 대조했다. 취소/반품내역의 PC 표·모바일 목록·빈 상태, 기간 탭 순서/크기, PC 신청 모달과 모바일 시트, 신청 상품 크기와 취소만 수량 조절하는 표현을 반영했다. 기존 주문 상태·필터·견적/제출 Context 연결과 두 페이지 URL은 유지했다. Storybook을 `PAGES/주문`으로 분리하고 WEB·Mobile 주문 조회 및 취소/반품내역 스토리를 추가해 화면 인덱스에 연결했다. Panda 생성·OKF는 통과했고, 전체 타입 검사에는 기존 `.next` 경로 오류, ESLint에는 빠진 플러그인 오류가 있었다. 서버 기동 권한/감시 한도 문제로 브라우저 확인은 하지 못했다. [UI](architecture/ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)와 [라우팅](architecture/routing.md#주문-관련-3개-화면의-url-유지-2026-11-02)에 상세 범위를 기록했다.
+
+## 2026-11-02 — 모바일 장바구니 컬러 목록 오른쪽 여백
+
+옵션 변경 모달의 모바일 컬러 목록 폭을 원래대로 복구하고 스크롤 끝에 16px 빈 칸을 둬 마지막 썸네일 뒤 여백을 만들었다. 브라우저 375px `/cart`에서 가로 목록을 끝까지 스크롤해 확인했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 검증을 기록했다.
+
+## 2026-11-02 — PC 장바구니 옵션 모달 열 수
+
+Figma PC 옵션 모달에 맞춰 컬러 이미지 6열과 사이즈 5열을 적용했다. 모바일 컬러 가로 스크롤·사이즈 4열은 유지하고 브라우저에서 계산된 열 수를 확인했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 출처와 범위를 기록했다.
+
+## 2026-11-02 — 모바일 장바구니 옵션 모달 폭
+
+모바일 옵션 변경 모달의 그리드 열을 `minmax(0, 1fr)`로 제한해 내부 콘텐츠에 따라 PC 너비로 확장되는 문제를 수정했다. Panda CSS 재생성과 375px 브라우저 계산 폭을 [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 기록했다.
+
+## 2026-11-02 — 장바구니 Wishlist SVG
+
+Figma 장바구니의 하트 벡터를 SVG 두 상태로 가져와 공통 Wishlist에 적용하고, 장바구니 PC/MO 호출 크기를 14×14px로 통일했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 출처를 기록했다.
+
+## 2026-11-02 — 장바구니 본문 마크업 펼치기
+
+장바구니 선택 바는 `CartProductSection` JSX에 펼치고, 서로 다른 PC/MO 상품 행은 같은 파일의 `CartDesktopItem`과 `CartMobileItem`으로 각각 묶었다. 선택·옵션 열기만 부모에서 관리하고, 스토리에 필요한 수량·관심 토글은 각 카드의 로컬 상태로 둔다. 추천 목록·모달 preview 계약은 유지한다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 구조와 확인 범위를 기록했다.
+
+## 2026-11-02 — 장바구니 PC 상품 액션 너비
+
+PC 상품 행의 품절 버튼을 삭제하기와 같은 80px 폭으로 맞추고 주문하기도 같은 너비로 정렬했다. 이전 전체 폭 품절 버튼 기록을 [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)의 현재 동작으로 갱신했다.
+
+## 2026-11-02 — 장바구니 PC 시안 상세 대조
+
+PC 장바구니의 제목·표 선과 열 정렬, 옵션변경·관심상품 위치, 금액 요약·주문 버튼·고객센터 카드를 Figma `1797:47269`에 맞춰 조정했다. 기존 4개 상품 표시 fixture와 모바일 행은 유지했다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)에 실제 확인 범위와 남은 차이를 기록했다.
+
+## 2026-11-02 — 장바구니 PC 상품 버튼
+
+PC 상품 행의 주문 버튼을 검정 primary로 지정하고 품절 버튼을 액션 열 전체 폭으로 맞췄다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니 모바일 주문 액션 렌더링
+
+모바일 전용 `CartOrderActions`의 표시 조건을 컴포넌트에 두고 페이지·스토리의 숨김 `Box`를 제거했다. PC `Stack`의 빈 자식으로 생기는 간격을 없애고 모바일 표시는 유지한다. [UI 기록](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)을 갱신했다.
+
+## 2026-11-02 — 장바구니 옵션·구매 제한 모달 시안
+
+Figma PC/MO 옵션 변경과 구매 수량 제한 안내 4개 노드를 장바구니에 반영했다. 색상 썸네일과 로컬 옵션 선택을 재사용하고 두 모달의 직접 미리보기 URL·Storybook 상태·IA 연결을 추가했다. 제한 발생 조건이나 저장 서비스는 만들지 않았다. [화면](architecture/routing.md#장바구니-기본-화면의-고정-상태-2026-11-02), [스타일](architecture/ui.md#장바구니-선택품절-표시-2026-11-02), [바인딩](architecture/data-binding.md#장바구니-고정-표시-예시-갱신-2026-11-02)에 기록했다.
+
+## 2026-11-02 — 장바구니 퍼블리싱 기본 상태 정리
+
+Figma MO 기본·선택 및 PC 시안과 장바구니 고정 화면을 대조해 기본 선택 0/4, 품절 1개, 제목 4개와 PC 표시 합계를 맞췄다. MO 3개 선택 시안의 금액을 별도 고정 fixture와 Storybook 상태로 표시한다. 선택 숫자 표기를 PC/MO 동일하게 하고 열 수 없는 수량 제한 안내 팝업·스토리를 제거했다. 로컬 UI 외 서비스 흐름은 추가하지 않았다. [라우트 범위](architecture/routing.md#장바구니-기본-화면의-고정-상태-2026-11-02), [표현과 스토리](architecture/ui.md#장바구니-선택품절-표시-2026-11-02)를 갱신했다.
 
 ## 2026-10-30 — 마이페이지 시안 기록과 출처 정리
 
@@ -1406,3 +1485,36 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 - Figma 2025:152235의 PC/MO 목록·빈 상태를 기존 두 URL에 반영했다. 표/이미지/타이포/안내와 명시적 플랫폼별 preview 데이터를 수정하고 HistoryItem.status 및 WEB Storybook·IA 연결을 추가했다. 소스 및 연결 책임은 architecture/ui.md·state.md·routing.md에 기록했다.
 
 - 검증: PC/MO route와 WEB 연결 story 확인, 변경 파일 lint·타입·Panda·Next/Storybook 빌드 통과. 전체 lint는 범위 밖 미사용 import 2건으로 실패했다. 상세 측정과 한계는 UI 문서의 재입고 섹션에 기록했다.
+
+## 2026-11-02 — 주문서 금액 요약·쿠폰 선택 디자인 갱신
+
+- PC `1985:79978`·모바일 `1985:77535` Figma에 맞춰 CheckoutDiscountSummary를 상품가격, 쿠폰할인, 인라인 쿠폰 Dropdown, 배송비, 총 결제금액 순서로 정리했다. 기존 쿠폰 적용 콜백과 제출 데이터 계약은 유지하고, Figma에 없는 최대 혜택 체크 컨트롤은 화면에서 제거했다.
+- 관련 기본/바인딩 Storybook 상호작용을 새 쿠폰 Dropdown에 맞춰 갱신하고 CheckoutContext의 오류 안내 주석을 수정했다. [UI](architecture/ui.md#주문서-금액-요약과-쿠폰-선택-figma-반영-2026-11-02)·[상태](architecture/state.md#주문서-쿠폰-요약의-figma-갱신-2026-11-02)에 구현 범위와 바인딩 경계를 기록했다.
+- Panda CSS 생성·OKF 검사·Prettier·`git diff --check`를 통과했다. Panda의 자동 업데이트 설정 권한 알림은 출력됐지만 생성은 완료됐다. 브라우저·Storybook 실행은 하지 않았고 전체 타입 검사에는 기존 `.next` 생성 라우트 경로 오류가 남는다.
+
+## 2026-11-02 — 주문서 그리드 간격과 모바일 순서
+
+- **Update**: CheckoutContent의 행·열 간격을 분리하고 모바일에서 주문 금액/할인 요약을 결제 정보 앞에 배치하도록 Grid row를 명시했다. 첨부 시안에 맞춰 모바일 행 간격을 16px로 조정해 요약 안내문과 결제 정보가 가깝게 이어지도록 했다. 주문상품 하단 구분선은 상품 정보·수량·가격을 가로지르도록 전체 Grid 행으로 옮겼다. PC 2열 및 sticky 요약 배치는 유지했다. [UI 아키텍처](architecture/ui.md#주문서-그리드-간격과-모바일-순서-2026-11-02)에 기록했다.
+- **검증**: Prettier, OKF 검사, `git diff --check` 통과. 브라우저 시각 확인과 전체 타입 검사는 하지 않았다.
+
+## 2026-11-02 — 주문서 쿠폰 계산과 동의 상태 경량화
+
+- CheckoutForm에서 쿠폰 선택별 할인 산식/데모 계산과 동의 체크 상태 및 필수 동의 검증 상태를 제거했다. 더 이상 사용하지 않는 쿠폰 할인 helper도 삭제했다.
+- 쿠폰 선택 UI는 로컬 선택만 하며 견적 할인 표시값은 바인딩 값 또는 0이다. 동의 체크는 폼의 기본 상호작용을 유지하고 제출 시 체크값을 전달한다. 할인/동의 업무 검증은 주문 연결 소유자 경계로 기록했다. [UI](architecture/ui.md#주문서-쿠폰-계산과-동의-로컬-상태-제거-2026-11-02)·[바인딩](architecture/data-binding.md#주문-제출과-인증)을 갱신했다.
+- Prettier·OKF·`git diff --check`를 통과했다. TypeScript에는 이번 변경과 무관한 `.next/types` 누락 라우트 참조와 상품 목록 PageProps 오류가 남으며 변경한 Checkout 파일 오류는 없었다. 브라우저 시각 검증은 하지 않았다.
+
+## 2026-11-02 — 주문서 금액 요약을 화면 fixture로 정리
+
+- CheckoutContent의 total·discount·shippingFee props와 상품 합계 산출을 제거했다. 금액 요약은 컴포넌트 안의 고정 화면 fixture로 표시하고 결제 CTA는 금액 산출 없이 버튼 문구만 표시한다. CheckoutContext는 저장 배송지 표시 데이터만 담당하며, 쿠폰 목록은 정적 화면 fixture이고 쿠폰 선택은 로컬 상태다.
+- OKF의 주문서 바인딩·상태·UI 범위 설명을 새 경계에 맞춰 갱신했다.
+
+## 2026-11-02 — 장바구니 페이지 마크업 경량화
+
+- `CartProductSection`의 total prop과 `CartOrderActions`의 금액 prop을 제거하고, 고정 요약 금액은 `cartPreviewAmounts`에 모았다. 선택·수량 기반 합계 계산은 없다. 목록 체크박스는 fixture 초기 선택값으로 시작하는 로컬 상태로 동작하며 옵션 변경 버튼은 dialog를 열지 않는다. 옵션 편집은 고정 preview URL에서만 확인한다.
+- 기본/모바일 Storybook에 체크박스 로컬 선택과 전체 선택 사례를 유지하고 옵션 변경 trigger에 의존하던 목록 story를 제거했다. 라우트 및 preview URL은 변경하지 않았다.
+- 범위·바인딩 경계를 `architecture/ui.md`, `architecture/data-binding.md`, `architecture/state.md`, `architecture/routing.md`에 기록했다.
+- Prettier, `npm run okf:check`, `git diff --check`를 통과했고 이전 합계 prop·상수 참조가 남지 않은 것을 확인했다. TypeScript 전체 검사는 Cart 오류 없이 오래된 `.next` 라우트 참조와 ProductListingPage PageProps 오류로 실패했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 2026-11-02 — 장바구니 삭제 버튼 크기 통일
+
+- 선택상품 삭제와 품절상품 삭제 링크 버튼 크기를 PC·모바일 모두 `md`로 통일했다. 세부 범위는 `architecture/ui.md`에 기록했다.

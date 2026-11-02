@@ -16,7 +16,7 @@ export const Default: Story = { ...scenarios.Mobile, name: 'Default' };
 
 export const Empty: Story = { ...scenarios.MobileEmpty, name: '빈 목록' };
 
-export const CompleteOrder: Story = { ...scenarios.MobileCompleteOrder, name: '주문 완료 흐름' };
+export const LocalSelections: Story = { ...scenarios.MobileLocalSelections, name: '로컬 선택' };
 
 export const CouponSelection: Story = {
   ...scenarios.MobileCouponSelection,

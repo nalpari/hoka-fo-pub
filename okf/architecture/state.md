@@ -4,9 +4,10 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
+updated: '2026-11-02T14:27:00+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:21:19.889Z'
+  at: '2026-11-02T02:31:00Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
@@ -30,6 +31,11 @@ working_tree_sources:
   - src/context/AccountFlowContext.tsx
   - src/context/RoutePreview.tsx
   - src/context/CheckoutContext.ts
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/stories/features/binding/Binding.stories.tsx
+  - src/stories/features/binding/DesignBinding.stories.tsx
   - src/context/PhoneVerificationContext.ts
   - src/context/ProductListingContext.ts
   - src/context/MyPageDataContext.ts
@@ -205,6 +211,18 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+## 주문서 저장 배송지 연락처 표시값 (2026-11-02)
+
+당시 `CheckoutContext.savedAddress`에 선택적 `otherPhone` 표시 필드를 추가했고 저장 배송지 FormData 전달용 hidden input을 사용했다. 현재 퍼블리싱 정리에서 주문 submit/FormData 전달을 제거했으며 `otherPhone`은 주소 카드의 표시 데이터로만 남는다. 주문서의 현재 범위는 아래 [주문서 퍼블리싱 상태 경량화](#주문서-퍼블리싱-상태-경량화-2026-11-02)를 따른다.
+
+출처: 작업 트리의 `src/context/CheckoutContext.ts`, `src/app/checkout/_components/CheckoutShipping.tsx`, `src/stories/features/binding/Binding.stories.tsx`, `src/stories/features/binding/DesignBinding.stories.tsx`. API 계약이나 결제 처리 변경은 없다.
+
+## 주문서 금액 표시 데이터 전달 (2026-11-02)
+
+CheckoutContent에는 상품 행만 표시 데이터로 전달한다. 금액 요약은 CheckoutDiscountSummary의 고정 화면 fixture이며 CheckoutContext는 저장 배송지 표시만 선택적으로 제공한다. 쿠폰 선택지는 화면 fixture, 선택값은 로컬 상태다. 주문 총액 산출이나 Context 금액 fallback은 없다.
+
+출처: 작업 트리의 `src/app/checkout/page.tsx`, `src/app/checkout/_components/CheckoutForm.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutStatePreview.tsx`, `src/context/CheckoutContext.ts`.
+
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 
 RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture 사진 3종을 지정 시안의 마스크 크롭으로 교체하고 세 번째 제목의 문장부호를 시안에 맞췄다. 3건·총 62건·1/10은 준비된 표시 데이터이며 운영 응답·조회 조건·취소 ID·pending/실패/재시도·갱신 책임은 기존 RunningSessionDataContext 계약을 유지한다. Context·서비스 구현은 변경하지 않았다. 비연결 취소 확인은 창만 닫고 목록 3건을 유지한다. 이번 변경은 바인딩 경계를 바꾸지 않으므로 비동기 서비스 시나리오를 다시 검증한 것으로 기록하지 않는다.
@@ -230,6 +248,10 @@ RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture �
 이번 사용자 요청은 아래 과거 기록의 장바구니 계산/저장 및 로그인 인증 흐름을 대체한다. `/cart`는 `useShop`을 구독하지 않고 고정 `cartPreviewRows`와 합계를 사용한다. 체크/수량/관심/옵션 초안은 화면 로컬 상태만 변경하며 삭제·주문·옵션 저장으로 ShopShell을 변경하지 않는다. 옵션 확인은 닫기만 수행한다.
 
 `/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
+
+## 장바구니 금액 fixture와 로컬 화면 상태 (2026-11-02)
+
+현재 `/cart`는 상품 행 fixture만 화면 컴포넌트에 전달한다. 상품금액·배송비·전체 합계·모바일 선택 상태 금액은 `cartPreviewAmounts`에서 독립적으로 고정 표시하며 선택된 상품이나 수량으로 계산하지 않는다. 체크 선택은 화면 내부 로컬 상태로 동작하고 금액은 갱신하지 않는다. 옵션 dialog 열기 상태는 기본 페이지에 없으며 별도 preview URL의 옵션 draft는 화면 확인용 로컬 상태다. 주문·삭제·옵션 저장 및 장바구니 목록 갱신 상태는 구현하지 않는다. 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `CartModalPreview.tsx`.
 
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 
@@ -411,6 +433,14 @@ CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하�
 ## 결제 요약 쿠폰 선택 상태 (2026-10-27)
 
 쿠폰 선택·최대 혜택 체크 상태는 CheckoutForm이 소유한다. 쿠폰 선택은 할인액을 즉시 계산하고, 수동 쿠폰 변경 시 최대 혜택 체크를 해제한다. 체크 시 현재 주문 합계에서 할인액이 가장 큰 기존 데모 쿠폰을 선택한다. 할인 산정과 배송비 0원 상수는 기능 내부에 있으며 쿠폰 서버 조회·적용/취소 API는 연결하지 않는다. 쿠폰 UI는 기존 Dropdown과 Checkbox의 controlled 상태를 사용한다.
+
+## 주문서 쿠폰 요약의 Figma 갱신 (2026-11-02)
+
+최신 금액 요약에서 최대 혜택 체크 UI를 제거했다. 이 기록 당시 쿠폰 선택은 외부 callback/request로 전달되었으나 현재는 로컬 선택 표시만 수행하며 견적이나 할인 표시를 갱신하지 않는다. 주문서의 최신 submit 경계는 [주문서 퍼블리싱 상태 경량화](#주문서-퍼블리싱-상태-경량화-2026-11-02)를 따른다. 출처: `CheckoutDiscountSummary`, `CheckoutContext`와 Figma PC/MO 금액 요약.
+
+## 주문서 퍼블리싱 상태 경량화 (2026-11-02)
+
+주문서 기본 경로는 선택한 장바구니 상품을 배치하고 결제수단을 로컬로 선택하는 화면이다. CheckoutForm의 요청·검증·FormData/payload 작성·pending/error·완료 전환과 장바구니 삭제 연결을 제거했다. CheckoutContext는 선택적 표시 데이터만 제공하며 쿠폰 선택은 화면 로컬 상태로 바뀌고 할인 견적을 갱신하지 않는다. 고정 오류 preview만 오류 모양을 보여주며 동의 필수 검증은 실행하지 않는다. 서비스 제출·주문 저장과 갱신은 이 경로에서 구현하지 않는다. 이전 제출/재시도 binding 스토리는 제거하고 기본 화면의 로컬 선택 상호작용을 스토리로 확인한다.
 
 ## 결제 동의와 주소 검색 비활성 상태 (2026-10-27)
 

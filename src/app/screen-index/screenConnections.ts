@@ -174,8 +174,17 @@ const connections: Record<number, ScreenConnection> = {
   '170': {
     route: '/cart',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/cart/preview-empty' }],
-    sourceFiles: ['src/app/cart/page.tsx', 'src/app/cart/preview-empty/page.tsx'],
+    previewRoutes: [
+      { label: '빈 목록', href: '/cart/preview-empty' },
+      { label: '옵션 변경', href: '/cart/preview-options' },
+      { label: '수량 제한 안내', href: '/cart/preview-limit' },
+    ],
+    sourceFiles: [
+      'src/app/cart/page.tsx',
+      'src/app/cart/preview-empty/page.tsx',
+      'src/app/cart/preview-options/page.tsx',
+      'src/app/cart/preview-limit/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-장바구니-0-장바구니-목록-web--default',
@@ -240,11 +249,11 @@ const connections: Record<number, ScreenConnection> = {
     ],
     stories: {
       web: {
-        id: 'pages-장바구니-1-주문하기-주문내역-web--default',
+        id: 'pages-주문-1-주문-배송-조회-web--default',
         file: 'src/stories/features/orders/OrdersPage.stories.tsx',
       },
       mobile: {
-        id: 'pages-장바구니-1-주문하기-주문내역-mobile--default',
+        id: 'pages-주문-1-주문-배송-조회-mobile--default',
         file: 'src/stories/features/orders/OrdersPage.mobile.stories.tsx',
       },
     },
@@ -259,7 +268,16 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
       'src/app/mypage/orders/preview-return-detail/page.tsx',
     ],
-    stories: {},
+    stories: {
+      web: {
+        id: 'pages-주문-2-취소-반품-내역-web--default',
+        file: 'src/stories/features/orders/ReturnsPage.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-주문-2-취소-반품-내역-mobile--default',
+        file: 'src/stories/features/orders/ReturnsPage.mobile.stories.tsx',
+      },
+    },
   },
   '182': {
     route: '/mypage/wishlist',

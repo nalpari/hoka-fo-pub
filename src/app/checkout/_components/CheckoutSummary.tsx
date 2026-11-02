@@ -17,21 +17,22 @@ function CheckoutProductList({ rows }: CheckoutProductListProps) {
   return (
     <Stack borderTop="1px solid var(--colors-black-100)">
       <Grid
-        gridTemplateColumns="minmax(0, 1fr) 70px 100px"
+        gridTemplateColumns="minmax(0, 1fr) 158px 200px"
         display={{ base: 'grid', _mobile: 'none' }}
         py="3"
         borderBottom="1px solid var(--colors-black-20)"
       >
-        <Typography variant="body5">상품/옵션정보</Typography>
-        <Typography variant="body5">수량</Typography>
-        <Typography variant="body5">가격</Typography>
+        <Typography variant="heading9">상품/옵션정보</Typography>
+        <Typography variant="heading9">수량</Typography>
+        <Typography variant="heading9">가격</Typography>
       </Grid>
       {rows.map(({ item, product }) => (
         <Grid
           key={`${item.id}-${item.color}-${item.width}-${item.size}`}
-          gridTemplateColumns={{ base: 'minmax(0, 1fr) 70px 100px', _mobile: '1fr' }}
+          gridTemplateColumns={{ base: 'minmax(0, 1fr) 158px 200px', _mobile: '1fr' }}
           gap="4"
           alignItems="center"
+          borderBottom="1px solid var(--colors-black-20)"
         >
           <OrderProductSummary
             image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
@@ -60,7 +61,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
       as="section"
       gap="4"
       title="주문상품 정보 및 할인 적용"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading10', mo: 'heading7' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
       <CheckoutProductList rows={rows} />
       <Typography variant="body5" tone="subtle">

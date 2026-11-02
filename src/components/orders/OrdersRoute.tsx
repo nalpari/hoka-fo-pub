@@ -7,6 +7,7 @@
  * 화면의 신청 성공은 접수입니다. 회수 이후 원 결제수단으로 환불하며 환불계좌 입력이나 무통장 입금 수단을 추가하지 않습니다.
  */
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Drawer } from '@base-ui/react/drawer';
@@ -43,7 +44,6 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { CharacterCount } from '@/components/common/molecules/FormFields/CharacterCount';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
-import { SearchField } from '@/components/common/molecules/SearchField';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
 import { BottomSheet } from '@/components/common/layouts/BottomSheet';
@@ -76,34 +76,6 @@ import {
   type OrdersPeriod,
   type OrdersView,
 } from '@/components/orders/orders.types';
-
-/** 주문 화면의 데스크톱 탐색과 모바일 본문 여백을 배치합니다. (Lays out desktop navigation and mobile order content.) */
-function OrdersLayout({
-  title,
-  children,
-  returns = false,
-}: {
-  title: string;
-  children: ReactNode;
-  returns?: boolean;
-}) {
-  return (
-    <MyPageFrame
-      activePath={returns ? '/mypage/returns' : '/mypage/orders'}
-      breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
-    >
-      <Stack pb={{ base: '0', _mobile: '18' }} gap="0">
-        <ContentSection
-          title={title}
-          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading7' } }}
-          gap="4"
-        >
-          {children}
-        </ContentSection>
-      </Stack>
-    </MyPageFrame>
-  );
-}
 
 type OrderStatusLinkProps = {
   label: string;
@@ -221,6 +193,14 @@ function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: P
 }
 
 const dateInput = css({
+  '&&': {
+    minH: '36px',
+    h: '36px',
+    px: '3',
+    borderRadius: 'full',
+    fontSize: '14px',
+    bg: 'white.0',
+  },
   _mobile: {
     '&&': {
       minH: '28px',
@@ -285,10 +265,10 @@ type OrdersFiltersProps = {
   onPeriodChange: (period: OrdersPeriod) => void;
   onDateChange: (key: 'start' | 'end', value: string) => void;
   onDateSearch: () => void;
-  onQueryChange: (query: string) => void;
+  returns?: boolean;
 };
 
-/** 주문 조회 기간·직접 날짜·상품 검색을 표시합니다. (Displays order period, date range, and product search controls.) */
+/** 주문 조회 기간과 직접 날짜를 표시합니다. (Displays order period and custom date controls.) */
 function OrdersFilters({
   filters,
   dates,
@@ -296,24 +276,39 @@ function OrdersFilters({
   onPeriodChange,
   onDateChange,
   onDateSearch,
-  onQueryChange,
+  returns = false,
 }: OrdersFiltersProps) {
+  const platform = usePlatform();
+  const periodOptions = [
+    { value: '1', label: '1개월' },
+    { value: '3', label: '3개월' },
+    { value: '6', label: '6개월' },
+    { value: '12', label: '1년' },
+    { value: 'custom', label: '직접설정' },
+  ] as const;
+
   return (
-    <Stack gap="4">
+    <HStack
+      alignItems="center"
+      justifyContent="space-between"
+      gap="6"
+      _mobile={{ flexDirection: 'column', alignItems: 'stretch', gap: '6' }}
+    >
       <FilterTabs
         ariaLabel="조회 기간"
         variant="fill"
         railClassName={css({ '&&': { px: '0', mb: '0', _mobile: { px: '0', mb: '0' } } })}
         value={filters.period}
         onValueChange={onPeriodChange}
-        itemClassName={() => css({ '&&': { px: '2', h: { base: '34px', _mobile: '28px' } } })}
-        options={[
-          { value: '1', label: '1개월' },
-          { value: '3', label: '3개월' },
-          { value: '6', label: '6개월' },
-          { value: '12', label: '1년' },
-          { value: 'custom', label: '직접설정' },
-        ]}
+        itemClassName={() =>
+          css({
+            '&&': {
+              px: '2',
+              h: returns ? '37px' : { base: '34px', _mobile: '28px' },
+            },
+          })
+        }
+        options={platform === 'mobile' ? periodOptions : [...periodOptions].reverse()}
       />
       <OrdersDateRange
         dates={dates}
@@ -321,13 +316,7 @@ function OrdersFilters({
         onDateChange={onDateChange}
         onDateSearch={onDateSearch}
       />
-      <SearchField
-        label="주문 상품 검색"
-        placeholder="주문한 상품을 검색할 수 있습니다."
-        value={filters.query}
-        onValueChange={onQueryChange}
-      />
-    </Stack>
+    </HStack>
   );
 }
 
@@ -391,12 +380,26 @@ type OrderHistoryProductProps = {
   line: OrderLine;
   onAddToCart?: (line: OrderLine) => void;
   showAmount?: boolean;
+  imageSize?: 'standard' | 'claim';
 };
 
 /** 주문 내역 상품의 요약과 다시 담기 액션을 표시합니다. (Displays an order history product and its reorder action.) */
-function OrderHistoryProduct({ line, onAddToCart, showAmount = true }: OrderHistoryProductProps) {
+function OrderHistoryProduct({
+  line,
+  onAddToCart,
+  showAmount = true,
+  imageSize = 'standard',
+}: OrderHistoryProductProps) {
   return (
-    <Box w="100%" className={css({ '& > div > img': { _mobile: { w: '96px', h: '96px' } } })}>
+    <Box
+      w="100%"
+      className={css({
+        '& > div > img':
+          imageSize === 'claim'
+            ? { w: '96px', h: '96px', _mobile: { w: '64px', h: '64px' } }
+            : { _mobile: { w: '96px', h: '96px' } },
+      })}
+    >
       <OrderProductSummary
         variant="coupon"
         image={line.image}
@@ -592,7 +595,191 @@ type OrdersListContentProps = OrdersFiltersProps &
     orders: readonly OrderRecord[];
     statusItems: OrderStatusItem[];
     pending?: boolean;
+    returns?: boolean;
   };
+
+/** 취소·반품 내역의 상품 행을 표시합니다. (Displays one product row in the cancellation and return history.) */
+function ClaimHistoryProduct({
+  line,
+  claim,
+  onClick,
+  showAmount = true,
+  showState = true,
+}: {
+  line: OrderLine;
+  claim: OrderClaim;
+  onClick: () => void;
+  showAmount?: boolean;
+  showState?: boolean;
+}) {
+  const stateLabel = claim.kind === 'cancel' ? '취소' : '반품';
+
+  return (
+    <button
+      type="button"
+      className={css({
+        display: 'flex',
+        alignItems: 'center',
+        gap: '3',
+        w: '100%',
+        p: '0',
+        border: '0',
+        bg: 'transparent',
+        textAlign: 'left',
+        cursor: 'pointer',
+        _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+      })}
+      onClick={onClick}
+    >
+      <Image
+        src={line.image}
+        alt={line.name}
+        width={64}
+        height={64}
+        sizes="64px"
+        className={css({ w: '16', h: '16', flexShrink: '0', objectFit: 'contain', bg: 'black.10' })}
+      />
+      <Stack minW="0" gap="1">
+        <Typography variant="body5" weight="medium" className={css({ lineClamp: 1 })}>
+          {line.name}
+        </Typography>
+        <Typography variant="body5" tone="subtle" className={css({ lineClamp: 1 })}>
+          옵션 : {line.width} / {line.color} / {line.size}
+        </Typography>
+        {showAmount ? (
+          <Typography variant="body5">{(line.price * line.quantity).toLocaleString()}원</Typography>
+        ) : null}
+      </Stack>
+      {showState ? (
+        <Typography variant="body5" className={css({ ml: 'auto', flexShrink: '0' })}>
+          {stateLabel}
+          {claim.state === 'complete' ? '완료' : '접수'}
+        </Typography>
+      ) : null}
+    </button>
+  );
+}
+
+/** 취소·반품 내역을 PC 표와 모바일 목록으로 표시합니다. (Displays claim history as a desktop table and mobile list.) */
+function ClaimHistoryList({
+  orders,
+  pending,
+  error,
+  onClaimDetail,
+}: {
+  orders: readonly OrderRecord[];
+  pending?: boolean;
+  error?: string;
+  onClaimDetail: (order: OrderRecord, claim: OrderClaim) => void;
+}) {
+  const platform = usePlatform();
+  const hasItems = orders.some((order) =>
+    order.claims.some((claim) => getClaimLines(order, claim).length > 0),
+  );
+
+  if (!hasItems) {
+    if (pending || error) return null;
+    return (
+      <Box minH={{ base: '262px', _mobile: '210px' }} display="grid" placeItems="center">
+        <Typography variant="body5" tone="subtle">
+          취소나 환불한 상품이 없습니다.
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (platform === 'mobile') {
+    return (
+      <Stack as="ul" gap="0" listStyleType="none">
+        {orders.flatMap((order) =>
+          order.claims.flatMap((claim) =>
+            getClaimLines(order, claim).map((line) => (
+              <Stack
+                as="li"
+                key={`${claim.id}-${line.key}`}
+                gap="3"
+                py="4"
+                borderBottom="1px solid var(--colors-black-20)"
+              >
+                <Typography variant="body5" tone="subtle">
+                  <Typography as="span" variant="body5" weight="semibold" tone="primary">
+                    {order.date.replaceAll('-', '.')}
+                  </Typography>{' '}
+                  주문 · 주문번호 {order.id}
+                </Typography>
+                <ClaimHistoryProduct
+                  line={line}
+                  claim={claim}
+                  onClick={() => onClaimDetail(order, claim)}
+                />
+              </Stack>
+            )),
+          ),
+        )}
+      </Stack>
+    );
+  }
+
+  const columns =
+    'minmax(0, 344fr) minmax(0, 120fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
+
+  return (
+    <Stack gap="0">
+      <Grid
+        gridTemplateColumns={columns}
+        alignItems="center"
+        py="5"
+        borderTop="1px solid var(--colors-black-100)"
+        borderBottom="1px solid var(--colors-black-100)"
+      >
+        {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label, index) => (
+          <Typography
+            key={label}
+            variant="body5"
+            className={css({ textAlign: index === 0 ? 'left' : 'center' })}
+          >
+            {label}
+          </Typography>
+        ))}
+      </Grid>
+      {orders.flatMap((order) =>
+        order.claims.flatMap((claim) =>
+          getClaimLines(order, claim).map((line) => (
+            <Grid
+              key={`${claim.id}-${line.key}`}
+              gridTemplateColumns={columns}
+              alignItems="center"
+              gap="0"
+              py="4"
+              borderBottom="1px solid var(--colors-black-20)"
+            >
+              <ClaimHistoryProduct
+                line={line}
+                claim={claim}
+                showAmount={false}
+                showState={false}
+                onClick={() => onClaimDetail(order, claim)}
+              />
+              <Typography variant="body5" className={css({ textAlign: 'center' })}>
+                {order.date.replaceAll('-', '.')}
+              </Typography>
+              <Typography variant="body5" className={css({ textAlign: 'center' })}>
+                {line.quantity}개
+              </Typography>
+              <Typography variant="body5" className={css({ textAlign: 'center' })}>
+                {(line.price * line.quantity).toLocaleString()}원
+              </Typography>
+              <Typography variant="body5" className={css({ textAlign: 'center' })}>
+                {claim.kind === 'cancel' ? '취소' : '반품'}
+                {claim.state === 'complete' ? '완료' : '접수'}
+              </Typography>
+            </Grid>
+          )),
+        ),
+      )}
+    </Stack>
+  );
+}
 
 const emptyOrderState = css({
   '& .empty-state__title': {
@@ -604,7 +791,27 @@ const emptyOrderState = css({
 });
 
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
-function OrdersListContent({ orders, statusItems, pending, ...props }: OrdersListContentProps) {
+function OrdersListContent({
+  orders,
+  statusItems,
+  pending,
+  returns = false,
+  ...props
+}: OrdersListContentProps) {
+  if (returns) {
+    return (
+      <Stack gap="6">
+        <OrdersFilters {...props} returns />
+        <ClaimHistoryList
+          orders={orders}
+          pending={pending}
+          error={props.error}
+          onClaimDetail={(order, claim) => props.onClaimDetail(order, claim)}
+        />
+      </Stack>
+    );
+  }
+
   return (
     <Stack gap="6">
       {/* 주문별 상태 건수를 요약합니다. (Summarizes order counts by status.) */}
@@ -871,21 +1078,32 @@ function OrdersContent({
       : view === 'detail'
         ? '주문 상세'
         : returns
-          ? '취소/반품 조회'
-          : '주문/배송 조회';
+          ? '취소/반품내역'
+          : '주문/배송조회';
   return (
-    <OrdersLayout title={title} returns={returns}>
-      {pending && <Typography role="status">주문 정보를 처리하고 있습니다.</Typography>}
-      {message ? <StatusMessage tone="success">{message}</StatusMessage> : null}
-      {view === 'claim' && selectedOrder && selectedClaim ? (
-        <OrderClaimDetail order={selectedOrder} claim={selectedClaim} onList={onList} />
-      ) : view === 'detail' && selectedOrder ? (
-        <OrderDetail {...props} order={selectedOrder} onList={onList} onDelete={onDelete} />
-      ) : (
-        <OrdersListContent {...props} pending={pending} />
-      )}
-      {dialogs}
-    </OrdersLayout>
+    <MyPageFrame
+      activePath={returns ? '/mypage/returns' : '/mypage/orders'}
+      breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
+    >
+      <Stack pb={{ base: '0', _mobile: '18' }} gap="0">
+        <ContentSection
+          title={title}
+          headerProps={{ titleAs: 'h1', titleProps: { web: 'heading8', mo: 'heading7' } }}
+          gap="4"
+        >
+          {pending && <Typography role="status">주문 정보를 처리하고 있습니다.</Typography>}
+          {message ? <StatusMessage tone="success">{message}</StatusMessage> : null}
+          {view === 'claim' && selectedOrder && selectedClaim ? (
+            <OrderClaimDetail order={selectedOrder} claim={selectedClaim} onList={onList} />
+          ) : view === 'detail' && selectedOrder ? (
+            <OrderDetail {...props} order={selectedOrder} onList={onList} onDelete={onDelete} />
+          ) : (
+            <OrdersListContent {...props} pending={pending} returns={returns} />
+          )}
+          {dialogs}
+        </ContentSection>
+      </Stack>
+    </MyPageFrame>
   );
 }
 
@@ -954,7 +1172,7 @@ function ClaimProductChoice({
         checked={checked}
         onCheckedChange={(checked) => onToggle(line, checked)}
       />
-      <OrderHistoryProduct line={line} showAmount={false} />
+      <OrderHistoryProduct line={line} showAmount={false} imageSize="claim" />
     </HStack>
   );
 }
@@ -969,6 +1187,7 @@ type ClaimProductSelectionProps = {
 
 /** 신청할 상품의 선택과 허용 수량 입력을 표시합니다. (Displays selectable claim products and bounded quantities.) */
 function ClaimProductSelection({
+  kind,
   items,
   quantities,
   onToggle,
@@ -998,14 +1217,14 @@ function ClaimProductSelection({
               checked={Boolean(quantities[line.key])}
               onToggle={onToggle}
             />
-            {
+            {kind === 'cancel' ? (
               <ClaimProductQuantity
                 productKey={line.key}
                 max={line.quantity}
                 value={quantities[line.key] || 1}
                 onQuantity={onQuantity}
               />
-            }
+            ) : null}
           </Stack>
         ))}
       </Stack>
@@ -1100,9 +1319,12 @@ function ClaimAmountBreakdown({
           discount
         />
       ) : (
-        <Typography variant="body5" tone="subtle">
-          사유 선택 후 확인
-        </Typography>
+        <HStack justifyContent="space-between">
+          <Typography variant="body4">반품비</Typography>
+          <Typography variant="body5" tone="subtle">
+            사유 선택 후 확인
+          </Typography>
+        </HStack>
       )}
     </Stack>
   );
@@ -1159,6 +1381,7 @@ type OrderClaimSheetProps = {
 
 /** 취소·환불 신청 초안을 관리하고 검증 결과를 표시합니다. (Manages a cancellation or refund draft and validation feedback.) */
 function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProps) {
+  const platform = usePlatform();
   const request = useRequestAction();
   const binding = useContext(OrdersContext);
   const id = useId();
@@ -1220,97 +1443,137 @@ function OrderClaimSheet({ order, kind, onClose, onSubmit }: OrderClaimSheetProp
       : demoAmounts;
   const blocked =
     quotePending || !!quoteError || (needsQuote && !quote?.value) || amounts.fee === null;
-  // 개발팀 적용: 견적 성공 시 받은 id와 동일 선택/사유를 submitClaim으로 전송합니다. 서버가 접수를 완료한 뒤에만 시트를 닫습니다.
-  return (
-    <BottomSheet
-      title={kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청'}
-      ariaLabel={kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청'}
-      onClose={() => {
-        if (!request.pending) onClose();
-      }}
-      footer={
-        <Button
-          disabled={request.pending || blocked || !canQuote}
-          type="submit"
-          form={id}
-          variant="primary"
-          fullWidth
-        >
-          신청하기
-        </Button>
-      }
+  // 개발팀 적용: 견적 성공 시 받은 id와 동일 선택/사유를 submitClaim으로 전송합니다. 서버가 접수를 완료한 뒤에만 현재 표시를 닫습니다.
+  const title = kind === 'cancel' ? '주문 취소 신청' : '환불(반품) 신청';
+  const submitButton = (
+    <Button
+      disabled={request.pending || blocked || !canQuote}
+      type="submit"
+      form={id}
+      variant="primary"
+      size="tall"
+      fullWidth
     >
-      <form
-        id={id}
-        noValidate
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (blocked || !canQuote) return;
-          void request.run(async () => {
-            setError(
-              (await onSubmit({
-                quantities,
-                reason,
-                details,
-                quoteId: quote?.value?.id,
-                freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
-              })) ?? '',
-            );
-          });
+      신청하기
+    </Button>
+  );
+  const content = (
+    <form
+      id={id}
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (blocked || !canQuote) return;
+        void request.run(async () => {
+          setError(
+            (await onSubmit({
+              quantities,
+              reason,
+              details,
+              quoteId: quote?.value?.id,
+              freeReturnCouponId: order.returnPolicy?.freeReturnCouponId,
+            })) ?? '',
+          );
+        });
+      }}
+    >
+      <fieldset disabled={request.pending}>
+        <Stack gap="6">
+          <ClaimInstructions kind={kind} />
+          <ClaimProductSelection
+            items={items}
+            kind={kind}
+            quantities={quantities}
+            onToggle={(line, checked) => {
+              setQuoted(null);
+              setQuantities((previous) => ({
+                ...previous,
+                [line.key]: checked ? (kind === 'cancel' ? 1 : line.quantity) : 0,
+              }));
+            }}
+            onQuantity={(key, value) => {
+              setQuoted(null);
+              setQuantities((previous) => ({ ...previous, [key]: value }));
+            }}
+          />
+          <ClaimReasonFields
+            id={id}
+            reason={reason}
+            details={details}
+            onReasonChange={(next) => {
+              setQuoted(null);
+              setReason(next);
+            }}
+            onDetailsChange={setDetails}
+          />
+          <ClaimAmountSummary {...amounts} kind={kind} />
+          {quotePending && <Typography role="status">환불 견적을 확인하고 있습니다.</Typography>}
+          {quoteError && (
+            <>
+              <StatusMessage tone="error">{quoteError}</StatusMessage>
+              {quoteService && (
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setQuoted(null);
+                    setQuoteAttempt((value) => value + 1);
+                  }}
+                >
+                  다시 시도
+                </Button>
+              )}
+            </>
+          )}
+          {error || request.error ? (
+            <StatusMessage tone="error">{error || request.error}</StatusMessage>
+          ) : null}
+          {request.pending && <Typography role="status">신청을 처리하고 있습니다.</Typography>}
+        </Stack>
+      </fieldset>
+    </form>
+  );
+
+  if (platform === 'mobile') {
+    return (
+      <BottomSheet
+        title={title}
+        ariaLabel={title}
+        onClose={() => {
+          if (!request.pending) onClose();
         }}
+        footer={submitButton}
       >
-        <fieldset disabled={request.pending}>
-          <Stack gap="6">
-            <ClaimInstructions kind={kind} />
-            <ClaimProductSelection
-              items={items}
-              kind={kind}
-              quantities={quantities}
-              onToggle={(line, checked) => {
-                setQuoted(null);
-                setQuantities((previous) => ({ ...previous, [line.key]: checked ? 1 : 0 }));
-              }}
-              onQuantity={(key, value) => {
-                setQuoted(null);
-                setQuantities((previous) => ({ ...previous, [key]: value }));
-              }}
-            />
-            <ClaimReasonFields
-              id={id}
-              reason={reason}
-              details={details}
-              onReasonChange={(next) => {
-                setQuoted(null);
-                setReason(next);
-              }}
-              onDetailsChange={setDetails}
-            />
-            <ClaimAmountSummary {...amounts} kind={kind} />
-            {quotePending && <Typography role="status">환불 견적을 확인하고 있습니다.</Typography>}
-            {quoteError && (
-              <>
-                <StatusMessage tone="error">{quoteError}</StatusMessage>
-                {quoteService && (
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      setQuoted(null);
-                      setQuoteAttempt((value) => value + 1);
-                    }}
-                  >
-                    다시 시도
-                  </Button>
-                )}
-              </>
-            )}
-            {error || request.error ? (
-              <StatusMessage tone="error">{error || request.error}</StatusMessage>
-            ) : null}
-            {request.pending && <Typography role="status">신청을 처리하고 있습니다.</Typography>}
-          </Stack>
-        </fieldset>
-      </form>
-    </BottomSheet>
+        {content}
+      </BottomSheet>
+    );
+  }
+
+  return (
+    <ModalDialog
+      open
+      onOpenChange={(open) => {
+        if (!open && !request.pending) onClose();
+      }}
+      title={title}
+      closeLabel={`${title} 닫기`}
+      size="md"
+      headerProps={{
+        css: css.raw({
+          px: '6',
+          bg: 'white.0',
+          borderBottom: '1px solid var(--colors-black-20)',
+        }),
+      }}
+      footer={submitButton}
+      footerProps={{
+        css: css.raw({
+          px: '6',
+          '& > button': { w: '40!', flex: 'none', '--button-height': '48px' },
+        }),
+      }}
+    >
+      {content}
+    </ModalDialog>
   );
 }
 
@@ -1595,7 +1858,6 @@ function OrdersPage({
         setError('');
         setFilters((previous) => ({ ...previous, ...dates }));
       }}
-      onQueryChange={(query) => setFilters((previous) => ({ ...previous, query }))}
       onDetail={showDetail}
       onClaimDetail={showClaim}
       onList={showList}
