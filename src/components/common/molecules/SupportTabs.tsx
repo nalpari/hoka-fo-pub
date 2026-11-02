@@ -36,6 +36,7 @@ export type SupportTab = {
   content: ReactNode;
 };
 
+/** 고객지원 탭과 대응하는 패널을 표시합니다. (Displays support tabs and their associated panels.) */
 export function SupportTabs({
   ariaLabel,
   tabs,
@@ -49,7 +50,7 @@ export function SupportTabs({
   defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
-  variant?: 'default' | 'scrollable' | 'guide' | 'shipping-returns';
+  variant?: 'default' | 'scrollable' | 'guide' | 'care' | 'shipping-returns';
 }) {
   return (
     <Tabs.Root defaultValue={defaultValue} value={value} onValueChange={onValueChange}>
@@ -57,6 +58,7 @@ export function SupportTabs({
         aria-label={ariaLabel}
         className={css(
           list,
+          variant === 'care' && { borderBottom: '0' },
           (variant === 'scrollable' || variant === 'guide') && {
             overflowX: 'auto',
             borderBottom: '1px solid var(--color-border-subtle)',
@@ -99,7 +101,14 @@ export function SupportTabs({
                     })
                   : css(
                       tab,
-                      variant === 'shipping-returns' && { h: '42px', _mobile: { h: '32px' } },
+                      (variant === 'care' || variant === 'shipping-returns') && {
+                        h: '42px',
+                        _mobile: { h: '32px' },
+                      },
+                      variant === 'care' && {
+                        borderBottom: '1px solid token(colors.black.40)',
+                        '&[data-active]': { borderBottom: '2px solid token(colors.black.100)' },
+                      },
                     )
             }
             key={value}
@@ -110,7 +119,7 @@ export function SupportTabs({
             ) : (
               <Typography
                 variant="body3"
-                weight={variant === 'shipping-returns' ? 'regular' : 'medium'}
+                weight={variant === 'care' || variant === 'shipping-returns' ? 'regular' : 'medium'}
               >
                 {label}
               </Typography>
@@ -123,8 +132,11 @@ export function SupportTabs({
           key={value}
           value={value}
           className={
-            variant === 'shipping-returns'
-              ? css({ pt: value === 'shipping' ? '3' : '10', _mobile: { pt: '6' } })
+            variant === 'care' || variant === 'shipping-returns'
+              ? css({
+                  pt: variant === 'shipping-returns' && value === 'shipping' ? '3' : '10',
+                  _mobile: { pt: '6' },
+                })
               : undefined
           }
         >

@@ -9,6 +9,7 @@ generated:
   at: "2026-11-02T00:43:51.174Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/care/_components/CareContent.tsx
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/support/inquiries/_components/InquiryListPreview.tsx
@@ -749,3 +750,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 배송 및 반품안내 시안과 경로 유지 (2026-11-02)
 
 /support/after-sales와 IA 216의 기존 연결, Storybook 기본 진입을 유지한다. 탭 선택은 기존 Base UI 로컬 상태를 사용하며 새로운 URL·요청·완료 이동을 만들지 않았다. page는 라우트 조합, _components/AfterSalesContent는 안내 패널·반품처·바로가기 표시를 맡는다. [디자인과 검증](support-design.md#배송-및-반품안내-figma-적용-2026-11-02). 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx.
+
+## 세탁 안내 라우트 (2026-11-02)
+
+/support/care는 기존 URL과 shoes/apparel 로컬 탭 값을 유지한다. page.tsx는 경로·플랫폼별 제목·레이아웃·탭 조합을 소유하고 소개와 관리 본문은 _components/CareContent.tsx에 둔다. 기존 CareGuide WEB/Mobile Storybook 연결과 상품 상세의 CareInstructions 사용을 유지한다. 신규 경로·요청·영속화·완료 이동은 추가하지 않았다. [디자인·검증 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)과 해당 working_tree_sources를 참조한다.

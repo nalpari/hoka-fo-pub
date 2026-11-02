@@ -841,12 +841,18 @@
       "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
-    "src/app/support/care/page.tsx": [
-      "src/app/support/support.navigation.ts",
+    "src/app/support/care/_components/CareContent.tsx": [
       "src/components/care-guide/CareInstructions.tsx",
       "src/components/care-guide/care.data.ts",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx"
+    ],
+    "src/app/support/care/page.tsx": [
+      "src/app/support/care/_components/CareContent.tsx",
+      "src/app/support/support.navigation.ts",
       "src/components/common/molecules/SupportTabs.tsx",
-      "src/components/support/CustomerCenterLayout.tsx"
+      "src/components/support/CustomerCenterLayout.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/support/faq/_components/FaqContent.tsx": [
       "src/app/support/faq/faq.data.ts",

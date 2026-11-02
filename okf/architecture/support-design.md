@@ -9,6 +9,9 @@ generated:
   at: "2026-11-02T00:43:51.022Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/components/care-guide/care.data.ts
+  - src/app/support/care/_components/CareContent.tsx
+  - src/app/support/care/page.tsx
   - src/app/support/after-sales/_components/AfterSalesContent.tsx
   - src/app/support/after-sales/page.tsx
   - src/components/common/molecules/SupportTabs.tsx
@@ -38,6 +41,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: care-section-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15638'
+    title: '세탁 및 손질 방법 PC·모바일 신발·의류용품 4개 프레임'
   - id: inquiries-section-figma
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16422
     title: 1:1 문의 PC·모바일 목록과 등록 시안
@@ -161,3 +167,19 @@ Codex 검증(2026-11-02): Panda 생성·최종 타입 검사·문의 소스 ESLi
 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx, src/components/common/molecules/SupportTabs.tsx.
 
 추가 검사: 변경한 세 TSX의 ESLint와 git diff --check를 통과했다. 공유 SupportTabs의 동시 변경은 보존했다.
+
+## 세탁 및 손질 안내 Figma 적용 (2026-11-02)
+
+사용자 지정 섹션 1973:15638의 PC 신발 1973:15639·의류용품 1973:15740, 모바일 신발 1973:15817·의류용품 2089:59120을 기준으로 반영했다.[^care-section-figma] 화면 파일과 별도 디자인 시스템 파일의 읽기 접근을 각각 확인했으며 이 화면의 관측값을 전역 토큰으로 승격하지 않았다.
+
+- PC 본문 844px, 제목 36px/모바일 22px, 제목→탭 40px/24px, 탭 높이 42px/32px, 탭→패널 40px/24px를 적용한다. 본문 좌우 패딩은 8px이며 신발 소개 위 패딩은 16px이다.
+- 신발 요약은 PC 3열·열 간격 40px, 모바일 3묶음 세로·묶음 간격 10px이다. 요약 항목 간격은 4px, 신발 소개/상세 영역 간격은 PC 32px·모바일 40px이다. 소재 요약은 시안의 문구이며 대응하는 상세 설명이 없는 항목을 임의로 작성하거나 클릭 링크로 만들지 않았다.
+- 소제목은 16px·600·19.2px 행간, 본문은 14px·400·18.2px·#4D4D4D이다. 의류 소개는 PC 12px·모바일 14px이다. 기존 Pretendard face와 Typography를 재사용한다. 기본 제목색은 기존 공통 text-primary(#111)를 유지한다.
+- 의류 소개·가죽이 젖었을 때 안내·공통 주의사항 3개를 고정 표시 데이터에 추가했다. 신발 상세 10개 섹션과 순차 번호를 유지한다. 시안 데이터의 반복 1. 표기와 명백한 오타를 그대로 복제하지 않는다.
+- CareContent는 라우트 전용 소개/본문 조합을 소유한다. CareInstructions의 care 옵션은 항목 간격 10px·패딩 0·하이픈을 사용하며 상품 상세의 default 옵션(16px 간격·기존 패딩·가운뎃점)을 보존한다. SupportTabs의 care 옵션만 해당 높이·밑줄·패널 여백을 사용한다. 기존 tabs의 값과 Base UI 키보드 계약을 유지한다.
+
+Codex 브라우저 검증(2026-11-02): 1920px 및 375px에서 두 탭의 선택·10개/3개 섹션·공통 주의사항 표시, 방향키 후 Enter 선택, 42px/32px 탭 높이, 14px/18.2px/#4D4D4D 계산 스타일을 확인했다. 제목의 실제 글리프 폰트는 Pretendard Black이었다. Windows 스크롤바 15px로 clientWidth는 1905px·360px이며 가로 넘침은 없었다. 시안에는 없는 공통 홍보 배너와 모바일 status bar 유무 때문에 절대 y좌표를 동일하다고 보지 않는다. 브라우저 캡처는 Page.captureScreenshot 시간 초과로 실패하여 최종 이미지 대조는 미완료다. 원격 요청이나 BO 연동은 구현·검증하지 않았다.
+
+[^care-section-figma]: 사용자 제공 Figma 세탁 및 손질 안내 섹션 https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15638 (2026-11-02 확인).
+
+검사 기록: 변경 파일 ESLint, Panda 생성, Storybook production build, git diff --check 및 OKF pendingDocs(false)의 누락 없음 확인을 수행했다. 기존 WEB/Mobile Storybook에서 탭 높이 42px/32px과 의류 공통 주의사항 표시를 확인했다. 전체 lint:fix는 범위 밖 FindAccountContent의 css, signup/complete의 Stack, AfterSalesContent의 ButtonLink 미사용 import로 실패했다. 전체 타입 검사는 범위 밖 TermsDocument.tsx:51의 weight="normal" 타입 오류 1건으로 실패했다. Next production build는 다른 next build 프로세스가 실행 중이라는 잠금 오류로 완료하지 못했다. 다른 채팅의 변경과 index는 보존했으며 이 기록은 전체 저장소의 검증 통과를 의미하지 않는다.

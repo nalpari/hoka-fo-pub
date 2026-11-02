@@ -7,9 +7,23 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import type { CareSection } from './care.data';
 
 /** 제품 관리 안내를 섹션별로 표시합니다 (Displays the care instructions composition). */
-export function CareInstructions({ sections }: { sections: readonly CareSection[] }) {
+export function CareInstructions({
+  sections,
+  variant = 'default',
+}: {
+  sections: readonly CareSection[];
+  variant?: 'default' | 'care';
+}) {
+  const isCare = variant === 'care';
   return (
-    <Stack as="ol" gap="4" m="0" px={{ base: '3', _mobile: '2' }} py="4" listStyleType="none">
+    <Stack
+      as="ol"
+      gap={isCare ? '10px' : '4'}
+      m="0"
+      px={isCare ? '0' : { base: '3', _mobile: '2' }}
+      py={isCare ? '0' : '4'}
+      listStyleType="none"
+    >
       {sections.map((section, index) => (
         <ContentSection
           as="li"
@@ -18,11 +32,11 @@ export function CareInstructions({ sections }: { sections: readonly CareSection[
           title={`${index + 1}. ${section.title}`}
           headerProps={{ titleAs: 'h3', titleProps: { variant: 'body4' } }}
         >
-          <Stack as="ul" gap="0" m="0" pl="3" listStyleType="none">
+          <Stack as="ul" gap="0" m="0" pl={isCare ? '2' : '3'} listStyleType="none">
             {section.items.map((item) => (
               <HStack as="li" key={item} alignItems="flex-start" gap="1">
                 <Typography as="span" variant="body4" tone="subtle" aria-hidden="true">
-                  ・
+                  {isCare ? '-' : '・'}
                 </Typography>
                 <Typography variant="body4" tone="subtle">
                   {item}
