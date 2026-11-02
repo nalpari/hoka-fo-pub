@@ -6,9 +6,13 @@ tags: [support, size-guide, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-21T15:55:08+09:00'
+  at: '2026-11-02T02:12:15.102Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/size-guide/page.tsx
+  - src/app/support/size-guide/size-guide.data.ts
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/stories/features/support/SupportPages.scenarios.tsx
   - src/app/support/size-guide/_components/SizeGuidePanel.tsx
   - src/components/common/atoms/DataTable/DataTable.tsx
   - src/components/common/atoms/SegmentedControl/SegmentedControl.tsx
@@ -27,6 +31,21 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.scenarios.tsx
   - public/images/size-guide/
 sources:
+  - id: size-guide-desktop-selector
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18231
+    title: 'PC 성별 선택·차트·단위 탭'
+  - id: size-guide-mobile-selector
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2108-66625
+    title: '모바일 성별 선택·차트·단위 탭'
+  - id: size-guide-desktop-measurement
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18205
+    title: 'PC 측정 안내 카드의 제목·STEP·본문'
+  - id: size-guide-design-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-17900
+    title: '사이즈 가이드 디자인: 신발과 추가 4개 품목 섹션'
+  - id: size-guide-spec-20261102
+    resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-?node-id=2087-18211
+    title: '고객센터 PC 화면설계서의 사이즈 가이드 2913 노드'
   - id: size-guide-route
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/support/size-guide/page.tsx
     title: '기존 사이즈 가이드 라우트'
@@ -77,3 +96,44 @@ Edge headless에서 실제 모바일 User-Agent와 375px 폭, 데스크톱 User-
 SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. SizeGuideMeasurementImage는 성별·품목별 이미지 선택과 반응형 이미지 크기를, SizeGuideMeasurementInstructions는 품목 측정 단계와 신발 발볼 안내를 담당한다. SizeGuideChart는 단위 선택·표 제목·caption·행·준비 중 안내를 담당하며 category/gender/width/unit/onUnitChange를 받는다. 성별·발볼·단위 상태와 초기화 수명은 SizeGuidePanel에 유지한다. 추가 DOM 래퍼 없이 기존 스타일, 목록·표 의미와 조건부 표시를 보존했다.
 
 측정 안내 내부의 공통 제목·STEP 목록·선택적 보충 설명은 기능 내부 SizeGuideMeasurementMethod(title/steps/description)로 분리했다. SizeGuideMeasurementInstructions는 품목별 안내와 신발 전용 발볼 안내를 같은 컴포넌트로 조합한다. 기존 간격·문구·ol/li 구조와 신발 조건부 표시를 유지한다.
+
+## Figma 디자인·설계서 반영 (2026-11-02)
+
+이 절이 위의 8품목·미확정 00·발볼 선택·DataTable.spaced 기록을 대체한다. 화면 디자인의 1973:17900(신발), 2149:35764(상의), 2149:35765(하의), 2149:37894(러닝 베스트), 2149:38728(양말)을 읽었다. 추가 화면설계서 2087:18211의 2913:5559~6660 품목별 프레임으로 복제된 상의 문구·표를 구분했다. 디자인의 하의 안내에 남은 가슴 측정과 베스트·양말의 상의 내용은 설계서의 실제 품목 안내로 보완한다.
+
+탭은 신발·상의·하의·러닝 베스트·양말 5개다. 기존 경로·IA 260·상품 상세·푸터 진입을 유지한다. 베스트와 양말은 공용만 제공하며 양말은 S/M/L/XL에 신발 사이즈 210–230/230–250/250–270/270–290을 표시하고 단위 선택은 제공하지 않는다. 설계서에 없는 발볼 선택은 제거했다. 상의·하의·베스트의 US/KR 및 cm/inch 값은 준비된 표로 제공한다. 신발 여성은 220~260, 공용은 220~300으로 설계서 범위를 반영했다. 신발 inch는 cm/2.54를 소수 두 자리로 미리 준비한 값이며 남성 디자인 표와 대조했다. 여성·공용 inch는 원본 프레임에서 직접 확인한 값과 구분한다.
+
+| 디자인값                                           | 구현                                                 |
+| -------------------------------------------------- | ---------------------------------------------------- |
+| 품목 탭 40px / 좌우 20px                           | SupportTabs.guide에만 적용, 일반 탭 유지             |
+| 모바일 이미지 343×274 / PC 높이 422px              | 375px 화면의 16px 양쪽 여백 / PC 844×422             |
+| 안내 카드 #F7F7F9, 모바일 24px 12px / PC 32px 20px | 패널 내부 측정 방법의 배경·패딩                      |
+| 단계 간격 12px, 위아래 16px, #E9EAEB 구분선        | ol/li의 STEP 제목·설명과 경계                        |
+| 성별 버튼 높이 37px, radius 30px                   | 기존 SegmentedControl에 로컬 표현 적용               |
+| 표 높이 48px, #E9EAEB 헤더, #F7F7F9 짝수 행        | 라우트 전용 시맨틱 table, 공통 DataTable 기본값 유지 |
+
+신발 그림은 디자인 1973:17954에서, 상의·하의·베스트·양말 그림은 추가 설계서의 2913:6633/5852/5663/5793에서 가져왔다. 여성 상의는 기존 tops-women 자산을 유지한다. 이미지 원본의 해상도 한계와 디자인의 수급 후 적용 표시는 최종 운영 이미지 확정과 구분한다.
+
+표 모델은 GuideCategory.charts[gender][unit]이며 route가 정적 표시 데이터와 품목 구성을 소유한다. Panel은 성별·단위 로컬 UI만 소유한다. API 요청·저장·재고 판정·가격 계산은 없고, 승인된 운영 데이터 교체와 갱신은 연동 담당 책임이다. 네트워크 pending/오류/재시도 계약을 새로 구현하지 않았다.
+
+검증: 변경 파일 ESLint/Prettier, 타입 검사, Panda 생성, Next build(119개 정적 페이지)와 Storybook build가 통과했다. 실제 브라우저 DOM 이벤트로 375/1920px 각 21개 선택 조합(총 42개)의 caption·선택·첫 행·행 수·48px 셀 높이를 확인했다. 최종 신발 상태의 document clientWidth/scrollWidth는 375/375, 1920/1920, 표 너비는 343/844px였다. 제목/안내 제목의 실제 글리프 폰트는 Pretendard Black/SemiBold였고 숫자는 로드된 hoka 400 face와 연결된다. 이는 포인터·키보드 전체 상호작용 또는 Storybook play 전체 통과 기록이 아니다. 당시 이미지 캡처가 시간 초과/검은 화면을 반환해 스크린샷 비교는 미완료였으며 아래 재검증에서 보완했다. 전체 lint는 범위 밖 FindAccountContent의 css와 signup/complete의 Stack 미사용 import 2개로 실패했다.
+
+## 캡처 재검증과 선택 UI 통일 (2026-11-02)
+
+이 절이 위의 37px 성별 버튼 및 캡처 미완료 기록을 대체한다. 추가로 지정된 PC 1973:18231, 모바일 2108:66625를 읽고 실제 렌더링 화면과 대조했다. 전체 페이지 캡처에서 일부 모바일 화면의 재배치·미도색이 발생해, 최종 증빙은 실제 보이는 영역을 나누어 캡처했다. PC 5품목과 모바일 5품목의 화면을 직접 확인했다. 원본의 이미지 수급 자리표시자와 현재 설계서 자산, 홍보 배너 및 스크롤바 차이는 제품 스타일 차이와 구분한다.
+
+신발만 별도 표현을 쓰던 분기를 제거했다. 사용자의 후속 지시에 따라 모든 품목이 성별 선택 → 차트 제목/오른쪽 단위 탭 → 표의 동일 배치를 사용한다. 성별 선택은 3개 개별 버튼이 아닌 하나의 회색 캡슐이며, 베스트·양말은 기존 공용 1개만 제공한다. 양말은 기존 신발 사이즈 범위 데이터와 단위 탭 미제공을 유지한다. 표 수치·성별별 데이터·서비스 연결 경계는 바꾸지 않았다.
+
+| 항목           | PC                                       | 모바일                                   |
+| -------------- | ---------------------------------------- | ---------------------------------------- |
+| 성별·차트 제목 | Pretendard 22px/900, 1.2                 | Pretendard 20px/700, 1.2                 |
+| 성별 캡슐      | #E9EAEB, radius 52px, padding 4px, gap 0 | 같은 배경/반경, padding 2px, gap 0       |
+| 성별 버튼      | 높이 44px, 좌우 40px                     | 높이 40px, 비선택 폭 64px/선택 좌우 20px |
+| 선택 글자      | 14px/600, 흰색                           | 동일                                     |
+| 단위 탭        | 전체 폭 270px/높이 44px, 두 항목 균등    | 콘텐츠 폭 약 115px/높이 36.8px           |
+| 측정 안내      | 제목 22px/900, STEP 20px/700, 본문 16px  | 제목 20px/700, STEP 16px/700, 본문 12px  |
+| 본문 간격      | 측정 안내 다음 56px, 성별 다음 24px      | 측정 안내 다음 32px, 성별 다음 24px      |
+
+PC 품목 탭은 본문 폭에 고르게 배분하고 제목 아래 여백을 40px로 맞췄다. 모바일 가로 스크롤 탭은 유지한다. 표는 신발 PC 헤더 14px·본문 14px·좌우 16px, 모바일 헤더 13px·본문 14px·좌우 16px를 반영했고, 다른 품목의 작은 표 본문은 기존 12px 모바일 크기를 유지한다.
+
+검증: 실제 포인터 클릭으로 PC 1920px 21개·모바일 콘텐츠 폭 375px 21개, 총 42개 조합에서 선택·caption·행 수·48px 셀·가로 넘침 부재를 확인했다. 모바일은 데스크톱 브라우저의 15px 스크롤바를 구분해 창 390px/콘텐츠 375px로도 대조했으며, 창 375px에서도 각 품목을 확인했다. PC 캡슐은 4px/버튼 44px, 모바일은 2px/버튼 40px, 단위 탭은 PC 270px로 5품목에 같은 값을 확인했다. ArrowRight로 여성→공용 포커스 이동, Space로 공용 선택, 모바일에서 PC로 리사이즈 후 여성/INCH 상태 유지를 확인했다. 타입·변경 파일 ESLint/Prettier·Panda 생성은 통과했다. Next/Storybook 빌드도 통과했다. Storybook play 전체 실행이나 실제 API 연동 검증을 의미하지 않는다.

@@ -71,10 +71,11 @@ export function SupportTabs({
             className={
               variant === 'guide'
                 ? css({
-                    flex: '0 0 auto',
+                    flex: '1 0 auto',
+                    _mobile: { flex: '0 0 auto' },
                     minW: '0',
-                    h: '44px',
-                    px: '4',
+                    h: '40px',
+                    px: '5',
                     whiteSpace: 'nowrap',
                     border: '0',
                     borderBottom: '2px solid transparent',
@@ -119,9 +120,12 @@ export function SupportTabs({
               label
             ) : (
               <Typography
-                variant="body3"
+                variant={variant === 'guide' ? 'body4' : 'body3'}
                 weight={
-                  variant === 'care' || variant === 'shipping-returns' || variant === 'terms'
+                  variant === 'guide' ||
+                  variant === 'care' ||
+                  variant === 'shipping-returns' ||
+                  variant === 'terms'
                     ? 'regular'
                     : 'medium'
                 }

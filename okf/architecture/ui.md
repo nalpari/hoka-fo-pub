@@ -3869,3 +3869,12 @@ InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 
 ## 고객센터 메인 Figma 재적용 (2026-11-02)
 
 `/support`는 지정 Figma 섹션의 PC/MO에 맞춰 연락처 카드의 #F7F7F9 배경·일반 굵기·숫자 타입을 적용하고, 하단 안내를 통합 테두리·구분선·40px ButtonLink로 표시한다. 기존 공통 Button·Typography·CustomerCenterLayout을 재사용하며 공통 기본값은 변경하지 않는다. WEB/Mobile 스토리의 오래된 FAQ 제목 부재 검증을 제목 표시 및 두 링크 경로 검증으로 변경한다. [수치·운영번호 보존·실제 검증과 한계](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)에 기록했다. 출처는 고객센터 메인 페이지·route-private SupportContacts 및 두 메인 스토리의 작업 트리다.
+
+## 사이즈 가이드 Figma 반영 (2026-11-02)
+
+SupportTabs.guide에만 40px 높이·20px 좌우 여백·14px 일반 굵기를 적용했다. 다른 탭 변형과 동시 작업 변경은 유지했다. 사이즈 가이드 측정 카드·표·선택 표현과 기존 스토리 시나리오를 5품목·공용/단위 조건에 맞췄다. [실측·검증 한계](size-guide.md#figma-디자인설계서-반영-2026-11-02)를 참고한다.
+
+
+## 사이즈 가이드 캡처 재검증 (2026-11-02)
+
+SupportTabs.guide의 PC 항목만 전체 폭을 채우도록 하고 모바일 가로 스크롤과 다른 변형은 보존했다. 사이즈 가이드의 5품목은 성별 캡슐과 오른쪽 단위 탭을 동일하게 사용한다. [실측과 검증](size-guide.md#캡처-재검증과-선택-ui-통일-2026-11-02)을 참고한다.

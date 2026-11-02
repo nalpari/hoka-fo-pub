@@ -766,3 +766,12 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 지정 고객센터 섹션과 라우트 소유권 (2026-11-02)
 
 /support의 page는 헤더와 화면 조합을 유지하며, 하단 문의/FAQ UI는 _components/SupportQuickLinks.tsx가 소유한다. 기존 /support/inquiries/new·/support/faq 링크와 클라이언트 경계를 유지한다. 새 경로는 없으며 sourceGraph는 정식 screen-files로 재생성했다. 실측과 검증 한계는 [고객센터 기록](support-design.md#지정-고객센터-섹션-간격타이포-보정-2026-11-02)을 참고한다.
+
+## 사이즈 가이드 Figma 반영 (2026-11-02)
+
+`/support/size-guide`는 기존 라우트·서버 진입과 client 패널 경계를 유지하며 설계서의 5품목으로 표시 데이터를 갱신했다. 새 preview URL·서비스 요청을 추가하지 않았다. [디자인·데이터·검증](size-guide.md#figma-디자인설계서-반영-2026-11-02)을 참고한다.
+
+
+## 사이즈 가이드 캡처 재검증 (2026-11-02)
+
+사이즈 가이드의 PC 제목/탭 사이 여백을 40px로 조정했다. 경로·IA·서버/client 책임과 정적 데이터 연결은 유지한다. [실측과 검증](size-guide.md#캡처-재검증과-선택-ui-통일-2026-11-02)을 참고한다.
