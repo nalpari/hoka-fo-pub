@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:21:19.889Z'
+  at: '2026-11-02T02:35:01.795Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/common/organisms/Search/SearchHeader.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
   - src/app/mypage/rewards/rewards-data.ts
@@ -563,3 +564,9 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 ## 재입고 표시 상태 (2026-10-30)
 
 `HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
+
+## 전체 검색 표시 상태 검토 (2026-11-02)
+
+검색 공통 Figma 섹션 655:19884에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
+
+PC 오류일 때 추천 영역을 숨기고 544px 패널에 오류만 표시하며 모바일은 기존 섹션을 유지한다. recentTopPadding은 기본 24px 또는 자동완성/오류 32px인 표시 옵션이다. 열린 상태에서 PC/MO 전환 시 입력값이 유지되는 것을 확인했다. 전체 수치와 검증 한계는 [전체 검색 Figma 적용](ui.md#전체-검색-figma-적용-2026-11-02)을 따른다. 기존 상태·서비스 계약은 이 표시 변경의 영향을 받지 않는다. 검토: codex/gpt-6, 2026-11-02T02:35:01.795Z; 위 두 파일은 미커밋 작업 트리 출처다.

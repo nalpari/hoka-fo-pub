@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: "2026-11-02T00:43:51.446Z"
+  at: '2026-11-02T02:35:01.795Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/components/common/molecules/SupportTabs.tsx
@@ -3878,3 +3878,19 @@ SupportTabs.guide에만 40px 높이·20px 좌우 여백·14px 일반 굵기를 �
 ## 사이즈 가이드 캡처 재검증 (2026-11-02)
 
 SupportTabs.guide의 PC 항목만 전체 폭을 채우도록 하고 모바일 가로 스크롤과 다른 변형은 보존했다. 사이즈 가이드의 5품목은 성별 캡슐과 오른쪽 단위 탭을 동일하게 사용한다. [실측과 검증](size-guide.md#캡처-재검증과-선택-ui-통일-2026-11-02)을 참고한다.
+
+## 전체 검색 Figma 적용 (2026-11-02)
+
+디자인 출처는 [검색 공통 섹션 655:19884](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=655-19884)이다. PC 기본/최근/자동완성/오류(855:54477, 788:45616, 877:25132, 855:55536), 모바일 기본/최근/자동완성/오류(805:47484, 901:31346, 740:36729, 805:47662)의 구조·타이포·간격을 확인했다.
+
+- 기존 ShopShell 검색 오버레이와 SearchHeader를 보정했다. 검색 결과 라우트와 공용 SearchField, 전역 타이포·플랫폼 정책은 변경하지 않았다.
+- PC 자동완성·오류는 544px, 최근 검색어가 있으면 기본 패널은 1024px, 없으면 544px이다. 오류 상태는 PC에서 문구만, 모바일에서 검색 추천 영역과 함께 표시한다.
+- 본문은 body3 16px/400, 추천 chip은 body4 14px/400이다. 최근 목록은 행 간격 16px·상하 8px, 인기 목록은 PC 행 간격 12px/모바일 16px·모바일 상하 8px을 사용한다. 모바일 입력은 높이 56px·1px 테두리·아이콘 간격 10px이다.
+- 닫기 행의 56px 높이는 유지하고 하단 선을 #E9EAEB로 명시했다. 모바일 최근 제목의 상단 간격은 기본 24px, 자동완성/오류 32px이다. 자동완성 목록 하단은 16px이다.
+- PC 배경은 패널 아래 콘텐츠를 덮도록 쌓임 순서를 보정하고 헤더 실제 하단 좌표로 상단·패널 최대 높이를 측정한다. 배너와 스크롤 위치도 반영한다.
+
+Storybook에서 준비된 최근 3개/빈 목록으로 8개 상태의 DOM·크기를 확인했다. 1920px에서 기본/자동완성/오류 544px·최근 1024px, 375px 명시적 모바일에서 전체 폭·높이 812px, 자동완성 PC 9개/MO 3개를 확인했다. PC/MO 최근 상태 캡처를 디자인 이미지와 대조했다. PC/MO 정상 입력·빈 제출 오류·닫기, PC Escape 포커스 복원과 열린 상태의 1024/1025·1199/1200 리사이즈에서 입력값 보존을 확인했다. 자동 PC 1200px은 document clientWidth와 scrollWidth가 같고 1025~1199px은 기존 1200px 캔버스를 유지했다. 앱 브라우저의 classic scrollbar 15px 차이는 Figma 프레임과 구분했다.
+
+앱의 실제 입력 글리프는 Pretendard-Regular, Storybook의 한글 제목은 Pretendard-Black custom font로 확인했다. 기존 next/font/local과 Storybook 별도 등록을 유지한다. Panda·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드는 통과했다. 전체 lint는 변경하지 않은 FindAccountContent.tsx의 css, signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 실제 서비스 API·금칙어 판정은 연결하지 않았으며 픽셀 일치를 보장하지 않는다.
+
+작업 트리 출처: src/context/ShopShell.tsx, src/components/common/organisms/Search/SearchHeader.tsx. 검증·문서 갱신: codex/gpt-6, 2026-11-02T02:35:01.795Z.

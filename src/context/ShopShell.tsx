@@ -1152,12 +1152,12 @@ function SearchDialog({
   hasRecentSearches,
 }: SearchDialogProps) {
   const platform = usePlatform();
-  const panelRef = useRef<HTMLDivElement>(null);
+  const [panel, setPanel] = useState<HTMLDivElement | null>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
   const [desktopHost, setDesktopHost] = useState<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     if (platform !== 'web') return;
-    const panel = panelRef.current;
     const frame = panel?.offsetParent;
     const anchor = frame?.querySelector<HTMLElement>('[data-search-panel-anchor]');
     if (!panel || !frame || !anchor) return;
@@ -1165,6 +1165,9 @@ function SearchDialog({
     const alignToCart = () => {
       const right = frame.getBoundingClientRect().right - anchor.getBoundingClientRect().right;
       panel.style.setProperty('--search-panel-right', `${right}px`);
+      const top = `${frame.getBoundingClientRect().bottom}px`;
+      panel.style.setProperty('--search-panel-top', top);
+      backdropRef.current?.style.setProperty('--search-backdrop-top', top);
     };
 
     alignToCart();
@@ -1174,11 +1177,13 @@ function SearchDialog({
     const tools = anchor.parentElement;
     if (tools) observer.observe(tools);
     window.addEventListener('resize', alignToCart);
+    window.addEventListener('scroll', alignToCart, { passive: true });
     return () => {
       observer.disconnect();
       window.removeEventListener('resize', alignToCart);
+      window.removeEventListener('scroll', alignToCart);
     };
-  }, [platform, desktopHost]);
+  }, [platform, panel]);
 
   if (platform === 'web') {
     return (
@@ -1203,9 +1208,10 @@ function SearchDialog({
         }}
       >
         <Box
+          ref={backdropRef}
           pos="fixed"
-          inset="var(--layout-site-header-height) 0 0"
-          zIndex="-1"
+          inset="var(--search-backdrop-top, var(--layout-site-header-height)) 0 0"
+          zIndex="0"
           bg="rgba(0, 0, 0, 0.2)"
           onClick={onClose}
         />
@@ -1213,7 +1219,7 @@ function SearchDialog({
           {desktopHost ? (
             <Dialog.Portal container={desktopHost}>
               <Dialog.Popup
-                ref={panelRef}
+                ref={setPanel}
                 id="site-search-panel"
                 aria-label="검색"
                 initialFocus={false}
@@ -1223,9 +1229,9 @@ function SearchDialog({
                     pos="absolute"
                     top="100%"
                     right="var(--search-panel-right, max(var(--layout-web-content-gutter), calc((100% - var(--layout-web-content-max-width)) / 2)))"
-                    w={compact ? '540px' : hasRecentSearches ? '1024px' : '544px'}
+                    w={compact ? '544px' : hasRecentSearches ? '1024px' : '544px'}
                     maxW="min(calc(100vw - 48px), calc(100% - var(--search-panel-right, 24px) - 24px))"
-                    maxH="calc(100dvh - var(--layout-site-header-height))"
+                    maxH="calc(100dvh - var(--search-panel-top, var(--layout-site-header-height)))"
                     overflowY="auto"
                     bg="white.0"
                     zIndex="1"
@@ -1289,8 +1295,8 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
       <HStack
         h="56px"
         px="12px"
-        gap="8px"
-        border="2px solid"
+        gap="10px"
+        border="1px solid"
         borderColor={error ? 'red.100' : 'black.100'}
         display={mobile ? 'flex' : 'none'}
       >
@@ -1323,7 +1329,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
       </HStack>
       <button type="submit" hidden aria-label="검색 실행" />
       {error ? (
-        <Box p={{ base: '32px 32px 0', _mobile: '8px 0 0' }}>
+        <Box p={{ base: '32px', _mobile: '8px 0 0' }}>
           <Typography as="p" variant="body5" tone="error" id="site-search-error" role="alert">
             {error}
           </Typography>
@@ -1344,7 +1350,9 @@ function SearchKeywordButton({ query, onNavigateSearch }: SearchKeywordButtonPro
       onMouseDown={(event) => event.preventDefault()}
       onNavigate={() => onNavigateSearch(query)}
     >
-      {query}
+      <Typography variant="body3" weight="regular" className={css({ display: 'block' })}>
+        {query}
+      </Typography>
     </ButtonLink>
   );
 }
@@ -1413,7 +1421,7 @@ function RecentSearches({
         ),
       }}
     >
-      <Stack as="ul" gap="12px" m="0" p="0" listStyleType="none">
+      <Stack as="ul" gap="16px" m="0" py="8px" px="0" listStyleType="none">
         {recentSearches.map((recent) => (
           <RecentSearchItem
             key={recent}
@@ -1444,8 +1452,18 @@ function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
       <Flex as="ul" flexWrap="wrap" gap="8px 4px" pb="2" listStyleType="none">
         {queries.map((query) => (
           <li key={query}>
-            <Button variant="chip" onClick={() => onSearch(query)}>
-              {query}
+            <Button
+              variant="chip"
+              style={{ '--button-label-size': '14px' } as CSSProperties}
+              onClick={() => onSearch(query)}
+            >
+              <Typography
+                variant="body4"
+                weight="regular"
+                className={css({ display: 'block', lineHeight: '18px' })}
+              >
+                {query}
+              </Typography>
             </Button>
           </li>
         ))}
@@ -1482,7 +1500,7 @@ function PopularSearches({ queries, onNavigateSearch }: PopularSearchesProps) {
       >
         {queries.map((query, index) => (
           <HStack as="li" key={query} alignItems="center" gap="1">
-            <Typography variant="body3" weight="medium" className={css({ minW: '20px' })}>
+            <Typography variant="body3" weight="regular" className={css({ minW: '20px' })}>
               {index + 1}
             </Typography>
             <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
@@ -1500,6 +1518,7 @@ type SearchSuggestionsProps = {
   onNavigateSearch: (query: string) => void;
   onRemoveRecent: (query: string) => void;
   onClearRecent: () => void;
+  recentTopPadding?: '24px' | '32px';
 };
 
 /** 검색 추천어와 최근 검색 영역을 표시합니다 (Displays the search suggestions composition). */
@@ -1510,6 +1529,7 @@ function SearchSuggestions({
   onNavigateSearch,
   onRemoveRecent,
   onClearRecent,
+  recentTopPadding = '24px',
 }: SearchSuggestionsProps) {
   const hasRecentSearches = recentSearches.length > 0;
 
@@ -1517,7 +1537,13 @@ function SearchSuggestions({
     <Flex
       gap="0"
       p="32px"
-      _mobile={{ flexDirection: 'column', gap: '32px', px: '16px', py: '16px' }}
+      _mobile={{
+        flexDirection: 'column',
+        gap: '32px',
+        px: '16px',
+        pt: hasRecentSearches ? recentTopPadding : '16px',
+        pb: '16px',
+      }}
     >
       {hasRecentSearches && (
         <RecentSearches
@@ -1592,7 +1618,11 @@ function SearchOverlay({
   };
 
   return (
-    <SearchDialog onClose={onClose} compact={showMatches} hasRecentSearches={hasRecentSearches}>
+    <SearchDialog
+      onClose={onClose}
+      compact={showMatches || Boolean(error)}
+      hasRecentSearches={hasRecentSearches}
+    >
       <SearchHeader onClose={onClose} />
       <SearchForm query={query} onQueryChange={changeQuery} onSearch={search} error={error} />
       {showMatches ? (
@@ -1602,14 +1632,14 @@ function SearchOverlay({
           gap="16px"
           p="32px 48px"
           listStyleType="none"
-          _mobile={{ px: '16px', pt: '0', pb: '32px' }}
+          _mobile={{ px: '16px', pt: '0', pb: '16px' }}
         >
           {matches.map((match) => {
             const index = match.toLowerCase().indexOf(normalized.toLowerCase());
             return (
               <HStack as="li" key={match}>
                 <Button variant="plain" onClick={() => search(match)}>
-                  <Typography variant="body3" weight="medium">
+                  <Typography variant="body3" weight="regular">
                     {match.slice(0, index)}
                     <Box as="mark" bg="transparent" color="blue.100">
                       {match.slice(index, index + normalized.length)}
@@ -1622,7 +1652,7 @@ function SearchOverlay({
           })}
         </Stack>
       ) : null}
-      {!showMatches || platform === 'mobile' ? (
+      {(!showMatches && !error) || platform === 'mobile' ? (
         <SearchSuggestions
           recentSearches={recentSearches}
           suggestedSearches={suggestedSearches}
@@ -1630,6 +1660,7 @@ function SearchOverlay({
           onNavigateSearch={rememberSearchAndClose}
           onRemoveRecent={removeRecentSearch}
           onClearRecent={clearRecentSearches}
+          recentTopPadding={showMatches || error ? '32px' : '24px'}
         />
       ) : null}
     </SearchDialog>
@@ -2334,7 +2365,9 @@ function HeaderSearch({
               event.preventDefault();
               onSearch();
               requestAnimationFrame(() =>
-                document.querySelector<HTMLElement>('#site-search-panel ul button')?.focus(),
+                document
+                  .querySelector<HTMLElement>('#site-search-panel ul :is(a, button)')
+                  ?.focus(),
               );
             }
           }}
