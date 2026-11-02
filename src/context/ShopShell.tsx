@@ -170,7 +170,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
       minH="58px"
       flexShrink={0}
       px="4"
-      borderBottom="1px solid var(--color-black-10)"
+      borderBottom="1px solid {colors.black.20}"
     >
       {isLoggedIn ? (
         <Link className={MenuDrawerHeaderStyles.auth} href="/mypage" onClick={close}>
@@ -256,9 +256,13 @@ function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
         indicator={<span className={MenuDrawerGroupsStyles.indicator} />}
         items={groups.map((column) => ({
           value: column.title,
-          title: <Typography variant="heading8">{column.title}</Typography>,
+          title: (
+            <Typography variant={/[가-힣]/.test(column.title) ? 'heading6' : 'heading5'}>
+              {column.title}
+            </Typography>
+          ),
           content: (
-            <Stack as="ul" gap="7" listStyleType="none" p="0" m="0">
+            <Stack as="ul" gap="24px" listStyleType="none" p="0" m="0">
               {column.items.map((item) => (
                 <li key={item.to + item.label}>
                   <Link
@@ -367,7 +371,9 @@ function MenuDrawerShoppingLinks({
         {items.map((item) => {
           const content = (
             <>
-              <Typography variant="heading8">{item.label}</Typography>
+              <Typography variant={/[가-힣]/.test(item.label) ? 'heading6' : 'heading5'}>
+                {item.label}
+              </Typography>
               {item.type === 'category' || item.showChevron ? (
                 <Icon fontAwesomeIcon={faChevronRight} size="14px" aria-hidden="true" />
               ) : null}
@@ -448,7 +454,7 @@ function MegaMenuAD({
           src={imageSrc}
           alt=""
           fill
-          sizes={isMobile ? '100vw' : '358px'}
+          sizes={isMobile ? 'calc(100vw - 32px)' : '358px'}
         />
         <VStack
           alignItems="flex-start"
@@ -462,24 +468,20 @@ function MegaMenuAD({
           bgRepeat="no-repeat"
           bgSize="cover"
           css={{ '&&': { color: 'var(--hoka-white)' } }}
-          gap={isMobile ? '8px' : '4'}
-          p={isMobile ? '24px 22px' : '30px 24px'}
-          bgImage={
-            isMobile
-              ? 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%)'
-              : 'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 32%, color-mix(in srgb, var(--color-black-100) 72%, transparent) 100%)'
-          }
+          gap={isMobile ? '20px' : '16px'}
+          p={isMobile ? '32px 24px' : '36px 24px'}
+          bgImage="linear-gradient(180deg, rgba(0,0,0,0) 70%, rgba(0,0,0,0.2) 95%)"
         >
           <Typography
             as={isMobile ? 'h2' : 'h3'}
             variant="body1"
             weight="black"
-            className={css({ m: 0 })}
+            className={css({ m: 0, '&&': { fontSize: '28px', lineHeight: '1' } })}
           >
             {title}
           </Typography>
           <Typography
-            variant={isMobile ? 'textLink2' : 'textLink1'}
+            variant={isMobile ? 'body4' : 'cta1'}
             className={css({
               textDecoration: 'underline',
               textDecorationStyle: 'solid',
@@ -515,8 +517,8 @@ const MenuDrawerBackButtonStyles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     w: '100%!',
-    mb: '1px',
-    py: '4',
+    pt: '32px',
+    pb: '16px',
     px: 0,
     textDecoration: 'none',
     textAlign: 'left',
@@ -542,11 +544,11 @@ function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButton
       onClick={onBack}
       aria-label={label + ', 전체 메뉴로 돌아가기'}
     >
-      <Flex alignItems="center" justifyContent="flex-start" gap="12px">
+      <Flex alignItems="center" justifyContent="flex-start" gap="4px">
         <Icon
           className={MenuDrawerBackButtonStyles.backIcon}
           fontAwesomeIcon={faChevronRight}
-          size="14px"
+          size="24px"
           aria-hidden="true"
         />
         <Typography variant="heading5">{label}</Typography>
@@ -573,7 +575,7 @@ function MenuDrawerNavigation({
   backButtonRef,
 }: MenuDrawerNavigationProps) {
   return (
-    <Box flex="1 0 auto" px="4" pt="16px" pb={activeMenu ? '33px' : '48px'}>
+    <Box flex="1 0 auto" px="4" pt={activeMenu ? '0' : '16px'} pb={activeMenu ? '32px' : '48px'}>
       {activeMenu ? (
         <nav aria-label={activeMenu.label + ' 상세 메뉴'}>
           <MenuDrawerBackButton
@@ -643,7 +645,9 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
                   <Icon name="navigation/membership" size="16px" alt="" />
                 )}
               </Flex>
-              <Typography variant="heading10">{item.label}</Typography>
+              <Typography variant="body4" weight="semibold">
+                {item.label}
+              </Typography>
             </Link>
           </li>
         ))}
@@ -1867,8 +1871,13 @@ const MegaMenuListStyles = {
     },
   }),
   activeItemLabel: css({
+    '&&': { fontWeight: 'bold' },
+  }),
+  activeItemHeading: css({
     '&&': {
-      fontWeight: 'bold',
+      fontSize: '20px',
+      fontWeight: 'semibold',
+      lineHeight: '1.2',
     },
   }),
 };
@@ -1928,7 +1937,11 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                       variant="body3"
                       tone={item.label === 'Sale' ? 'red80' : 'primary'}
                       className={
-                        currentPath === item.to ? MegaMenuListStyles.activeItemLabel : undefined
+                        currentPath === item.to
+                          ? column.activeItemEmphasis === 'heading'
+                            ? MegaMenuListStyles.activeItemHeading
+                            : MegaMenuListStyles.activeItemLabel
+                          : undefined
                       }
                       data-sale={item.label === 'Sale' || undefined}
                     >
@@ -1960,10 +1973,9 @@ function MegaMenuContent({ menu, onClose }: MegaMenuContentProps) {
     <Grid
       gridTemplateColumns="minmax(0, 1fr) 358px"
       gap="4"
-      w="min(1384px, calc(100% - 56px))"
+      w="min(1558px, calc(100% - 110px))"
       mx="auto"
-      pt="34px"
-      pb="38px"
+      py="72px"
     >
       <MegaMenuList columns={menu.columns} onClose={onClose} />
       <MegaMenuAD {...menu.promo} onClick={onClose} />
@@ -2475,7 +2487,7 @@ function SiteHeaderInner({ primary, actions }: Props) {
       alignItems="center"
       justifyContent="space-between"
       width="100%"
-      maxW="var(--layout-web-content-max-width)"
+      maxW="1776px"
       mx="auto"
       _mobile={{ maxW: 'none' }}
     >
@@ -2496,7 +2508,7 @@ function SiteHeaderContent({ primary, actions }: { primary: ReactNode; actions: 
       as="header"
       alignItems="center"
       h="var(--layout-site-header-height)"
-      px="var(--layout-web-content-gutter)"
+      px="72px"
       borderBottomWidth="1px"
       borderBottomStyle="solid"
       borderBottomColor="headerBorder"

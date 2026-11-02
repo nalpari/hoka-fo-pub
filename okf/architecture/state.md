@@ -6,9 +6,10 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:35:01.795Z'
+  at: '2026-11-02T03:53:14.763Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/data/megaMenu.ts
   - src/components/common/organisms/Search/SearchHeader.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
@@ -570,3 +571,7 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 검색 공통 Figma 섹션 655:19884에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
 
 PC 오류일 때 추천 영역을 숨기고 544px 패널에 오류만 표시하며 모바일은 기존 섹션을 유지한다. recentTopPadding은 기본 24px 또는 자동완성/오류 32px인 표시 옵션이다. 열린 상태에서 PC/MO 전환 시 입력값이 유지되는 것을 확인했다. 전체 수치와 검증 한계는 [전체 검색 Figma 적용](ui.md#전체-검색-figma-적용-2026-11-02)을 따른다. 기존 상태·서비스 계약은 이 표시 변경의 영향을 받지 않는다. 검토: codex/gpt-6, 2026-11-02T02:35:01.795Z; 위 두 파일은 미커밋 작업 트리 출처다.
+
+## GNB 표시와 상태 경계 검토 (2026-11-02)
+
+Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 표시를 검토했다. SiteHeader의 activeMenu/search 배타적 열림과 URL 활성 항목, MenuDrawer의 activeMenu·기본 Featured 열림·다른 그룹 전환·뒤로가기/닫기 포커스 소유권은 유지했다. 현재 앱의 로그인 상태도 바꾸지 않았다. 새 요청·인증·저장·서비스 콜백을 추가하지 않았다. MegaMenu.columns.activeItemEmphasis는 제목형 활성 강조를 고르는 표시 옵션이며 서버 카테고리 선택 정책이 아니다. [수치와 실제 확인](ui.md#gnb-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.

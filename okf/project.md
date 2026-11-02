@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T07:16:35+00:00'
+  at: '2026-11-02T03:53:14.763Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - public/images/navigation/clifton-utl.webp
   - src/hooks/useBindingQuery.ts
   - src/hooks/useRequestAction.ts
   - src/hooks/useRecentSearches.ts
@@ -219,3 +220,7 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 사용자 확정으로 /mypage/member-activity(멤버십 활동), /mypage/payment-methods(결제수단 관리), /mypage/referral(친구추천) 화면을 삭제했다. 친구추천 전용 ReferralContent·MetricGrid 스토리·route-preview 어댑터·타입 선언과 마이페이지 스토리 등록, 결제수단 전용 바인딩 스토리, route manifest 기대값을 정리했다. MetricGrid는 삭제 대상 화면과 전용 스토리 외 사용처가 없음을 확인했다. 실제 주문서 결제수단 선택·주문/환불 계약·대시보드·등급 화면은 유지한다. MyPageDataContext의 기존 외부 타입 필드는 호환을 위해 유지하되 삭제된 화면에 연결하라는 주석을 정정했다. 국가선택은 공통 D2 인계 대상으로 유지하며 이에 따라 앞선 결제수단·멤버십 활동·친구추천 IA/범위 미확정 항목은 모두 삭제 결정으로 종결한다. 출처: 삭제한 세 page.tsx와 친구추천 전용 구현/스토리/타입, src/stories/features/mypage/MyPageRoutePreview.tsx, MyPageRouteStory.tsx, src/stories/features/binding/RemainingBinding.stories.tsx, src/context/MyPageDataContext.ts와 tests/app-router.test.mjs. 그래프는 정식 screen-files 명령으로 재생성한다.
 
 출처: 사용자 확정 결정과 현재 작업 트리. 생성 시점은 frontmatter를 따른다.
+
+## GNB 디자인 표시 데이터 (2026-11-02)
+
+[Navigation 1215:50882](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1215-50882)에 맞춰 src/data/megaMenu.ts의 프로모션 imageSrc를 public/images/navigation/clifton-utl.webp로 교체했다. 기존 메뉴 ID·목적지·title은 유지하고 신발 레이블 띄어쓰기와 columns.activeItemEmphasis: heading 표시 옵션을 반영했다. 이 옵션은 PC 현재 URL 항목의 제목형 강조만 지정하며 서버 조회·응답이나 카테고리 API는 추가하지 않는다. 기존 [ 개발팀 바인딩 ] 주석에 표시 fixture와 운영 목적지/이미지 갱신 책임을 명시했다. 기능 범위·의존성·패키지는 변경하지 않았다. 이미지 출처·UI 수치·검증은 [GNB Figma 기록](architecture/ui.md#gnb-figma-적용-2026-11-02)을 따른다. 위 두 파일은 작업 트리 출처다. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.

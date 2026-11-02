@@ -1,7 +1,7 @@
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * MegaMenu의 id/label/columns/promo가 GNB 표시 모델입니다. 서버 카테고리 코드를 현재 products URL 필터 값으로 변환합니다.
- * 현재 고정 메뉴에는 미리 만든 내부 링크가 있습니다. 운영 메뉴 연결 시 label만 바꾸지 말고 목적지·프로모션 이미지도 같은 응답으로 갱신합니다.
+ * 현재 고정 메뉴에는 미리 만든 내부 링크와 Figma 프로모션 표시 이미지가 있습니다. 운영 메뉴 연결 시 label만 바꾸지 말고 목적지·프로모션 이미지도 같은 응답으로 갱신합니다.
  */
 
 export type MegaMenuItem = {
@@ -19,13 +19,18 @@ export type MegaMenuPromo = {
 export type MegaMenu = {
   id: 'men' | 'women' | 'shoes' | 'explore';
   label: string;
-  columns: { title: string; to?: string; items: MegaMenuItem[] }[];
+  columns: {
+    title: string;
+    to?: string;
+    items: MegaMenuItem[];
+    activeItemEmphasis?: 'heading';
+  }[];
   promo: MegaMenuPromo;
 };
 
 const productLink = (query: string) => `/products?${query}`;
 
-const shoeMenuItems = (gender: 'men' | 'women', compactLabels = false): MegaMenuItem[] => [
+const shoeMenuItems = (gender: 'men' | 'women'): MegaMenuItem[] => [
   { label: '전체보기', to: productLink(`gender=${gender}`) },
   ...[
     ['로드 러닝', 'road-running'],
@@ -35,7 +40,7 @@ const shoeMenuItems = (gender: 'men' | 'women', compactLabels = false): MegaMenu
     ['워킹', 'walking'],
     ['리커버리', 'recovery'],
   ].map(([label, activity]) => ({
-    label: compactLabels ? label.replaceAll(' ', '') : label,
+    label,
     to: productLink(`gender=${gender}&activity=${activity}`),
   })),
 ];
@@ -58,6 +63,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
     },
     {
       title: '액티비티',
+      activeItemEmphasis: 'heading',
       items: [
         { label: '로드 러닝', to: productLink(`gender=${gender}&activity=road-running`) },
         { label: '트레일 러닝', to: productLink(`gender=${gender}&activity=trail-running`) },
@@ -69,7 +75,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
     },
     {
       title: '신발',
-      items: shoeMenuItems(gender, true),
+      items: shoeMenuItems(gender),
     },
     {
       title: '의류',
@@ -106,7 +112,7 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
   ],
   promo: {
     to: '/explore/guides/running',
-    imageSrc: '/images/temp/MegaMenuAD.png',
+    imageSrc: '/images/navigation/clifton-utl.webp',
     title: 'Clifton UTL',
   },
 });
@@ -135,7 +141,7 @@ export const megaMenus: MegaMenu[] = [
     ],
     promo: {
       to: '/products?model=clifton',
-      imageSrc: '/images/temp/MegaMenuAD.png',
+      imageSrc: '/images/navigation/clifton-utl.webp',
       title: 'Clifton UTL',
     },
   },
@@ -162,7 +168,7 @@ export const megaMenus: MegaMenu[] = [
     ],
     promo: {
       to: '/running/running-session',
-      imageSrc: '/images/temp/MegaMenuAD.png',
+      imageSrc: '/images/navigation/clifton-utl.webp',
       title: 'Clifton UTL',
     },
   },

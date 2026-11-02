@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T02:35:01.795Z'
+  at: '2026-11-02T03:53:14.763Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - public/images/navigation/clifton-utl.webp
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/care-guide/CareInstructions.tsx
   - src/app/support/care/_components/CareContent.tsx
@@ -3894,3 +3895,24 @@ Storybook에서 준비된 최근 3개/빈 목록으로 8개 상태의 DOM·크�
 앱의 실제 입력 글리프는 Pretendard-Regular, Storybook의 한글 제목은 Pretendard-Black custom font로 확인했다. 기존 next/font/local과 Storybook 별도 등록을 유지한다. Panda·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드는 통과했다. 전체 lint는 변경하지 않은 FindAccountContent.tsx의 css, signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 실제 서비스 API·금칙어 판정은 연결하지 않았으며 픽셀 일치를 보장하지 않는다.
 
 작업 트리 출처: src/context/ShopShell.tsx, src/components/common/organisms/Search/SearchHeader.tsx. 검증·문서 갱신: codex/gpt-6, 2026-11-02T02:35:01.795Z.
+
+## GNB Figma 적용 (2026-11-02)
+
+디자인 출처는 [Navigation 1215:50882](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1215-50882)의 PC Men(1215:50922), 모바일 전체 메뉴(1215:51046), 모바일 Men 하위 메뉴(1215:51106)이다. 프레임 안 일반 사이트 푸터는 수정 범위에서 제외했다. 기존 로그인 상태와 메뉴 목적지는 유지한다.
+
+- PC header는 88px 높이·72px 좌우 패딩·최대 1776px 내부 폭, 메뉴 본문은 최대 1558px·상하 72px이다. 1920px 기준 224px 열 5개·16px 열 간격·358px 정사각 프로모션을 유지하며 좁은 PC는 기존 1200px 캔버스 안에서 열을 축소한다. 전역 콘텐츠 폭 토큰과 PC/MO 플랫폼 정책은 바꾸지 않았다.
+- 모바일 쇼핑 항목·Men/Featured는 EN heading5 22px/900, 한글 그룹·런칭캘린더는 KR heading6 20px/600으로 표시한다. 그룹 trigger는 50px, 열린 목록은 위 16px·아래 24px·행 gap 24px·왼쪽 들여쓰기 16px이다. 뒤로가기 행은 위 32px·아래 16px·24px 아이콘/4px 간격이며 고객지원 영역은 body4 14px/600이다.
+- 메뉴 데이터의 activeItemEmphasis: heading은 해당 열의 현재 URL 항목만 20px/600으로 강조한다. 다른 열의 기존 활성 굵기는 유지하고 신발 항목의 단어 간 띄어쓰기를 시안에 맞췄다.
+- 프로모션은 Figma Image 1215:51041의 원본 이미지 fill과 제공 crop transform으로 추출한 1200×1200 WebP(public/images/navigation/clifton-utl.webp)다. 사진 위 텍스트는 JSX로 유지한다. 제목 28px/900, PC 제목/CTA 간격 16px·CTA 16px/600·아래 패딩 36px, 모바일 간격 20px·링크 14px/400·아래 패딩 32px이다. gradient는 투명 70%→검정 20% 95%이며 next/image의 sizes는 PC 358px·모바일 calc(100vw - 32px)이다. 기존 temp 이미지는 비대상 사용 가능성을 위해 삭제하지 않았다.
+
+실제 앱 PC/MO 캡처·계산 스타일을 확인했다. PC clientWidth 1905px에서 224px 열과 358px 이미지, header 로고 x=72px·본문 상단 72px을 측정했다. 배너 50px과 classic scrollbar 15px을 Figma 프레임과 구분했다. 모바일 앱의 실제 로그인 상태는 보존하며 제목 22px/900·한글 그룹 20px/600·펼친 행 간격 24px을 확인했다. 아코디언 전환·뒤로가기 Men 포커스 복원·Escape 후 전체 메뉴 버튼 포커스 복원, Men/Women/Shoes/Explore 전환 및 이미지 로드, 기존 검색 544px 패널의 장바구니 anchor 정렬과 메뉴 동시 열림 방지를 확인했다. 1024/1025·1199/1200·1920·2560 경계에서 1200px 이상 가로 넘침 없음과 1025~1199의 기존 1200px 캔버스를 확인했다.
+
+Panda·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드를 통과했다. 전체 lint는 변경하지 않은 FindAccountContent.tsx의 css, signup/complete/page.tsx의 Stack 미사용 import 2건으로 실패했다. 메뉴 API·계정·카테고리 운영 정책은 새로 구현하지 않았다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts, public/images/navigation/clifton-utl.webp. 검토·생성: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+
+### GNB 후속 검증
+
+명시적 모바일 Storybook에서 비로그인 로그인/가입 링크·전체 메뉴·Men 하위 메뉴와 기본 Featured 열림을 확인했다. 명시적 WEB 1200px에서 PC 헤더·메뉴를 확인했다. 모바일 popup 폭 375px/clientWidth 360px·이미지 328px은 classic 세로 scrollbar 15px을 포함한 결과이며 343px Figma 이미지와 구분한다. 실기기 모바일의 overlay scrollbar에서는 별도 검증하지 않았다.
+
+PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프로모션 제목은 PC/MO 모두 28px/900·28px 행간, 활성 액티비티는 20px/600·일반 신발 활성 항목은 기존 16px/700으로 확인했다. Storybook의 로드된 TheFutureHOKA-Black.woff2(900), Pretendard-SemiBold.woff2(600), Pretendard-Black.woff2(900)와 계산 family/weight를 대조했다. HOKA glyph 내부 family/postScriptName은 점(.)으로 반환됐으나 custom font와 실제 로드된 face/제공 파일로 연결했다. next/font/local과 Storybook 별도 폰트 등록은 수정하지 않았다.
+
+이전 전체 검색 코드 구간을 GNB 작업 시작 시점과 비교해 동일함을 확인했다. 검색 패널 위치는 새 헤더의 실제 장바구니 anchor를 따라간다. 원본 링크의 세 화면 외 다른 카테고리의 개별 디자인·모든 모바일 실기기·전수 시각 회귀를 검증했다고 주장하지 않는다.
