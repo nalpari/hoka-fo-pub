@@ -56,7 +56,7 @@ export default function Page() {
       }}
     >
       <Box
-        mt="10"
+        mt={{ base: '10', _mobile: '8' }}
         borderTop="2px solid"
         borderBottom="1px solid"
         borderColor="black.20"
@@ -65,15 +65,28 @@ export default function Page() {
         _mobile={{ py: '4', borderTopWidth: '1px' }}
       >
         <Stack gap="2">
-          <Typography as="h2" web="body1" mo="body3" weight="medium">
+          <Typography as="h2" variant="heading9">
             {notice.title}
           </Typography>
-          <Typography as="time" variant="body4" dateTime={notice.date} tone="tertiary">
+          <Typography
+            as="time"
+            variant="body4"
+            language="en"
+            dateTime={notice.date}
+            tone="tertiary"
+          >
             {notice.date}
           </Typography>
         </Stack>
       </Box>
-      <Stack gap="4" px="2" py="6" borderBottom="1px solid" borderColor="black.20">
+      <Stack
+        gap="4"
+        px="2"
+        py="6"
+        borderBottom="1px solid"
+        borderColor="black.20"
+        _mobile={{ minH: '354px' }}
+      >
         {binding ? (
           binding.item?.body
         ) : notice === notices[0] ? (

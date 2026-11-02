@@ -1,5 +1,9 @@
 # 지식 번들 변경 이력
 
+## 2026-11-02 — 공지사항 PC·모바일 Figma 반영
+
+공지 목록에 제목/등록일 헤더·16px 굵은 제목·테두리 없는 더보기를 적용하고, 상세 제목·영문 날짜·모바일 본문 높이와 간격을 조정했다. 최종 PC/MO 네 화면 스크린샷 비교에서 하단 72px 여백과 얇은 chevron을 보정하고 Next production build를 통과했다. 기존 예시 내용과 서비스 연결 소유권은 유지한다. [디자인 출처와 적용값·검증](architecture/support-design.md#공지사항-figma-재적용-2026-11-02), [라우트 범위](architecture/routing.md#공지사항-시안-반영-2026-11-02)를 갱신했다.
+
 ## 2026-11-02 — FAQ Figma 적용
 
 FAQ 지정 섹션의 PC/MO 수치에 맞춰 route-private FaqContent와 답변 문단 서식을 수정했다. 최종 이미지 대조에서 화살표 16px·모바일 placeholder를 보정하고 전체 타입·Next/Storybook 빌드·PC/MO 캡처와 직접 빈 결과 URL 확인을 완료했다. 사용자 승인된 FAQ 두 파일과 직접 관련 문서만 커밋한다. [수치·출처·실제 검증과 시안/fixture 차이](architecture/support-design.md#faq-figma-적용-2026-11-02)를 기록했다.

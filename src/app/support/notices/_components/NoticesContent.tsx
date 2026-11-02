@@ -15,7 +15,11 @@ import { useBindingQuery } from '@/hooks/useBindingQuery';
 import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
+import { Box, Center, HStack, Stack } from 'styled-system/jsx';
+
+import { Button } from '@/components/common/atoms/Button';
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
@@ -46,22 +50,29 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
         { label: '공지사항' },
       ]}
       groups={supportNavigation}
-      footerAction={
-        (binding ? binding.hasMore : shown < items.length)
-          ? {
-              kind: 'loadMore',
-              label: '더보기',
-              onClick: () => {
+      footer={
+        (binding ? binding.hasMore : shown < items.length) ? (
+          <Box pt={{ base: '9', _mobile: '6' }} mx="auto">
+            <Button
+              variant="plain"
+              className={css({ p: '0', minH: '0' })}
+              disabled={binding?.pending || request.pending}
+              onClick={() => {
                 if (binding) void request.run(binding.onLoadMore);
                 else setShown((count) => count + 10);
-              },
-              counter: binding
-                ? (binding.pageInfo ?? { current: items.length, total })
-                : { current: Math.ceil(shown / 10), total: Math.ceil(total / 10) },
-              width: 'narrow',
-              containerProps: css.raw({ _mobile: { pt: '6' } }),
-            }
-          : null
+              }}
+            >
+              <HStack gap="1">
+                <Typography variant="body4">
+                  더 보기 ({Math.max(0, total - (binding ? items.length : shown))})
+                </Typography>
+                <Center w="5" h="5">
+                  <Icon src="/images/icon/chevron-down-small.svg" size="13px" />
+                </Center>
+              </HStack>
+            </Button>
+          </Box>
+        ) : null
       }
     >
       <Stack gap="0" pt={{ base: '10', _mobile: '6' }}>

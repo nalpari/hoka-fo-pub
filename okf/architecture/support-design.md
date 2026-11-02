@@ -6,9 +6,12 @@ tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: "2026-11-02T00:19:32.362Z"
+  at: '2026-11-02T00:34:35Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/notices/[id]/page.tsx
   - src/app/support/faq/_components/FaqContent.tsx
   - src/app/support/faq/faq.data.ts
   - src/app/support/terms/page.tsx
@@ -27,6 +30,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: notices-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16234'
+    title: '공지사항 PC·모바일 목록·상세 시안'
   - id: faq-section-figma
     resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15997'
     title: 'FAQ PC·모바일 기본·답변 펼침 시안'
@@ -42,6 +48,22 @@ sources:
 ---
 
 # 고객센터 첨부 시안 반영
+
+## 공지사항 Figma 재적용 (2026-11-02)
+
+지정 섹션 `1973:16234`의 PC 목록 `1973:16235`·상세 `1973:16285`, 모바일 목록 `1973:16309`·상세 `1973:16384`를 확인했다. PC 목록에 2px 상단선과 1px 하단선을 가진 제목/등록일 헤더(상하 16px)와 목록 앞 8px 간격을 추가했다. 본문 844px과 기존 행의 PC 최소 74px·모바일 최소 58px 구조를 유지하며, 긴 제목은 잘라내지 않고 행이 늘어난다. 목록 제목은 기존 heading10으로 16px/600/1.2를 사용한다. 더보기는 테두리 없는 버튼과 20px 영역 안의 기존 13px chevron SVG, 현재 목록에서 남은 건수로 표시하고 기존 추가 조회·실패 표시를 유지한다. 고정 예시의 문구·날짜·건수와 운영 연결 context는 바꾸지 않는다.[^notices-figma]
+
+상세 제목은 heading9으로 PC 20px·모바일 16px/600, 날짜는 영문 body4(14px/400), 본문은 기존 14px·문단 간격 16px·상하 24px/좌우 8px을 사용한다. 모바일 상세 제목 앞 간격은 32px, 본문 최소 높이는 354px, 두 화면의 하단 여백은 72px이다. 기존 목록보기 버튼은 PC 180px·모바일 전체 폭/높이 48px을 유지한다. 시안의 회원가입 설명은 예시 제목과 내용이 일치하지 않아 기존 프로모션 본문 fixture를 유지하며, 외부 사이트의 가입 URL을 서비스 동작으로 이식하지 않았다.
+
+검증: Panda 생성·공지 경로 ESLint·변경 TSX Prettier·최종 전체 타입 검사 통과. 1920px PC의 본문 844px/행 74px/상세 제목 20px·600/목록보기 180×48px, 375px 모바일의 제목 22px·900/목록 제목 16px·600/행 58px/상세 본문 354px/목록보기 328×48px를 DOM으로 확인했다. 두 플랫폼의 목록→상세 링크와 가로 넘침 없음을 확인했다. 모바일은 hydration 후 platform-mobile을 기다려 측정했으며 Windows 스크롤바로 clientWidth가 360px여서 본문 328px이다(시안은 343px). 실제 제목 글리프는 Pretendard Black/SemiBold이며, 날짜 글리프의 내부 이름 `.`은 로드된 hoka 400 face와 TheFutureHOKA-Regular.woff2의 생성 자산 해시 일치로 연결했다. 캡처 시간 초과로 최종 스크린샷 시각 대조는 완료하지 못했다. 전체 lint:fix는 범위 밖 FindAccountContent의 css·가입 완료 Stack 미사용 import 2건으로 실패했다. 첫 타입 검사의 동시 작업 중 TermsDocument weight 오류는 최종 재검사에서 사라졌다. Next production build는 다른 빌드가 실행 중이라는 잠금으로 완료하지 못했고 Storybook 빌드는 실행하지 않았다.
+
+모바일 목록보기 복귀 뒤 더보기로 10건→11건이 표시되고 더보기 버튼이 사라지며 가로 넘침이 없음을 추가 확인했다. 기존 외부 서비스 데이터·실패/재시도 계약은 변경하지 않았고 이번에는 실제 서버 요청으로 검증하지 않았다. `git diff --check`와 OKF 작업 트리 매핑 검사 `pendingDocs(false)`도 통과했다.
+
+최종 재검증(2026-11-02): 두 URL을 1920px PC·375px 모바일로 전체 페이지 캡처해 지정 네 프레임과 시각 비교했다. 이 과정에서 기존 `pb: '18!'`가 18px로 출력되는 문제를 발견해 `72px!`로 수정하고 실제 72px을 확인했다. 굵은 FontAwesome 화살표는 기존 얇은 chevron SVG로 교체했다. 보정 후 네 화면의 캡처를 확인했으며, 목록/상세 제목·선·간격과 48px 버튼을 대조했다. 시안의 모바일 상태바 유무, 공통 홍보 배너 50px, Windows 스크롤바, 서로 다른 제목/본문 fixture 및 목록 건수 때문에 절대 좌표·페이지 높이는 다르다. 이 차이를 없애기 위한 운영 데이터나 공통 헤더/푸터 변경은 하지 않았다. 최종 작업 트리 Next production build(타입 검사·119개 정적 페이지 생성 포함), Panda 생성과 공지 파일 ESLint·Prettier를 통과했다. 앞 문단의 캡처·빌드 미완료는 초기 검사 이력이며 이 재검증으로 해소했다. Storybook build와 실제 서버 요청 검증은 이번 재검증에서도 수행하지 않았다.
+
+[^notices-figma]: 2026-11-02 확인한 [공지사항 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16234)의 구조·스타일·PNG. 모바일 상세는 제목 간격/영문 날짜/354px 본문을 가진 `1973:16384`를 기준으로 삼았으며, 24px 제목 간격을 가진 이전 상세 `1973:16362`와 구분한다.
+
+커밋 선별 범위: 사용자가 작업 전부터 있던 선행 변경을 제외하도록 지정했다. 따라서 공지 목록 헤더·제목 variant·더보기와 상세 제목 variant·영문 날짜·모바일 제목 앞 32px 및 본문 최소 354px, 직접 관련 문서만 선별한다. 선행 공지 모바일 제목 22px·목록 가로 배치·회색 선/날짜·breadcrumb 정리와 공통 className 전달은 포함하지 않는다. 해당 className에 의존하는 하단 72px 지정 두 줄도 미스테이징 상태로 보존한다. 위 스크린샷과 Next build는 선행 변경을 포함한 완성 작업 트리의 검증이며 선별 커밋만의 화면과 구분한다.
 
 ## FAQ Figma 적용 (2026-11-02)
 

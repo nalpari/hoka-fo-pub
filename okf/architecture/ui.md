@@ -6,9 +6,11 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:57:53.137523+00:00'
+  at: '2026-11-02T00:34:35Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -856,6 +858,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 공지사항 레이아웃과 최종 시각 검증 (2026-11-02)
+
+검증한 작업 트리의 공지 목록/상세는 CustomerCenterLayout의 선행 className 전달 코드에 의존해 모바일 하단 72px을 지정한다. 사용자 요청으로 이 선행 코드와 두 페이지의 하단 여백 지정은 커밋에서 제외하고 작업 트리에 보존한다. NoticesContent의 footer는 기존 Button plain·Icon·Typography를 조합하고, 더보기 chevron은 기존 13px SVG를 20px 영역에 배치한다. PC/MO 네 화면의 최종 스크린샷 비교와 작업 트리 Next production build·대상 ESLint/Prettier를 통과했다. [디자인값·fixture 차이와 검증·선별 범위](support-design.md#공지사항-figma-재적용-2026-11-02)를 참고한다.
 
 ## 최근 본 상품 Figma 적용 (2026-10-30)
 

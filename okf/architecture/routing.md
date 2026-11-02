@@ -6,9 +6,11 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: "2026-11-02T00:19:32.362Z"
+  at: '2026-11-02T00:34:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
   - src/app/support/faq/_components/FaqContent.tsx
   - src/app/support/faq/faq.data.ts
   - src/app/mypage/coupons/_components/CouponManagement.tsx
@@ -218,6 +220,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 공지사항 시안 반영 (2026-11-02)
+
+`/support/notices`의 PC 헤더·목록 타이포·더보기와 `/support/notices/1`의 상세 타이포·모바일 간격을 조정했다. 새 라우트나 플랫폼 분기를 추가하지 않고 기존 context의 목록/본문·실제 ID 링크와 일반 목록보기 탐색을 유지한다. 스타일과 검증 범위는 [공지사항 시안 기록](support-design.md#공지사항-figma-재적용-2026-11-02)에 기록한다.
 
 ## FAQ Figma 적용 (2026-11-02)
 

@@ -20,9 +20,7 @@ function NoticeHeading({ notice, platform }: Props) {
       alignItems={{ base: 'center', _mobile: 'flex-start' }}
       flexDirection={{ base: 'row', _mobile: 'column' }}
     >
-      <Typography web="body2" mo="body3" weight="medium">
-        {notice.title}
-      </Typography>
+      <Typography variant="heading10">{notice.title}</Typography>
       <Typography
         as="time"
         variant="body4"
@@ -68,8 +66,23 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
       borderTopColor="black.100"
       borderTopStyle="solid"
       borderTopWidth={{ base: '2px', _mobile: '0' }}
-      pt="8px"
     >
+      <HStack
+        aria-hidden="true"
+        justifyContent="space-between"
+        gap="0"
+        py="4"
+        mb="2"
+        borderBottom="1px solid black"
+        _mobile={{ display: 'none' }}
+      >
+        <Typography variant="heading10" className={css({ px: '4' })}>
+          제목
+        </Typography>
+        <Typography variant="heading10" className={css({ px: '8' })}>
+          등록일
+        </Typography>
+      </HStack>
       {!notices.length && !pending && !error ? (
         <EmptyState title="등록된 공지사항이 없습니다." variant="minimal" />
       ) : null}
