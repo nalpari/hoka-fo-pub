@@ -9,6 +9,9 @@ generated:
   at: "2026-11-02T00:43:51.022Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/support/inquiries/_components/InquiryListPreview.tsx
@@ -144,3 +147,17 @@ PC 제목 아래 간격 32px와 검색 영역 상단 24px, 검색창 590×56px, 
 Codex 검증(2026-11-02): Panda 생성·최종 타입 검사·문의 소스 ESLint/Prettier·Storybook production build·diff 공백 검사 통과. PC 1920px의 본문 844px·180×48px 버튼, MO 375px의 빈 영역 190px·설명 Empty 14px/List 16px·100px textarea·48px 버튼과 가로 넘침 없음을 실행 DOM으로 확인했다. Windows 세로 스크롤바 때문에 clientWidth는 각각 1905px·360px, MO 본문은 328px이다. 앱 공통 홍보 배너·Figma status bar·fixture 문장 길이 차이는 화면 절대 위치와 구분한다. 모바일 목록 답변 접기/펼치기를 확인했고 제목의 실제 글리프는 Pretendard Black으로 확인했다. 공유 개발 서버에서 범위 밖 size-guide의 shoeSizes export 빌드 오류가 나타나 후반 PC/MO 확인은 빌드한 Storybook의 명시 플랫폼을 사용했다. 스크린샷은 capture 시간 초과로 실패하여 최종 렌더 이미지와 Figma의 시각 대조는 완료하지 못했다. 전체 lint 및 lint:fix는 기존 find-account의 css·signup/complete의 Stack 미사용 import 2건으로 실패했다. Next production build와 실제 API 요청 검증은 수행하지 않았다. OKF staged check는 통과했으며 index는 비어 있고 pendingDocs(false)는 누락이 없다.
 
 [^inquiries-section-figma]: 사용자 지정 Figma 문의 섹션과 위의 PC/MO 자식 프레임. 2026-11-02 구조·레이아웃·텍스트 스타일과 PC 답변/MO 등록 PNG를 확인했다.
+
+## 배송 및 반품안내 Figma 적용 (2026-11-02)
+
+디자인 출처는 [지정 배송 및 반품안내 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15355)이며, PC 1973:15618·1973:15433·1973:15513과 MO 1973:15356·1973:15598·1973:15391을 읽었다. PC 본문 844px, 제목 36px/900·MO 22px/900, 탭 PC 42px·MO 32px, 소제목 16px/600, 본문 14px/18.2px, 반품처 배경 #F7F7F9와 PC 36px·MO 24px 16px 32px 패딩을 적용했다. 본문과 카드는 기존 route-private AfterSalesContent가 소유하고 SupportTabs의 shipping-returns 옵션으로 기존 탭 사용처를 보존한다. 제목→탭 간격은 PC 40px·MO 24px, 탭→배송 안내는 PC 12px·MO 24px다.
+
+세 패널은 배송 안내 → 반품 안내(절차) → 상품 반품안내(반품처·유의 사항·바로가기)로 연결한다. 원본 프레임마다 두 번째/세 번째 탭 문구가 반품 주의사항·상품 반품안내 등으로 달라, 화면 이동 중 명칭이 바뀌지 않도록 본문에 맞춰 통일했다. 반품 절차의 PC 4~6번은 환불→요청 확인→물류센터 도착, MO는 물류센터 도착→요청 확인→환불로 서로 다르며 각 시안 순서를 유지했다. 이 차이는 실제 업무 정책 확정이나 서비스 상태를 의미하지 않는다.
+
+반품처 전화 080-6666-7777, 운영시간과 주소는 시안 고정 표시다. 기존 1:1 문의·FAQ·주문조회 경로를 ButtonLink로 연결한다. 서버 조회·반품 신청·배송비 계산은 구현하지 않았고, 운영정보 연결 소유자와 요청 경계는 page의 [ 개발팀 바인딩 ] 주석에 기록했다.
+
+검증: 브라우저 PC 1600px에서 본문 844px, 제목 36px/900, 소제목 16px/600, 본문 14px/18.2px와 탭 42px를 실측했다. MO viewport 375px(스크롤바 제외 clientWidth 360px)에서 제목 22px·탭 32px와 모바일 절차 순서를 확인했다. PNG 캡처는 브라우저 Page.captureScreenshot 시간 초과로 완료하지 못했으므로 이미지 대조 완료로 간주하지 않는다. Panda 생성은 통과했다.
+
+작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx, src/components/common/molecules/SupportTabs.tsx.
+
+추가 검사: 변경한 세 TSX의 ESLint와 git diff --check를 통과했다. 공유 SupportTabs의 동시 변경은 보존했다.

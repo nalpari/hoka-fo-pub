@@ -745,3 +745,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 문의 시안과 기존 경로 (2026-11-02)
 
 /support/inquiries(빈 목록), /support/inquiries/preview-list(접수/답변), /support/inquiries/new(등록)의 기존 경로와 IA 187·210/189·211 연결을 유지한다. 새 URL·인증·요청·이동 흐름을 추가하지 않고 기존 페이지/전용 _components의 시각 표현만 갱신했다. 오류 preview는 기존 공유 부품의 타이포/버튼을 함께 사용한다. [디자인 출처와 규격](support-design.md#문의-목록등록-figma-적용-2026-11-02)을 참고한다.
+
+## 배송 및 반품안내 시안과 경로 유지 (2026-11-02)
+
+/support/after-sales와 IA 216의 기존 연결, Storybook 기본 진입을 유지한다. 탭 선택은 기존 Base UI 로컬 상태를 사용하며 새로운 URL·요청·완료 이동을 만들지 않았다. page는 라우트 조합, _components/AfterSalesContent는 안내 패널·반품처·바로가기 표시를 맡는다. [디자인과 검증](support-design.md#배송-및-반품안내-figma-적용-2026-11-02). 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx.

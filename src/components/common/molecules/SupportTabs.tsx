@@ -49,7 +49,7 @@ export function SupportTabs({
   defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
-  variant?: 'default' | 'scrollable' | 'guide';
+  variant?: 'default' | 'scrollable' | 'guide' | 'shipping-returns';
 }) {
   return (
     <Tabs.Root defaultValue={defaultValue} value={value} onValueChange={onValueChange}>
@@ -57,7 +57,7 @@ export function SupportTabs({
         aria-label={ariaLabel}
         className={css(
           list,
-          variant !== 'default' && {
+          (variant === 'scrollable' || variant === 'guide') && {
             overflowX: 'auto',
             borderBottom: '1px solid var(--color-border-subtle)',
           },
@@ -97,7 +97,10 @@ export function SupportTabs({
                         fontWeight: 'var(--font-weights-extrabold)',
                       },
                     })
-                  : css(tab)
+                  : css(
+                      tab,
+                      variant === 'shipping-returns' && { h: '42px', _mobile: { h: '32px' } },
+                    )
             }
             key={value}
             value={value}
@@ -105,7 +108,10 @@ export function SupportTabs({
             {variant === 'scrollable' ? (
               label
             ) : (
-              <Typography variant="body3" weight="medium">
+              <Typography
+                variant="body3"
+                weight={variant === 'shipping-returns' ? 'regular' : 'medium'}
+              >
                 {label}
               </Typography>
             )}
@@ -113,7 +119,15 @@ export function SupportTabs({
         ))}
       </Tabs.List>
       {tabs.map(({ content, value }) => (
-        <Tabs.Panel key={value} value={value}>
+        <Tabs.Panel
+          key={value}
+          value={value}
+          className={
+            variant === 'shipping-returns'
+              ? css({ pt: value === 'shipping' ? '3' : '10', _mobile: { pt: '6' } })
+              : undefined
+          }
+        >
           {content}
         </Tabs.Panel>
       ))}

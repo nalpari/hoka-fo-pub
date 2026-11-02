@@ -3850,3 +3850,7 @@ ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 �
 ## 문의 목록·등록 시안 반영 (2026-11-02)
 
 InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 영역·항목 경계·배지·Q/A 타이포·모바일 패널, InquiryFormContent의 일반 굵기 정보·내용 필드·첨부 제목·48px 액션을 갱신했다. InquiryCautions는 세 문의 화면과 기존 오류 preview에서 네 줄 안내·상단 패딩을 공유한다. 데이터와 서비스 상태 소유자는 유지하며 공통 FormField/TextInput/Button/CustomerCenterLayout의 기본값은 바꾸지 않았다. [Figma 프레임과 수치](support-design.md#문의-목록등록-figma-적용-2026-11-02)에 근거를 기록한다.
+
+## 배송 및 반품안내 Figma 적용 (2026-11-02)
+
+배송 및 반품안내의 PC/MO 세 탭을 갱신했다. [디자인값·차이·검증 기록](support-design.md#배송-및-반품안내-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx, src/components/common/molecules/SupportTabs.tsx.
