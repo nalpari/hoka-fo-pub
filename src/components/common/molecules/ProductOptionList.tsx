@@ -43,7 +43,17 @@ const list = cva({
         '&::-webkit-scrollbar-thumb': { bg: 'var(--color-black-40)' },
       },
       grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '2' },
-      cart: { display: 'flex', gap: '2', overflowX: 'auto' },
+      cart: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 74px)',
+        gap: '2',
+        _mobile: {
+          display: 'flex',
+          overflowX: 'auto',
+          marginRight: '-16px',
+          '&::after': { content: '""', flex: '0 0 16px' },
+        },
+      },
     },
   },
 });
@@ -63,7 +73,7 @@ const option = cva({
       },
       preview: { flex: '0 0 80px', w: '80px', h: '53px' },
       grid: { w: '76px', h: '60px' },
-      cart: { flex: '0 0 72px', w: '18' },
+      cart: { flex: '0 0 74px', w: '74px' },
     },
     selected: { true: { boxShadow: 'inset 0 -3px var(--color-black-100)' }, false: {} },
   },
@@ -92,7 +102,7 @@ const thumbnailSize = {
   history: { width: 76, height: 76, sizes: '(max-width: 1024px) 34px, 76px' },
   preview: { width: 80, height: 53, sizes: '80px' },
   grid: { width: 76, height: 60, sizes: '76px' },
-  cart: { width: 72, height: 72, sizes: '72px' },
+  cart: { width: 74, height: 74, sizes: '74px' },
 } as const;
 
 export type ProductOptionThumbnail = {

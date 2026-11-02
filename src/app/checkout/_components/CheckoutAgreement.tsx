@@ -9,19 +9,7 @@ import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Typography } from '@/components/common/atoms/Typography';
 
 /** 결제 필수 동의 두 항목을 표시합니다. (Displays the two required checkout agreements.) */
-export function CheckoutAgreement({
-  orderAgreed,
-  privacyAgreed,
-  error,
-  onOrderAgreedChange,
-  onPrivacyAgreedChange,
-}: {
-  orderAgreed: boolean;
-  privacyAgreed: boolean;
-  error: boolean;
-  onOrderAgreedChange: (agreed: boolean) => void;
-  onPrivacyAgreedChange: (agreed: boolean) => void;
-}) {
+export function CheckoutAgreement({ showError = false }: { showError?: boolean }) {
   const detailsLink = css({
     flexShrink: '0',
     fontSize: '12px',
@@ -37,9 +25,7 @@ export function CheckoutAgreement({
           className={css({
             alignItems: 'flex-start',
           })}
-          checked={orderAgreed}
           interactiveLabel
-          onCheckedChange={onOrderAgreedChange}
           label={
             <Typography variant="body5">주문 내용을 확인하였으며 결제에 동의합니다.</Typography>
           }
@@ -53,9 +39,7 @@ export function CheckoutAgreement({
           className={css({
             alignItems: 'flex-start',
           })}
-          checked={privacyAgreed}
           interactiveLabel
-          onCheckedChange={onPrivacyAgreedChange}
           label={
             <Typography variant="body5">
               개인정보 수집 · 이용내용을 확인하였으며 결제에 동의합니다.
@@ -66,7 +50,7 @@ export function CheckoutAgreement({
           전문보기
         </Link>
       </Flex>
-      {error ? (
+      {showError ? (
         <Typography as="p" variant="body5" className={css({ color: 'red.100' })} role="alert">
           필수 항목에 동의해 주세요.
         </Typography>

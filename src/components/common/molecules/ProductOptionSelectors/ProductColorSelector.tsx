@@ -89,7 +89,12 @@ export function ProductColorSelector({
       appearance={appearance}
       title={
         appearance === 'cart' ? (
-          <>컬러: {value}</>
+          <>
+            컬러:{' '}
+            <Typography as="span" web="body3" mo="body4" weight="regular">
+              {value}
+            </Typography>
+          </>
         ) : (
           <>
             컬러: <Typography variant="body4">{value}</Typography>

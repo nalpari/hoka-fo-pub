@@ -41,16 +41,16 @@ export function AmountRow({
       )}
       {emphasis ? (
         <HStack alignItems="baseline" gap="0.5">
-          <Typography variant="heading7" tone={discount ? 'error' : undefined}>
+          <Typography variant="heading7" tone={discount ? 'red80' : undefined}>
             {discount ? '- ' : ''}
             {amount.toLocaleString()}
           </Typography>
-          <Typography variant="body3" tone={discount ? 'error' : undefined}>
+          <Typography variant="body3" tone={discount ? 'red80' : undefined}>
             원
           </Typography>
         </HStack>
       ) : (
-        <Typography variant="body4" tone={discount ? 'error' : undefined}>
+        <Typography variant="body4" tone={discount ? 'red80' : undefined}>
           {discount ? '- ' : ''}
           {amount.toLocaleString()}원
         </Typography>

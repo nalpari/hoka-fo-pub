@@ -4,9 +4,10 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
+updated: '2026-11-02T11:25:00+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T08:15:31Z'
+  at: '2026-11-02T02:25:00Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/support/inquiries/inquiryPreviews.ts
@@ -93,6 +94,10 @@ working_tree_sources:
   - tests/screen-progress.test.mjs
   - scripts/screen-files.mjs
   - src/app/screen-index/screenConnections.ts
+  - src/stories/features/orders/OrdersPage.stories.tsx
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
+  - src/stories/features/orders/ReturnsPage.stories.tsx
+  - src/stories/features/orders/ReturnsPage.mobile.stories.tsx
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
@@ -117,6 +122,7 @@ working_tree_sources:
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/reviews/reviewFixtures.ts
   - src/app/mypage/returns/page.tsx
+  - src/components/orders/OrdersRoute.tsx
   - src/app/mypage/restock-alerts/page.tsx
   - src/app/mypage/referral/page.tsx
   - src/app/mypage/recent/page.tsx
@@ -220,6 +226,15 @@ sources:
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
+  - id: figma-orders-lookup-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
+    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
+  - id: figma-order-claim-application-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
+    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
+  - id: figma-claim-history-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
+    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
     title: 'src/app/layout.tsx'
@@ -239,33 +254,15 @@ sources:
 
 # 라우팅과 플랫폼
 
-## 문의 시안 상태의 반응형 직접 링크 (2026-11-02)
+## 주문 관련 3개 화면의 URL 유지 (2026-11-02)
 
-문의 섹션의 PC/MO 시안 24개를 [14개 반응형 상태](inquiry-design-2026-11-02.md#상태직접-urlia-연결)로 대응했다. IA 210/211(기존 187/189 연결 포함)은 기존 route·Storybook·오류 URL을 보존하고 접수/답변/첨부·취소·주문 선택 전후·직접설정 상태 링크를 추가한다. 플랫폼별 URL과 고정 iframe은 제거했으며 동일 URL을 viewport에 따라 표시한다. OS 파일선택 참고 1973:17114는 별도 앱 상태로 만들지 않는다. 정식 screen-files 명령으로 새 동적 preview 진입점과 의존성을 재생성했다. 실제 검증과 서비스 경계는 위 문서를 참고한다.
+최신 주문 시안으로 `/mypage/orders`의 주문/배송조회 표시와 `/mypage/returns`의 취소/반품내역·신청 표시를 갱신했다. 두 App Router 진입점과 preview 경로는 유지했다. Storybook에서는 주문을 장바구니와 별도인 `PAGES/주문` 아래로 정리하고 주문 조회 WEB·Mobile, 취소/반품내역 WEB·Mobile을 화면 연결 인덱스에 등록했다. 생성된 화면 연결 그래프에서는 제거한 SearchField 의존성만 반영했다. UI 차이와 확인 범위는 [컴포넌트와 스타일](ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)에 기록했다. 출처: 위의 3개 Figma 노드와 `src/components/orders/OrdersRoute.tsx`, 주문 Storybook 파일, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리.
 
-## 공지 상세 구분선 보정 (2026-11-02)
+## 장바구니 기본 화면의 고정 상태 (2026-11-02)
 
-`src/app/support/notices/[id]/page.tsx`의 제목·본문 하단선을 시안의 1px #E9EAEB로 보정했다. id 조회·상태·목록보기 경로·PC/MO 프레임은 유지한다. [시안 노드·원인·실제 검증](support-design.md#공지-상세-하단-구분선-색상-2026-11-02)을 참고한다.
+후속 시안 `1976:61436`·`1985:76300`·`1985:77485`·`1985:77511`에 따라 `/cart/preview-options`와 `/cart/preview-limit`을 추가했다. 두 URL은 같은 장바구니 배경 위에서 각각 옵션 변경·구매 수량 제한 모달을 열어 고정 상태를 직접 확인한다. 닫기는 로컬 UI 상태이고 주문·재고 판정·옵션 저장은 연결하지 않는다. IA 170 미리보기 링크와 화면 그래프에 연결한다.
 
-## FAQ 더보기와 공용 연락처 (2026-11-02)
-
-FAQ는 기존 Button의 secondary/short/compact 및 loadMore.counter를 사용한다. 카운터는 현재 표시 건수/전체 건수이며 기존 추가 조회·pending·실패 계약을 유지한다. /support는 푸터와 공용 연락처 데이터를 읽으며 페이지의 바인딩 주석을 실제 데이터 소유자로 갱신했다. 새 경로는 없다. 정식 개발 감시가 생성한 screen-index 그래프에 새 데이터 의존성이 반영됐다. [FAQ 시안과 검증](support-design.md#faq-더보기-버튼-시안-보정-2026-11-02), [운영정보 공유](support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)를 참고한다. 작업 트리 출처: src/app/support/faq/_components/FaqContent.tsx, src/app/support/_components/SupportContacts.tsx, src/app/support/page.tsx, src/app/screen-index/sourceGraph.generated.json.
-
-## 고객센터 메인 운영정보 (2026-11-02)
-
-`/support`의 기존 SupportContacts에서 사용자 지정 화면설계서의 실제 연락처·운영시간과 전화 링크를 반영했다. 새 라우트나 요청 계약은 추가하지 않았다. [출처·값·PC/MO 검증](support-design.md#고객센터-운영정보-화면설계서-반영-2026-11-02)을 참고한다. 작업 트리 출처: `src/app/support/_components/SupportContacts.tsx`.
-
-## 고객센터 Sidebar 순서 (2026-11-02)
-
-`src/app/support/support.navigation.ts`의 INFORMATION 항목을 온라인 회원등급 안내 → 사이즈 가이드 → 배송 및 반품안내 → 세탁 및 손질 방법 안내 → 약관 순서로 배치했다. 기존 href와 activePath 판정은 유지한다. [시안 출처와 검증](support-design.md#고객센터-sidebar-메뉴-순서-2026-11-02)을 참고한다.
-
-## 공지사항 시안 반영 (2026-11-02)
-
-`/support/notices`의 PC 헤더·목록 타이포·더보기와 `/support/notices/1`의 상세 타이포·모바일 간격을 조정했다. 새 라우트나 플랫폼 분기를 추가하지 않고 기존 context의 목록/본문·실제 ID 링크와 일반 목록보기 탐색을 유지한다. 스타일과 검증 범위는 [공지사항 시안 기록](support-design.md#공지사항-figma-재적용-2026-11-02)에 기록한다.
-
-## FAQ Figma 적용 (2026-11-02)
-
-`/support/faq`의 기존 route-private FaqContent에서 PC/MO 타이포그래피·간격·검색 아이콘 배치·더 보기 표시를 조정하고 faq.data.ts의 답변 문단 서식을 시안에 맞췄다. 기존 `/support/faq/preview-no-results` 및 FAQ 상태 소유권·검색/카테고리·SupportContentContext 연결을 유지하며 새 URL은 만들지 않는다. 빈 결과는 검색 입력과 PC/MO 직접 preview URL 진입으로 확인했다. 작업 트리 출처는 `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`이며 [수치·출처·검증](support-design.md#faq-figma-적용-2026-11-02)을 참고한다.
+`/cart`는 기존 App Router 경로와 page export를 유지한다. Figma `1992:85202`(MO 기본), `1938:45809`(MO 선택), `1797:47269`(PC)의 장바구니 상태를 검토했다. 페이지의 제목 개수는 고정 표시 행 4개에서 가져오며, 기본 행은 선택 0개·품절 1개다. 선택·수량·관심상품·옵션 팝업은 화면 확인용 로컬 UI 상태이고 주문·삭제·저장 이동이나 요청은 연결하지 않는다. 새 URL은 추가하지 않았다. 작업 트리 출처: `src/app/cart/page.tsx`, `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 
@@ -775,70 +772,12 @@ src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named b
 
 npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.
 
-## 고객센터 메인 시안 재적용 (2026-11-02)
+## 주문서 기본 경로의 표시 전용 동작 (2026-11-02)
 
-`src/app/support/page.tsx`와 `_components/SupportContacts.tsx`의 표시만 변경한다. /support의 하단 문의·FAQ 안내는 기존 /support/inquiries/new와 /support/faq 경로를 사용하며 새 상태 URL이나 URL 상태를 추가하지 않는다. 공용 플랫폼 선택·서버/클라이언트 경계는 유지한다. 시안과 검증 한계는 [고객센터 시안 기록](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)을 참고한다. 작업 트리 출처는 두 소스와 고객센터 메인 WEB/Mobile 스토리다.
+`/checkout`은 기존 URL과 선택 상품 쿼리 `selected`를 유지하며 장바구니 표시 데이터를 주문서 화면에 배치한다. 결제 제출 요청·검증·완료 상태 전환과 장바구니 항목 삭제 흐름을 경로에서 제거했다. 고정 empty/error/complete preview URL은 각각 시안 상태를 직접 보여주는 기존 화면으로 유지하며 기본 주문서와 제출 흐름을 공유하지 않는다.
 
-## 지정 고객센터 섹션과 라우트 소유권 (2026-11-02)
+## 장바구니 페이지 마크업 경량화 (2026-11-02)
 
-/support의 page는 헤더와 화면 조합을 유지하며, 하단 문의/FAQ UI는 _components/SupportQuickLinks.tsx가 소유한다. 기존 /support/inquiries/new·/support/faq 링크와 클라이언트 경계를 유지한다. 새 경로는 없으며 sourceGraph는 정식 screen-files로 재생성했다. 실측과 검증 한계는 [고객센터 기록](support-design.md#지정-고객센터-섹션-간격타이포-보정-2026-11-02)을 참고한다.
+`/cart`와 기존 empty·limit·options preview URL은 유지한다. 기본 페이지는 상품 행 fixture를 전달하고 요약 금액은 `cart-preview.ts`의 고정 표시값으로 렌더링한다. 합계 props와 계산 흐름은 두지 않는다. 선택·수량·관심상품·옵션 dialog는 화면 확인용 로컬 상태이며 주문·삭제·저장 요청은 연결하지 않는다. 출처: `src/app/cart/page.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `cart-preview.ts`.
 
-## 약관 시안과 URL 상태 보존 (2026-11-02)
-
-`/support/terms`는 이용 약관, `/support/terms?tab=privacy`는 개인정보 처리방침을 표시한다. Figma 섹션 `1973:15873` 적용에서 기존 `useSearchParams`·router.push 및 부가 query 보존 계약을 유지하며 새 경로를 추가하지 않았다. 제목 아래 여백과 모바일 하단 여백만 라우트 소유자에서 조정한다. 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`. [표시 기준과 검증](support-design.md#약관-figma-재적용-2026-11-02).
-
-## 문의 시안과 기존 경로 (2026-11-02)
-
-/support/inquiries(빈 목록), /support/inquiries/preview-list(접수/답변), /support/inquiries/new(등록)의 기존 경로와 IA 187·210/189·211 연결을 유지한다. 새 URL·인증·요청·이동 흐름을 추가하지 않고 기존 페이지/전용 _components의 시각 표현만 갱신했다. 오류 preview는 기존 공유 부품의 타이포/버튼을 함께 사용한다. [디자인 출처와 규격](support-design.md#문의-목록등록-figma-적용-2026-11-02)을 참고한다.
-
-## 세탁 안내 라우트 (2026-11-02)
-
-/support/care는 기존 URL과 shoes/apparel 로컬 탭 값을 유지한다. page.tsx는 경로·플랫폼별 제목·레이아웃·탭 조합을 소유하고 소개와 관리 본문은 _components/CareContent.tsx에 둔다. 기존 CareGuide WEB/Mobile Storybook 연결과 상품 상세의 CareInstructions 사용을 유지한다. 신규 경로·요청·영속화·완료 이동은 추가하지 않았다. [디자인·검증 기록](support-design.md#세탁-및-손질-안내-figma-적용-2026-11-02)과 해당 working_tree_sources를 참조한다.
-
-## 배송 및 반품안내 시안과 경로 유지 (2026-11-02)
-
-/support/after-sales와 IA 216의 기존 연결, Storybook 기본 진입을 유지한다. 탭 선택은 기존 Base UI 로컬 상태를 사용하며 새로운 URL·요청·완료 이동을 만들지 않았다. page는 라우트 조합, _components/AfterSalesContent는 안내 패널·반품처·바로가기 표시를 맡는다. [디자인과 검증](support-design.md#배송-및-반품안내-figma-적용-2026-11-02). 작업 트리 출처: src/app/support/after-sales/page.tsx, src/app/support/after-sales/_components/AfterSalesContent.tsx.
-
-## 사이즈 가이드 Figma 반영 (2026-11-02)
-
-`/support/size-guide`는 기존 라우트·서버 진입과 client 패널 경계를 유지하며 설계서의 5품목으로 표시 데이터를 갱신했다. 새 preview URL·서비스 요청을 추가하지 않았다. [디자인·데이터·검증](size-guide.md#figma-디자인설계서-반영-2026-11-02)을 참고한다.
-
-## 사이즈 가이드 캡처 재검증 (2026-11-02)
-
-사이즈 가이드의 PC 제목/탭 사이 여백을 40px로 조정했다. 경로·IA·서버/client 책임과 정적 데이터 연결은 유지한다. [실측과 검증](size-guide.md#캡처-재검증과-선택-ui-통일-2026-11-02)을 참고한다.
-
-## 러닝세션 지정 경로 디자인 반영 (2026-11-02)
-
-/running/running-session·/running/running-session/yeouido-night와 기존 /preview-empty, 동적 sessionId 조회·Storybook 경로 계약을 유지했다. 상세 지원 UI는 기존 [sessionId]/_components에 둔다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
-
-## 공통 표시 컴포넌트 복원 (2026-11-02)
-
-마이페이지 배송지·상품 이력의 빈 상태는 EmptyState, 공지/FAQ 더보기는 Button.loadMore, 사이즈 가이드 표는 DataTable.striped를 재사용한다. 기존 route·preview URL·page/_components 책임·client 경계·탭 상태·조회 콜백을 유지한다. 신규 라우트나 완료 이동은 없으며 screen-files로 현재 import 그래프를 재생성했다. [옵션과 실제 검증](ui.md#빈-상태더보기표-공통-컴포넌트-복원-2026-11-02)을 참고한다.
-
-작업 트리 출처: `src/app/mypage/addresses/_components/AddressManagement.tsx`, `src/app/support/notices/_components/NoticesContent.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`. 검토: codex/gpt-6, 2026-11-02T04:46:17Z.
-
-## 메인과 상품 상세의 디자인 반영 (2026-11-02)
-
-`/`와 `/products/shoe-1`의 기존 route-private 소유자에서 디자인을 반영했다. page exports·클라이언트 경계·직접 상태 URL·화면 인덱스 연결과 Context/선택/갤러리 지연 경계는 유지한다. 상품 정보의 컬러·스타일코드·발볼은 현재 상품/선택값을 표시한다. 실제 API·재고·가격 확정은 기존 연결 소유자의 책임이다. [메인·상세의 수치와 실제 검증](home-product-design.md)을 참고한다. 작업 트리 출처는 HomeContent.tsx, homeContent.ts와 ProductDetailContent.tsx다.
-
-## 공통 전체 재사용 대조 (2026-11-02)
-
-기준 커밋 이후 65개 소스를 확인하고 메인·상품 상세·마이페이지·고객센터·러닝세션의 페이지 전용 조각을 기존 공통 소유자로 조합했다. page/_components 경계, route exports·URL·Suspense·client·dynamic viewer 경계와 상태 수명은 유지한다. InquiryEmptyState·FaqEmptyState·MyPageProductHistoryHeading·ProfileField의 단순 중복 함수를 제거했고 신규 라우트/전달 전용 파일은 없다. screen-files의 연결 그래프는 현재 직접 import를 반영한다. [전체 파일 출처와 실제 검증](common-reuse-audit.md)을 참고한다.
-
-전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
-
-## 계정 화면 미사용 import 정리 (2026-11-02)
-
-FindAccountContent의 css import와 signup/complete의 Stack import를 제거했다. 표시 JSX·라우팅·클라이언트 경계·서비스 연결에는 변경이 없다. 전체 `npm run lint`를 통과했다. 작업 트리 출처: `src/app/login/find-account/_components/FindAccountContent.tsx`, `src/app/signup/complete/page.tsx`. 검토: codex/gpt-6, 2026-11-02T06:05:16Z.
-
-## 재사용 후 잔여 스타일 정리 (2026-11-02)
-
-상품 상세·쿠폰·약관·문의·고객센터의 중복 스타일/동일 타이포를 정리했다. route exports·page/_components·client 경계·URL·상태·콜백과 연결 책임은 바뀌지 않았다. 새 파일·삭제 파일·새 라우트가 없고 외부 Flex import 변경은 screen-files의 내부 그래프에 영향을 주지 않는다. [출처와 PC/MO 검증](common-reuse-audit.md#재사용-전환-후-잔여-스타일중복-정리-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:26:10Z.
-
-## 색상 토큰 재사용 검토 (2026-11-02)
-
-쿠폰·리뷰 빈 결과·상품 척도·약관·고객센터·FAQ·공지·사이즈 가이드의 기존 색상 표현을 동일 값의 토큰으로 교체했다. 태그·page/private 경계·라우팅·상태·서비스 콜백과 데이터는 변경하지 않았다. [파일 출처·예외와 실제 검증](common-reuse-audit.md#기존-색상-토큰과-hex-대조-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:36:38Z.
-
-## Quick View 의존성 그래프 갱신 (2026-11-02)
-
-상품 카드 Quick View에서 별점을 제거한 뒤 정식 screen-files 생성으로 sourceGraph.generated.json의 ProductCard→RatingStars 의존성만 제거했다. 라우트·IA·preview 연결은 바꾸지 않았다. 출처: src/app/screen-index/sourceGraph.generated.json, src/components/common/molecules/ProductCard/ProductCard.tsx. 검토: codex/gpt-6, 2026-11-02T06:52:24Z. [구성과 검증](ui.md#pc-상품-카드-quick-view-간소화-2026-11-02)을 참고한다.
+상단 삭제 버튼의 반응형 크기를 조정했으며 URL·page 진입점·preview 연결에는 영향이 없다. 검토 범위: `src/app/cart/_components/CartProductSection.tsx`.

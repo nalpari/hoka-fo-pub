@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -50,11 +51,9 @@ function CartOptionsDialog({
       mobilePresentation="fullscreen"
       headerProps={{
         css: css.raw({
-          _mobile: {
-            bg: 'white',
-            flexShrink: '0',
-            borderBottom: '1px solid var(--colors-black-20)',
-          },
+          bg: 'white',
+          flexShrink: '0',
+          borderBottom: '1px solid var(--colors-black-20)',
         }),
       }}
       footerProps={{
@@ -66,13 +65,36 @@ function CartOptionsDialog({
           },
         }),
       }}
-      actions={{
-        kind: 'confirm',
-        confirmLabel: '확인',
-        onConfirm: onClose,
-      }}
+      footer={
+        <HStack w="100%" gap="2" justifyContent="center">
+          <Button
+            variant="secondary"
+            size="tall"
+            density="wide"
+            fullWidth
+            className={css({ maxW: { base: '180px', _mobile: 'none' } })}
+            onClick={onClose}
+          >
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            size="tall"
+            density="wide"
+            fullWidth
+            className={css({ maxW: { base: '180px', _mobile: 'none' } })}
+            onClick={onClose}
+          >
+            확인
+          </Button>
+        </HStack>
+      }
     >
-      <Grid gridTemplateColumns={{ base: '1fr 1fr', _mobile: '1fr' }} gap="6" alignItems="start">
+      <Grid
+        gridTemplateColumns={{ base: '300px minmax(0, 1fr)', _mobile: 'minmax(0, 1fr)' }}
+        gap={{ base: '8', _mobile: '6' }}
+        alignItems="start"
+      >
         <Image
           src={getCartImage(
             draft,
@@ -82,10 +104,11 @@ function CartOptionsDialog({
           alt={product.name}
           width={600}
           height={600}
-          sizes="(max-width: 1024px) calc(100vw - 32px), 500px"
+          sizes="(max-width: 1024px) 100vw, 300px"
           className={css({
             w: '100%',
             maxW: 'none',
+            h: { base: '300px', _mobile: '100vw' },
             aspectRatio: '1',
             objectFit: 'contain',
             bg: 'black.10',
@@ -93,7 +116,8 @@ function CartOptionsDialog({
           })}
         />
         <ContentSection
-          gap="6"
+          gap="10"
+          _mobile={{ gap: '6' }}
           title={<>{product.name}</>}
           headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading5' } }}
         >
@@ -145,53 +169,51 @@ function CartOptionsDialog({
   );
 }
 
-type CartLimitDialogProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+type CartDialogsProps = {
+  editingRow: { item: CartItem; product: Product } | null;
+  onEditClose: () => void;
 };
 
-/** 구매 수량 제한 안내와 닫기 액션을 표시합니다. (Displays the cart purchase limit notice.) */
-function CartLimitDialog({ open, onOpenChange }: CartLimitDialogProps) {
+/** 구매 수량 제한 안내를 표시합니다. (Displays the purchase quantity limit notice.) */
+export function CartLimitDialog({ onClose }: { onClose: () => void }) {
   return (
     <ModalDialog
-      open={open}
-      onOpenChange={onOpenChange}
+      open
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
       title="장바구니"
-      closeLabel="안내 닫기"
-      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
+      closeLabel="구매 수량 제한 안내 닫기"
+      size="md"
+      headerProps={{
+        css: css.raw({ bg: 'white', borderBottom: '1px solid var(--colors-black-20)' }),
+      }}
     >
-      <Stack gap="4">
-        <Typography variant="body2">변경할 수 없습니다</Typography>
-        <Typography variant="body4">구매 수량이 제한된 상품입니다</Typography>
+      <Stack gap="4" pb="2">
+        <Typography variant="body2" weight="medium">
+          변경할 수 없습니다
+        </Typography>
+        <Typography variant="body4">구매 수량이 제한된 상품입니다.</Typography>
+        <HStack justifyContent="center" mt="2" w="100%">
+          <Button
+            variant="primary"
+            size="short"
+            density="wide"
+            fullWidth
+            className={css({ w: { base: '160px', _mobile: '100%' } })}
+            onClick={onClose}
+          >
+            확인
+          </Button>
+        </HStack>
       </Stack>
     </ModalDialog>
   );
 }
 
-type CartDialogsProps = {
-  editingRow: { item: CartItem; product: Product } | null;
-  limited: boolean;
-  onEditClose: () => void;
-  onLimitedChange: (open: boolean) => void;
-};
-
-/** 장바구니 옵션 편집과 수량 제한 안내를 표시합니다. (Displays cart option editing and purchase limit dialogs.) */
-export function CartDialogs({
-  editingRow,
-  limited,
-  onEditClose,
-  onLimitedChange,
-}: CartDialogsProps) {
-  return (
-    <>
-      {editingRow ? (
-        <CartOptionsDialog
-          item={editingRow.item}
-          product={editingRow.product}
-          onClose={onEditClose}
-        />
-      ) : null}
-      <CartLimitDialog open={limited} onOpenChange={onLimitedChange} />
-    </>
-  );
+/** 장바구니 옵션 편집 화면을 표시합니다. (Displays the cart option editing dialog.) */
+export function CartDialogs({ editingRow, onEditClose }: CartDialogsProps) {
+  return editingRow ? (
+    <CartOptionsDialog item={editingRow.item} product={editingRow.product} onClose={onEditClose} />
+  ) : null;
 }

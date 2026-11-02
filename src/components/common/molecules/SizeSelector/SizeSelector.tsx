@@ -16,6 +16,9 @@ const grid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(var(--size-columns), minmax(0, 1fr))',
   gap: '2',
+  _mobile: {
+    gridTemplateColumns: 'repeat(var(--size-mobile-columns, var(--size-columns)), minmax(0, 1fr))',
+  },
 });
 
 const pill = cva({
@@ -43,6 +46,7 @@ const pill = cva({
   variants: {
     size: {
       compact: {},
+      medium: { minH: '9' },
       regular: { minH: '10' },
     },
     selected: {
@@ -84,8 +88,9 @@ export type SizeSelectorProps = {
   options: readonly SizeSelectorOption[];
   ariaLabel: string;
   columns?: number;
+  mobileColumns?: number;
   soldOutAppearance?: 'gray' | 'diagonal';
-  size?: 'compact' | 'regular';
+  size?: 'compact' | 'medium' | 'regular';
 } & (
   | { mode: 'single'; value: string; onValueChange: (value: string) => void }
   | { mode: 'multiple'; value: string[]; onValueChange: (value: string[]) => void }
@@ -101,7 +106,14 @@ const stateLabels: Record<SizeOptionState, string> = {
 /** 네이티브 단일·다중 선택 의미를 유지하는 공통 사이즈 옵션입니다. (Provides shared size options with native single- or multiple-choice semantics.) */
 export function SizeSelector(props: SizeSelectorProps) {
   const field = useFormFieldContext();
-  const { options, ariaLabel, columns = 5, soldOutAppearance = 'gray', size = 'compact' } = props;
+  const {
+    options,
+    ariaLabel,
+    columns = 5,
+    mobileColumns,
+    soldOutAppearance = 'gray',
+    size = 'compact',
+  } = props;
   const children = options.map(({ value, state = 'available' }) => {
     const disabled = state === 'soldOut' || state === 'unavailable';
     const selected =
@@ -145,7 +157,10 @@ export function SizeSelector(props: SizeSelectorProps) {
       </Checkbox.Root>
     );
   });
-  const style = { '--size-columns': columns } as CSSProperties;
+  const style = {
+    '--size-columns': columns,
+    '--size-mobile-columns': mobileColumns ?? columns,
+  } as CSSProperties;
   return props.mode === 'single' ? (
     <RadioGroup
       aria-describedby={field?.describedBy}

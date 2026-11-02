@@ -87,11 +87,7 @@ function OrderProductSummaryContent({
           {name}
         </Typography>
       </Stack>
-      <Typography
-        web="body5"
-        mo={variant === 'cart' ? 'body4' : 'body5'}
-        tone={variant === 'coupon' ? undefined : 'subtle'}
-      >
+      <Typography variant="body4" tone={variant === 'coupon' ? undefined : 'subtle'}>
         {optionText}
       </Typography>
       {!hideAmount ? (
@@ -124,7 +120,6 @@ export function OrderProductSummary({
       gap={variant === 'cart' ? { base: '4', _mobile: '4' } : '4'}
       alignItems={variant === 'cart' ? { base: 'flex-start', _mobile: 'center' } : 'flex-start'}
       py={variant === 'checkout' ? '6' : '0'}
-      borderBottom={variant === 'checkout' ? '1px solid var(--colors-black-20)' : '0'}
     >
       <OrderProductSummaryImage image={image} name={name} variant={variant} />
       <OrderProductSummaryContent

@@ -4,9 +4,10 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
+updated: '2026-11-02T14:27:00+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T07:22:47Z'
+  at: '2026-11-02T02:31:00Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/data/megaMenu.ts
@@ -32,6 +33,11 @@ working_tree_sources:
   - src/context/AccountFlowContext.tsx
   - src/context/RoutePreview.tsx
   - src/context/CheckoutContext.ts
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/stories/features/binding/Binding.stories.tsx
+  - src/stories/features/binding/DesignBinding.stories.tsx
   - src/context/PhoneVerificationContext.ts
   - src/context/ProductListingContext.ts
   - src/context/MyPageDataContext.ts
@@ -207,9 +213,17 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
-## 푸터 고객센터 운영정보 공유 (2026-11-02)
+## 주문서 저장 배송지 연락처 표시값 (2026-11-02)
 
-ShopShell의 FooterLegalLinks는 `src/data/supportContacts.ts`를 /support와 함께 읽어 두 문의 채널·tel 링크·운영/점심/휴무를 표시한다. 푸터의 1234-0000 예시는 제거했으며 로그인·검색·장바구니 상태 소유권은 바꾸지 않았다. [실제 데이터·검증](support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/supportContacts.ts.
+당시 `CheckoutContext.savedAddress`에 선택적 `otherPhone` 표시 필드를 추가했고 저장 배송지 FormData 전달용 hidden input을 사용했다. 현재 퍼블리싱 정리에서 주문 submit/FormData 전달을 제거했으며 `otherPhone`은 주소 카드의 표시 데이터로만 남는다. 주문서의 현재 범위는 아래 [주문서 퍼블리싱 상태 경량화](#주문서-퍼블리싱-상태-경량화-2026-11-02)를 따른다.
+
+출처: 작업 트리의 `src/context/CheckoutContext.ts`, `src/app/checkout/_components/CheckoutShipping.tsx`, `src/stories/features/binding/Binding.stories.tsx`, `src/stories/features/binding/DesignBinding.stories.tsx`. API 계약이나 결제 처리 변경은 없다.
+
+## 주문서 금액 표시 데이터 전달 (2026-11-02)
+
+CheckoutContent에는 상품 행만 표시 데이터로 전달한다. 금액 요약은 CheckoutDiscountSummary의 고정 화면 fixture이며 CheckoutContext는 저장 배송지 표시만 선택적으로 제공한다. 쿠폰 선택지는 화면 fixture, 선택값은 로컬 상태다. 주문 총액 산출이나 Context 금액 fallback은 없다.
+
+출처: 작업 트리의 `src/app/checkout/page.tsx`, `src/app/checkout/_components/CheckoutForm.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutStatePreview.tsx`, `src/context/CheckoutContext.ts`.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 
@@ -236,6 +250,10 @@ RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture �
 이번 사용자 요청은 아래 과거 기록의 장바구니 계산/저장 및 로그인 인증 흐름을 대체한다. `/cart`는 `useShop`을 구독하지 않고 고정 `cartPreviewRows`와 합계를 사용한다. 체크/수량/관심/옵션 초안은 화면 로컬 상태만 변경하며 삭제·주문·옵션 저장으로 ShopShell을 변경하지 않는다. 옵션 확인은 닫기만 수행한다.
 
 `/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
+
+## 장바구니 금액 fixture와 로컬 화면 상태 (2026-11-02)
+
+현재 `/cart`는 상품 행 fixture만 화면 컴포넌트에 전달한다. 상품금액·배송비·전체 합계·모바일 선택 상태 금액은 `cartPreviewAmounts`에서 독립적으로 고정 표시하며 선택된 상품이나 수량으로 계산하지 않는다. 체크 선택은 화면 내부 로컬 상태로 동작하고 금액은 갱신하지 않는다. 옵션 dialog 열기 상태는 기본 페이지에 없으며 별도 preview URL의 옵션 draft는 화면 확인용 로컬 상태다. 주문·삭제·옵션 저장 및 장바구니 목록 갱신 상태는 구현하지 않는다. 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `CartModalPreview.tsx`.
 
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 
@@ -418,6 +436,14 @@ CheckoutPage는 URL selected·payment/completed·onComplete 책임을 유지하�
 
 쿠폰 선택·최대 혜택 체크 상태는 CheckoutForm이 소유한다. 쿠폰 선택은 할인액을 즉시 계산하고, 수동 쿠폰 변경 시 최대 혜택 체크를 해제한다. 체크 시 현재 주문 합계에서 할인액이 가장 큰 기존 데모 쿠폰을 선택한다. 할인 산정과 배송비 0원 상수는 기능 내부에 있으며 쿠폰 서버 조회·적용/취소 API는 연결하지 않는다. 쿠폰 UI는 기존 Dropdown과 Checkbox의 controlled 상태를 사용한다.
 
+## 주문서 쿠폰 요약의 Figma 갱신 (2026-11-02)
+
+최신 금액 요약에서 최대 혜택 체크 UI를 제거했다. 이 기록 당시 쿠폰 선택은 외부 callback/request로 전달되었으나 현재는 로컬 선택 표시만 수행하며 견적이나 할인 표시를 갱신하지 않는다. 주문서의 최신 submit 경계는 [주문서 퍼블리싱 상태 경량화](#주문서-퍼블리싱-상태-경량화-2026-11-02)를 따른다. 출처: `CheckoutDiscountSummary`, `CheckoutContext`와 Figma PC/MO 금액 요약.
+
+## 주문서 퍼블리싱 상태 경량화 (2026-11-02)
+
+주문서 기본 경로는 선택한 장바구니 상품을 배치하고 결제수단을 로컬로 선택하는 화면이다. CheckoutForm의 요청·검증·FormData/payload 작성·pending/error·완료 전환과 장바구니 삭제 연결을 제거했다. CheckoutContext는 선택적 표시 데이터만 제공하며 쿠폰 선택은 화면 로컬 상태로 바뀌고 할인 견적을 갱신하지 않는다. 고정 오류 preview만 오류 모양을 보여주며 동의 필수 검증은 실행하지 않는다. 서비스 제출·주문 저장과 갱신은 이 경로에서 구현하지 않는다. 이전 제출/재시도 binding 스토리는 제거하고 기본 화면의 로컬 선택 상호작용을 스토리로 확인한다.
+
 ## 결제 동의와 주소 검색 비활성 상태 (2026-10-27)
 
 CheckoutForm이 주문 확인 동의와 개인정보 동의를 별도 boolean으로 소유하고, 두 항목 모두 선택되어야 기존 제출을 진행한다. 오류 표시는 기존 제출 시점과 같은 방식으로 유지한다. CheckoutAddressFields에서는 주소 찾기 버튼을 활성화하고 우편번호·주소 입력을 비활성화한다. 상세주소는 controlled 우편번호와 주소가 모두 채워질 때 활성화된다. disabled 필드가 FormData에서 제외되므로 controlled 우편번호·주소 값은 hidden input으로 폼 데이터에 보존한다. 주소 검색 모달의 입력과 선택 상태는 기존 수명 및 콜백을 유지한다.
@@ -569,7 +595,6 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 ## 재입고 표시 상태 (2026-10-30)
 
 `HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
-
 
 ## 전체 검색 표시 상태 검토 (2026-11-02)
 
