@@ -2,13 +2,11 @@
 
 import { type ReactNode } from 'react';
 
-import { css } from 'styled-system/css';
-
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 
-/** 주문서와 완료 화면의 제목 및 단계 골격을 구성합니다. (Composes checkout and completion headings and progress.) */
+/** 주문서와 완료 화면의 제목 프레임을 구성합니다. (Composes checkout and completion title frames.) */
 export function CheckoutLayout({
   completed,
   children,
@@ -18,15 +16,18 @@ export function CheckoutLayout({
 }) {
   return (
     <OrderPageLayout
-      step={completed ? 3 : 2}
       title={
-        <ContentHeader
-          title={completed ? '주문완료' : '주문/결제'}
-          titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading5' }}
-          className={css({ _mobile: completed ? { display: 'none' } : {} })}
-        />
+        completed ? null : (
+          /** 주문/결제 페이지 제목 */
+          <ContentHeader
+            title="주문/결제"
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+          />
+        )
       }
+      maxWidth={completed ? 'none' : undefined}
+      paddingX={completed ? { base: '72px', _mobile: '16px' } : undefined}
     >
       {children}
     </OrderPageLayout>

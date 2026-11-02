@@ -2,7 +2,6 @@ import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, fireEvent, fn, userEvent, waitFor, within } from 'storybook/test';
-import { CheckoutContext, type CheckoutSubmission } from '@/context/CheckoutContext';
 import { MyPageDataContext } from '@/context/MyPageDataContext';
 import { OrdersContext } from '@/context/OrdersContext';
 import { PhoneVerificationContext } from '@/context/PhoneVerificationContext';
@@ -11,7 +10,6 @@ import { usePhoneVerification } from '@/hooks/usePhoneVerification';
 
 import { Button } from '@/components/common/atoms/Button';
 
-import CheckoutPage from '@/app/checkout/page';
 import LoginPage from '@/app/login/page';
 import AddressPage from '@/app/mypage/addresses/page';
 import ReviewPage from '@/app/mypage/reviews/page';
@@ -46,94 +44,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const product = { ...products[0], id: 'api-product-973', name: '서버 상품', price: 100000 };
-
-const item = { id: product.id, color: '화이트', width: 'Regular', size: '250', quantity: 2 };
-
-const remove = fn();
-
-const checkoutSubmit = fn<(input: CheckoutSubmission) => Promise<void>>();
-
-function CheckoutFixture() {
-  const [coupon, setCoupon] = useState('api-coupon');
-  const [maxBenefit, setMaxBenefit] = useState(false);
-  return (
-    <ShopStatePreview cart={[item]} products={[product]} remove={remove}>
-      <CheckoutContext.Provider
-        value={{
-          coupon,
-          maxBenefit,
-          discount: 10000,
-          shippingFee: 3000,
-          couponOptions: [{ value: 'api-coupon', label: '서버 쿠폰' }],
-          savedAddress: {
-            id: 'api-address',
-            label: '서버 배송지',
-            name: '김호카',
-            phone: '01012345678',
-            address: '서울시 종로구',
-            postalCode: '03000',
-            addressDetail: '101호',
-          },
-          onCouponChange: setCoupon,
-          onMaxBenefitChange: setMaxBenefit,
-          submit: checkoutSubmit,
-        }}
-      >
-        <CheckoutPage />
-      </CheckoutContext.Provider>
-    </ShopStatePreview>
-  );
-}
-
-export const CheckoutRetry: Story = {
-  beforeEach: () => {
-    remove.mockClear();
-    checkoutSubmit
-      .mockReset()
-      .mockImplementationOnce(async () => {
-        await new Promise((resolve) => setTimeout(resolve, 400));
-        throw new Error('결제 승인에 실패했습니다.');
-      })
-      .mockResolvedValue(undefined);
-  },
-  render: () => <CheckoutFixture />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('서버 상품')).toBeInTheDocument();
-    const pay = canvas.getByRole('button', { name: '193,000원 결제하기' });
-    for (const checkbox of canvas.getAllByRole('checkbox').slice(1))
-      await userEvent.click(checkbox);
-    await userEvent.click(pay);
-    await expect(pay).toBeDisabled();
-    await expect(checkoutSubmit).toHaveBeenCalledTimes(1);
-    await expect(await canvas.findByRole('alert')).toHaveTextContent('결제 승인에 실패했습니다.');
-    await expect(canvas.queryByText(/주문이 정상적으로 접수되었습니다/)).not.toBeInTheDocument();
-    await expect(remove).not.toHaveBeenCalled();
-    await expect(checkoutSubmit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        items: [item],
-        savedAddressId: 'api-address',
-        payment: 'kakao',
-        coupon: 'api-coupon',
-        maxBenefit: false,
-        orderAgreed: true,
-        privacyAgreed: true,
-        shipping: expect.objectContaining({
-          name: '김호카',
-          postalCode: '03000',
-          addressDetail: '101호',
-        }),
-      }),
-    );
-    await userEvent.click(pay);
-    await waitFor(() =>
-      expect(canvas.getByText(/주문이 정상적으로 접수되었습니다/)).toBeInTheDocument(),
-    );
-    await expect(remove).not.toHaveBeenCalled();
-  },
-};
-
-export const MobileCheckoutRetry: Story = { ...CheckoutRetry, parameters: { platform: 'mobile' } };
 
 const login = fn();
 

@@ -16,6 +16,6 @@ export const Default: Story = { ...scenarios.Web, name: 'Default' };
 
 export const Empty: Story = { ...scenarios.Empty, name: '빈 목록' };
 
-export const CompleteOrder: Story = { ...scenarios.CompleteOrder, name: '주문 완료 흐름' };
+export const LocalSelections: Story = { ...scenarios.LocalSelections, name: '로컬 선택' };
 
 export const CouponSelection: Story = { ...scenarios.CouponSelection, name: '쿠폰 선택' };

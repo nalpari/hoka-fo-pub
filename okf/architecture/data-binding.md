@@ -4,7 +4,7 @@ title: '화면 데이터와 서비스 연결 계약'
 description: '퍼블리싱 화면에 실제 조회 결과와 비동기 요청을 연결하는 지점을 설명한다.'
 tags: [frontend, binding, state, forms]
 status: draft
-updated: '2026-11-02T08:13:51+09:00'
+updated: '2026-11-02T15:07:00+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
@@ -48,6 +48,11 @@ working_tree_sources:
   - .codex/skills/component-reusability/references/data-binding.md
   - src/context/ShopShell.tsx
   - src/context/CheckoutContext.ts
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutAgreement.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/checkout/checkout-coupons.ts
   - src/context/PhoneVerificationContext.ts
   - src/context/ProductListingContext.ts
   - src/context/MyPageDataContext.ts
@@ -93,7 +98,7 @@ working_tree_sources:
 | --------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | 공통 셸·상품·장바구니 | `ShopShell.state`, `ShopStateProvider`             | 실제 상품 목록, 장바구니, 로그인 상태와 개수, 상품 추가·변경·삭제·로그인 함수                 |
 | 상품 목록·검색        | `ProductListingPage.data`, `ProductListingContext` | 조회된 상품, 전체 건수, 다음 페이지 여부, 조회 상태, 조건 변경·추가 조회·재시도               |
-| 결제                  | `CheckoutContext`                                  | 쿠폰과 최대 혜택 선택, 할인·배송비 견적, 저장 배송지, 주문 제출                               |
+| 주문서 표시 데이터    | `CheckoutContent.rows`, `CheckoutContext`          | 상품 행은 props, 금액 요약은 화면 fixture, 선택적 저장 배송지는 context; 제출/검증/요청 없음  |
 | 휴대폰 인증           | `PhoneVerificationContext`                         | 인증 발송 결과의 요청 ID·유효시간, 인증번호 검증                                              |
 | 회원·마이페이지       | `MyPageDataContext`                                | 회원정보, 배송지, 리뷰, 관심/최근/재입고, 쿠폰, 요약/등급/추천/활동, 결제수단 등록            |
 | 주문·취소·반품        | `OrdersContext`                                    | 현재 주문 목록, 조회 조건 변경, 서버 반품 견적·신청·구매 확정·내역 삭제                       |
@@ -125,9 +130,11 @@ working_tree_sources:
 
 `onQueryChange`는 URL 기반 필터·정렬·검색어와 로컬 가격 조건을 전달한다. `onPreviewQueryChange`는 모바일 시트가 열렸을 때 적용 전 초안 조건을 전달한다. 모바일 초안 건수는 `mobileResultCount`로 별도로 제공할 수 있다. 조회 콜백은 `useCallback` 등으로 참조를 유지하고, 오래된 요청 취소·응답 순서 보장은 실제 조회 소유자가 처리한다. 추가 조회 함수는 Promise를 반환하면 완료까지 중복 호출을 막는다. 조회 오류 재시도는 `onRetry`로 연결한다.
 
-## 주문 제출과 인증
+## 주문서 표시와 프론트 연결 경계
 
-`CheckoutSubmission`은 선택 상품, 결제 수단, 쿠폰, 최대 혜택, 두 동의 여부와 배송 필드 전체를 전달한다. 외부 견적의 할인·배송비를 화면과 결제 버튼에 함께 사용한다. 실제 금액의 검증·확정은 서버 책임이다. `savedAddress: null`이면 직접 입력을 표시한다. 외부 submit 성공 이후 완료 화면으로 이동하며, 실제 장바구니 갱신은 submit 소유자가 처리한다. 데모에서만 기존 장바구니 제거 콜백을 호출한다.
+현재 주문서 퍼블리싱 화면은 주문 제출을 실행하지 않는다. `CheckoutContent`는 입력·결제수단·쿠폰·동의 UI만 배치하며 요청, 검증, FormData/payload 조립, pending/error 처리, 주문 완료 전환, 장바구니 제거를 하지 않는다. 결제 버튼은 제출 동작이 없는 표시 버튼이다. 결제수단·쿠폰 선택과 체크박스는 화면 확인을 위한 로컬 UI 상태다.
+
+`CheckoutContent`는 표시할 상품 행만 props로 받는다. 금액 요약은 CheckoutDiscountSummary의 화면 fixture이며, 쿠폰 선택지는 별도 화면 fixture, 선택은 로컬 UI 상태다. `CheckoutContext`는 선택적으로 저장 배송지 표시 데이터만 제공한다. 실제 상품 행, 금액·할인·배송비 및 견적 결정, 필수값 및 동의 검증, 결제 승인·주문 저장·실패 재시도·성공 후 장바구니 갱신은 프론트 연결 소유자가 별도로 구현해야 한다. 이 저장소의 주문서 퍼블리싱 구현은 해당 서비스 계약이 존재한다고 주장하지 않는다.
 
 휴대폰 발송 성공 후 타이머를 시작하고 서버의 `requestId`를 보관한다. 인증 확인은 이 ID·코드·입력 정보를 전달하며 서버 검증 성공 이후에만 다음 단계로 진행한다. 정보가 바뀐 뒤 도착한 이전 요청 결과는 다음 단계를 진행시키지 않는다. 회원가입의 신규/기존회원 분기·약관 동의·아이디 중복확인·최종 가입, 계정 찾기·비밀번호 재설정·잠금해제, 프로필의 전화번호 인증·저장·비밀번호 변경·탈퇴에도 같은 성공/실패 계약을 적용한다.
 

@@ -4,10 +4,10 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-02T08:13:51+09:00'
+updated: '2026-11-02T11:25:00+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:34:43.457833+00:00'
+  at: '2026-11-02T02:25:00Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/mypage/coupons/_components/CouponManagement.tsx
@@ -72,6 +72,10 @@ working_tree_sources:
   - tests/screen-progress.test.mjs
   - scripts/screen-files.mjs
   - src/app/screen-index/screenConnections.ts
+  - src/stories/features/orders/OrdersPage.stories.tsx
+  - src/stories/features/orders/OrdersPage.mobile.stories.tsx
+  - src/stories/features/orders/ReturnsPage.stories.tsx
+  - src/stories/features/orders/ReturnsPage.mobile.stories.tsx
   - src/app/screen-index/_components/IaStructurePage.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
@@ -96,6 +100,7 @@ working_tree_sources:
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/reviews/reviewFixtures.ts
   - src/app/mypage/returns/page.tsx
+  - src/components/orders/OrdersRoute.tsx
   - src/app/mypage/restock-alerts/page.tsx
   - src/app/mypage/referral/page.tsx
   - src/app/mypage/recent/page.tsx
@@ -199,6 +204,15 @@ sources:
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
+  - id: figma-orders-lookup-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
+    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
+  - id: figma-order-claim-application-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
+    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
+  - id: figma-claim-history-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
+    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
     title: 'src/app/layout.tsx'
@@ -217,6 +231,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 주문 관련 3개 화면의 URL 유지 (2026-11-02)
+
+최신 주문 시안으로 `/mypage/orders`의 주문/배송조회 표시와 `/mypage/returns`의 취소/반품내역·신청 표시를 갱신했다. 두 App Router 진입점과 preview 경로는 유지했다. Storybook에서는 주문을 장바구니와 별도인 `PAGES/주문` 아래로 정리하고 주문 조회 WEB·Mobile, 취소/반품내역 WEB·Mobile을 화면 연결 인덱스에 등록했다. 생성된 화면 연결 그래프에서는 제거한 SearchField 의존성만 반영했다. UI 차이와 확인 범위는 [컴포넌트와 스타일](ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)에 기록했다. 출처: 위의 3개 Figma 노드와 `src/components/orders/OrdersRoute.tsx`, 주문 Storybook 파일, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리.
 
 ## 장바구니 기본 화면의 고정 상태 (2026-11-02)
 
@@ -731,3 +749,7 @@ src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named b
 ## 화면 연결 그래프 재생성 (2026-10-30)
 
 npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.
+
+## 주문서 기본 경로의 표시 전용 동작 (2026-11-02)
+
+`/checkout`은 기존 URL과 선택 상품 쿼리 `selected`를 유지하며 장바구니 표시 데이터를 주문서 화면에 배치한다. 결제 제출 요청·검증·완료 상태 전환과 장바구니 항목 삭제 흐름을 경로에서 제거했다. 고정 empty/error/complete preview URL은 각각 시안 상태를 직접 보여주는 기존 화면으로 유지하며 기본 주문서와 제출 흐름을 공유하지 않는다.

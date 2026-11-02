@@ -94,7 +94,7 @@ export const MobileSelection: Story = { ...Mobile, play: Selection.play };
 export const MobileSelected: Story = {
   ...Mobile,
   render: () => (
-    <OrderPageLayout step={1} title={<CartHeading itemCount={cartPreviewRows.length} />}>
+    <OrderPageLayout title={<CartHeading itemCount={cartPreviewRows.length} />}>
       <Stack gap="10" pb="12">
         <CartProductSection
           rows={cartPreviewRows.map((row) => ({

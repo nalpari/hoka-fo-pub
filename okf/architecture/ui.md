@@ -4,10 +4,10 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-02T08:13:51+09:00'
+updated: '2026-11-02T15:07:00+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-10-30T08:57:53.137523+00:00'
+  at: '2026-11-02T04:06:00Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/mypage/coupons/_components/CouponManagement.tsx
@@ -98,6 +98,10 @@ working_tree_sources:
   - src/app/screen-index/sourceGraph.generated.json
   - tests/screen-files.test.mjs
   - src/types/binding.ts
+  - src/app/checkout/_components/CheckoutComplete.tsx
+  - src/app/checkout/_components/CheckoutLayout.tsx
+  - src/components/orders/OrderPageLayout.tsx
+  - src/components/common/organisms/OrderRecommendations.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
   - src/components/common/molecules/BindingFeedback.tsx
   - src/components/run-club/runClub.data.ts
@@ -219,6 +223,8 @@ working_tree_sources:
   - src/components/orders/OrderClaimSheet.tsx
   - src/components/common/molecules/StepIndicator/StepIndicator.tsx
   - src/stories/features/orders/OrdersPage.mobile.stories.tsx
+  - src/stories/features/orders/ReturnsPage.stories.tsx
+  - src/stories/features/orders/ReturnsPage.mobile.stories.tsx
   - src/components/cart/CartOrderActions.tsx
   - src/components/cart/CartSupportContact.tsx
   - src/components/cart/CartSupportHours.tsx
@@ -531,6 +537,18 @@ working_tree_sources:
   - src/stories/features/not-found/NotFoundPage.stories.tsx
   - src/app/cart/page.tsx
   - src/components/checkout/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutLayout.tsx
+  - src/components/orders/OrderPageLayout.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/stories/features/cart/CartPage.scenarios.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/checkout/_components/CheckoutComplete.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/context/CheckoutContext.ts
+  - src/stories/features/binding/Binding.stories.tsx
+  - src/stories/features/binding/DesignBinding.stories.tsx
   - src/components/checkout/CheckoutShippingForm.tsx
   - src/components/checkout/CheckoutAddressFields.tsx
   - src/components/checkout/CheckoutDeliveryRequest.tsx
@@ -802,6 +820,8 @@ working_tree_sources:
   - src/components/orders/OrderTrackingDialog.tsx
   - src/components/orders/OrdersFilters.tsx
   - src/stories/features/orders/OrdersPage.stories.tsx
+  - src/stories/features/orders/ReturnsPage.stories.tsx
+  - src/stories/features/orders/ReturnsPage.mobile.stories.tsx
   - .codex/skills/component-reusability/references/page-ownership.md
   - src/app/support/mileage/page.tsx
   - src/components/common/molecules/MainContentCard.tsx
@@ -833,6 +853,15 @@ sources:
   - id: figma-order-tracking
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1653-57244
     title: 'Figma 배송조회 하단 시트'
+  - id: figma-orders-lookup-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
+    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
+  - id: figma-order-claim-application-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
+    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
+  - id: figma-claim-history-20261102
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
+    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
     title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
@@ -1076,9 +1105,19 @@ CheckoutAgreement의 두 동의 항목에서 Checkbox의 control과 라벨이 �
 
 Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취소 상세·반품 상세·배송조회)를 반영했다. 페이지 제목은 모바일 heading7(16px)으로 조정한다. 주문 현황은 전체, 결제완료, 상품준비중, 배송준비/배송중, 배송완료/구매확정의 5개로 묶고, 모바일 대시보드는 98px 높이로 표시한다. 기간 탭은 1개월·3개월·6개월·1년·직접설정 순서이며 아래 날짜 범위와 조회 액션을 상시 표시한다. 날짜 범위를 직접 바꾸면 직접설정 탭으로 전환하고 조회를 눌렀을 때 필터를 적용한다. 기간 탭 높이는 모바일 28px이다. 상품 썸네일은 PC 기존 크기를 유지하고 모바일에서 96×96px로 맞춘다.
 
-주문 상세에서는 받는 사람·결제 정보 뒤에 취소/반품 내역을 배치한다. 취소·반품 상세는 주문 식별 정보를 한 줄로 표시하고 상태를 기존 Badge로 표현한다. 배송조회는 모바일에서 Figma에 맞춘 하단 시트, 연결형 StepIndicator, 기본 정보, 4열 상품 추적표와 하단 닫기 액션을 사용하며 PC는 기존 SingleActionDialog를 유지한다. Storybook은 `PAGES/장바구니/주문하기/주문내역` 아래 WEB과 Mobile로 분리했다.
+주문 상세에서는 받는 사람·결제 정보 뒤에 취소/반품 내역을 배치한다. 취소·반품 상세는 주문 식별 정보를 한 줄로 표시하고 상태를 기존 Badge로 표현한다. 배송조회는 모바일에서 Figma에 맞춘 하단 시트, 연결형 StepIndicator, 기본 정보, 4열 상품 추적표와 하단 닫기 액션을 사용하며 PC는 기존 SingleActionDialog를 유지한다. Storybook은 `PAGES/주문/1. 주문 배송 조회` 아래 WEB과 Mobile로 분리했다. 최신 취소/반품 내역 Storybook은 `PAGES/주문/2. 취소 반품 내역`으로 별도 연결했다.
 
 앱 라우트는 기존 `/mypage/orders`·`/mypage/returns` 그대로다. 이 변경은 Storybook 화면 분류를 옮긴 것이며 App Router와 마이페이지 실제 이동 메뉴는 변경하지 않았다. 신규 공통 컴포넌트는 만들지 않고 기존 OrderStatusTracker의 compact 표시, StepIndicator, Badge, OrderInformationSection, DataTable을 재사용했다. Figma 출처는 아래의 여섯 노드이며 작업 트리 출처는 `working_tree_sources`의 주문 feature·스토리 파일이다. 브라우저/Storybook 시각 검증은 아직 수행하지 않았다.
+
+## 주문 조회·취소/환불 신청·내역 Figma 적용 (2026-11-02)
+
+`/mypage/orders`는 주문/배송조회, `/mypage/returns`는 취소/반품내역으로 제목을 구분한다. 주문 조회는 기존 5단계 현황과 기간/날짜 필터를 유지한다. 취소/반품내역은 PC에서 상품정보·주문일자·수량·금액·처리상태 표로, 모바일에서 주문일자/번호와 상품·금액·처리 상태를 담은 목록으로 표시하며 내역이 없을 때 “취소나 환불한 상품이 없습니다.”를 보여준다. 취소/반품 기간 탭은 PC 시안의 역순과 37px 높이를 적용하고, 기본 주문 목록의 모바일 28px 탭은 유지한다. 날짜 입력은 PC 36px, 모바일 28px이다.
+
+취소/환불 신청은 기존 폼·초안·견적·submit 연결을 유지하면서 PC에서 568px `ModalDialog`, 모바일에서 `BottomSheet`로 표시한다. 취소만 수량 조절을 제공하고 반품은 선택 상품 전체 수량을 선택한다. 신청 상품 이미지는 PC 96px, 모바일 64px이다. 기존 Context의 주문 데이터·요청 계약과 배송조회 다이얼로그는 유지하며 새 API나 계산 정책은 추가하지 않았다. 공유 본문에서는 한 번만 쓰이던 `OrdersLayout`을 `OrdersContent`에 합쳐 `MyPageFrame`·콘텐츠 영역·상태 본문 순서를 바로 확인할 수 있게 했다. 주문·반품 라우트와 미리보기는 같은 조립 구조를 계속 사용한다.
+
+Storybook에는 주문/배송조회 WEB·Mobile 항목과 PC의 빈 목록·상세·취소/반품 상세·신청 상태를 추가하고, 취소/반품내역을 독립된 주문 분류 아래 WEB·Mobile 및 빈 목록으로 연결했다. 화면 인덱스에서 두 경로의 스토리 링크를 연결했으며 실제 App Router URL은 그대로다. 새 API나 업무 로직은 추가하지 않았다.
+
+출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959). 변경 출처는 `src/components/orders/OrdersRoute.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
 
 ## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
 
@@ -2645,6 +2684,18 @@ SearchKeywordButton은 공통 ButtonLink의 `plain` variant로 `/search?q=…&sc
 
 작업 트리 출처: `src/components/common/organisms/Search/SearchKeywordButton.tsx`, `SearchOverlay.tsx`, `SearchSuggestions.tsx`, `RecentSearches.tsx`, `src/stories/components/common/organisms/Search/SearchSuggestions.stories.tsx`, 공통 `Button.tsx`와 SearchOverlay 스토리.
 
+## 체크아웃 섹션 제목 주석 위치 (2026-11-02)
+
+`CheckoutContent` 조립부에 주문자/배송지, 주문상품/할인, 결제 정보, 결제 유의사항, 결제금액 요약, 결제 동의와 결제 액션의 JSX 주석을 추가했다. 주문/결제 및 주문완료 페이지 제목, 쿠폰 조회 다이얼로그, 완료 안내와 추천상품도 해당 렌더 위치에 주석을 둔다. 배송·상품·결제의 기존 제목은 각 섹션의 `ContentSection`이 계속 소유한다. 시각과 동작은 변경하지 않았다.
+
+출처: 작업 트리의 `src/app/checkout/_components/CheckoutForm.tsx`, `CheckoutLayout.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutComplete.tsx`, `CheckoutStatePreview.tsx`. Prettier, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 참조 오류로 실패했고, 변경 파일에서는 오류가 보고되지 않았다. 브라우저 시각 확인은 수행하지 않았다.
+
+## 주문서 기본 배송지 정보 라벨과 타이포 (2026-11-02)
+
+Figma 모바일 주문/결제의 기본 배송지 정보(`1985:77563`)에 맞춰 읽기 전용 행을 `받는분`, `연락처`, `다른연락처`, `주소` 순서로 표시한다. 라벨은 Body3 16px, 값은 Body4 14px medium이며 82px 라벨 폭과 8px 열 간격을 사용한다. `savedAddress.otherPhone`은 선택 표시값이고 값이 있을 때만 행을 표시한다. 주소 변경 액션과 직접 입력 폼은 유지한다. 읽기 전용 표현으로 바뀌어도 배송지 id·이름·연락처·주소 등의 FormData 값을 hidden input으로 제출한다. API나 주문 처리 동작은 변경하지 않았다.
+
+출처: [Figma 기본 배송지 정보](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-77535)와 작업 트리의 `src/app/checkout/_components/CheckoutShipping.tsx`, `src/context/CheckoutContext.ts`, binding stories다. Prettier, Storybook production build, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 참조 오류로 실패했고, ESLint는 환경에서 `eslint-plugin-perfectionist`를 찾지 못해 실행되지 않았다. 브라우저 시각 확인은 수행하지 않았다.
+
 ## 장바구니·주문 결제 첨부 시안 보완 (2026-10-19)
 
 첨부 모바일 시안에 맞춰 장바구니 카드 삭제 버튼 위치와 옵션/수량 배치, 관심상품 토글을 정리했다. CartOptionsDialog는 공통 ModalDialog의 모바일 fullscreen과 고정 취소/변경 footer, Radio·SizeSelector·NumberStepper를 조합한다. 품절 변경 안내는 SingleActionDialog를 사용한다. 긴 상품명은 카드에서 두 줄로 제한한다.
@@ -3861,3 +3912,41 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## 공통 카드와 가이드 서식 정리 (2026-10-30)
 
 ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.
+
+## 주문서 그리드 간격과 모바일 순서 (2026-11-02)
+
+`CheckoutContent`의 2열 주문서 그리드에서 행 간격과 열 간격을 분리했다. PC는 행 40px·열 16px, 모바일은 행 16px·열 0px이다. 모바일에서 금액 요약의 안내문 다음 결제 정보가 시안처럼 가까이 이어지도록 행 간격을 조정했다. 모바일의 표시 순서를 배송지(1) → 주문상품(2) → 주문금액·할인·총 결제금액(3) → 결제 정보(4) → 결제 동의와 액션(5)로 명시했다. PC의 오른쪽 요약 영역과 기존 sticky 배치는 유지한다. 주문상품 표의 행 구분선은 각 Grid 행이 소유해 상품정보·수량·가격 칸 전체 너비로 이어진다. `OrderProductSummary`는 텍스트/이미지 요약만 담당한다. 작업 트리 출처: `src/app/checkout/_components/CheckoutForm.tsx`, `src/app/checkout/_components/CheckoutSummary.tsx`, `src/components/common/molecules/OrderProductSummary.tsx`.
+
+검증: 변경 파일의 `git diff --check`를 통과했다. 브라우저 시각 확인과 전체 타입 검사는 수행하지 않았다.
+
+## 주문서 금액 요약과 쿠폰 선택 Figma 반영 (2026-11-02)
+
+Figma [PC 1985:79978](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-79978)와 [모바일 1985:77535](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-77535)의 최신 금액 요약을 반영했다. 기존 주문금액/상품 할인 행과 보유 쿠폰 조회 모달을 상품가격·쿠폰할인 행, 요약 내 쿠폰 Dropdown, 배송비, 강조된 총 결제금액 순서로 바꿨다. 할인액은 준비된 표시값을 사용하며 쿠폰 선택은 로컬 UI로 동작한다. 이 기록 뒤 주문서 제출/쿠폰 요청 연결을 제거했으며 최신 경계는 [주문서 퍼블리싱 마크업 경량화](#주문서-퍼블리싱-마크업-경량화-2026-11-02)를 따른다. 모바일/PC 레이아웃과 안내문 위치는 주문서 Grid/상위 sticky 요약 구성을 따른다.
+
+작업 트리 출처: `src/app/checkout/_components/CheckoutDiscountSummary.tsx`, `CheckoutForm.tsx`, `CheckoutStatePreview.tsx`, `src/context/CheckoutContext.ts`, `src/stories/features/checkout/CheckoutPage.scenarios.tsx`, `src/stories/features/binding/DesignBinding.stories.tsx`. 브라우저 시각 확인·Storybook 실행·전체 타입 검사는 하지 않았다. `git diff --check` 및 OKF 검사를 수행한다.
+
+## 주문서 쿠폰 계산과 동의 로컬 상태 제거 (2026-11-02)
+
+이 시점에는 선택 쿠폰 할인 산식과 동의 체크 상태/필수 검증을 제거했으나, 기본 HTML 체크값과 CheckoutForm payload 제출은 유지했다. 이후 제출·검증·payload 및 쿠폰 요청 연결도 제거했으며 현재 계약은 아래 [주문서 퍼블리싱 마크업 경량화](#주문서-퍼블리싱-마크업-경량화-2026-11-02)를 따른다. 오류 스토리는 고정 표시로 유지한다.
+
+작업 트리 출처: `src/app/checkout/_components/CheckoutForm.tsx`, `CheckoutAgreement.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutStatePreview.tsx`, `src/app/checkout/checkout-coupons.ts`. Prettier·OKF·diff 검사를 수행한다. 브라우저 시각 확인은 수행하지 않았다.
+
+## 주문 프레임의 주문 단계 표시 제거 (2026-11-02)
+
+장바구니·주문/결제·주문완료 화면에서 공통으로 보이던 `장바구니 > 주문/결제 > 주문완료` 단계를 제거했다. `OrderPageLayout`에서 단계 관련 props와 `StepIndicator` 렌더링을 없애고 장바구니·빈 장바구니·주문서·완료 화면의 호출부와 장바구니 스토리를 갱신했다. 제목 프레임과 화면 간격은 유지한다. 취소/반품 신청 흐름에서 쓰는 별도 `StepIndicator`는 이 변경 범위가 아니다.
+
+작업 트리 출처: `src/components/orders/OrderPageLayout.tsx`, `src/app/cart/page.tsx`, `src/app/cart/preview-empty/page.tsx`, `src/app/checkout/_components/CheckoutLayout.tsx`, `src/stories/features/cart/CartPage.scenarios.tsx`. 코드 참조 검색, Prettier, `npm run okf:check`, `git diff --check`를 기록한다. 브라우저 시각 확인은 별도로 수행하지 않았다.
+
+## 주문완료 PC·모바일 시안 반영 (2026-11-02)
+
+디자인 출처는 [PC 주문완료 2033:157150](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2033-157150)과 [모바일 주문완료 2033:155834](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2033-155834)다. 두 시안에 맞춰 페이지 제목과 완료 체크 아이콘을 제거했다. 감사 문구는 20px medium, 설명은 14px이며 PC는 500px 영역과 180×48px CTA, 모바일은 가용 너비와 100% CTA를 쓴다. 모바일 CTA는 ButtonLink의 `fullWidth`로 바깥 링크와 내부 배경 프레임을 함께 늘리고 PC 너비 180px은 유지한다. 문구-CTA 간격은 32px, 완료 영역-추천상품 간격은 PC 96px·모바일 64px이다. 주문완료에서만 `OrderRecommendations`의 checkout 레이아웃을 선택해 추천 제목을 PC 36px·모바일 20px로, 카드를 PC 342.4×428.6px·5열/16px 간격, 모바일 151×189px/10px 간격으로 맞췄다. 카드 정보는 PC 16px·모바일 14px이다. 장바구니의 compact·portrait 표현은 유지한다.
+
+작업 트리 출처: `src/app/checkout/_components/CheckoutComplete.tsx`, `CheckoutLayout.tsx`, `src/components/orders/OrderPageLayout.tsx`, `src/components/common/organisms/OrderRecommendations.tsx`. 추천 fixture와 요청/주문 데이터 연결은 변경하지 않았다. Panda CSS 생성, Prettier, `npm run okf:check`, `git diff --check`는 통과했다. TypeScript는 변경 파일 오류 없이 기존 `.next/types`의 누락 라우트와 상품 목록 PageProps 오류로 실패했다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 실행되지 않았다. 연결된 브라우저 자동화가 시작되지 않고 로컬 서버도 요청 시점에 응답하지 않아 시각 캡처는 확인하지 못했다.
+
+## 주문서 퍼블리싱 마크업 경량화 (2026-11-02)
+
+CheckoutContent는 주문/배송 입력, 주문상품, 할인 요약, 결제수단, 동의와 결제 CTA를 조립한다. CheckoutForm에 있던 `noValidate`·입력 오류 초기화·busy 상태·제출 차단/검증·FormData 수집과 payload 조립·onSubmit 호출을 제거했고, 기본 주문서 페이지의 submit 요청·pending/error·완료 상태 및 장바구니 정리도 제거했다. CTA는 화면 표시용 일반 버튼이며 주문 요청을 실행하지 않는다. 결제수단·쿠폰·체크박스는 로컬 화면 상호작용만 제공한다. CheckoutContent는 표시 상품 행만 받고 금액 요약은 CheckoutDiscountSummary의 고정 화면 fixture다. CheckoutContext는 선택적 저장 배송지 표시만 제공한다. 쿠폰 선택지는 화면 fixture이며 선택이 견적이나 금액을 갱신하지 않는다. 고정 오류/완료 URL은 화면 상태 확인용으로 유지한다. 제출·검증·결제·주문 저장은 별도 프론트 연결 범위다.
+
+Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·모바일에서 결제수단/동의 체크와 쿠폰 선택을 확인하는 로컬 UI 사례로 바꿨다. 현재 공유 폼은 없으므로 제출용 hidden input도 제거했다. 관련 작업 트리: `src/app/checkout/page.tsx`, `_components/CheckoutForm.tsx`, `CheckoutStatePreview.tsx`, `CheckoutShipping.tsx`, `CheckoutAgreement.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutPayment.tsx`, `src/context/CheckoutContext.ts`, `src/stories/features/checkout/`, `src/stories/features/binding/`.
+
+`npm run screen-files`, Prettier, OKF 검사, `git diff --check`를 통과했다. 전체 타입 검사에는 이번 Checkout 변경 파일 오류 없이 기존 `.next/types` 누락 라우트와 상품 목록 PageProps 오류가 남는다. 변경 파일 ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 실행되지 않았다. Storybook 브라우저와 실제 결제 동작은 확인하지 않았다.

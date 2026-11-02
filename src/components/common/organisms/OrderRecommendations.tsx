@@ -10,15 +10,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRef } from 'react';
+import type { ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+
+import { faChevronRight } from '@/icons/fontAwesome';
 
 type OrderRecommendation = {
   id: string;
@@ -29,68 +33,105 @@ type OrderRecommendation = {
   href: string;
 };
 
-type OrderRecommendationLayout = 'compact' | 'portrait';
+type OrderRecommendationLayout = 'compact' | 'portrait' | 'checkout';
 
 type Props = { item: OrderRecommendation; layout?: OrderRecommendationLayout };
 
 /** 추천 상품의 이미지와 상품명·가격을 연결합니다. (Links an order recommendation with its image and price.) */
 function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
   const mobile = usePlatform() === 'mobile';
+  const checkoutLayout = layout === 'checkout';
+  const portraitLayout = layout !== 'compact';
 
   return (
     <Link
       href={item.href}
       className={css({
-        flex: layout === 'portrait' ? '0 0 calc((100% - 48px) / 4)' : '0 0 140px',
+        flex: checkoutLayout
+          ? '0 0 calc((100% - 64px) / 5)'
+          : layout === 'portrait'
+            ? '0 0 calc((100% - 48px) / 4)'
+            : '0 0 140px',
         color: 'black.100',
-        _mobile: { flexBasis: layout === 'portrait' ? '151px' : '140px' },
+        _mobile: { flexBasis: portraitLayout ? '151px' : '140px' },
       })}
     >
-      <Stack gap={layout === 'portrait' ? { base: '4', _mobile: '1' } : '1'}>
+      <Stack
+        gap={
+          checkoutLayout
+            ? { base: '4', _mobile: '3' }
+            : layout === 'portrait'
+              ? { base: '4', _mobile: '1' }
+              : '1'
+        }
+      >
         <Image
           src={item.imageSrc}
           alt=""
-          width={layout === 'portrait' ? 151 : 140}
-          height={layout === 'portrait' ? 328 : 140}
+          width={checkoutLayout ? 342 : layout === 'portrait' ? 151 : 140}
+          height={checkoutLayout ? 429 : layout === 'portrait' ? 328 : 140}
           sizes={
-            layout === 'portrait'
-              ? '(max-width: 1024px) 151px, (max-width: 1200px) 260px, 22vw'
-              : '140px'
+            checkoutLayout
+              ? '(max-width: 1024px) 151px, calc((100vw - 208px) / 5)'
+              : layout === 'portrait'
+                ? '(max-width: 1024px) 151px, (max-width: 1200px) 260px, 22vw'
+                : '140px'
           }
           className={css({
-            w: layout === 'portrait' ? '100%' : '140px',
-            h: layout === 'portrait' ? 'auto' : '140px',
-            aspectRatio: layout === 'portrait' ? '262.4 / 328.46' : '1',
-            objectFit: layout === 'portrait' ? 'contain' : 'cover',
+            w: portraitLayout ? '100%' : '140px',
+            h: portraitLayout ? 'auto' : '140px',
+            aspectRatio: checkoutLayout
+              ? '342.4 / 428.6'
+              : layout === 'portrait'
+                ? '262.4 / 328.46'
+                : '1',
+            objectFit: checkoutLayout ? 'cover' : layout === 'portrait' ? 'contain' : 'cover',
             bg: 'black.10',
-            _mobile:
-              layout === 'portrait'
+            _mobile: checkoutLayout
+              ? { w: '151px', h: '189px' }
+              : layout === 'portrait'
                 ? { w: '151px', h: '225px', mb: '2', objectFit: 'contain' }
                 : undefined,
           })}
         />
-        <Stack gap={layout === 'portrait' ? { base: '4', _mobile: '1' } : '1'}>
-          <Stack gap={layout === 'portrait' ? { base: '2.5', _mobile: '1' } : '1'}>
+        <Stack
+          gap={
+            checkoutLayout
+              ? { base: '4', _mobile: '1.5' }
+              : layout === 'portrait'
+                ? { base: '4', _mobile: '1' }
+                : '1'
+          }
+        >
+          <Stack
+            gap={
+              checkoutLayout
+                ? { base: '2.5', _mobile: '0.5' }
+                : layout === 'portrait'
+                  ? { base: '2.5', _mobile: '1' }
+                  : '1'
+            }
+          >
             <Typography
-              web={layout === 'portrait' ? 'body3' : 'body5'}
-              mo="body5"
-              weight={layout === 'portrait' && !mobile ? 'medium' : undefined}
+              web={portraitLayout ? 'body3' : 'body5'}
+              mo={checkoutLayout ? 'body4' : 'body5'}
+              weight={portraitLayout && !mobile ? 'medium' : undefined}
             >
               {item.gender ?? 'All Gender'}
             </Typography>
             <Typography
-              web={layout === 'portrait' ? 'body3' : 'body5'}
-              mo="body5"
-              weight={layout === 'portrait' && !mobile ? 'medium' : 'semibold'}
+              web={portraitLayout ? 'body3' : 'body5'}
+              mo={checkoutLayout ? 'body4' : 'body5'}
+              weight={portraitLayout && !mobile ? 'medium' : 'semibold'}
               className={css({ lineClamp: 2 })}
             >
               {item.name}
             </Typography>
           </Stack>
           <Typography
-            web={layout === 'portrait' ? 'body3' : 'body5'}
-            mo="body5"
-            weight={layout === 'portrait' && !mobile ? 'medium' : undefined}
+            web={portraitLayout ? 'body3' : 'body5'}
+            mo={checkoutLayout ? 'body4' : 'body5'}
+            weight={portraitLayout && !mobile ? 'medium' : undefined}
           >
             {item.price.toLocaleString()}원
           </Typography>
@@ -102,7 +143,7 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
 
 export type OrderRecommendationsProps = {
   items: readonly OrderRecommendation[];
-  title?: string;
+  title?: ReactNode;
   layout?: OrderRecommendationLayout;
 };
 
@@ -113,17 +154,62 @@ export function OrderRecommendations({
   layout = 'compact',
 }: OrderRecommendationsProps) {
   const viewport = useRef<HTMLDivElement>(null);
+  const portraitLayout = layout !== 'compact';
+
   return (
     <ContentSection
       as="section"
-      gap={layout === 'portrait' ? { base: '6', _mobile: '4' } : '4'}
+      gap={
+        layout === 'checkout'
+          ? { base: '8', _mobile: '4' }
+          : layout === 'portrait'
+            ? { base: '6', _mobile: '4' }
+            : '4'
+      }
       overflow="hidden"
       title={title}
       headerProps={{
         titleAs: 'h2',
         orientation: 'horizontal',
         action:
-          layout === 'portrait' ? (
+          layout === 'checkout' ? (
+            <HStack display={{ _mobile: 'none' }} gap="2">
+              <Button
+                variant="icon"
+                size={48}
+                shape="circle"
+                aria-label="이전 추천 상품"
+                className={css({ bg: 'black.10', color: 'black.40' })}
+                onClick={() =>
+                  viewport.current?.scrollBy({
+                    left: -viewport.current.clientWidth,
+                    behavior: 'smooth',
+                  })
+                }
+              >
+                <Icon
+                  fontAwesomeIcon={faChevronRight}
+                  size="16px"
+                  className={css({ transform: 'rotate(180deg)' })}
+                />
+              </Button>
+              <Button
+                variant="icon"
+                size={48}
+                shape="circle"
+                aria-label="다음 추천 상품"
+                className={css({ bg: 'black.100', color: 'white.0' })}
+                onClick={() =>
+                  viewport.current?.scrollBy({
+                    left: viewport.current.clientWidth,
+                    behavior: 'smooth',
+                  })
+                }
+              >
+                <Icon fontAwesomeIcon={faChevronRight} size="16px" />
+              </Button>
+            </HStack>
+          ) : layout === 'portrait' ? (
             <HStack display={{ _mobile: 'none' }} gap="2">
               <Button
                 variant="icon"
@@ -152,17 +238,25 @@ export function OrderRecommendations({
             </HStack>
           ) : undefined,
         titleProps: {
-          web: layout === 'portrait' ? 'heading7' : 'heading8',
-          mo: layout === 'portrait' ? 'heading6' : 'heading7',
+          web:
+            layout === 'checkout' ? 'headingKr6' : layout === 'portrait' ? 'heading7' : 'heading8',
+          mo:
+            layout === 'checkout' ? 'headingKr6' : layout === 'portrait' ? 'heading6' : 'heading7',
         },
       }}
     >
       <HStack
         ref={viewport}
-        gap={layout === 'portrait' ? { base: '4', _mobile: '2.5' } : '1'}
+        gap={
+          layout === 'checkout'
+            ? { base: '4', _mobile: '2.5' }
+            : layout === 'portrait'
+              ? { base: '4', _mobile: '2.5' }
+              : '1'
+        }
         overflowX="auto"
         alignItems="flex-start"
-        scrollbarWidth={layout === 'portrait' ? { _mobile: 'none' } : undefined}
+        scrollbarWidth={portraitLayout ? { _mobile: 'none' } : undefined}
       >
         {items.map((item) => (
           <OrderRecommendationItem key={item.id} item={item} layout={layout} />
