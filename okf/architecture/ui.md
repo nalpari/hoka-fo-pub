@@ -6,9 +6,10 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:21:59.926Z'
+  at: '2026-11-02T04:36:53Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/layouts/BottomSheet.tsx
   - public/images/navigation/clifton-utl.webp
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/care-guide/CareInstructions.tsx
@@ -3922,3 +3923,22 @@ PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프
 목록·빈 목록·상세·고정 신청 바와 카테고리 배지를 보정했다. 기존 공통 배지의 다른 모드·헤더·푸터는 유지했다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
 
 러닝세션 빈 목록은 공통 EmptyState를 유지한다. 선택적 className/titleProps로 높이·본문 variant를 지정하고 action으로 신청 내역을 전달한다. 기본 standard/minimal·heading7과 기존 호출부는 유지한다. [재사용 정리와 검증](running-session-design.md#공통-emptystate-재사용과-최종-검증)을 참고한다. 작업 트리 출처: src/components/common/atoms/EmptyState.tsx, src/components/running-session/RunningSessionPage.tsx.
+
+## 상품 목록 Figma 적용 (2026-11-02)
+
+대상은 `/products?gender=men&activity=trail-running`이며 [PLP 원본](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1227-52405)의 PC 기본 1227:52933, 모바일 1227:66014, PC 필터 접힘 1242:67914, 정렬 펼침 1242:69914, 모바일 시트 viewport 1242:75125와 full 1294:4393을 읽었다. 화면 파일과 별도 디자인 시스템 파일의 읽기 접근을 각각 확인했다. PC 전체 구조의 한 요청은 시간 초과되어 필요한 필터·본문·헤더 하위 노드를 다시 읽었으며, PC/MO 내보내기와 비교했다. 원본의 컴포넌트 세트·문서 가이드는 제품 화면 규칙으로 확장하지 않았다.
+
+| 시안 규격                                                       | 반영 소유자와 동작                                                                                                                                                                                                                            |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PC 본문 1532px, 필터 내용 339px + 우측 31px, 목록과 16px 간격   | 기존 ProductListingPage에서 필터 열 최대 370px와 우측 31px, gap 16px를 적용했다. 1920px 실행에서 본문 1532px·필터 내용 339px를 측정했다. 원본 목록 너비는 1145px, 실행은 남은 공간 1146px다. 좁은 PC는 기존 캔버스 안에서 clamp로 축소한다.   |
+| PC 헤더 하단 40px·본문 하단 112px                               | 목록 전용 ContentLayout 클래스에서 적용한다. 검색 전용 레이아웃은 기존 열/간격을 사용한다.                                                                                                                                                    |
+| MO 제목 22px/900/1.2, 결과 수 14px, 사이 간격 8px               | ProductListTitle에서 기존 Typography를 재사용하며 실제 한글 글리프가 Pretendard Black임을 확인했다. PC 제목 28px는 유지한다.                                                                                                                  |
+| MO 도입부 24px/16px/8px, 카테고리 행 54px·항목 간격 16px        | 목록 소유자의 여백과 기존 고정 카테고리 rail 크기를 조정한다. 2열 카드 간격 8px·행 간격 40px는 유지한다.                                                                                                                                      |
+| 프로모션 이미지 PC 371:412·MO 작은 카드 184:205·큰 카드 375:281 | 기존 MainContentCard의 명시적 imageAspectRatio에 전달한다. 큰 카드의 본문 좌우 16px와 간격 20px를 적용한다. 공유 검색 결과의 프로모션 카드도 이 비율을 사용한다.                                                                              |
+| MO 시트 반경 24px, 좌우 16px, 제목 20px/600, 닫기 24px, dim 50% | BottomSheet의 기본값을 유지하고 `appearance="catalog"`를 목록 필터에만 전달한다. 375×815 viewport에서 top 104px·높이 711px를 측정했다. 긴 내용은 내부 스크롤이며 열린 상태의 768px resize도 확인했다. 기본/검색 시트는 반경 16px·제목 16px다. |
+
+상품 이름·사진·전체 건수는 기존 `ProductListingPage.data`/`ProductListingContext` 또는 미연결 mock의 소유권을 유지한다. 이 URL의 현재 mock 결과는 2개이므로 원본 74개·상품 조합과 다르며, 원본 값으로 실제 결과를 덮어쓰지 않는다. 선택 필터 태그, 모바일 정렬, 상단 홍보 배너·공통 헤더도 기존 데이터를 유지하므로 프레임과 시각 차이가 있다. 필터/정렬 URL·모바일 초안/적용·pending/error/retry·페이지네이션 계약은 수정하지 않았다. 새로운 API나 상태 URL을 추가하지 않았다.
+
+검증: 1920px PC와 375/768px MO를 브라우저로 확인했다. 1024px까지 mobile, 1025/1199px의 1200px 캔버스, 1200/1920px에서 세로 scrollbar로 인한 추가 가로 넘침이 없음을 측정했다. 필터 접기/펼치기·정렬 펼치기, 모바일 초안 선택 후 닫기 취소·다시 열기·Esc, 닫기 후 필터 버튼 포커스 복원을 확인했다. Storybook의 고정 web을 768px에서, 고정 mobile을 1920px에서 확인했으며 기본 BottomSheet와 검색 시트의 기본 표현도 확인했다. 변경 파일 ESLint·Prettier, 타입 검사, Panda 생성, Next.js 프로덕션 빌드와 Storybook 빌드를 통과했다. 전체 lint는 범위 밖 FindAccountContent의 css 및 signup/complete의 Stack 미사용 import 두 건으로 실패했다. 모든 Storybook play·전체 상품 카드 시각 회귀·실제 서비스 요청은 검증한 것으로 기록하지 않는다.
+
+작업 트리 출처: `src/components/catalog/ProductListingPage.tsx`, `src/components/common/layouts/BottomSheet.tsx`.

@@ -33,7 +33,6 @@ import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
-import { token } from 'styled-system/tokens';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
@@ -1053,7 +1052,9 @@ const PromotionCardRoot = cva({
       },
       fullWidth: {
         _mobile: {
-          gap: '4',
+          gap: '5',
+          '& .card__header': { px: '4' },
+          '& .card__action': { px: '4' },
           '& h3': { fontSize: '24px', fontWeight: 'black', lineHeight: '1.4' },
         },
       },
@@ -1064,10 +1065,10 @@ const PromotionCardRoot = cva({
 
 const imageAspectRatios = {
   inline: {
-    desktop: token.var('aspectRatios.media.productThumbnail'),
-    mobile: token.var('aspectRatios.media.productThumbnail'),
+    desktop: '371 / 412',
+    mobile: '184 / 205',
   },
-  fullWidth: { desktop: '375 / 248', mobile: '375 / 248' },
+  fullWidth: { desktop: '375 / 281', mobile: '375 / 281' },
 } as const;
 
 /** 상품 목록의 프로모션 콘텐츠를 표시합니다 (Catalog promotion card with inline and full-width presentations). */
@@ -1181,6 +1182,7 @@ function ProductListingResults({
 }
 
 type ProductListingContentProps = {
+  isSearchPage: boolean;
   onRetry?: () => void;
   pending?: boolean;
   error?: string;
@@ -1200,6 +1202,7 @@ type ProductListingContentProps = {
 
 /** 상품 필터와 목록을 구성하고 고정 영역 또는 시트로 배치합니다. (Composes shared product filters in a sticky area or bottom sheet.) */
 function ProductListingContent({
+  isSearchPage,
   onRetry,
   hasMore,
   pending,
@@ -1225,14 +1228,19 @@ function ProductListingContent({
         </>
       )}
       <Grid
-        gridTemplateColumns="clamp(252px, 22%, 337px) minmax(0, 1fr)"
-        gap="clamp(20px, 3.2%, 48px)"
+        gridTemplateColumns={
+          isSearchPage
+            ? 'clamp(252px, 22%, 337px) minmax(0, 1fr)'
+            : 'clamp(252px, 24.2%, 370px) minmax(0, 1fr)'
+        }
+        gap={isSearchPage ? 'clamp(20px, 3.2%, 48px)' : '4'}
         _mobile={{
           display: 'block',
         }}
       >
         {platform === 'web' && (
           <Box
+            pr={isSearchPage ? undefined : '31px'}
             position="sticky"
             top="calc(var(--layout-site-header-height) + var(--content-layout-header-height))"
             alignSelf="start"
@@ -1256,6 +1264,7 @@ function ProductListingContent({
       </Grid>
       {platform === 'mobile' && filterDrawerOpen && (
         <BottomSheet
+          appearance={isSearchPage ? 'default' : 'catalog'}
           ariaLabel="상품 필터"
           footer={
             <Button onClick={onMobileFilterApply} variant="primary">
@@ -1282,11 +1291,18 @@ type ProductListTitleProps = {
 /** 상품 목록 제목과 검색 결과 건수를 표시합니다. (Displays the product listing title and result count.) */
 function ProductListTitle({ platform, resultCount, searchQuery, title }: ProductListTitleProps) {
   return (
-    <HStack gap={platform === 'mobile' ? '10px' : '12px'} alignItems={'flex-end'}>
-      <Typography web="heading7" mo="body1" weight="black">
+    <HStack gap="2" alignItems="flex-end">
+      <Typography
+        web="heading7"
+        mo="heading8"
+        weight="black"
+        className={
+          platform === 'mobile' ? css({ '&&': { fontSize: '22px', lineHeight: '1.2' } }) : undefined
+        }
+      >
         {searchQuery ? `“${searchQuery}”에 대한 검색결과` : title}
       </Typography>
-      <Typography variant="body5">({resultCount})</Typography>
+      <Typography variant="body4">({resultCount})</Typography>
     </HStack>
   );
 }
@@ -1438,7 +1454,7 @@ function ProductFilterTrigger({
 
 const tabs = css({
   flex: '1',
-  '& > [role="group"]': { h: '36px', mb: '0', gap: '5' },
+  '& > [role="group"]': { h: '18px', mb: '0', gap: '4' },
   '& [data-filter-tabs-variant="plain"]': { px: '0', flexShrink: '0' },
 });
 
@@ -1485,7 +1501,7 @@ function ProductActivityNavigation({
   const { markerRef, pinned } = useScrollPin();
 
   return (
-    <Box h="9">
+    <Box h="54px">
       <Box ref={markerRef} h="1px" mb="-1px" scrollMarginTop="var(--layout-site-header-height)" />
       <HStack
         as="nav"
@@ -1494,7 +1510,7 @@ function ProductActivityNavigation({
         top={pinned ? 'var(--layout-site-header-height)' : undefined}
         insetInline={pinned ? '0' : undefined}
         zIndex="10"
-        h="9"
+        h="54px"
         px="4"
         gap={pinned ? '3' : '0'}
         bg="var(--hoka-white)"
@@ -1521,15 +1537,16 @@ const catalogLayout = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   maxW: 'var(--layout-web-content-max-width)',
   mx: 'auto',
-  pb: '16',
+  pb: '28',
   gap: '5',
+  '& > div:first-child': { pb: '10' },
   _mobile: {
     w: '100%',
     gap: '0',
     px: '0',
-    pt: '7',
-    pb: '24',
-    '& > div:first-child': { px: '4', pb: '6' },
+    pt: '6',
+    pb: '18',
+    '& > div:first-child': { px: '4', pb: '2' },
   },
 });
 
@@ -1597,6 +1614,7 @@ function ProductListingLayout({
 
   const content = (
     <ProductListingContent
+      isSearchPage={isSearchPage}
       onRetry={onRetry}
       hasMore={hasMore}
       pending={pending}
