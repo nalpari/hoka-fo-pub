@@ -6,9 +6,36 @@ tags: [verification, testing, build]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:31:43Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/support/care/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
   - tests/form-controls.test.mjs
   - tests/preview-links.test.mjs
@@ -539,3 +566,14 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 ## 디자인 상태 링크 누락 조사 검증 (2026-11-02)
 
 `node --test tests/preview-links.test.mjs` 5개가 통과했다. 실제 `/screen-index` DOM에서 조사 대상 IA의 등록 URL들이 표시되는지 소스의 연결 결과와 대조했다. PC 1440px·MO 375px에서 `/support/after-sales`, `/support/care`, `/login/account-locked/verification/preview-expired`, `/signup/terms`, `/mypage/coupons` 5개 URL을 각각 직접 열어 기본 탭·팝업 닫힘·일반 쿠폰 표시와 인라인 만료 안내를 확인했다. 그 외 로그인·주문서·주소·마이페이지의 대표 기본 진입도 확인했다. 새 URL·화면은 구현하지 않았고 전체 상태의 PC/MO 시각 일치·팝업 조작·타입·빌드를 검증한 것은 아니다. 기존 경로 검사는 디자인에만 존재하는 URL 누락을 검출하지 않으므로 [디자인 대응표](../architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 함께 확인한다. 출처: 사용자 지정 디자인, 현재 IA/화면 소스와 `tests/preview-links.test.mjs`, 실행 중인 로컬 앱. 검증·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+- `tests/preview-links.test.mjs` 6개 통과: 기존 경로·IA 연결 검사와 디자인 14개 링크의 owner/label/href 대응을 확인했다.
+- PC 1440px·MO 375px에서 신규 상태 14개와 기존 만료 URL을 각각 직접 열어 30개 사례의 초기 표시·새로고침·가로 overflow 없음을 확인했다. 팝업은 Escape 닫기와 다시 진입 시 초기 열림을 확인했으며 modal의 Tab 포커스를 검사했다. 도움말 popover에는 modal focus trap을 요구하지 않았다.
+- 기본 로그인·마이페이지·주문서·쿠폰·주소·가입 약관·잠금 해제와 기존 가입 만료 preview의 PC/MO 16개 사례에서 신규 팝업이 기본 진입에 섞이지 않음을 확인했다. 탭 history.back·빈 tab·다른 query 보존, 입력 draft resize 유지, 열린 만료 팝업 resize(568→343px)와 확인 닫기를 검사했다.
+- 실제 `/screen-index` DOM에 새 링크 14개가 표시됨을 대조하고, 검색으로 만료 링크를 찾아 클릭해 새 창에서 팝업이 바로 열리는 것을 확인했다. 모든 링크의 클릭을 반복한 것은 아니다.
+- 변경 파일 ESLint/Prettier, Panda 생성, 타입 검사와 Next/Storybook production build를 확인했다. 타입/빌드는 HEAD와 이 채팅 변경만 포함한 별도 검증 사본에서 수행했다. 공유 의존성 symlink가 Turbopack root 밖이라는 첫 빌드 실패는 설치 문서에 따라 검증 사본의 root만 조정해 재실행했고, 저장소 설정은 변경하지 않았다. Storybook에는 의존성 use-client directive와 build timing 경고가 있었지만 빌드는 통과했다. 전체 Storybook play 실행을 의미하지 않는다.
+- 브라우저 viewport 캡처는 도구의 Page.captureScreenshot timeout으로 확보하지 못했다. 실제 DOM·계산 크기·표시/포커스/상호작용을 확인했으며 전체 픽셀 일치·운영 서비스·실제 약관 원문 조회는 검증하지 않았다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

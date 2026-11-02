@@ -6,9 +6,38 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:31:43Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/support/care/page.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/login/_components/LoginContent.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutShipping.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/screen-index/sourceGraph.generated.json
   - src/app/screen-index/screenConnections.ts
   - src/data/supportContacts.ts
   - public/images/navigation/clifton-utl.webp
@@ -244,3 +273,9 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 디자인 상태 링크 조사 범위 (2026-11-02)
 
 사용자 지정 디자인 10개 영역의 상태와 IA를 읽기 전용으로 대조하고 [직접 링크 누락 14개·초기 표시 불일치 1개](architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 기록했다. PC/MO 동일 상태는 한 URL 기준으로 병합했다. 앱 코드·IA 데이터·라우트·의존성은 변경하지 않았으며 다른 채팅의 미커밋 소스는 조사 당시 관측으로만 취급한다. 출처: 사용자 지정 디자인과 현재 IA 연결·표시 소스. 기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+디자인 조사로 확정한 14개 상태를 기존 IA 행의 직접 링크로 추가하고 기존 만료 URL의 팝업 초기 표시를 수정했다. 신규 경로는 11개이며 나머지 3개는 기존 안내 페이지의 tab query다. PC/MO URL을 분리하지 않았으며 IA 번호·원본 범위·운영 의존성·백엔드 기능은 변경하지 않았다. [완료한 상태와 URL](architecture/routing.md#디자인-상태-직접-링크-구현-2026-11-02), [실제 검증과 한계](development/verification.md#디자인-상태-직접-링크-구현-2026-11-02)를 참고한다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

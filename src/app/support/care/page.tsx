@@ -44,6 +44,7 @@ export default function Page() {
     >
       <Box mt={{ base: '10', _mobile: '6' }}>
         <SupportTabs
+          syncQuery
           ariaLabel="세탁 및 손질 방법"
           defaultValue="shoes"
           tabs={tabs}

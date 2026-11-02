@@ -203,12 +203,19 @@ const connections: Record<number, ScreenConnection> = {
       { label: '상품 없음', href: '/checkout/preview-empty' },
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
+      { label: '배송지 수동입력', href: '/checkout/preview-shipping' },
+      {
+        label: '배송 요청사항 직접입력',
+        href: '/checkout/preview-delivery-request',
+      },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
       'src/app/checkout/preview-empty/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
+      'src/app/checkout/preview-shipping/page.tsx',
+      'src/app/checkout/preview-delivery-request/page.tsx',
     ],
     stories: {
       web: {
@@ -224,8 +231,15 @@ const connections: Record<number, ScreenConnection> = {
   '177': {
     route: '/mypage',
     defaultStateLabel: '주문 내역 있음',
-    previewRoutes: [{ label: '주문 내역 없음', href: '/mypage/preview-no-orders' }],
-    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-no-orders/page.tsx'],
+    previewRoutes: [
+      { label: '주문 내역 없음', href: '/mypage/preview-no-orders' },
+      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
+    ],
+    sourceFiles: [
+      'src/app/mypage/page.tsx',
+      'src/app/mypage/preview-no-orders/page.tsx',
+      'src/app/mypage/preview-logout/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-마이페이지-0-마이페이지-메인-web--width-1600',
@@ -368,11 +382,26 @@ const connections: Record<number, ScreenConnection> = {
     route: '/support/inquiries/new',
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
-      { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
-      { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
-      { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
-      { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
-      { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
+      {
+        label: '주문 선택 안내',
+        href: '/support/inquiries/new/preview-order-required',
+      },
+      {
+        label: '첨부 형식 오류',
+        href: '/support/inquiries/new/preview-attachment-type',
+      },
+      {
+        label: '첨부 크기 오류',
+        href: '/support/inquiries/new/preview-attachment-size',
+      },
+      {
+        label: '첨부 개수 오류',
+        href: '/support/inquiries/new/preview-attachment-count',
+      },
+      {
+        label: '주문 상품 조회',
+        href: '/support/inquiries/new/order-products',
+      },
       {
         label: '조회 내역 없음',
         href: '/support/inquiries/new/order-products/preview-empty',
@@ -403,9 +432,15 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/reviews',
     previewRoutes: [
       { label: '작성 가능한 리뷰 목록', href: '/mypage/reviews/preview-ready' },
-      { label: '작성 가능한 리뷰 목록 없음', href: '/mypage/reviews/preview-empty' },
+      {
+        label: '작성 가능한 리뷰 목록 없음',
+        href: '/mypage/reviews/preview-empty',
+      },
       { label: '내가 작성한 리뷰', href: '/mypage/reviews/preview-written' },
-      { label: '내가 작성한 리뷰 목록 없음', href: '/mypage/reviews/preview-written-empty' },
+      {
+        label: '내가 작성한 리뷰 목록 없음',
+        href: '/mypage/reviews/preview-written-empty',
+      },
       { label: '작성', href: '/mypage/reviews/preview-new' },
       { label: '수정', href: '/mypage/reviews/preview-edit' },
       { label: '입력 오류', href: '/mypage/reviews/preview-error' },
@@ -451,6 +486,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       { label: '등록 오류', href: '/mypage/coupons/preview-error' },
       { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [
       'src/app/mypage/coupons/page.tsx',
@@ -458,6 +494,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/coupons/preview-error/page.tsx',
       'src/app/mypage/coupons/preview-complete/page.tsx',
       'src/app/mypage/coupons/preview-detail/page.tsx',
+      'src/app/mypage/coupons/preview-employee/page.tsx',
     ],
     stories: {
       web: {
@@ -489,7 +526,10 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
-      { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
+      {
+        label: '비밀번호 변경 완료',
+        href: '/mypage/profile/preview-password-complete',
+      },
     ],
     sourceFiles: [
       'src/app/mypage/profile/page.tsx',
@@ -509,13 +549,17 @@ const connections: Record<number, ScreenConnection> = {
   '203': {
     route: '/mypage/addresses',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/addresses/preview-empty' }],
+    previewRoutes: [
+      { label: '빈 목록', href: '/mypage/addresses/preview-empty' },
+      { label: '배송지 삭제 확인', href: '/mypage/addresses/preview-delete' },
+    ],
     sourceFiles: [
       'src/app/mypage/addresses/page.tsx',
       'src/app/mypage/addresses/preview-empty/page.tsx',
       'src/app/mypage/addresses/preview-new/page.tsx',
       'src/app/mypage/addresses/preview-edit/page.tsx',
       'src/app/mypage/addresses/preview-error/page.tsx',
+      'src/app/mypage/addresses/preview-delete/page.tsx',
     ],
     stories: {
       mobile: {
@@ -613,11 +657,26 @@ const connections: Record<number, ScreenConnection> = {
     route: '/support/inquiries/new',
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
-      { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
-      { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
-      { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
-      { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
-      { label: '주문 상품 조회', href: '/support/inquiries/new/order-products' },
+      {
+        label: '주문 선택 안내',
+        href: '/support/inquiries/new/preview-order-required',
+      },
+      {
+        label: '첨부 형식 오류',
+        href: '/support/inquiries/new/preview-attachment-type',
+      },
+      {
+        label: '첨부 크기 오류',
+        href: '/support/inquiries/new/preview-attachment-size',
+      },
+      {
+        label: '첨부 개수 오류',
+        href: '/support/inquiries/new/preview-attachment-count',
+      },
+      {
+        label: '주문 상품 조회',
+        href: '/support/inquiries/new/order-products',
+      },
       {
         label: '조회 내역 없음',
         href: '/support/inquiries/new/order-products/preview-empty',
@@ -673,6 +732,13 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '216': {
+    previewRoutes: [
+      { label: '반품 안내', href: '/support/after-sales?tab=product-returns' },
+      {
+        label: '상품 반품안내',
+        href: '/support/after-sales?tab=return-cautions',
+      },
+    ],
     route: '/support/after-sales',
     sourceFiles: ['src/app/support/after-sales/page.tsx'],
     stories: {
@@ -687,6 +753,7 @@ const connections: Record<number, ScreenConnection> = {
     },
   },
   '217': {
+    previewRoutes: [{ label: '의류/용품', href: '/support/care?tab=apparel' }],
     route: '/support/care',
     sourceFiles: ['src/app/support/care/page.tsx'],
     stories: {
@@ -721,8 +788,15 @@ const connections: Record<number, ScreenConnection> = {
   },
   '223': {
     route: '/login',
-    previewRoutes: [{ label: '에러 메시지', href: '/login/preview-error' }],
-    sourceFiles: ['src/app/login/page.tsx', 'src/app/login/preview-error/page.tsx'],
+    previewRoutes: [
+      { label: '에러 메시지', href: '/login/preview-error' },
+      { label: '아이디 저장 도움말', href: '/login/preview-help' },
+    ],
+    sourceFiles: [
+      'src/app/login/page.tsx',
+      'src/app/login/preview-error/page.tsx',
+      'src/app/login/preview-help/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-로그인-0-로그인-web--default',
@@ -738,7 +812,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/login/find-account',
     previewRoutes: [
       { label: '입력 오류', href: '/login/find-account/preview-error' },
-      { label: '인증번호 입력', href: '/login/find-account/preview-code-entry' },
+      {
+        label: '인증번호 입력',
+        href: '/login/find-account/preview-code-entry',
+      },
       { label: '인증 만료', href: '/login/find-account/preview-expired' },
     ],
     sourceFiles: [
@@ -775,8 +852,14 @@ const connections: Record<number, ScreenConnection> = {
   '229': {
     route: '/login/find-account/password-reset',
     previewRoutes: [
-      { label: '입력 오류', href: '/login/find-account/password-reset/preview-error' },
-      { label: '변경 완료', href: '/login/find-account/password-reset/preview-complete' },
+      {
+        label: '입력 오류',
+        href: '/login/find-account/password-reset/preview-error',
+      },
+      {
+        label: '변경 완료',
+        href: '/login/find-account/password-reset/preview-complete',
+      },
     ],
     sourceFiles: [
       'src/app/login/find-account/password-reset/page.tsx',
@@ -812,9 +895,15 @@ const connections: Record<number, ScreenConnection> = {
   '234': {
     route: '/signup/verify/phone',
     previewRoutes: [
-      { label: '필수 동의 오류', href: '/signup/verify/phone/preview-agreement-error' },
+      {
+        label: '필수 동의 오류',
+        href: '/signup/verify/phone/preview-agreement-error',
+      },
       { label: '입력 오류', href: '/signup/verify/phone/preview-error' },
-      { label: '인증번호 입력', href: '/signup/verify/phone/preview-code-entry' },
+      {
+        label: '인증번호 입력',
+        href: '/signup/verify/phone/preview-code-entry',
+      },
       { label: '인증 만료', href: '/signup/verify/phone/preview-expired' },
     ],
     sourceFiles: [
@@ -837,8 +926,15 @@ const connections: Record<number, ScreenConnection> = {
   },
   '236': {
     route: '/signup/terms',
-    previewRoutes: [{ label: '필수 동의 오류', href: '/signup/terms/preview-error' }],
-    sourceFiles: ['src/app/signup/terms/page.tsx', 'src/app/signup/terms/preview-error/page.tsx'],
+    previewRoutes: [
+      { label: '필수 동의 오류', href: '/signup/terms/preview-error' },
+      { label: '필수 약관 상세', href: '/signup/terms/preview-detail' },
+    ],
+    sourceFiles: [
+      'src/app/signup/terms/page.tsx',
+      'src/app/signup/terms/preview-error/page.tsx',
+      'src/app/signup/terms/preview-detail/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-회원가입-3-약관동의-web--default',
@@ -969,9 +1065,34 @@ const connections: Record<number, ScreenConnection> = {
         label: '필수 동의 오류',
         href: '/login/account-locked/verification/preview-agreement-error',
       },
-      { label: '입력 오류', href: '/login/account-locked/verification/preview-error' },
-      { label: '인증번호 입력', href: '/login/account-locked/verification/preview-code-entry' },
-      { label: '인증 만료', href: '/login/account-locked/verification/preview-expired' },
+      {
+        label: '입력 오류',
+        href: '/login/account-locked/verification/preview-error',
+      },
+      {
+        label: '인증번호 입력',
+        href: '/login/account-locked/verification/preview-code-entry',
+      },
+      {
+        label: '인증 만료',
+        href: '/login/account-locked/verification/preview-expired',
+      },
+      {
+        label: '알뜰폰 사업자',
+        href: '/login/account-locked/verification/preview-carriers',
+      },
+      {
+        label: '필수 약관',
+        href: '/login/account-locked/verification/preview-required-terms',
+      },
+      {
+        label: '선택 약관',
+        href: '/login/account-locked/verification/preview-optional-terms',
+      },
+      {
+        label: '이전 약관 선택',
+        href: '/login/account-locked/verification/preview-previous-terms',
+      },
     ],
     sourceFiles: [
       'src/app/login/account-locked/verification/page.tsx',
@@ -979,6 +1100,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/account-locked/verification/preview-code-entry/page.tsx',
       'src/app/login/account-locked/verification/preview-expired/page.tsx',
       'src/app/login/account-locked/verification/preview-agreement-error/page.tsx',
+      'src/app/login/account-locked/verification/preview-carriers/page.tsx',
+      'src/app/login/account-locked/verification/preview-required-terms/page.tsx',
+      'src/app/login/account-locked/verification/preview-optional-terms/page.tsx',
+      'src/app/login/account-locked/verification/preview-previous-terms/page.tsx',
     ],
     stories: {
       web: {

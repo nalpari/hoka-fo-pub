@@ -4,12 +4,32 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-02T09:31:43Z'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:31:43Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/checkout/_components/CheckoutForm.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
   - id: design-state-link-audit
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748
     title: '사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크'
@@ -817,3 +837,30 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 장바구니 옵션/수량 제한, 주문·배송·취소/반품 목록/상세·신청, 리뷰·관심상품·최근 본 상품·재입고 알림, 회원정보, 러닝세션 취소, 아이디 확인·잠금 안내, 비밀번호 변경 완료, 가입 본인인증·부가정보·마케팅 수신내역·가입 완료는 기존 연결을 확인해 위 누락 수에서 제외했다. 기존 preview 페이지의 IA 연결·경로 검사 5개는 통과했다. 이 검사는 디자인에만 있고 아직 URL이 없는 상태를 자동으로 찾아내지는 않는다.
 
 앱 코드·IA·상태 URL은 수정하지 않았다. 조사 결과는 현재 미커밋 작업 트리를 포함한 관측이며 후속 변경 시 재확인이 필요하다. 출처: 사용자 지정 디자인 노드, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`, 표에 대응하는 route/preview와 표시 컴포넌트, `tests/preview-links.test.mjs`. 검토 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 조사·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+앞선 조사에서 확인한 14개 직접 링크 누락과 잠금 해제 만료 팝업의 초기 표시 불일치를 해소했다. PC/MO 동일 상태는 아래 하나의 반응형 URL을 공유한다. IA 원본 행·번호·기본 route·Storybook 연결은 유지한다.
+
+| IA  | 상태                   | 직접 URL                                                    |
+| --- | ---------------------- | ----------------------------------------------------------- |
+| 171 | 배송지 수동입력        | `/checkout/preview-shipping`                                |
+| 171 | 배송 요청사항 직접입력 | `/checkout/preview-delivery-request`                        |
+| 177 | 로그아웃 확인          | `/mypage/preview-logout`                                    |
+| 196 | 임직원 쿠폰            | `/mypage/coupons/preview-employee`                          |
+| 203 | 배송지 삭제 확인       | `/mypage/addresses/preview-delete`                          |
+| 216 | 반품 안내              | `/support/after-sales?tab=product-returns`                  |
+| 216 | 상품 반품안내          | `/support/after-sales?tab=return-cautions`                  |
+| 217 | 의류/용품              | `/support/care?tab=apparel`                                 |
+| 223 | 아이디 저장 도움말     | `/login/preview-help`                                       |
+| 236 | 필수 약관 상세         | `/signup/terms/preview-detail`                              |
+| 253 | 알뜰폰 사업자          | `/login/account-locked/verification/preview-carriers`       |
+| 253 | 필수 약관              | `/login/account-locked/verification/preview-required-terms` |
+| 253 | 선택 약관              | `/login/account-locked/verification/preview-optional-terms` |
+| 253 | 이전 약관 선택         | `/login/account-locked/verification/preview-previous-terms` |
+
+기존 `/login/account-locked/verification/preview-expired`는 처음부터 열린 만료 팝업을 표시한다. 제목은 “계정잠금해제”, 본문은 “입력시간이 만료되었습니다”와 인증번호 재요청 안내다. PC 568px·MO 343px(375px viewport)로 표시하며 확인·Escape·닫기는 팝업만 닫는다. 가입 휴대폰 인증의 기존 만료 preview는 변경하지 않는다.
+
+배송/세탁 안내는 기존 `SupportTabs`의 `syncQuery` 모드가 `useSearchParams`와 `useRouter`로 `tab`을 읽고 갱신한다. 빈 값·없는 값·알 수 없는 값은 기존 기본 탭을 표시하며 URL을 임의 정규화하지 않는다. 다른 query를 보존하고 탭 변경을 history에 기록한다. Suspense는 해당 모드 내부에 둬 기존 Storybook/controlled 소비자는 router에 의존하지 않는다. `sourceFiles`에 11개 새 route 진입점을 추가했고 그래프는 정식 생성 명령으로 갱신했다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

@@ -179,7 +179,10 @@ function MyPageOverviewProfile() {
                   as="span"
                   web="heading6"
                   mo="heading4"
-                  className={css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } })}
+                  className={css({
+                    lineHeight: '1',
+                    _mobile: { lineHeight: '1.2' },
+                  })}
                 >
                   {binding ? summary?.name : '박연진'}
                 </Typography>
@@ -352,7 +355,11 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
           <Box mt="6">
             <CarouselPagination
               label="주문 상품 선택"
-              className={css({ display: 'flex', justifyContent: 'center', gap: '5px' })}
+              className={css({
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '5px',
+              })}
             />
           </Box>
         </Carousel>
@@ -367,7 +374,10 @@ type MyPageMenuItemProps = {
   to: string;
 };
 
-const menuLink = css({ display: 'block', borderBottom: '1px solid var(--color-border-subtle)' });
+const menuLink = css({
+  display: 'block',
+  borderBottom: '1px solid var(--color-border-subtle)',
+});
 
 function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
   return (
@@ -406,11 +416,18 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   );
 }
 
+/** [ 개발팀 바인딩 ] previewLogout은 확인창의 초기 표시만 지정합니다. 이 고정 상태에서는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
-export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: boolean }) {
+export function RouteContent({
+  previewNoOrders = false,
+  previewLogout = false,
+}: {
+  previewNoOrders?: boolean;
+  previewLogout?: boolean;
+}) {
   const binding = useContext(MyPageDataContext).overview;
   const { logout: onLogout } = useShop();
-  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(previewLogout);
 
   return (
     <>
@@ -432,7 +449,10 @@ export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: bo
           </Grid>
 
           <Button
-            className={css({ display: 'none', _mobile: { display: 'inline-flex', mt: '2' } })}
+            className={css({
+              display: 'none',
+              _mobile: { display: 'inline-flex', mt: '2' },
+            })}
             fullWidth
             size="tall"
             variant="secondary"
@@ -447,7 +467,7 @@ export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: bo
         onOpenChange={setLogoutOpen}
         onConfirm={() => {
           setLogoutOpen(false);
-          if (!previewNoOrders) onLogout();
+          if (!previewNoOrders && !previewLogout) onLogout();
         }}
       />
     </>

@@ -36,6 +36,9 @@ export type PhoneVerificationContentProps = {
   codeError?: string;
   fieldErrors?: PhoneVerificationErrors;
   detail: string | null;
+  initialPreviousPickerOpen?: boolean;
+  designTerms?: boolean;
+  designTermKind?: 'required' | 'optional';
   onInformationChange: (key: keyof PhoneInformation, value: string) => void;
   onAgreementChange: (index: number, checked: boolean) => void;
   onAllAgree: (checked: boolean) => void;

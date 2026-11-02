@@ -34,6 +34,7 @@ export default function Page() {
     >
       <Stack mt={{ base: '10', _mobile: '6' }} minH={{ base: '677px', _mobile: '546px' }}>
         <SupportTabs
+          syncQuery
           ariaLabel="배송 및 반품 안내 항목"
           defaultValue="shipping"
           tabs={tabs}

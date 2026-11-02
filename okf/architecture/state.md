@@ -4,12 +4,33 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-02T09:31:43Z'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:31:43Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/common/molecules/SupportTabs.tsx
+  - src/components/common/molecules/HelpTips.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/mypage/addresses/_components/AddressStatePreview.tsx
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsContent.tsx
+  - src/components/phone-verification/phone-verification.types.ts
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/screen-index/sourceGraph.generated.json
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
   - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
   - src/data/megaMenu.ts
@@ -633,3 +654,13 @@ ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)�
 ## 고정 상태 초기값 조사 (2026-11-02)
 
 배송/세탁 탭의 기본 선택, checkout 배송지/요청사항, 쿠폰 employee 옵션, 마이페이지 로그아웃, 주소 삭제, 가입 약관과 잠금 해제 detail 초기값을 검토했다. 만료 preview는 secondsLeft=0과 인라인 notice를 설정하지만 모달을 여는 expired prop은 전달하지 않는다. 이전 약관은 시행일 선택 팝업을 제공하지 않는다. 이 구성을 [직접 링크 누락 조사](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)와 구별해 기록하며 상태 owner·fixture·서비스 연결은 수정하지 않았다. 출처: 대응 route/preview, `src/components/phone-verification/PhoneVerificationStatePreview.tsx`, `PhoneVerificationContent.tsx`, `src/app/signup/terms/_components/SignupTermsStatePreview.tsx`. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+추가된 상태는 최초 표시 fixture다. `initialDeliveryRequest`, `initialEditing`, `previewLogout`, `initialDetail`, `initialPreviousPickerOpen`은 각 기존 owner에서 로컬 draft/open 상태를 초기화하며 API 응답처럼 동기화하지 않는다. 실제 인증·저장·삭제·쿠폰 발급·결제·완료 이동을 새로 연결하지 않는다. 로그아웃 preview의 확인은 인증 상태를 바꾸지 않고 확인창만 닫는다.
+
+잠금 해제의 expired preview는 로컬 expiredOpen을 true로 시작해 기존 ModalDialog에 전달하고 확인/닫기 시 false로 바꾼다. inline 만료 안내는 유지하며 타이머나 요청으로 완료시키지 않는다. 가입 인증의 기존 만료 표현과 기본 소비자의 서비스 계약은 유지한다. 신규 약관 preview의 designTerms 분기와 기존 연결 약관 분기를 구분해 범위 밖 body/이전 버전 데이터 소유권을 이동하지 않는다. 이전 약관 선택은 fixture 날짜만 선택하며 버전 전문은 등록 준비 중으로 표시한다.
+
+[URL과 IA 대응](routing.md#디자인-상태-직접-링크-구현-2026-11-02)을 참고한다. 실제 연결 소유자와 fixture 경계는 변경한 owner의 `[ 개발팀 바인딩 ]` 주석에 기록했다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.

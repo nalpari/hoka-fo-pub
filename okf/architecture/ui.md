@@ -4,12 +4,26 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-02T09:31:43Z'
+updated: '2026-11-02T09:59:35Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:31:43Z'
+  at: '2026-11-02T09:59:35Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
+  - src/components/phone-verification/PhoneVerificationStatePreview.tsx
+  - src/app/checkout/preview-shipping/page.tsx
+  - src/app/checkout/preview-delivery-request/page.tsx
+  - src/app/mypage/preview-logout/page.tsx
+  - src/app/mypage/coupons/preview-employee/page.tsx
+  - src/app/mypage/addresses/preview-delete/page.tsx
+  - src/app/login/preview-help/page.tsx
+  - src/app/signup/terms/preview-detail/page.tsx
+  - src/app/login/account-locked/verification/preview-carriers/page.tsx
+  - src/app/login/account-locked/verification/preview-required-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
+  - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
   - public/images/icon/catalog-filter-close.svg
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
   - src/components/common/molecules/HomeCarouselSection.tsx
@@ -3989,3 +4003,13 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 디자인 상태별 IA 직접 진입 조사 (2026-11-02)
 
 [누락 대응표](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)에 디자인 상태 14개의 직접 링크 누락과 만료 팝업 초기 표시 불일치 1개를 기록했다. 기존 탭·도움말·모달 컴포넌트가 있다는 사실과 URL로 해당 상태를 바로 여는 계약은 구분한다. 제품 UI·스타일·Storybook은 수정하지 않았다. 출처: 사용자 지정 디자인, 기존 IA 링크 표시와 대응 화면 소스. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 디자인 상태 직접 링크 구현 (2026-11-02)
+
+[상태별 URL](routing.md#디자인-상태-직접-링크-구현-2026-11-02)은 기존 화면·모달의 표시 옵션을 재사용한다. 새 전체 화면 복제나 서비스 시뮬레이션은 만들지 않는다. 로그인 도움말은 `HelpToggletip.defaultOpen`, 주문서는 기존 배송지/요청사항 owner의 초기 seed, 로그아웃과 주소 삭제는 기존 확인창, 임직원 쿠폰은 기존 employee 옵션을 사용한다.
+
+`PreviousTermsPicker`는 가입 약관 모듈에서 공통 molecule로 옮겨 가입과 잠금 해제의 실제 두 소비자가 공유한다. 기존 versions/선택 콜백·PC radio 목록·모바일 bottomSheet를 보존한다. `SupportTabs.syncQuery`는 기존 value/onValueChange controlled 계약과 타입에서 서로 배타적이며, Controlled story는 기본 모드를 명시한다. Panda 스타일·라우트 page 역할·로컬 표시 상태의 기존 소유권을 유지한다.
+
+잠금 해제의 신규 약관 preview는 명시적 designTerms/designTermKind 표시 옵션을 사용한다. 선택 여부를 실제 동의 정책이나 표시 문자열에서 추론하지 않는다. 기존 약관/통신사 UI와 공용 ModalDialog를 재사용하고, 약관 본문·시행일은 서비스 원문을 대신하는 디자인 fixture임을 구분한다. 완전한 시각 일치 판정은 수행하지 않았다.
+
+출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
