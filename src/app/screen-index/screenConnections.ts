@@ -174,8 +174,17 @@ const connections: Record<number, ScreenConnection> = {
   '170': {
     route: '/cart',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/cart/preview-empty' }],
-    sourceFiles: ['src/app/cart/page.tsx', 'src/app/cart/preview-empty/page.tsx'],
+    previewRoutes: [
+      { label: '빈 목록', href: '/cart/preview-empty' },
+      { label: '옵션 변경', href: '/cart/preview-options' },
+      { label: '수량 제한 안내', href: '/cart/preview-limit' },
+    ],
+    sourceFiles: [
+      'src/app/cart/page.tsx',
+      'src/app/cart/preview-empty/page.tsx',
+      'src/app/cart/preview-options/page.tsx',
+      'src/app/cart/preview-limit/page.tsx',
+    ],
     stories: {
       web: {
         id: 'pages-장바구니-0-장바구니-목록-web--default',

@@ -11,6 +11,7 @@ import { type ReactNode, useId } from 'react';
 import { Stack } from 'styled-system/jsx';
 
 import { FormField } from '@/components/common/atoms/FormField';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import {
   SizeSelector,
@@ -48,9 +49,10 @@ export function ProductSizeSelector({
   const selector = (
     <SizeSelector
       mode="single"
-      size="regular"
+      size={appearance === 'cart' ? 'medium' : 'regular'}
       ariaLabel={appearance === 'cart' ? '사이즈' : '사이즈 선택'}
-      columns={appearance === 'cart' ? 4 : 5}
+      columns={5}
+      mobileColumns={appearance === 'cart' ? 4 : undefined}
       soldOutAppearance={appearance === 'cart' ? undefined : 'gray'}
       options={options}
       value={value}
@@ -59,7 +61,23 @@ export function ProductSizeSelector({
   );
 
   return (
-    <ProductOptionSection appearance={appearance} title="사이즈" action={action} id={id}>
+    <ProductOptionSection
+      appearance={appearance}
+      title={
+        appearance === 'cart' ? (
+          <>
+            사이즈:{' '}
+            <Typography as="span" web="body3" mo="body4" weight="regular">
+              {value}
+            </Typography>
+          </>
+        ) : (
+          '사이즈'
+        )
+      }
+      action={action}
+      id={id}
+    >
       {appearance === 'cart' ? (
         selector
       ) : (

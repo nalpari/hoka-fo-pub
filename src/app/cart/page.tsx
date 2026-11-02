@@ -16,18 +16,38 @@ import { cartPreviewRows, cartPreviewTotal } from './cart-preview';
 /** 고정 예시 데이터로 장바구니 마크업을 표시합니다. (Displays cart markup with fixed preview data.) */
 export default function Page() {
   return (
-    <OrderPageLayout step={1} title={<CartHeading itemCount={12} />}>
-      <Stack gap="10" pb={{ _mobile: '12' }}>
-        <CartProductSection rows={cartPreviewRows} total={cartPreviewTotal} />
-        <HStack display={{ _mobile: 'none' }} justifyContent="center" gap="3">
-          <Button variant="secondary">선택상품 주문하기</Button>
-          <Button>전체상품 주문하기</Button>
-        </HStack>
+    <OrderPageLayout
+      step={1}
+      title={<CartHeading />}
+      headerSpacing="none"
+      showSteps={false}
+      maxWidth="1132px"
+    >
+      <Stack gap={{ base: '14', _mobile: '8' }} mt={{ base: '6', _mobile: '0' }}>
+        <Stack gap="0" pt={{ base: '8', _mobile: '0' }}>
+          <CartProductSection rows={cartPreviewRows} total={cartPreviewTotal} />
+          <HStack
+            display={{ base: 'flex', _mobile: 'none' }}
+            justifyContent="center"
+            gap="2"
+            mt={{ base: '8', _mobile: '0' }}
+            py={{ base: '4', _mobile: '0' }}
+          >
+            <Box w="180px">
+              <Button variant="secondary" fullWidth>
+                선택상품 주문하기
+              </Button>
+            </Box>
+            <Box w="180px">
+              <Button variant="primary" fullWidth>
+                전체상품 주문하기
+              </Button>
+            </Box>
+          </HStack>
+        </Stack>
         <OrderRecommendations items={orderRecommendations} layout="portrait" title="추천 상품" />
         <CartSupportInfo />
-        <Box display={{ base: 'none', _mobile: 'block' }}>
-          <CartOrderActions total={cartPreviewTotal} />
-        </Box>
+        <CartOrderActions total={cartPreviewTotal} />
       </Stack>
     </OrderPageLayout>
   );

@@ -2,10 +2,21 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
+import { Stack } from 'styled-system/jsx';
+
+import { CartHeading } from '@/app/cart/_components/CartHeading';
+import { CartOrderActions } from '@/app/cart/_components/CartOrderActions';
 import { CartProductSection } from '@/app/cart/_components/CartProductSection';
-import { cartPreviewRows, cartPreviewTotal } from '@/app/cart/cart-preview';
+import {
+  cartPreviewRows,
+  cartPreviewSelectedTotal,
+  cartPreviewTotal,
+} from '@/app/cart/cart-preview';
 import CartPage from '@/app/cart/page';
 import CartEmptyPage from '@/app/cart/preview-empty/page';
+import CartLimitPreviewPage from '@/app/cart/preview-limit/page';
+import CartOptionsPreviewPage from '@/app/cart/preview-options/page';
+import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 
 const meta = {
   title: 'PAGES/장바구니/0. 장바구니 목록',
@@ -38,6 +49,10 @@ export const Mobile: Story = {
 
 export const Empty: Story = { render: () => <CartEmptyPage /> };
 
+export const OptionsOpen: Story = { render: () => <CartOptionsPreviewPage /> };
+
+export const LimitOpen: Story = { render: () => <CartLimitPreviewPage /> };
+
 export const Selection: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -51,7 +66,7 @@ export const Selection: Story = {
       await userEvent.click(favorite);
       await expect(favorite).toHaveAttribute('aria-pressed', 'true');
     }
-    await expect(canvas.getAllByText(/^528,000(?:원)?$/).length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText(/^3,350,000(?:원)?$/).length).toBeGreaterThan(0);
     const before = canvas.getAllByRole('listitem').length;
     for (const button of canvas.getAllByRole('button', { name: /주문하기/ }))
       await userEvent.click(button);
@@ -70,20 +85,33 @@ export const Quantity: Story = {
     await userEvent.click(within(row).getByRole('button', { name: /증가/ }));
     await expect(quantity).toHaveValue('2');
     await expect(within(row).getByText('240,000원')).toBeVisible();
-    await expect(canvas.getAllByText(/^528,000(?:원)?$/).length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText(/^3,350,000(?:원)?$/).length).toBeGreaterThan(0);
   },
 };
 
 export const MobileSelection: Story = { ...Mobile, play: Selection.play };
 
-export const MobileSoldOut: Story = {
+export const MobileSelected: Story = {
   ...Mobile,
   render: () => (
-    <CartProductSection
-      rows={cartPreviewRows.map((row, index) => (index === 3 ? { ...row, soldOut: true } : row))}
-      total={cartPreviewTotal}
-    />
+    <OrderPageLayout step={1} title={<CartHeading itemCount={cartPreviewRows.length} />}>
+      <Stack gap="10" pb="12">
+        <CartProductSection
+          rows={cartPreviewRows.map((row) => ({
+            ...row,
+            initialSelected: !row.soldOut,
+          }))}
+          total={cartPreviewSelectedTotal}
+        />
+        <CartOrderActions total={cartPreviewSelectedTotal} />
+      </Stack>
+    </OrderPageLayout>
   ),
+};
+
+export const MobileSoldOut: Story = {
+  ...Mobile,
+  render: () => <CartProductSection rows={cartPreviewRows} total={cartPreviewTotal} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getAllByRole('checkbox')[4]).toHaveAttribute('aria-disabled', 'true');
@@ -110,24 +138,14 @@ export const MobileOptionSave: Story = {
     const body = within(canvasElement.ownerDocument.body);
     await userEvent.click(canvas.getAllByRole('button', { name: '옵션변경' })[0]);
     const dialog = within(body.getByRole('dialog', { name: '옵션 변경하기' }));
-    await userEvent.click(dialog.getByRole('radio', { name: '250mm' }));
-    await expect(dialog.getByRole('radio', { name: '250mm' })).toBeChecked();
+    await userEvent.click(dialog.getByRole('radio', { name: '255mm' }));
+    await expect(dialog.getByRole('radio', { name: '255mm' })).toBeChecked();
     await userEvent.click(dialog.getByRole('button', { name: '확인' }));
     await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
     await expect(canvas.getByText('옵션 : Regular / 브라운 / 235 1개')).toBeVisible();
     await userEvent.click(canvas.getAllByRole('button', { name: '옵션변경' })[0]);
-    await expect(body.getByRole('radio', { name: '250mm' })).not.toBeChecked();
+    await expect(body.getByRole('radio', { name: '255mm' })).not.toBeChecked();
     await userEvent.keyboard('{Escape}');
     await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
-  },
-};
-
-export const MobileLimit: Story = {
-  ...MobileSoldOut,
-  play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getAllByRole('button', { name: '옵션변경' })[3]);
-    await expect(
-      within(canvasElement.ownerDocument.body).getByText('구매 수량이 제한된 상품입니다'),
-    ).toBeVisible();
   },
 };

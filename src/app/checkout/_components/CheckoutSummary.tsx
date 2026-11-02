@@ -22,9 +22,9 @@ function CheckoutProductList({ rows }: CheckoutProductListProps) {
         py="3"
         borderBottom="1px solid var(--colors-black-20)"
       >
-        <Typography variant="body5">상품/옵션정보</Typography>
-        <Typography variant="body5">수량</Typography>
-        <Typography variant="body5">가격</Typography>
+        <Typography variant="heading9">상품/옵션정보</Typography>
+        <Typography variant="heading9">수량</Typography>
+        <Typography variant="heading9">가격</Typography>
       </Grid>
       {rows.map(({ item, product }) => (
         <Grid

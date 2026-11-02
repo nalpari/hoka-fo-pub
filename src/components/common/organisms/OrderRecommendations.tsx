@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRef } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
@@ -34,6 +35,8 @@ type Props = { item: OrderRecommendation; layout?: OrderRecommendationLayout };
 
 /** 추천 상품의 이미지와 상품명·가격을 연결합니다. (Links an order recommendation with its image and price.) */
 function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
+  const mobile = usePlatform() === 'mobile';
+
   return (
     <Link
       href={item.href}
@@ -43,12 +46,12 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
         _mobile: { flexBasis: layout === 'portrait' ? '151px' : '140px' },
       })}
     >
-      <Stack gap="1">
+      <Stack gap={layout === 'portrait' ? { base: '4', _mobile: '1' } : '1'}>
         <Image
           src={item.imageSrc}
           alt=""
           width={layout === 'portrait' ? 151 : 140}
-          height={layout === 'portrait' ? 225 : 140}
+          height={layout === 'portrait' ? 328 : 140}
           sizes={
             layout === 'portrait'
               ? '(max-width: 1024px) 151px, (max-width: 1200px) 260px, 22vw'
@@ -57,8 +60,8 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
           className={css({
             w: layout === 'portrait' ? '100%' : '140px',
             h: layout === 'portrait' ? 'auto' : '140px',
-            aspectRatio: layout === 'portrait' ? '151 / 225' : '1',
-            objectFit: 'cover',
+            aspectRatio: layout === 'portrait' ? '262.4 / 328.46' : '1',
+            objectFit: layout === 'portrait' ? 'contain' : 'cover',
             bg: 'black.10',
             _mobile:
               layout === 'portrait'
@@ -66,11 +69,32 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
                 : undefined,
           })}
         />
-        <Typography variant="body5">{item.gender ?? 'All Gender'}</Typography>
-        <Typography variant="body5" weight="semibold" className={css({ lineClamp: 2 })}>
-          {item.name}
-        </Typography>
-        <Typography variant="body5">{item.price.toLocaleString()}원</Typography>
+        <Stack gap={layout === 'portrait' ? { base: '4', _mobile: '1' } : '1'}>
+          <Stack gap={layout === 'portrait' ? { base: '2.5', _mobile: '1' } : '1'}>
+            <Typography
+              web={layout === 'portrait' ? 'body3' : 'body5'}
+              mo="body5"
+              weight={layout === 'portrait' && !mobile ? 'medium' : undefined}
+            >
+              {item.gender ?? 'All Gender'}
+            </Typography>
+            <Typography
+              web={layout === 'portrait' ? 'body3' : 'body5'}
+              mo="body5"
+              weight={layout === 'portrait' && !mobile ? 'medium' : 'semibold'}
+              className={css({ lineClamp: 2 })}
+            >
+              {item.name}
+            </Typography>
+          </Stack>
+          <Typography
+            web={layout === 'portrait' ? 'body3' : 'body5'}
+            mo="body5"
+            weight={layout === 'portrait' && !mobile ? 'medium' : undefined}
+          >
+            {item.price.toLocaleString()}원
+          </Typography>
+        </Stack>
       </Stack>
     </Link>
   );
@@ -92,7 +116,7 @@ export function OrderRecommendations({
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap={layout === 'portrait' ? { base: '6', _mobile: '4' } : '4'}
       overflow="hidden"
       title={title}
       headerProps={{
@@ -127,7 +151,10 @@ export function OrderRecommendations({
               </Button>
             </HStack>
           ) : undefined,
-        titleProps: { web: 'heading8', mo: layout === 'portrait' ? 'heading6' : 'heading7' },
+        titleProps: {
+          web: layout === 'portrait' ? 'heading7' : 'heading8',
+          mo: layout === 'portrait' ? 'heading6' : 'heading7',
+        },
       }}
     >
       <HStack

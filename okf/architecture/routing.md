@@ -4,6 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
+updated: '2026-11-02T08:13:51+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
@@ -216,6 +217,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 장바구니 기본 화면의 고정 상태 (2026-11-02)
+
+후속 시안 `1976:61436`·`1985:76300`·`1985:77485`·`1985:77511`에 따라 `/cart/preview-options`와 `/cart/preview-limit`을 추가했다. 두 URL은 같은 장바구니 배경 위에서 각각 옵션 변경·구매 수량 제한 모달을 열어 고정 상태를 직접 확인한다. 닫기는 로컬 UI 상태이고 주문·재고 판정·옵션 저장은 연결하지 않는다. IA 170 미리보기 링크와 화면 그래프에 연결한다.
+
+`/cart`는 기존 App Router 경로와 page export를 유지한다. Figma `1992:85202`(MO 기본), `1938:45809`(MO 선택), `1797:47269`(PC)의 장바구니 상태를 검토했다. 페이지의 제목 개수는 고정 표시 행 4개에서 가져오며, 기본 행은 선택 0개·품절 1개다. 선택·수량·관심상품·옵션 팝업은 화면 확인용 로컬 UI 상태이고 주문·삭제·저장 이동이나 요청은 연결하지 않는다. 새 URL은 추가하지 않았다. 작업 트리 출처: `src/app/cart/page.tsx`, `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 

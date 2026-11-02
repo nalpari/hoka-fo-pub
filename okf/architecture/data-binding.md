@@ -4,6 +4,7 @@ title: '화면 데이터와 서비스 연결 계약'
 description: '퍼블리싱 화면에 실제 조회 결과와 비동기 요청을 연결하는 지점을 설명한다.'
 tags: [frontend, binding, state, forms]
 status: draft
+updated: '2026-11-02T08:13:51+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
@@ -69,6 +70,12 @@ working_tree_sources:
 ---
 
 # 화면 데이터와 서비스 연결 계약
+
+## 장바구니 고정 표시 예시 갱신 (2026-11-02)
+
+후속 옵션 시안의 색상 이미지·상품명은 `cartOptionPreview`에만 둔다. 기본 장바구니 행이나 실제 상품/재고 데이터로 확장하지 않는다. 수량 제한 안내는 `/cart/preview-limit`의 고정 상태이며 특정 수량에서 자동으로 발생하는 서비스 규칙을 만들지 않았다. 실제 제한 판정·안내 노출 시점·옵션 저장 요청과 오류 처리는 개발팀 장바구니 소유자가 연결한다.
+
+`cart-preview.ts`의 기본 화면은 4개 행 가운데 1개를 품절로 표시하고 선택은 0개로 시작한다. `cartPreviewTotal`은 Figma PC 기본 시안, `cartPreviewSelectedTotal`은 MO 3개 선택 시안의 고정 표시값이며 체크·수량으로 산출하는 장바구니 금액이 아니다. 수량 제한 안내 팝업은 품절 옵션 버튼으로 접근할 수 없던 시연 상태이므로 제거했다. 실제 결제 합계, 재고 제한 및 삭제·주문 동작은 여전히 개발팀 장바구니 소유자가 데이터와 요청 상태를 연결해야 한다. 작업 트리 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
 
 ## 장바구니·로그인 퍼블리싱 인계 전환 (2026-10-30)
 
