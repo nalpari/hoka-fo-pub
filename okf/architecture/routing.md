@@ -235,6 +235,22 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 공지 상세 구분선 보정 (2026-11-02)
+
+`src/app/support/notices/[id]/page.tsx`의 제목·본문 하단선을 시안의 1px #E9EAEB로 보정했다. id 조회·상태·목록보기 경로·PC/MO 프레임은 유지한다. [시안 노드·원인·실제 검증](support-design.md#공지-상세-하단-구분선-색상-2026-11-02)을 참고한다.
+
+## FAQ 더보기와 공용 연락처 (2026-11-02)
+
+FAQ는 기존 Button의 secondary/short/compact 및 loadMore.counter를 사용한다. 카운터는 현재 표시 건수/전체 건수이며 기존 추가 조회·pending·실패 계약을 유지한다. /support는 푸터와 공용 연락처 데이터를 읽으며 페이지의 바인딩 주석을 실제 데이터 소유자로 갱신했다. 새 경로는 없다. 정식 개발 감시가 생성한 screen-index 그래프에 새 데이터 의존성이 반영됐다. [FAQ 시안과 검증](support-design.md#faq-더보기-버튼-시안-보정-2026-11-02), [운영정보 공유](support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)를 참고한다. 작업 트리 출처: src/app/support/faq/_components/FaqContent.tsx, src/app/support/_components/SupportContacts.tsx, src/app/support/page.tsx, src/app/screen-index/sourceGraph.generated.json.
+
+## 고객센터 메인 운영정보 (2026-11-02)
+
+`/support`의 기존 SupportContacts에서 사용자 지정 화면설계서의 실제 연락처·운영시간과 전화 링크를 반영했다. 새 라우트나 요청 계약은 추가하지 않았다. [출처·값·PC/MO 검증](support-design.md#고객센터-운영정보-화면설계서-반영-2026-11-02)을 참고한다. 작업 트리 출처: `src/app/support/_components/SupportContacts.tsx`.
+
+## 고객센터 Sidebar 순서 (2026-11-02)
+
+`src/app/support/support.navigation.ts`의 INFORMATION 항목을 온라인 회원등급 안내 → 사이즈 가이드 → 배송 및 반품안내 → 세탁 및 손질 방법 안내 → 약관 순서로 배치했다. 기존 href와 activePath 판정은 유지한다. [시안 출처와 검증](support-design.md#고객센터-sidebar-메뉴-순서-2026-11-02)을 참고한다.
+
 ## 공지사항 시안 반영 (2026-11-02)
 
 `/support/notices`의 PC 헤더·목록 타이포·더보기와 `/support/notices/1`의 상세 타이포·모바일 간격을 조정했다. 새 라우트나 플랫폼 분기를 추가하지 않고 기존 context의 목록/본문·실제 ID 링크와 일반 목록보기 탐색을 유지한다. 스타일과 검증 범위는 [공지사항 시안 기록](support-design.md#공지사항-figma-재적용-2026-11-02)에 기록한다.

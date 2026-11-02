@@ -2,8 +2,8 @@
 
 /**
  * [ 개발팀 바인딩 ]
- * 연락처 표시 데이터와 tel 링크는 _components/SupportContacts에서 관리하는 고정 안내입니다.
- * 운영정보 연동 시 해당 소유자에서 표시값과 링크를 함께 갱신합니다. 아래 링크는 기존 문의 작성·FAQ 경로로 이동합니다.
+ * 연락처 표시 데이터와 tel 링크는 @/data/supportContacts의 고정 안내를 푸터와 공유합니다.
+ * 운영정보 연동 시 해당 데이터 소유자에서 표시값과 링크를 함께 갱신합니다. 아래 링크는 기존 문의 작성·FAQ 경로로 이동합니다.
  */
 
 import { css } from 'styled-system/css';
@@ -28,7 +28,7 @@ export default function Page() {
           title="고객센터"
           titleAs="h1"
           titleProps={{ web: 'heading6', mo: 'heading4' }}
-          description="HOKA와 함께하는 모든 순간, 더 나은 경험을 위해 항상 도와드리겠습니다."
+          description="문의 유형에 따라 상담 채널을 선택해 주세요. "
           descriptionProps={{
             variant: 'body3',
             web: 'body2',

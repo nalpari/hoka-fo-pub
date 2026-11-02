@@ -6,9 +6,10 @@ tags: [hoka, frontend, overview]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:21:59.926Z'
+  at: '2026-11-02T07:22:47Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/supportContacts.ts
   - public/images/navigation/clifton-utl.webp
   - src/hooks/useBindingQuery.ts
   - src/hooks/useRequestAction.ts
@@ -54,6 +55,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 고객센터 공용 운영정보 (2026-11-02)
+
+`src/data/supportContacts.ts`의 supportContacts와 supportContactHours를 고객센터 메인과 ShopShell 푸터가 공유한다. 제품·매장 080-960-0456, 온라인 1551-0458, 평일 09:00~18:00·점심 12:00~13:00·토/일/공휴일 휴무는 사용자 지정 화면설계서 기준 고정 안내다. [출처와 실제 검증](architecture/support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)을 참고한다.
 
 ## 상품 리뷰·문의 표현 검토 (2026-10-23)
 

@@ -60,8 +60,9 @@ export default function Page() {
       <Box
         mt={{ base: '10', _mobile: '8' }}
         borderTop="2px solid"
-        borderBottom="1px solid"
-        borderColor="#E9EAEB"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="black.20"
         borderTopColor="black.100"
         py="6"
         _mobile={{ py: '4', borderTopWidth: '1px' }}
@@ -77,7 +78,7 @@ export default function Page() {
             variant: 'body4',
             language: 'en',
             dateTime: notice.date,
-            className: css({ color: '#777777' }),
+            className: css({ color: 'black.50' }),
           }}
         />
       </Box>
@@ -85,8 +86,9 @@ export default function Page() {
         gap="4"
         px="2"
         py="6"
-        borderBottom="1px solid"
-        borderColor="#E9EAEB"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="black.20"
         _mobile={{ minH: '354px' }}
       >
         {binding ? (

@@ -67,6 +67,7 @@ import { type FooterGroup, footerGroups, socials } from '@/data/footerData';
 import { type HeaderPromotionItem, headerPromotionItems } from '@/data/headerPromotionData';
 import { type MegaMenu, type MegaMenuPromo, megaMenus } from '@/data/megaMenu';
 import { autocompleteSearches, popularSearches, suggestedSearches } from '@/data/searchOverlayData';
+import { supportContactHours, supportContacts } from '@/data/supportContacts';
 import {
   faBox,
   faChevronRight,
@@ -895,6 +896,7 @@ const FooterLegalLinksStyles = {
   businessLink: css({ textDecoration: 'underline', textUnderlineOffset: '4px' }),
 };
 
+/** [ 개발팀 바인딩 ] 고객센터 연락처와 운영시간은 /support와 같은 @/data/supportContacts에서 갱신합니다. */
 function FooterLegalLinks() {
   const platform = usePlatform();
 
@@ -915,13 +917,22 @@ function FooterLegalLinks() {
             개인정보처리방침
           </Link>
         </Flex>
-        <Flex className={FooterLegalLinksStyles.row}>
-          <Typography as="span">
-            고객센터 :{' '}
-            <Typography variant="body5" tone="inverse">
-              1234-0000
+        <Stack gap="2">
+          {supportContacts.map((contact) => (
+            <Typography as="p" key={contact.headingId}>
+              고객센터 ({contact.title}) :{' '}
+              <Typography as="a" href={contact.phoneHref} variant="body5" tone="inverse">
+                {contact.phone}
+              </Typography>
             </Typography>
+          ))}
+          <Typography as="p">
+            {supportContactHours.operatingHoursTitle} {supportContactHours.operatingHours} (
+            {supportContactHours.lunchBreak})
           </Typography>
+          <Typography as="p">{supportContactHours.closedDays}</Typography>
+        </Stack>
+        <Flex className={FooterLegalLinksStyles.row}>
           <Typography as="span">
             통신판매 신고번호 :{' '}
             <Typography variant="body5" tone="inverse">
@@ -2483,7 +2494,7 @@ function SiteHeaderInner({ primary, actions }: Props) {
       alignItems="center"
       justifyContent="space-between"
       width="100%"
-      maxW="1776px"
+      maxW="max(1776px, var(--layout-web-content-max-width))"
       mx="auto"
       _mobile={{ maxW: 'none' }}
     >

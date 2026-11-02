@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:21:59.926Z'
+  at: '2026-11-02T07:22:47Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/data/megaMenu.ts
@@ -206,6 +206,10 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 푸터 고객센터 운영정보 공유 (2026-11-02)
+
+ShopShell의 FooterLegalLinks는 `src/data/supportContacts.ts`를 /support와 함께 읽어 두 문의 채널·tel 링크·운영/점심/휴무를 표시한다. 푸터의 1234-0000 예시는 제거했으며 로그인·검색·장바구니 상태 소유권은 바꾸지 않았다. [실제 데이터·검증](support-design.md#푸터와-고객센터-운영정보-공유-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/supportContacts.ts.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
 
@@ -580,6 +584,12 @@ Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 �
 ## 러닝세션 신청 pending 표시 보정 (2026-11-02)
 
 기존 Context·요청 훅을 유지하고 pending을 두 신청 버튼에 전달했다. 운영 apply 완료 전 성공 안내를 표시하지 않으며 실패 시 상세를 유지한다. 신청 시작 문구와 보조 이미지 placeholder는 명시적 표시 데이터다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+## 대형 PC 헤더 너비 정렬 (2026-11-02)
+
+SiteHeaderInner의 최대 너비를 `max(1776px, var(--layout-web-content-max-width))`로 변경했다. 1920px 이하의 기존 헤더 여백·모바일 배치는 유지하며 본문이 더 넓어지는 대형 PC에서는 같은 콘텐츠 토큰까지 확장한다. ShopShell의 로그인·검색·메뉴·장바구니 상태와 이벤트 소유권은 변경하지 않았다. 작업 트리 출처: `src/context/ShopShell.tsx`; 너비 토큰 출처: `src/styles/global.scss`.
+
+검증: codex/gpt-6, 2026-11-02T06:56:38Z. `/products` 브라우저에서 2560px/clientWidth 2545px의 헤더 내부와 본문이 모두 left 252.5px·right 2292.5px·width 2040px로 일치했다. 1920px의 헤더 1761px, 1200px의 가로 넘침 없음, 1199/1025px의 기존 1200px 캔버스, 1024/375px의 모바일 전환과 가로 넘침 없음을 확인했다. ESLint 대상 파일·Prettier·Panda 생성·typecheck가 통과했다. 명시적 Storybook 플랫폼과 메뉴를 연 상태의 resize는 이번 변경에서 확인하지 않았다.
 
 ## 표시 공통 재사용과 상태 소유권 유지 (2026-11-02)
 

@@ -6,9 +6,14 @@ tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T04:46:17Z'
+  at: '2026-11-02T08:15:31Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/data/supportContacts.ts
+  - src/context/ShopShell.tsx
+  - src/app/support/support.navigation.ts
   - src/components/common/atoms/Button.tsx
   - src/components/common/atoms/DataTable.tsx
   - src/app/support/size-guide/_components/SizeGuidePanel.tsx
@@ -79,6 +84,46 @@ sources:
 ---
 
 # 고객센터 첨부 시안 반영
+
+## 공지 상세 하단 구분선 색상 (2026-11-02)
+
+[제공 섹션 1973:16234](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16234)의 PC 상세 본문 1973:16301과 모바일 1973:16376·1973:16398은 하단 1px #E9EAEB 경계를 사용한다. 실행에서는 borderBottom 단축 속성이 borderColor를 덮어 currentColor #111111이 표시됐다. `src/app/support/notices/[id]/page.tsx`의 제목·본문 하단 경계를 borderBottomWidth/Style/Color로 분리하고 기존 black.20 토큰을 적용했다. 상단 검정선·목록보기 버튼과 링크, 기존 데이터·요청 계약은 유지한다.
+
+검증: codex/gpt-6, 2026-11-02T07:29:48Z. `/support/notices/2`의 1920px·375px에서 두 하단선이 모두 `1px solid rgb(233, 234, 235)`로 표시됨을 확인했다. PC 상단 2px·모바일 1px 검정선, 목록보기 /support/notices 링크를 확인하고 PC/MO 캡처를 검토했다. 가로 넘침은 없었다. 대상 ESLint·Prettier·Panda 생성이 통과했다. 마크업 인계 지침의 기존 소유권·Panda 표현을 점검했으며 무관한 스타일·서비스 흐름은 변경하지 않았다.
+
+## FAQ 더보기 버튼 시안 보정 (2026-11-02)
+
+[지정 시안 1973:15997](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15997)의 PC 버튼 2269:33561·모바일 버튼 2269:33549를 구조와 텍스트로 확인했다. 시안은 높이 40px·검정 1px 테두리·52px 반경, PC 너비 180px·모바일 hug, CTA 14px semibold·카운터 12px regular이며 화살표가 없다. 기존 FaqContent의 plain/text 표현을 Button secondary/short/compact와 loadMore.counter로 교체했다. 표시 건수/전체 건수를 실제 데이터로 전달하므로 현재 기본 fixture는 (10/12)이며 시안의 (1/10)과 구분한다. 기존 클릭·추가 조회·pending·실패 처리는 유지한다. 공용 Button 자체는 변경하지 않았다.
+
+검증: codex/gpt-6, 2026-11-02T07:22:47Z. 브라우저에서 PC root와 실제 테두리 span이 모두 180×40px, 1px inset 검정 경계·52px 반경임을 확인했다. 모바일은 약 108×40px로 내용에 맞춘다. PC/MO 캡처를 검토하고 모바일 더보기 클릭으로 10→12개·버튼 제거를 확인했다. 대상 ESLint·Prettier·Panda·typecheck가 통과했다. 연결된 서버의 pending/실패 요청은 이번 표시 변경에서 실행하지 않았다. 마크업 인계 지침으로 기존 컴포넌트·상태 소유권과 Panda 표현 범위를 점검했다.
+
+## 푸터와 고객센터 운영정보 공유 (2026-11-02)
+
+기존 화면설계서 기준 연락처·운영시간을 `src/data/supportContacts.ts`의 supportContacts/supportContactHours로 옮겼다. /support 연락처와 ShopShell 푸터가 같은 데이터를 읽는다. 푸터에 제품·매장 080-960-0456 및 온라인 1551-0458의 전화 링크, 평일 09:00~18:00·점심 12:00~13:00·토/일/공휴일 휴무를 표시한다. 다른 사업자 정보는 기존 값을 유지한다. 데이터 소유자·사용처의 `[ 개발팀 바인딩 ]` 주석을 함께 갱신했다. 조회 API나 새 상태는 추가하지 않았다.
+
+검증: codex/gpt-6, 2026-11-02T07:22:47Z. 1920px·375px 브라우저에서 푸터의 두 번호와 tel href·운영시간·점심·휴무를 확인했고 clientWidth/scrollWidth는 각각 1905/1905px·360/360px였다. 같은 화면의 /support 연락처는 기존 값과 순서를 보존했다. 대상 ESLint·Prettier·Panda·typecheck가 통과했다. 작업 트리 출처: src/data/supportContacts.ts, src/context/ShopShell.tsx, src/app/support/_components/SupportContacts.tsx, src/app/support/page.tsx.
+
+## 고객센터 운영정보 화면설계서 반영 (2026-11-02)
+
+[화면설계서 2660:12280](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-%EC%9D%B4%EB%9E%9C%EB%93%9C--%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C-%EC%A0%84%EC%B2%B4%EA%B3%B5%EC%9C%A0?node-id=2660-12280)의 고객센터 그룹 2660:12310, 연락처 텍스트 2660:12315·2660:12316을 읽어 `/support`에 적용했다. 앞선 디자인 시안의 상충하는 예시 번호와 기존 연락처 유지 결정은 이번 사용자 지정 설계서 기준으로 대체한다.
+
+| 항목 | 반영값 |
+| --- | --- |
+| 제품 및 매장 문의 | 080-960-0456 / tel:0809600456 |
+| 온라인 스토어 문의 | 1551-0458 / tel:15510458 |
+| 두 채널 운영시간 | 평일 09:00~18:00 |
+| 점심시간 | 12:00~13:00 |
+| 휴무 | 토,일요일 및 공휴일 |
+
+제품·매장 A/S 안내, 온라인 주문/배송 및 반품 안내와 온라인 1:1 문의 권장 문구도 반영했다. 기존 호카/호카 키즈 라벨과 디자인 배치, 문의·FAQ 링크를 유지한다. 작업 트리 출처: `src/app/support/_components/SupportContacts.tsx`. 해당 소유자의 `[ 개발팀 바인딩 ]` 주석에 고정 표시 자료와 운영정보 갱신 책임을 기록했다. 실시간 운영 시스템·전화 연결 성공 여부를 검증한 것은 아니다.
+
+검증: codex/gpt-6, 2026-11-02T07:11:59Z. 1920px·375px 브라우저에서 두 번호·tel href·운영/점심/휴무·권장 문구를 확인하고 캡처를 검토했다. 각각 clientWidth/scrollWidth 1905/1905px·360/360px로 가로 넘침이 없었다. 대상 ESLint·Prettier·Panda 생성·typecheck가 통과했다. 마크업 인계 지침에 따라 기존 컴포넌트 소유권과 PC/MO 표현·일반 전화 링크를 점검했으며 API나 서비스 흐름을 추가하지 않았다.
+
+## 고객센터 Sidebar 메뉴 순서 (2026-11-02)
+
+[제공 시안 1973:15043](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15043)의 구조화된 메뉴 텍스트 순서를 확인했다. `src/app/support/support.navigation.ts`에서 사이즈 가이드를 온라인 회원등급 안내 다음으로 이동했다. 나머지 항목의 순서·문구·href·그룹 및 기존 공용 Sidebar 표현은 유지한다.
+
+검증: codex/gpt-6, 2026-11-02T07:04:25Z. 1920px 브라우저의 `/support`, `/support/size-guide`에서 전체 10개 항목 순서·href 및 각 활성 항목의 aria-current를 확인했다. 375px 전환 후 사이즈 가이드 제목 표시를 확인했다. 대상 ESLint가 통과했고 Prettier로 형식을 정리했다. 새 서비스 계약·컴포넌트·스타일은 추가하지 않았다.
 
 ## 공지사항 Figma 재적용 (2026-11-02)
 

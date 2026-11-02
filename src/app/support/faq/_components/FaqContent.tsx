@@ -61,7 +61,7 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
         w="590px"
         maxW="100%"
         _mobile={{ w: '100%' }}
-        css={{ _mobile: { '& input::placeholder': { color: '#777777' } } }}
+        css={{ _mobile: { '& input::placeholder': { color: 'black.50' } } }}
       >
         <SearchField
           label="질문 또는 답변 검색"
@@ -120,7 +120,7 @@ type FaqAnswerProps = { answer: ReactNode };
 
 function FaqAnswer({ answer }: FaqAnswerProps) {
   return (
-    <Box bg="#F7F7F9" px="4" py="6" whiteSpace="pre-line">
+    <Box bg="black.10" px="4" py="6" whiteSpace="pre-line">
       {typeof answer === 'string' ? (
         <Stack gap="4">
           {answer.split('\n\n').map((paragraph, index) => (
@@ -207,7 +207,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
 export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
   // [ 개발팀 바인딩 ] 연동 소유자는 SupportContentContext.faq에 검색 결과 items/id,
-  // totalCount/hasMore와 onQueryChange/onLoadMore를 제공합니다. 더 보기의 건수는 totalCount이며
+  // totalCount/hasMore와 onQueryChange/onLoadMore를 제공합니다. 더보기는 표시 건수/totalCount이며
   // 추가 조회 중 중복 실행을 막고 실패 시 목록을 유지합니다. 결과 갱신·오래된 응답 제외와
   // 조회 재시도는 연결 소유자가 담당하며, 미연동 시에는 아래 로컬 FAQ fixture를 표시합니다.
   const { faq: connected } = useContext(SupportContentContext);
@@ -258,22 +258,13 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
         (binding ? binding.hasMore : shown < entries.length) ? (
           <Flex justifyContent="center" pt="10" _mobile={{ pt: '6' }}>
             <Button
-              variant="plain"
-              size="md"
+              variant="secondary"
+              size="short"
+              density="compact"
               loading={request.pending || binding?.pending}
-              className={css({ p: '0', minH: '0', gap: '4px', color: 'text.tertiary' })}
+              className={css({ w: '180px', '& > span': { w: '100%' }, _mobile: { w: 'auto' } })}
               loadMore={{
-                appearance: 'text',
-                label: '더 보기',
-                count: total,
-                labelProps: { web: 'bodyKr3', mo: 'bodyKr4' },
-                counterProps: { web: 'body3', mo: 'body4' },
-                indicator: (
-                  <Icon
-                    fontAwesomeIcon={faChevronDown}
-                    size={platform === 'web' ? '20px' : '16px'}
-                  />
-                ),
+                counter: { current: displayed.length, total },
               }}
               onClick={() => {
                 if (binding) {

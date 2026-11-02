@@ -847,7 +847,8 @@
     ],
     "src/app/support/_components/SupportContacts.tsx": [
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/ContentHeader.tsx"
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/data/supportContacts.ts"
     ],
     "src/app/support/_components/SupportQuickLinks.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1557,6 +1558,7 @@
       "src/data/headerPromotionData.ts",
       "src/data/megaMenu.ts",
       "src/data/searchOverlayData.ts",
+      "src/data/supportContacts.ts",
       "src/hooks/useRecentSearches.ts",
       "src/icons/fontAwesome.ts",
       "src/lib/useScrollPin.ts"
@@ -1567,6 +1569,7 @@
     "src/data/megaMenu.ts": [],
     "src/data/screenRegistry.ts": [],
     "src/data/searchOverlayData.ts": [],
+    "src/data/supportContacts.ts": [],
     "src/hooks/useBindingQuery.ts": [],
     "src/hooks/usePhoneVerification.ts": [
       "src/context/PhoneVerificationContext.ts",
@@ -1643,6 +1646,7 @@
     "src/app/signup/terms/page.tsx",
     "src/app/signup/verify/page.tsx",
     "src/app/signup/verify/phone/page.tsx",
+    "src/app/support/_components/SupportContacts.tsx",
     "src/app/support/after-sales/page.tsx",
     "src/app/support/care/page.tsx",
     "src/app/support/faq/_components/FaqContent.tsx",
@@ -1691,6 +1695,7 @@
     "src/data/headerPromotionData.ts",
     "src/data/megaMenu.ts",
     "src/data/searchOverlayData.ts",
+    "src/data/supportContacts.ts",
     "src/types/binding.ts",
     "src/types/mypage-address.types.ts"
   ]
