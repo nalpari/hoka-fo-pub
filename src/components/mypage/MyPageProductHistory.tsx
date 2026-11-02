@@ -93,7 +93,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
               _mobile: 'minmax(0, 1fr) auto',
             }}
             alignItems="center"
-            borderBottom="1px solid #E9EAEB"
+            borderBottom="1px solid token(colors.black.20)"
             gap="0"
             py="8"
             _mobile={{ py: '6', columnGap: '2' }}
@@ -110,7 +110,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
               </Box>
               <Stack gap="0" minW="0">
                 {gender && <Typography variant="body4">{gender}</Typography>}
-                <Typography web="body4" mo="body4" className={css({ fontWeight: 'medium' })}>
+                <Typography variant="body4" className={css({ fontWeight: 'medium' })}>
                   {name}
                 </Typography>
                 <Typography
@@ -152,7 +152,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
                     web="body3"
                     mo="body4"
                     language="ko"
-                    className={css({ _mobile: { color: '#777777' } })}
+                    className={css({ _mobile: { color: 'black.50' } })}
                   >
                     알림대기
                   </Typography>
@@ -508,7 +508,7 @@ export function MyPageProductHistory({
           <EmptyState
             variant="plain"
             title={`${current.empty}${kind === 'wishlist' ? '.' : ''}`}
-            titleProps={{ as: 'p', variant: 'body4', className: css({ color: '#4D4D4D' }) }}
+            titleProps={{ as: 'p', variant: 'body4', className: css({ color: 'black.60' }) }}
             layoutProps={{ py: '240px', _mobile: { py: '24', px: '4' } }}
           />
         )}
@@ -526,7 +526,7 @@ export function MyPageProductHistory({
           <Box
             mt="4"
             pt={items.length ? '0' : '4'}
-            borderTop={items.length ? undefined : '1px solid #E9EAEB'}
+            borderTop={items.length ? undefined : '1px solid token(colors.black.20)'}
             whiteSpace="pre-line"
             _mobile={{ pt: items.length ? '0' : '4', pb: items.length ? '2' : '4' }}
           >

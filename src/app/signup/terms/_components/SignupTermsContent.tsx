@@ -29,9 +29,7 @@ const signupTerms = [
   { label: '마케팅 목적의 개인정보 수집, 이용동의', required: false },
 ] as const;
 
-const styles = {
-  detail: css({ flexShrink: '0', '--button-padding-x': '0px' }),
-};
+const termsLink = css({ flexShrink: '0', '--button-padding-x': '0px' });
 
 type SignupTermsAgreementListProps = {
   fixedErrors?: boolean;
@@ -79,7 +77,7 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
             <Button
               variant="link"
               size="md"
-              className={styles.detail}
+              className={termsLink}
               onClick={() => props.onDetail(index)}
               aria-label={`${term.required ? '[필수]' : '(선택)'} ${term.label} 자세히 보기`}
             >
@@ -101,8 +99,6 @@ type TermsDialogProps = {
   dates?: ReactNode;
   version?: { previous: boolean; onChange: () => void };
 };
-
-const versionButton = css({ flexShrink: '0', '--button-padding-x': '0px' });
 
 function TermsDialog({
   open,
@@ -127,7 +123,7 @@ function TermsDialog({
         <HStack justify="space-between" gap="2" mb="4">
           <Typography variant="body3">{label}</Typography>
           {version ? (
-            <Button variant="link" size="sm" className={versionButton} onClick={version.onChange}>
+            <Button variant="link" size="sm" className={termsLink} onClick={version.onChange}>
               <Typography variant="body5">
                 {version.previous ? '현재 약관 보기' : '이전 약관 보기'}
               </Typography>
@@ -230,7 +226,7 @@ const previousTerms = [
 ] as const;
 
 const popup = css({
-  border: '1px solid var(--color-border-subtle, #e9eaeb)',
+  border: '1px solid var(--color-border-subtle, var(--colors-black-20))',
   '& > header + div': { pb: '0' },
   '& > footer': { px: '6', pt: '4' },
   _mobile: {

@@ -483,7 +483,7 @@ export function MyPageReviewsContent({
             titleProps={{
               as: 'span',
               variant: 'body3',
-              className: css({ color: '#4D4D4D', textAlign: 'start' }),
+              className: css({ color: 'black.60', textAlign: 'start' }),
             }}
             layoutProps={{
               display: 'flex',

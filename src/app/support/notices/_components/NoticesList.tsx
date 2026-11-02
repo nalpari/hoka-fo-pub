@@ -26,7 +26,7 @@ function NoticeHeading({ notice, platform }: Props) {
         as="time"
         variant="body4"
         dateTime={notice.date}
-        className={css({ flexShrink: '0', _mobile: { color: '#777777' } })}
+        className={css({ flexShrink: '0', _mobile: { color: 'black.50' } })}
         tone={platform === 'web' ? 'subtle' : undefined}
       >
         {notice.date}
@@ -49,7 +49,7 @@ const noticeLink = css({
   minH: '74px',
   px: '16px',
   py: '24px',
-  borderBottom: '1px solid #E9EAEB',
+  borderBottom: '1px solid token(colors.black.20)',
   _mobile: { minH: '58px', px: '0', py: '16px' },
   _focusVisible: {
     outline: '2px solid var(--color-focus-ring)',

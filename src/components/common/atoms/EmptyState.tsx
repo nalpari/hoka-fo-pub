@@ -66,17 +66,20 @@ function EmptyStateRoot({
   descriptionProps,
 }: EmptyStateProps) {
   const label = typeof title === 'string' ? title : undefined;
+  const titleContent = <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>;
+  const descriptionContent = description ? (
+    <Typography as="p" variant="body3" {...descriptionProps}>
+      {description}
+    </Typography>
+  ) : null;
+  const actionContent = action ? <Box>{action}</Box> : null;
 
   if (variant === 'plain') {
     return (
       <Box as={as ?? 'div'} className={className} role={role} textAlign="center" {...layoutProps}>
-        <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>
-        {description ? (
-          <Typography as="p" variant="body3" {...descriptionProps}>
-            {description}
-          </Typography>
-        ) : null}
-        {action ? <Box>{action}</Box> : null}
+        {titleContent}
+        {descriptionContent}
+        {actionContent}
       </Box>
     );
   }
@@ -94,15 +97,13 @@ function EmptyStateRoot({
         textAlign="center"
         {...layoutProps}
       >
-        <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>
+        {titleContent}
         {description ? (
           <Box mx="0" mb="0">
-            <Typography as="p" variant="body3" {...descriptionProps}>
-              {description}
-            </Typography>
+            {descriptionContent}
           </Box>
         ) : null}
-        {action ? <Box>{action}</Box> : null}
+        {actionContent}
       </Stack>
     );
   }
@@ -123,15 +124,9 @@ function EmptyStateRoot({
       textAlign="center"
       {...layoutProps}
     >
-      <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>
-      {description ? (
-        <Box>
-          <Typography as="p" variant="body3" {...descriptionProps}>
-            {description}
-          </Typography>
-        </Box>
-      ) : null}
-      {action ? <Box>{action}</Box> : null}
+      {titleContent}
+      {description ? <Box>{descriptionContent}</Box> : null}
+      {actionContent}
     </Stack>
   );
 }

@@ -30,7 +30,7 @@ const option = cva({
     px: '4',
     border: '0',
     borderRadius: '30px',
-    bg: '#E9EAEB',
+    bg: 'black.20',
     color: 'black.100',
     cursor: 'pointer',
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
@@ -52,7 +52,7 @@ const option = cva({
         flex: '1',
         minH: '44px',
         px: '4',
-        borderBottom: '1px solid #B3B3B3',
+        borderBottom: '1px solid token(colors.black.40)',
         borderRadius: '0',
         bg: 'transparent',
         color: 'black.100',
@@ -97,7 +97,7 @@ function SizeGuideChoiceGroup<T extends string>({
         gap: '0',
         w: compact ? '270px' : 'fit-content',
         p: grouped ? '1' : '0',
-        bg: grouped ? '#E9EAEB' : undefined,
+        bg: grouped ? 'black.20' : undefined,
         borderRadius: grouped ? '52px' : undefined,
         _mobile: {
           p: grouped ? '0.5' : '0',
@@ -185,7 +185,7 @@ function SizeGuideMeasurementMethod({
         },
       }}
       gap="2"
-      bg="#F7F7F9"
+      bg="black.10"
       px={{ base: '5', _mobile: '3' }}
       py={{ base: '8', _mobile: '6' }}
       flex="1"
@@ -198,7 +198,7 @@ function SizeGuideMeasurementMethod({
             gap="3"
             py="4"
             px={{ base: '3', _mobile: '0' }}
-            borderBottom={index < steps.length - 1 ? '1px solid #E9EAEB' : undefined}
+            borderBottom={index < steps.length - 1 ? '1px solid token(colors.black.20)' : undefined}
           >
             <Typography web="heading9" mo="heading10" weight="bold">
               STEP {index + 1}.

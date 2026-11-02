@@ -48,12 +48,12 @@ const striped = css.raw({
   '& th, & td': {
     h: '48px',
     px: '4',
-    border: '1px solid #E9EAEB',
+    border: '1px solid token(colors.black.20)',
     fontWeight: 'normal',
     overflowWrap: 'anywhere',
   },
-  '& thead th': { bg: '#E9EAEB', fontFamily: 'korean', fontSize: '14px' },
-  '& tbody tr:nth-child(even)': { bg: '#F7F7F9' },
+  '& thead th': { bg: 'black.20', fontFamily: 'korean', fontSize: '14px' },
+  '& tbody tr:nth-child(even)': { bg: 'black.10' },
   _mobile: {
     fontSize: '14px',
     '& th, & td': { px: '4' },

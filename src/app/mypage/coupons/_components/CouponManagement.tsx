@@ -26,6 +26,8 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { faCircleCheck } from '@/icons/fontAwesome';
 
+const couponDescription = css({ color: 'black.100', _mobile: { color: 'black.60' } });
+
 type CouponRegistrationSectionProps = {
   code: string;
   error: string;
@@ -58,7 +60,7 @@ function CouponRegistrationSection({
         ),
         descriptionProps: {
           variant: 'body3',
-          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+          className: couponDescription,
         },
       }}
     >
@@ -69,7 +71,7 @@ function CouponRegistrationSection({
           gap: '6',
           alignItems: 'center',
           py: '8',
-          bg: '#F7F7F9',
+          bg: 'black.10',
           _mobile: { p: '0', bg: 'transparent' },
         })}
         noValidate
@@ -218,7 +220,7 @@ function CouponHistorySection({ coupons, onDetails, previewEmpty }: CouponHistor
         description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
         descriptionProps: {
           variant: 'body3',
-          className: css({ color: 'black.100', _mobile: { color: '#4D4D4D' } }),
+          className: couponDescription,
         },
       }}
       footer={
@@ -366,7 +368,7 @@ function EmployeeCoupons() {
     >
       <HStack gap="2">
         {labels.map((label) => (
-          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="#F7F7F9">
+          <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="black.10">
             <Typography variant="body3" weight="medium">
               {label}
             </Typography>

@@ -254,3 +254,83 @@ working_tree_sources:
 비교한 URL/상태: `/mypage/wishlist`, `/mypage/recent`, `/mypage/restock-alerts`, `/mypage/addresses`, `/mypage/coupons`, `/mypage/event-entries`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/mypage/rewards`, `/mypage/reviews/preview-empty`, `/mypage/reviews/preview-written-empty`, `/support`, `/support/after-sales`, `/support/after-sales#cautions`, `/support/size-guide`, `/support/notices/1`, `/support/inquiries`, `/support/inquiries/new`, `/support/faq/preview-no-results`, `/running/running-session`, `/running/running-session/yeouido-night`, `/products`, `/search/preview-no-results`, `/signup/terms`, `/`, `/products/shoe-1`, `/products/preview-empty-inquiries`.
 
 검토: codex/gpt-6, 2026-11-02T06:00:49Z. 브라우저 측정·로그는 이번 실행의 외부 작업 디렉터리 `C:/Users/stead/ego/hoka-full-common-audit-20261102`에 보관했다.
+
+## 재사용 전환 후 잔여 스타일·중복 정리 (2026-11-02)
+
+후속 기준은 `506365ca81d802d077674897101c0f7974d8fed2`다. 재사용 커밋 b802030d의 생산 TSX 39개·스토리 12개를 대상으로 지역 스타일 객체의 프로퍼티 접근·조건부 분기·css/cva 참조와 동일 선언을 확인했다. 전체 lint가 찾지 못하는 객체 내부 미사용 항목도 별도로 조사했다.
+
+- 상품 상세의 참조 없는 ProductDetailHeaderActionsStyles.icons와 옛 25px 주석을 제거했다. 남은 reviewLink는 유일한 Button 소유자의 className으로 옮겼고, 상품 설명 제목의 동일한 titleProps 2개는 로컬 상수로 공유한다. 단일 제목 fragment는 제거하되, 내용이 비었을 때에도 설명 요소를 남기는 description fragment는 보존했다.
+- 문의의 pendingHeader/answeredHeader는 속성·PC/MO 분기가 모두 같아서 조건부 선택을 없애고 기존 span 소유자의 Flex props로 통합했다. 답변 상태에 따른 Badge·색·접힘 상태는 유지한다.
+- 약관 자세히 보기/버전 보기의 동일 클래스와 쿠폰 등록/목록 설명의 동일 색 클래스를 각각 한 로컬 선언으로 공유했다. 새 forwarding 컴포넌트나 파일은 만들지 않았다.
+- Button.loadMore의 inline/text 숫자 표시 계산을 한 번으로 합쳤다. EmptyState의 제목·설명·액션 노드 중복을 줄이고 plain/minimal/standard의 원래 태그·여백·설명 wrapper·조건부 표시를 유지했다.
+- 고객센터 연락처와 재입고 상품명의 동일한 web/mo 타이포는 variant로 통합했다. PC/MO 값이 다른 곳과 필요한 레이아웃 덮어쓰기는 유지했다. 특히 Button.unstyled의 소비자 reset은 공통이 기본 스타일을 넣지 않으므로 미사용으로 취급하지 않았다. 공통 public compound export와 비대상 API도 삭제하지 않았다.
+
+정리 후 대상 지역 스타일 객체의 미참조 키와 조사한 파일 내 중복 css 선언 후보는 남지 않았다. 이는 저장소 전체의 모든 CSS가 사용됨을 보증하는 결과가 아니다. 다른 작업의 ProductListingPage·BottomSheet·필터 SVG와 관련 공유 문서 변경은 보존했다.
+
+검증: 1440/375px에서 12개 URL/상태의 변경 전후 24기록을 대조했으며 표시 문구·위치/크기(0.12px 반올림 허용)·font family/size/weight/line-height·색·배경·패딩·경계·정렬에 차이가 없었다. 문의 preview-list의 접수/답변완료, 상품 문의 빈 결과, 쿠폰/배송지/러닝세션 빈 상태와 FAQ/공지 더보기를 포함한다. PC/MO 약관 상세/이전 약관 팝업·Escape, 문의 답변 click/Enter, 상품 설명 펼침/닫힘을 직접 확인했다. 전체 lint·타입 검사·변경 파일 Prettier·Panda 생성·Next.js 프로덕션 빌드·Storybook 빌드를 통과했다. 정적 Storybook에서 Button 더보기의 기본/문구/inline/text/카운터/0건/disabled/loading과 EmptyState의 기본/액션/minimal/plain/중앙 표현 15개가 오류 없이 렌더되는 것도 확인했다. 이미지 전체 픽셀 비교·서비스 요청·모든 Storybook play의 통과를 주장하지 않는다.
+
+작업 트리 출처:
+
+- `src/app/products/[id]/_components/ProductDetailContent.tsx`
+- `src/app/support/inquiries/_components/InquiryListContent.tsx`
+- `src/app/signup/terms/_components/SignupTermsContent.tsx`
+- `src/app/mypage/coupons/_components/CouponManagement.tsx`
+- `src/components/common/atoms/Button.tsx`
+- `src/components/common/atoms/EmptyState.tsx`
+- `src/app/support/_components/SupportContacts.tsx`
+- `src/components/mypage/MyPageProductHistory.tsx`
+
+검토: codex/gpt-6, 2026-11-02T06:26:10Z. 측정·diff·로그는 외부 작업 디렉터리 `C:/Users/stead/ego/hoka-common-cleanup-20261102`에 보관했다.
+
+## 기존 색상 토큰과 hex 대조 (2026-11-02)
+
+앞선 잔여 스타일 정리는 hex 전체의 토큰 대조를 포함하지 않았다. 후속으로 기존 대조 소스와 재사용 커밋의 생산 TSX 합집합 64개를 조사했고 `panda.config.ts`의 실제 색상값과 비교해 16개 파일의 문자열 38곳을 기존 토큰으로 교체했다. 문자열 하나에 여러 그라데이션 색상 참조가 들어갈 수 있으므로 이 수를 유일한 색상 수로 표시하지 않는다. 새 토큰이나 근사 색상을 만들지 않았다.
+
+| 원래 값 | 기존 토큰 |
+| --- | --- |
+| #000 / #000000 | black.100 |
+| #4D4D4D | black.60 |
+| #777777 | black.50 |
+| #B3B3B3 | black.40 |
+| #E9EAEB | black.20 |
+| #F7F7F9 | black.10 |
+| #fff | white.0 |
+| #E1FF04 | citrus.100 |
+| #5E661F | mossGreen.100 |
+| #E10F00 | red.80 |
+
+단일 color/bg는 토큰 경로를, border/gradient 문자열 안은 `token(colors.*)`를 사용한다. 기존 `!` 우선순위와 반응형 분기를 보존했다. 약관 border의 기존 fallback도 `var(--colors-black-20)`로 연결했다. `surface.subtle`의 Panda 값 #f3f3f3와 전역 호환 alias의 black.10을 혼동하지 않도록, 원래 hex와 같은 primitive 토큰을 선택했다.
+
+다음 6종은 현재 동일한 디자인 토큰이 없어 남긴다. 토큰화 자체가 불가능하다는 뜻이 아니며, 별도 의미/공식 색 계약 없이 기존의 다른 값으로 대체하지 않는다.
+
+| 유지한 값 | 사용처와 근거 |
+| --- | --- |
+| #F5F5F5 | 상품 기술 척도 배경·그라데이션. black.10(#F7F7F9)과 다르다. |
+| #E0E0E0 | 사이즈 가이드 측정 이미지 바탕. black.20(#E9EAEB)과 다르다. |
+| #16794b | StatusMessage의 기본 success 색. mossGreen.100과 다르다. |
+| #FAE100 | 카카오 브랜드 버튼. citrus.100과 다르다. |
+| #03C75A | 네이버 브랜드 버튼. 현재 색 토큰에 없다. |
+| #ff0000 | ShopShell 메뉴 sale 표시. sale/red.80(#E10F00)과 다르다. |
+
+PC 1440px·MO 375px에서 17개 URL/상태, 총 34개의 변경 전후 문구·위치/크기·타이포·색·배경·패딩·경계 측정에 차이가 없었다(위치/크기 0.12px 반올림 허용). 사이즈 표 헤더/경계는 rgb(233,234,235), 상품 척도 그라데이션은 원래 검정과 rgb(245,245,245)로 실제 계산됨을 추가 확인했다. 전체 lint·타입 검사·변경 파일 ESLint/Prettier·Panda 생성은 통과했다. 최종 Next.js 프로덕션 빌드와 Storybook 빌드도 통과했다. Storybook 번들 크기 경고는 남아 있으며 전체 play/접근성 자동 검사나 이미지 픽셀 전수 비교 결과로 표현하지 않는다.
+
+작업 트리 출처: `panda.config.ts`(참조만, 변경 없음), `src/styles/global.scss`(호환 alias 참조만, 변경 없음)와 다음 소스다.
+
+- `src/app/mypage/coupons/_components/CouponManagement.tsx`
+- `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`
+- `src/app/products/[id]/_components/ProductDetailContent.tsx`
+- `src/app/signup/terms/_components/SignupTermsContent.tsx`
+- `src/app/support/_components/SupportContacts.tsx`
+- `src/app/support/after-sales/_components/AfterSalesContent.tsx`
+- `src/app/support/faq/_components/FaqContent.tsx`
+- `src/app/support/notices/[id]/page.tsx`
+- `src/app/support/notices/_components/NoticesList.tsx`
+- `src/app/support/size-guide/_components/SizeGuidePanel.tsx`
+- `src/components/common/atoms/Badge.tsx`
+- `src/components/common/atoms/DataTable.tsx`
+- `src/components/common/molecules/ProductCard/ProductCard.tsx`
+- `src/components/common/molecules/ProductThumbnail.tsx`
+- `src/components/mypage/MyPageProductHistory.tsx`
+- `src/components/running-session/RunningSessionPage.tsx`
+
+검토: codex/gpt-6, 2026-11-02T06:36:38Z. 별도 작업의 스테이징은 보존했으며 측정과 치환 계획은 `C:/Users/stead/ego/hoka-token-colors-20261102`에 기록했다.

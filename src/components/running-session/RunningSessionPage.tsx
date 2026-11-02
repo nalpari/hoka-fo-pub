@@ -271,7 +271,7 @@ function RunningSessionSessionCardImage({ session }: { session: RunningSessionSe
         }
       />
       <Square pos="absolute" left="0" top="0" w="100%" h="100%">
-        <VStack gap="8px" color="#fff">
+        <VStack gap="8px" color="white.0">
           <Typography variant="heading6" mo="heading3">
             {session.overlayDate}
           </Typography>
@@ -347,7 +347,7 @@ function RunningSessionEmptyState() {
         titleProps={{
           variant: 'body3',
           mo: 'body4',
-          className: css({ _mobile: { color: '#4D4D4D' } }),
+          className: css({ _mobile: { color: 'black.60' } }),
         }}
         action={mobile ? undefined : <RunningSessionHistoryLink />}
         className={css({

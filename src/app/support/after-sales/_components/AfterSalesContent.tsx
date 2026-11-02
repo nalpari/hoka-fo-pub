@@ -148,7 +148,7 @@ function ReturnContact() {
         titleAs: 'h3',
         titleProps: { web: 'heading9', mo: 'heading6', weight: 'semibold' },
       }}
-      bg="#F7F7F9"
+      bg="black.10"
       p="9"
       gap="4"
       _mobile={{ px: '4', pt: '6', pb: '8' }}

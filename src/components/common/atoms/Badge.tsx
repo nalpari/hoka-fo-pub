@@ -34,7 +34,10 @@ const runningSessionBadge = cva({
     p: '8px',
   },
   variants: {
-    category: { Road: { bg: '#E1FF04', color: '#000' }, Trail: { bg: '#5E661F', color: '#fff' } },
+    category: {
+      Road: { bg: 'citrus.100', color: 'black.100' },
+      Trail: { bg: 'mossGreen.100', color: 'white.0' },
+    },
   },
 });
 

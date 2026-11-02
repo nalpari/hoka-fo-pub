@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T05:18:16Z'
+  at: '2026-11-02T06:52:24Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
@@ -3974,3 +3974,11 @@ DataTable.striped와 regular/compact density는 기존 사이즈 표의 48px 셀
 스타일·데이터·서비스 소유권과 동작이 다른 툴팁·선택 팝업·히어로 타이머 등은 공통을 강제로 적용하지 않았다. 공통 API별 보존 근거와 새 옵션/기존 모드 스토리도 조사표에 기록했다. 출처는 조사표의 working_tree_sources이며 현재 작업 트리를 직접 확인했다.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+## 재사용 전환의 잔여 코드 정리 (2026-11-02)
+
+상품 상세 미사용 icons 스타일을 제거하고 문의 상태별 동일 레이아웃·약관 링크·쿠폰 설명·상품 정보 제목의 중복 선언을 통합했다. Button 숫자 계산과 EmptyState 표시 노드 중복, 동일 web/mo 타이포도 정리했다. public API·소비자의 필요한 스타일·PC/MO 태그/여백/조건부 표시를 유지한다. [대상 39개 생산 파일·12개 스토리, 실제 수정 출처와 24상태 비교](common-reuse-audit.md#재사용-전환-후-잔여-스타일중복-정리-2026-11-02)를 참고한다. 검토: codex/gpt-6, 2026-11-02T06:26:10Z.
+
+## 기존 색상 토큰의 정확한 값 재사용 (2026-11-02)
+
+재사용 조사 대상 64개 생산 TSX의 hex를 실제 Panda 색상 토큰과 대조했다. 16개 파일의 38개 표현을 기존 black/white/citrus/mossGreen/red 토큰으로 교체하고 border·gradient·fallback·important와 PC/MO 색상값을 보존했다. 동일 토큰이 없는 6종은 근사치로 바꾸지 않았다. [대응표·유지 근거·출처와 34상태 검증](common-reuse-audit.md#기존-색상-토큰과-hex-대조-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:36:38Z.

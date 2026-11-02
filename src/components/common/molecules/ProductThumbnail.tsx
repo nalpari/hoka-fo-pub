@@ -19,7 +19,7 @@ const root = cva({
   variants: {
     variant: {
       listing: {},
-      summary: { h: '100%', bg: '#F7F7F9', _mobile: { fontSize: 'inherit' } },
+      summary: { h: '100%', bg: 'black.10', _mobile: { fontSize: 'inherit' } },
       showcase: {
         _mobile: { h: '160px', aspectRatio: 'auto' },
       },
@@ -84,7 +84,7 @@ export function ProductThumbnail({
       h: '100%',
       transform: 'none',
       objectFit: 'cover',
-      bg: '#F7F7F9',
+      bg: 'black.10',
     },
   );
 

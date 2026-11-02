@@ -772,10 +772,10 @@ function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
         w="20%"
         bg={
           level === 1
-            ? 'linear-gradient(90deg, #000000 0%, #F5F5F5 100%)'
+            ? 'linear-gradient(90deg, token(colors.black.100) 0%, #F5F5F5 100%)'
             : level === 5
-              ? 'linear-gradient(90deg, #F5F5F5 0%, #000000 100%)'
-              : 'linear-gradient(90deg, #F5F5F5 0%, #000000 50%, #F5F5F5 100%)'
+              ? 'linear-gradient(90deg, #F5F5F5 0%, token(colors.black.100) 100%)'
+              : 'linear-gradient(90deg, #F5F5F5 0%, token(colors.black.100) 50%, #F5F5F5 100%)'
         }
       />
     </Box>
@@ -1650,6 +1650,13 @@ type ProductInformationProps = {
   specifications: readonly { label: string; value: ReactNode }[];
 };
 
+const productInformationTitleProps = {
+  web: 'headingKr9',
+  mo: 'bodyKr3',
+  weight: 'semibold',
+  className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
+} as const;
+
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({
   id,
@@ -1693,13 +1700,8 @@ function ProductInformation({
               <ContentHeader
                 gap="5"
                 titleAs="h3"
-                title={<>{description.title}</>}
-                titleProps={{
-                  web: 'headingKr9',
-                  mo: 'bodyKr3',
-                  weight: 'semibold',
-                  className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
-                }}
+                title={description.title}
+                titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
                 descriptionProps={{
                   web: 'bodyKr3',
@@ -1728,13 +1730,8 @@ function ProductInformation({
               gap="5"
               key={section.title}
               titleAs="h3"
-              title={<>{section.title}</>}
-              titleProps={{
-                web: 'headingKr9',
-                mo: 'bodyKr3',
-                weight: 'semibold',
-                className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
-              }}
+              title={section.title}
+              titleProps={productInformationTitleProps}
               description={<>{section.content}</>}
               descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4' }}
             />
@@ -1902,20 +1899,6 @@ function ShareButton({
   );
 }
 
-const ProductDetailHeaderActionsStyles = {
-  reviewLink: css({
-    borderColor: 'var(--color-text-subtle)',
-    color: 'var(--color-text-subtle)',
-    '--color-action-underline-color': 'var(--color-text-subtle)',
-    '--button-border-color-hover': 'var(--color-text-subtle)',
-  }),
-  icons: css({
-    display: 'flex',
-    gap: '3',
-    '& button': { fontSize: '24' /* 기존 25px */, lineHeight: 'hoka' },
-  }),
-};
-
 type ProductDetailHeaderActionsProps = {
   product: Product;
   wish: boolean;
@@ -1934,7 +1917,12 @@ function ProductDetailHeaderActions({
       <HStack gap="10px">
         <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
         <Button
-          className={ProductDetailHeaderActionsStyles.reviewLink}
+          className={css({
+            borderColor: 'var(--color-text-subtle)',
+            color: 'var(--color-text-subtle)',
+            '--color-action-underline-color': 'var(--color-text-subtle)',
+            '--button-border-color-hover': 'var(--color-text-subtle)',
+          })}
           variant="link"
           onClick={() =>
             document

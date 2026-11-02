@@ -225,9 +225,9 @@ function renderLoadMoreContent({
   countPlacement = 'separate',
   indicator,
 }: ButtonLoadMore) {
-  if (appearance === 'inline') {
-    const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
+  const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
 
+  if (appearance === 'inline') {
     return (
       <>
         {typeof label === 'string' ? `${label} (` : <>{label} (</>}
@@ -237,8 +237,6 @@ function renderLoadMoreContent({
   }
 
   if (appearance === 'text') {
-    const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
-
     return (
       <HStack gap="1">
         {countPlacement === 'inline' ? (

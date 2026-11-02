@@ -6,7 +6,7 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T05:18:16Z'
+  at: '2026-11-02T08:15:31Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/products/[id]/_components/ProductDetailContent.tsx
@@ -803,7 +803,14 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
 
-
 ## 계정 화면 미사용 import 정리 (2026-11-02)
 
 FindAccountContent의 css import와 signup/complete의 Stack import를 제거했다. 표시 JSX·라우팅·클라이언트 경계·서비스 연결에는 변경이 없다. 전체 `npm run lint`를 통과했다. 작업 트리 출처: `src/app/login/find-account/_components/FindAccountContent.tsx`, `src/app/signup/complete/page.tsx`. 검토: codex/gpt-6, 2026-11-02T06:05:16Z.
+
+## 재사용 후 잔여 스타일 정리 (2026-11-02)
+
+상품 상세·쿠폰·약관·문의·고객센터의 중복 스타일/동일 타이포를 정리했다. route exports·page/_components·client 경계·URL·상태·콜백과 연결 책임은 바뀌지 않았다. 새 파일·삭제 파일·새 라우트가 없고 외부 Flex import 변경은 screen-files의 내부 그래프에 영향을 주지 않는다. [출처와 PC/MO 검증](common-reuse-audit.md#재사용-전환-후-잔여-스타일중복-정리-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:26:10Z.
+
+## 색상 토큰 재사용 검토 (2026-11-02)
+
+쿠폰·리뷰 빈 결과·상품 척도·약관·고객센터·FAQ·공지·사이즈 가이드의 기존 색상 표현을 동일 값의 토큰으로 교체했다. 태그·page/private 경계·라우팅·상태·서비스 콜백과 데이터는 변경하지 않았다. [파일 출처·예외와 실제 검증](common-reuse-audit.md#기존-색상-토큰과-hex-대조-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:36:38Z.
