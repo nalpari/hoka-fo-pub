@@ -1,9 +1,12 @@
 'use client';
-
 import Image from 'next/image';
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 런클럽 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
+import { useParams } from 'next/navigation';
 
+import { useContext, useEffect, useState } from 'react';
 import { type ReactNode } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
+import { RunningSessionSessionContext } from '@/context/RunningSessionSessionContext';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Center, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -17,18 +20,25 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
+import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
+
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
+import {
+  runningSessionAddress,
+  runningSessionSessions,
+  runningSessionVenue,
+} from '@/components/running-session/runningSession.data';
 import {
   runningSessionImage,
   type RunningSessionSession,
   sessionNotices,
   sessionPrecautions,
 } from '@/components/running-session/runningSession.data';
+import { products } from '@/mocks/products';
 import { type Product } from '@/mocks/products';
-
 const applyButton = css({
   w: '260px',
   '--button-height': '48px!',
@@ -41,13 +51,11 @@ const applyButton = css({
     '--button-disabled-color': 'var(--color-black-40)!',
   },
 });
-
 type RunningSessionApplyButtonProps = {
   status: RunningSessionSession['status'];
-  onApply: () => void;
+  onApply?: () => void;
   pending?: boolean;
 };
-
 function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionApplyButtonProps) {
   return (
     <Button
@@ -64,7 +72,6 @@ function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionA
     </Button>
   );
 }
-
 /** 세션 안내 또는 주의 사항 목록을 표시합니다. (Displays a session notice or precaution list.) */
 function RunningSessionSessionNotes({ precautions = false }: { precautions?: boolean }) {
   return (
@@ -73,7 +80,6 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
       gap="16px"
       m="0"
       color="var(--color-text-tertiary)"
-
       aria-label={precautions ? '주의 사항' : '안내 사항'}
     >
       <Typography as="p" variant="body4" mo="body5" className={css({ m: '0' })}>
@@ -95,14 +101,12 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
     </Stack>
   );
 }
-
 export type RunningSessionFact = {
   label: string;
   value: ReactNode;
   detail?: ReactNode;
   mobileOnly?: boolean;
 };
-
 const facts = cva({
   base: {
     m: '0',
@@ -122,7 +126,6 @@ const facts = cva({
     },
   },
 });
-
 /** 런클럽 세션 정보를 요약 행으로 표시합니다. (Displays run club session facts as summary rows.) */
 function RunningSessionFacts({
   rows,
@@ -182,21 +185,17 @@ function RunningSessionFacts({
     />
   );
 }
-
 const detailText = css({ display: 'block', mt: '4px' });
-
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
   opening: css({ color: 'var(--color-blue-100)', mb: '24px' }),
 };
-
 type RunningSessionSessionHeroProps = {
   session: RunningSessionSession;
   rows: RunningSessionFact[];
-  onApply: () => void;
+  onApply?: () => void;
   pending?: boolean;
 };
-
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
 export function RunningSessionSessionHero({
   session,
@@ -206,7 +205,6 @@ export function RunningSessionSessionHero({
 }: RunningSessionSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
   const mobile = usePlatform() === 'mobile';
-
   return (
     <Grid
       as="section"
@@ -263,9 +261,9 @@ export function RunningSessionSessionHero({
     </Grid>
   );
 }
-
-type Props = { session: Pick<RunningSessionSession, 'category' | 'overlayDate'> };
-
+type Props = {
+  session: Pick<RunningSessionSession, 'category' | 'overlayDate'>;
+};
 /** 세션 카테고리에 맞는 홍보 제목과 날짜를 표시합니다. (Displays a promotional title and date for the session category.) */
 function RunningSessionSessionPoster({ session }: Props) {
   return (
@@ -302,9 +300,10 @@ function RunningSessionSessionPoster({ session }: Props) {
     </ContentSection>
   );
 }
-
-type RunningSessionSessionGuideContentProps = { title: string; rows: RunningSessionGuideRow[] };
-
+type RunningSessionSessionGuideContentProps = {
+  title: string;
+  rows: RunningSessionGuideRow[];
+};
 /** 런클럽 세션 안내와 정보 행을 구성합니다. (Composes run club session guidance and fact rows.) */
 function RunningSessionSessionGuideContent({
   title,
@@ -334,14 +333,14 @@ function RunningSessionSessionGuideContent({
     </Stack>
   );
 }
-
-export type RunningSessionGuideRow = { label: string; value: string };
-
+export type RunningSessionGuideRow = {
+  label: string;
+  value: string;
+};
 type RunningSessionSessionGuideProps = {
   session: RunningSessionSession;
   rows: RunningSessionGuideRow[];
 };
-
 /** 런클럽 세션 안내를 구성합니다. (Composes the run club session guide.) */
 export function RunningSessionSessionGuide({ session, rows }: RunningSessionSessionGuideProps) {
   return (
@@ -371,7 +370,6 @@ export function RunningSessionSessionGuide({ session, rows }: RunningSessionSess
     </Box>
   );
 }
-
 /** 런클럽 세션 대표 이미지 영역을 표시합니다. (Displays the run club session hero image area.) */
 export function RunningSessionSessionImage() {
   return (
@@ -399,14 +397,14 @@ export function RunningSessionSessionImage() {
     </Center>
   );
 }
-
 const mobileSlide = css({
   w: '176px!',
   '& > *': { w: '100%' },
 });
-
-type RunningSessionRecommendationsProps = { products: Product[]; platform: Platform };
-
+type RunningSessionRecommendationsProps = {
+  products: Product[];
+  platform: Platform;
+};
 /** 추천 런클럽 세션을 표시합니다. (Displays recommended run club sessions.) */
 export function RunningSessionRecommendations({
   products,
@@ -440,17 +438,14 @@ export function RunningSessionRecommendations({
     </Box>
   );
 }
-
 const RunningSessionApplicationNoticeStyles = {
   modalText: css({ m: '0 0 24px' }),
 };
-
 type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   registered?: boolean;
 };
-
 /** 런클럽 신청 안내를 표시합니다. (Displays the run club application notice.) */
 export function RunningSessionApplicationNotice({
   open,
@@ -476,7 +471,6 @@ export function RunningSessionApplicationNotice({
     </ModalDialog>
   );
 }
-
 type RunningSessionDetailLayoutProps = {
   hero: ReactNode;
   guide: ReactNode;
@@ -484,7 +478,6 @@ type RunningSessionDetailLayoutProps = {
   mobileAction: ReactNode;
   applicationNotice: ReactNode;
 };
-
 /** 런클럽 상세 화면의 골격을 구성합니다. (Composes the run club detail layout.) */
 export function RunningSessionDetailLayout({
   hero,
@@ -503,13 +496,11 @@ export function RunningSessionDetailLayout({
     </Box>
   );
 }
-
 type RunningSessionFixedActionBarProps = {
   status: RunningSessionSession['status'];
-  onApply: () => void;
+  onApply?: () => void;
   pending?: boolean;
 };
-
 /** 런클럽 상세의 고정 액션 영역을 표시합니다. (Displays the fixed run club detail action area.) */
 export function RunningSessionFixedActionBar({
   status,
@@ -520,5 +511,73 @@ export function RunningSessionFixedActionBar({
     <OrderActionBar variant="mobileOnly" as="section" ariaLabel="세션 신청">
       <RunningSessionApplyButton status={status} onApply={onApply} pending={pending} />
     </OrderActionBar>
+  );
+}
+/** 세션 상세와 고정 신청 안내를 표시합니다. (Displays session details and a fixed application notice.) */
+export function RunningSessionDetailContent({
+  previewApplication,
+}: {
+  previewApplication?: 'unavailable' | 'complete';
+} = {}) {
+  const suppliedSession = useContext(RunningSessionSessionContext);
+  const { sessionId } = useParams<{
+    sessionId: string;
+  }>();
+  const platform = usePlatform();
+  const [showApplicationNotice, setShowApplicationNotice] = useState(Boolean(previewApplication));
+  const session =
+    suppliedSession ??
+    runningSessionSessions.find(
+      (candidate) => candidate.id === (previewApplication ? 'yeouido-night' : sessionId),
+    );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [sessionId]);
+  if (!session) return <SystemStatusPage status="not-found" />;
+  const recommendedProducts = products.slice(0, 6);
+  const heroRows: readonly RunningSessionFact[] = [
+    { label: '일시', value: session.schedule },
+    { label: '장소', value: runningSessionVenue, detail: runningSessionAddress },
+    { label: '정원', value: '20명' },
+    {
+      label: '예약금',
+      value: '5,000원',
+      detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',
+    },
+    { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },
+  ];
+  const guideRows: readonly RunningSessionGuideRow[] = [
+    { label: '장소', value: `${runningSessionVenue} · ${runningSessionAddress}` },
+    { label: '체크인', value: '세션 시작 20분 전부터' },
+    { label: '소요시간', value: '약 1시간 30분 소요' },
+    { label: '코스', value: session.location },
+    { label: '페이스', value: '6′30″ / 7′00″ (중급 레벨)' },
+    { label: '거리', value: session.distance },
+    { label: '준비물', value: '러닝화, 편안한 복장, 헤드 랜턴' },
+    { label: '혜택', value: '세션에서 제공되는 선물 & 트라이얼 서비스' },
+  ];
+  return (
+    <RunningSessionDetailLayout
+      hero={
+        <>
+          <RunningSessionSessionHero session={session} rows={[...heroRows]} />
+        </>
+      }
+      guide={<RunningSessionSessionGuide session={session} rows={[...guideRows]} />}
+      desktopContent={
+        <>
+          {session.showSupplementalImagePlaceholder ? <RunningSessionSessionImage /> : null}
+          <RunningSessionRecommendations products={recommendedProducts} platform={platform} />
+        </>
+      }
+      mobileAction={<RunningSessionFixedActionBar status={session.status} />}
+      applicationNotice={
+        <RunningSessionApplicationNotice
+          registered={previewApplication === 'complete'}
+          open={showApplicationNotice}
+          onOpenChange={setShowApplicationNotice}
+        />
+      }
+    />
   );
 }

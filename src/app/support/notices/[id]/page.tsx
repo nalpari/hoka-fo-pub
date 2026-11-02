@@ -1,23 +1,12 @@
 'use client';
-
-/**
- * [ 개발팀 바인딩 ]
- * SupportContentContext.notice.onQueryChange({ id })에 경로의 실제 공지 ID가 전달됩니다.
- * item.body는 BO 본문 렌더링 결과입니다. pending/error와 실제 item: null을 구분하며 없는 ID를 첫 공지로 대체하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useParams } from 'next/navigation';
-
-import { useContext } from 'react';
-import { SupportContentContext } from '@/context/SupportContentContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
@@ -25,17 +14,14 @@ import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage
 import { notices } from '@/app/support/notices/notices.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-
 /** 경로에 해당하는 공지 상세 내용을 표시합니다. (Displays notice details for the current route.) */
 export default function Page() {
-  const { id } = useParams<{ id?: string }>();
-  const { notice: binding } = useContext(SupportContentContext);
-  useBindingQuery(binding?.onQueryChange, { id: id ?? '' });
+  const { id } = useParams<{
+    id?: string;
+  }>();
   const noticeIndex = Number(id ?? 1) - 1;
-  const notice = binding ? binding.item : notices[noticeIndex];
-  if (binding?.pending || binding?.error) return <BindingFeedback {...binding} />;
+  const notice = notices[noticeIndex];
   if (!notice) return <SystemStatusPage status="not-found" />;
-
   return (
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px!' } })}
@@ -91,9 +77,7 @@ export default function Page() {
         borderBottomColor="black.20"
         _mobile={{ minH: '354px' }}
       >
-        {binding ? (
-          binding.item?.body
-        ) : notice === notices[0] ? (
+        {notice === notices[0] ? (
           <>
             <Typography as="p" variant="body4">
               안녕하세요, HOKA 코리아입니다.

@@ -1,5 +1,4 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
@@ -12,7 +11,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
-import type { InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
+import type { InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
@@ -25,13 +24,7 @@ import {
   InquiryOrderProducts,
 } from './InquiryFormContent';
 import { InquiryFormLayout } from './InquiryFormLayout';
-
-/**
- * [ 개발팀 바인딩 ] 고정 필수값/주문선택/첨부 오류이며 제출·복원·저장은 실행하지 않습니다.
- * 주문 선택 전·후와 취소/주문 미선택 알럿을 초기 상태로 제공합니다. File 객체는 이름·썸네일 자리 확인용 빈 파일이며 업로드하지 않습니다.
- * 주문 조회 버튼은 기존 주문상품 조회 경로로 이동하며 확인 알럿은 닫기만 수행합니다.
- * 운영 category/detailCategory/제목/본문/파일/선택 주문·상품 ID와 요청 상태·목록 갱신은 InquiryDataContext.form 소유자가 연결합니다.
- */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** 문의 폼과 첨부·주문 선택 오류를 직접 표시합니다. (Displays fixed inquiry form, attachment and order-selection errors.) */
 export function InquiryFormStatePreview({
   state,
@@ -101,7 +94,7 @@ export function InquiryFormStatePreview({
               onCategoryChange={setCategory}
               onDetailCategoryChange={setDetailCategory}
             />
-            {orderState && (
+            {(orderState || ['주문/결제', '주문/배송', '반품'].includes(category)) && (
               <InquiryOrderProducts
                 invalid={state === 'order-required'}
                 selection={selection}

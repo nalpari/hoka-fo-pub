@@ -1,17 +1,8 @@
-/**
- * [개발팀 바인딩]
- * OrderRecord.id는 주문, OrderLine.key는 주문 상품 행, productId는 상품 상세 식별자입니다. 신청 quantities는 key별 수량입니다.
- * price는 화면 금액 계산에 사용하는 행의 환불 대상 단가입니다. 실제 할인 배분/반품비/최종 환불은 quoteClaim의 서버 견적으로 확정합니다.
- * claims에는 실제 접수 id/상태/일자/선택 수량/사유/반품비를 매핑합니다. returnPolicy의 무료반품/쿠폰은 서버가 인정한 적용 정보만 전달합니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 주문 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 export type OrderStatus =
   'paid' | 'preparing' | 'shipping' | 'delivered' | 'purchased' | 'cancelled' | 'returned';
-
 export type ClaimKind = 'cancel' | 'return';
-
 export type ClaimReason = '' | 'mind' | 'size' | 'damage' | 'wrong' | 'missing' | 'other';
-
 export type OrderLine = {
   key: string;
   productId: string;
@@ -22,8 +13,8 @@ export type OrderLine = {
   size: string;
   quantity: number;
   price: number;
+  displayAmount?: number;
 };
-
 export type OrderClaim = {
   id: string;
   kind: ClaimKind;
@@ -34,8 +25,9 @@ export type OrderClaim = {
   requestedAt: string;
   completedAt?: string;
   fee: number;
+  displayAmount?: number;
+  displayRefund?: number;
 };
-
 export type OrderRecord = {
   id: string;
   date: string;
@@ -43,11 +35,22 @@ export type OrderRecord = {
   status: OrderStatus;
   items: OrderLine[];
   claims: OrderClaim[];
-  returnPolicy?: { freeReturn?: boolean; freeReturnCouponId?: string };
+  displayAmounts?: {
+    total: number;
+    claimed: number;
+    remaining: number;
+  };
+  claimKind?: ClaimKind;
+  returnPolicy?: {
+    freeReturn?: boolean;
+    freeReturnCouponId?: string;
+  };
 };
-
 export type OrdersView = 'list' | 'detail' | 'claim';
-
 export type OrdersPeriod = '1' | '3' | '6' | '12' | 'custom';
-
-export type OrderFilters = { period: OrdersPeriod; start: string; end: string; query: string };
+export type OrderFilters = {
+  period: OrdersPeriod;
+  start: string;
+  end: string;
+  query: string;
+};

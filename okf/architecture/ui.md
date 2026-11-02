@@ -24,6 +24,9 @@ working_tree_sources:
   - src/app/login/account-locked/verification/preview-required-terms/page.tsx
   - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
   - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
+  - src/app/_components/HomeContent.tsx
   - public/images/icon/catalog-filter-close.svg
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
   - src/components/common/molecules/HomeCarouselSection.tsx
@@ -4003,6 +4006,14 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 디자인 상태별 IA 직접 진입 조사 (2026-11-02)
 
 [누락 대응표](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)에 디자인 상태 14개의 직접 링크 누락과 만료 팝업 초기 표시 불일치 1개를 기록했다. 기존 탭·도움말·모달 컴포넌트가 있다는 사실과 URL로 해당 상태를 바로 여는 계약은 구분한다. 제품 UI·스타일·Storybook은 수정하지 않았다. 출처: 사용자 지정 디자인, 기존 IA 링크 표시와 대응 화면 소스. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+정상/빈 목록/오류/완료 표현은 기존 StatePreview와 표현 컴포넌트를 공유한다. CartHeading은 ContentHeader 직접 사용으로 통합했다. 장바구니와 러닝 상세의 여러 라우트가 공유하는 조합은 기존 _components 소유자에 두어 page 간 import를 없앴다. 주문 금액·할인 라벨·주문서 row.amount는 명시된 fixture 표시값을 사용하고 수량/쿠폰 선택으로 다시 계산하지 않는다. 프로필·주소·리뷰·문의의 저장/삭제/제출 버튼은 완료 화면으로 이동하거나 목록을 변경하지 않는다. 파일 선택/삭제는 로컬 첨부 미리보기만 바꾸며 size/type/count 오류는 별도 고정 URL로 표시한다. 최소 조작과 모달/포커스/의미 구조는 유지한다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
 
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 

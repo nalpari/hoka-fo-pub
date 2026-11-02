@@ -1,11 +1,5 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
-
-import { useContext } from 'react';
-import { type ReactNode, useState } from 'react';
-import { AccountServicesContext } from '@/context/AccountFlowContext';
-import { useAccountFlow } from '@/context/AccountFlowContext';
+import { type ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
@@ -21,16 +15,13 @@ import { PreviousTermsPicker } from '@/components/common/molecules/PreviousTerms
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
-
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
   { label: '개인정보 수집 및 이용 동의', required: true },
   { label: '개인정보 제3자 제공동의', required: true },
   { label: '마케팅 목적의 개인정보 수집, 이용동의', required: false },
 ] as const;
-
 const termsLink = css({ flexShrink: '0', '--button-padding-x': '0px' });
-
 type SignupTermsAgreementListProps = {
   fixedErrors?: boolean;
   agreements: boolean[];
@@ -39,9 +30,8 @@ type SignupTermsAgreementListProps = {
   onChange: (index: number, checked: boolean) => void;
   onDetail: (index: number | null) => void;
 };
-
 function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
-  const terms = useContext(AccountServicesContext)?.signupTerms ?? signupTerms;
+  const terms = signupTerms;
   return (
     <Stack gap="4">
       <Checkbox
@@ -89,7 +79,6 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
     </Stack>
   );
 }
-
 type TermsDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -97,9 +86,11 @@ type TermsDialogProps = {
   label: ReactNode;
   children: ReactNode;
   dates?: ReactNode;
-  version?: { previous: boolean; onChange: () => void };
+  version?: {
+    previous: boolean;
+    onChange: () => void;
+  };
 };
-
 function TermsDialog({
   open,
   onOpenChange,
@@ -150,7 +141,6 @@ function TermsDialog({
     </ModalDialog>
   );
 }
-
 type Props = {
   selected: {
     label: string;
@@ -169,10 +159,7 @@ type Props = {
   onClose: () => void;
   onPrevious: () => void;
 };
-
-function SignupTermsDetail({ selected, previous, previousVersionId, onClose, onPrevious }: Props) {
-  const services = useContext(AccountServicesContext);
-  const archived = selected?.previousVersions?.find((version) => version.id === previousVersionId);
+function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
   return (
     <TermsDialog
       open={selected !== null}
@@ -182,21 +169,9 @@ function SignupTermsDetail({ selected, previous, previousVersionId, onClose, onP
       title="HOKA Korea 이용약관"
       label={`${selected?.required ? '[필수]' : '(선택)'} ${selected?.label ?? ''}`}
       version={{ previous, onChange: onPrevious }}
-      dates={
-        services
-          ? previous
-            ? archived?.dates
-            : selected?.dates
-          : '공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일'
-      }
+      dates={'공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일'}
     >
-      {services ? (
-        previous ? (
-          (archived?.body ?? '이전 약관이 없습니다.')
-        ) : (
-          selected?.body
-        )
-      ) : previous ? (
+      {previous ? (
         <Box mb="4">
           <Typography as="p" variant="body5">
             이전 약관은 등록 준비 중입니다.
@@ -219,7 +194,6 @@ function SignupTermsDetail({ selected, previous, previousVersionId, onClose, onP
     </TermsDialog>
   );
 }
-
 type SignupTermsContentProps = {
   fixedErrors?: boolean;
   agreements: boolean[];
@@ -234,20 +208,14 @@ type SignupTermsContentProps = {
   onPreviousPickerClose: () => void;
   previousVersionId?: string;
   onPreviousVersionSelect: (id?: string) => void;
-  onCancel: () => void;
-  onNext: () => void;
+  onCancel?: () => void;
+  onNext?: () => void;
 };
-
 /** 회원가입 약관 목록과 상세 다이얼로그를 화면으로 구성합니다. (Composes the signup terms list and detail dialogs into the page content.) */
 export function SignupTermsContent(props: SignupTermsContentProps) {
-  const services = useContext(AccountServicesContext);
-  const terms = services?.signupTerms ?? signupTerms;
+  const terms = signupTerms;
   const selected = props.detail === null ? null : terms[props.detail];
-  const versions =
-    services && props.detail !== null
-      ? (services.signupTerms[props.detail]?.previousVersions ?? [])
-      : undefined;
-
+  const versions = undefined;
   return (
     <AccountPageLayout
       title="약관동의"
@@ -296,101 +264,7 @@ export function SignupTermsContent(props: SignupTermsContentProps) {
     </AccountPageLayout>
   );
 }
-
-/** 약관 동의 상태와 다음 회원가입 단계로의 이동을 관리합니다. (Manages agreement state and navigation to the next signup step.) */
-export function RouteContent() {
-  const router = useRouter();
-  const flow = useAccountFlow();
-  const services = useContext(AccountServicesContext);
-  const terms = services?.signupTerms ?? signupTerms;
-  const termsKey = JSON.stringify(
-    services
-      ? services.signupTerms.map(({ id, version, required }) => [id, version, required])
-      : 'demo',
-  );
-  const restoredAgreements = () =>
-    terms.map((_, index) => {
-      const term = services?.signupTerms[index];
-      return (
-        !!term &&
-        !!flow?.consents.some(
-          (consent) =>
-            consent.id === term.id && consent.version === term.version && consent.accepted,
-        )
-      );
-    });
-  const [agreementDraft, setAgreementDraft] = useState(() => ({
-    key: termsKey,
-    values: restoredAgreements(),
-  }));
-  // BO의 약관 순서/버전이 바뀌면 이전 인덱스의 동의를 새 약관에 적용하지 않습니다.
-  const agreements = agreementDraft.key === termsKey ? agreementDraft.values : restoredAgreements();
-  const setAgreements = (values: boolean[]) => setAgreementDraft({ key: termsKey, values });
-  const [previousVersionId, setPreviousVersionId] = useState<string>();
-  const [detail, setDetail] = useState<number | null>(null);
-  const [previous, setPrevious] = useState(false);
-  const [previousPickerOpen, setPreviousPickerOpen] = useState(false);
-  const [notice, setNotice] = useState('');
-
-  const next = () => {
-    if (!terms.length || terms.some((term, index) => term.required && !agreements[index])) {
-      setNotice('필수 약관에 모두 동의해 주세요.');
-      return;
-    }
-    flow?.setConsents(
-      terms.map((_, index) => ({
-        id: services?.signupTerms[index].id ?? String(index),
-        version: services?.signupTerms[index].version ?? 'publishing-preview',
-        accepted: agreements[index],
-      })),
-    );
-    router.push('/signup/information');
-  };
-
-  return (
-    <SignupTermsContent
-      agreements={agreements}
-      detail={detail}
-      previous={previous}
-      previousVersionId={previousVersionId}
-      previousPickerOpen={previousPickerOpen}
-      notice={notice}
-      onAllChange={(checked) => {
-        setAgreements(terms.map(() => checked));
-        setNotice('');
-      }}
-      onChange={(index, checked) => {
-        const next = terms.map((_, position) =>
-          position === index ? checked : !!agreements[position],
-        );
-        setAgreements(next);
-        if (!terms.some((term, position) => term.required && !next[position])) setNotice('');
-      }}
-      onDetail={(index) => {
-        setDetail(index);
-        setPrevious(false);
-        setPreviousPickerOpen(false);
-      }}
-      onPrevious={() => {
-        if (previous) setPrevious(false);
-        else setPreviousPickerOpen(true);
-      }}
-      onPreviousPickerClose={() => setPreviousPickerOpen(false)}
-      onPreviousVersionSelect={(id) => {
-        setPreviousVersionId(id);
-        setPrevious(true);
-        setPreviousPickerOpen(false);
-      }}
-      onCancel={() => router.push('/signup/verify')}
-      onNext={next}
-    />
-  );
-}
-
-export const routePreviewComponents = {
-  TermsDialog,
-  SignupTermsContent,
-} satisfies Pick<
+export const routePreviewComponents = { TermsDialog, SignupTermsContent } satisfies Pick<
   typeof import('@/types/component-contracts/app-signup-terms-page'),
   'TermsDialog' | 'SignupTermsContent'
 >;

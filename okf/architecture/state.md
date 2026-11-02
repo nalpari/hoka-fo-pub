@@ -655,6 +655,14 @@ ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)�
 
 배송/세탁 탭의 기본 선택, checkout 배송지/요청사항, 쿠폰 employee 옵션, 마이페이지 로그아웃, 주소 삭제, 가입 약관과 잠금 해제 detail 초기값을 검토했다. 만료 preview는 secondsLeft=0과 인라인 notice를 설정하지만 모달을 여는 expired prop은 전달하지 않는다. 이전 약관은 시행일 선택 팝업을 제공하지 않는다. 이 구성을 [직접 링크 누락 조사](routing.md#디자인-상태별-ia-링크-조사-2026-11-02)와 구별해 기록하며 상태 owner·fixture·서비스 연결은 수정하지 않았다. 출처: 대응 route/preview, `src/components/phone-verification/PhoneVerificationStatePreview.tsx`, `PhoneVerificationContent.tsx`, `src/app/signup/terms/_components/SignupTermsStatePreview.tsx`. 검토·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
 
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+전체 퍼블리싱 범위의 인증·조회·저장·삭제·견적·가격 합계·성공 이동과 이를 흉내 내는 요청/타이머/브라우저 저장소를 제거했다. AccountFlow/PhoneVerification/Orders/MyPage/Inquiry/ProductListing/Home/SupportContent/RunningSession 서비스 context와 요청 hooks를 제거하고 사용 타입은 소유 도메인으로 옮겼다. ShopShell.state는 로그인 여부와 헤더 카운트의 읽기 전용 표시값만 받는다. PlatformProvider·RoutePreview·준비된 Storybook 표시 context와 로컬 입력·탭·체크·아코디언·갤러리·모달 조작은 유지한다. 고정 오류는 편집해도 사라지지 않고 loading/error는 자동 완료로 바뀌지 않는다. 서버 연결은 향후 통합 소유자가 표시 DTO/실제 ID·입력 payload·pending/실패/재시도·성공 후 갱신을 별도로 구현해야 한다. 이전 절의 서비스 계약 설명은 역사적 기록이며 이 인계 범위에서는 더 이상 현재 구현을 설명하지 않는다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
+
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 
 추가된 상태는 최초 표시 fixture다. `initialDeliveryRequest`, `initialEditing`, `previewLogout`, `initialDetail`, `initialPreviousPickerOpen`은 각 기존 owner에서 로컬 draft/open 상태를 초기화하며 API 응답처럼 동기화하지 않는다. 실제 인증·저장·삭제·쿠폰 발급·결제·완료 이동을 새로 연결하지 않는다. 로그아웃 preview의 확인은 인증 상태를 바꾸지 않고 확인창만 닫는다.

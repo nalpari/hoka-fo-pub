@@ -1,10 +1,6 @@
 'use client';
-
-import { type ReactNode, useContext, useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { SupportContentContext } from '@/context/SupportContentContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
@@ -16,7 +12,6 @@ import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { SearchField } from '@/components/common/molecules/SearchField';
 
@@ -24,13 +19,11 @@ import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.dat
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 import { faChevronDown } from '@/icons/fontAwesome';
-
 type Props = {
   category: FaqCategory;
   categories: FaqCategory[];
   onCategoryChange: (category: FaqCategory) => void;
 };
-
 function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
   return (
     <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="32px" _mobile={{ pt: '6', pb: '8' }}>
@@ -48,12 +41,10 @@ function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
     </Box>
   );
 }
-
 type FaqSearchProps = {
   query: string;
   onQueryChange: (query: string) => void;
 };
-
 function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
   return (
     <Flex justifyContent="center" pt="6" _mobile={{ pt: '0' }}>
@@ -73,7 +64,6 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
     </Flex>
   );
 }
-
 type FaqControlsProps = {
   category: FaqCategory;
   query: string;
@@ -81,7 +71,6 @@ type FaqControlsProps = {
   onCategoryChange: (category: FaqCategory) => void;
   onQueryChange: (query: string) => void;
 };
-
 function FaqControls({
   category,
   query,
@@ -100,9 +89,9 @@ function FaqControls({
     </Box>
   );
 }
-
-type FaqQuestionProps = { question: string };
-
+type FaqQuestionProps = {
+  question: string;
+};
 function FaqQuestion({ question }: FaqQuestionProps) {
   return (
     <HStack gap="2" minW="0">
@@ -115,9 +104,9 @@ function FaqQuestion({ question }: FaqQuestionProps) {
     </HStack>
   );
 }
-
-type FaqAnswerProps = { answer: ReactNode };
-
+type FaqAnswerProps = {
+  answer: ReactNode;
+};
 function FaqAnswer({ answer }: FaqAnswerProps) {
   return (
     <Box bg="black.10" px="4" py="6" whiteSpace="pre-line">
@@ -141,15 +130,16 @@ function FaqAnswer({ answer }: FaqAnswerProps) {
     </Box>
   );
 }
-
-type FaqListEntry = { id?: string; question: string; answer: ReactNode };
-
+type FaqListEntry = {
+  id?: string;
+  question: string;
+  answer: ReactNode;
+};
 type FaqListProps = {
   entries: readonly FaqListEntry[];
   openQuestion: string | null;
   onToggle: (question: string) => void;
 };
-
 const styles = {
   question: css({
     minH: '74px',
@@ -161,7 +151,6 @@ const styles = {
     _mobile: { minH: '58px', py: '16px' },
   }),
 };
-
 function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
   return (
     <Box
@@ -203,16 +192,8 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
     </Box>
   );
 }
-
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
 export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
-  // [ 개발팀 바인딩 ] 연동 소유자는 SupportContentContext.faq에 검색 결과 items/id,
-  // totalCount/hasMore와 onQueryChange/onLoadMore를 제공합니다. 더보기는 표시 건수/totalCount이며
-  // 추가 조회 중 중복 실행을 막고 실패 시 목록을 유지합니다. 결과 갱신·오래된 응답 제외와
-  // 조회 재시도는 연결 소유자가 담당하며, 미연동 시에는 아래 로컬 FAQ fixture를 표시합니다.
-  const { faq: connected } = useContext(SupportContentContext);
-  const binding = previewEmpty ? undefined : connected;
-  const request = useRequestAction();
   const platform = usePlatform();
   const [category, setCategory] = useState<FaqCategory>('전체');
   const [query, setQuery] = useState(previewEmpty ? '검색 결과 없음' : '');
@@ -230,17 +211,13 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
           ),
     [category, query, previewEmpty],
   );
-
-  useBindingQuery(binding?.onQueryChange, { category, query });
-  const displayed = binding ? [...binding.items] : entries.slice(0, shown);
-  const total = binding?.totalCount ?? entries.length;
-
+  const displayed = entries.slice(0, shown);
+  const total = entries.length;
   const changeCategory = (next: FaqCategory) => {
     setCategory(next);
     setShown(10);
     setOpen(null);
   };
-
   return (
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px' } })}
@@ -255,32 +232,24 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
         { label: 'FAQs' },
       ]}
       footer={
-        (binding ? binding.hasMore : shown < entries.length) ? (
+        shown < entries.length ? (
           <Flex justifyContent="center" pt="10" _mobile={{ pt: '6' }}>
             <Button
               variant="secondary"
               size="short"
               density="compact"
-              loading={request.pending || binding?.pending}
               className={css({ w: '180px', '& > span': { w: '100%' }, _mobile: { w: 'auto' } })}
               loadMore={{
                 counter: { current: displayed.length, total },
               }}
               onClick={() => {
-                if (binding) {
-                  void request.run(binding.onLoadMore);
-                } else setShown((count) => count + 10);
+                setShown((count) => count + 10);
               }}
             />
           </Flex>
         ) : null
       }
     >
-      <BindingFeedback
-        {...binding}
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-      />
       <FaqControls
         category={category}
         query={query}
@@ -291,17 +260,16 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
           setShown(10);
         }}
       />
-      {displayed.length > 0 || !(binding?.pending || binding?.error) ? (
+      {
         <FaqList
           entries={previewEmpty ? [] : displayed}
           openQuestion={openQuestion}
           onToggle={(question) => setOpen(openQuestion === question ? null : question)}
         />
-      ) : null}
+      }
     </CustomerCenterLayout>
   );
 }
-
 export const routePreviewComponents = { FaqList } satisfies Pick<
   typeof import('@/types/component-contracts/app-support-faq-page'),
   'FaqList'

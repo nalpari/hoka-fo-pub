@@ -1,24 +1,10 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * RunningSessionDataContext.sessions는 운영 목록, entries는 마이페이지 신청내역입니다. 같은 세션도 신청 id/status는 별도로 표시합니다.
- * 서버 필터 결과를 로컬에서 다시 자르지 않습니다. onQueryChange({ category })와 onLoadMore를 실제 조회에 연결합니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 런클럽 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
-import { useContext } from 'react';
 import { type ReactNode, useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import {
-  RunningSessionDataContext,
-  type RunningSessionEntry,
-} from '@/context/RunningSessionDataContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, LinkOverlay, Square, Stack, VStack } from 'styled-system/jsx';
@@ -30,17 +16,16 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
+import { type RunningSessionEntry } from '@/components/running-session/runningSession.data';
 import {
   runningSessionImage,
   type RunningSessionSession,
   runningSessionSessions,
 } from '@/components/running-session/runningSession.data';
-
 function RunningSessionHistoryLink({ compact = false }: { compact?: boolean }) {
   return (
     <Flex justifyContent={compact ? 'flex-start' : 'flex-end'}>
@@ -52,21 +37,17 @@ function RunningSessionHistoryLink({ compact = false }: { compact?: boolean }) {
     </Flex>
   );
 }
-
 type RunningSessionFilter = 'all' | RunningSessionSession['category'];
-
 type RunningSessionFiltersProps = {
   filter: RunningSessionFilter;
   onFilterChange: (filter: RunningSessionFilter) => void;
   empty?: boolean;
 };
-
 const filters = [
   { value: 'all', label: '전체보기', mobileLabel: '전체' },
   { value: 'Road', label: '로드 러닝', mobileLabel: '로드 러닝' },
   { value: 'Trail', label: '트레일 러닝', mobileLabel: '트레일 러닝' },
 ] as const;
-
 const filterButton = css({
   minW: '0',
   '& > span': { w: '100%' },
@@ -81,7 +62,6 @@ const filterButton = css({
     _focusVisible: { outline: '2px solid {colors.blue.100}', outlineOffset: '-2px' },
   },
 });
-
 const options = filters.map(({ value, label, mobileLabel }) => ({
   value,
   label: (
@@ -95,7 +75,6 @@ const options = filters.map(({ value, label, mobileLabel }) => ({
     </>
   ),
 }));
-
 function RunningSessionFilters({
   filter,
   onFilterChange,
@@ -103,7 +82,6 @@ function RunningSessionFilters({
 }: RunningSessionFiltersProps) {
   const mobile = usePlatform() === 'mobile';
   const segmented = mobile || empty;
-
   return (
     <SegmentedControl
       unstyled
@@ -151,20 +129,17 @@ function RunningSessionFilters({
     />
   );
 }
-
 type RunningSessionHeaderProps = {
   filter: RunningSessionFilter;
   onFilterChange: (filter: RunningSessionFilter) => void;
   empty?: boolean;
 };
-
 function RunningSessionHeader({
   filter,
   onFilterChange,
   empty = false,
 }: RunningSessionHeaderProps) {
   const mobile = usePlatform() === 'mobile';
-
   return (
     <ContentSection
       as="header"
@@ -207,9 +182,11 @@ function RunningSessionHeader({
     </ContentSection>
   );
 }
-
-type RunningSessionLayoutProps = { header: ReactNode; children: ReactNode; empty?: boolean };
-
+type RunningSessionLayoutProps = {
+  header: ReactNode;
+  children: ReactNode;
+  empty?: boolean;
+};
 function RunningSessionLayout({ header, children, empty = false }: RunningSessionLayoutProps) {
   return (
     <VStack
@@ -233,7 +210,6 @@ function RunningSessionLayout({ header, children, empty = false }: RunningSessio
     </VStack>
   );
 }
-
 const styles = {
   image: css({
     position: 'relative',
@@ -246,11 +222,9 @@ const styles = {
     },
   }),
 };
-
 /** 세션 이미지 위에 날짜·장소·거리를 겹쳐 표시합니다. (Overlays the session date, location, and distance on its image.) */
 function RunningSessionSessionCardImage({ session }: { session: RunningSessionSession }) {
   const mobile = usePlatform() === 'mobile';
-
   return (
     <LinkOverlay
       as={Link}
@@ -288,7 +262,6 @@ function RunningSessionSessionCardImage({ session }: { session: RunningSessionSe
     </LinkOverlay>
   );
 }
-
 function RunningSessionSessionCardContent({ session }: { session: RunningSessionSession }) {
   return (
     <ContentSection
@@ -327,7 +300,6 @@ function RunningSessionSessionCardContent({ session }: { session: RunningSession
     />
   );
 }
-
 function RunningSessionSessionCard({ session }: { session: RunningSessionSession }) {
   return (
     <Card className={css({ gap: '20px', _mobile: { gap: '0' } })}>
@@ -336,10 +308,8 @@ function RunningSessionSessionCard({ session }: { session: RunningSessionSession
     </Card>
   );
 }
-
 function RunningSessionEmptyState() {
   const mobile = usePlatform() === 'mobile';
-
   return (
     <Box role="status">
       <EmptyState
@@ -364,7 +334,6 @@ function RunningSessionEmptyState() {
     </Box>
   );
 }
-
 function RunningSessionResults({
   sessions,
   entries,
@@ -398,24 +367,16 @@ function RunningSessionResults({
     <RunningSessionEmptyState />
   );
 }
-
-type RunningSessionPageProps = { sessions?: RunningSessionSession[] };
-
+type RunningSessionPageProps = {
+  sessions?: RunningSessionSession[];
+};
 /** 런클럽 세션 목록과 필터를 구성합니다 (Displays the run club page composition). */
 export function RunningSessionPage({ sessions = runningSessionSessions }: RunningSessionPageProps) {
   const [filter, setFilter] = useState<RunningSessionFilter>('all');
-  const context = useContext(RunningSessionDataContext);
-  const isHistory = usePathname() === '/mypage/event-entries';
-  const binding = isHistory ? context.entries : context.sessions;
-  const request = useRequestAction();
-  useBindingQuery(binding?.onQueryChange, { category: filter });
-  const entries = isHistory ? context.entries?.items : undefined;
-  const visibleSessions = binding
-    ? entries
-      ? entries.map((entry) => entry.session)
-      : (context.sessions?.items ?? [])
-    : sessions.filter((session) => filter === 'all' || session.category === filter);
-
+  const entries = undefined;
+  const visibleSessions = sessions.filter(
+    (session) => filter === 'all' || session.category === filter,
+  );
   return (
     <RunningSessionLayout
       empty={visibleSessions.length === 0}
@@ -427,22 +388,7 @@ export function RunningSessionPage({ sessions = runningSessionSessions }: Runnin
         />
       }
     >
-      <BindingFeedback
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-        onRetry={binding?.onRetry}
-      />
-      {!(binding?.pending || binding?.error) || visibleSessions.length > 0 ? (
-        <RunningSessionResults sessions={visibleSessions} entries={entries} />
-      ) : null}
-      {binding?.hasMore && (
-        <Button
-          disabled={binding.pending || request.pending}
-          onClick={() => void request.run(binding.onLoadMore)}
-        >
-          더보기
-        </Button>
-      )}
+      {<RunningSessionResults sessions={visibleSessions} entries={entries} />}
     </RunningSessionLayout>
   );
 }

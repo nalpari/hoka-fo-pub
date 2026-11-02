@@ -43,7 +43,7 @@ export type PhoneVerificationContentProps = {
   onAgreementChange: (index: number, checked: boolean) => void;
   onAllAgree: (checked: boolean) => void;
   onCodeChange: (value: string) => void;
-  onRequest: () => void;
+  onRequest?: () => void;
   onConfirm: (event: FormEvent<HTMLFormElement>) => void;
   onDetail: (title: string | null) => void;
 };

@@ -36,6 +36,9 @@ working_tree_sources:
   - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
   - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
   - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/stories/features/binding/DesignBinding.stories.tsx
+  - src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx
+  - src/stories/components/common/molecules/ProductPrice/ProductPrice.stories.tsx
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
   - tests/form-controls.test.mjs
   - tests/preview-links.test.mjs
@@ -135,7 +138,6 @@ sources:
 - `/cart`에서 수량 증가 후 행 금액 유지, 주문·삭제 후 이동/행 제거 없음, checkout 링크 없음, `/cart/preview-empty`의 직접 빈 상태와 `/screen-index`의 상태별 링크를 확인했다.
 - 모달을 연 상태로 1024/1025px, 1199/1200px를 전환해 플랫폼 변경과 모달 유지, 1200px 이상 가로 넘침 없음을 확인했다. 1025~1199px의 1200px 캔버스는 기존 정책대로 유지한다. 브라우저 스크린샷 캡처가 시간 초과되어 픽셀 대조는 수행하지 못했으며 DOM·계산된 크기와 상호작용으로 검증했다.
 - 라우트 manifest 테스트에 새 확인 URL과 기존 누락 `/publishing-guide`를 반영했다. `npm run build`를 통과했고 새 URL 2개를 포함한 정적 페이지 생성과 TypeScript 검사를 완료했다. 이후 `node --test tests/app-router.test.mjs` 2개도 통과했다(관련 Node 테스트 합계 61개).
-
 
 ## IA 설명 제거 확인 (2026-10-29)
 
@@ -422,13 +424,11 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 
 `node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](../architecture/design-source-comparison-2026-10-29.md)를 참고한다.
 
-
 ## 첨부 디자인 반영 검증 (2026-10-29)
 
 최종 프로덕션 빌드에서 컴파일·타입 검사·58개 정적 페이지 생성이 성공했다. Panda 생성과 변경 소스 ESLint/Prettier·diff 검사·작업 트리 OKF 매핑 검사도 통과했다. UI/서비스 연결 범위는 아래 구현 기록을 따른다.
 
 기존 표시·주문 요약·IA 테스트 15개와 변경 소스 타입/ESLint/Prettier를 통과했다. 1440px PC/390px MO 6개 경로 렌더·알럿/문서 가로 넘침과 스크린샷을 확인했다. 외부 쿠폰 응답·실패/재시도 스토리는 추가했으며 실행 결과는 별도 기록한다. [구현 범위·출처·검증](../architecture/design-implementation-2026-10-29.md).
-
 
 후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](../architecture/design-implementation-2026-10-29.md).
 
@@ -456,7 +456,6 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 마지막 보완에서는 FAQ의 조건 변경 후에도 빈 결과/페이지 수가 유지되도록 하고, 휴대폰 약관의 체크값과 고정 오류 표시를 분리했다. 실제 PhoneVerificationContent를 서버 렌더링해 모든 약관이 체크된 경우에도 preview에서만 4개 invalid가 유지되고 일반 폼에는 invalid가 생기지 않는 회귀 검사를 추가했다. 최종 소스의 타입·Next/Storybook 빌드와 관련 검사도 다시 수행했다.
 
 preview는 고정 표시만 검증한다. 기존 화면의 서비스 계약, 실제 요청 실패·재시도, 인증·결제·외부 PG는 이번 검증 대상이 아니다. 미확정 디자인을 구현 완료로 바꾸거나 IA 진행 상태를 변경하지 않았다.
-
 
 ## 문의 대기·완료 목록 통합 검증 (2026-10-30)
 
@@ -566,6 +565,14 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 ## 디자인 상태 링크 누락 조사 검증 (2026-11-02)
 
 `node --test tests/preview-links.test.mjs` 5개가 통과했다. 실제 `/screen-index` DOM에서 조사 대상 IA의 등록 URL들이 표시되는지 소스의 연결 결과와 대조했다. PC 1440px·MO 375px에서 `/support/after-sales`, `/support/care`, `/login/account-locked/verification/preview-expired`, `/signup/terms`, `/mypage/coupons` 5개 URL을 각각 직접 열어 기본 탭·팝업 닫힘·일반 쿠폰 표시와 인라인 만료 안내를 확인했다. 그 외 로그인·주문서·주소·마이페이지의 대표 기본 진입도 확인했다. 새 URL·화면은 구현하지 않았고 전체 상태의 PC/MO 시각 일치·팝업 조작·타입·빌드를 검증한 것은 아니다. 기존 경로 검사는 디자인에만 존재하는 URL 누락을 검출하지 않으므로 [디자인 대응표](../architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 함께 확인한다. 출처: 사용자 지정 디자인, 현재 IA/화면 소스와 `tests/preview-links.test.mjs`, 실행 중인 로컬 앱. 검증·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+요청 성공/실패를 모의하는 Storybook 사례를 고정 표시와 편집 후 오류 유지 확인으로 전환했다. 기존 story export 이름은 유지한다. 주문 계산 테스트는 준비된 금액/불변 display lookup 검증으로, 문의 바인딩 테스트는 직접 상태 연결과 제거한 서비스 API/storage AST 검사로 변경했다. App Router 검사는 소스 page 목록과 production manifest를 비교하여 새 상태 URL의 빌드 누락을 검출한다. 실행 결과와 범위는 인계표의 검증 절을 따른다.
+
+[전체 화면 인계표](markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
 
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 

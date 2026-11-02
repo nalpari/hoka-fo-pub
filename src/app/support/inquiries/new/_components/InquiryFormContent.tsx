@@ -1,9 +1,6 @@
 'use client';
-
 import { faXmark as ImportedFaXmark } from '@fortawesome/free-solid-svg-icons';
-import { useContext } from 'react';
-import { type ChangeEvent, useRef, useState } from 'react';
-import { InquiryDataContext } from '@/context/InquiryDataContext';
+import { type ChangeEvent, useRef } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -21,9 +18,8 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
+import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { faXmark } from '@/icons/fontAwesome';
-
 export const inquiryAlertPresentation = {
   size: 'md' as const,
   headerProps: {
@@ -31,15 +27,12 @@ export const inquiryAlertPresentation = {
   },
   popupClassName: css({ '& > div:nth-child(2)': { py: '6' } }),
 };
-
 type InquiryAttachmentListProps = {
   files: File[];
   onRemove: (index: number) => void;
 };
-
 function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) {
   if (!files.length) return null;
-
   return (
     <Stack
       as="ul"
@@ -78,7 +71,6 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
     </Stack>
   );
 }
-
 function InquiryAttachmentHelp() {
   return (
     <Typography as="p" id="inquiry-files-help" variant="body5" tone="tertiary">
@@ -87,47 +79,26 @@ function InquiryAttachmentHelp() {
     </Typography>
   );
 }
-
 type Props = {
   files: File[];
   onFilesChange: (files: File[]) => void;
   previewError?: AttachmentError;
 };
-
 type AttachmentError = 'size' | 'type' | 'count';
-
 const attachmentErrorMessage: Record<AttachmentError, string> = {
   size: '첨부파일은 10MB 이하로 첨부해주세요.',
   type: '첨부할 수 없는 파일 형식입니다.',
   count: '파일은 최대 5개까지 첨부할 수 있습니다.',
 };
-
 /** 문의 첨부파일 입력과 상태를 관리합니다. (Manages inquiry attachment inputs and status.) */
 export function InquiryAttachments({ files, onFilesChange, previewError }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [localError, setError] = useState<AttachmentError | null>(null);
-  const error = previewError ?? localError;
-
+  const error = previewError;
   const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const next = Array.from(event.target.files ?? []);
     event.target.value = '';
-    if (!next.length) return;
-    if (files.length + next.length > 5) {
-      setError('count');
-      return;
-    }
-    if (next.some((file) => !/\.(jpe?g|png)$/i.test(file.name))) {
-      setError('type');
-      return;
-    }
-    if (next.some((file) => file.size > 10 * 1024 * 1024)) {
-      setError('size');
-      return;
-    }
-    setError(null);
     onFilesChange([...files, ...next]);
   };
-
   return (
     <ContentSection
       gap="4"
@@ -174,25 +145,20 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
         files={files}
         onRemove={(index) => {
           onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
-          setError(null);
         }}
       />
     </ContentSection>
   );
 }
-
 /** 문의 등록자의 이름과 연락처 정보를 표시합니다. (Displays the inquirer's name and contact information.) */
 export function InquiryCustomerInfo() {
-  // [ 개발팀 바인딩 ] InquiryDataContext.form 소유자가 현재 customer 이름·전화·이메일과 조회 상태를 공급합니다.
-  // DescriptionList는 도착하거나 교체된 customer를 그대로 표시하며 조회·재시도·오래된 응답 폐기는 context 소유자가 맡습니다.
-  const binding = useContext(InquiryDataContext).form;
   return (
     <Box px="8" py="6" bg="black.10" _mobile={{ px: '4', py: '5' }}>
       <DescriptionList
         items={[
-          { term: '이름', description: binding ? binding.customer.name : '홍길동' },
-          { term: '휴대폰 번호', description: binding ? binding.customer.phone : '010-1234-1234' },
-          { term: 'E-mail', description: binding ? binding.customer.email : 'hong123@naver.com' },
+          { term: '이름', description: '홍길동' },
+          { term: '휴대폰 번호', description: '010-1234-1234' },
+          { term: 'E-mail', description: 'hong123@naver.com' },
         ]}
         termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
         descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
@@ -207,7 +173,6 @@ export function InquiryCustomerInfo() {
     </Box>
   );
 }
-
 type InquiryCategoryFieldsProps = {
   category: string;
   detailCategory: string;
@@ -216,7 +181,6 @@ type InquiryCategoryFieldsProps = {
   onCategoryChange: (value: string) => void;
   onDetailCategoryChange: (value: string) => void;
 };
-
 /** 문의 분류 선택 필드를 표시합니다. (Displays inquiry category fields.) */
 export function InquiryCategoryFields({
   category,
@@ -226,7 +190,6 @@ export function InquiryCategoryFields({
   onCategoryChange,
   onDetailCategoryChange,
 }: InquiryCategoryFieldsProps) {
-  const binding = useContext(InquiryDataContext).form;
   return (
     <Stack gap="4">
       <Grid columns={2} gap="2" _mobile={{ gridTemplateColumns: '1fr', gap: '4' }}>
@@ -239,17 +202,13 @@ export function InquiryCategoryFields({
           value={category}
           onValueChange={onCategoryChange}
           error={invalid && (fixedErrors || !category) ? '문의 분류를 선택해주세요.' : undefined}
-          options={
-            binding
-              ? binding.categories.map((item) => ({ value: item.value, label: item.value }))
-              : [
-                  { value: '주문/결제', label: '주문/결제' },
-                  { value: '반품', label: '반품' },
-                  { value: '주문/배송', label: '주문/배송' },
-                  { value: '상품', label: '상품' },
-                  { value: '회원', label: '회원' },
-                ]
-          }
+          options={[
+            { value: '주문/결제', label: '주문/결제' },
+            { value: '반품', label: '반품' },
+            { value: '주문/배송', label: '주문/배송' },
+            { value: '상품', label: '상품' },
+            { value: '회원', label: '회원' },
+          ]}
         />
         <Dropdown
           ariaLabel="상세 유형"
@@ -262,23 +221,16 @@ export function InquiryCategoryFields({
           error={
             invalid && (fixedErrors || !detailCategory) ? '상세 유형을 선택해주세요.' : undefined
           }
-          options={
-            binding
-              ? (binding.categories.find((item) => item.value === category)?.details ?? []).map(
-                  (value) => ({ value, label: value }),
-                )
-              : [
-                  { value: '신청/취소 문의', label: '신청/취소 문의' },
-                  { value: '진행 상황 문의', label: '진행 상황 문의' },
-                  { value: '기타 문의', label: '기타 문의' },
-                ]
-          }
+          options={[
+            { value: '신청/취소 문의', label: '신청/취소 문의' },
+            { value: '진행 상황 문의', label: '진행 상황 문의' },
+            { value: '기타 문의', label: '기타 문의' },
+          ]}
         />
       </Grid>
     </Stack>
   );
 }
-
 type InquiryMessageFieldsProps = {
   title: string;
   body: string;
@@ -287,7 +239,6 @@ type InquiryMessageFieldsProps = {
   onTitleChange: (value: string) => void;
   onBodyChange: (value: string) => void;
 };
-
 /** 문의 제목과 내용 입력을 표시합니다. (Displays inquiry subject and message inputs.) */
 export function InquiryMessageFields({
   title,
@@ -339,9 +290,9 @@ export function InquiryMessageFields({
     </>
   );
 }
-
-type InquiryFormActionsProps = { onCancel: () => void };
-
+type InquiryFormActionsProps = {
+  onCancel: () => void;
+};
 /** 문의 등록과 취소 액션을 표시합니다. (Displays inquiry submission and cancellation actions.) */
 export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
   return (
@@ -358,7 +309,6 @@ export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
     />
   );
 }
-
 type InquiryOrderProductsProps = {
   invalid: boolean;
   fixedErrors?: boolean;
@@ -366,7 +316,6 @@ type InquiryOrderProductsProps = {
   onSelectionChange: (selection: InquiryOrderSelection) => void;
   selection: InquiryOrderSelection;
 };
-
 /** 문의 대상 주문을 선택하거나 현재 선택 내용을 표시합니다. (Starts order lookup or displays the selected order.) */
 export function InquiryOrderProducts({
   invalid,

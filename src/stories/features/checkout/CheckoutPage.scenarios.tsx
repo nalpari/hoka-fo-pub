@@ -2,25 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
 import { PlatformProvider } from '@/context/platform';
 
-import { products } from '@/mocks/products';
-import { CheckoutPage } from '@/stories/features/checkout/CheckoutPagePreview';
-import type { CartItem } from '@/types/cart';
-
-const cart: CartItem[] = [
-  {
-    id: products[0].id,
-    color: 'Black',
-    width: 'Regular',
-    size: '250',
-    quantity: 3,
-  },
-];
-
+import { CheckoutStatePreview } from '@/app/checkout/_components/CheckoutStatePreview';
+import CheckoutPage from '@/app/checkout/page';
 const meta = {
   title: 'PAGES/주문/0. 주문서',
   tags: ['form-audit'],
-  component: CheckoutPage,
-  args: { cart },
+  args: { state: 'default' },
+  render: ({ state }) =>
+    state === 'empty' ? <CheckoutStatePreview state="empty" /> : <CheckoutPage />,
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story, { parameters }) => {
@@ -34,27 +23,22 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof CheckoutPage>;
-
+} satisfies Meta<{
+  state: 'default' | 'empty';
+}>;
 export default meta;
-
 type Story = StoryObj<typeof meta>;
-
 export const Web: Story = {};
-
-export const Empty: Story = { args: { cart: [] } };
-
+export const Empty: Story = { args: { state: 'empty' } };
 export const Mobile: Story = {
   globals: { viewport: 'hoka375' },
   parameters: { layout: 'fullscreen', platform: 'mobile' },
 };
-
 export const MobileEmpty: Story = {
   parameters: { layout: 'fullscreen' },
   ...Mobile,
-  args: { cart: [] },
+  args: { state: 'empty' },
 };
-
 export const LocalSelections: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -64,13 +48,11 @@ export const LocalSelections: Story = {
     await expect(canvas.getByRole('checkbox', { name: /주문 내용을 확인/ })).toBeChecked();
   },
 };
-
 export const MobileLocalSelections: Story = {
   parameters: { layout: 'fullscreen' },
   ...Mobile,
   play: LocalSelections.play,
 };
-
 export const CouponSelection: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -87,5 +69,4 @@ export const CouponSelection: Story = {
     );
   },
 };
-
 export const MobileCouponSelection: Story = { ...Mobile, play: CouponSelection.play };

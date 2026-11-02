@@ -1,23 +1,10 @@
 'use client';
-
-/**
- * [ 개발팀 바인딩 ]
- * InquiryDataContext.orders에 기간별 서버 주문 결과를 전달하고 form.resolveSelection으로 저장된 주문/상품 ID를 복원합니다.
- * 선택 결과는 주문 id와 productIds만 저장합니다. 화면용 이름/가격/이미지는 서버 조회 결과에서 복원하며 복원 실패 시 저장한 선택을 유지합니다.
- * preview.period는 시안 직접 확인용 고정 주문 자료이며 조회·선택 복원·저장을 실행하지 않습니다.
- * 실제 items/totalCount/hasMore/pending/error·추가 조회·재시도·오래된 응답 폐기는 기존 orders 소유자의 책임입니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import { InquiryDataContext } from '@/context/InquiryDataContext';
+import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Stack } from 'styled-system/jsx';
@@ -29,26 +16,14 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
-import {
-  consumeInquiryOrderSelection,
-  restoreInquiryOrderSelection,
-} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
-import {
-  clearInquiryOrderReturnMarker,
-  type InquiryOrderSelection,
-  readInquiryOrderDraft,
-  saveInquiryOrderResult,
-  shouldReturnToInquiry,
-} from '@/app/support/inquiries/new/inquiryOrderSelection.storage';
+import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-
 const periodOptions = [
   { value: '1y', label: '1년' },
   { value: '6m', label: '6개월' },
@@ -56,7 +31,6 @@ const periodOptions = [
   { value: '1m', label: '1개월' },
   { value: 'custom', label: '직접설정' },
 ] as const;
-
 const orderHeading = css({
   display: 'flex',
   flex: '1',
@@ -70,28 +44,20 @@ const orderHeading = css({
   cursor: 'pointer',
   minW: '0',
 });
-
 const visuallyHidden = css({ srOnly: true });
-
 /** 문의 대상 주문을 조회하고 상품을 선택하는 전용 페이지입니다. (Provides the dedicated order and product selection page for inquiries.) */
 export function InquiryOrderLookup({
   previewEmpty = false,
   preview,
 }: {
   previewEmpty?: boolean;
-  preview?: { period: '1y' | 'custom' };
+  preview?: {
+    period: '1y' | 'custom';
+  };
 }) {
-  const context = useContext(InquiryDataContext);
   const platform = usePlatform();
-  const binding = previewEmpty || preview ? undefined : context.orders;
-  const resolve = preview ? undefined : context.form?.resolveSelection;
-  const request = useRequestAction();
-  const router = useRouter();
   const [selection, setSelection] = useState<InquiryOrderSelection>(null);
-  const [initialSelection, setInitialSelection] = useState<InquiryOrderSelection>(null);
-  const [loaded, setLoaded] = useState(Boolean(preview));
   const [open, setOpen] = useState(true);
-  const [hasInquiryOrigin, setHasInquiryOrigin] = useState(false);
   const [period, setPeriod] = useState<(typeof periodOptions)[number]['value']>(
     preview?.period ?? '1y',
   );
@@ -99,68 +65,11 @@ export function InquiryOrderLookup({
   const [visibleCount, setVisibleCount] = useState(10);
   const [dateFrom, setDateFrom] = useState('2026-01-01');
   const [dateTo, setDateTo] = useState('2026-08-30');
-  const [customRange, setCustomRange] = useState({ from: '2026-01-01', to: '2026-08-30' });
-  const [invalid, setInvalid] = useState(false);
-
-  const [restoreError, setRestoreError] = useState('');
-  const [restoreAttempt, setRestoreAttempt] = useState(0);
-  useEffect(() => {
-    if (previewEmpty || preview) return;
-    if (resolve) {
-      let active = true;
-      void restoreInquiryOrderSelection('draft', resolve)
-        .then((result) => {
-          if (!active) return;
-          setSelection(result ?? null);
-          setInitialSelection(result ?? null);
-          if (result !== undefined) consumeInquiryOrderSelection('draft');
-          setExpandedOrder(result?.order.id ?? null);
-          setHasInquiryOrigin(shouldReturnToInquiry());
-          setRestoreError('');
-          setLoaded(true);
-        })
-        .catch((cause: unknown) => {
-          if (active)
-            setRestoreError(
-              cause instanceof Error ? cause.message : '선택 상품을 복원하지 못했습니다.',
-            );
-        });
-      return () => {
-        active = false;
-      };
-    }
-    const pending = readInquiryOrderDraft();
-    const hasInquiryOrigin = shouldReturnToInquiry();
-    // The route must hydrate the browser-only selection before enabling its actions.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setInitialSelection(pending);
-    setSelection(pending);
-    setExpandedOrder(pending?.order.id ?? inquiryOrders[0]?.id ?? null);
-    setHasInquiryOrigin(hasInquiryOrigin);
-    setLoaded(true);
-  }, [resolve, restoreAttempt, previewEmpty, preview]);
-
-  const periodMonths = { '1y': 12, '6m': 6, '3m': 3, '1m': 1 } as const;
-  useBindingQuery(binding?.onQueryChange, {
-    period,
-    from: period === 'custom' ? customRange.from : '',
-    to: period === 'custom' ? customRange.to : '',
-  });
   const filteredOrders = previewEmpty
     ? []
-    : preview
-      ? inquiryOrders.map((order, index) =>
-          index === 0 ? { ...order, products: order.products.slice(0, 4) } : order,
-        )
-      : binding
-        ? [...binding.items]
-        : inquiryOrders.filter((order) => {
-            if (period === 'custom')
-              return order.date >= customRange.from && order.date <= customRange.to;
-            const startDate = new Date(Date.UTC(2026, 9 - periodMonths[period], 26));
-            return order.date >= startDate.toISOString().slice(0, 10) && order.date <= '2026-10-26';
-          });
-
+    : inquiryOrders.map((order, index) =>
+        index === 0 ? { ...order, products: order.products.slice(0, 4) } : order,
+      );
   const selectOrder = (order: InquiryOrder) => {
     if (selection?.order.id === order.id) {
       setSelection(null);
@@ -168,9 +77,7 @@ export function InquiryOrderLookup({
     }
     setSelection({ order, products: order.products });
     setExpandedOrder(order.id);
-    setInvalid(false);
   };
-
   const toggleProduct = (order: InquiryOrder, productId: string, checked: boolean) => {
     setSelection((current) => {
       const products = current?.order.id === order.id ? current.products : [];
@@ -179,32 +86,11 @@ export function InquiryOrderLookup({
         : products.filter((item) => item.id !== productId);
       return nextProducts.length > 0 ? { order, products: nextProducts } : null;
     });
-    setInvalid(false);
   };
-
-  const returnToInquiry = (nextSelection: InquiryOrderSelection) => {
-    if (preview) {
-      setOpen(false);
-      return;
-    }
-    if (previewEmpty) return;
-    saveInquiryOrderResult(nextSelection);
-    if (hasInquiryOrigin) {
-      clearInquiryOrderReturnMarker();
-      router.back();
-    } else {
-      router.push('/support/inquiries/new');
-    }
-  };
-
-  const submitSelection = () => {
-    if (previewEmpty || !selection || selection.products.length === 0) {
-      setInvalid(true);
-      return;
-    }
-    returnToInquiry(selection);
-  };
-
+  const returnToInquiry = () => setOpen(false);
+  const submitSelection = () => setOpen(false);
+  const invalid = false;
+  const loaded = true;
   const content = (
     <Stack gap={{ base: '6', _mobile: '4' }} pt={{ base: '10', _mobile: '6' }}>
       {platform === 'mobile' && (
@@ -218,11 +104,7 @@ export function InquiryOrderLookup({
           </Typography>
         </Stack>
       )}
-      <BindingFeedback
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error || restoreError}
-        onRetry={restoreError ? () => setRestoreAttempt((value) => value + 1) : binding?.onRetry}
-      />
+
       <Stack gap={{ base: '6', _mobile: '0' }}>
         <FilterTabs
           ariaLabel="주문 조회 기간"
@@ -250,25 +132,18 @@ export function InquiryOrderLookup({
               onChange={(event) => setDateTo(event.target.value)}
               className={css({ h: '10', border: '1px solid token(colors.black.40)', px: '2' })}
             />
-            <Button
-              size="short"
-              variant="secondary"
-              onClick={() => setCustomRange({ from: dateFrom, to: dateTo })}
-            >
+            <Button size="short" variant="secondary">
               조회
             </Button>
           </Flex>
         )}
         <Flex justifyContent="flex-end">
-          <Typography variant="body4">
-            총 {binding?.totalCount ?? filteredOrders.length}건
-          </Typography>
+          <Typography variant="body4">총 {filteredOrders.length}건</Typography>
         </Flex>
         <Stack gap="0" borderTop="1px solid token(colors.black.100)">
-          {(binding ? filteredOrders : filteredOrders.slice(0, visibleCount)).map((order) => {
+          {filteredOrders.slice(0, visibleCount).map((order) => {
             const isExpanded = expandedOrder === order.id;
             const isSelected = selection?.order.id === order.id;
-
             return (
               <Box key={order.id} borderBottom="1px solid token(colors.black.20)">
                 <Flex alignItems="center" gap="4" p={{ base: '4', _mobile: '16px 8px 16px 0' }}>
@@ -368,7 +243,7 @@ export function InquiryOrderLookup({
             </Typography>
           </Flex>
         )}
-        {(binding ? binding.hasMore : visibleCount < filteredOrders.length) && (
+        {visibleCount < filteredOrders.length && (
           <Flex justifyContent="center">
             <Button
               variant="secondary"
@@ -376,16 +251,12 @@ export function InquiryOrderLookup({
               density="compact"
               loadMore={{
                 counter: {
-                  current: binding?.items.length ?? Math.min(visibleCount, filteredOrders.length),
-                  total: binding?.totalCount ?? filteredOrders.length,
+                  current: Math.min(visibleCount, filteredOrders.length),
+                  total: filteredOrders.length,
                 },
               }}
-              disabled={binding?.pending || request.pending}
-              onClick={() =>
-                binding
-                  ? void request.run(binding.onLoadMore)
-                  : setVisibleCount(filteredOrders.length)
-              }
+              disabled={false}
+              onClick={() => setVisibleCount(filteredOrders.length)}
             />
           </Flex>
         )}
@@ -407,7 +278,7 @@ export function InquiryOrderLookup({
               variant="secondary"
               fullWidth
               disabled={!loaded}
-              onClick={() => returnToInquiry(initialSelection)}
+              onClick={() => returnToInquiry()}
             >
               취소
             </Button>
@@ -427,14 +298,12 @@ export function InquiryOrderLookup({
       </Stack>
     </Stack>
   );
-
   if (platform === 'mobile')
     return (
       <ModalDialog
         open={open}
         onOpenChange={(next) => {
           setOpen(next);
-          if (!next && !preview) router.push('/support/inquiries/new');
         }}
         title="주문상품 조회"
         closeLabel="주문상품 조회 닫기"
@@ -454,7 +323,6 @@ export function InquiryOrderLookup({
         {content}
       </ModalDialog>
     );
-
   return (
     <CustomerCenterLayout
       header={

@@ -1,6 +1,4 @@
 'use client';
-
-import type { OverviewView } from '@/context/MyPageDataContext';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
@@ -8,12 +6,14 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { commonBenefits, tiers } from '@/app/mypage/rewards/rewards-data';
-
+import { commonBenefits, rewardPreview, tiers } from '@/app/mypage/rewards/rewards-data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import type { OverviewView } from '@/types/mypage-display';
 const badge = cva({
   base: {
     display: 'flex',
@@ -46,7 +46,6 @@ const badge = cva({
     },
   },
 });
-
 /** 등급별 도형과 이니셜을 표시합니다. (Displays the membership tier shape and initial.) */
 export function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
   const knownTier = tier === 'ELITE' || tier === 'ADVANCED' || tier === 'RUNNER' ? tier : undefined;
@@ -58,7 +57,6 @@ export function TierBadge({ tier, initial }: { tier?: string; initial?: string }
     </Box>
   );
 }
-
 /** 준비된 누적 구매 진행률과 등급 안내를 표시합니다. (Displays prepared purchase progress and tier guidance.) */
 export function RewardProgress({
   progress,
@@ -141,9 +139,7 @@ export function RewardProgress({
     </Stack>
   );
 }
-
 const sectionHeading = css({ pb: '4', borderBottom: '1px solid black', _mobile: { pb: '3' } });
-
 /** 등급별 혜택과 공통 쿠폰 안내를 배치합니다. (Lays out tier benefits and common coupon information.) */
 export function RewardBenefits() {
   const platform = usePlatform();
@@ -264,5 +260,78 @@ export function RewardBenefits() {
         </Grid>
       </ContentSection>
     </Stack>
+  );
+}
+/** 회원등급의 고정 데이터와 조회 상태를 표시합니다. (Displays prepared reward data and query states.) */
+export function RewardsPageContent({
+  display,
+  preview,
+}: {
+  display?: OverviewView | null;
+  preview?: 'loading' | 'error';
+} = {}) {
+  const platform = usePlatform();
+  const summary = preview ? null : display === undefined ? rewardPreview[platform] : display;
+  return (
+    <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
+      <BindingFeedback
+        pending={preview === 'loading'}
+        error={preview === 'error' ? '회원등급을 불러오지 못했습니다.' : undefined}
+      />
+      <Stack gap="14" _mobile={{ gap: '10', pt: '6' }}>
+        <Stack gap="6">
+          <HStack gap="4" alignItems="flex-start">
+            <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
+              <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
+            </Box>
+            <ContentHeader
+              title={summary?.tier}
+              titleAs="h1"
+              titleProps={{ web: 'heading6', mo: 'heading3' }}
+              description={
+                <>
+                  {summary?.name}
+                  {summary ? '님의 이번달 멤버십 등급' : null}
+                </>
+              }
+              descriptionProps={{ web: 'body3', mo: 'body4' }}
+              gap="3"
+              pt="3"
+              _mobile={{ gap: '2', pt: '0' }}
+            />
+          </HStack>
+          <HStack gap="2" alignItems="stretch">
+            {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
+            <Stack
+              bg="black.10"
+              p="8"
+              gap="3"
+              w={summary?.tierProgress ? '240px' : 'full'}
+              minH="133px"
+              justifyContent="space-between"
+              _mobile={{
+                w: 'full',
+                minH: '0',
+                px: '4',
+                py: '5',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Typography web="body3" mo="body4">
+                구매금액
+              </Typography>
+              <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
+                <Typography web="heading8" mo="heading7" weight="black">
+                  {summary?.purchaseAmount}
+                </Typography>
+                <Typography variant="body3">원</Typography>
+              </HStack>
+            </Stack>
+          </HStack>
+        </Stack>
+        <RewardBenefits />
+      </Stack>
+    </MyPageFrame>
   );
 }

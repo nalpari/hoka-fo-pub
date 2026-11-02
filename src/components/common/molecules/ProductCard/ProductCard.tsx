@@ -1,14 +1,5 @@
 'use client';
-
-/**
- * [ 개발팀 바인딩 ]
- * product에는 준비된 Product 모델, liked에는 외부 찜 상태를 전달합니다. onLikedChange는 새 여부만 알리므로 부모에서 해당 행/상품 ID를 함께 보관합니다.
- * activityLabels는 연결 소유자가 준비한 용도 표시 문자열이며 생략 시 product.use의 기존 라벨을 사용합니다. history는 표시 옵션입니다.
- * promotionTone은 배지의 표현 선택이며 기본 brand를 유지합니다. error는 화면 시안의 #E10F00을 적용합니다.
- * discountLabel은 준비된 할인율 표시이며 생략 시 기존 금액 계산을 사용합니다. 최근 본 상품·관심상품의 미연결 모바일 fixture가 시안의 20%를 공급하며 실제 연결 상품에는 적용하지 않습니다.
- * 카드는 요청을 직접 하지 않습니다. 부모가 요청 성공 후 liked를 갱신하거나 낙관적 갱신 실패를 복원합니다. liked 생략 시 로컬 미리보기 토글입니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -34,9 +25,7 @@ import {
 } from '@/components/common/molecules/ProductThumbnail';
 
 import { type Product } from '@/mocks/products';
-
 type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
-
 const genderLabel = cva({
   base: {
     color: 'var(--color-text-primary)',
@@ -61,12 +50,10 @@ const genderLabel = cva({
   },
   defaultVariants: { variant: 'listing' },
 });
-
 type ProductGenderProps = {
   gender: ProductGenderOption;
   variant?: ProductCardVariant;
 };
-
 /** 상품 성별 정보를 표시합니다. (Displays a product's gender label.) */
 function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
@@ -75,7 +62,6 @@ function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
     </Typography>
   );
 }
-
 const productName = css({
   minW: '0',
   maxW: '100%',
@@ -84,12 +70,10 @@ const productName = css({
   '&[data-product-card-variant="history"]': { fontSize: '14px', fontWeight: 'normal' },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
 });
-
 type ProductNameProps = {
   name: string;
   variant?: ProductCardVariant;
 };
-
 /** Product name styled for its card presentation context. */
 function ProductName({ name, variant = 'listing' }: ProductNameProps) {
   const platform = usePlatform();
@@ -106,9 +90,7 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
     </Typography>
   );
 }
-
 const won = (value: number) => value.toLocaleString('ko-KR');
-
 type ProductPriceProps = {
   /** Prepared display label; preview fixtures can preserve an approved design value. */
   discountLabel?: string;
@@ -118,7 +100,6 @@ type ProductPriceProps = {
   originalPrice?: number;
   variant?: ProductCardVariant;
 };
-
 /** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
 function ProductPrice({
   price,
@@ -126,11 +107,7 @@ function ProductPrice({
   discountLabel,
   variant = 'listing',
 }: ProductPriceProps) {
-  const hasDiscount = originalPrice !== undefined && price >= 0 && originalPrice > price;
-  const discountRate = hasDiscount
-    ? Math.round(((originalPrice - price) / originalPrice) * 100)
-    : 0;
-
+  const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   return (
     <VStack data-product-card-variant={variant} gap="1" alignItems="flex-start">
       {hasDiscount ? (
@@ -139,21 +116,16 @@ function ProductPrice({
           variant="body3"
           mo="body4"
           tone="tertiary"
-          aria-label={`정상가 ${won(originalPrice)}원`}
+          aria-label={`정상가 ${won(originalPrice ?? 0)}원`}
           className={css({ textDecoration: 'line-through' })}
         >
-          {won(originalPrice)}원
+          {won(originalPrice ?? 0)}원
         </Typography>
       ) : null}
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
-          <Typography
-            variant="body3"
-            mo="body4"
-            tone="error"
-            aria-label={`${discountLabel ?? `${discountRate}%`} 할인`}
-          >
-            {discountLabel ?? `${discountRate}%`}
+          <Typography variant="body3" mo="body4" tone="error" aria-label={`${discountLabel} 할인`}>
+            {discountLabel}
           </Typography>
         ) : null}
         <Typography variant={variant === 'history' ? 'body4' : 'body3'} mo="body4">
@@ -166,7 +138,6 @@ function ProductPrice({
     </VStack>
   );
 }
-
 type Props = Pick<
   ProductDetailsProps,
   | 'promotion'
@@ -178,7 +149,6 @@ type Props = Pick<
   | 'discountLabel'
   | 'variant'
 >;
-
 function ProductDetailsIdentity({
   promotion,
   promotionTone,
@@ -233,18 +203,14 @@ function ProductDetailsIdentity({
     </VStack>
   );
 }
-
 type ProductActivityProps = {
   activities: readonly string[];
 };
-
 /** 상품의 활동 목적을 쉼표로 구분해 표시합니다. (Displays a product's activity labels as a comma-separated list.) */
 function ProductActivity({ activities }: ProductActivityProps) {
   return <Typography variant="body5">{activities.join(', ')}</Typography>;
 }
-
 type ProductVariantSummaryDisplay = 'colors' | 'widths' | 'colors-widths';
-
 type ProductVariantSummaryProps = {
   colorCount: number;
   display?: ProductVariantSummaryDisplay;
@@ -253,7 +219,6 @@ type ProductVariantSummaryProps = {
   history?: boolean;
   widthCount: number;
 };
-
 /** Product color and width option summary: text on web, swatches on mobile. */
 function ProductVariantSummary({
   colorCount,
@@ -268,7 +233,6 @@ function ProductVariantSummary({
     widths: `${widthCount} widths`,
     'colors-widths': `${colorCount} colors, ${widthCount} widths`,
   }[display];
-
   if (platform === 'web' && !history) {
     return (
       <Typography variant="body4" tone="subtle">
@@ -276,15 +240,12 @@ function ProductVariantSummary({
       </Typography>
     );
   }
-
   return <ProductOptionList layout={history ? 'history' : 'scroll'} options={options} />;
 }
-
 type ProductDetailsOptionsProps = Pick<
   ProductDetailsProps,
   'activities' | 'colorCount' | 'optionThumbnails' | 'platform' | 'widthCount' | 'variant'
 >;
-
 function ProductDetailsOptions({
   activities,
   colorCount,
@@ -312,7 +273,6 @@ function ProductDetailsOptions({
     </VStack>
   );
 }
-
 const ProductDetailsRoot = cva({
   base: {
     color: 'var(--color-text-primary)',
@@ -329,7 +289,6 @@ const ProductDetailsRoot = cva({
     },
   },
 });
-
 type ProductDetailsProps = {
   promotionTone?: 'brand' | 'error';
   discountLabel?: string;
@@ -346,7 +305,6 @@ type ProductDetailsProps = {
   variant: ProductCardVariant;
   widthCount: number;
 };
-
 /** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 function ProductDetails({
   promotionTone,
@@ -398,7 +356,6 @@ function ProductDetails({
     </Card.Content>
   );
 }
-
 const styles = {
   link: css({
     display: 'block',
@@ -411,13 +368,11 @@ const styles = {
   }),
   image: css({ objectFit: 'contain' }),
 };
-
 /** 상품 카드의 큰 이미지와 선택 가능한 컬러 캐러셀을 표시합니다. (Displays a product card’s large image and selectable color carousel.) */
 function ProductCardPreview({ product }: { product: Product }) {
   const colorOptions = product.colorThumbnails ?? [];
   const [selectedColorId, setSelectedColorId] = useState<string>();
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
-
   return (
     <Stack
       as="section"
@@ -457,13 +412,11 @@ function ProductCardPreview({ product }: { product: Product }) {
     </Stack>
   );
 }
-
 type ProductSpecProps = {
   cushioning: string;
   stability: string;
   width: string;
 };
-
 /** 상품의 쿠셔닝·안정성·발볼 정보를 요약합니다. (Summarizes a product's cushioning, stability, and width.) */
 function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
   return (
@@ -472,17 +425,13 @@ function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
     </Typography>
   );
 }
-
 const ProductCardFooterRoot = css({ display: 'flex', flexDirection: 'column', gap: '2' });
-
 type ProductCardFooterProps = {
   product: Product;
   showSpecifications: boolean;
 };
-
 function ProductCardFooter({ product, showSpecifications }: ProductCardFooterProps) {
   if (!showSpecifications) return null;
-
   return (
     <Card.Footer className={ProductCardFooterRoot}>
       {showSpecifications && (
@@ -495,17 +444,14 @@ function ProductCardFooter({ product, showSpecifications }: ProductCardFooterPro
     </Card.Footer>
   );
 }
-
 const ProductCardHeaderRoot = css({
   '& > a': { display: 'block' },
 });
-
 type ProductCardHeaderProps = {
   product: Product;
   soldOut?: boolean;
   variant: ProductThumbnailVariant;
 };
-
 function ProductCardHeader({ product, soldOut = false, variant }: ProductCardHeaderProps) {
   return (
     <Card.Header className={ProductCardHeaderRoot}>
@@ -536,7 +482,6 @@ function ProductCardHeader({ product, soldOut = false, variant }: ProductCardHea
     </Card.Header>
   );
 }
-
 const root = cva({
   base: {
     minW: '0',
@@ -566,7 +511,6 @@ const root = cva({
   },
   defaultVariants: { variant: 'listing' },
 });
-
 const action = css({
   position: 'absolute',
   right: '4',
@@ -577,28 +521,22 @@ const action = css({
     top: '2.5',
   },
 });
-
 const productWidthCount = (product: Product) => {
   const widths = product.colorOptions?.flatMap((colorOption) =>
     colorOption.widths.map((width) => width.label),
   );
-
   return new Set(widths?.length ? widths : [product.width]).size;
 };
-
 const productOptionThumbnails = (product: Product): ProductOptionThumbnail[] =>
   product.colorThumbnails?.length
     ? product.colorThumbnails
     : product.colors.map((color) => ({ id: color, image: product.primaryImage, label: color }));
-
 const activityLabel = (use: Product['use']) => {
   if (use === 'Everyday Run') return '데일리 러닝';
   if (use === 'Trail Running') return '트레일 러닝';
   return '워킹';
 };
-
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
-
 export type ProductCardProps = {
   promotionTone?: 'brand' | 'error';
   discountLabel?: string;
@@ -610,7 +548,6 @@ export type ProductCardProps = {
   product: Product;
   variant?: ProductCardVariant;
 };
-
 /** 상품 이미지와 요약 정보를 카드로 표시합니다 (Displays the product card composition). */
 export function ProductCard({
   promotionTone,
@@ -629,7 +566,6 @@ export function ProductCard({
   const isLiked = liked ?? internalLiked;
   const showPreview = platform === 'web' && variant === 'listing' && previewOpen;
   const hasOption = (option: ProductCardOption) => options.includes(option);
-
   return (
     <Card
       className={root({ variant })}
@@ -681,7 +617,7 @@ export function ProductCard({
 
       <ProductDetails
         promotionTone={promotionTone}
-        discountLabel={discountLabel}
+        discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? [activityLabel(product.use)]}
         colorCount={product.colors.length}
         gender={product.gender}
@@ -702,5 +638,4 @@ export function ProductCard({
     </Card>
   );
 }
-
 export { ProductGender, ProductPrice, ProductCardPreview };

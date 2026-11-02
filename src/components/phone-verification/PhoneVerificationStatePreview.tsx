@@ -1,13 +1,8 @@
 'use client';
-
 import { useState } from 'react';
 
 import { PhoneVerificationContent } from './PhoneVerificationContent';
-
-/**
- * [ 개발팀 바인딩 ] 인증 화면의 고정 상태 fixture입니다. 입력/약관/도움말만 로컬로 조작하며 요청·검증·카운트다운은 없습니다.
- * 실제 requestId/proof와 신규·기존 회원 판단, pending/실패/재시도는 각 라우트의 usePhoneVerification과 연결 소유자가 담당합니다.
- */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** [ 개발팀 바인딩 ] initialDetail과 initialPreviousPickerOpen은 시안의 열린 팝업 fixture입니다. 잠금 해제 expired는 처음부터 모달을 열고 닫기만 로컬로 처리하며 인증 재요청·검증·해제 완료를 실행하지 않습니다. */
 /** 가입·잠금 해제 인증의 고정 상태를 표시합니다. (Displays fixed signup and account-unlock verification states.) */
 export function PhoneVerificationStatePreview({
@@ -17,7 +12,7 @@ export function PhoneVerificationStatePreview({
   termKind = 'required',
   initialPreviousPickerOpen = false,
 }: {
-  state: 'error' | 'agreement-error' | 'code-entry' | 'expired';
+  state: 'initial' | 'error' | 'agreement-error' | 'code-entry' | 'expired';
   unlock?: boolean;
   initialDetail?: string | null;
   termKind?: 'required' | 'optional';
@@ -38,7 +33,11 @@ export function PhoneVerificationStatePreview({
   return (
     <PhoneVerificationContent
       title={unlock ? '계정 잠금 해제' : '휴대폰 인증'}
-      description={unlock ? '본인인증 완료 후 계정 잠금을 해제할 수 있습니다.' : undefined}
+      description={
+        unlock
+          ? '해킹, 계정탈취 시도 등의 보안이슈로 인하여 계정이잠금 처리되었습니다. 계속 이용 하시려면 본인인증을 통하여 계정잠금을 해제해 주세요.'
+          : undefined
+      }
       information={information}
       agreements={agreements}
       code={code}
@@ -73,7 +72,6 @@ export function PhoneVerificationStatePreview({
       onAllAgree={(checked) => setAgreements(agreements.map(() => checked))}
       onCodeChange={setCode}
       onDetail={setDetail}
-      onRequest={() => {}}
       onConfirm={(event) => event.preventDefault()}
     />
   );

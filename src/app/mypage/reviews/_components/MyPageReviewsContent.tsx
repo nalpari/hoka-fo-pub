@@ -37,7 +37,7 @@ type Props = {
   onOpenChange: (open: boolean) => void;
   onRatingChange: (value: RatingValue) => void;
   onBodyChange: (value: string) => void;
-  onSave: () => void;
+  onSave?: () => void;
 };
 
 /** 리뷰 작성 입력과 제출 상태를 표시합니다. (Displays review inputs and submission status.) */

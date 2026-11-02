@@ -1,11 +1,5 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * data prop 또는 ProductListingContext에 실제 Product 결과와 검색/필터/페이지 계약을 전달합니다. data prop이 우선합니다.
- * onQueryChange는 적용 조건, onPreviewQueryChange는 모바일 초안 조건입니다. 서버 페이지의 전체 건수를 items.length로 추정하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
@@ -18,8 +12,6 @@ import {
   type ComponentPropsWithoutRef,
   type CSSProperties,
   type ReactNode,
-  useCallback,
-  useContext,
   useEffect,
   useId,
   useMemo,
@@ -27,8 +19,6 @@ import {
   useState,
 } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
-import { type ProductListingBinding, ProductListingContext } from '@/context/ProductListingContext';
-import { useRequestAction } from '@/hooks/useRequestAction';
 import { useScrollPin } from '@/lib/useScrollPin';
 
 import { css, cva } from 'styled-system/css';
@@ -79,13 +69,11 @@ import {
 } from '@/components/catalog/productListingFilterValues';
 import { type Product, products } from '@/mocks/products';
 import type { ProductCardOption } from '@/types/component-contracts/components-common-molecules-ProductCard-ProductCard';
-
 type FieldsetProps = Omit<ComponentPropsWithoutRef<'fieldset'>, 'children'> & {
   legend?: ReactNode;
   children: ReactNode;
   visuallyHiddenLegend?: boolean;
 };
-
 /** 관련 폼 컨트롤을 의미 있는 그룹으로 묶습니다 (Semantic grouping primitive for related form controls). */
 function Fieldset({
   legend: label,
@@ -109,9 +97,7 @@ function Fieldset({
     </fieldset>
   );
 }
-
 const icon = css({ w: '4', h: '4', flexShrink: 0 });
-
 const trigger = css({
   display: 'flex',
   alignItems: 'center',
@@ -126,14 +112,12 @@ const trigger = css({
   py: '6',
   textAlign: 'left',
 });
-
 type CatalogFilterTriggerProps = {
   controlsId: string;
   expanded: boolean;
   onToggle: () => void;
   title: string;
 };
-
 /** 카탈로그 필터 섹션의 열기 상태와 제목을 표시합니다. (Displays the title and toggle state of a catalog filter section.) */
 function CatalogFilterTrigger({
   controlsId,
@@ -162,21 +146,17 @@ function CatalogFilterTrigger({
     </Button>
   );
 }
-
 const root = css({
   pb: '6',
 });
-
 const content = css({
   w: '100%',
   overflow: 'hidden',
 });
-
 /** 필터 섹션의 제목과 펼침 상태를 구성합니다 (Displays the catalog filter section composition). */
 function CatalogFilterSection({ title, children }: { title: string; children: ReactNode }) {
   const [expanded, setExpanded] = useState(true);
   const contentId = useId();
-
   return (
     <>
       <Box
@@ -215,7 +195,6 @@ function CatalogFilterSection({ title, children }: { title: string; children: Re
     </>
   );
 }
-
 /** 같은 기준의 필터 선택지를 묶습니다 (Displays the catalog filter group composition). */
 function CatalogFilterGroup({
   title,
@@ -240,25 +219,21 @@ function CatalogFilterGroup({
     </CatalogFilterSection>
   );
 }
-
 type ColorFilterOption = {
   value: string;
   label: string;
   hex: string;
 };
-
 type ColorFilterProps = {
   options: readonly ColorFilterOption[];
   selected: string[];
   onChange: (values: string[]) => void;
 };
-
 const optionsLayout = css({
   display: 'flex',
   flexWrap: 'wrap',
   gap: '4',
 });
-
 const outer = css({
   w: '9',
   h: '9',
@@ -270,12 +245,10 @@ const outer = css({
     '& [data-swatch]': { w: '8', h: '8' },
   },
 });
-
 const control = css({
   position: 'absolute',
   opacity: '0',
 });
-
 /** 상품 색상 필터의 선택지를 표시합니다 (Displays the color filter composition). */
 function ColorFilter({ options, selected, onChange }: ColorFilterProps) {
   return (
@@ -304,7 +277,6 @@ function ColorFilter({ options, selected, onChange }: ColorFilterProps) {
     </BaseCheckboxGroup>
   );
 }
-
 /** 필터 선택지를 필 형태로 표시합니다 (Displays the filter pill group composition). */
 function FilterPillGroup({
   title,
@@ -319,7 +291,6 @@ function FilterPillGroup({
 }) {
   const [internalSelected, setInternalSelected] = useState<string[]>([]);
   const selectedValues = onChange ? selected : internalSelected;
-
   return (
     <CatalogFilterSection title={title}>
       <SizeSelector
@@ -333,23 +304,18 @@ function FilterPillGroup({
     </CatalogFilterSection>
   );
 }
-
 const RangeInputRoot = css({
   w: '100%',
   '&[aria-invalid="true"]': { outline: '2px solid var(--colors-red-100)', outlineOffset: '2px' },
 });
-
 const RangeInputControl = css({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
   h: '34px',
 });
-
 const track = css({ position: 'relative', w: '100%', h: '4px', bg: 'var(--color-black-20)' });
-
 const indicator = css({ h: '100%', bg: 'var(--color-black-100)' });
-
 const thumb = css({
   w: '16px',
   h: '16px',
@@ -357,9 +323,7 @@ const thumb = css({
   borderRadius: 'full',
   bg: 'var(--color-white-000)',
 });
-
 type RangeValue = number | readonly number[];
-
 type RangeInputProps<Value extends RangeValue = RangeValue> = {
   'aria-label'?: string;
   className?: string;
@@ -374,7 +338,6 @@ type RangeInputProps<Value extends RangeValue = RangeValue> = {
   thumbCollisionBehavior?: 'none' | 'push' | 'swap';
   value: Value;
 };
-
 /** 하나 이상의 조절점을 가진 범위 슬라이더를 제공합니다 (Controlled Base UI slider supporting one or more labeled thumbs). */
 function RangeInput<Value extends RangeValue>({
   'aria-label': ariaLabel,
@@ -392,7 +355,6 @@ function RangeInput<Value extends RangeValue>({
 }: RangeInputProps<Value>) {
   const field = useFormFieldContext();
   const values = Array.isArray(value) ? value : [value];
-
   return (
     <BaseSlider.Root
       aria-describedby={field?.describedBy}
@@ -423,10 +385,8 @@ function RangeInput<Value extends RangeValue>({
     </BaseSlider.Root>
   );
 }
-
 const formatPrice = (value: number, showUnit: boolean) =>
   `${value.toLocaleString('ko-KR')}${showUnit ? '원' : ''}`;
-
 function PriceRangeValue({
   value: [minimumValue, maximumValue],
   showUnit = false,
@@ -441,7 +401,6 @@ function PriceRangeValue({
     </Flex>
   );
 }
-
 /** 최소·최대 가격 입력과 슬라이더를 연결합니다 (Displays the price range composition). */
 function PriceRange({
   min = 129000,
@@ -471,11 +430,9 @@ function PriceRange({
     </Flex>
   );
 }
-
 type CatalogFilterPanelBodyProps = {
   children: ReactNode;
 };
-
 function CatalogFilterPanelBody({ children }: CatalogFilterPanelBodyProps) {
   return (
     <VStack w="100%" gap="0" css={{ '& > *': { w: '100%' } }}>
@@ -483,7 +440,6 @@ function CatalogFilterPanelBody({ children }: CatalogFilterPanelBodyProps) {
     </VStack>
   );
 }
-
 const tag = css({
   h: '8',
   p: '7px 8px 7px 10px',
@@ -492,17 +448,14 @@ const tag = css({
     h: '7',
   },
 });
-
 type TagProps = {
   children: ReactNode;
   onDelete?: () => void;
 };
-
 /** 선택 항목의 이름과 제거 동작을 표시합니다 (A compact label that can optionally remove its associated selection). */
 function Tag({ children, onDelete }: TagProps) {
   const platform = usePlatform();
   if (!onDelete) return <span className={tag}>{children}</span>;
-
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
       <Typography web="body3" mo="body5" tone="primary">
@@ -519,21 +472,17 @@ function Tag({ children, onDelete }: TagProps) {
     </Flex>
   );
 }
-
 type CatalogSelectedFilter = {
   id: string;
   label: string;
   onRemove: () => void;
 };
-
 type CatalogFilterPanelHeaderProps = {
   onReset: () => void;
   selectedFilters: CatalogSelectedFilter[];
 };
-
 function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPanelHeaderProps) {
   if (!selectedFilters.length) return null;
-
   return (
     <>
       <Flex alignItems="center" aria-label="선택된 필터" pb="6" flexWrap="wrap" gap="2" w="100%">
@@ -555,7 +504,6 @@ function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan
     </>
   );
 }
-
 /** 필터의 본문과 적용 액션을 배치합니다 (Displays the catalog filter panel composition). */
 function CatalogFilterPanel({
   children,
@@ -580,7 +528,6 @@ function CatalogFilterPanel({
     </VStack>
   );
 }
-
 type ProductListingFilterPanelProps = {
   gender: string[];
   activity: string[];
@@ -598,9 +545,11 @@ type ProductListingFilterPanelProps = {
   onMaxPriceChange: (value: number) => void;
   onSelectedColorsChange: (values: string[]) => void;
   onReset: () => void;
-  mobileSort?: { value: string; onValueChange: (value: string) => void };
+  mobileSort?: {
+    value: string;
+    onValueChange: (value: string) => void;
+  };
 };
-
 const selectedFilterItems = (
   key: string,
   values: string[],
@@ -612,7 +561,6 @@ const selectedFilterItems = (
     label: labels[value] ?? value,
     onRemove: () => onChange(values.filter((selected) => selected !== value)),
   }));
-
 /** 상품 필터와 모바일 정렬을 구성하고 선택 항목을 태그로 표시합니다. (Composes product facets and mobile sorting with removable selection tags.) */
 function ProductListingFilterPanel({
   gender,
@@ -669,7 +617,6 @@ function ProductListingFilterPanel({
         ]
       : []),
   ];
-
   return (
     <CatalogFilterPanel onReset={onReset} selectedFilters={selectedFilters}>
       {mobileSort && (
@@ -753,7 +700,6 @@ function ProductListingFilterPanel({
     </CatalogFilterPanel>
   );
 }
-
 const CollapsibleTrigger = css({
   display: 'flex',
   alignItems: 'center',
@@ -768,18 +714,15 @@ const CollapsibleTrigger = css({
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
   _disabled: { cursor: 'not-allowed', opacity: '0.55' },
 });
-
 const CollapsibleIndicator = css({
   display: 'block',
   flexShrink: 0,
   transition: 'transform 0.15s ease',
 });
-
 const defaultIndicator = css({
   display: 'block',
   flexShrink: 0,
 });
-
 function DefaultIndicator() {
   return (
     <svg className={defaultIndicator} fill="none" height="8" viewBox="0 0 13 8" width="13">
@@ -791,7 +734,6 @@ function DefaultIndicator() {
     </svg>
   );
 }
-
 type CollapsibleProps = {
   children: ReactNode;
   trigger: ReactNode;
@@ -807,7 +749,6 @@ type CollapsibleProps = {
   triggerClassName?: string;
   onOpenChange?: (open: boolean) => void;
 };
-
 /** 접근 가능한 펼침 트리거와 콘텐츠 영역을 제공합니다 (Reusable expandable region with an accessible Base UI trigger and panel). */
 function Collapsible({
   children,
@@ -849,7 +790,6 @@ function Collapsible({
     </BaseCollapsible.Root>
   );
 }
-
 const DisclosureRoot = cva({
   base: { w: '100%' },
   variants: {
@@ -860,7 +800,6 @@ const DisclosureRoot = cva({
   },
   defaultVariants: { variant: 'default' },
 });
-
 const DisclosureTrigger = cva({
   base: {
     display: 'flex',
@@ -881,7 +820,6 @@ const DisclosureTrigger = cva({
   },
   defaultVariants: { variant: 'default' },
 });
-
 const panel = cva({
   variants: {
     variant: {
@@ -902,7 +840,6 @@ const panel = cva({
   },
   defaultVariants: { variant: 'default' },
 });
-
 const DisclosureContent = cva({
   variants: {
     variant: {
@@ -918,9 +855,7 @@ const DisclosureContent = cva({
   },
   defaultVariants: { variant: 'default' },
 });
-
 type DisclosureVariant = 'default' | 'panel';
-
 type DisclosureProps = {
   title: ReactNode;
   children: ReactNode;
@@ -933,7 +868,6 @@ type DisclosureProps = {
   triggerClassName?: string;
   variant?: DisclosureVariant;
 };
-
 /** 펼칠 수 있는 행과 옵션 메뉴를 구성합니다 (Styled Collapsible composition for expandable content, rows, and option menus). */
 function Disclosure({
   title,
@@ -967,21 +901,16 @@ function Disclosure({
     </Collapsible>
   );
 }
-
 const sortOptions = css({ minW: '106px' });
-
 type ProductSortDropdownProps = {
   placeholder?: string;
   value: string;
   onChange: (sort: string) => void;
 };
-
 /** 상품 정렬 드롭다운의 선택과 키보드 조작을 관리합니다. (Manages selection and keyboard interaction in the product sort dropdown.) */
 function ProductSortDropdown({ placeholder, value, onChange }: ProductSortDropdownProps) {
   const [open, setOpen] = useState(false);
-
   const selectingWithKeyboard = useRef(false);
-
   return (
     <Box
       onBlurCapture={(event) => {
@@ -1002,9 +931,7 @@ function ProductSortDropdown({ placeholder, value, onChange }: ProductSortDropdo
             className={sortOptions}
             onValueChange={(nextValue) => {
               onChange(nextValue);
-
               if (!selectingWithKeyboard.current) setOpen(false);
-
               selectingWithKeyboard.current = false;
             }}
             options={productSortOptions}
@@ -1015,20 +942,16 @@ function ProductSortDropdown({ placeholder, value, onChange }: ProductSortDropdo
     </Box>
   );
 }
-
 const promotion = {
   title: '데일리 러닝화 가이드',
   description: '목적에 맞는 호카 러닝화 기능을 비교해보세요.',
   image: '/images/temp/@product-list-promotion.png',
   actions: [{ label: '바로가기', to: '/explore/guides/running' }],
 } as const;
-
 type PromotionCardVariant = 'inline' | 'fullWidth';
-
 type PromotionCardProps = {
   variant?: PromotionCardVariant;
 };
-
 const PromotionCardRoot = cva({
   base: { w: '100%' },
   variants: {
@@ -1053,7 +976,6 @@ const PromotionCardRoot = cva({
   },
   defaultVariants: { variant: 'inline' },
 });
-
 const imageAspectRatios = {
   inline: {
     desktop: '371 / 412',
@@ -1061,7 +983,6 @@ const imageAspectRatios = {
   },
   fullWidth: { desktop: '375 / 281', mobile: '375 / 281' },
 } as const;
-
 /** 상품 목록의 프로모션 콘텐츠를 표시합니다 (Catalog promotion card with inline and full-width presentations). */
 function PromotionCard({ variant = 'inline' }: PromotionCardProps) {
   return (
@@ -1078,7 +999,6 @@ function PromotionCard({ variant = 'inline' }: PromotionCardProps) {
     />
   );
 }
-
 /** 상품 결과 목록과 빈 상태를 표시합니다 (Displays the catalog results composition). */
 function CatalogResults({ children }: { children: ReactNode }) {
   return (
@@ -1087,9 +1007,7 @@ function CatalogResults({ children }: { children: ReactNode }) {
     </Box>
   );
 }
-
 const catalogProductCardOptions: readonly ProductCardOption[] = ['promotion', 'like', 'colors'];
-
 type ProductListingResultsProps = {
   pending?: boolean;
   error?: string;
@@ -1099,7 +1017,6 @@ type ProductListingResultsProps = {
   shown: Product[];
   onReset: () => void;
 };
-
 function ProductListingResults({
   pending,
   error,
@@ -1110,22 +1027,18 @@ function ProductListingResults({
   onReset,
 }: ProductListingResultsProps) {
   const loadMoreRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const target = loadMoreRef.current;
     if (!target || !hasMore || pending || error) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) onLoadMore();
       },
       { rootMargin: '240px 0px' },
     );
-
     observer.observe(target);
     return () => observer.disconnect();
   }, [hasMore, onLoadMore, pending, error]);
-
   return (
     <CatalogResults>
       {shown.length ? (
@@ -1171,7 +1084,6 @@ function ProductListingResults({
     </CatalogResults>
   );
 }
-
 type ProductListingContentProps = {
   isSearchPage: boolean;
   onRetry?: () => void;
@@ -1190,7 +1102,6 @@ type ProductListingContentProps = {
   result: Product[];
   shown: Product[];
 };
-
 /** 상품 필터와 목록을 구성하고 고정 영역 또는 시트로 배치합니다. (Composes shared product filters in a sticky area or bottom sheet.) */
 function ProductListingContent({
   isSearchPage,
@@ -1271,14 +1182,12 @@ function ProductListingContent({
     </>
   );
 }
-
 type ProductListTitleProps = {
   platform: Platform;
   resultCount: number;
   searchQuery: string;
   title: string;
 };
-
 /** 상품 목록 제목과 검색 결과 건수를 표시합니다. (Displays the product listing title and result count.) */
 function ProductListTitle({ platform, resultCount, searchQuery, title }: ProductListTitleProps) {
   return (
@@ -1297,7 +1206,6 @@ function ProductListTitle({ platform, resultCount, searchQuery, title }: Product
     </HStack>
   );
 }
-
 type SearchListingLayoutProps = {
   children: ReactNode;
   filterAction: ReactNode;
@@ -1308,7 +1216,6 @@ type SearchListingLayoutProps = {
   resultCount: number;
   hasActiveFilters: boolean;
 };
-
 /** 검색 안내와 빈 상태를 구성하고 상품 목록·필터를 공유합니다. (Composes the search introduction and empty state with shared catalog results and filters.) */
 function SearchListingLayout({
   children,
@@ -1343,7 +1250,6 @@ function SearchListingLayout({
       }}
     />
   );
-
   if (platform === 'mobile') {
     return (
       <Stack as="main" pos="fixed" inset="0" zIndex="80" bg="white.0" gap="0" overflow="hidden">
@@ -1394,7 +1300,6 @@ function SearchListingLayout({
       </Stack>
     );
   }
-
   return (
     <Box as="main">
       <Stack
@@ -1419,13 +1324,11 @@ function SearchListingLayout({
     </Box>
   );
 }
-
 type ProductFilterTriggerProps = {
   onClick: () => void;
   label?: string;
   appearance?: 'catalog' | 'search';
 };
-
 /** 목록과 검색 시안에 맞는 버튼으로 모바일 필터를 엽니다. (Opens mobile filters with the catalog or search presentation.) */
 function ProductFilterTrigger({
   onClick,
@@ -1433,7 +1336,6 @@ function ProductFilterTrigger({
   appearance = 'catalog',
 }: ProductFilterTriggerProps) {
   const isSearch = appearance === 'search';
-
   return (
     <Button
       aria-haspopup="dialog"
@@ -1446,13 +1348,11 @@ function ProductFilterTrigger({
     </Button>
   );
 }
-
 const tabs = css({
   flex: '1',
   '& > [role="group"]': { h: '18px', mb: '0', gap: '4' },
   '& [data-filter-tabs-variant="plain"]': { px: '0', flexShrink: '0' },
 });
-
 const categories = [
   { label: '전체보기', activity: '' },
   { label: '로드러닝', activity: 'road-running' },
@@ -1462,12 +1362,10 @@ const categories = [
   { label: '워킹', activity: 'walking' },
   { label: '리커버리', activity: 'recovery' },
 ];
-
 type ProductActivityTabsProps = {
   activity: string;
   onChange: (activity: string) => void;
 };
-
 function ProductActivityTabs({ activity, onChange }: ProductActivityTabsProps) {
   return (
     <FilterTabs
@@ -1480,13 +1378,11 @@ function ProductActivityTabs({ activity, onChange }: ProductActivityTabsProps) {
     />
   );
 }
-
 type ProductActivityNavigationProps = {
   activity: string;
   onActivityChange: (activity: string) => void;
   onOpenFilters: () => void;
 };
-
 /** Keep the activity rail and filter action together below the mobile GNB. */
 function ProductActivityNavigation({
   activity,
@@ -1494,7 +1390,6 @@ function ProductActivityNavigation({
   onOpenFilters,
 }: ProductActivityNavigationProps) {
   const { markerRef, pinned } = useScrollPin();
-
   return (
     <Box h="54px">
       <Box ref={markerRef} h="1px" mb="-1px" scrollMarginTop="var(--layout-site-header-height)" />
@@ -1527,7 +1422,6 @@ function ProductActivityNavigation({
     </Box>
   );
 }
-
 const catalogLayout = css({
   w: 'min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))',
   maxW: 'var(--layout-web-content-max-width)',
@@ -1544,7 +1438,6 @@ const catalogLayout = css({
     '& > div:first-child': { px: '4', pb: '2' },
   },
 });
-
 type ProductListingLayoutProps = {
   onRetry?: () => void;
   pending?: boolean;
@@ -1574,7 +1467,6 @@ type ProductListingLayoutProps = {
   sort: string;
   sortPlaceholder?: string;
 };
-
 /** 목록과 검색 결과에 공통 상품·필터 영역을 배치합니다. (Arranges shared product results and filters for catalog and search pages.) */
 function ProductListingLayout({
   onRetry,
@@ -1606,7 +1498,6 @@ function ProductListingLayout({
   sortPlaceholder,
 }: ProductListingLayoutProps) {
   const normalizedSearchQuery = searchQuery.trim();
-
   const content = (
     <ProductListingContent
       isSearchPage={isSearchPage}
@@ -1626,7 +1517,6 @@ function ProductListingLayout({
       shown={shown}
     />
   );
-
   if (isSearchPage) {
     return (
       <SearchListingLayout
@@ -1643,7 +1533,6 @@ function ProductListingLayout({
       </SearchListingLayout>
     );
   }
-
   return (
     <ContentLayout
       breadcrumbItems={breadcrumbItems}
@@ -1676,12 +1565,17 @@ function ProductListingLayout({
     </ContentLayout>
   );
 }
-
 type ProductListingPageProps = {
-  data?: ProductListingBinding;
+  data?: {
+    items: readonly Product[];
+    totalCount: number;
+    hasMore: boolean;
+    mobileResultCount?: number;
+    pending?: boolean;
+    error?: string;
+  };
   searchQuery?: string;
 };
-
 const facetKeys = [
   'activity',
   'collection',
@@ -1693,11 +1587,8 @@ const facetKeys = [
   'support',
   'width',
 ] as const;
-
 const sortTokenLabels: Record<string, string> = { new: '신상품순', popular: '베스트순' };
-
 const productsPerLoad = 36;
-
 const emptyFilters = (): FilterValues => ({
   activity: [],
   category: '',
@@ -1712,12 +1603,10 @@ const emptyFilters = (): FilterValues => ({
   stability: [],
   width: [],
 });
-
 /** URL 필터와 상품 정렬·목록 화면을 연결합니다 (Coordinates catalog URL filters, local price controls, and listing layout). */
 export function ProductListingPage({ searchQuery = '', data }: ProductListingPageProps) {
-  const context = useContext(ProductListingContext);
-  const binding = data ?? context;
-  const { pending: requestPending, error: requestError, run } = useRequestAction();
+  const requestPending = data?.pending ?? false;
+  const requestError = data?.error ?? '';
   const platform = usePlatform();
   const params = useSearchParams();
   const pathname = usePathname();
@@ -1729,13 +1618,11 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   const [minPrice, setMinPrice] = useState(productListingPriceRange.min);
   const [maxPrice, setMaxPrice] = useState(productListingPriceRange.defaultMax);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
-
   const paramsKey = params.toString();
   const category = params.get('category') ?? '';
   const activeFilters = useMemo<FilterValues>(() => {
     const query = new URLSearchParams(paramsKey);
     const support = query.getAll('support');
-
     return {
       activity: query.getAll('activity'),
       category: query.get('category') ?? '',
@@ -1761,7 +1648,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     activity: activeFilters.activity[0] ?? '',
     sort: selectedSort ?? '',
   });
-
   const productListingTitle = getProductListingTitle({
     gender: activeFilters.gender[0] ?? '',
     category,
@@ -1770,10 +1656,10 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   });
   const result = useMemo(
     () =>
-      binding
-        ? [...binding.items]
+      data
+        ? [...data.items]
         : sortProducts(filterProducts(products, { ...activeFilters, searchQuery }), sort),
-    [binding, activeFilters, searchQuery, sort],
+    [data, activeFilters, searchQuery, sort],
   );
   const listingKey = JSON.stringify([paramsKey, minPrice, maxPrice, searchQuery]);
   const [visibleProductState, setVisibleProductState] = useState({
@@ -1782,20 +1668,11 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   });
   const visibleProductCount =
     visibleProductState.key === listingKey ? visibleProductState.count : productsPerLoad;
-  const shown = binding ? result : result.slice(0, visibleProductCount);
-  const mobileResultCount = binding
-    ? (binding.mobileResultCount ?? binding.totalCount)
-    : filterProducts(products, { ...mobileFilters, searchQuery }).length;
-  const onQueryChange = binding?.onQueryChange;
-  const onPreviewQueryChange = binding?.onPreviewQueryChange;
-  useEffect(() => {
-    onQueryChange?.({ filters: activeFilters, sort, searchQuery });
-  }, [onQueryChange, activeFilters, sort, searchQuery]);
-  useEffect(() => {
-    if (filterDrawerOpen)
-      onPreviewQueryChange?.({ filters: mobileFilters, sort: mobileSort, searchQuery });
-  }, [onPreviewQueryChange, filterDrawerOpen, mobileFilters, mobileSort, searchQuery]);
-
+  const shown = result.slice(0, visibleProductCount);
+  const mobileResultCount =
+    data?.mobileResultCount ??
+    data?.totalCount ??
+    filterProducts(products, { ...mobileFilters, searchQuery }).length;
   const updateFacet = (key: string, values: string[]) => {
     const next = new URLSearchParams(params.toString());
     next.delete(key);
@@ -1803,7 +1680,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     next.delete('page');
     setParams(next);
   };
-
   const update = (key: string, value: string) => {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
@@ -1811,7 +1687,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     next.delete('page');
     setParams(next);
   };
-
   const reset = () => {
     const next = new URLSearchParams();
     for (const key of ['q', 'sort']) {
@@ -1823,7 +1698,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     setMaxPrice(productListingPriceRange.defaultMax);
     setMobileFilters(emptyFilters());
   };
-
   const openMobileFilters = (open: boolean) => {
     if (open) {
       setMobileFilters(activeFilters);
@@ -1831,7 +1705,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     }
     setFilterDrawerOpen(open);
   };
-
   const applyMobileFilters = () => {
     const next = new URLSearchParams(params.toString());
     facetKeys.forEach((key) => {
@@ -1851,30 +1724,21 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     setMaxPrice(mobileFilters.maxPrice);
     setFilterDrawerOpen(false);
   };
-
   const updateMobileFilter = (key: string, values: string[]) => {
     const normalizedKey =
       key === 'support' ? 'stability' : key === 'color' ? 'selectedColors' : key;
     setMobileFilters((previous) => ({ ...previous, [normalizedKey]: values }));
   };
-
   const displayedFilters = platform === 'mobile' ? mobileFilters : activeFilters;
-
-  const onLoadMore = binding?.onLoadMore;
-  const retry = binding?.onRetry ?? (requestError ? onLoadMore : undefined);
-  const loading = binding?.pending || requestPending;
-  const loadMore = useCallback(() => {
-    if (onLoadMore) {
-      if (!loading) void run(onLoadMore);
-      return;
-    }
-    setVisibleProductState((previous) => {
-      const count = previous.key === listingKey ? previous.count : productsPerLoad;
-
-      return { key: listingKey, count: Math.min(count + productsPerLoad, result.length) };
-    });
-  }, [listingKey, result.length, onLoadMore, loading, run]);
-
+  const loading = requestPending;
+  const loadMore = () =>
+    setVisibleProductState((previous) => ({
+      key: listingKey,
+      count: Math.min(
+        (previous.key === listingKey ? previous.count : productsPerLoad) + productsPerLoad,
+        result.length,
+      ),
+    }));
   const filterPanel = (
     <ProductListingFilterPanel
       mobileSort={
@@ -1910,21 +1774,13 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       width={displayedFilters.width}
     />
   );
-
   return (
     <ProductListingLayout
+      resultCount={data?.totalCount}
+      hasMore={data?.hasMore}
       activity={activeFilters.activity[0] ?? ''}
-      resultCount={binding?.totalCount}
-      hasMore={binding?.hasMore}
       pending={loading}
-      error={binding?.error || requestError}
-      onRetry={
-        retry
-          ? () => {
-              void run(retry);
-            }
-          : undefined
-      }
+      error={requestError}
       breadcrumbItems={breadcrumbItems}
       filterDrawerOpen={filterDrawerOpen}
       filterPanel={filterPanel}
@@ -1953,7 +1809,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
     />
   );
 }
-
 export {
   Fieldset,
   CatalogFilterSection,

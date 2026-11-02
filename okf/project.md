@@ -38,6 +38,10 @@ working_tree_sources:
   - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
   - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
   - src/app/screen-index/sourceGraph.generated.json
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/preview-empty/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
+  - src/app/_components/HomeContent.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/supportContacts.ts
   - public/images/navigation/clifton-utl.webp
@@ -199,7 +203,6 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 
 작성: codex/gpt-6, 2026-10-29T01:12:53Z. 이번 작업 트리의 출처는 working_tree_sources에 추가했으며 기존 고정 커밋 출처/검증 이력을 보존했다.
 
-
 ## 첨부 디자인의 표시 모델 확장 (2026-10-29)
 
 주문 쿠폰의 상품 행 식별자·선택 쿠폰과 기본배송지 저장 의도, 마이페이지 주문 수량/등급 진행률을 표시·제출 모델로 연결했다. 실제 결제/회원/취소 서비스가 구현된 것으로 간주하지 않는다. [구현 범위·출처·검증](architecture/design-implementation-2026-10-29.md).
@@ -273,6 +276,14 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 ## 디자인 상태 링크 조사 범위 (2026-11-02)
 
 사용자 지정 디자인 10개 영역의 상태와 IA를 읽기 전용으로 대조하고 [직접 링크 누락 14개·초기 표시 불일치 1개](architecture/routing.md#디자인-상태별-ia-링크-조사-2026-11-02)를 기록했다. PC/MO 동일 상태는 한 URL 기준으로 병합했다. 앱 코드·IA 데이터·라우트·의존성은 변경하지 않았으며 다른 채팅의 미커밋 소스는 조사 당시 관측으로만 취급한다. 출처: 사용자 지정 디자인과 현재 IA 연결·표시 소스. 기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+사용자가 전체 화면에 publishing handoff를 승인했다. 기존 실제 서비스 바인딩과 mock 성공 시뮬레이션은 제거하고 준비된 표시 데이터·상태 URL·최소 로컬 UI로 전환했다. 이는 API 구현이나 주문/인증 기능 완성을 의미하지 않는다. 홈·상품·장바구니·주문서·계정/가입·고객센터·마이페이지·러닝 및 기존 stories를 조사했다. 상세 URL/IA/근거/검증은 아래 인계표에 기록한다.
+
+[전체 화면 인계표](development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
 
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 

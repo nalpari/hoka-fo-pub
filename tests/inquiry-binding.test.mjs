@@ -1,67 +1,28 @@
 import assert from 'node:assert/strict';
+import { readFileSync,readdirSync } from 'node:fs';
+import path from 'node:path';
 import test from 'node:test';
-import { registerHooks } from 'node:module';
-import { existsSync } from 'node:fs';
-import { fileURLToPath, URL } from 'node:url';
-const { EventTarget } = globalThis;
+import { fileURLToPath,URL } from 'node:url';
+import ts from 'typescript';
+import { inquiryFormPreviews,inquiryListPreviews } from '../src/app/support/inquiries/inquiryPreviews.ts';
+const root=fileURLToPath(new URL('../',import.meta.url));
+function files(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);}
 
-registerHooks({
-  resolve(specifier, context, nextResolve) {
-    if (specifier.startsWith('.') && context.parentURL?.includes('/src/')) {
-      const url = new URL(`${specifier}.ts`, context.parentURL);
-      if (existsSync(fileURLToPath(url))) return nextResolve(url.href, context);
-    }
-    return nextResolve(specifier, context);
-  },
+test('inquiry states share responsive URLs and use distinct semantic state identifiers',()=>{
+ const entries=[...inquiryFormPreviews,...inquiryListPreviews];assert.equal(new Set(entries.map(e=>e.href)).size,entries.length);assert.equal(new Set(entries.map(e=>e.state)).size,entries.length);
+ for(const entry of entries){assert.ok(entry.label);assert.ok(entry.figmaNodes.length);assert.ok(!/preview-design|\/(pc|mo)\//i.test(entry.href));}
 });
 
-const { saveInquiryOrderResult, restoreInquiryOrderSelection, consumeInquiryOrderSelection } =
-  await import('../src/app/support/inquiries/new/inquiryOrderSelection.storage.ts');
-
-const storage = new Map();
-
-globalThis.sessionStorage = {
-  getItem: (key) => storage.get(key) ?? null,
-  setItem: (key, value) => storage.set(key, value),
-  removeItem: (key) => storage.delete(key),
-};
-
-globalThis.window = new EventTarget();
-
-const order = { id: 'external-order', products: [{ id: 'external-line' }] };
-
-test('restores non-fixture IDs and retains saved selection through failure and abandoned reads', async () => {
-  saveInquiryOrderResult({ order, products: order.products });
-  await assert.rejects(
-    restoreInquiryOrderSelection('result', async () => {
-      throw new Error('offline');
-    }),
-    /offline/,
-  );
-  const resolver = async (ids) => {
-    assert.deepEqual(ids, { orderId: 'external-order', productIds: ['external-line'] });
-    return { order, products: order.products };
-  };
-  assert.equal((await restoreInquiryOrderSelection('result', resolver)).order.id, 'external-order');
-  assert.equal(
-    (await restoreInquiryOrderSelection('result', resolver)).products[0].id,
-    'external-line',
-  );
-  consumeInquiryOrderSelection('result');
-  assert.equal(await restoreInquiryOrderSelection('result', resolver), undefined);
-});
-
-test('ignores an obsolete resolution if another selection arrives during lookup', async () => {
-  saveInquiryOrderResult({ order, products: order.products });
-  const result = await restoreInquiryOrderSelection('result', async () => {
-    saveInquiryOrderResult(null);
-    return { order, products: order.products };
-  });
-  assert.equal(result, undefined);
-  assert.equal(
-    await restoreInquiryOrderSelection('result', async () => {
-      throw new Error('must not fetch');
-    }),
-    null,
-  );
+test('publishing screens do not execute network, browser persistence or removed service helpers',()=>{
+ const banned=new Set(['useRequestAction','useBindingQuery','usePhoneVerification','submitOrderClaim','getClaimAmount']);
+ const violations=[];
+ for(const file of ['app','components','context','hooks'].flatMap(dir=>files(path.join(root,'src',dir))).filter(p=>/\.tsx?$/.test(p)&&!p.endsWith('.d.ts'))){
+  const source=ts.createSourceFile(file,readFileSync(file,'utf8'),ts.ScriptTarget.Latest,true,file.endsWith('tsx')?ts.ScriptKind.TSX:ts.ScriptKind.TS);
+  function visit(node){
+   if(ts.isCallExpression(node)){const name=ts.isIdentifier(node.expression)?node.expression.text:ts.isPropertyAccessExpression(node.expression)?node.expression.name.text:'';if(name==='fetch'||banned.has(name))violations.push(path.relative(root,file)+': '+name);}
+   if(ts.isPropertyAccessExpression(node)&&['localStorage','sessionStorage'].includes(node.expression.getText(source)))violations.push(path.relative(root,file)+': '+node.getText(source));
+   ts.forEachChild(node,visit);
+  }visit(source);
+ }
+ assert.deepEqual(violations,[]);
 });

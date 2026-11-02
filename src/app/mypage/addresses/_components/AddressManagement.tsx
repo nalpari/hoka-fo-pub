@@ -39,7 +39,7 @@ export function AddressEditor({
     key: 'recipient' | 'name' | 'phone' | 'zip' | 'address' | 'detail',
   ) => string | undefined;
   update: <K extends keyof Address>(key: K, value: Address[K]) => void;
-  save: () => void;
+  save?: () => void;
   onCancel: () => void;
   addressOpen: boolean;
   onAddressOpenChange: (open: boolean) => void;
@@ -63,7 +63,7 @@ export function AddressEditor({
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
-          save();
+          save?.();
         }}
       >
         <Stack gap="12" _mobile={{ gap: '6' }}>

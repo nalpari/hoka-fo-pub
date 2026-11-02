@@ -30,6 +30,8 @@ working_tree_sources:
   - src/app/login/account-locked/verification/preview-optional-terms/page.tsx
   - src/app/login/account-locked/verification/preview-previous-terms/page.tsx
   - src/stories/components/common/molecules/SupportTabs/SupportTabs.stories.tsx
+  - src/app/cart/preview-limit/page.tsx
+  - src/app/cart/_components/CartModalPreview.tsx
   - id: design-state-link-audit
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748
     title: '사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크'
@@ -837,6 +839,14 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 장바구니 옵션/수량 제한, 주문·배송·취소/반품 목록/상세·신청, 리뷰·관심상품·최근 본 상품·재입고 알림, 회원정보, 러닝세션 취소, 아이디 확인·잠금 안내, 비밀번호 변경 완료, 가입 본인인증·부가정보·마케팅 수신내역·가입 완료는 기존 연결을 확인해 위 누락 수에서 제외했다. 기존 preview 페이지의 IA 연결·경로 검사 5개는 통과했다. 이 검사는 디자인에만 있고 아직 URL이 없는 상태를 자동으로 찾아내지는 않는다.
 
 앱 코드·IA·상태 URL은 수정하지 않았다. 조사 결과는 현재 미커밋 작업 트리를 포함한 관측이며 후속 변경 시 재확인이 필요하다. 출처: 사용자 지정 디자인 노드, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`, 표에 대응하는 route/preview와 표시 컴포넌트, `tests/preview-links.test.mjs`. 검토 HEAD: `14adcf0032c01a50ced619fb565e46a1d262f925`. 조사·기록: codex/gpt-6, 2026-11-02T09:31:43Z.
+
+## 전체 화면 퍼블리싱 인계 (2026-11-02)
+
+기본 URL과 preview URL은 기존 라우트 표현을 공유한다. PC/MO는 같은 URL의 자동 플랫폼으로 확인하며 로그인·저장값·이전 방문을 요구하지 않는다. 회원정보 8개, 주문 5개, 리워드 2개, 상품 옵션 안내 1개, 러닝 신청 안내 2개를 직접 열 수 있도록 기존 IA에 추가했다. 동적 preview slug는 명시 목록만 허용하고 나머지는 notFound로 처리한다. 원본 route·IA 번호·stories는 유지했다. 내부 도구 /screen-index·/publishing-guide와 기존 alias /support/mileage는 고객용 IA 신규 행으로 만들지 않는다.
+
+[전체 화면 인계표](../development/markup-handoff.md)는 기본/상태 URL, IA, 기존 표현 근거와 실제 검사 범위를 연결한다.
+
+출처: 현재 작업 트리의 위 구현과 대응 stories. 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`; 검토·기록: codex/gpt-6, 2026-11-02T09:44:32.550Z. 기존 출처와 draft 신뢰 상태는 유지한다.
 
 ## 디자인 상태 직접 링크 구현 (2026-11-02)
 

@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -10,19 +9,16 @@ import {
   type AnchorHTMLAttributes,
   type ComponentPropsWithoutRef,
   type ComponentType,
-  createContext,
   type CSSProperties,
   type HTMLAttributes,
   type MouseEventHandler,
   type ReactNode,
   type Ref,
   type RefObject,
-  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
   useState,
-  useSyncExternalStore,
 } from 'react';
 import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
@@ -77,9 +73,6 @@ import {
   faUserSolid,
   faXmark,
 } from '@/icons/fontAwesome';
-import type { Product } from '@/mocks/products';
-import { type CartItem } from '@/types/cart';
-
 const styles = {
   viewport: css({ position: 'fixed', inset: 0, zIndex: 100 }),
   backdrop: css({ position: 'fixed', inset: 0, zIndex: 100, bg: 'transparent' }),
@@ -94,14 +87,12 @@ const styles = {
     color: 'var(--color-text-primary)',
   }),
 };
-
 type MenuDrawerFrameProps = {
   children: ReactNode;
   close: () => void;
   popupRef: RefObject<HTMLDivElement | null>;
   initialFocusRef: RefObject<HTMLButtonElement | null>;
 };
-
 function MenuDrawerFrame({ children, close, popupRef, initialFocusRef }: MenuDrawerFrameProps) {
   return (
     <Drawer.Root open onOpenChange={(open) => !open && close()} swipeDirection="left">
@@ -121,18 +112,15 @@ function MenuDrawerFrame({ children, close, popupRef, initialFocusRef }: MenuDra
     </Drawer.Root>
   );
 }
-
 const authLink = css({
   whiteSpace: 'nowrap',
   '&&': {
     color: 'var(--hoka-black)',
   },
 });
-
 type HeaderAuthLinkProps = {
   onNavigate?: () => void;
 };
-
 function HeaderAuthLink({ onNavigate }: HeaderAuthLinkProps) {
   return (
     <HStack gap="1.5" alignItems="center">
@@ -146,7 +134,6 @@ function HeaderAuthLink({ onNavigate }: HeaderAuthLinkProps) {
     </HStack>
   );
 }
-
 const MenuDrawerHeaderStyles = {
   auth: hstack({ gap: '3', color: 'inherit', textDecoration: 'none' }),
   close: css({
@@ -158,13 +145,11 @@ const MenuDrawerHeaderStyles = {
     _focusVisible: { outline: '2px solid currentColor!', outlineOffset: '3px!' },
   }),
 };
-
 type MenuDrawerHeaderProps = {
   close: () => void;
   isLoggedIn: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
 };
-
 function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeaderProps) {
   return (
     <HStack
@@ -199,7 +184,6 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
     </HStack>
   );
 }
-
 const MenuDrawerGroupsStyles = {
   accordion: css({ '& h3': { m: 0 } }),
   group: css({ minH: '50px' }),
@@ -238,16 +222,13 @@ const MenuDrawerGroupsStyles = {
     'button[aria-expanded="true"] &': { _after: { display: 'none' } },
   }),
 };
-
 type MenuDrawerGroupsProps = {
   columns: readonly MegaMenu['columns'][number][];
   onNavigate: () => void;
 };
-
 /** 모바일 메뉴의 카테고리 그룹과 하위 링크를 표시합니다. (Displays mobile menu category groups and their links.) */
 function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
   const groups = columns.filter((column) => !column.to);
-
   return (
     <>
       <Accordion
@@ -310,7 +291,6 @@ function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
     </>
   );
 }
-
 const row = cva({
   base: {
     display: 'flex',
@@ -334,17 +314,25 @@ const row = cva({
     },
   },
 });
-
 type ShoppingMenuItem =
-  | { type: 'link'; id: string; label: string; href: string; showChevron: boolean }
-  | { type: 'category'; id: string; label: string; menu: MegaMenu };
-
+  | {
+      type: 'link';
+      id: string;
+      label: string;
+      href: string;
+      showChevron: boolean;
+    }
+  | {
+      type: 'category';
+      id: string;
+      label: string;
+      menu: MegaMenu;
+    };
 type MenuDrawerShoppingLinksProps = {
   menus: readonly MegaMenu[];
   onSelectMenu: (menu: MegaMenu) => void;
   onNavigate: () => void;
 };
-
 /** 모바일 메뉴의 쇼핑 관련 바로가기를 표시합니다. (Displays shopping shortcuts in the mobile menu.) */
 function MenuDrawerShoppingLinks({
   menus,
@@ -367,7 +355,6 @@ function MenuDrawerShoppingLinks({
       showChevron: true,
     },
   ];
-
   return (
     <nav aria-label="쇼핑 메뉴">
       <Stack as="ul" gap="0" listStyleType="none" p="0" m="0">
@@ -382,7 +369,6 @@ function MenuDrawerShoppingLinks({
               ) : null}
             </>
           );
-
           return (
             <li key={`${item.type}:${item.id}`}>
               {item.type === 'link' ? (
@@ -407,13 +393,11 @@ function MenuDrawerShoppingLinks({
     </nav>
   );
 }
-
 type MegaMenuADProps = MegaMenuPromo & {
   onClick?: () => void;
   presentation?: 'desktop' | 'mobile';
   className?: string;
 };
-
 /** 메가 메뉴의 프로모션 링크와 텍스트를 표시합니다. (Displays a promotional link and copy in the mega menu.) */
 function MegaMenuAD({
   to,
@@ -424,7 +408,6 @@ function MegaMenuAD({
   className,
 }: MegaMenuADProps) {
   const isMobile = presentation === 'mobile';
-
   return (
     <Link
       href={to}
@@ -499,13 +482,11 @@ function MegaMenuAD({
     </Link>
   );
 }
-
 type MenuDrawerBaseProps = {
   menus: readonly MegaMenu[];
   onSelectMenu: (menu: MegaMenu) => void;
   onNavigate: () => void;
 };
-
 function MenuDrawerBase({ menus, onSelectMenu, onNavigate }: MenuDrawerBaseProps) {
   return (
     <Stack gap="56px">
@@ -514,7 +495,6 @@ function MenuDrawerBase({ menus, onSelectMenu, onNavigate }: MenuDrawerBaseProps
     </Stack>
   );
 }
-
 const MenuDrawerBackButtonStyles = {
   button: css({
     display: 'flex',
@@ -531,13 +511,11 @@ const MenuDrawerBackButtonStyles = {
   }),
   backIcon: css({ transform: 'rotate(180deg)' }),
 };
-
 type MenuDrawerBackButtonProps = {
   label: string;
   onBack: () => void;
   buttonRef: RefObject<HTMLButtonElement | null>;
 };
-
 function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButtonProps) {
   return (
     <Button
@@ -560,7 +538,6 @@ function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButton
     </Button>
   );
 }
-
 type MenuDrawerNavigationProps = {
   activeMenu: MegaMenu | null;
   menus: readonly MegaMenu[];
@@ -569,7 +546,6 @@ type MenuDrawerNavigationProps = {
   onNavigate: () => void;
   backButtonRef: RefObject<HTMLButtonElement | null>;
 };
-
 function MenuDrawerNavigation({
   activeMenu,
   menus,
@@ -599,7 +575,6 @@ function MenuDrawerNavigation({
     </Box>
   );
 }
-
 const utilityItems = [
   { label: '마이페이지', to: '/mypage', icon: faUserSolid },
   { label: 'HOKA 멤버십', to: '/support/member-benefits', icon: null },
@@ -607,7 +582,6 @@ const utilityItems = [
   { label: '매장 찾기', to: '/support/store', icon: faLocationDot },
   { label: '고객센터', to: '/support', icon: faComments },
 ] as const;
-
 function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
   return (
     <Box
@@ -659,12 +633,10 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
     </Box>
   );
 }
-
 type MenuDrawerProps = {
   close: () => void;
   isLoggedIn?: boolean;
 };
-
 /** 모바일 메뉴의 탐색과 닫기 동작을 구성합니다 (Displays the menu drawer composition). */
 function MenuDrawer({ close, isLoggedIn = false }: MenuDrawerProps) {
   const [activeMenu, setActiveMenu] = useState<MegaMenu | null>(null);
@@ -672,10 +644,8 @@ function MenuDrawer({ close, isLoggedIn = false }: MenuDrawerProps) {
   const backRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const previousMenuRef = useRef<MegaMenu['id'] | null>(null);
-
   useLayoutEffect(() => {
     if (!previousMenuRef.current) return;
-
     popupRef.current?.scrollTo({ top: 0 });
     if (activeMenu) {
       backRef.current?.focus();
@@ -685,12 +655,10 @@ function MenuDrawer({ close, isLoggedIn = false }: MenuDrawerProps) {
         ?.focus();
     }
   }, [activeMenu]);
-
   const openMenu = (menu: MegaMenu) => {
     previousMenuRef.current = menu.id;
     setActiveMenu(menu);
   };
-
   return (
     <MenuDrawerFrame close={close} popupRef={popupRef} initialFocusRef={closeRef}>
       <MenuDrawerHeader close={close} isLoggedIn={isLoggedIn} closeButtonRef={closeRef} />
@@ -706,7 +674,6 @@ function MenuDrawer({ close, isLoggedIn = false }: MenuDrawerProps) {
     </MenuDrawerFrame>
   );
 }
-
 const FooterBrandLogoStyles = {
   logo: css({
     display: 'block',
@@ -716,7 +683,6 @@ const FooterBrandLogoStyles = {
     _mobile: { w: '115px' },
   }),
 };
-
 function FooterBrandLogo() {
   return (
     <Image
@@ -729,13 +695,13 @@ function FooterBrandLogo() {
     />
   );
 }
-
 // Panda patterns keep div attributes in their generated types even when using as="a".
 const Square = ImportedSquare as ComponentType<
   Omit<SquareProps, keyof AnchorHTMLAttributes<HTMLAnchorElement> | 'as'> &
-    AnchorHTMLAttributes<HTMLAnchorElement> & { as: 'a' }
+    AnchorHTMLAttributes<HTMLAnchorElement> & {
+      as: 'a';
+    }
 >;
-
 const socialLink = css({
   color: 'var(--color-text-inverse)',
   flexShrink: '0',
@@ -749,7 +715,6 @@ const socialLink = css({
     outlineOffset: '2px',
   },
 });
-
 const socialIcon = css({
   display: 'block',
   width: '24px',
@@ -758,13 +723,11 @@ const socialIcon = css({
   flexShrink: '0',
   filter: 'brightness(0) invert(1)',
 });
-
 type SocialIconLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   label: string;
   file: string;
   href?: string;
 };
-
 /** 소셜 채널 링크를 아이콘으로 표시합니다 (Displays the social icon link composition). */
 function SocialIconLink({ label, file, href = '#', className, ...props }: SocialIconLinkProps) {
   return (
@@ -787,7 +750,6 @@ function SocialIconLink({ label, file, href = '#', className, ...props }: Social
     </Square>
   );
 }
-
 function FooterSocialLinks() {
   return (
     <Flex justifyContent="flex-start" alignItems="center" gap="4">
@@ -797,7 +759,6 @@ function FooterSocialLinks() {
     </Flex>
   );
 }
-
 function FooterBrandSocial() {
   return (
     <Stack
@@ -815,7 +776,6 @@ function FooterBrandSocial() {
     </Stack>
   );
 }
-
 const FooterLocaleSelectorsStyles = {
   link: css({
     display: 'inline-flex',
@@ -836,7 +796,6 @@ const FooterLocaleSelectorsStyles = {
     top: '1px',
   }),
 };
-
 function FooterLocaleSelectors() {
   return (
     <Link href="/locales" className={FooterLocaleSelectorsStyles.link}>
@@ -862,7 +821,6 @@ function FooterLocaleSelectors() {
     </Link>
   );
 }
-
 function FooterBrand() {
   return (
     <Stack
@@ -876,7 +834,6 @@ function FooterBrand() {
     </Stack>
   );
 }
-
 const FooterLegalLinksStyles = {
   meta: css({
     fontFamily: 'korean',
@@ -895,11 +852,9 @@ const FooterLegalLinksStyles = {
   privacy: css({ fontWeight: 'bold' }),
   businessLink: css({ textDecoration: 'underline', textUnderlineOffset: '4px' }),
 };
-
-/** [ 개발팀 바인딩 ] 고객센터 연락처와 운영시간은 /support와 같은 @/data/supportContacts에서 갱신합니다. */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 공통 셸 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 function FooterLegalLinks() {
   const platform = usePlatform();
-
   return (
     <Stack
       as="section"
@@ -987,16 +942,13 @@ function FooterLegalLinks() {
     </Stack>
   );
 }
-
 const FooterNavigationLinksStyles = {
   link: css({ color: 'var(--color-black-10)' }),
 };
-
 type FooterNavigationLinksProps = {
   links: FooterGroup['links'];
   platform: Platform;
 };
-
 function FooterNavigationLinks({ links, platform }: FooterNavigationLinksProps) {
   return (
     <VStack
@@ -1019,7 +971,6 @@ function FooterNavigationLinks({ links, platform }: FooterNavigationLinksProps) 
     </VStack>
   );
 }
-
 const FooterNavigationWebStyles = {
   title: css({
     color: 'var(--color-black-10)',
@@ -1027,7 +978,6 @@ const FooterNavigationWebStyles = {
     textBoxEdge: 'cap alphabetic',
   }),
 };
-
 function FooterNavigationWeb() {
   return (
     <Box display="contents">
@@ -1059,7 +1009,6 @@ function FooterNavigationWeb() {
     </Box>
   );
 }
-
 const footerAccordionStyles = {
   title: css({
     color: 'var(--color-black-10)',
@@ -1068,7 +1017,6 @@ const footerAccordionStyles = {
   }),
   panel: css({ pt: '0', pl: '7', pb: '4' }),
 };
-
 function FooterAccordionNavigation() {
   const items: AccordionEntry[] = footerGroups.map((group) => ({
     value: group.title,
@@ -1081,7 +1029,6 @@ function FooterAccordionNavigation() {
     ),
     content: <FooterNavigationLinks links={group.links} platform="mobile" />,
   }));
-
   return (
     <Box
       borderTop="1px solid var(--color-border-tertiary)"
@@ -1096,11 +1043,9 @@ function FooterAccordionNavigation() {
     </Box>
   );
 }
-
 /** 푸터 탐색을 열 배치 또는 아코디언으로 구성합니다. (Composes footer navigation as columns or an accordion.) */
 function FooterNavigation() {
   const platform = usePlatform();
-
   return (
     <Grid
       as="section"
@@ -1114,7 +1059,6 @@ function FooterNavigation() {
     </Grid>
   );
 }
-
 function FooterContent() {
   return (
     <Grid
@@ -1138,7 +1082,6 @@ function FooterContent() {
     </Grid>
   );
 }
-
 /** 사이트 안내 링크와 사업자 정보를 표시합니다 (Displays the site footer composition). */
 function SiteFooter() {
   return (
@@ -1155,14 +1098,12 @@ function SiteFooter() {
     </Wrap>
   );
 }
-
 type SearchDialogProps = {
   children: ReactNode;
   onClose: () => void;
   compact?: boolean;
   hasRecentSearches: boolean;
 };
-
 function SearchDialog({
   children,
   onClose,
@@ -1173,13 +1114,11 @@ function SearchDialog({
   const [panel, setPanel] = useState<HTMLDivElement | null>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const [desktopHost, setDesktopHost] = useState<HTMLDivElement | null>(null);
-
   useLayoutEffect(() => {
     if (platform !== 'web') return;
     const frame = panel?.offsetParent;
     const anchor = frame?.querySelector<HTMLElement>('[data-search-panel-anchor]');
     if (!panel || !frame || !anchor) return;
-
     const alignToCart = () => {
       const right = frame.getBoundingClientRect().right - anchor.getBoundingClientRect().right;
       panel.style.setProperty('--search-panel-right', `${right}px`);
@@ -1187,7 +1126,6 @@ function SearchDialog({
       panel.style.setProperty('--search-panel-top', top);
       backdropRef.current?.style.setProperty('--search-backdrop-top', top);
     };
-
     alignToCart();
     const observer = new ResizeObserver(alignToCart);
     observer.observe(frame);
@@ -1202,7 +1140,6 @@ function SearchDialog({
       window.removeEventListener('scroll', alignToCart);
     };
   }, [platform, panel]);
-
   if (platform === 'web') {
     return (
       <Dialog.Root
@@ -1264,7 +1201,6 @@ function SearchDialog({
       </Dialog.Root>
     );
   }
-
   return (
     <Dialog.Root open onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
@@ -1288,20 +1224,15 @@ function SearchDialog({
     </Dialog.Root>
   );
 }
-
 type SearchFormProps = {
   query: string;
   onQueryChange: (query: string) => void;
   onSearch: () => void;
   error?: string;
 };
-
 function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormProps) {
-  // [ 개발팀 바인딩 ] SearchOverlay가 검색 초안·빈 입력 오류·최근 검색과 결과 이동을 소유합니다.
-  // 공통 SearchField는 입력/검색 이벤트만 전달합니다. PC 외부 입력의 site-search-form 연결과 모바일 단일 form을 유지합니다.
-  // 빈 입력이면 초안과 오류를 유지하며, 유효한 검색어일 때만 기존 소유자가 이동·닫기를 처리합니다. 별도 검색 API는 추가하지 않습니다.
+  /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 공통 셸 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const mobile = usePlatform() === 'mobile';
-
   return (
     <Box
       as="form"
@@ -1328,7 +1259,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         })}
         inputProps={{
           autoFocus: true,
-          'aria-invalid': Boolean(error) || undefined,
+          'aria-invalid': Boolean(error),
           'aria-describedby': error ? 'site-search-error' : undefined,
           type: 'search',
           autoComplete: 'off',
@@ -1348,9 +1279,10 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
     </Box>
   );
 }
-
-type SearchKeywordButtonProps = { query: string; onNavigateSearch: (query: string) => void };
-
+type SearchKeywordButtonProps = {
+  query: string;
+  onNavigateSearch: (query: string) => void;
+};
 function SearchKeywordButton({ query, onNavigateSearch }: SearchKeywordButtonProps) {
   return (
     <ButtonLink
@@ -1366,13 +1298,11 @@ function SearchKeywordButton({ query, onNavigateSearch }: SearchKeywordButtonPro
     </ButtonLink>
   );
 }
-
 type RecentSearchItemProps = {
   query: string;
   onNavigateSearch: (query: string) => void;
   onRemove: (query: string) => void;
 };
-
 function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchItemProps) {
   return (
     <HStack as="li" gap="2" _mobile={{ justifyContent: 'space-between' }}>
@@ -1392,14 +1322,12 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
     </HStack>
   );
 }
-
 type RecentSearchesProps = {
   recentSearches: readonly string[];
   onNavigateSearch: (query: string) => void;
   onRemove: (query: string) => void;
   onClear: () => void;
 };
-
 function RecentSearches({
   recentSearches,
   onNavigateSearch,
@@ -1407,7 +1335,6 @@ function RecentSearches({
   onClear,
 }: RecentSearchesProps) {
   if (recentSearches.length === 0) return null;
-
   return (
     <ContentSection
       as="section"
@@ -1444,9 +1371,10 @@ function RecentSearches({
     </ContentSection>
   );
 }
-
-type RecommendedSearchesProps = { queries: readonly string[]; onSearch: (query: string) => void };
-
+type RecommendedSearchesProps = {
+  queries: readonly string[];
+  onSearch: (query: string) => void;
+};
 function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
   return (
     <ContentSection
@@ -1481,12 +1409,10 @@ function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
     </ContentSection>
   );
 }
-
 type PopularSearchesProps = {
   queries: readonly string[];
   onNavigateSearch: (query: string) => void;
 };
-
 function PopularSearches({ queries, onNavigateSearch }: PopularSearchesProps) {
   return (
     <ContentSection
@@ -1520,7 +1446,6 @@ function PopularSearches({ queries, onNavigateSearch }: PopularSearchesProps) {
     </ContentSection>
   );
 }
-
 type SearchSuggestionsProps = {
   recentSearches: readonly string[];
   suggestedSearches: readonly string[];
@@ -1530,7 +1455,6 @@ type SearchSuggestionsProps = {
   onClearRecent: () => void;
   recentTopPadding?: '24px' | '32px';
 };
-
 /** 검색 추천어와 최근 검색 영역을 표시합니다 (Displays the search suggestions composition). */
 function SearchSuggestions({
   recentSearches,
@@ -1542,7 +1466,6 @@ function SearchSuggestions({
   recentTopPadding = '24px',
 }: SearchSuggestionsProps) {
   const hasRecentSearches = recentSearches.length > 0;
-
   return (
     <Flex
       gap="0"
@@ -1570,7 +1493,6 @@ function SearchSuggestions({
     </Flex>
   );
 }
-
 type SearchOverlayProps = {
   onClose: () => void;
   query?: string;
@@ -1578,7 +1500,6 @@ type SearchOverlayProps = {
   error?: string;
   onErrorChange?: (error: string) => void;
 };
-
 /** 검색어 입력과 추천·결과 이동을 구성합니다 (Search suggestions use local preview data; submission preserves the search results route). */
 function SearchOverlay({
   onClose,
@@ -1597,8 +1518,7 @@ function SearchOverlay({
   const query = externalQuery ?? localQuery;
   const normalized = query.trim();
   const platform = usePlatform();
-  const { recentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } =
-    useRecentSearches();
+  const { recentSearches, removeRecentSearch, clearRecentSearches } = useRecentSearches();
   const hasRecentSearches = recentSearches.length > 0;
   const router = useRouter();
   const matches = [...new Set(autocompleteSearches)]
@@ -1616,17 +1536,14 @@ function SearchOverlay({
       setError('검색어를 입력해주세요.');
       return;
     }
-    addRecentSearch(value);
     router.push('/search?q=' + encodeURIComponent(value) + '&scope=' + encodeURIComponent('전체'));
     onClose();
   };
   const rememberSearchAndClose = (nextQuery: string) => {
     const value = nextQuery.trim();
     if (!value) return;
-    addRecentSearch(value);
     onClose();
   };
-
   return (
     <SearchDialog
       onClose={onClose}
@@ -1676,9 +1593,7 @@ function SearchOverlay({
     </SearchDialog>
   );
 }
-
 type HeaderPromotionButtonType = 'details' | 'memberBenefits';
-
 const promotionLink = css({
   '&&': {
     '& span': {
@@ -1686,7 +1601,6 @@ const promotionLink = css({
     },
   },
 });
-
 /** Own the member promotion message, link, and button-specific arrangement. */
 function HeaderPromotionContent({
   buttonType = 'details',
@@ -1700,9 +1614,7 @@ function HeaderPromotionContent({
   ref?: Ref<HTMLDivElement>;
 }) {
   const isMemberBenefits = buttonType === 'memberBenefits';
-
   const PromotionStack = isMemberBenefits ? VStack : HStack;
-
   return (
     <PromotionStack
       ref={ref}
@@ -1725,9 +1637,7 @@ function HeaderPromotionContent({
     </PromotionStack>
   );
 }
-
 const promotionViewport = css({ minW: '0', h: '100%', gridColumn: '2', gridRow: '1' });
-
 const promotionControls = css({
   display: 'contents',
   '& button': {
@@ -1741,7 +1651,6 @@ const promotionControls = css({
   '& button:last-child': { gridColumn: '3' },
   '& svg': { w: '24px', h: '24px' },
 });
-
 const promotionSlide = css({
   w: '100%',
   overflow: 'hidden',
@@ -1749,7 +1658,6 @@ const promotionSlide = css({
   alignItems: 'center',
   justifyContent: 'center',
 });
-
 /** Own the promotion slides, viewport styling, and carousel behavior. */
 function HeaderPromotionCarousel({
   buttonType,
@@ -1759,10 +1667,8 @@ function HeaderPromotionCarousel({
   items?: HeaderPromotionItem[];
 }) {
   if (items.length === 0) return null;
-
   if (items.length === 1) {
     const item = items[0];
-
     return (
       <HStack
         gap="normal"
@@ -1780,14 +1686,12 @@ function HeaderPromotionCarousel({
       </HStack>
     );
   }
-
   return (
     <Carousel itemCount={items.length} loop>
       <PromotionCarouselFrame buttonType={buttonType} items={items} />
     </Carousel>
   );
 }
-
 function PromotionCarouselFrame({
   buttonType,
   items,
@@ -1798,18 +1702,15 @@ function PromotionCarouselFrame({
   const { activeIndex } = useCarousel();
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [contentWidth, setContentWidth] = useState<number>();
-
   useLayoutEffect(() => {
     const content = contentRefs.current[activeIndex];
     if (!content) return;
-
     const measure = () => setContentWidth(content.getBoundingClientRect().width);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(content);
     return () => observer.disconnect();
   }, [activeIndex, items, buttonType]);
-
   return (
     <Grid
       gridTemplateColumns="32px minmax(0, 1fr) 32px"
@@ -1849,7 +1750,6 @@ function PromotionCarouselFrame({
     </Grid>
   );
 }
-
 /** Member promotion shown above the sticky navigation on web and mobile. */
 function HeaderPromotionBanner({ buttonType }: { buttonType?: HeaderPromotionButtonType }) {
   return (
@@ -1867,7 +1767,6 @@ function HeaderPromotionBanner({ buttonType }: { buttonType?: HeaderPromotionBut
     </HStack>
   );
 }
-
 const MegaMenuListStyles = {
   title: css({
     m: 0,
@@ -1887,19 +1786,15 @@ const MegaMenuListStyles = {
     },
   }),
 };
-
 type MegaMenuListProps = {
   columns: MegaMenu['columns'];
   onClose: () => void;
 };
-
 function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const query = searchParams.toString();
   const currentPath = `${pathname}${query ? `?${query}` : ''}`;
-
   return (
     <Grid gridTemplateColumns="repeat(5, minmax(110px, 1fr))" gap="4">
       {columns.map((column) => (
@@ -1949,7 +1844,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                             : MegaMenuListStyles.activeItemLabel
                           : undefined
                       }
-                      data-sale={item.label === 'Sale' || undefined}
+                      data-sale={item.label === 'Sale'}
                     >
                       {item.label}
                     </Typography>
@@ -1968,12 +1863,10 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
     </Grid>
   );
 }
-
 type MegaMenuContentProps = {
   menu: MegaMenu;
   onClose: () => void;
 };
-
 function MegaMenuContent({ menu, onClose }: MegaMenuContentProps) {
   return (
     <Grid
@@ -1988,7 +1881,6 @@ function MegaMenuContent({ menu, onClose }: MegaMenuContentProps) {
     </Grid>
   );
 }
-
 const MegaMenuPanelStyles = {
   overlay: css({
     appearance: 'none',
@@ -2005,13 +1897,11 @@ const MegaMenuPanelStyles = {
     _mobile: { display: 'none' },
   }),
 };
-
 type MegaMenuPanelProps = {
   menu: MegaMenu;
   onClose: () => void;
   onFocusBoundary: (menuId: MegaMenu['id'], boundary: 'first' | 'last') => void;
 };
-
 function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
   return (
     <>
@@ -2037,13 +1927,10 @@ function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
         aria-label={`${menu.label} 메뉴`}
         onKeyDown={(event) => {
           if (event.key !== 'Tab') return;
-
           const focusable = Array.from(
             event.currentTarget.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
           );
-
           const boundary = event.shiftKey ? focusable[0] : focusable.at(-1);
-
           if (event.target === boundary) {
             event.preventDefault();
             onFocusBoundary(menu.id, event.shiftKey ? 'first' : 'last');
@@ -2055,21 +1942,17 @@ function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
     </>
   );
 }
-
 const logo = css({
   display: 'flex',
   alignItems: 'center',
   flexShrink: 0,
   w: '85px',
   h: '23px',
-
   _mobile: { order: 0, w: '74px', h: '5' },
 });
-
 type HeaderLogoProps = {
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
-
 function HeaderLogo({ onClick }: HeaderLogoProps) {
   return (
     <Link className={logo} href="/" onClick={onClick} aria-label="HOKA 홈으로">
@@ -2084,7 +1967,6 @@ function HeaderLogo({ onClick }: HeaderLogoProps) {
     </Link>
   );
 }
-
 const iconLink = css({
   position: 'relative',
   display: 'inline-flex',
@@ -2095,23 +1977,28 @@ const iconLink = css({
   '& img': { display: 'block' },
   _mobile: { w: '8', h: '8' },
 });
-
 type HeaderIconProps = {
   desktopSrc: string;
   mobileSrc?: string;
   alt?: string;
 };
-
 type HeaderIconLinkProps = {
   to: string;
   ariaLabel: string;
   className?: string;
   children?: ReactNode;
-} & ({ icon: HeaderIconProps; iconSlot?: never } | { icon?: never; iconSlot: ReactNode });
-
+} & (
+  | {
+      icon: HeaderIconProps;
+      iconSlot?: never;
+    }
+  | {
+      icon?: never;
+      iconSlot: ReactNode;
+    }
+);
 function HeaderIcon({ desktopSrc, mobileSrc = desktopSrc, alt = '' }: HeaderIconProps) {
   const platform = usePlatform();
-
   return (
     <Icon
       src={platform === 'mobile' ? mobileSrc : desktopSrc}
@@ -2120,7 +2007,6 @@ function HeaderIcon({ desktopSrc, mobileSrc = desktopSrc, alt = '' }: HeaderIcon
     />
   );
 }
-
 function HeaderIconLink({
   to,
   ariaLabel,
@@ -2140,18 +2026,14 @@ function HeaderIconLink({
     </Link>
   );
 }
-
 type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
   count?: number;
   max?: number;
 };
-
 /** 알림 건수를 작은 원형 배지로 표시합니다. (Displays a notification count in a compact circular badge.) */
 function NotificationCount({ count = 0, max = 99, className, ...props }: NotificationCountProps) {
   if (!Number.isFinite(count) || count <= 0) return null;
-
   const displayCount = count > max ? `${max}+` : count;
-
   return (
     <Circle
       as="span"
@@ -2180,7 +2062,6 @@ function NotificationCount({ count = 0, max = 99, className, ...props }: Notific
     </Circle>
   );
 }
-
 const notificationIcon = css({
   position: 'relative',
   display: 'inline-flex',
@@ -2189,7 +2070,6 @@ const notificationIcon = css({
   height: 'var(--notification-icon-size)',
   color: 'icon.default',
 });
-
 const notificationGlyph = css({
   display: 'block',
   width: '100%',
@@ -2204,14 +2084,11 @@ const notificationGlyph = css({
   WebkitMaskRepeat: 'no-repeat',
   WebkitMaskSize: 'contain',
 });
-
 const notificationAssetByVariant = {
   bag: 'notification-bag.svg',
   basket: 'notification-basket.svg',
 } as const;
-
 type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
-
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
   count?: number;
@@ -2220,7 +2097,6 @@ type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   color?: CSSProperties['color'];
   label?: string;
 };
-
 /** 알림 아이콘과 알림 건수를 표시합니다 (Displays the notification icon composition). */
 function NotificationIcon({
   variant,
@@ -2235,7 +2111,6 @@ function NotificationIcon({
 }: NotificationIconProps) {
   const hasNotification = Number.isFinite(count) && (count ?? 0) > 0;
   const asset = variant === 'user' ? undefined : notificationAssetByVariant[variant];
-
   return (
     <span
       {...props}
@@ -2261,18 +2136,14 @@ function NotificationIcon({
     </span>
   );
 }
-
 const loginLink = css({ _mobile: { display: 'none' } });
-
 type HeaderAccountProps = {
   isLoggedIn: boolean;
   wishlistCount: number;
 };
-
 function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
   const platform = usePlatform();
   const iconSize = platform === 'mobile' ? '20px' : '22px';
-
   if (!isLoggedIn) {
     return (
       <HeaderIconLink
@@ -2283,7 +2154,6 @@ function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
       />
     );
   }
-
   return (
     <>
       <HeaderIconLink
@@ -2299,14 +2169,11 @@ function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
     </>
   );
 }
-
 type HeaderCartLinkProps = {
   cart: number;
 };
-
 function HeaderCartLink({ cart }: HeaderCartLinkProps) {
   const platform = usePlatform();
-
   return (
     <HeaderIconLink
       to="/cart"
@@ -2322,7 +2189,6 @@ function HeaderCartLink({ cart }: HeaderCartLinkProps) {
     />
   );
 }
-
 type HeaderSearchProps = {
   onSearch: () => void;
   query?: string;
@@ -2330,7 +2196,6 @@ type HeaderSearchProps = {
   open?: boolean;
   error?: string;
 };
-
 /** 헤더 검색 입력과 검색 실행을 구성합니다 (Displays the header search composition). */
 function HeaderSearch({
   onSearch,
@@ -2340,7 +2205,6 @@ function HeaderSearch({
   error,
 }: HeaderSearchProps) {
   const platform = usePlatform();
-
   if (platform === 'web') {
     return (
       <HStack
@@ -2359,7 +2223,7 @@ function HeaderSearch({
         <TextInput
           id="header-search-input"
           aria-label="검색"
-          aria-invalid={Boolean(error) || undefined}
+          aria-invalid={Boolean(error)}
           aria-describedby={error ? 'site-search-error' : undefined}
           aria-expanded={open}
           aria-controls={open ? 'site-search-panel' : undefined}
@@ -2418,14 +2282,12 @@ function HeaderSearch({
       </HStack>
     );
   }
-
   return (
     <Button variant="icon" size="32px" onClick={onSearch} aria-label="검색">
       <Icon src="/images/header/search.svg" size="19px" mask />
     </Button>
   );
 }
-
 type HeaderToolsProps = {
   cart: number;
   isLoggedIn: boolean;
@@ -2437,7 +2299,6 @@ type HeaderToolsProps = {
   searchOpen?: boolean;
   searchError?: string;
 };
-
 function HeaderTools({
   cart,
   isLoggedIn,
@@ -2450,7 +2311,6 @@ function HeaderTools({
   searchError,
 }: HeaderToolsProps) {
   const platform = usePlatform();
-
   return (
     <Flex
       id="site-header-tools"
@@ -2458,13 +2318,10 @@ function HeaderTools({
       alignItems="center"
       onKeyDown={(event) => {
         if (event.key !== 'Tab' || !event.shiftKey || !onEnterPreviousMenu) return;
-
         const firstFocusable = event.currentTarget.querySelector<HTMLElement>(
           'a[href], input:not([disabled]), button:not([disabled])',
         );
-
         if (event.target !== firstFocusable) return;
-
         event.preventDefault();
         onEnterPreviousMenu();
       }}
@@ -2484,9 +2341,10 @@ function HeaderTools({
     </Flex>
   );
 }
-
-type Props = { primary: ReactNode; actions: ReactNode };
-
+type Props = {
+  primary: ReactNode;
+  actions: ReactNode;
+};
 /** Own the central header frame and the primary/action groups. */
 function SiteHeaderInner({ primary, actions }: Props) {
   return (
@@ -2507,7 +2365,6 @@ function SiteHeaderInner({ primary, actions }: Props) {
     </Flex>
   );
 }
-
 /** Own the header landmark and platform-specific outer spacing. */
 function SiteHeaderContent({ primary, actions }: { primary: ReactNode; actions: ReactNode }) {
   return (
@@ -2526,7 +2383,6 @@ function SiteHeaderContent({ primary, actions }: { primary: ReactNode; actions: 
     </Flex>
   );
 }
-
 const megaNavigationStyles = {
   item: cva({
     base: {
@@ -2587,7 +2443,6 @@ const megaNavigationStyles = {
     whiteSpace: 'nowrap',
   }),
 };
-
 type HeaderMegaMenuNavigationProps = {
   activeMenu: MegaMenu['id'] | null;
   onEnterMenu: (id: MegaMenu['id']) => void;
@@ -2595,7 +2450,6 @@ type HeaderMegaMenuNavigationProps = {
   onMenuOpen: (id: MegaMenu['id']) => void;
   onMenuToggle: (id: MegaMenu['id']) => void;
 };
-
 function HeaderMegaMenuNavigation({
   activeMenu,
   onEnterMenu,
@@ -2628,15 +2482,12 @@ function HeaderMegaMenuNavigation({
           onClick={() => onMenuToggle(menu.id)}
           onKeyDown={(event) => {
             if (event.key !== 'Tab') return;
-
             if (event.shiftKey) {
               if (index === 0) return;
-
               event.preventDefault();
               onEnterPreviousMenu(menu.id);
               return;
             }
-
             event.preventDefault();
             onEnterMenu(menu.id);
           }}
@@ -2649,7 +2500,6 @@ function HeaderMegaMenuNavigation({
     </HStack>
   );
 }
-
 const menuButtonStyles = css({
   order: 2,
   p: 0,
@@ -2658,16 +2508,12 @@ const menuButtonStyles = css({
   color: 'var(--hoka-black)',
   lineHeight: 'hoka',
 });
-
 type HeaderMenuButtonProps = {
   onClick: () => void;
 };
-
 function HeaderMenuButton({ onClick }: HeaderMenuButtonProps) {
   const platform = usePlatform();
-
   if (platform !== 'mobile') return null;
-
   return (
     <Button
       variant="icon"
@@ -2680,7 +2526,6 @@ function HeaderMenuButton({ onClick }: HeaderMenuButtonProps) {
     </Button>
   );
 }
-
 type SiteHeaderContainerProps = {
   cart: number;
   isLoggedIn: boolean;
@@ -2699,7 +2544,6 @@ type SiteHeaderContainerProps = {
   searchOpen?: boolean;
   searchError?: string;
 };
-
 /** 헤더 로고와 메뉴 및 도구 영역을 구성합니다. (Composes the header logo, navigation, and tools.) */
 function SiteHeaderContainer({
   cart,
@@ -2720,7 +2564,6 @@ function SiteHeaderContainer({
   searchError,
 }: SiteHeaderContainerProps) {
   const platform = usePlatform();
-
   return (
     <SiteHeaderContent
       primary={
@@ -2757,7 +2600,6 @@ function SiteHeaderContainer({
     />
   );
 }
-
 /** Keep the header and its expanded menu in the same sticky hover region. */
 function SiteHeaderFrame({
   children,
@@ -2769,7 +2611,6 @@ function SiteHeaderFrame({
   fixedOnScroll?: boolean;
 }) {
   const { markerRef, pinned } = useScrollPin(fixedOnScroll);
-
   if (!fixedOnScroll) {
     return (
       <Box pos="sticky" top={0} zIndex={20} onMouseLeave={onLeave}>
@@ -2777,7 +2618,6 @@ function SiteHeaderFrame({
       </Box>
     );
   }
-
   return (
     <Box pos="relative" top={0} zIndex={20} h="var(--layout-site-header-height)">
       <Box ref={markerRef} h="1px" mb="-1px" />
@@ -2792,7 +2632,6 @@ function SiteHeaderFrame({
     </Box>
   );
 }
-
 type SiteHeaderProps = {
   fixedOnScroll?: boolean;
   cart: number;
@@ -2801,9 +2640,7 @@ type SiteHeaderProps = {
   wishlistCount?: number;
   recentCount?: number;
 };
-
 type MenuFocusPosition = 'first' | 'last';
-
 /** 사이트 탐색·검색과 사용자 액션을 배치합니다 (Displays the site header composition). */
 function SiteHeader({
   fixedOnScroll = false,
@@ -2814,16 +2651,12 @@ function SiteHeader({
 }: SiteHeaderProps) {
   const platform = usePlatform();
   const [search, setSearch] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState('');
-
   const [searchError, setSearchError] = useState('');
-
   const changeSearchQuery = (query: string) => {
     setSearchError('');
     setSearchQuery(query);
   };
-
   const closeSearch = () => {
     const panel = document.getElementById('site-search-panel');
     if (platform === 'web' && panel?.contains(document.activeElement)) {
@@ -2831,93 +2664,68 @@ function SiteHeader({
     }
     setSearch(false);
   };
-
   const [activeMenu, setActiveMenu] = useState<MegaMenu['id'] | null>(null);
-
   const activeMegaMenu = megaMenus.find((menu) => menu.id === activeMenu);
-
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape' || !activeMenu) return;
-
       const menuToRestore = activeMenu;
       setActiveMenu(null);
-
       requestAnimationFrame(() => {
         document.querySelector<HTMLElement>(`[data-mega-menu-trigger="${menuToRestore}"]`)?.focus();
       });
     };
-
     addEventListener('keydown', closeOnEscape);
-
     return () => removeEventListener('keydown', closeOnEscape);
   }, [activeMenu]);
-
   const closeMegaMenu = () => setActiveMenu(null);
-
   const openMegaMenu = (menuId: MegaMenu['id']) => {
     setSearch(false);
     setActiveMenu(menuId);
   };
-
   const toggleMegaMenu = (menuId: MegaMenu['id']) => {
     setSearch(false);
     setActiveMenu((current) => (current === menuId ? null : menuId));
   };
-
   const focusMegaMenuItem = (menuId: MegaMenu['id'], position: MenuFocusPosition) => {
     setActiveMenu(menuId);
-
     requestAnimationFrame(() => {
       const focusable = Array.from(
         document.querySelectorAll<HTMLElement>(
           `#mega-menu-${menuId} a[href], #mega-menu-${menuId} button:not([disabled])`,
         ),
       );
-
       (position === 'first' ? focusable[0] : focusable.at(-1))?.focus();
     });
   };
-
   const focusMegaMenuTrigger = (menuId: MegaMenu['id']) => {
     setActiveMenu(menuId);
-
     requestAnimationFrame(() => {
       document.querySelector<HTMLElement>(`[data-mega-menu-trigger="${menuId}"]`)?.focus();
     });
   };
-
   const enterMegaMenu = (menuId: MegaMenu['id']) => focusMegaMenuItem(menuId, 'first');
-
   const enterPreviousMegaMenu = (menuId: MegaMenu['id']) => {
     const menuIndex = megaMenus.findIndex((menu) => menu.id === menuId);
     const previousMenu = megaMenus[menuIndex - 1];
-
     if (previousMenu) focusMegaMenuItem(previousMenu.id, 'last');
   };
-
   const enterLastMegaMenu = () => {
     const lastMenu = megaMenus.at(-1);
-
     if (lastMenu) focusMegaMenuItem(lastMenu.id, 'last');
   };
-
   const handleMegaMenuFocusBoundary = (menuId: MegaMenu['id'], boundary: 'first' | 'last') => {
     if (boundary === 'first') {
       focusMegaMenuTrigger(menuId);
       return;
     }
-
     const menuIndex = megaMenus.findIndex((menu) => menu.id === menuId);
     const nextMenu = megaMenus[menuIndex + 1];
-
     if (nextMenu) {
       focusMegaMenuTrigger(nextMenu.id);
       return;
     }
-
     setActiveMenu(null);
-
     requestAnimationFrame(() => {
       document
         .querySelector<HTMLElement>(
@@ -2926,7 +2734,6 @@ function SiteHeader({
         ?.focus();
     });
   };
-
   return (
     <>
       <HeaderPromotionBanner />
@@ -2974,7 +2781,6 @@ function SiteHeader({
     </>
   );
 }
-
 /** 경로와 플랫폼에 맞는 사이트 프레임을 구성합니다. (Composes the site frame for the current route and platform.) */
 function AppLayout({
   cart,
@@ -2993,13 +2799,10 @@ function AppLayout({
   const platform = usePlatform();
   const pathname = usePathname();
   const searchPage = platform === 'mobile' && pathname === '/search';
-
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }
-
   if (pathname === '/screen-index') return <>{children}</>;
-
   return (
     <>
       {!searchPage && (
@@ -3020,208 +2823,42 @@ function AppLayout({
     </>
   );
 }
-
-export type LoginCredentials = { id: string; password: string; rememberId: boolean };
-
-/**
- * [개발팀 바인딩]
- * 앱 Client 연결 소유자에서 <ShopShell state={...}> 또는 <ShopStateProvider value={...}>로 실제 상태를 공급합니다.
- * 운영 모드에서는 authenticationMode: service, products, isLoggedIn을 지정합니다. products에는 장바구니/상세에 필요한 실제 ID의 상품도 포함합니다.
- * cart 행은 상품 id + color/width/size 조합과 수량을 가집니다. add/updateQuantity/updateOptions/remove 이후 새 cart 상태를 공급합니다.
- * 현재 장바구니 변경 콜백은 동기 알림 계약입니다. 비동기 저장/낙관적 갱신을 쓸 경우 실패 복원과 오류 표시는 연결 소유자가 맡습니다.
- * login은 자격증명/기억하기 선택을 받고 인증 완료 후 resolve, 실패는 reject합니다. 실제 세션 보관/로그아웃/인증 만료도 이 소유자에서 처리합니다.
- * wishlistCount/recentCount는 실제 요약 수치를 전달합니다. 본 파일의 localStorage/initialCart는 Provider가 없는 시안 데모용입니다.
- */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 공통 셸 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 export type ShopState = {
-  readonly authenticationMode?: 'demo' | 'service';
-  readonly products?: readonly Product[];
   readonly isLoggedIn?: boolean;
+  readonly cartCount?: number;
   readonly wishlistCount?: number;
   readonly recentCount?: number;
-  readonly cart: CartItem[];
-  readonly add: (item: CartItem) => void;
-  readonly updateQuantity: (item: CartItem, quantity: number) => void;
-  readonly updateOptions: (item: CartItem, next: CartItem) => void;
-  readonly remove: (item: CartItem) => void;
-  readonly login: (credentials: LoginCredentials) => void | Promise<void>;
-  readonly logout: () => void;
 };
-
-const ShopContext = createContext<ShopState | null>(null);
-
-/** 쇼핑 상태를 외부 상태 소유자와 연결합니다. (Connects shopping state to an external state owner.) */
-export function ShopStateProvider({ value, children }: { value: ShopState; children: ReactNode }) {
-  return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
-}
-
-const subscribeHydration = () => () => {};
-
-const clientSnapshot = () => true;
-
-const serverSnapshot = () => false;
-
-const initialCart: CartItem[] = [
-  {
-    imageSrc: '/images/cart/clifton-preview.png',
-    id: 'shoe-1',
-    color: '브라운',
-    width: 'Regular',
-    size: '235',
-    quantity: 1,
-  },
-  {
-    imageSrc: '/images/cart/clifton-preview.png',
-    id: 'shoe-2',
-    color: '레드',
-    width: 'X-Wide',
-    size: '225',
-    quantity: 2,
-  },
-  {
-    imageSrc: '/images/cart/clifton-preview.png',
-    id: 'shoe-3',
-    color: '화이트',
-    width: 'Wide',
-    size: '270',
-    quantity: 5,
-  },
-  {
-    imageSrc: '/images/cart/clifton-preview.png',
-    id: 'shoe-4',
-    color: '옐로우골드',
-    width: 'X-Wide',
-    size: '250',
-    quantity: 4,
-  },
-];
-
-export function useShop() {
-  const shop = useContext(ShopContext);
-  if (!shop) throw new Error('useShop requires ShopShell');
-  return shop;
-}
-
 /** 쇼핑 상태와 플랫폼 컨텍스트를 제공하고 공통 레이아웃을 구성합니다. (Provides shopping state and platform context within the common layout.) */
 export function ShopShell({
   platform,
   children,
   state,
 }: {
-  readonly state?: ShopState & { products: readonly Product[]; isLoggedIn: boolean };
+  readonly state?: ShopState;
   readonly platform?: Platform;
   readonly children: ReactNode;
 }) {
-  const router = useRouter();
-  const [cart, setCart] = useState<CartItem[]>(initialCart);
-  const hydrated = useSyncExternalStore(subscribeHydration, clientSnapshot, serverSnapshot);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    try {
-      return localStorage.getItem('hoka-is-logged-in') === 'true';
-    } catch {
-      return false;
-    }
-  });
-  const count = cart.reduce((total, item) => total + item.quantity, 0);
-  const wishlistCount = 3;
-  const recentCount = 7;
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    try {
-      localStorage.setItem('hoka-is-logged-in', 'true');
-    } catch {
-      // ignore storage failures in demo mode
-    }
-  };
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    try {
-      localStorage.removeItem('hoka-is-logged-in');
-    } catch {
-      // ignore storage failures in demo mode
-    }
-    router.push('/login');
-  };
-  const add = (item: CartItem) =>
-    setCart((previous) => {
-      const found = previous.find(
-        (current) =>
-          current.id === item.id &&
-          current.color === item.color &&
-          current.width === item.width &&
-          current.size === item.size,
-      );
-      return found
-        ? previous.map((current) =>
-            current === found
-              ? { ...current, quantity: current.quantity + item.quantity }
-              : current,
-          )
-        : [...previous, item];
-    });
-  const updateQuantity = (item: CartItem, quantity: number) =>
-    quantity < 1
-      ? setCart((previous) => previous.filter((current) => current !== item))
-      : setCart((previous) =>
-          previous.map((current) => (current === item ? { ...current, quantity } : current)),
-        );
-  const updateOptions = (item: CartItem, next: CartItem) =>
-    setCart((previous) => {
-      const remaining = previous.filter((current) => current !== item);
-      const existing = remaining.find(
-        (current) =>
-          current.id === next.id &&
-          current.color === next.color &&
-          current.width === next.width &&
-          current.size === next.size,
-      );
-      return existing
-        ? remaining.map((current) =>
-            current === existing
-              ? { ...current, quantity: current.quantity + next.quantity }
-              : current,
-          )
-        : previous.map((current) => (current === item ? next : current));
-    });
-  const remove = (item: CartItem) =>
-    setCart((previous) => previous.filter((current) => current !== item));
-
   return (
-    <ShopStateProvider
-      value={
-        state ?? {
-          authenticationMode: 'demo',
-          cart,
-          add,
-          updateQuantity,
-          updateOptions,
-          remove,
-          login: handleLogin,
-          logout: handleLogout,
-        }
-      }
-    >
-      <PlatformProvider platform={platform}>
-        <ShopFrame>
-          <AppLayout
-            cart={state ? state.cart.reduce((total, item) => total + item.quantity, 0) : count}
-            isLoggedIn={state ? state.isLoggedIn : hydrated && isLoggedIn}
-            wishlistCount={state ? (state.wishlistCount ?? 0) : wishlistCount}
-            recentCount={state ? (state.recentCount ?? 0) : recentCount}
-          >
-            {children}
-          </AppLayout>
-        </ShopFrame>
-      </PlatformProvider>
-    </ShopStateProvider>
+    <PlatformProvider platform={platform}>
+      <ShopFrame>
+        <AppLayout
+          cart={state?.cartCount ?? 12}
+          isLoggedIn={state?.isLoggedIn ?? false}
+          wishlistCount={state?.wishlistCount ?? 3}
+          recentCount={state?.recentCount ?? 7}
+        >
+          {children}
+        </AppLayout>
+      </ShopFrame>
+    </PlatformProvider>
   );
 }
-
 function ShopFrame({ children }: { children: ReactNode }) {
   const platform = usePlatform();
-
   return <div className={`app platform-${platform}`}>{children}</div>;
 }
-
 export {
   MegaMenuAD,
   MenuDrawer,

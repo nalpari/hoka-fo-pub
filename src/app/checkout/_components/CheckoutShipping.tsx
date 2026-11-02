@@ -100,14 +100,8 @@ function CheckoutAddressFields({
       <AddressFields
         variant="boxed"
         fieldOptions={{
-          postalCode: {
-            disabled: true,
-            inputProps: { name: 'postalCode', readOnly: true },
-          },
-          address: {
-            disabled: true,
-            inputProps: { name: 'address', readOnly: true },
-          },
+          postalCode: { disabled: true, inputProps: { name: 'postalCode', readOnly: true } },
+          address: { disabled: true, inputProps: { name: 'address', readOnly: true } },
           addressDetail: {
             disabled: addressDetailDisabled,
             inputProps: { name: 'addressDetail' },
@@ -340,10 +334,7 @@ export function CheckoutShipping({
       as="section"
       gap="4"
       title="주문자 및 배송지 정보"
-      headerProps={{
-        titleAs: 'h2',
-        titleProps: { web: 'heading7', mo: 'heading6' },
-      }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
       {editing || !hasSavedAddress ? (
         <CheckoutShippingForm

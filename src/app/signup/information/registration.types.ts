@@ -42,8 +42,8 @@ export type RegistrationContentProps = {
   onChange: (key: keyof RegistrationInformation, value: string) => void;
   onPreferenceChange: (key: keyof MarketingPreferences, value: string) => void;
   onDomainChoice: (value: string) => void;
-  onDuplicateCheck: () => void;
+  onDuplicateCheck?: () => void;
   onAddressOpen: (open: boolean) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
 };

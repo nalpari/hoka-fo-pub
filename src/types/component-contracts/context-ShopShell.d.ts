@@ -14,7 +14,6 @@ import { type Platform } from '@/context/platform';
 import { type FooterGroup } from '@/data/footerData';
 import { type HeaderPromotionItem } from '@/data/headerPromotionData';
 import { type MegaMenu, type MegaMenuPromo } from '@/data/megaMenu';
-import { type CartItem } from '@/types/cart';
 type MenuDrawerFrameProps = {
   children: ReactNode;
   close: () => void;
@@ -510,28 +509,18 @@ declare function AppLayout({
   recentCount?: number;
 }): import('react').JSX.Element;
 export type ShopState = {
-  readonly cart: CartItem[];
-  readonly add: (item: CartItem) => void;
-  readonly updateQuantity: (item: CartItem, quantity: number) => void;
-  readonly updateOptions: (item: CartItem, next: CartItem) => void;
-  readonly remove: (item: CartItem) => void;
-  readonly login: () => void;
-  readonly logout: () => void;
+  readonly isLoggedIn?: boolean;
+  readonly cartCount?: number;
+  readonly wishlistCount?: number;
+  readonly recentCount?: number;
 };
-/** 쇼핑 상태를 외부 상태 소유자와 연결합니다. (Connects shopping state to an external state owner.) */
-export declare function ShopStateProvider({
-  value,
-  children,
-}: {
-  value: ShopState;
-  children: ReactNode;
-}): import('react').JSX.Element;
-export declare function useShop(): ShopState;
 /** 쇼핑 상태와 플랫폼 컨텍스트를 제공하고 공통 레이아웃을 구성합니다. (Provides shopping state and platform context within the common layout.) */
 export declare function ShopShell({
   platform,
   children,
+  state,
 }: {
+  readonly state?: ShopState;
   readonly platform?: Platform;
   readonly children: ReactNode;
 }): import('react').JSX.Element;

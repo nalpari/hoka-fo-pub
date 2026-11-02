@@ -1,26 +1,15 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * InquiryDataContext.list의 실제 id/title/body/answer/answered/attachments를 사용합니다. 첨부 previewUrl은 접근 권한이 있는 URL로 전달합니다.
- * hasMore/onLoadMore는 서버 추가 조회이고 목록 재조회/등록 후 갱신은 어댑터가 담당합니다. InquiryPreviewContext는 Storybook 상태 예시입니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useContext } from 'react';
-import { InquiryDataContext, type InquiryView } from '@/context/InquiryDataContext';
 import { InquiryPreviewContext } from '@/context/InquiryPreviewContext';
 import { usePlatform } from '@/context/platform';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
-import { useRequestAction } from '@/hooks/useRequestAction';
 
 import { Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
-
+import { type InquiryView } from '@/app/support/inquiries/inquiry.types';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
@@ -30,17 +19,12 @@ import {
   mobilePreviewAttachments,
 } from './_components/InquiryListContent';
 import { InquiryListLayout } from './_components/InquiryListLayout';
-
 /** 1:1 문의 목록과 빈 상태를 구성하고 문의 등록으로 연결합니다. (Composes the inquiry list and empty state, with a link to submit an inquiry.) */
 export default function Page() {
-  const binding = useContext(InquiryDataContext).list;
-  const request = useRequestAction();
-  useBindingQuery(binding?.onQueryChange, {});
   const preview = useContext(InquiryPreviewContext);
   const platform = usePlatform();
-  const inquiries: InquiryListItemProps['item'][] | readonly InquiryView[] = binding
-    ? binding.items
-    : preview === 'empty'
+  const inquiries: InquiryListItemProps['item'][] | readonly InquiryView[] =
+    preview === 'empty'
       ? []
       : [
           {
@@ -49,20 +33,14 @@ export default function Page() {
             answered: preview === 'answered' || preview === 'attachmentPreview',
           },
         ];
-
   return (
     <InquiryListLayout
-      empty={inquiries.length === 0 && !binding?.pending && !binding?.error}
+      empty={inquiries.length === 0}
       mobileTitleSize={preview === 'attachmentPreview' ? '22px' : '24px'}
     >
-      <BindingFeedback
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-        onRetry={binding?.onRetry}
-      />
       <Divider variant="heading" mo="subtle" />
       <Stack gap="0" pt="6" pb={{ base: '6', _mobile: '8' }}>
-        {inquiries.length === 0 && !binding?.pending && !binding?.error ? (
+        {inquiries.length === 0 ? (
           <EmptyState
             variant="plain"
             title="등록된 문의사항이 없습니다."
@@ -82,29 +60,18 @@ export default function Page() {
               key={item.id}
               item={item}
               attachments={
-                binding
-                  ? (item.attachments ?? [])
-                  : preview === 'attachmentPreview'
-                    ? platform === 'mobile'
-                      ? mobilePreviewAttachments
-                      : desktopPreviewAttachments
-                    : []
+                preview === 'attachmentPreview'
+                  ? platform === 'mobile'
+                    ? mobilePreviewAttachments
+                    : desktopPreviewAttachments
+                  : []
               }
             />
           ))
         )}
       </Stack>
 
-      <>
-        {binding?.hasMore && (
-          <Button
-            disabled={binding.pending || request.pending}
-            onClick={() => void request.run(binding.onLoadMore)}
-          >
-            더보기
-          </Button>
-        )}
-      </>
+      <></>
       {/* 문의 유의사항 영역 (Inquiry cautions section). */}
       <InquiryCautions />
     </InquiryListLayout>

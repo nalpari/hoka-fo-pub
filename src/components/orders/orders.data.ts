@@ -1,10 +1,5 @@
-/**
- * [개발팀 바인딩]
- * previewOrders는 Storybook/미연동 화면 fixture입니다. 실제 데이터는 OrdersContext.orders로 전달하고 이 배열의 ID/날짜/상태를 서버 응답으로 사용하지 않습니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 주문 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import type { OrderLine, OrderRecord } from './orders.types';
-
 const line = (key: string, quantity = 1): OrderLine => ({
   key,
   productId: 'shoe-1',
@@ -15,14 +10,16 @@ const line = (key: string, quantity = 1): OrderLine => ({
   size: '225',
   quantity,
   price: 230000,
+  displayAmount: quantity === 2 ? 460000 : 230000,
 });
-
 export const previewOrders: OrderRecord[] = [
   {
     id: '202610210192',
     date: '2026-10-10',
     expectedDate: '10월 20일 (화)',
     status: 'paid',
+    claimKind: 'cancel',
+    displayAmounts: { total: 690000, claimed: 0, remaining: 690000 },
     items: [line('paid-1', 2), line('paid-2')],
     claims: [],
   },
@@ -31,6 +28,7 @@ export const previewOrders: OrderRecord[] = [
     date: '2026-10-08',
     expectedDate: '10월 11일 (일)',
     status: 'preparing',
+    displayAmounts: { total: 230000, claimed: 0, remaining: 230000 },
     items: [line('preparing-1')],
     claims: [],
   },
@@ -39,6 +37,8 @@ export const previewOrders: OrderRecord[] = [
     date: '2026-10-01',
     expectedDate: '10월 10일 (토)',
     status: 'delivered',
+    claimKind: 'return',
+    displayAmounts: { total: 230000, claimed: 0, remaining: 230000 },
     items: [line('delivered-1')],
     claims: [],
   },
@@ -47,6 +47,7 @@ export const previewOrders: OrderRecord[] = [
     date: '2026-09-25',
     expectedDate: '09월 29일 (화)',
     status: 'purchased',
+    displayAmounts: { total: 690000, claimed: 460000, remaining: 230000 },
     items: [line('purchased-1'), line('cancelled-1'), line('returned-1')],
     claims: [
       {
@@ -59,6 +60,8 @@ export const previewOrders: OrderRecord[] = [
         requestedAt: '2026-10-02',
         completedAt: '2026-10-05',
         fee: 5000,
+        displayAmount: 230000,
+        displayRefund: 225000,
       },
       {
         id: '912375821759833',
@@ -70,6 +73,8 @@ export const previewOrders: OrderRecord[] = [
         requestedAt: '2026-10-02',
         completedAt: '2026-10-05',
         fee: 0,
+        displayAmount: 230000,
+        displayRefund: 230000,
       },
     ],
   },

@@ -29,10 +29,7 @@ const tab = css.raw({
   bg: 'transparent',
   cursor: 'pointer',
   '&[data-active]': { borderBottomColor: 'black.100' },
-  _focusVisible: {
-    outline: '2px solid token(colors.black.100)',
-    outlineOffset: '2px',
-  },
+  _focusVisible: { outline: '2px solid token(colors.black.100)', outlineOffset: '2px' },
 });
 
 export type SupportTab = {
@@ -51,11 +48,7 @@ type SupportTabsBaseProps = {
 type SupportTabsProps = SupportTabsBaseProps &
   (
     | { syncQuery: true; value?: never; onValueChange?: never }
-    | {
-        syncQuery?: false;
-        value?: string;
-        onValueChange?: (value: string) => void;
-      }
+    | { syncQuery?: false; value?: string; onValueChange?: (value: string) => void }
   );
 
 function QuerySupportTabs(props: SupportTabsBaseProps) {
@@ -116,9 +109,7 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
                     borderBottom: '2px solid transparent',
                     bg: 'transparent',
                     cursor: 'pointer',
-                    '&[data-active]': {
-                      borderBottomColor: 'var(--color-black-100)',
-                    },
+                    '&[data-active]': { borderBottomColor: 'var(--color-black-100)' },
                     _focusVisible: {
                       outline: '2px solid var(--color-focus-ring)',
                       outlineOffset: '-2px',
@@ -143,15 +134,10 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
                         h: '42px',
                         _mobile: { h: '32px' },
                       },
-                      variant === 'terms' && {
-                        h: '40px',
-                        _mobile: { h: '32px' },
-                      },
+                      variant === 'terms' && { h: '40px', _mobile: { h: '32px' } },
                       variant === 'care' && {
                         borderBottom: '1px solid token(colors.black.40)',
-                        '&[data-active]': {
-                          borderBottom: '2px solid token(colors.black.100)',
-                        },
+                        '&[data-active]': { borderBottom: '2px solid token(colors.black.100)' },
                       },
                     )
             }

@@ -118,11 +118,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
         }
         headerProps={{
           titleAs: 'h1',
-          titleProps: {
-            web: 'headingKr6',
-            mo: 'headingKr5',
-            id: 'login-title',
-          },
+          titleProps: { web: 'headingKr6', mo: 'headingKr5', id: 'login-title' },
         }}
       >
         <Box>

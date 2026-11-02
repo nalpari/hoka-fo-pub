@@ -59,10 +59,7 @@ const arrow = css({
   w: '17px',
   h: '8px',
   '&[data-side=top]': { bottom: '-7px' },
-  '&[data-side=bottom]': {
-    top: '-7px',
-    '& img': { transform: 'rotate(180deg)' },
-  },
+  '&[data-side=bottom]': { top: '-7px', '& img': { transform: 'rotate(180deg)' } },
   '&[data-side=right]': {
     left: '-7px',
     w: '8px',

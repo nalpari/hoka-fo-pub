@@ -1,11 +1,9 @@
 'use client';
-
 import Image from 'next/image';
 
 import { faFilePdf, faImage } from '@fortawesome/free-solid-svg-icons';
 import type { ReactNode } from 'react';
 import { useId, useState } from 'react';
-import { type InquiryView } from '@/context/InquiryDataContext';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, HStack, Square, Stack } from 'styled-system/jsx';
@@ -22,10 +20,15 @@ import {
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-type Props = { item: { title: string; answered: boolean; body?: ReactNode } };
-
+import { type InquiryView } from '@/app/support/inquiries/inquiry.types';
+type Props = {
+  item: {
+    title: string;
+    answered: boolean;
+    body?: ReactNode;
+  };
+};
 const answeredQuestion = css({ color: 'black.100', _mobile: { color: 'black.50' } });
-
 /** 문의 상태와 질문 내용을 함께 표시합니다. (Displays an inquiry's status and question.) */
 function InquiryQuestion({ item }: Props) {
   return (
@@ -66,7 +69,6 @@ function InquiryQuestion({ item }: Props) {
     </HStack>
   );
 }
-
 /** 답변 내용을 배경 패널 안에 표시합니다. (Displays the response in a shaded panel.) */
 function InquiryAnswer({ content }: { content?: ReactNode }) {
   return (
@@ -98,9 +100,11 @@ function InquiryAnswer({ content }: { content?: ReactNode }) {
     </HStack>
   );
 }
-
-type InquiryAttachment = { name: string; kind: 'image' | 'document'; previewUrl?: string };
-
+type InquiryAttachment = {
+  name: string;
+  kind: 'image' | 'document';
+  previewUrl?: string;
+};
 const previewDialog = css({
   '&&': {
     border: '1px solid token(colors.black.20)',
@@ -117,7 +121,6 @@ const previewDialog = css({
   '& > header': { bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' },
   '& > div:nth-child(2)': { p: '24px', _mobile: { p: '24px 16px 32px' } },
 });
-
 const paginationItem = css({
   w: '6px',
   h: '6px',
@@ -129,13 +132,11 @@ const paginationItem = css({
   cursor: 'pointer',
   '&[aria-pressed="true"]': { bg: 'black.100' },
 });
-
 type InquiryAttachmentPreviewProps = {
   attachments: readonly InquiryAttachment[];
   initialIndex: number;
   onClose: () => void;
 };
-
 /** 문의 첨부파일을 미리보기로 탐색합니다. (Lets users browse inquiry attachment previews.) */
 function InquiryAttachmentPreview({
   attachments,
@@ -200,7 +201,6 @@ function InquiryAttachmentPreview({
     </ModalDialog>
   );
 }
-
 /** 문의 첨부파일 목록과 파일 미리보기를 관리합니다. (Lists inquiry attachments and manages their preview.) */
 function InquiryReadAttachments({
   attachments,
@@ -210,9 +210,7 @@ function InquiryReadAttachments({
   initialIndex?: number;
 }) {
   const [previewIndex, setPreviewIndex] = useState<number | null>(initialIndex ?? null);
-
   if (!attachments.length) return null;
-
   return (
     <>
       <Stack
@@ -301,14 +299,12 @@ function InquiryReadAttachments({
     </>
   );
 }
-
 export type InquiryListItemProps = {
   item: Pick<InquiryView, 'id' | 'title' | 'answered'> &
     Partial<Pick<InquiryView, 'body' | 'answer' | 'attachments'>>;
   attachments?: readonly InquiryAttachment[];
   initialAttachmentIndex?: number;
 };
-
 /** 문의 한 건의 질문과 답변 및 첨부파일을 표시합니다. (Displays one inquiry with its answer and attachments.) */
 export function InquiryListItem({
   item,
@@ -318,7 +314,6 @@ export function InquiryListItem({
   const [answerOpen, setAnswerOpen] = useState(item.answered);
   const answerId = useId();
   const question = <InquiryQuestion item={item} />;
-
   return (
     <Stack
       as="article"
@@ -365,14 +360,12 @@ export function InquiryListItem({
     </Stack>
   );
 }
-
 export const desktopPreviewAttachments: readonly InquiryAttachment[] = [
   { name: 'IMG_7899.JPG', kind: 'image' },
   { name: 'IMG_ekkefei003.JPG', kind: 'image' },
   { name: 'IMG_55559KKKKK.PDF', kind: 'document' },
   { name: 'IMG_55559KKKKK.JPG', kind: 'image' },
 ];
-
 export const mobilePreviewAttachments: readonly InquiryAttachment[] = [
   { name: 'IMG_78901.JPG', kind: 'image' },
   { name: 'IMG_78902.JPG', kind: 'image' },

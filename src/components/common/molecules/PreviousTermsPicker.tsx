@@ -108,9 +108,7 @@ export function PreviousTermsPicker({
                   cursor: 'pointer',
                   borderRadius: '8px',
                   _pressed: { bg: 'black.10', fontWeight: 'bold' },
-                  _focusVisible: {
-                    outline: '2px solid var(--colors-black-100)',
-                  },
+                  _focusVisible: { outline: '2px solid var(--colors-black-100)' },
                 })}
               >
                 <Typography variant="body3">{label(date)}</Typography>

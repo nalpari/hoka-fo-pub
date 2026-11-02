@@ -1,8 +1,6 @@
 'use client';
-
 import Image from 'next/image';
 
-import { useContext } from 'react';
 import {
   type FocusEvent,
   type PointerEvent,
@@ -12,9 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { HomeContentContext } from '@/context/HomeContentContext';
 import { type Platform, usePlatform } from '@/context/platform';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
@@ -23,7 +19,6 @@ import { contentFrame } from 'styled-system/patterns';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
@@ -40,7 +35,6 @@ import {
   shoeFinderItems,
 } from '@/app/homeContent';
 import { products } from '@/mocks/products';
-
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */
 function HomeLayout({ platform, children }: { platform: Platform; children: ReactNode }) {
   return (
@@ -78,36 +72,29 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
     </Box>
   );
 }
-
 const thumbnailRatio = css.raw({
   '& .image': { h: 'auto!', aspectRatio: '3 / 4!' },
 });
-
 const desktopRail = css(thumbnailRatio);
-
 const mobileRail = css(thumbnailRatio, {
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '11px' },
 });
-
 const mobileSlide = css({
   // The 375px frame has 150px cards and 10px gaps.
   w: 'calc(40vw + 10px)!',
   px: '5px!',
   '& > *': { w: '100%!' },
 });
-
 type BestSellerTab = (typeof bestSellerTabs)[number];
-
 const bestSellerFilterTabs: readonly FilterTabOption<BestSellerTab>[] = bestSellerTabs.map(
   (tab) => ({
     label: tab,
     value: tab,
   }),
 );
-
 const getBestSellerProducts = (tab: BestSellerTab) => {
   if (tab === '전체') return products.slice(0, 12);
   if (tab === '로드 러닝')
@@ -121,22 +108,11 @@ const getBestSellerProducts = (tab: BestSellerTab) => {
   if (tab === '워킹') return products.filter((product) => product.use === 'Walking').slice(0, 12);
   return products.filter((product) => product.category === '리커버리').slice(0, 12);
 };
-
 function HomeBestSellerSection() {
-  const binding = useContext(HomeContentContext);
   const platform = usePlatform();
   const isWeb = platform === 'web';
   const [selectedTab, setSelectedTab] = useState<BestSellerTab>('전체');
-  const categoryChanged = binding?.onCategoryChange;
-  const notifyCategory = useCallback(
-    (query: { category: string }) => categoryChanged?.(query.category),
-    [categoryChanged],
-  );
-  useBindingQuery(categoryChanged ? notifyCategory : undefined, { category: selectedTab });
-  const bestSellerProducts = binding
-    ? binding.bestSellers
-    : createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
-
+  const bestSellerProducts = createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
   return (
     <HomeCarouselSection
       beforeViewport={
@@ -168,16 +144,15 @@ function HomeBestSellerSection() {
     </HomeCarouselSection>
   );
 }
-
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
 // leaving a deliberate preview of the following card.
 const HomeCategorySectionMobileSlide = css({
   w: 'calc(83.2vw + var(--spacing-4))!',
   '& > *': { w: '100%' },
 });
-
-type HomeCategorySectionProps = { platform: Platform };
-
+type HomeCategorySectionProps = {
+  platform: Platform;
+};
 const categoryCard = css({
   '&&': { gap: '20px' },
   '& h3': { fontSize: '28px', lineHeight: '1' },
@@ -188,10 +163,8 @@ const categoryCard = css({
     '& h3': { fontSize: '22px' },
   },
 });
-
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
-
   return (
     <HomeCarouselSection
       desktopCenteredItemCount={4}
@@ -210,7 +183,6 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
     </HomeCarouselSection>
   );
 }
-
 const exploreCard = css({
   '&&': { gap: '20px' },
   '& h3': { fontSize: '28px', lineHeight: '1' },
@@ -221,11 +193,9 @@ const exploreCard = css({
     '& .card__header': { gap: '20px' },
   },
 });
-
 function HomeExploreSection() {
   const platform = usePlatform();
   const isMobile = platform === 'mobile';
-
   return (
     <MainSection title="Explore" titleVariant="heading4">
       <Grid
@@ -249,39 +219,31 @@ function HomeExploreSection() {
     </MainSection>
   );
 }
-
 type HeroCopyContent = {
   title: string;
   description: ReactNode;
 };
-
 type HeroCopyAction = {
   label: string;
   to: string;
 };
-
 type HeroCopyProps = {
   content: HeroCopyContent;
   actions: readonly HeroCopyAction[];
 };
-
 const title = css({
   m: '0',
   '&&': { fontFamily: 'korean', lineHeight: '1.2', letterSpacing: '-0.02em' },
 });
-
 const mobileHeroTitle = css({ '&&': { fontSize: '42px' } });
-
 const description = css({
   m: '0',
   w: 'auto',
   _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
 });
-
 /** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
 function HeroCopy({ content, actions }: HeroCopyProps) {
   const platform = usePlatform();
-
   return (
     <VStack
       alignItems="flex-start"
@@ -339,12 +301,10 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
     </VStack>
   );
 }
-
 type HeroPaginationSlide = {
   id: string;
   title: string;
 };
-
 type HeroPaginationProps = {
   activeSlide: number;
   isProgressPaused: boolean;
@@ -353,7 +313,6 @@ type HeroPaginationProps = {
   progressDuration: number;
   slides: readonly HeroPaginationSlide[];
 };
-
 const paginationButton = css({
   '--hero-pagination-dot': '8px',
   w: 'var(--hero-pagination-dot)',
@@ -376,7 +335,6 @@ const paginationButton = css({
   },
   _focusVisible: { outline: '2px solid var(--color-text-inverse)', outlineOffset: '3px' },
 });
-
 const progressBar = css({
   position: 'absolute',
   top: '0',
@@ -387,11 +345,9 @@ const progressBar = css({
   transitionProperty: 'width',
   transitionTimingFunction: 'linear',
 });
-
 function getProgressWidth(progress: number) {
   return `calc(var(--hero-pagination-dot) * ${1 - progress} + ${progress * 100}%)`;
 }
-
 function HeroPagination({
   activeSlide,
   isProgressPaused,
@@ -401,7 +357,6 @@ function HeroPagination({
   slides,
 }: HeroPaginationProps) {
   if (slides.length < 2) return null;
-
   return (
     <Flex
       aria-label="히어로 슬라이드 선택"
@@ -441,20 +396,16 @@ function HeroPagination({
     </Flex>
   );
 }
-
 type HeroSlideProps = {
   first?: boolean;
   desktopImage: string;
   mobileImage: string;
   platform?: Platform;
 };
-
 const image = css({ w: '100%', h: '100%', objectFit: 'cover' });
-
 /** 홈 배너 이미지를 화면 크기와 첫 슬라이드의 로딩 우선순위에 맞춰 표시합니다. (Displays a responsive hero image with loading priority for the first slide.) */
 function HeroSlide({ desktopImage, mobileImage, platform = 'web', first = false }: HeroSlideProps) {
   const imageSource = platform === 'mobile' ? mobileImage : desktopImage;
-
   return (
     <Box pos="relative" flex="0 0 100%" w="100%" h="100%">
       <Image
@@ -471,38 +422,28 @@ function HeroSlide({ desktopImage, mobileImage, platform = 'web', first = false 
     </Box>
   );
 }
-
 type HeroAction = HeroCopyAction;
-
 type HeroContentSlide = HeroSlideProps & {
   actions: readonly HeroAction[];
   content: HeroCopyContent;
 };
-
 type HeroProps = {
   slides: readonly HeroContentSlide[];
   ariaLabel?: string;
   platform?: Platform;
 };
-
-const AUTO_PLAY_DELAY = 5_000;
-
+const AUTO_PLAY_DELAY = 5000;
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean | null>(null);
-
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
-
     updatePreference();
     mediaQuery.addEventListener('change', updatePreference);
-
     return () => mediaQuery.removeEventListener('change', updatePreference);
   }, []);
-
   return prefersReducedMotion;
 }
-
 function Hero({ ariaLabel, platform, slides }: HeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [autoplayCycle, setAutoplayCycle] = useState(0);
@@ -517,35 +458,28 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const isPaused = isFocused || isHovering || isPointerActive;
   const currentSlide = slides[activeSlide] ?? slides[0];
-
   const resetAutoplayCycle = useCallback(() => {
     remainingDuration.current = AUTO_PLAY_DELAY;
     setProgress(0);
     setProgressDuration(AUTO_PLAY_DELAY);
     setAutoplayCycle((current) => current + 1);
   }, []);
-
   const freezeProgress = useCallback(() => {
     if (cycleStartedAt.current === null) return;
-
     const elapsed = performance.now() - cycleStartedAt.current;
     const nextRemainingDuration = Math.max(0, remainingDuration.current - elapsed);
-
     remainingDuration.current = nextRemainingDuration;
     cycleStartedAt.current = null;
     setProgress(1 - nextRemainingDuration / AUTO_PLAY_DELAY);
   }, []);
-
   const moveSlide = useCallback(
     (direction: -1 | 1) => {
       if (slides.length < 2) return;
-
       resetAutoplayCycle();
       setActiveSlide((current) => (current + direction + slides.length) % slides.length);
     },
     [resetAutoplayCycle, slides.length],
   );
-
   const selectSlide = useCallback(
     (index: number) => {
       resetAutoplayCycle();
@@ -553,25 +487,19 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
     },
     [resetAutoplayCycle],
   );
-
   useEffect(() => {
     if (prefersReducedMotion) freezeProgress();
   }, [freezeProgress, prefersReducedMotion]);
-
   useEffect(() => {
     if (slides.length < 2 || isPaused || prefersReducedMotion !== false) return;
-
     const duration = remainingDuration.current;
     const animationFrame = window.requestAnimationFrame(() => setProgress(1));
-
     cycleStartedAt.current = performance.now();
     setProgressDuration(duration);
-
     const timeout = window.setTimeout(() => {
       resetAutoplayCycle();
       setActiveSlide((current) => (current + 1) % slides.length);
     }, duration);
-
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.clearTimeout(timeout);
@@ -584,48 +512,35 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
     resetAutoplayCycle,
     slides.length,
   ]);
-
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     freezeProgress();
     setIsPointerActive(true);
     swipeStartX.current = event.clientX;
   };
-
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
     setIsPointerActive(false);
-
     if (swipeStartX.current === null) return;
-
     const distance = event.clientX - swipeStartX.current;
-
     swipeStartX.current = null;
-
     if (Math.abs(distance) < 40) return;
-
     moveSlide(distance < 0 ? 1 : -1);
   };
-
   const handlePointerCancel = () => {
     swipeStartX.current = null;
     setIsPointerActive(false);
   };
-
   const handleMouseEnter = () => {
     freezeProgress();
     setIsHovering(true);
   };
-
   const handleFocus = (event: FocusEvent<HTMLElement>) => {
     if (!event.target.matches(':focus-visible')) return;
-
     freezeProgress();
     setIsFocused(true);
   };
-
   const handleBlur = (event: FocusEvent<HTMLElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false);
   };
-
   return (
     <Box
       aria-label={ariaLabel ?? currentSlide.content.title}
@@ -696,9 +611,9 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
     </Box>
   );
 }
-
-type HomeHeroSectionProps = { platform: Platform };
-
+type HomeHeroSectionProps = {
+  platform: Platform;
+};
 function HomeHeroSection({ platform }: HomeHeroSectionProps) {
   return (
     <Hero
@@ -757,16 +672,13 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
     />
   );
 }
-
 const previewItems = createHomeCarouselPreviewItems(shoeFinderItems);
-
 // Keep the 375px design width without enlarging slides on wider mobile screens.
 // The existing 8px gutters stay inside the slide to retain the 16px card gap.
 const HomeShoeFinderSectionMobileSlide = css({
   w: 'min(67.46666666666667vw, 253px)!',
   '& > *': { w: '100%' },
 });
-
 const shoeFinderCard = css({
   '& h3': { fontSize: '28px', lineHeight: '1' },
   '& .card__header': { mt: '0', pt: '8px', gap: '24px' },
@@ -777,15 +689,12 @@ const shoeFinderCard = css({
     '& .card__action': { pt: '20px', pb: '32px', pr: '32px' },
   },
 });
-
 type HomeShoeFinderSectionProps = {
   platform: Platform;
   variant?: HomeShoeFinderCardVariant;
 };
-
 function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFinderSectionProps) {
   const isWeb = platform === 'web';
-
   return (
     <HomeCarouselSection
       desktopCenteredItemCount={4}
@@ -810,23 +719,19 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
     </HomeCarouselSection>
   );
 }
-
 /** 홈의 주요 프로모션과 상품 영역을 구성합니다. (Composes the home promotions and product sections.) */
 export function RouteContent() {
-  const binding = useContext(HomeContentContext);
   const platform = usePlatform();
   return (
     <HomeLayout platform={platform}>
-      <BindingFeedback {...binding} />
-      {binding ? binding.hero : <HomeHeroSection platform={platform} />}
-      {binding ? binding.categories : <HomeCategorySection platform={platform} />}
+      {<HomeHeroSection platform={platform} />}
+      {<HomeCategorySection platform={platform} />}
       <HomeBestSellerSection />
-      {binding ? binding.explore : <HomeExploreSection />}
-      {binding ? binding.shoeFinder : <HomeShoeFinderSection platform={platform} />}
+      {<HomeExploreSection />}
+      {<HomeShoeFinderSection platform={platform} />}
     </HomeLayout>
   );
 }
-
 export const routePreviewComponents = { Hero, HeroCopy, HeroSlide } satisfies Pick<
   typeof import('@/types/component-contracts/app-page'),
   'Hero' | 'HeroCopy' | 'HeroSlide'

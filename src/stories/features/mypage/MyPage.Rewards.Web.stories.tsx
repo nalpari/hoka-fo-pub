@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from 'storybook/test';
-import { MyPageDataContext, type OverviewView } from '@/context/MyPageDataContext';
 import { ShopShell } from '@/context/ShopShell';
 
-import RewardsPage from '@/app/mypage/rewards/page';
-
-type Args = { item: OverviewView | null | undefined; pending: boolean; error: string };
-
+import { RewardsPageContent } from '@/app/mypage/rewards/_components/RewardsContent';
+import { type OverviewView } from '@/types/mypage-display';
+type Args = {
+  item: OverviewView | null | undefined;
+  pending: boolean;
+  error: string;
+};
 const item: OverviewView = {
   name: '김테스트',
   tier: 'ADVANCED',
@@ -26,9 +27,6 @@ const item: OverviewView = {
   referralCount: 0,
   referralRewards: '0',
 };
-
-const retry = fn();
-
 const meta = {
   title: 'PAGES/마이페이지/5. 회원등급/WEB',
   parameters: { layout: 'fullscreen' },
@@ -36,25 +34,18 @@ const meta = {
   args: { item: undefined, pending: false, error: '' },
   render: ({ item, pending, error }) => (
     <ShopShell platform="web">
-      <MyPageDataContext.Provider
-        value={item === undefined ? {} : { overview: { item, pending, error, onRetry: retry } }}
-      >
-        <RewardsPage />
-      </MyPageDataContext.Provider>
+      <RewardsPageContent
+        display={item}
+        preview={pending ? 'loading' : error ? 'error' : undefined}
+      />
     </ShopShell>
   ),
 } satisfies Meta<Args>;
-
 export default meta;
-
 type Story = StoryObj<typeof meta>;
-
 export const Rewards: Story = { name: 'Default' };
-
 export const Connected: Story = { name: '연결 표시 데이터', args: { item } };
-
 export const Pending: Story = { name: '조회 중', args: { item: null, pending: true } };
-
 export const Failed: Story = {
   name: '조회 실패와 재시도',
   args: { item: null, error: '회원등급을 불러오지 못했습니다.' },
