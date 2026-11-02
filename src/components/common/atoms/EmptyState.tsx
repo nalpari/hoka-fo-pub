@@ -2,18 +2,24 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 type EmptyStateProps = {
   title: string;
   description?: ReactNode;
   action?: ReactNode;
   variant?: 'standard' | 'minimal';
+  className?: string;
+  titleProps?: Pick<
+    EmptyStateTitleProps,
+    'variant' | 'web' | 'mo' | 'weight' | 'tone' | 'className'
+  >;
 };
 
 type EmptyStateIconProps = ComponentPropsWithoutRef<'div'>;
 
-type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'>;
+type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'> &
+  Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'weight' | 'tone'>;
 
 type EmptyStateDescriptionProps = ComponentPropsWithoutRef<'p'>;
 
@@ -23,11 +29,26 @@ function withClassName(baseClassName: string, className?: string) {
   return [baseClassName, className].filter(Boolean).join(' ');
 }
 
-function EmptyStateRoot({ title, description, action, variant = 'standard' }: EmptyStateProps) {
+function EmptyStateRoot({
+  title,
+  description,
+  action,
+  variant = 'standard',
+  className,
+  titleProps,
+}: EmptyStateProps) {
   if (variant === 'minimal') {
     return (
-      <Stack as="section" gap="2" aria-label={title} minH="180px" pt="42px" textAlign="center">
-        <EmptyStateTitle>{title}</EmptyStateTitle>
+      <Stack
+        as="section"
+        className={className}
+        gap="2"
+        aria-label={title}
+        minH="180px"
+        pt="42px"
+        textAlign="center"
+      >
+        <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>
         {description ? (
           <Box mx="0" mb="0">
             <Typography as="p" variant="body3">
@@ -44,6 +65,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
     <Stack
       gap="2"
       as="section"
+      className={className}
       aria-label={title}
       w="100%"
       pt="24"
@@ -53,7 +75,7 @@ function EmptyStateRoot({ title, description, action, variant = 'standard' }: Em
       color="black.100"
       textAlign="center"
     >
-      <EmptyStateTitle>{title}</EmptyStateTitle>
+      <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>
       {description ? (
         <Box>
           <Typography as="p" variant="body3">
@@ -82,12 +104,17 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
   );
 }
 
-export function EmptyStateTitle({ className, children, ...props }: EmptyStateTitleProps) {
+export function EmptyStateTitle({
+  className,
+  children,
+  variant = 'heading7',
+  ...props
+}: EmptyStateTitleProps) {
   return (
     <Typography
       {...props}
       as="h2"
-      variant="heading7"
+      variant={variant}
       className={withClassName('empty-state__title', className)}
     >
       {children}

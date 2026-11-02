@@ -1,9 +1,11 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * RunningSessionDataContext.detail에 경로 ID의 session/facts/guide/recommendedProducts와 apply를 연결합니다.
  * 정원/예약금/신청기간은 facts로 받습니다. apply의 서버 신청 및 결제 완료 후 resolve해야 접수 안내를 표시합니다.
+ * 연결 소유자는 apply(session.id)의 신청/결제를 완료 후 resolve하고 실패는 reject합니다. 요청 중 두 신청 버튼은 비활성화하며 실패 시 상세를 유지합니다.
+ * showSupplementalImagePlaceholder는 고정 시안의 보조 이미지 자리 표시이며 운영 사진 계약이 아닙니다. 성공 후 세션/신청내역 갱신과 오래된 조회 응답 폐기는 연결 소유자가 맡습니다.
  */
 
 import { useParams } from 'next/navigation';
@@ -19,7 +21,11 @@ import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
 
-import { runningSessionAddress, runningSessionSessions, runningSessionVenue } from '@/components/running-session/runningSession.data';
+import {
+  runningSessionAddress,
+  runningSessionSessions,
+  runningSessionVenue,
+} from '@/components/running-session/runningSession.data';
 import { products } from '@/mocks/products';
 
 import {
@@ -102,17 +108,28 @@ export default function Page() {
             error={binding?.error || request.error}
             onRetry={binding?.onRetry}
           />
-          <RunningSessionSessionHero session={session} rows={[...heroRows]} onApply={apply} />
+          <RunningSessionSessionHero
+            session={session}
+            rows={[...heroRows]}
+            onApply={apply}
+            pending={request.pending || binding?.pending}
+          />
         </>
       }
       guide={<RunningSessionSessionGuide session={session} rows={[...guideRows]} />}
       desktopContent={
         <>
-          {session.id === 'bukchon-night' ? <RunningSessionSessionImage /> : null}
+          {session.showSupplementalImagePlaceholder ? <RunningSessionSessionImage /> : null}
           <RunningSessionRecommendations products={recommendedProducts} platform={platform} />
         </>
       }
-      mobileAction={<RunningSessionFixedActionBar status={session.status} onApply={apply} />}
+      mobileAction={
+        <RunningSessionFixedActionBar
+          status={session.status}
+          onApply={apply}
+          pending={request.pending || binding?.pending}
+        />
+      }
       applicationNotice={
         <RunningSessionApplicationNotice
           registered={!!binding}

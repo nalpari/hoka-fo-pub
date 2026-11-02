@@ -3,10 +3,10 @@
 import Image from 'next/image';
 
 import { type ReactNode } from 'react';
-import { type Platform } from '@/context/platform';
+import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
-import { Box, Center, Grid, HStack } from 'styled-system/jsx';
+import { Box, Center, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
@@ -29,10 +29,11 @@ import { type Product } from '@/mocks/products';
 
 const applyButton = css({
   w: '260px',
+  '--button-height': '48px!',
   '& > span': { w: '100%' },
   _mobile: {
     w: '100%',
-    '--button-height': '44px!',
+    '--button-height': '48px!',
     '--button-label-size': '16px!',
     '--button-disabled-bg': 'var(--color-black-20)!',
     '--button-disabled-color': 'var(--color-black-40)!',
@@ -65,15 +66,15 @@ function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionA
 /** 세션 안내 또는 주의 사항 목록을 표시합니다. (Displays a session notice or precaution list.) */
 function RunningSessionSessionNotes({ precautions = false }: { precautions?: boolean }) {
   return (
-    <Box
+    <Stack
       as="aside"
-      my="24px"
+      gap="16px"
+      m="0"
       color="var(--color-text-tertiary)"
-      _mobile={{ mt: '8', mb: '6' }}
 
       aria-label={precautions ? '주의 사항' : '안내 사항'}
     >
-      <Typography as="p" variant="body4" mo="body5" weight="bold" className={css({ m: '0 0 6px' })}>
+      <Typography as="p" variant="body4" mo="body5" className={css({ m: '0' })}>
         {precautions ? '주의 사항' : '안내 사항'} ⓘ
       </Typography>
       <Box as="ul" listStyle="none" p="0" m="0">
@@ -89,7 +90,7 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
           </Typography>
         ))}
       </Box>
-    </Box>
+    </Stack>
   );
 }
 
@@ -107,10 +108,12 @@ const facts = cva({
   variants: {
     variant: {
       hero: {
-        py: '5',
+        py: '32px',
+        display: 'grid',
+        rowGap: '24px',
         borderBlock: '1px solid var(--color-border-default)',
         _mobile: {
-          py: '5',
+          py: '32px',
         },
       },
       guide: {},
@@ -119,16 +122,22 @@ const facts = cva({
 });
 
 /** 런클럽 세션 정보를 요약 행으로 표시합니다. (Displays run club session facts as summary rows.) */
-function RunningSessionFacts({ rows, variant }: { rows: RunningSessionFact[]; variant: 'hero' | 'guide' }) {
+function RunningSessionFacts({
+  rows,
+  variant,
+}: {
+  rows: RunningSessionFact[];
+  variant: 'hero' | 'guide';
+}) {
   return (
     <Box as="dl" className={facts({ variant })}>
       {rows.map(({ label, value, detail, mobileOnly }) => (
         <Grid
           key={label}
           display={mobileOnly ? 'none!' : 'grid'}
-          gridTemplateColumns="64px minmax(0, 1fr)"
-          gap={variant === 'hero' ? '2' : '4'}
-          py={variant === 'hero' ? '1.5' : '4'}
+          gridTemplateColumns={variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)'}
+          gap="16px"
+          py={variant === 'hero' ? '0' : '24px'}
           borderTop={variant === 'guide' ? '1px solid var(--color-border-default)' : undefined}
           _last={
             variant === 'guide'
@@ -137,23 +146,21 @@ function RunningSessionFacts({ rows, variant }: { rows: RunningSessionFact[]; va
           }
           _mobile={{
             display: mobileOnly ? 'grid!' : undefined,
-            gridTemplateColumns: '62px minmax(0, 1fr)',
-            gap: '3',
-            py: variant === 'hero' ? '1.5' : '5',
+            py: variant === 'hero' ? '0' : '24px',
           }}
         >
           <Typography
             as="dt"
             variant={variant === 'hero' ? 'body3' : 'body4'}
-            mo="body4"
-            weight="bold"
+            mo={variant === 'hero' ? 'body3' : 'body4'}
+            weight={variant === 'hero' ? 'semibold' : 'regular'}
           >
             {label}
           </Typography>
           <Typography
             as="dd"
             variant={variant === 'hero' ? 'body3' : 'body4'}
-            mo="body4"
+            mo={variant === 'hero' ? 'body3' : 'body4'}
             className={css({ m: '0' })}
           >
             {value}
@@ -169,7 +176,7 @@ function RunningSessionFacts({ rows, variant }: { rows: RunningSessionFact[]; va
   );
 }
 
-const detailText = css({ display: 'block' });
+const detailText = css({ display: 'block', mt: '4px' });
 
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
@@ -184,8 +191,14 @@ type RunningSessionSessionHeroProps = {
 };
 
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
-export function RunningSessionSessionHero({ session, rows, onApply, pending }: RunningSessionSessionHeroProps) {
+export function RunningSessionSessionHero({
+  session,
+  rows,
+  onApply,
+  pending,
+}: RunningSessionSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
+  const mobile = usePlatform() === 'mobile';
 
   return (
     <Grid
@@ -194,8 +207,8 @@ export function RunningSessionSessionHero({ session, rows, onApply, pending }: R
       gap="60px"
       w="min(calc(100% - 110px), 1340px)"
       mx="auto"
-      py="72px"
-      alignItems="center"
+      py="96px"
+      alignItems="start"
       _mobile={{ w: '100%', gridTemplateColumns: '1fr', gap: '0', py: '0' }}
     >
       <Image
@@ -204,37 +217,42 @@ export function RunningSessionSessionHero({ session, rows, onApply, pending }: R
         alt={`${session.title} 러닝 현장`}
         width={544}
         height={544}
-        sizes="(max-width: 767px) 100vw, 50vw"
+        sizes={
+          mobile
+            ? '100vw'
+            : '(max-width: 1199px) 515px, (max-width: 1450px) calc((100vw - 170px) / 2), 640px'
+        }
       />
-      <Box _mobile={{ px: '4', pt: '4', pb: '10' }}>
-        <HStack>
-          <Badge runningSessionCategory={session.category} />
-        </HStack>
-        <ContentHeader
-          mt="3"
-          mb={{ base: '6', _mobile: '10' }}
-          gap="10px"
-          title={session.title}
-          titleAs="h1"
-          titleProps={{ variant: 'heading6', mo: 'heading4', weight: 'black' }}
-          description={
-            <>
-              {session.schedule} | {session.location} {session.distance}
-            </>
-          }
-          descriptionProps={{ variant: 'body3' }}
-        />
-        {upcoming ? (
+      <Stack gap="32px" _mobile={{ px: '4', pt: '4', pb: '72px' }}>
+        <Stack gap="12px" _mobile={{ gap: '18px' }}>
+          <HStack>
+            <Badge runningSessionCategory={session.category} />
+          </HStack>
+          <ContentHeader
+            gap="16px"
+            _mobile={{ gap: '8px' }}
+            title={session.title}
+            titleAs="h1"
+            titleProps={{ variant: 'heading6', mo: 'heading4', weight: 'black' }}
+            description={
+              <>
+                {session.schedule} | {session.location} {session.distance}
+              </>
+            }
+            descriptionProps={{ variant: 'body2', mo: 'body3' }}
+          />
+        </Stack>
+        {upcoming && session.applicationOpeningLabel ? (
           <Typography as="p" variant="body4" weight="bold" className={styles.opening}>
-            ⓘ 1월 23일 (토) 10:00 신청 시작
+            ⓘ {session.applicationOpeningLabel}
           </Typography>
         ) : null}
         <RunningSessionFacts variant="hero" rows={rows} />
         <RunningSessionSessionNotes />
-        <Box _mobile={{ display: 'none' }}>
+        <Box mt="8px" _mobile={{ display: 'none' }}>
           <RunningSessionApplyButton status={session.status} onApply={onApply} pending={pending} />
         </Box>
-      </Box>
+      </Stack>
     </Grid>
   );
 }
@@ -246,7 +264,8 @@ function RunningSessionSessionPoster({ session }: Props) {
   return (
     <ContentSection
       color="var(--color-blue-100)"
-      gap="7"
+      gap="56px"
+      _mobile={{ gap: '24px' }}
       title={
         <>
           {session.category === 'Trail'
@@ -255,9 +274,10 @@ function RunningSessionSessionPoster({ session }: Props) {
         </>
       }
       headerProps={{
-        gap: '18px',
+        gap: '40px',
+        _mobile: { gap: '20px' },
         eyebrow: <>Hoka Run Club</>,
-        eyebrowProps: { variant: 'body2', web: 'heading6', mo: 'body1', weight: 'black' },
+        eyebrowProps: { variant: 'heading5', mo: 'heading4', weight: 'black' },
         titleAs: 'h2',
         titleProps: {
           variant: 'heading1',
@@ -267,7 +287,7 @@ function RunningSessionSessionPoster({ session }: Props) {
         },
       }}
     >
-      <Typography as="span" variant="body2" mo="body3">
+      <Typography as="span" variant="body1" mo="body3">
         {session.overlayDate}
         <br />
         @hoka_kr
@@ -279,15 +299,18 @@ function RunningSessionSessionPoster({ session }: Props) {
 type RunningSessionSessionGuideContentProps = { title: string; rows: RunningSessionGuideRow[] };
 
 /** 런클럽 세션 안내와 정보 행을 구성합니다. (Composes run club session guidance and fact rows.) */
-function RunningSessionSessionGuideContent({ title, rows }: RunningSessionSessionGuideContentProps) {
+function RunningSessionSessionGuideContent({
+  title,
+  rows,
+}: RunningSessionSessionGuideContentProps) {
   return (
-    <Box maxW="640px" _mobile={{ maxW: 'none' }}>
+    <Stack maxW="640px" gap="32px" _mobile={{ maxW: 'none' }}>
       <ContentSection
-        gap={{ base: '20px', _mobile: '6' }}
+        gap="32px"
         title="세션 안내"
         headerProps={{
           gap: '4',
-          titleProps: { variant: 'body1', mo: 'body2', weight: 'black' },
+          titleProps: { variant: 'heading7', mo: 'heading6' },
           description: (
             <>
               호카 런 클럽 {title}에서
@@ -295,19 +318,22 @@ function RunningSessionSessionGuideContent({ title, rows }: RunningSessionSessio
               러너들과 함께 달리며 그룹 러닝의 즐거움을 느껴보세요!
             </>
           ),
-          descriptionProps: { variant: 'body4' },
+          descriptionProps: { variant: 'body3' },
         }}
       >
         <RunningSessionFacts variant="guide" rows={rows} />
       </ContentSection>
       <RunningSessionSessionNotes precautions />
-    </Box>
+    </Stack>
   );
 }
 
 export type RunningSessionGuideRow = { label: string; value: string };
 
-type RunningSessionSessionGuideProps = { session: RunningSessionSession; rows: RunningSessionGuideRow[] };
+type RunningSessionSessionGuideProps = {
+  session: RunningSessionSession;
+  rows: RunningSessionGuideRow[];
+};
 
 /** 런클럽 세션 안내를 구성합니다. (Composes the run club session guide.) */
 export function RunningSessionSessionGuide({ session, rows }: RunningSessionSessionGuideProps) {
@@ -315,20 +341,21 @@ export function RunningSessionSessionGuide({ session, rows }: RunningSessionSess
     <Box
       as="section"
       bg="var(--color-black-10)"
-      py="72px"
-      _mobile={{ py: '10' }}
+      py="96px"
+      _mobile={{ pt: '48px', pb: '72px' }}
       aria-label="세션 안내"
     >
       <Grid
-        w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
-        mx="auto"
-        gridTemplateColumns="1fr 1fr"
-        gap="12"
+        w="min(calc(100% - 144px), 1558px)"
+        ml="max(72px, calc((100% - 1776px) / 2))"
+        gridTemplateColumns="minmax(0, 858fr) minmax(0, 640fr)"
+        gap="60px"
         _mobile={{
           w: '100%',
+          ml: '0',
           px: 'var(--layout-mobile-inline-gutter)',
           gridTemplateColumns: '1fr',
-          gap: '8',
+          gap: '64px',
         }}
       >
         <RunningSessionSessionPoster session={session} />
@@ -344,8 +371,8 @@ export function RunningSessionSessionImage() {
     <Center
       w="min(calc(100% - 110px), 1776px)"
       mx="auto"
-      my="72px"
-      aspectRatio="2.77"
+      my="96px"
+      aspectRatio="2.6667"
       bg="var(--color-black-40)"
       _mobile={{
         w: 'auto',
@@ -354,7 +381,12 @@ export function RunningSessionSessionImage() {
         aspectRatio: '1.5',
       }}
     >
-      <Typography variant="heading7" mo="body2" weight="black">
+      <Typography
+        variant="heading7"
+        mo="body2"
+        weight="medium"
+        className={css({ '&&': { fontSize: '34px' } })}
+      >
         이미지 영역
       </Typography>
     </Center>
@@ -369,17 +401,29 @@ const mobileSlide = css({
 type RunningSessionRecommendationsProps = { products: Product[]; platform: Platform };
 
 /** 추천 런클럽 세션을 표시합니다. (Displays recommended run club sessions.) */
-export function RunningSessionRecommendations({ products, platform }: RunningSessionRecommendationsProps) {
+export function RunningSessionRecommendations({
+  products,
+  platform,
+}: RunningSessionRecommendationsProps) {
   return (
-    <Box as="section" py="72px" overflow="hidden" _mobile={{ py: '10' }}>
+    <Box
+      as="section"
+      pb="192px"
+      overflow="hidden"
+      _mobile={{ py: '10' }}
+      css={{
+        '--layout-web-content-max-width': '1776px',
+        '--layout-web-content-inline-space': '144px',
+      }}
+    >
       <HomeCarouselSection
         title="로드 러닝 Essential"
-        titleVariant="heading7"
+        titleVariant="heading6"
         itemCount={products.length}
         platform={platform}
         slideClassName={platform === 'mobile' ? mobileSlide : undefined}
         desktopCenteredItemCount={5}
-        desktopItemGutter={16}
+        desktopItemGutter={8}
         mobileItemGutter={8}
       >
         {products.map((product) => (
@@ -415,7 +459,11 @@ export function RunningSessionApplicationNotice({
       size="sm"
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
-      <Typography as="p" variant="body3" className={RunningSessionApplicationNoticeStyles.modalText}>
+      <Typography
+        as="p"
+        variant="body3"
+        className={RunningSessionApplicationNoticeStyles.modalText}
+      >
         {registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}
       </Typography>
     </ModalDialog>
@@ -439,7 +487,7 @@ export function RunningSessionDetailLayout({
   applicationNotice,
 }: RunningSessionDetailLayoutProps) {
   return (
-    <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(92px + env(safe-area-inset-bottom))' } }}>
+    <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(96px + env(safe-area-inset-bottom))' } }}>
       {hero}
       {guide}
       <Box _mobile={{ display: 'none' }}>{desktopContent}</Box>
@@ -456,7 +504,11 @@ type RunningSessionFixedActionBarProps = {
 };
 
 /** 런클럽 상세의 고정 액션 영역을 표시합니다. (Displays the fixed run club detail action area.) */
-export function RunningSessionFixedActionBar({ status, onApply, pending }: RunningSessionFixedActionBarProps) {
+export function RunningSessionFixedActionBar({
+  status,
+  onApply,
+  pending,
+}: RunningSessionFixedActionBarProps) {
   return (
     <Box
       as="section"

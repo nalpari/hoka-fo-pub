@@ -6,7 +6,7 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T03:53:14.763Z'
+  at: '2026-11-02T04:21:59.926Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - public/images/navigation/clifton-utl.webp
@@ -3916,3 +3916,9 @@ Panda·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드를 통과했
 PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프로모션 제목은 PC/MO 모두 28px/900·28px 행간, 활성 액티비티는 20px/600·일반 신발 활성 항목은 기존 16px/700으로 확인했다. Storybook의 로드된 TheFutureHOKA-Black.woff2(900), Pretendard-SemiBold.woff2(600), Pretendard-Black.woff2(900)와 계산 family/weight를 대조했다. HOKA glyph 내부 family/postScriptName은 점(.)으로 반환됐으나 custom font와 실제 로드된 face/제공 파일로 연결했다. next/font/local과 Storybook 별도 폰트 등록은 수정하지 않았다.
 
 이전 전체 검색 코드 구간을 GNB 작업 시작 시점과 비교해 동일함을 확인했다. 검색 패널 위치는 새 헤더의 실제 장바구니 anchor를 따라간다. 원본 링크의 세 화면 외 다른 카테고리의 개별 디자인·모든 모바일 실기기·전수 시각 회귀를 검증했다고 주장하지 않는다.
+
+## 러닝세션 목록·상세 Figma 적용 (2026-11-02)
+
+목록·빈 목록·상세·고정 신청 바와 카테고리 배지를 보정했다. 기존 공통 배지의 다른 모드·헤더·푸터는 유지했다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.
+
+러닝세션 빈 목록은 공통 EmptyState를 유지한다. 선택적 className/titleProps로 높이·본문 variant를 지정하고 action으로 신청 내역을 전달한다. 기본 standard/minimal·heading7과 기존 호출부는 유지한다. [재사용 정리와 검증](running-session-design.md#공통-emptystate-재사용과-최종-검증)을 참고한다. 작업 트리 출처: src/components/common/atoms/EmptyState.tsx, src/components/running-session/RunningSessionPage.tsx.

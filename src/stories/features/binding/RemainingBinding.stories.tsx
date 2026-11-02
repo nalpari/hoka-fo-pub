@@ -355,43 +355,80 @@ export const HistoryActualIds: Story = {
 
 const apply = fn<(id: string) => Promise<void>>(async () => {});
 
+let applicationRequests: { resolve: () => void; reject: (reason: Error) => void }[] = [];
+
 export const RunningSessionApplication: Story = {
   parameters: { nextjs: { navigation: { segments: [['sessionId', 'api-session-99']] } } },
   beforeEach: () => {
-    apply
-      .mockReset()
-      .mockRejectedValueOnce(new Error('세션 접수 실패'))
-      .mockResolvedValue(undefined);
+    applicationRequests = [];
+    apply.mockReset().mockImplementation(
+      () =>
+        new Promise<void>((resolve, reject) => {
+          applicationRequests.push({ resolve, reject });
+        }),
+    );
   },
-  render: () => (
-    <RunningSessionDataContext.Provider
-      value={{
-        detail: {
-          session: { ...runningSessionSessions[0], id: 'api-session-99', title: '운영 세션' },
-          facts: [
-            { label: '정원', value: '45명' },
-            { label: '예약금', value: '8,000원' },
-          ],
-          guide: [{ label: '코스', value: '운영 코스' }],
-          onQueryChange: query,
-          apply,
-        },
-      }}
-    >
-      <RunningSessionDetailPage />
-    </RunningSessionDataContext.Provider>
-  ),
+  render: function ApplicationPreview() {
+    const [loaded, setLoaded] = useState(false);
+    const [updated, setUpdated] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setLoaded(true)}>세션 응답 적용</Button>
+        <Button onClick={() => setUpdated(true)}>세션 응답 교체</Button>
+        <RunningSessionDataContext.Provider
+          value={{
+            detail: {
+              pending: !loaded,
+              session: loaded
+                ? {
+                    ...runningSessionSessions[0],
+                    id: 'api-session-99',
+                    title: updated ? '갱신 운영 세션' : '운영 세션',
+                  }
+                : null,
+              facts: [
+                { label: '정원', value: '45명' },
+                { label: '예약금', value: '8,000원' },
+              ],
+              guide: [{ label: '코스', value: '운영 코스' }],
+              onQueryChange: query,
+              apply,
+            },
+          }}
+        >
+          <RunningSessionDetailPage />
+        </RunningSessionDataContext.Provider>
+      </>
+    );
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
+    await expect(canvas.queryByText('운영 세션')).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: '세션 응답 적용' }));
     await expect(canvas.getByText('45명')).toBeInTheDocument();
     const button = canvas.getByRole('button', { name: /신청하기/ });
     await userEvent.click(button);
+    await expect(button).toBeDisabled();
+    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
+    applicationRequests.shift()!.reject(new Error('세션 접수 실패'));
     await expect(await canvas.findByRole('alert')).toHaveTextContent('세션 접수 실패');
+    await expect(canvas.getByText('운영 세션')).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: '세션 응답 교체' }));
+    await expect(canvas.getByText('갱신 운영 세션')).toBeInTheDocument();
     await userEvent.click(button);
+    await expect(button).toBeDisabled();
+    applicationRequests.shift()!.resolve();
     await expect(await body.findByText('세션 신청이 접수되었습니다.')).toBeInTheDocument();
     await expect(apply).toHaveBeenLastCalledWith('api-session-99');
+    canvasElement.setAttribute('data-running-application-result', 'passed');
   },
+};
+
+export const MobileRunningSessionApplication: Story = {
+  ...RunningSessionApplication,
+  parameters: { ...RunningSessionApplication.parameters, platform: 'mobile' },
 };
 
 const claimSubmit = fn<(input: unknown) => Promise<void>>(async () => {});

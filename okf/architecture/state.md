@@ -6,7 +6,7 @@ tags: [react, state, mock-data]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T03:53:14.763Z'
+  at: '2026-11-02T04:21:59.926Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
   - src/data/megaMenu.ts
@@ -575,3 +575,7 @@ PC 오류일 때 추천 영역을 숨기고 544px 패널에 오류만 표시하�
 ## GNB 표시와 상태 경계 검토 (2026-11-02)
 
 Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 표시를 검토했다. SiteHeader의 activeMenu/search 배타적 열림과 URL 활성 항목, MenuDrawer의 activeMenu·기본 Featured 열림·다른 그룹 전환·뒤로가기/닫기 포커스 소유권은 유지했다. 현재 앱의 로그인 상태도 바꾸지 않았다. 새 요청·인증·저장·서비스 콜백을 추가하지 않았다. MegaMenu.columns.activeItemEmphasis는 제목형 활성 강조를 고르는 표시 옵션이며 서버 카테고리 선택 정책이 아니다. [수치와 실제 확인](ui.md#gnb-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+
+## 러닝세션 신청 pending 표시 보정 (2026-11-02)
+
+기존 Context·요청 훅을 유지하고 pending을 두 신청 버튼에 전달했다. 운영 apply 완료 전 성공 안내를 표시하지 않으며 실패 시 상세를 유지한다. 신청 시작 문구와 보조 이미지 placeholder는 명시적 표시 데이터다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.

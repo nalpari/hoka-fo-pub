@@ -684,7 +684,8 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/HomeCarouselSection.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/running-session/runningSession.data.ts"
+      "src/components/running-session/runningSession.data.ts",
+      "src/context/platform.tsx"
     ],
     "src/app/running/running-session/[sessionId]/page.tsx": [
       "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx",
@@ -1470,6 +1471,7 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/running-session/runningSession.data.ts",
       "src/context/RunningSessionDataContext.ts",
+      "src/context/platform.tsx",
       "src/hooks/useBindingQuery.ts",
       "src/hooks/useRequestAction.ts"
     ],

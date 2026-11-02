@@ -1,7 +1,8 @@
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * RunningSessionSession은 세션 id/표시 텍스트/이미지/모집상태 모델입니다. 이미지에 절대 경로/URL을 주면 그대로 사용합니다.
  * 아래 세션/장소/안내 예시는 미연동 기본값입니다. 운영 목록/신청내역/상세 사실 정보는 RunningSessionDataContext의 별도 계약에 전달합니다.
+ * showSupplementalImagePlaceholder는 시안 확인용 표시 옵션입니다. 운영 사진이나 세션 ID에서 추정하지 않습니다.
  */
 
 export type RunningSessionSession = {
@@ -15,11 +16,14 @@ export type RunningSessionSession = {
   distance: string;
   schedule: string;
   status: 'open' | 'closed' | 'upcoming';
+  applicationOpeningLabel?: string;
+  showSupplementalImagePlaceholder?: boolean;
 };
 
 export const runningSessionSessions: RunningSessionSession[] = [
   {
     id: 'yeouido-night',
+    showSupplementalImagePlaceholder: true,
     title: '여의도 나이트 시티런',
     category: 'Road',
     image: 'session-card-01.png',
@@ -56,6 +60,7 @@ export const runningSessionSessions: RunningSessionSession[] = [
   },
   {
     id: 'bukchon-night',
+    showSupplementalImagePlaceholder: true,
     title: '북촌 나이트 시티런',
     category: 'Road',
     image: 'session-card-04.png',
@@ -113,6 +118,7 @@ export const runningSessionSessions: RunningSessionSession[] = [
     distance: '10K',
     schedule: '1월 30일 (토) 08:00',
     status: 'upcoming',
+    applicationOpeningLabel: '1월 23일 (토) 10:00 신청 시작',
   },
 ];
 

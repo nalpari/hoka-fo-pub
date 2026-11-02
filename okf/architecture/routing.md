@@ -775,3 +775,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 사이즈 가이드 캡처 재검증 (2026-11-02)
 
 사이즈 가이드의 PC 제목/탭 사이 여백을 40px로 조정했다. 경로·IA·서버/client 책임과 정적 데이터 연결은 유지한다. [실측과 검증](size-guide.md#캡처-재검증과-선택-ui-통일-2026-11-02)을 참고한다.
+
+## 러닝세션 지정 경로 디자인 반영 (2026-11-02)
+
+/running/running-session·/running/running-session/yeouido-night와 기존 /preview-empty, 동적 sessionId 조회·Storybook 경로 계약을 유지했다. 상세 지원 UI는 기존 [sessionId]/_components에 둔다. [디자인 수치·출처·연결 책임·실제 검증](running-session-design.md)을 참고한다. 작업 트리 출처: src/components/running-session/RunningSessionPage.tsx, src/components/running-session/runningSession.data.ts, src/app/running/running-session/[sessionId]/page.tsx, src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, src/components/common/atoms/Badge.tsx. 검토: codex/gpt-6, 2026-11-02T04:21:59.926Z.

@@ -31,11 +31,10 @@ const badgeText = css({ display: 'block', whiteSpace: 'nowrap', lineHeight: '14p
 
 const runningSessionBadge = cva({
   base: {
-    h: '28px',
-    _mobile: { w: 'fit-content', h: '20px', px: '2', py: '0' },
+    p: '8px',
   },
   variants: {
-    category: { Road: { bg: '#dfff00', color: '#000' }, Trail: { bg: '#5d6825', color: '#fff' } },
+    category: { Road: { bg: '#E1FF04', color: '#000' }, Trail: { bg: '#5E661F', color: '#fff' } },
   },
 });
 
@@ -111,9 +110,8 @@ export function Badge({
         className={[runningSessionBadge({ category: runningSessionCategory }), className]
           .filter(Boolean)
           .join(' ')}
-        p="2"
       >
-        <Typography variant="body4" mo="body5" weight="bold">
+        <Typography variant="body4" weight="regular">
           {runningSessionCategory}
         </Typography>
       </HStack>
