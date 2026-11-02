@@ -3950,3 +3950,9 @@ CheckoutContent는 주문/배송 입력, 주문상품, 할인 요약, 결제수�
 Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·모바일에서 결제수단/동의 체크와 쿠폰 선택을 확인하는 로컬 UI 사례로 바꿨다. 현재 공유 폼은 없으므로 제출용 hidden input도 제거했다. 관련 작업 트리: `src/app/checkout/page.tsx`, `_components/CheckoutForm.tsx`, `CheckoutStatePreview.tsx`, `CheckoutShipping.tsx`, `CheckoutAgreement.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutPayment.tsx`, `src/context/CheckoutContext.ts`, `src/stories/features/checkout/`, `src/stories/features/binding/`.
 
 `npm run screen-files`, Prettier, OKF 검사, `git diff --check`를 통과했다. 전체 타입 검사에는 이번 Checkout 변경 파일 오류 없이 기존 `.next/types` 누락 라우트와 상품 목록 PageProps 오류가 남는다. 변경 파일 ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 실행되지 않았다. Storybook 브라우저와 실제 결제 동작은 확인하지 않았다.
+
+## 장바구니 페이지 마크업 경량화 (2026-11-02)
+
+`CartProductSection`은 준비된 상품 행 `rows`만 받고 total prop은 제거했다. 상품금액·배송비·결제예정금액은 `cartPreviewAmounts` 고정 화면 fixture로 표시하며 행 선택이나 수량과 연동해 합계를 재계산하지 않는다. `CartOrderActions`도 total prop 없이 기본 표시값을 사용하고 선택 상태 story만 `selectedPreview`로 명시한다. 목록과 전체 체크박스는 fixture 초기값에서 시작해 페이지 내 로컬 선택 상태로 동작한다. 옵션 변경 버튼은 dialog를 열지 않으며 고정 옵션 상태는 별도 preview URL에서 확인한다. 수량·관심상품 및 별도 옵션 preview의 선택은 로컬 화면 조작이다. 주문·삭제·옵션 저장은 연결하지 않는다. Storybook은 로컬 체크 선택과 고정 상태를 확인하고, 기본 페이지에서 제거한 옵션 편집 연결은 검증하지 않는다.
+
+작업 트리 출처: `src/app/cart/page.tsx`, `_components/CartProductSection.tsx`, `_components/CartOrderActions.tsx`, `cart-preview.ts`, `src/stories/features/cart/CartPage.scenarios.tsx`. 합계 prop 및 상수 참조 검색, Prettier, OKF 검사, `git diff --check`, Cart 변경 관련 타입 진단을 확인했다. 브라우저 시각 검증은 수행하지 않았다.

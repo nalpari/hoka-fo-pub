@@ -7,11 +7,7 @@ import { Stack } from 'styled-system/jsx';
 import { CartHeading } from '@/app/cart/_components/CartHeading';
 import { CartOrderActions } from '@/app/cart/_components/CartOrderActions';
 import { CartProductSection } from '@/app/cart/_components/CartProductSection';
-import {
-  cartPreviewRows,
-  cartPreviewSelectedTotal,
-  cartPreviewTotal,
-} from '@/app/cart/cart-preview';
+import { cartPreviewRows } from '@/app/cart/cart-preview';
 import CartPage from '@/app/cart/page';
 import CartEmptyPage from '@/app/cart/preview-empty/page';
 import CartLimitPreviewPage from '@/app/cart/preview-limit/page';
@@ -56,24 +52,22 @@ export const LimitOpen: Story = { render: () => <CartLimitPreviewPage /> };
 export const Selection: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const selectAll = canvas.getByRole('checkbox', { name: /전체 상품 선택/ });
+    const selectAll = canvas.getAllByRole('checkbox', { name: /전체 상품 선택/ })[0];
+    const firstItem = canvas
+      .getAllByRole('checkbox')
+      .find((checkbox) => checkbox.getAttribute('aria-label') !== '전체 상품 선택')!;
+
+    await userEvent.click(firstItem);
+    await expect(firstItem).toBeChecked();
+    await expect(canvas.getByText('(1/4)')).toBeVisible();
+
     await userEvent.click(selectAll);
     await expect(selectAll).toBeChecked();
+    await expect(canvas.getByText('(3/4)')).toBeVisible();
+
     await userEvent.click(selectAll);
     await expect(selectAll).not.toBeChecked();
-    const favorite = canvas.queryAllByRole('button', { name: /관심상품/ })[0];
-    if (favorite) {
-      await userEvent.click(favorite);
-      await expect(favorite).toHaveAttribute('aria-pressed', 'true');
-    }
-    await expect(canvas.getAllByText(/^3,350,000(?:원)?$/).length).toBeGreaterThan(0);
-    const before = canvas.getAllByRole('listitem').length;
-    for (const button of canvas.getAllByRole('button', { name: /주문하기/ }))
-      await userEvent.click(button);
-    const remove = canvas.queryAllByRole('button', { name: /삭제하기|Clifton 11 GTX 삭제/ })[0];
-    if (remove) await userEvent.click(remove);
-    await expect(canvas.getAllByRole('listitem')).toHaveLength(before);
-    await expect(canvas.queryByRole('link', { name: /주문하기/ })).not.toBeInTheDocument();
+    await expect(canvas.getByText('(0/4)')).toBeVisible();
   },
 };
 
@@ -101,9 +95,8 @@ export const MobileSelected: Story = {
             ...row,
             initialSelected: !row.soldOut,
           }))}
-          total={cartPreviewSelectedTotal}
         />
-        <CartOrderActions total={cartPreviewSelectedTotal} />
+        <CartOrderActions selectedPreview />
       </Stack>
     </OrderPageLayout>
   ),
@@ -111,41 +104,11 @@ export const MobileSelected: Story = {
 
 export const MobileSoldOut: Story = {
   ...Mobile,
-  render: () => <CartProductSection rows={cartPreviewRows} total={cartPreviewTotal} />,
+  render: () => <CartProductSection rows={cartPreviewRows} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getAllByRole('checkbox')[4]).toHaveAttribute('aria-disabled', 'true');
-    await userEvent.click(canvas.getByRole('checkbox', { name: /전체 상품 선택/ }));
-    await expect(canvas.getByText('(3/4)')).toBeVisible();
+    await expect(canvas.getByText('(0/4)')).toBeVisible();
     await expect(canvas.getAllByRole('checkbox')[4]).not.toBeChecked();
-  },
-};
-
-export const MobileOptions: Story = {
-  ...Mobile,
-  play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getAllByRole('button', { name: '옵션변경' })[0]);
-    await expect(
-      within(canvasElement.ownerDocument.body).getByRole('dialog', { name: '옵션 변경하기' }),
-    ).toBeVisible();
-  },
-};
-
-export const MobileOptionSave: Story = {
-  ...Mobile,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getAllByRole('button', { name: '옵션변경' })[0]);
-    const dialog = within(body.getByRole('dialog', { name: '옵션 변경하기' }));
-    await userEvent.click(dialog.getByRole('radio', { name: '255mm' }));
-    await expect(dialog.getByRole('radio', { name: '255mm' })).toBeChecked();
-    await userEvent.click(dialog.getByRole('button', { name: '확인' }));
-    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
-    await expect(canvas.getByText('옵션 : Regular / 브라운 / 235 1개')).toBeVisible();
-    await userEvent.click(canvas.getAllByRole('button', { name: '옵션변경' })[0]);
-    await expect(body.getByRole('radio', { name: '255mm' })).not.toBeChecked();
-    await userEvent.keyboard('{Escape}');
-    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
   },
 };

@@ -80,7 +80,7 @@ working_tree_sources:
 
 후속 옵션 시안의 색상 이미지·상품명은 `cartOptionPreview`에만 둔다. 기본 장바구니 행이나 실제 상품/재고 데이터로 확장하지 않는다. 수량 제한 안내는 `/cart/preview-limit`의 고정 상태이며 특정 수량에서 자동으로 발생하는 서비스 규칙을 만들지 않았다. 실제 제한 판정·안내 노출 시점·옵션 저장 요청과 오류 처리는 개발팀 장바구니 소유자가 연결한다.
 
-`cart-preview.ts`의 기본 화면은 4개 행 가운데 1개를 품절로 표시하고 선택은 0개로 시작한다. `cartPreviewTotal`은 Figma PC 기본 시안, `cartPreviewSelectedTotal`은 MO 3개 선택 시안의 고정 표시값이며 체크·수량으로 산출하는 장바구니 금액이 아니다. 수량 제한 안내 팝업은 품절 옵션 버튼으로 접근할 수 없던 시연 상태이므로 제거했다. 실제 결제 합계, 재고 제한 및 삭제·주문 동작은 여전히 개발팀 장바구니 소유자가 데이터와 요청 상태를 연결해야 한다. 작업 트리 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
+`cart-preview.ts`의 기본 화면은 4개 행 가운데 1개를 품절로 표시하고 선택 체크는 fixture의 `initialSelected`를 로컬 상태 초깃값으로 사용한다. 목록과 전체 체크박스는 페이지 내에서 선택할 수 있지만 합계는 변경하지 않는다. 옵션 변경 버튼은 편집 dialog를 열지 않으며 옵션 화면은 `/cart/preview-options`에서 고정 상태로 직접 확인한다. 수량과 관심상품도 현재 행 컴포넌트의 로컬 미리보기 조작이다. `cartPreviewAmounts`는 PC 합계와 모바일 선택 상태의 고정 표시 fixture다. `CartProductSection`은 `rows`만 받고 합계 props 없이 요약 금액을 직접 표시한다. 모바일 하단 액션도 금액 props 없이 기본/선택 preview 값 중 하나를 표시하며 체크·수량으로 합계를 산출하지 않는다. 실제 선택·옵션 변경·결제 합계, 재고 제한 및 삭제·주문 동작은 개발팀 장바구니 소유자가 데이터와 요청 상태를 연결해야 한다. 작업 트리 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartOrderActions.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
 
 ## 장바구니·로그인 퍼블리싱 인계 전환 (2026-10-30)
 

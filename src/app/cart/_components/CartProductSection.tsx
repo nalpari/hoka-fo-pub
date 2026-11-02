@@ -18,26 +18,22 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { itemKey } from '@/app/cart/cart-item';
-import type { CartPreviewRow } from '@/app/cart/cart-preview';
+import { cartPreviewAmounts, type CartPreviewRow } from '@/app/cart/cart-preview';
 import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 
-import { CartDialogs } from './CartDialogs';
-
 type CartProductSectionProps = {
-  rows: CartPreviewRow[];
-  total: number;
+  rows: readonly CartPreviewRow[];
 };
 
 type CartItemProps = {
   row: CartPreviewRow;
   selected: boolean;
   onSelect: (checked: boolean) => void;
-  onEdit: () => void;
 };
 
 /** 모바일 장바구니 상품 카드를 표시합니다. (Displays a mobile cart product card.) */
-function CartMobileItem({ row, selected, onSelect, onEdit }: CartItemProps) {
+function CartMobileItem({ row, selected, onSelect }: CartItemProps) {
   const { item, product, amount, soldOut } = row;
   const [favorite, setFavorite] = useState(false);
 
@@ -79,7 +75,7 @@ function CartMobileItem({ row, selected, onSelect, onEdit }: CartItemProps) {
               pb={{ base: '0', _mobile: '2' }}
               gap="1"
             >
-              <Button variant="link" size="sm" onClick={onEdit}>
+              <Button variant="link" size="sm">
                 옵션변경
               </Button>
               <Wishlist
@@ -98,7 +94,7 @@ function CartMobileItem({ row, selected, onSelect, onEdit }: CartItemProps) {
 }
 
 /** PC 장바구니 상품 행을 표시합니다. (Displays a desktop cart product row.) */
-function CartDesktopItem({ row, selected, onSelect, onEdit }: CartItemProps) {
+function CartDesktopItem({ row, selected, onSelect }: CartItemProps) {
   const { item, product, amount, soldOut } = row;
   const [quantity, setQuantity] = useState(item.quantity);
   const [favorite, setFavorite] = useState(false);
@@ -149,7 +145,7 @@ function CartDesktopItem({ row, selected, onSelect, onEdit }: CartItemProps) {
               <Typography variant="body3" tone="subtle" weight="medium">
                 옵션 : {item.width} / {item.color} / {item.size}
               </Typography>
-              <Button variant="link" size="md" onClick={onEdit} disabled={soldOut}>
+              <Button variant="link" size="md" disabled={soldOut}>
                 옵션변경
               </Button>
             </HStack>
@@ -199,52 +195,55 @@ function CartDesktopItem({ row, selected, onSelect, onEdit }: CartItemProps) {
 }
 
 /**
- * 장바구니 고정 표시와 최소 UI 조작을 제공합니다. (Displays fixed cart data with local UI controls.)
+ * 장바구니의 상품 목록과 금액 표시를 구성합니다. (Composes the cart product list and amount display.)
  *
- * [ 개발팀 바인딩 ] rows의 amount/soldOut과 total은 준비된 표시 예시이며 재계산하지 않습니다.
- * 체크·수량·관심·옵션 선택은 로컬 확인용입니다. 삭제·주문·옵션 저장 요청과 목록 갱신은 미연결입니다.
- * 실제 요청과 성공/실패/pending 처리는 개발팀 장바구니 소유자에서 연결합니다.
+ * [ 개발팀 바인딩 ] 상품 행의 amount/soldOut과 요약 금액은 고정 표시 예시이며 서로 재계산하지 않습니다.
+ * 체크 선택은 화면 확인용 로컬 상태이며 삭제·주문·옵션 저장 요청과 목록 갱신은 연결하지 않습니다.
+ * 실제 선택과 요청 처리는 개발팀 장바구니 소유자에서 연결합니다. 옵션 편집 디자인은 preview-options 경로에서 확인합니다.
  */
-export function CartProductSection({ rows, total }: CartProductSectionProps) {
+export function CartProductSection({ rows }: CartProductSectionProps) {
   const mobile = usePlatform() === 'mobile';
+  const CartItem = mobile ? CartMobileItem : CartDesktopItem;
   const availableKeys = rows.filter((row) => !row.soldOut).map(({ item }) => itemKey(item));
   const [selectedKeys, setSelectedKeys] = useState(() =>
     rows.filter((row) => row.initialSelected && !row.soldOut).map(({ item }) => itemKey(item)),
   );
-  const [editingRow, setEditingRow] = useState<{
-    item: CartPreviewRow['item'];
-    product: CartPreviewRow['product'];
-  } | null>(null);
-  const CartItem = mobile ? CartMobileItem : CartDesktopItem;
+  const selectedCount = selectedKeys.length;
+  const allSelected = availableKeys.length > 0 && selectedCount === availableKeys.length;
 
   const handleSelect = (key: string, checked: boolean) => {
-    setSelectedKeys((keys) => (checked ? [...keys, key] : keys.filter((value) => value !== key)));
+    setSelectedKeys((keys) =>
+      checked
+        ? keys.includes(key)
+          ? keys
+          : [...keys, key]
+        : keys.filter((value) => value !== key),
+    );
   };
 
-  const handleEdit = (row: CartPreviewRow) => {
-    setEditingRow(row.optionPreview ?? row);
+  const handleSelectAll = (checked: boolean) => {
+    setSelectedKeys(checked ? availableKeys : []);
   };
 
   return (
     <Stack gap={{ base: '0', _mobile: '4' }}>
-      <CartDialogs editingRow={editingRow} onEditClose={() => setEditingRow(null)} />
       <Box mb={{ base: '6', _mobile: '0' }}>
         <HStack justifyContent="space-between" alignItems={{ base: 'flex-end', _mobile: 'center' }}>
           <Checkbox
             aria-label="전체 상품 선택"
-            checked={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
-            onCheckedChange={(checked) => setSelectedKeys(checked ? availableKeys : [])}
+            checked={allSelected}
+            onCheckedChange={handleSelectAll}
             label={
               <Typography web="body2" mo="body4">
                 전체{' '}
                 <Typography as="span" web="body2" mo="body4" weight="medium">
-                  ({selectedKeys.length}/{rows.length})
+                  ({selectedCount}/{rows.length})
                 </Typography>
               </Typography>
             }
           />
           <HStack gap={{ base: '3', _mobile: '2' }}>
-            <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={selectedKeys.length === 0}>
+            <Button variant="link" size={mobile ? 'md' : 'sm'} disabled={selectedCount === 0}>
               선택상품 삭제
             </Button>
             <Button
@@ -268,8 +267,8 @@ export function CartProductSection({ rows, total }: CartProductSectionProps) {
         <HStack px="6" gap="4">
           <Checkbox
             aria-label="전체 상품 선택"
-            checked={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
-            onCheckedChange={(checked) => setSelectedKeys(checked ? availableKeys : [])}
+            checked={allSelected}
+            onCheckedChange={handleSelectAll}
             label={null}
           />
           <Box flex="1" textAlign="center">
@@ -294,7 +293,6 @@ export function CartProductSection({ rows, total }: CartProductSectionProps) {
               row={row}
               selected={selectedKeys.includes(key)}
               onSelect={(checked) => handleSelect(key, checked)}
-              onEdit={() => handleEdit(row)}
             />
           );
         })}
@@ -313,7 +311,7 @@ export function CartProductSection({ rows, total }: CartProductSectionProps) {
                 상품금액
               </Typography>
               <Typography variant="body3" weight="medium">
-                {total.toLocaleString()}원
+                {cartPreviewAmounts.product.toLocaleString()}원
               </Typography>
             </HStack>
             <Box borderTop="1px solid var(--colors-black-20)" />
@@ -322,7 +320,7 @@ export function CartProductSection({ rows, total }: CartProductSectionProps) {
                 배송비
               </Typography>
               <Typography variant="body3" weight="medium">
-                0원
+                {cartPreviewAmounts.shipping.toLocaleString()}원
               </Typography>
             </HStack>
           </Stack>
@@ -336,7 +334,9 @@ export function CartProductSection({ rows, total }: CartProductSectionProps) {
               </Typography>
             </Stack>
             <HStack gap="0.5" alignItems="baseline">
-              <Typography variant="heading7">{total.toLocaleString()}</Typography>
+              <Typography variant="heading7">
+                {cartPreviewAmounts.total.toLocaleString()}
+              </Typography>
               <Typography variant="headingKr9">원</Typography>
             </HStack>
           </Stack>

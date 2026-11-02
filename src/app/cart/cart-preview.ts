@@ -113,7 +113,9 @@ export const cartPreviewRows: CartPreviewRow[] = [
   },
 ];
 
-export const cartPreviewTotal = 3350000;
-
-/** 모바일 선택 상태 시안에 표시된 고정 금액입니다. (Fixed amount shown in the mobile selected-state design.) */
-export const cartPreviewSelectedTotal = 1236500;
+export const cartPreviewAmounts = {
+  product: 3350000,
+  shipping: 0,
+  total: 3350000,
+  selectedTotal: 1236500,
+};

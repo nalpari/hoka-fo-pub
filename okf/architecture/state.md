@@ -249,6 +249,10 @@ RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture �
 
 `/login`은 인증 호출·정규식/비밀번호 검증·요청 상태·계정 잠금/성공 이동·저장소 연동을 제거했다. 입력과 아이디 저장 체크는 로컬 확인용이고 폼 제출은 기본 동작만 차단한다. `/login/preview-error`의 오류는 고정 표시다. ShopShell의 기존 로그인·장바구니 계약과 다른 라우트 소비자는 유지한다.
 
+## 장바구니 금액 fixture와 로컬 화면 상태 (2026-11-02)
+
+현재 `/cart`는 상품 행 fixture만 화면 컴포넌트에 전달한다. 상품금액·배송비·전체 합계·모바일 선택 상태 금액은 `cartPreviewAmounts`에서 독립적으로 고정 표시하며 선택된 상품이나 수량으로 계산하지 않는다. 체크 선택은 화면 내부 로컬 상태로 동작하고 금액은 갱신하지 않는다. 옵션 dialog 열기 상태는 기본 페이지에 없으며 별도 preview URL의 옵션 draft는 화면 확인용 로컬 상태다. 주문·삭제·옵션 저장 및 장바구니 목록 갱신 상태는 구현하지 않는다. 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `CartModalPreview.tsx`.
+
 ## 장바구니 옵션 표시 변경의 상태 영향 없음 (2026-10-27)
 
 `ProductOptionList` 장바구니 배치의 선택 밑줄만 4px로 수정했다. `selectedId`, `aria-pressed`, `onSelect`와 상위 장바구니 선택 상태에는 변경이 없다. 세부 스타일은 [UI 기록](ui.md#장바구니-컬러-선택-밑줄-두께-2026-10-27)에 기록했다.

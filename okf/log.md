@@ -1507,3 +1507,10 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 
 - CheckoutContent의 total·discount·shippingFee props와 상품 합계 산출을 제거했다. 금액 요약은 컴포넌트 안의 고정 화면 fixture로 표시하고 결제 CTA는 금액 산출 없이 버튼 문구만 표시한다. CheckoutContext는 저장 배송지 표시 데이터만 담당하며, 쿠폰 목록은 정적 화면 fixture이고 쿠폰 선택은 로컬 상태다.
 - OKF의 주문서 바인딩·상태·UI 범위 설명을 새 경계에 맞춰 갱신했다.
+
+## 2026-11-02 — 장바구니 페이지 마크업 경량화
+
+- `CartProductSection`의 total prop과 `CartOrderActions`의 금액 prop을 제거하고, 고정 요약 금액은 `cartPreviewAmounts`에 모았다. 선택·수량 기반 합계 계산은 없다. 목록 체크박스는 fixture 초기 선택값으로 시작하는 로컬 상태로 동작하며 옵션 변경 버튼은 dialog를 열지 않는다. 옵션 편집은 고정 preview URL에서만 확인한다.
+- 기본/모바일 Storybook에 체크박스 로컬 선택과 전체 선택 사례를 유지하고 옵션 변경 trigger에 의존하던 목록 story를 제거했다. 라우트 및 preview URL은 변경하지 않았다.
+- 범위·바인딩 경계를 `architecture/ui.md`, `architecture/data-binding.md`, `architecture/state.md`, `architecture/routing.md`에 기록했다.
+- Prettier, `npm run okf:check`, `git diff --check`를 통과했고 이전 합계 prop·상수 참조가 남지 않은 것을 확인했다. TypeScript 전체 검사는 Cart 오류 없이 오래된 `.next` 라우트 참조와 ProductListingPage PageProps 오류로 실패했다. 브라우저 시각 검증은 수행하지 않았다.

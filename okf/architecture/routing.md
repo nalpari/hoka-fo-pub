@@ -753,3 +753,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 주문서 기본 경로의 표시 전용 동작 (2026-11-02)
 
 `/checkout`은 기존 URL과 선택 상품 쿼리 `selected`를 유지하며 장바구니 표시 데이터를 주문서 화면에 배치한다. 결제 제출 요청·검증·완료 상태 전환과 장바구니 항목 삭제 흐름을 경로에서 제거했다. 고정 empty/error/complete preview URL은 각각 시안 상태를 직접 보여주는 기존 화면으로 유지하며 기본 주문서와 제출 흐름을 공유하지 않는다.
+
+## 장바구니 페이지 마크업 경량화 (2026-11-02)
+
+`/cart`와 기존 empty·limit·options preview URL은 유지한다. 기본 페이지는 상품 행 fixture를 전달하고 요약 금액은 `cart-preview.ts`의 고정 표시값으로 렌더링한다. 합계 props와 계산 흐름은 두지 않는다. 선택·수량·관심상품·옵션 dialog는 화면 확인용 로컬 상태이며 주문·삭제·저장 요청은 연결하지 않는다. 출처: `src/app/cart/page.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `CartOrderActions.tsx`, `cart-preview.ts`.
