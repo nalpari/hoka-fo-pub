@@ -758,3 +758,11 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 약관 시안과 URL 상태 보존 (2026-11-02)
 
 `/support/terms`는 이용 약관, `/support/terms?tab=privacy`는 개인정보 처리방침을 표시한다. Figma 섹션 `1973:15873` 적용에서 기존 `useSearchParams`·router.push 및 부가 query 보존 계약을 유지하며 새 경로를 추가하지 않았다. 제목 아래 여백과 모바일 하단 여백만 라우트 소유자에서 조정한다. 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`. [표시 기준과 검증](support-design.md#약관-figma-재적용-2026-11-02).
+
+## 고객센터 메인 시안 재적용 (2026-11-02)
+
+`src/app/support/page.tsx`와 `_components/SupportContacts.tsx`의 표시만 변경한다. /support의 하단 문의·FAQ 안내는 기존 /support/inquiries/new와 /support/faq 경로를 사용하며 새 상태 URL이나 URL 상태를 추가하지 않는다. 공용 플랫폼 선택·서버/클라이언트 경계는 유지한다. 시안과 검증 한계는 [고객센터 시안 기록](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)을 참고한다. 작업 트리 출처는 두 소스와 고객센터 메인 WEB/Mobile 스토리다.
+
+## 지정 고객센터 섹션과 라우트 소유권 (2026-11-02)
+
+/support의 page는 헤더와 화면 조합을 유지하며, 하단 문의/FAQ UI는 _components/SupportQuickLinks.tsx가 소유한다. 기존 /support/inquiries/new·/support/faq 링크와 클라이언트 경계를 유지한다. 새 경로는 없으며 sourceGraph는 정식 screen-files로 재생성했다. 실측과 검증 한계는 [고객센터 기록](support-design.md#지정-고객센터-섹션-간격타이포-보정-2026-11-02)을 참고한다.

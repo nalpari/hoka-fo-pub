@@ -3865,3 +3865,7 @@ InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 
 ## 약관 탭과 본문 Figma 적용 (2026-11-02)
 
 약관 전용 `SupportTabs.variant="terms"`는 PC 40px·MO 32px 높이와 16px 일반 굵기를 사용한다. 기본 탭과 다른 고객지원 variant는 기존 계약을 유지한다. 본문 간격·폭·하단 안내 및 시안 프레임 차이는 [약관 디자인 기록](support-design.md#약관-figma-재적용-2026-11-02)을 참조한다. 작업 트리 출처: `src/components/common/molecules/SupportTabs.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`.
+
+## 고객센터 메인 Figma 재적용 (2026-11-02)
+
+`/support`는 지정 Figma 섹션의 PC/MO에 맞춰 연락처 카드의 #F7F7F9 배경·일반 굵기·숫자 타입을 적용하고, 하단 안내를 통합 테두리·구분선·40px ButtonLink로 표시한다. 기존 공통 Button·Typography·CustomerCenterLayout을 재사용하며 공통 기본값은 변경하지 않는다. WEB/Mobile 스토리의 오래된 FAQ 제목 부재 검증을 제목 표시 및 두 링크 경로 검증으로 변경한다. [수치·운영번호 보존·실제 검증과 한계](support-design.md#顧客센터-메인-figma-재적용-2026-11-02)에 기록했다. 출처는 고객센터 메인 페이지·route-private SupportContacts 및 두 메인 스토리의 작업 트리다.

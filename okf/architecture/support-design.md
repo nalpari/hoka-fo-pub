@@ -9,6 +9,8 @@ generated:
   at: "2026-11-02T00:43:51.022Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/_components/SupportContacts.tsx
+  - src/app/support/_components/SupportQuickLinks.tsx
   - src/app/support/terms/_components/TermsDocument.tsx
   - src/components/care-guide/care.data.ts
   - src/app/support/care/_components/CareContent.tsx
@@ -42,6 +44,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: customer-center-current-figma
+    resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-14962'
+    title: '고객센터 PC·모바일 지정 섹션'
   - id: terms-figma-20261102
     resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15873'
     title: '약관 PC 개인정보 및 모바일 이용약관·개인정보 시안'
@@ -203,3 +208,21 @@ Codex 브라우저 검증(2026-11-02): 1920px 및 375px에서 두 탭의 선택�
 브라우저에서 두 URL의 탭 전환·뒤로/앞으로 탐색, 시행일 변경, Escape 닫기와 트리거 포커스 복원을 확인했다. 1920px PC 본문 844×407px·탭 40px, 375px MO 제목 22px·탭 32px·본문 높이 404px과 하단 안내 12px/#777777·12px 간격, 하단 여백 64px을 DOM 계산값으로 확인했다. 양쪽 가로 넘침은 없다. Windows 세로 스크롤바 15px 때문에 PC clientWidth는 1905px, MO는 360px이며, 공통 홍보 배너와 모바일 status bar 차이를 시안 절대 좌표와 구분한다. 실제 글리프는 제목 Pretendard Black·탭 Pretendard Regular였고, 시행일에 `language="ko"`를 지정한 뒤 숫자도 Pretendard Regular임을 확인했다. Storybook의 명시적 WEB/Mobile 기본 약관에서 각각 탭 40/32px·본문 높이 407/404px을 확인했다. 기존 회색 표시 자료와 BO 본문 연결은 유지하며 새 서비스 계약 검증 대상은 없다.
 
 Figma 모바일 프레임 PNG는 확인했으나 실행 화면의 스크린샷 캡처는 시간 초과로 실패했다. 따라서 DOM·실제 폰트 검증과 별개로 최종 스크린샷 시각 대조는 완료하지 못했다. 별도 PC 이용약관 시안, 실제 운영 약관 본문과 서버 조회는 이번 작업에서 제공·검증되지 않았다.
+
+## 지정 고객센터 섹션 간격·타이포 보정 (2026-11-02)
+
+지정 섹션 `1973:14962`의 PC `1973:15037`과 모바일 `1973:14963`을 확인했다. 이번 기준은 아래 이전 섹션 기록보다 우선한다. 본문 844px과 연락처 카드 표현은 유지하고 제목/설명 간격을 PC 16px·모바일 24px, 헤더/카드 간격을 56px·40px, 연락처/하단 안내 간격을 32px·8px로 보정했다. 하단 제목은 Pretendard PC 20px/600·모바일 20px/700, 행간 24px이다. 52px 열 간격 중앙에 구분선을 두고 각 열을 같은 폭으로 배치했다. 모바일 첫 연락처 카드는 최소 322px에서 내용에 따라 확장한다.
+
+하단 안내는 라우트 전용 `SupportQuickLinks.tsx`로 옮겼다. 기존 문의 작성·FAQ 링크와 운영 전화번호를 보존하며 새 서비스 계약·상태 URL은 추가하지 않았다. 시안의 PC/모바일 전화번호는 상이하므로 운영번호 변경의 근거로 쓰지 않는다. 디자인 시스템 별도 파일에서는 요청 노드를 찾지 못해 이번 규격은 지정 화면의 스타일·컴포넌트 참조를 근거로 삼았다.
+
+Codex는 1920px·375px viewport에서 본문/카드 위치와 크기, 하단 제목 굵기, 40px 버튼 및 링크를 DOM으로 확인했다. Windows 스크롤바를 제외한 clientWidth는 1905px·360px이며 가로 넘침은 없었다. 모바일 첫 카드 높이는 322px, PC 본문은 844px, 하단 두 열은 각 363px이다. 실제 제목 글리프가 Pretendard Black을 사용하는 것도 확인했다. 캡처는 시간 초과 또는 검정 이미지로 실패하여 시각 대조를 완료하지 못했다. 전체 lint:fix는 범위 밖 로그인·가입 완료의 미사용 import 2건, 타입 검사는 동시 작업 중인 SupportTabs·AfterSalesContent 오류로 실패했다. 변경한 세 TSX의 ESLint·Prettier와 Panda 생성, git diff --check는 통과했다. Next.js 프로덕션 컴파일은 성공했으나 후속 전체 타입 검사는 범위 밖 SizeGuidePanel의 중복 JSX 속성과 TermsDocument의 normal weight 오류로 실패했다. 실행 중인 다른 채팅의 변경은 보존했다.
+
+## 顧客센터 메인 Figma 재적용 (2026-11-02)
+
+사용자 지정 섹션 `1241:78708`의 PC `1322:125606`·모바일 `1368:128720`을 재확인했다. 2026-10-22의 “연락처 카드 두 개만 표시” 기록은 현재 시안과 다르며, 하단 1:1 문의·FAQs 안내와 바로가기 버튼을 함께 표시하는 구성으로 대체한다.
+
+본문 844px, 연락처 배경 #F7F7F9, 카드 사이 및 하단 안내 앞 간격 8px, 연락처 내부 PC 52px·모바일 32px 간격을 적용한다. 하단은 #E9EAEB 테두리와 구분선, PC 가로 2열/모바일 세로 배치, 32px 외곽 패딩(모바일 좌우는 항목별 16px), 40px Secondary Short 버튼을 사용한다. 제목은 기존 PC 36px·모바일 28px, 연락처 제목은 22px를 유지한다. 숫자와 TEL은 기존 HOKA 영문 body 타입, 안내는 일반 굵기로 표시한다. 공통 레이아웃·네비게이션 순서·상단 배너·헤더·푸터는 이 변경의 대상이 아니다.
+
+운영 전화번호는 기존 고객상담실 080-665-5552·온라인 스토어 080-2225-6660과 각 tel 링크를 유지한다. 시안의 PC 온라인 번호와 모바일 공통 번호는 서로 달라 운영정보 확정 근거로 사용하지 않는다. 이 값은 고정 표시 자료이며 실제 BO/API 연동은 구현하지 않았다. 기존 문의 작성 /support/inquiries/new와 FAQ /support/faq 이동을 유지한다. 연결 주석은 페이지에 둔다.
+
+Codex 검증: Panda 생성·타입 검사 통과. 1920px 및 375px viewport에서 본문/카드·버튼·폰트 계산값과 가로 넘침 없음을 DOM으로 확인했다. Windows 세로 스크롤바 15px 때문에 각각 clientWidth 1905px·360px이며, 앱 공통 홍보 배너와 모바일 status bar 차이가 있어 시안의 절대 y좌표와 구분한다. 제목 실제 글리프는 Pretendard Black으로 확인했다. 이미지 캡처는 시간 초과 또는 검정 이미지로 실패하여 최종 스크린샷의 시각 대조는 완료하지 못했다. 전체 lint:fix는 기존 로그인 FindAccountContent의 css·가입 완료의 Stack 미사용 import 2건으로 실패했으며 범위 밖 소스는 수정하지 않았다. PC/MO Storybook 검증은 신규 하단 제목과 링크 계약에 맞춰 갱신했다.

@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
@@ -18,7 +16,10 @@ type Props = {
   lunchBreak: string;
 };
 
-const phoneLink = css({ _mobile: { textDecoration: 'underline', textUnderlineOffset: '2px' } });
+const phoneLink = css({
+  display: 'inline-flex',
+  _mobile: { textDecoration: 'underline', textUnderlineOffset: '2px' },
+});
 
 function SupportContactCard({
   headingId,
@@ -34,7 +35,7 @@ function SupportContactCard({
     <Stack
       as="section"
       aria-labelledby={headingId}
-      bg="black.10"
+      bg="#F7F7F9"
       direction={{ base: 'row', _mobile: 'column' }}
       alignItems="flex-start"
       justifyContent="space-between"
@@ -42,6 +43,7 @@ function SupportContactCard({
       px="8"
       py="10"
       _mobile={{ px: '4', pt: '6', pb: '8' }}
+      css={{ '&:first-child': { _mobile: { minH: '322px', gap: '0' } } }}
     >
       <Stack gap="3" w={{ base: '280px', _mobile: 'full' }} flexShrink="0">
         <Typography as="h2" id={headingId} web="heading8" mo="heading5">
@@ -52,37 +54,47 @@ function SupportContactCard({
         </Typography>
       </Stack>
 
-      <Stack gap={{ base: '52px', _mobile: '32px' }} flex="1" minW="0">
+      <Stack
+        gap={{ base: '52px', _mobile: '32px' }}
+        flex={{ base: '1', _mobile: 'none' }}
+        minW="0"
+        minH={{ base: '196px', _mobile: '0' }}
+      >
         <Stack gap="3">
-          <Typography web="body3" mo="body3" weight="medium">
+          <Typography web="body3" mo="body3">
             호카/호카 키즈
           </Typography>
           <HStack gap="1" alignItems="baseline">
-            <Typography as="span" web="body3" mo="body3" weight="medium">
+            <Typography as="span" web="body2" mo="body3" language="en">
               TEL.
             </Typography>
-            <Link className={phoneLink} href={phoneHref}>
-              <Typography as="span" web="body2" mo="body3" weight="medium">
+            <a className={phoneLink} href={phoneHref}>
+              <Typography as="span" web="body2" mo="body3" language="en">
                 {phone}
               </Typography>
-            </Link>
+            </a>
           </HStack>
         </Stack>
 
         <Stack gap="3">
-          <Typography web="body3" mo="body3" weight="medium">
+          <Typography web="body3" mo="body3">
             {operatingHoursTitle}
           </Typography>
-          <Stack gap="2">
+          <Stack gap={{ base: '2', _mobile: '10px' }}>
             <HStack gap="1" alignItems="baseline" flexWrap="wrap">
-              <Typography as="span" web="body2" mo="body3" weight="medium">
+              <Typography as="span" web="body2" mo="body3" language="en">
                 {operatingHours}
               </Typography>
-              <Typography as="span" web="body3" mo="body4">
+              <Typography
+                as="span"
+                web="body3"
+                mo="body4"
+                className={css({ whiteSpace: 'nowrap' })}
+              >
                 ({lunchBreak})
               </Typography>
             </HStack>
-            <Typography as="p" web="body4" mo="body5" tone="tertiary">
+            <Typography as="p" web="body4" mo="body4" tone="subtle">
               * 토,일,공휴일 휴무
             </Typography>
           </Stack>
