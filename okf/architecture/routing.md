@@ -814,3 +814,7 @@ FindAccountContent의 css import와 signup/complete의 Stack import를 제거했
 ## 색상 토큰 재사용 검토 (2026-11-02)
 
 쿠폰·리뷰 빈 결과·상품 척도·약관·고객센터·FAQ·공지·사이즈 가이드의 기존 색상 표현을 동일 값의 토큰으로 교체했다. 태그·page/private 경계·라우팅·상태·서비스 콜백과 데이터는 변경하지 않았다. [파일 출처·예외와 실제 검증](common-reuse-audit.md#기존-색상-토큰과-hex-대조-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:36:38Z.
+
+## Quick View 의존성 그래프 갱신 (2026-11-02)
+
+상품 카드 Quick View에서 별점을 제거한 뒤 정식 screen-files 생성으로 sourceGraph.generated.json의 ProductCard→RatingStars 의존성만 제거했다. 라우트·IA·preview 연결은 바꾸지 않았다. 출처: src/app/screen-index/sourceGraph.generated.json, src/components/common/molecules/ProductCard/ProductCard.tsx. 검토: codex/gpt-6, 2026-11-02T06:52:24Z. [구성과 검증](ui.md#pc-상품-카드-quick-view-간소화-2026-11-02)을 참고한다.

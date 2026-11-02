@@ -3993,3 +3993,13 @@ Codex가 375×815px 실행에서 header 74px·닫기 24×24px·top 104px, 성별
 ## 기존 색상 토큰의 정확한 값 재사용 (2026-11-02)
 
 재사용 조사 대상 64개 생산 TSX의 hex를 실제 Panda 색상 토큰과 대조했다. 16개 파일의 38개 표현을 기존 black/white/citrus/mossGreen/red 토큰으로 교체하고 border·gradient·fallback·important와 PC/MO 색상값을 보존했다. 동일 토큰이 없는 6종은 근사치로 바꾸지 않았다. [대응표·유지 근거·출처와 34상태 검증](common-reuse-audit.md#기존-색상-토큰과-hex-대조-2026-11-02)을 참고한다. 검토: codex/gpt-6, 2026-11-02T06:36:38Z.
+
+## PC 상품 카드 Quick View 간소화 (2026-11-02)
+
+사용자 확정 기준에 따라 ProductCardPreview에는 큰 이미지 링크와 컬러 옵션 캐러셀만 남긴다. 별점·리뷰 수·프로모션·성별·상품명·가격·용도·옵션 개수·사양표와 그 계산용 지역 값은 제거한다. 일반 ProductCard의 상품 정보·배지·가격·품절·찜과 공개 props/types는 유지한다. RatingStars 공용 구현은 삭제하지 않는다.
+
+이미지 링크가 relative·aspectRatio 1·flexShrink 0인 정사각형 영역을 소유하며 next/image fill과 object-fit contain으로 원본 비율을 유지한다. 최초 hoverImage와 선택 후 colorThumbnails의 id/image/label 계약은 기존 값이다. 원본 이미지 파일이나 상품 매핑은 교체하지 않았다. 패널의 배경·테두리·상하좌우 위치·padding·gap과 확장 폭도 유지한다. HoverPreview 스토리의 850px 고정 최소 높이는 폭에 따른 비율과 캐러셀 여유 공간으로 바꿨다.
+
+Codex 검증(2026-11-02T06:52:24Z): 1920px 상품 목록/preview-sold-out에서 이미지 영역 369.33×369.33px, 컬러 12개 선택 전후 패널 높이 494px 유지, 가로형 원본 480×389 및 세로형 원본 480×600의 contain 표시를 확인했다. 별점/상세 텍스트 없음, 컬러 선택 aria-pressed와 이미지 변경, 다음 색상 이동(scrollLeft 336), 찜 false→true, 상세 URL 이동, 마우스 이탈·Esc 닫기·키보드 진입을 확인했다. 품절·컬러 없음·할인 카드에서도 정사각형 컨테이너와 본래 카드 정보를 확인했다. 모바일 375px에서 Quick View 없음과 기존 카드 정보/옵션 유지, Storybook의 history/showcase에서 hover Quick View 없음과 정보 유지, HoverPreview의 246×246px 영역·컬러 없는 구성도 확인했다. HoverPreview의 1000×1000 원본 이미지 로드 완료 후 시각 확인과 전체 Storybook play는 미실행이다.
+
+변경 TSX ESLint/Prettier·전체 lint·타입 검사·Panda 생성·Next 프로덕션 빌드·Storybook 빌드가 통과했다. hoka-markup-handoff와 React 지침으로 기존 소유자·Panda·상태/접근성·서비스 경계를 검토했다. 바인딩/API/공용 타입 변경은 없다. 작업 트리 출처: src/components/common/molecules/ProductCard/ProductCard.tsx, src/stories/components/common/molecules/ProductCard/ProductCard.stories.tsx, src/app/screen-index/sourceGraph.generated.json.

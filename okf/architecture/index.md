@@ -1,5 +1,7 @@
 # 아키텍처
 
+[PC 상품 Quick View](ui.md#pc-상품-카드-quick-view-간소화-2026-11-02)는 이미지와 컬러 캐러셀 구성·정사각형 비율·기존 카드 보존을 설명한다.
+
 [메인·상품 상세 Figma 적용](home-product-design.md)은 두 화면의 PC/MO 수치·공통 표현 옵션·현재 선택 정보와 검증 및 시안 데이터 차이를 설명한다.
 
 [빈 상태·더보기·표 공통 컴포넌트 복원](ui.md#빈-상태더보기표-공통-컴포넌트-복원-2026-11-02)은 EmptyState·Button.loadMore·DataTable의 표시 옵션과 PC/MO 디자인 보존 검증을 기록한다.

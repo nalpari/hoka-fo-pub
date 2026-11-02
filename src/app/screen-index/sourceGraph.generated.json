@@ -1322,7 +1322,6 @@
     "src/components/common/molecules/ProductCard/ProductCard.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Card.tsx",
-      "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
       "src/components/common/molecules/ProductOptionList.tsx",
