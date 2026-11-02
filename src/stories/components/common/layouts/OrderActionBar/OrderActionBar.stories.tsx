@@ -70,3 +70,17 @@ export const Submit: Story = {
     await expect(onSubmit).toHaveBeenCalledTimes(1);
   },
 };
+
+export const MobileOnly: Story = {
+  ...Mobile,
+  args: {
+    variant: 'mobileOnly',
+    as: 'section',
+    ariaLabel: '세션 신청',
+    children: (
+      <Button fullWidth variant="primary" size="tall">
+        신청하기
+      </Button>
+    ),
+  },
+};

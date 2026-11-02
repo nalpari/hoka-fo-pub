@@ -1,11 +1,8 @@
 'use client';
-
 import Link from 'next/link';
 
-import { useContext, useState } from 'react';
-import { MyPageDataContext } from '@/context/MyPageDataContext';
+import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -15,7 +12,6 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import {
   Carousel,
   CarouselPagination,
@@ -28,13 +24,11 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { menuSections, type MyPageOrderItem, orderItems } from '@/app/mypage/mypage-home-data';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-
 type LogoutDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
-
 function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
   return (
     <ModalDialog
@@ -51,16 +45,12 @@ function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
     </ModalDialog>
   );
 }
-
 const membershipLink = css({
   color: 'inherit',
   textDecoration: 'underline',
   textUnderlineOffset: '2px',
 });
-
 function MyPageMembership() {
-  const binding = useContext(MyPageDataContext).overview;
-  const summary = binding?.item;
   return (
     <Box bg="black.10" p="8" minW="0" _mobile={{ px: '4', py: '5' }}>
       <Stack gap="3">
@@ -78,11 +68,11 @@ function MyPageMembership() {
               color="offWhite.100"
             >
               <Typography web="heading8" mo="heading6" language="en" weight="black">
-                {binding ? summary?.tierInitial : 'R'}
+                {'R'}
               </Typography>
             </HStack>
             <Typography web="heading7" mo="heading5" language="en">
-              {binding ? summary?.tier : 'RUNNER'}
+              {'RUNNER'}
             </Typography>
           </HStack>
           <Link className={membershipLink} href="/mypage/rewards">
@@ -91,21 +81,19 @@ function MyPageMembership() {
         </HStack>
         <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '10' }}>
           <Typography as="p" web="body3" mo="body5">
-            {binding ? summary?.nextTierText : '다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
+            {'다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
           </Typography>
         </Box>
       </Stack>
     </Box>
   );
 }
-
 type MyPageBenefitItemProps = {
   href: string;
   label: string;
   count: number;
   unit: string;
 };
-
 const benefitLink = css({
   minW: '0',
   bg: 'black.10',
@@ -114,7 +102,6 @@ const benefitLink = css({
   textDecoration: 'none',
   _mobile: { px: '4', py: '5' },
 });
-
 function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps) {
   return (
     <Link className={benefitLink} href={href}>
@@ -134,38 +121,21 @@ function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)
     </Link>
   );
 }
-
 function MyPageBenefits() {
-  const binding = useContext(MyPageDataContext).overview;
-  const summary = binding?.item;
   return (
     <Grid columns={2} gap="2" h="full">
-      <MyPageBenefitItem
-        href="/mypage/coupons"
-        label="내 쿠폰"
-        count={binding ? (summary?.couponCount ?? 0) : 3}
-        unit="개"
-      />
-      <MyPageBenefitItem
-        href="/mypage/wishlist"
-        label="관심상품"
-        count={binding ? (summary?.wishlistCount ?? 0) : 6}
-        unit="건"
-      />
+      <MyPageBenefitItem href="/mypage/coupons" label="내 쿠폰" count={3} unit="개" />
+      <MyPageBenefitItem href="/mypage/wishlist" label="관심상품" count={6} unit="건" />
     </Grid>
   );
 }
-
 const profileLink = css({
   display: 'inline-flex',
   alignSelf: 'flex-start',
   color: 'inherit',
   textDecoration: 'none',
 });
-
 function MyPageOverviewProfile() {
-  const binding = useContext(MyPageDataContext).overview;
-  const summary = binding?.item;
   return (
     <ContentSection
       gap="8"
@@ -181,7 +151,7 @@ function MyPageOverviewProfile() {
                   mo="heading4"
                   className={css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } })}
                 >
-                  {binding ? summary?.name : '박연진'}
+                  {'박연진'}
                 </Typography>
                 <Typography as="span" variant="body1">
                   님
@@ -212,7 +182,6 @@ function MyPageOverviewProfile() {
     </ContentSection>
   );
 }
-
 function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   return (
     <HStack position="relative" alignItems="flex-start" gap="4">
@@ -255,13 +224,9 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
     </HStack>
   );
 }
-
 function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
-  const binding = useContext(MyPageDataContext).overview;
-  const summary = binding?.item;
   const platform = usePlatform();
-  const items = empty ? [] : binding ? (summary?.orders ?? []) : orderItems;
-
+  const items = empty ? [] : orderItems;
   return (
     <ContentSection
       as="section"
@@ -361,14 +326,11 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
     </ContentSection>
   );
 }
-
 type MyPageMenuItemProps = {
   label: string;
   to: string;
 };
-
 const menuLink = css({ display: 'block', borderBottom: '1px solid var(--color-border-subtle)' });
-
 function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
   return (
     <Link className={menuLink} href={to}>
@@ -379,7 +341,6 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
     </Link>
   );
 }
-
 function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuItemProps[] }) {
   return (
     <ContentSection
@@ -405,17 +366,19 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
     </ContentSection>
   );
 }
-
+/** [ 개발팀 바인딩 ] previewLogout은 확인창의 초기 표시만 지정합니다. 이 고정 상태에서는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
-export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: boolean }) {
-  const binding = useContext(MyPageDataContext).overview;
-  const { logout: onLogout } = useShop();
-  const [logoutOpen, setLogoutOpen] = useState(false);
-
+export function RouteContent({
+  previewNoOrders = false,
+  previewLogout = false,
+}: {
+  previewNoOrders?: boolean;
+  previewLogout?: boolean;
+}) {
+  const [logoutOpen, setLogoutOpen] = useState(previewLogout);
   return (
     <>
       <MyPageFrame activePath="/mypage" layout="centered">
-        <BindingFeedback {...binding} />
         <Stack gap="14" _mobile={{ pt: '6', gap: '8' }}>
           <MyPageOverviewProfile />
           <MyPageRecentOrders empty={previewNoOrders} />
@@ -447,13 +410,11 @@ export function RouteContent({ previewNoOrders = false }: { previewNoOrders?: bo
         onOpenChange={setLogoutOpen}
         onConfirm={() => {
           setLogoutOpen(false);
-          if (!previewNoOrders) onLogout();
         }}
       />
     </>
   );
 }
-
 export const routePreviewComponents = { LogoutDialog } satisfies Pick<
   typeof import('@/types/component-contracts/app-mypage-page'),
   'LogoutDialog'

@@ -1,9 +1,8 @@
 'use client';
-
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import { Tooltip } from '@base-ui/react/tooltip';
 import {
@@ -26,16 +25,17 @@ import {
   useState,
 } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
-import { useShop } from '@/context/ShopShell';
 
 import { css, cva } from 'styled-system/css';
-import { Box, Divider, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button, type ButtonIconProps, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
+import { Divider } from '@/components/common/atoms/Divider';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
@@ -50,7 +50,7 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
-import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductCard, ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductDetailImage } from '@/components/common/molecules/ProductDetailImage';
 import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
@@ -75,18 +75,21 @@ import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
-
 const ProductDetailViewerContent = dynamic(() => import('./ProductDetailViewerContent'), {
   loading: () => <Typography role="status">상품 이미지를 불러오는 중입니다.</Typography>,
 });
-
-class ViewerContentBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class ViewerContentBoundary extends Component<
+  {
+    children: ReactNode;
+  },
+  {
+    failed: boolean;
+  }
+> {
   state = { failed: false };
-
   static getDerivedStateFromError() {
     return { failed: true };
   }
-
   render() {
     return this.state.failed ? (
       <Typography role="alert">
@@ -97,13 +100,12 @@ class ViewerContentBoundary extends Component<{ children: ReactNode }, { failed:
     );
   }
 }
-
 function ProductDetailGrid({ children }: { children: ReactNode }) {
   return (
     <Grid
       w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
       mx="auto"
-      gridTemplateColumns="minmax(0, 1016fr) minmax(340px, 480fr)"
+      gridTemplateColumns="minmax(0, 1016fr) minmax(340px, 484fr)"
       gap="8"
       _mobile={{ display: 'block', w: '100%' }}
     >
@@ -111,9 +113,11 @@ function ProductDetailGrid({ children }: { children: ReactNode }) {
     </Grid>
   );
 }
-
-type Props = { isViewing: boolean; children: ReactNode; footer: ReactNode };
-
+type Props = {
+  isViewing: boolean;
+  children: ReactNode;
+  footer: ReactNode;
+};
 /** Keep the purchasing grid contained and its footer outside the grid. */
 function ProductDetailBody({ isViewing, children, footer }: Props) {
   return (
@@ -123,18 +127,15 @@ function ProductDetailBody({ isViewing, children, footer }: Props) {
     </Box>
   );
 }
-
 const ProductDetailLayoutStyles = {
   page: css({ w: '100%', pt: '14', pb: '24', _mobile: { pt: 0 } }),
 };
-
 type ProductDetailLayoutProps = {
   viewer: ReactNode;
   isViewing: boolean;
   children: ReactNode;
   footer: ReactNode;
 };
-
 function ProductDetailLayout({ viewer, isViewing, children, footer }: ProductDetailLayoutProps) {
   return (
     <ContentLayout className={ProductDetailLayoutStyles.page}>
@@ -145,14 +146,12 @@ function ProductDetailLayout({ viewer, isViewing, children, footer }: ProductDet
     </ContentLayout>
   );
 }
-
 type ProductDetailImageViewerProps = {
   images: string[];
   initialIndex: number;
   onClose: () => void;
   productName: string;
 };
-
 const viewerClose = css({
   position: 'absolute',
   top: '8',
@@ -160,7 +159,6 @@ const viewerClose = css({
   zIndex: '2',
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
 });
-
 function ProductDetailImageViewer({
   images,
   initialIndex,
@@ -168,11 +166,9 @@ function ProductDetailImageViewer({
   productName,
 }: ProductDetailImageViewerProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     closeRef.current?.focus({ preventScroll: true });
   }, []);
-
   return (
     <Box
       as="section"
@@ -212,13 +208,11 @@ function ProductDetailImageViewer({
     </Box>
   );
 }
-
 type ProductImageGridProps = {
   images: string[];
   productName: string;
   onOpenImage: (index: number) => void;
 };
-
 function ProductImageGrid({ images, productName, onOpenImage }: ProductImageGridProps) {
   return (
     <Grid aria-label="상품 이미지" gap="4" gridTemplateColumns="repeat(2, minmax(0, 1fr))">
@@ -234,7 +228,6 @@ function ProductImageGrid({ images, productName, onOpenImage }: ProductImageGrid
     </Grid>
   );
 }
-
 const carouselStyles = {
   dots: css({
     position: 'relative',
@@ -246,12 +239,10 @@ const carouselStyles = {
     gap: '5px',
   }),
 };
-
 type ProductImageCarouselProps = {
   images: string[];
   productName: string;
 };
-
 function ProductImageCarousel({ images, productName }: ProductImageCarouselProps) {
   return (
     <Box as="section" aria-label="상품 이미지" bg="var(--color-black-10)">
@@ -272,23 +263,18 @@ function ProductImageCarousel({ images, productName }: ProductImageCarouselProps
     </Box>
   );
 }
-
 type ProductDetailGalleryProps = {
   images: string[];
   productName: string;
   onOpenImage: (index: number) => void;
 };
-
 /** 상품 이미지를 그리드 또는 캐러셀로 표시합니다. (Displays product images in a grid or carousel.) */
 function ProductDetailGallery({ images, productName, onOpenImage }: ProductDetailGalleryProps) {
   const platform = usePlatform();
-
   if (platform === 'mobile')
     return <ProductImageCarousel images={images} productName={productName} />;
-
   return <ProductImageGrid onOpenImage={onOpenImage} images={images} productName={productName} />;
 }
-
 type InquiryBoardHeaderProps = {
   headingId: string;
   title: string;
@@ -299,7 +285,6 @@ type InquiryBoardHeaderProps = {
   onExcludePrivateChange: (checked: boolean) => void;
   action?: ReactNode;
 };
-
 /** 문의 게시판의 제목·건수·필터 동작을 배치합니다. (Arranges the inquiry board title, count, and filter action.) */
 function InquiryBoardHeader({
   headingId,
@@ -358,7 +343,6 @@ function InquiryBoardHeader({
     </Flex>
   );
 }
-
 function InquiryBoardContent({
   item,
   variant = 'default',
@@ -392,18 +376,18 @@ function InquiryBoardContent({
     </Stack>
   );
 }
-
 type InquiryMetadata = {
   id: string;
   author: string;
   date: string;
   status: 'pending' | 'answered';
 };
-
 /** Restricted entries deliberately carry no private title, body, or answer. */
 type InquiryBoardEntry = InquiryMetadata &
   (
-    | { visibility: 'restricted' }
+    | {
+        visibility: 'restricted';
+      }
     | {
         visibility: 'public' | 'private';
         title: string;
@@ -411,7 +395,6 @@ type InquiryBoardEntry = InquiryMetadata &
         answer?: ReactNode;
       }
   );
-
 type InquiryBoardProps = {
   title: string;
   items: readonly InquiryBoardEntry[];
@@ -422,7 +405,6 @@ type InquiryBoardProps = {
   pageSize?: number;
   loadMoreSize?: number;
 };
-
 const styles = {
   item: css({ borderBottom: '1px solid var(--color-border-default)' }),
   trigger: css({
@@ -452,14 +434,12 @@ const styles = {
     whiteSpace: 'pre-wrap',
     _mobile: { p: '24px 12px' },
   }),
-
   empty: css({
     py: '48px',
     textAlign: 'center',
     borderBottom: '1px solid var(--color-border-default)',
   }),
 };
-
 function InquirySubject({
   item,
   variant,
@@ -468,7 +448,6 @@ function InquirySubject({
   variant: 'default' | 'product';
 }) {
   const isPrivate = item.visibility !== 'public';
-
   return (
     <Grid
       as="span"
@@ -520,7 +499,6 @@ function InquirySubject({
     </Grid>
   );
 }
-
 /** Shared inquiry board for product details and account inquiry history. */
 function InquiryBoard({
   title,
@@ -541,7 +519,6 @@ function InquiryBoard({
   const limit = pageSize === undefined ? visibleItems.length : shownCount;
   const displayedItems = visibleItems.slice(0, limit);
   const nextCount = Math.min(loadMoreSize, visibleItems.length - limit);
-
   return (
     <Box as="section" w="100%" minW="0" aria-labelledby={headingId} className={className}>
       <InquiryBoardHeader
@@ -572,29 +549,42 @@ function InquiryBoard({
           }))}
         />
       ) : (
-        <Typography
-          as="p"
-          variant={variant === 'product' ? 'body3' : 'body4'}
-          tone={variant === 'product' ? 'primary' : 'tertiary'}
-          className={variant === 'product' ? styles.productEmpty : styles.empty}
+        <EmptyState
+          variant="plain"
           role="status"
-        >
-          {excludePrivate && variant !== 'product'
-            ? '공개로 등록된 문의글이 없습니다.'
-            : '등록된 문의글이 없습니다.'}
-        </Typography>
+          title={
+            excludePrivate && variant !== 'product'
+              ? '공개로 등록된 문의글이 없습니다.'
+              : '등록된 문의글이 없습니다.'
+          }
+          titleProps={{
+            as: 'p',
+            variant: variant === 'product' ? 'body3' : 'body4',
+            tone: variant === 'product' ? 'primary' : 'tertiary',
+            className:
+              variant === 'product'
+                ? [styles.productEmpty, css({ textAlign: 'start' })].join(' ')
+                : styles.empty,
+          }}
+        />
       )}
       {nextCount > 0 && (
         <Flex justifyContent="center" py="5">
-          <Button variant="plain" onClick={() => setShownCount((count) => count + nextCount)}>
-            더 보기 ({nextCount}) <Icon fontAwesomeIcon={faChevronDown} size="16px" />
-          </Button>
+          <Button
+            variant="plain"
+            onClick={() => setShownCount((count) => count + nextCount)}
+            loadMore={{
+              appearance: 'inline',
+              count: nextCount,
+              label: '더 보기',
+              indicator: <Icon fontAwesomeIcon={faChevronDown} size="16px" />,
+            }}
+          />
         </Flex>
       )}
     </Box>
   );
 }
-
 function ProductInquiryLink() {
   return (
     <Box w="120px" flexShrink="0">
@@ -610,12 +600,10 @@ function ProductInquiryLink() {
     </Box>
   );
 }
-
 const board = css({ pt: '24px' });
-
 /** 상품 문의 목록 또는 빈 영역을 표시합니다. (Displays the product inquiry list or empty region.) */
 export function ProductDetailInquiryContent({ empty = false }: { empty?: boolean }) {
-  // [개발팀 바인딩] 실제 상품별 문의 응답은 아래 InquiryBoard.items에 전달합니다. 비공개 본문 권한은 서버에서 검증하며 현재 productInquiries는 예시입니다.
+  /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   return (
     <InquiryBoard
       title="상품문의"
@@ -628,13 +616,13 @@ export function ProductDetailInquiryContent({ empty = false }: { empty?: boolean
     />
   );
 }
-
-type ProductSpecificationHelpProps = { label: string; description: string };
-
+type ProductSpecificationHelpProps = {
+  label: string;
+  description: string;
+};
 /** Product specification help; Base UI owns hover, focus, dismissal and positioning. */
 function ProductSpecificationHelp({ label, description }: ProductSpecificationHelpProps) {
   const platform = usePlatform();
-
   return (
     <Tooltip.Root>
       <Tooltip.Trigger
@@ -691,35 +679,32 @@ function ProductSpecificationHelp({ label, description }: ProductSpecificationHe
     </Tooltip.Root>
   );
 }
-
 type ProductDetailSpecificationListProps = {
   items: readonly ProductDetailSpecification[];
   gap: '4' | '8';
 };
-
 function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificationListProps) {
   return (
-    <Stack as="dl" gap={gap}>
-      {items.map((item) => (
-        <Stack key={item.label} gap="2">
-          <Typography as="dt" variant="body3" weight="bold">
-            <HStack as="span" gap="2" alignItems="center">
-              {item.label}
-              {item.help ? (
-                <ProductSpecificationHelp label={item.label} description={item.help} />
-              ) : null}
-            </HStack>
-          </Typography>
-          {typeof item.value === 'string' ? (
-            <Typography as="dd" variant="body3">
-              {item.value}
-            </Typography>
+    <DescriptionList
+      items={items.map((item) => ({
+        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },
+        term: (
+          <HStack as="span" gap="2" alignItems="center">
+            {item.label}
+            {item.help ? (
+              <ProductSpecificationHelp label={item.label} description={item.help} />
+            ) : null}
+          </HStack>
+        ),
+        description:
+          typeof item.value === 'string' ? (
+            item.value
           ) : (
-            <HStack as="dd" gap="3" flexWrap="wrap">
+            <HStack as="span" gap="3" flexWrap="wrap">
               {item.value.map((value, index) => (
                 <Fragment key={value}>
                   {index > 0 ? (
-                    <Box as="span" aria-hidden="true" h="4" borderLeft="1px solid black" />
+                    <Divider orientation="vertical" length="4" variant="strong" />
                   ) : null}
                   <Typography as="span" variant="body3">
                     {value}
@@ -727,15 +712,24 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
                 </Fragment>
               ))}
             </HStack>
-          )}
-        </Stack>
-      ))}
-    </Stack>
+          ),
+      }))}
+      termProps={{ variant: 'body3', weight: 'bold' }}
+      descriptionProps={{ variant: 'body3', tone: undefined }}
+      slotStyles={{
+        root: css.raw({
+          display: 'flex',
+          flexDirection: 'column',
+          gridTemplateColumns: 'none',
+          gap,
+        }),
+        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),
+        description: css.raw({ m: '0' }),
+      }}
+    />
   );
 }
-
 type ProductTechnicalScaleBarProps = Pick<ProductTechnicalScaleData, 'level'>;
-
 function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
   return (
     <Box h="8px" bg="#F5F5F5" pos="relative" aria-hidden="true">
@@ -746,16 +740,15 @@ function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
         w="20%"
         bg={
           level === 1
-            ? 'linear-gradient(90deg, #000000 0%, #F5F5F5 100%)'
+            ? 'linear-gradient(90deg, token(colors.black.100) 0%, #F5F5F5 100%)'
             : level === 5
-              ? 'linear-gradient(90deg, #F5F5F5 0%, #000000 100%)'
-              : 'linear-gradient(90deg, #F5F5F5 0%, #000000 50%, #F5F5F5 100%)'
+              ? 'linear-gradient(90deg, #F5F5F5 0%, token(colors.black.100) 100%)'
+              : 'linear-gradient(90deg, #F5F5F5 0%, token(colors.black.100) 50%, #F5F5F5 100%)'
         }
       />
     </Box>
   );
 }
-
 /** Static qualitative scale; it is neither an editable Slider nor a numeric Meter. */
 function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalScaleData) {
   return (
@@ -782,13 +775,11 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
     </ContentSection>
   );
 }
-
 type ProductTechSpecsProps = {
   specifications: readonly ProductDetailSpecification[];
   attributes: readonly ProductDetailSpecification[];
   scales: readonly ProductTechnicalScaleData[];
 };
-
 function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpecsProps) {
   return (
     <ContentSection
@@ -809,7 +800,6 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
     </ContentSection>
   );
 }
-
 function ProductDetailEditorial({ features }: { features: readonly ProductEditorialFeature[] }) {
   return (
     <ContentSection
@@ -843,9 +833,10 @@ function ProductDetailEditorial({ features }: { features: readonly ProductEditor
     </ContentSection>
   );
 }
-
-type ProductDetailAnchor = { id: string; label: string };
-
+type ProductDetailAnchor = {
+  id: string;
+  label: string;
+};
 const navigation = css({
   pos: 'sticky',
   top: 'var(--layout-site-header-height)',
@@ -855,7 +846,6 @@ const navigation = css({
   borderBottom: '1px solid var(--color-black-20)',
   bg: 'var(--hoka-white)',
 });
-
 const link = css({
   textAlign: 'center',
   py: '5',
@@ -865,13 +855,11 @@ const link = css({
   '&[aria-current="location"]': { borderBottomColor: 'var(--color-black-100)' },
   _focusVisible: { outline: '2px solid var(--color-focus-ring)' },
 });
-
 type ProductDetailNavigationProps = {
   ref?: Ref<HTMLElement>;
   items: readonly ProductDetailAnchor[];
   activeId?: string;
 };
-
 /** The measured native nav keeps its HTMLElement ref contract. */
 function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigationProps) {
   return (
@@ -889,28 +877,25 @@ function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigati
     </nav>
   );
 }
-
-type ProductDetailScrollSpyProps = { items: readonly ProductDetailAnchor[]; children: ReactNode };
-
+type ProductDetailScrollSpyProps = {
+  items: readonly ProductDetailAnchor[];
+  children: ReactNode;
+};
 function ProductDetailScrollSpy({ items, children }: ProductDetailScrollSpyProps) {
   const [activeSection, setActiveSection] = useState(items[0]?.id);
   const [navigationHeight, setNavigationHeight] = useState(64);
   const rootRef = useRef<HTMLDivElement>(null);
   const navigationRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
     const root = rootRef.current;
     const navigation = navigationRef.current;
     if (!root || !navigation) return;
-
     const sections = items.map(({ id }) => root.querySelector<HTMLElement>(`#${id}`));
     let frame = 0;
-
     const update = () => {
       frame = 0;
       const boundary = navigation.getBoundingClientRect().bottom + 24;
       let current = items[0]?.id;
-
       sections.forEach((section, index) => {
         if (section && section.getBoundingClientRect().top <= boundary + 1) {
           current = items[index].id;
@@ -918,11 +903,9 @@ function ProductDetailScrollSpy({ items, children }: ProductDetailScrollSpyProps
       });
       setActiveSection(current);
     };
-
     const scheduleUpdate = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
-
     const observer = new ResizeObserver(() => {
       setNavigationHeight(navigation.getBoundingClientRect().height);
       scheduleUpdate();
@@ -932,7 +915,6 @@ function ProductDetailScrollSpy({ items, children }: ProductDetailScrollSpyProps
     window.addEventListener('scroll', scheduleUpdate, { passive: true });
     window.addEventListener('resize', scheduleUpdate);
     scheduleUpdate();
-
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', scheduleUpdate);
@@ -940,11 +922,9 @@ function ProductDetailScrollSpy({ items, children }: ProductDetailScrollSpyProps
       cancelAnimationFrame(frame);
     };
   }, [items]);
-
   const layoutStyle = {
     '--product-detail-nav-height': `${navigationHeight}px`,
   } as CSSProperties;
-
   return (
     <Stack gap="10" ref={rootRef} style={layoutStyle}>
       <ProductDetailNavigation ref={navigationRef} items={items} activeId={activeSection} />
@@ -952,7 +932,6 @@ function ProductDetailScrollSpy({ items, children }: ProductDetailScrollSpyProps
     </Stack>
   );
 }
-
 /** Shared geometry for the feature's IMC and external review integration slots. */
 function ProductDetailPlaceholder({ children }: { children: ReactNode }) {
   return (
@@ -968,14 +947,12 @@ function ProductDetailPlaceholder({ children }: { children: ReactNode }) {
     </Grid>
   );
 }
-
 type ProductDetailReviewsProps = {
   count: number;
   id: string;
   className?: string;
   children?: ReactNode;
 };
-
 /** 상품 리뷰 섹션의 제목·건수와 내용을 구성합니다. (Composes the product review heading, count, and content.) */
 function ProductDetailReviews({ count, id, className, children }: ProductDetailReviewsProps) {
   return (
@@ -997,18 +974,15 @@ function ProductDetailReviews({ count, id, className, children }: ProductDetailR
     </ContentSection>
   );
 }
-
 const textLink = css({
   color: 'text.primary',
   textDecoration: 'underline',
   textUnderlineOffset: '3px',
   _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
 });
-
 type ProductSupportTextLinkProps = Omit<ComponentPropsWithoutRef<'a'>, 'className' | 'href'> & {
   href: string;
 };
-
 function ProductSupportTextLink({ href, ...props }: ProductSupportTextLinkProps) {
   return href.startsWith('/') ? (
     <Link {...props} href={href} className={textLink} />
@@ -1016,7 +990,6 @@ function ProductSupportTextLink({ href, ...props }: ProductSupportTextLinkProps)
     <a {...props} href={href} className={textLink} />
   );
 }
-
 const numberedList = css({
   display: 'flex',
   flexDirection: 'column',
@@ -1024,7 +997,6 @@ const numberedList = css({
   listStyleType: 'decimal',
   pl: '4',
 });
-
 function ProductDetailDeliverySection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <ContentSection
@@ -1038,7 +1010,6 @@ function ProductDetailDeliverySection({ title, children }: { title: string; chil
     </ContentSection>
   );
 }
-
 function ProductDetailDeliveryList({ children }: { children: ReactNode }) {
   return (
     <Typography as="ol" variant="body5" className={numberedList}>
@@ -1046,7 +1017,6 @@ function ProductDetailDeliveryList({ children }: { children: ReactNode }) {
     </Typography>
   );
 }
-
 function ProductDetailShippingGuide() {
   return (
     <ProductDetailDeliverySection title="배송 안내">
@@ -1064,9 +1034,7 @@ function ProductDetailShippingGuide() {
     </ProductDetailDeliverySection>
   );
 }
-
 const bulletList = css({ listStyleType: 'disc', pl: '4', mt: '3' });
-
 function ProductDetailReturnPrecautions() {
   return (
     <ProductDetailDeliverySection title="반품 유의사항">
@@ -1103,7 +1071,6 @@ function ProductDetailReturnPrecautions() {
     </ProductDetailDeliverySection>
   );
 }
-
 function ProductSupportContact() {
   return (
     <Grid
@@ -1113,9 +1080,12 @@ function ProductSupportContact() {
       borderBottom="1px solid token(colors.border.default)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
     >
-      <Typography as="h4" variant="body5" weight="bold">
-        호카 온라인 스토어 고객센터
-      </Typography>
+      <ContentHeader
+        title="호카 온라인 스토어 고객센터"
+        titleAs="h4"
+        titleProps={{ variant: 'body5', weight: 'bold' }}
+        gap="0"
+      />
       <Stack gap="2">
         <Typography as="p" variant="body5">
           TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
@@ -1133,7 +1103,6 @@ function ProductSupportContact() {
     </Grid>
   );
 }
-
 const supportLink = css({
   display: 'flex',
   alignItems: 'center',
@@ -1145,9 +1114,12 @@ const supportLink = css({
   _hover: { bg: 'black.20' },
   _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
 });
-
-type ProductSupportLinkProps = { title: string; description: string; label: string; to: string };
-
+type ProductSupportLinkProps = {
+  title: string;
+  description: string;
+  label: string;
+  to: string;
+};
 function ProductSupportLink({ title, description, label, to }: ProductSupportLinkProps) {
   return (
     <Grid
@@ -1172,7 +1144,6 @@ function ProductSupportLink({ title, description, label, to }: ProductSupportLin
     </Grid>
   );
 }
-
 const supportLinks = [
   {
     title: '배송 및 반품 관련 1:1 문의',
@@ -1193,7 +1164,6 @@ const supportLinks = [
     to: '/mypage/orders',
   },
 ];
-
 function ProductDetailDeliverySupport() {
   return (
     <Stack
@@ -1217,17 +1187,13 @@ function ProductDetailDeliverySupport() {
     </Stack>
   );
 }
-
 const processTitle = css({
   borderRight: '1px solid token(colors.border.default)',
   pr: '6',
   _mobile: { borderRight: 'none', pr: '0' },
 });
-
 const stepRow = css({ display: 'flex', alignItems: 'center', gap: '5' });
-
 const stepNumber = css({ flexShrink: '0', width: '8' });
-
 const returnSteps = [
   '마이페이지 > 주문/배송 조회 > 주문 상세 내역 확인',
   '반품할 상품을 선택하여 반품 신청 후 수거 일정 확인',
@@ -1236,7 +1202,6 @@ const returnSteps = [
   '반품 요청 내용 및 상품 상태 확인',
   '반품 완료 및 결제수단별 환불 진행',
 ];
-
 function ProductDetailReturnGuide() {
   return (
     <ProductDetailDeliverySection title="호카 반품 안내">
@@ -1253,11 +1218,18 @@ function ProductDetailReturnGuide() {
         py="10"
         _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
       >
-        <Typography as="h4" variant="body2" tone="tertiary" className={processTitle}>
-          상품 반품
-          <br />
-          STEP
-        </Typography>
+        <ContentHeader
+          title={
+            <>
+              상품 반품
+              <br />
+              STEP
+            </>
+          }
+          titleAs="h4"
+          titleProps={{ variant: 'body2', tone: 'tertiary', className: processTitle }}
+          gap="0"
+        />
         <Stack as="ol" gap="6">
           {returnSteps.map((step, index) => (
             <li key={step} className={stepRow}>
@@ -1272,7 +1244,6 @@ function ProductDetailReturnGuide() {
     </ProductDetailDeliverySection>
   );
 }
-
 function ProductDetailDeliveryContent() {
   return (
     <Stack
@@ -1289,7 +1260,6 @@ function ProductDetailDeliveryContent() {
     </Stack>
   );
 }
-
 /** 상품 고시 정보를 이름과 값의 목록으로 표시합니다. (Displays product specifications as a list of labels and values.) */
 function ProductDetailNoticeTable({ items }: { items: readonly ProductDetailSpecification[] }) {
   return (
@@ -1349,13 +1319,9 @@ function ProductDetailNoticeTable({ items }: { items: readonly ProductDetailSpec
     />
   );
 }
-
 const root = css({ borderTop: '1px solid var(--color-black-20)' });
-
 const item = css({ borderBottom: '1px solid var(--color-black-20)' });
-
 const ProductDetailSupportSectionsTrigger = css({ minH: '77px' });
-
 /** 상품 고시·배송·관리 안내 섹션을 구성합니다. (Composes product specification, delivery, and care sections.) */
 function ProductDetailSupportSections({
   specifications,
@@ -1400,12 +1366,10 @@ function ProductDetailSupportSections({
     />
   );
 }
-
 const destination = css({
   scrollMarginTop:
     'calc(var(--layout-site-header-height) + var(--product-detail-nav-height, 0px) + 24px)',
 });
-
 function ProductDetailSections({
   product,
   inquiriesEmpty = false,
@@ -1413,9 +1377,8 @@ function ProductDetailSections({
   product: Product;
   inquiriesEmpty?: boolean;
 }) {
-  // [개발팀 바인딩] 상세 리뷰의 count는 상품 요약입니다. 실제 리뷰 본문/분포를 연결할 때 count만으로 목 후기를 만들지 말고 리뷰 영역의 소유자에 별도 조회 결과를 전달합니다.
+  /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const presentation = getProductDetailPresentation(product);
-
   return (
     <ProductDetailScrollSpy items={productDetailAnchors}>
       <Stack gap="96px">
@@ -1443,7 +1406,6 @@ function ProductDetailSections({
     </ProductDetailScrollSpy>
   );
 }
-
 type ProductDetailMediaProps = {
   inquiriesEmpty?: boolean;
   images: string[];
@@ -1451,7 +1413,6 @@ type ProductDetailMediaProps = {
   onOpenImage: (index: number) => void;
   product: Product;
 };
-
 function ProductDetailMedia({
   images,
   productName,
@@ -1460,7 +1421,6 @@ function ProductDetailMedia({
   inquiriesEmpty,
 }: ProductDetailMediaProps) {
   const platform = usePlatform();
-
   return (
     <Flex minW="0" direction="column" gap="96px">
       <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
@@ -1470,7 +1430,6 @@ function ProductDetailMedia({
     </Flex>
   );
 }
-
 type ProductColorSelectorProps = {
   colors: string[];
   gallery: string[];
@@ -1478,7 +1437,6 @@ type ProductColorSelectorProps = {
   value: string;
   onValueChange: (color: string) => void;
 };
-
 /** 상품의 컬러 이미지와 갤러리 대체 이미지를 공통 선택 UI에 전달합니다. (Prepares product color images and gallery fallbacks for the shared selector.) */
 function ProductColorSelector({
   colors,
@@ -1498,17 +1456,14 @@ function ProductColorSelector({
         label: color,
         image: gallery[index % gallery.length],
       }));
-
   return <ColorSelector options={options} value={value} onValueChange={onValueChange} />;
 }
-
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
   value: string;
   error: string;
   onValueChange: (size: string) => void;
 };
-
 /** 상품 재고 선택지와 사이즈 가이드·오류 안내를 조합합니다. (Composes product availability, size guidance, and validation feedback.) */
 function ProductSizeSelector({
   selectedWidth,
@@ -1540,7 +1495,6 @@ function ProductSizeSelector({
     />
   );
 }
-
 function productWidthOptions(product: Product, color: string): ProductWidthOption[] {
   return (
     product.colorOptions?.find((option) => option.color === color)?.widths ?? [
@@ -1553,7 +1507,6 @@ function productWidthOptions(product: Product, color: string): ProductWidthOptio
     ]
   );
 }
-
 type ProductVariantSelectorsProps = {
   product: Product;
   gallery: string[];
@@ -1565,7 +1518,6 @@ type ProductVariantSelectorsProps = {
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
 };
-
 /** 상품별 옵션 데이터와 변경 콜백을 선택 영역에 연결합니다. (Connects product option data and callbacks to the selectors.) */
 function ProductVariantSelectors({
   product,
@@ -1580,7 +1532,6 @@ function ProductVariantSelectors({
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
   const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
-
   return (
     <>
       <Stack gap="10">
@@ -1606,14 +1557,24 @@ function ProductVariantSelectors({
     </>
   );
 }
-
 type ProductInformationProps = {
   id?: string;
   title?: string;
-  sections: readonly { title: string; content: ReactNode }[];
-  specifications: readonly { label: string; value: ReactNode }[];
+  sections: readonly {
+    title: string;
+    content: ReactNode;
+  }[];
+  specifications: readonly {
+    label: string;
+    value: ReactNode;
+  }[];
 };
-
+const productInformationTitleProps = {
+  web: 'headingKr9',
+  mo: 'bodyKr3',
+  weight: 'semibold',
+  className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
+} as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({
   id,
@@ -1621,53 +1582,51 @@ function ProductInformation({
   sections,
   specifications,
 }: ProductInformationProps) {
+  const platform = usePlatform();
   const [description, ...features] = sections;
   const [expanded, setExpanded] = useState(false);
   const contentId = useId();
-
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="6"
       px="8"
       py="8"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4' }}
+      _mobile={{ px: '4', w: 'calc(100% + 32px)', ml: '-16px' }}
+      css={{
+        '--product-information-label-width': '112px',
+        _mobile: { '--product-information-label-width': '88px' },
+      }}
       id={id}
       title={title}
       headerProps={{
         titleAs: 'h2',
-        titleProps: { variant: 'heading8', mo: 'heading8' },
+        titleProps: {
+          variant: 'headingKr8',
+          mo: 'headingKr9',
+          weight: platform === 'mobile' ? 'semibold' : 'black',
+          className: css({ '&&': { fontSize: '22px' }, _mobile: { fontSize: '20px!' } }),
+        },
       }}
     >
-      <Stack gap="8">
-        <Stack gap="3" alignItems="start">
+      <Stack gap="10">
+        <Stack gap="6" alignItems="start">
           <Stack id={contentId} gap="4" w="100%">
             {description && (
               <ContentHeader
-                gap="3"
+                gap="5"
                 titleAs="h3"
-                title={<>{description.title}</>}
-                titleProps={{ variant: 'body3', weight: 'bold' }}
+                title={description.title}
+                titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
                 descriptionProps={{
-                  variant: 'body3',
-                  className: expanded ? undefined : css({ lineClamp: 4 }),
+                  web: 'bodyKr3',
+                  mo: 'bodyKr4',
+                  className: expanded ? undefined : css({ lineClamp: 5 }),
                 }}
               />
             )}
-            {expanded &&
-              features.map((section, index) => (
-                <ContentHeader
-                  gap="3"
-                  key={index}
-                  titleAs="h3"
-                  title={<>{section.title}</>}
-                  titleProps={{ variant: 'body3', weight: 'bold' }}
-                  description={<>{section.content}</>}
-                  descriptionProps={{ variant: 'body3' }}
-                />
-              ))}
           </Stack>
           {description && (
             <Button
@@ -1677,24 +1636,41 @@ function ProductInformation({
               aria-expanded={expanded}
               aria-controls={contentId}
               onClick={() => setExpanded((value) => !value)}
-              style={{ '--button-label-weight': '700' } as CSSProperties}
             >
-              {expanded ? '닫기' : '더보기'}
+              {expanded ? '닫기' : '더 보기'}
             </Button>
           )}
         </Stack>
+        {(expanded || platform === 'mobile') &&
+          features.map((section) => (
+            <ContentHeader
+              gap="5"
+              key={section.title}
+              titleAs="h3"
+              title={section.title}
+              titleProps={productInformationTitleProps}
+              description={<>{section.content}</>}
+              descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4' }}
+            />
+          ))}
         <DescriptionList
           items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
-          labelWidth="80px"
-          termProps={{ variant: 'body3', weight: 'bold' }}
-          descriptionProps={{ variant: 'body3', tone: 'primary' }}
-          slotStyles={{ root: css.raw({ columnGap: '3', rowGap: '4' }) }}
+          labelWidth="var(--product-information-label-width)"
+          termProps={{
+            web: 'headingKr9',
+            mo: 'bodyKr3',
+            weight: 'semibold',
+          }}
+          descriptionProps={{ variant: 'body4', tone: 'primary' }}
+          slotStyles={{
+            root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
+            term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),
+          }}
         />
       </Stack>
     </ContentSection>
   );
 }
-
 const ProductPurchaseActionsRoot = cva({
   base: {
     gridTemplateColumns: '1fr 1fr',
@@ -1721,37 +1697,21 @@ const ProductPurchaseActionsRoot = cva({
     },
   },
 });
-
 type ProductPurchaseActionsProps = {
   placement: 'inline' | 'fixed';
-  onAddToCart: () => void;
-  onOrder: () => void;
 };
-
-function ProductPurchaseActions({ placement, onAddToCart, onOrder }: ProductPurchaseActionsProps) {
-  const platform = usePlatform();
+function ProductPurchaseActions({ placement }: ProductPurchaseActionsProps) {
   return (
     <Grid className={ProductPurchaseActionsRoot({ placement })} gap="2">
-      <Button
-        onClick={onAddToCart}
-        variant="secondary"
-        fullWidth
-        size={platform === 'mobile' ? 'short' : 'tall'}
-      >
+      <Button variant="secondary" fullWidth size="tall">
         장바구니
       </Button>
-      <Button
-        onClick={onOrder}
-        variant="primary"
-        fullWidth
-        size={platform === 'mobile' ? 'short' : 'tall'}
-      >
+      <Button variant="primary" fullWidth size="tall">
         구매하기
       </Button>
     </Grid>
   );
 }
-
 type ProductDetailContentProps = {
   product: Product;
   gallery: string[];
@@ -1763,10 +1723,8 @@ type ProductDetailContentProps = {
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
-  onAddToCart: () => void;
-  onOrder: () => void;
 };
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailContent({
   product,
@@ -1779,11 +1737,8 @@ function ProductDetailContent({
   onColorChange,
   onWidthChange,
   onSizeChange,
-  onAddToCart,
-  onOrder,
 }: ProductDetailContentProps) {
   const isClifton = product.styleCode === 'HOKADFG34S';
-
   return (
     <Stack gap="10">
       <ProductVariantSelectors
@@ -1798,7 +1753,7 @@ function ProductDetailContent({
         width={width}
       />
       {selectedOptions}
-      <ProductPurchaseActions onAddToCart={onAddToCart} onOrder={onOrder} placement="inline" />
+      <ProductPurchaseActions placement="inline" />
       <ProductInformation
         id="product-information"
         sections={[
@@ -1814,20 +1769,15 @@ function ProductDetailContent({
             : []),
         ]}
         specifications={[
-          {
-            label: '신발 유형',
-            value: isClifton || product.stability === 'Stable' ? '안정화' : '중립화',
-          },
-          { label: '추천 활동', value: isClifton ? '로드 러닝, 워킹, 라이프 스타일' : product.use },
-          { label: '러닝 유형', value: product.runningType },
+          { label: '컬러', value: color },
+          { label: '스타일코드', value: product.styleCode },
+          { label: '발볼 넓이', value: width },
         ]}
       />
     </Stack>
   );
 }
-
 type ShareButtonProps = Omit<ButtonIconProps, 'children' | 'variant'>;
-
 /** Reusable share action with a platform-sized icon. */
 function ShareButton({
   'aria-label': ariaLabel = '공유하기',
@@ -1835,7 +1785,6 @@ function ShareButton({
   ...props
 }: ShareButtonProps) {
   const platform = usePlatform();
-
   return (
     <Button variant="icon" {...props} aria-label={ariaLabel} size={size}>
       <Icon
@@ -1846,40 +1795,28 @@ function ShareButton({
     </Button>
   );
 }
-
-const ProductDetailHeaderActionsStyles = {
-  reviewLink: css({
-    borderColor: 'var(--color-text-subtle)',
-    color: 'var(--color-text-subtle)',
-    '--color-action-underline-color': 'var(--color-text-subtle)',
-    '--button-border-color-hover': 'var(--color-text-subtle)',
-  }),
-  icons: css({
-    display: 'flex',
-    gap: '3',
-    '& button': { fontSize: '24' /* 기존 25px */, lineHeight: 'hoka' },
-  }),
-};
-
 type ProductDetailHeaderActionsProps = {
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
-
 function ProductDetailHeaderActions({
   product,
   wish,
   onWishChange,
 }: ProductDetailHeaderActionsProps) {
   const platform = usePlatform();
-
   return (
     <Flex alignItems="center" justifyContent="space-between" w="full">
       <HStack gap="10px">
         <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
         <Button
-          className={ProductDetailHeaderActionsStyles.reviewLink}
+          className={css({
+            borderColor: 'var(--color-text-subtle)',
+            color: 'var(--color-text-subtle)',
+            '--color-action-underline-color': 'var(--color-text-subtle)',
+            '--button-border-color-hover': 'var(--color-text-subtle)',
+          })}
           variant="link"
           onClick={() =>
             document
@@ -1892,40 +1829,36 @@ function ProductDetailHeaderActions({
           {product.reviewCount}개 리뷰 보기
         </Button>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="4">
         <ShareButton size="24px" />
         <Wishlist active={wish} ariaLabel="관심상품" onActiveChange={onWishChange} />
       </HStack>
     </Flex>
   );
 }
-
 type ProductDetailHeaderMetaProps = {
   product: Product;
 };
-
 const productUseLabels: Record<Product['use'], string> = {
   'Everyday Run': '데일리 러닝',
   'Trail Running': '트레일 러닝',
   Walking: '워킹',
 };
-
 /** 상품의 성별과 사용 목적 메타데이터를 표시합니다. (Displays a product's gender and use metadata.) */
 function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
   const uses = [...new Set([product.runningType, productUseLabels[product.use]])].join(', ');
-
   return (
     <>
       <VStack alignItems="start" gap="2">
         {product.promotion && <Badge weight="medium" promotion={product.promotion} />}
         <HStack gap="2" color="var(--color-black-60)">
-          <Typography variant="body4" weight="medium" tone="inherit">
+          <Typography variant="body4" weight="regular" tone="inherit">
             {product.gender}
           </Typography>
           {uses && (
             <>
-              <Divider orientation="vertical" h="3" w="1px" bg="var(--color-black-60)" />
-              <Typography variant="body4" weight="bold" tone="inherit">
+              <Divider orientation="vertical" length="3" color="var(--color-black-60)" />
+              <Typography variant="body4" weight="regular" tone="inherit">
                 {uses}
               </Typography>
             </>
@@ -1935,44 +1868,42 @@ function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
     </>
   );
 }
-
 type ProductDetailHeaderTitleProps = {
   product: Product;
 };
-
 /** 상품 상세의 상품명과 가격을 표시합니다. (Displays the product name and price on the product detail page.) */
 function ProductDetailHeaderTitle({ product }: ProductDetailHeaderTitleProps) {
+  const platform = usePlatform();
   return (
-    <ContentHeader
-      alignItems="start"
-      gap="5"
-      titleAs="h1"
-      title={product.name}
-      titleProps={{
-        className: css({ m: '0' }),
-        variant: 'heading7',
-        mo: 'heading4',
-        weight: 'black',
-      }}
-      description={
-        <HStack as="span" gap="0" alignItems="end">
-          {product.price.toLocaleString('ko-KR')}
-          <Typography variant="body3" weight="bold">
-            원
-          </Typography>
-        </HStack>
-      }
-      descriptionProps={{ className: css({ m: '0' }), variant: 'body3', weight: 'medium' }}
-    />
+    <>
+      <ContentHeader
+        alignItems="start"
+        gap="5"
+        titleAs="h1"
+        title={product.name}
+        titleProps={{
+          className: css({ m: '0' }),
+          variant: 'headingKr6',
+          mo: 'heading4',
+          language: platform === 'web' ? 'ko' : 'en',
+          weight: 'black',
+        }}
+      />
+      <Box className={css({ '& span': { fontSize: '16px', fontWeight: 'normal' } })}>
+        <ProductPrice
+          discountLabel={product.discountLabel}
+          price={product.price}
+          originalPrice={product.originalPrice}
+        />
+      </Box>
+    </>
   );
 }
-
 type ProductDetailHeaderProps = {
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
-
 function ProductDetailHeader({ product, wish, onWishChange }: ProductDetailHeaderProps) {
   return (
     <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
@@ -1984,13 +1915,10 @@ function ProductDetailHeader({ product, wish, onWishChange }: ProductDetailHeade
     </VStack>
   );
 }
-
 const ProductAfterSalesContactsStyles = {
   link: css({ textDecoration: 'underline', textUnderlineOffset: '3px' }),
 };
-
 const serviceUrl = 'https://service.joy-works.co.kr/';
-
 function AfterSalesContact({
   title,
   descriptions,
@@ -2008,9 +1936,12 @@ function AfterSalesContact({
       borderBottom="1px solid var(--color-black-20)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3', pb: '6' }}
     >
-      <Typography as="h4" variant="body5" weight="bold">
-        {title}
-      </Typography>
+      <ContentHeader
+        title={title}
+        titleAs="h4"
+        titleProps={{ variant: 'body5', weight: 'bold' }}
+        gap="0"
+      />
       <Stack gap="3">
         {descriptions.map((description) => (
           <Typography as="p" variant="body5" key={description}>
@@ -2022,7 +1953,6 @@ function AfterSalesContact({
     </Grid>
   );
 }
-
 function AfterSalesAction({
   title,
   description,
@@ -2055,7 +1985,6 @@ function AfterSalesAction({
     </Grid>
   );
 }
-
 function ProductAfterSalesContacts() {
   return (
     <Stack gap="8" border="1px solid var(--color-black-20)" p="8" _mobile={{ p: '4' }}>
@@ -2100,7 +2029,6 @@ function ProductAfterSalesContacts() {
     </Stack>
   );
 }
-
 const steps = [
   {
     icon: faClipboardList,
@@ -2128,7 +2056,6 @@ const steps = [
     description: '처리가 완료되면 안내 후 상품을 보내 드립니다.',
   },
 ];
-
 function ProductAfterSalesProcess() {
   return (
     <ContentSection
@@ -2183,7 +2110,6 @@ function ProductAfterSalesProcess() {
     </ContentSection>
   );
 }
-
 const questions = [
   {
     question: 'A/S 기간은 어느 정도 소요될까요?',
@@ -2201,7 +2127,6 @@ const questions = [
       'HOKA A/S 온라인 접수 페이지에서 신청해 주세요. 구매처에 따라 접수 방법이 다를 수 있으므로, 매장이나 다른 판매처에서 구매한 상품은 먼저 구매처에 문의해 주세요.',
   },
 ];
-
 function ProductAfterSalesQuestions() {
   return (
     <Grid
@@ -2209,9 +2134,12 @@ function ProductAfterSalesQuestions() {
       gap="8"
       _mobile={{ gridTemplateColumns: '1fr', gap: '6' }}
     >
-      <Typography as="h4" variant="heading8">
-        궁금하신 점이 있으세요?
-      </Typography>
+      <ContentHeader
+        title="궁금하신 점이 있으세요?"
+        titleAs="h4"
+        titleProps={{ variant: 'heading8' }}
+        gap="0"
+      />
       <Stack gap="8">
         {questions.map(({ question, answer }) => (
           <Box key={question} pb="8" borderBottom="1px solid var(--color-black-20)">
@@ -2229,7 +2157,6 @@ function ProductAfterSalesQuestions() {
     </Grid>
   );
 }
-
 function ProductDetailAfterSalesContent() {
   return (
     <Stack gap="10" pt="6">
@@ -2244,13 +2171,11 @@ function ProductDetailAfterSalesContent() {
     </Stack>
   );
 }
-
 const wrapper = css({
   borderBottom: '1px solid var(--color-black-20)',
   py: '6',
   _mobile: { py: '4' },
 });
-
 const items: AccordionEntry[] = [
   {
     value: 'inquiry',
@@ -2268,7 +2193,6 @@ const items: AccordionEntry[] = [
     content: <ProductDetailAfterSalesContent />,
   },
 ];
-
 function ProductDetailSupport({ inquiriesEmpty = false }: { inquiriesEmpty?: boolean }) {
   return (
     <Box as="section" aria-label="상품 안내" borderTop="1px solid var(--color-black-20)">
@@ -2290,7 +2214,6 @@ function ProductDetailSupport({ inquiriesEmpty = false }: { inquiriesEmpty?: boo
     </Box>
   );
 }
-
 function ProductDetailSupportRegion({
   platform,
   inquiriesEmpty,
@@ -2310,7 +2233,6 @@ function ProductDetailSupportRegion({
     </Box>
   );
 }
-
 type ProductDetailPanelProps = {
   inquiriesEmpty?: boolean;
   product: Product;
@@ -2324,11 +2246,8 @@ type ProductDetailPanelProps = {
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
-  onAddToCart: () => void;
-  onOrder: () => void;
   onWishChange: () => void;
 };
-
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailPanel({
   product,
@@ -2342,8 +2261,6 @@ function ProductDetailPanel({
   onColorChange,
   onWidthChange,
   onSizeChange,
-  onAddToCart,
-  onOrder,
   onWishChange,
   inquiriesEmpty,
 }: ProductDetailPanelProps) {
@@ -2360,16 +2277,14 @@ function ProductDetailPanel({
       px="0"
       _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '6' }}
     >
-      <Stack gap="8" _mobile={{ gap: '6' }}>
+      <Stack gap="10" _mobile={{ gap: '10' }}>
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
         <ProductDetailContent
           selectedOptions={selectedOptions}
           color={color}
           error={error}
           gallery={gallery}
-          onAddToCart={onAddToCart}
           onColorChange={onColorChange}
-          onOrder={onOrder}
           onSizeChange={onSizeChange}
           onWidthChange={onWidthChange}
           product={product}
@@ -2381,25 +2296,28 @@ function ProductDetailPanel({
     </Box>
   );
 }
-
 const ProductDetailRecommendStyles = {
+  section: css({
+    '--layout-web-content-max-width': '1776px',
+    '--layout-web-content-inline-space': '144px',
+    '& h2': { fontSize: '36px' },
+    _mobile: { '& h2': { fontSize: '22px' } },
+  }),
   mobileSlide: css({
     w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
     '& > *': { w: '100%' },
   }),
 };
-
 type ProductDetailRecommendProps = {
   products: Product[];
   title?: string;
 };
-
 function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDetailRecommendProps) {
   const platform = usePlatform();
   const isWeb = platform === 'web';
-
   return (
     <HomeCarouselSection
+      className={ProductDetailRecommendStyles.section}
       desktopCenteredItemCount={5}
       desktopItemGutter={8}
       itemCount={products.length}
@@ -2417,48 +2335,33 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
     </HomeCarouselSection>
   );
 }
-
 /** Owns the recommendation regions' leading space, common interval, and platform visibility. */
 function ProductDetailRecommendations({ products }: { products: Product[] }) {
-  const platform = usePlatform();
-
   return (
     <Stack mt="24" gap="24" _mobile={{ mt: '10' }}>
       <ProductDetailRecommend products={products} />
-      {platform === 'web' && (
-        <ProductDetailRecommend products={products} title="다른 고객이 함께 본 상품" />
-      )}
     </Stack>
   );
 }
-
 type ProductDetailFooterProps = {
   recommendations: Product[];
-  onAddToCart: () => void;
-  onOrder: () => void;
 };
-
 /** Composes recommendations and the mobile fixed purchase controls without extra DOM. */
-function ProductDetailFooter({ recommendations, onAddToCart, onOrder }: ProductDetailFooterProps) {
+function ProductDetailFooter({ recommendations }: ProductDetailFooterProps) {
   const platform = usePlatform();
-
   return (
     <>
       <ProductDetailRecommendations products={recommendations} />
-      {platform === 'mobile' && (
-        <ProductPurchaseActions onAddToCart={onAddToCart} onOrder={onOrder} placement="fixed" />
-      )}
+      {platform === 'mobile' && <ProductPurchaseActions placement="fixed" />}
     </>
   );
 }
-
 type ProductSelectedOptionsProps = {
   items: readonly CartItem[];
   unitPrice: number;
   onQuantityChange: (index: number, quantity: number) => void;
   onRemove: (index: number) => void;
 };
-
 /** 선택한 상품 옵션별 수량과 삭제 버튼 및 합계를 표시합니다. (Displays quantity, removal, and totals for selected product options.) */
 function ProductSelectedOptions({
   items,
@@ -2467,13 +2370,11 @@ function ProductSelectedOptions({
   onRemove,
 }: ProductSelectedOptionsProps) {
   if (!items.length) return null;
-
   return (
     <Stack gap="0" aria-label="선택한 상품 옵션">
       <Box as="ul" m="0" p="0" listStyleType="none">
         {items.map((item, index) => {
           const label = `${item.color}, ${item.size}, ${item.width}`;
-
           return (
             <li key={JSON.stringify([item.id, item.color, item.width, item.size])}>
               <Stack gap="3" py="4" borderBottom="1px solid var(--color-black-20)">
@@ -2496,7 +2397,7 @@ function ProductSelectedOptions({
                     onChange={(quantity) => onQuantityChange(index, quantity)}
                   />
                   <Typography variant="body3" weight="semibold">
-                    {(unitPrice * item.quantity).toLocaleString('ko-KR')}원
+                    {unitPrice.toLocaleString('ko-KR')}원
                   </Typography>
                 </Flex>
               </Stack>
@@ -2506,7 +2407,7 @@ function ProductSelectedOptions({
       </Box>
       <AmountRow
         label="합계"
-        amount={items.reduce((total, item) => total + unitPrice * item.quantity, 0)}
+        amount={unitPrice}
         emphasis
         emphasizeLabel
         py="5"
@@ -2516,14 +2417,14 @@ function ProductSelectedOptions({
     </Stack>
   );
 }
-
 /** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
-export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
+export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selection-required' }) {
   const platform = usePlatform();
-  const { add: onAddToCart, products: catalogue = products } = useShop();
-  const { id } = useParams<{ id: string }>();
-  const router = useRouter();
-  // [ 개발팀 바인딩 ] empty-inquiries는 기존 shoe-1 fixture의 전체 상세에 문의 0건만 표시합니다. 운영 상품은 기존 useShop().products와 경로 ID를 사용하며 실제 문의 조회·권한·pending/error·재시도 및 응답 갱신은 상품 문의 연결 소유자가 담당합니다. preview는 운영 상품 조회·주문 요청을 실행하지 않습니다.
+  const catalogue = products;
+  const { id } = useParams<{
+    id: string;
+  }>();
+  /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const product = (preview ? products : catalogue).find(
     (item) => item.id === (preview ? 'shoe-1' : id),
   );
@@ -2534,9 +2435,12 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
   );
   const [selectedItems, setSelectedItems] = useState<CartItem[]>([]);
   const [wish, setWish] = useState(false);
-  const [error, setError] = useState('');
+  const error = preview === 'selection-required' ? '사이즈를 선택해 주세요.' : '';
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
-  const viewerOrigin = useRef<{ element: HTMLElement | null; scrollY: number } | null>(null);
+  const viewerOrigin = useRef<{
+    element: HTMLElement | null;
+    scrollY: number;
+  } | null>(null);
   const selectedColor = product?.colorThumbnails?.find((option) => option.label === color);
   const gallery = selectedColor
     ? selectedColor.galleryImages?.length
@@ -2548,30 +2452,13 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
         ? [product.primaryImage, product.hoverImage]
         : [];
   const recommendations = catalogue.filter((item) => item.id !== product?.id).slice(0, 6);
-
   // PC/MO는 문의 영역의 DOM 소유자가 달라 hydration 후 현재 fragment 대상을 찾습니다.
   useEffect(() => {
     if (preview && window.location.hash === '#product-inquiries') {
       document.getElementById('product-inquiries')?.scrollIntoView({ block: 'start' });
     }
   }, [preview, platform]);
-
   if (!product) return <SystemStatusPage status="not-found" />;
-
-  const submit = (order: boolean) => {
-    if (preview) return;
-    if (!selectedItems.length) {
-      setError('사이즈를 선택해 주세요.');
-      document
-        .getElementById('product-size')
-        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    setError('');
-    selectedItems.forEach(onAddToCart);
-    if (order) router.push('/checkout');
-  };
-
   return (
     <ProductDetailLayout
       isViewing={viewerIndex !== null}
@@ -2591,13 +2478,7 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
           />
         )
       }
-      footer={
-        <ProductDetailFooter
-          recommendations={recommendations}
-          onAddToCart={() => submit(false)}
-          onOrder={() => submit(true)}
-        />
-      }
+      footer={<ProductDetailFooter recommendations={recommendations} />}
     >
       <ProductDetailMedia
         inquiriesEmpty={preview === 'empty-inquiries'}
@@ -2636,13 +2517,10 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
         color={color}
         error={error}
         gallery={gallery}
-        onAddToCart={() => submit(false)}
         onColorChange={(nextColor) => {
           setColor(nextColor);
           setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
-          setError('');
         }}
-        onOrder={() => submit(true)}
         onSizeChange={(nextSize) => {
           const selectedWidth = productWidthOptions(product, color).find(
             (option) => option.label === width,
@@ -2661,11 +2539,9 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
                 )
               : [...items, { id: product.id, color, width, size: nextSize, quantity: 1 }];
           });
-          setError('');
         }}
         onWidthChange={(nextWidth) => {
           setWidth(nextWidth);
-          setError('');
         }}
         onWishChange={() => setWish(!wish)}
         product={product}
@@ -2676,7 +2552,6 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' }) {
     </ProductDetailLayout>
   );
 }
-
 export const routePreviewComponents = {
   InquiryBoard,
   ProductInquiryLink,

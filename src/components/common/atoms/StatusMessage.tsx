@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 const message = css({
   '&[data-tone="error"]': { color: 'error' },
@@ -15,10 +15,19 @@ type StatusMessageProps = {
   tone?: 'error' | 'success' | 'info';
   className?: string;
   id?: string;
+  textProps?: Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'> & {
+    as?: 'p' | 'span';
+  };
 };
 
-/** Accessible feedback message for form validation and request state. */
-export function StatusMessage({ children, tone = 'info', className, id }: StatusMessageProps) {
+/** 폼 검증과 요청 상태를 접근 가능한 안내로 표시합니다. (Displays accessible form validation and request feedback.) */
+export function StatusMessage({
+  children,
+  tone = 'info',
+  className,
+  id,
+  textProps,
+}: StatusMessageProps) {
   const isError = tone === 'error';
 
   return (
@@ -27,10 +36,11 @@ export function StatusMessage({ children, tone = 'info', className, id }: Status
       id={id}
       aria-live={isError ? 'assertive' : 'polite'}
       aria-atomic="true"
-      className={[message, className].filter(Boolean).join(' ')}
+      className={[textProps?.tone ? undefined : message, className].filter(Boolean).join(' ')}
       data-tone={tone}
       role={isError ? 'alert' : 'status'}
       variant="body5"
+      {...textProps}
     >
       {children}
     </Typography>

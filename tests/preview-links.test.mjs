@@ -160,3 +160,39 @@ test('session history is connected to its active IA without reviving the deleted
   assert.equal(isScreenDeleted(deleted), true);
   assert.equal(getScreenConnection(deleted).route, undefined);
 });
+
+test('design states have fourteen direct IA links on their existing owners', () => {
+  const expected = {
+    171: [
+      ['배송지 수동입력', '/checkout/preview-shipping'],
+      ['배송 요청사항 직접입력', '/checkout/preview-delivery-request'],
+    ],
+    177: [['로그아웃 확인', '/mypage/preview-logout']],
+    196: [['임직원 쿠폰', '/mypage/coupons/preview-employee']],
+    203: [['배송지 삭제 확인', '/mypage/addresses/preview-delete']],
+    216: [
+      ['반품 안내', '/support/after-sales?tab=product-returns'],
+      ['상품 반품안내', '/support/after-sales?tab=return-cautions'],
+    ],
+    217: [['의류/용품', '/support/care?tab=apparel']],
+    223: [['아이디 저장 도움말', '/login/preview-help']],
+    236: [['필수 약관 상세', '/signup/terms/preview-detail']],
+    253: [
+      ['알뜰폰 사업자', '/login/account-locked/verification/preview-carriers'],
+      ['필수 약관', '/login/account-locked/verification/preview-required-terms'],
+      ['선택 약관', '/login/account-locked/verification/preview-optional-terms'],
+      ['이전 약관 선택', '/login/account-locked/verification/preview-previous-terms'],
+    ],
+  };
+  assert.equal(Object.values(expected).flat().length, 14);
+  for (const [ia, entries] of Object.entries(expected)) {
+    const screen = screens.find((item) => item.iaNumber === Number(ia));
+    assert.ok(screen, `IA ${ia}`);
+    const previews = getScreenConnection(screen).previewRoutes ?? [];
+    for (const [label, href] of entries)
+      assert.ok(
+        previews.some((item) => item.href === href && item.label === label),
+        `${ia}: ${label}`,
+      );
+  }
+});

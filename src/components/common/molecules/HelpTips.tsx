@@ -24,6 +24,7 @@ type TooltipProps = SignifierProps & {
 };
 
 type ToggletipProps = SignifierProps & {
+  defaultOpen?: boolean;
   title?: string;
   description: string;
   action?: { label: string; onClick?: () => void };
@@ -139,6 +140,7 @@ export function HelpTooltip({ label, text, icon, side = 'top' }: TooltipProps) {
 
 /** 제목·설명과 선택적 액션을 안내 아이콘에서 엽니다. (Opens a richer help popover with an optional action.) */
 export function HelpToggletip({
+  defaultOpen = false,
   label,
   title,
   description,
@@ -147,7 +149,7 @@ export function HelpToggletip({
   side = 'top',
 }: ToggletipProps) {
   return (
-    <Popover.Root>
+    <Popover.Root defaultOpen={defaultOpen}>
       <Popover.Trigger render={renderSignifier({ label, icon })} />
       <Popover.Portal>
         <Popover.Positioner

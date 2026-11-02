@@ -54,3 +54,7 @@ export const RunningSessionTrailMobile: Story = {
   ...RunningSessionRoadMobile,
   args: RunningSessionTrail.args,
 };
+
+export const CustomTypography: Story = {
+  args: { children: '신청완료', textProps: { variant: 'body5', tone: 'primary' } },
+};

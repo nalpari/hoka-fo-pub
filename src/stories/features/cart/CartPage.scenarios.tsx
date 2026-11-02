@@ -4,7 +4,8 @@ import { PlatformProvider } from '@/context/platform';
 
 import { Stack } from 'styled-system/jsx';
 
-import { CartHeading } from '@/app/cart/_components/CartHeading';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+
 import { CartOrderActions } from '@/app/cart/_components/CartOrderActions';
 import { CartProductSection } from '@/app/cart/_components/CartProductSection';
 import { cartPreviewRows } from '@/app/cart/cart-preview';
@@ -88,7 +89,19 @@ export const MobileSelection: Story = { ...Mobile, play: Selection.play };
 export const MobileSelected: Story = {
   ...Mobile,
   render: () => (
-    <OrderPageLayout title={<CartHeading itemCount={cartPreviewRows.length} />}>
+    <OrderPageLayout
+      title={
+        <ContentHeader
+          title="장바구니"
+          titleAs="h1"
+          titleProps={{ web: 'heading6', mo: 'heading5' }}
+          orientation="horizontal"
+          gap="1"
+          alignItems="baseline"
+          justifyContent="flex-start"
+        />
+      }
+    >
       <Stack gap="10" pb="12">
         <CartProductSection
           rows={cartPreviewRows.map((row) => ({

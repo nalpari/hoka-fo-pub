@@ -14,6 +14,7 @@ import {
 } from '@/components/common/layouts/SidebarNavigationLayout';
 
 type LayoutProps = {
+  className?: string;
   activePath: string;
   breadcrumbItems: BreadcrumbItem[];
   children: ReactNode;
@@ -25,7 +26,7 @@ type FooterActionPresentation = {
   variant?: 'primary' | 'secondary';
   size?: 'short' | 'tall';
   width?: 'default' | 'compact' | 'narrow';
-  containerProps?: Pick<ComponentProps<typeof Box>, 'mt' | 'pt' | 'pb' | '_mobile'>;
+  containerProps?: Pick<ComponentProps<typeof Box>, 'mt' | 'pt' | 'pb' | 'maxW' | '_mobile'>;
 };
 
 export type CustomerCenterFooterAction = FooterActionPresentation &
@@ -107,7 +108,7 @@ function CustomerCenterFooter({ action }: { action: CustomerCenterFooterAction }
 
 /** 고객센터 탐색과 본문 프레임을 구성합니다 (Displays the customer center layout composition). */
 export function CustomerCenterLayout(props: Props) {
-  const { activePath, breadcrumbItems, children, footer, footerAction, groups } = props;
+  const { activePath, breadcrumbItems, children, className, footer, footerAction, groups } = props;
   const resolvedFooter = footerAction ? <CustomerCenterFooter action={footerAction} /> : footer;
   const headingProps =
     props.header !== undefined
@@ -124,6 +125,7 @@ export function CustomerCenterLayout(props: Props) {
 
   return (
     <SidebarNavigationLayout
+      className={className}
       activePath={activePath}
       appearance="support"
       breadcrumbItems={breadcrumbItems}

@@ -1,11 +1,7 @@
 'use client';
-
 import { Popover } from '@base-ui/react/popover';
-import { useContext } from 'react';
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
-import { SupportContentContext } from '@/context/SupportContentContext';
-import { useBindingQuery } from '@/hooks/useBindingQuery';
 
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
@@ -13,11 +9,7 @@ import { Grid, Stack } from 'styled-system/jsx';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Radio, type RadioProps } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
-
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
-
 type TermsDateSelectProps = Pick<RadioProps, 'name' | 'options' | 'value' | 'onValueChange'>;
-
 const dateOptions = css({
   w: 'max-content',
   p: '3',
@@ -26,11 +18,9 @@ const dateOptions = css({
   bg: 'white.0',
   '& [role="radiogroup"]': { gap: '4' },
 });
-
 function TermsDateSelect({ name, options, value, onValueChange }: TermsDateSelectProps) {
   const platform = usePlatform();
   const [open, setOpen] = useState(false);
-
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
@@ -48,7 +38,7 @@ function TermsDateSelect({ name, options, value, onValueChange }: TermsDateSelec
           _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
         })}
       >
-        <Typography variant="body3" weight="medium">
+        <Typography variant="body3" language="ko" weight="regular">
           {value.replaceAll('.', '. ')}
         </Typography>
         <Icon src="/images/icon/chevron-down-small.svg" size="14px" aria-hidden="true" />
@@ -79,42 +69,25 @@ function TermsDateSelect({ name, options, value, onValueChange }: TermsDateSelec
     </Popover.Root>
   );
 }
-
 const dates = [
   { value: '2026.05.22', label: '2026.05.22' },
   { value: '2026.02.01', label: '2026.02.01' },
   { value: '2025.06.02', label: '2025.06.02' },
 ] as const;
-
 /** 선택한 약관 문서를 표시합니다. (Displays the selected terms document.) */
 export function TermsDocument({ privacy }: { privacy: boolean }) {
   // 개발팀 적용: BO 문서를 body 슬롯으로 전달합니다. HTML의 안전한 변환은 어댑터에서 처리합니다.
-  const context = useContext(SupportContentContext);
-  const binding = context.terms?.[privacy ? 'privacy' : 'terms'];
   const [selectedDate, setDate] = useState<string | null>(null);
-  const date = binding
-    ? binding.versions.some((version) => version.id === selectedDate)
-      ? selectedDate!
-      : (binding.versions[0]?.id ?? '')
-    : (selectedDate ?? dates[0].value);
-  useBindingQuery(binding?.onQueryChange, {
-    kind: privacy ? ('privacy' as const) : ('terms' as const),
-    versionId: date,
-  });
-
+  const date = selectedDate ?? dates[0].value;
   return (
-    <Stack gap="4" pt="4" px={{ base: '4', _mobile: '0' }}>
+    <Stack gap="4" pt={{ base: '10', _mobile: '6' }}>
       <TermsDateSelect
         name={privacy ? 'privacy-date' : 'terms-date'}
-        options={
-          binding
-            ? binding.versions.map((version) => ({ value: version.id, label: version.label }))
-            : dates
-        }
+        options={dates}
         value={date}
         onValueChange={setDate}
       />
-      <BindingFeedback {...binding} />
+
       <Grid
         gap="normal"
         placeItems="center"
@@ -123,21 +96,19 @@ export function TermsDocument({ privacy }: { privacy: boolean }) {
         bg="rgba(0, 0, 0, 0.5)"
         aria-label={privacy ? '개인정보 처리방침 내용' : '이용 약관 내용'}
       >
-        {binding ? (
-          binding.document?.body
-        ) : (
+        {
           <Typography variant="body5" tone="inverse">
             약관내용
           </Typography>
-        )}
+        }
       </Grid>
       {privacy && (
-        <Stack gap="0">
+        <Stack gap="0" mt={{ base: '0', _mobile: '-1' }}>
           <Typography variant="body5" tone="tertiary">
-            - 개인정보 처리방침 버전번호 : {binding ? binding.document?.version : 'v.1.79'}
+            - 개인정보 처리방침 버전번호 : {'v.1.79'}
           </Typography>
           <Typography variant="body5" tone="tertiary">
-            - 개인정보 처리방침 시행일자 : {binding ? binding.document?.effectiveAt : '2026.09.02'}
+            - 개인정보 처리방침 시행일자 : {'2026.09.02'}
           </Typography>
         </Stack>
       )}

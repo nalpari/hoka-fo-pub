@@ -1,20 +1,15 @@
 'use client';
-
-import { useContext } from 'react';
-import { type FormEvent, useEffect, useRef, useState } from 'react';
-import { MyPageDataContext } from '@/context/MyPageDataContext';
-import { useRequestAction } from '@/hooks/useRequestAction';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
+import { type FormEvent, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
@@ -33,120 +28,29 @@ import {
   type ProfileValues,
 } from '@/app/mypage/profile/mypage-profile.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-import { isValidEmailDomain, isValidEmailLocalPart } from '@/lib/emailValidation';
-import { type Errors, type FieldName, validatePasswordReset } from '@/lib/passwordValidation';
-import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
-
+import { type Errors, type FieldName } from '@/lib/passwordValidation';
+import { getPhoneDigits } from '@/lib/phoneNumber';
 type Props = {
   phone: string;
   error?: string;
   verified: boolean;
   previewState?: 'idle' | 'code-entry' | 'expired';
   onPhoneChange: (value: string) => void;
-  onVerifiedChange: (verified: boolean, proof?: string) => void;
 };
-
-const demoCode = '900668';
-
-/** 공통 필드와 타이머로 회원정보의 휴대폰 인증 데모를 제공합니다. (Provides profile phone verification using shared fields and a countdown.) */
-function ProfilePhoneVerification({
-  phone,
-  error,
-  verified,
-  previewState,
-  onPhoneChange,
-  onVerifiedChange,
-}: Props) {
-  const binding = useContext(MyPageDataContext).profile;
-  const request = useRequestAction();
-  const [requestId, setRequestId] = useState('');
-  const phoneVersion = useRef(0);
-  const [phoneError, setPhoneError] = useState('');
+/** 회원정보의 휴대폰 입력과 고정 인증 상태를 표시합니다. (Displays profile phone input and fixed verification states.) */
+function ProfilePhoneVerification({ phone, error, verified, previewState, onPhoneChange }: Props) {
   const [code, setCode] = useState('');
-  const [codeError, setCodeError] = useState('');
+  const codeInput = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(
     previewState === 'expired' ? 'expired' : null,
   );
-  const codeInput = useRef<HTMLInputElement>(null);
-  const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
-  const requested = previewState ? previewState !== 'idle' : deadline !== null;
-  const expired = previewState ? previewState === 'expired' : requested && secondsLeft === 0;
-
-  useEffect(() => {
-    if (deadline === null) return;
-    const timeout = window.setTimeout(
-      () => setNotice('expired'),
-      Math.max(0, deadline - Date.now()),
-    );
-    return () => window.clearTimeout(timeout);
-  }, [deadline]);
-
-  function dismissNotice() {
-    setNotice(null);
-    setCode('');
-    setCodeError('');
-    if (deadline !== null && Date.now() < deadline) {
-      window.requestAnimationFrame(() => codeInput.current?.focus());
-    }
-  }
-
-  function requestCode() {
-    if (previewState) return;
-    if (!isValidPhone(phone)) {
-      setPhoneError('휴대폰 번호를 올바르게 입력해주세요.');
-      return;
-    }
-    setPhoneError('');
-    setCode('');
-    setCodeError('');
-    setNotice(null);
-    onVerifiedChange(false);
-    if (binding) {
-      const version = phoneVersion.current;
-      void request.run(async () => {
-        const response = await binding.requestPhone(phone);
-        if (version !== phoneVersion.current) return;
-        setRequestId(response.requestId);
-        start(response.expiresInSeconds);
-      });
-    } else start();
-  }
-
-  function confirmCode() {
-    if (previewState) return;
-    if (deadline === null) return;
-    if (Date.now() >= deadline) {
-      setNotice('expired');
-      return;
-    }
-    if (!/^\d{6}$/.test(code)) {
-      setCodeError('인증번호 6자리를 입력해 주세요.');
-      return;
-    }
-    if (binding) {
-      const version = phoneVersion.current;
-      void request.run(async () => {
-        const proof = await binding.verifyPhone({ requestId, phone, code });
-        if (version !== phoneVersion.current) return;
-        reset();
-        setCode('');
-        onVerifiedChange(true, proof);
-      });
-      return;
-    }
-    if (code !== demoCode) {
-      setNotice('mismatch');
-      return;
-    }
-    setCode('');
-    setCodeError('');
-    reset();
-    onVerifiedChange(true);
-  }
-
+  const requested = previewState === 'code-entry' || previewState === 'expired';
+  const expired = previewState === 'expired';
+  const phoneError = '';
+  const codeError = '';
+  const dismissNotice = () => setNotice(null);
   return (
     <Stack gap="6" alignItems="stretch">
-      <BindingFeedback pending={request.pending} error={request.error} />
       <TextFormField
         id="profile-phone"
         label="휴대폰 번호"
@@ -160,17 +64,7 @@ function ProfilePhoneVerification({
           inputMode: 'numeric',
           autoComplete: 'tel-national',
           value: phone,
-          onChange: (event) => {
-            phoneVersion.current += 1;
-            setRequestId('');
-            onPhoneChange(getPhoneDigits(event.target.value));
-            onVerifiedChange(false);
-            setPhoneError('');
-            setCode('');
-            setCodeError('');
-            setNotice(null);
-            reset();
-          },
+          onChange: (event) => onPhoneChange(getPhoneDigits(event.target.value)),
         }}
       />
       <Button
@@ -179,8 +73,7 @@ function ProfilePhoneVerification({
         variant="primary"
         size="tall"
         className={css({ alignSelf: 'flex-end', w: 'auto', _mobile: { w: '100%' } })}
-        disabled={request.pending || verified || (requested && !expired)}
-        onClick={requestCode}
+        disabled={verified || (requested && !expired)}
       >
         {requested ? '인증번호 재요청' : '인증번호 요청'}
       </Button>
@@ -202,23 +95,12 @@ function ProfilePhoneVerification({
               disabled: expired,
               onChange: (event) => {
                 setCode(event.target.value.replace(/\D/g, '').slice(0, 6));
-                setCodeError('');
               },
             }}
           />
-          <VerificationCountdown secondsLeft={previewState ? (expired ? 0 : 125) : secondsLeft} />
-          <StatusMessage>
-            {binding
-              ? '전송된 인증번호를 입력해 주세요.'
-              : `데모 인증번호는 ${demoCode}입니다. 실제 문자는 발송되지 않습니다.`}
-          </StatusMessage>
-          <Button
-            type="button"
-            fullWidth
-            variant="primary"
-            disabled={request.pending || expired}
-            onClick={confirmCode}
-          >
+          <VerificationCountdown secondsLeft={expired ? 0 : 125} />
+          <StatusMessage>{'인증번호 입력 화면의 고정 예시입니다.'}</StatusMessage>
+          <Button type="button" fullWidth variant="primary" disabled={expired}>
             인증번호 확인
           </Button>
         </Stack>
@@ -247,14 +129,12 @@ function ProfilePhoneVerification({
     </Stack>
   );
 }
-
 const domainOptions = [
   { value: 'direct', label: '직접입력' },
   { value: 'naver.com', label: 'naver.com' },
   { value: 'gmail.com', label: 'gmail.com' },
   { value: 'daum.net', label: 'daum.net' },
 ];
-
 /** 회원정보 수정 마크업을 표시합니다. (Displays profile editing markup.) */
 export function ProfileEditForm({
   previewPhone,
@@ -276,11 +156,9 @@ export function ProfileEditForm({
   onAddressChange,
   onAddressOpenChange,
   onPhoneChange,
-  onPhoneVerifiedChange,
   onEmailPreferenceChange,
   onSmsPreferenceChange,
   onKakaoPreferenceChange,
-  onSubmit,
   onCancel,
   onWithdraw,
   details,
@@ -288,18 +166,10 @@ export function ProfileEditForm({
 }: ProfileEditProps) {
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
-  const [passwordErrors, setPasswordErrors] = useState<Errors>({});
-
+  const [passwordErrors] = useState<Errors>({});
   function submit(event: FormEvent<HTMLFormElement>) {
-    const errors = password || confirmation ? validatePasswordReset(password, confirmation) : {};
-    setPasswordErrors(errors);
-    if (Object.values(errors).some(Boolean)) {
-      event.preventDefault();
-      return;
-    }
-    onSubmit(event, password || undefined);
+    event.preventDefault();
   }
-
   return (
     <form noValidate onSubmit={submit}>
       <ContentSection
@@ -323,9 +193,28 @@ export function ProfileEditForm({
           _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)', gap: '6', borderTop: '0', pt: '0' }}
         >
           <Stack gap="0" _mobile={{ gap: '6' }}>
-            {(details ?? profileDetails.slice(0, 4)).map(([label, value]) => (
-              <ProfileField key={label} label={label} value={value} editing />
-            ))}
+            <DescriptionList
+              items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
+                term,
+                description,
+              }))}
+              termProps={{ variant: 'body3', weight: 'semibold' }}
+              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+              slotStyles={{
+                root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),
+                row: css.raw({
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4',
+                  py: '6',
+                  pr: '4',
+                  borderBottom: '1px solid var(--colors-black-20)',
+                  _first: { pt: '0' },
+                  _mobile: { gap: '3', p: '0', borderBottom: '0' },
+                }),
+                description: css.raw({ m: '0' }),
+              }}
+            />
             <Stack gap="6" py="8" pr="4" className={css({ _mobile: { display: 'none' } })}>
               <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
               <Button
@@ -371,9 +260,12 @@ export function ProfileEditForm({
               }}
             />
             {passwordChanged ? (
-              <Typography variant="body4" role="status">
+              <StatusMessage
+                tone="success"
+                textProps={{ as: 'span', variant: 'body4', tone: 'inherit' }}
+              >
                 비밀번호 변경을 완료하였습니다.
-              </Typography>
+              </StatusMessage>
             ) : null}
             <ProfilePhoneVerification
               previewState={previewPhone}
@@ -381,7 +273,6 @@ export function ProfileEditForm({
               verified={phoneVerified}
               error={fieldErrors.phone}
               onPhoneChange={onPhoneChange}
-              onVerifiedChange={onPhoneVerifiedChange}
             />
             <AddressFields
               variant="boxed"
@@ -476,40 +367,6 @@ export function ProfileEditForm({
     </form>
   );
 }
-
-function ProfileField({
-  label,
-  value,
-  editing = false,
-}: {
-  label: string;
-  value: string;
-  editing?: boolean;
-}) {
-  return (
-    <Stack
-      gap={editing ? '4' : '0'}
-      direction={editing ? 'column' : 'row'}
-      py={editing ? '6' : '0'}
-      pr={editing ? '4' : '0'}
-      borderBottom={editing ? '1px solid var(--colors-black-20)' : undefined}
-      css={{ '&:first-child': { pt: '0' } }}
-      _mobile={{ flexDirection: 'column', gap: '3', p: '0', borderBottom: '0' }}
-    >
-      <Typography
-        variant="body3"
-        weight="semibold"
-        className={css({ w: editing ? 'auto' : '178px', flexShrink: '0', _mobile: { w: 'auto' } })}
-      >
-        {label}
-      </Typography>
-      <Typography variant="body3" tone="subtle">
-        {value}
-      </Typography>
-    </Stack>
-  );
-}
-
 /** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
 function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: ProfileValues) {
   return (
@@ -522,32 +379,27 @@ function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: Pr
         _mobile={{ pb: '6' }}
         headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
       >
-        <Stack gap={{ base: '6', _mobile: '4' }}>
-          {(
-            [
-              ['이메일 수신', emailPreference],
-              ['문자수신(LMS, SMS)', smsPreference],
-              ['카카오톡 알림톡 수신', kakaoPreference],
-            ] as const
-          ).map(([label, value]) => (
-            <HStack
-              key={label}
-              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-              gap="0"
-            >
-              <Typography
-                variant="body3"
-                mo="body4"
-                className={css({ w: '178px', _mobile: { w: 'auto' } })}
-              >
-                {label}
-              </Typography>
-              <Typography variant="body3" mo="body4" tone="subtle">
-                {value}
-              </Typography>
-            </HStack>
-          ))}
-        </Stack>
+        <DescriptionList
+          items={[
+            { term: '이메일 수신', description: emailPreference },
+            { term: '문자수신(LMS, SMS)', description: smsPreference },
+            { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+          ]}
+          termProps={{ variant: 'body3', mo: 'body4' }}
+          descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
+          slotStyles={{
+            root: css.raw({ gridTemplateColumns: 'none', gap: '6', _mobile: { gap: '4' } }),
+            row: css.raw({
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: '0',
+              _mobile: { justifyContent: 'space-between' },
+            }),
+            term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),
+            description: css.raw({ m: '0' }),
+          }}
+        />
       </ContentSection>
       <Typography as="p" variant="body5" tone="tertiary">
         *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서 가능합니다.
@@ -555,78 +407,33 @@ function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: Pr
     </Stack>
   );
 }
-
 type ProfilePasswordDialogProps = {
   previewComplete?: boolean;
+  previewState?: 'input' | 'confirm' | 'complete';
   onClose: () => void;
-  onComplete: () => void;
 };
-
 const titles = {
   input: '비밀번호 설정',
   confirm: '비밀번호 변경 확인',
   complete: '비밀번호 변경 완료',
 };
-
 /** 비밀번호 변경 입력과 완료 상태를 표시합니다. (Displays password editing and completion states.) */
 export function ProfilePasswordDialog({
   previewComplete = false,
+  previewState,
   onClose,
-  onComplete,
 }: ProfilePasswordDialogProps) {
-  const binding = useContext(MyPageDataContext).profile;
-  const request = useRequestAction();
-  const [step, setStep] = useState<'input' | 'confirm' | 'complete'>(
-    previewComplete ? 'complete' : 'input',
-  );
+  const step = previewState ?? (previewComplete ? 'complete' : 'input');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
-  const [errors, setErrors] = useState<Errors>({});
-
-  function changeField(field: FieldName, value: string) {
-    if (field === 'password') setPassword(value);
-    else setConfirmation(value);
-    setErrors((previous) => ({
-      ...previous,
-      [field]: undefined,
-      ...(field === 'password' ? { confirmation: undefined } : {}),
-    }));
-  }
-
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    event.stopPropagation();
-    const nextErrors = validatePasswordReset(password, confirmation);
-    if (nextErrors.password) {
-      nextErrors.password = '올바른 비밀번호를 입력해주세요.';
-    }
-    if (confirmation && password !== confirmation) {
-      nextErrors.confirmation = '비밀번호가 일치하지 않습니다. 다시 확인해주세요.';
-    }
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
-    setStep('confirm');
-  }
-
-  function confirm() {
-    if (step === 'confirm') {
-      void request.run(async () => {
-        if (binding) await binding.changePassword(password);
-        setPassword('');
-        setConfirmation('');
-        onComplete();
-        setStep('complete');
-      });
-    } else {
-      onClose();
-    }
-  }
-
+  const errors: Errors = {};
+  const changeField = (field: FieldName, value: string) =>
+    field === 'password' ? setPassword(value) : setConfirmation(value);
   return (
     <ModalDialog
       open
       onOpenChange={(open) => {
-        if (!open && !request.pending) onClose();
+        if (!open) onClose();
       }}
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
@@ -634,18 +441,17 @@ export function ProfilePasswordDialog({
       actions={{
         kind: 'single',
         label: step === 'input' ? '비밀번호 설정' : '확인',
-        onConfirm: step === 'input' ? undefined : confirm,
+        onConfirm: step === 'input' ? undefined : onClose,
         buttonProps: {
           type: step === 'input' ? 'submit' : 'button',
           form: step === 'input' ? 'profile-password-form' : undefined,
           size: 'tall',
-          disabled: request.pending,
+          disabled: false,
         },
       }}
     >
-      <BindingFeedback pending={request.pending} error={request.error} />
       {step === 'input' ? (
-        <form id="profile-password-form" noValidate onSubmit={submit}>
+        <form id="profile-password-form" noValidate onSubmit={(event) => event.preventDefault()}>
           <Stack gap="4">
             <TextFormField
               id="profile-new-password"
@@ -687,9 +493,7 @@ export function ProfilePasswordDialog({
     </ModalDialog>
   );
 }
-
 type ProfileEditNotice = 'cancel' | 'save' | 'complete' | 'unverified';
-
 const notices = {
   cancel: { title: '회원정보 수정 취소 확인', message: '입력한 변경사항을 취소하시겠습니까?' },
   save: { title: '회원정보 수정 확인', message: '변경사항을 저장하시겠습니까?' },
@@ -699,7 +503,6 @@ const notices = {
     message: '휴대폰 본인인증 후 변경사항을 저장해주세요.',
   },
 };
-
 type ProfileEditDialogsProps = {
   pending?: boolean;
   error?: string;
@@ -707,15 +510,8 @@ type ProfileEditDialogsProps = {
   onDismiss: () => void;
   onConfirm: () => void;
 };
-
 /** 회원정보 편집의 확인·완료·본인인증 안내를 공통 모달로 표시합니다. (Displays profile editing confirmations and notices using shared dialogs.) */
-function ProfileEditDialogs({
-  notice,
-  onDismiss,
-  onConfirm,
-  pending,
-  error,
-}: ProfileEditDialogsProps) {
+function ProfileEditDialogs({ notice, onDismiss, onConfirm, pending }: ProfileEditDialogsProps) {
   const { title, message } = notices[notice];
   const props = {
     open: true,
@@ -726,14 +522,12 @@ function ProfileEditDialogs({
     },
     children: (
       <>
-        <BindingFeedback pending={pending} error={error} />
         <Typography as="p" variant="body3">
           {message}
         </Typography>
       </>
     ),
   };
-
   return (
     <ModalDialog
       {...props}
@@ -746,12 +540,10 @@ function ProfileEditDialogs({
     />
   );
 }
-
 type MyPageWithdrawalCompleteDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
-
 function MyPageWithdrawalCompleteDialog({
   open,
   onOpenChange,
@@ -770,7 +562,6 @@ function MyPageWithdrawalCompleteDialog({
     </ModalDialog>
   );
 }
-
 type MyPageWithdrawalDialogProps = {
   pending?: boolean;
   error?: string;
@@ -778,13 +569,11 @@ type MyPageWithdrawalDialogProps = {
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
-
 function MyPageWithdrawalDialog({
   open,
   onOpenChange,
   onConfirm,
   pending,
-  error,
 }: MyPageWithdrawalDialogProps) {
   return (
     <ModalDialog
@@ -800,7 +589,6 @@ function MyPageWithdrawalDialog({
         confirmDisabled: pending,
       }}
     >
-      <BindingFeedback pending={pending} error={error} />
       <ContentHeader
         gap="4"
         titleAs="h2"
@@ -812,7 +600,6 @@ function MyPageWithdrawalDialog({
     </ModalDialog>
   );
 }
-
 const profileDetails = [
   ['회원 아이디', 'hon******'],
   ['이름', '손*민'],
@@ -821,154 +608,54 @@ const profileDetails = [
   ['이메일', 'dww******@gmail.com'],
   ['휴대폰 번호', '010-****-0522'],
 ] as const;
-
 const initialAddress: ProfileAddress = {
   postalCode: '02157',
   address: '서울시 성북구 테헤란로 27길 54',
   addressDetail: '테헤란 아파트 701호',
 };
-
 /** 회원정보 조회·편집과 비밀번호 설정 흐름을 연결합니다. (Coordinates profile viewing, editing, and password settings.) */
-export function ProfileContent() {
-  // [ 개발팀 바인딩 ] 조회는 MyPageDataContext.profile.item의 현재 값을 읽고 편집 초안은 이 소유자가 관리합니다.
-  // 저장 payload는 이메일·주소·휴대폰·인증 proof·세 수신 동의이며 비밀번호는 기존 changePassword 요청으로 분리합니다.
-  // 요청 중 중복 제출을 막고 실패 시 초안·오류를 유지합니다. 성공 후 최신 item 갱신은 Provider 소유자 책임입니다.
-  const binding = useContext(MyPageDataContext).profile;
-  const current = binding?.item;
-  const request = useRequestAction();
-  const [phoneProof, setPhoneProof] = useState<string | null>(null);
-  const [editing, setEditing] = useState(false);
-  const [email, setEmail] = useState(current?.email ?? 'dww******@gmail.com');
-  const [emailLocal, setEmailLocal] = useState(current?.email.split('@')[0] ?? 'dww******');
-  const [emailDomain, setEmailDomain] = useState(current?.email.split('@')[1] ?? 'gmail.com');
+export function ProfileContent({
+  preview,
+}: {
+  preview?: 'save' | 'complete' | 'unverified' | 'withdraw' | 'withdraw-complete' | 'cancel';
+} = {}) {
+  const [editing, setEditing] = useState(Boolean(preview && !preview.startsWith('withdraw')));
+  const [email] = useState('dww******@gmail.com');
+  const [emailLocal, setEmailLocal] = useState('dww******');
+  const [emailDomain, setEmailDomain] = useState('gmail.com');
   const [domainChoice, setDomainChoice] = useState('gmail.com');
-  const [address, setAddress] = useState(current?.address ?? initialAddress);
-  const [savedAddress, setSavedAddress] = useState(current?.address ?? initialAddress);
+  const [address, setAddress] = useState(initialAddress);
+  const [savedAddress] = useState(initialAddress);
   const [addressOpen, setAddressOpen] = useState(false);
-  const [phone, setPhone] = useState(current?.phone ?? '010-****-0522');
-  const [savedPhone, setSavedPhone] = useState(phone);
+  const [phone, setPhone] = useState('010-****-0522');
   const [phoneVerified, setPhoneVerified] = useState(false);
-  const [passwordChanged, setPasswordChanged] = useState(false);
-  const [passwordDraft, setPasswordDraft] = useState<string>();
+  const [passwordChanged] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
-  const [emailPreference, setEmailPreference] = useState<Preference>(
-    current?.emailPreference ?? '수신안함',
+  const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
+  const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
+  const [kakaoPreference, setKakaoPreference] = useState<Preference>('수신안함');
+  const [notice, setNotice] = useState<ProfileEditNotice | null>(
+    preview === 'save' || preview === 'complete' || preview === 'unverified' || preview === 'cancel'
+      ? preview
+      : null,
   );
-  const [smsPreference, setSmsPreference] = useState<Preference>(
-    current?.smsPreference ?? '수신안함',
-  );
-  const [kakaoPreference, setKakaoPreference] = useState<Preference>(
-    current?.kakaoPreference ?? '수신안함',
-  );
-  const [savedPreferences, setSavedPreferences] = useState({
-    emailPreference,
-    smsPreference,
-    kakaoPreference,
-  });
-  const [notice, setNotice] = useState<ProfileEditNotice | null>(null);
-  const [withdrawOpen, setWithdrawOpen] = useState(false);
-  const [withdrawn, setWithdrawn] = useState(false);
-
-  function submitProfile(event: import('react').FormEvent<HTMLFormElement>, password?: string) {
+  const [withdrawOpen, setWithdrawOpen] = useState(preview === 'withdraw');
+  const [withdrawn, setWithdrawn] = useState(preview === 'withdraw-complete');
+  const submitProfile = (event: import('react').FormEvent<HTMLFormElement>) =>
     event.preventDefault();
-    const errors = {
-      email: isValidEmailLocalPart(emailLocal.trim()) ? '' : '올바른 이메일 주소를 입력해주세요.',
-      domain: isValidEmailDomain(emailDomain.trim()) ? '' : '올바른 도메인을 입력해주세요.',
-      postalCode: /^\d{5}$/.test(address.postalCode.trim()) ? '' : '우편번호 5자리를 입력해주세요.',
-      address: address.address.trim() ? '' : '주소를 입력해주세요.',
-      addressDetail: address.addressDetail.trim() ? '' : '상세주소를 입력해주세요.',
-      phone: !phone.trim()
-        ? '휴대폰 번호를 입력해 주세요.'
-        : phone !== (current?.phone ?? savedPhone) && !phoneVerified
-          ? '휴대폰 인증 후 변경사항을 저장해주세요.'
-          : '',
-    };
-    setFieldErrors(errors);
-    if (phone !== (current?.phone ?? savedPhone) && !phoneVerified) {
-      setNotice('unverified');
-      return;
-    }
-    if (Object.values(errors).some(Boolean)) return;
-    setPasswordDraft(password);
-    setNotice('save');
-  }
-
-  function saveProfile() {
-    if (binding) {
-      void request.run(async () => {
-        // [ 개발팀 바인딩 ] 인라인 비밀번호는 검증 후 저장 확인 시 기존 profile.changePassword에 전달합니다.
-        // 비밀번호 변경과 프로필 저장은 별도 요청입니다. 실패 시 초안과 확인창을 유지하며 재시도합니다.
-        if (passwordDraft) {
-          await binding.changePassword(passwordDraft);
-          setPasswordDraft(undefined);
-          setPasswordChanged(true);
-        }
-        await binding.save({
-          email: `${emailLocal.trim()}@${emailDomain.trim()}`,
-          phone,
-          address,
-          emailPreference,
-          smsPreference,
-          kakaoPreference,
-          phoneProof,
-        });
-        setNotice('complete');
-      });
-      return;
-    }
-    setEmail(`${emailLocal.trim()}@${emailDomain.trim()}`);
-    setSavedAddress(address);
-    setSavedPhone(phone);
-    setSavedPreferences({ emailPreference, smsPreference, kakaoPreference });
-    setNotice('complete');
-  }
-
-  function cancelProfile() {
-    const [local, domain] = (current?.email ?? email).split('@');
-    setEmailLocal(local);
-    setEmailDomain(domain);
-    setDomainChoice(['naver.com', 'gmail.com', 'daum.net'].includes(domain) ? domain : 'direct');
-    setAddress(current?.address ?? savedAddress);
-    setPhone(current?.phone ?? savedPhone);
-    setPhoneProof(null);
-    setPasswordDraft(undefined);
-    setEmailPreference(current?.emailPreference ?? savedPreferences.emailPreference);
-    setSmsPreference(current?.smsPreference ?? savedPreferences.smsPreference);
-    setKakaoPreference(current?.kakaoPreference ?? savedPreferences.kakaoPreference);
-    setAddressOpen(false);
-    setFieldErrors({});
-    setPhoneVerified(false);
+  const cancelProfile = () => {
     setNotice(null);
     setEditing(false);
-  }
-
-  function dismissNotice() {
-    if (notice === 'complete') setEditing(false);
-    setNotice(null);
-  }
-
+  };
+  const dismissNotice = () => setNotice(null);
+  const saveProfile = () => setNotice(null);
   return (
     <MyPageFrame
       activePath="/mypage/profile"
       breadcrumbs={[{ label: editing ? '회원정보 수정' : '회원정보' }]}
     >
-      <BindingFeedback
-        {...binding}
-        pending={binding?.pending || request.pending}
-        error={binding?.error || request.error}
-      />
       {editing ? (
         <ProfileEditForm
-          details={
-            current
-              ? [
-                  ['회원 아이디', current.id],
-                  ['이름', current.name],
-                  ['생년월일', current.birthDate],
-                  ['주소', `${current.address.address} ${current.address.addressDetail}`],
-                ]
-              : undefined
-          }
           emailLocal={emailLocal}
           emailDomain={emailDomain}
           domainChoice={domainChoice}
@@ -1001,19 +688,13 @@ export function ProfileContent() {
           onAddressOpenChange={setAddressOpen}
           onPhoneChange={(value) => {
             setPhone(value);
-            setPhoneProof(null);
             setPhoneVerified(false);
-            setFieldErrors((previous) => ({ ...previous, phone: undefined }));
-          }}
-          onPhoneVerifiedChange={(verified, proof) => {
-            setPhoneProof(verified ? (proof ?? null) : null);
-            setPhoneVerified(verified);
             setFieldErrors((previous) => ({ ...previous, phone: undefined }));
           }}
           onEmailPreferenceChange={setEmailPreference}
           onSmsPreferenceChange={setSmsPreference}
           onKakaoPreferenceChange={setKakaoPreference}
-          pending={request.pending}
+          pending={false}
           onSubmit={submitProfile}
           onCancel={() => setNotice('cancel')}
           onWithdraw={() => setWithdrawOpen(true)}
@@ -1030,34 +711,41 @@ export function ProfileContent() {
           }}
         >
           <Stack gap={{ base: '10', _mobile: '6' }}>
-            <Stack
-              gap={{ base: '12', _mobile: '6' }}
-              pb={{ base: '8', _mobile: '6' }}
-              borderBottom="1px solid var(--colors-black-20)"
-            >
-              {(current
-                ? [
-                    ['회원 아이디', current.id],
-                    ['이름', current.name],
-                    ['생년월일', current.birthDate],
-                  ]
-                : profileDetails.slice(0, 3)
-              ).map(([label, value]) => (
-                <ProfileField key={label} label={label} value={value} />
-              ))}
-              <ProfileField
-                label="주소"
-                value={`${current?.address.address ?? savedAddress.address} ${current?.address.addressDetail ?? savedAddress.addressDetail}`}
-              />
-              <ProfileField label="이메일" value={current?.email ?? email} />
-              <ProfileField label="휴대폰 번호" value={current?.phone ?? phone} />
-            </Stack>
+            <DescriptionList
+              items={[
+                ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description })),
+                {
+                  term: '주소',
+                  description: `${savedAddress.address} ${savedAddress.addressDetail}`,
+                },
+                { term: '이메일', description: email },
+                { term: '휴대폰 번호', description: phone },
+              ]}
+              termProps={{ variant: 'body3', weight: 'semibold' }}
+              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+              slotStyles={{
+                root: css.raw({
+                  gridTemplateColumns: 'none',
+                  gap: '12',
+                  pb: '8',
+                  borderBottom: '1px solid var(--colors-black-20)',
+                  _mobile: { gap: '6', pb: '6' },
+                }),
+                row: css.raw({
+                  display: 'flex',
+                  gap: '0',
+                  _mobile: { flexDirection: 'column', gap: '3' },
+                }),
+                term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
+                description: css.raw({ m: '0' }),
+              }}
+            />
             <ProfileReadView
-              email={current?.email ?? email}
-              phone={current?.phone ?? phone}
-              emailPreference={current?.emailPreference ?? emailPreference}
-              smsPreference={current?.smsPreference ?? smsPreference}
-              kakaoPreference={current?.kakaoPreference ?? kakaoPreference}
+              email={email}
+              phone={phone}
+              emailPreference={emailPreference}
+              smsPreference={smsPreference}
+              kakaoPreference={kakaoPreference}
             />
           </Stack>
           <Button
@@ -1081,8 +769,7 @@ export function ProfileContent() {
       {notice ? (
         <ProfileEditDialogs
           notice={notice}
-          pending={request.pending}
-          error={request.error}
+          pending={false}
           onDismiss={dismissNotice}
           onConfirm={
             notice === 'cancel' ? cancelProfile : notice === 'save' ? saveProfile : dismissNotice
@@ -1091,18 +778,11 @@ export function ProfileContent() {
       ) : null}
       <MyPageWithdrawalDialog
         open={withdrawOpen}
-        pending={request.pending}
-        error={request.error}
+        pending={false}
         onOpenChange={(next) => {
-          if (!request.pending) setWithdrawOpen(next);
+          setWithdrawOpen(next);
         }}
-        onConfirm={() => {
-          void request.run(async () => {
-            if (binding) await binding.withdraw();
-            setWithdrawOpen(false);
-            setWithdrawn(true);
-          });
-        }}
+        onConfirm={() => setWithdrawOpen(false)}
       />
       <MyPageWithdrawalCompleteDialog open={withdrawn} onOpenChange={setWithdrawn} />
     </MyPageFrame>

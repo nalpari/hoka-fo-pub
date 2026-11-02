@@ -7,7 +7,7 @@
  */
 
 import { css } from 'styled-system/css';
-import { Box, Center, Stack, VStack } from 'styled-system/jsx';
+import { Box, Center, VStack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';

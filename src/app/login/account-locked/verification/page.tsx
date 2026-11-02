@@ -1,36 +1,7 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * PhoneVerificationContext.verify에서 받은 서버 proof를 AccountServicesContext.unlock에 전달합니다.
- * 인증 성공만으로 잠금해제를 완료 처리하지 않으며 unlock이 성공한 뒤 완료 경로로 이동합니다.
- */
-
-import { useRouter } from 'next/navigation';
-
-import { useContext } from 'react';
-import { AccountServicesContext } from '@/context/AccountFlowContext';
-import { usePhoneVerification } from '@/hooks/usePhoneVerification';
-
-import { PhoneVerificationContent } from '@/components/phone-verification/PhoneVerificationContent';
-
-/** 계정 잠금 해제 인증 화면과 인증 후 이동을 구성합니다. (Composes account unlock verification and post-verification navigation.) */
+import { PhoneVerificationStatePreview } from '@/components/phone-verification/PhoneVerificationStatePreview';
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
+/** 계정 잠금 해제의 기본 인증 입력을 표시합니다. (Displays the initial account-unlock verification form.) */
 export default function Page() {
-  const router = useRouter();
-  const services = useContext(AccountServicesContext);
-  const verification = usePhoneVerification(async (identity) => {
-    if (services) {
-      if (!identity) throw new Error('본인인증 결과가 없습니다.');
-      await services.unlock(identity);
-    }
-    router.push('/login/account-locked/complete');
-  });
-
-  return (
-    <PhoneVerificationContent
-      title="계정 잠금 해제"
-      description="해킹, 계정탈취 시도 등의 보안이슈로 인하여 계정이잠금 처리되었습니다. 계속 이용 하시려면 본인인증을 통하여 계정잠금을 해제해 주세요."
-      {...verification}
-    />
-  );
+  return <PhoneVerificationStatePreview state="initial" unlock />;
 }

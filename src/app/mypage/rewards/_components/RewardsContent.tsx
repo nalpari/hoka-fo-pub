@@ -1,6 +1,4 @@
 'use client';
-
-import type { OverviewView } from '@/context/MyPageDataContext';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
@@ -8,8 +6,14 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { commonBenefits, tiers } from '@/app/mypage/rewards/rewards-data';
+import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
+import { ContentSection } from '@/components/common/layouts/ContentSection';
+
+import { commonBenefits, rewardPreview, tiers } from '@/app/mypage/rewards/rewards-data';
+import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import type { OverviewView } from '@/types/mypage-display';
 const badge = cva({
   base: {
     display: 'flex',
@@ -42,7 +46,6 @@ const badge = cva({
     },
   },
 });
-
 /** 등급별 도형과 이니셜을 표시합니다. (Displays the membership tier shape and initial.) */
 export function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
   const knownTier = tier === 'ELITE' || tier === 'ADVANCED' || tier === 'RUNNER' ? tier : undefined;
@@ -54,7 +57,6 @@ export function TierBadge({ tier, initial }: { tier?: string; initial?: string }
     </Box>
   );
 }
-
 /** 준비된 누적 구매 진행률과 등급 안내를 표시합니다. (Displays prepared purchase progress and tier guidance.) */
 export function RewardProgress({
   progress,
@@ -137,26 +139,29 @@ export function RewardProgress({
     </Stack>
   );
 }
-
 const sectionHeading = css({ pb: '4', borderBottom: '1px solid black', _mobile: { pb: '3' } });
-
 /** 등급별 혜택과 공통 쿠폰 안내를 배치합니다. (Lays out tier benefits and common coupon information.) */
 export function RewardBenefits() {
   const platform = usePlatform();
   return (
     <Stack gap="14" _mobile={{ gap: '4' }}>
-      <Stack as="section" gap="0" aria-label="등급 안내">
-        <Typography
-          as="h2"
-          variant="heading7"
-          className={css({
-            pb: '4',
-            borderBottom: '1px solid black',
-            _mobile: { display: 'none' },
-          })}
-        >
-          등급 안내
-        </Typography>
+      <ContentSection
+        as="section"
+        gap="0"
+        aria-label="등급 안내"
+        title="등급 안내"
+        headerProps={{
+          titleAs: 'h2',
+          titleProps: {
+            variant: 'heading7',
+            className: css({
+              pb: '4',
+              borderBottom: '1px solid black',
+              _mobile: { display: 'none' },
+            }),
+          },
+        }}
+      >
         <Stack gap="0" _mobile={{ border: '1px solid var(--colors-black-20)', py: '8' }}>
           {tiers.map((tier) => (
             <HStack
@@ -183,9 +188,12 @@ export function RewardBenefits() {
                 _mobile={{ flexDirection: 'row', w: 'auto', gap: '2' }}
               >
                 <TierBadge tier={tier.name} initial={tier.initial} />
-                <Typography as="h3" web="heading8" mo="heading5">
-                  {tier.name}
-                </Typography>
+                <ContentHeader
+                  title={tier.name}
+                  titleAs="h3"
+                  titleProps={{ web: 'heading8', mo: 'heading5' }}
+                  gap="0"
+                />
               </Stack>
               <Stack as="ol" gap="3" listStyleType="none" flex="1" _mobile={{ gap: '2' }}>
                 {tier.benefits.map((benefit, index) => (
@@ -214,11 +222,17 @@ export function RewardBenefits() {
             </HStack>
           ))}
         </Stack>
-      </Stack>
-      <Stack as="section" gap="0" _mobile={{ bg: 'black.10', px: '4', py: '6', gap: '5' }}>
-        <Typography as="h2" web="heading7" mo="heading6" className={sectionHeading}>
-          HOKA 회원 공통 혜택
-        </Typography>
+      </ContentSection>
+      <ContentSection
+        as="section"
+        gap="0"
+        _mobile={{ bg: 'black.10', px: '4', py: '6', gap: '5' }}
+        title="HOKA 회원 공통 혜택"
+        headerProps={{
+          titleAs: 'h2',
+          titleProps: { web: 'heading7', mo: 'heading6', className: sectionHeading },
+        }}
+      >
         <Grid
           gridTemplateColumns="repeat(2,minmax(0,1fr))"
           columnGap="10"
@@ -228,25 +242,96 @@ export function RewardBenefits() {
           _mobile={{ gridTemplateColumns: 'minmax(0,1fr)', gap: '5', py: '0', borderBottom: '0' }}
         >
           {commonBenefits.map((benefit) => (
-            <Stack
+            <ContentHeader
               as="section"
               key={benefit.title}
               gap="4"
+              title={benefit.title}
+              titleAs="h3"
+              titleProps={{ web: 'body2', mo: 'heading7' }}
+              description={benefit.description}
+              descriptionProps={{ variant: 'body4' }}
               css={{
                 '&:nth-child(odd)': { borderRight: '1px solid var(--colors-black-20)', pr: '10' },
               }}
               _mobile={{ gap: '3', '&:nth-child(odd)': { borderRight: '0', pr: '0' } }}
-            >
-              <Typography as="h3" web="body2" mo="heading7">
-                {benefit.title}
-              </Typography>
-              <Typography as="p" variant="body4">
-                {benefit.description}
-              </Typography>
-            </Stack>
+            />
           ))}
         </Grid>
-      </Stack>
+      </ContentSection>
     </Stack>
+  );
+}
+/** 회원등급의 고정 데이터와 조회 상태를 표시합니다. (Displays prepared reward data and query states.) */
+export function RewardsPageContent({
+  display,
+  preview,
+}: {
+  display?: OverviewView | null;
+  preview?: 'loading' | 'error';
+} = {}) {
+  const platform = usePlatform();
+  const summary = preview ? null : display === undefined ? rewardPreview[platform] : display;
+  return (
+    <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
+      <BindingFeedback
+        pending={preview === 'loading'}
+        error={preview === 'error' ? '회원등급을 불러오지 못했습니다.' : undefined}
+      />
+      <Stack gap="14" _mobile={{ gap: '10', pt: '6' }}>
+        <Stack gap="6">
+          <HStack gap="4" alignItems="flex-start">
+            <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
+              <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
+            </Box>
+            <ContentHeader
+              title={summary?.tier}
+              titleAs="h1"
+              titleProps={{ web: 'heading6', mo: 'heading3' }}
+              description={
+                <>
+                  {summary?.name}
+                  {summary ? '님의 이번달 멤버십 등급' : null}
+                </>
+              }
+              descriptionProps={{ web: 'body3', mo: 'body4' }}
+              gap="3"
+              pt="3"
+              _mobile={{ gap: '2', pt: '0' }}
+            />
+          </HStack>
+          <HStack gap="2" alignItems="stretch">
+            {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
+            <Stack
+              bg="black.10"
+              p="8"
+              gap="3"
+              w={summary?.tierProgress ? '240px' : 'full'}
+              minH="133px"
+              justifyContent="space-between"
+              _mobile={{
+                w: 'full',
+                minH: '0',
+                px: '4',
+                py: '5',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Typography web="body3" mo="body4">
+                구매금액
+              </Typography>
+              <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
+                <Typography web="heading8" mo="heading7" weight="black">
+                  {summary?.purchaseAmount}
+                </Typography>
+                <Typography variant="body3">원</Typography>
+              </HStack>
+            </Stack>
+          </HStack>
+        </Stack>
+        <RewardBenefits />
+      </Stack>
+    </MyPageFrame>
   );
 }

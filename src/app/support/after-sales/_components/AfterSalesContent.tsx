@@ -1,11 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-
 import { type ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
+import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
+import { ButtonLink } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -15,18 +16,22 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 function ShippingReturnsNumberedList({
   items,
   compact = false,
+  dense = false,
 }: {
   items: readonly ReactNode[];
   compact?: boolean;
+  dense?: boolean;
 }) {
   return (
-    <Stack as="ol" gap={compact ? '2' : '4'} m="0" p="0" listStyleType="none">
+    <Stack as="ol" gap={dense ? '10px' : compact ? '2' : '4'} m="0" p="0" listStyleType="none">
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="2">
           <Box flexShrink="0">
             <Typography variant="body4">{index + 1}.</Typography>
           </Box>
-          <Typography variant="body4">{item}</Typography>
+          <Typography as="div" variant="body4" className={css({ flex: '1', minW: '0' })}>
+            {item}
+          </Typography>
         </HStack>
       ))}
     </Stack>
@@ -35,11 +40,11 @@ function ShippingReturnsNumberedList({
 
 function ShippingReturnsBulletList({ items }: { items: readonly ReactNode[] }) {
   return (
-    <Stack as="ul" gap="0" pl="2" listStyleType="none">
+    <Stack as="ul" gap="0" pl="0" m="0" listStyleType="none">
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="1">
           <Typography as="span" variant="body4" tone="subtle" aria-hidden="true">
-            ・
+            -
           </Typography>
           <Typography variant="body4" tone="subtle">
             {item}
@@ -50,14 +55,22 @@ function ShippingReturnsBulletList({ items }: { items: readonly ReactNode[] }) {
   );
 }
 
-function ShippingReturnsGuidePanel({ title, children }: { title: ReactNode; children: ReactNode }) {
+function ShippingReturnsGuidePanel({
+  title,
+  children,
+  compact = false,
+}: {
+  title: ReactNode;
+  children: ReactNode;
+  compact?: boolean;
+}) {
   return (
     <ContentSection
       title={title}
       headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading10', weight: 'semibold' } }}
-      gap="4"
-      px={{ base: '4', _mobile: '2' }}
-      pt={{ base: '3', _mobile: '4' }}
+      gap={compact ? '3' : '4'}
+      px="2"
+      py={{ base: '0', _mobile: '4' }}
     >
       {children}
     </ContentSection>
@@ -119,42 +132,185 @@ const returnCosts = [
   </>,
 ] as const;
 
+const returnContact = {
+  phone: '080-6666-7777',
+  phoneHref: 'tel:08066667777',
+  address: '인천광역시 부평구 부평대로 313번길 63 지하 1층',
+};
+
+function ReturnContact() {
+  return (
+    <ContentSection
+      as="section"
+      aria-label="호카 반품처"
+      title="호카 반품처"
+      headerProps={{
+        titleAs: 'h3',
+        titleProps: { web: 'heading9', mo: 'heading6', weight: 'semibold' },
+      }}
+      bg="black.10"
+      p="9"
+      gap="4"
+      _mobile={{ px: '4', pt: '6', pb: '8' }}
+    >
+      <Stack direction={{ base: 'row', _mobile: 'column' }} gap={{ base: '14', _mobile: '8' }}>
+        <Stack gap="2" flex="1" minW="0">
+          <Typography variant="body3" language="en">
+            TEL.{' '}
+            <a
+              href={returnContact.phoneHref}
+              className={css({ textDecoration: 'underline', textUnderlineOffset: '2px' })}
+            >
+              {returnContact.phone}
+            </a>
+          </Typography>
+          <Typography variant="body5" tone="subtle">
+            * 아래 1:1 문의를 이용하시면 더 빠르게 답변 받으실 수 있습니다.
+          </Typography>
+        </Stack>
+        <Stack gap="8" flex="1" minW="0">
+          <Stack gap="2">
+            <Typography variant="body3">운영시간</Typography>
+            <Stack gap={{ base: '2', _mobile: '10px' }}>
+              <HStack gap="1" alignItems="baseline" flexWrap="wrap">
+                <Typography as="span" variant="body3">
+                  평일
+                </Typography>
+                <Typography as="span" variant="body3" language="en">
+                  09:00~18:00
+                </Typography>
+                <Typography as="span" variant="body4">
+                  (점심시간 12:00~13:00)
+                </Typography>
+              </HStack>
+              <Typography variant="body5" tone="subtle">
+                * 토,일 및 공휴일 휴무
+              </Typography>
+            </Stack>
+          </Stack>
+          <Stack gap="2">
+            <Typography variant="body3">반품 접수처</Typography>
+            <Typography variant="body4">{returnContact.address}</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    </ContentSection>
+  );
+}
+
+const returnQuickLinks = [
+  {
+    href: '/support/inquiries/new',
+    title: '배송 및 반품 관련 1:1 문의',
+    description: '궁금하신 내용을 1:1 문의에 남겨주시면 확인 후 답변 드리겠습니다.',
+    label: '1:1 문의하기',
+  },
+  {
+    href: '/support/faq',
+    title: 'FAQs',
+    description: '가장 자주 묻는 질문과 답변을 찾아보세요.',
+    label: 'FAQs 바로가기',
+  },
+  {
+    href: '/mypage/orders',
+    title: '주문/배송 조회',
+    description: '구매하신 상품의 주문 및 배송 내역을 확인하고, 반품을 신청하실 수 있습니다.',
+    label: '주문/배송 조회하기',
+  },
+] as const;
+
+function ReturnQuickLinks() {
+  return (
+    <Stack
+      direction={{ base: 'row', _mobile: 'column' }}
+      gap={{ base: '0', _mobile: '6' }}
+      border="1px solid"
+      borderColor="black.20"
+      px="6"
+      py="8"
+      _mobile={{ px: '0' }}
+    >
+      {returnQuickLinks.map((item) => (
+        <ContentSection
+          key={item.href}
+          title={item.title}
+          headerProps={{
+            gap: '2',
+            titleAs: 'h3',
+            titleProps: { variant: 'body2', language: 'ko' },
+            description: item.description,
+            descriptionProps: {
+              variant: 'body4',
+              tone: 'subtle',
+              className: css({ minH: '36px' }),
+            },
+          }}
+          footer={
+            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+              {item.label}
+            </ButtonLink>
+          }
+          as="section"
+          aria-label={item.title}
+          flex="1"
+          minW="0"
+          alignItems="flex-start"
+          gap={{ base: '6', _mobile: '5' }}
+          px="9"
+          css={{
+            '&:first-child': { pl: '0' },
+            '&:last-child': { pr: '0' },
+            '& + section': { borderLeft: '1px solid token(colors.black.20)' },
+            _mobile: {
+              px: '4',
+              '&:first-child': { pl: '4' },
+              '&:last-child': { pr: '4' },
+              '& + section': {
+                borderLeft: '0',
+                borderTop: '1px solid token(colors.black.20)',
+                pt: '6',
+              },
+            },
+          }}
+        ></ContentSection>
+      ))}
+    </Stack>
+  );
+}
+
 function ReturnCautionsPanel() {
   return (
-    <ShippingReturnsGuidePanel title="반품 유의 사항">
-      <ShippingReturnsNumberedList
-        items={[
-          '상품 수령일로부터 7일 이내에 반품 신청을 해주시기 바랍니다.',
-          '교환 정책 변경 : HOKA 코리아 온라인 공식 홈페이지 구매 상품은 2023년 8월 24일 부터 교환 서비스가 제공되지 않습니다. 수령하신 상품은 반품하시고, 교환을 희망하시는 상품은 별도로 구매 해주시기 바랍니다.',
-        ]}
-      />
-      <Typography variant="body4">3. 다음과 같은 경우 반품 처리가 불가합니다.</Typography>
-      <ShippingReturnsBulletList items={unavailableReturns} />
-      <Typography variant="body4">4. 반품 배송비 정책</Typography>
-      <ShippingReturnsBulletList items={returnCosts} />
-      <Stack bg="black.10" p="6" gap="3">
-        <Typography variant="heading7">고객센터</Typography>
-        <Typography variant="body3">TEL. 080-2225-6660</Typography>
-        <Typography variant="body4">평일 10:00~17:00 (점심시간 12:00~13:00)</Typography>
-      </Stack>
-      <HStack gap="4" flexWrap="wrap">
-        {[
-          { href: '/support/inquiries/new', label: '1:1 문의' },
-          { href: '/support/faq', label: 'FAQs' },
-          { href: '/mypage/orders', label: '주문/배송 조회' },
-        ].map((item) => (
-          <Link key={item.href} href={item.href}>
-            <Typography variant="textLink3">{item.label} →</Typography>
-          </Link>
-        ))}
-      </HStack>
-    </ShippingReturnsGuidePanel>
+    <Stack gap={{ base: '10', _mobile: '6' }}>
+      <ReturnContact />
+      <ShippingReturnsGuidePanel title="반품 유의 사항" compact>
+        <ShippingReturnsNumberedList
+          dense
+          items={[
+            '상품 수령일로부터 7일 이내에 반품 신청을 해주시기 바랍니다.',
+            '교환 정책 변경 : HOKA 코리아 온라인 공식 홈페이지 구매 상품은 2023년 8월 24일 부터 교환 서비스가 제공되지 않습니다. 수령하신 상품은 반품하시고, 교환을 희망하시는 상품은 별도로 구매 해주시기 바랍니다.',
+            <Stack gap="2">
+              <span>다음과 같은 경우 반품 처리가 불가합니다.</span>
+              <ShippingReturnsBulletList items={unavailableReturns} />
+            </Stack>,
+            <Stack gap="2">
+              <span>반품 배송비 정책</span>
+              <ShippingReturnsBulletList items={returnCosts} />
+            </Stack>,
+          ]}
+        />
+      </ShippingReturnsGuidePanel>
+      <ReturnQuickLinks />
+    </Stack>
   );
 }
 
 const returnSteps = [
-  '마이페이지 내 상세내역 확인',
-  '반품 신청 선택, 신청 후 2~3일 후 택배 수거',
+  'My Page > 구매내역 > 주문/배송 조회 > 상세내역 확인',
+  <>
+    페이지 하단의 반품신청 선택
+    <br />
+    (신청 완료후 2~3일내 지정택배사 수거 방문)
+  </>,
   '수령 상태 동일하게 이중 포장 후 기사님 전달',
   '반품 완료 및 결제수단 환불 진행',
   '요청 및 상품 확인',
@@ -162,26 +318,48 @@ const returnSteps = [
 ] as const;
 
 function ProductReturnsPanel() {
+  const isMobile = usePlatform() === 'mobile';
+  // 시안의 PC·모바일 절차 순서를 각각 표시하며 실제 반품 진행 상태를 나타내지 않습니다.
+  const steps = isMobile
+    ? [
+        returnSteps[0],
+        returnSteps[1],
+        '최초 수령 상태와 동일하게 이중포장하여 방문 기사님께 전달',
+        returnSteps[5],
+        returnSteps[4],
+        returnSteps[3],
+      ]
+    : returnSteps;
   return (
-    <ShippingReturnsGuidePanel title="상품 반품 안내">
-      <ShippingReturnsNumberedList
-        items={[
-          '온라인 스토어에서 구매한 상품만 온라인 반품이 가능합니다.',
-          '고객님 변심으로 인해 발생되는 반품관련 배송 비용은, 시스템에서 자동으로 차감 후 환불처리 됩니다.',
-        ]}
-      />
-      <ContentHeader
-        titleAs="h3"
-        title={<>상품 반품 절차</>}
-        titleProps={{ variant: 'heading10', weight: 'semibold' }}
-      />
-      <ShippingReturnsNumberedList items={returnSteps} compact />
-    </ShippingReturnsGuidePanel>
+    <Stack px="2" py="4" gap="4">
+      <ContentSection
+        title="호카 반품 안내"
+        gap={{ base: '4', _mobile: '3' }}
+        headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading10', weight: 'semibold' } }}
+      >
+        <ShippingReturnsNumberedList
+          compact
+          dense={isMobile}
+          items={[
+            '온라인 스토어에서 구매한 상품만 온라인 반품이 가능합니다.',
+            '고객님 변심으로 인해 발생되는 반품관련 배송 비용은, 시스템에서 자동으로 차감 후 환불처리 됩니다.',
+          ]}
+        />
+      </ContentSection>
+      <Stack gap={{ base: '4', _mobile: '3' }}>
+        <ContentHeader
+          titleAs="h3"
+          title={<>상품 반품 절차</>}
+          titleProps={{ variant: 'heading10', weight: 'semibold' }}
+        />
+        <ShippingReturnsNumberedList items={steps} compact />
+      </Stack>
+    </Stack>
   );
 }
 
 export const tabs = [
   { value: 'shipping', label: '배송 안내', content: <ShippingGuidePanel /> },
-  { value: 'return-cautions', label: '반품 주의사항', content: <ReturnCautionsPanel /> },
-  { value: 'product-returns', label: '상품 반품 안내', content: <ProductReturnsPanel /> },
+  { value: 'product-returns', label: '반품 안내', content: <ProductReturnsPanel /> },
+  { value: 'return-cautions', label: '상품 반품안내', content: <ReturnCautionsPanel /> },
 ] as const;

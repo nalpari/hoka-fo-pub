@@ -1,28 +1,16 @@
 'use client';
-
-/**
- * [개발팀 바인딩]
- * 독립 결과 팝업도 AccountFlowProvider.recovery.maskedAccountId를 표시합니다. Provider가 없을 때만 기존 예시 계정을 표시합니다.
- * 직접 경로 진입은 조회/인증 성공을 의미하지 않습니다. 실제 resetProof가 없으면 비밀번호 변경 경로에서 재인증을 요구합니다.
- */
-
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 회원·인증 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { useRouter } from 'next/navigation';
 
-import { useContext } from 'react';
-import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
 import { usePlatform } from '@/context/platform';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
-
 /** 독립 아이디 확인 팝업과 로그인·비밀번호 재설정 이동을 구성합니다. (Composes the standalone account lookup dialog and its navigation.) */
 export default function Page() {
   const router = useRouter();
-  const services = useContext(AccountServicesContext);
-  const flow = useAccountFlow();
   const platform = usePlatform();
-
   return (
     <ModalDialog
       open
@@ -40,10 +28,7 @@ export default function Page() {
         onConfirm: () => router.push('/login'),
       }}
     >
-      <IdConfirmationMessage
-        accountId={services ? (flow?.recovery?.maskedAccountId ?? '') : undefined}
-        userName={services ? (flow?.recovery?.displayName ?? '고객') : undefined}
-      />
+      <IdConfirmationMessage />
     </ModalDialog>
   );
 }

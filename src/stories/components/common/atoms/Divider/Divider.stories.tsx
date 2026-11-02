@@ -21,3 +21,7 @@ export const Heading: Story = { args: { variant: 'heading' } };
 export const Responsive: Story = {
   args: { variant: 'heading', mo: 'subtle' },
 };
+
+export const Vertical: Story = {
+  args: { orientation: 'vertical', length: '10px', color: 'black.40' },
+};

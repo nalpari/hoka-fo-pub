@@ -1,5 +1,6 @@
 'use client';
 import type { ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
@@ -9,16 +10,26 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 /** 문의 작성 기본·고정 상태의 제목과 탐색을 공유합니다. (Shares headings and navigation across inquiry form states.) */
-export function InquiryFormLayout({ children }: { children: ReactNode }) {
+export function InquiryFormLayout({
+  children,
+  orderSelected = false,
+}: {
+  children: ReactNode;
+  orderSelected?: boolean;
+}) {
+  const platform = usePlatform();
   return (
     <CustomerCenterLayout
       header={
         /* 문의 등록 제목과 안내 문구 (Inquiry submission heading and guidance). */
         <ContentHeader
           gap={{ base: '3', _mobile: '4' }}
-          title="1:1 문의등록"
+          title={orderSelected && platform === 'web' ? '1:1 문의' : '1:1 문의등록'}
           titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading5' }}
+          titleProps={{
+            web: 'heading6',
+            mo: 'heading5',
+          }}
           description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
           descriptionProps={{
             variant: 'body3',

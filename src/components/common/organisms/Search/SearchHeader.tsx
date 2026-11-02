@@ -7,6 +7,7 @@ import { faXmark } from '@/icons/fontAwesome';
 
 type SearchHeaderProps = { onClose: () => void };
 
+/** 전체 검색 패널의 닫기 행을 표시합니다. (Displays the close row of the global search panel.) */
 export function SearchHeader({ onClose }: SearchHeaderProps) {
   return (
     <HStack
@@ -14,8 +15,7 @@ export function SearchHeader({ onClose }: SearchHeaderProps) {
       px="16px"
       justifyContent="flex-end"
       gap="0"
-      borderBottom="1px solid"
-      borderColor="black.20"
+      borderBottom="1px solid {colors.black.20}"
     >
       <Button variant="icon" aria-label="검색 닫기" size="24px" onClick={onClose}>
         <Icon fontAwesomeIcon={faXmark} size="16px" />

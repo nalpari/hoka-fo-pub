@@ -1,15 +1,7 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
-
-import { useContext, useRef } from 'react';
-import { type FormEvent, type ReactNode, useState } from 'react';
-import { AccountServicesContext, useAccountFlow } from '@/context/AccountFlowContext';
+import { type ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
-import { useRequestAction } from '@/hooks/useRequestAction';
-import { useVerificationCountdown } from '@/lib/useVerificationCountdown';
 
-import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -24,11 +16,10 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
-import { getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
-import { isValidName } from '@/lib/validation';
-
-type FindAccountNotice = { tone: 'error' | 'info'; message: string };
-
+type FindAccountNotice = {
+  tone: 'error' | 'info';
+  message: string;
+};
 type FindAccountContentProps = {
   name: string;
   phone: string;
@@ -43,10 +34,9 @@ type FindAccountContentProps = {
   onNameChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
   onCodeChange: (value: string) => void;
-  onConfirmCode: () => void;
+  onConfirmCode?: () => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
-
 /** 고정 상태와 기본 화면이 공유하는 표시 UI입니다. (Shares presentation between fixed states and the default screen.) */
 export function FindAccountContent({
   name,
@@ -165,7 +155,6 @@ export function FindAccountContent({
     </AccountPageLayout>
   );
 }
-
 type IdConfirmationModalProps = {
   accountId?: string;
   userName?: string;
@@ -173,7 +162,6 @@ type IdConfirmationModalProps = {
   onPasswordReset: () => void;
   onConfirm: () => void;
 };
-
 /** 아이디 확인 안내를 재사용 가능한 반응형 모달로 표시합니다. (Displays account lookup guidance in a reusable responsive modal.) */
 function IdConfirmationModal({
   accountId,
@@ -183,7 +171,6 @@ function IdConfirmationModal({
   onConfirm,
 }: IdConfirmationModalProps) {
   const platform = usePlatform();
-
   return (
     <ModalDialog
       open
@@ -205,176 +192,6 @@ function IdConfirmationModal({
     </ModalDialog>
   );
 }
-
-const demoVerificationCode = '900668';
-
-/**
- * 계정 찾기 화면의 입력과 인증 흐름을 관리합니다. (Manages account recovery inputs and verification flow.)
- *
- * [ 개발팀 바인딩 ]
- * AccountServicesContext.recovery.request/verify를 실제 발송/검증/계정 조회에 연결합니다. 요청 ID와 서버 유효시간을 사용합니다.
- * verify 결과의 maskedAccountId와 resetProof를 AccountFlowProvider에 보관해 결과 표시와 비밀번호 변경에 사용합니다. 재설정 참조를 URL/저장소에 넣지 않습니다.
- * 900668/honggildong은 Provider가 없는 데모 값입니다. 이름/전화번호 변경 시 이전 인증 요청 결과를 폐기합니다.
- */
-export function FindAccountRouteContent() {
-  const services = useContext(AccountServicesContext);
-  const flow = useAccountFlow();
-  const request = useRequestAction();
-  const [requestId, setRequestId] = useState('');
-  const generation = useRef(0);
-  const router = useRouter();
-  const [resultOpen, setResultOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [nameTouched, setNameTouched] = useState(false);
-  const [phone, setPhone] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [phoneError, setPhoneError] = useState('');
-  const [code, setCode] = useState('');
-  const [codeError, setCodeError] = useState('');
-  const { deadline, secondsLeft, start, reset } = useVerificationCountdown();
-  const [notice, setNotice] = useState<FindAccountNotice | null>(null);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const nextNameError = isValidName(name) ? '' : '이름을 올바르게 입력해주세요';
-    const nextPhoneError = isValidPhone(phone) ? '' : '휴대폰 번호를 올바르게 입력해주세요';
-
-    setNameTouched(true);
-    setNameError(nextNameError);
-    setPhoneError(nextPhoneError);
-    setNotice(null);
-    setCodeError('');
-
-    if (nextNameError || nextPhoneError) {
-      return;
-    }
-
-    if (services) {
-      const version = generation.current;
-      void request.run(async () => {
-        const result = await services.recovery.request({ name, phone });
-        if (version !== generation.current) return;
-        setRequestId(result.requestId);
-        start(result.expiresInSeconds);
-        setCode('');
-        setNotice({ tone: 'info', message: '인증번호를 발송했습니다.' });
-      });
-      return;
-    }
-    setCode('');
-    start();
-    setNotice({
-      tone: 'info',
-      message: `데모 인증번호는 ${demoVerificationCode}입니다. 실제 문자는 발송되지 않으며 예시 아이디가 표시됩니다.`,
-    });
-  };
-
-  return (
-    <FindAccountContent
-      name={name}
-      phone={phone}
-      code={code}
-      requested={deadline !== null}
-      secondsLeft={secondsLeft}
-      nameError={nameTouched ? nameError : ''}
-      phoneError={phoneError}
-      codeError={codeError}
-      notice={
-        request.error
-          ? { tone: 'error', message: request.error }
-          : request.pending
-            ? { tone: 'info', message: '요청을 처리하고 있습니다.' }
-            : notice
-      }
-      result={
-        resultOpen ? (
-          <IdConfirmationModal
-            userName={name}
-            accountId={services ? (flow?.recovery?.maskedAccountId ?? '') : undefined}
-            onOpenChange={setResultOpen}
-            onConfirm={() => router.push('/login')}
-            onPasswordReset={() => router.push('/login/find-account/password-reset')}
-          />
-        ) : null
-      }
-      onNameChange={(value) => {
-        generation.current += 1;
-        flow?.setRecovery(null);
-        setRequestId('');
-        setName(value);
-        setNameTouched(true);
-        setNameError(!value.trim() || isValidName(value) ? '' : '이름을 올바르게 입력해주세요');
-        reset();
-        setCode('');
-        setCodeError('');
-        setNotice(null);
-      }}
-      onPhoneChange={(value) => {
-        generation.current += 1;
-        flow?.setRecovery(null);
-        setRequestId('');
-        const formattedValue = getPhoneDigits(value);
-        setPhone(formattedValue);
-        setPhoneError(
-          !formattedValue || isValidPhone(formattedValue)
-            ? ''
-            : '휴대폰 번호를 올바르게 입력해주세요',
-        );
-        reset();
-        setCode('');
-        setCodeError('');
-        setNotice(null);
-      }}
-      onCodeChange={(value) => {
-        setCode(value.replace(/\D/g, '').slice(0, 6));
-        setCodeError('');
-        setNotice(null);
-      }}
-      onConfirmCode={() => {
-        if (deadline === null) return;
-        if (secondsLeft === 0) {
-          setCodeError('');
-          setNotice({
-            tone: 'error',
-            message: '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.',
-          });
-          return;
-        }
-        if (!/^\d{6}$/.test(code)) {
-          setCodeError('인증번호 6자리를 입력해 주세요.');
-          setNotice(null);
-          return;
-        }
-        if (services) {
-          const version = generation.current;
-          void request.run(async () => {
-            if (!flow || !requestId) throw new Error('인증번호를 다시 요청해 주세요.');
-            const result = await services.recovery.verify({ requestId, name, phone, code });
-            if (version !== generation.current) return;
-            if (result.accountLocked) {
-              router.push('/login/account-locked');
-              return;
-            }
-            flow.setRecovery({ ...result, displayName: name });
-            setResultOpen(true);
-          });
-          return;
-        }
-        if (code !== demoVerificationCode) {
-          setCodeError('인증번호가 일치하지 않습니다.');
-          setNotice(null);
-          return;
-        }
-        setCodeError('');
-        setNotice(null);
-        setResultOpen(true);
-      }}
-      onSubmit={handleSubmit}
-    />
-  );
-}
-
 export const routePreviewComponents = { IdConfirmationModal } satisfies Pick<
   typeof import('@/types/component-contracts/app-login-find-account-page'),
   'IdConfirmationModal'
