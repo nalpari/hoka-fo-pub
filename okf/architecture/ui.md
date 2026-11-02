@@ -6,9 +6,13 @@ tags: [components, panda-css, storybook]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T00:34:35Z'
+  at: "2026-11-02T00:43:51.446Z"
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/inquiries/_components/InquiryListContent.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/support/notices/_components/NoticesContent.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
@@ -3842,3 +3846,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 ## 공통 카드와 가이드 서식 정리 (2026-10-30)
 
 ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.
+
+## 문의 목록·등록 시안 반영 (2026-11-02)
+
+InquiryListLayout의 제목/구분선·하단 간격, InquiryListContent의 빈 영역·항목 경계·배지·Q/A 타이포·모바일 패널, InquiryFormContent의 일반 굵기 정보·내용 필드·첨부 제목·48px 액션을 갱신했다. InquiryCautions는 세 문의 화면과 기존 오류 preview에서 네 줄 안내·상단 패딩을 공유한다. 데이터와 서비스 상태 소유자는 유지하며 공통 FormField/TextInput/Button/CustomerCenterLayout의 기본값은 바꾸지 않았다. [Figma 프레임과 수치](support-design.md#문의-목록등록-figma-적용-2026-11-02)에 근거를 기록한다.

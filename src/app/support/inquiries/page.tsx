@@ -51,14 +51,14 @@ export default function Page() {
         ];
 
   return (
-    <InquiryListLayout>
+    <InquiryListLayout empty={inquiries.length === 0 && !binding?.pending && !binding?.error}>
       <BindingFeedback
         pending={binding?.pending || request.pending}
         error={binding?.error || request.error}
         onRetry={binding?.onRetry}
       />
       <Divider variant="heading" mo="subtle" />
-      <Stack gap="0" pt="6" pb={{ base: '48px', _mobile: '8' }}>
+      <Stack gap="0" pt="6" pb={{ base: '6', _mobile: '8' }}>
         {inquiries.length === 0 && !binding?.pending && !binding?.error ? (
           <InquiryEmptyState />
         ) : (

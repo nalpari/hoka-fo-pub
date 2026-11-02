@@ -6,9 +6,14 @@ tags: [support, design, components, responsive]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T00:34:35Z'
+  at: "2026-11-02T00:43:51.022Z"
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/support/inquiries/_components/InquiryListContent.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/components/support/InquiryCautions.tsx
   - src/app/support/notices/_components/NoticesContent.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/app/support/notices/[id]/page.tsx
@@ -30,6 +35,9 @@ working_tree_sources:
   - src/components/care-guide/CareInstructions.tsx
   - src/stories/features/support/SupportPages.scenarios.tsx
 sources:
+  - id: inquiries-section-figma
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16422
+    title: 1:1 문의 PC·모바일 목록과 등록 시안
   - id: notices-figma
     resource: 'https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16234'
     title: '공지사항 PC·모바일 목록·상세 시안'
@@ -122,3 +130,17 @@ PC 제목 아래 간격 32px와 검색 영역 상단 24px, 검색창 590×56px, 
 관련 문서: [컴포넌트와 스타일](ui.md), [필드 구성](form-fields.md), [라우팅](routing.md).
 
 [^support-references]: 2026-10-20 사용자 첨부 이미지 7종. 원본 식별자는 fd7bd0bc(FAQ), 69f6a951(공지), 630eba5c(문의), 546187c1(매장), 958ad7fb(배송), 42ddada8(세탁), 4bfa3188(약관)이다. 로컬 Temp 원본은 영구 저장소 자산으로 가정하지 않는다.
+
+## 문의 목록·등록 Figma 적용 (2026-11-02)
+
+지정 섹션 1973:16422의 PC 빈 목록 1973:16485·접수 1973:16510·답변 1973:16544와 모바일 빈 목록 1973:16691·답변 1973:16753, PC/MO 등록 1973:16898·1973:16849를 확인했다. 본문 844px, 제목 PC 36px·MO 22px은 기존 소유자를 유지한다. 모바일 빈 목록 설명은 14px, 문의 있는 목록·등록 설명은 16px로 프레임별 차이를 유지한다.[^inquiries-section-figma]
+
+목록 제목/설명부터 구분선까지 PC 32px·MO 16px, 빈 영역 높이는 PC 약 427px(203px 상하 패딩과 20.8px 텍스트)·MO 190px로 맞췄다. 203px 패딩은 구현에서 427px 최소 높이로 표현한다. 목록 항목마다 article을 두고 16px 상하 여백과 #E9EAEB 구분선을 적용하며 첫/마지막 여백은 목록 소유자가 맡는다. PC 상태 배지와 제목은 가로, MO는 세로이며 간격은 8px이다. 질문/답변 본문은 14px, Q/A는 기존 HOKA 영문 폰트 20px 일반 굵기를 사용한다. 답변 패널은 #F7F7F9, PC 24px 30px·MO 16px 패딩이다. 목록 fixture는 기존 대기 1건과 완료 1건을 유지하므로 시안의 행 개수·문장 길이와 구분한다.
+
+등록자 정보는 PC 16px·MO 값 14px의 일반 굵기를 사용한다. 내용 입력은 100px textarea와 내부 글자 수 표시를 유지하고, 필드 패딩 12px·내부 간격 8px로 조정했다. 파일 첨부 제목은 PC 20px·MO 16px이며, 취소/등록 버튼은 PC 각 180×48px·MO 가변 2열 48px이다. 유의사항은 위쪽 20px 패딩·제목 14px 일반·본문 12px 및 시안의 네 번째 환불계좌 안내를 추가한다. 목록 하단 버튼 앞 간격은 PC 48px·MO 24px이다. 공통 고객센터 레이아웃·폰트 등록·전역 플랫폼은 이번 변경의 대상이 아니다.
+
+기존 InquiryDataContext와 입력/파일 선택/검증/주문 조회/답변 펼침/첨부 미리보기 계약은 변경하지 않았다. 실제 API 연결은 기존 통합 소유자의 책임이며 시안 문구가 서비스 구현을 의미하지 않는다. 등록/오류 상태가 동일 표현 부품을 사용하므로 기존 오류 URL도 시각 변경을 공유한다.
+
+Codex 검증(2026-11-02): Panda 생성·최종 타입 검사·문의 소스 ESLint/Prettier·Storybook production build·diff 공백 검사 통과. PC 1920px의 본문 844px·180×48px 버튼, MO 375px의 빈 영역 190px·설명 Empty 14px/List 16px·100px textarea·48px 버튼과 가로 넘침 없음을 실행 DOM으로 확인했다. Windows 세로 스크롤바 때문에 clientWidth는 각각 1905px·360px, MO 본문은 328px이다. 앱 공통 홍보 배너·Figma status bar·fixture 문장 길이 차이는 화면 절대 위치와 구분한다. 모바일 목록 답변 접기/펼치기를 확인했고 제목의 실제 글리프는 Pretendard Black으로 확인했다. 공유 개발 서버에서 범위 밖 size-guide의 shoeSizes export 빌드 오류가 나타나 후반 PC/MO 확인은 빌드한 Storybook의 명시 플랫폼을 사용했다. 스크린샷은 capture 시간 초과로 실패하여 최종 렌더 이미지와 Figma의 시각 대조는 완료하지 못했다. 전체 lint 및 lint:fix는 기존 find-account의 css·signup/complete의 Stack 미사용 import 2건으로 실패했다. Next production build와 실제 API 요청 검증은 수행하지 않았다. OKF staged check는 통과했으며 index는 비어 있고 pendingDocs(false)는 누락이 없다.
+
+[^inquiries-section-figma]: 사용자 지정 Figma 문의 섹션과 위의 PC/MO 자식 프레임. 2026-11-02 구조·레이아웃·텍스트 스타일과 PC 답변/MO 등록 PNG를 확인했다.

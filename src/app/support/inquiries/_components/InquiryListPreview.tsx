@@ -37,7 +37,7 @@ export function InquiryListPreview({
   return (
     <InquiryListLayout>
       <Divider variant="heading" mo="subtle" />
-      <Stack gap="0" pt="6" pb={{ base: '48px', _mobile: '8' }}>
+      <Stack gap="0" pt={{ base: '8', _mobile: '6' }} pb="8">
         {items.map((item) => (
           <InquiryListItem key={item.id} item={item} attachments={item.attachments} />
         ))}

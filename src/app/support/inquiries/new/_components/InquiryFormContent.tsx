@@ -116,13 +116,14 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
         orientation: 'horizontal',
         gap: '8px',
         titleProps: {
-          variant: 'heading8',
+          variant: 'heading9',
           className: css({ _mobile: { fontWeight: 'semibold' } }),
         },
         action: (
           <Button
             variant="link"
             size="md"
+            className={css({ '& span': { fontWeight: 'normal' } })}
             onClick={() => inputRef.current?.click()}
             aria-describedby="inquiry-files-help"
           >
@@ -175,19 +176,19 @@ export function InquiryCustomerInfo() {
         <Typography as="dt" variant="body3" tone="subtle">
           이름
         </Typography>
-        <Typography as="dd" variant="body3" mo="body4" weight="medium">
+        <Typography as="dd" variant="body3" mo="body4">
           {binding ? binding.customer.name : '홍길동'}
         </Typography>
         <Typography as="dt" variant="body3" tone="subtle">
           휴대폰 번호
         </Typography>
-        <Typography as="dd" variant="body3" mo="body4" weight="medium">
+        <Typography as="dd" variant="body3" mo="body4">
           {binding ? binding.customer.phone : '010-1234-1234'}
         </Typography>
         <Typography as="dt" variant="body3" tone="subtle">
           E-mail
         </Typography>
-        <Typography as="dd" variant="body3" mo="body4" weight="medium">
+        <Typography as="dd" variant="body3" mo="body4">
           {binding ? binding.customer.email : 'hong123@naver.com'}
         </Typography>
       </Grid>
@@ -302,6 +303,7 @@ export function InquiryMessageFields({
       <TextFormField
         variant="boxed"
         label="문의 내용"
+        className={css({ '& > div:first-child': { py: '12px', gap: '8px' } })}
         id="inquiry-body"
         required
         error={invalid && (fixedErrors || !body.trim()) ? '내용을 입력해 주세요.' : undefined}
@@ -311,7 +313,7 @@ export function InquiryMessageFields({
           maxLength: 1000,
           onChange: (event) => onBodyChange(event.target.value),
           placeholder: '내용을 입력해주세요.',
-          className: css({ minH: '120px' }),
+          className: css({ '&&&': { h: '100px', minH: '100px' } }),
         }}
         renderControl={(control) => (
           <Stack gap="2" w="100%">
@@ -334,7 +336,7 @@ export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
     <FormActionGroup
       onCancel={onCancel}
       submitLabel="문의 등록"
-      size="short"
+      size="tall"
       justifyContent="center"
       pt="6"
       maxW="368px"

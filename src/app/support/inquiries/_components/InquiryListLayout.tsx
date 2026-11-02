@@ -11,7 +11,13 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 /** 문의 기본·고정 상태에 동일한 제목과 탐색을 제공합니다. (Shares headings and navigation across inquiry list states.) */
-export function InquiryListLayout({ children }: { children: ReactNode }) {
+export function InquiryListLayout({
+  children,
+  empty = false,
+}: {
+  children: ReactNode;
+  empty?: boolean;
+}) {
   return (
     <CustomerCenterLayout
       header={
@@ -23,6 +29,7 @@ export function InquiryListLayout({ children }: { children: ReactNode }) {
           description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
           descriptionProps={{
             variant: 'body3',
+            mo: empty ? 'body4' : 'body3',
             className: css({ color: 'black.100', _mobile: { color: 'black.60' } }),
           }}
         />
@@ -41,10 +48,10 @@ export function InquiryListLayout({ children }: { children: ReactNode }) {
         variant: 'primary',
         size: 'tall',
         width: 'compact',
-        containerProps: css.raw({ pt: '6', _mobile: { pb: '16' } }),
+        containerProps: css.raw({ pt: '12', _mobile: { pt: '6' } }),
       }}
     >
-      <Stack gap="0" mt={{ base: '10', _mobile: '4' }}>
+      <Stack gap="0" mt={{ base: '8', _mobile: '4' }}>
         {children}
       </Stack>
     </CustomerCenterLayout>

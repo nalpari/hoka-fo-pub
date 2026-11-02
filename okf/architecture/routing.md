@@ -6,9 +6,14 @@ tags: [nextjs, routing, platform]
 status: draft
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T00:34:35Z'
+  at: "2026-11-02T00:43:51.174Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/inquiries/_components/InquiryListContent.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/_components/InquiryListPreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/components/support/InquiryCautions.tsx
   - src/app/support/notices/_components/NoticesContent.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/app/support/faq/_components/FaqContent.tsx
@@ -736,3 +741,7 @@ src/app/publishing-guide/_components/HelpTipsGuide.tsx의 import 그룹·named b
 ## 화면 연결 그래프 재생성 (2026-10-30)
 
 npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 재생성했다. 주소 관리의 platform 참조와 EmptyState 제거, 회원정보의 Divider 제거 및 ProfileContent 진입 파일을 반영했다. 경로·상태 URL은 변경하지 않았다. 출처는 scripts/screen-files.mjs와 src/app/screen-index/sourceGraph.generated.json 및 두 화면의 현재 import다. 기존 tests/screen-files.test.mjs 1개를 통과했다.
+
+## 문의 시안과 기존 경로 (2026-11-02)
+
+/support/inquiries(빈 목록), /support/inquiries/preview-list(접수/답변), /support/inquiries/new(등록)의 기존 경로와 IA 187·210/189·211 연결을 유지한다. 새 URL·인증·요청·이동 흐름을 추가하지 않고 기존 페이지/전용 _components의 시각 표현만 갱신했다. 오류 preview는 기존 공유 부품의 타이포/버튼을 함께 사용한다. [디자인 출처와 규격](support-design.md#문의-목록등록-figma-적용-2026-11-02)을 참고한다.

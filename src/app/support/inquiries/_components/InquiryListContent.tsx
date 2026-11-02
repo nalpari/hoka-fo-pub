@@ -29,7 +29,7 @@ export function InquiryEmptyState() {
       align="center"
       justify="center"
       textAlign="center"
-      minH={{ base: '430px', _mobile: '146px' }}
+      minH={{ base: '427px', _mobile: '190px' }}
     >
       <Typography web="body3" mo="body4" tone="subtle">
         등록된 문의사항이 없습니다.
@@ -50,9 +50,9 @@ const styles = {
   }),
   answeredHeader: css({
     display: 'flex',
-    flexDirection: 'column',
-    gap: { base: '4', _mobile: '2' },
-    alignItems: 'flex-start',
+    flexDirection: { base: 'row', _mobile: 'column' },
+    gap: '2',
+    alignItems: { base: 'center', _mobile: 'flex-start' },
   }),
 };
 
@@ -66,10 +66,10 @@ function InquiryQuestion({ item }: Props) {
       alignItems="flex-start"
       className={item.answered ? styles.answeredQuestion : undefined}
     >
-      <Typography variant="body2" weight="medium" tone={item.answered ? 'inherit' : 'primary'}>
+      <Typography variant="body2" language="en" tone="primary">
         Q
       </Typography>
-      <Stack as="span" gap="3" flex="1" minW="0">
+      <Stack as="span" gap={{ base: '4', _mobile: '3' }} flex="1" minW="0">
         <Box as="span" className={item.answered ? styles.answeredHeader : styles.pendingHeader}>
           <Badge
             shape="round"
@@ -82,7 +82,7 @@ function InquiryQuestion({ item }: Props) {
             {item.title}
           </Typography>
         </Box>
-        <Typography as="span" variant="body3" tone="primary">
+        <Typography as="span" variant="body4" tone="primary">
           {item.body === undefined
             ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
             : item.body}
@@ -99,12 +99,12 @@ function InquiryAnswer({ content }: { content?: ReactNode }) {
       w="100%"
       gap="3"
       mt={{ base: '6', _mobile: '4' }}
-      px="30px"
+      px={{ base: '30px', _mobile: '4' }}
       py={{ base: '6', _mobile: '4' }}
       bg="black.10"
       alignItems="flex-start"
     >
-      <Typography variant="body2" weight="medium" tone="primary">
+      <Typography variant="body2" language="en" tone="primary">
         A
       </Typography>
       <Box
@@ -114,7 +114,7 @@ function InquiryAnswer({ content }: { content?: ReactNode }) {
         _mobile={{ pt: '0' }}
         className={css({ display: 'flex', flexDirection: 'column', gap: '3' })}
       >
-        <Typography as="p" variant="body3" tone="primary">
+        <Typography as="p" variant="body4" tone="primary">
           {content === undefined
             ? '문의 내용 노출 영역 문의 내용 노출 영역 문의 내용 노출 영역'
             : content}
@@ -334,7 +334,14 @@ export function InquiryListItem({ item, attachments = [] }: InquiryListItemProps
   const question = <InquiryQuestion item={item} />;
 
   return (
-    <>
+    <Stack
+      as="article"
+      gap="0"
+      py="4"
+      borderBottom="1px solid token(colors.black.20)"
+      _first={{ pt: '0' }}
+      _last={{ borderBottom: '0', pb: '0' }}
+    >
       {item.answered ? (
         <button
           type="button"
@@ -369,7 +376,7 @@ export function InquiryListItem({ item, attachments = [] }: InquiryListItemProps
           <InquiryAnswer content={item.answer} />
         </div>
       )}
-    </>
+    </Stack>
   );
 }
 
