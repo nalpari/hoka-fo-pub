@@ -109,6 +109,7 @@ function HomeCarouselRail({
 }
 
 export type HomeCarouselSectionProps = {
+  className?: string;
   children: ReactNode;
   itemCount: number;
   platform: Platform;
@@ -129,6 +130,7 @@ export type HomeCarouselSectionProps = {
 
 /** 홈 콘텐츠 목록과 캐러셀 이동 조작을 구성합니다 (Home content rail with a shared responsive carousel frame and controls). */
 export function HomeCarouselSection({
+  className,
   children,
   itemCount,
   platform,
@@ -148,7 +150,7 @@ export function HomeCarouselSection({
     <Carousel itemCount={itemCount}>
       <MainSection
         contentWidth={platform === 'web' ? 'extended' : 'contained'}
-        className={css({ overflowX: 'clip' })}
+        className={[css({ overflowX: 'clip' }), className].filter(Boolean).join(' ')}
         actionSlot={
           <Box _mobile={{ display: 'none' }}>
             <CarouselControls />

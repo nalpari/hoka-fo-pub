@@ -2,7 +2,11 @@
 
 ## 2026-11-02 — 메인 Figma 적용
 
-메인의 배너 높이·Pretendard 문구, 섹션 제목/간격, 카테고리·베스트셀러·Explore·Find my HOKA 규격을 반영했다. 공통 MainSection에 선택적 tight 간격을 추가하고 기존 기본값과 콘텐츠 Context를 유지했다. [수치·폰트·PC/MO·마지막 인계 점검](architecture/ui.md#메인-figma-적용-2026-11-02)을 기록했다.
+메인의 배너 높이·Pretendard 문구, 섹션 제목/간격, 카테고리·베스트셀러·Explore·Find my HOKA 규격을 반영했다. 공통 MainSection에 선택적 tight 간격을 추가하고 기존 기본값과 콘텐츠 Context를 유지했다. [수치·폰트·PC/MO·마지막 인계 점검](architecture/home-product-design.md)을 기록했다.
+
+## 2026-11-02 — 상품 상세 Figma 적용
+
+`/products/shoe-1`의 1016/484px 그리드·상품명·가격·정보·컬러 썸네일·추천 영역·48px CTA를 보정했다. 상품 정보는 현재 컬러·스타일코드·발볼을 읽고 기존 ProductPrice를 직접 사용한다. 옵션/뷰어/장바구니 콜백과 cart 컬러 표현은 유지했다. [소유권·디자인 수치·현재 데이터 차이와 검증](architecture/home-product-design.md#상품-상세)을 기록했다.
 
 ## 2026-11-02 — 상품 목록 Figma 적용
 

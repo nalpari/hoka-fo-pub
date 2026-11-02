@@ -32,6 +32,7 @@ declare function HomeCarouselRail({
   viewportKey,
 }: Props): import('react').JSX.Element;
 export type HomeCarouselSectionProps = {
+  className?: string;
   children: ReactNode;
   itemCount: number;
   platform: Platform;
@@ -51,6 +52,7 @@ export type HomeCarouselSectionProps = {
 };
 /** Home content rail with a shared responsive carousel frame and controls. */
 export declare function HomeCarouselSection({
+  className,
   children,
   itemCount,
   platform,

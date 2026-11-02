@@ -50,7 +50,7 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
-import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductCard, ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductDetailImage } from '@/components/common/molecules/ProductDetailImage';
 import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
@@ -103,7 +103,7 @@ function ProductDetailGrid({ children }: { children: ReactNode }) {
     <Grid
       w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
       mx="auto"
-      gridTemplateColumns="minmax(0, 1016fr) minmax(340px, 480fr)"
+      gridTemplateColumns="minmax(0, 1016fr) minmax(340px, 484fr)"
       gap="8"
       _mobile={{ display: 'block', w: '100%' }}
     >
@@ -1621,6 +1621,7 @@ function ProductInformation({
   sections,
   specifications,
 }: ProductInformationProps) {
+  const platform = usePlatform();
   const [description, ...features] = sections;
   const [expanded, setExpanded] = useState(false);
   const contentId = useId();
@@ -1628,46 +1629,49 @@ function ProductInformation({
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="6"
       px="8"
       py="8"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4' }}
+      _mobile={{ px: '4', w: 'calc(100% + 32px)', ml: '-16px' }}
+      css={{
+        '--product-information-label-width': '112px',
+        _mobile: { '--product-information-label-width': '88px' },
+      }}
       id={id}
       title={title}
       headerProps={{
         titleAs: 'h2',
-        titleProps: { variant: 'heading8', mo: 'heading8' },
+        titleProps: {
+          variant: 'headingKr8',
+          mo: 'headingKr9',
+          weight: platform === 'mobile' ? 'semibold' : 'black',
+          className: css({ '&&': { fontSize: '22px' }, _mobile: { fontSize: '20px!' } }),
+        },
       }}
     >
-      <Stack gap="8">
-        <Stack gap="3" alignItems="start">
+      <Stack gap="10">
+        <Stack gap="6" alignItems="start">
           <Stack id={contentId} gap="4" w="100%">
             {description && (
               <ContentHeader
-                gap="3"
+                gap="5"
                 titleAs="h3"
                 title={<>{description.title}</>}
-                titleProps={{ variant: 'body3', weight: 'bold' }}
+                titleProps={{
+                  web: 'headingKr9',
+                  mo: 'bodyKr3',
+                  weight: 'semibold',
+                  className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
+                }}
                 description={<>{description.content}</>}
                 descriptionProps={{
-                  variant: 'body3',
-                  className: expanded ? undefined : css({ lineClamp: 4 }),
+                  web: 'bodyKr3',
+                  mo: 'bodyKr4',
+                  className: expanded ? undefined : css({ lineClamp: 5 }),
                 }}
               />
             )}
-            {expanded &&
-              features.map((section, index) => (
-                <ContentHeader
-                  gap="3"
-                  key={index}
-                  titleAs="h3"
-                  title={<>{section.title}</>}
-                  titleProps={{ variant: 'body3', weight: 'bold' }}
-                  description={<>{section.content}</>}
-                  descriptionProps={{ variant: 'body3' }}
-                />
-              ))}
           </Stack>
           {description && (
             <Button
@@ -1677,18 +1681,41 @@ function ProductInformation({
               aria-expanded={expanded}
               aria-controls={contentId}
               onClick={() => setExpanded((value) => !value)}
-              style={{ '--button-label-weight': '700' } as CSSProperties}
             >
-              {expanded ? '닫기' : '더보기'}
+              {expanded ? '닫기' : '더 보기'}
             </Button>
           )}
         </Stack>
+        {(expanded || platform === 'mobile') &&
+          features.map((section) => (
+            <ContentHeader
+              gap="5"
+              key={section.title}
+              titleAs="h3"
+              title={<>{section.title}</>}
+              titleProps={{
+                web: 'headingKr9',
+                mo: 'bodyKr3',
+                weight: 'semibold',
+                className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
+              }}
+              description={<>{section.content}</>}
+              descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4' }}
+            />
+          ))}
         <DescriptionList
           items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
-          labelWidth="80px"
-          termProps={{ variant: 'body3', weight: 'bold' }}
-          descriptionProps={{ variant: 'body3', tone: 'primary' }}
-          slotStyles={{ root: css.raw({ columnGap: '3', rowGap: '4' }) }}
+          labelWidth="var(--product-information-label-width)"
+          termProps={{
+            web: 'headingKr9',
+            mo: 'bodyKr3',
+            weight: 'semibold',
+          }}
+          descriptionProps={{ variant: 'body4', tone: 'primary' }}
+          slotStyles={{
+            root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
+            term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),
+          }}
         />
       </Stack>
     </ContentSection>
@@ -1729,23 +1756,12 @@ type ProductPurchaseActionsProps = {
 };
 
 function ProductPurchaseActions({ placement, onAddToCart, onOrder }: ProductPurchaseActionsProps) {
-  const platform = usePlatform();
   return (
     <Grid className={ProductPurchaseActionsRoot({ placement })} gap="2">
-      <Button
-        onClick={onAddToCart}
-        variant="secondary"
-        fullWidth
-        size={platform === 'mobile' ? 'short' : 'tall'}
-      >
+      <Button onClick={onAddToCart} variant="secondary" fullWidth size="tall">
         장바구니
       </Button>
-      <Button
-        onClick={onOrder}
-        variant="primary"
-        fullWidth
-        size={platform === 'mobile' ? 'short' : 'tall'}
-      >
+      <Button onClick={onOrder} variant="primary" fullWidth size="tall">
         구매하기
       </Button>
     </Grid>
@@ -1767,6 +1783,12 @@ type ProductDetailContentProps = {
   onOrder: () => void;
 };
 
+/**
+ * [ 개발팀 바인딩 ]
+ * RouteContent가 ShopShell.state.products에서 찾은 product와 현재 color/width 선택을 전달합니다.
+ * 상품 정보의 컬러·스타일코드·발볼은 이 현재 값으로 표시하며 별도 상품 분류나 재고 정책을 만들지 않습니다.
+ * 옵션 선택과 장바구니/주문 콜백·오류 상태는 기존 RouteContent 소유이며 이 표시 영역은 요청을 하지 않습니다.
+ */
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailContent({
   product,
@@ -1814,12 +1836,9 @@ function ProductDetailContent({
             : []),
         ]}
         specifications={[
-          {
-            label: '신발 유형',
-            value: isClifton || product.stability === 'Stable' ? '안정화' : '중립화',
-          },
-          { label: '추천 활동', value: isClifton ? '로드 러닝, 워킹, 라이프 스타일' : product.use },
-          { label: '러닝 유형', value: product.runningType },
+          { label: '컬러', value: color },
+          { label: '스타일코드', value: product.styleCode },
+          { label: '발볼 넓이', value: width },
         ]}
       />
     </Stack>
@@ -1892,7 +1911,7 @@ function ProductDetailHeaderActions({
           {product.reviewCount}개 리뷰 보기
         </Button>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="4">
         <ShareButton size="24px" />
         <Wishlist active={wish} ariaLabel="관심상품" onActiveChange={onWishChange} />
       </HStack>
@@ -1919,13 +1938,13 @@ function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
       <VStack alignItems="start" gap="2">
         {product.promotion && <Badge weight="medium" promotion={product.promotion} />}
         <HStack gap="2" color="var(--color-black-60)">
-          <Typography variant="body4" weight="medium" tone="inherit">
+          <Typography variant="body4" weight="regular" tone="inherit">
             {product.gender}
           </Typography>
           {uses && (
             <>
               <Divider orientation="vertical" h="3" w="1px" bg="var(--color-black-60)" />
-              <Typography variant="body4" weight="bold" tone="inherit">
+              <Typography variant="body4" weight="regular" tone="inherit">
                 {uses}
               </Typography>
             </>
@@ -1942,28 +1961,27 @@ type ProductDetailHeaderTitleProps = {
 
 /** 상품 상세의 상품명과 가격을 표시합니다. (Displays the product name and price on the product detail page.) */
 function ProductDetailHeaderTitle({ product }: ProductDetailHeaderTitleProps) {
+  const platform = usePlatform();
+
   return (
-    <ContentHeader
-      alignItems="start"
-      gap="5"
-      titleAs="h1"
-      title={product.name}
-      titleProps={{
-        className: css({ m: '0' }),
-        variant: 'heading7',
-        mo: 'heading4',
-        weight: 'black',
-      }}
-      description={
-        <HStack as="span" gap="0" alignItems="end">
-          {product.price.toLocaleString('ko-KR')}
-          <Typography variant="body3" weight="bold">
-            원
-          </Typography>
-        </HStack>
-      }
-      descriptionProps={{ className: css({ m: '0' }), variant: 'body3', weight: 'medium' }}
-    />
+    <>
+      <ContentHeader
+        alignItems="start"
+        gap="5"
+        titleAs="h1"
+        title={product.name}
+        titleProps={{
+          className: css({ m: '0' }),
+          variant: 'headingKr6',
+          mo: 'heading4',
+          language: platform === 'web' ? 'ko' : 'en',
+          weight: 'black',
+        }}
+      />
+      <Box className={css({ '& span': { fontSize: '16px', fontWeight: 'normal' } })}>
+        <ProductPrice price={product.price} originalPrice={product.originalPrice} />
+      </Box>
+    </>
   );
 }
 
@@ -2360,7 +2378,7 @@ function ProductDetailPanel({
       px="0"
       _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '6' }}
     >
-      <Stack gap="8" _mobile={{ gap: '6' }}>
+      <Stack gap="10" _mobile={{ gap: '10' }}>
         <ProductDetailHeader onWishChange={onWishChange} product={product} wish={wish} />
         <ProductDetailContent
           selectedOptions={selectedOptions}
@@ -2383,6 +2401,12 @@ function ProductDetailPanel({
 }
 
 const ProductDetailRecommendStyles = {
+  section: css({
+    '--layout-web-content-max-width': '1776px',
+    '--layout-web-content-inline-space': '144px',
+    '& h2': { fontSize: '36px' },
+    _mobile: { '& h2': { fontSize: '22px' } },
+  }),
   mobileSlide: css({
     w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
     '& > *': { w: '100%' },
@@ -2400,6 +2424,7 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
 
   return (
     <HomeCarouselSection
+      className={ProductDetailRecommendStyles.section}
       desktopCenteredItemCount={5}
       desktopItemGutter={8}
       itemCount={products.length}
@@ -2420,14 +2445,9 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
 
 /** Owns the recommendation regions' leading space, common interval, and platform visibility. */
 function ProductDetailRecommendations({ products }: { products: Product[] }) {
-  const platform = usePlatform();
-
   return (
     <Stack mt="24" gap="24" _mobile={{ mt: '10' }}>
       <ProductDetailRecommend products={products} />
-      {platform === 'web' && (
-        <ProductDetailRecommend products={products} title="다른 고객이 함께 본 상품" />
-      )}
     </Stack>
   );
 }

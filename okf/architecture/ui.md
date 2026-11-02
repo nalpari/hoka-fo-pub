@@ -11,6 +11,9 @@ source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
   - src/components/common/molecules/HomeCarouselSection.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/homeContent.ts
+  - src/app/_components/HomeContent.tsx
   - src/components/common/layouts/BottomSheet.tsx
   - public/images/navigation/clifton-utl.webp
   - src/components/common/molecules/SupportTabs.tsx
@@ -3945,8 +3948,6 @@ PC Tab은 Men→Best, Shift+Tab은 Best→Men으로 이동했다. 실제 앱 프
 
 작업 트리 출처: `src/components/catalog/ProductListingPage.tsx`, `src/components/common/layouts/BottomSheet.tsx`.
 
-## 메인 Figma 적용 (2026-11-02)
+## 메인·상품 상세 Figma 적용 (2026-11-02)
 
-Main 1181:41552의 PC/MO를 읽어 배너 높이 720px·제목 Pretendard 84/42px·설명 24/16px·48px 버튼, 섹션 제목 50/28px와 간격 96/72px, 카테고리/Explore/Find my HOKA 카드 규격을 반영했다. MainSection.tight는 24px이며 기존 default/compact와 공통 소비자의 기본값을 유지한다. 관련 선언 타입도 갱신했다. HomeContentContext의 현재 결과·슬롯·선택과 기존 배너/캐러셀 동작은 유지한다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1181-41552 및 이번 메인/공통 소유자 작업 트리.
-
-PC/MO·1024/1025·1199/1200px, 배너/카테고리/베스트셀러 선택과 고정 WEB/MO 스토리, 실제 폰트와 기본 compact 32px를 확인했다. 대상 ESLint/Prettier·타입·Panda·Next/Storybook 빌드를 통과했다. 전체 lint의 범위 밖 오류 5건과 기존 목 상품 조합 차이는 남아 있다. 서비스 요청과 모든 play를 검증한 것으로 기록하지 않는다.
+메인은 배너·섹션·카드의 PC/MO 타이포·비율·간격을, 상품 상세는 패널 폭·가격·상품 정보·컬러 선택·추천 영역과 CTA를 보정했다. MainSection.tight와 HomeCarouselSection.className은 선택적 표현 계약이며 기존 default/compact·cart 컬러 모드를 유지한다. [출처·실측·선택 데이터 경계·PC/MO 및 인계 검증](home-product-design.md)을 참고한다. 작업 트리 출처는 위 공통 소유자와 해당 선언 타입이다.
