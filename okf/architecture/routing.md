@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T07:22:21Z'
+updated: '2026-11-03T06:44:42+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -16,6 +16,10 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
   - src/components/mypage/MyPageFrame.tsx
+  - src/app/publishing-guide/page.tsx
+  - src/app/publishing-guide/_components/ProductCardGuide.tsx
+  - src/components/orders/OrderHistoryProduct.tsx
+  - src/app/mypage/orders/_components/OrdersList.tsx
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
@@ -1095,3 +1099,26 @@ Figma Red-80의 색상 칸은 Accent에서 #B7B7B7, Sementic에서 #CECECE지만
 출처: Figma get_design_context의 196:9352와 Citrus 세부 노드 196:9467, `panda.config.ts`, `src/styles/global.scss`, 작업 트리 `src/app/publishing-guide/_components/ColorGuide.tsx`, `page.tsx` 및 재생성한 화면 소스 그래프. Panda 생성 통과. 전체 typecheck는 기존 `.next/types` 삭제 라우트 참조 오류로 실패했고 새 소스 오류는 없었다. ESLint는 설치된 perfectionist 패키지가 없어 실행되지 않았다.
 
 브라우저에서 PC 1668px·모바일 375px 가로 넘침 없음, 13개 미리보기의 실제 RGB와 표기 HEX 일치, HEX·Panda 토큰·CSS 변수·사용 코드 네 가지의 복사 성공 안내를 확인했다.
+## 주문 목록 미사용 import 정리 (2026-11-03)
+
+OrdersList.tsx의 미사용 OrderHistoryProduct import를 제거해 ESLint no-unused-vars 오류를 해소했다. 현재 목록·상품 행·라우트와 데이터/콜백 계약에는 영향이 없다. 변경 파일의 ESLint·Prettier로 확인하며 UI 동작 변경이 없어 브라우저·빌드는 재실행하지 않는다. 출처: src/app/mypage/orders/_components/OrdersList.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+## 최종 홈 상품 타일의 라우팅 영향 검토 (2026-11-03)
+
+HomeContent의 이미지 비율 강제 override를 제거하고 공통 ProductThumbnail.showcase에 최종 PC/MO 비율을 연결했다. 기존 홈 섹션·카테고리 탭·슬라이드 소유권과 상품 상세 링크, Next page export와 client 경계, URL·라우트 목록은 유지했다. 새 상태 URL이나 API 계약은 추가하지 않았다. 홈·상품 상세 추천·관심상품 PC/MO와 Next 빌드 145개 정적 페이지 생성을 확인했다. 출처: src/app/_components/HomeContent.tsx와 공통 ProductCard/ProductThumbnail 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:00:55Z.
+
+## 상품 타일 퍼블리싱 가이드 연결 (2026-11-03)
+
+기존 /publishing-guide에 모달 다음 상품 타일 탭을 추가했다. 같은 SupportTabs.syncQuery로 tab=product-tiles 직접 진입·새로고침·이력 복귀를 지원하며 무효/부재 값의 기본 타이포그래피 탭과 기존 폼 탭을 유지한다. 별도 상품 preview page는 만들지 않는다. 가이드 UI와 로컬 상태·스타일은 해당 route의 _components/ProductCardGuide.tsx, page는 기존 Metadata와 탭 구성·진입 마크업을 소유한다. GuideTimeline은 같은 tab query 안의 section anchor로 이동한다.
+
+주문 내역의 OrderHistoryProduct는 공용 도메인 모듈로 옮겨 주문 목록/상세와 가이드가 같은 구현을 사용한다. OrdersProducts/OrderDetails의 화면·상태·URL 계약과 요청 소유권은 변경하지 않았다. sourceGraph.generated.json은 정식 screen-files/build 명령으로 새 import를 반영했다. Form 탭 전환·상품 타일 query 뒤로 가기·10개 섹션·주문 3개 URL PC/MO와 Next 빌드를 확인했다. 출처: 위 가이드 page/private 모듈과 OrdersProducts.tsx·OrderDetails.tsx·OrderHistoryProduct.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:44:42Z.
+
+## 미사용 주문 액션 정리 (2026-11-03)
+
+`src/app/mypage/orders/_components/OrdersProducts.tsx`의 미사용 `OrderItemActions`와 전용 타입을 제거했다. 실제 호출되는 `OrderCard`의 배송조회·리뷰 링크와 경로는 유지한다. 전체 ESLint 검사를 통과했다. 출처는 해당 파일 작업 트리이며 브라우저 시각 재검증은 수행하지 않았다.
+
+2026-11-03 가이드 인계: 상품 타일 탭·공용 OrderHistoryProduct import와 생성 그래프를 함께 반영한다. 주문 상품 행의 기존 history·상세 진입·표시 옵션 계약과 가이드 query 연결은 유지한다. 전체 ESLint·typecheck 최종 재검사 통과.
+
+## 주문 화면 import 서식 정리 (2026-11-03)
+
+OrdersContent·OrdersPage·OrdersStatus와 주문 preview page 네 곳의 import 그룹·정렬만 정리했다. 경로·상태·표시 동작은 변경하지 않았다. 최종 작업 트리의 전체 ESLint와 typecheck가 통과했다. 출처: 해당 주문 라우트 파일 작업 트리.

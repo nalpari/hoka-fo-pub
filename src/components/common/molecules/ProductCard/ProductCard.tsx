@@ -7,6 +7,7 @@ import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, HStack, VStack } from 'styled-system/jsx';
+import { token } from 'styled-system/tokens';
 
 import { Badge, type Promotions } from '@/components/common/atoms/Badge';
 import { Card } from '@/components/common/atoms/Card';
@@ -29,22 +30,22 @@ type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
 
 const genderLabel = cva({
   base: {
-    color: 'var(--color-text-primary)',
-    '&&': { fontSize: 'var(--layout-web-product-font-size, 16px)' },
+    color: 'text.primary',
+    '&&': { fontSize: 'var(--layout-web-product-font-size, var(--font-sizes-16))' },
   },
   variants: {
     variant: {
       listing: {
         _mobile: {
-          fontWeight: 'bold',
-          '&&': { fontSize: '14' /* 기존 13px */ },
+          fontWeight: 'normal',
+          '&&': { fontSize: '14' },
           lineHeight: 'body',
         },
       },
-      history: { '&&': { fontSize: '14px' } },
+      history: { '&&': { fontSize: '14' } },
       showcase: {
         _mobile: {
-          '&&': { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+          '&&': { fontSize: '14' },
         },
       },
     },
@@ -67,11 +68,11 @@ function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
 
 const productName = css({
   minW: '0',
-  maxW: '100%',
+  maxW: 'full',
   truncate: true,
-  fontSize: { base: 'var(--layout-web-product-font-size, 16px)', _mobile: '14px' },
-  '&[data-product-card-variant="history"]': { fontSize: '14px', fontWeight: 'normal' },
-  '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'bold' } },
+  fontSize: { base: 'var(--layout-web-product-font-size, var(--font-sizes-16))', _mobile: '14' },
+  '&[data-product-card-variant="history"]': { fontSize: '14', fontWeight: 'normal' },
+  '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'normal' } },
 });
 
 type ProductNameProps = {
@@ -115,26 +116,35 @@ function ProductPrice({
 }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   return (
-    <VStack data-product-card-variant={variant} gap="1" alignItems="flex-start">
+    <VStack data-product-price data-product-card-variant={variant} gap="1" alignItems="flex-start">
       {hasDiscount ? (
         <Typography
           as="del"
           variant="body3"
           mo="body4"
           tone="tertiary"
+          language="en"
           aria-label={`정상가 ${won(originalPrice ?? 0)}원`}
           className={css({ textDecoration: 'line-through' })}
         >
-          {won(originalPrice ?? 0)}원
+          {won(originalPrice ?? 0)}
+          <Typography variant="body3" mo="body4">
+            원
+          </Typography>
         </Typography>
       ) : null}
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
-          <Typography variant="body3" mo="body4" tone="error" aria-label={`${discountLabel} 할인`}>
+          <Typography
+            variant="body3"
+            mo="body4"
+            tone={variant === 'listing' ? 'red80' : 'error'}
+            aria-label={`${discountLabel} 할인`}
+          >
             {discountLabel}
           </Typography>
         ) : null}
-        <Typography variant={variant === 'history' ? 'body4' : 'body3'} mo="body4">
+        <Typography language="en" variant={variant === 'history' ? 'body4' : 'body3'} mo="body4">
           {won(price)}
           <Typography variant={variant === 'history' ? 'body4' : 'body3'} weight="bold">
             원
@@ -183,41 +193,63 @@ function ProductDetailsIdentity({
   );
   return (
     <VStack
-      gap={variant === 'history' ? '1.5' : '1'}
-      _mobile={variant === 'listing' ? { gap: '0' } : undefined}
+      gap={variant === 'listing' ? '3' : variant === 'history' ? '1.5' : '1'}
+      _mobile={variant === 'listing' ? { gap: '1.5' } : undefined}
       alignItems="flex-start"
       minW="0"
-      w="100%"
+      w="full"
     >
       {promotion && (
         <Badge
+          data-product-promotion
           promotion={promotion}
           promotionTone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
         />
       )}
-      {variant === 'history' ? (
-        <VStack gap="1" alignItems="flex-start">
-          <VStack gap="0.5" alignItems="flex-start">
-            {identity}
-          </VStack>
-          {priceContent}
-        </VStack>
-      ) : (
-        <>
+      <VStack
+        gap={variant === 'listing' ? '3' : variant === 'showcase' ? '4' : '1'}
+        _mobile={variant !== 'history' ? { gap: '1' } : undefined}
+        alignItems="flex-start"
+        minW="0"
+        w="full"
+      >
+        <VStack
+          gap={variant === 'listing' ? '3' : variant === 'showcase' ? '2.5' : '0.5'}
+          _mobile={variant !== 'history' ? { gap: '0.5' } : undefined}
+          alignItems="flex-start"
+          minW="0"
+          w="full"
+        >
           {identity}
-          {priceContent}
-        </>
-      )}
+        </VStack>
+        {priceContent}
+      </VStack>
     </VStack>
   );
 }
 
 type ProductActivityProps = {
   activities: readonly string[];
+  variant: ProductCardVariant;
 };
 /** 상품의 활동 목적을 쉼표로 구분해 표시합니다. (Displays a product's activity labels as a comma-separated list.) */
-function ProductActivity({ activities }: ProductActivityProps) {
-  return <Typography variant="body5">{activities.join(', ')}</Typography>;
+function ProductActivity({ activities, variant }: ProductActivityProps) {
+  return (
+    <Typography
+      variant={variant === 'listing' ? 'body4' : 'body5'}
+      mo="body5"
+      className={
+        variant === 'listing'
+          ? css({
+              '&&': { lineHeight: 'normal' },
+              _mobile: { py: '0.5', '&&': { lineHeight: 'body' } },
+            })
+          : undefined
+      }
+    >
+      {activities.join(', ')}
+    </Typography>
+  );
 }
 
 type ProductVariantSummaryDisplay = 'colors' | 'widths' | 'colors-widths';
@@ -251,7 +283,7 @@ function ProductVariantSummary({
       </Typography>
     );
   }
-  return <ProductOptionList layout={history ? 'history' : 'scroll'} options={options} />;
+  return <ProductOptionList layout={history ? 'preview' : 'scroll'} options={options} />;
 }
 
 type ProductDetailsOptionsProps = Pick<
@@ -276,7 +308,9 @@ function ProductDetailsOptions({
 }: ProductDetailsOptionsProps) {
   const summary = (
     <>
-      {activities && activities.length > 0 && <ProductActivity activities={activities} />}
+      {activities && activities.length > 0 && (
+        <ProductActivity activities={activities} variant={variant} />
+      )}
       <ProductVariantSummary
         colorCount={colorCount}
         history={variant === 'history'}
@@ -290,10 +324,10 @@ function ProductDetailsOptions({
   if (colorPreview) {
     // 숨긴 캐러셀도 높이 계산에 참여해 OS별 스크롤바 높이가 호버 레이아웃을 바꾸지 않게 합니다.
     return (
-      <Grid gap="0" gridTemplateColumns="minmax(0, 1fr)" alignItems="start" minW="0" w="100%">
+      <Grid gap="0" gridTemplateColumns="minmax(0, 1fr)" alignItems="start" minW="0" w="full">
         <VStack
           gridArea="1 / 1"
-          gap="0"
+          gap="3"
           alignItems="flex-start"
           visibility={colorPreview.open ? 'hidden' : 'visible'}
           aria-hidden={colorPreview.open}
@@ -325,7 +359,7 @@ function ProductDetailsOptions({
       _mobile={variant === 'listing' ? { gap: '1.5' } : undefined}
       alignItems="flex-start"
       minW="0"
-      w="100%"
+      w="full"
     >
       {summary}
     </VStack>
@@ -334,17 +368,21 @@ function ProductDetailsOptions({
 
 const ProductDetailsRoot = cva({
   base: {
-    color: 'var(--color-text-primary)',
+    color: 'text.primary',
   },
   variants: {
     variant: {
       listing: {
+        '& [data-product-promotion]': { gap: '2' },
+        '& [data-product-promotion] > span': { fontWeight: 'medium' },
+        '& [data-product-promotion] > [aria-hidden]': { w: '1.5px', h: '13px' },
         _mobile: {
-          px: '10px',
+          '& [data-product-promotion] > span': { fontWeight: 'normal' },
+          px: '2.5',
         },
       },
       showcase: {},
-      history: { w: '163.5px', maxW: '100%', _mobile: { w: '100%', px: '10px' } },
+      history: { w: 'full', minW: '0', _mobile: { px: '2.5' } },
     },
   },
 });
@@ -392,10 +430,10 @@ function ProductDetails({
     <Card.Content className={ProductDetailsRoot({ variant })}>
       <VStack
         gap={variant === 'history' ? '2.5' : '4'}
-        _mobile={variant === 'listing' ? { gap: '2' } : undefined}
+        _mobile={variant === 'listing' ? { gap: '1.5' } : undefined}
         alignItems="flex-start"
         minW="0"
-        w="100%"
+        w="full"
       >
         <ProductDetailsIdentity
           promotionTone={promotionTone}
@@ -494,7 +532,7 @@ function ProductCardHeader({
             pos="absolute"
             inset="0"
             placeItems="center"
-            bg="rgba(0, 0, 0, 0.5)"
+            bg="black.100/50"
             pointerEvents="none"
           >
             <Typography as="span" variant="heading6" tone="inverse">
@@ -506,6 +544,14 @@ function ProductCardHeader({
     </Card.Header>
   );
 }
+
+const mobileTilePrice = css.raw({
+  '& [data-product-price] span, & [data-product-price] del': {
+    fontSize: '13',
+    lineHeight: 'body',
+  },
+  '& [data-product-price] span > span': { fontWeight: 'normal' },
+});
 
 const root = cva({
   base: {
@@ -522,13 +568,16 @@ const root = cva({
   },
   variants: {
     variant: {
-      listing: {},
+      listing: {
+        _mobile: mobileTilePrice,
+      },
       history: { gap: '2.5', _mobile: { gap: '2.5' } },
       showcase: {
-        w: '100%',
+        w: 'full',
         flex: '0 0 auto',
         _mobile: {
-          w: '160px',
+          ...mobileTilePrice,
+          w: '150px',
         },
       },
     },
@@ -581,7 +630,7 @@ export type ProductCardProps = {
 
 /**
  * [ 개발팀 바인딩 ] 목록 소유자가 product의 상품 ID·colorThumbnails 옵션 ID/이미지를 제공합니다.
- * PC 목록의 호버/키보드 포커스에서 요약을 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
+ * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
  * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
  */
 /** 상품 이미지와 요약·호버 색상 캐러셀을 표시합니다. (Displays product imagery, details, and an inline color carousel on hover.) */
@@ -650,9 +699,23 @@ export function ProductCard({
           }
         >
           <Wishlist
-            className={variant === 'history' ? css({ p: '0' }) : undefined}
-            size={variant === 'history' ? '18px' : undefined}
-            iconSize={variant === 'history' ? '18px' : undefined}
+            className={variant === 'history' || variant === 'listing' ? css({ p: '0' }) : undefined}
+            size={
+              variant === 'history'
+                ? token.var('sizes.4.5')
+                : variant === 'listing'
+                  ? platform === 'mobile'
+                    ? '19px'
+                    : token.var('sizes.6')
+                  : undefined
+            }
+            iconSize={
+              variant === 'history'
+                ? token.var('sizes.4.5')
+                : variant === 'listing' && platform === 'mobile'
+                  ? '19px'
+                  : undefined
+            }
             active={isLiked}
             ariaLabel={`${product.name} 관심상품`}
             onActiveChange={(active) => {

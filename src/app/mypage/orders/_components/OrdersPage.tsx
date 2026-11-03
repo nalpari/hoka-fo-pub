@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+
 import { previewClaimHistory, previewOrders } from '@/components/orders/orders.data';
 import type {
   ClaimHistoryItem,
@@ -10,11 +12,10 @@ import type {
   OrderRecord,
   OrdersView,
 } from '@/components/orders/orders.types';
-import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { OrderClaimRequest } from './OrderClaimRequest';
-import { OrderTrackingDialog } from './OrderTrackingDialog';
 import { OrdersContent } from './OrdersContent';
+import { OrderTrackingDialog } from './OrderTrackingDialog';
 
 export type OrdersPageProps = {
   initialOrders?: readonly OrderRecord[];

@@ -72,16 +72,14 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
     </Box>
   );
 }
-const thumbnailRatio = css.raw({
-  '& .image': { h: 'auto!', aspectRatio: '3 / 4!' },
-});
-const desktopRail = css(thumbnailRatio);
-const mobileRail = css(thumbnailRatio, {
+
+const mobileRail = css({
   w: '100vw',
   pr: '16px !important',
   overflow: 'visible!',
   '& .swiper-wrapper': { px: '11px' },
 });
+
 const mobileSlide = css({
   // The 375px frame has 150px cards and 10px gaps.
   w: 'calc(40vw + 10px)!',
@@ -131,7 +129,7 @@ function HomeBestSellerSection() {
       itemCount={bestSellerProducts.length}
       mobileItemGutter={5}
       platform={platform}
-      railClassName={isWeb ? desktopRail : mobileRail}
+      railClassName={isWeb ? undefined : mobileRail}
       slideClassName={isWeb ? undefined : mobileSlide}
       spacing="tight"
       title="Best sellers"

@@ -13,6 +13,7 @@ import { ColorGuide } from './_components/ColorGuide';
 import { FormGuide } from './_components/FormGuide';
 import { HelpTipsGuide } from './_components/HelpTipsGuide';
 import { IconGuide } from './_components/IconGuide';
+import { ProductCardGuide } from './_components/ProductCardGuide';
 import { TypographyGuide } from './_components/TypographyGuide';
 
 const guideTabs: readonly SupportTab[] = [
@@ -33,6 +34,7 @@ const guideTabs: readonly SupportTab[] = [
       </Box>
     ),
   },
+  { value: 'product-tiles', label: '상품 타일', content: <ProductCardGuide /> },
 ];
 
 const pageStyle = css({ bg: 'white.0', color: 'black.100' });
@@ -73,6 +75,7 @@ export default function PublishingGuidePage() {
         tabs={guideTabs}
         defaultValue="typography"
         variant="guide"
+        syncQuery
       />
       <HStack justifyContent="flex-end" pt="4">
         <ButtonLink href="#top" variant="secondary" size="short">

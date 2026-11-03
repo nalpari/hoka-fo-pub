@@ -437,11 +437,11 @@
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrderDetails.tsx": [
-      "src/app/mypage/orders/_components/OrdersProducts.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/DescriptionList.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
+      "src/components/orders/OrderHistoryProduct.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrdersContent.tsx": [
@@ -456,6 +456,7 @@
       "src/app/mypage/orders/_components/OrdersStatus.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/orders/OrderHistoryProduct.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrdersPage.tsx": [
@@ -467,10 +468,9 @@
     ],
     "src/app/mypage/orders/_components/OrdersProducts.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/orders/OrderHistoryProduct.tsx",
       "src/components/orders/order-policy.ts",
       "src/context/platform.tsx"
     ],
@@ -770,6 +770,20 @@
       "src/components/common/atoms/Typography.tsx",
       "src/icons/fontAwesome.ts"
     ],
+    "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/orders/OrderHistoryProduct.tsx",
+      "src/context/platform.tsx",
+      "src/icons/fontAwesome.ts",
+      "src/mocks/products.ts"
+    ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -785,6 +799,7 @@
       "src/app/publishing-guide/_components/FormGuide.tsx",
       "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
       "src/app/publishing-guide/_components/IconGuide.tsx",
+      "src/app/publishing-guide/_components/ProductCardGuide.tsx",
       "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -1238,7 +1253,10 @@
       "src/components/common/atoms/Typography.tsx",
       "src/icons/fontAwesome.ts"
     ],
-    "src/components/common/atoms/Badge.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/Badge.tsx": [
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/components/common/atoms/Button.tsx": [
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
@@ -1512,6 +1530,13 @@
       "src/mocks/products.ts"
     ],
     "src/components/orders/order-policy.ts": [],
+    "src/components/orders/OrderHistoryProduct.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/context/platform.tsx"
+    ],
     "src/components/orders/OrderPageLayout.tsx": [
       "src/components/common/layouts/ContentSection.tsx"
     ],
@@ -1657,6 +1682,7 @@
     "src/app/products/[id]/productDetailPresentation.ts",
     "src/app/products/[id]/productInquiries.ts",
     "src/app/products/page.tsx",
+    "src/app/publishing-guide/_components/ProductCardGuide.tsx",
     "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx",
     "src/app/running/running-session/page.tsx",
     "src/app/search/page.tsx",
@@ -1690,6 +1716,7 @@
     "src/components/catalog/ProductListingPage.tsx",
     "src/components/mypage/MyPageProductHistory.tsx",
     "src/components/orders/order-policy.ts",
+    "src/components/orders/OrderHistoryProduct.tsx",
     "src/components/orders/orders.data.ts",
     "src/components/orders/orders.types.ts",
     "src/components/phone-verification/phone-verification.types.ts",
