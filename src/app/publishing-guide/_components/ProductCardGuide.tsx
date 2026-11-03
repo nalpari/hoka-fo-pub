@@ -9,14 +9,18 @@ import { token } from 'styled-system/tokens';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 import {
   ProductCard,
   type ProductCardOption,
   type ProductCardProps,
+  ProductIdentity,
 } from '@/components/common/molecules/ProductCard/ProductCard';
+import { ProductOptionList } from '@/components/common/molecules/ProductOptionList';
 
 import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { OrderLine } from '@/components/orders/orders.types';
@@ -134,7 +138,19 @@ const verticalExamples: readonly VerticalExample[] = [
   },
 ];
 
-const sections = [...examples, ...verticalExamples];
+const detailExample = {
+  id: 'tile-details-only',
+  title: '상품 상세 · 정보만',
+  description: '썸네일 없이 배지·성별·활동·상품명·가격 표시',
+};
+
+const fullDetailsExample = {
+  id: 'tile-full-details',
+  title: '전체 데이터 · Mo-Product Details',
+  description: '모든 표시 옵션이 켜진 원본 컴포넌트 확인',
+};
+
+const sections = [fullDetailsExample, ...examples, detailExample, ...verticalExamples];
 
 const product: Product = {
   ...products[0],
@@ -315,6 +331,159 @@ function ProductExample({
   );
 }
 
+const fullDetails = {
+  orderDate: '2026.08.18',
+  optionText: '옵션 : 레귤러 / 브라운 / 235 / 1개',
+  originalPrice: 280000,
+  discountLabel: '20%',
+  applicationDate: '2026.05.22',
+  activities: ['데일리 러닝', '워킹'],
+  rating: 4.5 as const,
+  review: '쿠션감이 좋아서 집 앞 외출할 때도 자주...',
+  status: '환불완료',
+};
+
+const fullDetailsStyle = css({
+  '& [data-product-promotion] > span': { fontWeight: 'normal' },
+  '& [data-product-promotion] > [aria-hidden]': { w: '1.5px', h: '13px' },
+  '& [data-product-price] span, & [data-product-price] del': { fontSize: '13', lineHeight: 'body' },
+});
+
+const fullDetailsCode = `const fullDetails = {
+  orderDate: '2026.08.18',
+  optionText: '옵션 : 레귤러 / 브라운 / 235 / 1개',
+  originalPrice: 280000,
+  discountLabel: '20%',
+  applicationDate: '2026.05.22',
+  activities: ['데일리 러닝', '워킹'],
+  rating: 4.5 as const,
+  review: '쿠션감이 좋아서 집 앞 외출할 때도 자주...',
+  status: '환불완료',
+};
+
+const fullDetailsStyle = css({
+  '& [data-product-promotion] > span': { fontWeight: 'normal' },
+  '& [data-product-promotion] > [aria-hidden]': { w: '1.5px', h: '13px' },
+  '& [data-product-price] span, & [data-product-price] del': { fontSize: '13', lineHeight: 'body' },
+});
+
+const [liked, setLiked] = useState(true);
+
+<Stack gap="1.5" className={fullDetailsStyle} data-full-product-details>
+  <ProductIdentity
+    variant="listing"
+    promotion={product.promotion}
+    promotionTone="error"
+    orderDate={fullDetails.orderDate}
+    gender={product.gender}
+    name={product.name}
+    optionText={fullDetails.optionText}
+    price={product.price}
+    originalPrice={fullDetails.originalPrice}
+    discountLabel={fullDetails.discountLabel}
+    applicationDate={fullDetails.applicationDate}
+  />
+  <Typography variant="body5" className={css({ py: '0.5' })}>
+    {fullDetails.activities.join(', ')}
+  </Typography>
+  <Box w="163px" maxW="full">
+    <ProductOptionList layout="scroll" options={colorThumbnails.slice(0, 5)} />
+  </Box>
+  <Stack gap="2">
+    <Box pt="1">
+      <RatingStars
+        value={fullDetails.rating}
+        size={token.var('sizes.4')}
+        className={css({ '&&': { gap: '1' } })}
+      />
+    </Box>
+    <Typography variant="body5">{fullDetails.review}</Typography>
+  </Stack>
+  <HStack justifyContent="space-between" pb="2">
+    <Button variant="link" size="sm">
+      옵션변경
+    </Button>
+    <Wishlist
+      active={liked}
+      onActiveChange={setLiked}
+      ariaLabel="전체 데이터 예시 관심상품"
+      label="관심상품"
+      iconSize={token.var('sizes.3.5')}
+    />
+  </HStack>
+  <Box pt="1.5">
+    <Button variant="plain" size="sm">
+      <HStack gap="1">
+        <Icon src="/images/icon/orders/bag-shopping.svg" size={token.var('sizes.3.5')} />
+        장바구니 담기
+      </HStack>
+    </Button>
+  </Box>
+  <Typography variant="body4" tone="tertiary" className={css({ textAlign: 'right' })}>
+    {fullDetails.status}
+  </Typography>
+</Stack>`;
+
+function FullDetailsPreview() {
+  const [liked, setLiked] = useState(true);
+  return (
+    <Stack gap="1.5" className={fullDetailsStyle} data-full-product-details>
+      <ProductIdentity
+        variant="listing"
+        promotion={product.promotion}
+        promotionTone="error"
+        orderDate={fullDetails.orderDate}
+        gender={product.gender}
+        name={product.name}
+        optionText={fullDetails.optionText}
+        price={product.price}
+        originalPrice={fullDetails.originalPrice}
+        discountLabel={fullDetails.discountLabel}
+        applicationDate={fullDetails.applicationDate}
+      />
+      <Typography variant="body5" className={css({ py: '0.5' })}>
+        {fullDetails.activities.join(', ')}
+      </Typography>
+      <Box w="163px" maxW="full">
+        <ProductOptionList layout="scroll" options={colorThumbnails.slice(0, 5)} />
+      </Box>
+      <Stack gap="2">
+        <Box pt="1">
+          <RatingStars
+            value={fullDetails.rating}
+            size={token.var('sizes.4')}
+            className={css({ '&&': { gap: '1' } })}
+          />
+        </Box>
+        <Typography variant="body5">{fullDetails.review}</Typography>
+      </Stack>
+      <HStack justifyContent="space-between" pb="2">
+        <Button variant="link" size="sm">
+          옵션변경
+        </Button>
+        <Wishlist
+          active={liked}
+          onActiveChange={setLiked}
+          ariaLabel="전체 데이터 예시 관심상품"
+          label="관심상품"
+          iconSize={token.var('sizes.3.5')}
+        />
+      </HStack>
+      <Box pt="1.5">
+        <Button variant="plain" size="sm">
+          <HStack gap="1">
+            <Icon src="/images/icon/orders/bag-shopping.svg" size={token.var('sizes.3.5')} />
+            장바구니 담기
+          </HStack>
+        </Button>
+      </Box>
+      <Typography variant="body4" tone="tertiary" className={css({ textAlign: 'right' })}>
+        {fullDetails.status}
+      </Typography>
+    </Stack>
+  );
+}
+
 function VerticalProductExample({
   example,
   platform,
@@ -410,8 +579,8 @@ export function ProductCardGuide() {
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             색상 옵션 12개로 캐러셀을 확인합니다. PC 목록은 마우스 또는 Tab으로 열고 좌우 버튼을,
-            모바일과 history는 가로 스크롤을 사용합니다. 색상을 선택하고 Escape로 닫아 보세요.
-            하트는 예시 안에서만 변경됩니다.
+            모바일 목록은 가로 스크롤, history는 같은 좌우 NAV를 사용합니다. 색상을 선택하고
+            Escape로 닫아 보세요. 하트는 예시 안에서만 변경됩니다.
           </Typography>
           <HStack gap="4" flexWrap="wrap">
             {[
@@ -433,6 +602,79 @@ export function ProductCardGuide() {
             상품명·이미지·색상·가격은 준비된 표시 예시입니다. 프로모션 배지는 확정된 빨강을
             사용합니다.
           </Typography>
+        </Stack>
+        <Stack
+          as="section"
+          id={fullDetailsExample.id}
+          gap="3"
+          scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
+        >
+          <Typography as="h3" variant="heading8">
+            {fullDetailsExample.title}
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            원본 Mo-Product Details의 모든 표시 항목을 확인하는 고정 예시입니다. 서로 다른 화면의
+            항목을 한 번에 켠 구성으로, 실제 주문 상태나 요청 결과를 의미하지 않습니다.
+          </Typography>
+          <HStack gap="4" flexWrap="wrap">
+            <a
+              href="https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-7424"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Typography variant="textLink3">전체 데이터 시안</Typography>
+            </a>
+            <a
+              href="https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-4920"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Typography variant="textLink3">원본 컴포넌트</Typography>
+            </a>
+          </HStack>
+          <Grid columns={{ base: 2, _mobile: 1 }} gap="3" alignItems="start">
+            <GuideExampleFrame
+              title={fullDetailsExample.title}
+              platform="mobile"
+              width="190px"
+              code={fullDetailsCode}
+              onCopy={copyCode}
+            >
+              <FullDetailsPreview />
+            </GuideExampleFrame>
+            <Stack gap="3" p="4" border="1px solid token(colors.black.20)">
+              <Typography variant="body4" weight="semibold">
+                표시 데이터와 항목
+              </Typography>
+              {[
+                ['Badge', 'Best | Exclusive'],
+                ['Order Date', fullDetails.orderDate + ' 구매'],
+                ['Gender / Product Title', product.gender + ' / ' + product.name],
+                ['Option', fullDetails.optionText],
+                ['Price', '280,000원 / 20% / 240,000원'],
+                ['Application Date', fullDetails.applicationDate],
+                ['Tag', fullDetails.activities.join(', ')],
+                ['Carousel Item Container', '34px 색상 썸네일 5개'],
+                ['Review', '4.5점 / ' + fullDetails.review],
+                ['Setting', '옵션변경 / 관심상품'],
+                ['Cart Button', '장바구니 담기'],
+                ['Status', fullDetails.status],
+              ].map(([label, value]) => (
+                <Stack key={label} gap="0.5">
+                  <Typography variant="body5" weight="semibold">
+                    {label}
+                  </Typography>
+                  <Typography variant="body5" tone="subtle">
+                    {value}
+                  </Typography>
+                </Stack>
+              ))}
+              <Typography variant="body5" tone="subtle">
+                하트만 로컬로 전환합니다. 옵션변경·장바구니 담기는 미연결 표시 버튼입니다. PC 시안이
+                없는 모바일 컴포넌트 예시입니다.
+              </Typography>
+            </Stack>
+          </Grid>
         </Stack>
         <Stack gap="2">
           <Typography as="h2" variant="heading8">
@@ -463,6 +705,44 @@ export function ProductCardGuide() {
             </Grid>
           </Stack>
         ))}
+        <Stack
+          as="section"
+          id={detailExample.id}
+          gap="3"
+          scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
+        >
+          <Typography as="h3" variant="heading8">
+            {detailExample.title}
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            상품 상세에서 사용하는 공통 정보 영역입니다. 이미지·옵션 선택·공유·관심상품 액션은 상세
+            화면이 소유합니다.
+          </Typography>
+          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+            {(['web', 'mobile'] as const).map((platform) => (
+              <GuideExampleFrame
+                key={platform}
+                title={detailExample.title}
+                platform={platform}
+                width={platform === 'web' ? '371px' : '343px'}
+                onCopy={copyCode}
+                code={
+                  '<ProductIdentity\n  variant="detail"\n  promotionTone="error"\n  promotion={product.promotion}\n  gender={product.gender}\n  activities={["데일리 러닝", "워킹"]}\n  name={product.name}\n  price={product.price}\n/>'
+                }
+              >
+                <ProductIdentity
+                  variant="detail"
+                  promotion={product.promotion}
+                  promotionTone="error"
+                  gender={product.gender}
+                  activities={['데일리 러닝', '워킹']}
+                  name={product.name}
+                  price={product.price}
+                />
+              </GuideExampleFrame>
+            ))}
+          </Grid>
+        </Stack>
         <Stack gap="2">
           <Typography as="h2" variant="heading8">
             Vertical

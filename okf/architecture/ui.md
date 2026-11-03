@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T07:21:59.321206+00:00'
+updated: '2026-11-03T07:59:37.181918+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
@@ -4366,3 +4367,40 @@ Vertical은 OrderProductSummary의 cart/checkout, 주문 화면의 실제 OrderH
 출처: 사용자 브라우저 댓글, src/components/common/molecules/ProductCard/ProductCard.tsx·ProductOptionList.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
 
 2026-11-03 커밋 구성: 위 상품 타일 가이드·Vertical 재사용 및 주문 상품 행 공용화를 가이드 추가 커밋으로 분리한다. 전체 ESLint와 typecheck를 최종 작업 트리에서 다시 실행해 통과했다.
+
+## 상품 타일 가이드의 실제 화면 적용과 정보 영역 재사용 (2026-11-03)
+
+사용자 요청으로 Product Tiles 사용처와 남은 상품 요약 마크업을 조사했다. 이미 공통 타일을 사용하는 홈 Best sellers, 상품 목록·검색, 상품 상세/러닝 세션 추천, 관심상품·최근 본 상품과 모바일 장바구니·주문서·주문 내역은 기존 owner와 표시 옵션을 유지한다. 아래 남은 중복 영역은 같은 공통 컴포넌트로 연결했다.
+
+| 적용 화면                         | 공통 표시 소유자                             | 유지하는 화면 책임                                               |
+| --------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| 장바구니 추천·주문 완료 추천      | ProductCard showcase, 기존 compact는 history | 추천 순서·href·이미지·목록 rail과 스크롤 버튼                    |
+| PC 장바구니 상품 행               | OrderProductSummary cart                     | 체크·수량·관심 상태·옵션변경 및 별도 가격 열·품절 표시           |
+| 마이페이지 최근 주문 요약         | OrderProductSummary                          | 준비된 가격 문자열·상태·모바일 New/활동 정보·캐러셀              |
+| 리뷰 목록                         | OrderProductSummary content 슬롯             | 구매일·별점·리뷰 본문·작성/수정 버튼·기존 PC/MO 이미지 크기      |
+| 재입고 알림 상품                  | OrderProductSummary content 슬롯             | 상품명·신청일·알림 상태·취소 확인 UI, PC96/MO64px 이미지         |
+| 취소·반품 신청 상품               | OrderHistoryProduct claim                    | 선택 key·수량 초안·사유·상세 입력, PC96/MO64px 이미지            |
+| 문의 주문상품 선택                | OrderProductSummary                          | 주문/상품 선택·확장·개별 ID, PC76/MO64px 이미지                  |
+| 상품 상세의 썸네일 없는 제목/가격 | ProductIdentity detail                       | h1·PC36/MO28px 제목·가격·배지·사용 목적, 리뷰/공유/관심상품 액션 |
+
+런칭 캘린더는 출시일·알림 액션·crop이 포함된 전용 카드이므로 ProductCard로 대체하지 않는다. 상품 상세의 큰 이미지 갤러리·선택한 옵션 목록도 해당 화면 소유권을 유지한다. 기존 서비스 요청·저장·업무 계산을 추가하거나 목 데이터를 운영 응답으로 추론하지 않았다.
+
+ProductCard는 실제 사용하는 최소 표시 모델(id/name/price/primaryImage와 선택적 메타데이터)을 받는다. 추천을 위해 임의 category·재고·활동·스펙을 채우지 않으며 미제공 정보는 렌더링하지 않는다. 선택적 href는 원래 추천 링크를 보존하고 기존 호출의 /products/{id} 기본 링크는 유지한다. OrderProductSummary에는 기존 owner의 typed imageSize·optionAction·표시 금액 문자열과 content 대체 슬롯을 추가했다. content와 기본 텍스트 생성 props는 상호 배타 타입이며 이미지·프레임만 공유하고 리뷰/신청일의 화면별 메타데이터는 호출자가 소유한다. 미제공 금액은 0원으로 만들지 않는다. 대응하는 64/80/96px는 sizes 토큰이며 정확한 토큰이 없는 76/88px는 원래 값을 유지한다. 이미지 sizes는 명시적 플랫폼 context와 실제 고정 크기에서 정한다. OrderHistoryProduct의 이미지 크기 덮어쓰기도 해당 prop으로 옮겨 inline 이미지 크기와 충돌하지 않게 했다.
+
+ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 소유자다. 기본 listing/showcase/history의 표시와 가격 컴포넌트를 유지하고 detail 모드는 기존 상품 상세 제목·메타·가격을 그대로 맡는다. orderDate·optionText·applicationDate가 있는 구성도 같은 식별 정보 소유자에서 표시한다. 옵션 선택·좋아요·수량 등의 상태를 새 표시 컴포넌트에 복제하지 않았다. 각 데이터/서비스 경계 주석은 실제로 전달하는 표시 모델과 미연결 요청 책임을 구분한다.
+
+검증: PC1421/MO390에서 장바구니·주문완료·마이페이지·리뷰 ready/written·재입고 알림·취소/반품 신청·문의 주문상품 선택·상품 상세·가이드의 실제 텍스트/이미지 규격과 가로 넘침 없음을 확인했다. MO 문의는 기존 full-screen dialog가 소유하며 main 부재를 화면 누락으로 판단하지 않았다. 장바구니 체크 true·하트 true·수량 1→2, 리뷰 작성 dialog 열기, 문의 주문 선택과 개별 체크 해제, 열린 취소 신청의 모바일 resize 시 64px 이미지 유지도 확인했다. 실제 상품 상세의 제목은 PC36px/MO28px·900이다. 캐러셀/선택/요청 state owner와 기본 호출부는 유지했다. 전체 ESLint·typecheck·Panda와 Next 빌드의 145개 정적 페이지 생성이 통과했다. 최종 인계 검토에서 컴포넌트 소유권·기존 props와 상호 배타 슬롯·Panda·Next Image·명시적 플랫폼·키보드·fixture 경계를 점검했다.
+
+출처: 사용자 요청, 위 working_tree_sources에 추가한 공통 컴포넌트와 화면 소스 작업 트리. 기록: codex/gpt-6, 2026-11-03. 외부 API 연결/저장·실패/재시도 구현은 이번 표시 재사용의 범위가 아니다.
+
+## 상품 타일 가이드의 상세 정보와 전체 데이터 예시 (2026-11-03)
+
+가이드에 ProductIdentity detail의 PC/MO 예시를 추가했다. 썸네일·옵션 선택·공유 액션을 제외한 상품 상세의 실제 정보 컴포넌트와 복사 코드를 보여 준다. 상품 상세와 같은 h1 의미·PC/MO 글자 크기·가격 표시를 사용한다.
+
+[전체 표시 인스턴스 1710:7424](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-7424)와 [원본 Mo-Product Details 1710:4920](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-4920)의 구조·스타일·표시 옵션을 읽어 전체 데이터 예시를 추가했다. 사용자 후속 요청대로 소개 다음 최상단과 우측 바로가기 첫 항목에 둔다. 제공된 원본이 모바일 컴포넌트이므로 PC 디자인을 임의로 만들지 않고 고정 mobile context의 190px 예시를 표시한다.
+
+전체 데이터는 빨강 Best | Exclusive·2026.08.18 구매·All Gender/Speedgoat 7 GTX·레귤러/브라운/235/1개 옵션·280,000원 정상가/20%/240,000원 판매가·2026.05.22 신청일·활동 태그·34px 색상 썸네일 5개·4.5점/리뷰 본문·옵션변경/관심상품·장바구니 담기·환불완료를 모두 표시한다. 6px root 간격, 본문14px·가격13px·태그/리뷰12px·별16px/4px 간격·아이콘14px와 원본의 163px swatch viewport를 기존 토큰 및 정확한 예외값으로 사용한다. 이미지 파일은 기존 로컬 fixture이며 원본의 상품/업무 ID에 따라 추론하지 않는다.
+
+공통 ProductIdentity·ProductOptionList·RatingStars·Wishlist·Button을 조합한 가이드 전용 fixture와 항목 표, 실제 구성/스타일에 대응하는 복사 코드를 제공한다. 서로 다른 화면의 표시 옵션을 동시에 켠 검토 예시이며 실제 환불 상태·요청 결과가 아니다. 하트만 로컬 전환하고 옵션변경/장바구니 버튼은 미연결 표시라고 명시한다. 190px 너비·6px 간격·가격 13px·썸네일34px 5개·전체 텍스트와 코드 복사/하트 전환, 상세 정보 예시의 이미지 0개를 실행 화면에서 확인했다.
+
+출처: 위 사용자 지정 Figma 두 노드, ProductCardGuide.tsx·ProductCard.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.

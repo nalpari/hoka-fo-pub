@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
@@ -12,8 +12,8 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -80,30 +80,29 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
             py="8"
             _mobile={{ py: '6', columnGap: '2' }}
           >
-            <HStack gap="4" px="6" alignItems="flex-start" _mobile={{ px: '0' }}>
-              <Box w="96px" h="96px" flexShrink="0" _mobile={{ w: '64px', h: '64px' }}>
-                <ProductThumbnail
-                  alt={name ?? ''}
-                  src={entry?.product.primaryImage ?? product.primaryImage}
-                  variant="summary"
-                  sizes={platform === 'mobile' ? '64px' : '96px'}
-                  imageProps={{ width: 96, height: 96, loading: 'lazy' }}
-                />
-              </Box>
-              <Stack gap="0" minW="0">
-                {gender && <Typography variant="body4">{gender}</Typography>}
-                <Typography variant="body4" className={css({ fontWeight: 'medium' })}>
-                  {name}
-                </Typography>
-                <Typography
-                  variant="body4"
-                  tone="tertiary"
-                  className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
-                >
-                  신청일 : {requestedAt}
-                </Typography>
-              </Stack>
-            </HStack>
+            <Box px="6" _mobile={{ px: '0' }} minW="0">
+              <OrderProductSummary
+                variant="cart"
+                name={name ?? ''}
+                image={entry?.product.primaryImage ?? product.primaryImage}
+                imageSize={{ web: 96, mobile: 64 }}
+                content={
+                  <Stack gap="0" minW="0">
+                    {gender && <Typography variant="body4">{gender}</Typography>}
+                    <Typography variant="body4" className={css({ fontWeight: 'medium' })}>
+                      {name}
+                    </Typography>
+                    <Typography
+                      variant="body4"
+                      tone="tertiary"
+                      className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
+                    >
+                      신청일 : {requestedAt}
+                    </Typography>
+                  </Stack>
+                }
+              />
+            </Box>
             <Typography
               variant="body3"
               tone="subtle"

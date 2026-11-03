@@ -1,7 +1,5 @@
 'use client';
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
-import Image from 'next/image';
-
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
@@ -17,6 +15,7 @@ import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
@@ -203,31 +202,16 @@ export function InquiryOrderLookup({
                           )}
                           onCheckedChange={(checked) => toggleProduct(order, item.id, checked)}
                         />
-                        <Box
-                          display="grid"
-                          placeItems="center"
-                          flexShrink="0"
-                          w={{ base: '76px', _mobile: '64px' }}
-                          h={{ base: '76px', _mobile: '64px' }}
-                          border="1px solid token(colors.black.40)"
-                        >
-                          <Image
-                            alt=""
-                            src={item.image}
-                            width={76}
-                            height={76}
-                            sizes="(max-width: 1024px) 64px, 76px"
-                            className={css({ w: '100%', h: '100%', objectFit: 'cover' })}
+                        <Box flex="1" minW="0">
+                          <OrderProductSummary
+                            variant="cart"
+                            image={item.image}
+                            name={item.name}
+                            imageSize={{ web: 76, mobile: 64 }}
+                            optionText={`${item.color} / ${item.size}, ${item.quantity}개`}
+                            hideAmount
                           />
                         </Box>
-                        <Stack gap="1" flex="1" minW="0">
-                          <Typography variant="body5" weight="semibold">
-                            {item.name}
-                          </Typography>
-                          <Typography variant="body5" tone="tertiary">
-                            {item.color} / {item.size}, {item.quantity}개
-                          </Typography>
-                        </Stack>
                       </Flex>
                     ))}
                   </Stack>

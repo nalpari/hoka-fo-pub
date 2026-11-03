@@ -4,12 +4,17 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T06:44:42+00:00'
+updated: '2026-11-03T07:59:37.190185+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/OrderProductSummary.tsx
+  - src/components/common/organisms/OrderRecommendations.tsx
+  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
@@ -1101,3 +1106,11 @@ HomeContent의 이미지 비율 강제 override를 제거하고 공통 ProductTh
 ## 주문 화면 import 서식 정리 (2026-11-03)
 
 OrdersContent·OrdersPage·OrdersStatus와 주문 preview page 네 곳의 import 그룹·정렬만 정리했다. 경로·상태·표시 동작은 변경하지 않았다. 최종 작업 트리의 전체 ESLint와 typecheck가 통과했다. 출처: 해당 주문 라우트 파일 작업 트리.
+
+## 상품 타일 재사용 화면과 가이드 추가 예시 (2026-11-03)
+
+기존 장바구니/주문완료 추천·PC 장바구니 행·마이페이지 주문 요약/리뷰/재입고·취소/반품 신청·문의 주문상품 조회에 공통 ProductCard/OrderProductSummary/OrderHistoryProduct를 연결했다. /products/[id]의 배지·메타·h1·가격은 ProductIdentity detail을 사용한다. 라우트 진입점·URL·준비된 데이터/ID·선택/액션 owner는 유지하며 API나 새 상태 URL을 추가하지 않았다. 관련 import graph는 정식 screen-files/build 명령으로 생성했다.
+
+/publishing-guide?tab=product-tiles에는 #tile-details-only(상품 상세 정보만)와 #tile-full-details(전체 데이터) 예시를 추가했다. 전체 데이터는 소개 다음 첫 예시와 GuideTimeline 첫 항목이다. 기존 query/Suspense/tab 이력 구조와 PC/MO 예시 context는 유지한다. 모바일 문의 조회의 기존 full-screen dialog, 리뷰 작성 열기, 취소/반품 신청 열림·resize와 기본 URL의 표시를 실행 화면에서 확인했다. Next 빌드 145개 정적 페이지·타입 검사를 통과했다. 상세 구현/검증은 ui.md의 관련 절을 따른다.
+
+출처: 위 working_tree_sources에 기록한 화면·가이드·공통 컴포넌트와 생성 그래프 작업 트리, 사용자 요청. 기록: codex/gpt-6, 2026-11-03.

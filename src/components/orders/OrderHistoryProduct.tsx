@@ -50,14 +50,11 @@ export function OrderHistoryProduct({
               _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
             }
           : {}),
-        '& > div > img':
-          imageSize === 'claim'
-            ? { w: '96px', h: '96px', _mobile: { w: '64px', h: '64px' } }
-            : { w: '96px', h: '96px' },
       })}
     >
       <OrderProductSummary
         variant="history"
+        imageSize={imageSize === 'claim' ? { web: 96, mobile: 64 } : undefined}
         image={line.image}
         name={line.name}
         optionText={

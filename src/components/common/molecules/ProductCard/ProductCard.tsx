@@ -11,9 +11,11 @@ import { token } from 'styled-system/tokens';
 
 import { Badge, type Promotions } from '@/components/common/atoms/Badge';
 import { Card } from '@/components/common/atoms/Card';
+import { Divider } from '@/components/common/atoms/Divider';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
+import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { type ProductCardVariant } from '@/components/common/molecules/ProductCard/productCardTypography';
 import {
   ProductOptionList,
@@ -26,7 +28,25 @@ import {
 
 import { type Product } from '@/mocks/products';
 
-type ProductGenderOption = "Men's" | "Women's" | 'All Gender';
+type ProductGenderOption = string;
+
+export type ProductCardProduct = Pick<Product, 'id' | 'name' | 'price' | 'primaryImage'> &
+  Partial<
+    Pick<
+      Product,
+      | 'hoverImage'
+      | 'originalPrice'
+      | 'discountLabel'
+      | 'colors'
+      | 'colorOptions'
+      | 'colorThumbnails'
+      | 'promotion'
+      | 'use'
+      | 'width'
+      | 'cushioning'
+      | 'stability'
+    >
+  > & { gender?: string };
 
 const genderLabel = cva({
   base: {
@@ -155,19 +175,29 @@ function ProductPrice({
   );
 }
 
-type Props = Pick<
-  ProductDetailsProps,
-  | 'promotion'
-  | 'promotionTone'
-  | 'gender'
-  | 'name'
-  | 'price'
-  | 'originalPrice'
-  | 'discountLabel'
-  | 'variant'
->;
+export type ProductIdentityProps = Omit<
+  Pick<
+    ProductDetailsProps,
+    | 'promotion'
+    | 'promotionTone'
+    | 'gender'
+    | 'name'
+    | 'price'
+    | 'originalPrice'
+    | 'discountLabel'
+    | 'variant'
+  >,
+  'variant'
+> & {
+  variant: ProductCardVariant | 'detail';
+  activities?: readonly string[];
+  orderDate?: string;
+  optionText?: string;
+  applicationDate?: string;
+};
 
-function ProductDetailsIdentity({
+/** 상품 타일과 상세 화면의 배지·식별 정보·가격을 표시합니다. (Displays shared identity and price information for product tiles and detail pages.) */
+export function ProductIdentity({
   promotion,
   promotionTone,
   gender,
@@ -176,7 +206,60 @@ function ProductDetailsIdentity({
   originalPrice,
   discountLabel,
   variant,
-}: Props) {
+  activities,
+  orderDate,
+  optionText,
+  applicationDate,
+}: ProductIdentityProps) {
+  const platform = usePlatform();
+  if (variant === 'detail') {
+    return (
+      <VStack alignItems="start" gap="5" _mobile={{ gap: '4' }} minW="0" w="full">
+        <VStack alignItems="start" gap="2">
+          {promotion && (
+            <Badge
+              weight="medium"
+              promotion={promotion}
+              promotionTone={promotionTone === 'error' ? 'red80' : 'brand'}
+            />
+          )}
+          <HStack gap="2" color="black.60" flexWrap="wrap">
+            {gender && (
+              <Typography variant="body4" weight="regular" tone="inherit">
+                {gender}
+              </Typography>
+            )}
+            {activities?.length ? (
+              <>
+                {gender && (
+                  <Divider orientation="vertical" length="3" className={css({ bg: 'black.60' })} />
+                )}
+                <Typography variant="body4" weight="regular" tone="inherit">
+                  {activities.join(', ')}
+                </Typography>
+              </>
+            ) : null}
+          </HStack>
+        </VStack>
+        <ContentHeader
+          alignItems="start"
+          gap="5"
+          titleAs="h1"
+          title={name}
+          titleProps={{
+            className: css({ m: '0' }),
+            variant: 'headingKr6',
+            mo: 'heading4',
+            language: platform === 'web' ? 'ko' : 'en',
+            weight: 'black',
+          }}
+        />
+        <Box className={css({ '& span': { fontSize: '16', fontWeight: 'normal' } })}>
+          <ProductPrice price={price} originalPrice={originalPrice} discountLabel={discountLabel} />
+        </Box>
+      </VStack>
+    );
+  }
   const identity = (
     <>
       {gender && <ProductGender gender={gender} variant={variant} />}
@@ -206,6 +289,14 @@ function ProductDetailsIdentity({
           promotionTone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
         />
       )}
+      {orderDate && (
+        <HStack gap="0.5">
+          <Typography variant="body4" language="en">
+            {orderDate}
+          </Typography>
+          <Typography variant="body4">구매</Typography>
+        </HStack>
+      )}
       <VStack
         gap={variant === 'listing' ? '3' : variant === 'showcase' ? '4' : '1'}
         _mobile={variant !== 'history' ? { gap: '1' } : undefined}
@@ -222,7 +313,22 @@ function ProductDetailsIdentity({
         >
           {identity}
         </VStack>
+        {optionText && (
+          <Typography variant="body4" tone="subtle">
+            {optionText}
+          </Typography>
+        )}
         {priceContent}
+        {applicationDate && (
+          <HStack gap="1" color="black.50">
+            <Typography variant="body4" tone="inherit">
+              신청일 :
+            </Typography>
+            <Typography variant="body4" language="en" tone="inherit">
+              {applicationDate}
+            </Typography>
+          </HStack>
+        )}
       </VStack>
     </VStack>
   );
@@ -435,7 +541,7 @@ function ProductDetails({
         minW="0"
         w="full"
       >
-        <ProductDetailsIdentity
+        <ProductIdentity
           promotionTone={promotionTone}
           discountLabel={discountLabel}
           promotion={promotion}
@@ -479,12 +585,13 @@ function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
 const ProductCardFooterRoot = css({ display: 'flex', flexDirection: 'column', gap: '2' });
 
 type ProductCardFooterProps = {
-  product: Product;
+  product: ProductCardProduct;
   showSpecifications: boolean;
 };
 
 function ProductCardFooter({ product, showSpecifications }: ProductCardFooterProps) {
-  if (!showSpecifications) return null;
+  if (!showSpecifications || !product.cushioning || !product.stability || !product.width)
+    return null;
   return (
     <Card.Footer className={ProductCardFooterRoot}>
       {showSpecifications && (
@@ -504,20 +611,22 @@ const ProductCardHeaderRoot = css({
 
 type ProductCardHeaderProps = {
   selectedImage?: string;
-  product: Product;
+  product: ProductCardProduct;
+  href?: string;
   soldOut?: boolean;
   variant: ProductThumbnailVariant;
 };
 
 function ProductCardHeader({
   product,
+  href,
   selectedImage,
   soldOut = false,
   variant,
 }: ProductCardHeaderProps) {
   return (
     <Card.Header className={ProductCardHeaderRoot}>
-      <Link href={`/products/${product.id}`} className={css({ pos: 'relative' })}>
+      <Link href={href ?? `/products/${product.id}`} className={css({ pos: 'relative' })}>
         <ProductThumbnail
           alt={product.name}
           hover
@@ -596,17 +705,21 @@ const action = css({
   },
 });
 
-const productWidthCount = (product: Product) => {
+const productWidthCount = (product: ProductCardProduct) => {
   const widths = product.colorOptions?.flatMap((colorOption) =>
     colorOption.widths.map((width) => width.label),
   );
-  return new Set(widths?.length ? widths : [product.width]).size;
+  return new Set(widths?.length ? widths : product.width ? [product.width] : []).size;
 };
 
-const productOptionThumbnails = (product: Product): ProductOptionThumbnail[] =>
+const productOptionThumbnails = (product: ProductCardProduct): ProductOptionThumbnail[] =>
   product.colorThumbnails?.length
     ? product.colorThumbnails
-    : product.colors.map((color) => ({ id: color, image: product.primaryImage, label: color }));
+    : (product.colors ?? []).map((color) => ({
+        id: color,
+        image: product.primaryImage,
+        label: color,
+      }));
 
 const activityLabel = (use: Product['use']) => {
   if (use === 'Everyday Run') return '데일리 러닝';
@@ -624,17 +737,20 @@ export type ProductCardProps = {
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   options?: readonly ProductCardOption[];
-  product: Product;
+  product: ProductCardProduct;
+  href?: string;
   variant?: ProductCardVariant;
 };
 
 /**
  * [ 개발팀 바인딩 ] 목록 소유자가 product의 상품 ID·colorThumbnails 옵션 ID/이미지를 제공합니다.
+ * 추천 목록은 id/name/price/primaryImage와 선택적 gender/href만 전달할 수 있으며 미제공 활동·색상·스펙을 만들어 채우지 않습니다.
  * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
  * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
  */
 /** 상품 이미지와 요약·호버 색상 캐러셀을 표시합니다. (Displays product imagery, details, and an inline color carousel on hover.) */
 export function ProductCard({
+  href,
   promotionTone,
   discountLabel,
   activityLabels,
@@ -684,6 +800,7 @@ export function ProductCard({
       }}
     >
       <ProductCardHeader
+        href={href}
         selectedImage={showColorPreview ? selectedColor?.image : undefined}
         product={product}
         soldOut={soldOut}
@@ -738,8 +855,8 @@ export function ProductCard({
         }
         promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
-        activities={activityLabels ?? [activityLabel(product.use)]}
-        colorCount={product.colors.length}
+        activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
+        colorCount={product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
         optionThumbnails={colorOptions}

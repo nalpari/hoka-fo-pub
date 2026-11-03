@@ -329,7 +329,7 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/Carousel/Carousel.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/platform.tsx"
     ],
@@ -434,6 +434,7 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
+      "src/components/orders/OrderHistoryProduct.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrderDetails.tsx": [
@@ -587,7 +588,7 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/reviews/_components/ReviewStatePreview.tsx": [
@@ -654,7 +655,6 @@
       "src/components/care-guide/CareInstructions.tsx",
       "src/components/care-guide/care.data.ts",
       "src/components/common/atoms/Accordion.tsx",
-      "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/DescriptionList.tsx",
@@ -758,9 +758,12 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/atoms/Wishlist.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/components/common/molecules/ProductOptionList.tsx",
       "src/components/orders/OrderHistoryProduct.tsx",
       "src/context/platform.tsx",
       "src/icons/fontAwesome.ts",
@@ -1058,6 +1061,7 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/context/platform.tsx"
     ],
@@ -1387,7 +1391,8 @@
       "src/components/common/molecules/ContentHeader.tsx"
     ],
     "src/components/common/molecules/OrderProductSummary.tsx": [
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
     ],
     "src/components/common/molecules/PreviousTermsPicker.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1398,8 +1403,10 @@
     "src/components/common/molecules/ProductCard/ProductCard.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Card.tsx",
+      "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/ProductOptionList.tsx",
       "src/components/common/molecules/ProductThumbnail.tsx",
       "src/context/platform.tsx"
@@ -1469,9 +1476,8 @@
     "src/components/common/organisms/OrderRecommendations.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/context/platform.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
       "src/icons/fontAwesome.ts"
     ],
     "src/components/common/organisms/Search/SearchHeader.tsx": [
@@ -1503,8 +1509,8 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/common/molecules/ProductThumbnail.tsx",
       "src/components/mypage/MyPageFrame.tsx",
       "src/context/platform.tsx",
       "src/mocks/products.ts"

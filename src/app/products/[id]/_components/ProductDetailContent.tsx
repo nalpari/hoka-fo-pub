@@ -30,7 +30,6 @@ import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
-import { Badge } from '@/components/common/atoms/Badge';
 import { Button, type ButtonIconProps, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
@@ -50,7 +49,10 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
-import { ProductCard, ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
+import {
+  ProductCard,
+  ProductIdentity,
+} from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductDetailImage } from '@/components/common/molecules/ProductDetailImage';
 import { ProductColorSelector as ColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
 import { ProductSizeSelector as SizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
@@ -1855,69 +1857,12 @@ function ProductDetailHeaderActions({
     </Flex>
   );
 }
-type ProductDetailHeaderMetaProps = {
-  product: Product;
-};
 const productUseLabels: Record<Product['use'], string> = {
   'Everyday Run': '데일리 러닝',
   'Trail Running': '트레일 러닝',
   Walking: '워킹',
 };
-/** 상품의 성별과 사용 목적 메타데이터를 표시합니다. (Displays a product's gender and use metadata.) */
-function ProductDetailHeaderMeta({ product }: ProductDetailHeaderMetaProps) {
-  const uses = [...new Set([product.runningType, productUseLabels[product.use]])].join(', ');
-  return (
-    <>
-      <VStack alignItems="start" gap="2">
-        {product.promotion && <Badge weight="medium" promotion={product.promotion} />}
-        <HStack gap="2" color="var(--color-black-60)">
-          <Typography variant="body4" weight="regular" tone="inherit">
-            {product.gender}
-          </Typography>
-          {uses && (
-            <>
-              <Divider orientation="vertical" length="3" color="var(--color-black-60)" />
-              <Typography variant="body4" weight="regular" tone="inherit">
-                {uses}
-              </Typography>
-            </>
-          )}
-        </HStack>
-      </VStack>
-    </>
-  );
-}
-type ProductDetailHeaderTitleProps = {
-  product: Product;
-};
-/** 상품 상세의 상품명과 가격을 표시합니다. (Displays the product name and price on the product detail page.) */
-function ProductDetailHeaderTitle({ product }: ProductDetailHeaderTitleProps) {
-  const platform = usePlatform();
-  return (
-    <>
-      <ContentHeader
-        alignItems="start"
-        gap="5"
-        titleAs="h1"
-        title={product.name}
-        titleProps={{
-          className: css({ m: '0' }),
-          variant: 'headingKr6',
-          mo: 'heading4',
-          language: platform === 'web' ? 'ko' : 'en',
-          weight: 'black',
-        }}
-      />
-      <Box className={css({ '& span': { fontSize: '16px', fontWeight: 'normal' } })}>
-        <ProductPrice
-          discountLabel={product.discountLabel}
-          price={product.price}
-          originalPrice={product.originalPrice}
-        />
-      </Box>
-    </>
-  );
-}
+
 type ProductDetailHeaderProps = {
   product: Product;
   wish: boolean;
@@ -1926,10 +1871,16 @@ type ProductDetailHeaderProps = {
 function ProductDetailHeader({ product, wish, onWishChange }: ProductDetailHeaderProps) {
   return (
     <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
-      <VStack alignItems="start" gap="5" _mobile={{ gap: '4' }}>
-        <ProductDetailHeaderMeta product={product} />
-        <ProductDetailHeaderTitle product={product} />
-      </VStack>
+      <ProductIdentity
+        variant="detail"
+        name={product.name}
+        gender={product.gender}
+        promotion={product.promotion}
+        price={product.price}
+        originalPrice={product.originalPrice}
+        discountLabel={product.discountLabel}
+        activities={[...new Set([product.runningType, productUseLabels[product.use]])]}
+      />
       <ProductDetailHeaderActions onWishChange={onWishChange} product={product} wish={wish} />
     </VStack>
   );

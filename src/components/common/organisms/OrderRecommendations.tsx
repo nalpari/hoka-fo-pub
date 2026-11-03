@@ -1,24 +1,21 @@
 /**
- * [개발팀 바인딩]
- * items는 추천 서비스가 정렬한 표시 목록입니다. id/name/gender/price/href/imageSrc를 변환해 전달하며 원격 조회는 부모가 소유합니다.
+ * [ 개발팀 바인딩 ]
+ * items는 추천 서비스가 정렬한 표시 목록입니다. id/name/gender/price/href/imageSrc를 변환해 전달하며 원격 조회는 부모가 소유합니다. 현재 items를 공통 ProductCard 표시 모델로 연결하며 옵션·활동·재고를 추론하지 않습니다.
  * 빈 응답/로딩/오류는 부모에서 처리하고 시안 추천 배열을 실제 응답에 자동으로 섞지 않습니다.
  */
 
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { useRef } from 'react';
 import type { ReactNode } from 'react';
-import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { Box, HStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
-import { Typography } from '@/components/common/atoms/Typography';
+
+import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
@@ -37,107 +34,32 @@ type OrderRecommendationLayout = 'compact' | 'portrait' | 'checkout';
 
 type Props = { item: OrderRecommendation; layout?: OrderRecommendationLayout };
 
-/** 추천 상품의 이미지와 상품명·가격을 연결합니다. (Links an order recommendation with its image and price.) */
+/** 추천 표시 데이터를 공통 상품 타일로 연결합니다. (Connects recommendation display data to the shared product tile.) */
 function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
-  const mobile = usePlatform() === 'mobile';
-  const checkoutLayout = layout === 'checkout';
-  const portraitLayout = layout !== 'compact';
-
   return (
-    <Link
-      href={item.href}
-      className={css({
-        flex: checkoutLayout
+    <Box
+      minW="0"
+      flex={
+        layout === 'checkout'
           ? '0 0 calc((100% - 64px) / 5)'
           : layout === 'portrait'
             ? '0 0 calc((100% - 48px) / 4)'
-            : '0 0 140px',
-        color: 'black.100',
-        _mobile: { flexBasis: portraitLayout ? '151px' : '140px' },
-      })}
+            : '0 0 140px'
+      }
+      _mobile={{ flexBasis: layout === 'compact' ? '140px' : '150px' }}
     >
-      <Stack
-        gap={
-          checkoutLayout
-            ? { base: '4', _mobile: '3' }
-            : layout === 'portrait'
-              ? { base: '4', _mobile: '1' }
-              : '1'
-        }
-      >
-        <Image
-          src={item.imageSrc}
-          alt=""
-          width={checkoutLayout ? 342 : layout === 'portrait' ? 151 : 140}
-          height={checkoutLayout ? 429 : layout === 'portrait' ? 328 : 140}
-          sizes={
-            checkoutLayout
-              ? '(max-width: 1024px) 151px, calc((100vw - 208px) / 5)'
-              : layout === 'portrait'
-                ? '(max-width: 1024px) 151px, (max-width: 1200px) 260px, 22vw'
-                : '140px'
-          }
-          className={css({
-            w: portraitLayout ? '100%' : '140px',
-            h: portraitLayout ? 'auto' : '140px',
-            aspectRatio: checkoutLayout
-              ? '342.4 / 428.6'
-              : layout === 'portrait'
-                ? '262.4 / 328.46'
-                : '1',
-            objectFit: checkoutLayout ? 'cover' : layout === 'portrait' ? 'contain' : 'cover',
-            bg: 'black.10',
-            _mobile: checkoutLayout
-              ? { w: '151px', h: '189px' }
-              : layout === 'portrait'
-                ? { w: '151px', h: '225px', mb: '2', objectFit: 'contain' }
-                : undefined,
-          })}
-        />
-        <Stack
-          gap={
-            checkoutLayout
-              ? { base: '4', _mobile: '1.5' }
-              : layout === 'portrait'
-                ? { base: '4', _mobile: '1' }
-                : '1'
-          }
-        >
-          <Stack
-            gap={
-              checkoutLayout
-                ? { base: '2.5', _mobile: '0.5' }
-                : layout === 'portrait'
-                  ? { base: '2.5', _mobile: '1' }
-                  : '1'
-            }
-          >
-            <Typography
-              web={portraitLayout ? 'body3' : 'body5'}
-              mo={checkoutLayout ? 'body4' : 'body5'}
-              weight={portraitLayout && !mobile ? 'medium' : undefined}
-            >
-              {item.gender ?? 'All Gender'}
-            </Typography>
-            <Typography
-              web={portraitLayout ? 'body3' : 'body5'}
-              mo={checkoutLayout ? 'body4' : 'body5'}
-              weight={portraitLayout && !mobile ? 'medium' : 'semibold'}
-              className={css({ lineClamp: 2 })}
-            >
-              {item.name}
-            </Typography>
-          </Stack>
-          <Typography
-            web={portraitLayout ? 'body3' : 'body5'}
-            mo={checkoutLayout ? 'body4' : 'body5'}
-            weight={portraitLayout && !mobile ? 'medium' : undefined}
-          >
-            {item.price.toLocaleString()}원
-          </Typography>
-        </Stack>
-      </Stack>
-    </Link>
+      <ProductCard
+        href={item.href}
+        product={{
+          id: item.id,
+          name: item.name,
+          gender: item.gender,
+          price: item.price,
+          primaryImage: item.imageSrc,
+        }}
+        variant={layout === 'compact' ? 'history' : 'showcase'}
+      />
+    </Box>
   );
 }
 

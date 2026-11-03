@@ -17,7 +17,7 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -185,30 +185,34 @@ function MyPageOverviewProfile() {
 function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   return (
     <HStack position="relative" alignItems="flex-start" gap="4">
-      <Box w="24" h="24" flexShrink="0">
-        <ProductThumbnail alt={item.name} src={item.image} />
-      </Box>
-      <Stack minW="0" flex="1" gap="1.5" pr="0" maxW="163.5px">
-        <HStack minH="18px">
-          {item.isNew ? (
-            <Typography variant="body4" tone="red80">
-              New
-            </Typography>
-          ) : null}
-        </HStack>
-        <Stack gap="2.5">
-          <Stack gap="1">
-            <Stack gap="0.5">
-              <Typography variant="body4">{item.gender}</Typography>
-              <Typography variant="body4">{item.name}</Typography>
+      <OrderProductSummary
+        variant="cart"
+        image={item.image}
+        name={item.name}
+        content={
+          <Stack minW="0" flex="1" gap="1.5" pr="0">
+            <HStack minH="18px">
+              {item.isNew ? (
+                <Typography variant="body4" tone="red80">
+                  New
+                </Typography>
+              ) : null}
+            </HStack>
+            <Stack gap="2.5">
+              <Stack gap="1">
+                <Stack gap="0.5">
+                  <Typography variant="body4">{item.gender}</Typography>
+                  <Typography variant="body4">{item.name}</Typography>
+                </Stack>
+                <Typography variant="body4" weight="semibold">
+                  {item.price}
+                </Typography>
+              </Stack>
+              <Typography variant="body5">{item.description}</Typography>
             </Stack>
-            <Typography variant="body4" weight="semibold">
-              {item.price}
-            </Typography>
           </Stack>
-          <Typography variant="body5">{item.description}</Typography>
-        </Stack>
-      </Stack>
+        }
+      />
       <Box
         position="absolute"
         top="0"
@@ -283,18 +287,15 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
               py="8"
               borderBottom="1px solid var(--colors-black-20)"
             >
-              <HStack gap="4" px="6">
-                <Box w="24" h="24" flexShrink="0">
-                  <ProductThumbnail src={item.image} alt={item.name} />
-                </Box>
-                <Stack gap="0.5">
-                  <Typography variant="body4">{item.gender}</Typography>
-                  <Typography variant="body4">{item.name}</Typography>
-                  <Typography variant="body4" weight="semibold">
-                    {item.price}
-                  </Typography>
-                </Stack>
-              </HStack>
+              <Box px="6" minW="0">
+                <OrderProductSummary
+                  variant="cart"
+                  image={item.image}
+                  name={item.name}
+                  gender={item.gender}
+                  amount={item.price}
+                />
+              </Box>
               <Typography variant="body3" className={css({ textAlign: 'center' })}>
                 {item.quantity ?? '-'}
               </Typography>

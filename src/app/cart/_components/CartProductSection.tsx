@@ -1,11 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -116,41 +113,20 @@ function CartDesktopItem({ row, selected, onSelect }: CartItemProps) {
           onCheckedChange={onSelect}
           label={null}
         />
-        <Box flexShrink="0" opacity={soldOut ? '0.4' : '1'}>
-          <Image
-            src={getCartImage(item, product.primaryImage)}
-            alt={product.name}
-            width={96}
-            height={96}
-            sizes="96px"
-            loading="eager"
-            className={css({
-              w: '96px',
-              h: '96px',
-              flexShrink: '0',
-              objectFit: 'contain',
-              bg: 'black.10',
-            })}
-          />
-        </Box>
-        <Stack minW="0" flex="1" justifyContent="space-between" alignSelf="stretch" gap="3">
-          <Stack gap="0.5" opacity={soldOut ? '0.4' : '1'}>
-            <Typography variant="body3" weight="medium">
-              {product.gender ?? 'All Gender'}
-            </Typography>
-            <Typography variant="body3" weight="medium">
-              {product.name}
-            </Typography>
-            <HStack gap="2" alignItems="baseline" flexWrap="wrap">
-              <Typography variant="body3" tone="subtle" weight="medium">
-                옵션 : {item.width} / {item.color} / {item.size}
-              </Typography>
+        <Box flex="1" minW="0" opacity={soldOut ? '0.4' : '1'}>
+          <OrderProductSummary
+            variant="cart"
+            image={getCartImage(item, product.primaryImage)}
+            name={product.name}
+            gender={product.gender ?? 'All Gender'}
+            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size}`}
+            optionAction={
               <Button variant="link" size="md" disabled={soldOut}>
                 옵션변경
               </Button>
-            </HStack>
-          </Stack>
-          <Box opacity={soldOut ? '0.4' : '1'}>
+            }
+            hideAmount
+          >
             <Wishlist
               active={favorite}
               ariaLabel={`${product.name} 관심상품`}
@@ -158,8 +134,8 @@ function CartDesktopItem({ row, selected, onSelect }: CartItemProps) {
               iconSize="14px"
               onActiveChange={setFavorite}
             />
-          </Box>
-        </Stack>
+          </OrderProductSummary>
+        </Box>
       </HStack>
       <HStack justifyContent="center" px="6" opacity={soldOut ? '0.4' : '1'}>
         <fieldset disabled={soldOut}>

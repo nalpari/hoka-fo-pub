@@ -16,7 +16,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
-import { ProductThumbnail } from '@/components/common/molecules/ProductThumbnail';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -260,43 +260,45 @@ function MyPageReviewItem({
         alignItems="center"
         _mobile={{ gridColumn: '1 / -1', alignItems: 'flex-start' }}
       >
-        <Box
-          w={tab === 'written' ? '24' : '16'}
-          h={tab === 'written' ? '24' : '16'}
-          flexShrink="0"
-          _mobile={{ w: '16', h: '16' }}
-        >
-          <ProductThumbnail alt={product.name} src={product.imageSrc} />
-        </Box>
-        <Stack minW="0" gap="1.5">
-          <HStack gap="0.5" display="none" _mobile={{ display: 'flex', pr: '18' }}>
-            <Typography variant="body4" language="en">
-              {purchasedAt}
-            </Typography>
-            <Typography variant="body4">구매</Typography>
-          </HStack>
-          <Stack gap={tab === 'written' ? '0.5' : '1'}>
-            {tab === 'written' ? (
-              <Box display="block" _mobile={{ display: 'none' }}>
-                {product.gender ? <Typography variant="body4">{product.gender}</Typography> : null}
-              </Box>
-            ) : null}
-            <Typography variant="body4">{product.name}</Typography>
-            {tab === 'written' && product.price ? (
-              <Typography variant="body4" className={css({ _mobile: { display: 'none' } })}>
-                {product.price}
-              </Typography>
-            ) : null}
-            <Typography
-              variant="body4"
-              className={css(
-                tab === 'written' ? { display: 'none', _mobile: { display: 'block' } } : {},
-              )}
-            >
-              옵션 : {product.optionLabel}
-            </Typography>
-          </Stack>
-        </Stack>
+        <OrderProductSummary
+          variant="cart"
+          name={product.name}
+          image={product.imageSrc}
+          imageSize={{ web: tab === 'written' ? 96 : 64, mobile: 64 }}
+          content={
+            <Stack minW="0" gap="1.5">
+              <HStack gap="0.5" display="none" _mobile={{ display: 'flex', pr: '18' }}>
+                <Typography variant="body4" language="en">
+                  {purchasedAt}
+                </Typography>
+                <Typography variant="body4">구매</Typography>
+              </HStack>
+              <Stack gap={tab === 'written' ? '0.5' : '1'}>
+                {tab === 'written' ? (
+                  <Box display="block" _mobile={{ display: 'none' }}>
+                    {product.gender ? (
+                      <Typography variant="body4">{product.gender}</Typography>
+                    ) : null}
+                  </Box>
+                ) : null}
+                <Typography variant="body4">{product.name}</Typography>
+                {tab === 'written' && product.price ? (
+                  <Typography variant="body4" className={css({ _mobile: { display: 'none' } })}>
+                    {product.price}
+                  </Typography>
+                ) : null}
+                <Typography
+                  variant="body4"
+                  className={css(
+                    tab === 'written' ? { display: 'none', _mobile: { display: 'block' } } : {},
+                  )}
+                >
+                  옵션 : {product.optionLabel}
+                </Typography>
+              </Stack>
+            </Stack>
+          }
+        />
       </HStack>
       {tab === 'written' ? (
         <Box

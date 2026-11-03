@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
@@ -18,6 +16,7 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { OrderRecord } from '@/components/orders/orders.types';
 
 /** [ 개발팀 바인딩 ] order는 현재 선택한 주문 표시 데이터다. 선택 상품 key·수량·사유·상세내용은 로컬 초안이며 금액은 고정 시안 값이다. 실제 취소·반품 API와 계산은 미연결이다. 연결 소유자는 order.id와 선택 상품 payload를 제출하고 pending/실패/재시도·성공 후 목록 갱신을 구현해야 한다. 신청 버튼은 요청이나 완료 이동을 실행하지 않는다. */
@@ -126,42 +125,15 @@ export function OrderClaimRequest({
                     )
                   }
                 />
-                <Box
-                  flex="1"
-                  minW="0"
-                  display="grid"
-                  gridTemplateColumns={{
-                    base: '96px minmax(0, 1fr)',
-                    _mobile: '64px minmax(0, 1fr)',
-                  }}
-                  columnGap="16px"
-                  rowGap="16px"
-                >
-                  <Image
-                    src={line.image}
-                    alt={line.name}
-                    width={96}
-                    height={96}
-                    sizes="(max-width: 1024px) 64px, 96px"
-                    className={css({
-                      w: '96px',
-                      h: '96px',
-                      objectFit: 'contain',
-                      bg: 'black.10',
-                      gridRow: { base: 'span 2', _mobile: 'auto' },
-                      _mobile: { w: '64px', h: '64px' },
-                    })}
+                <Stack flex="1" minW="0" gap="4">
+                  <OrderHistoryProduct
+                    line={line}
+                    imageSize="claim"
+                    showAmount={false}
+                    showQuantity
                   />
-                  <Stack gap="4px">
-                    <Typography web="body3" mo="body4" weight="medium">
-                      {line.name}
-                    </Typography>
-                    <Typography web="body3" mo="body4" weight="medium" tone="subtle">
-                      옵션 : {line.width} / {line.color} / {line.size} / {line.quantity}개
-                    </Typography>
-                  </Stack>
                   {!returning ? (
-                    <Box gridColumn={{ base: '2', _mobile: '1 / -1' }}>
+                    <Box pl="28" _mobile={{ pl: '0' }}>
                       <NumberStepper
                         value={quantities[line.key] ?? 1}
                         min={1}
@@ -173,7 +145,7 @@ export function OrderClaimRequest({
                       />
                     </Box>
                   ) : null}
-                </Box>
+                </Stack>
               </HStack>
             ))}
           </Stack>
