@@ -398,24 +398,83 @@
       "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
     ],
     "src/app/mypage/mypage-home-data.ts": [],
+    "src/app/mypage/orders/_components/OrderDetails.tsx": [
+      "src/app/mypage/orders/_components/OrdersProducts.tsx",
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/DescriptionList.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/orders/order-policy.ts"
+    ],
+    "src/app/mypage/orders/_components/OrdersContent.tsx": [
+      "src/app/mypage/orders/_components/OrderDetails.tsx",
+      "src/app/mypage/orders/_components/OrdersList.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/mypage/MyPageFrame.tsx"
+    ],
+    "src/app/mypage/orders/_components/OrdersList.tsx": [
+      "src/app/mypage/orders/_components/OrdersProducts.tsx",
+      "src/app/mypage/orders/_components/OrdersStatus.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/orders/order-policy.ts",
+      "src/context/platform.tsx"
+    ],
+    "src/app/mypage/orders/_components/OrdersPage.tsx": [
+      "src/app/mypage/orders/_components/OrderTrackingDialog.tsx",
+      "src/app/mypage/orders/_components/OrdersContent.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/orders/orders.data.ts"
+    ],
+    "src/app/mypage/orders/_components/OrdersProducts.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/components/orders/order-policy.ts",
+      "src/context/platform.tsx"
+    ],
+    "src/app/mypage/orders/_components/OrdersStatus.tsx": [
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/TextInput.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/context/platform.tsx"
+    ],
+    "src/app/mypage/orders/_components/OrderTrackingDialog.tsx": [
+      "src/app/mypage/orders/_components/OrderDetails.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/DataTable.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/StepIndicator.tsx",
+      "src/context/platform.tsx"
+    ],
     "src/app/mypage/orders/[preview]/page.tsx": [
+      "src/app/mypage/orders/_components/OrdersPage.tsx",
       "src/app/mypage/orders/orderPreviews.ts",
-      "src/components/orders/OrdersRoute.tsx",
       "src/components/orders/orders.data.ts"
     ],
     "src/app/mypage/orders/orderPreviews.ts": [],
-    "src/app/mypage/orders/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/orders/page.tsx": ["src/app/mypage/orders/_components/OrdersPage.tsx"],
     "src/app/mypage/orders/preview-cancel-detail/page.tsx": [
-      "src/components/orders/OrdersRoute.tsx",
+      "src/app/mypage/orders/_components/OrdersPage.tsx",
       "src/components/orders/orders.data.ts"
     ],
     "src/app/mypage/orders/preview-detail/page.tsx": [
-      "src/components/orders/OrdersRoute.tsx",
+      "src/app/mypage/orders/_components/OrdersPage.tsx",
       "src/components/orders/orders.data.ts"
     ],
-    "src/app/mypage/orders/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/orders/preview-empty/page.tsx": [
+      "src/app/mypage/orders/_components/OrdersPage.tsx"
+    ],
     "src/app/mypage/orders/preview-return-detail/page.tsx": [
-      "src/components/orders/OrdersRoute.tsx",
+      "src/app/mypage/orders/_components/OrdersPage.tsx",
       "src/components/orders/orders.data.ts"
     ],
     "src/app/mypage/page.tsx": [
@@ -476,8 +535,10 @@
     "src/app/mypage/restock-alerts/preview-empty/page.tsx": [
       "src/components/mypage/MyPageProductHistory.tsx"
     ],
-    "src/app/mypage/returns/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
-    "src/app/mypage/returns/preview-empty/page.tsx": ["src/components/orders/OrdersRoute.tsx"],
+    "src/app/mypage/returns/page.tsx": ["src/app/mypage/orders/_components/OrdersPage.tsx"],
+    "src/app/mypage/returns/preview-empty/page.tsx": [
+      "src/app/mypage/orders/_components/OrdersPage.tsx"
+    ],
     "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/EmptyState.tsx",
@@ -1406,35 +1467,6 @@
     ],
     "src/components/orders/orders.data.ts": [],
     "src/components/orders/orders.types.ts": [],
-    "src/components/orders/OrdersRoute.tsx": [
-      "src/components/common/atoms/Badge.tsx",
-      "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/DataTable.tsx",
-      "src/components/common/atoms/DescriptionList.tsx",
-      "src/components/common/atoms/EmptyState.tsx",
-      "src/components/common/atoms/FilterTabs.tsx",
-      "src/components/common/atoms/FormField.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/NumberStepper.tsx",
-      "src/components/common/atoms/Select.tsx",
-      "src/components/common/atoms/StatusMessage.tsx",
-      "src/components/common/atoms/TextInput.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/BottomSheet.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/AmountRow.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/common/molecules/FormFields/CharacterCount.tsx",
-      "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/common/molecules/OrderProductSummary.tsx",
-      "src/components/common/molecules/StepIndicator.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/components/orders/order-policy.ts",
-      "src/components/orders/orders.data.ts",
-      "src/context/platform.tsx"
-    ],
     "src/components/phone-verification/phone-verification.types.ts": [],
     "src/components/phone-verification/PhoneVerificationContent.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1557,11 +1589,10 @@
     "src/app/mypage/coupons/page.tsx",
     "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
     "src/app/mypage/mypage-home-data.ts",
-    "src/app/mypage/orders/page.tsx",
+    "src/app/mypage/orders/_components/OrdersPage.tsx",
     "src/app/mypage/page.tsx",
     "src/app/mypage/recent/page.tsx",
     "src/app/mypage/restock-alerts/page.tsx",
-    "src/app/mypage/returns/page.tsx",
     "src/app/mypage/reviews/reviewFixtures.ts",
     "src/app/mypage/reviews/reviews.types.ts",
     "src/app/mypage/wishlist/page.tsx",
@@ -1605,7 +1636,6 @@
     "src/components/orders/order-policy.ts",
     "src/components/orders/orders.data.ts",
     "src/components/orders/orders.types.ts",
-    "src/components/orders/OrdersRoute.tsx",
     "src/components/phone-verification/phone-verification.types.ts",
     "src/components/phone-verification/PhoneVerificationContent.tsx",
     "src/components/running-session/runningSession.data.ts",

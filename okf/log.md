@@ -1,3 +1,8 @@
+## 2026-11-03 — 주문 화면을 route 전용 컴포넌트로 분리
+
+- 주문 화면 소유권을 `src/app/mypage/orders/_components`로 옮기고 `OrdersPage`, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`로 역할을 나눴다. 주문·반품 route, preview, Storybook은 `OrdersPage`를 직접 사용하며 fixture와 정책 모듈은 기존 경로에 유지한다.
+- 기존 fixture 필드에 맞춰 주문·클레임 표시를 조정했다. 검증 결과는 아래 작업 기록에 추가한다.
+
 ## 2026-11-02 — 인계 상태 직접 링크 18개 등록
 
 전체 화면 인계의 프로필 8개·주문 5개·리워드 2개·상품 1개·러닝 2개 상태 URL을 기존 IA와 연결하고 소스 그래프를 재생성했다. 기본 경로와 PC/MO 공통 URL은 유지한다. [상태 연결](architecture/routing.md#인계-상태-18개-직접-연결-완료), [전체 인계표와 실제 검사 결과](development/markup-handoff.md)를 함께 기록했다.

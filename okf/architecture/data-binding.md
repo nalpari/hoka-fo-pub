@@ -60,7 +60,7 @@ working_tree_sources:
   - src/hooks/useRequestAction.ts
   - src/hooks/usePhoneVerification.ts
   - src/components/catalog/ProductListingPage.tsx
-  - src/components/orders/OrdersRoute.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/cart/page.tsx
   - src/app/checkout/page.tsx
   - src/app/login/page.tsx
@@ -213,3 +213,7 @@ ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인�
 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
 
 연결 검증: MyPage.Profile.Binding.stories.tsx의 실제 play에서 비데모 회원 ID의 late data, 저장 pending/실패·입력 보존·재시도·완료, 전체 제출값과 중복 비밀번호 요청 방지를 확인했다. 테스트 콜백이며 실제 API 검증을 의미하지 않는다.
+
+## 주문 화면 표시 컴포넌트 경로 (2026-11-03)
+
+주문 화면의 고정 표시와 최소 로컬 탐색은 `src/app/mypage/orders/_components/OrdersPage.tsx`가 소유하고, 표시 영역은 같은 폴더의 목록·상태·상품·상세·배송추적 컴포넌트로 나뉜다. 주문 fixture와 정책 모듈은 `src/components/orders`에 유지한다. 실제 데이터·요청 계약은 이번 화면 파일 정리 범위에 포함하지 않는다.

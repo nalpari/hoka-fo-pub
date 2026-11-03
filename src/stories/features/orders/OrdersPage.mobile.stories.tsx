@@ -3,7 +3,7 @@ import { expect, userEvent, within } from 'storybook/test';
 import { ShopShell } from '@/context/ShopShell';
 
 import { previewOrders } from '@/components/orders/orders.data';
-import { OrdersPage } from '@/components/orders/OrdersRoute';
+import { OrdersPage } from '@/app/mypage/orders/_components/OrdersPage';
 
 const meta = {
   title: 'PAGES/주문/1. 주문 배송 조회/Mobile',
