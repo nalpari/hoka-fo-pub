@@ -10,6 +10,14 @@ generated:
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/launch-calendar/in-stock/page.tsx
+  - src/app/launch-calendar/upcoming/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/page.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
+  - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/common/molecules/HelpTips.tsx
   - src/app/checkout/_components/CheckoutForm.tsx
@@ -902,3 +910,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 주문 route 전용 화면 모듈 (2026-11-03)
 
 `/mypage/orders`와 `/mypage/returns` 진입점, 주문 preview 및 주문 Storybook은 `src/app/mypage/orders/_components/OrdersPage.tsx`를 직접 사용한다. 페이지 전용 화면 컴포넌트는 같은 `_components` 아래 역할별로 나누고 기존 URL과 `src/components/orders`의 데이터·정책 모듈은 유지한다.
+
+## 런칭 캘린더 시안과 직접 화면 URL (2026-11-03)
+
+[런칭 캘린더](launch-calendar.md)는 `/launch-calendar` Feed, `/launch-calendar/upcoming`, `/launch-calendar/in-stock`, `/launch-calendar/clifton-11-gtx` 상세를 추가한다. IA159~162의 기존 행과 번호에 route·WEB/Mobile Storybook을 연결하고 IA159에 상세 previewRoutes를 추가했다. 과거 목업 제거 기록의 `/launch-calendar` 미구현 설명은 이번 정식 시안 적용으로 대체된다. 삭제된 키즈 IA163~165는 유지한다. 기본/직접 진입·새로고침으로 표시 fixture가 열리며 로그인·저장·실제 신청 요청에 의존하지 않는다. PC 수급과 사용자 지정 RUN Club 방식 MO 대응은 별도 상태로 기록한다.

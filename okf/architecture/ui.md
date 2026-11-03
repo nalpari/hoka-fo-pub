@@ -10,6 +10,15 @@ generated:
   at: '2026-11-02T09:59:35Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/launch-calendar/page.tsx
+  - src/app/launch-calendar/in-stock/page.tsx
+  - src/app/launch-calendar/upcoming/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/page.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
+  - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
   - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
@@ -4050,3 +4059,7 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 주문 화면 컴포넌트 route 소유권 (2026-11-03)
 
 `OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다.
+
+## 런칭 캘린더 시안 적용 (2026-11-03)
+
+[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club의 1열·정사각 이미지·44px 분할 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.

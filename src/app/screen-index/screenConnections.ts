@@ -26,6 +26,66 @@ export type ScreenConnection = {
   >;
 };
 const connections: Record<number, ScreenConnection> = {
+  159: {
+    route: '/launch-calendar',
+    previewRoutes: [{ label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' }],
+    sourceFiles: [
+      'src/app/launch-calendar/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/page.tsx',
+    ],
+    stories: {
+      web: {
+        id: 'pages-런칭-캘린더-web--feed',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-런칭-캘린더-mobile--feed',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx',
+      },
+    },
+  },
+  160: {
+    route: '/launch-calendar',
+    sourceFiles: ['src/app/launch-calendar/page.tsx'],
+    stories: {
+      web: {
+        id: 'pages-런칭-캘린더-web--feed',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-런칭-캘린더-mobile--feed',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx',
+      },
+    },
+  },
+  161: {
+    route: '/launch-calendar/upcoming',
+    sourceFiles: ['src/app/launch-calendar/upcoming/page.tsx'],
+    stories: {
+      web: {
+        id: 'pages-런칭-캘린더-web--upcoming',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-런칭-캘린더-mobile--upcoming',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx',
+      },
+    },
+  },
+  162: {
+    route: '/launch-calendar/in-stock',
+    sourceFiles: ['src/app/launch-calendar/in-stock/page.tsx'],
+    stories: {
+      web: {
+        id: 'pages-런칭-캘린더-web--in-stock',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx',
+      },
+      mobile: {
+        id: 'pages-런칭-캘린더-mobile--in-stock',
+        file: 'src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx',
+      },
+    },
+  },
   '267': {
     route: '/locales',
     sourceFiles: ['src/app/locales/page.tsx'],

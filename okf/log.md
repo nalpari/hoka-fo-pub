@@ -1,3 +1,9 @@
+## 2026-11-03 — 런칭 캘린더 시안과 IA 연결
+
+- Feed·Upcoming·In Stock과 발매 예정 상세를 기존 공통 UI·명시적 표시 fixture로 구현했다. 시안 에셋을 로컬에 저장하고 크롭·정렬·타이포를 반영했다. 알림 신청·인증·저장·완료 전환은 미연결이다.
+- 기존 IA159~162에 실제 URL·WEB/Mobile Storybook을 연결하고 IA159에 상세 확인 링크를 추가했다. PC 디자인 수급을 반영하고 MO는 수급 미확정 상태를 유지하며 사용자 지시에 따라 RUN Club 모바일 패턴으로 표시한다. 삭제된 키즈 IA와 범위 밖 화면은 보존했다.
+- [구현·출처·인계 경계](architecture/launch-calendar.md)를 참고한다.
+
 ## 2026-11-03 — 상품상세 인계 병합 오류 정리
 
 - 상품상세의 전체 화면 인계와 입고알림 변경 병합 후 남은 onAddToCart/onOrder/router/setError 참조와 submit 코드를 제거했다. 기존 옵션 필수 상태의 selection-required 타입을 복원했다.
