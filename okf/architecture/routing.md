@@ -1078,3 +1078,8 @@ ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를
 ## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
 
 ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.
+
+
+## 미사용 주문 액션 정리 (2026-11-03)
+
+`src/app/mypage/orders/_components/OrdersProducts.tsx`의 미사용 `OrderItemActions`와 전용 타입을 제거했다. 실제 호출되는 `OrderCard`의 배송조회·리뷰 링크와 경로는 유지한다. 전체 ESLint 검사를 통과했다. 출처는 해당 파일 작업 트리이며 브라우저 시각 재검증은 수행하지 않았다.

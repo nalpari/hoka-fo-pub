@@ -153,34 +153,6 @@ export function OrderHistoryProduct({
   );
 }
 
-type OrderItemActionsProps = {
-  order: OrderRecord;
-  onTracking: () => void;
-};
-
-/** 주문 상태에 맞는 배송 조회와 리뷰 링크를 표시합니다. (Displays tracking and review links for an order status.) */
-function OrderItemActions({ order, onTracking }: OrderItemActionsProps) {
-  return (
-    <Stack gap="2">
-      {order.status !== 'paid' ? (
-        <Button variant="secondary" size="short" fullWidth onClick={onTracking}>
-          배송 조회
-        </Button>
-      ) : null}
-      {order.status === 'purchased' ? (
-        <ButtonLink
-          href={`/mypage/reviews?order=${order.id}`}
-          variant="secondary"
-          size="short"
-          fullWidth
-        >
-          리뷰 작성하기
-        </ButtonLink>
-      ) : null}
-    </Stack>
-  );
-}
-
 /** 취소 또는 반품으로 분리된 주문 상품을 표시합니다. (Displays products belonging to an order claim.) */
 export function OrderClaimGroup({
   order,
