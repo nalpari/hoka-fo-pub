@@ -56,6 +56,7 @@ type OrderProductSummaryContentProps = {
   name: string;
   optionText: string;
   amount: number;
+  amountLanguage?: 'en';
   gender?: string;
   variant?: 'cart' | 'checkout' | 'coupon' | 'history';
   children?: ReactNode;
@@ -68,6 +69,7 @@ function OrderProductSummaryContent({
   name,
   optionText,
   amount,
+  amountLanguage,
   gender,
   variant = 'checkout',
   children,
@@ -107,7 +109,14 @@ function OrderProductSummaryContent({
         </Typography>
         {!hideAmount ? (
           <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
-            {amount.toLocaleString()}원
+            {amountLanguage === 'en' ? (
+              <Typography as="span" variant="body4" language="en" weight="medium">
+                {amount.toLocaleString()}
+              </Typography>
+            ) : (
+              amount.toLocaleString()
+            )}
+            원
           </Typography>
         ) : null}
       </Stack>
@@ -126,6 +135,7 @@ export function OrderProductSummary({
   name,
   optionText,
   amount,
+  amountLanguage,
   gender,
   variant = 'checkout',
   children,
@@ -143,6 +153,7 @@ export function OrderProductSummary({
         name={name}
         optionText={optionText}
         amount={amount}
+        amountLanguage={amountLanguage}
         gender={gender}
         variant={variant}
         hideAmount={hideAmount}

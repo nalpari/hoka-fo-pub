@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -8,8 +6,7 @@ import { Box, Grid, Stack } from 'styled-system/jsx';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
-import { getClaimLines } from '@/components/orders/order-policy';
+import type { ClaimHistoryItem, OrderRecord } from '@/components/orders/orders.types';
 
 import { OrderCard, type OrderCardActions, OrderHistoryProduct } from './OrdersProducts';
 import {
@@ -22,105 +19,23 @@ import {
 type OrdersListContentProps = OrdersFiltersProps &
   OrderCardActions & {
     orders: readonly OrderRecord[];
+    claimHistoryItems: readonly ClaimHistoryItem[];
+    onHistoryDetail: (orderId: string, claimId: string) => void;
     statusItems: OrderStatusItem[];
     returns?: boolean;
   };
 
-/** 취소·반품 내역의 상품 행을 표시합니다. (Displays one product row in the cancellation and return history.) */
-function ClaimHistoryProduct({
-  line,
-  claim,
-  onClick,
-  showAmount = true,
-  showState = true,
-}: {
-  line: OrderLine;
-  claim: OrderClaim;
-  onClick: () => void;
-  showAmount?: boolean;
-  showState?: boolean;
-}) {
-  const stateLabel =
-    claim.state === 'complete' ? '환불완료' : `${claim.kind === 'cancel' ? '취소' : '반품'}접수`;
-
-  return (
-    <button
-      type="button"
-      className={css({
-        display: 'flex',
-        alignItems: 'stretch',
-        gap: '16px',
-        w: '100%',
-        p: '0',
-        border: '0',
-        bg: 'transparent',
-        textAlign: 'left',
-        cursor: 'pointer',
-        _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
-      })}
-      onClick={onClick}
-    >
-      <Image
-        src={line.image}
-        alt={line.name}
-        width={96}
-        height={96}
-        sizes="96px"
-        className={css({
-          w: '96px',
-          h: '96px',
-          flexShrink: '0',
-          objectFit: 'contain',
-          bg: 'black.10',
-        })}
-      />
-      <Stack minW="0" flex="1" gap="0" justifyContent="space-between">
-        <Stack gap="1">
-          <Typography web="body3" mo="body4" weight="medium">
-            {line.name}
-          </Typography>
-          <Typography web="body3" mo="body4" weight="medium" tone="subtle">
-            옵션 : {line.width} / {line.color} / {line.size}
-            {showAmount ? ` / ${line.quantity}개` : ''}
-          </Typography>
-          {showAmount && line.displayAmount !== undefined ? (
-            <Typography variant="body4" weight="medium">
-              <Typography as="span" variant="body4" language="en" weight="medium">
-                {line.displayAmount.toLocaleString()}
-              </Typography>
-              원
-            </Typography>
-          ) : null}
-        </Stack>
-        {showState ? (
-          <Typography
-            variant="body4"
-            weight="medium"
-            tone="tertiary"
-            className={css({ textAlign: 'right' })}
-          >
-            {stateLabel}
-          </Typography>
-        ) : null}
-      </Stack>
-    </button>
-  );
-}
-
+/** [ 개발팀 바인딩 ] items는 호출자가 준비한 상품·수량·날짜·PC/MO 상태 문구입니다. 상품 분류와 상태 결정은 연결 소유자가 담당하며 onDetail은 전달된 orderId/claimId로 상세를 여는 로컬 UI 콜백입니다. */
 /** 취소·반품 내역을 PC 표와 모바일 목록으로 표시합니다. (Displays claim history as a desktop table and mobile list.) */
 function ClaimHistoryList({
-  orders,
-  onClaimDetail,
+  items,
+  onDetail,
 }: {
-  orders: readonly OrderRecord[];
-  onClaimDetail: (order: OrderRecord, claim: OrderClaim) => void;
+  items: readonly ClaimHistoryItem[];
+  onDetail: (orderId: string, claimId: string) => void;
 }) {
   const platform = usePlatform();
-  const hasItems = orders.some((order) =>
-    order.claims.some((claim) => getClaimLines(order, claim).length),
-  );
-
-  if (!hasItems) {
+  if (!items.length) {
     return (
       <Box py={{ base: '120px', _mobile: '96px' }} display="grid" placeItems="center">
         <Typography web="body3" mo="body4" tone="subtle">
@@ -133,40 +48,31 @@ function ClaimHistoryList({
   if (platform === 'mobile') {
     return (
       <Stack as="ul" gap="24px" listStyleType="none">
-        {orders.flatMap((order) =>
-          order.claims.flatMap((claim) =>
-            getClaimLines(order, claim).map((line) => (
-              <Stack
-                as="li"
-                key={`${claim.id}-${line.key}`}
-                gap="0"
-                borderBottom="1px solid var(--color-black-100)"
-              >
-                <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
-                  <Typography variant="body4" tone="tertiary">
-                    <Typography as="span" variant="body4" weight="medium" tone="primary">
-                      <Typography as="span" variant="body4" language="en" weight="medium">
-                        {order.date.replaceAll('-', '.')}
-                      </Typography>{' '}
-                      주문
-                    </Typography>
-                    {' · 주문번호 '}
-                    <Typography as="span" variant="body4" language="en" tone="tertiary">
-                      {order.id}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Box py="16px">
-                  <ClaimHistoryProduct
-                    line={line}
-                    claim={claim}
-                    onClick={() => onClaimDetail(order, claim)}
-                  />
-                </Box>
-              </Stack>
-            )),
-          ),
-        )}
+        {items.map((item) => (
+          <Stack as="li" key={item.key} gap="0" borderBottom="1px solid var(--color-black-100)">
+            <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
+              <Typography variant="body4" tone="tertiary">
+                <Typography as="span" variant="body4" weight="medium" tone="primary">
+                  <Typography as="span" variant="body4" language="en" weight="medium">
+                    {item.orderDate}
+                  </Typography>{' '}
+                  주문
+                </Typography>
+                {' · 주문번호 '}
+                <Typography as="span" variant="body4" language="en" tone="tertiary">
+                  {item.orderNumber}
+                </Typography>
+              </Typography>
+            </Box>
+            <Box py="16px">
+              <OrderHistoryProduct
+                line={item.line}
+                statusText={item.status.mobile}
+                onClick={() => onDetail(item.orderId, item.claimId)}
+              />
+            </Box>
+          </Stack>
+        ))}
       </Stack>
     );
   }
@@ -194,80 +100,58 @@ function ClaimHistoryList({
           </Typography>
         ))}
       </Grid>
-      {orders.flatMap((order) =>
-        order.claims.flatMap((claim) =>
-          getClaimLines(order, claim).map((line) => (
-            <Stack key={`${claim.id}-${line.key}`} gap="0" pt="32px">
-              <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
-                주문번호{' '}
-                <Typography as="span" variant="body3" language="en" tone="tertiary">
-                  {order.id}
-                </Typography>
-              </Typography>
-              <Grid
-                gridTemplateColumns={columns}
-                alignItems="center"
-                gap="0"
-                pt="16px"
-                pb="32px"
-                borderBottom="1px solid var(--color-border-subtle)"
-              >
-                <Box px="24px">
-                  <ClaimHistoryProduct
-                    line={line}
-                    claim={claim}
-                    showAmount={false}
-                    showState={false}
-                    onClick={() => onClaimDetail(order, claim)}
-                  />
-                </Box>
-                <Typography
-                  variant="body3"
-                  language="en"
-                  weight="medium"
-                  className={css({ textAlign: 'center' })}
-                >
-                  {order.date.replaceAll('-', '.')}
-                </Typography>
-                <Typography
-                  variant="body3"
-                  weight="medium"
-                  className={css({ textAlign: 'center' })}
-                >
-                  {line.quantity}개
-                </Typography>
-                <Typography
-                  variant="body3"
-                  weight="medium"
-                  className={css({ textAlign: 'center' })}
-                >
-                  {line.displayAmount === undefined ? (
-                    '-'
-                  ) : (
-                    <>
-                      <Typography as="span" variant="body3" language="en" weight="medium">
-                        {line.displayAmount.toLocaleString()}
-                      </Typography>
-                      원
-                    </>
-                  )}
-                </Typography>
-                <Typography
-                  variant="body3"
-                  weight="medium"
-                  className={css({ textAlign: 'center' })}
-                >
-                  {claim.state === 'complete'
-                    ? claim.kind === 'cancel'
-                      ? '취소완료'
-                      : '환불완료'
-                    : `${claim.kind === 'cancel' ? '취소' : '반품'}접수`}
-                </Typography>
-              </Grid>
-            </Stack>
-          )),
-        ),
-      )}
+      {items.map((item) => (
+        <Stack key={item.key} gap="0" pt="32px">
+          <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
+            주문번호{' '}
+            <Typography as="span" variant="body3" language="en" tone="tertiary">
+              {item.orderNumber}
+            </Typography>
+          </Typography>
+          <Grid
+            gridTemplateColumns={columns}
+            alignItems="center"
+            gap="0"
+            pt="16px"
+            pb="32px"
+            borderBottom="1px solid var(--color-border-subtle)"
+          >
+            <Box px="24px">
+              <OrderHistoryProduct
+                line={item.line}
+                showAmount={false}
+                onClick={() => onDetail(item.orderId, item.claimId)}
+              />
+            </Box>
+            <Typography
+              variant="body3"
+              language="en"
+              weight="medium"
+              className={css({ textAlign: 'center' })}
+            >
+              {item.orderDate}
+            </Typography>
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              {item.line.quantity}개
+            </Typography>
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              {item.line.displayAmount === undefined ? (
+                '-'
+              ) : (
+                <>
+                  <Typography as="span" variant="body3" language="en" weight="medium">
+                    {item.line.displayAmount.toLocaleString()}
+                  </Typography>
+                  원
+                </>
+              )}
+            </Typography>
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              {item.status.web}
+            </Typography>
+          </Grid>
+        </Stack>
+      ))}
     </Stack>
   );
 }
@@ -284,6 +168,8 @@ const emptyOrderState = css({
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
 export function OrdersListContent({
   orders,
+  claimHistoryItems,
+  onHistoryDetail,
   statusItems,
   returns = false,
   ...props
@@ -291,21 +177,21 @@ export function OrdersListContent({
   if (returns) {
     return (
       <Stack gap="6" css={{ '--color-text-primary': '#000' }}>
+        {/* 취소·반품 조회 기간 필터 */}
         <OrdersFilters {...props} returns />
-        <ClaimHistoryList
-          orders={orders}
-          onClaimDetail={(order, claim) => props.onClaimDetail(order, claim)}
-        />
+        {/* 취소·반품 내역 목록 및 빈 화면 */}
+        <ClaimHistoryList items={claimHistoryItems} onDetail={onHistoryDetail} />
       </Stack>
     );
   }
 
   return (
     <Stack gap="6">
-      {/* 주문별 상태 건수를 요약합니다. (Summarizes order counts by status.) */}
+      {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
-      {/* 주문 기간과 상태 필터를 제공합니다. (Provides order date and status filters.) */}
+      {/* 주문 조회 기간 필터 */}
       <OrdersFilters {...props} />
+      {/* 주문 상품 목록 및 빈 화면 */}
       {orders.length ? (
         <Stack gap="0px">
           <Grid

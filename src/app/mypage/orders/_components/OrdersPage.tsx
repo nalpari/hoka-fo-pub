@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-import { previewOrders } from '@/components/orders/orders.data';
+import { previewClaimHistory, previewOrders } from '@/components/orders/orders.data';
 import type {
+  ClaimHistoryItem,
   OrderClaim,
   OrderFilters,
   OrderRecord,
@@ -17,6 +18,8 @@ import { OrdersContent } from './OrdersContent';
 
 export type OrdersPageProps = {
   initialOrders?: readonly OrderRecord[];
+  /** 외부 표시 데이터 사용 시 목록 행도 함께 전달합니다. 현재 props를 그대로 표시합니다. */
+  claimHistoryItems?: readonly ClaimHistoryItem[];
   initialView?: OrdersView;
   initialClaimKind?: 'cancel' | 'return';
   initialOverlay?: 'tracking' | 'purchase' | 'delete';
@@ -35,6 +38,7 @@ const previewOrderStatusItems = [
 /** 고정된 주문 표시 데이터와 화면 확인용 로컬 탐색을 구성합니다. (Composes fixed order display data and local view navigation.) */
 export function OrdersPage({
   initialOrders,
+  claimHistoryItems,
   initialView = 'list',
   initialClaimKind,
   initialOverlay,
@@ -89,6 +93,12 @@ export function OrdersPage({
   return (
     <OrdersContent
       orders={orders}
+      claimHistoryItems={claimHistoryItems ?? (initialOrders ? [] : previewClaimHistory)}
+      onHistoryDetail={(orderId, claimId) => {
+        setSelectedId(orderId);
+        setClaimId(claimId);
+        setView('claim');
+      }}
       statusItems={initialOrders ? [] : previewOrderStatusItems}
       view={view}
       selectedOrder={selectedOrder}

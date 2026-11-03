@@ -12,18 +12,14 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import {
-  claimReasonLabels,
-  getClaimLines,
-  orderStatusLabels,
-} from '@/components/orders/order-policy';
 import type {
+  ClaimDetailDisplay,
   OrderClaim,
-  OrderDetailPreview,
+  OrderDetailDisplay,
   OrderLine,
-  OrderRecord,
 } from '@/components/orders/orders.types';
-import { type OrderCardActions, OrderHistoryProduct } from './OrdersProducts';
+
+import { OrderHistoryProduct } from './OrdersProducts';
 
 /** 주문 상세의 구분선이 있는 항목별 정보를 표시합니다. (Displays ruled key-value information for an order.) */
 export function OrderInformationSection({
@@ -62,9 +58,12 @@ export function OrderInformationSection({
   );
 }
 
-type OrderDetailProps = OrderCardActions & {
-  order: OrderRecord;
+type OrderDetailProps = {
+  display: OrderDetailDisplay;
   onList: () => void;
+  onDetail: () => void;
+  onTracking: () => void;
+  onClaimDetail: (claimId: string) => void;
 };
 
 function DetailSectionTitle({ children }: { children: string }) {
@@ -84,32 +83,17 @@ function DetailSectionTitle({ children }: { children: string }) {
   );
 }
 
-function DetailProduct({
-  line,
-  display,
-  claimed = false,
-}: {
-  line: OrderLine;
-  display?: OrderDetailPreview;
-  claimed?: boolean;
-}) {
-  const shown = {
-    ...line,
-    width: display ? 'X-와이드' : line.width,
-    quantity: display?.itemQuantity ?? line.quantity,
-    displayAmount: display?.itemAmount ?? line.displayAmount,
-  };
-
+function DetailProduct({ line }: { line: OrderLine }) {
   return (
     <>
       <Box gridColumn="1" minW="0" pl="24px">
-        <OrderHistoryProduct line={shown} showAmount={false} cartAction={!claimed} />
+        <OrderHistoryProduct line={line} showAmount={false} cartAction />
       </Box>
       <Typography variant="body4" weight="medium" className={css({ textAlign: 'center' })}>
-        {shown.quantity}개
+        {line.quantity}개
       </Typography>
       <Typography variant="body4" weight="medium" className={css({ textAlign: 'center' })}>
-        {(shown.displayAmount ?? 0).toLocaleString()}원
+        {line.displayAmount === undefined ? '-' : `${line.displayAmount.toLocaleString()}원`}
       </Typography>
     </>
   );
@@ -128,18 +112,10 @@ function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
   );
 }
 
-/** [ 개발팀 바인딩 ] detailPreview는 PC·모바일 주문상세 시안용 표시 fixture입니다. 실제 주문 연결은 주문 소유자가 상품·클레임 식별자와 받는사람·결제 표시 데이터를 제공하고, 배송 조회·취소/반품 상세 콜백 및 삭제 요청의 pending/실패/성공과 목록 갱신을 별도로 연결해야 합니다. 현재 삭제 버튼은 고정 확인 URL로 이동하며 요청을 실행하지 않습니다. */
-/** 주문 상품·받는 사람·결제 정보와 취소 내역을 표시합니다. (Displays order products, recipient, payment, and claim history.) */
-export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
-  const platform = usePlatform();
-  const mobile = platform === 'mobile';
-  const display = order.detailPreview?.[mobile ? 'mobile' : 'web'];
-  const activeItems = order.items.filter(
-    (line) => !order.claims.some((claim) => claim.quantities[line.key]),
-  );
-  const detailDate = display?.date ?? order.date.replaceAll('-', '.');
-  const detailNumber = display?.orderNumber ?? order.id;
-
+/** [ 개발팀 바인딩 ] display는 호출자가 준비한 상품 그룹·내역·받는사람·결제 표시값입니다. 주문 기능 소유자가 표시 모델과 조회 결과 갱신을 연결하며 이 컴포넌트는 상품 분류·복제·금액 계산·상태 판단을 하지 않습니다. 콜백은 화면 확인용 상세/배송조회/목록 전환이며 삭제는 고정 확인 URL입니다. */
+/** 준비된 주문 상세 데이터를 PC·모바일 마크업으로 표시합니다. (Renders prepared order detail data for desktop and mobile.) */
+export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
+  const mobile = usePlatform() === 'mobile';
   return (
     <Stack gap="0" mt={{ base: '24px', _mobile: '8px' }}>
       {!mobile ? (
@@ -168,14 +144,14 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
           borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-100)' }}
         >
           <Typography variant="body4" weight="semibold">
-            {detailDate}
+            {display.date}
             {mobile ? ' 주문' : ''}
           </Typography>
           <Typography variant="body4" tone="tertiary">
-            · 주문번호 {detailNumber}
+            · 주문번호 {display.orderNumber}
           </Typography>
         </HStack>
-        {activeItems.length ? (
+        {display.activeItems.length ? (
           <Stack
             gap={{ base: '24px', _mobile: '12px' }}
             py={{ base: '16px', _mobile: '24px' }}
@@ -189,29 +165,20 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
             >
               <Typography variant="body4">
                 <Typography as="span" variant="body4" weight="semibold" tone="red80">
-                  {orderStatusLabels[order.status]}
+                  {display.status}
                 </Typography>
                 {' · '}
-                {order.expectedDate} 도착
+                {display.expectedDate} 도착
               </Typography>
               {!mobile ? (
-                <Button variant="link" size="md" onClick={() => actions.onDetail(order)}>
+                <Button variant="link" size="md" onClick={actions.onDetail}>
                   주문상세보기
                 </Button>
               ) : null}
             </HStack>
-            {activeItems.map((line) =>
+            {display.activeItems.map((line) =>
               mobile ? (
-                <OrderHistoryProduct
-                  key={line.key}
-                  line={{
-                    ...line,
-                    width: display ? 'X-와이드' : line.width,
-                    quantity: display?.itemQuantity ?? line.quantity,
-                    displayAmount: display?.itemAmount ?? line.displayAmount,
-                  }}
-                  cartAction
-                />
+                <OrderHistoryProduct key={line.key} line={line} cartAction />
               ) : (
                 <Grid
                   key={line.key}
@@ -219,85 +186,66 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
                   gap="0"
                   alignItems="center"
                 >
-                  <DetailProduct line={line} display={display} />
+                  <DetailProduct line={line} />
                 </Grid>
               ),
             )}
             {!mobile ? (
               <HStack justifyContent="flex-end" gap="8px">
-                <Button variant="secondary" size="short" onClick={() => actions.onTracking(order)}>
+                <Button variant="secondary" size="short" onClick={actions.onTracking}>
                   배송 조회
                 </Button>
-                <ButtonLink
-                  href={`/mypage/reviews?order=${order.id}`}
-                  variant="secondary"
-                  size="short"
-                >
+                <ButtonLink href={display.reviewHref} variant="secondary" size="short">
                   리뷰 작성
                 </ButtonLink>
               </HStack>
             ) : null}
           </Stack>
         ) : null}
-        {order.claims.map((claim) => {
-          const claimedLines = order.items.filter((line) => claim.quantities[line.key]);
-          return (
-            <Stack
-              key={claim.id}
-              gap={{ base: '16px', _mobile: '8px' }}
-              py={{ base: '32px', _mobile: '24px' }}
-              borderBottom="1px solid var(--colors-black-20)"
+        {display.claimGroups.map((group) => (
+          <Stack
+            key={group.id}
+            gap={{ base: '16px', _mobile: '8px' }}
+            py={{ base: '32px', _mobile: '24px' }}
+            borderBottom="1px solid var(--colors-black-20)"
+          >
+            <HStack
+              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
+              gap="16px"
+              px={{ base: '24px', _mobile: '0' }}
             >
-              <HStack
-                justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-                gap="16px"
-                px={{ base: '24px', _mobile: '0' }}
-              >
-                <Typography variant="body4" tone={mobile ? 'tertiary' : 'error'}>
-                  {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
-                </Typography>
-                <Button
-                  variant="link"
-                  size="md"
-                  onClick={() => actions.onClaimDetail(order, claim)}
+              <Typography variant="body4" tone={mobile ? 'tertiary' : 'error'}>
+                {group.label}
+              </Typography>
+              <Button variant="link" size="md" onClick={() => actions.onClaimDetail(group.id)}>
+                {group.detailLabel}
+              </Button>
+            </HStack>
+            {group.items.map((line) =>
+              mobile ? (
+                <OrderHistoryProduct key={line.key} line={line} />
+              ) : (
+                <Grid
+                  key={line.key}
+                  gridTemplateColumns="minmax(0, 1fr) 108px 200px"
+                  gap="0"
+                  alignItems="center"
                 >
-                  {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
-                </Button>
-              </HStack>
-              {claimedLines.map((line) =>
-                mobile ? (
-                  <OrderHistoryProduct
-                    key={line.key}
-                    line={{
-                      ...line,
-                      width: display ? 'X-와이드' : line.width,
-                      quantity: display?.itemQuantity ?? line.quantity,
-                      displayAmount: display?.itemAmount ?? line.displayAmount,
-                    }}
-                  />
-                ) : (
-                  <Grid
-                    key={line.key}
-                    gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                    gap="0"
-                    alignItems="center"
-                  >
-                    <DetailProduct line={line} display={display} claimed={false} />
-                  </Grid>
-                ),
-              )}
-            </Stack>
-          );
-        })}
+                  <DetailProduct line={line} />
+                </Grid>
+              ),
+            )}
+          </Stack>
+        ))}
       </Stack>
       <Stack gap="0" mt={{ base: '56px', _mobile: '24px' }}>
         <DetailSectionTitle>받는사람 정보</DetailSectionTitle>
         <DescriptionList
           items={[
-            { term: '받는사람', description: '홍길동' },
-            { term: '연락처', description: '010. 1234. 1234' },
-            { term: '받는주소', description: '서울시 강남구 역삼동 123-45' },
-            { term: '배송요청사항', description: '부재시 문 앞에 놔주세요.' },
+            { term: '받는사람', description: display.recipient.name },
+            { term: '연락처', description: display.recipient.phone },
+            { term: '받는주소', description: display.recipient.address },
+            { term: '배송요청사항', description: display.recipient.request },
           ]}
           termProps={{ variant: 'body4', tone: 'tertiary' }}
           descriptionProps={{ variant: 'body4', weight: 'medium' }}
@@ -324,7 +272,7 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
             결제수단
           </Typography>
           <Typography variant="body4" weight="medium">
-            신용카드
+            {display.paymentMethod}
           </Typography>
         </HStack>
         <HStack
@@ -339,15 +287,9 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
             py={{ base: '32px', _mobile: '16px' }}
             pr={{ base: '32px', _mobile: '0' }}
           >
-            <DetailAmountRow
-              label="상품금액"
-              amount={display?.productAmount ?? order.displayAmounts?.total ?? 0}
-            />
-            <DetailAmountRow
-              label="할인금액"
-              amount={display?.discountAmount ?? order.displayAmounts?.claimed ?? 0}
-            />
-            <DetailAmountRow label="배송비" amount={display?.shippingAmount ?? 0} />
+            <DetailAmountRow label="상품금액" amount={display.productAmount} />
+            <DetailAmountRow label="할인금액" amount={display.discountAmount} />
+            <DetailAmountRow label="배송비" amount={display.shippingAmount} />
           </Stack>
           <Stack
             flex="1"
@@ -363,12 +305,7 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
               </Typography>
               {mobile ? (
                 <Typography variant="body3" weight="semibold">
-                  {(
-                    display?.payableAmount ??
-                    order.displayAmounts?.remaining ??
-                    0
-                  ).toLocaleString()}
-                  원
+                  {display.payableAmount.toLocaleString()}원
                 </Typography>
               ) : null}
             </HStack>
@@ -378,19 +315,14 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
                   (상품금액 - 할인금액 - 배송비)
                 </Typography>
                 <Typography variant="heading7">
-                  {(
-                    display?.payableAmount ??
-                    order.displayAmounts?.remaining ??
-                    0
-                  ).toLocaleString()}
-                  원
+                  {display.payableAmount.toLocaleString()}원
                 </Typography>
               </>
             ) : null}
           </Stack>
         </HStack>
       </Stack>
-      {order.claims.length ? (
+      {display.history.length ? (
         <Stack gap="0" mt={{ base: '56px', _mobile: '24px' }}>
           <DetailSectionTitle>
             {mobile ? '취소·반품·교환 내역' : '취소 · 반품 내역'}
@@ -413,84 +345,65 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
               ))}
             </Grid>
           ) : null}
-          {(mobile ? order.claims.slice(0, 1) : order.claims).map((claim) => {
-            const lines = order.items.filter((line) => claim.quantities[line.key]);
-            return (
-              <Stack
-                key={claim.id}
-                gap="16px"
-                py={{ base: '32px', _mobile: '16px' }}
-                borderBottom="1px solid var(--colors-black-20)"
-              >
-                <HStack justifyContent="space-between">
-                  <Typography variant="body4" tone="tertiary">
-                    접수일 : {display?.claimRequestedAt ?? claim.requestedAt.replaceAll('-', '.')}
-                  </Typography>
-                  {mobile ? (
-                    <Typography variant="body4" tone="tertiary">
-                      {claim.kind === 'cancel' ? '취소완료' : '환불완료'}
-                    </Typography>
-                  ) : null}
-                </HStack>
+          {display.history.map((entry) => (
+            <Stack
+              key={entry.id}
+              gap="16px"
+              py={{ base: '32px', _mobile: '16px' }}
+              borderBottom="1px solid var(--colors-black-20)"
+            >
+              <HStack justifyContent="space-between">
+                <Typography variant="body4" tone="tertiary">
+                  접수일 : {entry.requestedAt}
+                </Typography>
                 {mobile ? (
+                  <Typography variant="body4" tone="tertiary">
+                    {entry.status}
+                  </Typography>
+                ) : null}
+              </HStack>
+              {mobile ? (
+                <Stack gap="16px">
+                  {entry.items.map((line) => (
+                    <OrderHistoryProduct
+                      key={line.key}
+                      line={line}
+                      showAmount={false}
+                      showQuantity
+                    />
+                  ))}
+                  <DetailAmountRow label="환불금액" amount={entry.refund} />
+                </Stack>
+              ) : (
+                <Grid gridTemplateColumns="minmax(0, 1fr) 200px 140px" gap="0" alignItems="center">
                   <Stack gap="16px">
-                    {lines.map((line) => (
+                    {entry.items.map((line) => (
                       <OrderHistoryProduct
                         key={line.key}
-                        line={{
-                          ...line,
-                          width: display ? 'X-와이드' : line.width,
-                          quantity: display?.itemQuantity ?? line.quantity,
-                        }}
+                        line={line}
                         showAmount={false}
                         showQuantity
                       />
                     ))}
-                    <DetailAmountRow
-                      label="환불금액"
-                      amount={display?.claimRefundAmount ?? claim.displayRefund ?? 0}
-                    />
                   </Stack>
-                ) : (
-                  <Grid
-                    gridTemplateColumns="minmax(0, 1fr) 200px 140px"
-                    gap="0"
-                    alignItems="center"
+                  <Typography
+                    variant="body4"
+                    weight="medium"
+                    className={css({ textAlign: 'center' })}
                   >
-                    <Stack gap="16px">
-                      {lines.flatMap((line) =>
-                        Array.from(
-                          { length: claim.kind === 'return' ? (display?.returnLineCount ?? 1) : 1 },
-                          (_, index) => (
-                            <OrderHistoryProduct
-                              key={`${line.key}-${index}`}
-                              line={{ ...line, width: display ? 'X-와이드' : line.width }}
-                              showAmount={false}
-                              showQuantity
-                            />
-                          ),
-                        ),
-                      )}
-                    </Stack>
-                    <Typography
-                      variant="body4"
-                      weight="medium"
-                      className={css({ textAlign: 'center' })}
-                    >
-                      {(display?.claimRefundAmount ?? claim.displayRefund ?? 0).toLocaleString()}원
-                    </Typography>
-                    <Typography
-                      variant="body4"
-                      weight="medium"
-                      className={css({ textAlign: 'center' })}
-                    >
-                      {claim.kind === 'cancel' ? '취소완료' : '환불완료'}
-                    </Typography>
-                  </Grid>
-                )}
-              </Stack>
-            );
-          })}
+                    {entry.refund.toLocaleString()}원
+                  </Typography>
+                  <Typography
+                    variant="body4"
+                    weight="medium"
+                    className={css({ textAlign: 'center' })}
+                  >
+                    {entry.status}
+                  </Typography>
+                </Grid>
+              )}
+            </Stack>
+          ))}
         </Stack>
       ) : null}
       <Stack
@@ -566,33 +479,31 @@ function ClaimInformation({ items }: { items: readonly DescriptionListItem[] }) 
   );
 }
 
-/** [ 개발팀 바인딩 ] previewDisplay는 시안별 문구·금액을 그대로 표시하는 fixture입니다. 주문 기능 소유자는 현재 order/claim props의 식별자·collection·refundMethod와 표시 데이터를 제공하고 응답 갱신을 담당하며 이 화면은 환불 계산·요청을 실행하지 않습니다. */
+/** [ 개발팀 바인딩 ] display는 호출자가 준비한 날짜·상태 문구·상품 옵션/수량·금액입니다. OrdersContent가 현재 플랫폼의 표시값을 전달하며, 이 컴포넌트는 원본 주문을 가공하거나 상태를 추론하지 않습니다. 실제 조회와 표시 모델 구성·응답 갱신은 주문 기능 소유자가 연결합니다. onList는 로컬 목록 전환이며 환불 요청·계산은 미연결입니다. */
 /** 취소·반품 상품과 사유·환불안내를 PC 표와 모바일 목록으로 표시합니다. (Displays claim products, reasons, and refund information for desktop and mobile.) */
 export function OrderClaimDetail({
-  order,
+  display,
   claim,
   onList,
 }: {
-  order: OrderRecord;
+  display: ClaimDetailDisplay;
   claim: OrderClaim;
   onList: () => void;
 }) {
   const mobile = usePlatform() === 'mobile';
   const cancel = claim.kind === 'cancel';
   const name = cancel ? '취소' : '반품';
-  const preview = claim.previewDisplay?.[mobile ? 'mobile' : 'web'];
-  const date = preview?.orderDate ?? order.date.replaceAll('-', '. ');
-  const number = preview?.orderNumber ?? order.id;
-  const status =
-    preview?.status ?? `${cancel ? '취소' : '환불'}${claim.state === 'complete' ? '완료' : '접수'}`;
-  const items = getClaimLines(order, claim).map((line) =>
-    preview ? { ...line, width: 'X-와이드', quantity: 2, displayAmount: preview.itemAmount } : line,
-  );
-  const reason = preview?.reason ?? claimReasonLabels[claim.reason];
-  const details = preview?.details ?? claim.details;
-  const amount = preview?.productAmount ?? claim.displayAmount;
-  const fee = preview?.fee ?? claim.fee;
-  const refund = preview?.refund ?? claim.displayRefund;
+  const {
+    orderDate: date,
+    orderNumber: number,
+    status,
+    items,
+    reason,
+    details,
+    productAmount: amount,
+    fee,
+    refund,
+  } = display;
   const money = (value: number | undefined) =>
     value === undefined ? (
       '-'
@@ -717,20 +628,18 @@ export function OrderClaimDetail({
           items={[
             {
               term: `${name}접수일자`,
-              description: preview?.requestedAt ?? claim.requestedAt.replaceAll('-', '. '),
+              description: display.requestedAt,
             },
-            { term: `${name}접수번호`, description: preview?.claimNumber ?? claim.id },
+            { term: `${name}접수번호`, description: display.claimNumber },
             {
               term: `${name}완료일`,
-              description:
-                preview?.completedAt ?? claim.completedAt?.replaceAll('-', '. ') ?? '처리중',
+              description: display.completedAt,
             },
             ...(!cancel
               ? [
                   {
                     term: '환불완료일',
-                    description:
-                      preview?.refundedAt ?? claim.completedAt?.replaceAll('-', '. ') ?? '처리중',
+                    description: display.refundedAt,
                   },
                 ]
               : []),
@@ -814,10 +723,10 @@ export function OrderClaimDetail({
                 </Typography>
                 <Typography web="body3" mo="body4" weight="medium">
                   {row.value}
-                  {row.label === '반품비' && preview?.feeNote ? (
+                  {row.label === '반품비' && display.feeNote ? (
                     <Typography as="span" variant="body5" tone="subtle">
                       {' '}
-                      {preview.feeNote}
+                      {display.feeNote}
                     </Typography>
                   ) : null}
                 </Typography>

@@ -20,7 +20,8 @@ export type OrderLine = {
 };
 
 export type OrderClaim = {
-  previewDisplay?: { web: ClaimDetailDisplay; mobile: ClaimDetailDisplay };
+  /** 준비된 상세 표시값. PC·모바일 값이 같으면 동일한 데이터를 전달합니다. */
+  detailDisplay: { web: ClaimDetailDisplay; mobile: ClaimDetailDisplay };
   refundMethod?: string;
   collection?: {
     name: string;
@@ -53,7 +54,7 @@ export type ClaimDetailDisplay = {
   refundedAt: string;
   reason: string;
   details: string;
-  itemAmount: number;
+  items: readonly OrderLine[];
   productAmount: number;
   fee: number;
   refund: number;
@@ -77,25 +78,36 @@ export type OrderRecord = {
     freeReturn?: boolean;
     freeReturnCouponId?: string;
   };
-  /** 주문상세 시안의 PC·모바일 고정 표시값입니다. 실제 주문 데이터에는 사용하지 않습니다. */
-  detailPreview?: {
-    web: OrderDetailPreview;
-    mobile: OrderDetailPreview;
-  };
+  /** 호출자가 준비한 주문 상세 표시 데이터입니다. */
+  detailDisplay: { web: OrderDetailDisplay; mobile: OrderDetailDisplay };
 };
 
-export type OrderDetailPreview = {
+export type OrderDetailDisplay = {
   date: string;
   orderNumber: string;
-  itemAmount: number;
-  itemQuantity: number;
+  status: string;
+  expectedDate: string;
+  reviewHref: string;
+  activeItems: readonly OrderLine[];
+  claimGroups: readonly {
+    id: string;
+    label: string;
+    detailLabel: string;
+    items: readonly OrderLine[];
+  }[];
+  history: readonly {
+    id: string;
+    requestedAt: string;
+    status: string;
+    refund: number;
+    items: readonly OrderLine[];
+  }[];
+  recipient: { name: string; phone: string; address: string; request: string };
+  paymentMethod: string;
   productAmount: number;
   discountAmount: number;
   shippingAmount: number;
   payableAmount: number;
-  claimRequestedAt: string;
-  claimRefundAmount: number;
-  returnLineCount?: number;
 };
 
 export type OrdersView = 'list' | 'detail' | 'claim';
@@ -105,4 +117,15 @@ export type OrderFilters = {
   start: string;
   end: string;
   query: string;
+};
+
+/** 취소·반품 목록 한 행의 준비된 표시값과 상세 선택 식별자입니다. */
+export type ClaimHistoryItem = {
+  key: string;
+  orderId: string;
+  claimId: string;
+  orderDate: string;
+  orderNumber: string;
+  line: OrderLine;
+  status: { web: string; mobile: string };
 };

@@ -4151,3 +4151,37 @@ Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목�
 검증: 로컬 1920px/375px 렌더링, 모바일 가로 넘침 없음·96px 이미지·14px #777 상태, 반품 상세 진입과 빈 목록 문구를 확인했다. Panda 생성 성공. 전체 tsc는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했고 소스 오류는 없었다. ESLint는 설치된 eslint-plugin-perfectionist를 찾지 못해 실행 실패했다.
 
 공통 표시 보정도 함께 반영한다: DescriptionList 설명의 기본 tone을 primary로, StepIndicator 모바일 단계 라벨의 tone을 primary로 명시했다. 출처: src/components/common/atoms/DescriptionList.tsx, src/components/common/molecules/StepIndicator.tsx 작업 트리.
+
+
+## 취소·반품 상세 표시 데이터 경계 정리 (2026-11-03)
+
+OrderClaimDetail은 order 대신 준비된 ClaimDetailDisplay를 받는다. 기존 선택적 previewDisplay 우선 적용을 제거하고 OrderClaim.detailDisplay에 PC·모바일 표시값과 완성된 items를 명시했다. OrdersContent가 현재 플랫폼의 display를 전달한다. 상세 컴포넌트는 옵션·수량·금액을 덮어쓰거나 상태·사유·날짜를 추론하지 않으며, Typography 포맷과 배치·onList만 유지한다. 실제 조회·표시 모델 구성과 갱신은 연결 소유자 책임이다. 기존 직접 URL과 상세 선택은 유지한다.
+
+출처: src/components/orders/orders.types.ts, orders.data.ts, src/app/mypage/orders/_components/OrderDetails.tsx, OrdersContent.tsx 및 정식 명령으로 재생성한 sourceGraph.generated.json 작업 트리. 검증: 이전 커밋에서 렌더링하던 값과 새 fixture의 취소/반품 × PC/MO 네 조합을 비교해 완전 일치 확인; Panda 생성 성공. tsc는 기존 .next/types 오류로 실패했으나 src 오류는 없었다. 이번 구조 변경에서 브라우저 시각 검증은 재실행하지 않았다.
+
+
+## 주문 상세 마크업 책임 정리 (2026-11-03)
+
+OrderDetail도 OrderDetailDisplay를 직접 받는다. activeItems·claimGroups·history·받는사람·결제수단·각 금액과 상태 문구는 orders.data.ts의 명시적 고정 fixture이며 원본 주문으로부터 런타임에 생성하지 않는다. 컴포넌트의 filter/some, 모바일 slice, PC Array.from 복제, 옵션/수량/금액 덮어쓰기와 금액 fallback을 제거했다. DetailProduct는 받은 상품만 표시하며 미제공 금액을 0원으로 가정하지 않는다. 플랫폼은 배치와 fixture 선택에만 사용한다. 개발팀은 실제 데이터의 분류·상태 결정·금액 계산과 조회 갱신을 연결한다.
+
+OrdersContent는 현재 선택한 주문의 준비된 display와 화면 확인용 콜백을 전달한다. claimId로 해당 상세를 선택하는 기존 로컬 탐색과 배송조회·목록·리뷰 주소·삭제 확인 URL을 유지한다. 이 변경에 API·요청·저장·완료 처리는 추가하지 않았다. 작업 트리 출처: OrderDetails.tsx, OrdersContent.tsx, orders.types.ts, orders.data.ts, sourceGraph.generated.json.
+
+검증: 변경 전 4개 주문의 PC/MO 표시값 8조합과 새 고정 fixture의 완전 일치를 비교했다. 런타임 소스에 filter/slice/Array.from/flatMap/detailPreview/상태 lookup이 남지 않음을 확인했다. Panda 생성 성공. 전체 tsc는 기존 .next/types 오류로 실패했으며 src 오류는 없었다.
+
+추가 브라우저 확인: /mypage/orders/preview-detail의 PC 1920px·모바일 375px 본문과 표시 금액, 모바일 가로 넘침 없음, 반품상세보기 클릭 후 반품 상세 진입을 확인했다.
+
+
+## 취소·반품 목록 표시 데이터 분리 (2026-11-03)
+
+ClaimHistoryList는 준비된 ClaimHistoryItem[]을 items로 받아 단순 반복한다. getClaimLines 기반 상품 추출·수량 대체, 주문/클레임 중첩 순회와 상태 판단을 제거했다. ClaimHistoryProduct도 claim 대신 상태 문자열을 받는다. PC/MO 상태 문구, 날짜·주문번호·상품은 previewClaimHistory 고정 fixture에 명시한다. 빈 화면은 items.length로 표시하며 색상·타이포·간격은 유지한다.
+
+OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외부 initialOrders 사용 시 준비된 목록 행도 함께 전달해야 하며 생략하면 빈 목록이다. 기본 데모만 previewClaimHistory를 사용한다. onHistoryDetail은 orderId/claimId 선택과 상세 화면 열기만 담당한다. 실제 상품 분류·수량/상태 결정·조회는 구현하지 않는다. 출처: OrdersList.tsx, OrdersContent.tsx, OrdersPage.tsx, orders.types.ts, orders.data.ts, sourceGraph.generated.json 작업 트리.
+
+검증: 두 행의 PC/MO 상품·수량·날짜·상태가 기존 표시와 동일함을 비교했다. 목록 소스의 getClaimLines/flatMap/some/claim.state/kind 제거 확인, Panda 생성 성공. 로컬 PC/MO 목록 본문을 확인했다.
+
+추가 검증: 모바일 목록 행 클릭 후 반품 상세 진입, /mypage/returns/preview-empty 빈 안내 확인. Prettier·OKF·diff 검사 통과. 전체 tsc는 기존 .next/types 오류로 미통과이며 src 오류는 없었다.
+
+2026-11-03: OrdersListContent의 현황·기간 필터·주문/클레임 목록 호출부에 섹션 제목 JSX 주석을 추가했다. 표시·라우팅 변경은 없다. 출처: OrdersList.tsx.
+
+
+2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.

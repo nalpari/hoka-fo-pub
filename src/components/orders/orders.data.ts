@@ -1,5 +1,5 @@
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 주문 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
-import type { OrderLine, OrderRecord } from './orders.types';
+import type { ClaimHistoryItem, OrderDetailDisplay, OrderLine, OrderRecord } from './orders.types';
 const line = (key: string, quantity = 1): OrderLine => ({
   key,
   productId: 'shoe-1',
@@ -12,9 +12,268 @@ const line = (key: string, quantity = 1): OrderLine => ({
   price: 230000,
   displayAmount: 230000,
 });
+
+/** 주문 상세 시안용 고정 데이터. 실제 주문으로부터 분류하거나 금액을 계산하지 않습니다. */
+const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: OrderDetailDisplay }> =
+  {
+    '202610210192': {
+      web: {
+        date: '2026.10.10',
+        orderNumber: '202610210192',
+        status: '결제완료',
+        expectedDate: '10월 20일 (화)',
+        reviewHref: '/mypage/reviews?order=202610210192',
+        activeItems: [
+          { ...line('paid-1', 2), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('paid-2', 2), width: 'X-Wide', displayAmount: 230000 },
+        ],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 690000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 690000,
+      },
+      mobile: {
+        date: '2026.10.10',
+        orderNumber: '202610210192',
+        status: '결제완료',
+        expectedDate: '10월 20일 (화)',
+        reviewHref: '/mypage/reviews?order=202610210192',
+        activeItems: [
+          { ...line('paid-1', 2), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('paid-2', 2), width: 'X-Wide', displayAmount: 230000 },
+        ],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 690000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 690000,
+      },
+    },
+    '202610080192': {
+      web: {
+        date: '2026.10.08',
+        orderNumber: '202610080192',
+        status: '상품준비중',
+        expectedDate: '10월 11일 (일)',
+        reviewHref: '/mypage/reviews?order=202610080192',
+        activeItems: [
+          { ...line('preparing-1', 1), width: 'X-Wide', displayAmount: 230000 },
+          {
+            ...line('preparing-2', 1),
+            width: 'X-Wide',
+            displayAmount: 230000,
+            displayStatus: 'paid',
+            displayExpectedDate: '10월 19일 (월)',
+          },
+        ],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 230000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 230000,
+      },
+      mobile: {
+        date: '2026.10.08',
+        orderNumber: '202610080192',
+        status: '상품준비중',
+        expectedDate: '10월 11일 (일)',
+        reviewHref: '/mypage/reviews?order=202610080192',
+        activeItems: [
+          { ...line('preparing-1', 1), width: 'X-Wide', displayAmount: 230000 },
+          {
+            ...line('preparing-2', 1),
+            width: 'X-Wide',
+            displayAmount: 230000,
+            displayStatus: 'paid',
+            displayExpectedDate: '10월 19일 (월)',
+          },
+        ],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 230000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 230000,
+      },
+    },
+    '202610010192': {
+      web: {
+        date: '2026.10.01',
+        orderNumber: '202610010192',
+        status: '배송완료',
+        expectedDate: '10월 20일 (화)',
+        reviewHref: '/mypage/reviews?order=202610010192',
+        activeItems: [{ ...line('delivered-1', 1), width: 'X-Wide', displayAmount: 230000 }],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 230000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 230000,
+      },
+      mobile: {
+        date: '2026.10.01',
+        orderNumber: '202610010192',
+        status: '배송완료',
+        expectedDate: '10월 20일 (화)',
+        reviewHref: '/mypage/reviews?order=202610010192',
+        activeItems: [{ ...line('delivered-1', 1), width: 'X-Wide', displayAmount: 230000 }],
+        claimGroups: [],
+        history: [],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 230000,
+        discountAmount: 0,
+        shippingAmount: 0,
+        payableAmount: 230000,
+      },
+    },
+    '202609250192': {
+      web: {
+        date: '2026.07.25',
+        orderNumber: '2026100210192',
+        status: '구매확정',
+        expectedDate: '07월 29일 (화)',
+        reviewHref: '/mypage/reviews?order=202609250192',
+        activeItems: [{ ...line('purchased-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+        claimGroups: [
+          {
+            id: '912375821759832',
+            label: '구매취소',
+            detailLabel: '취소상세보기',
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+          },
+          {
+            id: '912375821759833',
+            label: '반품요청',
+            detailLabel: '반품상세보기',
+            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+          },
+        ],
+        history: [
+          {
+            id: '912375821759832',
+            requestedAt: '2026.10.18',
+            status: '취소완료',
+            refund: 360000,
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+          },
+          {
+            id: '912375821759833',
+            requestedAt: '2026.10.18',
+            status: '환불완료',
+            refund: 360000,
+            items: [
+              { ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 },
+              { ...line('returned-1-preview-2', 2), width: 'X-와이드', displayAmount: 230000 },
+            ],
+          },
+        ],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 3350000,
+        discountAmount: 50900,
+        shippingAmount: 0,
+        payableAmount: 3300000,
+      },
+      mobile: {
+        date: '2026.12.22',
+        orderNumber: 'HK2026091635153701',
+        status: '구매확정',
+        expectedDate: '07월 29일 (화)',
+        reviewHref: '/mypage/reviews?order=202609250192',
+        activeItems: [{ ...line('purchased-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+        claimGroups: [
+          {
+            id: '912375821759832',
+            label: '구매취소',
+            detailLabel: '취소상세보기',
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+          },
+          {
+            id: '912375821759833',
+            label: '반품요청',
+            detailLabel: '반품상세보기',
+            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+          },
+        ],
+        history: [
+          {
+            id: '912375821759832',
+            requestedAt: '2026.05.02',
+            status: '취소완료',
+            refund: 95000,
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+          },
+        ],
+        recipient: {
+          name: '홍길동',
+          phone: '010. 1234. 1234',
+          address: '서울시 강남구 역삼동 123-45',
+          request: '부재시 문 앞에 놔주세요.',
+        },
+        paymentMethod: '신용카드',
+        productAmount: 776000,
+        discountAmount: 200000,
+        shippingAmount: 0,
+        payableAmount: 576000,
+      },
+    },
+  };
+
 export const previewOrders: OrderRecord[] = [
   {
     id: '202610210192',
+    detailDisplay: orderDetailFixtures['202610210192'],
     date: '2026-10-10',
     expectedDate: '10월 20일 (화)',
     status: 'paid',
@@ -25,6 +284,7 @@ export const previewOrders: OrderRecord[] = [
   },
   {
     id: '202610080192',
+    detailDisplay: orderDetailFixtures['202610080192'],
     date: '2026-10-08',
     expectedDate: '10월 11일 (일)',
     status: 'preparing',
@@ -37,6 +297,7 @@ export const previewOrders: OrderRecord[] = [
   },
   {
     id: '202610010192',
+    detailDisplay: orderDetailFixtures['202610010192'],
     date: '2026-10-01',
     expectedDate: '10월 20일 (화)',
     status: 'delivered',
@@ -47,43 +308,17 @@ export const previewOrders: OrderRecord[] = [
   },
   {
     id: '202609250192',
+    detailDisplay: orderDetailFixtures['202609250192'],
     date: '2026-07-25',
     expectedDate: '07월 29일 (화)',
     status: 'purchased',
     displayAmounts: { total: 690000, claimed: 460000, remaining: 230000 },
     items: [line('purchased-1', 2), line('cancelled-1', 2), line('returned-1', 2)],
-    detailPreview: {
-      mobile: {
-        date: '2026.12.22',
-        orderNumber: 'HK2026091635153701',
-        itemAmount: 230000,
-        itemQuantity: 2,
-        productAmount: 776000,
-        discountAmount: 200000,
-        shippingAmount: 0,
-        payableAmount: 576000,
-        claimRequestedAt: '2026.05.02',
-        claimRefundAmount: 95000,
-      },
-      web: {
-        date: '2026.07.25',
-        orderNumber: '2026100210192',
-        itemAmount: 360000,
-        itemQuantity: 2,
-        productAmount: 3350000,
-        discountAmount: 50900,
-        shippingAmount: 0,
-        payableAmount: 3300000,
-        claimRequestedAt: '2026.10.18',
-        claimRefundAmount: 360000,
-        returnLineCount: 2,
-      },
-    },
     claims: [
       {
         id: '912375821759832',
         refundMethod: '네이버페이',
-        previewDisplay: {
+        detailDisplay: {
           web: {
             orderDate: '2026. 12. 12',
             orderNumber: '202610290034518',
@@ -95,7 +330,7 @@ export const previewOrders: OrderRecord[] = [
             reason: '단순변심',
             details:
               '주문 후 상품 정보를 다시 확인하는 과정에서 제가 원했던 색상과 사이즈가 잘못 선택된 것을 확인했습니다. 상품이 발송되기 전이라면 주문을 취소하고 싶습니다. 동일한 상품을 올바른 옵션으로 다시 주문할 예정이며, 기존 주문에 대한 취소 및 결제 금액 환불 처리를 요청드립니다. 또한 취소가 정상적으로 접수되었는지 확인 부탁드립니다. 주문 과정에서 옵션을 꼼꼼하게 확인하지 못한 점 양해 부탁드리며, 빠른 처리와 안내를 부탁드립니다. 감사합니다. 번거로우시겠지만 확인 후 처리 결과를 안내해 주시면 감사하겠습니다.',
-            itemAmount: 360000,
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 360000 }],
             productAmount: 3350000,
             fee: 0,
             refund: 3300000,
@@ -110,7 +345,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 05',
             reason: '단순 변심',
             details: '색상이 마음에 들지 않아서 환불합니다.',
-            itemAmount: 230000,
+            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
             productAmount: 776000,
             fee: 5000,
             refund: 716000,
@@ -138,7 +373,7 @@ export const previewOrders: OrderRecord[] = [
           trackingNumber: '-',
           scheduledDate: '-',
         },
-        previewDisplay: {
+        detailDisplay: {
           web: {
             orderDate: '2026. 12. 12',
             orderNumber: '202610290034518',
@@ -149,7 +384,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 20',
             reason: '단순변심',
             details: '',
-            itemAmount: 360000,
+            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 360000 }],
             productAmount: 3350000,
             fee: 0,
             refund: 3300000,
@@ -164,7 +399,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 05',
             reason: '단순 변심',
             details: '색상이 마음에 들지 않아서 환불합니다.',
-            itemAmount: 230000,
+            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 }],
             productAmount: 776000,
             fee: 0,
             refund: 776000,
@@ -183,5 +418,27 @@ export const previewOrders: OrderRecord[] = [
         displayRefund: 230000,
       },
     ],
+  },
+];
+
+/** 취소·반품 목록 시안용 고정 행입니다. 상품 추출·수량 계산·상태 판단을 하지 않습니다. */
+export const previewClaimHistory: readonly ClaimHistoryItem[] = [
+  {
+    key: 'cancel-history-1',
+    orderId: '202609250192',
+    claimId: '912375821759832',
+    orderDate: '2026.07.25',
+    orderNumber: '202609250192',
+    line: line('cancelled-1', 1),
+    status: { web: '취소완료', mobile: '환불완료' },
+  },
+  {
+    key: 'return-history-1',
+    orderId: '202609250192',
+    claimId: '912375821759833',
+    orderDate: '2026.07.25',
+    orderNumber: '202609250192',
+    line: line('returned-1', 1),
+    status: { web: '환불완료', mobile: '환불완료' },
   },
 ];

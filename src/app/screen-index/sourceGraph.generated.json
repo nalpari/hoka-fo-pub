@@ -414,21 +414,20 @@
       "src/components/common/atoms/DescriptionList.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/orders/order-policy.ts",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrdersContent.tsx": [
       "src/app/mypage/orders/_components/OrderDetails.tsx",
       "src/app/mypage/orders/_components/OrdersList.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/mypage/MyPageFrame.tsx"
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrdersList.tsx": [
       "src/app/mypage/orders/_components/OrdersProducts.tsx",
       "src/app/mypage/orders/_components/OrdersStatus.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/orders/order-policy.ts",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrdersPage.tsx": [
@@ -1602,6 +1601,7 @@
     "src/app/mypage/mypage-home-data.ts",
     "src/app/mypage/orders/_components/OrderClaimRequest.tsx",
     "src/app/mypage/orders/_components/OrderDetails.tsx",
+    "src/app/mypage/orders/_components/OrdersList.tsx",
     "src/app/mypage/orders/_components/OrdersPage.tsx",
     "src/app/mypage/page.tsx",
     "src/app/mypage/recent/page.tsx",

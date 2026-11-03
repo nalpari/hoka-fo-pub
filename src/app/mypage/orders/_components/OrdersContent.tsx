@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { Stack } from 'styled-system/jsx';
 
@@ -6,7 +7,12 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
-import type { OrderClaim, OrderRecord, OrdersView } from '@/components/orders/orders.types';
+import type {
+  ClaimHistoryItem,
+  OrderClaim,
+  OrderRecord,
+  OrdersView,
+} from '@/components/orders/orders.types';
 
 import { OrderClaimDetail, OrderDetail } from './OrderDetails';
 import { OrdersListContent } from './OrdersList';
@@ -16,6 +22,8 @@ import { type OrdersFiltersProps, type OrderStatusItem } from './OrdersStatus';
 type OrdersContentProps = OrdersFiltersProps &
   OrderCardActions & {
     orders: readonly OrderRecord[];
+    claimHistoryItems: readonly ClaimHistoryItem[];
+    onHistoryDetail: (orderId: string, claimId: string) => void;
     statusItems: OrderStatusItem[];
     view: OrdersView;
     selectedOrder?: OrderRecord;
@@ -35,6 +43,7 @@ export function OrdersContent({
   onList,
   ...props
 }: OrdersContentProps) {
+  const platform = usePlatform();
   const title =
     view === 'claim'
       ? selectedClaim?.kind === 'cancel'
@@ -62,9 +71,22 @@ export function OrdersContent({
           gap={view === 'claim' || returns ? { base: '40px', _mobile: '24px' } : '4'}
         >
           {view === 'claim' && selectedOrder && selectedClaim ? (
-            <OrderClaimDetail order={selectedOrder} claim={selectedClaim} onList={onList} />
+            <OrderClaimDetail
+              display={selectedClaim.detailDisplay[platform === 'mobile' ? 'mobile' : 'web']}
+              claim={selectedClaim}
+              onList={onList}
+            />
           ) : view === 'detail' && selectedOrder ? (
-            <OrderDetail {...props} order={selectedOrder} onList={onList} />
+            <OrderDetail
+              display={selectedOrder.detailDisplay[platform === 'mobile' ? 'mobile' : 'web']}
+              onList={onList}
+              onDetail={() => props.onDetail(selectedOrder)}
+              onTracking={() => props.onTracking(selectedOrder)}
+              onClaimDetail={(claimId) => {
+                const claim = selectedOrder.claims.find((item) => item.id === claimId);
+                if (claim) props.onClaimDetail(selectedOrder, claim);
+              }}
+            />
           ) : (
             <OrdersListContent {...props} returns={returns} />
           )}

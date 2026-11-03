@@ -63,9 +63,8 @@ type OrderHistoryProductProps = {
   showAmount?: boolean;
   showQuantity?: boolean;
   imageSize?: 'standard' | 'claim';
-  cartAction?: boolean;
   statusText?: string;
-};
+} & ({ onClick: () => void; cartAction?: never } | { onClick?: undefined; cartAction?: boolean });
 
 /** 주문 내역 상품 요약을 표시합니다. (Displays an order history product summary.) */
 export function OrderHistoryProduct({
@@ -75,13 +74,28 @@ export function OrderHistoryProduct({
   imageSize = 'standard',
   cartAction = false,
   statusText,
+  onClick,
 }: OrderHistoryProductProps) {
   const platform = usePlatform();
+  const Root = onClick ? 'button' : 'div';
 
   return (
-    <Box
-      w="100%"
+    <Root
+      type={onClick ? 'button' : undefined}
+      onClick={onClick}
       className={css({
+        w: '100%',
+        ...(onClick
+          ? {
+              display: 'block',
+              p: '0',
+              border: '0',
+              bg: 'transparent',
+              textAlign: 'left',
+              cursor: 'pointer',
+              _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+            }
+          : {}),
         '& > div > img':
           imageSize === 'claim'
             ? { w: '96px', h: '96px', _mobile: { w: '64px', h: '64px' } }
@@ -102,6 +116,7 @@ export function OrderHistoryProduct({
           (showQuantity ? ' / ' + line.quantity + '개' : '')
         }
         amount={line.displayAmount ?? 0}
+        amountLanguage={onClick ? 'en' : undefined}
         hideAmount={!showAmount || line.displayAmount === undefined}
         optionTone="subtle"
       >
@@ -134,7 +149,7 @@ export function OrderHistoryProduct({
           </Box>
         ) : null}
       </OrderProductSummary>
-    </Box>
+    </Root>
   );
 }
 
