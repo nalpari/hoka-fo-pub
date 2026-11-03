@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T10:49:20+09:00'
+updated: '2026-11-03T04:36:24.907Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T01:31:58Z'
@@ -976,3 +976,11 @@ FAQ의 기본·빈 결과 URL과 stories는 보존했다. 기존 `RouteContent`�
 ## 런칭 캘린더 모바일 탭 정정 (2026-11-03)
 
 런칭 목록의 기존 세 URL과 IA 연결을 유지하고 모바일 header만 RUN Club 시안 `2921:5026`의 둥근32px 탭·28px 제목으로 수정했다. 사각44px 탭의 최초 설명은 [정정 규격](launch-calendar.md#모바일-탭-시안-정정-2026-11-03)으로 대체한다. 출처: `src/app/launch-calendar/_components/LaunchCalendarContent.tsx`.
+
+## Storybook 제거 (2026-11-03)
+
+ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를 제거했다. 실제 route·previewRoutes·sourceFiles와 IA 번호는 보존한다. 각 page의 Storybook 전용 RoutePreview 주입 및 routePreviewComponents registry를 제거해 기본 화면을 직접 렌더하며 고정 상태 URL은 유지한다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+상품 목록과 러닝 세션 page의 컴포넌트 기본 export를 props 없는 Page 진입점으로 변경했다. 컴포넌트의 data/sessions props와 기본 fixture는 유지하며 존재하지 않는 이전 Context 주석은 실제 표시 데이터 경계로 정정했다.

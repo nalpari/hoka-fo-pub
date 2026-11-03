@@ -4,7 +4,6 @@ export default defineConfig({
   // The existing global stylesheet already owns the project reset.
   preflight: false,
   include: ['./src/**/*.{ts,tsx,js,jsx}'],
-  exclude: ['./src/**/*.stories.{ts,tsx}'],
   patterns: {
     extend: {
       contentFrame: {

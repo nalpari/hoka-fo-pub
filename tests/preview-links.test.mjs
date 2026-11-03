@@ -57,9 +57,7 @@ test('locale handoff is registered at Common D2 without inventing an original IA
   const connection = getScreenConnection(locale);
   assert.equal(connection.route, '/locales');
   assert.ok(connection.sourceFiles.includes('src/app/locales/page.tsx'));
-  assert.ok(connection.stories.web.file.endsWith('LocalesPage.stories.tsx'));
-  assert.ok(connection.stories.mobile.file.endsWith('LocalesPage.mobile.stories.tsx'));
-  const { getScreenProgress } = load('src/app/screen-index/storybookLinks.ts');
+  const { getScreenProgress } = load('src/app/screen-index/screenProgress.ts');
   assert.deepEqual(getScreenProgress(locale, {}), {
     pcDesign: 'not-applicable',
     moDesign: 'not-applicable',
@@ -80,7 +78,6 @@ test('Featured owns Running Session while UTMB remains a menu-only source IA', (
   assert.deepEqual(utmb.depths.slice(0, 3), ['EXPLORE', 'Partnerships', 'UTMB']);
   assert.equal(getScreenConnection(utmb).route, undefined);
   assert.deepEqual(getScreenConnection(utmb).sourceFiles, []);
-  assert.deepEqual(getScreenConnection(utmb).stories, {});
   for (const number of [155, 258, 259]) {
     assert.deepEqual(screens.find((screen) => screen.iaNumber === number).depths.slice(0, 3), [
       'EXPLORE',

@@ -1,6 +1,5 @@
 'use client';
 import { type ReactNode } from 'react';
-import { usePlatform } from '@/context/platform';
 
 import { Stack } from 'styled-system/jsx';
 
@@ -13,9 +12,7 @@ import { VerificationCountdown } from '@/components/common/molecules/FormFields/
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 type FindAccountNotice = {
   tone: 'error' | 'info';
   message: string;
@@ -155,44 +152,3 @@ export function FindAccountContent({
     </AccountPageLayout>
   );
 }
-type IdConfirmationModalProps = {
-  accountId?: string;
-  userName?: string;
-  onOpenChange: (open: boolean) => void;
-  onPasswordReset: () => void;
-  onConfirm: () => void;
-};
-/** 아이디 확인 안내를 재사용 가능한 반응형 모달로 표시합니다. (Displays account lookup guidance in a reusable responsive modal.) */
-function IdConfirmationModal({
-  accountId,
-  userName,
-  onOpenChange,
-  onPasswordReset,
-  onConfirm,
-}: IdConfirmationModalProps) {
-  const platform = usePlatform();
-  return (
-    <ModalDialog
-      open
-      size="md"
-      onOpenChange={onOpenChange}
-      title={platform === 'mobile' ? 'HOKA Korea 회원 안내' : '아이디 / 비밀번호 찾기'}
-      closeLabel="안내 닫기"
-      mobilePresentation="fullscreen"
-      actions={{
-        kind: 'confirm',
-        fullWidth: false,
-        direction: platform === 'mobile' ? 'vertical' : 'horizontal',
-        cancelLabel: '비밀번호 재설정',
-        onCancel: onPasswordReset,
-        onConfirm: onConfirm,
-      }}
-    >
-      <IdConfirmationMessage userName={userName} accountId={accountId} />
-    </ModalDialog>
-  );
-}
-export const routePreviewComponents = { IdConfirmationModal } satisfies Pick<
-  typeof import('@/types/component-contracts/app-login-find-account-page'),
-  'IdConfirmationModal'
->;

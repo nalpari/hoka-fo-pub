@@ -30,7 +30,6 @@
   },
   "include": [
     "next-env.d.ts",
-    ".storybook/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "styled-system/**/*.ts",

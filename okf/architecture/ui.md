@@ -1,15 +1,16 @@
 ---
 type: Architecture
 title: '컴포넌트와 스타일'
-description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
-tags: [components, panda-css, storybook]
+description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
+tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T10:49:20+09:00'
+updated: '2026-11-03T04:36:24.907Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T01:31:58Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/screenProgress.ts
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
   - src/app/launch-calendar/upcoming/page.tsx
@@ -4092,3 +4093,9 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 로그인 `showSessionTimeout`은 45:1394의 제목·본문·확인 버튼과 14px 모서리, 343px 최대 너비를 기존 `ModalDialog`로 표시한다. 제목/본문/버튼 간격·모바일 표시를 Panda로 구성하고 해당 디자인에 없는 X 버튼은 이 fixture의 header CSS에서 숨긴다. 확인·Escape로 닫으며 선택적인 `finalFocus`는 Base UI의 동일 옵션을 전달해 직접 열린 안내를 닫을 때 아이디 필드로 돌아가게 한다. 공용 모달의 기존 기본값·선택하지 않은 소비자는 유지한다. 세션 판정·종료·타이머는 프론트 연동 소유자의 후속 책임이다.
 
 검증은 위 대응표의 실제 PC/MO 검사·IA 클릭·기본 상태 회귀와 변경 파일 ESLint/Prettier·타입·Panda·Next/Storybook 빌드·기존 검사 7개다. 전체 모달/Storybook 실행이나 픽셀 일치 판정은 하지 않았다. 출처: 위 대응표의 Figma·구현 파일, `src/components/common/layouts/ModalDialog.tsx`와 설치된 Base UI `DialogPopup.finalFocus` 타입. 검토 HEAD `889cf058339d51f9d36103e24e0732ab37fc14ae`; 기록 codex/gpt-6, 2026-11-03T10:49:20+09:00. 기존 출처·draft 신뢰 상태를 유지한다.
+
+## Storybook 제거 (2026-11-03)
+
+Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA는 실제 페이지와 고정 상태 URL만 연결한다. 진행 상태 자료는 screenProgress.ts로 옮겨 기존 PC/MO 수급·퍼블리싱 상태와 override를 보존했다. Panda 스토리 제외와 저장소 지침의 Storybook 요구도 정리했다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.

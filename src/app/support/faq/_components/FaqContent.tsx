@@ -284,7 +284,3 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
     </CustomerCenterLayout>
   );
 }
-export const routePreviewComponents = { FaqList } satisfies Pick<
-  typeof import('@/types/component-contracts/app-support-faq-page'),
-  'FaqList'
->;

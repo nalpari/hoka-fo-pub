@@ -2606,18 +2606,3 @@ export function RouteContent({
     </ProductDetailLayout>
   );
 }
-
-export const routePreviewComponents = {
-  InquiryBoard,
-  ProductInquiryLink,
-  ProductColorSelector,
-  ProductSelectedOptions,
-  ProductTechSpecs,
-} satisfies Pick<
-  typeof import('@/types/component-contracts/app-products-id-page'),
-  | 'InquiryBoard'
-  | 'ProductInquiryLink'
-  | 'ProductColorSelector'
-  | 'ProductSelectedOptions'
-  | 'ProductTechSpecs'
->;

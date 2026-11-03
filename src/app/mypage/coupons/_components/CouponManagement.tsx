@@ -441,7 +441,3 @@ export function RouteContent({
     </MyPageFrame>
   );
 }
-export const routePreviewComponents = { CouponManager } satisfies Pick<
-  typeof import('@/types/component-contracts/app-mypage-coupons-page'),
-  'CouponManager'
->;

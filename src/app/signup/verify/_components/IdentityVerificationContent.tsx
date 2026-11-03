@@ -99,8 +99,3 @@ export function RouteContent() {
 
   return <IdentityVerificationContent onSelect={selectMethod} />;
 }
-
-export const routePreviewComponents = { IdentityVerificationContent } satisfies Pick<
-  typeof import('@/types/component-contracts/app-signup-verify-page'),
-  'IdentityVerificationContent'
->;

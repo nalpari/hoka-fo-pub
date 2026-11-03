@@ -46,7 +46,7 @@ import { Button } from '@/components/common/atoms/Button';
 import { css } from 'styled-system/css';
 import { useViewportMode } from '@/lib/useViewportMode';
 import { useExample } from '@/hooks/useExample';
-import { useRoutePreview } from '@/context/RoutePreview';
+import { usePlatform } from '@/context/platform';
 import { useState } from 'react';
 import { Motion } from 'motion';
 import { useRouter } from 'next/navigation';
@@ -55,7 +55,7 @@ import { useRouter } from 'next/navigation';
     'next/navigation',
     'motion',
     'react',
-    '@/context/RoutePreview',
+    '@/context/platform',
     '@/hooks/useExample',
     '@/lib/useViewportMode',
     'styled-system/css',
@@ -64,7 +64,7 @@ import { useRouter } from 'next/navigation';
     '@/mocks/products',
     '@/types/product',
   ]);
-  assert.match(output, /from 'react';\nimport \{ useRoutePreview \}/);
+  assert.match(output, /from 'react';\nimport \{ usePlatform \}/);
   assert.match(output, /from '@\/lib\/useViewportMode';\n\nimport \{ css \}/);
   assert.equal(await sort(output), output);
 });
@@ -189,7 +189,6 @@ import type { Metadata } from 'next';
 test('generated build output and temporary workspaces are excluded', async () => {
   for (const file of [
     '.next/server/example.js',
-    'storybook-static/example.js',
     'styled-system/jsx/example.ts',
     '.tmp/workspace/example.ts',
     '.tmp-dev-all-config/example.ts',

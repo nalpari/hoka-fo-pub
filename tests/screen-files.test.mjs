@@ -6,7 +6,7 @@ import test from 'node:test';
 
 import { buildSourceGraph } from '../scripts/screen-files.mjs';
 
-test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, excluding types and stories', () => {
+test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, excluding type imports', () => {
   const root = mkdtempSync(path.join(os.tmpdir(), 'hoka-screen-files-'));
   const write = (file, content) => {
     const target = path.join(root, file);
@@ -33,7 +33,6 @@ test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, 
       export { helper } from './barrel';
       const optional = import('./optional');
       const external = import('react');
-      const preview = import('./stories/preview');
     `,
     );
     write('src/button.tsx', "import './page'; export const button = null;");
@@ -42,7 +41,6 @@ test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, 
     write('src/barrel.ts', "export { helper } from './helper';");
     write('src/helper.ts', 'export const helper = 1;');
     write('src/optional.tsx', 'export default null;');
-    write('src/stories/preview.tsx', 'export default null;');
     write('src/context/Data.ts', '/** [ 개발팀 바인딩 ] */ export const data = {};');
     write('src/components/domain/Screen.tsx', '/** [개발팀 바인딩] */ export default null;');
     write(
@@ -50,7 +48,7 @@ test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, 
       '/** [ 개발팀 바인딩 ] */ export default null;',
     );
     write('src/hooks/useRequest.ts', '/** [ 개발팀 바인딩 ] */ export default null;');
-    write('src/context/RoutePreview.ts', '/** [개발팀 바인딩] */ export default null;');
+    write('src/context/FixturePreview.ts', '/** [개발팀 바인딩] */ export default null;');
     assert.deepEqual(buildSourceGraph(root).bindingFiles, [
       'src/components/domain/Screen.tsx',
       'src/context/Data.ts',
@@ -64,7 +62,6 @@ test('IA graph follows aliases, re-exports, cycles and literal dynamic imports, 
     ]);
     assert.deepEqual(graph['src/button.tsx'], ['src/page.tsx']);
     assert.deepEqual(graph['src/barrel.ts'], ['src/helper.ts']);
-    assert.equal(graph['src/stories/preview.tsx'], undefined);
 
     renameSync(path.join(root, 'src/optional.tsx'), path.join(root, 'src/moved.tsx'));
     write('src/page.tsx', "import './moved';");

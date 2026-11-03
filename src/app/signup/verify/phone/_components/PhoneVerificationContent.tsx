@@ -36,7 +36,3 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
     </ModalDialog>
   );
 }
-export const routePreviewComponents = { AlreadyRegisteredModal } satisfies Pick<
-  typeof import('@/types/component-contracts/app-signup-verify-phone-page'),
-  'AlreadyRegisteredModal'
->;

@@ -6,12 +6,9 @@
  * 아이핀을 연결할 경우 제공자 인증 결과를 VerifiedIdentity로 변환해 AccountFlowProvider에 전달하고 서버 accountStatus에 따라 다음 단계를 결정합니다.
  */
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { RouteContent } from './_components/IdentityVerificationContent';
 
-import { RouteContent, routePreviewComponents } from './_components/IdentityVerificationContent';
-
-/** 실제 화면 또는 컨텍스트로 선택한 로컬 구성을 표시합니다. (Displays the route or its context-selected local composition.) */
+/** 라우트의 기본 화면을 표시합니다. (Displays the default route screen.) */
 export default function Page() {
-  const preview = useRoutePreview(routePreviewComponents);
-  return preview ?? <RouteContent />;
+  return <RouteContent />;
 }

@@ -4,15 +4,15 @@
 
 ## 책임과 실제 소비자 판단
 
-TypeScript 심볼을 기준으로 alias·barrel/re-export·namespace·dynamic import를 따라 실제 production 부모 모듈을 센다. stories·테스트·type-only는 수에서 제외하되 삭제 전 참조 조사는 별도로 한다. JSX 개수나 동일 모듈의 여러 렌더는 부모 수가 아니다.
+TypeScript 심볼을 기준으로 alias·barrel/re-export·namespace·dynamic import를 따라 실제 production 부모 모듈을 센다. 테스트·type-only는 수에서 제외하되 삭제 전 참조 조사는 별도로 한다. JSX 개수나 동일 모듈의 여러 렌더는 부모 수가 아니다.
 
-| 관찰한 역할 | 선택 |
-| --- | --- |
+| 관찰한 역할                                                 | 선택                                                                                                       |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | props 이름 변경·label/placeholder/간격/타이포 기본값 전달뿐 | base를 직접 사용하고 기본값과 override 순서를 소비자에 옮긴다. 여러 소비자만으로 래퍼가 정당화되지 않는다. |
-| 기존 소유자가 맡을 공통 optional 표현·로컬 조작 | 기존 컴포넌트의 작은 typed 옵션/variant로 수용한다. |
-| production 부모가 하나 | [단일 부모 통합](single-parent-consolidation.md)을 적용한다. |
-| production 미사용·story 전용 | 별도 보고하고 승인된 삭제 범위에서만 제거한다. |
-| 실제 공용 동작·다른 도메인 책임·필수 runtime 경계 | 구체적 이유와 함께 유지한다. 파일 길이는 이유가 아니다. |
+| 기존 소유자가 맡을 공통 optional 표현·로컬 조작             | 기존 컴포넌트의 작은 typed 옵션/variant로 수용한다.                                                        |
+| production 부모가 하나                                      | [단일 부모 통합](single-parent-consolidation.md)을 적용한다.                                               |
+| production 미사용·story 전용                                | 별도 보고하고 승인된 삭제 범위에서만 제거한다.                                                             |
+| 실제 공용 동작·다른 도메인 책임·필수 runtime 경계           | 구체적 이유와 함께 유지한다. 파일 길이는 이유가 아니다.                                                    |
 
 공용 구현을 소비자마다 복사하거나 compatibility forwarding/preset 파일로 우회를 재생성하지 않는다. 관찰 패턴·실제 소비자·제안 owner/API·실제 삭제 파일 수·유지할 계약을 기록한다. 살아 있는 파일에서 함수 하나를 지운 것을 파일 감소로 세지 않는다.
 
@@ -28,7 +28,7 @@ TypeScript 심볼을 기준으로 alias·barrel/re-export·namespace·dynamic im
 ## 함께 이관·검증할 것
 
 - parent gap과 footer 간격, conditional/hidden content, fixed bar·safe-area의 책임을 구분한다. 스타일 객체는 [Panda 병합 규칙](component-quality.md#panda-style-composition)대로 클래스 생성 전에 합친다.
-- runtime/type import·re-export·dynamic fixture 경로·stories·IA 링크를 함께 갱신한다. 순수 이동은 기존 story ID/title을 유지하고 의도된 분류 변경은 관련 링크까지 갱신한다.
+- runtime/type import·re-export·dynamic fixture 경로·IA 링크를 함께 갱신한다. 순수 이동은 기존 상태 URL을 유지한다.
 - 새 옵션·옵션 생략·비대상 기본 호출부, 불가능한 타입 조합, PC/MO geometry와 키보드/포커스를 확인한다. 제거된 서비스 플로우를 통과시키려고 mock/provider를 복구하지 않는다.
 - 실행 서버가 현재 소스를 반영하는지 확인한다. 다른 채팅 서버를 임의로 종료하지 않는다. 자동 입력 실패는 실제 document focus·이벤트·상태부터 조사하고 컴포넌트 결함으로 단정하지 않는다.
 - 혼합 변경은 현재 index 기준으로 선별한다. 다른 작업을 reset/overwrite/전체 재스테이징하지 않는다. 관련 OKF·index·log를 갱신하고 요청된 스테이징 시 okf:check를 수행한다. 정책 수정만이면 문서/스킬 검사만 수행한다.

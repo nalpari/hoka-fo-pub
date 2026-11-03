@@ -29,10 +29,7 @@ export function buildSourceGraph(projectRoot) {
   const bindingFiles = [];
   const relative = (file) => path.relative(projectRoot, file).split(path.sep).join('/');
   const eligible = (file) =>
-    codeFile.test(file) &&
-    !file.endsWith('.d.ts') &&
-    !file.startsWith('src/stories/') &&
-    !file.startsWith('src/app/screen-index/');
+    codeFile.test(file) && !file.endsWith('.d.ts') && !file.startsWith('src/app/screen-index/');
 
   function scan(directory) {
     for (const entry of readdirSync(directory, { withFileTypes: true }).sort((a, b) =>

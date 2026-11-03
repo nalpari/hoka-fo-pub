@@ -415,7 +415,3 @@ export function RouteContent({
     </>
   );
 }
-export const routePreviewComponents = { LogoutDialog } satisfies Pick<
-  typeof import('@/types/component-contracts/app-mypage-page'),
-  'LogoutDialog'
->;

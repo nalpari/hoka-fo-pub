@@ -7,12 +7,9 @@
  * 현재 상세의 wish는 로컬 토글입니다. 영구 찜을 연결할 때 onWishChange 소유자에서 실제 상품 ID로 요청하고 성공 상태/실패 복원을 관리해야 합니다.
  */
 
-import { useRoutePreview } from '@/context/RoutePreview';
+import { RouteContent } from './_components/ProductDetailContent';
 
-import { RouteContent, routePreviewComponents } from './_components/ProductDetailContent';
-
-/** 실제 화면 또는 컨텍스트로 선택한 로컬 구성을 표시합니다. (Displays the route or its context-selected local composition.) */
+/** 라우트의 기본 화면을 표시합니다. (Displays the default route screen.) */
 export default function Page() {
-  const preview = useRoutePreview(routePreviewComponents);
-  return preview ?? <RouteContent />;
+  return <RouteContent />;
 }

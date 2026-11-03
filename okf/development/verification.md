@@ -4,6 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
+updated: '2026-11-03T04:36:24.907Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -240,7 +241,7 @@ node --test tests/app-router.test.mjs
 
 이 테스트는 `.next/server/app-paths-manifest.json`을 읽으므로 빌드가 먼저 필요하다. 기대하는 63개 경로가 실제 빌드 결과에 있는지, Next.js·React·React DOM 버전이 고정되어 있는지, React Router 의존성이 제거되어 있는지 검사한다. 브라우저 인터랙션을 대신하지 않는다.
 
-스토리를 바꾼 경우 `npm run build-storybook`도 실행한다. 스타일이나 토큰을 바꾼 경우 Panda 생성 결과를 사용해 PC·모바일 화면을 확인한다.
+스타일이나 토큰을 바꾼 경우 Panda 생성 결과를 사용해 PC·모바일 화면을 확인한다.
 
 ## 수동 확인
 
@@ -584,3 +585,13 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 - 브라우저 viewport 캡처는 도구의 Page.captureScreenshot timeout으로 확보하지 못했다. 실제 DOM·계산 크기·표시/포커스/상호작용을 확인했으며 전체 픽셀 일치·운영 서비스·실제 약관 원문 조회는 검증하지 않았다.
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
+
+## Storybook 제거 (2026-11-03)
+
+Storybook 빌드·play 검증을 제거했다. IA 경로·진행 상태·소스 그래프·import-order 테스트의 스토리 의존성을 정리하고 앱 route/고정 상태 검사는 유지한다. 아래 날짜별 Storybook 검증 내용은 과거 이력이다. 화면 확인은 앱의 기본·고정 상태 URL로 수행한다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+검증: 공유 작업 트리의 관련 Node 테스트 35개와 전체 lint가 통과했다. 선별 사본에서 변경 파일 36개의 lint는 오류·경고 없이 통과했고 기본 Turbopack production build는 정적 페이지 145개를 생성했다. 선별 사본의 전체 lint는 이번에 변경하지 않은 기존 주문 파일 14개 오류가 남아 있다. Webpack 보조 빌드는 기존 Panda CSS의 black.70 Sass 해석 오류로 실패했다. 브라우저·시각 검증은 수행하지 않았다.
+
+최종 검증 (2026-11-03T04:47:39.853Z): HEAD와 현재 채팅의 선별 변경만 담은 사본에서 기본 npm run build(Turbopack, 정적 페이지 145개), npm run typecheck와 전체 Node 테스트 103개를 통과했다. 변경 소스·설정·테스트 36개 파일의 lint도 오류·경고 없이 통과했다. 공유 작업 트리의 다른 주문·상품 변경은 이 사본에 포함하지 않았다. 브라우저 검증은 수행하지 않았다.
