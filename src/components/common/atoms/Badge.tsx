@@ -60,6 +60,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         children?: ComponentPropsWithoutRef<'span'>['children'];
         status?: never;
         promotion?: never;
+        promotionTone?: never;
         runningSessionCategory?: never;
         weight?: never;
       })
@@ -67,12 +68,14 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         status: LaunchStatus;
         children?: never;
         promotion?: never;
+        promotionTone?: never;
         runningSessionCategory?: never;
         variant?: never;
         weight?: never;
       })
     | {
         promotion: Promotions;
+        promotionTone?: 'brand' | 'red80';
         runningSessionCategory?: never;
         weight?: TypographyProps['weight'];
         textProps?: never;
@@ -87,6 +90,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         textProps?: never;
         status?: never;
         promotion?: never;
+        promotionTone?: never;
         children?: never;
         variant?: never;
         tone?: never;
@@ -104,6 +108,7 @@ export function Badge({
   children,
   status,
   promotion,
+  promotionTone = 'brand',
   runningSessionCategory,
   weight,
   textProps,
@@ -140,10 +145,10 @@ export function Badge({
                 aria-hidden="true"
                 orientation="vertical"
                 h="3"
-                color="var(--color-text-brand)"
+                color={promotionTone === 'red80' ? 'red.80' : 'var(--color-text-brand)'}
               />
             )}
-            <Typography variant="body4" weight={weight} tone="brand" className={className}>
+            <Typography variant="body4" weight={weight} tone={promotionTone} className={className}>
               {label}
             </Typography>
           </Fragment>

@@ -10,6 +10,7 @@ generated:
   at: '2026-11-03T01:31:58Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/Badge.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/app/screen-index/screenProgress.ts
   - src/app/launch-calendar/page.tsx
@@ -4122,3 +4123,11 @@ ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View
 `/products?gender=men&sort=popular`의 1421×1252 화면에서 기본 옵션 영역 72px보다 스크롤바를 포함한 캐러셀 75px가 커 첫 상품 호버 시 다음 행이 3px 내려가는 현상을 재현했다. 임의의 고정 최소 높이를 없애고 ProductDetailsOptions의 기본 요약과 캐러셀을 같은 Grid 셀에 배치해 두 콘텐츠의 실제 높이 중 큰 값을 항상 확보한다. visibility로 표시를 전환하며 숨긴 캐러셀은 aria-hidden과 inert로 읽기·키보드 진입에서 제외한다. 모바일/history/showcase는 기존 구성을 유지한다.
 
 검증: PC1421·1200·1025px에서 첫 세 상품 각각의 진입·이탈 전후 6개 상품의 y/높이 값이 동일했다. 1421px 첫 행 타일 높이 511.03125px·다음 행 y 857.03125px가 유지된다. 색상 선택·Escape·Tab 진입을 확인했고, 숨긴 캐러셀의 inert/aria-hidden을 확인했다. MO390px는 캐러셀 0개·clientWidth/scrollWidth 375px 동일이다. 공유 작업 트리의 lint·타입·Panda·Next 빌드(정적 페이지 146개)가 통과했다. 출처는 사용자 브라우저 코멘트와 ProductCard.tsx 작업 트리이며 서비스 연결 계약은 변경하지 않았다.
+
+## 상품 목록 프로모션 배지 색상 보정 (2026-11-03)
+
+사용자가 [배지 노드 3879:3533](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3879-3533)을 지정하고 색상값 `Markdown/Red-100 #E10F00`을 직접 확정했다. ProductCard listing의 프로모션 글자와 구분선을 #E10F00으로 표시한다. 저장소에서는 같은 값의 기존 red.80/--color-red-80 토큰을 재사용하며 전역 red.100이나 브랜드 텍스트 토큰을 재정의하지 않는다.
+
+Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션 모드에서만 허용한다. 기존 ProductCard의 error override도 이 옵션으로 연결해 글자와 구분선의 색을 일치시킨다. 공통 Badge 기본값과 history의 기존 표시 override, 일반 텍스트·로고·버튼 배경은 유지한다. 앞서 원복한 전역 브랜드 텍스트 변경을 다시 적용하지 않는다.
+
+검증: PC1421/MO390의 실제 목록에서 Exclusive·New를 모두 rgb(225, 15, 0)으로 확인했다. 관심상품 history에서는 기존 New의 파랑 rgb(0, 157, 255)이 유지됨을 확인했다. 공유 작업 트리의 lint·타입·Panda·Next 빌드가 통과했다. Figma 구조화 읽기는 API 제한으로 미수행이며 HEX의 근거는 사용자 답변이다. 출처는 Badge.tsx·ProductCard.tsx 작업 트리다.

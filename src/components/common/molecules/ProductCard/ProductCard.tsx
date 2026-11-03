@@ -192,7 +192,7 @@ function ProductDetailsIdentity({
       {promotion && (
         <Badge
           promotion={promotion}
-          className={promotionTone === 'error' ? css({ color: 'red.80!' }) : undefined}
+          promotionTone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
         />
       )}
       {variant === 'history' ? (
