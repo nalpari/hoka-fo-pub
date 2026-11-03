@@ -7,7 +7,7 @@ status: draft
 updated: '2026-11-03T10:49:20+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:59:35Z'
+  at: '2026-11-03T01:31:58Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/launch-calendar/in-stock/page.tsx
@@ -18,6 +18,11 @@ working_tree_sources:
   - src/app/launch-calendar/launchCalendar.data.ts
   - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
   - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
+  - src/app/mypage/orders/_components/OrderDetails.tsx
+  - src/app/mypage/orders/_components/OrdersProducts.tsx
+  - src/app/mypage/orders/_components/OrdersStatus.tsx
+  - src/app/mypage/orders/_components/OrdersList.tsx
+  - src/stories/features/orders/OrdersStatus.stories.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/common/molecules/HelpTips.tsx
   - src/app/checkout/_components/CheckoutForm.tsx
@@ -906,6 +911,10 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 기존 `/products/shoe-1`, `/products/preview-restock`, `/products/preview-empty-inquiries`, `/products/preview-options-required`를 재사용한다. `RouteContent.preview`에 기존 `selection-required` 타입을 복원했고 옵션을 선택해도 해당 고정 안내는 유지된다. 새 상태 URL·IA 행·provider는 추가하지 않았다. page 진입점과 `_components` 소유권, 이미지 뷰어의 기존 동적 경계·닫기·포커스 복원은 유지했다.
 
 검증: Next 프로덕션 빌드(타입 포함)·Panda·Storybook 빌드·상태 링크 검사 6개·변경 파일 lint/format 통과. PC 1600/MO 375에서 네 URL 직접 접근, 옵션 선택 후 필수 안내 유지와 CTA 복원을 확인했다. 개발 서버의 EPERM 오류는 개발 캐시 보관 후 재시작으로 해소했다.
+
+## 주문·반품 페이지 구성 검토 (2026-11-03)
+
+`/mypage/orders`와 `/mypage/returns` 경로 및 페이지 진입 구조는 변경하지 않았다. 주문 현황 표시를 한 `Grid`의 PC·모바일 반응형 값으로 정리하고 한 번만 쓰이는 주문 상태 조각을 부모 JSX에 합쳤다. 라우팅 지식에 영향이 없는 것을 주문·반품 route와 해당 `_components` 범위에서 검토했다.
 
 ## 주문 route 전용 화면 모듈 (2026-11-03)
 

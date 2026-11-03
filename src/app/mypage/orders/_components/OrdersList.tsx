@@ -236,7 +236,7 @@ export function OrdersListContent({
   return (
     <Stack gap="6">
       {/* 주문별 상태 건수를 요약합니다. (Summarizes order counts by status.) */}
-      <OrderStatusTracker compact items={statusItems} />
+      <OrderStatusTracker items={statusItems} />
       {/* 주문 기간과 상태 필터를 제공합니다. (Provides order date and status filters.) */}
       <OrdersFilters {...props} />
       {orders.length ? (

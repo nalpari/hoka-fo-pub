@@ -7,7 +7,7 @@ status: draft
 updated: '2026-11-03T10:49:20+09:00'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:59:35Z'
+  at: '2026-11-03T01:31:58Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/launch-calendar/page.tsx
@@ -19,6 +19,11 @@ working_tree_sources:
   - src/app/launch-calendar/launchCalendar.data.ts
   - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
   - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
+  - src/app/mypage/orders/_components/OrderDetails.tsx
+  - src/app/mypage/orders/_components/OrdersProducts.tsx
+  - src/app/mypage/orders/_components/OrdersStatus.tsx
+  - src/app/mypage/orders/_components/OrdersList.tsx
+  - src/stories/features/orders/OrdersStatus.stories.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
   - src/app/signup/terms/_components/SignupTermsStatePreview.tsx
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
@@ -4058,7 +4063,15 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 ## 주문 화면 컴포넌트 route 소유권 (2026-11-03)
 
-`OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다.
+`OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다. `OrderStatusTracker`는 별도 compact API 없이 PC 테두리형 5열과 모바일 회색 배경형 5열 상태 바로 표시하며, 격리된 PC·모바일 스토리는 `OrdersStatus.stories.tsx`에서 확인한다.
+
+## 주문 현황 반응형 스타일 (2026-11-03)
+
+주문 현황은 하나의 `OrderStatusTracker`에서 PC·모바일 표시를 반응형으로 구성한다. 같은 `Grid`의 `border`, `bg`, `minH`에 `{ base, _mobile }` 값을 지정한다. 상태 링크는 그리드 행의 높이를 따르므로 중복 `minH`를 두지 않는다. 링크의 간격은 실제 px 값으로 명시하고 PC·모바일의 바깥 여백과 패딩을 각각 적용한다. PC는 검은 테두리와 칸 구분선을, 모바일은 회색 바탕과 작은 타이포그래피를 사용한다. 0건인 상태의 수와 라벨은 회색으로 표시한다. 상태 링크는 단일 사용 부품으로 나누지 않고 tracker의 `items.map`에서 직접 구성하며, `statusLink`는 `css()`가 반환한 className 문자열을 바로 사용한다. 상태 카운트는 화면 확인용 fixture이며 주문 route, 링크 기본 경로, 데이터 소유권은 바꾸지 않는다. 전용 비교 story는 제거하고 컴포넌트만 담은 PC·모바일 story를 둔다.
+
+## 주문 페이지 단일 사용 표시 조각 통합 (2026-11-03)
+
+`OrdersProducts`의 한 번만 사용되는 배송 상태 한 줄과 `OrderDetails`의 클레임 상태 뱃지를 부모 컴포넌트 JSX로 옮겼다. 카드 헤더·주문 상품·클레임 묶음·주문 정보 영역·배송 추적 표처럼 독립적이거나 여러 화면에서 재사용되는 구성은 유지한다. 화면과 데이터/업무 소유권은 바꾸지 않는다.
 
 ## 9개 디자인 영역의 상태 표현 조사 (2026-11-03)
 

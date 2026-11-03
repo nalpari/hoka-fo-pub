@@ -26,6 +26,24 @@
 - 구매/입고알림 CTA와 금액의 표시 전용 경계를 주석으로 남겼다. 로컬 옵션/수량/관심 토글·뷰어·기존 네 URL과 IA 연결은 유지한다. [라우팅](architecture/routing.md#상품상세-인계-병합-정리-2026-11-03)과 [UI](architecture/ui.md#상품상세-마크업-인계와-병합-잔여-제거-2026-11-03)를 참고한다.
 - 검증: 변경 파일 ESLint/Prettier, Next의 TypeScript 포함 프로덕션 빌드, Panda, Storybook 빌드, preview-links 6개 통과. 브라우저 PC 1600px/MO 375px에서 기존 네 URL, 옵션 필수 안내 유지, 품절→판매 가능 선택과 CTA 복원을 확인했다. 개발 서버의 병합 중 EPERM 표시 오류는 개발 캐시를 별도 보관하고 재시작한 뒤 해소됐다.
 
+## 2026-11-03 — 주문 현황 Grid 반응형 prop 정리
+
+- `OrderStatusTracker`의 같은 `Grid`에서 `border`, `bg`, `minH`를 각각 `{ base, _mobile }`로 표시해 PC·모바일 값을 나란히 읽을 수 있게 했다. 링크에 중복 선언된 PC·모바일 `minH`는 제거했다.
+- `statusLink`의 간격은 PC 12px·모바일 4px로 `{ base, _mobile }`에 명시했다. PC는 상하 마진 44.5px, 모바일은 위 패딩 20px·아래 패딩 18px을 사용한다.
+- UI·라우팅 문서에 스타일 범위와 경로 영향 없음을 기록했다.
+
+## 2026-11-03 — 주문 페이지 작은 표시 조각 인라인 통합
+
+- `OrderDeliveryStatus`와 `OrderClaimStatus`처럼 한 번만 쓰는 짧은 컴포넌트를 부모 JSX 안에 합쳤다. 의미 있는 카드·주문정보·추적표 구성과 다중 사용 조각은 유지했다. route와 주문 표시 데이터는 바꾸지 않았다.
+- `ui.md`와 `routing.md`에 구조 정리 및 경로 영향 검토를 기록했다. 관련 TSX·OKF 문서의 Prettier 검사, `npm run okf:check`, `git diff --check`를 통과했다.
+
+## 2026-11-03 — 주문 현황 PC·모바일 반응형 표시
+
+- `OrderStatusTracker`의 compact 분기와 기본형·컴팩트 비교 story를 제거하고, PC 테두리형과 모바일 회색 배경형을 반응형 스타일로 통합했다. 0건 상태는 수와 라벨 모두 회색이며 fixture 카운트는 요청한 3/2/0/0/1로 맞췄다. 격리된 PC·모바일 스토리를 추가했다.
+- 단독 사용되는 `OrderStatusLink`를 없애고 tracker의 `items.map`에서 링크와 라벨 마크업을 직접 구성했다.
+- `statusLink`는 `css.raw()` 객체를 다시 변환하지 않고 `css()`로 클래스 문자열을 만들어 `className`에 직접 전달한다.
+- `/mypage/orders` URL과 진입 구조에 영향이 없음을 `routing.md`에 기록하고 소스 그래프를 재생성했다. Prettier, `npm run screen-files`, `npm run okf:check`, `git diff --check`를 통과했다. Storybook을 `http://localhost:6007/`에서 실행하고 인덱스에 PC·모바일 story 등록을 확인했다. 브라우저 도구가 unavailable 상태여서 화면 시각 검증은 하지 않았다. TypeScript 전체 검사는 기존 `.next`의 누락 route 참조 및 `ProductListingPageProps` 오류로 실패했으며 이 변경 파일의 오류는 출력되지 않았다. ESLint는 설치되지 않은 `eslint-plugin-perfectionist` 모듈 오류로 실행되지 않았다.
+
 ## 2026-11-03 — 주문 화면을 route 전용 컴포넌트로 분리
 
 - 주문 화면 소유권을 `src/app/mypage/orders/_components`로 옮기고 `OrdersPage`, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`로 역할을 나눴다. 주문·반품 route, preview, Storybook은 `OrdersPage`를 직접 사용하며 fixture와 정책 모듈은 기존 경로에 유지한다.

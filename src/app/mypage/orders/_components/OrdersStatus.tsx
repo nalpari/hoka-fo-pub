@@ -9,122 +9,61 @@ import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection';
-
 import type { OrderFilters, OrdersPeriod } from '@/components/orders/orders.types';
 
-type OrderStatusLinkProps = {
-  label: string;
-  count: number;
-  href: string;
-  compact?: boolean;
-};
-
-const statusLink = css.raw({
+const statusLink = css({
   display: 'grid',
   justifyItems: 'center',
-  gap: '7px',
-  minH: '100px',
-  py: '5',
-  px: '2',
-  color: 'var(--color-text-primary)',
+  alignContent: 'start',
+  gap: { base: '12px', _mobile: '4px' },
   textAlign: 'center',
   borderRight: '1px solid var(--color-black-20)',
   '&:last-child': {
-    borderRight: '0',
+    borderRight: '0px',
+  },
+  '.platform-web &': {
+    my: '44.5px',
+  },
+  _mobile: {
+    pt: '20px',
+    pb: '18px',
+    borderRight: '0px',
+    '& > span:last-child': { whiteSpace: 'pre-line' },
   },
 });
 
-/** 주문 단계의 수량과 조회 링크를 표시합니다. (Displays an order stage count and its history link.) */
-function OrderStatusLink({ label, count, href, compact = false }: OrderStatusLinkProps) {
-  return (
-    <Link
-      className={css(
-        statusLink,
-        compact && {
-          minH: { base: '159px', _mobile: '86px' },
-          py: '0',
-          px: '1',
-          mt: { _mobile: '4' },
-          alignSelf: 'center',
-          borderRight: '0',
-          gap: '1',
-          // alignContent: 'center',
-          '& > span:last-child': { whiteSpace: 'pre-line' },
-        },
-      )}
-      href={href}
-    >
-      <Typography
-        as="strong"
-        variant="heading6"
-        tone={compact && count === 0 ? 'black40' : 'primary'}
-      >
-        {count}
-      </Typography>
-      <Typography variant="body5" tone={compact ? 'tertiary' : 'primary'}>
-        {label}
-      </Typography>
-    </Link>
-  );
-}
-
 export type OrderStatusItem = { label: string; count: number; to?: string };
 
-type Props = { items: OrderStatusItem[]; to?: string; compact?: boolean };
+type Props = { items: OrderStatusItem[]; to?: string };
 
-/** 주문 단계별 수량을 기본형 또는 압축형으로 표시합니다. (Displays an order stage snapshot in standard or compact form.) */
-export function OrderStatusTracker({ items, to = '/mypage/orders', compact = false }: Props) {
-  const content = (
-    <Grid
-      gap="0"
-      minH={compact ? { base: '90px', _mobile: '98px' } : undefined}
-      alignItems={compact ? 'start' : undefined}
-      style={
-        compact ? { gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` } : undefined
-      }
-      gridTemplateColumns="repeat(5, 1fr)"
-      bg={compact ? 'black.10' : undefined}
-      borderTop={compact ? '0' : '1px solid var(--color-black-100)'}
-      borderBottom={compact ? '0' : '1px solid var(--color-border-subtle)'}
-      _mobile={
-        compact ? {} : { overflowX: 'auto', gridTemplateColumns: 'repeat(5, minmax(88px, 1fr))' }
-      }
-    >
-      {items.map((status) => (
-        <OrderStatusLink
-          key={status.label}
-          label={status.label}
-          count={status.count}
-          href={status.to ?? to}
-          compact={compact}
-        />
-      ))}
-    </Grid>
-  );
-
-  if (compact) return <section aria-label="주문 배송 현황">{content}</section>;
+/** 주문 단계별 수량을 PC·모바일 반응형 현황 바로 표시합니다. (Displays order stage counts in a responsive status bar.) */
+export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
   return (
-    <ContentSection
-      as="section"
-      aria-label="주문 배송 현황"
-      gap="3"
-      title="주문 / 배송 조회"
-      headerProps={{
-        orientation: 'horizontal',
-        gap: 'normal',
-        titleProps: { variant: 'heading10', className: css({ m: '0' }) },
-        action: (
-          <Link href={to} className={css({ '&&': { color: 'var(--color-text-tertiary)' } })}>
-            <Typography variant="body5" tone="tertiary">
-              전체 보기 →
+    <section aria-label="주문 배송 현황">
+      <Grid
+        gap="0"
+        gridTemplateColumns="repeat(5, minmax(0, 1fr))"
+        minH={{ base: '159px', _mobile: '94px' }}
+        px={{ base: '57px', _mobile: '0' }}
+        border={{ base: '1px solid var(--color-black-100)', _mobile: '0' }}
+        bg={{ base: 'white.0', _mobile: 'black.10' }}
+      >
+        {items.map((status) => (
+          <Link key={status.label} className={statusLink} href={status.to ?? to}>
+            <Typography
+              as="strong"
+              variant="heading6"
+              tone={status.count === 0 ? 'black40' : 'primary'}
+            >
+              {status.count}
+            </Typography>
+            <Typography web="body3" mo="body5" tone={status.count === 0 ? 'black40' : 'primary'}>
+              {status.label}
             </Typography>
           </Link>
-        ),
-      }}
-    >
-      {content}
-    </ContentSection>
+        ))}
+      </Grid>
+    </section>
   );
 }
 
@@ -227,23 +166,14 @@ export function OrdersFilters({
     <HStack
       alignItems="center"
       justifyContent="space-between"
-      gap="6"
-      _mobile={{ flexDirection: 'column', alignItems: 'stretch', gap: '6' }}
+      gap="16px"
+      _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
     >
       <FilterTabs
         ariaLabel="조회 기간"
         variant="fill"
-        railClassName={css({ '&&': { px: '0', mb: '0', _mobile: { px: '0', mb: '0' } } })}
         value={filters.period}
         onValueChange={onPeriodChange}
-        itemClassName={() =>
-          css({
-            '&&': {
-              px: '2',
-              h: returns ? '37px' : { base: '34px', _mobile: '28px' },
-            },
-          })
-        }
         options={platform === 'mobile' ? periodOptions : [...periodOptions].reverse()}
       />
       <OrdersDateRange

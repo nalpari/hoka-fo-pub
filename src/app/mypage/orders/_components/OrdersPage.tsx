@@ -23,11 +23,11 @@ export type OrdersPageProps = {
 };
 
 const previewOrderStatusItems = [
-  { label: '전체', count: 4 },
-  { label: '결제완료', count: 1 },
-  { label: '상품준비중', count: 1 },
+  { label: '전체', count: 3 },
+  { label: '결제완료', count: 2 },
+  { label: '상품준비중', count: 0 },
   { label: '배송준비\n/ 배송중', count: 0 },
-  { label: '배송완료\n구매확정', count: 2 },
+  { label: '배송완료\n/ 구매확정', count: 1 },
 ];
 
 /** [ 개발팀 바인딩 ] 현재 화면은 주문 표시 fixture와 로컬 UI 탐색으로 구성합니다. 실제 주문 조회·신청 데이터와 요청 처리는 주문 기능 소유자가 이 화면의 표시 데이터·식별자·입력 payload를 연결하고 응답 후 목록을 갱신해야 합니다. */
