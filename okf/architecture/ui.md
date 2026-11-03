@@ -4062,4 +4062,4 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 ## 런칭 캘린더 시안 적용 (2026-11-03)
 
-[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club의 1열·정사각 이미지·44px 분할 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.
+[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club 시안 2921:5026의 1열·정사각 이미지·32px 둥근 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.

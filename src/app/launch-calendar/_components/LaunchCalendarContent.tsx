@@ -200,7 +200,7 @@ export function LaunchCalendarContent({
           as="header"
           gap="40px"
           alignItems="center"
-          _mobile={{ gap: '24px', alignItems: 'stretch', px: '16px', pb: '24px' }}
+          _mobile={{ gap: '24px', alignItems: 'stretch', px: '16px', pb: '0' }}
         >
           <ContentHeader
             title="Launch Calendar"
@@ -212,7 +212,7 @@ export function LaunchCalendarContent({
                 '&&': {
                   fontSize: '44px',
                   lineHeight: '30.72px',
-                  _mobile: { fontSize: '36px', lineHeight: '1.1' },
+                  _mobile: { fontSize: '28px', lineHeight: '30.72px' },
                 },
               }),
             }}
@@ -221,7 +221,7 @@ export function LaunchCalendarContent({
             as="nav"
             aria-label="런칭 캘린더 목록"
             gap="16px"
-            _mobile={{ gap: '0', w: '100%', bg: 'var(--color-black-20)' }}
+            _mobile={{ gap: '6px', w: '100%', py: '16px' }}
           >
             {launchCalendarTabs.map((tab) => (
               <ButtonLink
@@ -233,29 +233,17 @@ export function LaunchCalendarContent({
                 style={
                   platform === 'mobile'
                     ? ({
-                        '--button-radius': '0px',
-                        '--button-height': '44px',
-                        '--button-border-width': '0px',
-                        '--button-bg':
-                          mode === tab.mode ? 'var(--color-black-100)' : 'var(--color-black-20)',
-                        '--button-label-size': '12px',
+                        '--button-height': '32px',
+                        '--button-padding-x': '16px',
+                        '--button-label-size': '14px',
+                        '--button-label-weight': '500',
                       } as CSSProperties)
                     : undefined
                 }
                 className={css({
                   w: '120px',
                   '& > span': { w: '100%' },
-                  _mobile: {
-                    flex: 1,
-                    w: 'auto',
-                    '--button-label-size': '14px',
-                    '--button-padding-x': '8px',
-                    '--button-radius': '0px',
-                    '--button-height': '44px',
-                    '--button-border-width': '0px',
-                    '--button-bg':
-                      mode === tab.mode ? 'var(--color-black-100)' : 'var(--color-black-20)',
-                  },
+                  _mobile: { w: 'auto', minW: '0' },
                 })}
               >
                 {tab.label}

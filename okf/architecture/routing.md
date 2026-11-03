@@ -914,3 +914,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 런칭 캘린더 시안과 직접 화면 URL (2026-11-03)
 
 [런칭 캘린더](launch-calendar.md)는 `/launch-calendar` Feed, `/launch-calendar/upcoming`, `/launch-calendar/in-stock`, `/launch-calendar/clifton-11-gtx` 상세를 추가한다. IA159~162의 기존 행과 번호에 route·WEB/Mobile Storybook을 연결하고 IA159에 상세 previewRoutes를 추가했다. 과거 목업 제거 기록의 `/launch-calendar` 미구현 설명은 이번 정식 시안 적용으로 대체된다. 삭제된 키즈 IA163~165는 유지한다. 기본/직접 진입·새로고침으로 표시 fixture가 열리며 로그인·저장·실제 신청 요청에 의존하지 않는다. PC 수급과 사용자 지정 RUN Club 방식 MO 대응은 별도 상태로 기록한다.
+
+## 런칭 캘린더 모바일 탭 정정 (2026-11-03)
+
+런칭 목록의 기존 세 URL과 IA 연결을 유지하고 모바일 header만 RUN Club 시안 `2921:5026`의 둥근32px 탭·28px 제목으로 수정했다. 사각44px 탭의 최초 설명은 [정정 규격](launch-calendar.md#모바일-탭-시안-정정-2026-11-03)으로 대체한다. 출처: `src/app/launch-calendar/_components/LaunchCalendarContent.tsx`.
