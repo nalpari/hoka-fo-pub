@@ -11,9 +11,9 @@ import { myPageNavigation } from '@/components/mypage/mypage.data';
 
 type MyPageFrameLayout = 'sidebar' | 'centered';
 
-type Props = { breadcrumbs: BreadcrumbItem[]; layout: MyPageFrameLayout };
+type Props = { breadcrumbs: BreadcrumbItem[]; layout: MyPageFrameLayout; hideMobile?: boolean };
 
-function MyPageBreadcrumbs({ breadcrumbs, layout }: Props) {
+function MyPageBreadcrumbs({ breadcrumbs, layout, hideMobile = false }: Props) {
   const content = (
     <Breadcrumb
       items={[
@@ -29,6 +29,7 @@ function MyPageBreadcrumbs({ breadcrumbs, layout }: Props) {
       pt="6"
       h="14"
       _mobile={{
+        display: hideMobile ? 'none' : undefined,
         h: 'auto',
         pb: layout === 'centered' ? '2' : '8',
         overflowX: 'auto',
@@ -46,6 +47,7 @@ type MyPageFrameProps = {
   activePath: string;
   breadcrumbs?: BreadcrumbItem[];
   layout?: MyPageFrameLayout;
+  hideMobileBreadcrumbs?: boolean;
   children: ReactNode;
 };
 
@@ -54,6 +56,7 @@ export function MyPageFrame({
   activePath,
   breadcrumbs = [],
   layout = 'sidebar',
+  hideMobileBreadcrumbs = false,
   children,
 }: MyPageFrameProps) {
   return (
@@ -64,7 +67,11 @@ export function MyPageFrame({
       pb="24"
       _mobile={{ w: '100%', px: '4', pb: '16' }}
     >
-      <MyPageBreadcrumbs breadcrumbs={breadcrumbs} layout={layout} />
+      <MyPageBreadcrumbs
+        breadcrumbs={breadcrumbs}
+        layout={layout}
+        hideMobile={hideMobileBreadcrumbs}
+      />
       <Grid
         w="1200px"
         maxW="100%"

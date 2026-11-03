@@ -4,12 +4,18 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-03T02:15:46Z'
+updated: '2026-11-03T06:11:12Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-03T02:15:46Z'
+  at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderClaimRequest.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
+  - src/app/mypage/orders/_components/OrdersContent.tsx
+  - src/components/mypage/MyPageFrame.tsx
+  - src/components/orders/orders.data.ts
+  - src/components/orders/orders.types.ts
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
   - src/components/common/molecules/OrderProductSummary.tsx
@@ -873,6 +879,24 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: figma-claim-2182-71235
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
+    title: '모바일 취소 상세'
+  - id: figma-claim-2182-71570
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71570
+    title: 'PC 취소 상세'
+  - id: figma-claim-2203-74539
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-74539
+    title: '모바일 반품 상세'
+  - id: figma-claim-2203-75405
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-75405
+    title: 'PC 반품 상세'
+  - id: figma-order-detail-mobile-20261103
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2158-12142
+    title: '모바일 주문 상세 시안'
+  - id: figma-order-detail-desktop-20261103
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-92526
+    title: 'PC 주문 상세 시안'
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
@@ -4066,3 +4090,64 @@ Figma [모바일 주문/배송조회 2059:162544](https://www.figma.com/design/q
 PC `2121:9281` 재대조에서 목록 상단의 상품/옵션정보·수량·가격 3열 헤더, 536:108:200 열 비율, 첫 상태 행 안의 주문일자·주문번호, 상품 이미지 96px와 본문 16px, 그룹 상하 32px 간격을 반영했다. PC 상품 옵션에는 수량을 중복 기재하지 않고 별도 수량 열에 표시한다. 모바일은 기존 헤더·상품 옵션 구성을 유지한다. 로컬 PC 1280px과 모바일 390px 화면을 Ego 브라우저에서 확인했고 모바일 가로 넘침은 없었다. Figma와 fixture 금액은 서로 달라 표시 데이터 값은 변경하지 않았다.
 
 상품별 `장바구니 담기`는 공통 `Button`의 `plain` 변형을 사용하며 PC는 `md`(14px), 모바일은 `sm`(12px) 크기다.
+
+### 주문 상세 PC·모바일 시안 재구성 (2026-11-03)
+
+`/mypage/orders/preview-detail`은 [모바일 주문 상세 시안][^figma-order-detail-mobile-20261103]과 [PC 주문 상세 시안][^figma-order-detail-desktop-20261103]을 표시한다. 모바일은 주문 식별자, 본 주문 상품, 구매취소·반품요청, 받는사람 정보, 결제 정보, 취소·반품·교환 내역을 세로로 배치한다. PC는 상품/옵션정보·수량·가격의 3열과 환불금액·처리상태의 3열 내역을 사용한다. 예시 날짜·주문번호·금액은 `OrderRecord.detailPreview`의 플랫폼별 고정 표시값이다. 실제 주문 데이터와 서비스 요청은 연결하지 않는다. `OrderHistoryProduct.showQuantity`로 금액 없이 옵션 수량을 표시할 수 있으며 기존 기본 호출은 유지한다. 주문 상세에서만 모바일 breadcrumb를 숨기며 URL 구조는 유지한다.
+
+로컬 3000 포트의 직접 URL에서 PC와 모바일 텍스트 및 기본 배치를 확인했다. 전역 홍보 배너와 footer는 주문상세 전용 시안 범위 밖의 기존 공용 영역이다. 전체 타입 검사는 기존 `.next/types`의 제거된 route 참조 오류가 남아 있으나 변경 파일 오류는 출력되지 않았다.
+
+장바구니 아이콘은 PC 18px·모바일 14px로, 주문 상태 색상은 시안의 `#009dff`로 표시한다. 상품 상태와 본문 사이는 모바일 12px, 취소·반품 라벨과 상품 사이는 8px이다.
+
+[^figma-order-detail-mobile-20261103]: `sources`의 `figma-order-detail-mobile-20261103`.
+
+[^figma-order-detail-desktop-20261103]: `sources`의 `figma-order-detail-desktop-20261103`.
+
+### 취소·반품 상세 변경 시안 (2026-11-03)
+
+Figma `2182:71235`, `2182:71570`, `2203:74539`, `2203:75405`의 본문을 대조했다. PC는 상품/옵션정보·수량·가격·진행상태 4열이고, 모바일 완료 상태는 96px 상품 이미지 높이 안의 오른쪽 아래 일반 텍스트다. 취소 상세에는 환불완료일이 없다. PC 취소사유는 별도 2행(단순변심과 긴 본문), PC 반품은 환불사유 제목 아래 취소사유/단순변심 1행, 모바일은 취소 사유 제목 아래 짧은 설명이다. 반품 회수 정보는 `claim.collection`, 환불수단은 `claim.refundMethod`에서 읽는다. 시안별 날짜·금액·상태는 `claim.previewDisplay`로 명시하며 실제 환불 계산·요청은 수행하지 않는다.
+
+PC 환불안내는 375px 오른쪽 합계 패널과 왼쪽 상품금액·배송비·반품비, 모바일은 세로 금액 목록과 무료반품 쿠폰 문구를 표시한다. 시안의 PC 반품 상태는 ‘취소완료’, 모바일은 ‘환불완료’로 서로 다르며 표시 fixture는 이 원문을 보존한다. ‘결제예정금액’도 PC 시안 원문이다. 모바일 제목 위 24px, 섹션 간 24px, 목록 버튼 아래 64px를 적용했다. 공용 홍보 배너·footer는 변경하지 않았다.
+
+Ego 브라우저에서 취소·반품 각각 1920px PC와 375px 모바일의 실제 스크린샷·본문을 대조했다. 375/1024px 가로 넘침이 없고 1025/1199px은 기존 1200px PC 캔버스, 1200px에서는 추가 넘침이 없음을 확인했다. Panda 생성·Prettier·diff·OKF 검사를 통과했다. 전체 TypeScript는 기존 `.next/types`의 삭제된 route 참조 오류로 실패했으며 `src/` 오류는 출력되지 않았다. ESLint는 설치 환경의 `eslint-plugin-perfectionist` 누락으로 실행되지 않는다. 출처: 위 sources의 figma-claim 노드, `OrderDetails.tsx`, `OrdersContent.tsx`, `OrdersProducts.tsx`, `orders.data.ts`, `orders.types.ts` 작업 트리.
+
+### 취소·반품 상세 주문 식별 헤더 타이포 (2026-11-03)
+
+첨부 이미지와 기존 Figma `2189:74486`, `2182:71242`에 맞춰 PC는 Pretendard 16px/500, 라벨 #4d4d4d·값 #000, 라벨/값 간격 8px와 양끝 정렬로 표시한다. 모바일은 14px, 주문일·주문 #000/500, 주문번호 라벨·값 #777/400이며 숫자는 HOKA 폰트다. 모바일 항목 내부 간격 4px와 가운데 8px 구분점을 사용한다. 출처: 사용자 첨부 이미지, 기존 Figma 문맥, `OrderDetails.tsx` 작업 트리.
+
+### 배송조회 PC 팝업 크기 (2026-11-03)
+
+Figma `2121:63862`의 팝업 `2121:64323` 기준으로 `OrderTrackingDialog` PC 창을 420px에서 568px(`ModalDialog.size=md`)로 수정하고 높이 804px, 헤더 56px를 지정했다. 기존 최대 높이 `100dvh - 48px`와 본문 스크롤, 모바일 Drawer는 유지한다. `/mypage/orders/preview-tracking` URL과 닫기 동작 소유권은 그대로다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-63862 및 `src/app/mypage/orders/_components/OrderTrackingDialog.tsx` 작업 트리. 이번 범위는 창 크기이며 내부 텍스트·표 스타일은 별도다.
+
+### 주문 취소 신청 진입 연결 (2026-11-03)
+
+주문 목록의 결제완료 그룹 `주문 취소` 버튼은 `OrderCardActions.onCancel(order)`를 통해 `OrdersPage`가 소유한 `cancelId`를 설정한다. 선택한 주문을 `OrderCancelRequest`에 전달하며 닫으면 원래 목록을 유지한다. `/mypage/orders/preview-cancel-request`는 기존 클레임 상세가 아닌 동일 신청 팝업을 바로 연다. 반품 신청 경로와 상세 화면은 이번 변경 범위 밖이다. screen-index IA 178의 기존 신청 링크를 유지하고 source graph를 재생성했다.
+
+Figma PC `2203:77591`, 모바일 `2203:76651`을 기준으로 568px PC 모달·모바일 하단 팝업에 상품 체크, 수량, 사유, 상세내용, 고정 금액을 배치했다. 입력은 로컬 초안이며 실제 취소 요청·금액 계산·완료 이동은 미연결이다. 데이터는 전달된 `order.items`를 사용한다. 출처: `OrdersPage.tsx`, `OrdersProducts.tsx`, `OrderClaimRequest.tsx`, `orders/[preview]/page.tsx` 작업 트리 및 사용자 Figma 섹션 `2203:76650`.
+
+주문 취소 신청의 사유 선택은 공통 `Dropdown`을 사용한다. `label="사유"`, `required`, `value={reason}`, `onValueChange={setReason}`으로 제목·필수 표시·선택 상태를 연결하고 중복 FormField와 native Select를 제거했다. 신청 진입 URL은 유지한다. 출처: `OrderClaimRequest.tsx`, `common/atoms/Dropdown.tsx` (2026-11-03).
+
+공통 Dropdown의 `layer="modal"`은 포털 z-index를 120으로 지정해 ModalDialog(100) 위에서 옵션을 클릭할 수 있게 한다. 기본 layer는 기존 10을 유지한다. 취소 사유에만 modal 옵션을 적용했다.
+
+Dropdown 기본 화살표는 인라인 SVG 대신 공통 Icon의 `src="/images/icon/form/sort-down.svg"`와 mask 모드를 사용한다. indicator 커스텀 슬롯·너비/높이·기본 색상·disabled 색상 계약을 유지한다(2026-11-03). 출처: `src/components/common/atoms/Dropdown.tsx`, `public/images/icon/form/sort-down.svg`.
+
+Dropdown의 기본 `indicatorSize`는 18px이다. `indicatorWidth`·`indicatorHeight`는 기본적으로 이 값을 따르며, 호출부가 명시한 개별 크기와 커스텀 indicator는 유지한다(2026-11-03). 출처: `src/components/common/atoms/Dropdown.tsx`.
+
+### 환불 신청 연결 (2026-11-03)
+
+OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
+
+환불(반품) 신청 요약에서 반품비 값인 ‘사유 선택 후 확인’만 subtle로 표시한다. 상품금액과 취소 신청의 금액은 primary를 유지한다. 출처: OrderClaimRequest.tsx (2026-11-03).
+
+신청 요약의 취소·환불예정금액은 숫자를 EN heading7, 원 단위를 body3/medium으로 분리하고 2px 간격·baseline 정렬로 표시한다. 출처: OrderClaimRequest.tsx (2026-11-03).
+
+
+## 취소·반품 목록 시안 정렬 (2026-11-03)
+
+Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
+
+기간 필터의 PC 순서는 1년/6개월/3개월/1개월/직접설정, 모바일은 역순 기간 뒤 직접설정이며 기본 날짜는 2026.01.01~2026.08.30이다. 일반 주문 목록의 필터 기본값은 유지한다. `/mypage/returns`와 `/mypage/returns/preview-empty` 주소 및 기존 두 건의 주문 fixture, 상세 선택 연결을 유지한다. 출처: OrdersList.tsx, OrdersStatus.tsx, OrdersContent.tsx, OrdersPage.tsx 작업 트리.
+
+검증: 로컬 1920px/375px 렌더링, 모바일 가로 넘침 없음·96px 이미지·14px #777 상태, 반품 상세 진입과 빈 목록 문구를 확인했다. Panda 생성 성공. 전체 tsc는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했고 소스 오류는 없었다. ESLint는 설치된 eslint-plugin-perfectionist를 찾지 못해 실행 실패했다.
+
+공통 표시 보정도 함께 반영한다: DescriptionList 설명의 기본 tone을 primary로, StepIndicator 모바일 단계 라벨의 tone을 primary로 명시했다. 출처: src/components/common/atoms/DescriptionList.tsx, src/components/common/molecules/StepIndicator.tsx 작업 트리.

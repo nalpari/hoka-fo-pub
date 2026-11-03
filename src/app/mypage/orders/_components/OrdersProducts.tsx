@@ -61,16 +61,20 @@ export function OrderCardHeader({
 type OrderHistoryProductProps = {
   line: OrderLine;
   showAmount?: boolean;
+  showQuantity?: boolean;
   imageSize?: 'standard' | 'claim';
   cartAction?: boolean;
+  statusText?: string;
 };
 
 /** 주문 내역 상품 요약을 표시합니다. (Displays an order history product summary.) */
 export function OrderHistoryProduct({
   line,
   showAmount = true,
+  showQuantity = showAmount,
   imageSize = 'standard',
   cartAction = false,
+  statusText,
 }: OrderHistoryProductProps) {
   const platform = usePlatform();
 
@@ -95,12 +99,22 @@ export function OrderHistoryProduct({
           line.color +
           ' / ' +
           line.size +
-          (showAmount ? ' / ' + line.quantity + '개' : '')
+          (showQuantity ? ' / ' + line.quantity + '개' : '')
         }
         amount={line.displayAmount ?? 0}
         hideAmount={!showAmount || line.displayAmount === undefined}
         optionTone="subtle"
       >
+        {statusText ? (
+          <Typography
+            variant="body4"
+            weight="medium"
+            tone="tertiary"
+            className={css({ mt: 'auto', textAlign: 'right' })}
+          >
+            {statusText}
+          </Typography>
+        ) : null}
         {cartAction ? (
           <Box>
             <Button
@@ -110,7 +124,10 @@ export function OrderHistoryProduct({
               className={css({ alignSelf: 'flex-start' })}
             >
               <HStack gap="4px">
-                <Icon src="/images/icon/orders/bag-shopping.svg" size="14px" />
+                <Icon
+                  src="/images/icon/orders/bag-shopping.svg"
+                  size={platform === 'mobile' ? '14px' : '18px'}
+                />
                 장바구니 담기
               </HStack>
             </Button>
@@ -186,6 +203,8 @@ export function OrderClaimGroup({
 }
 
 export type OrderCardActions = {
+  onReturn?: (order: OrderRecord) => void;
+  onCancel?: (order: OrderRecord) => void;
   onDetail: (order: OrderRecord) => void;
   onTracking: (order: OrderRecord) => void;
   onClaimDetail: (order: OrderRecord, claim: OrderClaim) => void;
@@ -336,6 +355,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 size="short"
                 fullWidth={platform === 'mobile'}
                 type="button"
+                onClick={() => actions.onCancel?.(order)}
               >
                 주문 취소
               </Button>
@@ -347,6 +367,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   size="short"
                   fullWidth={platform === 'mobile'}
                   type="button"
+                  onClick={() => actions.onReturn?.(order)}
                 >
                   환불 신청
                 </Button>

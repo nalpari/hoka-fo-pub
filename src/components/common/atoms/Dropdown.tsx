@@ -1,7 +1,7 @@
 'use client';
 
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { type CSSProperties, type ReactNode, useId, useState } from 'react';
+import { type ReactNode, useId, useState } from 'react';
 
 import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
@@ -95,6 +95,7 @@ const styles = {
 export type DropdownOption = { value: string; label: ReactNode; prefix?: ReactNode };
 
 export type DropdownProps = {
+  layer?: 'default' | 'modal';
   ariaLabel: string;
   label?: ReactNode;
   required?: boolean;
@@ -117,7 +118,9 @@ export type DropdownProps = {
   value?: string;
 };
 
+/** 선택값과 옵션 목록을 표시하며 모달 내부에서는 전용 포털 높이를 사용합니다. (Displays a select control with optional modal portal layering.) */
 export function Dropdown({
+  layer = 'default',
   ariaLabel,
   label,
   required: requiredProp,
@@ -131,7 +134,7 @@ export function Dropdown({
   defaultValue,
   className,
   indicator,
-  indicatorSize = '12px',
+  indicatorSize = '18px',
   indicatorWidth = indicatorSize,
   indicatorHeight = indicatorSize,
   indicatorColor = 'currentColor',
@@ -228,31 +231,22 @@ export function Dropdown({
             </Flex>
             <BaseSelect.Icon>
               {indicator ?? (
-                <svg
-                  aria-hidden="true"
+                <Icon
+                  src="/images/icon/form/sort-down.svg"
+                  mask
                   className={styles.indicator}
-                  fill="none"
-                  viewBox="0 0 12 18"
-                  style={
-                    {
-                      width: indicatorWidth,
-                      height: indicatorHeight,
-                      color: disabled ? 'var(--color-black-40)' : indicatorColor,
-                    } as CSSProperties
-                  }
-                >
-                  <path
-                    d="M6.79434 12.5441C6.35488 12.9836 5.64121 12.9836 5.20176 12.5441L0.701758 8.04414C0.37832 7.7207 0.283398 7.23906 0.45918 6.81719C0.634961 6.39531 1.04277 6.12109 1.4998 6.12109H10.4998C10.9533 6.12109 11.3646 6.39531 11.5404 6.81719C11.7162 7.23906 11.6178 7.7207 11.2979 8.04414L6.79785 12.5441H6.79434Z"
-                    fill="currentColor"
-                  />
-                </svg>
+                  color={disabled ? 'var(--color-black-40)' : indicatorColor}
+                  style={{ width: indicatorWidth, height: indicatorHeight }}
+                />
               )}
             </BaseSelect.Icon>
           </Flex>
         </BaseSelect.Trigger>
         <BaseSelect.Portal>
           <BaseSelect.Positioner
-            className={styles.positioner}
+            className={[styles.positioner, layer === 'modal' ? css({ zIndex: '120!' }) : '']
+              .filter(Boolean)
+              .join(' ')}
             sideOffset={0}
             alignItemWithTrigger={false}
           >

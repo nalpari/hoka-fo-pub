@@ -11,6 +11,7 @@ import type {
 } from '@/components/orders/orders.types';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { OrderClaimRequest } from './OrderClaimRequest';
 import { OrderTrackingDialog } from './OrderTrackingDialog';
 import { OrdersContent } from './OrdersContent';
 
@@ -42,11 +43,15 @@ export function OrdersPage({
   const orders =
     initialOrders ??
     (returns ? previewOrders.filter((order) => order.claims.length) : previewOrders);
-  const [view, setView] = useState<OrdersView>(initialClaimKind ? 'claim' : initialView);
+  const [view, setView] = useState<OrdersView>(initialView);
   const [selectedId, setSelectedId] = useState(orders[0]?.id);
   const [claimId, setClaimId] = useState(
     orders[0]?.claims.find((claim) => !initialClaimKind || claim.kind === initialClaimKind)?.id,
   );
+  const [request, setRequest] = useState<{ orderId: string; kind: 'cancel' | 'return' } | null>(
+    initialClaimKind && orders[0] ? { orderId: orders[0].id, kind: initialClaimKind } : null,
+  );
+  const requestOrder = orders.find((order) => order.id === request?.orderId);
   const [trackingId, setTrackingId] = useState<string | null>(
     initialOverlay === 'tracking' ? (orders[0]?.id ?? null) : null,
   );
@@ -54,12 +59,15 @@ export function OrdersPage({
     initialOverlay === 'purchase' || initialOverlay === 'delete',
   );
   const [filters, setFilters] = useState<OrderFilters>({
-    period: '1',
-    start: '2026-09-23',
-    end: '2026-10-23',
+    period: returns ? 'custom' : '1',
+    start: returns ? '2026-01-01' : '2026-09-23',
+    end: returns ? '2026-08-30' : '2026-10-23',
     query: '',
   });
-  const [dates, setDates] = useState({ start: '2026-09-23', end: '2026-10-23' });
+  const [dates, setDates] = useState({
+    start: returns ? '2026-01-01' : '2026-09-23',
+    end: returns ? '2026-08-30' : '2026-10-23',
+  });
   const selectedOrder = orders.find((order) => order.id === (selectedId ?? orders[0]?.id));
   const selectedClaim = selectedOrder?.claims.find(
     (claim) => claim.id === claimId && (!initialClaimKind || claim.kind === initialClaimKind),
@@ -99,9 +107,19 @@ export function OrdersPage({
       onDetail={showDetail}
       onClaimDetail={showClaim}
       onList={showList}
+      onCancel={(order) => setRequest({ orderId: order.id, kind: 'cancel' })}
+      onReturn={(order) => setRequest({ orderId: order.id, kind: 'return' })}
       onTracking={(order) => setTrackingId(order.id)}
       dialogs={
         <>
+          {requestOrder && request ? (
+            <OrderClaimRequest
+              key={`${requestOrder.id}-${request.kind}`}
+              order={requestOrder}
+              kind={request.kind}
+              onClose={() => setRequest(null)}
+            />
+          ) : null}
           {trackingOrder ? (
             <OrderTrackingDialog order={trackingOrder} onClose={() => setTrackingId(null)} />
           ) : null}

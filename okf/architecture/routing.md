@@ -4,12 +4,16 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T02:15:46Z'
+updated: '2026-11-03T06:11:12Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-03T02:15:46Z'
+  at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderClaimRequest.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
+  - src/app/mypage/orders/_components/OrdersContent.tsx
+  - src/components/mypage/MyPageFrame.tsx
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
   - src/app/mypage/orders/_components/OrdersStatus.tsx
@@ -893,3 +897,42 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 ## 주문 route 전용 화면 모듈 (2026-11-03)
 
 `/mypage/orders`와 `/mypage/returns` 진입점, 주문 preview 및 주문 Storybook은 `src/app/mypage/orders/_components/OrdersPage.tsx`를 직접 사용한다. 페이지 전용 화면 컴포넌트는 같은 `_components` 아래 역할별로 나누고 기존 URL과 `src/components/orders`의 데이터·정책 모듈은 유지한다.
+
+### 주문 상세 모바일 breadcrumb 표시 (2026-11-03)
+
+`/mypage/orders/preview-detail`과 목록에서 상세로 들어온 화면은 기존 URL·`OrdersPage` 상태 소유권을 사용한다. `OrdersContent`가 상세 보기일 때 `MyPageFrame.hideMobileBreadcrumbs`를 설정해 모바일에서만 경로 표시를 숨긴다. PC breadcrumb와 다른 마이페이지 화면의 경로 표시에는 영향이 없다. 출처: `src/app/mypage/orders/_components/OrdersContent.tsx`, `src/components/mypage/MyPageFrame.tsx` 작업 트리.
+
+취소·반품 상세는 기존 `/mypage/orders/preview-cancel-detail`, `/mypage/orders/preview-return-detail` URL과 `OrdersPage` 상태 소유권을 유지한다. `OrdersContent`는 claim 보기에도 모바일 breadcrumb를 숨기고 제목 위 24px 여백을 제공한다. 두 고정 URL의 PC·모바일 렌더링과 1024/1025/1199/1200px 전환을 확인했다. 출처: `OrderDetails.tsx`, `OrdersContent.tsx` 작업 트리와 Ego 브라우저 검증.
+
+취소·반품 상세 주문일자/주문번호의 플랫폼별 타이포 수정은 `OrderClaimDetail` 내부 표시 변경이며 기존 preview URL과 상태 소유권은 유지한다(2026-11-03).
+
+### 배송조회 PC 팝업 크기 (2026-11-03)
+
+Figma `2121:63862`의 팝업 `2121:64323` 기준으로 `OrderTrackingDialog` PC 창을 420px에서 568px(`ModalDialog.size=md`)로 수정하고 높이 804px, 헤더 56px를 지정했다. 기존 최대 높이 `100dvh - 48px`와 본문 스크롤, 모바일 Drawer는 유지한다. `/mypage/orders/preview-tracking` URL과 닫기 동작 소유권은 그대로다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-63862 및 `src/app/mypage/orders/_components/OrderTrackingDialog.tsx` 작업 트리. 이번 범위는 창 크기이며 내부 텍스트·표 스타일은 별도다.
+
+### 주문 취소 신청 진입 연결 (2026-11-03)
+
+주문 목록의 결제완료 그룹 `주문 취소` 버튼은 `OrderCardActions.onCancel(order)`를 통해 `OrdersPage`가 소유한 `cancelId`를 설정한다. 선택한 주문을 `OrderCancelRequest`에 전달하며 닫으면 원래 목록을 유지한다. `/mypage/orders/preview-cancel-request`는 기존 클레임 상세가 아닌 동일 신청 팝업을 바로 연다. 반품 신청 경로와 상세 화면은 이번 변경 범위 밖이다. screen-index IA 178의 기존 신청 링크를 유지하고 source graph를 재생성했다.
+
+Figma PC `2203:77591`, 모바일 `2203:76651`을 기준으로 568px PC 모달·모바일 하단 팝업에 상품 체크, 수량, 사유, 상세내용, 고정 금액을 배치했다. 입력은 로컬 초안이며 실제 취소 요청·금액 계산·완료 이동은 미연결이다. 데이터는 전달된 `order.items`를 사용한다. 출처: `OrdersPage.tsx`, `OrdersProducts.tsx`, `OrderClaimRequest.tsx`, `orders/[preview]/page.tsx` 작업 트리 및 사용자 Figma 섹션 `2203:76650`.
+
+주문 취소 신청의 사유 선택은 공통 `Dropdown`을 사용한다. `label="사유"`, `required`, `value={reason}`, `onValueChange={setReason}`으로 제목·필수 표시·선택 상태를 연결하고 중복 FormField와 native Select를 제거했다. 신청 진입 URL은 유지한다. 출처: `OrderClaimRequest.tsx`, `common/atoms/Dropdown.tsx` (2026-11-03).
+
+공통 Dropdown의 `layer="modal"`은 포털 z-index를 120으로 지정해 ModalDialog(100) 위에서 옵션을 클릭할 수 있게 한다. 기본 layer는 기존 10을 유지한다. 취소 사유에만 modal 옵션을 적용했다.
+
+### 환불 신청 연결 (2026-11-03)
+
+OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
+
+반품 신청의 반품비 값 색상 조건 수정은 OrderClaimRequest의 표시 변경이며 기존 신청 URL과 진입 동작은 유지한다(2026-11-03).
+
+신청 예정금액의 숫자/원 단위 타이포 분리는 표시 변경이며 기존 취소·반품 신청 URL은 유지한다(2026-11-03).
+
+
+## 취소·반품 목록 시안 정렬 (2026-11-03)
+
+Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
+
+기간 필터의 PC 순서는 1년/6개월/3개월/1개월/직접설정, 모바일은 역순 기간 뒤 직접설정이며 기본 날짜는 2026.01.01~2026.08.30이다. 일반 주문 목록의 필터 기본값은 유지한다. `/mypage/returns`와 `/mypage/returns/preview-empty` 주소 및 기존 두 건의 주문 fixture, 상세 선택 연결을 유지한다. 출처: OrdersList.tsx, OrdersStatus.tsx, OrdersContent.tsx, OrdersPage.tsx 작업 트리.
+
+검증: 로컬 1920px/375px 렌더링, 모바일 가로 넘침 없음·96px 이미지·14px #777 상태, 반품 상세 진입과 빈 목록 문구를 확인했다. Panda 생성 성공. 전체 tsc는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했고 소스 오류는 없었다. ESLint는 설치된 eslint-plugin-perfectionist를 찾지 못해 실행 실패했다.

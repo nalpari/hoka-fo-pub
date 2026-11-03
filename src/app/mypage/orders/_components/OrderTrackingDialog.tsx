@@ -114,7 +114,7 @@ export function OrderTrackingDialog({
       <ContentHeader
         title={`${order.expectedDate} 도착예정`}
         titleAs="h2"
-        titleProps={{ variant: 'heading6' }}
+        titleProps={{ web: 'heading7', mo: 'heading5' }}
         textAlign="center"
       />
       <StepIndicator
@@ -151,7 +151,9 @@ export function OrderTrackingDialog({
         }}
         title="배송조회"
         closeLabel="배송조회 닫기"
-        size="sm"
+        size="md"
+        popupClassName={css({ h: '804px' })}
+        headerProps={{ css: { h: '56px', flexShrink: '0' } }}
         actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
       >
         {content}

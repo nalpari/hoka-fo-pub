@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -115,14 +115,37 @@ function OrdersDateRange({
   error,
   onDateChange,
   onDateSearch,
-}: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch'>) {
+  returns = false,
+}: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch' | 'returns'>) {
   return (
     <Stack gap="2">
       <HStack alignItems="center" justify="space-between" gap="24px">
-        <HStack alignItems="center">
+        <HStack alignItems="center" gap={returns ? '6px' : undefined}>
           <Box pos="relative" flexShrink="0">
             <TextInput
-              className={dateInput}
+              className={cx(
+                dateInput,
+                returns &&
+                  css({
+                    '&&': {
+                      w: '128px',
+                      h: '36px',
+                      minH: '36px',
+                      px: '16px',
+                      backgroundPosition: 'right 16px center',
+                      backgroundSize: '18px 18px',
+                      borderColor: 'var(--color-border-tertiary)',
+                    },
+                    _mobile: {
+                      '&&': {
+                        h: '36px',
+                        minH: '36px',
+                        px: '16px',
+                        backgroundPosition: 'right 16px center',
+                      },
+                    },
+                  }),
+              )}
               type="date"
               aria-label="조회 시작일"
               value={dates.start}
@@ -133,15 +156,40 @@ function OrdersDateRange({
               variant="body4"
               weight="medium"
               aria-hidden="true"
-              className={dateLabel}
+              className={cx(dateLabel, returns && css({ left: '16px', _mobile: { left: '16px' } }))}
+              language={returns ? 'en' : undefined}
             >
-              {dates.start.replaceAll('-', '. ')}
+              {dates.start.replaceAll('-', returns ? '.' : '. ')}
             </Typography>
           </Box>
-          <Typography variant="body4">–</Typography>
+          <Typography variant="body4" tone={returns ? 'subtle' : undefined}>
+            –
+          </Typography>
           <Box pos="relative" flexShrink="0">
             <TextInput
-              className={dateInput}
+              className={cx(
+                dateInput,
+                returns &&
+                  css({
+                    '&&': {
+                      w: '128px',
+                      h: '36px',
+                      minH: '36px',
+                      px: '16px',
+                      backgroundPosition: 'right 16px center',
+                      backgroundSize: '18px 18px',
+                      borderColor: 'var(--color-border-tertiary)',
+                    },
+                    _mobile: {
+                      '&&': {
+                        h: '36px',
+                        minH: '36px',
+                        px: '16px',
+                        backgroundPosition: 'right 16px center',
+                      },
+                    },
+                  }),
+              )}
               type="date"
               aria-label="조회 종료일"
               value={dates.end}
@@ -152,9 +200,10 @@ function OrdersDateRange({
               variant="body4"
               weight="medium"
               aria-hidden="true"
-              className={dateLabel}
+              className={cx(dateLabel, returns && css({ left: '16px', _mobile: { left: '16px' } }))}
+              language={returns ? 'en' : undefined}
             >
-              {dates.end.replaceAll('-', '. ')}
+              {dates.end.replaceAll('-', returns ? '.' : '. ')}
             </Typography>
           </Box>
         </HStack>
@@ -212,9 +261,19 @@ export function OrdersFilters({
         variant="fill"
         value={filters.period}
         onValueChange={onPeriodChange}
-        options={platform === 'mobile' ? periodOptions : [...periodOptions].reverse()}
+        options={
+          platform === 'mobile'
+            ? periodOptions
+            : returns
+              ? [...periodOptions.slice(0, 4).reverse(), periodOptions[4]]
+              : [...periodOptions].reverse()
+        }
+        className={
+          returns ? css({ '& [role=group]': { gap: '8px', _mobile: { gap: '6px' } } }) : undefined
+        }
       />
       <OrdersDateRange
+        returns={returns}
         dates={dates}
         error={error}
         onDateChange={onDateChange}

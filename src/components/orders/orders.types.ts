@@ -18,7 +18,18 @@ export type OrderLine = {
   price: number;
   displayAmount?: number;
 };
+
 export type OrderClaim = {
+  previewDisplay?: { web: ClaimDetailDisplay; mobile: ClaimDetailDisplay };
+  refundMethod?: string;
+  collection?: {
+    name: string;
+    phone: string;
+    address: string;
+    carrier: string;
+    trackingNumber: string;
+    scheduledDate: string;
+  };
   id: string;
   kind: ClaimKind;
   state: 'requested' | 'complete';
@@ -31,6 +42,24 @@ export type OrderClaim = {
   displayAmount?: number;
   displayRefund?: number;
 };
+
+export type ClaimDetailDisplay = {
+  orderDate: string;
+  orderNumber: string;
+  status: string;
+  requestedAt: string;
+  claimNumber: string;
+  completedAt: string;
+  refundedAt: string;
+  reason: string;
+  details: string;
+  itemAmount: number;
+  productAmount: number;
+  fee: number;
+  refund: number;
+  feeNote?: string;
+};
+
 export type OrderRecord = {
   id: string;
   date: string;
@@ -48,7 +77,27 @@ export type OrderRecord = {
     freeReturn?: boolean;
     freeReturnCouponId?: string;
   };
+  /** 주문상세 시안의 PC·모바일 고정 표시값입니다. 실제 주문 데이터에는 사용하지 않습니다. */
+  detailPreview?: {
+    web: OrderDetailPreview;
+    mobile: OrderDetailPreview;
+  };
 };
+
+export type OrderDetailPreview = {
+  date: string;
+  orderNumber: string;
+  itemAmount: number;
+  itemQuantity: number;
+  productAmount: number;
+  discountAmount: number;
+  shippingAmount: number;
+  payableAmount: number;
+  claimRequestedAt: string;
+  claimRefundAmount: number;
+  returnLineCount?: number;
+};
+
 export type OrdersView = 'list' | 'detail' | 'claim';
 export type OrdersPeriod = '1' | '3' | '6' | '12' | 'custom';
 export type OrderFilters = {

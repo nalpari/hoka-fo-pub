@@ -49,12 +49,17 @@ export function OrdersContent({
     <MyPageFrame
       activePath={returns ? '/mypage/returns' : '/mypage/orders'}
       breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
+      hideMobileBreadcrumbs={view === 'detail' || view === 'claim'}
     >
-      <Stack pb={{ base: '0', _mobile: '18' }} gap="0">
+      <Stack
+        pt={view === 'claim' ? { base: '0', _mobile: '24px' } : undefined}
+        pb={{ base: '0', _mobile: view === 'claim' || returns ? '0' : '18' }}
+        gap="0"
+      >
         <ContentSection
           title={title}
           headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
-          gap="4"
+          gap={view === 'claim' || returns ? { base: '40px', _mobile: '24px' } : '4'}
         >
           {view === 'claim' && selectedOrder && selectedClaim ? (
             <OrderClaimDetail order={selectedOrder} claim={selectedClaim} onList={onList} />

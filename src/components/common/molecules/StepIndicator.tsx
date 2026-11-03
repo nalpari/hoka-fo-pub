@@ -116,7 +116,9 @@ export function StepIndicator({
                   <Circle size="3" bg="white" />
                 )}
               </Circle>
-              <Typography variant="body5">{itemValue.label}</Typography>
+              <Typography variant="body5" tone="primary">
+                {itemValue.label}
+              </Typography>
             </Stack>
           ) : (
             <Typography variant="body4">{itemValue.label}</Typography>

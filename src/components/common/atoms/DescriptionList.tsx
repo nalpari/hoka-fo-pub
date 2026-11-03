@@ -67,7 +67,7 @@ export function DescriptionList({
           <Typography
             as="dd"
             variant="body4"
-            tone="tertiary"
+            tone="primary"
             {...descriptionProps}
             {...item.descriptionProps}
             className={css(slotStyles?.description)}

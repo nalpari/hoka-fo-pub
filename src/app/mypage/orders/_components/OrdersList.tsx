@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -39,15 +40,16 @@ function ClaimHistoryProduct({
   showAmount?: boolean;
   showState?: boolean;
 }) {
-  const stateLabel = claim.kind === 'cancel' ? '취소' : '반품';
+  const stateLabel =
+    claim.state === 'complete' ? '환불완료' : `${claim.kind === 'cancel' ? '취소' : '반품'}접수`;
 
   return (
     <button
       type="button"
       className={css({
         display: 'flex',
-        alignItems: 'center',
-        gap: '3',
+        alignItems: 'stretch',
+        gap: '16px',
         w: '100%',
         p: '0',
         border: '0',
@@ -61,28 +63,46 @@ function ClaimHistoryProduct({
       <Image
         src={line.image}
         alt={line.name}
-        width={64}
-        height={64}
-        sizes="64px"
-        className={css({ w: '16', h: '16', flexShrink: '0', objectFit: 'contain', bg: 'black.10' })}
+        width={96}
+        height={96}
+        sizes="96px"
+        className={css({
+          w: '96px',
+          h: '96px',
+          flexShrink: '0',
+          objectFit: 'contain',
+          bg: 'black.10',
+        })}
       />
-      <Stack minW="0" gap="1">
-        <Typography variant="body5" weight="medium" className={css({ lineClamp: 1 })}>
-          {line.name}
-        </Typography>
-        <Typography variant="body5" tone="subtle" className={css({ lineClamp: 1 })}>
-          옵션 : {line.width} / {line.color} / {line.size}
-        </Typography>
-        {showAmount && line.displayAmount !== undefined ? (
-          <Typography variant="body5">{line.displayAmount.toLocaleString()}원</Typography>
+      <Stack minW="0" flex="1" gap="0" justifyContent="space-between">
+        <Stack gap="1">
+          <Typography web="body3" mo="body4" weight="medium">
+            {line.name}
+          </Typography>
+          <Typography web="body3" mo="body4" weight="medium" tone="subtle">
+            옵션 : {line.width} / {line.color} / {line.size}
+            {showAmount ? ` / ${line.quantity}개` : ''}
+          </Typography>
+          {showAmount && line.displayAmount !== undefined ? (
+            <Typography variant="body4" weight="medium">
+              <Typography as="span" variant="body4" language="en" weight="medium">
+                {line.displayAmount.toLocaleString()}
+              </Typography>
+              원
+            </Typography>
+          ) : null}
+        </Stack>
+        {showState ? (
+          <Typography
+            variant="body4"
+            weight="medium"
+            tone="tertiary"
+            className={css({ textAlign: 'right' })}
+          >
+            {stateLabel}
+          </Typography>
         ) : null}
       </Stack>
-      {showState ? (
-        <Typography variant="body5" className={css({ ml: 'auto', flexShrink: '0' })}>
-          {stateLabel}
-          {claim.state === 'complete' ? '완료' : '접수'}
-        </Typography>
-      ) : null}
     </button>
   );
 }
@@ -102,8 +122,8 @@ function ClaimHistoryList({
 
   if (!hasItems) {
     return (
-      <Box minH={{ base: '262px', _mobile: '210px' }} display="grid" placeItems="center">
-        <Typography variant="body5" tone="subtle">
+      <Box py={{ base: '120px', _mobile: '96px' }} display="grid" placeItems="center">
+        <Typography web="body3" mo="body4" tone="subtle">
           취소나 환불한 상품이 없습니다.
         </Typography>
       </Box>
@@ -112,28 +132,37 @@ function ClaimHistoryList({
 
   if (platform === 'mobile') {
     return (
-      <Stack as="ul" gap="0" listStyleType="none">
+      <Stack as="ul" gap="24px" listStyleType="none">
         {orders.flatMap((order) =>
           order.claims.flatMap((claim) =>
             getClaimLines(order, claim).map((line) => (
               <Stack
                 as="li"
                 key={`${claim.id}-${line.key}`}
-                gap="3"
-                py="4"
-                borderBottom="1px solid var(--colors-black-20)"
+                gap="0"
+                borderBottom="1px solid var(--color-black-100)"
               >
-                <Typography variant="body5" tone="subtle">
-                  <Typography as="span" variant="body5" weight="semibold" tone="primary">
-                    {order.date.replaceAll('-', '.')}
-                  </Typography>{' '}
-                  주문 · 주문번호 {order.id}
-                </Typography>
-                <ClaimHistoryProduct
-                  line={line}
-                  claim={claim}
-                  onClick={() => onClaimDetail(order, claim)}
-                />
+                <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
+                  <Typography variant="body4" tone="tertiary">
+                    <Typography as="span" variant="body4" weight="medium" tone="primary">
+                      <Typography as="span" variant="body4" language="en" weight="medium">
+                        {order.date.replaceAll('-', '.')}
+                      </Typography>{' '}
+                      주문
+                    </Typography>
+                    {' · 주문번호 '}
+                    <Typography as="span" variant="body4" language="en" tone="tertiary">
+                      {order.id}
+                    </Typography>
+                  </Typography>
+                </Box>
+                <Box py="16px">
+                  <ClaimHistoryProduct
+                    line={line}
+                    claim={claim}
+                    onClick={() => onClaimDetail(order, claim)}
+                  />
+                </Box>
               </Stack>
             )),
           ),
@@ -151,14 +180,15 @@ function ClaimHistoryList({
         gridTemplateColumns={columns}
         alignItems="center"
         py="5"
-        borderTop="1px solid var(--colors-black-100)"
+        borderTop="2px solid var(--color-black-100)"
         borderBottom="1px solid var(--colors-black-100)"
       >
-        {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label, index) => (
+        {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label) => (
           <Typography
             key={label}
-            variant="body5"
-            className={css({ textAlign: index === 0 ? 'left' : 'center' })}
+            variant="heading9"
+            weight="bold"
+            className={css({ textAlign: 'center' })}
           >
             {label}
           </Typography>
@@ -167,37 +197,74 @@ function ClaimHistoryList({
       {orders.flatMap((order) =>
         order.claims.flatMap((claim) =>
           getClaimLines(order, claim).map((line) => (
-            <Grid
-              key={`${claim.id}-${line.key}`}
-              gridTemplateColumns={columns}
-              alignItems="center"
-              gap="0"
-              py="4"
-              borderBottom="1px solid var(--colors-black-20)"
-            >
-              <ClaimHistoryProduct
-                line={line}
-                claim={claim}
-                showAmount={false}
-                showState={false}
-                onClick={() => onClaimDetail(order, claim)}
-              />
-              <Typography variant="body5" className={css({ textAlign: 'center' })}>
-                {order.date.replaceAll('-', '.')}
+            <Stack key={`${claim.id}-${line.key}`} gap="0" pt="32px">
+              <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
+                주문번호{' '}
+                <Typography as="span" variant="body3" language="en" tone="tertiary">
+                  {order.id}
+                </Typography>
               </Typography>
-              <Typography variant="body5" className={css({ textAlign: 'center' })}>
-                {line.quantity}개
-              </Typography>
-              <Typography variant="body5" className={css({ textAlign: 'center' })}>
-                {line.displayAmount === undefined
-                  ? '-'
-                  : `${line.displayAmount.toLocaleString()}원`}
-              </Typography>
-              <Typography variant="body5" className={css({ textAlign: 'center' })}>
-                {claim.kind === 'cancel' ? '취소' : '반품'}
-                {claim.state === 'complete' ? '완료' : '접수'}
-              </Typography>
-            </Grid>
+              <Grid
+                gridTemplateColumns={columns}
+                alignItems="center"
+                gap="0"
+                pt="16px"
+                pb="32px"
+                borderBottom="1px solid var(--color-border-subtle)"
+              >
+                <Box px="24px">
+                  <ClaimHistoryProduct
+                    line={line}
+                    claim={claim}
+                    showAmount={false}
+                    showState={false}
+                    onClick={() => onClaimDetail(order, claim)}
+                  />
+                </Box>
+                <Typography
+                  variant="body3"
+                  language="en"
+                  weight="medium"
+                  className={css({ textAlign: 'center' })}
+                >
+                  {order.date.replaceAll('-', '.')}
+                </Typography>
+                <Typography
+                  variant="body3"
+                  weight="medium"
+                  className={css({ textAlign: 'center' })}
+                >
+                  {line.quantity}개
+                </Typography>
+                <Typography
+                  variant="body3"
+                  weight="medium"
+                  className={css({ textAlign: 'center' })}
+                >
+                  {line.displayAmount === undefined ? (
+                    '-'
+                  ) : (
+                    <>
+                      <Typography as="span" variant="body3" language="en" weight="medium">
+                        {line.displayAmount.toLocaleString()}
+                      </Typography>
+                      원
+                    </>
+                  )}
+                </Typography>
+                <Typography
+                  variant="body3"
+                  weight="medium"
+                  className={css({ textAlign: 'center' })}
+                >
+                  {claim.state === 'complete'
+                    ? claim.kind === 'cancel'
+                      ? '취소완료'
+                      : '환불완료'
+                    : `${claim.kind === 'cancel' ? '취소' : '반품'}접수`}
+                </Typography>
+              </Grid>
+            </Stack>
           )),
         ),
       )}
@@ -223,7 +290,7 @@ export function OrdersListContent({
 }: OrdersListContentProps) {
   if (returns) {
     return (
-      <Stack gap="6">
+      <Stack gap="6" css={{ '--color-text-primary': '#000' }}>
         <OrdersFilters {...props} returns />
         <ClaimHistoryList
           orders={orders}
