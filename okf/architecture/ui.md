@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-03T08:58:56+09:00'
+updated: '2026-11-03T10:49:20+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -4060,6 +4060,22 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 `OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다.
 
+## 9개 디자인 영역의 상태 표현 조사 (2026-11-03)
+
+[IA 누락 대응표](routing.md#9개-디자인-영역의-ia-상태-링크-재조사-2026-11-03)에 FAQ 직접 상태 링크 누락 1개, 적용 여부 미확정 로그아웃 안내 1개와 Main/PLP/PDP 접근 한계를 기록했다. 사이즈 가이드 6개 데이터 변형은 사용자 후속 지시로 중복 화면으로 취급해 누락 집계와 작업 범위에서 제외했다. 제품 UI·스타일·Storybook·표시 fixture는 수정하지 않아 기존 구현에 영향이 없다.
+
+사이즈 가이드의 신발 남성 inch·여성 cm·공용 cm, 상의 남성/여성 표와 하의 남성 표는 기존 로컬 선택 UI로 표현하며 사용자 확정에 따라 별도 IA 고정 상태 링크를 요구하지 않는다. 러닝 베스트·양말 섹션의 네 프레임은 실제 선택 탭과 표가 상의 여성으로 보이므로 섹션명만으로 다른 제품 상태를 만들지 않는다. 상의·하의 cm/inch 이름의 프레임 쌍도 표가 같아 별도 단위 상태로 확정하지 않았다. FAQ 시안은 “회원 혜택은 무엇인가요?” 펼침이며 현재 소스의 PC 기본 첫 질문과 MO 닫힘에서 이를 고정해 여는 URL이 없다.
+
+출처: 대응표의 Figma 노드와 제품 이미지, `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`, 기존 `screenConnections.ts`. 로컬 IA 링크 클릭과 preview-links 6개 통과를 확인했지만 전체 PC/MO 시각 일치나 회귀 검증은 수행하지 않았다. 기준 HEAD: `c69358e5221beb6df59a17886835b44505b7a4dc`; 조사·기록: codex/gpt-6, 2026-11-03T10:40:00+09:00. 기존 출처·generated 기록·draft 신뢰 상태는 유지한다.
+
 ## 런칭 캘린더 시안 적용 (2026-11-03)
 
 [런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club 시안 2921:5026의 1열·정사각 이미지·32px 둥근 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.
+
+## FAQ 펼침과 장시간 미입력 안내 상태 구현 (2026-11-03)
+
+[IA 상태 URL 대응표](routing.md#faq-펼침장시간-미입력-안내의-ia-상태-url-2026-11-03)의 두 상태를 기존 소유자에 작은 표시 옵션으로 추가했다. FAQ의 `previewExpanded`는 전용 fixture의 첫 항목만 처음부터 펼치고 기존 기본/빈 결과·검색·분류·접기 구조를 유지한다. 제목과 본문이 원래 FAQ 데이터에서 다른 항목에 있다는 디자인 차이는 표시 fixture로 명시했으며 기본 질문·답변을 바꾸지 않았다. 빈 결과와 펼침 옵션은 타입에서 동시 사용을 막는다.
+
+로그인 `showSessionTimeout`은 45:1394의 제목·본문·확인 버튼과 14px 모서리, 343px 최대 너비를 기존 `ModalDialog`로 표시한다. 제목/본문/버튼 간격·모바일 표시를 Panda로 구성하고 해당 디자인에 없는 X 버튼은 이 fixture의 header CSS에서 숨긴다. 확인·Escape로 닫으며 선택적인 `finalFocus`는 Base UI의 동일 옵션을 전달해 직접 열린 안내를 닫을 때 아이디 필드로 돌아가게 한다. 공용 모달의 기존 기본값·선택하지 않은 소비자는 유지한다. 세션 판정·종료·타이머는 프론트 연동 소유자의 후속 책임이다.
+
+검증은 위 대응표의 실제 PC/MO 검사·IA 클릭·기본 상태 회귀와 변경 파일 ESLint/Prettier·타입·Panda·Next/Storybook 빌드·기존 검사 7개다. 전체 모달/Storybook 실행이나 픽셀 일치 판정은 하지 않았다. 출처: 위 대응표의 Figma·구현 파일, `src/components/common/layouts/ModalDialog.tsx`와 설치된 Base UI `DialogPopup.finalFocus` 타입. 검토 HEAD `889cf058339d51f9d36103e24e0732ab37fc14ae`; 기록 codex/gpt-6, 2026-11-03T10:49:20+09:00. 기존 출처·draft 신뢰 상태를 유지한다.

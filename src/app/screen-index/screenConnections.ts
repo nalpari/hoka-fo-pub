@@ -416,10 +416,14 @@ const connections: Record<number, ScreenConnection> = {
   '185': {
     route: '/support/faq',
     defaultStateLabel: '검색 결과 있음',
-    previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
+    previewRoutes: [
+      { label: '검색 결과 없음', href: '/support/faq/preview-no-results' },
+      { label: '답변 펼침', href: '/support/faq/preview-expanded' },
+    ],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
       'src/app/support/faq/preview-no-results/page.tsx',
+      'src/app/support/faq/preview-expanded/page.tsx',
     ],
     stories: {
       web: {
@@ -651,10 +655,14 @@ const connections: Record<number, ScreenConnection> = {
   '207': {
     route: '/support/faq',
     defaultStateLabel: '검색 결과 있음',
-    previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
+    previewRoutes: [
+      { label: '검색 결과 없음', href: '/support/faq/preview-no-results' },
+      { label: '답변 펼침', href: '/support/faq/preview-expanded' },
+    ],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
       'src/app/support/faq/preview-no-results/page.tsx',
+      'src/app/support/faq/preview-expanded/page.tsx',
     ],
     stories: {
       web: {
@@ -839,11 +847,13 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '에러 메시지', href: '/login/preview-error' },
       { label: '아이디 저장 도움말', href: '/login/preview-help' },
+      { label: '장시간 미입력 로그아웃 안내', href: '/login/preview-session-timeout' },
     ],
     sourceFiles: [
       'src/app/login/page.tsx',
       'src/app/login/preview-error/page.tsx',
       'src/app/login/preview-help/page.tsx',
+      'src/app/login/preview-session-timeout/page.tsx',
     ],
     stories: {
       web: {

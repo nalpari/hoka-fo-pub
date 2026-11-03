@@ -95,3 +95,9 @@ export const faqs: FaqEntry[] = [
     answer: 'A/S 접수 전 제품 상태와 구매 정보를 준비해 고객상담실에 문의해 주세요.',
   },
 ];
+
+/** 디자인의 질문 제목과 본문 조합을 재현하는 표시 전용 목록입니다. */
+export const expandedFaqPreviewEntries = [
+  { ...faqs[0], id: 'preview-member-benefits', question: '회원 혜택은 무엇인가요?' },
+  ...faqs.slice(1),
+];
