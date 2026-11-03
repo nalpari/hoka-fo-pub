@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T08:40:13.261753+00:00'
+updated: '2026-11-03T08:55:05.769316+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/screen-index/screenProgress.ts
   - src/components/common/molecules/OrderProductSummary.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
@@ -1141,3 +1142,7 @@ OrdersContent·OrdersPage·OrdersStatus와 주문 preview page 네 곳의 import
 ## 런칭 캘린더 디자인 미확정 상태 반영 (2026-11-03)
 
 사용자 재확인으로 런칭 캘린더의 활성 IA 159~162(메인·Feed·Coming·In-stock)를 PC 디자인 수정예정(revision-planned), MO 디자인 미수급(missing), PC/MO 퍼블리싱 수정(revision)으로 변경했다. 앞서 PC 프레임 존재와 RUN Club 패턴 적용을 근거로 표시한 수급/완료 기록보다 이번 사용자 확정값을 우선한다. 기존 화면·상태 URL·파일 연결은 유지하며 삭제된 키즈 IA 163~165의 삭제 표시를 복구하지 않는다. getScreenProgress의 네 항목 반환값과 기존 상태 테스트 10개, 변경 파일 ESLint·서식을 확인했다. 브라우저 시각 검증은 재실행하지 않았다. 출처: 사용자 브라우저 댓글, src/app/screen-index/screenProgress.ts 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+## 주문서 마일리지 안내 문구 제거 (2026-11-03)
+
+CheckoutDiscountSummary의 실 결제금액 최대 30% 사용 안내와 5,000점 이상/100점 단위 사용 안내 두 문구를 제거했다. 쿠폰 안내 두 문구와 선택 UI, 준비된 주문 금액·쿠폰할인·배송비·총 결제금액 표시는 유지한다. URL·상태·요청/계산 계약 변경은 없다. 변경 파일 ESLint·Prettier와 diff 검사를 수행했으며 문구 삭제이므로 브라우저/전체 빌드는 재실행하지 않았다. 출처: 사용자 제공 작업 트리의 src/app/checkout/_components/CheckoutDiscountSummary.tsx 변경과 커밋·푸시 요청. 기록: codex/gpt-6, 2026-11-03.
