@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
-import { Grid, HStack, VStack } from 'styled-system/jsx';
+import { Box, Grid, HStack, VStack } from 'styled-system/jsx';
 
 import { Badge, type Promotions } from '@/components/common/atoms/Badge';
 import { Card } from '@/components/common/atoms/Card';
@@ -274,6 +274,51 @@ function ProductDetailsOptions({
   variant,
   colorPreview,
 }: ProductDetailsOptionsProps) {
+  const summary = (
+    <>
+      {activities && activities.length > 0 && <ProductActivity activities={activities} />}
+      <ProductVariantSummary
+        colorCount={colorCount}
+        history={variant === 'history'}
+        options={optionThumbnails}
+        platform={platform}
+        widthCount={widthCount}
+      />
+    </>
+  );
+
+  if (colorPreview) {
+    // 숨긴 캐러셀도 높이 계산에 참여해 OS별 스크롤바 높이가 호버 레이아웃을 바꾸지 않게 합니다.
+    return (
+      <Grid gap="0" gridTemplateColumns="minmax(0, 1fr)" alignItems="start" minW="0" w="100%">
+        <VStack
+          gridArea="1 / 1"
+          gap="0"
+          alignItems="flex-start"
+          visibility={colorPreview.open ? 'hidden' : 'visible'}
+          aria-hidden={colorPreview.open}
+        >
+          {summary}
+        </VStack>
+        <Box
+          gridArea="1 / 1"
+          minW="0"
+          visibility={colorPreview.open ? 'visible' : 'hidden'}
+          aria-hidden={!colorPreview.open}
+          inert={!colorPreview.open}
+        >
+          <ProductOptionList
+            ariaLabel="상품 색상 옵션"
+            layout="preview"
+            options={optionThumbnails}
+            selectedId={colorPreview.selectedId}
+            onSelect={colorPreview.onSelect}
+          />
+        </Box>
+      </Grid>
+    );
+  }
+
   return (
     <VStack
       gap={variant === 'history' ? '2' : '0'}
@@ -281,28 +326,8 @@ function ProductDetailsOptions({
       alignItems="flex-start"
       minW="0"
       w="100%"
-      minH={platform === 'web' && variant === 'listing' ? '72px' : undefined}
     >
-      {colorPreview ? (
-        <ProductOptionList
-          ariaLabel="상품 색상 옵션"
-          layout="preview"
-          options={optionThumbnails}
-          selectedId={colorPreview.selectedId}
-          onSelect={colorPreview.onSelect}
-        />
-      ) : (
-        <>
-          {activities && activities.length > 0 && <ProductActivity activities={activities} />}
-          <ProductVariantSummary
-            colorCount={colorCount}
-            history={variant === 'history'}
-            options={optionThumbnails}
-            platform={platform}
-            widthCount={widthCount}
-          />
-        </>
-      )}
+      {summary}
     </VStack>
   );
 }
@@ -326,6 +351,7 @@ const ProductDetailsRoot = cva({
 
 type ProductDetailsProps = {
   colorPreview?: {
+    open: boolean;
     selectedId?: string;
     onSelect: (id: string) => void;
   };
@@ -575,11 +601,12 @@ export function ProductCard({
   const [selectedColorId, setSelectedColorId] = useState<string>();
   const platform = usePlatform();
   const isLiked = liked ?? internalLiked;
-  const showPreview = platform === 'web' && variant === 'listing' && previewOpen;
   const hasOption = (option: ProductCardOption) => options.includes(option);
   const colorOptions = productOptionThumbnails(product);
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
-  const showColorPreview = showPreview && hasOption('colors') && colorOptions.length > 0;
+  const supportsColorPreview =
+    platform === 'web' && variant === 'listing' && hasOption('colors') && colorOptions.length > 0;
+  const showColorPreview = supportsColorPreview && previewOpen;
   return (
     <Card
       className={root({ variant })}
@@ -638,8 +665,12 @@ export function ProductCard({
 
       <ProductDetails
         colorPreview={
-          showColorPreview
-            ? { selectedId: selectedColor?.id, onSelect: setSelectedColorId }
+          supportsColorPreview
+            ? {
+                open: showColorPreview,
+                selectedId: selectedColor?.id,
+                onSelect: setSelectedColorId,
+              }
             : undefined
         }
         promotionTone={promotionTone}

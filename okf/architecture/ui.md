@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T04:39:33.306Z'
+updated: '2026-11-03T05:28:30.921728+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T01:31:58Z'
@@ -4111,8 +4111,14 @@ Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA�
 
 ## 상품 목록 호버 색상 캐러셀 (2026-11-03)
 
-ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View를 제거했다. 기본 활동/색상·발볼 요약은 유지하고, 마우스 호버 또는 키보드 포커스 시 같은 하단 영역을 ProductOptionList의 기존 preview 캐러셀로 교체한다. 썸네일 80×53px·간격 4px·좌우 이동·스크롤바를 재사용하며 72px 최소 높이로 전환 중 카드 높이를 유지한다. 색상 ID는 현재 표시 옵션에서 찾고 선택 이미지를 카드 썸네일에 반영한다. Escape로 요약으로 돌아가며, 모바일의 34px 옵션 목록과 history/showcase 표현은 유지한다.
+ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View를 제거했다. 기본 활동/색상·발볼 요약은 유지하고, 마우스 호버 또는 키보드 포커스 시 같은 하단 영역을 ProductOptionList의 기존 preview 캐러셀로 교체한다. 썸네일 80×53px·간격 4px·좌우 이동·스크롤바를 재사용한다. 초기 72px 최소 높이 방식은 아래 호버 높이 보정에서 콘텐츠의 실제 높이를 확보하는 Grid 방식으로 대체했다. 색상 ID는 현재 표시 옵션에서 찾고 선택 이미지를 카드 썸네일에 반영한다. Escape로 요약으로 돌아가며, 모바일의 34px 옵션 목록과 history/showcase 표현은 유지한다.
 
 요청 출처: [기본 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2939-4302), [호버 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3775), [목록](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3501). 사용자 확정 동작과 기존 캐러셀 규격으로 구현했다. 디자인 API 429와 브라우저 로그인 필요로 최신 프레임 구조·수치·이미지는 확인하지 못했으므로 시안 실측 일치를 주장하지 않는다.
 
 검증: 전체 lint·typecheck와 Panda 생성, Next 프로덕션 빌드(146개 정적 페이지 생성) 통과. 실행 화면에서 PC 호버 시 별도 미리보기 section 0개, 썸네일 80×53px/간격 4px, 좌우 이동(다음 scrollLeft 108px·이전 0px), 색상 선택 이미지 변경, Escape 복귀, Tab 진입, 기본/호버 카드 높이 516.4375px 동일(1440px)을 확인했다. 390px에서는 기존 2열·활동·색상 썸네일과 가로 넘침 없음(clientWidth/scrollWidth 375px)을 확인했다. 1024px는 캐러셀 없이 모바일 표시, 1025/1199px는 기존 1200px PC 캔버스, 1200px는 clientWidth/scrollWidth 1185px 동일이었다. 검색 결과에도 적용되고 최근 본 상품 history·상세 추천 showcase에는 해당 캐러셀이 없음을 확인했다. 기존 hoka/Pretendard family와 로드된 face를 확인했으며 폰트 정의는 수정하지 않았다. 서비스 요청/저장 계약은 추가하지 않았다. 작업 트리 출처는 위 세 파일이며 기존 동시 변경은 보존했다.
+
+## 상품 목록 호버 높이 보정 (2026-11-03)
+
+`/products?gender=men&sort=popular`의 1421×1252 화면에서 기본 옵션 영역 72px보다 스크롤바를 포함한 캐러셀 75px가 커 첫 상품 호버 시 다음 행이 3px 내려가는 현상을 재현했다. 임의의 고정 최소 높이를 없애고 ProductDetailsOptions의 기본 요약과 캐러셀을 같은 Grid 셀에 배치해 두 콘텐츠의 실제 높이 중 큰 값을 항상 확보한다. visibility로 표시를 전환하며 숨긴 캐러셀은 aria-hidden과 inert로 읽기·키보드 진입에서 제외한다. 모바일/history/showcase는 기존 구성을 유지한다.
+
+검증: PC1421·1200·1025px에서 첫 세 상품 각각의 진입·이탈 전후 6개 상품의 y/높이 값이 동일했다. 1421px 첫 행 타일 높이 511.03125px·다음 행 y 857.03125px가 유지된다. 색상 선택·Escape·Tab 진입을 확인했고, 숨긴 캐러셀의 inert/aria-hidden을 확인했다. MO390px는 캐러셀 0개·clientWidth/scrollWidth 375px 동일이다. 공유 작업 트리의 lint·타입·Panda·Next 빌드(정적 페이지 146개)가 통과했다. 출처는 사용자 브라우저 코멘트와 ProductCard.tsx 작업 트리이며 서비스 연결 계약은 변경하지 않았다.
