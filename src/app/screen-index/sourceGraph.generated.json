@@ -722,6 +722,15 @@
       "src/components/common/atoms/Typography.tsx",
       "src/icons/fontAwesome.ts"
     ],
+    "src/app/publishing-guide/_components/ColorGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
     "src/app/publishing-guide/_components/FormGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -752,6 +761,15 @@
       "src/components/common/molecules/HelpTips.tsx",
       "src/icons/fontAwesome.ts"
     ],
+    "src/app/publishing-guide/_components/IconGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/icons/fontAwesome.ts"
+    ],
     "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -780,8 +798,10 @@
     ],
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
+      "src/app/publishing-guide/_components/ColorGuide.tsx",
       "src/app/publishing-guide/_components/FormGuide.tsx",
       "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
+      "src/app/publishing-guide/_components/IconGuide.tsx",
       "src/app/publishing-guide/_components/ProductCardGuide.tsx",
       "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",

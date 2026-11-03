@@ -15,6 +15,8 @@ working_tree_sources:
   - src/components/mypage/MyPageProductHistory.tsx
   - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
+  - src/app/publishing-guide/_components/ColorGuide.tsx
+  - src/app/publishing-guide/_components/IconGuide.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
@@ -1082,6 +1084,26 @@ ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를
 ## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
 
 ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.
+
+## 퍼블리싱 가이드 아이콘 탭 (2026-11-03)
+
+`/publishing-guide`에 아이콘 탭을 추가했다. `IconGuide.tsx`는 현재 서비스 화면·공통 컴포넌트·화면 목록·기존 가이드에서 사용하는 아이콘을 92개 예시로 정리한다. SVG 42개, 폼 상태 10개, Font Awesome 35개, 캐러셀 방향 2개, 화면 전용 inline SVG 3개이며 크기·색상 사용법 3개는 별도다. 로고·국기·상품 이미지·배경 장식과 미사용 에셋은 제외한다.
+
+기존 GuideTimeline, renderGuideCode, GuideCopyToast를 재사용하며 각 카드에 미리보기·사용처·코드 복사를 제공한다. PC는 3열 카드와 우측 목차, 모바일은 1열 카드와 기존 가이드 방식의 하단 목차다. 원본 SVG와 mask/Font Awesome의 색상 적용 차이, 기본 16px와 size 지정, alt·버튼 aria-label 기준을 안내한다. 공통 Icon과 서비스 화면은 변경하지 않았다. 목록은 이번 조사 시점의 고정 예시이므로 아이콘 사용처 변경 시 함께 갱신한다.
+
+작업 트리 출처는 `src/app/publishing-guide/page.tsx`, `_components/IconGuide.tsx`와 재생성한 `src/app/screen-index/sourceGraph.generated.json`이다. 아이콘 에셋 경로 전수 존재 확인과 Panda 생성을 통과했다. 전체 typecheck는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했으며 새 소스 오류는 보고되지 않았다. ESLint는 설치된 eslint-plugin-perfectionist가 없어 실행되지 않았다.
+
+브라우저 검증: PC 1668px와 모바일 375px에서 아이콘 탭·카드 표시 및 가로 넘침 없음을 확인했다. 95개 카드(목록 92 + 사용법 3), 이미지 로딩 실패 0개, 코드 복사 성공 안내, 폼 섹션 목차 이동을 확인했다. 모바일 카드는 343px 한 열로 표시된다.
+
+## 퍼블리싱 가이드 컬러 탭 (2026-11-03)
+
+`/publishing-guide`의 컬러 탭은 [Figma Colors 196:9352](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=196-9352)의 고유 컬러 13개를 Base·Core Colors·Secondary·Accent로 표시한다. 표기 HEX를 `panda.config.ts` 및 `src/styles/global.scss`의 별칭과 대조했으며 모두 일치한다. 미리보기는 `token.var`로 프로젝트 토큰을 참조한다. HEX·Panda 토큰·CSS 변수 표현식·Box 사용 코드를 각각 복사하고 공통 GuideCopyToast로 결과를 알린다. 기존 GuideTimeline·renderGuideCode를 재사용한다.
+
+Figma Red-80의 색상 칸은 Accent에서 #B7B7B7, Sementic에서 #CECECE지만 표기 HEX와 프로젝트 값은 #E10F00이다. 가이드는 표기 HEX를 사용하고 불일치를 안내한다. Sementic에 반복된 Red-100/Red-80은 중복 컬러를 만들지 않고 설명하며, 기존 error → red.100 토큰을 별도로 복사할 수 있다. 디자인의 페이지 장식이나 로고를 재현하는 작업이 아닌 기존 퍼블리싱 가이드의 컬러 참조 탭 추가다. 전역 토큰값은 변경하지 않았다.
+
+출처: Figma get_design_context의 196:9352와 Citrus 세부 노드 196:9467, `panda.config.ts`, `src/styles/global.scss`, 작업 트리 `src/app/publishing-guide/_components/ColorGuide.tsx`, `page.tsx` 및 재생성한 화면 소스 그래프. Panda 생성 통과. 전체 typecheck는 기존 `.next/types` 삭제 라우트 참조 오류로 실패했고 새 소스 오류는 없었다. ESLint는 설치된 perfectionist 패키지가 없어 실행되지 않았다.
+
+브라우저에서 PC 1668px·모바일 375px 가로 넘침 없음, 13개 미리보기의 실제 RGB와 표기 HEX 일치, HEX·Panda 토큰·CSS 변수·사용 코드 네 가지의 복사 성공 안내를 확인했다.
 
 ## 주문 목록 미사용 import 정리 (2026-11-03)
 
