@@ -1,3 +1,7 @@
+## 2026-11-03 주문 화면 import 서식 정리
+
+- 주문 화면과 preview page의 import 정렬만 별도 style 커밋으로 분리했다. 표시 동작·URL 계약은 유지하며 전체 ESLint·typecheck를 확인했다.
+
 ## 2026-11-03 상품 타일 가이드 인계 커밋 분리
 
 - Horizontal/Vertical 예시와 공용 주문 상품 행·호출부·생성 그래프를 가이드 추가 커밋으로 분리했다. 전체 ESLint와 typecheck 최종 재검사가 통과했다.

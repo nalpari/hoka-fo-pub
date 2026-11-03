@@ -1097,3 +1097,7 @@ HomeContent의 이미지 비율 강제 override를 제거하고 공통 ProductTh
 `src/app/mypage/orders/_components/OrdersProducts.tsx`의 미사용 `OrderItemActions`와 전용 타입을 제거했다. 실제 호출되는 `OrderCard`의 배송조회·리뷰 링크와 경로는 유지한다. 전체 ESLint 검사를 통과했다. 출처는 해당 파일 작업 트리이며 브라우저 시각 재검증은 수행하지 않았다.
 
 2026-11-03 가이드 인계: 상품 타일 탭·공용 OrderHistoryProduct import와 생성 그래프를 함께 반영한다. 주문 상품 행의 기존 history·상세 진입·표시 옵션 계약과 가이드 query 연결은 유지한다. 전체 ESLint·typecheck 최종 재검사 통과.
+
+## 주문 화면 import 서식 정리 (2026-11-03)
+
+OrdersContent·OrdersPage·OrdersStatus와 주문 preview page 네 곳의 import 그룹·정렬만 정리했다. 경로·상태·표시 동작은 변경하지 않았다. 최종 작업 트리의 전체 ESLint와 typecheck가 통과했다. 출처: 해당 주문 라우트 파일 작업 트리.
