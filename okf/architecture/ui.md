@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-02T09:59:35Z'
+updated: '2026-11-03T08:58:56+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -46,6 +46,8 @@ working_tree_sources:
   - src/components/care-guide/care.data.ts
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/_components/SupportContacts.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/preview-restock/page.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -4024,3 +4026,19 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 잠금 해제의 신규 약관 preview는 명시적 designTerms/designTermKind 표시 옵션을 사용한다. 선택 여부를 실제 동의 정책이나 표시 문자열에서 추론하지 않는다. 기존 약관/통신사 UI와 공용 ModalDialog를 재사용하고, 약관 본문·시행일은 서비스 원문을 대신하는 디자인 fixture임을 구분한다. 완전한 시각 일치 판정은 수행하지 않았다.
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
+
+## 상품상세 옵션 입고 알림 (2026-11-03)
+
+출처: [상품상세 Side Panel 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339), 사이즈 영역 `3773:5401`·품절 옵션 `3773:5423/5427`, 첨부 코멘트의 호버·선택·CTA 전환 요구. 기존 상품상세의 `ProductDetailContent`와 공통 `ProductSizeSelector` → `SizeSelector`를 재사용한다.
+
+- 공통 선택기의 `allowSoldOutSelection` 기본값은 false다. 상품상세에서만 true로 전달해 품절 사이즈를 알림 대상으로 선택한다. 장바구니 등 다른 소비자의 disabled 의미는 유지한다. 미제공 사이즈는 계속 선택할 수 없다.
+- 품절 옵션은 #E9EAEB 배경·#B3B3B3 글자·14px 종 아이콘·4px 간격, hover/선택은 검정 1px 테두리다. Figma 관측 높이는 36px지만 기존 상세 옵션의 40px·5열·8px 간격을 유지해 별도 옵션 높이 개편으로 확대하지 않았다. 버튼은 기존 48px PC/40px MO를 재사용한다.
+- 품절 선택 시 구매 옵션 목록은 숨기고 `품절` disabled / `입고알림신청` CTA를 표시한다. 판매 가능 사이즈를 선택하면 기존 누적 옵션과 구매 CTA로 돌아온다. 색상/발볼 변경은 알림 대상 선택을 해제한다.
+- `/products/preview-restock`은 shoe-1 표시 fixture의 첫 색상·발볼에서 295/300 품절, 300 초기 선택을 보여 준다. 실제 재고 모델과 원본 상품 fixture는 변경하지 않는다. 입고알림신청 API·로그인·완료 전환·저장은 미구현이며 통합 소유자의 향후 연결 책임을 `[ 개발팀 바인딩 ]` 주석에 기록했다.
+- PC 1600px·MO 375px에서 초기 선택과 배경/테두리/아이콘·CTA를 확인했다. 호버, 키보드 ArrowRight, 판매 가능 사이즈 선택 후 CTA 복원, 새로고침과 PC→MO resize에서 선택 유지를 확인했다. 숫자 글리프는 브라우저가 custom webfont를 사용하나 내부 family/postscript 이름이 `.`로 반환되어 서체 이름 자체의 독립 식별은 제한된다. 모바일 전용 Figma 노드는 제공되지 않아 기존 플랫폼 배치를 재사용했다.
+
+검증: 변경 파일 ESLint/Prettier, 라우트 타입 재생성 후 TypeScript, Panda, preview-links 5개, Next/Storybook 빌드가 통과했다. 1024/1025·1199/1200px resize에서 선택을 유지하고 1024/1200/375px 문서 가로 넘침이 없음을 확인했다. 1025/1199px는 기존 1200px PC 캔버스의 가로 스크롤을 유지한다. Storybook 빌드의 외부 모듈 use client·plugin timing 경고는 남아 있다.
+
+명시적 Storybook 플랫폼 회귀: Mobile story를 1600px에서 열어 platform-mobile 유지와 품절 선택 CTA를, WEB story를 375px에서 열어 platform-web 유지를 확인했다.
+
+공통 선택기의 기본 Single/Multiple Storybook에서 미제공 220과 품절 230이 aria-disabled=true를 유지함을 확인했다.

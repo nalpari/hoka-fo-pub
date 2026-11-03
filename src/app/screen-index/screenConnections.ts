@@ -1201,6 +1201,7 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
   detail: {
     defaultStateLabel: '상품문의 있음',
     previewRoutes: [
+      { label: '옵션 입고 알림', href: '/products/preview-restock' },
       {
         label: '상품문의 없음',
         href: '/products/preview-empty-inquiries#product-inquiries',
@@ -1211,6 +1212,7 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
       'src/app/products/[id]/page.tsx',
       'src/app/products/preview-empty-inquiries/page.tsx',
       'src/app/products/preview-options-required/page.tsx',
+      'src/app/products/preview-restock/page.tsx',
     ],
     stories: {
       web: {

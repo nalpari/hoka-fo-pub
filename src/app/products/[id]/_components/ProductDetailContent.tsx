@@ -1483,6 +1483,7 @@ function ProductSizeSelector({
       }
       id="product-size"
       fieldId="product-size-choice"
+      allowSoldOutSelection
       error={error}
       options={productSizeOptions(selectedWidth)}
       value={value}
@@ -1699,15 +1700,44 @@ const ProductPurchaseActionsRoot = cva({
 });
 type ProductPurchaseActionsProps = {
   placement: 'inline' | 'fixed';
+  restock?: boolean;
+  onAddToCart: () => void;
+  onOrder: () => void;
 };
-function ProductPurchaseActions({ placement }: ProductPurchaseActionsProps) {
+
+function ProductPurchaseActions({
+  placement,
+  onAddToCart,
+  onOrder,
+  restock,
+}: ProductPurchaseActionsProps) {
+  const platform = usePlatform();
   return (
     <Grid className={ProductPurchaseActionsRoot({ placement })} gap="2">
-      <Button variant="secondary" fullWidth size="tall">
-        장바구니
+      <Button
+        onClick={restock ? undefined : onAddToCart}
+        disabled={restock}
+        style={
+          restock
+            ? ({
+                '--button-disabled-bg': 'var(--color-black-20)',
+                '--button-disabled-color': 'var(--color-black-40)',
+              } as CSSProperties)
+            : undefined
+        }
+        variant="secondary"
+        fullWidth
+        size={platform === 'mobile' ? 'short' : 'tall'}
+      >
+        {restock ? '품절' : '장바구니'}
       </Button>
-      <Button variant="primary" fullWidth size="tall">
-        구매하기
+      <Button
+        onClick={restock ? undefined : onOrder}
+        variant="primary"
+        fullWidth
+        size={platform === 'mobile' ? 'short' : 'tall'}
+      >
+        {restock ? '입고알림신청' : '구매하기'}
       </Button>
     </Grid>
   );
@@ -1753,7 +1783,12 @@ function ProductDetailContent({
         width={width}
       />
       {selectedOptions}
-      <ProductPurchaseActions placement="inline" />
+      <ProductPurchaseActions
+        restock={!!size}
+        onAddToCart={onAddToCart}
+        onOrder={onOrder}
+        placement="inline"
+      />
       <ProductInformation
         id="product-information"
         sections={[
@@ -2344,15 +2379,28 @@ function ProductDetailRecommendations({ products }: { products: Product[] }) {
   );
 }
 type ProductDetailFooterProps = {
+  restock?: boolean;
   recommendations: Product[];
 };
 /** Composes recommendations and the mobile fixed purchase controls without extra DOM. */
-function ProductDetailFooter({ recommendations }: ProductDetailFooterProps) {
+function ProductDetailFooter({
+  recommendations,
+  onAddToCart,
+  onOrder,
+  restock,
+}: ProductDetailFooterProps) {
   const platform = usePlatform();
   return (
     <>
       <ProductDetailRecommendations products={recommendations} />
-      {platform === 'mobile' && <ProductPurchaseActions placement="fixed" />}
+      {platform === 'mobile' && (
+        <ProductPurchaseActions
+          restock={restock}
+          onAddToCart={onAddToCart}
+          onOrder={onOrder}
+          placement="fixed"
+        />
+      )}
     </>
   );
 }
@@ -2418,7 +2466,7 @@ function ProductSelectedOptions({
   );
 }
 /** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
-export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selection-required' }) {
+export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'restock' }) {
   const platform = usePlatform();
   const catalogue = products;
   const { id } = useParams<{
@@ -2433,6 +2481,24 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selec
   const [width, setWidth] = useState(
     product ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
   );
+  // [ 개발팀 바인딩 ] restock preview는 295/300 품절·300 선택을 표시하는 fixture입니다. 입고알림신청은 미연결이며 요청·성공 표시·저장을 실행하지 않습니다. 실제 연결은 상품상세 통합 소유자가 product.id/color/width/size를 전달하고 pending 중 중복 요청 차단, 실패 시 선택 유지·재시도, 성공 후 신청 상태 갱신을 담당합니다.
+  const [restockSize, setRestockSize] = useState(preview === 'restock' ? '300' : '');
+  const displayProduct =
+    product && preview === 'restock'
+      ? {
+          ...product,
+          colorOptions: product.colorOptions?.map((option, index) =>
+            index === 0
+              ? {
+                  ...option,
+                  widths: option.widths.map((entry, widthIndex) =>
+                    widthIndex === 0 ? { ...entry, soldOut: ['295', '300'] } : entry,
+                  ),
+                }
+              : option,
+          ),
+        }
+      : product;
   const [selectedItems, setSelectedItems] = useState<CartItem[]>([]);
   const [wish, setWish] = useState(false);
   const error = preview === 'selection-required' ? '사이즈를 선택해 주세요.' : '';
@@ -2459,6 +2525,21 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selec
     }
   }, [preview, platform]);
   if (!product) return <SystemStatusPage status="not-found" />;
+
+  const submit = (order: boolean) => {
+    if (preview || restockSize) return;
+    if (!selectedItems.length) {
+      setError('사이즈를 선택해 주세요.');
+      document
+        .getElementById('product-size')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    setError('');
+    selectedItems.forEach(onAddToCart);
+    if (order) router.push('/checkout');
+  };
+
   return (
     <ProductDetailLayout
       isViewing={viewerIndex !== null}
@@ -2478,7 +2559,14 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selec
           />
         )
       }
-      footer={<ProductDetailFooter recommendations={recommendations} />}
+      footer={
+        <ProductDetailFooter
+          restock={!!restockSize}
+          recommendations={recommendations}
+          onAddToCart={() => submit(false)}
+          onOrder={() => submit(true)}
+        />
+      }
     >
       <ProductDetailMedia
         inquiriesEmpty={preview === 'empty-inquiries'}
@@ -2498,35 +2586,43 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selec
       <ProductDetailPanel
         inquiriesEmpty={preview === 'empty-inquiries'}
         selectedOptions={
-          <ProductSelectedOptions
-            items={selectedItems}
-            unitPrice={product.price}
-            onQuantityChange={(index, quantity) => {
-              if (!Number.isSafeInteger(quantity) || quantity < 1) return;
-              setSelectedItems((items) =>
-                items.map((item, itemIndex) =>
-                  itemIndex === index ? { ...item, quantity } : item,
-                ),
-              );
-            }}
-            onRemove={(index) =>
-              setSelectedItems((items) => items.filter((_, itemIndex) => itemIndex !== index))
-            }
-          />
+          !restockSize && (
+            <ProductSelectedOptions
+              items={selectedItems}
+              unitPrice={product.price}
+              onQuantityChange={(index, quantity) => {
+                if (!Number.isSafeInteger(quantity) || quantity < 1) return;
+                setSelectedItems((items) =>
+                  items.map((item, itemIndex) =>
+                    itemIndex === index ? { ...item, quantity } : item,
+                  ),
+                );
+              }}
+              onRemove={(index) =>
+                setSelectedItems((items) => items.filter((_, itemIndex) => itemIndex !== index))
+              }
+            />
+          )
         }
         color={color}
         error={error}
         gallery={gallery}
         onColorChange={(nextColor) => {
+          setRestockSize('');
           setColor(nextColor);
           setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
         }}
         onSizeChange={(nextSize) => {
-          const selectedWidth = productWidthOptions(product, color).find(
+          const selectedWidth = productWidthOptions(displayProduct!, color).find(
             (option) => option.label === width,
           );
-          if (!selectedWidth?.sizes.includes(nextSize) || selectedWidth.soldOut.includes(nextSize))
+          if (!selectedWidth?.sizes.includes(nextSize)) return;
+          if (selectedWidth.soldOut.includes(nextSize)) {
+            setRestockSize(nextSize);
+            setError('');
             return;
+          }
+          setRestockSize('');
           setSelectedItems((items) => {
             const exists = items.some(
               (item) => item.color === color && item.width === width && item.size === nextSize,
@@ -2541,11 +2637,12 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'selec
           });
         }}
         onWidthChange={(nextWidth) => {
+          setRestockSize('');
           setWidth(nextWidth);
         }}
         onWishChange={() => setWish(!wish)}
-        product={product}
-        size=""
+        product={displayProduct!}
+        size={restockSize}
         width={width}
         wish={wish}
       />

@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-02T09:59:35Z'
+updated: '2026-11-03T08:58:56+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -60,6 +60,10 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/app/support/_components/SupportContacts.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/preview-restock/page.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/components/common/molecules/SizeSelector/SizeSelector.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -880,3 +884,9 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 배송/세탁 안내는 기존 `SupportTabs`의 `syncQuery` 모드가 `useSearchParams`와 `useRouter`로 `tab`을 읽고 갱신한다. 빈 값·없는 값·알 수 없는 값은 기존 기본 탭을 표시하며 URL을 임의 정규화하지 않는다. 다른 query를 보존하고 탭 변경을 history에 기록한다. Suspense는 해당 모드 내부에 둬 기존 Storybook/controlled 소비자는 router에 의존하지 않는다. `sourceFiles`에 11개 새 route 진입점을 추가했고 그래프는 정식 생성 명령으로 갱신했다.
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
+
+## 상품상세 옵션 입고 알림 상태 URL (2026-11-03)
+
+[디자인 노드 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339)의 옵션 입고 알림은 `/products/preview-restock`으로 직접 확인한다. 기존 `RouteContent`의 `preview="restock"`을 사용하며 PC/MO는 같은 URL을 공유한다. 새 page는 라우트 진입만 담당하고 UI는 기존 `[id]/_components/ProductDetailContent.tsx`가 소유한다.
+
+`screenConnections.ts`의 상품상세 공통 연결(`eland_hca_02`)에 `옵션 입고 알림` 상태와 진입 파일을 추가했다. 기본 `/products/shoe-1`·상품문의 없음 상태·기존 WEB/Mobile Storybook 연결은 유지한다. `npm run screen-files`로 그래프를 생성했고 변경 전 그래프와 비교해 추가된 import가 preview 진입 하나뿐임을 확인했다. IA의 상태명/URL 검색 및 실제 링크 클릭으로 대상 URL의 300 초기 선택 화면을 확인했다. 인증·저장값·선행 조작 없이 열리며 알림 신청 요청은 하지 않는다.

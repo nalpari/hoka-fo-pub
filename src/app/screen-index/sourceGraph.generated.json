@@ -608,6 +608,9 @@
     "src/app/products/preview-options-required/page.tsx": [
       "src/app/products/[id]/_components/ProductDetailContent.tsx"
     ],
+    "src/app/products/preview-restock/page.tsx": [
+      "src/app/products/[id]/_components/ProductDetailContent.tsx"
+    ],
     "src/app/products/preview-sold-out/_components/ProductSoldOutPreview.tsx": [
       "src/components/catalog/ProductListingPage.tsx",
       "src/mocks/products.ts"
