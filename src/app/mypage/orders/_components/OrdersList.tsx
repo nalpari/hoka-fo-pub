@@ -240,10 +240,30 @@ export function OrdersListContent({
       {/* 주문 기간과 상태 필터를 제공합니다. (Provides order date and status filters.) */}
       <OrdersFilters {...props} />
       {orders.length ? (
-        <Stack as="ul" gap="10" listStyleType="none">
-          {orders.map((order) => (
-            <OrderCard key={order.id} order={order} {...props} />
-          ))}
+        <Stack gap="0px">
+          <Grid
+            gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
+            alignItems="center"
+            minH="67px"
+            borderTop="1px solid var(--colors-black-100)"
+            borderBottom="1px solid var(--colors-black-20)"
+            _mobile={{ display: 'none' }}
+          >
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              상품/옵션정보
+            </Typography>
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              수량
+            </Typography>
+            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+              가격
+            </Typography>
+          </Grid>
+          <Stack as="ul" gap={{ base: '0px', _mobile: '32px' }} listStyleType="none">
+            {orders.map((order) => (
+              <OrderCard key={order.id} order={order} {...props} />
+            ))}
+          </Stack>
         </Stack>
       ) : (
         <Box minH="300px" className={emptyOrderState}>

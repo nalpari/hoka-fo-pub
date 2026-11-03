@@ -4,6 +4,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
@@ -49,8 +50,8 @@ export function OrderCardHeader({
         </Stack>
       )}
       {onDetail ? (
-        <Button variant="link" size="sm" onClick={onDetail}>
-          상세보기
+        <Button variant="link" size="md" onClick={onDetail}>
+          주문상세보기
         </Button>
       ) : null}
     </HStack>
@@ -61,6 +62,7 @@ type OrderHistoryProductProps = {
   line: OrderLine;
   showAmount?: boolean;
   imageSize?: 'standard' | 'claim';
+  cartAction?: boolean;
 };
 
 /** 주문 내역 상품 요약을 표시합니다. (Displays an order history product summary.) */
@@ -68,7 +70,10 @@ export function OrderHistoryProduct({
   line,
   showAmount = true,
   imageSize = 'standard',
+  cartAction = false,
 }: OrderHistoryProductProps) {
+  const platform = usePlatform();
+
   return (
     <Box
       w="100%"
@@ -76,17 +81,42 @@ export function OrderHistoryProduct({
         '& > div > img':
           imageSize === 'claim'
             ? { w: '96px', h: '96px', _mobile: { w: '64px', h: '64px' } }
-            : { _mobile: { w: '96px', h: '96px' } },
+            : { w: '96px', h: '96px' },
       })}
     >
       <OrderProductSummary
-        variant="coupon"
+        variant="history"
         image={line.image}
         name={line.name}
-        optionText={`옵션 : ${line.width} / ${line.color} / ${line.size} / ${line.quantity}개`}
+        optionText={
+          '옵션 : ' +
+          line.width +
+          ' / ' +
+          line.color +
+          ' / ' +
+          line.size +
+          (showAmount ? ' / ' + line.quantity + '개' : '')
+        }
         amount={line.displayAmount ?? 0}
         hideAmount={!showAmount || line.displayAmount === undefined}
-      />
+        optionTone="subtle"
+      >
+        {cartAction ? (
+          <Box>
+            <Button
+              variant="plain"
+              size={platform === 'mobile' ? 'sm' : 'md'}
+              type="button"
+              className={css({ alignSelf: 'flex-start' })}
+            >
+              <HStack gap="4px">
+                <Icon src="/images/icon/orders/bag-shopping.svg" size="14px" />
+                장바구니 담기
+              </HStack>
+            </Button>
+          </Box>
+        ) : null}
+      </OrderProductSummary>
     </Box>
   );
 }
@@ -161,72 +191,203 @@ export type OrderCardActions = {
   onClaimDetail: (order: OrderRecord, claim: OrderClaim) => void;
 };
 
-/** 주문 한 건의 상품·상태·후속 처리 액션을 구성합니다. (Composes products, status, and follow-up actions for an order.) */
+/** 주문 한 건의 상품과 상태별 액션을 PC·모바일로 표시합니다. (Displays order products and status actions on desktop and mobile.) */
 export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderCardActions) {
-  const items = order.items;
   const platform = usePlatform();
+  const items = order.items.filter(
+    (line) => !order.claims.some((claim) => claim.quantities[line.key]),
+  );
+  const groups = items.reduce<
+    { status: OrderRecord['status']; expectedDate: string; lines: OrderLine[] }[]
+  >((result, line) => {
+    const status = line.displayStatus ?? order.status;
+    const expectedDate = line.displayExpectedDate ?? order.expectedDate;
+    const last = result[result.length - 1];
+
+    if (last?.status === status && last.expectedDate === expectedDate) {
+      last.lines.push(line);
+    } else {
+      result.push({ status, expectedDate, lines: [line] });
+    }
+
+    return result;
+  }, []);
+
   return (
-    <Stack as="li" gap="6" listStyleType="none">
-      <OrderCardHeader order={order} onDetail={() => actions.onDetail(order)} />
-      {items.length ? (
-        <>
-          <Typography variant="body5">
-            <Typography variant="body5" tone="primary" weight="semibold">
-              {orderStatusLabels[order.status]}
-            </Typography>{' '}
-            · {order.expectedDate} 도착 예정
-          </Typography>
-          {platform !== 'mobile' ? (
-            <Stack gap="0">
-              <Grid
-                gridTemplateColumns="minmax(0, 1fr) 80px 120px 120px"
-                borderY="1px solid var(--colors-black-100)"
-                py="3"
-              >
-                <Typography variant="body5">상품정보/옵션</Typography>
-                <Typography variant="body5">수량</Typography>
-                <Typography variant="body5">가격</Typography>
-                <Typography variant="body5">주문상태</Typography>
-              </Grid>
-              {items.map((line) => (
+    <Stack as="li" gap="0px" listStyleType="none">
+      {platform === 'mobile' ? (
+        <HStack
+          justifyContent="space-between"
+          alignItems="flex-end"
+          py="16px"
+          borderBottom="1px solid var(--colors-black-100)"
+        >
+          <HStack
+            gap={{ base: '16px', _mobile: '4px' }}
+            alignItems={{ base: 'baseline', _mobile: 'flex-start' }}
+            _mobile={{ flexDirection: 'column' }}
+          >
+            <Typography variant="body2" weight="semibold">
+              {order.date.replaceAll('-', '.')}
+            </Typography>
+            <Typography variant="body4" tone="tertiary">
+              주문번호 {order.id}
+            </Typography>
+          </HStack>
+          <Button variant="link" size="md" onClick={() => actions.onDetail(order)}>
+            주문상세보기
+          </Button>
+        </HStack>
+      ) : null}
+
+      {groups.map((group, index) => (
+        <Stack
+          key={String(index)}
+          gap={{ base: '32px', _mobile: '16px' }}
+          py={{ base: '32px', _mobile: '24px' }}
+          borderBottom={{
+            base: '1px solid var(--colors-black-100)',
+            _mobile: '1px solid var(--colors-black-20)',
+          }}
+        >
+          <Stack
+            gap="16px"
+            py={{ base: '16px', _mobile: '0px' }}
+            borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0px' }}
+          >
+            {platform !== 'mobile' && index === 0 ? (
+              <HStack gap="12px" px="24px" alignItems="baseline">
+                <Typography variant="heading9">{order.date.replaceAll('-', '.')}</Typography>
+                <Typography variant="body3" tone="tertiary">
+                  주문번호 {order.id}
+                </Typography>
+              </HStack>
+            ) : null}
+            <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0px' }}>
+              <HStack gap="2px" flexWrap="wrap">
+                <Typography web="body3" mo="body4" weight="medium" tone="red80">
+                  {orderStatusLabels[group.status]}
+                </Typography>
+                <Typography web="body3" mo="body4" weight="medium">
+                  · {group.expectedDate} {group.status === 'purchased' ? '도착' : '도착 예정'}
+                </Typography>
+              </HStack>
+              {platform !== 'mobile' && index === 0 ? (
+                <Button variant="link" size="md" onClick={() => actions.onDetail(order)}>
+                  주문상세보기
+                </Button>
+              ) : null}
+            </HStack>
+          </Stack>
+
+          <Stack gap="16px" mt={{ base: '16px', _mobile: '0px' }}>
+            {group.lines.map((line) =>
+              platform === 'mobile' ? (
+                <OrderHistoryProduct key={line.key} line={line} cartAction />
+              ) : (
                 <Grid
                   key={line.key}
-                  gridTemplateColumns="minmax(0, 1fr) 80px 120px 120px"
-                  gap="4"
+                  gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
                   alignItems="center"
-                  py="4"
-                  borderBottom="1px solid var(--colors-black-20)"
+                  gap="0px"
                 >
-                  <OrderHistoryProduct line={line} showAmount={false} />
-                  <Typography variant="body4">{line.quantity}개</Typography>
-                  <Typography variant="body4">
-                    {line.displayAmount === undefined
-                      ? '-'
-                      : `${line.displayAmount.toLocaleString()}원`}
+                  <Box px="24px">
+                    <OrderHistoryProduct line={line} showAmount={false} cartAction />
+                  </Box>
+                  <Typography
+                    variant="body3"
+                    weight="medium"
+                    className={css({ textAlign: 'center' })}
+                  >
+                    {line.quantity}개
                   </Typography>
-                  <OrderItemActions order={order} onTracking={() => actions.onTracking(order)} />
+                  <Typography
+                    variant="body3"
+                    weight="medium"
+                    className={css({ textAlign: 'right', px: '24px' })}
+                  >
+                    {line.displayAmount === undefined ? '-' : line.displayAmount.toLocaleString()}
+                    {line.displayAmount === undefined ? null : '원'}
+                  </Typography>
                 </Grid>
-              ))}
-            </Stack>
-          ) : (
-            <Stack gap="4">
-              {items.map((line) => (
-                <OrderHistoryProduct key={line.key} line={line} />
-              ))}
-            </Stack>
-          )}
-          {platform === 'mobile' ? (
-            <OrderItemActions order={order} onTracking={() => actions.onTracking(order)} />
-          ) : null}
-        </>
-      ) : null}
+              ),
+            )}
+          </Stack>
+
+          <HStack
+            gap="8px"
+            justifyContent="flex-end"
+            px={{ base: '8px', _mobile: '0px' }}
+            _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
+          >
+            {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (
+              <Button
+                variant="secondary"
+                size="short"
+                fullWidth={platform === 'mobile'}
+                onClick={() => actions.onTracking(order)}
+              >
+                배송 조회
+              </Button>
+            ) : null}
+            {group.status === 'paid' ? (
+              <Button
+                variant="secondary"
+                size="short"
+                fullWidth={platform === 'mobile'}
+                type="button"
+              >
+                주문 취소
+              </Button>
+            ) : null}
+            {group.status === 'delivered' ? (
+              <>
+                <Button
+                  variant="secondary"
+                  size="short"
+                  fullWidth={platform === 'mobile'}
+                  type="button"
+                >
+                  환불 신청
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="short"
+                  fullWidth={platform === 'mobile'}
+                  type="button"
+                >
+                  구매 확정
+                </Button>
+              </>
+            ) : null}
+            {group.status === 'purchased' ? (
+              <ButtonLink
+                href={'/mypage/reviews?order=' + order.id}
+                variant="secondary"
+                size="short"
+                fullWidth={platform === 'mobile'}
+              >
+                리뷰 작성하기
+              </ButtonLink>
+            ) : null}
+          </HStack>
+        </Stack>
+      ))}
+
       {order.claims.map((claim) => (
-        <OrderClaimGroup
-          key={claim.id}
-          order={order}
-          claim={claim}
-          onDetail={() => actions.onClaimDetail(order, claim)}
-        />
+        <Stack key={claim.id} gap="16px" py="24px" borderBottom="1px solid var(--colors-black-20)">
+          <HStack justifyContent="space-between" alignItems="center">
+            <Typography variant="body4" tone="subtle" weight="medium">
+              {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
+            </Typography>
+            <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
+              {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
+            </Button>
+          </HStack>
+          {getClaimLines(order, claim).map((line) => (
+            <OrderHistoryProduct key={line.key} line={line} />
+          ))}
+        </Stack>
       ))}
     </Stack>
   );

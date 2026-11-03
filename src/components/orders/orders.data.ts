@@ -10,7 +10,7 @@ const line = (key: string, quantity = 1): OrderLine => ({
   size: '225',
   quantity,
   price: 230000,
-  displayAmount: quantity === 2 ? 460000 : 230000,
+  displayAmount: 230000,
 });
 export const previewOrders: OrderRecord[] = [
   {
@@ -20,7 +20,7 @@ export const previewOrders: OrderRecord[] = [
     status: 'paid',
     claimKind: 'cancel',
     displayAmounts: { total: 690000, claimed: 0, remaining: 690000 },
-    items: [line('paid-1', 2), line('paid-2')],
+    items: [line('paid-1', 2), line('paid-2', 2)],
     claims: [],
   },
   {
@@ -29,13 +29,16 @@ export const previewOrders: OrderRecord[] = [
     expectedDate: '10월 11일 (일)',
     status: 'preparing',
     displayAmounts: { total: 230000, claimed: 0, remaining: 230000 },
-    items: [line('preparing-1')],
+    items: [
+      line('preparing-1'),
+      { ...line('preparing-2'), displayStatus: 'paid', displayExpectedDate: '10월 19일 (월)' },
+    ],
     claims: [],
   },
   {
     id: '202610010192',
     date: '2026-10-01',
-    expectedDate: '10월 10일 (토)',
+    expectedDate: '10월 20일 (화)',
     status: 'delivered',
     claimKind: 'return',
     displayAmounts: { total: 230000, claimed: 0, remaining: 230000 },
@@ -44,8 +47,8 @@ export const previewOrders: OrderRecord[] = [
   },
   {
     id: '202609250192',
-    date: '2026-09-25',
-    expectedDate: '09월 29일 (화)',
+    date: '2026-07-25',
+    expectedDate: '07월 29일 (화)',
     status: 'purchased',
     displayAmounts: { total: 690000, claimed: 460000, remaining: 230000 },
     items: [line('purchased-1'), line('cancelled-1'), line('returned-1')],

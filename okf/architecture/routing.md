@@ -4,10 +4,10 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T01:31:58Z'
+updated: '2026-11-03T02:15:46Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-03T01:31:58Z'
+  at: '2026-11-03T02:15:46Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/mypage/orders/_components/OrderDetails.tsx
@@ -888,7 +888,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 ## 주문·반품 페이지 구성 검토 (2026-11-03)
 
-`/mypage/orders`와 `/mypage/returns` 경로 및 페이지 진입 구조는 변경하지 않았다. 주문 현황 표시를 한 `Grid`의 PC·모바일 반응형 값으로 정리하고 한 번만 쓰이는 주문 상태 조각을 부모 JSX에 합쳤다. 라우팅 지식에 영향이 없는 것을 주문·반품 route와 해당 `_components` 범위에서 검토했다.
+`/mypage/orders`와 `/mypage/returns` 경로 및 페이지 진입 구조는 변경하지 않았다. 주문 현황 표시를 한 `Grid`의 PC·모바일 반응형 값으로 정리하고 한 번만 쓰이는 주문 상태 조각을 부모 JSX에 합쳤다. 라우팅 지식에 영향이 없는 것을 주문·반품 route와 해당 `_components` 범위에서 검토했다. 기간 입력 달력 아이콘과 날짜·조회 글자 크기 변경도 동일 컴포넌트의 표시 스타일만 바꾸며 URL, 날짜 값, 조회 콜백에는 영향이 없다. 모바일 주문 카드의 `주문 취소` 버튼도 표시 전용이며 새 경로나 취소 완료 이동을 연결하지 않았다.
 
 ## 주문 route 전용 화면 모듈 (2026-11-03)
 

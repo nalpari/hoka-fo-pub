@@ -5,6 +5,9 @@ export type ClaimKind = 'cancel' | 'return';
 export type ClaimReason = '' | 'mind' | 'size' | 'damage' | 'wrong' | 'missing' | 'other';
 export type OrderLine = {
   key: string;
+  /** 한 주문 안에서 상품마다 다른 단계일 때 사용하는 표시 상태입니다. */
+  displayStatus?: OrderStatus;
+  displayExpectedDate?: string;
   productId: string;
   name: string;
   image: string;

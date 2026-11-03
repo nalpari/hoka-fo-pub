@@ -4,15 +4,18 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
 tags: [components, panda-css, storybook]
 status: draft
-updated: '2026-11-03T01:31:58Z'
+updated: '2026-11-03T02:15:46Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-03T01:31:58Z'
+  at: '2026-11-03T02:15:46Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
+  - src/components/common/molecules/OrderProductSummary.tsx
+  - public/images/icon/orders/bag-shopping.svg
   - src/app/mypage/orders/_components/OrdersStatus.tsx
+  - public/images/icon/form/calendar.svg
   - src/app/mypage/orders/_components/OrdersList.tsx
   - src/stories/features/orders/OrdersStatus.stories.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
@@ -1157,6 +1160,10 @@ Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취�
 취소/환불 신청은 기존 폼·초안·견적·submit 연결을 유지하면서 PC에서 568px `ModalDialog`, 모바일에서 `BottomSheet`로 표시한다. 취소만 수량 조절을 제공하고 반품은 선택 상품 전체 수량을 선택한다. 신청 상품 이미지는 PC 96px, 모바일 64px이다. 기존 Context의 주문 데이터·요청 계약과 배송조회 다이얼로그는 유지하며 새 API나 계산 정책은 추가하지 않았다. 공유 본문에서는 한 번만 쓰이던 `OrdersLayout`을 `OrdersContent`에 합쳐 `MyPageFrame`·콘텐츠 영역·상태 본문 순서를 바로 확인할 수 있게 했다. 주문·반품 라우트와 미리보기는 같은 조립 구조를 계속 사용한다.
 
 Storybook에는 주문/배송조회 WEB·Mobile 항목과 PC의 빈 목록·상세·취소/반품 상세·신청 상태를 추가하고, 취소/반품내역을 독립된 주문 분류 아래 WEB·Mobile 및 빈 목록으로 연결했다. 화면 인덱스에서 두 경로의 스토리 링크를 연결했으며 실제 App Router URL은 그대로다. 새 API나 업무 로직은 추가하지 않았다.
+
+모바일 주문 목록 Figma `2059:162544`에는 같은 주문 안에서 서로 다른 상품 상태가 표시된다. 표시 모델의 선택적 `OrderLine.displayStatus`·`displayExpectedDate`로 각 상품의 상태와 도착 예정일을 구분하고, 모바일 카드에 상태별 고정 버튼을 표시한다. 이 버튼은 서비스 요청을 수행하지 않는다.
+
+주문 카드 헤더는 모바일에서 주문일자 아래 주문번호를 4px 간격으로 놓고 상세보기 버튼을 오른쪽에 둔다. PC는 날짜와 주문번호를 가로로 표시한다.
 
 출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959). 변경 출처는 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
 
@@ -4036,8 +4043,26 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 ## 주문 현황 반응형 스타일 (2026-11-03)
 
+모바일 주문 카드에서는 결제완료(`paid`) 주문에 한해 카드 하단에 전체 폭 40px 높이의 보조 버튼 `주문 취소`를 표시한다. PC의 상품별 액션 영역에는 중복 표시하지 않는다. 취소 요청 및 결과 화면 연결은 퍼블리싱 범위 밖이며 버튼은 표시 마크업이다.
+
 주문 현황은 하나의 `OrderStatusTracker`에서 PC·모바일 표시를 반응형으로 구성한다. 같은 `Grid`의 `border`, `bg`, `minH`에 `{ base, _mobile }` 값을 지정한다. 상태 링크는 그리드 행의 높이를 따르므로 중복 `minH`를 두지 않는다. 링크의 간격은 실제 px 값으로 명시하고 PC·모바일의 바깥 여백과 패딩을 각각 적용한다. PC는 검은 테두리와 칸 구분선을, 모바일은 회색 바탕과 작은 타이포그래피를 사용한다. 0건인 상태의 수와 라벨은 회색으로 표시한다. 상태 링크는 단일 사용 부품으로 나누지 않고 tracker의 `items.map`에서 직접 구성하며, `statusLink`는 `css()`가 반환한 className 문자열을 바로 사용한다. 상태 카운트는 화면 확인용 fixture이며 주문 route, 링크 기본 경로, 데이터 소유권은 바꾸지 않는다. 전용 비교 story는 제거하고 컴포넌트만 담은 PC·모바일 story를 둔다.
+
+주문 기간 직접 입력은 네이티브 날짜 선택을 유지하면서 필드 배경에 달력 SVG를 표시한다. 두 날짜 필드는 PC·모바일 모두 폭 128px로 고정하고 부모의 `flex: 1` 확장 규칙은 사용하지 않는다. 모바일에서 `bg`를 다시 선언하면 CSS `background` 단축 속성이 달력 이미지를 지우므로 모바일 배경은 중복 지정하지 않는다. 브라우저 날짜 선택 아이콘은 투명 처리하여 클릭 영역을 보존하고, 날짜 및 조회 액션의 글자는 PC·모바일 모두 14px로 맞춘다.
 
 ## 주문 페이지 단일 사용 표시 조각 통합 (2026-11-03)
 
 `OrdersProducts`의 한 번만 사용되는 배송 상태 한 줄과 `OrderDetails`의 클레임 상태 뱃지를 부모 컴포넌트 JSX로 옮겼다. 카드 헤더·주문 상품·클레임 묶음·주문 정보 영역·배송 추적 표처럼 독립적이거나 여러 화면에서 재사용되는 구성은 유지한다. 화면과 데이터/업무 소유권은 바꾸지 않는다.
+
+## 주문 조회 날짜 표시 (2026-11-03)
+
+주문 기간의 시작일·종료일은 `OrdersStatus.tsx`의 네이티브 날짜 입력을 유지하고, 화면 표시만 `YYYY. MM. DD`로 렌더링해 일 뒤의 점을 제거한다. 접근 가능한 입력과 날짜 변경 콜백은 그대로이며 PC 1280px·모바일 390px에서 날짜 표시를 확인했다.
+
+## 주문 카드 PC·모바일 상태별 마크업 (2026-11-03)
+
+Figma [모바일 주문/배송조회 2059:162544](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162544)와 [PC 주문/배송조회 2121:9281](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9281)의 주문 카드를 기준으로 표시를 정리했다. 상태·도착 예정일은 상품별 표시 상태에 따라 묶고, 결제완료·상품준비중·배송완료·구매확정 및 취소·반품 상품을 각각 표시한다. 상태 글자는 PC 16px·모바일 14px이고 두 환경 모두 `red80` 톤이며 옵션 글자는 공통 상품 요약의 `optionTone="subtle"`을 사용한다. 각 정상 상품에는 14px 장바구니 SVG와 `장바구니 담기`를 표시한다. 주문 취소·배송 조회·환불 신청·구매 확정·리뷰 작성하기는 상태별 버튼으로 표현하며 새 요청·계산·완료 전환은 연결하지 않았다. `OrderProductSummary`의 기존 사용처는 `optionTone` 기본값으로 이전 색상을 유지한다.
+
+출처: 위 Figma 노드와 `src/app/mypage/orders/_components/OrdersProducts.tsx`, `src/components/common/molecules/OrderProductSummary.tsx`, `public/images/icon/orders/bag-shopping.svg`. 로컬 HTTP 응답에서 상태별 문구와 장바구니 액션 6개를 확인했다. Panda CSS 생성·변경 파일 Prettier는 통과했다. 전체 TypeScript는 기존 `.next/types` 라우트 참조 오류로 실패했고 ESLint는 설치된 `eslint-plugin-perfectionist`를 찾지 못했다. 이 시점에는 브라우저 시각 확인을 수행하지 못했다.
+
+PC `2121:9281` 재대조에서 목록 상단의 상품/옵션정보·수량·가격 3열 헤더, 536:108:200 열 비율, 첫 상태 행 안의 주문일자·주문번호, 상품 이미지 96px와 본문 16px, 그룹 상하 32px 간격을 반영했다. PC 상품 옵션에는 수량을 중복 기재하지 않고 별도 수량 열에 표시한다. 모바일은 기존 헤더·상품 옵션 구성을 유지한다. 로컬 PC 1280px과 모바일 390px 화면을 Ego 브라우저에서 확인했고 모바일 가로 넘침은 없었다. Figma와 fixture 금액은 서로 달라 표시 데이터 값은 변경하지 않았다.
+
+상품별 `장바구니 담기`는 공통 `Button`의 `plain` 변형을 사용하며 PC는 `md`(14px), 모바일은 `sm`(12px) 크기다.

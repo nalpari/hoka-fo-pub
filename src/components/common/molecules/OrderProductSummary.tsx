@@ -8,14 +8,12 @@ import { square } from 'styled-system/patterns';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-import type { OrderProductSummaryProps as ImportedOrderProductSummaryProps } from '@/types/component-contracts/components-common-molecules-OrderProductSummary-OrderProductSummary';
-
 /** 주문 상품 이미지의 용도별 크기와 배경을 표시합니다. (Displays an order product image with context-specific sizing and background.) */
 function OrderProductSummaryImage({
   image,
   name,
   variant = 'checkout',
-}: Pick<ImportedOrderProductSummaryProps, 'image' | 'name' | 'variant'>) {
+}: Pick<OrderProductSummaryProps, 'image' | 'name' | 'variant'>) {
   return (
     <Image
       src={image}
@@ -23,7 +21,7 @@ function OrderProductSummaryImage({
       width={96}
       height={96}
       sizes={
-        variant === 'cart'
+        variant === 'cart' || variant === 'history'
           ? '96px'
           : variant === 'coupon'
             ? '(max-width: 1024px) 80px, 88px'
@@ -41,7 +39,10 @@ function OrderProductSummaryImage({
               _mobile: { w: '96px', h: '96px' },
             })
           : square({
-              size: { base: variant === 'coupon' ? '88px' : '24', _mobile: '20' },
+              size:
+                variant === 'history'
+                  ? '96px'
+                  : { base: variant === 'coupon' ? '88px' : '24', _mobile: '20' },
               display: 'block',
               objectFit: 'contain',
               bg: 'black.10',
@@ -56,9 +57,10 @@ type OrderProductSummaryContentProps = {
   optionText: string;
   amount: number;
   gender?: string;
-  variant?: 'cart' | 'checkout' | 'coupon';
+  variant?: 'cart' | 'checkout' | 'coupon' | 'history';
   children?: ReactNode;
   hideAmount?: boolean;
+  optionTone?: 'primary' | 'subtle';
 };
 
 /** 주문 상품의 텍스트 정보와 추가 콘텐츠를 표시합니다. (Displays order product text information and additional content.) */
@@ -70,31 +72,45 @@ function OrderProductSummaryContent({
   variant = 'checkout',
   children,
   hideAmount = false,
+  optionTone,
 }: OrderProductSummaryContentProps) {
   return (
-    <Stack minW="0" flex="1" gap={variant === 'cart' ? { base: '1', _mobile: '1' } : '1'}>
-      <Stack gap="0.5">
-        {gender ? (
-          <Typography web="body5" mo={variant === 'cart' ? 'body4' : 'body5'} weight="medium">
-            {gender}
+    <Stack
+      minW="0"
+      flex="1"
+      gap={{ base: '32px', _mobile: '12px' }}
+      minH={variant === 'history' ? '96px' : undefined}
+    >
+      <Stack gap="4px">
+        <Stack gap="0.5">
+          {gender ? (
+            <Typography web="body5" mo={variant === 'cart' ? 'body4' : 'body5'} weight="medium">
+              {gender}
+            </Typography>
+          ) : null}
+          <Typography
+            web={variant === 'history' ? 'body3' : 'body4'}
+            mo="body4"
+            weight="medium"
+            className={variant === 'cart' ? css({ lineClamp: 2 }) : undefined}
+          >
+            {name}
+          </Typography>
+        </Stack>
+        <Typography
+          web={variant === 'history' ? 'body3' : 'body4'}
+          mo="body4"
+          weight={variant === 'history' ? 'medium' : undefined}
+          tone={optionTone ?? (variant === 'coupon' ? 'primary' : 'subtle')}
+        >
+          {optionText}
+        </Typography>
+        {!hideAmount ? (
+          <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
+            {amount.toLocaleString()}원
           </Typography>
         ) : null}
-        <Typography
-          variant="body4"
-          weight="medium"
-          className={variant === 'cart' ? css({ lineClamp: 2 }) : undefined}
-        >
-          {name}
-        </Typography>
       </Stack>
-      <Typography variant="body4" tone={variant === 'coupon' ? undefined : 'subtle'}>
-        {optionText}
-      </Typography>
-      {!hideAmount ? (
-        <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
-          {amount.toLocaleString()}원
-        </Typography>
-      ) : null}
       {children}
     </Stack>
   );
@@ -114,6 +130,7 @@ export function OrderProductSummary({
   variant = 'checkout',
   children,
   hideAmount,
+  optionTone,
 }: OrderProductSummaryProps) {
   return (
     <HStack
@@ -129,6 +146,7 @@ export function OrderProductSummary({
         gender={gender}
         variant={variant}
         hideAmount={hideAmount}
+        optionTone={optionTone}
       >
         {children}
       </OrderProductSummaryContent>

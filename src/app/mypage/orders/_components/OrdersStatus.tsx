@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
@@ -69,23 +69,44 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
 
 const dateInput = css({
   '&&': {
+    w: '130px',
+    minW: '0px',
+    flexShrink: '0',
     minH: '36px',
     h: '36px',
-    px: '3',
+    px: '12px',
     borderRadius: 'full',
     fontSize: '14px',
+    fontWeight: 'medium',
+    color: 'transparent',
+    '&::-webkit-datetime-edit': { color: 'transparent' },
     bg: 'white.0',
+    backgroundImage: 'url(/images/icon/form/calendar.svg)',
+    backgroundPosition: 'right 12px center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '16px 16px',
+    '&::-webkit-calendar-picker-indicator': { opacity: '0', cursor: 'pointer' },
   },
   _mobile: {
     '&&': {
       minH: '28px',
       h: '28px',
-      px: '2',
+      px: '8px',
       borderRadius: 'full',
-      fontSize: '12px',
-      bg: 'white.0',
+      fontSize: '14px',
+      backgroundPosition: 'right 8px center',
     },
   },
+});
+
+const dateLabel = css({
+  pos: 'absolute',
+  top: '50%',
+  left: '12px',
+  transform: 'translateY(-50%)',
+  pointerEvents: 'none',
+  whiteSpace: 'nowrap',
+  _mobile: { left: '8px' },
 });
 
 /** 직접 조회 기간 입력과 오류·조회 액션을 표시합니다. (Displays custom date inputs, errors, and the search action.) */
@@ -97,30 +118,47 @@ function OrdersDateRange({
 }: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch'>) {
   return (
     <Stack gap="2">
-      <HStack
-        gap="2"
-        minW="0"
-        alignItems="center"
-        css={{
-          '& > input': { flex: '1', minW: '0' },
-        }}
-      >
-        <TextInput
-          className={dateInput}
-          type="date"
-          aria-label="조회 시작일"
-          value={dates.start}
-          onChange={(event) => onDateChange('start', event.target.value)}
-        />
-        <Typography variant="body5">–</Typography>
-        <TextInput
-          className={dateInput}
-          type="date"
-          aria-label="조회 종료일"
-          value={dates.end}
-          onChange={(event) => onDateChange('end', event.target.value)}
-        />
-        <Button variant="link" size="sm" onClick={onDateSearch}>
+      <HStack alignItems="center" justify="space-between" gap="24px">
+        <HStack alignItems="center">
+          <Box pos="relative" flexShrink="0">
+            <TextInput
+              className={dateInput}
+              type="date"
+              aria-label="조회 시작일"
+              value={dates.start}
+              onChange={(event) => onDateChange('start', event.target.value)}
+            />
+            <Typography
+              as="span"
+              variant="body4"
+              weight="medium"
+              aria-hidden="true"
+              className={dateLabel}
+            >
+              {dates.start.replaceAll('-', '. ')}
+            </Typography>
+          </Box>
+          <Typography variant="body4">–</Typography>
+          <Box pos="relative" flexShrink="0">
+            <TextInput
+              className={dateInput}
+              type="date"
+              aria-label="조회 종료일"
+              value={dates.end}
+              onChange={(event) => onDateChange('end', event.target.value)}
+            />
+            <Typography
+              as="span"
+              variant="body4"
+              weight="medium"
+              aria-hidden="true"
+              className={dateLabel}
+            >
+              {dates.end.replaceAll('-', '. ')}
+            </Typography>
+          </Box>
+        </HStack>
+        <Button variant="link" size="md" onClick={onDateSearch}>
           조회
         </Button>
       </HStack>
