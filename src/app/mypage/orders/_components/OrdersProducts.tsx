@@ -13,18 +13,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
 
-/** 주문 상태와 도착 예정일을 함께 표시합니다. (Displays order status with the expected arrival date.) */
-function OrderDeliveryStatus({ label, expectedDate }: { label: string; expectedDate: string }) {
-  return (
-    <Typography variant="body5">
-      <Typography variant="body5" tone="primary" weight="semibold">
-        {label}
-      </Typography>{' '}
-      · {expectedDate} 도착 예정
-    </Typography>
-  );
-}
-
 /** 주문 일자·번호와 상세 진입을 표시합니다. (Displays order identification and its detail action.) */
 export function OrderCardHeader({
   order,
@@ -182,10 +170,12 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       <OrderCardHeader order={order} onDetail={() => actions.onDetail(order)} />
       {items.length ? (
         <>
-          <OrderDeliveryStatus
-            label={orderStatusLabels[order.status]}
-            expectedDate={order.expectedDate}
-          />
+          <Typography variant="body5">
+            <Typography variant="body5" tone="primary" weight="semibold">
+              {orderStatusLabels[order.status]}
+            </Typography>{' '}
+            · {order.expectedDate} 도착 예정
+          </Typography>
           {platform !== 'mobile' ? (
             <Stack gap="0">
               <Grid

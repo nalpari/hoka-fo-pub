@@ -133,16 +133,6 @@ export function OrderDetail({ order, onList, ...actions }: OrderDetailProps) {
   );
 }
 
-/** 취소·반품의 접수 또는 완료 상태를 표시합니다. (Displays a claim’s requested or completed status.) */
-function OrderClaimStatus({ kind, state }: Pick<OrderClaim, 'kind' | 'state'>) {
-  return (
-    <Badge variant="filled" tone="tertiary">
-      {kind === 'cancel' ? '취소' : '반품'}
-      {state === 'complete' ? '완료' : '접수'}
-    </Badge>
-  );
-}
-
 /** 취소·반품 상세와 처리 정보 및 환불 내역을 표시합니다. (Displays claim processing details and refund information.) */
 export function OrderClaimDetail({
   order,
@@ -176,7 +166,10 @@ export function OrderClaimDetail({
           ))}
         </Stack>
         <Box flexShrink="0">
-          <OrderClaimStatus kind={claim.kind} state={claim.state} />
+          <Badge variant="filled" tone="tertiary">
+            {claim.kind === 'cancel' ? '취소' : '반품'}
+            {claim.state === 'complete' ? '완료' : '접수'}
+          </Badge>
         </Box>
       </HStack>
       <OrderInformationSection

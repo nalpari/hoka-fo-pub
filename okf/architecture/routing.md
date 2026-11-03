@@ -4,12 +4,17 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-02T09:59:35Z'
+updated: '2026-11-03T01:31:58Z'
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:59:35Z'
+  at: '2026-11-03T01:31:58Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderDetails.tsx
+  - src/app/mypage/orders/_components/OrdersProducts.tsx
+  - src/app/mypage/orders/_components/OrdersStatus.tsx
+  - src/app/mypage/orders/_components/OrdersList.tsx
+  - src/stories/features/orders/OrdersStatus.stories.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/common/molecules/HelpTips.tsx
   - src/app/checkout/_components/CheckoutForm.tsx
@@ -880,6 +885,10 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 배송/세탁 안내는 기존 `SupportTabs`의 `syncQuery` 모드가 `useSearchParams`와 `useRouter`로 `tab`을 읽고 갱신한다. 빈 값·없는 값·알 수 없는 값은 기존 기본 탭을 표시하며 URL을 임의 정규화하지 않는다. 다른 query를 보존하고 탭 변경을 history에 기록한다. Suspense는 해당 모드 내부에 둬 기존 Storybook/controlled 소비자는 router에 의존하지 않는다. `sourceFiles`에 11개 새 route 진입점을 추가했고 그래프는 정식 생성 명령으로 갱신했다.
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
+
+## 주문·반품 페이지 구성 검토 (2026-11-03)
+
+`/mypage/orders`와 `/mypage/returns` 경로 및 페이지 진입 구조는 변경하지 않았다. 주문 현황 표시를 한 `Grid`의 PC·모바일 반응형 값으로 정리하고 한 번만 쓰이는 주문 상태 조각을 부모 JSX에 합쳤다. 라우팅 지식에 영향이 없는 것을 주문·반품 route와 해당 `_components` 범위에서 검토했다.
 
 ## 주문 route 전용 화면 모듈 (2026-11-03)
 
