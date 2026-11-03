@@ -1488,11 +1488,12 @@ function ProductSizeSelector({
       options={productSizeOptions(selectedWidth)}
       value={value}
       onValueChange={onValueChange}
-      description={
-        <Typography as="p" variant="body4" tone="tertiary">
-          사이즈 추천: 정사이즈
-        </Typography>
-      }
+      // 1차 제외: 사이즈 추천
+      // description={
+      //   <Typography as="p" variant="body4" tone="tertiary">
+      //     사이즈 추천: 정사이즈
+      //   </Typography>
+      // }
     />
   );
 }

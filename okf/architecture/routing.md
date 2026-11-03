@@ -299,6 +299,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 상품상세 사이즈 추천 1차 제외 (2026-11-03)
+
+`ProductSizeSelector`의 “사이즈 추천: 정사이즈” description을 1차 제외 요청에 따라 주석 처리했다. 사이즈 선택·사이즈 가이드와 기존 URL 및 서버/클라이언트 경계는 유지한다. 출처: 작업 트리 `src/app/products/[id]/_components/ProductDetailContent.tsx`. 기록: codex/gpt-6, 2026-11-03 (Asia/Seoul). 코드 diff를 확인했으며 브라우저 검증은 수행하지 않았다.
+
 ## 주문 관련 3개 화면의 URL 유지 (2026-11-02)
 
 최신 주문 시안으로 `/mypage/orders`의 주문/배송조회 표시와 `/mypage/returns`의 취소/반품내역·신청 표시를 갱신했다. 두 App Router 진입점과 preview 경로는 유지했다. Storybook에서는 주문을 장바구니와 별도인 `PAGES/주문` 아래로 정리하고 주문 조회 WEB·Mobile, 취소/반품내역 WEB·Mobile을 화면 연결 인덱스에 등록했다. 생성된 화면 연결 그래프에서는 제거한 SearchField 의존성만 반영했다. UI 차이와 확인 범위는 [컴포넌트와 스타일](ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)에 기록했다. 출처: 위의 3개 Figma 노드와 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리.
