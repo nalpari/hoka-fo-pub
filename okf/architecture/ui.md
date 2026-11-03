@@ -4185,3 +4185,5 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 
 
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
+
+2026-11-03: OrderClaimRequest의 예정금액 숫자는 web/mo heading7과 semibold를 명시한다. 현재 PC 28px·모바일 16px이며 PC 크기 변경은 이번 커밋에 포함하지 않는다. 경로·동작 변경 없음. 출처: OrderClaimRequest.tsx 작업 트리.
