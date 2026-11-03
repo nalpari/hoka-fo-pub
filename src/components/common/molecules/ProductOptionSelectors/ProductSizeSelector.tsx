@@ -1,8 +1,9 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * options에 해당 상품/색상/발볼의 사이즈별 상태를, value에 현재 선택을 전달합니다. onValueChange가 서버 요청 전 선택 상태 연결점입니다.
+ * allowSoldOutSelection은 상품상세에서만 품절 사이즈를 알림 대상으로 선택하게 하며 구매 가능 상태로 바꾸지 않습니다. 장바구니 등 기본 소비자는 품절 선택 불가를 유지합니다.
  * 품절/소량 표시 데이터는 서버 재고로 변환하며 상품/색상 변경 시 무효가 된 이전 사이즈는 부모에서 해제합니다.
  */
 
@@ -25,6 +26,7 @@ export type ProductSizeSelectorProps = {
   value: string;
   onValueChange: (size: string) => void;
   appearance?: 'detail' | 'cart';
+  allowSoldOutSelection?: boolean;
   action?: ReactNode;
   description?: ReactNode;
   error?: string;
@@ -38,6 +40,7 @@ export function ProductSizeSelector({
   value,
   onValueChange,
   appearance = 'detail',
+  allowSoldOutSelection = false,
   action,
   description,
   error,
@@ -49,6 +52,7 @@ export function ProductSizeSelector({
   const selector = (
     <SizeSelector
       mode="single"
+      allowSoldOutSelection={allowSoldOutSelection}
       size={appearance === 'cart' ? 'medium' : 'regular'}
       ariaLabel={appearance === 'cart' ? '사이즈' : '사이즈 선택'}
       columns={5}

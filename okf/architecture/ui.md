@@ -1,8 +1,8 @@
 ---
 type: Architecture
 title: '컴포넌트와 스타일'
-description: '공통 UI 계층, Panda CSS와 Storybook 작성 규칙을 설명한다.'
-tags: [components, panda-css, storybook]
+description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
+tags: [components, panda-css]
 status: draft
 updated: '2026-11-03T06:11:12Z'
 generated:
@@ -16,6 +16,18 @@ working_tree_sources:
   - src/components/mypage/MyPageFrame.tsx
   - src/components/orders/orders.data.ts
   - src/components/orders/orders.types.ts
+  - src/components/common/atoms/Badge.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
+  - src/app/screen-index/screenProgress.ts
+  - src/app/launch-calendar/page.tsx
+  - src/app/launch-calendar/in-stock/page.tsx
+  - src/app/launch-calendar/upcoming/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/page.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
+  - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
   - src/components/common/molecules/OrderProductSummary.tsx
@@ -60,6 +72,8 @@ working_tree_sources:
   - src/components/care-guide/care.data.ts
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/_components/SupportContacts.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/preview-restock/page.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -4061,6 +4075,26 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
 
+## 상품상세 옵션 입고 알림 (2026-11-03)
+
+출처: [상품상세 Side Panel 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339), 사이즈 영역 `3773:5401`·품절 옵션 `3773:5423/5427`, 첨부 코멘트의 호버·선택·CTA 전환 요구. 기존 상품상세의 `ProductDetailContent`와 공통 `ProductSizeSelector` → `SizeSelector`를 재사용한다.
+
+- 공통 선택기의 `allowSoldOutSelection` 기본값은 false다. 상품상세에서만 true로 전달해 품절 사이즈를 알림 대상으로 선택한다. 장바구니 등 다른 소비자의 disabled 의미는 유지한다. 미제공 사이즈는 계속 선택할 수 없다.
+- 품절 옵션은 #E9EAEB 배경·#B3B3B3 글자·14px 종 아이콘·4px 간격, hover/선택은 검정 1px 테두리다. Figma 관측 높이는 36px지만 기존 상세 옵션의 40px·5열·8px 간격을 유지해 별도 옵션 높이 개편으로 확대하지 않았다. 버튼은 기존 48px PC/40px MO를 재사용한다.
+- 품절 선택 시 구매 옵션 목록은 숨기고 `품절` disabled / `입고알림신청` CTA를 표시한다. 판매 가능 사이즈를 선택하면 기존 누적 옵션과 구매 CTA로 돌아온다. 색상/발볼 변경은 알림 대상 선택을 해제한다.
+- `/products/preview-restock`은 shoe-1 표시 fixture의 첫 색상·발볼에서 295/300 품절, 300 초기 선택을 보여 준다. 실제 재고 모델과 원본 상품 fixture는 변경하지 않는다. 입고알림신청 API·로그인·완료 전환·저장은 미구현이며 통합 소유자의 향후 연결 책임을 `[ 개발팀 바인딩 ]` 주석에 기록했다.
+- PC 1600px·MO 375px에서 초기 선택과 배경/테두리/아이콘·CTA를 확인했다. 호버, 키보드 ArrowRight, 판매 가능 사이즈 선택 후 CTA 복원, 새로고침과 PC→MO resize에서 선택 유지를 확인했다. 숫자 글리프는 브라우저가 custom webfont를 사용하나 내부 family/postscript 이름이 `.`로 반환되어 서체 이름 자체의 독립 식별은 제한된다. 모바일 전용 Figma 노드는 제공되지 않아 기존 플랫폼 배치를 재사용했다.
+
+검증: 변경 파일 ESLint/Prettier, 라우트 타입 재생성 후 TypeScript, Panda, preview-links 5개, Next/Storybook 빌드가 통과했다. 1024/1025·1199/1200px resize에서 선택을 유지하고 1024/1200/375px 문서 가로 넘침이 없음을 확인했다. 1025/1199px는 기존 1200px PC 캔버스의 가로 스크롤을 유지한다. Storybook 빌드의 외부 모듈 use client·plugin timing 경고는 남아 있다.
+
+명시적 Storybook 플랫폼 회귀: Mobile story를 1600px에서 열어 platform-mobile 유지와 품절 선택 CTA를, WEB story를 375px에서 열어 platform-web 유지를 확인했다.
+
+공통 선택기의 기본 Single/Multiple Storybook에서 미제공 220과 품절 230이 aria-disabled=true를 유지함을 확인했다.
+
+## 상품상세 마크업 인계와 병합 잔여 제거 (2026-11-03)
+
+상품상세의 `ProductPurchaseActions`/`ProductDetailFooter`에서 이미 제거된 구매 콜백 참조를 없앴다. `RouteContent`의 주문 검증·장바구니 반영·checkout 이동 잔여 코드도 제거했다. 옵션 입고알림의 선택과 PC/MO CTA, 기존 선택 옵션/수량·관심상품 토글·아코디언·탭·이미지 뷰어는 로컬 UI로 유지하며 선택 수량에 따른 금액 계산은 없다. CTA와 준비된 금액의 연결 소유권을 `[ 개발팀 바인딩 ]` 주석으로 명시했다. 공통 컴포넌트 계약은 변경하지 않았고 추가 래퍼나 전체 화면 복제는 만들지 않았다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`.
+
 ## 주문 화면 컴포넌트 route 소유권 (2026-11-03)
 
 `OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다. `OrderStatusTracker`는 별도 compact API 없이 PC 테두리형 5열과 모바일 회색 배경형 5열 상태 바로 표시하며, 격리된 PC·모바일 스토리는 `OrdersStatus.stories.tsx`에서 확인한다.
@@ -4187,3 +4221,59 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
 
 2026-11-03: OrderClaimRequest의 예정금액 숫자는 web/mo heading7과 semibold를 명시한다. 현재 PC 28px·모바일 16px이며 PC 크기 변경은 이번 커밋에 포함하지 않는다. 경로·동작 변경 없음. 출처: OrderClaimRequest.tsx 작업 트리.
+
+## 9개 디자인 영역의 상태 표현 조사 (2026-11-03)
+
+[IA 누락 대응표](routing.md#9개-디자인-영역의-ia-상태-링크-재조사-2026-11-03)에 FAQ 직접 상태 링크 누락 1개, 적용 여부 미확정 로그아웃 안내 1개와 Main/PLP/PDP 접근 한계를 기록했다. 사이즈 가이드 6개 데이터 변형은 사용자 후속 지시로 중복 화면으로 취급해 누락 집계와 작업 범위에서 제외했다. 제품 UI·스타일·Storybook·표시 fixture는 수정하지 않아 기존 구현에 영향이 없다.
+
+사이즈 가이드의 신발 남성 inch·여성 cm·공용 cm, 상의 남성/여성 표와 하의 남성 표는 기존 로컬 선택 UI로 표현하며 사용자 확정에 따라 별도 IA 고정 상태 링크를 요구하지 않는다. 러닝 베스트·양말 섹션의 네 프레임은 실제 선택 탭과 표가 상의 여성으로 보이므로 섹션명만으로 다른 제품 상태를 만들지 않는다. 상의·하의 cm/inch 이름의 프레임 쌍도 표가 같아 별도 단위 상태로 확정하지 않았다. FAQ 시안은 “회원 혜택은 무엇인가요?” 펼침이며 현재 소스의 PC 기본 첫 질문과 MO 닫힘에서 이를 고정해 여는 URL이 없다.
+
+출처: 대응표의 Figma 노드와 제품 이미지, `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`, 기존 `screenConnections.ts`. 로컬 IA 링크 클릭과 preview-links 6개 통과를 확인했지만 전체 PC/MO 시각 일치나 회귀 검증은 수행하지 않았다. 기준 HEAD: `c69358e5221beb6df59a17886835b44505b7a4dc`; 조사·기록: codex/gpt-6, 2026-11-03T10:40:00+09:00. 기존 출처·generated 기록·draft 신뢰 상태는 유지한다.
+
+## 런칭 캘린더 시안 적용 (2026-11-03)
+
+[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club 시안 2921:5026의 1열·정사각 이미지·32px 둥근 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.
+
+## FAQ 펼침과 장시간 미입력 안내 상태 구현 (2026-11-03)
+
+[IA 상태 URL 대응표](routing.md#faq-펼침장시간-미입력-안내의-ia-상태-url-2026-11-03)의 두 상태를 기존 소유자에 작은 표시 옵션으로 추가했다. FAQ의 `previewExpanded`는 전용 fixture의 첫 항목만 처음부터 펼치고 기존 기본/빈 결과·검색·분류·접기 구조를 유지한다. 제목과 본문이 원래 FAQ 데이터에서 다른 항목에 있다는 디자인 차이는 표시 fixture로 명시했으며 기본 질문·답변을 바꾸지 않았다. 빈 결과와 펼침 옵션은 타입에서 동시 사용을 막는다.
+
+로그인 `showSessionTimeout`은 45:1394의 제목·본문·확인 버튼과 14px 모서리, 343px 최대 너비를 기존 `ModalDialog`로 표시한다. 제목/본문/버튼 간격·모바일 표시를 Panda로 구성하고 해당 디자인에 없는 X 버튼은 이 fixture의 header CSS에서 숨긴다. 확인·Escape로 닫으며 선택적인 `finalFocus`는 Base UI의 동일 옵션을 전달해 직접 열린 안내를 닫을 때 아이디 필드로 돌아가게 한다. 공용 모달의 기존 기본값·선택하지 않은 소비자는 유지한다. 세션 판정·종료·타이머는 프론트 연동 소유자의 후속 책임이다.
+
+검증은 위 대응표의 실제 PC/MO 검사·IA 클릭·기본 상태 회귀와 변경 파일 ESLint/Prettier·타입·Panda·Next/Storybook 빌드·기존 검사 7개다. 전체 모달/Storybook 실행이나 픽셀 일치 판정은 하지 않았다. 출처: 위 대응표의 Figma·구현 파일, `src/components/common/layouts/ModalDialog.tsx`와 설치된 Base UI `DialogPopup.finalFocus` 타입. 검토 HEAD `889cf058339d51f9d36103e24e0732ab37fc14ae`; 기록 codex/gpt-6, 2026-11-03T10:49:20+09:00. 기존 출처·draft 신뢰 상태를 유지한다.
+
+## Storybook 제거 (2026-11-03)
+
+Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA는 실제 페이지와 고정 상태 URL만 연결한다. 진행 상태 자료는 screenProgress.ts로 옮겨 기존 PC/MO 수급·퍼블리싱 상태와 override를 보존했다. Panda 스토리 제외와 저장소 지침의 Storybook 요구도 정리했다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+## 쿠폰 1차 개발 범위 조정 (2026-11-03)
+
+사용자 요청에 따라 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 쿠폰 등록 입력·안내·등록 상태·완료 팝업과 전체/상품할인/배송할인 탭을 `1차 개발 범위 제외` 주석으로 보관하고 렌더링에서 제외했다. 목록은 분류 필터 없이 준비된 쿠폰 전체를 대상으로 기존 5개 단위 더보기와 상세 열람을 유지한다. 임직원 쿠폰과 빈 목록은 유지하며 실제 등록 요청·완료 전환은 구현하지 않는다. 기존 쿠폰 Figma 적용 기록 중 등록/분류 UI의 노출 설명은 이 결정으로 대체한다.
+
+기본 URL은 `/mypage/coupons`다. 기존 등록 오류·완료 preview 파일과 호출 타입은 복원 및 참조 호환을 위해 남기지만 등록 UI/팝업을 표시하지 않는다. `src/app/screen-index/screenConnections.ts` IA196의 등록 오류·완료 링크도 주석 처리하며 빈 목록·임직원 연결은 유지한다. 출처는 이번 사용자 요청과 위 두 소스이며 기존 draft·provenance는 유지한다.
+
+검증: PC1600px·MO375px에서 기본/빈 목록/임직원/등록 오류/등록 완료/상세 URL의 등록 영역·분류 탭 미노출과 가로 넘침 없음을 확인했다. 상세 열기·Escape 닫기와 더보기 5→10개 표시를 확인했다. TypeScript·변경 ESLint/Prettier·Panda·preview-links 6개 검사가 통과했다. 전체 Next 빌드는 이번 변경에서 재실행하지 않았다.
+
+## 상품 목록 호버 색상 캐러셀 (2026-11-03)
+
+ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View를 제거했다. 기본 활동/색상·발볼 요약은 유지하고, 마우스 호버 또는 키보드 포커스 시 같은 하단 영역을 ProductOptionList의 기존 preview 캐러셀로 교체한다. 썸네일 80×53px·간격 4px·좌우 이동·스크롤바를 재사용한다. 초기 72px 최소 높이 방식은 아래 호버 높이 보정에서 콘텐츠의 실제 높이를 확보하는 Grid 방식으로 대체했다. 색상 ID는 현재 표시 옵션에서 찾고 선택 이미지를 카드 썸네일에 반영한다. Escape로 요약으로 돌아가며, 모바일의 34px 옵션 목록과 history/showcase 표현은 유지한다.
+
+요청 출처: [기본 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2939-4302), [호버 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3775), [목록](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3501). 사용자 확정 동작과 기존 캐러셀 규격으로 구현했다. 디자인 API 429와 브라우저 로그인 필요로 최신 프레임 구조·수치·이미지는 확인하지 못했으므로 시안 실측 일치를 주장하지 않는다.
+
+검증: 전체 lint·typecheck와 Panda 생성, Next 프로덕션 빌드(146개 정적 페이지 생성) 통과. 실행 화면에서 PC 호버 시 별도 미리보기 section 0개, 썸네일 80×53px/간격 4px, 좌우 이동(다음 scrollLeft 108px·이전 0px), 색상 선택 이미지 변경, Escape 복귀, Tab 진입, 기본/호버 카드 높이 516.4375px 동일(1440px)을 확인했다. 390px에서는 기존 2열·활동·색상 썸네일과 가로 넘침 없음(clientWidth/scrollWidth 375px)을 확인했다. 1024px는 캐러셀 없이 모바일 표시, 1025/1199px는 기존 1200px PC 캔버스, 1200px는 clientWidth/scrollWidth 1185px 동일이었다. 검색 결과에도 적용되고 최근 본 상품 history·상세 추천 showcase에는 해당 캐러셀이 없음을 확인했다. 기존 hoka/Pretendard family와 로드된 face를 확인했으며 폰트 정의는 수정하지 않았다. 서비스 요청/저장 계약은 추가하지 않았다. 작업 트리 출처는 위 세 파일이며 기존 동시 변경은 보존했다.
+
+## 상품 목록 호버 높이 보정 (2026-11-03)
+
+`/products?gender=men&sort=popular`의 1421×1252 화면에서 기본 옵션 영역 72px보다 스크롤바를 포함한 캐러셀 75px가 커 첫 상품 호버 시 다음 행이 3px 내려가는 현상을 재현했다. 임의의 고정 최소 높이를 없애고 ProductDetailsOptions의 기본 요약과 캐러셀을 같은 Grid 셀에 배치해 두 콘텐츠의 실제 높이 중 큰 값을 항상 확보한다. visibility로 표시를 전환하며 숨긴 캐러셀은 aria-hidden과 inert로 읽기·키보드 진입에서 제외한다. 모바일/history/showcase는 기존 구성을 유지한다.
+
+검증: PC1421·1200·1025px에서 첫 세 상품 각각의 진입·이탈 전후 6개 상품의 y/높이 값이 동일했다. 1421px 첫 행 타일 높이 511.03125px·다음 행 y 857.03125px가 유지된다. 색상 선택·Escape·Tab 진입을 확인했고, 숨긴 캐러셀의 inert/aria-hidden을 확인했다. MO390px는 캐러셀 0개·clientWidth/scrollWidth 375px 동일이다. 공유 작업 트리의 lint·타입·Panda·Next 빌드(정적 페이지 146개)가 통과했다. 출처는 사용자 브라우저 코멘트와 ProductCard.tsx 작업 트리이며 서비스 연결 계약은 변경하지 않았다.
+
+## 상품 목록 프로모션 배지 색상 보정 (2026-11-03)
+
+사용자가 [배지 노드 3879:3533](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3879-3533)을 지정하고 색상값 `Markdown/Red-100 #E10F00`을 직접 확정했다. ProductCard listing의 프로모션 글자와 구분선을 #E10F00으로 표시한다. 저장소에서는 같은 값의 기존 red.80/--color-red-80 토큰을 재사용하며 전역 red.100이나 브랜드 텍스트 토큰을 재정의하지 않는다.
+
+Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션 모드에서만 허용한다. 기존 ProductCard의 error override도 이 옵션으로 연결해 글자와 구분선의 색을 일치시킨다. 공통 Badge 기본값과 history의 기존 표시 override, 일반 텍스트·로고·버튼 배경은 유지한다. 앞서 원복한 전역 브랜드 텍스트 변경을 다시 적용하지 않는다.
+
+검증: PC1421/MO390의 실제 목록에서 Exclusive·New를 모두 rgb(225, 15, 0)으로 확인했다. 관심상품 history에서는 기존 New의 파랑 rgb(0, 157, 255)이 유지됨을 확인했다. 공유 작업 트리의 lint·타입·Panda·Next 빌드가 통과했다. Figma 구조화 읽기는 API 제한으로 미수행이며 HEX의 근거는 사용자 답변이다. 출처는 Badge.tsx·ProductCard.tsx 작업 트리다.

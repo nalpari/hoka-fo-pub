@@ -26,7 +26,6 @@ const rules = [
       'src/types/',
       'src/stories/',
       'panda.config.ts',
-      '.storybook/',
     ],
     'okf/architecture/ui.md',
   ],

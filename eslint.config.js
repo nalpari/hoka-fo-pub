@@ -54,7 +54,6 @@ export default tseslint.config(
       '.next',
       '.tmp',
       '.tmp-*',
-      'storybook-static',
       'styled-system',
       '.claude/helpers/**',
     ],

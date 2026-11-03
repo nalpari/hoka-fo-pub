@@ -4,13 +4,12 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 Next.js 기반 퍼블리�
 
 ## 개발 환경
 
-| 항목          | 구성                               |
-| ------------- | ---------------------------------- |
-| 런타임 기준   | Node.js `24.21.0`, npm `11.19.0`   |
-| 프레임워크    | Next.js `16.3.5`, App Router       |
-| UI            | React·React DOM `19.2.8`, Base UI  |
-| 언어·스타일   | TypeScript, Panda CSS, 전역 SCSS   |
-| 컴포넌트 검수 | Storybook, Next.js Vite 프레임워크 |
+| 항목        | 구성                              |
+| ----------- | --------------------------------- |
+| 런타임 기준 | Node.js `24.21.0`, npm `11.19.0`  |
+| 프레임워크  | Next.js `16.3.5`, App Router      |
+| UI          | React·React DOM `19.2.8`, Base UI |
+| 언어·스타일 | TypeScript, Panda CSS, 전역 SCSS  |
 
 Next.js와 React·React DOM 버전은 고정한다. 의존성은 `package-lock.json`을 기준으로 설치한다.
 
@@ -25,16 +24,13 @@ npm run dev
 
 `npm ci`는 Panda 코드·CSS를 생성하고 Git 훅을 설치한다. `npm run dev`는 Panda 생성 후 Next.js 개발 서버와 CSS 감시 작업을 함께 실행한다. 기본 앱 주소는 `http://localhost:3000`이다.
 
-| 명령                      | 용도                                      |
-| ------------------------- | ----------------------------------------- |
-| `npm run dev:all`         | 앱·Storybook·Panda CSS 감시 동시 실행     |
-| `npm run storybook`       | Storybook 실행 (`http://localhost:6006`)  |
-| `npm run panda`           | Panda 코드·CSS 재생성                     |
-| `npm run build`           | Panda 생성 후 Next.js 운영 빌드           |
-| `npm run start`           | 빌드된 앱 실행                            |
-| `npm run build-storybook` | 정적 Storybook 생성 (`storybook-static/`) |
+| 명령            | 용도                            |
+| --------------- | ------------------------------- |
+| `npm run panda` | Panda 코드·CSS 재생성           |
+| `npm run build` | Panda 생성 후 Next.js 운영 빌드 |
+| `npm run start` | 빌드된 앱 실행                  |
 
-`npm ci --ignore-scripts`로 설치했다면 `npm run panda`와 `npm run hooks:install`을 직접 실행한다. Storybook 단독 실행도 생성 스타일이 먼저 필요하다.
+`npm ci --ignore-scripts`로 설치했다면 `npm run panda`와 `npm run hooks:install`을 직접 실행한다.
 
 ## 화면과 데모 범위
 
@@ -50,7 +46,7 @@ npm run dev
 
 실제 경로는 `src/app/**/page.tsx`가 결정한다. 라우트 회귀 테스트는 63개 경로 패턴을 검사하며, 미등록 URL은 `src/app/not-found.tsx`에서 처리한다. `src/data/screenRegistry.ts`는 IA 메타데이터이므로 화면 완성 여부를 나타내지 않는다.
 
-- PC·모바일은 `PlatformProvider`가 화면 폭으로 선택한다. 1024px 이하는 `mobile`, 초과는 `web`이며 리사이즈에도 전환된다. 1024px 초과~1200px 미만은 PC 1200px 캔버스에 가로 스크롤이 생긴다. 서버·최초 hydration은 `web`이며 모바일 첫 진입에는 전환이 보일 수 있다. Storybook 등에서 명시한 `platform`은 화면 폭과 관계없이 고정된다.
+- PC·모바일은 `PlatformProvider`가 화면 폭으로 선택한다. 1024px 이하는 `mobile`, 초과는 `web`이며 리사이즈에도 전환된다. 1024px 초과~1200px 미만은 PC 1200px 캔버스에 가로 스크롤이 생긴다. 서버·최초 hydration은 `web`이며 모바일 첫 진입에는 전환이 보일 수 있다. 미리보기에서 명시한 `platform`은 화면 폭과 관계없이 고정된다.
 - 로그인은 데모 검증과 `localStorage` 플래그를 사용한다. 실제 계정 인증과 소셜 로그인은 연결하지 않았다.
 - 장바구니는 클라이언트 페이지 이동 중 유지되며 새로고침하면 초기화된다.
 - `/checkout`은 배송 정보·결제 수단·주문 합계·완료 상태를 제공한다. 데모 주문 완료 시 장바구니를 비우며 실제 주문 저장이나 결제 승인은 수행하지 않는다.
@@ -66,7 +62,6 @@ npm run dev
 | `src/lib/`                                  | 기기 판별·이름 검증·인증 타이머 등 공용 로직     |
 | `src/styles/`, `panda.config.ts`            | 전역 스타일, 디자인 토큰과 플랫폼 조건           |
 | `src/mocks/`, `src/data/`                   | 목 상품과 IA 메타데이터                          |
-| `src/stories/`                              | 컴포넌트·기능 화면 Storybook                     |
 | `tests/`                                    | 라우트·버전 고정, 주문 합계와 OKF 훅 회귀 테스트 |
 
 로그인·주문 화면과 헤더는 상태·동작을 소유하는 컴포넌트와 레이아웃·표시 영역을 분리해 조합한다. 기존 공통 UI와 `Typography`를 먼저 확인하고, 기능 전용 구성은 해당 기능 폴더에 둔다.
@@ -91,12 +86,11 @@ npm run build
 | --------------------- | ----------------------------------------------- |
 | 라우팅·의존성         | 빌드 후 `node --test tests/app-router.test.mjs` |
 | 주문 합계 계산        | `node --test tests/checkout-summary.test.mjs`   |
-| Storybook 스토리      | `npm run build-storybook`                       |
 | OKF 훅·검사 스크립트  | `npm run test:okf`                              |
 | 커밋할 소스·관련 문서 | 스테이징 후 `npm run okf:check`                 |
 | 문서                  | 내부 링크 확인, `git diff --check`              |
 
-화면 변경은 PC·모바일 플랫폼에서 직접 진입·내부 이동·주요 상호작용을 확인한다. Storybook은 `src/stories/**/*.stories.@(ts|tsx)`를 탐색하고 App Router 탐색 모킹을 사용한다. 접근성 설정 `a11y.test: todo`는 검사 통과를 뜻하지 않는다. 자세한 절차는 [변경 검증](okf/development/verification.md)에 있다.
+화면 변경은 PC·모바일에서 기본·고정 상태 URL의 직접 진입·내부 이동·주요 상호작용을 확인한다. 자세한 절차는 [변경 검증](okf/development/verification.md)에 있다.
 
 ## 프로젝트 지식 (OKF)
 

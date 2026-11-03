@@ -732,7 +732,3 @@ export function RouteContent() {
     </HomeLayout>
   );
 }
-export const routePreviewComponents = { Hero, HeroCopy, HeroSlide } satisfies Pick<
-  typeof import('@/types/component-contracts/app-page'),
-  'Hero' | 'HeroCopy' | 'HeroSlide'
->;

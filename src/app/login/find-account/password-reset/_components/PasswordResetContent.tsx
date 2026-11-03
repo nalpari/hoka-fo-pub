@@ -151,7 +151,3 @@ export function PasswordResetCompleteModal({
     </ModalDialog>
   );
 }
-export const routePreviewComponents = { PasswordResetCompleteModal } satisfies Pick<
-  typeof import('@/types/component-contracts/app-login-find-account-password-reset-page'),
-  'PasswordResetCompleteModal'
->;

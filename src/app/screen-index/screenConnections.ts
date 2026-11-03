@@ -15,30 +15,31 @@ export type ScreenConnection = {
     href: string;
   }[];
   sourceFiles: string[];
-  stories: Partial<
-    Record<
-      'web' | 'mobile',
-      {
-        id: string;
-        file: string;
-      }
-    >
-  >;
 };
 const connections: Record<number, ScreenConnection> = {
+  159: {
+    route: '/launch-calendar',
+    previewRoutes: [{ label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' }],
+    sourceFiles: [
+      'src/app/launch-calendar/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/page.tsx',
+    ],
+  },
+  160: {
+    route: '/launch-calendar',
+    sourceFiles: ['src/app/launch-calendar/page.tsx'],
+  },
+  161: {
+    route: '/launch-calendar/upcoming',
+    sourceFiles: ['src/app/launch-calendar/upcoming/page.tsx'],
+  },
+  162: {
+    route: '/launch-calendar/in-stock',
+    sourceFiles: ['src/app/launch-calendar/in-stock/page.tsx'],
+  },
   '267': {
     route: '/locales',
     sourceFiles: ['src/app/locales/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-공통-4-국가-및-지역-선택-web--default',
-        file: 'src/stories/features/locales/LocalesPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-공통-4-국가-및-지역-선택-mobile--default',
-        file: 'src/stories/features/locales/LocalesPage.mobile.stories.tsx',
-      },
-    },
   },
   '202': {
     route: '/mypage/profile/preview-edit',
@@ -47,17 +48,14 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/profile/preview-edit/page.tsx',
       'src/app/mypage/profile/preview-error/page.tsx',
     ],
-    stories: {},
   },
   '197': {
     route: '/mypage/coupons/preview-detail',
     sourceFiles: ['src/app/mypage/coupons/preview-detail/page.tsx'],
-    stories: {},
   },
   '257': {
     route: '/signup/verify/phone/preview-already-registered',
     sourceFiles: ['src/app/signup/verify/phone/preview-already-registered/page.tsx'],
-    stories: {},
   },
   '205': {
     route: '/mypage/addresses/preview-edit',
@@ -66,7 +64,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/addresses/preview-edit/page.tsx',
       'src/app/mypage/addresses/preview-error/page.tsx',
     ],
-    stories: {},
   },
   '204': {
     route: '/mypage/addresses/preview-new',
@@ -75,7 +72,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/addresses/preview-new/page.tsx',
       'src/app/mypage/addresses/preview-error/page.tsx',
     ],
-    stories: {},
   },
   '193': {
     route: '/mypage/reviews/preview-edit',
@@ -84,7 +80,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/reviews/preview-edit/page.tsx',
       'src/app/mypage/reviews/preview-error/page.tsx',
     ],
-    stories: {},
   },
   '192': {
     route: '/mypage/reviews/preview-new',
@@ -93,7 +88,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/reviews/preview-new/page.tsx',
       'src/app/mypage/reviews/preview-error/page.tsx',
     ],
-    stories: {},
   },
   '181': {
     route: '/mypage/orders/preview-cancel-detail',
@@ -103,20 +97,9 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
       'src/app/mypage/orders/preview-return-detail/page.tsx',
     ],
-    stories: {},
   },
   '174': {
     sourceFiles: ['src/app/checkout/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-주문-0-주문서-web--coupon-selection',
-        file: 'src/stories/features/checkout/CheckoutPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-주문-0-주문서-mobile--coupon-selection',
-        file: 'src/stories/features/checkout/CheckoutPage.mobile.stories.tsx',
-      },
-    },
   },
   '179': {
     route: '/mypage/orders/preview-detail',
@@ -124,61 +107,19 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/orders/page.tsx',
       'src/app/mypage/orders/preview-detail/page.tsx',
     ],
-    stories: {
-      mobile: {
-        id: 'pages-장바구니-1-주문하기-주문내역-mobile--detail',
-        file: 'src/stories/features/orders/OrdersPage.mobile.stories.tsx',
-      },
-    },
   },
   '245': {
     sourceFiles: ['src/context/ShopShell.tsx'],
-    stories: {
-      mobile: {
-        id: 'organisms-navigation-menudrawer--default',
-        file: 'src/stories/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx',
-      },
-    },
   },
   '246': {
     sourceFiles: ['src/context/ShopShell.tsx'],
-    stories: {
-      web: {
-        id: 'organisms-search-searchoverlay--default',
-        file: 'src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx',
-      },
-      mobile: {
-        id: 'organisms-search-searchoverlay--mobile',
-        file: 'src/stories/components/common/organisms/Search/SearchOverlay.stories.tsx',
-      },
-    },
   },
   '1': {
     route: '/',
     sourceFiles: ['src/app/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-메인-0-메인-web--width-1600',
-        file: 'src/stories/features/home/HomePage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-메인-0-메인-mobile--width-375',
-        file: 'src/stories/features/home/HomePage.mobile.stories.tsx',
-      },
-    },
   },
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-탐색-0-러닝세션-목록-web--list',
-        file: 'src/stories/features/running-session/RunningSession.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-탐색-0-러닝세션-목록-mobile--list',
-        file: 'src/stories/features/running-session/RunningSession.mobile.stories.tsx',
-      },
-    },
   },
   '170': {
     route: '/cart',
@@ -194,16 +135,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/cart/preview-options/page.tsx',
       'src/app/cart/preview-limit/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-장바구니-0-장바구니-목록-web--default',
-        file: 'src/stories/features/cart/CartPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-장바구니-0-장바구니-목록-mobile--default',
-        file: 'src/stories/features/cart/CartPage.mobile.stories.tsx',
-      },
-    },
   },
   '171': {
     route: '/checkout',
@@ -222,16 +153,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-주문-0-주문서-web--default',
-        file: 'src/stories/features/checkout/CheckoutPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-주문-0-주문서-mobile--default',
-        file: 'src/stories/features/checkout/CheckoutPage.mobile.stories.tsx',
-      },
-    },
   },
   '177': {
     route: '/mypage',
@@ -245,16 +166,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/preview-no-orders/page.tsx',
       'src/app/mypage/preview-logout/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-마이페이지-0-마이페이지-메인-web--width-1600',
-        file: 'src/stories/features/mypage/MyPage.web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-마이페이지-0-마이페이지-메인-mobile--width-375',
-        file: 'src/stories/features/mypage/MyPage.stories.tsx',
-      },
-    },
   },
   '178': {
     route: '/mypage/orders',
@@ -275,16 +186,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/orders/preview-return-detail/page.tsx',
       'src/app/mypage/orders/[preview]/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-주문-1-주문-배송-조회-web--default',
-        file: 'src/stories/features/orders/OrdersPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-주문-1-주문-배송-조회-mobile--default',
-        file: 'src/stories/features/orders/OrdersPage.mobile.stories.tsx',
-      },
-    },
   },
   '180': {
     route: '/mypage/returns',
@@ -296,16 +197,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/orders/preview-cancel-detail/page.tsx',
       'src/app/mypage/orders/preview-return-detail/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-주문-2-취소-반품-내역-web--default',
-        file: 'src/stories/features/orders/ReturnsPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-주문-2-취소-반품-내역-mobile--default',
-        file: 'src/stories/features/orders/ReturnsPage.mobile.stories.tsx',
-      },
-    },
   },
   '182': {
     route: '/mypage/wishlist',
@@ -315,24 +206,12 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/wishlist/page.tsx',
       'src/app/mypage/wishlist/preview-empty/page.tsx',
     ],
-    stories: {
-      mobile: {
-        id: 'pages-마이페이지-1-관심상품-mobile--wishlist',
-        file: 'src/stories/features/mypage/MyPage.Wishlist.Mobile.stories.tsx',
-      },
-    },
   },
   '183': {
     route: '/mypage/recent',
     defaultStateLabel: '목록 있음',
     previewRoutes: [{ label: '빈 목록', href: '/mypage/recent/preview-empty' }],
     sourceFiles: ['src/app/mypage/recent/page.tsx', 'src/app/mypage/recent/preview-empty/page.tsx'],
-    stories: {
-      mobile: {
-        id: 'pages-마이페이지-2-오늘-본-상품-mobile--recent',
-        file: 'src/stories/features/mypage/MyPage.Recent.Mobile.stories.tsx',
-      },
-    },
   },
   '184': {
     route: '/mypage/restock-alerts',
@@ -342,35 +221,19 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/restock-alerts/page.tsx',
       'src/app/mypage/restock-alerts/preview-empty/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-마이페이지-3-재입고-알림-상품-web--restock-alerts',
-        file: 'src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-마이페이지-3-재입고-알림-상품-mobile--restock-alerts',
-        file: 'src/stories/features/mypage/MyPage.RestockAlerts.Mobile.stories.tsx',
-      },
-    },
   },
   '185': {
     route: '/support/faq',
     defaultStateLabel: '검색 결과 있음',
-    previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
+    previewRoutes: [
+      { label: '검색 결과 없음', href: '/support/faq/preview-no-results' },
+      { label: '답변 펼침', href: '/support/faq/preview-expanded' },
+    ],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
       'src/app/support/faq/preview-no-results/page.tsx',
+      'src/app/support/faq/preview-expanded/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-1-faqs-web--default',
-        file: 'src/stories/features/support/SupportPages.Faq.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-1-faqs-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Faq.Mobile.stories.tsx',
-      },
-    },
   },
   '187': {
     route: '/support/inquiries/preview-list',
@@ -380,16 +243,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/page.tsx',
       'src/app/support/inquiries/preview-list/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-3-1-1문의-web--default',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-3-1-1문의-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx',
-      },
-    },
   },
   '189': {
     route: '/support/inquiries/new',
@@ -415,16 +268,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/new/order-products/page.tsx',
       'src/app/support/inquiries/new/order-products/preview-empty/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-3-1-1문의-web--new',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-3-1-1문의-mobile--new',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx',
-      },
-    },
   },
   '191': {
     route: '/mypage/reviews',
@@ -447,16 +290,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/reviews/preview-edit/page.tsx',
       'src/app/mypage/reviews/preview-error/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-마이페이지-4-상품리뷰-web--ready-list',
-        file: 'src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-마이페이지-4-상품리뷰-mobile--reviews',
-        file: 'src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx',
-      },
-    },
   },
   '195': {
     previewRoutes: [
@@ -469,23 +302,15 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/rewards/preview-loading/page.tsx',
       'src/app/mypage/rewards/preview-load-error/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-마이페이지-5-회원등급-web--rewards',
-        file: 'src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-마이페이지-5-회원등급-mobile--rewards',
-        file: 'src/stories/features/mypage/MyPage.Rewards.Mobile.stories.tsx',
-      },
-    },
   },
   '196': {
     route: '/mypage/coupons',
     previewRoutes: [
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
-      { label: '등록 오류', href: '/mypage/coupons/preview-error' },
-      { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      // 1차 개발 범위 제외: 쿠폰 등록.
+      // { label: '등록 오류', href: '/mypage/coupons/preview-error' },
+      // 1차 개발 범위 제외: 쿠폰 등록.
+      // { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
       { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [
@@ -496,16 +321,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/coupons/preview-detail/page.tsx',
       'src/app/mypage/coupons/preview-employee/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-마이페이지-6-쿠폰-web--coupons',
-        file: 'src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-마이페이지-6-쿠폰-mobile--coupons',
-        file: 'src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx',
-      },
-    },
   },
   '200': {
     route: '/mypage/event-entries',
@@ -519,7 +334,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/event-entries/preview-empty/page.tsx',
       'src/app/mypage/event-entries/preview-cancel/page.tsx',
     ],
-    stories: {},
   },
   '201': {
     route: '/mypage/profile',
@@ -545,12 +359,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/profile/preview-password-complete/page.tsx',
       'src/app/mypage/profile/[preview]/page.tsx',
     ],
-    stories: {
-      mobile: {
-        id: 'pages-마이페이지-7-회원정보확인-및-수정-mobile--profile',
-        file: 'src/stories/features/mypage/MyPage.Profile.Mobile.stories.tsx',
-      },
-    },
   },
   '203': {
     route: '/mypage/addresses',
@@ -567,45 +375,23 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/mypage/addresses/preview-error/page.tsx',
       'src/app/mypage/addresses/preview-delete/page.tsx',
     ],
-    stories: {
-      mobile: {
-        id: 'pages-마이페이지-8-배송지-관리-mobile--addresses',
-        file: 'src/stories/features/mypage/MyPage.Addresses.Mobile.stories.tsx',
-      },
-    },
   },
   '206': {
     route: '/support',
     sourceFiles: ['src/app/support/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-0-고객센터-메인-web--default',
-        file: 'src/stories/features/support/SupportPages.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-0-고객센터-메인-mobile--default',
-        file: 'src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx',
-      },
-    },
   },
   '207': {
     route: '/support/faq',
     defaultStateLabel: '검색 결과 있음',
-    previewRoutes: [{ label: '검색 결과 없음', href: '/support/faq/preview-no-results' }],
+    previewRoutes: [
+      { label: '검색 결과 없음', href: '/support/faq/preview-no-results' },
+      { label: '답변 펼침', href: '/support/faq/preview-expanded' },
+    ],
     sourceFiles: [
       'src/app/support/faq/page.tsx',
       'src/app/support/faq/preview-no-results/page.tsx',
+      'src/app/support/faq/preview-expanded/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-1-faqs-web--default',
-        file: 'src/stories/features/support/SupportPages.Faq.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-1-faqs-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Faq.Mobile.stories.tsx',
-      },
-    },
   },
   '208': {
     route: '/support/notices',
@@ -615,30 +401,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/notices/page.tsx',
       'src/app/support/notices/preview-empty/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-2-공지사항-web--default',
-        file: 'src/stories/features/support/SupportPages.Notices.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-2-공지사항-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Notices.Mobile.stories.tsx',
-      },
-    },
   },
   '209': {
     route: '/support/notices/1',
     sourceFiles: ['src/app/support/notices/[id]/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-2-공지사항-web--detail',
-        file: 'src/stories/features/support/SupportPages.Notices.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-2-공지사항-mobile--detail',
-        file: 'src/stories/features/support/SupportPages.Notices.Mobile.stories.tsx',
-      },
-    },
   },
   '210': {
     route: '/support/inquiries/preview-list',
@@ -648,16 +414,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/page.tsx',
       'src/app/support/inquiries/preview-list/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-3-1-1문의-web--default',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-3-1-1문의-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx',
-      },
-    },
   },
   '211': {
     route: '/support/inquiries/new',
@@ -683,44 +439,14 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/new/order-products/page.tsx',
       'src/app/support/inquiries/new/order-products/preview-empty/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-고객센터-3-1-1문의-web--new',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-3-1-1문의-mobile--new',
-        file: 'src/stories/features/support/SupportPages.Inquiries.Mobile.stories.tsx',
-      },
-    },
   },
   '212': {
     route: '/support/store',
     sourceFiles: ['src/app/support/store/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-4-매장-찾기-web--default',
-        file: 'src/stories/features/support/SupportPages.StoreFinder.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-4-매장-찾기-mobile--default',
-        file: 'src/stories/features/support/SupportPages.StoreFinder.Mobile.stories.tsx',
-      },
-    },
   },
   '213': {
     route: '/support/member-benefits',
     sourceFiles: ['src/app/support/member-benefits/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-5-온라인-회원-등급-안내-web--default',
-        file: 'src/stories/features/support/SupportPages.MemberBenefits.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-5-온라인-회원-등급-안내-mobile--default',
-        file: 'src/stories/features/support/SupportPages.MemberBenefits.Mobile.stories.tsx',
-      },
-    },
   },
   '216': {
     previewRoutes: [
@@ -729,72 +455,33 @@ const connections: Record<number, ScreenConnection> = {
     ],
     route: '/support/after-sales',
     sourceFiles: ['src/app/support/after-sales/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-7-배송-및-반품안내-web--default',
-        file: 'src/stories/features/support/SupportPages.ShippingReturns.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-7-배송-및-반품안내-mobile--default',
-        file: 'src/stories/features/support/SupportPages.ShippingReturns.Mobile.stories.tsx',
-      },
-    },
   },
   '217': {
     previewRoutes: [{ label: '의류/용품', href: '/support/care?tab=apparel' }],
     route: '/support/care',
     sourceFiles: ['src/app/support/care/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-8-세탁-및-손질-방법-안내-web--default',
-        file: 'src/stories/features/support/SupportPages.CareGuide.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-8-세탁-및-손질-방법-안내-mobile--default',
-        file: 'src/stories/features/support/SupportPages.CareGuide.Mobile.stories.tsx',
-      },
-    },
   },
   '218': {
     route: '/support/terms?tab=privacy',
     sourceFiles: ['src/app/support/terms/page.tsx'],
-    stories: {},
   },
   '219': {
     route: '/support/terms',
     sourceFiles: ['src/app/support/terms/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-9-약관-web--default',
-        file: 'src/stories/features/support/SupportPages.Terms.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-9-약관-mobile--default',
-        file: 'src/stories/features/support/SupportPages.Terms.Mobile.stories.tsx',
-      },
-    },
   },
   '223': {
     route: '/login',
     previewRoutes: [
       { label: '에러 메시지', href: '/login/preview-error' },
       { label: '아이디 저장 도움말', href: '/login/preview-help' },
+      { label: '장시간 미입력 로그아웃 안내', href: '/login/preview-session-timeout' },
     ],
     sourceFiles: [
       'src/app/login/page.tsx',
       'src/app/login/preview-error/page.tsx',
       'src/app/login/preview-help/page.tsx',
+      'src/app/login/preview-session-timeout/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-로그인-0-로그인-web--default',
-        file: 'src/stories/features/login/LoginPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-0-로그인-mobile--default',
-        file: 'src/stories/features/login/LoginPage.mobile.stories.tsx',
-      },
-    },
   },
   '224': {
     route: '/login/find-account',
@@ -809,30 +496,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/find-account/preview-code-entry/page.tsx',
       'src/app/login/find-account/preview-expired/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-로그인-1-아이디·비밀번호-찾기-web--default',
-        file: 'src/stories/features/find-account/FindAccountPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-1-아이디·비밀번호-찾기-mobile--default',
-        file: 'src/stories/features/find-account/FindAccountPage.mobile.stories.tsx',
-      },
-    },
   },
   '226': {
     route: '/login/find-account/id-confirmation-modal',
     sourceFiles: ['src/app/login/find-account/id-confirmation-modal/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-로그인-2-아이디확인-web--default',
-        file: 'src/stories/features/find-account/IdConfirmationModal.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-2-아이디확인-mobile--default',
-        file: 'src/stories/features/find-account/IdConfirmationModal.mobile.stories.tsx',
-      },
-    },
   },
   '229': {
     route: '/login/find-account/password-reset',
@@ -845,31 +512,11 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/find-account/password-reset/preview-error/page.tsx',
       'src/app/login/find-account/password-reset/preview-complete/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-로그인-3-비밀번호-재설정-web--default',
-        file: 'src/stories/features/find-account/PasswordResetPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-3-비밀번호-재설정-mobile--default',
-        file: 'src/stories/features/find-account/PasswordResetPage.mobile.stories.tsx',
-      },
-    },
   },
   '233': {
     route: '/signup',
     previewRoutes: [{ label: '인증방법 선택', href: '/signup/verify' }],
     sourceFiles: ['src/app/signup/page.tsx', 'src/app/signup/verify/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-회원가입-0-회원가입-안내-web--default',
-        file: 'src/stories/features/signup/SignupPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-0-회원가입-안내-mobile--default',
-        file: 'src/stories/features/signup/SignupPage.mobile.stories.tsx',
-      },
-    },
   },
   '234': {
     route: '/signup/verify/phone',
@@ -886,16 +533,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/signup/verify/phone/preview-expired/page.tsx',
       'src/app/signup/verify/phone/preview-agreement-error/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-회원가입-2-휴대폰-인증-web--default',
-        file: 'src/stories/features/phone-verification/PhoneVerificationPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-2-휴대폰-인증-mobile--default',
-        file: 'src/stories/features/phone-verification/PhoneVerificationPage.mobile.stories.tsx',
-      },
-    },
   },
   '236': {
     route: '/signup/terms',
@@ -908,16 +545,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/signup/terms/preview-error/page.tsx',
       'src/app/signup/terms/preview-detail/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-회원가입-3-약관동의-web--default',
-        file: 'src/stories/features/signup-terms/SignupTermsPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-3-약관동의-mobile--default',
-        file: 'src/stories/features/signup-terms/SignupTermsPage.mobile.stories.tsx',
-      },
-    },
   },
   '237': {
     route: '/signup/information',
@@ -926,93 +553,32 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/signup/information/page.tsx',
       'src/app/signup/information/preview-error/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-회원가입-4-회원-정보-입력-web--default',
-        file: 'src/stories/features/signup-registration/RegistrationPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-4-회원-정보-입력-mobile--default',
-        file: 'src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx',
-      },
-    },
   },
   '238': {
     route: '/signup/complete',
     sourceFiles: ['src/app/signup/complete/page.tsx'],
-    stories: {},
   },
   '247': {
     route: '/search',
     defaultStateLabel: '검색 결과 있음',
     previewRoutes: [{ label: '검색 결과 없음', href: '/search/preview-no-results' }],
     sourceFiles: ['src/app/search/page.tsx', 'src/app/search/preview-no-results/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-공통-0-검색결과-web--search-results',
-        file: 'src/stories/features/catalog/SearchResults.WEB.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-공통-0-검색결과-mobile--search-results',
-        file: 'src/stories/features/catalog/SearchResults.Mobile.stories.tsx',
-      },
-    },
   },
   '248': {
     route: '/preview-not-found',
     sourceFiles: ['src/app/not-found.tsx', 'src/app/preview-not-found/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-공통-1-404에러페이지-web--default',
-        file: 'src/stories/features/not-found/NotFoundPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-공통-1-404에러페이지-mobile--default',
-        file: 'src/stories/features/not-found/NotFoundPage.mobile.stories.tsx',
-      },
-    },
   },
   '249': {
     route: '/maintenance',
     sourceFiles: ['src/app/maintenance/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-공통-2-시스템점검페이지-web--maintenance',
-        file: 'src/stories/features/not-found/SystemStatusPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-공통-2-시스템점검페이지-mobile--maintenance',
-        file: 'src/stories/features/not-found/SystemStatusPage.mobile.stories.tsx',
-      },
-    },
   },
   '250': {
     route: '/service-unavailable',
     sourceFiles: ['src/app/service-unavailable/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-공통-3-기타에러페이지-web--unavailable',
-        file: 'src/stories/features/not-found/UnavailablePage.WEB.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-공통-3-기타에러페이지-mobile--unavailable',
-        file: 'src/stories/features/not-found/UnavailablePage.Mobile.stories.tsx',
-      },
-    },
   },
   '251': {
     route: '/login/account-locked',
     sourceFiles: ['src/app/login/account-locked/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-로그인-5-계정-잠금-안내-web--default',
-        file: 'src/stories/features/account-locked/AccountLockedPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-5-계정-잠금-안내-mobile--default',
-        file: 'src/stories/features/account-locked/AccountLockedPage.mobile.stories.tsx',
-      },
-    },
   },
   '252': {
     route: '/login/find-account/password-reset/preview-complete',
@@ -1020,16 +586,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/find-account/password-reset/page.tsx',
       'src/app/login/find-account/password-reset/preview-complete/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-로그인-4-비밀번호-재설정-완료-web--default',
-        file: 'src/stories/features/find-account/PasswordResetCompleteModal.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-4-비밀번호-재설정-완료-mobile--default',
-        file: 'src/stories/features/find-account/PasswordResetCompleteModal.mobile.stories.tsx',
-      },
-    },
   },
   '253': {
     route: '/login/account-locked/verification',
@@ -1060,44 +616,14 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/login/account-locked/verification/preview-optional-terms/page.tsx',
       'src/app/login/account-locked/verification/preview-previous-terms/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-로그인-6-계정-잠금-해제-인증-web--default',
-        file: 'src/stories/features/login/AccountUnlockVerification.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-6-계정-잠금-해제-인증-mobile--default',
-        file: 'src/stories/features/login/AccountUnlockVerification.mobile.stories.tsx',
-      },
-    },
   },
   '254': {
     route: '/login/account-locked/complete',
     sourceFiles: ['src/app/login/account-locked/complete/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-로그인-7-계정-잠금-해제-완료-web--default',
-        file: 'src/stories/features/account-locked/AccountUnlockCompletePage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-로그인-7-계정-잠금-해제-완료-mobile--default',
-        file: 'src/stories/features/account-locked/AccountUnlockCompletePage.mobile.stories.tsx',
-      },
-    },
   },
   '255': {
     route: '/signup/information?step=additional',
     sourceFiles: ['src/app/signup/information/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-회원가입-4-회원-정보-입력-web--additional',
-        file: 'src/stories/features/signup-registration/RegistrationPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-4-회원-정보-입력-mobile--additional',
-        file: 'src/stories/features/signup-registration/RegistrationPage.mobile.stories.tsx',
-      },
-    },
   },
   '256': {
     route: '/signup/information/preview-marketing-consent',
@@ -1105,16 +631,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/signup/information/page.tsx',
       'src/app/signup/information/preview-marketing-consent/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-회원가입-5-마케팅-정보-수신동의-안내-web--default',
-        file: 'src/stories/features/signup-registration/MarketingConsentSummaryModal.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-회원가입-5-마케팅-정보-수신동의-안내-mobile--default',
-        file: 'src/stories/features/signup-registration/MarketingConsentSummaryModal.mobile.stories.tsx',
-      },
-    },
   },
   '258': {
     previewRoutes: [
@@ -1125,16 +641,6 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/running/running-session/page.tsx',
       'src/app/running/running-session/preview-empty/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-탐색-0-러닝세션-목록-web--list',
-        file: 'src/stories/features/running-session/RunningSession.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-탐색-0-러닝세션-목록-mobile--list',
-        file: 'src/stories/features/running-session/RunningSession.mobile.stories.tsx',
-      },
-    },
   },
   '259': {
     previewRoutes: [
@@ -1149,30 +655,10 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/running/running-session/preview-application/page.tsx',
       'src/app/running/running-session/preview-application-complete/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-탐색-1-러닝세션-상세-web--open',
-        file: 'src/stories/features/running-session/RunningSessionDetail.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-탐색-1-러닝세션-상세-mobile--open',
-        file: 'src/stories/features/running-session/RunningSessionDetail.mobile.stories.tsx',
-      },
-    },
   },
   '260': {
     route: '/support/size-guide',
     sourceFiles: ['src/app/support/size-guide/page.tsx'],
-    stories: {
-      web: {
-        id: 'pages-고객센터-6-사이즈-가이드-web--default',
-        file: 'src/stories/features/support/SupportPages.SizeGuide.Web.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-고객센터-6-사이즈-가이드-mobile--default',
-        file: 'src/stories/features/support/SupportPages.SizeGuide.Mobile.stories.tsx',
-      },
-    },
   },
 };
 const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
@@ -1187,20 +673,11 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
       'src/app/products/preview-no-results/page.tsx',
       'src/app/products/preview-sold-out/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-상품-0-상품목록-web--width-1600',
-        file: 'src/stories/features/catalog/ProductListingPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-상품-0-상품목록-mobile--width-375',
-        file: 'src/stories/features/catalog/ProductListingPage.mobile.stories.tsx',
-      },
-    },
   },
   detail: {
     defaultStateLabel: '상품문의 있음',
     previewRoutes: [
+      { label: '옵션 입고 알림', href: '/products/preview-restock' },
       {
         label: '상품문의 없음',
         href: '/products/preview-empty-inquiries#product-inquiries',
@@ -1211,24 +688,15 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
       'src/app/products/[id]/page.tsx',
       'src/app/products/preview-empty-inquiries/page.tsx',
       'src/app/products/preview-options-required/page.tsx',
+      'src/app/products/preview-restock/page.tsx',
     ],
-    stories: {
-      web: {
-        id: 'pages-상품-1-상품상세-web--width-1600',
-        file: 'src/stories/features/product/ProductDetailPage.stories.tsx',
-      },
-      mobile: {
-        id: 'pages-상품-1-상품상세-mobile--width-375',
-        file: 'src/stories/features/product/ProductDetailPage.mobile.stories.tsx',
-      },
-    },
   },
 };
 export function isScreenDeleted(screen: ScreenDefinition) {
   return screen.note.replace(/상품\s*삭제/g, '').includes('삭제');
 }
 function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
-  if (isScreenDeleted(screen)) return { sourceFiles: [], stories: {} };
+  if (isScreenDeleted(screen)) return { sourceFiles: [] };
   const connection = connections[screen.iaNumber];
   if (connection) {
     const group =
@@ -1272,7 +740,7 @@ function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
     };
   if (screen.screenCode === 'eland_hca_02')
     return { ...productConnections.detail, route: '/products/shoe-1' };
-  return { sourceFiles: [], stories: {} };
+  return { sourceFiles: [] };
 }
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 const resolvedSourceFiles = new Map<string, string[]>();
@@ -1298,12 +766,4 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   }
   resolvedSourceFiles.set(key, sourceFiles);
   return { ...connection, sourceFiles };
-}
-export function getScreenStoryHref(screen: ScreenDefinition, platform: 'web' | 'mobile') {
-  const story = getScreenConnection(screen).stories[platform];
-  if (!story) return undefined;
-  const params = new URLSearchParams({ path: '/story/' + story.id });
-  if (screen.screenCode === 'eland_hca_01' && screen.depths[0] !== '공통')
-    params.set('args', 'listing:' + getProductListingIaKey(screen.iaNumber));
-  return '/?' + params.toString();
 }

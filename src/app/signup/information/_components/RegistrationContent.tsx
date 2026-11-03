@@ -398,13 +398,3 @@ export function RegistrationMarketingConsentSummaryModal({
     />
   );
 }
-export const routePreviewComponents = {
-  MarketingConsentSummaryModal,
-  RegistrationMarketingConsentSummaryModal,
-  RegistrationContent,
-} satisfies Pick<
-  typeof import('@/types/component-contracts/app-signup-information-page'),
-  | 'MarketingConsentSummaryModal'
-  | 'RegistrationMarketingConsentSummaryModal'
-  | 'RegistrationContent'
->;

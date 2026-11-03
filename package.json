@@ -12,7 +12,6 @@
     "panda:watch": "panda cssgen --watch --outfile src/styles/panda.css",
     "prebuild": "npm run screen-files && panda codegen && panda cssgen --outfile src/styles/panda.css",
     "dev": "npm run screen-files && npm run panda && concurrently \"npm run screen-files:watch\" \"next dev\" \"npm run panda:watch\"",
-    "dev:all": "npm run screen-files && npm run panda && concurrently \"next dev\" \"npm run storybook\" \"npm run panda:watch\"",
     "build": "next build",
     "start": "next start",
     "preview": "next start",
@@ -20,10 +19,6 @@
     "typecheck": "tsc --noEmit --pretty false",
     "screen-files": "node scripts/screen-files.mjs",
     "screen-files:watch": "node scripts/screen-files.mjs --watch",
-    "storybook": "concurrently \"npm run screen-files:watch\" \"storybook dev -p 6006\"",
-    "prestorybook": "npm run screen-files",
-    "prebuild-storybook": "npm run screen-files",
-    "build-storybook": "storybook build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint:fix": "eslint src --fix && prettier --write \"src/**/*.{ts,tsx}\""
@@ -44,9 +39,6 @@
   "devDependencies": {
     "@eslint/js": "latest",
     "@pandacss/dev": "^1.12.1",
-    "@storybook/addon-a11y": "^10.6.0",
-    "@storybook/addon-docs": "^10.6.0",
-    "@storybook/nextjs-vite": "^10.6.0",
     "@types/node": "latest",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -59,7 +51,6 @@
     "prettier": "latest",
     "sass": "^1.105.1",
     "sass-embedded": "^1.104.1",
-    "storybook": "^10.6.0",
     "typescript": "latest",
     "typescript-eslint": "latest"
   }

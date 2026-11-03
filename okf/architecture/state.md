@@ -4,12 +4,17 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-02T09:59:35Z'
+updated: '2026-11-03T04:39:33.306Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
+  - src/app/signup/terms/page.tsx
+  - src/app/page.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/components/common/molecules/HelpTips.tsx
   - src/app/checkout/_components/CheckoutStatePreview.tsx
@@ -672,3 +677,13 @@ ShopShell의 검색 입력은 기존 외부 form 안에서 SearchField(as=div)�
 [URL과 IA 대응](routing.md#디자인-상태-직접-링크-구현-2026-11-02)을 참고한다. 실제 연결 소유자와 fixture 경계는 변경한 owner의 `[ 개발팀 바인딩 ]` 주석에 기록했다.
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
+
+## Storybook 제거 (2026-11-03)
+
+Storybook만 사용하던 RoutePreviewProvider/useRoutePreview와 routePreviewComponents registry를 제거했다. 도메인 Context와 화면 내부 상태 및 고정 상태 preview 소유권은 유지한다. 스토리 전용 IdConfirmationModal 중복 구현을 제거했으며 실제 아이디 안내 상태 화면과 외부에서 사용하는 component-contracts 타입은 보존한다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+## 상품 카드 호버 상태 검토 (2026-11-03)
+
+ProductCard의 Quick View 제거와 하단 색상 캐러셀 교체를 검토했다. 선택 ID는 카드 로컬 상태이며 현재 product 옵션에서 찾아 미리보기만 변경한다. ShopShell·공유 context·관심상품 콜백·실제 조회/저장 상태 계약은 변경하지 않았다. 출처: ProductCard.tsx·ProductOptionList.tsx의 이번 작업 트리 변경.

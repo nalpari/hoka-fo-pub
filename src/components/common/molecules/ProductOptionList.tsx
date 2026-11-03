@@ -240,7 +240,13 @@ export function ProductOptionList({
   if (layout !== 'preview') return content;
 
   return (
-    <Grid gap="normal" gridTemplateColumns="16px minmax(0, 1fr) 16px" alignItems="center" minW="0">
+    <Grid
+      gap="normal"
+      gridTemplateColumns="16px minmax(0, 1fr) 16px"
+      alignItems="center"
+      minW="0"
+      w="100%"
+    >
       <Button
         variant="icon"
         size={16}

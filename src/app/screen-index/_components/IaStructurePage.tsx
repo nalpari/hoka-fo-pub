@@ -27,7 +27,6 @@ import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 import {
   getScreenConnection,
-  getScreenStoryHref,
   isScreenDeleted,
   type ScreenConnection,
 } from '@/app/screen-index/screenConnections';
@@ -36,7 +35,7 @@ import {
   getScreenProgress,
   type ScreenProgress,
   type ScreenProgressOverrides,
-} from '@/app/screen-index/storybookLinks';
+} from '@/app/screen-index/screenProgress';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 config.autoAddCss = false;
@@ -510,10 +509,8 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
  * 통합 상태를 이관한 값입니다. 상품 요약은 현재 필터 결과와 props에서 계산하며 상태 차이는 혼합으로 표시합니다. 조회·수정·저장 API와 상태 변경 UI는 구현하지 않습니다.
  */
 export function IaStructurePage({
-  previewEnvironment = 'app',
   progressOverrides = emptyProgressOverrides,
 }: {
-  previewEnvironment?: 'app' | 'storybook';
   progressOverrides?: ScreenProgressOverrides;
 }) {
   const [feedback, setFeedback] = useState('');
@@ -821,9 +818,7 @@ export function IaStructurePage({
                   구분
                 </th>
                 <th scope="col">화면 코드</th>
-                <th scope="col">
-                  {previewEnvironment === 'storybook' ? 'Storybook 미리보기' : '실제 페이지'}
-                </th>
+                <th scope="col">실제 페이지</th>
                 <th scope="col">PC 디자인</th>
                 <th scope="col">MO 디자인</th>
                 <th scope="col">비고 / 이슈</th>
@@ -881,7 +876,6 @@ export function IaStructurePage({
                         <ProductRows
                           key={group.code}
                           screens={group.screens}
-                          previewEnvironment={previewEnvironment}
                           progressOverrides={progressOverrides}
                           onCopyPath={copyPreviewPath}
                         />
@@ -914,7 +908,6 @@ export function IaStructurePage({
                 <GroupRows
                   key={group.depth1}
                   group={group}
-                  previewEnvironment={previewEnvironment}
                   progressOverrides={progressOverrides}
                   isExpanded={isExpanded || query.trim().length > 0}
                   collapsedPaths={collapsedPaths}
@@ -941,7 +934,6 @@ export function IaStructurePage({
 
 function GroupRows({
   group,
-  previewEnvironment,
   progressOverrides,
   isExpanded,
   collapsedPaths,
@@ -949,7 +941,6 @@ function GroupRows({
   onCopyPath,
 }: {
   group: ScreenGroup;
-  previewEnvironment: 'app' | 'storybook';
   progressOverrides: ScreenProgressOverrides;
   isExpanded: boolean;
   collapsedPaths: ReadonlySet<string>;
@@ -1018,7 +1009,7 @@ function GroupRows({
             row.screen && !deleted ? getScreenProgress(row.screen, progressOverrides) : undefined;
           const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
-          const statePreviews = deleted ? [] : getStatePreviews(connection, previewEnvironment);
+          const statePreviews = deleted ? [] : getStatePreviews(connection);
           const hasStateRows = statePreviews.length > 0;
           const rowClass = deleted ? styles.deletedRow : '';
           const noteEntries = row.screen ? splitNoteEntries(row.screen.note) : [];
@@ -1069,11 +1060,7 @@ function GroupRows({
                 <td>
                   <Stack gap="1" minW="180px">
                     {row.screen ? (
-                      <ScreenPreview
-                        screen={row.screen}
-                        previewEnvironment={previewEnvironment}
-                        onCopyPath={onCopyPath}
-                      />
+                      <ScreenPreview screen={row.screen} onCopyPath={onCopyPath} />
                     ) : (
                       '-'
                     )}
@@ -1142,11 +1129,7 @@ function GroupRows({
   );
 }
 
-function getStatePreviews(
-  connection: ScreenConnection | undefined,
-  environment: 'app' | 'storybook',
-) {
-  if (environment !== 'app') return [];
+function getStatePreviews(connection: ScreenConnection | undefined) {
   const previews = connection?.previewRoutes ?? [];
   if (connection?.route && connection.defaultStateLabel && previews.length === 1) {
     return [{ label: connection.defaultStateLabel, href: connection.route }, ...previews];
@@ -1213,11 +1196,9 @@ function StatePreviewRows({
 
 function ScreenPreview({
   screen,
-  previewEnvironment,
   onCopyPath,
 }: {
   screen: ScreenDefinition;
-  previewEnvironment: 'app' | 'storybook';
   onCopyPath: (path: string) => void;
 }) {
   const connection = getScreenConnection(screen);
@@ -1228,32 +1209,7 @@ function ScreenPreview({
   return (
     <>
       {!isScreenDeleted(screen) ? (
-        previewEnvironment === 'storybook' ? (
-          <>
-            <div className={styles.preview}>
-              {(['web', 'mobile'] as const).map((platform) => {
-                const href = getScreenStoryHref(screen, platform);
-                return href ? (
-                  <a
-                    key={platform}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="경로 복사 및 새 창 열기"
-                    onClick={() => onCopyPath(href)}
-                  >
-                    <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
-                    {platform === 'web' ? 'WEB' : 'Mobile'}
-                  </a>
-                ) : (
-                  <Typography key={platform} as="span">
-                    {platform === 'web' ? 'WEB' : 'Mobile'} 스토리 없음
-                  </Typography>
-                );
-              })}
-            </div>
-          </>
-        ) : route ? (
+        route ? (
           <>
             <div className={styles.preview}>
               {route && (
@@ -1288,17 +1244,15 @@ function productNotes(screen: ScreenDefinition) {
 
 function ProductRows({
   screens: members,
-  previewEnvironment,
   progressOverrides,
   onCopyPath,
 }: {
   screens: ScreenDefinition[];
-  previewEnvironment: 'app' | 'storybook';
   progressOverrides: ScreenProgressOverrides;
   onCopyPath: (path: string) => void;
 }) {
   const representative = members[0];
-  const statePreviews = getStatePreviews(getScreenConnection(representative), previewEnvironment);
+  const statePreviews = getStatePreviews(getScreenConnection(representative));
   const label = representative.screenCode === 'eland_hca_01' ? '상품 목록' : '상품 상세';
   const progress = Object.fromEntries(
     progressFields.map(({ key }) => {
@@ -1339,11 +1293,7 @@ function ProductRows({
         <td>
           <Stack gap="1">
             <span>대표 화면</span>
-            <ScreenPreview
-              screen={representative}
-              previewEnvironment={previewEnvironment}
-              onCopyPath={onCopyPath}
-            />
+            <ScreenPreview screen={representative} onCopyPath={onCopyPath} />
           </Stack>
         </td>
         {renderProgressCells('design', progress, undefined, progressOverrides)}

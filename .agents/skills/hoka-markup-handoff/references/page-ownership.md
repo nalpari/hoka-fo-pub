@@ -16,7 +16,7 @@
 
 - 서로 다른 기본/preview route가 표현 컴포넌트와 typed 표시 옵션/fixture를 공유하도록 한다. 이는 실제 여러 route 소비자이지 불필요한 forwarding wrapper를 만들 이유가 아니다.
 - 남기는 UI의 로컬 draft·open/close·선택 상태와 일반 탐색, route/search parameter의 의미를 유지한다. 서비스 검증/성공 redirect는 인계 기준대로 제거한다.
-- Storybook은 실제 page 또는 필요한 private 구현을 참조한다. 유효한 router/context fixture 계약은 유지하되 서비스 시연만을 위한 adapter·type·registry는 사용처 확인 후 제거한다. 새 fake page props나 production→stories 의존성을 만들지 않는다.
+- 고정 상태 URL은 실제 page 또는 필요한 private 구현을 참조한다. 서비스 시연만을 위한 adapter·type·registry는 사용처 확인 후 제거한다.
 - 폴더 이동 시 relative import는 원본 위치에서 해석한다. 기존 URL·일반 link·Suspense·DOM/스타일/반응형·form/접근성 연결을 보존하고 business flow 제거와 구조 이동을 구분해 검증한다.
 
 ## 예전 경로의 변경 반영

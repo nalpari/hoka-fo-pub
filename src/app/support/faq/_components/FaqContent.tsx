@@ -15,7 +15,12 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { SearchField } from '@/components/common/molecules/SearchField';
 
-import { faqCategories, type FaqCategory, faqs } from '@/app/support/faq/faq.data';
+import {
+  expandedFaqPreviewEntries,
+  faqCategories,
+  type FaqCategory,
+  faqs,
+} from '@/app/support/faq/faq.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 import { faChevronDown } from '@/icons/fontAwesome';
@@ -192,24 +197,33 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
     </Box>
   );
 }
+
+type FaqContentProps =
+  | { previewEmpty?: false; previewExpanded?: boolean }
+  | { previewEmpty: true; previewExpanded?: never };
+
+/** [ 개발팀 바인딩 ] previewExpanded는 1973:16070의 질문·본문과 초기 펼침을 재현하는 표시 fixture입니다. 기본 FAQ 데이터는 유지하며 검색·분류·펼침만 로컬로 처리합니다. 실제 FAQ 연결 소유자가 항목 ID·질문·본문과 조회 상태를 제공해야 하며 이 미리보기는 요청·성공·실패를 실행하지 않습니다. */
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
-export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
+export function RouteContent({ previewEmpty = false, previewExpanded = false }: FaqContentProps) {
   const platform = usePlatform();
+  const sourceEntries = previewExpanded ? expandedFaqPreviewEntries : faqs;
   const [category, setCategory] = useState<FaqCategory>('전체');
   const [query, setQuery] = useState(previewEmpty ? '검색 결과 없음' : '');
   const [shown, setShown] = useState(10);
-  const [open, setOpen] = useState<string | null | undefined>();
+  const [open, setOpen] = useState<string | null | undefined>(
+    previewExpanded ? 'preview-member-benefits' : undefined,
+  );
   const openQuestion = open === undefined ? (platform === 'web' ? faqs[0].question : null) : open;
   const entries = useMemo(
     () =>
       previewEmpty
         ? []
-        : faqs.filter(
+        : sourceEntries.filter(
             (item) =>
               (category === '전체' || item.category === category) &&
               `${item.question} ${item.answer}`.toLowerCase().includes(query.toLowerCase()),
           ),
-    [category, query, previewEmpty],
+    [category, query, previewEmpty, sourceEntries],
   );
   const displayed = entries.slice(0, shown);
   const total = entries.length;
@@ -270,7 +284,3 @@ export function RouteContent({ previewEmpty = false }: { previewEmpty?: boolean 
     </CustomerCenterLayout>
   );
 }
-export const routePreviewComponents = { FaqList } satisfies Pick<
-  typeof import('@/types/component-contracts/app-support-faq-page'),
-  'FaqList'
->;

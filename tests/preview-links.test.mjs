@@ -57,9 +57,7 @@ test('locale handoff is registered at Common D2 without inventing an original IA
   const connection = getScreenConnection(locale);
   assert.equal(connection.route, '/locales');
   assert.ok(connection.sourceFiles.includes('src/app/locales/page.tsx'));
-  assert.ok(connection.stories.web.file.endsWith('LocalesPage.stories.tsx'));
-  assert.ok(connection.stories.mobile.file.endsWith('LocalesPage.mobile.stories.tsx'));
-  const { getScreenProgress } = load('src/app/screen-index/storybookLinks.ts');
+  const { getScreenProgress } = load('src/app/screen-index/screenProgress.ts');
   assert.deepEqual(getScreenProgress(locale, {}), {
     pcDesign: 'not-applicable',
     moDesign: 'not-applicable',
@@ -80,7 +78,6 @@ test('Featured owns Running Session while UTMB remains a menu-only source IA', (
   assert.deepEqual(utmb.depths.slice(0, 3), ['EXPLORE', 'Partnerships', 'UTMB']);
   assert.equal(getScreenConnection(utmb).route, undefined);
   assert.deepEqual(getScreenConnection(utmb).sourceFiles, []);
-  assert.deepEqual(getScreenConnection(utmb).stories, {});
   for (const number of [155, 258, 259]) {
     assert.deepEqual(screens.find((screen) => screen.iaNumber === number).depths.slice(0, 3), [
       'EXPLORE',
@@ -117,6 +114,11 @@ test('every fixed preview page is reachable from an active IA row and its source
         connection.previewRoutes?.some((item) => item.href.split('#')[0] === href)
       );
     });
+    // 1차 개발 범위 제외: 등록 preview 파일은 보관하지만 IA에 노출하지 않습니다.
+    if (href === '/mypage/coupons/preview-error' || href === '/mypage/coupons/preview-complete') {
+      assert.equal(owners.length, 0, `Excluded coupon registration preview is active: ${href}`);
+      continue;
+    }
     assert.ok(owners.length, `No active screen-index link for ${href}`);
     assert.ok(
       owners.some((screen) =>

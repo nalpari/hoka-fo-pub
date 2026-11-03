@@ -264,7 +264,3 @@ export function SignupTermsContent(props: SignupTermsContentProps) {
     </AccountPageLayout>
   );
 }
-export const routePreviewComponents = { TermsDialog, SignupTermsContent } satisfies Pick<
-  typeof import('@/types/component-contracts/app-signup-terms-page'),
-  'TermsDialog' | 'SignupTermsContent'
->;

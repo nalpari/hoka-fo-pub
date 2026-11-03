@@ -223,6 +223,8 @@ type ModalDialogBaseProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
+  /** Explicit return target for a directly opened preview without a dialog trigger. */
+  finalFocus?: ComponentProps<typeof Dialog.Popup>['finalFocus'];
   headerProps?: Pick<ComponentProps<typeof ModalDialogHeader>, 'css'>;
   footerProps?: Pick<ComponentProps<typeof ModalDialogFooter>, 'css'>;
   /** Fade the scrollable content into the fixed footer. */
@@ -302,6 +304,7 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   overlayTone = 'dark',
   popupClassName,
+  finalFocus,
   headerProps,
   footerProps,
   scrollFade = false,
@@ -321,6 +324,7 @@ export function ModalDialog({
           <Dialog.Backdrop className={backdrop({ overlayTone })} />
           <Dialog.Viewport className={viewport({ mobilePresentation })}>
             <Dialog.Popup
+              finalFocus={finalFocus}
               className={[
                 css(
                   popup.raw({ size, mobilePresentation }),

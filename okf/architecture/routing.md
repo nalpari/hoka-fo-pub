@@ -14,6 +14,17 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
   - src/components/mypage/MyPageFrame.tsx
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
+  - src/app/launch-calendar/in-stock/page.tsx
+  - src/app/launch-calendar/upcoming/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/page.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/stories/features/launch-calendar/LaunchCalendar.Web.stories.tsx
+  - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
   - src/app/mypage/orders/_components/OrdersStatus.tsx
@@ -69,6 +80,10 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.CustomerCenter.Mobile.stories.tsx
   - src/stories/features/support/SupportPages.stories.tsx
   - src/app/support/_components/SupportContacts.tsx
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/preview-restock/page.tsx
+  - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
+  - src/components/common/molecules/SizeSelector/SizeSelector.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
@@ -290,6 +305,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 상품상세 사이즈 추천 1차 제외 (2026-11-03)
+
+`ProductSizeSelector`의 “사이즈 추천: 정사이즈” description을 1차 제외 요청에 따라 주석 처리했다. 사이즈 선택·사이즈 가이드와 기존 URL 및 서버/클라이언트 경계는 유지한다. 출처: 작업 트리 `src/app/products/[id]/_components/ProductDetailContent.tsx`. 기록: codex/gpt-6, 2026-11-03 (Asia/Seoul). 코드 diff를 확인했으며 브라우저 검증은 수행하지 않았다.
 
 ## 주문 관련 3개 화면의 URL 유지 (2026-11-02)
 
@@ -890,6 +909,20 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
 
+## 상품상세 옵션 입고 알림 상태 URL (2026-11-03)
+
+[디자인 노드 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339)의 옵션 입고 알림은 `/products/preview-restock`으로 직접 확인한다. 기존 `RouteContent`의 `preview="restock"`을 사용하며 PC/MO는 같은 URL을 공유한다. 새 page는 라우트 진입만 담당하고 UI는 기존 `[id]/_components/ProductDetailContent.tsx`가 소유한다.
+
+`screenConnections.ts`의 상품상세 공통 연결(`eland_hca_02`)에 `옵션 입고 알림` 상태와 진입 파일을 추가했다. 기본 `/products/shoe-1`·상품문의 없음 상태·기존 WEB/Mobile Storybook 연결은 유지한다. `npm run screen-files`로 그래프를 생성했고 변경 전 그래프와 비교해 추가된 import가 preview 진입 하나뿐임을 확인했다. IA의 상태명/URL 검색 및 실제 링크 클릭으로 대상 URL의 300 초기 선택 화면을 확인했다. 인증·저장값·선행 조작 없이 열리며 알림 신청 요청은 하지 않는다.
+
+## 상품상세 인계 병합 정리 (2026-11-03)
+
+출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`. 전체 화면 인계와 옵션 입고알림 변경이 병합되며 제거된 구매 콜백·router·setError 참조가 남아 발생한 타입 오류를 정리했다. 구매 CTA의 요청 콜백과 submit 경로는 제거하고 품절/입고알림 표시와 옵션·수량·관심 토글·이미지 열람만 로컬 UI로 유지한다. 금액은 준비된 표시값이며 수량에 따른 합계를 계산하지 않는다.
+
+기존 `/products/shoe-1`, `/products/preview-restock`, `/products/preview-empty-inquiries`, `/products/preview-options-required`를 재사용한다. `RouteContent.preview`에 기존 `selection-required` 타입을 복원했고 옵션을 선택해도 해당 고정 안내는 유지된다. 새 상태 URL·IA 행·provider는 추가하지 않았다. page 진입점과 `_components` 소유권, 이미지 뷰어의 기존 동적 경계·닫기·포커스 복원은 유지했다.
+
+검증: Next 프로덕션 빌드(타입 포함)·Panda·Storybook 빌드·상태 링크 검사 6개·변경 파일 lint/format 통과. PC 1600/MO 375에서 네 URL 직접 접근, 옵션 선택 후 필수 안내 유지와 CTA 복원을 확인했다. 개발 서버의 EPERM 오류는 개발 캐시 보관 후 재시작으로 해소했다.
+
 ## 주문·반품 페이지 구성 검토 (2026-11-03)
 
 `/mypage/orders`와 `/mypage/returns` 경로 및 페이지 진입 구조는 변경하지 않았다. 주문 현황 표시를 한 `Grid`의 PC·모바일 반응형 값으로 정리하고 한 번만 쓰이는 주문 상태 조각을 부모 JSX에 합쳤다. 라우팅 지식에 영향이 없는 것을 주문·반품 route와 해당 `_components` 범위에서 검토했다. 기간 입력 달력 아이콘과 날짜·조회 글자 크기 변경도 동일 컴포넌트의 표시 스타일만 바꾸며 URL, 날짜 값, 조회 콜백에는 영향이 없다. 모바일 주문 카드의 `주문 취소` 버튼도 표시 전용이며 새 경로나 취소 완료 이동을 연결하지 않았다.
@@ -972,3 +1005,76 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
 
 2026-11-03: OrderClaimRequest의 예정금액 숫자는 web/mo heading7과 semibold를 명시한다. 현재 PC 28px·모바일 16px이며 PC 크기 변경은 이번 커밋에 포함하지 않는다. 경로·동작 변경 없음. 출처: OrderClaimRequest.tsx 작업 트리.
+
+## 9개 디자인 영역의 IA 상태 링크 재조사 (2026-11-03)
+
+사용자가 지정한 회원가입 `127:1333`, 로그인 `1:18`, 마이페이지 `389:9339`, 고객센터 `1983:50391`, 주문 `962:5160`, 오류 `577:10864`와 별도 Main/PLP/PDP 파일의 `206:340`, `2327:3687`, Launch Calendar `3696:9496`을 조사했다. 제품 소스·IA·상태 URL은 수정하지 않았다. 같은 상태의 PC/MO와 실제 내용이 같은 프레임은 합쳤다. 사용자 후속 지시로 사이즈 가이드는 데이터에 따른 중복 화면으로 보고 조사 결과의 누락 집계·추가 작업 대상에서 제외했다. 현재 읽은 디자인에서 확정한 직접 상태 링크 누락은 FAQ 답변 펼침 1개다. 읽지 못한 영역까지 포함한 전체 누락 수가 아니다. 아래 사이즈 가이드 6개 행은 조사 근거만 남기며 모두 범위 제외다.
+
+| IA              | 화면·상태      | 디자인 노드(PC / MO)                                      | 현재 URL과 부족한 점                                                                                                                                                                                                          |
+| --------------- | -------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 260 (범위 제외) | 신발 남성 inch | MO `2108:66543`                                           | `/support/size-guide`는 신발 남성 cm로 시작하며 단위를 URL에서 읽지 않는다.                                                                                                                                                   |
+| 260 (범위 제외) | 신발 여성 cm   | PC `2169:39985` / MO `2227:58041`                         | 같은 기본 URL에서 성별을 직접 선택해야 한다.                                                                                                                                                                                  |
+| 260 (범위 제외) | 신발 공용 cm   | PC `2169:40507` / MO `2227:59371`                         | 같은 기본 URL에서 성별을 직접 선택해야 한다.                                                                                                                                                                                  |
+| 260 (범위 제외) | 상의 남성 표   | MO `2149:32804`, `2149:32979`                             | 기본 품목이 신발이며 상의 선택 상태의 IA URL이 없다. 두 프레임의 표 값은 같아 이름만으로 cm/inch 두 상태로 세지 않았다.                                                                                                       |
+| 260 (범위 제외) | 하의 남성 표   | MO `2149:35768`, `2149:35943`                             | 기본 품목이 신발이며 하의 선택 상태의 IA URL이 없다. 두 프레임의 표 값은 같아 이름만으로 cm/inch 두 상태로 세지 않았다.                                                                                                       |
+| 260 (범위 제외) | 상의 여성 표   | MO `2149:37063`, `2149:37249`, `2149:37897`, `2149:38083` | 섹션은 러닝 베스트·양말이지만 실제 이미지의 선택 탭·측정 설명·표는 상의 여성이다. 중복을 하나로 세며 별도 러닝 베스트/양말 상태로 확정하지 않는다.                                                                            |
+| 207 (alias 185) | FAQ 답변 펼침  | MO `1973:16070`                                           | `/support/faq`의 펼침은 URL 상태가 아니다. 소스의 기본값은 PC 첫 질문, MO 닫힘이며 디자인의 질문은 “회원 혜택은 무엇인가요?”다. 초기 PC 첫 질문은 “회원 가입은 어떻게 하나요?”여서 이 시안의 고정 열림 URL을 대신하지 않는다. |
+
+사이즈 가이드의 `SupportTabs`는 `defaultValue="shoes"`이고 `syncQuery`를 사용하지 않는다. `SizeGuidePanel`의 성별은 `category.genders[0]`, 단위는 `cm`인 로컬 상태다. 품목·성별·단위 상호작용은 이미 있으나 해당 상태를 고정해서 여는 계약이 없다. 신규 URL을 이번 조사에서 발명하거나 연결하지 않았다. 사용자 확정에 따라 이 데이터 변형에 대한 고정 상태 URL 추가는 필요 작업으로 간주하지 않는다.
+
+적용 여부 미확정 1개: 로그인 페이지의 `123:903` 영역에 있는 [장시간 미입력 로그아웃 안내 `45:1394`](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=45-1394)는 대응 URL·제품 구현이 없다. 제목 “로그아웃 되었습니다.”와 본문의 “1분 뒤 로그아웃” 안내가 함께 있다. 현재 IA 177의 `/mypage/preview-logout`은 로그아웃 확인창으로 다른 상태다. 최신 `957:*` 로그인 시안과 별도 영역에 남아 있어 적용 대상 여부를 확정하지 않았다. 삭제 표시된 IA 232를 되살리지 않는다.
+
+회원가입의 가입 여부·인증·약관·회원정보·부가정보·수신내역·완료, 최신 로그인·계정 잠금 해제의 도움말/사업자/약관/이전 약관/만료 팝업, 마이페이지의 표시 상태, 주문/장바구니 상태, 고객센터 배송/반품·세탁 탭·약관·문의 상태와 오류 3종에는 현재 IA 연결이 있다. 기존 연결의 존재와 픽셀 일치·전체 UI 동작 검증은 구분한다. 디자인 가이드·삼각형 주석·OS 파일선택 참고·viewport 중복은 제품 상태 수에서 제외했다.
+
+미확정 범위: 별도 파일 [Main/PLP/PDP `206:340`](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=206-340), [`2327:3687`](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2327-3687)은 이번 원본 읽기가 429 제한으로 실패했고 Figma 웹도 로그인 화면이어서 제품 노드를 확인하지 못했다. 재시도 안내에 따라 반복 호출하지 않았다. [Launch Calendar `3696:9496`](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3696-9496)는 2026-11-03 10:14 KST의 이전 구조 자료에 Feed `3696:9681`, Upcoming `3696:10052`, In Stock `3696:9892`, Detail `3696:9503` 네 프레임이 있다. 현재 다른 작업의 미커밋 IA 159–162와 `/launch-calendar`, `/launch-calendar/upcoming`, `/launch-calendar/in-stock`, `/launch-calendar/clifton-11-gtx`에 각각 대응한다. 최신 세부 상태 재검수는 완료하지 않았으며 그 작업의 구현 완료 판정을 대신하지 않는다.
+
+검증: 이번 구조화 읽기와 사이즈/FAQ 제품 이미지, IA·라우트 소스를 대조했다. localhost의 IA 검색 260에서 기본 사이즈 가이드 링크만 있고 STATE 행이 없음을 확인하고 실제 링크를 눌렀다. FAQ 모바일 관측은 hydration 완료를 기다리지 않아 초기 PC 표시가 섞였으므로 모바일 실행 검증으로 인정하지 않는다. FAQ의 직접 열림 미지원은 위 소스 계약을 근거로 판정했다. `node --test tests/preview-links.test.mjs` 6개가 통과했다. 전체 PC/MO 직접 진입·새로고침·resize·모달 회귀 검증과 빌드는 수행하지 않았다.
+
+출처: 사용자 지정 Figma 9개 링크, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`, 기존 route/preview와 `tests/preview-links.test.mjs`. 기준 HEAD: `c69358e5221beb6df59a17886835b44505b7a4dc`. IA·런칭 캘린더의 기존 미커밋 변경은 다른 작업의 출처로 구분했다. 조사·기록: codex/gpt-6, 2026-11-03T10:40:00+09:00. 기존 출처·generated 기록·draft 신뢰 상태는 보존한다.
+
+## 런칭 캘린더 시안과 직접 화면 URL (2026-11-03)
+
+[런칭 캘린더](launch-calendar.md)는 `/launch-calendar` Feed, `/launch-calendar/upcoming`, `/launch-calendar/in-stock`, `/launch-calendar/clifton-11-gtx` 상세를 추가한다. IA159~162의 기존 행과 번호에 route·WEB/Mobile Storybook을 연결하고 IA159에 상세 previewRoutes를 추가했다. 과거 목업 제거 기록의 `/launch-calendar` 미구현 설명은 이번 정식 시안 적용으로 대체된다. 삭제된 키즈 IA163~165는 유지한다. 기본/직접 진입·새로고침으로 표시 fixture가 열리며 로그인·저장·실제 신청 요청에 의존하지 않는다. PC 수급과 사용자 지정 RUN Club 방식 MO 대응은 별도 상태로 기록한다.
+
+## FAQ 펼침·장시간 미입력 안내의 IA 상태 URL (2026-11-03)
+
+사용자가 앞선 조사의 FAQ와 장시간 미입력 안내 두 항목을 명시적으로 구현 요청해 연결했다. 사이즈 가이드는 계속 제외하며 나머지 미조사 디자인의 판정은 변경하지 않는다.
+
+| IA              | 상태                        | 직접 URL                         | 디자인 근거                                                                                          |
+| --------------- | --------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 207 / alias 185 | 답변 펼침                   | `/support/faq/preview-expanded`  | [MO 1973:16070](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16070) |
+| 223             | 장시간 미입력 로그아웃 안내 | `/login/preview-session-timeout` | [45:1394](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=45-1394)          |
+
+FAQ의 기본·빈 결과 URL과 stories는 보존했다. 기존 `RouteContent`의 `previewExpanded`와 `expandedFaqPreviewEntries` fixture로 디자인의 “회원 혜택은 무엇인가요?” 제목과 가입 안내 본문을 첫 항목에서 펼친다. fixture 항목 ID는 `preview-member-benefits`이며 기본 목록을 바꾸지 않는다. 펼침/접기·검색·분류는 기존 로컬 소유자를 사용한다. PC/MO는 같은 URL로 직접 진입하고 새로고침·resize 뒤 초기 펼침을 확인할 수 있다. 기본 FAQ는 기존 PC 첫 질문 펼침·MO 닫힘을 유지한다.
+
+안내는 기존 로그인 `LoginContent.showSessionTimeout`과 `ModalDialog`를 재사용해 즉시 열린다. 문구의 “1분 뒤 로그아웃”은 디자인 표시이며 타이머·세션 만료 판정·로그아웃·새로고침 요청을 실행하지 않는다. 확인·Escape는 팝업만 닫고 URL을 유지한다. 직접 진입에는 트리거가 없어 `ModalDialog.finalFocus`의 선택적 전달 옵션으로 로그인 아이디 입력에 포커스를 복원한다. 이 옵션을 주지 않는 기존 모달의 동작은 그대로다. 이 시안의 PC 전용 프레임은 없어 같은 반응형 안내를 사용하며 PC 시안 일치로 주장하지 않는다.
+
+두 preview 진입 파일을 `screenConnections.ts`의 기존 `previewRoutes`·`sourceFiles`에 추가했고 `npm run screen-files`로 그래프를 생성했다. 새 IA 번호·행·공용 구조도 UI는 만들지 않았다. 개발팀 연결 경계는 해당 FAQ·로그인 소유자의 `[ 개발팀 바인딩 ]` 주석에 기록했다.
+
+검증: PC 1600px/MO 375px의 FAQ 초기 펼침·직접 진입·새로고침·마우스 접기·Enter 다시 펼침·같은 URL resize를 확인했다. 팝업 초기 열림·확인 버튼 초기 포커스·PC/MO resize 유지·직접 진입·새로고침·확인/escape 닫기·아이디 입력 포커스 복원을 확인했다. 기존 로그인 기본/오류/도움말과 FAQ 기본/빈 결과를 확인했다. IA 상태명·URL 검색과 두 실제 링크 클릭을 확인했다. 모바일 375px에서는 일반 스크롤바를 제외한 팝업 328px, PC에서는 343px이며 PC 1600px에서 가로 overflow가 없었다. 완전한 시각 일치·명시적 Storybook 플랫폼 실행·다른 모달 전체 회귀는 수행하지 않았다.
+
+변경 파일 ESLint/Prettier, TypeScript, Panda, Next 프로덕션 빌드, Storybook 빌드와 preview-links/source-graph 기존 검사 7개가 통과했다. 출처: 위 Figma 노드·사용자 선택 두 항목, `src/app/support/faq/preview-expanded/page.tsx`, `src/app/support/faq/_components/FaqContent.tsx`, `src/app/support/faq/faq.data.ts`, `src/app/login/preview-session-timeout/page.tsx`, `src/app/login/_components/LoginContent.tsx`, `src/components/common/layouts/ModalDialog.tsx`, `src/app/screen-index/screenConnections.ts`, 생성 그래프와 해당 검사. 작업 시작 HEAD는 `c69358e5221beb6df59a17886835b44505b7a4dc`이며 동시 작업이 커밋된 뒤 검토 HEAD는 `889cf058339d51f9d36103e24e0732ab37fc14ae`다. 기존 런칭 캘린더 변경은 이 작업으로 간주하지 않는다. 기록: codex/gpt-6, 2026-11-03T10:49:20+09:00. 기존 provenance와 draft 상태는 유지한다.
+
+## 런칭 캘린더 모바일 탭 정정 (2026-11-03)
+
+런칭 목록의 기존 세 URL과 IA 연결을 유지하고 모바일 header만 RUN Club 시안 `2921:5026`의 둥근32px 탭·28px 제목으로 수정했다. 사각44px 탭의 최초 설명은 [정정 규격](launch-calendar.md#모바일-탭-시안-정정-2026-11-03)으로 대체한다. 출처: `src/app/launch-calendar/_components/LaunchCalendarContent.tsx`.
+
+## Storybook 제거 (2026-11-03)
+
+ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를 제거했다. 실제 route·previewRoutes·sourceFiles와 IA 번호는 보존한다. 각 page의 Storybook 전용 RoutePreview 주입 및 routePreviewComponents registry를 제거해 기본 화면을 직접 렌더하며 고정 상태 URL은 유지한다.
+
+출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+상품 목록과 러닝 세션 page의 컴포넌트 기본 export를 props 없는 Page 진입점으로 변경했다. 컴포넌트의 data/sessions props와 기본 fixture는 유지하며 존재하지 않는 이전 Context 주석은 실제 표시 데이터 경계로 정정했다.
+
+## 쿠폰 1차 개발 범위 조정 (2026-11-03)
+
+사용자 요청에 따라 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 쿠폰 등록 입력·안내·등록 상태·완료 팝업과 전체/상품할인/배송할인 탭을 `1차 개발 범위 제외` 주석으로 보관하고 렌더링에서 제외했다. 목록은 분류 필터 없이 준비된 쿠폰 전체를 대상으로 기존 5개 단위 더보기와 상세 열람을 유지한다. 임직원 쿠폰과 빈 목록은 유지하며 실제 등록 요청·완료 전환은 구현하지 않는다. 기존 쿠폰 Figma 적용 기록 중 등록/분류 UI의 노출 설명은 이 결정으로 대체한다.
+
+기본 URL은 `/mypage/coupons`다. 기존 등록 오류·완료 preview 파일과 호출 타입은 복원 및 참조 호환을 위해 남기지만 등록 UI/팝업을 표시하지 않는다. `src/app/screen-index/screenConnections.ts` IA196의 등록 오류·완료 링크도 주석 처리하며 빈 목록·임직원 연결은 유지한다. 출처는 이번 사용자 요청과 위 두 소스이며 기존 draft·provenance는 유지한다.
+
+검증: PC1600px·MO375px에서 기본/빈 목록/임직원/등록 오류/등록 완료/상세 URL의 등록 영역·분류 탭 미노출과 가로 넘침 없음을 확인했다. 상세 열기·Escape 닫기와 더보기 5→10개 표시를 확인했다. TypeScript·변경 ESLint/Prettier·Panda·preview-links 6개 검사가 통과했다. 전체 Next 빌드는 이번 변경에서 재실행하지 않았다.
+
+## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
+
+ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.

@@ -7,7 +7,7 @@ import { URL } from 'node:url';
 import ts from 'typescript';
 
 const source = readFileSync(
-  new URL('../src/app/screen-index/storybookLinks.ts', import.meta.url),
+  new URL('../src/app/screen-index/screenProgress.ts', import.meta.url),
   'utf8',
 );
 

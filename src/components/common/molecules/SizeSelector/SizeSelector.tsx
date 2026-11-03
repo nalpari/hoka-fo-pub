@@ -4,6 +4,7 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup } from '@base-ui/react/checkbox-group';
 import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
+import { faBell } from '@fortawesome/free-regular-svg-icons';
 import type { CSSProperties } from 'react';
 
 import { css, cva } from 'styled-system/css';
@@ -37,7 +38,7 @@ const pill = cva({
     bg: 'var(--color-white-000)',
     color: 'var(--color-black-60)',
     cursor: 'pointer',
-    '&:hover:not([data-disabled]):not(:disabled):not([data-checked])': {
+    '&:hover:not([data-disabled]):not(:disabled):not([data-checked]):not([data-restock])': {
       color: 'var(--color-black-100)',
       borderColor: 'var(--color-black-100)',
     },
@@ -54,6 +55,16 @@ const pill = cva({
         bg: 'var(--color-black-100)',
         borderColor: 'var(--color-black-100)',
         color: 'var(--color-text-inverse)',
+      },
+    },
+    restock: {
+      true: {
+        '&[data-checked], &:hover:not([data-disabled]):not(:disabled):not([data-checked]), &:focus-visible':
+          {
+            bg: 'var(--color-black-20)',
+            color: 'var(--color-black-40)',
+            borderColor: 'var(--color-black-100)',
+          },
       },
     },
     disabled: { true: { cursor: 'not-allowed' } },
@@ -90,6 +101,7 @@ export type SizeSelectorProps = {
   columns?: number;
   mobileColumns?: number;
   soldOutAppearance?: 'gray' | 'diagonal';
+  allowSoldOutSelection?: boolean;
   size?: 'compact' | 'medium' | 'regular';
 } & (
   | { mode: 'single'; value: string; onValueChange: (value: string) => void }
@@ -113,20 +125,36 @@ export function SizeSelector(props: SizeSelectorProps) {
     mobileColumns,
     soldOutAppearance = 'gray',
     size = 'compact',
+    allowSoldOutSelection = false,
   } = props;
   const children = options.map(({ value, state = 'available' }) => {
-    const disabled = state === 'soldOut' || state === 'unavailable';
+    const soldOut = state === 'soldOut';
+    const disabled = state === 'unavailable' || (soldOut && !allowSoldOutSelection);
     const selected =
       !disabled && (props.mode === 'single' ? props.value === value : props.value.includes(value));
     const className = pill({
       size,
       selected,
       disabled,
-      unavailableAppearance: disabled ? soldOutAppearance : undefined,
+      unavailableAppearance: disabled || soldOut ? soldOutAppearance : undefined,
+      restock: soldOut && allowSoldOutSelection,
     });
-    const label = stateLabels[state] ? `${value}mm, ${stateLabels[state]}` : `${value}mm`;
+    const label =
+      soldOut && allowSoldOutSelection
+        ? `${value}mm, 품절, 입고 알림 선택`
+        : stateLabels[state]
+          ? `${value}mm, ${stateLabels[state]}`
+          : `${value}mm`;
     const content = (
       <>
+        {soldOut && allowSoldOutSelection && (
+          <Icon
+            fontAwesomeIcon={faBell}
+            size="14px"
+            color="currentColor"
+            className={css({ order: 1 })}
+          />
+        )}
         {state === 'lowStock' && (
           <Icon name="action/fa-clock-nine" size="12px" color="currentColor" />
         )}
@@ -139,6 +167,7 @@ export function SizeSelector(props: SizeSelectorProps) {
       <Radio.Root
         key={value}
         value={value}
+        data-restock={soldOut && allowSoldOutSelection ? '' : undefined}
         disabled={disabled}
         aria-label={label}
         className={className}
@@ -149,6 +178,7 @@ export function SizeSelector(props: SizeSelectorProps) {
       <Checkbox.Root
         key={value}
         value={value}
+        data-restock={soldOut && allowSoldOutSelection ? '' : undefined}
         disabled={disabled}
         aria-label={label}
         className={className}

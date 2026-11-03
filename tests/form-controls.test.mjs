@@ -35,7 +35,7 @@ registerHooks({
     return nextResolve(specifier, context);
   },
   load(url, context, nextLoad) {
-    // Server markup assertions do not evaluate stylesheets; color is covered by stories.
+    // Server markup assertions do not evaluate stylesheets; color requires browser verification.
     if (url.endsWith('.css')) return { format: 'module', shortCircuit: true, source: '' };
     if (url.startsWith(pathToFileURL(path.join(root, 'src')).href) && /\.tsx?$/.test(url)) {
       return {
