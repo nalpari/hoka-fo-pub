@@ -9,9 +9,9 @@ const root = cva({
   base: {
     position: 'relative',
     overflow: 'hidden',
-    bg: 'var(--color-surface-subtle)',
-    aspectRatio: '1',
-    w: '100%',
+    bg: 'black.10',
+    aspectRatio: 'media.oneByOne',
+    w: 'full',
     h: 'auto',
     _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
     _mobile: { fontSize: '12', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
@@ -19,9 +19,10 @@ const root = cva({
   variants: {
     variant: {
       listing: {},
-      summary: { h: '100%', bg: 'black.10', _mobile: { fontSize: 'inherit' } },
+      summary: { h: 'full', bg: 'black.10', _mobile: { fontSize: 'inherit' } },
       showcase: {
-        _mobile: { h: '160px', aspectRatio: 'auto' },
+        aspectRatio: '293.6 / 367.25',
+        _mobile: { aspectRatio: 'portrait' },
       },
     },
   },
@@ -32,10 +33,10 @@ const image = css.raw({
   position: 'absolute',
   top: '50%',
   left: '50%',
-  w: '100%',
+  w: 'full',
   h: 'auto',
   transform: 'translate(-50%, -50%)',
-  bg: 'var(--color-surface-subtle)',
+  bg: 'black.10',
 });
 
 const hoverImage = css({ opacity: '0', transition: 'opacity 180ms ease' });
@@ -81,7 +82,7 @@ export function ProductThumbnail({
       position: 'static',
       top: 'auto',
       left: 'auto',
-      h: '100%',
+      h: 'full',
       transform: 'none',
       objectFit: 'cover',
       bg: 'black.10',

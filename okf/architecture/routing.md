@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T06:11:12Z'
+updated: '2026-11-03T06:44:42+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -14,6 +14,10 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
   - src/components/mypage/MyPageFrame.tsx
+  - src/app/publishing-guide/page.tsx
+  - src/app/publishing-guide/_components/ProductCardGuide.tsx
+  - src/components/orders/OrderHistoryProduct.tsx
+  - src/app/mypage/orders/_components/OrdersList.tsx
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
@@ -961,7 +965,6 @@ OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 
 
 신청 예정금액의 숫자/원 단위 타이포 분리는 표시 변경이며 기존 취소·반품 신청 URL은 유지한다(2026-11-03).
 
-
 ## 취소·반품 목록 시안 정렬 (2026-11-03)
 
 Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
@@ -970,13 +973,11 @@ Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목�
 
 검증: 로컬 1920px/375px 렌더링, 모바일 가로 넘침 없음·96px 이미지·14px #777 상태, 반품 상세 진입과 빈 목록 문구를 확인했다. Panda 생성 성공. 전체 tsc는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했고 소스 오류는 없었다. ESLint는 설치된 eslint-plugin-perfectionist를 찾지 못해 실행 실패했다.
 
-
 ## 취소·반품 상세 표시 데이터 경계 정리 (2026-11-03)
 
 OrderClaimDetail은 order 대신 준비된 ClaimDetailDisplay를 받는다. 기존 선택적 previewDisplay 우선 적용을 제거하고 OrderClaim.detailDisplay에 PC·모바일 표시값과 완성된 items를 명시했다. OrdersContent가 현재 플랫폼의 display를 전달한다. 상세 컴포넌트는 옵션·수량·금액을 덮어쓰거나 상태·사유·날짜를 추론하지 않으며, Typography 포맷과 배치·onList만 유지한다. 실제 조회·표시 모델 구성과 갱신은 연결 소유자 책임이다. 기존 직접 URL과 상세 선택은 유지한다.
 
 출처: src/components/orders/orders.types.ts, orders.data.ts, src/app/mypage/orders/_components/OrderDetails.tsx, OrdersContent.tsx 및 정식 명령으로 재생성한 sourceGraph.generated.json 작업 트리. 검증: 이전 커밋에서 렌더링하던 값과 새 fixture의 취소/반품 × PC/MO 네 조합을 비교해 완전 일치 확인; Panda 생성 성공. tsc는 기존 .next/types 오류로 실패했으나 src 오류는 없었다. 이번 구조 변경에서 브라우저 시각 검증은 재실행하지 않았다.
-
 
 ## 주문 상세 마크업 책임 정리 (2026-11-03)
 
@@ -987,7 +988,6 @@ OrdersContent는 현재 선택한 주문의 준비된 display와 화면 확인�
 검증: 변경 전 4개 주문의 PC/MO 표시값 8조합과 새 고정 fixture의 완전 일치를 비교했다. 런타임 소스에 filter/slice/Array.from/flatMap/detailPreview/상태 lookup이 남지 않음을 확인했다. Panda 생성 성공. 전체 tsc는 기존 .next/types 오류로 실패했으며 src 오류는 없었다.
 
 추가 브라우저 확인: /mypage/orders/preview-detail의 PC 1920px·모바일 375px 본문과 표시 금액, 모바일 가로 넘침 없음, 반품상세보기 클릭 후 반품 상세 진입을 확인했다.
-
 
 ## 취소·반품 목록 표시 데이터 분리 (2026-11-03)
 
@@ -1000,7 +1000,6 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 추가 검증: 모바일 목록 행 클릭 후 반품 상세 진입, /mypage/returns/preview-empty 빈 안내 확인. Prettier·OKF·diff 검사 통과. 전체 tsc는 기존 .next/types 오류로 미통과이며 src 오류는 없었다.
 
 2026-11-03: OrdersListContent의 현황·기간 필터·주문/클레임 목록 호출부에 섹션 제목 JSX 주석을 추가했다. 표시·라우팅 변경은 없다. 출처: OrdersList.tsx.
-
 
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
 
@@ -1078,6 +1077,20 @@ ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를
 ## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
 
 ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.
+
+## 주문 목록 미사용 import 정리 (2026-11-03)
+
+OrdersList.tsx의 미사용 OrderHistoryProduct import를 제거해 ESLint no-unused-vars 오류를 해소했다. 현재 목록·상품 행·라우트와 데이터/콜백 계약에는 영향이 없다. 변경 파일의 ESLint·Prettier로 확인하며 UI 동작 변경이 없어 브라우저·빌드는 재실행하지 않는다. 출처: src/app/mypage/orders/_components/OrdersList.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+## 최종 홈 상품 타일의 라우팅 영향 검토 (2026-11-03)
+
+HomeContent의 이미지 비율 강제 override를 제거하고 공통 ProductThumbnail.showcase에 최종 PC/MO 비율을 연결했다. 기존 홈 섹션·카테고리 탭·슬라이드 소유권과 상품 상세 링크, Next page export와 client 경계, URL·라우트 목록은 유지했다. 새 상태 URL이나 API 계약은 추가하지 않았다. 홈·상품 상세 추천·관심상품 PC/MO와 Next 빌드 145개 정적 페이지 생성을 확인했다. 출처: src/app/_components/HomeContent.tsx와 공통 ProductCard/ProductThumbnail 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:00:55Z.
+
+## 상품 타일 퍼블리싱 가이드 연결 (2026-11-03)
+
+기존 /publishing-guide에 모달 다음 상품 타일 탭을 추가했다. 같은 SupportTabs.syncQuery로 tab=product-tiles 직접 진입·새로고침·이력 복귀를 지원하며 무효/부재 값의 기본 타이포그래피 탭과 기존 폼 탭을 유지한다. 별도 상품 preview page는 만들지 않는다. 가이드 UI와 로컬 상태·스타일은 해당 route의 _components/ProductCardGuide.tsx, page는 기존 Metadata와 탭 구성·진입 마크업을 소유한다. GuideTimeline은 같은 tab query 안의 section anchor로 이동한다.
+
+주문 내역의 OrderHistoryProduct는 공용 도메인 모듈로 옮겨 주문 목록/상세와 가이드가 같은 구현을 사용한다. OrdersProducts/OrderDetails의 화면·상태·URL 계약과 요청 소유권은 변경하지 않았다. sourceGraph.generated.json은 정식 screen-files/build 명령으로 새 import를 반영했다. Form 탭 전환·상품 타일 query 뒤로 가기·10개 섹션·주문 3개 URL PC/MO와 Next 빌드를 확인했다. 출처: 위 가이드 page/private 모듈과 OrdersProducts.tsx·OrderDetails.tsx·OrderHistoryProduct.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:44:42Z.
 
 
 ## 미사용 주문 액션 정리 (2026-11-03)

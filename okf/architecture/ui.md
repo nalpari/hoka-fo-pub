@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T06:11:12Z'
+updated: '2026-11-03T07:21:59.321206+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -16,6 +16,9 @@ working_tree_sources:
   - src/components/mypage/MyPageFrame.tsx
   - src/components/orders/orders.data.ts
   - src/components/orders/orders.types.ts
+  - public/images/icon/product-carousel-caret.svg
+  - src/app/publishing-guide/_components/ProductCardGuide.tsx
+  - src/components/orders/OrderHistoryProduct.tsx
   - src/components/common/atoms/Badge.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/app/screen-index/screenProgress.ts
@@ -911,6 +914,18 @@ sources:
   - id: figma-order-detail-desktop-20261103
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-92526
     title: 'PC 주문 상세 시안'
+  - id: final-product-tiles-pc-20261103
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1722-8232
+    title: '최종 상품 타일 PC 예시'
+  - id: final-product-tiles-mobile-20261103
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1679-763
+    title: '최종 상품 타일 모바일 예시'
+  - id: final-product-tiles-components-20261103
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-864
+    title: '최종 상품 타일 모바일 컴포넌트'
+  - id: product-tiles-figma-20261103
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-774
+    title: '상품 타일 디자인 시스템 — 모바일 기본·PC 목록·PC 호버'
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
@@ -4175,7 +4190,6 @@ OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 
 
 신청 요약의 취소·환불예정금액은 숫자를 EN heading7, 원 단위를 body3/medium으로 분리하고 2px 간격·baseline 정렬로 표시한다. 출처: OrderClaimRequest.tsx (2026-11-03).
 
-
 ## 취소·반품 목록 시안 정렬 (2026-11-03)
 
 Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
@@ -4186,13 +4200,11 @@ Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목�
 
 공통 표시 보정도 함께 반영한다: DescriptionList 설명의 기본 tone을 primary로, StepIndicator 모바일 단계 라벨의 tone을 primary로 명시했다. 출처: src/components/common/atoms/DescriptionList.tsx, src/components/common/molecules/StepIndicator.tsx 작업 트리.
 
-
 ## 취소·반품 상세 표시 데이터 경계 정리 (2026-11-03)
 
 OrderClaimDetail은 order 대신 준비된 ClaimDetailDisplay를 받는다. 기존 선택적 previewDisplay 우선 적용을 제거하고 OrderClaim.detailDisplay에 PC·모바일 표시값과 완성된 items를 명시했다. OrdersContent가 현재 플랫폼의 display를 전달한다. 상세 컴포넌트는 옵션·수량·금액을 덮어쓰거나 상태·사유·날짜를 추론하지 않으며, Typography 포맷과 배치·onList만 유지한다. 실제 조회·표시 모델 구성과 갱신은 연결 소유자 책임이다. 기존 직접 URL과 상세 선택은 유지한다.
 
 출처: src/components/orders/orders.types.ts, orders.data.ts, src/app/mypage/orders/_components/OrderDetails.tsx, OrdersContent.tsx 및 정식 명령으로 재생성한 sourceGraph.generated.json 작업 트리. 검증: 이전 커밋에서 렌더링하던 값과 새 fixture의 취소/반품 × PC/MO 네 조합을 비교해 완전 일치 확인; Panda 생성 성공. tsc는 기존 .next/types 오류로 실패했으나 src 오류는 없었다. 이번 구조 변경에서 브라우저 시각 검증은 재실행하지 않았다.
-
 
 ## 주문 상세 마크업 책임 정리 (2026-11-03)
 
@@ -4203,7 +4215,6 @@ OrdersContent는 현재 선택한 주문의 준비된 display와 화면 확인�
 검증: 변경 전 4개 주문의 PC/MO 표시값 8조합과 새 고정 fixture의 완전 일치를 비교했다. 런타임 소스에 filter/slice/Array.from/flatMap/detailPreview/상태 lookup이 남지 않음을 확인했다. Panda 생성 성공. 전체 tsc는 기존 .next/types 오류로 실패했으며 src 오류는 없었다.
 
 추가 브라우저 확인: /mypage/orders/preview-detail의 PC 1920px·모바일 375px 본문과 표시 금액, 모바일 가로 넘침 없음, 반품상세보기 클릭 후 반품 상세 진입을 확인했다.
-
 
 ## 취소·반품 목록 표시 데이터 분리 (2026-11-03)
 
@@ -4216,7 +4227,6 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 추가 검증: 모바일 목록 행 클릭 후 반품 상세 진입, /mypage/returns/preview-empty 빈 안내 확인. Prettier·OKF·diff 검사 통과. 전체 tsc는 기존 .next/types 오류로 미통과이며 src 오류는 없었다.
 
 2026-11-03: OrdersListContent의 현황·기간 필터·주문/클레임 목록 호출부에 섹션 제목 JSX 주석을 추가했다. 표시·라우팅 변경은 없다. 출처: OrdersList.tsx.
-
 
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
 
@@ -4277,3 +4287,80 @@ ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View
 Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션 모드에서만 허용한다. 기존 ProductCard의 error override도 이 옵션으로 연결해 글자와 구분선의 색을 일치시킨다. 공통 Badge 기본값과 history의 기존 표시 override, 일반 텍스트·로고·버튼 배경은 유지한다. 앞서 원복한 전역 브랜드 텍스트 변경을 다시 적용하지 않는다.
 
 검증: PC1421/MO390의 실제 목록에서 Exclusive·New를 모두 rgb(225, 15, 0)으로 확인했다. 관심상품 history에서는 기존 New의 파랑 rgb(0, 157, 255)이 유지됨을 확인했다. 공유 작업 트리의 lint·타입·Panda·Next 빌드가 통과했다. Figma 구조화 읽기는 API 제한으로 미수행이며 HEX의 근거는 사용자 답변이다. 출처는 Badge.tsx·ProductCard.tsx 작업 트리다.
+
+## 상품 타일 디자인 시스템 반영 (2026-11-03)
+
+[상품 타일 페이지](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-774)의 구조화 데이터에서 모바일 기본 컴포넌트 1710:8200, PC 목록 1722:8380, PC 색상 호버 1722:8412를 확인했다. 별도 13pt/14pt 비교안과 가이드 판넬의 외곽선은 제품 스타일로 사용하지 않았다. 기존 사용자 확정 프로모션 #E10F00은 파란 배지 예시보다 우선해 유지했다.
+
+- ProductCard의 listing은 모바일 성별·상품명 14px/400, 가격 13px/400, 배지 아래 6px·성별/상품명 2px·가격 앞 4px로 구성한다. PC 성별·상품명·가격은 16px이며 정보 간격은 12px이다. 활동 라벨은 PC 14px/행간 1.5, 모바일 12px/행간 1.3과 세로 패딩 2px이다.
+- listing 배지는 PC 500·모바일 400이며 복수 라벨 간격은 8px, 구분선은 1.5×13px이다. 관심 아이콘과 버튼은 PC 24px·모바일 18px로 이미지 우상단의 기존 16px/10px 위치를 따른다.
+- ProductOptionList.preview는 listing에서만 사용한다. 기존 80×53px/4px를 시안의 48×48px/6px로 바꾸고 Image dimensions/sizes 및 한 항목 이동 단위를 54px로 함께 갱신했다. 숨김·표시 콘텐츠가 같은 Grid 셀의 높이를 확보하는 방식은 유지한다. 모바일 34px와 history/cart/grid 규격은 유지한다.
+- 공유 ProductPrice의 숫자는 HOKA, 한글 원 단위는 Pretendard로 분리한다. listing 모바일만 원 단위도 13px/400으로 맞추며 history/showcase의 기존 크기·강조는 유지한다. 실제 폰트는 CDP에서 사용자 폰트 글리프 사용을 확인했고, 내부 이름이 `.`인 HOKA face는 로드된 TheFutureHOKA_Regular 자산과 layout의 Regular 파일에 대응시켰다.
+
+실행 검증: /products의 PC1421·MO390에서 계산 스타일·간격·가격/할인·관심 아이콘과 이미지 표시를 확인했다. PC 호버 진입·이탈 전후 첫 6개 카드의 y/높이가 동일했고 색상 선택·Escape·Tab 진입을 확인했다. 1024px는 모바일·색상 캐러셀 0개, 1025/1199px는 기존 1200px 캔버스, 1200px는 clientWidth/scrollWidth 1185px 동일, MO390은 375px 동일이었다. /의 showcase와 /mypage/wishlist의 history를 PC/MO에서 확인했다. 공통 플랫폼·라우트·API·표시 데이터 계약은 바꾸지 않았으며 기존 option ID 선택과 callback 소유권을 유지한다. Storybook은 이미 제거된 상태라 별도 스토리 검증은 수행하지 않았다.
+
+검사: 변경 TSX 2개의 ESLint·Prettier와 Panda 생성 통과. 전체 lint는 동시 작업 중인 OrdersList의 미사용 OrderHistoryProduct, OrdersStatus의 미사용 returns 2건으로 실패했다. 첫 typecheck는 삭제된 cart/preview-selected를 참조하는 기존 .next 생성 타입 때문에 실패했으며 Next 빌드의 타입 검사·정적 페이지 145개 생성과 생성 타입 갱신 후 typecheck는 통과했다. 마지막 활동 라벨 대조에서 기존 Typography 규칙에 의해 PC 행간이 18.2px로 남는 것을 확인해 `&&`로 우선순위를 보정하고 생성 CSS의 PC 1.5/MO 1.3 선언을 확인했다. 이 마지막 우선순위 보정 후 브라우저 재측정은 수행하지 않았다. 이 기록의 소스는 ProductCard.tsx·ProductOptionList.tsx 작업 트리이며 위 과거 출처·검증 이력을 대체하지 않는다. 기록 주체: codex/gpt-6, 2026-11-03T05:44:00Z.
+
+## 최종 상품 타일 기준과 홈 보정 (2026-11-03)
+
+사용자가 최종본으로 지정한 PC 1722:8232·모바일 1679:763·컴포넌트 497:864를 다시 읽었다. 실제 메인 1722:8233/1679:770, 목록 1722:8380/1679:1232, 호버 1722:8412와 모바일 컴포넌트를 대조했다. 컴포넌트 섹션에는 14px 기본 1710:4920과 13px 보조 프레임 1768:6666이 함께 있으며, 메인/목록 인스턴스는 14px 기본을 사용한다. 전체 모바일 본문을 13px로 바꾸지 않는다. PC 배지의 파랑 예시와 기존 빨강 결정의 충돌은 사용자 답변으로 PC/MO 모두 #E10F00 유지가 재확정됐다.
+
+ProductCard.showcase의 성별·상품명은 PC 16px/MO 14px/400, 모바일 가격과 원 단위는 13px/400이다. PC 성별/상품명 간격 10px·가격 앞 16px, 모바일은 2px·4px로 구성한다. 긴 상품명 말줄임, 옵션·식별자·가격 표시 데이터와 상세 링크는 기존 소유권을 유지한다. ProductThumbnail.showcase가 이미지 비율을 소유하며 PC는 관측 프레임 293.6:367.25(약 4:5), MO는 3:4다. 기본 모바일 카드 폭은 150px이고 홈의 기존 유동 슬라이드 폭은 유지한다. HomeContent의 양 플랫폼 3:4 강제 override를 제거해 홈과 상세/런클럽 추천의 공통 showcase가 같은 기준을 사용한다. listing의 정사각형 이미지, history 및 summary 모드는 유지한다.
+
+실행 검증: 홈 MO375에서 이미지 150×200px·본문 14px·가격 13px·간격 2px/4px, PC1421에서 이미지 246.390625×308.1875px·본문/가격 16px·간격 10px/16px를 확인했다. 상품 상세 추천도 PC/MO의 비율·크기·긴 상품명 말줄임을 확인했고 관심상품 history는 양 플랫폼 본문/가격 14px·정사각형을 유지했다. 기존 목록 활동 라벨 행간을 PC 21px/MO 15.6px로 재측정해 앞선 미확인 사항을 해소했다. 빨간 배지 색상, 목록 호버 진입·이탈 전후 첫 6개 카드의 y/높이 동일성과 실제 폰트 글리프 사용을 확인했다. 1024는 MO 3:4·가격 13px, 1025/1199는 기존 1200px PC 캔버스, 1200은 clientWidth/scrollWidth 1185px 동일이었다. 명시적 preview 플랫폼과 플랫폼 owner는 수정하지 않았다.
+
+검사: 변경 TSX 3개의 ESLint·Prettier, Panda 생성, Next 프로덕션 빌드의 타입 검사·정적 페이지 145개 생성 통과. 전체 lint는 별도 OrdersStatus.tsx의 미사용 returns 한 건으로 실패했다. 최종 hoka-markup-handoff 검토에서 비율의 공통 owner, 부모 간격, Panda, Next Image·기존 폰트와 데이터/콜백 경계를 확인했다. 새 래퍼·상태 URL·서비스 처리는 추가하지 않았다. 장바구니·주문·리뷰의 별도 상품 행은 이번 공통 카드 변경에 포함하지 않는다. 출처: 위 최종 Figma 링크·사용자 색상 답변과 src/components/common/molecules/ProductCard/ProductCard.tsx, ProductThumbnail.tsx, src/app/_components/HomeContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:00:55Z.
+
+## 상품 타일 글자 크기 토큰 연결 (2026-11-03)
+
+사용자의 디자인 토큰 사용 요청에 따라 ProductCard의 직접 14px 지정은 기존 fontSizes.14로, 웹 16px fallback은 var(--font-sizes-16)으로 전환했다. 기존 설정에 13 토큰이 없어 최종 모바일 Price 컴포넌트와 메인/목록 인스턴스에서 공통 확인한 13px를 panda.config.ts의 fontSizes.13 = 0.8125rem으로 등록하고 모바일 가격에서 fontSize: '13'으로 사용한다. 1.3 행간도 기존 body 토큰을 재사용한다. PC 활동 라벨의 1.5는 이후 기본 프리셋의 lineHeights.normal을 확인해 아래 스타일 토큰 정리에서 연결했다. 당시 사용자 정의 설정만 보고 대응 토큰이 없다고 기록한 내용을 정정한다.
+
+브라우저 검증: 기본 root 16px에서 홈/목록 제목 14px·가격 13px, PC 제목/가격 16px를 확인했다. root를 임시로 20px로 바꾸면 홈 제목 17.5px·가격 16.25px로 토큰 비율에 따라 확대되고 원래 값으로 복원된다. 생성 CSS가 font-size: var(--font-sizes-13)을 참조하며 실제 HOKA/Pretendard 폰트 자산을 로드하는 것도 확인했다. 변경 config·컴포넌트 ESLint·Prettier, Panda와 토큰 전환 후 Next 빌드의 타입 검사·145개 정적 페이지 생성 통과. 전체 lint의 별도 OrdersStatus returns 오류는 위 기록과 같다. 출처: 사용자 요청, 최종 모바일 디자인과 panda.config.ts·ProductCard.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:05:22Z.
+
+## 상품 타일 스타일 토큰과 캐러셀 (2026-11-03)
+
+ProductCard·ProductThumbnail·ProductOptionList의 정확히 대응하는 간격·크기·색상·비율을 기존 Panda 토큰으로 연결했다. 2/6/10/12/16/18/24/32/48px는 해당 spacing/sizes 토큰, 1.5 행간은 기본 normal, 정사각형/모바일 3:4는 media.oneByOne/portrait를 사용한다. Wishlist·Icon처럼 CSS 크기 문자열을 받는 props는 token.var를 전달한다. border/outline/shadow/grid/flex 문자열 안에서도 token(...)을 사용한다. 이미지 배경은 기존 #F7F7F9와 같은 black.10이며 #F3F3F3인 surface.subtle로 바꾸지 않는다. 품절 dim은 black.100/50으로 색상과 알파를 보존한다.
+
+대응 토큰이 없는 1.5×13px 배지 구분선, 34/60/74/76/150px 표시 크기, 180ms transition, 50px 캡슐 반경, 정확한 PC 이미지 비율 293.6:367.25는 그대로 유지한다. 의미가 다른 formField 크기나 근사한 4:5로 대체하지 않는다. Next Image의 intrinsic width/height·sizes 및 컴포넌트 size enum은 CSS 스타일 토큰과 구분한다. 새 전역 토큰은 추가하지 않았다. 후속 Vertical 가이드에서 공용 주문 요약 이미지의 96/64px도 sizes.24/16으로 연결했다.
+
+캐러셀 이동 단위는 첫 썸네일의 실제 너비+계산된 gap에서 읽어 rem 확대를 따른다. NAV 수정 전 기본 48px/6px에서 옵션 12개의 scrollWidth 642px·viewport 327px·이동 끝 315px와 이전 0px를 확인했다. 아래 최종 NAV 보정 후 viewport는 347px·이동 끝은 295px다. root 20px에서는 60px/7.5px가 되고 한 번 이동값 270px가 실제 크기에 맞는다. 사용자 요청으로 history의 163.5px 정보 폭 제한을 제거해 카드 전체 폭을 사용한다. PC 가이드에서 카드/정보/옵션 viewport가 모두 260px이며 옵션 12개 총 폭은 956px이다. history는 가로 스크롤과 thin 스크롤바를 표시하고 history/모바일 옵션 행은 포커스·방향키로 이동한다. 줄바꿈 대신 캐러셀 계약을 유지한다. PC history 방향키 40px, 모바일 옵션 37px 이동과 모바일 clientWidth/scrollWidth 375px 동일을 확인했다.
+
+토큰만 전환한 시점의 /products·홈·관심상품·품절 목록 PC1421/MO375 비교에서 카드 외곽 배치·간격·색상은 유지됐다. 내부 자동 높이 img 5개의 1px 미만 차이는 별도로 구분했고 픽셀 일치율을 주장하지 않는다. 이후 사용자가 요청한 history 전체 폭과 스크롤 표시 변경은 의도한 차이다. 출처: 사용자 요청, 위 세 공통 컴포넌트와 OrderProductSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:44:42Z.
+
+## 퍼블리싱 가이드 상품 타일과 Vertical 재사용 (2026-11-03)
+
+/publishing-guide?tab=product-tiles의 상품 타일 탭은 모달 다음에 위치한다. 폼 탭과 같은 GuideTimeline·코드 색상 표시·복사 버튼·GuideCopyToast를 사용한다. Horizontal은 상품 목록/할인/관심 선택/품절/메인·추천/history 6개, Vertical은 장바구니/주문·결제/주문·배송/취소·반품 4개다. PC에는 고정 web/mobile context와 대응 플랫폼 클래스로 나란히 비교하며, 실제 모바일 viewport에서는 모바일 예시만 노출해 상위 플랫폼 CSS와 충돌하지 않는다. 각 예시의 상태·코드·타임라인 anchor와 최종 Figma PC/MO/컴포넌트 출처를 제공한다.
+
+가이드의 product·orderLine·색상 ID·가격/할인율은 준비된 fixture다. 캐러셀 확인을 위해 로컬 색상 이미지 4개를 반복한 고유 ID의 12개 옵션을 사용하며 실제 카탈로그 색상 12종이라고 주장하지 않는다. 하트는 예시별 로컬 상태, PC 색상 선택·Escape는 공통 ProductCard의 기존 UI다. 실제 가격·재고 판정과 요청·저장은 연결하지 않았다. code의 product/orderLine은 호출자가 준비하는 표시 모델이며 수량·삭제·배송조회·옵션 변경은 각 화면의 조합 책임이다.
+
+Vertical은 OrderProductSummary의 cart/checkout, 주문 화면의 실제 OrderHistoryProduct를 사용한다. 주문 전용 파일에서 OrderHistoryProduct의 JSX·타입·스타일을 src/components/orders/OrderHistoryProduct.tsx로 이동하고 OrdersProducts·OrderDetails·가이드가 직접 import한다. forwarding export나 가이드용 상품 행 복제는 만들지 않았다. showAmount/imageSize·옵션 문자열·displayAmount 표시 계약과 기본 크기(standard PC88/MO96, claim PC96/MO64)는 유지한다. 주문 목록·상세·취소 상세의 PC/MO 이미지와 가로 넘침 없음도 확인했다. 가이드는 현재 공용 화면 구현을 표시하며 해당 화면의 별도 액션이나 주문 정책을 구현하지 않는다.
+
+복수 프로모션의 구분선은 Panda Divider가 border-style:none으로 계산돼 사라지던 것을 공통 atoms/Divider로 교체하고 Badge 소유자의 명시적 토큰 배경 클래스로 표시한다. listing의 PC/MO에서 빨강 #E10F00·1.5×13px, history에서는 기존 Divider 기본 규격을 유지한다. 복수 라벨 순서·배지 색상 옵션·단일/빈 렌더링과 일반 Badge 계약을 보존한다.
+
+검증: PC1421에서 탭 순서·10개 섹션·PC/MO 실제 글자/이미지 크기, 구분선 계산 스타일, 타임라인 이동, 코드 복사 성공 토스트, 하트 토글·호버·색상 선택·Escape를 확인했다. Form 탭 전환과 브라우저 뒤로 가기로 상품 타일 query 복귀를 확인했다. MO390은 PC 예시 비노출·Vertical 행 부모 안쪽 너비·clientWidth/scrollWidth 375px 동일이다. 실제 가이드 이미지의 로드 실패 0개를 확인했다. 변경 파일 ESLint·Prettier·Panda·Next 빌드의 타입 검사와 정적 페이지 145개 생성이 통과했다. 전체 lint는 별도 OrdersStatus.tsx의 미사용 returns 한 건으로 실패했다. 최종 인계 검토에서 page/공용 도메인 owner, 기존 폼 가이드 부품 재사용, 플랫폼·키보드·Panda·Next와 fixture 경계를 확인했다.
+
+출처: 사용자 요청·위 최종 Figma 링크, ProductCardGuide.tsx·publishing-guide/page.tsx·Badge.tsx·ProductOptionList.tsx·OrderHistoryProduct.tsx·OrdersProducts.tsx·OrderDetails.tsx 작업 트리. 기존 index와 다른 채팅의 동시 변경은 보존했다. 기록: codex/gpt-6, 2026-11-03T06:44:42Z.
+
+## 상품 타일 하트 위치와 Carousel NAV 보정 (2026-11-03)
+
+사용자 첨부 실측 기준으로 listing 하트의 기본 버튼 padding(1px 6px)을 제거했다. 이미지 기준 실제 아이콘 경계를 PC 24×24px·top/right 16px, MO 19×19px·top/right 10px로 확인했다. PC 크기/여백과 MO 여백은 기존 sizes/spacing 토큰을 사용하며, 정확히 대응하는 토큰이 없는 MO 19px는 유지한다. history 18px와 다른 Wishlist 사용처의 기본 규격은 보존했다.
+
+[Carousel NAV 1722:8430](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1722-8430)의 구조와 SVG를 읽어 ProductOptionList preview에 적용했다. chevron 대신 원본 6×10px caret SVG를 사용하고 오른쪽만 180도 회전한다. 371px 컨테이너는 6px 화살표·6px 간격·347px 옵션 영역·6px 간격·6px 화살표로 구성된다. 48px 썸네일과 2.5px 선택 바를 포함한 높이는 50.5px다. preview의 브라우저 스크롤바와 12px 하단 여백을 제거하고, history의 thin 스크롤바는 유지한다. 크기와 간격은 기존 토큰을 사용하며 2.5px 선택 바는 정확한 토큰이 없어 직접 지정한다.
+
+실행 검증: PC 가이드에서 위 치수·스크롤바 none·선택된 검정 2.5px 바·이동 끝 scrollLeft 295px·이전 0px·키보드 Tab의 파란 2px 포커스 표시를 확인했다. 원본 SVG URL은 200으로 로드됐다. 실제 /products?gender=men&sort=popular에서 호버 전후 첫 6개 카드의 y/높이가 동일했다. MO390의 하트 실측과 clientWidth/scrollWidth 375px 동일도 확인했다. 변경 파일 ESLint/Prettier, Panda와 Next 빌드(타입 검사·정적 페이지 145개 생성)가 통과했다. SVG 교체 후 별도 typecheck도 실행했다. 최종 hoka-markup-handoff 검토로 기존 owner·Panda·플랫폼·키보드·표시 데이터 경계를 유지함을 확인했다.
+
+출처: 사용자 첨부 이미지·위 Figma 노드, ProductCard.tsx·ProductOptionList.tsx·public/images/icon/product-carousel-caret.svg 작업 트리. 원본 SVG는 해당 Figma 왼쪽 caret 1722:8431 내보내기다. 기록: codex/gpt-6, 2026-11-03.
+
+## 주문 상품 행 병합 통합 (2026-11-03)
+
+`origin/pub-psh-1015`의 주문 화면을 로컬 상품 타일 가이드 작업과 통합했다. 원격 `OrdersProducts.tsx`의 상품 행 구현을 공용 `src/components/orders/OrderHistoryProduct.tsx`로 옮겨 주문 목록·상세·가이드에서 직접 재사용한다. 원격의 history 모드, showQuantity, statusText, onClick/cartAction 상호 배타 타입과 PC/MO 장바구니 표시를 유지한다. 앞선 가이드 기록의 standard PC88/MO96 크기는 병합 전 검증 이력이며 현재 history 기본 이미지는 PC/MO 96px, claim은 PC96/MO64다. 실제 서비스 연결은 추가하지 않았다.
+
+출처: `src/components/orders/OrderHistoryProduct.tsx`, `src/app/mypage/orders/_components/OrdersProducts.tsx`, `OrderDetails.tsx`, `OrdersList.tsx` 작업 트리. 병합 후 TypeScript 검사와 Panda 생성은 통과했다. 이번 병합에서 브라우저 시각 검증은 수행하지 않았다.
+
+## 관심·최근 본 상품 색상 NAV 캐러셀 통일 (2026-11-03)
+
+사용자 후속 요청으로 ProductVariantSummary의 history 표시도 상품 목록 호버와 같은 ProductOptionList preview를 사용한다. PC/MO 모두 48px 썸네일·6px 간격·6×10px 원본 caret NAV·스크롤바 없는 가로 이동으로 통일했다. 앞선 history의 76px/34px 썸네일과 thin 스크롤바 기록은 이 변경 전의 검증 이력이다. ProductOptionList 자체의 history API는 보존하며, ProductCard history 호출만 기존 preview로 연결했다. 새 래퍼·캐러셀 복제·선택/서비스 계약은 추가하지 않았다. 선택 콜백 없는 preview는 기존 표시 전용 썸네일을 유지하고, 옵션 행에 group/Tab 포커스를 제공해 방향키 이동도 유지한다.
+
+검증: 가이드 PC1421에서 카드 260px·옵션 viewport 236px·12개 총 폭 642px·다음 이동 216px·끝 406px·이전 0px, 키보드 방향키 이동을 확인했다. MO390에서는 카드 183.5px·안쪽 옵션 viewport 140px·다음 108px·이전 0px, clientWidth/scrollWidth 375px 동일이다. 실제 /mypage/wishlist의 PC/MO 6개 타일 모두 NAV가 표시되고 가로 넘침이 없다(PC1406px, MO375px). 변경 파일 ESLint·Prettier, Panda 생성과 typecheck가 통과했다. hoka-markup-handoff 검토에서 기존 ProductVariantSummary/ProductOptionList 소유권·Panda·플랫폼·키보드와 표시 데이터 경계를 유지했다.
+
+출처: 사용자 브라우저 댓글, src/components/common/molecules/ProductCard/ProductCard.tsx·ProductOptionList.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.

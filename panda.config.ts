@@ -134,6 +134,7 @@ export default defineConfig({
         },
         fontSizes: {
           12: { value: '0.75rem' },
+          13: { value: '0.8125rem' },
           14: { value: '0.875rem' },
           16: { value: '1rem' },
           18: { value: '1.125rem' },

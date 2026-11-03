@@ -1,8 +1,9 @@
 import { type ComponentPropsWithoutRef, Fragment } from 'react';
 
 import { css, cva } from 'styled-system/css';
-import { Divider, HStack } from 'styled-system/jsx';
+import { HStack } from 'styled-system/jsx';
 
+import { Divider } from '@/components/common/atoms/Divider';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 const badge = cva({
@@ -141,11 +142,12 @@ export function Badge({
           <Fragment key={`${label}-${index}`}>
             {index > 0 && (
               <Divider
-                as="span"
                 aria-hidden="true"
                 orientation="vertical"
-                h="3"
-                color={promotionTone === 'red80' ? 'red.80' : 'var(--color-text-brand)'}
+                length="3"
+                className={css({
+                  '&&': { bg: promotionTone === 'red80' ? 'red.80' : 'var(--color-text-brand)' },
+                })}
               />
             )}
             <Typography variant="body4" weight={weight} tone={promotionTone} className={className}>

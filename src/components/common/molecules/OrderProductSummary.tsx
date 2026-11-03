@@ -36,7 +36,7 @@ function OrderProductSummaryImage({
               display: 'block',
               objectFit: 'contain',
               bg: 'black.10',
-              _mobile: { w: '96px', h: '96px' },
+              _mobile: { w: '24', h: '24' },
             })
           : square({
               size:

@@ -1,21 +1,27 @@
 import Image from 'next/image';
 
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 
 import { css, cva } from 'styled-system/css';
 import { Grid } from 'styled-system/jsx';
+import { token } from 'styled-system/tokens';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 
 const list = cva({
+  base: {
+    _focusVisible: {
+      outline: 'token(spacing.0.5) solid token(colors.focus.default)',
+      outlineOffset: 'token(spacing.0.5)',
+    },
+  },
   variants: {
     layout: {
       scroll: {
         display: 'flex',
         minW: '0',
-        maxW: '100%',
+        maxW: 'full',
         gap: '1',
         overflowX: 'auto',
         scrollbarWidth: 'none',
@@ -24,23 +30,23 @@ const list = cva({
       history: {
         display: 'flex',
         minW: '0',
-        maxW: '100%',
+        maxW: 'full',
         gap: '1',
+        pb: '1',
         overflowX: 'auto',
-        scrollbarWidth: 'none',
-        '&::-webkit-scrollbar': { display: 'none' },
+        scrollbarWidth: 'thin',
+        scrollbarColor: 'token(colors.black.40) transparent',
+        '&::-webkit-scrollbar': { h: '1' },
+        '&::-webkit-scrollbar-thumb': { bg: 'black.40' },
       },
       preview: {
         display: 'flex',
-        gap: '4px',
+        gap: '1.5',
         minW: '0',
-        pb: '12px',
         overflowX: 'auto',
-        scrollbarWidth: 'thin',
-        scrollbarColor: 'var(--color-black-40) transparent',
+        scrollbarWidth: 'none',
         alignItems: 'start',
-        '&::-webkit-scrollbar': { h: '4px' },
-        '&::-webkit-scrollbar-thumb': { bg: 'var(--color-black-40)' },
+        '&::-webkit-scrollbar': { display: 'none' },
       },
       grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 76px)', gap: '2' },
       cart: {
@@ -50,18 +56,18 @@ const list = cva({
         _mobile: {
           display: 'flex',
           overflowX: 'auto',
-          marginRight: '-16px',
-          '&::after': { content: '""', flex: '0 0 16px' },
+          marginRight: '-4',
+          '&::after': { content: '""', flex: '0 0 token(sizes.4)' },
         },
       },
     },
   },
 });
 
-const arrow = css({ w: '16px!', minW: '16px!', '--button-height': '32px' });
+const arrow = css({ w: '1.5!', minW: '1.5!', h: '2.5!', minH: '2.5!' });
 
 const option = cva({
-  base: { display: 'grid', overflow: 'hidden', bg: 'var(--color-black-10)', placeItems: 'center' },
+  base: { display: 'grid', overflow: 'hidden', bg: 'black.10', placeItems: 'center' },
   variants: {
     layout: {
       scroll: { flex: '0 0 34px', w: '34px', h: '34px' },
@@ -71,11 +77,11 @@ const option = cva({
         h: '76px',
         _mobile: { flexBasis: '34px', w: '34px', h: '34px' },
       },
-      preview: { flex: '0 0 80px', w: '80px', h: '53px' },
+      preview: { flex: '0 0 token(sizes.12)', w: '12', h: '12' },
       grid: { w: '76px', h: '60px' },
       cart: { flex: '0 0 74px', w: '74px' },
     },
-    selected: { true: { boxShadow: 'inset 0 -3px var(--color-black-100)' }, false: {} },
+    selected: { true: { boxShadow: 'inset 0 -3px token(colors.black.100)' }, false: {} },
   },
 });
 
@@ -83,24 +89,29 @@ const optionButton = css.raw({
   cursor: 'pointer',
   border: '0',
   p: '0',
-  _hover: { boxShadow: 'inset 0 -3px var(--color-black-100)' },
+  _hover: { boxShadow: 'inset 0 -3px token(colors.black.100)' },
   _focusVisible: {
-    boxShadow: 'inset 0 -3px var(--color-black-100)',
-    outline: '2px solid var(--color-blue-100)',
-    outlineOffset: '2px',
+    boxShadow: 'inset 0 -3px token(colors.black.100)',
+    outline: 'token(spacing.0.5) solid token(colors.blue.100)',
+    outlineOffset: 'token(spacing.0.5)',
   },
 });
 
-const image = css({ w: '100%', h: '100%', objectFit: 'contain' });
+const image = css({ w: 'full', h: 'full', objectFit: 'contain' });
 
-const previewImage = css({ display: 'block', w: '100%', h: '53px', objectFit: 'contain' });
+const previewImage = css({ display: 'block', w: 'full', h: '12', objectFit: 'contain' });
 
-const cartImage = css({ w: '100%', aspectRatio: '1', objectFit: 'contain', bg: 'black.10' });
+const cartImage = css({
+  w: 'full',
+  aspectRatio: 'media.oneByOne',
+  objectFit: 'contain',
+  bg: 'black.10',
+});
 
 const thumbnailSize = {
   scroll: { width: 34, height: 34, sizes: '34px' },
   history: { width: 76, height: 76, sizes: '(max-width: 1024px) 34px, 76px' },
-  preview: { width: 80, height: 53, sizes: '80px' },
+  preview: { width: 48, height: 48, sizes: '48px' },
   grid: { width: 76, height: 60, sizes: '76px' },
   cart: { width: 74, height: 74, sizes: '74px' },
 } as const;
@@ -152,8 +163,13 @@ export function ProductOptionList({
   const move = (direction: number) => {
     const element = listRef.current;
     if (!element) return;
+    const thumbnail = element.firstElementChild;
+    if (!thumbnail) return;
+    const step =
+      thumbnail.getBoundingClientRect().width + parseFloat(getComputedStyle(element).columnGap);
+    if (!Number.isFinite(step) || step <= 0) return;
     element.scrollBy({
-      left: direction * Math.max(84, Math.floor(element.clientWidth / 84) * 84),
+      left: direction * Math.max(step, Math.floor(element.clientWidth / step) * step),
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
         ? 'instant'
         : 'smooth',
@@ -164,14 +180,42 @@ export function ProductOptionList({
     <div
       ref={listRef}
       aria-label={ariaLabel}
+      tabIndex={
+        layout === 'history' || layout === 'scroll' || (layout === 'preview' && !onSelect)
+          ? 0
+          : undefined
+      }
       className={list({ layout })}
-      role={onSelect ? 'group' : undefined}
+      role={
+        onSelect || layout === 'history' || layout === 'scroll' || layout === 'preview'
+          ? 'group'
+          : undefined
+      }
     >
       {options.map((optionItem) => {
         const selected = optionItem.id === selectedId;
         const className = css(
           option.raw({ layout, selected }),
           onSelect && optionButton,
+          layout === 'preview' && {
+            position: 'relative',
+            h: 'auto',
+            pb: '2.5px',
+            bg: 'transparent',
+            boxShadow: 'none',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              right: '0',
+              h: '2.5px',
+              borderRadius: 'full',
+              bg: selected ? 'black.100' : 'transparent',
+            },
+            _hover: { boxShadow: 'none', '&::after': { bg: 'black.100' } },
+            _focusVisible: { boxShadow: 'none' },
+          },
           layout === 'cart' && {
             display: 'block',
             position: 'relative',
@@ -183,13 +227,16 @@ export function ProductOptionList({
               bottom: '0',
               left: '0',
               right: '0',
-              h: '4px',
+              h: '1',
               borderRadius: '50px',
-              bg: selected ? 'var(--color-black-100)' : 'transparent',
+              bg: selected ? 'black.100' : 'transparent',
               pointerEvents: 'none',
             },
             _hover: { boxShadow: 'none' },
-            _focusVisible: { boxShadow: 'none', outline: '2px solid var(--colors-black-100)' },
+            _focusVisible: {
+              boxShadow: 'none',
+              outline: 'token(spacing.0.5) solid token(colors.black.100)',
+            },
           },
         );
 
@@ -241,32 +288,40 @@ export function ProductOptionList({
 
   return (
     <Grid
-      gap="normal"
-      gridTemplateColumns="16px minmax(0, 1fr) 16px"
+      gap="1.5"
+      gridTemplateColumns="token(sizes.1.5) minmax(0, 1fr) token(sizes.1.5)"
       alignItems="center"
       minW="0"
-      w="100%"
+      w="full"
     >
       <Button
         variant="icon"
-        size={16}
+        size={10}
         aria-label="이전 색상"
         className={arrow}
         disabled={edges.start}
         onClick={() => move(-1)}
       >
-        <Icon fontAwesomeIcon={faChevronLeft} size={12} />
+        <Icon
+          name="product-carousel-caret"
+          size={token.var('sizes.2.5')}
+          style={{ width: token.var('sizes.1.5') }}
+        />
       </Button>
       {content}
       <Button
         variant="icon"
-        size={16}
+        size={10}
         aria-label="다음 색상"
         className={arrow}
         disabled={edges.end}
         onClick={() => move(1)}
       >
-        <Icon fontAwesomeIcon={faChevronRight} size={12} />
+        <Icon
+          name="product-carousel-caret"
+          size={token.var('sizes.2.5')}
+          style={{ width: token.var('sizes.1.5'), transform: 'rotate(180deg)' }}
+        />
       </Button>
     </Grid>
   );
