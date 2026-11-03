@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T07:59:37.181918+00:00'
+updated: '2026-11-03T08:40:13.269316+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4404,3 +4404,7 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 공통 ProductIdentity·ProductOptionList·RatingStars·Wishlist·Button을 조합한 가이드 전용 fixture와 항목 표, 실제 구성/스타일에 대응하는 복사 코드를 제공한다. 서로 다른 화면의 표시 옵션을 동시에 켠 검토 예시이며 실제 환불 상태·요청 결과가 아니다. 하트만 로컬 전환하고 옵션변경/장바구니 버튼은 미연결 표시라고 명시한다. 190px 너비·6px 간격·가격 13px·썸네일34px 5개·전체 텍스트와 코드 복사/하트 전환, 상세 정보 예시의 이미지 0개를 실행 화면에서 확인했다.
 
 출처: 위 사용자 지정 Figma 두 노드, ProductCardGuide.tsx·ProductCard.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+## 런칭 캘린더 디자인 미확정 상태 반영 (2026-11-03)
+
+사용자 재확인으로 런칭 캘린더의 활성 IA 159~162(메인·Feed·Coming·In-stock)를 PC 디자인 수정예정(revision-planned), MO 디자인 미수급(missing), PC/MO 퍼블리싱 수정(revision)으로 변경했다. 앞서 PC 프레임 존재와 RUN Club 패턴 적용을 근거로 표시한 수급/완료 기록보다 이번 사용자 확정값을 우선한다. 기존 화면·상태 URL·파일 연결은 유지하며 삭제된 키즈 IA 163~165의 삭제 표시를 복구하지 않는다. getScreenProgress의 네 항목 반환값과 기존 상태 테스트 10개, 변경 파일 ESLint·서식을 확인했다. 브라우저 시각 검증은 재실행하지 않았다. 출처: 사용자 브라우저 댓글, src/app/screen-index/screenProgress.ts 작업 트리. 기록: codex/gpt-6, 2026-11-03.

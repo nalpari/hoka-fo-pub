@@ -46,12 +46,13 @@ export type ScreenProgressOverrides = Readonly<Partial<Record<number, Partial<Sc
 const confirmedDesignReceipts: Partial<
   Record<number, Pick<ScreenProgress, 'pcDesign' | 'moDesign'>>
 > = {
-  // 2026-11-03 Launch Calendar 3696:9496: PC Feed/Upcoming/In Stock/Detail 수급, MO 프레임은 없음.
+  // 2026-11-03 사용자 재확인: 런칭 캘린더 디자인 미확정으로 PC 수정예정·MO 미수급.
+  // 앞서 확인한 PC 프레임은 최종 확정본이 아니며 아래 사용자 확인값을 우선합니다.
   // https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3696-9496
-  159: { pcDesign: 'received', moDesign: 'missing' },
-  160: { pcDesign: 'received', moDesign: 'missing' },
-  161: { pcDesign: 'received', moDesign: 'missing' },
-  162: { pcDesign: 'received', moDesign: 'missing' },
+  159: { pcDesign: 'revision-planned', moDesign: 'missing' },
+  160: { pcDesign: 'revision-planned', moDesign: 'missing' },
+  161: { pcDesign: 'revision-planned', moDesign: 'missing' },
+  162: { pcDesign: 'revision-planned', moDesign: 'missing' },
   // 2026-10-30 사용자 확인: 국가선택은 디자인 미해당입니다.
   267: { pcDesign: 'not-applicable', moDesign: 'not-applicable' },
   // [HOKA]Design > 로그인/ID찾기/비밀번호 찾기: Desktop/Mobile Login 및 계정 흐름.
@@ -170,11 +171,11 @@ const confirmedTemplateDesigns: Record<string, Pick<ScreenProgress, 'pcDesign' |
 export const confirmedPublishingProgress: Readonly<
   Partial<Record<number, Partial<Pick<ScreenProgress, 'pcPublishing' | 'moPublishing'>>>>
 > = {
-  // 2026-11-03 PC 시안 적용, MO는 사용자 지정 RUN Club 패턴으로 검증했습니다.
-  159: { pcPublishing: 'ready', moPublishing: 'ready' },
-  160: { pcPublishing: 'ready', moPublishing: 'ready' },
-  161: { pcPublishing: 'ready', moPublishing: 'ready' },
-  162: { pcPublishing: 'ready', moPublishing: 'ready' },
+  // 2026-11-03 사용자 요청: 최종 디자인 미확정으로 런칭 캘린더 PC/MO 모두 수정.
+  159: { pcPublishing: 'revision', moPublishing: 'revision' },
+  160: { pcPublishing: 'revision', moPublishing: 'revision' },
+  161: { pcPublishing: 'revision', moPublishing: 'revision' },
+  162: { pcPublishing: 'revision', moPublishing: 'revision' },
   // 2026-10-30 사용자 확인: 국가선택 PC/MO 퍼블리싱 완료.
   267: { pcPublishing: 'ready', moPublishing: 'ready' },
   170: { pcPublishing: 'revision', moPublishing: 'ready' },
