@@ -6,9 +6,10 @@ import { Box, Grid, Stack } from 'styled-system/jsx';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { ClaimHistoryItem, OrderRecord } from '@/components/orders/orders.types';
 
-import { OrderCard, type OrderCardActions, OrderHistoryProduct } from './OrdersProducts';
+import { OrderCard, type OrderCardActions } from './OrdersProducts';
 import {
   OrdersFilters,
   type OrdersFiltersProps,

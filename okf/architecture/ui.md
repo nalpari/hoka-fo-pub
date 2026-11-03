@@ -4364,3 +4364,5 @@ Vertical은 OrderProductSummary의 cart/checkout, 주문 화면의 실제 OrderH
 검증: 가이드 PC1421에서 카드 260px·옵션 viewport 236px·12개 총 폭 642px·다음 이동 216px·끝 406px·이전 0px, 키보드 방향키 이동을 확인했다. MO390에서는 카드 183.5px·안쪽 옵션 viewport 140px·다음 108px·이전 0px, clientWidth/scrollWidth 375px 동일이다. 실제 /mypage/wishlist의 PC/MO 6개 타일 모두 NAV가 표시되고 가로 넘침이 없다(PC1406px, MO375px). 변경 파일 ESLint·Prettier, Panda 생성과 typecheck가 통과했다. hoka-markup-handoff 검토에서 기존 ProductVariantSummary/ProductOptionList 소유권·Panda·플랫폼·키보드와 표시 데이터 경계를 유지했다.
 
 출처: 사용자 브라우저 댓글, src/components/common/molecules/ProductCard/ProductCard.tsx·ProductOptionList.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+2026-11-03 커밋 구성: 위 상품 타일 가이드·Vertical 재사용 및 주문 상품 행 공용화를 가이드 추가 커밋으로 분리한다. 전체 ESLint와 typecheck를 최종 작업 트리에서 다시 실행해 통과했다.

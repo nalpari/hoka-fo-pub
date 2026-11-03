@@ -12,14 +12,13 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
+import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type {
   ClaimDetailDisplay,
   OrderClaim,
   OrderDetailDisplay,
   OrderLine,
 } from '@/components/orders/orders.types';
-
-import { OrderHistoryProduct } from './OrdersProducts';
 
 /** 주문 상세의 구분선이 있는 항목별 정보를 표시합니다. (Displays ruled key-value information for an order.) */
 export function OrderInformationSection({

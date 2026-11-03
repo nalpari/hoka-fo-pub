@@ -1092,7 +1092,8 @@ HomeContent의 이미지 비율 강제 override를 제거하고 공통 ProductTh
 
 주문 내역의 OrderHistoryProduct는 공용 도메인 모듈로 옮겨 주문 목록/상세와 가이드가 같은 구현을 사용한다. OrdersProducts/OrderDetails의 화면·상태·URL 계약과 요청 소유권은 변경하지 않았다. sourceGraph.generated.json은 정식 screen-files/build 명령으로 새 import를 반영했다. Form 탭 전환·상품 타일 query 뒤로 가기·10개 섹션·주문 3개 URL PC/MO와 Next 빌드를 확인했다. 출처: 위 가이드 page/private 모듈과 OrdersProducts.tsx·OrderDetails.tsx·OrderHistoryProduct.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03T06:44:42Z.
 
-
 ## 미사용 주문 액션 정리 (2026-11-03)
 
 `src/app/mypage/orders/_components/OrdersProducts.tsx`의 미사용 `OrderItemActions`와 전용 타입을 제거했다. 실제 호출되는 `OrderCard`의 배송조회·리뷰 링크와 경로는 유지한다. 전체 ESLint 검사를 통과했다. 출처는 해당 파일 작업 트리이며 브라우저 시각 재검증은 수행하지 않았다.
+
+2026-11-03 가이드 인계: 상품 타일 탭·공용 OrderHistoryProduct import와 생성 그래프를 함께 반영한다. 주문 상품 행의 기존 history·상세 진입·표시 옵션 계약과 가이드 query 연결은 유지한다. 전체 ESLint·typecheck 최종 재검사 통과.

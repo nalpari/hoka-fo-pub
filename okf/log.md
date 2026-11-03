@@ -1,3 +1,7 @@
+## 2026-11-03 상품 타일 가이드 인계 커밋 분리
+
+- Horizontal/Vertical 예시와 공용 주문 상품 행·호출부·생성 그래프를 가이드 추가 커밋으로 분리했다. 전체 ESLint와 typecheck 최종 재검사가 통과했다.
+
 ## 2026-11-03 관심·최근 본 상품 NAV 캐러셀 통일
 
 - ProductCard history 색상 행을 상품 목록 호버의 기존 preview 캐러셀로 연결했다. PC/MO 모두 48px 썸네일과 좌우 caret NAV를 사용하고 브라우저 스크롤바를 없앴다.
