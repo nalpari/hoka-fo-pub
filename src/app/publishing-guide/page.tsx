@@ -9,12 +9,16 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { type SupportTab, SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { ButtonGuide } from './_components/ButtonGuide';
+import { ColorGuide } from './_components/ColorGuide';
 import { FormGuide } from './_components/FormGuide';
 import { HelpTipsGuide } from './_components/HelpTipsGuide';
+import { IconGuide } from './_components/IconGuide';
 import { TypographyGuide } from './_components/TypographyGuide';
 
 const guideTabs: readonly SupportTab[] = [
+  { value: 'color', label: '컬러', content: <ColorGuide /> },
   { value: 'typography', label: '타이포그래피', content: <TypographyGuide /> },
+  { value: 'icon', label: '아이콘', content: <IconGuide /> },
   { value: 'button', label: '버튼', content: <ButtonGuide /> },
   { value: 'form', label: '폼', content: <FormGuide /> },
   { value: 'help-tips', label: '툴팁·토글팁', content: <HelpTipsGuide /> },

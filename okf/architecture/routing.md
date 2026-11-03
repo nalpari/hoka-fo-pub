@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T06:11:12Z'
+updated: '2026-11-03T07:22:21Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/publishing-guide/_components/ColorGuide.tsx
+  - src/app/publishing-guide/_components/IconGuide.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
@@ -961,7 +963,6 @@ OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 
 
 신청 예정금액의 숫자/원 단위 타이포 분리는 표시 변경이며 기존 취소·반품 신청 URL은 유지한다(2026-11-03).
 
-
 ## 취소·반품 목록 시안 정렬 (2026-11-03)
 
 Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
@@ -970,13 +971,11 @@ Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목�
 
 검증: 로컬 1920px/375px 렌더링, 모바일 가로 넘침 없음·96px 이미지·14px #777 상태, 반품 상세 진입과 빈 목록 문구를 확인했다. Panda 생성 성공. 전체 tsc는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했고 소스 오류는 없었다. ESLint는 설치된 eslint-plugin-perfectionist를 찾지 못해 실행 실패했다.
 
-
 ## 취소·반품 상세 표시 데이터 경계 정리 (2026-11-03)
 
 OrderClaimDetail은 order 대신 준비된 ClaimDetailDisplay를 받는다. 기존 선택적 previewDisplay 우선 적용을 제거하고 OrderClaim.detailDisplay에 PC·모바일 표시값과 완성된 items를 명시했다. OrdersContent가 현재 플랫폼의 display를 전달한다. 상세 컴포넌트는 옵션·수량·금액을 덮어쓰거나 상태·사유·날짜를 추론하지 않으며, Typography 포맷과 배치·onList만 유지한다. 실제 조회·표시 모델 구성과 갱신은 연결 소유자 책임이다. 기존 직접 URL과 상세 선택은 유지한다.
 
 출처: src/components/orders/orders.types.ts, orders.data.ts, src/app/mypage/orders/_components/OrderDetails.tsx, OrdersContent.tsx 및 정식 명령으로 재생성한 sourceGraph.generated.json 작업 트리. 검증: 이전 커밋에서 렌더링하던 값과 새 fixture의 취소/반품 × PC/MO 네 조합을 비교해 완전 일치 확인; Panda 생성 성공. tsc는 기존 .next/types 오류로 실패했으나 src 오류는 없었다. 이번 구조 변경에서 브라우저 시각 검증은 재실행하지 않았다.
-
 
 ## 주문 상세 마크업 책임 정리 (2026-11-03)
 
@@ -987,7 +986,6 @@ OrdersContent는 현재 선택한 주문의 준비된 display와 화면 확인�
 검증: 변경 전 4개 주문의 PC/MO 표시값 8조합과 새 고정 fixture의 완전 일치를 비교했다. 런타임 소스에 filter/slice/Array.from/flatMap/detailPreview/상태 lookup이 남지 않음을 확인했다. Panda 생성 성공. 전체 tsc는 기존 .next/types 오류로 실패했으며 src 오류는 없었다.
 
 추가 브라우저 확인: /mypage/orders/preview-detail의 PC 1920px·모바일 375px 본문과 표시 금액, 모바일 가로 넘침 없음, 반품상세보기 클릭 후 반품 상세 진입을 확인했다.
-
 
 ## 취소·반품 목록 표시 데이터 분리 (2026-11-03)
 
@@ -1000,7 +998,6 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 추가 검증: 모바일 목록 행 클릭 후 반품 상세 진입, /mypage/returns/preview-empty 빈 안내 확인. Prettier·OKF·diff 검사 통과. 전체 tsc는 기존 .next/types 오류로 미통과이며 src 오류는 없었다.
 
 2026-11-03: OrdersListContent의 현황·기간 필터·주문/클레임 목록 호출부에 섹션 제목 JSX 주석을 추가했다. 표시·라우팅 변경은 없다. 출처: OrdersList.tsx.
-
 
 2026-11-03 상품 행 재사용: OrdersList의 ClaimHistoryProduct를 제거하고 기존 OrderHistoryProduct의 onClick 옵션으로 상세 진입을 연결했다. 클릭 모드와 cartAction은 타입에서 함께 사용할 수 없으며 기본 호출부는 기존 div·장바구니 표시를 유지한다. OrderProductSummary의 선택적 amountLanguage=en으로 클릭 카드의 기존 숫자 폰트를 보존하고 기본 금액 표시는 유지한다. 출처: OrdersList.tsx, OrdersProducts.tsx, OrderProductSummary.tsx, sourceGraph.generated.json. 모바일 브라우저에서 96px 카드·가로 넘침 없음·중첩 버튼 없음·반품 상세 진입 확인.
 
@@ -1078,3 +1075,23 @@ ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를
 ## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
 
 ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.
+
+## 퍼블리싱 가이드 아이콘 탭 (2026-11-03)
+
+`/publishing-guide`에 아이콘 탭을 추가했다. `IconGuide.tsx`는 현재 서비스 화면·공통 컴포넌트·화면 목록·기존 가이드에서 사용하는 아이콘을 92개 예시로 정리한다. SVG 42개, 폼 상태 10개, Font Awesome 35개, 캐러셀 방향 2개, 화면 전용 inline SVG 3개이며 크기·색상 사용법 3개는 별도다. 로고·국기·상품 이미지·배경 장식과 미사용 에셋은 제외한다.
+
+기존 GuideTimeline, renderGuideCode, GuideCopyToast를 재사용하며 각 카드에 미리보기·사용처·코드 복사를 제공한다. PC는 3열 카드와 우측 목차, 모바일은 1열 카드와 기존 가이드 방식의 하단 목차다. 원본 SVG와 mask/Font Awesome의 색상 적용 차이, 기본 16px와 size 지정, alt·버튼 aria-label 기준을 안내한다. 공통 Icon과 서비스 화면은 변경하지 않았다. 목록은 이번 조사 시점의 고정 예시이므로 아이콘 사용처 변경 시 함께 갱신한다.
+
+작업 트리 출처는 `src/app/publishing-guide/page.tsx`, `_components/IconGuide.tsx`와 재생성한 `src/app/screen-index/sourceGraph.generated.json`이다. 아이콘 에셋 경로 전수 존재 확인과 Panda 생성을 통과했다. 전체 typecheck는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했으며 새 소스 오류는 보고되지 않았다. ESLint는 설치된 eslint-plugin-perfectionist가 없어 실행되지 않았다.
+
+브라우저 검증: PC 1668px와 모바일 375px에서 아이콘 탭·카드 표시 및 가로 넘침 없음을 확인했다. 95개 카드(목록 92 + 사용법 3), 이미지 로딩 실패 0개, 코드 복사 성공 안내, 폼 섹션 목차 이동을 확인했다. 모바일 카드는 343px 한 열로 표시된다.
+
+## 퍼블리싱 가이드 컬러 탭 (2026-11-03)
+
+`/publishing-guide`의 컬러 탭은 [Figma Colors 196:9352](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=196-9352)의 고유 컬러 13개를 Base·Core Colors·Secondary·Accent로 표시한다. 표기 HEX를 `panda.config.ts` 및 `src/styles/global.scss`의 별칭과 대조했으며 모두 일치한다. 미리보기는 `token.var`로 프로젝트 토큰을 참조한다. HEX·Panda 토큰·CSS 변수 표현식·Box 사용 코드를 각각 복사하고 공통 GuideCopyToast로 결과를 알린다. 기존 GuideTimeline·renderGuideCode를 재사용한다.
+
+Figma Red-80의 색상 칸은 Accent에서 #B7B7B7, Sementic에서 #CECECE지만 표기 HEX와 프로젝트 값은 #E10F00이다. 가이드는 표기 HEX를 사용하고 불일치를 안내한다. Sementic에 반복된 Red-100/Red-80은 중복 컬러를 만들지 않고 설명하며, 기존 error → red.100 토큰을 별도로 복사할 수 있다. 디자인의 페이지 장식이나 로고를 재현하는 작업이 아닌 기존 퍼블리싱 가이드의 컬러 참조 탭 추가다. 전역 토큰값은 변경하지 않았다.
+
+출처: Figma get_design_context의 196:9352와 Citrus 세부 노드 196:9467, `panda.config.ts`, `src/styles/global.scss`, 작업 트리 `src/app/publishing-guide/_components/ColorGuide.tsx`, `page.tsx` 및 재생성한 화면 소스 그래프. Panda 생성 통과. 전체 typecheck는 기존 `.next/types` 삭제 라우트 참조 오류로 실패했고 새 소스 오류는 없었다. ESLint는 설치된 perfectionist 패키지가 없어 실행되지 않았다.
+
+브라우저에서 PC 1668px·모바일 375px 가로 넘침 없음, 13개 미리보기의 실제 RGB와 표기 HEX 일치, HEX·Panda 토큰·CSS 변수·사용 코드 네 가지의 복사 성공 안내를 확인했다.
