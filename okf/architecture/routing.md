@@ -890,3 +890,11 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 [디자인 노드 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339)의 옵션 입고 알림은 `/products/preview-restock`으로 직접 확인한다. 기존 `RouteContent`의 `preview="restock"`을 사용하며 PC/MO는 같은 URL을 공유한다. 새 page는 라우트 진입만 담당하고 UI는 기존 `[id]/_components/ProductDetailContent.tsx`가 소유한다.
 
 `screenConnections.ts`의 상품상세 공통 연결(`eland_hca_02`)에 `옵션 입고 알림` 상태와 진입 파일을 추가했다. 기본 `/products/shoe-1`·상품문의 없음 상태·기존 WEB/Mobile Storybook 연결은 유지한다. `npm run screen-files`로 그래프를 생성했고 변경 전 그래프와 비교해 추가된 import가 preview 진입 하나뿐임을 확인했다. IA의 상태명/URL 검색 및 실제 링크 클릭으로 대상 URL의 300 초기 선택 화면을 확인했다. 인증·저장값·선행 조작 없이 열리며 알림 신청 요청은 하지 않는다.
+
+## 상품상세 인계 병합 정리 (2026-11-03)
+
+출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`. 전체 화면 인계와 옵션 입고알림 변경이 병합되며 제거된 구매 콜백·router·setError 참조가 남아 발생한 타입 오류를 정리했다. 구매 CTA의 요청 콜백과 submit 경로는 제거하고 품절/입고알림 표시와 옵션·수량·관심 토글·이미지 열람만 로컬 UI로 유지한다. 금액은 준비된 표시값이며 수량에 따른 합계를 계산하지 않는다.
+
+기존 `/products/shoe-1`, `/products/preview-restock`, `/products/preview-empty-inquiries`, `/products/preview-options-required`를 재사용한다. `RouteContent.preview`에 기존 `selection-required` 타입을 복원했고 옵션을 선택해도 해당 고정 안내는 유지된다. 새 상태 URL·IA 행·provider는 추가하지 않았다. page 진입점과 `_components` 소유권, 이미지 뷰어의 기존 동적 경계·닫기·포커스 복원은 유지했다.
+
+검증: Next 프로덕션 빌드(타입 포함)·Panda·Storybook 빌드·상태 링크 검사 6개·변경 파일 lint/format 통과. PC 1600/MO 375에서 네 URL 직접 접근, 옵션 선택 후 필수 안내 유지와 CTA 복원을 확인했다. 개발 서버의 EPERM 오류는 개발 캐시 보관 후 재시작으로 해소했다.

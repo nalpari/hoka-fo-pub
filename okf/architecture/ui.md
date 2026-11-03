@@ -4042,3 +4042,7 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 명시적 Storybook 플랫폼 회귀: Mobile story를 1600px에서 열어 platform-mobile 유지와 품절 선택 CTA를, WEB story를 375px에서 열어 platform-web 유지를 확인했다.
 
 공통 선택기의 기본 Single/Multiple Storybook에서 미제공 220과 품절 230이 aria-disabled=true를 유지함을 확인했다.
+
+## 상품상세 마크업 인계와 병합 잔여 제거 (2026-11-03)
+
+상품상세의 `ProductPurchaseActions`/`ProductDetailFooter`에서 이미 제거된 구매 콜백 참조를 없앴다. `RouteContent`의 주문 검증·장바구니 반영·checkout 이동 잔여 코드도 제거했다. 옵션 입고알림의 선택과 PC/MO CTA, 기존 선택 옵션/수량·관심상품 토글·아코디언·탭·이미지 뷰어는 로컬 UI로 유지하며 선택 수량에 따른 금액 계산은 없다. CTA와 준비된 금액의 연결 소유권을 `[ 개발팀 바인딩 ]` 주석으로 명시했다. 공통 컴포넌트 계약은 변경하지 않았고 추가 래퍼나 전체 화면 복제는 만들지 않았다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`.

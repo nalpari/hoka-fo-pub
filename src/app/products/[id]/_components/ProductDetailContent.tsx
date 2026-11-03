@@ -1698,24 +1698,17 @@ const ProductPurchaseActionsRoot = cva({
     },
   },
 });
+// [ 개발팀 바인딩 ] 구매/장바구니/입고알림 CTA는 상태 확인용 표시입니다. 요청·검증·장바구니 변경·완료 이동은 연결하지 않으며 실제 연결은 상품상세 통합 소유자가 담당합니다.
 type ProductPurchaseActionsProps = {
   placement: 'inline' | 'fixed';
   restock?: boolean;
-  onAddToCart: () => void;
-  onOrder: () => void;
 };
 
-function ProductPurchaseActions({
-  placement,
-  onAddToCart,
-  onOrder,
-  restock,
-}: ProductPurchaseActionsProps) {
+function ProductPurchaseActions({ placement, restock }: ProductPurchaseActionsProps) {
   const platform = usePlatform();
   return (
     <Grid className={ProductPurchaseActionsRoot({ placement })} gap="2">
       <Button
-        onClick={restock ? undefined : onAddToCart}
         disabled={restock}
         style={
           restock
@@ -1731,12 +1724,7 @@ function ProductPurchaseActions({
       >
         {restock ? '품절' : '장바구니'}
       </Button>
-      <Button
-        onClick={restock ? undefined : onOrder}
-        variant="primary"
-        fullWidth
-        size={platform === 'mobile' ? 'short' : 'tall'}
-      >
+      <Button variant="primary" fullWidth size={platform === 'mobile' ? 'short' : 'tall'}>
         {restock ? '입고알림신청' : '구매하기'}
       </Button>
     </Grid>
@@ -1783,12 +1771,7 @@ function ProductDetailContent({
         width={width}
       />
       {selectedOptions}
-      <ProductPurchaseActions
-        restock={!!size}
-        onAddToCart={onAddToCart}
-        onOrder={onOrder}
-        placement="inline"
-      />
+      <ProductPurchaseActions restock={!!size} placement="inline" />
       <ProductInformation
         id="product-information"
         sections={[
@@ -2382,35 +2365,25 @@ type ProductDetailFooterProps = {
   restock?: boolean;
   recommendations: Product[];
 };
+
 /** Composes recommendations and the mobile fixed purchase controls without extra DOM. */
-function ProductDetailFooter({
-  recommendations,
-  onAddToCart,
-  onOrder,
-  restock,
-}: ProductDetailFooterProps) {
+function ProductDetailFooter({ recommendations, restock }: ProductDetailFooterProps) {
   const platform = usePlatform();
   return (
     <>
       <ProductDetailRecommendations products={recommendations} />
-      {platform === 'mobile' && (
-        <ProductPurchaseActions
-          restock={restock}
-          onAddToCart={onAddToCart}
-          onOrder={onOrder}
-          placement="fixed"
-        />
-      )}
+      {platform === 'mobile' && <ProductPurchaseActions restock={restock} placement="fixed" />}
     </>
   );
 }
+// [ 개발팀 바인딩 ] unitPrice는 인계 화면의 준비된 금액 표시값입니다. 수량/옵션 조작으로 행 금액이나 합계를 계산하지 않으며 실제 견적·합계 표시값은 통합 소유자가 전달해야 합니다.
 type ProductSelectedOptionsProps = {
   items: readonly CartItem[];
   unitPrice: number;
   onQuantityChange: (index: number, quantity: number) => void;
   onRemove: (index: number) => void;
 };
-/** 선택한 상품 옵션별 수량과 삭제 버튼 및 합계를 표시합니다. (Displays quantity, removal, and totals for selected product options.) */
+/** 선택 옵션의 수량 조작과 준비된 금액을 표시합니다. (Displays local selected-option quantities and prepared amounts.) */
 function ProductSelectedOptions({
   items,
   unitPrice,
@@ -2465,8 +2438,13 @@ function ProductSelectedOptions({
     </Stack>
   );
 }
-/** 상품 옵션 누적 선택과 구매 및 상세 보기를 관리합니다. (Manages accumulated product selections, purchase actions, and detail viewing.) */
-export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'restock' }) {
+
+/** 상품 옵션과 입고알림 선택 및 이미지 열람을 로컬로 표시합니다. (Displays local product-option and restock selections and image viewing.) */
+export function RouteContent({
+  preview,
+}: {
+  preview?: 'empty-inquiries' | 'restock' | 'selection-required';
+}) {
   const platform = usePlatform();
   const catalogue = products;
   const { id } = useParams<{
@@ -2526,20 +2504,6 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'resto
   }, [preview, platform]);
   if (!product) return <SystemStatusPage status="not-found" />;
 
-  const submit = (order: boolean) => {
-    if (preview || restockSize) return;
-    if (!selectedItems.length) {
-      setError('사이즈를 선택해 주세요.');
-      document
-        .getElementById('product-size')
-        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    setError('');
-    selectedItems.forEach(onAddToCart);
-    if (order) router.push('/checkout');
-  };
-
   return (
     <ProductDetailLayout
       isViewing={viewerIndex !== null}
@@ -2559,14 +2523,7 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'resto
           />
         )
       }
-      footer={
-        <ProductDetailFooter
-          restock={!!restockSize}
-          recommendations={recommendations}
-          onAddToCart={() => submit(false)}
-          onOrder={() => submit(true)}
-        />
-      }
+      footer={<ProductDetailFooter restock={!!restockSize} recommendations={recommendations} />}
     >
       <ProductDetailMedia
         inquiriesEmpty={preview === 'empty-inquiries'}
@@ -2619,7 +2576,6 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'resto
           if (!selectedWidth?.sizes.includes(nextSize)) return;
           if (selectedWidth.soldOut.includes(nextSize)) {
             setRestockSize(nextSize);
-            setError('');
             return;
           }
           setRestockSize('');
@@ -2649,6 +2605,7 @@ export function RouteContent({ preview }: { preview?: 'empty-inquiries' | 'resto
     </ProductDetailLayout>
   );
 }
+
 export const routePreviewComponents = {
   InquiryBoard,
   ProductInquiryLink,
