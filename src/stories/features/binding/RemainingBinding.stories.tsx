@@ -13,7 +13,7 @@ import { InquiryFormStatePreview } from '@/app/support/inquiries/new/_components
 import { NoticesContent } from '@/app/support/notices/_components/NoticesContent';
 import { TermsDocument } from '@/app/support/terms/_components/TermsDocument';
 import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
-import { OrdersRoute } from '@/components/orders/OrdersRoute';
+import { OrdersPage } from '@/app/mypage/orders/_components/OrdersPage';
 
 const meta = {
   title: 'Integration/RemainingBinding',
@@ -83,7 +83,7 @@ export const MobileRunningSessionApplication: Story = {
 
 export const RefundQuoteAndSubmit: Story = {
   name: '반품 고정 목록',
-  render: () => <OrdersRoute returns />,
+  render: () => <OrdersPage returns />,
 };
 
 export const MobileRefundQuoteAndSubmit: Story = {

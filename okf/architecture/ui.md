@@ -80,7 +80,7 @@ working_tree_sources:
   - src/app/**/page.tsx
   - src/app/**/_components/*.tsx
   - src/components/catalog/ProductListingPage.tsx
-  - src/components/orders/OrdersRoute.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/components/phone-verification/PhoneVerificationContent.tsx
   - src/components/common/layouts/AccountPageLayout.tsx
   - src/app/login/_components/LoginContent.tsx
@@ -104,7 +104,7 @@ working_tree_sources:
   - src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx
   - src/components/mypage/MyPageFrame.tsx
   - src/components/mypage/mypage.data.ts
-  - src/components/orders/OrdersRoute.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
   - src/app/login/preview-error/page.tsx
@@ -454,7 +454,7 @@ working_tree_sources:
   - src/components/mypage/MyPageBenefitItem.tsx
   - src/components/support/InquiryAttachmentHelp.tsx
   - src/components/support/InquiryAttachmentList.tsx
-  - src/components/orders/OrdersRoute.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/components/common/molecules/SectionHeading/SectionHeading.tsx
   - src/components/mypage/MyPageMenuItem.tsx
   - src/components/checkout/CheckoutAgreement.tsx
@@ -1155,7 +1155,7 @@ Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취�
 
 Storybook에는 주문/배송조회 WEB·Mobile 항목과 PC의 빈 목록·상세·취소/반품 상세·신청 상태를 추가하고, 취소/반품내역을 독립된 주문 분류 아래 WEB·Mobile 및 빈 목록으로 연결했다. 화면 인덱스에서 두 경로의 스토리 링크를 연결했으며 실제 App Router URL은 그대로다. 새 API나 업무 로직은 추가하지 않았다.
 
-출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959). 변경 출처는 `src/components/orders/OrdersRoute.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
+출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959). 변경 출처는 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
 
 ## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
 
@@ -4046,3 +4046,7 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 ## 상품상세 마크업 인계와 병합 잔여 제거 (2026-11-03)
 
 상품상세의 `ProductPurchaseActions`/`ProductDetailFooter`에서 이미 제거된 구매 콜백 참조를 없앴다. `RouteContent`의 주문 검증·장바구니 반영·checkout 이동 잔여 코드도 제거했다. 옵션 입고알림의 선택과 PC/MO CTA, 기존 선택 옵션/수량·관심상품 토글·아코디언·탭·이미지 뷰어는 로컬 UI로 유지하며 선택 수량에 따른 금액 계산은 없다. CTA와 준비된 금액의 연결 소유권을 `[ 개발팀 바인딩 ]` 주석으로 명시했다. 공통 컴포넌트 계약은 변경하지 않았고 추가 래퍼나 전체 화면 복제는 만들지 않았다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`.
+
+## 주문 화면 컴포넌트 route 소유권 (2026-11-03)
+
+`OrdersPage`는 주문 목록·상세·반품 내역의 상태 소유자이며, `OrdersContent`, `OrdersList`, `OrdersStatus`, `OrdersProducts`, `OrderDetails`, `OrderTrackingDialog`를 `src/app/mypage/orders/_components`에 둔다. 주문/반품 page와 관련 preview·Storybook은 `OrdersPage`를 직접 사용한다. fixture와 정책 모듈은 기존 `src/components/orders`에 유지한다.

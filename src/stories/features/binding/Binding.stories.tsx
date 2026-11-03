@@ -6,7 +6,7 @@ import LoginPage from '@/app/login/page';
 import { AddressStatePreview } from '@/app/mypage/addresses/_components/AddressStatePreview';
 import { ReviewStatePreview } from '@/app/mypage/reviews/_components/ReviewStatePreview';
 import { ProductListingPage } from '@/components/catalog/ProductListingPage';
-import { OrdersRoute } from '@/components/orders/OrdersRoute';
+import { OrdersPage } from '@/app/mypage/orders/_components/OrdersPage';
 import { PhoneVerificationStatePreview } from '@/components/phone-verification/PhoneVerificationStatePreview';
 import { products } from '@/mocks/products';
 
@@ -65,7 +65,7 @@ export const ReviewData: Story = {
   render: () => <ReviewStatePreview state="ready-list" />,
 };
 
-export const OrdersResponse: Story = { name: '주문 고정 목록', render: () => <OrdersRoute /> };
+export const OrdersResponse: Story = { name: '주문 고정 목록', render: () => <OrdersPage /> };
 
 export const VerificationRetry: Story = {
   name: '인증 오류 고정 표시',

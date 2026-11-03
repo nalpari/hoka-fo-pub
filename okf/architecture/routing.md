@@ -154,7 +154,7 @@ working_tree_sources:
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/reviews/reviewFixtures.ts
   - src/app/mypage/returns/page.tsx
-  - src/components/orders/OrdersRoute.tsx
+  - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/restock-alerts/page.tsx
   - src/app/mypage/referral/page.tsx
   - src/app/mypage/recent/page.tsx
@@ -288,7 +288,7 @@ sources:
 
 ## 주문 관련 3개 화면의 URL 유지 (2026-11-02)
 
-최신 주문 시안으로 `/mypage/orders`의 주문/배송조회 표시와 `/mypage/returns`의 취소/반품내역·신청 표시를 갱신했다. 두 App Router 진입점과 preview 경로는 유지했다. Storybook에서는 주문을 장바구니와 별도인 `PAGES/주문` 아래로 정리하고 주문 조회 WEB·Mobile, 취소/반품내역 WEB·Mobile을 화면 연결 인덱스에 등록했다. 생성된 화면 연결 그래프에서는 제거한 SearchField 의존성만 반영했다. UI 차이와 확인 범위는 [컴포넌트와 스타일](ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)에 기록했다. 출처: 위의 3개 Figma 노드와 `src/components/orders/OrdersRoute.tsx`, 주문 Storybook 파일, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리.
+최신 주문 시안으로 `/mypage/orders`의 주문/배송조회 표시와 `/mypage/returns`의 취소/반품내역·신청 표시를 갱신했다. 두 App Router 진입점과 preview 경로는 유지했다. Storybook에서는 주문을 장바구니와 별도인 `PAGES/주문` 아래로 정리하고 주문 조회 WEB·Mobile, 취소/반품내역 WEB·Mobile을 화면 연결 인덱스에 등록했다. 생성된 화면 연결 그래프에서는 제거한 SearchField 의존성만 반영했다. UI 차이와 확인 범위는 [컴포넌트와 스타일](ui.md#주문-조회취소환불-신청내역-figma-적용-2026-11-02)에 기록했다. 출처: 위의 3개 Figma 노드와 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일, `src/app/screen-index/screenConnections.ts`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리.
 
 ## 장바구니 기본 화면의 고정 상태 (2026-11-02)
 
@@ -898,3 +898,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 기존 `/products/shoe-1`, `/products/preview-restock`, `/products/preview-empty-inquiries`, `/products/preview-options-required`를 재사용한다. `RouteContent.preview`에 기존 `selection-required` 타입을 복원했고 옵션을 선택해도 해당 고정 안내는 유지된다. 새 상태 URL·IA 행·provider는 추가하지 않았다. page 진입점과 `_components` 소유권, 이미지 뷰어의 기존 동적 경계·닫기·포커스 복원은 유지했다.
 
 검증: Next 프로덕션 빌드(타입 포함)·Panda·Storybook 빌드·상태 링크 검사 6개·변경 파일 lint/format 통과. PC 1600/MO 375에서 네 URL 직접 접근, 옵션 선택 후 필수 안내 유지와 CTA 복원을 확인했다. 개발 서버의 EPERM 오류는 개발 캐시 보관 후 재시작으로 해소했다.
+
+## 주문 route 전용 화면 모듈 (2026-11-03)
+
+`/mypage/orders`와 `/mypage/returns` 진입점, 주문 preview 및 주문 Storybook은 `src/app/mypage/orders/_components/OrdersPage.tsx`를 직접 사용한다. 페이지 전용 화면 컴포넌트는 같은 `_components` 아래 역할별로 나누고 기존 URL과 `src/components/orders`의 데이터·정책 모듈은 유지한다.

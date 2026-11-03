@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { ShopShell } from '@/context/ShopShell';
 
-import { OrdersPage } from '@/components/orders/OrdersRoute';
+import { OrdersPage } from '@/app/mypage/orders/_components/OrdersPage';
 const meta = {
   title: 'PAGES/주문/2. 취소 반품 내역/Mobile',
   component: OrdersPage,
