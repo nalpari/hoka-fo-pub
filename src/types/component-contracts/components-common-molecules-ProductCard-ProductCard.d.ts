@@ -111,7 +111,6 @@ declare function ProductDetails({
   variant,
   widthCount,
 }: ProductDetailsProps): import('react').JSX.Element;
-declare function ProductCardPreview({ product }: { product: Product }): import('react').JSX.Element;
 type ProductSpecProps = {
   cushioning: string;
   stability: string;
@@ -171,7 +170,6 @@ export {
   ProductDetailsOptions,
   ProductDetails,
   type ProductDetailsProps,
-  ProductCardPreview,
   ProductSpec,
   type ProductSpecProps,
   ProductCardFooter,

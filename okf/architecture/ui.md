@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T04:36:24.907Z'
+updated: '2026-11-03T04:39:33.306Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T01:31:58Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/app/screen-index/screenProgress.ts
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
@@ -4107,3 +4108,11 @@ Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA�
 기본 URL은 `/mypage/coupons`다. 기존 등록 오류·완료 preview 파일과 호출 타입은 복원 및 참조 호환을 위해 남기지만 등록 UI/팝업을 표시하지 않는다. `src/app/screen-index/screenConnections.ts` IA196의 등록 오류·완료 링크도 주석 처리하며 빈 목록·임직원 연결은 유지한다. 출처는 이번 사용자 요청과 위 두 소스이며 기존 draft·provenance는 유지한다.
 
 검증: PC1600px·MO375px에서 기본/빈 목록/임직원/등록 오류/등록 완료/상세 URL의 등록 영역·분류 탭 미노출과 가로 넘침 없음을 확인했다. 상세 열기·Escape 닫기와 더보기 5→10개 표시를 확인했다. TypeScript·변경 ESLint/Prettier·Panda·preview-links 6개 검사가 통과했다. 전체 Next 빌드는 이번 변경에서 재실행하지 않았다.
+
+## 상품 목록 호버 색상 캐러셀 (2026-11-03)
+
+ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View를 제거했다. 기본 활동/색상·발볼 요약은 유지하고, 마우스 호버 또는 키보드 포커스 시 같은 하단 영역을 ProductOptionList의 기존 preview 캐러셀로 교체한다. 썸네일 80×53px·간격 4px·좌우 이동·스크롤바를 재사용하며 72px 최소 높이로 전환 중 카드 높이를 유지한다. 색상 ID는 현재 표시 옵션에서 찾고 선택 이미지를 카드 썸네일에 반영한다. Escape로 요약으로 돌아가며, 모바일의 34px 옵션 목록과 history/showcase 표현은 유지한다.
+
+요청 출처: [기본 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2939-4302), [호버 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3775), [목록](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3501). 사용자 확정 동작과 기존 캐러셀 규격으로 구현했다. 디자인 API 429와 브라우저 로그인 필요로 최신 프레임 구조·수치·이미지는 확인하지 못했으므로 시안 실측 일치를 주장하지 않는다.
+
+검증: 전체 lint·typecheck와 Panda 생성, Next 프로덕션 빌드(146개 정적 페이지 생성) 통과. 실행 화면에서 PC 호버 시 별도 미리보기 section 0개, 썸네일 80×53px/간격 4px, 좌우 이동(다음 scrollLeft 108px·이전 0px), 색상 선택 이미지 변경, Escape 복귀, Tab 진입, 기본/호버 카드 높이 516.4375px 동일(1440px)을 확인했다. 390px에서는 기존 2열·활동·색상 썸네일과 가로 넘침 없음(clientWidth/scrollWidth 375px)을 확인했다. 1024px는 캐러셀 없이 모바일 표시, 1025/1199px는 기존 1200px PC 캔버스, 1200px는 clientWidth/scrollWidth 1185px 동일이었다. 검색 결과에도 적용되고 최근 본 상품 history·상세 추천 showcase에는 해당 캐러셀이 없음을 확인했다. 기존 hoka/Pretendard family와 로드된 face를 확인했으며 폰트 정의는 수정하지 않았다. 서비스 요청/저장 계약은 추가하지 않았다. 작업 트리 출처는 위 세 파일이며 기존 동시 변경은 보존했다.

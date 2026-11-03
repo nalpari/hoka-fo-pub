@@ -4,12 +4,15 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-03T04:36:24.907Z'
+updated: '2026-11-03T04:39:33.306Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/after-sales/page.tsx
   - src/app/support/care/page.tsx
@@ -599,3 +602,7 @@ Storybook 빌드·play 검증을 제거했다. IA 경로·진행 상태·소스 
 ## 쿠폰 등록 preview의 1차 범위 제외 (2026-11-03)
 
 사용자 요청으로 `src/app/screen-index/screenConnections.ts`의 쿠폰 등록 오류/완료 링크를 주석 처리하고 기존 route 파일은 보관했다. `tests/preview-links.test.mjs`의 고정 preview 연결 검사에서 `/mypage/coupons/preview-error`와 `/mypage/coupons/preview-complete`만 범위 제외로 명시하며 두 URL의 활성 IA 연결이 없음을 검사한다. 다른 preview의 활성 연결·소스 그래프 검사는 유지한다. 구현 범위와 출처는 [쿠폰 1차 개발 범위](../architecture/routing.md#쿠폰-1차-개발-범위-조정-2026-11-03)를 따른다.
+
+## 상품 카드 호버 변경 검증 (2026-11-03)
+
+ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. 전체 npm run typecheck·npm run lint와 npm run panda, npx next build를 실제 통과했고, PC 호버/색상 선택/좌우 이동/Escape/Tab, 검색 결과·history/showcase 구분, 390px 모바일과 1024/1025·1199/1200px 경계를 실행 화면에서 확인했다. 검사 스크립트·ESLint 설정·테스트 정책은 변경하지 않았다. 최신 Figma 실측 검증은 API 호출 제한과 브라우저 로그인 필요로 미수행이다.

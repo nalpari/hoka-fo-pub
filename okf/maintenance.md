@@ -4,12 +4,15 @@ title: 'OKF 유지보수'
 description: '문서 형식, 출처와 변경 이력을 관리하는 절차를 설명한다.'
 tags: [okf, documentation, maintenance]
 status: draft
-updated: '2026-11-03T04:36:24.907Z'
+updated: '2026-11-03T04:39:33.306Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-29T06:31:05Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - scripts/screen-files.mjs
   - .gitattributes
   - src/app/screen-index/screenConnections.ts
@@ -148,3 +151,7 @@ scripts/screen-files.mjs는 tsconfig 경로 해석과 현재 import를 기준으
 소스 그래프의 스토리 제외 분기와 관련 fixture를 제거하고 dev 감시·Next 빌드 전 생성은 유지했다. okf-sync의 src/stories/ 매핑은 삭제 커밋에도 UI 문서 갱신을 요구하도록 남겼으며 .storybook 설정 매핑은 제거했다. 과거 OKF 출처·검증 기록은 보존한다.
 
 출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+## 상품 카드 호버 변경 문서 동기화 검토 (2026-11-03)
+
+이번 변경은 ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언에 한정되며 scripts/okf-sync.mjs 매핑상 UI 문서와 log 대상이다. 상태·라우팅·검증 문서도 해당 변경의 영향 범위를 검토해 기록했다. 훅·매핑·문서 관리 절차는 수정하지 않았다. 다른 작업의 미커밋 변경은 이 검토의 출처로 간주하지 않았다.

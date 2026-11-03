@@ -4,12 +4,15 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T04:36:24.907Z'
+updated: '2026-11-03T04:39:33.306Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T01:31:58Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/molecules/ProductCard/ProductCard.tsx
+  - src/components/common/molecules/ProductOptionList.tsx
+  - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/app/launch-calendar/in-stock/page.tsx
   - src/app/launch-calendar/upcoming/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/page.tsx
@@ -992,3 +995,7 @@ ScreenConnection.stories, getScreenStoryHref와 IA의 Storybook 환경 분기를
 기본 URL은 `/mypage/coupons`다. 기존 등록 오류·완료 preview 파일과 호출 타입은 복원 및 참조 호환을 위해 남기지만 등록 UI/팝업을 표시하지 않는다. `src/app/screen-index/screenConnections.ts` IA196의 등록 오류·완료 링크도 주석 처리하며 빈 목록·임직원 연결은 유지한다. 출처는 이번 사용자 요청과 위 두 소스이며 기존 draft·provenance는 유지한다.
 
 검증: PC1600px·MO375px에서 기본/빈 목록/임직원/등록 오류/등록 완료/상세 URL의 등록 영역·분류 탭 미노출과 가로 넘침 없음을 확인했다. 상세 열기·Escape 닫기와 더보기 5→10개 표시를 확인했다. TypeScript·변경 ESLint/Prettier·Panda·preview-links 6개 검사가 통과했다. 전체 Next 빌드는 이번 변경에서 재실행하지 않았다.
+
+## 상품 카드 호버 변경의 라우팅 영향 검토 (2026-11-03)
+
+ProductCard의 큰 미리보기 링크를 제거하고 기존 카드 이미지의 /products/{product.id} 상세 링크를 유지했다. /products·/search의 목록 소유권, URL 필터와 페이지 진입점은 변경하지 않았다. 이번 변경은 고정 상태 URL을 추가하지 않는다. 출처: ProductCard.tsx의 작업 트리 변경.
