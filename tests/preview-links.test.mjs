@@ -114,6 +114,11 @@ test('every fixed preview page is reachable from an active IA row and its source
         connection.previewRoutes?.some((item) => item.href.split('#')[0] === href)
       );
     });
+    // 1차 개발 범위 제외: 등록 preview 파일은 보관하지만 IA에 노출하지 않습니다.
+    if (href === '/mypage/coupons/preview-error' || href === '/mypage/coupons/preview-complete') {
+      assert.equal(owners.length, 0, `Excluded coupon registration preview is active: ${href}`);
+      continue;
+    }
     assert.ok(owners.length, `No active screen-index link for ${href}`);
     assert.ok(
       owners.some((screen) =>

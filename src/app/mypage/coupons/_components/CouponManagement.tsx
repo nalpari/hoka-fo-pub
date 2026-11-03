@@ -8,24 +8,26 @@ import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { faCircleCheck } from '@/icons/fontAwesome';
+
 const couponDescription = css({ color: 'black.100', _mobile: { color: 'black.60' } });
+
+/* 1차 개발 범위 제외: 쿠폰 등록 입력·안내 마크업 (재개 시 TextFormField import 복원).
 type CouponRegistrationSectionProps = {
   code: string;
   error: string;
   onCodeChange: (code: string) => void;
   onRegister?: () => void;
 };
+
 function CouponRegistrationSection({
   code,
   error,
@@ -102,6 +104,8 @@ function CouponRegistrationSection({
     </ContentSection>
   );
 }
+*/
+
 type CouponItem = {
   id: string;
   name: string;
@@ -114,6 +118,7 @@ type CouponCardProps = {
   coupon: CouponItem;
   onDetails: (coupon: CouponItem) => void;
 };
+
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
     <Card
@@ -175,18 +180,18 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
     </Card>
   );
 }
-type Category = '전체' | CouponItem['category'];
+// 1차 개발 범위 제외: 쿠폰 분류 탭은 사용하지 않고 전체 목록을 표시합니다.
+// 재개 시 SegmentedControl import와 category/setCategory 상태를 복원합니다.
+// type Category = '전체' | CouponItem['category'];
 type CouponHistorySectionProps = {
   coupons: CouponItem[];
   previewEmpty?: boolean;
   onDetails: (coupon: CouponItem) => void;
 };
+
 function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
-  const [category, setCategory] = useState<Category>('전체');
   const [visibleCount, setVisibleCount] = useState(5);
-  const visibleCoupons = coupons.filter(
-    (coupon) => category === '전체' || coupon.category === category,
-  );
+  const visibleCoupons = coupons;
   return (
     <ContentSection
       as="section"
@@ -226,6 +231,7 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
       }
     >
       <Stack gap={{ base: '3', _mobile: '6' }}>
+        {/* 1차 개발 범위 제외: 전체 / 상품할인 / 배송할인 탭.
         <SegmentedControl
           ariaLabel="쿠폰 종류"
           itemClassName={() => css({ h: '42px', fontWeight: '400', _mobile: { h: '32px' } })}
@@ -241,6 +247,7 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           variant="underline"
           value={category}
         />
+        */}
         <Stack gap="2">
           <HStack justifyContent="flex-end">
             <HStack gap="0.5">
@@ -268,10 +275,12 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
     </ContentSection>
   );
 }
+/* 1차 개발 범위 제외: 쿠폰 등록 완료 팝업.
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
+
 function CouponRegistrationDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
@@ -289,10 +298,13 @@ function CouponRegistrationDialog({ open, onOpenChange }: Props) {
     </ModalDialog>
   );
 }
+*/
+
 type CouponDetailsDialogProps = {
   coupon: CouponItem | null;
   onOpenChange: (open: boolean) => void;
 };
+
 function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps) {
   return (
     <ModalDialog
@@ -315,6 +327,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
     </ModalDialog>
   );
 }
+
 const employeeCouponTypes = ['50% 쿠폰 발급', '30% 쿠폰 발급'] as const;
 function EmployeeCoupons() {
   const labels = employeeCouponTypes;
@@ -340,21 +353,25 @@ function EmployeeCoupons() {
     </ContentSection>
   );
 }
-/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 1차 개발 범위에서 쿠폰 등록과 분류 탭은 제외했으며 전체 목록·더보기·상세 열기/닫기만 로컬로 처리하고 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연동 소유자가 쿠폰 표시 모델·쿠폰 식별자와 조회/추가 조회의 pending·실패·재시도·응답 갱신을 연결해야 하며 현재 외부 요청 callback은 제공하지 않습니다. 쿠폰 등록 payload·요청 계약은 1차 범위에 포함하지 않습니다. */
 type CouponManagerProps = {
   coupons: CouponItem[];
   preview?: 'error' | 'complete' | 'detail' | 'empty';
   employee?: boolean;
 };
+
 function CouponManager({ coupons, preview, employee = false }: CouponManagerProps) {
+  /* 1차 개발 범위 제외: 쿠폰 등록 상태.
   const [code, setCode] = useState('');
   const error = '';
   const [registered, setRegistered] = useState(preview === 'complete');
+  */
   const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(
     preview === 'detail' ? coupons[0] : null,
   );
   return (
     <Stack gap="14" _mobile={{ gap: '10' }}>
+      {/* 1차 개발 범위 제외: 쿠폰 등록 영역.
       <fieldset disabled={false}>
         <CouponRegistrationSection
           code={code}
@@ -366,6 +383,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
           }}
         />
       </fieldset>
+      */}
 
       {employee || Boolean(undefined) ? <EmployeeCoupons /> : null}
 
@@ -375,7 +393,9 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
         previewEmpty={preview === 'empty'}
       />
 
+      {/* 1차 개발 범위 제외: 쿠폰 등록 완료 상태.
       <CouponRegistrationDialog open={registered} onOpenChange={setRegistered} />
+      */}
       <CouponDetailsDialog
         coupon={selectedCoupon}
         onOpenChange={(open) => {
@@ -385,6 +405,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     </Stack>
   );
 }
+
 const couponSamples: Omit<CouponItem, 'id'>[] = [
   {
     name: '50% 할인 쿠폰',
@@ -420,7 +441,7 @@ const coupons: CouponItem[] = Array.from({ length: 62 }, (_, index) => ({
   name: couponNames[index % couponNames.length],
   id: `coupon-${index + 1}`,
 }));
-/** 보유 쿠폰과 쿠폰 등록 예시 상태를 관리합니다. (Manages owned coupons and the example coupon registration state.) */
+/** 분류 없이 보유 쿠폰 전체와 상세 상태를 표시합니다. (Displays all owned coupons and their details without category tabs.) */
 export function RouteContent({
   preview,
   employee,

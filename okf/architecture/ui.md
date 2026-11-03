@@ -4099,3 +4099,11 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA는 실제 페이지와 고정 상태 URL만 연결한다. 진행 상태 자료는 screenProgress.ts로 옮겨 기존 PC/MO 수급·퍼블리싱 상태와 override를 보존했다. Panda 스토리 제외와 저장소 지침의 Storybook 요구도 정리했다.
 
 출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+## 쿠폰 1차 개발 범위 조정 (2026-11-03)
+
+사용자 요청에 따라 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 쿠폰 등록 입력·안내·등록 상태·완료 팝업과 전체/상품할인/배송할인 탭을 `1차 개발 범위 제외` 주석으로 보관하고 렌더링에서 제외했다. 목록은 분류 필터 없이 준비된 쿠폰 전체를 대상으로 기존 5개 단위 더보기와 상세 열람을 유지한다. 임직원 쿠폰과 빈 목록은 유지하며 실제 등록 요청·완료 전환은 구현하지 않는다. 기존 쿠폰 Figma 적용 기록 중 등록/분류 UI의 노출 설명은 이 결정으로 대체한다.
+
+기본 URL은 `/mypage/coupons`다. 기존 등록 오류·완료 preview 파일과 호출 타입은 복원 및 참조 호환을 위해 남기지만 등록 UI/팝업을 표시하지 않는다. `src/app/screen-index/screenConnections.ts` IA196의 등록 오류·완료 링크도 주석 처리하며 빈 목록·임직원 연결은 유지한다. 출처는 이번 사용자 요청과 위 두 소스이며 기존 draft·provenance는 유지한다.
+
+검증: PC1600px·MO375px에서 기본/빈 목록/임직원/등록 오류/등록 완료/상세 URL의 등록 영역·분류 탭 미노출과 가로 넘침 없음을 확인했다. 상세 열기·Escape 닫기와 더보기 5→10개 표시를 확인했다. TypeScript·변경 ESLint/Prettier·Panda·preview-links 6개 검사가 통과했다. 전체 Next 빌드는 이번 변경에서 재실행하지 않았다.

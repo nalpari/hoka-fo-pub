@@ -307,8 +307,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/coupons',
     previewRoutes: [
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
-      { label: '등록 오류', href: '/mypage/coupons/preview-error' },
-      { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      // 1차 개발 범위 제외: 쿠폰 등록.
+      // { label: '등록 오류', href: '/mypage/coupons/preview-error' },
+      // 1차 개발 범위 제외: 쿠폰 등록.
+      // { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
       { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [

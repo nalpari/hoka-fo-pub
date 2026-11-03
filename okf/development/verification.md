@@ -595,3 +595,7 @@ Storybook 빌드·play 검증을 제거했다. IA 경로·진행 상태·소스 
 검증: 공유 작업 트리의 관련 Node 테스트 35개와 전체 lint가 통과했다. 선별 사본에서 변경 파일 36개의 lint는 오류·경고 없이 통과했고 기본 Turbopack production build는 정적 페이지 145개를 생성했다. 선별 사본의 전체 lint는 이번에 변경하지 않은 기존 주문 파일 14개 오류가 남아 있다. Webpack 보조 빌드는 기존 Panda CSS의 black.70 Sass 해석 오류로 실패했다. 브라우저·시각 검증은 수행하지 않았다.
 
 최종 검증 (2026-11-03T04:47:39.853Z): HEAD와 현재 채팅의 선별 변경만 담은 사본에서 기본 npm run build(Turbopack, 정적 페이지 145개), npm run typecheck와 전체 Node 테스트 103개를 통과했다. 변경 소스·설정·테스트 36개 파일의 lint도 오류·경고 없이 통과했다. 공유 작업 트리의 다른 주문·상품 변경은 이 사본에 포함하지 않았다. 브라우저 검증은 수행하지 않았다.
+
+## 쿠폰 등록 preview의 1차 범위 제외 (2026-11-03)
+
+사용자 요청으로 `src/app/screen-index/screenConnections.ts`의 쿠폰 등록 오류/완료 링크를 주석 처리하고 기존 route 파일은 보관했다. `tests/preview-links.test.mjs`의 고정 preview 연결 검사에서 `/mypage/coupons/preview-error`와 `/mypage/coupons/preview-complete`만 범위 제외로 명시하며 두 URL의 활성 IA 연결이 없음을 검사한다. 다른 preview의 활성 연결·소스 그래프 검사는 유지한다. 구현 범위와 출처는 [쿠폰 1차 개발 범위](../architecture/routing.md#쿠폰-1차-개발-범위-조정-2026-11-03)를 따른다.
