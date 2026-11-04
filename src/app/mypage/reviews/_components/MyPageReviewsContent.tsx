@@ -6,12 +6,11 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
-import { Icon } from '@/components/common/atoms/Icon';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
-import { Select } from '@/components/common/atoms/Select';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
@@ -142,45 +141,6 @@ function MyPageReviewTabs({ value, onChange }: MyPageReviewTabsProps) {
   );
 }
 
-const sortSelect = css({
-  // Resolve the native Select's base styles without competing atomic classes.
-  '&&': {
-    border: '0',
-    bg: 'transparent',
-    p: '0',
-    pr: '22px',
-    minH: '20px',
-    h: '20px',
-    appearance: 'none',
-    borderRadius: '0',
-  },
-  fontSize: '16px',
-  fontWeight: 'normal',
-});
-
-type MyPageReviewSortProps = { sort: string; onSortChange: (value: string) => void };
-
-function MyPageReviewSort({ sort, onSortChange }: MyPageReviewSortProps) {
-  return (
-    <Box w="102px" pos="relative">
-      <Select
-        aria-label="리뷰 정렬"
-        className={sortSelect}
-        value={sort}
-        onChange={(event) => onSortChange(event.target.value)}
-      >
-        <option value="recent">최근 구매순</option>
-        <option value="oldest">오래된 구매순</option>
-      </Select>
-      <Icon
-        name="chevron-down-small"
-        size="14px"
-        className={css({ pos: 'absolute', right: '0', top: '3px', pointerEvents: 'none' })}
-      />
-    </Box>
-  );
-}
-
 type MyPageReviewCountProps = { count: number };
 
 function MyPageReviewCount({ count }: MyPageReviewCountProps) {
@@ -201,6 +161,7 @@ type MyPageReviewToolbarProps = {
   onSortChange: (value: string) => void;
 };
 
+// [ 개발팀 바인딩 ] 리뷰 화면 소유자가 sort와 onSortChange로 recent/oldest 선택을 연결합니다. PC는 즉시, 모바일은 공통 시트에서 확인할 때만 콜백을 전달하며 닫기는 유지합니다. 이 도구 모음은 서버 정렬 조회나 목록 갱신을 실행하지 않습니다.
 function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarProps) {
   return (
     <HStack
@@ -211,7 +172,17 @@ function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarP
       _mobile={{ mt: '8' }}
       borderBottom="1px solid var(--color-black-100)"
     >
-      <MyPageReviewSort sort={sort} onSortChange={onSortChange} />
+      <Dropdown
+        variant="sort"
+        popupAlign="start"
+        ariaLabel="리뷰 정렬"
+        value={sort}
+        onValueChange={onSortChange}
+        options={[
+          { value: 'recent', label: '최근 구매순' },
+          { value: 'oldest', label: '오래된 구매순' },
+        ]}
+      />
       <MyPageReviewCount count={count} />
     </HStack>
   );

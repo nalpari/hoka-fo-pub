@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-04T03:56:26Z'
+updated: '2026-11-04T05:48:57Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/publishing-guide/_components/FormGuide.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/screen-index/screenDevelopers.ts
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/screen-index/screenProgress.ts
@@ -319,6 +321,20 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 선택 UI 공통화 (2026-11-04)
+
+`/login/account-locked/verification/preview-previous-terms`는 기존 진입점을 유지하면서 인증 약관 전문 위에 중첩된 PreviousTermsPicker를 표시한다. 모바일은 중앙 선택 휠, PC는 기존 라디오/확인 목록이며 새 preview URL은 추가하지 않았다. 화면 의존 그래프는 정식 명령으로 갱신한다. 출처: PhoneVerificationContent.tsx·PreviousTermsPicker.tsx 작업 트리(2026-11-04).
+
+상품리뷰의 정렬도 기존 MyPageReviewToolbar에서 공통 Dropdown을 직접 사용한다. recent/oldest 값·sort/onSortChange와 작성 가능/작성한 리뷰 탭·URL은 기존 소유자에 유지한다. MyPageReviewSort는 기본값 전달용 단일 부모 래퍼여서 제거했다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx` 작업 트리(2026-11-04).
+
+고객센터 `/support/terms` 및 `?tab=privacy`의 시행일 선택은 기존 TermsDocument 로컬 날짜 상태를 공통 Dropdown에 연결했다. tab 쿼리와 탭 상태·문서 placeholder는 유지하며 새 라우트는 없다. PC 날짜 선택과 모바일 공통 시트의 해당 선택값 표시를 확인했다. 출처: `src/app/support/terms/_components/TermsDocument.tsx` 작업 트리(2026-11-04).
+
+후속 검토에서 신청내역 정렬에 `Dropdown.popupAlign="start"`를 지정해 콘텐츠 왼쪽 선과 옵션 박스의 시작점을 맞췄다. 정렬 상태·콜백·라우트는 유지한다. 출처: `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx` 작업 트리(2026-11-04).
+
+모바일 상품 정렬은 `/products`에서도 기존 필터 안에 표시하며 검색 전용 표시 조건을 제거했다. draft/apply와 sort 쿼리 소유자는 유지한다. 일반 sort Dropdown의 모바일 전환은 공통 BottomSheet를 사용하고 새 라우트를 추가하지 않는다. 출처: ProductListingPage.tsx·Dropdown.tsx·BottomSheet.tsx 작업 트리(2026-11-04).
+
+상품 목록 정렬은 공통 Dropdown의 sort variant를 사용하며 기존 `useSearchParams`/router 소유권과 `sort` 쿼리를 유지한다. 러닝세션 신청내역의 sort 상태와 IA의 상품 분류·개발담당자 필터 상태도 기존 소유자에서 공통 Dropdown에 연결한다. 신규 라우트나 상태 URL은 추가하지 않았다. `npm run screen-files`로 의존 그래프를 재생성했다. 퍼블리싱 가이드에는 sort 예시를 추가했다. 소스: `src/components/catalog/ProductListingPage.tsx`, `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx`, `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리. PC의 정렬 쿼리 변경·IA 필터 선택과 62개 기존 검사 및 production build 통과를 확인했다. 상세 디자인과 모바일 검증 한계는 [공통 선택 UI](ui.md#공통-선택-ui와-정렬-variant-2026-11-04)에 기록한다. Codex, 2026-11-04T04:59:34Z.
 
 ## STATE 공통 파일 상위 정리 (2026-11-04)
 

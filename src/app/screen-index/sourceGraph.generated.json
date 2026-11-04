@@ -405,14 +405,12 @@
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/mypage/MyPageFrame.tsx",
-      "src/components/running-session/runningSession.data.ts",
-      "src/icons/fontAwesome.ts"
+      "src/components/running-session/runningSession.data.ts"
     ],
     "src/app/mypage/event-entries/eventEntries.data.ts": [
       "src/components/running-session/runningSession.data.ts"
@@ -578,12 +576,11 @@
     ],
     "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx": [
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FormField.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
-      "src/components/common/atoms/Select.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
@@ -1199,10 +1196,8 @@
     "src/app/support/store/store.data.ts": [],
     "src/app/support/support.navigation.ts": [],
     "src/app/support/terms/_components/TermsDocument.tsx": [
-      "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Radio.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/context/platform.tsx"
+      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/support/terms/page.tsx": [
       "src/app/support/support.navigation.ts",
@@ -1232,6 +1227,7 @@
       "src/components/catalog/productListingFilterValues.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FilterTabs.tsx",
       "src/components/common/atoms/FormField.tsx",
@@ -1277,9 +1273,13 @@
     ],
     "src/components/common/atoms/Divider.tsx": [],
     "src/components/common/atoms/Dropdown.tsx": [
+      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/BottomSheet.tsx",
+      "src/context/platform.tsx",
       "src/icons/fontAwesome.ts"
     ],
     "src/components/common/atoms/EmptyState.tsx": ["src/components/common/atoms/Typography.tsx"],
@@ -1416,10 +1416,11 @@
       "src/context/platform.tsx"
     ],
     "src/components/common/molecules/PreviousTermsPicker.tsx": [
-      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ModalDialog.tsx"
+      "src/components/common/layouts/BottomSheet.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/context/platform.tsx"
     ],
     "src/components/common/molecules/ProductCard/ProductCard.tsx": [
       "src/components/common/atoms/Badge.tsx",
@@ -1680,6 +1681,7 @@
     "src/app/mypage/page.tsx",
     "src/app/mypage/recent/page.tsx",
     "src/app/mypage/restock-alerts/page.tsx",
+    "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
     "src/app/mypage/reviews/reviewFixtures.ts",
     "src/app/mypage/reviews/reviews.types.ts",
     "src/app/mypage/wishlist/page.tsx",
@@ -1717,6 +1719,7 @@
     "src/app/support/size-guide/page.tsx",
     "src/app/support/size-guide/size-guide.data.ts",
     "src/app/support/store/store.data.ts",
+    "src/app/support/terms/_components/TermsDocument.tsx",
     "src/app/support/terms/page.tsx",
     "src/components/care-guide/care.data.ts",
     "src/components/catalog/product-listing/productListingMetadata.ts",

@@ -19,6 +19,7 @@ import { Fragment, useMemo, useState } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
+import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -99,7 +100,17 @@ const developerNames = Array.from(new Set(screens.flatMap(getScreenDeveloperName
 );
 
 const styles = {
-  page: css({ maxW: 'none', bg: '#f6f8ff', px: '6', py: '6', _mobile: { px: '4', py: '4' } }),
+  page: css({
+    maxW: 'none',
+    bg: '#f6f8ff',
+    px: '6',
+    py: '6',
+    _mobile: { px: '4', py: '4' },
+    '& summary': {
+      minH: 'var(--touch-target-min-size)',
+      lineHeight: 'var(--touch-target-min-size)',
+    },
+  }),
 
   card: css({
     border: '1px solid #dbe5ff',
@@ -159,15 +170,6 @@ const styles = {
     _hover: { bg: '#e0e7ff' },
   }),
   search: css({ w: '260px', _mobile: { flex: '1', minW: '180px' } }),
-  select: css({
-    h: '9',
-    px: '2',
-    border: '1px solid #d4dced',
-    borderRadius: '4px',
-    bg: '#f7f9ff',
-    color: '#3e4965',
-    fontSize: '12px',
-  }),
 
   table: css({
     w: '100%',
@@ -206,6 +208,8 @@ const styles = {
   treeCell: css({ minW: '320px' }),
   treeItem: css({ display: 'flex', alignItems: 'center', gap: '1.5' }),
   collapseButton: css({
+    minW: 'var(--touch-target-min-size)',
+    minH: 'var(--touch-target-min-size)',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -690,21 +694,17 @@ export function IaStructurePage({
               전체 초기화
             </button>
             {activeDepth1 === '상품 공통 화면' && (
-              <select
-                className={styles.select}
-                aria-label="상품 연결 분류"
+              <Dropdown
+                ariaLabel="상품 연결 분류"
                 value={productDepth1}
-                onChange={(event) => setProductDepth1(event.target.value)}
-              >
-                <option value="all">상품 분류 전체</option>
-                {Array.from(new Set(allProductScreens.map((screen) => screen.depths[0]))).map(
-                  (depth1) => (
-                    <option key={depth1} value={depth1}>
-                      {depth1}
-                    </option>
+                onValueChange={setProductDepth1}
+                options={[
+                  { value: 'all', label: '상품 분류 전체' },
+                  ...Array.from(new Set(allProductScreens.map((screen) => screen.depths[0]))).map(
+                    (value) => ({ value, label: value }),
                   ),
-                )}
-              </select>
+                ]}
+              />
             )}
             <TextInput
               className={styles.search}
@@ -713,20 +713,16 @@ export function IaStructurePage({
               placeholder="화면명, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
-            <select
-              className={styles.select}
-              aria-label="개발담당자 필터"
+            <Dropdown
+              ariaLabel="개발담당자 필터"
               value={developerFilter}
-              onChange={(event) => setDeveloperFilter(event.target.value)}
-            >
-              <option value="all">개발담당자 전체</option>
-              {developerNames.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-              <option value="unassigned">미지정</option>
-            </select>
+              onValueChange={setDeveloperFilter}
+              options={[
+                { value: 'all', label: '개발담당자 전체' },
+                ...developerNames.map((value) => ({ value, label: value })),
+                { value: 'unassigned', label: '미지정' },
+              ]}
+            />
           </Flex>
         </Flex>
       </Box>

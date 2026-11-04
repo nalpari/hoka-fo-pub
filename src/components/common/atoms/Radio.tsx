@@ -52,6 +52,8 @@ export type RadioProps<T extends string = string> = {
   disabled?: boolean;
   name?: string;
   onValueChange: (value: T) => void;
+  /** Commits an explicit click or keyboard activation independently of arrow-key navigation. */
+  onOptionActivate?: (value: T) => void;
   options: readonly RadioOption<T>[];
   value: T;
   /** Renders radios directly for visual option controls such as pills and image swatches. */
@@ -69,6 +71,7 @@ export function Radio<T extends string = string>({
   disabled = false,
   name,
   onValueChange,
+  onOptionActivate,
   options,
   value,
   variant = 'default',
@@ -106,6 +109,13 @@ export function Radio<T extends string = string>({
         if (variant === 'custom') {
           return (
             <BaseRadio.Root
+              onClick={() => onOptionActivate?.(item.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' && onOptionActivate && !isDisabled) {
+                  event.preventDefault();
+                  onOptionActivate(item.value);
+                }
+              }}
               className={[optionClassName, isSelected ? selectedOptionClassName : undefined]
                 .filter(Boolean)
                 .join(' ')}
@@ -121,6 +131,17 @@ export function Radio<T extends string = string>({
         return (
           <HStack
             as="label"
+            onClick={(event) => {
+              if (!isDisabled && !(event.target instanceof HTMLInputElement)) {
+                onOptionActivate?.(item.value);
+              }
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && onOptionActivate && !isDisabled) {
+                event.preventDefault();
+                onOptionActivate(item.value);
+              }
+            }}
             cursor="pointer"
             css={{ '&[data-disabled]': { cursor: 'not-allowed' } }}
             data-disabled={isDisabled ? '' : undefined}

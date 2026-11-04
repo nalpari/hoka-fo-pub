@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T03:56:26Z'
+updated: '2026-11-04T05:48:57Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/FormGuide.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/screen-index/screenDevelopers.ts
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
@@ -985,6 +987,54 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 선택 시트 즉시 반영 (2026-11-04)
+
+최신 사용자 요청에 따라 모바일 정렬 Dropdown과 이전 약관 휠은 항목 클릭 시 선택값을 전달하고 바로 닫는다. Dropdown의 확인 footer를 제거했다. Radio의 `onOptionActivate`는 클릭·Enter·Space의 명시적 활성화를 전달하며 `onValueChange`의 방향키 이동과 분리한다. 현재 선택된 항목을 다시 활성화해도 닫히고, 방향키/휠 스크롤은 초안만 바꿔 시트를 유지한다. 닫기/Escape는 기존 값으로 복귀한다. 기본 Radio·PC 확인·상품 필터 내부 정렬의 기존 적용 버튼은 유지한다. 선택 콜백은 기존 로컬 표시 계약이며 API 요청을 추가하지 않는다.
+
+375px 브라우저에서 정렬 라벨 클릭 후 과거순 반영/닫힘, 방향키 이동 후 열린 상태, Enter/Space 선택·기존 선택 재활성화와 포커스 복귀, 이전 약관 2024-06-22 클릭 후 부모 본문 표시/닫힘을 확인했다. 이전의 확인형 시트 관련 기록은 이 후속 결정 이전의 이력이다. 출처: Radio.tsx·Dropdown.tsx·PreviousTermsPicker.tsx 작업 트리와 사용자 요청(2026-11-04).
+
+## 이전 약관 모바일 휠 시트 (2026-11-04)
+
+[Figma 957:30161](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30161)의 `957:30203`을 기준으로 PreviousTermsPicker 모바일을 중앙 선택 휠로 변경했다. 기존 날짜 ID·라벨과 PC 라디오 목록/확인 콜백을 유지한다. 시트는 기존 BottomSheet selection 표현을 사용하며 높이 336px·상단 모서리 20px·헤더 56px·좌우 24px, 가운데 행은 34px·#E8EDF3·8px 모서리·20px/26px/400 글자다. 주변 날짜는 16px이며 #777777/#B3B3B3 단계로 표시한다. 34px 단위 스크롤 스냅·클릭·방향키로 중앙 선택을 바꾼다. 목록 양 끝의 빈 공간은 실제 날짜 데이터 범위이며 시안의 반복 placeholder 날짜를 복제하지 않는다. 확인 버튼은 시안에 없어 모바일에 추가하지 않았다.
+
+인증 약관은 PreviousTermsPicker를 본문 ModalDialog 내부에 배치해 뒤의 약관 전문을 유지하고 중첩 모달의 포커스/접근성을 연결한다. BottomSheet selection은 Base UI의 forceRender로 중첩 시에도 50% 검정 배경을 표시하며 finalFocus를 받아 부모의 이전 약관 보기 버튼으로 복귀한다. 기본 BottomSheet와 상품 필터의 기존 appearance는 유지한다. 모바일 휠의 명시적 선택은 onSelect(id)/onClose로 전달하지만 실제 버전 문서 조회는 구현하지 않는다. 연결 경계는 PreviousTermsPicker의 `[ 개발팀 바인딩 ]`에 기록한다.
+
+소스: `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/common/layouts/BottomSheet.tsx` 작업 트리. 검증(Codex, 2026-11-04): 375px 직접 preview에서 336px 시트·56px 헤더·20px 선택 글자, 스크롤/방향키 선택과 50% 배경, Escape 후 부모 버튼 포커스를 확인했다. PC1440에서 라디오 7개·확인과 2024-06-22 선택 콜백·부모 본문 표시를 확인했다. 타입·변경 lint/포맷·Panda·의존 그래프 생성을 통과했다. 실제 날짜 fixture는 Figma의 반복 2021-01-24 placeholder와 다르다.
+
+마지막 hoka-markup-handoff 점검에서 기존 Radio/BottomSheet 소유자·Panda 스타일·중첩 포커스·표시 fixture와 미구현 문서 조회 경계를 확인했다. 기존 폼/preview/계정 복구 검사 64개를 통과했다. 이번 휠 변경 이후 production build는 다시 실행하지 않았다. 기록: Codex, 2026-11-04T05:48:57Z.
+
+## 공통 선택 UI와 정렬 variant (2026-11-04)
+
+고객센터 약관의 시행일 선택도 TermsDocument의 자체 Popover/Radio 조합을 제거하고 `Dropdown variant="sort" popupAlign="start"`에 연결했다. 이용 약관·개인정보 처리방침의 name, 날짜 식별자와 로컬 selectedDate 소유자는 유지하며 표시 라벨은 기존 점 뒤 공백을 유지한다. PC는 공통 목록, 모바일은 정렬/확인 시트이며 본문 fixture는 날짜 선택으로 서버 조회하지 않는다. 출처: `src/app/support/terms/_components/TermsDocument.tsx` 작업 트리(2026-11-04).
+
+검증: 변경 ESLint/Prettier·타입·Panda·화면 의존 그래프 생성을 통과했다. PC의 2026. 02. 01 선택과 475px 모바일 시트에서 그 값 유지·2025. 06. 02 확인 반영·`?tab=privacy` 보존을 확인했다. 이번 후속 변경은 미스테이징으로 남기고 기존 index를 유지했다. production build는 이 단순 호출부 교체 이후 다시 실행하지 않았다.
+
+추가 단일 선택 UI 조사에서 상품리뷰 정렬의 native Select/별도 chevron 1곳을 찾았으며, 후속 사용자 요청에 따라 MyPageReviewSort 래퍼·전용 스타일·화살표를 제거하고 기존 MyPageReviewToolbar에 `Dropdown variant="sort" popupAlign="start" value={sort} onValueChange={onSortChange}`를 직접 배치했다. recent/oldest와 기존 상태 소유자는 유지한다. PC는 공통 선택 목록, 모바일은 정렬/확인 시트를 사용한다. PreviousTermsPicker의 가입·본인인증 두 소비자는 이미 Radio와 전용 확인 모달/모바일 시트 계약을 공유하므로 트리거 구조를 바꾸는 별도 범위가 필요하다. 주문 기간은 FilterTabs+직접 날짜 입력, 상품 옵션은 swatch/size 선택이어서 현재 표현을 유지한다. 일반 폼 선택은 이미 공통 Dropdown을 사용한다.
+
+리뷰 후속 검증: PC에서 최근/오래된 구매순 두 항목과 시작점 정렬을 확인했다. 785px 모바일에서 PC 선택값 유지·확인 후 최근 구매순 반영·포커스 복귀·가로 넘침 없음과 내가 작성한 리뷰 탭의 2건 표시·정렬 유지도 확인했다. 변경 ESLint/Prettier·타입·Panda와 화면 의존 그래프 생성을 수행했다. native Select atom의 삭제는 범위에 포함하지 않았고 production build는 호출부 교체 이후 재실행하지 않았다. 이 후속 소스와 문서는 추가 스테이징하지 않았다.
+
+후속 사용자 검토: sort 옵션의 마우스 오버 배경은 사용하지 않는다. 포인터와 키보드에 공통으로 적용되던 `data-highlighted` 배경을 제거하고 `:focus-visible` 외곽선으로 키보드 포커스를 표시한다. 기본 필드 variant의 hover는 유지한다. 출처: `src/components/common/atoms/Dropdown.tsx` 작업 트리와 사용자 브라우저 코멘트(2026-11-04).
+
+`Dropdown.popupAlign`은 `start`/`end`를 받는다. 기본 선택 필드는 start, sort variant는 기존 end를 기본으로 유지한다. 콘텐츠 왼쪽에 배치된 신청내역 정렬은 `popupAlign="start"`로 트리거와 목록 박스의 왼쪽 끝을 맞춘다. 상품 목록의 오른쪽 정렬은 유지한다. 출처: Dropdown.tsx와 RunningSessionEntriesContent.tsx 작업 트리 및 사용자 브라우저 코멘트(2026-11-04).
+
+사용자 확정 기준: 정렬 Dropdown은 PC의 현재 형태를 유지하고 모바일은 BottomSheet로 전환한다. 상품 목록 Sort는 예외로 별도 선택 시트를 만들지 않고 기존 모바일 필터 시트 내부의 Radio를 사용한다. 검색에만 제한하던 mobileSort 전달 조건을 모바일 전체로 확장해 `/products`에서도 필터 내부에 표시한다. 기존 선택 draft·적용 시 sort URL 반영·닫기 동작을 유지한다. 기본 폼 필드 Dropdown과 이전 약관의 별도 모달/시트는 이 정렬 전환의 대상이 아니다. 출처: ProductListingPage.tsx 작업 트리와 사용자 확정(2026-11-04).
+
+모바일 정렬은 [BottomSheet 예시 1306:8028](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1306-8028)의 20px 상단 모서리·56px 헤더·24px 본문 패딩·하단 패딩 16/16/32px·48px primary 버튼을 기존 BottomSheet의 `appearance="selection"`에 구현했다. 문서 예시의 붉은 placeholder와 고정 본문 높이는 가져오지 않는다. 제목은 정렬, 버튼은 확인, Radio 항목 간격은 사용자 지정 16px이다. 열 때 현재 값을 초안에 복사하고 확인 시에만 값/콜백을 반영한다. 닫기/Escape는 초안을 적용하지 않으며 닫힌 뒤 트리거로 포커스를 복원한다. 선택 중 options가 교체되어 초안 ID가 사라지면 확인 버튼을 비활성화한다. `[ 개발팀 바인딩 ]` 주석은 Dropdown 소유자에 둔다. 소스: Dropdown.tsx·BottomSheet.tsx 작업 트리.
+
+모바일 트리거는 [신청내역 1934:97645](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97645)의 하위 `1934:97663`을 따른다. 기존 16px Pretendard/400·14px chevron-down·간격 8px·20px 표시 행을 유지하며 클릭 영역은 기존 최소 크기 변수로 확보한다. 외곽 테두리와 배경을 추가하지 않는다.
+
+후속 실제 검증(2026-11-04, Codex): PC 신청내역에서 트리거와 popup의 왼쪽 좌표가 522px로 같고 hover 배경은 transparent, 키보드 focus-visible 외곽선은 solid임을 확인했다. 375px viewport에서 신청내역 시트의 제목/확인·헤더 56px·항목 gap 16px·버튼 48px·footer 16/16/32px을 측정했다. 과거순 선택 후 닫기→최신순 유지, 재진입 후 선택·확인→과거순 반영과 트리거 포커스 복귀, Escape 닫기를 확인했다. 모바일 상품 목록의 필터 안 정렬 4항목과 선택 후 적용 시 `sort=신상품순&gender=men` URL을 확인했다. 앞선 작업 당시의 모바일 미검증 기록은 이 후속 확인 이전의 이력이다.
+
+후속 코드 검증: 변경 소스 ESLint·Prettier, 전체 타입·Panda·기존 폼/preview 검사 60개·Next production build(145개 정적 페이지)를 통과했다. 스테이징 시 기존 index와 무관한 working-tree 변경을 보존하고 현재 채팅 패치만 추가했으며 staged 공백·OKF 검사를 통과했다. 실제 API 연결은 이번 변경 범위가 아니다. 기록: Codex, 2026-11-04T05:25:07Z.
+
+`Dropdown.variant="sort"`는 상품 목록 PC 정렬과 러닝세션 신청내역 정렬이 공유한다. 상품 목록의 전용 ProductSortDropdown/Disclosure와 신청내역의 개별 화살표·스타일을 제거했다. 값과 선택 콜백, 상품 URL 상태는 기존 화면 소유자가 유지한다. IA의 상품 분류·개발담당자 필터는 기본 Dropdown을 사용한다. 이전 약관은 확인 모달/모바일 시트 경계를 유지하며 PC와 모바일 모두 공통 Radio로 단일 선택을 표현한다. 모바일은 Radio의 custom 표현으로 기존 40px 날짜 행을 보존한다.
+
+디자인 출처는 [정렬 트리거 1693:2201](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1693-2201)와 [정렬 목록 387:70509](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=387-70509)이다. 트리거는 16px 본문·14px 화살표·8px 간격, 목록은 최소 너비 130px·패딩 12px·옵션 간격 16px·1px #B3B3B3 테두리·4px 반경을 적용한다. 정렬 행은 20px이며 클릭 영역은 `max(20px, var(--touch-target-min-size))`로 확보하고 대칭 음수 세로 여백으로 레이아웃 높이를 유지한다. 기본 변수 24px에서는 위아래 -2px이다. 목록 행의 최소 클릭 높이는 기존 24px 접근성 기준을 유지한다. 기본 Dropdown의 필드·오류·disabled·모달 포털 계약은 유지한다.
+
+작업 트리 출처: `src/components/common/atoms/Dropdown.tsx`, `src/components/catalog/ProductListingPage.tsx`, `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx`, `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`. 가이드의 Sort 예시에서 공통 variant를 조작할 수 있다.
+
+검증(Codex, 2026-11-04): 전체 lint·타입·Panda·Next production build(145개 정적 페이지), 기존 폼/라우트/preview 검사 62개를 통과했다. PC 브라우저에서 트리거 24px·본문 행 20px·세로 margin -2px·목록 너비 130px, 상품 정렬 URL 변경, 신청내역 과거순 선택, Escape와 트리거 포커스 복귀, IA 미지정 선택, 이전 약관 날짜 선택을 확인했다. 최소 클릭 변수의 임시 32px 변경에서는 트리거 32px·위아래 margin -6px·부모 레이아웃 높이 20px을 확인한 뒤 변수를 복원했다. 자동화 브라우저의 viewport 조절이 적용되지 않아 실제 모바일 viewport/시트 시각 검증은 완료하지 못했다. 플랫폼·서비스 계약과 API는 변경하지 않았다. 기록 시점: 2026-11-04T04:59:34Z.
 
 ## STATE 공통 사항의 상위 표시 (2026-11-04)
 

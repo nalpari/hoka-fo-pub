@@ -1,5 +1,11 @@
 import { Drawer } from '@base-ui/react/drawer';
-import { cloneElement, type ReactElement, type ReactNode, useState } from 'react';
+import {
+  cloneElement,
+  type ComponentProps,
+  type ReactElement,
+  type ReactNode,
+  useState,
+} from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -9,8 +15,10 @@ import { Button, type ButtonProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
+type BottomSheetAppearance = 'default' | 'catalog' | 'selection';
+
 type BottomSheetContentProps = {
-  appearance: 'default' | 'catalog';
+  appearance: BottomSheetAppearance;
   children: ReactNode;
 };
 
@@ -22,7 +30,8 @@ function BottomSheetContent({ appearance, children }: BottomSheetContentProps) {
       overflowY="auto"
       overscrollBehaviorY="contain"
       px={appearance === 'catalog' ? '4' : '6'}
-      pb="8"
+      pt={appearance === 'selection' ? '6' : undefined}
+      pb={appearance === 'selection' ? '6' : '8'}
       css={
         appearance === 'catalog'
           ? { scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }
@@ -34,7 +43,7 @@ function BottomSheetContent({ appearance, children }: BottomSheetContentProps) {
   );
 }
 
-const footer = css({
+const footer = css.raw({
   flexShrink: '0',
   p: 'var(--layout-mobile-inline-gutter) var(--layout-mobile-inline-gutter) calc(var(--layout-mobile-inline-gutter) + env(safe-area-inset-bottom))',
   borderTopWidth: '1px',
@@ -43,17 +52,28 @@ const footer = css({
 });
 
 type BottomSheetFooterProps = {
+  appearance: BottomSheetAppearance;
   children: ReactElement<ButtonProps>;
 };
 
-function BottomSheetFooter({ children }: BottomSheetFooterProps) {
+function BottomSheetFooter({ appearance, children }: BottomSheetFooterProps) {
   return (
-    <footer className={footer}>{cloneElement(children, { size: 'tall', fullWidth: true })}</footer>
+    <footer
+      className={css(
+        footer,
+        appearance === 'selection' && {
+          p: '16px 16px calc(32px + env(safe-area-inset-bottom))',
+          borderTopColor: '#E9EAEB',
+        },
+      )}
+    >
+      {cloneElement(children, { size: 'tall', fullWidth: true })}
+    </footer>
   );
 }
 
 type BottomSheetTitleProps = {
-  appearance: 'default' | 'catalog';
+  appearance: BottomSheetAppearance;
   children: ReactNode;
 };
 
@@ -74,7 +94,7 @@ function BottomSheetTitle({ appearance, children }: BottomSheetTitleProps) {
 }
 
 type BottomSheetHeaderProps = {
-  appearance: 'default' | 'catalog';
+  appearance: BottomSheetAppearance;
   action?: ReactNode;
   onClose?: () => void;
   title: ReactNode;
@@ -86,8 +106,9 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
       as="header"
       flexShrink="0"
       justifyContent="space-between"
-      pt={appearance === 'catalog' ? '26px' : '6'}
-      pb="6"
+      h={appearance === 'selection' ? '56px' : undefined}
+      pt={appearance === 'selection' ? '20px' : appearance === 'catalog' ? '26px' : '6'}
+      pb={appearance === 'selection' ? '0' : '6'}
       px={appearance === 'catalog' ? '4' : '6'}
       gap="2.5"
     >
@@ -98,7 +119,7 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           variant="icon"
           aria-label="닫기"
           onClick={onClose}
-          size={appearance === 'catalog' ? '24px' : '15px'}
+          size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '15px'}
         >
           <Icon
             src={
@@ -106,7 +127,7 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
                 ? '/images/icon/catalog-filter-close.svg'
                 : '/images/icon/close.svg'
             }
-            size={appearance === 'catalog' ? '24px' : '15px'}
+            size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '15px'}
           />
         </Button>
       )}
@@ -135,14 +156,15 @@ const popup = css({
 });
 
 type BottomSheetProps = {
-  /** 상품 목록 필터 시안의 여백·제목·모서리를 선택합니다. */
-  appearance?: 'default' | 'catalog';
+  /** 기본·상품 필터·선택 시트의 여백과 모서리를 선택합니다. */
+  appearance?: BottomSheetAppearance;
   title: ReactNode;
   children: ReactNode;
   onClose: () => void;
   footer?: ReactElement<ButtonProps>;
   headerAction?: ReactNode;
   ariaLabel?: string;
+  finalFocus?: ComponentProps<typeof Drawer.Popup>['finalFocus'];
 };
 
 /** 모바일 작업을 위한 하단 모달을 구성합니다 (A modal sheet anchored to the viewport bottom for mobile workflows). */
@@ -154,10 +176,11 @@ export function BottomSheet({
   footer,
   headerAction,
   ariaLabel,
+  finalFocus,
 }: BottomSheetProps) {
   const platform = usePlatform();
   const [openingElement] = useState(() =>
-    appearance === 'catalog' &&
+    appearance !== 'default' &&
     typeof document !== 'undefined' &&
     document.activeElement instanceof HTMLElement
       ? document.activeElement
@@ -168,9 +191,10 @@ export function BottomSheet({
     <Drawer.Root open onOpenChange={(open) => !open && onClose()} swipeDirection="down">
       <Drawer.Portal className={`platform-${platform}`}>
         <Drawer.Backdrop
+          forceRender={appearance === 'selection'}
           className={[
             backdrop,
-            appearance === 'catalog' ? css({ bg: 'rgba(0, 0, 0, 0.5)' }) : undefined,
+            appearance !== 'default' ? css({ bg: 'rgba(0, 0, 0, 0.5)' }) : undefined,
           ]
             .filter(Boolean)
             .join(' ')}
@@ -179,15 +203,25 @@ export function BottomSheet({
           <Drawer.Popup
             aria-label={ariaLabel}
             className={popup}
-            finalFocus={appearance === 'catalog' ? () => openingElement : undefined}
+            finalFocus={finalFocus ?? (appearance !== 'default' ? () => openingElement : undefined)}
           >
             <Stack
               gap="0"
               maxH={appearance === 'catalog' ? 'calc(100dvh - 104px)' : 'calc(100dvh - 44px)'}
               overflow="hidden"
-              borderRadius={appearance === 'catalog' ? '24px 24px 0 0' : '16px 16px 0 0'}
+              borderRadius={
+                appearance === 'selection'
+                  ? '20px 20px 0 0'
+                  : appearance === 'catalog'
+                    ? '24px 24px 0 0'
+                    : '16px 16px 0 0'
+              }
               bg="var(--color-white-000)"
-              boxShadow="0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)"
+              boxShadow={
+                appearance === 'selection'
+                  ? 'none'
+                  : '0 -12px 32px color-mix(in srgb, var(--color-black-100) 18%, transparent)'
+              }
             >
               <BottomSheetHeader
                 appearance={appearance}
@@ -196,7 +230,7 @@ export function BottomSheet({
                 title={title}
               />
               <BottomSheetContent appearance={appearance}>{children}</BottomSheetContent>
-              {footer && <BottomSheetFooter>{footer}</BottomSheetFooter>}
+              {footer && <BottomSheetFooter appearance={appearance}>{footer}</BottomSheetFooter>}
             </Stack>
           </Drawer.Popup>
         </Drawer.Viewport>
