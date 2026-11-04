@@ -17,7 +17,7 @@
 
 - [공통 선택 UI와 정렬 variant](ui.md#공통-선택-ui와-정렬-variant-2026-11-04) - PC 정렬 Dropdown·모바일 정렬 시트·상품 필터 예외·약관 시행일과 추가 전환 후보.
 
-- [컴포넌트와 스타일](ui.md) - 공통 UI·Panda·기능별 구현 및 검증 이력.
+- [컴포넌트와 스타일](ui.md) - 공통 UI·Panda·기능별 구현 및 검증 이력. 모바일 fullWidth 버튼 최대 너비는 375px이다.
 - [공통 UI 재사용 조사](common-reuse-audit.md) - 공통 API, 재사용 판단과 잔여 스타일 정리.
 - [Organisms 재사용](organisms.md) - 메뉴·FAQ와 공통 조합의 책임.
 - [콘텐츠 섹션](content-sections.md) - 레일·제목·카드·본문 구성.

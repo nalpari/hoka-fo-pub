@@ -4479,3 +4479,8 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 ## 런칭 캘린더 디자인 미확정 상태 반영 (2026-11-03)
 
 사용자 재확인으로 런칭 캘린더의 활성 IA 159~162(메인·Feed·Coming·In-stock)를 PC 디자인 수정예정(revision-planned), MO 디자인 미수급(missing), PC/MO 퍼블리싱 수정(revision)으로 변경했다. 앞서 PC 프레임 존재와 RUN Club 패턴 적용을 근거로 표시한 수급/완료 기록보다 이번 사용자 확정값을 우선한다. 기존 화면·상태 URL·파일 연결은 유지하며 삭제된 키즈 IA 163~165의 삭제 표시를 복구하지 않는다. getScreenProgress의 네 항목 반환값과 기존 상태 테스트 10개, 변경 파일 ESLint·서식을 확인했다. 브라우저 시각 검증은 재실행하지 않았다. 출처: 사용자 브라우저 댓글, src/app/screen-index/screenProgress.ts 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+## 모바일 fullWidth 버튼 최대 너비 (2026-11-04)
+
+- `src/components/common/atoms/Button.tsx` 작업 트리: 기존 `fullWidth` 옵션에 `--button-full-width-mobile-max-width: 375px`를 정의하고 `_mobile`에서만 해당 변수로 `max-width`를 제한한다. 부모가 더 좁으면 기존 `width: 100%`를 따르며 PC와 일반 버튼의 너비는 유지한다. ButtonLink도 기존 공통 Button 경로를 따른다.
+- ESLint·Prettier 검사를 통과했고 생성 CSS의 `.platform-mobile` 최대 너비 규칙을 확인했다. 브라우저 시각 검증은 수행하지 않았다.

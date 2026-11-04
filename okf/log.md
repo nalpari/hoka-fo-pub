@@ -1,3 +1,8 @@
+## 2026-11-04 모바일 fullWidth 버튼 최대 너비
+
+- 공통 Button의 모바일 `fullWidth` 최대 너비를 CSS 변수 `--button-full-width-mobile-max-width: 375px`로 제한했다. 출처와 검증 범위는 [모바일 fullWidth 버튼](architecture/ui.md#모바일-fullwidth-버튼-최대-너비-2026-11-04)에 기록한다.
+- 변경 파일 lint·포맷과 생성 CSS 규칙을 확인했다. 이번 변경과 직접 관련 OKF만 선별 스테이징하며 다른 작업의 변경은 보존한다.
+
 ## 2026-11-04 선택 시트 항목 즉시 반영
 
 - 최신 사용자 요청으로 모바일 정렬 Dropdown의 확인 버튼을 제거하고 항목 클릭/Enter/Space 즉시 값을 전달하고 닫도록 변경했다. 이전 약관 휠도 같은 활성화에서 onSelect(id)/onClose를 전달한다. 방향키/스크롤은 초안만 바꾸고 PC 확인과 상품 필터의 적용 동작은 유지한다.
