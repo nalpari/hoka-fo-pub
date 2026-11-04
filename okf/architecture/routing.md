@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-04T07:19:33Z'
+updated: '2026-11-04T07:32:04Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
@@ -332,6 +333,14 @@ sources:
 ## 결제 수단 아이콘 이름 복구 (2026-11-04)
 
 `/checkout` 결제 수단의 미등록 `radio-checked`/`radio-unchecked` 이름을 현재 등록된 `hoka-radio-checked`/`hoka-radio-unchecked`로 교체해 Icon의 asset.mode 오류를 복구했다. PC1440px·모바일375px에서 결제 수단 6개와 상태 아이콘이 표시되고 오류 화면이 없는 것을 확인했다. 결제 선택·요청 계약은 변경하지 않았다. 출처: `src/app/checkout/_components/CheckoutPayment.tsx`, `src/components/common/atoms/Icon.assets.ts`.
+
+## 문의 유형 모바일 연속 선택 (2026-11-04)
+
+`/support/inquiries/new`는 모바일에서 문의 유형 선택 직후 같은 선택 시트 안에서 상세 유형을 선택한다. PC와 상세 필드 직접 선택은 기존 개별 Dropdown을 유지하며 라우트·쿼리·제출 소유권은 바꾸지 않았다. 출처: `src/app/support/inquiries/new/_components/InquiryFormContent.tsx`, `src/components/common/atoms/Dropdown.tsx`. [선택 계약과 검증](ui.md#모바일-문의-유형-연속-선택-2026-11-04).
+
+## 폼 Dropdown 모바일 시트 (2026-11-04)
+
+`/publishing-guide?tab=form`의 일반·아이콘·이미지 Dropdown 예시는 모바일에서 공통 Radio 선택 BottomSheet를 사용한다고 안내한다. 공통 Dropdown 변경으로 실제 사용처도 같은 모바일 표시를 사용하며 새 경로나 쿼리를 추가하지 않았다. PC·모바일 라우트와 기존 필드 값 소유권은 유지한다. 출처: `src/app/publishing-guide/_components/FormGuide.tsx`, `src/components/common/atoms/Dropdown.tsx`. 검증 범위는 [UI 기록](ui.md#기본-dropdown-모바일-선택-시트와-결제-아이콘-복구-2026-11-04)에 기록한다.
 
 ## 선택 UI 공통화 (2026-11-04)
 

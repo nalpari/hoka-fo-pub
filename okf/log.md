@@ -2,6 +2,21 @@
 
 - 결제 수단의 미등록 동적 라디오 아이콘 이름을 현재 hoka-radio 등록 이름으로 교체했다. PC/모바일에서 결제 수단 6개 렌더와 오류 화면 없음을 확인했다. 전체 typecheck·변경 lint/포맷을 통과했다. [상세 기록](architecture/routing.md#결제-수단-아이콘-이름-복구-2026-11-04).
 
+## 2026-11-04 모바일 문의 유형 연속 선택
+
+- 공통 Dropdown의 선택적인 다음 단계 표시 옵션을 문의 분류 소유자에 연결했다. 모바일 문의 유형 선택 후 같은 시트에서 상세 유형을 선택하고 닫는다. PC 개별 선택·기존 콜백과 상세 직접 선택은 유지한다.
+- 508px 단계 전환/같은 유형 재선택/상세 선택/Escape/포커스, 1440px PC 개별 선택과 console error 없음을 확인했다. 변경 lint/포맷·전체 typecheck·Panda 통과. 최소화 창으로 스크린샷은 미완료다. [상세 기록](architecture/ui.md#모바일-문의-유형-연속-선택-2026-11-04).
+
+## 2026-11-04 Dropdown 열림 상태 경고 수정
+
+- 직전 모바일 시트 변경에서 플랫폼에 따라 Select open이 undefined/false로 달라져 생긴 controlled 전환 경고를 수정했다. PC 팝업도 로컬 boolean 상태로 제어한다.
+- 배송 요청 preview의 모바일 선택·새로고침·1128/1024/1025/556px 전환에서 console error가 없음을 확인했다. 변경 lint/포맷·전체 typecheck 통과. [상세 기록](architecture/ui.md#dropdown-열림-상태-제어-방식-고정-2026-11-04).
+
+## 2026-11-04 기본 Dropdown 모바일 선택 시트와 결제 오류 수정
+
+- 기본 Dropdown도 모바일에서는 정렬 variant와 같은 Radio BottomSheet를 공유하도록 변경하고 폼 가이드 설명을 갱신했다. 기존 필드 트리거·오류/비활성화·입력 계약과 PC 팝업은 유지한다.
+- 375px 가이드의 일반/아이콘/이미지 시트·선택·Escape/포커스·disabled/invalid와 1440px PC 팝업, 결제 PC/모바일의 6개 수단 렌더를 확인했다. 변경 lint/포맷·Panda·전체 typecheck 통과. [상세 기록](architecture/ui.md#기본-dropdown-모바일-선택-시트와-결제-아이콘-복구-2026-11-04).
+
 ## 2026-11-04 이전 약관 더미 휠 제거
 
 - 사용자 긴급 요청으로 PreviousTermsPicker 모바일 휠을 공통 정렬 Dropdown과 같은 기본 라디오 선택 시트로 바꿨다. PC 목록/확인과 날짜·콜백·포커스 계약은 유지한다. 이 결정이 이전 휠 시안 기록보다 우선한다.

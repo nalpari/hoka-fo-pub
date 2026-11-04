@@ -1711,6 +1711,7 @@
     "src/app/support/faq/_components/FaqContent.tsx",
     "src/app/support/faq/faq.data.ts",
     "src/app/support/faq/page.tsx",
+    "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
     "src/app/support/inquiries/new/inquiryOrders.data.ts",
     "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx",
     "src/app/support/inquiries/page.tsx",

@@ -1,7 +1,7 @@
 'use client';
 
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { type ReactNode, useId, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
@@ -111,6 +111,12 @@ export type DropdownProps = {
   info?: ReactNode;
   name?: string;
   options: readonly DropdownOption[];
+  mobileNextSelection?: {
+    ariaLabel: string;
+    options: readonly DropdownOption[];
+    value: string;
+    onValueChange: (value: string) => void;
+  };
   defaultValue?: string;
   className?: string;
   indicator?: ReactNode;
@@ -138,6 +144,7 @@ export function Dropdown({
   info,
   name,
   options,
+  mobileNextSelection,
   defaultValue,
   className,
   indicator,
@@ -150,7 +157,11 @@ export function Dropdown({
   value: controlledValue,
 }: DropdownProps) {
   const platform = usePlatform();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const sheetOptionsRef = useRef<HTMLDivElement>(null);
+  const [popupOpen, setPopupOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [showNextSelection, setShowNextSelection] = useState(false);
   const [draftValue, setDraftValue] = useState('');
   const field = useFormFieldContext();
   const disabled = disabledProp || Boolean(field?.disabled);
@@ -164,12 +175,69 @@ export function Dropdown({
 
   const selectedLabel = selectedOption?.label ?? placeholder;
   const isSort = variant === 'sort';
+  const nextSelection = showNextSelection ? mobileNextSelection : undefined;
+  const sheetLabel = nextSelection?.ariaLabel ?? (isSort ? '정렬' : ariaLabel);
 
-  // [ 개발팀 바인딩 ] 선택값과 options는 호출 화면이 소유합니다. 모바일 정렬은 항목 클릭·Enter·Space 시 onValueChange(value)를 호출하고 바로 닫습니다. 방향키/스크롤 이동은 초안만 바꾸며 닫기/Escape는 초안을 폐기합니다. API 요청·성공 처리는 하지 않고 상품 목록 모바일은 기존 필터 내부 Radio와 적용 소유자를 유지합니다.
+  useEffect(() => {
+    if (!sheetOpen || !showNextSelection) return;
+    const group = sheetOptionsRef.current;
+    const selected = group?.querySelector<HTMLElement>('[role="radio"][aria-checked="true"]');
+    const first = group?.querySelector<HTMLElement>('[role="radio"]');
+    (selected ?? first)?.focus();
+  }, [sheetOpen, showNextSelection]);
+
+  const mobileSheet = sheetOpen ? (
+    <BottomSheet
+      appearance="selection"
+      finalFocus={triggerRef}
+      title={sheetLabel}
+      ariaLabel={sheetLabel}
+      onClose={() => setSheetOpen(false)}
+    >
+      <div ref={sheetOptionsRef}>
+        <Radio
+          key={sheetLabel}
+          ariaLabel={nextSelection?.ariaLabel ?? ariaLabel}
+          value={draftValue}
+          onValueChange={setDraftValue}
+          onOptionActivate={(nextValue) => {
+            if (nextSelection) {
+              nextSelection.onValueChange(nextValue);
+              setSheetOpen(false);
+              return;
+            }
+            if (controlledValue === undefined) setUncontrolledValue(nextValue);
+            onValueChange?.(nextValue);
+            if (mobileNextSelection) {
+              setShowNextSelection(true);
+              setDraftValue(mobileNextSelection.value);
+              return;
+            }
+            setSheetOpen(false);
+          }}
+          options={(nextSelection?.options ?? options).map((option) => ({
+            value: option.value,
+            label: option.prefix ? (
+              <span className={css({ display: 'inline-flex', alignItems: 'center', gap: '8px' })}>
+                {option.prefix}
+                {option.label}
+              </span>
+            ) : (
+              option.label
+            ),
+          }))}
+          className={css({ gap: '16px' })}
+        />
+      </div>
+    </BottomSheet>
+  ) : null;
+
+  // [ 개발팀 바인딩 ] 선택값과 options는 호출 화면이 소유합니다. 모바일 Radio의 클릭·Enter·Space는 onValueChange(value)를 전달합니다. mobileNextSelection이 있으면 같은 시트에서 다음 선택으로 이어지고 그 콜백 후 닫으며, 없으면 즉시 닫습니다. 방향키는 초안만 바꾸고 닫기/Escape는 현재 단계 초안만 폐기합니다. API 요청은 없으며 상품 목록 모바일의 필터 Radio/적용 소유자는 유지합니다.
   if (isSort && platform === 'mobile') {
     return (
       <>
         <Button
+          ref={triggerRef}
           variant="unstyled"
           type="button"
           aria-label={ariaLabel}
@@ -177,6 +245,7 @@ export function Dropdown({
           aria-expanded={sheetOpen}
           disabled={disabled}
           onClick={() => {
+            setShowNextSelection(false);
             setDraftValue(value);
             setSheetOpen(true);
           }}
@@ -213,39 +282,7 @@ export function Dropdown({
           )}
         </Button>
         {name ? <input type="hidden" name={name} value={value} disabled={disabled} /> : null}
-        {sheetOpen ? (
-          <BottomSheet
-            appearance="selection"
-            title="정렬"
-            ariaLabel="정렬"
-            onClose={() => setSheetOpen(false)}
-          >
-            <Radio
-              ariaLabel={ariaLabel}
-              value={draftValue}
-              onValueChange={setDraftValue}
-              onOptionActivate={(nextValue) => {
-                if (controlledValue === undefined) setUncontrolledValue(nextValue);
-                onValueChange?.(nextValue);
-                setSheetOpen(false);
-              }}
-              options={options.map((option) => ({
-                value: option.value,
-                label: option.prefix ? (
-                  <span
-                    className={css({ display: 'inline-flex', alignItems: 'center', gap: '8px' })}
-                  >
-                    {option.prefix}
-                    {option.label}
-                  </span>
-                ) : (
-                  option.label
-                ),
-              }))}
-              className={css({ gap: '16px' })}
-            />
-          </BottomSheet>
-        ) : null}
+        {mobileSheet}
       </>
     );
   }
@@ -253,6 +290,18 @@ export function Dropdown({
   return (
     <Stack gap="8px" minW="0">
       <BaseSelect.Root
+        open={platform === 'mobile' ? false : popupOpen}
+        onOpenChange={(nextOpen) => {
+          if (platform === 'mobile') {
+            if (nextOpen) {
+              setShowNextSelection(false);
+              setDraftValue(value);
+              setSheetOpen(true);
+            }
+          } else {
+            setPopupOpen(nextOpen);
+          }
+        }}
         items={options}
         name={name}
         required={required}
@@ -267,6 +316,10 @@ export function Dropdown({
         value={value || null}
       >
         <BaseSelect.Trigger
+          ref={triggerRef}
+          {...(platform === 'mobile'
+            ? ({ 'aria-haspopup': 'dialog', 'aria-expanded': sheetOpen } as const)
+            : {})}
           id={field?.htmlFor}
           aria-label={ariaLabel}
           aria-invalid={hasError || undefined}
@@ -375,75 +428,78 @@ export function Dropdown({
             </BaseSelect.Icon>
           </Flex>
         </BaseSelect.Trigger>
-        <BaseSelect.Portal>
-          <BaseSelect.Positioner
-            className={[styles.positioner, layer === 'modal' ? css({ zIndex: '120!' }) : '']
-              .filter(Boolean)
-              .join(' ')}
-            sideOffset={isSort ? 8 : 0}
-            align={popupAlign}
-            alignItemWithTrigger={false}
-          >
-            <BaseSelect.Popup
-              className={css(
-                styles.popup,
-                isSort
-                  ? {
-                      w: 'max-content',
-                      minW: '130px',
-                      p: '12px',
-                      borderRadius: '4px',
-                      borderColor: '#B3B3B3',
-                    }
-                  : {},
-              )}
+        {platform !== 'mobile' ? (
+          <BaseSelect.Portal>
+            <BaseSelect.Positioner
+              className={[styles.positioner, layer === 'modal' ? css({ zIndex: '120!' }) : '']
+                .filter(Boolean)
+                .join(' ')}
+              sideOffset={isSort ? 8 : 0}
+              align={popupAlign}
+              alignItemWithTrigger={false}
             >
-              <BaseSelect.List
-                className={css({
-                  maxH: '324px',
-                  overflowY: 'auto',
-                  scrollbarWidth: 'thin',
-                  scrollbarColor: 'var(--colors-black-20) transparent',
-                  ...(isSort ? { display: 'grid', gap: '16px' } : {}),
-                })}
+              <BaseSelect.Popup
+                className={css(
+                  styles.popup,
+                  isSort
+                    ? {
+                        w: 'max-content',
+                        minW: '130px',
+                        p: '12px',
+                        borderRadius: '4px',
+                        borderColor: '#B3B3B3',
+                      }
+                    : {},
+                )}
               >
-                {options.map((option) => (
-                  <BaseSelect.Item
-                    className={
-                      isSort
-                        ? css({
-                            minH: 'var(--touch-target-min-size)',
-                            cursor: 'pointer',
-                            borderRadius: '2px',
-                            _focusVisible: {
-                              outline: '2px solid var(--colors-black-100)',
-                              outlineOffset: '-2px',
-                            },
-                          })
-                        : styles.item
-                    }
-                    key={option.value}
-                    value={option.value}
-                  >
-                    <Flex alignItems="center" gap="2">
-                      {isSort ? (
-                        <Icon
-                          name={
-                            option.value === value ? 'hoka-radio-checked' : 'hoka-radio-unchecked'
-                          }
-                          size="16px"
-                        />
-                      ) : null}
-                      {option.prefix}
-                      <Typography variant="body4">{option.label}</Typography>
-                    </Flex>
-                  </BaseSelect.Item>
-                ))}
-              </BaseSelect.List>
-            </BaseSelect.Popup>
-          </BaseSelect.Positioner>
-        </BaseSelect.Portal>
+                <BaseSelect.List
+                  className={css({
+                    maxH: '324px',
+                    overflowY: 'auto',
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: 'var(--colors-black-20) transparent',
+                    ...(isSort ? { display: 'grid', gap: '16px' } : {}),
+                  })}
+                >
+                  {options.map((option) => (
+                    <BaseSelect.Item
+                      className={
+                        isSort
+                          ? css({
+                              minH: 'var(--touch-target-min-size)',
+                              cursor: 'pointer',
+                              borderRadius: '2px',
+                              _focusVisible: {
+                                outline: '2px solid var(--colors-black-100)',
+                                outlineOffset: '-2px',
+                              },
+                            })
+                          : styles.item
+                      }
+                      key={option.value}
+                      value={option.value}
+                    >
+                      <Flex alignItems="center" gap="2">
+                        {isSort ? (
+                          <Icon
+                            name={
+                              option.value === value ? 'hoka-radio-checked' : 'hoka-radio-unchecked'
+                            }
+                            size="16px"
+                          />
+                        ) : null}
+                        {option.prefix}
+                        <Typography variant="body4">{option.label}</Typography>
+                      </Flex>
+                    </BaseSelect.Item>
+                  ))}
+                </BaseSelect.List>
+              </BaseSelect.Popup>
+            </BaseSelect.Positioner>
+          </BaseSelect.Portal>
+        ) : null}
       </BaseSelect.Root>
+      {platform === 'mobile' ? mobileSheet : null}
       {error ? (
         <Typography
           as="p"

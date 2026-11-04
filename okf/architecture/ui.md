@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T07:12:19Z'
+updated: '2026-11-04T07:32:04Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
   - src/components/common/atoms/Dropdown.tsx
   - src/app/wh/_components/work-history-animations.css
@@ -999,6 +1000,26 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 문의 유형 연속 선택 (2026-11-04)
+
+`/support/inquiries/new`의 문의 유형 선택 후 같은 모바일 BottomSheet에서 제목·Radio 옵션을 상세 유형으로 전환한다. 공통 Dropdown에 선택적인 `mobileNextSelection`(ariaLabel/options/value/onValueChange)을 추가하고 기존 InquiryCategoryFields가 상세 옵션·값·콜백을 제공한다. 문의 유형은 첫 선택 시 기존 onCategoryChange로 반영하며, 상세 선택 시 onDetailCategoryChange로 반영하고 닫는다. 상세 단계에서 닫으면 이미 선택한 문의 유형은 유지한다. 다음 단계 진입 시 해당 라디오에 포커스를 옮기고 완료 후 최초 문의 유형 트리거로 복귀한다. 상세 필드를 직접 열거나 PC에서 두 필드를 각각 선택하는 계약은 유지한다. 옵션과 서비스 정책은 문의 화면 소유자에 남기며 새 API/제출 흐름은 추가하지 않는다. 출처: `src/components/common/atoms/Dropdown.tsx`, `src/app/support/inquiries/new/_components/InquiryFormContent.tsx`.
+
+508px에서 문의 유형→상세 유형 전환 시 dialog 하나가 유지되고 유형 반영·상세 선택/닫기/포커스 복귀, 동일 문의 유형 재선택 후 상세 전환·Escape, 상세 필드 직접 선택을 확인했다. 1440px 새로고침 후 PC 문의 유형 팝업 선택과 dialog 없음, console error 없음을 확인했다. 변경 ESLint·Prettier·전체 typecheck와 Panda 생성은 통과했다. 최소화된 브라우저 창으로 스크린샷 검증은 완료하지 못했다.
+
+## Dropdown 열림 상태 제어 방식 고정 (2026-11-04)
+
+기본 Dropdown의 모바일 시트 전환에서 Select.Root의 open을 PC undefined·모바일 false로 전달해 초기 hydration/플랫폼 전환 시 uncontrolled→controlled 경고가 발생했다. PC 팝업 열림 상태를 로컬 boolean으로 관리하고 PC/모바일 모두 open을 boolean으로 전달하도록 수정했다. 모바일은 기존 Radio 시트를 열고 PC는 onOpenChange로 팝업 상태를 갱신한다. 출처: `src/components/common/atoms/Dropdown.tsx`.
+
+`/checkout/preview-delivery-request`를 556px로 직접 열어 모바일 시트 선택·값 반영을 확인하고 1128/1024/1025/556px 전환 및 새로고침에서 console error가 없음을 수집했다. 변경 파일 ESLint·Prettier·전체 typecheck는 통과했다.
+
+## 기본 Dropdown 모바일 선택 시트와 결제 아이콘 복구 (2026-11-04)
+
+사용자 확정에 따라 기본 폼 Dropdown도 모바일에서는 정렬 variant와 같은 BottomSheet selection·Radio 목록·16px 간격을 사용한다. 시트 본문을 기존 Dropdown 안에서 공유하며 기본 필드 트리거의 label/required/info·placeholder·hint/error·disabled·FormField 연결과 Base UI의 name/value/required 입력 소유권은 유지한다. 모바일 기본 필드는 팝업 열기 요청을 시트로 전달하고 PC의 기존 listbox 팝업은 그대로 사용한다. 기본 시트 제목은 ariaLabel, 정렬 시트 제목은 정렬이다. 옵션의 prefix 아이콘/이미지와 id/value는 유지하며 클릭·Enter·Space는 즉시 반영하고 방향키는 초안만 이동한다. 닫기/Escape 후 트리거로 포커스를 복귀시킨다. 기존 기본 폼 Dropdown 제외 기록보다 이 결정이 우선한다. 출처: `src/components/common/atoms/Dropdown.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`.
+
+`/checkout`에서 결제 수단의 이전 동적 `radio-checked`/`radio-unchecked` 이름이 Icon 등록에 없어 `asset.mode` 런타임 오류가 발생했다. `CheckoutPayment.tsx`에서 현재 등록된 `hoka-radio-checked`/`hoka-radio-unchecked`로 교체했다. 결제 선택과 서비스 연결 책임은 변경하지 않았다.
+
+검증: 375px 가이드에서 일반/사용자/국가 메뉴의 라디오 시트와 아이콘·국기 유지, 항목 선택/표시값 반영/닫기/포커스, 방향키 열기/Escape, disabled/invalid 속성을 확인했다. 1440px 기본 Dropdown은 옵션 3개의 listbox를 유지하고 선택값을 반영했다. `/checkout`은 PC1440px·모바일375px에서 결제 수단 6개와 등록 라디오 아이콘이 표시되고 오류 화면이 없는 것을 확인했다. 변경 파일 ESLint·Prettier·Panda 생성과 전체 typecheck를 통과했다. 이번 변경 후 production build는 실행하지 않았다.
 
 ## 이전 약관 더미 휠 제거 (2026-11-04)
 
