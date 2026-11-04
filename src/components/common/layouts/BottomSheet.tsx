@@ -125,9 +125,7 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           size={appearance === 'selection' ? '20px' : '24px'}
         >
           <Icon
-            name={
-              appearance === 'selection' ? 'hoka-action-xmark-solid' : 'hoka-action-xmark-regular'
-            }
+            name="hoka-action-xmark-regular"
             size={appearance === 'selection' ? '20px' : '24px'}
           />
         </Button>

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T07:57:20Z'
+updated: '2026-11-04T09:26:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1001,6 +1001,11 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 선택 시트 닫기 아이콘 참조 복구 (2026-11-04)
+
+BottomSheetHeader의 미등록 hoka-action-xmark-solid 참조를 실제 등록된 hoka-action-xmark-regular로 통일했다. selection20px·기본24px와 닫기·포커스 계약은 유지한다. 전체 타입 검사를 통과했다. 출처: src/components/common/layouts/BottomSheet.tsx 작업 트리, codex/gpt-6, 2026-11-04.
+
 
 ## 모바일 fullWidth 최대 너비 제한 원복 (2026-11-04)
 
