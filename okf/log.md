@@ -1,3 +1,7 @@
+## 2026-11-04 — Font Awesome 의존성 제거 커밋
+
+- SVG name 전환 후 사용하지 않는 Font Awesome 직접 의존성 4개와 관련 lock 항목을 제거했다. 다른 패키지 버전은 변경하지 않았다. 출처: package.json, package-lock.json.
+
 ## 2026-11-04 — main 병합 후 아이콘 전환 검증
 
 - origin/main 72ae26eb를 반영하고 상품 타일 변경과 SVG 전환을 함께 유지했다. 충돌 문서는 양쪽 기록을 보존했고 화면 소스 그래프를 재생성했다. main에 추가된 ProductCardGuide의 장바구니 아이콘과 복사 예시도 name 호출로 전환했다. 변경 파일 ESLint, Panda 생성, 폼 테스트 47개를 통과했다. 등록 에셋 125개가 존재하고 SVG XML이 유효하다. 최종 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류만 남고 src 오류는 없다.
