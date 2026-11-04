@@ -2072,3 +2072,6 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 
 
 Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+- 주문 취소·반품 신청의 데스크탑 예정 금액 타이포그래피를 heading10으로 변경했다.

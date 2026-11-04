@@ -1315,3 +1315,6 @@ Figma 296:25392의 흰색 방향 버튼은 24px 컨테이너, 반경 56px, 그�
 
 
 Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+주문 취소·반품 신청의 예정 금액 숫자는 데스크탑 heading10, 모바일 heading7을 사용한다. 출처: OrderClaimRequest.tsx.
