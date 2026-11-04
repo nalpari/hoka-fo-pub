@@ -20,11 +20,13 @@ type BottomSheetAppearance = 'default' | 'catalog' | 'selection';
 type BottomSheetContentProps = {
   appearance: BottomSheetAppearance;
   children: ReactNode;
+  className?: string;
 };
 
-function BottomSheetContent({ appearance, children }: BottomSheetContentProps) {
+function BottomSheetContent({ appearance, children, className }: BottomSheetContentProps) {
   return (
     <Box
+      className={className}
       minH="0"
       flex="0 1 auto"
       overflowY="auto"
@@ -63,7 +65,8 @@ function BottomSheetFooter({ appearance, children }: BottomSheetFooterProps) {
         footer,
         appearance === 'selection' && {
           p: '16px 16px calc(32px + env(safe-area-inset-bottom))',
-          borderTopColor: '#E9EAEB',
+          borderTopWidth: '0',
+          boxShadow: 'inset 0 1px 0 #E9EAEB',
         },
       )}
     >
@@ -119,11 +122,11 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           variant="icon"
           aria-label="닫기"
           onClick={onClose}
-          size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '24px'}
+          size={appearance === 'selection' ? '20px' : '24px'}
         >
           <Icon
-            name={appearance === 'catalog' ? 'xmark-regular' : 'xmark-regular'}
-            size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '24px'}
+            name={appearance === 'selection' ? 'xmark-solid' : 'xmark-regular'}
+            size={appearance === 'selection' ? '20px' : '24px'}
           />
         </Button>
       )}
@@ -159,6 +162,7 @@ type BottomSheetProps = {
   onClose: () => void;
   footer?: ReactElement<ButtonProps>;
   headerAction?: ReactNode;
+  contentClassName?: string;
   ariaLabel?: string;
   finalFocus?: ComponentProps<typeof Drawer.Popup>['finalFocus'];
 };
@@ -171,6 +175,7 @@ export function BottomSheet({
   onClose,
   footer,
   headerAction,
+  contentClassName,
   ariaLabel,
   finalFocus,
 }: BottomSheetProps) {
@@ -225,7 +230,9 @@ export function BottomSheet({
                 onClose={onClose}
                 title={title}
               />
-              <BottomSheetContent appearance={appearance}>{children}</BottomSheetContent>
+              <BottomSheetContent appearance={appearance} className={contentClassName}>
+                {children}
+              </BottomSheetContent>
               {footer && <BottomSheetFooter appearance={appearance}>{footer}</BottomSheetFooter>}
             </Stack>
           </Drawer.Popup>

@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-04T07:32:04Z'
+updated: '2026-11-04T07:50:16Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/sourceGraph.generated.json
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
@@ -329,6 +330,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 이전 약관 확인 시트 시안 반영 (2026-11-04)
+
+기존 `/login/account-locked/verification/preview-previous-terms`와 회원가입 약관 상세의 공통 PreviousTermsPicker에 모바일 확인형 시트를 적용했다. 새 URL은 추가하지 않았다. 선택 시트의 간격을 공유하는 Dropdown의 즉시 선택과 문의 연속 선택은 유지한다. 의존 그래프에는 PreviousTermsPicker의 Button import 연결이 갱신되었다. 출처: `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/app/screen-index/sourceGraph.generated.json`. [시안 기준·계약·검증](ui.md#이전-약관-확인-시트-시안-적용-2026-11-04).
 
 ## 결제 수단 아이콘 이름 복구 (2026-11-04)
 

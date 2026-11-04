@@ -6,6 +6,7 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -49,7 +50,8 @@ export function PreviousTermsPicker({
   const dates = versions ? versions.map((version) => version.id) : previousTerms;
   const label = (id: string) => versions?.find((version) => version.id === id)?.label ?? id;
   const [selectedDate, setSelectedDate] = useState<string>(dates[0] ?? '');
-  // [ 개발팀 바인딩 ] versions의 id/label은 호출 화면이 제공하며 생략하면 표시 fixture를 사용합니다. 모바일은 공통 정렬 Dropdown과 같은 라디오 목록에서 클릭·Enter·Space 시 onSelect(id)와 onClose를 호출합니다. 방향키는 선택 초안만 바꾸고 PC는 확인 시 onSelect(id)를 호출합니다. 버전별 문서 조회는 미구현이며 호출 화면이 소유합니다.
+  const [confirmedDate, setConfirmedDate] = useState(selectedDate);
+  // [ 개발팀 바인딩 ] versions의 id/label은 호출 화면이 제공하며 생략하면 표시 fixture를 사용합니다. PC/모바일 모두 라디오 선택은 초안만 바꾸고 확인 시 onSelect(id)를 전달합니다. 모바일 확인은 onClose도 호출하며 닫기/Escape는 확정값으로 초안을 복원합니다. 버전별 문서 조회는 미구현이며 호출 화면이 소유합니다. 공통 Dropdown의 즉시 선택 계약과는 별개입니다.
 
   if (platform === 'mobile') {
     if (!open) return null;
@@ -58,22 +60,39 @@ export function PreviousTermsPicker({
         appearance="selection"
         title="이전 약관 보기"
         ariaLabel="이전 약관 보기"
-        onClose={onClose}
+        onClose={() => {
+          setSelectedDate(confirmedDate);
+          onClose();
+        }}
         finalFocus={finalFocus}
+        contentClassName={css({ h: '334px' })}
+        footer={
+          <Button
+            variant="primary"
+            disabled={!dates.some((date) => date === selectedDate)}
+            onClick={() => {
+              setConfirmedDate(selectedDate);
+              onSelect(selectedDate);
+              onClose();
+            }}
+          >
+            확인
+          </Button>
+        }
       >
-        <Radio
-          ariaLabel="이전 약관 시행일"
-          name="previous-terms-date-mobile"
-          value={selectedDate}
-          onValueChange={setSelectedDate}
-          onOptionActivate={(id) => {
-            setSelectedDate(id);
-            onSelect(id);
-            onClose();
-          }}
-          options={dates.map((date) => ({ value: date, label: label(date) }))}
-          className={css({ gap: '16px' })}
-        />
+        <Stack gap="16px">
+          <Typography as="p" variant="body3">
+            약관 시행일을 선택해주세요
+          </Typography>
+          <Radio
+            ariaLabel="이전 약관 시행일"
+            name="previous-terms-date-mobile"
+            value={selectedDate}
+            onValueChange={setSelectedDate}
+            options={dates.map((date) => ({ value: date, label: label(date) }))}
+            className={css({ gap: '16px' })}
+          />
+        </Stack>
       </BottomSheet>
     );
   }
@@ -91,7 +110,10 @@ export function PreviousTermsPicker({
       finalFocus={finalFocus}
       actions={{
         kind: 'single',
-        onConfirm: () => onSelect(selectedDate),
+        onConfirm: () => {
+          setConfirmedDate(selectedDate);
+          onSelect(selectedDate);
+        },
         buttonProps: { disabled: dates.length === 0 },
       }}
     >

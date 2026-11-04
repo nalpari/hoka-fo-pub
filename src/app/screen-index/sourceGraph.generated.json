@@ -1424,6 +1424,7 @@
       "src/context/platform.tsx"
     ],
     "src/components/common/molecules/PreviousTermsPicker.tsx": [
+      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/BottomSheet.tsx",

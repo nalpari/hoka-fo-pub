@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T07:32:04Z'
+updated: '2026-11-04T07:50:16Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/layouts/BottomSheet.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
   - src/components/common/atoms/Dropdown.tsx
@@ -1000,6 +1001,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 이전 약관 확인 시트 시안 적용 (2026-11-04)
+
+사용자가 [Figma 2639:44921](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2639-44921)을 기준으로 이전 약관만 확인 방식으로 확정했다. 이 결정이 이전 약관 즉시 선택 기록보다 우선한다. 공통 Dropdown은 즉시 선택·문의 유형 연속 선택을 유지한다. `PreviousTermsPicker` 모바일에 안내문과 확인 footer를 추가하고 라디오 변경은 초안만 갱신한다. 확인 시 기존 onSelect(id)/onClose를 호출하며 닫기/Escape는 마지막 확정값으로 초안을 복원한다. PC 확인 계약과 versions id/label·기본 날짜 fixture, 문서 조회의 호출 화면 소유권은 유지한다. 확인 버튼은 현재 options에 없는 선택값 또는 빈 options에서 비활성화된다.
+
+선택 시트는 헤더 56px·상단/좌우 패딩 20/24px, 본문 패딩 24px, 안내문→목록과 Radio 항목 간격 16px, 닫기 Solid 아이콘 20px을 사용한다. `BottomSheet.contentClassName?: string`은 본문 스타일의 선택적 확장점이며 이전 약관에만 334px 높이를 전달한다. 본문은 flex 축소·내부 overflow를 유지한다. 확인 footer는 16px/16px/32px+safe area 패딩과 48px Primary 버튼을 사용하고 1px 구분선은 내부 shadow로 그려 시안의 96px 영역 높이를 유지한다. 기본/catalog의 기존 스타일은 유지한다. 일반 Dropdown은 같은 selection 간격을 쓰되 본문은 옵션 수에 맞추고 footer를 추가하지 않는다. 출처: `src/components/common/layouts/BottomSheet.tsx`, `src/components/common/molecules/PreviousTermsPicker.tsx`, Figma 2639:44923~44928.
+
+검증: 375×812 본인인증 preview에서 헤더56·본문334·패딩24·항목16·아이콘20·footer96·버튼48px을 실측하고 화면 이미지를 비교했다. Windows 세로 스크롤바로 clientWidth는360px이었다. 날짜 클릭 후 유지/확인 후 부모 날짜 반영과 포커스 복귀, Escape 취소 후 재열기 확정값 복원을 확인했다. 375×360에서 본문164px/scrollHeight308px·overflow auto와 확인영역 하단360px을 확인했다. 열린 상태의1024→1025px 전환 후 PC 라디오7개·확인 반영도 확인했다. 회원가입에서는 날짜 선택 후 시트 유지와 확인 후 닫기를 확인했다. 회원가입 기존 전문 fixture는 선택 날짜를 본문에 출력하지 않는다. 일반/정렬/사용자/국가 Dropdown의 헤더56·패딩24·항목16·footer없음과 즉시 선택, 문의→상세 유형 선택 완료 및 console error없음을 확인했다. 변경 ESLint·Prettier·전체 typecheck·Panda 생성 통과. production build는 재실행하지 않았다.
 
 ## 모바일 문의 유형 연속 선택 (2026-11-04)
 
