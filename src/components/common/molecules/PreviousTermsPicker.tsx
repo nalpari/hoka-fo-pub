@@ -1,10 +1,10 @@
 'use client';
 
-import { type ComponentProps, useEffect, useRef, useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -28,9 +28,7 @@ const popup = css({
   '& > footer': { px: '6', pt: '4' },
 });
 
-const wheelRowHeight = 34;
-
-/** 약관 시행일을 PC 라디오 목록과 모바일 휠 시트에서 표시·선택합니다. (Displays and selects terms versions in a desktop radio list or mobile wheel sheet.) */
+/** 약관 시행일을 PC 라디오 목록과 모바일 선택 시트에서 표시·선택합니다. (Displays and selects terms versions in a desktop radio list or mobile selection sheet.) */
 export function PreviousTermsPicker({
   open,
   onClose,
@@ -48,21 +46,10 @@ export function PreviousTermsPicker({
   finalFocus?: ComponentProps<typeof BottomSheet>['finalFocus'];
 }) {
   const platform = usePlatform();
-  const wheel = useRef<HTMLDivElement>(null);
   const dates = versions ? versions.map((version) => version.id) : previousTerms;
   const label = (id: string) => versions?.find((version) => version.id === id)?.label ?? id;
   const [selectedDate, setSelectedDate] = useState<string>(dates[0] ?? '');
-  // [ 개발팀 바인딩 ] versions의 id/label은 호출 화면이 제공하며 생략하면 표시 fixture를 사용합니다. 모바일 휠은 스크롤·방향키로 로컬 선택을 바꾸고 날짜 클릭·Enter·Space 시 onSelect(id)와 onClose를 호출합니다. PC는 확인 시 onSelect(id)를 호출합니다. 버전별 문서 조회는 미구현이며 호출 화면이 소유합니다.
-  const selectedIndex = Math.max(
-    0,
-    dates.findIndex((date) => date === selectedDate),
-  );
-
-  useEffect(() => {
-    if (open && platform === 'mobile' && wheel.current) {
-      wheel.current.scrollTop = selectedIndex * wheelRowHeight;
-    }
-  }, [open, platform, selectedIndex]);
+  // [ 개발팀 바인딩 ] versions의 id/label은 호출 화면이 제공하며 생략하면 표시 fixture를 사용합니다. 모바일은 공통 정렬 Dropdown과 같은 라디오 목록에서 클릭·Enter·Space 시 onSelect(id)와 onClose를 호출합니다. 방향키는 선택 초안만 바꾸고 PC는 확인 시 onSelect(id)를 호출합니다. 버전별 문서 조회는 미구현이며 호출 화면이 소유합니다.
 
   if (platform === 'mobile') {
     if (!open) return null;
@@ -74,88 +61,19 @@ export function PreviousTermsPicker({
         onClose={onClose}
         finalFocus={finalFocus}
       >
-        <Box pos="relative" h="232px">
-          <Box
-            pos="absolute"
-            top="99px"
-            left="0"
-            right="0"
-            h="34px"
-            bg="#E8EDF3"
-            borderRadius="8px"
-            pointerEvents="none"
-          />
-          <Box
-            ref={wheel}
-            pos="relative"
-            h="232px"
-            overflowY="auto"
-            css={{
-              scrollSnapType: 'y mandatory',
-              scrollbarWidth: 'none',
-              '&::-webkit-scrollbar': { display: 'none' },
-            }}
-            onScrollEnd={(event) => {
-              const next = dates[Math.round(event.currentTarget.scrollTop / wheelRowHeight)];
-              if (next) setSelectedDate(next);
-            }}
-          >
-            <Radio
-              ariaLabel="이전 약관 시행일"
-              name="previous-terms-date-mobile"
-              value={selectedDate}
-              onValueChange={setSelectedDate}
-              onOptionActivate={(id) => {
-                setSelectedDate(id);
-                onSelect(id);
-                onClose();
-              }}
-              options={dates.map((date, index) => ({
-                value: date,
-                label: (
-                  <Typography
-                    variant="body3"
-                    data-date-label
-                    style={{
-                      color:
-                        index === selectedIndex
-                          ? '#000000'
-                          : Math.abs(index - selectedIndex) >= 3
-                            ? '#B3B3B3'
-                            : '#777777',
-                    }}
-                  >
-                    {label(date)}
-                  </Typography>
-                ),
-              }))}
-              variant="custom"
-              className={css({ gap: '0', py: '99px', textAlign: 'center' })}
-              optionClassName={css({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                w: '100%',
-                h: '34px',
-                border: '0',
-                bg: 'transparent',
-                cursor: 'pointer',
-                scrollSnapAlign: 'center',
-                _focusVisible: {
-                  outline: '2px solid var(--colors-black-100)',
-                  outlineOffset: '-2px',
-                },
-              })}
-              selectedOptionClassName={css({
-                '& [data-date-label]': {
-                  fontSize: '20px',
-                  lineHeight: '26px',
-                  fontWeight: 'normal',
-                },
-              })}
-            />
-          </Box>
-        </Box>
+        <Radio
+          ariaLabel="이전 약관 시행일"
+          name="previous-terms-date-mobile"
+          value={selectedDate}
+          onValueChange={setSelectedDate}
+          onOptionActivate={(id) => {
+            setSelectedDate(id);
+            onSelect(id);
+            onClose();
+          }}
+          options={dates.map((date) => ({ value: date, label: label(date) }))}
+          className={css({ gap: '16px' })}
+        />
       </BottomSheet>
     );
   }

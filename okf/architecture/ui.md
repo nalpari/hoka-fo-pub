@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T23:51:12Z'
+updated: '2026-11-04T07:12:19Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/PreviousTermsPicker.tsx
+  - src/components/common/atoms/Dropdown.tsx
   - src/app/wh/_components/work-history-animations.css
   - src/app/wh/_components/FileSummary.tsx
   - src/app/wh/loading.tsx
@@ -997,6 +999,24 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 이전 약관 더미 휠 제거 (2026-11-04)
+
+사용자가 `/login/account-locked/verification/preview-previous-terms`의 모바일 휠을 더미 디자인으로 확정하고 공통 정렬 Dropdown 기준을 요청했다. 이 결정이 과거 휠 시안 적용 기록보다 우선한다. `PreviousTermsPicker`의 휠 스크롤·34px 스냅 행·중앙 배경·날짜별 확대/회색 단계를 제거하고 `Dropdown variant="sort"` 모바일과 같은 `BottomSheet appearance="selection"` 안의 기본 Radio·16px 항목 간격으로 표시한다. 같은 공통 선택기를 쓰는 회원가입 약관에도 적용된다. 날짜 fixture와 versions id/label 계약, PC 라디오 목록·확인 버튼, 모바일 활성화 즉시 onSelect/onClose와 finalFocus는 유지한다. 출처: `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/components/common/atoms/Dropdown.tsx`.
+
+375px 대상 URL에서 날짜 7개·16px 간격·휠 전용 DOM 제거를 확인했다. DOM click으로 2024-06-22를 선택해 부모 날짜 반영·시트 닫힘·이전 약관 보기 트리거 포커스 복귀를 확인했다. 1440px에서는 날짜 라디오 7개와 확인 버튼 표시를 확인했다. 최소화된 브라우저 창 때문에 스크린샷/실제 포인터 검증은 완료하지 못했다. 변경 파일 ESLint·Prettier·Panda 생성은 통과했다.
+
+## PC 정렬 Dropdown indicator 시안 복구 (2026-11-04)
+
+[러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-98095)의 Action(1934:98102)에서 정렬 트리거는 Body 3(16px, 1.3 행간, -2% 자간), 8px 간격, 14×14px Regular chevron이다. 공통 `Dropdown variant="sort"`의 PC indicator를 `sort-down-solid`에서 기존 `chevron-down-regular`로 바꾸고 아이콘 래퍼를 flex로 중앙 정렬했다. 기본 Dropdown indicator와 모바일 분기, 호출부의 사용자 지정 indicator/크기 옵션은 유지한다. 출처: `src/components/common/atoms/Dropdown.tsx`, `Icon.assets.ts`, Figma 1934:98105~98107.
+
+1632×1252 PC `/mypage/event-entries`에서 14×14px 아이콘·8px 간격·16px/20.8px Pretendard·-0.32px 자간과 텍스트/아이콘 중심 일치를 실측하고 스크린샷을 확인했다. 과거순 선택·방향키 열기·Escape 닫기, 375px 모바일 시트의 최신순 즉시 선택도 확인했다. Panda 생성·변경 파일 ESLint·포맷 검사는 통과했다. 전체 타입 검사는 기존 `CheckoutPayment.tsx:103`의 미등록 라디오 아이콘 이름 때문에 실패했다. 기존 터치영역 최소 크기·음수 여백은 이번 시안 수정 범위에서 변경하지 않았다.
+
+## 정렬 Dropdown 아이콘 계약 복구 (2026-11-04)
+
+`Dropdown variant="sort"`의 PC 항목과 모바일 트리거에 남아 있던 `Icon src` 호출은 이름 기반 Icon에서 `asset.mode` 오류를 일으켰다. 라디오는 `hoka-radio-checked`/`hoka-radio-unchecked`, 모바일 화살표는 `chevron-down-regular`로 연결했다. 출처: `src/components/common/atoms/Dropdown.tsx`, `Icon.tsx`, `Icon.assets.ts`.
+
+2026-11-04 브라우저에서 PC 1632px 여성 상품 메뉴 열기·낮은/높은 가격순 실제 목록 정렬·URL와 표시값 반영·방향키 열기·Escape 닫기와 포커스 복귀, 모바일 375px 약관 시행일 시트 열기·선택 즉시 반영을 확인했다. 변경 파일 ESLint는 통과했다. 전체 typecheck는 별도 `CheckoutPayment.tsx`의 미등록 `radio-checked`/`radio-unchecked` 이름 때문에 실패했다. 최소 크기와 여백은 변경하지 않았다.
 
 ## 선택 시트 즉시 반영 (2026-11-04)
 

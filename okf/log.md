@@ -1,3 +1,18 @@
+## 2026-11-04 이전 약관 더미 휠 제거
+
+- 사용자 긴급 요청으로 PreviousTermsPicker 모바일 휠을 공통 정렬 Dropdown과 같은 기본 라디오 선택 시트로 바꿨다. PC 목록/확인과 날짜·콜백·포커스 계약은 유지한다. 이 결정이 이전 휠 시안 기록보다 우선한다.
+- 모바일 375px 목록·16px 간격·DOM 선택 후 부모 반영/닫기/포커스, PC 1440px 라디오와 확인 표시를 검증했다. 최소화된 브라우저 창으로 스크린샷과 실제 포인터 검증은 미완료다. 변경 lint·포맷·Panda 생성은 통과했다. [상세 기록](architecture/ui.md#이전-약관-더미-휠-제거-2026-11-04).
+
+## 2026-11-04 PC 정렬 Dropdown indicator 시안 복구
+
+- 러닝세션 신청내역 Figma 1934:98095를 기준으로 공통 sort variant의 PC indicator를 14px Regular chevron으로 바꾸고 중앙 정렬·Body 3 행간/자간을 맞췄다. 기본 Dropdown과 모바일 분기의 스타일은 유지했다.
+- PC 1632px 크기·간격·폰트 실측과 스크린샷, 선택/키보드 동작, 모바일 375px 시트 선택을 확인했다. 상세 출처와 검증은 [UI 기록](architecture/ui.md#pc-정렬-dropdown-indicator-시안-복구-2026-11-04)에 남겼다.
+
+## 2026-11-04 정렬 Dropdown 열기 오류 수정
+
+- Dropdown에 남은 이전 Icon src 호출을 등록 이름으로 교체해 PC 정렬 메뉴와 모바일 트리거의 런타임 오류를 수정했다.
+- PC 여성 상품 가격 오름/내림차순·URL·키보드 닫기/포커스, 모바일 약관 날짜 선택을 브라우저에서 확인했다. 변경 ESLint 통과, 전체 타입 검사는 별도 CheckoutPayment 아이콘 이름 오류로 실패했다. 상세 출처는 [UI 기록](architecture/ui.md#정렬-dropdown-아이콘-계약-복구-2026-11-04)에 남겼다.
+
 ## 2026-11-04 모바일 fullWidth 버튼 최대 너비
 
 - 공통 Button의 모바일 `fullWidth` 최대 너비를 CSS 변수 `--button-full-width-mobile-max-width: 375px`로 제한했다. 출처와 검증 범위는 [모바일 fullWidth 버튼](architecture/ui.md#모바일-fullwidth-버튼-최대-너비-2026-11-04)에 기록한다.

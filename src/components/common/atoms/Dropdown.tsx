@@ -206,8 +206,7 @@ export function Dropdown({
           </Typography>
           {indicator ?? (
             <Icon
-              src="/images/icon/chevron-down-small.svg"
-              mask
+              name="chevron-down-regular"
               color={disabled ? 'var(--color-black-40)' : indicatorColor}
               style={{ width: indicatorWidth, height: indicatorHeight }}
             />
@@ -343,7 +342,10 @@ export function Dropdown({
               {selectedOption?.prefix}
               <Typography
                 variant="body3"
-                className={[styles.label({ disabled }), isSort ? css({ lineHeight: '20px' }) : '']
+                className={[
+                  styles.label({ disabled }),
+                  isSort ? css({ lineHeight: '1.3', letterSpacing: '-0.02em' }) : '',
+                ]
                   .filter(Boolean)
                   .join(' ')}
               >
@@ -352,12 +354,19 @@ export function Dropdown({
             </Flex>
             <BaseSelect.Icon
               className={
-                isSort ? css({ '[data-popup-open] &': { transform: 'rotate(180deg)' } }) : undefined
+                isSort
+                  ? css({
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexShrink: 0,
+                      '[data-popup-open] &': { transform: 'rotate(180deg)' },
+                    })
+                  : undefined
               }
             >
               {indicator ?? (
                 <Icon
-                  name="sort-down-solid"
+                  name={isSort ? 'chevron-down-regular' : 'sort-down-solid'}
                   color={disabled ? 'var(--color-black-40)' : indicatorColor}
                   className={styles.indicator}
                   style={{ width: indicatorWidth, height: indicatorHeight }}
@@ -419,10 +428,8 @@ export function Dropdown({
                     <Flex alignItems="center" gap="2">
                       {isSort ? (
                         <Icon
-                          src={
-                            option.value === value
-                              ? '/images/icon/form/radio-checked.svg'
-                              : '/images/icon/form/radio-unchecked.svg'
+                          name={
+                            option.value === value ? 'hoka-radio-checked' : 'hoka-radio-unchecked'
                           }
                           size="16px"
                         />
