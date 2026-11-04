@@ -64,7 +64,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
             aria-label={`${file.name} 삭제`}
             onClick={() => onRemove(index)}
           >
-            <Icon name="xmark-solid" size="16px" />
+            <Icon name="hoka-action-xmark-regular" size="16px" />
           </Button>
         </HStack>
       ))}
@@ -347,7 +347,7 @@ export function InquiryOrderProducts({
             size={24}
             onClick={() => onSelectionChange(null)}
           >
-            <Icon name="xmark-solid" size="16px" />
+            <Icon name="hoka-action-xmark-regular" size="16px" />
           </Button>
         </HStack>
         <Stack gap="4">

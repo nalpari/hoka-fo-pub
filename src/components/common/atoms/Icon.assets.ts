@@ -28,10 +28,6 @@ export const iconAssets = {
     src: '/images/icon/ruler-horizontal-regular.svg',
     mode: 'mask',
   },
-  'xmark-regular': {
-    src: '/images/icon/xmark-regular.svg',
-    mode: 'mask',
-  },
   'all-terrain': {
     src: '/images/icon/all-terrain.svg',
     mode: 'image',
@@ -432,10 +428,6 @@ export const iconAssets = {
     src: '/images/icon/magnifying-glass-solid.svg',
     mode: 'mask',
   },
-  'plus-solid': {
-    src: '/images/icon/plus-solid.svg',
-    mode: 'mask',
-  },
   'screwdriver-wrench-solid': {
     src: '/images/icon/screwdriver-wrench-solid.svg',
     mode: 'mask',
@@ -462,10 +454,6 @@ export const iconAssets = {
   },
   'user-solid': {
     src: '/images/icon/user-solid.svg',
-    mode: 'mask',
-  },
-  'xmark-solid': {
-    src: '/images/icon/xmark-solid.svg',
     mode: 'mask',
   },
   'timer-regular': {
@@ -496,8 +484,8 @@ export const iconAssets = {
     src: '/images/icon/heart-solid.svg',
     mode: 'mask',
   },
-  'hoka-action-minus': {
-    src: '/images/icon/hoka-action-minus.svg',
+  'hoka-action-minus-regular': {
+    src: '/images/icon/hoka-action-minus-regular.svg',
     mode: 'mask',
   },
   'hoka-action-plus-regular': {
@@ -524,20 +512,20 @@ export const iconAssets = {
     src: '/images/icon/hoka-echo-right-state-hover.svg',
     mode: 'image',
   },
-  'hoka-nav-chevron-down': {
-    src: '/images/icon/hoka-nav-chevron-down.svg',
+  'hoka-nav-chevron-down-regular': {
+    src: '/images/icon/hoka-nav-chevron-down-regular.svg',
     mode: 'mask',
   },
-  'hoka-nav-chevron-left': {
-    src: '/images/icon/hoka-nav-chevron-left.svg',
+  'hoka-nav-chevron-left-regular': {
+    src: '/images/icon/hoka-nav-chevron-left-regular.svg',
     mode: 'mask',
   },
-  'hoka-nav-chevron-right': {
-    src: '/images/icon/hoka-nav-chevron-right.svg',
+  'hoka-nav-chevron-right-regular': {
+    src: '/images/icon/hoka-nav-chevron-right-regular.svg',
     mode: 'mask',
   },
-  'hoka-nav-chevron-up': {
-    src: '/images/icon/hoka-nav-chevron-up.svg',
+  'hoka-nav-chevron-up-regular': {
+    src: '/images/icon/hoka-nav-chevron-up-regular.svg',
     mode: 'mask',
   },
   'hoka-action-angle-left': {
@@ -548,43 +536,27 @@ export const iconAssets = {
     src: '/images/icon/hoka-action-angle-right.svg',
     mode: 'mask',
   },
-  'hoka-nav-chevron-right-circle': {
-    src: '/images/icon/hoka-nav-chevron-right-circle.svg',
+  'hoka-nav-chevron-right-regular-circle': {
+    src: '/images/icon/hoka-nav-chevron-right-regular-circle.svg',
+    foreground: '/images/icon/hoka-nav-chevron-right-regular.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-left-circle': {
-    src: '/images/icon/hoka-nav-chevron-left-circle.svg',
+  'hoka-nav-chevron-left-regular-circle': {
+    src: '/images/icon/hoka-nav-chevron-left-regular-circle.svg',
+    foreground: '/images/icon/hoka-nav-chevron-left-regular.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-up-circle': {
-    src: '/images/icon/hoka-nav-chevron-up-circle.svg',
+  'hoka-nav-chevron-up-regular-circle': {
+    src: '/images/icon/hoka-nav-chevron-up-regular-circle.svg',
+    foreground: '/images/icon/hoka-nav-chevron-up-regular.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-down-circle': {
-    src: '/images/icon/hoka-nav-chevron-down-circle.svg',
-    mode: 'image',
-    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
-  },
-  'hoka-nav-chevron-right-muted-circle': {
-    src: '/images/icon/hoka-nav-chevron-right-muted-circle.svg',
-    mode: 'image',
-    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
-  },
-  'hoka-nav-chevron-left-muted-circle': {
-    src: '/images/icon/hoka-nav-chevron-left-muted-circle.svg',
-    mode: 'image',
-    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
-  },
-  'hoka-nav-chevron-up-muted-circle': {
-    src: '/images/icon/hoka-nav-chevron-up-muted-circle.svg',
-    mode: 'image',
-    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
-  },
-  'hoka-nav-chevron-down-muted-circle': {
-    src: '/images/icon/hoka-nav-chevron-down-muted-circle.svg',
+  'hoka-nav-chevron-down-regular-circle': {
+    src: '/images/icon/hoka-nav-chevron-down-regular-circle.svg',
+    foreground: '/images/icon/hoka-nav-chevron-down-regular.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
@@ -592,8 +564,8 @@ export const iconAssets = {
     src: '/images/icon/hoka-action-plus-regular-circle.svg',
     mode: 'image',
   },
-  'hoka-action-minus-circle': {
-    src: '/images/icon/hoka-action-minus-circle.svg',
+  'hoka-action-minus-regular-circle': {
+    src: '/images/icon/hoka-action-minus-regular-circle.svg',
     mode: 'image',
   },
   'hoka-action-xmark-regular-circle': {
