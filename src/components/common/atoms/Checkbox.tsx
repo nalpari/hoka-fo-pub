@@ -58,10 +58,10 @@ const iconStyle = css.raw({ display: 'block', w: '100%', h: '100%' });
 
 function getCheckboxIconName(checked: boolean, disabled: boolean) {
   if (disabled) {
-    return checked ? 'checkbox-disabled-checked' : 'checkbox-disabled';
+    return checked ? 'hoka-checkbox-disabled-checked' : 'hoka-checkbox-disabled';
   }
 
-  return checked ? 'checkbox-checked' : 'checkbox-unchecked';
+  return checked ? 'hoka-checkbox-checked' : 'hoka-checkbox-unchecked';
 }
 
 function renderCheckboxControl(

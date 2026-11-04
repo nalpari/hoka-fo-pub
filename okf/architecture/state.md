@@ -725,3 +725,6 @@ Icon 호출부와 가이드 복사 코드의 HEX 색상을 동일 값의 Panda �
 ## Icon 속성 표기 순서 (2026-11-04)
 
 Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 적고 나머지 속성을 뒤에 둔다. 생략된 기본값은 추가하지 않으며 spread 경계의 덮어쓰기 순서는 보존한다. 표시 값·동작은 변경하지 않는다. 출처: src의 Icon 사용처 및 src/app/publishing-guide/_components/IconGuide.tsx.
+
+
+ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SVG를 사용한다. 알림 건수는 기존 파란 배지로 표시하며 건수의 소유권과 갱신 방식은 동일하다. 출처: src/context/ShopShell.tsx.

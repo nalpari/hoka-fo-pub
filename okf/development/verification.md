@@ -631,3 +631,6 @@ ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. �
 ## Font Awesome 공식 이름 적용 (2026-11-04)
 
 별점 반 개의 공식 이름 star-half-stroke로 테스트 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남으며 src 진단은 없다.
+
+
+디자인팀 아이콘의 hoka- 이름에 맞춘 별점 회귀 검사 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 출처: tests/form-controls.test.mjs.

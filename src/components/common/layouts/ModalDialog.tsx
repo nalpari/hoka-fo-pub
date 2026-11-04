@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog } from '@base-ui/react/dialog';
-import { type ComponentProps, type ReactNode } from 'react';
+import { type ComponentProps, type CSSProperties, type ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
@@ -44,7 +44,7 @@ function ModalDialogHeader({
       <Dialog.Close
         render={
           <Button aria-label={closeLabel} variant="icon" size={24}>
-            <Icon name="xmark-solid" size="16px" />
+            <Icon name="hoka-action-xmark" size="16px" />
           </Button>
         }
       />
@@ -81,14 +81,32 @@ const footerWithScrollFade = css.raw({
 function ModalDialogFooter({
   children,
   scrollFade,
+  desktopContentOffset,
   css: styleOverrides,
 }: {
   children: ReactNode;
   scrollFade: boolean;
+  desktopContentOffset?: number;
   css?: SystemStyleObject;
 }) {
   return (
-    <footer className={css(footerStyle, scrollFade && footerWithScrollFade, styleOverrides)}>
+    <footer
+      className={css(
+        footerStyle,
+        scrollFade && footerWithScrollFade,
+        desktopContentOffset !== undefined && {
+          paddingInlineStart: 'calc(24px + var(--modal-footer-content-offset))',
+          paddingInlineEnd: '24px',
+          _mobile: { paddingInlineStart: '16px', paddingInlineEnd: '16px' },
+        },
+        styleOverrides,
+      )}
+      style={
+        desktopContentOffset === undefined
+          ? undefined
+          : ({ '--modal-footer-content-offset': `${desktopContentOffset}px` } as CSSProperties)
+      }
+    >
       {children}
     </footer>
   );
@@ -201,6 +219,7 @@ export type ModalDialogActions =
     }
   | {
       kind: 'confirm';
+      buttonProps?: Pick<ModalActionButtonTextProps, 'size' | 'density' | 'className'>;
       onConfirm: () => void;
       confirmLabel?: string;
       confirmDisabled?: boolean;
@@ -224,7 +243,7 @@ type ModalDialogBaseProps = {
   /** Explicit return target for a directly opened preview without a dialog trigger. */
   finalFocus?: ComponentProps<typeof Dialog.Popup>['finalFocus'];
   headerProps?: Pick<ComponentProps<typeof ModalDialogHeader>, 'css'>;
-  footerProps?: Pick<ComponentProps<typeof ModalDialogFooter>, 'css'>;
+  footerProps?: Pick<ComponentProps<typeof ModalDialogFooter>, 'css' | 'desktopContentOffset'>;
   /** Fade the scrollable content into the fixed footer. */
   scrollFade?: boolean;
   title: ReactNode;
@@ -259,7 +278,8 @@ function ModalDialogActionButtons({
     <>
       <Button
         fullWidth
-        size="short"
+        {...actions.buttonProps}
+        size={actions.buttonProps?.size ?? 'short'}
         variant="secondary"
         onClick={actions.onCancel ?? (() => onOpenChange(false))}
       >
@@ -267,7 +287,8 @@ function ModalDialogActionButtons({
       </Button>
       <Button
         fullWidth
-        size="short"
+        {...actions.buttonProps}
+        size={actions.buttonProps?.size ?? 'short'}
         variant="primary"
         disabled={actions.confirmDisabled ?? false}
         onClick={actions.onConfirm}
@@ -282,7 +303,7 @@ function ModalDialogActionButtons({
       {buttons}
     </Stack>
   ) : (actions.fullWidth ?? true) ? (
-    <HStack w="100%" gap="2">
+    <HStack w="100%" gap="2" justifyContent="center">
       {buttons}
     </HStack>
   ) : (

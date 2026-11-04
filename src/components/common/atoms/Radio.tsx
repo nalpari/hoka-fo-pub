@@ -33,10 +33,10 @@ const indicator = css({ display: 'block', flexShrink: 0, w: '4', h: '4' });
 const icon = css({ display: 'block', w: '100%', h: '100%' });
 
 const radioAssetByState = {
-  checked: 'radio-checked',
-  disabled: 'radio-disabled',
-  disabledChecked: 'radio-disabled-checked',
-  unchecked: 'radio-unchecked',
+  checked: 'hoka-radio-checked',
+  disabled: 'hoka-radio-disabled',
+  disabledChecked: 'hoka-radio-disabled-checked',
+  unchecked: 'hoka-radio-unchecked',
 } as const;
 
 export type RadioOption<T extends string = string> = {

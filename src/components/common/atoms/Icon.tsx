@@ -113,7 +113,12 @@ export function Icon({
       aria-hidden={hidden}
       role={role}
       className={classes}
-      style={{ width: size, height: size, ...style }}
+      style={{
+        width: size,
+        height: size,
+        filter: 'filter' in asset ? asset.filter : undefined,
+        ...style,
+      }}
     />
   );
 }
