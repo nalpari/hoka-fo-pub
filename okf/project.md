@@ -4,6 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
+updated: '2026-11-04T02:14:31Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -89,6 +90,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## IA 러닝세션 비고 문구 정리 (2026-11-04)
+
+사용자가 선택한 내부 IA 258 러닝세션 목록의 `신규 러닝세션 모집 목록` 비고만 삭제했다. 화면·계층·기본/상태 URL과 담당자 연결은 유지한다. 출처: src/data/screenRegistry.ts 작업 트리와 사용자 브라우저 댓글. 기록: codex/gpt-6, 2026-11-04T02:14:31Z.
 
 ## 고객센터 공용 운영정보 (2026-11-02)
 
