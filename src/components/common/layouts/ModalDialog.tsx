@@ -12,8 +12,6 @@ import { Button, type ButtonTextProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faXmark } from '@/icons/fontAwesome';
-
 const header = css.raw({
   display: 'flex',
   alignItems: 'center',
@@ -46,7 +44,7 @@ function ModalDialogHeader({
       <Dialog.Close
         render={
           <Button aria-label={closeLabel} variant="icon" size={24}>
-            <Icon fontAwesomeIcon={faXmark} size="16px" />
+            <Icon name="xmark-solid" size="16px" />
           </Button>
         }
       />

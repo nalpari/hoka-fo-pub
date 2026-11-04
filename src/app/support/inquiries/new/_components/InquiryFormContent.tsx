@@ -1,5 +1,5 @@
 'use client';
-import { faXmark as ImportedFaXmark } from '@fortawesome/free-solid-svg-icons';
+
 import { type ChangeEvent, useRef } from 'react';
 
 import { css } from 'styled-system/css';
@@ -19,7 +19,7 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
-import { faXmark } from '@/icons/fontAwesome';
+
 export const inquiryAlertPresentation = {
   size: 'md' as const,
   headerProps: {
@@ -64,7 +64,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
             aria-label={`${file.name} 삭제`}
             onClick={() => onRemove(index)}
           >
-            <Icon fontAwesomeIcon={faXmark} size="16px" />
+            <Icon name="xmark-solid" size="16px" />
           </Button>
         </HStack>
       ))}
@@ -337,7 +337,7 @@ export function InquiryOrderProducts({
             size={24}
             onClick={() => onSelectionChange(null)}
           >
-            <Icon fontAwesomeIcon={ImportedFaXmark} size="16px" />
+            <Icon name="xmark-solid" size="16px" />
           </Button>
         </HStack>
         <Stack gap="4">

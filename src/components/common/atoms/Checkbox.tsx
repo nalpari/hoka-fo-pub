@@ -9,6 +9,7 @@ import { css, cva } from 'styled-system/css';
 import { Flex, Stack } from 'styled-system/jsx';
 
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 const group = cva({
@@ -55,16 +56,12 @@ const consentCheckbox = css({
 
 const iconStyle = css.raw({ display: 'block', w: '100%', h: '100%' });
 
-function getCheckboxIconSource(checked: boolean, disabled: boolean) {
+function getCheckboxIconName(checked: boolean, disabled: boolean) {
   if (disabled) {
-    return checked
-      ? '/images/icon/form/checkbox-disabled-checked.svg'
-      : '/images/icon/form/checkbox-disabled.svg';
+    return checked ? 'checkbox-disabled-checked' : 'checkbox-disabled';
   }
 
-  return checked
-    ? '/images/icon/form/checkbox-checked.svg'
-    : '/images/icon/form/checkbox-unchecked.svg';
+  return checked ? 'checkbox-checked' : 'checkbox-unchecked';
 }
 
 function renderCheckboxControl(
@@ -74,14 +71,15 @@ function renderCheckboxControl(
 ) {
   return (
     <span {...props}>
-      <img
+      <Icon
+        name={getCheckboxIconName(checked || indeterminate, disabled)}
+        size="100%"
         alt=""
         aria-hidden="true"
         className={css(
           iconStyle,
           variant === 'filter' && !checked && !indeterminate && !disabled && { opacity: '0.53' },
         )}
-        src={getCheckboxIconSource(checked || indeterminate, disabled)}
       />
     </span>
   );

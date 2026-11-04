@@ -9,7 +9,6 @@ import { css } from 'styled-system/css';
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
 
-import { faStarRegular, faStarSolid } from '@/icons/fontAwesome';
 import type {
   RatingStarsSelectionProps as ImportedRatingStarsSelectionProps,
   RatingValue as ImportedRatingValue,
@@ -78,9 +77,9 @@ function RatingStarsControl({
           render={<button type="button" />}
         >
           <Icon
-            aria-hidden="true"
-            fontAwesomeIcon={rating <= value ? faStarSolid : faStarRegular}
+            name={rating <= value ? 'star-solid' : 'star-regular'}
             size={size}
+            aria-hidden="true"
           />
         </Radio.Root>
       ))}
@@ -130,7 +129,7 @@ function toRatingValue(value: number): RatingStarsValue {
 }
 
 function HalfRatingStar({ size }: Pick<RatingStarsProps, 'size'>) {
-  return <Icon aria-hidden="true" name="rating/rating-star-half" size={size} />;
+  return <Icon name="star-half-stroke" size={size} aria-hidden="true" />;
 }
 
 /** 별점 표시와 선택 모드를 제공합니다 (Five-star rating display using Font Awesome stars and the Figma half-star SVG). */
@@ -183,9 +182,9 @@ export function RatingStars({
           return <HalfRatingStar key={index} size={resolvedSize} />;
         }
 
-        const icon = index < filledStars ? faStarSolid : faStarRegular;
+        const icon = index < filledStars ? 'star-solid' : 'star-regular';
 
-        return <Icon aria-hidden="true" fontAwesomeIcon={icon} key={index} size={resolvedSize} />;
+        return <Icon name={icon} size={resolvedSize} aria-hidden="true" key={index} />;
       })}
     </span>
   );

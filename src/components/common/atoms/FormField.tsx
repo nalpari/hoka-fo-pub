@@ -15,8 +15,6 @@ import { HStack, Stack } from 'styled-system/jsx';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faCircleInfo } from '@/icons/fontAwesome';
-
 const root = css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' });
 
 const boxedField = cva({
@@ -148,7 +146,7 @@ function FormFieldRoot({
                 {info ? (
                   <span title={typeof info === 'string' ? info : undefined}>
                     {typeof info === 'string' ? (
-                      <Icon fontAwesomeIcon={faCircleInfo} size="16px" />
+                      <Icon name="circle-info-solid" size="16px" />
                     ) : (
                       info
                     )}

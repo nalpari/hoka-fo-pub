@@ -42,7 +42,7 @@ import { hstack } from 'styled-system/patterns';
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
-import { Icon } from '@/components/common/atoms/Icon';
+import { Icon, type IconAssetName } from '@/components/common/atoms/Icon';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -64,15 +64,7 @@ import { type HeaderPromotionItem, headerPromotionItems } from '@/data/headerPro
 import { type MegaMenu, type MegaMenuPromo, megaMenus } from '@/data/megaMenu';
 import { autocompleteSearches, popularSearches, suggestedSearches } from '@/data/searchOverlayData';
 import { supportContactHours, supportContacts } from '@/data/supportContacts';
-import {
-  faBox,
-  faChevronRight,
-  faComments,
-  faLocationDot,
-  faUser,
-  faUserSolid,
-  faXmark,
-} from '@/icons/fontAwesome';
+
 const styles = {
   viewport: css({ position: 'fixed', inset: 0, zIndex: 100 }),
   backdrop: css({ position: 'fixed', inset: 0, zIndex: 100, bg: 'transparent' }),
@@ -162,12 +154,12 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
     >
       {isLoggedIn ? (
         <Link className={MenuDrawerHeaderStyles.auth} href="/mypage" onClick={close}>
-          <Icon fontAwesomeIcon={faUser} size="18px" aria-hidden="true" />
+          <Icon name="user-regular" size="18px" aria-hidden="true" />
           <Typography variant="body3">마이페이지</Typography>
         </Link>
       ) : (
         <HStack gap="3">
-          <Icon fontAwesomeIcon={faUser} size="18px" aria-hidden="true" />
+          <Icon name="user-regular" size="18px" aria-hidden="true" />
           <HeaderAuthLink onNavigate={close} />
         </HStack>
       )}
@@ -179,7 +171,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
         aria-label="메뉴 닫기"
         onClick={close}
       >
-        <Icon fontAwesomeIcon={faXmark} size="18px" aria-hidden="true" />
+        <Icon name="xmark-solid" size="18px" aria-hidden="true" />
       </Button>
     </HStack>
   );
@@ -365,7 +357,7 @@ function MenuDrawerShoppingLinks({
                 {item.label}
               </Typography>
               {item.type === 'category' || item.showChevron ? (
-                <Icon fontAwesomeIcon={faChevronRight} size="14px" aria-hidden="true" />
+                <Icon name="chevron-right-solid" size="14px" aria-hidden="true" />
               ) : null}
             </>
           );
@@ -528,9 +520,9 @@ function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButton
     >
       <Flex alignItems="center" justifyContent="flex-start" gap="4px">
         <Icon
-          className={MenuDrawerBackButtonStyles.backIcon}
-          fontAwesomeIcon={faChevronRight}
+          name="chevron-right-solid"
           size="24px"
+          className={MenuDrawerBackButtonStyles.backIcon}
           aria-hidden="true"
         />
         <Typography variant="heading5">{label}</Typography>
@@ -576,11 +568,11 @@ function MenuDrawerNavigation({
   );
 }
 const utilityItems = [
-  { label: '마이페이지', to: '/mypage', icon: faUserSolid },
+  { label: '마이페이지', to: '/mypage', icon: 'user-solid' },
   { label: 'HOKA 멤버십', to: '/support/member-benefits', icon: null },
-  { label: '주문/배송 조회', to: '/mypage/orders', icon: faBox },
-  { label: '매장 찾기', to: '/support/store', icon: faLocationDot },
-  { label: '고객센터', to: '/support', icon: faComments },
+  { label: '주문/배송 조회', to: '/mypage/orders', icon: 'box-solid' },
+  { label: '매장 찾기', to: '/support/store', icon: 'location-dot-solid' },
+  { label: '고객센터', to: '/support', icon: 'comments-solid' },
 ] as const;
 function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
   return (
@@ -618,9 +610,9 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
                 justifyContent="flex-start"
               >
                 {item.icon ? (
-                  <Icon fontAwesomeIcon={item.icon} size="16px" aria-hidden="true" />
+                  <Icon name={item.icon} size="16px" aria-hidden="true" />
                 ) : (
-                  <Icon name="navigation/membership" size="16px" alt="" />
+                  <Icon name="circle-star-solid" size="16px" color="black.10" alt="" />
                 )}
               </Flex>
               <Typography variant="body4" weight="semibold">
@@ -725,10 +717,16 @@ const socialIcon = css({
 });
 type SocialIconLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   label: string;
-  file: string;
+  file: 'instagram.svg' | 'youtube.svg' | 'x.svg';
   href?: string;
 };
 /** 소셜 채널 링크를 아이콘으로 표시합니다 (Displays the social icon link composition). */
+const socialIconNames = {
+  'instagram.svg': 'instagram',
+  'youtube.svg': 'youtube',
+  'x.svg': 'x',
+} as const;
+
 function SocialIconLink({ label, file, href = '#', className, ...props }: SocialIconLinkProps) {
   return (
     <Square
@@ -740,13 +738,7 @@ function SocialIconLink({ label, file, href = '#', className, ...props }: Social
       aria-label={label}
       title={label}
     >
-      <Image
-        src={`/images/icon/social/${file}`}
-        alt={label}
-        className={socialIcon}
-        width={24}
-        height={24}
-      />
+      <Icon name={socialIconNames[file]} size={24} alt={label} className={socialIcon} />
     </Square>
   );
 }
@@ -810,9 +802,11 @@ function FooterLocaleSelectors() {
         <Typography variant="body5" tone="inverse">
           Visit our international sites
         </Typography>
-        <Image
+        <Icon
+          name="chevron-right"
+          size={16}
+          color="black.10"
           className={FooterLocaleSelectorsStyles.arrow}
-          src="/images/icon/chevron-right.svg"
           alt=""
           width={16}
           height={16}
@@ -1252,7 +1246,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         onValueChange={onQueryChange}
         onSearch={onSearch}
         iconPlacement="start"
-        icon={<Icon src="/images/header/search.svg" size="16px" mask />}
+        icon={<Icon name="magnifying-glass-regular" size="16px" />}
         rootStyles={css.raw({
           borderColor: error ? 'red.100' : 'black.100',
           display: mobile ? 'flex' : 'none',
@@ -1307,7 +1301,7 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
   return (
     <HStack as="li" gap="2" _mobile={{ justifyContent: 'space-between' }}>
       <HStack gap="2">
-        <Icon name="timer" size="18px" />
+        <Icon name="timer-regular" size="18px" />
         <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
       </HStack>
       <Button
@@ -1317,7 +1311,7 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
         size="18px"
         shape="square"
       >
-        <Icon fontAwesomeIcon={faXmark} size="14px" />
+        <Icon name="xmark-solid" size="14px" />
       </Button>
     </HStack>
   );
@@ -1649,7 +1643,6 @@ const promotionControls = css({
   },
   '& button:first-child': { gridColumn: '1' },
   '& button:last-child': { gridColumn: '3' },
-  '& svg': { w: '24px', h: '24px' },
 });
 const promotionSlide = css({
   w: '100%',
@@ -1746,7 +1739,7 @@ function PromotionCarouselFrame({
           />
         ))}
       </CarouselViewport>
-      <CarouselControls className={promotionControls} />
+      <CarouselControls className={promotionControls} iconSize={24} />
     </Grid>
   );
 }
@@ -1978,8 +1971,8 @@ const iconLink = css({
   _mobile: { w: '8', h: '8' },
 });
 type HeaderIconProps = {
-  desktopSrc: string;
-  mobileSrc?: string;
+  desktopSrc: IconAssetName;
+  mobileSrc?: IconAssetName;
   alt?: string;
 };
 type HeaderIconLinkProps = {
@@ -2001,9 +1994,9 @@ function HeaderIcon({ desktopSrc, mobileSrc = desktopSrc, alt = '' }: HeaderIcon
   const platform = usePlatform();
   return (
     <Icon
-      src={platform === 'mobile' ? mobileSrc : desktopSrc}
-      alt={alt}
+      name={platform === 'mobile' ? mobileSrc : desktopSrc}
       size={platform === 'mobile' ? '20px' : '22px'}
+      alt={alt}
     />
   );
 }
@@ -2070,23 +2063,9 @@ const notificationIcon = css({
   height: 'var(--notification-icon-size)',
   color: 'icon.default',
 });
-const notificationGlyph = css({
-  display: 'block',
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'currentColor',
-  maskImage: 'var(--notification-icon-mask)',
-  maskPosition: 'center',
-  maskRepeat: 'no-repeat',
-  maskSize: 'contain',
-  WebkitMaskImage: 'var(--notification-icon-mask)',
-  WebkitMaskPosition: 'center',
-  WebkitMaskRepeat: 'no-repeat',
-  WebkitMaskSize: 'contain',
-});
 const notificationAssetByVariant = {
-  bag: 'notification-bag.svg',
-  basket: 'notification-basket.svg',
+  bag: 'bag-shopping-regular',
+  basket: 'basket-shopping-regular',
 } as const;
 type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
@@ -2110,7 +2089,6 @@ function NotificationIcon({
   ...props
 }: NotificationIconProps) {
   const hasNotification = Number.isFinite(count) && (count ?? 0) > 0;
-  const asset = variant === 'user' ? undefined : notificationAssetByVariant[variant];
   return (
     <span
       {...props}
@@ -2121,16 +2099,15 @@ function NotificationIcon({
       style={
         {
           '--notification-icon-size': size,
-          '--notification-icon-mask': asset ? `url(/images/icon/notification/${asset})` : undefined,
           color: color ?? (hasNotification ? 'var(--color-blue-100)' : undefined),
           ...style,
         } as CSSProperties
       }
     >
       {variant === 'user' ? (
-        <Icon aria-hidden="true" fontAwesomeIcon={faUser} size={size} />
+        <Icon name="user-regular" size={size} aria-hidden="true" />
       ) : (
-        <span aria-hidden="true" className={notificationGlyph} />
+        <Icon name={notificationAssetByVariant[variant]} size={size} aria-hidden="true" />
       )}
       <NotificationCount count={count} max={maxCount} />
     </span>
@@ -2277,14 +2254,14 @@ function HeaderSearch({
           form="site-search-form"
           onClick={onSearch}
         >
-          <Icon src="/images/header/search.svg" size="16px" mask />
+          <Icon name="magnifying-glass-regular" size="16px" />
         </Button>
       </HStack>
     );
   }
   return (
     <Button variant="icon" size="32px" onClick={onSearch} aria-label="검색">
-      <Icon src="/images/header/search.svg" size="19px" mask />
+      <Icon name="magnifying-glass-regular" size="19px" />
     </Button>
   );
 }
@@ -2522,7 +2499,7 @@ function HeaderMenuButton({ onClick }: HeaderMenuButtonProps) {
       onClick={onClick}
       aria-label="전체 메뉴"
     >
-      <Icon src="/images/header/m-menu.svg" size="20px" alt="" />
+      <Icon name="bars-regular" size="20px" alt="" />
     </Button>
   );
 }

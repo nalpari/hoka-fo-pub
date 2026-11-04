@@ -72,11 +72,10 @@ export function Wishlist({
       type="button"
     >
       <Icon
+        name={active ? 'heart-solid' : 'heart-regular'}
+        size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
         alt=""
         className={wishlist}
-        src={active ? '/images/icon/wishlist-solid.svg' : '/images/icon/wishlist-regular.svg'}
-        mask
-        size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
       />
       {label ? (
         <Typography as="span" variant="body5">

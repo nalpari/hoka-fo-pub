@@ -2,24 +2,12 @@
 
 import Link from 'next/link';
 
-import { config } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBan,
-  faChevronDown,
-  faChevronRight,
-  faDesktop,
-  faFileLines,
-  faFolder,
-  faFolderOpen,
-  faFolderTree,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import { Fragment, useMemo, useState } from 'react';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
+import { Icon } from '@/components/common/atoms/Icon';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -37,8 +25,6 @@ import {
   type ScreenProgressOverrides,
 } from '@/app/screen-index/screenProgress';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
-
-config.autoAddCss = false;
 
 type ScreenGroup = {
   depth1: string;
@@ -682,7 +668,7 @@ export function IaStructurePage({
           >
             <div className={styles.cardHeading}>
               <Typography as="h2">
-                <FontAwesomeIcon icon={faFolderTree} aria-hidden="true" />
+                <Icon name="folder-tree-solid" size="1em" aria-hidden="true" />
                 화면 체계 NAV 탭 분류 ({navGroups.length}개 영역)
               </Typography>
             </div>
@@ -738,8 +724,9 @@ export function IaStructurePage({
                 setCollapsedPaths(new Set());
               }}
             >
-              <FontAwesomeIcon
-                icon={isExpanded ? faChevronDown : faChevronRight}
+              <Icon
+                name={isExpanded ? 'chevron-down-regular' : 'chevron-right-solid'}
+                size="1em"
                 aria-hidden="true"
               />{' '}
               전체 {isExpanded ? '접기' : '펼치기'}
@@ -845,14 +832,18 @@ export function IaStructurePage({
                           aria-expanded={productSectionOpen}
                           onClick={() => togglePath('상품 공통 화면')}
                         >
-                          <FontAwesomeIcon
-                            icon={productSectionOpen ? faChevronDown : faChevronRight}
+                          <Icon
+                            name={
+                              productSectionOpen ? 'chevron-down-regular' : 'chevron-right-solid'
+                            }
+                            size="1em"
                             aria-hidden="true"
                           />
                         </button>
                         <span className={styles.depthMarker}>D1</span>
-                        <FontAwesomeIcon
-                          icon={faFolderOpen}
+                        <Icon
+                          name="folder-open-solid"
+                          size="1em"
                           className={styles.hierarchyIcon}
                           aria-hidden="true"
                         />
@@ -963,8 +954,9 @@ function GroupRows({
               aria-label={group.depth1 + (groupOpen ? ' 접기' : ' 펼치기')}
               onClick={() => onToggle(groupPath)}
             >
-              <FontAwesomeIcon
-                icon={groupOpen ? faChevronDown : faChevronRight}
+              <Icon
+                name={groupOpen ? 'chevron-down-regular' : 'chevron-right-solid'}
+                size="1em"
                 aria-hidden="true"
               />
             </button>
@@ -972,7 +964,7 @@ function GroupRows({
               D1
             </Typography>
             <span className={styles.hierarchyIcon}>
-              <FontAwesomeIcon icon={faFolderOpen} aria-hidden="true" />
+              <Icon name="folder-open-solid" size="1em" aria-hidden="true" />
             </span>
             <strong className={css({ color: '#2a14b4', fontSize: '14' /* 기존 13px */ })}>
               {group.depth1}
@@ -1032,8 +1024,13 @@ function GroupRows({
                         aria-expanded={!collapsedPaths.has(row.path)}
                         onClick={() => onToggle(row.path)}
                       >
-                        <FontAwesomeIcon
-                          icon={collapsedPaths.has(row.path) ? faChevronRight : faChevronDown}
+                        <Icon
+                          name={
+                            collapsedPaths.has(row.path)
+                              ? 'chevron-right-solid'
+                              : 'chevron-down-regular'
+                          }
+                          size="1em"
                           aria-hidden="true"
                         />
                       </button>
@@ -1044,8 +1041,11 @@ function GroupRows({
                       D{row.depth + 1}
                     </Typography>
                     <span className={styles.hierarchyIcon}>
-                      <FontAwesomeIcon
-                        icon={deleted ? faBan : row.isBranch ? faFolder : faFileLines}
+                      <Icon
+                        name={
+                          deleted ? 'ban-solid' : row.isBranch ? 'folder-solid' : 'file-lines-solid'
+                        }
+                        size="1em"
                         aria-hidden="true"
                       />
                     </span>
@@ -1220,7 +1220,7 @@ function ScreenPreview({
                   title={route + ' (경로 복사 및 새 창 열기)'}
                   onClick={() => onCopyPath(route)}
                 >
-                  <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
+                  <Icon name="desktop-solid" size="1em" aria-hidden="true" />{' '}
                   {connection.routeLabel ?? '페이지'}
                 </Link>
               )}

@@ -61,7 +61,6 @@
       "src/components/common/atoms/Wishlist.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts",
       "src/mocks/cartDisplay.ts"
     ],
     "src/app/cart/_components/CartSupportInfo.tsx": [
@@ -206,6 +205,7 @@
     ],
     "src/app/layout.tsx": ["src/context/ShopShell.tsx"],
     "src/app/locales/_components/LocalesContent.tsx": [
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/locales/locales.data.ts": [],
@@ -378,8 +378,7 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/mypage/MyPageFrame.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/mypage/MyPageFrame.tsx"
     ],
     "src/app/mypage/coupons/page.tsx": ["src/app/mypage/coupons/_components/CouponManagement.tsx"],
     "src/app/mypage/coupons/preview-complete/page.tsx": [
@@ -410,8 +409,7 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/mypage/MyPageFrame.tsx",
-      "src/components/running-session/runningSession.data.ts",
-      "src/icons/fontAwesome.ts"
+      "src/components/running-session/runningSession.data.ts"
     ],
     "src/app/mypage/event-entries/eventEntries.data.ts": [
       "src/components/running-session/runningSession.data.ts"
@@ -478,6 +476,7 @@
     "src/app/mypage/orders/_components/OrdersStatus.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/TextInput.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/context/platform.tsx"
@@ -678,7 +677,6 @@
       "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
       "src/components/common/organisms/SystemStatusPage.tsx",
       "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts",
       "src/mocks/products.ts"
     ],
     "src/app/products/[id]/_components/ProductDetailViewerContent.tsx": [
@@ -719,8 +717,7 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/ColorGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -728,8 +725,7 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/FormGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -741,8 +737,7 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/FormFields/TextFormField.tsx"
     ],
     "src/app/publishing-guide/_components/GuideCode.tsx": [],
     "src/app/publishing-guide/_components/GuideCopyToast.tsx": [
@@ -758,8 +753,7 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/HelpTips.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/HelpTips.tsx"
     ],
     "src/app/publishing-guide/_components/IconGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -767,8 +761,7 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
@@ -784,7 +777,6 @@
       "src/components/common/molecules/ProductOptionList.tsx",
       "src/components/orders/OrderHistoryProduct.tsx",
       "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts",
       "src/mocks/products.ts"
     ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
@@ -793,8 +785,7 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
@@ -1000,8 +991,7 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/SearchField.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/context/platform.tsx"
     ],
     "src/app/support/faq/faq.data.ts": [],
     "src/app/support/faq/page.tsx": ["src/app/support/faq/_components/FaqContent.tsx"],
@@ -1048,8 +1038,7 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/FormActionGroup.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
-      "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/FormFields/TextFormField.tsx"
     ],
     "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx": [
       "src/app/support/support.navigation.ts",
@@ -1263,8 +1252,7 @@
     ],
     "src/components/common/atoms/Accordion.tsx": [
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/components/common/atoms/Badge.tsx": [
       "src/components/common/atoms/Divider.tsx",
@@ -1277,6 +1265,7 @@
     "src/components/common/atoms/Card.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/Checkbox.tsx": [
       "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/components/common/atoms/DataTable.tsx": ["src/components/common/atoms/Typography.tsx"],
@@ -1287,8 +1276,7 @@
     "src/components/common/atoms/Dropdown.tsx": [
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
     "src/components/common/atoms/EmptyState.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/FilterTabs.tsx": [
@@ -1297,22 +1285,22 @@
     ],
     "src/components/common/atoms/FormField.tsx": [
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Typography.tsx"
     ],
-    "src/components/common/atoms/Icon.tsx": ["src/icons/iconAssets.ts"],
+    "src/components/common/atoms/Icon.assets.ts": [],
+    "src/components/common/atoms/Icon.tsx": ["src/components/common/atoms/Icon.assets.ts"],
     "src/components/common/atoms/NumberStepper.tsx": [
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx"
     ],
     "src/components/common/atoms/Radio.tsx": [
       "src/components/common/atoms/FormField.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/components/common/atoms/RatingStars.tsx": [
       "src/components/common/atoms/FormField.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Icon.tsx"
     ],
     "src/components/common/atoms/SegmentedControl.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1322,8 +1310,7 @@
     "src/components/common/atoms/StatusMessage.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/TextInput.tsx": [
       "src/components/common/atoms/FormField.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Icon.tsx"
     ],
     "src/components/common/atoms/Typography.tsx": ["src/context/platform.tsx"],
     "src/components/common/atoms/Wishlist.tsx": [
@@ -1355,8 +1342,7 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/context/platform.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/context/platform.tsx"
     ],
     "src/components/common/layouts/OrderActionBar.tsx": [],
     "src/components/common/layouts/SidebarNavigationLayout.tsx": [
@@ -1506,13 +1492,11 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/layouts/ContentSection.tsx",
-      "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/molecules/ProductCard/ProductCard.tsx"
     ],
     "src/components/common/organisms/Search/SearchHeader.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
-      "src/icons/fontAwesome.ts"
+      "src/components/common/atoms/Icon.tsx"
     ],
     "src/components/common/organisms/SystemStatusPage.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -1629,7 +1613,6 @@
       "src/data/searchOverlayData.ts",
       "src/data/supportContacts.ts",
       "src/hooks/useRecentSearches.ts",
-      "src/icons/fontAwesome.ts",
       "src/lib/useScrollPin.ts"
     ],
     "src/data/footerData.ts": [],
@@ -1639,8 +1622,6 @@
     "src/data/searchOverlayData.ts": [],
     "src/data/supportContacts.ts": [],
     "src/hooks/useRecentSearches.ts": [],
-    "src/icons/fontAwesome.ts": [],
-    "src/icons/iconAssets.ts": [],
     "src/lib/emailValidation.ts": [],
     "src/lib/passwordValidation.ts": [],
     "src/lib/phoneNumber.ts": [],

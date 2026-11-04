@@ -8,6 +8,7 @@ import { css } from 'styled-system/css';
 import { Box, HStack } from 'styled-system/jsx';
 
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 const group = css.raw({
@@ -32,10 +33,10 @@ const indicator = css({ display: 'block', flexShrink: 0, w: '4', h: '4' });
 const icon = css({ display: 'block', w: '100%', h: '100%' });
 
 const radioAssetByState = {
-  checked: '/images/icon/form/radio-checked.svg',
-  disabled: '/images/icon/form/radio-disabled.svg',
-  disabledChecked: '/images/icon/form/radio-disabled-checked.svg',
-  unchecked: '/images/icon/form/radio-unchecked.svg',
+  checked: 'radio-checked',
+  disabled: 'radio-disabled',
+  disabledChecked: 'radio-disabled-checked',
+  unchecked: 'radio-unchecked',
 } as const;
 
 export type RadioOption<T extends string = string> = {
@@ -128,7 +129,7 @@ export function Radio<T extends string = string>({
           >
             <BaseRadio.Root className={control} disabled={isDisabled} value={item.value}>
               <span className={indicator}>
-                <img alt="" aria-hidden="true" className={icon} src={radioAsset} />
+                <Icon name={radioAsset} size="100%" alt="" aria-hidden="true" className={icon} />
               </span>
             </BaseRadio.Root>
             <Typography variant="body4">{item.label}</Typography>

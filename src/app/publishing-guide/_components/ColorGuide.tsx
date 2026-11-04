@@ -10,8 +10,6 @@ import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faCopy } from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
@@ -156,7 +154,7 @@ function ColorCopyRow({
           _hover: { bg: 'black.20!' },
         })}
       >
-        <Icon fontAwesomeIcon={faCopy} size={16} />
+        <Icon name="copy-regular" size={16} />
       </Button>
     </HStack>
   );

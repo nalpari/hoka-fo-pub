@@ -1,4 +1,3 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
@@ -57,9 +56,7 @@ export function SearchField({
   inputStyles,
   inputProps,
 }: SearchFieldProps) {
-  const searchIcon = icon ?? (
-    <Icon aria-hidden="true" fontAwesomeIcon={faMagnifyingGlass} size="16px" />
-  );
+  const searchIcon = icon ?? <Icon name="magnifying-glass-solid" size="16px" aria-hidden="true" />;
 
   return (
     <Box

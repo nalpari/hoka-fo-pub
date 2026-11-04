@@ -1,5 +1,3 @@
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
-
 import { Box, Grid } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
@@ -59,7 +57,7 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
       _mobile={{ minH: 'calc(100svh - var(--layout-site-header-height))', pt: '24' }}
       header={
         <>
-          <Icon fontAwesomeIcon={faTriangleExclamation} size={48} color="black.100" />
+          <Icon name="triangle-exclamation-solid" size={48} color="black.100" />
           <ContentHeader
             gap="4"
             titleAs="h1"

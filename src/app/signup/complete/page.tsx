@@ -24,7 +24,7 @@ export default function Page() {
           회원가입 완료
         </Typography>
         <Center py="9">
-          <Icon src="/images/icon/join-check.svg" size="48px" />
+          <Icon name="join-check" size="48px" />
         </Center>
         <VStack gap="4">
           <Typography as="p" variant="body2">

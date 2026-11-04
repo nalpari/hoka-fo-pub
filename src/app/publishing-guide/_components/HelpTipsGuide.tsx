@@ -15,8 +15,6 @@ import {
   HelpTooltip,
 } from '@/components/common/molecules/HelpTips';
 
-import { faCopy } from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
@@ -93,7 +91,7 @@ function TipExample({
           type="button"
           onClick={() => onCopy(code)}
         >
-          <Icon fontAwesomeIcon={faCopy} size={16} />
+          <Icon name="copy-regular" size={16} />
         </Button>
       </HStack>
     </Stack>

@@ -645,3 +645,15 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 [주문 상품 행 병합 통합](ui.md#주문-상품-행-병합-통합-2026-11-03)은 원격 주문 화면과 로컬 공용 상품 행 이동의 통합 계약·검증 범위를 기록한다.
 
 [미사용 주문 액션 정리](routing.md#미사용-주문-액션-정리-2026-11-03)는 호출되지 않는 컴포넌트 제거와 기존 주문 카드 액션 유지를 기록한다.
+
+[Font Awesome 교체용 SVG](ui.md#font-awesome-교체용-figma-svg-준비-2026-11-03)는 사용 중인 35종의 Figma 원본 다운로드와 대응표, 아직 교체하지 않은 범위를 기록한다.
+
+[아이콘 가이드 SVG 이름 대응](routing.md#아이콘-가이드-svg-이름-대응-2026-11-04)은 기존 fa 이름·Font Awesome 명칭·파일명 병기와 SVG 복사·다운로드를 안내한다.
+
+[기존 SVG의 Font Awesome 이름 안내](ui.md#기존-svg의-font-awesome-이름-안내-2026-11-04)는 52개 기존 SVG·폼 카드의 명칭·variant 대조와 미확인 항목을 기록한다.
+
+공통 아이콘은 [UI 문서](ui.md)의 이름 기반 SVG 등록 규칙을 따른다. 파일 경로와 Font Awesome 객체를 호출부에서 전달하지 않는다.
+
+아이콘 파일은 public/images/icon 루트에 모으고 name에도 폴더 접두사를 사용하지 않는다.
+
+Font Awesome 아이콘은 공식 이름과 확인된 스타일을 사용한다. 대응표는 public/images/icon/README.md에 기록한다.

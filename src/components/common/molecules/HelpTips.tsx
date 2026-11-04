@@ -95,7 +95,7 @@ const positioner = css({ zIndex: '100' });
 function renderSignifier({ label, icon = 'info' }: SignifierProps) {
   return (
     <Button variant="icon" size={16} aria-label={label} type="button">
-      <Icon src={`/images/icon/tooltip/${icon}.svg`} size={16} />
+      <Icon name={icon === 'info' ? 'circle-info-regular' : 'circle-question-regular'} size={16} />
     </Button>
   );
 }
@@ -105,7 +105,7 @@ function TipArrow({ kind }: { kind: 'tooltip' | 'toggletip' }) {
 
   return (
     <Arrow className={arrow}>
-      <img src="/images/icon/tooltip/arrow.svg" width={17} height={8} alt="" aria-hidden="true" />
+      <Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />
     </Arrow>
   );
 }

@@ -13,8 +13,6 @@ import {
   type TypographyVariant,
 } from '@/components/common/atoms/Typography';
 
-import { faCopy } from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
@@ -258,7 +256,7 @@ export function TypographyGuide() {
                       title="코드 복사"
                       onClick={() => copyVariant(variant, text)}
                     >
-                      <Icon fontAwesomeIcon={faCopy} size={16} />
+                      <Icon name="copy-regular" size={16} />
                     </Button>
                   </HStack>
                 </Stack>

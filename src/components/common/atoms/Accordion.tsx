@@ -8,8 +8,6 @@ import { css } from 'styled-system/css';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faChevronDown } from '@/icons/fontAwesome';
-
 const styles = {
   trigger: css({
     display: 'flex',
@@ -68,7 +66,7 @@ export function Accordion({
   indicatorColor = 'currentColor',
 }: AccordionProps) {
   const defaultIndicator = (
-    <Icon color={indicatorColor} fontAwesomeIcon={faChevronDown} size={indicatorSize} />
+    <Icon name="chevron-down-regular" size={indicatorSize} color={indicatorColor} />
   );
 
   return (

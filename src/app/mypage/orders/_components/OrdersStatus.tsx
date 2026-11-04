@@ -7,6 +7,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Icon } from '@/components/common/atoms/Icon';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -82,10 +83,7 @@ const dateInput = css({
     color: 'transparent',
     '&::-webkit-datetime-edit': { color: 'transparent' },
     bg: 'white.0',
-    backgroundImage: 'url(/images/icon/form/calendar.svg)',
-    backgroundPosition: 'right 12px center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '16px 16px',
+
     '&::-webkit-calendar-picker-indicator': { opacity: '0', cursor: 'pointer' },
   },
   _mobile: {
@@ -95,7 +93,6 @@ const dateInput = css({
       px: '8px',
       borderRadius: 'full',
       fontSize: '14px',
-      backgroundPosition: 'right 8px center',
     },
   },
 });
@@ -133,8 +130,7 @@ function OrdersDateRange({
                       h: '36px',
                       minH: '36px',
                       px: '16px',
-                      backgroundPosition: 'right 16px center',
-                      backgroundSize: '18px 18px',
+
                       borderColor: 'var(--color-border-tertiary)',
                     },
                     _mobile: {
@@ -142,7 +138,6 @@ function OrdersDateRange({
                         h: '36px',
                         minH: '36px',
                         px: '16px',
-                        backgroundPosition: 'right 16px center',
                       },
                     },
                   }),
@@ -151,6 +146,19 @@ function OrdersDateRange({
               aria-label="조회 시작일"
               value={dates.start}
               onChange={(event) => onDateChange('start', event.target.value)}
+            />
+            <Icon
+              name="calendar-regular"
+              size={returns ? 18 : 16}
+              className={css({
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                pointerEvents: 'none',
+                right: '12px',
+                _mobile: { right: '8px' },
+              })}
+              style={{ right: returns ? 16 : undefined }}
             />
             <Typography
               as="span"
@@ -177,8 +185,7 @@ function OrdersDateRange({
                       h: '36px',
                       minH: '36px',
                       px: '16px',
-                      backgroundPosition: 'right 16px center',
-                      backgroundSize: '18px 18px',
+
                       borderColor: 'var(--color-border-tertiary)',
                     },
                     _mobile: {
@@ -186,7 +193,6 @@ function OrdersDateRange({
                         h: '36px',
                         minH: '36px',
                         px: '16px',
-                        backgroundPosition: 'right 16px center',
                       },
                     },
                   }),
@@ -195,6 +201,19 @@ function OrdersDateRange({
               aria-label="조회 종료일"
               value={dates.end}
               onChange={(event) => onDateChange('end', event.target.value)}
+            />
+            <Icon
+              name="calendar-regular"
+              size={returns ? 18 : 16}
+              className={css({
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                pointerEvents: 'none',
+                right: '12px',
+                _mobile: { right: '8px' },
+              })}
+              style={{ right: returns ? 16 : undefined }}
             />
             <Typography
               as="span"

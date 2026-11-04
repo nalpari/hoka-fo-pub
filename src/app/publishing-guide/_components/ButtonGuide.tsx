@@ -9,8 +9,6 @@ import { Button, type ButtonProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faCopy } from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
@@ -155,10 +153,10 @@ const auxiliaryVariants = [
       {
         label: '36px',
         note: '높이 36px · 글자 없음 · 좌우 0px',
-        code: '<Button variant="icon" size={36} aria-label="필터 열기"><Icon name="filter" /></Button>',
+        code: '<Button variant="icon" size={36} aria-label="필터 열기"><Icon name="sliders-regular" /></Button>',
         preview: (
           <Button variant="icon" size={36} aria-label="필터 열기">
-            <Icon name="filter" />
+            <Icon name="sliders-regular" />
           </Button>
         ),
       },
@@ -172,9 +170,9 @@ const auxiliaryVariants = [
       {
         label: 'Compact',
         note: '높이 40px · 글자 14px · 좌우 14px',
-        code: '<Button variant="filterTrigger" icon={<Icon name="filter" />}><Typography variant="body4">필터</Typography></Button>',
+        code: '<Button variant="filterTrigger" icon={<Icon name="sliders-regular" />}><Typography variant="body4">필터</Typography></Button>',
         preview: (
-          <Button variant="filterTrigger" icon={<Icon name="filter" />}>
+          <Button variant="filterTrigger" icon={<Icon name="sliders-regular" />}>
             <Typography variant="body4">필터</Typography>
           </Button>
         ),
@@ -182,9 +180,13 @@ const auxiliaryVariants = [
       {
         label: 'Regular',
         note: '높이 40px · 글자 16px · 좌우 24px',
-        code: '<Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}><Typography variant="cta1">Filter & Sort</Typography></Button>',
+        code: '<Button variant="filterTrigger" size="regular" icon={<Icon name="sliders-regular" size={20} />}><Typography variant="cta1">Filter & Sort</Typography></Button>',
         preview: (
-          <Button variant="filterTrigger" size="regular" icon={<Icon name="filter" size={20} />}>
+          <Button
+            variant="filterTrigger"
+            size="regular"
+            icon={<Icon name="sliders-regular" size={20} />}
+          >
             <Typography variant="cta1">Filter &amp; Sort</Typography>
           </Button>
         ),
@@ -199,11 +201,11 @@ const auxiliaryVariants = [
       {
         label: '고정 크기',
         note: '높이 36px · 글자 16px · 좌우 15px',
-        code: '<Button variant="headerSearch" icon={<Icon src="/images/header/search.svg" size="16px" mask />}>검색어를 입력하세요</Button>',
+        code: '<Button variant="headerSearch" icon={<Icon name="magnifying-glass-regular" size="16px" />}>검색어를 입력하세요</Button>',
         preview: (
           <Button
             variant="headerSearch"
-            icon={<Icon src="/images/header/search.svg" size="16px" mask />}
+            icon={<Icon name="magnifying-glass-regular" size="16px" />}
           >
             검색어를 입력하세요
           </Button>
@@ -406,7 +408,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                               aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 코드 복사`}
                               title="코드 복사"
                             >
-                              <Icon fontAwesomeIcon={faCopy} size={16} />
+                              <Icon name="copy-regular" size={16} />
                             </Button>
                           </HStack>
                         </Stack>
@@ -610,7 +612,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                             aria-label={`${item.title} ${sample.label} ${state.label} 코드 복사`}
                             title="코드 복사"
                           >
-                            <Icon fontAwesomeIcon={faCopy} size={16} />
+                            <Icon name="copy-regular" size={16} />
                           </Button>
                         </HStack>
                       </Stack>

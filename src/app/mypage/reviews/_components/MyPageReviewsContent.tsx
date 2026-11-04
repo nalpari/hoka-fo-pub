@@ -173,7 +173,7 @@ function MyPageReviewSort({ sort, onSortChange }: MyPageReviewSortProps) {
         <option value="oldest">오래된 구매순</option>
       </Select>
       <Icon
-        name="chevron-down-small"
+        name="chevron-down-regular"
         size="14px"
         className={css({ pos: 'absolute', right: '0', top: '3px', pointerEvents: 'none' })}
       />

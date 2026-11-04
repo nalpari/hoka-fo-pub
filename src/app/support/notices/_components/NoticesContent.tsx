@@ -46,7 +46,7 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
                 labelProps: { variant: 'body4' },
                 indicator: (
                   <Center w="5" h="5">
-                    <Icon src="/images/icon/chevron-down-small.svg" size="13px" />
+                    <Icon name="chevron-down-regular" size="13px" />
                   </Center>
                 ),
               }}

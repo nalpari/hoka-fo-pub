@@ -41,7 +41,7 @@ function TermsDateSelect({ name, options, value, onValueChange }: TermsDateSelec
         <Typography variant="body3" language="ko" weight="regular">
           {value.replaceAll('.', '. ')}
         </Typography>
-        <Icon src="/images/icon/chevron-down-small.svg" size="14px" aria-hidden="true" />
+        <Icon name="chevron-down-regular" size="14px" aria-hidden="true" />
       </Popover.Trigger>
       <Popover.Portal>
         <div className={`platform-${platform}`}>

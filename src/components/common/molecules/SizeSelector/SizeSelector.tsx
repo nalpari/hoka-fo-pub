@@ -4,7 +4,6 @@ import { Checkbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup } from '@base-ui/react/checkbox-group';
 import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
 import type { CSSProperties } from 'react';
 
 import { css, cva } from 'styled-system/css';
@@ -148,16 +147,9 @@ export function SizeSelector(props: SizeSelectorProps) {
     const content = (
       <>
         {soldOut && allowSoldOutSelection && (
-          <Icon
-            fontAwesomeIcon={faBell}
-            size="14px"
-            color="currentColor"
-            className={css({ order: 1 })}
-          />
+          <Icon name="bell-regular" size="14px" className={css({ order: 1 })} />
         )}
-        {state === 'lowStock' && (
-          <Icon name="action/fa-clock-nine" size="12px" color="currentColor" />
-        )}
+        {state === 'lowStock' && <Icon name="clock-nine-regular" size="12px" />}
         <Typography variant="body4" style={{ color: 'inherit' }}>
           {value}
         </Typography>

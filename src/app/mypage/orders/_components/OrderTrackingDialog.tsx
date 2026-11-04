@@ -186,7 +186,7 @@ export function OrderTrackingDialog({
                   배송조회
                 </Typography>
                 <Button variant="icon" aria-label="배송조회 닫기" onClick={onClose} size={24}>
-                  <Icon name="close" size={16} />
+                  <Icon name="xmark-regular" size={16} />
                 </Button>
               </HStack>
               <Box minH="0" flex="1" overflowY="auto" overscrollBehaviorY="contain" px="6" py="8">

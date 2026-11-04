@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-03T04:39:33.306Z'
+updated: '2026-11-03T23:51:12Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -620,3 +620,14 @@ ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. �
 ## 변경 이력 로더 키프레임 분리 검증 (2026-11-04)
 
 `/wh` 전용 CSS로 로더 키프레임을 옮기고 Panda 설정의 해당 추가분을 제거했다. 출처: `src/app/wh/_components/work-history-animations.css`, `WorkHistoryLoading.tsx`, `FileSummary.tsx` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:20:43Z.
+
+## 아이콘 디렉터리 평탄화 (2026-11-04)
+
+아이콘 파일 평탄화에 맞춰 form-controls.test.mjs의 소셜 아이콘 경로 기대값을 /images/icon/{provider}.svg로 갱신했다. 실제 Button 렌더링과 폼 연결 검증은 유지한다. 출처: tests/form-controls.test.mjs.
+
+별점 검사의 이전 data-icon 기대값을 실제 mask SVG의 채움 3개·윤곽 2개 검사로 전환했다. 폼 회귀 테스트 47개 통과.
+
+
+## Font Awesome 공식 이름 적용 (2026-11-04)
+
+별점 반 개의 공식 이름 star-half-stroke로 테스트 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남으며 src 진단은 없다.

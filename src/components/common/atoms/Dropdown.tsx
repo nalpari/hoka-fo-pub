@@ -10,8 +10,6 @@ import { useFormFieldContext } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { faCircleInfo } from '@/icons/fontAwesome';
-
 const styles = {
   trigger: cva({
     base: {
@@ -214,7 +212,7 @@ export function Dropdown({
               {info ? (
                 <span title={typeof info === 'string' ? info : undefined}>
                   {typeof info === 'string' ? (
-                    <Icon fontAwesomeIcon={faCircleInfo} size="16px" aria-label={info} />
+                    <Icon name="circle-info-solid" size="16px" aria-label={info} />
                   ) : (
                     info
                   )}
@@ -232,10 +230,9 @@ export function Dropdown({
             <BaseSelect.Icon>
               {indicator ?? (
                 <Icon
-                  src="/images/icon/form/sort-down.svg"
-                  mask
-                  className={styles.indicator}
+                  name="sort-down-solid"
                   color={disabled ? 'var(--color-black-40)' : indicatorColor}
+                  className={styles.indicator}
                   style={{ width: indicatorWidth, height: indicatorHeight }}
                 />
               )}

@@ -437,7 +437,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     disabled,
     ...buttonProps
   } = props;
-  const icon = social ? <Icon name={`social/${social.provider}`} size="18px" /> : customIcon;
+  const icon = social ? <Icon name={`${social.provider}`} size="18px" /> : customIcon;
   const resolvedChildren = loadMore ? renderLoadMoreContent(loadMore) : children;
   const iconOnly = Boolean(icon && resolvedChildren == null);
   const primary = variant === 'primary';

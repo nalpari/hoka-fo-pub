@@ -6,13 +6,6 @@ import { useParams } from 'next/navigation';
 
 import { Tooltip } from '@base-ui/react/tooltip';
 import {
-  faBoxOpen,
-  faClipboardList,
-  faMagnifyingGlass,
-  faScrewdriverWrench,
-  faTruckFast,
-} from '@fortawesome/free-solid-svg-icons';
-import {
   Component,
   type ComponentPropsWithoutRef,
   type CSSProperties,
@@ -74,7 +67,6 @@ import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
-import { faChevronDown, faXmark } from '@/icons/fontAwesome';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 const ProductDetailViewerContent = dynamic(() => import('./ProductDetailViewerContent'), {
@@ -198,7 +190,7 @@ function ProductDetailImageViewer({
         variant="icon"
         size={24}
       >
-        <Icon fontAwesomeIcon={faXmark} size="24px" />
+        <Icon name="xmark-solid" size="24px" />
       </Button>
       <ViewerContentBoundary>
         <ProductDetailViewerContent
@@ -479,9 +471,7 @@ function InquirySubject({
         <Typography variant="body4" className={styles.title}>
           {item.visibility === 'restricted' ? '비공개 문의글입니다.' : item.title}
         </Typography>
-        {isPrivate && (
-          <Icon src="/images/icon/lock-keyhole.svg" size={14} alt="" aria-hidden="true" />
-        )}
+        {isPrivate && <Icon name="lock-keyhole-regular" size={14} alt="" aria-hidden="true" />}
       </Flex>
       <Typography variant="body4" tone="tertiary" className={styles.metadata}>
         {item.author}
@@ -579,7 +569,7 @@ function InquiryBoard({
               appearance: 'inline',
               count: nextCount,
               label: '더 보기',
-              indicator: <Icon fontAwesomeIcon={faChevronDown} size="16px" />,
+              indicator: <Icon name="chevron-down-regular" size="16px" />,
             }}
           />
         </Flex>
@@ -633,11 +623,7 @@ function ProductSpecificationHelp({ label, description }: ProductSpecificationHe
         aria-label={`${label} 안내`}
         render={<Button variant="icon" size="16px" color="var(--color-black-60)" />}
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M8 7v4M6.5 11h3" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="8" cy="4.5" r="1" fill="currentColor" />
-        </svg>
+        <Icon name="specification-info" size={16} />
       </Tooltip.Trigger>
       <Tooltip.Portal>
         <div className={`platform-${platform}`}>
@@ -1477,7 +1463,7 @@ function ProductSizeSelector({
     <SizeSelector
       action={
         <Flex gap="2" align="center">
-          <Icon name="action/fa-ruler-horizontal" size="18px" color="currentColor" />
+          <Icon name="ruler-horizontal-regular" size="18px" />
           <ButtonLink variant="link" size="md" href="/support/size-guide">
             사이즈 가이드
           </ButtonLink>
@@ -1808,11 +1794,7 @@ function ShareButton({
   const platform = usePlatform();
   return (
     <Button variant="icon" {...props} aria-label={ariaLabel} size={size}>
-      <Icon
-        name="action/fa-arrow-up-from-bracket"
-        color="currentColor"
-        size={platform === 'mobile' ? '19px' : '24px'}
-      />
+      <Icon name="arrow-up-from-bracket-regular" size={platform === 'mobile' ? '19px' : '24px'} />
     </Button>
   );
 }
@@ -2001,31 +1983,31 @@ function ProductAfterSalesContacts() {
 }
 const steps = [
   {
-    icon: faClipboardList,
+    icon: 'clipboard-list-solid',
     title: '온라인 접수',
     description: 'A/S 신청서를 작성하고 구매 정보와 상품 상태를 전달해 주세요.',
   },
   {
-    icon: faBoxOpen,
+    icon: 'box-open-solid',
     title: '상품 발송',
     description: '접수 안내에 따라 수선이 필요한 상품을 보내 주세요.',
   },
   {
-    icon: faMagnifyingGlass,
+    icon: 'magnifying-glass-solid',
     title: '상품 확인 및 판정',
     description: '접수된 상품의 상태와 수선 가능 여부를 확인합니다.',
   },
   {
-    icon: faScrewdriverWrench,
+    icon: 'screwdriver-wrench-solid',
     title: '수선 진행',
     description: '판정 결과와 비용 등 안내 내용을 확인한 뒤 수선이 진행됩니다.',
   },
   {
-    icon: faTruckFast,
+    icon: 'truck-fast-solid',
     title: '완료 안내 및 발송',
     description: '처리가 완료되면 안내 후 상품을 보내 드립니다.',
   },
-];
+] as const;
 function ProductAfterSalesProcess() {
   return (
     <ContentSection
@@ -2066,7 +2048,7 @@ function ProductAfterSalesProcess() {
       >
         {steps.map((step, index) => (
           <Stack as="li" gap="3" key={step.title}>
-            <Icon fontAwesomeIcon={step.icon} size="48px" />
+            <Icon name={step.icon} size="48px" />
             <Typography variant="cta2">STEP {index + 1}</Typography>
             <Typography variant="body5" weight="bold">
               {step.title}
@@ -2359,7 +2341,7 @@ function ProductSelectedOptions({
                     size="24px"
                     onClick={() => onRemove(index)}
                   >
-                    <Icon fontAwesomeIcon={faXmark} size={16} />
+                    <Icon name="xmark-solid" size={16} />
                   </Button>
                 </Flex>
                 <Flex gap="3" alignItems="center" justifyContent="space-between">

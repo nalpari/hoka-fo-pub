@@ -16,7 +16,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
-import { faCircleCheck } from '@/icons/fontAwesome';
 
 const couponDescription = css({ color: 'black.100', _mobile: { color: 'black.60' } });
 
@@ -346,7 +345,7 @@ function EmployeeCoupons() {
             <Typography variant="body3" weight="medium">
               {label}
             </Typography>
-            <Icon fontAwesomeIcon={faCircleCheck} size="18px" />
+            <Icon name="circle-check-regular" size="18px" />
           </HStack>
         ))}
       </HStack>
